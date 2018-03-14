@@ -2,6 +2,17 @@
     "name": "sprucebot-node",
     "version": "3.0.0",
     "description": "Jam with the Sprucebot API in your favorite scripting language. 🤓",
+    "keywords": [
+        "react",
+        "node",
+        "components",
+        "sprucebot",
+        "sprucelabs"
+    ],
+    "homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
+    "bugs": {
+        "url": "https://github.com/sprucelabsai/sprucebot-skills-kit/issues"
+    },
     "scripts": {
         "lint": "eslint '**/**/*{.js}'",
         "test": "jest",
