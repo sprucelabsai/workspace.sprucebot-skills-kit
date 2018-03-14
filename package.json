@@ -11,7 +11,7 @@
         "log": "pm2 log 'SB Skillskit'",
         "logs": "yarn run log",
         "stop": "pm2 stop ecosystem.config.js",
-        "test": "lerna run test"
+        "test": "echo 'tests not enabled'"
     },
     "devDependencies": {
         "lerna": "^2.9.0",
