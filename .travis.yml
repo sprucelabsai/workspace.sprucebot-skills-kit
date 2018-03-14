@@ -9,6 +9,7 @@ before_script:
     # Determine if a greenkeeper package update
     # This is a null op if not on `greenkeeper/*` branch
     - greenkeeper-lockfile-update
+    - yarn run build
 script: 
   - yarn run lint
   - yarn run test
