@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonGrid renders 1`] = `
+<div
+  className="ButtonGrid-s119c6nx-0 btn_grid ivLDPO"
+/>
+`;
+
+exports[`ButtonGrid renders a GridButton 1`] = `
+<div
+  className="ButtonGrid-s119c6nx-0 btn_grid ivLDPO"
+>
+  <a
+    className="btn  "
+  >
+    <span />
+  </a>
+</div>
+`;
+
+exports[`GridButton renders 1`] = `
+<a
+  className="btn  "
+>
+  <span />
+</a>
+`;
