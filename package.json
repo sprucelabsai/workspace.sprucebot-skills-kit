@@ -14,15 +14,15 @@
     "lint": "lerna run lint",
     "build": "lerna run build",
     "test": "echo 'tests not enabled'",
+    "semantic-release": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo",
     "precommit": "npm run lint",
-    "prepush": "npm run lint && npm run test",
-    "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
-    "semantic-release-dry-run": "lerna-semantic-release pre && lerna-semantic-release post"
+    "prepush": "npm run lint && npm run test"
   },
   "devDependencies": {
     "husky": "^0.14.3",
     "lerna": "^2.9.0",
-    "lerna-semantic-release": "^9.1.0",
-    "pm2": "^2.10.1"
+    "pm2": "^2.10.1",
+    "semantic-release": "^15.0.3",
+    "semantic-release-monorepo": "^6.0.0"
   }
 }
