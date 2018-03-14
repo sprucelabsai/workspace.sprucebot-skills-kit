@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": "packages/sprucebot-skills-kit",
+			"name": "Sprucebot Skills Kit Template"
+		},
+		{
+			"path": "packages/react-sprucebot",
+			"name": "React Sprucebot Components"
+		},
+		{
+			"path": "packages/sprucebot-skills-kit-server",
+			"name": "Sprucebot Skills Kit Server Koa"
+		},
+		{
+			"path": "packages/sprucebot-node",
+			"name": "Sprucebot Node (API)"
+		},
+		{
+			"path": ".",
+			"name": "Workspace"
+		}
+	]
+}
