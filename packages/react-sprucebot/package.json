@@ -11,9 +11,9 @@
         "sprucelabs"
     ],
     "license": "SEE LICENCE in LICENCE",
-    "homepage": "https://github.com/sprucelabsai/react-sprucebot",
+    "homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
     "bugs": {
-        "url": "https://github.com/sprucelabsai/react-sprucebot/issues"
+        "url": "https://github.com/sprucelabsai/sprucebot-skills-kit/issues"
     },
     "scripts": {
         "build": "babel ./src --out-dir ./lib",
