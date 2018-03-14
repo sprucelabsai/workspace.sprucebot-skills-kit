@@ -10,7 +10,7 @@
     "start": "node ./server/server.js",
     "local": "npm run icon && node --inspect=4006 ./server/server.js",
     "interface": "next ./interface -p 3006",
-    "lint": "./node_modules/.bin/eslint --fix '**/**/*{.js,.scss}'",
+    "lint": "./node_modules/.bin/eslint '**/**/*{.js}'",
     "test": "yarn run build && jest",
     "icon": "./node_modules/.bin/svgo icon/icon.svg",
     "precommit": "npm run lint",
