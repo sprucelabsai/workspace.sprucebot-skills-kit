@@ -20,7 +20,7 @@ jobs:
       after_script:
         - greenkeeper-lockfile-upload
         - bash <(curl -s https://codecov.io/bash) # Upload code coverage reports
-    - stage: release
+    - stage: Semantic Release
       if: branch = master
       deploy:
         provider: script
