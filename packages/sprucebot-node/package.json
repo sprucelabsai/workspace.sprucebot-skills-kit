@@ -3,7 +3,6 @@
     "version": "3.0.0",
     "description": "Jam with the Sprucebot API in your favorite scripting language. 🤓",
     "keywords": [
-        "react",
         "node",
         "components",
         "sprucebot",
