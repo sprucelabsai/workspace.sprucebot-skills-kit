@@ -24,7 +24,7 @@ jobs:
         - greenkeeper-lockfile-upload
         - bash <(curl -s https://codecov.io/bash) # Upload code coverage reports
     - stage: Semantic Release
-      if: branch = master
+      if: NOT type IN (pull_request) AND branch IN (master)
       deploy:
         provider: script
         skip_cleanup: true
