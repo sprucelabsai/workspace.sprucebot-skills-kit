@@ -28,3 +28,8 @@ Lerna workspace for managing skills kit dependencies
 * `yarn local` - Start the pm2 ecosystem that starts the skills kit
 * `yarn log` - Tail the pm2 ecosystem log
 * `yarn stop` - Stop the skills kit server from `yarn local`
+
+## Contributing
+We use the [Angular Git Commit Guidelines](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines) to manage our semantic releases and changelog.
+* Commits are automatically linted using `commitlint` with a husky git hook.
+* [Commitizen](https://www.npmjs.com/package/commitizen) can easily configured to format commit message
