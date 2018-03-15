@@ -18,6 +18,7 @@ jobs:
         - greenkeeper-lockfile-update
         - yarn run build
       script: 
+        - commitlint-travis
         - yarn run lint
         - yarn run test
       after_script:

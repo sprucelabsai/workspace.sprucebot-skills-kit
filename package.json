@@ -16,9 +16,13 @@
     "test": "echo 'tests not enabled'",
     "semantic-release": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo",
     "precommit": "npm run lint",
-    "prepush": "npm run lint && npm run test"
+    "prepush": "npm run lint && npm run test",
+    "commitmsg": "commitlint -e $GIT_PARAMS"
   },
   "devDependencies": {
+    "@commitlint/cli": "^6.1.3",
+    "@commitlint/config-conventional": "^6.1.3",
+    "@commitlint/travis-cli": "^6.1.3",
     "husky": "^0.14.3",
     "lerna": "^2.9.0",
     "pm2": "^2.10.1",
