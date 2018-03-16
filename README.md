@@ -31,5 +31,46 @@ Lerna workspace for managing skills kit dependencies
 
 ## Contributing
 We use the [Angular Git Commit Guidelines](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines) to manage our semantic releases and changelog.
+* Open Pull Requests to the `dev` branch
 * Commits are automatically linted using `commitlint` with a husky git hook.
 * [Commitizen](https://www.npmjs.com/package/commitizen) can easily configured to format commit message
+
+## Semantic Releases
+* We automatically release from `master` branch using [semantic-release](https://github.com/semantic-release/semantic-release) and [semantic-release-monorepo](https://github.com/Updater/semantic-release-monorepo)
+* Changes to each `package/` are automatically detected and we only release packages with changes
+* The angular commit messages used to determine if the changes are `patch`, `minor`, or `marjor`
+
+| Commit message                                                                                                                                                                                   | Release type               |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
+| `fix(ticket): fix bug to create patch`                                                                                                                             | Patch Release              |
+| `feat(ticket): add new feature is a minor release`                                                                                                                                                       | ~~Minor~~ Feature Release  |
+| `perf(ticket): remove graphiteWidth option`<br><br>`BREAKING CHANGE: This block will trigger major release` | ~~Major~~ Breaking Release |
+
+#### Default rules matching
+
+If a commit doesn't match any rule in `releaseRules` it will be evaluated against the.
+
+With the previous example:
+- Commits with a breaking change will be associated with a `Major` release.
+- Commits with `type` 'feat' will be associated with a `minor` release.
+- Commits with `type` 'fix' will be associated with a `patch` release.
+- Commits with `type` 'perf' will be associated with a `patch` release.
+
+#### No rules matching
+
+If a commit doesn't match any rules in `releaseRules` then no release type will be associated with the commit.
+
+With the previous example:
+- Commits with `type` 'style' will not be associated with a release type.
+- Commits with `type` 'test' will not be associated with a release type.
+- Commits with `type` 'chore' will not be associated with a release type.
+
+#### Multiple commits
+
+If there is multiple commits that match one or more rules, the one with the highest release type will determine the global release type.
+
+Considering the following commits:
+- `docs(SB-xxx): Add more details to the API docs`
+- `feat(SB-xxx): Add a new method to the public API`
+
+With the previous example the release type determine by the plugin will be `minor`.
