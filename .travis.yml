@@ -24,10 +24,17 @@ jobs:
       after_script:
         - greenkeeper-lockfile-upload
         - bash <(curl -s https://codecov.io/bash) # Upload code coverage reports
-    - stage: Semantic Release
+    - stage: NPM Publish Release
       if: NOT type IN (pull_request) AND branch IN (master)
       deploy:
         provider: script
         skip_cleanup: true
         script:
-          - yarn run semantic-release
+          - yarn run publish
+    - stage: NPM Publish PreRelease
+      if: NOT type IN (pull_request) AND branch IN (dev)
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - yarn run publish --cd-verison prerelease
