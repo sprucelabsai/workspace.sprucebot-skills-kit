@@ -1,9 +1,7 @@
 language: node_js
 node_js: '8'
 
-cache:
-  directories:
-  - node_modules # NPM packages
+cache: yarn
 install:
   - yarn install
 
@@ -25,16 +23,21 @@ jobs:
         - greenkeeper-lockfile-upload
         - bash <(curl -s https://codecov.io/bash) # Upload code coverage reports
     - stage: NPM Publish Release
-      if: NOT type IN (pull_request) AND branch IN (master)
+      if: NOT type IN (pull_request) AND branch IN (master, dev)
+      git: # Allow us to checkout Branch
+        depth: false
+      before_script:
+        - git checkout $TRAVIS_BRANCH
       deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - yarn run publish
-    - stage: NPM Publish PreRelease
-      if: NOT type IN (pull_request) AND branch IN (dev)
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - yarn run publish --cd-verison prerelease
+        - provider: script
+          skip_cleanup: true
+          script:
+            - yarn run publish
+          on:
+            branch: master
+        - provider: script
+          skip_cleanup: true
+          script:
+            - yarn run publish --cd-verison prerelease
+          on:
+            branch: dev
