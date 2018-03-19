@@ -46,6 +46,10 @@ var _Form = require('./components/Form/Form');
 
 var _Form2 = _interopRequireDefault(_Form);
 
+var _Onboarding = require('./components/Onboarding/Onboarding');
+
+var _Onboarding2 = _interopRequireDefault(_Onboarding);
+
 var _LinkPile = require('./components/LinkPile/LinkPile');
 
 var _LinkPile2 = _interopRequireDefault(_LinkPile);
@@ -150,6 +154,7 @@ var Sprucebot = _extends({
 	Loader: _Loader2.default,
 	LinkPile: _LinkPile2.default,
 	Form: _Form2.default,
+	Onboarding: _Onboarding2.default,
 	Select: _Select2.default,
 	SubmitWrapper: _SubmitWrapper2.default,
 	Pager: _Pager2.default,
