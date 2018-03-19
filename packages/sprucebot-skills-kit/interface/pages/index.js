@@ -9,10 +9,9 @@ import {
 	BotText,
 	Pre,
 	Card,
-	Paragraph as P
+	Paragraph as P,
+	Styleguide
 } from 'react-sprucebot'
-
-import Styleguide from '../components/Styleguide'
 
 class DeveloperPage extends React.Component {
 	static getInitialProps(props) {

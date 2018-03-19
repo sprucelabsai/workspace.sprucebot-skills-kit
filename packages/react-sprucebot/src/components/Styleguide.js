@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment-timezone'
+import Container from './Container/Container'
+import BotText from './BotText/BotText'
+import Loader from './Loader/Loader'
 import {
-	Container,
-	BotText,
-	Loader,
 	H1,
 	H2,
 	H3,
@@ -13,30 +13,27 @@ import {
 	H6,
 	SectionHeading,
 	Paragraph as P,
-	A,
-	Avatar,
-	Button,
-	Form,
-	Switch,
-	Input,
-	Select,
-	SubmitWrapper,
-	List,
-	ListItem,
-	Tabs,
-	TabPane,
-	LinkPile,
-	Pager,
-	StatsSlider,
-	ButtonGrid,
-	GridButton,
-	Stars,
-	ImageCropper,
-	Callout,
-	Feed,
-	TrainingGuide,
-	Dialog
-} from 'react-sprucebot'
+	A
+} from './Typography/Typography'
+import Avatar from './Avatar/Avatar'
+import Button from './Button/Button'
+import Form from './Form/Form'
+import Switch from './Switch/Switch'
+import Input from './Input/Input'
+import Select from './Select/Select'
+import SubmitWrapper from './SubmitWrapper/SubmitWrapper'
+import { List, ListItem } from './List/List'
+import { Tabs, TabPane } from './Tabs/Tabs'
+import LinkPile from './LinkPile/LinkPile'
+import Pager from './Pager/Pager'
+import StatsSlider from './StatsSlider/StatsSlider'
+import { GridButton, ButtonGrid } from './ButtonGrid/ButtonGrid'
+import Stars from './Stars/Stars'
+import ImageCropper from './ImageCropper/ImageCropper'
+import Callout from './Callout/Callout'
+import Feed from './Feed/Feed'
+import TrainingGuide from './TrainingGuide/TrainingGuide'
+import Dialog from './Dialog/Dialog'
 
 const Pre = styled.pre`
 	font-size: 0.8em;
