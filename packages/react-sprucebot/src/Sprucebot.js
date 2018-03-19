@@ -10,6 +10,7 @@ import Pre from './components/Pre/Pre'
 import Switch from './components/Switch/Switch'
 import Loader from './components/Loader/Loader'
 import Form from './components/Form/Form'
+import Onboarding from './components/Onboarding/Onboarding'
 import LinkPile from './components/LinkPile/LinkPile'
 import Select from './components/Select/Select'
 import SubmitWrapper from './components/SubmitWrapper/SubmitWrapper'
@@ -48,6 +49,7 @@ const Sprucebot = {
 	Loader,
 	LinkPile,
 	Form,
+	Onboarding,
 	Select,
 	SubmitWrapper,
 	Pager,
