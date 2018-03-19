@@ -3,6 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _reactScroll = require('react-scroll');
+
 function postMessage(message) {
 	return window.parent.postMessage(JSON.stringify(message), '*');
 }
@@ -54,5 +57,8 @@ exports.default = {
 			url: window.location.href
 		});
 		this.resizedInterval = setInterval(this.resized.bind(this), 50);
+	},
+	scrollToTop: function scrollToTop() {
+		_reactScroll.animateScroll.scrollToTop();
 	}
 };
