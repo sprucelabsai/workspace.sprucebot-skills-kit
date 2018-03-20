@@ -28,6 +28,7 @@ jobs:
         depth: false
       before_script:
         - git checkout $TRAVIS_BRANCH
+        - npx set-auth-token-var-name
       deploy:
         - provider: script
           skip_cleanup: true
