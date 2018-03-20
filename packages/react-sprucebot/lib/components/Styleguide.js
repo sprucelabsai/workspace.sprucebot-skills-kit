@@ -98,6 +98,10 @@ var _TrainingGuide = require('./TrainingGuide/TrainingGuide');
 
 var _TrainingGuide2 = _interopRequireDefault(_TrainingGuide);
 
+var _Onboarding = require('./Onboarding/Onboarding');
+
+var _Onboarding2 = _interopRequireDefault(_Onboarding);
+
 var _Dialog = require('./Dialog/Dialog');
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
@@ -1226,6 +1230,23 @@ var Styleguide = function (_Component) {
 						},
 						steps: ['This is a training guide.', 'It "guides" you through many steps.', 'One at a time', 'and the last one shows a done.']
 					})
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(_Onboarding2.default, {
+						heading: 'Onboarding',
+						steps: ['This is an onboarding component.', 'It has a heading', 'And "guides" you through the steps like the TrainingGuide', 'You can also change the label of the done button.'],
+						onComplete: function onComplete() {
+							return alert('Done!');
+						},
+						doneButtonLabel: 'Finish'
+					}),
+					_react2.default.createElement(
+						Pre,
+						null,
+						'<Onboarding\n\theading={\'Onboarding\'}\n\tsteps={[\n\t\t\'This is an onboarding component.\',\n\t\t\'It has a heading\',\n\t\t\'And "guides" you through the steps like the TrainingGuide\',\n\t\t\'You can also change the label of the done button.\'\n\t]}\n\tonComplete={() => alert(\'Done!\')}\n\tdoneButtonLabel={\'Finish\'}\n/>'
+					)
 				),
 				_react2.default.createElement(
 					_Typography.H1,

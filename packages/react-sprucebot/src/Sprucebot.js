@@ -21,6 +21,7 @@ import StatsSlider from './components/StatsSlider/StatsSlider'
 import Styleguide from './components/Styleguide'
 import ImageCropper from './components/ImageCropper/ImageCropper'
 import TrainingGuide from './components/TrainingGuide/TrainingGuide'
+import Onboarding from './components/Onboarding/Onboarding'
 import Callout from './components/Callout/Callout'
 import Dialog from './components/Dialog/Dialog'
 import Feed, { FeedItem, FeedAttachment } from './components/Feed/Feed'
@@ -64,6 +65,7 @@ const Sprucebot = {
 	Dialog,
 	FeedAttachment,
 	TrainingGuide,
+	Onboarding,
 	...Typography,
 	...List,
 	...Tabs,

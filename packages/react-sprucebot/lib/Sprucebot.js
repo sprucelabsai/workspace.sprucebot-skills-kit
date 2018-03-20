@@ -90,6 +90,10 @@ var _TrainingGuide = require('./components/TrainingGuide/TrainingGuide');
 
 var _TrainingGuide2 = _interopRequireDefault(_TrainingGuide);
 
+var _Onboarding = require('./components/Onboarding/Onboarding');
+
+var _Onboarding2 = _interopRequireDefault(_Onboarding);
+
 var _Callout = require('./components/Callout/Callout');
 
 var _Callout2 = _interopRequireDefault(_Callout);
@@ -168,6 +172,7 @@ var Sprucebot = _extends({
 	FeedItem: _Feed.FeedItem,
 	Dialog: _Dialog2.default,
 	FeedAttachment: _Feed.FeedAttachment,
-	TrainingGuide: _TrainingGuide2.default
+	TrainingGuide: _TrainingGuide2.default,
+	Onboarding: _Onboarding2.default
 }, Typography, List, Tabs, ButtonGrid);
 module.exports = Sprucebot;
