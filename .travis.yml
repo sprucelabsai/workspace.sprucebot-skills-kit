@@ -32,12 +32,12 @@ jobs:
         - provider: script
           skip_cleanup: true
           script:
-            - yarn run publish
+            - yarn run publish --yes
           on:
             branch: master
         - provider: script
           skip_cleanup: true
           script:
-            - yarn run publish --cd-verison prerelease
+            - yarn run publish --yes --cd-verison prerelease
           on:
             branch: dev
