@@ -102,6 +102,10 @@ var _Dialog = require('./components/Dialog/Dialog');
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
 
+var _Error = require('./components/Error/Error');
+
+var _Error2 = _interopRequireDefault(_Error);
+
 var _Feed = require('./components/Feed/Feed');
 
 var _Feed2 = _interopRequireDefault(_Feed);
@@ -171,6 +175,7 @@ var Sprucebot = _extends({
 	Feed: _Feed2.default,
 	FeedItem: _Feed.FeedItem,
 	Dialog: _Dialog2.default,
+	Error: _Error2.default,
 	FeedAttachment: _Feed.FeedAttachment,
 	TrainingGuide: _TrainingGuide2.default,
 	Onboarding: _Onboarding2.default
