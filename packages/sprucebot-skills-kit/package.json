@@ -1,7 +1,7 @@
 {
   "name": "sprucebot-skills-kit",
   "description": "The base template that drives your Sprucebot Skill! ⚙️🌲🤖",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
   "bugs": {
     "url": "https://github.com/sprucelabsai/sprucebot-skills-kit/issues"
@@ -10,7 +10,7 @@
     "skills-kit",
     "sprucebot",
     "sprucelabs"
-],
+  ],
   "engines": {
     "node": "^8.5.0",
     "npm": "^5.4.2"
