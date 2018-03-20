@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment-timezone'
-import Container from './Container/Container'
-import BotText from './BotText/BotText'
-import Loader from './Loader/Loader'
+import Container from '../Container/Container'
+import BotText from '../BotText/BotText'
+import Loader from '../Loader/Loader'
 import {
 	H1,
 	H2,
@@ -14,42 +14,33 @@ import {
 	SectionHeading,
 	Paragraph as P,
 	A
-} from './Typography/Typography'
-import Avatar from './Avatar/Avatar'
-import Button from './Button/Button'
-import Form from './Form/Form'
-import Switch from './Switch/Switch'
-import Input from './Input/Input'
-import Select from './Select/Select'
-import SubmitWrapper from './SubmitWrapper/SubmitWrapper'
-import { List, ListItem } from './List/List'
-import { Tabs, TabPane } from './Tabs/Tabs'
-import LinkPile from './LinkPile/LinkPile'
-import Pager from './Pager/Pager'
-import StatsSlider from './StatsSlider/StatsSlider'
-import { GridButton, ButtonGrid } from './ButtonGrid/ButtonGrid'
-import Stars from './Stars/Stars'
-import ImageCropper from './ImageCropper/ImageCropper'
-import Callout from './Callout/Callout'
-import Feed from './Feed/Feed'
-import TrainingGuide from './TrainingGuide/TrainingGuide'
-import Onboarding from './Onboarding/Onboarding'
-import Dialog from './Dialog/Dialog'
-import Error from './Error/Error'
+} from '../Typography/Typography'
+import Avatar from '../Avatar/Avatar'
+import Button from '../Button/Button'
+import Form from '../Form/Form'
+import Switch from '../Switch/Switch'
+import Input from '../Input/Input'
+import Select from '../Select/Select'
+import SubmitWrapper from '../SubmitWrapper/SubmitWrapper'
+import { List, ListItem } from '../List/List'
+import { Tabs, TabPane } from '../Tabs/Tabs'
+import LinkPile from '../LinkPile/LinkPile'
+import Pager from '../Pager/Pager'
+import StatsSlider from '../StatsSlider/StatsSlider'
+import { GridButton, ButtonGrid } from '../ButtonGrid/ButtonGrid'
+import Stars from '../Stars/Stars'
+import ImageCropper from '../ImageCropper/ImageCropper'
+import Callout from '../Callout/Callout'
+import Feed from '../Feed/Feed'
+import TrainingGuide from '../TrainingGuide/TrainingGuide'
+import Onboarding from '../Onboarding/Onboarding'
+import Dialog from '../Dialog/Dialog'
+import Pre from '../Pre/Pre'
+import Error from '../Error/Error'
 
-const Pre = styled.pre`
-	font-size: 0.8em;
-	text-align: left;
-	width: 100%;
-	overflow-x: scroll;
-	background-color: black;
-	color: green;
-	padding: 20px;
-	font-family: Courier, 'New Courier', monospace;
-	tab-size: 4;
-`
+import FormExample from './FormExample'
 
-const Dark = styled.pre`
+const Dark = styled(Pre)`
 	background-color: #333;
 	padding: 3px;
 `
@@ -298,6 +289,10 @@ export default class Styleguide extends Component {
 					<Switch on />
 					<Pre>{`<Switch on />`}</Pre>
 				</Container>
+				<H1>Redux Forms</H1>
+				<Container>
+					<FormExample />
+				</Container>
 				<H1>Forms</H1>
 				<Container>
 					<BotText>
@@ -306,26 +301,11 @@ export default class Styleguide extends Component {
 					</BotText>
 					<Form>
 						<SectionHeading>Profile</SectionHeading>
-						<Input label="Your Name" />
-						<Input
-							onChange={(value, e) => {
-								console.log('value:', value, 'event:', e)
-							}}
-							label="Email"
-							finePrint="This is helpful fine print."
-							defaultValue="founders@sprucelabs.ai"
-						/>
 						<SectionHeading>Another Section</SectionHeading>
 						<BotText>
 							Most properties on an Input are passed through, so you can do more
 							than just text!
 						</BotText>
-						<Input
-							type="number"
-							label="Age"
-							error="This is an error message."
-						/>
-						<Input type="password" label="Password" />
 						<Select
 							label="Dropdowns Rock!"
 							onChange={(value, e) => {
@@ -335,11 +315,11 @@ export default class Styleguide extends Component {
 							<option value="uno">Test 1</option>
 							<option value="dos">Test 2</option>
 						</Select>
-						<Input
+						{/* <Input
 							multiline
 							label="Growing multiline input"
 							defaultValue="You can type in here and I'll auto-size to match the height. How easy and simple and cool and taking up more space now is that?"
-						/>
+						/> */}
 						<SubmitWrapper>
 							<Button alt href="http://hello.sprucebot.com">
 								Back to Dashboard

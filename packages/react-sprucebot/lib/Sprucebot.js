@@ -78,7 +78,7 @@ var _StatsSlider = require('./components/StatsSlider/StatsSlider');
 
 var _StatsSlider2 = _interopRequireDefault(_StatsSlider);
 
-var _Styleguide = require('./components/Styleguide');
+var _Styleguide = require('./components/Styleguide/Styleguide');
 
 var _Styleguide2 = _interopRequireDefault(_Styleguide);
 
