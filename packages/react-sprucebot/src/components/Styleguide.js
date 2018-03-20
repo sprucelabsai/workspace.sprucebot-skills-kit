@@ -33,6 +33,7 @@ import ImageCropper from './ImageCropper/ImageCropper'
 import Callout from './Callout/Callout'
 import Feed from './Feed/Feed'
 import TrainingGuide from './TrainingGuide/TrainingGuide'
+import Onboarding from './Onboarding/Onboarding'
 import Dialog from './Dialog/Dialog'
 
 const Pre = styled.pre`
@@ -903,6 +904,32 @@ export default class Styleguide extends Component {
 							'and the last one shows a done.'
 						]}
 					/>
+				</Container>
+				<Container>
+					<Onboarding
+						heading={'Onboarding'}
+						steps={[
+							'This is an onboarding component.',
+							'It has a heading',
+							'And "guides" you through the steps like the TrainingGuide',
+							'You can also change the label of the done button.'
+						]}
+						onComplete={() => alert('Done!')}
+						doneButtonLabel={'Finish'}
+					/>
+					<Pre>
+						{`<Onboarding
+	heading={'Onboarding'}
+	steps={[
+		'This is an onboarding component.',
+		'It has a heading',
+		'And "guides" you through the steps like the TrainingGuide',
+		'You can also change the label of the done button.'
+	]}
+	onComplete={() => alert('Done!')}
+	doneButtonLabel={'Finish'}
+/>`}
+					</Pre>
 				</Container>
 				<H1>Dialogs</H1>
 				<Container>
