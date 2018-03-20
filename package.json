@@ -1,5 +1,6 @@
 {
   "private": true,
+  "name": "workspace.sprucebot-skills-kit",
   "workspaces": [
     "packages/sprucebot-skills-kit",
     "packages/sprucebot-node",
