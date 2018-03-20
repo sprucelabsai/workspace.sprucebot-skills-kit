@@ -24,6 +24,7 @@ import TrainingGuide from './components/TrainingGuide/TrainingGuide'
 import Onboarding from './components/Onboarding/Onboarding'
 import Callout from './components/Callout/Callout'
 import Dialog from './components/Dialog/Dialog'
+import Error from './components/Error/Error'
 import Feed, { FeedItem, FeedAttachment } from './components/Feed/Feed'
 import * as Typography from './components/Typography/Typography'
 import * as List from './components/List/List'
@@ -63,6 +64,7 @@ const Sprucebot = {
 	Feed,
 	FeedItem,
 	Dialog,
+	Error,
 	FeedAttachment,
 	TrainingGuide,
 	Onboarding,

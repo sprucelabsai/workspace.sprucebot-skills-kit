@@ -106,6 +106,10 @@ var _Dialog = require('./Dialog/Dialog');
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
 
+var _Error = require('./Error/Error');
+
+var _Error2 = _interopRequireDefault(_Error);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -181,7 +185,8 @@ var Styleguide = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (Styleguide.__proto__ || Object.getPrototypeOf(Styleguide)).call(this, props));
 
 		_this.state = {
-			calloutOn: false
+			calloutOn: false,
+			errorMessage: ''
 		};
 		return _this;
 	}
@@ -1303,6 +1308,38 @@ var Styleguide = function (_Component) {
 						Pre,
 						null,
 						'<Dialog show={this.state.showAlert}>\n\t<BotText>Use BotText to display any content in the alert.</BotText>\n\t<Button\n\t\ttype="button"\n\t\tonClick={() => this.setState({ showAlert: false })}\n\t>\n\t\tOkay\n\t</Button>\n</Dialog>'
+					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Error'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_Button2.default,
+						{
+							onClick: function onClick() {
+								return _this2.setState({
+									errorMessage: 'There was an error.  Please try again'
+								});
+							}
+						},
+						'Show Error Message'
+					),
+					_react2.default.createElement(_Error2.default, {
+						errorMessage: this.state.errorMessage,
+						closeErrorDialog: function closeErrorDialog() {
+							return _this2.setState({ errorMessage: '' });
+						},
+						closeErrorDialogTxt: 'Sounds good!'
+					}),
+					_react2.default.createElement(
+						Pre,
+						null,
+						'<Error\n\terrorMessage={this.state.errorMessage}\n\tcloseErrorDialog={() => this.setState({ errorMessage: \'\' })}\n\tcloseErrorDialogTxt={\'Sounds good!\'}\n/>'
 					)
 				)
 			);

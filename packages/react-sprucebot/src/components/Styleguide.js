@@ -35,6 +35,7 @@ import Feed from './Feed/Feed'
 import TrainingGuide from './TrainingGuide/TrainingGuide'
 import Onboarding from './Onboarding/Onboarding'
 import Dialog from './Dialog/Dialog'
+import Error from './Error/Error'
 
 const Pre = styled.pre`
 	font-size: 0.8em;
@@ -109,7 +110,8 @@ export default class Styleguide extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			calloutOn: false
+			calloutOn: false,
+			errorMessage: ''
 		}
 	}
 	render() {
@@ -970,6 +972,28 @@ export default class Styleguide extends Component {
 		Okay
 	</Button>
 </Dialog>`}</Pre>
+				</Container>
+				<H1>Error</H1>
+				<Container>
+					<Button
+						onClick={() =>
+							this.setState({
+								errorMessage: 'There was an error.  Please try again'
+							})
+						}
+					>
+						{'Show Error Message'}
+					</Button>
+					<Error
+						errorMessage={this.state.errorMessage}
+						closeErrorDialog={() => this.setState({ errorMessage: '' })}
+						closeErrorDialogTxt={'Sounds good!'}
+					/>
+					<Pre>{`<Error
+	errorMessage={this.state.errorMessage}
+	closeErrorDialog={() => this.setState({ errorMessage: '' })}
+	closeErrorDialogTxt={'Sounds good!'}
+/>`}</Pre>
 				</Container>
 			</div>
 		)
