@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.1.0"></a>
+# [5.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v5.0.1...v5.1.0) (2018-03-20)
+
+
+### Features
+
+* **SB-940:** add onboarding component to react-sprucebot and styleguide ([347d6d3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/347d6d3))
+
+
+
+
+
 <a name="5.0.1"></a>
 ## [5.0.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v5.0.0...v5.0.1) (2018-03-20)
 
