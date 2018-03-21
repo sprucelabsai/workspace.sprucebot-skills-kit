@@ -18,12 +18,8 @@ export const FieldLabel = styled.span.attrs({
 	className: classnames('FieldLabel', 'input__mini__label', 'js-show-label')
 })``
 
-function renderInput(props) {
-	return <input {...props} />
-}
-
 export default function Field({
-	input: { value, onChange },
+	input: { value, onChange, name },
 	meta: { touched, error },
 	type,
 	finePrint,
@@ -36,6 +32,7 @@ export default function Field({
 			{label && value && <FieldLabel>{label}</FieldLabel>}
 			{React.cloneElement(children, {
 				className: classnames({ with_label: !!label }),
+				name,
 				value,
 				onChange,
 				type,

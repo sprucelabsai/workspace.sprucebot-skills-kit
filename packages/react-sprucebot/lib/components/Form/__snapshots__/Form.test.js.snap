@@ -2,7 +2,7 @@
 
 exports[`it renders 1`] = `
 <form
-  className=""
+  className="Form "
 >
   Form children
 </form>
