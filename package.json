@@ -5,7 +5,8 @@
     "packages/sprucebot-skills-kit",
     "packages/sprucebot-node",
     "packages/sprucebot-skills-kit-server",
-    "packages/react-sprucebot"
+    "packages/react-sprucebot",
+    "skills/*"
   ],
   "scripts": {
     "local": "pm2 start ecosystem.config.js && echo 'run `yarn run log` to tail the logs'",
