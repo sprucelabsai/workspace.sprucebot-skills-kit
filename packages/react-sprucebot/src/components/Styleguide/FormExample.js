@@ -11,7 +11,7 @@ import InputField from '../InputField/InputField'
 import TextArea from '../TextArea/TextArea'
 import SelectField from '../SelectField/SelectField'
 
-async function onSubmit(values) {
+async function submit(values) {
 	console.log('Redux Form Submit: ', values)
 	return new Promise((resolve, reject) => {
 		const yes = confirm('Form Success or Fail?')
@@ -39,7 +39,14 @@ const minLength = min => value =>
 // Important to invoke this function outside #render()
 const minLength8 = minLength(8)
 
-function FormExample({ handleSubmit, reset, pristine, submitting, error }) {
+function FormExample({
+	handleSubmit,
+	reset,
+	pristine,
+	submitting,
+	error,
+	onSubmit = submit
+}) {
 	return (
 		<Form onSubmit={handleSubmit(onSubmit)}>
 			<BotText>
