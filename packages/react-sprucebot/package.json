@@ -36,6 +36,7 @@
         "chokidar-cli": "^1.2.0",
         "enzyme": "^3.3.0",
         "enzyme-adapter-react-16": "^1.1.1",
+        "enzyme-to-json": "^3.3.1",
         "eslint": "^4.10.0",
         "eslint-config-prettier": "^2.6.0",
         "eslint-plugin-prettier": "^2.3.1",
@@ -50,8 +51,8 @@
     },
     "peerDependencies": {
         "next": "^5.0.0",
-        "styled-components": "^3.2.1",
-        "redux-form": "^7.3.0"
+        "redux-form": "^7.3.0",
+        "styled-components": "^3.2.1"
     },
     "dependencies": {
         "babel-polyfill": "^6.26.0",
@@ -71,8 +72,8 @@
         "react-image-crop": "^3.0.7",
         "react-measure": "^2.0.2",
         "react-redux": "^5.0.6",
-        "react-textarea-autosize": "^6.0.0",
         "react-scroll": "^1.7.7",
+        "react-textarea-autosize": "^6.0.0",
         "redux": "^3.7.2",
         "redux-form": "^7.3.0",
         "redux-thunk": "^2.2.0"
