@@ -17,7 +17,7 @@
     "watch": "lerna run watch --stream",
     "start": "pm2 start ecosystem.config.js --no-daemon",
     "heroku-postbuild": "npm run build",
-    "test": "echo 'tests not enabled'",
+    "test": "lerna run --scope react-sprucebot test",
     "precommit": "npm run lint",
     "prepush": "npm run lint && npm run test",
     "commitmsg": "commitlint -e $GIT_PARAMS",
