@@ -48,17 +48,13 @@ var _Switch = require('../Switch/Switch');
 
 var _Switch2 = _interopRequireDefault(_Switch);
 
-var _Input = require('../Input/Input');
+var _InputField = require('../InputField/InputField');
 
-var _Input2 = _interopRequireDefault(_Input);
+var _InputField2 = _interopRequireDefault(_InputField);
 
-var _Select = require('../Select/Select');
+var _SelectField = require('../SelectField/SelectField');
 
-var _Select2 = _interopRequireDefault(_Select);
-
-var _SubmitWrapper = require('../SubmitWrapper/SubmitWrapper');
-
-var _SubmitWrapper2 = _interopRequireDefault(_SubmitWrapper);
+var _SelectField2 = _interopRequireDefault(_SelectField);
 
 var _List = require('../List/List');
 
@@ -221,7 +217,7 @@ var Styleguide = function (_Component) {
 					_react2.default.createElement(
 						_Pre2.default,
 						null,
-						'import {\n\tContainer,\n\tBotText,\n\tLoader,\n\tH1,\n\tH2,\n\tH3,\n\tH4,\n\tH5,\n\tH6,\n\tSectionHeading,\n\tParagraph as P,\n\tA,\n\tAvatar,\n\tButton,\n\tForm,\n\tSwitch,\n\tInput,\n\tSelect,\n\tSubmitWrapper,\n\tList,\n\tListItem,\n\tTabs,\n\tTabPane,\n\tLinkPile,\n\tPager,\n\tStatsSlider,\n\tButtonGrid,\n\tGridButton,\n\tStars,\n\tImageCropper,\n\tCallout,\n\tFeed\n} from \'react-sprucebot\''
+						'import {\n\tContainer,\n\tBotText,\n\tLoader,\n\tH1,\n\tH2,\n\tH3,\n\tH4,\n\tH5,\n\tH6,\n\tSectionHeading,\n\tParagraph as P,\n\tA,\n\tAvatar,\n\tButton,\n\tForm,\n\tSwitch,\n\tInputField,\n\tSelectField,\n\tSubmitWrapper,\n\tList,\n\tListItem,\n\tTabs,\n\tTabPane,\n\tLinkPile,\n\tPager,\n\tStatsSlider,\n\tButtonGrid,\n\tGridButton,\n\tStars,\n\tImageCropper,\n\tCallout,\n\tFeed\n} from \'react-sprucebot\''
 					)
 				),
 				_react2.default.createElement(
@@ -624,77 +620,6 @@ var Styleguide = function (_Component) {
 				_react2.default.createElement(
 					_Typography.H1,
 					null,
-					'Forms'
-				),
-				_react2.default.createElement(
-					_Container2.default,
-					null,
-					_react2.default.createElement(
-						_BotText2.default,
-						null,
-						'Forms and elements currently do not do any validation nor formatting for you. You must manually set \'error\' to display an error message.'
-					),
-					_react2.default.createElement(
-						_Form2.default,
-						null,
-						_react2.default.createElement(
-							_Typography.SectionHeading,
-							null,
-							'Profile'
-						),
-						_react2.default.createElement(
-							_Typography.SectionHeading,
-							null,
-							'Another Section'
-						),
-						_react2.default.createElement(
-							_BotText2.default,
-							null,
-							'Most properties on an Input are passed through, so you can do more than just text!'
-						),
-						_react2.default.createElement(
-							_Select2.default,
-							{
-								label: 'Dropdowns Rock!',
-								onChange: function onChange(value, e) {
-									console.log('value:', value, 'event:', e);
-								}
-							},
-							_react2.default.createElement(
-								'option',
-								{ value: 'uno' },
-								'Test 1'
-							),
-							_react2.default.createElement(
-								'option',
-								{ value: 'dos' },
-								'Test 2'
-							)
-						),
-						_react2.default.createElement(
-							_SubmitWrapper2.default,
-							null,
-							_react2.default.createElement(
-								_Button2.default,
-								{ alt: true, href: 'http://hello.sprucebot.com' },
-								'Back to Dashboard'
-							),
-							_react2.default.createElement(
-								_Button2.default,
-								{ primary: true },
-								'Save Changes'
-							)
-						)
-					),
-					_react2.default.createElement(
-						_Pre2.default,
-						null,
-						'<Form>\n\t<SectionHeading>Profile</SectionHeading>\n\t<Input label="Your Name" />\n\t<Input\n\t\tlabel="Email"\n\t\tfinePrint="This is helpful fine print."\n\t\tdefaultValue="founders@sprucelabs.ai"\n\t/>\n\t<SectionHeading>Another Section</SectionHeading>\n\t<BotText>\n\t\tMost properties on an Input are passed through, so you can do more than just text!\n\t</BotText>\n\t<Input\n\t\tonChange={(value, e) => {\n\t\t\tconsole.log(\'value:\', value, \'event:\', e)\n\t\t}}\n\t\ttype="number"\n\t\tlabel="Age"\n\t\terror="This is an error message."\n\t/>\n\t<Input type="password" label="Password" />\n\t<Select\n\t\tlabel="Dropdowns Rock!"\n\t\tonChange={(value, e) => {\n\t\t\tconsole.log(\'value:\', value, \'event:\', e)\n\t\t}}\n\t>\n\t\t<option value="uno">Test 1</option>\n\t\t<option value="dos">Test 2</option>\n\t</Select>\n\t<Input\n\t\tmultiline\n\t\tlabel="Growing multiline input"\n\t\tdefaultValue="You can type in here and I\'ll auto-size to match the height. How easy and simple and cool and taking up more space now is that?"\n\t/>\n\t<SubmitWrapper>\n\t\t<Button alt href="http://hello.sprucebot.com">\n\t\t\tBack to Dashboard\n\t\t</Button>\n\t\t<Button primary>Save Changes</Button>\n\t</SubmitWrapper>\n</Form>'
-					)
-				),
-				_react2.default.createElement(
-					_Typography.H1,
-					null,
 					'Lists'
 				),
 				_react2.default.createElement(
@@ -770,14 +695,18 @@ var Styleguide = function (_Component) {
 						_react2.default.createElement(
 							_List.ListItem,
 							null,
-							_react2.default.createElement(_Input2.default, { label: 'An input!' })
+							_react2.default.createElement(_InputField2.default, { label: 'An input!', input: { value: '' }, meta: {} })
 						),
 						_react2.default.createElement(
 							_List.ListItem,
 							null,
 							_react2.default.createElement(
-								_Select2.default,
-								{ label: 'And a select!' },
+								_SelectField2.default,
+								{
+									label: 'And a SelectField!',
+									input: { value: '' },
+									meta: {}
+								},
 								_react2.default.createElement(
 									'option',
 									null,
@@ -794,7 +723,7 @@ var Styleguide = function (_Component) {
 					_react2.default.createElement(
 						_Pre2.default,
 						null,
-						'<List>\n\t<ListItem>This is the most basic list item.</ListItem>\n\t<ListItem\n\t\ttitle="Awesome title!"\n\t\tsubtitle="Fantastic subtitle!"\n\t\trightInput={\n\t\t\t<Button\n\t\t\t\tremove\n\t\t\t\tonClick={e => {\n\t\t\t\t\tconsole.log(\'event:\', e)\n\t\t\t\t}}\n\t\t\t/>\n\t\t}\n\t/>\n\t<ListItem rightInput={<Switch />}>I can even do switches!</ListItem>\n\t<ListItem>\n\t\t<Input label="An input!" />\n\t</ListItem>\n\t<ListItem>\n\t\t<Select label="And a select!">\n\t\t\t<option>Nuke \'em Rico</option>\n\t\t\t<option>With pleasure!</option>\n\t\t</Select>\n\t</ListItem>\n</List>'
+						'<List>\n\t<ListItem>This is the most basic list item.</ListItem>\n\t<ListItem\n\t\ttitle="Awesome title!"\n\t\tsubtitle="Fantastic subtitle!"\n\t\trightInput={\n\t\t\t<Button\n\t\t\t\tremove\n\t\t\t\tonClick={e => {\n\t\t\t\t\tconsole.log(\'event:\', e)\n\t\t\t\t}}\n\t\t\t/>\n\t\t}\n\t/>\n\t<ListItem rightInput={<Switch />}>I can even do switches!</ListItem>\n\t<ListItem>\n\t\t<InputField label="An input!" input={{value: \'val\', onChange: () => console.log(\'onChange!\')}} />\n\t</ListItem>\n\t<ListItem>\n\t\t<Select label="And a select!">\n\t\t\t<option>Nuke \'em Rico</option>\n\t\t\t<option>With pleasure!</option>\n\t\t</Select>\n\t</ListItem>\n</List>'
 					)
 				),
 				_react2.default.createElement(
@@ -901,21 +830,6 @@ var Styleguide = function (_Component) {
 						_Pre2.default,
 						null,
 						'<LinkPile>\n\t<Button primary>Button 1</Button>\n\t<Button alt>Button 2</Button>\n\t<Button secondary>Button 3</Button>\n\t<Button secondary alt>\n\t\tButton 4\n\t</Button>\n</LinkPile>'
-					)
-				),
-				_react2.default.createElement(
-					_Typography.H1,
-					null,
-					'Search'
-				),
-				_react2.default.createElement(
-					_Container2.default,
-					null,
-					_react2.default.createElement(_Input2.default, { type: 'search', placeholder: 'Search for something' }),
-					_react2.default.createElement(
-						_Pre2.default,
-						null,
-						'<Input type="search" placeholder="Search for something" />'
 					)
 				),
 				_react2.default.createElement(

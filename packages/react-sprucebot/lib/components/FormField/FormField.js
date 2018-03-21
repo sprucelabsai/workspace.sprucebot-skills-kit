@@ -51,14 +51,11 @@ var FieldLabel = exports.FieldLabel = _styledComponents2.default.span.attrs({
 	componentId: 's9xxgdd-2'
 })(['']);
 
-function renderInput(props) {
-	return _react2.default.createElement('input', props);
-}
-
 function Field(_ref) {
 	var _ref$input = _ref.input,
 	    value = _ref$input.value,
 	    onChange = _ref$input.onChange,
+	    name = _ref$input.name,
 	    _ref$meta = _ref.meta,
 	    touched = _ref$meta.touched,
 	    error = _ref$meta.error,
@@ -79,6 +76,7 @@ function Field(_ref) {
 		),
 		_react2.default.cloneElement(children, {
 			className: (0, _classnames2.default)({ with_label: !!label }),
+			name: name,
 			value: value,
 			onChange: onChange,
 			type: type,
