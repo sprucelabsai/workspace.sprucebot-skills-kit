@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var onSubmit = function () {
+var submit = function () {
 	var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(values) {
 		return regeneratorRuntime.wrap(function _callee$(_context) {
 			while (1) {
@@ -39,7 +39,7 @@ var onSubmit = function () {
 		}, _callee, this);
 	}));
 
-	return function onSubmit(_x) {
+	return function submit(_x) {
 		return _ref.apply(this, arguments);
 	};
 }();
@@ -104,7 +104,9 @@ function FormExample(_ref2) {
 	    reset = _ref2.reset,
 	    pristine = _ref2.pristine,
 	    submitting = _ref2.submitting,
-	    error = _ref2.error;
+	    error = _ref2.error,
+	    _ref2$onSubmit = _ref2.onSubmit,
+	    onSubmit = _ref2$onSubmit === undefined ? submit : _ref2$onSubmit;
 
 	return _react2.default.createElement(
 		_Form2.default,

@@ -19,9 +19,8 @@ import Avatar from '../Avatar/Avatar'
 import Button from '../Button/Button'
 import Form from '../Form/Form'
 import Switch from '../Switch/Switch'
-import Input from '../Input/Input'
-import Select from '../Select/Select'
-import SubmitWrapper from '../SubmitWrapper/SubmitWrapper'
+import InputField from '../InputField/InputField'
+import SelectField from '../SelectField/SelectField'
 import { List, ListItem } from '../List/List'
 import { Tabs, TabPane } from '../Tabs/Tabs'
 import LinkPile from '../LinkPile/LinkPile'
@@ -134,8 +133,8 @@ export default class Styleguide extends Component {
 	Button,
 	Form,
 	Switch,
-	Input,
-	Select,
+	InputField,
+	SelectField,
 	SubmitWrapper,
 	List,
 	ListItem,
@@ -293,83 +292,6 @@ export default class Styleguide extends Component {
 				<Container>
 					<FormExample />
 				</Container>
-				<H1>Forms</H1>
-				<Container>
-					<BotText>
-						Forms and elements currently do not do any validation nor formatting
-						for you. You must manually set 'error' to display an error message.
-					</BotText>
-					<Form>
-						<SectionHeading>Profile</SectionHeading>
-						<SectionHeading>Another Section</SectionHeading>
-						<BotText>
-							Most properties on an Input are passed through, so you can do more
-							than just text!
-						</BotText>
-						<Select
-							label="Dropdowns Rock!"
-							onChange={(value, e) => {
-								console.log('value:', value, 'event:', e)
-							}}
-						>
-							<option value="uno">Test 1</option>
-							<option value="dos">Test 2</option>
-						</Select>
-						{/* <Input
-							multiline
-							label="Growing multiline input"
-							defaultValue="You can type in here and I'll auto-size to match the height. How easy and simple and cool and taking up more space now is that?"
-						/> */}
-						<SubmitWrapper>
-							<Button alt href="http://hello.sprucebot.com">
-								Back to Dashboard
-							</Button>
-							<Button primary>Save Changes</Button>
-						</SubmitWrapper>
-					</Form>
-					<Pre>{`<Form>
-	<SectionHeading>Profile</SectionHeading>
-	<Input label="Your Name" />
-	<Input
-		label="Email"
-		finePrint="This is helpful fine print."
-		defaultValue="founders@sprucelabs.ai"
-	/>
-	<SectionHeading>Another Section</SectionHeading>
-	<BotText>
-		Most properties on an Input are passed through, so you can do more than just text!
-	</BotText>
-	<Input
-		onChange={(value, e) => {
-			console.log('value:', value, 'event:', e)
-		}}
-		type="number"
-		label="Age"
-		error="This is an error message."
-	/>
-	<Input type="password" label="Password" />
-	<Select
-		label="Dropdowns Rock!"
-		onChange={(value, e) => {
-			console.log('value:', value, 'event:', e)
-		}}
-	>
-		<option value="uno">Test 1</option>
-		<option value="dos">Test 2</option>
-	</Select>
-	<Input
-		multiline
-		label="Growing multiline input"
-		defaultValue="You can type in here and I'll auto-size to match the height. How easy and simple and cool and taking up more space now is that?"
-	/>
-	<SubmitWrapper>
-		<Button alt href="http://hello.sprucebot.com">
-			Back to Dashboard
-		</Button>
-		<Button primary>Save Changes</Button>
-	</SubmitWrapper>
-</Form>`}</Pre>
-				</Container>
 				<H1>Lists</H1>
 				<Container>
 					<SectionHeading>A Friend List</SectionHeading>
@@ -431,13 +353,17 @@ export default class Styleguide extends Component {
 						/>
 						<ListItem rightInput={<Switch />}>I can even do switches!</ListItem>
 						<ListItem>
-							<Input label="An input!" />
+							<InputField label="An input!" input={{ value: '' }} meta={{}} />
 						</ListItem>
 						<ListItem>
-							<Select label="And a select!">
+							<SelectField
+								label="And a SelectField!"
+								input={{ value: '' }}
+								meta={{}}
+							>
 								<option>Nuke 'em Rico</option>
 								<option>With pleasure!</option>
-							</Select>
+							</SelectField>
 						</ListItem>
 					</List>
 					<Pre>{`<List>
@@ -456,7 +382,7 @@ export default class Styleguide extends Component {
 	/>
 	<ListItem rightInput={<Switch />}>I can even do switches!</ListItem>
 	<ListItem>
-		<Input label="An input!" />
+		<InputField label="An input!" input={{value: 'val', onChange: () => console.log('onChange!')}} />
 	</ListItem>
 	<ListItem>
 		<Select label="And a select!">
@@ -531,12 +457,6 @@ export default class Styleguide extends Component {
 		Button 4
 	</Button>
 </LinkPile>`}</Pre>
-				</Container>
-				<H1>Search</H1>
-				<Container>
-					<Input type="search" placeholder="Search for something" />
-					<Pre
-					>{`<Input type="search" placeholder="Search for something" />`}</Pre>
 				</Container>
 				<H1>Pager</H1>
 				<Container>
