@@ -132,7 +132,6 @@ export default class ImageCropper extends Component {
 
 			const image = await new Promise((resolve, reject) => {
 				const image = new Image()
-				image.crossOrigin = 'Anonymous'
 				image.onload = () => {
 					resolve(image)
 				}
