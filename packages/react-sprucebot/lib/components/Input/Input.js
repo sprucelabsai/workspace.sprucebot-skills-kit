@@ -90,12 +90,22 @@ var Input = function (_Component) {
 			}
 		}
 	}, {
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			if (this.props.multiline) {
+		key: 'handleMultiline',
+		value: function handleMultiline(props) {
+			if (props.multiline) {
 				this._textAreaTransition = this.input.style.transition;
 				this.sizeTextarea();
 			}
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.handleMultiline(this.props);
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate() {
+			this.handleMultiline(this.props);
 		}
 	}, {
 		key: 'render',
