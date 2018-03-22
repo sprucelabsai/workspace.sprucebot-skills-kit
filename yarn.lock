@@ -3727,6 +3727,22 @@ execa@^0.7.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
+exif-js@^2.1.1:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/exif-js/-/exif-js-2.3.0.tgz#9d10819bf571f873813e7640241255ab9ce1a814"
+
+exif-orientation-image@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/exif-orientation-image/-/exif-orientation-image-1.0.1.tgz#c0876ffcc7dda530ab23c959762ced4cc1771fd9"
+  dependencies:
+    exif-orientation "^1.0.0"
+
+exif-orientation@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/exif-orientation/-/exif-orientation-1.0.0.tgz#9f1b76c745001539a16ccab04ed8f16e58e4e801"
+  dependencies:
+    exif-js "^2.1.1"
+
 exit-hook@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-1.1.1.tgz#f05ca233b48c05d54fff07765df8507e95c02ff8"
