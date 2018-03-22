@@ -204,7 +204,6 @@ var ImageCropper = function (_Component) {
 								_context.next = 8;
 								return new Promise(function (resolve, reject) {
 									var image = new Image();
-									image.crossOrigin = 'Anonymous';
 									image.onload = function () {
 										resolve(image);
 									};
