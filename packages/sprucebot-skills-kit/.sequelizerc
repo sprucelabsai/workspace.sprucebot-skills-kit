@@ -1,0 +1,15 @@
+var path = require('path');
+var fs = require('fs');
+var env = './.env';
+var opts = {
+	path: env
+};
+
+if (fs.existsSync(env)) require('dotenv').config(opts);
+
+module.exports = {
+  'config': path.resolve('config', 'database.js'),
+  'migrations-path': path.resolve('server', 'migrations'),
+  'seeders-path': path.resolve('server', 'seeders'),
+  'models-path': path.resolve('server', 'models')
+}
