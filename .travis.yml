@@ -39,6 +39,6 @@ jobs:
         - provider: script
           skip_cleanup: true
           script:
-            - yarn run publish --yes --cd-verison prerelease
+            - yarn run publish --yes --canary=beta --npm-tag=prerelease
           on:
             branch: dev
