@@ -4,6 +4,7 @@ import BotText from '../BotText/BotText'
 import Loader from '../Loader/Loader'
 import Button from '../Button/Button'
 import ReactCrop, { makeAspectCrop } from 'react-image-crop'
+import getOrientedImage from 'exif-orientation-image'
 import styled from 'styled-components'
 import SubmitWrapper from '../SubmitWrapper/SubmitWrapper'
 
@@ -49,8 +50,12 @@ export default class ImageCropper extends Component {
 			return
 		}
 
-		this.setState({ changed: true, newFile: true })
-		this.reader.readAsDataURL(file)
+		getOrientedImage(file, (err, canvas) => {
+			if (!err) {
+				this.setState({ changed: true, newFile: true })
+				canvas.toBlob(blob => this.reader.readAsDataURL(blob))
+			}
+		})
 	}
 
 	onFileReaderLoadImage(e) {

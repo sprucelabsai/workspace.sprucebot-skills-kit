@@ -30,6 +30,10 @@ var _reactImageCrop = require('react-image-crop');
 
 var _reactImageCrop2 = _interopRequireDefault(_reactImageCrop);
 
+var _exifOrientationImage = require('exif-orientation-image');
+
+var _exifOrientationImage2 = _interopRequireDefault(_exifOrientationImage);
+
 var _styledComponents = require('styled-components');
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
@@ -94,14 +98,22 @@ var ImageCropper = function (_Component) {
 	}, {
 		key: 'onChange',
 		value: function onChange(e) {
+			var _this2 = this;
+
 			var file = e.target.files[0];
 			if (!file.type.match('image.*')) {
 				alert(this.props.badImageMessage);
 				return;
 			}
 
-			this.setState({ changed: true, newFile: true });
-			this.reader.readAsDataURL(file);
+			(0, _exifOrientationImage2.default)(file, function (err, canvas) {
+				if (!err) {
+					_this2.setState({ changed: true, newFile: true });
+					canvas.toBlob(function (blob) {
+						return _this2.reader.readAsDataURL(blob);
+					});
+				}
+			});
 		}
 	}, {
 		key: 'onFileReaderLoadImage',
@@ -176,7 +188,7 @@ var ImageCropper = function (_Component) {
 		key: 'onSave',
 		value: function () {
 			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-				var _this2 = this;
+				var _this3 = this;
 
 				var _state, pixelCrop, type, image, canvas, ctx, cropped;
 
@@ -210,7 +222,7 @@ var ImageCropper = function (_Component) {
 									image.onerror = function (err) {
 										reject(err);
 									};
-									image.src = _this2.cropper.imageRef.src;
+									image.src = _this3.cropper.imageRef.src;
 								});
 
 							case 8:
@@ -276,7 +288,7 @@ var ImageCropper = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this3 = this;
+			var _this4 = this;
 
 			var _props = this.props,
 			    accept = _props.accept,
@@ -314,7 +326,7 @@ var ImageCropper = function (_Component) {
 					_react2.default.createElement(_reactImageCrop2.default, {
 						crossorigin: 'Anonymous',
 						ref: function ref(cropper) {
-							return _this3.cropper = cropper;
+							return _this4.cropper = cropper;
 						},
 						keepSelection: true,
 						onImageLoaded: this.onImageLoadedFromCropper.bind(this),
@@ -336,7 +348,7 @@ var ImageCropper = function (_Component) {
 					style: { display: 'none' },
 					type: 'file',
 					ref: function ref(input) {
-						_this3.input = input;
+						_this4.input = input;
 					},
 					accept: accept,
 					onChange: this.onChange.bind(this)
