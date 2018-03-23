@@ -60,6 +60,7 @@
         "classnames": "^2.2.5",
         "cookies": "^0.7.1",
         "debug": "^3.1.0",
+        "exif-orientation-image": "^1.0.1",
         "imagesloaded": "^4.1.4",
         "js-cookies": "^1.0.4",
         "moment": "^2.19.3",
