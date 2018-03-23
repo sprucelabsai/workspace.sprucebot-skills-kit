@@ -76,6 +76,14 @@ export default class ImageCropper extends Component {
 	}
 
 	onCropChange(crop, pixelCrop) {
+		const maxWidth = window.innerWidth - 20
+		const maxHeight = window.innerHeight - 20
+		const x = window.event.x
+		const y = window.event.y
+
+		if (x > maxWidth || x < 20 || y < 20 || y > maxHeight) {
+			this.cropper.onDocMouseTouchEnd()
+		}
 		this.setState({ crop, pixelCrop, changed: true })
 	}
 
