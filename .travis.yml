@@ -1,9 +1,7 @@
 language: node_js
 node_js: '8'
 
-cache:
-  directories:
-  - node_modules # NPM packages
+cache: yarn
 install:
   - yarn install
 
@@ -24,10 +22,23 @@ jobs:
       after_script:
         - greenkeeper-lockfile-upload
         - bash <(curl -s https://codecov.io/bash) # Upload code coverage reports
-    - stage: Semantic Release
-      if: NOT type IN (pull_request) AND branch IN (master)
+    - stage: NPM Publish Release
+      if: NOT type IN (pull_request) AND branch IN (master, dev)
+      git: # Allow us to checkout Branch
+        depth: false
+      before_script:
+        - git checkout $TRAVIS_BRANCH
+        - npx set-auth-token-var-name
       deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - yarn run semantic-release
+        - provider: script
+          skip_cleanup: true
+          script:
+            - yarn run publish --yes
+          on:
+            branch: master
+        - provider: script
+          skip_cleanup: true
+          script:
+            - yarn run publish --yes --canary=beta --npm-tag=prerelease
+          on:
+            branch: dev

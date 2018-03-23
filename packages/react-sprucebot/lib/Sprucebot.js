@@ -78,6 +78,10 @@ var _StatsSlider = require('./components/StatsSlider/StatsSlider');
 
 var _StatsSlider2 = _interopRequireDefault(_StatsSlider);
 
+var _Styleguide = require('./components/Styleguide/Styleguide');
+
+var _Styleguide2 = _interopRequireDefault(_Styleguide);
+
 var _ImageCropper = require('./components/ImageCropper/ImageCropper');
 
 var _ImageCropper2 = _interopRequireDefault(_ImageCropper);
@@ -86,6 +90,10 @@ var _TrainingGuide = require('./components/TrainingGuide/TrainingGuide');
 
 var _TrainingGuide2 = _interopRequireDefault(_TrainingGuide);
 
+var _Onboarding = require('./components/Onboarding/Onboarding');
+
+var _Onboarding2 = _interopRequireDefault(_Onboarding);
+
 var _Callout = require('./components/Callout/Callout');
 
 var _Callout2 = _interopRequireDefault(_Callout);
@@ -93,6 +101,10 @@ var _Callout2 = _interopRequireDefault(_Callout);
 var _Dialog = require('./components/Dialog/Dialog');
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
+
+var _Error = require('./components/Error/Error');
+
+var _Error2 = _interopRequireDefault(_Error);
 
 var _Feed = require('./components/Feed/Feed');
 
@@ -156,13 +168,16 @@ var Sprucebot = _extends({
 	StatsSlider: _StatsSlider2.default,
 	ButtonGrid: ButtonGrid,
 	Stars: _Stars2.default,
+	Styleguide: _Styleguide2.default,
 	ImageCropper: _ImageCropper2.default,
 	DevControls: _DevControls2.default,
 	Callout: _Callout2.default,
 	Feed: _Feed2.default,
 	FeedItem: _Feed.FeedItem,
 	Dialog: _Dialog2.default,
+	Error: _Error2.default,
 	FeedAttachment: _Feed.FeedAttachment,
-	TrainingGuide: _TrainingGuide2.default
+	TrainingGuide: _TrainingGuide2.default,
+	Onboarding: _Onboarding2.default
 }, Typography, List, Tabs, ButtonGrid);
 module.exports = Sprucebot;
