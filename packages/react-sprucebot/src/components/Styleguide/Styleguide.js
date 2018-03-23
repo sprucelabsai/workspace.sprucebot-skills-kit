@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import moment from 'moment-timezone'
 import Container from '../Container/Container'
@@ -36,6 +37,7 @@ import Onboarding from '../Onboarding/Onboarding'
 import Dialog from '../Dialog/Dialog'
 import Pre from '../Pre/Pre'
 import Error from '../Error/Error'
+import skill from '../../skillskit/index'
 
 import FormExample from './FormExample'
 
@@ -214,7 +216,13 @@ export default class Styleguide extends Component {
 					<Pre
 					>{`<Avatar top image="https://hello.sprucebot.com/avatar.jpg" />`}</Pre>
 				</Container>
-				<H1>Buttons</H1>
+				<H1
+					ref={ref => {
+						this.ref = ref
+					}}
+				>
+					Buttons
+				</H1>
 				<Container>
 					<Button primary>I'm a primary button</Button>
 					<Pre>{`<Button primary>I'm a primary button</Button>`}</Pre>
@@ -894,6 +902,54 @@ export default class Styleguide extends Component {
 	closeErrorDialog={() => this.setState({ errorMessage: '' })}
 	closeErrorDialogTxt={'Sounds good!'}
 />`}</Pre>
+				</Container>
+				<H1>Scroll To Method</H1>
+				<Container>
+					<BotText>
+						{`This method allows the user to scroll to any position they want.  The default is to the top of the page, but the user can pass in a number or component using ReactDOM to find the ref's offsetTop as well`}
+					</BotText>
+					<Button
+						onClick={() => {
+							skill.scrollTo()
+						}}
+					>
+						{'Default Scroll To Top'}
+					</Button>
+					<Pre>{`<Button
+	onClick={() => {
+		skill.scrollTo()
+	}}
+>
+	{'Scroll To The Top'}
+</Button>`}</Pre>
+					<Button
+						onClick={() => {
+							skill.scrollTo(2600)
+						}}
+					>
+						{'Scroll To A Number'}
+					</Button>
+					<Pre>{`<Button
+	onClick={() => {
+		skill.scrollTo(2550)
+	}}
+>
+	{'Scroll To The Top'}
+</Button>`}</Pre>
+					<Button
+						onClick={() => {
+							skill.scrollTo(ReactDOM.findDOMNode(this.ref).offsetTop)
+						}}
+					>
+						{'Scroll To The Buttons Section'}
+					</Button>
+					<Pre>{`<Button
+	onClick={() => {
+		skill.scrollTo(ReactDOM.findDOMNode(this.ref).offsetTop)
+	}}
+>
+	{'Scroll To The Top'}
+</Button>`}</Pre>
 				</Container>
 			</div>
 		)
