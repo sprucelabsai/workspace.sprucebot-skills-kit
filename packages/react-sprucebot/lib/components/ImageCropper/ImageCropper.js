@@ -125,6 +125,14 @@ var ImageCropper = function (_Component) {
 	}, {
 		key: 'onCropChange',
 		value: function onCropChange(crop, pixelCrop) {
+			var maxWidth = window.innerWidth - 20;
+			var maxHeight = window.innerHeight - 20;
+			var x = window.event.x;
+			var y = window.event.y;
+
+			if (x > maxWidth || x < 20 || y < 20 || y > maxHeight) {
+				this.cropper.onDocMouseTouchEnd();
+			}
 			this.setState({ crop: crop, pixelCrop: pixelCrop, changed: true });
 		}
 	}, {
