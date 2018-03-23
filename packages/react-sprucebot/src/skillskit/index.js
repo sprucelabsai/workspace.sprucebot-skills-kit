@@ -1,5 +1,3 @@
-import { animateScroll as scroll } from 'react-scroll'
-
 function postMessage(message) {
 	return window.parent.postMessage(JSON.stringify(message), '*')
 }
@@ -54,7 +52,7 @@ export default {
 		})
 		this.resizedInterval = setInterval(this.resized.bind(this), 50)
 	},
-	scrollToTop: function() {
-		scroll.scrollToTop()
+	scrollTo: function(offset) {
+		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 })
 	}
 }
