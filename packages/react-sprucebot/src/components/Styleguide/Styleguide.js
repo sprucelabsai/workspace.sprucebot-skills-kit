@@ -571,6 +571,7 @@ export default class Styleguide extends Component {
 					<Stars
 						max={4}
 						score={2}
+						static={false}
 						onChange={(score, e) => {
 							console.log('score:', score, 'event:', e)
 						}}
@@ -578,6 +579,26 @@ export default class Styleguide extends Component {
 					<Pre>{`<Stars
 	max={4}
 	score={2}
+	static={false}
+	onChange={(score, e) => {
+		console.log('score:', score, 'event:', e)
+	}}
+/>`}</Pre>
+					<BotText>
+						You can also make Stars static so the rating cannot be changed!
+					</BotText>
+					<Stars
+						max={4}
+						score={2}
+						static={true}
+						onChange={(score, e) => {
+							console.log('score:', score, 'event:', e)
+						}}
+					/>
+					<Pre>{`<Stars
+	max={4}
+	score={2}
+	static={true}
 	onChange={(score, e) => {
 		console.log('score:', score, 'event:', e)
 	}}
