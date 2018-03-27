@@ -969,6 +969,7 @@ var Styleguide = function (_Component) {
 					_react2.default.createElement(_Stars2.default, {
 						max: 4,
 						score: 2,
+						'static': false,
 						onChange: function onChange(score, e) {
 							console.log('score:', score, 'event:', e);
 						}
@@ -976,7 +977,25 @@ var Styleguide = function (_Component) {
 					_react2.default.createElement(
 						_Pre2.default,
 						null,
-						'<Stars\n\tmax={4}\n\tscore={2}\n\tonChange={(score, e) => {\n\t\tconsole.log(\'score:\', score, \'event:\', e)\n\t}}\n/>'
+						'<Stars\n\tmax={4}\n\tscore={2}\n\tstatic={false}\n\tonChange={(score, e) => {\n\t\tconsole.log(\'score:\', score, \'event:\', e)\n\t}}\n/>'
+					),
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'You can also make Stars static so the rating cannot be changed!'
+					),
+					_react2.default.createElement(_Stars2.default, {
+						max: 4,
+						score: 2,
+						'static': true,
+						onChange: function onChange(score, e) {
+							console.log('score:', score, 'event:', e);
+						}
+					}),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<Stars\n\tmax={4}\n\tscore={2}\n\tstatic={true}\n\tonChange={(score, e) => {\n\t\tconsole.log(\'score:\', score, \'event:\', e)\n\t}}\n/>'
 					)
 				),
 				_react2.default.createElement(
