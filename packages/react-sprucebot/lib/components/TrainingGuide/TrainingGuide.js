@@ -26,6 +26,10 @@ var _BotText = require('../BotText/BotText');
 
 var _BotText2 = _interopRequireDefault(_BotText);
 
+var _index = require('../../skillskit/index');
+
+var _index2 = _interopRequireDefault(_index);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -69,7 +73,6 @@ var TrainingGuide = function (_Component) {
 			stepWidths: props.steps.map(function () {
 				return 0;
 			}),
-			scrollInterval: null,
 			transitioning: false
 		};
 		return _this;
@@ -94,31 +97,12 @@ var TrainingGuide = function (_Component) {
 
 			// Scroll to next/done buttons if the current step has changed
 			if (this.state.currentStep !== prevState.currentStep) {
-				if (this.state.scrollInterval) {
-					clearInterval(this.state.scrollInterval);
-					this.setState({ scrollInterval: false });
-				}
-
-				// wait a sec to allow css animations to finish
-				var scrollInterval = setInterval(this.scrollToGuideBottom.bind(this), 5);
-				this.setState({ scrollInterval: scrollInterval, transitioning: true });
+				this.setState({ transitioning: true });
 
 				setTimeout(function () {
-					clearInterval(_this2.state.scrollInterval);
-					_this2.setState({ scrollInterval: false, transitioning: false });
+					_index2.default.scrollTo(_reactDom2.default.findDOMNode(_this2.button).offsetTop - window.screen.height * 0.5);
+					_this2.setState({ transitioning: false });
 				}, 1500);
-			}
-		}
-	}, {
-		key: 'scrollToGuideBottom',
-		value: function scrollToGuideBottom() {
-			// where do i scroll to?
-			var node = _reactDom2.default.findDOMNode(this);
-			var bounds = node.getBoundingClientRect();
-			var bottom = window.document.body.scrollTop + bounds.y + bounds.height;
-			var windowBottom = window.document.body.scrollTop + window.innerHeight;
-			if (bottom > windowBottom) {
-				window.document.body.scrollTop = bottom - window.innerHeight + 20; // random padding for now
 			}
 		}
 	}, {
@@ -194,6 +178,9 @@ var TrainingGuide = function (_Component) {
 						{
 							alt: true,
 							busy: transitioning,
+							ref: function ref(_ref) {
+								_this3.button = _ref;
+							},
 							onClick: function onClick() {
 								if (!transitioning) _this3.next();
 							}
@@ -205,6 +192,9 @@ var TrainingGuide = function (_Component) {
 						{
 							primary: true,
 							busy: transitioning,
+							ref: function ref(_ref2) {
+								_this3.button = _ref2;
+							},
 							onClick: function onClick() {
 								if (!transitioning) onComplete();
 							}
