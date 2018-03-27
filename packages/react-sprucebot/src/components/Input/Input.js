@@ -56,11 +56,17 @@ export default class Input extends Component {
 			}, 250)
 		}
 	}
-	componentDidMount() {
-		if (this.props.multiline) {
+	handleMultiline(props) {
+		if (props.multiline) {
 			this._textAreaTransition = this.input.style.transition
 			this.sizeTextarea()
 		}
+	}
+	componentDidMount() {
+		this.handleMultiline(this.props)
+	}
+	componentDidUpdate() {
+		this.handleMultiline(this.props)
 	}
 	render() {
 		const props = Object.assign({}, this.props)
