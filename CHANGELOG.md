@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.2.0"></a>
+# [6.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.1.0...v6.2.0) (2018-03-28)
+
+
+### Bug Fixes
+
+* **SB-1130:** fix exif orientation of uploaded images ([#26](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/26)) ([46f877e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/46f877e))
+* **SB-315:** cropping stops when moved outside of iframe ([#31](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/31)) ([50f5383](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/50f5383))
+* **SB-594:** onboarding component scrolls with the "next" cta ([#36](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/36)) ([f3d42cd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f3d42cd))
+* **sb-792:** React Image cropper update busted our component ([#38](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/38)) ([bfc1570](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bfc1570))
+* **SB-886:** fix extended text box for teammate reviews ([#28](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/28)) ([32a8dcb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/32a8dcb))
+
+
+### Features
+
+* **SB-1312:** add static prop check to remove click/hover ([#37](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/37)) ([e48e551](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e48e551))
+* **SB-910:** add skill.scrollto method ([#33](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/33)) ([d59c702](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d59c702))
+
+
+
+
+
 <a name="6.1.0"></a>
 # [6.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.0.0...v6.1.0) (2018-03-23)
 
