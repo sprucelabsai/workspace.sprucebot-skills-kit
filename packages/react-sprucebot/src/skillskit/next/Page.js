@@ -160,6 +160,14 @@ const Page = Wrapped => {
 			} else if (this.props.attemptingReAuth) {
 				skill.forceAuth()
 			}
+
+			// NOTE: Need to do this require here so that we can be sure the global window is defined
+			const WebFont = require('webfontloader') //eslint-disable-line
+			WebFont.load({
+				google: {
+					families: ['Material Icons']
+				}
+			})
 		}
 
 		componentWillUnmount() {

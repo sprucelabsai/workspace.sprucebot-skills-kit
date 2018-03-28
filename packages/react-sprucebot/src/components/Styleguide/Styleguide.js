@@ -36,6 +36,9 @@ import Onboarding from '../Onboarding/Onboarding'
 import Dialog from '../Dialog/Dialog'
 import Pre from '../Pre/Pre'
 import Error from '../Error/Error'
+import Icon from '../Icon/Icon'
+import IconButton from '../IconButton/IconButton'
+import ControlButton from '../ControlButton/ControlButton'
 
 import FormExample from './FormExample'
 
@@ -148,7 +151,12 @@ export default class Styleguide extends Component {
 	Stars,
 	ImageCropper,
 	Callout,
-	Feed
+	Feed,
+	TrainingGuide,
+	Dialog,
+	Icon,
+	IconButton,
+	ControlButton
 } from 'react-sprucebot'`}</Pre>
 				</Container>
 				<H1>Headings</H1>
@@ -257,7 +265,42 @@ export default class Styleguide extends Component {
 					<Button link>I'm a button link</Button>
 					<Pre>{`<Button link>I'm a button link</Button>`}</Pre>
 				</Container>
-
+				<H1>Icons</H1>
+				<Container className="icon__button__container">
+					<BotText>
+						Icons and Icon Buttons have the option to display an icon using
+						Material Icons. Check out https://material.io/icons/. To use an
+						icon, just enter the icon name as the child of the button.
+					</BotText>
+					<Icon>mood</Icon>
+					<Pre>{`<Icon>mood</Icon>`}</Pre>
+					<IconButton>place</IconButton>
+					<Pre
+					>{`<IconButton onClick={/* Handle Click */}>place</IconButton>`}</Pre>
+				</Container>
+				<H1>Control Buttons</H1>
+				<Container>
+					<BotText>
+						Control Buttons have the option to display a right or left icon
+						using Material Icons. Check out https://material.io/icons/. To use
+						an icon, just enter the icon name as a value for the iconLeft or
+						iconRight prop. You can also pass an href to render the button as a
+						link!
+					</BotText>
+					<ControlButton>I'm a control button</ControlButton>
+					<Pre>{`<ControlButton>I'm a control button</ControlButton>`}</Pre>
+					<ControlButton iconLeft="favorite">I have a left icon</ControlButton>
+					<Pre
+					>{`<ControlButton iconLeft="favorite">I have a left icon</ControlButton>`}</Pre>
+					<ControlButton iconRight="edit">I have a right icon</ControlButton>
+					<Pre
+					>{`<ControlButton iconRight="edit">I have a right icon</ControlButton>`}</Pre>
+					<ControlButton iconRight="🤖" href="https://sprucebot.com">
+						I'm a link
+					</ControlButton>
+					<Pre
+					>{`<ControlButton iconRight="🤖" href="https://sprucebot.com">I'm a link</ControlButton>`}</Pre>
+				</Container>
 				<H1>Loaders</H1>
 				<Container>
 					<BotText>
