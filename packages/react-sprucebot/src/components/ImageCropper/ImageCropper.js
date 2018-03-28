@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import BotText from '../BotText/BotText'
 import Loader from '../Loader/Loader'
 import Button from '../Button/Button'
-import ReactCrop, { makeAspectCrop } from 'react-image-crop'
+import ReactCrop, { makeAspectCrop, getPixelCrop } from 'react-image-crop'
 import getOrientedImage from 'exif-orientation-image'
 import styled from 'styled-components'
 import SubmitWrapper from '../SubmitWrapper/SubmitWrapper'
@@ -93,7 +93,7 @@ export default class ImageCropper extends Component {
 			return
 		} else {
 			const crop = this.state.crop
-			const pixelCrop = this.cropper.getPixelCrop(crop)
+			const pixelCrop = getPixelCrop(image, crop)
 			const widthHeight =
 				image.height < image.width ? image.height / 2 : image.width / 2
 			const width = widthHeight / image.width * 100
@@ -229,7 +229,6 @@ export default class ImageCropper extends Component {
 					cropSrc && (
 						<StyledReactCrop loading={loading} tapToCrop={tapToCrop}>
 							<ReactCrop
-								crossorigin="Anonymous"
 								ref={cropper => (this.cropper = cropper)}
 								keepSelection={true}
 								onImageLoaded={this.onImageLoadedFromCropper.bind(this)}
