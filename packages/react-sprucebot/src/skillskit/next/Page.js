@@ -91,7 +91,12 @@ const Page = Wrapped => {
 
 			let redirect = props.redirect || false
 
-			if (query.back && query.jwt && query.back.search('sprucebot.com') > 0) {
+			if (
+				query.back &&
+				query.jwt &&
+				(query.back.search('sprucebot.com') > 0 ||
+					query.back.search('bshop.io') > 0)
+			) {
 				// if there is a jwt, we are being authed
 				redirect = query.back
 			} else if (

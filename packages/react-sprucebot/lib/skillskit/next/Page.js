@@ -267,7 +267,7 @@ var Page = function Page(Wrapped) {
 									redirect = props.redirect || false;
 
 
-									if (query.back && query.jwt && query.back.search('sprucebot.com') > 0) {
+									if (query.back && query.jwt && (query.back.search('sprucebot.com') > 0 || query.back.search('bshop.io') > 0)) {
 										// if there is a jwt, we are being authed
 										redirect = query.back;
 									} else if (!redirect && !props.public && (!state.auth || !state.auth.role || state.auth.error)) {
