@@ -155,7 +155,7 @@ var ImageCropper = function (_Component) {
 				return;
 			} else {
 				var crop = this.state.crop;
-				var pixelCrop = this.cropper.getPixelCrop(crop);
+				var pixelCrop = (0, _reactImageCrop.getPixelCrop)(image, crop);
 				var widthHeight = image.height < image.width ? image.height / 2 : image.width / 2;
 				var width = widthHeight / image.width * 100;
 				var height = widthHeight / image.height * 100;
@@ -332,7 +332,6 @@ var ImageCropper = function (_Component) {
 					StyledReactCrop,
 					{ loading: loading, tapToCrop: tapToCrop },
 					_react2.default.createElement(_reactImageCrop2.default, {
-						crossorigin: 'Anonymous',
 						ref: function ref(cropper) {
 							return _this4.cropper = cropper;
 						},
