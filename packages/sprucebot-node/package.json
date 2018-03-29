@@ -1,6 +1,9 @@
 {
     "name": "@barbershopio/sprucebot-node",
-    "version": "3.0.0",
+    "publishConfig": {
+        "access": "public"
+    },
+    "version": "7.0.0",
     "description": "Jam with the Sprucebot API in your favorite scripting language. 🤓",
     "keywords": [
         "node",

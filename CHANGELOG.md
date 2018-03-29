@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="7.0.0"></a>
+# 7.0.0 (2018-03-29)
+
+
+### Bug Fixes
+
+* **package:** update react-sprucebot to version 0.13.0 ([#73](https://github.com/barbershop/workspace.sprucebot-skills-kit/issues/73)) ([d2e17a0](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/d2e17a0))
+* **package:** update sprucebot-node to version 0.5.0 ([2b4250f](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/2b4250f))
+* **package:** update sprucebot-node to version 0.5.0 ([67826ff](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/67826ff))
+* **package:** update sprucebot-skills-kit-server to version 1.0.0 ([81124cf](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/81124cf))
+* Add bshop.io domain to valid jwt check ([daee2ba](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/daee2ba))
+* **package:** update sprucebot-skills-kit-server to version 2.0.0 ([#72](https://github.com/barbershop/workspace.sprucebot-skills-kit/issues/72)) ([421b8f7](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/421b8f7))
+* **package:** update styled-components to version 3.2.0 ([#68](https://github.com/barbershop/workspace.sprucebot-skills-kit/issues/68)) ([0c10489](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/0c10489)), closes [#50](https://github.com/barbershop/workspace.sprucebot-skills-kit/issues/50)
+* **sb-1112:** add yarn commit command to proxy to commitizen ([#6](https://github.com/barbershop/workspace.sprucebot-skills-kit/issues/6)) ([102f89f](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/102f89f))
+* **sb-915:** added a sample service and utility test ([c181316](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/c181316))
+* add updated package links to projects ([a4ecb97](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/a4ecb97))
+* pm2 package is production dependency ([067814f](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/067814f))
+* travis build removed from projects ([eaf24da](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/eaf24da))
+
+
+### Chores
+
+* breaking change to bump version ([a9ae011](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/a9ae011))
+* remove pull request templates from each package ([83ed5d0](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/83ed5d0))
+* update npm keywords ([#3](https://github.com/barbershop/workspace.sprucebot-skills-kit/issues/3)) ([be9af45](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/be9af45))
+
+
+### Features
+
+* **sb-1112:** add commitlint to enforce semver commit messages ([fb86c22](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/fb86c22))
+* **SB-1112:** use lerna publish instead of semantic-release ([e6aeac3](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/e6aeac3))
+* **SB-910:** add skill.scrolltotop method ([766cfba](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/766cfba))
+* **SB-937:** add error component to react-sprucebot and styleguide ([b9e632e](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/b9e632e))
+* **SB-939:** adds redux-form compatible components ([8235c57](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/8235c57))
+* **SB-940:** add onboarding component to react-sprucebot and styleguide ([c4cdb6d](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/c4cdb6d))
+* Add Icon, IconButton, ControlButton components ([f49264b](https://github.com/barbershop/workspace.sprucebot-skills-kit/commit/f49264b))
+
+
+### BREAKING CHANGES
+
+* trigger major build
+* triggering marjor version bump
+* changed build stage name
+
+
+
+
+
 <a name="6.0.0"></a>
 # 6.0.0 (2018-03-22)
 
