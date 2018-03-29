@@ -14,7 +14,7 @@ var SubmitWrapper = _styledComponents2.default.div.attrs({
 	className: 'submit__wrapper'
 }).withConfig({
 	displayName: 'SubmitWrapper',
-	componentId: 's5rqw4n-0'
+	componentId: 'v8iis4-0'
 })(['']);
 
 exports.default = SubmitWrapper;

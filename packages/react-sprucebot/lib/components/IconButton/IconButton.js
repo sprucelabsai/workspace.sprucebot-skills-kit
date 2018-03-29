@@ -33,7 +33,7 @@ var Button = _styledComponents2.default.button.attrs({
 	}
 }).withConfig({
 	displayName: 'IconButton__Button',
-	componentId: 's10eb4c1-0'
+	componentId: 'mdoqrl-0'
 })(['align-items:center;background:none;color:#00aac7;display:flex;font-size:2em;margin:0;padding:0;width:auto;&:hover{background:none;}']);
 
 var IconButton = function IconButton(_ref2) {
