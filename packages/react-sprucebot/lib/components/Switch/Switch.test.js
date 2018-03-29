@@ -14,10 +14,6 @@ var _enzymeAdapterReact = require('enzyme-adapter-react-16');
 
 var _enzymeAdapterReact2 = _interopRequireDefault(_enzymeAdapterReact);
 
-var _sinon = require('sinon');
-
-var _sinon2 = _interopRequireDefault(_sinon);
-
 require('jest-styled-components');
 
 var _Switch = require('./Switch');
@@ -26,8 +22,8 @@ var _Switch2 = _interopRequireDefault(_Switch);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _enzyme.configure)({ adapter: new _enzymeAdapterReact2.default() });
 // setup file
+(0, _enzyme.configure)({ adapter: new _enzymeAdapterReact2.default() });
 
 
 test('it renders', function () {
@@ -57,9 +53,9 @@ test('it set state onChange', function () {
 });
 
 test('it set trigger onChange that is passed in', function () {
-	var spy = _sinon2.default.spy();
+	var spy = jest.fn();
 	var wrapper = (0, _enzyme.shallow)(_react2.default.createElement(_Switch2.default, { onChange: spy })).instance();
 	var foo = wrapper.onChange(true);
 	expect(wrapper.state.on).toEqual(true);
-	expect(spy.calledOnce).toEqual(true);
+	expect(spy).toHaveBeenCalledTimes(1);
 });

@@ -1513,7 +1513,6 @@ export default reduxForm({
             <img
               alt=""
               class="ReactCrop__image"
-              crossorigin="Anonymous"
               src="https://s3.amazonaws.com/sprucebot/ticket.png"
             />
             <div
