@@ -1,41 +1,37 @@
 {
-    "name": "@barbershopio/sprucebot-node",
-    "publishConfig": {
-        "access": "public"
-    },
-    "version": "7.0.0",
-    "description": "Jam with the Sprucebot API in your favorite scripting language. 🤓",
-    "keywords": [
-        "node",
-        "components",
-        "sprucebot",
-        "sprucelabs"
-    ],
-    "homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
-    "bugs": {
-        "url": "https://github.com/sprucelabsai/sprucebot-skills-kit/issues"
-    },
-    "scripts": {
-        "lint": "eslint '**/**/*{.js}'",
-        "test": "jest",
-        "precommit": "npm run lint",
-        "prepush": "npm run lint && npm run test"
-    },
-    "dependencies": {
-        "debug": "^3.1.0"
-    },
-    "devDependencies": {
-        "add": "^2.0.6",
-        "eslint": "^4.10.0",
-        "eslint-config-prettier": "^2.6.0",
-        "eslint-plugin-prettier": "^2.3.1",
-        "jest": "^22.0.5",
-        "nock": "^9.1.6",
-        "prettier": "^1.7.4",
-        "yarn": "^1.2.1"
-    },
-    "jest": {
-        "coverageDirectory": "./coverage/",
-        "collectCoverage": true
-    }
+  "name": "@barbershopio/sprucebot-node",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "2.0.0",
+  "description":
+    "Jam with the Sprucebot API in your favorite scripting language. 🤓",
+  "keywords": ["node", "components", "sprucebot", "sprucelabs"],
+  "homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
+  "bugs": {
+    "url": "https://github.com/sprucelabsai/sprucebot-skills-kit/issues"
+  },
+  "scripts": {
+    "lint": "eslint '**/**/*{.js}'",
+    "test": "jest",
+    "precommit": "npm run lint",
+    "prepush": "npm run lint && npm run test"
+  },
+  "dependencies": {
+    "debug": "^3.1.0"
+  },
+  "devDependencies": {
+    "add": "^2.0.6",
+    "eslint": "^4.10.0",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-plugin-prettier": "^2.3.1",
+    "jest": "^22.0.5",
+    "nock": "^9.1.6",
+    "prettier": "^1.7.4",
+    "yarn": "^1.2.1"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
+  }
 }
