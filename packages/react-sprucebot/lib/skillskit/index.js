@@ -1,64 +1,63 @@
-'use strict';
+'use strict'
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
 	value: true
-});
-
-var _reactScroll = require('react-scroll');
-
+})
 function postMessage(message) {
-	return window.parent.postMessage(JSON.stringify(message), '*');
+	return window.parent.postMessage(JSON.stringify(message), '*')
 }
 
 exports.default = {
 	height: 0,
 	forceAuth: function forceAuth() {
-		postMessage('Skill:ForceAuth');
+		postMessage('Skill:ForceAuth')
 	},
 	resized: function resized() {
-		var height = 0;
+		var height = 0
 
 		function getBottom(elem) {
-			var box = elem.getBoundingClientRect();
+			var box = elem.getBoundingClientRect()
 
-			var body = document.body;
-			var docEl = document.documentElement;
+			var body = document.body
+			var docEl = document.documentElement
 
-			var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-			var clientTop = docEl.clientTop || body.clientTop || 0;
-			var top = box.top + scrollTop - clientTop;
-			var bottom = top + elem.scrollHeight;
+			var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop
+			var clientTop = docEl.clientTop || body.clientTop || 0
+			var top = box.top + scrollTop - clientTop
+			var bottom = top + elem.scrollHeight
 
-			return bottom;
+			return bottom
 		}
 
-		Array.from(window.document.querySelectorAll('.container, .dialog')).forEach(function (container) {
-			var bottom = getBottom(container) + 20;
-			if (bottom > height) {
-				height = bottom;
+		Array.from(window.document.querySelectorAll('.container, .dialog')).forEach(
+			function(container) {
+				var bottom = getBottom(container) + 20
+				if (bottom > height) {
+					height = bottom
+				}
 			}
-		});
+		)
 
 		if (height != this.height) {
-			this.height = height;
+			this.height = height
 			postMessage({
 				name: 'Skill:Resized',
 				height: height
-			});
+			})
 		}
 	},
 	back: function back() {
-		postMessage('Skill:Back');
+		postMessage('Skill:Back')
 	},
 	ready: function ready() {
-		this.resized();
+		this.resized()
 		postMessage({
 			name: 'Skill:Loaded',
 			url: window.location.href
-		});
-		this.resizedInterval = setInterval(this.resized.bind(this), 50);
+		})
+		this.resizedInterval = setInterval(this.resized.bind(this), 50)
 	},
-	scrollToTop: function scrollToTop() {
-		_reactScroll.animateScroll.scrollToTop();
+	scrollTo: function scrollTo(offset) {
+		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 })
 	}
-};
+}

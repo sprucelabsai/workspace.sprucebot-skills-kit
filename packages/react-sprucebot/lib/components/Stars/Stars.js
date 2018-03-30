@@ -44,32 +44,38 @@ var Stars = function (_Component) {
 		value: function onClickStar(score, e) {
 			var _this2 = this;
 
-			this.setState(function (prevState) {
-				if (prevState.score !== score) {
-					if (_this2.props.onChange) {
-						_this2.props.onChange(score, e);
+			if (!this.props.static) {
+				this.setState(function (prevState) {
+					if (prevState.score !== score) {
+						if (_this2.props.onChange) {
+							_this2.props.onChange(score, e);
+						}
+						return {
+							score: score
+						};
 					}
-					return {
-						score: score
-					};
-				}
 
-				return {};
-			});
+					return {};
+				});
+			}
 		}
 	}, {
 		key: 'onMouseOverStar',
 		value: function onMouseOverStar(score, e) {
-			this.setState({
-				hover: score
-			});
+			if (!this.props.static) {
+				this.setState({
+					hover: score
+				});
+			}
 		}
 	}, {
 		key: 'onMouseLeave',
 		value: function onMouseLeave(e) {
-			this.setState({
-				hover: 0
-			});
+			if (!this.props.static) {
+				this.setState({
+					hover: 0
+				});
+			}
 		}
 	}, {
 		key: 'render',
@@ -143,5 +149,6 @@ Stars.propTypes = {
 Stars.defaultProps = {
 	max: 5,
 	score: 0,
+	static: false,
 	onChange: function onChange(score, e) {}
 };

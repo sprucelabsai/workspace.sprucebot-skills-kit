@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _styledComponents = require('styled-components');
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
@@ -110,6 +114,7 @@ var _Error = require('../Error/Error');
 
 var _Error2 = _interopRequireDefault(_Error);
 
+<<<<<<< HEAD
 var _Icon = require('../Icon/Icon');
 
 var _Icon2 = _interopRequireDefault(_Icon);
@@ -121,6 +126,11 @@ var _IconButton2 = _interopRequireDefault(_IconButton);
 var _ControlButton = require('../ControlButton/ControlButton');
 
 var _ControlButton2 = _interopRequireDefault(_ControlButton);
+=======
+var _index = require('../../skillskit/index');
+
+var _index2 = _interopRequireDefault(_index);
+>>>>>>> 1388e31b3cb6466e1cddc6ea41eda697f7a0bc46
 
 var _FormExample = require('./FormExample');
 
@@ -435,7 +445,11 @@ var Styleguide = function (_Component) {
 				),
 				_react2.default.createElement(
 					_Typography.H1,
-					null,
+					{
+						ref: function ref(_ref) {
+							_this2.ref = _ref;
+						}
+					},
 					'Buttons'
 				),
 				_react2.default.createElement(
@@ -1057,6 +1071,7 @@ var Styleguide = function (_Component) {
 					_react2.default.createElement(_Stars2.default, {
 						max: 4,
 						score: 2,
+						'static': false,
 						onChange: function onChange(score, e) {
 							console.log('score:', score, 'event:', e);
 						}
@@ -1064,7 +1079,25 @@ var Styleguide = function (_Component) {
 					_react2.default.createElement(
 						_Pre2.default,
 						null,
-						'<Stars\n\tmax={4}\n\tscore={2}\n\tonChange={(score, e) => {\n\t\tconsole.log(\'score:\', score, \'event:\', e)\n\t}}\n/>'
+						'<Stars\n\tmax={4}\n\tscore={2}\n\tstatic={false}\n\tonChange={(score, e) => {\n\t\tconsole.log(\'score:\', score, \'event:\', e)\n\t}}\n/>'
+					),
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'You can also make Stars static so the rating cannot be changed!'
+					),
+					_react2.default.createElement(_Stars2.default, {
+						max: 4,
+						score: 2,
+						'static': true,
+						onChange: function onChange(score, e) {
+							console.log('score:', score, 'event:', e);
+						}
+					}),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<Stars\n\tmax={4}\n\tscore={2}\n\tstatic={true}\n\tonChange={(score, e) => {\n\t\tconsole.log(\'score:\', score, \'event:\', e)\n\t}}\n/>'
 					)
 				),
 				_react2.default.createElement(
@@ -1347,6 +1380,62 @@ var Styleguide = function (_Component) {
 						_Pre2.default,
 						null,
 						'<Error\n\terrorMessage={this.state.errorMessage}\n\tcloseErrorDialog={() => this.setState({ errorMessage: \'\' })}\n\tcloseErrorDialogTxt={\'Sounds good!\'}\n/>'
+					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Scroll To Method'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'This method allows the user to scroll to any position they want.  The default is to the top of the page, but the user can pass in a number or component using ReactDOM to find the ref\'s offsetTop as well'
+					),
+					_react2.default.createElement(
+						_Button2.default,
+						{
+							onClick: function onClick() {
+								_index2.default.scrollTo();
+							}
+						},
+						'Default Scroll To Top'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<Button\n\tonClick={() => {\n\t\tskill.scrollTo()\n\t}}\n>\n\t{\'Scroll To The Top\'}\n</Button>'
+					),
+					_react2.default.createElement(
+						_Button2.default,
+						{
+							onClick: function onClick() {
+								_index2.default.scrollTo(2600);
+							}
+						},
+						'Scroll To A Number'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<Button\n\tonClick={() => {\n\t\tskill.scrollTo(2550)\n\t}}\n>\n\t{\'Scroll To The Top\'}\n</Button>'
+					),
+					_react2.default.createElement(
+						_Button2.default,
+						{
+							onClick: function onClick() {
+								_index2.default.scrollTo(_reactDom2.default.findDOMNode(_this2.ref).offsetTop);
+							}
+						},
+						'Scroll To The Buttons Section'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<Button\n\tonClick={() => {\n\t\tskill.scrollTo(ReactDOM.findDOMNode(this.ref).offsetTop)\n\t}}\n>\n\t{\'Scroll To The Top\'}\n</Button>'
 					)
 				)
 			);

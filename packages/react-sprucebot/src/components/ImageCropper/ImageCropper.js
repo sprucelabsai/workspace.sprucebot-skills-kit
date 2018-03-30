@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import BotText from '../BotText/BotText'
 import Loader from '../Loader/Loader'
 import Button from '../Button/Button'
-import ReactCrop, { makeAspectCrop } from 'react-image-crop'
+import ReactCrop, { makeAspectCrop, getPixelCrop } from 'react-image-crop'
+import getOrientedImage from 'exif-orientation-image'
 import styled from 'styled-components'
 import SubmitWrapper from '../SubmitWrapper/SubmitWrapper'
 
@@ -49,8 +50,12 @@ export default class ImageCropper extends Component {
 			return
 		}
 
-		this.setState({ changed: true, newFile: true })
-		this.reader.readAsDataURL(file)
+		getOrientedImage(file, (err, canvas) => {
+			if (!err) {
+				this.setState({ changed: true, newFile: true })
+				canvas.toBlob(blob => this.reader.readAsDataURL(blob))
+			}
+		})
 	}
 
 	onFileReaderLoadImage(e) {
@@ -71,6 +76,14 @@ export default class ImageCropper extends Component {
 	}
 
 	onCropChange(crop, pixelCrop) {
+		const maxWidth = window.innerWidth - 20
+		const maxHeight = window.innerHeight - 20
+		const x = window.event.x
+		const y = window.event.y
+
+		if (x > maxWidth || x < 20 || y < 20 || y > maxHeight) {
+			this.cropper.onDocMouseTouchEnd()
+		}
 		this.setState({ crop, pixelCrop, changed: true })
 	}
 
@@ -80,7 +93,7 @@ export default class ImageCropper extends Component {
 			return
 		} else {
 			const crop = this.state.crop
-			const pixelCrop = this.cropper.getPixelCrop(crop)
+			const pixelCrop = getPixelCrop(image, crop)
 			const widthHeight =
 				image.height < image.width ? image.height / 2 : image.width / 2
 			const width = widthHeight / image.width * 100
@@ -132,7 +145,6 @@ export default class ImageCropper extends Component {
 
 			const image = await new Promise((resolve, reject) => {
 				const image = new Image()
-				image.crossOrigin = 'Anonymous'
 				image.onload = () => {
 					resolve(image)
 				}
@@ -217,7 +229,6 @@ export default class ImageCropper extends Component {
 					cropSrc && (
 						<StyledReactCrop loading={loading} tapToCrop={tapToCrop}>
 							<ReactCrop
-								crossorigin="Anonymous"
 								ref={cropper => (this.cropper = cropper)}
 								keepSelection={true}
 								onImageLoaded={this.onImageLoadedFromCropper.bind(this)}

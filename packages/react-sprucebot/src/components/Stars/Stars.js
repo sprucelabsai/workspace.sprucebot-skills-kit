@@ -10,28 +10,34 @@ export default class Stars extends Component {
 		}
 	}
 	onClickStar(score, e) {
-		this.setState(prevState => {
-			if (prevState.score !== score) {
-				if (this.props.onChange) {
-					this.props.onChange(score, e)
+		if (!this.props.static) {
+			this.setState(prevState => {
+				if (prevState.score !== score) {
+					if (this.props.onChange) {
+						this.props.onChange(score, e)
+					}
+					return {
+						score
+					}
 				}
-				return {
-					score
-				}
-			}
 
-			return {}
-		})
+				return {}
+			})
+		}
 	}
 	onMouseOverStar(score, e) {
-		this.setState({
-			hover: score
-		})
+		if (!this.props.static) {
+			this.setState({
+				hover: score
+			})
+		}
 	}
 	onMouseLeave(e) {
-		this.setState({
-			hover: 0
-		})
+		if (!this.props.static) {
+			this.setState({
+				hover: 0
+			})
+		}
 	}
 	render() {
 		const props = Object.assign({}, this.props)
@@ -88,5 +94,6 @@ Stars.propTypes = {
 Stars.defaultProps = {
 	max: 5,
 	score: 0,
+	static: false,
 	onChange: (score, e) => {}
 }
