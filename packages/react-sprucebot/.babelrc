@@ -8,5 +8,6 @@
     "transform-object-rest-spread",
     ["babel-plugin-styled-components", {
     "ssr": true
-  }]]
+  }]],
+  "ignore": ["node_modules"]
 }
