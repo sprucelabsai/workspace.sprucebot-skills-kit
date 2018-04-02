@@ -4,6 +4,7 @@ exports[`it renders 1`] = `
 <div
   className="stars"
   onMouseLeave={[Function]}
+  static={false}
 >
   <div
     className="star "

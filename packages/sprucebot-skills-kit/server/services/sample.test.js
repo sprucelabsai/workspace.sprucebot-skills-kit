@@ -2,7 +2,6 @@
 // You can delete sample.js and sample.test.js from your skill before production
 
 import * as SampleService from './sample'
-import { expect } from 'chai'
 
 describe('SampleService', () => {
 	beforeEach(() => {
@@ -31,10 +30,10 @@ describe('SampleService', () => {
 	})
 	it('should getSomeMetas', () => {
 		let metas = SampleService.getSomeMetas('sampleKey')
-		expect(metas.value).to.eq('sampleMeta')
+		expect(metas.value).toEqual('sampleMeta')
 	})
 	it('should getSomeDatabaseCount', () => {
 		let count = SampleService.getSomeDatabaseCount()
-		expect(count).to.eq(100)
+		expect(count).toEqual(100)
 	})
 })
