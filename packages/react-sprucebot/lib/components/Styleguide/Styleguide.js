@@ -114,7 +114,6 @@ var _Error = require('../Error/Error');
 
 var _Error2 = _interopRequireDefault(_Error);
 
-<<<<<<< HEAD
 var _Icon = require('../Icon/Icon');
 
 var _Icon2 = _interopRequireDefault(_Icon);
@@ -126,11 +125,10 @@ var _IconButton2 = _interopRequireDefault(_IconButton);
 var _ControlButton = require('../ControlButton/ControlButton');
 
 var _ControlButton2 = _interopRequireDefault(_ControlButton);
-=======
+
 var _index = require('../../skillskit/index');
 
 var _index2 = _interopRequireDefault(_index);
->>>>>>> 1388e31b3cb6466e1cddc6ea41eda697f7a0bc46
 
 var _FormExample = require('./FormExample');
 
