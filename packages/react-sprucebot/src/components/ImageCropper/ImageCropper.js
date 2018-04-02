@@ -7,7 +7,10 @@ import ReactCrop, { makeAspectCrop, getPixelCrop } from 'react-image-crop'
 import getOrientedImage from 'exif-orientation-image'
 import styled from 'styled-components'
 import SubmitWrapper from '../SubmitWrapper/SubmitWrapper'
-import toBlob from 'blueimp-canvas-to-blob'
+import ExecutionEnvironment from 'exenv'
+if (ExecutionEnvironment.canUseDOM) {
+	require('blueimp-canvas-to-blob')
+}
 
 export default class ImageCropper extends Component {
 	constructor(props) {
