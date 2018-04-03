@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.2.1"></a>
+## [6.2.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.2.0...v6.2.1) (2018-04-03)
+
+
+### Bug Fixes
+
+* **SB-792:** can upload a new image for ios 9 ([#40](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/40)) ([e4a8c07](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e4a8c07))
+
+
+
+
+
 <a name="6.2.0"></a>
 # [6.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.1.0...v6.2.0) (2018-03-28)
 
