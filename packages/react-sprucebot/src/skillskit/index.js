@@ -24,14 +24,14 @@ export default {
 			return bottom
 		}
 
-		Array.from(window.document.querySelectorAll('.container, .dialog')).forEach(
-			container => {
-				let bottom = getBottom(container) + 20
-				if (bottom > height) {
-					height = bottom
-				}
+		Array.from(
+			window.document.querySelectorAll('.container, .dialog_underlay')
+		).forEach(container => {
+			let bottom = getBottom(container)
+			if (bottom > height) {
+				height = bottom
 			}
-		)
+		})
 
 		if (height != this.height) {
 			this.height = height

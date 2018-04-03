@@ -29,8 +29,8 @@ exports.default = {
 			return bottom;
 		}
 
-		Array.from(window.document.querySelectorAll('.container, .dialog')).forEach(function (container) {
-			var bottom = getBottom(container) + 20;
+		Array.from(window.document.querySelectorAll('.container, .dialog_underlay')).forEach(function (container) {
+			var bottom = getBottom(container);
 			if (bottom > height) {
 				height = bottom;
 			}
