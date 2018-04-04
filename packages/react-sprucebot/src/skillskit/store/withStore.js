@@ -19,7 +19,7 @@ const required = name => {
 	throw new Error(`${name} is required to createStore`)
 }
 
-function createStore({ reducers = {}, config }) {
+export function createStore({ reducers = {}, config }) {
 	return initialState => {
 		// Allow for redux debugger
 		// https://github.com/zalmoxisus/redux-devtools-extension#usage
@@ -35,8 +35,9 @@ function createStore({ reducers = {}, config }) {
 			applyMiddleware(thunk, clientApiMiddleware(client), loggerMiddleware())
 		)
 
+		const allReducers = { ...coreReducers, ...reducers }
 		const store = createRedux(
-			combineReducers(reducers),
+			combineReducers(allReducers),
 			{
 				...initialState,
 				config
@@ -89,11 +90,9 @@ export default function withStore(Component, { actions, reducers, config }) {
 		}
 	}
 
-	const allReducers = { ...coreReducers, ...reducers }
-
 	return withRedux({
 		createStore: createStore({
-			reducers: allReducers,
+			reducers,
 			config
 		}),
 		storeKey: '__SPRUCEBOT_SKILL_STORE__',

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+exports.createStore = createStore;
 exports.default = withStore;
 
 var _react = require('react');
@@ -65,7 +66,8 @@ function createStore(_ref) {
 		});
 		var enhancer = composeEnhancers((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _clientApiMiddleware2.default)(client), (0, _loggerMiddleware2.default)()));
 
-		var store = (0, _redux.createStore)((0, _redux.combineReducers)(reducers), _extends({}, initialState, {
+		var allReducers = _extends({}, _reducers2.default, reducers);
+		var store = (0, _redux.createStore)((0, _redux.combineReducers)(allReducers), _extends({}, initialState, {
 			config: config
 		}), enhancer);
 
@@ -118,11 +120,9 @@ function withStore(Component, _ref2) {
 		};
 	};
 
-	var allReducers = _extends({}, _reducers2.default, reducers);
-
 	return (0, _nextReduxWrapper2.default)({
 		createStore: createStore({
-			reducers: allReducers,
+			reducers: reducers,
 			config: config
 		}),
 		storeKey: '__SPRUCEBOT_SKILL_STORE__',

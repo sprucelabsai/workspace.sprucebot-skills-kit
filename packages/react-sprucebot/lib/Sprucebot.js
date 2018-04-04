@@ -147,6 +147,10 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Sprucebot = _extends({
+	testUtils: {
+		// Prevent confusion between withStore and createStore
+		createStore: _withStore.createStore
+	},
 	lang: _lang2.default,
 	skill: _skillskit2.default,
 	_document: _document3.default,

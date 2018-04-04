@@ -76,7 +76,7 @@ So you've got your `server` side `routes` setup and want to make some calls. You
  * Dispatch the `action` in `componentDidMount`
 
 ## Actions
-This is how you change state in your app. They are stored in `interface/store/actions`.In most cases, it means making an `https` request. We'll use the Shopify sync example from `server`. All `https` requests are made using the [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) library under the hood. Everything is a passthrough.
+This is how you change state in your app. They are stored in `interface/store/actions`.In most cases, it means making an `https` request. We'll use the Shopify sync example from `server`. All `https` requests are made using the [axios](https://github.com/axios/axios) library under the hood. Everything is a passthrough.
 
 All actions need 3 states, `REQUEST`, `SUCCESS`, `ERROR`. They are all used and the state being set is handled for you (though you'll still need to reduce the state changes).
 
