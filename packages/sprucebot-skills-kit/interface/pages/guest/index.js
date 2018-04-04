@@ -1,6 +1,7 @@
 import React from 'react'
-import Page from '../../containers/Page'
 import { Container, H1, BotText, Paragraph as P } from 'react-sprucebot'
+
+import Page from '../../containers/Page'
 
 class GuestPage extends React.Component {
 	static getInitialProps({ store }) {

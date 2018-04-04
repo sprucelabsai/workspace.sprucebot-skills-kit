@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import axios from 'axios'
 import https from 'https'
 import http from 'http'
 import qs from 'qs'
@@ -33,7 +33,7 @@ class ApiClient {
 							const agent = new https.Agent({
 								rejectUnauthorized: false
 							})
-							fetchOptions.agent = agent
+							fetchOptions.httpsAgent = agent
 						}
 
 						if (this.jwt) {
@@ -51,10 +51,15 @@ class ApiClient {
 						}
 
 						// Start network request
-						const response = await fetch(fetchUrl, fetchOptions)
-						const json = await response.json()
-						if (!response.ok) {
-							console.log('Request not okay', response.status, json)
+						const response = await axios(fetchUrl, fetchOptions)
+						const json = response.data
+						if (response.status >= 400) {
+							console.log(
+								'Request not okay',
+								response.status,
+								response.statusText,
+								json
+							)
 							return reject(json)
 						}
 

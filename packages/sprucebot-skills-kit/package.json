@@ -35,7 +35,6 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.1",
     "eslint-plugin-react": "^7.4.0",
-    "isomorphic-fetch": "^2.2.1",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "moment-timezone": "^0.5.14",
@@ -64,6 +63,7 @@
     "jest": "^22.0.5",
     "jest-cli": "^22.0.5",
     "jest-styled-components": "^5.0.0",
+    "nock": "^9.2.3",
     "prettier": "^1.7.4",
     "raf": "^3.4.0",
     "svgo": "^1.0.3"
