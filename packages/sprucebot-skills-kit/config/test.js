@@ -12,17 +12,17 @@ try {
 
 module.exports = {
 	DEV_MODE: false,
-	API_HOST: 'http://localhost-api',
+	API_HOST: 'https://localhost-api',
 	API_KEY: 'womp',
-	SKILL_STYLESHEET: 'http://localhost/skill.css',
+	SKILL_STYLESHEET: 'https://localhost/skill.css',
 	ID: 'xxx',
 	NAME: 'Running unit tests',
 	SLUG: 'jest-run-test',
 	DESCRIPTION: 'Just running my Jest tests',
 	PORT: 9000,
-	SERVER_HOST: 'http://localhost-server',
+	SERVER_HOST: 'https://localhost',
 	VIMEO_ID: 'xxx',
-	INTERFACE_HOST: 'http://localhost-interface',
+	INTERFACE_HOST: 'https://localhost',
 	INTERFACE_SSL_ALLOW_SELF_SIGNED: false,
 	API_SSL_ALLOW_SELF_SIGNED: false
 }

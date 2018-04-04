@@ -32,10 +32,14 @@ import * as Tabs from './components/Tabs/Tabs'
 import skill from './skillskit'
 import _document from './skillskit/next/_document'
 import Page from './skillskit/next/Page'
-import withStore from './skillskit/store/withStore'
+import withStore, { createStore } from './skillskit/store/withStore'
 import lang from './skillskit/helpers/lang'
 
 const Sprucebot = {
+	testUtils: {
+		// Prevent confusion between withStore and createStore
+		createStore
+	},
 	lang,
 	skill,
 	_document,

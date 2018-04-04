@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'enzyme'
 
-import Index from './index'
+import Index from '../../pages/index'
 
 test('renders page with styleguide', () => {
 	const tree = render(<Index />)
