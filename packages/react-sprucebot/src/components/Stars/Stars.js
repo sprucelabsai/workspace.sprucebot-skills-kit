@@ -40,8 +40,7 @@ export default class Stars extends Component {
 		}
 	}
 	render() {
-		const props = Object.assign({}, this.props)
-		const { max, onChange } = props
+		const { max, onChange } = this.props
 		let { score, hover } = this.state
 
 		// just round for score until halves are possible
@@ -50,10 +49,6 @@ export default class Stars extends Component {
 		if (hover > 0) {
 			score = hover
 		}
-
-		delete props.score
-		delete props.max
-		delete props.onChange
 
 		const stars = []
 		for (let idx = 1; idx <= max; idx++) {
@@ -74,7 +69,6 @@ export default class Stars extends Component {
 		return (
 			<div
 				className="stars"
-				{...props}
 				onMouseLeave={e => {
 					this.onMouseLeave(e)
 				}}
@@ -88,7 +82,8 @@ export default class Stars extends Component {
 Stars.propTypes = {
 	score: PropTypes.number,
 	max: PropTypes.number,
-	onChange: PropTypes.func
+	onChange: PropTypes.func,
+	static: PropTypes.bool
 }
 
 Stars.defaultProps = {
