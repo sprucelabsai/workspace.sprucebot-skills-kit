@@ -329,12 +329,12 @@ module.exports = async ({
         =              	Serve            	   =
         ======================================*/
 	// TODO better handling hosting only server or interface
-	koa.listen(port, err => {
+	const server = koa.listen(port, err => {
 		if (err) throw err
 		console.log(
 			` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`
 		)
 	})
 
-	return koa
+	return server
 }
