@@ -34,11 +34,11 @@ exports[`renders page with styleguide 1`] = `
     >
       Hello 🌲 Sprucebot 🌲 Developer!
     </h1>
-    <p
+    <div
       class="BotText-s1aw735w-0 bot__text gicUIk"
     >
       Use the Styleguide below to get a jump start. For a proper introduction, see "./docs/README.md" in your project.
-    </p>
+    </div>
   </div>
   <div>
     <h1
@@ -49,11 +49,11 @@ exports[`renders page with styleguide 1`] = `
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         All the components you need to build your skill are available in the 'react-sprucebot' module. Any modules you create yourself are subject to rejection from the Skills Marketplace.
-      </p>
+      </div>
       <pre
         class="Pre-s1a0pq3k-0 dHESOH"
       >
@@ -101,11 +101,11 @@ exports[`renders page with styleguide 1`] = `
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         Notice the use of the Component with a capitalized tag, e.g. 'H' vs 'h'. This is intentional and is actively enforced.
-      </p>
+      </div>
       <h1
         class="Typography__H1-s141trq-1 cblwbP"
       >
@@ -197,11 +197,11 @@ exports[`renders page with styleguide 1`] = `
       >
         &lt;SectionHeading&gt;Section Heading&lt;/SectionHeading&gt;
       </pre>
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         Use SectionHeading to break up sections of your page and to label forms, similar to a fieldset.
-      </p>
+      </div>
     </div>
     <h1
       class="Typography__H1-s141trq-1 cblwbP"
@@ -236,11 +236,11 @@ exports[`renders page with styleguide 1`] = `
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         I'm some bot text. I'm great for quick hints, tips, shout outs, etc. This text comes right from Sprucebot, so make sure it's on brand.
-      </p>
+      </div>
       <pre
         class="Pre-s1a0pq3k-0 dHESOH"
       >
@@ -284,11 +284,11 @@ exports[`renders page with styleguide 1`] = `
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         Avatars usually go next to users when output in a list. Adding the "top" property will make it big and center. Great for the tops of profile or dashboard pages.
-      </p>
+      </div>
       <div
         class="Avatar-dlsm6o-0 top__avatar jbkXms"
       />
@@ -437,11 +437,11 @@ exports[`renders page with styleguide 1`] = `
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         Loaders can be dark or light. Default, they are dark. But, if you need to put a loader on a dark dark background, set dark=.
-      </p>
+      </div>
       <span
         class="loader_wrapper"
         style="display:block;margin:20px;text-align:center"
@@ -560,7 +560,7 @@ exports[`renders page with styleguide 1`] = `
       <form
         class="Form-u8jhv9-0 Form cRDFHA"
       >
-        <p
+        <div
           class="BotText-s1aw735w-0 bot__text gicUIk"
         >
           Using 
@@ -571,7 +571,7 @@ exports[`renders page with styleguide 1`] = `
             redux-form
           </a>
            makes it easy to validate form state and handle server side errors on form submission. Go ahead, try out the example:
-        </p>
+        </div>
         <h2
           class="Typography__SectionHeading-s141trq-8 profile__subtitle gAZGdv"
         >
@@ -673,11 +673,11 @@ exports[`renders page with styleguide 1`] = `
         >
           Basic Form Submission
         </h2>
-        <p
+        <div
           class="BotText-s1aw735w-0 bot__text gicUIk"
         >
           Notice you pass the form an \`initialValues\` which sets default values for the form. When a user submits the form is your chance to persist those values to your server and other reducers. When the \`onSubmit\` is executed, you can expect that client side validations have ran.
-        </p>
+        </div>
         <pre
           class="Pre-s1a0pq3k-0 dHESOH"
         >
@@ -771,11 +771,11 @@ export default reduxForm({
       >
         A Friend List
       </h2>
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         Lists are very useful for showing guests, teammates, etc.
-      </p>
+      </div>
       <div
         class="List-s15prkdz-0 List item__list bkLHAA"
       >
@@ -886,11 +886,11 @@ export default reduxForm({
       >
         A Flexible List!
       </h2>
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         But, lists can do more than that! Actually, a LOT more than that!
-      </p>
+      </div>
       <div
         class="List-s15prkdz-0 List item__list bkLHAA"
       >
@@ -1062,11 +1062,11 @@ export default reduxForm({
           <div
             class="tap__pane"
           >
-            <p
+            <div
               class="BotText-s1aw735w-0 bot__text gicUIk"
             >
               Tabs are fantastic! You can use them so easily!
-            </p>
+            </div>
           </div>
         </div>
       </div>
@@ -1094,11 +1094,11 @@ export default reduxForm({
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         LinkPile's are great for dashboards or control panels. It shrinks the margin between buttons to make them look more cohesive.
-      </p>
+      </div>
       <h2
         class="Typography__SectionHeading-s141trq-8 profile__subtitle gAZGdv"
       >
@@ -1153,11 +1153,11 @@ export default reduxForm({
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         The pager is pretty simple. It will track your page (zero based), but you'll need to implement \`onChange\`\` to make your API requests. Also, don't forget to add \`totalPages\`.
-      </p>
+      </div>
       <ul
         class="pager"
       >
@@ -1338,11 +1338,11 @@ export default reduxForm({
       >
         Select Your Options
       </h2>
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         Set the line-height of .btn_grid .btn to control height of button. The text will stay centered.
-      </p>
+      </div>
       <div
         class="ButtonGrid-s119c6nx-0 btn_grid ivLDPO"
       >
@@ -1400,11 +1400,11 @@ export default reduxForm({
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         Please take a moment to rate this rating component.
-      </p>
+      </div>
       <div
         class="stars"
       >
@@ -1433,11 +1433,11 @@ export default reduxForm({
 	}}
 /&gt;
       </pre>
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         You can also make Stars static so the rating cannot be changed!
-      </p>
+      </div>
       <div
         class="stars"
       >
@@ -1475,7 +1475,7 @@ export default reduxForm({
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         Our ImageCropper is currently using 
@@ -1485,7 +1485,7 @@ export default reduxForm({
           react-image-crop
         </a>
         . Tap the button below and give it a shot.
-      </p>
+      </div>
       <div
         class="image_cropper"
       >
@@ -1602,11 +1602,11 @@ export default reduxForm({
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         If you have some information you need to call out (think modal dialog), you can use the &lt;Callout /&gt; component.
-      </p>
+      </div>
       <div>
         <div
           class="callout_underlay off"
@@ -1619,11 +1619,11 @@ export default reduxForm({
           >
             Some important sub-form
           </h2>
-          <p
+          <div
             class="BotText-s1aw735w-0 bot__text gicUIk"
           >
             Things like nested forms or multi-step processes benefit greatly from a callout. It lets you see where you were, but brings focus to what you're about to do.
-          </p>
+          </div>
           <div
             class="List-s15prkdz-0 List item__list bkLHAA"
           >
@@ -1684,11 +1684,11 @@ export default reduxForm({
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         The Feed is used by nearly every Skill to visualize events and facilitate conversation around those events.
-      </p>
+      </div>
       <div
         class="feed__wrapper"
       >
@@ -1707,7 +1707,7 @@ export default reduxForm({
               class="Avatar-dlsm6o-0 top__avatar jbkXms"
             />
           </div>
-          <p
+          <div
             class="BotText-s1aw735w-0 bot__text gicUIk"
           >
             Randy C. has arrived! 💥 This &lt;FeedItem /&gt; has bigAvatar set to true.
@@ -1716,7 +1716,7 @@ export default reduxForm({
             >
               12/30/1999
             </span>
-          </p>
+          </div>
           <div
             class="feed__attachments"
           >
@@ -1765,7 +1765,7 @@ export default reduxForm({
               class="Avatar-dlsm6o-0 avatar__wrapper jbkXms"
             />
           </div>
-          <p
+          <div
             class="BotText-s1aw735w-0 bot__text gicUIk"
           >
             Ryan J. has arrived! 💥 bigAvatar is not true.
@@ -1774,7 +1774,7 @@ export default reduxForm({
             >
               12/31/1999
             </span>
-          </p>
+          </div>
           <div
             class="feed__attachments"
           >
@@ -1851,7 +1851,7 @@ export default reduxForm({
               class="Avatar-dlsm6o-0 avatar__wrapper jbkXms"
             />
           </div>
-          <p
+          <div
             class="BotText-s1aw735w-0 bot__text gicUIk"
           >
             Shane M. has arrived! 💥 We also added more to this message to demo long alerts.
@@ -1860,7 +1860,7 @@ export default reduxForm({
             >
               01/01/2000
             </span>
-          </p>
+          </div>
           <div
             class="feed__attachments"
           >
@@ -2014,49 +2014,49 @@ export default reduxForm({
           class="training_guide__step on first"
           style="height:0"
         >
-          <p
+          <div
             class="BotText-s1aw735w-0 bot__text gicUIk"
           >
             <span>
               This is a training guide.
             </span>
-          </p>
+          </div>
         </div>
         <div
           class="training_guide__step off "
           style="height:0"
         >
-          <p
+          <div
             class="BotText-s1aw735w-0 bot__text gicUIk"
           >
             <span>
               It "guides" you through many steps.
             </span>
-          </p>
+          </div>
         </div>
         <div
           class="training_guide__step off "
           style="height:0"
         >
-          <p
+          <div
             class="BotText-s1aw735w-0 bot__text gicUIk"
           >
             <span>
               One at a time
             </span>
-          </p>
+          </div>
         </div>
         <div
           class="training_guide__step off "
           style="height:0"
         >
-          <p
+          <div
             class="BotText-s1aw735w-0 bot__text gicUIk"
           >
             <span>
               and the last one shows a done.
             </span>
-          </p>
+          </div>
         </div>
         <div>
           <button
@@ -2084,49 +2084,49 @@ export default reduxForm({
             class="training_guide__step on first"
             style="height:0"
           >
-            <p
+            <div
               class="BotText-s1aw735w-0 bot__text gicUIk"
             >
               <span>
                 This is an onboarding component.
               </span>
-            </p>
+            </div>
           </div>
           <div
             class="training_guide__step off "
             style="height:0"
           >
-            <p
+            <div
               class="BotText-s1aw735w-0 bot__text gicUIk"
             >
               <span>
                 It has a heading
               </span>
-            </p>
+            </div>
           </div>
           <div
             class="training_guide__step off "
             style="height:0"
           >
-            <p
+            <div
               class="BotText-s1aw735w-0 bot__text gicUIk"
             >
               <span>
                 And "guides" you through the steps like the TrainingGuide
               </span>
-            </p>
+            </div>
           </div>
           <div
             class="training_guide__step off "
             style="height:0"
           >
-            <p
+            <div
               class="BotText-s1aw735w-0 bot__text gicUIk"
             >
               <span>
                 You can also change the label of the done button.
               </span>
-            </p>
+            </div>
           </div>
           <div>
             <button
@@ -2162,11 +2162,11 @@ export default reduxForm({
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         Dialogs are always shown modally. So, you can use them as alerts, confirmation dialogs, popups, etc.
-      </p>
+      </div>
       <div
         class="List-s15prkdz-0 List item__list bkLHAA"
       >
@@ -2246,11 +2246,11 @@ export default reduxForm({
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <p
+      <div
         class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         This method allows the user to scroll to any position they want.  The default is to the top of the page, but the user can pass in a number or component using ReactDOM to find the ref's offsetTop as well
-      </p>
+      </div>
       <button
         class="btn "
         type="button"

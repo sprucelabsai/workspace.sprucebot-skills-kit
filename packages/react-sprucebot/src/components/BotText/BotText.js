@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const BotText = styled.p.attrs({
+const BotText = styled.div.attrs({
 	className: 'bot__text'
 })`
 	word-wrap: break-word;
