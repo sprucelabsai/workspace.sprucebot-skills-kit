@@ -10,11 +10,11 @@ exports[`renders owner page snapshot 1`] = `
     >
       Welcome back Shane!
     </h1>
-    <p
+    <div
       class="BotText-s1aw735w-0 bot__text gicUIk"
     >
       You are at Spruce Labs as we speak! That's so cool! 🙌🏼
-    </p>
+    </div>
     <h2
       class="Typography__SectionHeading-s141trq-8 profile__subtitle gAZGdv"
     >

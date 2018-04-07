@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -82,9 +80,9 @@ var Stars = function (_Component) {
 		value: function render() {
 			var _this3 = this;
 
-			var props = Object.assign({}, this.props);
-			var max = props.max,
-			    onChange = props.onChange;
+			var _props = this.props,
+			    max = _props.max,
+			    onChange = _props.onChange;
 			var _state = this.state,
 			    score = _state.score,
 			    hover = _state.hover;
@@ -96,10 +94,6 @@ var Stars = function (_Component) {
 			if (hover > 0) {
 				score = hover;
 			}
-
-			delete props.score;
-			delete props.max;
-			delete props.onChange;
 
 			var stars = [];
 
@@ -122,13 +116,12 @@ var Stars = function (_Component) {
 
 			return _react2.default.createElement(
 				'div',
-				_extends({
-					className: 'stars'
-				}, props, {
+				{
+					className: 'stars',
 					onMouseLeave: function onMouseLeave(e) {
 						_this3.onMouseLeave(e);
 					}
-				}),
+				},
 				stars
 			);
 		}
@@ -143,7 +136,8 @@ exports.default = Stars;
 Stars.propTypes = {
 	score: _propTypes2.default.number,
 	max: _propTypes2.default.number,
-	onChange: _propTypes2.default.func
+	onChange: _propTypes2.default.func,
+	static: _propTypes2.default.bool
 };
 
 Stars.defaultProps = {
