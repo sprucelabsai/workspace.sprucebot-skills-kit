@@ -282,7 +282,7 @@ exports[`FormExample it renders 1`] = `
                     onSubmit={[Function]}
                   >
                     <BotText>
-                      <p
+                      <div
                         className="BotText-s1aw735w-0 bot__text gicUIk"
                       >
                         Using
@@ -295,7 +295,7 @@ exports[`FormExample it renders 1`] = `
                         </a>
                          
                         makes it easy to validate form state and handle server side errors on form submission. Go ahead, try out the example:
-                      </p>
+                      </div>
                     </BotText>
                     <Typography__SectionHeading>
                       <h2
@@ -2094,11 +2094,11 @@ exports[`FormExample it renders 1`] = `
                       </h2>
                     </Typography__SectionHeading>
                     <BotText>
-                      <p
+                      <div
                         className="BotText-s1aw735w-0 bot__text gicUIk"
                       >
                         Notice you pass the form an \`initialValues\` which sets default values for the form. When a user submits the form is your chance to persist those values to your server and other reducers. When the \`onSubmit\` is executed, you can expect that client side validations have ran.
-                      </p>
+                      </div>
                     </BotText>
                     <Pre>
                       <pre
