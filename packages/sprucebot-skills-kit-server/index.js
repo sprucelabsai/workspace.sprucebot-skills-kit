@@ -119,6 +119,9 @@ module.exports = async ({
 			util.sb = sprucebot
 		})
 
+		// Add sb to the app context
+		koa.context.sb = sprucebot
+
 		debug('Utilities and services can now reference each other')
 
 		// orm if enabled
@@ -336,5 +339,5 @@ module.exports = async ({
 		)
 	})
 
-	return server
+	return {koa, server}
 }
