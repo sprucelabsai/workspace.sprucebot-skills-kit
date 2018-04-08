@@ -63,7 +63,7 @@ var ApiClient = function () {
 										fetchOptions = {
 											method: method,
 											headers: headers,
-											body: JSON.stringify(body)
+											data: JSON.stringify(body)
 
 											// Allows Node to accept our self signed cert
 										};
