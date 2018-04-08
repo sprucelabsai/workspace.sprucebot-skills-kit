@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.4.0"></a>
+# [6.4.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.3.0...v6.4.0) (2018-04-08)
+
+
+### Bug Fixes
+
+* **SB-966:** remove html and props errors ([#47](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/47)) ([42a3cf4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/42a3cf4))
+
+
+### Features
+
+* **SB-941:** skills kit ships with network mock harness ([2575ca3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2575ca3))
+
+
+
+
+
 <a name="6.3.0"></a>
 # [6.3.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.2.1...v6.3.0) (2018-04-03)
 
