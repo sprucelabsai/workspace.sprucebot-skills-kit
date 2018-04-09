@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Client success GET should 200 1`] = `
+Object {
+  "getSuccess": true,
+}
+`;
+
+exports[`GET should 200 1`] = `
+Object {
+  "getSuccess": true,
+}
+`;
