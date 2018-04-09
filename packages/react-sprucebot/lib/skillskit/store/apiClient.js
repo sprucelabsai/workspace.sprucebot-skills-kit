@@ -63,7 +63,7 @@ var ApiClient = function () {
 										fetchOptions = {
 											method: method,
 											headers: headers,
-											data: JSON.stringify(body)
+											data: body
 
 											// Allows Node to accept our self signed cert
 										};
@@ -89,40 +89,42 @@ var ApiClient = function () {
 										}
 
 										// Start network request
-										_context.next = 10;
+										_context.prev = 8;
+										_context.next = 11;
 										return (0, _axios2.default)(fetchUrl, fetchOptions);
 
-									case 10:
+									case 11:
 										response = _context.sent;
 										json = response.data;
 
-										if (!(response.status >= 400)) {
-											_context.next = 15;
-											break;
-										}
-
-										console.log('Request not okay', response.status, response.statusText, json);
-										return _context.abrupt('return', reject(json));
-
-									case 15:
-
 										resolve(json);
-										_context.next = 22;
+										_context.next = 20;
 										break;
 
-									case 18:
-										_context.prev = 18;
-										_context.t0 = _context['catch'](1);
+									case 16:
+										_context.prev = 16;
+										_context.t0 = _context['catch'](8);
 
-										console.error('Response failure', _context.t0);
-										reject(_context.t0);
+										console.log('Request not ok', _context.t0);
+										return _context.abrupt('return', reject(_context.t0.response.data));
+
+									case 20:
+										_context.next = 26;
+										break;
 
 									case 22:
+										_context.prev = 22;
+										_context.t1 = _context['catch'](1);
+
+										console.error('Response failure', _context.t1);
+										reject(_context.t1);
+
+									case 26:
 									case 'end':
 										return _context.stop();
 								}
 							}
-						}, _callee, _this, [[1, 18]]);
+						}, _callee, _this, [[1, 22], [8, 16]]);
 					}));
 
 					return function (_x2, _x3) {
