@@ -25,7 +25,7 @@ class ApiClient {
 						let fetchOptions = {
 							method,
 							headers,
-							data: JSON.stringify(body)
+							data: body
 						}
 
 						// Allows Node to accept our self signed cert
@@ -51,19 +51,14 @@ class ApiClient {
 						}
 
 						// Start network request
-						const response = await axios(fetchUrl, fetchOptions)
-						const json = response.data
-						if (response.status >= 400) {
-							console.log(
-								'Request not okay',
-								response.status,
-								response.statusText,
-								json
-							)
-							return reject(json)
+						try {
+							const response = await axios(fetchUrl, fetchOptions)
+							const json = response.data
+							resolve(json)
+						} catch (error) {
+							console.log('Request not ok', error)
+							return reject(error.response.data)
 						}
-
-						resolve(json)
 					} catch (error) {
 						console.error('Response failure', error)
 						reject(error)
