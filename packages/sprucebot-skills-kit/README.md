@@ -47,6 +47,18 @@ Just before a vip alert is triggered when a `guest` or `teammate` arrives. Honor
 ]
 ```
 
+#### `will-send-training`
+This event can be configured to remind teammates to do something, or if none of the settings are set yet, remind the owner to either finish their settings or turn off the skill. 
+
+**Payload**
+
+```js
+{
+    teammate: ctx.event, // teammate receiving the alert
+    body: String // the message
+}
+```
+
 #### `my-slug:custom-event`
 This is just a placeholder for now, put in yours! Honors `preventDefault`.
 
