@@ -82,10 +82,11 @@ var Input = function (_Component) {
 				if (this._sizeTimeout) {
 					clearTimeout(this._sizeTimeout);
 				}
-
 				this._sizeTimeout = setTimeout(function () {
-					_this2.input.style.transition = _this2._textAreaTransition;
-					_this2.input.style.height = scrollHeight + heightOffset + 'px';
+					if (_this2.input) {
+						_this2.input.style.transition = _this2._textAreaTransition;
+						_this2.input.style.height = scrollHeight + heightOffset + 'px';
+					}
 				}, 250);
 			}
 		}
