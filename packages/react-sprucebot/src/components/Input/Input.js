@@ -49,10 +49,11 @@ export default class Input extends Component {
 			if (this._sizeTimeout) {
 				clearTimeout(this._sizeTimeout)
 			}
-
 			this._sizeTimeout = setTimeout(() => {
-				this.input.style.transition = this._textAreaTransition
-				this.input.style.height = scrollHeight + heightOffset + 'px'
+				if (this.input) {
+					this.input.style.transition = this._textAreaTransition
+					this.input.style.height = scrollHeight + heightOffset + 'px'
+				}
 			}, 250)
 		}
 	}
