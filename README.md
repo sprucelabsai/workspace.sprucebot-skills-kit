@@ -74,3 +74,15 @@ Considering the following commits:
 - `feat(SB-xxx): Add a new method to the public API`
 
 With the previous example the release type determine by the plugin will be `minor`.
+
+### Manual Release Process
+The idea here is we need to rebase the changes in `dev` onto the `master` branch. Since we rely on commit messages in our `semantic-release`, we can't apply a merge commit.
+The recommended flow is as follows assuming `master` is in synch with `dev`.
+
+1. Developer opens a `feat|fix` PR
+1. When the PR is approved, we can either `rebase` or `squash and merge` into `dev`
+    1. Notice a new canary was released via `npm view sprucebot-skills-kit@prerelease`
+1. Once dev is ready, we open a new PR from `dev` into `master`
+1. Rebase `dev` into master, preserving commit messages
+    1. Notice a new release was triggered `npm view sprucebot-skills-kit@latest`
+1. Once `master` has released, rebase `master` back into `dev`
