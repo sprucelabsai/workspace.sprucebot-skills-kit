@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import ReactCrop, { getPixelCrop } from 'react-image-crop'
+
 import BotText from '../BotText/BotText'
-import Loader from '../Loader/Loader'
 import Button from '../Button/Button'
-import ReactCrop, { makeAspectCrop, getPixelCrop } from 'react-image-crop'
+import ExecutionEnvironment from 'exenv'
+import Loader from '../Loader/Loader'
+import PropTypes from 'prop-types'
+import SubmitWrapper from '../SubmitWrapper/SubmitWrapper'
 import getOrientedImage from 'exif-orientation-image'
 import styled from 'styled-components'
-import SubmitWrapper from '../SubmitWrapper/SubmitWrapper'
-import ExecutionEnvironment from 'exenv'
+
 if (ExecutionEnvironment.canUseDOM) {
 	require('blueimp-canvas-to-blob')
 }
@@ -25,7 +27,8 @@ export default class ImageCropper extends Component {
 			tapToCrop: props.tapToCrop,
 			uploading: false,
 			newFile: false,
-			type: props.src ? `image/${props.src.split('.').pop()}` : false
+			type: props.src ? `image/${props.src.split('.').pop()}` : false,
+			aspect: props.crop.aspect
 		}
 	}
 
@@ -102,17 +105,16 @@ export default class ImageCropper extends Component {
 				image.height < image.width ? image.height / 2 : image.width / 2
 			const width = widthHeight / image.width * 100
 			const height = widthHeight / image.height * 100
-			const x = width >= height ? width / 2 : width
-			const y = width <= height ? height / 2 : height
+			crop.width = width
+			crop.height = height
+			crop.x = width >= height ? width / 2 : width
+			crop.y = width <= height ? height / 2 : height
 
+			if (this.state.aspect) {
+				crop.aspect = this.state.aspect
+			}
 			this.setState({
-				crop: {
-					x,
-					y,
-					aspect: 1,
-					width,
-					height
-				},
+				crop,
 				pixelCrop,
 				loading: false
 			})
@@ -331,9 +333,7 @@ ImageCropper.defaultProps = {
 	tapToCropButtonText: 'Tap to Re-Crop',
 	cancelButtonText: 'Cancel Crop',
 	tapToCrop: false,
-	crop: {
-		aspect: 1
-	}
+	crop: {}
 }
 
 const StyledReactCrop = styled.div`
