@@ -10,25 +10,33 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _reactImageCrop = require('react-image-crop');
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _reactImageCrop2 = _interopRequireDefault(_reactImageCrop);
 
 var _BotText = require('../BotText/BotText');
 
 var _BotText2 = _interopRequireDefault(_BotText);
 
-var _Loader = require('../Loader/Loader');
-
-var _Loader2 = _interopRequireDefault(_Loader);
-
 var _Button = require('../Button/Button');
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _reactImageCrop = require('react-image-crop');
+var _exenv = require('exenv');
 
-var _reactImageCrop2 = _interopRequireDefault(_reactImageCrop);
+var _exenv2 = _interopRequireDefault(_exenv);
+
+var _Loader = require('../Loader/Loader');
+
+var _Loader2 = _interopRequireDefault(_Loader);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _SubmitWrapper = require('../SubmitWrapper/SubmitWrapper');
+
+var _SubmitWrapper2 = _interopRequireDefault(_SubmitWrapper);
 
 var _exifOrientationImage = require('exif-orientation-image');
 
@@ -37,14 +45,6 @@ var _exifOrientationImage2 = _interopRequireDefault(_exifOrientationImage);
 var _styledComponents = require('styled-components');
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
-var _SubmitWrapper = require('../SubmitWrapper/SubmitWrapper');
-
-var _SubmitWrapper2 = _interopRequireDefault(_SubmitWrapper);
-
-var _exenv = require('exenv');
-
-var _exenv2 = _interopRequireDefault(_exenv);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -78,7 +78,8 @@ var ImageCropper = function (_Component) {
 			tapToCrop: props.tapToCrop,
 			uploading: false,
 			newFile: false,
-			type: props.src ? 'image/' + props.src.split('.').pop() : false
+			type: props.src ? 'image/' + props.src.split('.').pop() : false,
+			aspect: props.crop.aspect
 		};
 		return _this;
 	}
@@ -167,17 +168,16 @@ var ImageCropper = function (_Component) {
 				var widthHeight = image.height < image.width ? image.height / 2 : image.width / 2;
 				var width = widthHeight / image.width * 100;
 				var height = widthHeight / image.height * 100;
-				var x = width >= height ? width / 2 : width;
-				var y = width <= height ? height / 2 : height;
+				crop.width = width;
+				crop.height = height;
+				crop.x = width >= height ? width / 2 : width;
+				crop.y = width <= height ? height / 2 : height;
 
+				if (this.state.aspect) {
+					crop.aspect = this.state.aspect;
+				}
 				this.setState({
-					crop: {
-						x: x,
-						y: y,
-						aspect: 1,
-						width: width,
-						height: height
-					},
+					crop: crop,
 					pixelCrop: pixelCrop,
 					loading: false
 				});
@@ -439,9 +439,7 @@ ImageCropper.defaultProps = {
 	tapToCropButtonText: 'Tap to Re-Crop',
 	cancelButtonText: 'Cancel Crop',
 	tapToCrop: false,
-	crop: {
-		aspect: 1
-	}
+	crop: {}
 };
 
 var StyledReactCrop = _styledComponents2.default.div.withConfig({
