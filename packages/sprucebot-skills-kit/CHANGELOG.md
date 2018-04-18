@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.5.0"></a>
+# [6.5.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.4.2...v6.5.0) (2018-04-18)
+
+
+### Bug Fixes
+
+* **sb-1361:** imagecropper now respects crop props aspect ([#61](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/61)) ([3025262](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3025262))
+
+
+### Features
+
+* **SB-1323:** force skills dev to implement  will-send-training event ([#55](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/55)) ([a00d8fe](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a00d8fe))
+
+
+
+
+
 <a name="6.4.2"></a>
 ## [6.4.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.4.1...v6.4.2) (2018-04-11)
 
