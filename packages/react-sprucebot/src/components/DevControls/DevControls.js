@@ -11,7 +11,11 @@ class DevControls extends Component {
 		}
 	}
 	onChangeRole(role) {
-		window.location.href = `/dev/${role}/redirect`
+		let href = `/dev/${role}/redirect`
+		if (role === 'public') {
+			href = `/public`
+		}
+		window.location.href = href
 	}
 	componentDidMount() {
 		this.setState({
@@ -24,11 +28,7 @@ class DevControls extends Component {
 			return null
 		}
 
-		const props = Object.assign({}, this.props)
-		let { auth } = props
-
-		// cleanup props
-		delete props.auth
+		let { auth, ...props } = this.props
 
 		//easy bail if not auth'ed
 		if (!auth || auth.error || !auth.role) {
@@ -49,6 +49,7 @@ class DevControls extends Component {
 					<option value="owner">Owner</option>
 					<option value="teammate">Teammate</option>
 					<option value="guest">Guest</option>
+					<option value="public">Public</option>
 				</Select>
 			</div>
 		)
