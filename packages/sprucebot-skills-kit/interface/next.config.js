@@ -13,14 +13,6 @@ function client(webpack, options) {
 	const clientConfig = config.sanitizeClientConfig({ ...config })
 	// Export our whitelisted config for the client bundle
 	fs.writeFileSync(jsonPath, JSON.stringify(clientConfig))
-	webpack.plugins = webpack.plugins.filter(plugin => {
-		// DEV_MODE=true configures the the nextjs `dev` value
-		if (config.dev && plugin.constructor.name === 'UglifyJsPlugin') {
-			return false
-		} else {
-			return true
-		}
-	})
 
 	webpack.resolve = {
 		alias: {
