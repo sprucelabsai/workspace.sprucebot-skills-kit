@@ -4,6 +4,7 @@ module.exports = {
     ],
     rules: {
         'scope-case': [0],
-        'subject-case': [2, 'always', ['sentence-case', 'lower-case']]
+        'subject-case': [1, 'always', ['sentence-case', 'lower-case']],
+        'header-max-length': [1, 'always', 72]
     }
 }
