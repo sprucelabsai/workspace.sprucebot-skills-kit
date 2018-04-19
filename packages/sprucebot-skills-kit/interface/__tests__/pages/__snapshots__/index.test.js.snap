@@ -1031,11 +1031,9 @@ export default reduxForm({
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <div
-        class="tabs__container "
-      >
+      <div>
         <div
-          class="tabs"
+          class="toggle__wrapper"
         >
           <button
             class="btn__toggle toggle__left"
