@@ -1,19 +1,21 @@
 import React from 'react'
-import Page from '../../containers/Page'
-import TeamDashboard from '../../components/TeamDashboard'
 import { Container } from 'react-sprucebot'
 
+import Page from '../../containers/Page'
+import TeamDashboard from '../../components/TeamDashboard'
+import * as users from '../../store/actions/users'
+
 class TeammateDashboard extends React.Component {
-	static getInitialProps(props) {
+	static getInitialProps({ store }) {
+		// load everything
+		store.dispatch(users.guests())
+		store.dispatch(users.teammates())
+
 		return {}
 	}
 
 	componentDidMount() {
 		this.props.skill.ready() // Show the skill
-
-		// load everything
-		this.props.actions.users.guests()
-		this.props.actions.users.teammates()
 	}
 
 	render() {

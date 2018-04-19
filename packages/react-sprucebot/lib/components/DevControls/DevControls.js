@@ -24,6 +24,8 @@ var _Select2 = _interopRequireDefault(_Select);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -47,7 +49,11 @@ var DevControls = function (_Component) {
 	_createClass(DevControls, [{
 		key: 'onChangeRole',
 		value: function onChangeRole(role) {
-			window.location.href = '/dev/' + role + '/redirect';
+			var href = '/dev/' + role + '/redirect';
+			if (role === 'public') {
+				href = '/public';
+			}
+			window.location.href = href;
 		}
 	}, {
 		key: 'componentDidMount',
@@ -64,14 +70,13 @@ var DevControls = function (_Component) {
 				return null;
 			}
 
-			var props = Object.assign({}, this.props);
-			var auth = props.auth;
-
-			// cleanup props
-
-			delete props.auth;
+			var _props = this.props,
+			    auth = _props.auth,
+			    props = _objectWithoutProperties(_props, ['auth']);
 
 			//easy bail if not auth'ed
+
+
 			if (!auth || auth.error || !auth.role) {
 				return _react2.default.createElement(
 					'div',
@@ -110,6 +115,11 @@ var DevControls = function (_Component) {
 						'option',
 						{ value: 'guest' },
 						'Guest'
+					),
+					_react2.default.createElement(
+						'option',
+						{ value: 'public' },
+						'Public'
 					)
 				)
 			);

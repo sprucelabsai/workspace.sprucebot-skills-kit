@@ -10,7 +10,7 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var BotText = _styledComponents2.default.p.attrs({
+var BotText = _styledComponents2.default.div.attrs({
 	className: 'bot__text'
 }).withConfig({
 	displayName: 'BotText',
