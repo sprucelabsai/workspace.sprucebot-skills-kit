@@ -10,33 +10,41 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _reactImageCrop = require('react-image-crop');
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _reactImageCrop2 = _interopRequireDefault(_reactImageCrop);
 
 var _BotText = require('../BotText/BotText');
 
 var _BotText2 = _interopRequireDefault(_BotText);
 
-var _Loader = require('../Loader/Loader');
-
-var _Loader2 = _interopRequireDefault(_Loader);
-
 var _Button = require('../Button/Button');
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _reactImageCrop = require('react-image-crop');
+var _exenv = require('exenv');
 
-var _reactImageCrop2 = _interopRequireDefault(_reactImageCrop);
+var _exenv2 = _interopRequireDefault(_exenv);
 
-var _styledComponents = require('styled-components');
+var _Loader = require('../Loader/Loader');
 
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
+var _Loader2 = _interopRequireDefault(_Loader);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _SubmitWrapper = require('../SubmitWrapper/SubmitWrapper');
 
 var _SubmitWrapper2 = _interopRequireDefault(_SubmitWrapper);
+
+var _exifOrientationImage = require('exif-orientation-image');
+
+var _exifOrientationImage2 = _interopRequireDefault(_exifOrientationImage);
+
+var _styledComponents = require('styled-components');
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47,6 +55,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+if (_exenv2.default.canUseDOM) {
+	require('blueimp-canvas-to-blob');
+}
 
 var ImageCropper = function (_Component) {
 	_inherits(ImageCropper, _Component);
@@ -66,7 +78,8 @@ var ImageCropper = function (_Component) {
 			tapToCrop: props.tapToCrop,
 			uploading: false,
 			newFile: false,
-			type: props.src ? 'image/' + props.src.split('.').pop() : false
+			type: props.src ? 'image/' + props.src.split('.').pop() : false,
+			aspect: props.crop.aspect
 		};
 		return _this;
 	}
@@ -94,14 +107,22 @@ var ImageCropper = function (_Component) {
 	}, {
 		key: 'onChange',
 		value: function onChange(e) {
+			var _this2 = this;
+
 			var file = e.target.files[0];
 			if (!file.type.match('image.*')) {
 				alert(this.props.badImageMessage);
 				return;
 			}
 
-			this.setState({ changed: true, newFile: true });
-			this.reader.readAsDataURL(file);
+			(0, _exifOrientationImage2.default)(file, function (err, canvas) {
+				if (!err) {
+					_this2.setState({ changed: true, newFile: true });
+					canvas.toBlob(function (blob) {
+						return _this2.reader.readAsDataURL(blob);
+					});
+				}
+			});
 		}
 	}, {
 		key: 'onFileReaderLoadImage',
@@ -125,6 +146,14 @@ var ImageCropper = function (_Component) {
 	}, {
 		key: 'onCropChange',
 		value: function onCropChange(crop, pixelCrop) {
+			var maxWidth = window.innerWidth - 20;
+			var maxHeight = window.innerHeight - 20;
+			var x = window.event.x;
+			var y = window.event.y;
+
+			if (x > maxWidth || x < 20 || y < 20 || y > maxHeight) {
+				this.cropper.onDocMouseTouchEnd();
+			}
 			this.setState({ crop: crop, pixelCrop: pixelCrop, changed: true });
 		}
 	}, {
@@ -135,21 +164,20 @@ var ImageCropper = function (_Component) {
 				return;
 			} else {
 				var crop = this.state.crop;
-				var pixelCrop = this.cropper.getPixelCrop(crop);
+				var pixelCrop = (0, _reactImageCrop.getPixelCrop)(image, crop);
 				var widthHeight = image.height < image.width ? image.height / 2 : image.width / 2;
 				var width = widthHeight / image.width * 100;
 				var height = widthHeight / image.height * 100;
-				var x = width >= height ? width / 2 : width;
-				var y = width <= height ? height / 2 : height;
+				crop.width = width;
+				crop.height = height;
+				crop.x = width >= height ? width / 2 : width;
+				crop.y = width <= height ? height / 2 : height;
 
+				if (this.state.aspect) {
+					crop.aspect = this.state.aspect;
+				}
 				this.setState({
-					crop: {
-						x: x,
-						y: y,
-						aspect: 1,
-						width: width,
-						height: height
-					},
+					crop: crop,
 					pixelCrop: pixelCrop,
 					loading: false
 				});
@@ -176,7 +204,7 @@ var ImageCropper = function (_Component) {
 		key: 'onSave',
 		value: function () {
 			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-				var _this2 = this;
+				var _this3 = this;
 
 				var _state, pixelCrop, type, image, canvas, ctx, cropped;
 
@@ -204,14 +232,13 @@ var ImageCropper = function (_Component) {
 								_context.next = 8;
 								return new Promise(function (resolve, reject) {
 									var image = new Image();
-									image.crossOrigin = 'Anonymous';
 									image.onload = function () {
 										resolve(image);
 									};
 									image.onerror = function (err) {
 										reject(err);
 									};
-									image.src = _this2.cropper.imageRef.src;
+									image.src = _this3.cropper.imageRef.src;
 								});
 
 							case 8:
@@ -277,7 +304,7 @@ var ImageCropper = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this3 = this;
+			var _this4 = this;
 
 			var _props = this.props,
 			    accept = _props.accept,
@@ -313,9 +340,8 @@ var ImageCropper = function (_Component) {
 					StyledReactCrop,
 					{ loading: loading, tapToCrop: tapToCrop },
 					_react2.default.createElement(_reactImageCrop2.default, {
-						crossorigin: 'Anonymous',
 						ref: function ref(cropper) {
-							return _this3.cropper = cropper;
+							return _this4.cropper = cropper;
 						},
 						keepSelection: true,
 						onImageLoaded: this.onImageLoadedFromCropper.bind(this),
@@ -337,7 +363,7 @@ var ImageCropper = function (_Component) {
 					style: { display: 'none' },
 					type: 'file',
 					ref: function ref(input) {
-						_this3.input = input;
+						_this4.input = input;
 					},
 					accept: accept,
 					onChange: this.onChange.bind(this)
@@ -413,9 +439,7 @@ ImageCropper.defaultProps = {
 	tapToCropButtonText: 'Tap to Re-Crop',
 	cancelButtonText: 'Cancel Crop',
 	tapToCrop: false,
-	crop: {
-		aspect: 1
-	}
+	crop: {}
 };
 
 var StyledReactCrop = _styledComponents2.default.div.withConfig({

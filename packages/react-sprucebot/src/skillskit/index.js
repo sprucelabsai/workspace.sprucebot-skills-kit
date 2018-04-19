@@ -24,14 +24,14 @@ export default {
 			return bottom
 		}
 
-		Array.from(window.document.querySelectorAll('.container, .dialog')).forEach(
-			container => {
-				let bottom = getBottom(container) + 20
-				if (bottom > height) {
-					height = bottom
-				}
+		Array.from(
+			window.document.querySelectorAll('.container, .dialog_underlay')
+		).forEach(container => {
+			let bottom = getBottom(container)
+			if (bottom > height) {
+				height = bottom
 			}
-		)
+		})
 
 		if (height != this.height) {
 			this.height = height
@@ -51,5 +51,8 @@ export default {
 			url: window.location.href
 		})
 		this.resizedInterval = setInterval(this.resized.bind(this), 50)
+	},
+	scrollTo: function(offset) {
+		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 })
 	}
 }

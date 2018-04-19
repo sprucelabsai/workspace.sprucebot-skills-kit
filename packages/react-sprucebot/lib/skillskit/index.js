@@ -29,8 +29,8 @@ exports.default = {
 			return bottom;
 		}
 
-		Array.from(window.document.querySelectorAll('.container, .dialog')).forEach(function (container) {
-			var bottom = getBottom(container) + 20;
+		Array.from(window.document.querySelectorAll('.container, .dialog_underlay')).forEach(function (container) {
+			var bottom = getBottom(container);
 			if (bottom > height) {
 				height = bottom;
 			}
@@ -54,5 +54,8 @@ exports.default = {
 			url: window.location.href
 		});
 		this.resizedInterval = setInterval(this.resized.bind(this), 50);
+	},
+	scrollTo: function scrollTo(offset) {
+		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 });
 	}
 };

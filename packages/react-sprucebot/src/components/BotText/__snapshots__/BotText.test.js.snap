@@ -7,9 +7,9 @@ exports[`it renders 1`] = `
   word-break: break-word;
 }
 
-<p
+<div
   className="bot__text c0"
 >
   Bottext children
-</p>
+</div>
 `;

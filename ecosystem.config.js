@@ -7,8 +7,8 @@ module.exports = {
     {
       name: 'SB Skillskit',
       cwd: './packages/sprucebot-skills-kit',
-      script: 'npm',
-      args: 'run local',
+      script: 'yarn',
+      args: process.env.NODE_ENV === 'production' ? 'run start' : 'run local',
       watch: [
           'server/**'
       ]

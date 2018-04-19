@@ -1,7 +1,7 @@
 {
     "name": "sprucebot-skills-kit-server",
     "description": "The engine that drives your Sprucebot Skill! ⚙️🌲🤖",
-    "version": "3.0.0",
+    "version": "6.4.2",
     "homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
     "bugs": {
         "url": "https://github.com/sprucelabsai/sprucebot-skills-kit/issues"
@@ -28,7 +28,7 @@
         "koa-bodyparser": "^4.2.0",
         "koa-router": "^7.2.1",
         "koa-static": "^4.0.1",
-        "next": "^5.0.0",
+        "next": "^5.1.0",
         "node-cron": "^1.2.1",
         "pg": "^7.4.1",
         "react": "^16.2.0",

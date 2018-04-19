@@ -26,6 +26,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * This input field has been deprecated
+ * Use `InputField` instead
+ */
 var Input = function (_Component) {
 	_inherits(Input, _Component);
 
@@ -37,6 +41,7 @@ var Input = function (_Component) {
 		_this.state = {
 			hasValue: !!(props.value || props.defaultValue)
 		};
+		console.warn('Deprecated Notice: react-sprucebot#Input will be removed in a future verison \n', 'Use {InputField|SelectField|TextArea} along with redux-form');
 		return _this;
 	}
 
@@ -77,20 +82,31 @@ var Input = function (_Component) {
 				if (this._sizeTimeout) {
 					clearTimeout(this._sizeTimeout);
 				}
-
 				this._sizeTimeout = setTimeout(function () {
-					_this2.input.style.transition = _this2._textAreaTransition;
-					_this2.input.style.height = scrollHeight + heightOffset + 'px';
+					if (_this2.input) {
+						_this2.input.style.transition = _this2._textAreaTransition;
+						_this2.input.style.height = scrollHeight + heightOffset + 'px';
+					}
 				}, 250);
+			}
+		}
+	}, {
+		key: 'handleMultiline',
+		value: function handleMultiline(props) {
+			if (props.multiline) {
+				this._textAreaTransition = this.input.style.transition;
+				this.sizeTextarea();
 			}
 		}
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			if (this.props.multiline) {
-				this._textAreaTransition = this.input.style.transition;
-				this.sizeTextarea();
-			}
+			this.handleMultiline(this.props);
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate() {
+			this.handleMultiline(this.props);
 		}
 	}, {
 		key: 'render',

@@ -2,12 +2,20 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Paragraph as P } from '../Typography/Typography'
 
+/**
+ * This input field has been deprecated
+ * Use `InputField` instead
+ */
 export default class Input extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			hasValue: !!(props.value || props.defaultValue)
 		}
+		console.warn(
+			'Deprecated Notice: react-sprucebot#Input will be removed in a future verison \n',
+			'Use {InputField|SelectField|TextArea} along with redux-form'
+		)
 	}
 	onChange(e) {
 		this.setState({
@@ -41,18 +49,25 @@ export default class Input extends Component {
 			if (this._sizeTimeout) {
 				clearTimeout(this._sizeTimeout)
 			}
-
 			this._sizeTimeout = setTimeout(() => {
-				this.input.style.transition = this._textAreaTransition
-				this.input.style.height = scrollHeight + heightOffset + 'px'
+				if (this.input) {
+					this.input.style.transition = this._textAreaTransition
+					this.input.style.height = scrollHeight + heightOffset + 'px'
+				}
 			}, 250)
 		}
 	}
-	componentDidMount() {
-		if (this.props.multiline) {
+	handleMultiline(props) {
+		if (props.multiline) {
 			this._textAreaTransition = this.input.style.transition
 			this.sizeTextarea()
 		}
+	}
+	componentDidMount() {
+		this.handleMultiline(this.props)
+	}
+	componentDidUpdate() {
+		this.handleMultiline(this.props)
 	}
 	render() {
 		const props = Object.assign({}, this.props)

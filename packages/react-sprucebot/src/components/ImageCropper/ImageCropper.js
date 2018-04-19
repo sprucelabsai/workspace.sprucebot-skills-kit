@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import ReactCrop, { getPixelCrop } from 'react-image-crop'
+
 import BotText from '../BotText/BotText'
-import Loader from '../Loader/Loader'
 import Button from '../Button/Button'
-import ReactCrop, { makeAspectCrop } from 'react-image-crop'
-import styled from 'styled-components'
+import ExecutionEnvironment from 'exenv'
+import Loader from '../Loader/Loader'
+import PropTypes from 'prop-types'
 import SubmitWrapper from '../SubmitWrapper/SubmitWrapper'
+import getOrientedImage from 'exif-orientation-image'
+import styled from 'styled-components'
+
+if (ExecutionEnvironment.canUseDOM) {
+	require('blueimp-canvas-to-blob')
+}
 
 export default class ImageCropper extends Component {
 	constructor(props) {
@@ -20,7 +27,8 @@ export default class ImageCropper extends Component {
 			tapToCrop: props.tapToCrop,
 			uploading: false,
 			newFile: false,
-			type: props.src ? `image/${props.src.split('.').pop()}` : false
+			type: props.src ? `image/${props.src.split('.').pop()}` : false,
+			aspect: props.crop.aspect
 		}
 	}
 
@@ -49,8 +57,12 @@ export default class ImageCropper extends Component {
 			return
 		}
 
-		this.setState({ changed: true, newFile: true })
-		this.reader.readAsDataURL(file)
+		getOrientedImage(file, (err, canvas) => {
+			if (!err) {
+				this.setState({ changed: true, newFile: true })
+				canvas.toBlob(blob => this.reader.readAsDataURL(blob))
+			}
+		})
 	}
 
 	onFileReaderLoadImage(e) {
@@ -71,6 +83,14 @@ export default class ImageCropper extends Component {
 	}
 
 	onCropChange(crop, pixelCrop) {
+		const maxWidth = window.innerWidth - 20
+		const maxHeight = window.innerHeight - 20
+		const x = window.event.x
+		const y = window.event.y
+
+		if (x > maxWidth || x < 20 || y < 20 || y > maxHeight) {
+			this.cropper.onDocMouseTouchEnd()
+		}
 		this.setState({ crop, pixelCrop, changed: true })
 	}
 
@@ -80,22 +100,21 @@ export default class ImageCropper extends Component {
 			return
 		} else {
 			const crop = this.state.crop
-			const pixelCrop = this.cropper.getPixelCrop(crop)
+			const pixelCrop = getPixelCrop(image, crop)
 			const widthHeight =
 				image.height < image.width ? image.height / 2 : image.width / 2
 			const width = widthHeight / image.width * 100
 			const height = widthHeight / image.height * 100
-			const x = width >= height ? width / 2 : width
-			const y = width <= height ? height / 2 : height
+			crop.width = width
+			crop.height = height
+			crop.x = width >= height ? width / 2 : width
+			crop.y = width <= height ? height / 2 : height
 
+			if (this.state.aspect) {
+				crop.aspect = this.state.aspect
+			}
 			this.setState({
-				crop: {
-					x,
-					y,
-					aspect: 1,
-					width,
-					height
-				},
+				crop,
 				pixelCrop,
 				loading: false
 			})
@@ -132,7 +151,6 @@ export default class ImageCropper extends Component {
 
 			const image = await new Promise((resolve, reject) => {
 				const image = new Image()
-				image.crossOrigin = 'Anonymous'
 				image.onload = () => {
 					resolve(image)
 				}
@@ -217,7 +235,6 @@ export default class ImageCropper extends Component {
 					cropSrc && (
 						<StyledReactCrop loading={loading} tapToCrop={tapToCrop}>
 							<ReactCrop
-								crossorigin="Anonymous"
 								ref={cropper => (this.cropper = cropper)}
 								keepSelection={true}
 								onImageLoaded={this.onImageLoadedFromCropper.bind(this)}
@@ -316,9 +333,7 @@ ImageCropper.defaultProps = {
 	tapToCropButtonText: 'Tap to Re-Crop',
 	cancelButtonText: 'Cancel Crop',
 	tapToCrop: false,
-	crop: {
-		aspect: 1
-	}
+	crop: {}
 }
 
 const StyledReactCrop = styled.div`

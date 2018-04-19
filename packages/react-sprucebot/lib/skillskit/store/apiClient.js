@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _isomorphicFetch = require('isomorphic-fetch');
+var _axios = require('axios');
 
-var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+var _axios2 = _interopRequireDefault(_axios);
 
 var _https = require('https');
 
@@ -63,7 +63,7 @@ var ApiClient = function () {
 										fetchOptions = {
 											method: method,
 											headers: headers,
-											body: JSON.stringify(body)
+											data: body
 
 											// Allows Node to accept our self signed cert
 										};
@@ -72,7 +72,7 @@ var ApiClient = function () {
 												rejectUnauthorized: false
 											});
 
-											fetchOptions.agent = agent;
+											fetchOptions.httpsAgent = agent;
 										}
 
 										if (_this.jwt) {
@@ -89,44 +89,42 @@ var ApiClient = function () {
 										}
 
 										// Start network request
-										_context.next = 10;
-										return (0, _isomorphicFetch2.default)(fetchUrl, fetchOptions);
+										_context.prev = 8;
+										_context.next = 11;
+										return (0, _axios2.default)(fetchUrl, fetchOptions);
 
-									case 10:
+									case 11:
 										response = _context.sent;
-										_context.next = 13;
-										return response.json();
-
-									case 13:
-										json = _context.sent;
-
-										if (response.ok) {
-											_context.next = 17;
-											break;
-										}
-
-										console.log('Request not okay', response.status, json);
-										return _context.abrupt('return', reject(json));
-
-									case 17:
+										json = response.data;
 
 										resolve(json);
-										_context.next = 24;
+										_context.next = 20;
 										break;
 
+									case 16:
+										_context.prev = 16;
+										_context.t0 = _context['catch'](8);
+
+										console.log('Request not ok', _context.t0);
+										return _context.abrupt('return', reject(_context.t0.response.data));
+
 									case 20:
-										_context.prev = 20;
-										_context.t0 = _context['catch'](1);
+										_context.next = 26;
+										break;
 
-										console.error('Response failure', _context.t0);
-										reject(_context.t0);
+									case 22:
+										_context.prev = 22;
+										_context.t1 = _context['catch'](1);
 
-									case 24:
+										console.error('Response failure', _context.t1);
+										reject(_context.t1);
+
+									case 26:
 									case 'end':
 										return _context.stop();
 								}
 							}
-						}, _callee, _this, [[1, 20]]);
+						}, _callee, _this, [[1, 22], [8, 16]]);
 					}));
 
 					return function (_x2, _x3) {
