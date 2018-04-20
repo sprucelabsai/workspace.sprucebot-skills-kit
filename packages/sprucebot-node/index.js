@@ -21,7 +21,8 @@ class Sprucebot {
 		serverUrl = required('serverUrl'),
 		svgIcon = required('svgIcon'),
 		allowSelfSignedCerts = false,
-		dbEnabled = false
+		dbEnabled = false,
+		eventContract = required('eventContract')
 	}) {
 		const hostMatches = host.match(/^(https?\:\/\/|)([^\/:?#]+)(?:[\/:?#]|$)/i)
 		const cleanedHost =
@@ -37,6 +38,7 @@ class Sprucebot {
 			(interfaceUrl || required('interfaceUrl')) + '/marketing'
 
 		this.dbEnabled = dbEnabled
+		this.eventContract = eventContract
 		this._mutexes = {}
 
 		this.version = '1.0' // maybe pull from package.json?
@@ -64,6 +66,8 @@ class Sprucebot {
 	 * Sync the settings saved here with specified host (including name,)
 	 */
 	async sync() {
+		this.validateEventContract(this.eventContract)
+
 		const data = {
 			name: this.name,
 			description: this.description,
@@ -71,7 +75,8 @@ class Sprucebot {
 			webhookUrl: this.webhookUrl,
 			iframeUrl: this.iframeUrl,
 			marketingUrl: this.marketingUrl,
-			publicUrl: this.publicUrl
+			publicUrl: this.publicUrl,
+			eventContract: this.eventContract
 		}
 		const results = await this.https.patch('/', data)
 		let database = null
@@ -452,6 +457,26 @@ class Sprucebot {
 				//otherwise resolve the next promise
 				this._mutexes[key].resolvers[0]()
 			}
+		}
+	}
+
+	validateEventContract(eventContract) {
+		if (
+			!eventContract ||
+			!eventContract.events ||
+			!eventContract.events.publish ||
+			!eventContract.events.subscribe
+		) {
+			console.warn(
+				'⚠️  The event contract is invalid.  Check your config/default.js file.  The "eventContracts" key must be of the form:'
+			)
+			console.log({
+				events: {
+					publish: [],
+					subscribe: []
+				}
+			})
+			throw new Error('INVALID_EVENT_CONTRACT')
 		}
 	}
 }

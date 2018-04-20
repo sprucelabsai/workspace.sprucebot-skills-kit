@@ -34,9 +34,14 @@ const sprucebot = new Sprucebot({
 	dbEnabled: sequelizeOptions && sequelizeOptions.enabled
 })
 
+let server
+let ready = false
+let timeout
+let readyChecks = 0
+
 // serve the skill, wait 2 seconds for debugger to connect
-setTimeout(() => {
-	serve({
+setTimeout(async () => {
+	server = await serve({
 		sprucebot,
 		port: PORT,
 		serverHost: SERVER_HOST,
@@ -53,4 +58,23 @@ setTimeout(() => {
 		sequelizeOptions,
 		errors
 	})
+	ready = true
 }, 2000)
+
+function handleReady(resolve) {
+	log.info(`Waiting for Server to boot.  Check #${readyChecks}`)
+	if (ready || readyChecks > 100) {
+		return resolve(server)
+	}
+
+	readyChecks += 1
+
+	setTimeout(() => {
+		handleReady(resolve)
+	}, 1000)
+}
+
+module.exports = new Promise(resolve => {
+	log.info('Execute promise callback')
+	handleReady(resolve)
+})

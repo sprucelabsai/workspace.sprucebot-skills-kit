@@ -50,12 +50,16 @@ module.exports = async ({
 
 	// Kick off sync with platform
 	debug('Starting sync with core')
-	const syncResponse = await sprucebot.sync().catch(err => {
+	let syncResponse
+	try {
+		syncResponse = await sprucebot.sync()
+	} catch (e) {
 		console.error(
 			`Failed to sync your skill's settings with ${sprucebot.https.host}`
 		)
-		throw err // Server can't really start without sync settings
-	})
+		console.error(e) // Server can't really start without sync settings
+		process.exit(1)
+	}
 
 	debug('Sync complete. Response: ', syncResponse)
 
@@ -338,5 +342,5 @@ module.exports = async ({
 		)
 	})
 
-	return {koa, server}
+	return { koa, server }
 }
