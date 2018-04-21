@@ -17,7 +17,8 @@ const {
 	nextConfig,
 	errors,
 	bodyParserOptions,
-	sequelizeOptions
+	sequelizeOptions,
+	eventContract
 } = require('config')
 
 // Construct a new Sprucebot
@@ -31,7 +32,8 @@ const sprucebot = new Sprucebot({
 	serverUrl: SERVER_HOST,
 	svgIcon: ICON,
 	allowSelfSignedCerts: API_SSL_ALLOW_SELF_SIGNED,
-	dbEnabled: sequelizeOptions && sequelizeOptions.enabled
+	dbEnabled: sequelizeOptions && sequelizeOptions.enabled,
+	eventContract: eventContract
 })
 
 let server
