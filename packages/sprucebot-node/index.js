@@ -145,6 +145,7 @@ class Sprucebot {
 			`/ge/locations/${locationId}/users/${userId}/${role}`
 		)
 	}
+
 	/**
 	 * Search for users who have been to this location
 	 *
@@ -152,9 +153,22 @@ class Sprucebot {
 	 * @param {Object} query
 	 * @returns {Promise}
 	 */
-	async users(locationId, { role, status, page, limit } = {}) {
+	async users(locationId, { role, status, page, limit, q } = {}) {
 		return this.https.get(
 			`/locations/${locationId}/users/`,
+			Array.from(arguments)[1]
+		)
+	}
+	/**
+	 * Search for users who have been to this organization
+	 *
+	 * @param {String} locationId
+	 * @param {Object} query
+	 * @returns {Promise}
+	 */
+	async orgUsers(organizationId, { role, status, page, limit, q } = {}) {
+		return this.https.get(
+			`/organizations/${organizationId}/users/`,
 			Array.from(arguments)[1]
 		)
 	}
