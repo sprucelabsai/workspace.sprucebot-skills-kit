@@ -475,21 +475,10 @@ class Sprucebot {
 	}
 
 	validateEventContract(eventContract) {
-		if (
-			!eventContract ||
-			!eventContract.events ||
-			!eventContract.events.publish ||
-			!eventContract.events.subscribe
-		) {
+		if (!eventContract || !eventContract.events) {
 			console.warn(
 				'⚠️  The event contract is invalid.  Check your config/default.js file.  The "eventContracts" key must be of the form:'
 			)
-			console.log({
-				events: {
-					publish: [],
-					subscribe: []
-				}
-			})
 			throw new Error('INVALID_EVENT_CONTRACT')
 		}
 	}
