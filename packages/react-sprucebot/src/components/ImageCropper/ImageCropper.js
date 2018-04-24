@@ -33,6 +33,9 @@ export default class ImageCropper extends Component {
 	}
 
 	initiateFileUpload() {
+		if (this.state.uploading) {
+			return
+		}
 		this.input.click()
 	}
 
@@ -138,6 +141,10 @@ export default class ImageCropper extends Component {
 
 	async onSave() {
 		const { pixelCrop, type } = this.state
+
+		if (this.state.uploading) {
+			return
+		}
 
 		if (!type) {
 			this.setState({
