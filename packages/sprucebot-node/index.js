@@ -33,7 +33,6 @@ class Sprucebot {
 		this.icon = svgIcon || required('svgIcon')
 		this.webhookUrl = (serverUrl || required('serverUrl')) + '/hook.json'
 		this.iframeUrl = interfaceUrl || required('interfaceUrl')
-		this.publicUrl = (interfaceUrl || required('interfaceUrl')) + '/public'
 		this.marketingUrl =
 			(interfaceUrl || required('interfaceUrl')) + '/marketing'
 

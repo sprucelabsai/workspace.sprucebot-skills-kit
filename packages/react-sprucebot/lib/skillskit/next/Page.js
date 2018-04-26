@@ -284,7 +284,7 @@ var Page = function Page(Wrapped) {
 
 										if (props.pathname === '/') {
 											redirect = '/' + role + '?' + queryString;
-										} else if (role !== firstPart && !state.config.DEV_MODE) {
+										} else if (role !== firstPart) {
 											redirect = '/unauthorized';
 										}
 									}
