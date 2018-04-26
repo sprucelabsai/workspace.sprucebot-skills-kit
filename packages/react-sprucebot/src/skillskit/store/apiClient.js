@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import axios from 'axios'
 import https from 'https'
 import http from 'http'
 import qs from 'qs'
@@ -25,7 +25,7 @@ class ApiClient {
 						let fetchOptions = {
 							method,
 							headers,
-							body: JSON.stringify(body)
+							data: body
 						}
 
 						// Allows Node to accept our self signed cert
@@ -33,7 +33,7 @@ class ApiClient {
 							const agent = new https.Agent({
 								rejectUnauthorized: false
 							})
-							fetchOptions.agent = agent
+							fetchOptions.httpsAgent = agent
 						}
 
 						if (this.jwt) {
@@ -51,14 +51,14 @@ class ApiClient {
 						}
 
 						// Start network request
-						const response = await fetch(fetchUrl, fetchOptions)
-						const json = await response.json()
-						if (!response.ok) {
-							console.log('Request not okay', response.status, json)
-							return reject(json)
+						try {
+							const response = await axios(fetchUrl, fetchOptions)
+							const json = response.data
+							resolve(json)
+						} catch (error) {
+							console.log('Request not ok', error)
+							return reject(error.response.data)
 						}
-
-						resolve(json)
 					} catch (error) {
 						console.error('Response failure', error)
 						reject(error)

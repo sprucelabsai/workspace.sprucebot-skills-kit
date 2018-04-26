@@ -3,7 +3,6 @@ import renderer from 'react-test-renderer'
 // setup file
 import { configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import sinon from 'sinon'
 
 configure({ adapter: new Adapter() })
 import { mount, shallow } from 'enzyme'
@@ -38,9 +37,9 @@ test('it set state onChange', () => {
 })
 
 test('it set trigger onChange that is passed in', () => {
-	var spy = sinon.spy()
+	var spy = jest.fn()
 	const wrapper = shallow(<Switch onChange={spy} />).instance()
 	let foo = wrapper.onChange(true)
 	expect(wrapper.state.on).toEqual(true)
-	expect(spy.calledOnce).toEqual(true)
+	expect(spy).toHaveBeenCalledTimes(1)
 })

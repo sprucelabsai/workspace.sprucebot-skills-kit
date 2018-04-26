@@ -82,20 +82,31 @@ var Input = function (_Component) {
 				if (this._sizeTimeout) {
 					clearTimeout(this._sizeTimeout);
 				}
-
 				this._sizeTimeout = setTimeout(function () {
-					_this2.input.style.transition = _this2._textAreaTransition;
-					_this2.input.style.height = scrollHeight + heightOffset + 'px';
+					if (_this2.input) {
+						_this2.input.style.transition = _this2._textAreaTransition;
+						_this2.input.style.height = scrollHeight + heightOffset + 'px';
+					}
 				}, 250);
+			}
+		}
+	}, {
+		key: 'handleMultiline',
+		value: function handleMultiline(props) {
+			if (props.multiline) {
+				this._textAreaTransition = this.input.style.transition;
+				this.sizeTextarea();
 			}
 		}
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			if (this.props.multiline) {
-				this._textAreaTransition = this.input.style.transition;
-				this.sizeTextarea();
-			}
+			this.handleMultiline(this.props);
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate() {
+			this.handleMultiline(this.props);
 		}
 	}, {
 		key: 'render',

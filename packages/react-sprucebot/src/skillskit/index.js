@@ -1,5 +1,3 @@
-import { animateScroll as scroll } from 'react-scroll'
-
 function postMessage(message) {
 	return window.parent.postMessage(JSON.stringify(message), '*')
 }
@@ -26,14 +24,14 @@ export default {
 			return bottom
 		}
 
-		Array.from(window.document.querySelectorAll('.container, .dialog')).forEach(
-			container => {
-				let bottom = getBottom(container) + 20
-				if (bottom > height) {
-					height = bottom
-				}
+		Array.from(
+			window.document.querySelectorAll('.container, .dialog_underlay')
+		).forEach(container => {
+			let bottom = getBottom(container)
+			if (bottom > height) {
+				height = bottom
 			}
-		)
+		})
 
 		if (height != this.height) {
 			this.height = height
@@ -54,7 +52,7 @@ export default {
 		})
 		this.resizedInterval = setInterval(this.resized.bind(this), 50)
 	},
-	scrollToTop: function() {
-		scroll.scrollToTop()
+	scrollTo: function(offset) {
+		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 })
 	}
 }

@@ -49,18 +49,25 @@ export default class Input extends Component {
 			if (this._sizeTimeout) {
 				clearTimeout(this._sizeTimeout)
 			}
-
 			this._sizeTimeout = setTimeout(() => {
-				this.input.style.transition = this._textAreaTransition
-				this.input.style.height = scrollHeight + heightOffset + 'px'
+				if (this.input) {
+					this.input.style.transition = this._textAreaTransition
+					this.input.style.height = scrollHeight + heightOffset + 'px'
+				}
 			}, 250)
 		}
 	}
-	componentDidMount() {
-		if (this.props.multiline) {
+	handleMultiline(props) {
+		if (props.multiline) {
 			this._textAreaTransition = this.input.style.transition
 			this.sizeTextarea()
 		}
+	}
+	componentDidMount() {
+		this.handleMultiline(this.props)
+	}
+	componentDidUpdate() {
+		this.handleMultiline(this.props)
 	}
 	render() {
 		const props = Object.assign({}, this.props)

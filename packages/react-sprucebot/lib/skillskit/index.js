@@ -3,9 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-var _reactScroll = require('react-scroll');
-
 function postMessage(message) {
 	return window.parent.postMessage(JSON.stringify(message), '*');
 }
@@ -32,8 +29,8 @@ exports.default = {
 			return bottom;
 		}
 
-		Array.from(window.document.querySelectorAll('.container, .dialog')).forEach(function (container) {
-			var bottom = getBottom(container) + 20;
+		Array.from(window.document.querySelectorAll('.container, .dialog_underlay')).forEach(function (container) {
+			var bottom = getBottom(container);
 			if (bottom > height) {
 				height = bottom;
 			}
@@ -58,7 +55,7 @@ exports.default = {
 		});
 		this.resizedInterval = setInterval(this.resized.bind(this), 50);
 	},
-	scrollToTop: function scrollToTop() {
-		_reactScroll.animateScroll.scrollToTop();
+	scrollTo: function scrollTo(offset) {
+		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 });
 	}
 };

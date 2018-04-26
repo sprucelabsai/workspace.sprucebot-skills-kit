@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import Button from '../Button/Button'
 import BotText from '../BotText/BotText'
+import skill from '../../skillskit/index'
 
 // what is the correct way to add functionality like this?
 function height(elm) {
@@ -48,7 +49,6 @@ export default class TrainingGuide extends Component {
 			currentStep: 0,
 			stepHeights: props.steps.map(() => 0),
 			stepWidths: props.steps.map(() => 0),
-			scrollInterval: null,
 			transitioning: false
 		}
 	}
@@ -73,30 +73,15 @@ export default class TrainingGuide extends Component {
 	componentDidUpdate(prevProps, prevState) {
 		// Scroll to next/done buttons if the current step has changed
 		if (this.state.currentStep !== prevState.currentStep) {
-			if (this.state.scrollInterval) {
-				clearInterval(this.state.scrollInterval)
-				this.setState({ scrollInterval: false })
-			}
-
-			// wait a sec to allow css animations to finish
-			const scrollInterval = setInterval(this.scrollToGuideBottom.bind(this), 5)
-			this.setState({ scrollInterval, transitioning: true })
+			this.setState({ transitioning: true })
 
 			setTimeout(() => {
-				clearInterval(this.state.scrollInterval)
-				this.setState({ scrollInterval: false, transitioning: false })
+				skill.scrollTo(
+					ReactDOM.findDOMNode(this.button).offsetTop -
+						window.screen.height * 0.5
+				)
+				this.setState({ transitioning: false })
 			}, 1500)
-		}
-	}
-
-	scrollToGuideBottom() {
-		// where do i scroll to?
-		const node = ReactDOM.findDOMNode(this)
-		const bounds = node.getBoundingClientRect()
-		const bottom = window.document.body.scrollTop + bounds.y + bounds.height
-		const windowBottom = window.document.body.scrollTop + window.innerHeight
-		if (bottom > windowBottom) {
-			window.document.body.scrollTop = bottom - window.innerHeight + 20 // random padding for now
 		}
 	}
 
@@ -149,6 +134,9 @@ export default class TrainingGuide extends Component {
 						<Button
 							alt
 							busy={transitioning}
+							ref={ref => {
+								this.button = ref
+							}}
 							onClick={() => {
 								if (!transitioning) this.next()
 							}}
@@ -161,6 +149,9 @@ export default class TrainingGuide extends Component {
 						<Button
 							primary
 							busy={transitioning}
+							ref={ref => {
+								this.button = ref
+							}}
 							onClick={() => {
 								if (!transitioning) onComplete()
 							}}
