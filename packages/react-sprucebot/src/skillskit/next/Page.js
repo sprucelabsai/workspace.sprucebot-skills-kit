@@ -117,7 +117,7 @@ const Page = Wrapped => {
 				// we are at '/' then redirect to the corresponding role's path
 				if (props.pathname === '/') {
 					redirect = `/${role}?${queryString}`
-				} else if (role !== firstPart) {
+				} else if (role !== firstPart && !state.config.DEV_MODE) {
 					redirect = `/unauthorized`
 				}
 			}

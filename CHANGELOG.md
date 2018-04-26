@@ -86,8 +86,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 <a name="6.2.0"></a>
-# [6.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.1.0...v6.2.0) (2018-03-28)
 
+# [6.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.1.0...v6.2.0) (2018-03-28)
 
 ### Bug Fixes
 
@@ -97,37 +97,27 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **sb-792:** React Image cropper update busted our component ([#38](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/38)) ([bfc1570](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bfc1570))
 * **SB-886:** fix extended text box for teammate reviews ([#28](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/28)) ([32a8dcb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/32a8dcb))
 
-
 ### Features
 
 * **SB-1312:** add static prop check to remove click/hover ([#37](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/37)) ([e48e551](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e48e551))
 * **SB-910:** add skill.scrollto method ([#33](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/33)) ([d59c702](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d59c702))
 
-
-
-
-
 <a name="6.1.0"></a>
-# [6.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.0.0...v6.1.0) (2018-03-23)
 
+# [6.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.0.0...v6.1.0) (2018-03-23)
 
 ### Bug Fixes
 
 * **SB-1135:** prepublish command runs on every install ([58ee6f9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/58ee6f9))
 * **sb-792:** Cors enabled images were unable to load ([cdc9fa2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cdc9fa2))
 
-
 ### Features
 
 * **SB-889:** add sequelizerc to work with cli ([91945e7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/91945e7))
 
-
-
-
-
 <a name="6.0.0"></a>
-# 6.0.0 (2018-03-22)
 
+# 6.0.0 (2018-03-22)
 
 ### Bug Fixes
 
@@ -143,13 +133,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * pm2 package is production dependency ([067814f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/067814f))
 * travis build removed from projects ([eaf24da](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/eaf24da))
 
-
 ### Chores
 
 * breaking change to bump version ([a9ae011](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a9ae011))
 * remove pull request templates from each package ([83ed5d0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/83ed5d0))
 * update npm keywords ([#3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/3)) ([be9af45](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/be9af45))
-
 
 ### Features
 
@@ -160,53 +148,37 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **SB-939:** adds redux-form compatible components ([8235c57](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8235c57))
 * **SB-940:** add onboarding component to react-sprucebot and styleguide ([c4cdb6d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c4cdb6d))
 
-
 ### BREAKING CHANGES
 
 * trigger major build
 * triggering marjor version bump
 * changed build stage name
 
-
-
-
-
 <a name="5.2.0"></a>
-# [5.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v5.1.0...v5.2.0) (2018-03-21)
 
+# [5.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v5.1.0...v5.2.0) (2018-03-21)
 
 ### Features
 
 * **SB-937:** add error component to react-sprucebot and styleguide ([f1f2c39](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f1f2c39))
 
-
-
-
-
 <a name="5.1.0"></a>
-# [5.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v5.0.1...v5.1.0) (2018-03-20)
 
+# [5.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v5.0.1...v5.1.0) (2018-03-20)
 
 ### Features
 
 * **SB-940:** add onboarding component to react-sprucebot and styleguide ([347d6d3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/347d6d3))
 
-
-
-
-
 <a name="5.0.1"></a>
+
 ## [5.0.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v5.0.0...v5.0.1) (2018-03-20)
 
 **Note:** Version bump only for package workspace.sprucebot-skills-kit
 
-
-
-
-
 <a name="5.0.0"></a>
-# 5.0.0 (2018-03-20)
 
+# 5.0.0 (2018-03-20)
 
 ### Bug Fixes
 
@@ -222,13 +194,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * pm2 package is production dependency ([152644e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/152644e))
 * travis build removed from projects ([eaf24da](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/eaf24da))
 
-
 ### Chores
 
 * breaking change to bump version ([a9ae011](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a9ae011))
 * remove pull request templates from each package ([83ed5d0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/83ed5d0))
 * update npm keywords ([#3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/3)) ([be9af45](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/be9af45))
-
 
 ### Features
 
@@ -236,20 +206,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **SB-1112:** use lerna publish instead of semantic-release ([42f845f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/42f845f))
 * **SB-910:** add skill.scrolltotop method ([eee8c32](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/eee8c32))
 
-
 ### BREAKING CHANGES
 
 * trigger major build
 * triggering marjor version bump
 * changed build stage name
 
-
-
-
-
 <a name="4.0.0"></a>
-# [4.0.0](https://github.com/mcdermed/workspace.sprucebot-skills-kit/compare/v3.0.0...v4.0.0) (2018-03-20)
 
+# [4.0.0](https://github.com/mcdermed/workspace.sprucebot-skills-kit/compare/v3.0.0...v4.0.0) (2018-03-20)
 
 ### Bug Fixes
 
@@ -259,19 +224,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * travis build removed from projects ([eaf24da](https://github.com/mcdermed/workspace.sprucebot-skills-kit/commit/eaf24da))
 * **sb-915:** added a sample service and utility test ([45a8576](https://github.com/mcdermed/workspace.sprucebot-skills-kit/commit/45a8576))
 
-
 ### Chores
 
 * breaking change to bump version ([a9ae011](https://github.com/mcdermed/workspace.sprucebot-skills-kit/commit/a9ae011))
 * remove pull request templates from each package ([83ed5d0](https://github.com/mcdermed/workspace.sprucebot-skills-kit/commit/83ed5d0))
 * update npm keywords ([#3](https://github.com/mcdermed/workspace.sprucebot-skills-kit/issues/3)) ([be9af45](https://github.com/mcdermed/workspace.sprucebot-skills-kit/commit/be9af45))
 
-
 ### Features
 
 * **sb-1112:** add commitlint to enforce semver commit messages ([fb86c22](https://github.com/mcdermed/workspace.sprucebot-skills-kit/commit/fb86c22))
 * **SB-1112:** use lerna publish instead of semantic-release ([42f845f](https://github.com/mcdermed/workspace.sprucebot-skills-kit/commit/42f845f))
-
 
 ### BREAKING CHANGES
 

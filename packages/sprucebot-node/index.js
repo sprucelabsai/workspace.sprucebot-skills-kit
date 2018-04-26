@@ -21,7 +21,8 @@ class Sprucebot {
 		serverUrl = required('serverUrl'),
 		svgIcon = required('svgIcon'),
 		allowSelfSignedCerts = false,
-		dbEnabled = false
+		dbEnabled = false,
+		eventContract = required('eventContract')
 	}) {
 		const hostMatches = host.match(/^(https?\:\/\/|)([^\/:?#]+)(?:[\/:?#]|$)/i)
 		const cleanedHost =
@@ -32,10 +33,12 @@ class Sprucebot {
 		this.icon = svgIcon || required('svgIcon')
 		this.webhookUrl = (serverUrl || required('serverUrl')) + '/hook.json'
 		this.iframeUrl = interfaceUrl || required('interfaceUrl')
+		this.publicUrl = (interfaceUrl || required('interfaceUrl')) + '/public'
 		this.marketingUrl =
 			(interfaceUrl || required('interfaceUrl')) + '/marketing'
 
 		this.dbEnabled = dbEnabled
+		this.eventContract = eventContract
 		this._mutexes = {}
 
 		this.version = '1.0' // maybe pull from package.json?
@@ -50,8 +53,9 @@ class Sprucebot {
 		})
 
 		console.log(
-			`🌲 Sprucebot🌲 Skills Kit API ${this
-				.version}\n\nhost : ${cleanedHost} \nid : ${id} \napiKey : ${apiKey.replace(
+			`🌲 Sprucebot🌲 Skills Kit API ${
+				this.version
+			}\n\nhost : ${cleanedHost} \nid : ${id} \napiKey : ${apiKey.replace(
 				/./g,
 				'*'
 			)} \nname : ${name}\n---------------------------------`
@@ -62,13 +66,17 @@ class Sprucebot {
 	 * Sync the settings saved here with specified host (including name,)
 	 */
 	async sync() {
+		this.validateEventContract(this.eventContract)
+
 		const data = {
 			name: this.name,
 			description: this.description,
 			icon: this.icon,
 			webhookUrl: this.webhookUrl,
 			iframeUrl: this.iframeUrl,
-			marketingUrl: this.marketingUrl
+			marketingUrl: this.marketingUrl,
+			publicUrl: this.publicUrl,
+			eventContract: this.eventContract
 		}
 		const results = await this.https.patch('/', data)
 		let database = null
@@ -97,8 +105,8 @@ class Sprucebot {
 
 	/**
 	 * Get a user without a location. GLOBAL SKILLS ONLY
-	 * 
-	 * @param {String} userId 
+	 *
+	 * @param {String} userId
 	 * @param {Object} Optional query string to be added to the request
 	 */
 	async globalUser(userId, query) {
@@ -107,7 +115,7 @@ class Sprucebot {
 
 	/**
 	 * Get all locations. GLOBAL SKILLS ONLY
-	 * 
+	 *
 	 * @param {Object} Optional query string to be added to the request
 	 */
 	async globalLocations(query) {
@@ -115,28 +123,29 @@ class Sprucebot {
 	}
 
 	/**
-     * Create a user
-     *
-     * @param {Object} values
-     * @returns {Promise}
-     */
+	 * Create a user
+	 *
+	 * @param {Object} values
+	 * @returns {Promise}
+	 */
 	async createUser(values) {
 		return this.https.post('/ge/users', values)
 	}
 
 	/**
-     * Update a users role
-     *
-     * @param {String} locationId
-     * @param {String} userId
-     * @param {String} role
-     * @returns {Promise}
-     */
+	 * Update a users role
+	 *
+	 * @param {String} locationId
+	 * @param {String} userId
+	 * @param {String} role
+	 * @returns {Promise}
+	 */
 	async updateRole(locationId, userId, role) {
 		return this.https.patch(
 			`/ge/locations/${locationId}/users/${userId}/${role}`
 		)
 	}
+
 	/**
 	 * Search for users who have been to this location
 	 *
@@ -144,9 +153,22 @@ class Sprucebot {
 	 * @param {Object} query
 	 * @returns {Promise}
 	 */
-	async users(locationId, { role, status, page, limit } = {}) {
+	async users(locationId, { role, status, page, limit, q } = {}) {
 		return this.https.get(
 			`/locations/${locationId}/users/`,
+			Array.from(arguments)[1]
+		)
+	}
+	/**
+	 * Search for users who have been to this organization
+	 *
+	 * @param {String} locationId
+	 * @param {Object} query
+	 * @returns {Promise}
+	 */
+	async orgUsers(organizationId, { role, status, page, limit, q } = {}) {
+		return this.https.get(
+			`/organizations/${organizationId}/users/`,
 			Array.from(arguments)[1]
 		)
 	}
@@ -208,12 +230,12 @@ class Sprucebot {
 	}
 
 	/**
-	 * ONLY APPLIES TO SKILLS THAT ARE GLOBAL (are not attached to a location).  
-	 * This allows Sprucebot to communicate to business owners without them 
-	 * actually needing any skills enabled. Core usage only. 
-	 * 
-	 * @param {String} userId 
-	 * @param {String} message 
+	 * ONLY APPLIES TO SKILLS THAT ARE GLOBAL (are not attached to a location).
+	 * This allows Sprucebot to communicate to business owners without them
+	 * actually needing any skills enabled. Core usage only.
+	 *
+	 * @param {String} userId
+	 * @param {String} message
 	 */
 	async globalMessage(userId, message) {
 		return this.https.post('/messages', { userId, message })
@@ -281,8 +303,8 @@ class Sprucebot {
 
 	/**
 	 * Get skill meta data by id
-	 * 
-	 * @param {String} id 
+	 *
+	 * @param {String} id
 	 */
 	async metaById(id, { locationId, userId } = {}) {
 		return this.https.get(`/data/${id}`, Array.from(arguments)[1])
@@ -449,6 +471,15 @@ class Sprucebot {
 				//otherwise resolve the next promise
 				this._mutexes[key].resolvers[0]()
 			}
+		}
+	}
+
+	validateEventContract(eventContract) {
+		if (!eventContract || !eventContract.events) {
+			console.warn(
+				'⚠️  The event contract is invalid.  Check your config/default.js file.  The "eventContracts" key must be of the form:'
+			)
+			throw new Error('INVALID_EVENT_CONTRACT')
 		}
 	}
 }
