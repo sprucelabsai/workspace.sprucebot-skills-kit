@@ -35,5 +35,18 @@ module.exports = {
 		status: 'failure',
 		reason: 'Permission denied.',
 		friendlyReason: 'Permission denied.'
+	},
+	LOADING_ONBOARDING_ERROR: {
+		code: 404,
+		status: 'failure',
+		reason: 'finishedOnboarding could not be found',
+		friendlyReason: 'I could not tell if you have gone through onboarding yet.'
+	},
+	SAVE_ONBOARDING_ERROR: {
+		code: 404,
+		status: 'failure',
+		reason: 'Could not save finishedOnboarding',
+		friendlyReason:
+			'I had a problem trying to let the Bots know you had finished onboarding.  Maybe try again?'
 	}
 }

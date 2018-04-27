@@ -57,6 +57,7 @@ const Page = Wrapped => {
 			if (jwt) {
 				try {
 					await store.dispatch(actions.auth.go(jwt))
+					await store.dispatch(actions.onboarding.didOnboarding())
 
 					// only save cookie if a new one has been passed
 					if (query.jwt) {
