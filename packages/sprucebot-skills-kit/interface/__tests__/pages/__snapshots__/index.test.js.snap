@@ -2100,7 +2100,7 @@ export default reduxForm({
               class="BotText-s1aw735w-0 bot__text gicUIk"
             >
               <span>
-                It has a heading
+                It has a heading.
               </span>
             </div>
           </div>
@@ -2112,7 +2112,7 @@ export default reduxForm({
               class="BotText-s1aw735w-0 bot__text gicUIk"
             >
               <span>
-                And "guides" you through the steps like the TrainingGuide
+                And "guides" you through the steps like the TrainingGuide.
               </span>
             </div>
           </div>
@@ -2125,6 +2125,30 @@ export default reduxForm({
             >
               <span>
                 You can also change the label of the done button.
+              </span>
+            </div>
+          </div>
+          <div
+            class="training_guide__step off "
+            style="height:0"
+          >
+            <div
+              class="BotText-s1aw735w-0 bot__text gicUIk"
+            >
+              <span>
+                Additionally, you can pass a boolean prop to say if onboarding has been completed.
+              </span>
+            </div>
+          </div>
+          <div
+            class="training_guide__step off "
+            style="height:0"
+          >
+            <div
+              class="BotText-s1aw735w-0 bot__text gicUIk"
+            >
+              <span>
+                If the owner/teammate has done onboarding already, all of the messages will be displayed.
               </span>
             </div>
           </div>
@@ -2147,10 +2171,13 @@ export default reduxForm({
 		'This is an onboarding component.',
 		'It has a heading',
 		'And "guides" you through the steps like the TrainingGuide',
-		'You can also change the label of the done button.'
+		'You can also change the label of the done button.',
+		'Additionally, you can pass a boolean prop to say if onboarding has been completed.',
+		'If the owner/teammate has done onboarding already, all of the messages will be displayed.'
 	]}
-	onComplete={() =&gt; alert('Done!')}
+	onComplete={this.didCompleteOnboarding}
 	doneButtonLabel={'Finish'}
+	onboardingComplete={this.props.onboarding.onboardingComplete}	
 /&gt;
       </pre>
     </div>
