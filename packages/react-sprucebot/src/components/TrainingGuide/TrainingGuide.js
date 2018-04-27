@@ -53,12 +53,6 @@ export default class TrainingGuide extends Component {
 		}
 	}
 
-	static importSteps(steps) {
-		return steps.map((step, idx) => {
-			return { key: `step-${idx}`, value: step }
-		})
-	}
-
 	next() {
 		this.setState((prevState, props) => {
 			if (prevState.currentStep < props.steps.length - 1) {
@@ -86,6 +80,8 @@ export default class TrainingGuide extends Component {
 	}
 
 	componentDidMount() {
+		const { steps, onboardingComplete } = this.props
+		const { currentStep } = this.state
 		// calculate height of first element in each step
 		const stepHeights = this.stepDomNodes.map(node => {
 			const first = node.children[0]
@@ -98,13 +94,21 @@ export default class TrainingGuide extends Component {
 			return span.offsetWidth
 		})
 
-		this.setState(() => {
-			return { stepHeights, stepWidths }
+		this.setState({
+			stepHeights,
+			stepWidths,
+			currentStep: onboardingComplete ? steps.length - 1 : currentStep
 		})
 	}
 
 	render() {
-		const { steps, nextButtonLabel, doneButtonLabel, onComplete } = this.props
+		const {
+			steps,
+			nextButtonLabel,
+			doneButtonLabel,
+			onComplete,
+			onboardingComplete
+		} = this.props
 		const { currentStep, stepHeights, stepWidths, transitioning } = this.state
 		const last = currentStep === steps.length - 1
 
@@ -169,10 +173,12 @@ TrainingGuide.propTypes = {
 	steps: PropTypes.array.isRequired,
 	nextButtonLabel: PropTypes.string.isRequired,
 	doneButtonLabel: PropTypes.string.isRequired,
-	onComplete: PropTypes.func.isRequired
+	onComplete: PropTypes.func.isRequired,
+	onboardingComplete: PropTypes.bool.isRequired
 }
 
 TrainingGuide.defaultProps = {
 	nextButtonLabel: 'Next',
-	doneButtonLabel: 'Done'
+	doneButtonLabel: 'Done',
+	onboardingComplete: false
 }

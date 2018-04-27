@@ -108,7 +108,12 @@ var TrainingGuide = function (_Component) {
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
+			var _props = this.props,
+			    steps = _props.steps,
+			    onboardingComplete = _props.onboardingComplete;
+			var currentStep = this.state.currentStep;
 			// calculate height of first element in each step
+
 			var stepHeights = this.stepDomNodes.map(function (node) {
 				var first = node.children[0];
 				return height(first);
@@ -120,8 +125,10 @@ var TrainingGuide = function (_Component) {
 				return span.offsetWidth;
 			});
 
-			this.setState(function () {
-				return { stepHeights: stepHeights, stepWidths: stepWidths };
+			this.setState({
+				stepHeights: stepHeights,
+				stepWidths: stepWidths,
+				currentStep: onboardingComplete ? steps.length - 1 : currentStep
 			});
 		}
 	}, {
@@ -129,11 +136,12 @@ var TrainingGuide = function (_Component) {
 		value: function render() {
 			var _this3 = this;
 
-			var _props = this.props,
-			    steps = _props.steps,
-			    nextButtonLabel = _props.nextButtonLabel,
-			    doneButtonLabel = _props.doneButtonLabel,
-			    onComplete = _props.onComplete;
+			var _props2 = this.props,
+			    steps = _props2.steps,
+			    nextButtonLabel = _props2.nextButtonLabel,
+			    doneButtonLabel = _props2.doneButtonLabel,
+			    onComplete = _props2.onComplete,
+			    onboardingComplete = _props2.onboardingComplete;
 			var _state = this.state,
 			    currentStep = _state.currentStep,
 			    stepHeights = _state.stepHeights,
@@ -204,13 +212,6 @@ var TrainingGuide = function (_Component) {
 				)
 			);
 		}
-	}], [{
-		key: 'importSteps',
-		value: function importSteps(steps) {
-			return steps.map(function (step, idx) {
-				return { key: 'step-' + idx, value: step };
-			});
-		}
 	}]);
 
 	return TrainingGuide;
@@ -223,10 +224,12 @@ TrainingGuide.propTypes = {
 	steps: _propTypes2.default.array.isRequired,
 	nextButtonLabel: _propTypes2.default.string.isRequired,
 	doneButtonLabel: _propTypes2.default.string.isRequired,
-	onComplete: _propTypes2.default.func.isRequired
+	onComplete: _propTypes2.default.func.isRequired,
+	onboardingComplete: _propTypes2.default.bool.isRequired
 };
 
 TrainingGuide.defaultProps = {
 	nextButtonLabel: 'Next',
-	doneButtonLabel: 'Done'
+	doneButtonLabel: 'Done',
+	onboardingComplete: false
 };
