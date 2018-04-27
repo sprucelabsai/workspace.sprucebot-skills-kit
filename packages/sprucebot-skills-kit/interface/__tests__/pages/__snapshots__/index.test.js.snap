@@ -517,13 +517,13 @@ exports[`renders page with styleguide 1`] = `
       class="Container-md3jvi-0 container cqhPkv"
     >
       <div
-        class="Switch__SwitchComp-wfc8pr-1 Switch switch  eHWIUy"
-        tabindex="0"
+        class="switch switch"
       >
-        <span
-          class="Switch__SwitchButton-wfc8pr-0 SwitchButton kLTHFe"
-          type="button"
-        />
+        <button>
+          <span>
+            Disabled
+          </span>
+        </button>
       </div>
       <pre
         class="Pre-s1a0pq3k-0 dHESOH"
@@ -535,13 +535,13 @@ exports[`renders page with styleguide 1`] = `
 /&gt;
       </pre>
       <div
-        class="Switch__SwitchComp-wfc8pr-1 Switch switch  fzCZJB"
-        tabindex="0"
+        class="switch switch on"
       >
-        <span
-          class="Switch__SwitchButton-wfc8pr-0 SwitchButton esjjoB"
-          type="button"
-        />
+        <button>
+          <span>
+            Enabled
+          </span>
+        </button>
       </div>
       <pre
         class="Pre-s1a0pq3k-0 dHESOH"
@@ -942,13 +942,13 @@ export default reduxForm({
             class="List__ItemRightContent-s15prkdz-4 ItemRightContent content__right fgoBzY"
           >
             <div
-              class="Switch__SwitchComp-wfc8pr-1 Switch switch  eHWIUy"
-              tabindex="0"
+              class="switch switch"
             >
-              <span
-                class="Switch__SwitchButton-wfc8pr-0 SwitchButton kLTHFe"
-                type="button"
-              />
+              <button>
+                <span>
+                  Disabled
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1639,13 +1639,13 @@ export default reduxForm({
                 class="List__ItemRightContent-s15prkdz-4 ItemRightContent content__right fgoBzY"
               >
                 <div
-                  class="Switch__SwitchComp-wfc8pr-1 Switch switch  eHWIUy"
-                  tabindex="0"
+                  class="switch switch"
                 >
-                  <span
-                    class="Switch__SwitchButton-wfc8pr-0 SwitchButton kLTHFe"
-                    type="button"
-                  />
+                  <button>
+                    <span>
+                      Disabled
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
