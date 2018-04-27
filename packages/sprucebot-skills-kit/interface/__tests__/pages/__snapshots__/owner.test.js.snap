@@ -43,20 +43,9 @@ exports[`renders owner page snapshot 1`] = `
         <div
           class="tap__pane"
         >
-          <span
-            class="loader_wrapper"
-            style="display:block;margin:20px;text-align:center"
-          >
-            <span
-              class="loader_dot_dark"
-            />
-            <span
-              class="loader_dot_dark"
-            />
-            <span
-              class="loader_dot_dark"
-            />
-          </span>
+          <div
+            class="List-s15prkdz-0 List item__list bkLHAA"
+          />
         </div>
       </div>
     </div>
