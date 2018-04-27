@@ -6,10 +6,14 @@ import TeamDashboard from '../../components/TeamDashboard'
 import * as users from '../../store/actions/users'
 
 class TeammateDashboard extends React.Component {
-	static getInitialProps({ store }) {
+	static async getInitialProps({ auth, store }) {
 		// load everything
-		store.dispatch(users.guests())
-		store.dispatch(users.teammates())
+		if (auth) {
+			await Promise.all([
+				store.dispatch(users.guests()),
+				store.dispatch(users.teammates())
+			])
+		}
 
 		return {}
 	}
@@ -29,7 +33,8 @@ class TeammateDashboard extends React.Component {
 				teammatesLoading = true,
 				teammatesError,
 				teammates
-			}
+			},
+			onboarding
 		} = this.props
 
 		const dashboardProps = {
