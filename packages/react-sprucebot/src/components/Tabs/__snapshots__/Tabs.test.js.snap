@@ -7,11 +7,9 @@ exports[`TabPane renders 1`] = `
 `;
 
 exports[`Tabs renders 1`] = `
-<div
-  className="tabs__container "
->
+<div>
   <div
-    className="tabs"
+    className="toggle__wrapper"
   />
   <div
     className="tab__panes"
