@@ -155,10 +155,10 @@ var Tabs = exports.Tabs = function (_Component) {
 
 			return _react2.default.createElement(
 				'div',
-				_extends({ className: 'tabs__container ' }, props),
+				null,
 				_react2.default.createElement(
 					'div',
-					{ className: 'tabs' },
+					_extends({ className: 'toggle__wrapper' }, props),
 					tabs
 				),
 				_react2.default.createElement(
