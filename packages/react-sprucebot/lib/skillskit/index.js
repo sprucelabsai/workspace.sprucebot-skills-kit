@@ -40,7 +40,7 @@ exports.default = {
 			name: 'Skill:Loaded',
 			url: window.location.href
 		});
-		this.resizedInterval = setInterval(this.resized.bind(this), 250);
+		this.resizedInterval = setInterval(this.resized.bind(this), 300);
 	},
 	scrollTo: function scrollTo(offset) {
 		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 });
