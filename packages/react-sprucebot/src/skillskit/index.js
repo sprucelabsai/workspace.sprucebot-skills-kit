@@ -16,7 +16,7 @@ export default {
 		var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop
 		var clientTop = docEl.clientTop || body.clientTop || 0
 		var top = scrollTop - clientTop
-		var height = top + body.scrollHeight
+		var height = top + body.clientHeight
 
 		if (height != this.height) {
 			this.height = height
