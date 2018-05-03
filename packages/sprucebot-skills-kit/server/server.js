@@ -17,7 +17,8 @@ const {
 	nextConfig,
 	errors,
 	bodyParserOptions,
-	sequelizeOptions
+	sequelizeOptions,
+	eventContract
 } = require('config')
 
 // Construct a new Sprucebot
@@ -31,12 +32,18 @@ const sprucebot = new Sprucebot({
 	serverUrl: SERVER_HOST,
 	svgIcon: ICON,
 	allowSelfSignedCerts: API_SSL_ALLOW_SELF_SIGNED,
-	dbEnabled: sequelizeOptions && sequelizeOptions.enabled
+	dbEnabled: sequelizeOptions && sequelizeOptions.enabled,
+	eventContract: eventContract
 })
 
+let server
+let ready = false
+let timeout
+let readyChecks = 0
+
 // serve the skill, wait 2 seconds for debugger to connect
-setTimeout(() => {
-	serve({
+setTimeout(async () => {
+	server = await serve({
 		sprucebot,
 		port: PORT,
 		serverHost: SERVER_HOST,
@@ -53,4 +60,23 @@ setTimeout(() => {
 		sequelizeOptions,
 		errors
 	})
+	ready = true
 }, 2000)
+
+function handleReady(resolve) {
+	log.info(`Waiting for Server to boot.  Check #${readyChecks}`)
+	if (ready || readyChecks > 100) {
+		return resolve(server)
+	}
+
+	readyChecks += 1
+
+	setTimeout(() => {
+		handleReady(resolve)
+	}, 1000)
+}
+
+module.exports = new Promise(resolve => {
+	log.info('Execute promise callback')
+	handleReady(resolve)
+})

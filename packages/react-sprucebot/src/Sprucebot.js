@@ -26,6 +26,9 @@ import Callout from './components/Callout/Callout'
 import Dialog from './components/Dialog/Dialog'
 import Error from './components/Error/Error'
 import Feed, { FeedItem, FeedAttachment } from './components/Feed/Feed'
+import Icon from './components/Icon/Icon'
+import IconButton from './components/IconButton/IconButton'
+import ControlButton from './components/ControlButton/ControlButton'
 import * as Typography from './components/Typography/Typography'
 import * as List from './components/List/List'
 import * as Tabs from './components/Tabs/Tabs'
@@ -72,6 +75,9 @@ const Sprucebot = {
 	FeedAttachment,
 	TrainingGuide,
 	Onboarding,
+	Icon,
+	IconButton,
+	ControlButton,
 	...Typography,
 	...List,
 	...Tabs,
