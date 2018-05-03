@@ -5,7 +5,13 @@ import TrainingGuide from '../TrainingGuide/TrainingGuide'
 
 export default class Onboarding extends Component {
 	render() {
-		const { heading, steps, onComplete, doneButtonLabel } = this.props
+		const {
+			heading,
+			steps,
+			onComplete,
+			doneButtonLabel,
+			onboardingComplete
+		} = this.props
 		return (
 			<div>
 				<H1>{heading}</H1>
@@ -13,6 +19,7 @@ export default class Onboarding extends Component {
 					steps={steps}
 					onComplete={onComplete}
 					doneButtonLabel={doneButtonLabel}
+					onboardingComplete={onboardingComplete}
 				/>
 			</div>
 		)

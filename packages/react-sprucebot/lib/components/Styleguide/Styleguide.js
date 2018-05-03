@@ -130,9 +130,23 @@ var _index = require('../../skillskit/index');
 
 var _index2 = _interopRequireDefault(_index);
 
+var _actions = require('../../skillskit/store/actions');
+
+var actions = _interopRequireWildcard(_actions);
+
+var _reducers = require('../../skillskit/store/reducers');
+
+var _reducers2 = _interopRequireDefault(_reducers);
+
+var _withStore = require('../../skillskit/store/withStore');
+
+var _withStore2 = _interopRequireDefault(_withStore);
+
 var _FormExample = require('./FormExample');
 
 var _FormExample2 = _interopRequireDefault(_FormExample);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -207,10 +221,23 @@ var Styleguide = function (_Component) {
 			calloutOn: false,
 			errorMessage: ''
 		};
+		_this.didCompleteOnboarding = _this.didCompleteOnboarding.bind(_this);
 		return _this;
 	}
 
 	_createClass(Styleguide, [{
+		key: 'didCompleteOnboarding',
+		value: function didCompleteOnboarding() {
+			var onboardingComplete = this.props.onboarding.onboardingComplete;
+
+			if (!onboardingComplete) {
+				this.props.actions.onboarding.finishOnboarding();
+				console.log('Posting to your database that you completed onboarding.  Check your Skill Data now!');
+			} else {
+				console.log("You've already completed the onboarding.  Check your Skill Data now!");
+			}
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
@@ -1279,16 +1306,15 @@ var Styleguide = function (_Component) {
 					null,
 					_react2.default.createElement(_Onboarding2.default, {
 						heading: 'Onboarding',
-						steps: ['This is an onboarding component.', 'It has a heading', 'And "guides" you through the steps like the TrainingGuide', 'You can also change the label of the done button.'],
-						onComplete: function onComplete() {
-							return alert('Done!');
-						},
-						doneButtonLabel: 'Finish'
+						steps: ['This is an onboarding component.', 'It has a heading.', 'And "guides" you through the steps like the TrainingGuide.', 'You can also change the label of the done button.', 'Additionally, you can pass a boolean prop to say if onboarding has been completed.', 'If the owner/teammate has done onboarding already, all of the messages will be displayed.'],
+						onComplete: this.didCompleteOnboarding,
+						doneButtonLabel: 'Finish',
+						onboardingComplete: this.props.onboarding.onboardingComplete
 					}),
 					_react2.default.createElement(
 						_Pre2.default,
 						null,
-						'<Onboarding\n\theading={\'Onboarding\'}\n\tsteps={[\n\t\t\'This is an onboarding component.\',\n\t\t\'It has a heading\',\n\t\t\'And "guides" you through the steps like the TrainingGuide\',\n\t\t\'You can also change the label of the done button.\'\n\t]}\n\tonComplete={() => alert(\'Done!\')}\n\tdoneButtonLabel={\'Finish\'}\n/>'
+						'<Onboarding\n\theading={\'Onboarding\'}\n\tsteps={[\n\t\t\'This is an onboarding component.\',\n\t\t\'It has a heading\',\n\t\t\'And "guides" you through the steps like the TrainingGuide\',\n\t\t\'You can also change the label of the done button.\',\n\t\t\'Additionally, you can pass a boolean prop to say if onboarding has been completed.\',\n\t\t\'If the owner/teammate has done onboarding already, all of the messages will be displayed.\'\n\t]}\n\tonComplete={this.didCompleteOnboarding}\n\tdoneButtonLabel={\'Finish\'}\n\tonboardingComplete={this.props.onboarding.onboardingComplete}\t\n/>'
 					)
 				),
 				_react2.default.createElement(
@@ -1443,4 +1469,8 @@ var Styleguide = function (_Component) {
 	return Styleguide;
 }(_react.Component);
 
-exports.default = Styleguide;
+exports.default = (0, _withStore2.default)(Styleguide, {
+	actions: actions,
+	reducers: _reducers2.default,
+	config: { SERVER_HOST: 'https://example.com' }
+});

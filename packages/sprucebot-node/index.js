@@ -256,7 +256,8 @@ class Sprucebot {
 			sortBy,
 			order,
 			limit,
-			value
+			value,
+			roles
 		} = {},
 		suppressParseErrors = true
 	) {
@@ -276,6 +277,10 @@ class Sprucebot {
 		}
 		if (query.updatedAt) {
 			query.updatedAt = JSON.stringify(query.updatedAt)
+		}
+
+		if (query.roles) {
+			query.roles = JSON.stringify(query.roles)
 		}
 		return this.https.get('/data', query)
 	}
@@ -439,7 +444,7 @@ class Sprucebot {
 		//first is always auto resolved
 		if (this._mutexes[key].count === 1) {
 			this._mutexes[key].promises.push(new Promise(resolve => resolve()))
-			this._mutexes[key].resolvers.push(() => {})
+			this._mutexes[key].resolvers.push(() => { })
 		} else {
 			let resolver = resolve => {
 				this._mutexes[key].resolvers.push(resolve)

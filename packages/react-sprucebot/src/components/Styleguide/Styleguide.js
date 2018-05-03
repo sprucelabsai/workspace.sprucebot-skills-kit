@@ -41,6 +41,9 @@ import Icon from '../Icon/Icon'
 import IconButton from '../IconButton/IconButton'
 import ControlButton from '../ControlButton/ControlButton'
 import skill from '../../skillskit/index'
+import * as actions from '../../skillskit/store/actions'
+import reducers from '../../skillskit/store/reducers'
+import withStore from '../../skillskit/store/withStore'
 
 import FormExample from './FormExample'
 
@@ -101,12 +104,26 @@ if (process.env.NODE_ENV === 'test') {
 	NOW = new Date()
 }
 
-export default class Styleguide extends Component {
+class Styleguide extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			calloutOn: false,
 			errorMessage: ''
+		}
+		this.didCompleteOnboarding = this.didCompleteOnboarding.bind(this)
+	}
+	didCompleteOnboarding() {
+		const { onboardingComplete } = this.props.onboarding
+		if (!onboardingComplete) {
+			this.props.actions.onboarding.finishOnboarding()
+			console.log(
+				'Posting to your database that you completed onboarding.  Check your Skill Data now!'
+			)
+		} else {
+			console.log(
+				"You've already completed the onboarding.  Check your Skill Data now!"
+			)
 		}
 	}
 	render() {
@@ -884,12 +901,15 @@ export default class Styleguide extends Component {
 						heading={'Onboarding'}
 						steps={[
 							'This is an onboarding component.',
-							'It has a heading',
-							'And "guides" you through the steps like the TrainingGuide',
-							'You can also change the label of the done button.'
+							'It has a heading.',
+							'And "guides" you through the steps like the TrainingGuide.',
+							'You can also change the label of the done button.',
+							'Additionally, you can pass a boolean prop to say if onboarding has been completed.',
+							'If the owner/teammate has done onboarding already, all of the messages will be displayed.'
 						]}
-						onComplete={() => alert('Done!')}
+						onComplete={this.didCompleteOnboarding}
 						doneButtonLabel={'Finish'}
+						onboardingComplete={this.props.onboarding.onboardingComplete}
 					/>
 					<Pre>
 						{`<Onboarding
@@ -898,10 +918,13 @@ export default class Styleguide extends Component {
 		'This is an onboarding component.',
 		'It has a heading',
 		'And "guides" you through the steps like the TrainingGuide',
-		'You can also change the label of the done button.'
+		'You can also change the label of the done button.',
+		'Additionally, you can pass a boolean prop to say if onboarding has been completed.',
+		'If the owner/teammate has done onboarding already, all of the messages will be displayed.'
 	]}
-	onComplete={() => alert('Done!')}
+	onComplete={this.didCompleteOnboarding}
 	doneButtonLabel={'Finish'}
+	onboardingComplete={this.props.onboarding.onboardingComplete}	
 />`}
 					</Pre>
 				</Container>
@@ -1019,3 +1042,9 @@ export default class Styleguide extends Component {
 		)
 	}
 }
+
+export default withStore(Styleguide, {
+	actions,
+	reducers,
+	config: { SERVER_HOST: 'https://example.com' }
+})

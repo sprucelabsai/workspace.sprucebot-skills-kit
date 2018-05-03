@@ -104,8 +104,10 @@ export class Tabs extends Component {
 		})
 
 		return (
-			<div className={`tabs__container `} {...props}>
-				<div className="tabs">{tabs}</div>
+			<div>
+				<div className={`toggle__wrapper`} {...props}>
+					{tabs}
+				</div>
 				<div className="tab__panes">{tabPanes}</div>
 			</div>
 		)
