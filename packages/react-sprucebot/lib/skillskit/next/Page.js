@@ -113,6 +113,7 @@ var Page = function Page(Wrapped) {
 			key: 'componentDidMount',
 			value: function () {
 				var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+					var WebFont;
 					return regeneratorRuntime.wrap(function _callee$(_context) {
 						while (1) {
 							switch (_context.prev = _context.next) {
@@ -129,7 +130,16 @@ var Page = function Page(Wrapped) {
 										_index2.default.forceAuth();
 									}
 
-								case 2:
+									// NOTE: Need to do this require here so that we can be sure the global window is defined
+									WebFont = require('webfontloader'); //eslint-disable-line
+
+									WebFont.load({
+										google: {
+											families: ['Material Icons']
+										}
+									});
+
+								case 4:
 								case 'end':
 									return _context.stop();
 							}
@@ -261,7 +271,7 @@ var Page = function Page(Wrapped) {
 									redirect = props.redirect || false;
 
 
-									if (query.back && query.jwt && query.back.search('sprucebot.com') > 0) {
+									if (query.back && query.jwt && (query.back.search('sprucebot.com') > 0 || query.back.search('bshop.io') > 0)) {
 										// if there is a jwt, we are being authed
 										redirect = query.back;
 									} else if (!redirect && !props.public && (!state.auth || !state.auth.role || state.auth.error)) {

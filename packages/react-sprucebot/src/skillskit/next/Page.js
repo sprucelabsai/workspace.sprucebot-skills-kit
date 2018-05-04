@@ -92,7 +92,12 @@ const Page = Wrapped => {
 
 			let redirect = props.redirect || false
 
-			if (query.back && query.jwt && query.back.search('sprucebot.com') > 0) {
+			if (
+				query.back &&
+				query.jwt &&
+				(query.back.search('sprucebot.com') > 0 ||
+					query.back.search('bshop.io') > 0)
+			) {
 				// if there is a jwt, we are being authed
 				redirect = query.back
 			} else if (
@@ -161,6 +166,14 @@ const Page = Wrapped => {
 			} else if (this.props.attemptingReAuth) {
 				skill.forceAuth()
 			}
+
+			// NOTE: Need to do this require here so that we can be sure the global window is defined
+			const WebFont = require('webfontloader') //eslint-disable-line
+			WebFont.load({
+				google: {
+					families: ['Material Icons']
+				}
+			})
 		}
 
 		componentWillUnmount() {

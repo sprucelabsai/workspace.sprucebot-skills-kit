@@ -74,6 +74,12 @@ export default class MyDocument extends Document {
 							charSet="UTF-8"
 						/>
 					)}
+					<style jsx global>{`
+						html,
+						body {
+							overflow: hidden;
+						}
+					`}</style>
 				</Head>
 				<body>
 					<Main />
