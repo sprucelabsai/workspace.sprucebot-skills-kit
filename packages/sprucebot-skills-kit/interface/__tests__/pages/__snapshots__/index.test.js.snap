@@ -517,13 +517,13 @@ exports[`renders page with styleguide 1`] = `
       class="Container-md3jvi-0 container cqhPkv"
     >
       <div
-        class="Switch__SwitchComp-wfc8pr-1 Switch switch  eHWIUy"
-        tabindex="0"
+        class="switch switch"
       >
-        <span
-          class="Switch__SwitchButton-wfc8pr-0 SwitchButton kLTHFe"
-          type="button"
-        />
+        <button>
+          <span>
+            Disabled
+          </span>
+        </button>
       </div>
       <pre
         class="Pre-s1a0pq3k-0 dHESOH"
@@ -535,13 +535,13 @@ exports[`renders page with styleguide 1`] = `
 /&gt;
       </pre>
       <div
-        class="Switch__SwitchComp-wfc8pr-1 Switch switch  fzCZJB"
-        tabindex="0"
+        class="switch switch on"
       >
-        <span
-          class="Switch__SwitchButton-wfc8pr-0 SwitchButton esjjoB"
-          type="button"
-        />
+        <button>
+          <span>
+            Enabled
+          </span>
+        </button>
       </div>
       <pre
         class="Pre-s1a0pq3k-0 dHESOH"
@@ -942,13 +942,13 @@ export default reduxForm({
             class="List__ItemRightContent-s15prkdz-4 ItemRightContent content__right fgoBzY"
           >
             <div
-              class="Switch__SwitchComp-wfc8pr-1 Switch switch  eHWIUy"
-              tabindex="0"
+              class="switch switch"
             >
-              <span
-                class="Switch__SwitchButton-wfc8pr-0 SwitchButton kLTHFe"
-                type="button"
-              />
+              <button>
+                <span>
+                  Disabled
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1031,11 +1031,9 @@ export default reduxForm({
     <div
       class="Container-md3jvi-0 container cqhPkv"
     >
-      <div
-        class="tabs__container "
-      >
+      <div>
         <div
-          class="tabs"
+          class="toggle__wrapper"
         >
           <button
             class="btn__toggle toggle__left"
@@ -1639,13 +1637,13 @@ export default reduxForm({
                 class="List__ItemRightContent-s15prkdz-4 ItemRightContent content__right fgoBzY"
               >
                 <div
-                  class="Switch__SwitchComp-wfc8pr-1 Switch switch  eHWIUy"
-                  tabindex="0"
+                  class="switch switch"
                 >
-                  <span
-                    class="Switch__SwitchButton-wfc8pr-0 SwitchButton kLTHFe"
-                    type="button"
-                  />
+                  <button>
+                    <span>
+                      Disabled
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -2100,7 +2098,7 @@ export default reduxForm({
               class="BotText-s1aw735w-0 bot__text gicUIk"
             >
               <span>
-                It has a heading
+                It has a heading.
               </span>
             </div>
           </div>
@@ -2112,7 +2110,7 @@ export default reduxForm({
               class="BotText-s1aw735w-0 bot__text gicUIk"
             >
               <span>
-                And "guides" you through the steps like the TrainingGuide
+                And "guides" you through the steps like the TrainingGuide.
               </span>
             </div>
           </div>
@@ -2125,6 +2123,30 @@ export default reduxForm({
             >
               <span>
                 You can also change the label of the done button.
+              </span>
+            </div>
+          </div>
+          <div
+            class="training_guide__step off "
+            style="height:0"
+          >
+            <div
+              class="BotText-s1aw735w-0 bot__text gicUIk"
+            >
+              <span>
+                Additionally, you can pass a boolean prop to say if onboarding has been completed.
+              </span>
+            </div>
+          </div>
+          <div
+            class="training_guide__step off "
+            style="height:0"
+          >
+            <div
+              class="BotText-s1aw735w-0 bot__text gicUIk"
+            >
+              <span>
+                If the owner/teammate has done onboarding already, all of the messages will be displayed.
               </span>
             </div>
           </div>
@@ -2147,10 +2169,13 @@ export default reduxForm({
 		'This is an onboarding component.',
 		'It has a heading',
 		'And "guides" you through the steps like the TrainingGuide',
-		'You can also change the label of the done button.'
+		'You can also change the label of the done button.',
+		'Additionally, you can pass a boolean prop to say if onboarding has been completed.',
+		'If the owner/teammate has done onboarding already, all of the messages will be displayed.'
 	]}
-	onComplete={() =&gt; alert('Done!')}
+	onComplete={this.didCompleteOnboarding}
 	doneButtonLabel={'Finish'}
+	onboardingComplete={this.props.onboarding.onboardingComplete}	
 /&gt;
       </pre>
     </div>

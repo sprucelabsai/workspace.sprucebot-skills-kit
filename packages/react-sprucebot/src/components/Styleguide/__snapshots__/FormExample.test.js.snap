@@ -20,6 +20,10 @@ exports[`FormExample it renders 1`] = `
             "auth": Object {
               "go": [Function],
             },
+            "onboarding": Object {
+              "didOnboarding": [Function],
+              "finishOnboarding": [Function],
+            },
           }
         }
         auth={Object {}}
@@ -71,6 +75,7 @@ exports[`FormExample it renders 1`] = `
             },
           }
         }
+        onboarding={Object {}}
       >
         <ReduxForm
           onSubmit={[MockFunction]}

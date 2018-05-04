@@ -44,7 +44,8 @@ var Onboarding = function (_Component) {
 			    heading = _props.heading,
 			    steps = _props.steps,
 			    onComplete = _props.onComplete,
-			    doneButtonLabel = _props.doneButtonLabel;
+			    doneButtonLabel = _props.doneButtonLabel,
+			    onboardingComplete = _props.onboardingComplete;
 
 			return _react2.default.createElement(
 				'div',
@@ -57,7 +58,8 @@ var Onboarding = function (_Component) {
 				_react2.default.createElement(_TrainingGuide2.default, {
 					steps: steps,
 					onComplete: onComplete,
-					doneButtonLabel: doneButtonLabel
+					doneButtonLabel: doneButtonLabel,
+					onboardingComplete: onboardingComplete
 				})
 			);
 		}

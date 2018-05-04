@@ -32,7 +32,6 @@ class Sprucebot {
 		this.icon = svgIcon || required('svgIcon')
 		this.webhookUrl = (serverUrl || required('serverUrl')) + '/hook.json'
 		this.iframeUrl = interfaceUrl || required('interfaceUrl')
-		this.publicUrl = (interfaceUrl || required('interfaceUrl')) + '/public'
 		this.marketingUrl =
 			(interfaceUrl || required('interfaceUrl')) + '/marketing'
 
@@ -51,12 +50,11 @@ class Sprucebot {
 		})
 
 		console.log(
-			`🌲 Sprucebot🌲 Skills Kit API ${
-				this.version
-			}\n\nhost : ${cleanedHost} \nid : ${id} \napiKey : ${apiKey.replace(
-				/./g,
-				'*'
-			)} \nname : ${name}\n---------------------------------`
+			`🌲 Sprucebot🌲 Skills Kit API ${this
+				.version}\n\nhost : ${cleanedHost} \nid : ${id} \napiKey : ${apiKey.replace(
+					/./g,
+					'*'
+				)} \nname : ${name}\n---------------------------------`
 		)
 	}
 
@@ -70,8 +68,7 @@ class Sprucebot {
 			icon: this.icon,
 			webhookUrl: this.webhookUrl,
 			iframeUrl: this.iframeUrl,
-			marketingUrl: this.marketingUrl,
-			publicUrl: this.publicUrl
+			marketingUrl: this.marketingUrl
 		}
 		const results = await this.https.patch('/', data)
 		let database = null
@@ -100,8 +97,8 @@ class Sprucebot {
 
 	/**
 	 * Get a user without a location. GLOBAL SKILLS ONLY
-	 *
-	 * @param {String} userId
+	 * 
+	 * @param {String} userId 
 	 * @param {Object} Optional query string to be added to the request
 	 */
 	async globalUser(userId, query) {
@@ -110,7 +107,7 @@ class Sprucebot {
 
 	/**
 	 * Get all locations. GLOBAL SKILLS ONLY
-	 *
+	 * 
 	 * @param {Object} Optional query string to be added to the request
 	 */
 	async globalLocations(query) {
@@ -118,23 +115,23 @@ class Sprucebot {
 	}
 
 	/**
-	 * Create a user
-	 *
-	 * @param {Object} values
-	 * @returns {Promise}
-	 */
+     * Create a user
+     *
+     * @param {Object} values
+     * @returns {Promise}
+     */
 	async createUser(values) {
 		return this.https.post('/ge/users', values)
 	}
 
 	/**
-	 * Update a users role
-	 *
-	 * @param {String} locationId
-	 * @param {String} userId
-	 * @param {String} role
-	 * @returns {Promise}
-	 */
+     * Update a users role
+     *
+     * @param {String} locationId
+     * @param {String} userId
+     * @param {String} role
+     * @returns {Promise}
+     */
 	async updateRole(locationId, userId, role) {
 		return this.https.patch(
 			`/ge/locations/${locationId}/users/${userId}/${role}`
@@ -211,12 +208,12 @@ class Sprucebot {
 	}
 
 	/**
-	 * ONLY APPLIES TO SKILLS THAT ARE GLOBAL (are not attached to a location).
-	 * This allows Sprucebot to communicate to business owners without them
-	 * actually needing any skills enabled. Core usage only.
-	 *
-	 * @param {String} userId
-	 * @param {String} message
+	 * ONLY APPLIES TO SKILLS THAT ARE GLOBAL (are not attached to a location).  
+	 * This allows Sprucebot to communicate to business owners without them 
+	 * actually needing any skills enabled. Core usage only. 
+	 * 
+	 * @param {String} userId 
+	 * @param {String} message 
 	 */
 	async globalMessage(userId, message) {
 		return this.https.post('/messages', { userId, message })
@@ -238,7 +235,8 @@ class Sprucebot {
 			sortBy,
 			order,
 			limit,
-			value
+			value,
+			roles
 		} = {},
 		suppressParseErrors = true
 	) {
@@ -258,6 +256,10 @@ class Sprucebot {
 		}
 		if (query.updatedAt) {
 			query.updatedAt = JSON.stringify(query.updatedAt)
+		}
+
+		if (query.roles) {
+			query.roles = JSON.stringify(query.roles)
 		}
 		return this.https.get('/data', query)
 	}
@@ -284,8 +286,8 @@ class Sprucebot {
 
 	/**
 	 * Get skill meta data by id
-	 *
-	 * @param {String} id
+	 * 
+	 * @param {String} id 
 	 */
 	async metaById(id, { locationId, userId } = {}) {
 		return this.https.get(`/data/${id}`, Array.from(arguments)[1])
@@ -421,7 +423,7 @@ class Sprucebot {
 		//first is always auto resolved
 		if (this._mutexes[key].count === 1) {
 			this._mutexes[key].promises.push(new Promise(resolve => resolve()))
-			this._mutexes[key].resolvers.push(() => {})
+			this._mutexes[key].resolvers.push(() => { })
 		} else {
 			let resolver = resolve => {
 				this._mutexes[key].resolvers.push(resolve)

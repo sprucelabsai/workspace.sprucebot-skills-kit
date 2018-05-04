@@ -87,6 +87,9 @@ var ImageCropper = function (_Component) {
 	_createClass(ImageCropper, [{
 		key: 'initiateFileUpload',
 		value: function initiateFileUpload() {
+			if (this.state.uploading) {
+				return;
+			}
 			this.input.click();
 		}
 	}, {
@@ -214,8 +217,16 @@ var ImageCropper = function (_Component) {
 							case 0:
 								_state = this.state, pixelCrop = _state.pixelCrop, type = _state.type;
 
+								if (!this.state.uploading) {
+									_context.next = 3;
+									break;
+								}
+
+								return _context.abrupt('return');
+
+							case 3:
 								if (type) {
-									_context.next = 4;
+									_context.next = 6;
 									break;
 								}
 
@@ -224,12 +235,12 @@ var ImageCropper = function (_Component) {
 								});
 								return _context.abrupt('return');
 
-							case 4:
-								_context.prev = 4;
+							case 6:
+								_context.prev = 6;
 
 								this.setState({ uploading: true });
 
-								_context.next = 8;
+								_context.next = 10;
 								return new Promise(function (resolve, reject) {
 									var image = new Image();
 									image.onload = function () {
@@ -241,7 +252,7 @@ var ImageCropper = function (_Component) {
 									image.src = _this3.cropper.imageRef.src;
 								});
 
-							case 8:
+							case 10:
 								image = _context.sent;
 								canvas = document.createElement('canvas');
 
@@ -252,10 +263,10 @@ var ImageCropper = function (_Component) {
 
 								ctx.drawImage(image, pixelCrop.x, pixelCrop.y, pixelCrop.width, pixelCrop.height, 0, 0, pixelCrop.width, pixelCrop.height);
 								cropped = canvas.toDataURL(type);
-								_context.next = 17;
+								_context.next = 19;
 								return this.props.onSave(cropped, type);
 
-							case 17:
+							case 19:
 
 								// reset things how they were
 								this.setState({
@@ -264,26 +275,26 @@ var ImageCropper = function (_Component) {
 									newFile: false,
 									base64Image: cropped
 								});
-								_context.next = 24;
+								_context.next = 26;
 								break;
 
-							case 20:
-								_context.prev = 20;
-								_context.t0 = _context['catch'](4);
+							case 22:
+								_context.prev = 22;
+								_context.t0 = _context['catch'](6);
 
 								console.error(_context.t0);
 								this.setState({ errorMessage: this.props.uploadImageFailedMessage });
 
-							case 24:
+							case 26:
 
 								this.setState({ uploading: false });
 
-							case 25:
+							case 27:
 							case 'end':
 								return _context.stop();
 						}
 					}
-				}, _callee, this, [[4, 20]]);
+				}, _callee, this, [[6, 22]]);
 			}));
 
 			function onSave() {

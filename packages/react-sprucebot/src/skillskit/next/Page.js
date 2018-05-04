@@ -57,6 +57,7 @@ const Page = Wrapped => {
 			if (jwt) {
 				try {
 					await store.dispatch(actions.auth.go(jwt))
+					await store.dispatch(actions.onboarding.didOnboarding())
 
 					// only save cookie if a new one has been passed
 					if (query.jwt) {
@@ -112,7 +113,7 @@ const Page = Wrapped => {
 				// we are at '/' then redirect to the corresponding role's path
 				if (props.pathname === '/') {
 					redirect = `/${role}?${queryString}`
-				} else if (role !== firstPart && !state.config.DEV_MODE) {
+				} else if (role !== firstPart) {
 					redirect = `/unauthorized`
 				}
 			}

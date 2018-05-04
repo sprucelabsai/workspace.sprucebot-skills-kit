@@ -196,7 +196,7 @@ var Page = function Page(Wrapped) {
 									jwt = query.jwt || getCookie('jwt', req, res);
 
 									if (!jwt) {
-										_context2.next = 15;
+										_context2.next = 17;
 										break;
 									}
 
@@ -205,29 +205,33 @@ var Page = function Page(Wrapped) {
 									return store.dispatch(actions.auth.go(jwt));
 
 								case 6:
+									_context2.next = 8;
+									return store.dispatch(actions.onboarding.didOnboarding());
+
+								case 8:
 
 									// only save cookie if a new one has been passed
 									if (query.jwt) {
 										setCookie('jwt', query.jwt, req, res);
 									}
-									_context2.next = 13;
+									_context2.next = 15;
 									break;
 
-								case 9:
-									_context2.prev = 9;
+								case 11:
+									_context2.prev = 11;
 									_context2.t0 = _context2['catch'](3);
 
 									debug(_context2.t0);
 									debug('Error fetching user from jwt');
 
-								case 13:
-									_context2.next = 16;
+								case 15:
+									_context2.next = 18;
 									break;
 
-								case 15:
+								case 17:
 									debug('This looks pretty bad. You are missing a jwt and will probably be unauthorized');
 
-								case 16:
+								case 18:
 									state = store.getState();
 
 
@@ -236,7 +240,7 @@ var Page = function Page(Wrapped) {
 									}
 
 									if (!ConnectedWrapped.getInitialProps) {
-										_context2.next = 28;
+										_context2.next = 30;
 										break;
 									}
 
@@ -246,14 +250,14 @@ var Page = function Page(Wrapped) {
 									_context2.t1 = _extends;
 									_context2.t2 = {};
 									_context2.t3 = props;
-									_context2.next = 26;
+									_context2.next = 28;
 									return ConnectedWrapped.getInitialProps.apply(this, args);
 
-								case 26:
+								case 28:
 									_context2.t4 = _context2.sent;
 									props = (0, _context2.t1)(_context2.t2, _context2.t3, _context2.t4);
 
-								case 28:
+								case 30:
 									redirect = props.redirect || false;
 
 
@@ -274,13 +278,13 @@ var Page = function Page(Wrapped) {
 
 										if (props.pathname === '/') {
 											redirect = '/' + role + '?' + queryString;
-										} else if (role !== firstPart && !state.config.DEV_MODE) {
+										} else if (role !== firstPart) {
 											redirect = '/unauthorized';
 										}
 									}
 
 									if (!(redirect && res)) {
-										_context2.next = 37;
+										_context2.next = 39;
 										break;
 									}
 
@@ -291,12 +295,12 @@ var Page = function Page(Wrapped) {
 									res.finished = true;
 									return _context2.abrupt('return');
 
-								case 37:
+								case 39:
 									if (redirect) {
 										window.location.href = redirect;
 									}
 
-								case 38:
+								case 40:
 									// if we are /unauthorized, don't have a cookie, but have NOT done cookie check
 									if (props.pathname === '/unauthorized' && (!state.auth || !state.auth.role)) {
 										props.attemptingReAuth = true;
@@ -306,12 +310,12 @@ var Page = function Page(Wrapped) {
 									// No circular dependencies
 									return _context2.abrupt('return', props);
 
-								case 40:
+								case 42:
 								case 'end':
 									return _context2.stop();
 							}
 						}
-					}, _callee2, this, [[3, 9]]);
+					}, _callee2, this, [[3, 11]]);
 				}));
 
 				function getInitialProps(_x) {
