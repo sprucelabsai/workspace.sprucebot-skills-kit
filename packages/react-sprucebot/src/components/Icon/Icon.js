@@ -12,6 +12,7 @@ const I = styled.i.attrs({
 	display: inline-block;
 	height: 1em;
 	line-height: 1;
+	opacity: 0;
 	text-transform: none;
 	letter-spacing: normal;
 	word-wrap: normal;
@@ -26,6 +27,10 @@ const I = styled.i.attrs({
 	-moz-osx-font-smoothing: grayscale;
 	/* Support for IE. */
 	font-feature-settings: 'liga';
+
+	.wf-active & {
+		opacity: 1;
+	}
 `
 
 const Icon = ({ children, ...props }) => <I {...props}>{children}</I>
