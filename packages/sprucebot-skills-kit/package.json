@@ -1,5 +1,5 @@
 {
-  "name": "@barbershopio/sprucebot-skills-kit",
+  "name": "sprucebot-skills-kit",
   "publishConfig": {
     "access": "public"
   },
