@@ -64,8 +64,9 @@ setTimeout(async () => {
 }, 2000)
 
 function handleReady(resolve) {
-	log.info(`Waiting for Server to boot.  Check #${readyChecks}`)
+	console.info(`ℹ️  Waiting for Server to boot.  Check #${readyChecks}`)
 	if (ready || readyChecks > 100) {
+		console.info(`ℹ️  Server Ready`)
 		return resolve(server)
 	}
 
@@ -77,6 +78,6 @@ function handleReady(resolve) {
 }
 
 module.exports = new Promise(resolve => {
-	log.info('Execute promise callback')
+	console.info('ℹ️  Execute promise callback')
 	handleReady(resolve)
 })
