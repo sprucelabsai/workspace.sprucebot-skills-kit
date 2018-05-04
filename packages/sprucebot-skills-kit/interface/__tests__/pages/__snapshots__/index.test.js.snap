@@ -89,7 +89,12 @@ exports[`renders page with styleguide 1`] = `
 	Stars,
 	ImageCropper,
 	Callout,
-	Feed
+	Feed,
+	TrainingGuide,
+	Dialog,
+	Icon,
+	IconButton,
+	ControlButton
 } from 'react-sprucebot'
       </pre>
     </div>
@@ -427,6 +432,126 @@ exports[`renders page with styleguide 1`] = `
         class="Pre-s1a0pq3k-0 dHESOH"
       >
         &lt;Button link&gt;I'm a button link&lt;/Button&gt;
+      </pre>
+    </div>
+    <h1
+      class="Typography__H1-s141trq-1 cblwbP"
+    >
+      Icons
+    </h1>
+    <div
+      class="icon__button__container Container-md3jvi-0 container cqhPkv"
+    >
+      <div
+        class="BotText-s1aw735w-0 bot__text gicUIk"
+      >
+        Icons and Icon Buttons have the option to display an icon using Material Icons. Check out https://material.io/icons/. To use an icon, just enter the icon name as the child of the button.
+      </div>
+      <i
+        class="Icon__I-s1r0bu8t-0 Icon icon  gMxGQa"
+      >
+        mood
+      </i>
+      <pre
+        class="Pre-s1a0pq3k-0 dHESOH"
+      >
+        &lt;Icon&gt;mood&lt;/Icon&gt;
+      </pre>
+      <button
+        class="IconButton__Button-s10eb4c1-0 IconButton icon-button  fFhIMX"
+      >
+        <i
+          class="Icon__I-s1r0bu8t-0 Icon icon  gMxGQa"
+        >
+          place
+        </i>
+      </button>
+      <pre
+        class="Pre-s1a0pq3k-0 dHESOH"
+      >
+        &lt;IconButton onClick={/* Handle Click */}&gt;place&lt;/IconButton&gt;
+      </pre>
+    </div>
+    <h1
+      class="Typography__H1-s141trq-1 cblwbP"
+    >
+      Control Buttons
+    </h1>
+    <div
+      class="Container-md3jvi-0 container cqhPkv"
+    >
+      <div
+        class="BotText-s1aw735w-0 bot__text gicUIk"
+      >
+        Control Buttons have the option to display a right or left icon using Material Icons. Check out https://material.io/icons/. To use an icon, just enter the icon name as a value for the iconLeft or iconRight prop. You can also pass an href to render the button as a link!
+      </div>
+      <button
+        class="ControlButton__Button-jro3dx-2 ControlButton control-button  lmOXHz"
+        tabindex="0"
+      >
+        <span>
+          I'm a control button
+        </span>
+      </button>
+      <pre
+        class="Pre-s1a0pq3k-0 dHESOH"
+      >
+        &lt;ControlButton&gt;I'm a control button&lt;/ControlButton&gt;
+      </pre>
+      <button
+        class="ControlButton__Button-jro3dx-2 ControlButton control-button  lmOXHz"
+        tabindex="0"
+      >
+        <i
+          class="ControlButton__StyledIconLeft-jro3dx-0 coopeD Icon__I-s1r0bu8t-0 Icon icon ControlButton__StyledIconLeft-jro3dx-0 coopeD gMxGQa"
+        >
+          favorite
+        </i>
+        <span>
+          I have a left icon
+        </span>
+      </button>
+      <pre
+        class="Pre-s1a0pq3k-0 dHESOH"
+      >
+        &lt;ControlButton iconLeft="favorite"&gt;I have a left icon&lt;/ControlButton&gt;
+      </pre>
+      <button
+        class="ControlButton__Button-jro3dx-2 ControlButton control-button  lmOXHz"
+        tabindex="0"
+      >
+        <span>
+          I have a right icon
+        </span>
+        <i
+          class="ControlButton__StyledIconRight-jro3dx-1 kHPxcC Icon__I-s1r0bu8t-0 Icon icon ControlButton__StyledIconRight-jro3dx-1 kHPxcC gMxGQa"
+        >
+          edit
+        </i>
+      </button>
+      <pre
+        class="Pre-s1a0pq3k-0 dHESOH"
+      >
+        &lt;ControlButton iconRight="edit"&gt;I have a right icon&lt;/ControlButton&gt;
+      </pre>
+      <a
+        class="ControlButton__Link-jro3dx-3 ControlButton control-button  jtWGdG"
+        href="https://sprucebot.com"
+        tabindex="0"
+      >
+        <span>
+          I'm a link
+        </span>
+        <i
+          class="ControlButton__StyledIconRight-jro3dx-1 kHPxcC Icon__I-s1r0bu8t-0 Icon icon ControlButton__StyledIconRight-jro3dx-1 kHPxcC gMxGQa"
+        >
+          🤖
+        </i>
+      </a>
+      <pre
+        class="Pre-s1a0pq3k-0 dHESOH"
+      >
+        &lt;ControlButton iconRight="🤖" href="https://sprucebot.com"&gt;I'm a link&lt;/ControlButton&gt;
       </pre>
     </div>
     <h1
