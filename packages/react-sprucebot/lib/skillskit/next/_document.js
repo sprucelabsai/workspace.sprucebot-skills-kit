@@ -73,12 +73,7 @@ var MyDocument = function (_Document) {
 						rel: 'stylesheet',
 						type: 'text/css',
 						charSet: 'UTF-8'
-					}),
-					_react2.default.createElement(
-						'style',
-						{ jsx: true, global: true },
-						'\n\t\t\t\t\t\thtml,\n\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t}\n\t\t\t\t\t'
-					)
+					})
 				),
 				_react2.default.createElement(
 					'body',

@@ -91,7 +91,8 @@ var Page = function Page(Wrapped) {
 			var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
 
 			_this.state = {
-				attemptingReAuth: !!props.attemptingReAuth
+				attemptingReAuth: !!props.attemptingReAuth,
+				isIframed: true
 			};
 
 			_this.messageHandler = _this.messageHandler.bind(_this);
@@ -124,7 +125,8 @@ var Page = function Page(Wrapped) {
 										// make sure we are being loaded inside sb
 										console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL');
 										this.setState({
-											attemptingReAuth: false
+											attemptingReAuth: false,
+											isIframed: !!window.__SBTEAMMATE__
 										});
 									} else if (this.props.attemptingReAuth) {
 										_index2.default.forceAuth();
@@ -168,11 +170,25 @@ var Page = function Page(Wrapped) {
 					return _react2.default.createElement(
 						'div',
 						null,
+						this.state.isIframed ? _react2.default.createElement(
+							'style',
+							{ jsx: true, global: true },
+							'\n\t\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t'
+						) : null,
 						_react2.default.createElement(_DevControls2.default, { auth: this.props.auth }),
 						_react2.default.createElement(ConnectedWrapped, _extends({}, this.props, { skill: _index2.default, lang: _lang2.default }))
 					);
 				}
-				return _react2.default.createElement(ConnectedWrapped, _extends({}, this.props, { skill: _index2.default, lang: _lang2.default }));
+				return _react2.default.createElement(
+					'div',
+					null,
+					this.state.isIframed ? _react2.default.createElement(
+						'style',
+						{ jsx: true, global: true },
+						'\n\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t'
+					) : null,
+					_react2.default.createElement(ConnectedWrapped, _extends({}, this.props, { skill: _index2.default, lang: _lang2.default }))
+				);
 			}
 		}], [{
 			key: 'getInitialProps',
