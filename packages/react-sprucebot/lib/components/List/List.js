@@ -85,8 +85,12 @@ var ItemTitle = _styledComponents2.default.div.attrs({
 }).withConfig({
 	displayName: 'List__ItemTitle',
 	componentId: 's12tv117-5'
-})(['', ';'], function (props) {
+})(['', ';width:', ';', ''], function (props) {
 	return props.weight ? 'font-weight: ' + props.weight : 'font-weight: 500;';
+}, function (props) {
+	return props.width ? '' + props.width : 'unset';
+}, function (props) {
+	return props.overflow && '\n\t\toverflow: hidden;\n\t\twhite-space: nowrap;\n\t\ttext-overflow: ellipsis;\n\t';
 });
 
 var ItemSubTitle = _styledComponents2.default.div.attrs({
@@ -120,7 +124,9 @@ var ListItem = exports.ListItem = function (_Component) {
 			    avatar = _props.avatar,
 			    showOnlineIndicator = _props.showOnlineIndicator,
 			    alignItems = _props.alignItems,
-			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems']);
+			    overflow = _props.overflow,
+			    width = _props.width,
+			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width']);
 
 			// build children
 
@@ -142,7 +148,7 @@ var ListItem = exports.ListItem = function (_Component) {
 			if (title) {
 				children.unshift(_react2.default.createElement(
 					ItemTitle,
-					{ key: 'title' },
+					{ overflow: overflow, width: width, key: 'title' },
 					title
 				));
 			}
