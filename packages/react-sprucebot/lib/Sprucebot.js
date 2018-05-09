@@ -26,6 +26,10 @@ var _Container = require('./components/Container/Container');
 
 var _Container2 = _interopRequireDefault(_Container);
 
+var _DateSelect = require('./components/DateSelect/DateSelect');
+
+var _DateSelect2 = _interopRequireDefault(_DateSelect);
+
 var _Input = require('./components/Input/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
@@ -172,6 +176,7 @@ var Sprucebot = _extends({
 	BotText: _BotText2.default,
 	Button: _Button2.default,
 	Container: _Container2.default,
+	DateSelect: _DateSelect2.default,
 	Input: _Input2.default,
 	Pre: _Pre2.default,
 	Switch: _Switch2.default,

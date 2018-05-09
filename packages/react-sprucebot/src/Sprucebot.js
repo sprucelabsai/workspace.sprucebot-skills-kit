@@ -5,6 +5,7 @@ import Avatar from './components/Avatar/Avatar'
 import BotText from './components/BotText/BotText'
 import Button from './components/Button/Button'
 import Container from './components/Container/Container'
+import DateSelect from './components/DateSelect/DateSelect'
 import Input from './components/Input/Input'
 import Pre from './components/Pre/Pre'
 import Switch from './components/Switch/Switch'
@@ -52,6 +53,7 @@ const Sprucebot = {
 	BotText,
 	Button,
 	Container,
+	DateSelect,
 	Input,
 	Pre,
 	Switch,
