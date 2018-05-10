@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { DayPickerSingleDateController } from 'react-dates'
 import IconButton from '../IconButton/IconButton'
 import moment from 'moment'
+import Icon from '../Icon/Icon'
 
 const Wrapper = styled.div`
 	.PresetDateRangePicker_panel {
@@ -434,6 +435,7 @@ const Wrapper = styled.div`
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
+		padding: 0 1.75em;
 		z-index: 2;
 	}
 	.DayPickerNavigation_container__vertical {
@@ -467,17 +469,18 @@ const Wrapper = styled.div`
 		background: #f2f2f2;
 	}
 	.DayPickerNavigation_button__horizontal {
-		border-radius: 3px;
-		padding: 6px 9px;
-		top: 18px;
+		display: flex;
+		justify-content: center;
+		padding: 0;
+		border-radius: 50%;
 	}
 	.DayPickerNavigation_leftButton__horizontal {
-		left: 22px;
-		width: 50px;
+		height: 28px;
+		width: 28px;
 	}
 	.DayPickerNavigation_rightButton__horizontal {
-		right: 22px;
-		width: 50px;
+		height: 28px;
+		width: 28px;
 	}
 	.DayPickerNavigation_button__vertical {
 		display: inline-block;
@@ -548,7 +551,7 @@ const Wrapper = styled.div`
 	.DayPicker_weekHeader {
 		color: #757575;
 		position: absolute;
-		top: 52px;
+		top: 55px;
 		z-index: 2;
 		padding: 0 13px;
 		text-align: left;
@@ -832,6 +835,10 @@ const Wrapper = styled.div`
 	}
 `
 
+const NavButton = styled(IconButton)`
+	color: #fff;
+`
+
 class DateSelect extends Component {
 	state = {}
 
@@ -843,14 +850,24 @@ class DateSelect extends Component {
 
 	isDayBlocked = date => {
 		const { availableDays } = this.props
-		const today = moment()
-		const pastDate = date.isBefore(today)
 		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
 
 		if (match) {
 			return false
 		}
 		return true
+	}
+
+	isOutsideRange = date => {
+		const { availableDays } = this.props
+		const today = moment()
+		const pastDate = date.isBefore(today)
+
+		if (pastDate) {
+			return true
+		}
+
+		return false
 	}
 
 	handleDateChange = date => {
@@ -874,7 +891,10 @@ class DateSelect extends Component {
 					onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
 					numberOfMonths={1}
 					isDayBlocked={this.isDayBlocked}
+					isOutsideRange={this.isOutsideRange}
 					keepOpenOnDateSelect
+					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
+					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
 				/>
 			</Wrapper>
 		]
