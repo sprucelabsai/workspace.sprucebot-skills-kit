@@ -1,11 +1,8 @@
 import 'react-dates/initialize'
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import {
-	DateRangePicker,
-	SingleDatePicker,
-	DayPickerRangeController
-} from 'react-dates'
+import { DayPickerSingleDateController } from 'react-dates'
+import IconButton from '../IconButton/IconButton'
 import moment from 'moment'
 
 const Wrapper = styled.div`
@@ -56,8 +53,8 @@ const Wrapper = styled.div`
 		padding-right: 30px;
 	}
 	.SingleDatePickerInput_clearDate {
-    display: flex;
-    justify-content: flex-end;
+		display: flex;
+		justify-content: flex-end;
 		background: 0 0;
 		border: 0;
 		color: inherit;
@@ -433,8 +430,10 @@ const Wrapper = styled.div`
 		visibility: hidden;
 	}
 	.DayPickerNavigation_container {
-		position: relative;
+		position: absolute;
 		display: flex;
+		justify-content: space-between;
+		width: 100%;
 		z-index: 2;
 	}
 	.DayPickerNavigation_container__vertical {
@@ -458,13 +457,11 @@ const Wrapper = styled.div`
 		user-select: none;
 	}
 	.DayPickerNavigation_button__default {
-
 		background-color: #fff;
 		color: #757575;
 	}
 	.DayPickerNavigation_button__default:focus,
 	.DayPickerNavigation_button__default:hover {
-
 	}
 	.DayPickerNavigation_button__default:active {
 		background: #f2f2f2;
@@ -475,12 +472,12 @@ const Wrapper = styled.div`
 		top: 18px;
 	}
 	.DayPickerNavigation_leftButton__horizontal {
-		flex: 1;
 		left: 22px;
+		width: 50px;
 	}
 	.DayPickerNavigation_rightButton__horizontal {
-		flex: 1;
 		right: 22px;
+		width: 50px;
 	}
 	.DayPickerNavigation_button__vertical {
 		display: inline-block;
@@ -551,7 +548,7 @@ const Wrapper = styled.div`
 	.DayPicker_weekHeader {
 		color: #757575;
 		position: absolute;
-		top: 62px;
+		top: 52px;
 		z-index: 2;
 		padding: 0 13px;
 		text-align: left;
@@ -674,6 +671,7 @@ const Wrapper = styled.div`
 		width: 1px;
 	}
 	.DateInput_fang {
+		display: none;
 		position: absolute;
 		width: 20px;
 		height: 10px;
@@ -845,6 +843,8 @@ class DateSelect extends Component {
 
 	isDayBlocked = date => {
 		const { availableDays } = this.props
+		const today = moment()
+		const pastDate = date.isBefore(today)
 		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
 
 		if (match) {
@@ -853,23 +853,28 @@ class DateSelect extends Component {
 		return true
 	}
 
+	handleDateChange = date => {
+		const { onDateSelect } = this.props
+
+		onDateSelect(date)
+		this.setState({ date })
+	}
+
 	render() {
-    const { date, focused } = this.state
-    const { placeholder } = this.props
+		const { date, focused } = this.state
+		const { placeholder, onChange } = this.props
 
 		return [
 			<Wrapper>
-				<SingleDatePicker
-          date={date || null} // momentPropTypes.momentObj or null
-          placeholder={placeholder}
-					onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
+				<DayPickerSingleDateController
+					date={date || null} // momentPropTypes.momentObj or null
+					placeholder={placeholder}
+					onDateChange={date => this.handleDateChange(date)} // PropTypes.func.isRequired
 					focused={focused} // PropTypes.bool
 					onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
 					numberOfMonths={1}
 					isDayBlocked={this.isDayBlocked}
-					showClearDate
 					keepOpenOnDateSelect
-					block
 				/>
 			</Wrapper>
 		]
