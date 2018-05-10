@@ -895,6 +895,7 @@ class DateSelect extends Component {
 					keepOpenOnDateSelect
 					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
 					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
+					hideKeyboardShortcutsPanel
 				/>
 			</Wrapper>
 		]
