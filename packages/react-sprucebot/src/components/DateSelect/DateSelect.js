@@ -859,7 +859,6 @@ class DateSelect extends Component {
 	}
 
 	isOutsideRange = date => {
-		const { availableDays } = this.props
 		const today = moment()
 		const pastDate = date.isBefore(today)
 
@@ -879,7 +878,7 @@ class DateSelect extends Component {
 
 	render() {
 		const { date, focused } = this.state
-		const { placeholder, onChange } = this.props
+		const { placeholder, onChange, bypassDaysBlocked } = this.props
 
 		return [
 			<Wrapper>
@@ -890,7 +889,7 @@ class DateSelect extends Component {
 					focused={focused} // PropTypes.bool
 					onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
 					numberOfMonths={1}
-					isDayBlocked={this.isDayBlocked}
+					isDayBlocked={!bypassDaysBlocked && this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
 					keepOpenOnDateSelect
 					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
