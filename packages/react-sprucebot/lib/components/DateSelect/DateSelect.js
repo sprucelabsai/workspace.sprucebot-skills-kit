@@ -63,11 +63,17 @@ var DateSelect = function (_Component) {
 		}
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSelect.__proto__ || Object.getPrototypeOf(DateSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _this.isDayBlocked = function (date) {
-			var availableDays = _this.props.availableDays;
+			var _this$props = _this.props,
+			    availableDays = _this$props.availableDays,
+			    bypassDaysBlocked = _this$props.bypassDaysBlocked;
 
 			var match = availableDays.find(function (day) {
 				return day === date.format('YYYY-MM-DD');
 			});
+
+			if (bypassDaysBlocked) {
+				return false;
+			}
 
 			if (match) {
 				return false;
@@ -108,8 +114,7 @@ var DateSelect = function (_Component) {
 			    focused = _state.focused;
 			var _props = this.props,
 			    placeholder = _props.placeholder,
-			    onChange = _props.onChange,
-			    bypassDaysBlocked = _props.bypassDaysBlocked;
+			    onChange = _props.onChange;
 
 
 			return [_react2.default.createElement(
@@ -127,7 +132,7 @@ var DateSelect = function (_Component) {
 						return _this2.setState({ focused: focused });
 					} // PropTypes.func.isRequired
 					, numberOfMonths: 1,
-					isDayBlocked: !bypassDaysBlocked && this.isDayBlocked,
+					isDayBlocked: this.isDayBlocked,
 					isOutsideRange: this.isOutsideRange,
 					keepOpenOnDateSelect: true,
 					navPrev: _react2.default.createElement(
