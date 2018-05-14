@@ -87,6 +87,7 @@ export class ListItem extends Component {
 			alignItems,
 			overflow,
 			width,
+			componentAsSubtitle,
 			...props
 		} = this.props
 
@@ -94,6 +95,12 @@ export class ListItem extends Component {
 		children = children || []
 		if (!Array.isArray(children)) {
 			children = [children]
+		}
+
+		if (componentAsSubtitle && componentAsSubtitle.length > 0) {
+			children.unshift(...componentAsSubtitle)
+		} else if (componentAsSubtitle) {
+			children.unshift(componentAsSubtitle)
 		}
 
 		// setup title/subtitle
