@@ -62,7 +62,9 @@ var DateSelect = function (_Component) {
 			args[_key] = arguments[_key];
 		}
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSelect.__proto__ || Object.getPrototypeOf(DateSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _this.isDayBlocked = function (date) {
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSelect.__proto__ || Object.getPrototypeOf(DateSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+			defaultDateSet: false
+		}, _this.isDayBlocked = function (date) {
 			var _this$props = _this.props,
 			    availableDays = _this$props.availableDays,
 			    bypassDaysBlocked = _this$props.bypassDaysBlocked;
@@ -94,6 +96,11 @@ var DateSelect = function (_Component) {
 
 			onDateSelect(date);
 			_this.setState({ date: date });
+		}, _this.setDefaultDate = function () {
+			var defaultDate = _this.props.defaultDate;
+
+
+			_this.setState({ date: defaultDate, defaultDateSet: true });
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
@@ -111,10 +118,12 @@ var DateSelect = function (_Component) {
 
 			var _state = this.state,
 			    date = _state.date,
-			    focused = _state.focused;
+			    focused = _state.focused,
+			    defaultDateSet = _state.defaultDateSet;
 			var _props = this.props,
 			    placeholder = _props.placeholder,
-			    onChange = _props.onChange;
+			    onChange = _props.onChange,
+			    setDefaultDate = _props.setDefaultDate;
 
 
 			return [_react2.default.createElement(
@@ -145,7 +154,8 @@ var DateSelect = function (_Component) {
 						{ fontSize: '1.5em' },
 						'chevron_right'
 					),
-					hideKeyboardShortcutsPanel: true
+					hideKeyboardShortcutsPanel: true,
+					setDefaultDate: setDefaultDate && !defaultDateSet && this.setDefaultDate()
 				})
 			)];
 		}
