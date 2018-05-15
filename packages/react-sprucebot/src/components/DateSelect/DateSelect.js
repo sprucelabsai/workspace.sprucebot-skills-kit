@@ -836,7 +836,9 @@ const NavButton = styled(IconButton)`
 `
 
 class DateSelect extends Component {
-	state = {}
+	state = {
+		defaultDateSet: false
+	}
 
 	componentDidMount() {
 		const date = moment()
@@ -862,6 +864,10 @@ class DateSelect extends Component {
 		const today = moment()
 		const pastDate = date.isBefore(today)
 
+		if (date.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+			return false
+		}
+
 		if (pastDate) {
 			return true
 		}
@@ -876,9 +882,15 @@ class DateSelect extends Component {
 		this.setState({ date })
 	}
 
+	setDefaultDate = () => {
+		const { defaultDate } = this.props
+
+		this.setState({ date: defaultDate, defaultDateSet: true })
+	}
+
 	render() {
-		const { date, focused } = this.state
-		const { placeholder, onChange } = this.props
+		const { date, focused, defaultDateSet } = this.state
+		const { placeholder, onChange, setDefaultDate } = this.props
 
 		return [
 			<Wrapper>
@@ -895,6 +907,7 @@ class DateSelect extends Component {
 					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
 					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
 					hideKeyboardShortcutsPanel
+					setDefaultDate={setDefaultDate && !defaultDateSet && this.setDefaultDate()}
 				/>
 			</Wrapper>
 		]
