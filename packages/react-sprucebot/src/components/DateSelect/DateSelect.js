@@ -863,7 +863,6 @@ class DateSelect extends Component {
 	isOutsideRange = date => {
 		const today = moment()
 		const pastDate = date.isBefore(today)
-		console.log({ today, pastDate, date })
 
 		if (date.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
 			return false
