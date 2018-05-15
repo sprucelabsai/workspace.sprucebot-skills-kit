@@ -84,6 +84,11 @@ var DateSelect = function (_Component) {
 		}, _this.isOutsideRange = function (date) {
 			var today = (0, _moment2.default)();
 			var pastDate = date.isBefore(today);
+			console.log({ today: today, pastDate: pastDate, date: date });
+
+			if (date.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+				return false;
+			}
 
 			if (pastDate) {
 				return true;
