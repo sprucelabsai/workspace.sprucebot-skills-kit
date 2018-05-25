@@ -421,6 +421,19 @@ class Sprucebot {
 	}
 
 	/**
+	 * Emit a custom event to all locations under an organization. The response is the response from all skills
+	 *
+	 * @param {String} name
+	 * @param {Object} payload
+	 */
+	async emitOrganization(organizationId, eventName, payload = {}) {
+		return this.https.post(`organizations/${organizationId}/emit`, {
+			eventName,
+			payload
+		})
+	}
+
+	/**
 	 * To stop race conditions, you can have requests wait before starting the next.
 	 *
 	 * @param {String} key
