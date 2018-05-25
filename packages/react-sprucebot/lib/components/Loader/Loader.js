@@ -36,10 +36,11 @@ var Loader = function (_Component) {
 		value: function render() {
 			var _props = this.props,
 			    dark = _props.dark,
-			    fullWidth = _props.fullWidth;
+			    fullWidth = _props.fullWidth,
+			    margin = _props.margin;
 
 			var dotClassName = dark ? 'loader_dot_dark' : 'loader_dot';
-			var fullWidthStyle = fullWidth ? { display: 'block', margin: '20px', textAlign: 'center' } : {};
+			var fullWidthStyle = fullWidth ? { display: 'block', margin: '20px', textAlign: 'center' } : { margin: margin ? '' + margin : 'unset' };
 
 			return _react2.default.createElement(
 				'span',

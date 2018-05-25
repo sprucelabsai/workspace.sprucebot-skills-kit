@@ -521,10 +521,6 @@ const Wrapper = styled.div`
 	.DayPicker__hidden {
 		visibility: hidden;
 	}
-	.DayPicker__withBorder {
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.07);
-		border-radius: 3px;
-	}
 	.DayPicker_portal__horizontal {
 		box-shadow: none;
 		position: absolute;
@@ -840,7 +836,9 @@ const NavButton = styled(IconButton)`
 `
 
 class DateSelect extends Component {
-	state = {}
+	state = {
+		defaultDateSet: false
+	}
 
 	componentDidMount() {
 		const date = moment()
@@ -849,8 +847,12 @@ class DateSelect extends Component {
 	}
 
 	isDayBlocked = date => {
-		const { availableDays } = this.props
+		const { availableDays, bypassDaysBlocked } = this.props
 		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
+
+		if (bypassDaysBlocked) {
+			return false
+		}
 
 		if (match) {
 			return false
@@ -859,9 +861,12 @@ class DateSelect extends Component {
 	}
 
 	isOutsideRange = date => {
-		const { availableDays } = this.props
 		const today = moment()
 		const pastDate = date.isBefore(today)
+
+		if (date.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+			return false
+		}
 
 		if (pastDate) {
 			return true
@@ -877,9 +882,15 @@ class DateSelect extends Component {
 		this.setState({ date })
 	}
 
+	setDefaultDate = () => {
+		const { defaultDate } = this.props
+
+		this.setState({ date: defaultDate, defaultDateSet: true })
+	}
+
 	render() {
-		const { date, focused } = this.state
-		const { placeholder, onChange } = this.props
+		const { date, focused, defaultDateSet } = this.state
+		const { placeholder, onChange, setDefaultDate } = this.props
 
 		return [
 			<Wrapper>
@@ -896,6 +907,7 @@ class DateSelect extends Component {
 					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
 					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
 					hideKeyboardShortcutsPanel
+					setDefaultDate={setDefaultDate && !defaultDateSet && this.setDefaultDate()}
 				/>
 			</Wrapper>
 		]
