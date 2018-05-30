@@ -907,7 +907,9 @@ class DateSelect extends Component {
 					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
 					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
 					hideKeyboardShortcutsPanel
-					setDefaultDate={setDefaultDate && !defaultDateSet && this.setDefaultDate()}
+					setDefaultDate={
+						setDefaultDate && !defaultDateSet && this.setDefaultDate()
+					}
 				/>
 			</Wrapper>
 		]

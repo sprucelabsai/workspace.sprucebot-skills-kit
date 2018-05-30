@@ -57,12 +57,14 @@ const ItemTitle = styled.div.attrs({
 })`
 	${props =>
 		props.weight ? `font-weight: ${props.weight}` : `font-weight: 500;`};
-	width: ${props => props.width ? `${props.width}` : 'unset'};
-	${props => props.overflow && `
+	width: ${props => (props.width ? `${props.width}` : 'unset')};
+	${props =>
+		props.overflow &&
+		`
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
-	`}
+	`};
 `
 
 const ItemSubTitle = styled.div.attrs({
@@ -109,7 +111,11 @@ export class ListItem extends Component {
 		}
 
 		if (title) {
-			children.unshift(<ItemTitle overflow={overflow} width={width} key="title">{title}</ItemTitle>)
+			children.unshift(
+				<ItemTitle overflow={overflow} width={width} key="title">
+					{title}
+				</ItemTitle>
+			)
 		}
 
 		return (

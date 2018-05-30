@@ -11,7 +11,7 @@ const Button = styled.button.attrs({
 	background: none;
 	color: #00aac7;
 	display: flex;
-	font-size: ${props => props.fontSize ? `${props.fontSize}` : '2em'};
+	font-size: ${props => (props.fontSize ? `${props.fontSize}` : '2em')};
 	margin: 0;
 	padding: 0;
 	width: auto;

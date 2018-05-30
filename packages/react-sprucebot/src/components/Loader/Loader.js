@@ -7,7 +7,7 @@ export default class Loader extends Component {
 		const dotClassName = dark ? 'loader_dot_dark' : 'loader_dot'
 		const fullWidthStyle = fullWidth
 			? { display: 'block', margin: '20px', textAlign: 'center' }
-			: { margin: margin ? `${margin}` : 'unset'}
+			: { margin: margin ? `${margin}` : 'unset' }
 
 		return (
 			<span className="loader_wrapper" style={fullWidthStyle}>
