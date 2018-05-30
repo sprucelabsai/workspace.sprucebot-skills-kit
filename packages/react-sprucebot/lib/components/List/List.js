@@ -39,7 +39,7 @@ var List = exports.List = _styledComponents2.default.div.attrs({
 	className: 'List item__list'
 }).withConfig({
 	displayName: 'List',
-	componentId: 's12tv117-0'
+	componentId: 's15prkdz-0'
 })(['', ';word-wrap:break-word;overflow-wrap:break-word;word-break:break-word;'], function (props) {
 	return props.pile ? 'padding-bottom: 1.25em' : void 0;
 });
@@ -52,7 +52,7 @@ var ListItemWrapper = _styledComponents2.default.div.attrs({
 	}
 }).withConfig({
 	displayName: 'List__ListItemWrapper',
-	componentId: 's12tv117-1'
+	componentId: 's15prkdz-1'
 })(['display:flex;', ';', ';'], function (props) {
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
 }, function (props) {
@@ -63,7 +63,7 @@ var ItemAvatar = _styledComponents2.default.div.attrs({
 	className: 'ItemAvatar avatar__outer__wrapper'
 }).withConfig({
 	displayName: 'List__ItemAvatar',
-	componentId: 's12tv117-2'
+	componentId: 's15prkdz-2'
 })(['position:relative;margin:0 10px 0 0;border-radius:50%;', ';'], function (props) {
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
 });
@@ -72,22 +72,22 @@ var ItemDetail = _styledComponents2.default.div.attrs({
 	className: 'ItemDetail item__details'
 }).withConfig({
 	displayName: 'List__ItemDetail',
-	componentId: 's12tv117-3'
+	componentId: 's15prkdz-3'
 })(['flex-grow:1;']);
 
 var ItemRightContent = _styledComponents2.default.div.attrs({
 	className: 'ItemRightContent content__right'
 }).withConfig({
 	displayName: 'List__ItemRightContent',
-	componentId: 's12tv117-4'
+	componentId: 's15prkdz-4'
 })(['text-align:right;display:flex;align-items:flex-end;']);
 
 var ItemTitle = _styledComponents2.default.div.attrs({
 	className: 'ItemTitle title'
 }).withConfig({
 	displayName: 'List__ItemTitle',
-	componentId: 's12tv117-5'
-})(['', ';width:', ';', ''], function (props) {
+	componentId: 's15prkdz-5'
+})(['', ';width:', ';', ';'], function (props) {
 	return props.weight ? 'font-weight: ' + props.weight : 'font-weight: 500;';
 }, function (props) {
 	return props.width ? '' + props.width : 'unset';
@@ -99,7 +99,7 @@ var ItemSubTitle = _styledComponents2.default.div.attrs({
 	className: 'ItemSubTitle sub__title'
 }).withConfig({
 	displayName: 'List__ItemSubTitle',
-	componentId: 's12tv117-6'
+	componentId: 's15prkdz-6'
 })(['font-size:0.75em;']);
 
 var ListItem = exports.ListItem = function (_Component) {
