@@ -25,6 +25,8 @@ var _Avatar2 = _interopRequireDefault(_Avatar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37,7 +39,7 @@ var List = exports.List = _styledComponents2.default.div.attrs({
 	className: 'List item__list'
 }).withConfig({
 	displayName: 'List',
-	componentId: 's15prkdz-0'
+	componentId: 's12tv117-0'
 })(['', ';word-wrap:break-word;overflow-wrap:break-word;word-break:break-word;'], function (props) {
 	return props.pile ? 'padding-bottom: 1.25em' : void 0;
 });
@@ -50,7 +52,7 @@ var ListItemWrapper = _styledComponents2.default.div.attrs({
 	}
 }).withConfig({
 	displayName: 'List__ListItemWrapper',
-	componentId: 's15prkdz-1'
+	componentId: 's12tv117-1'
 })(['display:flex;', ';', ';'], function (props) {
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
 }, function (props) {
@@ -61,7 +63,7 @@ var ItemAvatar = _styledComponents2.default.div.attrs({
 	className: 'ItemAvatar avatar__outer__wrapper'
 }).withConfig({
 	displayName: 'List__ItemAvatar',
-	componentId: 's15prkdz-2'
+	componentId: 's12tv117-2'
 })(['position:relative;margin:0 10px 0 0;border-radius:50%;', ';'], function (props) {
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
 });
@@ -70,30 +72,34 @@ var ItemDetail = _styledComponents2.default.div.attrs({
 	className: 'ItemDetail item__details'
 }).withConfig({
 	displayName: 'List__ItemDetail',
-	componentId: 's15prkdz-3'
+	componentId: 's12tv117-3'
 })(['flex-grow:1;']);
 
 var ItemRightContent = _styledComponents2.default.div.attrs({
 	className: 'ItemRightContent content__right'
 }).withConfig({
 	displayName: 'List__ItemRightContent',
-	componentId: 's15prkdz-4'
+	componentId: 's12tv117-4'
 })(['text-align:right;display:flex;align-items:flex-end;']);
 
 var ItemTitle = _styledComponents2.default.div.attrs({
 	className: 'ItemTitle title'
 }).withConfig({
 	displayName: 'List__ItemTitle',
-	componentId: 's15prkdz-5'
-})(['', ';'], function (props) {
+	componentId: 's12tv117-5'
+})(['', ';width:', ';', ''], function (props) {
 	return props.weight ? 'font-weight: ' + props.weight : 'font-weight: 500;';
+}, function (props) {
+	return props.width ? '' + props.width : 'unset';
+}, function (props) {
+	return props.overflow && '\n\t\toverflow: hidden;\n\t\twhite-space: nowrap;\n\t\ttext-overflow: ellipsis;\n\t';
 });
 
 var ItemSubTitle = _styledComponents2.default.div.attrs({
 	className: 'ItemSubTitle sub__title'
 }).withConfig({
 	displayName: 'List__ItemSubTitle',
-	componentId: 's15prkdz-6'
+	componentId: 's12tv117-6'
 })(['font-size:0.75em;']);
 
 var ListItem = exports.ListItem = function (_Component) {
@@ -120,7 +126,10 @@ var ListItem = exports.ListItem = function (_Component) {
 			    avatar = _props.avatar,
 			    showOnlineIndicator = _props.showOnlineIndicator,
 			    alignItems = _props.alignItems,
-			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems']);
+			    overflow = _props.overflow,
+			    width = _props.width,
+			    componentAsSubtitle = _props.componentAsSubtitle,
+			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle']);
 
 			// build children
 
@@ -128,6 +137,14 @@ var ListItem = exports.ListItem = function (_Component) {
 			children = children || [];
 			if (!Array.isArray(children)) {
 				children = [children];
+			}
+
+			if (componentAsSubtitle && componentAsSubtitle.length > 0) {
+				var _children;
+
+				(_children = children).unshift.apply(_children, _toConsumableArray(componentAsSubtitle));
+			} else if (componentAsSubtitle) {
+				children.unshift(componentAsSubtitle);
 			}
 
 			// setup title/subtitle
@@ -142,7 +159,7 @@ var ListItem = exports.ListItem = function (_Component) {
 			if (title) {
 				children.unshift(_react2.default.createElement(
 					ItemTitle,
-					{ key: 'title' },
+					{ overflow: overflow, width: width, key: 'title' },
 					title
 				));
 			}

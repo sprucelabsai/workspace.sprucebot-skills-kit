@@ -26,6 +26,10 @@ var _Container = require('./components/Container/Container');
 
 var _Container2 = _interopRequireDefault(_Container);
 
+var _DateSelect = require('./components/DateSelect/DateSelect');
+
+var _DateSelect2 = _interopRequireDefault(_DateSelect);
+
 var _Input = require('./components/Input/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
@@ -110,6 +114,18 @@ var _Feed = require('./components/Feed/Feed');
 
 var _Feed2 = _interopRequireDefault(_Feed);
 
+var _Icon = require('./components/Icon/Icon');
+
+var _Icon2 = _interopRequireDefault(_Icon);
+
+var _IconButton = require('./components/IconButton/IconButton');
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _ControlButton = require('./components/ControlButton/ControlButton');
+
+var _ControlButton2 = _interopRequireDefault(_ControlButton);
+
 var _Typography = require('./components/Typography/Typography');
 
 var Typography = _interopRequireWildcard(_Typography);
@@ -160,6 +176,7 @@ var Sprucebot = _extends({
 	BotText: _BotText2.default,
 	Button: _Button2.default,
 	Container: _Container2.default,
+	DateSelect: _DateSelect2.default,
 	Input: _Input2.default,
 	Pre: _Pre2.default,
 	Switch: _Switch2.default,
@@ -182,6 +199,9 @@ var Sprucebot = _extends({
 	Error: _Error2.default,
 	FeedAttachment: _Feed.FeedAttachment,
 	TrainingGuide: _TrainingGuide2.default,
-	Onboarding: _Onboarding2.default
+	Onboarding: _Onboarding2.default,
+	Icon: _Icon2.default,
+	IconButton: _IconButton2.default,
+	ControlButton: _ControlButton2.default
 }, Typography, List, Tabs, ButtonGrid);
 module.exports = Sprucebot;

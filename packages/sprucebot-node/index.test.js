@@ -13,11 +13,12 @@ const RANDY_ID = 'CA6D33A0-FDCF-43AE-B344-5076C8675814'
 const SKILL = {
 	id: '482D8B56-5223-43BF-8E7F-011509B9968A',
 	apiKey: 'DD16373A-9482-4E27-A4A3-77B2664F6C82',
-	host: 'local-api.sprucebot.com',
+	host: 'dev-api.sprucebot.com',
 	name: `Unit Test Skill - `,
 	description: `This skill is for the tests that are run on pre-commit. `,
 	interfaceUrl: `http://noop/`,
 	serverUrl: `http://noop/`,
+	eventContract: { events: {} },
 	allowSelfSignedCerts: true,
 	svgIcon: fs
 		.readFileSync(path.join(__dirname, '__mocks__/icons/flask.svg'))
@@ -410,18 +411,6 @@ describe('API Tests', () => {
 			userId: TAYLOR_ID
 		})
 		expect(responses).toBeTruthy() // anything but an exception is a win right now
-	})
-
-	test("Sprucebot should be NOT able to emit custom events that don't start with the slug `test-skill`", async () => {
-		expect.assertions(1)
-		const sb = new Sprucebot(SKILL)
-		try {
-			const responses = await sb.emit(SPRUCE_ID, 'test-skillz:test', {
-				taco: 'bravo'
-			})
-		} catch (err) {
-			expect(err.response.statusCode).toEqual(406)
-		}
 	})
 
 	test('Sprucebot should be able to filter by many teammates', async () => {
