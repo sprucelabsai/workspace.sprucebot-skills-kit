@@ -32,7 +32,12 @@ module.exports = {
 		enabled: process.env.DB_ENABLED === 'true',
 		runMigrations: process.env.DB_MIGRATIONS === 'true',
 		modelsDir: path.resolve(__dirname, '../server/models'),
-		migrationsDir: path.resolve(__dirname, '../server/migrations')
+		migrationsDir: path.resolve(__dirname, '../server/migrations'),
+		// Additional sequelize options
+		options: {
+			// Turn off sql query logging
+			// logging: false
+		}
 	},
 	utilities: {}, // Settings for any utilities.
 	services: {
