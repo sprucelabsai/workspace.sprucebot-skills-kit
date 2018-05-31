@@ -114,6 +114,18 @@ var _Error = require('../Error/Error');
 
 var _Error2 = _interopRequireDefault(_Error);
 
+var _Icon = require('../Icon/Icon');
+
+var _Icon2 = _interopRequireDefault(_Icon);
+
+var _IconButton = require('../IconButton/IconButton');
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _ControlButton = require('../ControlButton/ControlButton');
+
+var _ControlButton2 = _interopRequireDefault(_ControlButton);
+
 var _index = require('../../skillskit/index');
 
 var _index2 = _interopRequireDefault(_index);
@@ -252,7 +264,7 @@ var Styleguide = function (_Component) {
 					_react2.default.createElement(
 						_Pre2.default,
 						null,
-						'import {\n\tContainer,\n\tBotText,\n\tLoader,\n\tH1,\n\tH2,\n\tH3,\n\tH4,\n\tH5,\n\tH6,\n\tSectionHeading,\n\tParagraph as P,\n\tA,\n\tAvatar,\n\tButton,\n\tForm,\n\tSwitch,\n\tInputField,\n\tSelectField,\n\tSubmitWrapper,\n\tList,\n\tListItem,\n\tTabs,\n\tTabPane,\n\tLinkPile,\n\tPager,\n\tStatsSlider,\n\tButtonGrid,\n\tGridButton,\n\tStars,\n\tImageCropper,\n\tCallout,\n\tFeed\n} from \'react-sprucebot\''
+						'import {\n\tContainer,\n\tBotText,\n\tLoader,\n\tH1,\n\tH2,\n\tH3,\n\tH4,\n\tH5,\n\tH6,\n\tSectionHeading,\n\tParagraph as P,\n\tA,\n\tAvatar,\n\tButton,\n\tForm,\n\tSwitch,\n\tInputField,\n\tSelectField,\n\tSubmitWrapper,\n\tList,\n\tListItem,\n\tTabs,\n\tTabPane,\n\tLinkPile,\n\tPager,\n\tStatsSlider,\n\tButtonGrid,\n\tGridButton,\n\tStars,\n\tImageCropper,\n\tCallout,\n\tFeed,\n\tTrainingGuide,\n\tDialog,\n\tIcon,\n\tIconButton,\n\tControlButton\n} from \'react-sprucebot\''
 					)
 				),
 				_react2.default.createElement(
@@ -577,6 +589,94 @@ var Styleguide = function (_Component) {
 						_Pre2.default,
 						null,
 						'<Button link>I\'m a button link</Button>'
+					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Icons'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					{ className: 'icon__button__container' },
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'Icons and Icon Buttons have the option to display an icon using Material Icons. Check out https://material.io/icons/. To use an icon, just enter the icon name as the child of the button.'
+					),
+					_react2.default.createElement(
+						_Icon2.default,
+						null,
+						'mood'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<Icon>mood</Icon>'
+					),
+					_react2.default.createElement(
+						_IconButton2.default,
+						null,
+						'place'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<IconButton onClick={/* Handle Click */}>place</IconButton>'
+					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Control Buttons'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'Control Buttons have the option to display a right or left icon using Material Icons. Check out https://material.io/icons/. To use an icon, just enter the icon name as a value for the iconLeft or iconRight prop. You can also pass an href to render the button as a link!'
+					),
+					_react2.default.createElement(
+						_ControlButton2.default,
+						null,
+						'I\'m a control button'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<ControlButton>I\'m a control button</ControlButton>'
+					),
+					_react2.default.createElement(
+						_ControlButton2.default,
+						{ iconLeft: 'favorite' },
+						'I have a left icon'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<ControlButton iconLeft="favorite">I have a left icon</ControlButton>'
+					),
+					_react2.default.createElement(
+						_ControlButton2.default,
+						{ iconRight: 'edit' },
+						'I have a right icon'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<ControlButton iconRight="edit">I have a right icon</ControlButton>'
+					),
+					_react2.default.createElement(
+						_ControlButton2.default,
+						{ iconRight: '\uD83E\uDD16', href: 'https://sprucebot.com' },
+						'I\'m a link'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<ControlButton iconRight="\uD83E\uDD16" href="https://sprucebot.com">I\'m a link</ControlButton>'
 					)
 				),
 				_react2.default.createElement(

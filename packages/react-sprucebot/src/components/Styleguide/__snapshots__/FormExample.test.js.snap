@@ -1619,6 +1619,7 @@ exports[`FormExample it renders 1`] = `
                                   >
                                     <TextareaAutosize
                                       className="with_label TextArea__StyledTextArea-s1czbmms-0 TextArea krMzWU"
+                                      inputRef={[Function]}
                                       name="description"
                                       onChange={[Function]}
                                       onHeightChange={[Function]}

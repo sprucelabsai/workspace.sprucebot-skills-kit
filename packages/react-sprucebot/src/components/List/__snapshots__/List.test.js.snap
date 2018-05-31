@@ -109,6 +109,7 @@ exports[`List should render ItemRightContent with a title 1`] = `
 
 .c5 {
   font-weight: 400;
+  width: unset;
 }
 
 .c3 {
@@ -175,6 +176,7 @@ exports[`List should render listitems and divs 1`] = `
 
 .c3 {
   font-weight: 500;
+  width: unset;
 }
 
 .c4 {
@@ -194,6 +196,8 @@ exports[`List should render listitems and divs 1`] = `
       >
         <div
           className="ItemTitle title c3"
+          overflow={undefined}
+          width={undefined}
         >
           foo
         </div>
@@ -238,6 +242,7 @@ exports[`List should render subTitle 1`] = `
 
 .c3 {
   font-weight: 500;
+  width: unset;
 }
 
 .c4 {
@@ -256,6 +261,8 @@ exports[`List should render subTitle 1`] = `
     >
       <div
         className="ItemTitle title c3"
+        overflow={undefined}
+        width={undefined}
       >
         foo
       </div>
@@ -296,6 +303,7 @@ exports[`List should render title 1`] = `
 
 .c3 {
   font-weight: 500;
+  width: unset;
 }
 
 <div
@@ -310,6 +318,8 @@ exports[`List should render title 1`] = `
     >
       <div
         className="ItemTitle title c3"
+        overflow={undefined}
+        width={undefined}
       >
         foo
       </div>

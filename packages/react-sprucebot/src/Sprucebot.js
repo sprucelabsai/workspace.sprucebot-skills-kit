@@ -5,6 +5,7 @@ import Avatar from './components/Avatar/Avatar'
 import BotText from './components/BotText/BotText'
 import Button from './components/Button/Button'
 import Container from './components/Container/Container'
+import DateSelect from './components/DateSelect/DateSelect'
 import Input from './components/Input/Input'
 import Pre from './components/Pre/Pre'
 import Switch from './components/Switch/Switch'
@@ -26,6 +27,9 @@ import Callout from './components/Callout/Callout'
 import Dialog from './components/Dialog/Dialog'
 import Error from './components/Error/Error'
 import Feed, { FeedItem, FeedAttachment } from './components/Feed/Feed'
+import Icon from './components/Icon/Icon'
+import IconButton from './components/IconButton/IconButton'
+import ControlButton from './components/ControlButton/ControlButton'
 import * as Typography from './components/Typography/Typography'
 import * as List from './components/List/List'
 import * as Tabs from './components/Tabs/Tabs'
@@ -49,6 +53,7 @@ const Sprucebot = {
 	BotText,
 	Button,
 	Container,
+	DateSelect,
 	Input,
 	Pre,
 	Switch,
@@ -72,6 +77,9 @@ const Sprucebot = {
 	FeedAttachment,
 	TrainingGuide,
 	Onboarding,
+	Icon,
+	IconButton,
+	ControlButton,
 	...Typography,
 	...List,
 	...Tabs,

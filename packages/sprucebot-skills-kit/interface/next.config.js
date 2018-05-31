@@ -24,7 +24,8 @@ function client(webpack, options) {
 
 	webpack.resolve = {
 		alias: {
-			config: jsonPath
+			config: jsonPath,
+			'styled-components': require.resolve('styled-components')
 		}
 	}
 	return webpack
