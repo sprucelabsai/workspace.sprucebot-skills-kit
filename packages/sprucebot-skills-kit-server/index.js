@@ -50,12 +50,16 @@ module.exports = async ({
 
 	// Kick off sync with platform
 	debug('Starting sync with core')
-	const syncResponse = await sprucebot.sync().catch(err => {
+	let syncResponse
+	try {
+		syncResponse = await sprucebot.sync()
+	} catch (e) {
 		console.error(
 			`Failed to sync your skill's settings with ${sprucebot.https.host}`
 		)
-		throw err // Server can't really start without sync settings
-	})
+		console.error(e) // Server can't really start without sync settings
+		process.exit(1)
+	}
 
 	debug('Sync complete. Response: ', syncResponse)
 
@@ -118,6 +122,9 @@ module.exports = async ({
 			util.services = koa.context.services
 			util.sb = sprucebot
 		})
+
+		// Add sb to the app context
+		koa.context.sb = sprucebot
 
 		debug('Utilities and services can now reference each other')
 
@@ -328,12 +335,12 @@ module.exports = async ({
         =              	Serve            	   =
         ======================================*/
 	// TODO better handling hosting only server or interface
-	koa.listen(port, err => {
+	const server = koa.listen(port, err => {
 		if (err) throw err
 		console.log(
 			` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`
 		)
 	})
 
-	return koa
+	return { koa, server }
 }

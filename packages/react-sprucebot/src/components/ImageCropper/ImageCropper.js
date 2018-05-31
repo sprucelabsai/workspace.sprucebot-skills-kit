@@ -106,8 +106,8 @@ export default class ImageCropper extends Component {
 			const pixelCrop = getPixelCrop(image, crop)
 			const widthHeight =
 				image.height < image.width ? image.height / 2 : image.width / 2
-			const width = widthHeight / image.width * 100
-			const height = widthHeight / image.height * 100
+			const width = (widthHeight / image.width) * 100
+			const height = (widthHeight / image.height) * 100
 			crop.width = width
 			crop.height = height
 			crop.x = width >= height ? width / 2 : width

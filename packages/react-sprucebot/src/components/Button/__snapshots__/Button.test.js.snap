@@ -21,7 +21,11 @@ exports[`Button Component it renders busy 1`] = `
 >
   <span
     className="loader_wrapper"
-    style={Object {}}
+    style={
+      Object {
+        "margin": "unset",
+      }
+    }
   >
     <span
       className="loader_dot"
