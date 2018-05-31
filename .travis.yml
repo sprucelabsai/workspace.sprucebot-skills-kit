@@ -15,8 +15,8 @@ jobs:
         # This is a null op if not on `greenkeeper/*` branch
         - greenkeeper-lockfile-update
         - yarn run build
-      script: 
-        - commitlint-travis
+      script:
+        - commitlint-travis --from=e4899054348bb05ae09b83d8fd6146f7090b9f39
         - yarn run lint
         - yarn run test
       after_script:
