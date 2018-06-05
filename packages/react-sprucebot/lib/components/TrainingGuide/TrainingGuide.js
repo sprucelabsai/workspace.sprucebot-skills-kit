@@ -100,7 +100,7 @@ var TrainingGuide = function (_Component) {
 				this.setState({ transitioning: true });
 
 				setTimeout(function () {
-					_index2.default.scrollTo(_reactDom2.default.findDOMNode(_this2.button).offsetTop - window.screen.height * 0.5);
+					_index2.default.scrollTo(_reactDom2.default.findDOMNode(_this2.button).offsetTop - window.outerHeight * 0.5);
 					_this2.setState({ transitioning: false });
 				}, 1500);
 			}

@@ -71,8 +71,7 @@ export default class TrainingGuide extends Component {
 
 			setTimeout(() => {
 				skill.scrollTo(
-					ReactDOM.findDOMNode(this.button).offsetTop -
-						window.screen.height * 0.5
+					ReactDOM.findDOMNode(this.button).offsetTop - window.outerHeight * 0.5
 				)
 				this.setState({ transitioning: false })
 			}, 1500)
