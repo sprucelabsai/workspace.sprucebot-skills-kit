@@ -28,12 +28,12 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 var StyledIconLeft = (0, _styledComponents2.default)(_Icon2.default).withConfig({
 	displayName: 'ControlButton__StyledIconLeft',
-	componentId: 'jro3dx-0'
+	componentId: 'kjsmyw-0'
 })(['margin-right:0.25em;']);
 
 var StyledIconRight = (0, _styledComponents2.default)(_Icon2.default).withConfig({
 	displayName: 'ControlButton__StyledIconRight',
-	componentId: 'jro3dx-1'
+	componentId: 'kjsmyw-1'
 })(['margin-left:0.25em;']);
 
 var Button = _styledComponents2.default.button.attrs({
@@ -43,7 +43,7 @@ var Button = _styledComponents2.default.button.attrs({
 	}
 }).withConfig({
 	displayName: 'ControlButton__Button',
-	componentId: 'jro3dx-2'
+	componentId: 'kjsmyw-2'
 })(['align-items:center;background:none;color:#00aac7;display:inline-flex;font-weight:normal;letter-spacing:0;position:relative;margin:0;padding:0;width:auto;&:hover{background:none;}']);
 
 var Link = _styledComponents2.default.a.attrs({
@@ -53,7 +53,7 @@ var Link = _styledComponents2.default.a.attrs({
 	}
 }).withConfig({
 	displayName: 'ControlButton__Link',
-	componentId: 'jro3dx-3'
+	componentId: 'kjsmyw-3'
 })(['align-items:center;color:#00aac7;cursor:pointer;display:inline-flex;position:relative;text-decoration:none;']);
 
 var Wrapper = function Wrapper(_ref3) {

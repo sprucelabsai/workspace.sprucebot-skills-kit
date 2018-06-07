@@ -848,11 +848,12 @@ class DateSelect extends Component {
 
 	isDayBlocked = date => {
 		const { availableDays, bypassDaysBlocked } = this.props
-		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
 
 		if (bypassDaysBlocked) {
 			return false
 		}
+
+		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
 
 		if (match) {
 			return false
@@ -861,8 +862,13 @@ class DateSelect extends Component {
 	}
 
 	isOutsideRange = date => {
+		const { allowPastDates } = this.props
 		const today = moment()
 		const pastDate = date.isBefore(today)
+
+		if (allowPastDates) {
+			return false
+		}
 
 		if (date.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
 			return false
@@ -892,7 +898,7 @@ class DateSelect extends Component {
 		const { date, focused, defaultDateSet } = this.state
 		const { placeholder, onChange, setDefaultDate } = this.props
 
-		return [
+		return (
 			<Wrapper>
 				<DayPickerSingleDateController
 					date={date || null} // momentPropTypes.momentObj or null
@@ -912,7 +918,7 @@ class DateSelect extends Component {
 					}
 				/>
 			</Wrapper>
-		]
+		)
 	}
 }
 

@@ -10,9 +10,17 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _styledComponents = require('styled-components');
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _ControlButton = require('../ControlButton/ControlButton');
+
+var _ControlButton2 = _interopRequireDefault(_ControlButton);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,102 +30,160 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var StyledList = _styledComponents2.default.ul.withConfig({
+	displayName: 'Pager__StyledList',
+	componentId: 'uh9gqt-0'
+})(['display:flex;align-items:center;']);
+
+var DropDownButton = (0, _styledComponents2.default)(_ControlButton2.default).withConfig({
+	displayName: 'Pager__DropDownButton',
+	componentId: 'uh9gqt-1'
+})(['margin-left:0.7em;']);
+
 var Pager = function (_Component) {
 	_inherits(Pager, _Component);
 
-	function Pager(props) {
+	function Pager() {
+		var _ref;
+
+		var _temp, _this, _ret;
+
 		_classCallCheck(this, Pager);
 
-		// Starting page
-		var _this = _possibleConstructorReturn(this, (Pager.__proto__ || Object.getPrototypeOf(Pager)).call(this, props));
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
 
-		_this.state = {
-			page: props.page
-		};
-		return _this;
-	}
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Pager.__proto__ || Object.getPrototypeOf(Pager)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+			page: _this.props.page
+		}, _this.componentDidUpdate = function (prevProps) {
+			var updatePage = prevProps.updatePage,
+			    backToStart = prevProps.backToStart;
 
-	_createClass(Pager, [{
-		key: 'triggerOnChange',
-		value: function triggerOnChange(page, e) {
-			if (this.props.onChange) {
-				this.props.onChange(page, e);
+
+			if (updatePage) {
+				_this.updatePageNumber();
+			}
+
+			if (backToStart) {
+				_this.backToStart();
+			}
+		}, _this.triggerOnChange = function (page, e) {
+			var onChange = _this.props.onChange;
+
+
+			if (onChange) {
+				onChange(page, e);
 			}
 			return page;
-		}
-	}, {
-		key: 'first',
-		value: function first(e) {
-			var _this2 = this;
+		}, _this.first = function (e) {
+			var skipAmount = _this.props.skipAmount;
 
-			this.setState(function (prevState) {
+
+			_this.setState(function (prevState) {
+				if (skipAmount && prevState.page - skipAmount > 0) {
+					return {
+						page: _this.triggerOnChange(prevState.page - skipAmount, e)
+					};
+				} else if (prevState.page > 0) {
+					return {
+						page: _this.triggerOnChange(0, e)
+					};
+				}
+				return {};
+			});
+		}, _this.back = function (e) {
+			_this.setState(function (prevState) {
 				if (prevState.page > 0) {
 					return {
-						page: _this2.triggerOnChange(0, e)
+						page: _this.triggerOnChange(prevState.page - 1, e)
 					};
 				}
 				return {};
 			});
-		}
-	}, {
-		key: 'back',
-		value: function back(e) {
-			var _this3 = this;
+		}, _this.next = function (e) {
+			var totalPages = _this.props.totalPages;
 
-			this.setState(function (prevState) {
-				if (prevState.page > 0) {
-					return {
-						page: _this3.triggerOnChange(prevState.page - 1, e)
-					};
-				}
-				return {};
-			});
-		}
-	}, {
-		key: 'next',
-		value: function next(e) {
-			var _this4 = this;
 
-			this.setState(function (prevState) {
-				if (prevState.page < _this4.props.totalPages - 1) {
+			_this.setState(function (prevState) {
+				if (prevState.page < totalPages - 1) {
 					return {
-						page: _this4.triggerOnChange(prevState.page + 1, e)
+						page: _this.triggerOnChange(prevState.page + 1, e)
 					};
 				}
 				return {};
 			});
-		}
-	}, {
-		key: 'last',
-		value: function last(e) {
-			var _this5 = this;
+		}, _this.last = function (e) {
+			var _this$props = _this.props,
+			    totalPages = _this$props.totalPages,
+			    skipAmount = _this$props.skipAmount;
 
-			this.setState(function (prevState) {
-				if (prevState.page < _this5.props.totalPages - 1) {
+
+			_this.setState(function (prevState) {
+				if (skipAmount && prevState.page + skipAmount < totalPages - 1) {
 					return {
-						page: _this5.triggerOnChange(_this5.props.totalPages - 1, e)
+						page: _this.triggerOnChange(prevState.page + skipAmount, e)
+					};
+				} else if (prevState.page < totalPages - 1) {
+					return {
+						page: _this.triggerOnChange(totalPages - 1, e)
 					};
 				}
 				return {};
 			});
-		}
-	}, {
+		}, _this.updatePageNumber = function (e) {
+			var updateAmount = _this.props.updateAmount;
+
+
+			if (updateAmount) {
+				_this.setState(function (prevState) {
+					return {
+						page: _this.triggerOnChange(prevState.page + updateAmount, e)
+					};
+				});
+			}
+		}, _this.backToStart = function (e) {
+			var initialPage = _this.props.initialPage;
+
+
+			if (initialPage) {
+				_this.setState({ page: _this.triggerOnChange(initialPage, e) });
+			}
+		}, _temp), _possibleConstructorReturn(_this, _ret);
+	}
+	// Starting page
+
+
+	_createClass(Pager, [{
 		key: 'render',
 		value: function render() {
 			var page = this.state.page;
+			var _props = this.props,
+			    totalPages = _props.totalPages,
+			    titles = _props.titles,
+			    hasButton = _props.hasButton,
+			    buttonClick = _props.buttonClick,
+			    smallArrows = _props.smallArrows;
+
 
 			var first = page === 0;
-			var last = page === this.props.totalPages - 1;
-			var title = this.props.titles ? this.props.titles(page) : page + 1 + ' of ' + this.props.totalPages;
+			var last = page === totalPages - 1;
+
+			var title = titles ? titles(page) : page + 1 + ' of ' + totalPages;
+
+			var smallArrowStyle = smallArrows && {
+				flex: 0.5
+			};
 
 			return _react2.default.createElement(
-				'ul',
+				StyledList,
 				{ className: 'pager' },
 				_react2.default.createElement(
 					'li',
 					{
-						className: 'first ' + (first ? 'disabled' : ''),
-						onClick: this.first.bind(this)
+						className: 'first ' + (first && 'disabled'),
+						onClick: this.first,
+						style: smallArrowStyle
 					},
 					_react2.default.createElement(
 						'a',
@@ -128,8 +194,9 @@ var Pager = function (_Component) {
 				_react2.default.createElement(
 					'li',
 					{
-						className: 'back ' + (first ? 'disabled' : ''),
-						onClick: this.back.bind(this)
+						className: 'back ' + (first && 'disabled'),
+						onClick: this.back,
+						style: smallArrowStyle
 					},
 					_react2.default.createElement(
 						'a',
@@ -140,17 +207,18 @@ var Pager = function (_Component) {
 				_react2.default.createElement(
 					'li',
 					{ className: 'current' },
-					_react2.default.createElement(
-						'a',
-						null,
+					hasButton && buttonClick ? _react2.default.createElement(
+						DropDownButton,
+						{ iconRight: hasButton, onClick: buttonClick },
 						title
-					)
+					) : title
 				),
 				_react2.default.createElement(
 					'li',
 					{
-						className: 'next ' + (last ? 'disabled' : ''),
-						onClick: this.next.bind(this)
+						className: 'next ' + (last && 'disabled'),
+						onClick: this.next,
+						style: smallArrowStyle
 					},
 					_react2.default.createElement(
 						'a',
@@ -161,8 +229,9 @@ var Pager = function (_Component) {
 				_react2.default.createElement(
 					'li',
 					{
-						className: 'last ' + (last ? 'disabled' : ''),
-						onClick: this.last.bind(this)
+						className: 'last ' + (last && 'disabled'),
+						onClick: this.last,
+						style: smallArrowStyle
 					},
 					_react2.default.createElement(
 						'a',
