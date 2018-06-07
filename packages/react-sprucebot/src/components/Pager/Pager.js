@@ -8,6 +8,12 @@ const StyledList = styled.ul`
 	align-items: center;
 `
 
+const StyledListItem = styled.li`
+	&& {
+		${props => (props.smallArrows && `flex: 0.5`)};
+	}
+`
+
 const DropDownButton = styled(ControlButton)`
 	margin-left: 0.7em;
 `
@@ -132,27 +138,23 @@ class Pager extends Component {
 
 		const title = titles ? titles(page) : `${page + 1} of ${totalPages}`
 
-		const smallArrowStyle = smallArrows && {
-			flex: 0.5
-		}
-
 		return (
 			<StyledList className="pager">
-				<li
+				<StyledListItem
 					className={`first ${first && 'disabled'}`}
 					onClick={this.first}
-					style={smallArrowStyle}
+					smallArrows
 				>
 					<a>First</a>
-				</li>
-				<li
+				</StyledListItem>
+				<StyledListItem
 					className={`back ${first && 'disabled'}`}
 					onClick={this.back}
-					style={smallArrowStyle}
+					smallArrows
 				>
 					<a>Back</a>
-				</li>
-				<li className="current">
+				</StyledListItem>
+				<StyledListItem className="current">
 					{hasButton && buttonClick ? (
 						<DropDownButton iconRight={hasButton} onClick={buttonClick}>
 							{title}
@@ -160,21 +162,21 @@ class Pager extends Component {
 					) : (
 						title
 					)}
-				</li>
-				<li
+				</StyledListItem>
+				<StyledListItem
 					className={`next ${last && 'disabled'}`}
 					onClick={this.next}
-					style={smallArrowStyle}
+					smallArrows
 				>
 					<a>Next</a>
-				</li>
-				<li
+				</StyledListItem>
+				<StyledListItem
 					className={`last ${last && 'disabled'}`}
 					onClick={this.last}
-					style={smallArrowStyle}
+					smallArrows
 				>
 					<a>Last</a>
-				</li>
+				</StyledListItem>
 			</StyledList>
 		)
 	}

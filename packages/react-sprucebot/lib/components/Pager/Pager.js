@@ -35,9 +35,16 @@ var StyledList = _styledComponents2.default.ul.withConfig({
 	componentId: 'uh9gqt-0'
 })(['display:flex;align-items:center;']);
 
+var StyledListItem = _styledComponents2.default.li.withConfig({
+	displayName: 'Pager__StyledListItem',
+	componentId: 'uh9gqt-1'
+})(['&&{', ';}'], function (props) {
+	return props.smallArrows && 'flex: 0.5';
+});
+
 var DropDownButton = (0, _styledComponents2.default)(_ControlButton2.default).withConfig({
 	displayName: 'Pager__DropDownButton',
-	componentId: 'uh9gqt-1'
+	componentId: 'uh9gqt-2'
 })(['margin-left:0.7em;']);
 
 var Pager = function (_Component) {
@@ -171,19 +178,15 @@ var Pager = function (_Component) {
 
 			var title = titles ? titles(page) : page + 1 + ' of ' + totalPages;
 
-			var smallArrowStyle = smallArrows && {
-				flex: 0.5
-			};
-
 			return _react2.default.createElement(
 				StyledList,
 				{ className: 'pager' },
 				_react2.default.createElement(
-					'li',
+					StyledListItem,
 					{
 						className: 'first ' + (first && 'disabled'),
 						onClick: this.first,
-						style: smallArrowStyle
+						smallArrows: true
 					},
 					_react2.default.createElement(
 						'a',
@@ -192,11 +195,11 @@ var Pager = function (_Component) {
 					)
 				),
 				_react2.default.createElement(
-					'li',
+					StyledListItem,
 					{
 						className: 'back ' + (first && 'disabled'),
 						onClick: this.back,
-						style: smallArrowStyle
+						smallArrows: true
 					},
 					_react2.default.createElement(
 						'a',
@@ -205,7 +208,7 @@ var Pager = function (_Component) {
 					)
 				),
 				_react2.default.createElement(
-					'li',
+					StyledListItem,
 					{ className: 'current' },
 					hasButton && buttonClick ? _react2.default.createElement(
 						DropDownButton,
@@ -214,11 +217,11 @@ var Pager = function (_Component) {
 					) : title
 				),
 				_react2.default.createElement(
-					'li',
+					StyledListItem,
 					{
 						className: 'next ' + (last && 'disabled'),
 						onClick: this.next,
-						style: smallArrowStyle
+						smallArrows: true
 					},
 					_react2.default.createElement(
 						'a',
@@ -227,11 +230,11 @@ var Pager = function (_Component) {
 					)
 				),
 				_react2.default.createElement(
-					'li',
+					StyledListItem,
 					{
 						className: 'last ' + (last && 'disabled'),
 						onClick: this.last,
-						style: smallArrowStyle
+						smallArrows: true
 					},
 					_react2.default.createElement(
 						'a',
