@@ -1,24 +1,53 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import ControlButton from '../ControlButton/ControlButton'
 
-export default class Pager extends Component {
-	constructor(props) {
-		super(props)
+const StyledList = styled.ul`
+	display: flex;
+	align-items: center;
+`
 
-		// Starting page
-		this.state = {
-			page: props.page
+const DropDownButton = styled(ControlButton)`
+	margin-left: 0.7em;
+`
+
+class Pager extends Component {
+	// Starting page
+	state = {
+		page: this.props.page
+	}
+
+	componentDidUpdate = prevProps => {
+		const { updatePage, backToStart } = prevProps
+
+		if (updatePage) {
+			this.updatePageNumber()
+		}
+
+		if (backToStart) {
+			this.backToStart()
 		}
 	}
-	triggerOnChange(page, e) {
-		if (this.props.onChange) {
-			this.props.onChange(page, e)
+
+	triggerOnChange = (page, e) => {
+		const { onChange } = this.props
+
+		if (onChange) {
+			onChange(page, e)
 		}
 		return page
 	}
-	first(e) {
+
+	first = e => {
+		const { skipAmount } = this.props
+
 		this.setState(prevState => {
-			if (prevState.page > 0) {
+			if (skipAmount && prevState.page - skipAmount > 0) {
+				return {
+					page: this.triggerOnChange(prevState.page - skipAmount, e)
+				}
+			} else if (prevState.page > 0) {
 				return {
 					page: this.triggerOnChange(0, e)
 				}
@@ -26,7 +55,8 @@ export default class Pager extends Component {
 			return {}
 		})
 	}
-	back(e) {
+
+	back = e => {
 		this.setState(prevState => {
 			if (prevState.page > 0) {
 				return {
@@ -36,9 +66,12 @@ export default class Pager extends Component {
 			return {}
 		})
 	}
-	next(e) {
+
+	next = e => {
+		const { totalPages } = this.props
+
 		this.setState(prevState => {
-			if (prevState.page < this.props.totalPages - 1) {
+			if (prevState.page < totalPages - 1) {
 				return {
 					page: this.triggerOnChange(prevState.page + 1, e)
 				}
@@ -46,57 +79,108 @@ export default class Pager extends Component {
 			return {}
 		})
 	}
-	last(e) {
+
+	last = e => {
+		const { totalPages, skipAmount } = this.props
+
 		this.setState(prevState => {
-			if (prevState.page < this.props.totalPages - 1) {
+			if (skipAmount && prevState.page + skipAmount < totalPages - 1) {
 				return {
-					page: this.triggerOnChange(this.props.totalPages - 1, e)
+					page: this.triggerOnChange(prevState.page + skipAmount, e)
+				}
+			} else if (prevState.page < totalPages - 1) {
+				return {
+					page: this.triggerOnChange(totalPages - 1, e)
 				}
 			}
 			return {}
 		})
 	}
+
+	updatePageNumber = e => {
+		const { updateAmount } = this.props
+
+		if (updateAmount) {
+			this.setState(prevState => {
+				return {
+					page: this.triggerOnChange(prevState.page + updateAmount, e)
+				}
+			})
+		}
+	}
+
+	backToStart = e => {
+		const { initialPage } = this.props
+
+		if (initialPage) {
+			this.setState({ page: this.triggerOnChange(initialPage, e) })
+		}
+	}
+
 	render() {
 		const { page } = this.state
+		const {
+			totalPages,
+			titles,
+			hasButton,
+			buttonClick,
+			smallArrows
+		} = this.props
+
 		const first = page === 0
-		const last = page === this.props.totalPages - 1
-		const title = this.props.titles
-			? this.props.titles(page)
-			: `${page + 1} of ${this.props.totalPages}`
+		const last = page === totalPages - 1
+
+		const title = titles ? titles(page) : `${page + 1} of ${totalPages}`
+
+		const smallArrowStyle = smallArrows && {
+			flex: 0.5
+		}
 
 		return (
-			<ul className="pager">
+			<StyledList className="pager">
 				<li
-					className={`first ${first ? 'disabled' : ''}`}
-					onClick={this.first.bind(this)}
+					className={`first ${first && 'disabled'}`}
+					onClick={this.first}
+					style={smallArrowStyle}
 				>
 					<a>First</a>
 				</li>
 				<li
-					className={`back ${first ? 'disabled' : ''}`}
-					onClick={this.back.bind(this)}
+					className={`back ${first && 'disabled'}`}
+					onClick={this.back}
+					style={smallArrowStyle}
 				>
 					<a>Back</a>
 				</li>
 				<li className="current">
-					<a>{title}</a>
+					{hasButton && buttonClick ? (
+						<DropDownButton iconRight={hasButton} onClick={buttonClick}>
+							{title}
+						</DropDownButton>
+					) : (
+						title
+					)}
 				</li>
 				<li
-					className={`next ${last ? 'disabled' : ''}`}
-					onClick={this.next.bind(this)}
+					className={`next ${last && 'disabled'}`}
+					onClick={this.next}
+					style={smallArrowStyle}
 				>
 					<a>Next</a>
 				</li>
 				<li
-					className={`last ${last ? 'disabled' : ''}`}
-					onClick={this.last.bind(this)}
+					className={`last ${last && 'disabled'}`}
+					onClick={this.last}
+					style={smallArrowStyle}
 				>
 					<a>Last</a>
 				</li>
-			</ul>
+			</StyledList>
 		)
 	}
 }
+
+export default Pager
 
 Pager.propTypes = {
 	page: PropTypes.number,
