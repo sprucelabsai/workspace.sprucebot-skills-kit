@@ -1,12 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
 <ul
-  className="pager"
+  className="pager c0"
 >
   <li
     className="first disabled"
     onClick={[Function]}
+    style={undefined}
   >
     <a>
       First
@@ -15,6 +27,7 @@ exports[`it renders 1`] = `
   <li
     className="back disabled"
     onClick={[Function]}
+    style={undefined}
   >
     <a>
       Back
@@ -23,13 +36,12 @@ exports[`it renders 1`] = `
   <li
     className="current"
   >
-    <a>
-      1 of 1
-    </a>
+    1 of 1
   </li>
   <li
     className="next disabled"
     onClick={[Function]}
+    style={undefined}
   >
     <a>
       Next
@@ -38,6 +50,7 @@ exports[`it renders 1`] = `
   <li
     className="last disabled"
     onClick={[Function]}
+    style={undefined}
   >
     <a>
       Last
