@@ -1,53 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders owner page snapshot 1`] = `
-<div>
-  <div
-    class="owner-dashboard Container-md3jvi-0 container cqhPkv"
-  >
+<div
+  class="owner-dashboard Container-md3jvi-0 container cqhPkv"
+>
+  <div>
+    <h1
+      class="Typography__H1-s141trq-1 cblwbP"
+    >
+      Welcome back Shane!
+    </h1>
+    <div
+      class="BotText-s1aw735w-0 bot__text gicUIk"
+    >
+      You are at Spruce Labs as we speak! That's so cool! 🙌🏼
+    </div>
+    <h2
+      class="Typography__SectionHeading-s141trq-8 profile__subtitle gAZGdv"
+    >
+      Who's Online
+    </h2>
     <div>
-      <h1
-        class="Typography__H1-s141trq-1 cblwbP"
-      >
-        Welcome back Shane!
-      </h1>
       <div
-        class="BotText-s1aw735w-0 bot__text gicUIk"
+        class="toggle__wrapper"
       >
-        You are at Spruce Labs as we speak! That's so cool! 🙌🏼
-      </div>
-      <h2
-        class="Typography__SectionHeading-s141trq-8 profile__subtitle gAZGdv"
-      >
-        Who's Online
-      </h2>
-      <div>
-        <div
-          class="toggle__wrapper"
+        <button
+          class="btn__toggle toggle__left btn__toggle__active"
+          type="button"
         >
-          <button
-            class="btn__toggle toggle__left btn__toggle__active"
-            type="button"
-          >
-            Guests
-          </button>
-          <button
-            class="btn__toggle toggle__right"
-            type="button"
-          >
-            Teammates
-          </button>
-        </div>
+          Guests
+        </button>
+        <button
+          class="btn__toggle toggle__right"
+          type="button"
+        >
+          Teammates
+        </button>
+      </div>
+      <div
+        class="tab__panes"
+      >
         <div
-          class="tab__panes"
+          class="tap__pane"
         >
           <div
-            class="tap__pane"
-          >
-            <div
-              class="List-s15prkdz-0 List item__list bkLHAA"
-            />
-          </div>
+            class="List-s15prkdz-0 List item__list bkLHAA"
+          />
         </div>
       </div>
     </div>
