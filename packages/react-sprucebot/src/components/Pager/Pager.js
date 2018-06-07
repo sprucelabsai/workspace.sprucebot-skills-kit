@@ -10,7 +10,7 @@ const StyledList = styled.ul`
 
 const StyledListItem = styled.li`
 	&& {
-		${props => (props.smallArrows && `flex: 0.5`)};
+		${props => props.smallArrows && `flex: 0.5`};
 	}
 `
 
