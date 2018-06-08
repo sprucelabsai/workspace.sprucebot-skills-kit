@@ -41,6 +41,7 @@ var Button = function (_Component) {
 
 		_this.onClick = function (e) {
 			if (_this.props.onClick) {
+				console.log('has onClick');
 				_this.props.onClick(e);
 			} else if (_this.props.href) {
 				e.preventDefault();
@@ -51,7 +52,7 @@ var Button = function (_Component) {
 					if (_this.props.target) {
 						window.open(url, _this.props.target);
 					} else {
-						window.open(url);
+						window.open(url, '_self');
 					}
 				} else {
 					// Relative url
@@ -60,7 +61,7 @@ var Button = function (_Component) {
 					} else if (_this.props.router) {
 						_this.props.router.push(url);
 					} else {
-						window.open(url);
+						window.open(url, '_self');
 					}
 				}
 
@@ -146,7 +147,11 @@ var Button = function (_Component) {
 					className: btnClass + ' ' + (className || ''),
 					onClick: this.onClick
 				}, props),
-				busy ? _react2.default.createElement(_Loader2.default, { dark: false, fullWidth: false }) : children
+				busy ? _react2.default.createElement(_Loader2.default, {
+					dark: props.loaderDark ? true : false,
+					fullWidth: false,
+					loaderStyle: props.loaderStyle
+				}) : children
 			);
 		}
 	}]);
