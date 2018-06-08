@@ -19,6 +19,7 @@ export default class Button extends Component {
 	}
 	onClick = e => {
 		if (this.props.onClick) {
+			console.log('has onClick')
 			this.props.onClick(e)
 		} else if (this.props.href) {
 			e.preventDefault()
@@ -29,7 +30,7 @@ export default class Button extends Component {
 				if (this.props.target) {
 					window.open(url, this.props.target)
 				} else {
-					window.open(url)
+					window.open(url, '_self')
 				}
 			} else {
 				// Relative url
@@ -38,7 +39,7 @@ export default class Button extends Component {
 				} else if (this.props.router) {
 					this.props.router.push(url)
 				} else {
-					window.open(url)
+					window.open(url, '_self')
 				}
 			}
 
@@ -106,7 +107,15 @@ export default class Button extends Component {
 				onClick={this.onClick}
 				{...props}
 			>
-				{busy ? <Loader dark={false} fullWidth={false} /> : children}
+				{busy ? (
+					<Loader
+						dark={props.loaderDark ? true : false}
+						fullWidth={false}
+						loaderStyle={props.loaderStyle}
+					/>
+				) : (
+					children
+				)}
 			</Tag>
 		)
 	}
