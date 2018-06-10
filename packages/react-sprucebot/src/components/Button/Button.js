@@ -19,7 +19,6 @@ export default class Button extends Component {
 	}
 	onClick = e => {
 		if (this.props.onClick) {
-			console.log('has onClick')
 			this.props.onClick(e)
 		} else if (this.props.href) {
 			e.preventDefault()

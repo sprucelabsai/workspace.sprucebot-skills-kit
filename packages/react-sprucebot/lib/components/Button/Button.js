@@ -41,7 +41,6 @@ var Button = function (_Component) {
 
 		_this.onClick = function (e) {
 			if (_this.props.onClick) {
-				console.log('has onClick');
 				_this.props.onClick(e);
 			} else if (_this.props.href) {
 				e.preventDefault();
