@@ -43,6 +43,8 @@ exports[`it renders 1`] = `
   font-size: 2em;
   margin: 0;
   padding: 0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   width: auto;
 }
 
@@ -51,8 +53,16 @@ exports[`it renders 1`] = `
 }
 
 <button
-  className="IconButton icon-button  c0"
-  onClick={undefined}
+  busy={false}
+  className="btn IconButton icon-button  c0"
+  loaderDark={true}
+  loaderStyle={
+    Object {
+      "fontSize": ".5em",
+    }
+  }
+  onClick={[Function]}
+  type="button"
 >
   <i
     className="Icon icon  c1"

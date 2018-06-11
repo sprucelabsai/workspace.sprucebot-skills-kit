@@ -251,11 +251,6 @@ class Styleguide extends Component {
 				<Container>
 					<Button primary>I'm a primary button</Button>
 					<Pre>{`<Button primary>I'm a primary button</Button>`}</Pre>
-					<Button primary href="https://sprucebot.com">
-						I'm a primary button turned link
-					</Button>
-					<Pre
-					>{`<Button primary href="https://sprucebot.com">I'm a primary button turned link.</Button>`}</Pre>
 					<Button primary disabled>
 						I'm a primary disabled button
 					</Button>
@@ -289,6 +284,28 @@ class Styleguide extends Component {
 					<Pre>{`<Button caution>I'm a caution button</Button>`}</Pre>
 					<Button link>I'm a button link</Button>
 					<Pre>{`<Button link>I'm a button link</Button>`}</Pre>
+				</Container>
+				<H1>Link Buttons</H1>
+				<BotText>
+					Buttons can also be turned into links by setting the "href". Optional
+					options include setting "target", or "router"
+				</BotText>
+				<Container>
+					<Pre
+					>{`<Button primary href="https://sprucebot.com">I'm a primary button turned link</Button>`}</Pre>
+					<Button primary href="https://sprucebot.com">
+						I'm a primary button turned link
+					</Button>
+					<Pre
+					>{`<Button primary href="https://sprucebot.com" target="_blank">I'll open in a new window</Button>`}</Pre>
+					<Button primary href="https://sprucebot.com" target="_blank">
+						I'll open in a new window
+					</Button>
+					<Pre
+					>{`import Router from 'next/router'\n\n<Button primary href="/styleguide" router={Router}>I'll use next.js router.push() to change url</Button>`}</Pre>
+					<Button primary href="/">
+						I'll use next.js router.push() to change url
+					</Button>
 				</Container>
 				<H1>Icons</H1>
 				<Container className="icon__button__container">
@@ -924,7 +941,7 @@ class Styleguide extends Component {
 	]}
 	onComplete={this.didCompleteOnboarding}
 	doneButtonLabel={'Finish'}
-	onboardingComplete={this.props.onboarding.onboardingComplete}	
+	onboardingComplete={this.props.onboarding.onboardingComplete}
 />`}
 					</Pre>
 				</Container>

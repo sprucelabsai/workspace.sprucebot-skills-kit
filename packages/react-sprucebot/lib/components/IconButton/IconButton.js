@@ -22,30 +22,37 @@ var _Icon = require('../Icon/Icon');
 
 var _Icon2 = _interopRequireDefault(_Icon);
 
+var _Button = require('../Button/Button');
+
+var _Button2 = _interopRequireDefault(_Button);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var Button = _styledComponents2.default.button.attrs({
-	className: function className(_ref) {
-		var _className = _ref.className;
-		return 'IconButton icon-button ' + (_className || '');
-	}
-}).withConfig({
-	displayName: 'IconButton__Button',
+var StyledButton = (0, _styledComponents2.default)(_Button2.default).withConfig({
+	displayName: 'IconButton__StyledButton',
 	componentId: 'mdoqrl-0'
-})(['align-items:center;background:none;color:#00aac7;display:flex;font-size:', ';margin:0;padding:0;width:auto;&:hover{background:none;}'], function (props) {
+})(['align-items:center;background:none;color:#00aac7;display:flex;font-size:', ';margin:0;padding:0;text-decoration:none;width:auto;&:hover{background:none;}'], function (props) {
 	return props.fontSize ? '' + props.fontSize : '2em';
 });
 
-var IconButton = function IconButton(_ref2) {
-	var onClick = _ref2.onClick,
-	    children = _ref2.children,
-	    props = _objectWithoutProperties(_ref2, ['onClick', 'children']);
+var IconButton = function IconButton(_ref) {
+	var children = _ref.children,
+	    className = _ref.className,
+	    loaderStyle = _ref.loaderStyle,
+	    props = _objectWithoutProperties(_ref, ['children', 'className', 'loaderStyle']);
 
 	return _react2.default.createElement(
-		Button,
-		_extends({ onClick: onClick }, props),
+		StyledButton,
+		_extends({
+			loaderDark: true,
+			loaderStyle: _extends({
+				fontSize: '.5em'
+			}, loaderStyle)
+		}, props, {
+			className: 'IconButton icon-button ' + (className || '')
+		}),
 		_react2.default.createElement(
 			_Icon2.default,
 			{ fontSize: props.fontSize },

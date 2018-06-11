@@ -10,7 +10,13 @@ export default class Loader extends Component {
 			: { margin: margin ? `${margin}` : 'unset' }
 
 		return (
-			<span className="loader_wrapper" style={fullWidthStyle}>
+			<span
+				className="loader_wrapper"
+				style={{
+					...fullWidthStyle,
+					...this.props.loaderStyle
+				}}
+			>
 				<span className={dotClassName} />
 				<span className={dotClassName} />
 				<span className={dotClassName} />
