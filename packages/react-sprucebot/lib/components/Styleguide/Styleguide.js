@@ -492,16 +492,6 @@ var Styleguide = function (_Component) {
 					),
 					_react2.default.createElement(
 						_Button2.default,
-						{ primary: true, href: 'https://sprucebot.com' },
-						'I\'m a primary button turned link'
-					),
-					_react2.default.createElement(
-						_Pre2.default,
-						null,
-						'<Button primary href="https://sprucebot.com">I\'m a primary button turned link.</Button>'
-					),
-					_react2.default.createElement(
-						_Button2.default,
 						{ primary: true, disabled: true },
 						'I\'m a primary disabled button'
 					),
@@ -589,6 +579,50 @@ var Styleguide = function (_Component) {
 						_Pre2.default,
 						null,
 						'<Button link>I\'m a button link</Button>'
+					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Link Buttons'
+				),
+				_react2.default.createElement(
+					_BotText2.default,
+					null,
+					'Buttons can also be turned into links by setting the "href". Optional options include setting "target", or "router"'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<Button primary href="https://sprucebot.com">I\'m a primary button turned link</Button>'
+					),
+					_react2.default.createElement(
+						_Button2.default,
+						{ primary: true, href: 'https://sprucebot.com' },
+						'I\'m a primary button turned link'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<Button primary href="https://sprucebot.com" target="_blank">I\'ll open in a new window</Button>'
+					),
+					_react2.default.createElement(
+						_Button2.default,
+						{ primary: true, href: 'https://sprucebot.com', target: '_blank' },
+						'I\'ll open in a new window'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'import Router from \'next/router\'\n\n<Button primary href="/styleguide" router={Router}>I\'ll use next.js router.push() to change url</Button>'
+					),
+					_react2.default.createElement(
+						_Button2.default,
+						{ primary: true, href: '/' },
+						'I\'ll use next.js router.push() to change url'
 					)
 				),
 				_react2.default.createElement(
@@ -1314,7 +1348,7 @@ var Styleguide = function (_Component) {
 					_react2.default.createElement(
 						_Pre2.default,
 						null,
-						'<Onboarding\n\theading={\'Onboarding\'}\n\tsteps={[\n\t\t\'This is an onboarding component.\',\n\t\t\'It has a heading\',\n\t\t\'And "guides" you through the steps like the TrainingGuide\',\n\t\t\'You can also change the label of the done button.\',\n\t\t\'Additionally, you can pass a boolean prop to say if onboarding has been completed.\',\n\t\t\'If the owner/teammate has done onboarding already, all of the messages will be displayed.\'\n\t]}\n\tonComplete={this.didCompleteOnboarding}\n\tdoneButtonLabel={\'Finish\'}\n\tonboardingComplete={this.props.onboarding.onboardingComplete}\t\n/>'
+						'<Onboarding\n\theading={\'Onboarding\'}\n\tsteps={[\n\t\t\'This is an onboarding component.\',\n\t\t\'It has a heading\',\n\t\t\'And "guides" you through the steps like the TrainingGuide\',\n\t\t\'You can also change the label of the done button.\',\n\t\t\'Additionally, you can pass a boolean prop to say if onboarding has been completed.\',\n\t\t\'If the owner/teammate has done onboarding already, all of the messages will be displayed.\'\n\t]}\n\tonComplete={this.didCompleteOnboarding}\n\tdoneButtonLabel={\'Finish\'}\n\tonboardingComplete={this.props.onboarding.onboardingComplete}\n/>'
 					)
 				),
 				_react2.default.createElement(

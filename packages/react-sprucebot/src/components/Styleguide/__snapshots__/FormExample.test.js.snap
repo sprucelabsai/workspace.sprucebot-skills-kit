@@ -2065,6 +2065,7 @@ exports[`FormExample it renders 1`] = `
                           type="button"
                         >
                           <button
+                            busy={false}
                             className="btn__alt btn__disabled "
                             onClick={[Function]}
                             type="button"
@@ -2084,7 +2085,9 @@ exports[`FormExample it renders 1`] = `
                           type="submit"
                         >
                           <button
+                            busy={false}
                             className="btn__primary "
+                            onClick={[Function]}
                             type="submit"
                           >
                             Submit
