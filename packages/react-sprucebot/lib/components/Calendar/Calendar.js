@@ -71,7 +71,6 @@ var Calendar = function (_Component) {
 			    startAccessor = _props.startAccessor,
 			    endAccessor = _props.endAccessor;
 
-			// console.log(this.props)
 
 			return _react2.default.createElement(CalendarComponent, {
 				date: date || new Date(),
