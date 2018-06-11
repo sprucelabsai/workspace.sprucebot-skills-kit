@@ -681,8 +681,6 @@ class Calendar extends Component {
 			endAccessor
 		} = this.props
 
-		// console.log(this.props)
-
 		return (
 			<CalendarComponent
 				date={date || new Date()}
