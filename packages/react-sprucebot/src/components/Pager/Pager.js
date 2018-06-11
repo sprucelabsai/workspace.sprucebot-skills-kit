@@ -6,6 +6,7 @@ import ControlButton from '../ControlButton/ControlButton'
 const StyledList = styled.ul`
 	display: flex;
 	align-items: center;
+	${props => (props.margin && `margin: ${props.margin}`)};
 `
 
 const StyledListItem = styled.li`
@@ -130,7 +131,8 @@ class Pager extends Component {
 			titles,
 			hasButton,
 			buttonClick,
-			smallArrows
+			smallArrows,
+			margin
 		} = this.props
 
 		const first = page === 0
@@ -139,7 +141,7 @@ class Pager extends Component {
 		const title = titles ? titles(page) : `${page + 1} of ${totalPages}`
 
 		return (
-			<StyledList className="pager">
+			<StyledList className="pager" margin={margin}>
 				<StyledListItem
 					className={`first ${first && 'disabled'}`}
 					onClick={this.first}

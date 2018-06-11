@@ -3,7 +3,13 @@
 	"version": "6.6.2",
 	"main": "lib/Sprucebot.js",
 	"description": "React components for your Sprucebot Skill 💪🏼",
-	"keywords": ["react", "node", "components", "sprucebot", "sprucelabs"],
+	"keywords": [
+		"react",
+		"node",
+		"components",
+		"sprucebot",
+		"sprucelabs"
+	],
 	"license": "SEE LICENCE in LICENCE",
 	"homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
 	"bugs": {
@@ -66,6 +72,7 @@
 		"prop-types": "^15.6.0",
 		"qs": "^6.5.1",
 		"react": "^16.3.2",
+		"react-big-calendar": "^0.19.1",
 		"react-dates": "^16.6.1",
 		"react-dom": "^16.3.2",
 		"react-image-crop": "3.0.11",
@@ -78,9 +85,14 @@
 		"webfontloader": "^1.6.28"
 	},
 	"jest": {
-		"roots": ["<rootDir>/src/"],
+		"roots": [
+			"<rootDir>/src/"
+		],
 		"coverageDirectory": "./coverage/",
 		"collectCoverage": true,
-		"coveragePathIgnorePatterns": ["<rootDir>/lib/", "<rootDir>/node_modules/"]
+		"coveragePathIgnorePatterns": [
+			"<rootDir>/lib/",
+			"<rootDir>/node_modules/"
+		]
 	}
 }
