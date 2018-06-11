@@ -30,6 +30,10 @@ var _DateSelect = require('./components/DateSelect/DateSelect');
 
 var _DateSelect2 = _interopRequireDefault(_DateSelect);
 
+var _Calendar = require('./components/Calendar/Calendar');
+
+var _Calendar2 = _interopRequireDefault(_Calendar);
+
 var _Input = require('./components/Input/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
@@ -177,6 +181,7 @@ var Sprucebot = _extends({
 	Button: _Button2.default,
 	Container: _Container2.default,
 	DateSelect: _DateSelect2.default,
+	Calendar: _Calendar2.default,
 	Input: _Input2.default,
 	Pre: _Pre2.default,
 	Switch: _Switch2.default,

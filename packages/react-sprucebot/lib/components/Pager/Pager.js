@@ -33,7 +33,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var StyledList = _styledComponents2.default.ul.withConfig({
 	displayName: 'Pager__StyledList',
 	componentId: 'uh9gqt-0'
-})(['display:flex;align-items:center;']);
+})(['display:flex;align-items:center;', ';'], function (props) {
+	return props.margin && 'margin: ' + props.margin;
+});
 
 var StyledListItem = _styledComponents2.default.li.withConfig({
 	displayName: 'Pager__StyledListItem',
@@ -170,7 +172,8 @@ var Pager = function (_Component) {
 			    titles = _props.titles,
 			    hasButton = _props.hasButton,
 			    buttonClick = _props.buttonClick,
-			    smallArrows = _props.smallArrows;
+			    smallArrows = _props.smallArrows,
+			    margin = _props.margin;
 
 
 			var first = page === 0;
@@ -180,7 +183,7 @@ var Pager = function (_Component) {
 
 			return _react2.default.createElement(
 				StyledList,
-				{ className: 'pager' },
+				{ className: 'pager', margin: margin },
 				_react2.default.createElement(
 					StyledListItem,
 					{
