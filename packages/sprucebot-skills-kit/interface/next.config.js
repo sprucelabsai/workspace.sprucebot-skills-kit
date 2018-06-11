@@ -26,7 +26,7 @@ function client(webpack, options) {
 		alias: {
 			config: jsonPath,
 			'styled-components': require.resolve('styled-components'),
-			'react': path.resolve(__dirname, '../node_modules', 'react')
+			'react': path.resolve(__dirname, '../../../node_modules', 'react')
 		}
 	}
 	return webpack
