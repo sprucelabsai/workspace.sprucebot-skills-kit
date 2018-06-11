@@ -6,7 +6,7 @@ import ControlButton from '../ControlButton/ControlButton'
 const StyledList = styled.ul`
 	display: flex;
 	align-items: center;
-	${props => (props.margin && `margin: ${props.margin}`)};
+	${props => props.margin && `margin: ${props.margin}`};
 `
 
 const StyledListItem = styled.li`
