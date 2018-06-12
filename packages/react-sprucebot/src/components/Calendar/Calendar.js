@@ -1,7 +1,19 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
+import HTML5Backend from 'react-dnd-html5-backend'
+import { default as TouchBackend } from 'react-dnd-touch-backend'
+import { DragDropContext } from 'react-dnd'
 import BigCalendar from 'react-big-calendar'
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+
+// const React = require('react')
+// const styled = require('styled-components')
+// const moment = require('moment')
+// const HTML5Backend = require('react-dnd-html5-backend')
+// const DragDropContext = require('react-dnd').DragDropContext
+// const BigCalendar = require('react-big-calendar')
+// const withDragAndDrop = require('react-big-calendar/lib/addons/dragAndDrop')
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLocalizer
 
@@ -9,8 +21,8 @@ BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLoc
 // Under normal circumstances this stylesheet would simply be imported at the top of the file.
 // But we don't have a intra-skill css-loader available, so we're applying those default styles here.
 
-const CalendarComponent = styled(BigCalendar)`
-	height: 100vh;
+const StyledReactBigCalendar = styled(BigCalendar)`
+	height: ${props => props.height};
 	width: 100%;
 
 	.rbc-btn {
@@ -663,6 +675,7 @@ const CalendarComponent = styled(BigCalendar)`
 class Calendar extends Component {
 	render() {
 		const {
+			height,
 			date,
 			toolbar,
 			events,
@@ -678,17 +691,25 @@ class Calendar extends Component {
 			formats,
 			titleAccessor,
 			startAccessor,
-			endAccessor
+			endAccessor,
+			dragAndDrop
 		} = this.props
+
+		const CalendarComponent = dragAndDrop
+			? withDragAndDrop(StyledReactBigCalendar)
+			: StyledReactBigCalendar
+
+		console.log(this.props)
 
 		return (
 			<CalendarComponent
+				height={height}
 				date={date || new Date()}
 				toolbar={toolbar} // PropTypes.bool
 				events={events} // PropTypes.array
 				defaultView={defaultView} // PropTypes.string
 				views={views} // PropTypes.array
-				selectable={selectable} // PropTypes.string
+				selectable={selectable} // PropTypes.string || PropTypes.bool (passing 'ignoreEvents' allows for custom event click/drag logic)
 				step={step} // PropTypes.number
 				timeslots={timeslots} // PropTypes.number
 				min={min} // PropTypes.object (ie new Date('1/1/1970 08:00:00'))
@@ -704,4 +725,4 @@ class Calendar extends Component {
 	}
 }
 
-export default Calendar
+export default DragDropContext(HTML5Backend)(Calendar)
