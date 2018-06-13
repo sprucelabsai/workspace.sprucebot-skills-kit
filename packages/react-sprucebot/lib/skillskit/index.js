@@ -47,11 +47,17 @@ exports.default = {
 	back: function back() {
 		postMessage('Skill:Back');
 	},
+
 	ready: function ready() {
+		var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { resetUrlTrail: false },
+		    _ref$resetUrlTrail = _ref.resetUrlTrail,
+		    resetUrlTrail = _ref$resetUrlTrail === undefined ? false : _ref$resetUrlTrail;
+
 		this.resized();
 		postMessage({
 			name: 'Skill:Loaded',
-			url: window.location.href
+			url: window.location.href,
+			resetUrlTrail: resetUrlTrail
 		});
 		this.resizedInterval = setInterval(this.resized.bind(this), 50);
 	},

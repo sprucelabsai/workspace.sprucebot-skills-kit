@@ -44,11 +44,13 @@ export default {
 	back: function() {
 		postMessage('Skill:Back')
 	},
-	ready: function() {
+
+	ready: function({ resetUrlTrail = false } = { resetUrlTrail: false }) {
 		this.resized()
 		postMessage({
 			name: 'Skill:Loaded',
-			url: window.location.href
+			url: window.location.href,
+			resetUrlTrail
 		})
 		this.resizedInterval = setInterval(this.resized.bind(this), 50)
 	},
