@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
-// import PropTypes from 'prop-types'
-// import Loader from '../Loader/Loader'
+import PropTypes from 'prop-types'
 import styled, { injectGlobal } from 'styled-components'
 import is from 'is_js'
 import RCTimePicker from 'rc-time-picker'
@@ -286,8 +285,10 @@ export default class TimeInput extends Component {
 }
 
 TimeInput.propTypes = {
-	// onKeyDown: PropTypes.func,
-	// onChange: PropTypes.func
+	onChange: PropTypes.func,
+	defaultValue: PropTypes.string,
+	usePicker: PropTypes.boolean,
+	value: PropTypes.string
 }
 
 TimeInput.defaultProps = {}
