@@ -208,14 +208,14 @@ export default class TimeInput extends Component {
 		}
 	}
 
-	onChange = e => {
+	onChange = async e => {
 		const { onChange } = this.props
+		await this.setState({
+			value: this.input.value
+		})
 		if (onChange) {
 			onChange(this.input.value)
 		}
-		this.setState({
-			value: this.input.value
-		})
 	}
 	onKeyDown = e => {
 		const { disableEnter, onKeyDown } = this.props
