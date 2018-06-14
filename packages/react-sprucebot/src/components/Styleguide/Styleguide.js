@@ -40,6 +40,7 @@ import Error from '../Error/Error'
 import Icon from '../Icon/Icon'
 import IconButton from '../IconButton/IconButton'
 import ControlButton from '../ControlButton/ControlButton'
+import TimeInput from '../TimeInput/TimeInput'
 import skill from '../../skillskit/index'
 import * as actions from '../../skillskit/store/actions'
 import reducers from '../../skillskit/store/reducers'
@@ -372,6 +373,27 @@ class Styleguide extends Component {
 />`}</Pre>
 					<Switch on />
 					<Pre>{`<Switch on />`}</Pre>
+				</Container>
+				<H1>Time Input</H1>
+				<BotText>
+					The Time Input is a cross-browser compatible implementation for
+					capturing a time.
+				</BotText>
+				<Container>
+					<Pre>{`<TimeInput
+	defaultValue="22:15"
+	onChange={newValue =>
+		console.log(\`Time Input Changed to: \${newValue}\`)
+	}
+	ref={ref => (this.timeInput = ref)}
+/>`}</Pre>
+					<TimeInput
+						defaultValue="22:15"
+						onChange={newValue =>
+							console.log(`Time Input Changed to: ${newValue}`)
+						}
+						ref={ref => (this.timeInput = ref)}
+					/>
 				</Container>
 				<H1>Redux Forms</H1>
 				<Container>

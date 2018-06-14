@@ -98,6 +98,10 @@ var _TrainingGuide = require('./components/TrainingGuide/TrainingGuide');
 
 var _TrainingGuide2 = _interopRequireDefault(_TrainingGuide);
 
+var _TimeInput = require('./components/TimeInput/TimeInput');
+
+var _TimeInput2 = _interopRequireDefault(_TimeInput);
+
 var _Onboarding = require('./components/Onboarding/Onboarding');
 
 var _Onboarding2 = _interopRequireDefault(_Onboarding);
@@ -204,6 +208,7 @@ var Sprucebot = _extends({
 	Error: _Error2.default,
 	FeedAttachment: _Feed.FeedAttachment,
 	TrainingGuide: _TrainingGuide2.default,
+	TimeInput: _TimeInput2.default,
 	Onboarding: _Onboarding2.default,
 	Icon: _Icon2.default,
 	IconButton: _IconButton2.default,
