@@ -14,6 +14,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _styledComponents = require('styled-components');
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
@@ -43,9 +47,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-// import PropTypes from 'prop-types'
-// import Loader from '../Loader/Loader'
-
 
 var Input = _styledComponents2.default.input.withConfig({
 	displayName: 'TimeInput__Input',
@@ -198,8 +199,10 @@ exports.default = TimeInput;
 
 
 TimeInput.propTypes = {
-	// onKeyDown: PropTypes.func,
-	// onChange: PropTypes.func
+	onChange: _propTypes2.default.func,
+	defaultValue: _propTypes2.default.string,
+	usePicker: _propTypes2.default.boolean,
+	value: _propTypes2.default.string
 };
 
 TimeInput.defaultProps = {};
