@@ -126,6 +126,10 @@ var _ControlButton = require('../ControlButton/ControlButton');
 
 var _ControlButton2 = _interopRequireDefault(_ControlButton);
 
+var _TimeInput = require('../TimeInput/TimeInput');
+
+var _TimeInput2 = _interopRequireDefault(_TimeInput);
+
 var _index = require('../../skillskit/index');
 
 var _index2 = _interopRequireDefault(_index);
@@ -779,6 +783,34 @@ var Styleguide = function (_Component) {
 						null,
 						'<Switch on />'
 					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Time Input'
+				),
+				_react2.default.createElement(
+					_BotText2.default,
+					null,
+					'The Time Input is a cross-browser compatible implementation for capturing a time.'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<TimeInput\n\tdefaultValue="22:15"\n\tonChange={newValue =>\n\t\tconsole.log(`Time Input Changed to: ${newValue}`)\n\t}\n\tref={ref => (this.timeInput = ref)}\n/>'
+					),
+					_react2.default.createElement(_TimeInput2.default, {
+						defaultValue: '22:15',
+						onChange: function onChange(newValue) {
+							return console.log('Time Input Changed to: ' + newValue);
+						},
+						ref: function ref(_ref2) {
+							return _this2.timeInput = _ref2;
+						}
+					})
 				),
 				_react2.default.createElement(
 					_Typography.H1,

@@ -170,6 +170,11 @@ var DateSelect = function (_Component) {
 				})
 			);
 		}
+	}, {
+		key: 'value',
+		get: function get() {
+			return this.state.date;
+		}
 	}]);
 
 	return DateSelect;
