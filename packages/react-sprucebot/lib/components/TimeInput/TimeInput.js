@@ -65,16 +65,36 @@ var TimeInput = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (TimeInput.__proto__ || Object.getPrototypeOf(TimeInput)).call(this, props));
 
-		_this.onChange = function (e) {
-			var onChange = _this.props.onChange;
+		_this.onChange = function () {
+			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
+				var onChange;
+				return regeneratorRuntime.wrap(function _callee$(_context) {
+					while (1) {
+						switch (_context.prev = _context.next) {
+							case 0:
+								onChange = _this.props.onChange;
+								_context.next = 3;
+								return _this.setState({
+									value: _this.input.value
+								});
 
-			if (onChange) {
-				onChange(_this.input.value);
-			}
-			_this.setState({
-				value: _this.input.value
-			});
-		};
+							case 3:
+								if (onChange) {
+									onChange(_this.input.value);
+								}
+
+							case 4:
+							case 'end':
+								return _context.stop();
+						}
+					}
+				}, _callee, _this2);
+			}));
+
+			return function (_x) {
+				return _ref.apply(this, arguments);
+			};
+		}();
 
 		_this.onKeyDown = function (e) {
 			var _this$props = _this.props,
@@ -91,15 +111,15 @@ var TimeInput = function (_Component) {
 		};
 
 		_this.onTimePickerChange = function () {
-			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(momentTime) {
+			var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(momentTime) {
 				var onChange, time;
-				return regeneratorRuntime.wrap(function _callee$(_context) {
+				return regeneratorRuntime.wrap(function _callee2$(_context2) {
 					while (1) {
-						switch (_context.prev = _context.next) {
+						switch (_context2.prev = _context2.next) {
 							case 0:
 								onChange = _this.props.onChange;
 								time = momentTime.format('HH:mm');
-								_context.next = 4;
+								_context2.next = 4;
 								return _this.setState({
 									value: time
 								});
@@ -111,14 +131,14 @@ var TimeInput = function (_Component) {
 
 							case 5:
 							case 'end':
-								return _context.stop();
+								return _context2.stop();
 						}
 					}
-				}, _callee, _this2);
+				}, _callee2, _this2);
 			}));
 
-			return function (_x) {
-				return _ref.apply(this, arguments);
+			return function (_x2) {
+				return _ref2.apply(this, arguments);
 			};
 		}();
 
@@ -171,8 +191,8 @@ var TimeInput = function (_Component) {
 					_react.Fragment,
 					null,
 					_react2.default.createElement(_rcTimePicker2.default, _extends({
-						ref: function ref(_ref2) {
-							return _this3.timePicker = _ref2;
+						ref: function ref(_ref3) {
+							return _this3.timePicker = _ref3;
 						},
 						showSecond: false,
 						minuteStep: 5,
