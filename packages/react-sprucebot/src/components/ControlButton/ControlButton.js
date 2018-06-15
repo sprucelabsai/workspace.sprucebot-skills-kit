@@ -13,7 +13,6 @@ const StyledIconRight = styled(Icon)`
 	margin-left: 0.25em;
 `
 
-// const Button = styled.button.attrs({
 const StyledButton = styled(Button).attrs({
 	className: ({ className }) =>
 		`ControlButton control-button ${className || ''}`
