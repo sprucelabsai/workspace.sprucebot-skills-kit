@@ -703,8 +703,6 @@ class Calendar extends Component {
 			? withDragAndDrop(StyledReactBigCalendar)
 			: StyledReactBigCalendar
 
-		console.log(this.props)
-
 		return (
 			<CalendarComponent
 				height={height}
