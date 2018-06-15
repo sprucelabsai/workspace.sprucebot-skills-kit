@@ -103,7 +103,10 @@ var Button = function (_Component) {
 			    remove = _props.remove,
 			    toggle = _props.toggle,
 			    router = _props.router,
-			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router']);
+			    loaderDark = _props.loaderDark,
+			    loaderStyle = _props.loaderStyle,
+			    propBusy = _props.busy,
+			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy']);
 
 			var busy = this.state.busy;
 
@@ -147,9 +150,9 @@ var Button = function (_Component) {
 					onClick: this.onClick
 				}, props),
 				busy ? _react2.default.createElement(_Loader2.default, {
-					dark: props.loaderDark ? true : false,
+					dark: loaderDark ? true : false,
 					fullWidth: false,
-					loaderStyle: props.loaderStyle
+					loaderStyle: loaderStyle
 				}) : children
 			);
 		}

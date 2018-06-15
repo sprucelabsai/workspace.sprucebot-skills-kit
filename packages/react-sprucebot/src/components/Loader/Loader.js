@@ -27,10 +27,12 @@ export default class Loader extends Component {
 
 Loader.propTypes = {
 	dark: PropTypes.bool,
-	fullWidth: PropTypes.bool
+	fullWidth: PropTypes.bool,
+	loaderStyle: PropTypes.object
 }
 
 Loader.defaultProps = {
 	dark: true,
-	fullWidth: true
+	fullWidth: true,
+	loaderStyle: {}
 }
