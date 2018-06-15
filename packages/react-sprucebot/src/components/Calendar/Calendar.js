@@ -4,14 +4,6 @@ import moment from 'moment'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
-// const React = require('react')
-// const styled = require('styled-components')
-// const moment = require('moment')
-// const HTML5Backend = require('react-dnd-html5-backend')
-// const DragDropContext = require('react-dnd').DragDropContext
-// const BigCalendar = require('react-big-calendar')
-// const withDragAndDrop = require('react-big-calendar/lib/addons/dragAndDrop')
-
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLocalizer
 
 // This is simply the default stylesheet from 'react-big-calendar/lib/css/react-big-calendar.css'

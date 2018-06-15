@@ -34,14 +34,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// const React = require('react')
-// const styled = require('styled-components')
-// const moment = require('moment')
-// const HTML5Backend = require('react-dnd-html5-backend')
-// const DragDropContext = require('react-dnd').DragDropContext
-// const BigCalendar = require('react-big-calendar')
-// const withDragAndDrop = require('react-big-calendar/lib/addons/dragAndDrop')
-
 _reactBigCalendar2.default.setLocalizer(_reactBigCalendar2.default.momentLocalizer(_moment2.default)); // or globalizeLocalizer
 
 // This is simply the default stylesheet from 'react-big-calendar/lib/css/react-big-calendar.css'
