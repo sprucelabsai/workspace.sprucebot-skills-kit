@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import BigCalendar from 'react-big-calendar'
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLocalizer
 
@@ -9,10 +10,10 @@ BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLoc
 // Under normal circumstances this stylesheet would simply be imported at the top of the file.
 // But we don't have a intra-skill css-loader available, so we're applying those default styles here.
 
-const CalendarComponent = styled(BigCalendar)`
-	height: 100vh;
-	width: 100%;
-
+const StyledReactBigCalendar = styled(BigCalendar)`
+	height: ${props => props.height};
+	${props =>
+		props.defaultView === 'week' && `position: absolute; width: 1000px;`};
 	.rbc-btn {
 		color: inherit;
 		font: inherit;
@@ -582,13 +583,19 @@ const CalendarComponent = styled(BigCalendar)`
 	.rbc-time-header {
 		display: -webkit-flex;
 		display: -ms-flexbox;
-		display: none;
 		-webkit-flex: 0 0 auto;
 		-ms-flex: 0 0 auto;
 		flex: 0 0 auto;
 		-webkit-flex-direction: row;
 		-ms-flex-direction: row;
 		flex-direction: row;
+	}
+	.rbc-time-header-gutter:before {
+		font-size: 0.8em;
+		content: 'All day';
+	}
+	.rbc-time-header-cell {
+		${props => props.defaultView === 'day' && `display: none`};
 	}
 	.rbc-time-header.rbc-overflowing {
 		border-right: 1px solid #ddd;
@@ -663,6 +670,7 @@ const CalendarComponent = styled(BigCalendar)`
 class Calendar extends Component {
 	render() {
 		const {
+			height,
 			date,
 			toolbar,
 			events,
@@ -678,17 +686,24 @@ class Calendar extends Component {
 			formats,
 			titleAccessor,
 			startAccessor,
-			endAccessor
+			endAccessor,
+			allDayAccessor,
+			dragAndDrop
 		} = this.props
+
+		const CalendarComponent = dragAndDrop
+			? withDragAndDrop(StyledReactBigCalendar)
+			: StyledReactBigCalendar
 
 		return (
 			<CalendarComponent
+				height={height}
 				date={date || new Date()}
 				toolbar={toolbar} // PropTypes.bool
 				events={events} // PropTypes.array
 				defaultView={defaultView} // PropTypes.string
 				views={views} // PropTypes.array
-				selectable={selectable} // PropTypes.string
+				selectable={selectable} // PropTypes.string || PropTypes.bool (passing 'ignoreEvents' allows for custom event click/drag logic)
 				step={step} // PropTypes.number
 				timeslots={timeslots} // PropTypes.number
 				min={min} // PropTypes.object (ie new Date('1/1/1970 08:00:00'))
@@ -699,6 +714,7 @@ class Calendar extends Component {
 				titleAccessor={titleAccessor} // PropTypes.string
 				startAccessor={startAccessor} // PropTypes.string
 				endAccessor={endAccessor} // PropTypes.string
+				allDayAccessor={allDayAccessor} // PropType.string
 			/>
 		)
 	}
