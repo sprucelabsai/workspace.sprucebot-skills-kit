@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
-import HTML5Backend from 'react-dnd-html5-backend'
-import { default as TouchBackend } from 'react-dnd-touch-backend'
-import { DragDropContext } from 'react-dnd'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
@@ -23,8 +20,8 @@ BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLoc
 
 const StyledReactBigCalendar = styled(BigCalendar)`
 	height: ${props => props.height};
-	width: 100%;
-
+	${props =>
+		props.defaultView === 'week' && `position: absolute; width: 1000px;`};
 	.rbc-btn {
 		color: inherit;
 		font: inherit;
@@ -594,13 +591,19 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 	.rbc-time-header {
 		display: -webkit-flex;
 		display: -ms-flexbox;
-		display: none;
 		-webkit-flex: 0 0 auto;
 		-ms-flex: 0 0 auto;
 		flex: 0 0 auto;
 		-webkit-flex-direction: row;
 		-ms-flex-direction: row;
 		flex-direction: row;
+	}
+	.rbc-time-header-gutter:before {
+		font-size: 0.8em;
+		content: 'All day';
+	}
+	.rbc-time-header-cell {
+		${props => props.defaultView === 'day' && `display: none`};
 	}
 	.rbc-time-header.rbc-overflowing {
 		border-right: 1px solid #ddd;
@@ -692,6 +695,7 @@ class Calendar extends Component {
 			titleAccessor,
 			startAccessor,
 			endAccessor,
+			allDayAccessor,
 			dragAndDrop
 		} = this.props
 
@@ -720,9 +724,10 @@ class Calendar extends Component {
 				titleAccessor={titleAccessor} // PropTypes.string
 				startAccessor={startAccessor} // PropTypes.string
 				endAccessor={endAccessor} // PropTypes.string
+				allDayAccessor={allDayAccessor} // PropType.string
 			/>
 		)
 	}
 }
 
-export default DragDropContext(HTML5Backend)(Calendar)
+export default Calendar
