@@ -106,7 +106,8 @@ var Button = function (_Component) {
 			    loaderDark = _props.loaderDark,
 			    loaderStyle = _props.loaderStyle,
 			    propBusy = _props.busy,
-			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy']);
+			    hideLoader = _props.hideLoader,
+			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader']);
 
 			var busy = this.state.busy;
 
@@ -149,7 +150,7 @@ var Button = function (_Component) {
 					className: btnClass + ' ' + (className || ''),
 					onClick: this.onClick
 				}, props),
-				busy ? _react2.default.createElement(_Loader2.default, {
+				busy && !hideLoader ? _react2.default.createElement(_Loader2.default, {
 					dark: loaderDark ? true : false,
 					fullWidth: false,
 					loaderStyle: loaderStyle
@@ -173,7 +174,8 @@ Button.propTypes = {
 	href: _propTypes2.default.string,
 	remove: _propTypes2.default.bool,
 	toggle: _propTypes2.default.bool,
-	type: _propTypes2.default.string.isRequired
+	hideLoader: _propTypes2.default.bool,
+	type: _propTypes2.default.string
 };
 
 Button.defaultProps = {
