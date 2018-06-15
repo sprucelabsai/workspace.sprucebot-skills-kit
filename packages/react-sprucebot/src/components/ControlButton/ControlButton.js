@@ -47,11 +47,6 @@ const Link = styled.a.attrs({
 `
 
 const Wrapper = ({ href, ...props }) => {
-	// if (href && href != '') {
-	// 	return <Link href={href} {...props} />
-	// } else {
-	// 	return <Button {...props} />
-	// }
 	return <StyledButton {...props} />
 }
 

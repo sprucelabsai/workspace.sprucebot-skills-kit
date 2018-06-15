@@ -65,11 +65,6 @@ var Wrapper = function Wrapper(_ref3) {
 	var href = _ref3.href,
 	    props = _objectWithoutProperties(_ref3, ['href']);
 
-	// if (href && href != '') {
-	// 	return <Link href={href} {...props} />
-	// } else {
-	// 	return <Button {...props} />
-	// }
 	return _react2.default.createElement(StyledButton, props);
 };
 
