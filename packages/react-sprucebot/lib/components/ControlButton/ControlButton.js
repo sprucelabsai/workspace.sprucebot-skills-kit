@@ -51,39 +51,15 @@ var StyledButton = (0, _styledComponents2.default)(_Button2.default).attrs({
 	componentId: 'kjsmyw-2'
 })(['align-items:center;background:none;color:#00aac7;display:inline-flex;font-weight:normal;letter-spacing:0;position:relative;margin:0;padding:0;width:auto;&:hover{background:none;}']);
 
-var Link = _styledComponents2.default.a.attrs({
-	className: function className(_ref2) {
-		var _className2 = _ref2.className;
-		return 'ControlButton control-button ' + (_className2 || '');
-	}
-}).withConfig({
-	displayName: 'ControlButton__Link',
-	componentId: 'kjsmyw-3'
-})(['align-items:center;color:#00aac7;cursor:pointer;display:inline-flex;position:relative;text-decoration:none;']);
-
-var Wrapper = function Wrapper(_ref3) {
-	var href = _ref3.href,
-	    props = _objectWithoutProperties(_ref3, ['href']);
-
-	return _react2.default.createElement(StyledButton, props);
-};
-
-var ControlButton = function ControlButton(_ref4) {
-	var iconLeft = _ref4.iconLeft,
-	    iconRight = _ref4.iconRight,
-	    onClick = _ref4.onClick,
-	    children = _ref4.children,
-	    props = _objectWithoutProperties(_ref4, ['iconLeft', 'iconRight', 'onClick', 'children']);
+var ControlButton = function ControlButton(_ref2) {
+	var iconLeft = _ref2.iconLeft,
+	    iconRight = _ref2.iconRight,
+	    children = _ref2.children,
+	    props = _objectWithoutProperties(_ref2, ['iconLeft', 'iconRight', 'children']);
 
 	return _react2.default.createElement(
-		Wrapper,
-		_extends({
-			onClick: onClick,
-			iconLeft: iconLeft,
-			iconRight: iconRight
-		}, props, {
-			tabIndex: 0
-		}),
+		StyledButton,
+		_extends({}, props, { tabIndex: 0, hideLoader: true }),
 		iconLeft && _react2.default.createElement(
 			StyledIconLeft,
 			null,

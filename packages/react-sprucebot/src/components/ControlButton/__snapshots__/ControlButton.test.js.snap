@@ -29,9 +29,7 @@ exports[`it renders 1`] = `
 
 <button
   className="btn ControlButton control-button  c0"
-  iconLeft={undefined}
-  iconRight={undefined}
-  onClick={undefined}
+  onClick={[Function]}
   tabIndex={0}
   type="button"
 >
@@ -66,14 +64,13 @@ exports[`it renders a link 1`] = `
   background: none;
 }
 
-<button
+<a
   className="btn ControlButton control-button  c0"
-  iconLeft={undefined}
-  iconRight={undefined}
-  onClick={undefined}
+  href="https://sprucebot.com"
+  onClick={[Function]}
   tabIndex={0}
   type="button"
 >
   <span />
-</button>
+</a>
 `;
