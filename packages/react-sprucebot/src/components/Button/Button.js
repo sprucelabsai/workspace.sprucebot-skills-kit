@@ -66,6 +66,7 @@ export default class Button extends Component {
 			loaderDark,
 			loaderStyle,
 			busy: propBusy,
+			hideLoader,
 			...props
 		} = this.props
 
@@ -109,7 +110,7 @@ export default class Button extends Component {
 				onClick={this.onClick}
 				{...props}
 			>
-				{busy ? (
+				{busy && !hideLoader ? (
 					<Loader
 						dark={loaderDark ? true : false}
 						fullWidth={false}
@@ -132,7 +133,8 @@ Button.propTypes = {
 	href: PropTypes.string,
 	remove: PropTypes.bool,
 	toggle: PropTypes.bool,
-	type: PropTypes.string.isRequired
+	hideLoader: PropTypes.bool,
+	type: PropTypes.string
 }
 
 Button.defaultProps = {
