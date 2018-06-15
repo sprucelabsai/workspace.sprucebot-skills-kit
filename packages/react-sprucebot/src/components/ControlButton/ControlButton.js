@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import React from 'react'
+import Button from '../Button/Button'
 
 import Icon from '../Icon/Icon'
 
@@ -12,7 +13,8 @@ const StyledIconRight = styled(Icon)`
 	margin-left: 0.25em;
 `
 
-const Button = styled.button.attrs({
+// const Button = styled.button.attrs({
+const StyledButton = styled(Button).attrs({
 	className: ({ className }) =>
 		`ControlButton control-button ${className || ''}`
 })`
@@ -45,11 +47,12 @@ const Link = styled.a.attrs({
 `
 
 const Wrapper = ({ href, ...props }) => {
-	if (href && href != '') {
-		return <Link href={href} {...props} />
-	} else {
-		return <Button {...props} />
-	}
+	// if (href && href != '') {
+	// 	return <Link href={href} {...props} />
+	// } else {
+	// 	return <Button {...props} />
+	// }
+	return <StyledButton {...props} />
 }
 
 const ControlButton = ({

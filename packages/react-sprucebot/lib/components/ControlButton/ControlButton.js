@@ -18,6 +18,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _Button = require('../Button/Button');
+
+var _Button2 = _interopRequireDefault(_Button);
+
 var _Icon = require('../Icon/Icon');
 
 var _Icon2 = _interopRequireDefault(_Icon);
@@ -36,13 +40,14 @@ var StyledIconRight = (0, _styledComponents2.default)(_Icon2.default).withConfig
 	componentId: 'kjsmyw-1'
 })(['margin-left:0.25em;']);
 
-var Button = _styledComponents2.default.button.attrs({
+// const Button = styled.button.attrs({
+var StyledButton = (0, _styledComponents2.default)(_Button2.default).attrs({
 	className: function className(_ref) {
 		var _className = _ref.className;
 		return 'ControlButton control-button ' + (_className || '');
 	}
 }).withConfig({
-	displayName: 'ControlButton__Button',
+	displayName: 'ControlButton__StyledButton',
 	componentId: 'kjsmyw-2'
 })(['align-items:center;background:none;color:#00aac7;display:inline-flex;font-weight:normal;letter-spacing:0;position:relative;margin:0;padding:0;width:auto;&:hover{background:none;}']);
 
@@ -60,11 +65,12 @@ var Wrapper = function Wrapper(_ref3) {
 	var href = _ref3.href,
 	    props = _objectWithoutProperties(_ref3, ['href']);
 
-	if (href && href != '') {
-		return _react2.default.createElement(Link, _extends({ href: href }, props));
-	} else {
-		return _react2.default.createElement(Button, props);
-	}
+	// if (href && href != '') {
+	// 	return <Link href={href} {...props} />
+	// } else {
+	// 	return <Button {...props} />
+	// }
+	return _react2.default.createElement(StyledButton, props);
 };
 
 var ControlButton = function ControlButton(_ref4) {
