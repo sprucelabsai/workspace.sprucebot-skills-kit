@@ -95,8 +95,6 @@ var Calendar = function (_Component) {
 
 			var CalendarComponent = dragAndDrop ? (0, _dragAndDrop2.default)(StyledReactBigCalendar) : StyledReactBigCalendar;
 
-			console.log(this.props);
-
 			return _react2.default.createElement(CalendarComponent, {
 				height: height,
 				date: date || new Date(),
