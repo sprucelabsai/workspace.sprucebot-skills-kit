@@ -894,6 +894,10 @@ class DateSelect extends Component {
 		this.setState({ date: defaultDate, defaultDateSet: true })
 	}
 
+	get value() {
+		return this.state.date
+	}
+
 	render() {
 		const { date, focused, defaultDateSet } = this.state
 		const { placeholder, onChange, setDefaultDate } = this.props

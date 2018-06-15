@@ -53,14 +53,7 @@ exports[`it renders 1`] = `
 }
 
 <button
-  busy={false}
   className="btn IconButton icon-button  c0"
-  loaderDark={true}
-  loaderStyle={
-    Object {
-      "fontSize": ".5em",
-    }
-  }
   onClick={[Function]}
   type="button"
 >

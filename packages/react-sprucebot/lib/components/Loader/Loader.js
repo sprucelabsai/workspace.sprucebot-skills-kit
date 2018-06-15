@@ -65,10 +65,12 @@ exports.default = Loader;
 
 Loader.propTypes = {
 	dark: _propTypes2.default.bool,
-	fullWidth: _propTypes2.default.bool
+	fullWidth: _propTypes2.default.bool,
+	loaderStyle: _propTypes2.default.object
 };
 
 Loader.defaultProps = {
 	dark: true,
-	fullWidth: true
+	fullWidth: true,
+	loaderStyle: {}
 };

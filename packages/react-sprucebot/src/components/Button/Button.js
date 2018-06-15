@@ -63,6 +63,9 @@ export default class Button extends Component {
 			remove,
 			toggle,
 			router,
+			loaderDark,
+			loaderStyle,
+			busy: propBusy,
 			...props
 		} = this.props
 
@@ -108,9 +111,9 @@ export default class Button extends Component {
 			>
 				{busy ? (
 					<Loader
-						dark={props.loaderDark ? true : false}
+						dark={loaderDark ? true : false}
 						fullWidth={false}
-						loaderStyle={props.loaderStyle}
+						loaderStyle={loaderStyle}
 					/>
 				) : (
 					children
