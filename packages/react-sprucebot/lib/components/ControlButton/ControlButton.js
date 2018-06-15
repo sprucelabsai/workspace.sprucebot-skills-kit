@@ -40,7 +40,6 @@ var StyledIconRight = (0, _styledComponents2.default)(_Icon2.default).withConfig
 	componentId: 'kjsmyw-1'
 })(['margin-left:0.25em;']);
 
-// const Button = styled.button.attrs({
 var StyledButton = (0, _styledComponents2.default)(_Button2.default).attrs({
 	className: function className(_ref) {
 		var _className = _ref.className;
