@@ -671,7 +671,7 @@ class Calendar extends Component {
 	render() {
 		const {
 			height,
-			date,
+			defaultDate,
 			toolbar,
 			events,
 			defaultView,
@@ -698,7 +698,7 @@ class Calendar extends Component {
 		return (
 			<CalendarComponent
 				height={height}
-				date={date || new Date()}
+				defaultDate={defaultDate || new Date()}
 				toolbar={toolbar} // PropTypes.bool
 				events={events} // PropTypes.array
 				defaultView={defaultView} // PropTypes.string

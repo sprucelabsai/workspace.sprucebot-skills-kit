@@ -1,9 +1,10 @@
 import 'react-dates/initialize'
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { DayPickerSingleDateController } from 'react-dates'
-import IconButton from '../IconButton/IconButton'
 import moment from 'moment'
+import { DayPickerSingleDateController } from 'react-dates'
+
+import IconButton from '../IconButton/IconButton'
 import Icon from '../Icon/Icon'
 
 const Wrapper = styled.div`
@@ -840,12 +841,6 @@ class DateSelect extends Component {
 		defaultDateSet: false
 	}
 
-	componentDidMount() {
-		const date = moment()
-
-		// this.setState({ date })
-	}
-
 	isDayBlocked = date => {
 		const { availableDays, bypassDaysBlocked } = this.props
 
@@ -899,18 +894,23 @@ class DateSelect extends Component {
 	}
 
 	render() {
-		const { date, focused, defaultDateSet } = this.state
-		const { placeholder, onChange, setDefaultDate } = this.props
+		const { date, defaultDateSet } = this.state
+		const {
+			placeholder,
+			onChange,
+			setDefaultDate,
+			initialVisibleMonth
+		} = this.props
 
 		return (
 			<Wrapper>
 				<DayPickerSingleDateController
 					date={date || null} // momentPropTypes.momentObj or null
-					placeholder={placeholder}
+					placeholder={placeholder || null} // PropTypes.string
 					onDateChange={date => this.handleDateChange(date)} // PropTypes.func.isRequired
-					focused={focused} // PropTypes.bool
+					focused={true} // PropTypes.bool
 					onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
-					numberOfMonths={1}
+					numberOfMonths={1} // PropTypes.number
 					isDayBlocked={this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
 					keepOpenOnDateSelect
@@ -920,6 +920,7 @@ class DateSelect extends Component {
 					setDefaultDate={
 						setDefaultDate && !defaultDateSet && this.setDefaultDate()
 					}
+					initialVisibleMonth={initialVisibleMonth} // PropTypes.func
 				/>
 			</Wrapper>
 		)
