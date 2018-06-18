@@ -141,9 +141,7 @@ class Pager extends Component {
 		const first = page === 0
 		const last = page === totalPages - 1
 
-		const title = titles
-			? titles(page)
-			: `${page + 1} of ${this.props.totalPages}`
+		const title = titles ? titles(page) : `${page + 1} of ${totalPages}`
 
 		return (
 			<StyledList className="pager" margin={margin}>
