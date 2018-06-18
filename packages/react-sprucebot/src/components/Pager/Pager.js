@@ -12,6 +12,7 @@ const StyledList = styled.ul`
 const StyledListItem = styled.li`
 	&& {
 		${props => props.smallArrows && `flex: 0.5`};
+		${props => props.hide && `display: none`};
 	}
 `
 
@@ -132,7 +133,9 @@ class Pager extends Component {
 			hasButton,
 			buttonClick,
 			smallArrows,
-			margin
+			margin,
+			hideSingleArrows,
+			hideDoubleArrows
 		} = this.props
 
 		const first = page === 0
@@ -146,6 +149,7 @@ class Pager extends Component {
 					className={`first ${first && 'disabled'}`}
 					onClick={this.first}
 					smallArrows
+					hide={hideDoubleArrows}
 				>
 					<a>First</a>
 				</StyledListItem>
@@ -153,6 +157,7 @@ class Pager extends Component {
 					className={`back ${first && 'disabled'}`}
 					onClick={this.back}
 					smallArrows
+					hide={hideSingleArrows}
 				>
 					<a>Back</a>
 				</StyledListItem>
@@ -169,6 +174,7 @@ class Pager extends Component {
 					className={`next ${last && 'disabled'}`}
 					onClick={this.next}
 					smallArrows
+					hide={hideSingleArrows}
 				>
 					<a>Next</a>
 				</StyledListItem>
@@ -176,6 +182,7 @@ class Pager extends Component {
 					className={`last ${last && 'disabled'}`}
 					onClick={this.last}
 					smallArrows
+					hide={hideDoubleArrows}
 				>
 					<a>Last</a>
 				</StyledListItem>
