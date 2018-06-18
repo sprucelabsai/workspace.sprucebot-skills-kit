@@ -221,7 +221,7 @@ exports.default = TimeInput;
 TimeInput.propTypes = {
 	onChange: _propTypes2.default.func,
 	defaultValue: _propTypes2.default.string,
-	usePicker: _propTypes2.default.boolean,
+	usePicker: _propTypes2.default.bool,
 	value: _propTypes2.default.string
 };
 

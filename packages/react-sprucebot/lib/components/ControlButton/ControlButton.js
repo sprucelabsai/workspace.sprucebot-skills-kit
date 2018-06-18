@@ -48,7 +48,7 @@ var StyledButton = (0, _styledComponents2.default)(_Button2.default).attrs({
 }).withConfig({
 	displayName: 'ControlButton__StyledButton',
 	componentId: 'kjsmyw-2'
-})(['align-items:center;background:none;color:#00aac7;display:inline-flex;font-weight:normal;letter-spacing:0;position:relative;margin:0;padding:0;width:auto;&:hover{background:none;}']);
+})(['align-items:center;background:none;color:#00aac7;display:inline-flex;font-weight:normal;letter-spacing:0;position:relative;margin:0;padding:0;width:auto;text-decoration:none;&:hover{background:none;}']);
 
 var ControlButton = function ControlButton(_ref2) {
 	var iconLeft = _ref2.iconLeft,
