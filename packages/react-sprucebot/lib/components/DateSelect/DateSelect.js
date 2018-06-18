@@ -129,13 +129,14 @@ var DateSelect = function (_Component) {
 
 			var _state = this.state,
 			    date = _state.date,
-			    focused = _state.focused,
 			    defaultDateSet = _state.defaultDateSet;
 			var _props = this.props,
 			    placeholder = _props.placeholder,
 			    onChange = _props.onChange,
-			    setDefaultDate = _props.setDefaultDate;
+			    setDefaultDate = _props.setDefaultDate,
+			    initialVisibleMonth = _props.initialVisibleMonth;
 
+			console.log(this.props);
 
 			return _react2.default.createElement(
 				Wrapper,
@@ -146,7 +147,7 @@ var DateSelect = function (_Component) {
 					onDateChange: function onDateChange(date) {
 						return _this2.handleDateChange(date);
 					} // PropTypes.func.isRequired
-					, focused: focused // PropTypes.bool
+					, focused: true // PropTypes.bool
 					, onFocusChange: function onFocusChange(_ref2) {
 						var focused = _ref2.focused;
 						return _this2.setState({ focused: focused });
@@ -166,7 +167,8 @@ var DateSelect = function (_Component) {
 						'chevron_right'
 					),
 					hideKeyboardShortcutsPanel: true,
-					setDefaultDate: setDefaultDate && !defaultDateSet && this.setDefaultDate()
+					setDefaultDate: setDefaultDate && !defaultDateSet && this.setDefaultDate(),
+					initialVisibleMonth: initialVisibleMonth
 				})
 			);
 		}

@@ -899,8 +899,14 @@ class DateSelect extends Component {
 	}
 
 	render() {
-		const { date, focused, defaultDateSet } = this.state
-		const { placeholder, onChange, setDefaultDate } = this.props
+		const { date, defaultDateSet } = this.state
+		const {
+			placeholder,
+			onChange,
+			setDefaultDate,
+			initialVisibleMonth
+		} = this.props
+		console.log(this.props)
 
 		return (
 			<Wrapper>
@@ -908,7 +914,7 @@ class DateSelect extends Component {
 					date={date || null} // momentPropTypes.momentObj or null
 					placeholder={placeholder}
 					onDateChange={date => this.handleDateChange(date)} // PropTypes.func.isRequired
-					focused={focused} // PropTypes.bool
+					focused={true} // PropTypes.bool
 					onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
 					numberOfMonths={1}
 					isDayBlocked={this.isDayBlocked}
@@ -920,6 +926,7 @@ class DateSelect extends Component {
 					setDefaultDate={
 						setDefaultDate && !defaultDateSet && this.setDefaultDate()
 					}
+					initialVisibleMonth={initialVisibleMonth}
 				/>
 			</Wrapper>
 		)
