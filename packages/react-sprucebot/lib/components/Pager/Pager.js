@@ -40,8 +40,10 @@ var StyledList = _styledComponents2.default.ul.withConfig({
 var StyledListItem = _styledComponents2.default.li.withConfig({
 	displayName: 'Pager__StyledListItem',
 	componentId: 'uh9gqt-1'
-})(['&&{', ';}'], function (props) {
+})(['&&{', ';', ';}'], function (props) {
 	return props.smallArrows && 'flex: 0.5';
+}, function (props) {
+	return props.hide && 'display: none';
 });
 
 var DropDownButton = (0, _styledComponents2.default)(_ControlButton2.default).withConfig({
@@ -173,7 +175,9 @@ var Pager = function (_Component) {
 			    hasButton = _props.hasButton,
 			    buttonClick = _props.buttonClick,
 			    smallArrows = _props.smallArrows,
-			    margin = _props.margin;
+			    margin = _props.margin,
+			    hideSingleArrows = _props.hideSingleArrows,
+			    hideDoubleArrows = _props.hideDoubleArrows;
 
 
 			var first = page === 0;
@@ -189,7 +193,8 @@ var Pager = function (_Component) {
 					{
 						className: 'first ' + (first && 'disabled'),
 						onClick: this.first,
-						smallArrows: true
+						smallArrows: true,
+						hide: hideDoubleArrows
 					},
 					_react2.default.createElement(
 						'a',
@@ -202,7 +207,8 @@ var Pager = function (_Component) {
 					{
 						className: 'back ' + (first && 'disabled'),
 						onClick: this.back,
-						smallArrows: true
+						smallArrows: true,
+						hide: hideSingleArrows
 					},
 					_react2.default.createElement(
 						'a',
@@ -224,7 +230,8 @@ var Pager = function (_Component) {
 					{
 						className: 'next ' + (last && 'disabled'),
 						onClick: this.next,
-						smallArrows: true
+						smallArrows: true,
+						hide: hideSingleArrows
 					},
 					_react2.default.createElement(
 						'a',
@@ -237,7 +244,8 @@ var Pager = function (_Component) {
 					{
 						className: 'last ' + (last && 'disabled'),
 						onClick: this.last,
-						smallArrows: true
+						smallArrows: true,
+						hide: hideDoubleArrows
 					},
 					_react2.default.createElement(
 						'a',
