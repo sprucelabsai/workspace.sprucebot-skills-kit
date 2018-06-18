@@ -725,42 +725,9 @@
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.6.tgz#3e02972728c69248c2af08d60a48cbb8680fffdf"
 
-"@types/invariant@^2.2.29":
-  version "2.2.29"
-  resolved "https://registry.yarnpkg.com/@types/invariant/-/invariant-2.2.29.tgz#aa845204cd0a289f65d47e0de63a6a815e30cc66"
-
-"@types/lodash@^4.14.109":
-  version "4.14.109"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.109.tgz#b1c4442239730bf35cabaf493c772b18c045886d"
-
 "@types/node@*":
   version "10.3.3"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.3.3.tgz#8798d9e39af2fa604f715ee6a6b19796528e46c3"
-
-"@types/node@^10.3.0":
-  version "10.3.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.3.2.tgz#3840ec6c12556fdda6e0e6d036df853101d732a4"
-
-"@types/prop-types@^15.5.3":
-  version "15.5.3"
-  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.3.tgz#bef071852dca2a2dbb65fecdb7bfb30cedae2de2"
-
-"@types/react-dom@^16.0.5":
-  version "16.0.6"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.0.6.tgz#f1a65a4e7be8ed5d123f8b3b9eacc913e35a1a3c"
-  dependencies:
-    "@types/node" "*"
-    "@types/react" "*"
-
-"@types/react@*", "@types/react@^16.3.14", "@types/react@^16.3.16":
-  version "16.3.17"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.17.tgz#d59d1a632570b0713946ed9c2949d994773633c5"
-  dependencies:
-    csstype "^2.2.0"
-
-"@types/shallowequal@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@types/shallowequal/-/shallowequal-0.2.2.tgz#71918d93f1e9c242790c31b456969ff9f6028005"
 
 "@zeit/check-updates@1.1.1":
   version "1.1.1"
@@ -825,8 +792,8 @@ acorn@^4.0.3:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.13.tgz#105495ae5361d697bd195c825192e1ad7f253787"
 
 acorn@^5.0.0, acorn@^5.3.0, acorn@^5.5.0:
-  version "5.6.2"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.6.2.tgz#b1da1d7be2ac1b4a327fb9eab851702c5045b4e7"
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.1.tgz#f095829297706a7c9776958c0afc8930a9b9d9d8"
 
 add-dom-event-listener@1.x:
   version "1.0.2"
@@ -1166,8 +1133,8 @@ autobind-decorator@^2.1.0:
   resolved "https://registry.yarnpkg.com/autobind-decorator/-/autobind-decorator-2.1.0.tgz#4451240dbfeff46361c506575a63ed40f0e5bc68"
 
 aws-sdk@^2.153.0:
-  version "2.256.1"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.256.1.tgz#a2b7e32a0170d9fa06f25c503b4ba92292bbe5ac"
+  version "2.259.1"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.259.1.tgz#df4814b65d5654f250d097951aa84e27a472b5aa"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -2385,8 +2352,8 @@ camelcase@^4.0.0, camelcase@^4.1.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-lite@^1.0.30000792:
-  version "1.0.30000853"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000853.tgz#505249fc78d60e20ad47af3c13706d6f9fd209fd"
+  version "1.0.30000856"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000856.tgz#ecc16978135a6f219b138991eb62009d25ee8daa"
 
 capture-exit@^1.2.0:
   version "1.2.0"
@@ -3164,10 +3131,6 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   dependencies:
     cssom "0.3.x"
 
-csstype@^2.2.0:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.5.3.tgz#2504152e6e1cc59b32098b7f5d6a63f16294c1f7"
-
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -3467,18 +3430,16 @@ dnd-core@^2.6.0:
     lodash "^4.2.0"
     redux "^3.7.1"
 
-dnd-core@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-4.0.4.tgz#c0fbb5cb3b806c146bbcdffee733fbaf341da1cb"
+dnd-core@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-4.0.5.tgz#3b83d138d0d5e265c73ec978dec5e1ed441dc665"
   dependencies:
-    "@types/invariant" "^2.2.29"
-    "@types/lodash" "^4.14.109"
     asap "^2.0.6"
     invariant "^2.2.4"
     lodash "^4.17.10"
     redux "^4.0.0"
 
-doctrine@^2.0.2, doctrine@^2.1.0:
+doctrine@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-2.1.0.tgz#5cd01fc101621b42c4cd7f5d1a66243716d3f39d"
   dependencies:
@@ -4818,7 +4779,7 @@ has-values@^1.0.0:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
-has@^1.0.1, has@^1.0.2:
+has@^1.0.1, has@^1.0.2, has@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/has/-/has-1.0.3.tgz#722d7cbfc1f6aa8241f16dd814e011e1f41e8796"
   dependencies:
@@ -4863,7 +4824,7 @@ hoist-non-react-statics@2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
 
-hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0, hoist-non-react-statics@^2.5.4:
+hoist-non-react-statics@^2.1.0, hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0, hoist-non-react-statics@^2.5.4:
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.4.tgz#fc3b1ac05d2ae3abedec84eba846511b0d4fcc4f"
 
@@ -5162,7 +5123,7 @@ interpret@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"
 
-invariant@^2.0.0, invariant@^2.1.0, invariant@^2.2.0, invariant@^2.2.2, invariant@^2.2.3, invariant@^2.2.4:
+invariant@^2.0.0, invariant@^2.1.0, invariant@^2.2.0, invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   dependencies:
@@ -6721,8 +6682,8 @@ moment-timezone@0.5.14:
     moment ">= 2.9.0"
 
 moment-timezone@^0.5.14, moment-timezone@^0.5.x:
-  version "0.5.17"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.17.tgz#3c8fef32051d84c3af174d91dc52977dcb0ad7e5"
+  version "0.5.20"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.20.tgz#fe66da425dd9f9bbf416f131bf17659680aabb99"
   dependencies:
     moment ">= 2.9.0"
 
@@ -6902,8 +6863,8 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.4.tgz#d93962f6c52f2c1558c0fbda6d512819f1efe1c4"
 
 nock@^9.1.6, nock@^9.2.3:
-  version "9.3.2"
-  resolved "https://registry.yarnpkg.com/nock/-/nock-9.3.2.tgz#f2f52a784a8a33d7496f4ab5b28c3b879091e6d6"
+  version "9.3.3"
+  resolved "https://registry.yarnpkg.com/nock/-/nock-9.3.3.tgz#d9f4cd3c011afeadaf5ccf1b243f6e353781cda0"
   dependencies:
     chai "^4.1.2"
     debug "^3.1.0"
@@ -7153,8 +7114,8 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
 nwsapi@^2.0.0:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.0.3.tgz#3f4010d6c943f34018d3dfb5f2fbc0de90476959"
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.0.4.tgz#dc79040a5f77b97716dc79565fc7fc3ef7d50570"
 
 oauth-sign@~0.8.1, oauth-sign@~0.8.2:
   version "0.8.2"
@@ -7690,8 +7651,8 @@ pm2@^2.10.1:
     gkt "https://tgz.pm2.io/gkt-1.0.0.tgz"
 
 pmx@^1.6:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/pmx/-/pmx-1.6.4.tgz#45a0ebbf3c302e51b7514815f09817db79afd593"
+  version "1.6.7"
+  resolved "https://registry.yarnpkg.com/pmx/-/pmx-1.6.7.tgz#b0fc8061bc8343a4069d18e4ee4f031de0af890a"
   dependencies:
     debug "^3"
     deep-metrics "^0.0.1"
@@ -7806,11 +7767,12 @@ prop-types-exact@1.1.1:
     object.assign "^4.0.4"
 
 prop-types-exact@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/prop-types-exact/-/prop-types-exact-1.1.2.tgz#0b5addd8ff3ea10823fe1d94f030f4b4296b513f"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/prop-types-exact/-/prop-types-exact-1.2.0.tgz#825d6be46094663848237e3925a98c6e944e9869"
   dependencies:
-    has "^1.0.1"
+    has "^1.0.3"
     object.assign "^4.1.0"
+    reflect.ownkeys "^0.2.0"
 
 prop-types-extra@^1.0.1:
   version "1.1.0"
@@ -7984,14 +7946,13 @@ raw-body@^2.3.3:
     unpipe "1.0.0"
 
 rc-align@^2.4.0:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/rc-align/-/rc-align-2.4.1.tgz#604c71e76063606aa076868efaf23213b188034b"
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/rc-align/-/rc-align-2.4.2.tgz#338696c755b443ac10233e8703935b1d6f8ff194"
   dependencies:
     babel-runtime "^6.26.0"
     dom-align "^1.7.0"
     prop-types "^15.5.8"
     rc-util "^4.0.4"
-    shallowequal "^1.0.2"
 
 rc-animate@2.x:
   version "2.4.4"
@@ -8080,14 +8041,11 @@ react-dates@^16.6.1:
     react-with-styles-interface-css "^4.0.1"
 
 react-dnd-html5-backend@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-4.0.4.tgz#d828f8ee5deb5c09c24eaf7a40963bd1e45b5730"
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-4.0.5.tgz#36632a2d5cfaf8a5d43c586685f6dd696b50ccde"
   dependencies:
-    "@types/lodash" "^4.14.109"
-    "@types/react" "^16.3.16"
-    "@types/shallowequal" "^0.2.2"
     autobind-decorator "^2.1.0"
-    dnd-core "^4.0.4"
+    dnd-core "^4.0.5"
     lodash "^4.17.10"
     shallowequal "^1.0.2"
 
@@ -8110,21 +8068,13 @@ react-dnd@^2.5.4:
     prop-types "^15.5.10"
 
 react-dnd@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-4.0.4.tgz#a204cbbe2172e15560179bdbf2e2b8bf57e8a1af"
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-4.0.5.tgz#4d10a93700b604778b0ba2309b20d705201e71da"
   dependencies:
-    "@types/invariant" "^2.2.29"
-    "@types/lodash" "^4.14.109"
-    "@types/node" "^10.3.0"
-    "@types/prop-types" "^15.5.3"
-    "@types/react" "^16.3.14"
-    "@types/react-dom" "^16.0.5"
-    "@types/shallowequal" "^0.2.2"
-    dnd-core "^4.0.4"
+    dnd-core "^4.0.5"
     hoist-non-react-statics "^2.5.0"
     invariant "^2.1.0"
     lodash "^4.17.10"
-    prop-types "^15.6.1"
     shallowequal "^1.0.2"
 
 react-dom@^16.0.0, react-dom@^16.2.0, react-dom@^16.3.2:
@@ -8157,6 +8107,10 @@ react-image-crop@3.0.11:
 react-is@^16.3.1, react-is@^16.3.2, react-is@^16.4.1:
   version "16.4.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.1.tgz#d624c4650d2c65dbd52c72622bbf389435d9776e"
+
+react-lifecycles-compat@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
 react-measure@^2.0.2:
   version "2.0.2"
@@ -8215,8 +8169,8 @@ react-redux@^5.0.6:
     prop-types "^15.6.0"
 
 react-sprucebot@^6.6.0:
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/react-sprucebot/-/react-sprucebot-6.6.0.tgz#7d7b29ca5561fe11ea917c04a40c5130173f5865"
+  version "6.6.1"
+  resolved "https://registry.yarnpkg.com/react-sprucebot/-/react-sprucebot-6.6.1.tgz#56645a8dd152184358d7d8c78932351f8ebb50df"
   dependencies:
     axios "^0.18.0"
     babel-polyfill "^6.26.0"
@@ -8448,8 +8402,8 @@ redent@^2.0.0:
     strip-indent "^2.0.0"
 
 redux-form@^7.3.0:
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/redux-form/-/redux-form-7.4.0.tgz#5772f152b808954f0debcf918cb78f055c279717"
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/redux-form/-/redux-form-7.4.2.tgz#d6061088fb682eb9fc5fb9749bd8b102f03154b0"
   dependencies:
     es6-error "^4.1.1"
     hoist-non-react-statics "^2.5.4"
@@ -8458,6 +8412,7 @@ redux-form@^7.3.0:
     lodash "^4.17.10"
     lodash-es "^4.17.10"
     prop-types "^15.6.1"
+    react-lifecycles-compat "^3.0.4"
 
 redux-thunk@^2.2.0:
   version "2.3.0"
@@ -8478,6 +8433,10 @@ redux@^4.0.0:
   dependencies:
     loose-envify "^1.1.0"
     symbol-observable "^1.2.0"
+
+reflect.ownkeys@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/reflect.ownkeys/-/reflect.ownkeys-0.2.0.tgz#749aceec7f3fdf8b63f927a04809e90c5c0b3460"
 
 regenerate@^1.2.1:
   version "1.4.0"
@@ -8713,8 +8672,8 @@ resolve@1.5.0:
     path-parse "^1.0.5"
 
 resolve@^1.0.0, resolve@^1.1.6:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.7.1.tgz#aadd656374fd298aee895bc026b8297418677fd3"
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.8.1.tgz#82f1ec19a423ac1fbd080b0bab06ba36e84a7a26"
   dependencies:
     path-parse "^1.0.5"
 
@@ -9853,8 +9812,8 @@ unique-string@^1.0.0:
     crypto-random-string "^1.0.0"
 
 universal-cookie@^2.1.0:
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/universal-cookie/-/universal-cookie-2.1.5.tgz#d6cfcd57f0e753acaaf99cd5517c5f1718316fc1"
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/universal-cookie/-/universal-cookie-2.2.0.tgz#328dc3883cf0ebd5b4904902033ad4dfdb907ed2"
   dependencies:
     cookie "^0.3.1"
     object-assign "^4.1.0"
