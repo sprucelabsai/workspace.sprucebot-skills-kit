@@ -840,12 +840,6 @@ class DateSelect extends Component {
 		defaultDateSet: false
 	}
 
-	componentDidMount() {
-		const date = moment()
-
-		// this.setState({ date })
-	}
-
 	isDayBlocked = date => {
 		const { availableDays, bypassDaysBlocked } = this.props
 
@@ -906,7 +900,6 @@ class DateSelect extends Component {
 			setDefaultDate,
 			initialVisibleMonth
 		} = this.props
-		console.log(this.props)
 
 		return (
 			<Wrapper>

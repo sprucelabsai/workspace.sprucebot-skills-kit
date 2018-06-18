@@ -116,13 +116,6 @@ var DateSelect = function (_Component) {
 	}
 
 	_createClass(DateSelect, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			var date = (0, _moment2.default)();
-
-			// this.setState({ date })
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
@@ -136,7 +129,6 @@ var DateSelect = function (_Component) {
 			    setDefaultDate = _props.setDefaultDate,
 			    initialVisibleMonth = _props.initialVisibleMonth;
 
-			console.log(this.props);
 
 			return _react2.default.createElement(
 				Wrapper,
