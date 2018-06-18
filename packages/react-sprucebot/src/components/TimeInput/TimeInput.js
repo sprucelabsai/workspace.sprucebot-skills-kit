@@ -287,7 +287,7 @@ export default class TimeInput extends Component {
 TimeInput.propTypes = {
 	onChange: PropTypes.func,
 	defaultValue: PropTypes.string,
-	usePicker: PropTypes.boolean,
+	usePicker: PropTypes.bool,
 	value: PropTypes.string
 }
 
