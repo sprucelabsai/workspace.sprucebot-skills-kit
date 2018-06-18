@@ -183,7 +183,7 @@ var Pager = function (_Component) {
 			var first = page === 0;
 			var last = page === totalPages - 1;
 
-			var title = titles ? titles[page] : page + 1 + ' of ' + totalPages;
+			var title = titles ? titles(page) : page + 1 + ' of ' + totalPages;
 
 			return _react2.default.createElement(
 				StyledList,
