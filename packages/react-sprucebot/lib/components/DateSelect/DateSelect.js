@@ -16,15 +16,15 @@ var _styledComponents = require('styled-components');
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var _reactDates = require('react-dates');
 
 var _IconButton = require('../IconButton/IconButton');
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
-
-var _moment = require('moment');
-
-var _moment2 = _interopRequireDefault(_moment);
 
 var _Icon = require('../Icon/Icon');
 
@@ -135,8 +135,8 @@ var DateSelect = function (_Component) {
 				null,
 				_react2.default.createElement(_reactDates.DayPickerSingleDateController, {
 					date: date || null // momentPropTypes.momentObj or null
-					, placeholder: placeholder,
-					onDateChange: function onDateChange(date) {
+					, placeholder: placeholder || null // PropTypes.string
+					, onDateChange: function onDateChange(date) {
 						return _this2.handleDateChange(date);
 					} // PropTypes.func.isRequired
 					, focused: true // PropTypes.bool
@@ -144,8 +144,8 @@ var DateSelect = function (_Component) {
 						var focused = _ref2.focused;
 						return _this2.setState({ focused: focused });
 					} // PropTypes.func.isRequired
-					, numberOfMonths: 1,
-					isDayBlocked: this.isDayBlocked,
+					, numberOfMonths: 1 // PropTypes.number
+					, isDayBlocked: this.isDayBlocked,
 					isOutsideRange: this.isOutsideRange,
 					keepOpenOnDateSelect: true,
 					navPrev: _react2.default.createElement(
@@ -160,7 +160,7 @@ var DateSelect = function (_Component) {
 					),
 					hideKeyboardShortcutsPanel: true,
 					setDefaultDate: setDefaultDate && !defaultDateSet && this.setDefaultDate(),
-					initialVisibleMonth: initialVisibleMonth
+					initialVisibleMonth: initialVisibleMonth // PropTypes.func
 				})
 			);
 		}
