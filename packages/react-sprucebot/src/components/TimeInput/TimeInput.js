@@ -4,6 +4,7 @@ import styled, { injectGlobal } from 'styled-components'
 import is from 'is_js'
 import RCTimePicker from 'rc-time-picker'
 import moment from 'moment'
+import Button from '../Button/Button'
 
 const Input = styled.input`
 	width: unset;
@@ -177,6 +178,7 @@ injectGlobal`
 	.rc-time-picker-panel-select li:hover {
 		background: #edfaff;
 	}
+
 	li.rc-time-picker-panel-select-option-selected {
 		background: #f7f7f7;
 		font-weight: bold;
@@ -188,6 +190,25 @@ injectGlobal`
 		background: transparent;
 		cursor: not-allowed;
 	}
+
+	.rc-time-picker-panel-combobox {
+		border-bottom: 1px solid #e9e9e9;
+		overflow: hidden;
+	}
+`
+
+const ConfirmWrapper = styled.div`
+	border: 1px solid #e9e9e9;
+	padding: 5px 0 0;
+	width: 100%;
+`
+
+const ConfirmButton = styled(Button)`
+	&& {
+		border-radius: 0;
+		width: calc(100% - 10px);
+		margin: 0 auto;
+	}
 `
 
 export default class TimeInput extends Component {
@@ -197,7 +218,8 @@ export default class TimeInput extends Component {
 		this.state = {
 			value: defaultValue || '',
 			time: defaultValue ? moment(`2017-04-01 ${defaultValue}`) : '',
-			rest
+			rest,
+			open: false
 		}
 	}
 	componentWillReceiveProps(nextProps) {
@@ -238,8 +260,47 @@ export default class TimeInput extends Component {
 		}
 	}
 
+	onConfirm = () => {
+		this.rcOnClose()
+		if (this.props.onConfirm) {
+			this.props.onConfirm()
+		}
+	}
+
 	get value() {
 		return this.state.value
+	}
+
+	rcAddon = () => {
+		const { hideConfirm, confirmButtonProps, confirmButtonText } = this.props
+		const text = confirmButtonText || 'Confirm'
+		return (
+			<Fragment>
+				{!hideConfirm && (
+					<ConfirmWrapper>
+						<ConfirmButton
+							primary
+							onClick={this.onConfirm}
+							{...confirmButtonProps}
+						>
+							{text}
+						</ConfirmButton>
+					</ConfirmWrapper>
+				)}
+			</Fragment>
+		)
+	}
+
+	rcOnOpen = open => {
+		this.setState({
+			open: true
+		})
+	}
+
+	rcOnClose = open => {
+		this.setState({
+			open: false
+		})
 	}
 
 	render() {
@@ -250,6 +311,8 @@ export default class TimeInput extends Component {
 			value,
 			disableEnter,
 			usePicker,
+			hideConfirm,
+			confirmButtonProps,
 			...rest
 		} = this.props
 
@@ -275,6 +338,10 @@ export default class TimeInput extends Component {
 							format={'h:mm a'}
 							use12Hours
 							inputReadOnly
+							addon={this.rcAddon}
+							open={this.state.open}
+							onOpen={this.rcOnOpen}
+							onClose={this.rcOnClose}
 							{...rest}
 						/>
 					</Fragment>
@@ -288,7 +355,9 @@ TimeInput.propTypes = {
 	onChange: PropTypes.func,
 	defaultValue: PropTypes.string,
 	usePicker: PropTypes.bool,
-	value: PropTypes.string
+	hideConfirm: PropTypes.bool,
+	value: PropTypes.string,
+	confirmButtonProps: PropTypes.object
 }
 
 TimeInput.defaultProps = {}
