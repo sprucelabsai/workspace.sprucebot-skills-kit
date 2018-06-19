@@ -65,7 +65,7 @@ var Calendar = function (_Component) {
 		value: function render() {
 			var _props = this.props,
 			    height = _props.height,
-			    defaultDate = _props.defaultDate,
+			    date = _props.date,
 			    toolbar = _props.toolbar,
 			    events = _props.events,
 			    defaultView = _props.defaultView,
@@ -89,7 +89,7 @@ var Calendar = function (_Component) {
 
 			return _react2.default.createElement(CalendarComponent, {
 				height: height,
-				defaultDate: defaultDate || new Date(),
+				date: date || new Date(),
 				toolbar: toolbar // PropTypes.bool
 				, events: events // PropTypes.array
 				, defaultView: defaultView // PropTypes.string
