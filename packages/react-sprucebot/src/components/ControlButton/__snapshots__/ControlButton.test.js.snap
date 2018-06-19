@@ -21,6 +21,8 @@ exports[`it renders 1`] = `
   margin: 0;
   padding: 0;
   width: auto;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c0:hover {
@@ -58,6 +60,8 @@ exports[`it renders a link 1`] = `
   margin: 0;
   padding: 0;
   width: auto;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c0:hover {
