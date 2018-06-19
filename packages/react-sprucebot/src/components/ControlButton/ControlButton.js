@@ -27,6 +27,7 @@ const StyledButton = styled(Button).attrs({
 	margin: 0;
 	padding: 0;
 	width: auto;
+	text-decoration: none;
 
 	&:hover {
 		background: none;
