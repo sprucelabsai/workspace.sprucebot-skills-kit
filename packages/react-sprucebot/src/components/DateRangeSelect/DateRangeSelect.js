@@ -441,13 +441,12 @@ const Wrapper = styled.div`
 		z-index: 2;
 	}
 	.DayPickerNavigation_container__vertical {
-		background: #fff;
-		box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
 		position: absolute;
-		bottom: 0;
-		left: 0;
-		height: 52px;
+		display: flex;
+		justify-content: space-between;
 		width: 100%;
+		padding: 0 1.75em;
+		z-index: 2;
 	}
 	.DayPickerNavigation_container__verticalScrollable {
 		position: relative;
@@ -485,13 +484,13 @@ const Wrapper = styled.div`
 		width: 28px;
 	}
 	.DayPickerNavigation_button__vertical {
-		display: inline-block;
-		position: relative;
-		height: 100%;
-		width: 50%;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		padding: 0;
 	}
 	.DayPickerNavigation_button__vertical__default {
-		padding: 5px;
+		padding: 0;
 	}
 	.DayPickerNavigation_nextButton__vertical__default {
 		border-left: 0;
@@ -834,7 +833,8 @@ const Wrapper = styled.div`
 	${props =>
 		props.currentWeek &&
 		`
-    .CalendarDay__selected_span {
+		.CalendarDay__selected_span,
+		.CalendarDay__selected_span:active {
       background: #00aac7;
     }
     .CalendarDay__selected_start,
@@ -852,6 +852,11 @@ const Wrapper = styled.div`
 `
 
 const NavButton = styled(IconButton)`
+	display: flex;
+	justify-content: center;
+	padding: 0;
+	margin: 0;
+	margin-right: 0;
 	color: #fff;
 `
 
@@ -932,7 +937,8 @@ class DateRangeSelect extends Component {
 			currentWeek,
 			enableOutsideDays,
 			setDefaultDates,
-			initialVisibleMonth
+			initialVisibleMonth,
+			orientation
 		} = this.props
 
 		return (
@@ -954,11 +960,24 @@ class DateRangeSelect extends Component {
 						setDefaultDates && !defaultDateSet && this.setDefaultDates()
 					}
 					initialVisibleMonth={initialVisibleMonth}
-					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
-					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
+					navPrev={
+						<NavButton fontSize={'1.5em'}>
+							{orientation === 'vertical'
+								? 'keyboard_arrow_up'
+								: 'chevron_left'}
+						</NavButton>
+					}
+					navNext={
+						<NavButton fontSize={'1.5em'}>
+							{orientation === 'vertical'
+								? 'keyboard_arrow_down'
+								: 'chevron_right'}
+						</NavButton>
+					}
 					enableOutsideDays={enableOutsideDays}
 					keepOpenOnDateSelect
 					hideKeyboardShortcutsPanel
+					orientation={orientation}
 				/>
 			</Wrapper>
 		)
@@ -978,5 +997,6 @@ DateRangeSelect.propTypes = {
 	setDefaultDates: PropTypes.bool,
 	defaultStartDate: PropTypes.any,
 	defaultEndDate: PropTypes.any,
-	initialVisibleMonth: PropTypes.func
+	initialVisibleMonth: PropTypes.func,
+	orientation: PropTypes.sting
 }
