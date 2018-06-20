@@ -900,12 +900,12 @@ class DateSelect extends Component {
 		return (
 			<Wrapper>
 				<DayPickerSingleDateController
-					date={date || null} // momentPropTypes.momentObj or null
-					placeholder={placeholder || null} // PropTypes.string
-					onDateChange={date => this.handleDateChange(date)} // PropTypes.func.isRequired
-					focused={true} // PropTypes.bool
-					onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
-					numberOfMonths={1} // PropTypes.number
+					date={date || null}
+					placeholder={placeholder || null}
+					onDateChange={date => this.handleDateChange(date)}
+					focused={true}
+					onFocusChange={({ focused }) => this.setState({ focused })}
+					numberOfMonths={1}
 					isDayBlocked={this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
 					setDefaultDate={
@@ -924,4 +924,8 @@ class DateSelect extends Component {
 
 export default DateSelect
 
-
+DateRangeSelect.propTypes = {
+	placeholder: PropTypes.string,
+	setDefaultDate: PropTypes.bool,
+	initialVisibleMonth: PropTypes.func
+}
