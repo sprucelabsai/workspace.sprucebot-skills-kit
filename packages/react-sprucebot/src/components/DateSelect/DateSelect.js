@@ -925,7 +925,12 @@ class DateSelect extends Component {
 export default DateSelect
 
 DateRangeSelect.propTypes = {
+	availableDays: PropTypes.array.isRequired,
+	bypassDaysBlocked: PropTypes.bool,
+	allowPastDates: PropTypes.bool,
+	onDateSelect: PropTypes.func.isRequired,
 	placeholder: PropTypes.string,
 	setDefaultDate: PropTypes.bool,
+	defaultDate: momentPropTypes.momentObj,
 	initialVisibleMonth: PropTypes.func
 }
