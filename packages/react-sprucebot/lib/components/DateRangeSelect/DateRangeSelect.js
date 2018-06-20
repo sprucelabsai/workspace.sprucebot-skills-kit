@@ -20,6 +20,14 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRequiredIf = require('react-required-if');
+
+var _reactRequiredIf2 = _interopRequireDefault(_reactRequiredIf);
+
 var _reactDates = require('react-dates');
 
 var _IconButton = require('../IconButton/IconButton');
@@ -196,3 +204,20 @@ var DateRangeSelect = function (_Component) {
 }(_react.Component);
 
 exports.default = DateRangeSelect;
+
+
+DateRangeSelect.propTypes = {
+	availableDays: (0, _reactRequiredIf2.default)(_propTypes2.default.array, function (props) {
+		return !props.bypassDaysBlocked;
+	}),
+	bypassDaysBlocked: _propTypes2.default.bool,
+	allowPastDates: _propTypes2.default.bool,
+	onDatesChange: _propTypes2.default.func.isRequired,
+	numberOfMonths: _propTypes2.default.number,
+	currentWeek: _propTypes2.default.bool,
+	enableOutsideDays: _propTypes2.default.bool,
+	setDefaultDates: _propTypes2.default.bool,
+	defaultStartDate: momentPropTypes.momentObj,
+	defaultEndDate: momentPropTypes.momentObj,
+	initialVisibleMonth: _propTypes2.default.func
+};
