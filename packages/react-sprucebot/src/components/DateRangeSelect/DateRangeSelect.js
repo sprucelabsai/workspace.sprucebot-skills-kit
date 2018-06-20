@@ -976,7 +976,7 @@ DateRangeSelect.propTypes = {
 	currentWeek: PropTypes.bool,
 	enableOutsideDays: PropTypes.bool,
 	setDefaultDates: PropTypes.bool,
-	defaultStartDate: momentPropTypes.momentObj,
-	defaultEndDate: momentPropTypes.momentObj,
+	defaultStartDate: PropTypes.any,
+	defaultEndDate: PropTypes.any,
 	initialVisibleMonth: PropTypes.func
 }
