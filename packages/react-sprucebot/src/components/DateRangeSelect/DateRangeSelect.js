@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import requiredIf from 'react-required-if'
-import { DayPickerSingleDateController } from 'react-dates'
+import { DayPickerRangeController } from 'react-dates'
 
 import IconButton from '../IconButton/IconButton'
 
@@ -831,14 +831,33 @@ const Wrapper = styled.div`
 		width: 15px;
 		fill: #cacccd;
 	}
+	${props =>
+		props.currentWeek &&
+		`
+    .CalendarDay__selected_span {
+      background: #00aac7;
+    }
+    .CalendarDay__selected_start,
+    .CalendarDay__selected_end {
+      border: 1px solid #33dacd;
+    }
+  `};
+	${props =>
+		props.enableOutsideDays &&
+		`
+    .CalendarDay__outside {
+      color: #c4c4c4;
+    }
+  `};
 `
 
 const NavButton = styled(IconButton)`
 	color: #fff;
 `
 
-class DateSelect extends Component {
+class DateRangeSelect extends Component {
 	state = {
+		focusedInput: 'startDate',
 		defaultDateSet: false
 	}
 
@@ -877,44 +896,67 @@ class DateSelect extends Component {
 		return false
 	}
 
-	handleDateChange = date => {
-		const { onDateSelect } = this.props
+	setDefaultDates = () => {
+		const { defaultStartDate, defaultEndDate } = this.props
 
-		onDateSelect(date)
-		this.setState({ date })
+		this.setState({
+			startDate: defaultStartDate,
+			endDate: defaultEndDate,
+			defaultDateSet: true
+		})
 	}
 
-	setDefaultDate = () => {
-		const { defaultDate } = this.props
+	handleDateChange = (startDate, endDate) => {
+		const { onDatesChange, currentWeek } = this.props
 
-		this.setState({ date: defaultDate, defaultDateSet: true })
-	}
+		if (currentWeek) {
+			const startOfWeek = moment(startDate).startOf('week')
+			const endOfWeek = moment(startDate).endOf('week')
 
-	get value() {
-		return this.state.date
+			onDatesChange(startOfWeek, endOfWeek)
+			this.setState({
+				startDate: startOfWeek,
+				endDate: endOfWeek,
+				focusedInput: 'startDate'
+			})
+		} else {
+			onDatesChange(startDate, endDate)
+			this.setState({ startDate, endDate })
+		}
 	}
 
 	render() {
-		const { date, defaultDateSet } = this.state
-		const { placeholder, setDefaultDate, initialVisibleMonth } = this.props
+		const { startDate, endDate, focusedInput, defaultDateSet } = this.state
+		const {
+			numberOfMonths,
+			currentWeek,
+			enableOutsideDays,
+			setDefaultDates,
+			initialVisibleMonth
+		} = this.props
 
 		return (
-			<Wrapper>
-				<DayPickerSingleDateController
-					date={date || null}
-					placeholder={placeholder || null}
-					onDateChange={date => this.handleDateChange(date)}
-					focused={true}
-					onFocusChange={({ focused }) => this.setState({ focused })}
-					numberOfMonths={1}
+			<Wrapper currentWeek={currentWeek} enableOutsideDays={enableOutsideDays}>
+				<DayPickerRangeController
+					startDate={startDate}
+					endDate={endDate}
+					onDatesChange={({ startDate, endDate }) =>
+						this.handleDateChange(startDate, endDate)
+					}
+					focusedInput={focusedInput}
+					onFocusChange={focusedInput =>
+						this.setState({ focusedInput: focusedInput || 'startDate' })
+					}
+					numberOfMonths={numberOfMonths || 1}
 					isDayBlocked={this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
-					setDefaultDate={
-						setDefaultDate && !defaultDateSet && this.setDefaultDate()
+					setDefaultDates={
+						setDefaultDates && !defaultDateSet && this.setDefaultDates()
 					}
-					initialVisibleMonth={initialVisibleMonth} // PropTypes.func
+					initialVisibleMonth={initialVisibleMonth}
 					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
 					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
+					enableOutsideDays={enableOutsideDays}
 					keepOpenOnDateSelect
 					hideKeyboardShortcutsPanel
 				/>
@@ -923,15 +965,18 @@ class DateSelect extends Component {
 	}
 }
 
-export default DateSelect
+export default DateRangeSelect
 
 DateRangeSelect.propTypes = {
 	availableDays: requiredIf(PropTypes.array, props => !props.bypassDaysBlocked),
 	bypassDaysBlocked: PropTypes.bool,
 	allowPastDates: PropTypes.bool,
-	onDateSelect: PropTypes.func.isRequired,
-	placeholder: PropTypes.string,
-	setDefaultDate: PropTypes.bool,
-	defaultDate: momentPropTypes.momentObj,
+	onDatesChange: PropTypes.func.isRequired,
+	numberOfMonths: PropTypes.number,
+	currentWeek: PropTypes.bool,
+	enableOutsideDays: PropTypes.bool,
+	setDefaultDates: PropTypes.bool,
+	defaultStartDate: momentPropTypes.momentObj,
+	defaultEndDate: momentPropTypes.momentObj,
 	initialVisibleMonth: PropTypes.func
 }
