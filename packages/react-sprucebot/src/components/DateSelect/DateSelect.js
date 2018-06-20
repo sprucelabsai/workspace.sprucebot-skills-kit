@@ -2,6 +2,7 @@ import 'react-dates/initialize'
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
+import PropTypes from 'prop-types'
 import { DayPickerSingleDateController } from 'react-dates'
 
 import IconButton from '../IconButton/IconButton'
@@ -922,3 +923,5 @@ class DateSelect extends Component {
 }
 
 export default DateSelect
+
+
