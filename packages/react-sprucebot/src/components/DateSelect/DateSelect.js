@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import requiredIf from 'react-required-if'
 import { DayPickerSingleDateController } from 'react-dates'
 
 import IconButton from '../IconButton/IconButton'
@@ -925,7 +926,7 @@ class DateSelect extends Component {
 export default DateSelect
 
 DateRangeSelect.propTypes = {
-	availableDays: PropTypes.array.isRequired,
+	availableDays: requiredIf(PropTypes.array, props => !props.bypassDaysBlocked),
 	bypassDaysBlocked: PropTypes.bool,
 	allowPastDates: PropTypes.bool,
 	onDateSelect: PropTypes.func.isRequired,
