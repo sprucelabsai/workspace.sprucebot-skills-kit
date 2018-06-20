@@ -55,6 +55,11 @@ const Dark = styled(Pre)`
 	padding: 3px;
 `
 
+const FlexContainer = styled.div`
+	display: flex;
+	justify-content: center;
+`
+
 const demoGuest = {
 	id: 'b8d62e17-a511-4b9b-ae8a-56710f89af48',
 	role: 'guest',
@@ -395,17 +400,18 @@ class Styleguide extends Component {
 	defaultDate={moment('2018-08-10')}
 	initialVisibleMonth={() => moment('2018-08-10')}
 />`}</Pre>
-
-					<DateSelect
-						allowPastDates
-						bypassDaysBlocked
-						onDateSelect={date => {
-							console.log(date)
-						}}
-						setDefaultDate
-						defaultDate={moment('2018-08-10')}
-						initialVisibleMonth={() => moment('2018-08-10')}
-					/>
+					<FlexContainer>
+						<DateSelect
+							allowPastDates
+							bypassDaysBlocked
+							onDateSelect={date => {
+								console.log(date)
+							}}
+							setDefaultDate
+							defaultDate={moment('2018-08-10')}
+							initialVisibleMonth={() => moment('2018-08-10')}
+						/>
+					</FlexContainer>
 				</Container>
 
 				<H1>Date Range Select</H1>
@@ -428,18 +434,19 @@ class Styleguide extends Component {
 	defaultStartDate={moment('2018-03-28')}
 	defaultEndDate={moment()}
 />`}</Pre>
-
-					<DateRangeSelect
-						allowPastDates
-						bypassDaysBlocked
-						onDatesChange={(startDate, endDate) => {
-							console.log(startDate, endDate)
-						}}
-						numberOfMonths={1}
-						setDefaultDates
-						defaultStartDate={moment('2018-03-28')}
-						defaultEndDate={moment()}
-					/>
+					<FlexContainer>
+						<DateRangeSelect
+							allowPastDates
+							bypassDaysBlocked
+							onDatesChange={(startDate, endDate) => {
+								console.log(startDate, endDate)
+							}}
+							numberOfMonths={1}
+							setDefaultDates
+							defaultStartDate={moment('2018-03-28')}
+							defaultEndDate={moment()}
+						/>
+					</FlexContainer>
 
 					<Pre>{`<DateRangeSelect
 	allowPastDates
@@ -453,19 +460,20 @@ class Styleguide extends Component {
 	initialVisibleMonth={() => moment('2018-10-31')}
 	orientation={'vertical'}
 />`}</Pre>
-
-					<DateRangeSelect
-						allowPastDates
-						bypassDaysBlocked
-						onDatesChange={(startDate, endDate) => {
-							console.log(startDate, endDate)
-						}}
-						numberOfMonths={2}
-						currentWeek
-						enableOutsideDays
-						initialVisibleMonth={() => moment('2018-10-31')}
-						orientation={'vertical'}
-					/>
+					<FlexContainer>
+						<DateRangeSelect
+							allowPastDates
+							bypassDaysBlocked
+							onDatesChange={(startDate, endDate) => {
+								console.log(startDate, endDate)
+							}}
+							numberOfMonths={2}
+							currentWeek
+							enableOutsideDays
+							initialVisibleMonth={() => moment('2018-10-31')}
+							orientation={'vertical'}
+						/>
+					</FlexContainer>
 				</Container>
 
 				<H1>Time Input</H1>
