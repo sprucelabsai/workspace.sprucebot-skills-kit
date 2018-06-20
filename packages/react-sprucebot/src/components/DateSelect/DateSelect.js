@@ -925,7 +925,7 @@ class DateSelect extends Component {
 
 export default DateSelect
 
-DateRangeSelect.propTypes = {
+DateSelect.propTypes = {
 	availableDays: requiredIf(PropTypes.array, props => !props.bypassDaysBlocked),
 	bypassDaysBlocked: PropTypes.bool,
 	allowPastDates: PropTypes.bool,
