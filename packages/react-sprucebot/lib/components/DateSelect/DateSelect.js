@@ -189,6 +189,6 @@ DateSelect.propTypes = {
 	onDateSelect: _propTypes2.default.func.isRequired,
 	placeholder: _propTypes2.default.string,
 	setDefaultDate: _propTypes2.default.bool,
-	defaultDate: momentPropTypes.momentObj,
+	defaultDate: _propTypes2.default.any,
 	initialVisibleMonth: _propTypes2.default.func
 };
