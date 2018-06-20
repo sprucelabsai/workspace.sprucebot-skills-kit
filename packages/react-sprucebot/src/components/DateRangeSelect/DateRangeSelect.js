@@ -833,7 +833,8 @@ const Wrapper = styled.div`
 	${props =>
 		props.currentWeek &&
 		`
-    .CalendarDay__selected_span {
+		.CalendarDay__selected_span,
+		.CalendarDay__selected_span:active {
       background: #00aac7;
     }
     .CalendarDay__selected_start,
