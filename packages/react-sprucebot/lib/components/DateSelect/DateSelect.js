@@ -50,7 +50,7 @@ var Wrapper = _styledComponents2.default.div.withConfig({
 var NavButton = (0, _styledComponents2.default)(_IconButton2.default).withConfig({
 	displayName: 'DateSelect__NavButton',
 	componentId: 's1u7vvps-1'
-})(['color:#fff;']);
+})(['display:flex;justify-content:center;color:#fff;']);
 
 var DateSelect = function (_Component) {
 	_inherits(DateSelect, _Component);
