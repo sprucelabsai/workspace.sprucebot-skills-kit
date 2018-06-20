@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import requiredIf from 'react-required-if'
 import { DayPickerRangeController } from 'react-dates'
 
 import IconButton from '../IconButton/IconButton'
@@ -967,9 +968,15 @@ class DateRangeSelect extends Component {
 export default DateRangeSelect
 
 DateRangeSelect.propTypes = {
+	availableDays: requiredIf(PropTypes.array, props => !props.bypassDaysBlocked),
+	bypassDaysBlocked: PropTypes.bool,
+	allowPastDates: PropTypes.bool,
+	onDatesChange: PropTypes.func.isRequired,
 	numberOfMonths: PropTypes.number,
 	currentWeek: PropTypes.bool,
 	enableOutsideDays: PropTypes.bool,
 	setDefaultDates: PropTypes.bool,
+	defaultStartDate: momentPropTypes.momentObj,
+	defaultEndDate: momentPropTypes.momentObj,
 	initialVisibleMonth: PropTypes.func
 }
