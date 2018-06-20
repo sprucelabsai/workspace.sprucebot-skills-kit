@@ -666,16 +666,22 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		pointer-events: none;
 	}
 	.shift {
+		left: 0% !important;
+		width: 85% !important;
 		background-color: #dbeff3;
 		color: #4cadc1;
 	}
 	.break {
-		background-color: #dbeff3;
-		color: #4cadc1;
+		left: 30% !important;
+		width: 75% !important;
+		background-color: #c8dadd;
+		color: #387e8d;
 	}
 	.block {
-		background-color: #dbeff3;
-		color: #4cadc1;
+		left: 15% !important;
+		width: 75% !important;
+		background-color: #949494;
+		color: #0e2024;
 	}
 `
 
