@@ -834,6 +834,8 @@ const Wrapper = styled.div`
 `
 
 const NavButton = styled(IconButton)`
+	display: flex;
+	justify-content: center;
 	color: #fff;
 `
 
