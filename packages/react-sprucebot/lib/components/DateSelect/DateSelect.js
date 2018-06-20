@@ -20,6 +20,14 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRequiredIf = require('react-required-if');
+
+var _reactRequiredIf2 = _interopRequireDefault(_reactRequiredIf);
+
 var _reactDates = require('react-dates');
 
 var _IconButton = require('../IconButton/IconButton');
@@ -129,18 +137,18 @@ var DateSelect = function (_Component) {
 				Wrapper,
 				null,
 				_react2.default.createElement(_reactDates.DayPickerSingleDateController, {
-					date: date || null // momentPropTypes.momentObj or null
-					, placeholder: placeholder || null // PropTypes.string
-					, onDateChange: function onDateChange(date) {
+					date: date || null,
+					placeholder: placeholder || null,
+					onDateChange: function onDateChange(date) {
 						return _this2.handleDateChange(date);
-					} // PropTypes.func.isRequired
-					, focused: true // PropTypes.bool
-					, onFocusChange: function onFocusChange(_ref2) {
+					},
+					focused: true,
+					onFocusChange: function onFocusChange(_ref2) {
 						var focused = _ref2.focused;
 						return _this2.setState({ focused: focused });
-					} // PropTypes.func.isRequired
-					, numberOfMonths: 1 // PropTypes.number
-					, isDayBlocked: this.isDayBlocked,
+					},
+					numberOfMonths: 1,
+					isDayBlocked: this.isDayBlocked,
 					isOutsideRange: this.isOutsideRange,
 					setDefaultDate: setDefaultDate && !defaultDateSet && this.setDefaultDate(),
 					initialVisibleMonth: initialVisibleMonth // PropTypes.func
@@ -170,3 +178,17 @@ var DateSelect = function (_Component) {
 }(_react.Component);
 
 exports.default = DateSelect;
+
+
+DateSelect.propTypes = {
+	availableDays: (0, _reactRequiredIf2.default)(_propTypes2.default.array, function (props) {
+		return !props.bypassDaysBlocked;
+	}),
+	bypassDaysBlocked: _propTypes2.default.bool,
+	allowPastDates: _propTypes2.default.bool,
+	onDateSelect: _propTypes2.default.func.isRequired,
+	placeholder: _propTypes2.default.string,
+	setDefaultDate: _propTypes2.default.bool,
+	defaultDate: momentPropTypes.momentObj,
+	initialVisibleMonth: _propTypes2.default.func
+};
