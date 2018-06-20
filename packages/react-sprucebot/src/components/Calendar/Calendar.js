@@ -665,6 +665,18 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		background-color: #74ad31;
 		pointer-events: none;
 	}
+	.shift {
+		background-color: #dbeff3;
+		color: #4cadc1;
+	}
+	.break {
+		background-color: #dbeff3;
+		color: #4cadc1;
+	}
+	.block {
+		background-color: #dbeff3;
+		color: #4cadc1;
+	}
 `
 
 class Calendar extends Component {
@@ -688,7 +700,8 @@ class Calendar extends Component {
 			startAccessor,
 			endAccessor,
 			allDayAccessor,
-			dragAndDrop
+			dragAndDrop,
+			eventPropGetter
 		} = this.props
 
 		const CalendarComponent = dragAndDrop
@@ -715,6 +728,7 @@ class Calendar extends Component {
 				startAccessor={startAccessor} // PropTypes.string
 				endAccessor={endAccessor} // PropTypes.string
 				allDayAccessor={allDayAccessor} // PropType.string
+				eventPropGetter={eventPropGetter}
 			/>
 		)
 	}
