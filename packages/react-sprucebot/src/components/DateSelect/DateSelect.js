@@ -5,7 +5,6 @@ import moment from 'moment'
 import { DayPickerSingleDateController } from 'react-dates'
 
 import IconButton from '../IconButton/IconButton'
-import Icon from '../Icon/Icon'
 
 const Wrapper = styled.div`
 	.PresetDateRangePicker_panel {
@@ -895,12 +894,7 @@ class DateSelect extends Component {
 
 	render() {
 		const { date, defaultDateSet } = this.state
-		const {
-			placeholder,
-			onChange,
-			setDefaultDate,
-			initialVisibleMonth
-		} = this.props
+		const { placeholder, setDefaultDate, initialVisibleMonth } = this.props
 
 		return (
 			<Wrapper>
@@ -913,14 +907,14 @@ class DateSelect extends Component {
 					numberOfMonths={1} // PropTypes.number
 					isDayBlocked={this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
-					keepOpenOnDateSelect
-					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
-					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
-					hideKeyboardShortcutsPanel
 					setDefaultDate={
 						setDefaultDate && !defaultDateSet && this.setDefaultDate()
 					}
 					initialVisibleMonth={initialVisibleMonth} // PropTypes.func
+					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
+					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
+					keepOpenOnDateSelect
+					hideKeyboardShortcutsPanel
 				/>
 			</Wrapper>
 		)

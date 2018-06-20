@@ -26,10 +26,6 @@ var _IconButton = require('../IconButton/IconButton');
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
-var _Icon = require('../Icon/Icon');
-
-var _Icon2 = _interopRequireDefault(_Icon);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -125,7 +121,6 @@ var DateSelect = function (_Component) {
 			    defaultDateSet = _state.defaultDateSet;
 			var _props = this.props,
 			    placeholder = _props.placeholder,
-			    onChange = _props.onChange,
 			    setDefaultDate = _props.setDefaultDate,
 			    initialVisibleMonth = _props.initialVisibleMonth;
 
@@ -147,8 +142,9 @@ var DateSelect = function (_Component) {
 					, numberOfMonths: 1 // PropTypes.number
 					, isDayBlocked: this.isDayBlocked,
 					isOutsideRange: this.isOutsideRange,
-					keepOpenOnDateSelect: true,
-					navPrev: _react2.default.createElement(
+					setDefaultDate: setDefaultDate && !defaultDateSet && this.setDefaultDate(),
+					initialVisibleMonth: initialVisibleMonth // PropTypes.func
+					, navPrev: _react2.default.createElement(
 						NavButton,
 						{ fontSize: '1.5em' },
 						'chevron_left'
@@ -158,9 +154,8 @@ var DateSelect = function (_Component) {
 						{ fontSize: '1.5em' },
 						'chevron_right'
 					),
-					hideKeyboardShortcutsPanel: true,
-					setDefaultDate: setDefaultDate && !defaultDateSet && this.setDefaultDate(),
-					initialVisibleMonth: initialVisibleMonth // PropTypes.func
+					keepOpenOnDateSelect: true,
+					hideKeyboardShortcutsPanel: true
 				})
 			);
 		}
