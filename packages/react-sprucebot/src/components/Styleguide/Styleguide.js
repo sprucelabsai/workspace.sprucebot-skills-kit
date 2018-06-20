@@ -41,6 +41,8 @@ import Icon from '../Icon/Icon'
 import IconButton from '../IconButton/IconButton'
 import ControlButton from '../ControlButton/ControlButton'
 import TimeInput from '../TimeInput/TimeInput'
+import DateSelect from '../DateSelect/DateSelect'
+import DateRangeSelect from '../DateRangeSelect/DateRangeSelect'
 import skill from '../../skillskit/index'
 import * as actions from '../../skillskit/store/actions'
 import reducers from '../../skillskit/store/reducers'
@@ -374,12 +376,105 @@ class Styleguide extends Component {
 					<Switch on />
 					<Pre>{`<Switch on />`}</Pre>
 				</Container>
-				<H1>Time Input</H1>
-				<BotText>
-					The Time Input is a cross-browser compatible implementation for
-					capturing a time.
-				</BotText>
+
+				<H1>Date Select</H1>
 				<Container>
+					<BotText>
+						Date Select allows for the selection of a single date and returns a
+						moment object. Custom props allow blocked dates, default values, and
+						initial visible months.
+					</BotText>
+
+					<Pre>{`<DateSelect
+	allowPastDates
+	bypassDaysBlocked
+	onDateSelect={(date) => {
+		console.log(date)
+	}}
+	setDefaultDate={true}
+	defaultDate={moment('2018-08-10')}
+	initialVisibleMonth={() => moment('2018-08-10')}
+/>`}</Pre>
+
+					<DateSelect
+						allowPastDates
+						bypassDaysBlocked
+						onDateSelect={date => {
+							console.log(date)
+						}}
+						setDefaultDate
+						defaultDate={moment('2018-08-10')}
+						initialVisibleMonth={() => moment('2018-08-10')}
+					/>
+				</Container>
+
+				<H1>Date Range Select</H1>
+				<Container>
+					<BotText>
+						Date Range Select allows for the selection of a range of dates via
+						choosing a start and end date, returning a moment object for each.
+						Custom props allow for the viewing of outside month days, selection
+						of an entire current week, and default date selection.
+					</BotText>
+
+					<Pre>{`<DateRangeSelect
+	allowPastDates
+	bypassDaysBlocked
+	onDatesChange={(startDate, endDate) => {
+		console.log(startDate, endDate)
+	}}
+	numberOfMonths={1}
+	setDefaultDates
+	defaultStartDate={moment('2018-03-28')}
+	defaultEndDate={moment()}
+/>`}</Pre>
+
+					<DateRangeSelect
+						allowPastDates
+						bypassDaysBlocked
+						onDatesChange={(startDate, endDate) => {
+							console.log(startDate, endDate)
+						}}
+						numberOfMonths={1}
+						setDefaultDates
+						defaultStartDate={moment('2018-03-28')}
+						defaultEndDate={moment()}
+					/>
+
+					<Pre>{`<DateRangeSelect
+	allowPastDates
+	bypassDaysBlocked
+	onDatesChange={(startDate, endDate) => {
+		console.log(startDate, endDate)
+	}}
+	numberOfMonths={2}
+	currentWeek
+	enableOutsideDays
+	initialVisibleMonth={() => moment('2018-10-31')}
+	orientation={'vertical'}
+/>`}</Pre>
+
+					<DateRangeSelect
+						allowPastDates
+						bypassDaysBlocked
+						onDatesChange={(startDate, endDate) => {
+							console.log(startDate, endDate)
+						}}
+						numberOfMonths={2}
+						currentWeek
+						enableOutsideDays
+						initialVisibleMonth={() => moment('2018-10-31')}
+						orientation={'vertical'}
+					/>
+				</Container>
+
+				<H1>Time Input</H1>
+				<Container>
+					<BotText>
+						The Time Input is a cross-browser compatible implementation for
+						capturing a time.
+					</BotText>
+
 					<Pre>{`<TimeInput
 	defaultValue="22:15"
 	onChange={newValue =>
@@ -395,6 +490,7 @@ class Styleguide extends Component {
 						ref={ref => (this.timeInput = ref)}
 					/>
 				</Container>
+
 				<H1>Redux Forms</H1>
 				<Container>
 					<FormExample />

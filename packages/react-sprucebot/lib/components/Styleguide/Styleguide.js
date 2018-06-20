@@ -130,6 +130,14 @@ var _TimeInput = require('../TimeInput/TimeInput');
 
 var _TimeInput2 = _interopRequireDefault(_TimeInput);
 
+var _DateSelect = require('../DateSelect/DateSelect');
+
+var _DateSelect2 = _interopRequireDefault(_DateSelect);
+
+var _DateRangeSelect = require('../DateRangeSelect/DateRangeSelect');
+
+var _DateRangeSelect2 = _interopRequireDefault(_DateRangeSelect);
+
 var _index = require('../../skillskit/index');
 
 var _index2 = _interopRequireDefault(_index);
@@ -787,16 +795,96 @@ var Styleguide = function (_Component) {
 				_react2.default.createElement(
 					_Typography.H1,
 					null,
-					'Time Input'
-				),
-				_react2.default.createElement(
-					_BotText2.default,
-					null,
-					'The Time Input is a cross-browser compatible implementation for capturing a time.'
+					'Date Select'
 				),
 				_react2.default.createElement(
 					_Container2.default,
 					null,
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'Date Select allows for the selection of a single date and returns a moment object. Custom props allow blocked dates, default values, and initial visible months.'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<DateSelect\n\tallowPastDates\n\tbypassDaysBlocked\n\tonDateSelect={(date) => {\n\t\tconsole.log(date)\n\t}}\n\tsetDefaultDate={true}\n\tdefaultDate={moment(\'2018-08-10\')}\n\tinitialVisibleMonth={() => moment(\'2018-08-10\')}\n/>'
+					),
+					_react2.default.createElement(_DateSelect2.default, {
+						allowPastDates: true,
+						bypassDaysBlocked: true,
+						onDateSelect: function onDateSelect(date) {
+							console.log(date);
+						},
+						setDefaultDate: true,
+						defaultDate: (0, _momentTimezone2.default)('2018-08-10'),
+						initialVisibleMonth: function initialVisibleMonth() {
+							return (0, _momentTimezone2.default)('2018-08-10');
+						}
+					})
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Date Range Select'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'Date Range Select allows for the selection of a range of dates via choosing a start and end date, returning a moment object for each. Custom props allow for the viewing of outside month days, selection of an entire current week, and default date selection.'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<DateRangeSelect\n\tallowPastDates\n\tbypassDaysBlocked\n\tonDatesChange={(startDate, endDate) => {\n\t\tconsole.log(startDate, endDate)\n\t}}\n\tnumberOfMonths={1}\n\tsetDefaultDates\n\tdefaultStartDate={moment(\'2018-03-28\')}\n\tdefaultEndDate={moment()}\n/>'
+					),
+					_react2.default.createElement(_DateRangeSelect2.default, {
+						allowPastDates: true,
+						bypassDaysBlocked: true,
+						onDatesChange: function onDatesChange(startDate, endDate) {
+							console.log(startDate, endDate);
+						},
+						numberOfMonths: 1,
+						setDefaultDates: true,
+						defaultStartDate: (0, _momentTimezone2.default)('2018-03-28'),
+						defaultEndDate: (0, _momentTimezone2.default)()
+					}),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<DateRangeSelect\n\tallowPastDates\n\tbypassDaysBlocked\n\tonDatesChange={(startDate, endDate) => {\n\t\tconsole.log(startDate, endDate)\n\t}}\n\tnumberOfMonths={2}\n\tcurrentWeek\n\tenableOutsideDays\n\tinitialVisibleMonth={() => moment(\'2018-10-31\')}\n\torientation={\'vertical\'}\n/>'
+					),
+					_react2.default.createElement(_DateRangeSelect2.default, {
+						allowPastDates: true,
+						bypassDaysBlocked: true,
+						onDatesChange: function onDatesChange(startDate, endDate) {
+							console.log(startDate, endDate);
+						},
+						numberOfMonths: 2,
+						currentWeek: true,
+						enableOutsideDays: true,
+						initialVisibleMonth: function initialVisibleMonth() {
+							return (0, _momentTimezone2.default)('2018-10-31');
+						},
+						orientation: 'vertical'
+					})
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Time Input'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'The Time Input is a cross-browser compatible implementation for capturing a time.'
+					),
 					_react2.default.createElement(
 						_Pre2.default,
 						null,
