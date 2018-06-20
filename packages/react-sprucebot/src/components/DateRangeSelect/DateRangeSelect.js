@@ -2,6 +2,7 @@ import 'react-dates/initialize'
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
+import PropTypes from 'prop-types'
 import { DayPickerRangeController } from 'react-dates'
 
 import IconButton from '../IconButton/IconButton'
@@ -964,3 +965,11 @@ class DateRangeSelect extends Component {
 }
 
 export default DateRangeSelect
+
+DateRangeSelect.propTypes = {
+	numberOfMonths: PropTypes.number,
+	currentWeek: PropTypes.bool,
+	enableOutsideDays: PropTypes.bool,
+  setDefaultDates: PropTypes.bool,
+  initialVisibleMonth: PropTypes.func
+}
