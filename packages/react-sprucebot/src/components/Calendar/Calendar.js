@@ -510,7 +510,7 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		-ms-flex: none;
 		flex: none;
 		padding-right: 5px;
-		width: auto;
+		width: inherit;
 	}
 	.rbc-day-slot .rbc-event-content {
 		width: 100%;
@@ -664,6 +664,9 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		height: 1px;
 		background-color: #74ad31;
 		pointer-events: none;
+	}
+	.rbc-today {
+		background-color: rgba(96, 180, 199, 0.1);
 	}
 	.shift {
 		left: 0% !important;
