@@ -707,6 +707,53 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 	}
 `
 
+const WhiteLabel = styled(StyledReactBigCalendar)`
+	.rbc-current-time-indicator {
+		background-color: #f85a3e;
+	}
+	.rbc-today {
+		background-color: rgba(96, 180, 199, 0.1);
+		color: #00aac7;
+	}
+	.shift-day,
+	.shift-week {
+		left: 0% !important;
+		width: 85% !important;
+		border: none !important;
+		border-radius: 5px;
+		background-color: #dbeff3;
+		color: #4cadc1;
+	}
+	.break-day,
+	.break-week {
+		left: 30% !important;
+		width: 70% !important;
+		border: none !important;
+		border-radius: 5px;
+		background-color: #c8dadd;
+		color: #387e8d;
+	}
+	.block-day,
+	.block-week {
+		left: 15% !important;
+		width: 75% !important;
+		border: none !important;
+		border-radius: 5px;
+		background-color: #949494;
+		color: #0e2024;
+	}
+	.off-hours-day,
+	.off-hours-week,
+	.closed-day,
+	.closed-week {
+		left: 0 !important;
+		right: 0 !important;
+		border: none !important;
+		color: rgba(0, 0, 0, 0);
+		background-color: rgba(66, 96, 126, 0.1);
+	}
+`
+
 class Calendar extends Component {
 	render() {
 		const {
@@ -733,8 +780,8 @@ class Calendar extends Component {
 		} = this.props
 
 		const CalendarComponent = dragAndDrop
-			? withDragAndDrop(StyledReactBigCalendar)
-			: StyledReactBigCalendar
+			? withDragAndDrop(WhiteLabel)
+			: WhiteLabel
 
 		return (
 			<CalendarComponent
