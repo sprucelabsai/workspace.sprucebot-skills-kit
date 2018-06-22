@@ -830,25 +830,28 @@ const Wrapper = styled.div`
 		width: 15px;
 		fill: #cacccd;
 	}
-	${props =>
-		props.currentWeek &&
-		`
-		.CalendarDay__selected_span,
-		.CalendarDay__selected_span:active {
-      background: #00aac7;
-    }
-    .CalendarDay__selected_start,
-    .CalendarDay__selected_end {
-      border: 1px solid #33dacd;
-    }
-  `};
-	${props =>
-		props.enableOutsideDays &&
-		`
-    .CalendarDay__outside {
-      color: #c4c4c4;
-    }
-  `};
+`
+
+const WhiteLabel = styled(Wrapper)`
+${props =>
+	props.currentWeek &&
+	`
+	.CalendarDay__selected_span,
+	.CalendarDay__selected_span:active {
+		background: #00aac7;
+	}
+	.CalendarDay__selected_start,
+	.CalendarDay__selected_end {
+		border: 1px solid #33dacd;
+	}
+`};
+${props =>
+	props.enableOutsideDays &&
+	`
+	.CalendarDay__outside {
+		color: #c4c4c4;
+	}
+`};˝
 `
 
 const NavButton = styled(IconButton)`
@@ -942,7 +945,10 @@ class DateRangeSelect extends Component {
 		} = this.props
 
 		return (
-			<Wrapper currentWeek={currentWeek} enableOutsideDays={enableOutsideDays}>
+			<WhiteLabel
+				currentWeek={currentWeek}
+				enableOutsideDays={enableOutsideDays}
+			>
 				<DayPickerRangeController
 					startDate={startDate}
 					endDate={endDate}
@@ -979,7 +985,7 @@ class DateRangeSelect extends Component {
 					hideKeyboardShortcutsPanel
 					orientation={orientation}
 				/>
-			</Wrapper>
+			</WhiteLabel>
 		)
 	}
 }
