@@ -482,7 +482,7 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		bottom: 0;
 		left: 0;
 		position: absolute;
-		right: 10px;
+		right: 0;
 		top: 0;
 	}
 	.rbc-day-slot .rbc-events-container.rbc-is-rtl {
@@ -636,7 +636,6 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		align-items: flex-start;
 		width: 100%;
 		border-top: 2px solid #ddd;
-		overflow-y: auto;
 		position: relative;
 	}
 	.rbc-time-content > .rbc-time-gutter {
@@ -662,29 +661,49 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		position: absolute;
 		z-index: 999;
 		height: 1px;
-		background-color: #74ad31;
+		background-color: #f85a3e;
 		pointer-events: none;
 	}
 	.rbc-today {
 		background-color: rgba(96, 180, 199, 0.1);
+		color: #00aac7;
 	}
-	.shift {
+	.shift-day,
+	.shift-week {
 		left: 0% !important;
 		width: 85% !important;
+		border: none !important;
+		border-radius: 5px;
 		background-color: #dbeff3;
 		color: #4cadc1;
 	}
-	.break {
+	.break-day,
+	.break-week {
 		left: 30% !important;
-		width: 75% !important;
+		width: 70% !important;
+		border: none !important;
+		border-radius: 5px;
 		background-color: #c8dadd;
 		color: #387e8d;
 	}
-	.block {
+	.block-day,
+	.block-week {
 		left: 15% !important;
 		width: 75% !important;
+		border: none !important;
+		border-radius: 5px;
 		background-color: #949494;
 		color: #0e2024;
+	}
+	.off-hours-day,
+	.off-hours-week,
+	.closed-day,
+	.closed-week {
+		left: 0 !important;
+		right: 0 !important;
+		border: none !important;
+		color: rgba(0, 0, 0, 0);
+		background-color: rgba(66, 96, 126, 0.1);
 	}
 `
 
