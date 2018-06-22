@@ -3,21 +3,21 @@
 exports[`renders owner page snapshot 1`] = `
 <div>
   <div
-    class="owner-dashboard Container-ii08o4-0 container guAnPO"
+    class="owner-dashboard Container-md3jvi-0 container cqhPkv"
   >
     <div>
       <h1
-        class="Typography__H1-s1hqg0x7-1 eqiyfo"
+        class="Typography__H1-s141trq-1 cblwbP"
       >
         Welcome back Shane!
       </h1>
       <div
-        class="BotText-udhfms-0 bot__text eRhwgR"
+        class="BotText-s1aw735w-0 bot__text gicUIk"
       >
         You are at Spruce Labs as we speak! That's so cool! 🙌🏼
       </div>
       <h2
-        class="Typography__SectionHeading-s1hqg0x7-8 profile__subtitle ZFZpB"
+        class="Typography__SectionHeading-s141trq-8 profile__subtitle gAZGdv"
       >
         Who's Online
       </h2>
@@ -26,13 +26,13 @@ exports[`renders owner page snapshot 1`] = `
           class="toggle__wrapper"
         >
           <button
-            class="btn__toggle toggle__left btn__toggle__active Tabs__StyledTab-s18xnpfs-0 hrHtWb"
+            class="btn__toggle toggle__left btn__toggle__active Tabs__StyledTab-s2xsdn9-0 hrlOss"
             type="button"
           >
             Guests
           </button>
           <button
-            class="btn__toggle toggle__right Tabs__StyledTab-s18xnpfs-0 hrHtWb"
+            class="btn__toggle toggle__right Tabs__StyledTab-s2xsdn9-0 hrlOss"
             type="button"
           >
             Teammates
@@ -45,7 +45,7 @@ exports[`renders owner page snapshot 1`] = `
             class="tap__pane"
           >
             <div
-              class="List-s12tv117-0 List item__list dBisAp"
+              class="List-s15prkdz-0 List item__list bkLHAA"
             />
           </div>
         </div>
