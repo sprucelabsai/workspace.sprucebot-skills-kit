@@ -357,7 +357,8 @@ TimeInput.propTypes = {
 	usePicker: PropTypes.bool,
 	hideConfirm: PropTypes.bool,
 	value: PropTypes.string,
-	confirmButtonProps: PropTypes.object
+	confirmButtonProps: PropTypes.object,
+	placeholder: PropTypes.string
 }
 
 TimeInput.defaultProps = {}

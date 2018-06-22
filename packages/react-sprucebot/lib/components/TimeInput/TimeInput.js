@@ -289,7 +289,8 @@ TimeInput.propTypes = {
 	usePicker: _propTypes2.default.bool,
 	hideConfirm: _propTypes2.default.bool,
 	value: _propTypes2.default.string,
-	confirmButtonProps: _propTypes2.default.object
+	confirmButtonProps: _propTypes2.default.object,
+	placeholder: _propTypes2.default.string
 };
 
 TimeInput.defaultProps = {};
