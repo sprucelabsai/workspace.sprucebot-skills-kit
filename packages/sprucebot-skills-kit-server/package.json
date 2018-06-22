@@ -1,12 +1,16 @@
 {
-	"name": "@barbershopio/sprucebot-skills-kit-server",
+	"name": "sprucebot-skills-kit-server",
 	"description": "The engine that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "6.6.1",
+	"version": "6.6.0",
 	"homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/sprucebot-skills-kit/issues"
 	},
-	"keywords": ["node", "sprucebot", "sprucelabs"],
+	"keywords": [
+		"node",
+		"sprucebot",
+		"sprucelabs"
+	],
 	"scripts": {
 		"lint": "eslint '**/**/*{.js}'",
 		"test": "jest",
@@ -44,7 +48,9 @@
 	},
 	"jest": {
 		"clearMocks": true,
-		"testPathIgnorePatterns": ["/config/"],
+		"testPathIgnorePatterns": [
+			"/config/"
+		],
 		"collectCoverageFrom": [
 			"**/*.js",
 			"!**/node_modules/**",
