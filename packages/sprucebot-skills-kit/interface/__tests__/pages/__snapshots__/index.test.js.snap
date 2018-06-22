@@ -4762,7 +4762,7 @@ exports[`renders page with styleguide 1`] = `
             <p
               class="Typography__Paragraph-s141trq-0 fine__print kcAfmu"
             >
-              This is helpful fine print.
+              This is helpful fine print
             </p>
           </div>
           <div
