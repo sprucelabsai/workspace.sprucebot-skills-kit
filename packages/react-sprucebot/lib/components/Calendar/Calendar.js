@@ -18,6 +18,10 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactBigCalendar = require('react-big-calendar');
 
 var _reactBigCalendar2 = _interopRequireDefault(_reactBigCalendar);
@@ -96,23 +100,23 @@ var Calendar = function (_Component) {
 			return _react2.default.createElement(CalendarComponent, {
 				height: height,
 				date: date || new Date(),
-				toolbar: toolbar // PropTypes.bool
-				, events: events // PropTypes.array
-				, defaultView: defaultView // PropTypes.string
-				, views: views // PropTypes.array
-				, selectable: selectable // PropTypes.string || PropTypes.bool (passing 'ignoreEvents' allows for custom event click/drag logic)
-				, step: step // PropTypes.number
-				, timeslots: timeslots // PropTypes.number
-				, min: min // PropTypes.object (ie new Date('1/1/1970 08:00:00'))
-				, max: max // PropTypes.object (ie new Date('1/1/1970 20:00:00'))
-				, onSelectSlot: onSelectSlot // PropTypes.func.isRequired
-				, onSelectEvent: onSelectEvent // PropTypes.func.isRequired
-				, formats: formats // PropTypes.object
-				, titleAccessor: titleAccessor // PropTypes.string
-				, startAccessor: startAccessor // PropTypes.string
-				, endAccessor: endAccessor // PropTypes.string
-				, allDayAccessor: allDayAccessor // PropType.string
-				, eventPropGetter: eventPropGetter
+				toolbar: toolbar,
+				events: events,
+				defaultView: defaultView,
+				views: views,
+				selectable: selectable,
+				step: step,
+				timeslots: timeslots,
+				min: min,
+				max: max,
+				onSelectSlot: onSelectSlot,
+				onSelectEvent: onSelectEvent,
+				formats: formats,
+				titleAccessor: titleAccessor,
+				startAccessor: startAccessor,
+				endAccessor: endAccessor,
+				allDayAccessor: allDayAccessor,
+				eventPropGetter: eventPropGetter
 			});
 		}
 	}]);
@@ -121,3 +125,27 @@ var Calendar = function (_Component) {
 }(_react.Component);
 
 exports.default = Calendar;
+
+
+Calendar.propTypes = {
+	height: _propTypes2.default.string,
+	date: _propTypes2.default.instanceOf(Date),
+	toolbar: _propTypes2.default.bool,
+	events: _propTypes2.default.array,
+	defaultView: _propTypes2.default.string,
+	views: _propTypes2.default.array,
+	selectable: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.bool]),
+	step: _propTypes2.default.number,
+	timeslots: _propTypes2.default.number,
+	min: _propTypes2.default.instanceOf(Date),
+	max: _propTypes2.default.instanceOf(Date),
+	onSelectSlot: _propTypes2.default.func,
+	onSelectEvent: _propTypes2.default.func,
+	formats: _propTypes2.default.object,
+	titleAccessor: _propTypes2.default.string,
+	startAccessor: _propTypes2.default.string,
+	endAccessor: _propTypes2.default.string,
+	allDayAccessor: _propTypes2.default.string,
+	dragAndDrop: _propTypes2.default.bool,
+	eventPropGetter: _propTypes2.default.func
+};
