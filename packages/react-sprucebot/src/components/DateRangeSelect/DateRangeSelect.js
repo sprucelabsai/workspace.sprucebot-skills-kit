@@ -838,9 +838,41 @@ const Wrapper = styled.div`
 `
 
 const WhiteLabel = styled(Wrapper)`
-${props =>
-	props.currentWeek &&
-	`
+	.CalendarDay__selected,
+	.CalendarDay__selected:active,
+	.CalendarDay__selected:hover {
+		background: #00aac7;
+		border: 1px solid #00aac7;
+	}
+	.DateInput_fang {
+		display: none;
+	}
+	.DayPickerNavigation_container__verritcal,
+	.DayPickerNavigation_container {
+		position: absolute;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		padding: 1em;
+		z-index: 2;
+	}
+	.DayPickerNavigation_button__verticalDefault,
+	.DayPickerNavigation_button__horizontal {
+		display: flex;
+		justify-content: center;
+		padding: 0;
+		border-radius: 50%;
+	}
+
+	.DayPickerNavigation_button__verticalDefault,
+	.DayPickerNavigation_leftButton__horizontal,
+	.DayPickerNavigation_rightButton__horizontal {
+		height: 28px;
+		width: 28px;
+	}
+	${props =>
+		props.currentWeek &&
+		`
 	.CalendarDay__selected_span,
 	.CalendarDay__selected_span:active {
 		background: #00aac7;
@@ -850,13 +882,13 @@ ${props =>
 		border: 1px solid #33dacd;
 	}
 `};
-${props =>
-	props.enableOutsideDays &&
-	`
+	${props =>
+		props.enableOutsideDays &&
+		`
 	.CalendarDay__outside {
 		color: #c4c4c4;
 	}
-`};˝
+`};
 `
 
 const NavButton = styled(IconButton)`

@@ -50,7 +50,7 @@ var Wrapper = _styledComponents2.default.div.withConfig({
 var WhiteLabel = (0, _styledComponents2.default)(Wrapper).withConfig({
 	displayName: 'DateRangeSelect__WhiteLabel',
 	componentId: 's1fltukk-1'
-})(['', ';', ';\u02DD'], function (props) {
+})(['.CalendarDay__selected,.CalendarDay__selected:active,.CalendarDay__selected:hover{background:#00aac7;border:1px solid #00aac7;}.DateInput_fang{display:none;}.DayPickerNavigation_container__verritcal,.DayPickerNavigation_container{position:absolute;display:flex;justify-content:space-between;width:100%;padding:1em;z-index:2;}.DayPickerNavigation_button__verticalDefault,.DayPickerNavigation_button__horizontal{display:flex;justify-content:center;padding:0;border-radius:50%;}.DayPickerNavigation_button__verticalDefault,.DayPickerNavigation_leftButton__horizontal,.DayPickerNavigation_rightButton__horizontal{height:28px;width:28px;}', ';', ';'], function (props) {
 	return props.currentWeek && '\n\t.CalendarDay__selected_span,\n\t.CalendarDay__selected_span:active {\n\t\tbackground: #00aac7;\n\t}\n\t.CalendarDay__selected_start,\n\t.CalendarDay__selected_end {\n\t\tborder: 1px solid #33dacd;\n\t}\n';
 }, function (props) {
 	return props.enableOutsideDays && '\n\t.CalendarDay__outside {\n\t\tcolor: #c4c4c4;\n\t}\n';
