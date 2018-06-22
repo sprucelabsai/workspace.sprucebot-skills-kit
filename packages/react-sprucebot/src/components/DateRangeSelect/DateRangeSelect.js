@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import requiredIf from 'react-required-if'
-import { DayPickerSingleDateController } from 'react-dates'
+import { DayPickerRangeController } from 'react-dates'
 
 import IconButton from '../IconButton/IconButton'
 
@@ -441,13 +441,12 @@ const Wrapper = styled.div`
 		z-index: 2;
 	}
 	.DayPickerNavigation_container__vertical {
-		background: #fff;
-		box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
 		position: absolute;
-		bottom: 0;
-		left: 0;
-		height: 52px;
+		display: flex;
+		justify-content: space-between;
 		width: 100%;
+		padding: 0 1.75em;
+		z-index: 2;
 	}
 	.DayPickerNavigation_container__verticalScrollable {
 		position: relative;
@@ -485,13 +484,13 @@ const Wrapper = styled.div`
 		width: 28px;
 	}
 	.DayPickerNavigation_button__vertical {
-		display: inline-block;
-		position: relative;
-		height: 100%;
-		width: 50%;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		padding: 0;
 	}
 	.DayPickerNavigation_button__vertical__default {
-		padding: 5px;
+		padding: 0;
 	}
 	.DayPickerNavigation_nextButton__vertical__default {
 		border-left: 0;
@@ -831,16 +830,39 @@ const Wrapper = styled.div`
 		width: 15px;
 		fill: #cacccd;
 	}
+	${props =>
+		props.currentWeek &&
+		`
+		.CalendarDay__selected_span,
+		.CalendarDay__selected_span:active {
+      background: #00aac7;
+    }
+    .CalendarDay__selected_start,
+    .CalendarDay__selected_end {
+      border: 1px solid #33dacd;
+    }
+  `};
+	${props =>
+		props.enableOutsideDays &&
+		`
+    .CalendarDay__outside {
+      color: #c4c4c4;
+    }
+  `};
 `
 
 const NavButton = styled(IconButton)`
 	display: flex;
 	justify-content: center;
+	padding: 0;
+	margin: 0;
+	margin-right: 0;
 	color: #fff;
 `
 
-class DateSelect extends Component {
+class DateRangeSelect extends Component {
 	state = {
+		focusedInput: 'startDate',
 		defaultDateSet: false
 	}
 
@@ -879,61 +901,102 @@ class DateSelect extends Component {
 		return false
 	}
 
-	handleDateChange = date => {
-		const { onDateSelect } = this.props
+	setDefaultDates = () => {
+		const { defaultStartDate, defaultEndDate } = this.props
 
-		onDateSelect(date)
-		this.setState({ date })
+		this.setState({
+			startDate: defaultStartDate,
+			endDate: defaultEndDate,
+			defaultDateSet: true
+		})
 	}
 
-	setDefaultDate = () => {
-		const { defaultDate } = this.props
+	handleDateChange = (startDate, endDate) => {
+		const { onDatesChange, currentWeek } = this.props
 
-		this.setState({ date: defaultDate, defaultDateSet: true })
-	}
+		if (currentWeek) {
+			const startOfWeek = moment(startDate).startOf('week')
+			const endOfWeek = moment(startDate).endOf('week')
 
-	get value() {
-		return this.state.date
+			onDatesChange(startOfWeek, endOfWeek)
+			this.setState({
+				startDate: startOfWeek,
+				endDate: endOfWeek,
+				focusedInput: 'startDate'
+			})
+		} else {
+			onDatesChange(startDate, endDate)
+			this.setState({ startDate, endDate })
+		}
 	}
 
 	render() {
-		const { date, defaultDateSet } = this.state
-		const { placeholder, setDefaultDate, initialVisibleMonth } = this.props
+		const { startDate, endDate, focusedInput, defaultDateSet } = this.state
+		const {
+			numberOfMonths,
+			currentWeek,
+			enableOutsideDays,
+			setDefaultDates,
+			initialVisibleMonth,
+			orientation
+		} = this.props
 
 		return (
-			<Wrapper>
-				<DayPickerSingleDateController
-					date={date || null}
-					placeholder={placeholder || null}
-					onDateChange={date => this.handleDateChange(date)}
-					focused={true}
-					onFocusChange={({ focused }) => this.setState({ focused })}
-					numberOfMonths={1}
+			<Wrapper currentWeek={currentWeek} enableOutsideDays={enableOutsideDays}>
+				<DayPickerRangeController
+					startDate={startDate}
+					endDate={endDate}
+					onDatesChange={({ startDate, endDate }) =>
+						this.handleDateChange(startDate, endDate)
+					}
+					focusedInput={focusedInput}
+					onFocusChange={focusedInput =>
+						this.setState({ focusedInput: focusedInput || 'startDate' })
+					}
+					numberOfMonths={numberOfMonths || 1}
 					isDayBlocked={this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
-					setDefaultDate={
-						setDefaultDate && !defaultDateSet && this.setDefaultDate()
+					setDefaultDates={
+						setDefaultDates && !defaultDateSet && this.setDefaultDates()
 					}
-					initialVisibleMonth={initialVisibleMonth} // PropTypes.func
-					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
-					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
+					initialVisibleMonth={initialVisibleMonth}
+					navPrev={
+						<NavButton fontSize={'1.5em'}>
+							{orientation === 'vertical'
+								? 'keyboard_arrow_up'
+								: 'chevron_left'}
+						</NavButton>
+					}
+					navNext={
+						<NavButton fontSize={'1.5em'}>
+							{orientation === 'vertical'
+								? 'keyboard_arrow_down'
+								: 'chevron_right'}
+						</NavButton>
+					}
+					enableOutsideDays={enableOutsideDays}
 					keepOpenOnDateSelect
 					hideKeyboardShortcutsPanel
+					orientation={orientation}
 				/>
 			</Wrapper>
 		)
 	}
 }
 
-export default DateSelect
+export default DateRangeSelect
 
-DateSelect.propTypes = {
+DateRangeSelect.propTypes = {
 	availableDays: requiredIf(PropTypes.array, props => !props.bypassDaysBlocked),
 	bypassDaysBlocked: PropTypes.bool,
 	allowPastDates: PropTypes.bool,
-	onDateSelect: PropTypes.func.isRequired,
-	placeholder: PropTypes.string,
-	setDefaultDate: PropTypes.bool,
-	defaultDate: PropTypes.any,
-	initialVisibleMonth: PropTypes.func
+	onDatesChange: PropTypes.func.isRequired,
+	numberOfMonths: PropTypes.number,
+	currentWeek: PropTypes.bool,
+	enableOutsideDays: PropTypes.bool,
+	setDefaultDates: PropTypes.bool,
+	defaultStartDate: PropTypes.any,
+	defaultEndDate: PropTypes.any,
+	initialVisibleMonth: PropTypes.func,
+	orientation: PropTypes.sting
 }
