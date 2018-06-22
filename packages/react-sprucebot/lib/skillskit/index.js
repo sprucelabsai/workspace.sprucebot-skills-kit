@@ -15,26 +15,18 @@ exports.default = {
 	resized: function resized() {
 		var height = 0;
 
-		function getBottom(elem) {
-			var box = elem.getBoundingClientRect();
+		var body = document.body;
+		var docEl = document.documentElement;
+		var modal = document.querySelector('.dialog_underlay.on');
 
-			var body = document.body;
-			var docEl = document.documentElement;
+		var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+		var clientTop = docEl.clientTop || body.clientTop || 0;
+		var top = scrollTop - clientTop;
+		var height = top + body.clientHeight;
 
-			var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-			var clientTop = docEl.clientTop || body.clientTop || 0;
-			var top = box.top + scrollTop - clientTop;
-			var bottom = top + elem.scrollHeight;
-
-			return bottom;
+		if (modal && modal.scrollHeight) {
+			height = modal.scrollHeight;
 		}
-
-		Array.from(window.document.querySelectorAll('.container, .dialog_underlay')).forEach(function (container) {
-			var bottom = getBottom(container);
-			if (bottom > height) {
-				height = bottom;
-			}
-		});
 
 		if (height != this.height) {
 			this.height = height;
@@ -59,7 +51,7 @@ exports.default = {
 			url: window.location.href,
 			resetUrlTrail: resetUrlTrail
 		});
-		this.resizedInterval = setInterval(this.resized.bind(this), 50);
+		this.resizedInterval = setInterval(this.resized.bind(this), 300);
 	},
 	scrollTo: function scrollTo(offset) {
 		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 });

@@ -37,6 +37,12 @@ import Onboarding from '../Onboarding/Onboarding'
 import Dialog from '../Dialog/Dialog'
 import Pre from '../Pre/Pre'
 import Error from '../Error/Error'
+import Icon from '../Icon/Icon'
+import IconButton from '../IconButton/IconButton'
+import ControlButton from '../ControlButton/ControlButton'
+import TimeInput from '../TimeInput/TimeInput'
+import DateSelect from '../DateSelect/DateSelect'
+import DateRangeSelect from '../DateRangeSelect/DateRangeSelect'
 import skill from '../../skillskit/index'
 import * as actions from '../../skillskit/store/actions'
 import reducers from '../../skillskit/store/reducers'
@@ -47,6 +53,11 @@ import FormExample from './FormExample'
 const Dark = styled(Pre)`
 	background-color: #333;
 	padding: 3px;
+`
+
+const FlexContainer = styled.div`
+	display: flex;
+	justify-content: center;
 `
 
 const demoGuest = {
@@ -167,7 +178,12 @@ class Styleguide extends Component {
 	Stars,
 	ImageCropper,
 	Callout,
-	Feed
+	Feed,
+	TrainingGuide,
+	Dialog,
+	Icon,
+	IconButton,
+	ControlButton
 } from 'react-sprucebot'`}</Pre>
 				</Container>
 				<H1>Headings</H1>
@@ -243,11 +259,6 @@ class Styleguide extends Component {
 				<Container>
 					<Button primary>I'm a primary button</Button>
 					<Pre>{`<Button primary>I'm a primary button</Button>`}</Pre>
-					<Button primary href="https://sprucebot.com">
-						I'm a primary button turned link
-					</Button>
-					<Pre
-					>{`<Button primary href="https://sprucebot.com">I'm a primary button turned link.</Button>`}</Pre>
 					<Button primary disabled>
 						I'm a primary disabled button
 					</Button>
@@ -282,7 +293,64 @@ class Styleguide extends Component {
 					<Button link>I'm a button link</Button>
 					<Pre>{`<Button link>I'm a button link</Button>`}</Pre>
 				</Container>
-
+				<H1>Link Buttons</H1>
+				<BotText>
+					Buttons can also be turned into links by setting the "href". Optional
+					options include setting "target", or "router"
+				</BotText>
+				<Container>
+					<Pre
+					>{`<Button primary href="https://sprucebot.com">I'm a primary button turned link</Button>`}</Pre>
+					<Button primary href="https://sprucebot.com">
+						I'm a primary button turned link
+					</Button>
+					<Pre
+					>{`<Button primary href="https://sprucebot.com" target="_blank">I'll open in a new window</Button>`}</Pre>
+					<Button primary href="https://sprucebot.com" target="_blank">
+						I'll open in a new window
+					</Button>
+					<Pre
+					>{`import Router from 'next/router'\n\n<Button primary href="/styleguide" router={Router}>I'll use next.js router.push() to change url</Button>`}</Pre>
+					<Button primary href="/">
+						I'll use next.js router.push() to change url
+					</Button>
+				</Container>
+				<H1>Icons</H1>
+				<Container className="icon__button__container">
+					<BotText>
+						Icons and Icon Buttons have the option to display an icon using
+						Material Icons. Check out https://material.io/icons/. To use an
+						icon, just enter the icon name as the child of the button.
+					</BotText>
+					<Icon>mood</Icon>
+					<Pre>{`<Icon>mood</Icon>`}</Pre>
+					<IconButton>place</IconButton>
+					<Pre
+					>{`<IconButton onClick={/* Handle Click */}>place</IconButton>`}</Pre>
+				</Container>
+				<H1>Control Buttons</H1>
+				<Container>
+					<BotText>
+						Control Buttons have the option to display a right or left icon
+						using Material Icons. Check out https://material.io/icons/. To use
+						an icon, just enter the icon name as a value for the iconLeft or
+						iconRight prop. You can also pass an href to render the button as a
+						link!
+					</BotText>
+					<ControlButton>I'm a control button</ControlButton>
+					<Pre>{`<ControlButton>I'm a control button</ControlButton>`}</Pre>
+					<ControlButton iconLeft="favorite">I have a left icon</ControlButton>
+					<Pre
+					>{`<ControlButton iconLeft="favorite">I have a left icon</ControlButton>`}</Pre>
+					<ControlButton iconRight="edit">I have a right icon</ControlButton>
+					<Pre
+					>{`<ControlButton iconRight="edit">I have a right icon</ControlButton>`}</Pre>
+					<ControlButton iconRight="🤖" href="https://sprucebot.com">
+						I'm a link
+					</ControlButton>
+					<Pre
+					>{`<ControlButton iconRight="🤖" href="https://sprucebot.com">I'm a link</ControlButton>`}</Pre>
+				</Container>
 				<H1>Loaders</H1>
 				<Container>
 					<BotText>
@@ -313,6 +381,124 @@ class Styleguide extends Component {
 					<Switch on />
 					<Pre>{`<Switch on />`}</Pre>
 				</Container>
+
+				<H1>Date Select</H1>
+				<Container>
+					<BotText>
+						Date Select allows for the selection of a single date and returns a
+						moment object. Custom props allow blocked dates, default values, and
+						initial visible months.
+					</BotText>
+
+					<Pre>{`<DateSelect
+	allowPastDates
+	bypassDaysBlocked
+	onDateSelect={(date) => {
+		console.log(date)
+	}}
+	setDefaultDate={true}
+	defaultDate={moment('2018-08-10')}
+	initialVisibleMonth={() => moment('2018-08-10')}
+/>`}</Pre>
+					<FlexContainer>
+						<DateSelect
+							allowPastDates
+							bypassDaysBlocked
+							onDateSelect={date => {
+								console.log(date)
+							}}
+							setDefaultDate
+							defaultDate={moment('2018-08-10')}
+							initialVisibleMonth={() => moment('2018-08-10')}
+						/>
+					</FlexContainer>
+				</Container>
+
+				<H1>Date Range Select</H1>
+				<Container>
+					<BotText>
+						Date Range Select allows for the selection of a range of dates via
+						choosing a start and end date, returning a moment object for each.
+						Custom props allow for the viewing of outside month days, selection
+						of an entire current week, and default date selection.
+					</BotText>
+
+					<Pre>{`<DateRangeSelect
+	allowPastDates
+	bypassDaysBlocked
+	onDatesChange={(startDate, endDate) => {
+		console.log(startDate, endDate)
+	}}
+	numberOfMonths={1}
+	setDefaultDates
+	defaultStartDate={moment('2018-03-28')}
+	defaultEndDate={moment()}
+/>`}</Pre>
+					<FlexContainer>
+						<DateRangeSelect
+							allowPastDates
+							bypassDaysBlocked
+							onDatesChange={(startDate, endDate) => {
+								console.log(startDate, endDate)
+							}}
+							numberOfMonths={1}
+							setDefaultDates
+							defaultStartDate={moment('2018-03-28')}
+							defaultEndDate={moment()}
+						/>
+					</FlexContainer>
+
+					<Pre>{`<DateRangeSelect
+	allowPastDates
+	bypassDaysBlocked
+	onDatesChange={(startDate, endDate) => {
+		console.log(startDate, endDate)
+	}}
+	numberOfMonths={2}
+	currentWeek
+	enableOutsideDays
+	initialVisibleMonth={() => moment('2018-10-31')}
+	orientation={'vertical'}
+/>`}</Pre>
+					<FlexContainer>
+						<DateRangeSelect
+							allowPastDates
+							bypassDaysBlocked
+							onDatesChange={(startDate, endDate) => {
+								console.log(startDate, endDate)
+							}}
+							numberOfMonths={2}
+							currentWeek
+							enableOutsideDays
+							initialVisibleMonth={() => moment('2018-10-31')}
+							orientation={'vertical'}
+						/>
+					</FlexContainer>
+				</Container>
+
+				<H1>Time Input</H1>
+				<Container>
+					<BotText>
+						The Time Input is a cross-browser compatible implementation for
+						capturing a time.
+					</BotText>
+
+					<Pre>{`<TimeInput
+	defaultValue="22:15"
+	onChange={newValue =>
+		console.log(\`Time Input Changed to: \${newValue}\`)
+	}
+	ref={ref => (this.timeInput = ref)}
+/>`}</Pre>
+					<TimeInput
+						defaultValue="22:15"
+						onChange={newValue =>
+							console.log(`Time Input Changed to: ${newValue}`)
+						}
+						ref={ref => (this.timeInput = ref)}
+					/>
+				</Container>
+
 				<H1>Redux Forms</H1>
 				<Container>
 					<FormExample />
@@ -881,7 +1067,7 @@ class Styleguide extends Component {
 	]}
 	onComplete={this.didCompleteOnboarding}
 	doneButtonLabel={'Finish'}
-	onboardingComplete={this.props.onboarding.onboardingComplete}	
+	onboardingComplete={this.props.onboarding.onboardingComplete}
 />`}
 					</Pre>
 				</Container>

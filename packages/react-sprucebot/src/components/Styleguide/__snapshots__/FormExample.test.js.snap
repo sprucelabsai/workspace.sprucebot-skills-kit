@@ -1312,7 +1312,7 @@ exports[`FormExample it renders 1`] = `
                     </Field>
                     <Field
                       component={[Function]}
-                      finePrint="This is helpful fine print."
+                      finePrint="This is helpful fine print"
                       label="Growing multiline input"
                       name="description"
                       type="textarea"
@@ -1417,7 +1417,7 @@ exports[`FormExample it renders 1`] = `
                           }
                         }
                         component={[Function]}
-                        finePrint="This is helpful fine print."
+                        finePrint="This is helpful fine print"
                         label="Growing multiline input"
                         name="description"
                         normalize={[Function]}
@@ -1526,7 +1526,7 @@ exports[`FormExample it renders 1`] = `
                           component={[Function]}
                           dirty={false}
                           dispatch={[Function]}
-                          finePrint="This is helpful fine print."
+                          finePrint="This is helpful fine print"
                           label="Growing multiline input"
                           name="description"
                           normalize={[Function]}
@@ -1534,7 +1534,7 @@ exports[`FormExample it renders 1`] = `
                           type="textarea"
                         >
                           <TextAreaField
-                            finePrint="This is helpful fine print."
+                            finePrint="This is helpful fine print"
                             input={
                               Object {
                                 "name": "description",
@@ -1570,7 +1570,7 @@ exports[`FormExample it renders 1`] = `
                             type="textarea"
                           >
                             <Field
-                              finePrint="This is helpful fine print."
+                              finePrint="This is helpful fine print"
                               input={
                                 Object {
                                   "name": "description",
@@ -1619,6 +1619,7 @@ exports[`FormExample it renders 1`] = `
                                   >
                                     <TextareaAutosize
                                       className="with_label TextArea__StyledTextArea-s1czbmms-0 TextArea krMzWU"
+                                      inputRef={[Function]}
                                       name="description"
                                       onChange={[Function]}
                                       onHeightChange={[Function]}
@@ -1648,7 +1649,7 @@ exports[`FormExample it renders 1`] = `
                                     <p
                                       className="Typography__Paragraph-s141trq-0 fine__print kcAfmu"
                                     >
-                                      This is helpful fine print.
+                                      This is helpful fine print
                                     </p>
                                   </Typography__Paragraph>
                                 </div>
@@ -2084,6 +2085,7 @@ exports[`FormExample it renders 1`] = `
                         >
                           <button
                             className="btn__primary "
+                            onClick={[Function]}
                             type="submit"
                           >
                             Submit

@@ -57,6 +57,14 @@ const ItemTitle = styled.div.attrs({
 })`
 	${props =>
 		props.weight ? `font-weight: ${props.weight}` : `font-weight: 500;`};
+	width: ${props => (props.width ? `${props.width}` : 'unset')};
+	${props =>
+		props.overflow &&
+		`
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	`};
 `
 
 const ItemSubTitle = styled.div.attrs({
@@ -79,6 +87,9 @@ export class ListItem extends Component {
 			avatar,
 			showOnlineIndicator,
 			alignItems,
+			overflow,
+			width,
+			componentAsSubtitle,
 			...props
 		} = this.props
 
@@ -88,13 +99,23 @@ export class ListItem extends Component {
 			children = [children]
 		}
 
+		if (componentAsSubtitle && componentAsSubtitle.length > 0) {
+			children.unshift(...componentAsSubtitle)
+		} else if (componentAsSubtitle) {
+			children.unshift(componentAsSubtitle)
+		}
+
 		// setup title/subtitle
 		if (subtitle) {
 			children.unshift(<ItemSubTitle key="subtitle">{subtitle}</ItemSubTitle>)
 		}
 
 		if (title) {
-			children.unshift(<ItemTitle key="title">{title}</ItemTitle>)
+			children.unshift(
+				<ItemTitle overflow={overflow} width={width} key="title">
+					{title}
+				</ItemTitle>
+			)
 		}
 
 		return (

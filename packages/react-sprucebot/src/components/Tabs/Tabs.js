@@ -4,6 +4,10 @@ import PropTypes from 'prop-types'
 import Avatar from '../Avatar/Avatar'
 import Button from '../Button/Button'
 
+const StyledTab = styled(Button)`
+	flex: 1;
+`
+
 export class Tabs extends Component {
 	constructor(props) {
 		super(props)
@@ -90,7 +94,7 @@ export class Tabs extends Component {
 			}
 
 			tabs.push(
-				<Button
+				<StyledTab
 					onClick={e => {
 						this.onTabClick(idx, tab.key, e)
 					}}
@@ -99,7 +103,7 @@ export class Tabs extends Component {
 					key={`tab-${tab.key}`}
 				>
 					{tab.props.title}
-				</Button>
+				</StyledTab>
 			)
 		})
 
