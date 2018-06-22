@@ -14,7 +14,7 @@ var LinkPile = _styledComponents2.default.div.attrs({
 	className: 'link__pile'
 }).withConfig({
 	displayName: 'LinkPile',
-	componentId: 's17zs3j6-0'
+	componentId: 'abktjg-0'
 })(['']);
 
 exports.default = LinkPile;

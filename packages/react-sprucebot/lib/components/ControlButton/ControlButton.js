@@ -32,12 +32,12 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 var StyledIconLeft = (0, _styledComponents2.default)(_Icon2.default).withConfig({
 	displayName: 'ControlButton__StyledIconLeft',
-	componentId: 'kjsmyw-0'
+	componentId: 'jro3dx-0'
 })(['margin-right:0.25em;']);
 
 var StyledIconRight = (0, _styledComponents2.default)(_Icon2.default).withConfig({
 	displayName: 'ControlButton__StyledIconRight',
-	componentId: 'kjsmyw-1'
+	componentId: 'jro3dx-1'
 })(['margin-left:0.25em;']);
 
 var StyledButton = (0, _styledComponents2.default)(_Button2.default).attrs({
@@ -47,7 +47,7 @@ var StyledButton = (0, _styledComponents2.default)(_Button2.default).attrs({
 	}
 }).withConfig({
 	displayName: 'ControlButton__StyledButton',
-	componentId: 'kjsmyw-2'
+	componentId: 'jro3dx-2'
 })(['align-items:center;background:none;color:#00aac7;display:inline-flex;font-weight:normal;letter-spacing:0;position:relative;margin:0;padding:0;width:auto;text-decoration:none;&:hover{background:none;}']);
 
 var ControlButton = function ControlButton(_ref2) {

@@ -35,7 +35,7 @@ var ButtonGrid = exports.ButtonGrid = _styledComponents2.default.div.attrs({
 	className: 'btn_grid'
 }).withConfig({
 	displayName: 'ButtonGrid',
-	componentId: 's120cl1n-0'
+	componentId: 's119c6nx-0'
 })(['']);
 
 var GridButton = exports.GridButton = function (_Component) {
@@ -50,13 +50,12 @@ var GridButton = exports.GridButton = function (_Component) {
 	_createClass(GridButton, [{
 		key: 'render',
 		value: function render() {
-			var props = Object.assign({}, this.props);
-
-			var className = props.className,
-			    selected = props.selected,
-			    children = props.children,
-			    subtitle = props.subtitle,
-			    rest = _objectWithoutProperties(props, ['className', 'selected', 'children', 'subtitle']);
+			var _props = this.props,
+			    className = _props.className,
+			    selected = _props.selected,
+			    children = _props.children,
+			    subtitle = _props.subtitle,
+			    rest = _objectWithoutProperties(_props, ['className', 'selected', 'children', 'subtitle']);
 
 			return _react2.default.createElement(
 				'a',
