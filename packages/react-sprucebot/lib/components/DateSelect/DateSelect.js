@@ -20,15 +20,19 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRequiredIf = require('react-required-if');
+
+var _reactRequiredIf2 = _interopRequireDefault(_reactRequiredIf);
+
 var _reactDates = require('react-dates');
 
 var _IconButton = require('../IconButton/IconButton');
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
-
-var _Icon = require('../Icon/Icon');
-
-var _Icon2 = _interopRequireDefault(_Icon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46,7 +50,7 @@ var Wrapper = _styledComponents2.default.div.withConfig({
 var NavButton = (0, _styledComponents2.default)(_IconButton2.default).withConfig({
 	displayName: 'DateSelect__NavButton',
 	componentId: 's1u7vvps-1'
-})(['color:#fff;']);
+})(['display:flex;justify-content:center;color:#fff;']);
 
 var DateSelect = function (_Component) {
 	_inherits(DateSelect, _Component);
@@ -125,7 +129,6 @@ var DateSelect = function (_Component) {
 			    defaultDateSet = _state.defaultDateSet;
 			var _props = this.props,
 			    placeholder = _props.placeholder,
-			    onChange = _props.onChange,
 			    setDefaultDate = _props.setDefaultDate,
 			    initialVisibleMonth = _props.initialVisibleMonth;
 
@@ -134,21 +137,22 @@ var DateSelect = function (_Component) {
 				Wrapper,
 				null,
 				_react2.default.createElement(_reactDates.DayPickerSingleDateController, {
-					date: date || null // momentPropTypes.momentObj or null
-					, placeholder: placeholder || null // PropTypes.string
-					, onDateChange: function onDateChange(date) {
+					date: date || null,
+					placeholder: placeholder || null,
+					onDateChange: function onDateChange(date) {
 						return _this2.handleDateChange(date);
-					} // PropTypes.func.isRequired
-					, focused: true // PropTypes.bool
-					, onFocusChange: function onFocusChange(_ref2) {
+					},
+					focused: true,
+					onFocusChange: function onFocusChange(_ref2) {
 						var focused = _ref2.focused;
 						return _this2.setState({ focused: focused });
-					} // PropTypes.func.isRequired
-					, numberOfMonths: 1 // PropTypes.number
-					, isDayBlocked: this.isDayBlocked,
+					},
+					numberOfMonths: 1,
+					isDayBlocked: this.isDayBlocked,
 					isOutsideRange: this.isOutsideRange,
-					keepOpenOnDateSelect: true,
-					navPrev: _react2.default.createElement(
+					setDefaultDate: setDefaultDate && !defaultDateSet && this.setDefaultDate(),
+					initialVisibleMonth: initialVisibleMonth // PropTypes.func
+					, navPrev: _react2.default.createElement(
 						NavButton,
 						{ fontSize: '1.5em' },
 						'chevron_left'
@@ -158,9 +162,8 @@ var DateSelect = function (_Component) {
 						{ fontSize: '1.5em' },
 						'chevron_right'
 					),
-					hideKeyboardShortcutsPanel: true,
-					setDefaultDate: setDefaultDate && !defaultDateSet && this.setDefaultDate(),
-					initialVisibleMonth: initialVisibleMonth // PropTypes.func
+					keepOpenOnDateSelect: true,
+					hideKeyboardShortcutsPanel: true
 				})
 			);
 		}
@@ -175,3 +178,17 @@ var DateSelect = function (_Component) {
 }(_react.Component);
 
 exports.default = DateSelect;
+
+
+DateSelect.propTypes = {
+	availableDays: (0, _reactRequiredIf2.default)(_propTypes2.default.array, function (props) {
+		return !props.bypassDaysBlocked;
+	}),
+	bypassDaysBlocked: _propTypes2.default.bool,
+	allowPastDates: _propTypes2.default.bool,
+	onDateSelect: _propTypes2.default.func.isRequired,
+	placeholder: _propTypes2.default.string,
+	setDefaultDate: _propTypes2.default.bool,
+	defaultDate: _propTypes2.default.any,
+	initialVisibleMonth: _propTypes2.default.func
+};
