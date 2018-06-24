@@ -98,33 +98,31 @@ var ApiClient = function () {
 										json = response.data;
 
 										resolve(json);
-										_context.next = 20;
+										_context.next = 19;
 										break;
 
 									case 16:
 										_context.prev = 16;
 										_context.t0 = _context['catch'](8);
+										return _context.abrupt('return', reject(_context.t0 && _context.t0.response && _context.t0.resopnse.data ? _context.t0.response.data : _context.t0));
 
-										console.log('Request not ok', _context.t0);
-										return _context.abrupt('return', reject(_context.t0.response.data));
-
-									case 20:
-										_context.next = 26;
+									case 19:
+										_context.next = 25;
 										break;
 
-									case 22:
-										_context.prev = 22;
+									case 21:
+										_context.prev = 21;
 										_context.t1 = _context['catch'](1);
 
 										console.error('Response failure', _context.t1);
 										reject(_context.t1);
 
-									case 26:
+									case 25:
 									case 'end':
 										return _context.stop();
 								}
 							}
-						}, _callee, _this, [[1, 22], [8, 16]]);
+						}, _callee, _this, [[1, 21], [8, 16]]);
 					}));
 
 					return function (_x2, _x3) {

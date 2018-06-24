@@ -6,11 +6,7 @@ Object {
 }
 `;
 
-exports[`DELETE should 500 1`] = `
-Object {
-  "deleteSuccess": false,
-}
-`;
+exports[`DELETE should 500 1`] = `[TypeError: Cannot read property 'data' of undefined]`;
 
 exports[`GET should 200 1`] = `
 Object {
@@ -18,11 +14,7 @@ Object {
 }
 `;
 
-exports[`GET should 404 1`] = `
-Object {
-  "getSuccess": false,
-}
-`;
+exports[`GET should 404 1`] = `[TypeError: Cannot read property 'data' of undefined]`;
 
 exports[`PATCH should 200 1`] = `
 Object {
@@ -30,11 +22,7 @@ Object {
 }
 `;
 
-exports[`PATCH should 404 1`] = `
-Object {
-  "patchSuccess": false,
-}
-`;
+exports[`PATCH should 404 1`] = `[TypeError: Cannot read property 'data' of undefined]`;
 
 exports[`POST should 201 1`] = `
 Object {
@@ -42,11 +30,7 @@ Object {
 }
 `;
 
-exports[`POST should 404 1`] = `
-Object {
-  "postSuccess": false,
-}
-`;
+exports[`POST should 404 1`] = `[TypeError: Cannot read property 'data' of undefined]`;
 
 exports[`PUT should 200 1`] = `
 Object {
@@ -54,8 +38,4 @@ Object {
 }
 `;
 
-exports[`PUT should 500 1`] = `
-Object {
-  "putSuccess": false,
-}
-`;
+exports[`PUT should 500 1`] = `[TypeError: Cannot read property 'data' of undefined]`;

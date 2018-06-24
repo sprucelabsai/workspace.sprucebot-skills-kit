@@ -56,8 +56,11 @@ class ApiClient {
 							const json = response.data
 							resolve(json)
 						} catch (error) {
-							console.log('Request not ok', error)
-							return reject(error.response.data)
+							return reject(
+								error && error.response && error.resopnse.data
+									? error.response.data
+									: error
+							)
 						}
 					} catch (error) {
 						console.error('Response failure', error)

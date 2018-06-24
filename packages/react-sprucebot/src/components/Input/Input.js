@@ -12,10 +12,6 @@ export default class Input extends Component {
 		this.state = {
 			hasValue: !!(props.value || props.defaultValue)
 		}
-		console.warn(
-			'Deprecated Notice: react-sprucebot#Input will be removed in a future verison \n',
-			'Use {InputField|SelectField|TextArea} along with redux-form'
-		)
 	}
 	onChange(e) {
 		this.setState({
