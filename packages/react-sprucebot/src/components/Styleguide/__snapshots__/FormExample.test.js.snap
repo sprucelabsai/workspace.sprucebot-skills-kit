@@ -288,7 +288,7 @@ exports[`FormExample it renders 1`] = `
                   >
                     <BotText>
                       <div
-                        className="BotText-s1aw735w-0 bot__text gicUIk"
+                        className="BotText-s1aw735w-0 bot__text ihbPjr"
                       >
                         Using
                          
@@ -2102,7 +2102,7 @@ exports[`FormExample it renders 1`] = `
                     </Typography__SectionHeading>
                     <BotText>
                       <div
-                        className="BotText-s1aw735w-0 bot__text gicUIk"
+                        className="BotText-s1aw735w-0 bot__text ihbPjr"
                       >
                         Notice you pass the form an \`initialValues\` which sets default values for the form. When a user submits the form is your chance to persist those values to your server and other reducers. When the \`onSubmit\` is executed, you can expect that client side validations have ran.
                       </div>

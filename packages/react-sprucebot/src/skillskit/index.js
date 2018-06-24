@@ -7,27 +7,22 @@ export default {
 	forceAuth: function() {
 		postMessage('Skill:ForceAuth')
 	},
-	resized: function() {
+	resized: function({ minHeight = 0 } = {}) {
 		var height = 0
 
 		var body = document.body
 		var docEl = document.documentElement
-		var modal = document.querySelector('.dialog_underlay.on')
 
 		var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop
 		var clientTop = docEl.clientTop || body.clientTop || 0
 		var top = scrollTop - clientTop
-		var height = top + body.clientHeight
-
-		if (modal && modal.scrollHeight) {
-			height = modal.scrollHeight
-		}
+		var height = Math.max(minHeight, top + body.clientHeight)
 
 		if (height != this.height) {
 			this.height = height
 			postMessage({
 				name: 'Skill:Resized',
-				height
+				height: height
 			})
 		}
 	},
@@ -46,5 +41,9 @@ export default {
 	},
 	scrollTo: function(offset) {
 		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 })
+	},
+
+	requestScroll: function() {
+		postMessage('Skill:RequestScroll')
 	}
 }
