@@ -57,7 +57,7 @@ class ApiClient {
 							resolve(json)
 						} catch (error) {
 							return reject(
-								error && error.response && error.resopnse.data
+								error && error.response && error.response.data
 									? error.response.data
 									: error
 							)

@@ -104,7 +104,7 @@ var ApiClient = function () {
 									case 16:
 										_context.prev = 16;
 										_context.t0 = _context['catch'](8);
-										return _context.abrupt('return', reject(_context.t0 && _context.t0.response && _context.t0.resopnse.data ? _context.t0.response.data : _context.t0));
+										return _context.abrupt('return', reject(_context.t0 && _context.t0.response && _context.t0.response.data ? _context.t0.response.data : _context.t0));
 
 									case 19:
 										_context.next = 25;
