@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import moment from 'moment'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
-import events from './events'
 // const React = require('react')
 // const styled = require('styled-components')
 // const moment = require('moment')
