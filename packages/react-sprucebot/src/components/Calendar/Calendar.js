@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
+import PropTypes from 'prop-types'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
@@ -482,7 +483,7 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		bottom: 0;
 		left: 0;
 		position: absolute;
-		right: 10px;
+		right: 0;
 		top: 0;
 	}
 	.rbc-day-slot .rbc-events-container.rbc-is-rtl {
@@ -510,7 +511,7 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		-ms-flex: none;
 		flex: none;
 		padding-right: 5px;
-		width: auto;
+		width: inherit;
 	}
 	.rbc-day-slot .rbc-event-content {
 		width: 100%;
@@ -636,7 +637,6 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		align-items: flex-start;
 		width: 100%;
 		border-top: 2px solid #ddd;
-		overflow-y: auto;
 		position: relative;
 	}
 	.rbc-time-content > .rbc-time-gutter {
@@ -662,8 +662,55 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		position: absolute;
 		z-index: 999;
 		height: 1px;
-		background-color: #74ad31;
+		background-color: #f85a3e;
 		pointer-events: none;
+	}
+`
+
+const WhiteLabel = styled(StyledReactBigCalendar)`
+	.rbc-current-time-indicator {
+		background-color: #f85a3e;
+	}
+	.rbc-today {
+		background-color: rgba(96, 180, 199, 0.1);
+		color: #00aac7;
+	}
+	.shift-day,
+	.shift-week {
+		left: 0% !important;
+		width: 85% !important;
+		border: none !important;
+		border-radius: 5px;
+		background-color: #dbeff3;
+		color: #4cadc1;
+	}
+	.break-day,
+	.break-week {
+		left: 30% !important;
+		width: 70% !important;
+		border: none !important;
+		border-radius: 5px;
+		background-color: #c8dadd;
+		color: #387e8d;
+	}
+	.block-day,
+	.block-week {
+		left: 15% !important;
+		width: 75% !important;
+		border: none !important;
+		border-radius: 5px;
+		background-color: #949494;
+		color: #0e2024;
+	}
+	.off-hours-day,
+	.off-hours-week,
+	.closed-day,
+	.closed-week {
+		left: 0 !important;
+		right: 0 !important;
+		border: none !important;
+		color: rgba(0, 0, 0, 0);
+		background-color: rgba(66, 96, 126, 0.1);
 	}
 `
 
@@ -688,36 +735,61 @@ class Calendar extends Component {
 			startAccessor,
 			endAccessor,
 			allDayAccessor,
-			dragAndDrop
+			dragAndDrop,
+			eventPropGetter
 		} = this.props
 
 		const CalendarComponent = dragAndDrop
-			? withDragAndDrop(StyledReactBigCalendar)
-			: StyledReactBigCalendar
+			? withDragAndDrop(WhiteLabel)
+			: WhiteLabel
 
 		return (
 			<CalendarComponent
 				height={height}
 				date={date || new Date()}
-				toolbar={toolbar} // PropTypes.bool
-				events={events} // PropTypes.array
-				defaultView={defaultView} // PropTypes.string
-				views={views} // PropTypes.array
-				selectable={selectable} // PropTypes.string || PropTypes.bool (passing 'ignoreEvents' allows for custom event click/drag logic)
-				step={step} // PropTypes.number
-				timeslots={timeslots} // PropTypes.number
-				min={min} // PropTypes.object (ie new Date('1/1/1970 08:00:00'))
-				max={max} // PropTypes.object (ie new Date('1/1/1970 20:00:00'))
-				onSelectSlot={onSelectSlot} // PropTypes.func.isRequired
-				onSelectEvent={onSelectEvent} // PropTypes.func.isRequired
-				formats={formats} // PropTypes.object
-				titleAccessor={titleAccessor} // PropTypes.string
-				startAccessor={startAccessor} // PropTypes.string
-				endAccessor={endAccessor} // PropTypes.string
-				allDayAccessor={allDayAccessor} // PropType.string
+				toolbar={toolbar}
+				events={events}
+				defaultView={defaultView}
+				views={views}
+				selectable={selectable}
+				step={step}
+				timeslots={timeslots}
+				min={min}
+				max={max}
+				onSelectSlot={onSelectSlot}
+				onSelectEvent={onSelectEvent}
+				formats={formats}
+				titleAccessor={titleAccessor}
+				startAccessor={startAccessor}
+				endAccessor={endAccessor}
+				allDayAccessor={allDayAccessor}
+				eventPropGetter={eventPropGetter}
 			/>
 		)
 	}
 }
 
 export default Calendar
+
+Calendar.propTypes = {
+	height: PropTypes.string,
+	date: PropTypes.instanceOf(Date),
+	toolbar: PropTypes.bool,
+	events: PropTypes.array,
+	defaultView: PropTypes.string,
+	views: PropTypes.array,
+	selectable: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+	step: PropTypes.number,
+	timeslots: PropTypes.number,
+	min: PropTypes.instanceOf(Date),
+	max: PropTypes.instanceOf(Date),
+	onSelectSlot: PropTypes.func,
+	onSelectEvent: PropTypes.func,
+	formats: PropTypes.object,
+	titleAccessor: PropTypes.string,
+	startAccessor: PropTypes.string,
+	endAccessor: PropTypes.string,
+	allDayAccessor: PropTypes.string,
+	dragAndDrop: PropTypes.bool,
+	eventPropGetter: PropTypes.func
+}
