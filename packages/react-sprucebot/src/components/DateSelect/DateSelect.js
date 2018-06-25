@@ -844,8 +844,10 @@ const WhiteLabel = styled(Wrapper)`
 		background: #00aac7;
 		border: 1px solid #00aac7;
 	}
-
-	.DayPickerNavigation_container {
+	.DateInput_fang {
+		display: none;
+	}
+	.DayPickerNavigation {
 		position: absolute;
 		display: flex;
 		justify-content: space-between;
@@ -853,25 +855,13 @@ const WhiteLabel = styled(Wrapper)`
 		padding: 1em;
 		z-index: 2;
 	}
-
-	.DayPickerNavigation__vertical {
-		background: #fff;
-		bottom: 0;
-		left: 0;
-		height: 52px;
-	}
-
-	.DayPickerNavigation_button__horizontal {
+	.DayPickerNavigation_button {
 		display: flex;
 		justify-content: center;
-		padding: 0;
-		border-radius: 50%;
-	}
-
-	.DayPickerNavigation_leftButton__horizontal,
-	.DayPickerNavigation_rightButton__horizontal {
 		height: 28px;
 		width: 28px;
+		padding: 0;
+		border-radius: 50%;
 	}
 `
 

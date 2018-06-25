@@ -847,8 +847,7 @@ const WhiteLabel = styled(Wrapper)`
 	.DateInput_fang {
 		display: none;
 	}
-	.DayPickerNavigation_container__verritcal,
-	.DayPickerNavigation_container {
+	.DayPickerNavigation {
 		position: absolute;
 		display: flex;
 		justify-content: space-between;
@@ -856,30 +855,27 @@ const WhiteLabel = styled(Wrapper)`
 		padding: 1em;
 		z-index: 2;
 	}
-	.DayPickerNavigation_button__verticalDefault,
-	.DayPickerNavigation_button__horizontal {
+	.DayPickerNavigation_button {
 		display: flex;
 		justify-content: center;
-		padding: 0;
-		border-radius: 50%;
-	}
-
-	.DayPickerNavigation_button__verticalDefault,
-	.DayPickerNavigation_leftButton__horizontal,
-	.DayPickerNavigation_rightButton__horizontal {
 		height: 28px;
 		width: 28px;
+		padding: 0;
+		border-radius: 50%;
 	}
 	${props =>
 		props.currentWeek &&
 		`
 	.CalendarDay__selected_span,
-	.CalendarDay__selected_span:active {
+	.CalendarDay__selected_span:active,
+	.CalendarDay__selected_span:hover {
 		background: #00aac7;
+		color: #fff;
 	}
 	.CalendarDay__selected_start,
 	.CalendarDay__selected_end {
 		border: 1px solid #33dacd;
+		color: #fff;
 	}
 `};
 	${props =>
