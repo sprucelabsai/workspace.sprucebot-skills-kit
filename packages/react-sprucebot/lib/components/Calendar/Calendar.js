@@ -34,8 +34,6 @@ var _dragAndDrop2 = _interopRequireDefault(_dragAndDrop);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -74,10 +72,30 @@ var Calendar = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this, props));
 
-		_this.resizeEvent = function (resizeType, _ref) {
+		_this.moveEvent = function (_ref) {
 			var event = _ref.event,
 			    start = _ref.start,
 			    end = _ref.end;
+			var events = _this.state.events;
+
+
+			var idx = events.indexOf(event);
+			var updatedEvent = _extends({}, event, { start: start, end: end });
+
+			var nextEvents = [].concat(_toConsumableArray(events));
+			nextEvents.splice(idx, 1, updatedEvent);
+
+			_this.setState({
+				events: nextEvents
+			});
+
+			alert(event.title + ' was dropped onto ' + event.start);
+		};
+
+		_this.resizeEvent = function (resizeType, _ref2) {
+			var event = _ref2.event,
+			    start = _ref2.start,
+			    end = _ref2.end;
 			var events = _this.state.events;
 
 
@@ -93,54 +111,32 @@ var Calendar = function (_Component) {
 		};
 
 		_this.onNavigate = function (e) {
-			console.log('onNavigate');
-			console.log(e);
+			console.log('onNavigate', e);
 		};
 
 		_this.onEventDrop = function (e) {
-			console.log('onEventDrop');
-			console.log(e);
+			console.log('onEventDrop', e);
 		};
 
 		_this.onEventResize = function (e) {
-			console.log('onEventResize');
-			console.log(e);
+			console.log('onEventResize', e);
 		};
 
 		_this.selectEvent = function (e) {
-			console.log('selectEvent');
-			console.log(e);
+			console.log('selectEvent', e);
+		};
+
+		_this.selectSlot = function (e) {
+			console.log('selectSlot', e);
 		};
 
 		_this.state = {
 			events: props.events
 		};
-		_this.moveEvent = _this.moveEvent.bind(_this);
 		return _this;
 	}
 
 	_createClass(Calendar, [{
-		key: 'moveEvent',
-		value: function moveEvent(_ref2) {
-			var event = _ref2.event,
-			    start = _ref2.start,
-			    end = _ref2.end;
-			var events = this.state.events;
-
-
-			var idx = events.indexOf(event);
-			var updatedEvent = _extends({}, event, { start: start, end: end });
-
-			var nextEvents = [].concat(_toConsumableArray(events));
-			nextEvents.splice(idx, 1, updatedEvent);
-
-			this.setState({
-				events: nextEvents
-			});
-
-			alert(event.title + ' was dropped onto ' + event.start);
-		}
-	}, {
 		key: 'render',
 		value: function render() {
 			var _props = this.props,
@@ -165,7 +161,7 @@ var Calendar = function (_Component) {
 			    eventPropGetter = _props.eventPropGetter;
 
 
-			return _react2.default.createElement(WhiteLabel, _defineProperty({
+			return _react2.default.createElement(WhiteLabel, {
 				height: height,
 				date: date || new Date(),
 				toolbar: toolbar,
@@ -178,8 +174,6 @@ var Calendar = function (_Component) {
 				timeslots: timeslots,
 				min: min,
 				max: max,
-				onSelectSlot: onSelectSlot,
-				onSelectEvent: onSelectEvent,
 				formats: formats,
 				titleAccessor: titleAccessor,
 				startAccessor: startAccessor,
@@ -188,8 +182,10 @@ var Calendar = function (_Component) {
 				eventPropGetter: eventPropGetter,
 				onNavigate: this.onNavigate,
 				onEventDrop: this.onEventDrop,
-				onEventResize: this.onEventResize
-			}, 'onSelectEvent', this.selectEvent));
+				onEventResize: this.onEventResize,
+				onSelectEvent: this.selectEvent,
+				onSelectSlot: this.selectSlot
+			});
 		}
 	}]);
 
