@@ -1,20 +1,27 @@
 import React, { Component } from 'react'
 import styled, { injectGlobal } from 'styled-components'
 import moment from 'moment'
-import PropTypes from 'prop-types'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
-BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLocalizer
-const DndCalendar = withDragAndDrop(BigCalendar)
-// This is simply the default stylesheet from 'react-big-calendar/lib/css/react-big-calendar.css'
-// Under normal circumstances this stylesheet would simply be imported at the top of the file.
-// But we don't have a intra-skill css-loader available, so we're applying those default styles here.
+import HTML5Backend from 'react-dnd-html5-backend'
+import { default as TouchBackend } from 'react-dnd-touch-backend'
+import { DragDropContext } from 'react-dnd'
+import PropTypes from 'prop-types'
 
-const CalendarComponent = styled(DndCalendar)`
+BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLocalizer
+
+const CalendarComponent = withDragAndDrop(BigCalendar)
+
+const CalendWrapper = styled.div.attrs({
+	className: `rbc-calendar__wrapper`
+})`
 	height: ${props => props.height};
 	${props =>
 		props.defaultView === 'week' && `position: absolute; width: 1000px;`};
+`
+
+injectGlobal`
 	.rbc-btn {
 		color: inherit;
 		font: inherit;
@@ -736,9 +743,7 @@ const CalendarComponent = styled(DndCalendar)`
 		height: 10px;
 		cursor: ew-resize;
 	}
-`
-
-const WhiteLabel = styled(CalendarComponent)`
+	/*White Label*/
 	.rbc-current-time-indicator {
 		background-color: #f85a3e;
 	}
@@ -782,6 +787,7 @@ const WhiteLabel = styled(CalendarComponent)`
 		border: none !important;
 		color: rgba(0, 0, 0, 0);
 		background-color: rgba(66, 96, 126, 0.1);
+		pointer-events: none !important;
 	}
 `
 
@@ -793,111 +799,69 @@ class Calendar extends Component {
 		}
 	}
 
-	moveEvent = ({ event, start, end }) => {
-		const { events } = this.state
-
-		const idx = events.indexOf(event)
-		const updatedEvent = { ...event, start, end }
-
-		const nextEvents = [...events]
-		nextEvents.splice(idx, 1, updatedEvent)
-
-		this.setState({
-			events: nextEvents
-		})
-
-		alert(`${event.title} was dropped onto ${event.start}`)
-	}
-
-	resizeEvent = (resizeType, { event, start, end }) => {
-		const { events } = this.state
-
-		const nextEvents = events.map(existingEvent => {
-			return existingEvent.id == event.id
-				? { ...existingEvent, start, end }
-				: existingEvent
-		})
-
-		this.setState({
-			events: nextEvents
-		})
-
-		alert(`${event.title} was resized to ${start}-${end}`)
-	}
-
 	onNavigate = e => {
+		// Not fired with current build but causes error
 		console.log('onNavigate', e)
-	}
-
-	onEventDrop = e => {
-		console.log('onEventDrop', e)
-	}
-
-	onEventResize = e => {
-		console.log('onEventResize', e)
-	}
-	selectEvent = e => {
-		console.log('selectEvent', e)
-	}
-
-	selectSlot = e => {
-		console.log('selectSlot', e)
 	}
 
 	render() {
 		const {
 			height,
-			date,
-			toolbar,
-			events,
 			defaultView,
+			date,
 			views,
-			selectable,
+			events,
 			step,
 			timeslots,
 			min,
 			max,
-			onSelectSlot,
-			onSelectEvent,
 			formats,
+			toolbar,
 			titleAccessor,
 			startAccessor,
 			endAccessor,
 			allDayAccessor,
-			eventPropGetter
+			selectable,
+			resizable,
+			eventPropGetter,
+			onSelectEvent,
+			onSelectSlot,
+			onEventDrop,
+			onEventResize
 		} = this.props
 
 		return (
-			<WhiteLabel
-				height={height}
-				date={date || new Date()}
-				toolbar={toolbar}
-				events={this.state.events}
-				resizeable
-				defaultView={defaultView}
-				views={views}
-				selectable={selectable}
-				step={step}
-				timeslots={timeslots}
-				min={min}
-				max={max}
-				formats={formats}
-				titleAccessor={titleAccessor}
-				startAccessor={startAccessor}
-				endAccessor={endAccessor}
-				allDayAccessor={allDayAccessor}
-				eventPropGetter={eventPropGetter}
-				onNavigate={this.onNavigate}
-				onEventDrop={this.onEventDrop}
-				onEventResize={this.onEventResize}
-				onSelectEvent={this.selectEvent}
-				onSelectSlot={this.selectSlot}
-			/>
+			<CalendWrapper height={height} defaultView={defaultView}>
+				<CalendarComponent
+					date={date || new Date()}
+					defaultView={defaultView}
+					views={views}
+					events={this.state.events}
+					step={step}
+					timeslots={timeslots}
+					min={min}
+					max={max}
+					formats={formats}
+					toolbar={toolbar}
+					titleAccessor={titleAccessor}
+					startAccessor={startAccessor}
+					endAccessor={endAccessor}
+					allDayAccessor={allDayAccessor}
+					selectable={selectable}
+					resizeable={resizable}
+					eventPropGetter={eventPropGetter}
+					onNavigate={this.onNavigate}
+					onSelectEvent={onSelectEvent}
+					onSelectSlot={onSelectSlot}
+					onEventDrop={onEventDrop}
+					onEventResize={onEventResize}
+				/>
+			</CalendWrapper>
 		)
 	}
 }
 
-export default Calendar
+export default DragDropContext(HTML5Backend)(Calendar)
 
 Calendar.propTypes = {
 	height: PropTypes.string,
