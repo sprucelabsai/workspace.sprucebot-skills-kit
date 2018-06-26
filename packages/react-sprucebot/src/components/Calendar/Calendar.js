@@ -791,9 +791,9 @@ class Calendar extends Component {
 		this.state = {
 			events: props.events
 		}
-		this.moveEvent = this.moveEvent.bind(this)
 	}
-	moveEvent({ event, start, end }) {
+
+	moveEvent = ({ event, start, end }) => {
 		const { events } = this.state
 
 		const idx = events.indexOf(event)
@@ -824,22 +824,26 @@ class Calendar extends Component {
 
 		alert(`${event.title} was resized to ${start}-${end}`)
 	}
+
 	onNavigate = e => {
-		console.log('onNavigate')
-		console.log(e)
+		console.log('onNavigate', e)
 	}
+
 	onEventDrop = e => {
-		console.log('onEventDrop')
-		console.log(e)
+		console.log('onEventDrop', e)
 	}
+
 	onEventResize = e => {
-		console.log('onEventResize')
-		console.log(e)
+		console.log('onEventResize', e)
 	}
 	selectEvent = e => {
-		console.log('selectEvent')
-		console.log(e)
+		console.log('selectEvent', e)
 	}
+
+	selectSlot = e => {
+		console.log('selectSlot', e)
+	}
+
 	render() {
 		const {
 			height,
@@ -877,8 +881,6 @@ class Calendar extends Component {
 				timeslots={timeslots}
 				min={min}
 				max={max}
-				onSelectSlot={onSelectSlot}
-				onSelectEvent={onSelectEvent}
 				formats={formats}
 				titleAccessor={titleAccessor}
 				startAccessor={startAccessor}
@@ -889,6 +891,7 @@ class Calendar extends Component {
 				onEventDrop={this.onEventDrop}
 				onEventResize={this.onEventResize}
 				onSelectEvent={this.selectEvent}
+				onSelectSlot={this.selectSlot}
 			/>
 		)
 	}
