@@ -930,13 +930,12 @@ class DateSelect extends Component {
 
 	render() {
 		const { date, defaultDateSet } = this.state
-		const { placeholder, setDefaultDate, initialVisibleMonth } = this.props
+		const { setDefaultDate, initialVisibleMonth } = this.props
 
 		return (
 			<WhiteLabel>
 				<DayPickerSingleDateController
 					date={date || null}
-					placeholder={placeholder || null}
 					onDateChange={date => this.handleDateChange(date)}
 					focused={true}
 					onFocusChange={({ focused }) => this.setState({ focused })}
@@ -964,7 +963,6 @@ DateSelect.propTypes = {
 	bypassDaysBlocked: PropTypes.bool,
 	allowPastDates: PropTypes.bool,
 	onDateSelect: PropTypes.func.isRequired,
-	placeholder: PropTypes.string,
 	setDefaultDate: PropTypes.bool,
 	defaultDate: PropTypes.any,
 	initialVisibleMonth: PropTypes.func
