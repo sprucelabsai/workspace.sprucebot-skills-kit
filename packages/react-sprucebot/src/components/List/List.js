@@ -23,7 +23,6 @@ const ListItemWrapper = styled.div.attrs({
 		props.alignItems
 			? `align-items: ${props.alignItems}`
 			: 'align-items: center;'};
-	${props => (props.online ? `` : 'opacity: .4;')};
 `
 
 const ItemAvatar = styled.div.attrs({
@@ -90,6 +89,7 @@ export class ListItem extends Component {
 			overflow,
 			width,
 			componentAsSubtitle,
+			onClick,
 			...props
 		} = this.props
 
@@ -119,9 +119,9 @@ export class ListItem extends Component {
 		}
 
 		return (
-			<ListItemWrapper {...this.props}>
+			<ListItemWrapper {...props}>
 				{avatar && (
-					<ItemAvatar alignItems={alignItems}>
+					<ItemAvatar onClick={onClick} alignItems={alignItems}>
 						{avatar === true ? (
 							<Avatar
 								online={online}
@@ -136,7 +136,7 @@ export class ListItem extends Component {
 						)}
 					</ItemAvatar>
 				)}
-				{children && <ItemDetail>{children}</ItemDetail>}
+				{children && <ItemDetail onClick={onClick}>{children}</ItemDetail>}
 				{(rightTitle || rightSubtitle || rightInput) && (
 					<ItemRightContent alignItems={alignItems}>
 						{rightInput && rightInput}

@@ -6,10 +6,10 @@ exports[`ItemRightContent should align where we specify 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c1 {
@@ -30,10 +30,11 @@ exports[`ItemRightContent should align where we specify 1`] = `
 }
 
 <div
-  className=" ListItemWrapper item__list__item  c0"
+  className=" ListItemWrapper item__list__item offline c0"
 >
   <div
     className="ItemAvatar avatar__outer__wrapper c1"
+    onClick={undefined}
   >
     <div
       className="avatar__wrapper online "
@@ -41,6 +42,7 @@ exports[`ItemRightContent should align where we specify 1`] = `
   </div>
   <div
     className="ItemDetail item__details c2"
+    onClick={undefined}
   />
 </div>
 `;
@@ -121,10 +123,11 @@ exports[`List should render ItemRightContent with a title 1`] = `
 >
   <div>
     <div
-      className=" ListItemWrapper item__list__item  c1"
+      className=" ListItemWrapper item__list__item offline c1"
     >
       <div
         className="ItemDetail item__details c2"
+        onClick={undefined}
       >
         <div
           className="ItemSubTitle sub__title c3"
@@ -188,11 +191,11 @@ exports[`List should render listitems and divs 1`] = `
 >
   <div>
     <div
-      className=" ListItemWrapper item__list__item  c1"
-      title="foo"
+      className=" ListItemWrapper item__list__item offline c1"
     >
       <div
         className="ItemDetail item__details c2"
+        onClick={undefined}
       >
         <div
           className="ItemTitle title c3"
@@ -253,11 +256,11 @@ exports[`List should render subTitle 1`] = `
   className="List item__list c0"
 >
   <div
-    className=" ListItemWrapper item__list__item  c1"
-    title="foo"
+    className=" ListItemWrapper item__list__item offline c1"
   >
     <div
       className="ItemDetail item__details c2"
+      onClick={undefined}
     >
       <div
         className="ItemTitle title c3"
@@ -310,11 +313,11 @@ exports[`List should render title 1`] = `
   className="List item__list c0"
 >
   <div
-    className=" ListItemWrapper item__list__item  c1"
-    title="foo"
+    className=" ListItemWrapper item__list__item offline c1"
   >
     <div
       className="ItemDetail item__details c2"
+      onClick={undefined}
     >
       <div
         className="ItemTitle title c3"
@@ -348,10 +351,11 @@ exports[`ListItem renders 1`] = `
 }
 
 <div
-  className=" ListItemWrapper item__list__item  c0"
+  className=" ListItemWrapper item__list__item offline c0"
 >
   <div
     className="ItemDetail item__details c1"
+    onClick={undefined}
   />
 </div>
 `;
@@ -362,10 +366,10 @@ exports[`ListItem should align items 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: flex-end;
-  -webkit-box-align: flex-end;
-  -ms-flex-align: flex-end;
-  align-items: flex-end;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c1 {
@@ -376,10 +380,11 @@ exports[`ListItem should align items 1`] = `
 }
 
 <div
-  className=" ListItemWrapper item__list__item  c0"
+  className=" ListItemWrapper item__list__item offline c0"
 >
   <div
     className="ItemDetail item__details c1"
+    onClick={undefined}
   />
 </div>
 `;
@@ -404,10 +409,11 @@ exports[`ListItem should render non-arrays 1`] = `
 }
 
 <div
-  className=" ListItemWrapper item__list__item  c0"
+  className=" ListItemWrapper item__list__item offline c0"
 >
   <div
     className="ItemDetail item__details c1"
+    onClick={undefined}
   >
     YOLO
   </div>
@@ -420,10 +426,10 @@ exports[`ListItemAvatar should align where we specify 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c1 {
@@ -444,10 +450,11 @@ exports[`ListItemAvatar should align where we specify 1`] = `
 }
 
 <div
-  className=" ListItemWrapper item__list__item  c0"
+  className=" ListItemWrapper item__list__item offline c0"
 >
   <div
     className="ItemAvatar avatar__outer__wrapper c1"
+    onClick={undefined}
   >
     <div
       className="avatar__wrapper online "
@@ -455,6 +462,7 @@ exports[`ListItemAvatar should align where we specify 1`] = `
   </div>
   <div
     className="ItemDetail item__details c2"
+    onClick={undefined}
   />
 </div>
 `;
