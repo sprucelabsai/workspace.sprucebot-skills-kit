@@ -681,6 +681,7 @@ injectGlobal`
 	}
 	.rbc-addons-dnd .rbc-addons-dnd-over {
 		background-color: rgba(0, 0, 0, 0.3);
+		color: red;
 	}
 	.rbc-addons-dnd .rbc-events-container {
 		pointer-events: none;
@@ -717,7 +718,7 @@ injectGlobal`
 		.rbc-addons-dnd-resize-ns-anchor
 		.rbc-addons-dnd-resize-ns-icon {
 		display: none;
-		border-top: 3px double;
+		border-top: 4px double;
 		margin: 0 auto;
 		width: 10px;
 		cursor: ns-resize;
@@ -745,11 +746,15 @@ injectGlobal`
 	}
 	/*White Label*/
 	.rbc-current-time-indicator {
+		height: 2px;
 		background-color: #f85a3e;
 	}
 	.rbc-today {
 		background-color: rgba(96, 180, 199, 0.1);
 		color: #00aac7;
+	}
+	.rbc-selected {
+		z-index: 1;
 	}
 	.rbc-event__shift-day,
 	.rbc-event__shift-week {
@@ -759,6 +764,10 @@ injectGlobal`
 		border-radius: 5px;
 		background-color: #dbeff3;
 		color: #4cadc1;
+	}
+	.rbc-event__shift-day.rbc-event-teammate,
+	.rbc-event__shift-week.rbc-event-teammate {
+		pointer-events: none !important;
 	}
 	.rbc-event__break-day,
 	.rbc-event__break-week {
@@ -784,6 +793,7 @@ injectGlobal`
 	.rbc-event__closed-week {
 		left: 0 !important;
 		right: 0 !important;
+		width: 100% !important;
 		border: none !important;
 		color: rgba(0, 0, 0, 0);
 		background-color: rgba(66, 96, 126, 0.1);
@@ -792,12 +802,7 @@ injectGlobal`
 `
 
 class Calendar extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			events: props.events
-		}
-	}
+	state = {}
 
 	onNavigate = e => {
 		// Not fired with current build but causes error
@@ -822,7 +827,6 @@ class Calendar extends Component {
 			endAccessor,
 			allDayAccessor,
 			selectable,
-			resizable,
 			eventPropGetter,
 			onSelectEvent,
 			onSelectSlot,
@@ -836,7 +840,7 @@ class Calendar extends Component {
 					date={date || new Date()}
 					defaultView={defaultView}
 					views={views}
-					events={this.state.events}
+					events={events}
 					step={step}
 					timeslots={timeslots}
 					min={min}
@@ -848,7 +852,6 @@ class Calendar extends Component {
 					endAccessor={endAccessor}
 					allDayAccessor={allDayAccessor}
 					selectable={selectable}
-					resizeable={resizable}
 					eventPropGetter={eventPropGetter}
 					onNavigate={this.onNavigate}
 					onSelectEvent={onSelectEvent}
