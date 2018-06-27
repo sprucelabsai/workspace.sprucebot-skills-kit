@@ -862,6 +862,7 @@ const WhiteLabel = styled(Wrapper)`
 		width: 28px;
 		padding: 0;
 		border-radius: 50%;
+		background-color: #00aac7;
 	}
 `
 

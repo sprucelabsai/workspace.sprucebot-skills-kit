@@ -50,7 +50,7 @@ var Wrapper = _styledComponents2.default.div.withConfig({
 var WhiteLabel = (0, _styledComponents2.default)(Wrapper).withConfig({
 	displayName: 'DateSelect__WhiteLabel',
 	componentId: 's1u7vvps-1'
-})(['.CalendarDay__selected,.CalendarDay__selected:active,.CalendarDay__selected:hover{background:#00aac7;border:1px solid #00aac7;}.DateInput_fang{display:none;}.DayPickerNavigation{position:absolute;display:flex;justify-content:space-between;width:100%;padding:1em;z-index:2;}.DayPickerNavigation_button{display:flex;justify-content:center;height:28px;width:28px;padding:0;border-radius:50%;}']);
+})(['.CalendarDay__selected,.CalendarDay__selected:active,.CalendarDay__selected:hover{background:#00aac7;border:1px solid #00aac7;}.DateInput_fang{display:none;}.DayPickerNavigation{position:absolute;display:flex;justify-content:space-between;width:100%;padding:1em;z-index:2;}.DayPickerNavigation_button{display:flex;justify-content:center;height:28px;width:28px;padding:0;border-radius:50%;background-color:#00aac7;}']);
 
 var NavButton = (0, _styledComponents2.default)(_IconButton2.default).withConfig({
 	displayName: 'DateSelect__NavButton',
