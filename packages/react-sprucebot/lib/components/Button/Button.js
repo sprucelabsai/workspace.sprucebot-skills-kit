@@ -64,10 +64,11 @@ var Button = function (_Component) {
 					}
 				}
 
-				// Reset the state to not-busy if it's been 2 sec
+				// Reset the state to not-busy if it's been 10 sec
+				// is there a reason for this?
 				setTimeout(function () {
 					_this.setState({ busy: false });
-				}, 2000);
+				}, 10000);
 			}
 		};
 
