@@ -13,20 +13,19 @@ exports.default = {
 		postMessage('Skill:ForceAuth');
 	},
 	resized: function resized() {
+		var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+		    _ref$minHeight = _ref.minHeight,
+		    minHeight = _ref$minHeight === undefined ? 0 : _ref$minHeight;
+
 		var height = 0;
 
 		var body = document.body;
 		var docEl = document.documentElement;
-		var modal = document.querySelector('.dialog_underlay.on');
 
 		var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
 		var clientTop = docEl.clientTop || body.clientTop || 0;
 		var top = scrollTop - clientTop;
-		var height = top + body.clientHeight;
-
-		if (modal && modal.scrollHeight) {
-			height = modal.scrollHeight;
-		}
+		var height = Math.max(minHeight, top + body.clientHeight);
 
 		if (height != this.height) {
 			this.height = height;
@@ -41,9 +40,9 @@ exports.default = {
 	},
 
 	ready: function ready() {
-		var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { resetUrlTrail: false },
-		    _ref$resetUrlTrail = _ref.resetUrlTrail,
-		    resetUrlTrail = _ref$resetUrlTrail === undefined ? false : _ref$resetUrlTrail;
+		var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { resetUrlTrail: false },
+		    _ref2$resetUrlTrail = _ref2.resetUrlTrail,
+		    resetUrlTrail = _ref2$resetUrlTrail === undefined ? false : _ref2$resetUrlTrail;
 
 		this.resized();
 		postMessage({
@@ -55,5 +54,9 @@ exports.default = {
 	},
 	scrollTo: function scrollTo(offset) {
 		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 });
+	},
+
+	requestScroll: function requestScroll() {
+		postMessage('Skill:RequestScroll');
 	}
 };
