@@ -46,12 +46,20 @@ Feed.defaultProps = {
 
 export class FeedItem extends Component {
 	render() {
-		const { bigAvatar, header, user, message, date, attachments } = this.props
+		const {
+			bigAvatar,
+			header,
+			user,
+			message,
+			date,
+			attachments,
+			...props
+		} = this.props
 
 		const imageKey = bigAvatar ? 'profile150@2x' : 'profile60'
 
 		return (
-			<div className={`feed__item ${bigAvatar ? 'big_avatar' : ''}`}>
+			<div className={`feed__item ${bigAvatar ? 'big_avatar' : ''}`} {...props}>
 				{header && <SectionHeading>{header}</SectionHeading>}
 				{user && (
 					<div className="feed__avatar">
