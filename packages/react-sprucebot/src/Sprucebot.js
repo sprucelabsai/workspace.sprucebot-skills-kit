@@ -5,6 +5,9 @@ import Avatar from './components/Avatar/Avatar'
 import BotText from './components/BotText/BotText'
 import Button from './components/Button/Button'
 import Container from './components/Container/Container'
+import DateSelect from './components/DateSelect/DateSelect'
+import DateRangeSelect from './components/DateRangeSelect/DateRangeSelect'
+import Calendar from './components/Calendar/Calendar'
 import Input from './components/Input/Input'
 import Pre from './components/Pre/Pre'
 import Switch from './components/Switch/Switch'
@@ -21,11 +24,15 @@ import StatsSlider from './components/StatsSlider/StatsSlider'
 import Styleguide from './components/Styleguide/Styleguide'
 import ImageCropper from './components/ImageCropper/ImageCropper'
 import TrainingGuide from './components/TrainingGuide/TrainingGuide'
+import TimeInput from './components/TimeInput/TimeInput'
 import Onboarding from './components/Onboarding/Onboarding'
 import Callout from './components/Callout/Callout'
 import Dialog from './components/Dialog/Dialog'
 import Error from './components/Error/Error'
 import Feed, { FeedItem, FeedAttachment } from './components/Feed/Feed'
+import Icon from './components/Icon/Icon'
+import IconButton from './components/IconButton/IconButton'
+import ControlButton from './components/ControlButton/ControlButton'
 import * as Typography from './components/Typography/Typography'
 import * as List from './components/List/List'
 import * as Tabs from './components/Tabs/Tabs'
@@ -49,6 +56,9 @@ const Sprucebot = {
 	BotText,
 	Button,
 	Container,
+	DateSelect,
+	DateRangeSelect,
+	Calendar,
 	Input,
 	Pre,
 	Switch,
@@ -71,7 +81,11 @@ const Sprucebot = {
 	Error,
 	FeedAttachment,
 	TrainingGuide,
+	TimeInput,
 	Onboarding,
+	Icon,
+	IconButton,
+	ControlButton,
 	...Typography,
 	...List,
 	...Tabs,

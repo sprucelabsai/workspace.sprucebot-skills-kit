@@ -26,6 +26,18 @@ var _Container = require('./components/Container/Container');
 
 var _Container2 = _interopRequireDefault(_Container);
 
+var _DateSelect = require('./components/DateSelect/DateSelect');
+
+var _DateSelect2 = _interopRequireDefault(_DateSelect);
+
+var _DateRangeSelect = require('./components/DateRangeSelect/DateRangeSelect');
+
+var _DateRangeSelect2 = _interopRequireDefault(_DateRangeSelect);
+
+var _Calendar = require('./components/Calendar/Calendar');
+
+var _Calendar2 = _interopRequireDefault(_Calendar);
+
 var _Input = require('./components/Input/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
@@ -90,6 +102,10 @@ var _TrainingGuide = require('./components/TrainingGuide/TrainingGuide');
 
 var _TrainingGuide2 = _interopRequireDefault(_TrainingGuide);
 
+var _TimeInput = require('./components/TimeInput/TimeInput');
+
+var _TimeInput2 = _interopRequireDefault(_TimeInput);
+
 var _Onboarding = require('./components/Onboarding/Onboarding');
 
 var _Onboarding2 = _interopRequireDefault(_Onboarding);
@@ -109,6 +125,18 @@ var _Error2 = _interopRequireDefault(_Error);
 var _Feed = require('./components/Feed/Feed');
 
 var _Feed2 = _interopRequireDefault(_Feed);
+
+var _Icon = require('./components/Icon/Icon');
+
+var _Icon2 = _interopRequireDefault(_Icon);
+
+var _IconButton = require('./components/IconButton/IconButton');
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _ControlButton = require('./components/ControlButton/ControlButton');
+
+var _ControlButton2 = _interopRequireDefault(_ControlButton);
 
 var _Typography = require('./components/Typography/Typography');
 
@@ -160,6 +188,9 @@ var Sprucebot = _extends({
 	BotText: _BotText2.default,
 	Button: _Button2.default,
 	Container: _Container2.default,
+	DateSelect: _DateSelect2.default,
+	DateRangeSelect: _DateRangeSelect2.default,
+	Calendar: _Calendar2.default,
 	Input: _Input2.default,
 	Pre: _Pre2.default,
 	Switch: _Switch2.default,
@@ -182,6 +213,10 @@ var Sprucebot = _extends({
 	Error: _Error2.default,
 	FeedAttachment: _Feed.FeedAttachment,
 	TrainingGuide: _TrainingGuide2.default,
-	Onboarding: _Onboarding2.default
+	TimeInput: _TimeInput2.default,
+	Onboarding: _Onboarding2.default,
+	Icon: _Icon2.default,
+	IconButton: _IconButton2.default,
+	ControlButton: _ControlButton2.default
 }, Typography, List, Tabs, ButtonGrid);
 module.exports = Sprucebot;

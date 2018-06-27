@@ -28,11 +28,73 @@ module.exports = {
 		process.env.INTERFACE_SSL_ALLOW_SELF_SIGNED === 'true',
 	API_SSL_ALLOW_SELF_SIGNED: process.env.API_SSL_ALLOW_SELF_SIGNED === 'true',
 	WHITELABEL: process.env.WHITELABEL,
+	// Event contract
+	// This sets the events that you want to subscribe to
+	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
+	eventContract: {
+		events: {
+			// Other events we could subscribe to
+			// 'was-installed': {
+			// 	name: 'was-installed',
+			// 	description: 'When the skill is installed to a location'
+			// },
+			// 'did-signup': {
+			// 	name: 'did-signup',
+			// 	description: 'When a guest joins wifi at a location for the first time'
+			// },
+			// 'did-remote-signup': {
+			// 	name: 'did-remote-signup',
+			// 	description:
+			// 		'When guest remotely opts in to a location (from the guest dashboard)'
+			// },
+			// 'did-enter': {
+			// 	name: 'did-enter',
+			// 	description: 'When a guest returns and their phone hits the wifi'
+			// },
+			// 'did-leave': {
+			// 	name: 'did-leave',
+			// 	description: 'Triggered an hour after a guest leaves'
+			// },
+			// 'did-message': {
+			// 	name: 'did-message',
+			// 	description: 'A guest has sent a text to Sprucebot'
+			// },
+			// 'did-add-device': {
+			// 	name: 'did-add-device',
+			// 	description:
+			// 		'When a guest adds a new device to a location. Like adding their laptop'
+			// },
+			// 'did-update-profile': {
+			// 	name: 'did-update-profile',
+			// 	description: 'When any user updates their first or last name'
+			// },
+			// 'did-opt-out': {
+			// 	name: 'did-opt-out',
+			// 	description:
+			// 		'When any guest opts out of a location. By now you have already lost access to their meta data.'
+			// },
+			// 'did-remote-rejoin': {
+			// 	name: 'did-remote-rejoin',
+			// 	description:
+			// 		'They had, at one time, opted out. But, now they have remotely opted back in'
+			// },
+			// 'will-send-training': {
+			// 	name: 'will-send-training',
+			// 	description:
+			// 		'Sprucebot has made the decision that now is the perfect time to send training material'
+			// }
+		}
+	},
 	sequelizeOptions: {
 		enabled: process.env.DB_ENABLED === 'true',
 		runMigrations: process.env.DB_MIGRATIONS === 'true',
 		modelsDir: path.resolve(__dirname, '../server/models'),
-		migrationsDir: path.resolve(__dirname, '../server/migrations')
+		migrationsDir: path.resolve(__dirname, '../server/migrations'),
+		// Additional sequelize options
+		options: {
+			// Turn off sql query logging
+			// logging: false
+		}
 	},
 	utilities: {}, // Settings for any utilities.
 	services: {

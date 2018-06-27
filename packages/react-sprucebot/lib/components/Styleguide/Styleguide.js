@@ -114,6 +114,30 @@ var _Error = require('../Error/Error');
 
 var _Error2 = _interopRequireDefault(_Error);
 
+var _Icon = require('../Icon/Icon');
+
+var _Icon2 = _interopRequireDefault(_Icon);
+
+var _IconButton = require('../IconButton/IconButton');
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _ControlButton = require('../ControlButton/ControlButton');
+
+var _ControlButton2 = _interopRequireDefault(_ControlButton);
+
+var _TimeInput = require('../TimeInput/TimeInput');
+
+var _TimeInput2 = _interopRequireDefault(_TimeInput);
+
+var _DateSelect = require('../DateSelect/DateSelect');
+
+var _DateSelect2 = _interopRequireDefault(_DateSelect);
+
+var _DateRangeSelect = require('../DateRangeSelect/DateRangeSelect');
+
+var _DateRangeSelect2 = _interopRequireDefault(_DateRangeSelect);
+
 var _index = require('../../skillskit/index');
 
 var _index2 = _interopRequireDefault(_index);
@@ -148,6 +172,11 @@ var Dark = (0, _styledComponents2.default)(_Pre2.default).withConfig({
 	displayName: 'Styleguide__Dark',
 	componentId: 'pl9m68-0'
 })(['background-color:#333;padding:3px;']);
+
+var FlexContainer = _styledComponents2.default.div.withConfig({
+	displayName: 'Styleguide__FlexContainer',
+	componentId: 'pl9m68-1'
+})(['display:flex;justify-content:center;']);
 
 var demoGuest = {
 	id: 'b8d62e17-a511-4b9b-ae8a-56710f89af48',
@@ -252,7 +281,7 @@ var Styleguide = function (_Component) {
 					_react2.default.createElement(
 						_Pre2.default,
 						null,
-						'import {\n\tContainer,\n\tBotText,\n\tLoader,\n\tH1,\n\tH2,\n\tH3,\n\tH4,\n\tH5,\n\tH6,\n\tSectionHeading,\n\tParagraph as P,\n\tA,\n\tAvatar,\n\tButton,\n\tForm,\n\tSwitch,\n\tInputField,\n\tSelectField,\n\tSubmitWrapper,\n\tList,\n\tListItem,\n\tTabs,\n\tTabPane,\n\tLinkPile,\n\tPager,\n\tStatsSlider,\n\tButtonGrid,\n\tGridButton,\n\tStars,\n\tImageCropper,\n\tCallout,\n\tFeed\n} from \'react-sprucebot\''
+						'import {\n\tContainer,\n\tBotText,\n\tLoader,\n\tH1,\n\tH2,\n\tH3,\n\tH4,\n\tH5,\n\tH6,\n\tSectionHeading,\n\tParagraph as P,\n\tA,\n\tAvatar,\n\tButton,\n\tForm,\n\tSwitch,\n\tInputField,\n\tSelectField,\n\tSubmitWrapper,\n\tList,\n\tListItem,\n\tTabs,\n\tTabPane,\n\tLinkPile,\n\tPager,\n\tStatsSlider,\n\tButtonGrid,\n\tGridButton,\n\tStars,\n\tImageCropper,\n\tCallout,\n\tFeed,\n\tTrainingGuide,\n\tDialog,\n\tIcon,\n\tIconButton,\n\tControlButton\n} from \'react-sprucebot\''
 					)
 				),
 				_react2.default.createElement(
@@ -480,16 +509,6 @@ var Styleguide = function (_Component) {
 					),
 					_react2.default.createElement(
 						_Button2.default,
-						{ primary: true, href: 'https://sprucebot.com' },
-						'I\'m a primary button turned link'
-					),
-					_react2.default.createElement(
-						_Pre2.default,
-						null,
-						'<Button primary href="https://sprucebot.com">I\'m a primary button turned link.</Button>'
-					),
-					_react2.default.createElement(
-						_Button2.default,
 						{ primary: true, disabled: true },
 						'I\'m a primary disabled button'
 					),
@@ -582,6 +601,138 @@ var Styleguide = function (_Component) {
 				_react2.default.createElement(
 					_Typography.H1,
 					null,
+					'Link Buttons'
+				),
+				_react2.default.createElement(
+					_BotText2.default,
+					null,
+					'Buttons can also be turned into links by setting the "href". Optional options include setting "target", or "router"'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<Button primary href="https://sprucebot.com">I\'m a primary button turned link</Button>'
+					),
+					_react2.default.createElement(
+						_Button2.default,
+						{ primary: true, href: 'https://sprucebot.com' },
+						'I\'m a primary button turned link'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<Button primary href="https://sprucebot.com" target="_blank">I\'ll open in a new window</Button>'
+					),
+					_react2.default.createElement(
+						_Button2.default,
+						{ primary: true, href: 'https://sprucebot.com', target: '_blank' },
+						'I\'ll open in a new window'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'import Router from \'next/router\'\n\n<Button primary href="/styleguide" router={Router}>I\'ll use next.js router.push() to change url</Button>'
+					),
+					_react2.default.createElement(
+						_Button2.default,
+						{ primary: true, href: '/' },
+						'I\'ll use next.js router.push() to change url'
+					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Icons'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					{ className: 'icon__button__container' },
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'Icons and Icon Buttons have the option to display an icon using Material Icons. Check out https://material.io/icons/. To use an icon, just enter the icon name as the child of the button.'
+					),
+					_react2.default.createElement(
+						_Icon2.default,
+						null,
+						'mood'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<Icon>mood</Icon>'
+					),
+					_react2.default.createElement(
+						_IconButton2.default,
+						null,
+						'place'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<IconButton onClick={/* Handle Click */}>place</IconButton>'
+					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Control Buttons'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'Control Buttons have the option to display a right or left icon using Material Icons. Check out https://material.io/icons/. To use an icon, just enter the icon name as a value for the iconLeft or iconRight prop. You can also pass an href to render the button as a link!'
+					),
+					_react2.default.createElement(
+						_ControlButton2.default,
+						null,
+						'I\'m a control button'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<ControlButton>I\'m a control button</ControlButton>'
+					),
+					_react2.default.createElement(
+						_ControlButton2.default,
+						{ iconLeft: 'favorite' },
+						'I have a left icon'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<ControlButton iconLeft="favorite">I have a left icon</ControlButton>'
+					),
+					_react2.default.createElement(
+						_ControlButton2.default,
+						{ iconRight: 'edit' },
+						'I have a right icon'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<ControlButton iconRight="edit">I have a right icon</ControlButton>'
+					),
+					_react2.default.createElement(
+						_ControlButton2.default,
+						{ iconRight: '\uD83E\uDD16', href: 'https://sprucebot.com' },
+						'I\'m a link'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<ControlButton iconRight="\uD83E\uDD16" href="https://sprucebot.com">I\'m a link</ControlButton>'
+					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
 					'Loaders'
 				),
 				_react2.default.createElement(
@@ -645,6 +796,126 @@ var Styleguide = function (_Component) {
 						null,
 						'<Switch on />'
 					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Date Select'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'Date Select allows for the selection of a single date and returns a moment object. Custom props allow blocked dates, default values, and initial visible months.'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<DateSelect\n\tallowPastDates\n\tbypassDaysBlocked\n\tonDateSelect={(date) => {\n\t\tconsole.log(date)\n\t}}\n\tsetDefaultDate={true}\n\tdefaultDate={moment(\'2018-08-10\')}\n\tinitialVisibleMonth={() => moment(\'2018-08-10\')}\n/>'
+					),
+					_react2.default.createElement(
+						FlexContainer,
+						null,
+						_react2.default.createElement(_DateSelect2.default, {
+							allowPastDates: true,
+							bypassDaysBlocked: true,
+							onDateSelect: function onDateSelect(date) {
+								console.log(date);
+							},
+							setDefaultDate: true,
+							defaultDate: (0, _momentTimezone2.default)('2018-08-10'),
+							initialVisibleMonth: function initialVisibleMonth() {
+								return (0, _momentTimezone2.default)('2018-08-10');
+							}
+						})
+					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Date Range Select'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'Date Range Select allows for the selection of a range of dates via choosing a start and end date, returning a moment object for each. Custom props allow for the viewing of outside month days, selection of an entire current week, and default date selection.'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<DateRangeSelect\n\tallowPastDates\n\tbypassDaysBlocked\n\tonDatesChange={(startDate, endDate) => {\n\t\tconsole.log(startDate, endDate)\n\t}}\n\tnumberOfMonths={1}\n\tsetDefaultDates\n\tdefaultStartDate={moment(\'2018-03-28\')}\n\tdefaultEndDate={moment()}\n/>'
+					),
+					_react2.default.createElement(
+						FlexContainer,
+						null,
+						_react2.default.createElement(_DateRangeSelect2.default, {
+							allowPastDates: true,
+							bypassDaysBlocked: true,
+							onDatesChange: function onDatesChange(startDate, endDate) {
+								console.log(startDate, endDate);
+							},
+							numberOfMonths: 1,
+							setDefaultDates: true,
+							defaultStartDate: (0, _momentTimezone2.default)('2018-03-28'),
+							defaultEndDate: (0, _momentTimezone2.default)()
+						})
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<DateRangeSelect\n\tallowPastDates\n\tbypassDaysBlocked\n\tonDatesChange={(startDate, endDate) => {\n\t\tconsole.log(startDate, endDate)\n\t}}\n\tnumberOfMonths={2}\n\tcurrentWeek\n\tenableOutsideDays\n\tinitialVisibleMonth={() => moment(\'2018-10-31\')}\n\torientation={\'vertical\'}\n/>'
+					),
+					_react2.default.createElement(
+						FlexContainer,
+						null,
+						_react2.default.createElement(_DateRangeSelect2.default, {
+							allowPastDates: true,
+							bypassDaysBlocked: true,
+							onDatesChange: function onDatesChange(startDate, endDate) {
+								console.log(startDate, endDate);
+							},
+							numberOfMonths: 2,
+							currentWeek: true,
+							enableOutsideDays: true,
+							initialVisibleMonth: function initialVisibleMonth() {
+								return (0, _momentTimezone2.default)('2018-10-31');
+							},
+							orientation: 'vertical'
+						})
+					)
+				),
+				_react2.default.createElement(
+					_Typography.H1,
+					null,
+					'Time Input'
+				),
+				_react2.default.createElement(
+					_Container2.default,
+					null,
+					_react2.default.createElement(
+						_BotText2.default,
+						null,
+						'The Time Input is a cross-browser compatible implementation for capturing a time.'
+					),
+					_react2.default.createElement(
+						_Pre2.default,
+						null,
+						'<TimeInput\n\tdefaultValue="22:15"\n\tonChange={newValue =>\n\t\tconsole.log(`Time Input Changed to: ${newValue}`)\n\t}\n\tref={ref => (this.timeInput = ref)}\n/>'
+					),
+					_react2.default.createElement(_TimeInput2.default, {
+						defaultValue: '22:15',
+						onChange: function onChange(newValue) {
+							return console.log('Time Input Changed to: ' + newValue);
+						},
+						ref: function ref(_ref2) {
+							return _this2.timeInput = _ref2;
+						}
+					})
 				),
 				_react2.default.createElement(
 					_Typography.H1,
@@ -1214,7 +1485,7 @@ var Styleguide = function (_Component) {
 					_react2.default.createElement(
 						_Pre2.default,
 						null,
-						'<Onboarding\n\theading={\'Onboarding\'}\n\tsteps={[\n\t\t\'This is an onboarding component.\',\n\t\t\'It has a heading\',\n\t\t\'And "guides" you through the steps like the TrainingGuide\',\n\t\t\'You can also change the label of the done button.\',\n\t\t\'Additionally, you can pass a boolean prop to say if onboarding has been completed.\',\n\t\t\'If the owner/teammate has done onboarding already, all of the messages will be displayed.\'\n\t]}\n\tonComplete={this.didCompleteOnboarding}\n\tdoneButtonLabel={\'Finish\'}\n\tonboardingComplete={this.props.onboarding.onboardingComplete}\t\n/>'
+						'<Onboarding\n\theading={\'Onboarding\'}\n\tsteps={[\n\t\t\'This is an onboarding component.\',\n\t\t\'It has a heading\',\n\t\t\'And "guides" you through the steps like the TrainingGuide\',\n\t\t\'You can also change the label of the done button.\',\n\t\t\'Additionally, you can pass a boolean prop to say if onboarding has been completed.\',\n\t\t\'If the owner/teammate has done onboarding already, all of the messages will be displayed.\'\n\t]}\n\tonComplete={this.didCompleteOnboarding}\n\tdoneButtonLabel={\'Finish\'}\n\tonboardingComplete={this.props.onboarding.onboardingComplete}\n/>'
 					)
 				),
 				_react2.default.createElement(

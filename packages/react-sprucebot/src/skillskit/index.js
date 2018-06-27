@@ -7,37 +7,22 @@ export default {
 	forceAuth: function() {
 		postMessage('Skill:ForceAuth')
 	},
-	resized: function() {
+	resized: function({ minHeight = 0 } = {}) {
 		var height = 0
 
-		function getBottom(elem) {
-			var box = elem.getBoundingClientRect()
+		var body = document.body
+		var docEl = document.documentElement
 
-			var body = document.body
-			var docEl = document.documentElement
-
-			var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop
-			var clientTop = docEl.clientTop || body.clientTop || 0
-			var top = box.top + scrollTop - clientTop
-			var bottom = top + elem.scrollHeight
-
-			return bottom
-		}
-
-		Array.from(
-			window.document.querySelectorAll('.container, .dialog_underlay')
-		).forEach(container => {
-			let bottom = getBottom(container)
-			if (bottom > height) {
-				height = bottom
-			}
-		})
+		var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop
+		var clientTop = docEl.clientTop || body.clientTop || 0
+		var top = scrollTop - clientTop
+		var height = Math.max(minHeight, top + body.clientHeight)
 
 		if (height != this.height) {
 			this.height = height
 			postMessage({
 				name: 'Skill:Resized',
-				height
+				height: height
 			})
 		}
 	},
@@ -52,9 +37,13 @@ export default {
 			url: window.location.href,
 			resetUrlTrail
 		})
-		this.resizedInterval = setInterval(this.resized.bind(this), 50)
+		this.resizedInterval = setInterval(this.resized.bind(this), 300)
 	},
 	scrollTo: function(offset) {
 		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 })
+	},
+
+	requestScroll: function() {
+		postMessage('Skill:RequestScroll')
 	}
 }

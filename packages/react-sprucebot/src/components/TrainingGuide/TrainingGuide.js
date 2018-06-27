@@ -69,6 +69,7 @@ export default class TrainingGuide extends Component {
 		if (this.state.currentStep !== prevState.currentStep) {
 			this.setState({ transitioning: true })
 
+			// todo , don't scroll UP, only down (need to postMessage to get scroll (see Dialog))
 			setTimeout(() => {
 				skill.scrollTo(
 					ReactDOM.findDOMNode(this.button).offsetTop -
@@ -101,12 +102,16 @@ export default class TrainingGuide extends Component {
 		})
 	}
 
+	onComplete() {
+		this.setState({ transitioning: true }) // just show progress until done
+		this.props.onComplete()
+	}
+
 	render() {
 		const {
 			steps,
 			nextButtonLabel,
 			doneButtonLabel,
-			onComplete,
 			onboardingComplete
 		} = this.props
 		const { currentStep, stepHeights, stepWidths, transitioning } = this.state
@@ -157,7 +162,7 @@ export default class TrainingGuide extends Component {
 								this.button = ref
 							}}
 							onClick={() => {
-								if (!transitioning) onComplete()
+								if (!transitioning) this.onComplete()
 							}}
 						>
 							{doneButtonLabel}

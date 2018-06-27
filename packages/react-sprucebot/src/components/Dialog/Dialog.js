@@ -6,114 +6,151 @@ import ReactDOM from 'react-dom'
 import skill from '../../skillskit/index'
 import Measure from 'react-measure'
 import Button from '../Button/Button'
+import SK from '../../skillskit'
+import { ENGINE_METHOD_DIGESTS } from 'constants'
 
 const DialogUnderlay = styled.div.attrs({
 	className: ({ show }) => classnames('dialog_underlay', show ? 'on' : 'off')
 })`
-	&& {
-		position: absolute;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		right: 0;
-		z-index: 1;
-		background-color: rgba(0, 0, 0, 0.6);
-		display: flex;
-		justify-content: center;
-		align-items: flex-start;
-		min-height: ${({ height }) => height + 40}px;
-		padding: 20px 0;
-	}
+	min-height: 100%;
 `
 
 const DialogContainer = styled.div.attrs({
 	className: ({ show, className }) =>
 		classnames('dialog', className, show ? 'on' : 'off')
 })`
-	&& {
-		position: relative;
-		transition: opacity 1s ease-in-out;
-		opacity: ${({ opacity }) => opacity || 0};
-		background-color: #fff;
-		border-radius: 4px;
-		z-index: 2;
-		padding: 20px;
-		margin: 0 auto;
-		width: 90%;
-		max-width: 500px;
-	}
+	opacity: ${props => props.opacity};
 `
 const DialogCloseButton = styled(Button).attrs({
 	className: 'btn__close_dialog',
 	remove: true
-})`
-	display: block;
-	position: absolute;
-	top: 15px;
-	right: 20px;
-`
+})``
 
 export default class Dialog extends Component {
 	constructor(props) {
 		super(props)
+
+		//for callbacks
+		this.iframeMessageHandler = this.iframeMessageHandler.bind(this)
+
 		this.state = {
 			width: -1,
-			height: 500
-		}
-	}
-	componentWillReceiveProps(nextProps) {
-		if (this.props.show !== nextProps.show) {
-			setTimeout(() => this.setState({ opacity: nextProps.show ? 1 : 0 }), 100)
-
-			// Port of SB-661 for all dialogs
-			// if (nextProps.show) {
-			// 	requestAnimationFrame(() => {
-			// 		skill.scrollTo(ReactDOM.findDOMNode(this.underlay).offsetTop)
-			// 	})
-			// }
+			height: 500,
+			scrollTop: 0,
+			firstShow: true,
+			opacity: 0
 		}
 	}
 	setSize({ width, height }) {
 		this.setState({ width, height })
+		this.postHeight()
+	}
+
+	postHeight() {
+		const underlay = document.querySelector('.dialog_underlay')
+		const underlayHeight = underlay ? underlay.offsetHeight : 0
+
+		//min height on body
+		document.body.style.minHeight = `${underlayHeight}px`
+	}
+	componentDidMount() {
+		window.addEventListener('message', this.iframeMessageHandler)
+		if (this.props.show && this.state.firstShow) {
+			SK.requestScroll()
+		}
+	}
+
+	componentDidUpdate() {
+		// in case our starting state is not showing
+		if (this.props.show && this.state.firstShow) {
+			SK.requestScroll()
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		// we are being hidden, reset
+		if (this.props.show && !nextProps.show) {
+			this.setState({
+				firshShow: false,
+				opacity: 0
+			})
+		}
+	}
+
+	componentWillUnmount() {
+		document.body.style.minHeight = `auto`
+		window.removeEventListener('message', this.iframeMessageHandler)
+	}
+
+	iframeMessageHandler(e) {
+		try {
+			const results = JSON.parse(e.data)
+			if (this.state.firstShow && results.name === 'SkillContainer:Scroll') {
+				const top =
+					results.skillScrollTop < 0 ? Math.abs(results.skillScrollTop) : 0
+				this.setState({
+					scrollTop: top,
+					firstShow: false,
+					opacity: 1
+				})
+			}
+		} catch (err) {
+			console.log('error', err)
+		}
+	}
+	onTapClose() {
+		this.postHeight()
+		this.props.onTapClose()
 	}
 	render() {
-		const { tag, children, className, show, onTapClose, ...props } = this.props
+		const { tag, children, className, show, ...props } = this.props
 		const { opacity, height } = this.state
 		const Tag = tag
+		const dialogStyle = {
+			marginTop: this.state.scrollTop
+		}
 
 		if (!show) {
 			return null
 		}
 
 		return (
-			<DialogUnderlay
-				ref={ref => (this.underlay = ref)}
-				show={show}
-				height={height}
+			<Measure
+				scroll
+				onResize={contentRect => {
+					this.setSize({
+						width: contentRect.scroll.width,
+						height: contentRect.scroll.height
+					})
+				}}
 			>
-				<Measure
-					bounds
-					onResize={contentRect => {
-						this.setSize({
-							width: contentRect.bounds.width,
-							height: contentRect.bounds.height
-						})
-					}}
-				>
-					{({ measureRef }) => (
+				{({ measureRef }) => (
+					<DialogUnderlay
+						ref={ref => (this.underlay = ref)}
+						show={show}
+						height={height}
+						onClick={e => {
+							if (e.target.className.search('dialog_underlay') > -1) {
+								this.onTapClose()
+							}
+						}}
+					>
 						<DialogContainer
 							innerRef={measureRef}
 							className={className}
 							show={show}
 							opacity={opacity}
+							style={dialogStyle}
 							{...props}
 						>
-							{onTapClose && <DialogCloseButton onClick={onTapClose} />}
+							{this.props.onTapClose && (
+								<DialogCloseButton onClick={this.onTapClose.bind(this)} />
+							)}
 							{children}
 						</DialogContainer>
-					)}
-				</Measure>
-			</DialogUnderlay>
+					</DialogUnderlay>
+				)}
+			</Measure>
 		)
 	}
 }

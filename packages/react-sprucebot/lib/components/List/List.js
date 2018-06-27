@@ -25,6 +25,8 @@ var _Avatar2 = _interopRequireDefault(_Avatar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51,10 +53,8 @@ var ListItemWrapper = _styledComponents2.default.div.attrs({
 }).withConfig({
 	displayName: 'List__ListItemWrapper',
 	componentId: 's15prkdz-1'
-})(['display:flex;', ';', ';'], function (props) {
+})(['display:flex;', ';'], function (props) {
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
-}, function (props) {
-	return props.online ? '' : 'opacity: .4;';
 });
 
 var ItemAvatar = _styledComponents2.default.div.attrs({
@@ -85,8 +85,12 @@ var ItemTitle = _styledComponents2.default.div.attrs({
 }).withConfig({
 	displayName: 'List__ItemTitle',
 	componentId: 's15prkdz-5'
-})(['', ';'], function (props) {
+})(['', ';width:', ';', ';'], function (props) {
 	return props.weight ? 'font-weight: ' + props.weight : 'font-weight: 500;';
+}, function (props) {
+	return props.width ? '' + props.width : 'unset';
+}, function (props) {
+	return props.overflow && '\n\t\toverflow: hidden;\n\t\twhite-space: nowrap;\n\t\ttext-overflow: ellipsis;\n\t';
 });
 
 var ItemSubTitle = _styledComponents2.default.div.attrs({
@@ -120,7 +124,11 @@ var ListItem = exports.ListItem = function (_Component) {
 			    avatar = _props.avatar,
 			    showOnlineIndicator = _props.showOnlineIndicator,
 			    alignItems = _props.alignItems,
-			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems']);
+			    overflow = _props.overflow,
+			    width = _props.width,
+			    componentAsSubtitle = _props.componentAsSubtitle,
+			    onClick = _props.onClick,
+			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle', 'onClick']);
 
 			// build children
 
@@ -128,6 +136,14 @@ var ListItem = exports.ListItem = function (_Component) {
 			children = children || [];
 			if (!Array.isArray(children)) {
 				children = [children];
+			}
+
+			if (componentAsSubtitle && componentAsSubtitle.length > 0) {
+				var _children;
+
+				(_children = children).unshift.apply(_children, _toConsumableArray(componentAsSubtitle));
+			} else if (componentAsSubtitle) {
+				children.unshift(componentAsSubtitle);
 			}
 
 			// setup title/subtitle
@@ -142,17 +158,17 @@ var ListItem = exports.ListItem = function (_Component) {
 			if (title) {
 				children.unshift(_react2.default.createElement(
 					ItemTitle,
-					{ key: 'title' },
+					{ overflow: overflow, width: width, key: 'title' },
 					title
 				));
 			}
 
 			return _react2.default.createElement(
 				ListItemWrapper,
-				this.props,
+				props,
 				avatar && _react2.default.createElement(
 					ItemAvatar,
-					{ alignItems: alignItems },
+					{ onClick: onClick, alignItems: alignItems },
 					avatar === true ? _react2.default.createElement(_Avatar2.default, {
 						online: online,
 						showOnlineIndicator: showOnlineIndicator
@@ -164,7 +180,7 @@ var ListItem = exports.ListItem = function (_Component) {
 				),
 				children && _react2.default.createElement(
 					ItemDetail,
-					null,
+					{ onClick: onClick },
 					children
 				),
 				(rightTitle || rightSubtitle || rightInput) && _react2.default.createElement(

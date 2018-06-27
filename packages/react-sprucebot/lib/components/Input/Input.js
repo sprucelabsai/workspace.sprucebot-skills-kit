@@ -41,7 +41,6 @@ var Input = function (_Component) {
 		_this.state = {
 			hasValue: !!(props.value || props.defaultValue)
 		};
-		console.warn('Deprecated Notice: react-sprucebot#Input will be removed in a future verison \n', 'Use {InputField|SelectField|TextArea} along with redux-form');
 		return _this;
 	}
 
