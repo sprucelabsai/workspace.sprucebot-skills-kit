@@ -39,6 +39,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var StyledTab = (0, _styledComponents2.default)(_Button2.default).withConfig({
+	displayName: 'Tabs__StyledTab',
+	componentId: 's2xsdn9-0'
+})(['flex:1;']);
+
 var Tabs = exports.Tabs = function (_Component) {
 	_inherits(Tabs, _Component);
 
@@ -140,7 +145,7 @@ var Tabs = exports.Tabs = function (_Component) {
 				}
 
 				tabs.push(_react2.default.createElement(
-					_Button2.default,
+					StyledTab,
 					{
 						onClick: function onClick(e) {
 							_this2.onTabClick(idx, tab.key, e);

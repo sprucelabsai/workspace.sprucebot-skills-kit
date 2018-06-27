@@ -34,18 +34,64 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Button = function (_Component) {
 	_inherits(Button, _Component);
 
-	function Button() {
+	function Button(props) {
 		_classCallCheck(this, Button);
 
-		return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
+
+		_this.onClick = function (e) {
+			if (_this.props.onClick) {
+				_this.props.onClick(e);
+			} else if (_this.props.href) {
+				e.preventDefault();
+				_this.setState({ busy: true });
+				var url = _this.props.href;
+				if (/^http/.test(url)) {
+					// If the href is a full domain name
+					if (_this.props.target) {
+						window.open(url, _this.props.target);
+					} else {
+						window.open(url, '_self');
+					}
+				} else {
+					// Relative url
+					if (_this.props.target) {
+						window.open(url, _this.props.target);
+					} else if (_this.props.router) {
+						_this.props.router.push(url);
+					} else {
+						window.open(url, '_self');
+					}
+				}
+
+				// Reset the state to not-busy if it's been 10 sec
+				// is there a reason for this?
+				setTimeout(function () {
+					_this.setState({ busy: false });
+				}, 10000);
+			}
+		};
+
+		_this.state = {
+			busy: !!props.busy
+		};
+		return _this;
 	}
 
 	_createClass(Button, [{
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			if (typeof nextProps.busy !== 'undefined') {
+				this.setState({
+					busy: nextProps.busy
+				});
+			}
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var _props = this.props,
 			    tag = _props.tag,
-			    busy = _props.busy,
 			    disabled = _props.disabled,
 			    primary = _props.primary,
 			    secondary = _props.secondary,
@@ -57,7 +103,15 @@ var Button = function (_Component) {
 			    submit = _props.submit,
 			    remove = _props.remove,
 			    toggle = _props.toggle,
-			    props = _objectWithoutProperties(_props, ['tag', 'busy', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle']);
+			    router = _props.router,
+			    loaderDark = _props.loaderDark,
+			    loaderStyle = _props.loaderStyle,
+			    propBusy = _props.busy,
+			    hideLoader = _props.hideLoader,
+			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader']);
+
+			var busy = this.state.busy;
+
 
 			if (primary && secondary) {
 				return _react2.default.createElement(
@@ -93,8 +147,15 @@ var Button = function (_Component) {
 
 			return _react2.default.createElement(
 				Tag,
-				_extends({ className: btnClass + ' ' + (className || '') }, props),
-				busy ? _react2.default.createElement(_Loader2.default, { dark: false, fullWidth: false }) : children
+				_extends({
+					className: btnClass + ' ' + (className || ''),
+					onClick: this.onClick
+				}, props),
+				busy && !hideLoader ? _react2.default.createElement(_Loader2.default, {
+					dark: loaderDark ? true : false,
+					fullWidth: false,
+					loaderStyle: loaderStyle
+				}) : children
 			);
 		}
 	}]);
@@ -114,7 +175,8 @@ Button.propTypes = {
 	href: _propTypes2.default.string,
 	remove: _propTypes2.default.bool,
 	toggle: _propTypes2.default.bool,
-	type: _propTypes2.default.string.isRequired
+	hideLoader: _propTypes2.default.bool,
+	type: _propTypes2.default.string
 };
 
 Button.defaultProps = {

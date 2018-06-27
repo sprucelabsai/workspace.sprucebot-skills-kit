@@ -1,11 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c1.c1 {
+  -webkit-flex: 0.5;
+  -ms-flex: 0.5;
+  flex: 0.5;
+}
+
 <ul
-  className="pager"
+  className="pager c0"
 >
   <li
-    className="first disabled"
+    className="first disabled c1"
     onClick={[Function]}
   >
     <a>
@@ -13,7 +30,7 @@ exports[`it renders 1`] = `
     </a>
   </li>
   <li
-    className="back disabled"
+    className="back disabled c1"
     onClick={[Function]}
   >
     <a>
@@ -21,14 +38,12 @@ exports[`it renders 1`] = `
     </a>
   </li>
   <li
-    className="current"
+    className="current "
   >
-    <a>
-      1 of 1
-    </a>
+    1 of 1
   </li>
   <li
-    className="next disabled"
+    className="next disabled c1"
     onClick={[Function]}
   >
     <a>
@@ -36,7 +51,7 @@ exports[`it renders 1`] = `
     </a>
   </li>
   <li
-    className="last disabled"
+    className="last disabled c1"
     onClick={[Function]}
   >
     <a>

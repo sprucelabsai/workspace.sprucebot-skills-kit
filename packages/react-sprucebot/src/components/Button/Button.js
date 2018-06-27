@@ -4,10 +4,54 @@ import Loader from '../Loader/Loader'
 
 // TODO refactor into styled component
 export default class Button extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			busy: !!props.busy
+		}
+	}
+	componentWillReceiveProps(nextProps) {
+		if (typeof nextProps.busy !== 'undefined') {
+			this.setState({
+				busy: nextProps.busy
+			})
+		}
+	}
+	onClick = e => {
+		if (this.props.onClick) {
+			this.props.onClick(e)
+		} else if (this.props.href) {
+			e.preventDefault()
+			this.setState({ busy: true })
+			const url = this.props.href
+			if (/^http/.test(url)) {
+				// If the href is a full domain name
+				if (this.props.target) {
+					window.open(url, this.props.target)
+				} else {
+					window.open(url, '_self')
+				}
+			} else {
+				// Relative url
+				if (this.props.target) {
+					window.open(url, this.props.target)
+				} else if (this.props.router) {
+					this.props.router.push(url)
+				} else {
+					window.open(url, '_self')
+				}
+			}
+
+			// Reset the state to not-busy if it's been 10 sec
+			// is there a reason for this?
+			setTimeout(() => {
+				this.setState({ busy: false })
+			}, 10000)
+		}
+	}
 	render() {
 		const {
 			tag,
-			busy,
 			disabled,
 			primary,
 			secondary,
@@ -19,8 +63,15 @@ export default class Button extends Component {
 			submit,
 			remove,
 			toggle,
+			router,
+			loaderDark,
+			loaderStyle,
+			busy: propBusy,
+			hideLoader,
 			...props
 		} = this.props
+
+		const { busy } = this.state
 
 		if (primary && secondary) {
 			return (
@@ -55,8 +106,20 @@ export default class Button extends Component {
 		const Tag = props.href || remove ? 'a' : tag
 
 		return (
-			<Tag className={`${btnClass} ${className || ''}`} {...props}>
-				{busy ? <Loader dark={false} fullWidth={false} /> : children}
+			<Tag
+				className={`${btnClass} ${className || ''}`}
+				onClick={this.onClick}
+				{...props}
+			>
+				{busy && !hideLoader ? (
+					<Loader
+						dark={loaderDark ? true : false}
+						fullWidth={false}
+						loaderStyle={loaderStyle}
+					/>
+				) : (
+					children
+				)}
 			</Tag>
 		)
 	}
@@ -71,7 +134,8 @@ Button.propTypes = {
 	href: PropTypes.string,
 	remove: PropTypes.bool,
 	toggle: PropTypes.bool,
-	type: PropTypes.string.isRequired
+	hideLoader: PropTypes.bool,
+	type: PropTypes.string
 }
 
 Button.defaultProps = {

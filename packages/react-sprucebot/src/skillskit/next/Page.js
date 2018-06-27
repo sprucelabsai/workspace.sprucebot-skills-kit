@@ -36,7 +36,8 @@ const Page = Wrapped => {
 		constructor(props) {
 			super(props)
 			this.state = {
-				attemptingReAuth: !!props.attemptingReAuth
+				attemptingReAuth: !!props.attemptingReAuth,
+				isIframed: true
 			}
 
 			this.messageHandler = this.messageHandler.bind(this)
@@ -92,7 +93,12 @@ const Page = Wrapped => {
 
 			let redirect = props.redirect || false
 
-			if (query.back && query.jwt && query.back.search('sprucebot.com') > 0) {
+			if (
+				query.back &&
+				query.jwt &&
+				(query.back.search('sprucebot.com') > 0 ||
+					query.back.search('bshop.io') > 0)
+			) {
 				// if there is a jwt, we are being authed
 				redirect = query.back
 			} else if (
@@ -156,11 +162,20 @@ const Page = Wrapped => {
 				// make sure we are being loaded inside sb
 				console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL')
 				this.setState({
-					attemptingReAuth: false
+					attemptingReAuth: false,
+					isIframed: !!window.__SBTEAMMATE__
 				})
 			} else if (this.props.attemptingReAuth) {
 				skill.forceAuth()
 			}
+
+			// NOTE: Need to do this require here so that we can be sure the global window is defined
+			const WebFont = require('webfontloader') //eslint-disable-line
+			WebFont.load({
+				google: {
+					families: ['Material Icons']
+				}
+			})
 		}
 
 		componentWillUnmount() {
@@ -174,12 +189,32 @@ const Page = Wrapped => {
 			if (this.props.config.DEV_MODE) {
 				return (
 					<div>
+						{this.state.isIframed ? (
+							<style jsx global>{`
+								html,
+								body {
+									overflow: hidden;
+								}
+							`}</style>
+						) : null}
 						<DevControls auth={this.props.auth} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 					</div>
 				)
 			}
-			return <ConnectedWrapped {...this.props} skill={skill} lang={lang} />
+			return (
+				<div>
+					{this.state.isIframed ? (
+						<style jsx global>{`
+							html,
+							body {
+								overflow: hidden;
+							}
+						`}</style>
+					) : null}
+					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
+				</div>
+			)
 		}
 	}
 }

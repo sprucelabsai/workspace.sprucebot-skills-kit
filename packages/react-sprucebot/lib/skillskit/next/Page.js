@@ -91,7 +91,8 @@ var Page = function Page(Wrapped) {
 			var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
 
 			_this.state = {
-				attemptingReAuth: !!props.attemptingReAuth
+				attemptingReAuth: !!props.attemptingReAuth,
+				isIframed: true
 			};
 
 			_this.messageHandler = _this.messageHandler.bind(_this);
@@ -113,6 +114,7 @@ var Page = function Page(Wrapped) {
 			key: 'componentDidMount',
 			value: function () {
 				var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+					var WebFont;
 					return regeneratorRuntime.wrap(function _callee$(_context) {
 						while (1) {
 							switch (_context.prev = _context.next) {
@@ -123,13 +125,23 @@ var Page = function Page(Wrapped) {
 										// make sure we are being loaded inside sb
 										console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL');
 										this.setState({
-											attemptingReAuth: false
+											attemptingReAuth: false,
+											isIframed: !!window.__SBTEAMMATE__
 										});
 									} else if (this.props.attemptingReAuth) {
 										_index2.default.forceAuth();
 									}
 
-								case 2:
+									// NOTE: Need to do this require here so that we can be sure the global window is defined
+									WebFont = require('webfontloader'); //eslint-disable-line
+
+									WebFont.load({
+										google: {
+											families: ['Material Icons']
+										}
+									});
+
+								case 4:
 								case 'end':
 									return _context.stop();
 							}
@@ -158,11 +170,25 @@ var Page = function Page(Wrapped) {
 					return _react2.default.createElement(
 						'div',
 						null,
+						this.state.isIframed ? _react2.default.createElement(
+							'style',
+							{ jsx: true, global: true },
+							'\n\t\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t'
+						) : null,
 						_react2.default.createElement(_DevControls2.default, { auth: this.props.auth }),
 						_react2.default.createElement(ConnectedWrapped, _extends({}, this.props, { skill: _index2.default, lang: _lang2.default }))
 					);
 				}
-				return _react2.default.createElement(ConnectedWrapped, _extends({}, this.props, { skill: _index2.default, lang: _lang2.default }));
+				return _react2.default.createElement(
+					'div',
+					null,
+					this.state.isIframed ? _react2.default.createElement(
+						'style',
+						{ jsx: true, global: true },
+						'\n\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t'
+					) : null,
+					_react2.default.createElement(ConnectedWrapped, _extends({}, this.props, { skill: _index2.default, lang: _lang2.default }))
+				);
 			}
 		}], [{
 			key: 'getInitialProps',
@@ -261,7 +287,7 @@ var Page = function Page(Wrapped) {
 									redirect = props.redirect || false;
 
 
-									if (query.back && query.jwt && query.back.search('sprucebot.com') > 0) {
+									if (query.back && query.jwt && (query.back.search('sprucebot.com') > 0 || query.back.search('bshop.io') > 0)) {
 										// if there is a jwt, we are being authed
 										redirect = query.back;
 									} else if (!redirect && !props.public && (!state.auth || !state.auth.role || state.auth.error)) {
