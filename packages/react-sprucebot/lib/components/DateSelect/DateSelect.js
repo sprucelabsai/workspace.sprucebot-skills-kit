@@ -133,7 +133,6 @@ var DateSelect = function (_Component) {
 			    date = _state.date,
 			    defaultDateSet = _state.defaultDateSet;
 			var _props = this.props,
-			    placeholder = _props.placeholder,
 			    setDefaultDate = _props.setDefaultDate,
 			    initialVisibleMonth = _props.initialVisibleMonth;
 
@@ -143,7 +142,6 @@ var DateSelect = function (_Component) {
 				null,
 				_react2.default.createElement(_reactDates.DayPickerSingleDateController, {
 					date: date || null,
-					placeholder: placeholder || null,
 					onDateChange: function onDateChange(date) {
 						return _this2.handleDateChange(date);
 					},
@@ -192,7 +190,6 @@ DateSelect.propTypes = {
 	bypassDaysBlocked: _propTypes2.default.bool,
 	allowPastDates: _propTypes2.default.bool,
 	onDateSelect: _propTypes2.default.func.isRequired,
-	placeholder: _propTypes2.default.string,
 	setDefaultDate: _propTypes2.default.bool,
 	defaultDate: _propTypes2.default.any,
 	initialVisibleMonth: _propTypes2.default.func
