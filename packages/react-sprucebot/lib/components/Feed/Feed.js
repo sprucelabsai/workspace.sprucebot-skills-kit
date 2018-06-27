@@ -118,14 +118,14 @@ var FeedItem = exports.FeedItem = function (_Component2) {
 			    user = _props2.user,
 			    message = _props2.message,
 			    date = _props2.date,
-			    attachments = _props2.attachments;
-
+			    attachments = _props2.attachments,
+			    props = _objectWithoutProperties(_props2, ['bigAvatar', 'header', 'user', 'message', 'date', 'attachments']);
 
 			var imageKey = bigAvatar ? 'profile150@2x' : 'profile60';
 
 			return _react2.default.createElement(
 				'div',
-				{ className: 'feed__item ' + (bigAvatar ? 'big_avatar' : '') },
+				_extends({ className: 'feed__item ' + (bigAvatar ? 'big_avatar' : '') }, props),
 				header && _react2.default.createElement(
 					_Typography.SectionHeading,
 					null,
