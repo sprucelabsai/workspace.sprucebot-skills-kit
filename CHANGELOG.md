@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.6.1"></a>
+## [6.6.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.6.0...v6.6.1) (2018-06-14)
+
+
+### Bug Fixes
+
+* **sb-1361:** imagecropper now respects crop props aspect ([#61](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/61)) ([6bdde2b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6bdde2b))
+* **SB-1461:** classes for switches are same as core ([#69](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/69)) ([d252529](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d252529))
+* **SB-1515:** add role to metas query ([#70](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/70)) ([1cbe88e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1cbe88e))
+* **SB-1651:** url trails ([c1cad7a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c1cad7a))
+* **SB-413:** can no longer spam buttons on imagecropper ([#68](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/68)) ([f43d249](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f43d249))
+* **SB-692:** fix occasional error where input.style came in undefined ([#60](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/60)) ([2f34b66](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2f34b66))
+
+
+### Features
+
+* **SB-1323:** force skills dev to implement  will-send-training event ([#55](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/55)) ([f55eb73](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f55eb73))
+* **SB-1333:** onboarding completion is checked server-side ([#59](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/59)) ([15b47a1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/15b47a1))
+* **SB-1448:** adds /public route and page to skills kit ([34deaa7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/34deaa7))
+* **SB-1448:** REVERT adds /public route and page to skills kit ([#67](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/67)) ([7367f1e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7367f1e))
+
+
+
+
 
 <a name="6.6.0"></a>
 # [6.6.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.5.0...v6.6.0) (2018-04-27)
