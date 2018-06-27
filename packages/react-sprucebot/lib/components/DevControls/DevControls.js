@@ -79,7 +79,7 @@ var DevControls = function (_Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'error' },
-						'Your skill must be enabled and viewed through Sprucebot to get dev\'ing.'
+						'You\'re gonna wanna be logged in for this. \uD83D\uDE4F'
 					)
 				);
 			}
