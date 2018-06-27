@@ -72,8 +72,7 @@ export default class TrainingGuide extends Component {
 			// todo , don't scroll UP, only down (need to postMessage to get scroll (see Dialog))
 			setTimeout(() => {
 				skill.scrollTo(
-					ReactDOM.findDOMNode(this.button).offsetTop -
-						window.screen.height * 0.5
+					ReactDOM.findDOMNode(this.button).offsetTop - window.outerHeight * 0.5
 				)
 				this.setState({ transitioning: false })
 			}, 1500)
