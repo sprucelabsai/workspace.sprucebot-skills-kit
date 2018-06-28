@@ -30,9 +30,9 @@ var _reactRequiredIf2 = _interopRequireDefault(_reactRequiredIf);
 
 var _reactDates = require('react-dates');
 
-var _IconButton = require('../IconButton/IconButton');
+var _Icon = require('../Icon/Icon');
 
-var _IconButton2 = _interopRequireDefault(_IconButton);
+var _Icon2 = _interopRequireDefault(_Icon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56,10 +56,10 @@ var WhiteLabel = (0, _styledComponents2.default)(Wrapper).withConfig({
 	return props.enableOutsideDays && '\n\t.CalendarDay__outside {\n\t\tcolor: #c4c4c4;\n\t}\n';
 });
 
-var NavButton = (0, _styledComponents2.default)(_IconButton2.default).withConfig({
+var NavButton = (0, _styledComponents2.default)(_Icon2.default).withConfig({
 	displayName: 'DateRangeSelect__NavButton',
 	componentId: 's1fltukk-2'
-})(['display:flex;justify-content:center;padding:0;margin:0;margin-right:0;color:#fff;']);
+})(['display:flex;justify-content:center;padding:0;margin:0;margin-right:0;border-radius:50%;color:#fff;background-color:#00aac7;font-size:1.5em;']);
 
 var DateRangeSelect = function (_Component) {
 	_inherits(DateRangeSelect, _Component);
@@ -193,12 +193,12 @@ var DateRangeSelect = function (_Component) {
 					initialVisibleMonth: initialVisibleMonth,
 					navPrev: _react2.default.createElement(
 						NavButton,
-						{ fontSize: '1.5em' },
+						null,
 						orientation === 'vertical' ? 'keyboard_arrow_up' : 'chevron_left'
 					),
 					navNext: _react2.default.createElement(
 						NavButton,
-						{ fontSize: '1.5em' },
+						null,
 						orientation === 'vertical' ? 'keyboard_arrow_down' : 'chevron_right'
 					),
 					enableOutsideDays: enableOutsideDays,

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import requiredIf from 'react-required-if'
 import { DayPickerSingleDateController } from 'react-dates'
 
-import IconButton from '../IconButton/IconButton'
+import Icon from '../Icon/Icon'
 
 const Wrapper = styled.div`
 	.PresetDateRangePicker_panel {
@@ -866,10 +866,16 @@ const WhiteLabel = styled(Wrapper)`
 	}
 `
 
-const NavButton = styled(IconButton)`
+const NavButton = styled(Icon)`
 	display: flex;
 	justify-content: center;
+	padding: 0;
+	margin: 0;
+	margin-right: 0;
+	border-radius: 50%;
 	color: #fff;
+	background-color: #00aac7;
+	font-size: 1.5em;
 `
 
 class DateSelect extends Component {
@@ -947,8 +953,8 @@ class DateSelect extends Component {
 						setDefaultDate && !defaultDateSet && this.setDefaultDate()
 					}
 					initialVisibleMonth={initialVisibleMonth} // PropTypes.func
-					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
-					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
+					navPrev={<NavButton>chevron_left</NavButton>}
+					navNext={<NavButton>chevron_right</NavButton>}
 					keepOpenOnDateSelect
 					hideKeyboardShortcutsPanel
 				/>

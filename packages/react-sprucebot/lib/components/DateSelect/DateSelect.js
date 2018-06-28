@@ -30,9 +30,9 @@ var _reactRequiredIf2 = _interopRequireDefault(_reactRequiredIf);
 
 var _reactDates = require('react-dates');
 
-var _IconButton = require('../IconButton/IconButton');
+var _Icon = require('../Icon/Icon');
 
-var _IconButton2 = _interopRequireDefault(_IconButton);
+var _Icon2 = _interopRequireDefault(_Icon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52,10 +52,10 @@ var WhiteLabel = (0, _styledComponents2.default)(Wrapper).withConfig({
 	componentId: 's1u7vvps-1'
 })(['.CalendarDay__selected,.CalendarDay__selected:active,.CalendarDay__selected:hover{background:#00aac7;border:1px solid #00aac7;}.DateInput_fang{display:none;}.DayPickerNavigation{position:absolute;display:flex;justify-content:space-between;width:100%;padding:1em;z-index:2;}.DayPickerNavigation_button{display:flex;justify-content:center;height:28px;width:28px;padding:0;border-radius:50%;background-color:#00aac7;}']);
 
-var NavButton = (0, _styledComponents2.default)(_IconButton2.default).withConfig({
+var NavButton = (0, _styledComponents2.default)(_Icon2.default).withConfig({
 	displayName: 'DateSelect__NavButton',
 	componentId: 's1u7vvps-2'
-})(['display:flex;justify-content:center;color:#fff;']);
+})(['display:flex;justify-content:center;padding:0;margin:0;margin-right:0;border-radius:50%;color:#fff;background-color:#00aac7;font-size:1.5em;']);
 
 var DateSelect = function (_Component) {
 	_inherits(DateSelect, _Component);
@@ -157,12 +157,12 @@ var DateSelect = function (_Component) {
 					initialVisibleMonth: initialVisibleMonth // PropTypes.func
 					, navPrev: _react2.default.createElement(
 						NavButton,
-						{ fontSize: '1.5em' },
+						null,
 						'chevron_left'
 					),
 					navNext: _react2.default.createElement(
 						NavButton,
-						{ fontSize: '1.5em' },
+						null,
 						'chevron_right'
 					),
 					keepOpenOnDateSelect: true,
