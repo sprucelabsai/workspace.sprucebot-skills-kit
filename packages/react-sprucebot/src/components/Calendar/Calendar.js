@@ -11,17 +11,10 @@ import PropTypes from 'prop-types'
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLocalizer
 
-const CalendarComponent = withDragAndDrop(BigCalendar)
-
-const CalendWrapper = styled.div.attrs({
-	className: `rbc-calendar__wrapper`
-})`
+const CalendarComponent = styled(withDragAndDrop(BigCalendar))`
 	height: ${props => props.height};
 	${props =>
 		props.defaultView === 'week' && `position: absolute; width: 1000px;`};
-`
-
-injectGlobal`
 	.rbc-btn {
 		color: inherit;
 		font: inherit;
@@ -43,6 +36,7 @@ injectGlobal`
 	.rbc-calendar {
 		box-sizing: border-box;
 		height: 100%;
+		min-width: 300px;
 		display: -webkit-flex;
 		display: -ms-flexbox;
 		display: flex;
@@ -602,9 +596,6 @@ injectGlobal`
 		font-size: 0.8em;
 		content: 'All day';
 	}
-	.rbc-time-header-cell {
-		${props => props.defaultView === 'day' && `display: none`};
-	}
 	.rbc-time-header.rbc-overflowing {
 		border-right: 1px solid #ddd;
 	}
@@ -745,6 +736,29 @@ injectGlobal`
 		cursor: ew-resize;
 	}
 	/*White Label*/
+	.rbc-time-header-cell {
+		${props => props.defaultView === 'day' && `display: none`};
+	}
+	.rbc-time-gutter {
+		${props =>
+			props.multiCalendarOrder &&
+			props.multiCalendarOrder !== 0 &&
+			`
+			width: 0px;
+			color: rgba(0,0,0,0);
+			.rbc-label {
+				padding: 0;
+			}
+			`};
+	}
+	.rbc-time-header-gutter {
+		${props =>
+			props.multiCalendarOrder &&
+			props.multiCalendarOrder !== 0 &&
+			`
+			display: none;
+			`};
+	}
 	.rbc-current-time-indicator {
 		height: 2px;
 		background-color: #f85a3e;
@@ -752,9 +766,6 @@ injectGlobal`
 	.rbc-today {
 		background-color: rgba(96, 180, 199, 0.1);
 		color: #00aac7;
-	}
-	.rbc-selected {
-		z-index: 1;
 	}
 	.rbc-event__shift-day,
 	.rbc-event__shift-week {
@@ -764,6 +775,7 @@ injectGlobal`
 		border-radius: 5px;
 		background-color: #dbeff3;
 		color: #4cadc1;
+		z-index: 1;
 	}
 	.rbc-event__shift-day.rbc-event-teammate,
 	.rbc-event__shift-week.rbc-event-teammate {
@@ -777,6 +789,7 @@ injectGlobal`
 		border-radius: 5px;
 		background-color: #c8dadd;
 		color: #387e8d;
+		z-index: 2;
 	}
 	.rbc-event__block-day,
 	.rbc-event__block-week {
@@ -786,6 +799,7 @@ injectGlobal`
 		border-radius: 5px;
 		background-color: #949494;
 		color: #0e2024;
+		z-index: 3;
 	}
 	.rbc-event__off-hours-day,
 	.rbc-event__off-hours-week,
@@ -799,13 +813,16 @@ injectGlobal`
 		background-color: rgba(66, 96, 126, 0.1);
 		pointer-events: none !important;
 	}
+	.rbc-selected {
+		z-index: 5;
+	}
 `
 
 class Calendar extends Component {
 	state = {}
 
 	onNavigate = e => {
-		// Not fired with current build but causes error
+		// Not fired with current build but causes error if omitted
 		console.log('onNavigate', e)
 	}
 
@@ -831,35 +848,36 @@ class Calendar extends Component {
 			onSelectEvent,
 			onSelectSlot,
 			onEventDrop,
-			onEventResize
+			onEventResize,
+			multiCalendarOrder
 		} = this.props
 
 		return (
-			<CalendWrapper height={height} defaultView={defaultView}>
-				<CalendarComponent
-					date={date || new Date()}
-					defaultView={defaultView}
-					views={views}
-					events={events}
-					step={step}
-					timeslots={timeslots}
-					min={min}
-					max={max}
-					formats={formats}
-					toolbar={toolbar}
-					titleAccessor={titleAccessor}
-					startAccessor={startAccessor}
-					endAccessor={endAccessor}
-					allDayAccessor={allDayAccessor}
-					selectable={selectable}
-					eventPropGetter={eventPropGetter}
-					onNavigate={this.onNavigate}
-					onSelectEvent={onSelectEvent}
-					onSelectSlot={onSelectSlot}
-					onEventDrop={onEventDrop}
-					onEventResize={onEventResize}
-				/>
-			</CalendWrapper>
+			<CalendarComponent
+				height={height}
+				date={date || new Date()}
+				defaultView={defaultView}
+				views={views}
+				events={events}
+				step={step}
+				timeslots={timeslots}
+				min={min}
+				max={max}
+				formats={formats}
+				toolbar={toolbar}
+				titleAccessor={titleAccessor}
+				startAccessor={startAccessor}
+				endAccessor={endAccessor}
+				allDayAccessor={allDayAccessor}
+				selectable={selectable}
+				eventPropGetter={eventPropGetter}
+				onNavigate={this.onNavigate}
+				onSelectEvent={onSelectEvent}
+				onSelectSlot={onSelectSlot}
+				onEventDrop={onEventDrop}
+				onEventResize={onEventResize}
+				multiCalendarOrder={multiCalendarOrder}
+			/>
 		)
 	}
 }
