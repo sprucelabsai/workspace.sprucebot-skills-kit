@@ -775,7 +775,7 @@ const CalendarComponent = styled(withDragAndDrop(BigCalendar))`
 		border-radius: 5px;
 		background-color: #dbeff3;
 		color: #4cadc1;
-		z-index: 1;
+		z-index: 1 !important;
 	}
 	.rbc-event__shift-day.rbc-event-teammate,
 	.rbc-event__shift-week.rbc-event-teammate {
@@ -789,7 +789,7 @@ const CalendarComponent = styled(withDragAndDrop(BigCalendar))`
 		border-radius: 5px;
 		background-color: #c8dadd;
 		color: #387e8d;
-		z-index: 2;
+		z-index: 2 !important;
 	}
 	.rbc-event__block-day,
 	.rbc-event__block-week {
@@ -799,7 +799,7 @@ const CalendarComponent = styled(withDragAndDrop(BigCalendar))`
 		border-radius: 5px;
 		background-color: #949494;
 		color: #0e2024;
-		z-index: 3;
+		z-index: 3 !important;
 	}
 	.rbc-event__off-hours-day,
 	.rbc-event__off-hours-week,
@@ -814,7 +814,7 @@ const CalendarComponent = styled(withDragAndDrop(BigCalendar))`
 		pointer-events: none !important;
 	}
 	.rbc-selected {
-		z-index: 5;
+		z-index: 5 !important;
 	}
 `
 
