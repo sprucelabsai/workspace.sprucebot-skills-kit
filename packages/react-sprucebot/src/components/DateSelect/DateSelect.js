@@ -883,6 +883,15 @@ class DateSelect extends Component {
 		defaultDateSet: false
 	}
 
+	componentDidMount = () => {
+		const { setDefaultDate } = this.props
+		const { defaultDate } = this.state
+
+		if (setDefaultDate && !defaultDate) {
+			this.setDefaultDate()
+		}
+	}
+
 	isDayBlocked = date => {
 		const { availableDays, bypassDaysBlocked } = this.props
 
@@ -936,8 +945,8 @@ class DateSelect extends Component {
 	}
 
 	render() {
-		const { date, defaultDateSet } = this.state
-		const { setDefaultDate, initialVisibleMonth } = this.props
+		const { date } = this.state
+		const { initialVisibleMonth } = this.props
 
 		return (
 			<WhiteLabel>
@@ -949,9 +958,6 @@ class DateSelect extends Component {
 					numberOfMonths={1}
 					isDayBlocked={this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
-					setDefaultDate={
-						setDefaultDate && !defaultDateSet && this.setDefaultDate()
-					}
 					initialVisibleMonth={initialVisibleMonth} // PropTypes.func
 					navPrev={<NavButton>chevron_left</NavButton>}
 					navNext={<NavButton>chevron_right</NavButton>}
