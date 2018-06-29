@@ -30,9 +30,9 @@ var _reactRequiredIf2 = _interopRequireDefault(_reactRequiredIf);
 
 var _reactDates = require('react-dates');
 
-var _IconButton = require('../IconButton/IconButton');
+var _Icon = require('../Icon/Icon');
 
-var _IconButton2 = _interopRequireDefault(_IconButton);
+var _Icon2 = _interopRequireDefault(_Icon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56,10 +56,10 @@ var WhiteLabel = (0, _styledComponents2.default)(Wrapper).withConfig({
 	return props.enableOutsideDays && '\n\t.CalendarDay__outside {\n\t\tcolor: #c4c4c4;\n\t}\n';
 });
 
-var NavButton = (0, _styledComponents2.default)(_IconButton2.default).withConfig({
+var NavButton = (0, _styledComponents2.default)(_Icon2.default).withConfig({
 	displayName: 'DateRangeSelect__NavButton',
 	componentId: 's1fltukk-2'
-})(['display:flex;justify-content:center;padding:0;margin:0;margin-right:0;color:#fff;']);
+})(['display:flex;justify-content:center;padding:0;margin:0;margin-right:0;border-radius:50%;color:#fff;background-color:#00aac7;font-size:1.5em;']);
 
 var DateRangeSelect = function (_Component) {
 	_inherits(DateRangeSelect, _Component);
@@ -78,6 +78,14 @@ var DateRangeSelect = function (_Component) {
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateRangeSelect.__proto__ || Object.getPrototypeOf(DateRangeSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			focusedInput: 'startDate',
 			defaultDateSet: false
+		}, _this.componentDidMount = function () {
+			var setDefaultDates = _this.props.setDefaultDates;
+			var defaultDateSet = _this.state.defaultDateSet;
+
+
+			if (setDefaultDates && !defaultDateSet) {
+				_this.setDefaultDates();
+			}
 		}, _this.isDayBlocked = function (date) {
 			var _this$props = _this.props,
 			    availableDays = _this$props.availableDays,
@@ -126,15 +134,15 @@ var DateRangeSelect = function (_Component) {
 				endDate: defaultEndDate,
 				defaultDateSet: true
 			});
-		}, _this.handleDateChange = function (startDate, endDate) {
+		}, _this.handleDateChange = function (selectedStart, selectedEnd) {
 			var _this$props3 = _this.props,
 			    onDatesChange = _this$props3.onDatesChange,
 			    currentWeek = _this$props3.currentWeek;
 
 
 			if (currentWeek) {
-				var startOfWeek = (0, _moment2.default)(startDate).startOf('week');
-				var endOfWeek = (0, _moment2.default)(startDate).endOf('week');
+				var startOfWeek = (0, _moment2.default)(selectedStart).startOf('week');
+				var endOfWeek = (0, _moment2.default)(selectedStart).endOf('week');
 
 				onDatesChange(startOfWeek, endOfWeek);
 				_this.setState({
@@ -143,9 +151,36 @@ var DateRangeSelect = function (_Component) {
 					focusedInput: 'startDate'
 				});
 			} else {
+				var _this$getNextState = _this.getNextState(selectedStart, selectedEnd),
+				    startDate = _this$getNextState.startDate,
+				    endDate = _this$getNextState.endDate;
+
 				onDatesChange(startDate, endDate);
 				_this.setState({ startDate: startDate, endDate: endDate });
 			}
+		}, _this.getNextState = function (selectedStart, selectedEnd) {
+			var _this$state = _this.state,
+			    startDate = _this$state.startDate,
+			    endDate = _this$state.endDate;
+
+			if (selectedEnd && selectedEnd.isSame(endDate)) {
+				return {
+					startDate: selectedStart,
+					endDate: null
+				};
+			} else if (startDate && endDate) {
+				return {
+					startDate: selectedEnd || selectedStart,
+					endDate: null
+				};
+			} else {
+				return {
+					startDate: selectedStart,
+					endDate: selectedEnd
+				};
+			}
+		}, _this.handleFocusChange = function (focusedInput) {
+			_this.setState({ focusedInput: focusedInput || 'startDate' });
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
@@ -157,13 +192,11 @@ var DateRangeSelect = function (_Component) {
 			var _state = this.state,
 			    startDate = _state.startDate,
 			    endDate = _state.endDate,
-			    focusedInput = _state.focusedInput,
-			    defaultDateSet = _state.defaultDateSet;
+			    focusedInput = _state.focusedInput;
 			var _props = this.props,
 			    numberOfMonths = _props.numberOfMonths,
 			    currentWeek = _props.currentWeek,
 			    enableOutsideDays = _props.enableOutsideDays,
-			    setDefaultDates = _props.setDefaultDates,
 			    initialVisibleMonth = _props.initialVisibleMonth,
 			    orientation = _props.orientation;
 
@@ -184,21 +217,20 @@ var DateRangeSelect = function (_Component) {
 					},
 					focusedInput: focusedInput,
 					onFocusChange: function onFocusChange(focusedInput) {
-						return _this2.setState({ focusedInput: focusedInput || 'startDate' });
+						return _this2.handleFocusChange(focusedInput);
 					},
 					numberOfMonths: numberOfMonths || 1,
 					isDayBlocked: this.isDayBlocked,
 					isOutsideRange: this.isOutsideRange,
-					setDefaultDates: setDefaultDates && !defaultDateSet && this.setDefaultDates(),
 					initialVisibleMonth: initialVisibleMonth,
 					navPrev: _react2.default.createElement(
 						NavButton,
-						{ fontSize: '1.5em' },
+						null,
 						orientation === 'vertical' ? 'keyboard_arrow_up' : 'chevron_left'
 					),
 					navNext: _react2.default.createElement(
 						NavButton,
-						{ fontSize: '1.5em' },
+						null,
 						orientation === 'vertical' ? 'keyboard_arrow_down' : 'chevron_right'
 					),
 					enableOutsideDays: enableOutsideDays,
