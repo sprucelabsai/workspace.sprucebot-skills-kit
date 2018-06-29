@@ -1,6 +1,6 @@
 {
 	"name": "@barbershopio/react-sprucebot",
-	"version": "6.6.17",
+	"version": "6.6.18",
 	"main": "lib/Sprucebot.js",
 	"description": "React components for your Sprucebot Skill 💪🏼",
 	"keywords": [
@@ -74,10 +74,10 @@
 		"qs": "^6.5.1",
 		"rc-time-picker": "^3.3.1",
 		"react": "^16.3.2",
-		"react-big-calendar": "^0.19.1",
+		"react-big-calendar": "0.19.1",
 		"react-dates": "^17.0.0",
-		"react-dnd": "^4.0.4",
-		"react-dnd-html5-backend": "^4.0.4",
+		"react-dnd": "2.6.0",
+		"react-dnd-html5-backend": "2.6.0",
 		"react-dnd-touch-backend": "^0.4.0",
 		"react-dom": "^16.3.2",
 		"react-image-crop": "3.0.11",

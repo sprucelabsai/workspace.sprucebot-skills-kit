@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import requiredIf from 'react-required-if'
 import { DayPickerSingleDateController } from 'react-dates'
 
-import IconButton from '../IconButton/IconButton'
+import Icon from '../Icon/Icon'
 
 const Wrapper = styled.div`
 	.PresetDateRangePicker_panel {
@@ -862,18 +862,34 @@ const WhiteLabel = styled(Wrapper)`
 		width: 28px;
 		padding: 0;
 		border-radius: 50%;
+		background-color: #00aac7;
 	}
 `
 
-const NavButton = styled(IconButton)`
+const NavButton = styled(Icon)`
 	display: flex;
 	justify-content: center;
+	padding: 0;
+	margin: 0;
+	margin-right: 0;
+	border-radius: 50%;
 	color: #fff;
+	background-color: #00aac7;
+	font-size: 1.5em;
 `
 
 class DateSelect extends Component {
 	state = {
 		defaultDateSet: false
+	}
+
+	componentDidMount = () => {
+		const { setDefaultDate } = this.props
+		const { defaultDate } = this.state
+
+		if (setDefaultDate && !defaultDate) {
+			this.setDefaultDate()
+		}
 	}
 
 	isDayBlocked = date => {
@@ -929,26 +945,22 @@ class DateSelect extends Component {
 	}
 
 	render() {
-		const { date, defaultDateSet } = this.state
-		const { placeholder, setDefaultDate, initialVisibleMonth } = this.props
+		const { date } = this.state
+		const { initialVisibleMonth } = this.props
 
 		return (
 			<WhiteLabel>
 				<DayPickerSingleDateController
 					date={date || null}
-					placeholder={placeholder || null}
 					onDateChange={date => this.handleDateChange(date)}
 					focused={true}
 					onFocusChange={({ focused }) => this.setState({ focused })}
 					numberOfMonths={1}
 					isDayBlocked={this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
-					setDefaultDate={
-						setDefaultDate && !defaultDateSet && this.setDefaultDate()
-					}
 					initialVisibleMonth={initialVisibleMonth} // PropTypes.func
-					navPrev={<NavButton fontSize={'1.5em'}>chevron_left</NavButton>}
-					navNext={<NavButton fontSize={'1.5em'}>chevron_right</NavButton>}
+					navPrev={<NavButton>chevron_left</NavButton>}
+					navNext={<NavButton>chevron_right</NavButton>}
 					keepOpenOnDateSelect
 					hideKeyboardShortcutsPanel
 				/>
@@ -964,7 +976,6 @@ DateSelect.propTypes = {
 	bypassDaysBlocked: PropTypes.bool,
 	allowPastDates: PropTypes.bool,
 	onDateSelect: PropTypes.func.isRequired,
-	placeholder: PropTypes.string,
 	setDefaultDate: PropTypes.bool,
 	defaultDate: PropTypes.any,
 	initialVisibleMonth: PropTypes.func

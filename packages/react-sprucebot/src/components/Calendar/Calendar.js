@@ -1,20 +1,27 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import styled, { injectGlobal } from 'styled-components'
 import moment from 'moment'
-import PropTypes from 'prop-types'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
+import HTML5Backend from 'react-dnd-html5-backend'
+import { default as TouchBackend } from 'react-dnd-touch-backend'
+import { DragDropContext } from 'react-dnd'
+import PropTypes from 'prop-types'
+
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLocalizer
 
-// This is simply the default stylesheet from 'react-big-calendar/lib/css/react-big-calendar.css'
-// Under normal circumstances this stylesheet would simply be imported at the top of the file.
-// But we don't have a intra-skill css-loader available, so we're applying those default styles here.
+const CalendarComponent = withDragAndDrop(BigCalendar)
 
-const StyledReactBigCalendar = styled(BigCalendar)`
+const CalendWrapper = styled.div.attrs({
+	className: `rbc-calendar__wrapper`
+})`
 	height: ${props => props.height};
 	${props =>
 		props.defaultView === 'week' && `position: absolute; width: 1000px;`};
+`
+
+injectGlobal`
 	.rbc-btn {
 		color: inherit;
 		font: inherit;
@@ -665,18 +672,92 @@ const StyledReactBigCalendar = styled(BigCalendar)`
 		background-color: #f85a3e;
 		pointer-events: none;
 	}
-`
-
-const WhiteLabel = styled(StyledReactBigCalendar)`
+	.rbc-addons-dnd .rbc-row-content {
+		pointer-events: none;
+	}
+	.rbc-addons-dnd .rbc-row-content .rbc-show-more,
+	.rbc-addons-dnd .rbc-row-content .rbc-event {
+		pointer-events: all;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-over {
+		background-color: rgba(0, 0, 0, 0.3);
+		color: red;
+	}
+	.rbc-addons-dnd .rbc-events-container {
+		pointer-events: none;
+	}
+	.rbc-addons-dnd .rbc-event {
+		transition: opacity 150ms;
+		pointer-events: all;
+	}
+	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ns-icon,
+	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ew-icon {
+		display: block;
+	}
+	.rbc-addons-dnd.rbc-addons-dnd-is-dragging .rbc-event {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resizable {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ns-anchor {
+		width: 100%;
+		text-align: center;
+		position: absolute;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ns-anchor:first-child {
+		top: 0;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ns-anchor:last-child {
+		bottom: 0;
+	}
+	.rbc-addons-dnd
+		.rbc-addons-dnd-resize-ns-anchor
+		.rbc-addons-dnd-resize-ns-icon {
+		display: none;
+		border-top: 4px double;
+		margin: 0 auto;
+		width: 10px;
+		cursor: ns-resize;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ew-anchor {
+		position: absolute;
+		top: 4px;
+		bottom: 0;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ew-anchor:first-child {
+		left: 0;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ew-anchor:last-child {
+		right: 0;
+	}
+	.rbc-addons-dnd
+		.rbc-addons-dnd-resize-ew-anchor
+		.rbc-addons-dnd-resize-ew-icon {
+		display: none;
+		border-left: 3px double;
+		margin-top: auto;
+		margin-bottom: auto;
+		height: 10px;
+		cursor: ew-resize;
+	}
+	/*White Label*/
 	.rbc-current-time-indicator {
+		height: 2px;
 		background-color: #f85a3e;
 	}
 	.rbc-today {
 		background-color: rgba(96, 180, 199, 0.1);
 		color: #00aac7;
 	}
-	.shift-day,
-	.shift-week {
+	.rbc-selected {
+		z-index: 1;
+	}
+	.rbc-event__shift-day,
+	.rbc-event__shift-week {
 		left: 0% !important;
 		width: 85% !important;
 		border: none !important;
@@ -684,8 +765,12 @@ const WhiteLabel = styled(StyledReactBigCalendar)`
 		background-color: #dbeff3;
 		color: #4cadc1;
 	}
-	.break-day,
-	.break-week {
+	.rbc-event__shift-day.rbc-event-teammate,
+	.rbc-event__shift-week.rbc-event-teammate {
+		pointer-events: none !important;
+	}
+	.rbc-event__break-day,
+	.rbc-event__break-week {
 		left: 30% !important;
 		width: 70% !important;
 		border: none !important;
@@ -693,8 +778,8 @@ const WhiteLabel = styled(StyledReactBigCalendar)`
 		background-color: #c8dadd;
 		color: #387e8d;
 	}
-	.block-day,
-	.block-week {
+	.rbc-event__block-day,
+	.rbc-event__block-week {
 		left: 15% !important;
 		width: 75% !important;
 		border: none !important;
@@ -702,74 +787,84 @@ const WhiteLabel = styled(StyledReactBigCalendar)`
 		background-color: #949494;
 		color: #0e2024;
 	}
-	.off-hours-day,
-	.off-hours-week,
-	.closed-day,
-	.closed-week {
+	.rbc-event__off-hours-day,
+	.rbc-event__off-hours-week,
+	.rbc-event__closed-day,
+	.rbc-event__closed-week {
 		left: 0 !important;
 		right: 0 !important;
+		width: 100% !important;
 		border: none !important;
 		color: rgba(0, 0, 0, 0);
 		background-color: rgba(66, 96, 126, 0.1);
+		pointer-events: none !important;
 	}
 `
 
 class Calendar extends Component {
+	state = {}
+
+	onNavigate = e => {
+		// Not fired with current build but causes error
+		console.log('onNavigate', e)
+	}
+
 	render() {
 		const {
 			height,
-			date,
-			toolbar,
-			events,
 			defaultView,
+			date,
 			views,
-			selectable,
+			events,
 			step,
 			timeslots,
 			min,
 			max,
-			onSelectSlot,
-			onSelectEvent,
 			formats,
+			toolbar,
 			titleAccessor,
 			startAccessor,
 			endAccessor,
 			allDayAccessor,
-			dragAndDrop,
-			eventPropGetter
+			selectable,
+			eventPropGetter,
+			onSelectEvent,
+			onSelectSlot,
+			onEventDrop,
+			onEventResize
 		} = this.props
 
-		const CalendarComponent = dragAndDrop
-			? withDragAndDrop(WhiteLabel)
-			: WhiteLabel
-
 		return (
-			<CalendarComponent
-				height={height}
-				date={date || new Date()}
-				toolbar={toolbar}
-				events={events}
-				defaultView={defaultView}
-				views={views}
-				selectable={selectable}
-				step={step}
-				timeslots={timeslots}
-				min={min}
-				max={max}
-				onSelectSlot={onSelectSlot}
-				onSelectEvent={onSelectEvent}
-				formats={formats}
-				titleAccessor={titleAccessor}
-				startAccessor={startAccessor}
-				endAccessor={endAccessor}
-				allDayAccessor={allDayAccessor}
-				eventPropGetter={eventPropGetter}
-			/>
+			<CalendWrapper height={height} defaultView={defaultView}>
+				<CalendarComponent
+					date={date || new Date()}
+					defaultView={defaultView}
+					views={views}
+					events={events}
+					step={step}
+					timeslots={timeslots}
+					min={min}
+					max={max}
+					formats={formats}
+					toolbar={toolbar}
+					titleAccessor={titleAccessor}
+					startAccessor={startAccessor}
+					endAccessor={endAccessor}
+					allDayAccessor={allDayAccessor}
+					selectable={selectable}
+					eventPropGetter={eventPropGetter}
+					onNavigate={this.onNavigate}
+					onSelectEvent={onSelectEvent}
+					onSelectSlot={onSelectSlot}
+					onEventDrop={onEventDrop}
+					onEventResize={onEventResize}
+				/>
+			</CalendWrapper>
 		)
 	}
 }
 
-export default Calendar
+export default DragDropContext(HTML5Backend)(Calendar)
 
 Calendar.propTypes = {
 	height: PropTypes.string,

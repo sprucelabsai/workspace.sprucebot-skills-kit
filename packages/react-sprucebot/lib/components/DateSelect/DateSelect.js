@@ -30,9 +30,9 @@ var _reactRequiredIf2 = _interopRequireDefault(_reactRequiredIf);
 
 var _reactDates = require('react-dates');
 
-var _IconButton = require('../IconButton/IconButton');
+var _Icon = require('../Icon/Icon');
 
-var _IconButton2 = _interopRequireDefault(_IconButton);
+var _Icon2 = _interopRequireDefault(_Icon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50,12 +50,12 @@ var Wrapper = _styledComponents2.default.div.withConfig({
 var WhiteLabel = (0, _styledComponents2.default)(Wrapper).withConfig({
 	displayName: 'DateSelect__WhiteLabel',
 	componentId: 's1u7vvps-1'
-})(['.CalendarDay__selected,.CalendarDay__selected:active,.CalendarDay__selected:hover{background:#00aac7;border:1px solid #00aac7;}.DateInput_fang{display:none;}.DayPickerNavigation{position:absolute;display:flex;justify-content:space-between;width:100%;padding:1em;z-index:2;}.DayPickerNavigation_button{display:flex;justify-content:center;height:28px;width:28px;padding:0;border-radius:50%;}']);
+})(['.CalendarDay__selected,.CalendarDay__selected:active,.CalendarDay__selected:hover{background:#00aac7;border:1px solid #00aac7;}.DateInput_fang{display:none;}.DayPickerNavigation{position:absolute;display:flex;justify-content:space-between;width:100%;padding:1em;z-index:2;}.DayPickerNavigation_button{display:flex;justify-content:center;height:28px;width:28px;padding:0;border-radius:50%;background-color:#00aac7;}']);
 
-var NavButton = (0, _styledComponents2.default)(_IconButton2.default).withConfig({
+var NavButton = (0, _styledComponents2.default)(_Icon2.default).withConfig({
 	displayName: 'DateSelect__NavButton',
 	componentId: 's1u7vvps-2'
-})(['display:flex;justify-content:center;color:#fff;']);
+})(['display:flex;justify-content:center;padding:0;margin:0;margin-right:0;border-radius:50%;color:#fff;background-color:#00aac7;font-size:1.5em;']);
 
 var DateSelect = function (_Component) {
 	_inherits(DateSelect, _Component);
@@ -73,6 +73,14 @@ var DateSelect = function (_Component) {
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSelect.__proto__ || Object.getPrototypeOf(DateSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			defaultDateSet: false
+		}, _this.componentDidMount = function () {
+			var setDefaultDate = _this.props.setDefaultDate;
+			var defaultDate = _this.state.defaultDate;
+
+
+			if (setDefaultDate && !defaultDate) {
+				_this.setDefaultDate();
+			}
 		}, _this.isDayBlocked = function (date) {
 			var _this$props = _this.props,
 			    availableDays = _this$props.availableDays,
@@ -129,13 +137,8 @@ var DateSelect = function (_Component) {
 		value: function render() {
 			var _this2 = this;
 
-			var _state = this.state,
-			    date = _state.date,
-			    defaultDateSet = _state.defaultDateSet;
-			var _props = this.props,
-			    placeholder = _props.placeholder,
-			    setDefaultDate = _props.setDefaultDate,
-			    initialVisibleMonth = _props.initialVisibleMonth;
+			var date = this.state.date;
+			var initialVisibleMonth = this.props.initialVisibleMonth;
 
 
 			return _react2.default.createElement(
@@ -143,7 +146,6 @@ var DateSelect = function (_Component) {
 				null,
 				_react2.default.createElement(_reactDates.DayPickerSingleDateController, {
 					date: date || null,
-					placeholder: placeholder || null,
 					onDateChange: function onDateChange(date) {
 						return _this2.handleDateChange(date);
 					},
@@ -155,16 +157,15 @@ var DateSelect = function (_Component) {
 					numberOfMonths: 1,
 					isDayBlocked: this.isDayBlocked,
 					isOutsideRange: this.isOutsideRange,
-					setDefaultDate: setDefaultDate && !defaultDateSet && this.setDefaultDate(),
 					initialVisibleMonth: initialVisibleMonth // PropTypes.func
 					, navPrev: _react2.default.createElement(
 						NavButton,
-						{ fontSize: '1.5em' },
+						null,
 						'chevron_left'
 					),
 					navNext: _react2.default.createElement(
 						NavButton,
-						{ fontSize: '1.5em' },
+						null,
 						'chevron_right'
 					),
 					keepOpenOnDateSelect: true,
@@ -192,7 +193,6 @@ DateSelect.propTypes = {
 	bypassDaysBlocked: _propTypes2.default.bool,
 	allowPastDates: _propTypes2.default.bool,
 	onDateSelect: _propTypes2.default.func.isRequired,
-	placeholder: _propTypes2.default.string,
 	setDefaultDate: _propTypes2.default.bool,
 	defaultDate: _propTypes2.default.any,
 	initialVisibleMonth: _propTypes2.default.func

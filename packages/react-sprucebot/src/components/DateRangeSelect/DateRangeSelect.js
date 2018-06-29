@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import requiredIf from 'react-required-if'
 import { DayPickerRangeController } from 'react-dates'
 
-import IconButton from '../IconButton/IconButton'
+import Icon from '../Icon/Icon'
 
 const Wrapper = styled.div`
 	.PresetDateRangePicker_panel {
@@ -887,19 +887,31 @@ const WhiteLabel = styled(Wrapper)`
 `};
 `
 
-const NavButton = styled(IconButton)`
+const NavButton = styled(Icon)`
 	display: flex;
 	justify-content: center;
 	padding: 0;
 	margin: 0;
 	margin-right: 0;
+	border-radius: 50%;
 	color: #fff;
+	background-color: #00aac7;
+	font-size: 1.5em;
 `
 
 class DateRangeSelect extends Component {
 	state = {
 		focusedInput: 'startDate',
 		defaultDateSet: false
+	}
+
+	componentDidMount = () => {
+		const { setDefaultDates } = this.props
+		const { defaultDateSet } = this.state
+
+		if (setDefaultDates && !defaultDateSet) {
+			this.setDefaultDates()
+		}
 	}
 
 	isDayBlocked = date => {
@@ -947,12 +959,12 @@ class DateRangeSelect extends Component {
 		})
 	}
 
-	handleDateChange = (startDate, endDate) => {
+	handleDateChange = (selectedStart, selectedEnd) => {
 		const { onDatesChange, currentWeek } = this.props
 
 		if (currentWeek) {
-			const startOfWeek = moment(startDate).startOf('week')
-			const endOfWeek = moment(startDate).endOf('week')
+			const startOfWeek = moment(selectedStart).startOf('week')
+			const endOfWeek = moment(selectedStart).endOf('week')
 
 			onDatesChange(startOfWeek, endOfWeek)
 			this.setState({
@@ -961,18 +973,46 @@ class DateRangeSelect extends Component {
 				focusedInput: 'startDate'
 			})
 		} else {
+			const { startDate, endDate } = this.getNextState(
+				selectedStart,
+				selectedEnd
+			)
+
 			onDatesChange(startDate, endDate)
 			this.setState({ startDate, endDate })
 		}
 	}
 
+	getNextState = (selectedStart, selectedEnd) => {
+		const { startDate, endDate } = this.state
+		if (selectedEnd && selectedEnd.isSame(endDate)) {
+			return {
+				startDate: selectedStart,
+				endDate: null
+			}
+		} else if (startDate && endDate) {
+			return {
+				startDate: selectedEnd || selectedStart,
+				endDate: null
+			}
+		} else {
+			return {
+				startDate: selectedStart,
+				endDate: selectedEnd
+			}
+		}
+	}
+
+	handleFocusChange = focusedInput => {
+		this.setState({ focusedInput: focusedInput || 'startDate' })
+	}
+
 	render() {
-		const { startDate, endDate, focusedInput, defaultDateSet } = this.state
+		const { startDate, endDate, focusedInput } = this.state
 		const {
 			numberOfMonths,
 			currentWeek,
 			enableOutsideDays,
-			setDefaultDates,
 			initialVisibleMonth,
 			orientation
 		} = this.props
@@ -989,25 +1029,20 @@ class DateRangeSelect extends Component {
 						this.handleDateChange(startDate, endDate)
 					}
 					focusedInput={focusedInput}
-					onFocusChange={focusedInput =>
-						this.setState({ focusedInput: focusedInput || 'startDate' })
-					}
+					onFocusChange={focusedInput => this.handleFocusChange(focusedInput)}
 					numberOfMonths={numberOfMonths || 1}
 					isDayBlocked={this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
-					setDefaultDates={
-						setDefaultDates && !defaultDateSet && this.setDefaultDates()
-					}
 					initialVisibleMonth={initialVisibleMonth}
 					navPrev={
-						<NavButton fontSize={'1.5em'}>
+						<NavButton>
 							{orientation === 'vertical'
 								? 'keyboard_arrow_up'
 								: 'chevron_left'}
 						</NavButton>
 					}
 					navNext={
-						<NavButton fontSize={'1.5em'}>
+						<NavButton>
 							{orientation === 'vertical'
 								? 'keyboard_arrow_down'
 								: 'chevron_right'}
