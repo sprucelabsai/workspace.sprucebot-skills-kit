@@ -73,6 +73,14 @@ var DateSelect = function (_Component) {
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSelect.__proto__ || Object.getPrototypeOf(DateSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			defaultDateSet: false
+		}, _this.componentDidMount = function () {
+			var setDefaultDate = _this.props.setDefaultDate;
+			var defaultDate = _this.state.defaultDate;
+
+
+			if (setDefaultDate && !defaultDate) {
+				_this.setDefaultDate();
+			}
 		}, _this.isDayBlocked = function (date) {
 			var _this$props = _this.props,
 			    availableDays = _this$props.availableDays,
@@ -129,12 +137,8 @@ var DateSelect = function (_Component) {
 		value: function render() {
 			var _this2 = this;
 
-			var _state = this.state,
-			    date = _state.date,
-			    defaultDateSet = _state.defaultDateSet;
-			var _props = this.props,
-			    setDefaultDate = _props.setDefaultDate,
-			    initialVisibleMonth = _props.initialVisibleMonth;
+			var date = this.state.date;
+			var initialVisibleMonth = this.props.initialVisibleMonth;
 
 
 			return _react2.default.createElement(
@@ -153,7 +157,6 @@ var DateSelect = function (_Component) {
 					numberOfMonths: 1,
 					isDayBlocked: this.isDayBlocked,
 					isOutsideRange: this.isOutsideRange,
-					setDefaultDate: setDefaultDate && !defaultDateSet && this.setDefaultDate(),
 					initialVisibleMonth: initialVisibleMonth // PropTypes.func
 					, navPrev: _react2.default.createElement(
 						NavButton,
