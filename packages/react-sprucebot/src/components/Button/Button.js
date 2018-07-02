@@ -10,6 +10,26 @@ const ButtonWrapper = styled.div`
 	${props => props.right && `padding-left: 1.125em`};
 `
 
+const StyledButton = styled.button`
+	${props =>
+		props.busy ||
+		(props.disabled &&
+			`
+			pointer-events: none;
+			cursor: not-allowed;
+		`)};
+`
+
+const StyledAnchor = styled.a`
+	${props =>
+		props.busy ||
+		(props.disabled &&
+			`
+		pointer-events: none;
+		cursor: not-allowed;
+	`)};
+`
+
 // TODO refactor into styled component
 export default class Button extends Component {
 	constructor(props) {
@@ -28,25 +48,32 @@ export default class Button extends Component {
 	}
 
 	onClick = e => {
-		if (this.props.onClick) {
-			this.props.onClick(e)
-		} else if (this.props.href) {
+		const { busy } = this.state
+		const { disabled, onClick, href, target, router } = this.props
+
+		if (busy || disabled) {
+			return
+		}
+
+		if (onClick) {
+			onClick(e)
+		} else if (href) {
 			e.preventDefault()
 			this.setState({ busy: true })
-			const url = this.props.href
+			const url = href
 			if (/^http/.test(url)) {
 				// If the href is a full domain name
-				if (this.props.target) {
-					window.open(url, this.props.target)
+				if (target) {
+					window.open(url, target)
 				} else {
 					window.open(url, '_self')
 				}
 			} else {
 				// Relative url
-				if (this.props.target) {
-					window.open(url, this.props.target)
-				} else if (this.props.router) {
-					this.props.router.push(url)
+				if (target) {
+					window.open(url, target)
+				} else if (router) {
+					router.push(url)
 				} else {
 					window.open(url, '_self')
 				}
@@ -132,7 +159,7 @@ export default class Button extends Component {
 		}
 
 		// if this button has a href or is a "remove" button, make it an anchor
-		const Tag = props.href || remove ? 'a' : tag
+		const Tag = props.href || remove ? StyledAnchor : StyledButton
 
 		if (tertiary) {
 			return (
@@ -152,6 +179,8 @@ export default class Button extends Component {
 			<Tag
 				className={`${btnClass} ${className || ''}`}
 				onClick={this.onClick}
+				disabled={disabled}
+				busy={busy}
 				{...props}
 			>
 				{this.renderView()}
