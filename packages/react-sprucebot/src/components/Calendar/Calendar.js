@@ -820,6 +820,44 @@ const CalendarWrapper = styled.div.attrs({
 	.rbc-selected {
 		z-index: 5 !important;
 	}
+	${props =>
+		props.customView === 'team-week' &&
+		`
+			position: relative;
+			width: 2000px;
+			.rbc-time-content {
+				flex-direction: row;
+			}
+			.rbc-time-gutter,
+			.rbc-current-time-indicator,
+			.rbc-time-header-gutter,
+			.rbc-allday-cell,
+			.rbc-event-allday,
+			.rbc-event__break-week,
+			.rbc-event__off-hours-week {
+				display: none !important;
+			}
+			.rbc-timeslot-group {
+				width: 0.5em;
+				height: 0.5em;
+				border: none;
+				color: rgba(0, 0, 0, 0);
+			}
+			.rbc-event__shift-week {
+				top: 0 !important;
+				bottom: 0 !important;
+				width: intial !important;
+				height: 101px !important;
+			}
+			.rbc-time-header-content {
+				${props =>
+					props.multiCalendarOrder &&
+					props.multiCalendarOrder !== 0 &&
+					`
+					display: none;
+					`};
+			}
+		`};
 `
 
 class Calendar extends Component {
@@ -853,7 +891,8 @@ class Calendar extends Component {
 			onSelectSlot,
 			onEventDrop,
 			onEventResize,
-			multiCalendarOrder
+			multiCalendarOrder,
+			customView
 		} = this.props
 
 		return (
@@ -861,6 +900,7 @@ class Calendar extends Component {
 				height={height}
 				defaultView={defaultView}
 				multiCalendarOrder={multiCalendarOrder}
+				customView={customView}
 			>
 				<CalendarComponent
 					date={date || new Date()}
