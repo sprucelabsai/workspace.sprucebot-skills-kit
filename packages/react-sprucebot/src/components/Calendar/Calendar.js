@@ -11,7 +11,11 @@ import PropTypes from 'prop-types'
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLocalizer
 
-const CalendarComponent = styled(withDragAndDrop(BigCalendar))`
+const CalendarComponent = withDragAndDrop(BigCalendar)
+
+const CalendarWrapper = styled.div.attrs({
+	className: `rbc-calendar-wrapper`
+})`
 	height: ${props => props.height};
 	${props =>
 		props.defaultView === 'week' && `position: absolute; width: 1000px;`};
@@ -853,31 +857,35 @@ class Calendar extends Component {
 		} = this.props
 
 		return (
-			<CalendarComponent
+			<CalendarWrapper
 				height={height}
-				date={date || new Date()}
 				defaultView={defaultView}
-				views={views}
-				events={events}
-				step={step}
-				timeslots={timeslots}
-				min={min}
-				max={max}
-				formats={formats}
-				toolbar={toolbar}
-				titleAccessor={titleAccessor}
-				startAccessor={startAccessor}
-				endAccessor={endAccessor}
-				allDayAccessor={allDayAccessor}
-				selectable={selectable}
-				eventPropGetter={eventPropGetter}
-				onNavigate={this.onNavigate}
-				onSelectEvent={onSelectEvent}
-				onSelectSlot={onSelectSlot}
-				onEventDrop={onEventDrop}
-				onEventResize={onEventResize}
 				multiCalendarOrder={multiCalendarOrder}
-			/>
+			>
+				<CalendarComponent
+					date={date || new Date()}
+					defaultView={defaultView}
+					views={views}
+					events={events}
+					step={step}
+					timeslots={timeslots}
+					min={min}
+					max={max}
+					formats={formats}
+					toolbar={toolbar}
+					titleAccessor={titleAccessor}
+					startAccessor={startAccessor}
+					endAccessor={endAccessor}
+					allDayAccessor={allDayAccessor}
+					selectable={selectable}
+					eventPropGetter={eventPropGetter}
+					onNavigate={this.onNavigate}
+					onSelectEvent={onSelectEvent}
+					onSelectSlot={onSelectSlot}
+					onEventDrop={onEventDrop}
+					onEventResize={onEventResize}
+				/>
+			</CalendarWrapper>
 		)
 	}
 }
