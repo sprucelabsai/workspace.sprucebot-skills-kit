@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Loader from '../Loader/Loader'
+
+const ButtonWrapper = styled.div`
+	display: flex;
+	width: 50%;
+	${props => props.left && `padding-right: 1.125em`};
+	${props => props.right && `padding-left: 1.125em`};
+`
 
 // TODO refactor into styled component
 export default class Button extends Component {
@@ -10,6 +18,7 @@ export default class Button extends Component {
 			busy: !!props.busy
 		}
 	}
+
 	componentWillReceiveProps(nextProps) {
 		if (typeof nextProps.busy !== 'undefined') {
 			this.setState({
@@ -17,6 +26,7 @@ export default class Button extends Component {
 			})
 		}
 	}
+
 	onClick = e => {
 		if (this.props.onClick) {
 			this.props.onClick(e)
@@ -48,6 +58,23 @@ export default class Button extends Component {
 			}, 2000)
 		}
 	}
+
+	renderView = () => {
+		const { busy } = this.state
+		const { hideLoader, loaderDark, loaderStyle, children } = this.props
+
+		if (busy && !hideLoader) {
+			return (
+				<Loader
+					dark={loaderDark ? true : false}
+					fullWidth={false}
+					loaderStyle={loaderStyle}
+				/>
+			)
+		}
+		return children
+	}
+
 	render() {
 		const {
 			tag,
@@ -67,6 +94,9 @@ export default class Button extends Component {
 			loaderStyle,
 			busy: propBusy,
 			hideLoader,
+			tertiary,
+			left,
+			right,
 			...props
 		} = this.props
 
@@ -104,21 +134,27 @@ export default class Button extends Component {
 		// if this button has a href or is a "remove" button, make it an anchor
 		const Tag = props.href || remove ? 'a' : tag
 
+		if (tertiary) {
+			return (
+				<ButtonWrapper left={left} right={right}>
+					<Tag
+						className={`${btnClass} ${className || ''}`}
+						onClick={this.onClick}
+						{...props}
+					>
+						{this.renderView()}
+					</Tag>
+				</ButtonWrapper>
+			)
+		}
+
 		return (
 			<Tag
 				className={`${btnClass} ${className || ''}`}
 				onClick={this.onClick}
 				{...props}
 			>
-				{busy && !hideLoader ? (
-					<Loader
-						dark={loaderDark ? true : false}
-						fullWidth={false}
-						loaderStyle={loaderStyle}
-					/>
-				) : (
-					children
-				)}
+				{this.renderView()}
 			</Tag>
 		)
 	}
@@ -134,6 +170,9 @@ Button.propTypes = {
 	remove: PropTypes.bool,
 	toggle: PropTypes.bool,
 	hideLoader: PropTypes.bool,
+	tertiary: PropTypes.bool,
+	left: PropTypes.bool,
+	right: PropTypes.bool,
 	type: PropTypes.string
 }
 
