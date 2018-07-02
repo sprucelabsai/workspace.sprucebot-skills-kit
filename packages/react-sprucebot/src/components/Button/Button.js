@@ -159,7 +159,14 @@ export default class Button extends Component {
 		}
 
 		// if this button has a href or is a "remove" button, make it an anchor
-		const Tag = props.href || remove ? StyledAnchor : StyledButton
+		let Tag
+		if (props.href || remove) {
+			Tag = StyledAnchor
+		} else if (tag === 'button') {
+			Tag = StyledButton
+		} else {
+			Tag = tag
+		}
 
 		if (tertiary) {
 			return (
