@@ -53,7 +53,7 @@ var StyledButton = _styledComponents2.default.button.withConfig({
 var StyledAnchor = _styledComponents2.default.a.withConfig({
 	displayName: 'Button__StyledAnchor',
 	componentId: 'z2er9s-2'
-})(['', ';'], function (props) {
+})(['&&{', ';}'], function (props) {
 	return props.busy || props.disabled && '\n\t\tpointer-events: none;\n\t\tcursor: not-allowed;\n\t';
 });
 
@@ -222,7 +222,9 @@ var Button = function (_Component) {
 						Tag,
 						_extends({
 							className: btnClass + ' ' + (className || ''),
-							onClick: this.onClick
+							onClick: this.onClick,
+							disabled: disabled,
+							busy: busy
 						}, props),
 						this.renderView()
 					)

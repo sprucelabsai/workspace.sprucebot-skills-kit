@@ -21,13 +21,15 @@ const StyledButton = styled.button`
 `
 
 const StyledAnchor = styled.a`
-	${props =>
-		props.busy ||
-		(props.disabled &&
-			`
+	&& {
+		${props =>
+			props.busy ||
+			(props.disabled &&
+				`
 		pointer-events: none;
 		cursor: not-allowed;
 	`)};
+	}
 `
 
 // TODO refactor into styled component
@@ -174,6 +176,8 @@ export default class Button extends Component {
 					<Tag
 						className={`${btnClass} ${className || ''}`}
 						onClick={this.onClick}
+						disabled={disabled}
+						busy={busy}
 						{...props}
 					>
 						{this.renderView()}
