@@ -38,9 +38,9 @@ var ButtonWrapper = _styledComponents2.default.div.withConfig({
 	displayName: 'Button__ButtonWrapper',
 	componentId: 'z2er9s-0'
 })(['display:flex;width:50%;', ';', ';'], function (props) {
-	return props.left && 'padding-right: 1.125em';
+	return props.left && 'padding-right: 1.125em;';
 }, function (props) {
-	return props.right && 'padding-left: 1.125em';
+	return props.right && 'padding-left: 1.125em;';
 });
 
 var StyledButton = _styledComponents2.default.button.withConfig({
@@ -53,7 +53,7 @@ var StyledButton = _styledComponents2.default.button.withConfig({
 var StyledAnchor = _styledComponents2.default.a.withConfig({
 	displayName: 'Button__StyledAnchor',
 	componentId: 'z2er9s-2'
-})(['&&{', ';}'], function (props) {
+})(['', ';'], function (props) {
 	return props.busy || props.disabled && '\n\t\tpointer-events: none;\n\t\tcursor: not-allowed;\n\t';
 });
 
