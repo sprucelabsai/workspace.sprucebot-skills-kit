@@ -741,7 +741,10 @@ const CalendarWrapper = styled.div.attrs({
 	}
 	/*White Label*/
 	.rbc-time-header-cell {
-		${props => props.defaultView === 'day' && `display: none`};
+		${props =>
+			props.customView !== 'team-day' &&
+			props.defaultView === 'day' &&
+			`display: none`};
 	}
 	.rbc-time-gutter {
 		${props =>
@@ -821,6 +824,11 @@ const CalendarWrapper = styled.div.attrs({
 		z-index: 5 !important;
 	}
 	${props =>
+		props.customView === 'team-day' &&
+		`
+			width: 100%;
+		`};
+	${props =>
 		props.customView === 'team-week' &&
 		`
 			position: relative;
@@ -834,34 +842,39 @@ const CalendarWrapper = styled.div.attrs({
 			.rbc-allday-cell,
 			.rbc-event-allday,
 			.rbc-event__break-week,
-			.rbc-event__off-hours-week {
+			.rbc-event__off-hours-week,
+			.rbc-event__block-week {
 				display: none !important;
 			}
 			.rbc-timeslot-group {
-				width: 0.5em;
-				height: 0.5em;
+				display: none !important;
+				width: 0 !important;
+				height: 0 !important;
 				border: none;
 				color: rgba(0, 0, 0, 0);
 			}
 			.rbc-day-slot {
-				height: 101px !important;
+
 			}
 			.rbc-event__closed-week,
 			.rbc-event__shift-week {
 				top: 0 !important;
 				bottom: 0 !important;
-				width: intial !important;
-				height: 101px !important;
-			}
-			.rbc-time-header-content {
-				${props =>
-					props.multiCalendarOrder &&
-					props.multiCalendarOrder !== 0 &&
-					`
-					display: none;
-					`};
+				height: 100% !important;
+				width: 100% !important;
+				border-radius: 0px;
+				pointer-events: none !important;
 			}
 		`};
+	.rbc-time-header-content {
+		${props =>
+			props.customView === 'team-week' &&
+			props.multiCalendarOrder &&
+			props.multiCalendarOrder !== 0 &&
+			`
+				display: none !important;
+				`};
+	}
 `
 
 class Calendar extends Component {
@@ -898,8 +911,6 @@ class Calendar extends Component {
 			multiCalendarOrder,
 			customView
 		} = this.props
-
-		console.log({ multiCalendarOrder })
 
 		return (
 			<CalendarWrapper
