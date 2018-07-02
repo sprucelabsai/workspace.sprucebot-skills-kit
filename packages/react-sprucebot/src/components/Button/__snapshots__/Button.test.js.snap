@@ -2,7 +2,8 @@
 
 exports[`Button Component it renders 1`] = `
 <button
-  className="btn "
+  className="btn  "
+  disabled={undefined}
   onClick={[Function]}
   type="button"
 />
@@ -53,7 +54,8 @@ exports[`Button Component it renders caution 1`] = `
 
 exports[`Button Component it renders children 1`] = `
 <button
-  className="btn "
+  className="btn  "
+  disabled={undefined}
   onClick={[Function]}
   type="button"
 >
@@ -78,8 +80,9 @@ exports[`Button Component it renders disabled 1`] = `
 `;
 
 exports[`Button Component it renders html tagName 1`] = `
-<span
-  className="btn "
+<button
+  className="btn  "
+  disabled={undefined}
   onClick={[Function]}
   type="button"
 />
