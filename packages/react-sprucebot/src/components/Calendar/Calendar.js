@@ -843,6 +843,10 @@ const CalendarWrapper = styled.div.attrs({
 				border: none;
 				color: rgba(0, 0, 0, 0);
 			}
+			.rbc-day-slot {
+				height: 101px !important;
+			}
+			.rbc-event__closed-week,
 			.rbc-event__shift-week {
 				top: 0 !important;
 				bottom: 0 !important;
@@ -894,6 +898,8 @@ class Calendar extends Component {
 			multiCalendarOrder,
 			customView
 		} = this.props
+
+		console.log({ multiCalendarOrder })
 
 		return (
 			<CalendarWrapper
