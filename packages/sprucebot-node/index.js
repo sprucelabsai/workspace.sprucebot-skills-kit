@@ -216,7 +216,7 @@ class Sprucebot {
 		locationId,
 		userId,
 		message,
-		{ linksToWebView, webViewQueryData, payload } = {},
+		{ linksToWebView, webViewQueryData, payload, sendAtTimestamp } = {},
 		query = {}
 	) {
 		const data = Array.from(arguments)[3] || {}
@@ -226,6 +226,40 @@ class Sprucebot {
 			data.webViewQueryData = JSON.stringify(data.webViewQueryData)
 		}
 		return this.https.post(`/locations/${locationId}/messages`, data, query)
+	}
+
+	/**
+	 * Deletes a message.
+	 *
+	 * @param {String} locationId
+	 * @param {String} userId
+	 * @param {String} message
+	 * @param {Object} data Additional data sent when POST'ing message
+	 */
+	async message(locationId, messageId) {
+		return this.https.delete(`/locations/${locationId}/messages/${messageId}`)
+	}
+
+	/**
+	 * ONLY APPLIES TO SKILLS THAT ARE ENTERPRISE OR GLOBAL.
+	 * Queues multiple messages to be sent
+	 *
+	 * @param {String} userId
+	 * @param {String} message
+	 */
+	async queueMessages(messages) {
+		return this.https.post('/ge/messages', { messages })
+	}
+
+	/**
+	 * ONLY APPLIES TO SKILLS THAT ARE ENTERPRISE OR GLOBAL.
+	 * Queues multiple messages to be sent
+	 *
+	 * @param {String} userId
+	 * @param {String} message
+	 */
+	async deleteMessages(messageIds) {
+		return this.https.post('/ge/deleteMessages', { messageIds })
 	}
 
 	/**

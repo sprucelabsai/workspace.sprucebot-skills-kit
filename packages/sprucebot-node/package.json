@@ -1,9 +1,13 @@
 {
 	"name": "@barbershopio/sprucebot-node",
-	"version": "6.6.1",
-	"description":
-		"Jam with the Sprucebot API in your favorite scripting language. 🤓",
-	"keywords": ["node", "components", "sprucebot", "sprucelabs"],
+	"version": "6.6.2",
+	"description": "Jam with the Sprucebot API in your favorite scripting language. 🤓",
+	"keywords": [
+		"node",
+		"components",
+		"sprucebot",
+		"sprucelabs"
+	],
 	"homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/sprucebot-skills-kit/issues"
