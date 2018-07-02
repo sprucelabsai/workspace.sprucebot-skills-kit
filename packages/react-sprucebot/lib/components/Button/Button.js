@@ -205,7 +205,14 @@ var Button = function (_Component) {
 			}
 
 			// if this button has a href or is a "remove" button, make it an anchor
-			var Tag = props.href || remove ? StyledAnchor : StyledButton;
+			var Tag = void 0;
+			if (props.href || remove) {
+				Tag = StyledAnchor;
+			} else if (tag === 'button') {
+				Tag = StyledButton;
+			} else {
+				Tag = tag;
+			}
 
 			if (tertiary) {
 				return _react2.default.createElement(
