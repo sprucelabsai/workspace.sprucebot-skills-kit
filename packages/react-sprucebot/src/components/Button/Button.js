@@ -6,8 +6,8 @@ import Loader from '../Loader/Loader'
 const ButtonWrapper = styled.div`
 	display: flex;
 	width: 50%;
-	${props => props.left && `padding-right: 1.125em`};
-	${props => props.right && `padding-left: 1.125em`};
+	${props => props.left && `padding-right: 1.125em;`};
+	${props => props.right && `padding-left: 1.125em;`};
 `
 
 const StyledButton = styled.button`
@@ -21,15 +21,13 @@ const StyledButton = styled.button`
 `
 
 const StyledAnchor = styled.a`
-	&& {
-		${props =>
-			props.busy ||
-			(props.disabled &&
-				`
+	${props =>
+		props.busy ||
+		(props.disabled &&
+			`
 		pointer-events: none;
 		cursor: not-allowed;
 	`)};
-	}
 `
 
 // TODO refactor into styled component
