@@ -68,7 +68,7 @@ var CalendarWrapper = _styledComponents2.default.div.attrs({
 }, function (props) {
 	return props.multiCalendarOrder && props.multiCalendarOrder !== 0 && '\n\t\t\tdisplay: none;\n\t\t\t';
 }, function (props) {
-	return props.customView === 'team-week' && '\n\t\t\tposition: relative;\n\t\t\twidth: 2000px;\n\t\t\t.rbc-time-content {\n\t\t\t\tflex-direction: row;\n\t\t\t}\n\t\t\t.rbc-time-gutter,\n\t\t\t.rbc-current-time-indicator,\n\t\t\t.rbc-time-header-gutter,\n\t\t\t.rbc-allday-cell,\n\t\t\t.rbc-event-allday,\n\t\t\t.rbc-event__break-week,\n\t\t\t.rbc-event__off-hours-week {\n\t\t\t\tdisplay: none !important;\n\t\t\t}\n\t\t\t.rbc-timeslot-group {\n\t\t\t\twidth: 0.5em;\n\t\t\t\theight: 0.5em;\n\t\t\t\tborder: none;\n\t\t\t\tcolor: rgba(0, 0, 0, 0);\n\t\t\t}\n\t\t\t.rbc-event__shift-week {\n\t\t\t\ttop: 0 !important;\n\t\t\t\tbottom: 0 !important;\n\t\t\t\twidth: intial !important;\n\t\t\t\theight: 101px !important;\n\t\t\t}\n\t\t\t.rbc-time-header-content {\n\t\t\t\t' + function (props) {
+	return props.customView === 'team-week' && '\n\t\t\tposition: relative;\n\t\t\twidth: 2000px;\n\t\t\t.rbc-time-content {\n\t\t\t\tflex-direction: row;\n\t\t\t}\n\t\t\t.rbc-time-gutter,\n\t\t\t.rbc-current-time-indicator,\n\t\t\t.rbc-time-header-gutter,\n\t\t\t.rbc-allday-cell,\n\t\t\t.rbc-event-allday,\n\t\t\t.rbc-event__break-week,\n\t\t\t.rbc-event__off-hours-week {\n\t\t\t\tdisplay: none !important;\n\t\t\t}\n\t\t\t.rbc-timeslot-group {\n\t\t\t\twidth: 0.5em;\n\t\t\t\theight: 0.5em;\n\t\t\t\tborder: none;\n\t\t\t\tcolor: rgba(0, 0, 0, 0);\n\t\t\t}\n\t\t\t.rbc-day-slot {\n\t\t\t\theight: 101px !important;\n\t\t\t}\n\t\t\t.rbc-event__closed-week,\n\t\t\t.rbc-event__shift-week {\n\t\t\t\ttop: 0 !important;\n\t\t\t\tbottom: 0 !important;\n\t\t\t\twidth: intial !important;\n\t\t\t\theight: 101px !important;\n\t\t\t}\n\t\t\t.rbc-time-header-content {\n\t\t\t\t' + function (props) {
 		return props.multiCalendarOrder && props.multiCalendarOrder !== 0 && '\n\t\t\t\t\tdisplay: none;\n\t\t\t\t\t';
 	} + ';\n\t\t\t}\n\t\t';
 });
@@ -121,6 +121,8 @@ var Calendar = function (_Component) {
 			    multiCalendarOrder = _props.multiCalendarOrder,
 			    customView = _props.customView;
 
+
+			console.log({ multiCalendarOrder: multiCalendarOrder });
 
 			return _react2.default.createElement(
 				CalendarWrapper,
