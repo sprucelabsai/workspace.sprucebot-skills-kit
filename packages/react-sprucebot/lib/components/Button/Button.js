@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _styledComponents = require('styled-components');
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -30,7 +34,17 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var ButtonWrapper = _styledComponents2.default.div.withConfig({
+	displayName: 'Button__ButtonWrapper',
+	componentId: 'z2er9s-0'
+})(['display:flex;width:50%;', ';', ';'], function (props) {
+	return props.left && 'padding-right: 1.125em';
+}, function (props) {
+	return props.right && 'padding-left: 1.125em';
+});
+
 // TODO refactor into styled component
+
 var Button = function (_Component) {
 	_inherits(Button, _Component);
 
@@ -71,6 +85,25 @@ var Button = function (_Component) {
 			}
 		};
 
+		_this.renderView = function () {
+			var busy = _this.state.busy;
+			var _this$props = _this.props,
+			    hideLoader = _this$props.hideLoader,
+			    loaderDark = _this$props.loaderDark,
+			    loaderStyle = _this$props.loaderStyle,
+			    children = _this$props.children;
+
+
+			if (busy && !hideLoader) {
+				return _react2.default.createElement(_Loader2.default, {
+					dark: loaderDark ? true : false,
+					fullWidth: false,
+					loaderStyle: loaderStyle
+				});
+			}
+			return children;
+		};
+
 		_this.state = {
 			busy: !!props.busy
 		};
@@ -107,7 +140,10 @@ var Button = function (_Component) {
 			    loaderStyle = _props.loaderStyle,
 			    propBusy = _props.busy,
 			    hideLoader = _props.hideLoader,
-			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader']);
+			    tertiary = _props.tertiary,
+			    left = _props.left,
+			    right = _props.right,
+			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'tertiary', 'left', 'right']);
 
 			var busy = this.state.busy;
 
@@ -144,17 +180,28 @@ var Button = function (_Component) {
 			// if this button has a href or is a "remove" button, make it an anchor
 			var Tag = props.href || remove ? 'a' : tag;
 
+			if (tertiary) {
+				return _react2.default.createElement(
+					ButtonWrapper,
+					{ left: left, right: right },
+					_react2.default.createElement(
+						Tag,
+						_extends({
+							className: btnClass + ' ' + (className || ''),
+							onClick: this.onClick
+						}, props),
+						this.renderView()
+					)
+				);
+			}
+
 			return _react2.default.createElement(
 				Tag,
 				_extends({
 					className: btnClass + ' ' + (className || ''),
 					onClick: this.onClick
 				}, props),
-				busy && !hideLoader ? _react2.default.createElement(_Loader2.default, {
-					dark: loaderDark ? true : false,
-					fullWidth: false,
-					loaderStyle: loaderStyle
-				}) : children
+				this.renderView()
 			);
 		}
 	}]);
@@ -175,6 +222,9 @@ Button.propTypes = {
 	remove: _propTypes2.default.bool,
 	toggle: _propTypes2.default.bool,
 	hideLoader: _propTypes2.default.bool,
+	tertiary: _propTypes2.default.bool,
+	left: _propTypes2.default.bool,
+	right: _propTypes2.default.bool,
 	type: _propTypes2.default.string
 };
 
