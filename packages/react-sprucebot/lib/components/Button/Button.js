@@ -43,6 +43,20 @@ var ButtonWrapper = _styledComponents2.default.div.withConfig({
 	return props.right && 'padding-left: 1.125em';
 });
 
+var StyledButton = _styledComponents2.default.button.withConfig({
+	displayName: 'Button__StyledButton',
+	componentId: 'z2er9s-1'
+})(['', ';'], function (props) {
+	return props.busy || props.disabled && '\n\t\t\tpointer-events: none;\n\t\t\tcursor: not-allowed;\n\t\t';
+});
+
+var StyledAnchor = _styledComponents2.default.a.withConfig({
+	displayName: 'Button__StyledAnchor',
+	componentId: 'z2er9s-2'
+})(['', ';'], function (props) {
+	return props.busy || props.disabled && '\n\t\tpointer-events: none;\n\t\tcursor: not-allowed;\n\t';
+});
+
 // TODO refactor into styled component
 
 var Button = function (_Component) {
@@ -54,25 +68,38 @@ var Button = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
 
 		_this.onClick = function (e) {
-			if (_this.props.onClick) {
-				_this.props.onClick(e);
-			} else if (_this.props.href) {
+			var busy = _this.state.busy;
+			var _this$props = _this.props,
+			    disabled = _this$props.disabled,
+			    onClick = _this$props.onClick,
+			    href = _this$props.href,
+			    target = _this$props.target,
+			    router = _this$props.router;
+
+
+			if (busy || disabled) {
+				return;
+			}
+
+			if (onClick) {
+				onClick(e);
+			} else if (href) {
 				e.preventDefault();
 				_this.setState({ busy: true });
-				var url = _this.props.href;
+				var url = href;
 				if (/^http/.test(url)) {
 					// If the href is a full domain name
-					if (_this.props.target) {
-						window.open(url, _this.props.target);
+					if (target) {
+						window.open(url, target);
 					} else {
 						window.open(url, '_self');
 					}
 				} else {
 					// Relative url
-					if (_this.props.target) {
-						window.open(url, _this.props.target);
-					} else if (_this.props.router) {
-						_this.props.router.push(url);
+					if (target) {
+						window.open(url, target);
+					} else if (router) {
+						router.push(url);
 					} else {
 						window.open(url, '_self');
 					}
@@ -87,11 +114,11 @@ var Button = function (_Component) {
 
 		_this.renderView = function () {
 			var busy = _this.state.busy;
-			var _this$props = _this.props,
-			    hideLoader = _this$props.hideLoader,
-			    loaderDark = _this$props.loaderDark,
-			    loaderStyle = _this$props.loaderStyle,
-			    children = _this$props.children;
+			var _this$props2 = _this.props,
+			    hideLoader = _this$props2.hideLoader,
+			    loaderDark = _this$props2.loaderDark,
+			    loaderStyle = _this$props2.loaderStyle,
+			    children = _this$props2.children;
 
 
 			if (busy && !hideLoader) {
@@ -178,7 +205,7 @@ var Button = function (_Component) {
 			}
 
 			// if this button has a href or is a "remove" button, make it an anchor
-			var Tag = props.href || remove ? 'a' : tag;
+			var Tag = props.href || remove ? StyledAnchor : StyledButton;
 
 			if (tertiary) {
 				return _react2.default.createElement(
@@ -199,7 +226,9 @@ var Button = function (_Component) {
 				Tag,
 				_extends({
 					className: btnClass + ' ' + (className || ''),
-					onClick: this.onClick
+					onClick: this.onClick,
+					disabled: disabled,
+					busy: busy
 				}, props),
 				this.renderView()
 			);
