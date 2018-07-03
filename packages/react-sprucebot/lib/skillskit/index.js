@@ -67,9 +67,10 @@ exports.default = {
 		    _ref3$onSelectUser = _ref3.onSelectUser,
 		    onSelectUser = _ref3$onSelectUser === undefined ? function () {} : _ref3$onSelectUser,
 		    _ref3$roles = _ref3.roles,
-		    roles = _ref3$roles === undefined ? ['guest'] : _ref3$roles;
+		    roles = _ref3$roles === undefined ? ['guest'] : _ref3$roles,
+		    locationId = _ref3.locationId;
 
-		postMessage({ name: 'Skill:SearchForUser', roles: roles });
+		postMessage({ name: 'Skill:SearchForUser', roles: roles, locationId: locationId });
 
 		this._onCancelSearchCallback = onCancel;
 		this._onSelecUserFormSearchCallback = onSelectUser;
