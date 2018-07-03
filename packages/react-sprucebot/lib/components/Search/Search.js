@@ -51,7 +51,7 @@ var Search = function (_Component) {
 		value: function onClick(e) {
 			e.preventDefault();
 			_skillskit2.default.searchForUser({
-				locationId: this.props.locationId,
+				organizationId: this.props.organizationId,
 				onCancel: this.onCancelSearch.bind(this),
 				onSelectUser: this.onSelectUser.bind(this),
 				roles: this.props.roles
@@ -76,8 +76,8 @@ var Search = function (_Component) {
 			var _props = this.props,
 			    onCancel = _props.onCancel,
 			    onSelectUser = _props.onSelectUser,
-			    locationId = _props.locationId,
-			    props = _objectWithoutProperties(_props, ['onCancel', 'onSelectUser', 'locationId']);
+			    organizationId = _props.organizationId,
+			    props = _objectWithoutProperties(_props, ['onCancel', 'onSelectUser', 'organizationId']);
 
 			return _react2.default.createElement(
 				'div',
@@ -97,7 +97,7 @@ Search.propTypes = {
 	onCancel: _propTypes2.default.func,
 	onSelectUser: _propTypes2.default.func.isRequired,
 	roles: _propTypes2.default.string,
-	locationId: _propTypes2.default.string.isRequired
+	organizationId: _propTypes2.default.string.isRequired
 };
 
 Search.defaultProps = {
