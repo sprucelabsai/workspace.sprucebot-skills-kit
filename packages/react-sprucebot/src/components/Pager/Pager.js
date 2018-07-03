@@ -43,6 +43,15 @@ class Pager extends Component {
 		page: this.props.page
 	}
 
+	componentWillReceiveProps = nextProps => {
+		const { page, loading } = this.props
+		const { loading: nextLoading } = nextProps
+
+		if (loading && !nextLoading) {
+			this.setState({ page })
+		}
+	}
+
 	componentDidUpdate = prevProps => {
 		const { updatePage, backToStart } = prevProps
 
