@@ -30,7 +30,8 @@ exports[`it renders 1`] = `
 }
 
 <button
-  className="btn ControlButton control-button  c0"
+  className="btn ControlButton control-button  c0 "
+  disabled={undefined}
   onClick={[Function]}
   tabIndex={0}
   type="button"
@@ -69,7 +70,8 @@ exports[`it renders a link 1`] = `
 }
 
 <a
-  className="btn ControlButton control-button  c0"
+  className="btn ControlButton control-button  c0 "
+  disabled={undefined}
   href="https://sprucebot.com"
   onClick={[Function]}
   tabIndex={0}

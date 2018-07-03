@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _styledComponents = require('styled-components');
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -30,7 +34,31 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var ButtonWrapper = _styledComponents2.default.div.withConfig({
+	displayName: 'Button__ButtonWrapper',
+	componentId: 'z2er9s-0'
+})(['display:flex;width:50%;', ';', ';'], function (props) {
+	return props.left && 'padding-right: 1.125em;';
+}, function (props) {
+	return props.right && 'padding-left: 1.125em;';
+});
+
+var StyledButton = _styledComponents2.default.button.withConfig({
+	displayName: 'Button__StyledButton',
+	componentId: 'z2er9s-1'
+})(['', ';'], function (props) {
+	return props.busy || props.disabled && '\n\t\t\tpointer-events: none;\n\t\t\tcursor: not-allowed;\n\t\t';
+});
+
+var StyledAnchor = _styledComponents2.default.a.withConfig({
+	displayName: 'Button__StyledAnchor',
+	componentId: 'z2er9s-2'
+})(['', ';'], function (props) {
+	return props.busy || props.disabled && '\n\t\tpointer-events: none;\n\t\tcursor: not-allowed;\n\t';
+});
+
 // TODO refactor into styled component
+
 var Button = function (_Component) {
 	_inherits(Button, _Component);
 
@@ -40,25 +68,38 @@ var Button = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
 
 		_this.onClick = function (e) {
-			if (_this.props.onClick) {
-				_this.props.onClick(e);
-			} else if (_this.props.href) {
+			var busy = _this.state.busy;
+			var _this$props = _this.props,
+			    disabled = _this$props.disabled,
+			    onClick = _this$props.onClick,
+			    href = _this$props.href,
+			    target = _this$props.target,
+			    router = _this$props.router;
+
+
+			if (busy || disabled) {
+				return;
+			}
+
+			if (onClick) {
+				onClick(e);
+			} else if (href) {
 				e.preventDefault();
 				_this.setState({ busy: true });
-				var url = _this.props.href;
+				var url = href;
 				if (/^http/.test(url)) {
 					// If the href is a full domain name
-					if (_this.props.target) {
-						window.open(url, _this.props.target);
+					if (target) {
+						window.open(url, target);
 					} else {
 						window.open(url, '_self');
 					}
 				} else {
 					// Relative url
-					if (_this.props.target) {
-						window.open(url, _this.props.target);
-					} else if (_this.props.router) {
-						_this.props.router.push(url);
+					if (target) {
+						window.open(url, target);
+					} else if (router) {
+						router.push(url);
 					} else {
 						window.open(url, '_self');
 					}
@@ -69,6 +110,25 @@ var Button = function (_Component) {
 					_this.setState({ busy: false });
 				}, 2000);
 			}
+		};
+
+		_this.renderView = function () {
+			var busy = _this.state.busy;
+			var _this$props2 = _this.props,
+			    hideLoader = _this$props2.hideLoader,
+			    loaderDark = _this$props2.loaderDark,
+			    loaderStyle = _this$props2.loaderStyle,
+			    children = _this$props2.children;
+
+
+			if (busy && !hideLoader) {
+				return _react2.default.createElement(_Loader2.default, {
+					dark: loaderDark ? true : false,
+					fullWidth: false,
+					loaderStyle: loaderStyle
+				});
+			}
+			return children;
 		};
 
 		_this.state = {
@@ -107,7 +167,10 @@ var Button = function (_Component) {
 			    loaderStyle = _props.loaderStyle,
 			    propBusy = _props.busy,
 			    hideLoader = _props.hideLoader,
-			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader']);
+			    tertiary = _props.tertiary,
+			    left = _props.left,
+			    right = _props.right,
+			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'tertiary', 'left', 'right']);
 
 			var busy = this.state.busy;
 
@@ -142,19 +205,41 @@ var Button = function (_Component) {
 			}
 
 			// if this button has a href or is a "remove" button, make it an anchor
-			var Tag = props.href || remove ? 'a' : tag;
+			var Tag = void 0;
+			if (props.href || remove) {
+				Tag = StyledAnchor;
+			} else if (tag === 'button') {
+				Tag = StyledButton;
+			} else {
+				Tag = tag;
+			}
+
+			if (tertiary) {
+				return _react2.default.createElement(
+					ButtonWrapper,
+					{ left: left, right: right },
+					_react2.default.createElement(
+						Tag,
+						_extends({
+							className: btnClass + ' ' + (className || ''),
+							onClick: this.onClick,
+							disabled: disabled,
+							busy: busy
+						}, props),
+						this.renderView()
+					)
+				);
+			}
 
 			return _react2.default.createElement(
 				Tag,
 				_extends({
 					className: btnClass + ' ' + (className || ''),
-					onClick: this.onClick
+					onClick: this.onClick,
+					disabled: disabled,
+					busy: busy
 				}, props),
-				busy && !hideLoader ? _react2.default.createElement(_Loader2.default, {
-					dark: loaderDark ? true : false,
-					fullWidth: false,
-					loaderStyle: loaderStyle
-				}) : children
+				this.renderView()
 			);
 		}
 	}]);
@@ -175,6 +260,9 @@ Button.propTypes = {
 	remove: _propTypes2.default.bool,
 	toggle: _propTypes2.default.bool,
 	hideLoader: _propTypes2.default.bool,
+	tertiary: _propTypes2.default.bool,
+	left: _propTypes2.default.bool,
+	right: _propTypes2.default.bool,
 	type: _propTypes2.default.string
 };
 
