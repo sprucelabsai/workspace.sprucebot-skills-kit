@@ -145,6 +145,7 @@ class Pager extends Component {
 	renderView = () => {
 		const { page } = this.state
 		const {
+			totalPages,
 			loading,
 			loadingText,
 			showLoader,
