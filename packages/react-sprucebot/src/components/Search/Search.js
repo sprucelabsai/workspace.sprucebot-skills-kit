@@ -14,7 +14,7 @@ export default class Search extends Component {
 	onClick(e) {
 		e.preventDefault()
 		SK.searchForUser({
-			locationId: this.props.locationId,
+			organizationId: this.props.organizationId,
 			onCancel: this.onCancelSearch.bind(this),
 			onSelectUser: this.onSelectUser.bind(this),
 			roles: this.props.roles
@@ -33,7 +33,7 @@ export default class Search extends Component {
 	}
 
 	render() {
-		const { onCancel, onSelectUser, locationId, ...props } = this.props
+		const { onCancel, onSelectUser, organizationId, ...props } = this.props
 		return (
 			<div className="input__wrapper">
 				<input {...props} type="search" onClick={this.onClick.bind(this)} />
@@ -46,7 +46,7 @@ Search.propTypes = {
 	onCancel: PropTypes.func,
 	onSelectUser: PropTypes.func.isRequired,
 	roles: PropTypes.string,
-	locationId: PropTypes.string.isRequired
+	organizationId: PropTypes.string.isRequired
 }
 
 Search.defaultProps = {
