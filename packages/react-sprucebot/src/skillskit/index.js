@@ -50,9 +50,10 @@ export default {
 	searchForUser: function({
 		onCancel = () => {},
 		onSelectUser = () => {},
-		roles = ['guest']
+		roles = ['guest'],
+		locationId
 	} = {}) {
-		postMessage({ name: 'Skill:SearchForUser', roles })
+		postMessage({ name: 'Skill:SearchForUser', roles, locationId })
 
 		this._onCancelSearchCallback = onCancel
 		this._onSelecUserFormSearchCallback = onSelectUser
