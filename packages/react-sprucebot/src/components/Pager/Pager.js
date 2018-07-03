@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import ControlButton from '../ControlButton/ControlButton'
+import Loader from '../Loader/Loader'
 
 const StyledList = styled.ul`
 	display: flex;
@@ -13,11 +14,27 @@ const StyledListItem = styled.li`
 	&& {
 		${props => props.smallArrows && `flex: 0.5`};
 		${props => props.hide && `display: none`};
+		${props =>
+			props.loading &&
+			`
+				pointer-events: none;
+				cursor: not-allowed;
+			`};
 	}
 `
 
 const DropDownButton = styled(ControlButton)`
 	margin-left: 0.7em;
+`
+
+const StyledLoader = styled(Loader)`
+	&& {
+		flex: 2;
+		display: flex;
+		align-self: center;
+		align-items: center;
+		justify-content: center;
+	}
 `
 
 class Pager extends Component {
@@ -125,27 +142,53 @@ class Pager extends Component {
 		}
 	}
 
+	renderView = () => {
+		const { page } = this.state
+		const {
+			totalPages,
+			loading,
+			loadingText,
+			showLoader,
+			hasButton,
+			buttonClick,
+			titles
+		} = this.props
+		const title = titles ? titles(page) : `${page + 1} of ${totalPages}`
+
+		if (loading && showLoader) {
+			return <StyledLoader fullWidth={false} margin={`7px 0`} flex />
+		} else if (loading && loadingText) {
+			return <StyledListItem className="current">{loadingText}</StyledListItem>
+		} else if (hasButton && buttonClick) {
+			return (
+				<StyledListItem className="current">
+					<DropDownButton iconRight={hasButton} onClick={buttonClick}>
+						{title}
+					</DropDownButton>
+				</StyledListItem>
+			)
+		} else {
+			return <StyledListItem className="current">title</StyledListItem>
+		}
+	}
+
 	render() {
 		const { page } = this.state
 		const {
 			totalPages,
-			titles,
-			hasButton,
-			buttonClick,
-			smallArrows,
 			margin,
 			hideSingleArrows,
-			hideDoubleArrows
+			hideDoubleArrows,
+			loading
 		} = this.props
 
 		const first = page === 0
 		const last = page === totalPages - 1
 
-		const title = titles ? titles(page) : `${page + 1} of ${totalPages}`
-
 		return (
 			<StyledList className="pager" margin={margin}>
 				<StyledListItem
+					loading={loading}
 					className={`first ${first && 'disabled'}`}
 					onClick={this.first}
 					smallArrows
@@ -154,6 +197,7 @@ class Pager extends Component {
 					<a>First</a>
 				</StyledListItem>
 				<StyledListItem
+					loading={loading}
 					className={`back ${first && 'disabled'}`}
 					onClick={this.back}
 					smallArrows
@@ -161,16 +205,11 @@ class Pager extends Component {
 				>
 					<a>Back</a>
 				</StyledListItem>
-				<StyledListItem className="current">
-					{hasButton && buttonClick ? (
-						<DropDownButton iconRight={hasButton} onClick={buttonClick}>
-							{title}
-						</DropDownButton>
-					) : (
-						title
-					)}
-				</StyledListItem>
+
+				{this.renderView()}
+
 				<StyledListItem
+					loading={loading}
 					className={`next ${last && 'disabled'}`}
 					onClick={this.next}
 					smallArrows
@@ -179,6 +218,7 @@ class Pager extends Component {
 					<a>Next</a>
 				</StyledListItem>
 				<StyledListItem
+					loading={loading}
 					className={`last ${last && 'disabled'}`}
 					onClick={this.last}
 					smallArrows
