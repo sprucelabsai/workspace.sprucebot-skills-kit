@@ -78,6 +78,16 @@ var Pager = function (_Component) {
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Pager.__proto__ || Object.getPrototypeOf(Pager)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			page: _this.props.page
+		}, _this.componentWillReceiveProps = function (nextProps) {
+			var _this$props = _this.props,
+			    page = _this$props.page,
+			    loading = _this$props.loading;
+			var nextLoading = nextProps.loading;
+
+
+			if (loading && !nextLoading) {
+				_this.setState({ page: page });
+			}
 		}, _this.componentDidUpdate = function (prevProps) {
 			var updatePage = prevProps.updatePage,
 			    backToStart = prevProps.backToStart;
@@ -136,9 +146,9 @@ var Pager = function (_Component) {
 				return {};
 			});
 		}, _this.last = function (e) {
-			var _this$props = _this.props,
-			    totalPages = _this$props.totalPages,
-			    skipAmount = _this$props.skipAmount;
+			var _this$props2 = _this.props,
+			    totalPages = _this$props2.totalPages,
+			    skipAmount = _this$props2.skipAmount;
 
 
 			_this.setState(function (prevState) {
@@ -173,14 +183,14 @@ var Pager = function (_Component) {
 			}
 		}, _this.renderView = function () {
 			var page = _this.state.page;
-			var _this$props2 = _this.props,
-			    totalPages = _this$props2.totalPages,
-			    loading = _this$props2.loading,
-			    loadingText = _this$props2.loadingText,
-			    showLoader = _this$props2.showLoader,
-			    hasButton = _this$props2.hasButton,
-			    buttonClick = _this$props2.buttonClick,
-			    titles = _this$props2.titles;
+			var _this$props3 = _this.props,
+			    totalPages = _this$props3.totalPages,
+			    loading = _this$props3.loading,
+			    loadingText = _this$props3.loadingText,
+			    showLoader = _this$props3.showLoader,
+			    hasButton = _this$props3.hasButton,
+			    buttonClick = _this$props3.buttonClick,
+			    titles = _this$props3.titles;
 
 			var title = titles ? titles(page) : page + 1 + ' of ' + totalPages;
 
