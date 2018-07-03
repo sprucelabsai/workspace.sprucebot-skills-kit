@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Paragraph as P } from '../Typography/Typography'
 
-/**
- * This input field has been deprecated
- * Use `InputField` instead
- */
 export default class Input extends Component {
 	constructor(props) {
 		super(props)

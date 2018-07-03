@@ -138,6 +138,10 @@ var _ControlButton = require('./components/ControlButton/ControlButton');
 
 var _ControlButton2 = _interopRequireDefault(_ControlButton);
 
+var _Search = require('./components/Search/Search');
+
+var _Search2 = _interopRequireDefault(_Search);
+
 var _Typography = require('./components/Typography/Typography');
 
 var Typography = _interopRequireWildcard(_Typography);
@@ -217,6 +221,7 @@ var Sprucebot = _extends({
 	Onboarding: _Onboarding2.default,
 	Icon: _Icon2.default,
 	IconButton: _IconButton2.default,
-	ControlButton: _ControlButton2.default
+	ControlButton: _ControlButton2.default,
+	Search: _Search2.default
 }, Typography, List, Tabs, ButtonGrid);
 module.exports = Sprucebot;

@@ -99,9 +99,8 @@ var TrainingGuide = function (_Component) {
 			if (this.state.currentStep !== prevState.currentStep) {
 				this.setState({ transitioning: true });
 
-				// todo , don't scroll UP, only down (need to postMessage to get scroll (see Dialog))
 				setTimeout(function () {
-					_index2.default.scrollTo(_reactDom2.default.findDOMNode(_this2.button).offsetTop - window.screen.height * 0.5);
+					_index2.default.scrollTo(_reactDom2.default.findDOMNode(_this2.button).offsetTop);
 					_this2.setState({ transitioning: false });
 				}, 1500);
 			}
