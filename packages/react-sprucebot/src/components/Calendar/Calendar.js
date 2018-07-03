@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import styled, { injectGlobal } from 'styled-components'
+import styled from 'styled-components'
 import moment from 'moment'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
+import is from 'is_js'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { default as TouchBackend } from 'react-dnd-touch-backend'
 import { DragDropContext } from 'react-dnd'
@@ -947,7 +948,9 @@ class Calendar extends Component {
 	}
 }
 
-export default DragDropContext(HTML5Backend)(Calendar)
+const backend = is.mobile() || is.tablet() || is.touchDevice() ? TouchBackend : HTML5Backend
+
+export default DragDropContext(backend)(Calendar)
 
 Calendar.propTypes = {
 	height: PropTypes.string,
