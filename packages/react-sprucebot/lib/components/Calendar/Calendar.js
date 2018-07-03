@@ -26,6 +26,10 @@ var _dragAndDrop = require('react-big-calendar/lib/addons/dragAndDrop');
 
 var _dragAndDrop2 = _interopRequireDefault(_dragAndDrop);
 
+var _is_js = require('is_js');
+
+var _is_js2 = _interopRequireDefault(_is_js);
+
 var _reactDndHtml5Backend = require('react-dnd-html5-backend');
 
 var _reactDndHtml5Backend2 = _interopRequireDefault(_reactDndHtml5Backend);
@@ -162,7 +166,9 @@ var Calendar = function (_Component) {
 	return Calendar;
 }(_react.Component);
 
-exports.default = (0, _reactDnd.DragDropContext)(_reactDndHtml5Backend2.default)(Calendar);
+var backend = _is_js2.default.mobile() || _is_js2.default.tablet() || _is_js2.default.touchDevice() ? _reactDndTouchBackend2.default : _reactDndHtml5Backend2.default;
+
+exports.default = (0, _reactDnd.DragDropContext)(backend)(Calendar);
 
 
 Calendar.propTypes = {
