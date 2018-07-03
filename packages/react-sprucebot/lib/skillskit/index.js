@@ -58,5 +58,45 @@ exports.default = {
 
 	requestScroll: function requestScroll() {
 		postMessage('Skill:RequestScroll');
+	},
+
+	searchForUser: function searchForUser() {
+		var _ref3 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+		    _ref3$onCancel = _ref3.onCancel,
+		    onCancel = _ref3$onCancel === undefined ? function () {} : _ref3$onCancel,
+		    _ref3$onSelectUser = _ref3.onSelectUser,
+		    onSelectUser = _ref3$onSelectUser === undefined ? function () {} : _ref3$onSelectUser,
+		    _ref3$roles = _ref3.roles,
+		    roles = _ref3$roles === undefined ? ['guest'] : _ref3$roles;
+
+		postMessage({ name: 'Skill:SearchForUser', roles: roles });
+
+		this._onCancelSearchCallback = onCancel;
+		this._onSelecUserFormSearchCallback = onSelectUser;
+
+		window.addEventListener('message', this._searchCallback.bind(this));
+	},
+
+	_searchCallback: function _searchCallback(e) {
+		if (typeof e.data === 'string') {
+			try {
+				var results = JSON.parse(e.data);
+				var shutdown = false;
+
+				if (results.name === 'Search:SelectUser') {
+					this._onSelecUserFormSearchCallback(results.user);
+					shutdown = true;
+				} else if (results.name === 'Search:Cancel') {
+					this._onCancelSearchCallback();
+					shutdown = true;
+				}
+
+				if (shutdown) {
+					window.removeEventListener('message', this._searchCallback);
+					this._onCancelSearchCallback = null;
+					this._onSelecUserFormSearchCallback = null;
+				}
+			} catch (err) {}
+		}
 	}
 };
