@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.12.0"></a>
+# [6.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.11.0...v6.12.0) (2018-07-03)
+
+
+### Bug Fixes
+
+* search against org passthrough of roles and locationId ([b54a694](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b54a694))
+
+
+### Features
+
+* search, skill window events, input, training guide scroll ([7ef85f1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7ef85f1))
+
+
+
+
+
 <a name="6.11.0"></a>
 # [6.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.10.0...v6.11.0) (2018-07-03)
 
