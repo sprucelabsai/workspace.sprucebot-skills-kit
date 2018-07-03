@@ -948,7 +948,8 @@ class Calendar extends Component {
 	}
 }
 
-const backend = is.mobile() || is.tablet() || is.touchDevice() ? TouchBackend : HTML5Backend
+const backend =
+	is.mobile() || is.tablet() || is.touchDevice() ? TouchBackend : HTML5Backend
 
 export default DragDropContext(backend)(Calendar)
 
