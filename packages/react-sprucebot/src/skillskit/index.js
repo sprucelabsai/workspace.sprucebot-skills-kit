@@ -45,5 +45,41 @@ export default {
 
 	requestScroll: function() {
 		postMessage('Skill:RequestScroll')
+	},
+
+	searchForUser: function({
+		onCancel = () => {},
+		onSelectUser = () => {},
+		roles = ['guest']
+	} = {}) {
+		postMessage({ name: 'Skill:SearchForUser', roles })
+
+		this._onCancelSearchCallback = onCancel
+		this._onSelecUserFormSearchCallback = onSelectUser
+
+		window.addEventListener('message', this._searchCallback.bind(this))
+	},
+
+	_searchCallback: function(e) {
+		if (typeof e.data === 'string') {
+			try {
+				const results = JSON.parse(e.data)
+				let shutdown = false
+
+				if (results.name === 'Search:SelectUser') {
+					this._onSelecUserFormSearchCallback(results.user)
+					shutdown = true
+				} else if (results.name === 'Search:Cancel') {
+					this._onCancelSearchCallback()
+					shutdown = true
+				}
+
+				if (shutdown) {
+					window.removeEventListener('message', this._searchCallback)
+					this._onCancelSearchCallback = null
+					this._onSelecUserFormSearchCallback = null
+				}
+			} catch (err) {}
+		}
 	}
 }
