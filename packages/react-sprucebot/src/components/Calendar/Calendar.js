@@ -686,10 +686,6 @@ const CalendarWrapper = styled.div.attrs({
 		transition: opacity 150ms;
 		pointer-events: all;
 	}
-	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ns-icon,
-	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ew-icon {
-		display: block;
-	}
 	.rbc-addons-dnd.rbc-addons-dnd-is-dragging .rbc-event {
 		pointer-events: none;
 		opacity: 0.5;
@@ -740,6 +736,10 @@ const CalendarWrapper = styled.div.attrs({
 		height: 10px;
 		cursor: ew-resize;
 	}
+	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ns-icon,
+	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ew-icon {
+		display: ${props => (props.disableResize ? 'none' : 'block')};
+	}
 	/*White Label*/
 	.rbc-time-header-cell {
 		${props =>
@@ -785,6 +785,8 @@ const CalendarWrapper = styled.div.attrs({
 		color: #4cadc1;
 		z-index: 1 !important;
 	}
+	.rbc-event__block-day.rbc-event-teammate,
+	.rbc-event__block-week.rbc-event-teammate,
 	.rbc-event__shift-day.rbc-event-teammate,
 	.rbc-event__shift-week.rbc-event-teammate {
 		pointer-events: none !important;
@@ -910,7 +912,8 @@ class Calendar extends Component {
 			onEventDrop,
 			onEventResize,
 			multiCalendarOrder,
-			customView
+			customView,
+			disableResize
 		} = this.props
 
 		return (
@@ -919,6 +922,7 @@ class Calendar extends Component {
 				defaultView={defaultView}
 				multiCalendarOrder={multiCalendarOrder}
 				customView={customView}
+				disableResize={disableResize}
 			>
 				<CalendarComponent
 					date={date || new Date()}
