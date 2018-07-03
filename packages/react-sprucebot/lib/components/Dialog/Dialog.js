@@ -163,7 +163,7 @@ var Dialog = function (_Component) {
 		value: function iframeMessageHandler(e) {
 			try {
 				var results = JSON.parse(e.data);
-				if (this.state.firstShow && results.name === 'SkillContainer:Scroll') {
+				if (this.state.firstShow && results.name === 'SkillContainer:ScrollTop') {
 					var top = results.skillScrollTop < 0 ? Math.abs(results.skillScrollTop) : 0;
 					this.setState({
 						scrollTop: top,
@@ -171,9 +171,7 @@ var Dialog = function (_Component) {
 						opacity: 1
 					});
 				}
-			} catch (err) {
-				console.log('error', err);
-			}
+			} catch (err) {}
 		}
 	}, {
 		key: 'onTapClose',

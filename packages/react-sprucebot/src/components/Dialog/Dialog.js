@@ -85,7 +85,7 @@ export default class Dialog extends Component {
 	iframeMessageHandler(e) {
 		try {
 			const results = JSON.parse(e.data)
-			if (this.state.firstShow && results.name === 'SkillContainer:Scroll') {
+			if (this.state.firstShow && results.name === 'SkillContainer:ScrollTop') {
 				const top =
 					results.skillScrollTop < 0 ? Math.abs(results.skillScrollTop) : 0
 				this.setState({
@@ -94,9 +94,7 @@ export default class Dialog extends Component {
 					opacity: 1
 				})
 			}
-		} catch (err) {
-			console.log('error', err)
-		}
+		} catch (err) {}
 	}
 	onTapClose() {
 		this.postHeight()
