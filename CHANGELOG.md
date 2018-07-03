@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.10.0"></a>
+# [6.10.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.9.0...v6.10.0) (2018-07-03)
+
+
+### Features
+
+* search, skill window events, input, training guide scroll ([bfee353](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bfee353))
+
+
+
+
+
+<a name="6.9.0"></a>
+# [6.9.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.8.0...v6.9.0) (2018-06-27)
+
+
+### Features
+
+* type button ([7ae2f2d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7ae2f2d))
+
+
+
+
+
 <a name="6.8.0"></a>
 # [6.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.7.0...v6.8.0) (2018-06-27)
 

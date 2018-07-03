@@ -76,6 +76,7 @@ var Search = function (_Component) {
 			var _props = this.props,
 			    onCancel = _props.onCancel,
 			    onSelectUser = _props.onSelectUser,
+
 			    organizationId = _props.organizationId,
 			    props = _objectWithoutProperties(_props, ['onCancel', 'onSelectUser', 'organizationId']);
 
