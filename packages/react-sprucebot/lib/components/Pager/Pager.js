@@ -174,6 +174,7 @@ var Pager = function (_Component) {
 		}, _this.renderView = function () {
 			var page = _this.state.page;
 			var _this$props2 = _this.props,
+			    totalPages = _this$props2.totalPages,
 			    loading = _this$props2.loading,
 			    loadingText = _this$props2.loadingText,
 			    showLoader = _this$props2.showLoader,
