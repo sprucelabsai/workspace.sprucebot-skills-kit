@@ -81,17 +81,15 @@ var Pager = function (_Component) {
 		}, _this.componentWillReceiveProps = function (nextProps) {
 			var _this$props = _this.props,
 			    page = _this$props.page,
-			    loading = _this$props.loading;
+			    loading = _this$props.loading,
+			    updatePage = _this$props.updatePage,
+			    backToStart = _this$props.backToStart;
 			var nextLoading = nextProps.loading;
 
 
 			if (loading && !nextLoading) {
 				_this.setState({ page: page });
 			}
-		}, _this.componentDidUpdate = function (prevProps) {
-			var updatePage = prevProps.updatePage,
-			    backToStart = prevProps.backToStart;
-
 
 			if (updatePage) {
 				_this.updatePageNumber();
