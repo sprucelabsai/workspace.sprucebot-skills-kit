@@ -263,5 +263,5 @@ Dialog.propTypes = {
 
 Dialog.defaultProps = {
 	tag: 'div',
-	show: false
+	show: true
 };
