@@ -47,7 +47,7 @@ export default function Field({
 Field.propTypes = {
 	input: PropTypes.shape({
 		value: PropTypes.any.isRequired,
-		onChange: PropTypes.func.isRequired
+		onChange: PropTypes.func
 	}).isRequired,
 	meta: PropTypes.shape({
 		touched: PropTypes.bool,

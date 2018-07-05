@@ -3,6 +3,108 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.12.1"></a>
+## [6.12.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.12.0...v6.12.1) (2018-07-04)
+
+
+### Bug Fixes
+
+* default showing dialog ([#103](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/103)) ([c9a2c17](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c9a2c17))
+
+
+
+
+
+<a name="6.12.0"></a>
+# [6.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.11.0...v6.12.0) (2018-07-03)
+
+
+### Bug Fixes
+
+* search against org passthrough of roles and locationId ([b54a694](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b54a694))
+
+
+### Features
+
+* search, skill window events, input, training guide scroll ([7ef85f1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7ef85f1))
+
+
+
+
+
+<a name="6.11.0"></a>
+# [6.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.10.0...v6.11.0) (2018-07-03)
+
+
+### Features
+
+* search org id ([#97](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/97)) ([4cc05bb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4cc05bb))
+
+
+
+
+
+<a name="6.10.0"></a>
+# [6.10.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.9.0...v6.10.0) (2018-07-03)
+
+
+### Features
+
+* search, skill window events, input, training guide scroll ([bfee353](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bfee353))
+
+
+
+
+
+<a name="6.9.0"></a>
+# [6.9.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.8.0...v6.9.0) (2018-06-27)
+
+
+### Features
+
+* type button ([7ae2f2d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7ae2f2d))
+
+
+
+
+
+<a name="6.8.0"></a>
+# [6.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.7.0...v6.8.0) (2018-06-27)
+
+
+### Features
+
+* props passthrough, lang changes ([#87](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/87)) ([081a82c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/081a82c))
+
+
+
+
+
+<a name="6.7.0"></a>
+# [6.7.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.6.1...v6.7.0) (2018-06-27)
+
+
+### Features
+
+* **SPRUC-925:** Nuclear option; squash all the commits ([#76](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/76)) ([63485cc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/63485cc))
+* responsive, feed updates, deprecation warnings removed ([#84](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/84)) ([e5b76a4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e5b76a4))
+
+
+
+
+
+<a name="6.6.1"></a>
+## [6.6.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.6.0...v6.6.1) (2018-06-14)
+
+
+### Bug Fixes
+
+* **SB-1651:** url trails ([c1cad7a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c1cad7a))
+
+
+
+
+
 <a name="6.6.0"></a>
 # [6.6.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.5.0...v6.6.0) (2018-04-27)
 

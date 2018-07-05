@@ -33,6 +33,7 @@ import Feed, { FeedItem, FeedAttachment } from './components/Feed/Feed'
 import Icon from './components/Icon/Icon'
 import IconButton from './components/IconButton/IconButton'
 import ControlButton from './components/ControlButton/ControlButton'
+import Search from './components/Search/Search'
 import * as Typography from './components/Typography/Typography'
 import * as List from './components/List/List'
 import * as Tabs from './components/Tabs/Tabs'
@@ -86,6 +87,7 @@ const Sprucebot = {
 	Icon,
 	IconButton,
 	ControlButton,
+	Search,
 	...Typography,
 	...List,
 	...Tabs,
