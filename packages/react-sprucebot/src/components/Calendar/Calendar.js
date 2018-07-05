@@ -863,7 +863,6 @@ const CalendarWrapper = styled.div.attrs({
 	}
 	.rbc-event-allday {
 		width: 100% !important;
-		border: 1px solid #fff !important;
 		border-radius: 0px;
 	}
 	${props =>
@@ -917,6 +916,9 @@ const CalendarWrapper = styled.div.attrs({
 			`
 				display: none !important;
 				`};
+	}
+	.rbc-addons-dnd .rbc-event-allday:hover .rbc-addons-dnd-resize-ew-icon {
+		display: none !important;
 	}
 `
 
