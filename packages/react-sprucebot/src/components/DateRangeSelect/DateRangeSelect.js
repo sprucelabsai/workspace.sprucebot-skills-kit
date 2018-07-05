@@ -1014,6 +1014,8 @@ class DateRangeSelect extends Component {
 			currentWeek,
 			enableOutsideDays,
 			initialVisibleMonth,
+			onPrevMonthClick,
+			onNextMonthClick,
 			orientation
 		} = this.props
 
@@ -1034,6 +1036,8 @@ class DateRangeSelect extends Component {
 					isDayBlocked={this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
 					initialVisibleMonth={initialVisibleMonth}
+					onPrevMonthClick={onPrevMonthClick}
+					onNextMonthClick={onNextMonthClick}
 					navPrev={
 						<NavButton>
 							{orientation === 'vertical'
@@ -1072,5 +1076,7 @@ DateRangeSelect.propTypes = {
 	defaultStartDate: PropTypes.any,
 	defaultEndDate: PropTypes.any,
 	initialVisibleMonth: PropTypes.func,
+	onPrevMonthClick: PropTypes.func,
+	onNextMonthClick: PropTypes.func,
 	orientation: PropTypes.sting
 }
