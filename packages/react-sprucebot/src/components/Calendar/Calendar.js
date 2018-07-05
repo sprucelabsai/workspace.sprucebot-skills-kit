@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import styled, { injectGlobal } from 'styled-components'
+import styled from 'styled-components'
 import moment from 'moment'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
+import is from 'is_js'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { default as TouchBackend } from 'react-dnd-touch-backend'
 import { DragDropContext } from 'react-dnd'
@@ -685,10 +686,6 @@ const CalendarWrapper = styled.div.attrs({
 		transition: opacity 150ms;
 		pointer-events: all;
 	}
-	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ns-icon,
-	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ew-icon {
-		display: block;
-	}
 	.rbc-addons-dnd.rbc-addons-dnd-is-dragging .rbc-event {
 		pointer-events: none;
 		opacity: 0.5;
@@ -739,9 +736,16 @@ const CalendarWrapper = styled.div.attrs({
 		height: 10px;
 		cursor: ew-resize;
 	}
+	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ns-icon,
+	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ew-icon {
+		display: ${props => (props.disableResize ? 'none' : 'block')};
+	}
 	/*White Label*/
 	.rbc-time-header-cell {
-		${props => props.defaultView === 'day' && `display: none`};
+		${props =>
+			props.customView !== 'team-day' &&
+			props.defaultView === 'day' &&
+			`display: none`};
 	}
 	.rbc-time-gutter {
 		${props =>
@@ -781,6 +785,8 @@ const CalendarWrapper = styled.div.attrs({
 		color: #4cadc1;
 		z-index: 1 !important;
 	}
+	.rbc-event__block-day.rbc-event-teammate,
+	.rbc-event__block-week.rbc-event-teammate,
 	.rbc-event__shift-day.rbc-event-teammate,
 	.rbc-event__shift-week.rbc-event-teammate {
 		pointer-events: none !important;
@@ -820,6 +826,58 @@ const CalendarWrapper = styled.div.attrs({
 	.rbc-selected {
 		z-index: 5 !important;
 	}
+	${props =>
+		props.customView === 'team-day' &&
+		`
+			width: 100%;
+		`};
+	${props =>
+		props.customView === 'team-week' &&
+		`
+			position: relative;
+			width: 2000px;
+			.rbc-time-content {
+				flex-direction: row;
+			}
+			.rbc-time-gutter,
+			.rbc-current-time-indicator,
+			.rbc-time-header-gutter,
+			.rbc-allday-cell,
+			.rbc-event-allday,
+			.rbc-event__break-week,
+			.rbc-event__off-hours-week,
+			.rbc-event__block-week {
+				display: none !important;
+			}
+			.rbc-timeslot-group {
+				display: none !important;
+				width: 0 !important;
+				height: 0 !important;
+				border: none;
+				color: rgba(0, 0, 0, 0);
+			}
+			.rbc-day-slot {
+
+			}
+			.rbc-event__closed-week,
+			.rbc-event__shift-week {
+				top: 0 !important;
+				bottom: 0 !important;
+				height: 100% !important;
+				width: 100% !important;
+				border-radius: 0px;
+				pointer-events: none !important;
+			}
+		`};
+	.rbc-time-header-content {
+		${props =>
+			props.customView === 'team-week' &&
+			props.multiCalendarOrder &&
+			props.multiCalendarOrder !== 0 &&
+			`
+				display: none !important;
+				`};
+	}
 `
 
 class Calendar extends Component {
@@ -853,7 +911,9 @@ class Calendar extends Component {
 			onSelectSlot,
 			onEventDrop,
 			onEventResize,
-			multiCalendarOrder
+			multiCalendarOrder,
+			customView,
+			disableResize
 		} = this.props
 
 		return (
@@ -861,6 +921,8 @@ class Calendar extends Component {
 				height={height}
 				defaultView={defaultView}
 				multiCalendarOrder={multiCalendarOrder}
+				customView={customView}
+				disableResize={disableResize}
 			>
 				<CalendarComponent
 					date={date || new Date()}
@@ -890,7 +952,10 @@ class Calendar extends Component {
 	}
 }
 
-export default DragDropContext(HTML5Backend)(Calendar)
+const backend =
+	is.mobile() || is.tablet() || is.touchDevice() ? TouchBackend : HTML5Backend
+
+export default DragDropContext(backend)(Calendar)
 
 Calendar.propTypes = {
 	height: PropTypes.string,
