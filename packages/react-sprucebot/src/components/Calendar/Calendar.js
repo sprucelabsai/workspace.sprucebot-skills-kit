@@ -741,6 +741,9 @@ const CalendarWrapper = styled.div.attrs({
 		display: ${props => (props.disableResize ? 'none' : 'block')};
 	}
 	/*White Label*/
+	.rbc-event-content {
+		text-transform: capitalize;
+	}
 	.rbc-time-header-cell {
 		${props =>
 			props.customView !== 'team-day' &&
@@ -778,7 +781,7 @@ const CalendarWrapper = styled.div.attrs({
 	.rbc-event__shift-day,
 	.rbc-event__shift-week {
 		left: 0% !important;
-		width: 85% !important;
+		width: 75% !important;
 		border: none !important;
 		border-radius: 5px;
 		background-color: #dbeff3;
@@ -811,6 +814,38 @@ const CalendarWrapper = styled.div.attrs({
 		color: #0e2024;
 		z-index: 3 !important;
 	}
+	.rbc-event__time-off-pending-day,
+	.rbc-event__time-off-pending-week,
+	.rbc-event__time-off-approved-day,
+	.rbc-event__time-off-approved-week,
+	.rbc-event__time-off-plans-changed-day,
+	.rbc-event__time-off-plans-changed-week,
+	.rbc-event__time-off-rejected-day {
+		left: 20% !important;
+		width: 65% !important;
+		border: none !important;
+		border-radius: 5px;
+		z-index: 4 !important;
+		pointer-events: none;
+	}
+	.rbc-event__time-off-pending-day,
+	.rbc-event__time-off-pending-week,
+	.rbc-event__time-off-plans-changed-day,
+	.rbc-event__time-off-plans-changed-week {
+		border: 1px dashed #ffbb36 !important;
+		background-color: #fff2da;
+		color: #ffaa00;
+	}
+	.rbc-event__time-off-approved-day,
+	.rbc-event__time-off-approved-week {
+		background-color: #b1ddd5;
+		color: #487b72;
+	}
+	.rbc-event__time-off-rejected-day,
+	.rbc-event__time-off-rejected-week {
+		background-color: #eb5757;
+		color: #6e2c2a;
+	}
 	.rbc-event__off-hours-day,
 	.rbc-event__off-hours-week,
 	.rbc-event__closed-day,
@@ -825,6 +860,11 @@ const CalendarWrapper = styled.div.attrs({
 	}
 	.rbc-selected {
 		z-index: 5 !important;
+	}
+	.rbc-event-allday {
+		width: 100% !important;
+		border: 1px solid #fff !important;
+		border-radius: 0px;
 	}
 	${props =>
 		props.customView === 'team-day' &&
