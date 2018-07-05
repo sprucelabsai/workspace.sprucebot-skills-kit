@@ -946,7 +946,11 @@ class DateSelect extends Component {
 
 	render() {
 		const { date } = this.state
-		const { initialVisibleMonth } = this.props
+		const {
+			initialVisibleMonth,
+			onPrevMonthClick,
+			onNextMonthClick
+		} = this.props
 
 		return (
 			<WhiteLabel>
@@ -958,7 +962,9 @@ class DateSelect extends Component {
 					numberOfMonths={1}
 					isDayBlocked={this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
-					initialVisibleMonth={initialVisibleMonth} // PropTypes.func
+					initialVisibleMonth={initialVisibleMonth}
+					onPrevMonthClick={onPrevMonthClick}
+					onNextMonthClick={onNextMonthClick}
 					navPrev={<NavButton>chevron_left</NavButton>}
 					navNext={<NavButton>chevron_right</NavButton>}
 					keepOpenOnDateSelect
@@ -978,5 +984,7 @@ DateSelect.propTypes = {
 	onDateSelect: PropTypes.func.isRequired,
 	setDefaultDate: PropTypes.bool,
 	defaultDate: PropTypes.any,
-	initialVisibleMonth: PropTypes.func
+	initialVisibleMonth: PropTypes.func,
+	onNextMonthClick: PropTypes.func,
+	onPrevMonthClick: PropTypes.func
 }
