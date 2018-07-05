@@ -198,6 +198,8 @@ var DateRangeSelect = function (_Component) {
 			    currentWeek = _props.currentWeek,
 			    enableOutsideDays = _props.enableOutsideDays,
 			    initialVisibleMonth = _props.initialVisibleMonth,
+			    onPrevMonthClick = _props.onPrevMonthClick,
+			    onNextMonthClick = _props.onNextMonthClick,
 			    orientation = _props.orientation;
 
 
@@ -223,6 +225,8 @@ var DateRangeSelect = function (_Component) {
 					isDayBlocked: this.isDayBlocked,
 					isOutsideRange: this.isOutsideRange,
 					initialVisibleMonth: initialVisibleMonth,
+					onPrevMonthClick: onPrevMonthClick,
+					onNextMonthClick: onNextMonthClick,
 					navPrev: _react2.default.createElement(
 						NavButton,
 						null,
@@ -262,5 +266,7 @@ DateRangeSelect.propTypes = {
 	defaultStartDate: _propTypes2.default.any,
 	defaultEndDate: _propTypes2.default.any,
 	initialVisibleMonth: _propTypes2.default.func,
+	onPrevMonthClick: _propTypes2.default.func,
+	onNextMonthClick: _propTypes2.default.func,
 	orientation: _propTypes2.default.sting
 };
