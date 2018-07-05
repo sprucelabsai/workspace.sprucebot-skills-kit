@@ -288,7 +288,7 @@ exports[`FormExample it renders 1`] = `
                   >
                     <BotText>
                       <div
-                        className="BotText-udhfms-0 bot__text eRhwgR"
+                        className="BotText-udhfms-0 bot__text fsBwQa"
                       >
                         Using
                          
@@ -1312,7 +1312,7 @@ exports[`FormExample it renders 1`] = `
                     </Field>
                     <Field
                       component={[Function]}
-                      finePrint="This is helpful fine print."
+                      finePrint="This is helpful fine print"
                       label="Growing multiline input"
                       name="description"
                       type="textarea"
@@ -1417,7 +1417,7 @@ exports[`FormExample it renders 1`] = `
                           }
                         }
                         component={[Function]}
-                        finePrint="This is helpful fine print."
+                        finePrint="This is helpful fine print"
                         label="Growing multiline input"
                         name="description"
                         normalize={[Function]}
@@ -1526,7 +1526,7 @@ exports[`FormExample it renders 1`] = `
                           component={[Function]}
                           dirty={false}
                           dispatch={[Function]}
-                          finePrint="This is helpful fine print."
+                          finePrint="This is helpful fine print"
                           label="Growing multiline input"
                           name="description"
                           normalize={[Function]}
@@ -1534,7 +1534,7 @@ exports[`FormExample it renders 1`] = `
                           type="textarea"
                         >
                           <TextAreaField
-                            finePrint="This is helpful fine print."
+                            finePrint="This is helpful fine print"
                             input={
                               Object {
                                 "name": "description",
@@ -1570,7 +1570,7 @@ exports[`FormExample it renders 1`] = `
                             type="textarea"
                           >
                             <Field
-                              finePrint="This is helpful fine print."
+                              finePrint="This is helpful fine print"
                               input={
                                 Object {
                                   "name": "description",
@@ -1649,7 +1649,7 @@ exports[`FormExample it renders 1`] = `
                                     <p
                                       className="Typography__Paragraph-s1hqg0x7-0 fine__print dglOlS"
                                     >
-                                      This is helpful fine print.
+                                      This is helpful fine print
                                     </p>
                                   </Typography__Paragraph>
                                 </div>
@@ -2102,7 +2102,7 @@ exports[`FormExample it renders 1`] = `
                     </Typography__SectionHeading>
                     <BotText>
                       <div
-                        className="BotText-udhfms-0 bot__text eRhwgR"
+                        className="BotText-udhfms-0 bot__text fsBwQa"
                       >
                         Notice you pass the form an \`initialValues\` which sets default values for the form. When a user submits the form is your chance to persist those values to your server and other reducers. When the \`onSubmit\` is executed, you can expect that client side validations have ran.
                       </div>

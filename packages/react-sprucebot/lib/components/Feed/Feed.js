@@ -60,19 +60,22 @@ var Feed = function (_Component) {
 			var _props = this.props,
 			    loading = _props.loading,
 			    data = _props.data,
-			    props = _objectWithoutProperties(_props, ['loading', 'data']);
+			    showHeaders = _props.showHeaders,
+			    props = _objectWithoutProperties(_props, ['loading', 'data', 'showHeaders']);
 
 			var lastDay = 0;
 			return _react2.default.createElement(
 				'div',
-				_extends({}, props, { className: 'feed__wrapper' }),
+				_extends({}, props, {
+					className: 'feed__wrapper ' + (!showHeaders ? 'no_headers' : '')
+				}),
 				loading && _react2.default.createElement(_Loader2.default, null),
 				data && data.map(function (item) {
-					var day = (0, _moment2.default)(item.createdAt).dayOfYear();
+					var day = (0, _moment2.default)(item.date).dayOfYear();
 					var header = undefined;
-					if (day !== lastDay) {
+					if (showHeaders && day !== lastDay) {
 						lastDay = day;
-						header = (0, _moment2.default)(item.createdAt).isSame(new Date(), 'day') ? 'Today' : (0, _moment2.default)(item.createdAt).format('MMM Do');
+						header = (0, _moment2.default)(item.date).isSame(new Date(), 'day') ? 'Today' : (0, _moment2.default)(item.date).format('MMM Do');
 					}
 					return _react2.default.createElement(FeedItem, _extends({ key: item.id }, item, { header: header }));
 				})
@@ -88,11 +91,13 @@ exports.default = Feed;
 
 Feed.propTypes = {
 	data: _propTypes2.default.array,
-	loading: _propTypes2.default.bool
+	loading: _propTypes2.default.bool,
+	showHeaders: _propTypes2.default.bool
 };
 
 Feed.defaultProps = {
-	loading: false
+	loading: false,
+	showHeaders: true
 };
 
 var FeedItem = exports.FeedItem = function (_Component2) {
@@ -112,15 +117,15 @@ var FeedItem = exports.FeedItem = function (_Component2) {
 			    header = _props2.header,
 			    user = _props2.user,
 			    message = _props2.message,
-			    createdAt = _props2.createdAt,
-			    attachments = _props2.attachments;
-
+			    date = _props2.date,
+			    attachments = _props2.attachments,
+			    props = _objectWithoutProperties(_props2, ['bigAvatar', 'header', 'user', 'message', 'date', 'attachments']);
 
 			var imageKey = bigAvatar ? 'profile150@2x' : 'profile60';
 
 			return _react2.default.createElement(
 				'div',
-				{ className: 'feed__item ' + (bigAvatar ? 'big_avatar' : '') },
+				_extends({ className: 'feed__item ' + (bigAvatar ? 'big_avatar' : '') }, props),
 				header && _react2.default.createElement(
 					_Typography.SectionHeading,
 					null,
@@ -141,7 +146,7 @@ var FeedItem = exports.FeedItem = function (_Component2) {
 					_react2.default.createElement(
 						'span',
 						{ className: 'date' },
-						(0, _moment2.default)(createdAt).calendar()
+						(0, _moment2.default)(date).calendar()
 					)
 				),
 				this.props.attachments && _react2.default.createElement(
@@ -160,7 +165,7 @@ var FeedItem = exports.FeedItem = function (_Component2) {
 
 FeedItem.propTypes = {
 	header: _propTypes2.default.string,
-	createdAt: _propTypes2.default.object.isRequired,
+	date: _propTypes2.default.object.isRequired,
 	message: _propTypes2.default.string.isRequired,
 	user: _propTypes2.default.object,
 	attachments: _propTypes2.default.array,

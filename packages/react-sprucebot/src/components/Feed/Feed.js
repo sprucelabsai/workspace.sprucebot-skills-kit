@@ -8,20 +8,23 @@ import { SectionHeading } from '../Typography/Typography'
 
 export default class Feed extends Component {
 	render() {
-		const { loading, data, ...props } = this.props
+		const { loading, data, showHeaders, ...props } = this.props
 		let lastDay = 0
 		return (
-			<div {...props} className="feed__wrapper">
+			<div
+				{...props}
+				className={`feed__wrapper ${!showHeaders ? 'no_headers' : ''}`}
+			>
 				{loading && <Loader />}
 				{data &&
 					data.map(item => {
-						const day = moment(item.createdAt).dayOfYear()
+						const day = moment(item.date).dayOfYear()
 						let header = undefined
-						if (day !== lastDay) {
+						if (showHeaders && day !== lastDay) {
 							lastDay = day
-							header = moment(item.createdAt).isSame(new Date(), 'day')
+							header = moment(item.date).isSame(new Date(), 'day')
 								? 'Today'
-								: moment(item.createdAt).format('MMM Do')
+								: moment(item.date).format('MMM Do')
 						}
 						return <FeedItem key={item.id} {...item} header={header} />
 					})}
@@ -32,11 +35,13 @@ export default class Feed extends Component {
 
 Feed.propTypes = {
 	data: PropTypes.array,
-	loading: PropTypes.bool
+	loading: PropTypes.bool,
+	showHeaders: PropTypes.bool
 }
 
 Feed.defaultProps = {
-	loading: false
+	loading: false,
+	showHeaders: true
 }
 
 export class FeedItem extends Component {
@@ -46,14 +51,15 @@ export class FeedItem extends Component {
 			header,
 			user,
 			message,
-			createdAt,
-			attachments
+			date,
+			attachments,
+			...props
 		} = this.props
 
 		const imageKey = bigAvatar ? 'profile150@2x' : 'profile60'
 
 		return (
-			<div className={`feed__item ${bigAvatar ? 'big_avatar' : ''}`}>
+			<div className={`feed__item ${bigAvatar ? 'big_avatar' : ''}`} {...props}>
 				{header && <SectionHeading>{header}</SectionHeading>}
 				{user && (
 					<div className="feed__avatar">
@@ -69,7 +75,7 @@ export class FeedItem extends Component {
 				)}
 				<BotText>
 					{message}
-					<span className="date">{moment(createdAt).calendar()}</span>
+					<span className="date">{moment(date).calendar()}</span>
 				</BotText>
 				{this.props.attachments && (
 					<div className="feed__attachments">
@@ -85,7 +91,7 @@ export class FeedItem extends Component {
 
 FeedItem.propTypes = {
 	header: PropTypes.string,
-	createdAt: PropTypes.object.isRequired,
+	date: PropTypes.object.isRequired,
 	message: PropTypes.string.isRequired,
 	user: PropTypes.object,
 	attachments: PropTypes.array,

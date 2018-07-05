@@ -142,7 +142,7 @@ function FormExample(_ref2) {
 			name: 'description',
 			type: 'textarea',
 			label: 'Growing multiline input',
-			finePrint: 'This is helpful fine print.',
+			finePrint: 'This is helpful fine print',
 			component: _TextArea2.default
 		}),
 		_react2.default.createElement(
