@@ -138,7 +138,10 @@ var DateSelect = function (_Component) {
 			var _this2 = this;
 
 			var date = this.state.date;
-			var initialVisibleMonth = this.props.initialVisibleMonth;
+			var _props = this.props,
+			    initialVisibleMonth = _props.initialVisibleMonth,
+			    onPrevMonthClick = _props.onPrevMonthClick,
+			    onNextMonthClick = _props.onNextMonthClick;
 
 
 			return _react2.default.createElement(
@@ -157,8 +160,10 @@ var DateSelect = function (_Component) {
 					numberOfMonths: 1,
 					isDayBlocked: this.isDayBlocked,
 					isOutsideRange: this.isOutsideRange,
-					initialVisibleMonth: initialVisibleMonth // PropTypes.func
-					, navPrev: _react2.default.createElement(
+					initialVisibleMonth: initialVisibleMonth,
+					onPrevMonthClick: onPrevMonthClick,
+					onNextMonthClick: onNextMonthClick,
+					navPrev: _react2.default.createElement(
 						NavButton,
 						null,
 						'chevron_left'
@@ -195,5 +200,7 @@ DateSelect.propTypes = {
 	onDateSelect: _propTypes2.default.func.isRequired,
 	setDefaultDate: _propTypes2.default.bool,
 	defaultDate: _propTypes2.default.any,
-	initialVisibleMonth: _propTypes2.default.func
+	initialVisibleMonth: _propTypes2.default.func,
+	onNextMonthClick: _propTypes2.default.func,
+	onPrevMonthClick: _propTypes2.default.func
 };
