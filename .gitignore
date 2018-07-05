@@ -60,10 +60,6 @@ typings/
 # npm lock file
 package-lock.json
 
-<<<<<<< HEAD
 yarn-error.log
 
 scratchpad.js
-=======
-yarn-error.log
->>>>>>> spruce-dev
