@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Loader from '../Loader/Loader'
 
-// TODO refactor into styled component
 export default class Button extends Component {
 	constructor(props) {
 		super(props)
@@ -42,10 +41,11 @@ export default class Button extends Component {
 				}
 			}
 
-			// Reset the state to not-busy if it's been 2 sec
+			// Reset the state to not-busy if it's been 10 sec
+			// is there a reason for this?
 			setTimeout(() => {
 				this.setState({ busy: false })
-			}, 2000)
+			}, 10000)
 		}
 	}
 	render() {

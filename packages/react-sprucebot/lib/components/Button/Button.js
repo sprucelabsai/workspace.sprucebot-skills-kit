@@ -30,7 +30,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// TODO refactor into styled component
 var Button = function (_Component) {
 	_inherits(Button, _Component);
 
@@ -64,10 +63,11 @@ var Button = function (_Component) {
 					}
 				}
 
-				// Reset the state to not-busy if it's been 2 sec
+				// Reset the state to not-busy if it's been 10 sec
+				// is there a reason for this?
 				setTimeout(function () {
 					_this.setState({ busy: false });
-				}, 2000);
+				}, 10000);
 			}
 		};
 
