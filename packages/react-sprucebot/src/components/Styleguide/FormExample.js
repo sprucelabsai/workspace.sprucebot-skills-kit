@@ -71,7 +71,7 @@ function FormExample({
 				name="description"
 				type="textarea"
 				label="Growing multiline input"
-				finePrint="This is helpful fine print."
+				finePrint="This is helpful fine print"
 				component={TextArea}
 			/>
 

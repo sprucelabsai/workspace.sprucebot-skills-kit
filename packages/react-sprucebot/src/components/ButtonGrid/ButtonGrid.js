@@ -8,8 +8,7 @@ export const ButtonGrid = styled.div.attrs({
 
 export class GridButton extends Component {
 	render() {
-		const props = Object.assign({}, this.props)
-		const { className, selected, children, subtitle, ...rest } = props
+		const { className, selected, children, subtitle, ...rest } = this.props
 
 		return (
 			<a
