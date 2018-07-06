@@ -1019,5 +1019,7 @@ DateSelect.propTypes = {
 	defaultDate: PropTypes.any,
 	initialVisibleMonth: PropTypes.func,
 	onNextMonthClick: PropTypes.func,
-	onPrevMonthClick: PropTypes.func
+	onPrevMonthClick: PropTypes.func,
+	hide: PropTypes.bool,
+	loading: PropTypes.bool
 }
