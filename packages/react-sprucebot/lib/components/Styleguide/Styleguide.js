@@ -236,7 +236,8 @@ var Styleguide = function (_Component) {
 
 		_this.state = {
 			calloutOn: false,
-			errorMessage: ''
+			errorMessage: '',
+			showAlert: false
 		};
 		_this.didCompleteOnboarding = _this.didCompleteOnboarding.bind(_this);
 		return _this;

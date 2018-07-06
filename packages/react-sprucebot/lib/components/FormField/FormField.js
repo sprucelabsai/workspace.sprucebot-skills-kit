@@ -98,7 +98,7 @@ function Field(_ref) {
 Field.propTypes = {
 	input: _propTypes2.default.shape({
 		value: _propTypes2.default.any.isRequired,
-		onChange: _propTypes2.default.func.isRequired
+		onChange: _propTypes2.default.func
 	}).isRequired,
 	meta: _propTypes2.default.shape({
 		touched: _propTypes2.default.bool,

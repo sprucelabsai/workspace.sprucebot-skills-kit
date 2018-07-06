@@ -53,10 +53,8 @@ var ListItemWrapper = _styledComponents2.default.div.attrs({
 }).withConfig({
 	displayName: 'List__ListItemWrapper',
 	componentId: 's12tv117-1'
-})(['display:flex;', ';', ';'], function (props) {
+})(['display:flex;', ';'], function (props) {
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
-}, function (props) {
-	return props.online ? '' : 'opacity: .4;';
 });
 
 var ItemAvatar = _styledComponents2.default.div.attrs({
@@ -129,7 +127,8 @@ var ListItem = exports.ListItem = function (_Component) {
 			    overflow = _props.overflow,
 			    width = _props.width,
 			    componentAsSubtitle = _props.componentAsSubtitle,
-			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle']);
+			    onClick = _props.onClick,
+			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle', 'onClick']);
 
 			// build children
 
@@ -166,10 +165,10 @@ var ListItem = exports.ListItem = function (_Component) {
 
 			return _react2.default.createElement(
 				ListItemWrapper,
-				this.props,
+				props,
 				avatar && _react2.default.createElement(
 					ItemAvatar,
-					{ alignItems: alignItems },
+					{ onClick: onClick, alignItems: alignItems },
 					avatar === true ? _react2.default.createElement(_Avatar2.default, {
 						online: online,
 						showOnlineIndicator: showOnlineIndicator
@@ -181,7 +180,7 @@ var ListItem = exports.ListItem = function (_Component) {
 				),
 				children && _react2.default.createElement(
 					ItemDetail,
-					null,
+					{ onClick: onClick },
 					children
 				),
 				(rightTitle || rightSubtitle || rightInput) && _react2.default.createElement(

@@ -117,7 +117,8 @@ class Styleguide extends Component {
 		super(props)
 		this.state = {
 			calloutOn: false,
-			errorMessage: ''
+			errorMessage: '',
+			showAlert: false
 		}
 		this.didCompleteOnboarding = this.didCompleteOnboarding.bind(this)
 	}

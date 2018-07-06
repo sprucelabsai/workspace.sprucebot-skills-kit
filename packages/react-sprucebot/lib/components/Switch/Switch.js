@@ -75,7 +75,7 @@ var Switch = function (_Component) {
 					'button',
 					{ onClick: function onClick() {
 							return _this3.onChange();
-						} },
+						}, type: 'button' },
 					_react2.default.createElement(
 						'span',
 						null,
