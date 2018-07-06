@@ -21,16 +21,11 @@ exports.default = {
 
 		var body = document.body;
 		var docEl = document.documentElement;
-		var modal = document.querySelector('.dialog_underlay.on');
 
 		var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
 		var clientTop = docEl.clientTop || body.clientTop || 0;
 		var top = scrollTop - clientTop;
 		var height = Math.max(minHeight, top + body.clientHeight);
-
-		if (modal && modal.scrollHeight) {
-			height = modal.scrollHeight;
-		}
 
 		if (height != this.height) {
 			this.height = height;
