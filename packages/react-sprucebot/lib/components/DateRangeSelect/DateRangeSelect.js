@@ -116,9 +116,9 @@ var DateRangeSelect = function (_Component) {
 			var match = availableDays.find(function (day) {
 				return day === date.format('YYYY-MM-DD');
 			});
-			var lastDate = availableDays[availableDays.length - 1];
+			var lastDate = (0, _moment2.default)(availableDays[availableDays.length - 1]).endOf('month');
 
-			if (match || date.isAfter(lastDate)) {
+			if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
 				return false;
 			}
 			return true;
