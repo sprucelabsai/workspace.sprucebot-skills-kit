@@ -116,8 +116,9 @@ var DateRangeSelect = function (_Component) {
 			var match = availableDays.find(function (day) {
 				return day === date.format('YYYY-MM-DD');
 			});
+			var lastDate = availableDays[availableDays.length - 1];
 
-			if (match) {
+			if (match || date.isAfter(lastDate)) {
 				return false;
 			}
 			return true;
