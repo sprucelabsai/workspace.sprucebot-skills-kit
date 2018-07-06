@@ -30,6 +30,10 @@ var _reactRequiredIf2 = _interopRequireDefault(_reactRequiredIf);
 
 var _reactDates = require('react-dates');
 
+var _Loader = require('../Loader/Loader');
+
+var _Loader2 = _interopRequireDefault(_Loader);
+
 var _Icon = require('../Icon/Icon');
 
 var _Icon2 = _interopRequireDefault(_Icon);
@@ -50,12 +54,25 @@ var Wrapper = _styledComponents2.default.div.withConfig({
 var WhiteLabel = (0, _styledComponents2.default)(Wrapper).withConfig({
 	displayName: 'DateSelect__WhiteLabel',
 	componentId: 's1u7vvps-1'
-})(['.CalendarDay__selected,.CalendarDay__selected:active,.CalendarDay__selected:hover{background:#00aac7;border:1px solid #00aac7;}.DateInput_fang{display:none;}.DayPickerNavigation{position:absolute;display:flex;justify-content:space-between;width:100%;padding:1em;z-index:2;}.DayPickerNavigation_button{display:flex;justify-content:center;height:28px;width:28px;padding:0;border-radius:50%;background-color:#00aac7;}']);
+})(['', ';position:relative;.CalendarDay__selected,.CalendarDay__selected:active,.CalendarDay__selected:hover{background:#00aac7;border:1px solid #00aac7;}.DateInput_fang{display:none;}.DayPickerNavigation{position:absolute;display:flex;justify-content:space-between;width:100%;padding:1em;z-index:2;}.DayPickerNavigation_button{display:flex;justify-content:center;height:28px;width:28px;padding:0;border-radius:50%;background-color:#00aac7;', ';}'], function (props) {
+	return props.hide && 'display: none';
+}, function (props) {
+	return props.loading && '\n\t\t\tpointer-events: none;\n\t\t\t';
+});
 
 var NavButton = (0, _styledComponents2.default)(_Icon2.default).withConfig({
 	displayName: 'DateSelect__NavButton',
 	componentId: 's1u7vvps-2'
 })(['display:flex;justify-content:center;padding:0;margin:0;margin-right:0;border-radius:50%;color:#fff;background-color:#00aac7;font-size:1.5em;']);
+
+var LoadingContainer = _styledComponents2.default.div.withConfig({
+	displayName: 'DateSelect__LoadingContainer',
+	componentId: 's1u7vvps-3'
+})(['position:absolute;display:flex;justify-content:center;align-items:center;width:100%;height:100%;background-color:rgba(255,255,255,0.8);opacity:', ';z-index:', ';transition:opacity 0.25s ease-in-out,z-index 0.1s ease-in-out;'], function (props) {
+	return props.loading ? '1' : '0';
+}, function (props) {
+	return props.loading ? '3' : '0';
+});
 
 var DateSelect = function (_Component) {
 	_inherits(DateSelect, _Component);
@@ -74,11 +91,10 @@ var DateSelect = function (_Component) {
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSelect.__proto__ || Object.getPrototypeOf(DateSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			defaultDateSet: false
 		}, _this.componentDidMount = function () {
-			var setDefaultDate = _this.props.setDefaultDate;
-			var defaultDate = _this.state.defaultDate;
+			var defaultDateSet = _this.state.defaultDateSet;
 
 
-			if (setDefaultDate && !defaultDate) {
+			if (!defaultDateSet) {
 				_this.setDefaultDate();
 			}
 		}, _this.isDayBlocked = function (date) {
@@ -94,8 +110,9 @@ var DateSelect = function (_Component) {
 			var match = availableDays.find(function (day) {
 				return day === date.format('YYYY-MM-DD');
 			});
+			var lastDate = (0, _moment2.default)(availableDays[availableDays.length - 1]).endOf('month');
 
-			if (match) {
+			if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
 				return false;
 			}
 			return true;
@@ -138,12 +155,22 @@ var DateSelect = function (_Component) {
 			var _this2 = this;
 
 			var date = this.state.date;
-			var initialVisibleMonth = this.props.initialVisibleMonth;
+			var _props = this.props,
+			    initialVisibleMonth = _props.initialVisibleMonth,
+			    _onPrevMonthClick = _props.onPrevMonthClick,
+			    _onNextMonthClick = _props.onNextMonthClick,
+			    hide = _props.hide,
+			    loading = _props.loading;
 
 
 			return _react2.default.createElement(
 				WhiteLabel,
-				null,
+				{ hide: hide, loading: loading },
+				_react2.default.createElement(
+					LoadingContainer,
+					{ loading: loading },
+					_react2.default.createElement(_Loader2.default, null)
+				),
 				_react2.default.createElement(_reactDates.DayPickerSingleDateController, {
 					date: date || null,
 					onDateChange: function onDateChange(date) {
@@ -155,10 +182,20 @@ var DateSelect = function (_Component) {
 						return _this2.setState({ focused: focused });
 					},
 					numberOfMonths: 1,
-					isDayBlocked: this.isDayBlocked,
-					isOutsideRange: this.isOutsideRange,
-					initialVisibleMonth: initialVisibleMonth // PropTypes.func
-					, navPrev: _react2.default.createElement(
+					isDayBlocked: function isDayBlocked(date) {
+						return _this2.isDayBlocked(date);
+					},
+					isOutsideRange: function isOutsideRange(date) {
+						return _this2.isOutsideRange(date);
+					},
+					initialVisibleMonth: initialVisibleMonth,
+					onPrevMonthClick: function onPrevMonthClick(prevMonth) {
+						return _onPrevMonthClick && _onPrevMonthClick(prevMonth);
+					},
+					onNextMonthClick: function onNextMonthClick(nextMonth) {
+						return _onNextMonthClick && _onNextMonthClick(nextMonth);
+					},
+					navPrev: _react2.default.createElement(
 						NavButton,
 						null,
 						'chevron_left'
@@ -169,7 +206,8 @@ var DateSelect = function (_Component) {
 						'chevron_right'
 					),
 					keepOpenOnDateSelect: true,
-					hideKeyboardShortcutsPanel: true
+					hideKeyboardShortcutsPanel: true,
+					noBorder: true
 				})
 			);
 		}
@@ -195,5 +233,9 @@ DateSelect.propTypes = {
 	onDateSelect: _propTypes2.default.func.isRequired,
 	setDefaultDate: _propTypes2.default.bool,
 	defaultDate: _propTypes2.default.any,
-	initialVisibleMonth: _propTypes2.default.func
+	initialVisibleMonth: _propTypes2.default.func,
+	onNextMonthClick: _propTypes2.default.func,
+	onPrevMonthClick: _propTypes2.default.func,
+	hide: _propTypes2.default.bool,
+	loading: _propTypes2.default.bool
 };

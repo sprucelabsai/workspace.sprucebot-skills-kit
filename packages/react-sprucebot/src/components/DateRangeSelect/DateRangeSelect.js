@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import requiredIf from 'react-required-if'
 import { DayPickerRangeController } from 'react-dates'
 
+import Loader from '../Loader/Loader'
 import Icon from '../Icon/Icon'
 
 const Wrapper = styled.div`
@@ -838,6 +839,8 @@ const Wrapper = styled.div`
 `
 
 const WhiteLabel = styled(Wrapper)`
+	${props => props.hide && `display: none`};
+	position: relative;
 	.CalendarDay__selected,
 	.CalendarDay__selected:active,
 	.CalendarDay__selected:hover {
@@ -862,6 +865,11 @@ const WhiteLabel = styled(Wrapper)`
 		width: 28px;
 		padding: 0;
 		border-radius: 50%;
+		${props =>
+			props.loading &&
+			`
+			pointer-events: none;
+			`};
 	}
 	${props =>
 		props.currentWeek &&
@@ -899,6 +907,19 @@ const NavButton = styled(Icon)`
 	font-size: 1.5em;
 `
 
+const LoadingContainer = styled.div`
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.8);
+	opacity: ${props => (props.loading ? '1' : '0')};
+	z-index: ${props => (props.loading ? '3' : '0')};
+	transition: opacity 0.25s ease-in-out, z-index 0.1s ease-in-out;
+`
+
 class DateRangeSelect extends Component {
 	state = {
 		focusedInput: 'startDate',
@@ -922,8 +943,11 @@ class DateRangeSelect extends Component {
 		}
 
 		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
+		const lastDate = moment(availableDays[availableDays.length - 1]).endOf(
+			'month'
+		)
 
-		if (match) {
+		if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
 			return false
 		}
 		return true
@@ -1014,14 +1038,24 @@ class DateRangeSelect extends Component {
 			currentWeek,
 			enableOutsideDays,
 			initialVisibleMonth,
-			orientation
+			onPrevMonthClick,
+			onNextMonthClick,
+			orientation,
+			hide,
+			loading
 		} = this.props
 
 		return (
 			<WhiteLabel
 				currentWeek={currentWeek}
 				enableOutsideDays={enableOutsideDays}
+				hide={hide}
+				loading={loading}
 			>
+				<LoadingContainer loading={loading}>
+					<Loader />
+				</LoadingContainer>
+
 				<DayPickerRangeController
 					startDate={startDate}
 					endDate={endDate}
@@ -1031,9 +1065,15 @@ class DateRangeSelect extends Component {
 					focusedInput={focusedInput}
 					onFocusChange={focusedInput => this.handleFocusChange(focusedInput)}
 					numberOfMonths={numberOfMonths || 1}
-					isDayBlocked={this.isDayBlocked}
-					isOutsideRange={this.isOutsideRange}
+					isDayBlocked={date => this.isDayBlocked(date)}
+					isOutsideRange={date => this.isOutsideRange(date)}
 					initialVisibleMonth={initialVisibleMonth}
+					onPrevMonthClick={prevMonth =>
+						onPrevMonthClick && onPrevMonthClick(prevMonth)
+					}
+					onNextMonthClick={nextMonth =>
+						onNextMonthClick && onNextMonthClick(nextMonth)
+					}
 					navPrev={
 						<NavButton>
 							{orientation === 'vertical'
@@ -1072,5 +1112,9 @@ DateRangeSelect.propTypes = {
 	defaultStartDate: PropTypes.any,
 	defaultEndDate: PropTypes.any,
 	initialVisibleMonth: PropTypes.func,
-	orientation: PropTypes.sting
+	onPrevMonthClick: PropTypes.func,
+	onNextMonthClick: PropTypes.func,
+	orientation: PropTypes.sting,
+	hide: PropTypes.bool,
+	loading: PropTypes.bool
 }

@@ -397,7 +397,6 @@ class Styleguide extends Component {
 	onDateSelect={(date) => {
 		console.log(date)
 	}}
-	setDefaultDate={true}
 	defaultDate={moment('2018-08-10')}
 	initialVisibleMonth={() => moment('2018-08-10')}
 />`}</Pre>
@@ -408,7 +407,6 @@ class Styleguide extends Component {
 							onDateSelect={date => {
 								console.log(date)
 							}}
-							setDefaultDate
 							defaultDate={moment('2018-08-10')}
 							initialVisibleMonth={() => moment('2018-08-10')}
 						/>
