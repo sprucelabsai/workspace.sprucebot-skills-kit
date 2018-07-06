@@ -921,8 +921,9 @@ class DateSelect extends Component {
 		}
 
 		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
+		const lastDate = availableDays[availableDays.length - 1]
 
-		if (match) {
+		if (match || date.isAfter(lastDate)) {
 			return false
 		}
 		return true
