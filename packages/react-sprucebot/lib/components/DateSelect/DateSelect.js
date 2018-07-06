@@ -91,11 +91,10 @@ var DateSelect = function (_Component) {
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSelect.__proto__ || Object.getPrototypeOf(DateSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			defaultDateSet: false
 		}, _this.componentDidMount = function () {
-			var setDefaultDate = _this.props.setDefaultDate;
-			var defaultDate = _this.state.defaultDate;
+			var defaultDateSet = _this.state.defaultDateSet;
 
 
-			if (setDefaultDate && !defaultDate) {
+			if (!defaultDateSet) {
 				_this.setDefaultDate();
 			}
 		}, _this.isDayBlocked = function (date) {
