@@ -34,7 +34,7 @@ export default class Switch extends Component {
 	render() {
 		return (
 			<div className={`switch switch${this.props.on ? ' on' : ''}`}>
-				<button onClick={() => this.onChange()}>
+				<button onClick={() => this.onChange()} type="button">
 					<span>{this.props.on ? 'Enabled' : 'Disabled'}</span>
 				</button>
 			</div>

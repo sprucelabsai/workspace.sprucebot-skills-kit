@@ -70,10 +70,7 @@ export default class TrainingGuide extends Component {
 			this.setState({ transitioning: true })
 
 			setTimeout(() => {
-				skill.scrollTo(
-					ReactDOM.findDOMNode(this.button).offsetTop -
-						window.screen.height * 0.5
-				)
+				skill.scrollTo(ReactDOM.findDOMNode(this.button).offsetTop)
 				this.setState({ transitioning: false })
 			}, 1500)
 		}
@@ -101,12 +98,16 @@ export default class TrainingGuide extends Component {
 		})
 	}
 
+	onComplete() {
+		this.setState({ transitioning: true }) // just show progress until done
+		this.props.onComplete()
+	}
+
 	render() {
 		const {
 			steps,
 			nextButtonLabel,
 			doneButtonLabel,
-			onComplete,
 			onboardingComplete
 		} = this.props
 		const { currentStep, stepHeights, stepWidths, transitioning } = this.state
@@ -157,7 +158,7 @@ export default class TrainingGuide extends Component {
 								this.button = ref
 							}}
 							onClick={() => {
-								if (!transitioning) onComplete()
+								if (!transitioning) this.onComplete()
 							}}
 						>
 							{doneButtonLabel}

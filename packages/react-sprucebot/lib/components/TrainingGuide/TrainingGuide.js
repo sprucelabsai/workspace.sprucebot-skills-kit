@@ -100,7 +100,7 @@ var TrainingGuide = function (_Component) {
 				this.setState({ transitioning: true });
 
 				setTimeout(function () {
-					_index2.default.scrollTo(_reactDom2.default.findDOMNode(_this2.button).offsetTop - window.screen.height * 0.5);
+					_index2.default.scrollTo(_reactDom2.default.findDOMNode(_this2.button).offsetTop);
 					_this2.setState({ transitioning: false });
 				}, 1500);
 			}
@@ -132,6 +132,12 @@ var TrainingGuide = function (_Component) {
 			});
 		}
 	}, {
+		key: 'onComplete',
+		value: function onComplete() {
+			this.setState({ transitioning: true }); // just show progress until done
+			this.props.onComplete();
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var _this3 = this;
@@ -140,7 +146,6 @@ var TrainingGuide = function (_Component) {
 			    steps = _props2.steps,
 			    nextButtonLabel = _props2.nextButtonLabel,
 			    doneButtonLabel = _props2.doneButtonLabel,
-			    onComplete = _props2.onComplete,
 			    onboardingComplete = _props2.onboardingComplete;
 			var _state = this.state,
 			    currentStep = _state.currentStep,
@@ -204,7 +209,7 @@ var TrainingGuide = function (_Component) {
 								_this3.button = _ref2;
 							},
 							onClick: function onClick() {
-								if (!transitioning) onComplete();
+								if (!transitioning) _this3.onComplete();
 							}
 						},
 						doneButtonLabel

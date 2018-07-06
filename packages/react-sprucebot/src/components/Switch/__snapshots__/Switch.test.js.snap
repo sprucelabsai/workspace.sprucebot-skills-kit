@@ -6,6 +6,7 @@ exports[`it renders 1`] = `
 >
   <button
     onClick={[Function]}
+    type="button"
   >
     <span>
       Disabled
