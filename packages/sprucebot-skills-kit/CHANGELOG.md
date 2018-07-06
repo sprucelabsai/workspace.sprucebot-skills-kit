@@ -3,6 +3,87 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.12.1"></a>
+## [6.12.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.12.0...v6.12.1) (2018-07-04)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.12.0"></a>
+# [6.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.11.0...v6.12.0) (2018-07-03)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.11.0"></a>
+# [6.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.10.0...v6.11.0) (2018-07-03)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.10.0"></a>
+# [6.10.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.9.0...v6.10.0) (2018-07-03)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.9.0"></a>
+# [6.9.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.8.0...v6.9.0) (2018-06-27)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.8.0"></a>
+# [6.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.7.0...v6.8.0) (2018-06-27)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.7.0"></a>
+# [6.7.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.6.1...v6.7.0) (2018-06-27)
+
+
+### Bug Fixes
+
+* Add eventContract to skills kit config ([#81](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/81)) ([762f5d8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/762f5d8))
+
+
+### Features
+
+* **SPRUC-925:** Nuclear option; squash all the commits ([#76](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/76)) ([63485cc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/63485cc))
+* responsive, feed updates, deprecation warnings removed ([#84](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/84)) ([e5b76a4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e5b76a4))
+
+
+
+
+
+<a name="6.6.1"></a>
+## [6.6.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.6.0...v6.6.1) (2018-06-14)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
 <a name="6.6.0"></a>
 # [6.6.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.5.0...v6.6.0) (2018-04-27)
 

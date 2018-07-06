@@ -35,8 +35,7 @@ class DevControls extends Component {
 			return (
 				<div {...props}>
 					<div className="error">
-						Your skill must be enabled and viewed through Sprucebot to get
-						dev'ing.
+						You're gonna wanna be logged in for this. 🙏
 					</div>
 				</div>
 			)
