@@ -10,6 +10,7 @@ import Owner from '../../pages/owner'
 
 let props = {}
 beforeEach(async () => {
+/*
 	auth()
 	guests()
 	teammates()
@@ -20,6 +21,7 @@ beforeEach(async () => {
 		query: { jwt: JWT }
 	})
 	expect(props.redirect).toBe(void 0)
+*/
 })
 
 test('renders owner page snapshot', () => {
