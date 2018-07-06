@@ -96,7 +96,7 @@ exports.default = Search;
 Search.propTypes = {
 	onCancel: _propTypes2.default.func,
 	onSelectUser: _propTypes2.default.func.isRequired,
-	roles: _propTypes2.default.string,
+	roles: _propTypes2.default.array,
 	locationId: _propTypes2.default.string.isRequired
 };
 

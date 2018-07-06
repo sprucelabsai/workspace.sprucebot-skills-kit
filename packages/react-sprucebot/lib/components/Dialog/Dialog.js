@@ -150,6 +150,9 @@ var Dialog = function (_Component) {
 					firshShow: false,
 					opacity: 0
 				});
+			} else if (!this.props.show && nextProps.show) {
+				this.setState({ firstShow: true, opacity: 0 });
+				_skillskit2.default.requestScroll();
 			}
 		}
 	}, {

@@ -74,6 +74,9 @@ export default class Dialog extends Component {
 				firshShow: false,
 				opacity: 0
 			})
+		} else if (!this.props.show && nextProps.show) {
+			this.setState({ firstShow: true, opacity: 0 })
+			SK.requestScroll()
 		}
 	}
 

@@ -45,7 +45,7 @@ export default class Search extends Component {
 Search.propTypes = {
 	onCancel: PropTypes.func,
 	onSelectUser: PropTypes.func.isRequired,
-	roles: PropTypes.string,
+	roles: PropTypes.array,
 	locationId: PropTypes.string.isRequired
 }
 
