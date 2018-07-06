@@ -38,7 +38,8 @@ export default class Dialog extends Component {
 			height: 500,
 			scrollTop: 0,
 			firstShow: true,
-			opacity: 0
+			opacity: 0,
+			inIframe: true
 		}
 	}
 	setSize({ width, height }) {
@@ -68,15 +69,21 @@ export default class Dialog extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		// we are being hidden, reset
-		if (this.props.show && !nextProps.show) {
-			this.setState({
-				firshShow: false,
-				opacity: 0
-			})
-		} else if (!this.props.show && nextProps.show) {
+		// if we are being show, set opacity and request scroll
+		if (!this.props.show && nextProps.show) {
 			this.setState({ firstShow: true, opacity: 0 })
 			SK.requestScroll()
+			setTimeout(() => {
+				// we are not in the sb iframe
+				if (this.state.opacity === 0) {
+					this.setState({
+						opacity: 1,
+						scrollTop: window.document.body.scrollTop,
+						firstShow: false,
+						inIframe: false
+					})
+				}
+			}, 250)
 		}
 	}
 
@@ -105,7 +112,7 @@ export default class Dialog extends Component {
 	}
 	render() {
 		const { tag, children, className, show, ...props } = this.props
-		const { opacity, height } = this.state
+		const { opacity, height, inIframe } = this.state
 		const Tag = tag
 		const dialogStyle = {
 			marginTop: this.state.scrollTop
@@ -127,6 +134,7 @@ export default class Dialog extends Component {
 			>
 				{({ measureRef }) => (
 					<DialogUnderlay
+						className={`${inIframe ? '' : 'not_in_iframe'} `}
 						ref={ref => (this.underlay = ref)}
 						show={show}
 						height={height}
