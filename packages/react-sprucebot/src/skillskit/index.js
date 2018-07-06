@@ -44,7 +44,7 @@ export default {
 	},
 
 	requestScroll: function() {
-		postMessage('Skill:RequestScroll')
+		postMessage({ name: 'Skill:RequestContainerScrollTop' })
 	},
 
 	searchForUser: function({
