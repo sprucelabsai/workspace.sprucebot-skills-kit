@@ -1036,8 +1036,12 @@ class DateRangeSelect extends Component {
 					isDayBlocked={this.isDayBlocked}
 					isOutsideRange={this.isOutsideRange}
 					initialVisibleMonth={initialVisibleMonth}
-					onPrevMonthClick={onPrevMonthClick}
-					onNextMonthClick={onNextMonthClick}
+					onPrevMonthClick={prevMonth =>
+						onPrevMonthClick && onPrevMonthClick(prevMonth)
+					}
+					onNextMonthClick={nextMonth =>
+						onNextMonthClick && onNextMonthClick(nextMonth)
+					}
 					navPrev={
 						<NavButton>
 							{orientation === 'vertical'

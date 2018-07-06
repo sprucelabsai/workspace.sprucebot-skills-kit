@@ -140,8 +140,8 @@ var DateSelect = function (_Component) {
 			var date = this.state.date;
 			var _props = this.props,
 			    initialVisibleMonth = _props.initialVisibleMonth,
-			    onPrevMonthClick = _props.onPrevMonthClick,
-			    onNextMonthClick = _props.onNextMonthClick;
+			    _onPrevMonthClick = _props.onPrevMonthClick,
+			    _onNextMonthClick = _props.onNextMonthClick;
 
 
 			return _react2.default.createElement(
@@ -161,8 +161,12 @@ var DateSelect = function (_Component) {
 					isDayBlocked: this.isDayBlocked,
 					isOutsideRange: this.isOutsideRange,
 					initialVisibleMonth: initialVisibleMonth,
-					onPrevMonthClick: onPrevMonthClick,
-					onNextMonthClick: onNextMonthClick,
+					onPrevMonthClick: function onPrevMonthClick(prevMonth) {
+						return _onPrevMonthClick && _onPrevMonthClick(prevMonth);
+					},
+					onNextMonthClick: function onNextMonthClick(nextMonth) {
+						return _onNextMonthClick && _onNextMonthClick(nextMonth);
+					},
 					navPrev: _react2.default.createElement(
 						NavButton,
 						null,
