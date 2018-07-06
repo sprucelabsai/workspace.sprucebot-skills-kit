@@ -921,9 +921,9 @@ class DateSelect extends Component {
 		}
 
 		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
-		const lastDate = availableDays[availableDays.length - 1]
+		const lastDate = moment(availableDays[availableDays.length - 1]).endOf('month')
 
-		if (match || date.isAfter(lastDate)) {
+		if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
 			return false
 		}
 		return true
