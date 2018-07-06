@@ -905,10 +905,9 @@ class DateSelect extends Component {
 	}
 
 	componentDidMount = () => {
-		const { setDefaultDate } = this.props
-		const { defaultDate } = this.state
+		const { defaultDateSet } = this.state
 
-		if (setDefaultDate && !defaultDate) {
+		if (!defaultDateSet) {
 			this.setDefaultDate()
 		}
 	}
@@ -921,7 +920,9 @@ class DateSelect extends Component {
 		}
 
 		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
-		const lastDate = moment(availableDays[availableDays.length - 1]).endOf('month')
+		const lastDate = moment(availableDays[availableDays.length - 1]).endOf(
+			'month'
+		)
 
 		if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
 			return false
