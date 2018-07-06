@@ -1,9 +1,9 @@
 export const GET_USER_REQUEST = 'users/GET_USER_REQUEST'
-export const GET_USER_RESPONSE = 'users/GET_USER_RESPONSE'
+export const GET_USER_SUCCESS = 'users/GET_USER_SUCCESS'
 export const GET_USER_ERROR = 'users/GET_USER_ERROR'
 
 export const UPDATE_USER_REQUEST = 'users/UPDATE_USER_REQUEST'
-export const UPDATE_USER_SUCCESS = 'users/GET_USER_SUCCESS'
+export const UPDATE_USER_SUCCESS = 'users/UPDATE_USER_SUCCESS'
 export const UPDATE_USER_ERROR = 'users/UPDATE_USER_ERROR'
 
 export const LIST_GUESTS_REQUEST = 'users/LIST_GUESTS_REQUEST'
