@@ -1112,5 +1112,7 @@ DateRangeSelect.propTypes = {
 	initialVisibleMonth: PropTypes.func,
 	onPrevMonthClick: PropTypes.func,
 	onNextMonthClick: PropTypes.func,
-	orientation: PropTypes.sting
+	orientation: PropTypes.sting,
+	hide: PropTypes.bool,
+	loading: PropTypes.bool
 }
