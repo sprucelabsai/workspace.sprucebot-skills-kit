@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import requiredIf from 'react-required-if'
 import { DayPickerSingleDateController } from 'react-dates'
 
+import Loader from '../Loader/Loader'
 import Icon from '../Icon/Icon'
 
 const Wrapper = styled.div`
@@ -838,6 +839,8 @@ const Wrapper = styled.div`
 `
 
 const WhiteLabel = styled(Wrapper)`
+	${props => props.hide && `display: none`};
+	position: relative;
 	.CalendarDay__selected,
 	.CalendarDay__selected:active,
 	.CalendarDay__selected:hover {
@@ -863,6 +866,11 @@ const WhiteLabel = styled(Wrapper)`
 		padding: 0;
 		border-radius: 50%;
 		background-color: #00aac7;
+		${props =>
+			props.loading &&
+			`
+			pointer-events: none;
+			`};
 	}
 `
 
@@ -876,6 +884,19 @@ const NavButton = styled(Icon)`
 	color: #fff;
 	background-color: #00aac7;
 	font-size: 1.5em;
+`
+
+const LoadingContainer = styled.div`
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.8);
+	opacity: ${props => (props.loading ? '1' : '0')};
+	z-index: ${props => (props.loading ? '3' : '0')};
+	transition: opacity 0.25s ease-in-out, z-index 0.1s ease-in-out;
 `
 
 class DateSelect extends Component {
@@ -949,19 +970,25 @@ class DateSelect extends Component {
 		const {
 			initialVisibleMonth,
 			onPrevMonthClick,
-			onNextMonthClick
+			onNextMonthClick,
+			hide,
+			loading
 		} = this.props
 
 		return (
-			<WhiteLabel>
+			<WhiteLabel hide={hide} loading={loading}>
+				<LoadingContainer loading={loading}>
+					<Loader />
+				</LoadingContainer>
+
 				<DayPickerSingleDateController
 					date={date || null}
 					onDateChange={date => this.handleDateChange(date)}
 					focused={true}
 					onFocusChange={({ focused }) => this.setState({ focused })}
 					numberOfMonths={1}
-					isDayBlocked={this.isDayBlocked}
-					isOutsideRange={this.isOutsideRange}
+					isDayBlocked={date => this.isDayBlocked(date)}
+					isOutsideRange={date => this.isOutsideRange(date)}
 					initialVisibleMonth={initialVisibleMonth}
 					onPrevMonthClick={prevMonth =>
 						onPrevMonthClick && onPrevMonthClick(prevMonth)
@@ -973,6 +1000,7 @@ class DateSelect extends Component {
 					navNext={<NavButton>chevron_right</NavButton>}
 					keepOpenOnDateSelect
 					hideKeyboardShortcutsPanel
+					noBorder
 				/>
 			</WhiteLabel>
 		)
