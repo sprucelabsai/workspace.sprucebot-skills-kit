@@ -18,6 +18,31 @@ module.exports = router => {
 			try {
 				var decoded = jwt.verify(token, config.API_KEY.toString().toLowerCase())
 				ctx.auth = await ctx.sb.user(decoded.locationId, decoded.userId)
+
+				const realRole = ctx.auth.role
+
+				// Allow override of role if in dev mode
+				if (config.DEV_MODE) {
+					const devRole =
+						ctx.cookies.get('devRole') || ctx.request.headers['x-dev-role']
+
+					// Allow users to downgrade their role for testing purposes
+					switch (devRole) {
+						case 'teammate':
+							if (realRole === 'owner') {
+								ctx.auth.role = devRole
+							}
+
+						case 'guest':
+							if (realRole === 'owner' || realRole === 'teammate') {
+								ctx.auth.role = devRole
+							}
+
+						// By default just use the (real) assigned role
+						default:
+							break
+					}
+				}
 				ctx.auth.jwt = token
 				debug(`middleware/auth token valid`)
 			} catch (err) {
