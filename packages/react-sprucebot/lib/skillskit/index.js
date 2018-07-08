@@ -57,7 +57,7 @@ exports.default = {
 	},
 
 	requestScroll: function requestScroll() {
-		postMessage('Skill:RequestScroll');
+		postMessage({ name: 'Skill:RequestContainerScrollTop' });
 	},
 
 	searchForUser: function searchForUser() {

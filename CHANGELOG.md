@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.13.0"></a>
+# [6.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.12.2...v6.13.0) (2018-07-06)
+
+
+### Features
+
+* dialog outside of SB ([7381b2c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7381b2c))
+
+
+
+
+
+<a name="6.12.2"></a>
+## [6.12.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.12.1...v6.12.2) (2018-07-06)
+
+
+### Bug Fixes
+
+* search and dialog ([#105](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/105)) ([0ea6180](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0ea6180))
+
+
+
+
+
 <a name="6.12.1"></a>
 ## [6.12.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.12.0...v6.12.1) (2018-07-04)
 

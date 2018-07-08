@@ -102,7 +102,8 @@ var Dialog = function (_Component) {
 			height: 500,
 			scrollTop: 0,
 			firstShow: true,
-			opacity: 0
+			opacity: 0,
+			inIframe: true
 		};
 		return _this;
 	}
@@ -130,7 +131,7 @@ var Dialog = function (_Component) {
 		value: function componentDidMount() {
 			window.addEventListener('message', this.iframeMessageHandler);
 			if (this.props.show && this.state.firstShow) {
-				_skillskit2.default.requestScroll();
+				this.requestScroll();
 			}
 		}
 	}, {
@@ -138,18 +139,16 @@ var Dialog = function (_Component) {
 		value: function componentDidUpdate() {
 			// in case our starting state is not showing
 			if (this.props.show && this.state.firstShow) {
-				_skillskit2.default.requestScroll();
+				this.requestScroll();
 			}
 		}
 	}, {
 		key: 'componentWillReceiveProps',
 		value: function componentWillReceiveProps(nextProps) {
-			// we are being hidden, reset
-			if (this.props.show && !nextProps.show) {
-				this.setState({
-					firshShow: false,
-					opacity: 0
-				});
+			// if we are being show, set opacity and request scroll
+			if (!this.props.show && nextProps.show) {
+				this.setState({ firstShow: true, opacity: 0 });
+				this.requestScroll();
 			}
 		}
 	}, {
@@ -157,6 +156,24 @@ var Dialog = function (_Component) {
 		value: function componentWillUnmount() {
 			document.body.style.minHeight = 'auto';
 			window.removeEventListener('message', this.iframeMessageHandler);
+		}
+	}, {
+		key: 'requestScroll',
+		value: function requestScroll() {
+			var _this2 = this;
+
+			_skillskit2.default.requestScroll();
+			setTimeout(function () {
+				// we are not in the sb iframe
+				if (_this2.state.opacity === 0) {
+					_this2.setState({
+						opacity: 1,
+						scrollTop: window.document.body.scrollTop,
+						firstShow: false,
+						inIframe: false
+					});
+				}
+			}, 250);
 		}
 	}, {
 		key: 'iframeMessageHandler',
@@ -182,7 +199,7 @@ var Dialog = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this2 = this;
+			var _this3 = this;
 
 			var _props = this.props,
 			    tag = _props.tag,
@@ -193,7 +210,8 @@ var Dialog = function (_Component) {
 
 			var _state = this.state,
 			    opacity = _state.opacity,
-			    height = _state.height;
+			    height = _state.height,
+			    inIframe = _state.inIframe;
 
 			var Tag = tag;
 			var dialogStyle = {
@@ -209,7 +227,7 @@ var Dialog = function (_Component) {
 				{
 					scroll: true,
 					onResize: function onResize(contentRect) {
-						_this2.setSize({
+						_this3.setSize({
 							width: contentRect.scroll.width,
 							height: contentRect.scroll.height
 						});
@@ -220,14 +238,15 @@ var Dialog = function (_Component) {
 					return _react2.default.createElement(
 						DialogUnderlay,
 						{
+							className: (inIframe ? '' : 'not_in_iframe') + ' ',
 							ref: function ref(_ref5) {
-								return _this2.underlay = _ref5;
+								return _this3.underlay = _ref5;
 							},
 							show: show,
 							height: height,
 							onClick: function onClick(e) {
 								if (e.target.className.search('dialog_underlay') > -1) {
-									_this2.onTapClose();
+									_this3.onTapClose();
 								}
 							}
 						},
@@ -240,7 +259,7 @@ var Dialog = function (_Component) {
 								opacity: opacity,
 								style: dialogStyle
 							}, props),
-							_this2.props.onTapClose && _react2.default.createElement(DialogCloseButton, { onClick: _this2.onTapClose.bind(_this2) }),
+							_this3.props.onTapClose && _react2.default.createElement(DialogCloseButton, { onClick: _this3.onTapClose.bind(_this3) }),
 							children
 						)
 					);
