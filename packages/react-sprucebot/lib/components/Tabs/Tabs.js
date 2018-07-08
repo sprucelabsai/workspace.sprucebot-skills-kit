@@ -41,7 +41,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var StyledTab = (0, _styledComponents2.default)(_Button2.default).withConfig({
 	displayName: 'Tabs__StyledTab',
-	componentId: 's2xsdn9-0'
+	componentId: 's18xnpfs-0'
 })(['flex:1;']);
 
 var Tabs = exports.Tabs = function (_Component) {
