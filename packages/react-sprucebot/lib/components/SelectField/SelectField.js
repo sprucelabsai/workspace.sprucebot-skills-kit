@@ -29,7 +29,7 @@ var StyledSelect = _styledComponents2.default.select.attrs({
 	className: (0, _classnames2.default)('SelectField', 'custom_dropdown')
 }).withConfig({
 	displayName: 'SelectField__StyledSelect',
-	componentId: 's5mgo8y-0'
+	componentId: 'ldqaxx-0'
 })(['']);
 
 function TextAreaField(_ref) {

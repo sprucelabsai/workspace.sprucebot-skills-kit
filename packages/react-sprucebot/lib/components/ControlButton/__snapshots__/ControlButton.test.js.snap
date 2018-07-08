@@ -21,8 +21,6 @@ exports[`it renders 1`] = `
   margin: 0;
   padding: 0;
   width: auto;
-  -webkit-text-decoration: none;
-  text-decoration: none;
 }
 
 .c0:hover {
@@ -30,11 +28,9 @@ exports[`it renders 1`] = `
 }
 
 <button
-  className="btn ControlButton control-button  c0 "
-  disabled={undefined}
-  onClick={[Function]}
+  className="ControlButton control-button  c0"
+  onClick={undefined}
   tabIndex={0}
-  type="button"
 >
   <span />
 </button>
@@ -46,36 +42,22 @@ exports[`it renders a link 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background: none;
   color: #00aac7;
+  cursor: pointer;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  font-weight: normal;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
   position: relative;
-  margin: 0;
-  padding: 0;
-  width: auto;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c0:hover {
-  background: none;
-}
-
 <a
-  className="btn ControlButton control-button  c0 "
-  disabled={undefined}
+  className="ControlButton control-button  c0"
   href="https://sprucebot.com"
-  onClick={[Function]}
+  onClick={undefined}
   tabIndex={0}
-  type="button"
 >
   <span />
 </a>
