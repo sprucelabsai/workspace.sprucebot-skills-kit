@@ -1,6 +1,6 @@
 {
 	"name": "@barbershopio/sprucebot-node",
-	"version": "6.7.0",
+	"version": "6.7.1",
 	"description": "Jam with the Sprucebot API in your favorite scripting language. 🤓",
 	"keywords": [
 		"node",

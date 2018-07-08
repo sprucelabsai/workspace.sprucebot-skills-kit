@@ -232,11 +232,9 @@ class Sprucebot {
 	 * Deletes a message.
 	 *
 	 * @param {String} locationId
-	 * @param {String} userId
-	 * @param {String} message
-	 * @param {Object} data Additional data sent when POST'ing message
+	 * @param {String} messageId
 	 */
-	async message(locationId, messageId) {
+	async deleteMessage(locationId, messageId) {
 		return this.https.delete(`/locations/${locationId}/messages/${messageId}`)
 	}
 
