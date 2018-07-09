@@ -27,7 +27,7 @@ var I = _styledComponents2.default.i.attrs({
 	}
 }).withConfig({
 	displayName: 'Icon__I',
-	componentId: 'ebwesg-0'
+	componentId: 's1r0bu8t-0'
 })(['font-family:\'Material Icons\';font-weight:normal;font-style:normal;font-size:1em;display:inline-block;height:1em;line-height:1;opacity:0;text-transform:none;letter-spacing:normal;word-wrap:normal;white-space:nowrap;width:1em;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:\'liga\';.wf-active &{opacity:1;}']);
 
 var Icon = function Icon(_ref2) {

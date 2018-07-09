@@ -63,7 +63,7 @@ var DialogUnderlay = _styledComponents2.default.div.attrs({
 	}
 }).withConfig({
 	displayName: 'Dialog__DialogUnderlay',
-	componentId: 's1ng4upl-0'
+	componentId: 'q9geqg-0'
 })(['min-height:100%;']);
 
 var DialogContainer = _styledComponents2.default.div.attrs({
@@ -74,7 +74,7 @@ var DialogContainer = _styledComponents2.default.div.attrs({
 	}
 }).withConfig({
 	displayName: 'Dialog__DialogContainer',
-	componentId: 's1ng4upl-1'
+	componentId: 'q9geqg-1'
 })(['opacity:', ';'], function (props) {
 	return props.opacity;
 });
@@ -83,7 +83,7 @@ var DialogCloseButton = (0, _styledComponents2.default)(_Button2.default).attrs(
 	remove: true
 }).withConfig({
 	displayName: 'Dialog__DialogCloseButton',
-	componentId: 's1ng4upl-2'
+	componentId: 'q9geqg-2'
 })(['']);
 
 var Dialog = function (_Component) {

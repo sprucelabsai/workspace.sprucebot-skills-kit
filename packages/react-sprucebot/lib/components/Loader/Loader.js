@@ -30,7 +30,7 @@ var LoaderWrapper = _styledComponents2.default.span.attrs({
 	className: 'loader_wrapper'
 }).withConfig({
 	displayName: 'Loader__LoaderWrapper',
-	componentId: 's1sl4f0-0'
+	componentId: 'vde9ys-0'
 })(['display:block;margin:20px;text-align:center;', ';', ';', ';'], function (props) {
 	return props.fullWidth === false && 'margin: unset';
 }, function (props) {
