@@ -54,19 +54,19 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 var Input = _styledComponents2.default.input.withConfig({
 	displayName: 'TimeInput__Input',
-	componentId: 'j9invq-0'
+	componentId: 'he8dve-0'
 })(['width:unset;flex:2;background-color:transparent;border:none;color:#808080;font-size:1.2em;margin:0.5em;padding:0;text-align:center;&::-webkit-clear-button{display:none;}&::-ms-clear{display:none;}']);
 
 (0, _styledComponents.injectGlobal)(_templateObject);
 
 var ConfirmWrapper = _styledComponents2.default.div.withConfig({
 	displayName: 'TimeInput__ConfirmWrapper',
-	componentId: 'j9invq-1'
+	componentId: 'he8dve-1'
 })(['border:1px solid #e9e9e9;padding:5px 0 0;width:100%;']);
 
 var ConfirmButton = (0, _styledComponents2.default)(_Button2.default).withConfig({
 	displayName: 'TimeInput__ConfirmButton',
-	componentId: 'j9invq-2'
+	componentId: 'he8dve-2'
 })(['&&{border-radius:0;width:calc(100% - 10px);margin:0 auto;}']);
 
 var TimeInput = function (_Component) {
