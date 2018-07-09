@@ -1,6 +1,6 @@
 {
-	"name": "@barbershopio/react-sprucebot",
-	"version": "6.12.4",
+	"name": "react-sprucebot",
+	"version": "6.13.0",
 	"main": "lib/Sprucebot.js",
 	"description": "React components for your Sprucebot Skill 💪🏼",
 	"keywords": [
