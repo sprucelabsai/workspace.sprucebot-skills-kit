@@ -9,7 +9,6 @@ exports[`it renders 1`] = `
   display: inline-block;
   height: 1em;
   line-height: 1;
-  opacity: 0;
   text-transform: none;
   -webkit-letter-spacing: normal;
   -moz-letter-spacing: normal;
@@ -23,10 +22,6 @@ exports[`it renders 1`] = `
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'liga';
-}
-
-.wf-active .c1 {
-  opacity: 1;
 }
 
 .c0 {
@@ -43,8 +38,6 @@ exports[`it renders 1`] = `
   font-size: 2em;
   margin: 0;
   padding: 0;
-  -webkit-text-decoration: none;
-  text-decoration: none;
   width: auto;
 }
 
@@ -53,14 +46,11 @@ exports[`it renders 1`] = `
 }
 
 <button
-  className="btn IconButton icon-button  c0 "
-  disabled={undefined}
-  onClick={[Function]}
-  type="button"
+  className="IconButton icon-button  c0"
+  onClick={undefined}
 >
   <i
     className="Icon icon  c1"
-    fontSize={undefined}
   />
 </button>
 `;

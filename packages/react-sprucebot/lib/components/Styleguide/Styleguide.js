@@ -170,12 +170,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var Dark = (0, _styledComponents2.default)(_Pre2.default).withConfig({
 	displayName: 'Styleguide__Dark',
-	componentId: 'pl9m68-0'
+	componentId: 's1eg7un1-0'
 })(['background-color:#333;padding:3px;']);
 
 var FlexContainer = _styledComponents2.default.div.withConfig({
 	displayName: 'Styleguide__FlexContainer',
-	componentId: 'pl9m68-1'
+	componentId: 's1eg7un1-1'
 })(['display:flex;justify-content:center;']);
 
 var demoGuest = {
@@ -236,7 +236,8 @@ var Styleguide = function (_Component) {
 
 		_this.state = {
 			calloutOn: false,
-			errorMessage: ''
+			errorMessage: '',
+			showAlert: false
 		};
 		_this.didCompleteOnboarding = _this.didCompleteOnboarding.bind(_this);
 		return _this;
@@ -813,7 +814,7 @@ var Styleguide = function (_Component) {
 					_react2.default.createElement(
 						_Pre2.default,
 						null,
-						'<DateSelect\n\tallowPastDates\n\tbypassDaysBlocked\n\tonDateSelect={(date) => {\n\t\tconsole.log(date)\n\t}}\n\tsetDefaultDate={true}\n\tdefaultDate={moment(\'2018-08-10\')}\n\tinitialVisibleMonth={() => moment(\'2018-08-10\')}\n/>'
+						'<DateSelect\n\tallowPastDates\n\tbypassDaysBlocked\n\tonDateSelect={(date) => {\n\t\tconsole.log(date)\n\t}}\n\tdefaultDate={moment(\'2018-08-10\')}\n\tinitialVisibleMonth={() => moment(\'2018-08-10\')}\n/>'
 					),
 					_react2.default.createElement(
 						FlexContainer,
@@ -824,7 +825,6 @@ var Styleguide = function (_Component) {
 							onDateSelect: function onDateSelect(date) {
 								console.log(date);
 							},
-							setDefaultDate: true,
 							defaultDate: (0, _momentTimezone2.default)('2018-08-10'),
 							initialVisibleMonth: function initialVisibleMonth() {
 								return (0, _momentTimezone2.default)('2018-08-10');
