@@ -40,7 +40,7 @@ exports[`it renders 1`] = `
   <li
     className="current "
   >
-    1 of 1
+    title
   </li>
   <li
     className="next disabled c1"
