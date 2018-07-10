@@ -170,12 +170,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var Dark = (0, _styledComponents2.default)(_Pre2.default).withConfig({
 	displayName: 'Styleguide__Dark',
-	componentId: 'pl9m68-0'
+	componentId: 's1eg7un1-0'
 })(['background-color:#333;padding:3px;']);
 
 var FlexContainer = _styledComponents2.default.div.withConfig({
 	displayName: 'Styleguide__FlexContainer',
-	componentId: 'pl9m68-1'
+	componentId: 's1eg7un1-1'
 })(['display:flex;justify-content:center;']);
 
 var demoGuest = {

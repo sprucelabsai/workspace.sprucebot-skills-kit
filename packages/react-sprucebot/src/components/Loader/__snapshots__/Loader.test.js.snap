@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders 1`] = `
+.c0 {
+  display: block;
+  margin: 20px;
+  text-align: center;
+}
+
 <span
-  className="loader_wrapper"
-  style={
-    Object {
-      "display": "block",
-      "margin": "20px",
-      "textAlign": "center",
-    }
-  }
+  className="loader_wrapper c0"
+  style={Object {}}
 >
   <span
     className="loader_dot_dark"
