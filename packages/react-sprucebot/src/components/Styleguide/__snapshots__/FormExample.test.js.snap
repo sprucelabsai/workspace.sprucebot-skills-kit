@@ -24,6 +24,9 @@ exports[`FormExample it renders 1`] = `
               "didOnboarding": [Function],
               "finishOnboarding": [Function],
             },
+            "sharable": Object {
+              "emitEvent": [Function],
+            },
           }
         }
         auth={Object {}}
@@ -76,6 +79,7 @@ exports[`FormExample it renders 1`] = `
           }
         }
         onboarding={Object {}}
+        sharable={Object {}}
       >
         <ReduxForm
           onSubmit={[MockFunction]}
@@ -1619,6 +1623,7 @@ exports[`FormExample it renders 1`] = `
                                   >
                                     <TextareaAutosize
                                       className="with_label TextArea__StyledTextArea-s1czbmms-0 TextArea krMzWU"
+                                      inputRef={[Function]}
                                       name="description"
                                       onChange={[Function]}
                                       onHeightChange={[Function]}

@@ -16,8 +16,12 @@ var _onboarding = require('./onboarding');
 
 var _onboarding2 = _interopRequireDefault(_onboarding);
 
+var _sharable = require('./sharable');
+
+var _sharable2 = _interopRequireDefault(_sharable);
+
 var _reduxForm = require('redux-form');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = { auth: _auth2.default, config: _config2.default, onboarding: _onboarding2.default, form: _reduxForm.reducer };
+exports.default = { auth: _auth2.default, config: _config2.default, onboarding: _onboarding2.default, sharable: _sharable2.default, form: _reduxForm.reducer };

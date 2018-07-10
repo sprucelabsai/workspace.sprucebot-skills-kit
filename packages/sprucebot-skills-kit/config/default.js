@@ -42,11 +42,6 @@ module.exports = {
 			// 	name: 'did-signup',
 			// 	description: 'When a guest joins wifi at a location for the first time'
 			// },
-			// 'did-remote-signup': {
-			// 	name: 'did-remote-signup',
-			// 	description:
-			// 		'When guest remotely opts in to a location (from the guest dashboard)'
-			// },
 			// 'did-enter': {
 			// 	name: 'did-enter',
 			// 	description: 'When a guest returns and their phone hits the wifi'
