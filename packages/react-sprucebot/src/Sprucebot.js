@@ -42,6 +42,7 @@ import _document from './skillskit/next/_document'
 import Page from './skillskit/next/Page'
 import withStore, { createStore } from './skillskit/store/withStore'
 import lang from './skillskit/helpers/lang'
+import sharable from './skillskit/helpers/sharable'
 
 const Sprucebot = {
 	testUtils: {
@@ -88,6 +89,7 @@ const Sprucebot = {
 	IconButton,
 	ControlButton,
 	Search,
+	sharable,
 	...Typography,
 	...List,
 	...Tabs,

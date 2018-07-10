@@ -36,7 +36,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var ButtonWrapper = _styledComponents2.default.div.withConfig({
 	displayName: 'Button__ButtonWrapper',
-	componentId: 'bvtufj-0'
+	componentId: 'z2er9s-0'
 })(['display:flex;width:50%;', ';', ';'], function (props) {
 	return props.left && 'padding-right: 1.125em;';
 }, function (props) {
@@ -45,14 +45,14 @@ var ButtonWrapper = _styledComponents2.default.div.withConfig({
 
 var StyledButton = _styledComponents2.default.button.withConfig({
 	displayName: 'Button__StyledButton',
-	componentId: 'bvtufj-1'
+	componentId: 'z2er9s-1'
 })(['', ';'], function (props) {
 	return props.busy || props.disabled && '\n\t\t\tpointer-events: none;\n\t\t\tcursor: not-allowed;\n\t\t';
 });
 
 var StyledAnchor = _styledComponents2.default.a.withConfig({
 	displayName: 'Button__StyledAnchor',
-	componentId: 'bvtufj-2'
+	componentId: 'z2er9s-2'
 })(['', ';'], function (props) {
 	return props.busy || props.disabled && '\n\t\tpointer-events: none;\n\t\tcursor: not-allowed;\n\t';
 });
