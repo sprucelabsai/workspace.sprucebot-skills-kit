@@ -2063,13 +2063,22 @@ exports[`FormExample it renders 1`] = `
                           toggle={false}
                           type="button"
                         >
-                          <button
+                          <Button__StyledButton
+                            busy={false}
                             className="btn__alt btn__disabled "
+                            disabled={true}
                             onClick={[Function]}
                             type="button"
                           >
-                            Reset Form
-                          </button>
+                            <button
+                              className="btn__alt btn__disabled  Button__StyledButton-bvtufj-1 burCKO"
+                              disabled={true}
+                              onClick={[Function]}
+                              type="button"
+                            >
+                              Reset Form
+                            </button>
+                          </Button__StyledButton>
                         </Button>
                         <Button
                           alt={false}
@@ -2082,13 +2091,22 @@ exports[`FormExample it renders 1`] = `
                           toggle={false}
                           type="submit"
                         >
-                          <button
+                          <Button__StyledButton
+                            busy={false}
                             className="btn__primary "
+                            disabled={false}
                             onClick={[Function]}
                             type="submit"
                           >
-                            Submit
-                          </button>
+                            <button
+                              className="btn__primary  Button__StyledButton-bvtufj-1 fgUFOI"
+                              disabled={false}
+                              onClick={[Function]}
+                              type="submit"
+                            >
+                              Submit
+                            </button>
+                          </Button__StyledButton>
                         </Button>
                       </div>
                     </LinkPile>
