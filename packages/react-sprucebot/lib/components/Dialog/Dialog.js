@@ -150,6 +150,10 @@ var Dialog = function (_Component) {
 				this.setState({ firstShow: true, opacity: 0 });
 				this.requestScroll();
 			}
+
+			if (this.props.show && !nextProps.show) {
+				document.body.style.minHeight = 'auto';
+			}
 		}
 	}, {
 		key: 'componentWillUnmount',
