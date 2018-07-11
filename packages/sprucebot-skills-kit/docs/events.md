@@ -30,15 +30,14 @@ The `event` object is really a [`user`](user.md) object, with one exception; `ev
 
 These events are built in. They all come with `event.User`.
 
-* `did-signup` - When a guest joins wifi at a location for the first time
-* `did-remote-signup` - When guest remotely opts in to a location (from the guest dashboard)
+* `did-signup` - When a guest signs up at a location. Check ctx.status === 'online' to know if they are on the wifi
 * `did-enter` - When a guest returns and their phone hits the wifi
 * `did-leave` - Triggered an hour after a guest leaves
 * `did-message` - A guest has sent a text to Sprucebot
 * `did-add-device` - When a guest adds a new device to a location. Like adding their laptop
 * `did-update-profile` - When any user updates their first or last name
 * `did-opt-out` - When any guest opts out of a location. By now you have already lost access to their meta data.
-* `did-remote-rejoin` - They had, at one time, opted out. But, now they have remotely opted back in
+* `did-rejoin` - They had, at one time, opted out. But, now they have remotely opted back in
 * `will-send-training` - Sprucebot has made the decision that now is the perfect time to send training material
 * `was-installed` - When the skill is first installed to a location. This event can be used to set up any necessary seed data. Only `event.Location` is set.
 

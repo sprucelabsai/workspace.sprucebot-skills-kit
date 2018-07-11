@@ -157,7 +157,7 @@ module.exports = class Https {
 				var parsed = JSON.parse(body)
 				if (response.statusCode !== 200) {
 					const error = new Error(
-						parsed.friendlyReason || parsed.reason || parsed
+						parsed.friendlyReason || parsed.reason || JSON.stringify(parsed)
 					)
 					error.request = request
 					error.response = response

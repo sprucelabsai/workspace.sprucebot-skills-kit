@@ -35,7 +35,7 @@ export default class Search extends Component {
 	render() {
 		const { onCancel, onSelectUser, locationId, ...props } = this.props
 		return (
-			<div className="input__wrapper">
+			<div className="input__wrapper search__wrapper">
 				<input {...props} type="search" onClick={this.onClick.bind(this)} />
 			</div>
 		)
