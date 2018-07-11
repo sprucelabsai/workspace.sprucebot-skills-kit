@@ -502,7 +502,7 @@ const CalendarWrapper = styled.div.attrs({
 		display: -ms-flexbox;
 		display: flex;
 		max-height: 100%;
-		min-height: 20px;
+		min-height: 35px;
 		-webkit-flex-flow: column wrap;
 		-ms-flex-flow: column wrap;
 		flex-flow: column wrap;
