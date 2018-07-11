@@ -16,7 +16,7 @@ module.exports = (router, options) => {
 			}
 			
 			const results = await ctx.sb.emit(ctx.auth.LocationId, name, {
-				userId: ctx.auth.userId,
+				userId: ctx.auth.UserId,
 				sharable: payload
 			})
 
