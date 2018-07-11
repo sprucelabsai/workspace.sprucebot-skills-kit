@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.18.0"></a>
+# [6.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.17.0...v6.18.0) (2018-07-11)
+
+
+### Bug Fixes
+
+* Calendar class typo ([a29340b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a29340b))
+* Remove CL ([2d71738](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2d71738))
+
+
+### Features
+
+* import fix ([e0fcd11](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e0fcd11))
+
+
+
+
+
 <a name="6.17.0"></a>
 # [6.17.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.16.0...v6.17.0) (2018-07-11)
 
