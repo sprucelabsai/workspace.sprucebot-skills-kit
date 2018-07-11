@@ -43,6 +43,9 @@ injectGlobal`
 			background 0.2s cubic-bezier(0.645, 0.045, 0.355, 1),
 			box-shadow 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 	}
+	input.rc-time-picker-input::placeholder {
+		color: #ddd;
+	}
 	.rc-time-picker-input[disabled] {
 		color: #ccc;
 		background: #f7f7f7;
@@ -308,6 +311,8 @@ export default class TimeInput extends Component {
 			confirmButtonProps,
 			...rest
 		} = this.props
+
+		console.log(this.props)
 
 		return (
 			<Fragment>
