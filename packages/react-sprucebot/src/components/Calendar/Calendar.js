@@ -741,7 +741,7 @@ const CalendarWrapper = styled.div.attrs({
 		display: ${props => (props.disableResize ? 'none' : 'block')};
 	}
 	/*White Label*/
-	.rbd-event {
+	.rbc-event {
 		min-height: 35px !important;
 	}
 	.rbc-event-content {
