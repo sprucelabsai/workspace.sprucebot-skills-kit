@@ -2,13 +2,7 @@
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _register = require('babel-core/register');
-
-var _register2 = _interopRequireDefault(_register);
-
-var _babelPolyfill = require('babel-polyfill');
-
-var _babelPolyfill2 = _interopRequireDefault(_babelPolyfill);
+require('./require-babel-polyfill');
 
 var _Avatar = require('./components/Avatar/Avatar');
 

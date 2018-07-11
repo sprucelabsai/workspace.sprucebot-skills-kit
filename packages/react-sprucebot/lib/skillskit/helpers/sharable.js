@@ -25,26 +25,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 exports.default = function (config, Sharable) {
-
 	var actionGo = function actionGo(_ref) {
 		var actions = _ref.actions,
 		    _ref$internal = _ref.internal,
 		    internal = _ref$internal === undefined ? false : _ref$internal;
 
-
 		var newActions = false;
 
 		if (!internal && config && config.actionsToEvents) {
-
 			newActions = {};
 
 			Object.keys(config.actionsToEvents).map(function (namespace) {
-
 				//build namespace
 				newActions[namespace] = {};
 
 				Object.keys(config.actionsToEvents[namespace]).map(function (action) {
-
 					//save event
 					var event = config.actionsToEvents[namespace][action];
 

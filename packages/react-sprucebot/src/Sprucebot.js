@@ -1,5 +1,4 @@
-import register from 'babel-core/register'
-import polyfill from 'babel-polyfill'
+import './require-babel-polyfill'
 
 import Avatar from './components/Avatar/Avatar'
 import BotText from './components/BotText/BotText'
