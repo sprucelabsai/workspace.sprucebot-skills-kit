@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.17.0"></a>
+# [6.17.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.16.0...v6.17.0) (2018-07-11)
+
+
+### Features
+
+* logging test ([f02e53f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f02e53f))
+* style test ([90f744f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/90f744f))
+
+
+
+
+
 <a name="6.15.1"></a>
 ## [6.15.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.15.0...v6.15.1) (2018-07-11)
 
