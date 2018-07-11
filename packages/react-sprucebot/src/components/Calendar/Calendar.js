@@ -19,7 +19,7 @@ const CalendarWrapper = styled.div.attrs({
 })`
 	height: ${props => props.height};
 	${props =>
-		props.defaultView === 'week' && `position: absolute; width: 1000px;`};
+		props.defaultView === 'week' && `position: absolute; width: 1500px;`};
 	.rbc-btn {
 		color: inherit;
 		font: inherit;
@@ -663,7 +663,7 @@ const CalendarWrapper = styled.div.attrs({
 	}
 	.rbc-current-time-indicator {
 		position: absolute;
-		z-index: 999;
+		z-index: 997;
 		height: 1px;
 		background-color: #f85a3e;
 		pointer-events: none;
@@ -741,6 +741,9 @@ const CalendarWrapper = styled.div.attrs({
 		display: ${props => (props.disableResize ? 'none' : 'block')};
 	}
 	/*White Label*/
+	.rbd-event {
+		min-height: 35px !important;
+	}
 	.rbc-event-content {
 		text-transform: capitalize;
 	}
