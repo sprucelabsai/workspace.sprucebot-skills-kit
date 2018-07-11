@@ -237,8 +237,6 @@ var TimeInput = function (_Component) {
 			    confirmButtonProps = _props.confirmButtonProps,
 			    rest = _objectWithoutProperties(_props, ['onChange', 'onKeyDown', 'defaultValue', 'value', 'disableEnter', 'usePicker', 'hideConfirm', 'confirmButtonProps']);
 
-			console.log(this.props);
-
 			return _react2.default.createElement(
 				_react.Fragment,
 				null,

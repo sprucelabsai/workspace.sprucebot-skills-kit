@@ -319,8 +319,6 @@ export default class TimeInput extends Component {
 			...rest
 		} = this.props
 
-		console.log(this.props)
-
 		return (
 			<Fragment>
 				{(is.chrome() || is.safari()) && is.mobile() && !usePicker ? (
