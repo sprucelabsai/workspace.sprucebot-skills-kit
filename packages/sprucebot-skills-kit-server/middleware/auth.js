@@ -5,6 +5,8 @@ const config = require('config')
 module.exports = router => {
 	// jwt validation
 	const auth = async (id, ctx, next) => {
+		debug('AUTH CHECK', next, ctx, id)
+
 		if (!next) {
 			next = ctx
 			ctx = id
