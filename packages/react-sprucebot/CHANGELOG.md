@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.15.1"></a>
+## [6.15.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.15.0...v6.15.1) (2018-07-11)
+
+
+### Bug Fixes
+
+* Only import babel-polyfill once ([5686a11](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5686a11))
+
+
+
+
+
 <a name="6.15.0"></a>
 # [6.15.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.14.0...v6.15.0) (2018-07-11)
 
