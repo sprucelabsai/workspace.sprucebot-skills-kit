@@ -2,7 +2,7 @@ import {
 	EMIT_SHARABLE_EVENT_REQUEST,
 	EMIT_SHARABLE_EVENT_SUCCESS,
 	EMIT_SHARABLE_EVENT_ERROR
-} from '../actions/onboarding'
+} from '../actions/sharable'
 
 export default function reducer(state = null, action) {
 	const emitting = state && state.emitting ? state.emitting : {}
