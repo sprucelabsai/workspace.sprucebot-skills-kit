@@ -2,13 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { withInfo } from '@storybook/addon-info'
-import {
-	withKnobs,
-	text,
-	boolean,
-	number,
-	select
-} from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 import { withReadme, withDocs } from 'storybook-readme'
 import Avatar from '../lib/components/Avatar/Avatar'
 import readme from './docs/Avatar.md'
@@ -21,8 +15,7 @@ const imageOptions = {
 	'https://hello.sprucebot.com/avatar.jpg': 'User Image'
 }
 
-const defaultImage =
-	'https://hello.sprucebot.com/avatar.jpg'
+const defaultImage = 'https://hello.sprucebot.com/avatar.jpg'
 
 stories.add(
 	'Interactive',
