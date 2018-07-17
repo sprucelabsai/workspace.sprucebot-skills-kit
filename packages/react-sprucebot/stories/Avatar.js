@@ -7,15 +7,15 @@ import { withReadme, withDocs } from 'storybook-readme'
 import Avatar from '../lib/components/Avatar/Avatar'
 import readme from './docs/Avatar.md'
 
-const stories = storiesOf('Avatar', module)
-stories.addDecorator(withKnobs)
-
 const imageOptions = {
 	'https://s3.amazonaws.com/sprucebot-dev/default-profile--X150.jpg': 'Default',
 	'https://hello.sprucebot.com/avatar.jpg': 'User Image'
 }
 
 const defaultImage = 'https://hello.sprucebot.com/avatar.jpg'
+
+const stories = storiesOf('Avatar', module)
+stories.addDecorator(withKnobs)
 
 stories.add(
 	'Interactive',
