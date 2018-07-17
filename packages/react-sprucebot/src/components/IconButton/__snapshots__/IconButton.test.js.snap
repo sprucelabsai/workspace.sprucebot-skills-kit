@@ -55,7 +55,6 @@ exports[`it renders 1`] = `
 <button
   className="btn IconButton icon-button  c0"
   onClick={[Function]}
-  type="button"
 >
   <i
     className="Icon icon  c1"

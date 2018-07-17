@@ -4,7 +4,6 @@ exports[`Button Component it renders 1`] = `
 <button
   className="btn "
   onClick={[Function]}
-  type="button"
 />
 `;
 
@@ -12,7 +11,6 @@ exports[`Button Component it renders alt 1`] = `
 <button
   className="btn__alt "
   onClick={[Function]}
-  type="button"
 />
 `;
 
@@ -20,7 +18,6 @@ exports[`Button Component it renders busy 1`] = `
 <button
   className="btn "
   onClick={[Function]}
-  type="button"
 >
   <span
     className="loader_wrapper"
@@ -47,7 +44,6 @@ exports[`Button Component it renders caution 1`] = `
 <button
   className=" btn__caution "
   onClick={[Function]}
-  type="button"
 />
 `;
 
@@ -55,7 +51,6 @@ exports[`Button Component it renders children 1`] = `
 <button
   className="btn "
   onClick={[Function]}
-  type="button"
 >
   Button Children
 </button>
@@ -65,7 +60,6 @@ exports[`Button Component it renders className 1`] = `
 <button
   className="btn test classnames"
   onClick={[Function]}
-  type="button"
 />
 `;
 
@@ -73,7 +67,6 @@ exports[`Button Component it renders disabled 1`] = `
 <button
   className=" btn__disabled "
   onClick={[Function]}
-  type="button"
 />
 `;
 
@@ -81,7 +74,6 @@ exports[`Button Component it renders html tagName 1`] = `
 <span
   className="btn "
   onClick={[Function]}
-  type="button"
 />
 `;
 
@@ -89,7 +81,6 @@ exports[`Button Component it renders link 1`] = `
 <button
   className=" btn__link "
   onClick={[Function]}
-  type="button"
 />
 `;
 
@@ -113,7 +104,6 @@ exports[`Button Component it renders primary 1`] = `
 <button
   className="btn__primary "
   onClick={[Function]}
-  type="button"
 />
 `;
 
@@ -121,6 +111,5 @@ exports[`Button Component it renders secondary 1`] = `
 <button
   className="btn__secondary "
   onClick={[Function]}
-  type="button"
 />
 `;
