@@ -45,28 +45,40 @@ const events = [
 
 const weekStyles = {
 	postion: 'relative',
+	display: 'flex',
 	width: '1000px',
-	'overflow-x': 'scroll'
+	'overflow-x': 'scroll',
+	'-webkit-overflow-scrolling': 'touch',
 }
 
 const stories = storiesOf('Calendar', module)
 stories.addDecorator(withKnobs)
 
-stories.add(
-	'Interactive',
-	withReadme(
-		readme,
-		withInfo()(() => (
-			<div className="single_col">
-				<Calendar
-					toolbar={true}
-					height="1000px"
-					date={new Date('2018-08-10 01:00:00')}
-					events={events}
-					defaultView={'day'}
-					views={['day', 'week', 'month']}
-				/>
-			</div>
-		))
+stories
+	.add(
+		'Day View Interactive',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<div className="single_col">
+					<Calendar
+						toolbar={false}
+						height="1500px"
+						date={new Date('2018-08-10 01:00:00')}
+						events={events}
+						defaultView={'day'}
+						views={['day']}
+						step={15}
+						timeslots={4}
+						titleAccessor="title"
+						startAccessor="start"
+						endAccessor="end"
+						allDayAccessor="allDay"
+						selectable={false}
+						onEventDrop={action('Drag and drop event')}
+						onEventResize={action('Resize event')}
+					/>
+				</div>
+			))
+		)
 	)
-)
