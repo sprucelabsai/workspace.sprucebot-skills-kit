@@ -129,12 +129,12 @@ Button.propTypes = {
 	primary: PropTypes.bool,
 	alt: PropTypes.bool,
 	secondary: PropTypes.bool,
+	caution: PropTypes.bool,
 	busy: PropTypes.bool,
 	href: PropTypes.string,
 	remove: PropTypes.bool,
 	toggle: PropTypes.bool,
-	hideLoader: PropTypes.bool,
-	type: PropTypes.string
+	hideLoader: PropTypes.bool
 }
 
 Button.defaultProps = {
@@ -144,6 +144,5 @@ Button.defaultProps = {
 	secondary: false,
 	busy: false,
 	remove: false,
-	toggle: false,
-	type: 'button'
+	toggle: false
 }
