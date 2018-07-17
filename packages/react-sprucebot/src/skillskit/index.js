@@ -61,6 +61,18 @@ export default {
 		window.addEventListener('message', this._searchCallback.bind(this))
 	},
 
+	displayMessage: function({ message, type = 'error' }) {
+		if (window.top === window.self) {
+			alert(message)
+		} else {
+			postMessage({ name: 'Skill:DisplayMessage', message, type })
+		}
+	},
+
+	confirm: async function({ message }) {
+		return window.confirm(message)
+	},
+
 	_searchCallback: function(e) {
 		if (typeof e.data === 'string') {
 			try {
