@@ -56,7 +56,7 @@ stories.addDecorator(withKnobs)
 
 stories
 	.add(
-		'Day View Interactive',
+		'Interactive',
 		withReadme(
 			readme,
 			withInfo()(() => (
