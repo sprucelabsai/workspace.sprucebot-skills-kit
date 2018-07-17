@@ -23,7 +23,8 @@
 		"prepush": "npm run lint && npm run test",
 		"watch": "chokidar 'src/**/*.js' -c 'npm run build'",
 		"storybook": "start-storybook -p 9001 -c .storybook",
-		"storybook:build": "build-storybook -c .storybook -o .out"
+		"storybook:build": "build-storybook -c .storybook -o .out",
+		"storybook:deploy": "storybook-to-ghpages"
 	},
 	"devDependencies": {
 		"@storybook/addon-actions": "^3.4.8",
