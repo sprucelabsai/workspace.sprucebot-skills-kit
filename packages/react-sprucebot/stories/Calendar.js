@@ -3,7 +3,7 @@ import moment from 'moment'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { withInfo } from '@storybook/addon-info'
-import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select, text, number } from '@storybook/addon-knobs/react'
 import { withReadme, withDocs } from 'storybook-readme'
 import Calendar from '../lib/components/Calendar/Calendar'
 import readme from './docs/Calendar.md'
@@ -62,7 +62,7 @@ stories
 				<div className="single_col">
 					<Calendar
 						toolbar={false}
-						height="1500px"
+						height={text('Height', "1500px")}
 						date={new Date('2018-08-10 01:00:00')}
 						events={events}
 						defaultView={'day'}
