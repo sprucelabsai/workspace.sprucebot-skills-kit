@@ -6,7 +6,6 @@ import { withInfo } from '@storybook/addon-info'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 import { withReadme, withDocs } from 'storybook-readme'
 import Calendar from '../lib/components/Calendar/Calendar'
-import { Tabs, TabPane } from '../lib/components/Tabs/Tabs'
 import readme from './docs/Calendar.md'
 
 const events = [
