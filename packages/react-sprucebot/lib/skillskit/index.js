@@ -3,6 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 function postMessage(message) {
 	return window.parent.postMessage(JSON.stringify(message), '*');
 }
@@ -77,6 +80,42 @@ exports.default = {
 
 		window.addEventListener('message', this._searchCallback.bind(this));
 	},
+
+	displayMessage: function displayMessage(_ref4) {
+		var message = _ref4.message,
+		    _ref4$type = _ref4.type,
+		    type = _ref4$type === undefined ? 'error' : _ref4$type;
+
+		if (window.top === window.self) {
+			alert(message);
+		} else {
+			postMessage({ name: 'Skill:DisplayMessage', message: message, type: type });
+		}
+	},
+
+	confirm: function () {
+		var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref6) {
+			var message = _ref6.message;
+			return regeneratorRuntime.wrap(function _callee$(_context) {
+				while (1) {
+					switch (_context.prev = _context.next) {
+						case 0:
+							return _context.abrupt('return', window.confirm(message));
+
+						case 1:
+						case 'end':
+							return _context.stop();
+					}
+				}
+			}, _callee, this);
+		}));
+
+		function confirm(_x4) {
+			return _ref5.apply(this, arguments);
+		}
+
+		return confirm;
+	}(),
 
 	_searchCallback: function _searchCallback(e) {
 		if (typeof e.data === 'string') {
