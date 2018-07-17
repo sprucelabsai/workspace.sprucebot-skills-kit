@@ -1,5 +1,4 @@
-import register from 'babel-core/register'
-import polyfill from 'babel-polyfill'
+import './require-babel-polyfill'
 
 import Avatar from './components/Avatar/Avatar'
 import BotText from './components/BotText/BotText'
@@ -42,6 +41,7 @@ import _document from './skillskit/next/_document'
 import Page from './skillskit/next/Page'
 import withStore, { createStore } from './skillskit/store/withStore'
 import lang from './skillskit/helpers/lang'
+import sharable from './skillskit/helpers/sharable'
 
 const Sprucebot = {
 	testUtils: {
@@ -88,6 +88,7 @@ const Sprucebot = {
 	IconButton,
 	ControlButton,
 	Search,
+	sharable,
 	...Typography,
 	...List,
 	...Tabs,

@@ -81,7 +81,7 @@ var Search = function (_Component) {
 
 			return _react2.default.createElement(
 				'div',
-				{ className: 'input__wrapper' },
+				{ className: 'input__wrapper search__wrapper' },
 				_react2.default.createElement('input', _extends({}, props, { type: 'search', onClick: this.onClick.bind(this) }))
 			);
 		}

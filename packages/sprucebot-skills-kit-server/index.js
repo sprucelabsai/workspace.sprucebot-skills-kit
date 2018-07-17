@@ -288,9 +288,10 @@ module.exports = async ({
 	router.get('*', async ctx => {
 		// if a controller already responded or we are making an API call, don't let next run at all
 		if (ctx.body || ctx.path.search('/api') === 0) {
+			debug('api call found, letting controllers handle it', ctx)
 			return
 		}
-		debug('handing off to next and backing off', ctx.path)
+		debug('handing off to next and backing off', ctx.path, ctx)
 		await handle(ctx.req, ctx.res)
 		ctx.respond = false
 		return

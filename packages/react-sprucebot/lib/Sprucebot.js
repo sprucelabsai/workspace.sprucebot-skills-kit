@@ -2,13 +2,7 @@
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _register = require('babel-core/register');
-
-var _register2 = _interopRequireDefault(_register);
-
-var _babelPolyfill = require('babel-polyfill');
-
-var _babelPolyfill2 = _interopRequireDefault(_babelPolyfill);
+require('./require-babel-polyfill');
 
 var _Avatar = require('./components/Avatar/Avatar');
 
@@ -174,6 +168,10 @@ var _lang = require('./skillskit/helpers/lang');
 
 var _lang2 = _interopRequireDefault(_lang);
 
+var _sharable = require('./skillskit/helpers/sharable');
+
+var _sharable2 = _interopRequireDefault(_sharable);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -222,6 +220,7 @@ var Sprucebot = _extends({
 	Icon: _Icon2.default,
 	IconButton: _IconButton2.default,
 	ControlButton: _ControlButton2.default,
-	Search: _Search2.default
+	Search: _Search2.default,
+	sharable: _sharable2.default
 }, Typography, List, Tabs, ButtonGrid);
 module.exports = Sprucebot;

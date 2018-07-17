@@ -57,14 +57,14 @@ export default class Dialog extends Component {
 	componentDidMount() {
 		window.addEventListener('message', this.iframeMessageHandler)
 		if (this.props.show && this.state.firstShow) {
-			SK.requestScroll()
+			this.requestScroll()
 		}
 	}
 
 	componentDidUpdate() {
 		// in case our starting state is not showing
 		if (this.props.show && this.state.firstShow) {
-			SK.requestScroll()
+			this.requestScroll()
 		}
 	}
 
@@ -72,24 +72,28 @@ export default class Dialog extends Component {
 		// if we are being show, set opacity and request scroll
 		if (!this.props.show && nextProps.show) {
 			this.setState({ firstShow: true, opacity: 0 })
-			SK.requestScroll()
-			setTimeout(() => {
-				// we are not in the sb iframe
-				if (this.state.opacity === 0) {
-					this.setState({
-						opacity: 1,
-						scrollTop: window.document.body.scrollTop,
-						firstShow: false,
-						inIframe: false
-					})
-				}
-			}, 250)
+			this.requestScroll()
 		}
 	}
 
 	componentWillUnmount() {
 		document.body.style.minHeight = `auto`
 		window.removeEventListener('message', this.iframeMessageHandler)
+	}
+
+	requestScroll() {
+		SK.requestScroll()
+		setTimeout(() => {
+			// we are not in the sb iframe
+			if (this.state.opacity === 0) {
+				this.setState({
+					opacity: 1,
+					scrollTop: window.document.body.scrollTop,
+					firstShow: false,
+					inIframe: false
+				})
+			}
+		}, 250)
 	}
 
 	iframeMessageHandler(e) {

@@ -131,7 +131,7 @@ var Dialog = function (_Component) {
 		value: function componentDidMount() {
 			window.addEventListener('message', this.iframeMessageHandler);
 			if (this.props.show && this.state.firstShow) {
-				_skillskit2.default.requestScroll();
+				this.requestScroll();
 			}
 		}
 	}, {
@@ -139,29 +139,16 @@ var Dialog = function (_Component) {
 		value: function componentDidUpdate() {
 			// in case our starting state is not showing
 			if (this.props.show && this.state.firstShow) {
-				_skillskit2.default.requestScroll();
+				this.requestScroll();
 			}
 		}
 	}, {
 		key: 'componentWillReceiveProps',
 		value: function componentWillReceiveProps(nextProps) {
-			var _this2 = this;
-
 			// if we are being show, set opacity and request scroll
 			if (!this.props.show && nextProps.show) {
 				this.setState({ firstShow: true, opacity: 0 });
-				_skillskit2.default.requestScroll();
-				setTimeout(function () {
-					// we are not in the sb iframe
-					if (_this2.state.opacity === 0) {
-						_this2.setState({
-							opacity: 1,
-							scrollTop: window.document.body.scrollTop,
-							firstShow: false,
-							inIframe: false
-						});
-					}
-				}, 250);
+				this.requestScroll();
 			}
 		}
 	}, {
@@ -169,6 +156,24 @@ var Dialog = function (_Component) {
 		value: function componentWillUnmount() {
 			document.body.style.minHeight = 'auto';
 			window.removeEventListener('message', this.iframeMessageHandler);
+		}
+	}, {
+		key: 'requestScroll',
+		value: function requestScroll() {
+			var _this2 = this;
+
+			_skillskit2.default.requestScroll();
+			setTimeout(function () {
+				// we are not in the sb iframe
+				if (_this2.state.opacity === 0) {
+					_this2.setState({
+						opacity: 1,
+						scrollTop: window.document.body.scrollTop,
+						firstShow: false,
+						inIframe: false
+					});
+				}
+			}, 250);
 		}
 	}, {
 		key: 'iframeMessageHandler',

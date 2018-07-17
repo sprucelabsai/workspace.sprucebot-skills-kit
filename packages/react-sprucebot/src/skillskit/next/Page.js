@@ -55,6 +55,7 @@ const Page = Wrapped => {
 			let props = { pathname, query, asPath, skill }
 
 			const jwt = query.jwt || getCookie('jwt', req, res)
+
 			if (jwt) {
 				try {
 					await store.dispatch(actions.auth.go(jwt))
@@ -108,6 +109,7 @@ const Page = Wrapped => {
 			) {
 				// no redirect is set, we're not public, but auth failed
 				redirect = '/unauthorized'
+				debug('AUTH FAILED', state)
 			} else if (!redirect && !props.public) {
 				// all things look good, lets just make sure we're in the right area (owner, teammate, or guest)
 				const role = state.auth.role

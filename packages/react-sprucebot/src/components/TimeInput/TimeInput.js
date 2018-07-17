@@ -34,29 +34,25 @@ injectGlobal`
 		box-sizing: border-box;
 	}
 	.rc-time-picker-input {
-		flex: 2;
-		background-color: transparent;
-		border: none;
-		color: #808080;
-		font-size: 1.2em;
-		margin: 0.5em;
-		padding: 0;
-		width: 100%;
-		position: relative;
-		display: inline-block;
-		height: 28px;
-		cursor: text;
-		line-height: 1.5;
-		border-radius: 4px;
+		margin: 0;
+		line-height: 3rem;
+		background: transparent;
 		text-align: center;
+		border: none;
 		transition: border 0.2s cubic-bezier(0.645, 0.045, 0.355, 1),
 			background 0.2s cubic-bezier(0.645, 0.045, 0.355, 1),
 			box-shadow 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+	}
+	input.rc-time-picker-input::placeholder {
+		color: #ddd;
 	}
 	.rc-time-picker-input[disabled] {
 		color: #ccc;
 		background: #f7f7f7;
 		cursor: not-allowed;
+	}
+	.rc-time-picker-input:placeholder {
+		color: #ccc;
 	}
 	.rc-time-picker-panel {
 		z-index: 1070;

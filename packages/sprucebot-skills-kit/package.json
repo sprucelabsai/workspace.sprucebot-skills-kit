@@ -4,7 +4,7 @@
 		"access": "public"
 	},
 	"description": "The base template that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "6.13.0",
+	"version": "6.18.0",
 	"homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/sprucebot-skills-kit/issues"
@@ -45,12 +45,13 @@
 		"prop-types": "^15.6.0",
 		"react": "^16.0.0",
 		"react-dom": "^16.0.0",
+		"react-emojione": "^5.0.0",
 		"react-redux": "^5.0.6",
-		"react-sprucebot": "^6.13.0",
+		"react-sprucebot": "^6.18.0",
 		"redux": "^3.7.2",
 		"redux-thunk": "^2.2.0",
-		"sprucebot-node": "^6.7.0",
-		"sprucebot-skills-kit-server": "^6.7.0",
+		"sprucebot-node": "^6.15.0",
+		"sprucebot-skills-kit-server": "^6.18.0",
 		"styled-components": "^3.2.1",
 		"universal-cookie": "^2.1.0"
 	},

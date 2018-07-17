@@ -293,6 +293,7 @@ var Page = function Page(Wrapped) {
 									} else if (!redirect && !props.public && (!state.auth || !state.auth.role || state.auth.error)) {
 										// no redirect is set, we're not public, but auth failed
 										redirect = '/unauthorized';
+										debug('AUTH FAILED', state);
 									} else if (!redirect && !props.public) {
 										// all things look good, lets just make sure we're in the right area (owner, teammate, or guest)
 										role = state.auth.role;

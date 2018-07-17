@@ -3,6 +3,59 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.18.0"></a>
+# [6.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.17.0...v6.18.0) (2018-07-11)
+
+
+### Features
+
+* import fix ([e0fcd11](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e0fcd11))
+
+
+
+
+
+<a name="6.16.0"></a>
+# [6.16.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.15.1...v6.16.0) (2018-07-11)
+
+
+### Features
+
+* slug fix ([91ad752](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/91ad752))
+
+
+
+
+
+<a name="6.15.0"></a>
+# [6.15.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.14.0...v6.15.0) (2018-07-11)
+
+
+### Bug Fixes
+
+* typo ([7b5f56d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7b5f56d))
+
+
+### Features
+
+* sharable components ([fcd4943](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fcd4943))
+
+
+
+
+
+<a name="6.14.0"></a>
+# [6.14.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.13.0...v6.14.0) (2018-07-09)
+
+
+### Features
+
+* Latest components and functionality ([8dd2623](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8dd2623))
+
+
+
+
+
 <a name="6.7.0"></a>
 # [6.7.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.6.1...v6.7.0) (2018-06-27)
 
