@@ -2,6 +2,6 @@
 
 exports[`it renders 1`] = `
 <div
-  className="SubmitWrapper-s5rqw4n-0 submit__wrapper jWcvtf"
+  className="submit__wrapper "
 />
 `;

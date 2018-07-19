@@ -2,29 +2,29 @@
 
 exports[`h1 tag it renders 1`] = `
 <h1
-  className="Typography__H1-s141trq-1 cblwbP"
+  className=""
 />
 `;
 
 exports[`h1 tag it renders header and subheader 1`] = `
 <div>
   <h1
-    className="Typography__H1-s141trq-1 cblwbP"
+    className=""
   />
   <h2
-    className="Typography__H2-s141trq-2 is__subheader ehMvHj"
+    className="is__subheader "
   />
 </div>
 `;
 
 exports[`p tag it fine prints 1`] = `
 <p
-  className="Typography__Paragraph-s141trq-0 fine__print kcAfmu"
+  className="fine__print "
 />
 `;
 
 exports[`p tag it renders 1`] = `
 <p
-  className="Typography__Paragraph-s141trq-0 kcAfmu"
+  className=""
 />
 `;

@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders 1`] = `
+.c0 {
+  background-image: url(test.jpg);
+}
+
 <div
-  className="Avatar-dlsm6o-0 avatar__wrapper dbgUzS"
+  className="avatar__wrapper c0"
 />
 `;
