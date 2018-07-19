@@ -1,36 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: none;
-  color: #00aac7;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: normal;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
-  position: relative;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  background: none;
-}
-
 <button
-  className="btn ControlButton control-button  c0 "
+  className=" ControlButton__StyledButton-jro3dx-2 ControlButton control-button  lgGsGV Button__StyledButton-bvtufj-1 fgUFOI"
   disabled={undefined}
   onClick={[Function]}
   tabIndex={0}
@@ -41,36 +13,8 @@ exports[`it renders 1`] = `
 `;
 
 exports[`it renders a link 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: none;
-  color: #00aac7;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: normal;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
-  position: relative;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  background: none;
-}
-
 <a
-  className="btn ControlButton control-button  c0 "
+  className=" ControlButton__StyledButton-jro3dx-2 ControlButton control-button  lgGsGV Button__StyledAnchor-bvtufj-2 jUvVDG"
   disabled={undefined}
   href="https://sprucebot.com"
   onClick={[Function]}

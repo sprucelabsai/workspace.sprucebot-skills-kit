@@ -155,8 +155,6 @@ export default class Button extends Component {
 
 		if (remove) {
 			btnClass = 'btn__remove'
-		} else if (!btnClass) {
-			btnClass = 'btn'
 		}
 
 		// if this button has a href or is a "remove" button, make it an anchor
@@ -173,7 +171,7 @@ export default class Button extends Component {
 			return (
 				<ButtonWrapper left={left} right={right}>
 					<Tag
-						className={`${btnClass} ${className || ''}`}
+						className={`btn ${btnClass} ${className || ''}`}
 						onClick={this.onClick}
 						disabled={disabled}
 						busy={busy}

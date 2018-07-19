@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -26,7 +28,13 @@ var _Loader = require('../Loader/Loader');
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
+var _IconButton = require('../IconButton/IconButton');
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -79,24 +87,8 @@ var Pager = function (_Component) {
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Pager.__proto__ || Object.getPrototypeOf(Pager)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			page: _this.props.page
 		}, _this.componentWillReceiveProps = function (nextProps) {
-			var _this$props = _this.props,
-			    page = _this$props.page,
-			    loading = _this$props.loading,
-			    updatePage = _this$props.updatePage,
-			    backToStart = _this$props.backToStart;
-			var nextLoading = nextProps.loading;
-
-
-			if (loading && !nextLoading) {
+			if (nextProps.page !== _this.props.page) {
 				_this.setState({ page: page });
-			}
-
-			if (updatePage) {
-				_this.updatePageNumber();
-			}
-
-			if (backToStart) {
-				_this.backToStart();
 			}
 		}, _this.triggerOnChange = function (page, e) {
 			var onChange = _this.props.onChange;
@@ -123,8 +115,11 @@ var Pager = function (_Component) {
 				return {};
 			});
 		}, _this.back = function (e) {
+			var infinite = _this.props.infinite;
+
+
 			_this.setState(function (prevState) {
-				if (prevState.page > 0) {
+				if (infinite || prevState.page > 0) {
 					return {
 						page: _this.triggerOnChange(prevState.page - 1, e)
 					};
@@ -132,11 +127,13 @@ var Pager = function (_Component) {
 				return {};
 			});
 		}, _this.next = function (e) {
-			var totalPages = _this.props.totalPages;
+			var _this$props = _this.props,
+			    totalPages = _this$props.totalPages,
+			    infinite = _this$props.infinite;
 
 
 			_this.setState(function (prevState) {
-				if (prevState.page < totalPages - 1) {
+				if (infinite || prevState.page < totalPages - 1) {
 					return {
 						page: _this.triggerOnChange(prevState.page + 1, e)
 					};
@@ -161,62 +158,19 @@ var Pager = function (_Component) {
 				}
 				return {};
 			});
-		}, _this.updatePageNumber = function (e) {
-			var updateAmount = _this.props.updateAmount;
-
-
-			if (updateAmount) {
-				_this.setState(function (prevState) {
-					return {
-						page: _this.triggerOnChange(prevState.page + updateAmount, e)
-					};
-				});
-			}
-		}, _this.backToStart = function (e) {
-			var initialPage = _this.props.initialPage;
-
-
-			if (initialPage) {
-				_this.setState({ page: _this.triggerOnChange(initialPage, e) });
-			}
 		}, _this.renderView = function () {
 			var page = _this.state.page;
 			var _this$props3 = _this.props,
 			    totalPages = _this$props3.totalPages,
-			    loading = _this$props3.loading,
-			    loadingText = _this$props3.loadingText,
-			    showLoader = _this$props3.showLoader,
-			    hasButton = _this$props3.hasButton,
-			    buttonClick = _this$props3.buttonClick,
 			    titles = _this$props3.titles;
 
-			var title = titles ? titles(page) : page + 1 + ' of ' + totalPages;
 
-			if (loading && showLoader) {
-				return _react2.default.createElement(StyledLoader, { fullWidth: false, margin: '7px 0', flex: true });
-			} else if (loading && loadingText) {
-				return _react2.default.createElement(
-					StyledListItem,
-					{ className: 'current' },
-					loadingText
-				);
-			} else if (hasButton && buttonClick) {
-				return _react2.default.createElement(
-					StyledListItem,
-					{ className: 'current' },
-					_react2.default.createElement(
-						DropDownButton,
-						{ iconRight: hasButton, onClick: buttonClick },
-						title
-					)
-				);
-			} else {
-				return _react2.default.createElement(
-					StyledListItem,
-					{ className: 'current' },
-					'title'
-				);
-			}
+			var title = titles ? titles(page) : page + 1 + ' of ' + totalPages;
+			return _react2.default.createElement(
+				StyledListItem,
+				{ className: 'current' },
+				title
+			);
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 	// Starting page
@@ -226,79 +180,56 @@ var Pager = function (_Component) {
 		key: 'render',
 		value: function render() {
 			var page = this.state.page;
+
 			var _props = this.props,
 			    totalPages = _props.totalPages,
-			    margin = _props.margin,
 			    hideSingleArrows = _props.hideSingleArrows,
 			    hideDoubleArrows = _props.hideDoubleArrows,
-			    loading = _props.loading;
+			    infinite = _props.infinite,
+			    className = _props.className,
+			    props = _objectWithoutProperties(_props, ['totalPages', 'hideSingleArrows', 'hideDoubleArrows', 'infinite', 'className']);
 
-
-			var first = page === 0;
-			var last = page === totalPages - 1;
+			var first = page === 0 && !infinite;
+			var last = page === totalPages - 1 && !infinite;
 
 			return _react2.default.createElement(
-				StyledList,
-				{ className: 'pager', margin: margin },
+				'ul',
+				_extends({}, props, { className: className + ' pager' }),
 				_react2.default.createElement(
-					StyledListItem,
-					{
-						loading: loading,
-						className: 'first ' + (first && 'disabled'),
-						onClick: this.first,
-						smallArrows: true,
-						hide: hideDoubleArrows
-					},
+					'li',
+					{ className: 'first ' + (first && 'disabled'), smallArrows: true },
 					_react2.default.createElement(
-						'a',
-						null,
-						'First'
+						_IconButton2.default,
+						{ onClick: this.first },
+						'first_page'
 					)
 				),
 				_react2.default.createElement(
-					StyledListItem,
-					{
-						loading: loading,
-						className: 'back ' + (first && 'disabled'),
-						onClick: this.back,
-						smallArrows: true,
-						hide: hideSingleArrows
-					},
+					'li',
+					{ className: 'back ' + (first && 'disabled'), hide: hideSingleArrows },
 					_react2.default.createElement(
-						'a',
-						null,
-						'Back'
+						_IconButton2.default,
+						{ onClick: this.back },
+						'chevron_left'
 					)
 				),
 				this.renderView(),
 				_react2.default.createElement(
-					StyledListItem,
-					{
-						loading: loading,
-						className: 'next ' + (last && 'disabled'),
-						onClick: this.next,
-						smallArrows: true,
-						hide: hideSingleArrows
-					},
+					'li',
+					{ className: 'next ' + (last && 'disabled'), smallArrows: true },
 					_react2.default.createElement(
-						'a',
-						null,
-						'Next'
+						_IconButton2.default,
+						{ onClick: this.next },
+						'chevron_right'
 					)
 				),
 				_react2.default.createElement(
-					StyledListItem,
-					{
-						loading: loading,
-						className: 'last ' + (last && 'disabled'),
-						onClick: this.last,
-						smallArrows: true,
-						hide: hideDoubleArrows
-					},
+					'li',
+					{ className: 'last ' + (last && 'disabled'), smallArrows: true },
 					_react2.default.createElement(
-						'a',
-						null,
-						'Last'
+						_IconButton2.default,
+						{ onClick: this.last },
+						'last_page'
 					)
 				)
 			);
@@ -313,11 +244,13 @@ exports.default = Pager;
 
 Pager.propTypes = {
 	page: _propTypes2.default.number,
-	totalPages: _propTypes2.default.number.isRequired,
+	totalPages: _propTypes2.default.number,
+	infinite: _propTypes2.default.bool,
 	onChange: _propTypes2.default.func,
 	titles: _propTypes2.default.func
 };
 
 Pager.defaultProps = {
-	page: 0
+	page: 0,
+	infinite: false
 };

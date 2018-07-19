@@ -228,11 +228,18 @@ export default class TimeInput extends Component {
 
 	onChange = async e => {
 		const { onChange } = this.props
-		await this.setState({
-			value: this.input.value
+
+		let value = this.input.value
+
+		if (/^\d\d:\d\d$/.test(value)) {
+			value += ':00'
+		}
+
+		this.setState({
+			value
 		})
 		if (onChange) {
-			onChange(this.input.value)
+			onChange(value)
 		}
 	}
 	onKeyDown = e => {
@@ -247,7 +254,7 @@ export default class TimeInput extends Component {
 	}
 	onTimePickerChange = async momentTime => {
 		const { onChange } = this.props
-		const time = momentTime.format('HH:mm')
+		const time = momentTime.format('HH:mm') + ':00' // only whole minutes for time input
 		await this.setState({
 			value: time
 		})

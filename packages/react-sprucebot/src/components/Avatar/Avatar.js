@@ -6,7 +6,7 @@ const Avatar = styled.div.attrs({
 		if (props.online && props.showOnlineIndicator) {
 			className += ' online'
 		}
-		return className
+		return `${className}`
 	}
 })`
 	${props => props.image && `background-image: url(${props.image});`};
