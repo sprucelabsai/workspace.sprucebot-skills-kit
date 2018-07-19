@@ -1,6 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders 1`] = `
+.c1 {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1em;
+  display: inline-block;
+  height: 1em;
+  line-height: 1;
+  opacity: 0;
+  text-transform: none;
+  -webkit-letter-spacing: normal;
+  -moz-letter-spacing: normal;
+  -ms-letter-spacing: normal;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  width: 1em;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+.wf-active .c1 {
+  opacity: 1;
+}
+
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: none;
+  color: #00aac7;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 2em;
+  margin: 0;
+  padding: 0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  width: auto;
+}
+
+.c0:hover {
+  background: none;
+}
+
 <ul
   className="undefined pager"
   page={0}
@@ -10,13 +61,13 @@ exports[`it renders 1`] = `
     smallArrows={true}
   >
     <button
-      className=" IconButton icon-button  IconButton__StyledButton-s10eb4c1-0 kFckVT Button__StyledButton-bvtufj-1 fgUFOI"
+      className=" IconButton icon-button  c0 "
       disabled={undefined}
       onClick={[Function]}
       type="button"
     >
       <i
-        className="Icon__I-s1r0bu8t-0 Icon icon  fQySdo"
+        className="Icon icon  c1"
         fontSize={undefined}
       >
         first_page
@@ -28,13 +79,13 @@ exports[`it renders 1`] = `
     hide={undefined}
   >
     <button
-      className=" IconButton icon-button  IconButton__StyledButton-s10eb4c1-0 kFckVT Button__StyledButton-bvtufj-1 fgUFOI"
+      className=" IconButton icon-button  c0 "
       disabled={undefined}
       onClick={[Function]}
       type="button"
     >
       <i
-        className="Icon__I-s1r0bu8t-0 Icon icon  fQySdo"
+        className="Icon icon  c1"
         fontSize={undefined}
       >
         chevron_left
@@ -42,7 +93,7 @@ exports[`it renders 1`] = `
     </button>
   </li>
   <li
-    className="current Pager__StyledListItem-s1b0v454-1 hxRKju"
+    className="current "
   >
     1 of 1
   </li>
@@ -51,13 +102,13 @@ exports[`it renders 1`] = `
     smallArrows={true}
   >
     <button
-      className=" IconButton icon-button  IconButton__StyledButton-s10eb4c1-0 kFckVT Button__StyledButton-bvtufj-1 fgUFOI"
+      className=" IconButton icon-button  c0 "
       disabled={undefined}
       onClick={[Function]}
       type="button"
     >
       <i
-        className="Icon__I-s1r0bu8t-0 Icon icon  fQySdo"
+        className="Icon icon  c1"
         fontSize={undefined}
       >
         chevron_right
@@ -69,13 +120,13 @@ exports[`it renders 1`] = `
     smallArrows={true}
   >
     <button
-      className=" IconButton icon-button  IconButton__StyledButton-s10eb4c1-0 kFckVT Button__StyledButton-bvtufj-1 fgUFOI"
+      className=" IconButton icon-button  c0 "
       disabled={undefined}
       onClick={[Function]}
       type="button"
     >
       <i
-        className="Icon__I-s1r0bu8t-0 Icon icon  fQySdo"
+        className="Icon icon  c1"
         fontSize={undefined}
       >
         last_page
