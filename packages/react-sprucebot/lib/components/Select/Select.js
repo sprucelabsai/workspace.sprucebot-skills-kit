@@ -52,9 +52,11 @@ var Select = function (_Component) {
 			if (p.label) {
 				p.className += ' with_label';
 			}
-			return _react2.default.createElement(_Input2.default, _extends({ ref: function ref(input) {
+			return _react2.default.createElement(_Input2.default, _extends({
+				ref: function ref(input) {
 					_this2.input = input;
-				} }, p));
+				}
+			}, p));
 		}
 	}, {
 		key: 'value',
