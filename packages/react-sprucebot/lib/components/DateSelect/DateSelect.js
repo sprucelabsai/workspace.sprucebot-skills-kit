@@ -228,7 +228,7 @@ DateSelect.propTypes = {
 	availableDays: (0, _reactRequiredIf2.default)(_propTypes2.default.array, function (props) {
 		return !props.bypassDaysBlocked;
 	}),
-	bypassDaysBlocked: _propTypes2.default.bool,
+	bypassDaysBlocked: _propTypes2.default.bool.isRequired,
 	allowPastDates: _propTypes2.default.bool,
 	onDateSelect: _propTypes2.default.func.isRequired,
 	setDefaultDate: _propTypes2.default.bool,
@@ -237,5 +237,11 @@ DateSelect.propTypes = {
 	onNextMonthClick: _propTypes2.default.func,
 	onPrevMonthClick: _propTypes2.default.func,
 	hide: _propTypes2.default.bool,
-	loading: _propTypes2.default.bool
+	loading: _propTypes2.default.bool,
+	highlightDates: _propTypes2.default.array
+};
+
+DateSelect.defaultProps = {
+	availableDays: [],
+	bypassDaysBlocked: true
 };

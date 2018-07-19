@@ -40,11 +40,15 @@ var _Button = require('../Button/Button');
 
 var _Button2 = _interopRequireDefault(_Button);
 
+var _IconButton = require('../IconButton/IconButton');
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _Typography = require('../Typography/Typography');
+
 var _skillskit = require('../../skillskit');
 
 var _skillskit2 = _interopRequireDefault(_skillskit);
-
-var _constants = require('constants');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -198,7 +202,9 @@ var Dialog = function (_Component) {
 		key: 'onTapClose',
 		value: function onTapClose() {
 			this.postHeight();
-			this.props.onTapClose();
+			if (this.props.onTapClose) {
+				this.props.onTapClose();
+			}
 		}
 	}, {
 		key: 'render',
@@ -209,8 +215,10 @@ var Dialog = function (_Component) {
 			    tag = _props.tag,
 			    children = _props.children,
 			    className = _props.className,
+			    title = _props.title,
+			    onTapClose = _props.onTapClose,
 			    show = _props.show,
-			    props = _objectWithoutProperties(_props, ['tag', 'children', 'className', 'show']);
+			    props = _objectWithoutProperties(_props, ['tag', 'children', 'className', 'title', 'onTapClose', 'show']);
 
 			var _state = this.state,
 			    opacity = _state.opacity,
@@ -225,6 +233,8 @@ var Dialog = function (_Component) {
 			if (!show) {
 				return null;
 			}
+
+			var hasHeader = onTapClose || title;
 
 			return _react2.default.createElement(
 				_reactMeasure2.default,
@@ -258,12 +268,28 @@ var Dialog = function (_Component) {
 							DialogContainer,
 							_extends({
 								innerRef: measureRef,
-								className: className,
+								className: className + ' ' + (hasHeader ? 'has_header' : ''),
 								show: show,
 								opacity: opacity,
 								style: dialogStyle
 							}, props),
-							_this3.props.onTapClose && _react2.default.createElement(DialogCloseButton, { onClick: _this3.onTapClose.bind(_this3) }),
+							hasHeader && _react2.default.createElement(
+								'div',
+								{ className: 'dialog__header' },
+								title && _react2.default.createElement(
+									_Typography.H2,
+									null,
+									title
+								),
+								onTapClose && _react2.default.createElement(
+									_IconButton2.default,
+									{
+										className: 'btn__close_dialog',
+										onClick: _this3.onTapClose.bind(_this3)
+									},
+									'close'
+								)
+							),
 							children
 						)
 					);
@@ -281,7 +307,8 @@ exports.default = Dialog;
 Dialog.propTypes = {
 	tag: _propTypes2.default.string,
 	show: _propTypes2.default.bool,
-	onTapClose: _propTypes2.default.func
+	onTapClose: _propTypes2.default.func,
+	title: _propTypes2.default.string
 };
 
 Dialog.defaultProps = {
