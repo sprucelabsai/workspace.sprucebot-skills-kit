@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import ControlButton from '../ControlButton/ControlButton'
 import Loader from '../Loader/Loader'
+import IconButton from '../IconButton/IconButton'
 
 const StyledList = styled.ul`
 	display: flex;
@@ -44,19 +45,8 @@ class Pager extends Component {
 	}
 
 	componentWillReceiveProps = nextProps => {
-		const { page, loading, updatePage, backToStart } = this.props
-		const { loading: nextLoading } = nextProps
-
-		if (loading && !nextLoading) {
+		if (nextProps.page !== this.props.page) {
 			this.setState({ page })
-		}
-
-		if (updatePage) {
-			this.updatePageNumber()
-		}
-
-		if (backToStart) {
-			this.backToStart()
 		}
 	}
 
@@ -87,8 +77,10 @@ class Pager extends Component {
 	}
 
 	back = e => {
+		const { infinite } = this.props
+
 		this.setState(prevState => {
-			if (prevState.page > 0) {
+			if (infinite || prevState.page > 0) {
 				return {
 					page: this.triggerOnChange(prevState.page - 1, e)
 				}
@@ -98,10 +90,10 @@ class Pager extends Component {
 	}
 
 	next = e => {
-		const { totalPages } = this.props
+		const { totalPages, infinite } = this.props
 
 		this.setState(prevState => {
-			if (prevState.page < totalPages - 1) {
+			if (infinite || prevState.page < totalPages - 1) {
 				return {
 					page: this.triggerOnChange(prevState.page + 1, e)
 				}
@@ -127,111 +119,46 @@ class Pager extends Component {
 		})
 	}
 
-	updatePageNumber = e => {
-		const { updateAmount } = this.props
-
-		if (updateAmount) {
-			this.setState(prevState => {
-				return {
-					page: this.triggerOnChange(prevState.page + updateAmount, e)
-				}
-			})
-		}
-	}
-
-	backToStart = e => {
-		const { initialPage } = this.props
-
-		if (initialPage) {
-			this.setState({ page: this.triggerOnChange(initialPage, e) })
-		}
-	}
-
 	renderView = () => {
 		const { page } = this.state
-		const {
-			totalPages,
-			loading,
-			loadingText,
-			showLoader,
-			hasButton,
-			buttonClick,
-			titles
-		} = this.props
-		const title = titles ? titles(page) : `${page + 1} of ${totalPages}`
+		const { totalPages, titles } = this.props
 
-		if (loading && showLoader) {
-			return <StyledLoader fullWidth={false} margin={`7px 0`} flex />
-		} else if (loading && loadingText) {
-			return <StyledListItem className="current">{loadingText}</StyledListItem>
-		} else if (hasButton && buttonClick) {
-			return (
-				<StyledListItem className="current">
-					<DropDownButton iconRight={hasButton} onClick={buttonClick}>
-						{title}
-					</DropDownButton>
-				</StyledListItem>
-			)
-		} else {
-			return <StyledListItem className="current">title</StyledListItem>
-		}
+		const title = titles ? titles(page) : `${page + 1} of ${totalPages}`
+		return <StyledListItem className="current">{title}</StyledListItem>
 	}
 
 	render() {
 		const { page } = this.state
 		const {
 			totalPages,
-			margin,
 			hideSingleArrows,
 			hideDoubleArrows,
-			loading
+			infinite,
+			className,
+			...props
 		} = this.props
 
-		const first = page === 0
-		const last = page === totalPages - 1
+		const first = page === 0 && !infinite
+		const last = page === totalPages - 1 && !infinite
 
 		return (
-			<StyledList className="pager" margin={margin}>
-				<StyledListItem
-					loading={loading}
-					className={`first ${first && 'disabled'}`}
-					onClick={this.first}
-					smallArrows
-					hide={hideDoubleArrows}
-				>
-					<a>First</a>
-				</StyledListItem>
-				<StyledListItem
-					loading={loading}
-					className={`back ${first && 'disabled'}`}
-					onClick={this.back}
-					smallArrows
-					hide={hideSingleArrows}
-				>
-					<a>Back</a>
-				</StyledListItem>
+			<ul {...props} className={`${className} pager`}>
+				<li className={`first ${first && 'disabled'}`} smallArrows>
+					<IconButton onClick={this.first}>first_page</IconButton>
+				</li>
+				<li className={`back ${first && 'disabled'}`} hide={hideSingleArrows}>
+					<IconButton onClick={this.back}>chevron_left</IconButton>
+				</li>
 
 				{this.renderView()}
 
-				<StyledListItem
-					loading={loading}
-					className={`next ${last && 'disabled'}`}
-					onClick={this.next}
-					smallArrows
-					hide={hideSingleArrows}
-				>
-					<a>Next</a>
-				</StyledListItem>
-				<StyledListItem
-					loading={loading}
-					className={`last ${last && 'disabled'}`}
-					onClick={this.last}
-					smallArrows
-					hide={hideDoubleArrows}
-				>
-					<a>Last</a>
-				</StyledListItem>
-			</StyledList>
+				<li className={`next ${last && 'disabled'}`} smallArrows>
+					<IconButton onClick={this.next}>chevron_right</IconButton>
+				</li>
+				<li className={`last ${last && 'disabled'}`} smallArrows>
+					<IconButton onClick={this.last}>last_page</IconButton>
+				</li>
+			</ul>
 		)
 	}
 }
@@ -240,11 +167,13 @@ export default Pager
 
 Pager.propTypes = {
 	page: PropTypes.number,
-	totalPages: PropTypes.number.isRequired,
+	totalPages: PropTypes.number,
+	infinite: PropTypes.bool,
 	onChange: PropTypes.func,
 	titles: PropTypes.func
 }
 
 Pager.defaultProps = {
-	page: 0
+	page: 0,
+	infinite: false
 }

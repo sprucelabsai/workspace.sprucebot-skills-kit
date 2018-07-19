@@ -59,7 +59,7 @@ var WhiteLabel = (0, _styledComponents2.default)(Wrapper).withConfig({
 }, function (props) {
 	return props.loading && '\n\t\t\tpointer-events: none;\n\t\t\t';
 }, function (props) {
-	return props.currentWeek && '\n\t.CalendarDay__selected_span,\n\t.CalendarDay__selected_span:active,\n\t.CalendarDay__selected_span:hover {\n\t\tbackground: #00aac7;\n\t\tcolor: #fff;\n\t}\n\t.CalendarDay__selected_start,\n\t.CalendarDay__selected_end {\n\t\tborder: 1px solid #33dacd;\n\t\tcolor: #fff;\n\t}\n';
+	return props.weekSelection && '\n\t.CalendarDay__selected_span,\n\t.CalendarDay__selected_span:active,\n\t.CalendarDay__selected_span:hover {\n\t\tbackground: #00aac7;\n\t\tcolor: #fff;\n\t}\n\t.CalendarDay__selected_start,\n\t.CalendarDay__selected_end {\n\t\tborder: 1px solid #33dacd;\n\t\tcolor: #fff;\n\t}\n';
 }, function (props) {
 	return props.enableOutsideDays && '\n\t.CalendarDay__outside {\n\t\tcolor: #c4c4c4;\n\t}\n';
 });
@@ -104,16 +104,14 @@ var DateRangeSelect = function (_Component) {
 				_this.setDefaultDates();
 			}
 		}, _this.isDayBlocked = function (date) {
-			var _this$props = _this.props,
-			    availableDays = _this$props.availableDays,
-			    bypassDaysBlocked = _this$props.bypassDaysBlocked;
+			var availableDays = _this.props.availableDays;
 
 
-			if (bypassDaysBlocked) {
+			if (availableDays === undefined) {
 				return false;
 			}
 
-			var match = availableDays.find(function (day) {
+			var match = (availableDays || []).find(function (day) {
 				return day === date.format('YYYY-MM-DD');
 			});
 			var lastDate = (0, _moment2.default)(availableDays[availableDays.length - 1]).endOf('month');
@@ -142,9 +140,9 @@ var DateRangeSelect = function (_Component) {
 
 			return false;
 		}, _this.setDefaultDates = function () {
-			var _this$props2 = _this.props,
-			    defaultStartDate = _this$props2.defaultStartDate,
-			    defaultEndDate = _this$props2.defaultEndDate;
+			var _this$props = _this.props,
+			    defaultStartDate = _this$props.defaultStartDate,
+			    defaultEndDate = _this$props.defaultEndDate;
 
 
 			_this.setState({
@@ -153,12 +151,13 @@ var DateRangeSelect = function (_Component) {
 				defaultDateSet: true
 			});
 		}, _this.handleDateChange = function (selectedStart, selectedEnd) {
-			var _this$props3 = _this.props,
-			    onDatesChange = _this$props3.onDatesChange,
-			    currentWeek = _this$props3.currentWeek;
+			var _this$props2 = _this.props,
+			    _this$props2$onDatesC = _this$props2.onDatesChange,
+			    onDatesChange = _this$props2$onDatesC === undefined ? function () {} : _this$props2$onDatesC,
+			    weekSelection = _this$props2.weekSelection;
 
 
-			if (currentWeek) {
+			if (weekSelection) {
 				var startOfWeek = (0, _moment2.default)(selectedStart).startOf('week');
 				var endOfWeek = (0, _moment2.default)(selectedStart).endOf('week');
 
@@ -213,7 +212,7 @@ var DateRangeSelect = function (_Component) {
 			    focusedInput = _state.focusedInput;
 			var _props = this.props,
 			    numberOfMonths = _props.numberOfMonths,
-			    currentWeek = _props.currentWeek,
+			    weekSelection = _props.weekSelection,
 			    enableOutsideDays = _props.enableOutsideDays,
 			    initialVisibleMonth = _props.initialVisibleMonth,
 			    _onPrevMonthClick = _props.onPrevMonthClick,
@@ -226,7 +225,7 @@ var DateRangeSelect = function (_Component) {
 			return _react2.default.createElement(
 				WhiteLabel,
 				{
-					currentWeek: currentWeek,
+					weekSelection: weekSelection,
 					enableOutsideDays: enableOutsideDays,
 					hide: hide,
 					loading: loading
@@ -288,14 +287,11 @@ exports.default = DateRangeSelect;
 
 
 DateRangeSelect.propTypes = {
-	availableDays: (0, _reactRequiredIf2.default)(_propTypes2.default.array, function (props) {
-		return !props.bypassDaysBlocked;
-	}),
-	bypassDaysBlocked: _propTypes2.default.bool,
+	availableDays: _propTypes2.default.array,
 	allowPastDates: _propTypes2.default.bool,
 	onDatesChange: _propTypes2.default.func.isRequired,
 	numberOfMonths: _propTypes2.default.number,
-	currentWeek: _propTypes2.default.bool,
+	weekSelection: _propTypes2.default.bool,
 	enableOutsideDays: _propTypes2.default.bool,
 	setDefaultDates: _propTypes2.default.bool,
 	defaultStartDate: _propTypes2.default.any,

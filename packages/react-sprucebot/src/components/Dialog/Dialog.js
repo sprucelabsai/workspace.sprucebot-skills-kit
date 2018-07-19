@@ -6,8 +6,9 @@ import ReactDOM from 'react-dom'
 import skill from '../../skillskit/index'
 import Measure from 'react-measure'
 import Button from '../Button/Button'
+import IconButton from '../IconButton/IconButton'
+import { H2 } from '../Typography/Typography'
 import SK from '../../skillskit'
-import { ENGINE_METHOD_DIGESTS } from 'constants'
 
 const DialogUnderlay = styled.div.attrs({
 	className: ({ show }) => classnames('dialog_underlay', show ? 'on' : 'off')
@@ -116,10 +117,20 @@ export default class Dialog extends Component {
 	}
 	onTapClose() {
 		this.postHeight()
-		this.props.onTapClose()
+		if (this.props.onTapClose) {
+			this.props.onTapClose()
+		}
 	}
 	render() {
-		const { tag, children, className, show, ...props } = this.props
+		const {
+			tag,
+			children,
+			className,
+			title,
+			onTapClose,
+			show,
+			...props
+		} = this.props
 		const { opacity, height, inIframe } = this.state
 		const Tag = tag
 		const dialogStyle = {
@@ -129,6 +140,8 @@ export default class Dialog extends Component {
 		if (!show) {
 			return null
 		}
+
+		const hasHeader = onTapClose || title
 
 		return (
 			<Measure
@@ -154,14 +167,24 @@ export default class Dialog extends Component {
 					>
 						<DialogContainer
 							innerRef={measureRef}
-							className={className}
+							className={`${className} ${hasHeader ? 'has_header' : ''}`}
 							show={show}
 							opacity={opacity}
 							style={dialogStyle}
 							{...props}
 						>
-							{this.props.onTapClose && (
-								<DialogCloseButton onClick={this.onTapClose.bind(this)} />
+							{hasHeader && (
+								<div className="dialog__header">
+									{title && <H2>{title}</H2>}
+									{onTapClose && (
+										<IconButton
+											className="btn__close_dialog"
+											onClick={this.onTapClose.bind(this)}
+										>
+											close
+										</IconButton>
+									)}
+								</div>
 							)}
 							{children}
 						</DialogContainer>
@@ -175,7 +198,8 @@ export default class Dialog extends Component {
 Dialog.propTypes = {
 	tag: PropTypes.string,
 	show: PropTypes.bool,
-	onTapClose: PropTypes.func
+	onTapClose: PropTypes.func,
+	title: PropTypes.string
 }
 
 Dialog.defaultProps = {

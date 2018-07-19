@@ -90,6 +90,7 @@ export class ListItem extends Component {
 			width,
 			componentAsSubtitle,
 			onClick,
+			leftInput,
 			...props
 		} = this.props
 
@@ -120,10 +121,12 @@ export class ListItem extends Component {
 
 		return (
 			<ListItemWrapper {...props}>
+				{leftInput && <div className="left_input">{leftInput}</div>}
 				{avatar && (
 					<ItemAvatar onClick={onClick} alignItems={alignItems}>
 						{avatar === true ? (
 							<Avatar
+								className="empty"
 								online={online}
 								showOnlineIndicator={showOnlineIndicator}
 							/>
@@ -154,6 +157,7 @@ ListItem.propTypes = {
 	title: PropTypes.string,
 	subtitle: PropTypes.string,
 	rightInput: PropTypes.any,
+	leftInput: PropTypes.any,
 	rightTitle: PropTypes.any,
 	rightSubtitle: PropTypes.any,
 	online: PropTypes.bool,

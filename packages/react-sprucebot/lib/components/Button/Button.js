@@ -201,8 +201,6 @@ var Button = function (_Component) {
 
 			if (remove) {
 				btnClass = 'btn__remove';
-			} else if (!btnClass) {
-				btnClass = 'btn';
 			}
 
 			// if this button has a href or is a "remove" button, make it an anchor
@@ -222,7 +220,7 @@ var Button = function (_Component) {
 					_react2.default.createElement(
 						Tag,
 						_extends({
-							className: btnClass + ' ' + (className || ''),
+							className: 'btn ' + btnClass + ' ' + (className || ''),
 							onClick: this.onClick,
 							disabled: disabled,
 							busy: busy

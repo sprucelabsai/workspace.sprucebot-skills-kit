@@ -1013,7 +1013,7 @@ export default DateSelect
 
 DateSelect.propTypes = {
 	availableDays: requiredIf(PropTypes.array, props => !props.bypassDaysBlocked),
-	bypassDaysBlocked: PropTypes.bool,
+	bypassDaysBlocked: PropTypes.bool.isRequired,
 	allowPastDates: PropTypes.bool,
 	onDateSelect: PropTypes.func.isRequired,
 	setDefaultDate: PropTypes.bool,
@@ -1022,5 +1022,11 @@ DateSelect.propTypes = {
 	onNextMonthClick: PropTypes.func,
 	onPrevMonthClick: PropTypes.func,
 	hide: PropTypes.bool,
-	loading: PropTypes.bool
+	loading: PropTypes.bool,
+	highlightDates: PropTypes.array
+}
+
+DateSelect.defaultProps = {
+	availableDays: [],
+	bypassDaysBlocked: true
 }

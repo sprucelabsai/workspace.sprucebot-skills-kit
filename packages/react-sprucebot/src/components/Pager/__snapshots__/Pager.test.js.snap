@@ -1,62 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c1.c1 {
-  -webkit-flex: 0.5;
-  -ms-flex: 0.5;
-  flex: 0.5;
-}
-
 <ul
-  className="pager c0"
+  className="undefined pager"
+  page={0}
 >
   <li
-    className="first disabled c1"
-    onClick={[Function]}
+    className="first disabled"
+    smallArrows={true}
   >
-    <a>
-      First
-    </a>
+    <button
+      className=" IconButton icon-button  IconButton__StyledButton-s10eb4c1-0 kFckVT Button__StyledButton-bvtufj-1 fgUFOI"
+      disabled={undefined}
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="Icon__I-s1r0bu8t-0 Icon icon  fQySdo"
+        fontSize={undefined}
+      >
+        first_page
+      </i>
+    </button>
   </li>
   <li
-    className="back disabled c1"
-    onClick={[Function]}
+    className="back disabled"
+    hide={undefined}
   >
-    <a>
-      Back
-    </a>
+    <button
+      className=" IconButton icon-button  IconButton__StyledButton-s10eb4c1-0 kFckVT Button__StyledButton-bvtufj-1 fgUFOI"
+      disabled={undefined}
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="Icon__I-s1r0bu8t-0 Icon icon  fQySdo"
+        fontSize={undefined}
+      >
+        chevron_left
+      </i>
+    </button>
   </li>
   <li
-    className="current "
+    className="current Pager__StyledListItem-s1b0v454-1 hxRKju"
   >
-    title
+    1 of 1
   </li>
   <li
-    className="next disabled c1"
-    onClick={[Function]}
+    className="next disabled"
+    smallArrows={true}
   >
-    <a>
-      Next
-    </a>
+    <button
+      className=" IconButton icon-button  IconButton__StyledButton-s10eb4c1-0 kFckVT Button__StyledButton-bvtufj-1 fgUFOI"
+      disabled={undefined}
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="Icon__I-s1r0bu8t-0 Icon icon  fQySdo"
+        fontSize={undefined}
+      >
+        chevron_right
+      </i>
+    </button>
   </li>
   <li
-    className="last disabled c1"
-    onClick={[Function]}
+    className="last disabled"
+    smallArrows={true}
   >
-    <a>
-      Last
-    </a>
+    <button
+      className=" IconButton icon-button  IconButton__StyledButton-s10eb4c1-0 kFckVT Button__StyledButton-bvtufj-1 fgUFOI"
+      disabled={undefined}
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="Icon__I-s1r0bu8t-0 Icon icon  fQySdo"
+        fontSize={undefined}
+      >
+        last_page
+      </i>
+    </button>
   </li>
 </ul>
 `;

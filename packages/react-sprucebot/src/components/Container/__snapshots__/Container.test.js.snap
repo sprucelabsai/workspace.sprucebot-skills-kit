@@ -2,7 +2,7 @@
 
 exports[`Container Component it renders 1`] = `
 <div
-  className="container "
+  className="Container-md3jvi-0 container cqhPkv"
 >
   Container children
 </div>

@@ -20,6 +20,9 @@ export default class Input extends Component {
 			this.sizeTextarea()
 		}
 	}
+	get value() {
+		return this.input.value
+	}
 	sizeTextarea() {
 		if (typeof window !== 'undefined') {
 			const style = window.getComputedStyle(this.input)

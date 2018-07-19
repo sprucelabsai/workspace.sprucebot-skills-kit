@@ -27,7 +27,11 @@ export default {
 		}
 	},
 	back: function() {
-		postMessage('Skill:Back')
+		if (window.top === window.self) {
+			window.history.back()
+		} else {
+			postMessage('Skill:Back')
+		}
 	},
 
 	ready: function({ resetUrlTrail = false } = { resetUrlTrail: false }) {

@@ -128,7 +128,8 @@ var ListItem = exports.ListItem = function (_Component) {
 			    width = _props.width,
 			    componentAsSubtitle = _props.componentAsSubtitle,
 			    onClick = _props.onClick,
-			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle', 'onClick']);
+			    leftInput = _props.leftInput,
+			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle', 'onClick', 'leftInput']);
 
 			// build children
 
@@ -166,10 +167,16 @@ var ListItem = exports.ListItem = function (_Component) {
 			return _react2.default.createElement(
 				ListItemWrapper,
 				props,
+				leftInput && _react2.default.createElement(
+					'div',
+					{ className: 'left_input' },
+					leftInput
+				),
 				avatar && _react2.default.createElement(
 					ItemAvatar,
 					{ onClick: onClick, alignItems: alignItems },
 					avatar === true ? _react2.default.createElement(_Avatar2.default, {
+						className: 'empty',
 						online: online,
 						showOnlineIndicator: showOnlineIndicator
 					}) : _react2.default.createElement(_Avatar2.default, {
@@ -210,6 +217,7 @@ ListItem.propTypes = {
 	title: _propTypes2.default.string,
 	subtitle: _propTypes2.default.string,
 	rightInput: _propTypes2.default.any,
+	leftInput: _propTypes2.default.any,
 	rightTitle: _propTypes2.default.any,
 	rightSubtitle: _propTypes2.default.any,
 	online: _propTypes2.default.bool,

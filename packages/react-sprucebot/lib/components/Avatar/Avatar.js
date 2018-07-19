@@ -16,7 +16,7 @@ var Avatar = _styledComponents2.default.div.attrs({
 		if (props.online && props.showOnlineIndicator) {
 			className += ' online';
 		}
-		return className;
+		return '' + className;
 	}
 }).withConfig({
 	displayName: 'Avatar',
