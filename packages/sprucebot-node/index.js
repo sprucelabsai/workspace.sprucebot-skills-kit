@@ -470,6 +470,61 @@ class Sprucebot {
 	}
 
 	/**
+	 * Get metadata
+	 *
+	 * @param {Object} query
+	 */
+	async getMetadata(query) {
+		const meta = await this.https.get('/metadata', query)
+		return meta
+	}
+
+	/**
+	 * Set metadata
+	 *
+	 * @param {Object} metadata
+	 */
+	async setMetadata({ locationId, organizationId, userId, refId, metadata }) {
+		if (!metadata || metadata.length < 1) {
+			throw new Error('INVALID_METADATA')
+		}
+
+		const data = [
+			{
+				locationId: locationId || null,
+				organizationId: organizationId || null,
+				userId: userId || null,
+				refId: refId || null,
+				metadata
+			}
+		]
+
+		const meta = await this.https.patch('/metadata', data)
+		return meta
+	}
+
+	/**
+	 * Delete metadata
+	 *
+	 * @param {Object} query
+	 */
+	async deleteMetadata({ keys, locationId, organizationId, userId, refId }) {
+		if (keys && keys.length > 0) {
+			const data = keys.map(k => {
+				return {
+					key: k,
+					locationId,
+					organizationId,
+					userId,
+					refId
+				}
+			})
+			await this.https.delete('/metadata', data)
+		}
+		return
+	}
+
+	/**
 	 * To stop race conditions, you can have requests wait before starting the next.
 	 *
 	 * @param {String} key
