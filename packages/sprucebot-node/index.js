@@ -109,7 +109,7 @@ class Sprucebot {
 	 * @param {Object} Optional query string to be added to the request
 	 */
 	async globalUser(userId, query) {
-		return this.https.get(`/users/${userId}`, query)
+		return this.https.get(`/users/ge/${userId}`, query)
 	}
 
 	/**
