@@ -185,7 +185,7 @@ export default class Button extends Component {
 
 		return (
 			<Tag
-				className={`${btnClass} ${className || ''}`}
+				className={`btn ${btnClass} ${className || ''}`}
 				onClick={this.onClick}
 				disabled={disabled}
 				busy={busy}

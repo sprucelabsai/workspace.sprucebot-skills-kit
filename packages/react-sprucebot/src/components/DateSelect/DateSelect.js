@@ -951,7 +951,7 @@ class DateSelect extends Component {
 	}
 
 	handleDateChange = date => {
-		const { onDateSelect } = this.props
+		const { onDateSelect = () => {} } = this.props
 
 		onDateSelect(date)
 		this.setState({ date })

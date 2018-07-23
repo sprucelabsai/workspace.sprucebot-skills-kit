@@ -75,7 +75,7 @@
 		"qs": "^6.5.1",
 		"rc-time-picker": "^3.3.1",
 		"react": "^16.3.2",
-		"react-big-calendar": "0.19.1",
+		"react-big-calendar": "0.19.2",
 		"react-dates": "^17.0.0",
 		"react-dnd": "2.6.0",
 		"react-dnd-html5-backend": "2.6.0",

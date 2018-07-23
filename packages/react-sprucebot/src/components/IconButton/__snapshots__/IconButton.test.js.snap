@@ -53,7 +53,7 @@ exports[`it renders 1`] = `
 }
 
 <button
-  className=" IconButton icon-button  c0 "
+  className="btn  IconButton icon-button  c0 "
   disabled={undefined}
   onClick={[Function]}
   type="button"

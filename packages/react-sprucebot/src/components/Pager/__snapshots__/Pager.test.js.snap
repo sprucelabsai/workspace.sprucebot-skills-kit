@@ -55,13 +55,14 @@ exports[`it renders 1`] = `
 <ul
   className="undefined pager"
   page={0}
+  stepAmount={1}
 >
   <li
     className="first disabled"
     smallArrows={true}
   >
     <button
-      className=" IconButton icon-button  c0 "
+      className="btn  IconButton icon-button  c0 "
       disabled={undefined}
       onClick={[Function]}
       type="button"
@@ -79,7 +80,7 @@ exports[`it renders 1`] = `
     hide={undefined}
   >
     <button
-      className=" IconButton icon-button  c0 "
+      className="btn  IconButton icon-button  c0 "
       disabled={undefined}
       onClick={[Function]}
       type="button"
@@ -102,7 +103,7 @@ exports[`it renders 1`] = `
     smallArrows={true}
   >
     <button
-      className=" IconButton icon-button  c0 "
+      className="btn  IconButton icon-button  c0 "
       disabled={undefined}
       onClick={[Function]}
       type="button"
@@ -120,7 +121,7 @@ exports[`it renders 1`] = `
     smallArrows={true}
   >
     <button
-      className=" IconButton icon-button  c0 "
+      className="btn  IconButton icon-button  c0 "
       disabled={undefined}
       onClick={[Function]}
       type="button"

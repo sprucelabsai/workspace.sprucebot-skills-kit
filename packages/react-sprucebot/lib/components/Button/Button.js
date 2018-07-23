@@ -233,7 +233,7 @@ var Button = function (_Component) {
 			return _react2.default.createElement(
 				Tag,
 				_extends({
-					className: btnClass + ' ' + (className || ''),
+					className: 'btn ' + btnClass + ' ' + (className || ''),
 					onClick: this.onClick,
 					disabled: disabled,
 					busy: busy

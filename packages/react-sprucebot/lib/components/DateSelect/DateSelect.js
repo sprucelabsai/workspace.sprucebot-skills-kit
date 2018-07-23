@@ -136,7 +136,8 @@ var DateSelect = function (_Component) {
 
 			return false;
 		}, _this.handleDateChange = function (date) {
-			var onDateSelect = _this.props.onDateSelect;
+			var _this$props$onDateSel = _this.props.onDateSelect,
+			    onDateSelect = _this$props$onDateSel === undefined ? function () {} : _this$props$onDateSel;
 
 
 			onDateSelect(date);
