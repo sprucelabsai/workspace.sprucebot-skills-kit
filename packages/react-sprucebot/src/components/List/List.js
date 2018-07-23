@@ -75,7 +75,6 @@ const ItemSubTitle = styled.div.attrs({
 export class ListItem extends Component {
 	render() {
 		let {
-			className,
 			children,
 			title,
 			subtitle,

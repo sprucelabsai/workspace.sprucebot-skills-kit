@@ -113,7 +113,6 @@ var ListItem = exports.ListItem = function (_Component) {
 		key: 'render',
 		value: function render() {
 			var _props = this.props,
-			    className = _props.className,
 			    children = _props.children,
 			    title = _props.title,
 			    subtitle = _props.subtitle,
@@ -129,7 +128,7 @@ var ListItem = exports.ListItem = function (_Component) {
 			    componentAsSubtitle = _props.componentAsSubtitle,
 			    onClick = _props.onClick,
 			    leftInput = _props.leftInput,
-			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle', 'onClick', 'leftInput']);
+			    props = _objectWithoutProperties(_props, ['children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle', 'onClick', 'leftInput']);
 
 			// build children
 
