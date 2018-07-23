@@ -60,12 +60,12 @@ class Pager extends Component {
 	}
 
 	first = e => {
-		const { skipAmount } = this.props
+		const { jumpAmount, infinite } = this.props
 
 		this.setState(prevState => {
-			if (skipAmount && prevState.page - skipAmount > 0) {
+			if (infinite || (jumpAmount && prevState.page - jumpAmount > 0)) {
 				return {
-					page: this.triggerOnChange(prevState.page - skipAmount, e)
+					page: this.triggerOnChange(prevState.page - jumpAmount, e)
 				}
 			} else if (prevState.page > 0) {
 				return {
@@ -77,12 +77,12 @@ class Pager extends Component {
 	}
 
 	back = e => {
-		const { infinite } = this.props
+		const { infinite, skipAmount = 1 } = this.props
 
 		this.setState(prevState => {
-			if (infinite || prevState.page > 0) {
+			if (infinite || prevState.page - skipAmount >= 0) {
 				return {
-					page: this.triggerOnChange(prevState.page - 1, e)
+					page: this.triggerOnChange(prevState.page - skipAmount, e)
 				}
 			}
 			return {}
@@ -90,12 +90,12 @@ class Pager extends Component {
 	}
 
 	next = e => {
-		const { totalPages, infinite } = this.props
+		const { totalPages, infinite, skipAmount = 1 } = this.props
 
 		this.setState(prevState => {
-			if (infinite || prevState.page < totalPages - 1) {
+			if (infinite || prevState.page < totalPages - skipAmount) {
 				return {
-					page: this.triggerOnChange(prevState.page + 1, e)
+					page: this.triggerOnChange(prevState.page + skipAmount, e)
 				}
 			}
 			return {}
@@ -103,12 +103,15 @@ class Pager extends Component {
 	}
 
 	last = e => {
-		const { totalPages, skipAmount } = this.props
+		const { totalPages, jumpAmount, infinite } = this.props
 
 		this.setState(prevState => {
-			if (skipAmount && prevState.page + skipAmount < totalPages - 1) {
+			if (
+				infinite ||
+				(jumpAmount && prevState.page + jumpAmount < totalPages - 1)
+			) {
 				return {
-					page: this.triggerOnChange(prevState.page + skipAmount, e)
+					page: this.triggerOnChange(prevState.page + jumpAmount, e)
 				}
 			} else if (prevState.page < totalPages - 1) {
 				return {
@@ -170,10 +173,13 @@ Pager.propTypes = {
 	totalPages: PropTypes.number,
 	infinite: PropTypes.bool,
 	onChange: PropTypes.func,
-	titles: PropTypes.func
+	titles: PropTypes.func,
+	stepAmount: PropTypes.number,
+	jumpAmount: PropTypes.number
 }
 
 Pager.defaultProps = {
 	page: 0,
-	infinite: false
+	infinite: false,
+	stepAmount: 1
 }

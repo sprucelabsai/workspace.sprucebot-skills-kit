@@ -2,7 +2,7 @@
 
 exports[`it renders 1`] = `
 <div
-  className="BotText-s1aw735w-0 bot__text ihbPjr"
+  className="bot__text "
 >
   Bottext children
 </div>

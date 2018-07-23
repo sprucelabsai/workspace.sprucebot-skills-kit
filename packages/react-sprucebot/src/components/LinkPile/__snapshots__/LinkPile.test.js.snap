@@ -2,6 +2,6 @@
 
 exports[`it renders 1`] = `
 <div
-  className="LinkPile-abktjg-0 link__pile fwfXpR"
+  className="link__pile "
 />
 `;

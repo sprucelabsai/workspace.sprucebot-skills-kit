@@ -99,13 +99,15 @@ var Pager = function (_Component) {
 			}
 			return page;
 		}, _this.first = function (e) {
-			var skipAmount = _this.props.skipAmount;
+			var _this$props = _this.props,
+			    jumpAmount = _this$props.jumpAmount,
+			    infinite = _this$props.infinite;
 
 
 			_this.setState(function (prevState) {
-				if (skipAmount && prevState.page - skipAmount > 0) {
+				if (infinite || jumpAmount && prevState.page - jumpAmount > 0) {
 					return {
-						page: _this.triggerOnChange(prevState.page - skipAmount, e)
+						page: _this.triggerOnChange(prevState.page - jumpAmount, e)
 					};
 				} else if (prevState.page > 0) {
 					return {
@@ -115,41 +117,47 @@ var Pager = function (_Component) {
 				return {};
 			});
 		}, _this.back = function (e) {
-			var infinite = _this.props.infinite;
+			var _this$props2 = _this.props,
+			    infinite = _this$props2.infinite,
+			    _this$props2$skipAmou = _this$props2.skipAmount,
+			    skipAmount = _this$props2$skipAmou === undefined ? 1 : _this$props2$skipAmou;
 
 
 			_this.setState(function (prevState) {
-				if (infinite || prevState.page > 0) {
+				if (infinite || prevState.page - skipAmount >= 0) {
 					return {
-						page: _this.triggerOnChange(prevState.page - 1, e)
+						page: _this.triggerOnChange(prevState.page - skipAmount, e)
 					};
 				}
 				return {};
 			});
 		}, _this.next = function (e) {
-			var _this$props = _this.props,
-			    totalPages = _this$props.totalPages,
-			    infinite = _this$props.infinite;
+			var _this$props3 = _this.props,
+			    totalPages = _this$props3.totalPages,
+			    infinite = _this$props3.infinite,
+			    _this$props3$skipAmou = _this$props3.skipAmount,
+			    skipAmount = _this$props3$skipAmou === undefined ? 1 : _this$props3$skipAmou;
 
 
 			_this.setState(function (prevState) {
-				if (infinite || prevState.page < totalPages - 1) {
+				if (infinite || prevState.page < totalPages - skipAmount) {
 					return {
-						page: _this.triggerOnChange(prevState.page + 1, e)
+						page: _this.triggerOnChange(prevState.page + skipAmount, e)
 					};
 				}
 				return {};
 			});
 		}, _this.last = function (e) {
-			var _this$props2 = _this.props,
-			    totalPages = _this$props2.totalPages,
-			    skipAmount = _this$props2.skipAmount;
+			var _this$props4 = _this.props,
+			    totalPages = _this$props4.totalPages,
+			    jumpAmount = _this$props4.jumpAmount,
+			    infinite = _this$props4.infinite;
 
 
 			_this.setState(function (prevState) {
-				if (skipAmount && prevState.page + skipAmount < totalPages - 1) {
+				if (infinite || jumpAmount && prevState.page + jumpAmount < totalPages - 1) {
 					return {
-						page: _this.triggerOnChange(prevState.page + skipAmount, e)
+						page: _this.triggerOnChange(prevState.page + jumpAmount, e)
 					};
 				} else if (prevState.page < totalPages - 1) {
 					return {
@@ -160,9 +168,9 @@ var Pager = function (_Component) {
 			});
 		}, _this.renderView = function () {
 			var page = _this.state.page;
-			var _this$props3 = _this.props,
-			    totalPages = _this$props3.totalPages,
-			    titles = _this$props3.titles;
+			var _this$props5 = _this.props,
+			    totalPages = _this$props5.totalPages,
+			    titles = _this$props5.titles;
 
 
 			var title = titles ? titles(page) : page + 1 + ' of ' + totalPages;
@@ -247,10 +255,13 @@ Pager.propTypes = {
 	totalPages: _propTypes2.default.number,
 	infinite: _propTypes2.default.bool,
 	onChange: _propTypes2.default.func,
-	titles: _propTypes2.default.func
+	titles: _propTypes2.default.func,
+	stepAmount: _propTypes2.default.number,
+	jumpAmount: _propTypes2.default.number
 };
 
 Pager.defaultProps = {
 	page: 0,
-	infinite: false
+	infinite: false,
+	stepAmount: 1
 };
