@@ -45,15 +45,7 @@ const Page = Wrapped => {
 		}
 
 		// Everything here is run server side
-		static async getInitialProps({
-			pathname,
-			query,
-			asPath,
-			store,
-			res,
-			req,
-			isServer
-		}) {
+		static async getInitialProps({ pathname, query, asPath, store, res, req }) {
 			let props = { pathname, query, asPath, skill }
 
 			const jwt = query.jwt || getCookie('jwt', req, res)

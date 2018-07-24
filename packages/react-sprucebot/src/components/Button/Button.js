@@ -98,7 +98,6 @@ export default class Button extends Component {
 			loaderStyle,
 			busy: propBusy,
 			hideLoader,
-			tertiary,
 			left,
 			right,
 			...props
@@ -135,28 +134,15 @@ export default class Button extends Component {
 
 		// if this button has a href or is a "remove" button, make it an anchor
 		let Tag
+		let usingLink = false
+
 		if (props.href || remove) {
 			Tag = Link
+			usingLink = true
 		} else if (tag === 'button') {
 			Tag = StyledButton
 		} else {
 			Tag = tag
-		}
-
-		if (tertiary) {
-			return (
-				<ButtonWrapper left={left} right={right}>
-					<Tag
-						className={`btn ${btnClass} ${className || ''}`}
-						onClick={this.onClick}
-						disabled={disabled}
-						busy={busy}
-						{...props}
-					>
-						<span className="wrapper">{this.renderView()}</span>
-					</Tag>
-				</ButtonWrapper>
-			)
 		}
 
 		return (
@@ -167,7 +153,12 @@ export default class Button extends Component {
 				busy={busy}
 				{...props}
 			>
-				<span className="wrapper">{this.renderView()}</span>
+				{usingLink && (
+					<a className={`btn ${btnClass} ${className || ''}`}>
+						<span className="wrapper">{this.renderView()}</span>
+					</a>
+				)}
+				{!usingLink && <span className="wrapper">{this.renderView()}</span>}
 			</Tag>
 		)
 	}
@@ -183,7 +174,6 @@ Button.propTypes = {
 	remove: PropTypes.bool,
 	toggle: PropTypes.bool,
 	hideLoader: PropTypes.bool,
-	tertiary: PropTypes.bool,
 	left: PropTypes.bool,
 	right: PropTypes.bool,
 	type: PropTypes.string
