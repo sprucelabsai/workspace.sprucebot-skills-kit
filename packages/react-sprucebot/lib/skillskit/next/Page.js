@@ -201,8 +201,7 @@ var Page = function Page(Wrapped) {
 					    asPath = _ref3.asPath,
 					    store = _ref3.store,
 					    res = _ref3.res,
-					    req = _ref3.req,
-					    isServer = _ref3.isServer;
+					    req = _ref3.req;
 
 					var props,
 					    jwt,

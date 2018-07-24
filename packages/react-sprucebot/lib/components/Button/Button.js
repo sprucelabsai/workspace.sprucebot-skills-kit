@@ -147,10 +147,9 @@ var Button = function (_Component) {
 			    loaderStyle = _props.loaderStyle,
 			    propBusy = _props.busy,
 			    hideLoader = _props.hideLoader,
-			    tertiary = _props.tertiary,
 			    left = _props.left,
 			    right = _props.right,
-			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'tertiary', 'left', 'right']);
+			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'left', 'right']);
 
 			var busy = this.state.busy;
 
@@ -184,33 +183,15 @@ var Button = function (_Component) {
 
 			// if this button has a href or is a "remove" button, make it an anchor
 			var Tag = void 0;
+			var usingLink = false;
+
 			if (props.href || remove) {
 				Tag = _link2.default;
+				usingLink = true;
 			} else if (tag === 'button') {
 				Tag = StyledButton;
 			} else {
 				Tag = tag;
-			}
-
-			if (tertiary) {
-				return _react2.default.createElement(
-					ButtonWrapper,
-					{ left: left, right: right },
-					_react2.default.createElement(
-						Tag,
-						_extends({
-							className: 'btn ' + btnClass + ' ' + (className || ''),
-							onClick: this.onClick,
-							disabled: disabled,
-							busy: busy
-						}, props),
-						_react2.default.createElement(
-							'span',
-							{ className: 'wrapper' },
-							this.renderView()
-						)
-					)
-				);
 			}
 
 			return _react2.default.createElement(
@@ -221,7 +202,16 @@ var Button = function (_Component) {
 					disabled: disabled,
 					busy: busy
 				}, props),
-				_react2.default.createElement(
+				usingLink && _react2.default.createElement(
+					'a',
+					{ className: 'btn ' + btnClass + ' ' + (className || '') },
+					_react2.default.createElement(
+						'span',
+						{ className: 'wrapper' },
+						this.renderView()
+					)
+				),
+				!usingLink && _react2.default.createElement(
 					'span',
 					{ className: 'wrapper' },
 					this.renderView()
@@ -246,7 +236,6 @@ Button.propTypes = {
 	remove: _propTypes2.default.bool,
 	toggle: _propTypes2.default.bool,
 	hideLoader: _propTypes2.default.bool,
-	tertiary: _propTypes2.default.bool,
 	left: _propTypes2.default.bool,
 	right: _propTypes2.default.bool,
 	type: _propTypes2.default.string
