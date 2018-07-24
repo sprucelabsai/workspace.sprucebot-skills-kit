@@ -58,9 +58,13 @@ exports[`it renders 1`] = `
   onClick={[Function]}
   type="button"
 >
-  <i
-    className="Icon icon  c1"
-    fontSize={undefined}
-  />
+  <span
+    className="wrapper"
+  >
+    <i
+      className="Icon icon  c1"
+      fontSize={undefined}
+    />
+  </span>
 </button>
 `;
