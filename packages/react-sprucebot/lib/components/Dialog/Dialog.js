@@ -236,7 +236,7 @@ var Dialog = function (_Component) {
 
 			var hasHeader = onTapClose || title;
 
-			return _react2.default.createElement(
+			return typeof document !== 'undefined' && _reactDom2.default.createPortal(_react2.default.createElement(
 				_reactMeasure2.default,
 				{
 					scroll: true,
@@ -294,7 +294,7 @@ var Dialog = function (_Component) {
 						)
 					);
 				}
-			);
+			), document.body);
 		}
 	}]);
 

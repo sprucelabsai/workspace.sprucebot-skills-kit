@@ -144,53 +144,57 @@ export default class Dialog extends Component {
 		const hasHeader = onTapClose || title
 
 		return (
-			<Measure
-				scroll
-				onResize={contentRect => {
-					this.setSize({
-						width: contentRect.scroll.width,
-						height: contentRect.scroll.height
-					})
-				}}
-			>
-				{({ measureRef }) => (
-					<DialogUnderlay
-						className={`${inIframe ? '' : 'not_in_iframe'} `}
-						ref={ref => (this.underlay = ref)}
-						show={show}
-						height={height}
-						onClick={e => {
-							if (e.target.className.search('dialog_underlay') > -1) {
-								this.onTapClose()
-							}
-						}}
-					>
-						<DialogContainer
-							innerRef={measureRef}
-							className={`${className} ${hasHeader ? 'has_header' : ''}`}
+			typeof document !== 'undefined' &&
+			ReactDOM.createPortal(
+				<Measure
+					scroll
+					onResize={contentRect => {
+						this.setSize({
+							width: contentRect.scroll.width,
+							height: contentRect.scroll.height
+						})
+					}}
+				>
+					{({ measureRef }) => (
+						<DialogUnderlay
+							className={`${inIframe ? '' : 'not_in_iframe'} `}
+							ref={ref => (this.underlay = ref)}
 							show={show}
-							opacity={opacity}
-							style={dialogStyle}
-							{...props}
+							height={height}
+							onClick={e => {
+								if (e.target.className.search('dialog_underlay') > -1) {
+									this.onTapClose()
+								}
+							}}
 						>
-							{hasHeader && (
-								<div className="dialog__header">
-									{title && <H2>{title}</H2>}
-									{onTapClose && (
-										<IconButton
-											className="btn__close_dialog"
-											onClick={this.onTapClose.bind(this)}
-										>
-											close
-										</IconButton>
-									)}
-								</div>
-							)}
-							{children}
-						</DialogContainer>
-					</DialogUnderlay>
-				)}
-			</Measure>
+							<DialogContainer
+								innerRef={measureRef}
+								className={`${className} ${hasHeader ? 'has_header' : ''}`}
+								show={show}
+								opacity={opacity}
+								style={dialogStyle}
+								{...props}
+							>
+								{hasHeader && (
+									<div className="dialog__header">
+										{title && <H2>{title}</H2>}
+										{onTapClose && (
+											<IconButton
+												className="btn__close_dialog"
+												onClick={this.onTapClose.bind(this)}
+											>
+												close
+											</IconButton>
+										)}
+									</div>
+								)}
+								{children}
+							</DialogContainer>
+						</DialogUnderlay>
+					)}
+				</Measure>,
+				document.body
+			)
 		)
 	}
 }
