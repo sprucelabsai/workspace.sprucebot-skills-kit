@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Loader from '../Loader/Loader'
+import Link from 'next/link'
 
 const ButtonWrapper = styled.div`
 	display: flex;
@@ -58,32 +59,7 @@ export default class Button extends Component {
 		if (onClick) {
 			onClick(e)
 		} else if (href) {
-			e.preventDefault()
 			this.setState({ busy: true })
-			const url = href
-			if (/^http/.test(url)) {
-				// If the href is a full domain name
-				if (target) {
-					window.open(url, target)
-				} else {
-					window.open(url, '_self')
-				}
-			} else {
-				// Relative url
-				if (target) {
-					window.open(url, target)
-				} else if (router) {
-					router.push(url)
-				} else {
-					window.open(url, '_self')
-				}
-			}
-
-			// Reset the state to not-busy if it's been 10 sec
-			// is there a reason for this?
-			setTimeout(() => {
-				this.setState({ busy: false })
-			}, 10000)
 		}
 	}
 
@@ -160,7 +136,7 @@ export default class Button extends Component {
 		// if this button has a href or is a "remove" button, make it an anchor
 		let Tag
 		if (props.href || remove) {
-			Tag = StyledAnchor
+			Tag = Link
 		} else if (tag === 'button') {
 			Tag = StyledButton
 		} else {
@@ -177,7 +153,7 @@ export default class Button extends Component {
 						busy={busy}
 						{...props}
 					>
-						{this.renderView()}
+						<span className="wrapper">{this.renderView()}</span>
 					</Tag>
 				</ButtonWrapper>
 			)
@@ -191,7 +167,7 @@ export default class Button extends Component {
 				busy={busy}
 				{...props}
 			>
-				{this.renderView()}
+				<span className="wrapper">{this.renderView()}</span>
 			</Tag>
 		)
 	}

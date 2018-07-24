@@ -8,6 +8,8 @@ import DevControls from '../../components/DevControls/DevControls'
 import Loader from '../../components/Loader/Loader'
 import qs from 'qs'
 import lang from '../helpers/lang'
+import { withRouter } from 'next/router'
+
 const debug = require('debug')('react-sprucebot')
 
 const setCookie = (named, value, req, res) => {
@@ -29,8 +31,7 @@ const getCookie = (named, req, res) => {
 }
 
 const Page = Wrapped => {
-	// const ConnectedWrapped = connect(mapStateToProps, mapDispatchToProps)(Wrapped)
-	const ConnectedWrapped = Wrapped
+	const ConnectedWrapped = withRouter(Wrapped)
 
 	return class extends Component {
 		constructor(props) {
@@ -42,6 +43,7 @@ const Page = Wrapped => {
 
 			this.messageHandler = this.messageHandler.bind(this)
 		}
+
 		// Everything here is run server side
 		static async getInitialProps({
 			pathname,

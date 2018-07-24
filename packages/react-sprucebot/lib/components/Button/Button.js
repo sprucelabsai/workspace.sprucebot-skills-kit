@@ -24,6 +24,10 @@ var _Loader = require('../Loader/Loader');
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
+var _link = require('next/link');
+
+var _link2 = _interopRequireDefault(_link);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -84,32 +88,7 @@ var Button = function (_Component) {
 			if (onClick) {
 				onClick(e);
 			} else if (href) {
-				e.preventDefault();
 				_this.setState({ busy: true });
-				var url = href;
-				if (/^http/.test(url)) {
-					// If the href is a full domain name
-					if (target) {
-						window.open(url, target);
-					} else {
-						window.open(url, '_self');
-					}
-				} else {
-					// Relative url
-					if (target) {
-						window.open(url, target);
-					} else if (router) {
-						router.push(url);
-					} else {
-						window.open(url, '_self');
-					}
-				}
-
-				// Reset the state to not-busy if it's been 10 sec
-				// is there a reason for this?
-				setTimeout(function () {
-					_this.setState({ busy: false });
-				}, 10000);
 			}
 		};
 
@@ -206,7 +185,7 @@ var Button = function (_Component) {
 			// if this button has a href or is a "remove" button, make it an anchor
 			var Tag = void 0;
 			if (props.href || remove) {
-				Tag = StyledAnchor;
+				Tag = _link2.default;
 			} else if (tag === 'button') {
 				Tag = StyledButton;
 			} else {
@@ -225,7 +204,11 @@ var Button = function (_Component) {
 							disabled: disabled,
 							busy: busy
 						}, props),
-						this.renderView()
+						_react2.default.createElement(
+							'span',
+							{ className: 'wrapper' },
+							this.renderView()
+						)
 					)
 				);
 			}
@@ -238,7 +221,11 @@ var Button = function (_Component) {
 					disabled: disabled,
 					busy: busy
 				}, props),
-				this.renderView()
+				_react2.default.createElement(
+					'span',
+					{ className: 'wrapper' },
+					this.renderView()
+				)
 			);
 		}
 	}]);
