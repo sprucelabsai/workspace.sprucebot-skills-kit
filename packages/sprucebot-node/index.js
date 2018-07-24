@@ -525,6 +525,31 @@ class Sprucebot {
 	}
 
 	/**
+	 * Create location (Enterprise Skills only)
+	 *
+	 * @param {String} organizationId
+	 * @param {Array} locations
+	 */
+	async eCreateLocations({ organizationId, locations }) {
+		const data = locations
+		const result = await this.https.post(
+			`/e/organizations/${organizationId}/locations`,
+			{ locations }
+		)
+		return result
+	}
+
+	/**
+	 * Create location (Global Skills only)
+	 *
+	 * @param {Array} locations
+	 */
+	async gCreateLocations({ locations }) {
+		const result = await this.https.post('/g/locations', { locations })
+		return result
+	}
+
+	/**
 	 * To stop race conditions, you can have requests wait before starting the next.
 	 *
 	 * @param {String} key
