@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.24.0"></a>
+# [6.24.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.23.0...v6.24.0) (2018-07-24)
+
+
+### Bug Fixes
+
+* classnames not being passed to list item component ([a995582](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a995582))
+
+
+### Features
+
+* next/router integration ([ead6a24](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ead6a24))
+
+
+
+
+
 <a name="6.23.0"></a>
 # [6.23.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.22.0...v6.23.0) (2018-07-24)
 
