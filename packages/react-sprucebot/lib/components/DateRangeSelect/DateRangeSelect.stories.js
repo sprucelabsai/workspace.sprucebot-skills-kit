@@ -8,13 +8,7 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _reactRequiredIf = require('react-required-if');
-
-var _reactRequiredIf2 = _interopRequireDefault(_reactRequiredIf);
-
 var _react3 = require('@storybook/react');
-
-var _addonActions = require('@storybook/addon-actions');
 
 var _addonInfo = require('@storybook/addon-info');
 
@@ -44,10 +38,6 @@ var availableDays = function availableDays() {
 	}
 
 	return daysArray;
-};
-
-var handleOnDatesChange = function handleOnDatesChange() {
-	return console.log('Date changed');
 };
 
 var stories = (0, _react3.storiesOf)('DateRangeSelect', module);

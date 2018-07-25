@@ -1,8 +1,10 @@
+import React from 'react';
 import 'storybook-readme/register'
 import { addDecorator } from '@storybook/react'
 import { setOptions } from '@storybook/addon-options'
 import { setDefaults } from '@storybook/addon-info'
 import backgrounds from '@storybook/addon-backgrounds'
+import Container from './Container';
 
 // addon-info
 setDefaults({
@@ -42,6 +44,9 @@ addDecorator(
 		{ name: 'facebook', value: '#3b5998' }
 	])
 )
+
+// Container
+addDecorator(story => <Container story={story} />);
 
 setOptions({
 	name: 'react-sprucebot',
