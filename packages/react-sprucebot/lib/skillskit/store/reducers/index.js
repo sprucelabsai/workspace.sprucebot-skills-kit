@@ -20,6 +20,10 @@ var _sharable = require('./sharable');
 
 var _sharable2 = _interopRequireDefault(_sharable);
 
+var _calendar = require('./calendar');
+
+var _calendar2 = _interopRequireDefault(_calendar);
+
 var _reduxForm = require('redux-form');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
