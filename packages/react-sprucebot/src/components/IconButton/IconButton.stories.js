@@ -9,4 +9,10 @@ import readme from './IconButton.md'
 const stories = storiesOf('IconButton', module)
 stories.addDecorator(withKnobs)
 
-stories.add('Interactive', withReadme(readme, withInfo()(() => <IconButton />)))
+stories.add(
+	'Interactive',
+	withReadme(
+		readme,
+		withInfo()(() => <IconButton className="edit">edit</IconButton>)
+	)
+)

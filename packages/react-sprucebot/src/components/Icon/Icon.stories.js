@@ -9,4 +9,7 @@ import readme from './Icon.md'
 const stories = storiesOf('Icon', module)
 stories.addDecorator(withKnobs)
 
-stories.add('Interactive', withReadme(readme, withInfo()(() => <Icon />)))
+stories.add(
+	'Interactive',
+	withReadme(readme, withInfo()(() => <Icon>edit</Icon>))
+)

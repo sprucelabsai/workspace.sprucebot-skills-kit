@@ -10,4 +10,7 @@ import readme from './Dialog.md'
 const stories = storiesOf('Dialog', module)
 stories.addDecorator(withKnobs)
 
-stories.add('Interactive', withReadme(readme, withInfo()(() => <Dialog />)))
+stories.add(
+	'Interactive',
+	withReadme(readme, withInfo()(() => <Dialog>{'Dialog'}</Dialog>))
+)

@@ -29,9 +29,7 @@ stories.add(
 	withReadme(
 		readme,
 		withInfo()(() => (
-			<div className="single_col">
-				<DateSelect onDateSelect={() => null} availableDays={['M']} />
-			</div>
+			<DateSelect onDateSelect={() => null} availableDays={['M']} />
 		))
 	)
 )

@@ -29,19 +29,17 @@ stories.add(
 	withReadme(
 		readme,
 		withInfo()(() => (
-			<div className="single_col">
-				<DateRangeSelect
-					allowPastDates
-					bypassDaysBlocked
-					onDatesChange={(startDate, endDate) => {
-						console.log(startDate, endDate)
-					}}
-					numberOfMonths={1}
-					setDefaultDates
-					defaultStartDate={moment('2018-03-28')}
-					defaultEndDate={moment()}
-				/>
-			</div>
+			<DateRangeSelect
+				allowPastDates
+				bypassDaysBlocked
+				onDatesChange={(startDate, endDate) => {
+					console.log(startDate, endDate)
+				}}
+				numberOfMonths={1}
+				setDefaultDates
+				defaultStartDate={moment('2018-03-28')}
+				defaultEndDate={moment()}
+			/>
 		))
 	)
 )

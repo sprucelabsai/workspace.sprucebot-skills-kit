@@ -22,13 +22,11 @@ stories.add(
 	withReadme(
 		readme,
 		withInfo()(() => (
-			<div className="single_col">
-				<Avatar
-					top={boolean('Top', true)}
-					online={boolean('Onine', false)}
-					image={select('Image', imageOptions, defaultImage)}
-				/>
-			</div>
+			<Avatar
+				top={boolean('Top', true)}
+				online={boolean('Onine', false)}
+				image={select('Image', imageOptions, defaultImage)}
+			/>
 		))
 	)
 )

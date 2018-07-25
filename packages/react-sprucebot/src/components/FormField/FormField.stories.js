@@ -17,8 +17,15 @@ stories.add(
 			<FormField
 				input={{ value: '', onChange: () => null }}
 				meta={{ touched: false, error: null }}
+				type="text"
+				label="Email Address"
+				placeholder="hello@sprucebot.com"
 			>
-				<p>I ama form field</p>
+				<input
+					type="text"
+					label="Email Address"
+					placeholder="hello@sprucebot.com"
+				/>
 			</FormField>
 		))
 	)

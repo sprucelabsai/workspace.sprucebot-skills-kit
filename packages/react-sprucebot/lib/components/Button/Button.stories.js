@@ -27,23 +27,76 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var stories = (0, _react3.storiesOf)('Button', module);
 stories.addDecorator(_react4.withKnobs);
 
-stories.add('Interactive', (0, _storybookReadme.withReadme)(_Button4.default, (0, _addonInfo.withInfo)()(function () {
+stories.add('Primary', (0, _storybookReadme.withReadme)(_Button4.default, (0, _addonInfo.withInfo)()(function () {
+	return _react2.default.createElement(
+		_Button2.default,
+		{ primary: true, onClick: (0, _addonActions.action)('Button onClick') },
+		(0, _react4.text)('Button Text', 'Primary Button 😀🌲🤖')
+	);
+}))).add('Secondary', (0, _storybookReadme.withReadme)(_Button4.default, (0, _addonInfo.withInfo)()(function () {
+	return _react2.default.createElement(
+		_Button2.default,
+		{ secondary: true, onClick: (0, _addonActions.action)('Button onClick') },
+		(0, _react4.text)('Button Text', 'Secondary Button')
+	);
+}))).add('Alt', (0, _storybookReadme.withReadme)(_Button4.default, (0, _addonInfo.withInfo)()(function () {
+	return _react2.default.createElement(
+		_Button2.default,
+		{ alt: true, onClick: (0, _addonActions.action)('Button onClick') },
+		(0, _react4.text)('Button Text', 'Alt Button')
+	);
+}))).add('Disabled', (0, _storybookReadme.withReadme)(_Button4.default, (0, _addonInfo.withInfo)()(function () {
 	return _react2.default.createElement(
 		'div',
-		{ className: 'single_col' },
+		null,
 		_react2.default.createElement(
 			_Button2.default,
-			{
-				primary: (0, _react4.boolean)('primary', false),
-				secondary: (0, _react4.boolean)('secondary', false),
-				caution: (0, _react4.boolean)('caution', false),
-				alt: (0, _react4.boolean)('alt', false),
-				busy: (0, _react4.boolean)('busy', false),
-				remove: (0, _react4.boolean)('remove', false),
-				toggle: (0, _react4.boolean)('toggle', false),
-				onClick: (0, _addonActions.action)('Button onClick')
-			},
-			(0, _react4.text)('Button Text', 'Happy Button 😀🌲🤖')
+			{ primary: true, disabled: true, onClick: (0, _addonActions.action)('Button onClick') },
+			(0, _react4.text)('Button Text', 'Primary Button Disabled')
+		),
+		_react2.default.createElement(
+			_Button2.default,
+			{ alt: true, disabled: true, onClick: (0, _addonActions.action)('Button onClick') },
+			(0, _react4.text)('Button Text', 'Secondary Button Disabled')
 		)
+	);
+}))).add('Caution', (0, _storybookReadme.withReadme)(_Button4.default, (0, _addonInfo.withInfo)()(function () {
+	return _react2.default.createElement(
+		_Button2.default,
+		{ primary: true, caution: true, onClick: (0, _addonActions.action)('Button onClick') },
+		(0, _react4.text)('Button Text', 'Take Me To The Danger Zone')
+	);
+}))).add('Tertiary', (0, _storybookReadme.withReadme)(_Button4.default, (0, _addonInfo.withInfo)()(function () {
+	return _react2.default.createElement(
+		_Button2.default,
+		{ tertiary: true, onClick: (0, _addonActions.action)('Button onClick') },
+		(0, _react4.text)('Button Text', 'Minor Button')
+	);
+}))).add('Loading', (0, _storybookReadme.withReadme)(_Button4.default, (0, _addonInfo.withInfo)()(function () {
+	return _react2.default.createElement(
+		'div',
+		null,
+		_react2.default.createElement(
+			_Button2.default,
+			{ primary: true, busy: true, onClick: (0, _addonActions.action)('Button onClick') },
+			(0, _react4.text)('Button Text', 'Primary Button Disabled')
+		),
+		_react2.default.createElement(
+			_Button2.default,
+			{ alt: true, busy: true, onClick: (0, _addonActions.action)('Button onClick') },
+			(0, _react4.text)('Button Text', 'Secondary Button Disabled')
+		)
+	);
+}))).add('Toggle', (0, _storybookReadme.withReadme)(_Button4.default, (0, _addonInfo.withInfo)()(function () {
+	return _react2.default.createElement(
+		_Button2.default,
+		{ toggle: true, onClick: (0, _addonActions.action)('Button onClick') },
+		(0, _react4.text)('Button Text', 'Toggle Button')
+	);
+}))).add('Remove', (0, _storybookReadme.withReadme)(_Button4.default, (0, _addonInfo.withInfo)()(function () {
+	return _react2.default.createElement(
+		_Button2.default,
+		{ primary: true, remove: true, onClick: (0, _addonActions.action)('Button onClick') },
+		(0, _react4.text)('Button Text', 'Toggle Button')
 	);
 })));

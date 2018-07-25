@@ -31,27 +31,25 @@ stories.add(
 	withReadme(
 		readme,
 		withInfo()(() => (
-			<div className="single_col">
-				<LinkPile>
-					<ControlButton
-						onClick={action('ControlButton onClick')}
-					>{`Control all the buttons!`}</ControlButton>
-					<ControlButton
-						iconLeft={text('Left Icon', 'edit')}
-						onClick={action('ControlButton onClick')}
-					>{`I have a left icon`}</ControlButton>
-					<ControlButton
-						iconLeft={text('Left Icon', 'edit')}
-						iconRight={text('Right Icon', 'favorite')}
-						onClick={action('ControlButton onClick')}
-					>{`I have a right Icon`}</ControlButton>
-					<ControlButton
-						iconRight={text('Rigth Icon', '🤖')}
-						href={text('Link href', 'https://sprucebot.com')}
-						onClick={action('Link onClick')}
-					>{`I'm a link!`}</ControlButton>
-				</LinkPile>
-			</div>
+			<LinkPile>
+				<ControlButton
+					onClick={action('ControlButton onClick')}
+				>{`Control all the buttons!`}</ControlButton>
+				<ControlButton
+					iconLeft={text('Left Icon', 'edit')}
+					onClick={action('ControlButton onClick')}
+				>{`I have a left icon`}</ControlButton>
+				<ControlButton
+					iconLeft={text('Left Icon', 'edit')}
+					iconRight={text('Right Icon', 'favorite')}
+					onClick={action('ControlButton onClick')}
+				>{`I have a right Icon`}</ControlButton>
+				<ControlButton
+					iconRight={text('Rigth Icon', '🤖')}
+					href={text('Link href', 'https://sprucebot.com')}
+					onClick={action('Link onClick')}
+				>{`I'm a link!`}</ControlButton>
+			</LinkPile>
 		))
 	)
 )

@@ -10,4 +10,7 @@ import readme from './Error.md'
 const stories = storiesOf('Error', module)
 stories.addDecorator(withKnobs)
 
-stories.add('Interactive', withReadme(readme, withInfo()(() => <Error />)))
+stories.add(
+	'Interactive',
+	withReadme(readme, withInfo()(() => <Error errorMessage="YaBlewIt" />))
+)
