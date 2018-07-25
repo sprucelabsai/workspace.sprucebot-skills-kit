@@ -10,15 +10,17 @@ import IconButton from '../IconButton/IconButton'
 import { H2 } from '../Typography/Typography'
 import SK from '../../skillskit'
 
-const DialogUnderlay = styled.div.attrs({
-	className: ({ show }) => classnames('dialog_underlay', show ? 'on' : 'off')
+var dialogUnderlay = null
+const currentDialogs = []
+
+const DialogWrapper = styled.div.attrs({
+	className: ({ show, className }) => `dialog__wrapper ${className}`
 })`
-	min-height: 100%;
+	opacity: ${props => props.opacity};
 `
 
 const DialogContainer = styled.div.attrs({
-	className: ({ show, className }) =>
-		classnames('dialog', className, show ? 'on' : 'off')
+	className: ({ show, className }) => `dialog ${className}`
 })`
 	opacity: ${props => props.opacity};
 `
@@ -35,6 +37,8 @@ export default class Dialog extends Component {
 		this.iframeMessageHandler = this.iframeMessageHandler.bind(this)
 
 		this.state = {
+			focusClass: '',
+			isHidden: true,
 			width: -1,
 			height: 500,
 			scrollTop: 0,
@@ -43,29 +47,66 @@ export default class Dialog extends Component {
 			inIframe: true
 		}
 	}
+
+	blur() {
+		this.setState({ focusClass: 'blurred' }, () => {
+			setTimeout(() => {
+				this.setState({ isHidden: true })
+			}, 500)
+		})
+	}
+
+	focus() {
+		this.setState({ isHidden: false }, () => {
+			setTimeout(() => {
+				this.setState({ focusClass: 'focused' }, () => {
+					// Resize the skill
+					this.postHeight()
+				})
+			}, 100)
+		})
+	}
+
 	setSize({ width, height }) {
 		this.setState({ width, height })
 		this.postHeight()
 	}
 
 	postHeight() {
-		const underlay = document.querySelector('.dialog_underlay')
-		const underlayHeight = underlay ? underlay.offsetHeight : 0
+		const underlayHeight = dialogUnderlay ? dialogUnderlay.offsetHeight : 0
 
 		//min height on body
 		document.body.style.minHeight = `${underlayHeight}px`
 	}
+
+	componentWillMount() {
+		if (typeof document !== 'undefined' && !dialogUnderlay) {
+			dialogUnderlay = document.createElement('div')
+			dialogUnderlay.className = 'dialog_underlay'
+			document.body.appendChild(dialogUnderlay)
+		}
+		dialogUnderlay.classList.add('on')
+	}
+
 	componentDidMount() {
 		window.addEventListener('message', this.iframeMessageHandler)
 		if (this.props.show && this.state.firstShow) {
 			this.requestScroll()
 		}
+
+		currentDialogs.forEach(dialog => dialog.blur())
+		this.focus()
+		currentDialogs.push(this)
 	}
 
 	componentDidUpdate() {
 		// in case our starting state is not showing
 		if (this.props.show && this.state.firstShow) {
 			this.requestScroll()
+		}
+
+		if (!this.state.inIframe) {
+			dialogUnderlay.classList.add('not_in_iframe')
 		}
 	}
 
@@ -84,6 +125,12 @@ export default class Dialog extends Component {
 	componentWillUnmount() {
 		document.body.style.minHeight = `auto`
 		window.removeEventListener('message', this.iframeMessageHandler)
+		currentDialogs.pop()
+		if (currentDialogs.length - 1 >= 0) {
+			currentDialogs[currentDialogs.length - 1].focus()
+		} else {
+			dialogUnderlay.classList.remove('on')
+		}
 	}
 
 	requestScroll() {
@@ -116,9 +163,12 @@ export default class Dialog extends Component {
 		} catch (err) {}
 	}
 	onTapClose() {
+		this.setState({ focusClass: '' })
 		this.postHeight()
 		if (this.props.onTapClose) {
-			this.props.onTapClose()
+			setTimeout(() => {
+				this.props.onTapClose()
+			}, 600)
 		}
 	}
 	render() {
@@ -131,7 +181,14 @@ export default class Dialog extends Component {
 			show,
 			...props
 		} = this.props
-		const { opacity, height, inIframe } = this.state
+		const {
+			opacity,
+			height,
+			inIframe,
+			focusClass,
+			isHidden,
+			firstShow
+		} = this.state
 		const Tag = tag
 		const dialogStyle = {
 			marginTop: this.state.scrollTop
@@ -156,23 +213,28 @@ export default class Dialog extends Component {
 					}}
 				>
 					{({ measureRef }) => (
-						<DialogUnderlay
-							className={`${inIframe ? '' : 'not_in_iframe'} `}
-							ref={ref => (this.underlay = ref)}
+						<DialogWrapper
+							className={`${focusClass} ${!firstShow ? 'was-focused' : ''} ${
+								isHidden ? 'hidden' : ''
+							}`}
 							show={show}
-							height={height}
+							style={dialogStyle}
 							onClick={e => {
-								if (e.target.className.search('dialog_underlay') > -1) {
-									this.onTapClose()
+								if (
+									e.target.className.search('dialog__wrapper') > -1 &&
+									currentDialogs.length - 1 >= 0
+								) {
+									currentDialogs[currentDialogs.length - 1].onTapClose()
 								}
 							}}
 						>
 							<DialogContainer
 								innerRef={measureRef}
-								className={`${className} ${hasHeader ? 'has_header' : ''}`}
+								className={`${className || ''} ${
+									hasHeader ? 'has_header' : ''
+								}`}
 								show={show}
 								opacity={opacity}
-								style={dialogStyle}
 								{...props}
 							>
 								{hasHeader && (
@@ -190,10 +252,10 @@ export default class Dialog extends Component {
 								)}
 								{children}
 							</DialogContainer>
-						</DialogUnderlay>
+						</DialogWrapper>
 					)}
 				</Measure>,
-				document.body
+				dialogUnderlay
 			)
 		)
 	}
