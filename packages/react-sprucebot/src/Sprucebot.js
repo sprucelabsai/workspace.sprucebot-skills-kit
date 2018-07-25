@@ -33,6 +33,7 @@ import Icon from './components/Icon/Icon'
 import IconButton from './components/IconButton/IconButton'
 import ControlButton from './components/ControlButton/ControlButton'
 import Search from './components/Search/Search'
+import HelpButton from './components/HelpButton/HelpButton'
 import * as Typography from './components/Typography/Typography'
 import * as List from './components/List/List'
 import * as Tabs from './components/Tabs/Tabs'
@@ -85,6 +86,7 @@ const Sprucebot = {
 	TimeInput,
 	Onboarding,
 	Icon,
+	HelpButton,
 	IconButton,
 	ControlButton,
 	Search,

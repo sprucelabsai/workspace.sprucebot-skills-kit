@@ -136,6 +136,10 @@ var _Search = require('./components/Search/Search');
 
 var _Search2 = _interopRequireDefault(_Search);
 
+var _HelpButton = require('./components/HelpButton/HelpButton');
+
+var _HelpButton2 = _interopRequireDefault(_HelpButton);
+
 var _Typography = require('./components/Typography/Typography');
 
 var Typography = _interopRequireWildcard(_Typography);
@@ -218,6 +222,7 @@ var Sprucebot = _extends({
 	TimeInput: _TimeInput2.default,
 	Onboarding: _Onboarding2.default,
 	Icon: _Icon2.default,
+	HelpButton: _HelpButton2.default,
 	IconButton: _IconButton2.default,
 	ControlButton: _ControlButton2.default,
 	Search: _Search2.default,

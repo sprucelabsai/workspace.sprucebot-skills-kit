@@ -64,6 +64,7 @@ exports[`it renders 1`] = `
     <button
       className="btn  IconButton icon-button  c0 "
       disabled={undefined}
+      href={undefined}
       onClick={[Function]}
       type="button"
     >
@@ -86,6 +87,7 @@ exports[`it renders 1`] = `
     <button
       className="btn  IconButton icon-button  c0 "
       disabled={undefined}
+      href={undefined}
       onClick={[Function]}
       type="button"
     >
@@ -113,6 +115,7 @@ exports[`it renders 1`] = `
     <button
       className="btn  IconButton icon-button  c0 "
       disabled={undefined}
+      href={undefined}
       onClick={[Function]}
       type="button"
     >
@@ -135,6 +138,7 @@ exports[`it renders 1`] = `
     <button
       className="btn  IconButton icon-button  c0 "
       disabled={undefined}
+      href={undefined}
       onClick={[Function]}
       type="button"
     >

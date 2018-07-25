@@ -2104,13 +2104,11 @@ exports[`FormExample it renders 1`] = `
                             busy={false}
                             className="btn btn__primary "
                             disabled={false}
-                            onClick={[Function]}
                             type="submit"
                           >
                             <button
                               className="btn btn__primary  Button__StyledButton-bvtufj-1 fgUFOI"
                               disabled={false}
-                              onClick={[Function]}
                               type="submit"
                             >
                               <span

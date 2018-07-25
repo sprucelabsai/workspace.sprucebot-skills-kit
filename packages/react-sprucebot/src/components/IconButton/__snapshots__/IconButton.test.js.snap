@@ -55,7 +55,7 @@ exports[`it renders 1`] = `
 <button
   className="btn  IconButton icon-button  c0 "
   disabled={undefined}
-  onClick={[Function]}
+  href={undefined}
   type="button"
 >
   <span
