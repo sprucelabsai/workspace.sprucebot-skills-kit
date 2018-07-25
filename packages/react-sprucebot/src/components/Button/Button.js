@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Loader from '../Loader/Loader'
@@ -100,6 +100,7 @@ export default class Button extends Component {
 			hideLoader,
 			left,
 			right,
+			href,
 			...props
 		} = this.props
 
@@ -136,7 +137,7 @@ export default class Button extends Component {
 		let Tag
 		let usingLink = false
 
-		if (props.href || remove) {
+		if (href || remove) {
 			Tag = Link
 			usingLink = true
 		} else if (tag === 'button') {
@@ -148,17 +149,24 @@ export default class Button extends Component {
 		return (
 			<Tag
 				className={`btn ${btnClass} ${className || ''}`}
-				onClick={this.onClick}
+				// onClick={this.onClick}
 				disabled={disabled}
 				busy={busy}
+				href={href}
 				{...props}
 			>
-				{usingLink && (
-					<a className={`btn ${btnClass} ${className || ''}`}>
-						<span className="wrapper">{this.renderView()}</span>
-					</a>
-				)}
-				{!usingLink && <span className="wrapper">{this.renderView()}</span>}
+				<Fragment>
+					{usingLink && (
+						<a
+							href={href}
+							onClick={this.onClick}
+							className={`btn ${btnClass} ${className || ''}`}
+						>
+							<span className="wrapper">{this.renderView()}</span>
+						</a>
+					)}
+					{!usingLink && <span className="wrapper">{this.renderView()}</span>}
+				</Fragment>
 			</Tag>
 		)
 	}
