@@ -12,17 +12,15 @@ var _react4 = require('@storybook/addon-knobs/react');
 
 var _storybookReadme = require('storybook-readme');
 
-var _ImageCropper = require('./ImageCropper');
+var _ImageCropper = require('./ImageCropper.md');
 
 var _ImageCropper2 = _interopRequireDefault(_ImageCropper);
-
-var _ImageCropper3 = require('./ImageCropper.md');
-
-var _ImageCropper4 = _interopRequireDefault(_ImageCropper3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var stories = (0, _react3.storiesOf)('ImageCropper', module);
+// import ImageCropper from './ImageCropper'
+
 stories.addDecorator(_react4.withKnobs);
 
 stories.add('Placeholder', function () {
