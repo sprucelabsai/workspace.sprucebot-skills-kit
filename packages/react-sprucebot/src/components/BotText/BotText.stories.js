@@ -4,8 +4,8 @@ import { action } from '@storybook/addon-actions'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import { withReadme, withDocs } from 'storybook-readme'
 import { withInfo } from '@storybook/addon-info'
-import BotText from '../lib/components/BotText/BotText'
-import readme from './docs/BotText.md'
+import BotText from './BotText'
+import readme from './BotText.md'
 
 const stories = storiesOf('BotText', module)
 

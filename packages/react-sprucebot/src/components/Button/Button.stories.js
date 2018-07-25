@@ -4,8 +4,8 @@ import { action } from '@storybook/addon-actions'
 import { withInfo } from '@storybook/addon-info'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import { withReadme, withDocs } from 'storybook-readme'
-import Button from '../lib/components/Button/Button'
-import readme from './docs/Button.md'
+import Button from './Button'
+import readme from './Button.md'
 
 const stories = storiesOf('Button', module)
 stories.addDecorator(withKnobs)

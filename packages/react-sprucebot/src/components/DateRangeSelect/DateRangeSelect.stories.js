@@ -11,8 +11,8 @@ import {
 	button
 } from '@storybook/addon-knobs/react'
 import { withReadme, withDocs } from 'storybook-readme'
-import DateRangeSelect from '../lib/components/DateRangeSelect/DateRangeSelect'
-import readme from './docs/DateRangeSelect.md'
+import DateRangeSelect from './DateRangeSelect'
+import readme from './DateRangeSelect.md'
 
 const availableDays = () => {
 	let daysArray = []

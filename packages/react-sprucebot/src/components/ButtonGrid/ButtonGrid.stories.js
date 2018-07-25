@@ -4,8 +4,8 @@ import { action } from '@storybook/addon-actions'
 import { withInfo } from '@storybook/addon-info'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 import { withReadme, withDocs } from 'storybook-readme'
-import { GridButton, ButtonGrid } from '../lib/components/ButtonGrid/ButtonGrid'
-import readme from './docs/ButtonGrid.md'
+import { GridButton, ButtonGrid } from './ButtonGrid'
+import readme from './ButtonGrid.md'
 
 const stories = storiesOf('ButtonGrid', module)
 stories.addDecorator(withKnobs)

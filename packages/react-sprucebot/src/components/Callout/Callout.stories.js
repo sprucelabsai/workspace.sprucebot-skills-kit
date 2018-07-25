@@ -5,9 +5,9 @@ import { action } from '@storybook/addon-actions'
 import { withInfo } from '@storybook/addon-info'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 import { withReadme, withDocs } from 'storybook-readme'
-import Callout from '../lib/components/Callout/Callout'
-import BotText from '../lib/components/BotText/BotText'
-import readme from './docs/Callout.md'
+import Callout from './Callout'
+import BotText from '../BotText/BotText'
+import readme from './Callout.md'
 
 const stories = storiesOf('Callout', module)
 stories.addDecorator(withKnobs)

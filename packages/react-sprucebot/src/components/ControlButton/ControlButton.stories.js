@@ -5,9 +5,9 @@ import { action } from '@storybook/addon-actions'
 import { withInfo } from '@storybook/addon-info'
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs/react'
 import { withReadme, withDocs } from 'storybook-readme'
-import LinkPile from '../lib/components/LinkPile/LinkPile'
-import ControlButton from '../lib/components/ControlButton/ControlButton'
-import readme from './docs/ControlButton.md'
+import LinkPile from '../LinkPile/LinkPile'
+import ControlButton from './ControlButton'
+import readme from './ControlButton.md'
 
 const iconOptions = {
 	null: 'None',

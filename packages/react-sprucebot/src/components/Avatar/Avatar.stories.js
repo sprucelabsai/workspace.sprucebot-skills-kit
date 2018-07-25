@@ -4,8 +4,8 @@ import { action } from '@storybook/addon-actions'
 import { withInfo } from '@storybook/addon-info'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 import { withReadme, withDocs } from 'storybook-readme'
-import Avatar from '../lib/components/Avatar/Avatar'
-import readme from './docs/Avatar.md'
+import Avatar from './Avatar'
+import readme from './Avatar.md'
 
 const imageOptions = {
 	'https://s3.amazonaws.com/sprucebot-dev/default-profile--X150.jpg': 'Default',
