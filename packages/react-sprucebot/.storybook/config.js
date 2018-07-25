@@ -9,7 +9,12 @@ import Container from './Container';
 // addon-info
 setDefaults({
 	header: false, // Toggles display of header with component name and description
-	inline: true
+	inline: true,
+	styles: {
+		info: {
+			background: '#333'
+		}
+	}
 })
 
 // backgrounds

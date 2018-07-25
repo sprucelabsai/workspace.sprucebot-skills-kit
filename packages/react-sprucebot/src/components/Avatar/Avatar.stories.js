@@ -17,16 +17,41 @@ const defaultImage = 'https://hello.sprucebot.com/avatar.jpg'
 const stories = storiesOf('Avatar', module)
 stories.addDecorator(withKnobs)
 
-stories.add(
-	'Interactive',
-	withReadme(
-		readme,
-		withInfo()(() => (
-			<Avatar
-				top={boolean('Top', true)}
-				online={boolean('Onine', false)}
-				image={select('Image', imageOptions, defaultImage)}
-			/>
-		))
+stories
+	.add(
+		'Default',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<Avatar
+					top={false}
+					online
+					showOnlineIndicator
+					image={select('Image', imageOptions, defaultImage)}
+				/>
+			))
+		)
 	)
-)
+	.add(
+		'Not Online',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<Avatar
+					top={false}
+					online={false}
+					showOnlineIndicator={false}
+					image={select('Image', imageOptions, defaultImage)}
+				/>
+			))
+		)
+	)
+	.add(
+		'Large',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<Avatar top image={select('Image', imageOptions, defaultImage)} />
+			))
+		)
+	)

@@ -9,7 +9,7 @@ export default class Container extends Component {
         <div
           data-floating-menu-container
           role="main"
-          className="wf-active" // NOTE: This tricks icons into appearing
+          className="wf-active storybook-container" // NOTE: This tricks icons into appearing
           style={{
             padding: '3em',
             display: 'flex',
