@@ -1,16 +1,9 @@
 import React from 'react'
 import moment from 'moment'
-import requiredIf from 'react-required-if'
 import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
 import { withInfo } from '@storybook/addon-info'
-import {
-	withKnobs,
-	boolean,
-	select,
-	button
-} from '@storybook/addon-knobs/react'
-import { withReadme, withDocs } from 'storybook-readme'
+import { withKnobs } from '@storybook/addon-knobs/react'
+import { withReadme } from 'storybook-readme'
 import DateRangeSelect from './DateRangeSelect'
 import readme from './DateRangeSelect.md'
 
@@ -27,8 +20,6 @@ const availableDays = () => {
 
 	return daysArray
 }
-
-const handleOnDatesChange = () => console.log('Date changed')
 
 const stories = storiesOf('DateRangeSelect', module)
 stories.addDecorator(withKnobs)
