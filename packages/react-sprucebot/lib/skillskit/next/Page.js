@@ -44,6 +44,8 @@ var _lang = require('../helpers/lang');
 
 var _lang2 = _interopRequireDefault(_lang);
 
+var _router = require('next/router');
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -79,8 +81,7 @@ var getCookie = function getCookie(named, req, res) {
 };
 
 var Page = function Page(Wrapped) {
-	// const ConnectedWrapped = connect(mapStateToProps, mapDispatchToProps)(Wrapped)
-	var ConnectedWrapped = Wrapped;
+	var ConnectedWrapped = (0, _router.withRouter)(Wrapped);
 
 	return function (_Component) {
 		_inherits(_class, _Component);
@@ -98,6 +99,7 @@ var Page = function Page(Wrapped) {
 			_this.messageHandler = _this.messageHandler.bind(_this);
 			return _this;
 		}
+
 		// Everything here is run server side
 
 
@@ -199,8 +201,7 @@ var Page = function Page(Wrapped) {
 					    asPath = _ref3.asPath,
 					    store = _ref3.store,
 					    res = _ref3.res,
-					    req = _ref3.req,
-					    isServer = _ref3.isServer;
+					    req = _ref3.req;
 
 					var props,
 					    jwt,

@@ -64,15 +64,20 @@ exports[`it renders 1`] = `
     <button
       className="btn  IconButton icon-button  c0 "
       disabled={undefined}
+      href={undefined}
       onClick={[Function]}
       type="button"
     >
-      <i
-        className="Icon icon  c1"
-        fontSize={undefined}
+      <span
+        className="wrapper"
       >
-        first_page
-      </i>
+        <i
+          className="Icon icon  c1"
+          fontSize={undefined}
+        >
+          first_page
+        </i>
+      </span>
     </button>
   </li>
   <li
@@ -82,15 +87,20 @@ exports[`it renders 1`] = `
     <button
       className="btn  IconButton icon-button  c0 "
       disabled={undefined}
+      href={undefined}
       onClick={[Function]}
       type="button"
     >
-      <i
-        className="Icon icon  c1"
-        fontSize={undefined}
+      <span
+        className="wrapper"
       >
-        chevron_left
-      </i>
+        <i
+          className="Icon icon  c1"
+          fontSize={undefined}
+        >
+          chevron_left
+        </i>
+      </span>
     </button>
   </li>
   <li
@@ -105,15 +115,20 @@ exports[`it renders 1`] = `
     <button
       className="btn  IconButton icon-button  c0 "
       disabled={undefined}
+      href={undefined}
       onClick={[Function]}
       type="button"
     >
-      <i
-        className="Icon icon  c1"
-        fontSize={undefined}
+      <span
+        className="wrapper"
       >
-        chevron_right
-      </i>
+        <i
+          className="Icon icon  c1"
+          fontSize={undefined}
+        >
+          chevron_right
+        </i>
+      </span>
     </button>
   </li>
   <li
@@ -123,15 +138,20 @@ exports[`it renders 1`] = `
     <button
       className="btn  IconButton icon-button  c0 "
       disabled={undefined}
+      href={undefined}
       onClick={[Function]}
       type="button"
     >
-      <i
-        className="Icon icon  c1"
-        fontSize={undefined}
+      <span
+        className="wrapper"
       >
-        last_page
-      </i>
+        <i
+          className="Icon icon  c1"
+          fontSize={undefined}
+        >
+          last_page
+        </i>
+      </span>
     </button>
   </li>
 </ul>

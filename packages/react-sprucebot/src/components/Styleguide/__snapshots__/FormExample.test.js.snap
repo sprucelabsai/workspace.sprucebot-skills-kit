@@ -2081,7 +2081,11 @@ exports[`FormExample it renders 1`] = `
                               onClick={[Function]}
                               type="button"
                             >
-                              Reset Form
+                              <span
+                                className="wrapper"
+                              >
+                                Reset Form
+                              </span>
                             </button>
                           </Button__StyledButton>
                         </Button>
@@ -2100,16 +2104,18 @@ exports[`FormExample it renders 1`] = `
                             busy={false}
                             className="btn btn__primary "
                             disabled={false}
-                            onClick={[Function]}
                             type="submit"
                           >
                             <button
                               className="btn btn__primary  Button__StyledButton-bvtufj-1 fgUFOI"
                               disabled={false}
-                              onClick={[Function]}
                               type="submit"
                             >
-                              Submit
+                              <span
+                                className="wrapper"
+                              >
+                                Submit
+                              </span>
                             </button>
                           </Button__StyledButton>
                         </Button>

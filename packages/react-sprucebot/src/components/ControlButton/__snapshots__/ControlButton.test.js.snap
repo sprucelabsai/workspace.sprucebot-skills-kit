@@ -32,51 +32,14 @@ exports[`it renders 1`] = `
 <button
   className="btn  ControlButton control-button  c0 "
   disabled={undefined}
-  onClick={[Function]}
+  href={undefined}
   tabIndex={0}
   type="button"
 >
-  <span />
+  <span
+    className="wrapper"
+  >
+    <span />
+  </span>
 </button>
-`;
-
-exports[`it renders a link 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: none;
-  color: #00aac7;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: normal;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
-  position: relative;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover {
-  background: none;
-}
-
-<a
-  className="btn  ControlButton control-button  c0 "
-  disabled={undefined}
-  href="https://sprucebot.com"
-  onClick={[Function]}
-  tabIndex={0}
-  type="button"
->
-  <span />
-</a>
 `;

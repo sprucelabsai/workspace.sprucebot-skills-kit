@@ -55,12 +55,16 @@ exports[`it renders 1`] = `
 <button
   className="btn  IconButton icon-button  c0 "
   disabled={undefined}
-  onClick={[Function]}
+  href={undefined}
   type="button"
 >
-  <i
-    className="Icon icon  c1"
-    fontSize={undefined}
-  />
+  <span
+    className="wrapper"
+  >
+    <i
+      className="Icon icon  c1"
+      fontSize={undefined}
+    />
+  </span>
 </button>
 `;
