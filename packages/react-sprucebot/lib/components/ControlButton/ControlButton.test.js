@@ -21,7 +21,9 @@ test('it renders', function () {
 	expect(tree).toMatchSnapshot();
 });
 
-test('it renders a link', function () {
-	var tree = _reactTestRenderer2.default.create(_react2.default.createElement(_ControlButton2.default, { href: 'https://sprucebot.com' })).toJSON();
-	expect(tree).toMatchSnapshot();
-});
+// test('it renders a link', () => {
+// 	const tree = renderer
+// 		.create(<ControlButton href="https://sprucebot.com" />)
+// 		.toJSON()
+// 	expect(tree).toMatchSnapshot()
+// })

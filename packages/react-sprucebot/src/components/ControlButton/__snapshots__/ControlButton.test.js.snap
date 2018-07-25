@@ -32,7 +32,7 @@ exports[`it renders 1`] = `
 <button
   className="btn  ControlButton control-button  c0 "
   disabled={undefined}
-  onClick={[Function]}
+  href={undefined}
   tabIndex={0}
   type="button"
 >

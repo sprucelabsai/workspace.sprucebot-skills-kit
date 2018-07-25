@@ -149,7 +149,8 @@ var Button = function (_Component) {
 			    hideLoader = _props.hideLoader,
 			    left = _props.left,
 			    right = _props.right,
-			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'left', 'right']);
+			    href = _props.href,
+			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'left', 'right', 'href']);
 
 			var busy = this.state.busy;
 
@@ -185,7 +186,7 @@ var Button = function (_Component) {
 			var Tag = void 0;
 			var usingLink = false;
 
-			if (props.href || remove) {
+			if (href || remove) {
 				Tag = _link2.default;
 				usingLink = true;
 			} else if (tag === 'button') {
@@ -197,24 +198,33 @@ var Button = function (_Component) {
 			return _react2.default.createElement(
 				Tag,
 				_extends({
-					className: 'btn ' + btnClass + ' ' + (className || ''),
-					onClick: this.onClick,
-					disabled: disabled,
-					busy: busy
+					className: 'btn ' + btnClass + ' ' + (className || '')
+					// onClick={this.onClick}
+					, disabled: disabled,
+					busy: busy,
+					href: href
 				}, props),
-				usingLink && _react2.default.createElement(
-					'a',
-					{ className: 'btn ' + btnClass + ' ' + (className || '') },
-					_react2.default.createElement(
+				_react2.default.createElement(
+					_react.Fragment,
+					null,
+					usingLink && _react2.default.createElement(
+						'a',
+						{
+							href: href,
+							onClick: this.onClick,
+							className: 'btn ' + btnClass + ' ' + (className || '')
+						},
+						_react2.default.createElement(
+							'span',
+							{ className: 'wrapper' },
+							this.renderView()
+						)
+					),
+					!usingLink && _react2.default.createElement(
 						'span',
 						{ className: 'wrapper' },
 						this.renderView()
 					)
-				),
-				!usingLink && _react2.default.createElement(
-					'span',
-					{ className: 'wrapper' },
-					this.renderView()
 				)
 			);
 		}
