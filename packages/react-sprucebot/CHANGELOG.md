@@ -3,43 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-<a name="6.28.0"></a>
-# [6.28.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.27.0...v6.28.0) (2018-07-25)
-
-
-### Features
-
-* actions can return a function ([8017ecb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8017ecb))
-
-
-
-
-
-<a name="6.27.0"></a>
-# [6.27.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.26.0...v6.27.0) (2018-07-25)
-
-
-### Features
-
-* finalizing multi-dialog functionality ([e763628](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e763628))
-* portal dialogs outside of components to prevent z-index issues ([628fccb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/628fccb))
-
-
-
-
-
-<a name="6.26.0"></a>
-# [6.26.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.25.0...v6.26.0) (2018-07-25)
-
-
-### Features
-
-* help button ([23027bb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/23027bb))
-
-
-
-
-
 <a name="6.25.0"></a>
 # [6.25.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.24.0...v6.25.0) (2018-07-24)
 
