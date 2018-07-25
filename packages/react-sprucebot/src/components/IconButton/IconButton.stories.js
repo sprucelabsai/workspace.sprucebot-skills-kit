@@ -11,8 +11,5 @@ stories.addDecorator(withKnobs)
 
 stories.add(
 	'Interactive',
-	withReadme(
-		readme,
-		withInfo()(() => <IconButton className="edit">edit</IconButton>)
-	)
+	withReadme(readme, () => <IconButton className="edit">edit</IconButton>)
 )
