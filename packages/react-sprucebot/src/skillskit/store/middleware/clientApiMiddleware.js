@@ -1,6 +1,10 @@
 export default function clientMiddleware(client) {
 	return ({dispatch, getState}) => { // eslint-disable-line
 		return next => action => {
+			if (typeof action === 'function') {
+				return action(dispatch, getState, next, client)
+			}
+
 			const { promise, types, ...rest } = action
 			if (!promise) {
 				return next(action)
