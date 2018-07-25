@@ -10,25 +10,113 @@ import readme from './Button.md'
 const stories = storiesOf('Button', module)
 stories.addDecorator(withKnobs)
 
-stories.add(
-	'Interactive',
-	withReadme(
-		readme,
-		withInfo()(() => (
-			<div className="single_col">
-				<Button
-					primary={boolean('primary', false)}
-					secondary={boolean('secondary', false)}
-					caution={boolean('caution', false)}
-					alt={boolean('alt', false)}
-					busy={boolean('busy', false)}
-					remove={boolean('remove', false)}
-					toggle={boolean('toggle', false)}
-					onClick={action('Button onClick')}
-				>
-					{text('Button Text', 'Happy Button 😀🌲🤖')}
+stories
+	.add(
+		'Primary',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<Button primary onClick={action('Button onClick')}>
+					{text('Button Text', 'Primary Button 😀🌲🤖')}
 				</Button>
-			</div>
-		))
+			))
+		)
 	)
-)
+	.add(
+		'Secondary',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<Button secondary onClick={action('Button onClick')}>
+					{text('Button Text', 'Secondary Button')}
+				</Button>
+			))
+		)
+	)
+	.add(
+		'Alt',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<Button alt onClick={action('Button onClick')}>
+					{text('Button Text', 'Alt Button')}
+				</Button>
+			))
+		)
+	)
+	.add(
+		'Disabled',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<div>
+					<Button primary disabled onClick={action('Button onClick')}>
+						{text('Button Text', 'Primary Button Disabled')}
+					</Button>
+					<Button alt disabled onClick={action('Button onClick')}>
+						{text('Button Text', 'Secondary Button Disabled')}
+					</Button>
+				</div>
+			))
+		)
+	)
+	.add(
+		'Caution',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<Button primary caution onClick={action('Button onClick')}>
+					{text('Button Text', 'Take Me To The Danger Zone')}
+				</Button>
+			))
+		)
+	)
+	.add(
+		'Tertiary',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<Button tertiary onClick={action('Button onClick')}>
+					{text('Button Text', 'Minor Button')}
+				</Button>
+			))
+		)
+	)
+	.add(
+		'Loading',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<div>
+					<Button primary busy onClick={action('Button onClick')}>
+						{text('Button Text', 'Primary Button Disabled')}
+					</Button>
+					<Button alt busy onClick={action('Button onClick')}>
+						{text('Button Text', 'Secondary Button Disabled')}
+					</Button>
+				</div>
+			))
+		)
+	)
+	.add(
+		'Toggle',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<Button toggle onClick={action('Button onClick')}>
+					{text('Button Text', 'Toggle Button')}
+				</Button>
+			))
+		)
+	)
+	.add(
+		'Remove',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<Button primary remove onClick={action('Button onClick')}>
+					{text('Button Text', 'Toggle Button')}
+				</Button>
+			))
+		)
+	)

@@ -1,0 +1,54 @@
+'use strict';
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _react3 = require('@storybook/react');
+
+var _addonInfo = require('@storybook/addon-info');
+
+var _react4 = require('@storybook/addon-knobs/react');
+
+var _storybookReadme = require('storybook-readme');
+
+var _DateSelect = require('./DateSelect');
+
+var _DateSelect2 = _interopRequireDefault(_DateSelect);
+
+var _DateSelect3 = require('./DateSelect.md');
+
+var _DateSelect4 = _interopRequireDefault(_DateSelect3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var availableDays = function availableDays() {
+	var daysArray = [];
+
+	for (var i = 1; i < 30; i++) {
+		if (i < 10) {
+			daysArray.push('2018-08-0' + i);
+		} else {
+			daysArray.push('2018-08-' + i);
+		}
+	}
+
+	return daysArray;
+};
+
+var stories = (0, _react3.storiesOf)('DateSelect', module);
+stories.addDecorator(_react4.withKnobs);
+
+stories.add('Interactive', (0, _storybookReadme.withReadme)(_DateSelect4.default, (0, _addonInfo.withInfo)()(function () {
+	return _react2.default.createElement(
+		'div',
+		{ className: 'single_col' },
+		_react2.default.createElement(_DateSelect2.default, { onDateSelect: function onDateSelect() {
+				return null;
+			}, availableDays: ['M'] })
+	);
+})));
