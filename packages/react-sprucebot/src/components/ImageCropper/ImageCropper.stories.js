@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
 import { withKnobs } from '@storybook/addon-knobs/react'
 import { withReadme } from 'storybook-readme'
-import ImageCropper from './ImageCropper'
+// import ImageCropper from './ImageCropper'
 import readme from './ImageCropper.md'
 
 const stories = storiesOf('ImageCropper', module)

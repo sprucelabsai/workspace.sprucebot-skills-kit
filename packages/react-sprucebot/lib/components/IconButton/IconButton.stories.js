@@ -25,10 +25,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var stories = (0, _react3.storiesOf)('IconButton', module);
 stories.addDecorator(_react4.withKnobs);
 
-stories.add('Interactive', (0, _storybookReadme.withReadme)(_IconButton4.default, (0, _addonInfo.withInfo)()(function () {
+stories.add('Interactive', (0, _storybookReadme.withReadme)(_IconButton4.default, function () {
 	return _react2.default.createElement(
 		_IconButton2.default,
 		{ className: 'edit' },
 		'edit'
 	);
-})));
+}));
