@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.28.0"></a>
+# [6.28.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.27.0...v6.28.0) (2018-07-25)
+
+
+### Features
+
+* actions can return a function ([8017ecb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8017ecb))
+
+
+
+
+
 <a name="6.27.0"></a>
 # [6.27.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.26.0...v6.27.0) (2018-07-25)
 
