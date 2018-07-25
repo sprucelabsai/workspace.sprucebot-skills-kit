@@ -30,5 +30,9 @@ var stories = (0, _react3.storiesOf)('Dialog', module);
 stories.addDecorator(_react4.withKnobs);
 
 stories.add('Interactive', (0, _storybookReadme.withReadme)(_Dialog4.default, (0, _addonInfo.withInfo)()(function () {
-  return _react2.default.createElement(_Dialog2.default, null);
+	return _react2.default.createElement(
+		_Dialog2.default,
+		null,
+		'Dialog'
+	);
 })));

@@ -51,44 +51,40 @@ stories.addDecorator(_react4.withKnobs);
 
 stories.add('Interactive', (0, _storybookReadme.withReadme)(_ControlButton4.default, (0, _addonInfo.withInfo)()(function () {
 	return _react2.default.createElement(
-		'div',
-		{ className: 'single_col' },
+		_LinkPile2.default,
+		null,
 		_react2.default.createElement(
-			_LinkPile2.default,
-			null,
-			_react2.default.createElement(
-				_ControlButton2.default,
-				{
-					onClick: (0, _addonActions.action)('ControlButton onClick')
-				},
-				'Control all the buttons!'
-			),
-			_react2.default.createElement(
-				_ControlButton2.default,
-				{
-					iconLeft: (0, _react4.text)('Left Icon', 'edit'),
-					onClick: (0, _addonActions.action)('ControlButton onClick')
-				},
-				'I have a left icon'
-			),
-			_react2.default.createElement(
-				_ControlButton2.default,
-				{
-					iconLeft: (0, _react4.text)('Left Icon', 'edit'),
-					iconRight: (0, _react4.text)('Right Icon', 'favorite'),
-					onClick: (0, _addonActions.action)('ControlButton onClick')
-				},
-				'I have a right Icon'
-			),
-			_react2.default.createElement(
-				_ControlButton2.default,
-				{
-					iconRight: (0, _react4.text)('Rigth Icon', '🤖'),
-					href: (0, _react4.text)('Link href', 'https://sprucebot.com'),
-					onClick: (0, _addonActions.action)('Link onClick')
-				},
-				'I\'m a link!'
-			)
+			_ControlButton2.default,
+			{
+				onClick: (0, _addonActions.action)('ControlButton onClick')
+			},
+			'Control all the buttons!'
+		),
+		_react2.default.createElement(
+			_ControlButton2.default,
+			{
+				iconLeft: (0, _react4.text)('Left Icon', 'edit'),
+				onClick: (0, _addonActions.action)('ControlButton onClick')
+			},
+			'I have a left icon'
+		),
+		_react2.default.createElement(
+			_ControlButton2.default,
+			{
+				iconLeft: (0, _react4.text)('Left Icon', 'edit'),
+				iconRight: (0, _react4.text)('Right Icon', 'favorite'),
+				onClick: (0, _addonActions.action)('ControlButton onClick')
+			},
+			'I have a right Icon'
+		),
+		_react2.default.createElement(
+			_ControlButton2.default,
+			{
+				iconRight: (0, _react4.text)('Rigth Icon', '🤖'),
+				href: (0, _react4.text)('Link href', 'https://sprucebot.com'),
+				onClick: (0, _addonActions.action)('Link onClick')
+			},
+			'I\'m a link!'
 		)
 	);
 })));

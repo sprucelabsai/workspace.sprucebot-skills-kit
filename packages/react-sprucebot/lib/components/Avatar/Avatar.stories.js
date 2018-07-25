@@ -35,13 +35,9 @@ var stories = (0, _react3.storiesOf)('Avatar', module);
 stories.addDecorator(_react4.withKnobs);
 
 stories.add('Interactive', (0, _storybookReadme.withReadme)(_Avatar4.default, (0, _addonInfo.withInfo)()(function () {
-	return _react2.default.createElement(
-		'div',
-		{ className: 'single_col' },
-		_react2.default.createElement(_Avatar2.default, {
-			top: (0, _react4.boolean)('Top', true),
-			online: (0, _react4.boolean)('Onine', false),
-			image: (0, _react4.select)('Image', imageOptions, defaultImage)
-		})
-	);
+	return _react2.default.createElement(_Avatar2.default, {
+		top: (0, _react4.boolean)('Top', true),
+		online: (0, _react4.boolean)('Onine', false),
+		image: (0, _react4.select)('Image', imageOptions, defaultImage)
+	});
 })));

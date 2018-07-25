@@ -44,11 +44,7 @@ var stories = (0, _react3.storiesOf)('DateSelect', module);
 stories.addDecorator(_react4.withKnobs);
 
 stories.add('Interactive', (0, _storybookReadme.withReadme)(_DateSelect4.default, (0, _addonInfo.withInfo)()(function () {
-	return _react2.default.createElement(
-		'div',
-		{ className: 'single_col' },
-		_react2.default.createElement(_DateSelect2.default, { onDateSelect: function onDateSelect() {
-				return null;
-			}, availableDays: ['M'] })
-	);
+	return _react2.default.createElement(_DateSelect2.default, { onDateSelect: function onDateSelect() {
+			return null;
+		}, availableDays: ['M'] });
 })));

@@ -25,6 +25,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var stories = (0, _react3.storiesOf)('Feed', module);
 stories.addDecorator(_react4.withKnobs);
 
+var data = [{
+	id: 1,
+	message: 'How are you?'
+}, {
+	id: 2,
+	message: 'Well, thanks'
+}];
+
 stories.add('Interactive', (0, _storybookReadme.withReadme)(_Feed4.default, (0, _addonInfo.withInfo)()(function () {
-  return _react2.default.createElement(_Feed2.default, null);
+	return _react2.default.createElement(_Feed2.default, { data: data, header: 'Hello' });
 })));

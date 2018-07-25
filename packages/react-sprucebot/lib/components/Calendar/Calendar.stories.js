@@ -67,25 +67,21 @@ var stories = (0, _react3.storiesOf)('Calendar', module);
 stories.addDecorator(_react4.withKnobs);
 
 stories.add('Interactive', (0, _storybookReadme.withReadme)(_Calendar4.default, (0, _addonInfo.withInfo)()(function () {
-	return _react2.default.createElement(
-		'div',
-		{ className: 'single_col' },
-		_react2.default.createElement(_Calendar2.default, {
-			toolbar: false,
-			height: (0, _react4.text)('Height', '1500px'),
-			date: new Date('2018-08-10 01:00:00'),
-			events: events,
-			defaultView: 'day',
-			views: ['day'],
-			step: 15,
-			timeslots: 4,
-			titleAccessor: 'title',
-			startAccessor: 'start',
-			endAccessor: 'end',
-			allDayAccessor: 'allDay',
-			selectable: false,
-			onEventDrop: (0, _addonActions.action)('Drag and drop event'),
-			onEventResize: (0, _addonActions.action)('Resize event')
-		})
-	);
+	return _react2.default.createElement(_Calendar2.default, {
+		toolbar: false,
+		height: (0, _react4.text)('Height', '1500px'),
+		date: new Date('2018-08-10 01:00:00'),
+		events: events,
+		defaultView: 'day',
+		views: ['day'],
+		step: 15,
+		timeslots: 4,
+		titleAccessor: 'title',
+		startAccessor: 'start',
+		endAccessor: 'end',
+		allDayAccessor: 'allDay',
+		selectable: false,
+		onEventDrop: (0, _addonActions.action)('Drag and drop event'),
+		onEventResize: (0, _addonActions.action)('Resize event')
+	});
 })));

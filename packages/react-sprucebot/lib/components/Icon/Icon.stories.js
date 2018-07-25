@@ -26,5 +26,9 @@ var stories = (0, _react3.storiesOf)('Icon', module);
 stories.addDecorator(_react4.withKnobs);
 
 stories.add('Interactive', (0, _storybookReadme.withReadme)(_Icon4.default, (0, _addonInfo.withInfo)()(function () {
-  return _react2.default.createElement(_Icon2.default, null);
+	return _react2.default.createElement(
+		_Icon2.default,
+		null,
+		'edit'
+	);
 })));

@@ -44,19 +44,15 @@ var stories = (0, _react3.storiesOf)('DateRangeSelect', module);
 stories.addDecorator(_react4.withKnobs);
 
 stories.add('Interactive', (0, _storybookReadme.withReadme)(_DateRangeSelect4.default, (0, _addonInfo.withInfo)()(function () {
-	return _react2.default.createElement(
-		'div',
-		{ className: 'single_col' },
-		_react2.default.createElement(_DateRangeSelect2.default, {
-			allowPastDates: true,
-			bypassDaysBlocked: true,
-			onDatesChange: function onDatesChange(startDate, endDate) {
-				console.log(startDate, endDate);
-			},
-			numberOfMonths: 1,
-			setDefaultDates: true,
-			defaultStartDate: (0, _moment2.default)('2018-03-28'),
-			defaultEndDate: (0, _moment2.default)()
-		})
-	);
+	return _react2.default.createElement(_DateRangeSelect2.default, {
+		allowPastDates: true,
+		bypassDaysBlocked: true,
+		onDatesChange: function onDatesChange(startDate, endDate) {
+			console.log(startDate, endDate);
+		},
+		numberOfMonths: 1,
+		setDefaultDates: true,
+		defaultStartDate: (0, _moment2.default)('2018-03-28'),
+		defaultEndDate: (0, _moment2.default)()
+	});
 })));

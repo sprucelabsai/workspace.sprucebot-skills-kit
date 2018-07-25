@@ -32,12 +32,15 @@ stories.add('Interactive', (0, _storybookReadme.withReadme)(_FormField4.default,
 			input: { value: '', onChange: function onChange() {
 					return null;
 				} },
-			meta: { touched: false, error: null }
+			meta: { touched: false, error: null },
+			type: 'text',
+			label: 'Email Address',
+			placeholder: 'hello@sprucebot.com'
 		},
-		_react2.default.createElement(
-			'p',
-			null,
-			'I ama form field'
-		)
+		_react2.default.createElement('input', {
+			type: 'text',
+			label: 'Email Address',
+			placeholder: 'hello@sprucebot.com'
+		})
 	);
 })));

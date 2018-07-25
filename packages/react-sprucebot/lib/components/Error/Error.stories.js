@@ -30,5 +30,5 @@ var stories = (0, _react3.storiesOf)('Error', module);
 stories.addDecorator(_react4.withKnobs);
 
 stories.add('Interactive', (0, _storybookReadme.withReadme)(_Error4.default, (0, _addonInfo.withInfo)()(function () {
-  return _react2.default.createElement(_Error2.default, null);
+	return _react2.default.createElement(_Error2.default, { errorMessage: 'YaBlewIt' });
 })));
