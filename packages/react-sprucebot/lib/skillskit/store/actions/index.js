@@ -21,5 +21,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 module.exports = {
 	auth: auth,
 	onboarding: onboarding,
-	sharable: sharable
+	sharable: sharable,
+	calendar: calendar
 };

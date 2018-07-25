@@ -6,5 +6,6 @@ import * as calendar from './calendar'
 module.exports = {
 	auth,
 	onboarding,
-	sharable
+	sharable,
+	calendar
 }

@@ -5,4 +5,4 @@ import sharable from './sharable'
 import calendar from './calendar'
 import { reducer as form } from 'redux-form'
 
-export default { auth, config, onboarding, sharable, form }
+export default { auth, config, onboarding, sharable, form, calendar }
