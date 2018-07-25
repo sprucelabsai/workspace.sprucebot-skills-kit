@@ -34,10 +34,20 @@ var defaultImage = 'https://hello.sprucebot.com/avatar.jpg';
 var stories = (0, _react3.storiesOf)('Avatar', module);
 stories.addDecorator(_react4.withKnobs);
 
-stories.add('Interactive', (0, _storybookReadme.withReadme)(_Avatar4.default, (0, _addonInfo.withInfo)()(function () {
+stories.add('Default', (0, _storybookReadme.withReadme)(_Avatar4.default, (0, _addonInfo.withInfo)()(function () {
 	return _react2.default.createElement(_Avatar2.default, {
-		top: (0, _react4.boolean)('Top', true),
-		online: (0, _react4.boolean)('Onine', false),
+		top: false,
+		online: true,
+		showOnlineIndicator: true,
 		image: (0, _react4.select)('Image', imageOptions, defaultImage)
 	});
+}))).add('Not Online', (0, _storybookReadme.withReadme)(_Avatar4.default, (0, _addonInfo.withInfo)()(function () {
+	return _react2.default.createElement(_Avatar2.default, {
+		top: false,
+		online: false,
+		showOnlineIndicator: false,
+		image: (0, _react4.select)('Image', imageOptions, defaultImage)
+	});
+}))).add('Large', (0, _storybookReadme.withReadme)(_Avatar4.default, (0, _addonInfo.withInfo)()(function () {
+	return _react2.default.createElement(_Avatar2.default, { top: true, image: (0, _react4.select)('Image', imageOptions, defaultImage) });
 })));
