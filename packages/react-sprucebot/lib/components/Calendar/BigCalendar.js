@@ -552,7 +552,7 @@ var BigCalendar = function (_Component) {
 			// Expected event structure:
 			// const event = {
 			// 	title: 'My favorite event',
-			// 	type: 'shift',
+			// 	className: 'shift',
 			// 	start: new Date(),
 			// 	end: new Date(),
 			// 	allDay: true,
