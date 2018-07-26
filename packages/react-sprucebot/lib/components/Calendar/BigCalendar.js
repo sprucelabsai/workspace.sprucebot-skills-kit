@@ -22,10 +22,6 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _HorizontalWeek = require('./HorizontalWeek');
-
-var _HorizontalWeek2 = _interopRequireDefault(_HorizontalWeek);
-
 var _es6Tween = require('es6-tween');
 
 var _Avatar = require('../Avatar/Avatar');
@@ -45,6 +41,10 @@ var _Pager = require('../Pager/Pager');
 var _Pager2 = _interopRequireDefault(_Pager);
 
 var _Tabs = require('../Tabs/Tabs');
+
+var _HorizontalWeek = require('./HorizontalWeek');
+
+var _HorizontalWeek2 = _interopRequireDefault(_HorizontalWeek);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
