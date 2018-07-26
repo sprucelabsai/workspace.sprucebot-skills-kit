@@ -49,12 +49,12 @@ var ApiClient = function () {
 				var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 				return new Promise(function () {
 					var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(resolve, reject) {
-						var body, query, headers, fetchOptions, agent, fetchUrl, response, json;
+						var body, query, cancelToken, headers, fetchOptions, agent, fetchUrl, response, json;
 						return regeneratorRuntime.wrap(function _callee$(_context) {
 							while (1) {
 								switch (_context.prev = _context.next) {
 									case 0:
-										body = options.body, query = options.query;
+										body = options.body, query = options.query, cancelToken = options.cancelToken;
 										_context.prev = 1;
 										headers = {
 											Accept: 'application/json',
@@ -64,9 +64,14 @@ var ApiClient = function () {
 											method: method,
 											headers: headers,
 											data: body
-
-											// Allows Node to accept our self signed cert
 										};
+
+
+										if (cancelToken) {
+											fetchOptions.cancelToken = cancelToken;
+										}
+
+										// Allows Node to accept our self signed cert
 										if (_this.ssl && _this.allowSelfSignedCerts) {
 											agent = new _https2.default.Agent({
 												rejectUnauthorized: false
@@ -89,40 +94,40 @@ var ApiClient = function () {
 										}
 
 										// Start network request
-										_context.prev = 8;
-										_context.next = 11;
+										_context.prev = 9;
+										_context.next = 12;
 										return (0, _axios2.default)(fetchUrl, fetchOptions);
 
-									case 11:
+									case 12:
 										response = _context.sent;
 										json = response.data;
 
 										resolve(json);
-										_context.next = 19;
+										_context.next = 20;
 										break;
 
-									case 16:
-										_context.prev = 16;
-										_context.t0 = _context['catch'](8);
+									case 17:
+										_context.prev = 17;
+										_context.t0 = _context['catch'](9);
 										return _context.abrupt('return', reject(_context.t0 && _context.t0.response && _context.t0.response.data ? _context.t0.response.data : _context.t0));
 
-									case 19:
-										_context.next = 25;
+									case 20:
+										_context.next = 26;
 										break;
 
-									case 21:
-										_context.prev = 21;
+									case 22:
+										_context.prev = 22;
 										_context.t1 = _context['catch'](1);
 
 										console.error('Response failure', _context.t1);
 										reject(_context.t1);
 
-									case 25:
+									case 26:
 									case 'end':
 										return _context.stop();
 								}
 							}
-						}, _callee, _this, [[1, 21], [8, 16]]);
+						}, _callee, _this, [[1, 22], [9, 17]]);
 					}));
 
 					return function (_x2, _x3) {
