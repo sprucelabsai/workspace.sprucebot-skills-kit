@@ -17,11 +17,11 @@ export default class Container extends Component {
             alignItems: 'center',
           }}>
           {story()}
-          <div>
+          {/* <div>
             <p>Stylesheets</p>
             <p><a  href="#" onclick="changeCSS(event, \'https://dev-hello.sprucebot.com/skills.css\', 1);">Sprucebot</a></p>
             <p><a  href="#" onclick="changeCSS(event, \'https://ulta-stylesheets.sprucebot.com/theme.css\', 1);">Ulta</a></p>
-            </div>
+          </div> */}
         </div>
         <input
           aria-label="input-text-offleft"
