@@ -1,16 +1,23 @@
+import axios from 'axios'
+
+const CancelToken = axios.CancelToken
+
 export const FETCH_EVENTS_REQUEST = 'FETCH_EVENTS_REQUEST'
 export const FETCH_EVENTS_SUCCESS = 'FETCH_EVENTS_SUCCESS'
 export const FETCH_EVENTS_ERROR = 'FETCH_EVENTS_ERROR'
 
-export const fetchEvents = ({ start, end, userId }) => {
+export function fetchEvents({ start, end, userId }) {
+	const source = CancelToken.source()
+
 	return (dispatch, getState, next, client) => {
-		const { promise, request } = client.get(`/api/1.0/teammate/calendar.json`, {
-			query: { start, end, userId }
+		const promise = client.get(`/api/1.0/teammate/calendar.json`, {
+			query: { start, end, userId },
+			cancelToken: source.token
 		})
 
 		next({
 			type: FETCH_EVENTS_REQUEST,
-			request,
+			cancelToken: source,
 			promise
 		})
 
@@ -28,6 +35,6 @@ export const fetchEvents = ({ start, end, userId }) => {
 				})
 			})
 
-		return { promise, request }
+		return { promise, cancelToken: source }
 	}
 }

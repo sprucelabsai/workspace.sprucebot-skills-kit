@@ -3,25 +3,37 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+exports.FETCH_EVENTS_ERROR = exports.FETCH_EVENTS_SUCCESS = exports.FETCH_EVENTS_REQUEST = undefined;
+exports.fetchEvents = fetchEvents;
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CancelToken = _axios2.default.CancelToken;
+
 var FETCH_EVENTS_REQUEST = exports.FETCH_EVENTS_REQUEST = 'FETCH_EVENTS_REQUEST';
 var FETCH_EVENTS_SUCCESS = exports.FETCH_EVENTS_SUCCESS = 'FETCH_EVENTS_SUCCESS';
 var FETCH_EVENTS_ERROR = exports.FETCH_EVENTS_ERROR = 'FETCH_EVENTS_ERROR';
 
-var fetchEvents = exports.fetchEvents = function fetchEvents(_ref) {
+function fetchEvents(_ref) {
 	var start = _ref.start,
 	    end = _ref.end,
 	    userId = _ref.userId;
 
+	var source = CancelToken.source();
+
 	return function (dispatch, getState, next, client) {
-		var _client$get = client.get('/api/1.0/teammate/calendar.json', {
-			query: { start: start, end: end, userId: userId }
-		}),
-		    promise = _client$get.promise,
-		    request = _client$get.request;
+		var promise = client.get('/api/1.0/teammate/calendar.json', {
+			query: { start: start, end: end, userId: userId },
+			cancelToken: source.token
+		});
 
 		next({
 			type: FETCH_EVENTS_REQUEST,
-			request: request,
+			cancelToken: source,
 			promise: promise
 		});
 
@@ -37,6 +49,6 @@ var fetchEvents = exports.fetchEvents = function fetchEvents(_ref) {
 			});
 		});
 
-		return { promise: promise, request: request };
+		return { promise: promise, cancelToken: source };
 	};
-};
+}
