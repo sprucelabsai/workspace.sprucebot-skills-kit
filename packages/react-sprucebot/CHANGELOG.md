@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.30.0"></a>
+# [6.30.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.29.0...v6.30.0) (2018-07-26)
+
+
+### Bug Fixes
+
+* dialog error when rendered on page load ([9412771](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9412771))
+* next router link error ([7732a20](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7732a20))
+
+
+### Features
+
+* button fallback ([e7ff508](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e7ff508))
+
+
+
+
+
 <a name="6.29.0"></a>
 # [6.29.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.28.0...v6.29.0) (2018-07-26)
 
