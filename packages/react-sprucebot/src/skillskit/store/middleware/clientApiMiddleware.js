@@ -1,6 +1,12 @@
 export default function clientMiddleware(client) {
-	return ({dispatch, getState}) => { // eslint-disable-line
+	return ({ dispatch, getState }) => {
+		// eslint-disable-line
 		return next => action => {
+			const { auth } = getState()
+			if (auth && auth.jwt) {
+				client.setJwt(auth.jwt)
+			}
+
 			if (typeof action === 'function') {
 				return action(dispatch, getState, next, client)
 			}
@@ -16,10 +22,6 @@ export default function clientMiddleware(client) {
 				type: REQUEST
 			})
 
-			const { auth } = getState()
-			if (auth && auth.jwt) {
-				client.setJwt(auth.jwt)
-			}
 			const actionPromise = promise(client, auth)
 
 			actionPromise
