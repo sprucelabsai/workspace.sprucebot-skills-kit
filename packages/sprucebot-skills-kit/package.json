@@ -49,7 +49,6 @@
 		"react-redux": "^5.0.6",
 		"react-sprucebot": "^6.30.0",
 		"redux": "^3.7.2",
-		"redux-thunk": "^2.2.0",
 		"sprucebot-node": "^6.23.0",
 		"sprucebot-skills-kit-server": "^6.18.0",
 		"styled-components": "^3.2.1",
