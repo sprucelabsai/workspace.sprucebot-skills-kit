@@ -12,10 +12,15 @@ var _sharable = require('./sharable');
 
 var sharable = _interopRequireWildcard(_sharable);
 
+var _calendar = require('./calendar');
+
+var calendar = _interopRequireWildcard(_calendar);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 module.exports = {
 	auth: auth,
 	onboarding: onboarding,
-	sharable: sharable
+	sharable: sharable,
+	calendar: calendar
 };
