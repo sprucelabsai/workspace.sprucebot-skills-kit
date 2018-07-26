@@ -191,8 +191,8 @@ var Button = function (_Component) {
 			var usingLink = false;
 
 			if (href || remove) {
-				Tag = _router2.default.router ? _link2.default : _react.Fragment;
-				usingLink = true;
+				Tag = _router2.default.router ? _link2.default : 'a';
+				usingLink = _router2.default.router;
 			} else if (tag === 'button') {
 				Tag = StyledButton;
 			} else {

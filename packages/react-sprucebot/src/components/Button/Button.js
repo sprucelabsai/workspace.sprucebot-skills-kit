@@ -139,8 +139,8 @@ export default class Button extends Component {
 		let usingLink = false
 
 		if (href || remove) {
-			Tag = SingletonRouter.router ? Link : Fragment
-			usingLink = true
+			Tag = SingletonRouter.router ? Link : 'a'
+			usingLink = SingletonRouter.router
 		} else if (tag === 'button') {
 			Tag = StyledButton
 		} else {
