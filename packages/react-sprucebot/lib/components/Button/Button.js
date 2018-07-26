@@ -198,9 +198,9 @@ var Button = function (_Component) {
 			return _react2.default.createElement(
 				Tag,
 				_extends({
-					className: 'btn ' + btnClass + ' ' + (className || '')
-					// onClick={this.onClick}
-					, disabled: disabled,
+					className: 'btn ' + btnClass + ' ' + (className || ''),
+					onClick: usingLink ? null : this.onClick,
+					disabled: disabled,
 					busy: busy,
 					href: href
 				}, props),

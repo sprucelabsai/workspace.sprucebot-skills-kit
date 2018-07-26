@@ -149,7 +149,7 @@ export default class Button extends Component {
 		return (
 			<Tag
 				className={`btn ${btnClass} ${className || ''}`}
-				// onClick={this.onClick}
+				onClick={usingLink ? null : this.onClick}
 				disabled={disabled}
 				busy={busy}
 				href={href}
