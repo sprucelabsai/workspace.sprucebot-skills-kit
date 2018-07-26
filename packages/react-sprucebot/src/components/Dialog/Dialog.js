@@ -85,7 +85,9 @@ export default class Dialog extends Component {
 			dialogUnderlay.className = 'dialog_underlay'
 			document.body.appendChild(dialogUnderlay)
 		}
-		dialogUnderlay.classList.add('on')
+		if (dialogUnderlay) {
+			dialogUnderlay.classList.add('on')
+		}
 	}
 
 	componentDidMount() {
