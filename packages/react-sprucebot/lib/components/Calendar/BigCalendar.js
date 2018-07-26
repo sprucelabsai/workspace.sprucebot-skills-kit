@@ -736,7 +736,11 @@ BigCalendar.propTypes = {
 	supportedModes: _propTypes2.default.array.isRequired, //NOT IMPLEMENTED
 	defaultMode: _propTypes2.default.string.isRequired,
 	storeSchedule: _propTypes2.default.objectOf.isRequired,
-	teamDayViewWidth: _propTypes2.default.number
+	teamDayViewWidth: _propTypes2.default.number,
+	handleClickEvent: _propTypes2.default.func,
+	handleClickOpenSlot: _propTypes2.default.func,
+	handleDropEvent: _propTypes2.default.func,
+	handleResizeEvent: _propTypes2.default.func
 };
 
 BigCalendar.defaultProps = {
