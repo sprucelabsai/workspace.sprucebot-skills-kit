@@ -20,6 +20,9 @@ exports[`FormExample it renders 1`] = `
             "auth": Object {
               "go": [Function],
             },
+            "calendar": Object {
+              "fetchCalendar": [Function],
+            },
             "onboarding": Object {
               "didOnboarding": [Function],
               "finishOnboarding": [Function],
@@ -30,6 +33,7 @@ exports[`FormExample it renders 1`] = `
           }
         }
         auth={Object {}}
+        calendar={Object {}}
         config={
           Object {
             "SERVER_HOST": "https://example.com",
