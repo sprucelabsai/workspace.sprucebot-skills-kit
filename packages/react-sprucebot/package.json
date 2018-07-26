@@ -62,6 +62,7 @@
 		"classnames": "^2.2.5",
 		"cookies": "^0.7.1",
 		"debug": "^3.1.0",
+		"es6-tween": "^5.3.0",
 		"exenv": "^1.2.2",
 		"exif-orientation-image": "^1.0.1",
 		"imagesloaded": "^4.1.4",
