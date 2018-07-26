@@ -53,6 +53,25 @@ export default class BigCalendar extends Component {
 		// }
 	}
 
+	componentDidMount = () => {
+		//give things a sec to settle before recording sizes
+		this.refresh()
+		setTimeout(() => {}, 250)
+		window.addEventListener('resize', this.handleWindowResize)
+	}
+
+	componentWillUnmount = () => {
+		window.removeEventListener('resize', this.handleWindowResize)
+	}
+
+	setEvents = events => {
+		this.setState({ events })
+	}
+
+	events = () => {
+		return this.state.events
+	}
+
 	generatePagerTitle = page => {
 		console.log('PAGER TITLE', page)
 
@@ -354,17 +373,6 @@ export default class BigCalendar extends Component {
 		}
 	}
 
-	componentDidMount = () => {
-		//give things a sec to settle before recording sizes
-		this.refresh()
-		setTimeout(() => {}, 250)
-		window.addEventListener('resize', this.handleWindowResize)
-	}
-
-	componentWillUnmount = () => {
-		window.removeEventListener('resize', this.handleWindowResize)
-	}
-
 	handleWindowResize = () => {
 		this.setState({
 			resized: this.state.resized++
@@ -415,7 +423,7 @@ export default class BigCalendar extends Component {
 	}
 
 	render() {
-		const { auth, className, supportedViews } = this.props
+		const { auth, className, supportedViews, onClickOpenSlot } = this.props
 		const {
 			selectedDate,
 			view,
@@ -463,7 +471,8 @@ export default class BigCalendar extends Component {
 			toolbar: false,
 			defaultDate: selectedDate.toDate(),
 			min: min.toDate(),
-			max: max.toDate()
+			max: max.toDate(),
+			selectable: onClickOpenSlot && true
 		}
 
 		let team = showAllTeammates ? teammates : [auth]
@@ -533,7 +542,6 @@ export default class BigCalendar extends Component {
 												idx === 0 && !renderFirstCalendar ? 'hide' : ''
 											}`}
 											views={views}
-											selectable={true}
 											events={events ? this.filterEvents(events, teammate) : []}
 											eventPropGetter={event => this.applyClassNames(event)}
 											onSelectEvent={this.handleClickEvent}

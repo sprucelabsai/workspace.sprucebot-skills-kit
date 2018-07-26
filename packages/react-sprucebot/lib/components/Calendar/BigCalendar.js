@@ -77,6 +77,25 @@ var BigCalendar = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (BigCalendar.__proto__ || Object.getPrototypeOf(BigCalendar)).call(this, props));
 
+		_this.componentDidMount = function () {
+			//give things a sec to settle before recording sizes
+			_this.refresh();
+			setTimeout(function () {}, 250);
+			window.addEventListener('resize', _this.handleWindowResize);
+		};
+
+		_this.componentWillUnmount = function () {
+			window.removeEventListener('resize', _this.handleWindowResize);
+		};
+
+		_this.setEvents = function (events) {
+			_this.setState({ events: events });
+		};
+
+		_this.events = function () {
+			return _this.state.events;
+		};
+
 		_this.generatePagerTitle = function (page) {
 			console.log('PAGER TITLE', page);
 
@@ -456,17 +475,6 @@ var BigCalendar = function (_Component) {
 			}
 		};
 
-		_this.componentDidMount = function () {
-			//give things a sec to settle before recording sizes
-			_this.refresh();
-			setTimeout(function () {}, 250);
-			window.addEventListener('resize', _this.handleWindowResize);
-		};
-
-		_this.componentWillUnmount = function () {
-			window.removeEventListener('resize', _this.handleWindowResize);
-		};
-
 		_this.handleWindowResize = function () {
 			_this.setState({
 				resized: _this.state.resized++
@@ -573,7 +581,8 @@ var BigCalendar = function (_Component) {
 			var _props = this.props,
 			    auth = _props.auth,
 			    className = _props.className,
-			    supportedViews = _props.supportedViews;
+			    supportedViews = _props.supportedViews,
+			    onClickOpenSlot = _props.onClickOpenSlot;
 			var _state = this.state,
 			    selectedDate = _state.selectedDate,
 			    view = _state.view,
@@ -626,7 +635,8 @@ var BigCalendar = function (_Component) {
 				toolbar: false,
 				defaultDate: selectedDate.toDate(),
 				min: min.toDate(),
-				max: max.toDate()
+				max: max.toDate(),
+				selectable: onClickOpenSlot && true
 			};
 
 			var team = showAllTeammates ? teammates : [auth];
@@ -704,7 +714,6 @@ var BigCalendar = function (_Component) {
 								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
 									className: '' + (idx === 0 && !renderFirstCalendar ? 'hide' : ''),
 									views: views,
-									selectable: true,
 									events: events ? _this3.filterEvents(events, teammate) : [],
 									eventPropGetter: function eventPropGetter(event) {
 										return _this3.applyClassNames(event);
