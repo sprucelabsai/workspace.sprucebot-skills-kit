@@ -19,6 +19,10 @@ function clientMiddleware(client) {
 		// eslint-disable-line
 		return function (next) {
 			return function (action) {
+				if (typeof action === 'function') {
+					return action(dispatch, getState, next, client);
+				}
+
 				var promise = action.promise,
 				    types = action.types,
 				    rest = _objectWithoutProperties(action, ['promise', 'types']);

@@ -4,21 +4,19 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _IconButton = require('../IconButton/IconButton');
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Input = require('../Input/Input');
-
-var _Input2 = _interopRequireDefault(_Input);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28,44 +26,47 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Select = function (_Component) {
-	_inherits(Select, _Component);
+var HelpButton = function (_Component) {
+	_inherits(HelpButton, _Component);
 
-	function Select() {
-		_classCallCheck(this, Select);
+	function HelpButton() {
+		_classCallCheck(this, HelpButton);
 
-		return _possibleConstructorReturn(this, (Select.__proto__ || Object.getPrototypeOf(Select)).apply(this, arguments));
+		return _possibleConstructorReturn(this, (HelpButton.__proto__ || Object.getPrototypeOf(HelpButton)).apply(this, arguments));
 	}
 
-	_createClass(Select, [{
+	_createClass(HelpButton, [{
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
 
-			var p = _extends({}, this.props);
+			var _props = this.props,
+			    title = _props.title,
+			    _props$body = _props.body,
+			    body = _props$body === undefined ? '' : _props$body;
 
-			// set the proper tag
-			p.tag = 'select';
-
-			// build the class
-			p.className = 'custom_dropdown ' + (p.className || '') + ' ';
-			if (p.label) {
-				p.className += ' with_label';
-			}
-			return _react2.default.createElement(_Input2.default, _extends({
-				ref: function ref(input) {
-					_this2.input = input;
-				}
-			}, p));
-		}
-	}, {
-		key: 'value',
-		get: function get() {
-			return this.input.value;
+			return React.createElement(
+				_IconButton2.default,
+				{
+					onClick: function onClick() {
+						_this2.props.skill.showHelp({
+							title: title,
+							body: body
+						});
+					}
+				},
+				'help'
+			);
 		}
 	}]);
 
-	return Select;
+	return HelpButton;
 }(_react.Component);
 
-exports.default = Select;
+exports.default = HelpButton;
+
+
+HelpButton.propTypes = {
+	title: _propTypes2.default.string.isRequired,
+	body: _propTypes2.default.string
+};

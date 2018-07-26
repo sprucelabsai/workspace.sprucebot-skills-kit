@@ -166,6 +166,11 @@ var Input = function (_Component) {
 				)
 			);
 		}
+	}, {
+		key: 'value',
+		get: function get() {
+			return this.input.value;
+		}
 	}]);
 
 	return Input;

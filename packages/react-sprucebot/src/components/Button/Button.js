@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Loader from '../Loader/Loader'
+import Link from 'next/link'
 
 const ButtonWrapper = styled.div`
 	display: flex;
@@ -58,32 +59,7 @@ export default class Button extends Component {
 		if (onClick) {
 			onClick(e)
 		} else if (href) {
-			e.preventDefault()
 			this.setState({ busy: true })
-			const url = href
-			if (/^http/.test(url)) {
-				// If the href is a full domain name
-				if (target) {
-					window.open(url, target)
-				} else {
-					window.open(url, '_self')
-				}
-			} else {
-				// Relative url
-				if (target) {
-					window.open(url, target)
-				} else if (router) {
-					router.push(url)
-				} else {
-					window.open(url, '_self')
-				}
-			}
-
-			// Reset the state to not-busy if it's been 10 sec
-			// is there a reason for this?
-			setTimeout(() => {
-				this.setState({ busy: false })
-			}, 10000)
 		}
 	}
 
@@ -122,9 +98,9 @@ export default class Button extends Component {
 			loaderStyle,
 			busy: propBusy,
 			hideLoader,
-			tertiary,
 			left,
 			right,
+			href,
 			...props
 		} = this.props
 
@@ -155,45 +131,42 @@ export default class Button extends Component {
 
 		if (remove) {
 			btnClass = 'btn__remove'
-		} else if (!btnClass) {
-			btnClass = 'btn'
 		}
 
 		// if this button has a href or is a "remove" button, make it an anchor
 		let Tag
-		if (props.href || remove) {
-			Tag = StyledAnchor
+		let usingLink = false
+
+		if (href || remove) {
+			Tag = Link
+			usingLink = true
 		} else if (tag === 'button') {
 			Tag = StyledButton
 		} else {
 			Tag = tag
 		}
 
-		if (tertiary) {
-			return (
-				<ButtonWrapper left={left} right={right}>
-					<Tag
-						className={`${btnClass} ${className || ''}`}
-						onClick={this.onClick}
-						disabled={disabled}
-						busy={busy}
-						{...props}
-					>
-						{this.renderView()}
-					</Tag>
-				</ButtonWrapper>
-			)
-		}
-
 		return (
 			<Tag
-				className={`${btnClass} ${className || ''}`}
-				onClick={this.onClick}
+				className={`btn ${btnClass} ${className || ''}`}
+				// onClick={this.onClick}
 				disabled={disabled}
 				busy={busy}
+				href={href}
 				{...props}
 			>
-				{this.renderView()}
+				<Fragment>
+					{usingLink && (
+						<a
+							href={href}
+							onClick={this.onClick}
+							className={`btn ${btnClass} ${className || ''}`}
+						>
+							<span className="wrapper">{this.renderView()}</span>
+						</a>
+					)}
+					{!usingLink && <span className="wrapper">{this.renderView()}</span>}
+				</Fragment>
 			</Tag>
 		)
 	}
@@ -210,7 +183,6 @@ Button.propTypes = {
 	remove: PropTypes.bool,
 	toggle: PropTypes.bool,
 	hideLoader: PropTypes.bool,
-	tertiary: PropTypes.bool,
 	left: PropTypes.bool,
 	right: PropTypes.bool,
 	type: PropTypes.string

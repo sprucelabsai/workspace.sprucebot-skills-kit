@@ -872,7 +872,7 @@ const WhiteLabel = styled(Wrapper)`
 			`};
 	}
 	${props =>
-		props.currentWeek &&
+		props.weekSelection &&
 		`
 	.CalendarDay__selected_span,
 	.CalendarDay__selected_span:active,
@@ -936,13 +936,15 @@ class DateRangeSelect extends Component {
 	}
 
 	isDayBlocked = date => {
-		const { availableDays, bypassDaysBlocked } = this.props
+		const { availableDays } = this.props
 
-		if (bypassDaysBlocked) {
+		if (availableDays === undefined) {
 			return false
 		}
 
-		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
+		const match = (availableDays || []).find(
+			day => day === date.format('YYYY-MM-DD')
+		)
 		const lastDate = moment(availableDays[availableDays.length - 1]).endOf(
 			'month'
 		)
@@ -984,9 +986,9 @@ class DateRangeSelect extends Component {
 	}
 
 	handleDateChange = (selectedStart, selectedEnd) => {
-		const { onDatesChange, currentWeek } = this.props
+		const { onDatesChange = () => {}, weekSelection } = this.props
 
-		if (currentWeek) {
+		if (weekSelection) {
 			const startOfWeek = moment(selectedStart).startOf('week')
 			const endOfWeek = moment(selectedStart).endOf('week')
 
@@ -1035,7 +1037,7 @@ class DateRangeSelect extends Component {
 		const { startDate, endDate, focusedInput } = this.state
 		const {
 			numberOfMonths,
-			currentWeek,
+			weekSelection,
 			enableOutsideDays,
 			initialVisibleMonth,
 			onPrevMonthClick,
@@ -1047,7 +1049,7 @@ class DateRangeSelect extends Component {
 
 		return (
 			<WhiteLabel
-				currentWeek={currentWeek}
+				weekSelection={weekSelection}
 				enableOutsideDays={enableOutsideDays}
 				hide={hide}
 				loading={loading}
@@ -1101,12 +1103,11 @@ class DateRangeSelect extends Component {
 export default DateRangeSelect
 
 DateRangeSelect.propTypes = {
-	availableDays: requiredIf(PropTypes.array, props => !props.bypassDaysBlocked),
-	bypassDaysBlocked: PropTypes.bool,
+	availableDays: PropTypes.array,
 	allowPastDates: PropTypes.bool,
 	onDatesChange: PropTypes.func.isRequired,
 	numberOfMonths: PropTypes.number,
-	currentWeek: PropTypes.bool,
+	weekSelection: PropTypes.bool,
 	enableOutsideDays: PropTypes.bool,
 	setDefaultDates: PropTypes.bool,
 	defaultStartDate: PropTypes.any,

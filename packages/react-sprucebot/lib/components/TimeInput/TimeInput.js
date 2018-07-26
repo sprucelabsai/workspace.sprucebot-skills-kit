@@ -81,23 +81,27 @@ var TimeInput = function (_Component) {
 
 		_this.onChange = function () {
 			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
-				var onChange;
+				var onChange, value;
 				return regeneratorRuntime.wrap(function _callee$(_context) {
 					while (1) {
 						switch (_context.prev = _context.next) {
 							case 0:
 								onChange = _this.props.onChange;
-								_context.next = 3;
-								return _this.setState({
-									value: _this.input.value
-								});
+								value = _this.input.value;
 
-							case 3:
-								if (onChange) {
-									onChange(_this.input.value);
+
+								if (/^\d\d:\d\d$/.test(value)) {
+									value += ':00';
 								}
 
-							case 4:
+								_this.setState({
+									value: value
+								});
+								if (onChange) {
+									onChange(value);
+								}
+
+							case 5:
 							case 'end':
 								return _context.stop();
 						}
@@ -132,7 +136,8 @@ var TimeInput = function (_Component) {
 						switch (_context2.prev = _context2.next) {
 							case 0:
 								onChange = _this.props.onChange;
-								time = momentTime.format('HH:mm');
+								time = momentTime.format('HH:mm') + ':00'; // only whole minutes for time input
+
 								_context2.next = 4;
 								return _this.setState({
 									value: time

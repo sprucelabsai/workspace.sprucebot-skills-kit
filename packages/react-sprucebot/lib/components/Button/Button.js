@@ -24,6 +24,10 @@ var _Loader = require('../Loader/Loader');
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
+var _link = require('next/link');
+
+var _link2 = _interopRequireDefault(_link);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -84,32 +88,7 @@ var Button = function (_Component) {
 			if (onClick) {
 				onClick(e);
 			} else if (href) {
-				e.preventDefault();
 				_this.setState({ busy: true });
-				var url = href;
-				if (/^http/.test(url)) {
-					// If the href is a full domain name
-					if (target) {
-						window.open(url, target);
-					} else {
-						window.open(url, '_self');
-					}
-				} else {
-					// Relative url
-					if (target) {
-						window.open(url, target);
-					} else if (router) {
-						router.push(url);
-					} else {
-						window.open(url, '_self');
-					}
-				}
-
-				// Reset the state to not-busy if it's been 10 sec
-				// is there a reason for this?
-				setTimeout(function () {
-					_this.setState({ busy: false });
-				}, 10000);
 			}
 		};
 
@@ -168,10 +147,10 @@ var Button = function (_Component) {
 			    loaderStyle = _props.loaderStyle,
 			    propBusy = _props.busy,
 			    hideLoader = _props.hideLoader,
-			    tertiary = _props.tertiary,
 			    left = _props.left,
 			    right = _props.right,
-			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'tertiary', 'left', 'right']);
+			    href = _props.href,
+			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'left', 'right', 'href']);
 
 			var busy = this.state.busy;
 
@@ -201,46 +180,52 @@ var Button = function (_Component) {
 
 			if (remove) {
 				btnClass = 'btn__remove';
-			} else if (!btnClass) {
-				btnClass = 'btn';
 			}
 
 			// if this button has a href or is a "remove" button, make it an anchor
 			var Tag = void 0;
-			if (props.href || remove) {
-				Tag = StyledAnchor;
+			var usingLink = false;
+
+			if (href || remove) {
+				Tag = _link2.default;
+				usingLink = true;
 			} else if (tag === 'button') {
 				Tag = StyledButton;
 			} else {
 				Tag = tag;
 			}
 
-			if (tertiary) {
-				return _react2.default.createElement(
-					ButtonWrapper,
-					{ left: left, right: right },
-					_react2.default.createElement(
-						Tag,
-						_extends({
-							className: btnClass + ' ' + (className || ''),
-							onClick: this.onClick,
-							disabled: disabled,
-							busy: busy
-						}, props),
-						this.renderView()
-					)
-				);
-			}
-
 			return _react2.default.createElement(
 				Tag,
 				_extends({
-					className: btnClass + ' ' + (className || ''),
-					onClick: this.onClick,
-					disabled: disabled,
-					busy: busy
+					className: 'btn ' + btnClass + ' ' + (className || '')
+					// onClick={this.onClick}
+					, disabled: disabled,
+					busy: busy,
+					href: href
 				}, props),
-				this.renderView()
+				_react2.default.createElement(
+					_react.Fragment,
+					null,
+					usingLink && _react2.default.createElement(
+						'a',
+						{
+							href: href,
+							onClick: this.onClick,
+							className: 'btn ' + btnClass + ' ' + (className || '')
+						},
+						_react2.default.createElement(
+							'span',
+							{ className: 'wrapper' },
+							this.renderView()
+						)
+					),
+					!usingLink && _react2.default.createElement(
+						'span',
+						{ className: 'wrapper' },
+						this.renderView()
+					)
+				)
 			);
 		}
 	}]);
@@ -262,7 +247,6 @@ Button.propTypes = {
 	remove: _propTypes2.default.bool,
 	toggle: _propTypes2.default.bool,
 	hideLoader: _propTypes2.default.bool,
-	tertiary: _propTypes2.default.bool,
 	left: _propTypes2.default.bool,
 	right: _propTypes2.default.bool,
 	type: _propTypes2.default.string

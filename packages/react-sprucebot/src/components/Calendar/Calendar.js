@@ -15,11 +15,8 @@ BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLoc
 const CalendarComponent = withDragAndDrop(BigCalendar)
 
 const CalendarWrapper = styled.div.attrs({
-	className: `rbc-calendar-wrapper`
+	className: `calendar__wrapper`
 })`
-	height: ${props => props.height};
-	${props =>
-		props.defaultView === 'week' && `position: absolute; width: 1500px;`};
 	.rbc-btn {
 		color: inherit;
 		font: inherit;
@@ -41,7 +38,6 @@ const CalendarWrapper = styled.div.attrs({
 	.rbc-calendar {
 		box-sizing: border-box;
 		height: 100%;
-		min-width: 300px;
 		display: -webkit-flex;
 		display: -ms-flexbox;
 		display: flex;
@@ -121,7 +117,7 @@ const CalendarWrapper = styled.div.attrs({
 		z-index: 4;
 	}
 	.rbc-today {
-		background-color: #fafafa;
+		background-color: #eaf6ff;
 	}
 	.rbc-toolbar {
 		display: -webkit-flex;
@@ -132,7 +128,6 @@ const CalendarWrapper = styled.div.attrs({
 		align-items: center;
 		margin-bottom: 10px;
 		font-size: 16px;
-		flex-wrap: wrap;
 	}
 	.rbc-toolbar .rbc-toolbar-label {
 		-webkit-flex-grow: 1;
@@ -145,7 +140,6 @@ const CalendarWrapper = styled.div.attrs({
 		color: #373a3c;
 		display: inline-block;
 		margin: 0;
-		width: auto;
 		text-align: center;
 		vertical-align: middle;
 		background: none;
@@ -219,8 +213,9 @@ const CalendarWrapper = styled.div.attrs({
 	}
 	.rbc-event {
 		padding: 2px 5px;
-		background-color: #dbeff3;
-		color: #4cadc1;
+		background-color: #3174ad;
+		border-radius: 5px;
+		color: #fff;
 		cursor: pointer;
 	}
 	.rbc-slot-selecting .rbc-event {
@@ -228,8 +223,7 @@ const CalendarWrapper = styled.div.attrs({
 		pointer-events: none;
 	}
 	.rbc-event.rbc-selected {
-		background-color: #1baac5;
-		color: #fff;
+		background-color: #265985;
 	}
 	.rbc-event-label {
 		font-size: 80%;
@@ -464,7 +458,7 @@ const CalendarWrapper = styled.div.attrs({
 		flex: 1;
 	}
 	.rbc-timeslot-group {
-		border-bottom: 1px solid #b2b3b7;
+		border-bottom: 1px solid #ddd;
 		min-height: 40px;
 		display: -webkit-flex;
 		display: -ms-flexbox;
@@ -489,7 +483,7 @@ const CalendarWrapper = styled.div.attrs({
 		bottom: 0;
 		left: 0;
 		position: absolute;
-		right: 0;
+		right: 10px;
 		top: 0;
 	}
 	.rbc-day-slot .rbc-events-container.rbc-is-rtl {
@@ -497,12 +491,12 @@ const CalendarWrapper = styled.div.attrs({
 		right: 0;
 	}
 	.rbc-day-slot .rbc-event {
-		border: 1px solid #fff;
+		border: 1px solid #265985;
 		display: -webkit-flex;
 		display: -ms-flexbox;
 		display: flex;
 		max-height: 100%;
-		min-height: 35px;
+		min-height: 20px;
 		-webkit-flex-flow: column wrap;
 		-ms-flex-flow: column wrap;
 		flex-flow: column wrap;
@@ -517,7 +511,7 @@ const CalendarWrapper = styled.div.attrs({
 		-ms-flex: none;
 		flex: none;
 		padding-right: 5px;
-		width: inherit;
+		width: auto;
 	}
 	.rbc-day-slot .rbc-event-content {
 		width: 100%;
@@ -526,7 +520,6 @@ const CalendarWrapper = styled.div.attrs({
 		flex: 1 1 0;
 		word-wrap: break-word;
 		line-height: 1;
-		font-weight: 600;
 		height: 100%;
 		min-height: 1em;
 	}
@@ -568,7 +561,6 @@ const CalendarWrapper = styled.div.attrs({
 		flex: 1;
 		width: 100%;
 		border: 1px solid #ddd;
-		height: 100%;
 		min-height: 0;
 	}
 	.rbc-time-view .rbc-time-gutter {
@@ -590,16 +582,13 @@ const CalendarWrapper = styled.div.attrs({
 	.rbc-time-header {
 		display: -webkit-flex;
 		display: -ms-flexbox;
+		display: flex;
 		-webkit-flex: 0 0 auto;
 		-ms-flex: 0 0 auto;
 		flex: 0 0 auto;
 		-webkit-flex-direction: row;
 		-ms-flex-direction: row;
 		flex-direction: row;
-	}
-	.rbc-time-header-gutter:before {
-		font-size: 0.8em;
-		content: 'All day';
 	}
 	.rbc-time-header.rbc-overflowing {
 		border-right: 1px solid #ddd;
@@ -640,6 +629,7 @@ const CalendarWrapper = styled.div.attrs({
 		align-items: flex-start;
 		width: 100%;
 		border-top: 2px solid #ddd;
+		overflow-y: auto;
 		position: relative;
 	}
 	.rbc-time-content > .rbc-time-gutter {
@@ -663,265 +653,10 @@ const CalendarWrapper = styled.div.attrs({
 	}
 	.rbc-current-time-indicator {
 		position: absolute;
-		z-index: 997;
+		z-index: 3;
 		height: 1px;
-		background-color: #f85a3e;
+		background-color: #74ad31;
 		pointer-events: none;
-	}
-	.rbc-addons-dnd .rbc-row-content {
-		pointer-events: none;
-	}
-	.rbc-addons-dnd .rbc-row-content .rbc-show-more,
-	.rbc-addons-dnd .rbc-row-content .rbc-event {
-		pointer-events: all;
-	}
-	.rbc-addons-dnd .rbc-addons-dnd-over {
-		background-color: rgba(0, 0, 0, 0.3);
-		color: red;
-	}
-	.rbc-addons-dnd .rbc-events-container {
-		pointer-events: none;
-	}
-	.rbc-addons-dnd .rbc-event {
-		transition: opacity 150ms;
-		pointer-events: all;
-	}
-	.rbc-addons-dnd.rbc-addons-dnd-is-dragging .rbc-event {
-		pointer-events: none;
-		opacity: 0.5;
-	}
-	.rbc-addons-dnd .rbc-addons-dnd-resizable {
-		position: relative;
-		width: 100%;
-		height: 100%;
-	}
-	.rbc-addons-dnd .rbc-addons-dnd-resize-ns-anchor {
-		width: 100%;
-		text-align: center;
-		position: absolute;
-	}
-	.rbc-addons-dnd .rbc-addons-dnd-resize-ns-anchor:first-child {
-		top: 0;
-	}
-	.rbc-addons-dnd .rbc-addons-dnd-resize-ns-anchor:last-child {
-		bottom: 0;
-	}
-	.rbc-addons-dnd
-		.rbc-addons-dnd-resize-ns-anchor
-		.rbc-addons-dnd-resize-ns-icon {
-		display: none;
-		border-top: 4px double;
-		margin: 0 auto;
-		width: 10px;
-		cursor: ns-resize;
-	}
-	.rbc-addons-dnd .rbc-addons-dnd-resize-ew-anchor {
-		position: absolute;
-		top: 4px;
-		bottom: 0;
-	}
-	.rbc-addons-dnd .rbc-addons-dnd-resize-ew-anchor:first-child {
-		left: 0;
-	}
-	.rbc-addons-dnd .rbc-addons-dnd-resize-ew-anchor:last-child {
-		right: 0;
-	}
-	.rbc-addons-dnd
-		.rbc-addons-dnd-resize-ew-anchor
-		.rbc-addons-dnd-resize-ew-icon {
-		display: none;
-		border-left: 3px double;
-		margin-top: auto;
-		margin-bottom: auto;
-		height: 10px;
-		cursor: ew-resize;
-	}
-	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ns-icon,
-	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ew-icon {
-		display: ${props => (props.disableResize ? 'none' : 'block')};
-	}
-	/*White Label*/
-	.rbc-event {
-		min-height: 35px !important;
-	}
-	.rbc-event-content {
-		text-transform: capitalize;
-	}
-	.rbc-time-header-cell {
-		${props =>
-			props.customView !== 'team-day' &&
-			props.defaultView === 'day' &&
-			`display: none`};
-	}
-	.rbc-time-gutter {
-		${props =>
-			props.multiCalendarOrder &&
-			props.multiCalendarOrder !== 0 &&
-			`
-			width: 0px;
-			color: rgba(0,0,0,0);
-			.rbc-label {
-				padding: 0;
-			}
-			`};
-	}
-	.rbc-time-header-gutter {
-		${props =>
-			props.multiCalendarOrder &&
-			props.multiCalendarOrder !== 0 &&
-			`
-			display: none;
-			`};
-	}
-	.rbc-current-time-indicator {
-		height: 2px;
-		background-color: #f85a3e;
-	}
-	.rbc-today {
-		background-color: rgba(96, 180, 199, 0.1);
-		color: #00aac7;
-	}
-	.rbc-event__shift-day,
-	.rbc-event__shift-week {
-		left: 0% !important;
-		width: 75% !important;
-		border: none !important;
-		border-radius: 5px;
-		background-color: #dbeff3;
-		color: #4cadc1;
-		z-index: 1 !important;
-	}
-	.rbc-event__block-day.rbc-event-teammate,
-	.rbc-event__block-week.rbc-event-teammate,
-	.rbc-event__shift-day.rbc-event-teammate,
-	.rbc-event__shift-week.rbc-event-teammate {
-		pointer-events: none !important;
-	}
-	.rbc-event__break-day,
-	.rbc-event__break-week {
-		left: 30% !important;
-		width: 70% !important;
-		border: none !important;
-		border-radius: 5px;
-		background-color: #c8dadd;
-		color: #387e8d;
-		z-index: 2 !important;
-	}
-	.rbc-event__block-day,
-	.rbc-event__block-week {
-		left: 15% !important;
-		width: 75% !important;
-		border: none !important;
-		border-radius: 5px;
-		background-color: #949494;
-		color: #0e2024;
-		z-index: 3 !important;
-	}
-	.rbc-event__time-off-pending-day,
-	.rbc-event__time-off-pending-week,
-	.rbc-event__time-off-approved-day,
-	.rbc-event__time-off-approved-week,
-	.rbc-event__time-off-plans-changed-day,
-	.rbc-event__time-off-plans-changed-week,
-	.rbc-event__time-off-rejected-day {
-		left: 20% !important;
-		width: 65% !important;
-		border: none !important;
-		border-radius: 5px;
-		z-index: 4 !important;
-		pointer-events: none;
-	}
-	.rbc-event__time-off-pending-day,
-	.rbc-event__time-off-pending-week,
-	.rbc-event__time-off-plans-changed-day,
-	.rbc-event__time-off-plans-changed-week {
-		border: 1px dashed #ffbb36 !important;
-		background-color: #fff2da;
-		color: #ffaa00;
-	}
-	.rbc-event__time-off-approved-day,
-	.rbc-event__time-off-approved-week {
-		background-color: #b1ddd5;
-		color: #487b72;
-	}
-	.rbc-event__time-off-rejected-day,
-	.rbc-event__time-off-rejected-week {
-		background-color: #eb5757;
-		color: #6e2c2a;
-	}
-	.rbc-event__off-hours-day,
-	.rbc-event__off-hours-week,
-	.rbc-event__closed-day,
-	.rbc-event__closed-week {
-		left: 0 !important;
-		right: 0 !important;
-		width: 100% !important;
-		border: none !important;
-		color: rgba(0, 0, 0, 0);
-		background-color: rgba(66, 96, 126, 0.1);
-		pointer-events: none !important;
-	}
-	.rbc-selected {
-		z-index: 5 !important;
-	}
-	.rbc-event-allday {
-		width: 100% !important;
-		border-radius: 0px;
-	}
-	${props =>
-		props.customView === 'team-day' &&
-		`
-			width: 100%;
-		`};
-	${props =>
-		props.customView === 'team-week' &&
-		`
-			position: relative;
-			width: 2000px;
-			.rbc-time-content {
-				flex-direction: row;
-			}
-			.rbc-time-gutter,
-			.rbc-current-time-indicator,
-			.rbc-time-header-gutter,
-			.rbc-allday-cell,
-			.rbc-event-allday,
-			.rbc-event__break-week,
-			.rbc-event__off-hours-week,
-			.rbc-event__block-week {
-				display: none !important;
-			}
-			.rbc-timeslot-group {
-				display: none !important;
-				width: 0 !important;
-				height: 0 !important;
-				border: none;
-				color: rgba(0, 0, 0, 0);
-			}
-			.rbc-day-slot {
-
-			}
-			.rbc-event__closed-week,
-			.rbc-event__shift-week {
-				top: 0 !important;
-				bottom: 0 !important;
-				height: 100% !important;
-				width: 100% !important;
-				border-radius: 0px;
-				pointer-events: none !important;
-			}
-		`};
-	.rbc-time-header-content {
-		${props =>
-			props.customView === 'team-week' &&
-			props.multiCalendarOrder &&
-			props.multiCalendarOrder !== 0 &&
-			`
-				display: none !important;
-				`};
-	}
-	.rbc-addons-dnd .rbc-event-allday:hover .rbc-addons-dnd-resize-ew-icon {
-		display: none !important;
 	}
 `
 
@@ -934,64 +669,11 @@ class Calendar extends Component {
 	}
 
 	render() {
-		const {
-			height,
-			defaultView,
-			date,
-			views,
-			events,
-			step,
-			timeslots,
-			min,
-			max,
-			formats,
-			toolbar,
-			titleAccessor,
-			startAccessor,
-			endAccessor,
-			allDayAccessor,
-			selectable,
-			eventPropGetter,
-			onSelectEvent,
-			onSelectSlot,
-			onEventDrop,
-			onEventResize,
-			multiCalendarOrder,
-			customView,
-			disableResize
-		} = this.props
+		const { defaultDate = new Date(), ...props } = this.props
 
 		return (
-			<CalendarWrapper
-				height={height}
-				defaultView={defaultView}
-				multiCalendarOrder={multiCalendarOrder}
-				customView={customView}
-				disableResize={disableResize}
-			>
-				<CalendarComponent
-					date={date || new Date()}
-					defaultView={defaultView}
-					views={views}
-					events={events}
-					step={step}
-					timeslots={timeslots}
-					min={min}
-					max={max}
-					formats={formats}
-					toolbar={toolbar}
-					titleAccessor={titleAccessor}
-					startAccessor={startAccessor}
-					endAccessor={endAccessor}
-					allDayAccessor={allDayAccessor}
-					selectable={selectable}
-					eventPropGetter={eventPropGetter}
-					onNavigate={this.onNavigate}
-					onSelectEvent={onSelectEvent}
-					onSelectSlot={onSelectSlot}
-					onEventDrop={onEventDrop}
-					onEventResize={onEventResize}
-				/>
+			<CalendarWrapper>
+				<CalendarComponent defaultDate={defaultDate} {...props} />
 			</CalendarWrapper>
 		)
 	}
@@ -1002,25 +684,4 @@ const backend =
 
 export default DragDropContext(backend)(Calendar)
 
-Calendar.propTypes = {
-	height: PropTypes.string,
-	date: PropTypes.instanceOf(Date),
-	toolbar: PropTypes.bool,
-	events: PropTypes.array,
-	defaultView: PropTypes.string,
-	views: PropTypes.array,
-	selectable: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-	step: PropTypes.number,
-	timeslots: PropTypes.number,
-	min: PropTypes.instanceOf(Date),
-	max: PropTypes.instanceOf(Date),
-	onSelectSlot: PropTypes.func,
-	onSelectEvent: PropTypes.func,
-	formats: PropTypes.object,
-	titleAccessor: PropTypes.string,
-	startAccessor: PropTypes.string,
-	endAccessor: PropTypes.string,
-	allDayAccessor: PropTypes.string,
-	dragAndDrop: PropTypes.bool,
-	eventPropGetter: PropTypes.func
-}
+Calendar.propTypes = {}

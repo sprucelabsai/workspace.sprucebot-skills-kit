@@ -1,15 +1,46 @@
-import styled from 'styled-components'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-const Avatar = styled.div.attrs({
-	className: props => {
-		let className = props.top ? 'top__avatar' : 'avatar__wrapper'
-		if (props.online && props.showOnlineIndicator) {
-			className += ' online'
+export default class Avatar extends Component {
+	render() {
+		const { className, top, online, image, user, ...props } = this.props
+
+		const style = {}
+		let isOnline = online
+
+		//passed an image
+		if (typeof image === 'string' && image) {
+			style.backgroundImage = `url(${image})`
+		} else if (
+			user &&
+			user.User &&
+			user.User.profileImages &&
+			user.User.profileImages.profile150
+		) {
+			style.backgroundImage = `url(${user.User.profileImages.profile150})`
+			isOnline = user.status === 'online'
 		}
-		return className
-	}
-})`
-	${props => props.image && `background-image: url(${props.image});`};
-`
 
-export default Avatar
+		return (
+			<div
+				style={style}
+				className={`${top ? 'top__avatar' : 'avatar__wrapper'} ${className ||
+					''} ${isOnline ? 'online' : ''}`}
+				{...props}
+			/>
+		)
+	}
+}
+
+Avatar.propTypes = {
+	top: PropTypes.bool,
+	user: PropTypes.object, //pass this or everything belowe
+	image: PropTypes.string,
+	showOnlineIndicator: PropTypes.bool,
+	online: PropTypes.bool
+}
+
+Avatar.defaultProps = {
+	top: false,
+	showOnlineIndicator: true
+}

@@ -3,6 +3,108 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.28.0"></a>
+# [6.28.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.27.0...v6.28.0) (2018-07-25)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.27.0"></a>
+# [6.27.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.26.0...v6.27.0) (2018-07-25)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.26.0"></a>
+# [6.26.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.25.0...v6.26.0) (2018-07-25)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.25.0"></a>
+# [6.25.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.24.0...v6.25.0) (2018-07-24)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.24.0"></a>
+# [6.24.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.23.0...v6.24.0) (2018-07-24)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.23.0"></a>
+# [6.23.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.22.0...v6.23.0) (2018-07-24)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.22.0"></a>
+# [6.22.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.21.0...v6.22.0) (2018-07-23)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.21.0"></a>
+# [6.21.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.20.0...v6.21.0) (2018-07-20)
+
+
+### Bug Fixes
+
+* Remove alias for react from next.config.js ([5a1a228](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5a1a228))
+
+
+
+
+
+<a name="6.20.0"></a>
+# [6.20.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.19.0...v6.20.0) (2018-07-19)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.19.0"></a>
+# [6.19.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.18.1...v6.19.0) (2018-07-17)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
+<a name="6.18.1"></a>
+## [6.18.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.18.0...v6.18.1) (2018-07-11)
+
+**Note:** Version bump only for package sprucebot-skills-kit
+
+
+
+
+
 <a name="6.18.0"></a>
 # [6.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.17.0...v6.18.0) (2018-07-11)
 

@@ -9,9 +9,9 @@ test('it renders', () => {
 	expect(tree).toMatchSnapshot()
 })
 
-test('it renders a link', () => {
-	const tree = renderer
-		.create(<ControlButton href="https://sprucebot.com" />)
-		.toJSON()
-	expect(tree).toMatchSnapshot()
-})
+// test('it renders a link', () => {
+// 	const tree = renderer
+// 		.create(<ControlButton href="https://sprucebot.com" />)
+// 		.toJSON()
+// 	expect(tree).toMatchSnapshot()
+// })

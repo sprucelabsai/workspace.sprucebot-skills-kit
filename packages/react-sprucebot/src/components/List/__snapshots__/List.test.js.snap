@@ -37,7 +37,9 @@ exports[`ItemRightContent should align where we specify 1`] = `
     onClick={undefined}
   >
     <div
-      className="avatar__wrapper online "
+      className="avatar__wrapper empty online"
+      showOnlineIndicator={true}
+      style={Object {}}
     />
   </div>
   <div
@@ -457,7 +459,9 @@ exports[`ListItemAvatar should align where we specify 1`] = `
     onClick={undefined}
   >
     <div
-      className="avatar__wrapper online "
+      className="avatar__wrapper empty online"
+      showOnlineIndicator={true}
+      style={Object {}}
     />
   </div>
   <div

@@ -2,7 +2,7 @@ function postMessage(message) {
 	return window.parent.postMessage(JSON.stringify(message), '*')
 }
 
-export default {
+const skill = {
 	height: 0,
 	forceAuth: function() {
 		postMessage('Skill:ForceAuth')
@@ -27,7 +27,11 @@ export default {
 		}
 	},
 	back: function() {
-		postMessage('Skill:Back')
+		if (window.top === window.self) {
+			window.history.back()
+		} else {
+			postMessage('Skill:Back')
+		}
 	},
 
 	ready: function({ resetUrlTrail = false } = { resetUrlTrail: false }) {
@@ -47,6 +51,54 @@ export default {
 		postMessage({ name: 'Skill:RequestContainerScrollTop' })
 	},
 
+	showHelp: async function({ title, body }) {
+		if (window.top === window.self) {
+			alert(`[${title}] ${body}`)
+		} else {
+			const promise = new Promise((accept, reject) => {
+				this._showHelpAccept = accept
+			})
+
+			postMessage({ name: 'Skill:ShowHelp', title, body })
+
+			return promise
+		}
+	},
+
+	handleIframeMessage: function(e) {
+		if (typeof e.data === 'string') {
+			try {
+				const results = JSON.parse(e.data)
+
+				// TODO make this different?
+				if (results.name === 'Skill:HideHelp') {
+					if (this._showHelpAccept) {
+						this._showHelpAccept()
+						this._showHelpAccept = null
+					}
+				}
+
+				if (results.name === 'Search:SelectUser') {
+					if (this._onSelecUserFormSearchCallback) {
+						this._onSelecUserFormSearchCallback(results.user)
+						this._onSelecUserFormSearchCallback = null
+					}
+				} else if (results.name === 'Search:Cancel') {
+					if (this._onCancelSearchCallback) {
+						this._onCancelSearchCallback()
+						this._onCancelSearchCallback = null
+					}
+				} else if (results.name === 'Skill:DidConfirm') {
+					if (this._confirmAccept) {
+						this._confirmAccept(results.pass)
+						this._confirmAccept = null
+					}
+				}
+			} catch (err) {}
+		}
+	},
+
+	//TODO move to promise
 	searchForUser: function({
 		onCancel = () => {},
 		onSelectUser = () => {},
@@ -57,30 +109,33 @@ export default {
 
 		this._onCancelSearchCallback = onCancel
 		this._onSelecUserFormSearchCallback = onSelectUser
-
-		window.addEventListener('message', this._searchCallback.bind(this))
 	},
 
-	_searchCallback: function(e) {
-		if (typeof e.data === 'string') {
-			try {
-				const results = JSON.parse(e.data)
-				let shutdown = false
+	displayMessage: function({ message, type = 'error' }) {
+		if (window.top === window.self) {
+			alert(message)
+		} else {
+			postMessage({ name: 'Skill:DisplayMessage', message, type })
+		}
+	},
 
-				if (results.name === 'Search:SelectUser') {
-					this._onSelecUserFormSearchCallback(results.user)
-					shutdown = true
-				} else if (results.name === 'Search:Cancel') {
-					this._onCancelSearchCallback()
-					shutdown = true
-				}
+	confirm: async function({ message }) {
+		if (window.top === window.self) {
+			return window.confirm(message)
+		} else {
+			const promise = new Promise((accept, reject) => {
+				this._confirmAccept = accept
+			})
 
-				if (shutdown) {
-					window.removeEventListener('message', this._searchCallback)
-					this._onCancelSearchCallback = null
-					this._onSelecUserFormSearchCallback = null
-				}
-			} catch (err) {}
+			postMessage({ name: 'Skill:PleaseConfirm', message })
+
+			return promise
 		}
 	}
 }
+
+if (typeof window !== 'undefined') {
+	window.addEventListener('message', skill.handleIframeMessage.bind(skill))
+}
+
+export default skill

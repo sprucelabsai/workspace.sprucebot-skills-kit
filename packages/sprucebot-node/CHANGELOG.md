@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.23.0"></a>
+# [6.23.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.22.0...v6.23.0) (2018-07-24)
+
+
+### Features
+
+* Add methods for creating locations ([81b8fbd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/81b8fbd))
+
+
+
+
+
+<a name="6.21.0"></a>
+# [6.21.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.20.0...v6.21.0) (2018-07-20)
+
+
+### Bug Fixes
+
+* Get user (global / enterprise) route incorrect ([765e62a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/765e62a))
+
+
+### Features
+
+* Metadata support ([40ea1ef](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/40ea1ef))
+
+
+
+
+
 <a name="6.15.0"></a>
 # [6.15.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.14.0...v6.15.0) (2018-07-11)
 

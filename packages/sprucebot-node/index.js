@@ -109,7 +109,7 @@ class Sprucebot {
 	 * @param {Object} Optional query string to be added to the request
 	 */
 	async globalUser(userId, query) {
-		return this.https.get(`/users/${userId}`, query)
+		return this.https.get(`/ge/users/${userId}`, query)
 	}
 
 	/**
@@ -467,6 +467,86 @@ class Sprucebot {
 			eventName,
 			payload
 		})
+	}
+
+	/**
+	 * Get metadata
+	 *
+	 * @param {Object} query
+	 */
+	async getMetadata(query) {
+		const meta = await this.https.get('/metadata', query)
+		return meta
+	}
+
+	/**
+	 * Set metadata
+	 *
+	 * @param {Object} metadata
+	 */
+	async setMetadata({ locationId, organizationId, userId, refId, metadata }) {
+		if (!metadata || metadata.length < 1) {
+			throw new Error('INVALID_METADATA')
+		}
+
+		const data = [
+			{
+				locationId: locationId || null,
+				organizationId: organizationId || null,
+				userId: userId || null,
+				refId: refId || null,
+				metadata
+			}
+		]
+
+		const meta = await this.https.patch('/metadata', data)
+		return meta
+	}
+
+	/**
+	 * Delete metadata
+	 *
+	 * @param {Object} query
+	 */
+	async deleteMetadata({ keys, locationId, organizationId, userId, refId }) {
+		if (keys && keys.length > 0) {
+			const data = keys.map(k => {
+				return {
+					key: k,
+					locationId,
+					organizationId,
+					userId,
+					refId
+				}
+			})
+			await this.https.delete('/metadata', data)
+		}
+		return
+	}
+
+	/**
+	 * Create location (Enterprise Skills only)
+	 *
+	 * @param {String} organizationId
+	 * @param {Array} locations
+	 */
+	async eCreateLocations({ organizationId, locations }) {
+		const data = locations
+		const result = await this.https.post(
+			`/e/organizations/${organizationId}/locations`,
+			{ locations }
+		)
+		return result
+	}
+
+	/**
+	 * Create location (Global Skills only)
+	 *
+	 * @param {Array} locations
+	 */
+	async gCreateLocations({ locations }) {
+		const result = await this.https.post('/g/locations', { locations })
+		return result
 	}
 
 	/**
