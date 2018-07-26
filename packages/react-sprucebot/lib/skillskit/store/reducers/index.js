@@ -20,8 +20,12 @@ var _sharable = require('./sharable');
 
 var _sharable2 = _interopRequireDefault(_sharable);
 
+var _calendar = require('./calendar');
+
+var _calendar2 = _interopRequireDefault(_calendar);
+
 var _reduxForm = require('redux-form');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = { auth: _auth2.default, config: _config2.default, onboarding: _onboarding2.default, sharable: _sharable2.default, form: _reduxForm.reducer };
+exports.default = { auth: _auth2.default, config: _config2.default, onboarding: _onboarding2.default, sharable: _sharable2.default, form: _reduxForm.reducer, calendar: _calendar2.default };
