@@ -28,7 +28,23 @@ var _HorizontalWeek2 = _interopRequireDefault(_HorizontalWeek);
 
 var _es6Tween = require('es6-tween');
 
-var _reactSprucebot = require('react-sprucebot');
+var _Avatar = require('../Avatar/Avatar');
+
+var _Avatar2 = _interopRequireDefault(_Avatar);
+
+var _Button = require('../Button/Button');
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _Calendar = require('./Calendar');
+
+var _Calendar2 = _interopRequireDefault(_Calendar);
+
+var _Pager = require('../Pager/Pager');
+
+var _Pager2 = _interopRequireDefault(_Pager);
+
+var _Tabs = require('../Tabs/Tabs');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -630,23 +646,23 @@ var BigCalendar = function (_Component) {
 				'div',
 				{ className: 'big_calendar ' + classNames },
 				_react2.default.createElement(
-					_reactSprucebot.Tabs,
+					_Tabs.Tabs,
 					{ onChange: this.handleChangeView },
-					_react2.default.createElement(_reactSprucebot.TabPane, { title: 'Day' }),
-					_react2.default.createElement(_reactSprucebot.TabPane, { title: 'Week' }),
-					_react2.default.createElement(_reactSprucebot.TabPane, { title: 'Month' })
+					_react2.default.createElement(_Tabs.TabPane, { title: 'Day' }),
+					_react2.default.createElement(_Tabs.TabPane, { title: 'Week' }),
+					_react2.default.createElement(_Tabs.TabPane, { title: 'Month' })
 				),
 				_react2.default.createElement(
 					'div',
 					{ className: 'calendar__controls' },
-					_react2.default.createElement(_reactSprucebot.Pager, {
+					_react2.default.createElement(_Pager2.default, {
 						infinite: true,
 						onChange: this.handlePagerChange,
 						titles: this.generatePagerTitle,
 						jumpAmount: 7
 					}),
 					_react2.default.createElement(
-						_reactSprucebot.Button,
+						_Button2.default,
 						{ className: 'toggle-mode', onClick: this.handleToggleMode },
 						mode === 'team' ? 'show just me' : 'show team'
 					)
@@ -678,14 +694,14 @@ var BigCalendar = function (_Component) {
 								_react2.default.createElement(
 									'div',
 									{ className: 'avatar_wrapper' },
-									_react2.default.createElement(_reactSprucebot.Avatar, { top: true, user: teammate }),
+									_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
 									_react2.default.createElement(
 										'span',
 										{ className: 'calendar__teammate_name' },
 										teammate.User.casualName
 									)
 								),
-								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_reactSprucebot.Calendar, _extends({
+								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
 									className: '' + (idx === 0 && !renderFirstCalendar ? 'hide' : ''),
 									views: views,
 									selectable: true,

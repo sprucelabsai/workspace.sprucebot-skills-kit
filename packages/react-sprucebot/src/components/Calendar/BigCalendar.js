@@ -3,15 +3,11 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import HorizontalWeek from './HorizontalWeek'
 import { Tween, autoPlay, Easing } from 'es6-tween'
-import {
-	SectionHeading,
-	Tabs,
-	TabPane,
-	Pager,
-	Calendar,
-	Avatar,
-	Button
-} from 'react-sprucebot'
+import Avatar from '../Avatar/Avatar'
+import Button from '../Button/Button'
+import Calendar from './Calendar'
+import Pager from '../Pager/Pager'
+import { Tabs, TabPane } from '../Tabs/Tabs'
 
 autoPlay(true)
 
