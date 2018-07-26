@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Loader from '../Loader/Loader'
+import SingletonRouter from 'next/router'
 import Link from 'next/link'
 
 const ButtonWrapper = styled.div`
@@ -138,8 +139,8 @@ export default class Button extends Component {
 		let usingLink = false
 
 		if (href || remove) {
-			Tag = Link
-			usingLink = true
+			Tag = SingletonRouter.router ? Link : 'a'
+			usingLink = SingletonRouter.router
 		} else if (tag === 'button') {
 			Tag = StyledButton
 		} else {
@@ -149,7 +150,7 @@ export default class Button extends Component {
 		return (
 			<Tag
 				className={`btn ${btnClass} ${className || ''}`}
-				// onClick={this.onClick}
+				onClick={usingLink ? null : this.onClick}
 				disabled={disabled}
 				busy={busy}
 				href={href}

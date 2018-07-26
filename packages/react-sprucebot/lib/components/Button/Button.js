@@ -24,6 +24,10 @@ var _Loader = require('../Loader/Loader');
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
+var _router = require('next/router');
+
+var _router2 = _interopRequireDefault(_router);
+
 var _link = require('next/link');
 
 var _link2 = _interopRequireDefault(_link);
@@ -187,8 +191,8 @@ var Button = function (_Component) {
 			var usingLink = false;
 
 			if (href || remove) {
-				Tag = _link2.default;
-				usingLink = true;
+				Tag = _router2.default.router ? _link2.default : 'a';
+				usingLink = _router2.default.router;
 			} else if (tag === 'button') {
 				Tag = StyledButton;
 			} else {
@@ -198,9 +202,9 @@ var Button = function (_Component) {
 			return _react2.default.createElement(
 				Tag,
 				_extends({
-					className: 'btn ' + btnClass + ' ' + (className || '')
-					// onClick={this.onClick}
-					, disabled: disabled,
+					className: 'btn ' + btnClass + ' ' + (className || ''),
+					onClick: usingLink ? null : this.onClick,
+					disabled: disabled,
 					busy: busy,
 					href: href
 				}, props),

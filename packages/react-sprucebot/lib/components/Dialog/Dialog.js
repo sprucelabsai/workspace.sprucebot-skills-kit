@@ -170,7 +170,9 @@ var Dialog = function (_Component) {
 				dialogUnderlay.className = 'dialog_underlay';
 				document.body.appendChild(dialogUnderlay);
 			}
-			dialogUnderlay.classList.add('on');
+			if (dialogUnderlay) {
+				dialogUnderlay.classList.add('on');
+			}
 		}
 	}, {
 		key: 'componentDidMount',
