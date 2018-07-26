@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.29.0"></a>
+# [6.29.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.28.0...v6.29.0) (2018-07-26)
+
+
+### Bug Fixes
+
+* Update calendar action query ([e43f054](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e43f054))
+
+
+### Features
+
+* Add calendar actions, add to index.js ([d270af1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d270af1))
+* Build calendar actions/reducers ([edf8a04](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/edf8a04))
+
+
+
+
+
 <a name="6.28.0"></a>
 # [6.28.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.27.0...v6.28.0) (2018-07-25)
 
