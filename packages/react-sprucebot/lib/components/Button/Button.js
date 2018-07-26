@@ -191,8 +191,8 @@ var Button = function (_Component) {
 			var usingLink = false;
 
 			if (href || remove) {
-				Tag = _router2.default.router ? _link2.default : _react.Fragment;
-				usingLink = true;
+				Tag = _router2.default.router ? _link2.default : 'a';
+				usingLink = _router2.default.router;
 			} else if (tag === 'button') {
 				Tag = StyledButton;
 			} else {
@@ -202,9 +202,9 @@ var Button = function (_Component) {
 			return _react2.default.createElement(
 				Tag,
 				_extends({
-					className: 'btn ' + btnClass + ' ' + (className || '')
-					// onClick={this.onClick}
-					, disabled: disabled,
+					className: 'btn ' + btnClass + ' ' + (className || ''),
+					onClick: usingLink ? null : this.onClick,
+					disabled: disabled,
 					busy: busy,
 					href: href
 				}, props),
