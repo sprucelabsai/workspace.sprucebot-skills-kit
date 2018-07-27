@@ -536,21 +536,21 @@ var BigCalendar = function (_Component) {
 			onResizeEvent && onResizeEvent(event, start, end);
 		};
 
-		_this.handleCanDrag = function () {
+		_this.handleCanDrag = function (event) {
 			var canDrag = _this.props.canDrag;
 
 
 			if (canDrag) {
-				canDrag();
+				return canDrag(event);
 			}
 		};
 
-		_this.handleCanResize = function () {
+		_this.handleCanResize = function (event) {
 			var canResize = _this.props.canResize;
 
 
 			if (canResize) {
-				canResize();
+				return canResize(event);
 			}
 		};
 
