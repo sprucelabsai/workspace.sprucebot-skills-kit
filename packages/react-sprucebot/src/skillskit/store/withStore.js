@@ -7,7 +7,6 @@ import {
 	combineReducers
 } from 'redux'
 import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
 import withRedux from 'next-redux-wrapper'
 import coreActions from './actions'
 import coreReducers from './reducers'
@@ -32,7 +31,7 @@ export function createStore({ reducers = {}, config }) {
 			allowSelfSignedCerts: config.INTERFACE_SSL_ALLOW_SELF_SIGNED
 		})
 		const enhancer = composeEnhancers(
-			applyMiddleware(thunk, clientApiMiddleware(client), loggerMiddleware())
+			applyMiddleware(clientApiMiddleware(client), loggerMiddleware())
 		)
 
 		const allReducers = { ...coreReducers, ...reducers }

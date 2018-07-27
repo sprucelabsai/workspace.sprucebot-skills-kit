@@ -16,9 +16,17 @@ function clientMiddleware(client) {
 	return function (_ref) {
 		var dispatch = _ref.dispatch,
 		    getState = _ref.getState;
+
 		// eslint-disable-line
 		return function (next) {
 			return function (action) {
+				var _getState = getState(),
+				    auth = _getState.auth;
+
+				if (auth && auth.jwt) {
+					client.setJwt(auth.jwt);
+				}
+
 				if (typeof action === 'function') {
 					return action(dispatch, getState, next, client);
 				}
@@ -40,12 +48,6 @@ function clientMiddleware(client) {
 					type: REQUEST
 				}));
 
-				var _getState = getState(),
-				    auth = _getState.auth;
-
-				if (auth && auth.jwt) {
-					client.setJwt(auth.jwt);
-				}
 				var actionPromise = promise(client, auth);
 
 				actionPromise.then(function (result) {

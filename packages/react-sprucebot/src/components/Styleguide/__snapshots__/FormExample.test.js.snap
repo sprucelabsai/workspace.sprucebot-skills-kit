@@ -21,7 +21,7 @@ exports[`FormExample it renders 1`] = `
               "go": [Function],
             },
             "calendar": Object {
-              "fetchCalendar": [Function],
+              "fetchEvents": [Function],
             },
             "onboarding": Object {
               "didOnboarding": [Function],

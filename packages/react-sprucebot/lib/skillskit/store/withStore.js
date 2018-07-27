@@ -17,10 +17,6 @@ var _redux = require('redux');
 
 var _reactRedux = require('react-redux');
 
-var _reduxThunk = require('redux-thunk');
-
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
 var _nextReduxWrapper = require('next-redux-wrapper');
 
 var _nextReduxWrapper2 = _interopRequireDefault(_nextReduxWrapper);
@@ -64,7 +60,7 @@ function createStore(_ref) {
 		var client = (0, _apiClient2.default)(config.SERVER_HOST, {
 			allowSelfSignedCerts: config.INTERFACE_SSL_ALLOW_SELF_SIGNED
 		});
-		var enhancer = composeEnhancers((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _clientApiMiddleware2.default)(client), (0, _loggerMiddleware2.default)()));
+		var enhancer = composeEnhancers((0, _redux.applyMiddleware)((0, _clientApiMiddleware2.default)(client), (0, _loggerMiddleware2.default)()));
 
 		var allReducers = _extends({}, _reducers2.default, reducers);
 		var store = (0, _redux.createStore)((0, _redux.combineReducers)(allReducers), _extends({}, initialState, {
