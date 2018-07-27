@@ -740,11 +740,21 @@ class Calendar extends Component {
 	}
 
 	render() {
-		const { defaultDate = new Date(), ...props } = this.props
+		const {
+			defaultDate = new Date(),
+			canDrag,
+			canResize,
+			...props
+		} = this.props
 
 		return (
 			<CalendarWrapper>
-				<CalendarComponent defaultDate={defaultDate} {...props} />
+				<CalendarComponent
+					draggableAccessor={canDrag}
+					resizableAccessor={canResize}
+					defaultDate={defaultDate}
+					{...props}
+				/>
 			</CalendarWrapper>
 		)
 	}
@@ -755,4 +765,7 @@ const backend =
 
 export default DragDropContext(backend)(Calendar)
 
-Calendar.propTypes = {}
+Calendar.propTypes = {
+	canDrag: PropTypes.func,
+	canResize: PropTypes.func
+}

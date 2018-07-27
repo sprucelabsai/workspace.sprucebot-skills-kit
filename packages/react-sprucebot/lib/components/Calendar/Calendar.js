@@ -93,12 +93,18 @@ var Calendar = function (_Component) {
 			var _props = this.props,
 			    _props$defaultDate = _props.defaultDate,
 			    defaultDate = _props$defaultDate === undefined ? new Date() : _props$defaultDate,
-			    props = _objectWithoutProperties(_props, ['defaultDate']);
+			    canDrag = _props.canDrag,
+			    canResize = _props.canResize,
+			    props = _objectWithoutProperties(_props, ['defaultDate', 'canDrag', 'canResize']);
 
 			return _react2.default.createElement(
 				CalendarWrapper,
 				null,
-				_react2.default.createElement(CalendarComponent, _extends({ defaultDate: defaultDate }, props))
+				_react2.default.createElement(CalendarComponent, _extends({
+					draggableAccessor: canDrag,
+					resizableAccessor: canResize,
+					defaultDate: defaultDate
+				}, props))
 			);
 		}
 	}]);
@@ -111,4 +117,7 @@ var backend = _is_js2.default.mobile() || _is_js2.default.tablet() || _is_js2.de
 exports.default = (0, _reactDnd.DragDropContext)(backend)(Calendar);
 
 
-Calendar.propTypes = {};
+Calendar.propTypes = {
+	canDrag: _propTypes2.default.func,
+	canResize: _propTypes2.default.func
+};

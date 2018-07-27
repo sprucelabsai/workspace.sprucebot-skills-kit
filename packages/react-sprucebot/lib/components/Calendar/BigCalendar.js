@@ -316,7 +316,7 @@ var BigCalendar = function (_Component) {
 			var earliest = false;
 			var latest = false;
 
-			if (storeSchedule.length !== 0) {
+			if (storeSchedule && storeSchedule.length !== 0) {
 				storeSchedule.forEach(function (schedule) {
 					var start = (0, _moment2.default)('2018-04-01 ' + schedule.startTime).subtract(2, 'hour');
 					var end = (0, _moment2.default)('2018-04-01 ' + schedule.endTime).add(2, 'hour');
@@ -509,33 +509,49 @@ var BigCalendar = function (_Component) {
 			onClickEvent && onClickEvent(event);
 		};
 
-		_this.handleClickOpenSlot = function (_ref7) {
-			var start = _ref7.start,
-			    end = _ref7.end;
+		_this.handleClickOpenSlot = function (start, end, teammate) {
 			var onClickOpenSlot = _this.props.onClickOpenSlot;
 
 
-			onClickOpenSlot && onClickOpenSlot(start, end);
+			onClickOpenSlot && onClickOpenSlot(start, end, teammate);
 		};
 
-		_this.handleDropEvent = function (_ref8) {
-			var event = _ref8.event,
-			    start = _ref8.start,
-			    end = _ref8.end;
+		_this.handleDropEvent = function (_ref7) {
+			var event = _ref7.event,
+			    start = _ref7.start,
+			    end = _ref7.end;
 			var onDropEvent = _this.props.onDropEvent;
 
 
 			onDropEvent && onDropEvent(event, start, end);
 		};
 
-		_this.handleResizeEvent = function (resizeType, _ref9) {
-			var event = _ref9.event,
-			    start = _ref9.start,
-			    end = _ref9.end;
+		_this.handleResizeEvent = function (resizeType, _ref8) {
+			var event = _ref8.event,
+			    start = _ref8.start,
+			    end = _ref8.end;
 			var onResizeEvent = _this.props.onResizeEvent;
 
 
 			onResizeEvent && onResizeEvent(event, start, end);
+		};
+
+		_this.handleCanDrag = function () {
+			var canDrag = _this.props.canDrag;
+
+
+			if (canDrag) {
+				canDrag();
+			}
+		};
+
+		_this.handleCanResize = function () {
+			var canResize = _this.props.canResize;
+
+
+			if (canResize) {
+				canResize();
+			}
 		};
 
 		_this.state = {
@@ -633,7 +649,7 @@ var BigCalendar = function (_Component) {
 				view: selectedView,
 				formats: formats,
 				toolbar: false,
-				defaultDate: selectedDate.toDate(),
+				date: selectedDate.toDate(),
 				min: min.toDate(),
 				max: max.toDate(),
 				selectable: onClickOpenSlot && true
@@ -719,9 +735,15 @@ var BigCalendar = function (_Component) {
 										return _this3.applyClassNames(event);
 									},
 									onSelectEvent: _this3.handleClickEvent,
-									onSelectSlot: _this3.handleClickOpenSlot,
+									onSelectSlot: function onSelectSlot(_ref9) {
+										var start = _ref9.start,
+										    end = _ref9.end;
+										return _this3.handleClickOpenSlot(start, end, teammate);
+									},
 									onEventDrop: _this3.handleDropEvent,
-									onEventResize: _this3.handleResizeEvent
+									onEventResize: _this3.handleResizeEvent,
+									canDrag: _this3.handleCanDrag,
+									canResize: _this3.handleCanResize
 								}, calendarProps))
 							);
 						})
