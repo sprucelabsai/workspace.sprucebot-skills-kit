@@ -422,19 +422,19 @@ export default class BigCalendar extends Component {
 		onResizeEvent && onResizeEvent(event, start, end)
 	}
 
-	handleCanDrag = () => {
+	handleCanDrag = event => {
 		const { canDrag } = this.props
 
 		if (canDrag) {
-			canDrag()
+			return canDrag(event)
 		}
 	}
 
-	handleCanResize = () => {
+	handleCanResize = event => {
 		const { canResize } = this.props
 
 		if (canResize) {
-			canResize()
+			return canResize(event)
 		}
 	}
 
