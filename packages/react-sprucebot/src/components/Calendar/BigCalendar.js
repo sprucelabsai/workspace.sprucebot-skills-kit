@@ -239,7 +239,7 @@ export default class BigCalendar extends Component {
 		let earliest = false
 		let latest = false
 
-		if (storeSchedule.length !== 0) {
+		if (storeSchedule && storeSchedule.length !== 0) {
 			storeSchedule.forEach(schedule => {
 				const start = moment(`2018-04-01 ${schedule.startTime}`).subtract(
 					2,
@@ -404,10 +404,10 @@ export default class BigCalendar extends Component {
 		onClickEvent && onClickEvent(event)
 	}
 
-	handleClickOpenSlot = ({ start, end }) => {
+	handleClickOpenSlot = (start, end, teammate) => {
 		const { onClickOpenSlot } = this.props
 
-		onClickOpenSlot && onClickOpenSlot(start, end)
+		onClickOpenSlot && onClickOpenSlot(start, end, teammate)
 	}
 
 	handleDropEvent = ({ event, start, end }) => {
@@ -420,6 +420,22 @@ export default class BigCalendar extends Component {
 		const { onResizeEvent } = this.props
 
 		onResizeEvent && onResizeEvent(event, start, end)
+	}
+
+	handleCanDrag = () => {
+		const { canDrag } = this.props
+
+		if (canDrag) {
+			canDrag()
+		}
+	}
+
+	handleCanResize = () => {
+		const { canResize } = this.props
+
+		if (canResize) {
+			canResize()
+		}
 	}
 
 	render() {
@@ -469,7 +485,7 @@ export default class BigCalendar extends Component {
 			view: selectedView,
 			formats,
 			toolbar: false,
-			defaultDate: selectedDate.toDate(),
+			date: selectedDate.toDate(),
 			min: min.toDate(),
 			max: max.toDate(),
 			selectable: onClickOpenSlot && true
@@ -545,9 +561,13 @@ export default class BigCalendar extends Component {
 											events={events ? this.filterEvents(events, teammate) : []}
 											eventPropGetter={event => this.applyClassNames(event)}
 											onSelectEvent={this.handleClickEvent}
-											onSelectSlot={this.handleClickOpenSlot}
+											onSelectSlot={({ start, end }) =>
+												this.handleClickOpenSlot(start, end, teammate)
+											}
 											onEventDrop={this.handleDropEvent}
 											onEventResize={this.handleResizeEvent}
+											canDrag={this.handleCanDrag}
+											canResize={this.handleCanResize}
 											{...calendarProps}
 										/>
 									)}
