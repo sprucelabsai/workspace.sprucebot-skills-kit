@@ -44,7 +44,8 @@ export default class Dialog extends Component {
 			scrollTop: 0,
 			firstShow: true,
 			opacity: 0,
-			inIframe: true
+			inIframe: true,
+			dialogIndex: 0
 		}
 	}
 
@@ -72,6 +73,10 @@ export default class Dialog extends Component {
 		this.postHeight()
 	}
 
+	setIdx = idx => {
+		this.setState({ dialogIndex: idx })
+	}
+
 	postHeight() {
 		const underlayHeight = dialogUnderlay ? dialogUnderlay.offsetHeight : 0
 
@@ -96,9 +101,17 @@ export default class Dialog extends Component {
 			this.requestScroll()
 		}
 
-		currentDialogs.forEach(dialog => dialog.blur())
 		this.focus()
 		currentDialogs.push(this)
+		this.updateIndexes()
+	}
+
+	updateIndexes = () => {
+		const index = currentDialogs.length
+		currentDialogs.forEach((dialog, idx) => {
+			dialog.blur()
+			dialog.setIdx(index - idx)
+		})
 	}
 
 	componentDidUpdate() {
@@ -133,6 +146,8 @@ export default class Dialog extends Component {
 		} else {
 			dialogUnderlay.classList.remove('on')
 		}
+
+		this.updateIndexes()
 	}
 
 	requestScroll() {
@@ -189,8 +204,10 @@ export default class Dialog extends Component {
 			inIframe,
 			focusClass,
 			isHidden,
-			firstShow
+			firstShow,
+			dialogIndex
 		} = this.state
+
 		const Tag = tag
 		const dialogStyle = {
 			marginTop: this.state.scrollTop
@@ -218,7 +235,7 @@ export default class Dialog extends Component {
 						<DialogWrapper
 							className={`${focusClass} ${!firstShow ? 'was-focused' : ''} ${
 								isHidden ? 'hidden' : ''
-							}`}
+							} dialog-${dialogIndex}`}
 							show={show}
 							style={dialogStyle}
 							onClick={e => {
