@@ -60,7 +60,21 @@ var skill = {
 		this.resizedInterval = setInterval(this.resized.bind(this), 300);
 	},
 	scrollTo: function scrollTo(offset) {
-		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 });
+		postMessage({
+			name: 'Skill:ScrollTo',
+			offset: offset || 0
+		});
+	},
+
+	scrollBy: function scrollBy(offset) {
+		if (window.top === window.self) {
+			window.scrollBy({
+				top: offset,
+				behavior: 'smooth'
+			});
+		} else {
+			postMessage({ name: 'Skill:ScrollBy', offset: offset });
+		}
 	},
 
 	requestScroll: function requestScroll() {

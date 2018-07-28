@@ -44,7 +44,21 @@ const skill = {
 		this.resizedInterval = setInterval(this.resized.bind(this), 300)
 	},
 	scrollTo: function(offset) {
-		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 })
+		postMessage({
+			name: 'Skill:ScrollTo',
+			offset: offset || 0
+		})
+	},
+
+	scrollBy: function(offset) {
+		if (window.top === window.self) {
+			window.scrollBy({
+				top: offset,
+				behavior: 'smooth'
+			})
+		} else {
+			postMessage({ name: 'Skill:ScrollBy', offset })
+		}
 	},
 
 	requestScroll: function() {
