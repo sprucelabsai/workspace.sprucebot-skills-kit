@@ -112,7 +112,9 @@ var Dialog = function (_Component) {
 		_this.updateIndexes = function () {
 			var index = currentDialogs.length;
 			currentDialogs.forEach(function (dialog, idx) {
-				dialog.blur();
+				if (idx < index - 1) {
+					dialog.blur();
+				}
 				dialog.setIdx(index - idx);
 			});
 		};
