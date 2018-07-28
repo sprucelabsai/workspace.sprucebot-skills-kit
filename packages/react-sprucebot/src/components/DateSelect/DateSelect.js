@@ -1028,5 +1028,5 @@ DateSelect.propTypes = {
 
 DateSelect.defaultProps = {
 	availableDays: [],
-	bypassDaysBlocked: true
+	bypassDaysBlocked: false
 }
