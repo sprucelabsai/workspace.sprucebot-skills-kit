@@ -154,7 +154,8 @@ var Button = function (_Component) {
 			    left = _props.left,
 			    right = _props.right,
 			    href = _props.href,
-			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'left', 'right', 'href']);
+			    type = _props.type,
+			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'left', 'right', 'href', 'type']);
 
 			var busy = this.state.busy;
 
@@ -199,22 +200,13 @@ var Button = function (_Component) {
 				Tag = tag;
 			}
 
-			return _react2.default.createElement(
-				Tag,
-				_extends({
-					className: 'btn ' + btnClass + ' ' + (className || ''),
-					onClick: usingLink ? null : this.onClick,
-					disabled: disabled,
-					busy: busy,
-					href: href
-				}, props),
-				_react2.default.createElement(
-					_react.Fragment,
-					null,
-					usingLink && _react2.default.createElement(
+			if (usingLink) {
+				return _react2.default.createElement(
+					_link2.default,
+					_extends({ href: href }, props),
+					_react2.default.createElement(
 						'a',
 						{
-							href: href,
 							onClick: this.onClick,
 							className: 'btn ' + btnClass + ' ' + (className || '')
 						},
@@ -223,12 +215,25 @@ var Button = function (_Component) {
 							{ className: 'wrapper' },
 							this.renderView()
 						)
-					),
-					!usingLink && _react2.default.createElement(
-						'span',
-						{ className: 'wrapper' },
-						this.renderView()
 					)
+				);
+			}
+
+			return _react2.default.createElement(
+				Tag,
+				_extends({
+					className: 'btn ' + btnClass + ' ' + (className || ''),
+					onClick: this.onClick,
+					disabled: disabled,
+					busy: busy,
+					href: href
+				}, props, {
+					type: type
+				}),
+				_react2.default.createElement(
+					'span',
+					{ className: 'wrapper' },
+					this.renderView()
 				)
 			);
 		}
