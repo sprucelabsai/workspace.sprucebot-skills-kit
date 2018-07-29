@@ -143,8 +143,6 @@ var Input = function (_Component) {
 				labelClass = '';
 			}
 
-			console.log(labelClass);
-
 			var Tag = tag;
 
 			return _react2.default.createElement(

@@ -101,8 +101,6 @@ export default class Input extends Component {
 			labelClass = ''
 		}
 
-		console.log(labelClass)
-
 		const Tag = tag
 
 		return (

@@ -720,11 +720,15 @@ var BigCalendar = function (_Component) {
 								_react2.default.createElement(
 									'div',
 									{ className: 'avatar_wrapper' },
-									_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
 									_react2.default.createElement(
 										'span',
-										{ className: 'calendar__teammate_name' },
-										teammate.User.casualName
+										null,
+										_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
+										_react2.default.createElement(
+											'span',
+											{ className: 'calendar__teammate_name' },
+											teammate.User.casualName
+										)
 									)
 								),
 								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
