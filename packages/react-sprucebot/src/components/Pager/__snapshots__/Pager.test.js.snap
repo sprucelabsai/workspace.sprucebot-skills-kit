@@ -82,7 +82,7 @@ exports[`it renders 1`] = `
   </li>
   <li
     className="back disabled"
-    hide={undefined}
+    smallArrows={true}
   >
     <button
       className="btn  IconButton icon-button  c0 "
