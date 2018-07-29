@@ -99,7 +99,7 @@ var DateSelect = function (_Component) {
 			}
 		}, _this.isDayBlocked = function (date) {
 			var _this$props = _this.props,
-			    availableDays = _this$props.availableDays,
+			    availableDates = _this$props.availableDates,
 			    bypassDaysBlocked = _this$props.bypassDaysBlocked;
 
 
@@ -107,10 +107,10 @@ var DateSelect = function (_Component) {
 				return false;
 			}
 
-			var match = availableDays.find(function (day) {
+			var match = availableDates.find(function (day) {
 				return day === date.format('YYYY-MM-DD');
 			});
-			var lastDate = (0, _moment2.default)(availableDays[availableDays.length - 1]).endOf('month');
+			var lastDate = (0, _moment2.default)(availableDates[availableDates.length - 1]).endOf('month');
 
 			if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
 				return false;
@@ -226,7 +226,7 @@ exports.default = DateSelect;
 
 
 DateSelect.propTypes = {
-	availableDays: (0, _reactRequiredIf2.default)(_propTypes2.default.array, function (props) {
+	availableDates: (0, _reactRequiredIf2.default)(_propTypes2.default.array, function (props) {
 		return !props.bypassDaysBlocked;
 	}),
 	bypassDaysBlocked: _propTypes2.default.bool.isRequired,
@@ -243,6 +243,6 @@ DateSelect.propTypes = {
 };
 
 DateSelect.defaultProps = {
-	availableDays: [],
+	availableDates: [],
 	bypassDaysBlocked: false
 };

@@ -154,16 +154,12 @@ var skill = {
 						this._confirmAccept(results.pass);
 						this._confirmAccept = null;
 					}
-				} else if (results.name === 'Skill:DidClickStickyElement') {
-					if (this.handleStickElementClick) {
-						this.handleStickElementClick(results.key);
-					}
 				}
 			} catch (err) {}
 		}
 	},
 
-	//TODO move to promise?
+	//TODO move to promise
 	searchForUser: function searchForUser() {
 		var _ref5 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
 		    _ref5$onCancel = _ref5.onCancel,
@@ -232,49 +228,7 @@ var skill = {
 		}
 
 		return confirm;
-	}(),
-
-	/**
-  * position: 'top' | 'bottom'
-  * elements: [
-  * {
-  *  key: 'first-button', (key is passed back to onClick)
-  * 	type: 'button'|'leftTitle'|'rightTitle'|'title',
-  *  value: 'Hey There' //value MUST be a string, will be value of button or innerHTML of everything else
-  * }
-  * ]
-  */
-	setStickyElement: function setStickyElement(_ref9) {
-		var elements = _ref9.elements,
-		    _ref9$position = _ref9.position,
-		    position = _ref9$position === undefined ? 'top' : _ref9$position,
-		    _ref9$onClick = _ref9.onClick,
-		    onClick = _ref9$onClick === undefined ? function () {} : _ref9$onClick;
-
-		this.handleStickElementClick = onClick;
-		postMessage({
-			name: 'Skill:SetStickyElement',
-			elements: elements,
-			position: position
-		});
-	},
-
-	updateStickyBoundingRect: function updateStickyBoundingRect(rect) {
-		if (this._lastRect && this._lastRect.top === rect.top && this._lastRect.bottom == rect.bottom) {
-			return;
-		}
-
-		this._lastRect = rect;
-
-		postMessage({
-			name: 'Skill:SetStickyBoundingRect',
-			boundingRect: rect
-		});
-	},
-
-	clearStickyElements: function clearStickyElements() {
-		postMessage({ name: 'Skill:ClearStickyElements' });
-	}
+	}()
 };
 
 if (typeof window !== 'undefined') {

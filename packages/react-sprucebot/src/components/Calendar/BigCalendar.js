@@ -164,6 +164,7 @@ export default class BigCalendar extends Component {
 	}
 
 	refresh = async (triggerOnNavigate = false) => {
+    debugger
 		const { mode, view, teammates, selectedDate } = this.state
 		const { onNavigate, fetchEvents } = this.props
 
@@ -546,11 +547,9 @@ export default class BigCalendar extends Component {
 									}}
 								>
 									<div className="avatar_wrapper">
-										<span>
-											<Avatar top user={teammate} />
-											<span className="calendar__teammate_name">
-												{teammate.User.casualName}
-											</span>
+										<Avatar top user={teammate} />
+										<span className="calendar__teammate_name">
+											{teammate.User.casualName}
 										</span>
 									</div>
 									{((idx === 0 && renderFirstCalendar) ||

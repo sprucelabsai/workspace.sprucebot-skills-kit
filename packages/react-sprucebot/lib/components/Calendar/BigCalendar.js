@@ -203,6 +203,7 @@ var BigCalendar = function (_Component) {
 					while (1) {
 						switch (_context.prev = _context.next) {
 							case 0:
+								debugger;
 								_this$state4 = _this.state, mode = _this$state4.mode, view = _this$state4.view, teammates = _this$state4.teammates, selectedDate = _this$state4.selectedDate;
 								_this$props = _this.props, onNavigate = _this$props.onNavigate, fetchEvents = _this$props.fetchEvents;
 								currentView = view === 'team_week' ? 'week' : view;
@@ -219,17 +220,17 @@ var BigCalendar = function (_Component) {
 
 								triggerOnNavigate && onNavigate && onNavigate(options);
 
-								_context.next = 9;
+								_context.next = 10;
 								return fetchEvents(options);
 
-							case 9:
+							case 10:
 								_ref2 = _context.sent;
 								storeSchedule = _ref2.storeSchedule;
 								events = _ref2.events;
 
 								_this.setState({ storeSchedule: storeSchedule, events: events });
 
-							case 13:
+							case 14:
 							case 'end':
 								return _context.stop();
 						}
@@ -720,15 +721,11 @@ var BigCalendar = function (_Component) {
 								_react2.default.createElement(
 									'div',
 									{ className: 'avatar_wrapper' },
+									_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
 									_react2.default.createElement(
 										'span',
-										null,
-										_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
-										_react2.default.createElement(
-											'span',
-											{ className: 'calendar__teammate_name' },
-											teammate.User.casualName
-										)
+										{ className: 'calendar__teammate_name' },
+										teammate.User.casualName
 									)
 								),
 								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
