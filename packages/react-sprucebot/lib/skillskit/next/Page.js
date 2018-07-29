@@ -46,6 +46,8 @@ var _lang2 = _interopRequireDefault(_lang);
 
 var _router = require('next/router');
 
+var _router2 = _interopRequireDefault(_router);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -84,12 +86,16 @@ var Page = function Page(Wrapped) {
 	var ConnectedWrapped = (0, _router.withRouter)(Wrapped);
 
 	return function (_Component) {
-		_inherits(_class, _Component);
+		_inherits(_class2, _Component);
 
-		function _class(props) {
-			_classCallCheck(this, _class);
+		function _class2(props) {
+			_classCallCheck(this, _class2);
 
-			var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (_class2.__proto__ || Object.getPrototypeOf(_class2)).call(this, props));
+
+			_this.handleRouteChangStart = function () {
+				_this.props.skill.notifyOfRouteChangeStart();
+			};
 
 			_this.state = {
 				attemptingReAuth: !!props.attemptingReAuth,
@@ -103,7 +109,7 @@ var Page = function Page(Wrapped) {
 		// Everything here is run server side
 
 
-		_createClass(_class, [{
+		_createClass(_class2, [{
 			key: 'messageHandler',
 			value: function messageHandler(e) {
 				if (e.data === 'Skill:NotReAuthing') {
@@ -143,7 +149,9 @@ var Page = function Page(Wrapped) {
 										}
 									});
 
-								case 4:
+									_router2.default && _router2.default.router && _router2.default.router.events.on('routeChangeStart', this.handleRouteChangStart);
+
+								case 5:
 								case 'end':
 									return _context.stop();
 							}
@@ -161,6 +169,7 @@ var Page = function Page(Wrapped) {
 			key: 'componentWillUnmount',
 			value: function componentWillUnmount() {
 				window.removeEventListener('message', this.messageHandler);
+				_router2.default && _router2.default.router && _router2.default.router.events.off('routeChangeStart', this.handleRouteChangStart);
 			}
 		}, {
 			key: 'render',
@@ -354,7 +363,7 @@ var Page = function Page(Wrapped) {
 			}()
 		}]);
 
-		return _class;
+		return _class2;
 	}(_react.Component);
 };
 

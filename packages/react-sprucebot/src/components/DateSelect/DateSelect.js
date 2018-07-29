@@ -913,14 +913,14 @@ class DateSelect extends Component {
 	}
 
 	isDayBlocked = date => {
-		const { availableDays, bypassDaysBlocked } = this.props
+		const { availableDates, bypassDaysBlocked } = this.props
 
 		if (bypassDaysBlocked) {
 			return false
 		}
 
-		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
-		const lastDate = moment(availableDays[availableDays.length - 1]).endOf(
+		const match = availableDates.find(day => day === date.format('YYYY-MM-DD'))
+		const lastDate = moment(availableDates[availableDates.length - 1]).endOf(
 			'month'
 		)
 
@@ -1012,7 +1012,10 @@ class DateSelect extends Component {
 export default DateSelect
 
 DateSelect.propTypes = {
-	availableDays: requiredIf(PropTypes.array, props => !props.bypassDaysBlocked),
+	availableDates: requiredIf(
+		PropTypes.array,
+		props => !props.bypassDaysBlocked
+	),
 	bypassDaysBlocked: PropTypes.bool.isRequired,
 	allowPastDates: PropTypes.bool,
 	onDateSelect: PropTypes.func.isRequired,
@@ -1027,6 +1030,6 @@ DateSelect.propTypes = {
 }
 
 DateSelect.defaultProps = {
-	availableDays: [],
+	availableDates: [],
 	bypassDaysBlocked: false
 }

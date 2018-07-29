@@ -97,18 +97,39 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.generatePagerTitle = function (page) {
-			console.log('PAGER TITLE', page);
+			var _this$state = _this.state,
+			    view = _this$state.view,
+			    selectedDate = _this$state.selectedDate;
 
-			return _this.state.selectedDate.format('YYYY-MM-DD');
+
+			var title = void 0;
+
+			if (view === 'month') {
+				title = (0, _moment2.default)(selectedDate).format('MMM YYYY');
+			} else if (view === 'week') {
+				var startOfWeek = (0, _moment2.default)(selectedDate).startOf('week');
+				var endOfWeek = (0, _moment2.default)(selectedDate).endOf('week');
+				console.log({ startOfWeek: startOfWeek, endOfWeek: endOfWeek });
+
+				if (startOfWeek.isSame(endOfWeek, 'month')) {
+					title = startOfWeek.format('MMM Do') + ' - ' + endOfWeek.format('Do');
+				} else {
+					title = startOfWeek.format('MMM Do') + ' - ' + endOfWeek.format('MMM Do');
+				}
+			} else if (view === 'day') {
+				title = (0, _moment2.default)(selectedDate).format('MMM Do');
+			}
+
+			return title;
 		};
 
 		_this.getDesiredTeammateWrapperWidth = function () {
 			if (!_this.calendarWrapper) {
 				return '100%';
 			}
-			var _this$state = _this.state,
-			    view = _this$state.view,
-			    mode = _this$state.mode;
+			var _this$state2 = _this.state,
+			    view = _this$state2.view,
+			    mode = _this$state2.mode;
 			var teamDayViewWidth = _this.props.teamDayViewWidth;
 
 
@@ -132,11 +153,11 @@ var BigCalendar = function (_Component) {
 			if (!_this.calendarWrapper) {
 				return '100%';
 			}
-			var _this$state2 = _this.state,
-			    view = _this$state2.view,
-			    mode = _this$state2.mode,
-			    teammates = _this$state2.teammates,
-			    transitioning = _this$state2.transitioning;
+			var _this$state3 = _this.state,
+			    view = _this$state3.view,
+			    mode = _this$state3.mode,
+			    teammates = _this$state3.teammates,
+			    transitioning = _this$state3.transitioning;
 
 
 			var calendarWrapperWidth = getElementWidth(_this.calendarWrapper);
@@ -170,9 +191,9 @@ var BigCalendar = function (_Component) {
 				return 'auto';
 			}
 
-			var _this$state3 = _this.state,
-			    mode = _this$state3.mode,
-			    view = _this$state3.view;
+			var _this$state4 = _this.state,
+			    mode = _this$state4.mode,
+			    view = _this$state4.view;
 
 
 			if (mode === 'team' && view === 'week') {
@@ -197,15 +218,18 @@ var BigCalendar = function (_Component) {
 			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
 				var triggerOnNavigate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-				var _this$state4, mode, view, teammates, selectedDate, _this$props, onNavigate, fetchEvents, currentView, startDate, endDate, options, _ref2, storeSchedule, events;
+				var _this$state5, mode, view, teammates, selectedDate, _this$props, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, _ref2, storeSchedule, events;
 
 				return regeneratorRuntime.wrap(function _callee$(_context) {
 					while (1) {
 						switch (_context.prev = _context.next) {
 							case 0:
-								_this$state4 = _this.state, mode = _this$state4.mode, view = _this$state4.view, teammates = _this$state4.teammates, selectedDate = _this$state4.selectedDate;
-								_this$props = _this.props, onNavigate = _this$props.onNavigate, fetchEvents = _this$props.fetchEvents;
+								_this$state5 = _this.state, mode = _this$state5.mode, view = _this$state5.view, teammates = _this$state5.teammates, selectedDate = _this$state5.selectedDate;
+								_this$props = _this.props, auth = _this$props.auth, onNavigate = _this$props.onNavigate, fetchEvents = _this$props.fetchEvents;
 								currentView = view === 'team_week' ? 'week' : view;
+								currentUser = teammates.find(function (teammate) {
+									return teammate.User.id === auth.UserId;
+								});
 								startDate = (0, _moment2.default)(selectedDate).startOf(currentView);
 								endDate = (0, _moment2.default)(selectedDate).endOf(currentView);
 								options = {
@@ -213,23 +237,23 @@ var BigCalendar = function (_Component) {
 									startDate: startDate,
 									endDate: endDate,
 									view: currentView,
-									teammates: mode === 'user' ? teammates[0] : teammates
+									teammates: mode === 'user' ? currentUser : teammates
 								};
 
 
 								triggerOnNavigate && onNavigate && onNavigate(options);
 
-								_context.next = 9;
+								_context.next = 10;
 								return fetchEvents(options);
 
-							case 9:
+							case 10:
 								_ref2 = _context.sent;
 								storeSchedule = _ref2.storeSchedule;
 								events = _ref2.events;
 
 								_this.setState({ storeSchedule: storeSchedule, events: events });
 
-							case 13:
+							case 14:
 							case 'end':
 								return _context.stop();
 						}
@@ -242,30 +266,53 @@ var BigCalendar = function (_Component) {
 			};
 		}();
 
-		_this.handlePagerChange = function (page) {
-			var diff = page - _this.state.currentPage;
-
-			_this.setState(function (prevState) {
-				return {
-					currentPage: page,
-					selectedDate: prevState.selectedDate.add(diff, 'days')
-				};
-			});
-			_this.handleChange();
-		};
-
-		_this.handleChangeView = function () {
-			var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(idx) {
-				var _this$state5, mode, view, newView, movingToWeek;
-
+		_this.handlePagerChange = function () {
+			var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(page) {
+				var view, diff, stepType;
 				return regeneratorRuntime.wrap(function _callee2$(_context2) {
 					while (1) {
 						switch (_context2.prev = _context2.next) {
 							case 0:
-								_this$state5 = _this.state, mode = _this$state5.mode, view = _this$state5.view;
+								view = _this.state.view;
+								diff = view !== 'month' ? page - _this.state.currentPage : 1;
+								stepType = view !== 'month' ? 'days' : 'months';
+								_context2.next = 5;
+								return _this.setState(function (prevState) {
+									return {
+										currentPage: page,
+										selectedDate: prevState.selectedDate.add(diff, stepType)
+									};
+								});
+
+							case 5:
+
+								_this.handleChange();
+
+							case 6:
+							case 'end':
+								return _context2.stop();
+						}
+					}
+				}, _callee2, _this2);
+			}));
+
+			return function (_x2) {
+				return _ref3.apply(this, arguments);
+			};
+		}();
+
+		_this.handleChangeView = function () {
+			var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(idx) {
+				var _this$state6, mode, view, newView, movingToWeek;
+
+				return regeneratorRuntime.wrap(function _callee3$(_context3) {
+					while (1) {
+						switch (_context3.prev = _context3.next) {
+							case 0:
+								_this$state6 = _this.state, mode = _this$state6.mode, view = _this$state6.view;
 								newView = _this.state.views[idx];
 								movingToWeek = mode === 'user' && view !== 'week' && newView === 'week';
-								_context2.next = 5;
+								_context3.next = 5;
 								return _this.setState({
 									view: newView,
 									renderFirstCalendar: !movingToWeek
@@ -290,14 +337,14 @@ var BigCalendar = function (_Component) {
 
 							case 8:
 							case 'end':
-								return _context2.stop();
+								return _context3.stop();
 						}
 					}
-				}, _callee2, _this2);
+				}, _callee3, _this2);
 			}));
 
-			return function (_x2) {
-				return _ref3.apply(this, arguments);
+			return function (_x3) {
+				return _ref4.apply(this, arguments);
 			};
 		}();
 
@@ -308,9 +355,9 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.timeRange = function () {
-			var _this$state6 = _this.state,
-			    selectedDate = _this$state6.selectedDate,
-			    storeSchedule = _this$state6.storeSchedule;
+			var _this$state7 = _this.state,
+			    selectedDate = _this$state7.selectedDate,
+			    storeSchedule = _this$state7.storeSchedule;
 
 
 			var earliest = false;
@@ -357,20 +404,20 @@ var BigCalendar = function (_Component) {
 			});
 		};
 
-		_this.jumpToTeamMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-			return regeneratorRuntime.wrap(function _callee3$(_context3) {
+		_this.jumpToTeamMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+			return regeneratorRuntime.wrap(function _callee4$(_context4) {
 				while (1) {
-					switch (_context3.prev = _context3.next) {
+					switch (_context4.prev = _context4.next) {
 						case 0:
 							if (!_this.state.transitioning) {
-								_context3.next = 2;
+								_context4.next = 2;
 								break;
 							}
 
-							return _context3.abrupt('return');
+							return _context4.abrupt('return');
 
 						case 2:
-							_context3.next = 4;
+							_context4.next = 4;
 							return _this.setState({
 								transitioning: true,
 								mode: 'team',
@@ -392,31 +439,31 @@ var BigCalendar = function (_Component) {
 
 						case 7:
 						case 'end':
-							return _context3.stop();
+							return _context4.stop();
 					}
 				}
-			}, _callee3, _this2);
+			}, _callee4, _this2);
 		}));
-		_this.jumpToUserMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+		_this.jumpToUserMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
 			var view;
-			return regeneratorRuntime.wrap(function _callee4$(_context4) {
+			return regeneratorRuntime.wrap(function _callee5$(_context5) {
 				while (1) {
-					switch (_context4.prev = _context4.next) {
+					switch (_context5.prev = _context5.next) {
 						case 0:
 							if (!_this.state.transitioning) {
-								_context4.next = 2;
+								_context5.next = 2;
 								break;
 							}
 
-							return _context4.abrupt('return');
+							return _context5.abrupt('return');
 
 						case 2:
 
 							//scroll calendar left
 							new _es6Tween.Tween({
 								y: _this.calendarWrapper.scrollLeft
-							}).to({ y: 0 }, 500).on('update', function (_ref6) {
-								var y = _ref6.y;
+							}).to({ y: 0 }, 500).on('update', function (_ref7) {
+								var y = _ref7.y;
 
 								_this.calendarWrapper.scrollLeft = y;
 							}).easing(_es6Tween.Easing.Quadratic.Out).start();
@@ -426,7 +473,7 @@ var BigCalendar = function (_Component) {
 
 							//first give css transitions a sec to adjust the view
 
-							_context4.next = 6;
+							_context5.next = 6;
 							return _this.setState({
 								transitioning: true,
 								mode: 'user',
@@ -455,10 +502,10 @@ var BigCalendar = function (_Component) {
 
 						case 10:
 						case 'end':
-							return _context4.stop();
+							return _context5.stop();
 					}
 				}
-			}, _callee4, _this2);
+			}, _callee5, _this2);
 		}));
 
 		_this.handleToggleMode = function () {
@@ -482,9 +529,9 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.filterEvents = function (events, teammate) {
-			var _this$state7 = _this.state,
-			    view = _this$state7.view,
-			    mode = _this$state7.mode;
+			var _this$state8 = _this.state,
+			    view = _this$state8.view,
+			    mode = _this$state8.mode;
 
 
 			if (mode === 'team' && view === 'month') {
@@ -516,20 +563,20 @@ var BigCalendar = function (_Component) {
 			onClickOpenSlot && onClickOpenSlot(start, end, teammate);
 		};
 
-		_this.handleDropEvent = function (_ref7) {
-			var event = _ref7.event,
-			    start = _ref7.start,
-			    end = _ref7.end;
+		_this.handleDropEvent = function (_ref8) {
+			var event = _ref8.event,
+			    start = _ref8.start,
+			    end = _ref8.end;
 			var onDropEvent = _this.props.onDropEvent;
 
 
 			onDropEvent && onDropEvent(event, start, end);
 		};
 
-		_this.handleResizeEvent = function (resizeType, _ref8) {
-			var event = _ref8.event,
-			    start = _ref8.start,
-			    end = _ref8.end;
+		_this.handleResizeEvent = function (resizeType, _ref9) {
+			var event = _ref9.event,
+			    start = _ref9.start,
+			    end = _ref9.end;
 			var onResizeEvent = _this.props.onResizeEvent;
 
 
@@ -685,7 +732,8 @@ var BigCalendar = function (_Component) {
 						infinite: true,
 						onChange: this.handlePagerChange,
 						titles: this.generatePagerTitle,
-						jumpAmount: 7
+						jumpAmount: 7,
+						showStep: selectedView === 'day'
 					}),
 					_react2.default.createElement(
 						_Button2.default,
@@ -697,8 +745,8 @@ var BigCalendar = function (_Component) {
 					'div',
 					{
 						className: 'calendars__wrapper',
-						ref: function ref(_ref10) {
-							_this3.calendarWrapper = _ref10;
+						ref: function ref(_ref11) {
+							_this3.calendarWrapper = _ref11;
 						}
 					},
 					_react2.default.createElement(
@@ -720,15 +768,11 @@ var BigCalendar = function (_Component) {
 								_react2.default.createElement(
 									'div',
 									{ className: 'avatar_wrapper' },
+									_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
 									_react2.default.createElement(
 										'span',
-										null,
-										_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
-										_react2.default.createElement(
-											'span',
-											{ className: 'calendar__teammate_name' },
-											teammate.User.casualName
-										)
+										{ className: 'calendar__teammate_name' },
+										teammate.User.casualName
 									)
 								),
 								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
@@ -739,15 +783,16 @@ var BigCalendar = function (_Component) {
 										return _this3.applyClassNames(event);
 									},
 									onSelectEvent: _this3.handleClickEvent,
-									onSelectSlot: function onSelectSlot(_ref9) {
-										var start = _ref9.start,
-										    end = _ref9.end;
+									onSelectSlot: function onSelectSlot(_ref10) {
+										var start = _ref10.start,
+										    end = _ref10.end;
 										return _this3.handleClickOpenSlot(start, end, teammate);
 									},
 									onEventDrop: _this3.handleDropEvent,
 									onEventResize: _this3.handleResizeEvent,
 									canDrag: _this3.handleCanDrag,
-									canResize: _this3.handleCanResize
+									canResize: _this3.handleCanResize,
+									popup: selectedView === 'month'
 								}, calendarProps))
 							);
 						})

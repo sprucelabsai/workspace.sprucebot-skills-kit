@@ -109,9 +109,7 @@ export default class Dialog extends Component {
 	updateIndexes = () => {
 		const index = currentDialogs.length
 		currentDialogs.forEach((dialog, idx) => {
-			if (idx < index - 1) {
-				dialog.blur()
-			}
+			dialog.blur()
 			dialog.setIdx(index - idx)
 		})
 	}

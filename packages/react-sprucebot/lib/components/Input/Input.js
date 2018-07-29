@@ -96,11 +96,7 @@ var Input = function (_Component) {
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			var _this3 = this;
-
-			setTimeout(function () {
-				_this3.handleMultiline(_this3.props);
-			}, 10);
+			this.handleMultiline(this.props);
 		}
 	}, {
 		key: 'componentDidUpdate',
@@ -110,17 +106,16 @@ var Input = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this4 = this;
+			var _this3 = this;
 
 			var props = Object.assign({}, this.props);
 			var error = props.error,
 			    label = props.label,
 			    finePrint = props.finePrint,
-			    multiline = props.multiline,
-			    placeholder = props.placeholder;
+			    multiline = props.multiline;
 			var tag = props.tag;
 
-			var labelClass = label && !placeholder || label && this.state.hasValue ? 'js-show-label' : '';
+			var labelClass = label ? 'js-show-label' : '';
 
 			delete props.error;
 			delete props.label;
@@ -143,8 +138,6 @@ var Input = function (_Component) {
 				labelClass = '';
 			}
 
-			console.log(labelClass);
-
 			var Tag = tag;
 
 			return _react2.default.createElement(
@@ -158,7 +151,7 @@ var Input = function (_Component) {
 				_react2.default.createElement(Tag, _extends({}, props, {
 					onChange: this.onChange.bind(this),
 					ref: function ref(_ref) {
-						_this4.input = _ref;
+						_this3.input = _ref;
 					}
 				})),
 				error && _react2.default.createElement(
