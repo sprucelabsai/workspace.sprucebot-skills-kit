@@ -105,6 +105,20 @@ var Dialog = function (_Component) {
 		//for callbacks
 		var _this = _possibleConstructorReturn(this, (Dialog.__proto__ || Object.getPrototypeOf(Dialog)).call(this, props));
 
+		_this.setIdx = function (idx) {
+			_this.setState({ dialogIndex: idx });
+		};
+
+		_this.updateIndexes = function () {
+			var index = currentDialogs.length;
+			currentDialogs.forEach(function (dialog, idx) {
+				if (idx < index - 1) {
+					dialog.blur();
+				}
+				dialog.setIdx(index - idx);
+			});
+		};
+
 		_this.iframeMessageHandler = _this.iframeMessageHandler.bind(_this);
 
 		_this.state = {
@@ -115,7 +129,8 @@ var Dialog = function (_Component) {
 			scrollTop: 0,
 			firstShow: true,
 			opacity: 0,
-			inIframe: true
+			inIframe: true,
+			dialogIndex: 0
 		};
 		return _this;
 	}
@@ -182,11 +197,9 @@ var Dialog = function (_Component) {
 				this.requestScroll();
 			}
 
-			currentDialogs.forEach(function (dialog) {
-				return dialog.blur();
-			});
 			this.focus();
 			currentDialogs.push(this);
+			this.updateIndexes();
 		}
 	}, {
 		key: 'componentDidUpdate',
@@ -224,6 +237,8 @@ var Dialog = function (_Component) {
 			} else {
 				dialogUnderlay.classList.remove('on');
 			}
+
+			this.updateIndexes();
 		}
 	}, {
 		key: 'requestScroll',
@@ -291,7 +306,9 @@ var Dialog = function (_Component) {
 			    inIframe = _state.inIframe,
 			    focusClass = _state.focusClass,
 			    isHidden = _state.isHidden,
-			    firstShow = _state.firstShow;
+			    firstShow = _state.firstShow,
+			    dialogIndex = _state.dialogIndex;
+
 
 			var Tag = tag;
 			var dialogStyle = {
@@ -320,7 +337,7 @@ var Dialog = function (_Component) {
 					return _react2.default.createElement(
 						DialogWrapper,
 						{
-							className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : ''),
+							className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
 							show: show,
 							style: dialogStyle,
 							onClick: function onClick(e) {

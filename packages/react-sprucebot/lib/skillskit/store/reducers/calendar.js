@@ -13,7 +13,7 @@ var calendar = function calendar() {
 	var action = arguments[1];
 
 	switch (action.type) {
-		case _calendar.FETCH_CALENDAR_REQUEST:
+		case _calendar.FETCH_EVENTS_REQUEST:
 			{
 				return _extends({}, state, {
 					fetchCalendarLoading: true,
@@ -21,16 +21,22 @@ var calendar = function calendar() {
 					fetchCalendarError: false
 				});
 			}
-		case _calendar.FETCH_CALENDAR_SUCCESS:
+		case _calendar.FETCH_EVENTS_SUCCESS:
 			{
 				return _extends({}, state, {
-					events: action.response,
+					storeSchedule: action.result.storeSchedule,
+					events: action.result.events.map(function (event) {
+						return _extends({}, event, {
+							start: new Date(event.start),
+							end: new Date(event.end)
+						});
+					}),
 					fetchCalendarLoading: false,
 					fetchCalendarLoaded: false,
 					fetchCalendarError: true
 				});
 			}
-		case _calendar.FETCH_CALENDAR_ERROR:
+		case _calendar.FETCH_EVENTS_ERROR:
 			{
 				return _extends({}, state, {
 					fetchCalendarLoading: false,

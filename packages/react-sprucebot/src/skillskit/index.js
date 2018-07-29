@@ -44,7 +44,21 @@ const skill = {
 		this.resizedInterval = setInterval(this.resized.bind(this), 300)
 	},
 	scrollTo: function(offset) {
-		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 })
+		postMessage({
+			name: 'Skill:ScrollTo',
+			offset: offset || 0
+		})
+	},
+
+	scrollBy: function(offset) {
+		if (window.top === window.self) {
+			window.scrollBy({
+				top: offset,
+				behavior: 'smooth'
+			})
+		} else {
+			postMessage({ name: 'Skill:ScrollBy', offset })
+		}
 	},
 
 	requestScroll: function() {
@@ -93,12 +107,16 @@ const skill = {
 						this._confirmAccept(results.pass)
 						this._confirmAccept = null
 					}
+				} else if (results.name === 'Skill:DidClickStickyElement') {
+					if (this.handleStickElementClick) {
+						this.handleStickElementClick(results.key)
+					}
 				}
 			} catch (err) {}
 		}
 	},
 
-	//TODO move to promise
+	//TODO move to promise?
 	searchForUser: function({
 		onCancel = () => {},
 		onSelectUser = () => {},
@@ -131,6 +149,50 @@ const skill = {
 
 			return promise
 		}
+	},
+
+	/**
+	 * position: 'top' | 'bottom'
+	 * elements: [
+	 * {
+	 *  key: 'first-button', (key is passed back to onClick)
+	 * 	type: 'button'|'leftTitle'|'rightTitle'|'title',
+	 *  value: 'Hey There' //value MUST be a string, will be value of button or innerHTML of everything else
+	 * }
+	 * ]
+	 */
+	setStickyElement: function({
+		elements,
+		position = 'top',
+		onClick = () => {}
+	}) {
+		this.handleStickElementClick = onClick
+		postMessage({
+			name: 'Skill:SetStickyElement',
+			elements,
+			position
+		})
+	},
+
+	updateStickyBoundingRect: function(rect) {
+		if (
+			this._lastRect &&
+			this._lastRect.top === rect.top &&
+			this._lastRect.bottom == rect.bottom
+		) {
+			return
+		}
+
+		this._lastRect = rect
+
+		postMessage({
+			name: 'Skill:SetStickyBoundingRect',
+			boundingRect: rect
+		})
+	},
+
+	clearStickyElements() {
+		postMessage({ name: 'Skill:ClearStickyElements' })
 	}
 }
 

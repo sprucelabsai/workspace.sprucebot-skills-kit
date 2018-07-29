@@ -102,6 +102,7 @@ export default class Button extends Component {
 			left,
 			right,
 			href,
+			type,
 			...props
 		} = this.props
 
@@ -147,27 +148,30 @@ export default class Button extends Component {
 			Tag = tag
 		}
 
+		if (usingLink) {
+			return (
+				<Link href={href} {...props}>
+					<a
+						onClick={this.onClick}
+						className={`btn ${btnClass} ${className || ''}`}
+					>
+						<span className="wrapper">{this.renderView()}</span>
+					</a>
+				</Link>
+			)
+		}
+
 		return (
 			<Tag
 				className={`btn ${btnClass} ${className || ''}`}
-				onClick={usingLink ? null : this.onClick}
+				onClick={this.onClick}
 				disabled={disabled}
 				busy={busy}
 				href={href}
 				{...props}
+				type={type}
 			>
-				<Fragment>
-					{usingLink && (
-						<a
-							href={href}
-							onClick={this.onClick}
-							className={`btn ${btnClass} ${className || ''}`}
-						>
-							<span className="wrapper">{this.renderView()}</span>
-						</a>
-					)}
-					{!usingLink && <span className="wrapper">{this.renderView()}</span>}
-				</Fragment>
+				<span className="wrapper">{this.renderView()}</span>
 			</Tag>
 		)
 	}
