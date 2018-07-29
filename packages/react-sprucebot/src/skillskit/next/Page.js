@@ -8,7 +8,7 @@ import DevControls from '../../components/DevControls/DevControls'
 import Loader from '../../components/Loader/Loader'
 import qs from 'qs'
 import lang from '../helpers/lang'
-import { withRouter } from 'next/router'
+import Router, { withRouter } from 'next/router'
 
 const debug = require('debug')('react-sprucebot')
 
@@ -172,10 +172,21 @@ const Page = Wrapped => {
 					families: ['Material Icons']
 				}
 			})
+
+			Router &&
+				Router.router &&
+				Router.router.events.on('routeChangeStart', this.handleRouteChangStart)
 		}
 
 		componentWillUnmount() {
 			window.removeEventListener('message', this.messageHandler)
+			Router &&
+				Router.router &&
+				Router.router.events.off('routeChangeStart', this.handleRouteChangStart)
+		}
+
+		handleRouteChangStart = () => {
+			this.props.skill.notifyOfRouteChangeStart()
 		}
 
 		render() {
