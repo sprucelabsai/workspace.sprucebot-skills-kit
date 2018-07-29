@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.33.0"></a>
+# [6.33.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.32.0...v6.33.0) (2018-07-29)
+
+
+### Bug Fixes
+
+* remove console log ([25fdecd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/25fdecd))
+
+
+### Features
+
+* Add showJump/showStep props ([29fd591](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/29fd591))
+* progress ([2ff3ed3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2ff3ed3))
+* Update pager titles/change function; add popup, showStep ([654ac45](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/654ac45))
+
+
+
+
+
 <a name="6.32.0"></a>
 # [6.32.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.31.0...v6.32.0) (2018-07-29)
 
