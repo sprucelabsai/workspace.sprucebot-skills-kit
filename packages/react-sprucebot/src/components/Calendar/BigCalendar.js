@@ -546,9 +546,11 @@ export default class BigCalendar extends Component {
 									}}
 								>
 									<div className="avatar_wrapper">
-										<Avatar top user={teammate} />
-										<span className="calendar__teammate_name">
-											{teammate.User.casualName}
+										<span>
+											<Avatar top user={teammate} />
+											<span className="calendar__teammate_name">
+												{teammate.User.casualName}
+											</span>
 										</span>
 									</div>
 									{((idx === 0 && renderFirstCalendar) ||
