@@ -73,9 +73,29 @@ export default class BigCalendar extends Component {
 	}
 
 	generatePagerTitle = page => {
-		console.log('PAGER TITLE', page)
+		const { view, selectedDate } = this.state
 
-		return this.state.selectedDate.format('YYYY-MM-DD')
+		let title
+
+		if (view === 'month') {
+			title = moment(selectedDate).format('MMM YYYY')
+		} else if (view === 'week') {
+			const startOfWeek = moment(selectedDate).startOf('week')
+			const endOfWeek = moment(selectedDate).endOf('week')
+			console.log({ startOfWeek, endOfWeek })
+
+			if (startOfWeek.isSame(endOfWeek, 'month')) {
+				title = `${startOfWeek.format('MMM Do')} - ${endOfWeek.format('Do')}`
+			} else {
+				title = `${startOfWeek.format('MMM Do')} - ${endOfWeek.format(
+					'MMM Do'
+				)}`
+			}
+		} else if (view === 'day') {
+			title = moment(selectedDate).format('MMM Do')
+		}
+
+		return title
 	}
 
 	getDesiredTeammateWrapperWidth = () => {
@@ -164,11 +184,13 @@ export default class BigCalendar extends Component {
 	}
 
 	refresh = async (triggerOnNavigate = false) => {
-    debugger
 		const { mode, view, teammates, selectedDate } = this.state
-		const { onNavigate, fetchEvents } = this.props
+		const { auth, onNavigate, fetchEvents } = this.props
 
 		const currentView = view === 'team_week' ? 'week' : view
+		const currentUser = teammates.find(
+			teammate => teammate.User.id === auth.UserId
+		)
 
 		const startDate = moment(selectedDate).startOf(currentView)
 		const endDate = moment(selectedDate).endOf(currentView)
@@ -178,7 +200,7 @@ export default class BigCalendar extends Component {
 			startDate,
 			endDate,
 			view: currentView,
-			teammates: mode === 'user' ? teammates[0] : teammates
+			teammates: mode === 'user' ? currentUser : teammates
 		}
 
 		triggerOnNavigate && onNavigate && onNavigate(options)
@@ -187,15 +209,18 @@ export default class BigCalendar extends Component {
 		this.setState({ storeSchedule, events })
 	}
 
-	handlePagerChange = page => {
-		const diff = page - this.state.currentPage
+	handlePagerChange = async page => {
+		const { view } = this.state
+		const diff = view !== 'month' ? page - this.state.currentPage : 1
+		const stepType = view !== 'month' ? 'days' : 'months'
 
-		this.setState(prevState => {
+		await this.setState(prevState => {
 			return {
 				currentPage: page,
-				selectedDate: prevState.selectedDate.add(diff, 'days')
+				selectedDate: prevState.selectedDate.add(diff, stepType)
 			}
 		})
+
 		this.handleChange()
 	}
 
@@ -520,6 +545,7 @@ export default class BigCalendar extends Component {
 						onChange={this.handlePagerChange}
 						titles={this.generatePagerTitle}
 						jumpAmount={7}
+						showStep={selectedView === 'day'}
 					/>
 					<Button className="toggle-mode" onClick={this.handleToggleMode}>
 						{mode === 'team' ? 'show just me' : 'show team'}
@@ -569,6 +595,7 @@ export default class BigCalendar extends Component {
 											onEventResize={this.handleResizeEvent}
 											canDrag={this.handleCanDrag}
 											canResize={this.handleCanResize}
+											popup={selectedView === 'month'}
 											{...calendarProps}
 										/>
 									)}
