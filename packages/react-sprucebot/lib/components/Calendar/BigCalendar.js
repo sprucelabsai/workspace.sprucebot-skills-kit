@@ -354,6 +354,7 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.timeRange = function () {
+			var auth = _this.props.auth;
 			var _this$state7 = _this.state,
 			    selectedDate = _this$state7.selectedDate,
 			    storeSchedule = _this$state7.storeSchedule;
@@ -364,8 +365,8 @@ var BigCalendar = function (_Component) {
 
 			if (storeSchedule && storeSchedule.length !== 0) {
 				storeSchedule.forEach(function (schedule) {
-					var start = (0, _moment2.default)('2018-04-01 ' + schedule.startTime).subtract(2, 'hour');
-					var end = (0, _moment2.default)('2018-04-01 ' + schedule.endTime).add(2, 'hour');
+					var start = _moment2.default.tz('2018-04-01 ' + schedule.startTime, auth.Location.timezone).subtract(2, 'hour');
+					var end = _moment2.default.tz('2018-04-01 ' + schedule.endTime, auth.Location.timezone).add(2, 'hour');
 
 					if (!earliest || earliest.diff(start) > 0) {
 						earliest = (0, _moment2.default)(start);

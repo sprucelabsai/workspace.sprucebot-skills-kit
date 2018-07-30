@@ -259,6 +259,7 @@ export default class BigCalendar extends Component {
 
 	//the earliest and latest time of all schedules
 	timeRange = () => {
+		const { auth } = this.props
 		const { selectedDate, storeSchedule } = this.state
 
 		let earliest = false
@@ -266,11 +267,12 @@ export default class BigCalendar extends Component {
 
 		if (storeSchedule && storeSchedule.length !== 0) {
 			storeSchedule.forEach(schedule => {
-				const start = moment(`2018-04-01 ${schedule.startTime}`).subtract(
-					2,
-					'hour'
-				)
-				const end = moment(`2018-04-01 ${schedule.endTime}`).add(2, 'hour')
+				const start = moment
+					.tz(`2018-04-01 ${schedule.startTime}`, auth.Location.timezone)
+					.subtract(2, 'hour')
+				const end = moment
+					.tz(`2018-04-01 ${schedule.endTime}`, auth.Location.timezone)
+					.add(2, 'hour')
 
 				if (!earliest || earliest.diff(start) > 0) {
 					earliest = moment(start)
