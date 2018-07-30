@@ -186,7 +186,8 @@ const Page = Wrapped => {
 		}
 
 		handleRouteChangStart = () => {
-			this.props.skill.notifyOfRouteChangeStart()
+			// don't user skill off props, it is pulled server side and lacks all functions
+			skill.notifyOfRouteChangeStart()
 		}
 
 		render() {

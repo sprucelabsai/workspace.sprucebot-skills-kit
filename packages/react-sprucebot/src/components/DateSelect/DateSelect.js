@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import requiredIf from 'react-required-if'
 import { DayPickerSingleDateController } from 'react-dates'
 
 import Loader from '../Loader/Loader'
@@ -913,14 +912,14 @@ class DateSelect extends Component {
 	}
 
 	isDayBlocked = date => {
-		const { availableDays, bypassDaysBlocked } = this.props
+		const { availableDates } = this.props
 
-		if (bypassDaysBlocked) {
+		if (availableDates.length === 0) {
 			return false
 		}
 
-		const match = availableDays.find(day => day === date.format('YYYY-MM-DD'))
-		const lastDate = moment(availableDays[availableDays.length - 1]).endOf(
+		const match = availableDates.find(day => day === date.format('YYYY-MM-DD'))
+		const lastDate = moment(availableDates[availableDates.length - 1]).endOf(
 			'month'
 		)
 
@@ -951,7 +950,11 @@ class DateSelect extends Component {
 	}
 
 	handleDateChange = date => {
-		const { onDateSelect = () => {} } = this.props
+		const {
+			onDateSelect = () => {
+				console.log({ date })
+			}
+		} = this.props
 
 		onDateSelect(date)
 		this.setState({ date })
@@ -1012,8 +1015,7 @@ class DateSelect extends Component {
 export default DateSelect
 
 DateSelect.propTypes = {
-	availableDays: requiredIf(PropTypes.array, props => !props.bypassDaysBlocked),
-	bypassDaysBlocked: PropTypes.bool.isRequired,
+	availableDates: PropTypes.array,
 	allowPastDates: PropTypes.bool,
 	onDateSelect: PropTypes.func.isRequired,
 	setDefaultDate: PropTypes.bool,
@@ -1027,6 +1029,6 @@ DateSelect.propTypes = {
 }
 
 DateSelect.defaultProps = {
-	availableDays: [],
-	bypassDaysBlocked: false
+	availableDates: [],
+	allowPastDates: false
 }

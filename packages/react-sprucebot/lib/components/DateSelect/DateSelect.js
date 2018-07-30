@@ -24,10 +24,6 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRequiredIf = require('react-required-if');
-
-var _reactRequiredIf2 = _interopRequireDefault(_reactRequiredIf);
-
 var _reactDates = require('react-dates');
 
 var _Loader = require('../Loader/Loader');
@@ -98,19 +94,17 @@ var DateSelect = function (_Component) {
 				_this.setDefaultDate();
 			}
 		}, _this.isDayBlocked = function (date) {
-			var _this$props = _this.props,
-			    availableDays = _this$props.availableDays,
-			    bypassDaysBlocked = _this$props.bypassDaysBlocked;
+			var availableDates = _this.props.availableDates;
 
 
-			if (bypassDaysBlocked) {
+			if (availableDates.length === 0) {
 				return false;
 			}
 
-			var match = availableDays.find(function (day) {
+			var match = availableDates.find(function (day) {
 				return day === date.format('YYYY-MM-DD');
 			});
-			var lastDate = (0, _moment2.default)(availableDays[availableDays.length - 1]).endOf('month');
+			var lastDate = (0, _moment2.default)(availableDates[availableDates.length - 1]).endOf('month');
 
 			if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
 				return false;
@@ -137,7 +131,9 @@ var DateSelect = function (_Component) {
 			return false;
 		}, _this.handleDateChange = function (date) {
 			var _this$props$onDateSel = _this.props.onDateSelect,
-			    onDateSelect = _this$props$onDateSel === undefined ? function () {} : _this$props$onDateSel;
+			    onDateSelect = _this$props$onDateSel === undefined ? function () {
+				console.log({ date: date });
+			} : _this$props$onDateSel;
 
 
 			onDateSelect(date);
@@ -226,10 +222,7 @@ exports.default = DateSelect;
 
 
 DateSelect.propTypes = {
-	availableDays: (0, _reactRequiredIf2.default)(_propTypes2.default.array, function (props) {
-		return !props.bypassDaysBlocked;
-	}),
-	bypassDaysBlocked: _propTypes2.default.bool.isRequired,
+	availableDates: _propTypes2.default.array,
 	allowPastDates: _propTypes2.default.bool,
 	onDateSelect: _propTypes2.default.func.isRequired,
 	setDefaultDate: _propTypes2.default.bool,
@@ -243,6 +236,6 @@ DateSelect.propTypes = {
 };
 
 DateSelect.defaultProps = {
-	availableDays: [],
-	bypassDaysBlocked: false
+	availableDates: [],
+	allowPastDates: false
 };

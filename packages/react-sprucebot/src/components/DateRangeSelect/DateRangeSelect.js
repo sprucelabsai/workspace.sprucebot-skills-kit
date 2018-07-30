@@ -936,16 +936,16 @@ class DateRangeSelect extends Component {
 	}
 
 	isDayBlocked = date => {
-		const { availableDays } = this.props
+		const { availableDates } = this.props
 
-		if (availableDays === undefined) {
+		if (availableDates.length === 0) {
 			return false
 		}
 
-		const match = (availableDays || []).find(
+		const match = (availableDates || []).find(
 			day => day === date.format('YYYY-MM-DD')
 		)
-		const lastDate = moment(availableDays[availableDays.length - 1]).endOf(
+		const lastDate = moment(availableDates[availableDates.length - 1]).endOf(
 			'month'
 		)
 
@@ -1103,7 +1103,7 @@ class DateRangeSelect extends Component {
 export default DateRangeSelect
 
 DateRangeSelect.propTypes = {
-	availableDays: PropTypes.array,
+	availableDates: PropTypes.array,
 	allowPastDates: PropTypes.bool,
 	onDatesChange: PropTypes.func.isRequired,
 	numberOfMonths: PropTypes.number,
@@ -1118,4 +1118,9 @@ DateRangeSelect.propTypes = {
 	orientation: PropTypes.sting,
 	hide: PropTypes.bool,
 	loading: PropTypes.bool
+}
+
+DateRangeSelect.defaultProps = {
+	availableDates: [],
+	allowPastDates: false
 }
