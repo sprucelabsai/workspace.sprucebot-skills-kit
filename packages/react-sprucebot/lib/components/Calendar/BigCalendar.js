@@ -109,7 +109,6 @@ var BigCalendar = function (_Component) {
 			} else if (view === 'week') {
 				var startOfWeek = (0, _moment2.default)(selectedDate).startOf('week');
 				var endOfWeek = (0, _moment2.default)(selectedDate).endOf('week');
-				console.log({ startOfWeek: startOfWeek, endOfWeek: endOfWeek });
 
 				if (startOfWeek.isSame(endOfWeek, 'month')) {
 					title = startOfWeek.format('MMM Do') + ' - ' + endOfWeek.format('Do');

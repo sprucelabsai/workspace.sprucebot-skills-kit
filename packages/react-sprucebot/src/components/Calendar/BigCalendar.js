@@ -82,7 +82,6 @@ export default class BigCalendar extends Component {
 		} else if (view === 'week') {
 			const startOfWeek = moment(selectedDate).startOf('week')
 			const endOfWeek = moment(selectedDate).endOf('week')
-			console.log({ startOfWeek, endOfWeek })
 
 			if (startOfWeek.isSame(endOfWeek, 'month')) {
 				title = `${startOfWeek.format('MMM Do')} - ${endOfWeek.format('Do')}`
