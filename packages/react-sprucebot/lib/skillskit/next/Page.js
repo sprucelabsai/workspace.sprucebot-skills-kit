@@ -94,7 +94,8 @@ var Page = function Page(Wrapped) {
 			var _this = _possibleConstructorReturn(this, (_class2.__proto__ || Object.getPrototypeOf(_class2)).call(this, props));
 
 			_this.handleRouteChangStart = function () {
-				_this.props.skill.notifyOfRouteChangeStart();
+				// don't user skill off props, it is pulled server side and lacks all functions
+				_index2.default.notifyOfRouteChangeStart();
 			};
 
 			_this.state = {
