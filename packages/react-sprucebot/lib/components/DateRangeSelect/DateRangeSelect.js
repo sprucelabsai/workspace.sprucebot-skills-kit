@@ -104,17 +104,17 @@ var DateRangeSelect = function (_Component) {
 				_this.setDefaultDates();
 			}
 		}, _this.isDayBlocked = function (date) {
-			var availableDays = _this.props.availableDays;
+			var availableDates = _this.props.availableDates;
 
 
-			if (availableDays === undefined) {
+			if (availableDates.length === 0) {
 				return false;
 			}
 
-			var match = (availableDays || []).find(function (day) {
+			var match = (availableDates || []).find(function (day) {
 				return day === date.format('YYYY-MM-DD');
 			});
-			var lastDate = (0, _moment2.default)(availableDays[availableDays.length - 1]).endOf('month');
+			var lastDate = (0, _moment2.default)(availableDates[availableDates.length - 1]).endOf('month');
 
 			if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
 				return false;
@@ -287,7 +287,7 @@ exports.default = DateRangeSelect;
 
 
 DateRangeSelect.propTypes = {
-	availableDays: _propTypes2.default.array,
+	availableDates: _propTypes2.default.array,
 	allowPastDates: _propTypes2.default.bool,
 	onDatesChange: _propTypes2.default.func.isRequired,
 	numberOfMonths: _propTypes2.default.number,
@@ -302,4 +302,9 @@ DateRangeSelect.propTypes = {
 	orientation: _propTypes2.default.sting,
 	hide: _propTypes2.default.bool,
 	loading: _propTypes2.default.bool
+};
+
+DateRangeSelect.defaultProps = {
+	availableDates: [],
+	allowPastDates: false
 };
