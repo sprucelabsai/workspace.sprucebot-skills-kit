@@ -193,6 +193,10 @@ const skill = {
 
 	clearStickyElements() {
 		postMessage({ name: 'Skill:ClearStickyElements' })
+	},
+
+	notifyOfRouteChangeStart() {
+		postMessage({ name: 'Skill:RouteChangeStart' })
 	}
 }
 

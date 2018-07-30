@@ -274,6 +274,9 @@ var skill = {
 
 	clearStickyElements: function clearStickyElements() {
 		postMessage({ name: 'Skill:ClearStickyElements' });
+	},
+	notifyOfRouteChangeStart: function notifyOfRouteChangeStart() {
+		postMessage({ name: 'Skill:RouteChangeStart' });
 	}
 };
 
