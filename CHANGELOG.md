@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.36.0"></a>
+# [6.36.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.35.0...v6.36.0) (2018-07-30)
+
+
+### Features
+
+* Add showStep/Jump to Pager ([f2e1ba4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f2e1ba4))
+* change fix ([24f6416](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/24f6416))
+* generatePagerTitle, handlePagerChange, currentUser, popup ([f23053e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f23053e))
+* Redine days block, default props in DateRangeSelect ([3eb7615](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3eb7615))
+* Refine days blocked in DateSelect ([f821cc4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f821cc4))
+
+
+
+
+
 <a name="6.35.0"></a>
 # [6.35.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.30.0...v6.35.0) (2018-07-30)
 
