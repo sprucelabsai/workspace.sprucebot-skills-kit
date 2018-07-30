@@ -94,7 +94,7 @@ export default class Dialog extends Component {
 		this.dialogHeight = Math.ceil(topDialog.offsetHeight + margin)
 
 		let minHeight = this.dialogHeight
-		
+
 		for (var i = 0; i < dialogs.length; i++) {
 			const height = dialogs[i].dialogHeight
 			if (dialogs[i].dialogHeight > minHeight) {
