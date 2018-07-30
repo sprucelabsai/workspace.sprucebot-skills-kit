@@ -12,6 +12,7 @@ import SK from '../../skillskit'
 
 var dialogUnderlay = null
 const currentDialogs = []
+const dialogVerticalPadding = 30
 
 const DialogWrapper = styled.div.attrs({
 	className: ({ show, className }) => `dialog__wrapper ${className}`
@@ -30,6 +31,8 @@ const DialogCloseButton = styled(Button).attrs({
 })``
 
 export default class Dialog extends Component {
+	dialogHeight = 0
+
 	constructor(props) {
 		super(props)
 
@@ -78,20 +81,43 @@ export default class Dialog extends Component {
 	}
 
 	postHeight() {
-		const underlayHeight = dialogUnderlay ? dialogUnderlay.offsetHeight : 0
+		const dialogs = document.body.getElementsByClassName('dialog')
+
+		if (dialogs.length < 1) {
+			return
+		}
+
+		const topDialog = dialogs[dialogs.length - 1]
+		const styles = window.getComputedStyle(topDialog)
+		const margin = parseFloat(styles['marginTop'])
+
+		this.dialogHeight = Math.ceil(topDialog.offsetHeight + margin)
+
+		let minHeight = this.dialogHeight
+		
+		for (var i = 0; i < dialogs.length; i++) {
+			const height = dialogs[i].dialogHeight
+			if (dialogs[i].dialogHeight > minHeight) {
+				minHeight = height
+			}
+		}
 
 		//min height on body
-		document.body.style.minHeight = `${underlayHeight}px`
+		document.body.style.minHeight = `${minHeight + dialogVerticalPadding * 2}px`
 	}
 
 	componentWillMount() {
 		if (typeof document !== 'undefined' && !dialogUnderlay) {
 			dialogUnderlay = document.createElement('div')
 			dialogUnderlay.className = 'dialog_underlay'
+			dialogUnderlay.classList.add('hidden')
 			document.body.appendChild(dialogUnderlay)
 		}
 		if (dialogUnderlay) {
 			dialogUnderlay.classList.add('on')
+			setTimeout(() => {
+				dialogUnderlay.classList.remove('hidden')
+			}, 10)
 		}
 	}
 
@@ -142,37 +168,33 @@ export default class Dialog extends Component {
 	componentWillUnmount() {
 		document.body.style.minHeight = `auto`
 		window.removeEventListener('message', this.iframeMessageHandler)
-		currentDialogs.pop()
-		if (currentDialogs.length - 1 >= 0) {
-			currentDialogs[currentDialogs.length - 1].focus()
-		} else {
-			dialogUnderlay.classList.remove('on')
-		}
-
-		this.updateIndexes()
+		this.closeDialog()
 	}
 
 	requestScroll() {
 		SK.requestScroll()
 		setTimeout(() => {
 			// we are not in the sb iframe
-			if (this.state.opacity === 0) {
-				this.setState({
-					opacity: 1,
-					scrollTop: window.document.body.scrollTop,
-					firstShow: false,
-					inIframe: false
-				})
-			}
+			// console.log('TIMEOUT SCROLL TOP', currentDialogs.length, top)
+			// if (this.state.opacity === 0) {
+			// 	this.setState({
+			// 		opacity: 1,
+			// 		scrollTop: window.document.body.scrollTop,
+			// 		firstShow: false,
+			// 		inIframe: false
+			// 	})
+			// }
 		}, 250)
 	}
 
 	iframeMessageHandler(e) {
 		try {
 			const results = JSON.parse(e.data)
+			console.log('CURRENT SCROLL TOP', results.skillScrollTop)
 			if (this.state.firstShow && results.name === 'SkillContainer:ScrollTop') {
 				const top =
 					results.skillScrollTop < 0 ? Math.abs(results.skillScrollTop) : 0
+				console.log('SET SCROLL TOP', currentDialogs.length, top)
 				this.setState({
 					scrollTop: top,
 					firstShow: false,
@@ -182,14 +204,36 @@ export default class Dialog extends Component {
 		} catch (err) {}
 	}
 	onTapClose() {
-		this.setState({ focusClass: '' })
-		this.postHeight()
-		if (this.props.onTapClose) {
-			setTimeout(() => {
-				this.props.onTapClose()
-			}, 600)
-		}
+		this.closeDialog()
+		this.setState({ focusClass: 'closed', opacity: 0 }, () => {
+			if (this.props.onTapClose) {
+				setTimeout(() => {
+					this.props.onTapClose()
+				}, 500)
+			}
+		})
 	}
+
+	closeDialog() {
+		if (this.state.focusClass !== 'closed') {
+			currentDialogs.pop()
+			if (currentDialogs.length - 1 >= 0) {
+				const nextDialog = currentDialogs[currentDialogs.length - 1]
+				nextDialog.focus()
+				let node = ReactDOM.findDOMNode(this.dialogNode)
+				// SK.scrollTo(node.offsetTop - dialogVerticalPadding)
+			} else {
+				dialogUnderlay.classList.add('hidden')
+				setTimeout(() => {
+					dialogUnderlay.classList.remove('on')
+				}, 300)
+			}
+
+			this.updateIndexes()
+		}
+		this.postHeight()
+	}
+
 	render() {
 		const {
 			tag,
@@ -212,9 +256,9 @@ export default class Dialog extends Component {
 
 		const Tag = tag
 		const dialogStyle = {
-			marginTop: this.state.scrollTop
+			marginTop: this.state.scrollTop + dialogVerticalPadding
 		}
-
+		console.log('RENDER SCROLL TOP', this.state.scrollTop)
 		if (!show) {
 			return null
 		}
@@ -239,7 +283,6 @@ export default class Dialog extends Component {
 								isHidden ? 'hidden' : ''
 							} dialog-${dialogIndex}`}
 							show={show}
-							style={dialogStyle}
 							onClick={e => {
 								if (
 									e.target.className.search('dialog__wrapper') > -1 &&
@@ -250,10 +293,12 @@ export default class Dialog extends Component {
 							}}
 						>
 							<DialogContainer
+								ref={node => (this.dialogNode = node)}
 								innerRef={measureRef}
 								className={`${className || ''} ${
 									hasHeader ? 'has_header' : ''
 								}`}
+								style={dialogStyle}
 								show={show}
 								opacity={opacity}
 								{...props}

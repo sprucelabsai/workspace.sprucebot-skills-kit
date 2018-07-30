@@ -62,6 +62,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var dialogUnderlay = null;
 var currentDialogs = [];
+var dialogVerticalPadding = 30;
 
 var DialogWrapper = _styledComponents2.default.div.attrs({
 	className: function className(_ref) {
@@ -104,6 +105,8 @@ var Dialog = function (_Component) {
 
 		//for callbacks
 		var _this = _possibleConstructorReturn(this, (Dialog.__proto__ || Object.getPrototypeOf(Dialog)).call(this, props));
+
+		_this.dialogHeight = 0;
 
 		_this.setIdx = function (idx) {
 			_this.setState({ dialogIndex: idx });
@@ -172,10 +175,29 @@ var Dialog = function (_Component) {
 	}, {
 		key: 'postHeight',
 		value: function postHeight() {
-			var underlayHeight = dialogUnderlay ? dialogUnderlay.offsetHeight : 0;
+			var dialogs = document.body.getElementsByClassName('dialog');
+
+			if (dialogs.length < 1) {
+				return;
+			}
+
+			var topDialog = dialogs[dialogs.length - 1];
+			var styles = window.getComputedStyle(topDialog);
+			var margin = parseFloat(styles['marginTop']);
+
+			this.dialogHeight = Math.ceil(topDialog.offsetHeight + margin);
+
+			var minHeight = this.dialogHeight;
+
+			for (var i = 0; i < dialogs.length; i++) {
+				var height = dialogs[i].dialogHeight;
+				if (dialogs[i].dialogHeight > minHeight) {
+					minHeight = height;
+				}
+			}
 
 			//min height on body
-			document.body.style.minHeight = underlayHeight + 'px';
+			document.body.style.minHeight = minHeight + dialogVerticalPadding * 2 + 'px';
 		}
 	}, {
 		key: 'componentWillMount',
@@ -183,10 +205,14 @@ var Dialog = function (_Component) {
 			if (typeof document !== 'undefined' && !dialogUnderlay) {
 				dialogUnderlay = document.createElement('div');
 				dialogUnderlay.className = 'dialog_underlay';
+				dialogUnderlay.classList.add('hidden');
 				document.body.appendChild(dialogUnderlay);
 			}
 			if (dialogUnderlay) {
 				dialogUnderlay.classList.add('on');
+				setTimeout(function () {
+					dialogUnderlay.classList.remove('hidden');
+				}, 10);
 			}
 		}
 	}, {
@@ -231,31 +257,23 @@ var Dialog = function (_Component) {
 		value: function componentWillUnmount() {
 			document.body.style.minHeight = 'auto';
 			window.removeEventListener('message', this.iframeMessageHandler);
-			currentDialogs.pop();
-			if (currentDialogs.length - 1 >= 0) {
-				currentDialogs[currentDialogs.length - 1].focus();
-			} else {
-				dialogUnderlay.classList.remove('on');
-			}
-
-			this.updateIndexes();
+			this.closeDialog();
 		}
 	}, {
 		key: 'requestScroll',
 		value: function requestScroll() {
-			var _this4 = this;
-
 			_skillskit2.default.requestScroll();
 			setTimeout(function () {
 				// we are not in the sb iframe
-				if (_this4.state.opacity === 0) {
-					_this4.setState({
-						opacity: 1,
-						scrollTop: window.document.body.scrollTop,
-						firstShow: false,
-						inIframe: false
-					});
-				}
+				// console.log('TIMEOUT SCROLL TOP', currentDialogs.length, top)
+				// if (this.state.opacity === 0) {
+				// 	this.setState({
+				// 		opacity: 1,
+				// 		scrollTop: window.document.body.scrollTop,
+				// 		firstShow: false,
+				// 		inIframe: false
+				// 	})
+				// }
 			}, 250);
 		}
 	}, {
@@ -263,8 +281,10 @@ var Dialog = function (_Component) {
 		value: function iframeMessageHandler(e) {
 			try {
 				var results = JSON.parse(e.data);
+				console.log('CURRENT SCROLL TOP', results.skillScrollTop);
 				if (this.state.firstShow && results.name === 'SkillContainer:ScrollTop') {
 					var top = results.skillScrollTop < 0 ? Math.abs(results.skillScrollTop) : 0;
+					console.log('SET SCROLL TOP', currentDialogs.length, top);
 					this.setState({
 						scrollTop: top,
 						firstShow: false,
@@ -276,20 +296,42 @@ var Dialog = function (_Component) {
 	}, {
 		key: 'onTapClose',
 		value: function onTapClose() {
-			var _this5 = this;
+			var _this4 = this;
 
-			this.setState({ focusClass: '' });
-			this.postHeight();
-			if (this.props.onTapClose) {
-				setTimeout(function () {
-					_this5.props.onTapClose();
-				}, 600);
+			this.closeDialog();
+			this.setState({ focusClass: 'closed', opacity: 0 }, function () {
+				if (_this4.props.onTapClose) {
+					setTimeout(function () {
+						_this4.props.onTapClose();
+					}, 500);
+				}
+			});
+		}
+	}, {
+		key: 'closeDialog',
+		value: function closeDialog() {
+			if (this.state.focusClass !== 'closed') {
+				currentDialogs.pop();
+				if (currentDialogs.length - 1 >= 0) {
+					var nextDialog = currentDialogs[currentDialogs.length - 1];
+					nextDialog.focus();
+					var node = _reactDom2.default.findDOMNode(this.dialogNode);
+					// SK.scrollTo(node.offsetTop - dialogVerticalPadding)
+				} else {
+					dialogUnderlay.classList.add('hidden');
+					setTimeout(function () {
+						dialogUnderlay.classList.remove('on');
+					}, 300);
+				}
+
+				this.updateIndexes();
 			}
+			this.postHeight();
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this6 = this;
+			var _this5 = this;
 
 			var _props = this.props,
 			    tag = _props.tag,
@@ -312,9 +354,9 @@ var Dialog = function (_Component) {
 
 			var Tag = tag;
 			var dialogStyle = {
-				marginTop: this.state.scrollTop
+				marginTop: this.state.scrollTop + dialogVerticalPadding
 			};
-
+			console.log('RENDER SCROLL TOP', this.state.scrollTop);
 			if (!show) {
 				return null;
 			}
@@ -326,7 +368,7 @@ var Dialog = function (_Component) {
 				{
 					scroll: true,
 					onResize: function onResize(contentRect) {
-						_this6.setSize({
+						_this5.setSize({
 							width: contentRect.scroll.width,
 							height: contentRect.scroll.height
 						});
@@ -339,7 +381,6 @@ var Dialog = function (_Component) {
 						{
 							className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
 							show: show,
-							style: dialogStyle,
 							onClick: function onClick(e) {
 								if (e.target.className.search('dialog__wrapper') > -1 && currentDialogs.length - 1 >= 0) {
 									currentDialogs[currentDialogs.length - 1].onTapClose();
@@ -349,8 +390,12 @@ var Dialog = function (_Component) {
 						_react2.default.createElement(
 							DialogContainer,
 							_extends({
+								ref: function ref(node) {
+									return _this5.dialogNode = node;
+								},
 								innerRef: measureRef,
 								className: (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
+								style: dialogStyle,
 								show: show,
 								opacity: opacity
 							}, props),
@@ -366,7 +411,7 @@ var Dialog = function (_Component) {
 									_IconButton2.default,
 									{
 										className: 'btn__close_dialog',
-										onClick: _this6.onTapClose.bind(_this6)
+										onClick: _this5.onTapClose.bind(_this5)
 									},
 									'close'
 								)
