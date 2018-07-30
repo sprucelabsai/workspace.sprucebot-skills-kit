@@ -273,7 +273,7 @@ var BigCalendar = function (_Component) {
 						switch (_context2.prev = _context2.next) {
 							case 0:
 								view = _this.state.view;
-								diff = view !== 'month' ? page - _this.state.currentPage : 1;
+								diff = page - _this.state.currentPage;
 								stepType = view !== 'month' ? 'days' : 'months';
 								_context2.next = 5;
 								return _this.setState(function (prevState) {
@@ -731,7 +731,7 @@ var BigCalendar = function (_Component) {
 						infinite: true,
 						onChange: this.handlePagerChange,
 						titles: this.generatePagerTitle,
-						jumpAmount: 7,
+						jumpAmount: selectedView !== 'month' ? 7 : 1,
 						showStep: selectedView === 'day'
 					}),
 					_react2.default.createElement(
