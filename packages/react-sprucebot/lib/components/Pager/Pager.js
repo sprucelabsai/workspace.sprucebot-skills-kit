@@ -191,11 +191,11 @@ var Pager = function (_Component) {
 
 			var _props = this.props,
 			    totalPages = _props.totalPages,
-			    hideSingleArrows = _props.hideSingleArrows,
-			    hideDoubleArrows = _props.hideDoubleArrows,
+			    showStep = _props.showStep,
+			    showJump = _props.showJump,
 			    infinite = _props.infinite,
 			    className = _props.className,
-			    props = _objectWithoutProperties(_props, ['totalPages', 'hideSingleArrows', 'hideDoubleArrows', 'infinite', 'className']);
+			    props = _objectWithoutProperties(_props, ['totalPages', 'showStep', 'showJump', 'infinite', 'className']);
 
 			var first = page === 0 && !infinite;
 			var last = page === totalPages - 1 && !infinite;
@@ -203,7 +203,7 @@ var Pager = function (_Component) {
 			return _react2.default.createElement(
 				'ul',
 				_extends({}, props, { className: className + ' pager' }),
-				_react2.default.createElement(
+				showJump && _react2.default.createElement(
 					'li',
 					{ className: 'first ' + (first && 'disabled'), smallArrows: true },
 					_react2.default.createElement(
@@ -212,9 +212,9 @@ var Pager = function (_Component) {
 						'first_page'
 					)
 				),
-				_react2.default.createElement(
+				showStep && _react2.default.createElement(
 					'li',
-					{ className: 'back ' + (first && 'disabled'), hide: hideSingleArrows },
+					{ className: 'back ' + (first && 'disabled'), smallArrows: true },
 					_react2.default.createElement(
 						_IconButton2.default,
 						{ onClick: this.back },
@@ -222,7 +222,7 @@ var Pager = function (_Component) {
 					)
 				),
 				this.renderView(),
-				_react2.default.createElement(
+				showStep && _react2.default.createElement(
 					'li',
 					{ className: 'next ' + (last && 'disabled'), smallArrows: true },
 					_react2.default.createElement(
@@ -231,7 +231,7 @@ var Pager = function (_Component) {
 						'chevron_right'
 					)
 				),
-				_react2.default.createElement(
+				showJump && _react2.default.createElement(
 					'li',
 					{ className: 'last ' + (last && 'disabled'), smallArrows: true },
 					_react2.default.createElement(
@@ -263,5 +263,7 @@ Pager.propTypes = {
 Pager.defaultProps = {
 	page: 0,
 	infinite: false,
-	stepAmount: 1
+	stepAmount: 1,
+	showStep: true,
+	showJump: true
 };
