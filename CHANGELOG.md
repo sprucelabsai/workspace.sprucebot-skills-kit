@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.35.0"></a>
+# [6.35.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.30.0...v6.35.0) (2018-07-30)
+
+
+### Bug Fixes
+
+* Adjust default prop for DateSelect ([5148a64](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5148a64))
+* button ([cdf24bb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cdf24bb))
+* dialog being immediately hidden ([e31badf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e31badf))
+* Fix BigCalendar linting ([aedf99a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/aedf99a))
+* remove console log ([25fdecd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/25fdecd))
+* Remove thunk from withStore ([20376a6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/20376a6))
+* Reposition jwt assignment ([940c6d7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/940c6d7))
+* sizing on initial render of multiline inputs ([e78e960](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e78e960))
+* Update event structure template ([edc02ed](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/edc02ed))
+* Update snapshot ([2f47344](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2f47344))
+
+
+### Features
+
+* Add calendar actions, add to index.js ([2c945af](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2c945af))
+* Add cancelation to calendars actions ([14b5497](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/14b5497))
+* Add cancelToken to apiClient ([0bb5450](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0bb5450))
+* Add DND styles to Calendar component ([e0ab5bd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e0ab5bd))
+* Add es6-tween dependency ([0e23b95](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0e23b95))
+* Add new methods to BigCalendar ([1a8c619](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1a8c619))
+* Build calendar actions/reducers ([34b1065](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/34b1065))
+* Export BigCalendar component ([2f8a019](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2f8a019))
+* markup updates for styling big calendar ([f7fd332](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f7fd332))
+* Pass event to canDrag/canResize ([ca17bfa](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ca17bfa))
+* Pass teammate onClickOpenSlot; add disable drag/resize ([e91e141](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e91e141))
+* progress ([2ff3ed3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2ff3ed3))
+* recover ([6546035](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6546035))
+* scroll by, scroll to, dialog styling ([897a5a8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/897a5a8))
+* Transfer BigCalendar/HorizontalWeek ([2ed7491](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2ed7491))
+
+
+
+
+
 <a name="6.30.0"></a>
 # [6.30.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.29.0...v6.30.0) (2018-07-26)
 
