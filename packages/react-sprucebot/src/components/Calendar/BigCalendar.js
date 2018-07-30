@@ -82,7 +82,6 @@ export default class BigCalendar extends Component {
 		} else if (view === 'week') {
 			const startOfWeek = moment(selectedDate).startOf('week')
 			const endOfWeek = moment(selectedDate).endOf('week')
-			console.log({ startOfWeek, endOfWeek })
 
 			if (startOfWeek.isSame(endOfWeek, 'month')) {
 				title = `${startOfWeek.format('MMM Do')} - ${endOfWeek.format('Do')}`
@@ -211,7 +210,7 @@ export default class BigCalendar extends Component {
 
 	handlePagerChange = async page => {
 		const { view } = this.state
-		const diff = view !== 'month' ? page - this.state.currentPage : 1
+		const diff = page - this.state.currentPage
 		const stepType = view !== 'month' ? 'days' : 'months'
 
 		await this.setState(prevState => {
@@ -544,7 +543,7 @@ export default class BigCalendar extends Component {
 						infinite={true}
 						onChange={this.handlePagerChange}
 						titles={this.generatePagerTitle}
-						jumpAmount={7}
+						jumpAmount={selectedView !== 'month' ? 7 : 1}
 						showStep={selectedView === 'day'}
 					/>
 					<Button className="toggle-mode" onClick={this.handleToggleMode}>
