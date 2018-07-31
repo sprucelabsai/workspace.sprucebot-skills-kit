@@ -84,6 +84,12 @@ var Calendar = function (_Component) {
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _this.onNavigate = function (e) {
 			// Not fired with current build but causes error if omitted
 			console.log('onNavigate', e);
+		}, _this.startAccessor = function (event) {
+			var start = (0, _moment2.default)(event.date + ' ' + event.startTime);
+			return start.toDate();
+		}, _this.endAccessor = function (event) {
+			var end = (0, _moment2.default)(event.date + ' ' + event.endTime);
+			return end.toDate();
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
@@ -101,8 +107,11 @@ var Calendar = function (_Component) {
 				CalendarWrapper,
 				null,
 				_react2.default.createElement(CalendarComponent, _extends({
+					onNavigate: this.onNavigate,
 					draggableAccessor: canDrag,
 					resizableAccessor: canResize,
+					startAccessor: this.startAccessor,
+					endAccessor: this.endAccessor,
 					defaultDate: defaultDate
 				}, props))
 			);

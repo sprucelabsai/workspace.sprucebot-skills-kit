@@ -277,11 +277,11 @@ export default class BigCalendar extends Component {
 				const end = moment(`2018-04-01 ${schedule.endTime}`).add(2, 'hour')
 
 				if (!earliest || earliest.diff(start) > 0) {
-					earliest = moment(start)
+					earliest = start
 				}
 
 				if (!latest || latest.diff(end) < 0) {
-					latest = moment(end)
+					latest = end
 				}
 			})
 		} else {
@@ -416,8 +416,7 @@ export default class BigCalendar extends Component {
 		}
 
 		const filteredEvents = events.filter(
-			event =>
-				event.userId === teammate.User.id || event.type === 'special-event'
+			event => event.isUniversalEvent || event.userId === teammate.User.id
 		)
 
 		return filteredEvents
@@ -503,7 +502,7 @@ export default class BigCalendar extends Component {
 		const formats = {
 			// format times in left column
 			timeGutterFormat: date => {
-				return moment.tz(date, auth.Location.timezone).format('h:mma')
+				return moment(date).format('h:mma')
 			}
 		}
 
@@ -576,32 +575,14 @@ export default class BigCalendar extends Component {
 										width: teammateWrapperWidth
 									}}
 								>
-									{/* normal avatar if not month view and team mode */}
-									{!(view === 'month' && mode === 'team') && (
-										<div className="avatar_wrapper">
-											<span>
-												<Avatar top user={teammate} />
-												<span className="calendar__teammate_name">
-													{teammate.User.casualName}
-												</span>
+									<div className="avatar_wrapper">
+										<span>
+											<Avatar top user={teammate} />
+											<span className="calendar__teammate_name">
+												{teammate.User.casualName}
 											</span>
-										</div>
-									)}
-									{/* month view is different, shows all teammates above first calendar */}
-									{idx === 0 &&
-										(view === 'month' && mode === 'team') &&
-										teammates.map(teammate => {
-											return (
-												<div className="avatar_wrapper">
-													<span>
-														<Avatar top user={teammate} />
-														<span className="calendar__teammate_name">
-															{teammate.User.casualName}
-														</span>
-													</span>
-												</div>
-											)
-										})}
+										</span>
+									</div>
 									{((idx === 0 && renderFirstCalendar) ||
 										(idx > 0 && renderAllCalendars)) && (
 										<Calendar
@@ -609,15 +590,9 @@ export default class BigCalendar extends Component {
 												idx === 0 && !renderFirstCalendar ? 'hide' : ''
 											}`}
 											views={views}
-											events={
-												events && (idx === 0 || renderAllEvents)
-													? this.filterEvents(events, teammate)
-													: []
-											}
+											events={events ? this.filterEvents(events, teammate) : []}
 											eventPropGetter={event => this.applyClassNames(event)}
-											onSelectEvent={event =>
-												this.handleClickEvent(event, teammate)
-											}
+											onSelectEvent={this.handleClickEvent}
 											onSelectSlot={({ start, end }) =>
 												this.handleClickOpenSlot(start, end, teammate)
 											}

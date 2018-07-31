@@ -739,6 +739,16 @@ class Calendar extends Component {
 		console.log('onNavigate', e)
 	}
 
+	startAccessor = event => {
+		const start = moment(`${event.date} ${event.startTime}`)
+		return start.toDate()
+	}
+
+	endAccessor = event => {
+		const end = moment(`${event.date} ${event.endTime}`)
+		return end.toDate()
+	}
+
 	render() {
 		const {
 			defaultDate = new Date(),
@@ -750,8 +760,11 @@ class Calendar extends Component {
 		return (
 			<CalendarWrapper>
 				<CalendarComponent
+					onNavigate={this.onNavigate}
 					draggableAccessor={canDrag}
 					resizableAccessor={canResize}
+					startAccessor={this.startAccessor}
+					endAccessor={this.endAccessor}
 					defaultDate={defaultDate}
 					{...props}
 				/>

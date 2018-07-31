@@ -84,13 +84,19 @@ export default class TeamWeek extends Component {
 									className={`rbc-day-slot rbc-day-column`}
 								>
 									<div className="rbc-allday-cell">
-										{events.filter(event => event.allDay).map(event => {
-											return (
-												<div className={`rbc-event ${event.className || ''}`}>
-													{event.title}
-												</div>
+										{events
+											.filter(
+												event =>
+													event.allDay &&
+													moment(event.start).isSame(moment(date), 'day')
 											)
-										})}
+											.map(event => {
+												return (
+													<div className={`rbc-event ${event.className || ''}`}>
+														{event.title}
+													</div>
+												)
+											})}
 									</div>
 									<div className="rbc-events-wrapper">
 										{this.renderDayEvents(events, date)}

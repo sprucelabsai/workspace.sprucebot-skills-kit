@@ -131,7 +131,7 @@ var TeamWeek = function (_Component) {
 									'div',
 									{ className: 'rbc-allday-cell' },
 									events.filter(function (event) {
-										return event.allDay;
+										return event.allDay && (0, _moment2.default)(event.start).isSame((0, _moment2.default)(date), 'day');
 									}).map(function (event) {
 										return _react2.default.createElement(
 											'div',
