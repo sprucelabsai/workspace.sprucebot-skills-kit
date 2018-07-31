@@ -607,7 +607,7 @@ var BigCalendar = function (_Component) {
 			renderFirstCalendar: true, // the first calendar is always the logged in user
 			renderFirstEvents: true, // rendering events is slow, so we may defer loading them until later
 			renderAllCalendars: false,
-			renderAllEvents: false,
+			renderAllEvents: true,
 			showAllTeammates: props.defaultMode === 'team',
 			transitioning: false,
 			selectedDate: (0, _moment2.default)(),
@@ -654,7 +654,8 @@ var BigCalendar = function (_Component) {
 			    renderAllCalendars = _state.renderAllCalendars,
 			    showAllTeammates = _state.showAllTeammates,
 			    renderFirstCalendar = _state.renderFirstCalendar,
-			    events = _state.events;
+			    events = _state.events,
+			    renderAllEvents = _state.renderAllEvents;
 
 			// populate views to take into account team week
 
@@ -797,7 +798,7 @@ var BigCalendar = function (_Component) {
 								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
 									className: '' + (idx === 0 && !renderFirstCalendar ? 'hide' : ''),
 									views: views,
-									events: events ? _this3.filterEvents(events, teammate) : [],
+									events: events && (idx === 0 || renderAllEvents) ? _this3.filterEvents(events, teammate) : [],
 									eventPropGetter: function eventPropGetter(event) {
 										return _this3.applyClassNames(event);
 									},

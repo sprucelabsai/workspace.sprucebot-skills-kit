@@ -29,7 +29,7 @@ export default class BigCalendar extends Component {
 			renderFirstCalendar: true, // the first calendar is always the logged in user
 			renderFirstEvents: true, // rendering events is slow, so we may defer loading them until later
 			renderAllCalendars: false,
-			renderAllEvents: false,
+			renderAllEvents: true,
 			showAllTeammates: props.defaultMode === 'team',
 			transitioning: false,
 			selectedDate: moment(),
@@ -474,7 +474,8 @@ export default class BigCalendar extends Component {
 			renderAllCalendars,
 			showAllTeammates,
 			renderFirstCalendar,
-			events
+			events,
+			renderAllEvents
 		} = this.state
 
 		// populate views to take into account team week
@@ -604,7 +605,11 @@ export default class BigCalendar extends Component {
 												idx === 0 && !renderFirstCalendar ? 'hide' : ''
 											}`}
 											views={views}
-											events={events ? this.filterEvents(events, teammate) : []}
+											events={
+												events && (idx === 0 || renderAllEvents)
+													? this.filterEvents(events, teammate)
+													: []
+											}
 											eventPropGetter={event => this.applyClassNames(event)}
 											onSelectEvent={this.handleClickEvent}
 											onSelectSlot={({ start, end }) =>
