@@ -372,11 +372,11 @@ var BigCalendar = function (_Component) {
 					var end = (0, _moment2.default)('2018-04-01 ' + schedule.endTime).add(2, 'hour');
 
 					if (!earliest || earliest.diff(start) > 0) {
-						earliest = (0, _moment2.default)(start);
+						earliest = start;
 					}
 
 					if (!latest || latest.diff(end) < 0) {
-						latest = (0, _moment2.default)(end);
+						latest = end;
 					}
 				});
 			} else {
@@ -683,7 +683,7 @@ var BigCalendar = function (_Component) {
 			var formats = {
 				// format times in left column
 				timeGutterFormat: function timeGutterFormat(date) {
-					return _moment2.default.tz(date, auth.Location.timezone).format('h:mma');
+					return (0, _moment2.default)(date).format('h:mma');
 				}
 
 				// setup start and end times
@@ -703,7 +703,8 @@ var BigCalendar = function (_Component) {
 				date: selectedDate.toDate(),
 				min: min.toDate(),
 				max: max.toDate(),
-				selectable: onClickOpenSlot && true
+				selectable: onClickOpenSlot && true,
+				timezone: this.props.timezone
 			};
 
 			var team = showAllTeammates ? teammates : [auth];
@@ -769,7 +770,7 @@ var BigCalendar = function (_Component) {
 										width: teammateWrapperWidth
 									}
 								},
-								!(view === 'month' && mode === 'team') && _react2.default.createElement(
+								_react2.default.createElement(
 									'div',
 									{ className: 'avatar_wrapper' },
 									_react2.default.createElement(
@@ -783,32 +784,14 @@ var BigCalendar = function (_Component) {
 										)
 									)
 								),
-								idx === 0 && view === 'month' && mode === 'team' && teammates.map(function (teammate) {
-									return _react2.default.createElement(
-										'div',
-										{ className: 'avatar_wrapper' },
-										_react2.default.createElement(
-											'span',
-											null,
-											_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
-											_react2.default.createElement(
-												'span',
-												{ className: 'calendar__teammate_name' },
-												teammate.User.casualName
-											)
-										)
-									);
-								}),
 								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
 									className: '' + (idx === 0 && !renderFirstCalendar ? 'hide' : ''),
 									views: views,
-									events: events && (idx === 0 || renderAllEvents) ? _this3.filterEvents(events, teammate) : [],
+									events: events ? _this3.filterEvents(events, teammate) : [],
 									eventPropGetter: function eventPropGetter(event) {
 										return _this3.applyClassNames(event);
 									},
-									onSelectEvent: function onSelectEvent(event) {
-										return _this3.handleClickEvent(event, teammate);
-									},
+									onSelectEvent: _this3.handleClickEvent,
 									onSelectSlot: function onSelectSlot(_ref10) {
 										var start = _ref10.start,
 										    end = _ref10.end;
@@ -846,7 +829,8 @@ BigCalendar.propTypes = {
 	handleClickEvent: _propTypes2.default.func,
 	handleClickOpenSlot: _propTypes2.default.func,
 	handleDropEvent: _propTypes2.default.func,
-	handleResizeEvent: _propTypes2.default.func
+	handleResizeEvent: _propTypes2.default.func,
+	timezone: _propTypes2.default.string
 };
 
 BigCalendar.defaultProps = {
