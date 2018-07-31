@@ -14,13 +14,13 @@ const currentDialogs = []
 const dialogVerticalPadding = 30
 
 const DialogWrapper = styled.div.attrs({
-	className: ({ show, className }) => `dialog__wrapper ${className}`
+	className: ({ className }) => `dialog__wrapper ${className}`
 })`
 	opacity: ${props => props.opacity};
 `
 
 const DialogContainer = styled.div.attrs({
-	className: ({ show, className }) => `dialog ${className}`
+	className: ({ className }) => `dialog ${className}`
 })`
 	opacity: ${props => props.opacity};
 `
@@ -110,7 +110,7 @@ export default class Dialog extends Component {
 
 	componentDidMount() {
 		window.addEventListener('message', this.iframeMessageHandler)
-		if (this.props.show && this.state.firstShow) {
+		if (this.state.firstShow) {
 			this.requestScroll()
 		}
 
@@ -140,24 +140,12 @@ export default class Dialog extends Component {
 
 	componentDidUpdate() {
 		// in case our starting state is not showing
-		if (this.props.show && this.state.firstShow) {
+		if (this.state.firstShow) {
 			this.requestScroll()
 		}
 
 		if (!this.state.inIframe) {
 			dialogUnderlay.classList.add('not_in_iframe')
-		}
-	}
-
-	componentWillReceiveProps(nextProps) {
-		// if we are being show, set opacity and request scroll
-		if (!this.props.show && nextProps.show) {
-			this.setState({ firstShow: true, opacity: 0 })
-			this.requestScroll()
-		}
-
-		if (this.props.show && !nextProps.show) {
-			document.body.style.minHeight = `auto`
 		}
 	}
 
@@ -234,15 +222,7 @@ export default class Dialog extends Component {
 	}
 
 	render() {
-		const {
-			tag,
-			children,
-			className,
-			title,
-			onTapClose,
-			show,
-			...props
-		} = this.props
+		const { tag, children, className, title, onTapClose, ...props } = this.props
 		const {
 			opacity,
 			height,
@@ -257,9 +237,6 @@ export default class Dialog extends Component {
 		const dialogStyle = {
 			marginTop: this.state.scrollTop + dialogVerticalPadding
 		}
-		if (!show) {
-			return null
-		}
 
 		const hasHeader = onTapClose || title
 
@@ -270,7 +247,6 @@ export default class Dialog extends Component {
 					className={`${focusClass} ${!firstShow ? 'was-focused' : ''} ${
 						isHidden ? 'hidden' : ''
 					} dialog-${dialogIndex}`}
-					show={show}
 					onClick={e => {
 						if (
 							e.target.className.search('dialog__wrapper') > -1 &&
@@ -284,7 +260,6 @@ export default class Dialog extends Component {
 						ref={node => (this.dialogNode = node)}
 						className={`${className || ''} ${hasHeader ? 'has_header' : ''}`}
 						style={dialogStyle}
-						show={show}
 						opacity={opacity}
 						{...props}
 					>
@@ -312,12 +287,10 @@ export default class Dialog extends Component {
 
 Dialog.propTypes = {
 	tag: PropTypes.string,
-	show: PropTypes.bool,
 	onTapClose: PropTypes.func,
 	title: PropTypes.string
 }
 
 Dialog.defaultProps = {
-	tag: 'div',
-	show: true
+	tag: 'div'
 }

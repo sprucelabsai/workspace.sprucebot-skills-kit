@@ -62,8 +62,7 @@ var dialogVerticalPadding = 30;
 
 var DialogWrapper = _styledComponents2.default.div.attrs({
 	className: function className(_ref) {
-		var show = _ref.show,
-		    _className = _ref.className;
+		var _className = _ref.className;
 		return 'dialog__wrapper ' + _className;
 	}
 }).withConfig({
@@ -75,8 +74,7 @@ var DialogWrapper = _styledComponents2.default.div.attrs({
 
 var DialogContainer = _styledComponents2.default.div.attrs({
 	className: function className(_ref2) {
-		var show = _ref2.show,
-		    _className2 = _ref2.className;
+		var _className2 = _ref2.className;
 		return 'dialog ' + _className2;
 	}
 }).withConfig({
@@ -199,7 +197,7 @@ var Dialog = function (_Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			window.addEventListener('message', this.iframeMessageHandler);
-			if (this.props.show && this.state.firstShow) {
+			if (this.state.firstShow) {
 				this.requestScroll();
 			}
 
@@ -220,25 +218,12 @@ var Dialog = function (_Component) {
 		key: 'componentDidUpdate',
 		value: function componentDidUpdate() {
 			// in case our starting state is not showing
-			if (this.props.show && this.state.firstShow) {
+			if (this.state.firstShow) {
 				this.requestScroll();
 			}
 
 			if (!this.state.inIframe) {
 				dialogUnderlay.classList.add('not_in_iframe');
-			}
-		}
-	}, {
-		key: 'componentWillReceiveProps',
-		value: function componentWillReceiveProps(nextProps) {
-			// if we are being show, set opacity and request scroll
-			if (!this.props.show && nextProps.show) {
-				this.setState({ firstShow: true, opacity: 0 });
-				this.requestScroll();
-			}
-
-			if (this.props.show && !nextProps.show) {
-				document.body.style.minHeight = 'auto';
 			}
 		}
 	}, {
@@ -331,8 +316,7 @@ var Dialog = function (_Component) {
 			    className = _props.className,
 			    title = _props.title,
 			    onTapClose = _props.onTapClose,
-			    show = _props.show,
-			    props = _objectWithoutProperties(_props, ['tag', 'children', 'className', 'title', 'onTapClose', 'show']);
+			    props = _objectWithoutProperties(_props, ['tag', 'children', 'className', 'title', 'onTapClose']);
 
 			var _state = this.state,
 			    opacity = _state.opacity,
@@ -348,9 +332,6 @@ var Dialog = function (_Component) {
 			var dialogStyle = {
 				marginTop: this.state.scrollTop + dialogVerticalPadding
 			};
-			if (!show) {
-				return null;
-			}
 
 			var hasHeader = onTapClose || title;
 
@@ -358,7 +339,6 @@ var Dialog = function (_Component) {
 				DialogWrapper,
 				{
 					className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
-					show: show,
 					onClick: function onClick(e) {
 						if (e.target.className.search('dialog__wrapper') > -1 && currentDialogs.length - 1 >= 0) {
 							currentDialogs[currentDialogs.length - 1].onTapClose();
@@ -373,7 +353,6 @@ var Dialog = function (_Component) {
 						},
 						className: (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
 						style: dialogStyle,
-						show: show,
 						opacity: opacity
 					}, props),
 					hasHeader && _react2.default.createElement(
@@ -407,12 +386,10 @@ exports.default = Dialog;
 
 Dialog.propTypes = {
 	tag: _propTypes2.default.string,
-	show: _propTypes2.default.bool,
 	onTapClose: _propTypes2.default.func,
 	title: _propTypes2.default.string
 };
 
 Dialog.defaultProps = {
-	tag: 'div',
-	show: true
+	tag: 'div'
 };
