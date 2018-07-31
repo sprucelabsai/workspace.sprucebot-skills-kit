@@ -29,7 +29,7 @@ export default class BigCalendar extends Component {
 			renderFirstCalendar: true, // the first calendar is always the logged in user
 			renderFirstEvents: true, // rendering events is slow, so we may defer loading them until later
 			renderAllCalendars: false,
-			renderAllEvents: false,
+			renderAllEvents: true,
 			showAllTeammates: props.defaultMode === 'team',
 			transitioning: false,
 			selectedDate: moment(),
@@ -478,7 +478,8 @@ export default class BigCalendar extends Component {
 			renderAllCalendars,
 			showAllTeammates,
 			renderFirstCalendar,
-			events
+			events,
+			renderAllEvents
 		} = this.state
 
 		// populate views to take into account team week
@@ -575,14 +576,32 @@ export default class BigCalendar extends Component {
 										width: teammateWrapperWidth
 									}}
 								>
-									<div className="avatar_wrapper">
-										<span>
-											<Avatar top user={teammate} />
-											<span className="calendar__teammate_name">
-												{teammate.User.casualName}
+									{/* normal avatar if not month view and team mode */}
+									{!(view === 'month' && mode === 'team') && (
+										<div className="avatar_wrapper">
+											<span>
+												<Avatar top user={teammate} />
+												<span className="calendar__teammate_name">
+													{teammate.User.casualName}
+												</span>
 											</span>
-										</span>
-									</div>
+										</div>
+									)}
+									{/* month view is different, shows all teammates above first calendar */}
+									{idx === 0 &&
+										(view === 'month' && mode === 'team') &&
+										teammates.map(teammate => {
+											return (
+												<div className="avatar_wrapper">
+													<span>
+														<Avatar top user={teammate} />
+														<span className="calendar__teammate_name">
+															{teammate.User.casualName}
+														</span>
+													</span>
+												</div>
+											)
+										})}
 									{((idx === 0 && renderFirstCalendar) ||
 										(idx > 0 && renderAllCalendars)) && (
 										<Calendar
@@ -590,7 +609,11 @@ export default class BigCalendar extends Component {
 												idx === 0 && !renderFirstCalendar ? 'hide' : ''
 											}`}
 											views={views}
-											events={events ? this.filterEvents(events, teammate) : []}
+											events={
+												events && (idx === 0 || renderAllEvents)
+													? this.filterEvents(events, teammate)
+													: []
+											}
 											eventPropGetter={event => this.applyClassNames(event)}
 											onSelectEvent={event =>
 												this.handleClickEvent(event, teammate)
