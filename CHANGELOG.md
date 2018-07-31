@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.38.0"></a>
+# [6.38.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.37.0...v6.38.0) (2018-07-31)
+
+
+### Bug Fixes
+
+* Calendar timezone issues ([0162296](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0162296))
+* Filter allday events by day ([b0e1c43](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b0e1c43))
+* Pass onNavigate to Calendar ([f9111ea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f9111ea))
+* remove show prop on dialogs ([dda4861](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dda4861))
+* update test snap ([d4fd72e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d4fd72e))
+
+
+### Features
+
+* Add check for isUniversalEvent ([8550ecf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8550ecf))
+
+
+
+
+
 <a name="6.37.0"></a>
 # [6.37.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.36.0...v6.37.0) (2018-07-31)
 
