@@ -703,8 +703,7 @@ var BigCalendar = function (_Component) {
 				date: selectedDate.toDate(),
 				min: min.toDate(),
 				max: max.toDate(),
-				selectable: onClickOpenSlot && true,
-				timezone: this.props.timezone
+				selectable: onClickOpenSlot && true
 			};
 
 			var team = showAllTeammates ? teammates : [auth];
@@ -829,8 +828,7 @@ BigCalendar.propTypes = {
 	handleClickEvent: _propTypes2.default.func,
 	handleClickOpenSlot: _propTypes2.default.func,
 	handleDropEvent: _propTypes2.default.func,
-	handleResizeEvent: _propTypes2.default.func,
-	timezone: _propTypes2.default.string
+	handleResizeEvent: _propTypes2.default.func
 };
 
 BigCalendar.defaultProps = {

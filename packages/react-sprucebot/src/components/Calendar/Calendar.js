@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import moment from 'moment'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
-import 'moment-timezone'
 
 import is from 'is_js'
 import HTML5Backend from 'react-dnd-html5-backend'
@@ -741,14 +740,12 @@ class Calendar extends Component {
 	}
 
 	startAccessor = event => {
-		const d = moment(event.start).tz(this.props.timezone)
-		const start = moment(`${d.format('YYYY-MM-DD')} ${event.payload.startTime}`)
+		const start = moment(`${event.date} ${event.startTime}`)
 		return start.toDate()
 	}
 
 	endAccessor = event => {
-		const d = moment(event.end).tz(this.props.timezone)
-		const end = moment(`${d.format('YYYY-MM-DD')} ${event.payload.endTime}`)
+		const end = moment(`${event.date} ${event.endTime}`)
 		return end.toDate()
 	}
 
@@ -757,7 +754,6 @@ class Calendar extends Component {
 			defaultDate = new Date(),
 			canDrag,
 			canResize,
-			timezone,
 			...props
 		} = this.props
 

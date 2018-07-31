@@ -518,8 +518,7 @@ export default class BigCalendar extends Component {
 			date: selectedDate.toDate(),
 			min: min.toDate(),
 			max: max.toDate(),
-			selectable: onClickOpenSlot && true,
-			timezone: this.props.timezone
+			selectable: onClickOpenSlot && true
 		}
 
 		let team = showAllTeammates ? teammates : [auth]
@@ -628,8 +627,7 @@ BigCalendar.propTypes = {
 	handleClickEvent: PropTypes.func,
 	handleClickOpenSlot: PropTypes.func,
 	handleDropEvent: PropTypes.func,
-	handleResizeEvent: PropTypes.func,
-	timezone: PropTypes.string
+	handleResizeEvent: PropTypes.func
 }
 
 BigCalendar.defaultProps = {

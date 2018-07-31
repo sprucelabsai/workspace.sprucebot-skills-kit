@@ -28,8 +28,6 @@ var _dragAndDrop = require('react-big-calendar/lib/addons/dragAndDrop');
 
 var _dragAndDrop2 = _interopRequireDefault(_dragAndDrop);
 
-require('moment-timezone');
-
 var _is_js = require('is_js');
 
 var _is_js2 = _interopRequireDefault(_is_js);
@@ -87,12 +85,10 @@ var Calendar = function (_Component) {
 			// Not fired with current build but causes error if omitted
 			console.log('onNavigate', e);
 		}, _this.startAccessor = function (event) {
-			var d = (0, _moment2.default)(event.start).tz(_this.props.timezone);
-			var start = (0, _moment2.default)(d.format('YYYY-MM-DD') + ' ' + event.payload.startTime);
+			var start = (0, _moment2.default)(event.date + ' ' + event.startTime);
 			return start.toDate();
 		}, _this.endAccessor = function (event) {
-			var d = (0, _moment2.default)(event.end).tz(_this.props.timezone);
-			var end = (0, _moment2.default)(d.format('YYYY-MM-DD') + ' ' + event.payload.endTime);
+			var end = (0, _moment2.default)(event.date + ' ' + event.endTime);
 			return end.toDate();
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
@@ -105,8 +101,7 @@ var Calendar = function (_Component) {
 			    defaultDate = _props$defaultDate === undefined ? new Date() : _props$defaultDate,
 			    canDrag = _props.canDrag,
 			    canResize = _props.canResize,
-			    timezone = _props.timezone,
-			    props = _objectWithoutProperties(_props, ['defaultDate', 'canDrag', 'canResize', 'timezone']);
+			    props = _objectWithoutProperties(_props, ['defaultDate', 'canDrag', 'canResize']);
 
 			return _react2.default.createElement(
 				CalendarWrapper,
