@@ -12,23 +12,19 @@ function postMessage(message) {
 
 var skill = {
 	height: 0,
+	minHeight: 0,
 	forceAuth: function forceAuth() {
 		postMessage('Skill:ForceAuth');
 	},
 	resized: function resized() {
-		var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-		    _ref$minHeight = _ref.minHeight,
-		    minHeight = _ref$minHeight === undefined ? 0 : _ref$minHeight;
-
 		var height = 0;
-
 		var body = document.body;
 		var docEl = document.documentElement;
 
 		var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
 		var clientTop = docEl.clientTop || body.clientTop || 0;
 		var top = scrollTop - clientTop;
-		var height = Math.max(minHeight, top + body.clientHeight);
+		var height = Math.max(this.minHeight, top + body.clientHeight);
 
 		if (height != this.height) {
 			this.height = height;
@@ -37,6 +33,12 @@ var skill = {
 				height: height
 			});
 		}
+	},
+	setMinBodyHeight: function setMinBodyHeight(height) {
+		this.minHeight = height;
+	},
+	clearMinBodyHeight: function clearMinBodyHeight() {
+		this.minHeight = 0;
 	},
 	back: function back() {
 		if (window.top === window.self) {
@@ -47,9 +49,9 @@ var skill = {
 	},
 
 	ready: function ready() {
-		var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { resetUrlTrail: false },
-		    _ref2$resetUrlTrail = _ref2.resetUrlTrail,
-		    resetUrlTrail = _ref2$resetUrlTrail === undefined ? false : _ref2$resetUrlTrail;
+		var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { resetUrlTrail: false },
+		    _ref$resetUrlTrail = _ref.resetUrlTrail,
+		    resetUrlTrail = _ref$resetUrlTrail === undefined ? false : _ref$resetUrlTrail;
 
 		this.resized();
 		postMessage({
@@ -82,11 +84,11 @@ var skill = {
 	},
 
 	showHelp: function () {
-		var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref4) {
+		var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref3) {
 			var _this = this;
 
-			var title = _ref4.title,
-			    body = _ref4.body;
+			var title = _ref3.title,
+			    body = _ref3.body;
 			var promise;
 			return regeneratorRuntime.wrap(function _callee$(_context) {
 				while (1) {
@@ -119,8 +121,8 @@ var skill = {
 			}, _callee, this);
 		}));
 
-		function showHelp(_x3) {
-			return _ref3.apply(this, arguments);
+		function showHelp(_x2) {
+			return _ref2.apply(this, arguments);
 		}
 
 		return showHelp;
@@ -165,14 +167,14 @@ var skill = {
 
 	//TODO move to promise?
 	searchForUser: function searchForUser() {
-		var _ref5 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-		    _ref5$onCancel = _ref5.onCancel,
-		    onCancel = _ref5$onCancel === undefined ? function () {} : _ref5$onCancel,
-		    _ref5$onSelectUser = _ref5.onSelectUser,
-		    onSelectUser = _ref5$onSelectUser === undefined ? function () {} : _ref5$onSelectUser,
-		    _ref5$roles = _ref5.roles,
-		    roles = _ref5$roles === undefined ? ['guest'] : _ref5$roles,
-		    locationId = _ref5.locationId;
+		var _ref4 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+		    _ref4$onCancel = _ref4.onCancel,
+		    onCancel = _ref4$onCancel === undefined ? function () {} : _ref4$onCancel,
+		    _ref4$onSelectUser = _ref4.onSelectUser,
+		    onSelectUser = _ref4$onSelectUser === undefined ? function () {} : _ref4$onSelectUser,
+		    _ref4$roles = _ref4.roles,
+		    roles = _ref4$roles === undefined ? ['guest'] : _ref4$roles,
+		    locationId = _ref4.locationId;
 
 		postMessage({ name: 'Skill:SearchForUser', roles: roles, locationId: locationId });
 
@@ -180,10 +182,10 @@ var skill = {
 		this._onSelecUserFormSearchCallback = onSelectUser;
 	},
 
-	displayMessage: function displayMessage(_ref6) {
-		var message = _ref6.message,
-		    _ref6$type = _ref6.type,
-		    type = _ref6$type === undefined ? 'error' : _ref6$type;
+	displayMessage: function displayMessage(_ref5) {
+		var message = _ref5.message,
+		    _ref5$type = _ref5.type,
+		    type = _ref5$type === undefined ? 'error' : _ref5$type;
 
 		if (window.top === window.self) {
 			alert(message);
@@ -193,10 +195,10 @@ var skill = {
 	},
 
 	confirm: function () {
-		var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_ref8) {
+		var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_ref7) {
 			var _this2 = this;
 
-			var message = _ref8.message;
+			var message = _ref7.message;
 			var promise;
 			return regeneratorRuntime.wrap(function _callee2$(_context2) {
 				while (1) {
@@ -227,8 +229,8 @@ var skill = {
 			}, _callee2, this);
 		}));
 
-		function confirm(_x5) {
-			return _ref7.apply(this, arguments);
+		function confirm(_x4) {
+			return _ref6.apply(this, arguments);
 		}
 
 		return confirm;
@@ -244,12 +246,12 @@ var skill = {
   * }
   * ]
   */
-	setStickyElement: function setStickyElement(_ref9) {
-		var elements = _ref9.elements,
-		    _ref9$position = _ref9.position,
-		    position = _ref9$position === undefined ? 'top' : _ref9$position,
-		    _ref9$onClick = _ref9.onClick,
-		    onClick = _ref9$onClick === undefined ? function () {} : _ref9$onClick;
+	setStickyElement: function setStickyElement(_ref8) {
+		var elements = _ref8.elements,
+		    _ref8$position = _ref8.position,
+		    position = _ref8$position === undefined ? 'top' : _ref8$position,
+		    _ref8$onClick = _ref8.onClick,
+		    onClick = _ref8$onClick === undefined ? function () {} : _ref8$onClick;
 
 		this.handleStickElementClick = onClick;
 		postMessage({
