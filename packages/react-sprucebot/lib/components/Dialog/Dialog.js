@@ -32,10 +32,6 @@ var _index = require('../../skillskit/index');
 
 var _index2 = _interopRequireDefault(_index);
 
-var _reactMeasure = require('react-measure');
-
-var _reactMeasure2 = _interopRequireDefault(_reactMeasure);
-
 var _Button = require('../Button/Button');
 
 var _Button2 = _interopRequireDefault(_Button);
@@ -97,6 +93,8 @@ var DialogCloseButton = (0, _styledComponents2.default)(_Button2.default).attrs(
 	componentId: 'q9geqg-2'
 })(['']);
 
+var timerRunning = false;
+
 var Dialog = function (_Component) {
 	_inherits(Dialog, _Component);
 
@@ -127,8 +125,6 @@ var Dialog = function (_Component) {
 		_this.state = {
 			focusClass: '',
 			isHidden: true,
-			width: -1,
-			height: 500,
 			scrollTop: 0,
 			firstShow: true,
 			opacity: 0,
@@ -158,46 +154,30 @@ var Dialog = function (_Component) {
 				setTimeout(function () {
 					_this3.setState({ focusClass: 'focused' }, function () {
 						// Resize the skill
-						_this3.postHeight();
+						setTimeout(function () {
+							_this3.postHeight();
+						}, 500);
 					});
-				}, 100);
+				}, 10);
 			});
-		}
-	}, {
-		key: 'setSize',
-		value: function setSize(_ref3) {
-			var width = _ref3.width,
-			    height = _ref3.height;
-
-			this.setState({ width: width, height: height });
-			this.postHeight();
 		}
 	}, {
 		key: 'postHeight',
 		value: function postHeight() {
-			var dialogs = document.body.getElementsByClassName('dialog');
+			var height = 0;
 
-			if (dialogs.length < 1) {
-				return;
+			currentDialogs.forEach(function (dialog) {
+				var node = _reactDom2.default.findDOMNode(dialog.dialogNode);
+				var styles = window.getComputedStyle(node);
+				var margin = parseFloat(styles['marginTop']);
+
+				var dialogHeight = Math.ceil(node.offsetHeight + margin);
+				height = Math.max(dialogHeight, height);
+			});
+
+			if (currentDialogs.length > 0) {
+				_skillskit2.default.setMinBodyHeight(height);
 			}
-
-			var topDialog = dialogs[dialogs.length - 1];
-			var styles = window.getComputedStyle(topDialog);
-			var margin = parseFloat(styles['marginTop']);
-
-			this.dialogHeight = Math.ceil(topDialog.offsetHeight + margin);
-
-			var minHeight = this.dialogHeight;
-
-			for (var i = 0; i < dialogs.length; i++) {
-				var height = dialogs[i].dialogHeight;
-				if (dialogs[i].dialogHeight > minHeight) {
-					minHeight = height;
-				}
-			}
-
-			//min height on body
-			document.body.style.minHeight = minHeight + dialogVerticalPadding * 2 + 'px';
 		}
 	}, {
 		key: 'componentWillMount',
@@ -226,6 +206,15 @@ var Dialog = function (_Component) {
 			this.focus();
 			currentDialogs.push(this);
 			this.updateIndexes();
+
+			if (!timerRunning) {
+				timerRunning = true;
+				this.heightInterval = setInterval(function () {
+					if (currentDialogs[0]) {
+						currentDialogs[0].postHeight();
+					}
+				}, 300);
+			}
 		}
 	}, {
 		key: 'componentDidUpdate',
@@ -258,23 +247,26 @@ var Dialog = function (_Component) {
 			document.body.style.minHeight = 'auto';
 			window.removeEventListener('message', this.iframeMessageHandler);
 			this.closeDialog();
+
+			if (this.heightInterval) {
+				clearInterval(this.heightInterval);
+				timerRunning = false;
+			}
 		}
 	}, {
 		key: 'requestScroll',
 		value: function requestScroll() {
-			_skillskit2.default.requestScroll();
-			setTimeout(function () {
-				// we are not in the sb iframe
-				// console.log('TIMEOUT SCROLL TOP', currentDialogs.length, top)
-				// if (this.state.opacity === 0) {
-				// 	this.setState({
-				// 		opacity: 1,
-				// 		scrollTop: window.document.body.scrollTop,
-				// 		firstShow: false,
-				// 		inIframe: false
-				// 	})
-				// }
-			}, 250);
+			// we are not in the sb iframe
+			if (window.top === window.self) {
+				this.setState({
+					opacity: 1,
+					scrollTop: window.document.body.scrollTop,
+					firstShow: false,
+					inIframe: false
+				});
+			} else {
+				_skillskit2.default.requestScroll();
+			}
 		}
 	}, {
 		key: 'iframeMessageHandler',
@@ -316,15 +308,18 @@ var Dialog = function (_Component) {
 					var nextDialog = currentDialogs[currentDialogs.length - 1];
 					nextDialog.focus();
 					var node = _reactDom2.default.findDOMNode(this.dialogNode);
-					// SK.scrollTo(node.offsetTop - dialogVerticalPadding)
+					_skillskit2.default.scrollTo(node.offsetTop - dialogVerticalPadding);
 				} else {
 					dialogUnderlay.classList.add('hidden');
 					setTimeout(function () {
+						_skillskit2.default.clearMinBodyHeight();
 						dialogUnderlay.classList.remove('on');
 					}, 300);
 				}
 
 				this.updateIndexes();
+			} else {
+				this.postHeight();
 			}
 			this.postHeight();
 		}
@@ -356,7 +351,6 @@ var Dialog = function (_Component) {
 			var dialogStyle = {
 				marginTop: this.state.scrollTop + dialogVerticalPadding
 			};
-			console.log('RENDER SCROLL TOP', this.state.scrollTop);
 			if (!show) {
 				return null;
 			}
@@ -364,62 +358,46 @@ var Dialog = function (_Component) {
 			var hasHeader = onTapClose || title;
 
 			return typeof document !== 'undefined' && _reactDom2.default.createPortal(_react2.default.createElement(
-				_reactMeasure2.default,
+				DialogWrapper,
 				{
-					scroll: true,
-					onResize: function onResize(contentRect) {
-						_this5.setSize({
-							width: contentRect.scroll.width,
-							height: contentRect.scroll.height
-						});
+					className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
+					show: show,
+					onClick: function onClick(e) {
+						if (e.target.className.search('dialog__wrapper') > -1 && currentDialogs.length - 1 >= 0) {
+							currentDialogs[currentDialogs.length - 1].onTapClose();
+						}
 					}
 				},
-				function (_ref4) {
-					var measureRef = _ref4.measureRef;
-					return _react2.default.createElement(
-						DialogWrapper,
-						{
-							className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
-							show: show,
-							onClick: function onClick(e) {
-								if (e.target.className.search('dialog__wrapper') > -1 && currentDialogs.length - 1 >= 0) {
-									currentDialogs[currentDialogs.length - 1].onTapClose();
-								}
-							}
+				_react2.default.createElement(
+					DialogContainer,
+					_extends({
+						ref: function ref(node) {
+							return _this5.dialogNode = node;
 						},
-						_react2.default.createElement(
-							DialogContainer,
-							_extends({
-								ref: function ref(node) {
-									return _this5.dialogNode = node;
-								},
-								innerRef: measureRef,
-								className: (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
-								style: dialogStyle,
-								show: show,
-								opacity: opacity
-							}, props),
-							hasHeader && _react2.default.createElement(
-								'div',
-								{ className: 'dialog__header' },
-								title && _react2.default.createElement(
-									_Typography.H2,
-									null,
-									title
-								),
-								onTapClose && _react2.default.createElement(
-									_IconButton2.default,
-									{
-										className: 'btn__close_dialog',
-										onClick: _this5.onTapClose.bind(_this5)
-									},
-									'close'
-								)
-							),
-							children
+						className: (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
+						style: dialogStyle,
+						show: show,
+						opacity: opacity
+					}, props),
+					hasHeader && _react2.default.createElement(
+						'div',
+						{ className: 'dialog__header' },
+						title && _react2.default.createElement(
+							_Typography.H2,
+							null,
+							title
+						),
+						onTapClose && _react2.default.createElement(
+							_IconButton2.default,
+							{
+								className: 'btn__close_dialog',
+								onClick: this.onTapClose.bind(this)
+							},
+							'close'
 						)
-					);
-				}
+					),
+					children
+				)
 			), dialogUnderlay);
 		}
 	}]);
