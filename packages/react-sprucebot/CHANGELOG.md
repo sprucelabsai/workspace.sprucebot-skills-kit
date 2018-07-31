@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.37.0"></a>
+# [6.37.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.36.0...v6.37.0) (2018-07-31)
+
+
+### Features
+
+* sizing whoas ([#164](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/164)) ([aa3dff3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/aa3dff3))
+
+
+
+
+
 <a name="6.36.0"></a>
 # [6.36.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.35.0...v6.36.0) (2018-07-30)
 
