@@ -247,7 +247,7 @@ var Dialog = function (_Component) {
 
 			_skillskit2.default.requestScroll();
 			setTimeout(function () {
-				// we are not in the sb iframe
+				// we are not in the sb iframe if opacity is still zero
 				if (_this4.state.opacity === 0) {
 					_this4.setState({
 						opacity: 1,

@@ -571,14 +571,32 @@ export default class BigCalendar extends Component {
 										width: teammateWrapperWidth
 									}}
 								>
-									<div className="avatar_wrapper">
-										<span>
-											<Avatar top user={teammate} />
-											<span className="calendar__teammate_name">
-												{teammate.User.casualName}
+									{/* normal avatar if not month view and team mode */}
+									{!(view === 'month' && mode === 'team') && (
+										<div className="avatar_wrapper">
+											<span>
+												<Avatar top user={teammate} />
+												<span className="calendar__teammate_name">
+													{teammate.User.casualName}
+												</span>
 											</span>
-										</span>
-									</div>
+										</div>
+									)}
+									{/* month view is different, shows all teammates above first calendar */}
+									{idx === 0 &&
+										(view === 'month' && mode === 'team') &&
+										teammates.map(teammate => {
+											return (
+												<div className="avatar_wrapper">
+													<span>
+														<Avatar top user={teammate} />
+														<span className="calendar__teammate_name">
+															{teammate.User.casualName}
+														</span>
+													</span>
+												</div>
+											)
+										})}
 									{((idx === 0 && renderFirstCalendar) ||
 										(idx > 0 && renderAllCalendars)) && (
 										<Calendar

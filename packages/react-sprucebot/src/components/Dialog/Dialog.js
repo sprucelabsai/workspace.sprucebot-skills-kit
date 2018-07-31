@@ -155,7 +155,7 @@ export default class Dialog extends Component {
 	requestScroll() {
 		SK.requestScroll()
 		setTimeout(() => {
-			// we are not in the sb iframe
+			// we are not in the sb iframe if opacity is still zero
 			if (this.state.opacity === 0) {
 				this.setState({
 					opacity: 1,
