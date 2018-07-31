@@ -4,19 +4,19 @@ function postMessage(message) {
 
 const skill = {
 	height: 0,
+	minHeight: 0,
 	forceAuth: function() {
 		postMessage('Skill:ForceAuth')
 	},
-	resized: function({ minHeight = 0 } = {}) {
+	resized: function() {
 		var height = 0
-
 		var body = document.body
 		var docEl = document.documentElement
 
 		var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop
 		var clientTop = docEl.clientTop || body.clientTop || 0
 		var top = scrollTop - clientTop
-		var height = Math.max(minHeight, top + body.clientHeight)
+		var height = Math.max(this.minHeight, top + body.clientHeight)
 
 		if (height != this.height) {
 			this.height = height
@@ -25,6 +25,12 @@ const skill = {
 				height: height
 			})
 		}
+	},
+	setMinBodyHeight: function(height) {
+		this.minHeight = height
+	},
+	clearMinBodyHeight: function() {
+		this.minHeight = 0
 	},
 	back: function() {
 		if (window.top === window.self) {

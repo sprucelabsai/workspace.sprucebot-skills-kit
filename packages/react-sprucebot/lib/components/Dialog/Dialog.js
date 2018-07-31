@@ -93,6 +93,8 @@ var DialogCloseButton = (0, _styledComponents2.default)(_Button2.default).attrs(
 	componentId: 'q9geqg-2'
 })(['']);
 
+var timerRunning = false;
+
 var Dialog = function (_Component) {
 	_inherits(Dialog, _Component);
 
@@ -152,7 +154,9 @@ var Dialog = function (_Component) {
 				setTimeout(function () {
 					_this3.setState({ focusClass: 'focused' }, function () {
 						// Resize the skill
-						_this3.postHeight();
+						setTimeout(function () {
+							_this3.postHeight();
+						}, 500);
 					});
 				}, 10);
 			});
@@ -168,11 +172,12 @@ var Dialog = function (_Component) {
 				var margin = parseFloat(styles['marginTop']);
 
 				var dialogHeight = Math.ceil(node.offsetHeight + margin);
-				console.log('HEIGHT', dialogHeight, height, dialog);
 				height = Math.max(dialogHeight, height);
 			});
 
-			_skillskit2.default.resized({ minHeight: height });
+			if (currentDialogs.length > 0) {
+				_skillskit2.default.setMinBodyHeight(height);
+			}
 		}
 	}, {
 		key: 'componentWillMount',
@@ -201,6 +206,15 @@ var Dialog = function (_Component) {
 			this.focus();
 			currentDialogs.push(this);
 			this.updateIndexes();
+
+			if (!timerRunning) {
+				timerRunning = true;
+				this.heightInterval = setInterval(function () {
+					if (currentDialogs[0]) {
+						currentDialogs[0].postHeight();
+					}
+				}, 300);
+			}
 		}
 	}, {
 		key: 'componentDidUpdate',
@@ -233,6 +247,11 @@ var Dialog = function (_Component) {
 			document.body.style.minHeight = 'auto';
 			window.removeEventListener('message', this.iframeMessageHandler);
 			this.closeDialog();
+
+			if (this.heightInterval) {
+				clearInterval(this.heightInterval);
+				timerRunning = false;
+			}
 		}
 	}, {
 		key: 'requestScroll',
@@ -291,13 +310,15 @@ var Dialog = function (_Component) {
 				} else {
 					dialogUnderlay.classList.add('hidden');
 					setTimeout(function () {
+						_skillskit2.default.clearMinBodyHeight();
 						dialogUnderlay.classList.remove('on');
 					}, 300);
 				}
 
 				this.updateIndexes();
+			} else {
+				this.postHeight();
 			}
-			this.postHeight();
 		}
 	}, {
 		key: 'render',

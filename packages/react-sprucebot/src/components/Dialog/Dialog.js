@@ -29,6 +29,8 @@ const DialogCloseButton = styled(Button).attrs({
 	remove: true
 })``
 
+let timerRunning = false
+
 export default class Dialog extends Component {
 	dialogHeight = 0
 
@@ -62,7 +64,9 @@ export default class Dialog extends Component {
 			setTimeout(() => {
 				this.setState({ focusClass: 'focused' }, () => {
 					// Resize the skill
-					this.postHeight()
+					setTimeout(() => {
+						this.postHeight()
+					}, 500)
 				})
 			}, 10)
 		})
@@ -81,11 +85,12 @@ export default class Dialog extends Component {
 			const margin = parseFloat(styles['marginTop'])
 
 			const dialogHeight = Math.ceil(node.offsetHeight + margin)
-			console.log('HEIGHT', dialogHeight, height, dialog)
 			height = Math.max(dialogHeight, height)
 		})
 
-		SK.resized({ minHeight: height })
+		if (currentDialogs.length > 0) {
+			SK.setMinBodyHeight(height)
+		}
 	}
 
 	componentWillMount() {
@@ -112,6 +117,15 @@ export default class Dialog extends Component {
 		this.focus()
 		currentDialogs.push(this)
 		this.updateIndexes()
+
+		if (!timerRunning) {
+			timerRunning = true
+			this.heightInterval = setInterval(() => {
+				if (currentDialogs[0]) {
+					currentDialogs[0].postHeight()
+				}
+			}, 300)
+		}
 	}
 
 	updateIndexes = () => {
@@ -151,6 +165,11 @@ export default class Dialog extends Component {
 		document.body.style.minHeight = `auto`
 		window.removeEventListener('message', this.iframeMessageHandler)
 		this.closeDialog()
+
+		if (this.heightInterval) {
+			clearInterval(this.heightInterval)
+			timerRunning = false
+		}
 	}
 
 	requestScroll() {
@@ -203,13 +222,15 @@ export default class Dialog extends Component {
 			} else {
 				dialogUnderlay.classList.add('hidden')
 				setTimeout(() => {
+					SK.clearMinBodyHeight()
 					dialogUnderlay.classList.remove('on')
 				}, 300)
 			}
 
 			this.updateIndexes()
+		} else {
+			this.postHeight()
 		}
-		this.postHeight()
 	}
 
 	render() {
