@@ -259,7 +259,6 @@ export default class BigCalendar extends Component {
 
 	//the earliest and latest time of all schedules
 	timeRange = () => {
-		const { auth } = this.props
 		const { selectedDate, storeSchedule } = this.state
 
 		let earliest = false
@@ -267,19 +266,18 @@ export default class BigCalendar extends Component {
 
 		if (storeSchedule && storeSchedule.length !== 0) {
 			storeSchedule.forEach(schedule => {
-				const start = moment
-					.tz(`2018-04-01 ${schedule.startTime}`, auth.Location.timezone)
-					.subtract(2, 'hour')
-				const end = moment
-					.tz(`2018-04-01 ${schedule.endTime}`, auth.Location.timezone)
-					.add(2, 'hour')
+				const start = moment(`2018-04-01 ${schedule.startTime}`).subtract(
+					2,
+					'hour'
+				)
+				const end = moment(`2018-04-01 ${schedule.endTime}`).add(2, 'hour')
 
 				if (!earliest || earliest.diff(start) > 0) {
-					earliest = moment(start)
+					earliest = start
 				}
 
 				if (!latest || latest.diff(end) < 0) {
-					latest = moment(end)
+					latest = end
 				}
 			})
 		} else {
@@ -500,7 +498,7 @@ export default class BigCalendar extends Component {
 		const formats = {
 			// format times in left column
 			timeGutterFormat: date => {
-				return moment.tz(date, auth.Location.timezone).format('h:mma')
+				return moment(date).format('h:mma')
 			}
 		}
 
@@ -515,7 +513,8 @@ export default class BigCalendar extends Component {
 			date: selectedDate.toDate(),
 			min: min.toDate(),
 			max: max.toDate(),
-			selectable: onClickOpenSlot && true
+			selectable: onClickOpenSlot && true,
+			timezone: this.props.timezone
 		}
 
 		let team = showAllTeammates ? teammates : [auth]
@@ -624,7 +623,8 @@ BigCalendar.propTypes = {
 	handleClickEvent: PropTypes.func,
 	handleClickOpenSlot: PropTypes.func,
 	handleDropEvent: PropTypes.func,
-	handleResizeEvent: PropTypes.func
+	handleResizeEvent: PropTypes.func,
+	timezone: PropTypes.string
 }
 
 BigCalendar.defaultProps = {

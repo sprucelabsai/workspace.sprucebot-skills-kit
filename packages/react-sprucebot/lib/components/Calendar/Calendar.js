@@ -28,6 +28,8 @@ var _dragAndDrop = require('react-big-calendar/lib/addons/dragAndDrop');
 
 var _dragAndDrop2 = _interopRequireDefault(_dragAndDrop);
 
+require('moment-timezone');
+
 var _is_js = require('is_js');
 
 var _is_js2 = _interopRequireDefault(_is_js);
@@ -45,6 +47,8 @@ var _reactDnd = require('react-dnd');
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _accessors = require('react-big-calendar/lib/utils/accessors');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -84,6 +88,14 @@ var Calendar = function (_Component) {
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _this.onNavigate = function (e) {
 			// Not fired with current build but causes error if omitted
 			console.log('onNavigate', e);
+		}, _this.startAccessor = function (event) {
+			var d = (0, _moment2.default)(event.start).tz(_this.props.timezone);
+			var start = (0, _moment2.default)(d.format('YYYY-MM-DD') + ' ' + event.payload.startTime);
+			return start.toDate();
+		}, _this.endAccessor = function (event) {
+			var d = (0, _moment2.default)(event.end).tz(_this.props.timezone);
+			var end = (0, _moment2.default)(d.format('YYYY-MM-DD') + ' ' + event.payload.endTime);
+			return end.toDate();
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
@@ -95,7 +107,10 @@ var Calendar = function (_Component) {
 			    defaultDate = _props$defaultDate === undefined ? new Date() : _props$defaultDate,
 			    canDrag = _props.canDrag,
 			    canResize = _props.canResize,
-			    props = _objectWithoutProperties(_props, ['defaultDate', 'canDrag', 'canResize']);
+			    onSelectSlot = _props.onSelectSlot,
+			    onEventDrop = _props.onEventDrop,
+			    timezone = _props.timezone,
+			    props = _objectWithoutProperties(_props, ['defaultDate', 'canDrag', 'canResize', 'onSelectSlot', 'onEventDrop', 'timezone']);
 
 			return _react2.default.createElement(
 				CalendarWrapper,
@@ -103,6 +118,8 @@ var Calendar = function (_Component) {
 				_react2.default.createElement(CalendarComponent, _extends({
 					draggableAccessor: canDrag,
 					resizableAccessor: canResize,
+					startAccessor: this.startAccessor,
+					endAccessor: this.endAccessor,
 					defaultDate: defaultDate
 				}, props))
 			);

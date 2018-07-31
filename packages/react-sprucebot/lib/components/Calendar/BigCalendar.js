@@ -354,7 +354,6 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.timeRange = function () {
-			var auth = _this.props.auth;
 			var _this$state7 = _this.state,
 			    selectedDate = _this$state7.selectedDate,
 			    storeSchedule = _this$state7.storeSchedule;
@@ -365,15 +364,15 @@ var BigCalendar = function (_Component) {
 
 			if (storeSchedule && storeSchedule.length !== 0) {
 				storeSchedule.forEach(function (schedule) {
-					var start = _moment2.default.tz('2018-04-01 ' + schedule.startTime, auth.Location.timezone).subtract(2, 'hour');
-					var end = _moment2.default.tz('2018-04-01 ' + schedule.endTime, auth.Location.timezone).add(2, 'hour');
+					var start = (0, _moment2.default)('2018-04-01 ' + schedule.startTime).subtract(2, 'hour');
+					var end = (0, _moment2.default)('2018-04-01 ' + schedule.endTime).add(2, 'hour');
 
 					if (!earliest || earliest.diff(start) > 0) {
-						earliest = (0, _moment2.default)(start);
+						earliest = start;
 					}
 
 					if (!latest || latest.diff(end) < 0) {
-						latest = (0, _moment2.default)(end);
+						latest = end;
 					}
 				});
 			} else {
@@ -679,7 +678,7 @@ var BigCalendar = function (_Component) {
 			var formats = {
 				// format times in left column
 				timeGutterFormat: function timeGutterFormat(date) {
-					return _moment2.default.tz(date, auth.Location.timezone).format('h:mma');
+					return (0, _moment2.default)(date).format('h:mma');
 				}
 
 				// setup start and end times
@@ -699,7 +698,8 @@ var BigCalendar = function (_Component) {
 				date: selectedDate.toDate(),
 				min: min.toDate(),
 				max: max.toDate(),
-				selectable: onClickOpenSlot && true
+				selectable: onClickOpenSlot && true,
+				timezone: this.props.timezone
 			};
 
 			var team = showAllTeammates ? teammates : [auth];
@@ -824,7 +824,8 @@ BigCalendar.propTypes = {
 	handleClickEvent: _propTypes2.default.func,
 	handleClickOpenSlot: _propTypes2.default.func,
 	handleDropEvent: _propTypes2.default.func,
-	handleResizeEvent: _propTypes2.default.func
+	handleResizeEvent: _propTypes2.default.func,
+	timezone: _propTypes2.default.string
 };
 
 BigCalendar.defaultProps = {

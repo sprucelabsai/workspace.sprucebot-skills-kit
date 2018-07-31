@@ -3,12 +3,14 @@ import styled from 'styled-components'
 import moment from 'moment'
 import BigCalendar from 'react-big-calendar'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+import 'moment-timezone'
 
 import is from 'is_js'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { default as TouchBackend } from 'react-dnd-touch-backend'
 import { DragDropContext } from 'react-dnd'
 import PropTypes from 'prop-types'
+import { accessor } from 'react-big-calendar/lib/utils/accessors'
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLocalizer
 
@@ -739,11 +741,26 @@ class Calendar extends Component {
 		console.log('onNavigate', e)
 	}
 
+	startAccessor = event => {
+		const d = moment(event.start).tz(this.props.timezone)
+		const start = moment(`${d.format('YYYY-MM-DD')} ${event.payload.startTime}`)
+		return start.toDate()
+	}
+
+	endAccessor = event => {
+		const d = moment(event.end).tz(this.props.timezone)
+		const end = moment(`${d.format('YYYY-MM-DD')} ${event.payload.endTime}`)
+		return end.toDate()
+	}
+
 	render() {
 		const {
 			defaultDate = new Date(),
 			canDrag,
 			canResize,
+			onSelectSlot,
+			onEventDrop,
+			timezone,
 			...props
 		} = this.props
 
@@ -752,6 +769,8 @@ class Calendar extends Component {
 				<CalendarComponent
 					draggableAccessor={canDrag}
 					resizableAccessor={canResize}
+					startAccessor={this.startAccessor}
+					endAccessor={this.endAccessor}
 					defaultDate={defaultDate}
 					{...props}
 				/>
