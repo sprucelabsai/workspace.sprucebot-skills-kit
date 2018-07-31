@@ -542,7 +542,7 @@ var BigCalendar = function (_Component) {
 			}
 
 			var filteredEvents = events.filter(function (event) {
-				return event.userId === teammate.User.id || event.type === 'special-event';
+				return event.isUniversalEvent || event.userId === teammate.User.id;
 			});
 
 			return filteredEvents;

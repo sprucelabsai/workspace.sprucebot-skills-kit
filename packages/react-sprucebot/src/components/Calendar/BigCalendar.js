@@ -416,8 +416,7 @@ export default class BigCalendar extends Component {
 		}
 
 		const filteredEvents = events.filter(
-			event =>
-				event.userId === teammate.User.id || event.type === 'special-event'
+			event => event.isUniversalEvent || event.userId === teammate.User.id
 		)
 
 		return filteredEvents
