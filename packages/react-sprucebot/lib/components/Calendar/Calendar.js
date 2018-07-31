@@ -107,6 +107,7 @@ var Calendar = function (_Component) {
 				CalendarWrapper,
 				null,
 				_react2.default.createElement(CalendarComponent, _extends({
+					onNavigate: this.onNavigate,
 					draggableAccessor: canDrag,
 					resizableAccessor: canResize,
 					startAccessor: this.startAccessor,

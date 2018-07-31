@@ -760,6 +760,7 @@ class Calendar extends Component {
 		return (
 			<CalendarWrapper>
 				<CalendarComponent
+					onNavigate={this.onNavigate}
 					draggableAccessor={canDrag}
 					resizableAccessor={canResize}
 					startAccessor={this.startAccessor}
