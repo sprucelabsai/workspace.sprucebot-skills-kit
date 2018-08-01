@@ -135,7 +135,7 @@ var BigCalendar = function (_Component) {
 						title = 'Tomorrow';
 						break;
 					default:
-						title = (0, _moment2.default)(selectedDate).format('MMM Do');
+						title = (0, _moment2.default)(selectedDate).format('ddd, MMM Do');
 						break;
 				}
 			}

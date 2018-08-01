@@ -115,7 +115,7 @@ export default class BigCalendar extends Component {
 					title = 'Tomorrow'
 					break
 				default:
-					title = moment(selectedDate).format('MMM Do')
+					title = moment(selectedDate).format('ddd, MMM Do')
 					break
 			}
 		}
