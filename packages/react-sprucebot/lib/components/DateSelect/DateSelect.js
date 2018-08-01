@@ -97,7 +97,7 @@ var DateSelect = function (_Component) {
 			var availableDates = _this.props.availableDates;
 
 
-			if (availableDates.length === 0) {
+			if (!availableDates) {
 				return false;
 			}
 
@@ -236,6 +236,5 @@ DateSelect.propTypes = {
 };
 
 DateSelect.defaultProps = {
-	availableDates: [],
 	allowPastDates: false
 };
