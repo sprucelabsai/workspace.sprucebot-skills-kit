@@ -569,11 +569,11 @@ var BigCalendar = function (_Component) {
 			return { className: '' + (event.className || '') };
 		};
 
-		_this.handleClickEvent = function (event, teammate) {
+		_this.handleClickEvent = function (event, teammate, view, mode) {
 			var onClickEvent = _this.props.onClickEvent;
 
 
-			onClickEvent && onClickEvent(event, teammate);
+			onClickEvent && onClickEvent(event, teammate, view, mode);
 		};
 
 		_this.handleClickOpenSlot = function (start, end, teammate) {
@@ -808,7 +808,7 @@ var BigCalendar = function (_Component) {
 										return _this3.applyClassNames(event);
 									},
 									onSelectEvent: function onSelectEvent(event) {
-										return _this3.handleClickEvent(event, teammate);
+										return _this3.handleClickEvent(event, teammate, view, mode);
 									},
 									onSelectSlot: function onSelectSlot(_ref10) {
 										var start = _ref10.start,
