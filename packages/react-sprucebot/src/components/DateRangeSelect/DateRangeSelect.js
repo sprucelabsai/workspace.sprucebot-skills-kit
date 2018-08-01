@@ -938,7 +938,7 @@ class DateRangeSelect extends Component {
 	isDayBlocked = date => {
 		const { availableDates } = this.props
 
-		if (availableDates.length === 0) {
+		if (!availableDates) {
 			return false
 		}
 
@@ -1121,6 +1121,5 @@ DateRangeSelect.propTypes = {
 }
 
 DateRangeSelect.defaultProps = {
-	availableDates: [],
 	allowPastDates: false
 }
