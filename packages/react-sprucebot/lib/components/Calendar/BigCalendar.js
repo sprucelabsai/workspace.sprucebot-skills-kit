@@ -122,7 +122,7 @@ var BigCalendar = function (_Component) {
 				}
 			} else if (view === 'day') {
 				var now = (0, _moment2.default)().tz(auth.Location.timezone).startOf('day');
-				var days = (0, _moment2.default)(selectedDate).startOf('day').diff(now, 'days');
+				var days = _moment2.default.tz(selectedDate, auth.Location.timezone).startOf('day').diff(now, 'days');
 
 				switch (days) {
 					case -1:

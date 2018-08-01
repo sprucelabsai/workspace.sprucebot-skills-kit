@@ -99,7 +99,8 @@ export default class BigCalendar extends Component {
 			const now = moment()
 				.tz(auth.Location.timezone)
 				.startOf('day')
-			const days = moment(selectedDate)
+			const days = moment
+				.tz(selectedDate, auth.Location.timezone)
 				.startOf('day')
 				.diff(now, 'days')
 
