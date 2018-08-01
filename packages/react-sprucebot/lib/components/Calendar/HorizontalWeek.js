@@ -36,7 +36,12 @@ var TeamWeek = function (_Component) {
 			args[_key] = arguments[_key];
 		}
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TeamWeek.__proto__ || Object.getPrototypeOf(TeamWeek)).call.apply(_ref, [this].concat(args))), _this), _this.renderDayEvents = function (events, date) {
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TeamWeek.__proto__ || Object.getPrototypeOf(TeamWeek)).call.apply(_ref, [this].concat(args))), _this), _this.handleOnClick = function (event) {
+			var onSelectEvent = _this.props.onSelectEvent;
+
+
+			onSelectEvent && onSelectEvent(event);
+		}, _this.renderDayEvents = function (events, date) {
 			var _this$props = _this.props,
 			    max = _this$props.max,
 			    min = _this$props.min;
@@ -61,6 +66,9 @@ var TeamWeek = function (_Component) {
 				return _react2.default.createElement(
 					'div',
 					{
+						onClick: function onClick() {
+							return _this.handleOnClick(event);
+						},
 						className: 'rbc-event event-' + index + ' ' + (event.className || ''),
 						style: {
 							left: left + '%',
@@ -135,7 +143,12 @@ var TeamWeek = function (_Component) {
 									}).map(function (event) {
 										return _react2.default.createElement(
 											'div',
-											{ className: 'rbc-event ' + (event.className || '') },
+											{
+												className: 'rbc-event ' + (event.className || ''),
+												onClick: function onClick() {
+													return _this2.handleOnClick(event);
+												}
+											},
 											event.title
 										);
 									})
