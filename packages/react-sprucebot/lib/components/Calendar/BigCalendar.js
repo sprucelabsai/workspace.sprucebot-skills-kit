@@ -101,6 +101,7 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.generatePagerTitle = function (page) {
+			var auth = _this.props.auth;
 			var _this$state = _this.state,
 			    view = _this$state.view,
 			    selectedDate = _this$state.selectedDate;
@@ -120,7 +121,23 @@ var BigCalendar = function (_Component) {
 					title = startOfWeek.format('MMM Do') + ' - ' + endOfWeek.format('MMM Do');
 				}
 			} else if (view === 'day') {
-				title = (0, _moment2.default)(selectedDate).format('MMM Do');
+				var now = (0, _moment2.default)().tz(auth.Location.timezone).startOf('day');
+				var days = (0, _moment2.default)(selectedDate).startOf('day').diff(now, 'days');
+
+				switch (days) {
+					case -1:
+						title = 'Yesterday';
+						break;
+					case 0:
+						title = 'Today';
+						break;
+					case 1:
+						title = 'Tomorrow';
+						break;
+					default:
+						title = (0, _moment2.default)(selectedDate).format('MMM Do');
+						break;
+				}
 			}
 
 			return title;
@@ -790,7 +807,9 @@ var BigCalendar = function (_Component) {
 									eventPropGetter: function eventPropGetter(event) {
 										return _this3.applyClassNames(event);
 									},
-									onSelectEvent: _this3.handleClickEvent,
+									onSelectEvent: function onSelectEvent(event) {
+										return _this3.handleClickEvent(event, teammate);
+									},
 									onSelectSlot: function onSelectSlot(_ref10) {
 										var start = _ref10.start,
 										    end = _ref10.end;

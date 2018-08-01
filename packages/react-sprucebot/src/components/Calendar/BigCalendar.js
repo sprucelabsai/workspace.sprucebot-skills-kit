@@ -77,6 +77,7 @@ export default class BigCalendar extends Component {
 	}
 
 	generatePagerTitle = page => {
+		const { auth } = this.props
 		const { view, selectedDate } = this.state
 
 		let title
@@ -95,7 +96,27 @@ export default class BigCalendar extends Component {
 				)}`
 			}
 		} else if (view === 'day') {
-			title = moment(selectedDate).format('MMM Do')
+			const now = moment()
+				.tz(auth.Location.timezone)
+				.startOf('day')
+			const days = moment(selectedDate)
+				.startOf('day')
+				.diff(now, 'days')
+
+			switch (days) {
+				case -1:
+					title = 'Yesterday'
+					break
+				case 0:
+					title = 'Today'
+					break
+				case 1:
+					title = 'Tomorrow'
+					break
+				default:
+					title = moment(selectedDate).format('MMM Do')
+					break
+			}
 		}
 
 		return title
@@ -592,7 +613,9 @@ export default class BigCalendar extends Component {
 											views={views}
 											events={events ? this.filterEvents(events, teammate) : []}
 											eventPropGetter={event => this.applyClassNames(event)}
-											onSelectEvent={this.handleClickEvent}
+											onSelectEvent={event =>
+												this.handleClickEvent(event, teammate)
+											}
 											onSelectSlot={({ start, end }) =>
 												this.handleClickOpenSlot(start, end, teammate)
 											}
