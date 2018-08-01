@@ -448,10 +448,10 @@ export default class BigCalendar extends Component {
 		return { className: `${event.className || ''}` }
 	}
 
-	handleClickEvent = (event, teammate) => {
+	handleClickEvent = (event, teammate, view, mode) => {
 		const { onClickEvent } = this.props
 
-		onClickEvent && onClickEvent(event, teammate)
+		onClickEvent && onClickEvent(event, teammate, view, mode)
 	}
 
 	handleClickOpenSlot = (start, end, teammate) => {
@@ -615,7 +615,7 @@ export default class BigCalendar extends Component {
 											events={events ? this.filterEvents(events, teammate) : []}
 											eventPropGetter={event => this.applyClassNames(event)}
 											onSelectEvent={event =>
-												this.handleClickEvent(event, teammate)
+												this.handleClickEvent(event, teammate, view, mode)
 											}
 											onSelectSlot={({ start, end }) =>
 												this.handleClickOpenSlot(start, end, teammate)
