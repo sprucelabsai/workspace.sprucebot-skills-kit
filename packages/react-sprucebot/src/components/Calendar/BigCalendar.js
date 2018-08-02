@@ -78,6 +78,14 @@ export default class BigCalendar extends Component {
 		return this.state.events
 	}
 
+	setView = view => {
+		this.setState({ view })
+	}
+
+	setMode = mode => {
+		this.setState({ mode })
+	}
+
 	generatePagerTitle = page => {
 		const { auth } = this.props
 		const { view, selectedDate } = this.state
@@ -466,10 +474,10 @@ export default class BigCalendar extends Component {
 		onClickEvent && onClickEvent(event, teammate, view, mode)
 	}
 
-	handleClickOpenSlot = (start, end, teammate) => {
+	handleClickOpenSlot = options => {
 		const { onClickOpenSlot } = this.props
 
-		onClickOpenSlot && onClickOpenSlot(start, end, teammate)
+		onClickOpenSlot && onClickOpenSlot(options)
 	}
 
 	handleDropEvent = ({ event, start, end }) => {
@@ -629,8 +637,15 @@ export default class BigCalendar extends Component {
 											onSelectEvent={event =>
 												this.handleClickEvent(event, teammate, view, mode)
 											}
-											onSelectSlot={({ start, end }) =>
-												this.handleClickOpenSlot(start, end, teammate)
+											onSelectSlot={({ start, end, action }) =>
+												this.handleClickOpenSlot({
+													start,
+													end,
+													action,
+													teammate,
+													view,
+													mode
+												})
 											}
 											onEventDrop={this.handleDropEvent}
 											onEventResize={this.handleResizeEvent}

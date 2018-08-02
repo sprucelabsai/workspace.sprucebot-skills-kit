@@ -104,6 +104,14 @@ var BigCalendar = function (_Component) {
 			return _this.state.events;
 		};
 
+		_this.setView = function (view) {
+			_this.setState({ view: view });
+		};
+
+		_this.setMode = function (mode) {
+			_this.setState({ mode: mode });
+		};
+
 		_this.generatePagerTitle = function (page) {
 			var auth = _this.props.auth;
 			var _this$state = _this.state,
@@ -593,11 +601,11 @@ var BigCalendar = function (_Component) {
 			onClickEvent && onClickEvent(event, teammate, view, mode);
 		};
 
-		_this.handleClickOpenSlot = function (start, end, teammate) {
+		_this.handleClickOpenSlot = function (options) {
 			var onClickOpenSlot = _this.props.onClickOpenSlot;
 
 
-			onClickOpenSlot && onClickOpenSlot(start, end, teammate);
+			onClickOpenSlot && onClickOpenSlot(options);
 		};
 
 		_this.handleDropEvent = function (_ref8) {
@@ -829,8 +837,16 @@ var BigCalendar = function (_Component) {
 									},
 									onSelectSlot: function onSelectSlot(_ref10) {
 										var start = _ref10.start,
-										    end = _ref10.end;
-										return _this3.handleClickOpenSlot(start, end, teammate);
+										    end = _ref10.end,
+										    action = _ref10.action;
+										return _this3.handleClickOpenSlot({
+											start: start,
+											end: end,
+											action: action,
+											teammate: teammate,
+											view: view,
+											mode: mode
+										});
 									},
 									onEventDrop: _this3.handleDropEvent,
 									onEventResize: _this3.handleResizeEvent,
