@@ -6,7 +6,7 @@ exports[`it renders 1`] = `
   showOnlineIndicator={true}
   style={
     Object {
-      "backgroundImage": "url(test.jpg)",
+      "backgroundImage": "url('test.jpg')",
     }
   }
 />
