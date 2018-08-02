@@ -79,11 +79,16 @@ export default class BigCalendar extends Component {
 	}
 
 	setView = view => {
-		this.setState({ view })
+		this.handleChangeView(0)
+		this.tabs.setSelected(0, '.0')
 	}
 
 	setMode = mode => {
 		this.setState({ mode })
+	}
+
+	setDate = selectedDate => {
+		this.setState({ selectedDate })
 	}
 
 	generatePagerTitle = page => {
@@ -579,7 +584,10 @@ export default class BigCalendar extends Component {
 
 		return (
 			<div className={`big_calendar ${classNames}`}>
-				<Tabs onChange={this.handleChangeView}>
+				<Tabs
+					ref={element => (this.tabs = element)}
+					onChange={this.handleChangeView}
+				>
 					<TabPane title="Day" />
 					<TabPane title="Week" />
 					<TabPane title="Month" />

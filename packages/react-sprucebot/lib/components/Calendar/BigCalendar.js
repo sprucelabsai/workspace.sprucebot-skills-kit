@@ -105,11 +105,16 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.setView = function (view) {
-			_this.setState({ view: view });
+			_this.handleChangeView(0);
+			_this.tabs.setSelected(0, '.0');
 		};
 
 		_this.setMode = function (mode) {
 			_this.setState({ mode: mode });
+		};
+
+		_this.setDate = function (selectedDate) {
+			_this.setState({ selectedDate: selectedDate });
 		};
 
 		_this.generatePagerTitle = function (page) {
@@ -766,7 +771,12 @@ var BigCalendar = function (_Component) {
 				{ className: 'big_calendar ' + classNames },
 				_react2.default.createElement(
 					_Tabs.Tabs,
-					{ onChange: this.handleChangeView },
+					{
+						ref: function ref(element) {
+							return _this3.tabs = element;
+						},
+						onChange: this.handleChangeView
+					},
 					_react2.default.createElement(_Tabs.TabPane, { title: 'Day' }),
 					_react2.default.createElement(_Tabs.TabPane, { title: 'Week' }),
 					_react2.default.createElement(_Tabs.TabPane, { title: 'Month' })
