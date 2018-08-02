@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import isEqual from 'lodash/isEqual'
 import { Tween, autoPlay, Easing } from 'es6-tween'
 
 import Avatar from '../Avatar/Avatar'
@@ -39,7 +40,8 @@ export default class BigCalendar extends Component {
 			views: props.supportedViews,
 			resized: 0,
 			events: [], // All events for current date range
-			storeSchedule: [] // Hours store is open for selected date range
+			storeSchedule: [], // Hours store is open for selected date range,
+			optionsLoaded: []
 		}
 		// Expected event structure:
 		// const event = {
@@ -209,7 +211,7 @@ export default class BigCalendar extends Component {
 	}
 
 	refresh = async (triggerOnNavigate = false) => {
-		const { mode, view, teammates, selectedDate } = this.state
+		const { mode, view, teammates, selectedDate, optionsLoaded } = this.state
 		const { auth, onNavigate, fetchEvents } = this.props
 
 		const currentView = view === 'team_week' ? 'week' : view
@@ -228,10 +230,20 @@ export default class BigCalendar extends Component {
 			teammates: mode === 'user' ? currentUser : teammates
 		}
 
-		triggerOnNavigate && onNavigate && onNavigate(options)
+		const eventsLoaded = this.checkOptions(options)
 
-		const { storeSchedule, events } = await fetchEvents(options)
-		this.setState({ storeSchedule, events })
+		if (!eventsLoaded) {
+			this.setState({ optionsLoaded: [...optionsLoaded, options] })
+
+			triggerOnNavigate && onNavigate && onNavigate(options)
+
+			const { storeSchedule, events } = await fetchEvents(options)
+			this.setState({ storeSchedule, events })
+		}
+	}
+
+	checkOptions = options => {
+		return this.state.optionsLoaded.find(loaded => isEqual(loaded, options))
 	}
 
 	handlePagerChange = async page => {

@@ -22,6 +22,10 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _isEqual = require('lodash/isEqual');
+
+var _isEqual2 = _interopRequireDefault(_isEqual);
+
 var _es6Tween = require('es6-tween');
 
 var _Avatar = require('../Avatar/Avatar');
@@ -238,13 +242,13 @@ var BigCalendar = function (_Component) {
 			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
 				var triggerOnNavigate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-				var _this$state5, mode, view, teammates, selectedDate, _this$props, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, _ref2, storeSchedule, events;
+				var _this$state5, mode, view, teammates, selectedDate, optionsLoaded, _this$props, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, eventsLoaded, _ref2, storeSchedule, events;
 
 				return regeneratorRuntime.wrap(function _callee$(_context) {
 					while (1) {
 						switch (_context.prev = _context.next) {
 							case 0:
-								_this$state5 = _this.state, mode = _this$state5.mode, view = _this$state5.view, teammates = _this$state5.teammates, selectedDate = _this$state5.selectedDate;
+								_this$state5 = _this.state, mode = _this$state5.mode, view = _this$state5.view, teammates = _this$state5.teammates, selectedDate = _this$state5.selectedDate, optionsLoaded = _this$state5.optionsLoaded;
 								_this$props = _this.props, auth = _this$props.auth, onNavigate = _this$props.onNavigate, fetchEvents = _this$props.fetchEvents;
 								currentView = view === 'team_week' ? 'week' : view;
 								currentUser = teammates.find(function (teammate) {
@@ -259,21 +263,28 @@ var BigCalendar = function (_Component) {
 									view: currentView,
 									teammates: mode === 'user' ? currentUser : teammates
 								};
+								eventsLoaded = _this.checkOptions(options);
 
+								if (eventsLoaded) {
+									_context.next = 17;
+									break;
+								}
+
+								_this.setState({ optionsLoaded: [].concat(_toConsumableArray(optionsLoaded), [options]) });
 
 								triggerOnNavigate && onNavigate && onNavigate(options);
 
-								_context.next = 10;
+								_context.next = 13;
 								return fetchEvents(options);
 
-							case 10:
+							case 13:
 								_ref2 = _context.sent;
 								storeSchedule = _ref2.storeSchedule;
 								events = _ref2.events;
 
 								_this.setState({ storeSchedule: storeSchedule, events: events });
 
-							case 14:
+							case 17:
 							case 'end':
 								return _context.stop();
 						}
@@ -285,6 +296,12 @@ var BigCalendar = function (_Component) {
 				return _ref.apply(this, arguments);
 			};
 		}();
+
+		_this.checkOptions = function (options) {
+			return _this.state.optionsLoaded.find(function (loaded) {
+				return (0, _isEqual2.default)(loaded, options);
+			});
+		};
 
 		_this.handlePagerChange = function () {
 			var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(page) {
@@ -638,8 +655,8 @@ var BigCalendar = function (_Component) {
 			views: props.supportedViews,
 			resized: 0,
 			events: [], // All events for current date range
-			storeSchedule: [] // Hours store is open for selected date range
-
+			storeSchedule: [], // Hours store is open for selected date range,
+			optionsLoaded: []
 			// Expected event structure:
 			// const event = {
 			// 	title: 'My favorite event',
