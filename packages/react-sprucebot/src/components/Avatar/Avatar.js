@@ -10,7 +10,7 @@ export default class Avatar extends Component {
 
 		//passed an image
 		if (typeof image === 'string' && image) {
-			style.backgroundImage = `url(${image})`
+			style.backgroundImage = `url('${image}')`
 		} else if (
 			user &&
 			user.User &&

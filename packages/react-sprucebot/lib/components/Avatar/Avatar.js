@@ -51,7 +51,7 @@ var Avatar = function (_Component) {
 
 			//passed an image
 			if (typeof image === 'string' && image) {
-				style.backgroundImage = 'url(' + image + ')';
+				style.backgroundImage = 'url(\'' + image + '\')';
 			} else if (user && user.User && user.User.profileImages && user.User.profileImages.profile150) {
 				style.backgroundImage = 'url(' + user.User.profileImages.profile150 + ')';
 				isOnline = user.status === 'online';
