@@ -981,7 +981,7 @@ class DateSelect extends Component {
 		} = this.props
 
 		return (
-			<WhiteLabel hide={hide} loading={loading}>
+			<WhiteLabel className="date__select" hide={hide} loading={loading}>
 				<LoadingContainer loading={loading}>
 					<Loader />
 				</LoadingContainer>

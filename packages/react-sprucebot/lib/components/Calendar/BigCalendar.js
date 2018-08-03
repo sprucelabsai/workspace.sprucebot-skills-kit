@@ -821,7 +821,7 @@ var BigCalendar = function (_Component) {
 										width: teammateWrapperWidth
 									}
 								},
-								_react2.default.createElement(
+								!(view === 'month' && mode === 'team') && _react2.default.createElement(
 									'div',
 									{ className: 'avatar_wrapper' },
 									_react2.default.createElement(
@@ -835,6 +835,22 @@ var BigCalendar = function (_Component) {
 										)
 									)
 								),
+								idx === 0 && view === 'month' && mode === 'team' && team.map(function (teammate) {
+									return _react2.default.createElement(
+										'div',
+										{ className: 'avatar_wrapper' },
+										_react2.default.createElement(
+											'span',
+											null,
+											_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
+											_react2.default.createElement(
+												'span',
+												{ className: 'calendar__teammate_name' },
+												teammate.User.casualName
+											)
+										)
+									);
+								}),
 								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
 									className: '' + (idx === 0 && !renderFirstCalendar ? 'hide' : ''),
 									views: views,

@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.40.0"></a>
+# [6.40.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.39.0...v6.40.0) (2018-08-02)
+
+
+### Features
+
+* avatar fix for base64 images ([e212c6b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e212c6b))
+
+
+
+
+
+<a name="6.39.0"></a>
+# [6.39.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.38.0...v6.39.0) (2018-08-01)
+
+
+### Features
+
+* Add click events to HorizontalWeek ([595dc66](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/595dc66))
+* Add timezone to selectedDate in generatePagerTitle ([e6d3425](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e6d3425))
+* Check for availableDates, remove default prop DateRangeSelect ([b0ceb82](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b0ceb82))
+* Check for availableDates, remove default prop DateSelect ([7ace40f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7ace40f))
+* Pass mode/view with handleClickEvent ([ee7b882](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ee7b882))
+* Pass teammate onSelectEvent, format Today for pager ([185d95f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/185d95f))
+
+
+
+
+
 <a name="6.38.0"></a>
 # [6.38.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.37.0...v6.38.0) (2018-07-31)
 

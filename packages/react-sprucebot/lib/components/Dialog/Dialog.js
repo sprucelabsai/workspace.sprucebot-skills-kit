@@ -118,6 +118,20 @@ var Dialog = function (_Component) {
 			});
 		};
 
+		_this.handleTapClose = function () {
+			// because dialogs are shown/hidden by being conditionally rendered, we actually have no way of knowing how we should close unless someone tells us
+			if (_this.props.onTapClose) {
+				_this.closeDialog();
+				_this.setState({ focusClass: 'closed', opacity: 0 }, function () {
+					if (_this.props.onTapClose) {
+						setTimeout(function () {
+							_this.props.onTapClose();
+						}, 500);
+					}
+				});
+			}
+		};
+
 		_this.iframeMessageHandler = _this.iframeMessageHandler.bind(_this);
 
 		_this.state = {
@@ -269,20 +283,6 @@ var Dialog = function (_Component) {
 			} catch (err) {}
 		}
 	}, {
-		key: 'onTapClose',
-		value: function onTapClose() {
-			var _this4 = this;
-
-			this.closeDialog();
-			this.setState({ focusClass: 'closed', opacity: 0 }, function () {
-				if (_this4.props.onTapClose) {
-					setTimeout(function () {
-						_this4.props.onTapClose();
-					}, 500);
-				}
-			});
-		}
-	}, {
 		key: 'closeDialog',
 		value: function closeDialog() {
 			if (this.state.focusClass !== 'closed') {
@@ -308,7 +308,7 @@ var Dialog = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this5 = this;
+			var _this4 = this;
 
 			var _props = this.props,
 			    tag = _props.tag,
@@ -333,7 +333,7 @@ var Dialog = function (_Component) {
 				marginTop: this.state.scrollTop + dialogVerticalPadding
 			};
 
-			var hasHeader = onTapClose || title;
+			var hasHeader = true; // always have a header, just won't show close/title if not supplied
 
 			return typeof document !== 'undefined' && _reactDom2.default.createPortal(_react2.default.createElement(
 				DialogWrapper,
@@ -341,7 +341,7 @@ var Dialog = function (_Component) {
 					className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
 					onClick: function onClick(e) {
 						if (e.target.className.search('dialog__wrapper') > -1 && currentDialogs.length - 1 >= 0) {
-							currentDialogs[currentDialogs.length - 1].onTapClose();
+							currentDialogs[currentDialogs.length - 1].handleTapClose();
 						}
 					}
 				},
@@ -349,7 +349,7 @@ var Dialog = function (_Component) {
 					DialogContainer,
 					_extends({
 						ref: function ref(node) {
-							return _this5.dialogNode = node;
+							return _this4.dialogNode = node;
 						},
 						className: (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
 						style: dialogStyle,
@@ -367,7 +367,7 @@ var Dialog = function (_Component) {
 							_IconButton2.default,
 							{
 								className: 'btn__close_dialog',
-								onClick: this.onTapClose.bind(this)
+								onClick: this.handleTapClose
 							},
 							'close'
 						)
