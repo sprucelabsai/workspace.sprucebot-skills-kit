@@ -71,6 +71,13 @@ const skill = {
 		postMessage({ name: 'Skill:RequestContainerScrollTop' })
 	},
 
+	fullScreenOn: function() {
+		postMessage({ name: 'Skill:FullScreenOn' })
+	},
+	fullScreenOff: function() {
+		postMessage({ name: 'Skill:FullScreenOff' })
+	},
+
 	showHelp: async function({ title, body }) {
 		if (window.top === window.self) {
 			alert(`[${title}] ${body}`)
