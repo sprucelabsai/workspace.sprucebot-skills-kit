@@ -188,15 +188,18 @@ export default class Dialog extends Component {
 			}
 		} catch (err) {}
 	}
-	onTapClose() {
-		this.closeDialog()
-		this.setState({ focusClass: 'closed', opacity: 0 }, () => {
-			if (this.props.onTapClose) {
-				setTimeout(() => {
-					this.props.onTapClose()
-				}, 500)
-			}
-		})
+	handleTapClose = () => {
+		// because dialogs are shown/hidden by being conditionally rendered, we actually have no way of knowing how we should close unless someone tells us
+		if (this.props.onTapClose) {
+			this.closeDialog()
+			this.setState({ focusClass: 'closed', opacity: 0 }, () => {
+				if (this.props.onTapClose) {
+					setTimeout(() => {
+						this.props.onTapClose()
+					}, 500)
+				}
+			})
+		}
 	}
 
 	closeDialog() {
@@ -238,7 +241,7 @@ export default class Dialog extends Component {
 			marginTop: this.state.scrollTop + dialogVerticalPadding
 		}
 
-		const hasHeader = onTapClose || title
+		const hasHeader = true // always have a header, just won't show close/title if not supplied
 
 		return (
 			typeof document !== 'undefined' &&
@@ -252,7 +255,7 @@ export default class Dialog extends Component {
 							e.target.className.search('dialog__wrapper') > -1 &&
 							currentDialogs.length - 1 >= 0
 						) {
-							currentDialogs[currentDialogs.length - 1].onTapClose()
+							currentDialogs[currentDialogs.length - 1].handleTapClose()
 						}
 					}}
 				>
@@ -269,7 +272,7 @@ export default class Dialog extends Component {
 								{onTapClose && (
 									<IconButton
 										className="btn__close_dialog"
-										onClick={this.onTapClose.bind(this)}
+										onClick={this.handleTapClose}
 									>
 										close
 									</IconButton>
