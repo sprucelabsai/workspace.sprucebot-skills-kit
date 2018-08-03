@@ -310,18 +310,29 @@ export default class BigCalendar extends Component {
 
 	//the earliest and latest time of all schedules
 	timeRange = () => {
-		const { selectedDate, storeSchedule } = this.state
+		const { selectedDate, storeSchedule, events } = this.state
+		const day = selectedDate.format('YYYY-MM-DD')
+		const combinedTimes = [
+			...storeSchedule,
+			...events
+				.filter(event => {
+					if (event.startTime && event.endTime) {
+						return event
+					}
+				})
+				.map(event => ({
+					startTime: event.startTime,
+					endTime: event.endTime
+				}))
+		]
 
 		let earliest = false
 		let latest = false
 
-		if (storeSchedule && storeSchedule.length !== 0) {
-			storeSchedule.forEach(schedule => {
-				const start = moment(`2018-04-01 ${schedule.startTime}`).subtract(
-					2,
-					'hour'
-				)
-				const end = moment(`2018-04-01 ${schedule.endTime}`).add(2, 'hour')
+		if (combinedTimes.length !== 0) {
+			combinedTimes.forEach(event => {
+				const start = moment(`${day} ${event.startTime}`).subtract(2, 'hour')
+				const end = moment(`${day} ${event.endTime}`).add(2, 'hour')
 
 				if (!earliest || earliest.diff(start) > 0) {
 					earliest = start
@@ -331,6 +342,14 @@ export default class BigCalendar extends Component {
 					latest = end
 				}
 			})
+
+			if (!earliest.isSame(day, 'day')) {
+				earliest = moment(`${day} 00:00:00`)
+			}
+
+			if (!latest.isSame(day, 'day')) {
+				latest = moment(`${day} 23:59:59`)
+			}
 		} else {
 			earliest = moment(selectedDate)
 				.hour(7)

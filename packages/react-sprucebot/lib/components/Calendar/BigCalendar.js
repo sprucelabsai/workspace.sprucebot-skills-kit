@@ -407,16 +407,28 @@ var BigCalendar = function (_Component) {
 		_this.timeRange = function () {
 			var _this$state7 = _this.state,
 			    selectedDate = _this$state7.selectedDate,
-			    storeSchedule = _this$state7.storeSchedule;
+			    storeSchedule = _this$state7.storeSchedule,
+			    events = _this$state7.events;
 
+			var day = selectedDate.format('YYYY-MM-DD');
+			var combinedTimes = [].concat(_toConsumableArray(storeSchedule), _toConsumableArray(events.filter(function (event) {
+				if (event.startTime && event.endTime) {
+					return event;
+				}
+			}).map(function (event) {
+				return {
+					startTime: event.startTime,
+					endTime: event.endTime
+				};
+			})));
 
 			var earliest = false;
 			var latest = false;
 
-			if (storeSchedule && storeSchedule.length !== 0) {
-				storeSchedule.forEach(function (schedule) {
-					var start = (0, _moment2.default)('2018-04-01 ' + schedule.startTime).subtract(2, 'hour');
-					var end = (0, _moment2.default)('2018-04-01 ' + schedule.endTime).add(2, 'hour');
+			if (combinedTimes.length !== 0) {
+				combinedTimes.forEach(function (event) {
+					var start = (0, _moment2.default)(day + ' ' + event.startTime).subtract(2, 'hour');
+					var end = (0, _moment2.default)(day + ' ' + event.endTime).add(2, 'hour');
 
 					if (!earliest || earliest.diff(start) > 0) {
 						earliest = start;
@@ -426,6 +438,14 @@ var BigCalendar = function (_Component) {
 						latest = end;
 					}
 				});
+
+				if (!earliest.isSame(day, 'day')) {
+					earliest = (0, _moment2.default)(day + ' 00:00:00');
+				}
+
+				if (!latest.isSame(day, 'day')) {
+					latest = (0, _moment2.default)(day + ' 23:59:59');
+				}
 			} else {
 				earliest = (0, _moment2.default)(selectedDate).hour(7).minutes(0).seconds(0);
 
