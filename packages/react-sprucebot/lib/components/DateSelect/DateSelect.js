@@ -162,7 +162,7 @@ var DateSelect = function (_Component) {
 
 			return _react2.default.createElement(
 				WhiteLabel,
-				{ hide: hide, loading: loading },
+				{ className: 'date__select', hide: hide, loading: loading },
 				_react2.default.createElement(
 					LoadingContainer,
 					{ loading: loading },
