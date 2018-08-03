@@ -83,6 +83,13 @@ var skill = {
 		postMessage({ name: 'Skill:RequestContainerScrollTop' });
 	},
 
+	fullScreenOn: function fullScreenOn() {
+		postMessage({ name: 'Skill:FullScreenOn' });
+	},
+	fullScreenOff: function fullScreenOff() {
+		postMessage({ name: 'Skill:FullScreenOff' });
+	},
+
 	showHelp: function () {
 		var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref3) {
 			var _this = this;
