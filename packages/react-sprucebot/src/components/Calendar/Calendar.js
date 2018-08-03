@@ -740,13 +740,21 @@ class Calendar extends Component {
 	}
 
 	startAccessor = event => {
-		const start = moment(`${event.date} ${event.startTime}`)
-		return start.toDate()
+		if (event.startTime) {
+			const start = moment(`${event.date} ${event.startTime}`)
+			return start.toDate()
+		} else {
+			return event.start
+		}
 	}
 
 	endAccessor = event => {
-		const end = moment(`${event.date} ${event.endTime}`)
-		return end.toDate()
+		if (event.endTime) {
+			const end = moment(`${event.date} ${event.endTime}`)
+			return end.toDate()
+		} else {
+			return event.end
+		}
 	}
 
 	render() {

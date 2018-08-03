@@ -6,12 +6,12 @@ export const FETCH_EVENTS_REQUEST = 'FETCH_EVENTS_REQUEST'
 export const FETCH_EVENTS_SUCCESS = 'FETCH_EVENTS_SUCCESS'
 export const FETCH_EVENTS_ERROR = 'FETCH_EVENTS_ERROR'
 
-export function fetchEvents({ start, end, userId }) {
+export function fetchEvents({ start, end, userId, teammateId }) {
 	const source = CancelToken.source()
 
 	return (dispatch, getState, next, client) => {
 		const promise = client.get(`/api/1.0/teammate/calendar.json`, {
-			query: { start, end, userId },
+			query: { start, end, userId, teammateId },
 			cancelToken: source.token
 		})
 

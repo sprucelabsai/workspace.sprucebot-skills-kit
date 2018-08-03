@@ -21,13 +21,14 @@ var FETCH_EVENTS_ERROR = exports.FETCH_EVENTS_ERROR = 'FETCH_EVENTS_ERROR';
 function fetchEvents(_ref) {
 	var start = _ref.start,
 	    end = _ref.end,
-	    userId = _ref.userId;
+	    userId = _ref.userId,
+	    teammateId = _ref.teammateId;
 
 	var source = CancelToken.source();
 
 	return function (dispatch, getState, next, client) {
 		var promise = client.get('/api/1.0/teammate/calendar.json', {
-			query: { start: start, end: end, userId: userId },
+			query: { start: start, end: end, userId: userId, teammateId: teammateId },
 			cancelToken: source.token
 		});
 

@@ -22,6 +22,10 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _isEqual = require('lodash/isEqual');
+
+var _isEqual2 = _interopRequireDefault(_isEqual);
+
 var _es6Tween = require('es6-tween');
 
 var _Avatar = require('../Avatar/Avatar');
@@ -98,6 +102,19 @@ var BigCalendar = function (_Component) {
 
 		_this.events = function () {
 			return _this.state.events;
+		};
+
+		_this.setView = function (view) {
+			_this.handleChangeView(0);
+			_this.tabs.setSelected(0, '.0');
+		};
+
+		_this.setMode = function (mode) {
+			_this.setState({ mode: mode });
+		};
+
+		_this.setDate = function (selectedDate) {
+			_this.setState({ selectedDate: selectedDate });
 		};
 
 		_this.generatePagerTitle = function (page) {
@@ -238,13 +255,13 @@ var BigCalendar = function (_Component) {
 			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
 				var triggerOnNavigate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-				var _this$state5, mode, view, teammates, selectedDate, _this$props, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, _ref2, storeSchedule, events;
+				var _this$state5, mode, view, teammates, selectedDate, optionsLoaded, _this$props, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, eventsLoaded, _ref2, storeSchedule, events;
 
 				return regeneratorRuntime.wrap(function _callee$(_context) {
 					while (1) {
 						switch (_context.prev = _context.next) {
 							case 0:
-								_this$state5 = _this.state, mode = _this$state5.mode, view = _this$state5.view, teammates = _this$state5.teammates, selectedDate = _this$state5.selectedDate;
+								_this$state5 = _this.state, mode = _this$state5.mode, view = _this$state5.view, teammates = _this$state5.teammates, selectedDate = _this$state5.selectedDate, optionsLoaded = _this$state5.optionsLoaded;
 								_this$props = _this.props, auth = _this$props.auth, onNavigate = _this$props.onNavigate, fetchEvents = _this$props.fetchEvents;
 								currentView = view === 'team_week' ? 'week' : view;
 								currentUser = teammates.find(function (teammate) {
@@ -259,21 +276,28 @@ var BigCalendar = function (_Component) {
 									view: currentView,
 									teammates: mode === 'user' ? currentUser : teammates
 								};
+								eventsLoaded = _this.checkOptions(options);
 
+								if (eventsLoaded) {
+									_context.next = 17;
+									break;
+								}
+
+								_this.setState({ optionsLoaded: [].concat(_toConsumableArray(optionsLoaded), [options]) });
 
 								triggerOnNavigate && onNavigate && onNavigate(options);
 
-								_context.next = 10;
+								_context.next = 13;
 								return fetchEvents(options);
 
-							case 10:
+							case 13:
 								_ref2 = _context.sent;
 								storeSchedule = _ref2.storeSchedule;
 								events = _ref2.events;
 
 								_this.setState({ storeSchedule: storeSchedule, events: events });
 
-							case 14:
+							case 17:
 							case 'end':
 								return _context.stop();
 						}
@@ -285,6 +309,12 @@ var BigCalendar = function (_Component) {
 				return _ref.apply(this, arguments);
 			};
 		}();
+
+		_this.checkOptions = function (options) {
+			return _this.state.optionsLoaded.find(function (loaded) {
+				return (0, _isEqual2.default)(loaded, options);
+			});
+		};
 
 		_this.handlePagerChange = function () {
 			var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(page) {
@@ -377,16 +407,28 @@ var BigCalendar = function (_Component) {
 		_this.timeRange = function () {
 			var _this$state7 = _this.state,
 			    selectedDate = _this$state7.selectedDate,
-			    storeSchedule = _this$state7.storeSchedule;
+			    storeSchedule = _this$state7.storeSchedule,
+			    events = _this$state7.events;
 
+			var day = selectedDate.format('YYYY-MM-DD');
+			var combinedTimes = [].concat(_toConsumableArray(storeSchedule), _toConsumableArray(events.filter(function (event) {
+				if (event.startTime && event.endTime) {
+					return event;
+				}
+			}).map(function (event) {
+				return {
+					startTime: event.startTime,
+					endTime: event.endTime
+				};
+			})));
 
 			var earliest = false;
 			var latest = false;
 
-			if (storeSchedule && storeSchedule.length !== 0) {
-				storeSchedule.forEach(function (schedule) {
-					var start = (0, _moment2.default)('2018-04-01 ' + schedule.startTime).subtract(2, 'hour');
-					var end = (0, _moment2.default)('2018-04-01 ' + schedule.endTime).add(2, 'hour');
+			if (combinedTimes.length !== 0) {
+				combinedTimes.forEach(function (event) {
+					var start = (0, _moment2.default)(day + ' ' + event.startTime).subtract(2, 'hour');
+					var end = (0, _moment2.default)(day + ' ' + event.endTime).add(2, 'hour');
 
 					if (!earliest || earliest.diff(start) > 0) {
 						earliest = start;
@@ -396,6 +438,14 @@ var BigCalendar = function (_Component) {
 						latest = end;
 					}
 				});
+
+				if (!earliest.isSame(day, 'day')) {
+					earliest = (0, _moment2.default)(day + ' 00:00:00');
+				}
+
+				if (!latest.isSame(day, 'day')) {
+					latest = (0, _moment2.default)(day + ' 23:59:59');
+				}
 			} else {
 				earliest = (0, _moment2.default)(selectedDate).hour(7).minutes(0).seconds(0);
 
@@ -569,18 +619,18 @@ var BigCalendar = function (_Component) {
 			return { className: '' + (event.className || '') };
 		};
 
-		_this.handleClickEvent = function (event, teammate, view, mode) {
+		_this.handleClickEvent = function (options) {
 			var onClickEvent = _this.props.onClickEvent;
 
 
-			onClickEvent && onClickEvent(event, teammate, view, mode);
+			onClickEvent && onClickEvent(options);
 		};
 
-		_this.handleClickOpenSlot = function (start, end, teammate) {
+		_this.handleClickOpenSlot = function (options) {
 			var onClickOpenSlot = _this.props.onClickOpenSlot;
 
 
-			onClickOpenSlot && onClickOpenSlot(start, end, teammate);
+			onClickOpenSlot && onClickOpenSlot(options);
 		};
 
 		_this.handleDropEvent = function (_ref8) {
@@ -638,8 +688,8 @@ var BigCalendar = function (_Component) {
 			views: props.supportedViews,
 			resized: 0,
 			events: [], // All events for current date range
-			storeSchedule: [] // Hours store is open for selected date range
-
+			storeSchedule: [], // Hours store is open for selected date range,
+			optionsLoaded: []
 			// Expected event structure:
 			// const event = {
 			// 	title: 'My favorite event',
@@ -741,7 +791,12 @@ var BigCalendar = function (_Component) {
 				{ className: 'big_calendar ' + classNames },
 				_react2.default.createElement(
 					_Tabs.Tabs,
-					{ onChange: this.handleChangeView },
+					{
+						ref: function ref(element) {
+							return _this3.tabs = element;
+						},
+						onChange: this.handleChangeView
+					},
 					_react2.default.createElement(_Tabs.TabPane, { title: 'Day' }),
 					_react2.default.createElement(_Tabs.TabPane, { title: 'Week' }),
 					_react2.default.createElement(_Tabs.TabPane, { title: 'Month' })
@@ -824,12 +879,20 @@ var BigCalendar = function (_Component) {
 										return _this3.applyClassNames(event);
 									},
 									onSelectEvent: function onSelectEvent(event) {
-										return _this3.handleClickEvent(event, teammate, view, mode);
+										return _this3.handleClickEvent({ event: event, teammate: teammate, view: view, mode: mode });
 									},
 									onSelectSlot: function onSelectSlot(_ref10) {
 										var start = _ref10.start,
-										    end = _ref10.end;
-										return _this3.handleClickOpenSlot(start, end, teammate);
+										    end = _ref10.end,
+										    action = _ref10.action;
+										return _this3.handleClickOpenSlot({
+											start: start,
+											end: end,
+											action: action,
+											teammate: teammate,
+											view: view,
+											mode: mode
+										});
 									},
 									onEventDrop: _this3.handleDropEvent,
 									onEventResize: _this3.handleResizeEvent,

@@ -52,6 +52,8 @@ var Tabs = exports.Tabs = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, props));
 
+		_initialiseProps.call(_this);
+
 		var children = _react2.default.Children.toArray(props.children);
 
 		// default to first selected item
@@ -177,6 +179,14 @@ var Tabs = exports.Tabs = function (_Component) {
 
 	return Tabs;
 }(_react.Component);
+
+var _initialiseProps = function _initialiseProps() {
+	var _this4 = this;
+
+	this.setSelected = function (idx, key, e) {
+		_this4.onTabClick(idx, key, e);
+	};
+};
 
 Tabs.propTypes = {
 	onChange: _propTypes2.default.func,

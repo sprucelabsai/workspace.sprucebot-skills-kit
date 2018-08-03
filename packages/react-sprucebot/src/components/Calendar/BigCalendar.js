@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import isEqual from 'lodash/isEqual'
 import { Tween, autoPlay, Easing } from 'es6-tween'
 
 import Avatar from '../Avatar/Avatar'
@@ -39,7 +40,8 @@ export default class BigCalendar extends Component {
 			views: props.supportedViews,
 			resized: 0,
 			events: [], // All events for current date range
-			storeSchedule: [] // Hours store is open for selected date range
+			storeSchedule: [], // Hours store is open for selected date range,
+			optionsLoaded: []
 		}
 		// Expected event structure:
 		// const event = {
@@ -74,6 +76,19 @@ export default class BigCalendar extends Component {
 
 	events = () => {
 		return this.state.events
+	}
+
+	setView = view => {
+		this.handleChangeView(0)
+		this.tabs.setSelected(0, '.0')
+	}
+
+	setMode = mode => {
+		this.setState({ mode })
+	}
+
+	setDate = selectedDate => {
+		this.setState({ selectedDate })
 	}
 
 	generatePagerTitle = page => {
@@ -209,7 +224,7 @@ export default class BigCalendar extends Component {
 	}
 
 	refresh = async (triggerOnNavigate = false) => {
-		const { mode, view, teammates, selectedDate } = this.state
+		const { mode, view, teammates, selectedDate, optionsLoaded } = this.state
 		const { auth, onNavigate, fetchEvents } = this.props
 
 		const currentView = view === 'team_week' ? 'week' : view
@@ -228,10 +243,20 @@ export default class BigCalendar extends Component {
 			teammates: mode === 'user' ? currentUser : teammates
 		}
 
-		triggerOnNavigate && onNavigate && onNavigate(options)
+		const eventsLoaded = this.checkOptions(options)
 
-		const { storeSchedule, events } = await fetchEvents(options)
-		this.setState({ storeSchedule, events })
+		if (!eventsLoaded) {
+			this.setState({ optionsLoaded: [...optionsLoaded, options] })
+
+			triggerOnNavigate && onNavigate && onNavigate(options)
+
+			const { storeSchedule, events } = await fetchEvents(options)
+			this.setState({ storeSchedule, events })
+		}
+	}
+
+	checkOptions = options => {
+		return this.state.optionsLoaded.find(loaded => isEqual(loaded, options))
 	}
 
 	handlePagerChange = async page => {
@@ -285,18 +310,29 @@ export default class BigCalendar extends Component {
 
 	//the earliest and latest time of all schedules
 	timeRange = () => {
-		const { selectedDate, storeSchedule } = this.state
+		const { selectedDate, storeSchedule, events } = this.state
+		const day = selectedDate.format('YYYY-MM-DD')
+		const combinedTimes = [
+			...storeSchedule,
+			...events
+				.filter(event => {
+					if (event.startTime && event.endTime) {
+						return event
+					}
+				})
+				.map(event => ({
+					startTime: event.startTime,
+					endTime: event.endTime
+				}))
+		]
 
 		let earliest = false
 		let latest = false
 
-		if (storeSchedule && storeSchedule.length !== 0) {
-			storeSchedule.forEach(schedule => {
-				const start = moment(`2018-04-01 ${schedule.startTime}`).subtract(
-					2,
-					'hour'
-				)
-				const end = moment(`2018-04-01 ${schedule.endTime}`).add(2, 'hour')
+		if (combinedTimes.length !== 0) {
+			combinedTimes.forEach(event => {
+				const start = moment(`${day} ${event.startTime}`).subtract(2, 'hour')
+				const end = moment(`${day} ${event.endTime}`).add(2, 'hour')
 
 				if (!earliest || earliest.diff(start) > 0) {
 					earliest = start
@@ -306,6 +342,14 @@ export default class BigCalendar extends Component {
 					latest = end
 				}
 			})
+
+			if (!earliest.isSame(day, 'day')) {
+				earliest = moment(`${day} 00:00:00`)
+			}
+
+			if (!latest.isSame(day, 'day')) {
+				latest = moment(`${day} 23:59:59`)
+			}
 		} else {
 			earliest = moment(selectedDate)
 				.hour(7)
@@ -448,16 +492,16 @@ export default class BigCalendar extends Component {
 		return { className: `${event.className || ''}` }
 	}
 
-	handleClickEvent = (event, teammate, view, mode) => {
+	handleClickEvent = options => {
 		const { onClickEvent } = this.props
 
-		onClickEvent && onClickEvent(event, teammate, view, mode)
+		onClickEvent && onClickEvent(options)
 	}
 
-	handleClickOpenSlot = (start, end, teammate) => {
+	handleClickOpenSlot = options => {
 		const { onClickOpenSlot } = this.props
 
-		onClickOpenSlot && onClickOpenSlot(start, end, teammate)
+		onClickOpenSlot && onClickOpenSlot(options)
 	}
 
 	handleDropEvent = ({ event, start, end }) => {
@@ -559,7 +603,10 @@ export default class BigCalendar extends Component {
 
 		return (
 			<div className={`big_calendar ${classNames}`}>
-				<Tabs onChange={this.handleChangeView}>
+				<Tabs
+					ref={element => (this.tabs = element)}
+					onChange={this.handleChangeView}
+				>
 					<TabPane title="Day" />
 					<TabPane title="Week" />
 					<TabPane title="Month" />
@@ -632,10 +679,17 @@ export default class BigCalendar extends Component {
 											events={events ? this.filterEvents(events, teammate) : []}
 											eventPropGetter={event => this.applyClassNames(event)}
 											onSelectEvent={event =>
-												this.handleClickEvent(event, teammate, view, mode)
+												this.handleClickEvent({ event, teammate, view, mode })
 											}
-											onSelectSlot={({ start, end }) =>
-												this.handleClickOpenSlot(start, end, teammate)
+											onSelectSlot={({ start, end, action }) =>
+												this.handleClickOpenSlot({
+													start,
+													end,
+													action,
+													teammate,
+													view,
+													mode
+												})
 											}
 											onEventDrop={this.handleDropEvent}
 											onEventResize={this.handleResizeEvent}

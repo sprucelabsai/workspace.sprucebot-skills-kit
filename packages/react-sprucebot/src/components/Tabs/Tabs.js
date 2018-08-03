@@ -63,6 +63,10 @@ export class Tabs extends Component {
 		}
 	}
 
+	setSelected = (idx, key, e) => {
+		this.onTabClick(idx, key, e)
+	}
+
 	render() {
 		const { selected, children } = this.state
 		const { selected: _, ...props } = this.props
