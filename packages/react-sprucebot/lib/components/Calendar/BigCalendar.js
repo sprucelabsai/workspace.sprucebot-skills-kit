@@ -787,7 +787,6 @@ var BigCalendar = function (_Component) {
 				});
 				team = [auth].concat(_toConsumableArray(team));
 			}
-			debugger;
 			return _react2.default.createElement(
 				"div",
 				{ className: "big_calendar " + classNames },
