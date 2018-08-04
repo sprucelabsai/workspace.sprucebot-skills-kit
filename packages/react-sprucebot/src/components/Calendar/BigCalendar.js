@@ -600,7 +600,6 @@ export default class BigCalendar extends Component {
 			});
 			team = [auth, ...team];
 		}
-		debugger;
 		return (
 			<div className={`big_calendar ${classNames}`}>
 				<Tabs
