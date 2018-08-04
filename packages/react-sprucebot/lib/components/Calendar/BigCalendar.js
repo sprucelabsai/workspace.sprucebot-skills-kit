@@ -255,7 +255,7 @@ var BigCalendar = function (_Component) {
 			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
 				var triggerOnNavigate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-				var _this$state5, mode, view, teammates, selectedDate, optionsLoaded, _this$props, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, eventsLoaded, _ref2, storeSchedule, events;
+				var _this$state5, mode, view, teammates, selectedDate, optionsLoaded, _this$props, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, _ref2, storeSchedule, events;
 
 				return regeneratorRuntime.wrap(function _callee$(_context) {
 					while (1) {
@@ -275,29 +275,27 @@ var BigCalendar = function (_Component) {
 									endDate: endDate,
 									view: currentView,
 									teammates: mode === 'user' ? currentUser : teammates
+
+									// const eventsLoaded = this.checkOptions(options)
+
+									// if (!eventsLoaded) {
 								};
-								eventsLoaded = _this.checkOptions(options);
-
-								if (eventsLoaded) {
-									_context.next = 17;
-									break;
-								}
-
 								_this.setState({ optionsLoaded: [].concat(_toConsumableArray(optionsLoaded), [options]) });
 
 								triggerOnNavigate && onNavigate && onNavigate(options);
 
-								_context.next = 13;
+								_context.next = 11;
 								return fetchEvents(options);
 
-							case 13:
+							case 11:
 								_ref2 = _context.sent;
 								storeSchedule = _ref2.storeSchedule;
 								events = _ref2.events;
 
 								_this.setState({ storeSchedule: storeSchedule, events: events });
+								// }
 
-							case 17:
+							case 15:
 							case 'end':
 								return _context.stop();
 						}
@@ -499,15 +497,14 @@ var BigCalendar = function (_Component) {
 
 							_this.toggleShowOnCalendars();
 
-							_this.handleChange();
-
 							setTimeout(function () {
+								_this.handleChange();
 								_this.setState({
 									transitioning: false
 								});
 							}, 1000);
 
-						case 7:
+						case 6:
 						case 'end':
 							return _context4.stop();
 					}
@@ -560,17 +557,16 @@ var BigCalendar = function (_Component) {
 							// to hard on the client
 							_this.toggleShowOnCalendars();
 
-							_this.handleChange();
-
 							setTimeout(function () {
+								_this.handleChange();
 								_this.setState({
 									renderAllCalendars: false,
 									showAllTeammates: false,
 									transitioning: false
 								});
-							}, 500);
+							}, 1000);
 
-						case 10:
+						case 9:
 						case 'end':
 							return _context5.stop();
 					}
@@ -601,8 +597,14 @@ var BigCalendar = function (_Component) {
 		_this.filterEvents = function (events, teammate) {
 			var _this$state8 = _this.state,
 			    view = _this$state8.view,
-			    mode = _this$state8.mode;
+			    mode = _this$state8.mode,
+			    transitioning = _this$state8.transitioning;
 
+			// make transitions faster?
+
+			if (transitioning) {
+				return [];
+			}
 
 			if (mode === 'team' && view === 'month') {
 				return events;

@@ -243,16 +243,16 @@ export default class BigCalendar extends Component {
 			teammates: mode === 'user' ? currentUser : teammates
 		}
 
-		const eventsLoaded = this.checkOptions(options)
+		// const eventsLoaded = this.checkOptions(options)
 
-		if (!eventsLoaded) {
-			this.setState({ optionsLoaded: [...optionsLoaded, options] })
+		// if (!eventsLoaded) {
+		this.setState({ optionsLoaded: [...optionsLoaded, options] })
 
-			triggerOnNavigate && onNavigate && onNavigate(options)
+		triggerOnNavigate && onNavigate && onNavigate(options)
 
-			const { storeSchedule, events } = await fetchEvents(options)
-			this.setState({ storeSchedule, events })
-		}
+		const { storeSchedule, events } = await fetchEvents(options)
+		this.setState({ storeSchedule, events })
+		// }
 	}
 
 	checkOptions = options => {
@@ -401,9 +401,8 @@ export default class BigCalendar extends Component {
 
 		this.toggleShowOnCalendars()
 
-		this.handleChange()
-
 		setTimeout(() => {
+			this.handleChange()
 			this.setState({
 				transitioning: false
 			})
@@ -444,15 +443,14 @@ export default class BigCalendar extends Component {
 		// to hard on the client
 		this.toggleShowOnCalendars()
 
-		this.handleChange()
-
 		setTimeout(() => {
+			this.handleChange()
 			this.setState({
 				renderAllCalendars: false,
 				showAllTeammates: false,
 				transitioning: false
 			})
-		}, 500)
+		}, 1000)
 	}
 
 	handleToggleMode = () => {
@@ -475,7 +473,12 @@ export default class BigCalendar extends Component {
 	}
 
 	filterEvents = (events, teammate) => {
-		const { view, mode } = this.state
+		const { view, mode, transitioning } = this.state
+
+		// make transitions faster?
+		if (transitioning) {
+			return []
+		}
 
 		if (mode === 'team' && view === 'month') {
 			return events
