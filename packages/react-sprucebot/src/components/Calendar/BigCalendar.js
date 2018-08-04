@@ -1,28 +1,28 @@
-import React, { Component } from 'react'
-import moment from 'moment'
-import PropTypes from 'prop-types'
-import isEqual from 'lodash/isEqual'
-import { Tween, autoPlay, Easing } from 'es6-tween'
+import React, { Component } from "react";
+import moment from "moment";
+import PropTypes from "prop-types";
+import isEqual from "lodash/isEqual";
+import { Tween, autoPlay, Easing } from "es6-tween";
 
-import Avatar from '../Avatar/Avatar'
-import Button from '../Button/Button'
-import Calendar from './Calendar'
-import Pager from '../Pager/Pager'
-import { Tabs, TabPane } from '../Tabs/Tabs'
-import HorizontalWeek from './HorizontalWeek'
+import Avatar from "../Avatar/Avatar";
+import Button from "../Button/Button";
+import Calendar from "./Calendar";
+import Pager from "../Pager/Pager";
+import { Tabs, TabPane } from "../Tabs/Tabs";
+import HorizontalWeek from "./HorizontalWeek";
 
-autoPlay(true)
+autoPlay(true);
 
 const getElementWidth = element => {
-	return element && element.offsetWidth
-}
+	return element && element.offsetWidth;
+};
 const getElementHeight = element => {
-	return element && element.offsetHeight
-}
+	return element && element.offsetHeight;
+};
 
 export default class BigCalendar extends Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			currentPage: 0,
 			view: props.defaultView,
@@ -31,7 +31,7 @@ export default class BigCalendar extends Component {
 			renderFirstEvents: true, // rendering events is slow, so we may defer loading them until later
 			renderAllCalendars: false,
 			renderAllEvents: true,
-			showAllTeammates: props.defaultMode === 'team',
+			showAllTeammates: props.defaultMode === "team",
 			transitioning: false,
 			selectedDate: moment(),
 			earliestTime: null,
@@ -42,7 +42,7 @@ export default class BigCalendar extends Component {
 			events: [], // All events for current date range
 			storeSchedule: [], // Hours store is open for selected date range,
 			optionsLoaded: []
-		}
+		};
 		// Expected event structure:
 		// const event = {
 		// 	title: 'My favorite event',
@@ -57,362 +57,362 @@ export default class BigCalendar extends Component {
 
 	componentDidMount = () => {
 		//give things a sec to settle before recording sizes
-		this.refresh()
-		setTimeout(() => {}, 250)
-		window.addEventListener('resize', this.handleWindowResize)
-	}
+		this.refresh();
+		setTimeout(() => {}, 250);
+		window.addEventListener("resize", this.handleWindowResize);
+	};
 
 	componentWillUnmount = () => {
-		window.removeEventListener('resize', this.handleWindowResize)
-	}
+		window.removeEventListener("resize", this.handleWindowResize);
+	};
 
 	setEvents = events => {
-		this.setState({ events })
-	}
+		this.setState({ events });
+	};
 
 	triggerRefresh = () => {
-		this.refresh()
-	}
+		this.refresh();
+	};
 
 	events = () => {
-		return this.state.events
-	}
+		return this.state.events;
+	};
 
 	setView = view => {
-		this.handleChangeView(0)
-		this.tabs.setSelected(0, '.0')
-	}
+		this.handleChangeView(0);
+		this.tabs.setSelected(0, ".0");
+	};
 
 	setMode = mode => {
-		this.setState({ mode })
-	}
+		this.setState({ mode });
+	};
 
 	setDate = selectedDate => {
-		this.setState({ selectedDate })
-	}
+		this.setState({ selectedDate });
+	};
 
 	generatePagerTitle = page => {
-		const { auth } = this.props
-		const { view, selectedDate } = this.state
+		const { auth } = this.props;
+		const { view, selectedDate } = this.state;
 
-		let title
+		let title;
 
-		if (view === 'month') {
-			title = moment(selectedDate).format('MMM YYYY')
-		} else if (view === 'week') {
-			const startOfWeek = moment(selectedDate).startOf('week')
-			const endOfWeek = moment(selectedDate).endOf('week')
+		if (view === "month") {
+			title = moment(selectedDate).format("MMM YYYY");
+		} else if (view === "week") {
+			const startOfWeek = moment(selectedDate).startOf("week");
+			const endOfWeek = moment(selectedDate).endOf("week");
 
-			if (startOfWeek.isSame(endOfWeek, 'month')) {
-				title = `${startOfWeek.format('MMM Do')} - ${endOfWeek.format('Do')}`
+			if (startOfWeek.isSame(endOfWeek, "month")) {
+				title = `${startOfWeek.format("MMM Do")} - ${endOfWeek.format("Do")}`;
 			} else {
-				title = `${startOfWeek.format('MMM Do')} - ${endOfWeek.format(
-					'MMM Do'
-				)}`
+				title = `${startOfWeek.format("MMM Do")} - ${endOfWeek.format(
+					"MMM Do"
+				)}`;
 			}
-		} else if (view === 'day') {
+		} else if (view === "day") {
 			const now = moment()
 				.tz(auth.Location.timezone)
-				.startOf('day')
+				.startOf("day");
 			const days = moment
 				.tz(selectedDate, auth.Location.timezone)
-				.startOf('day')
-				.diff(now, 'days')
+				.startOf("day")
+				.diff(now, "days");
 
 			switch (days) {
 				case -1:
-					title = 'Yesterday'
-					break
+					title = "Yesterday";
+					break;
 				case 0:
-					title = 'Today'
-					break
+					title = "Today";
+					break;
 				case 1:
-					title = 'Tomorrow'
-					break
+					title = "Tomorrow";
+					break;
 				default:
-					title = moment(selectedDate).format('ddd, MMM Do')
-					break
+					title = moment(selectedDate).format("ddd, MMM Do");
+					break;
 			}
 		}
 
-		return title
-	}
+		return title;
+	};
 
 	getDesiredTeammateWrapperWidth = () => {
 		if (!this.calendarWrapper) {
-			return '100%'
+			return "100%";
 		}
-		const { view, mode } = this.state
-		const { teamDayViewWidth } = this.props
+		const { view, mode } = this.state;
+		const { teamDayViewWidth } = this.props;
 
-		const calendarWrapperWidth = getElementWidth(this.calendarWrapper)
+		const calendarWrapperWidth = getElementWidth(this.calendarWrapper);
 
-		if (mode === 'team' && view === 'day') {
+		if (mode === "team" && view === "day") {
 			// make it a little thinner than the screen
-			return Math.min(calendarWrapperWidth - 20, teamDayViewWidth)
-		} else if (mode === 'team' && view === 'week') {
-			return '100%'
-		} else if (mode === 'team' && view === 'month') {
-			return '100%'
-		} else if (mode === 'user') {
-			return calendarWrapperWidth
+			return Math.min(calendarWrapperWidth - 20, teamDayViewWidth);
+		} else if (mode === "team" && view === "week") {
+			return "100%";
+		} else if (mode === "team" && view === "month") {
+			return "100%";
+		} else if (mode === "user") {
+			return calendarWrapperWidth;
 		}
-		return 'auto'
-	}
+		return "auto";
+	};
 
 	getDesiredScrollWidth = () => {
 		//act like a normal div until loaded
 		if (!this.calendarWrapper) {
-			return '100%'
+			return "100%";
 		}
-		const { view, mode, teammates, transitioning } = this.state
+		const { view, mode, teammates, transitioning } = this.state;
 
-		const calendarWrapperWidth = getElementWidth(this.calendarWrapper)
-		let widthOfAllCalendars = 0
+		const calendarWrapperWidth = getElementWidth(this.calendarWrapper);
+		let widthOfAllCalendars = 0;
 		let minWidthOfAllCalendars =
-			this.getDesiredTeammateWrapperWidth() * teammates.length
+			this.getDesiredTeammateWrapperWidth() * teammates.length;
 
 		document
-			.querySelectorAll('.teammate_calendar__wrapper')
+			.querySelectorAll(".teammate_calendar__wrapper")
 			.forEach(wrapper => {
-				widthOfAllCalendars += getElementWidth(wrapper)
-			})
+				widthOfAllCalendars += getElementWidth(wrapper);
+			});
 
-		widthOfAllCalendars = Math.max(minWidthOfAllCalendars, widthOfAllCalendars)
+		widthOfAllCalendars = Math.max(minWidthOfAllCalendars, widthOfAllCalendars);
 
-		if (transitioning && view === 'day') {
-			return widthOfAllCalendars
+		if (transitioning && view === "day") {
+			return widthOfAllCalendars;
 		}
 
-		if (mode === 'team' && view == 'day') {
-			return widthOfAllCalendars
-		} else if (view === 'week') {
-			return calendarWrapperWidth
-		} else if (view === 'month') {
-			return calendarWrapperWidth
-		} else if (mode === 'user') {
-			return calendarWrapperWidth
+		if (mode === "team" && view == "day") {
+			return widthOfAllCalendars;
+		} else if (view === "week") {
+			return calendarWrapperWidth;
+		} else if (view === "month") {
+			return calendarWrapperWidth;
+		} else if (mode === "user") {
+			return calendarWrapperWidth;
 		}
-	}
+	};
 
 	getDesiredScrollHeight = () => {
 		//act like a normal div until loaded
 		if (!this.calendarWrapper) {
-			return 'auto'
+			return "auto";
 		}
 
-		const { mode, view } = this.state
+		const { mode, view } = this.state;
 
-		if (mode === 'team' && view === 'week') {
-			return 'auto'
-		} else if (view === 'month') {
-			return 'auto'
+		if (mode === "team" && view === "week") {
+			return "auto";
+		} else if (view === "month") {
+			return "auto";
 		}
 
 		const firstTeammateWrapper = document.querySelector(
-			'.teammate_calendar__wrapper'
-		)
+			".teammate_calendar__wrapper"
+		);
 		if (!firstTeammateWrapper) {
-			return 'auto'
+			return "auto";
 		}
 
-		return getElementHeight(firstTeammateWrapper) || 'auto'
-	}
+		return getElementHeight(firstTeammateWrapper) || "auto";
+	};
 
 	handleChange = () => {
-		this.refresh()
-	}
+		this.refresh();
+	};
 
 	refresh = async (triggerOnNavigate = false) => {
-		const { mode, view, teammates, selectedDate, optionsLoaded } = this.state
-		const { auth, onNavigate, fetchEvents } = this.props
+		const { mode, view, teammates, selectedDate, optionsLoaded } = this.state;
+		const { auth, onNavigate, fetchEvents } = this.props;
 
-		const currentView = view === 'team_week' ? 'week' : view
+		const currentView = view === "team_week" ? "week" : view;
 		const currentUser = teammates.find(
 			teammate => teammate.User.id === auth.UserId
-		)
+		);
 
-		const startDate = moment(selectedDate).startOf(currentView)
-		const endDate = moment(selectedDate).endOf(currentView)
+		const startDate = moment(selectedDate).startOf(currentView);
+		const endDate = moment(selectedDate).endOf(currentView);
 
 		const options = {
 			mode,
 			startDate,
 			endDate,
 			view: currentView,
-			teammates: mode === 'user' ? currentUser : teammates
-		}
+			teammates: mode === "user" ? currentUser : teammates
+		};
 
-		const eventsLoaded = this.checkOptions(options)
+		const eventsLoaded = this.checkOptions(options);
 
 		if (!eventsLoaded) {
-			this.setState({ optionsLoaded: [...optionsLoaded, options] })
+			this.setState({ optionsLoaded: [...optionsLoaded, options] });
 
-			triggerOnNavigate && onNavigate && onNavigate(options)
+			triggerOnNavigate && onNavigate && onNavigate(options);
 
-			const { storeSchedule, events } = await fetchEvents(options)
-			this.setState({ storeSchedule, events })
+			const { storeSchedule, events } = await fetchEvents(options);
+			this.setState({ storeSchedule, events });
 		}
-	}
+	};
 
 	checkOptions = options => {
-		return this.state.optionsLoaded.find(loaded => isEqual(loaded, options))
-	}
+		return this.state.optionsLoaded.find(loaded => isEqual(loaded, options));
+	};
 
 	handlePagerChange = async page => {
-		const { view } = this.state
-		const diff = page - this.state.currentPage
-		const stepType = view !== 'month' ? 'days' : 'months'
+		const { view } = this.state;
+		const diff = page - this.state.currentPage;
+		const stepType = view !== "month" ? "days" : "months";
 
 		await this.setState(prevState => {
 			return {
 				currentPage: page,
 				selectedDate: prevState.selectedDate.add(diff, stepType)
-			}
-		})
+			};
+		});
 
-		this.handleChange()
-	}
+		this.handleChange();
+	};
 
 	handleChangeView = async idx => {
-		const { mode, view } = this.state
-		const newView = this.state.views[idx]
+		const { mode, view } = this.state;
+		const newView = this.state.views[idx];
 
 		const movingToWeek =
-			mode === 'user' && view !== 'week' && newView === 'week'
+			mode === "user" && view !== "week" && newView === "week";
 
 		await this.setState({
 			view: newView,
 			renderFirstCalendar: !movingToWeek
-		})
+		});
 
 		// because month view does not show all teammates, if we are in team mode jumping OFF month view, lets
 		// re-show team wrappers
-		if (mode === 'team' && view === 'month' && newView !== 'month') {
-			this.toggleShowOnCalendars()
-		} else if (mode === 'user' && view !== 'week' && newView === 'week') {
+		if (mode === "team" && view === "month" && newView !== "month") {
+			this.toggleShowOnCalendars();
+		} else if (mode === "user" && view !== "week" && newView === "week") {
 			// week view is heavy, give dom a sec to render before rendering calendar
-			this.delayedRenderWeekView()
+			this.delayedRenderWeekView();
 		}
 
-		this.handleChange()
+		this.handleChange();
 		//trigger a refresh which causes, sizes to be recalculated. 500 delay for css transitions
 		setTimeout(() => {
-			this.handleWindowResize()
-		}, 500)
-	}
+			this.handleWindowResize();
+		}, 500);
+	};
 
 	delayedRenderWeekView = () => {
 		setTimeout(() => {
-			this.setState({ renderFirstCalendar: true })
-		}, 100)
-	}
+			this.setState({ renderFirstCalendar: true });
+		}, 100);
+	};
 
 	//the earliest and latest time of all schedules
 	timeRange = () => {
-		const { selectedDate, storeSchedule, events } = this.state
-		const day = selectedDate.format('YYYY-MM-DD')
+		const { selectedDate, storeSchedule, events } = this.state;
+		const day = selectedDate.format("YYYY-MM-DD");
 		const combinedTimes = [
 			...storeSchedule,
 			...events
 				.filter(event => {
 					if (event.startTime && event.endTime) {
-						return event
+						return event;
 					}
 				})
 				.map(event => ({
 					startTime: event.startTime,
 					endTime: event.endTime
 				}))
-		]
+		];
 
-		let earliest = false
-		let latest = false
+		let earliest = false;
+		let latest = false;
 
 		if (combinedTimes.length !== 0) {
 			combinedTimes.forEach(event => {
-				const start = moment(`${day} ${event.startTime}`).subtract(2, 'hour')
-				const end = moment(`${day} ${event.endTime}`).add(2, 'hour')
+				const start = moment(`${day} ${event.startTime}`).subtract(2, "hour");
+				const end = moment(`${day} ${event.endTime}`).add(2, "hour");
 
 				if (!earliest || earliest.diff(start) > 0) {
-					earliest = start
+					earliest = start;
 				}
 
 				if (!latest || latest.diff(end) < 0) {
-					latest = end
+					latest = end;
 				}
-			})
+			});
 
-			if (!earliest.isSame(day, 'day')) {
-				earliest = moment(`${day} 00:00:00`)
+			if (!earliest.isSame(day, "day")) {
+				earliest = moment(`${day} 00:00:00`);
 			}
 
-			if (!latest.isSame(day, 'day')) {
-				latest = moment(`${day} 23:59:59`)
+			if (!latest.isSame(day, "day")) {
+				latest = moment(`${day} 23:59:59`);
 			}
 		} else {
 			earliest = moment(selectedDate)
 				.hour(7)
 				.minutes(0)
-				.seconds(0)
+				.seconds(0);
 
 			latest = moment(selectedDate)
 				.hour(18)
 				.minutes(0)
-				.seconds(0)
+				.seconds(0);
 		}
 
-		return [earliest, latest]
-	}
+		return [earliest, latest];
+	};
 
 	toggleShowOnCalendars = () => {
 		// show teammates calendars one at a time
 		const calendars = [
-			...document.querySelectorAll('.teammate_calendar__wrapper')
-		]
+			...document.querySelectorAll(".teammate_calendar__wrapper")
+		];
 
 		if (this.props.auth) {
-			calendars.shift()
+			calendars.shift();
 		}
 
-		let delay = 100
-		const delayBump = 200
+		let delay = 100;
+		const delayBump = 200;
 
 		calendars.forEach(element => {
 			setTimeout(() => {
-				element.classList.toggle('hide')
-			}, delay)
-			delay += delayBump
-		})
-	}
+				element.classList.toggle("hide");
+			}, delay);
+			delay += delayBump;
+		});
+	};
 
 	jumpToTeamMode = async () => {
 		if (this.state.transitioning) {
-			return
+			return;
 		}
 
 		//first give css transitions a sec to adjust the view
 		await this.setState({
 			transitioning: true,
-			mode: 'team',
+			mode: "team",
 			showAllTeammates: true,
 			renderAllCalendars: true
-		})
+		});
 
-		this.toggleShowOnCalendars()
+		this.toggleShowOnCalendars();
 
-		this.handleChange()
+		this.handleChange();
 
 		setTimeout(() => {
 			this.setState({
 				transitioning: false
-			})
-		}, 1000)
-	}
+			});
+		}, 1000);
+	};
 
 	jumpToUserMode = async () => {
 		if (this.state.transitioning) {
-			return
+			return;
 		}
 
 		//scroll calendar left
@@ -420,120 +420,120 @@ export default class BigCalendar extends Component {
 			y: this.calendarWrapper.scrollLeft
 		})
 			.to({ y: 0 }, 500)
-			.on('update', ({ y }) => {
-				this.calendarWrapper.scrollLeft = y
+			.on("update", ({ y }) => {
+				this.calendarWrapper.scrollLeft = y;
 			})
 			.easing(Easing.Quadratic.Out)
-			.start()
+			.start();
 
 		// when jumping to week view in user mode, delay render because it's heavy
-		const { view } = this.state
+		const { view } = this.state;
 
 		//first give css transitions a sec to adjust the view
 		await this.setState({
 			transitioning: true,
-			mode: 'user',
-			renderFirstCalendar: view !== 'week',
-			showAllTeammates: view !== 'week'
-		})
+			mode: "user",
+			renderFirstCalendar: view !== "week",
+			showAllTeammates: view !== "week"
+		});
 
-		if (view === 'week') {
-			this.delayedRenderWeekView()
+		if (view === "week") {
+			this.delayedRenderWeekView();
 		}
 
 		// to hard on the client
-		this.toggleShowOnCalendars()
+		this.toggleShowOnCalendars();
 
-		this.handleChange()
+		this.handleChange();
 
 		setTimeout(() => {
 			this.setState({
 				renderAllCalendars: false,
 				showAllTeammates: false,
 				transitioning: false
-			})
-		}, 500)
-	}
+			});
+		}, 500);
+	};
 
 	handleToggleMode = () => {
-		const { mode } = this.state
+		const { mode } = this.state;
 
 		switch (mode) {
-			case 'team':
-				this.jumpToUserMode()
-				break
+			case "team":
+				this.jumpToUserMode();
+				break;
 			default:
-				this.jumpToTeamMode()
-				break
+				this.jumpToTeamMode();
+				break;
 		}
-	}
+	};
 
 	handleWindowResize = () => {
 		this.setState({
 			resized: this.state.resized++
-		})
-	}
+		});
+	};
 
 	filterEvents = (events, teammate) => {
-		const { view, mode } = this.state
+		const { view, mode } = this.state;
 
-		if (mode === 'team' && view === 'month') {
-			return events
+		if (mode === "team" && view === "month") {
+			return events;
 		}
 
 		const filteredEvents = events.filter(
 			event => event.isUniversalEvent || event.userId === teammate.User.id
-		)
+		);
 
-		return filteredEvents
-	}
+		return filteredEvents;
+	};
 
 	applyClassNames = event => {
-		return { className: `${event.className || ''}` }
-	}
+		return { className: `${event.className || ""}` };
+	};
 
 	handleClickEvent = options => {
-		const { onClickEvent } = this.props
+		const { onClickEvent } = this.props;
 
-		onClickEvent && onClickEvent(options)
-	}
+		onClickEvent && onClickEvent(options);
+	};
 
 	handleClickOpenSlot = options => {
-		const { onClickOpenSlot } = this.props
+		const { onClickOpenSlot } = this.props;
 
-		onClickOpenSlot && onClickOpenSlot(options)
-	}
+		onClickOpenSlot && onClickOpenSlot(options);
+	};
 
 	handleDropEvent = ({ event, start, end }) => {
-		const { onDropEvent } = this.props
+		const { onDropEvent } = this.props;
 
-		onDropEvent && onDropEvent(event, start, end)
-	}
+		onDropEvent && onDropEvent(event, start, end);
+	};
 
 	handleResizeEvent = (resizeType, { event, start, end }) => {
-		const { onResizeEvent } = this.props
+		const { onResizeEvent } = this.props;
 
-		onResizeEvent && onResizeEvent(event, start, end)
-	}
+		onResizeEvent && onResizeEvent(event, start, end);
+	};
 
 	handleCanDrag = event => {
-		const { canDrag } = this.props
+		const { canDrag } = this.props;
 
 		if (canDrag) {
-			return canDrag(event)
+			return canDrag(event);
 		}
-	}
+	};
 
 	handleCanResize = event => {
-		const { canResize } = this.props
+		const { canResize } = this.props;
 
 		if (canResize) {
-			return canResize(event)
+			return canResize(event);
 		}
-	}
+	};
 
 	render() {
-		const { auth, className, supportedViews, onClickOpenSlot } = this.props
+		const { auth, className, supportedViews, onClickOpenSlot } = this.props;
 		const {
 			selectedDate,
 			view,
@@ -545,35 +545,35 @@ export default class BigCalendar extends Component {
 			renderFirstCalendar,
 			events,
 			renderAllEvents
-		} = this.state
+		} = this.state;
 
 		// populate views to take into account team week
-		let selectedView = view
-		const views = {}
+		let selectedView = view;
+		const views = {};
 		supportedViews.forEach(view => {
-			views[view] = true
-		})
+			views[view] = true;
+		});
 
-		views.team_week = HorizontalWeek
+		views.team_week = HorizontalWeek;
 
-		if (mode === 'team' && view === 'week') {
-			selectedView = 'team_week'
+		if (mode === "team" && view === "week") {
+			selectedView = "team_week";
 		}
 
-		const teammateWrapperWidth = this.getDesiredTeammateWrapperWidth()
-		const scrollWidth = this.getDesiredScrollWidth()
-		const scrollHeight = this.getDesiredScrollHeight()
+		const teammateWrapperWidth = this.getDesiredTeammateWrapperWidth();
+		const scrollWidth = this.getDesiredScrollWidth();
+		const scrollHeight = this.getDesiredScrollHeight();
 
 		// format times
 		const formats = {
 			// format times in left column
 			timeGutterFormat: date => {
-				return moment(date).format('h:mma')
+				return moment(date).format("h:mma");
 			}
-		}
+		};
 
 		// setup start and end times
-		const [min, max] = this.timeRange()
+		const [min, max] = this.timeRange();
 
 		// configure react-sprucebot calendar
 		const calendarProps = {
@@ -584,23 +584,23 @@ export default class BigCalendar extends Component {
 			min: min.toDate(),
 			max: max.toDate(),
 			selectable: onClickOpenSlot && true
-		}
+		};
 
-		let team = showAllTeammates ? teammates : [auth]
-		let classNames = `${className || ''} ${mode === 'team' ? 'team' : 'user'} ${
-			transitioning ? 'transitioning' : ''
-		} ${view}`
+		let team = showAllTeammates ? teammates : [auth];
+		let classNames = `${className || ""} ${mode === "team" ? "team" : "user"} ${
+			transitioning ? "transitioning" : ""
+		} ${view}`;
 
 		//filter authed user out and prepend
-		if (view === 'month') {
-			team = [auth]
+		if (view === "month") {
+			team = [auth];
 		} else if (showAllTeammates && auth) {
 			team = team.filter(teammate => {
-				return teammate.User.id !== auth.User.id
-			})
-			team = [auth, ...team]
+				return teammate.User.id !== auth.User.id;
+			});
+			team = [auth, ...team];
 		}
-
+		debugger;
 		return (
 			<div className={`big_calendar ${classNames}`}>
 				<Tabs
@@ -616,17 +616,17 @@ export default class BigCalendar extends Component {
 						infinite={true}
 						onChange={this.handlePagerChange}
 						titles={this.generatePagerTitle}
-						jumpAmount={selectedView !== 'month' ? 7 : 1}
-						showStep={selectedView === 'day'}
+						jumpAmount={selectedView !== "month" ? 7 : 1}
+						showStep={selectedView === "day"}
 					/>
 					<Button className="toggle-mode" onClick={this.handleToggleMode}>
-						{mode === 'team' ? 'show just me' : 'show team'}
+						{mode === "team" ? "show just me" : "show team"}
 					</Button>
 				</div>
 				<div
 					className={`calendars__wrapper`}
 					ref={ref => {
-						this.calendarWrapper = ref
+						this.calendarWrapper = ref;
 					}}
 				>
 					<div
@@ -638,13 +638,13 @@ export default class BigCalendar extends Component {
 								<div
 									key={`calendar-wrapper-${teammate.User.id}`}
 									className={`teammate_calendar__wrapper ${
-										idx === 0 ? '' : 'hide'
+										idx === 0 ? "" : "hide"
 									}`}
 									style={{
 										width: teammateWrapperWidth
 									}}
 								>
-									{!(view === 'month' && mode === 'team') && (
+									{!(view === "month" && mode === "team") && (
 										<div className="avatar_wrapper">
 											<span>
 												<Avatar top user={teammate} />
@@ -656,9 +656,9 @@ export default class BigCalendar extends Component {
 									)}
 
 									{idx === 0 &&
-										view === 'month' &&
-										mode === 'team' &&
-										team.map(teammate => (
+										view === "month" &&
+										mode === "team" &&
+										teammates.map(teammate => (
 											<div className="avatar_wrapper">
 												<span>
 													<Avatar top user={teammate} />
@@ -673,7 +673,7 @@ export default class BigCalendar extends Component {
 										(idx > 0 && renderAllCalendars)) && (
 										<Calendar
 											className={`${
-												idx === 0 && !renderFirstCalendar ? 'hide' : ''
+												idx === 0 && !renderFirstCalendar ? "hide" : ""
 											}`}
 											views={views}
 											events={events ? this.filterEvents(events, teammate) : []}
@@ -695,17 +695,17 @@ export default class BigCalendar extends Component {
 											onEventResize={this.handleResizeEvent}
 											canDrag={this.handleCanDrag}
 											canResize={this.handleCanResize}
-											popup={selectedView === 'month'}
+											popup={selectedView === "month"}
 											{...calendarProps}
 										/>
 									)}
 								</div>
-							)
+							);
 						})}
 					</div>
 				</div>
 			</div>
-		)
+		);
 	}
 }
 
@@ -722,12 +722,12 @@ BigCalendar.propTypes = {
 	handleClickOpenSlot: PropTypes.func,
 	handleDropEvent: PropTypes.func,
 	handleResizeEvent: PropTypes.func
-}
+};
 
 BigCalendar.defaultProps = {
-	supportedViews: ['day', 'week', 'month'], //NOT IMPLEMENTED
-	defaultView: 'day',
-	supportedModes: ['user', 'team'], //NOT IMPLEMENTED
-	defaultMode: 'user',
+	supportedViews: ["day", "week", "month"], //NOT IMPLEMENTED
+	defaultView: "day",
+	supportedModes: ["user", "team"], //NOT IMPLEMENTED
+	defaultMode: "user",
 	teamDayViewWidth: 250
-}
+};
