@@ -774,6 +774,7 @@ class Calendar extends Component {
 					startAccessor={this.startAccessor}
 					endAccessor={this.endAccessor}
 					defaultDate={defaultDate}
+					selectable={!!props.onSelectSlot}
 					{...props}
 				/>
 			</CalendarWrapper>

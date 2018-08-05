@@ -120,7 +120,8 @@ var Calendar = function (_Component) {
 					resizableAccessor: canResize,
 					startAccessor: this.startAccessor,
 					endAccessor: this.endAccessor,
-					defaultDate: defaultDate
+					defaultDate: defaultDate,
+					selectable: !!props.onSelectSlot
 				}, props))
 			);
 		}
