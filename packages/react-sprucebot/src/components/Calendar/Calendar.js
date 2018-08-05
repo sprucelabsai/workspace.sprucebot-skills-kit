@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-import moment from 'moment'
-import BigCalendar from 'react-big-calendar'
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+import React, { Component } from "react";
+import styled from "styled-components";
+import moment from "moment";
+import BigCalendar from "react-big-calendar";
+import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
-import is from 'is_js'
-import HTML5Backend from 'react-dnd-html5-backend'
-import { default as TouchBackend } from 'react-dnd-touch-backend'
-import { DragDropContext } from 'react-dnd'
-import PropTypes from 'prop-types'
+import is from "is_js";
+import HTML5Backend from "react-dnd-html5-backend";
+import { default as TouchBackend } from "react-dnd-touch-backend";
+import { DragDropContext } from "react-dnd";
+import PropTypes from "prop-types";
 
-BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLocalizer
+BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)); // or globalizeLocalizer
 
-const CalendarComponent = withDragAndDrop(BigCalendar)
+const CalendarComponent = withDragAndDrop(BigCalendar);
 
 const CalendarWrapper = styled.div.attrs({
 	className: `calendar__wrapper`
@@ -431,10 +431,10 @@ const CalendarWrapper = styled.div.attrs({
 		text-transform: lowercase;
 	}
 	.rbc-agenda-time-cell .rbc-continues-after:after {
-		content: ' »';
+		content: " »";
 	}
 	.rbc-agenda-time-cell .rbc-continues-prior:before {
-		content: '« ';
+		content: "« ";
 	}
 	.rbc-agenda-date-cell,
 	.rbc-agenda-time-cell {
@@ -729,33 +729,33 @@ const CalendarWrapper = styled.div.attrs({
 		height: 10px;
 		cursor: ew-resize;
 	}
-`
+`;
 
 class Calendar extends Component {
-	state = {}
+	state = {};
 
 	onNavigate = e => {
 		// Not fired with current build but causes error if omitted
-		console.log('onNavigate', e)
-	}
+		console.log("onNavigate", e);
+	};
 
 	startAccessor = event => {
 		if (event.startTime) {
-			const start = moment(`${event.date} ${event.startTime}`)
-			return start.toDate()
+			const start = moment(`${event.date} ${event.startTime}`);
+			return start.toDate();
 		} else {
-			return event.start
+			return event.start;
 		}
-	}
+	};
 
 	endAccessor = event => {
 		if (event.endTime) {
-			const end = moment(`${event.date} ${event.endTime}`)
-			return end.toDate()
+			const end = moment(`${event.date} ${event.endTime}`);
+			return end.toDate();
 		} else {
-			return event.end
+			return event.end;
 		}
-	}
+	};
 
 	render() {
 		const {
@@ -763,7 +763,7 @@ class Calendar extends Component {
 			canDrag,
 			canResize,
 			...props
-		} = this.props
+		} = this.props;
 
 		return (
 			<CalendarWrapper>
@@ -774,20 +774,21 @@ class Calendar extends Component {
 					startAccessor={this.startAccessor}
 					endAccessor={this.endAccessor}
 					defaultDate={defaultDate}
-					selectable={!!props.onSelectSlot}
+					selectable={props.onSelectSlot ? true : ""}
 					{...props}
 				/>
 			</CalendarWrapper>
-		)
+		);
 	}
 }
 
 const backend =
-	is.mobile() || is.tablet() || is.touchDevice() ? TouchBackend : HTML5Backend
+	is.mobile() || is.tablet() || is.touchDevice() ? TouchBackend : HTML5Backend;
 
-export default DragDropContext(backend)(Calendar)
+export default DragDropContext(backend)(Calendar);
 
 Calendar.propTypes = {
 	canDrag: PropTypes.func,
-	canResize: PropTypes.func
-}
+	canResize: PropTypes.func,
+	onSelectSlot: PropTypes.func
+};

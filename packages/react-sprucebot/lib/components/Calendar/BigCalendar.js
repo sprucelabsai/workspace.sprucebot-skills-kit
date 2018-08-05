@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -10,43 +10,43 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _moment = require('moment');
+var _moment = require("moment");
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _isEqual = require('lodash/isEqual');
+var _isEqual = require("lodash/isEqual");
 
 var _isEqual2 = _interopRequireDefault(_isEqual);
 
-var _es6Tween = require('es6-tween');
+var _es6Tween = require("es6-tween");
 
-var _Avatar = require('../Avatar/Avatar');
+var _Avatar = require("../Avatar/Avatar");
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
-var _Button = require('../Button/Button');
+var _Button = require("../Button/Button");
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _Calendar = require('./Calendar');
+var _Calendar = require("./Calendar");
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
-var _Pager = require('../Pager/Pager');
+var _Pager = require("../Pager/Pager");
 
 var _Pager2 = _interopRequireDefault(_Pager);
 
-var _Tabs = require('../Tabs/Tabs');
+var _Tabs = require("../Tabs/Tabs");
 
-var _HorizontalWeek = require('./HorizontalWeek');
+var _HorizontalWeek = require("./HorizontalWeek");
 
 var _HorizontalWeek2 = _interopRequireDefault(_HorizontalWeek);
 
@@ -85,11 +85,11 @@ var BigCalendar = function (_Component) {
 			//give things a sec to settle before recording sizes
 			_this.refresh();
 			setTimeout(function () {}, 250);
-			window.addEventListener('resize', _this.handleWindowResize);
+			window.addEventListener("resize", _this.handleWindowResize);
 		};
 
 		_this.componentWillUnmount = function () {
-			window.removeEventListener('resize', _this.handleWindowResize);
+			window.removeEventListener("resize", _this.handleWindowResize);
 		};
 
 		_this.setEvents = function (events) {
@@ -106,7 +106,7 @@ var BigCalendar = function (_Component) {
 
 		_this.setView = function (view) {
 			_this.handleChangeView(0);
-			_this.tabs.setSelected(0, '.0');
+			_this.tabs.setSelected(0, ".0");
 		};
 
 		_this.setMode = function (mode) {
@@ -126,33 +126,33 @@ var BigCalendar = function (_Component) {
 
 			var title = void 0;
 
-			if (view === 'month') {
-				title = (0, _moment2.default)(selectedDate).format('MMM YYYY');
-			} else if (view === 'week') {
-				var startOfWeek = (0, _moment2.default)(selectedDate).startOf('week');
-				var endOfWeek = (0, _moment2.default)(selectedDate).endOf('week');
+			if (view === "month") {
+				title = (0, _moment2.default)(selectedDate).format("MMM YYYY");
+			} else if (view === "week") {
+				var startOfWeek = (0, _moment2.default)(selectedDate).startOf("week");
+				var endOfWeek = (0, _moment2.default)(selectedDate).endOf("week");
 
-				if (startOfWeek.isSame(endOfWeek, 'month')) {
-					title = startOfWeek.format('MMM Do') + ' - ' + endOfWeek.format('Do');
+				if (startOfWeek.isSame(endOfWeek, "month")) {
+					title = startOfWeek.format("MMM Do") + " - " + endOfWeek.format("Do");
 				} else {
-					title = startOfWeek.format('MMM Do') + ' - ' + endOfWeek.format('MMM Do');
+					title = startOfWeek.format("MMM Do") + " - " + endOfWeek.format("MMM Do");
 				}
-			} else if (view === 'day') {
-				var now = (0, _moment2.default)().tz(auth.Location.timezone).startOf('day');
-				var days = _moment2.default.tz(selectedDate, auth.Location.timezone).startOf('day').diff(now, 'days');
+			} else if (view === "day") {
+				var now = (0, _moment2.default)().tz(auth.Location.timezone).startOf("day");
+				var days = _moment2.default.tz(selectedDate, auth.Location.timezone).startOf("day").diff(now, "days");
 
 				switch (days) {
 					case -1:
-						title = 'Yesterday';
+						title = "Yesterday";
 						break;
 					case 0:
-						title = 'Today';
+						title = "Today";
 						break;
 					case 1:
-						title = 'Tomorrow';
+						title = "Tomorrow";
 						break;
 					default:
-						title = (0, _moment2.default)(selectedDate).format('ddd, MMM Do');
+						title = (0, _moment2.default)(selectedDate).format("ddd, MMM Do");
 						break;
 				}
 			}
@@ -162,7 +162,7 @@ var BigCalendar = function (_Component) {
 
 		_this.getDesiredTeammateWrapperWidth = function () {
 			if (!_this.calendarWrapper) {
-				return '100%';
+				return "100%";
 			}
 			var _this$state2 = _this.state,
 			    view = _this$state2.view,
@@ -172,23 +172,23 @@ var BigCalendar = function (_Component) {
 
 			var calendarWrapperWidth = getElementWidth(_this.calendarWrapper);
 
-			if (mode === 'team' && view === 'day') {
+			if (mode === "team" && view === "day") {
 				// make it a little thinner than the screen
 				return Math.min(calendarWrapperWidth - 20, teamDayViewWidth);
-			} else if (mode === 'team' && view === 'week') {
-				return '100%';
-			} else if (mode === 'team' && view === 'month') {
-				return '100%';
-			} else if (mode === 'user') {
+			} else if (mode === "team" && view === "week") {
+				return "100%";
+			} else if (mode === "team" && view === "month") {
+				return "100%";
+			} else if (mode === "user") {
 				return calendarWrapperWidth;
 			}
-			return 'auto';
+			return "auto";
 		};
 
 		_this.getDesiredScrollWidth = function () {
 			//act like a normal div until loaded
 			if (!_this.calendarWrapper) {
-				return '100%';
+				return "100%";
 			}
 			var _this$state3 = _this.state,
 			    view = _this$state3.view,
@@ -201,23 +201,23 @@ var BigCalendar = function (_Component) {
 			var widthOfAllCalendars = 0;
 			var minWidthOfAllCalendars = _this.getDesiredTeammateWrapperWidth() * teammates.length;
 
-			document.querySelectorAll('.teammate_calendar__wrapper').forEach(function (wrapper) {
+			document.querySelectorAll(".teammate_calendar__wrapper").forEach(function (wrapper) {
 				widthOfAllCalendars += getElementWidth(wrapper);
 			});
 
 			widthOfAllCalendars = Math.max(minWidthOfAllCalendars, widthOfAllCalendars);
 
-			if (transitioning && view === 'day') {
+			if (transitioning && view === "day") {
 				return widthOfAllCalendars;
 			}
 
-			if (mode === 'team' && view == 'day') {
+			if (mode === "team" && view == "day") {
 				return widthOfAllCalendars;
-			} else if (view === 'week') {
+			} else if (view === "week") {
 				return calendarWrapperWidth;
-			} else if (view === 'month') {
+			} else if (view === "month") {
 				return calendarWrapperWidth;
-			} else if (mode === 'user') {
+			} else if (mode === "user") {
 				return calendarWrapperWidth;
 			}
 		};
@@ -225,7 +225,7 @@ var BigCalendar = function (_Component) {
 		_this.getDesiredScrollHeight = function () {
 			//act like a normal div until loaded
 			if (!_this.calendarWrapper) {
-				return 'auto';
+				return "auto";
 			}
 
 			var _this$state4 = _this.state,
@@ -233,18 +233,18 @@ var BigCalendar = function (_Component) {
 			    view = _this$state4.view;
 
 
-			if (mode === 'team' && view === 'week') {
-				return 'auto';
-			} else if (view === 'month') {
-				return 'auto';
+			if (mode === "team" && view === "week") {
+				return "auto";
+			} else if (view === "month") {
+				return "auto";
 			}
 
-			var firstTeammateWrapper = document.querySelector('.teammate_calendar__wrapper');
+			var firstTeammateWrapper = document.querySelector(".teammate_calendar__wrapper");
 			if (!firstTeammateWrapper) {
-				return 'auto';
+				return "auto";
 			}
 
-			return getElementHeight(firstTeammateWrapper) || 'auto';
+			return getElementHeight(firstTeammateWrapper) || "auto";
 		};
 
 		_this.handleChange = function () {
@@ -263,7 +263,7 @@ var BigCalendar = function (_Component) {
 							case 0:
 								_this$state5 = _this.state, mode = _this$state5.mode, view = _this$state5.view, teammates = _this$state5.teammates, selectedDate = _this$state5.selectedDate, optionsLoaded = _this$state5.optionsLoaded;
 								_this$props = _this.props, auth = _this$props.auth, onNavigate = _this$props.onNavigate, fetchEvents = _this$props.fetchEvents;
-								currentView = view === 'team_week' ? 'week' : view;
+								currentView = view === "team_week" ? "week" : view;
 								currentUser = teammates.find(function (teammate) {
 									return teammate.User.id === auth.UserId;
 								});
@@ -274,12 +274,13 @@ var BigCalendar = function (_Component) {
 									startDate: startDate,
 									endDate: endDate,
 									view: currentView,
-									teammates: mode === 'user' ? currentUser : teammates
-
-									// const eventsLoaded = this.checkOptions(options)
-
-									// if (!eventsLoaded) {
+									teammates: mode === "user" ? currentUser : teammates
 								};
+
+								// const eventsLoaded = this.checkOptions(options)
+
+								// if (!eventsLoaded) {
+
 								_this.setState({ optionsLoaded: [].concat(_toConsumableArray(optionsLoaded), [options]) });
 
 								triggerOnNavigate && onNavigate && onNavigate(options);
@@ -296,7 +297,7 @@ var BigCalendar = function (_Component) {
 								// }
 
 							case 15:
-							case 'end':
+							case "end":
 								return _context.stop();
 						}
 					}
@@ -323,7 +324,7 @@ var BigCalendar = function (_Component) {
 							case 0:
 								view = _this.state.view;
 								diff = page - _this.state.currentPage;
-								stepType = view !== 'month' ? 'days' : 'months';
+								stepType = view !== "month" ? "days" : "months";
 								_context2.next = 5;
 								return _this.setState(function (prevState) {
 									return {
@@ -337,7 +338,7 @@ var BigCalendar = function (_Component) {
 								_this.handleChange();
 
 							case 6:
-							case 'end':
+							case "end":
 								return _context2.stop();
 						}
 					}
@@ -359,7 +360,7 @@ var BigCalendar = function (_Component) {
 							case 0:
 								_this$state6 = _this.state, mode = _this$state6.mode, view = _this$state6.view;
 								newView = _this.state.views[idx];
-								movingToWeek = mode === 'user' && view !== 'week' && newView === 'week';
+								movingToWeek = mode === "user" && view !== "week" && newView === "week";
 								_context3.next = 5;
 								return _this.setState({
 									view: newView,
@@ -370,9 +371,9 @@ var BigCalendar = function (_Component) {
 
 								// because month view does not show all teammates, if we are in team mode jumping OFF month view, lets
 								// re-show team wrappers
-								if (mode === 'team' && view === 'month' && newView !== 'month') {
+								if (mode === "team" && view === "month" && newView !== "month") {
 									_this.toggleShowOnCalendars();
-								} else if (mode === 'user' && view !== 'week' && newView === 'week') {
+								} else if (mode === "user" && view !== "week" && newView === "week") {
 									// week view is heavy, give dom a sec to render before rendering calendar
 									_this.delayedRenderWeekView();
 								}
@@ -384,7 +385,7 @@ var BigCalendar = function (_Component) {
 								}, 500);
 
 							case 8:
-							case 'end':
+							case "end":
 								return _context3.stop();
 						}
 					}
@@ -408,7 +409,7 @@ var BigCalendar = function (_Component) {
 			    storeSchedule = _this$state7.storeSchedule,
 			    events = _this$state7.events;
 
-			var day = selectedDate.format('YYYY-MM-DD');
+			var day = selectedDate.format("YYYY-MM-DD");
 			var combinedTimes = [].concat(_toConsumableArray(storeSchedule), _toConsumableArray(events.filter(function (event) {
 				if (event.startTime && event.endTime) {
 					return event;
@@ -425,8 +426,8 @@ var BigCalendar = function (_Component) {
 
 			if (combinedTimes.length !== 0) {
 				combinedTimes.forEach(function (event) {
-					var start = (0, _moment2.default)(day + ' ' + event.startTime).subtract(2, 'hour');
-					var end = (0, _moment2.default)(day + ' ' + event.endTime).add(2, 'hour');
+					var start = (0, _moment2.default)(day + " " + event.startTime).subtract(2, "hour");
+					var end = (0, _moment2.default)(day + " " + event.endTime).add(2, "hour");
 
 					if (!earliest || earliest.diff(start) > 0) {
 						earliest = start;
@@ -437,12 +438,12 @@ var BigCalendar = function (_Component) {
 					}
 				});
 
-				if (!earliest.isSame(day, 'day')) {
-					earliest = (0, _moment2.default)(day + ' 00:00:00');
+				if (!earliest.isSame(day, "day")) {
+					earliest = (0, _moment2.default)(day + " 00:00:00");
 				}
 
-				if (!latest.isSame(day, 'day')) {
-					latest = (0, _moment2.default)(day + ' 23:59:59');
+				if (!latest.isSame(day, "day")) {
+					latest = (0, _moment2.default)(day + " 23:59:59");
 				}
 			} else {
 				earliest = (0, _moment2.default)(selectedDate).hour(7).minutes(0).seconds(0);
@@ -455,7 +456,7 @@ var BigCalendar = function (_Component) {
 
 		_this.toggleShowOnCalendars = function () {
 			// show teammates calendars one at a time
-			var calendars = [].concat(_toConsumableArray(document.querySelectorAll('.teammate_calendar__wrapper')));
+			var calendars = [].concat(_toConsumableArray(document.querySelectorAll(".teammate_calendar__wrapper")));
 
 			if (_this.props.auth) {
 				calendars.shift();
@@ -466,7 +467,7 @@ var BigCalendar = function (_Component) {
 
 			calendars.forEach(function (element) {
 				setTimeout(function () {
-					element.classList.toggle('hide');
+					element.classList.toggle("hide");
 				}, delay);
 				delay += delayBump;
 			});
@@ -482,13 +483,13 @@ var BigCalendar = function (_Component) {
 								break;
 							}
 
-							return _context4.abrupt('return');
+							return _context4.abrupt("return");
 
 						case 2:
 							_context4.next = 4;
 							return _this.setState({
 								transitioning: true,
-								mode: 'team',
+								mode: "team",
 								showAllTeammates: true,
 								renderAllCalendars: true
 							});
@@ -505,7 +506,7 @@ var BigCalendar = function (_Component) {
 							}, 1000);
 
 						case 6:
-						case 'end':
+						case "end":
 							return _context4.stop();
 					}
 				}
@@ -522,14 +523,14 @@ var BigCalendar = function (_Component) {
 								break;
 							}
 
-							return _context5.abrupt('return');
+							return _context5.abrupt("return");
 
 						case 2:
 
 							//scroll calendar left
 							new _es6Tween.Tween({
 								y: _this.calendarWrapper.scrollLeft
-							}).to({ y: 0 }, 500).on('update', function (_ref7) {
+							}).to({ y: 0 }, 500).on("update", function (_ref7) {
 								var y = _ref7.y;
 
 								_this.calendarWrapper.scrollLeft = y;
@@ -543,14 +544,14 @@ var BigCalendar = function (_Component) {
 							_context5.next = 6;
 							return _this.setState({
 								transitioning: true,
-								mode: 'user',
-								renderFirstCalendar: view !== 'week',
-								showAllTeammates: view !== 'week'
+								mode: "user",
+								renderFirstCalendar: view !== "week",
+								showAllTeammates: view !== "week"
 							});
 
 						case 6:
 
-							if (view === 'week') {
+							if (view === "week") {
 								_this.delayedRenderWeekView();
 							}
 
@@ -567,7 +568,7 @@ var BigCalendar = function (_Component) {
 							}, 1000);
 
 						case 9:
-						case 'end':
+						case "end":
 							return _context5.stop();
 					}
 				}
@@ -579,7 +580,7 @@ var BigCalendar = function (_Component) {
 
 
 			switch (mode) {
-				case 'team':
+				case "team":
 					_this.jumpToUserMode();
 					break;
 				default:
@@ -606,7 +607,7 @@ var BigCalendar = function (_Component) {
 				return [];
 			}
 
-			if (mode === 'team' && view === 'month') {
+			if (mode === "team" && view === "month") {
 				return events;
 			}
 
@@ -618,7 +619,7 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.applyClassNames = function (event) {
-			return { className: '' + (event.className || '') };
+			return { className: "" + (event.className || "") };
 		};
 
 		_this.handleClickEvent = function (options) {
@@ -681,7 +682,7 @@ var BigCalendar = function (_Component) {
 			renderFirstEvents: true, // rendering events is slow, so we may defer loading them until later
 			renderAllCalendars: false,
 			renderAllEvents: true,
-			showAllTeammates: props.defaultMode === 'team',
+			showAllTeammates: props.defaultMode === "team",
 			transitioning: false,
 			selectedDate: (0, _moment2.default)(),
 			earliestTime: null,
@@ -692,24 +693,25 @@ var BigCalendar = function (_Component) {
 			events: [], // All events for current date range
 			storeSchedule: [], // Hours store is open for selected date range,
 			optionsLoaded: []
-			// Expected event structure:
-			// const event = {
-			// 	title: 'My favorite event',
-			// 	className: 'shift',
-			// 	start: new Date(),
-			// 	end: new Date(),
-			// 	allDay: true,
-			//  userId: id,
-			// 	payload: { data preserved in callback }
-			// }
-		};return _this;
+		};
+		// Expected event structure:
+		// const event = {
+		// 	title: 'My favorite event',
+		// 	className: 'shift',
+		// 	start: new Date(),
+		// 	end: new Date(),
+		// 	allDay: true,
+		//  userId: id,
+		// 	payload: { data preserved in callback }
+		// }
+		return _this;
 	}
 
 	//the earliest and latest time of all schedules
 
 
 	_createClass(BigCalendar, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
 			var _this3 = this;
 
@@ -717,7 +719,8 @@ var BigCalendar = function (_Component) {
 			    auth = _props.auth,
 			    className = _props.className,
 			    supportedViews = _props.supportedViews,
-			    onClickOpenSlot = _props.onClickOpenSlot;
+			    onClickOpenSlot = _props.onClickOpenSlot,
+			    timeslots = _props.timeslots;
 			var _state = this.state,
 			    selectedDate = _state.selectedDate,
 			    view = _state.view,
@@ -740,8 +743,8 @@ var BigCalendar = function (_Component) {
 
 			views.team_week = _HorizontalWeek2.default;
 
-			if (mode === 'team' && view === 'week') {
-				selectedView = 'team_week';
+			if (mode === "team" && view === "week") {
+				selectedView = "team_week";
 			}
 
 			var teammateWrapperWidth = this.getDesiredTeammateWrapperWidth();
@@ -752,11 +755,12 @@ var BigCalendar = function (_Component) {
 			var formats = {
 				// format times in left column
 				timeGutterFormat: function timeGutterFormat(date) {
-					return (0, _moment2.default)(date).format('h:mma');
+					return (0, _moment2.default)(date).format("h:mma");
 				}
-
-				// setup start and end times
 			};
+
+			// setup start and end times
+
 			var _timeRange = this.timeRange(),
 			    _timeRange2 = _slicedToArray(_timeRange, 2),
 			    min = _timeRange2[0],
@@ -771,15 +775,18 @@ var BigCalendar = function (_Component) {
 				toolbar: false,
 				date: selectedDate.toDate(),
 				min: min.toDate(),
-				max: max.toDate(),
-				selectable: onClickOpenSlot && true
+				max: max.toDate()
 			};
 
-			var team = showAllTeammates ? teammates : [auth];
-			var classNames = (className || '') + ' ' + (mode === 'team' ? 'team' : 'user') + ' ' + (transitioning ? 'transitioning' : '') + ' ' + view;
+			if (timeslots) {
+				calendarProps.timeslots = timeslots;
+			}
+			var classNames = (className || "") + " " + (mode === "team" ? "team" : "user") + " " + (transitioning ? "transitioning" : "") + " " + view;
+
+			var team = teammates;
 
 			//filter authed user out and prepend
-			if (view === 'month') {
+			if (view === "month") {
 				team = [auth];
 			} else if (showAllTeammates && auth) {
 				team = team.filter(function (teammate) {
@@ -788,8 +795,8 @@ var BigCalendar = function (_Component) {
 				team = [auth].concat(_toConsumableArray(team));
 			}
 			return _react2.default.createElement(
-				'div',
-				{ className: 'big_calendar ' + classNames },
+				"div",
+				{ className: "big_calendar " + classNames },
 				_react2.default.createElement(
 					_Tabs.Tabs,
 					{
@@ -798,82 +805,82 @@ var BigCalendar = function (_Component) {
 						},
 						onChange: this.handleChangeView
 					},
-					_react2.default.createElement(_Tabs.TabPane, { title: 'Day' }),
-					_react2.default.createElement(_Tabs.TabPane, { title: 'Week' }),
-					_react2.default.createElement(_Tabs.TabPane, { title: 'Month' })
+					_react2.default.createElement(_Tabs.TabPane, { title: "Day" }),
+					_react2.default.createElement(_Tabs.TabPane, { title: "Week" }),
+					_react2.default.createElement(_Tabs.TabPane, { title: "Month" })
 				),
 				_react2.default.createElement(
-					'div',
-					{ className: 'calendar__controls' },
+					"div",
+					{ className: "calendar__controls" },
 					_react2.default.createElement(_Pager2.default, {
 						infinite: true,
 						onChange: this.handlePagerChange,
 						titles: this.generatePagerTitle,
-						jumpAmount: selectedView !== 'month' ? 7 : 1,
-						showStep: selectedView === 'day'
+						jumpAmount: selectedView !== "month" ? 7 : 1,
+						showStep: selectedView === "day"
 					}),
 					_react2.default.createElement(
 						_Button2.default,
-						{ className: 'toggle-mode', onClick: this.handleToggleMode },
-						mode === 'team' ? 'show just me' : 'show team'
+						{ className: "toggle-mode", onClick: this.handleToggleMode },
+						mode === "team" ? "show just me" : "show team"
 					)
 				),
 				_react2.default.createElement(
-					'div',
+					"div",
 					{
-						className: 'calendars__wrapper',
+						className: "calendars__wrapper",
 						ref: function ref(_ref11) {
 							_this3.calendarWrapper = _ref11;
 						}
 					},
 					_react2.default.createElement(
-						'div',
+						"div",
 						{
-							className: 'calendar__scroll',
+							className: "calendar__scroll",
 							style: { width: scrollWidth, height: scrollHeight }
 						},
 						team.map(function (teammate, idx) {
 							return _react2.default.createElement(
-								'div',
+								"div",
 								{
-									key: 'calendar-wrapper-' + teammate.User.id,
-									className: 'teammate_calendar__wrapper ' + (idx === 0 ? '' : 'hide'),
+									key: "calendar-wrapper-" + teammate.User.id,
+									className: "teammate_calendar__wrapper " + (idx === 0 ? "" : "hide"),
 									style: {
 										width: teammateWrapperWidth
 									}
 								},
-								!(view === 'month' && mode === 'team') && _react2.default.createElement(
-									'div',
-									{ className: 'avatar_wrapper' },
+								!(view === "month" && mode === "team") && _react2.default.createElement(
+									"div",
+									{ className: "avatar_wrapper" },
 									_react2.default.createElement(
-										'span',
+										"span",
 										null,
 										_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
 										_react2.default.createElement(
-											'span',
-											{ className: 'calendar__teammate_name' },
+											"span",
+											{ className: "calendar__teammate_name" },
 											teammate.User.casualName
 										)
 									)
 								),
-								idx === 0 && view === 'month' && mode === 'team' && teammates.map(function (teammate) {
+								idx === 0 && view === "month" && mode === "team" && teammates.map(function (teammate) {
 									return _react2.default.createElement(
-										'div',
-										{ className: 'avatar_wrapper' },
+										"div",
+										{ className: "avatar_wrapper" },
 										_react2.default.createElement(
-											'span',
+											"span",
 											null,
 											_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
 											_react2.default.createElement(
-												'span',
-												{ className: 'calendar__teammate_name' },
+												"span",
+												{ className: "calendar__teammate_name" },
 												teammate.User.casualName
 											)
 										)
 									);
 								}),
 								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
-									className: '' + (idx === 0 && !renderFirstCalendar ? 'hide' : ''),
+									className: "" + (idx === 0 && !renderFirstCalendar ? "hide" : ""),
 									views: views,
 									events: events ? _this3.filterEvents(events, teammate) : [],
 									eventPropGetter: function eventPropGetter(event) {
@@ -899,7 +906,7 @@ var BigCalendar = function (_Component) {
 									onEventResize: _this3.handleResizeEvent,
 									canDrag: _this3.handleCanDrag,
 									canResize: _this3.handleCanResize,
-									popup: selectedView === 'month'
+									popup: selectedView === "month"
 								}, calendarProps))
 							);
 						})
@@ -924,16 +931,16 @@ BigCalendar.propTypes = {
 	defaultMode: _propTypes2.default.string.isRequired,
 	storeSchedule: _propTypes2.default.objectOf.isRequired,
 	teamDayViewWidth: _propTypes2.default.number,
-	handleClickEvent: _propTypes2.default.func,
-	handleClickOpenSlot: _propTypes2.default.func,
-	handleDropEvent: _propTypes2.default.func,
-	handleResizeEvent: _propTypes2.default.func
+	onClickEvent: _propTypes2.default.func,
+	onClickOpenSlot: _propTypes2.default.func,
+	onDropEvent: _propTypes2.default.func,
+	onResizeEvent: _propTypes2.default.func
 };
 
 BigCalendar.defaultProps = {
-	supportedViews: ['day', 'week', 'month'], //NOT IMPLEMENTED
-	defaultView: 'day',
-	supportedModes: ['user', 'team'], //NOT IMPLEMENTED
-	defaultMode: 'user',
+	supportedViews: ["day", "week", "month"], //NOT IMPLEMENTED
+	defaultView: "day",
+	supportedModes: ["user", "team"], //NOT IMPLEMENTED
+	defaultMode: "user",
 	teamDayViewWidth: 250
 };
