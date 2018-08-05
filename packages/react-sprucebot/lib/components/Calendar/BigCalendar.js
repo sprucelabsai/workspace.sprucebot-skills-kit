@@ -787,7 +787,6 @@ var BigCalendar = function (_Component) {
 				});
 				team = [auth].concat(_toConsumableArray(team));
 			}
-
 			return _react2.default.createElement(
 				'div',
 				{ className: 'big_calendar ' + classNames },
@@ -857,7 +856,7 @@ var BigCalendar = function (_Component) {
 										)
 									)
 								),
-								idx === 0 && view === 'month' && mode === 'team' && team.map(function (teammate) {
+								idx === 0 && view === 'month' && mode === 'team' && teammates.map(function (teammate) {
 									return _react2.default.createElement(
 										'div',
 										{ className: 'avatar_wrapper' },

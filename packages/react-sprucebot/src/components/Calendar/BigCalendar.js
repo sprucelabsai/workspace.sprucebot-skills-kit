@@ -603,7 +603,6 @@ export default class BigCalendar extends Component {
 			})
 			team = [auth, ...team]
 		}
-
 		return (
 			<div className={`big_calendar ${classNames}`}>
 				<Tabs
@@ -661,7 +660,7 @@ export default class BigCalendar extends Component {
 									{idx === 0 &&
 										view === 'month' &&
 										mode === 'team' &&
-										team.map(teammate => (
+										teammates.map(teammate => (
 											<div className="avatar_wrapper">
 												<span>
 													<Avatar top user={teammate} />
