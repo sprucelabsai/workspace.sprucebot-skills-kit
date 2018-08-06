@@ -813,7 +813,7 @@ var BigCalendar = function (_Component) {
 			}
 
 			var isFetching = isFetchingEvents || transitioning;
-			var isLoaderOutside = view === "day" && mode === "team" || view === "week" && mode === "user" || view === "month";
+			var isLoaderOutside = view === "week" && mode === "user" || view === "month";
 
 			return _react2.default.createElement(
 				"div",

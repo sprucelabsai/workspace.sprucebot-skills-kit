@@ -625,9 +625,7 @@ export default class BigCalendar extends Component {
 
 		let isFetching = isFetchingEvents || transitioning;
 		let isLoaderOutside =
-			(view === "day" && mode === "team") ||
-			(view === "week" && mode === "user") ||
-			view === "month";
+			(view === "week" && mode === "user") || view === "month";
 
 		return (
 			<div className={`big_calendar ${classNames}`}>
