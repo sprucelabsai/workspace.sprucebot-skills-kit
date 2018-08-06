@@ -548,8 +548,9 @@ export default class BigCalendar extends Component {
 			auth,
 			className,
 			supportedViews,
-			onClickOpenSlot,
-			timeslots
+			timeslots,
+			step,
+			titleAccessor
 		} = this.props;
 
 		const {
@@ -606,6 +607,13 @@ export default class BigCalendar extends Component {
 
 		if (timeslots) {
 			calendarProps.timeslots = timeslots;
+		}
+		if (step) {
+			calendarProps.step = step;
+		}
+
+		if (titleAccessor) {
+			calendarProps.titleAccessor = titleAccessor;
 		}
 		let classNames = `${className || ""} ${mode === "team" ? "team" : "user"} ${
 			transitioning ? "transitioning" : ""
@@ -759,7 +767,9 @@ BigCalendar.propTypes = {
 	onClickEvent: PropTypes.func,
 	onClickOpenSlot: PropTypes.func,
 	onDropEvent: PropTypes.func,
-	onResizeEvent: PropTypes.func
+	onResizeEvent: PropTypes.func,
+	timeslots: PropTypes.number,
+	step: PropTypes.number
 };
 
 BigCalendar.defaultProps = {
@@ -767,5 +777,7 @@ BigCalendar.defaultProps = {
 	defaultView: "day",
 	supportedModes: ["user", "team"], //NOT IMPLEMENTED
 	defaultMode: "user",
-	teamDayViewWidth: 250
+	teamDayViewWidth: 250,
+	timeslots: 4,
+	step: 15
 };

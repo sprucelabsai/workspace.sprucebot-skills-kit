@@ -9,6 +9,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 import { default as TouchBackend } from "react-dnd-touch-backend";
 import { DragDropContext } from "react-dnd";
 import PropTypes from "prop-types";
+import { EventEmitter } from "events";
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)); // or globalizeLocalizer
 
@@ -790,5 +791,6 @@ export default DragDropContext(backend)(Calendar);
 Calendar.propTypes = {
 	canDrag: PropTypes.func,
 	canResize: PropTypes.func,
-	onSelectSlot: PropTypes.func
+	onSelectSlot: PropTypes.func,
+	titleAccessor: PropTypes.func
 };

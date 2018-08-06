@@ -735,8 +735,9 @@ var BigCalendar = function (_Component) {
 			    auth = _props.auth,
 			    className = _props.className,
 			    supportedViews = _props.supportedViews,
-			    onClickOpenSlot = _props.onClickOpenSlot,
-			    timeslots = _props.timeslots;
+			    timeslots = _props.timeslots,
+			    step = _props.step,
+			    titleAccessor = _props.titleAccessor;
 			var _state = this.state,
 			    selectedDate = _state.selectedDate,
 			    view = _state.view,
@@ -797,6 +798,13 @@ var BigCalendar = function (_Component) {
 
 			if (timeslots) {
 				calendarProps.timeslots = timeslots;
+			}
+			if (step) {
+				calendarProps.step = step;
+			}
+
+			if (titleAccessor) {
+				calendarProps.titleAccessor = titleAccessor;
 			}
 			var classNames = (className || "") + " " + (mode === "team" ? "team" : "user") + " " + (transitioning ? "transitioning" : "") + " " + view;
 
@@ -964,7 +972,9 @@ BigCalendar.propTypes = {
 	onClickEvent: _propTypes2.default.func,
 	onClickOpenSlot: _propTypes2.default.func,
 	onDropEvent: _propTypes2.default.func,
-	onResizeEvent: _propTypes2.default.func
+	onResizeEvent: _propTypes2.default.func,
+	timeslots: _propTypes2.default.number,
+	step: _propTypes2.default.number
 };
 
 BigCalendar.defaultProps = {
@@ -972,5 +982,7 @@ BigCalendar.defaultProps = {
 	defaultView: "day",
 	supportedModes: ["user", "team"], //NOT IMPLEMENTED
 	defaultMode: "user",
-	teamDayViewWidth: 250
+	teamDayViewWidth: 250,
+	timeslots: 4,
+	step: 15
 };
