@@ -189,6 +189,19 @@ var Sprucebot = _extends({
 		// Prevent confusion between withStore and createStore
 		createStore: _withStore.createStore
 	},
+	utils: {
+		arrayMove: function arrayMove(arr, previousIndex, newIndex) {
+			var array = arr.slice(0);
+			if (newIndex >= array.length) {
+				var k = newIndex - array.length;
+				while (k-- + 1) {
+					array.push(undefined);
+				}
+			}
+			array.splice(newIndex, 0, array.splice(previousIndex, 1)[0]);
+			return array;
+		}
+	},
 	lang: _lang2.default,
 	skill: _skillskit2.default,
 	_document: _document3.default,

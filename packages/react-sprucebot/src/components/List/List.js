@@ -1,16 +1,31 @@
-import styled, { css } from 'styled-components'
+import styled, { css, injectGlobal } from 'styled-components'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Avatar from '../Avatar/Avatar'
+import Icon from '../Icon/Icon'
+import {
+	SortableContainer,
+	SortableElement,
+	SortableHandle
+} from 'react-sortable-hoc'
 
 export const List = styled.div.attrs({
-	className: 'List item__list'
+	className: props =>
+		`List item__list ${props.isSortable ? 'sortable__item__list' : ''}`
 })`
 	${props => (props.pile ? 'padding-bottom: 1.25em' : void 0)};
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	word-break: break-word;
 `
+
+const SortableListContainer = SortableContainer(({ ...props }) => {
+	return <List isSortable={true} {...props} />
+})
+
+export const SortableList = ({ ...props }) => {
+	return <SortableListContainer helperClass="sortable_list_helper" {...props} />
+}
 
 const ListItemWrapper = styled.div.attrs({
 	className: ({ className, online }) =>
@@ -72,6 +87,14 @@ const ItemSubTitle = styled.div.attrs({
 	font-size: 0.75em;
 `
 
+const SortableDragHandle = SortableHandle(() => (
+	<Icon className="drag_handle">drag_handle</Icon>
+))
+
+export const SortableListItem = SortableElement(({ isSortable, ...props }) => (
+	<ListItem isSortable={isSortable} {...props} />
+))
+
 export class ListItem extends Component {
 	render() {
 		let {
@@ -90,6 +113,7 @@ export class ListItem extends Component {
 			componentAsSubtitle,
 			onClick,
 			leftInput,
+			isSortable,
 			...props
 		} = this.props
 
@@ -120,6 +144,7 @@ export class ListItem extends Component {
 
 		return (
 			<ListItemWrapper {...props}>
+				{isSortable && <SortableDragHandle />}
 				{leftInput && <div className="left_input">{leftInput}</div>}
 				{avatar && (
 					<ItemAvatar onClick={onClick} alignItems={alignItems}>
@@ -149,6 +174,24 @@ export class ListItem extends Component {
 			</ListItemWrapper>
 		)
 	}
+}
+
+SortableListItem.propTypes = {
+	isSortable: PropTypes.bool,
+	index: PropTypes.number.isRequired
+}
+
+SortableListItem.defaultProps = {
+	isSortable: true
+}
+
+SortableList.propTypes = {
+	onSortEnd: PropTypes.func,
+	useDragHandle: PropTypes.bool
+}
+
+SortableList.defaultProps = {
+	useDragHandle: true
 }
 
 ListItem.propTypes = {
