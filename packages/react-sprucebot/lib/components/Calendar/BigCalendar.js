@@ -900,43 +900,39 @@ var BigCalendar = function (_Component) {
 										)
 									);
 								}),
-								_react2.default.createElement(
+								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
+									className: "" + (idx === 0 && !renderFirstCalendar ? "hide" : ""),
+									views: views,
+									events: events ? _this3.filterEvents(events, teammate) : [],
+									eventPropGetter: function eventPropGetter(event) {
+										return _this3.applyClassNames(event);
+									},
+									onSelectEvent: function onSelectEvent(event) {
+										return _this3.handleClickEvent({ event: event, teammate: teammate, view: view, mode: mode });
+									},
+									onSelectSlot: function onSelectSlot(_ref10) {
+										var start = _ref10.start,
+										    end = _ref10.end,
+										    action = _ref10.action;
+										return _this3.handleClickOpenSlot({
+											start: start,
+											end: end,
+											action: action,
+											teammate: teammate,
+											view: view,
+											mode: mode
+										});
+									},
+									onEventDrop: _this3.handleDropEvent,
+									onEventResize: _this3.handleResizeEvent,
+									canDrag: _this3.handleCanDrag,
+									canResize: _this3.handleCanResize,
+									popup: selectedView === "month"
+								}, calendarProps)),
+								isFetching && !isLoaderOutside && _react2.default.createElement(
 									"div",
-									{ className: "loader_outer__wrapper" },
-									(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
-										className: "" + (idx === 0 && !renderFirstCalendar ? "hide" : ""),
-										views: views,
-										events: events ? _this3.filterEvents(events, teammate) : [],
-										eventPropGetter: function eventPropGetter(event) {
-											return _this3.applyClassNames(event);
-										},
-										onSelectEvent: function onSelectEvent(event) {
-											return _this3.handleClickEvent({ event: event, teammate: teammate, view: view, mode: mode });
-										},
-										onSelectSlot: function onSelectSlot(_ref10) {
-											var start = _ref10.start,
-											    end = _ref10.end,
-											    action = _ref10.action;
-											return _this3.handleClickOpenSlot({
-												start: start,
-												end: end,
-												action: action,
-												teammate: teammate,
-												view: view,
-												mode: mode
-											});
-										},
-										onEventDrop: _this3.handleDropEvent,
-										onEventResize: _this3.handleResizeEvent,
-										canDrag: _this3.handleCanDrag,
-										canResize: _this3.handleCanResize,
-										popup: selectedView === "month"
-									}, calendarProps)),
-									isFetching && !isLoaderOutside && _react2.default.createElement(
-										"div",
-										{ className: "loader__underlay" },
-										_react2.default.createElement(_Loader2.default, null)
-									)
+									{ className: "loader__underlay" },
+									_react2.default.createElement(_Loader2.default, null)
 								)
 							);
 						})
