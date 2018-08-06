@@ -8,6 +8,7 @@ import Avatar from "../Avatar/Avatar";
 import Button from "../Button/Button";
 import Calendar from "./Calendar";
 import Pager from "../Pager/Pager";
+import Loader from "../Loader/Loader";
 import { Tabs, TabPane } from "../Tabs/Tabs";
 import HorizontalWeek from "./HorizontalWeek";
 
@@ -41,7 +42,8 @@ export default class BigCalendar extends Component {
 			resized: 0,
 			events: [], // All events for current date range
 			storeSchedule: [], // Hours store is open for selected date range,
-			optionsLoaded: []
+			optionsLoaded: [],
+			isFetchingEvents: true
 		};
 		// Expected event structure:
 		// const event = {
@@ -246,13 +248,19 @@ export default class BigCalendar extends Component {
 		// const eventsLoaded = this.checkOptions(options)
 
 		// if (!eventsLoaded) {
-		this.setState({ optionsLoaded: [...optionsLoaded, options] });
+		this.setState({
+			optionsLoaded: [...optionsLoaded, options],
+			isFetchingEvents: true
+		});
 
 		triggerOnNavigate && onNavigate && onNavigate(options);
-
-		const { storeSchedule, events } = await fetchEvents(options);
-		this.setState({ storeSchedule, events });
-		// }
+		try {
+			const { storeSchedule, events } = await fetchEvents(options);
+			this.setState({ storeSchedule, events, isFetchingEvents: false });
+		} catch (err) {
+			console.log(err);
+			this.setState({ isFetchingEvents: false });
+		}
 	};
 
 	checkOptions = options => {
@@ -543,6 +551,7 @@ export default class BigCalendar extends Component {
 			onClickOpenSlot,
 			timeslots
 		} = this.props;
+
 		const {
 			selectedDate,
 			view,
@@ -553,7 +562,8 @@ export default class BigCalendar extends Component {
 			showAllTeammates,
 			renderFirstCalendar,
 			events,
-			renderAllEvents
+			renderAllEvents,
+			isFetchingEvents
 		} = this.state;
 
 		// populate views to take into account team week
@@ -601,12 +611,12 @@ export default class BigCalendar extends Component {
 			transitioning ? "transitioning" : ""
 		} ${view}`;
 
-		let team = teammates;
+		let team = mode === "team" ? teammates : [auth];
 
 		//filter authed user out and prepend
 		if (view === "month") {
 			team = [auth];
-		} else if (showAllTeammates && auth) {
+		} else if (showAllTeammates) {
 			team = team.filter(teammate => {
 				return teammate.User.id !== auth.User.id;
 			});
@@ -649,8 +659,8 @@ export default class BigCalendar extends Component {
 								<div
 									key={`calendar-wrapper-${teammate.User.id}`}
 									className={`teammate_calendar__wrapper ${
-										idx === 0 ? "" : "hide"
-									}`}
+										isFetchingEvents ? "fetching" : ""
+									} ${idx === 0 ? "" : "hide"}`}
 									style={{
 										width: teammateWrapperWidth
 									}}
@@ -710,6 +720,12 @@ export default class BigCalendar extends Component {
 											{...calendarProps}
 										/>
 									)}
+
+									{isFetchingEvents && (
+										<div className="loader__underlay">
+											<Loader />
+										</div>
+									)}
 								</div>
 							);
 						})}
@@ -727,7 +743,6 @@ BigCalendar.propTypes = {
 	defaultView: PropTypes.string.isRequired,
 	supportedModes: PropTypes.array.isRequired, //NOT IMPLEMENTED
 	defaultMode: PropTypes.string.isRequired,
-	storeSchedule: PropTypes.objectOf.isRequired,
 	teamDayViewWidth: PropTypes.number,
 	onClickEvent: PropTypes.func,
 	onClickOpenSlot: PropTypes.func,

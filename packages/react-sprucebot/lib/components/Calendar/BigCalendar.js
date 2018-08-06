@@ -44,6 +44,10 @@ var _Pager = require("../Pager/Pager");
 
 var _Pager2 = _interopRequireDefault(_Pager);
 
+var _Loader = require("../Loader/Loader");
+
+var _Loader2 = _interopRequireDefault(_Loader);
+
 var _Tabs = require("../Tabs/Tabs");
 
 var _HorizontalWeek = require("./HorizontalWeek");
@@ -281,27 +285,38 @@ var BigCalendar = function (_Component) {
 
 								// if (!eventsLoaded) {
 
-								_this.setState({ optionsLoaded: [].concat(_toConsumableArray(optionsLoaded), [options]) });
+								_this.setState({
+									optionsLoaded: [].concat(_toConsumableArray(optionsLoaded), [options]),
+									isFetchingEvents: true
+								});
 
 								triggerOnNavigate && onNavigate && onNavigate(options);
-
-								_context.next = 11;
+								_context.prev = 9;
+								_context.next = 12;
 								return fetchEvents(options);
 
-							case 11:
+							case 12:
 								_ref2 = _context.sent;
 								storeSchedule = _ref2.storeSchedule;
 								events = _ref2.events;
 
-								_this.setState({ storeSchedule: storeSchedule, events: events });
-								// }
+								_this.setState({ storeSchedule: storeSchedule, events: events, isFetchingEvents: false });
+								_context.next = 22;
+								break;
 
-							case 15:
+							case 18:
+								_context.prev = 18;
+								_context.t0 = _context["catch"](9);
+
+								console.log(_context.t0);
+								_this.setState({ isFetchingEvents: false });
+
+							case 22:
 							case "end":
 								return _context.stop();
 						}
 					}
-				}, _callee, _this2);
+				}, _callee, _this2, [[9, 18]]);
 			}));
 
 			return function () {
@@ -692,7 +707,8 @@ var BigCalendar = function (_Component) {
 			resized: 0,
 			events: [], // All events for current date range
 			storeSchedule: [], // Hours store is open for selected date range,
-			optionsLoaded: []
+			optionsLoaded: [],
+			isFetchingEvents: true
 		};
 		// Expected event structure:
 		// const event = {
@@ -731,7 +747,8 @@ var BigCalendar = function (_Component) {
 			    showAllTeammates = _state.showAllTeammates,
 			    renderFirstCalendar = _state.renderFirstCalendar,
 			    events = _state.events,
-			    renderAllEvents = _state.renderAllEvents;
+			    renderAllEvents = _state.renderAllEvents,
+			    isFetchingEvents = _state.isFetchingEvents;
 
 			// populate views to take into account team week
 
@@ -783,12 +800,12 @@ var BigCalendar = function (_Component) {
 			}
 			var classNames = (className || "") + " " + (mode === "team" ? "team" : "user") + " " + (transitioning ? "transitioning" : "") + " " + view;
 
-			var team = teammates;
+			var team = mode === "team" ? teammates : [auth];
 
 			//filter authed user out and prepend
 			if (view === "month") {
 				team = [auth];
-			} else if (showAllTeammates && auth) {
+			} else if (showAllTeammates) {
 				team = team.filter(function (teammate) {
 					return teammate.User.id !== auth.User.id;
 				});
@@ -844,7 +861,7 @@ var BigCalendar = function (_Component) {
 								"div",
 								{
 									key: "calendar-wrapper-" + teammate.User.id,
-									className: "teammate_calendar__wrapper " + (idx === 0 ? "" : "hide"),
+									className: "teammate_calendar__wrapper " + (isFetchingEvents ? "fetching" : "") + " " + (idx === 0 ? "" : "hide"),
 									style: {
 										width: teammateWrapperWidth
 									}
@@ -907,7 +924,12 @@ var BigCalendar = function (_Component) {
 									canDrag: _this3.handleCanDrag,
 									canResize: _this3.handleCanResize,
 									popup: selectedView === "month"
-								}, calendarProps))
+								}, calendarProps)),
+								isFetchingEvents && _react2.default.createElement(
+									"div",
+									{ className: "loader__underlay" },
+									_react2.default.createElement(_Loader2.default, null)
+								)
 							);
 						})
 					)
@@ -929,7 +951,6 @@ BigCalendar.propTypes = {
 	defaultView: _propTypes2.default.string.isRequired,
 	supportedModes: _propTypes2.default.array.isRequired, //NOT IMPLEMENTED
 	defaultMode: _propTypes2.default.string.isRequired,
-	storeSchedule: _propTypes2.default.objectOf.isRequired,
 	teamDayViewWidth: _propTypes2.default.number,
 	onClickEvent: _propTypes2.default.func,
 	onClickOpenSlot: _propTypes2.default.func,
