@@ -652,7 +652,7 @@ export default class BigCalendar extends Component {
 					</Button>
 				</div>
 				<div
-					className={`calendars__wrapper`}
+					className={`calendars__wrapper ${isFetching ? "fetching" : ""}`}
 					ref={ref => {
 						this.calendarWrapper = ref;
 					}}

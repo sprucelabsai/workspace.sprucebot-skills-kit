@@ -849,7 +849,7 @@ var BigCalendar = function (_Component) {
 				_react2.default.createElement(
 					"div",
 					{
-						className: "calendars__wrapper",
+						className: "calendars__wrapper " + (isFetching ? "fetching" : ""),
 						ref: function ref(_ref11) {
 							_this3.calendarWrapper = _ref11;
 						}
