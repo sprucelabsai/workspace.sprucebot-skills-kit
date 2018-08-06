@@ -388,7 +388,7 @@ export default class BigCalendar extends Component {
 
 		calendars.forEach(element => {
 			setTimeout(() => {
-				element.classList.toggle("hide");
+				element.classList.toggle("hide", false);
 			}, delay);
 			delay += delayBump;
 		});
@@ -622,6 +622,13 @@ export default class BigCalendar extends Component {
 			});
 			team = [auth, ...team];
 		}
+
+		let isFetching = isFetchingEvents || transitioning;
+		let isLoaderOutside =
+			(view === "day" && mode === "team") ||
+			(view === "week" && mode === "user") ||
+			view === "month";
+
 		return (
 			<div className={`big_calendar ${classNames}`}>
 				<Tabs
@@ -659,8 +666,8 @@ export default class BigCalendar extends Component {
 								<div
 									key={`calendar-wrapper-${teammate.User.id}`}
 									className={`teammate_calendar__wrapper ${
-										isFetchingEvents ? "fetching" : ""
-									} ${idx === 0 ? "" : "hide"}`}
+										idx === 0 ? "" : "hide"
+									}`}
 									style={{
 										width: teammateWrapperWidth
 									}}
@@ -721,15 +728,22 @@ export default class BigCalendar extends Component {
 										/>
 									)}
 
-									{isFetchingEvents && (
-										<div className="loader__underlay">
-											<Loader />
-										</div>
-									)}
+									{isFetching &&
+										!isLoaderOutside && (
+											<div className="loader__underlay">
+												<Loader />
+											</div>
+										)}
 								</div>
 							);
 						})}
 					</div>
+					{isFetching &&
+						isLoaderOutside && (
+							<div className="loader__underlay">
+								<Loader />
+							</div>
+						)}
 				</div>
 			</div>
 		);

@@ -482,7 +482,7 @@ var BigCalendar = function (_Component) {
 
 			calendars.forEach(function (element) {
 				setTimeout(function () {
-					element.classList.toggle("hide");
+					element.classList.toggle("hide", false);
 				}, delay);
 				delay += delayBump;
 			});
@@ -811,6 +811,10 @@ var BigCalendar = function (_Component) {
 				});
 				team = [auth].concat(_toConsumableArray(team));
 			}
+
+			var isFetching = isFetchingEvents || transitioning;
+			var isLoaderOutside = view === "day" && mode === "team" || view === "week" && mode === "user" || view === "month";
+
 			return _react2.default.createElement(
 				"div",
 				{ className: "big_calendar " + classNames },
@@ -861,7 +865,7 @@ var BigCalendar = function (_Component) {
 								"div",
 								{
 									key: "calendar-wrapper-" + teammate.User.id,
-									className: "teammate_calendar__wrapper " + (isFetchingEvents ? "fetching" : "") + " " + (idx === 0 ? "" : "hide"),
+									className: "teammate_calendar__wrapper " + (idx === 0 ? "" : "hide"),
 									style: {
 										width: teammateWrapperWidth
 									}
@@ -925,13 +929,18 @@ var BigCalendar = function (_Component) {
 									canResize: _this3.handleCanResize,
 									popup: selectedView === "month"
 								}, calendarProps)),
-								isFetchingEvents && _react2.default.createElement(
+								isFetching && !isLoaderOutside && _react2.default.createElement(
 									"div",
 									{ className: "loader__underlay" },
 									_react2.default.createElement(_Loader2.default, null)
 								)
 							);
 						})
+					),
+					isFetching && isLoaderOutside && _react2.default.createElement(
+						"div",
+						{ className: "loader__underlay" },
+						_react2.default.createElement(_Loader2.default, null)
 					)
 				)
 			);
