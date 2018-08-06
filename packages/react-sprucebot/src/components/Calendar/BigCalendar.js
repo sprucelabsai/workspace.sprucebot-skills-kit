@@ -503,16 +503,16 @@ export default class BigCalendar extends Component {
 		return { className: `${event.className || ""}` };
 	};
 
-	handleClickEvent = options => {
+	handleClickEvent = (options, e) => {
 		const { onClickEvent } = this.props;
 
-		onClickEvent && onClickEvent(options);
+		onClickEvent && onClickEvent(options, e);
 	};
 
-	handleClickOpenSlot = options => {
+	handleClickOpenSlot = (options, e) => {
 		const { onClickOpenSlot } = this.props;
 
-		onClickOpenSlot && onClickOpenSlot(options);
+		onClickOpenSlot && onClickOpenSlot(options, e);
 	};
 
 	handleDropEvent = ({ event, start, end }) => {
@@ -712,18 +712,24 @@ export default class BigCalendar extends Component {
 											views={views}
 											events={events ? this.filterEvents(events, teammate) : []}
 											eventPropGetter={event => this.applyClassNames(event)}
-											onSelectEvent={event =>
-												this.handleClickEvent({ event, teammate, view, mode })
+											onSelectEvent={(event, e) =>
+												this.handleClickEvent(
+													{ event, teammate, view, mode },
+													e
+												)
 											}
-											onSelectSlot={({ start, end, action }) =>
-												this.handleClickOpenSlot({
-													start,
-													end,
-													action,
-													teammate,
-													view,
-													mode
-												})
+											onSelectSlot={({ start, end, action }, e) =>
+												this.handleClickOpenSlot(
+													{
+														start,
+														end,
+														action,
+														teammate,
+														view,
+														mode
+													},
+													e
+												)
 											}
 											onEventDrop={this.handleDropEvent}
 											onEventResize={this.handleResizeEvent}

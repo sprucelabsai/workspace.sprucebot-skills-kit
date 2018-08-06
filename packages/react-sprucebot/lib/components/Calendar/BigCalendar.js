@@ -637,18 +637,18 @@ var BigCalendar = function (_Component) {
 			return { className: "" + (event.className || "") };
 		};
 
-		_this.handleClickEvent = function (options) {
+		_this.handleClickEvent = function (options, e) {
 			var onClickEvent = _this.props.onClickEvent;
 
 
-			onClickEvent && onClickEvent(options);
+			onClickEvent && onClickEvent(options, e);
 		};
 
-		_this.handleClickOpenSlot = function (options) {
+		_this.handleClickOpenSlot = function (options, e) {
 			var onClickOpenSlot = _this.props.onClickOpenSlot;
 
 
-			onClickOpenSlot && onClickOpenSlot(options);
+			onClickOpenSlot && onClickOpenSlot(options, e);
 		};
 
 		_this.handleDropEvent = function (_ref8) {
@@ -915,10 +915,10 @@ var BigCalendar = function (_Component) {
 									eventPropGetter: function eventPropGetter(event) {
 										return _this3.applyClassNames(event);
 									},
-									onSelectEvent: function onSelectEvent(event) {
-										return _this3.handleClickEvent({ event: event, teammate: teammate, view: view, mode: mode });
+									onSelectEvent: function onSelectEvent(event, e) {
+										return _this3.handleClickEvent({ event: event, teammate: teammate, view: view, mode: mode }, e);
 									},
-									onSelectSlot: function onSelectSlot(_ref10) {
+									onSelectSlot: function onSelectSlot(_ref10, e) {
 										var start = _ref10.start,
 										    end = _ref10.end,
 										    action = _ref10.action;
@@ -929,7 +929,7 @@ var BigCalendar = function (_Component) {
 											teammate: teammate,
 											view: view,
 											mode: mode
-										});
+										}, e);
 									},
 									onEventDrop: _this3.handleDropEvent,
 									onEventResize: _this3.handleResizeEvent,
