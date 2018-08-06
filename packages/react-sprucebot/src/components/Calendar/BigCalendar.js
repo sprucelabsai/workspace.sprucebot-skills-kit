@@ -697,43 +697,47 @@ export default class BigCalendar extends Component {
 											</div>
 										))}
 
-									{((idx === 0 && renderFirstCalendar) ||
-										(idx > 0 && renderAllCalendars)) && (
-										<Calendar
-											className={`${
-												idx === 0 && !renderFirstCalendar ? "hide" : ""
-											}`}
-											views={views}
-											events={events ? this.filterEvents(events, teammate) : []}
-											eventPropGetter={event => this.applyClassNames(event)}
-											onSelectEvent={event =>
-												this.handleClickEvent({ event, teammate, view, mode })
-											}
-											onSelectSlot={({ start, end, action }) =>
-												this.handleClickOpenSlot({
-													start,
-													end,
-													action,
-													teammate,
-													view,
-													mode
-												})
-											}
-											onEventDrop={this.handleDropEvent}
-											onEventResize={this.handleResizeEvent}
-											canDrag={this.handleCanDrag}
-											canResize={this.handleCanResize}
-											popup={selectedView === "month"}
-											{...calendarProps}
-										/>
-									)}
-
-									{isFetching &&
-										!isLoaderOutside && (
-											<div className="loader__underlay">
-												<Loader />
-											</div>
+									<div className="loader_outer__wrapper">
+										{((idx === 0 && renderFirstCalendar) ||
+											(idx > 0 && renderAllCalendars)) && (
+											<Calendar
+												className={`${
+													idx === 0 && !renderFirstCalendar ? "hide" : ""
+												}`}
+												views={views}
+												events={
+													events ? this.filterEvents(events, teammate) : []
+												}
+												eventPropGetter={event => this.applyClassNames(event)}
+												onSelectEvent={event =>
+													this.handleClickEvent({ event, teammate, view, mode })
+												}
+												onSelectSlot={({ start, end, action }) =>
+													this.handleClickOpenSlot({
+														start,
+														end,
+														action,
+														teammate,
+														view,
+														mode
+													})
+												}
+												onEventDrop={this.handleDropEvent}
+												onEventResize={this.handleResizeEvent}
+												canDrag={this.handleCanDrag}
+												canResize={this.handleCanResize}
+												popup={selectedView === "month"}
+												{...calendarProps}
+											/>
 										)}
+
+										{isFetching &&
+											!isLoaderOutside && (
+												<div className="loader__underlay">
+													<Loader />
+												</div>
+											)}
+									</div>
 								</div>
 							);
 						})}
