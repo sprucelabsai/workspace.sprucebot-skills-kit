@@ -745,7 +745,7 @@ class Calendar extends Component {
 			const start = moment(`${event.date} ${event.startTime}`);
 			return start.toDate();
 		} else {
-			return event.start;
+			return moment(event.start).toDate();
 		}
 	};
 
@@ -754,7 +754,7 @@ class Calendar extends Component {
 			const end = moment(`${event.date} ${event.endTime}`);
 			return end.toDate();
 		} else {
-			return event.end;
+			return moment(event.end).toDate();
 		}
 	};
 

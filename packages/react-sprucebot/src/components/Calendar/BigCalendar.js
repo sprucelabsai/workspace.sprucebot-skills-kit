@@ -339,8 +339,12 @@ export default class BigCalendar extends Component {
 
 		if (combinedTimes.length !== 0) {
 			combinedTimes.forEach(event => {
-				const start = moment(`${day} ${event.startTime}`).subtract(2, "hour");
-				const end = moment(`${day} ${event.endTime}`).add(2, "hour");
+				const start = moment(`${day} ${event.startTime}`)
+					.startOf("hour")
+					.subtract(2, "hour");
+				const end = moment(`${day} ${event.endTime}`)
+					.endOf("hour")
+					.add(2, "hour");
 
 				if (!earliest || earliest.diff(start) > 0) {
 					earliest = start;

@@ -441,8 +441,8 @@ var BigCalendar = function (_Component) {
 
 			if (combinedTimes.length !== 0) {
 				combinedTimes.forEach(function (event) {
-					var start = (0, _moment2.default)(day + " " + event.startTime).subtract(2, "hour");
-					var end = (0, _moment2.default)(day + " " + event.endTime).add(2, "hour");
+					var start = (0, _moment2.default)(day + " " + event.startTime).startOf("hour").subtract(2, "hour");
+					var end = (0, _moment2.default)(day + " " + event.endTime).endOf("hour").add(2, "hour");
 
 					if (!earliest || earliest.diff(start) > 0) {
 						earliest = start;
