@@ -741,21 +741,11 @@ class Calendar extends Component {
 	};
 
 	startAccessor = event => {
-		if (event.startTime) {
-			const start = moment(`${event.date} ${event.startTime}`);
-			return start.toDate();
-		} else {
-			return moment(event.start).toDate();
-		}
+		return moment(event.start).toDate();
 	};
 
 	endAccessor = event => {
-		if (event.endTime) {
-			const end = moment(`${event.date} ${event.endTime}`);
-			return end.toDate();
-		} else {
-			return moment(event.end).toDate();
-		}
+		return moment(event.end).toDate();
 	};
 
 	render() {

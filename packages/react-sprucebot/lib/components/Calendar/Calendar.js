@@ -87,19 +87,9 @@ var Calendar = function (_Component) {
 			// Not fired with current build but causes error if omitted
 			console.log("onNavigate", e);
 		}, _this.startAccessor = function (event) {
-			if (event.startTime) {
-				var start = (0, _moment2.default)(event.date + " " + event.startTime);
-				return start.toDate();
-			} else {
-				return (0, _moment2.default)(event.start).toDate();
-			}
+			return (0, _moment2.default)(event.start).toDate();
 		}, _this.endAccessor = function (event) {
-			if (event.endTime) {
-				var end = (0, _moment2.default)(event.date + " " + event.endTime);
-				return end.toDate();
-			} else {
-				return (0, _moment2.default)(event.end).toDate();
-			}
+			return (0, _moment2.default)(event.end).toDate();
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
