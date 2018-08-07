@@ -423,8 +423,18 @@ var BigCalendar = function (_Component) {
 			    storeSchedule = _this$state7.storeSchedule,
 			    events = _this$state7.events;
 
+
+			var adjustedEvents = events.filter(function (event) {
+				return !event.allDay;
+			}).map(function (event) {
+				return {
+					startTime: (0, _moment2.default)(event.start).format('HH:mm:ss'),
+					endTime: (0, _moment2.default)(event.end).format('HH:mm:ss')
+				};
+			});
+
 			var day = selectedDate.format('YYYY-MM-DD');
-			var combinedTimes = [].concat(_toConsumableArray(storeSchedule), _toConsumableArray(events.filter(function (event) {
+			var combinedTimes = [].concat(_toConsumableArray(storeSchedule), _toConsumableArray(adjustedEvents.filter(function (event) {
 				if (event.startTime && event.endTime) {
 					return event;
 				}

@@ -319,10 +319,16 @@ export default class BigCalendar extends Component {
 	//the earliest and latest time of all schedules
 	timeRange = () => {
 		const { selectedDate, storeSchedule, events } = this.state
+
+		const adjustedEvents = events.filter(event => !event.allDay).map(event => ({
+			startTime: moment(event.start).format('HH:mm:ss'),
+			endTime: moment(event.end).format('HH:mm:ss')
+		}))
+
 		const day = selectedDate.format('YYYY-MM-DD')
 		const combinedTimes = [
 			...storeSchedule,
-			...events
+			...adjustedEvents
 				.filter(event => {
 					if (event.startTime && event.endTime) {
 						return event
