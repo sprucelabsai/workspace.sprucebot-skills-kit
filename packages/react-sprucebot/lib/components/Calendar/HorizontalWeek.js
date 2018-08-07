@@ -36,11 +36,11 @@ var TeamWeek = function (_Component) {
 			args[_key] = arguments[_key];
 		}
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TeamWeek.__proto__ || Object.getPrototypeOf(TeamWeek)).call.apply(_ref, [this].concat(args))), _this), _this.handleOnClick = function (event) {
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TeamWeek.__proto__ || Object.getPrototypeOf(TeamWeek)).call.apply(_ref, [this].concat(args))), _this), _this.handleOnClick = function (event, e) {
 			var onSelectEvent = _this.props.onSelectEvent;
 
 
-			onSelectEvent && onSelectEvent(event);
+			onSelectEvent && onSelectEvent(event, e);
 		}, _this.renderDayEvents = function (events, date) {
 			var _this$props = _this.props,
 			    max = _this$props.max,
@@ -66,8 +66,9 @@ var TeamWeek = function (_Component) {
 				return _react2.default.createElement(
 					'div',
 					{
-						onClick: function onClick() {
-							return _this.handleOnClick(event);
+						key: event.userId + '_' + event.start,
+						onClick: function onClick(e) {
+							return _this.handleOnClick(event, e);
 						},
 						className: 'rbc-event event-' + index + ' ' + (event.className || ''),
 						style: {
@@ -144,9 +145,10 @@ var TeamWeek = function (_Component) {
 										return _react2.default.createElement(
 											'div',
 											{
+												key: event.title + '_' + event.start,
 												className: 'rbc-event ' + (event.className || ''),
-												onClick: function onClick() {
-													return _this2.handleOnClick(event);
+												onClick: function onClick(e) {
+													return _this2.handleOnClick(event, e);
 												}
 											},
 											event.title
