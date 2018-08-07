@@ -218,6 +218,7 @@ var Dialog = function (_Component) {
 			this.focus();
 			currentDialogs.push(this);
 			this.updateIndexes();
+			_skillskit2.default.showUnderlay();
 
 			if (!timerRunning) {
 				timerRunning = true;
@@ -294,6 +295,7 @@ var Dialog = function (_Component) {
 					_skillskit2.default.scrollTo(node.offsetTop - dialogVerticalPadding);
 				} else {
 					dialogUnderlay.classList.add('hidden');
+					_skillskit2.default.hideUnderlay();
 					setTimeout(function () {
 						_skillskit2.default.clearMinBodyHeight();
 						dialogUnderlay.classList.remove('on');

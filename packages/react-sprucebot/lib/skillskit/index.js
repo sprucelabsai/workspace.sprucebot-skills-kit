@@ -40,6 +40,13 @@ var skill = {
 	clearMinBodyHeight: function clearMinBodyHeight() {
 		this.minHeight = 0;
 	},
+	showUnderlay: function showUnderlay() {
+		postMessage('Skill:ShowUnderlay');
+	},
+
+	hideUnderlay: function hideUnderlay() {
+		postMessage('Skill:HideUnderlay');
+	},
 	back: function back() {
 		if (window.top === window.self) {
 			window.history.back();
