@@ -10,10 +10,10 @@ export default class TeamWeek extends Component {
 		console.log('TEAM WEEK', date)
 	}
 
-	handleOnClick = event => {
+	handleOnClick = (event, e) => {
 		const { onSelectEvent } = this.props
 
-		onSelectEvent && onSelectEvent(event)
+		onSelectEvent && onSelectEvent(event, e)
 	}
 
 	renderDayEvents = (events, date) => {
@@ -43,7 +43,8 @@ export default class TeamWeek extends Component {
 
 				return (
 					<div
-						onClick={() => this.handleOnClick(event)}
+						key={`${event.userId}_${event.start}`}
+						onClick={e => this.handleOnClick(event, e)}
 						className={`rbc-event event-${index} ${event.className || ''}`}
 						style={{
 							left: `${left}%`,
@@ -100,8 +101,9 @@ export default class TeamWeek extends Component {
 											.map(event => {
 												return (
 													<div
+														key={`${event.title}_${event.start}`}
 														className={`rbc-event ${event.className || ''}`}
-														onClick={() => this.handleOnClick(event)}
+														onClick={e => this.handleOnClick(event, e)}
 													>
 														{event.title}
 													</div>
