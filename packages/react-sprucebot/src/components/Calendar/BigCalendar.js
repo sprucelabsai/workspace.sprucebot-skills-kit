@@ -7,12 +7,14 @@ import { Tween, autoPlay, Easing } from 'es6-tween'
 import Avatar from '../Avatar/Avatar'
 import Button from '../Button/Button'
 import Calendar from './Calendar'
+import ControlButton from '../ControlButton/ControlButton'
 import DateSelect from '../DateSelect/DateSelect'
 import Dialog from '../Dialog/Dialog'
-import Pager from '../Pager/Pager'
-import Loader from '../Loader/Loader'
-import { Tabs, TabPane } from '../Tabs/Tabs'
 import HorizontalWeek from './HorizontalWeek'
+import Icon from '../Icon/Icon'
+import Loader from '../Loader/Loader'
+import Pager from '../Pager/Pager'
+import { Tabs, TabPane } from '../Tabs/Tabs'
 
 autoPlay(true)
 
@@ -140,7 +142,14 @@ export default class BigCalendar extends Component {
 			}
 		}
 
-		return title
+		return (
+			<ControlButton
+				className={`sub_control`}
+				onClick={this.handleShowScheduleDateDialog}
+			>
+				{title} <Icon>keyboard_arrow_down</Icon>
+			</ControlButton>
+		)
 	}
 
 	getDesiredTeammateWrapperWidth = () => {
@@ -559,6 +568,10 @@ export default class BigCalendar extends Component {
 	/**
 	 * DATE SELECT METHODS
 	 */
+	handleShowScheduleDateDialog = () => {
+		this.setState({ isSelectingScheduleDate: true })
+	}
+
 	handleHideScheduleDateDialog = () => {
 		this.setState({ isSelectingScheduleDate: false })
 	}

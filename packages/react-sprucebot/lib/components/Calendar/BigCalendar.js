@@ -40,6 +40,10 @@ var _Calendar = require('./Calendar');
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
+var _ControlButton = require('../ControlButton/ControlButton');
+
+var _ControlButton2 = _interopRequireDefault(_ControlButton);
+
 var _DateSelect = require('../DateSelect/DateSelect');
 
 var _DateSelect2 = _interopRequireDefault(_DateSelect);
@@ -48,19 +52,23 @@ var _Dialog = require('../Dialog/Dialog');
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
 
-var _Pager = require('../Pager/Pager');
+var _HorizontalWeek = require('./HorizontalWeek');
 
-var _Pager2 = _interopRequireDefault(_Pager);
+var _HorizontalWeek2 = _interopRequireDefault(_HorizontalWeek);
+
+var _Icon = require('../Icon/Icon');
+
+var _Icon2 = _interopRequireDefault(_Icon);
 
 var _Loader = require('../Loader/Loader');
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
+var _Pager = require('../Pager/Pager');
+
+var _Pager2 = _interopRequireDefault(_Pager);
+
 var _Tabs = require('../Tabs/Tabs');
-
-var _HorizontalWeek = require('./HorizontalWeek');
-
-var _HorizontalWeek2 = _interopRequireDefault(_HorizontalWeek);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -169,7 +177,20 @@ var BigCalendar = function (_Component) {
 				}
 			}
 
-			return title;
+			return _react2.default.createElement(
+				_ControlButton2.default,
+				{
+					className: 'sub_control',
+					onClick: _this.handleShowScheduleDateDialog
+				},
+				title,
+				' ',
+				_react2.default.createElement(
+					_Icon2.default,
+					null,
+					'keyboard_arrow_down'
+				)
+			);
 		};
 
 		_this.getDesiredTeammateWrapperWidth = function () {
@@ -704,6 +725,10 @@ var BigCalendar = function (_Component) {
 			if (canResize) {
 				return canResize(event);
 			}
+		};
+
+		_this.handleShowScheduleDateDialog = function () {
+			_this.setState({ isSelectingScheduleDate: true });
 		};
 
 		_this.handleHideScheduleDateDialog = function () {
