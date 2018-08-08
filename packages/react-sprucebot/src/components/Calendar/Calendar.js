@@ -223,9 +223,6 @@ const CalendarWrapper = styled.div.attrs({
 		cursor: inherit;
 		pointer-events: none;
 	}
-	.rbc-event.rbc-selected {
-		background-color: #265985;
-	}
 	.rbc-event-label {
 		font-size: 80%;
 	}
