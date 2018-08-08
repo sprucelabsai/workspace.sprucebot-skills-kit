@@ -579,7 +579,7 @@ export default class BigCalendar extends Component {
 	handleScheduleDateSelect = async date => {
 		await this.setState({
 			isSelectingScheduleDate: false,
-			selectedDate: data
+			selectedDate: date
 		})
 		this.refresh()
 	}
@@ -701,7 +701,7 @@ export default class BigCalendar extends Component {
 					>
 						<DateSelect
 							defaultDate={selectedDate}
-							initialVisibleMonth={selectedDate}
+							initialVisibleMonth={() => selectedDate}
 							onDateSelect={this.handleScheduleDateSelect}
 							allowPastDates
 						/>

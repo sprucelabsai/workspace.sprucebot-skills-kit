@@ -744,7 +744,7 @@ var BigCalendar = function (_Component) {
 								_context6.next = 2;
 								return _this.setState({
 									isSelectingScheduleDate: false,
-									selectedDate: data
+									selectedDate: date
 								});
 
 							case 2:
@@ -923,7 +923,9 @@ var BigCalendar = function (_Component) {
 					},
 					_react2.default.createElement(_DateSelect2.default, {
 						defaultDate: selectedDate,
-						initialVisibleMonth: selectedDate,
+						initialVisibleMonth: function initialVisibleMonth() {
+							return selectedDate;
+						},
 						onDateSelect: this.handleScheduleDateSelect,
 						allowPastDates: true
 					}),
