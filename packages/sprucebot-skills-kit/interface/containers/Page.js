@@ -1,5 +1,5 @@
 import { Page, withStore } from 'react-sprucebot'
-import config from 'config'
+import config from './../client'
 import actions from './../store/actions'
 import reducers from './../store/reducers'
 import { lang } from 'react-sprucebot'
