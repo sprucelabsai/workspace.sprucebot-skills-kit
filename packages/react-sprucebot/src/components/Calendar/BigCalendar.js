@@ -7,10 +7,14 @@ import { Tween, autoPlay, Easing } from 'es6-tween'
 import Avatar from '../Avatar/Avatar'
 import Button from '../Button/Button'
 import Calendar from './Calendar'
-import Pager from '../Pager/Pager'
-import Loader from '../Loader/Loader'
-import { Tabs, TabPane } from '../Tabs/Tabs'
+import ControlButton from '../ControlButton/ControlButton'
+import DateSelect from '../DateSelect/DateSelect'
+import Dialog from '../Dialog/Dialog'
 import HorizontalWeek from './HorizontalWeek'
+import Icon from '../Icon/Icon'
+import Loader from '../Loader/Loader'
+import Pager from '../Pager/Pager'
+import { Tabs, TabPane } from '../Tabs/Tabs'
 
 autoPlay(true)
 
@@ -43,7 +47,8 @@ export default class BigCalendar extends Component {
 			events: [], // All events for current date range
 			storeSchedule: [], // Hours store is open for selected date range,
 			optionsLoaded: [],
-			isFetchingEvents: true
+			isFetchingEvents: true,
+			isSelectingScheduleDate: false
 		}
 		// Expected event structure:
 		// const event = {
@@ -137,7 +142,14 @@ export default class BigCalendar extends Component {
 			}
 		}
 
-		return title
+		return (
+			<ControlButton
+				className={`sub_control`}
+				onClick={this.handleShowScheduleDateDialog}
+			>
+				{title} <Icon>keyboard_arrow_down</Icon>
+			</ControlButton>
+		)
 	}
 
 	getDesiredTeammateWrapperWidth = () => {
@@ -553,6 +565,29 @@ export default class BigCalendar extends Component {
 		}
 	}
 
+	/**
+	 * DATE SELECT METHODS
+	 */
+	handleShowScheduleDateDialog = () => {
+		this.setState({ isSelectingScheduleDate: true })
+	}
+
+	handleHideScheduleDateDialog = () => {
+		this.setState({ isSelectingScheduleDate: false })
+	}
+
+	handleScheduleDateSelect = async date => {
+		await this.setState({
+			isSelectingScheduleDate: false,
+			selectedDate: date
+		})
+		this.refresh()
+	}
+
+	handleSelectToday = () => {
+		this.handleScheduleDateSelect(moment())
+	}
+
 	render() {
 		const {
 			auth,
@@ -574,7 +609,8 @@ export default class BigCalendar extends Component {
 			renderFirstCalendar,
 			events,
 			renderAllEvents,
-			isFetchingEvents
+			isFetchingEvents,
+			isSelectingScheduleDate
 		} = this.state
 
 		// populate views to take into account team week
@@ -615,6 +651,16 @@ export default class BigCalendar extends Component {
 			max: max.toDate()
 		}
 
+		// Determine selected date in relation to today
+		const today = moment()
+			.tz(auth.Location.timezone)
+			.startOf('day')
+		const selectedDateStart = moment
+			.tz(selectedDate, auth.Location.timezone)
+			.startOf('day')
+		const isToday = today.isSame(selectedDateStart)
+
+		// Optionally passed calendar props
 		if (timeslots) {
 			calendarProps.timeslots = timeslots
 		}
@@ -647,6 +693,26 @@ export default class BigCalendar extends Component {
 
 		return (
 			<div className={`big_calendar ${classNames}`}>
+				{isSelectingScheduleDate && (
+					<Dialog
+						title={`Jump To Day`}
+						className={`schedule_calendar_select`}
+						onTapClose={this.handleHideScheduleDateDialog}
+					>
+						<DateSelect
+							defaultDate={selectedDate}
+							initialVisibleMonth={() => selectedDate}
+							onDateSelect={this.handleScheduleDateSelect}
+							allowPastDates
+						/>
+						{!isToday && (
+							<Button
+								primary
+								onClick={this.handleSelectToday}
+							>{`Jump to Today`}</Button>
+						)}
+					</Dialog>
+				)}
 				<Tabs
 					ref={element => (this.tabs = element)}
 					onChange={this.handleChangeView}

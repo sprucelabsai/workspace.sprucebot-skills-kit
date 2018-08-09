@@ -40,19 +40,35 @@ var _Calendar = require('./Calendar');
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
-var _Pager = require('../Pager/Pager');
+var _ControlButton = require('../ControlButton/ControlButton');
 
-var _Pager2 = _interopRequireDefault(_Pager);
+var _ControlButton2 = _interopRequireDefault(_ControlButton);
+
+var _DateSelect = require('../DateSelect/DateSelect');
+
+var _DateSelect2 = _interopRequireDefault(_DateSelect);
+
+var _Dialog = require('../Dialog/Dialog');
+
+var _Dialog2 = _interopRequireDefault(_Dialog);
+
+var _HorizontalWeek = require('./HorizontalWeek');
+
+var _HorizontalWeek2 = _interopRequireDefault(_HorizontalWeek);
+
+var _Icon = require('../Icon/Icon');
+
+var _Icon2 = _interopRequireDefault(_Icon);
 
 var _Loader = require('../Loader/Loader');
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
+var _Pager = require('../Pager/Pager');
+
+var _Pager2 = _interopRequireDefault(_Pager);
+
 var _Tabs = require('../Tabs/Tabs');
-
-var _HorizontalWeek = require('./HorizontalWeek');
-
-var _HorizontalWeek2 = _interopRequireDefault(_HorizontalWeek);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -161,7 +177,20 @@ var BigCalendar = function (_Component) {
 				}
 			}
 
-			return title;
+			return _react2.default.createElement(
+				_ControlButton2.default,
+				{
+					className: 'sub_control',
+					onClick: _this.handleShowScheduleDateDialog
+				},
+				title,
+				' ',
+				_react2.default.createElement(
+					_Icon2.default,
+					null,
+					'keyboard_arrow_down'
+				)
+			);
 		};
 
 		_this.getDesiredTeammateWrapperWidth = function () {
@@ -698,6 +727,46 @@ var BigCalendar = function (_Component) {
 			}
 		};
 
+		_this.handleShowScheduleDateDialog = function () {
+			_this.setState({ isSelectingScheduleDate: true });
+		};
+
+		_this.handleHideScheduleDateDialog = function () {
+			_this.setState({ isSelectingScheduleDate: false });
+		};
+
+		_this.handleScheduleDateSelect = function () {
+			var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(date) {
+				return regeneratorRuntime.wrap(function _callee6$(_context6) {
+					while (1) {
+						switch (_context6.prev = _context6.next) {
+							case 0:
+								_context6.next = 2;
+								return _this.setState({
+									isSelectingScheduleDate: false,
+									selectedDate: date
+								});
+
+							case 2:
+								_this.refresh();
+
+							case 3:
+							case 'end':
+								return _context6.stop();
+						}
+					}
+				}, _callee6, _this2);
+			}));
+
+			return function (_x4) {
+				return _ref10.apply(this, arguments);
+			};
+		}();
+
+		_this.handleSelectToday = function () {
+			_this.handleScheduleDateSelect((0, _moment2.default)());
+		};
+
 		_this.state = {
 			currentPage: 0,
 			view: props.defaultView,
@@ -717,7 +786,8 @@ var BigCalendar = function (_Component) {
 			events: [], // All events for current date range
 			storeSchedule: [], // Hours store is open for selected date range,
 			optionsLoaded: [],
-			isFetchingEvents: true
+			isFetchingEvents: true,
+			isSelectingScheduleDate: false
 			// Expected event structure:
 			// const event = {
 			// 	title: 'My favorite event',
@@ -732,6 +802,11 @@ var BigCalendar = function (_Component) {
 	}
 
 	//the earliest and latest time of all schedules
+
+
+	/**
+  * DATE SELECT METHODS
+  */
 
 
 	_createClass(BigCalendar, [{
@@ -757,7 +832,8 @@ var BigCalendar = function (_Component) {
 			    renderFirstCalendar = _state.renderFirstCalendar,
 			    events = _state.events,
 			    renderAllEvents = _state.renderAllEvents,
-			    isFetchingEvents = _state.isFetchingEvents;
+			    isFetchingEvents = _state.isFetchingEvents,
+			    isSelectingScheduleDate = _state.isSelectingScheduleDate;
 
 			// populate views to take into account team week
 
@@ -801,8 +877,13 @@ var BigCalendar = function (_Component) {
 				date: selectedDate.toDate(),
 				min: min.toDate(),
 				max: max.toDate()
-			};
 
+				// Determine selected date in relation to today
+			};var today = (0, _moment2.default)().tz(auth.Location.timezone).startOf('day');
+			var selectedDateStart = _moment2.default.tz(selectedDate, auth.Location.timezone).startOf('day');
+			var isToday = today.isSame(selectedDateStart);
+
+			// Optionally passed calendar props
 			if (timeslots) {
 				calendarProps.timeslots = timeslots;
 			}
@@ -833,6 +914,30 @@ var BigCalendar = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'big_calendar ' + classNames },
+				isSelectingScheduleDate && _react2.default.createElement(
+					_Dialog2.default,
+					{
+						title: 'Jump To Day',
+						className: 'schedule_calendar_select',
+						onTapClose: this.handleHideScheduleDateDialog
+					},
+					_react2.default.createElement(_DateSelect2.default, {
+						defaultDate: selectedDate,
+						initialVisibleMonth: function initialVisibleMonth() {
+							return selectedDate;
+						},
+						onDateSelect: this.handleScheduleDateSelect,
+						allowPastDates: true
+					}),
+					!isToday && _react2.default.createElement(
+						_Button2.default,
+						{
+							primary: true,
+							onClick: this.handleSelectToday
+						},
+						'Jump to Today'
+					)
+				),
 				_react2.default.createElement(
 					_Tabs.Tabs,
 					{
@@ -865,8 +970,8 @@ var BigCalendar = function (_Component) {
 					'div',
 					{
 						className: 'calendars__wrapper ' + (isFetching ? 'fetching' : ''),
-						ref: function ref(_ref11) {
-							_this3.calendarWrapper = _ref11;
+						ref: function ref(_ref12) {
+							_this3.calendarWrapper = _ref12;
 						}
 					},
 					_react2.default.createElement(
@@ -925,10 +1030,10 @@ var BigCalendar = function (_Component) {
 									onSelectEvent: function onSelectEvent(event, e) {
 										return _this3.handleClickEvent({ event: event, teammate: teammate, view: view, mode: mode }, e);
 									},
-									onSelectSlot: function onSelectSlot(_ref10, e) {
-										var start = _ref10.start,
-										    end = _ref10.end,
-										    action = _ref10.action;
+									onSelectSlot: function onSelectSlot(_ref11, e) {
+										var start = _ref11.start,
+										    end = _ref11.end,
+										    action = _ref11.action;
 										return _this3.handleClickOpenSlot({
 											start: start,
 											end: end,
