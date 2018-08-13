@@ -1,5 +1,5 @@
 {
-	"name": "sprucebot-skills-kit-server",
+	"name": "@sprucelabs/sprucebot-skills-kit-server",
 	"description": "The engine that drives your Sprucebot Skill! ⚙️🌲🤖",
 	"version": "6.18.0",
 	"homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
