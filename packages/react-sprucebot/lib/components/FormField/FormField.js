@@ -4,6 +4,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.FieldLabel = exports.FieldError = exports.FieldWrapper = undefined;
+
+var _templateObject = _taggedTemplateLiteral([''], ['']);
+
 exports.default = Field;
 
 var _react = require('react');
@@ -30,26 +33,19 @@ var _Typography = require('../Typography/Typography');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 var FieldWrapper = exports.FieldWrapper = _styledComponents2.default.div.attrs({
 	className: (0, _classnames2.default)('InputField', 'input__wrapper')
-}).withConfig({
-	displayName: 'FormField__FieldWrapper',
-	componentId: 's9xxgdd-0'
-})(['']);
+})(_templateObject);
 
 var FieldError = exports.FieldError = _styledComponents2.default.span.attrs({
 	className: (0, _classnames2.default)('FieldError', 'input__error', 'error-is-visible')
-}).withConfig({
-	displayName: 'FormField__FieldError',
-	componentId: 's9xxgdd-1'
-})(['']);
+})(_templateObject);
 
 var FieldLabel = exports.FieldLabel = _styledComponents2.default.span.attrs({
 	className: (0, _classnames2.default)('FieldLabel', 'input__mini__label', 'js-show-label')
-}).withConfig({
-	displayName: 'FormField__FieldLabel',
-	componentId: 's9xxgdd-2'
-})(['']);
+})(_templateObject);
 
 function Field(_ref) {
 	var _ref$input = _ref.input,

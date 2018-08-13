@@ -1,3 +1,4 @@
+// @flow
 import './require-babel-polyfill'
 
 import Avatar from './components/Avatar/Avatar'

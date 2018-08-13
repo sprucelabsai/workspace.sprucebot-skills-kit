@@ -4,15 +4,16 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _templateObject = _taggedTemplateLiteral(['\n\tfont-family: Courier, \'New Courier\', monospace;\n\tfont-size: 0.8em;\n\ttext-align: left;\n\twhite-space: pre-wrap;\n\twidth: 100%;\n\tword-wrap: break-word;\n\tbackground-color: black;\n\tcolor: green;\n\tpadding: 20px;\n\ttabsize: 1;\n'], ['\n\tfont-family: Courier, \'New Courier\', monospace;\n\tfont-size: 0.8em;\n\ttext-align: left;\n\twhite-space: pre-wrap;\n\twidth: 100%;\n\tword-wrap: break-word;\n\tbackground-color: black;\n\tcolor: green;\n\tpadding: 20px;\n\ttabsize: 1;\n']);
+
 var _styledComponents = require('styled-components');
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Pre = _styledComponents2.default.pre.withConfig({
-	displayName: 'Pre',
-	componentId: 's1a0pq3k-0'
-})(['font-family:Courier,\'New Courier\',monospace;font-size:0.8em;text-align:left;white-space:pre-wrap;width:100%;word-wrap:break-word;background-color:black;color:green;padding:20px;tabsize:1;']);
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Pre = _styledComponents2.default.pre(_templateObject);
 
 exports.default = Pre;

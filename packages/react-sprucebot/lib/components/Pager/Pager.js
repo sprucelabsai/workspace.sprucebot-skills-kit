@@ -8,6 +8,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _templateObject = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\talign-items: center;\n\t', ';\n'], ['\n\tdisplay: flex;\n\talign-items: center;\n\t', ';\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n\t&& {\n\t\t', ';\n\t\t', ';\n\t\t', ';\n\t}\n'], ['\n\t&& {\n\t\t', ';\n\t\t', ';\n\t\t', ';\n\t}\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n\tmargin-left: 0.7em;\n'], ['\n\tmargin-left: 0.7em;\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n\t&& {\n\t\tflex: 2;\n\t\tdisplay: flex;\n\t\talign-self: center;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t}\n'], ['\n\t&& {\n\t\tflex: 2;\n\t\tdisplay: flex;\n\t\talign-self: center;\n\t\talign-items: center;\n\t\tjustify-content: center;\n\t}\n']);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -42,17 +47,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var StyledList = _styledComponents2.default.ul.withConfig({
-	displayName: 'Pager__StyledList',
-	componentId: 's1b0v454-0'
-})(['display:flex;align-items:center;', ';'], function (props) {
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var StyledList = _styledComponents2.default.ul(_templateObject, function (props) {
 	return props.margin && 'margin: ' + props.margin;
 });
 
-var StyledListItem = _styledComponents2.default.li.withConfig({
-	displayName: 'Pager__StyledListItem',
-	componentId: 's1b0v454-1'
-})(['&&{', ';', ';', ';}'], function (props) {
+var StyledListItem = _styledComponents2.default.li(_templateObject2, function (props) {
 	return props.smallArrows && 'flex: 0.5';
 }, function (props) {
 	return props.hide && 'display: none';
@@ -60,15 +61,9 @@ var StyledListItem = _styledComponents2.default.li.withConfig({
 	return props.loading && '\n\t\t\t\tpointer-events: none;\n\t\t\t\tcursor: not-allowed;\n\t\t\t';
 });
 
-var DropDownButton = (0, _styledComponents2.default)(_ControlButton2.default).withConfig({
-	displayName: 'Pager__DropDownButton',
-	componentId: 's1b0v454-2'
-})(['margin-left:0.7em;']);
+var DropDownButton = (0, _styledComponents2.default)(_ControlButton2.default)(_templateObject3);
 
-var StyledLoader = (0, _styledComponents2.default)(_Loader2.default).withConfig({
-	displayName: 'Pager__StyledLoader',
-	componentId: 's1b0v454-3'
-})(['&&{flex:2;display:flex;align-self:center;align-items:center;justify-content:center;}']);
+var StyledLoader = (0, _styledComponents2.default)(_Loader2.default)(_templateObject4);
 
 var Pager = function (_Component) {
 	_inherits(Pager, _Component);

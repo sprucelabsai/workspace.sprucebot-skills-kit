@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _templateObject = _taggedTemplateLiteral(['\n\tbackground-color: #333;\n\tpadding: 3px;\n'], ['\n\tbackground-color: #333;\n\tpadding: 3px;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\tjustify-content: center;\n'], ['\n\tdisplay: flex;\n\tjustify-content: center;\n']);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -168,15 +171,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Dark = (0, _styledComponents2.default)(_Pre2.default).withConfig({
-	displayName: 'Styleguide__Dark',
-	componentId: 'pl9m68-0'
-})(['background-color:#333;padding:3px;']);
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var FlexContainer = _styledComponents2.default.div.withConfig({
-	displayName: 'Styleguide__FlexContainer',
-	componentId: 'pl9m68-1'
-})(['display:flex;justify-content:center;']);
+var Dark = (0, _styledComponents2.default)(_Pre2.default)(_templateObject);
+
+var FlexContainer = _styledComponents2.default.div(_templateObject2);
 
 var demoGuest = {
 	id: 'b8d62e17-a511-4b9b-ae8a-56710f89af48',

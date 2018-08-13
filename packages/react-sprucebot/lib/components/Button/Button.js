@@ -12,14 +12,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _Loader = require('../Loader/Loader');
 
 var _Loader2 = _interopRequireDefault(_Loader);
@@ -41,31 +33,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ButtonWrapper = _styledComponents2.default.div.withConfig({
-	displayName: 'Button__ButtonWrapper',
-	componentId: 'bvtufj-0'
-})(['display:flex;width:50%;', ';', ';'], function (props) {
-	return props.left && 'padding-right: 1.125em;';
-}, function (props) {
-	return props.right && 'padding-left: 1.125em;';
-});
-
-var StyledButton = _styledComponents2.default.button.withConfig({
-	displayName: 'Button__StyledButton',
-	componentId: 'bvtufj-1'
-})(['', ';'], function (props) {
-	return props.busy || props.disabled && '\n\t\t\tpointer-events: none;\n\t\t\tcursor: not-allowed;\n\t\t';
-});
-
-var StyledAnchor = _styledComponents2.default.a.withConfig({
-	displayName: 'Button__StyledAnchor',
-	componentId: 'bvtufj-2'
-})(['', ';'], function (props) {
-	return props.busy || props.disabled && '\n\t\tpointer-events: none;\n\t\tcursor: not-allowed;\n\t';
-});
-
-// TODO refactor into styled component
 
 var Button = function (_Component) {
 	_inherits(Button, _Component);
@@ -195,7 +162,7 @@ var Button = function (_Component) {
 				Tag = _router2.default.router ? _link2.default : 'a';
 				usingLink = _router2.default.router;
 			} else if (tag === 'button') {
-				Tag = StyledButton;
+				Tag = 'button';
 			} else {
 				Tag = tag;
 			}
@@ -242,24 +209,6 @@ var Button = function (_Component) {
 	return Button;
 }(_react.Component);
 
-exports.default = Button;
-
-
-Button.propTypes = {
-	tag: _propTypes2.default.string,
-	primary: _propTypes2.default.bool,
-	alt: _propTypes2.default.bool,
-	secondary: _propTypes2.default.bool,
-	busy: _propTypes2.default.bool,
-	href: _propTypes2.default.string,
-	remove: _propTypes2.default.bool,
-	toggle: _propTypes2.default.bool,
-	hideLoader: _propTypes2.default.bool,
-	left: _propTypes2.default.bool,
-	right: _propTypes2.default.bool,
-	type: _propTypes2.default.string
-};
-
 Button.defaultProps = {
 	tag: 'button',
 	primary: false,
@@ -270,3 +219,4 @@ Button.defaultProps = {
 	toggle: false,
 	type: 'button'
 };
+exports.default = Button;

@@ -9,6 +9,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _templateObject = _taggedTemplateLiteral(['\n\t', ';\n\tword-wrap: break-word;\n\toverflow-wrap: break-word;\n\tword-break: break-word;\n'], ['\n\t', ';\n\tword-wrap: break-word;\n\toverflow-wrap: break-word;\n\tword-break: break-word;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\t', ';\n'], ['\n\tdisplay: flex;\n\t', ';\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n\tposition: relative;\n\tmargin: 0 10px 0 0;\n\tborder-radius: 50%;\n\t', ';\n'], ['\n\tposition: relative;\n\tmargin: 0 10px 0 0;\n\tborder-radius: 50%;\n\t', ';\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n\tflex-grow: 1;\n'], ['\n\tflex-grow: 1;\n']),
+    _templateObject5 = _taggedTemplateLiteral(['\n\ttext-align: right;\n\tdisplay: flex;\n\talign-items: flex-end;\n'], ['\n\ttext-align: right;\n\tdisplay: flex;\n\talign-items: flex-end;\n']),
+    _templateObject6 = _taggedTemplateLiteral(['\n\t', ';\n\twidth: ', ';\n\t', ';\n'], ['\n\t', ';\n\twidth: ', ';\n\t', ';\n']),
+    _templateObject7 = _taggedTemplateLiteral(['\n\tfont-size: 0.75em;\n'], ['\n\tfont-size: 0.75em;\n']);
+
 var _styledComponents = require('styled-components');
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
@@ -43,14 +51,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 var List = exports.List = _styledComponents2.default.div.attrs({
 	className: function className(props) {
 		return 'List item__list ' + (props.isSortable ? 'sortable__item__list' : '');
 	}
-}).withConfig({
-	displayName: 'List',
-	componentId: 's15prkdz-0'
-})(['', ';word-wrap:break-word;overflow-wrap:break-word;word-break:break-word;'], function (props) {
+})(_templateObject, function (props) {
 	return props.pile ? 'padding-bottom: 1.25em' : void 0;
 });
 
@@ -73,42 +80,27 @@ var ListItemWrapper = _styledComponents2.default.div.attrs({
 		    online = _ref3.online;
 		return (_className || '') + ' ListItemWrapper item__list__item ' + (online ? '' : 'offline');
 	}
-}).withConfig({
-	displayName: 'List__ListItemWrapper',
-	componentId: 's15prkdz-1'
-})(['display:flex;', ';'], function (props) {
+})(_templateObject2, function (props) {
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
 });
 
 var ItemAvatar = _styledComponents2.default.div.attrs({
 	className: 'ItemAvatar avatar__outer__wrapper'
-}).withConfig({
-	displayName: 'List__ItemAvatar',
-	componentId: 's15prkdz-2'
-})(['position:relative;margin:0 10px 0 0;border-radius:50%;', ';'], function (props) {
+})(_templateObject3, function (props) {
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
 });
 
 var ItemDetail = _styledComponents2.default.div.attrs({
 	className: 'ItemDetail item__details'
-}).withConfig({
-	displayName: 'List__ItemDetail',
-	componentId: 's15prkdz-3'
-})(['flex-grow:1;']);
+})(_templateObject4);
 
 var ItemRightContent = _styledComponents2.default.div.attrs({
 	className: 'ItemRightContent content__right'
-}).withConfig({
-	displayName: 'List__ItemRightContent',
-	componentId: 's15prkdz-4'
-})(['text-align:right;display:flex;align-items:flex-end;']);
+})(_templateObject5);
 
 var ItemTitle = _styledComponents2.default.div.attrs({
 	className: 'ItemTitle title'
-}).withConfig({
-	displayName: 'List__ItemTitle',
-	componentId: 's15prkdz-5'
-})(['', ';width:', ';', ';'], function (props) {
+})(_templateObject6, function (props) {
 	return props.weight ? 'font-weight: ' + props.weight : 'font-weight: 500;';
 }, function (props) {
 	return props.width ? '' + props.width : 'unset';
@@ -118,10 +110,7 @@ var ItemTitle = _styledComponents2.default.div.attrs({
 
 var ItemSubTitle = _styledComponents2.default.div.attrs({
 	className: 'ItemSubTitle sub__title'
-}).withConfig({
-	displayName: 'List__ItemSubTitle',
-	componentId: 's15prkdz-6'
-})(['font-size:0.75em;']);
+})(_templateObject7);
 
 var SortableDragHandle = (0, _reactSortableHoc.SortableHandle)(function () {
 	return _react2.default.createElement(

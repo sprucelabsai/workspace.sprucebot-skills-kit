@@ -1,47 +1,60 @@
+// @flow
 import React, { Component, Fragment } from 'react'
-import styled from 'styled-components'
-import PropTypes from 'prop-types'
 import Loader from '../Loader/Loader'
 import SingletonRouter from 'next/router'
 import Link from 'next/link'
 
-const ButtonWrapper = styled.div`
-	display: flex;
-	width: 50%;
-	${props => props.left && `padding-right: 1.125em;`};
-	${props => props.right && `padding-left: 1.125em;`};
-`
+import type { Node } from 'react'
 
-const StyledButton = styled.button`
-	${props =>
-		props.busy ||
-		(props.disabled &&
-			`
-			pointer-events: none;
-			cursor: not-allowed;
-		`)};
-`
+type Props = {
+	tag?: string,
+	primary?: boolean,
+	alt?: boolean,
+	secondary?: boolean,
+	busy?: boolean,
+	href?: string,
+	remove?: boolean,
+	toggle?: boolean,
+	hideLoader?: boolean,
+	left?: boolean,
+	right?: boolean,
+	type?: string,
+	disabled?: any,
+	onClick?: any,
+	target?: any,
+	router?: any,
+	loaderDark?: boolean,
+	loaderStyle?: string,
+	children?: Node,
+	link?: any,
+	caution?: boolean,
+	className?: string,
+	submit?: any
+}
 
-const StyledAnchor = styled.a`
-	${props =>
-		props.busy ||
-		(props.disabled &&
-			`
-		pointer-events: none;
-		cursor: not-allowed;
-	`)};
-`
+type State = {
+	busy: boolean
+}
+export default class Button extends Component<Props, State> {
+	static defaultProps = {
+		tag: 'button',
+		primary: false,
+		alt: false,
+		secondary: false,
+		busy: false,
+		remove: false,
+		toggle: false,
+		type: 'button'
+	}
 
-// TODO refactor into styled component
-export default class Button extends Component {
-	constructor(props) {
+	constructor(props: Props) {
 		super(props)
 		this.state = {
 			busy: !!props.busy
 		}
 	}
 
-	componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps(nextProps: Props) {
 		if (typeof nextProps.busy !== 'undefined') {
 			this.setState({
 				busy: nextProps.busy
@@ -143,7 +156,7 @@ export default class Button extends Component {
 			Tag = SingletonRouter.router ? Link : 'a'
 			usingLink = SingletonRouter.router
 		} else if (tag === 'button') {
-			Tag = StyledButton
+			Tag = 'button'
 		} else {
 			Tag = tag
 		}
@@ -175,30 +188,4 @@ export default class Button extends Component {
 			</Tag>
 		)
 	}
-}
-
-Button.propTypes = {
-	tag: PropTypes.string,
-	primary: PropTypes.bool,
-	alt: PropTypes.bool,
-	secondary: PropTypes.bool,
-	busy: PropTypes.bool,
-	href: PropTypes.string,
-	remove: PropTypes.bool,
-	toggle: PropTypes.bool,
-	hideLoader: PropTypes.bool,
-	left: PropTypes.bool,
-	right: PropTypes.bool,
-	type: PropTypes.string
-}
-
-Button.defaultProps = {
-	tag: 'button',
-	primary: false,
-	alt: false,
-	secondary: false,
-	busy: false,
-	remove: false,
-	toggle: false,
-	type: 'button'
 }

@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _templateObject = _taggedTemplateLiteral(['\n\tmargin-right: 0.25em;\n'], ['\n\tmargin-right: 0.25em;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n\tmargin-left: 0.25em;\n'], ['\n\tmargin-left: 0.25em;\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n\talign-items: center;\n\tbackground: none;\n\tcolor: #00aac7;\n\tdisplay: inline-flex;\n\tfont-weight: normal;\n\tletter-spacing: 0;\n\tposition: relative;\n\tmargin: 0;\n\tpadding: 0;\n\twidth: auto;\n\ttext-decoration: none;\n\n\t&:hover {\n\t\tbackground: none;\n\t}\n'], ['\n\talign-items: center;\n\tbackground: none;\n\tcolor: #00aac7;\n\tdisplay: inline-flex;\n\tfont-weight: normal;\n\tletter-spacing: 0;\n\tposition: relative;\n\tmargin: 0;\n\tpadding: 0;\n\twidth: auto;\n\ttext-decoration: none;\n\n\t&:hover {\n\t\tbackground: none;\n\t}\n']);
+
 var _styledComponents = require('styled-components');
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
@@ -30,25 +34,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var StyledIconLeft = (0, _styledComponents2.default)(_Icon2.default).withConfig({
-	displayName: 'ControlButton__StyledIconLeft',
-	componentId: 'jro3dx-0'
-})(['margin-right:0.25em;']);
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var StyledIconRight = (0, _styledComponents2.default)(_Icon2.default).withConfig({
-	displayName: 'ControlButton__StyledIconRight',
-	componentId: 'jro3dx-1'
-})(['margin-left:0.25em;']);
+var StyledIconLeft = (0, _styledComponents2.default)(_Icon2.default)(_templateObject);
+
+var StyledIconRight = (0, _styledComponents2.default)(_Icon2.default)(_templateObject2);
 
 var StyledButton = (0, _styledComponents2.default)(_Button2.default).attrs({
 	className: function className(_ref) {
 		var _className = _ref.className;
 		return 'ControlButton control-button ' + (_className || '');
 	}
-}).withConfig({
-	displayName: 'ControlButton__StyledButton',
-	componentId: 'jro3dx-2'
-})(['align-items:center;background:none;color:#00aac7;display:inline-flex;font-weight:normal;letter-spacing:0;position:relative;margin:0;padding:0;width:auto;text-decoration:none;&:hover{background:none;}']);
+})(_templateObject3);
 
 var ControlButton = function ControlButton(_ref2) {
 	var iconLeft = _ref2.iconLeft,

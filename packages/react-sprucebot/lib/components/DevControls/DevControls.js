@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _templateObject = _taggedTemplateLiteral(['\n\t-webkit-transition: all 0.5s ease-out;\n\t-moz-transition: all 0.5s ease-out;\n\t-ms-transition: all 0.5s ease-out;\n\t-o-transition: all 0.5s ease-out;\n\ttransition: all 0.5s ease-out;\n\n\t&:hover {\n\t\topacity: 1;\n\t}\n\tposition: absolute;\n\tbackground-color: #000;\n\tcolor: #fff;\n\tpadding: 20px;\n\topacity: 0.1;\n\t.input__wrapper {\n\t\tmargin: 0;\n\t\tpadding-top: 15px;\n\t\twhite-space: nowrap;\n\t}\n\tselect {\n\t\tmargin: 0;\n\t\tdisplay: inline;\n\t\tpadding: 10px;\n\t\theight: auto;\n\t\tborder-radius: 5px;\n\t\tbackground: #fff;\n\t\twidth: auto;\n\t}\n'], ['\n\t-webkit-transition: all 0.5s ease-out;\n\t-moz-transition: all 0.5s ease-out;\n\t-ms-transition: all 0.5s ease-out;\n\t-o-transition: all 0.5s ease-out;\n\ttransition: all 0.5s ease-out;\n\n\t&:hover {\n\t\topacity: 1;\n\t}\n\tposition: absolute;\n\tbackground-color: #000;\n\tcolor: #fff;\n\tpadding: 20px;\n\topacity: 0.1;\n\t.input__wrapper {\n\t\tmargin: 0;\n\t\tpadding-top: 15px;\n\t\twhite-space: nowrap;\n\t}\n\tselect {\n\t\tmargin: 0;\n\t\tdisplay: inline;\n\t\tpadding: 10px;\n\t\theight: auto;\n\t\tborder-radius: 5px;\n\t\tbackground: #fff;\n\t\twidth: auto;\n\t}\n']);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -23,6 +25,8 @@ var _Select = require('../Select/Select');
 var _Select2 = _interopRequireDefault(_Select);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -123,7 +127,4 @@ DevControls.propTypes = {
 	auth: _propTypes2.default.object
 };
 
-exports.default = (0, _styledComponents2.default)(DevControls).withConfig({
-	displayName: 'DevControls',
-	componentId: 'orllk7-0'
-})(['-webkit-transition:all 0.5s ease-out;-moz-transition:all 0.5s ease-out;-ms-transition:all 0.5s ease-out;-o-transition:all 0.5s ease-out;transition:all 0.5s ease-out;&:hover{opacity:1;}position:absolute;background-color:#000;color:#fff;padding:20px;opacity:0.1;.input__wrapper{margin:0;padding-top:15px;white-space:nowrap;}select{margin:0;display:inline;padding:10px;height:auto;border-radius:5px;background:#fff;width:auto;}']);
+exports.default = (0, _styledComponents2.default)(DevControls)(_templateObject);

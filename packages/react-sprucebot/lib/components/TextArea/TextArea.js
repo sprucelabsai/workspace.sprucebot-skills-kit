@@ -3,6 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _templateObject = _taggedTemplateLiteral(['\n\tmin-height: 1em;\n'], ['\n\tmin-height: 1em;\n']);
+
 exports.default = TextAreaField;
 
 var _react = require('react');
@@ -23,12 +26,11 @@ var _FormField2 = _interopRequireDefault(_FormField);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 var StyledTextArea = (0, _styledComponents2.default)(_reactTextareaAutosize2.default).attrs({
 	className: 'TextArea'
-}).withConfig({
-	displayName: 'TextArea__StyledTextArea',
-	componentId: 's1czbmms-0'
-})(['min-height:1em;']);
+})(_templateObject);
 
 function TextAreaField(props) {
 	return _react2.default.createElement(
