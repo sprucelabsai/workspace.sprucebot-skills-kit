@@ -21,7 +21,7 @@
 	"scripts": {
 		"build": "next build interface",
 		"start": "node ./server/server.js",
-		"local": "npm run icon && node --inspect=4006 ./server/server.js",
+		"local": "nodemon server/server.js --exec \"node --inspect=4006\" --watch server --watch config --verbose --ignore server/swagger --ignore server/static",
 		"interface": "next ./interface -p 3006",
 		"lint": "./node_modules/.bin/eslint '**/**/*{.js}'",
 		"test": "yarn run build && jest",
@@ -66,6 +66,7 @@
 		"jest-cli": "^22.0.5",
 		"jest-styled-components": "^5.0.0",
 		"nock": "^9.2.3",
+		"nodemon": "^1.18.3",
 		"prettier": "^1.13",
 		"raf": "^3.4.0",
 		"svgo": "^1.0.3"
