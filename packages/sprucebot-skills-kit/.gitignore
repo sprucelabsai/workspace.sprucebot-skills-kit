@@ -69,3 +69,6 @@ client.json
 
 # lang
 interface/lang/overrides.js
+
+# Swagger
+server/static/api-docs.json
