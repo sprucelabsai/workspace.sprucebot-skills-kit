@@ -72,3 +72,6 @@ interface/lang/overrides.js
 
 # Swagger
 server/static/api-docs.json
+
+# macOS files
+.DS_Store
