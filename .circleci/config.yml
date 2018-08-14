@@ -6,7 +6,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - 'ee:61:04:89:80:2e:f3:ac:3f:88:6a:ce:52:33:86:4e'
+            - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
       - checkout
       - run: yarn install
       - run: yarn test
@@ -16,7 +16,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - 'ee:61:04:89:80:2e:f3:ac:3f:88:6a:ce:52:33:86:4e'
+            - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
       - checkout
       - run: yarn install
       - run:
@@ -29,7 +29,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - 'ee:61:04:89:80:2e:f3:ac:3f:88:6a:ce:52:33:86:4e'
+            - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
       - checkout
       - run: yarn install
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
@@ -44,7 +44,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - 'ee:61:04:89:80:2e:f3:ac:3f:88:6a:ce:52:33:86:4e'
+            - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
       - checkout
       - run: yarn install
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
