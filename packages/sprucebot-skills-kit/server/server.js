@@ -1,7 +1,7 @@
 const { version } = require('../package.json')
 const path = require('path')
-const serve = require('sprucebot-skills-kit-server')
-const Sprucebot = require('sprucebot-node')
+const serve = require('@sprucelabs/sprucebot-skills-kit-server')
+const Sprucebot = require('@sprucelabs/sprucebot-node')
 const log = require('@barbershopio/iso-log')
 const generateSwaggerDocs = require('./swagger/swagger')
 

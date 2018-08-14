@@ -11,7 +11,7 @@ import {
 	Card,
 	Paragraph as P,
 	Styleguide
-} from 'react-sprucebot'
+} from '@sprucelabs/react-sprucebot'
 
 class DeveloperPage extends React.Component {
 	static getInitialProps(props) {

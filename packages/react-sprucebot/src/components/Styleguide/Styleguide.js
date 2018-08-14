@@ -144,8 +144,8 @@ class Styleguide extends Component {
 				<Container>
 					<BotText>
 						All the components you need to build your skill are available in the
-						'react-sprucebot' module. Any modules you create yourself are
-						subject to rejection from the Skills Marketplace.
+						'@sprucelabs/react-sprucebot' module. Any modules you create
+						yourself are subject to rejection from the Skills Marketplace.
 					</BotText>
 					<Pre>{`import {
 	Container,
@@ -185,7 +185,7 @@ class Styleguide extends Component {
 	Icon,
 	IconButton,
 	ControlButton
-} from 'react-sprucebot'`}</Pre>
+} from '@sprucelabs/react-sprucebot'`}</Pre>
 				</Container>
 				<H1>Headings</H1>
 				<Container>

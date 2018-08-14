@@ -36,6 +36,9 @@
 	},
 	"dependencies": {
 		"@barbershopio/iso-log": "^0.1.13",
+		"@sprucelabs/react-sprucebot": "^6.52.0",
+		"@sprucelabs/sprucebot-node": "^6.52.0",
+		"@sprucelabs/sprucebot-skills-kit-server": "^6.52.0",
 		"babel-plugin-styled-components": "^1.2.1",
 		"config": "^1.27.0",
 		"dotenv": "^5.0.1",
@@ -52,10 +55,7 @@
 		"react-dom": "^16.0.0",
 		"react-emojione": "^5.0.0",
 		"react-redux": "^5.0.6",
-		"react-sprucebot": "^6.40.0",
 		"redux": "^3.7.2",
-		"sprucebot-node": "^6.23.0",
-		"sprucebot-skills-kit-server": "^6.18.0",
 		"styled-components": "^3.2.1",
 		"universal-cookie": "^2.1.0"
 	},

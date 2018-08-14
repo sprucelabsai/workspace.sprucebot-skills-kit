@@ -10,7 +10,7 @@ import qs from 'qs'
 import lang from '../helpers/lang'
 import Router, { withRouter } from 'next/router'
 
-const debug = require('debug')('react-sprucebot')
+const debug = require('debug')('@sprucelabs/react-sprucebot')
 
 const setCookie = (named, value, req, res) => {
 	if (req && req.headers) {
