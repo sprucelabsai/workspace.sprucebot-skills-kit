@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.54.0"></a>
+# [6.54.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.40.0...v6.54.0) (2018-08-14)
+
+
+### Bug Fixes
+
+* **SB-1639:** load client config from proper location ([2482cea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2482cea))
+
+
+### Features
+
+* circleci; relaxed commit messages; new deploy process ([a40c970](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a40c970))
+
+
+
+
+
 <a name="6.40.0"></a>
 # [6.40.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.39.0...v6.40.0) (2018-08-02)
 

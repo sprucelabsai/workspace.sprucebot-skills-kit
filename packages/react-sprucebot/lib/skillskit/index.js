@@ -16,6 +16,9 @@ var skill = {
 	forceAuth: function forceAuth() {
 		postMessage('Skill:ForceAuth');
 	},
+	/**
+  * Called anytime a skill is resized to let the parent know what to set the height of the iframe to
+  */
 	resized: function resized() {
 		var height = 0;
 		var body = document.body;
@@ -40,6 +43,13 @@ var skill = {
 	clearMinBodyHeight: function clearMinBodyHeight() {
 		this.minHeight = 0;
 	},
+	showUnderlay: function showUnderlay() {
+		postMessage('Skill:ShowUnderlay');
+	},
+
+	hideUnderlay: function hideUnderlay() {
+		postMessage('Skill:HideUnderlay');
+	},
 	back: function back() {
 		if (window.top === window.self) {
 			window.history.back();
@@ -61,6 +71,7 @@ var skill = {
 		});
 		this.resizedInterval = setInterval(this.resized.bind(this), 300);
 	},
+
 	scrollTo: function scrollTo(offset) {
 		postMessage({
 			name: 'Skill:ScrollTo',
@@ -86,6 +97,7 @@ var skill = {
 	fullScreenOn: function fullScreenOn() {
 		postMessage({ name: 'Skill:FullScreenOn' });
 	},
+
 	fullScreenOff: function fullScreenOff() {
 		postMessage({ name: 'Skill:FullScreenOff' });
 	},
@@ -248,7 +260,9 @@ var skill = {
   * elements: [
   * {
   *  key: 'first-button', (key is passed back to onClick)
-  * 	type: 'button'|'leftTitle'|'rightTitle'|'title',
+  * 	type: 'button'|'title',
+  *  leftIcon: 'scissors',
+  *  rightIcon: 'pencil'
   *  value: 'Hey There' //value MUST be a string, will be value of button or innerHTML of everything else
   * }
   * ]

@@ -3,6 +3,59 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.54.0"></a>
+# [6.54.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.40.0...v6.54.0) (2018-08-14)
+
+
+### Bug Fixes
+
+* **SB-1639:** load client config from proper location ([2482cea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2482cea))
+* Adjust initialVisibleMonth to callback; fix typo ([45e1aa4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/45e1aa4))
+* Fix awful linting ([b6a5121](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b6a5121))
+* remove selected state styling from calendar events ([749f1ea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/749f1ea))
+* timezones and calendars oh my ([89ca2c7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/89ca2c7))
+
+
+### Features
+
+* Add DateSelect control button ([81463c5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/81463c5))
+* Add optionsLoaded/checkOptions to skip fetch if options present ([f68fbd5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f68fbd5))
+* add SortableList and SortableListItem components to List ([682c8f4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/682c8f4))
+* Adjus start/endAccessor for all day events ([4f57750](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4f57750))
+* Allow timeRange to check start/end of evebnts ([66077ea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/66077ea))
+* big cal fixes ([27b635b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/27b635b))
+* big calendar loaders ([e6ee591](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e6ee591))
+* Build DateSelect dialog for BigCalendar ([ab91462](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ab91462))
+* build miss ([97be52a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/97be52a))
+* Build setDate; set Tabs component ref ([11b8277](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/11b8277))
+* Build setSelected in Tabs component ([8d81457](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8d81457))
+* Build setView/Mod methods; pass options to handleClickOpenSlot ([023c92c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/023c92c))
+* bump ([ecf7c6f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ecf7c6f))
+* calendar ([4a983f4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4a983f4))
+* calendar event clicking passthrough ([f72680b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f72680b))
+* calendar event clicking passthrough ([1592a0b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1592a0b))
+* calendar progress ([c88b258](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c88b258))
+* calendar tweaks ([5e9629d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5e9629d))
+* circleci; relaxed commit messages; new deploy process ([a40c970](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a40c970))
+* fetching class ([1cced47](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1cced47))
+* Filter through events for min/max time; set default caps ([d093f70](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d093f70))
+* loader outer wrapper ([d31a4f7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d31a4f7))
+* loader outer wrapper ([5d9c76a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5d9c76a))
+* loader outer wrapper ([817e978](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/817e978))
+* many people in calendar, dialog fix ([0347f87](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0347f87))
+* missed fullscreen ([954e059](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/954e059))
+* no debugger idiot ([a888cec](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a888cec))
+* optimizations ([1688b13](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1688b13))
+* Pass dom event with handleOnClick ([f71df3e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f71df3e))
+* Pass options for handleClickEvent ([848b1e3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/848b1e3))
+* Pass teammateId in calendar action ([0c09af9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0c09af9))
+* selectable fix ([d822b4b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d822b4b))
+* underlay support in core ([5d0d7cc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5d0d7cc))
+
+
+
+
+
 <a name="6.40.0"></a>
 # [6.40.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.39.0...v6.40.0) (2018-08-02)
 
