@@ -42,8 +42,11 @@ const skill = {
 	hideUnderlay: function() {
 		postMessage('Skill:HideUnderlay')
 	},
+	canSendMessages: function() {
+		return window.top !== window.self || window.__SBTEAMMATE__
+	},
 	back: function() {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			window.history.back()
 		} else {
 			postMessage('Skill:Back')
@@ -68,7 +71,7 @@ const skill = {
 	},
 
 	scrollBy: function(offset) {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			window.scrollBy({
 				top: offset,
 				behavior: 'smooth'
@@ -91,7 +94,7 @@ const skill = {
 	},
 
 	showHelp: async function({ title, body }) {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			alert(`[${title}] ${body}`)
 		} else {
 			const promise = new Promise((accept, reject) => {
@@ -155,7 +158,7 @@ const skill = {
 	},
 
 	displayMessage: function({ message, type = 'error' }) {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			alert(message)
 		} else {
 			postMessage({ name: 'Skill:DisplayMessage', message, type })
@@ -163,7 +166,7 @@ const skill = {
 	},
 
 	confirm: async function({ message }) {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			return window.confirm(message)
 		} else {
 			const promise = new Promise((accept, reject) => {
