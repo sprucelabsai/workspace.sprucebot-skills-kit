@@ -41,10 +41,20 @@ var StyledIconLeft = (0, _styledComponents2.default)(_Icon2.default)(_templateOb
 var StyledIconRight = (0, _styledComponents2.default)(_Icon2.default)(_templateObject2);
 
 var StyledButton = (0, _styledComponents2.default)(_Button2.default).attrs({
-	className: function className(_ref) {
-		var _className = _ref.className;
-		return 'ControlButton control-button ' + (_className || '');
-	}
+	className: function (_className) {
+		function className(_x) {
+			return _className.apply(this, arguments);
+		}
+
+		className.toString = function () {
+			return _className.toString();
+		};
+
+		return className;
+	}(function (_ref) {
+		var className = _ref.className;
+		return 'ControlButton control-button ' + (className || '');
+	})
 })(_templateObject3);
 
 var ControlButton = function ControlButton(_ref2) {
@@ -54,10 +64,14 @@ var ControlButton = function ControlButton(_ref2) {
 	    props = _objectWithoutProperties(_ref2, ['iconLeft', 'iconRight', 'children']);
 
 	return _react2.default.createElement(
-		StyledButton,
-		_extends({}, props, { tabIndex: 0, hideLoader: true }),
+		_Button2.default,
+		_extends({}, props, {
+			className: 'ControlButton control-button ' + (className || ''),
+			tabIndex: 0,
+			hideLoader: true
+		}),
 		iconLeft && _react2.default.createElement(
-			StyledIconLeft,
+			_Icon2.default,
 			null,
 			iconLeft
 		),
@@ -67,7 +81,7 @@ var ControlButton = function ControlButton(_ref2) {
 			children
 		),
 		iconRight && _react2.default.createElement(
-			StyledIconRight,
+			_Icon2.default,
 			null,
 			iconRight
 		)

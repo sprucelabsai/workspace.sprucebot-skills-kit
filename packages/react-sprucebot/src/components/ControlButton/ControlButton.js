@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Button from '../Button/Button'
-
 import Icon from '../Icon/Icon'
 
 const StyledIconLeft = styled(Icon)`
@@ -36,11 +35,16 @@ const StyledButton = styled(Button).attrs({
 
 const ControlButton = ({ iconLeft, iconRight, children, ...props }) => {
 	return (
-		<StyledButton {...props} tabIndex={0} hideLoader>
-			{iconLeft && <StyledIconLeft>{iconLeft}</StyledIconLeft>}
+		<Button
+			{...props}
+			className={`ControlButton control-button ${className || ''}`}
+			tabIndex={0}
+			hideLoader
+		>
+			{iconLeft && <Icon>{iconLeft}</Icon>}
 			<span>{children}</span>
-			{iconRight && <StyledIconRight>{iconRight}</StyledIconRight>}
-		</StyledButton>
+			{iconRight && <Icon>{iconRight}</Icon>}
+		</Button>
 	)
 }
 
