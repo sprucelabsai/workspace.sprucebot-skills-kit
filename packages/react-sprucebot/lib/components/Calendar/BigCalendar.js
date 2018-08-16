@@ -879,7 +879,8 @@ var BigCalendar = function (_Component) {
 				max: max.toDate()
 
 				// Determine selected date in relation to today
-			};var today = (0, _moment2.default)().tz(auth.Location.timezone).startOf('day');
+			};var currentDate = _moment2.default.tz(selectedDate, auth.Location.timezone).format('YYYY-MM-DD HH:mm:ss');
+			var today = (0, _moment2.default)().tz(auth.Location.timezone).startOf('day');
 			var selectedDateStart = _moment2.default.tz(selectedDate, auth.Location.timezone).startOf('day');
 			var isToday = today.isSame(selectedDateStart);
 
@@ -1022,6 +1023,8 @@ var BigCalendar = function (_Component) {
 								}),
 								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
 									className: '' + (idx === 0 && !renderFirstCalendar ? 'hide' : ''),
+									timezone: auth.Location.timezone,
+									currentDate: currentDate,
 									views: views,
 									events: events ? _this3.filterEvents(events, teammate) : [],
 									eventPropGetter: function eventPropGetter(event) {
