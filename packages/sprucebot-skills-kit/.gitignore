@@ -78,3 +78,6 @@ server/static/api-docs.json
 
 # Generated swagger docs
 server/static/api-docs.json
+
+# Rejected "git apply" patch files
+*.rej
