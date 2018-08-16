@@ -115,6 +115,9 @@ var Calendar = function (_Component) {
 					startAccessor: this.startAccessor,
 					endAccessor: this.endAccessor,
 					defaultDate: defaultDate,
+					getNow: function getNow() {
+						return defaultDate;
+					},
 					selectable: props.onSelectSlot ? true : ''
 				}, props))
 			);

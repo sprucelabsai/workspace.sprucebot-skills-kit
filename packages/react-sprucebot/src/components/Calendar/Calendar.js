@@ -760,6 +760,7 @@ class Calendar extends Component {
 					startAccessor={this.startAccessor}
 					endAccessor={this.endAccessor}
 					defaultDate={defaultDate}
+					getNow={() => defaultDate}
 					selectable={props.onSelectSlot ? true : ''}
 					{...props}
 				/>
