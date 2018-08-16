@@ -15,7 +15,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should also needs to be set in CircleCI
+            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should be set in CircleCI
       - checkout
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
       - run: git config --global user.name "$GIT_AUTHOR_NAME"
@@ -27,7 +27,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should also needs to be set in CircleCI
+            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should be set in CircleCI
       - checkout
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
       - run: git config --global user.name "$GIT_AUTHOR_NAME"
@@ -39,7 +39,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should also needs to be set in CircleCI
+            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should be set in CircleCI
       - checkout
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
       - run: git config --global user.name "$GIT_AUTHOR_NAME"
@@ -51,7 +51,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should also needs to be set in CircleCI
+            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should be set in CircleCI
       - checkout
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
       - run: git config --global user.name "$GIT_AUTHOR_NAME"
