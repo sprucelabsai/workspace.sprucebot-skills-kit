@@ -13,6 +13,7 @@ function postMessage(message) {
 var skill = {
 	height: 0,
 	minHeight: 0,
+	handleStickElementClick: {},
 	forceAuth: function forceAuth() {
 		postMessage('Skill:ForceAuth');
 	},
@@ -179,8 +180,8 @@ var skill = {
 						this._confirmAccept = null;
 					}
 				} else if (results.name === 'Skill:DidClickStickyElement') {
-					if (this.handleStickElementClick) {
-						this.handleStickElementClick(results.key);
+					if (this.handleStickElementClick[results.position]) {
+						this.handleStickElementClick[results.position](results.key);
 					}
 				}
 			} catch (err) {}
@@ -277,7 +278,7 @@ var skill = {
 		    _ref8$onClick = _ref8.onClick,
 		    onClick = _ref8$onClick === undefined ? function () {} : _ref8$onClick;
 
-		this.handleStickElementClick = onClick;
+		this.handleStickElementClick[position] = onClick;
 		postMessage({
 			name: 'Skill:SetStickyElement',
 			elements: elements,

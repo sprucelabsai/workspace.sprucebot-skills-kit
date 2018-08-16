@@ -5,6 +5,7 @@ function postMessage(message) {
 const skill = {
 	height: 0,
 	minHeight: 0,
+	handleStickElementClick: {},
 	forceAuth: function() {
 		postMessage('Skill:ForceAuth')
 	},
@@ -136,8 +137,8 @@ const skill = {
 						this._confirmAccept = null
 					}
 				} else if (results.name === 'Skill:DidClickStickyElement') {
-					if (this.handleStickElementClick) {
-						this.handleStickElementClick(results.key)
+					if (this.handleStickElementClick[results.position]) {
+						this.handleStickElementClick[results.position](results.key)
 					}
 				}
 			} catch (err) {}
@@ -196,7 +197,7 @@ const skill = {
 		position = 'top',
 		onClick = () => {}
 	}) {
-		this.handleStickElementClick = onClick
+		this.handleStickElementClick[position] = onClick
 		postMessage({
 			name: 'Skill:SetStickyElement',
 			elements,
