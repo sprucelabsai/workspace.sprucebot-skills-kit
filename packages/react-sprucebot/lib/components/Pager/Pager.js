@@ -44,14 +44,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var StyledList = _styledComponents2.default.ul.withConfig({
 	displayName: 'Pager__StyledList',
-	componentId: 's1b0v454-0'
+	componentId: 's2ln22q-0'
 })(['display:flex;align-items:center;', ';'], function (props) {
 	return props.margin && 'margin: ' + props.margin;
 });
 
 var StyledListItem = _styledComponents2.default.li.withConfig({
 	displayName: 'Pager__StyledListItem',
-	componentId: 's1b0v454-1'
+	componentId: 's2ln22q-1'
 })(['&&{', ';', ';', ';}'], function (props) {
 	return props.smallArrows && 'flex: 0.5';
 }, function (props) {
@@ -62,12 +62,12 @@ var StyledListItem = _styledComponents2.default.li.withConfig({
 
 var DropDownButton = (0, _styledComponents2.default)(_ControlButton2.default).withConfig({
 	displayName: 'Pager__DropDownButton',
-	componentId: 's1b0v454-2'
+	componentId: 's2ln22q-2'
 })(['margin-left:0.7em;']);
 
 var StyledLoader = (0, _styledComponents2.default)(_Loader2.default).withConfig({
 	displayName: 'Pager__StyledLoader',
-	componentId: 's1b0v454-3'
+	componentId: 's2ln22q-3'
 })(['&&{flex:2;display:flex;align-self:center;align-items:center;justify-content:center;}']);
 
 var Pager = function (_Component) {

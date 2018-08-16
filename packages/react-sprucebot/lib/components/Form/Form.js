@@ -18,7 +18,7 @@ var Form = _styledComponents2.default.form.attrs({
 	className: 'Form'
 }).withConfig({
 	displayName: 'Form',
-	componentId: 'u8jhv9-0'
+	componentId: 'mm0wdm-0'
 })(['']);
 
 exports.default = Form;

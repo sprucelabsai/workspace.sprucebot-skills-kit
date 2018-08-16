@@ -67,7 +67,7 @@ var DialogWrapper = _styledComponents2.default.div.attrs({
 	}
 }).withConfig({
 	displayName: 'Dialog__DialogWrapper',
-	componentId: 'q9geqg-0'
+	componentId: 's1lyqie-0'
 })(['opacity:', ';'], function (props) {
 	return props.opacity;
 });
@@ -79,7 +79,7 @@ var DialogContainer = _styledComponents2.default.div.attrs({
 	}
 }).withConfig({
 	displayName: 'Dialog__DialogContainer',
-	componentId: 'q9geqg-1'
+	componentId: 's1lyqie-1'
 })(['opacity:', ';'], function (props) {
 	return props.opacity;
 });
@@ -88,7 +88,7 @@ var DialogCloseButton = (0, _styledComponents2.default)(_Button2.default).attrs(
 	remove: true
 }).withConfig({
 	displayName: 'Dialog__DialogCloseButton',
-	componentId: 'q9geqg-2'
+	componentId: 's1lyqie-2'
 })(['']);
 
 var timerRunning = false;

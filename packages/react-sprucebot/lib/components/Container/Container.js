@@ -14,7 +14,7 @@ var Container = _styledComponents2.default.div.attrs({
 	className: 'container'
 }).withConfig({
 	displayName: 'Container',
-	componentId: 'md3jvi-0'
+	componentId: 'ba0l4t-0'
 })(['']);
 
 exports.default = Container;

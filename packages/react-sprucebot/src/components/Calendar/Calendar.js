@@ -489,7 +489,6 @@ const CalendarWrapper = styled.div.attrs({
 		right: 0;
 	}
 	.rbc-day-slot .rbc-event {
-		border: 1px solid #265985;
 		display: -webkit-flex;
 		display: -ms-flexbox;
 		display: flex;
