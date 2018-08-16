@@ -1,0 +1,27 @@
+
+
+.control__button {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: #00aac7;
+  font-weight: normal;
+  letter-spacing: 0;
+  text-decoration: none;
+
+  &:hover {
+    background: none;
+  }
+
+  .icon__left {
+    margin-right: 0.25em;
+  }
+
+  .icon__right {
+    margin-left: 0.25em;
+  }
+}
