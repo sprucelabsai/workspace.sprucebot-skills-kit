@@ -27,7 +27,7 @@ var StyledTextArea = (0, _styledComponents2.default)(_reactTextareaAutosize2.def
 	className: 'TextArea'
 }).withConfig({
 	displayName: 'TextArea__StyledTextArea',
-	componentId: 's1czbmms-0'
+	componentId: 'sq0zxr-0'
 })(['min-height:1em;']);
 
 function TextAreaField(props) {

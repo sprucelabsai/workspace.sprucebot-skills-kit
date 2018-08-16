@@ -32,7 +32,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 var StyledButton = (0, _styledComponents2.default)(_Button2.default).withConfig({
 	displayName: 'IconButton__StyledButton',
-	componentId: 's10eb4c1-0'
+	componentId: 's38lbn2-0'
 })(['align-items:center;background:none;color:#00aac7;display:flex;font-size:', ';margin:0;padding:0;text-decoration:none;width:auto;&:hover{background:none;}'], function (props) {
 	return props.fontSize ? '' + props.fontSize : '2em';
 });

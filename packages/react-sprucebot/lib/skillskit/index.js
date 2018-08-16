@@ -13,9 +13,13 @@ function postMessage(message) {
 var skill = {
 	height: 0,
 	minHeight: 0,
+	handleStickElementClick: {},
 	forceAuth: function forceAuth() {
 		postMessage('Skill:ForceAuth');
 	},
+	/**
+  * Called anytime a skill is resized to let the parent know what to set the height of the iframe to
+  */
 	resized: function resized() {
 		var height = 0;
 		var body = document.body;
@@ -47,8 +51,11 @@ var skill = {
 	hideUnderlay: function hideUnderlay() {
 		postMessage('Skill:HideUnderlay');
 	},
+	canSendMessages: function canSendMessages() {
+		return window.top !== window.self || window.__SBTEAMMATE__;
+	},
 	back: function back() {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			window.history.back();
 		} else {
 			postMessage('Skill:Back');
@@ -68,6 +75,7 @@ var skill = {
 		});
 		this.resizedInterval = setInterval(this.resized.bind(this), 300);
 	},
+
 	scrollTo: function scrollTo(offset) {
 		postMessage({
 			name: 'Skill:ScrollTo',
@@ -76,7 +84,7 @@ var skill = {
 	},
 
 	scrollBy: function scrollBy(offset) {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			window.scrollBy({
 				top: offset,
 				behavior: 'smooth'
@@ -93,6 +101,7 @@ var skill = {
 	fullScreenOn: function fullScreenOn() {
 		postMessage({ name: 'Skill:FullScreenOn' });
 	},
+
 	fullScreenOff: function fullScreenOff() {
 		postMessage({ name: 'Skill:FullScreenOff' });
 	},
@@ -108,7 +117,7 @@ var skill = {
 				while (1) {
 					switch (_context.prev = _context.next) {
 						case 0:
-							if (!(window.top === window.self)) {
+							if (this.canSendMessages()) {
 								_context.next = 4;
 								break;
 							}
@@ -171,8 +180,8 @@ var skill = {
 						this._confirmAccept = null;
 					}
 				} else if (results.name === 'Skill:DidClickStickyElement') {
-					if (this.handleStickElementClick) {
-						this.handleStickElementClick(results.key);
+					if (this.handleStickElementClick[results.position]) {
+						this.handleStickElementClick[results.position](results.key);
 					}
 				}
 			} catch (err) {}
@@ -201,7 +210,7 @@ var skill = {
 		    _ref5$type = _ref5.type,
 		    type = _ref5$type === undefined ? 'error' : _ref5$type;
 
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			alert(message);
 		} else {
 			postMessage({ name: 'Skill:DisplayMessage', message: message, type: type });
@@ -218,7 +227,7 @@ var skill = {
 				while (1) {
 					switch (_context2.prev = _context2.next) {
 						case 0:
-							if (!(window.top === window.self)) {
+							if (this.canSendMessages()) {
 								_context2.next = 4;
 								break;
 							}
@@ -255,7 +264,9 @@ var skill = {
   * elements: [
   * {
   *  key: 'first-button', (key is passed back to onClick)
-  * 	type: 'button'|'leftTitle'|'rightTitle'|'title',
+  * 	type: 'button'|'title',
+  *  leftIcon: 'scissors',
+  *  rightIcon: 'pencil'
   *  value: 'Hey There' //value MUST be a string, will be value of button or innerHTML of everything else
   * }
   * ]
@@ -267,7 +278,7 @@ var skill = {
 		    _ref8$onClick = _ref8.onClick,
 		    onClick = _ref8$onClick === undefined ? function () {} : _ref8$onClick;
 
-		this.handleStickElementClick = onClick;
+		this.handleStickElementClick[position] = onClick;
 		postMessage({
 			name: 'Skill:SetStickyElement',
 			elements: elements,
@@ -284,7 +295,14 @@ var skill = {
 
 		postMessage({
 			name: 'Skill:SetStickyBoundingRect',
-			boundingRect: rect
+			boundingRect: {
+				top: rect.top,
+				bottom: rect.bottom,
+				left: rect.left,
+				right: rect.right,
+				x: rect.x,
+				y: rect.y
+			}
 		});
 	},
 
