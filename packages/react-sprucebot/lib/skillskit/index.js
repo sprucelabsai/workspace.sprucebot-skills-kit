@@ -286,6 +286,7 @@ var skill = {
 	},
 
 	updateStickyBoundingRect: function updateStickyBoundingRect(rect) {
+		debugger;
 		if (this._lastRect && this._lastRect.top === rect.top && this._lastRect.bottom == rect.bottom) {
 			return;
 		}
@@ -294,7 +295,14 @@ var skill = {
 
 		postMessage({
 			name: 'Skill:SetStickyBoundingRect',
-			boundingRect: rect
+			boundingRect: {
+				top: rect.top,
+				bottom: rect.bottom,
+				left: rect.left,
+				right: rect.right,
+				x: rect.x,
+				y: rect.y
+			}
 		});
 	},
 

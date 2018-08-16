@@ -14,7 +14,7 @@ var BotText = _styledComponents2.default.div.attrs({
 	className: 'bot__text'
 }).withConfig({
 	displayName: 'BotText',
-	componentId: 's1aw735w-0'
+	componentId: 's11jaecx-0'
 })(['']);
 
 exports.default = BotText;

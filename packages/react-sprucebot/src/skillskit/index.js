@@ -205,6 +205,7 @@ const skill = {
 	},
 
 	updateStickyBoundingRect: function(rect) {
+		debugger
 		if (
 			this._lastRect &&
 			this._lastRect.top === rect.top &&
@@ -217,7 +218,14 @@ const skill = {
 
 		postMessage({
 			name: 'Skill:SetStickyBoundingRect',
-			boundingRect: rect
+			boundingRect: {
+				top: rect.top,
+				bottom: rect.bottom,
+				left: rect.left,
+				right: rect.right,
+				x: rect.x,
+				y: rect.y
+			}
 		})
 	},
 
