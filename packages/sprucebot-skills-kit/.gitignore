@@ -75,3 +75,6 @@ server/static/api-docs.json
 
 # macOS files
 .DS_Store
+
+# Generated swagger docs
+server/static/api-docs.json
