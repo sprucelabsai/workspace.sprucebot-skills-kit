@@ -71,6 +71,9 @@ module.exports = class Redis {
 				log.debug(`Cache Disabled: ${key}`)
 				return null
 			}
+			// In case it's got the prefix (from delWildcard), remove it
+			key = key.replace(`${config.SLUG}:`, '')
+
 			log.debug(`Cache DELETE: ${key}`)
 			this.client.del(key)
 		} catch (e) {
