@@ -2,7 +2,8 @@
 
 exports[`it renders 1`] = `
 <div
-  className="avatar__wrapper  "
+  className="avatar__wrapper   "
+  onClick={[Function]}
   showOnlineIndicator={true}
   style={
     Object {

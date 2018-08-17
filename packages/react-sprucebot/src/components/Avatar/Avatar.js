@@ -1,7 +1,24 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import SK from '../../skillskit'
 
 export default class Avatar extends Component {
+	handleTapEdit = () => {
+		const user = this.props.user
+		if (
+			user &&
+			user.User &&
+			user.User.id &&
+			user.Location &&
+			user.Location.id
+		) {
+			SK.editUserProfile({
+				userId: user.User.id,
+				locationId: user.Location.id
+			})
+		}
+	}
+
 	render() {
 		const { className, top, online, image, user, ...props } = this.props
 
@@ -25,7 +42,10 @@ export default class Avatar extends Component {
 			<div
 				style={style}
 				className={`${top ? 'top__avatar' : 'avatar__wrapper'} ${className ||
-					''} ${isOnline ? 'online' : ''}`}
+					''} ${isOnline ? 'online' : ''} ${
+					user && user.UserId ? 'is_editable' : ''
+				}`}
+				onClick={this.handleTapEdit}
 				{...props}
 			/>
 		)

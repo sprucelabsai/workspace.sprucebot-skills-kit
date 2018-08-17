@@ -16,6 +16,10 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _skillskit = require('../../skillskit');
+
+var _skillskit2 = _interopRequireDefault(_skillskit);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -30,9 +34,25 @@ var Avatar = function (_Component) {
 	_inherits(Avatar, _Component);
 
 	function Avatar() {
+		var _ref;
+
+		var _temp, _this, _ret;
+
 		_classCallCheck(this, Avatar);
 
-		return _possibleConstructorReturn(this, (Avatar.__proto__ || Object.getPrototypeOf(Avatar)).apply(this, arguments));
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Avatar.__proto__ || Object.getPrototypeOf(Avatar)).call.apply(_ref, [this].concat(args))), _this), _this.handleTapEdit = function () {
+			var user = _this.props.user;
+			if (user && user.User && user.User.id && user.Location && user.Location.id) {
+				_skillskit2.default.editUserProfile({
+					userId: user.User.id,
+					locationId: user.Location.id
+				});
+			}
+		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
 	_createClass(Avatar, [{
@@ -59,7 +79,8 @@ var Avatar = function (_Component) {
 
 			return _react2.default.createElement('div', _extends({
 				style: style,
-				className: (top ? 'top__avatar' : 'avatar__wrapper') + ' ' + (className || '') + ' ' + (isOnline ? 'online' : '')
+				className: (top ? 'top__avatar' : 'avatar__wrapper') + ' ' + (className || '') + ' ' + (isOnline ? 'online' : '') + ' ' + (user && user.UserId ? 'is_editable' : ''),
+				onClick: this.handleTapEdit
 			}, props));
 		}
 	}]);

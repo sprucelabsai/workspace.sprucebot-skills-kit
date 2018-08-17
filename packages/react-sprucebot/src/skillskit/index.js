@@ -43,6 +43,7 @@ const skill = {
 	hideUnderlay: function() {
 		postMessage('Skill:HideUnderlay')
 	},
+
 	canSendMessages: function() {
 		return window.top !== window.self || window.__SBTEAMMATE__
 	},
@@ -52,6 +53,14 @@ const skill = {
 		} else {
 			postMessage('Skill:Back')
 		}
+	},
+
+	editUserProfile: function({ userId, locationId }) {
+		postMessage({
+			name: 'Skill:EditUserProfile',
+			userId,
+			locationId
+		})
 	},
 
 	ready: function({ resetUrlTrail = false } = { resetUrlTrail: false }) {

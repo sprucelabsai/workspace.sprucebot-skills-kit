@@ -97,11 +97,13 @@ var Calendar = function (_Component) {
 		key: 'render',
 		value: function render() {
 			var _props = this.props,
-			    _props$defaultDate = _props.defaultDate,
-			    defaultDate = _props$defaultDate === undefined ? new Date() : _props$defaultDate,
+			    currentDate = _props.currentDate,
+			    timezone = _props.timezone,
 			    canDrag = _props.canDrag,
 			    canResize = _props.canResize,
-			    props = _objectWithoutProperties(_props, ['defaultDate', 'canDrag', 'canResize']);
+			    props = _objectWithoutProperties(_props, ['currentDate', 'timezone', 'canDrag', 'canResize']);
+
+			var defaultDate = (0, _moment2.default)(currentDate).tz(timezone).toDate();
 
 			return _react2.default.createElement(
 				CalendarWrapper,
@@ -113,6 +115,9 @@ var Calendar = function (_Component) {
 					startAccessor: this.startAccessor,
 					endAccessor: this.endAccessor,
 					defaultDate: defaultDate,
+					getNow: function getNow() {
+						return defaultDate;
+					},
 					selectable: props.onSelectSlot ? true : ''
 				}, props))
 			);
