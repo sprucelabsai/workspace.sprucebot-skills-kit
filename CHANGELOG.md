@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.57.0"></a>
+# [6.57.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.56.0...v6.57.0) (2018-08-16)
+
+
+### Features
+
+* Implement getNow to use store timezone ([e472437](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e472437))
+* Pass currentDate, timezone to Calendar ([256682f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/256682f))
+* Use timezone/currentDate for correct defaultDate ([d9c96b6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d9c96b6))
+
+
+
+
+
+<a name="6.56.0"></a>
+# [6.56.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.55.1...v6.56.0) (2018-08-16)
+
+
+### Features
+
+* sticky header click ([0ffd564](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0ffd564))
+
+
+
+
+
 <a name="6.55.1"></a>
 ## [6.55.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.55.0...v6.55.1) (2018-08-16)
 

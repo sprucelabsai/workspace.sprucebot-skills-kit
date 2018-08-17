@@ -652,6 +652,9 @@ export default class BigCalendar extends Component {
 		}
 
 		// Determine selected date in relation to today
+		const currentDate = moment
+			.tz(selectedDate, auth.Location.timezone)
+			.format('YYYY-MM-DD HH:mm:ss')
 		const today = moment()
 			.tz(auth.Location.timezone)
 			.startOf('day')
@@ -785,6 +788,8 @@ export default class BigCalendar extends Component {
 											className={`${
 												idx === 0 && !renderFirstCalendar ? 'hide' : ''
 											}`}
+											timezone={auth.Location.timezone}
+											currentDate={currentDate}
 											views={views}
 											events={events ? this.filterEvents(events, teammate) : []}
 											eventPropGetter={event => this.applyClassNames(event)}

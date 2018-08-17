@@ -745,12 +745,11 @@ class Calendar extends Component {
 	}
 
 	render() {
-		const {
-			defaultDate = new Date(),
-			canDrag,
-			canResize,
-			...props
-		} = this.props
+		const { currentDate, timezone, canDrag, canResize, ...props } = this.props
+
+		const defaultDate = moment(currentDate)
+			.tz(timezone)
+			.toDate()
 
 		return (
 			<CalendarWrapper>
@@ -761,6 +760,7 @@ class Calendar extends Component {
 					startAccessor={this.startAccessor}
 					endAccessor={this.endAccessor}
 					defaultDate={defaultDate}
+					getNow={() => defaultDate}
 					selectable={props.onSelectSlot ? true : ''}
 					{...props}
 				/>
