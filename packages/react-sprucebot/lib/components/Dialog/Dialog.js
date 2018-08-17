@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -8,41 +8,41 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _styledComponents = require('styled-components');
+var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
-var _classnames = require('classnames');
+var _classnames = require("classnames");
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactDom = require('react-dom');
+var _reactDom = require("react-dom");
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _index = require('../../skillskit/index');
+var _index = require("../../skillskit/index");
 
 var _index2 = _interopRequireDefault(_index);
 
-var _Button = require('../Button/Button');
+var _Button = require("../Button/Button");
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _IconButton = require('../IconButton/IconButton');
+var _IconButton = require("../IconButton/IconButton");
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
-var _Typography = require('../Typography/Typography');
+var _Typography = require("../Typography/Typography");
 
-var _skillskit = require('../../skillskit');
+var _skillskit = require("../../skillskit");
 
 var _skillskit2 = _interopRequireDefault(_skillskit);
 
@@ -63,33 +63,33 @@ var dialogVerticalPadding = 30;
 var DialogWrapper = _styledComponents2.default.div.attrs({
 	className: function className(_ref) {
 		var _className = _ref.className;
-		return 'dialog__wrapper ' + _className;
+		return "dialog__wrapper " + _className;
 	}
 }).withConfig({
-	displayName: 'Dialog__DialogWrapper',
-	componentId: 's1lyqie-0'
-})(['opacity:', ';'], function (props) {
+	displayName: "Dialog__DialogWrapper",
+	componentId: "s1lyqie-0"
+})(["opacity:", ";"], function (props) {
 	return props.opacity;
 });
 
 var DialogContainer = _styledComponents2.default.div.attrs({
 	className: function className(_ref2) {
 		var _className2 = _ref2.className;
-		return 'dialog ' + _className2;
+		return "dialog " + _className2;
 	}
 }).withConfig({
-	displayName: 'Dialog__DialogContainer',
-	componentId: 's1lyqie-1'
-})(['opacity:', ';'], function (props) {
+	displayName: "Dialog__DialogContainer",
+	componentId: "s1lyqie-1"
+})(["opacity:", ";"], function (props) {
 	return props.opacity;
 });
 var DialogCloseButton = (0, _styledComponents2.default)(_Button2.default).attrs({
-	className: 'btn__close_dialog',
+	className: "btn__close_dialog",
 	remove: true
 }).withConfig({
-	displayName: 'Dialog__DialogCloseButton',
-	componentId: 's1lyqie-2'
-})(['']);
+	displayName: "Dialog__DialogCloseButton",
+	componentId: "s1lyqie-2"
+})([""]);
 
 var timerRunning = false;
 
@@ -122,7 +122,7 @@ var Dialog = function (_Component) {
 			// because dialogs are shown/hidden by being conditionally rendered, we actually have no way of knowing how we should close unless someone tells us
 			if (_this.props.onTapClose) {
 				_this.closeDialog();
-				_this.setState({ focusClass: 'closed', opacity: 0 }, function () {
+				_this.setState({ focusClass: "closed", opacity: 0 }, function () {
 					if (_this.props.onTapClose) {
 						setTimeout(function () {
 							_this.props.onTapClose();
@@ -135,7 +135,7 @@ var Dialog = function (_Component) {
 		_this.iframeMessageHandler = _this.iframeMessageHandler.bind(_this);
 
 		_this.state = {
-			focusClass: '',
+			focusClass: "",
 			isHidden: true,
 			scrollTop: 0,
 			firstShow: true,
@@ -147,24 +147,24 @@ var Dialog = function (_Component) {
 	}
 
 	_createClass(Dialog, [{
-		key: 'blur',
+		key: "blur",
 		value: function blur() {
 			var _this2 = this;
 
-			this.setState({ focusClass: 'blurred' }, function () {
+			this.setState({ focusClass: "blurred" }, function () {
 				setTimeout(function () {
 					_this2.setState({ isHidden: true });
 				}, 500);
 			});
 		}
 	}, {
-		key: 'focus',
+		key: "focus",
 		value: function focus() {
 			var _this3 = this;
 
 			this.setState({ isHidden: false }, function () {
 				setTimeout(function () {
-					_this3.setState({ focusClass: 'focused' }, function () {
+					_this3.setState({ focusClass: "focused" }, function () {
 						// Resize the skill
 						setTimeout(function () {
 							_this3.postHeight();
@@ -174,14 +174,14 @@ var Dialog = function (_Component) {
 			});
 		}
 	}, {
-		key: 'postHeight',
+		key: "postHeight",
 		value: function postHeight() {
 			var height = 0;
 
 			currentDialogs.forEach(function (dialog) {
 				var node = _reactDom2.default.findDOMNode(dialog.dialogNode);
 				var styles = window.getComputedStyle(node);
-				var margin = parseFloat(styles['marginTop']);
+				var margin = parseFloat(styles["marginTop"]);
 
 				var dialogHeight = Math.ceil(node.offsetHeight + margin);
 				height = Math.max(dialogHeight, height);
@@ -192,25 +192,25 @@ var Dialog = function (_Component) {
 			}
 		}
 	}, {
-		key: 'componentWillMount',
+		key: "componentWillMount",
 		value: function componentWillMount() {
-			if (typeof document !== 'undefined' && !dialogUnderlay) {
-				dialogUnderlay = document.createElement('div');
-				dialogUnderlay.className = 'dialog_underlay';
-				dialogUnderlay.classList.add('hidden');
+			if (typeof document !== "undefined" && !dialogUnderlay) {
+				dialogUnderlay = document.createElement("div");
+				dialogUnderlay.className = "dialog_underlay";
+				dialogUnderlay.classList.add("hidden");
 				document.body.appendChild(dialogUnderlay);
 			}
 			if (dialogUnderlay) {
-				dialogUnderlay.classList.add('on');
+				dialogUnderlay.classList.add("on");
 				setTimeout(function () {
-					dialogUnderlay.classList.remove('hidden');
+					dialogUnderlay.classList.remove("hidden");
 				}, 10);
 			}
 		}
 	}, {
-		key: 'componentDidMount',
+		key: "componentDidMount",
 		value: function componentDidMount() {
-			window.addEventListener('message', this.iframeMessageHandler);
+			window.addEventListener("message", this.iframeMessageHandler);
 			if (this.state.firstShow) {
 				this.requestScroll();
 			}
@@ -230,7 +230,7 @@ var Dialog = function (_Component) {
 			}
 		}
 	}, {
-		key: 'componentDidUpdate',
+		key: "componentDidUpdate",
 		value: function componentDidUpdate() {
 			// in case our starting state is not showing
 			if (this.state.firstShow) {
@@ -238,14 +238,14 @@ var Dialog = function (_Component) {
 			}
 
 			if (!this.state.inIframe) {
-				dialogUnderlay.classList.add('not_in_iframe');
+				dialogUnderlay.classList.add("not_in_iframe");
 			}
 		}
 	}, {
-		key: 'componentWillUnmount',
+		key: "componentWillUnmount",
 		value: function componentWillUnmount() {
-			document.body.style.minHeight = 'auto';
-			window.removeEventListener('message', this.iframeMessageHandler);
+			document.body.style.minHeight = "auto";
+			window.removeEventListener("message", this.iframeMessageHandler);
 			this.closeDialog();
 
 			if (this.heightInterval) {
@@ -254,7 +254,7 @@ var Dialog = function (_Component) {
 			}
 		}
 	}, {
-		key: 'requestScroll',
+		key: "requestScroll",
 		value: function requestScroll() {
 			// we are not in the sb iframe
 			if (window.top === window.self) {
@@ -269,11 +269,11 @@ var Dialog = function (_Component) {
 			}
 		}
 	}, {
-		key: 'iframeMessageHandler',
+		key: "iframeMessageHandler",
 		value: function iframeMessageHandler(e) {
 			try {
 				var results = JSON.parse(e.data);
-				if (this.state.firstShow && results.name === 'SkillContainer:ScrollTop') {
+				if (this.state.firstShow && results.name === "SkillContainer:ScrollTop") {
 					var top = results.skillScrollTop < 0 ? Math.abs(results.skillScrollTop) : 0;
 					this.setState({
 						scrollTop: top,
@@ -284,9 +284,9 @@ var Dialog = function (_Component) {
 			} catch (err) {}
 		}
 	}, {
-		key: 'closeDialog',
+		key: "closeDialog",
 		value: function closeDialog() {
-			if (this.state.focusClass !== 'closed') {
+			if (this.state.focusClass !== "closed") {
 				currentDialogs.pop();
 				if (currentDialogs.length - 1 >= 0) {
 					var nextDialog = currentDialogs[currentDialogs.length - 1];
@@ -294,11 +294,11 @@ var Dialog = function (_Component) {
 					var node = _reactDom2.default.findDOMNode(this.dialogNode);
 					_skillskit2.default.scrollTo(node.offsetTop - dialogVerticalPadding);
 				} else {
-					dialogUnderlay.classList.add('hidden');
+					dialogUnderlay.classList.add("hidden");
 					_skillskit2.default.hideUnderlay();
 					setTimeout(function () {
 						_skillskit2.default.clearMinBodyHeight();
-						dialogUnderlay.classList.remove('on');
+						dialogUnderlay.classList.remove("on");
 					}, 300);
 				}
 
@@ -308,7 +308,7 @@ var Dialog = function (_Component) {
 			}
 		}
 	}, {
-		key: 'render',
+		key: "render",
 		value: function render() {
 			var _this4 = this;
 
@@ -318,7 +318,7 @@ var Dialog = function (_Component) {
 			    className = _props.className,
 			    title = _props.title,
 			    onTapClose = _props.onTapClose,
-			    props = _objectWithoutProperties(_props, ['tag', 'children', 'className', 'title', 'onTapClose']);
+			    props = _objectWithoutProperties(_props, ["tag", "children", "className", "title", "onTapClose"]);
 
 			var _state = this.state,
 			    opacity = _state.opacity,
@@ -337,12 +337,12 @@ var Dialog = function (_Component) {
 
 			var hasHeader = true; // always have a header, just won't show close/title if not supplied
 
-			return typeof document !== 'undefined' && _reactDom2.default.createPortal(_react2.default.createElement(
+			return typeof document !== "undefined" && _reactDom2.default.createPortal(_react2.default.createElement(
 				DialogWrapper,
 				{
-					className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
+					className: focusClass + " " + (!firstShow ? "was-focused" : "") + " " + (isHidden ? "hidden" : "") + " dialog-" + dialogIndex,
 					onClick: function onClick(e) {
-						if (e.target.className.search('dialog__wrapper') > -1 && currentDialogs.length - 1 >= 0) {
+						if (e.target.className.search("dialog__wrapper") > -1 && currentDialogs.length - 1 >= 0) {
 							currentDialogs[currentDialogs.length - 1].handleTapClose();
 						}
 					}
@@ -353,13 +353,13 @@ var Dialog = function (_Component) {
 						ref: function ref(node) {
 							return _this4.dialogNode = node;
 						},
-						className: (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
+						className: (className || "") + " " + (hasHeader ? "has_header" : ""),
 						style: dialogStyle,
 						opacity: opacity
 					}, props),
 					hasHeader && _react2.default.createElement(
-						'div',
-						{ className: 'dialog__header' },
+						"div",
+						{ className: "dialog__header" },
 						title && _react2.default.createElement(
 							_Typography.H2,
 							null,
@@ -368,10 +368,10 @@ var Dialog = function (_Component) {
 						onTapClose && _react2.default.createElement(
 							_IconButton2.default,
 							{
-								className: 'btn__close_dialog',
+								className: "btn__close_dialog",
 								onClick: this.handleTapClose
 							},
-							'close'
+							"close"
 						)
 					),
 					children
@@ -393,5 +393,5 @@ Dialog.propTypes = {
 };
 
 Dialog.defaultProps = {
-	tag: 'div'
+	tag: "div"
 };
