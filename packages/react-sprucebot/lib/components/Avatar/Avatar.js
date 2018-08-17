@@ -79,7 +79,7 @@ var Avatar = function (_Component) {
 
 			return _react2.default.createElement('div', _extends({
 				style: style,
-				className: (top ? 'top__avatar' : 'avatar__wrapper') + ' ' + (className || '') + ' ' + (isOnline ? 'online' : '') + ' ' + (user.UserId ? 'is_editable' : ''),
+				className: (top ? 'top__avatar' : 'avatar__wrapper') + ' ' + (className || '') + ' ' + (isOnline ? 'online' : '') + ' ' + (user && user.UserId ? 'is_editable' : ''),
 				onClick: this.handleTapEdit
 			}, props));
 		}

@@ -42,7 +42,9 @@ export default class Avatar extends Component {
 			<div
 				style={style}
 				className={`${top ? 'top__avatar' : 'avatar__wrapper'} ${className ||
-					''} ${isOnline ? 'online' : ''} ${user.UserId ? 'is_editable' : ''}`}
+					''} ${isOnline ? 'online' : ''} ${
+					user && user.UserId ? 'is_editable' : ''
+				}`}
 				onClick={this.handleTapEdit}
 				{...props}
 			/>
