@@ -93,6 +93,16 @@ var Page = function Page(Wrapped) {
 
 			var _this = _possibleConstructorReturn(this, (_class2.__proto__ || Object.getPrototypeOf(_class2)).call(this, props));
 
+			_this.handleIframeMessage = function (e) {
+				// we are not going to try and authenticate again (cookie setting)
+				if (e.data === 'Skill:NotReAuthing') {
+					_this.setState({
+						attemptingReAuth: false
+					});
+					return;
+				}
+			};
+
 			_this.handleRouteChangStart = function () {
 				// don't user skill off props, it is pulled server side and lacks all functions
 				_index2.default.notifyOfRouteChangeStart();
@@ -102,8 +112,6 @@ var Page = function Page(Wrapped) {
 				attemptingReAuth: !!props.attemptingReAuth,
 				isIframed: true
 			};
-
-			_this.messageHandler = _this.messageHandler.bind(_this);
 			return _this;
 		}
 
@@ -111,15 +119,6 @@ var Page = function Page(Wrapped) {
 
 
 		_createClass(_class2, [{
-			key: 'messageHandler',
-			value: function messageHandler(e) {
-				if (e.data === 'Skill:NotReAuthing') {
-					this.setState({
-						attemptingReAuth: false
-					});
-				}
-			}
-		}, {
 			key: 'componentDidMount',
 			value: function () {
 				var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -128,8 +127,6 @@ var Page = function Page(Wrapped) {
 						while (1) {
 							switch (_context.prev = _context.next) {
 								case 0:
-									window.addEventListener('message', this.messageHandler);
-
 									if (window.self === window.top || window.__SBTEAMMATE__) {
 										// make sure we are being loaded inside sb
 										console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL');
@@ -142,7 +139,7 @@ var Page = function Page(Wrapped) {
 									}
 
 									// NOTE: Need to do this require here so that we can be sure the global window is defined
-									WebFont = require('webfontloader'); //eslint-disable-line
+									WebFont = require("webfontloader"); //eslint-disable-line
 
 									WebFont.load({
 										google: {
@@ -150,9 +147,16 @@ var Page = function Page(Wrapped) {
 										}
 									});
 
+									// setup route changes
 									_router2.default && _router2.default.router && _router2.default.router.events.on('routeChangeStart', this.handleRouteChangStart);
 
-								case 5:
+									// window listeners for reauth communication
+									window.addEventListener('message', this.handleIframeMessage);
+
+									// setup event listeners
+									_index2.default.addEventListener('did-update-user', this.props.actions.events.didUpdateUser);
+
+								case 6:
 								case 'end':
 									return _context.stop();
 							}
@@ -169,7 +173,13 @@ var Page = function Page(Wrapped) {
 		}, {
 			key: 'componentWillUnmount',
 			value: function componentWillUnmount() {
-				window.removeEventListener('message', this.messageHandler);
+				// remove all listeners
+				window.removeEventListener('message', this.handleIframeMessage);
+
+				// no more user updates
+				_index2.default.removeEventListener('did-update-user', this.props.actions.events.didUpdateUser);
+
+				// remove route changes
 				_router2.default && _router2.default.router && _router2.default.router.events.off('routeChangeStart', this.handleRouteChangStart);
 			}
 		}, {
