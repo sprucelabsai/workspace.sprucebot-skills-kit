@@ -14,6 +14,7 @@ var skill = {
 	height: 0,
 	minHeight: 0,
 	handleStickElementClick: {},
+	listenersByEventName: {},
 	forceAuth: function forceAuth() {
 		postMessage('Skill:ForceAuth');
 	},
@@ -38,6 +39,31 @@ var skill = {
 			});
 		}
 	},
+
+	addEventListener: function addEventListener(eventName, listener) {
+		if (!this.listenersByEventName[eventName]) {
+			this.listenersByEventName[eventName] = [];
+		}
+		this.listenersByEventName[eventName].push(listener);
+	},
+
+	removeEventListener: function removeEventListener(eventName, listener) {
+		if (!this.listenersByEventName[eventName]) {
+			this.listenersByEventName[eventName] = [];
+		}
+		var idx = this.listenersByEventName[eventName].indexOf(listener);
+		if (idx > -1) {
+			this.listenersByEventName[eventName].splice(idx, 1);
+		}
+	},
+
+	dipsatchEventListener: function dipsatchEventListener(eventName, payload) {
+		var listeners = this.listenersByEventName[eventName] || [];
+		listeners.forEach(function (l) {
+			return l(payload);
+		});
+	},
+
 	setMinBodyHeight: function setMinBodyHeight(height) {
 		this.minHeight = height;
 	},
@@ -55,6 +81,7 @@ var skill = {
 	canSendMessages: function canSendMessages() {
 		return window.top !== window.self || window.__SBTEAMMATE__;
 	},
+
 	back: function back() {
 		if (!this.canSendMessages()) {
 			window.history.back();
@@ -175,8 +202,12 @@ var skill = {
 						this._showHelpAccept = null;
 					}
 				}
+				if (results.name.substring(0, 5) === 'Event') {
+					var name = results.name,
+					    payload = results.payload;
 
-				if (results.name === 'Search:SelectUser') {
+					this.dipsatchEventListener(name.substring(6), payload);
+				} else if (results.name === 'Search:SelectUser') {
 					if (this._onSelecUserFormSearchCallback) {
 						this._onSelecUserFormSearchCallback(results.user);
 						this._onSelecUserFormSearchCallback = null;

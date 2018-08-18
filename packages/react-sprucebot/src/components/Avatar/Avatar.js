@@ -28,6 +28,7 @@ export default class Avatar extends Component {
 			online,
 			image,
 			user,
+			showOnlineIndicator,
 			enableProfileEditing,
 			...props
 		} = this.props

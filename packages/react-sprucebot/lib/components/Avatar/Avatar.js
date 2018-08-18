@@ -68,8 +68,9 @@ var Avatar = function (_Component) {
 			    online = _props.online,
 			    image = _props.image,
 			    user = _props.user,
+			    showOnlineIndicator = _props.showOnlineIndicator,
 			    enableProfileEditing = _props.enableProfileEditing,
-			    props = _objectWithoutProperties(_props, ['className', 'top', 'online', 'image', 'user', 'enableProfileEditing']);
+			    props = _objectWithoutProperties(_props, ['className', 'top', 'online', 'image', 'user', 'showOnlineIndicator', 'enableProfileEditing']);
 
 			var style = {};
 			var isOnline = online;
