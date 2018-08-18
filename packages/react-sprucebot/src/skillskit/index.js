@@ -49,7 +49,7 @@ const skill = {
 		}
 	},
 
-	dipsatchEventListener: function(eventName, payload) {
+	dispatchEventListener: function(eventName, payload) {
 		const listeners = this.listenersByEventName[eventName] || []
 		listeners.forEach(l => l(payload))
 	},
@@ -156,7 +156,7 @@ const skill = {
 				}
 				if (results.name.substring(0, 5) === 'Event') {
 					const { name, payload } = results
-					this.dipsatchEventListener(name.substring(6), payload)
+					this.dispatchEventListener(name.substring(6), payload)
 				} else if (results.name === 'Search:SelectUser') {
 					if (this._onSelecUserFormSearchCallback) {
 						this._onSelecUserFormSearchCallback(results.user)

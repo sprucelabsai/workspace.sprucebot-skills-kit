@@ -57,7 +57,7 @@ var skill = {
 		}
 	},
 
-	dipsatchEventListener: function dipsatchEventListener(eventName, payload) {
+	dispatchEventListener: function dispatchEventListener(eventName, payload) {
 		var listeners = this.listenersByEventName[eventName] || [];
 		listeners.forEach(function (l) {
 			return l(payload);
@@ -206,7 +206,7 @@ var skill = {
 					var name = results.name,
 					    payload = results.payload;
 
-					this.dipsatchEventListener(name.substring(6), payload);
+					this.dispatchEventListener(name.substring(6), payload);
 				} else if (results.name === 'Search:SelectUser') {
 					if (this._onSelecUserFormSearchCallback) {
 						this._onSelecUserFormSearchCallback(results.user);
