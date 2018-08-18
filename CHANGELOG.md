@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.61.0"></a>
+# [6.61.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.60.0...v6.61.0) (2018-08-18)
+
+
+### Features
+
+* event listening through iframe messages, implimented did-update-user as example and only check authed user ([3488346](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3488346))
+* missed new files ([1c3e6b1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1c3e6b1))
+
+
+
+
+
 <a name="6.60.0"></a>
 # [6.60.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.59.0...v6.60.0) (2018-08-17)
 
