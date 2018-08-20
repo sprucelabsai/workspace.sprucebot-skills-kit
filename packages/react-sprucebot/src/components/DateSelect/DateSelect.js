@@ -900,7 +900,8 @@ const LoadingContainer = styled.div`
 
 class DateSelect extends Component {
 	state = {
-		defaultDateSet: false
+		defaultDateSet: false,
+		today: this.props.timezone ? moment().tz(this.props.timezone) : moment()
 	}
 
 	componentDidMount = () => {
@@ -912,33 +913,42 @@ class DateSelect extends Component {
 	}
 
 	isDayBlocked = date => {
-		const { availableDates } = this.props
+		const { availableDates, timezone } = this.props
+		const formattedDate = timezone ? date.tz(timezone) : date
 
 		if (!availableDates) {
 			return false
 		}
 
-		const match = availableDates.find(day => day === date.format('YYYY-MM-DD'))
+		const match = availableDates.find(
+			day => day === formattedDate.format('YYYY-MM-DD')
+		)
 		const lastDate = moment(availableDates[availableDates.length - 1]).endOf(
 			'month'
 		)
 
-		if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
+		if (
+			match ||
+			formattedDate.isAfter(lastDate) ||
+			formattedDate.isSame(lastDate)
+		) {
 			return false
 		}
 		return true
 	}
 
 	isOutsideRange = date => {
-		const { allowPastDates } = this.props
-		const today = moment()
-		const pastDate = date.isBefore(today)
+		const { today } = this.state
+		const { allowPastDates, timezone } = this.props
+
+		const formattedDate = timezone ? date.tz(timezone) : date
+		const pastDate = formattedDate.isBefore(today)
 
 		if (allowPastDates) {
 			return false
 		}
 
-		if (date.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+		if (formattedDate.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
 			return false
 		}
 
@@ -977,7 +987,8 @@ class DateSelect extends Component {
 			onPrevMonthClick,
 			onNextMonthClick,
 			hide,
-			loading
+			loading,
+			timezone
 		} = this.props
 
 		return (

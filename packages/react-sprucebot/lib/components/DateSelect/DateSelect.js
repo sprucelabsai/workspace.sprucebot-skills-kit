@@ -85,7 +85,8 @@ var DateSelect = function (_Component) {
 		}
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSelect.__proto__ || Object.getPrototypeOf(DateSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-			defaultDateSet: false
+			defaultDateSet: false,
+			today: _this.props.timezone ? (0, _moment2.default)().tz(_this.props.timezone) : (0, _moment2.default)()
 		}, _this.componentDidMount = function () {
 			var defaultDateSet = _this.state.defaultDateSet;
 
@@ -94,33 +95,40 @@ var DateSelect = function (_Component) {
 				_this.setDefaultDate();
 			}
 		}, _this.isDayBlocked = function (date) {
-			var availableDates = _this.props.availableDates;
+			var _this$props = _this.props,
+			    availableDates = _this$props.availableDates,
+			    timezone = _this$props.timezone;
 
+			var formattedDate = timezone ? date.tz(timezone) : date;
 
 			if (!availableDates) {
 				return false;
 			}
 
 			var match = availableDates.find(function (day) {
-				return day === date.format('YYYY-MM-DD');
+				return day === formattedDate.format('YYYY-MM-DD');
 			});
 			var lastDate = (0, _moment2.default)(availableDates[availableDates.length - 1]).endOf('month');
 
-			if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
+			if (match || formattedDate.isAfter(lastDate) || formattedDate.isSame(lastDate)) {
 				return false;
 			}
 			return true;
 		}, _this.isOutsideRange = function (date) {
-			var allowPastDates = _this.props.allowPastDates;
+			var today = _this.state.today;
+			var _this$props2 = _this.props,
+			    allowPastDates = _this$props2.allowPastDates,
+			    timezone = _this$props2.timezone;
 
-			var today = (0, _moment2.default)();
-			var pastDate = date.isBefore(today);
+
+			var formattedDate = timezone ? date.tz(timezone) : date;
+			var pastDate = formattedDate.isBefore(today);
 
 			if (allowPastDates) {
 				return false;
 			}
 
-			if (date.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+			if (formattedDate.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
 				return false;
 			}
 
@@ -157,7 +165,8 @@ var DateSelect = function (_Component) {
 			    _onPrevMonthClick = _props.onPrevMonthClick,
 			    _onNextMonthClick = _props.onNextMonthClick,
 			    hide = _props.hide,
-			    loading = _props.loading;
+			    loading = _props.loading,
+			    timezone = _props.timezone;
 
 
 			return _react2.default.createElement(
