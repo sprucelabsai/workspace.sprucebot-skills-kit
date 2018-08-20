@@ -275,7 +275,11 @@ const skill = {
 }
 
 if (typeof window !== 'undefined') {
-	window.addEventListener('message', skill.handleIframeMessage.bind(skill))
+	if (window.__SBTEAMMATE__) {
+		document.addEventListener('message', skill.handleIframeMessage.bind(skill))
+	} else {
+		window.addEventListener('message', skill.handleIframeMessage.bind(skill))
+	}
 }
 
 export default skill
