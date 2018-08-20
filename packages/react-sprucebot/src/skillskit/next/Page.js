@@ -40,8 +40,6 @@ const Page = Wrapped => {
 				attemptingReAuth: !!props.attemptingReAuth,
 				isIframed: true
 			}
-
-			this.messageHandler = this.messageHandler.bind(this)
 		}
 
 		// Everything here is run server side
@@ -144,16 +142,16 @@ const Page = Wrapped => {
 			return props
 		}
 
-		messageHandler(e) {
+		handleIframeMessage = e => {
+			// we are not going to try and authenticate again (cookie setting)
 			if (e.data === 'Skill:NotReAuthing') {
 				this.setState({
 					attemptingReAuth: false
 				})
+				return
 			}
 		}
 		async componentDidMount() {
-			window.addEventListener('message', this.messageHandler)
-
 			if (window.self === window.top || window.__SBTEAMMATE__) {
 				// make sure we are being loaded inside sb
 				console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL')
@@ -166,20 +164,39 @@ const Page = Wrapped => {
 			}
 
 			// NOTE: Need to do this require here so that we can be sure the global window is defined
-			const WebFont = require('webfontloader') //eslint-disable-line
+			const WebFont = require("webfontloader"); //eslint-disable-line
 			WebFont.load({
 				google: {
 					families: ['Material Icons']
 				}
 			})
 
+			// setup route changes
 			Router &&
 				Router.router &&
 				Router.router.events.on('routeChangeStart', this.handleRouteChangStart)
+
+			// window listeners for reauth communication
+			window.addEventListener('message', this.handleIframeMessage)
+
+			// setup event listeners
+			skill.addEventListener(
+				'did-update-user',
+				this.props.actions.events.didUpdateUser
+			)
 		}
 
 		componentWillUnmount() {
-			window.removeEventListener('message', this.messageHandler)
+			// remove all listeners
+			window.removeEventListener('message', this.handleIframeMessage)
+
+			// no more user updates
+			skill.removeEventListener(
+				'did-update-user',
+				this.props.actions.events.didUpdateUser
+			)
+
+			// remove route changes
 			Router &&
 				Router.router &&
 				Router.router.events.off('routeChangeStart', this.handleRouteChangStart)

@@ -45,8 +45,12 @@ var Avatar = function (_Component) {
 		}
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Avatar.__proto__ || Object.getPrototypeOf(Avatar)).call.apply(_ref, [this].concat(args))), _this), _this.handleTapEdit = function () {
-			var user = _this.props.user;
-			if (user && user.User && user.User.id && user.Location && user.Location.id) {
+			var _this$props = _this.props,
+			    user = _this$props.user,
+			    enableProfileEditing = _this$props.enableProfileEditing;
+
+
+			if (enableProfileEditing && user && user.User && user.User.id && user.Location && user.Location.id) {
 				_skillskit2.default.editUserProfile({
 					userId: user.User.id,
 					locationId: user.Location.id
@@ -64,7 +68,9 @@ var Avatar = function (_Component) {
 			    online = _props.online,
 			    image = _props.image,
 			    user = _props.user,
-			    props = _objectWithoutProperties(_props, ['className', 'top', 'online', 'image', 'user']);
+			    showOnlineIndicator = _props.showOnlineIndicator,
+			    enableProfileEditing = _props.enableProfileEditing,
+			    props = _objectWithoutProperties(_props, ['className', 'top', 'online', 'image', 'user', 'showOnlineIndicator', 'enableProfileEditing']);
 
 			var style = {};
 			var isOnline = online;
@@ -79,7 +85,7 @@ var Avatar = function (_Component) {
 
 			return _react2.default.createElement('div', _extends({
 				style: style,
-				className: (top ? 'top__avatar' : 'avatar__wrapper') + ' ' + (className || '') + ' ' + (isOnline ? 'online' : '') + ' ' + (user && user.UserId ? 'is_editable' : ''),
+				className: (top ? 'top__avatar' : 'avatar__wrapper') + ' ' + (className || '') + ' ' + (isOnline ? 'online' : '') + ' ' + (enableProfileEditing && user && user.User ? 'is_editable' : ''),
 				onClick: this.handleTapEdit
 			}, props));
 		}
@@ -96,10 +102,12 @@ Avatar.propTypes = {
 	user: _propTypes2.default.object, //pass this or everything belowe
 	image: _propTypes2.default.string,
 	showOnlineIndicator: _propTypes2.default.bool,
-	online: _propTypes2.default.bool
+	online: _propTypes2.default.bool,
+	enableProfileEditing: _propTypes2.default.bool
 };
 
 Avatar.defaultProps = {
 	top: false,
-	showOnlineIndicator: true
+	showOnlineIndicator: true,
+	enableProfileEditing: false
 };

@@ -6,6 +6,7 @@ const skill = {
 	height: 0,
 	minHeight: 0,
 	handleStickElementClick: {},
+	listenersByEventName: {},
 	forceAuth: function() {
 		postMessage('Skill:ForceAuth')
 	},
@@ -30,6 +31,29 @@ const skill = {
 			})
 		}
 	},
+
+	addEventListener: function(eventName, listener) {
+		if (!this.listenersByEventName[eventName]) {
+			this.listenersByEventName[eventName] = []
+		}
+		this.listenersByEventName[eventName].push(listener)
+	},
+
+	removeEventListener: function(eventName, listener) {
+		if (!this.listenersByEventName[eventName]) {
+			this.listenersByEventName[eventName] = []
+		}
+		const idx = this.listenersByEventName[eventName].indexOf(listener)
+		if (idx > -1) {
+			this.listenersByEventName[eventName].splice(idx, 1)
+		}
+	},
+
+	dispatchEventListener: function(eventName, payload) {
+		const listeners = this.listenersByEventName[eventName] || []
+		listeners.forEach(l => l(payload))
+	},
+
 	setMinBodyHeight: function(height) {
 		this.minHeight = height
 	},
@@ -47,6 +71,7 @@ const skill = {
 	canSendMessages: function() {
 		return window.top !== window.self || window.__SBTEAMMATE__
 	},
+
 	back: function() {
 		if (!this.canSendMessages()) {
 			window.history.back()
@@ -129,8 +154,10 @@ const skill = {
 						this._showHelpAccept = null
 					}
 				}
-
-				if (results.name === 'Search:SelectUser') {
+				if (results.name.substring(0, 5) === 'Event') {
+					const { name, payload } = results
+					this.dispatchEventListener(name.substring(6), payload)
+				} else if (results.name === 'Search:SelectUser') {
 					if (this._onSelecUserFormSearchCallback) {
 						this._onSelecUserFormSearchCallback(results.user)
 						this._onSelecUserFormSearchCallback = null

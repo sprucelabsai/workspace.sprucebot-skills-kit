@@ -10,6 +10,8 @@ exports.default = reducer;
 
 var _auth = require('../actions/auth');
 
+var _events = require('../actions/events');
+
 function reducer() {
 	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 	var action = arguments[1];
@@ -28,6 +30,14 @@ function reducer() {
 				error: action.error,
 				authing: false
 			});
+		case _events.DID_UPDATE_USER:
+			var updatedUser = action.payload.user;
+
+			var user = {};
+			if (updatedUser.UserId === state.UserId) {
+				user = updatedUser;
+			}
+			return _extends({}, state, user);
 		default:
 			return state;
 	}

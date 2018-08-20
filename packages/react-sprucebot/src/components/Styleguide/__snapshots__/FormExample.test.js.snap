@@ -23,6 +23,9 @@ exports[`FormExample it renders 1`] = `
             "calendar": Object {
               "fetchEvents": [Function],
             },
+            "events": Object {
+              "didUpdateUser": [Function],
+            },
             "onboarding": Object {
               "didOnboarding": [Function],
               "finishOnboarding": [Function],
