@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.62.0"></a>
+# [6.62.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.61.2...v6.62.0) (2018-08-20)
+
+
+### Bug Fixes
+
+* Fix linting ([1506d76](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1506d76))
+
+
+### Features
+
+* Add timezone functionality to DateRangeSelect ([9643d0f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9643d0f))
+* Add timezone functionality to DateSelect ([321ccf3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/321ccf3))
+
+
+
+
+
 <a name="6.61.2"></a>
 ## [6.61.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.61.1...v6.61.2) (2018-08-20)
 
