@@ -301,9 +301,9 @@ export default class BigCalendar extends Component {
 		const movingToWeek =
 			mode === 'user' && view !== 'week' && newView === 'week'
 
-		await this.setState({
+		this.setState({
 			view: newView,
-			renderFirstCalendar: !movingToWeek
+			// renderFirstCalendar: !movingToWeek
 		})
 
 		// because month view does not show all teammates, if we are in team mode jumping OFF month view, lets
@@ -311,8 +311,11 @@ export default class BigCalendar extends Component {
 		if (mode === 'team' && view === 'month' && newView !== 'month') {
 			this.toggleShowOnCalendars()
 		} else if (mode === 'user' && view !== 'week' && newView === 'week') {
+			//NOTE: Removed this delay as it was causing DOM issues with the calendar not rendering fast enough;
+			// Changes to BE data structure and FE should limit render lag that was initially seen
+
 			// week view is heavy, give dom a sec to render before rendering calendar
-			this.delayedRenderWeekView()
+			// this.delayedRenderWeekView()
 		}
 
 		this.handleChange()
