@@ -361,4 +361,9 @@ if (typeof window !== 'undefined') {
 	window.addEventListener('message', skill.handleIframeMessage.bind(skill));
 }
 
+// for mobile app webviews
+if (typeof document !== 'undefined') {
+	document.addEventListener('message', skill.handleIframeMessage.bind(skill));
+}
+
 exports.default = skill;
