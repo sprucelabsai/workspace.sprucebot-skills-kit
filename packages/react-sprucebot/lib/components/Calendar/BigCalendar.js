@@ -404,21 +404,23 @@ var BigCalendar = function (_Component) {
 								_this$state6 = _this.state, mode = _this$state6.mode, view = _this$state6.view;
 								newView = _this.state.views[idx];
 								movingToWeek = mode === 'user' && view !== 'week' && newView === 'week';
-								_context3.next = 5;
-								return _this.setState({
-									view: newView,
-									renderFirstCalendar: !movingToWeek
-								});
 
-							case 5:
+
+								_this.setState({
+									view: newView
+									// renderFirstCalendar: !movingToWeek
+								});
 
 								// because month view does not show all teammates, if we are in team mode jumping OFF month view, lets
 								// re-show team wrappers
 								if (mode === 'team' && view === 'month' && newView !== 'month') {
 									_this.toggleShowOnCalendars();
 								} else if (mode === 'user' && view !== 'week' && newView === 'week') {
+									//NOTE: Removed this delay as it was causing DOM issues with the calendar not rendering fast enough;
+									// Changes to BE data structure and FE should limit render lag that was initially seen
+
 									// week view is heavy, give dom a sec to render before rendering calendar
-									_this.delayedRenderWeekView();
+									// this.delayedRenderWeekView()
 								}
 
 								_this.handleChange();
@@ -427,7 +429,7 @@ var BigCalendar = function (_Component) {
 									_this.handleWindowResize();
 								}, 500);
 
-							case 8:
+							case 7:
 							case 'end':
 								return _context3.stop();
 						}
