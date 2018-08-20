@@ -302,7 +302,7 @@ export default class BigCalendar extends Component {
 			mode === 'user' && view !== 'week' && newView === 'week'
 
 		this.setState({
-			view: newView,
+			view: newView
 			// renderFirstCalendar: !movingToWeek
 		})
 
@@ -313,7 +313,6 @@ export default class BigCalendar extends Component {
 		} else if (mode === 'user' && view !== 'week' && newView === 'week') {
 			//NOTE: Removed this delay as it was causing DOM issues with the calendar not rendering fast enough;
 			// Changes to BE data structure and FE should limit render lag that was initially seen
-
 			// week view is heavy, give dom a sec to render before rendering calendar
 			// this.delayedRenderWeekView()
 		}
