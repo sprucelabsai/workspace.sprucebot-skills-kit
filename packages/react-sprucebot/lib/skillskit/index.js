@@ -359,11 +359,19 @@ var skill = {
 
 if (typeof window !== 'undefined') {
 	window.addEventListener('message', skill.handleIframeMessage.bind(skill));
-}
-
-// for mobile app webviews
-if (typeof document !== 'undefined') {
-	document.addEventListener('message', skill.handleIframeMessage.bind(skill));
+	// Check if opened from webview in iOS or Android app (window.__SBTEAMMATE__ var not injected in time)
+	var standalone = window.navigator.standalone;
+	var userAgent = window.navigator.userAgent.toLowerCase();
+	var safari = /safari/.test(userAgent);
+	var chrome = /chrome/.test(userAgent);
+	var ios = /iphone|ipod|ipad/.test(userAgent);
+	var android = /android/.test(userAgent);
+	var isIOSWebView = ios && !safari && !standalone;
+	var isAndroidWebView = android && !chrome && !standalone;
+	if (isIOSWebView || isAndroidWebView) {
+		window.removeEventListener('message', skill.handleIframeMessage.bind(skill));
+		document.addEventListener('message', skill.handleIframeMessage.bind(skill));
+	}
 }
 
 exports.default = skill;
