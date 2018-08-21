@@ -276,11 +276,19 @@ const skill = {
 
 if (typeof window !== 'undefined') {
 	window.addEventListener('message', skill.handleIframeMessage.bind(skill))
-}
-
-// for mobile app webviews
-if (typeof document !== 'undefined') {
-	document.addEventListener('message', skill.handleIframeMessage.bind(skill))
+	// Check if opened from webview in iOS or Android app (window.__SBTEAMMATE__ var not injected in time)
+	const standalone = window.navigator.standalone
+	const userAgent = window.navigator.userAgent.toLowerCase()
+	const safari = /safari/.test(userAgent)
+	const chrome = /chrome/.test(userAgent)
+	const ios = /iphone|ipod|ipad/.test(userAgent)
+	const android = /android/.test(userAgent)
+	const isIOSWebView = ios && !safari && !standalone
+	const isAndroidWebView = android && !chrome && !standalone
+	if (isIOSWebView || isAndroidWebView) {
+		window.removeEventListener('message', skill.handleIframeMessage.bind(skill))
+		document.addEventListener('message', skill.handleIframeMessage.bind(skill))
+	}
 }
 
 export default skill
