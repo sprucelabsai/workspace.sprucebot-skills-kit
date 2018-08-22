@@ -83,7 +83,9 @@ var Calendar = function (_Component) {
 			args[_key] = arguments[_key];
 		}
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call.apply(_ref, [this].concat(args))), _this), _this.state = {}, _this.onNavigate = function (e) {
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+			today: null
+		}, _this.onNavigate = function (e) {
 			// Not fired with current build but causes error if omitted
 			console.log('onNavigate', e);
 		}, _this.startAccessor = function (event) {
@@ -94,16 +96,29 @@ var Calendar = function (_Component) {
 	}
 
 	_createClass(Calendar, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var currentDate = this.props.currentDate;
+
+
+			this.setState({ today: (0, _moment2.default)(currentDate).toDate() });
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var today = this.state.today;
+
 			var _props = this.props,
 			    currentDate = _props.currentDate,
-			    timezone = _props.timezone,
 			    canDrag = _props.canDrag,
 			    canResize = _props.canResize,
-			    props = _objectWithoutProperties(_props, ['currentDate', 'timezone', 'canDrag', 'canResize']);
+			    min = _props.min,
+			    max = _props.max,
+			    props = _objectWithoutProperties(_props, ['currentDate', 'canDrag', 'canResize', 'min', 'max']);
 
-			var defaultDate = (0, _moment2.default)(currentDate).tz(timezone).toDate();
+			var formattedDate = (0, _moment2.default)(currentDate).toDate();
+			var formattedMin = (0, _moment2.default)(min).toDate();
+			var formattedMax = (0, _moment2.default)(max).toDate();
 
 			return _react2.default.createElement(
 				CalendarWrapper,
@@ -114,11 +129,14 @@ var Calendar = function (_Component) {
 					resizableAccessor: canResize,
 					startAccessor: this.startAccessor,
 					endAccessor: this.endAccessor,
-					defaultDate: defaultDate,
+					defaultDate: today,
+					date: formattedDate,
 					getNow: function getNow() {
-						return defaultDate;
+						return today;
 					},
-					selectable: props.onSelectSlot ? true : ''
+					selectable: props.onSelectSlot ? true : '',
+					min: formattedMin,
+					max: formattedMax
 				}, props))
 			);
 		}

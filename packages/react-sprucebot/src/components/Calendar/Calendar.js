@@ -729,7 +729,15 @@ const CalendarWrapper = styled.div.attrs({
 `
 
 class Calendar extends Component {
-	state = {}
+	state = {
+		today: null
+	}
+
+	componentDidMount() {
+		const { currentDate } = this.props
+
+		this.setState({ today: moment(currentDate).toDate() })
+	}
 
 	onNavigate = e => {
 		// Not fired with current build but causes error if omitted
@@ -745,11 +753,12 @@ class Calendar extends Component {
 	}
 
 	render() {
-		const { currentDate, timezone, canDrag, canResize, ...props } = this.props
+		const { today } = this.state
+		const { currentDate, canDrag, canResize, min, max, ...props } = this.props
 
-		const defaultDate = moment(currentDate)
-			.tz(timezone)
-			.toDate()
+		const formattedDate = moment(currentDate).toDate()
+		const formattedMin = moment(min).toDate()
+		const formattedMax = moment(max).toDate()
 
 		return (
 			<CalendarWrapper>
@@ -759,9 +768,12 @@ class Calendar extends Component {
 					resizableAccessor={canResize}
 					startAccessor={this.startAccessor}
 					endAccessor={this.endAccessor}
-					defaultDate={defaultDate}
-					getNow={() => defaultDate}
+					defaultDate={today}
+					date={formattedDate}
+					getNow={() => today}
 					selectable={props.onSelectSlot ? true : ''}
+					min={formattedMin}
+					max={formattedMax}
 					{...props}
 				/>
 			</CalendarWrapper>
