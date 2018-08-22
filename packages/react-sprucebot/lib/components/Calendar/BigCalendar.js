@@ -404,12 +404,13 @@ var BigCalendar = function (_Component) {
 								_this$state6 = _this.state, mode = _this$state6.mode, view = _this$state6.view;
 								newView = _this.state.views[idx];
 								movingToWeek = mode === 'user' && view !== 'week' && newView === 'week';
-
-
-								_this.setState({
+								_context3.next = 5;
+								return _this.setState({
 									view: newView
 									// renderFirstCalendar: !movingToWeek
 								});
+
+							case 5:
 
 								// because month view does not show all teammates, if we are in team mode jumping OFF month view, lets
 								// re-show team wrappers
@@ -421,14 +422,13 @@ var BigCalendar = function (_Component) {
 									// week view is heavy, give dom a sec to render before rendering calendar
 									// this.delayedRenderWeekView()
 								}
-
 								_this.handleChange();
 								//trigger a refresh which causes, sizes to be recalculated. 500 delay for css transitions
 								setTimeout(function () {
 									_this.handleWindowResize();
 								}, 500);
 
-							case 7:
+							case 8:
 							case 'end':
 								return _context3.stop();
 						}
@@ -505,7 +505,7 @@ var BigCalendar = function (_Component) {
 				latest = (0, _moment2.default)(selectedDate).hour(18).minutes(0).seconds(0);
 			}
 
-			return [earliest, latest];
+			return [earliest.format('YYYY-MM-DD HH:mm:ss'), latest.format('YYYY-MM-DD HH:mm:ss')];
 		};
 
 		_this.toggleShowOnCalendars = function () {
@@ -778,7 +778,7 @@ var BigCalendar = function (_Component) {
 			renderAllEvents: true,
 			showAllTeammates: props.defaultMode === 'team',
 			transitioning: false,
-			selectedDate: (0, _moment2.default)(),
+			selectedDate: (0, _moment2.default)().tz(props.auth.Location.timezone),
 			earliestTime: null,
 			latestTime: null,
 			teammates: props.teammates ? props.teammates : [],
@@ -875,9 +875,9 @@ var BigCalendar = function (_Component) {
 				view: selectedView,
 				formats: formats,
 				toolbar: false,
-				date: selectedDate.toDate(),
-				min: min.toDate(),
-				max: max.toDate()
+				date: selectedDate,
+				min: min,
+				max: max
 
 				// Determine selected date in relation to today
 			};var currentDate = _moment2.default.tz(selectedDate, auth.Location.timezone).format('YYYY-MM-DD HH:mm:ss');
@@ -929,6 +929,7 @@ var BigCalendar = function (_Component) {
 							return selectedDate;
 						},
 						onDateSelect: this.handleScheduleDateSelect,
+						timezone: auth.Location.timezone,
 						allowPastDates: true
 					}),
 					!isToday && _react2.default.createElement(
