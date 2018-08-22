@@ -701,7 +701,7 @@ export default class BigCalendar extends Component {
 			<div className={`big_calendar ${classNames}`}>
 				{isSelectingScheduleDate && (
 					<Dialog
-						title={`Jump To Day`}
+						title={`Choose Date`}
 						className={`schedule_calendar_select`}
 						onTapClose={this.handleHideScheduleDateDialog}
 					>
