@@ -4,7 +4,7 @@
 		"access": "public"
 	},
 	"description": "The base template that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "6.62.0",
+	"version": "6.63.0",
 	"homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/sprucebot-skills-kit/issues"
