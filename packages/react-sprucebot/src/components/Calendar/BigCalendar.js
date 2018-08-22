@@ -792,7 +792,6 @@ export default class BigCalendar extends Component {
 											className={`${
 												idx === 0 && !renderFirstCalendar ? 'hide' : ''
 											}`}
-											timezone={auth.Location.timezone}
 											currentDate={currentDate}
 											views={views}
 											events={events ? this.filterEvents(events, teammate) : []}
