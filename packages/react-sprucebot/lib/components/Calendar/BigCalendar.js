@@ -875,7 +875,6 @@ var BigCalendar = function (_Component) {
 				view: selectedView,
 				formats: formats,
 				toolbar: false,
-				date: selectedDate,
 				min: min,
 				max: max
 
