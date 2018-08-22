@@ -650,7 +650,6 @@ export default class BigCalendar extends Component {
 			view: selectedView,
 			formats,
 			toolbar: false,
-			date: selectedDate,
 			min: min,
 			max: max
 		}
