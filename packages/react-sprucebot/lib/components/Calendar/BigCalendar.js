@@ -918,7 +918,7 @@ var BigCalendar = function (_Component) {
 				isSelectingScheduleDate && _react2.default.createElement(
 					_Dialog2.default,
 					{
-						title: 'Jump To Day',
+						title: 'Choose Date',
 						className: 'schedule_calendar_select',
 						onTapClose: this.handleHideScheduleDateDialog
 					},
