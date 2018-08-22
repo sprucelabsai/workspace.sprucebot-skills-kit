@@ -1024,7 +1024,6 @@ var BigCalendar = function (_Component) {
 								}),
 								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
 									className: '' + (idx === 0 && !renderFirstCalendar ? 'hide' : ''),
-									timezone: auth.Location.timezone,
 									currentDate: currentDate,
 									views: views,
 									events: events ? _this3.filterEvents(events, teammate) : [],
