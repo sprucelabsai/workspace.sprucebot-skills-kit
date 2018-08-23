@@ -95,7 +95,7 @@ var DateRangeSelect = function (_Component) {
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateRangeSelect.__proto__ || Object.getPrototypeOf(DateRangeSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			focusedInput: 'startDate',
 			defaultDateSet: false,
-			today: _this.props.timezone ? (0, _moment2.default)().tz(_this.props.timezone) : (0, _moment2.default)()
+			today: _this.props.timezone ? (0, _moment2.default)().tz(_this.props.timezone).format('YYYY-MM-DD') : (0, _moment2.default)().format('YYYY-MM-DD')
 		}, _this.componentDidMount = function () {
 			var setDefaultDates = _this.props.setDefaultDates;
 			var defaultDateSet = _this.state.defaultDateSet;
@@ -105,40 +105,34 @@ var DateRangeSelect = function (_Component) {
 				_this.setDefaultDates();
 			}
 		}, _this.isDayBlocked = function (date) {
-			var _this$props = _this.props,
-			    availableDates = _this$props.availableDates,
-			    timezone = _this$props.timezone;
+			var availableDates = _this.props.availableDates;
 
-			var formattedDate = timezone ? date.tz(timezone) : date;
 
 			if (!availableDates) {
 				return false;
 			}
 
 			var match = (availableDates || []).find(function (day) {
-				return day === formattedDate.format('YYYY-MM-DD');
+				return day === date.format('YYYY-MM-DD');
 			});
 			var lastDate = (0, _moment2.default)(availableDates[availableDates.length - 1]).endOf('month');
 
-			if (match || formattedDate.isAfter(lastDate) || formattedDate.isSame(lastDate)) {
+			if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
 				return false;
 			}
 			return true;
 		}, _this.isOutsideRange = function (date) {
 			var today = _this.state.today;
-			var _this$props2 = _this.props,
-			    allowPastDates = _this$props2.allowPastDates,
-			    timezone = _this$props2.timezone;
+			var allowPastDates = _this.props.allowPastDates;
 
 
-			var formattedDate = timezone ? date.tz(timezone) : date;
-			var pastDate = formattedDate.isBefore(today);
+			var pastDate = (0, _moment2.default)(date.format('YYYY-MM-DD')).isBefore(today);
 
 			if (allowPastDates) {
 				return false;
 			}
 
-			if (formattedDate.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+			if (date.format('YYYY-MM-DD') === today) {
 				return false;
 			}
 
@@ -148,9 +142,9 @@ var DateRangeSelect = function (_Component) {
 
 			return false;
 		}, _this.setDefaultDates = function () {
-			var _this$props3 = _this.props,
-			    defaultStartDate = _this$props3.defaultStartDate,
-			    defaultEndDate = _this$props3.defaultEndDate;
+			var _this$props = _this.props,
+			    defaultStartDate = _this$props.defaultStartDate,
+			    defaultEndDate = _this$props.defaultEndDate;
 
 
 			_this.setState({
@@ -159,10 +153,10 @@ var DateRangeSelect = function (_Component) {
 				defaultDateSet: true
 			});
 		}, _this.handleDateChange = function (selectedStart, selectedEnd) {
-			var _this$props4 = _this.props,
-			    _this$props4$onDatesC = _this$props4.onDatesChange,
-			    onDatesChange = _this$props4$onDatesC === undefined ? function () {} : _this$props4$onDatesC,
-			    weekSelection = _this$props4.weekSelection;
+			var _this$props2 = _this.props,
+			    _this$props2$onDatesC = _this$props2.onDatesChange,
+			    onDatesChange = _this$props2$onDatesC === undefined ? function () {} : _this$props2$onDatesC,
+			    weekSelection = _this$props2.weekSelection;
 
 
 			if (weekSelection) {
