@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import React from 'react'
 
-const LinkPile = styled.div.attrs({
-	className: 'link__pile'
-})``
+const LinkPile = ({ className, ...props }) => {
+	return <div {...props} className={`link__pile ${className || ''}`} />
+}
 
 export default LinkPile
