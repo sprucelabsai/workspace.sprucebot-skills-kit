@@ -38,7 +38,7 @@ export default class BigCalendar extends Component {
 			renderAllEvents: true,
 			showAllTeammates: props.defaultMode === 'team',
 			transitioning: false,
-			selectedDate: moment(),
+			selectedDate: moment().tz(props.auth.Location.timezone),
 			earliestTime: null,
 			latestTime: null,
 			teammates: props.teammates ? props.teammates : [],
@@ -301,7 +301,7 @@ export default class BigCalendar extends Component {
 		const movingToWeek =
 			mode === 'user' && view !== 'week' && newView === 'week'
 
-		this.setState({
+		await this.setState({
 			view: newView
 			// renderFirstCalendar: !movingToWeek
 		})
@@ -316,7 +316,6 @@ export default class BigCalendar extends Component {
 			// week view is heavy, give dom a sec to render before rendering calendar
 			// this.delayedRenderWeekView()
 		}
-
 		this.handleChange()
 		//trigger a refresh which causes, sizes to be recalculated. 500 delay for css transitions
 		setTimeout(() => {
@@ -394,7 +393,10 @@ export default class BigCalendar extends Component {
 				.seconds(0)
 		}
 
-		return [earliest, latest]
+		return [
+			earliest.format('YYYY-MM-DD HH:mm:ss'),
+			latest.format('YYYY-MM-DD HH:mm:ss')
+		]
 	}
 
 	toggleShowOnCalendars = () => {
@@ -648,9 +650,8 @@ export default class BigCalendar extends Component {
 			view: selectedView,
 			formats,
 			toolbar: false,
-			date: selectedDate.toDate(),
-			min: min.toDate(),
-			max: max.toDate()
+			min: min,
+			max: max
 		}
 
 		// Determine selected date in relation to today
@@ -700,7 +701,7 @@ export default class BigCalendar extends Component {
 			<div className={`big_calendar ${classNames}`}>
 				{isSelectingScheduleDate && (
 					<Dialog
-						title={`Jump To Day`}
+						title={`Choose Date`}
 						className={`schedule_calendar_select`}
 						onTapClose={this.handleHideScheduleDateDialog}
 					>
@@ -708,6 +709,7 @@ export default class BigCalendar extends Component {
 							defaultDate={selectedDate}
 							initialVisibleMonth={() => selectedDate}
 							onDateSelect={this.handleScheduleDateSelect}
+							timezone={auth.Location.timezone}
 							allowPastDates
 						/>
 						{!isToday && (
@@ -790,7 +792,6 @@ export default class BigCalendar extends Component {
 											className={`${
 												idx === 0 && !renderFirstCalendar ? 'hide' : ''
 											}`}
-											timezone={auth.Location.timezone}
 											currentDate={currentDate}
 											views={views}
 											events={events ? this.filterEvents(events, teammate) : []}

@@ -86,7 +86,7 @@ var DateSelect = function (_Component) {
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSelect.__proto__ || Object.getPrototypeOf(DateSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			defaultDateSet: false,
-			today: _this.props.timezone ? (0, _moment2.default)().tz(_this.props.timezone) : (0, _moment2.default)()
+			today: _this.props.timezone ? (0, _moment2.default)().tz(_this.props.timezone).format('YYYY-MM-DD') : (0, _moment2.default)().format('YYYY-MM-DD')
 		}, _this.componentDidMount = function () {
 			var defaultDateSet = _this.state.defaultDateSet;
 
@@ -95,40 +95,34 @@ var DateSelect = function (_Component) {
 				_this.setDefaultDate();
 			}
 		}, _this.isDayBlocked = function (date) {
-			var _this$props = _this.props,
-			    availableDates = _this$props.availableDates,
-			    timezone = _this$props.timezone;
+			var availableDates = _this.props.availableDates;
 
-			var formattedDate = timezone ? date.tz(timezone) : date;
 
 			if (!availableDates) {
 				return false;
 			}
 
 			var match = availableDates.find(function (day) {
-				return day === formattedDate.format('YYYY-MM-DD');
+				return day === date.format('YYYY-MM-DD');
 			});
 			var lastDate = (0, _moment2.default)(availableDates[availableDates.length - 1]).endOf('month');
 
-			if (match || formattedDate.isAfter(lastDate) || formattedDate.isSame(lastDate)) {
+			if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
 				return false;
 			}
 			return true;
 		}, _this.isOutsideRange = function (date) {
 			var today = _this.state.today;
-			var _this$props2 = _this.props,
-			    allowPastDates = _this$props2.allowPastDates,
-			    timezone = _this$props2.timezone;
+			var allowPastDates = _this.props.allowPastDates;
 
 
-			var formattedDate = timezone ? date.tz(timezone) : date;
-			var pastDate = formattedDate.isBefore(today);
+			var pastDate = (0, _moment2.default)(date.format('YYYY-MM-DD')).isBefore(today);
 
 			if (allowPastDates) {
 				return false;
 			}
 
-			if (formattedDate.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+			if (date.format('YYYY-MM-DD') === today) {
 				return false;
 			}
 
