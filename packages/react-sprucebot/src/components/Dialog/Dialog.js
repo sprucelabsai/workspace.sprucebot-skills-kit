@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
@@ -12,22 +11,6 @@ import SK from '../../skillskit'
 var dialogUnderlay = null
 const currentDialogs = []
 const dialogVerticalPadding = 30
-
-const DialogWrapper = styled.div.attrs({
-	className: ({ className }) => `dialog__wrapper ${className}`
-})`
-	opacity: ${props => props.opacity};
-`
-
-const DialogContainer = styled.div.attrs({
-	className: ({ className }) => `dialog ${className}`
-})`
-	opacity: ${props => props.opacity};
-`
-const DialogCloseButton = styled(Button).attrs({
-	className: 'btn__close_dialog',
-	remove: true
-})``
 
 let timerRunning = false
 
@@ -248,10 +231,10 @@ export default class Dialog extends Component {
 		return (
 			typeof document !== 'undefined' &&
 			ReactDOM.createPortal(
-				<DialogWrapper
-					className={`${focusClass} ${!firstShow ? 'was-focused' : ''} ${
-						isHidden ? 'hidden' : ''
-					} dialog-${dialogIndex}`}
+				<div
+					className={`dialog__wrapper ${focusClass} ${
+						!firstShow ? 'was-focused' : ''
+					} ${isHidden ? 'hidden' : ''} dialog-${dialogIndex}`}
 					onClick={e => {
 						if (
 							e.target.className.search('dialog__wrapper') > -1 &&
@@ -261,9 +244,11 @@ export default class Dialog extends Component {
 						}
 					}}
 				>
-					<DialogContainer
+					<div
 						ref={node => (this.dialogNode = node)}
-						className={`${className || ''} ${hasHeader ? 'has_header' : ''}`}
+						className={`dialog ${className || ''} ${
+							hasHeader ? 'has_header' : ''
+						}`}
 						style={dialogStyle}
 						opacity={opacity}
 						{...props}
@@ -282,8 +267,8 @@ export default class Dialog extends Component {
 							</div>
 						)}
 						{children}
-					</DialogContainer>
-				</DialogWrapper>,
+					</div>
+				</div>,
 				dialogUnderlay
 			)
 		)

@@ -8,16 +8,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n\topacity: ', ';\n'], ['\n\topacity: ', ';\n']),
-    _templateObject2 = _taggedTemplateLiteral([''], ['']);
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _classnames = require('classnames');
 
@@ -59,33 +52,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
 var dialogUnderlay = null;
 var currentDialogs = [];
 var dialogVerticalPadding = 30;
-
-var DialogWrapper = _styledComponents2.default.div.attrs({
-	className: function className(_ref) {
-		var _className = _ref.className;
-		return 'dialog__wrapper ' + _className;
-	}
-})(_templateObject, function (props) {
-	return props.opacity;
-});
-
-var DialogContainer = _styledComponents2.default.div.attrs({
-	className: function className(_ref2) {
-		var _className2 = _ref2.className;
-		return 'dialog ' + _className2;
-	}
-})(_templateObject, function (props) {
-	return props.opacity;
-});
-var DialogCloseButton = (0, _styledComponents2.default)(_Button2.default).attrs({
-	className: 'btn__close_dialog',
-	remove: true
-})(_templateObject2);
 
 var timerRunning = false;
 
@@ -334,9 +303,9 @@ var Dialog = function (_Component) {
 			var hasHeader = true; // always have a header, just won't show close/title if not supplied
 
 			return typeof document !== 'undefined' && _reactDom2.default.createPortal(_react2.default.createElement(
-				DialogWrapper,
+				'div',
 				{
-					className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
+					className: 'dialog__wrapper ' + focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
 					onClick: function onClick(e) {
 						if (e.target.className.search('dialog__wrapper') > -1 && currentDialogs.length - 1 >= 0) {
 							currentDialogs[currentDialogs.length - 1].handleTapClose();
@@ -344,12 +313,12 @@ var Dialog = function (_Component) {
 					}
 				},
 				_react2.default.createElement(
-					DialogContainer,
+					'div',
 					_extends({
 						ref: function ref(node) {
 							return _this4.dialogNode = node;
 						},
-						className: (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
+						className: 'dialog ' + (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
 						style: dialogStyle,
 						opacity: opacity
 					}, props),
