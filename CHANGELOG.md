@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.64.0"></a>
+# [6.64.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.63.0...v6.64.0) (2018-08-24)
+
+
+### Bug Fixes
+
+* Adjust DateSelect copy in BigCalendar ([1673c5b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1673c5b))
+* Remove date from calendarProps ([55171e3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/55171e3))
+* Remove passed timezone prop to Calendar ([2fb41dc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2fb41dc))
+
+
+### Features
+
+* Adjust timezone conversion; set today to string ([9fc0665](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9fc0665))
+* Refine isOutsideRange; set today to string; remove timezone checks ([639a30a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/639a30a))
+* Set today in CDM for defaultDate; add formattedMin/Max for timezone ([bf900b3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bf900b3))
+* Use timezone w/selectedDate, pass timezone to DateSelect, set min/max to strings ([c354056](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c354056))
+
+
+
+
+
 <a name="6.63.0"></a>
 # [6.63.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.62.0...v6.63.0) (2018-08-22)
 
