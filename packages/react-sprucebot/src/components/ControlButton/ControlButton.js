@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Button from '../Button/Button'
 import Icon from '../Icon/Icon'
-import './ControlButton.scss'
 
 const ControlButton = ({ iconLeft, iconRight, children, ...props }) => {
 	return (
