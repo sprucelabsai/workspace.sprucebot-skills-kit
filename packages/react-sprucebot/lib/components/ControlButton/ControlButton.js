@@ -30,7 +30,8 @@ var ControlButton = function ControlButton(_ref) {
 	var iconLeft = _ref.iconLeft,
 	    iconRight = _ref.iconRight,
 	    children = _ref.children,
-	    props = _objectWithoutProperties(_ref, ['iconLeft', 'iconRight', 'children']);
+	    className = _ref.className,
+	    props = _objectWithoutProperties(_ref, ['iconLeft', 'iconRight', 'children', 'className']);
 
 	return _react2.default.createElement(
 		_Button2.default,

@@ -3,7 +3,13 @@ import React from 'react'
 import Button from '../Button/Button'
 import Icon from '../Icon/Icon'
 
-const ControlButton = ({ iconLeft, iconRight, children, ...props }) => {
+const ControlButton = ({
+	iconLeft,
+	iconRight,
+	children,
+	className,
+	...props
+}) => {
 	return (
 		<Button
 			{...props}
