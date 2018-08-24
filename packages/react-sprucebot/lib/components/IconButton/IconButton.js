@@ -45,14 +45,14 @@ var IconButton = function IconButton(_ref) {
 	    props = _objectWithoutProperties(_ref, ['children', 'className', 'loaderStyle']);
 
 	return _react2.default.createElement(
-		StyledButton,
+		_Button2.default,
 		_extends({
 			loaderDark: true,
 			loaderStyle: _extends({
 				fontSize: '.5em'
 			}, loaderStyle)
 		}, props, {
-			className: 'IconButton icon-button ' + (className || '')
+			className: 'IconButton icon__button ' + (className || '')
 		}),
 		_react2.default.createElement(
 			_Icon2.default,

@@ -21,17 +21,17 @@ const StyledButton = styled(Button)`
 `
 
 const IconButton = ({ children, className, loaderStyle, ...props }) => (
-	<StyledButton
+	<Button
 		loaderDark
 		loaderStyle={{
 			fontSize: '.5em',
 			...loaderStyle
 		}}
 		{...props}
-		className={`IconButton icon-button ${className || ''}`}
+		className={`IconButton icon__button ${className || ''}`}
 	>
 		<Icon fontSize={props.fontSize}>{children}</Icon>
-	</StyledButton>
+	</Button>
 )
 
 IconButton.propTypes = {
