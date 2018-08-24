@@ -1,22 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import classnames from 'classnames'
 import TextArea from 'react-textarea-autosize'
 
 import { Paragraph as P } from '../Typography/Typography'
-
-export const FieldWrapper = styled.div.attrs({
-	className: classnames('InputField', 'input__wrapper')
-})``
-
-export const FieldError = styled.span.attrs({
-	className: classnames('FieldError', 'input__error', 'error-is-visible')
-})``
-
-export const FieldLabel = styled.span.attrs({
-	className: classnames('FieldLabel', 'input__mini__label', 'js-show-label')
-})``
 
 export default function Field({
 	input: { value, onChange, name },
@@ -28,8 +15,19 @@ export default function Field({
 	children
 }) {
 	return (
-		<FieldWrapper>
-			{label && value && <FieldLabel>{label}</FieldLabel>}
+		<div className={classnames('InputField', 'input__wrapper')}>
+			{label &&
+				value && (
+					<span
+						className={classnames(
+							'FieldLabel',
+							'input__mini__label',
+							'js-show-label'
+						)}
+					>
+						{label}
+					</span>
+				)}
 			{React.cloneElement(children, {
 				className: classnames({ with_label: !!label }),
 				name,
@@ -38,9 +36,20 @@ export default function Field({
 				type,
 				placeholder
 			})}
-			{touched && error && <FieldError>{error}</FieldError>}
+			{touched &&
+				error && (
+					<span
+						className={classnames(
+							'FieldError',
+							'input__error',
+							'error-is-visible'
+						)}
+					>
+						{error}
+					</span>
+				)}
 			{finePrint && <P fine>{finePrint}</P>}
-		</FieldWrapper>
+		</div>
 	)
 }
 
