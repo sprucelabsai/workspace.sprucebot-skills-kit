@@ -1070,11 +1070,11 @@ class DateRangeSelect extends Component {
 					onDatesChange={({ startDate, endDate }) =>
 						this.handleDateChange(startDate, endDate)
 					}
-					focusedInput={focusedInput}
+					focusedInput={loading ? null : focusedInput}
 					onFocusChange={focusedInput => this.handleFocusChange(focusedInput)}
 					numberOfMonths={numberOfMonths || 1}
-					isDayBlocked={date => this.isDayBlocked(date)}
-					isOutsideRange={date => this.isOutsideRange(date)}
+					isDayBlocked={this.isDayBlocked}
+					isOutsideRange={this.isOutsideRange}
 					initialVisibleMonth={initialVisibleMonth}
 					onPrevMonthClick={prevMonth =>
 						onPrevMonthClick && onPrevMonthClick(prevMonth)
@@ -1127,5 +1127,6 @@ DateRangeSelect.propTypes = {
 }
 
 DateRangeSelect.defaultProps = {
-	allowPastDates: false
+	allowPastDates: false,
+	loading: false
 }
