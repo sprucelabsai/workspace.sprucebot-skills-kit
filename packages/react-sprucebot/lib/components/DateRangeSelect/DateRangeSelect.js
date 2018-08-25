@@ -245,17 +245,13 @@ var DateRangeSelect = function (_Component) {
 						    endDate = _ref2.endDate;
 						return _this2.handleDateChange(startDate, endDate);
 					},
-					focusedInput: focusedInput,
+					focusedInput: loading ? null : focusedInput,
 					onFocusChange: function onFocusChange(focusedInput) {
 						return _this2.handleFocusChange(focusedInput);
 					},
 					numberOfMonths: numberOfMonths || 1,
-					isDayBlocked: function isDayBlocked(date) {
-						return _this2.isDayBlocked(date);
-					},
-					isOutsideRange: function isOutsideRange(date) {
-						return _this2.isOutsideRange(date);
-					},
+					isDayBlocked: this.isDayBlocked,
+					isOutsideRange: this.isOutsideRange,
 					initialVisibleMonth: initialVisibleMonth,
 					onPrevMonthClick: function onPrevMonthClick(prevMonth) {
 						return _onPrevMonthClick && _onPrevMonthClick(prevMonth);
@@ -307,5 +303,6 @@ DateRangeSelect.propTypes = {
 };
 
 DateRangeSelect.defaultProps = {
-	allowPastDates: false
+	allowPastDates: false,
+	loading: false
 };
