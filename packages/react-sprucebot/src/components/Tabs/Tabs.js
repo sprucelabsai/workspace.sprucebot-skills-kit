@@ -1,12 +1,7 @@
-import styled from 'styled-components'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Avatar from '../Avatar/Avatar'
 import Button from '../Button/Button'
-
-const StyledTab = styled(Button)`
-	flex: 1;
-`
 
 export class Tabs extends Component {
 	constructor(props) {
@@ -98,16 +93,16 @@ export class Tabs extends Component {
 			}
 
 			tabs.push(
-				<StyledTab
+				<Button
 					onClick={e => {
 						this.onTabClick(idx, tab.key, e)
 					}}
 					toggle
-					className={className}
+					className={`tab ${className || ''}`}
 					key={`tab-${tab.key}`}
 				>
 					{tab.props.title}
-				</StyledTab>
+				</Button>
 			)
 		})
 
