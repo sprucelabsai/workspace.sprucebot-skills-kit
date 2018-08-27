@@ -88,10 +88,6 @@ var _StatsSlider = require('./components/StatsSlider/StatsSlider');
 
 var _StatsSlider2 = _interopRequireDefault(_StatsSlider);
 
-var _Styleguide = require('./components/Styleguide/Styleguide');
-
-var _Styleguide2 = _interopRequireDefault(_Styleguide);
-
 var _ImageCropper = require('./components/ImageCropper/ImageCropper');
 
 var _ImageCropper2 = _interopRequireDefault(_ImageCropper);
@@ -227,7 +223,6 @@ var Sprucebot = _extends({
 	StatsSlider: _StatsSlider2.default,
 	ButtonGrid: ButtonGrid,
 	Stars: _Stars2.default,
-	Styleguide: _Styleguide2.default,
 	ImageCropper: _ImageCropper2.default,
 	DevControls: _DevControls2.default,
 	Callout: _Callout2.default,

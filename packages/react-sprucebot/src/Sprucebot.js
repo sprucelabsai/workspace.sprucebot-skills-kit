@@ -22,7 +22,6 @@ import Stars from './components/Stars/Stars'
 import DevControls from './components/DevControls/DevControls'
 import * as ButtonGrid from './components/ButtonGrid/ButtonGrid'
 import StatsSlider from './components/StatsSlider/StatsSlider'
-import Styleguide from './components/Styleguide/Styleguide'
 import ImageCropper from './components/ImageCropper/ImageCropper'
 import TrainingGuide from './components/TrainingGuide/TrainingGuide'
 import TimeInput from './components/TimeInput/TimeInput'
@@ -89,7 +88,6 @@ const Sprucebot = {
 	StatsSlider,
 	ButtonGrid,
 	Stars,
-	Styleguide,
 	ImageCropper,
 	DevControls,
 	Callout,
