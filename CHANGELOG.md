@@ -3,6 +3,198 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.64.1"></a>
+## [6.64.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.64.0...v6.64.1) (2018-08-25)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
+<a name="6.64.0"></a>
+# [6.64.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.63.0...v6.64.0) (2018-08-24)
+
+
+### Bug Fixes
+
+* Adjust DateSelect copy in BigCalendar ([1673c5b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1673c5b))
+* Remove date from calendarProps ([55171e3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/55171e3))
+* Remove passed timezone prop to Calendar ([2fb41dc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2fb41dc))
+
+
+### Features
+
+* Adjust timezone conversion; set today to string ([9fc0665](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9fc0665))
+* Refine isOutsideRange; set today to string; remove timezone checks ([639a30a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/639a30a))
+* Set today in CDM for defaultDate; add formattedMin/Max for timezone ([bf900b3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bf900b3))
+* Use timezone w/selectedDate, pass timezone to DateSelect, set min/max to strings ([c354056](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c354056))
+
+
+
+
+
+<a name="6.63.0"></a>
+# [6.63.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.62.0...v6.63.0) (2018-08-22)
+
+
+### Features
+
+* adding device type check class to body ([beb52ad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/beb52ad))
+
+
+
+
+
+<a name="6.62.0"></a>
+# [6.62.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.61.2...v6.62.0) (2018-08-20)
+
+
+### Bug Fixes
+
+* Fix linting ([1506d76](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1506d76))
+
+
+### Features
+
+* Add timezone functionality to DateRangeSelect ([9643d0f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9643d0f))
+* Add timezone functionality to DateSelect ([321ccf3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/321ccf3))
+
+
+
+
+
+<a name="6.61.2"></a>
+## [6.61.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.61.1...v6.61.2) (2018-08-20)
+
+
+### Bug Fixes
+
+* Remove delay from handleChangeView that was causing render issues ([fd051b0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fd051b0))
+
+
+
+
+
+<a name="6.61.1"></a>
+## [6.61.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.61.0...v6.61.1) (2018-08-18)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
+<a name="6.61.0"></a>
+# [6.61.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.60.0...v6.61.0) (2018-08-18)
+
+
+### Features
+
+* event listening through iframe messages, implimented did-update-user as example and only check authed user ([3488346](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3488346))
+* missed new files ([1c3e6b1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1c3e6b1))
+
+
+
+
+
+<a name="6.60.0"></a>
+# [6.60.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.59.0...v6.60.0) (2018-08-17)
+
+
+### Features
+
+* only edit where explicitely set ([7da6c67](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7da6c67))
+* only edit where explicitely set ([3713baf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3713baf))
+
+
+
+
+
+<a name="6.59.0"></a>
+# [6.59.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.58.0...v6.59.0) (2018-08-17)
+
+
+### Features
+
+* class fix ([30001dc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/30001dc))
+
+
+
+
+
+<a name="6.58.0"></a>
+# [6.58.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.57.0...v6.58.0) (2018-08-17)
+
+
+### Features
+
+* avatar clicks ([afa0f42](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/afa0f42))
+* avatar clicks ([07e28c6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/07e28c6))
+
+
+
+
+
+<a name="6.57.0"></a>
+# [6.57.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.56.0...v6.57.0) (2018-08-16)
+
+
+### Features
+
+* Implement getNow to use store timezone ([e472437](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e472437))
+* Pass currentDate, timezone to Calendar ([256682f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/256682f))
+* Use timezone/currentDate for correct defaultDate ([d9c96b6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d9c96b6))
+
+
+
+
+
+<a name="6.56.0"></a>
+# [6.56.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.55.1...v6.56.0) (2018-08-16)
+
+
+### Features
+
+* sticky header click ([0ffd564](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0ffd564))
+
+
+
+
+
+<a name="6.55.1"></a>
+## [6.55.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.55.0...v6.55.1) (2018-08-16)
+
+
+### Bug Fixes
+
+* remove border from calendar events to make theming easier ([ca83a99](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ca83a99))
+
+
+
+
+
+<a name="6.55.0"></a>
+# [6.55.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.54.1...v6.55.0) (2018-08-16)
+
+
+### Features
+
+* firefox fix ([b52d9c9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b52d9c9))
+
+
+
+
+
+<a name="6.54.1"></a>
+## [6.54.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.54.0...v6.54.1) (2018-08-14)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
 <a name="6.54.0"></a>
 # [6.54.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.40.0...v6.54.0) (2018-08-14)
 

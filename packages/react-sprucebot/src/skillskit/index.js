@@ -5,6 +5,8 @@ function postMessage(message) {
 const skill = {
 	height: 0,
 	minHeight: 0,
+	handleStickElementClick: {},
+	listenersByEventName: {},
 	forceAuth: function() {
 		postMessage('Skill:ForceAuth')
 	},
@@ -29,6 +31,29 @@ const skill = {
 			})
 		}
 	},
+
+	addEventListener: function(eventName, listener) {
+		if (!this.listenersByEventName[eventName]) {
+			this.listenersByEventName[eventName] = []
+		}
+		this.listenersByEventName[eventName].push(listener)
+	},
+
+	removeEventListener: function(eventName, listener) {
+		if (!this.listenersByEventName[eventName]) {
+			this.listenersByEventName[eventName] = []
+		}
+		const idx = this.listenersByEventName[eventName].indexOf(listener)
+		if (idx > -1) {
+			this.listenersByEventName[eventName].splice(idx, 1)
+		}
+	},
+
+	dispatchEventListener: function(eventName, payload) {
+		const listeners = this.listenersByEventName[eventName] || []
+		listeners.forEach(l => l(payload))
+	},
+
 	setMinBodyHeight: function(height) {
 		this.minHeight = height
 	},
@@ -42,12 +67,25 @@ const skill = {
 	hideUnderlay: function() {
 		postMessage('Skill:HideUnderlay')
 	},
+
+	canSendMessages: function() {
+		return window.top !== window.self || window.__SBTEAMMATE__
+	},
+
 	back: function() {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			window.history.back()
 		} else {
 			postMessage('Skill:Back')
 		}
+	},
+
+	editUserProfile: function({ userId, locationId }) {
+		postMessage({
+			name: 'Skill:EditUserProfile',
+			userId,
+			locationId
+		})
 	},
 
 	ready: function({ resetUrlTrail = false } = { resetUrlTrail: false }) {
@@ -68,7 +106,7 @@ const skill = {
 	},
 
 	scrollBy: function(offset) {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			window.scrollBy({
 				top: offset,
 				behavior: 'smooth'
@@ -91,7 +129,7 @@ const skill = {
 	},
 
 	showHelp: async function({ title, body }) {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			alert(`[${title}] ${body}`)
 		} else {
 			const promise = new Promise((accept, reject) => {
@@ -116,8 +154,10 @@ const skill = {
 						this._showHelpAccept = null
 					}
 				}
-
-				if (results.name === 'Search:SelectUser') {
+				if (results.name.substring(0, 5) === 'Event') {
+					const { name, payload } = results
+					this.dispatchEventListener(name.substring(6), payload)
+				} else if (results.name === 'Search:SelectUser') {
 					if (this._onSelecUserFormSearchCallback) {
 						this._onSelecUserFormSearchCallback(results.user)
 						this._onSelecUserFormSearchCallback = null
@@ -133,8 +173,8 @@ const skill = {
 						this._confirmAccept = null
 					}
 				} else if (results.name === 'Skill:DidClickStickyElement') {
-					if (this.handleStickElementClick) {
-						this.handleStickElementClick(results.key)
+					if (this.handleStickElementClick[results.position]) {
+						this.handleStickElementClick[results.position](results.key)
 					}
 				}
 			} catch (err) {}
@@ -155,7 +195,7 @@ const skill = {
 	},
 
 	displayMessage: function({ message, type = 'error' }) {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			alert(message)
 		} else {
 			postMessage({ name: 'Skill:DisplayMessage', message, type })
@@ -163,7 +203,7 @@ const skill = {
 	},
 
 	confirm: async function({ message }) {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			return window.confirm(message)
 		} else {
 			const promise = new Promise((accept, reject) => {
@@ -193,7 +233,7 @@ const skill = {
 		position = 'top',
 		onClick = () => {}
 	}) {
-		this.handleStickElementClick = onClick
+		this.handleStickElementClick[position] = onClick
 		postMessage({
 			name: 'Skill:SetStickyElement',
 			elements,
@@ -214,7 +254,14 @@ const skill = {
 
 		postMessage({
 			name: 'Skill:SetStickyBoundingRect',
-			boundingRect: rect
+			boundingRect: {
+				top: rect.top,
+				bottom: rect.bottom,
+				left: rect.left,
+				right: rect.right,
+				x: rect.x,
+				y: rect.y
+			}
 		})
 	},
 

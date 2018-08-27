@@ -900,7 +900,13 @@ const LoadingContainer = styled.div`
 
 class DateSelect extends Component {
 	state = {
-		defaultDateSet: false
+		defaultDateSet: false,
+		focused: 1,
+		today: this.props.timezone
+			? moment()
+					.tz(this.props.timezone)
+					.format('YYYY-MM-DD')
+			: moment().format('YYYY-MM-DD')
 	}
 
 	componentDidMount = () => {
@@ -918,27 +924,27 @@ class DateSelect extends Component {
 			return false
 		}
 
-		const match = availableDates.find(day => day === date.format('YYYY-MM-DD'))
-		const lastDate = moment(availableDates[availableDates.length - 1]).endOf(
-			'month'
-		)
+		const thisDate = date.format('YYYY-MM-DD')
+		const match = availableDates.find(day => day === thisDate)
 
-		if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
+		if (match) {
 			return false
 		}
+
 		return true
 	}
 
 	isOutsideRange = date => {
+		const { today } = this.state
 		const { allowPastDates } = this.props
-		const today = moment()
-		const pastDate = date.isBefore(today)
+
+		const pastDate = moment(date.format('YYYY-MM-DD')).isBefore(today)
 
 		if (allowPastDates) {
 			return false
 		}
 
-		if (date.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+		if (date.format('YYYY-MM-DD') === today) {
 			return false
 		}
 
@@ -988,12 +994,12 @@ class DateSelect extends Component {
 
 				<DayPickerSingleDateController
 					date={date || null}
-					onDateChange={date => this.handleDateChange(date)}
-					focused={true}
+					onDateChange={this.handleDateChange}
+					focused={!loading}
 					onFocusChange={({ focused }) => this.setState({ focused })}
 					numberOfMonths={1}
-					isDayBlocked={date => this.isDayBlocked(date)}
-					isOutsideRange={date => this.isOutsideRange(date)}
+					isDayBlocked={this.isDayBlocked}
+					isOutsideRange={this.isOutsideRange}
 					initialVisibleMonth={initialVisibleMonth}
 					onPrevMonthClick={prevMonth =>
 						onPrevMonthClick && onPrevMonthClick(prevMonth)
@@ -1029,5 +1035,6 @@ DateSelect.propTypes = {
 }
 
 DateSelect.defaultProps = {
-	allowPastDates: false
+	allowPastDates: false,
+	loading: false
 }

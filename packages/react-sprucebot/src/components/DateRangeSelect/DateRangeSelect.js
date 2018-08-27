@@ -923,7 +923,12 @@ const LoadingContainer = styled.div`
 class DateRangeSelect extends Component {
 	state = {
 		focusedInput: 'startDate',
-		defaultDateSet: false
+		defaultDateSet: false,
+		today: this.props.timezone
+			? moment()
+					.tz(this.props.timezone)
+					.format('YYYY-MM-DD')
+			: moment().format('YYYY-MM-DD')
 	}
 
 	componentDidMount = () => {
@@ -956,15 +961,16 @@ class DateRangeSelect extends Component {
 	}
 
 	isOutsideRange = date => {
+		const { today } = this.state
 		const { allowPastDates } = this.props
-		const today = moment()
-		const pastDate = date.isBefore(today)
+
+		const pastDate = moment(date.format('YYYY-MM-DD')).isBefore(today)
 
 		if (allowPastDates) {
 			return false
 		}
 
-		if (date.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+		if (date.format('YYYY-MM-DD') === today) {
 			return false
 		}
 
@@ -1064,11 +1070,11 @@ class DateRangeSelect extends Component {
 					onDatesChange={({ startDate, endDate }) =>
 						this.handleDateChange(startDate, endDate)
 					}
-					focusedInput={focusedInput}
+					focusedInput={loading ? null : focusedInput}
 					onFocusChange={focusedInput => this.handleFocusChange(focusedInput)}
 					numberOfMonths={numberOfMonths || 1}
-					isDayBlocked={date => this.isDayBlocked(date)}
-					isOutsideRange={date => this.isOutsideRange(date)}
+					isDayBlocked={this.isDayBlocked}
+					isOutsideRange={this.isOutsideRange}
 					initialVisibleMonth={initialVisibleMonth}
 					onPrevMonthClick={prevMonth =>
 						onPrevMonthClick && onPrevMonthClick(prevMonth)
@@ -1121,5 +1127,6 @@ DateRangeSelect.propTypes = {
 }
 
 DateRangeSelect.defaultProps = {
-	allowPastDates: false
+	allowPastDates: false,
+	loading: false
 }

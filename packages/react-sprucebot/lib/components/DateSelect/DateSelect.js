@@ -80,7 +80,9 @@ var DateSelect = function (_Component) {
 		}
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSelect.__proto__ || Object.getPrototypeOf(DateSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-			defaultDateSet: false
+			defaultDateSet: false,
+			focused: 1,
+			today: _this.props.timezone ? (0, _moment2.default)().tz(_this.props.timezone).format('YYYY-MM-DD') : (0, _moment2.default)().format('YYYY-MM-DD')
 		}, _this.componentDidMount = function () {
 			var defaultDateSet = _this.state.defaultDateSet;
 
@@ -96,26 +98,28 @@ var DateSelect = function (_Component) {
 				return false;
 			}
 
+			var thisDate = date.format('YYYY-MM-DD');
 			var match = availableDates.find(function (day) {
-				return day === date.format('YYYY-MM-DD');
+				return day === thisDate;
 			});
-			var lastDate = (0, _moment2.default)(availableDates[availableDates.length - 1]).endOf('month');
 
-			if (match || date.isAfter(lastDate) || date.isSame(lastDate)) {
+			if (match) {
 				return false;
 			}
+
 			return true;
 		}, _this.isOutsideRange = function (date) {
+			var today = _this.state.today;
 			var allowPastDates = _this.props.allowPastDates;
 
-			var today = (0, _moment2.default)();
-			var pastDate = date.isBefore(today);
+
+			var pastDate = (0, _moment2.default)(date.format('YYYY-MM-DD')).isBefore(today);
 
 			if (allowPastDates) {
 				return false;
 			}
 
-			if (date.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+			if (date.format('YYYY-MM-DD') === today) {
 				return false;
 			}
 
@@ -165,21 +169,15 @@ var DateSelect = function (_Component) {
 				),
 				_react2.default.createElement(_reactDates.DayPickerSingleDateController, {
 					date: date || null,
-					onDateChange: function onDateChange(date) {
-						return _this2.handleDateChange(date);
-					},
-					focused: true,
+					onDateChange: this.handleDateChange,
+					focused: !loading,
 					onFocusChange: function onFocusChange(_ref2) {
 						var focused = _ref2.focused;
 						return _this2.setState({ focused: focused });
 					},
 					numberOfMonths: 1,
-					isDayBlocked: function isDayBlocked(date) {
-						return _this2.isDayBlocked(date);
-					},
-					isOutsideRange: function isOutsideRange(date) {
-						return _this2.isOutsideRange(date);
-					},
+					isDayBlocked: this.isDayBlocked,
+					isOutsideRange: this.isOutsideRange,
 					initialVisibleMonth: initialVisibleMonth,
 					onPrevMonthClick: function onPrevMonthClick(prevMonth) {
 						return _onPrevMonthClick && _onPrevMonthClick(prevMonth);
@@ -231,5 +229,6 @@ DateSelect.propTypes = {
 };
 
 DateSelect.defaultProps = {
-	allowPastDates: false
+	allowPastDates: false,
+	loading: false
 };

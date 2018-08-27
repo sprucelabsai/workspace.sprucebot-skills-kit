@@ -13,6 +13,8 @@ function postMessage(message) {
 var skill = {
 	height: 0,
 	minHeight: 0,
+	handleStickElementClick: {},
+	listenersByEventName: {},
 	forceAuth: function forceAuth() {
 		postMessage('Skill:ForceAuth');
 	},
@@ -37,6 +39,31 @@ var skill = {
 			});
 		}
 	},
+
+	addEventListener: function addEventListener(eventName, listener) {
+		if (!this.listenersByEventName[eventName]) {
+			this.listenersByEventName[eventName] = [];
+		}
+		this.listenersByEventName[eventName].push(listener);
+	},
+
+	removeEventListener: function removeEventListener(eventName, listener) {
+		if (!this.listenersByEventName[eventName]) {
+			this.listenersByEventName[eventName] = [];
+		}
+		var idx = this.listenersByEventName[eventName].indexOf(listener);
+		if (idx > -1) {
+			this.listenersByEventName[eventName].splice(idx, 1);
+		}
+	},
+
+	dispatchEventListener: function dispatchEventListener(eventName, payload) {
+		var listeners = this.listenersByEventName[eventName] || [];
+		listeners.forEach(function (l) {
+			return l(payload);
+		});
+	},
+
 	setMinBodyHeight: function setMinBodyHeight(height) {
 		this.minHeight = height;
 	},
@@ -50,18 +77,34 @@ var skill = {
 	hideUnderlay: function hideUnderlay() {
 		postMessage('Skill:HideUnderlay');
 	},
+
+	canSendMessages: function canSendMessages() {
+		return window.top !== window.self || window.__SBTEAMMATE__;
+	},
+
 	back: function back() {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			window.history.back();
 		} else {
 			postMessage('Skill:Back');
 		}
 	},
 
+	editUserProfile: function editUserProfile(_ref) {
+		var userId = _ref.userId,
+		    locationId = _ref.locationId;
+
+		postMessage({
+			name: 'Skill:EditUserProfile',
+			userId: userId,
+			locationId: locationId
+		});
+	},
+
 	ready: function ready() {
-		var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { resetUrlTrail: false },
-		    _ref$resetUrlTrail = _ref.resetUrlTrail,
-		    resetUrlTrail = _ref$resetUrlTrail === undefined ? false : _ref$resetUrlTrail;
+		var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { resetUrlTrail: false },
+		    _ref2$resetUrlTrail = _ref2.resetUrlTrail,
+		    resetUrlTrail = _ref2$resetUrlTrail === undefined ? false : _ref2$resetUrlTrail;
 
 		this.resized();
 		postMessage({
@@ -80,7 +123,7 @@ var skill = {
 	},
 
 	scrollBy: function scrollBy(offset) {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			window.scrollBy({
 				top: offset,
 				behavior: 'smooth'
@@ -103,17 +146,17 @@ var skill = {
 	},
 
 	showHelp: function () {
-		var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref3) {
+		var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref4) {
 			var _this = this;
 
-			var title = _ref3.title,
-			    body = _ref3.body;
+			var title = _ref4.title,
+			    body = _ref4.body;
 			var promise;
 			return regeneratorRuntime.wrap(function _callee$(_context) {
 				while (1) {
 					switch (_context.prev = _context.next) {
 						case 0:
-							if (!(window.top === window.self)) {
+							if (this.canSendMessages()) {
 								_context.next = 4;
 								break;
 							}
@@ -141,7 +184,7 @@ var skill = {
 		}));
 
 		function showHelp(_x2) {
-			return _ref2.apply(this, arguments);
+			return _ref3.apply(this, arguments);
 		}
 
 		return showHelp;
@@ -159,8 +202,12 @@ var skill = {
 						this._showHelpAccept = null;
 					}
 				}
+				if (results.name.substring(0, 5) === 'Event') {
+					var name = results.name,
+					    payload = results.payload;
 
-				if (results.name === 'Search:SelectUser') {
+					this.dispatchEventListener(name.substring(6), payload);
+				} else if (results.name === 'Search:SelectUser') {
 					if (this._onSelecUserFormSearchCallback) {
 						this._onSelecUserFormSearchCallback(results.user);
 						this._onSelecUserFormSearchCallback = null;
@@ -176,8 +223,8 @@ var skill = {
 						this._confirmAccept = null;
 					}
 				} else if (results.name === 'Skill:DidClickStickyElement') {
-					if (this.handleStickElementClick) {
-						this.handleStickElementClick(results.key);
+					if (this.handleStickElementClick[results.position]) {
+						this.handleStickElementClick[results.position](results.key);
 					}
 				}
 			} catch (err) {}
@@ -186,14 +233,14 @@ var skill = {
 
 	//TODO move to promise?
 	searchForUser: function searchForUser() {
-		var _ref4 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-		    _ref4$onCancel = _ref4.onCancel,
-		    onCancel = _ref4$onCancel === undefined ? function () {} : _ref4$onCancel,
-		    _ref4$onSelectUser = _ref4.onSelectUser,
-		    onSelectUser = _ref4$onSelectUser === undefined ? function () {} : _ref4$onSelectUser,
-		    _ref4$roles = _ref4.roles,
-		    roles = _ref4$roles === undefined ? ['guest'] : _ref4$roles,
-		    locationId = _ref4.locationId;
+		var _ref5 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+		    _ref5$onCancel = _ref5.onCancel,
+		    onCancel = _ref5$onCancel === undefined ? function () {} : _ref5$onCancel,
+		    _ref5$onSelectUser = _ref5.onSelectUser,
+		    onSelectUser = _ref5$onSelectUser === undefined ? function () {} : _ref5$onSelectUser,
+		    _ref5$roles = _ref5.roles,
+		    roles = _ref5$roles === undefined ? ['guest'] : _ref5$roles,
+		    locationId = _ref5.locationId;
 
 		postMessage({ name: 'Skill:SearchForUser', roles: roles, locationId: locationId });
 
@@ -201,12 +248,12 @@ var skill = {
 		this._onSelecUserFormSearchCallback = onSelectUser;
 	},
 
-	displayMessage: function displayMessage(_ref5) {
-		var message = _ref5.message,
-		    _ref5$type = _ref5.type,
-		    type = _ref5$type === undefined ? 'error' : _ref5$type;
+	displayMessage: function displayMessage(_ref6) {
+		var message = _ref6.message,
+		    _ref6$type = _ref6.type,
+		    type = _ref6$type === undefined ? 'error' : _ref6$type;
 
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			alert(message);
 		} else {
 			postMessage({ name: 'Skill:DisplayMessage', message: message, type: type });
@@ -214,16 +261,16 @@ var skill = {
 	},
 
 	confirm: function () {
-		var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_ref7) {
+		var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(_ref8) {
 			var _this2 = this;
 
-			var message = _ref7.message;
+			var message = _ref8.message;
 			var promise;
 			return regeneratorRuntime.wrap(function _callee2$(_context2) {
 				while (1) {
 					switch (_context2.prev = _context2.next) {
 						case 0:
-							if (!(window.top === window.self)) {
+							if (this.canSendMessages()) {
 								_context2.next = 4;
 								break;
 							}
@@ -249,7 +296,7 @@ var skill = {
 		}));
 
 		function confirm(_x4) {
-			return _ref6.apply(this, arguments);
+			return _ref7.apply(this, arguments);
 		}
 
 		return confirm;
@@ -267,14 +314,14 @@ var skill = {
   * }
   * ]
   */
-	setStickyElement: function setStickyElement(_ref8) {
-		var elements = _ref8.elements,
-		    _ref8$position = _ref8.position,
-		    position = _ref8$position === undefined ? 'top' : _ref8$position,
-		    _ref8$onClick = _ref8.onClick,
-		    onClick = _ref8$onClick === undefined ? function () {} : _ref8$onClick;
+	setStickyElement: function setStickyElement(_ref9) {
+		var elements = _ref9.elements,
+		    _ref9$position = _ref9.position,
+		    position = _ref9$position === undefined ? 'top' : _ref9$position,
+		    _ref9$onClick = _ref9.onClick,
+		    onClick = _ref9$onClick === undefined ? function () {} : _ref9$onClick;
 
-		this.handleStickElementClick = onClick;
+		this.handleStickElementClick[position] = onClick;
 		postMessage({
 			name: 'Skill:SetStickyElement',
 			elements: elements,
@@ -291,7 +338,14 @@ var skill = {
 
 		postMessage({
 			name: 'Skill:SetStickyBoundingRect',
-			boundingRect: rect
+			boundingRect: {
+				top: rect.top,
+				bottom: rect.bottom,
+				left: rect.left,
+				right: rect.right,
+				x: rect.x,
+				y: rect.y
+			}
 		});
 	},
 

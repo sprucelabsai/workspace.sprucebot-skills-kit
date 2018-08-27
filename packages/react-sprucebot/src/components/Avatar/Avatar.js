@@ -1,9 +1,37 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import SK from '../../skillskit'
 
 export default class Avatar extends Component {
+	handleTapEdit = () => {
+		const { user, enableProfileEditing } = this.props
+
+		if (
+			enableProfileEditing &&
+			user &&
+			user.User &&
+			user.User.id &&
+			user.Location &&
+			user.Location.id
+		) {
+			SK.editUserProfile({
+				userId: user.User.id,
+				locationId: user.Location.id
+			})
+		}
+	}
+
 	render() {
-		const { className, top, online, image, user, ...props } = this.props
+		const {
+			className,
+			top,
+			online,
+			image,
+			user,
+			showOnlineIndicator,
+			enableProfileEditing,
+			...props
+		} = this.props
 
 		const style = {}
 		let isOnline = online
@@ -25,7 +53,10 @@ export default class Avatar extends Component {
 			<div
 				style={style}
 				className={`${top ? 'top__avatar' : 'avatar__wrapper'} ${className ||
-					''} ${isOnline ? 'online' : ''}`}
+					''} ${isOnline ? 'online' : ''} ${
+					enableProfileEditing && user && user.User ? 'is_editable' : ''
+				}`}
+				onClick={this.handleTapEdit}
 				{...props}
 			/>
 		)
@@ -37,10 +68,12 @@ Avatar.propTypes = {
 	user: PropTypes.object, //pass this or everything belowe
 	image: PropTypes.string,
 	showOnlineIndicator: PropTypes.bool,
-	online: PropTypes.bool
+	online: PropTypes.bool,
+	enableProfileEditing: PropTypes.bool
 }
 
 Avatar.defaultProps = {
 	top: false,
-	showOnlineIndicator: true
+	showOnlineIndicator: true,
+	enableProfileEditing: false
 }
