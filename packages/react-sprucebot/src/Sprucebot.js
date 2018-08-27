@@ -24,7 +24,6 @@ import * as ButtonGrid from './components/ButtonGrid/ButtonGrid'
 import StatsSlider from './components/StatsSlider/StatsSlider'
 import ImageCropper from './components/ImageCropper/ImageCropper'
 import TrainingGuide from './components/TrainingGuide/TrainingGuide'
-import TimeInput from './components/TimeInput/TimeInput'
 import Onboarding from './components/Onboarding/Onboarding'
 import Callout from './components/Callout/Callout'
 import Dialog from './components/Dialog/Dialog'
@@ -97,7 +96,6 @@ const Sprucebot = {
 	Error,
 	FeedAttachment,
 	TrainingGuide,
-	TimeInput,
 	Onboarding,
 	Icon,
 	HelpButton,
