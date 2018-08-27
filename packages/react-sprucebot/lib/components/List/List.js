@@ -9,18 +9,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _templateObject = _taggedTemplateLiteral(['\n\t', ';\n\tword-wrap: break-word;\n\toverflow-wrap: break-word;\n\tword-break: break-word;\n'], ['\n\t', ';\n\tword-wrap: break-word;\n\toverflow-wrap: break-word;\n\tword-break: break-word;\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n\tdisplay: flex;\n\t', ';\n'], ['\n\tdisplay: flex;\n\t', ';\n']),
-    _templateObject3 = _taggedTemplateLiteral(['\n\tposition: relative;\n\tmargin: 0 10px 0 0;\n\tborder-radius: 50%;\n\t', ';\n'], ['\n\tposition: relative;\n\tmargin: 0 10px 0 0;\n\tborder-radius: 50%;\n\t', ';\n']),
-    _templateObject4 = _taggedTemplateLiteral(['\n\tflex-grow: 1;\n'], ['\n\tflex-grow: 1;\n']),
-    _templateObject5 = _taggedTemplateLiteral(['\n\ttext-align: right;\n\tdisplay: flex;\n\talign-items: flex-end;\n'], ['\n\ttext-align: right;\n\tdisplay: flex;\n\talign-items: flex-end;\n']),
-    _templateObject6 = _taggedTemplateLiteral(['\n\t', ';\n\twidth: ', ';\n\t', ';\n'], ['\n\t', ';\n\twidth: ', ';\n\t', ';\n']),
-    _templateObject7 = _taggedTemplateLiteral(['\n\tfont-size: 0.75em;\n'], ['\n\tfont-size: 0.75em;\n']);
-
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -51,67 +39,30 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+var List = function List(_ref) {
+	var className = _ref.className,
+	    isSortable = _ref.isSortable,
+	    props = _objectWithoutProperties(_ref, ['className', 'isSortable']);
 
-var List = exports.List = _styledComponents2.default.div.attrs({
-	className: function className(props) {
-		return 'List item__list ' + (props.isSortable ? 'sortable__item__list' : '');
-	}
-})(_templateObject, function (props) {
-	return props.pile ? 'padding-bottom: 1.25em' : void 0;
-});
+	return _react2.default.createElement('div', {
+		className: 'List item__list ' + (isSortable ? 'sortable__item__list' : '')
+	});
+};
 
-var SortableListContainer = (0, _reactSortableHoc.SortableContainer)(function (_ref) {
-	var props = _objectWithoutProperties(_ref, []);
+exports.List = List;
+var SortableListContainer = (0, _reactSortableHoc.SortableContainer)(function (_ref2) {
+	var props = _objectWithoutProperties(_ref2, []);
 
 	return _react2.default.createElement(List, _extends({ isSortable: true }, props));
 });
 
-var SortableList = function SortableList(_ref2) {
-	var props = _objectWithoutProperties(_ref2, []);
+var SortableList = function SortableList(_ref3) {
+	var props = _objectWithoutProperties(_ref3, []);
 
 	return _react2.default.createElement(SortableListContainer, _extends({ helperClass: 'sortable_list_helper' }, props));
 };
 
 exports.SortableList = SortableList;
-var ListItemWrapper = _styledComponents2.default.div.attrs({
-	className: function className(_ref3) {
-		var _className = _ref3.className,
-		    online = _ref3.online;
-		return (_className || '') + ' ListItemWrapper item__list__item ' + (online ? '' : 'offline');
-	}
-})(_templateObject2, function (props) {
-	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
-});
-
-var ItemAvatar = _styledComponents2.default.div.attrs({
-	className: 'ItemAvatar avatar__outer__wrapper'
-})(_templateObject3, function (props) {
-	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
-});
-
-var ItemDetail = _styledComponents2.default.div.attrs({
-	className: 'ItemDetail item__details'
-})(_templateObject4);
-
-var ItemRightContent = _styledComponents2.default.div.attrs({
-	className: 'ItemRightContent content__right'
-})(_templateObject5);
-
-var ItemTitle = _styledComponents2.default.div.attrs({
-	className: 'ItemTitle title'
-})(_templateObject6, function (props) {
-	return props.weight ? 'font-weight: ' + props.weight : 'font-weight: 500;';
-}, function (props) {
-	return props.width ? '' + props.width : 'unset';
-}, function (props) {
-	return props.overflow && '\n\t\toverflow: hidden;\n\t\twhite-space: nowrap;\n\t\ttext-overflow: ellipsis;\n\t';
-});
-
-var ItemSubTitle = _styledComponents2.default.div.attrs({
-	className: 'ItemSubTitle sub__title'
-})(_templateObject7);
-
 var SortableDragHandle = (0, _reactSortableHoc.SortableHandle)(function () {
 	return _react2.default.createElement(
 		_Icon2.default,
@@ -142,6 +93,7 @@ var ListItem = exports.ListItem = function (_Component) {
 		key: 'render',
 		value: function render() {
 			var _props = this.props,
+			    className = _props.className,
 			    children = _props.children,
 			    title = _props.title,
 			    subtitle = _props.subtitle,
@@ -158,7 +110,7 @@ var ListItem = exports.ListItem = function (_Component) {
 			    onClick = _props.onClick,
 			    leftInput = _props.leftInput,
 			    isSortable = _props.isSortable,
-			    props = _objectWithoutProperties(_props, ['children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle', 'onClick', 'leftInput', 'isSortable']);
+			    props = _objectWithoutProperties(_props, ['className', 'children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle', 'onClick', 'leftInput', 'isSortable']);
 
 			// build children
 
@@ -179,23 +131,30 @@ var ListItem = exports.ListItem = function (_Component) {
 			// setup title/subtitle
 			if (subtitle) {
 				children.unshift(_react2.default.createElement(
-					ItemSubTitle,
-					{ key: 'subtitle' },
+					'div',
+					_extends({}, props, { className: 'ItemSubTitle sub__title', key: 'subtitle' }),
 					subtitle
 				));
 			}
 
 			if (title) {
 				children.unshift(_react2.default.createElement(
-					ItemTitle,
-					{ overflow: overflow, width: width, key: 'title' },
+					'div',
+					{
+						className: 'ItemTitle title',
+						overflow: overflow,
+						width: width,
+						key: 'title'
+					},
 					title
 				));
 			}
 
 			return _react2.default.createElement(
-				ListItemWrapper,
-				props,
+				'div',
+				_extends({}, props, {
+					className: (className || '') + ' ListItemWrapper item__list__item ' + (online ? '' : 'offline')
+				}),
 				isSortable && _react2.default.createElement(SortableDragHandle, null),
 				leftInput && _react2.default.createElement(
 					'div',
@@ -203,8 +162,12 @@ var ListItem = exports.ListItem = function (_Component) {
 					leftInput
 				),
 				avatar && _react2.default.createElement(
-					ItemAvatar,
-					{ onClick: onClick, alignItems: alignItems },
+					'div',
+					{
+						className: 'ItemAvatar avatar__outer__wrapper',
+						onClick: onClick,
+						alignItems: alignItems
+					},
 					avatar === true ? _react2.default.createElement(_Avatar2.default, {
 						className: 'empty',
 						online: online,
@@ -216,22 +179,25 @@ var ListItem = exports.ListItem = function (_Component) {
 					})
 				),
 				children && _react2.default.createElement(
-					ItemDetail,
-					{ onClick: onClick },
+					'div',
+					{ className: 'ItemDetail item__details', onClick: onClick },
 					children
 				),
 				(rightTitle || rightSubtitle || rightInput) && _react2.default.createElement(
-					ItemRightContent,
-					{ alignItems: alignItems },
+					'div',
+					{
+						className: 'ItemRightContent content__right',
+						alignItems: alignItems
+					},
 					rightInput && rightInput,
 					rightTitle && _react2.default.createElement(
-						ItemTitle,
-						{ weight: 400 },
+						'div',
+						{ className: 'ItemTitle title', weight: 400 },
 						rightTitle
 					),
 					rightSubtitle && _react2.default.createElement(
-						ItemSubTitle,
-						null,
+						'div',
+						{ className: 'ItemSubTitle sub__title' },
 						rightSubtitle
 					)
 				)
