@@ -16,10 +16,6 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
 var _Select = require('../Select/Select');
 
 var _Select2 = _interopRequireDefault(_Select);
@@ -127,4 +123,4 @@ DevControls.propTypes = {
 	auth: _propTypes2.default.object
 };
 
-exports.default = (0, _styledComponents2.default)(DevControls)(_templateObject);
+exports.default = styled(DevControls)(_templateObject);
