@@ -9,8 +9,7 @@ import {
 	BotText,
 	Pre,
 	Card,
-	Paragraph as P,
-	Styleguide
+	Paragraph as P
 } from 'react-sprucebot'
 
 class DeveloperPage extends React.Component {
@@ -64,7 +63,6 @@ class DeveloperPage extends React.Component {
 						introduction, see "./docs/README.md" in your project.
 					</BotText>
 				</Container>
-				<Styleguide />
 			</div>
 		)
 	}
