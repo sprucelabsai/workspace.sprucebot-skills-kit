@@ -4,9 +4,9 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _templateObject = _taggedTemplateLiteral(['\n\t-webkit-transition: all 0.5s ease-out;\n\t-moz-transition: all 0.5s ease-out;\n\t-ms-transition: all 0.5s ease-out;\n\t-o-transition: all 0.5s ease-out;\n\ttransition: all 0.5s ease-out;\n\n\t&:hover {\n\t\topacity: 1;\n\t}\n\tposition: absolute;\n\tbackground-color: #000;\n\tcolor: #fff;\n\tpadding: 20px;\n\topacity: 0.1;\n\t.input__wrapper {\n\t\tmargin: 0;\n\t\tpadding-top: 15px;\n\t\twhite-space: nowrap;\n\t}\n\tselect {\n\t\tmargin: 0;\n\t\tdisplay: inline;\n\t\tpadding: 10px;\n\t\theight: auto;\n\t\tborder-radius: 5px;\n\t\tbackground: #fff;\n\t\twidth: auto;\n\t}\n'], ['\n\t-webkit-transition: all 0.5s ease-out;\n\t-moz-transition: all 0.5s ease-out;\n\t-ms-transition: all 0.5s ease-out;\n\t-o-transition: all 0.5s ease-out;\n\ttransition: all 0.5s ease-out;\n\n\t&:hover {\n\t\topacity: 1;\n\t}\n\tposition: absolute;\n\tbackground-color: #000;\n\tcolor: #fff;\n\tpadding: 20px;\n\topacity: 0.1;\n\t.input__wrapper {\n\t\tmargin: 0;\n\t\tpadding-top: 15px;\n\t\twhite-space: nowrap;\n\t}\n\tselect {\n\t\tmargin: 0;\n\t\tdisplay: inline;\n\t\tpadding: 10px;\n\t\theight: auto;\n\t\tborder-radius: 5px;\n\t\tbackground: #fff;\n\t\twidth: auto;\n\t}\n']);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -22,8 +22,6 @@ var _Select2 = _interopRequireDefault(_Select);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -38,6 +36,10 @@ var DevControls = function (_Component) {
 
 		var _this = _possibleConstructorReturn(this, (DevControls.__proto__ || Object.getPrototypeOf(DevControls)).call(this, props));
 
+		_this.onChangeRole = function (role) {
+			window.location.href = '/dev/' + role + '/redirect';
+		};
+
 		_this.state = {
 			loaded: false
 		};
@@ -45,11 +47,6 @@ var DevControls = function (_Component) {
 	}
 
 	_createClass(DevControls, [{
-		key: 'onChangeRole',
-		value: function onChangeRole(role) {
-			window.location.href = '/dev/' + role + '/redirect';
-		}
-	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			this.setState({
@@ -64,6 +61,8 @@ var DevControls = function (_Component) {
 				return null;
 			}
 
+			var className = this.props.className;
+
 			var props = Object.assign({}, this.props);
 			var auth = props.auth;
 
@@ -75,7 +74,7 @@ var DevControls = function (_Component) {
 			if (!auth || auth.error || !auth.role) {
 				return _react2.default.createElement(
 					'div',
-					props,
+					_extends({}, props, { className: 'dev_controls__no_auth ' + (className || '') }),
 					_react2.default.createElement(
 						'div',
 						{ className: 'error' },
@@ -86,15 +85,18 @@ var DevControls = function (_Component) {
 
 			return _react2.default.createElement(
 				'div',
-				props,
+				_extends({}, props, { className: 'dev_controls ' + (className || '') }),
 				_react2.default.createElement(
 					_Select2.default,
-					{ label: 'Jump to Role', onChange: this.onChangeRole.bind(this) },
+					{
+						className: 'select',
+						label: 'Jump to Role',
+						onChange: this.onChangeRole
+					},
 					_react2.default.createElement(
 						'option',
 						{ value: '' },
-						'Current: ',
-						auth.role
+						'Current: ' + auth.role
 					),
 					_react2.default.createElement(
 						'option',
@@ -123,4 +125,4 @@ DevControls.propTypes = {
 	auth: _propTypes2.default.object
 };
 
-exports.default = styled(DevControls)(_templateObject);
+exports.default = DevControls;
