@@ -11,6 +11,7 @@ import {
 export const List = ({ className, isSortable, ...props }) => {
 	return (
 		<div
+			{...props}
 			className={`List item__list ${isSortable ? 'sortable__item__list' : ''}`}
 		/>
 	)

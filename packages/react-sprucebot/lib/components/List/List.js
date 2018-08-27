@@ -44,9 +44,9 @@ var List = function List(_ref) {
 	    isSortable = _ref.isSortable,
 	    props = _objectWithoutProperties(_ref, ['className', 'isSortable']);
 
-	return _react2.default.createElement('div', {
+	return _react2.default.createElement('div', _extends({}, props, {
 		className: 'List item__list ' + (isSortable ? 'sortable__item__list' : '')
-	});
+	}));
 };
 
 exports.List = List;
