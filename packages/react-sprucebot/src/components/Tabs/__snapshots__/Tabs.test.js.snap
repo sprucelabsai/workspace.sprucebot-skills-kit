@@ -1,12 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TabPane renders 1`] = `
-<div
-  className="tap__pane"
-/>
-`;
-
-exports[`Tabs renders 1`] = `
+exports[`Tabs tests Should match the snapshot 1`] = `
 <div>
   <div
     className="toggle__wrapper"
