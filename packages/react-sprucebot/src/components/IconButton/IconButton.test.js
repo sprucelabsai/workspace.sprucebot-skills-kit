@@ -1,10 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import IconButton from './IconButton'
+import { shallow } from 'enzyme'
 
-test('it renders', () => {
-	const tree = renderer.create(<IconButton />).toJSON()
-	expect(tree).toMatchSnapshot()
+describe('IconButton tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<IconButton />)
+
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })

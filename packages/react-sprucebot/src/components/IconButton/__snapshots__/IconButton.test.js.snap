@@ -1,21 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders 1`] = `
-<button
+exports[`IconButton tests Should match the snapshot 1`] = `
+<Button
+  alt={false}
   busy={false}
-  className="btn  IconButton icon__button "
-  disabled={undefined}
-  href={undefined}
-  onClick={[Function]}
+  className="IconButton icon__button "
+  loaderDark={true}
+  loaderStyle={
+    Object {
+      "fontSize": ".5em",
+    }
+  }
+  primary={false}
+  remove={false}
+  secondary={false}
+  tag="button"
+  toggle={false}
   type="button"
 >
-  <span
-    className="wrapper"
-  >
-    <i
-      className="Icon icon "
-      fontSize={undefined}
-    />
-  </span>
-</button>
+  <Icon />
+</Button>
 `;
