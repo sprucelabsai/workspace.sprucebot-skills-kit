@@ -1,28 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders a FormField 1`] = `
-<Field
-  input={
-    Object {
-      "onChange": [MockFunction],
-      "value": "test",
-    }
-  }
-  meta={Object {}}
->
+exports[`SelectField tests Should match the snapshot 1`] = `
+<Field>
   <select
     className="SelectField custom_dropdown"
-    input={
-      Object {
-        "onChange": [MockFunction],
-        "value": "test",
-      }
-    }
-    meta={Object {}}
-  >
-    <option
-      value="testval"
-    />
-  </select>
+  />
 </Field>
 `;
