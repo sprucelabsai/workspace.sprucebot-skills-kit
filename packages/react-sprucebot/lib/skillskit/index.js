@@ -40,6 +40,23 @@ var skill = {
 		}
 	},
 
+	windowOrDocument: function windowOrDocument() {
+		var standalone = window.navigator.standalone;
+		var userAgent = window.navigator.userAgent.toLowerCase();
+		var safari = /safari/.test(userAgent);
+		var chrome = /chrome/.test(userAgent);
+		var ios = /iphone|ipod|ipad/.test(userAgent);
+		var android = /android/.test(userAgent);
+		var isIOSWebView = ios && !safari && !standalone;
+		var isAndroidWebView = android && !chrome && !standalone;
+
+		if (isIOSWebView || isAndroidWebView) {
+			return document;
+		} else {
+			return window;
+		}
+	},
+
 	addEventListener: function addEventListener(eventName, listener) {
 		if (!this.listenersByEventName[eventName]) {
 			this.listenersByEventName[eventName] = [];

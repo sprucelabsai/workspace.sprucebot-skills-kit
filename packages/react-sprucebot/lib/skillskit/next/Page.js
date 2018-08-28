@@ -48,6 +48,10 @@ var _router = require('next/router');
 
 var _router2 = _interopRequireDefault(_router);
 
+var _is_js = require('is_js');
+
+var _is_js2 = _interopRequireDefault(_is_js);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -122,7 +126,7 @@ var Page = function Page(Wrapped) {
 			key: 'componentDidMount',
 			value: function () {
 				var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-					var WebFont;
+					var WebFont, bodyClassName;
 					return regeneratorRuntime.wrap(function _callee$(_context) {
 						while (1) {
 							switch (_context.prev = _context.next) {
@@ -139,7 +143,7 @@ var Page = function Page(Wrapped) {
 									}
 
 									// NOTE: Need to do this require here so that we can be sure the global window is defined
-									WebFont = require("webfontloader"); //eslint-disable-line
+									WebFont = require('webfontloader'); //eslint-disable-line
 
 									WebFont.load({
 										google: {
@@ -156,7 +160,12 @@ var Page = function Page(Wrapped) {
 									// setup event listeners
 									_index2.default.addEventListener('did-update-user', this.props.actions.events.didUpdateUser);
 
-								case 6:
+									bodyClassName = '' + (_is_js2.default.mobile() ? 'is_mobile' : _is_js2.default.tablet() ? 'is_tablet' : 'is_desktop');
+
+
+									document.body.classList.add(bodyClassName);
+
+								case 8:
 								case 'end':
 									return _context.stop();
 							}

@@ -9,6 +9,7 @@ import Loader from '../../components/Loader/Loader'
 import qs from 'qs'
 import lang from '../helpers/lang'
 import Router, { withRouter } from 'next/router'
+import is from 'is_js'
 
 const debug = require('debug')('@sprucelabs/react-sprucebot')
 
@@ -164,7 +165,7 @@ const Page = Wrapped => {
 			}
 
 			// NOTE: Need to do this require here so that we can be sure the global window is defined
-			const WebFont = require("webfontloader"); //eslint-disable-line
+			const WebFont = require('webfontloader') //eslint-disable-line
 			WebFont.load({
 				google: {
 					families: ['Material Icons']
@@ -184,6 +185,12 @@ const Page = Wrapped => {
 				'did-update-user',
 				this.props.actions.events.didUpdateUser
 			)
+
+			const bodyClassName = `${
+				is.mobile() ? 'is_mobile' : is.tablet() ? 'is_tablet' : 'is_desktop'
+			}`
+
+			document.body.classList.add(bodyClassName)
 		}
 
 		componentWillUnmount() {

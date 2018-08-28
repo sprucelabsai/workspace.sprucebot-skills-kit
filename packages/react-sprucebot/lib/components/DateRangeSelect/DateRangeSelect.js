@@ -94,7 +94,8 @@ var DateRangeSelect = function (_Component) {
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateRangeSelect.__proto__ || Object.getPrototypeOf(DateRangeSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 			focusedInput: 'startDate',
-			defaultDateSet: false
+			defaultDateSet: false,
+			today: _this.props.timezone ? (0, _moment2.default)().tz(_this.props.timezone).format('YYYY-MM-DD') : (0, _moment2.default)().format('YYYY-MM-DD')
 		}, _this.componentDidMount = function () {
 			var setDefaultDates = _this.props.setDefaultDates;
 			var defaultDateSet = _this.state.defaultDateSet;
@@ -121,16 +122,17 @@ var DateRangeSelect = function (_Component) {
 			}
 			return true;
 		}, _this.isOutsideRange = function (date) {
+			var today = _this.state.today;
 			var allowPastDates = _this.props.allowPastDates;
 
-			var today = (0, _moment2.default)();
-			var pastDate = date.isBefore(today);
+
+			var pastDate = (0, _moment2.default)(date.format('YYYY-MM-DD')).isBefore(today);
 
 			if (allowPastDates) {
 				return false;
 			}
 
-			if (date.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+			if (date.format('YYYY-MM-DD') === today) {
 				return false;
 			}
 
@@ -243,17 +245,13 @@ var DateRangeSelect = function (_Component) {
 						    endDate = _ref2.endDate;
 						return _this2.handleDateChange(startDate, endDate);
 					},
-					focusedInput: focusedInput,
+					focusedInput: loading ? null : focusedInput,
 					onFocusChange: function onFocusChange(focusedInput) {
 						return _this2.handleFocusChange(focusedInput);
 					},
 					numberOfMonths: numberOfMonths || 1,
-					isDayBlocked: function isDayBlocked(date) {
-						return _this2.isDayBlocked(date);
-					},
-					isOutsideRange: function isOutsideRange(date) {
-						return _this2.isOutsideRange(date);
-					},
+					isDayBlocked: this.isDayBlocked,
+					isOutsideRange: this.isOutsideRange,
 					initialVisibleMonth: initialVisibleMonth,
 					onPrevMonthClick: function onPrevMonthClick(prevMonth) {
 						return _onPrevMonthClick && _onPrevMonthClick(prevMonth);
@@ -305,5 +303,6 @@ DateRangeSelect.propTypes = {
 };
 
 DateRangeSelect.defaultProps = {
-	allowPastDates: false
+	allowPastDates: false,
+	loading: false
 };
