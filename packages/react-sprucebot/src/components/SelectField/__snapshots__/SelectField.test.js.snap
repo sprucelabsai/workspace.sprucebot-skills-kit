@@ -10,10 +10,19 @@ exports[`it renders a FormField 1`] = `
   }
   meta={Object {}}
 >
-  <SelectField__StyledSelect>
+  <select
+    className="SelectField custom_dropdown"
+    input={
+      Object {
+        "onChange": [MockFunction],
+        "value": "test",
+      }
+    }
+    meta={Object {}}
+  >
     <option
       value="testval"
     />
-  </SelectField__StyledSelect>
+  </select>
 </Field>
 `;

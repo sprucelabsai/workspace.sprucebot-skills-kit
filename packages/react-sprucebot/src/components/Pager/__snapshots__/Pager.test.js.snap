@@ -1,29 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders 1`] = `
-.c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: none;
-  color: #00aac7;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 2em;
-  margin: 0;
-  padding: 0;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  width: auto;
-}
-
-.c0:hover {
-  background: none;
-}
-
 <ul
   className="undefined pager"
   page={0}
@@ -34,7 +11,8 @@ exports[`it renders 1`] = `
     smallArrows={true}
   >
     <button
-      className="btn  IconButton icon-button  c0 "
+      busy={false}
+      className="btn  IconButton icon__button "
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
@@ -57,7 +35,8 @@ exports[`it renders 1`] = `
     smallArrows={true}
   >
     <button
-      className="btn  IconButton icon-button  c0 "
+      busy={false}
+      className="btn  IconButton icon__button "
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
@@ -76,7 +55,7 @@ exports[`it renders 1`] = `
     </button>
   </li>
   <li
-    className="current "
+    className="current"
   >
     1 of 1
   </li>
@@ -85,7 +64,8 @@ exports[`it renders 1`] = `
     smallArrows={true}
   >
     <button
-      className="btn  IconButton icon-button  c0 "
+      busy={false}
+      className="btn  IconButton icon__button "
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
@@ -108,7 +88,8 @@ exports[`it renders 1`] = `
     smallArrows={true}
   >
     <button
-      className="btn  IconButton icon-button  c0 "
+      busy={false}
+      className="btn  IconButton icon__button "
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
