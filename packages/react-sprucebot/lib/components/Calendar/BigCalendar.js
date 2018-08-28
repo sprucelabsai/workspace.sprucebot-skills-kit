@@ -14,9 +14,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _moment = require('moment');
+var _momentTimezone = require('moment-timezone');
 
-var _moment2 = _interopRequireDefault(_moment);
+var _momentTimezone2 = _interopRequireDefault(_momentTimezone);
 
 var _propTypes = require('prop-types');
 
@@ -147,10 +147,10 @@ var BigCalendar = function (_Component) {
 			var title = void 0;
 
 			if (view === 'month') {
-				title = (0, _moment2.default)(selectedDate).format('MMM YYYY');
+				title = (0, _momentTimezone2.default)(selectedDate).format('MMM YYYY');
 			} else if (view === 'week') {
-				var startOfWeek = (0, _moment2.default)(selectedDate).startOf('week');
-				var endOfWeek = (0, _moment2.default)(selectedDate).endOf('week');
+				var startOfWeek = (0, _momentTimezone2.default)(selectedDate).startOf('week');
+				var endOfWeek = (0, _momentTimezone2.default)(selectedDate).endOf('week');
 
 				if (startOfWeek.isSame(endOfWeek, 'month')) {
 					title = startOfWeek.format('MMM Do') + ' - ' + endOfWeek.format('Do');
@@ -158,8 +158,8 @@ var BigCalendar = function (_Component) {
 					title = startOfWeek.format('MMM Do') + ' - ' + endOfWeek.format('MMM Do');
 				}
 			} else if (view === 'day') {
-				var now = (0, _moment2.default)().tz(auth.Location.timezone).startOf('day');
-				var days = _moment2.default.tz(selectedDate, auth.Location.timezone).startOf('day').diff(now, 'days');
+				var now = (0, _momentTimezone2.default)().tz(auth.Location.timezone).startOf('day');
+				var days = _momentTimezone2.default.tz(selectedDate, auth.Location.timezone).startOf('day').diff(now, 'days');
 
 				switch (days) {
 					case -1:
@@ -172,7 +172,7 @@ var BigCalendar = function (_Component) {
 						title = 'Tomorrow';
 						break;
 					default:
-						title = (0, _moment2.default)(selectedDate).format('ddd, MMM Do');
+						title = (0, _momentTimezone2.default)(selectedDate).format('ddd, MMM Do');
 						break;
 				}
 			}
@@ -300,8 +300,8 @@ var BigCalendar = function (_Component) {
 								currentUser = teammates.find(function (teammate) {
 									return teammate.User.id === auth.UserId;
 								});
-								startDate = (0, _moment2.default)(selectedDate).startOf(currentView);
-								endDate = (0, _moment2.default)(selectedDate).endOf(currentView);
+								startDate = (0, _momentTimezone2.default)(selectedDate).startOf(currentView);
+								endDate = (0, _momentTimezone2.default)(selectedDate).endOf(currentView);
 								options = {
 									mode: mode,
 									startDate: startDate,
@@ -458,8 +458,8 @@ var BigCalendar = function (_Component) {
 				return !event.allDay;
 			}).map(function (event) {
 				return {
-					startTime: (0, _moment2.default)(event.start).format('HH:mm:ss'),
-					endTime: (0, _moment2.default)(event.end).format('HH:mm:ss')
+					startTime: (0, _momentTimezone2.default)(event.start).format('HH:mm:ss'),
+					endTime: (0, _momentTimezone2.default)(event.end).format('HH:mm:ss')
 				};
 			});
 
@@ -480,8 +480,8 @@ var BigCalendar = function (_Component) {
 
 			if (combinedTimes.length !== 0) {
 				combinedTimes.forEach(function (event) {
-					var start = (0, _moment2.default)(day + ' ' + event.startTime).startOf('hour').subtract(2, 'hour');
-					var end = (0, _moment2.default)(day + ' ' + event.endTime).endOf('hour').add(2, 'hour');
+					var start = (0, _momentTimezone2.default)(day + ' ' + event.startTime).startOf('hour').subtract(2, 'hour');
+					var end = (0, _momentTimezone2.default)(day + ' ' + event.endTime).endOf('hour').add(2, 'hour');
 
 					if (!earliest || earliest.diff(start) > 0) {
 						earliest = start;
@@ -493,16 +493,16 @@ var BigCalendar = function (_Component) {
 				});
 
 				if (!earliest.isSame(day, 'day')) {
-					earliest = (0, _moment2.default)(day + ' 00:00:00');
+					earliest = (0, _momentTimezone2.default)(day + ' 00:00:00');
 				}
 
 				if (!latest.isSame(day, 'day')) {
-					latest = (0, _moment2.default)(day + ' 23:59:59');
+					latest = (0, _momentTimezone2.default)(day + ' 23:59:59');
 				}
 			} else {
-				earliest = (0, _moment2.default)(selectedDate).hour(7).minutes(0).seconds(0);
+				earliest = (0, _momentTimezone2.default)(selectedDate).hour(7).minutes(0).seconds(0);
 
-				latest = (0, _moment2.default)(selectedDate).hour(18).minutes(0).seconds(0);
+				latest = (0, _momentTimezone2.default)(selectedDate).hour(18).minutes(0).seconds(0);
 			}
 
 			return [earliest.format('YYYY-MM-DD HH:mm:ss'), latest.format('YYYY-MM-DD HH:mm:ss')];
@@ -765,7 +765,7 @@ var BigCalendar = function (_Component) {
 		}();
 
 		_this.handleSelectToday = function () {
-			_this.handleScheduleDateSelect((0, _moment2.default)());
+			_this.handleScheduleDateSelect((0, _momentTimezone2.default)());
 		};
 
 		_this.state = {
@@ -778,7 +778,7 @@ var BigCalendar = function (_Component) {
 			renderAllEvents: true,
 			showAllTeammates: props.defaultMode === 'team',
 			transitioning: false,
-			selectedDate: (0, _moment2.default)().tz(props.auth.Location.timezone),
+			selectedDate: (0, _momentTimezone2.default)().tz(props.auth.Location.timezone),
 			earliestTime: null,
 			latestTime: null,
 			teammates: props.teammates ? props.teammates : [],
@@ -858,7 +858,7 @@ var BigCalendar = function (_Component) {
 			var formats = {
 				// format times in left column
 				timeGutterFormat: function timeGutterFormat(date) {
-					return (0, _moment2.default)(date).format('h:mma');
+					return (0, _momentTimezone2.default)(date).format('h:mma');
 				}
 
 				// setup start and end times
@@ -879,9 +879,9 @@ var BigCalendar = function (_Component) {
 				max: max
 
 				// Determine selected date in relation to today
-			};var currentDate = _moment2.default.tz(selectedDate, auth.Location.timezone).format('YYYY-MM-DD HH:mm:ss');
-			var today = (0, _moment2.default)().tz(auth.Location.timezone).startOf('day');
-			var selectedDateStart = _moment2.default.tz(selectedDate, auth.Location.timezone).startOf('day');
+			};var currentDate = _momentTimezone2.default.tz(selectedDate, auth.Location.timezone).format('YYYY-MM-DD HH:mm:ss');
+			var today = (0, _momentTimezone2.default)().tz(auth.Location.timezone).startOf('day');
+			var selectedDateStart = _momentTimezone2.default.tz(selectedDate, auth.Location.timezone).startOf('day');
 			var isToday = today.isSame(selectedDateStart);
 
 			// Optionally passed calendar props
