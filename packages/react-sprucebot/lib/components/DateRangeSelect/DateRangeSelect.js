@@ -191,7 +191,7 @@ var DateRangeSelect = function (_Component) {
 			    loading = _props.loading;
 
 
-			var wrapperClass = classnames('date_picker', 'date_select__wrapper', {
+			var wrapperClass = (0, _classnames2.default)('date_picker', 'date_select__wrapper', {
 				loading: loading,
 				outside_days: enableOutsideDays,
 				week_selection: weekSelection

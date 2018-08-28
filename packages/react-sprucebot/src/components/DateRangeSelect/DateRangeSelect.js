@@ -141,7 +141,7 @@ class DateRangeSelect extends Component {
 			loading
 		} = this.props
 
-		const wrapperClass = classnames('date_picker', 'date_select__wrapper', {
+		const wrapperClass = classNames('date_picker', 'date_select__wrapper', {
 			loading: loading,
 			outside_days: enableOutsideDays,
 			week_selection: weekSelection
