@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders 1`] = `
+exports[`Loader tests Should match the snapshot 1`] = `
 <span
   className="loader_wrapper"
   style={
