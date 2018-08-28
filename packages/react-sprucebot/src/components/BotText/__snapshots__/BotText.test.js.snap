@@ -5,11 +5,3 @@ exports[`BotText tests Should match the snapshot 1`] = `
   className="bot__text"
 />
 `;
-
-exports[`it renders 1`] = `
-<div
-  className="bot__text"
->
-  Bottext children
-</div>
-`;

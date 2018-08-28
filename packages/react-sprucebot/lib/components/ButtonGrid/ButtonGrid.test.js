@@ -1,29 +1,21 @@
 'use strict';
 
-var React = require('react');
+var _react = require('react');
 
-var _require = require('./ButtonGrid'),
-    ButtonGrid = _require.ButtonGrid,
-    GridButton = _require.GridButton;
+var _react2 = _interopRequireDefault(_react);
 
-var renderer = require('react-test-renderer');
+var _ButtonGrid = require('./ButtonGrid');
 
-var itRendersTree = function itRendersTree(tree) {
-	return expect(renderer.create(tree).toJSON()).toMatchSnapshot();
-};
+var _ButtonGrid2 = _interopRequireDefault(_ButtonGrid);
 
-test('ButtonGrid renders', function () {
-	itRendersTree(React.createElement(ButtonGrid, null));
-});
+var _enzyme = require('enzyme');
 
-test('GridButton renders', function () {
-	itRendersTree(React.createElement(GridButton, null));
-});
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-test('ButtonGrid renders a GridButton', function () {
-	itRendersTree(React.createElement(
-		ButtonGrid,
-		null,
-		React.createElement(GridButton, null)
-	));
+describe('ButtonGrid tests', function () {
+	it('Should match the snapshot', function () {
+		var renderedComponent = (0, _enzyme.shallow)(_react2.default.createElement(_ButtonGrid2.default, null));
+
+		expect(renderedComponent).toMatchSnapshot();
+	});
 });

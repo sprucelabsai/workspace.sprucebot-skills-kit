@@ -1,22 +1,11 @@
-const React = require('react')
-const { ButtonGrid, GridButton } = require('./ButtonGrid')
-const renderer = require('react-test-renderer')
+import React from 'react'
+import ButtonGrid from './ButtonGrid'
+import { shallow } from 'enzyme'
 
-const itRendersTree = tree =>
-	expect(renderer.create(tree).toJSON()).toMatchSnapshot()
+describe('ButtonGrid tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<ButtonGrid />)
 
-test('ButtonGrid renders', () => {
-	itRendersTree(<ButtonGrid />)
-})
-
-test('GridButton renders', () => {
-	itRendersTree(<GridButton />)
-})
-
-test('ButtonGrid renders a GridButton', () => {
-	itRendersTree(
-		<ButtonGrid>
-			<GridButton />
-		</ButtonGrid>
-	)
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })
