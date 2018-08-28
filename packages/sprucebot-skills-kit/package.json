@@ -81,7 +81,7 @@
 		"svgo": "^1.0.3",
 		"swagger-jsdoc": "^3.0.2"
 	},
-	"jest": {
+	"###jest": {
 		"coverageDirectory": "./coverage/",
 		"collectCoverage": true
 	}
