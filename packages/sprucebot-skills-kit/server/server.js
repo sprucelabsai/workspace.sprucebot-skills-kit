@@ -1,7 +1,9 @@
 const { version } = require('../package.json')
 const path = require('path')
-const serve = require('sprucebot-skills-kit-server')
-const Sprucebot = require('sprucebot-node')
+const serve = require('@sprucelabs/sprucebot-skills-kit-server')
+const Sprucebot = require('@sprucelabs/sprucebot-node')
+const log = require('@barbershopio/iso-log')
+const generateSwaggerDocs = require('./swagger/swagger')
 
 const {
 	API_KEY,
@@ -14,12 +16,56 @@ const {
 	SERVER_HOST,
 	INTERFACE_HOST,
 	API_SSL_ALLOW_SELF_SIGNED,
+	REDIS_URL,
+	ENABLE_SWAGGER_DOCS,
 	nextConfig,
 	errors,
 	bodyParserOptions,
 	sequelizeOptions,
-	eventContract
+	eventContract,
+	LOG_LEVEL
 } = require('config')
+
+// Set up global logger
+const validLevels = [
+	'trace',
+	'debug',
+	'info',
+	'warn',
+	'crit',
+	'fatal',
+	'superInfo'
+]
+let level = 'warn'
+if (LOG_LEVEL && _.includes(validLevels, LOG_LEVEL)) {
+	level = LOG_LEVEL
+}
+
+log.setOptions({
+	level,
+	useSourcemaps: false
+})
+global.log = log
+
+/*
+	Redis (optional)
+	If enabled must install: yarn add ioredis
+*/
+if (REDIS_URL) {
+	const Redis = require('./lib/Redis')
+	global.redis = new Redis()
+}
+
+if (process.env.ENABLE_SWAGGER_DOCS === 'true') {
+	generateSwaggerDocs()
+		.then(() => {
+			log.debug('Swagger docs generated')
+		})
+		.catch(e => {
+			log.warn('Generate swagger doc error!')
+			log.warn(e)
+		})
+}
 
 // Construct a new Sprucebot
 const sprucebot = new Sprucebot({

@@ -11,7 +11,7 @@ import {
 	Loader,
 	List,
 	ListItem
-} from 'react-sprucebot'
+} from '@sprucelabs/react-sprucebot'
 
 export default class TeamDashboard extends Component {
 	userListItems(users) {

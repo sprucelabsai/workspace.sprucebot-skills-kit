@@ -1,2 +1,2 @@
-import { _document } from 'react-sprucebot'
+import { _document } from '@sprucelabs/react-sprucebot'
 export default _document

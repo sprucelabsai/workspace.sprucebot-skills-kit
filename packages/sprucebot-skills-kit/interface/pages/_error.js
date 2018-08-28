@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, H1, BotText } from 'react-sprucebot'
+import { Container, H1, BotText } from '@sprucelabs/react-sprucebot'
 
 export default class Error extends React.Component {
 	static getInitialProps({ res, err }) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from 'react-sprucebot'
+import { Container } from '@sprucelabs/react-sprucebot'
 
 import Page from '../../containers/Page'
 import TeamDashboard from '../../components/TeamDashboard'

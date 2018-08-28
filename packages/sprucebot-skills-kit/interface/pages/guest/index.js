@@ -1,4 +1,4 @@
-import { BotText, Container, H1, Paragraph as P } from 'react-sprucebot'
+import { BotText, Container, H1, Paragraph as P } from '@sprucelabs/react-sprucebot'
 
 import Page from '../../containers/Page'
 import React from 'react'
