@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders 1`] = `
+exports[`Pager tests Should match the snapshot 1`] = `
 <ul
   className="undefined pager"
   page={0}
@@ -10,102 +10,46 @@ exports[`it renders 1`] = `
     className="first disabled"
     smallArrows={true}
   >
-    <button
-      busy={false}
-      className="btn  IconButton icon__button "
-      disabled={undefined}
-      href={undefined}
+    <IconButton
       onClick={[Function]}
-      type="button"
     >
-      <span
-        className="wrapper"
-      >
-        <i
-          className="Icon icon "
-          fontSize={undefined}
-        >
-          first_page
-        </i>
-      </span>
-    </button>
+      first_page
+    </IconButton>
   </li>
   <li
     className="back disabled"
     smallArrows={true}
   >
-    <button
-      busy={false}
-      className="btn  IconButton icon__button "
-      disabled={undefined}
-      href={undefined}
+    <IconButton
       onClick={[Function]}
-      type="button"
     >
-      <span
-        className="wrapper"
-      >
-        <i
-          className="Icon icon "
-          fontSize={undefined}
-        >
-          chevron_left
-        </i>
-      </span>
-    </button>
+      chevron_left
+    </IconButton>
   </li>
   <li
     className="current"
   >
-    1 of 1
+    1 of undefined
   </li>
   <li
-    className="next disabled"
+    className="next false"
     smallArrows={true}
   >
-    <button
-      busy={false}
-      className="btn  IconButton icon__button "
-      disabled={undefined}
-      href={undefined}
+    <IconButton
       onClick={[Function]}
-      type="button"
     >
-      <span
-        className="wrapper"
-      >
-        <i
-          className="Icon icon "
-          fontSize={undefined}
-        >
-          chevron_right
-        </i>
-      </span>
-    </button>
+      chevron_right
+    </IconButton>
   </li>
   <li
-    className="last disabled"
+    className="last false"
     smallArrows={true}
   >
-    <button
-      busy={false}
-      className="btn  IconButton icon__button "
-      disabled={undefined}
-      href={undefined}
+    <IconButton
       onClick={[Function]}
-      type="button"
     >
-      <span
-        className="wrapper"
-      >
-        <i
-          className="Icon icon "
-          fontSize={undefined}
-        >
-          last_page
-        </i>
-      </span>
-    </button>
+      last_page
+    </IconButton>
   </li>
 </ul>
 `;

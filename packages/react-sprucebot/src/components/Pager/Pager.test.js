@@ -1,10 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import Pager from './Pager'
+import { shallow } from 'enzyme'
 
-test('it renders', () => {
-	const tree = renderer.create(<Pager totalPages={1} />).toJSON()
-	expect(tree).toMatchSnapshot()
+describe('Pager tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<Pager />)
+
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })

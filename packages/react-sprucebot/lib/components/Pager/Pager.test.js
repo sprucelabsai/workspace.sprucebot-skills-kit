@@ -4,19 +4,18 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactTestRenderer = require('react-test-renderer');
-
-var _reactTestRenderer2 = _interopRequireDefault(_reactTestRenderer);
-
-require('jest-styled-components');
-
 var _Pager = require('./Pager');
 
 var _Pager2 = _interopRequireDefault(_Pager);
 
+var _enzyme = require('enzyme');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-test('it renders', function () {
-	var tree = _reactTestRenderer2.default.create(_react2.default.createElement(_Pager2.default, { totalPages: 1 })).toJSON();
-	expect(tree).toMatchSnapshot();
+describe('Pager tests', function () {
+	it('Should match the snapshot', function () {
+		var renderedComponent = (0, _enzyme.shallow)(_react2.default.createElement(_Pager2.default, null));
+
+		expect(renderedComponent).toMatchSnapshot();
+	});
 });
