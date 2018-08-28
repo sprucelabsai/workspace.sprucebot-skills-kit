@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders 1`] = `
-<button
+exports[`ControlButton tests Should match the snapshot 1`] = `
+<Button
+  alt={false}
   busy={false}
-  className="btn  ControlButton control__button "
-  disabled={undefined}
-  href={undefined}
-  onClick={[Function]}
+  className="ControlButton control__button "
+  hideLoader={true}
+  primary={false}
+  remove={false}
+  secondary={false}
   tabIndex={0}
+  tag="button"
+  toggle={false}
   type="button"
 >
-  <span
-    className="wrapper"
-  >
-    <span />
-  </span>
-</button>
+  <span />
+</Button>
 `;
