@@ -60,11 +60,13 @@ class DeveloperPage extends React.Component {
 					</svg>
 					<H1>Hello 🌲 Sprucebot 🌲 Developer!</H1>
 					<BotText>
-						Use the Styleguide below to get a jump start. For a proper
-						introduction, see "./docs/README.md" in your project.
+						Check out the developer documentation for everything you'll need to
+						get up and running
 					</BotText>
+					<Button href="https://developer.sprucebot.com" target="_blank">
+						Take me to the docs!
+					</Button>
 				</Container>
-				<Styleguide />
 			</div>
 		)
 	}
