@@ -96,9 +96,9 @@ class DateSelect extends Component {
 
 		return (
 			<div
-				className={`date_select__wrapper ${loading ? 'loading' : ''}`}
-				hide={hide}
-				loading={loading}
+				className={`date_picker date_select__wrapper ${
+					loading ? 'loading' : ''
+				}`}
 			>
 				<div className={`date_select__loader ${loading ? 'loading' : ''}`}>
 					<Loader />
@@ -149,7 +149,6 @@ DateSelect.propTypes = {
 	initialVisibleMonth: PropTypes.func,
 	onNextMonthClick: PropTypes.func,
 	onPrevMonthClick: PropTypes.func,
-	hide: PropTypes.bool,
 	loading: PropTypes.bool,
 	highlightDates: PropTypes.array
 }

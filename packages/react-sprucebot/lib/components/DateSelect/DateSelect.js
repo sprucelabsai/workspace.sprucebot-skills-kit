@@ -134,9 +134,7 @@ var DateSelect = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				{
-					className: 'date_select__wrapper ' + (loading ? 'loading' : ''),
-					hide: hide,
-					loading: loading
+					className: 'date_picker date_select__wrapper ' + (loading ? 'loading' : '')
 				},
 				_react2.default.createElement(
 					'div',
@@ -199,7 +197,6 @@ DateSelect.propTypes = {
 	initialVisibleMonth: _propTypes2.default.func,
 	onNextMonthClick: _propTypes2.default.func,
 	onPrevMonthClick: _propTypes2.default.func,
-	hide: _propTypes2.default.bool,
 	loading: _propTypes2.default.bool,
 	highlightDates: _propTypes2.default.array
 };
