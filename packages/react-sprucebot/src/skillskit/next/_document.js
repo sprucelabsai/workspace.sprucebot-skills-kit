@@ -1,16 +1,12 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheet } from 'styled-components'
 const debug = require('debug')('@sprucelabs/react-sprucebot')
 
 export default class MyDocument extends Document {
 	static async getInitialProps({ renderPage, query, store }) {
-		// Build stylesheets from styled-components
-		const sheet = new ServerStyleSheet()
 		const page = renderPage(App => props =>
 			sheet.collectStyles(<App {...props} />)
 		)
-		const styleTags = sheet.getStyleElement()
 		// Store is undefined when hmr is the first
 		// request the server sees after boot
 		// Ideally store is always defined.
@@ -57,7 +53,7 @@ export default class MyDocument extends Document {
 						type="text/css"
 						charSet="UTF-8"
 					/>
-					{this.props.styleTags}
+					<link rel="stylesheet" href="/_next/static/style.css" />
 					{this.props.whitelabel && (
 						<link
 							href={this.props.whitelabel}

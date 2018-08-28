@@ -16,8 +16,6 @@ var _document = require('next/document');
 
 var _document2 = _interopRequireDefault(_document);
 
-var _styledComponents = require('styled-components');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -61,7 +59,7 @@ var MyDocument = function (_Document) {
 						type: 'text/css',
 						charSet: 'UTF-8'
 					}),
-					this.props.styleTags,
+					_react2.default.createElement('link', { rel: 'stylesheet', href: '/_next/static/style.css' }),
 					this.props.whitelabel && _react2.default.createElement('link', {
 						href: this.props.whitelabel,
 						rel: 'stylesheet',
@@ -91,34 +89,31 @@ var MyDocument = function (_Document) {
 				    query = _ref2.query,
 				    store = _ref2.store;
 
-				var sheet, page, styleTags, _store$getState, auth, config, whitelabel, orgWhitelabel;
+				var page, _store$getState, auth, config, whitelabel, orgWhitelabel;
 
 				return regeneratorRuntime.wrap(function _callee$(_context) {
 					while (1) {
 						switch (_context.prev = _context.next) {
 							case 0:
-								// Build stylesheets from styled-components
-								sheet = new _styledComponents.ServerStyleSheet();
 								page = renderPage(function (App) {
 									return function (props) {
 										return sheet.collectStyles(_react2.default.createElement(App, props));
 									};
 								});
-								styleTags = sheet.getStyleElement();
 								// Store is undefined when hmr is the first
 								// request the server sees after boot
 								// Ideally store is always defined.
 								// Revisit when using `next>5.0.0`
 
 								if (store) {
-									_context.next = 6;
+									_context.next = 4;
 									break;
 								}
 
 								debug('No store in _document');
 								return _context.abrupt('return', _extends({}, page, { styleTags: styleTags }));
 
-							case 6:
+							case 4:
 								_store$getState = store.getState(), auth = _store$getState.auth, config = _store$getState.config;
 								whitelabel = config.WHITELABEL;
 								orgWhitelabel = void 0;
@@ -131,7 +126,7 @@ var MyDocument = function (_Document) {
 
 								return _context.abrupt('return', _extends({}, page, { styleTags: styleTags, whitelabel: whitelabel, auth: auth, config: config, orgWhitelabel: orgWhitelabel }));
 
-							case 11:
+							case 9:
 							case 'end':
 								return _context.stop();
 						}
