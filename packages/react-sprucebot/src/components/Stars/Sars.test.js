@@ -1,10 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import Stars from './Stars'
+import { shallow } from 'enzyme'
 
-test('it renders', () => {
-	const tree = renderer.create(<Stars />).toJSON()
-	expect(tree).toMatchSnapshot()
+describe('Stars tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<Stars />)
+
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })
