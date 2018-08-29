@@ -5,7 +5,7 @@ jobs:
       - image: circleci/node:8
     steps:
       - checkout
-      - run: yarn install --ignore-scripts
+      - run: yarn install --ignore-scripts --frozen-lockfile
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
       - run: git config --global user.name "$GIT_AUTHOR_NAME"
       - run: yarn run release
