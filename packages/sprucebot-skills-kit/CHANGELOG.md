@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.65.1-pre.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.65.0...v6.65.1-pre.0) (2018-08-29)
+
+
+### Breaking Changes
+
+* Remove styled-components and update error handling ([8f17966](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8f17966))
+
+
+### Bug Fixes
+
+* redis delete not deleting if prefix is sent with it; disable precommit ([411b716](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/411b716))
+
+
+### Features
+
+* send version information to api on skill boot ([384ae74](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/384ae74))
+* update skills kit release config ([3634acf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3634acf))
+
+
+
+
+
 <a name="6.65.0"></a>
 # [6.65.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.64.1...v6.65.0) (2018-08-28)
 

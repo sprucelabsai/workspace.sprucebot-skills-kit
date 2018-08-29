@@ -3,6 +3,59 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.65.1-pre.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.65.0...v6.65.1-pre.0) (2018-08-29)
+
+
+### Breaking Changes
+
+* Remove styled-components and update error handling ([8f17966](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8f17966))
+* Remove styled-components from package.json ([03c0484](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/03c0484))
+* Remove styled-components from yarn.lock ([5037094](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5037094))
+
+
+### Bug Fixes
+
+* Add default stats props ([bb62a90](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bb62a90))
+* Add testURL/testEnvironment to jest.config ([47ace99](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/47ace99))
+* Destructure className ([3360aa5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3360aa5))
+* Pass props to List component ([f6c00a0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f6c00a0))
+* redis delete not deleting if prefix is sent with it; disable precommit ([411b716](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/411b716))
+* Remove ControlButton stylesheet ([3ebb61f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3ebb61f))
+* Rewrite Avatar tests ([e2b51df](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e2b51df))
+* Rewrite BotText tests ([22522f2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/22522f2))
+* Switch BigCalendar to use moment-timezone ([95d9275](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/95d9275))
+* Typo ([53c17f5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/53c17f5))
+
+
+### Features
+
+* Add clean script ([704d8c5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/704d8c5))
+* add custom changelog preset ([d4bf46e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d4bf46e))
+* Remove styled components from Calendar component ([4df2856](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4df2856))
+* Remove styled components from DateRangeSelect ([0cbffb0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0cbffb0))
+* Remove styled components from DateSelect ([e5026d2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e5026d2))
+* Remove styled components from Dialog ([2f28a22](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2f28a22))
+* Remove styled components from Form ([db6f2b2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/db6f2b2))
+* Remove styled components from FormField ([6144245](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6144245))
+* Remove styled components from IconButton ([a4c9557](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a4c9557))
+* Remove styled components from ImageCropper ([b004d0f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b004d0f))
+* Remove styled components from LinkPile ([8faf7ad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8faf7ad))
+* Remove styled components from List ([2bdd059](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2bdd059))
+* Remove styled components from Pager ([b68efbd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b68efbd))
+* Remove styled components from SelectField ([a86f73b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a86f73b))
+* Remove styled components from SubmitWrapper ([c37bea4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c37bea4))
+* Remove styled components from Tabs ([bedbbf2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bedbbf2))
+* Remove styled components from TextArea ([9993804](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9993804))
+* Remove styled components from Typography ([69ffbc2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/69ffbc2))
+* Remove styled-components from DevControls ([9a47fb9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9a47fb9))
+* send version information to api on skill boot ([384ae74](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/384ae74))
+* update skills kit release config ([3634acf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3634acf))
+* Write clean script ([8ce5e1b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8ce5e1b))
+
+
+
+
+
 <a name="6.65.0"></a>
 # [6.65.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.64.1...v6.65.0) (2018-08-28)
 
