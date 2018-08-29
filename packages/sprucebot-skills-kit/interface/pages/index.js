@@ -13,6 +13,8 @@ import {
 	Paragraph as P
 } from '@sprucelabs/react-sprucebot'
 
+import '../styles/global.scss'
+
 class DeveloperPage extends React.Component {
 	static getInitialProps(props) {
 		return {
