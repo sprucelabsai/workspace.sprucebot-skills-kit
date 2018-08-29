@@ -375,7 +375,7 @@ var skill = {
 };
 
 if (typeof window !== 'undefined') {
-	window.addEventListener('message', skill.handleIframeMessage.bind(skill));
+	skill.windowOrDocument().addEventListener('message', skill.handleIframeMessage.bind(skill));
 }
 
 exports.default = skill;
