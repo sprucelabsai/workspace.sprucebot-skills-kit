@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: npm run publish -- --yes --canary --preid pre --message "%s [skip ci]" --npm-client npm
+      - run: npm run publish -- prerelease --yes --preid pre --message "%s [skip ci]" --npm-client npm
   dev_release:
     docker:
       - image: circleci/node:8
