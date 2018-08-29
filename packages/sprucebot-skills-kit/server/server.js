@@ -1,4 +1,4 @@
-const { version } = require('../package.json')
+const skillPackage = require('../package.json')
 const path = require('path')
 const serve = require('@sprucelabs/sprucebot-skills-kit-server')
 const Sprucebot = require('@sprucelabs/sprucebot-node')
@@ -79,7 +79,9 @@ const sprucebot = new Sprucebot({
 	svgIcon: ICON,
 	allowSelfSignedCerts: API_SSL_ALLOW_SELF_SIGNED,
 	dbEnabled: sequelizeOptions && sequelizeOptions.enabled,
-	eventContract: eventContract
+	eventContract: eventContract,
+	version: skillPackage.version,
+	skillsKitVersion: skillPackage['sprucebot-skills-kit-version']
 })
 
 let server

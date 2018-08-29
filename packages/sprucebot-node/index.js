@@ -22,7 +22,9 @@ class Sprucebot {
 		svgIcon = required('svgIcon'),
 		allowSelfSignedCerts = false,
 		dbEnabled = false,
-		eventContract = required('eventContract')
+		eventContract = required('eventContract'),
+		version = 'unknown',
+		skillsKitVersion = 'unknown'
 	}) {
 		const hostMatches = host.match(/^(https?\:\/\/|)([^\/:?#]+)(?:[\/:?#]|$)/i)
 		const cleanedHost =
@@ -40,14 +42,16 @@ class Sprucebot {
 		this.eventContract = eventContract
 		this._mutexes = {}
 
-		this.version = '1.0' // maybe pull from package.json?
+		this.version = version // skill version
+		this.skillsKitVersion = skillsKitVersion // skills kit version
+		this.apiVersion = '1.0' // maybe pull from package.json?
 
 		// Setup http(s) class with everything it needs to talk to api
 		this.https = new Https({
 			host: cleanedHost,
 			apiKey,
 			id,
-			version: this.version,
+			version: this.apiVersion,
 			allowSelfSignedCerts
 		})
 
@@ -75,7 +79,9 @@ class Sprucebot {
 			iframeUrl: this.iframeUrl,
 			marketingUrl: this.marketingUrl,
 			publicUrl: this.publicUrl,
-			eventContract: this.eventContract
+			eventContract: this.eventContract,
+			version: this.version,
+			skillsKitVersion: this.skillsKitVersion
 		}
 		const results = await this.https.patch('/', data)
 		let database = null
