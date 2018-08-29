@@ -97,7 +97,7 @@ var MyDocument = function (_Document) {
 							case 0:
 								page = renderPage(function (App) {
 									return function (props) {
-										return sheet.collectStyles(_react2.default.createElement(App, props));
+										return _react2.default.createElement(App, props);
 									};
 								});
 								// Store is undefined when hmr is the first
@@ -111,7 +111,7 @@ var MyDocument = function (_Document) {
 								}
 
 								debug('No store in _document');
-								return _context.abrupt('return', _extends({}, page, { styleTags: styleTags }));
+								return _context.abrupt('return', _extends({}, page));
 
 							case 4:
 								_store$getState = store.getState(), auth = _store$getState.auth, config = _store$getState.config;
@@ -124,7 +124,7 @@ var MyDocument = function (_Document) {
 									orgWhitelabel = auth.Location.Organization.whiteLabellingStylesheetUrl;
 								}
 
-								return _context.abrupt('return', _extends({}, page, { styleTags: styleTags, whitelabel: whitelabel, auth: auth, config: config, orgWhitelabel: orgWhitelabel }));
+								return _context.abrupt('return', _extends({}, page, { whitelabel: whitelabel, auth: auth, config: config, orgWhitelabel: orgWhitelabel }));
 
 							case 9:
 							case 'end':

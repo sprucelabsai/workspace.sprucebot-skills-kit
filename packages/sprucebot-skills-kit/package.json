@@ -36,7 +36,7 @@
 	},
 	"dependencies": {
 		"@barbershopio/iso-log": "^0.1.13",
-		"@sprucelabs/react-sprucebot": "^6.65.0",
+		"@sprucelabs/react-sprucebot": "6.40.1-pre.110",
 		"@sprucelabs/sprucebot-node": "^6.65.0",
 		"@sprucelabs/sprucebot-skills-kit-server": "^6.65.0",
 		"@zeit/next-css": "^0.2.0",
