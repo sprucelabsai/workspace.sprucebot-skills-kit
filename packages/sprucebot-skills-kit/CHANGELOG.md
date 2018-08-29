@@ -3,6 +3,60 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.65.0"></a>
+# [6.65.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.64.1...v6.65.0) (2018-08-28)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit
+
+
+
+
+
+<a name="6.64.1"></a>
+## [6.64.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.64.0...v6.64.1) (2018-08-25)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit
+
+
+
+
+
+<a name="6.64.0"></a>
+# [6.64.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.63.0...v6.64.0) (2018-08-24)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit
+
+
+
+
+
+<a name="6.63.0"></a>
+# [6.63.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.62.0...v6.63.0) (2018-08-22)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit
+
+
+
+
+
+<a name="6.62.0"></a>
+# [6.62.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.61.2...v6.62.0) (2018-08-20)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit
+
+
+
+
+
+<a name="6.61.2"></a>
+## [6.61.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.61.1...v6.61.2) (2018-08-20)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit
+
+
+
+
+
 <a name="6.61.1"></a>
 ## [6.61.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.61.0...v6.61.1) (2018-08-18)
 

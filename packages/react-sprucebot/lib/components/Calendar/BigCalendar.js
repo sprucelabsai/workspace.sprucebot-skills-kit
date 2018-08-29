@@ -406,8 +406,8 @@ var BigCalendar = function (_Component) {
 								movingToWeek = mode === 'user' && view !== 'week' && newView === 'week';
 								_context3.next = 5;
 								return _this.setState({
-									view: newView,
-									renderFirstCalendar: !movingToWeek
+									view: newView
+									// renderFirstCalendar: !movingToWeek
 								});
 
 							case 5:
@@ -417,10 +417,11 @@ var BigCalendar = function (_Component) {
 								if (mode === 'team' && view === 'month' && newView !== 'month') {
 									_this.toggleShowOnCalendars();
 								} else if (mode === 'user' && view !== 'week' && newView === 'week') {
+									//NOTE: Removed this delay as it was causing DOM issues with the calendar not rendering fast enough;
+									// Changes to BE data structure and FE should limit render lag that was initially seen
 									// week view is heavy, give dom a sec to render before rendering calendar
-									_this.delayedRenderWeekView();
+									// this.delayedRenderWeekView()
 								}
-
 								_this.handleChange();
 								//trigger a refresh which causes, sizes to be recalculated. 500 delay for css transitions
 								setTimeout(function () {
@@ -504,7 +505,7 @@ var BigCalendar = function (_Component) {
 				latest = (0, _moment2.default)(selectedDate).hour(18).minutes(0).seconds(0);
 			}
 
-			return [earliest, latest];
+			return [earliest.format('YYYY-MM-DD HH:mm:ss'), latest.format('YYYY-MM-DD HH:mm:ss')];
 		};
 
 		_this.toggleShowOnCalendars = function () {
@@ -777,7 +778,7 @@ var BigCalendar = function (_Component) {
 			renderAllEvents: true,
 			showAllTeammates: props.defaultMode === 'team',
 			transitioning: false,
-			selectedDate: (0, _moment2.default)(),
+			selectedDate: (0, _moment2.default)().tz(props.auth.Location.timezone),
 			earliestTime: null,
 			latestTime: null,
 			teammates: props.teammates ? props.teammates : [],
@@ -874,9 +875,8 @@ var BigCalendar = function (_Component) {
 				view: selectedView,
 				formats: formats,
 				toolbar: false,
-				date: selectedDate.toDate(),
-				min: min.toDate(),
-				max: max.toDate()
+				min: min,
+				max: max
 
 				// Determine selected date in relation to today
 			};var currentDate = _moment2.default.tz(selectedDate, auth.Location.timezone).format('YYYY-MM-DD HH:mm:ss');
@@ -918,7 +918,7 @@ var BigCalendar = function (_Component) {
 				isSelectingScheduleDate && _react2.default.createElement(
 					_Dialog2.default,
 					{
-						title: 'Jump To Day',
+						title: 'Choose Date',
 						className: 'schedule_calendar_select',
 						onTapClose: this.handleHideScheduleDateDialog
 					},
@@ -928,6 +928,7 @@ var BigCalendar = function (_Component) {
 							return selectedDate;
 						},
 						onDateSelect: this.handleScheduleDateSelect,
+						timezone: auth.Location.timezone,
 						allowPastDates: true
 					}),
 					!isToday && _react2.default.createElement(
@@ -1023,7 +1024,6 @@ var BigCalendar = function (_Component) {
 								}),
 								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
 									className: '' + (idx === 0 && !renderFirstCalendar ? 'hide' : ''),
-									timezone: auth.Location.timezone,
 									currentDate: currentDate,
 									views: views,
 									events: events ? _this3.filterEvents(events, teammate) : [],
