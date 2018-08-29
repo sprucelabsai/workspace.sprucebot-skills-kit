@@ -292,7 +292,9 @@ const skill = {
 }
 
 if (typeof window !== 'undefined') {
-	window.addEventListener('message', skill.handleIframeMessage.bind(skill))
+	skill
+		.windowOrDocument()
+		.addEventListener('message', skill.handleIframeMessage.bind(skill))
 }
 
 export default skill
