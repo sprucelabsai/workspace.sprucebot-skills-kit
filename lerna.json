@@ -5,7 +5,6 @@
 	"version": "6.65.0",
 	"command": {
 		"publish": {
-			"allowBranch": ["dev"],
 			"conventionalCommits": true,
 			"changelogPreset": "sprucelabs"
 		}
