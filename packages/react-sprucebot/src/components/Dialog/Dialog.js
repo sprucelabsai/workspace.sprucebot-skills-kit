@@ -117,7 +117,6 @@ export default class Dialog extends Component {
 		this.focus()
 		currentDialogs.push(this)
 		this.updateIndexes()
-		SK.showUnderlay()
 
 		if (!timerRunning) {
 			timerRunning = true

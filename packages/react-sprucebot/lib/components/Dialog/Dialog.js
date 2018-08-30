@@ -218,7 +218,6 @@ var Dialog = function (_Component) {
 			this.focus();
 			currentDialogs.push(this);
 			this.updateIndexes();
-			_skillskit2.default.showUnderlay();
 
 			if (!timerRunning) {
 				timerRunning = true;
