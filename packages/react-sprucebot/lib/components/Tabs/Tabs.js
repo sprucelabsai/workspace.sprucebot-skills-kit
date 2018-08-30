@@ -205,9 +205,13 @@ var TabPane = exports.TabPane = function (_Component2) {
 	_createClass(TabPane, [{
 		key: 'render',
 		value: function render() {
+			var _props2 = this.props,
+			    className = _props2.className,
+			    props = _objectWithoutProperties(_props2, ['className']);
+
 			return _react2.default.createElement(
 				'div',
-				{ className: 'tap__pane' },
+				{ className: 'tap__pane ' + (className || '') },
 				this.props.children
 			);
 		}
