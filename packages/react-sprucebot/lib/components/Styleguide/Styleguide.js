@@ -173,7 +173,7 @@ var Dark = (0, _styledComponents2.default)(_Pre2.default).withConfig({
 	componentId: 'xjzule-0'
 })(['background-color:#333;padding:3px;']);
 
-var FlexContainer = _styledComponents2.default.div.withConfig({
+var FlexContainer = (0, _styledComponents2.default)('div').withConfig({
 	displayName: 'Styleguide__FlexContainer',
 	componentId: 'xjzule-1'
 })(['display:flex;justify-content:center;']);

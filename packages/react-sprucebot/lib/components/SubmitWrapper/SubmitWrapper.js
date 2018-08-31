@@ -10,11 +10,11 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SubmitWrapper = _styledComponents2.default.div.attrs({
+var SubmitWrapper = (0, _styledComponents2.default)('div').attrs({
 	className: 'submit__wrapper'
 }).withConfig({
 	displayName: 'SubmitWrapper',
-	componentId: 's37qkbg-0'
+	componentId: 'sc-37qkbg-0'
 })(['']);
 
 exports.default = SubmitWrapper;

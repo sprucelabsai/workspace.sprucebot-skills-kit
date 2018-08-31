@@ -52,21 +52,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Input = _styledComponents2.default.input.withConfig({
+var Input = (0, _styledComponents2.default)('input').withConfig({
 	displayName: 'TimeInput__Input',
-	componentId: 's1gowg6f-0'
+	componentId: 'sc-1gowg6f-0'
 })(['width:unset;flex:2;background-color:transparent;border:none;color:#808080;font-size:1.2em;margin:0.5em;padding:0;text-align:center;&::-webkit-clear-button{display:none;}&::-ms-clear{display:none;}']);
 
 (0, _styledComponents.injectGlobal)(_templateObject);
 
-var ConfirmWrapper = _styledComponents2.default.div.withConfig({
+var ConfirmWrapper = (0, _styledComponents2.default)('div').withConfig({
 	displayName: 'TimeInput__ConfirmWrapper',
-	componentId: 's1gowg6f-1'
+	componentId: 'sc-1gowg6f-1'
 })(['border:1px solid #e9e9e9;padding:5px 0 0;width:100%;']);
 
 var ConfirmButton = (0, _styledComponents2.default)(_Button2.default).withConfig({
 	displayName: 'TimeInput__ConfirmButton',
-	componentId: 's1gowg6f-2'
+	componentId: 'sc-1gowg6f-2'
 })(['&&{border-radius:0;width:calc(100% - 10px);margin:0 auto;}']);
 
 var TimeInput = function (_Component) {

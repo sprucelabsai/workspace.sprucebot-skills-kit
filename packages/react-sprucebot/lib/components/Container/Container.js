@@ -10,7 +10,7 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Container = _styledComponents2.default.div.attrs({
+var Container = (0, _styledComponents2.default)('div').attrs({
 	className: 'container'
 }).withConfig({
 	displayName: 'Container',
