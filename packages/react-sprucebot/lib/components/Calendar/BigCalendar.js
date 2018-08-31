@@ -824,6 +824,43 @@ var BigCalendar = function (_Component) {
 			_this.setState({ selectedTeammate: null });
 		};
 
+		_this.handleToggleUserMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+			return regeneratorRuntime.wrap(function _callee9$(_context9) {
+				while (1) {
+					switch (_context9.prev = _context9.next) {
+						case 0:
+							_context9.next = 2;
+							return _this.handleClearSelectedTeammate();
+
+						case 2:
+							_this.jumpToUserMode();
+
+						case 3:
+						case 'end':
+							return _context9.stop();
+					}
+				}
+			}, _callee9, _this2);
+		}));
+		_this.handleToggleTeamMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+			return regeneratorRuntime.wrap(function _callee10$(_context10) {
+				while (1) {
+					switch (_context10.prev = _context10.next) {
+						case 0:
+							_context10.next = 2;
+							return _this.handleClearSelectedTeammate();
+
+						case 2:
+							_this.jumpToTeamMode();
+
+						case 3:
+						case 'end':
+							return _context10.stop();
+					}
+				}
+			}, _callee10, _this2);
+		}));
+
 		_this.state = {
 			currentPage: 0,
 			view: props.defaultView,
@@ -1014,7 +1051,9 @@ var BigCalendar = function (_Component) {
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'calendar__controls' },
+					{
+						className: 'calendar__controls ' + (selectedTeammate ? 'selected-teammate' : '')
+					},
 					_react2.default.createElement(_Pager2.default, {
 						infinite: true,
 						onChange: this.handlePagerChange,
@@ -1022,18 +1061,38 @@ var BigCalendar = function (_Component) {
 						jumpAmount: selectedView !== 'month' ? 7 : 1,
 						showStep: selectedView === 'day'
 					}),
-					_react2.default.createElement(
+					!selectedTeammate && _react2.default.createElement(
 						_Button2.default,
 						{ className: 'toggle-mode', onClick: this.handleToggleMode },
-						selectedTeammate || mode === 'team' ? 'show just me' : 'show team'
+						!selectedTeammate && mode === 'team' ? 'show just me' : 'show team'
+					),
+					selectedTeammate && _react2.default.createElement(
+						_react.Fragment,
+						null,
+						_react2.default.createElement(
+							_Button2.default,
+							{
+								className: 'toggle-mode selected-teammate',
+								onClick: this.handleToggleUserMode
+							},
+							'show just me'
+						),
+						_react2.default.createElement(
+							_Button2.default,
+							{
+								className: 'toggle-mode selected-teammate',
+								onClick: this.handleToggleTeamMode
+							},
+							'show team'
+						)
 					)
 				),
 				_react2.default.createElement(
 					'div',
 					{
 						className: 'calendars__wrapper ' + (isFetching ? 'fetching' : ''),
-						ref: function ref(_ref14) {
-							_this3.calendarWrapper = _ref14;
+						ref: function ref(_ref16) {
+							_this3.calendarWrapper = _ref16;
 						}
 					},
 					_react2.default.createElement(
@@ -1098,10 +1157,10 @@ var BigCalendar = function (_Component) {
 									onSelectEvent: function onSelectEvent(event, e) {
 										return _this3.handleClickEvent({ event: event, teammate: teammate, view: view, mode: mode }, e);
 									},
-									onSelectSlot: function onSelectSlot(_ref13, e) {
-										var start = _ref13.start,
-										    end = _ref13.end,
-										    action = _ref13.action;
+									onSelectSlot: function onSelectSlot(_ref15, e) {
+										var start = _ref15.start,
+										    end = _ref15.end,
+										    action = _ref15.action;
 										return _this3.handleClickOpenSlot({
 											start: start,
 											end: end,

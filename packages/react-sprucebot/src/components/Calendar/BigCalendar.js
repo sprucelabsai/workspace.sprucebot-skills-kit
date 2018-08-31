@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import isEqual from 'lodash/isEqual'
@@ -615,6 +615,16 @@ export default class BigCalendar extends Component {
 		this.setState({ selectedTeammate: null })
 	}
 
+	handleToggleUserMode = async () => {
+		await this.handleClearSelectedTeammate()
+		this.jumpToUserMode()
+	}
+
+	handleToggleTeamMode = async () => {
+		await this.handleClearSelectedTeammate()
+		this.jumpToTeamMode()
+	}
+
 	render() {
 		const {
 			auth,
@@ -754,7 +764,11 @@ export default class BigCalendar extends Component {
 					<TabPane title="Week" />
 					<TabPane title="Month" />
 				</Tabs>
-				<div className="calendar__controls">
+				<div
+					className={`calendar__controls ${
+						selectedTeammate ? 'selected-teammate' : ''
+					}`}
+				>
 					<Pager
 						infinite={true}
 						onChange={this.handlePagerChange}
@@ -762,9 +776,29 @@ export default class BigCalendar extends Component {
 						jumpAmount={selectedView !== 'month' ? 7 : 1}
 						showStep={selectedView === 'day'}
 					/>
-					<Button className="toggle-mode" onClick={this.handleToggleMode}>
-						{selectedTeammate || mode === 'team' ? 'show just me' : 'show team'}
-					</Button>
+					{!selectedTeammate && (
+						<Button className={`toggle-mode`} onClick={this.handleToggleMode}>
+							{!selectedTeammate && mode === 'team'
+								? 'show just me'
+								: 'show team'}
+						</Button>
+					)}
+					{selectedTeammate && (
+						<Fragment>
+							<Button
+								className={`toggle-mode selected-teammate`}
+								onClick={this.handleToggleUserMode}
+							>
+								{'show just me'}
+							</Button>
+							<Button
+								className={`toggle-mode selected-teammate`}
+								onClick={this.handleToggleTeamMode}
+							>
+								{'show team'}
+							</Button>
+						</Fragment>
+					)}
 				</div>
 				<div
 					className={`calendars__wrapper ${isFetching ? 'fetching' : ''}`}
