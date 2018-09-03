@@ -874,7 +874,6 @@ var BigCalendar = function (_Component) {
 			    showAllTeammates = _state.showAllTeammates,
 			    renderFirstCalendar = _state.renderFirstCalendar,
 			    events = _state.events,
-			    renderAllEvents = _state.renderAllEvents,
 			    isFetchingEvents = _state.isFetchingEvents,
 			    isSelectingScheduleDate = _state.isSelectingScheduleDate;
 

@@ -650,7 +650,6 @@ export default class BigCalendar extends Component {
 			showAllTeammates,
 			renderFirstCalendar,
 			events,
-			renderAllEvents,
 			isFetchingEvents,
 			isSelectingScheduleDate
 		} = this.state
