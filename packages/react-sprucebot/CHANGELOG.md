@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.66.0"></a>
+# [6.66.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.65.2...v6.66.0) (2018-09-03)
+
+
+### Bug Fixes
+
+* to pass circle ci ([5dd1e87](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5dd1e87))
+
+
+### Features
+
+* avatar edit ([4870c49](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4870c49))
+* calendar knows teamschedule ([896b9fc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/896b9fc))
+* team schedule support in big calendar ([7c493cc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7c493cc))
+
+
+
+
+
 <a name="6.65.2"></a>
 ## [6.65.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.65.1...v6.65.2) (2018-08-30)
 
