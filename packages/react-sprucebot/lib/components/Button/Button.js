@@ -42,7 +42,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var ButtonWrapper = (0, _styledComponents2.default)('div').withConfig({
+var ButtonWrapper = _styledComponents2.default.div.withConfig({
 	displayName: 'Button__ButtonWrapper',
 	componentId: 'oc0pgg-0'
 })(['display:flex;width:50%;', ';', ';'], function (props) {
@@ -51,14 +51,14 @@ var ButtonWrapper = (0, _styledComponents2.default)('div').withConfig({
 	return props.right && 'padding-left: 1.125em;';
 });
 
-var StyledButton = (0, _styledComponents2.default)('button').withConfig({
+var StyledButton = _styledComponents2.default.button.withConfig({
 	displayName: 'Button__StyledButton',
 	componentId: 'oc0pgg-1'
 })(['', ';'], function (props) {
 	return props.busy || props.disabled && '\n\t\t\tpointer-events: none;\n\t\t\tcursor: not-allowed;\n\t\t';
 });
 
-var StyledAnchor = (0, _styledComponents2.default)('a').withConfig({
+var StyledAnchor = _styledComponents2.default.a.withConfig({
 	displayName: 'Button__StyledAnchor',
 	componentId: 'oc0pgg-2'
 })(['', ';'], function (props) {

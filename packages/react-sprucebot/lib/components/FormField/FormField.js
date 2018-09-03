@@ -30,25 +30,25 @@ var _Typography = require('../Typography/Typography');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var FieldWrapper = exports.FieldWrapper = (0, _styledComponents2.default)('div').attrs({
+var FieldWrapper = exports.FieldWrapper = _styledComponents2.default.div.attrs({
 	className: (0, _classnames2.default)('InputField', 'input__wrapper')
 }).withConfig({
 	displayName: 'FormField__FieldWrapper',
-	componentId: 'sc-14kibhg-0'
+	componentId: 's14kibhg-0'
 })(['']);
 
-var FieldError = exports.FieldError = (0, _styledComponents2.default)('span').attrs({
+var FieldError = exports.FieldError = _styledComponents2.default.span.attrs({
 	className: (0, _classnames2.default)('FieldError', 'input__error', 'error-is-visible')
 }).withConfig({
 	displayName: 'FormField__FieldError',
-	componentId: 'sc-14kibhg-1'
+	componentId: 's14kibhg-1'
 })(['']);
 
-var FieldLabel = exports.FieldLabel = (0, _styledComponents2.default)('span').attrs({
+var FieldLabel = exports.FieldLabel = _styledComponents2.default.span.attrs({
 	className: (0, _classnames2.default)('FieldLabel', 'input__mini__label', 'js-show-label')
 }).withConfig({
 	displayName: 'FormField__FieldLabel',
-	componentId: 'sc-14kibhg-2'
+	componentId: 's14kibhg-2'
 })(['']);
 
 function Field(_ref) {

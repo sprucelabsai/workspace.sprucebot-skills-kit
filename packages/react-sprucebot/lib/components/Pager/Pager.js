@@ -42,16 +42,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var StyledList = (0, _styledComponents2.default)('ul').withConfig({
+var StyledList = _styledComponents2.default.ul.withConfig({
 	displayName: 'Pager__StyledList',
-	componentId: 'sc-2ln22q-0'
+	componentId: 's2ln22q-0'
 })(['display:flex;align-items:center;', ';'], function (props) {
 	return props.margin && 'margin: ' + props.margin;
 });
 
-var StyledListItem = (0, _styledComponents2.default)('li').withConfig({
+var StyledListItem = _styledComponents2.default.li.withConfig({
 	displayName: 'Pager__StyledListItem',
-	componentId: 'sc-2ln22q-1'
+	componentId: 's2ln22q-1'
 })(['&&{', ';', ';', ';}'], function (props) {
 	return props.smallArrows && 'flex: 0.5';
 }, function (props) {
@@ -62,12 +62,12 @@ var StyledListItem = (0, _styledComponents2.default)('li').withConfig({
 
 var DropDownButton = (0, _styledComponents2.default)(_ControlButton2.default).withConfig({
 	displayName: 'Pager__DropDownButton',
-	componentId: 'sc-2ln22q-2'
+	componentId: 's2ln22q-2'
 })(['margin-left:0.7em;']);
 
 var StyledLoader = (0, _styledComponents2.default)(_Loader2.default).withConfig({
 	displayName: 'Pager__StyledLoader',
-	componentId: 'sc-2ln22q-3'
+	componentId: 's2ln22q-3'
 })(['&&{flex:2;display:flex;align-self:center;align-items:center;justify-content:center;}']);
 
 var Pager = function (_Component) {

@@ -10,11 +10,11 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var BotText = (0, _styledComponents2.default)('div').attrs({
+var BotText = _styledComponents2.default.div.attrs({
 	className: 'bot__text'
 }).withConfig({
 	displayName: 'BotText',
-	componentId: 'sc-11jaecx-0'
+	componentId: 's11jaecx-0'
 })(['']);
 
 exports.default = BotText;

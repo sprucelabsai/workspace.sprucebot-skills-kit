@@ -43,7 +43,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var List = exports.List = (0, _styledComponents2.default)('div').attrs({
+var List = exports.List = _styledComponents2.default.div.attrs({
 	className: function className(props) {
 		return 'List item__list ' + (props.isSortable ? 'sortable__item__list' : '');
 	}
@@ -67,7 +67,7 @@ var SortableList = function SortableList(_ref2) {
 };
 
 exports.SortableList = SortableList;
-var ListItemWrapper = (0, _styledComponents2.default)('div').attrs({
+var ListItemWrapper = _styledComponents2.default.div.attrs({
 	className: function className(_ref3) {
 		var _className = _ref3.className,
 		    online = _ref3.online;
@@ -80,7 +80,7 @@ var ListItemWrapper = (0, _styledComponents2.default)('div').attrs({
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
 });
 
-var ItemAvatar = (0, _styledComponents2.default)('div').attrs({
+var ItemAvatar = _styledComponents2.default.div.attrs({
 	className: 'ItemAvatar avatar__outer__wrapper'
 }).withConfig({
 	displayName: 'List__ItemAvatar',
@@ -89,21 +89,21 @@ var ItemAvatar = (0, _styledComponents2.default)('div').attrs({
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
 });
 
-var ItemDetail = (0, _styledComponents2.default)('div').attrs({
+var ItemDetail = _styledComponents2.default.div.attrs({
 	className: 'ItemDetail item__details'
 }).withConfig({
 	displayName: 'List__ItemDetail',
 	componentId: 'qi6ubq-3'
 })(['flex-grow:1;']);
 
-var ItemRightContent = (0, _styledComponents2.default)('div').attrs({
+var ItemRightContent = _styledComponents2.default.div.attrs({
 	className: 'ItemRightContent content__right'
 }).withConfig({
 	displayName: 'List__ItemRightContent',
 	componentId: 'qi6ubq-4'
 })(['text-align:right;display:flex;align-items:flex-end;']);
 
-var ItemTitle = (0, _styledComponents2.default)('div').attrs({
+var ItemTitle = _styledComponents2.default.div.attrs({
 	className: 'ItemTitle title'
 }).withConfig({
 	displayName: 'List__ItemTitle',
@@ -116,7 +116,7 @@ var ItemTitle = (0, _styledComponents2.default)('div').attrs({
 	return props.overflow && '\n\t\toverflow: hidden;\n\t\twhite-space: nowrap;\n\t\ttext-overflow: ellipsis;\n\t';
 });
 
-var ItemSubTitle = (0, _styledComponents2.default)('div').attrs({
+var ItemSubTitle = _styledComponents2.default.div.attrs({
 	className: 'ItemSubTitle sub__title'
 }).withConfig({
 	displayName: 'List__ItemSubTitle',
