@@ -288,7 +288,7 @@ var BigCalendar = function (_Component) {
 			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
 				var triggerOnNavigate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-				var _this$state5, mode, view, teammates, selectedDate, optionsLoaded, selectedTeammate, _this$props, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, _ref2, storeSchedule, events;
+				var _this$state5, mode, view, teammates, selectedDate, optionsLoaded, selectedTeammate, _this$props, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, _ref2, teamSchedule, storeSchedule, events;
 
 				return regeneratorRuntime.wrap(function _callee$(_context) {
 					while (1) {
@@ -325,26 +325,32 @@ var BigCalendar = function (_Component) {
 
 							case 12:
 								_ref2 = _context.sent;
+								teamSchedule = _ref2.teamSchedule;
 								storeSchedule = _ref2.storeSchedule;
 								events = _ref2.events;
 
-								_this.setState({ storeSchedule: storeSchedule, events: events, isFetchingEvents: false });
-								_context.next = 22;
+								_this.setState({
+									storeSchedule: storeSchedule,
+									events: events,
+									teamSchedule: teamSchedule,
+									isFetchingEvents: false
+								});
+								_context.next = 23;
 								break;
 
-							case 18:
-								_context.prev = 18;
+							case 19:
+								_context.prev = 19;
 								_context.t0 = _context['catch'](9);
 
 								console.log(_context.t0);
 								_this.setState({ isFetchingEvents: false });
 
-							case 22:
+							case 23:
 							case 'end':
 								return _context.stop();
 						}
 					}
-				}, _callee, _this2, [[9, 18]]);
+				}, _callee, _this2, [[9, 19]]);
 			}));
 
 			return function () {
@@ -699,8 +705,42 @@ var BigCalendar = function (_Component) {
 			return filteredEvents;
 		};
 
-		_this.applyClassNames = function (event) {
+		_this.eventPropGetter = function (event) {
 			return { className: '' + (event.className || '') };
+		};
+
+		_this.slotPropGetter = function (teammate, date) {
+			var teamSchedule = _this.state.teamSchedule;
+
+			// if no team schedule, then no need to render on/off
+
+			if (!teamSchedule) {
+				return {};
+			}
+
+			// pull hours out for today
+			var today = (0, _moment2.default)(date).format('YYYY-MM-DD');
+
+			var _ref9 = teamSchedule[teammate.UserId] && teamSchedule[teammate.UserId][today] ? teamSchedule[teammate.UserId][today] : {},
+			    startTime = _ref9.startTime,
+			    endTime = _ref9.endTime;
+
+			// since a team schedule is passed, if any start/end times are missing, assume not working
+
+
+			if (!startTime || !endTime) {
+				return {
+					className: 'not-working'
+				};
+			}
+
+			startTime = parseInt(startTime.replace(/[^0-9]/g, ''));
+			endTime = parseInt(endTime.replace(/[^0-9]/g, ''));
+			var nowTime = parseInt((0, _moment2.default)(date).format('HHmmss'));
+
+			return {
+				className: nowTime >= startTime && nowTime < endTime ? 'working' : 'not-working'
+			};
 		};
 
 		_this.handleClickEvent = function (options, e) {
@@ -717,20 +757,20 @@ var BigCalendar = function (_Component) {
 			onClickOpenSlot && onClickOpenSlot(options, e);
 		};
 
-		_this.handleDropEvent = function (_ref9) {
-			var event = _ref9.event,
-			    start = _ref9.start,
-			    end = _ref9.end;
+		_this.handleDropEvent = function (_ref10) {
+			var event = _ref10.event,
+			    start = _ref10.start,
+			    end = _ref10.end;
 			var onDropEvent = _this.props.onDropEvent;
 
 
 			onDropEvent && onDropEvent(event, start, end);
 		};
 
-		_this.handleResizeEvent = function (resizeType, _ref10) {
-			var event = _ref10.event,
-			    start = _ref10.start,
-			    end = _ref10.end;
+		_this.handleResizeEvent = function (resizeType, _ref11) {
+			var event = _ref11.event,
+			    start = _ref11.start,
+			    end = _ref11.end;
 			var onResizeEvent = _this.props.onResizeEvent;
 
 
@@ -764,7 +804,7 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.handleScheduleDateSelect = function () {
-			var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(date) {
+			var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(date) {
 				return regeneratorRuntime.wrap(function _callee7$(_context7) {
 					while (1) {
 						switch (_context7.prev = _context7.next) {
@@ -787,7 +827,7 @@ var BigCalendar = function (_Component) {
 			}));
 
 			return function (_x4) {
-				return _ref11.apply(this, arguments);
+				return _ref12.apply(this, arguments);
 			};
 		}();
 
@@ -796,7 +836,7 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.handleSelectTeammate = function () {
-			var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(selectedTeammate) {
+			var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(selectedTeammate) {
 				return regeneratorRuntime.wrap(function _callee8$(_context8) {
 					while (1) {
 						switch (_context8.prev = _context8.next) {
@@ -816,7 +856,7 @@ var BigCalendar = function (_Component) {
 			}));
 
 			return function (_x5) {
-				return _ref12.apply(this, arguments);
+				return _ref13.apply(this, arguments);
 			};
 		}();
 
@@ -882,7 +922,9 @@ var BigCalendar = function (_Component) {
 			selectedTeammate: null,
 			optionsLoaded: [],
 			isFetchingEvents: true,
-			isSelectingScheduleDate: false
+			isSelectingScheduleDate: false,
+			teamSchedule: false // if a team schedule is supplied (keyed by user id, then date), then we render on/off hours
+
 			// Expected event structure:
 			// const event = {
 			// 	title: 'My favorite event',
@@ -926,7 +968,6 @@ var BigCalendar = function (_Component) {
 			    showAllTeammates = _state.showAllTeammates,
 			    renderFirstCalendar = _state.renderFirstCalendar,
 			    events = _state.events,
-			    renderAllEvents = _state.renderAllEvents,
 			    isFetchingEvents = _state.isFetchingEvents,
 			    isSelectingScheduleDate = _state.isSelectingScheduleDate,
 			    selectedTeammate = _state.selectedTeammate;
@@ -973,19 +1014,19 @@ var BigCalendar = function (_Component) {
 				min: min,
 				max: max
 
-				// Determine selected date in relation to today
-			};var currentDate = _moment2.default.tz(selectedDate, auth.Location.timezone).format('YYYY-MM-DD HH:mm:ss');
-			var today = (0, _moment2.default)().tz(auth.Location.timezone).startOf('day');
-			var selectedDateStart = _moment2.default.tz(selectedDate, auth.Location.timezone).startOf('day');
-			var isToday = today.isSame(selectedDateStart);
-
-			// Optionally passed calendar props
-			if (timeslots) {
+				// Optionally passed calendar props
+			};if (timeslots) {
 				calendarProps.timeslots = timeslots;
 			}
 			if (step) {
 				calendarProps.step = step;
 			}
+
+			// Determine selected date in relation to today
+			var currentDate = _moment2.default.tz(selectedDate, auth.Location.timezone).format('YYYY-MM-DD HH:mm:ss');
+			var today = (0, _moment2.default)().tz(auth.Location.timezone).startOf('day');
+			var selectedDateStart = _moment2.default.tz(selectedDate, auth.Location.timezone).startOf('day');
+			var isToday = today.isSame(selectedDateStart);
 
 			if (titleAccessor) {
 				calendarProps.titleAccessor = titleAccessor;
@@ -1091,8 +1132,8 @@ var BigCalendar = function (_Component) {
 					'div',
 					{
 						className: 'calendars__wrapper ' + (isFetching ? 'fetching' : ''),
-						ref: function ref(_ref16) {
-							_this3.calendarWrapper = _ref16;
+						ref: function ref(_ref17) {
+							_this3.calendarWrapper = _ref17;
 						}
 					},
 					_react2.default.createElement(
@@ -1152,15 +1193,15 @@ var BigCalendar = function (_Component) {
 									views: views,
 									events: events ? _this3.filterEvents(events, teammate) : [],
 									eventPropGetter: function eventPropGetter(event) {
-										return _this3.applyClassNames(event);
+										return _this3.eventPropGetter(event);
 									},
 									onSelectEvent: function onSelectEvent(event, e) {
 										return _this3.handleClickEvent({ event: event, teammate: teammate, view: view, mode: mode }, e);
 									},
-									onSelectSlot: function onSelectSlot(_ref15, e) {
-										var start = _ref15.start,
-										    end = _ref15.end,
-										    action = _ref15.action;
+									onSelectSlot: function onSelectSlot(_ref16, e) {
+										var start = _ref16.start,
+										    end = _ref16.end,
+										    action = _ref16.action;
 										return _this3.handleClickOpenSlot({
 											start: start,
 											end: end,
@@ -1174,7 +1215,10 @@ var BigCalendar = function (_Component) {
 									onEventResize: _this3.handleResizeEvent,
 									canDrag: _this3.handleCanDrag,
 									canResize: _this3.handleCanResize,
-									popup: selectedView === 'month'
+									popup: selectedView === 'month',
+									slotPropGetter: function slotPropGetter(date) {
+										return _this3.slotPropGetter(teammate, date);
+									}
 								}, calendarProps)),
 								isFetching && !isLoaderOutside && _react2.default.createElement(
 									'div',

@@ -4,21 +4,51 @@ import SK from '../../skillskit'
 
 export default class Avatar extends Component {
 	handleTapEdit = () => {
-		const { user, enableProfileEditing } = this.props
+		const { user } = this.props
 
-		if (
+		if (this.canEdit()) {
+			SK.editUserProfile({
+				userId: user.User.id,
+				locationId: user.Location.id
+			})
+		}
+	}
+
+	canEdit = () => {
+		const { enableProfileEditing, user, auth } = this.props
+
+		const minimumRequirementsMet =
+			auth &&
 			enableProfileEditing &&
 			user &&
 			user.User &&
 			user.User.id &&
 			user.Location &&
 			user.Location.id
+
+		// DELETE THIS OUT WHEN ROLES ARE PROPERLY PASSED
+		if (
+			minimumRequirementsMet &&
+			(auth.role === 'owner' ||
+				auth.role === 'teammate' ||
+				auth.User.id === user.User.id)
 		) {
-			SK.editUserProfile({
-				userId: user.User.id,
-				locationId: user.Location.id
-			})
+			return true
 		}
+		// END DELETE
+
+		//we have all the data, lets do some role checks
+		if (minimumRequirementsMet) {
+			if (auth.role === 'owner') {
+				return true
+			} else if (auth.role === 'teammate' && user.role === 'guest') {
+				return true
+			} else if (auth.User.id === user.User.id) {
+				return true
+			}
+		}
+
+		return false
 	}
 
 	render() {
@@ -54,7 +84,7 @@ export default class Avatar extends Component {
 				style={style}
 				className={`${top ? 'top__avatar' : 'avatar__wrapper'} ${className ||
 					''} ${isOnline ? 'online' : ''} ${
-					enableProfileEditing && user && user.User ? 'is_editable' : ''
+					this.canEdit() ? 'is_editable' : ''
 				}`}
 				onClick={this.handleTapEdit}
 				{...props}
@@ -65,6 +95,7 @@ export default class Avatar extends Component {
 
 Avatar.propTypes = {
 	top: PropTypes.bool,
+	auth: PropTypes.object,
 	user: PropTypes.object, //pass this or everything belowe
 	image: PropTypes.string,
 	showOnlineIndicator: PropTypes.bool,

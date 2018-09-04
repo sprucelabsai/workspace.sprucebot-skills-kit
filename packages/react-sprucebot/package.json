@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "6.65.2",
+	"version": "6.66.0",
 	"main": "lib/Sprucebot.js",
 	"description": "React components for your Sprucebot Skill 💪🏼",
 	"keywords": [
@@ -59,6 +59,7 @@
 	},
 	"dependencies": {
 		"axios": "^0.18.0",
+		"babel-plugin-styled-components": "^1.6.0",
 		"babel-polyfill": "^6.26.0",
 		"babel-register": "^6.26.0",
 		"blueimp-canvas-to-blob": "^3.14.0",
