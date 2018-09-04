@@ -817,13 +817,13 @@ export default class BigCalendar extends Component {
 					{selectedTeammate && (
 						<div className={`selected-teammate-wrapper`}>
 							<Button
-								className={`selected-teammate-toggle-mode`}
+								className={`selected-teammate-toggle-mode toggle-mode`}
 								onClick={this.handleToggleUserMode}
 							>
 								{'show me'}
 							</Button>
 							<Button
-								className={`selected-teammate-toggle-mode`}
+								className={`selected-teammate-toggle-mode toggle-mode`}
 								onClick={this.handleToggleTeamMode}
 							>
 								{'show team'}
