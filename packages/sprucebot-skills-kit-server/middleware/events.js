@@ -8,7 +8,6 @@ module.exports = (router, options) => {
 	router.use(async (ctx, next) => {
 		let body = ctx.request.body
 		const eventName = body && body.event
-
 		// setup if we are listening to this event
 		if (
 			ctx.path === '/hook.json' &&
@@ -26,6 +25,7 @@ module.exports = (router, options) => {
 			}
 
 			debug('router.use for event', eventName)
+			debug('Body of request received', body)
 			debug('Listener found, adding event to ctx')
 
 			const userId = body.userId || (body.payload && body.payload.userId)
@@ -54,6 +54,13 @@ module.exports = (router, options) => {
 
 			if (ctx.event && body && body.payload) {
 				ctx.event.payload = body.payload
+			}
+
+			if (body && body.firstSentAt) {
+				ctx.event.firstSentAt = body.firstSentAt
+			}
+			if (body && body.deliveryTry) {
+				ctx.event.deliveryTry = body.deliveryTry
 			}
 
 			if (ctx.event) {
