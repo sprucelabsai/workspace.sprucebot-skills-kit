@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import isEqual from 'lodash/isEqual'
