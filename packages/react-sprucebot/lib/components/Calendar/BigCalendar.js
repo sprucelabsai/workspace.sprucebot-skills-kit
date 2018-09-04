@@ -850,42 +850,15 @@ var BigCalendar = function (_Component) {
 			_this.setState({ selectedTeammate: null });
 		};
 
-		_this.handleToggleUserMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
-			return regeneratorRuntime.wrap(function _callee9$(_context9) {
-				while (1) {
-					switch (_context9.prev = _context9.next) {
-						case 0:
-							_context9.next = 2;
-							return _this.handleClearSelectedTeammate();
+		_this.handleToggleUserMode = function () {
+			_this.handleClearSelectedTeammate();
+			_this.jumpToUserMode();
+		};
 
-						case 2:
-							_this.jumpToUserMode();
-
-						case 3:
-						case 'end':
-							return _context9.stop();
-					}
-				}
-			}, _callee9, _this2);
-		}));
-		_this.handleToggleTeamMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
-			return regeneratorRuntime.wrap(function _callee10$(_context10) {
-				while (1) {
-					switch (_context10.prev = _context10.next) {
-						case 0:
-							_context10.next = 2;
-							return _this.handleClearSelectedTeammate();
-
-						case 2:
-							_this.jumpToTeamMode();
-
-						case 3:
-						case 'end':
-							return _context10.stop();
-					}
-				}
-			}, _callee10, _this2);
-		}));
+		_this.handleToggleTeamMode = function () {
+			_this.handleClearSelectedTeammate();
+			_this.jumpToTeamMode();
+		};
 
 		_this.state = {
 			currentPage: 0,
@@ -1118,8 +1091,8 @@ var BigCalendar = function (_Component) {
 					'div',
 					{
 						className: 'calendars__wrapper ' + (isFetching ? 'fetching' : ''),
-						ref: function ref(_ref17) {
-							_this3.calendarWrapper = _ref17;
+						ref: function ref(_ref15) {
+							_this3.calendarWrapper = _ref15;
 						}
 					},
 					_react2.default.createElement(
@@ -1184,10 +1157,10 @@ var BigCalendar = function (_Component) {
 									onSelectEvent: function onSelectEvent(event, e) {
 										return _this3.handleClickEvent({ event: event, teammate: teammate, view: view, mode: mode }, e);
 									},
-									onSelectSlot: function onSelectSlot(_ref16, e) {
-										var start = _ref16.start,
-										    end = _ref16.end,
-										    action = _ref16.action;
+									onSelectSlot: function onSelectSlot(_ref14, e) {
+										var start = _ref14.start,
+										    end = _ref14.end,
+										    action = _ref14.action;
 										return _this3.handleClickOpenSlot({
 											start: start,
 											end: end,

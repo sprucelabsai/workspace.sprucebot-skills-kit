@@ -647,13 +647,13 @@ export default class BigCalendar extends Component {
 		this.setState({ selectedTeammate: null })
 	}
 
-	handleToggleUserMode = async () => {
-		await this.handleClearSelectedTeammate()
+	handleToggleUserMode = () => {
+		this.handleClearSelectedTeammate()
 		this.jumpToUserMode()
 	}
 
-	handleToggleTeamMode = async () => {
-		await this.handleClearSelectedTeammate()
+	handleToggleTeamMode = () => {
+		this.handleClearSelectedTeammate()
 		this.jumpToTeamMode()
 	}
 
