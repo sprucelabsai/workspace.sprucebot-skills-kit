@@ -1072,7 +1072,7 @@ var BigCalendar = function (_Component) {
 						_react2.default.createElement(
 							_Button2.default,
 							{
-								className: 'selected-teammate-toggle-mode toggle-mode',
+								className: 'toggle-mode',
 								onClick: this.handleToggleUserMode
 							},
 							'show me'
@@ -1080,7 +1080,7 @@ var BigCalendar = function (_Component) {
 						_react2.default.createElement(
 							_Button2.default,
 							{
-								className: 'selected-teammate-toggle-mode toggle-mode',
+								className: 'toggle-mode',
 								onClick: this.handleToggleTeamMode
 							},
 							'show team'
