@@ -642,33 +642,19 @@ var BigCalendar = function (_Component) {
 					switch (_context6.prev = _context6.next) {
 						case 0:
 							_this$state8 = _this.state, mode = _this$state8.mode, selectedTeammate = _this$state8.selectedTeammate;
-
-							if (!selectedTeammate) {
-								_context6.next = 6;
-								break;
-							}
-
-							_context6.next = 4;
-							return _this.handleClearSelectedTeammate();
+							_context6.t0 = mode;
+							_context6.next = _context6.t0 === 'team' ? 4 : 6;
+							break;
 
 						case 4:
 							_this.jumpToUserMode();
-							return _context6.abrupt('return');
+							return _context6.abrupt('break', 8);
 
 						case 6:
-							_context6.t0 = mode;
-							_context6.next = _context6.t0 === 'team' ? 9 : 11;
-							break;
-
-						case 9:
-							_this.jumpToUserMode();
-							return _context6.abrupt('break', 13);
-
-						case 11:
 							_this.jumpToTeamMode();
-							return _context6.abrupt('break', 13);
+							return _context6.abrupt('break', 8);
 
-						case 13:
+						case 8:
 						case 'end':
 							return _context6.stop();
 					}

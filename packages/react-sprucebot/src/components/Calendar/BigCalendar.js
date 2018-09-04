@@ -504,12 +504,6 @@ export default class BigCalendar extends Component {
 	handleToggleMode = async () => {
 		const { mode, selectedTeammate } = this.state
 
-		if (selectedTeammate) {
-			await this.handleClearSelectedTeammate()
-			this.jumpToUserMode()
-			return
-		}
-
 		switch (mode) {
 			case 'team':
 				this.jumpToUserMode()
