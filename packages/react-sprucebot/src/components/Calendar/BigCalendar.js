@@ -537,6 +537,7 @@ export default class BigCalendar extends Component {
 
 	slotPropGetter = (teammate, date) => {
 		const { teamSchedule } = this.state
+		let className = []
 
 		// if no team schedule, then no need to render on/off
 		if (!teamSchedule) {
@@ -552,18 +553,23 @@ export default class BigCalendar extends Component {
 
 		// since a team schedule is passed, if any start/end times are missing, assume not working
 		if (!startTime || !endTime) {
-			return {
-				className: 'not-working'
-			}
+			className.push('not-working')
+		} else {
+			startTime = parseInt(startTime.replace(/[^0-9]/g, ''))
+			endTime = parseInt(endTime.replace(/[^0-9]/g, ''))
+			const nowTime = parseInt(moment(date).format('HHmmss'))
+
+			className.push(
+				nowTime >= startTime && nowTime < endTime ? 'working' : 'not-working'
+			)
 		}
 
-		startTime = parseInt(startTime.replace(/[^0-9]/g, ''))
-		endTime = parseInt(endTime.replace(/[^0-9]/g, ''))
-		const nowTime = parseInt(moment(date).format('HHmmss'))
+		if (moment().isBefore(date)) {
+			className.push('is_clickable')
+		}
 
 		return {
-			className:
-				nowTime >= startTime && nowTime < endTime ? 'working' : 'not-working'
+			className: className.join(' ')
 		}
 	}
 
