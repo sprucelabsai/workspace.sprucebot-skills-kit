@@ -117,7 +117,6 @@ export default class Dialog extends Component {
 		this.focus()
 		currentDialogs.push(this)
 		this.updateIndexes()
-		SK.showUnderlay()
 
 		if (!timerRunning) {
 			timerRunning = true
@@ -213,7 +212,6 @@ export default class Dialog extends Component {
 				SK.scrollTo(node.offsetTop - dialogVerticalPadding)
 			} else {
 				dialogUnderlay.classList.add('hidden')
-				SK.hideUnderlay()
 				setTimeout(() => {
 					SK.clearMinBodyHeight()
 					dialogUnderlay.classList.remove('on')

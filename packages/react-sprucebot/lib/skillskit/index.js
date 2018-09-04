@@ -84,15 +84,9 @@ var skill = {
 	setMinBodyHeight: function setMinBodyHeight(height) {
 		this.minHeight = height;
 	},
+
 	clearMinBodyHeight: function clearMinBodyHeight() {
 		this.minHeight = 0;
-	},
-	showUnderlay: function showUnderlay() {
-		postMessage('Skill:ShowUnderlay');
-	},
-
-	hideUnderlay: function hideUnderlay() {
-		postMessage('Skill:HideUnderlay');
 	},
 
 	canSendMessages: function canSendMessages() {
