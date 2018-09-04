@@ -766,7 +766,7 @@ export default class BigCalendar extends Component {
 				</Tabs>
 				<div
 					className={`calendar__controls ${
-						selectedTeammate ? 'selected-teammate' : ''
+						selectedTeammate ? 'selected-teammate-controls' : ''
 					}`}
 				>
 					<Pager
@@ -784,20 +784,20 @@ export default class BigCalendar extends Component {
 						</Button>
 					)}
 					{selectedTeammate && (
-						<Fragment>
+						<div className={`selected-teammate-wrapper`}>
 							<Button
-								className={`toggle-mode selected-teammate`}
+								className={`selected-teammate-toggle-mode`}
 								onClick={this.handleToggleUserMode}
 							>
-								{'show just me'}
+								{'show me'}
 							</Button>
 							<Button
-								className={`toggle-mode selected-teammate`}
+								className={`selected-teammate-toggle-mode`}
 								onClick={this.handleToggleTeamMode}
 							>
 								{'show team'}
 							</Button>
-						</Fragment>
+						</div>
 					)}
 				</div>
 				<div

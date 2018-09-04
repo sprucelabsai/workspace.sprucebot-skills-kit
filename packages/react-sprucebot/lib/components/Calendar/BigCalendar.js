@@ -1052,7 +1052,7 @@ var BigCalendar = function (_Component) {
 				_react2.default.createElement(
 					'div',
 					{
-						className: 'calendar__controls ' + (selectedTeammate ? 'selected-teammate' : '')
+						className: 'calendar__controls ' + (selectedTeammate ? 'selected-teammate-controls' : '')
 					},
 					_react2.default.createElement(_Pager2.default, {
 						infinite: true,
@@ -1067,20 +1067,20 @@ var BigCalendar = function (_Component) {
 						!selectedTeammate && mode === 'team' ? 'show just me' : 'show team'
 					),
 					selectedTeammate && _react2.default.createElement(
-						_react.Fragment,
-						null,
+						'div',
+						{ className: 'selected-teammate-wrapper' },
 						_react2.default.createElement(
 							_Button2.default,
 							{
-								className: 'toggle-mode selected-teammate',
+								className: 'selected-teammate-toggle-mode',
 								onClick: this.handleToggleUserMode
 							},
-							'show just me'
+							'show me'
 						),
 						_react2.default.createElement(
 							_Button2.default,
 							{
-								className: 'toggle-mode selected-teammate',
+								className: 'selected-teammate-toggle-mode',
 								onClick: this.handleToggleTeamMode
 							},
 							'show team'
