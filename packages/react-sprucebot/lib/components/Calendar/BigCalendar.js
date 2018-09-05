@@ -307,7 +307,7 @@ var BigCalendar = function (_Component) {
 									startDate: startDate,
 									endDate: endDate,
 									view: currentView,
-									teammates: mode === 'user' ? currentUser : teammates
+									teammates: mode === 'user' ? [currentUser] : teammates
 
 									// const eventsLoaded = this.checkOptions(options)
 

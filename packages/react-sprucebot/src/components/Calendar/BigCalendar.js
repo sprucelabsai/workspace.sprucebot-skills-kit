@@ -263,7 +263,7 @@ export default class BigCalendar extends Component {
 			startDate,
 			endDate,
 			view: currentView,
-			teammates: mode === 'user' ? currentUser : teammates
+			teammates: mode === 'user' ? [currentUser] : teammates
 		}
 
 		// const eventsLoaded = this.checkOptions(options)
