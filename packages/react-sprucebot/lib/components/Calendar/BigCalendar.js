@@ -751,11 +751,13 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.handleCanDrag = function (event) {
-			var view = _this.state.view;
+			var _this$state9 = _this.state,
+			    view = _this$state9.view,
+			    mode = _this$state9.mode;
 			var canDrag = _this.props.canDrag;
 
 
-			if (view === 'day' && canDrag) {
+			if ((view !== 'month' || view !== 'week' && mode === 'team') && canDrag) {
 				return canDrag(event);
 			}
 
@@ -763,11 +765,13 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.handleCanResize = function (event) {
-			var view = _this.state.view;
+			var _this$state10 = _this.state,
+			    view = _this$state10.view,
+			    mode = _this$state10.mode;
 			var canResize = _this.props.canResize;
 
 
-			if (view === 'day' && canResize) {
+			if ((view !== 'month' || view !== 'week' && mode === 'team') && canResize) {
 				return canResize(event);
 			}
 
