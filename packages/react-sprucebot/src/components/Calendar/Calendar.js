@@ -9,6 +9,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import { default as TouchBackend } from 'react-dnd-touch-backend'
 import { DragDropContext } from 'react-dnd'
 import PropTypes from 'prop-types'
+import { EventEmitter } from 'events'
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment)) // or globalizeLocalizer
 
@@ -221,9 +222,6 @@ const CalendarWrapper = styled.div.attrs({
 	.rbc-slot-selecting .rbc-event {
 		cursor: inherit;
 		pointer-events: none;
-	}
-	.rbc-event.rbc-selected {
-		background-color: #265985;
 	}
 	.rbc-event-label {
 		font-size: 80%;
@@ -491,7 +489,6 @@ const CalendarWrapper = styled.div.attrs({
 		right: 0;
 	}
 	.rbc-day-slot .rbc-event {
-		border: 1px solid #265985;
 		display: -webkit-flex;
 		display: -ms-flexbox;
 		display: flex;
@@ -658,22 +655,127 @@ const CalendarWrapper = styled.div.attrs({
 		background-color: #74ad31;
 		pointer-events: none;
 	}
+	.rbc-addons-dnd .rbc-row-content {
+		pointer-events: none;
+	}
+	.rbc-addons-dnd .rbc-row-content .rbc-show-more,
+	.rbc-addons-dnd .rbc-row-content .rbc-event {
+		pointer-events: all;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-over {
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	.rbc-addons-dnd .rbc-events-container {
+		pointer-events: none;
+	}
+	.rbc-addons-dnd .rbc-event {
+		transition: opacity 150ms;
+		pointer-events: all;
+	}
+	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ns-icon,
+	.rbc-addons-dnd .rbc-event:hover .rbc-addons-dnd-resize-ew-icon {
+		display: block;
+	}
+	.rbc-addons-dnd.rbc-addons-dnd-is-dragging .rbc-event {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resizable {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ns-anchor {
+		width: 100%;
+		text-align: center;
+		position: absolute;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ns-anchor:first-child {
+		top: 0;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ns-anchor:last-child {
+		bottom: 0;
+	}
+	.rbc-addons-dnd
+		.rbc-addons-dnd-resize-ns-anchor
+		.rbc-addons-dnd-resize-ns-icon {
+		display: none;
+		border-top: 3px double;
+		margin: 0 auto;
+		width: 10px;
+		cursor: ns-resize;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ew-anchor {
+		position: absolute;
+		top: 4px;
+		bottom: 0;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ew-anchor:first-child {
+		left: 0;
+	}
+	.rbc-addons-dnd .rbc-addons-dnd-resize-ew-anchor:last-child {
+		right: 0;
+	}
+	.rbc-addons-dnd
+		.rbc-addons-dnd-resize-ew-anchor
+		.rbc-addons-dnd-resize-ew-icon {
+		display: none;
+		border-left: 3px double;
+		margin-top: auto;
+		margin-bottom: auto;
+		height: 10px;
+		cursor: ew-resize;
+	}
 `
 
 class Calendar extends Component {
-	state = {}
+	state = {
+		today: null
+	}
+
+	componentDidMount() {
+		const { currentDate } = this.props
+
+		this.setState({ today: moment(currentDate).toDate() })
+	}
 
 	onNavigate = e => {
 		// Not fired with current build but causes error if omitted
 		console.log('onNavigate', e)
 	}
 
+	startAccessor = event => {
+		return moment(event.start).toDate()
+	}
+
+	endAccessor = event => {
+		return moment(event.end).toDate()
+	}
+
 	render() {
-		const { defaultDate = new Date(), ...props } = this.props
+		const { today } = this.state
+		const { currentDate, canDrag, canResize, min, max, ...props } = this.props
+
+		const formattedDate = moment(currentDate).toDate()
+		const formattedMin = moment(min).toDate()
+		const formattedMax = moment(max).toDate()
 
 		return (
 			<CalendarWrapper>
-				<CalendarComponent defaultDate={defaultDate} {...props} />
+				<CalendarComponent
+					onNavigate={this.onNavigate}
+					draggableAccessor={canDrag}
+					resizableAccessor={canResize}
+					startAccessor={this.startAccessor}
+					endAccessor={this.endAccessor}
+					defaultDate={today}
+					date={formattedDate}
+					getNow={() => today}
+					selectable={props.onSelectSlot ? true : ''}
+					min={formattedMin}
+					max={formattedMax}
+					{...props}
+				/>
 			</CalendarWrapper>
 		)
 	}
@@ -684,4 +786,9 @@ const backend =
 
 export default DragDropContext(backend)(Calendar)
 
-Calendar.propTypes = {}
+Calendar.propTypes = {
+	canDrag: PropTypes.func,
+	canResize: PropTypes.func,
+	onSelectSlot: PropTypes.func,
+	titleAccessor: PropTypes.func
+}

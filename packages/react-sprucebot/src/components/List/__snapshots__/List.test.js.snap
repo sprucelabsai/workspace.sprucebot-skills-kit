@@ -37,8 +37,8 @@ exports[`ItemRightContent should align where we specify 1`] = `
     onClick={undefined}
   >
     <div
-      className="avatar__wrapper empty online"
-      showOnlineIndicator={true}
+      className="avatar__wrapper empty online "
+      onClick={[Function]}
       style={Object {}}
     />
   </div>
@@ -58,7 +58,7 @@ exports[`List render send padding-bottom if its piled 1`] = `
 }
 
 <div
-  className="List item__list c0"
+  className="List item__list  c0"
 />
 `;
 
@@ -70,7 +70,7 @@ exports[`List renders 1`] = `
 }
 
 <div
-  className="List item__list c0"
+  className="List item__list  c0"
 />
 `;
 
@@ -121,7 +121,7 @@ exports[`List should render ItemRightContent with a title 1`] = `
 }
 
 <div
-  className="List item__list c0"
+  className="List item__list  c0"
 >
   <div>
     <div
@@ -189,7 +189,7 @@ exports[`List should render listitems and divs 1`] = `
 }
 
 <div
-  className="List item__list c0"
+  className="List item__list  c0"
 >
   <div>
     <div
@@ -255,7 +255,7 @@ exports[`List should render subTitle 1`] = `
 }
 
 <div
-  className="List item__list c0"
+  className="List item__list  c0"
 >
   <div
     className=" ListItemWrapper item__list__item offline c1"
@@ -312,7 +312,7 @@ exports[`List should render title 1`] = `
 }
 
 <div
-  className="List item__list c0"
+  className="List item__list  c0"
 >
   <div
     className=" ListItemWrapper item__list__item offline c1"
@@ -459,8 +459,8 @@ exports[`ListItemAvatar should align where we specify 1`] = `
     onClick={undefined}
   >
     <div
-      className="avatar__wrapper empty online"
-      showOnlineIndicator={true}
+      className="avatar__wrapper empty online "
+      onClick={[Function]}
       style={Object {}}
     />
   </div>

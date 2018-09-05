@@ -32,10 +32,6 @@ var _index = require('../../skillskit/index');
 
 var _index2 = _interopRequireDefault(_index);
 
-var _reactMeasure = require('react-measure');
-
-var _reactMeasure2 = _interopRequireDefault(_reactMeasure);
-
 var _Button = require('../Button/Button');
 
 var _Button2 = _interopRequireDefault(_Button);
@@ -62,29 +58,28 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var dialogUnderlay = null;
 var currentDialogs = [];
+var dialogVerticalPadding = 30;
 
 var DialogWrapper = _styledComponents2.default.div.attrs({
 	className: function className(_ref) {
-		var show = _ref.show,
-		    _className = _ref.className;
+		var _className = _ref.className;
 		return 'dialog__wrapper ' + _className;
 	}
 }).withConfig({
 	displayName: 'Dialog__DialogWrapper',
-	componentId: 'q9geqg-0'
+	componentId: 's1lyqie-0'
 })(['opacity:', ';'], function (props) {
 	return props.opacity;
 });
 
 var DialogContainer = _styledComponents2.default.div.attrs({
 	className: function className(_ref2) {
-		var show = _ref2.show,
-		    _className2 = _ref2.className;
+		var _className2 = _ref2.className;
 		return 'dialog ' + _className2;
 	}
 }).withConfig({
 	displayName: 'Dialog__DialogContainer',
-	componentId: 'q9geqg-1'
+	componentId: 's1lyqie-1'
 })(['opacity:', ';'], function (props) {
 	return props.opacity;
 });
@@ -93,8 +88,10 @@ var DialogCloseButton = (0, _styledComponents2.default)(_Button2.default).attrs(
 	remove: true
 }).withConfig({
 	displayName: 'Dialog__DialogCloseButton',
-	componentId: 'q9geqg-2'
+	componentId: 's1lyqie-2'
 })(['']);
+
+var timerRunning = false;
 
 var Dialog = function (_Component) {
 	_inherits(Dialog, _Component);
@@ -105,17 +102,46 @@ var Dialog = function (_Component) {
 		//for callbacks
 		var _this = _possibleConstructorReturn(this, (Dialog.__proto__ || Object.getPrototypeOf(Dialog)).call(this, props));
 
+		_this.dialogHeight = 0;
+
+		_this.setIdx = function (idx) {
+			_this.setState({ dialogIndex: idx });
+		};
+
+		_this.updateIndexes = function () {
+			var index = currentDialogs.length;
+			currentDialogs.forEach(function (dialog, idx) {
+				if (idx < index - 1) {
+					dialog.blur();
+				}
+				dialog.setIdx(index - idx);
+			});
+		};
+
+		_this.handleTapClose = function () {
+			// because dialogs are shown/hidden by being conditionally rendered, we actually have no way of knowing how we should close unless someone tells us
+			if (_this.props.onTapClose) {
+				_this.closeDialog();
+				_this.setState({ focusClass: 'closed', opacity: 0 }, function () {
+					if (_this.props.onTapClose) {
+						setTimeout(function () {
+							_this.props.onTapClose();
+						}, 500);
+					}
+				});
+			}
+		};
+
 		_this.iframeMessageHandler = _this.iframeMessageHandler.bind(_this);
 
 		_this.state = {
 			focusClass: '',
 			isHidden: true,
-			width: -1,
-			height: 500,
 			scrollTop: 0,
 			firstShow: true,
 			opacity: 0,
-			inIframe: true
+			inIframe: true,
+			dialogIndex: 0
 		};
 		return _this;
 	}
@@ -140,27 +166,30 @@ var Dialog = function (_Component) {
 				setTimeout(function () {
 					_this3.setState({ focusClass: 'focused' }, function () {
 						// Resize the skill
-						_this3.postHeight();
+						setTimeout(function () {
+							_this3.postHeight();
+						}, 500);
 					});
-				}, 100);
+				}, 10);
 			});
-		}
-	}, {
-		key: 'setSize',
-		value: function setSize(_ref3) {
-			var width = _ref3.width,
-			    height = _ref3.height;
-
-			this.setState({ width: width, height: height });
-			this.postHeight();
 		}
 	}, {
 		key: 'postHeight',
 		value: function postHeight() {
-			var underlayHeight = dialogUnderlay ? dialogUnderlay.offsetHeight : 0;
+			var height = 0;
 
-			//min height on body
-			document.body.style.minHeight = underlayHeight + 'px';
+			currentDialogs.forEach(function (dialog) {
+				var node = _reactDom2.default.findDOMNode(dialog.dialogNode);
+				var styles = window.getComputedStyle(node);
+				var margin = parseFloat(styles['marginTop']);
+
+				var dialogHeight = Math.ceil(node.offsetHeight + margin);
+				height = Math.max(dialogHeight, height);
+			});
+
+			if (currentDialogs.length > 0) {
+				_skillskit2.default.setMinBodyHeight(height);
+			}
 		}
 	}, {
 		key: 'componentWillMount',
@@ -168,29 +197,43 @@ var Dialog = function (_Component) {
 			if (typeof document !== 'undefined' && !dialogUnderlay) {
 				dialogUnderlay = document.createElement('div');
 				dialogUnderlay.className = 'dialog_underlay';
+				dialogUnderlay.classList.add('hidden');
 				document.body.appendChild(dialogUnderlay);
 			}
-			dialogUnderlay.classList.add('on');
+			if (dialogUnderlay) {
+				dialogUnderlay.classList.add('on');
+				setTimeout(function () {
+					dialogUnderlay.classList.remove('hidden');
+				}, 10);
+			}
 		}
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			window.addEventListener('message', this.iframeMessageHandler);
-			if (this.props.show && this.state.firstShow) {
+			if (this.state.firstShow) {
 				this.requestScroll();
 			}
 
-			currentDialogs.forEach(function (dialog) {
-				return dialog.blur();
-			});
 			this.focus();
 			currentDialogs.push(this);
+			this.updateIndexes();
+			_skillskit2.default.showUnderlay();
+
+			if (!timerRunning) {
+				timerRunning = true;
+				this.heightInterval = setInterval(function () {
+					if (currentDialogs[0]) {
+						currentDialogs[0].postHeight();
+					}
+				}, 300);
+			}
 		}
 	}, {
 		key: 'componentDidUpdate',
 		value: function componentDidUpdate() {
 			// in case our starting state is not showing
-			if (this.props.show && this.state.firstShow) {
+			if (this.state.firstShow) {
 				this.requestScroll();
 			}
 
@@ -199,47 +242,31 @@ var Dialog = function (_Component) {
 			}
 		}
 	}, {
-		key: 'componentWillReceiveProps',
-		value: function componentWillReceiveProps(nextProps) {
-			// if we are being show, set opacity and request scroll
-			if (!this.props.show && nextProps.show) {
-				this.setState({ firstShow: true, opacity: 0 });
-				this.requestScroll();
-			}
-
-			if (this.props.show && !nextProps.show) {
-				document.body.style.minHeight = 'auto';
-			}
-		}
-	}, {
 		key: 'componentWillUnmount',
 		value: function componentWillUnmount() {
 			document.body.style.minHeight = 'auto';
 			window.removeEventListener('message', this.iframeMessageHandler);
-			currentDialogs.pop();
-			if (currentDialogs.length - 1 >= 0) {
-				currentDialogs[currentDialogs.length - 1].focus();
-			} else {
-				dialogUnderlay.classList.remove('on');
+			this.closeDialog();
+
+			if (this.heightInterval) {
+				clearInterval(this.heightInterval);
+				timerRunning = false;
 			}
 		}
 	}, {
 		key: 'requestScroll',
 		value: function requestScroll() {
-			var _this4 = this;
-
-			_skillskit2.default.requestScroll();
-			setTimeout(function () {
-				// we are not in the sb iframe
-				if (_this4.state.opacity === 0) {
-					_this4.setState({
-						opacity: 1,
-						scrollTop: window.document.body.scrollTop,
-						firstShow: false,
-						inIframe: false
-					});
-				}
-			}, 250);
+			// we are not in the sb iframe
+			if (window.top === window.self) {
+				this.setState({
+					opacity: 1,
+					scrollTop: window.document.body.scrollTop,
+					firstShow: false,
+					inIframe: false
+				});
+			} else {
+				_skillskit2.default.requestScroll();
+			}
 		}
 	}, {
 		key: 'iframeMessageHandler',
@@ -257,22 +284,33 @@ var Dialog = function (_Component) {
 			} catch (err) {}
 		}
 	}, {
-		key: 'onTapClose',
-		value: function onTapClose() {
-			var _this5 = this;
+		key: 'closeDialog',
+		value: function closeDialog() {
+			if (this.state.focusClass !== 'closed') {
+				currentDialogs.pop();
+				if (currentDialogs.length - 1 >= 0) {
+					var nextDialog = currentDialogs[currentDialogs.length - 1];
+					nextDialog.focus();
+					var node = _reactDom2.default.findDOMNode(this.dialogNode);
+					_skillskit2.default.scrollTo(node.offsetTop - dialogVerticalPadding);
+				} else {
+					dialogUnderlay.classList.add('hidden');
+					_skillskit2.default.hideUnderlay();
+					setTimeout(function () {
+						_skillskit2.default.clearMinBodyHeight();
+						dialogUnderlay.classList.remove('on');
+					}, 300);
+				}
 
-			this.setState({ focusClass: '' });
-			this.postHeight();
-			if (this.props.onTapClose) {
-				setTimeout(function () {
-					_this5.props.onTapClose();
-				}, 600);
+				this.updateIndexes();
+			} else {
+				this.postHeight();
 			}
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this6 = this;
+			var _this4 = this;
 
 			var _props = this.props,
 			    tag = _props.tag,
@@ -280,8 +318,7 @@ var Dialog = function (_Component) {
 			    className = _props.className,
 			    title = _props.title,
 			    onTapClose = _props.onTapClose,
-			    show = _props.show,
-			    props = _objectWithoutProperties(_props, ['tag', 'children', 'className', 'title', 'onTapClose', 'show']);
+			    props = _objectWithoutProperties(_props, ['tag', 'children', 'className', 'title', 'onTapClose']);
 
 			var _state = this.state,
 			    opacity = _state.opacity,
@@ -289,73 +326,56 @@ var Dialog = function (_Component) {
 			    inIframe = _state.inIframe,
 			    focusClass = _state.focusClass,
 			    isHidden = _state.isHidden,
-			    firstShow = _state.firstShow;
+			    firstShow = _state.firstShow,
+			    dialogIndex = _state.dialogIndex;
+
 
 			var Tag = tag;
 			var dialogStyle = {
-				marginTop: this.state.scrollTop
+				marginTop: this.state.scrollTop + dialogVerticalPadding
 			};
 
-			if (!show) {
-				return null;
-			}
-
-			var hasHeader = onTapClose || title;
+			var hasHeader = true; // always have a header, just won't show close/title if not supplied
 
 			return typeof document !== 'undefined' && _reactDom2.default.createPortal(_react2.default.createElement(
-				_reactMeasure2.default,
+				DialogWrapper,
 				{
-					scroll: true,
-					onResize: function onResize(contentRect) {
-						_this6.setSize({
-							width: contentRect.scroll.width,
-							height: contentRect.scroll.height
-						});
+					className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
+					onClick: function onClick(e) {
+						if (e.target.className.search('dialog__wrapper') > -1 && currentDialogs.length - 1 >= 0) {
+							currentDialogs[currentDialogs.length - 1].handleTapClose();
+						}
 					}
 				},
-				function (_ref4) {
-					var measureRef = _ref4.measureRef;
-					return _react2.default.createElement(
-						DialogWrapper,
-						{
-							className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : ''),
-							show: show,
-							style: dialogStyle,
-							onClick: function onClick(e) {
-								if (e.target.className.search('dialog__wrapper') > -1 && currentDialogs.length - 1 >= 0) {
-									currentDialogs[currentDialogs.length - 1].onTapClose();
-								}
-							}
+				_react2.default.createElement(
+					DialogContainer,
+					_extends({
+						ref: function ref(node) {
+							return _this4.dialogNode = node;
 						},
-						_react2.default.createElement(
-							DialogContainer,
-							_extends({
-								innerRef: measureRef,
-								className: (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
-								show: show,
-								opacity: opacity
-							}, props),
-							hasHeader && _react2.default.createElement(
-								'div',
-								{ className: 'dialog__header' },
-								title && _react2.default.createElement(
-									_Typography.H2,
-									null,
-									title
-								),
-								onTapClose && _react2.default.createElement(
-									_IconButton2.default,
-									{
-										className: 'btn__close_dialog',
-										onClick: _this6.onTapClose.bind(_this6)
-									},
-									'close'
-								)
-							),
-							children
+						className: (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
+						style: dialogStyle,
+						opacity: opacity
+					}, props),
+					hasHeader && _react2.default.createElement(
+						'div',
+						{ className: 'dialog__header' },
+						title && _react2.default.createElement(
+							_Typography.H2,
+							null,
+							title
+						),
+						onTapClose && _react2.default.createElement(
+							_IconButton2.default,
+							{
+								className: 'btn__close_dialog',
+								onClick: this.handleTapClose
+							},
+							'close'
 						)
-					);
-				}
+					),
+					children
+				)
 			), dialogUnderlay);
 		}
 	}]);
@@ -368,12 +388,10 @@ exports.default = Dialog;
 
 Dialog.propTypes = {
 	tag: _propTypes2.default.string,
-	show: _propTypes2.default.bool,
 	onTapClose: _propTypes2.default.func,
 	title: _propTypes2.default.string
 };
 
 Dialog.defaultProps = {
-	tag: 'div',
-	show: true
+	tag: 'div'
 };

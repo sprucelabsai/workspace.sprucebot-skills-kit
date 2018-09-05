@@ -16,6 +16,10 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _skillskit = require('../../skillskit');
+
+var _skillskit2 = _interopRequireDefault(_skillskit);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -30,9 +34,54 @@ var Avatar = function (_Component) {
 	_inherits(Avatar, _Component);
 
 	function Avatar() {
+		var _ref;
+
+		var _temp, _this, _ret;
+
 		_classCallCheck(this, Avatar);
 
-		return _possibleConstructorReturn(this, (Avatar.__proto__ || Object.getPrototypeOf(Avatar)).apply(this, arguments));
+		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+			args[_key] = arguments[_key];
+		}
+
+		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Avatar.__proto__ || Object.getPrototypeOf(Avatar)).call.apply(_ref, [this].concat(args))), _this), _this.handleTapEdit = function () {
+			var user = _this.props.user;
+
+
+			if (_this.canEdit()) {
+				_skillskit2.default.editUserProfile({
+					userId: user.User.id,
+					locationId: user.Location.id
+				});
+			}
+		}, _this.canEdit = function () {
+			var _this$props = _this.props,
+			    enableProfileEditing = _this$props.enableProfileEditing,
+			    user = _this$props.user,
+			    auth = _this$props.auth;
+
+
+			var minimumRequirementsMet = auth && enableProfileEditing && user && user.User && user.User.id && user.Location && user.Location.id;
+
+			// DELETE THIS OUT WHEN ROLES ARE PROPERLY PASSED
+			if (minimumRequirementsMet && (auth.role === 'owner' || auth.role === 'teammate' || auth.User.id === user.User.id)) {
+				return true;
+			}
+			// END DELETE
+
+			//we have all the data, lets do some role checks
+			if (minimumRequirementsMet) {
+				if (auth.role === 'owner') {
+					return true;
+				} else if (auth.role === 'teammate' && user.role === 'guest') {
+					return true;
+				} else if (auth.User.id === user.User.id) {
+					return true;
+				}
+			}
+
+			return false;
+		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
 	_createClass(Avatar, [{
@@ -44,14 +93,16 @@ var Avatar = function (_Component) {
 			    online = _props.online,
 			    image = _props.image,
 			    user = _props.user,
-			    props = _objectWithoutProperties(_props, ['className', 'top', 'online', 'image', 'user']);
+			    showOnlineIndicator = _props.showOnlineIndicator,
+			    enableProfileEditing = _props.enableProfileEditing,
+			    props = _objectWithoutProperties(_props, ['className', 'top', 'online', 'image', 'user', 'showOnlineIndicator', 'enableProfileEditing']);
 
 			var style = {};
 			var isOnline = online;
 
 			//passed an image
 			if (typeof image === 'string' && image) {
-				style.backgroundImage = 'url(' + image + ')';
+				style.backgroundImage = 'url(\'' + image + '\')';
 			} else if (user && user.User && user.User.profileImages && user.User.profileImages.profile150) {
 				style.backgroundImage = 'url(' + user.User.profileImages.profile150 + ')';
 				isOnline = user.status === 'online';
@@ -59,7 +110,8 @@ var Avatar = function (_Component) {
 
 			return _react2.default.createElement('div', _extends({
 				style: style,
-				className: (top ? 'top__avatar' : 'avatar__wrapper') + ' ' + (className || '') + ' ' + (isOnline ? 'online' : '')
+				className: (top ? 'top__avatar' : 'avatar__wrapper') + ' ' + (className || '') + ' ' + (isOnline ? 'online' : '') + ' ' + (this.canEdit() ? 'is_editable' : ''),
+				onClick: this.handleTapEdit
 			}, props));
 		}
 	}]);
@@ -72,13 +124,16 @@ exports.default = Avatar;
 
 Avatar.propTypes = {
 	top: _propTypes2.default.bool,
+	auth: _propTypes2.default.object,
 	user: _propTypes2.default.object, //pass this or everything belowe
 	image: _propTypes2.default.string,
 	showOnlineIndicator: _propTypes2.default.bool,
-	online: _propTypes2.default.bool
+	online: _propTypes2.default.bool,
+	enableProfileEditing: _propTypes2.default.bool
 };
 
 Avatar.defaultProps = {
 	top: false,
-	showOnlineIndicator: true
+	showOnlineIndicator: true,
+	enableProfileEditing: false
 };

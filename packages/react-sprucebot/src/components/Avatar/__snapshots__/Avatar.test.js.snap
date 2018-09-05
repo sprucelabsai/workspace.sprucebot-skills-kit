@@ -2,11 +2,11 @@
 
 exports[`it renders 1`] = `
 <div
-  className="avatar__wrapper  "
-  showOnlineIndicator={true}
+  className="avatar__wrapper   "
+  onClick={[Function]}
   style={
     Object {
-      "backgroundImage": "url(test.jpg)",
+      "backgroundImage": "url('test.jpg')",
     }
   }
 />

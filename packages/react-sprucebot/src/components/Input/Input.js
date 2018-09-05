@@ -59,16 +59,21 @@ export default class Input extends Component {
 		}
 	}
 	componentDidMount() {
-		this.handleMultiline(this.props)
+		setTimeout(() => {
+			this.handleMultiline(this.props)
+		}, 10)
 	}
 	componentDidUpdate() {
 		this.handleMultiline(this.props)
 	}
 	render() {
 		const props = Object.assign({}, this.props)
-		const { error, label, finePrint, multiline } = props
+		const { error, label, finePrint, multiline, placeholder } = props
 		let { tag } = props
-		let labelClass = label ? 'js-show-label' : ''
+		let labelClass =
+			(label && !placeholder) || (label && this.state.hasValue)
+				? 'js-show-label'
+				: ''
 
 		delete props.error
 		delete props.label

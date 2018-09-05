@@ -2,7 +2,7 @@
 
 exports[`TabPane renders 1`] = `
 <div
-  className="tap__pane"
+  className="tap__pane "
 />
 `;
 

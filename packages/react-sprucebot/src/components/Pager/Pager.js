@@ -134,8 +134,8 @@ class Pager extends Component {
 		const { page } = this.state
 		const {
 			totalPages,
-			hideSingleArrows,
-			hideDoubleArrows,
+			showStep,
+			showJump,
 			infinite,
 			className,
 			...props
@@ -146,21 +146,29 @@ class Pager extends Component {
 
 		return (
 			<ul {...props} className={`${className} pager`}>
-				<li className={`first ${first && 'disabled'}`} smallArrows>
-					<IconButton onClick={this.first}>first_page</IconButton>
-				</li>
-				<li className={`back ${first && 'disabled'}`} hide={hideSingleArrows}>
-					<IconButton onClick={this.back}>chevron_left</IconButton>
-				</li>
+				{showJump && (
+					<li className={`first ${first && 'disabled'}`} smallArrows>
+						<IconButton onClick={this.first}>first_page</IconButton>
+					</li>
+				)}
+				{showStep && (
+					<li className={`back ${first && 'disabled'}`} smallArrows>
+						<IconButton onClick={this.back}>chevron_left</IconButton>
+					</li>
+				)}
 
 				{this.renderView()}
 
-				<li className={`next ${last && 'disabled'}`} smallArrows>
-					<IconButton onClick={this.next}>chevron_right</IconButton>
-				</li>
-				<li className={`last ${last && 'disabled'}`} smallArrows>
-					<IconButton onClick={this.last}>last_page</IconButton>
-				</li>
+				{showStep && (
+					<li className={`next ${last && 'disabled'}`} smallArrows>
+						<IconButton onClick={this.next}>chevron_right</IconButton>
+					</li>
+				)}
+				{showJump && (
+					<li className={`last ${last && 'disabled'}`} smallArrows>
+						<IconButton onClick={this.last}>last_page</IconButton>
+					</li>
+				)}
 			</ul>
 		)
 	}
@@ -181,5 +189,7 @@ Pager.propTypes = {
 Pager.defaultProps = {
 	page: 0,
 	infinite: false,
-	stepAmount: 1
+	stepAmount: 1,
+	showStep: true,
+	showJump: true
 }

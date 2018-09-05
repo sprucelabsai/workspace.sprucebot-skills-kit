@@ -7,6 +7,7 @@ import Container from './components/Container/Container'
 import DateSelect from './components/DateSelect/DateSelect'
 import DateRangeSelect from './components/DateRangeSelect/DateRangeSelect'
 import Calendar from './components/Calendar/Calendar'
+import BigCalendar from './components/Calendar/BigCalendar'
 import Input from './components/Input/Input'
 import Pre from './components/Pre/Pre'
 import Switch from './components/Switch/Switch'
@@ -49,6 +50,19 @@ const Sprucebot = {
 		// Prevent confusion between withStore and createStore
 		createStore
 	},
+	utils: {
+		arrayMove(arr, previousIndex, newIndex) {
+			const array = arr.slice(0)
+			if (newIndex >= array.length) {
+				let k = newIndex - array.length
+				while (k-- + 1) {
+					array.push(undefined)
+				}
+			}
+			array.splice(newIndex, 0, array.splice(previousIndex, 1)[0])
+			return array
+		}
+	},
 	lang,
 	skill,
 	_document,
@@ -61,6 +75,7 @@ const Sprucebot = {
 	DateSelect,
 	DateRangeSelect,
 	Calendar,
+	BigCalendar,
 	Input,
 	Pre,
 	Switch,

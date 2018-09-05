@@ -356,7 +356,8 @@ class Styleguide extends Component {
 				<Container>
 					<BotText>
 						Loaders can be dark or light. Default, they are dark. But, if you
-						need to put a loader on a dark dark background, set dark={false}.
+						need to put a loader on a dark dark background, set dark=
+						{false}.
 					</BotText>
 					<Loader />
 					<Pre>{`<Loader />`}</Pre>
@@ -815,7 +816,8 @@ class Styleguide extends Component {
 							href="https://github.com/DominicTobias/react-image-crop"
 						>
 							react-image-crop
-						</a>. Tap the button below and give it a shot.
+						</a>
+						. Tap the button below and give it a shot.
 					</BotText>
 					<ImageCropper
 						tapToCrop={true}

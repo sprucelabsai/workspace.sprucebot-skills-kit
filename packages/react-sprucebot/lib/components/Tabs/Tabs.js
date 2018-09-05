@@ -41,7 +41,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var StyledTab = (0, _styledComponents2.default)(_Button2.default).withConfig({
 	displayName: 'Tabs__StyledTab',
-	componentId: 's2xsdn9-0'
+	componentId: 's18ky9zq-0'
 })(['flex:1;']);
 
 var Tabs = exports.Tabs = function (_Component) {
@@ -51,6 +51,8 @@ var Tabs = exports.Tabs = function (_Component) {
 		_classCallCheck(this, Tabs);
 
 		var _this = _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, props));
+
+		_initialiseProps.call(_this);
 
 		var children = _react2.default.Children.toArray(props.children);
 
@@ -178,6 +180,14 @@ var Tabs = exports.Tabs = function (_Component) {
 	return Tabs;
 }(_react.Component);
 
+var _initialiseProps = function _initialiseProps() {
+	var _this4 = this;
+
+	this.setSelected = function (idx, key, e) {
+		_this4.onTabClick(idx, key, e);
+	};
+};
+
 Tabs.propTypes = {
 	onChange: _propTypes2.default.func,
 	selected: _propTypes2.default.number
@@ -195,9 +205,13 @@ var TabPane = exports.TabPane = function (_Component2) {
 	_createClass(TabPane, [{
 		key: 'render',
 		value: function render() {
+			var _props2 = this.props,
+			    className = _props2.className,
+			    props = _objectWithoutProperties(_props2, ['className']);
+
 			return _react2.default.createElement(
 				'div',
-				{ className: 'tap__pane' },
+				{ className: 'tap__pane ' + (className || '') },
 				this.props.children
 			);
 		}

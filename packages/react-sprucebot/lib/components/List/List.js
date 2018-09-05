@@ -3,9 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.ListItem = exports.List = undefined;
+exports.ListItem = exports.SortableListItem = exports.SortableList = exports.List = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _styledComponents = require('styled-components');
 
@@ -23,11 +25,15 @@ var _Avatar = require('../Avatar/Avatar');
 
 var _Avatar2 = _interopRequireDefault(_Avatar);
 
+var _Icon = require('../Icon/Icon');
+
+var _Icon2 = _interopRequireDefault(_Icon);
+
+var _reactSortableHoc = require('react-sortable-hoc');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -35,24 +41,41 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 var List = exports.List = _styledComponents2.default.div.attrs({
-	className: 'List item__list'
+	className: function className(props) {
+		return 'List item__list ' + (props.isSortable ? 'sortable__item__list' : '');
+	}
 }).withConfig({
 	displayName: 'List',
-	componentId: 's15prkdz-0'
+	componentId: 'qi6ubq-0'
 })(['', ';word-wrap:break-word;overflow-wrap:break-word;word-break:break-word;'], function (props) {
 	return props.pile ? 'padding-bottom: 1.25em' : void 0;
 });
 
+var SortableListContainer = (0, _reactSortableHoc.SortableContainer)(function (_ref) {
+	var props = _objectWithoutProperties(_ref, []);
+
+	return _react2.default.createElement(List, _extends({ isSortable: true }, props));
+});
+
+var SortableList = function SortableList(_ref2) {
+	var props = _objectWithoutProperties(_ref2, []);
+
+	return _react2.default.createElement(SortableListContainer, _extends({ helperClass: 'sortable_list_helper' }, props));
+};
+
+exports.SortableList = SortableList;
 var ListItemWrapper = _styledComponents2.default.div.attrs({
-	className: function className(_ref) {
-		var _className = _ref.className,
-		    online = _ref.online;
+	className: function className(_ref3) {
+		var _className = _ref3.className,
+		    online = _ref3.online;
 		return (_className || '') + ' ListItemWrapper item__list__item ' + (online ? '' : 'offline');
 	}
 }).withConfig({
 	displayName: 'List__ListItemWrapper',
-	componentId: 's15prkdz-1'
+	componentId: 'qi6ubq-1'
 })(['display:flex;', ';'], function (props) {
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
 });
@@ -61,7 +84,7 @@ var ItemAvatar = _styledComponents2.default.div.attrs({
 	className: 'ItemAvatar avatar__outer__wrapper'
 }).withConfig({
 	displayName: 'List__ItemAvatar',
-	componentId: 's15prkdz-2'
+	componentId: 'qi6ubq-2'
 })(['position:relative;margin:0 10px 0 0;border-radius:50%;', ';'], function (props) {
 	return props.alignItems ? 'align-items: ' + props.alignItems : 'align-items: center;';
 });
@@ -70,21 +93,21 @@ var ItemDetail = _styledComponents2.default.div.attrs({
 	className: 'ItemDetail item__details'
 }).withConfig({
 	displayName: 'List__ItemDetail',
-	componentId: 's15prkdz-3'
+	componentId: 'qi6ubq-3'
 })(['flex-grow:1;']);
 
 var ItemRightContent = _styledComponents2.default.div.attrs({
 	className: 'ItemRightContent content__right'
 }).withConfig({
 	displayName: 'List__ItemRightContent',
-	componentId: 's15prkdz-4'
+	componentId: 'qi6ubq-4'
 })(['text-align:right;display:flex;align-items:flex-end;']);
 
 var ItemTitle = _styledComponents2.default.div.attrs({
 	className: 'ItemTitle title'
 }).withConfig({
 	displayName: 'List__ItemTitle',
-	componentId: 's15prkdz-5'
+	componentId: 'qi6ubq-5'
 })(['', ';width:', ';', ';'], function (props) {
 	return props.weight ? 'font-weight: ' + props.weight : 'font-weight: 500;';
 }, function (props) {
@@ -97,8 +120,25 @@ var ItemSubTitle = _styledComponents2.default.div.attrs({
 	className: 'ItemSubTitle sub__title'
 }).withConfig({
 	displayName: 'List__ItemSubTitle',
-	componentId: 's15prkdz-6'
+	componentId: 'qi6ubq-6'
 })(['font-size:0.75em;']);
+
+var SortableDragHandle = (0, _reactSortableHoc.SortableHandle)(function () {
+	return _react2.default.createElement(
+		_Icon2.default,
+		{ className: 'drag_handle' },
+		'drag_handle'
+	);
+});
+
+var SortableListItem = (0, _reactSortableHoc.SortableElement)(function (_ref4) {
+	var isSortable = _ref4.isSortable,
+	    props = _objectWithoutProperties(_ref4, ['isSortable']);
+
+	return _react2.default.createElement(ListItem, _extends({ isSortable: isSortable }, props));
+});
+
+exports.SortableListItem = SortableListItem;
 
 var ListItem = exports.ListItem = function (_Component) {
 	_inherits(ListItem, _Component);
@@ -128,7 +168,8 @@ var ListItem = exports.ListItem = function (_Component) {
 			    componentAsSubtitle = _props.componentAsSubtitle,
 			    onClick = _props.onClick,
 			    leftInput = _props.leftInput,
-			    props = _objectWithoutProperties(_props, ['children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle', 'onClick', 'leftInput']);
+			    isSortable = _props.isSortable,
+			    props = _objectWithoutProperties(_props, ['children', 'title', 'subtitle', 'rightInput', 'rightTitle', 'rightSubtitle', 'online', 'avatar', 'showOnlineIndicator', 'alignItems', 'overflow', 'width', 'componentAsSubtitle', 'onClick', 'leftInput', 'isSortable']);
 
 			// build children
 
@@ -166,6 +207,7 @@ var ListItem = exports.ListItem = function (_Component) {
 			return _react2.default.createElement(
 				ListItemWrapper,
 				props,
+				isSortable && _react2.default.createElement(SortableDragHandle, null),
 				leftInput && _react2.default.createElement(
 					'div',
 					{ className: 'left_input' },
@@ -210,6 +252,24 @@ var ListItem = exports.ListItem = function (_Component) {
 
 	return ListItem;
 }(_react.Component);
+
+SortableListItem.propTypes = {
+	isSortable: _propTypes2.default.bool,
+	index: _propTypes2.default.number.isRequired
+};
+
+SortableListItem.defaultProps = {
+	isSortable: true
+};
+
+SortableList.propTypes = {
+	onSortEnd: _propTypes2.default.func,
+	useDragHandle: _propTypes2.default.bool
+};
+
+SortableList.defaultProps = {
+	useDragHandle: true
+};
 
 ListItem.propTypes = {
 	friend: _propTypes2.default.object,

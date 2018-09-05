@@ -46,6 +46,12 @@ var _lang2 = _interopRequireDefault(_lang);
 
 var _router = require('next/router');
 
+var _router2 = _interopRequireDefault(_router);
+
+var _is_js = require('is_js');
+
+var _is_js2 = _interopRequireDefault(_is_js);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -84,45 +90,47 @@ var Page = function Page(Wrapped) {
 	var ConnectedWrapped = (0, _router.withRouter)(Wrapped);
 
 	return function (_Component) {
-		_inherits(_class, _Component);
+		_inherits(_class2, _Component);
 
-		function _class(props) {
-			_classCallCheck(this, _class);
+		function _class2(props) {
+			_classCallCheck(this, _class2);
 
-			var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (_class2.__proto__ || Object.getPrototypeOf(_class2)).call(this, props));
+
+			_this.handleIframeMessage = function (e) {
+				// we are not going to try and authenticate again (cookie setting)
+				if (e.data === 'Skill:NotReAuthing') {
+					_this.setState({
+						attemptingReAuth: false
+					});
+					return;
+				}
+			};
+
+			_this.handleRouteChangStart = function () {
+				// don't user skill off props, it is pulled server side and lacks all functions
+				_index2.default.notifyOfRouteChangeStart();
+			};
 
 			_this.state = {
 				attemptingReAuth: !!props.attemptingReAuth,
 				isIframed: true
 			};
-
-			_this.messageHandler = _this.messageHandler.bind(_this);
 			return _this;
 		}
 
 		// Everything here is run server side
 
 
-		_createClass(_class, [{
-			key: 'messageHandler',
-			value: function messageHandler(e) {
-				if (e.data === 'Skill:NotReAuthing') {
-					this.setState({
-						attemptingReAuth: false
-					});
-				}
-			}
-		}, {
+		_createClass(_class2, [{
 			key: 'componentDidMount',
 			value: function () {
 				var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-					var WebFont;
+					var WebFont, bodyClassName;
 					return regeneratorRuntime.wrap(function _callee$(_context) {
 						while (1) {
 							switch (_context.prev = _context.next) {
 								case 0:
-									window.addEventListener('message', this.messageHandler);
-
 									if (window.self === window.top || window.__SBTEAMMATE__) {
 										// make sure we are being loaded inside sb
 										console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL');
@@ -143,7 +151,21 @@ var Page = function Page(Wrapped) {
 										}
 									});
 
-								case 4:
+									// setup route changes
+									_router2.default && _router2.default.router && _router2.default.router.events.on('routeChangeStart', this.handleRouteChangStart);
+
+									// window listeners for reauth communication
+									window.addEventListener('message', this.handleIframeMessage);
+
+									// setup event listeners
+									_index2.default.addEventListener('did-update-user', this.props.actions.events.didUpdateUser);
+
+									bodyClassName = '' + (_is_js2.default.mobile() ? 'is_mobile' : _is_js2.default.tablet() ? 'is_tablet' : 'is_desktop');
+
+
+									document.body.classList.add(bodyClassName);
+
+								case 8:
 								case 'end':
 									return _context.stop();
 							}
@@ -160,7 +182,14 @@ var Page = function Page(Wrapped) {
 		}, {
 			key: 'componentWillUnmount',
 			value: function componentWillUnmount() {
-				window.removeEventListener('message', this.messageHandler);
+				// remove all listeners
+				window.removeEventListener('message', this.handleIframeMessage);
+
+				// no more user updates
+				_index2.default.removeEventListener('did-update-user', this.props.actions.events.didUpdateUser);
+
+				// remove route changes
+				_router2.default && _router2.default.router && _router2.default.router.events.off('routeChangeStart', this.handleRouteChangStart);
 			}
 		}, {
 			key: 'render',
@@ -354,7 +383,7 @@ var Page = function Page(Wrapped) {
 			}()
 		}]);
 
-		return _class;
+		return _class2;
 	}(_react.Component);
 };
 

@@ -32,6 +32,10 @@ var _Calendar = require('./components/Calendar/Calendar');
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
+var _BigCalendar = require('./components/Calendar/BigCalendar');
+
+var _BigCalendar2 = _interopRequireDefault(_BigCalendar);
+
 var _Input = require('./components/Input/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
@@ -185,6 +189,19 @@ var Sprucebot = _extends({
 		// Prevent confusion between withStore and createStore
 		createStore: _withStore.createStore
 	},
+	utils: {
+		arrayMove: function arrayMove(arr, previousIndex, newIndex) {
+			var array = arr.slice(0);
+			if (newIndex >= array.length) {
+				var k = newIndex - array.length;
+				while (k-- + 1) {
+					array.push(undefined);
+				}
+			}
+			array.splice(newIndex, 0, array.splice(previousIndex, 1)[0]);
+			return array;
+		}
+	},
 	lang: _lang2.default,
 	skill: _skillskit2.default,
 	_document: _document3.default,
@@ -197,6 +214,7 @@ var Sprucebot = _extends({
 	DateSelect: _DateSelect2.default,
 	DateRangeSelect: _DateRangeSelect2.default,
 	Calendar: _Calendar2.default,
+	BigCalendar: _BigCalendar2.default,
 	Input: _Input2.default,
 	Pre: _Pre2.default,
 	Switch: _Switch2.default,

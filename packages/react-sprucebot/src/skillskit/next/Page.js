@@ -8,7 +8,8 @@ import DevControls from '../../components/DevControls/DevControls'
 import Loader from '../../components/Loader/Loader'
 import qs from 'qs'
 import lang from '../helpers/lang'
-import { withRouter } from 'next/router'
+import Router, { withRouter } from 'next/router'
+import is from 'is_js'
 
 const debug = require('debug')('react-sprucebot')
 
@@ -40,8 +41,6 @@ const Page = Wrapped => {
 				attemptingReAuth: !!props.attemptingReAuth,
 				isIframed: true
 			}
-
-			this.messageHandler = this.messageHandler.bind(this)
 		}
 
 		// Everything here is run server side
@@ -144,16 +143,16 @@ const Page = Wrapped => {
 			return props
 		}
 
-		messageHandler(e) {
+		handleIframeMessage = e => {
+			// we are not going to try and authenticate again (cookie setting)
 			if (e.data === 'Skill:NotReAuthing') {
 				this.setState({
 					attemptingReAuth: false
 				})
+				return
 			}
 		}
 		async componentDidMount() {
-			window.addEventListener('message', this.messageHandler)
-
 			if (window.self === window.top || window.__SBTEAMMATE__) {
 				// make sure we are being loaded inside sb
 				console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL')
@@ -172,10 +171,47 @@ const Page = Wrapped => {
 					families: ['Material Icons']
 				}
 			})
+
+			// setup route changes
+			Router &&
+				Router.router &&
+				Router.router.events.on('routeChangeStart', this.handleRouteChangStart)
+
+			// window listeners for reauth communication
+			window.addEventListener('message', this.handleIframeMessage)
+
+			// setup event listeners
+			skill.addEventListener(
+				'did-update-user',
+				this.props.actions.events.didUpdateUser
+			)
+
+			const bodyClassName = `${
+				is.mobile() ? 'is_mobile' : is.tablet() ? 'is_tablet' : 'is_desktop'
+			}`
+
+			document.body.classList.add(bodyClassName)
 		}
 
 		componentWillUnmount() {
-			window.removeEventListener('message', this.messageHandler)
+			// remove all listeners
+			window.removeEventListener('message', this.handleIframeMessage)
+
+			// no more user updates
+			skill.removeEventListener(
+				'did-update-user',
+				this.props.actions.events.didUpdateUser
+			)
+
+			// remove route changes
+			Router &&
+				Router.router &&
+				Router.router.events.off('routeChangeStart', this.handleRouteChangStart)
+		}
+
+		handleRouteChangStart = () => {
+			// don't user skill off props, it is pulled server side and lacks all functions
+			skill.notifyOfRouteChangeStart()
 		}
 
 		render() {

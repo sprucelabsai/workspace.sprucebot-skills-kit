@@ -63,6 +63,10 @@ export class Tabs extends Component {
 		}
 	}
 
+	setSelected = (idx, key, e) => {
+		this.onTabClick(idx, key, e)
+	}
+
 	render() {
 		const { selected, children } = this.state
 		const { selected: _, ...props } = this.props
@@ -125,7 +129,12 @@ Tabs.propTypes = {
 
 export class TabPane extends Component {
 	render() {
-		return <div className="tap__pane">{this.props.children}</div>
+		const { className, ...props } = this.props
+		return (
+			<div className={`tap__pane ${className || ''}`}>
+				{this.props.children}
+			</div>
+		)
 	}
 }
 

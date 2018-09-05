@@ -15,7 +15,7 @@ class ApiClient {
 		methods.forEach(method => {
 			this[method.toLowerCase()] = (path, options = {}) =>
 				new Promise(async (resolve, reject) => {
-					const { body, query } = options
+					const { body, query, cancelToken } = options
 					try {
 						let headers = {
 							Accept: 'application/json',
@@ -26,6 +26,10 @@ class ApiClient {
 							method,
 							headers,
 							data: body
+						}
+
+						if (cancelToken) {
+							fetchOptions.cancelToken = cancelToken
 						}
 
 						// Allows Node to accept our self signed cert

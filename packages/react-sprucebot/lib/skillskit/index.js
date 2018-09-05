@@ -12,23 +12,24 @@ function postMessage(message) {
 
 var skill = {
 	height: 0,
+	minHeight: 0,
+	handleStickElementClick: {},
+	listenersByEventName: {},
 	forceAuth: function forceAuth() {
 		postMessage('Skill:ForceAuth');
 	},
+	/**
+  * Called anytime a skill is resized to let the parent know what to set the height of the iframe to
+  */
 	resized: function resized() {
-		var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-		    _ref$minHeight = _ref.minHeight,
-		    minHeight = _ref$minHeight === undefined ? 0 : _ref$minHeight;
-
 		var height = 0;
-
 		var body = document.body;
 		var docEl = document.documentElement;
 
 		var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
 		var clientTop = docEl.clientTop || body.clientTop || 0;
 		var top = scrollTop - clientTop;
-		var height = Math.max(minHeight, top + body.clientHeight);
+		var height = Math.max(this.minHeight, top + body.clientHeight);
 
 		if (height != this.height) {
 			this.height = height;
@@ -38,12 +39,83 @@ var skill = {
 			});
 		}
 	},
+
+	windowOrDocument: function windowOrDocument() {
+		var standalone = window.navigator.standalone;
+		var userAgent = window.navigator.userAgent.toLowerCase();
+		var safari = /safari/.test(userAgent);
+		var chrome = /chrome/.test(userAgent);
+		var ios = /iphone|ipod|ipad/.test(userAgent);
+		var android = /android/.test(userAgent);
+		var isIOSWebView = ios && !safari && !standalone;
+		var isAndroidWebView = android && !chrome && !standalone;
+
+		if (isIOSWebView || isAndroidWebView) {
+			return document;
+		} else {
+			return window;
+		}
+	},
+
+	addEventListener: function addEventListener(eventName, listener) {
+		if (!this.listenersByEventName[eventName]) {
+			this.listenersByEventName[eventName] = [];
+		}
+		this.listenersByEventName[eventName].push(listener);
+	},
+
+	removeEventListener: function removeEventListener(eventName, listener) {
+		if (!this.listenersByEventName[eventName]) {
+			this.listenersByEventName[eventName] = [];
+		}
+		var idx = this.listenersByEventName[eventName].indexOf(listener);
+		if (idx > -1) {
+			this.listenersByEventName[eventName].splice(idx, 1);
+		}
+	},
+
+	dispatchEventListener: function dispatchEventListener(eventName, payload) {
+		var listeners = this.listenersByEventName[eventName] || [];
+		listeners.forEach(function (l) {
+			return l(payload);
+		});
+	},
+
+	setMinBodyHeight: function setMinBodyHeight(height) {
+		this.minHeight = height;
+	},
+	clearMinBodyHeight: function clearMinBodyHeight() {
+		this.minHeight = 0;
+	},
+	showUnderlay: function showUnderlay() {
+		postMessage('Skill:ShowUnderlay');
+	},
+
+	hideUnderlay: function hideUnderlay() {
+		postMessage('Skill:HideUnderlay');
+	},
+
+	canSendMessages: function canSendMessages() {
+		return window.top !== window.self || window.__SBTEAMMATE__;
+	},
+
 	back: function back() {
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			window.history.back();
 		} else {
 			postMessage('Skill:Back');
 		}
+	},
+
+	editUserProfile: function editUserProfile(_ref) {
+		var userId = _ref.userId,
+		    locationId = _ref.locationId;
+
+		postMessage({
+			name: 'Skill:EditUserProfile',
+			userId: userId,
+			locationId: locationId
+		});
 	},
 
 	ready: function ready() {
@@ -59,12 +131,35 @@ var skill = {
 		});
 		this.resizedInterval = setInterval(this.resized.bind(this), 300);
 	},
+
 	scrollTo: function scrollTo(offset) {
-		postMessage({ name: 'Skill:ScrollTo', offset: offset || 0 });
+		postMessage({
+			name: 'Skill:ScrollTo',
+			offset: offset || 0
+		});
+	},
+
+	scrollBy: function scrollBy(offset) {
+		if (!this.canSendMessages()) {
+			window.scrollBy({
+				top: offset,
+				behavior: 'smooth'
+			});
+		} else {
+			postMessage({ name: 'Skill:ScrollBy', offset: offset });
+		}
 	},
 
 	requestScroll: function requestScroll() {
 		postMessage({ name: 'Skill:RequestContainerScrollTop' });
+	},
+
+	fullScreenOn: function fullScreenOn() {
+		postMessage({ name: 'Skill:FullScreenOn' });
+	},
+
+	fullScreenOff: function fullScreenOff() {
+		postMessage({ name: 'Skill:FullScreenOff' });
 	},
 
 	showHelp: function () {
@@ -78,7 +173,7 @@ var skill = {
 				while (1) {
 					switch (_context.prev = _context.next) {
 						case 0:
-							if (!(window.top === window.self)) {
+							if (this.canSendMessages()) {
 								_context.next = 4;
 								break;
 							}
@@ -105,7 +200,7 @@ var skill = {
 			}, _callee, this);
 		}));
 
-		function showHelp(_x3) {
+		function showHelp(_x2) {
 			return _ref3.apply(this, arguments);
 		}
 
@@ -124,8 +219,12 @@ var skill = {
 						this._showHelpAccept = null;
 					}
 				}
+				if (results.name.substring(0, 5) === 'Event') {
+					var name = results.name,
+					    payload = results.payload;
 
-				if (results.name === 'Search:SelectUser') {
+					this.dispatchEventListener(name.substring(6), payload);
+				} else if (results.name === 'Search:SelectUser') {
 					if (this._onSelecUserFormSearchCallback) {
 						this._onSelecUserFormSearchCallback(results.user);
 						this._onSelecUserFormSearchCallback = null;
@@ -140,12 +239,16 @@ var skill = {
 						this._confirmAccept(results.pass);
 						this._confirmAccept = null;
 					}
+				} else if (results.name === 'Skill:DidClickStickyElement') {
+					if (this.handleStickElementClick[results.position]) {
+						this.handleStickElementClick[results.position](results.key);
+					}
 				}
 			} catch (err) {}
 		}
 	},
 
-	//TODO move to promise
+	//TODO move to promise?
 	searchForUser: function searchForUser() {
 		var _ref5 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
 		    _ref5$onCancel = _ref5.onCancel,
@@ -167,7 +270,7 @@ var skill = {
 		    _ref6$type = _ref6.type,
 		    type = _ref6$type === undefined ? 'error' : _ref6$type;
 
-		if (window.top === window.self) {
+		if (!this.canSendMessages()) {
 			alert(message);
 		} else {
 			postMessage({ name: 'Skill:DisplayMessage', message: message, type: type });
@@ -184,7 +287,7 @@ var skill = {
 				while (1) {
 					switch (_context2.prev = _context2.next) {
 						case 0:
-							if (!(window.top === window.self)) {
+							if (this.canSendMessages()) {
 								_context2.next = 4;
 								break;
 							}
@@ -209,16 +312,70 @@ var skill = {
 			}, _callee2, this);
 		}));
 
-		function confirm(_x5) {
+		function confirm(_x4) {
 			return _ref7.apply(this, arguments);
 		}
 
 		return confirm;
-	}()
+	}(),
+
+	/**
+  * position: 'top' | 'bottom'
+  * elements: [
+  * {
+  *  key: 'first-button', (key is passed back to onClick)
+  * 	type: 'button'|'title',
+  *  leftIcon: 'scissors',
+  *  rightIcon: 'pencil'
+  *  value: 'Hey There' //value MUST be a string, will be value of button or innerHTML of everything else
+  * }
+  * ]
+  */
+	setStickyElement: function setStickyElement(_ref9) {
+		var elements = _ref9.elements,
+		    _ref9$position = _ref9.position,
+		    position = _ref9$position === undefined ? 'top' : _ref9$position,
+		    _ref9$onClick = _ref9.onClick,
+		    onClick = _ref9$onClick === undefined ? function () {} : _ref9$onClick;
+
+		this.handleStickElementClick[position] = onClick;
+		postMessage({
+			name: 'Skill:SetStickyElement',
+			elements: elements,
+			position: position
+		});
+	},
+
+	updateStickyBoundingRect: function updateStickyBoundingRect(rect) {
+		if (this._lastRect && this._lastRect.top === rect.top && this._lastRect.bottom == rect.bottom) {
+			return;
+		}
+
+		this._lastRect = rect;
+
+		postMessage({
+			name: 'Skill:SetStickyBoundingRect',
+			boundingRect: {
+				top: rect.top,
+				bottom: rect.bottom,
+				left: rect.left,
+				right: rect.right,
+				x: rect.x,
+				y: rect.y
+			}
+		});
+	},
+
+	clearStickyElements: function clearStickyElements() {
+		postMessage({ name: 'Skill:ClearStickyElements' });
+	},
+	notifyOfRouteChangeStart: function notifyOfRouteChangeStart() {
+		postMessage({ name: 'Skill:RouteChangeStart' });
+	}
 };
 
 if (typeof window !== 'undefined') {
-	window.addEventListener('message', skill.handleIframeMessage.bind(skill));
+	skill.windowOrDocument().addEventListener('message', skill.handleIframeMessage.bind(skill));
 }
 
 exports.default = skill;

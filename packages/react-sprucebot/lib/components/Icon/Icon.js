@@ -4,13 +4,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _react = require('react');
 
@@ -20,29 +14,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var I = _styledComponents2.default.i.attrs({
-	className: function className(_ref) {
-		var _className = _ref.className;
-		return 'Icon icon ' + (_className || '');
-	}
-}).withConfig({
-	displayName: 'Icon__I',
-	componentId: 's1r0bu8t-0'
-})(['font-family:\'Material Icons\';font-weight:normal;font-style:normal;font-size:1em;display:inline-block;height:1em;line-height:1;opacity:0;text-transform:none;letter-spacing:normal;word-wrap:normal;white-space:nowrap;width:1em;direction:ltr;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale;font-feature-settings:\'liga\';.wf-active &{opacity:1;}']);
-
-var Icon = function Icon(_ref2) {
-	var children = _ref2.children,
-	    props = _objectWithoutProperties(_ref2, ['children']);
+var Icon = function Icon(_ref) {
+	var children = _ref.children,
+	    className = _ref.className,
+	    props = _objectWithoutProperties(_ref, ['children', 'className']);
 
 	return _react2.default.createElement(
-		I,
-		props,
+		'i',
+		_extends({ className: 'Icon icon ' + (className || '') }, props),
 		children
 	);
-};
-
-Icon.propTypes = {
-	color: _propTypes2.default.string
 };
 
 exports.default = Icon;

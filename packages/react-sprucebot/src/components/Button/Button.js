@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Loader from '../Loader/Loader'
+import SingletonRouter from 'next/router'
 import Link from 'next/link'
 
 const ButtonWrapper = styled.div`
@@ -101,6 +102,7 @@ export default class Button extends Component {
 			left,
 			right,
 			href,
+			type,
 			...props
 		} = this.props
 
@@ -138,35 +140,38 @@ export default class Button extends Component {
 		let usingLink = false
 
 		if (href || remove) {
-			Tag = Link
-			usingLink = true
+			Tag = SingletonRouter.router ? Link : 'a'
+			usingLink = SingletonRouter.router
 		} else if (tag === 'button') {
 			Tag = StyledButton
 		} else {
 			Tag = tag
 		}
 
+		if (usingLink) {
+			return (
+				<Link href={href} {...props}>
+					<a
+						onClick={this.onClick}
+						className={`btn ${btnClass} ${className || ''}`}
+					>
+						<span className="wrapper">{this.renderView()}</span>
+					</a>
+				</Link>
+			)
+		}
+
 		return (
 			<Tag
 				className={`btn ${btnClass} ${className || ''}`}
-				// onClick={this.onClick}
+				onClick={this.onClick}
 				disabled={disabled}
 				busy={busy}
 				href={href}
 				{...props}
+				type={type}
 			>
-				<Fragment>
-					{usingLink && (
-						<a
-							href={href}
-							onClick={this.onClick}
-							className={`btn ${btnClass} ${className || ''}`}
-						>
-							<span className="wrapper">{this.renderView()}</span>
-						</a>
-					)}
-					{!usingLink && <span className="wrapper">{this.renderView()}</span>}
-				</Fragment>
+				<span className="wrapper">{this.renderView()}</span>
 			</Tag>
 		)
 	}

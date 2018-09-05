@@ -24,6 +24,10 @@ var _Loader = require('../Loader/Loader');
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
+var _router = require('next/router');
+
+var _router2 = _interopRequireDefault(_router);
+
 var _link = require('next/link');
 
 var _link2 = _interopRequireDefault(_link);
@@ -40,7 +44,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var ButtonWrapper = _styledComponents2.default.div.withConfig({
 	displayName: 'Button__ButtonWrapper',
-	componentId: 'bvtufj-0'
+	componentId: 'oc0pgg-0'
 })(['display:flex;width:50%;', ';', ';'], function (props) {
 	return props.left && 'padding-right: 1.125em;';
 }, function (props) {
@@ -49,14 +53,14 @@ var ButtonWrapper = _styledComponents2.default.div.withConfig({
 
 var StyledButton = _styledComponents2.default.button.withConfig({
 	displayName: 'Button__StyledButton',
-	componentId: 'bvtufj-1'
+	componentId: 'oc0pgg-1'
 })(['', ';'], function (props) {
 	return props.busy || props.disabled && '\n\t\t\tpointer-events: none;\n\t\t\tcursor: not-allowed;\n\t\t';
 });
 
 var StyledAnchor = _styledComponents2.default.a.withConfig({
 	displayName: 'Button__StyledAnchor',
-	componentId: 'bvtufj-2'
+	componentId: 'oc0pgg-2'
 })(['', ';'], function (props) {
 	return props.busy || props.disabled && '\n\t\tpointer-events: none;\n\t\tcursor: not-allowed;\n\t';
 });
@@ -150,7 +154,8 @@ var Button = function (_Component) {
 			    left = _props.left,
 			    right = _props.right,
 			    href = _props.href,
-			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'left', 'right', 'href']);
+			    type = _props.type,
+			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'left', 'right', 'href', 'type']);
 
 			var busy = this.state.busy;
 
@@ -187,30 +192,21 @@ var Button = function (_Component) {
 			var usingLink = false;
 
 			if (href || remove) {
-				Tag = _link2.default;
-				usingLink = true;
+				Tag = _router2.default.router ? _link2.default : 'a';
+				usingLink = _router2.default.router;
 			} else if (tag === 'button') {
 				Tag = StyledButton;
 			} else {
 				Tag = tag;
 			}
 
-			return _react2.default.createElement(
-				Tag,
-				_extends({
-					className: 'btn ' + btnClass + ' ' + (className || '')
-					// onClick={this.onClick}
-					, disabled: disabled,
-					busy: busy,
-					href: href
-				}, props),
-				_react2.default.createElement(
-					_react.Fragment,
-					null,
-					usingLink && _react2.default.createElement(
+			if (usingLink) {
+				return _react2.default.createElement(
+					_link2.default,
+					_extends({ href: href }, props),
+					_react2.default.createElement(
 						'a',
 						{
-							href: href,
 							onClick: this.onClick,
 							className: 'btn ' + btnClass + ' ' + (className || '')
 						},
@@ -219,12 +215,25 @@ var Button = function (_Component) {
 							{ className: 'wrapper' },
 							this.renderView()
 						)
-					),
-					!usingLink && _react2.default.createElement(
-						'span',
-						{ className: 'wrapper' },
-						this.renderView()
 					)
+				);
+			}
+
+			return _react2.default.createElement(
+				Tag,
+				_extends({
+					className: 'btn ' + btnClass + ' ' + (className || ''),
+					onClick: this.onClick,
+					disabled: disabled,
+					busy: busy,
+					href: href
+				}, props, {
+					type: type
+				}),
+				_react2.default.createElement(
+					'span',
+					{ className: 'wrapper' },
+					this.renderView()
 				)
 			);
 		}

@@ -5,6 +5,7 @@
         "**/lib":true,
         "**/__snapshots__":true
     },
+    "editor.formatOnSave": true,
     "cSpell.words": [
         "Callout",
         "polyfill",

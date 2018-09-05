@@ -1,34 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it renders 1`] = `
-.c1 {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 1em;
-  display: inline-block;
-  height: 1em;
-  line-height: 1;
-  opacity: 0;
-  text-transform: none;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  width: 1em;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: 'liga';
-}
-
-.wf-active .c1 {
-  opacity: 1;
-}
-
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -66,12 +38,13 @@ exports[`it renders 1`] = `
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
+      type={undefined}
     >
       <span
         className="wrapper"
       >
         <i
-          className="Icon icon  c1"
+          className="Icon icon "
           fontSize={undefined}
         >
           first_page
@@ -81,19 +54,20 @@ exports[`it renders 1`] = `
   </li>
   <li
     className="back disabled"
-    hide={undefined}
+    smallArrows={true}
   >
     <button
       className="btn  IconButton icon-button  c0 "
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
+      type={undefined}
     >
       <span
         className="wrapper"
       >
         <i
-          className="Icon icon  c1"
+          className="Icon icon "
           fontSize={undefined}
         >
           chevron_left
@@ -115,12 +89,13 @@ exports[`it renders 1`] = `
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
+      type={undefined}
     >
       <span
         className="wrapper"
       >
         <i
-          className="Icon icon  c1"
+          className="Icon icon "
           fontSize={undefined}
         >
           chevron_right
@@ -137,12 +112,13 @@ exports[`it renders 1`] = `
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
+      type={undefined}
     >
       <span
         className="wrapper"
       >
         <i
-          className="Icon icon  c1"
+          className="Icon icon "
           fontSize={undefined}
         >
           last_page
