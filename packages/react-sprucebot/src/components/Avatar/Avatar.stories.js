@@ -7,6 +7,18 @@ import { withReadme, withDocs } from 'storybook-readme'
 import Avatar from './Avatar'
 import readme from './Avatar.md'
 
+const mockAuth = {
+	role: 'owner',
+	user: {
+		User: {
+			id: '123'
+		},
+		Location: {
+			id: '123'
+		}
+	}
+}
+
 const imageOptions = {
 	'https://s3.amazonaws.com/sprucebot-dev/default-profile--X150.jpg': 'Default',
 	'https://hello.sprucebot.com/avatar.jpg': 'User Image'
@@ -25,22 +37,7 @@ stories
 			withInfo()(() => (
 				<Avatar
 					top={false}
-					online
-					showOnlineIndicator
-					image={select('Image', imageOptions, defaultImage)}
-				/>
-			))
-		)
-	)
-	.add(
-		'Not Online',
-		withReadme(
-			readme,
-			withInfo()(() => (
-				<Avatar
-					top={false}
-					online={false}
-					showOnlineIndicator={false}
+					online={boolean('Online', false)}
 					image={select('Image', imageOptions, defaultImage)}
 				/>
 			))
@@ -51,7 +48,27 @@ stories
 		withReadme(
 			readme,
 			withInfo()(() => (
-				<Avatar top image={select('Image', imageOptions, defaultImage)} />
+				<Avatar
+					top
+					online={boolean('Online', false)}
+					image={select('Image', imageOptions, defaultImage)}
+				/>
+			))
+		)
+	)
+	.add(
+		'Editable',
+		withReadme(
+			readme,
+			withInfo()(() => (
+				<Avatar
+					top
+					online={boolean('Online', false)}
+					enableProfileEditing
+					auth={mockAuth}
+					user={mockAuth.user}
+					image={select('Image', imageOptions, defaultImage)}
+				/>
 			))
 		)
 	)
