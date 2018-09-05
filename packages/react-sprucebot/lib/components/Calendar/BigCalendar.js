@@ -751,21 +751,27 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.handleCanDrag = function (event) {
+			var view = _this.state.view;
 			var canDrag = _this.props.canDrag;
 
 
-			if (canDrag) {
+			if (view === 'day' && canDrag) {
 				return canDrag(event);
 			}
+
+			return false;
 		};
 
 		_this.handleCanResize = function (event) {
+			var view = _this.state.view;
 			var canResize = _this.props.canResize;
 
 
-			if (canResize) {
+			if (view === 'day' && canResize) {
 				return canResize(event);
 			}
+
+			return false;
 		};
 
 		_this.handleShowScheduleDateDialog = function () {
