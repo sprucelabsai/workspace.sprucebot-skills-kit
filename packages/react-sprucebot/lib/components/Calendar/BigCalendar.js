@@ -757,11 +757,11 @@ var BigCalendar = function (_Component) {
 			var canDrag = _this.props.canDrag;
 
 
-			if ((view !== 'month' || view !== 'week' && mode === 'team') && canDrag) {
+			if (view === 'month' || view === 'week' && mode === 'team') {
+				return false;
+			} else if (canDrag) {
 				return canDrag(event);
 			}
-
-			return false;
 		};
 
 		_this.handleCanResize = function (event) {
@@ -771,11 +771,11 @@ var BigCalendar = function (_Component) {
 			var canResize = _this.props.canResize;
 
 
-			if ((view !== 'month' || view !== 'week' && mode === 'team') && canResize) {
+			if (view === 'month' || view === 'week' && mode === 'team') {
+				return false;
+			} else if (canResize) {
 				return canResize(event);
 			}
-
-			return false;
 		};
 
 		_this.handleShowScheduleDateDialog = function () {
