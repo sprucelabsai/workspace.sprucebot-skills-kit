@@ -1,10 +1,11 @@
-import React from 'react';
+import React from 'react'
+import 'babel-polyfill'
 import 'storybook-readme/register'
 import { addDecorator } from '@storybook/react'
 import { setOptions } from '@storybook/addon-options'
 import { setDefaults } from '@storybook/addon-info'
 import backgrounds from '@storybook/addon-backgrounds'
-import Container from './Container';
+import Container from './Container'
 
 // addon-info
 setDefaults({
@@ -51,7 +52,7 @@ addDecorator(
 )
 
 // Container
-addDecorator(story => <Container story={story} />);
+addDecorator(story => <Container story={story} />)
 
 setOptions({
 	name: 'react-sprucebot',
