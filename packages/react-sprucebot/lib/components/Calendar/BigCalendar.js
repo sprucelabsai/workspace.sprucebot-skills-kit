@@ -288,16 +288,16 @@ var BigCalendar = function (_Component) {
 			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
 				var triggerOnNavigate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-				var _this$state5, mode, view, teammates, selectedDate, optionsLoaded, _this$props, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, _ref2, teamSchedule, storeSchedule, events;
+				var _this$state5, mode, view, teammates, selectedDate, optionsLoaded, selectedTeammate, _this$props, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, _ref2, teamSchedule, storeSchedule, events;
 
 				return regeneratorRuntime.wrap(function _callee$(_context) {
 					while (1) {
 						switch (_context.prev = _context.next) {
 							case 0:
-								_this$state5 = _this.state, mode = _this$state5.mode, view = _this$state5.view, teammates = _this$state5.teammates, selectedDate = _this$state5.selectedDate, optionsLoaded = _this$state5.optionsLoaded;
+								_this$state5 = _this.state, mode = _this$state5.mode, view = _this$state5.view, teammates = _this$state5.teammates, selectedDate = _this$state5.selectedDate, optionsLoaded = _this$state5.optionsLoaded, selectedTeammate = _this$state5.selectedTeammate;
 								_this$props = _this.props, auth = _this$props.auth, onNavigate = _this$props.onNavigate, fetchEvents = _this$props.fetchEvents;
 								currentView = view === 'team_week' ? 'week' : view;
-								currentUser = teammates.find(function (teammate) {
+								currentUser = selectedTeammate ? selectedTeammate : teammates.find(function (teammate) {
 									return teammate.User.id === auth.UserId;
 								});
 								startDate = (0, _moment2.default)(selectedDate).startOf(currentView);
@@ -307,7 +307,7 @@ var BigCalendar = function (_Component) {
 									startDate: startDate,
 									endDate: endDate,
 									view: currentView,
-									teammates: mode === 'user' ? currentUser : teammates
+									teammates: mode === 'user' ? [currentUser] : teammates
 
 									// const eventsLoaded = this.checkOptions(options)
 
@@ -634,20 +634,33 @@ var BigCalendar = function (_Component) {
 				}
 			}, _callee5, _this2);
 		}));
+		_this.handleToggleMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+			var _this$state8, mode, selectedTeammate;
 
-		_this.handleToggleMode = function () {
-			var mode = _this.state.mode;
+			return regeneratorRuntime.wrap(function _callee6$(_context6) {
+				while (1) {
+					switch (_context6.prev = _context6.next) {
+						case 0:
+							_this$state8 = _this.state, mode = _this$state8.mode, selectedTeammate = _this$state8.selectedTeammate;
+							_context6.t0 = mode;
+							_context6.next = _context6.t0 === 'team' ? 4 : 6;
+							break;
 
+						case 4:
+							_this.jumpToUserMode();
+							return _context6.abrupt('break', 8);
 
-			switch (mode) {
-				case 'team':
-					_this.jumpToUserMode();
-					break;
-				default:
-					_this.jumpToTeamMode();
-					break;
-			}
-		};
+						case 6:
+							_this.jumpToTeamMode();
+							return _context6.abrupt('break', 8);
+
+						case 8:
+						case 'end':
+							return _context6.stop();
+					}
+				}
+			}, _callee6, _this2);
+		}));
 
 		_this.handleWindowResize = function () {
 			_this.setState({
@@ -656,10 +669,10 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.filterEvents = function (events, teammate) {
-			var _this$state8 = _this.state,
-			    view = _this$state8.view,
-			    mode = _this$state8.mode,
-			    transitioning = _this$state8.transitioning;
+			var _this$state9 = _this.state,
+			    view = _this$state9.view,
+			    mode = _this$state9.mode,
+			    transitioning = _this$state9.transitioning;
 
 			// make transitions faster?
 
@@ -694,9 +707,9 @@ var BigCalendar = function (_Component) {
 			// pull hours out for today
 			var today = (0, _moment2.default)(date).format('YYYY-MM-DD');
 
-			var _ref8 = teamSchedule[teammate.UserId] && teamSchedule[teammate.UserId][today] ? teamSchedule[teammate.UserId][today] : {},
-			    startTime = _ref8.startTime,
-			    endTime = _ref8.endTime;
+			var _ref9 = teamSchedule[teammate.UserId] && teamSchedule[teammate.UserId][today] ? teamSchedule[teammate.UserId][today] : {},
+			    startTime = _ref9.startTime,
+			    endTime = _ref9.endTime;
 
 			// since a team schedule is passed, if any start/end times are missing, assume not working
 
@@ -730,20 +743,20 @@ var BigCalendar = function (_Component) {
 			onClickOpenSlot && onClickOpenSlot(options, e);
 		};
 
-		_this.handleDropEvent = function (_ref9) {
-			var event = _ref9.event,
-			    start = _ref9.start,
-			    end = _ref9.end;
+		_this.handleDropEvent = function (_ref10) {
+			var event = _ref10.event,
+			    start = _ref10.start,
+			    end = _ref10.end;
 			var onDropEvent = _this.props.onDropEvent;
 
 
 			onDropEvent && onDropEvent(event, start, end);
 		};
 
-		_this.handleResizeEvent = function (resizeType, _ref10) {
-			var event = _ref10.event,
-			    start = _ref10.start,
-			    end = _ref10.end;
+		_this.handleResizeEvent = function (resizeType, _ref11) {
+			var event = _ref11.event,
+			    start = _ref11.start,
+			    end = _ref11.end;
 			var onResizeEvent = _this.props.onResizeEvent;
 
 
@@ -777,12 +790,12 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.handleScheduleDateSelect = function () {
-			var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(date) {
-				return regeneratorRuntime.wrap(function _callee6$(_context6) {
+			var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(date) {
+				return regeneratorRuntime.wrap(function _callee7$(_context7) {
 					while (1) {
-						switch (_context6.prev = _context6.next) {
+						switch (_context7.prev = _context7.next) {
 							case 0:
-								_context6.next = 2;
+								_context7.next = 2;
 								return _this.setState({
 									isSelectingScheduleDate: false,
 									selectedDate: date
@@ -793,19 +806,58 @@ var BigCalendar = function (_Component) {
 
 							case 3:
 							case 'end':
-								return _context6.stop();
+								return _context7.stop();
 						}
 					}
-				}, _callee6, _this2);
+				}, _callee7, _this2);
 			}));
 
 			return function (_x4) {
-				return _ref11.apply(this, arguments);
+				return _ref12.apply(this, arguments);
 			};
 		}();
 
 		_this.handleSelectToday = function () {
 			_this.handleScheduleDateSelect((0, _moment2.default)());
+		};
+
+		_this.handleSelectTeammate = function () {
+			var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(selectedTeammate) {
+				return regeneratorRuntime.wrap(function _callee8$(_context8) {
+					while (1) {
+						switch (_context8.prev = _context8.next) {
+							case 0:
+								_context8.next = 2;
+								return _this.setState({ selectedTeammate: selectedTeammate, showAllTeammates: false });
+
+							case 2:
+								_this.jumpToUserMode();
+
+							case 3:
+							case 'end':
+								return _context8.stop();
+						}
+					}
+				}, _callee8, _this2);
+			}));
+
+			return function (_x5) {
+				return _ref13.apply(this, arguments);
+			};
+		}();
+
+		_this.handleClearSelectedTeammate = function () {
+			_this.setState({ selectedTeammate: null });
+		};
+
+		_this.handleToggleUserMode = function () {
+			_this.handleClearSelectedTeammate();
+			_this.jumpToUserMode();
+		};
+
+		_this.handleToggleTeamMode = function () {
+			_this.handleClearSelectedTeammate();
+			_this.jumpToTeamMode();
 		};
 
 		_this.state = {
@@ -826,6 +878,7 @@ var BigCalendar = function (_Component) {
 			resized: 0,
 			events: [], // All events for current date range
 			storeSchedule: [], // Hours store is open for selected date range,
+			selectedTeammate: null,
 			optionsLoaded: [],
 			isFetchingEvents: true,
 			isSelectingScheduleDate: false,
@@ -875,7 +928,8 @@ var BigCalendar = function (_Component) {
 			    renderFirstCalendar = _state.renderFirstCalendar,
 			    events = _state.events,
 			    isFetchingEvents = _state.isFetchingEvents,
-			    isSelectingScheduleDate = _state.isSelectingScheduleDate;
+			    isSelectingScheduleDate = _state.isSelectingScheduleDate,
+			    selectedTeammate = _state.selectedTeammate;
 
 			// populate views to take into account team week
 
@@ -941,7 +995,9 @@ var BigCalendar = function (_Component) {
 			var team = mode === 'team' ? teammates : [auth];
 
 			//filter authed user out and prepend
-			if (view === 'month') {
+			if (selectedTeammate) {
+				team = [selectedTeammate];
+			} else if (view === 'month') {
 				team = [auth];
 			} else if (showAllTeammates) {
 				team = team.filter(function (teammate) {
@@ -995,7 +1051,9 @@ var BigCalendar = function (_Component) {
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'calendar__controls' },
+					{
+						className: 'calendar__controls ' + (selectedTeammate ? 'selected-teammate-controls' : '')
+					},
 					_react2.default.createElement(_Pager2.default, {
 						infinite: true,
 						onChange: this.handlePagerChange,
@@ -1003,18 +1061,38 @@ var BigCalendar = function (_Component) {
 						jumpAmount: selectedView !== 'month' ? 7 : 1,
 						showStep: selectedView === 'day'
 					}),
-					_react2.default.createElement(
+					!selectedTeammate && _react2.default.createElement(
 						_Button2.default,
 						{ className: 'toggle-mode', onClick: this.handleToggleMode },
-						mode === 'team' ? 'show just me' : 'show team'
+						!selectedTeammate && mode === 'team' ? 'show just me' : 'show team'
+					),
+					selectedTeammate && _react2.default.createElement(
+						'div',
+						{ className: 'selected-teammate-wrapper' },
+						_react2.default.createElement(
+							_Button2.default,
+							{
+								className: 'toggle-mode',
+								onClick: this.handleToggleUserMode
+							},
+							'show me'
+						),
+						_react2.default.createElement(
+							_Button2.default,
+							{
+								className: 'toggle-mode',
+								onClick: this.handleToggleTeamMode
+							},
+							'show team'
+						)
 					)
 				),
 				_react2.default.createElement(
 					'div',
 					{
 						className: 'calendars__wrapper ' + (isFetching ? 'fetching' : ''),
-						ref: function ref(_ref13) {
-							_this3.calendarWrapper = _ref13;
+						ref: function ref(_ref15) {
+							_this3.calendarWrapper = _ref15;
 						}
 					},
 					_react2.default.createElement(
@@ -1035,7 +1113,12 @@ var BigCalendar = function (_Component) {
 								},
 								!(view === 'month' && mode === 'team') && _react2.default.createElement(
 									'div',
-									{ className: 'avatar_wrapper' },
+									{
+										className: 'avatar_wrapper',
+										onClick: function onClick() {
+											return idx !== 0 && _this3.handleSelectTeammate(teammate);
+										}
+									},
 									_react2.default.createElement(
 										'span',
 										null,
@@ -1074,10 +1157,10 @@ var BigCalendar = function (_Component) {
 									onSelectEvent: function onSelectEvent(event, e) {
 										return _this3.handleClickEvent({ event: event, teammate: teammate, view: view, mode: mode }, e);
 									},
-									onSelectSlot: function onSelectSlot(_ref12, e) {
-										var start = _ref12.start,
-										    end = _ref12.end,
-										    action = _ref12.action;
+									onSelectSlot: function onSelectSlot(_ref14, e) {
+										var start = _ref14.start,
+										    end = _ref14.end,
+										    action = _ref14.action;
 										return _this3.handleClickOpenSlot({
 											start: start,
 											end: end,

@@ -46,6 +46,7 @@ export default class BigCalendar extends Component {
 			resized: 0,
 			events: [], // All events for current date range
 			storeSchedule: [], // Hours store is open for selected date range,
+			selectedTeammate: null,
 			optionsLoaded: [],
 			isFetchingEvents: true,
 			isSelectingScheduleDate: false,
@@ -239,13 +240,20 @@ export default class BigCalendar extends Component {
 	}
 
 	refresh = async (triggerOnNavigate = false) => {
-		const { mode, view, teammates, selectedDate, optionsLoaded } = this.state
+		const {
+			mode,
+			view,
+			teammates,
+			selectedDate,
+			optionsLoaded,
+			selectedTeammate
+		} = this.state
 		const { auth, onNavigate, fetchEvents } = this.props
 
 		const currentView = view === 'team_week' ? 'week' : view
-		const currentUser = teammates.find(
-			teammate => teammate.User.id === auth.UserId
-		)
+		const currentUser = selectedTeammate
+			? selectedTeammate
+			: teammates.find(teammate => teammate.User.id === auth.UserId)
 
 		const startDate = moment(selectedDate).startOf(currentView)
 		const endDate = moment(selectedDate).endOf(currentView)
@@ -255,7 +263,7 @@ export default class BigCalendar extends Component {
 			startDate,
 			endDate,
 			view: currentView,
-			teammates: mode === 'user' ? currentUser : teammates
+			teammates: mode === 'user' ? [currentUser] : teammates
 		}
 
 		// const eventsLoaded = this.checkOptions(options)
@@ -493,8 +501,8 @@ export default class BigCalendar extends Component {
 		}, 1000)
 	}
 
-	handleToggleMode = () => {
-		const { mode } = this.state
+	handleToggleMode = async () => {
+		const { mode, selectedTeammate } = this.state
 
 		switch (mode) {
 			case 'team':
@@ -630,6 +638,25 @@ export default class BigCalendar extends Component {
 		this.handleScheduleDateSelect(moment())
 	}
 
+	handleSelectTeammate = async selectedTeammate => {
+		await this.setState({ selectedTeammate, showAllTeammates: false })
+		this.jumpToUserMode()
+	}
+
+	handleClearSelectedTeammate = () => {
+		this.setState({ selectedTeammate: null })
+	}
+
+	handleToggleUserMode = () => {
+		this.handleClearSelectedTeammate()
+		this.jumpToUserMode()
+	}
+
+	handleToggleTeamMode = () => {
+		this.handleClearSelectedTeammate()
+		this.jumpToTeamMode()
+	}
+
 	render() {
 		const {
 			auth,
@@ -651,7 +678,8 @@ export default class BigCalendar extends Component {
 			renderFirstCalendar,
 			events,
 			isFetchingEvents,
-			isSelectingScheduleDate
+			isSelectingScheduleDate,
+			selectedTeammate
 		} = this.state
 
 		// populate views to take into account team week
@@ -721,7 +749,9 @@ export default class BigCalendar extends Component {
 		let team = mode === 'team' ? teammates : [auth]
 
 		//filter authed user out and prepend
-		if (view === 'month') {
+		if (selectedTeammate) {
+			team = [selectedTeammate]
+		} else if (view === 'month') {
 			team = [auth]
 		} else if (showAllTeammates) {
 			team = team.filter(teammate => {
@@ -765,7 +795,11 @@ export default class BigCalendar extends Component {
 					<TabPane title="Week" />
 					<TabPane title="Month" />
 				</Tabs>
-				<div className="calendar__controls">
+				<div
+					className={`calendar__controls ${
+						selectedTeammate ? 'selected-teammate-controls' : ''
+					}`}
+				>
 					<Pager
 						infinite={true}
 						onChange={this.handlePagerChange}
@@ -773,9 +807,29 @@ export default class BigCalendar extends Component {
 						jumpAmount={selectedView !== 'month' ? 7 : 1}
 						showStep={selectedView === 'day'}
 					/>
-					<Button className="toggle-mode" onClick={this.handleToggleMode}>
-						{mode === 'team' ? 'show just me' : 'show team'}
-					</Button>
+					{!selectedTeammate && (
+						<Button className={`toggle-mode`} onClick={this.handleToggleMode}>
+							{!selectedTeammate && mode === 'team'
+								? 'show just me'
+								: 'show team'}
+						</Button>
+					)}
+					{selectedTeammate && (
+						<div className={`selected-teammate-wrapper`}>
+							<Button
+								className={`toggle-mode`}
+								onClick={this.handleToggleUserMode}
+							>
+								{'show me'}
+							</Button>
+							<Button
+								className={`toggle-mode`}
+								onClick={this.handleToggleTeamMode}
+							>
+								{'show team'}
+							</Button>
+						</div>
+					)}
 				</div>
 				<div
 					className={`calendars__wrapper ${isFetching ? 'fetching' : ''}`}
@@ -799,7 +853,12 @@ export default class BigCalendar extends Component {
 									}}
 								>
 									{!(view === 'month' && mode === 'team') && (
-										<div className="avatar_wrapper">
+										<div
+											className="avatar_wrapper"
+											onClick={() =>
+												idx !== 0 && this.handleSelectTeammate(teammate)
+											}
+										>
 											<span>
 												<Avatar top user={teammate} />
 												<span className="calendar__teammate_name">
