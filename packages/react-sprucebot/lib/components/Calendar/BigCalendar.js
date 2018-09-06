@@ -764,19 +764,29 @@ var BigCalendar = function (_Component) {
 		};
 
 		_this.handleCanDrag = function (event) {
+			var _this$state9 = _this.state,
+			    view = _this$state9.view,
+			    mode = _this$state9.mode;
 			var canDrag = _this.props.canDrag;
 
 
-			if (canDrag) {
+			if (view === 'month' || view === 'week' && mode === 'team') {
+				return false;
+			} else if (canDrag) {
 				return canDrag(event);
 			}
 		};
 
 		_this.handleCanResize = function (event) {
+			var _this$state10 = _this.state,
+			    view = _this$state10.view,
+			    mode = _this$state10.mode;
 			var canResize = _this.props.canResize;
 
 
-			if (canResize) {
+			if (view === 'month' || view === 'week' && mode === 'team') {
+				return false;
+			} else if (canResize) {
 				return canResize(event);
 			}
 		};

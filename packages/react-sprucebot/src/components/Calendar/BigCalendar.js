@@ -600,17 +600,23 @@ export default class BigCalendar extends Component {
 	}
 
 	handleCanDrag = event => {
+		const { view, mode } = this.state
 		const { canDrag } = this.props
 
-		if (canDrag) {
+		if (view === 'month' || (view === 'week' && mode === 'team')) {
+			return false
+		} else if (canDrag) {
 			return canDrag(event)
 		}
 	}
 
 	handleCanResize = event => {
+		const { view, mode } = this.state
 		const { canResize } = this.props
 
-		if (canResize) {
+		if (view === 'month' || (view === 'week' && mode === 'team')) {
+			return false
+		} else if (canResize) {
 			return canResize(event)
 		}
 	}
