@@ -3,19 +3,16 @@ import { storiesOf } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
 import { withKnobs } from '@storybook/addon-knobs/react'
 import { withReadme } from 'storybook-readme'
-import Select from './Select'
-import readme from './Select.md'
+import HelpButton from './HelpButton'
+import readme from './HelpButton.md'
 
-const stories = storiesOf('Select', module)
+const stories = storiesOf('HelpButton', module)
 stories.addDecorator(withKnobs)
 
 stories.add(
-	'Interactive',
-	withReadme(readme, () => (
-		<Select>
-			<option>Option 1</option>
-			<option>Option 2</option>
-			<option>Option 3</option>
-		</Select>
-	))
+	'Default',
+	withReadme(
+		readme,
+		withInfo()(() => <HelpButton title="Help Me!" body="Pleeeeeease." />)
+	)
 )

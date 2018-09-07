@@ -10,7 +10,12 @@ import readme from './DevControls.md'
 const stories = storiesOf('DevControls', module)
 stories.addDecorator(withKnobs)
 
-stories.add(
-	'Interactive',
-	withReadme(readme, withInfo()(() => <DevControls />))
-)
+stories
+	.add('No Auth', withReadme(readme, withInfo()(() => <DevControls />)))
+	.add(
+		'Auth',
+		withReadme(
+			readme,
+			withInfo()(() => <DevControls auth={{ role: 'owner' }} />)
+		)
+	)

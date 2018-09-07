@@ -8,6 +8,10 @@ import Button from './Button'
 import readme from './Button.md'
 
 const stories = storiesOf('Button', module)
+
+stories.addDecorator(story => (
+	<div style={{ width: '500px', margin: 'auto' }}>{story()}</div>
+))
 stories.addDecorator(withKnobs)
 
 stories
@@ -16,7 +20,12 @@ stories
 		withReadme(
 			readme,
 			withInfo()(() => (
-				<Button primary onClick={action('Button onClick')}>
+				<Button
+					primary
+					disabled={boolean('Disabled', false)}
+					busy={boolean('Busy', false)}
+					onClick={action('Button onClick')}
+				>
 					{text('Button Text', 'Primary Button 😀🌲🤖')}
 				</Button>
 			))
@@ -27,7 +36,12 @@ stories
 		withReadme(
 			readme,
 			withInfo()(() => (
-				<Button secondary onClick={action('Button onClick')}>
+				<Button
+					secondary
+					disabled={boolean('Disabled', false)}
+					busy={boolean('Busy', false)}
+					onClick={action('Button onClick')}
+				>
 					{text('Button Text', 'Secondary Button')}
 				</Button>
 			))
@@ -38,25 +52,14 @@ stories
 		withReadme(
 			readme,
 			withInfo()(() => (
-				<Button alt onClick={action('Button onClick')}>
+				<Button
+					alt
+					disabled={boolean('Disabled', false)}
+					busy={boolean('Busy', false)}
+					onClick={action('Button onClick')}
+				>
 					{text('Button Text', 'Alt Button')}
 				</Button>
-			))
-		)
-	)
-	.add(
-		'Disabled',
-		withReadme(
-			readme,
-			withInfo()(() => (
-				<div>
-					<Button primary disabled onClick={action('Button onClick')}>
-						{text('Button Text', 'Primary Button Disabled')}
-					</Button>
-					<Button alt disabled onClick={action('Button onClick')}>
-						{text('Button Text', 'Secondary Button Disabled')}
-					</Button>
-				</div>
 			))
 		)
 	)
@@ -65,36 +68,15 @@ stories
 		withReadme(
 			readme,
 			withInfo()(() => (
-				<Button primary caution onClick={action('Button onClick')}>
+				<Button
+					primary
+					caution
+					disabled={boolean('Disabled', false)}
+					busy={boolean('Busy', false)}
+					onClick={action('Button onClick')}
+				>
 					{text('Button Text', 'Take Me To The Danger Zone')}
 				</Button>
-			))
-		)
-	)
-	.add(
-		'Tertiary',
-		withReadme(
-			readme,
-			withInfo()(() => (
-				<Button tertiary onClick={action('Button onClick')}>
-					{text('Button Text', 'Minor Button')}
-				</Button>
-			))
-		)
-	)
-	.add(
-		'Loading',
-		withReadme(
-			readme,
-			withInfo()(() => (
-				<div>
-					<Button primary busy onClick={action('Button onClick')}>
-						{text('Button Text', 'Primary Button Disabled')}
-					</Button>
-					<Button alt busy onClick={action('Button onClick')}>
-						{text('Button Text', 'Secondary Button Disabled')}
-					</Button>
-				</div>
 			))
 		)
 	)
@@ -114,7 +96,13 @@ stories
 		withReadme(
 			readme,
 			withInfo()(() => (
-				<Button primary remove onClick={action('Button onClick')}>
+				<Button
+					primary
+					remove
+					disabled={boolean('Disabled', false)}
+					busy={boolean('Busy', false)}
+					onClick={action('Button onClick')}
+				>
 					{text('Button Text', 'Toggle Button')}
 				</Button>
 			))

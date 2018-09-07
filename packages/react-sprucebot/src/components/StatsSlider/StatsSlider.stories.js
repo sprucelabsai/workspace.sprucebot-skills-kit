@@ -18,6 +18,31 @@ stories.add(
 					dir: 1,
 					value: 12,
 					title: 'Things'
+				},
+				{
+					dir: 0,
+					value: 3,
+					title: 'Stuff'
+				},
+				{
+					dir: 0,
+					value: 5,
+					title: 'Other Stuff'
+				},
+				{
+					dir: 1,
+					value: 12,
+					title: 'Things'
+				},
+				{
+					dir: 0,
+					value: 3,
+					title: 'Stuff'
+				},
+				{
+					dir: 0,
+					value: 5,
+					title: 'Other Stuff'
 				}
 			]}
 		/>

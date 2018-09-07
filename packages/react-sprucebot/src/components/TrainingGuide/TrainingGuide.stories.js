@@ -13,9 +13,9 @@ stories.add(
 	'Interactive',
 	withReadme(readme, () => (
 		<TrainingGuide
-			steps={['one']}
+			steps={['Step 1', 'Step 2', 'Step 3']}
 			nextButtonLabel="Next"
-			doneButtonLabel="done"
+			doneButtonLabel="Done"
 			onComplete={() => null}
 			onboardingComplete={false}
 		/>

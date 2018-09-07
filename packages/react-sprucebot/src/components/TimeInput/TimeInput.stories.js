@@ -9,4 +9,7 @@ import readme from './TimeInput.md'
 const stories = storiesOf('TimeInput', module)
 stories.addDecorator(withKnobs)
 
-stories.add('Placeholder', withReadme(readme, () => <p>Placeholder</p>))
+stories.add(
+	'Placeholder',
+	withReadme(readme, () => <TimeInput defaultValue="8:00" usePicker={false} />)
+)
