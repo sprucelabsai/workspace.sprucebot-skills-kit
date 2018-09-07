@@ -60,26 +60,26 @@ var dialogUnderlay = null;
 var currentDialogs = [];
 var dialogVerticalPadding = 30;
 
-var DialogWrapper = _styledComponents2.default.div.attrs({
+var DialogWrapper = (0, _styledComponents2.default)('div').attrs({
 	className: function className(_ref) {
 		var _className = _ref.className;
 		return 'dialog__wrapper ' + _className;
 	}
 }).withConfig({
 	displayName: 'Dialog__DialogWrapper',
-	componentId: 's1lyqie-0'
+	componentId: 'sc-1lyqie-0'
 })(['opacity:', ';'], function (props) {
 	return props.opacity;
 });
 
-var DialogContainer = _styledComponents2.default.div.attrs({
+var DialogContainer = (0, _styledComponents2.default)('div').attrs({
 	className: function className(_ref2) {
 		var _className2 = _ref2.className;
 		return 'dialog ' + _className2;
 	}
 }).withConfig({
 	displayName: 'Dialog__DialogContainer',
-	componentId: 's1lyqie-1'
+	componentId: 'sc-1lyqie-1'
 })(['opacity:', ';'], function (props) {
 	return props.opacity;
 });
@@ -88,7 +88,7 @@ var DialogCloseButton = (0, _styledComponents2.default)(_Button2.default).attrs(
 	remove: true
 }).withConfig({
 	displayName: 'Dialog__DialogCloseButton',
-	componentId: 's1lyqie-2'
+	componentId: 'sc-1lyqie-2'
 })(['']);
 
 var timerRunning = false;

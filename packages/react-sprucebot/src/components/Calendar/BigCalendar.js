@@ -543,16 +543,41 @@ export default class BigCalendar extends Component {
 		return { className: `${event.className || ''}` }
 	}
 
-	slotPropGetter = (teammate, date) => {
+	dayPropGetter = (teammate, date) => {
 		const { teamSchedule } = this.state
+		const { dayPropGetter = (teammate, date, props) => props } = this.props
 
 		// if no team schedule, then no need to render on/off
 		if (!teamSchedule) {
-			return {}
+			return dayPropGetter(teammate, date, {})
+		}
+
+		const theDate = moment(date)
+		const today = theDate.format('YYYY-MM-DD')
+
+		let { startTime, endTime } =
+			teamSchedule[teammate.UserId] && teamSchedule[teammate.UserId][today]
+				? teamSchedule[teammate.UserId][today]
+				: {}
+
+		return {
+			className: startTime && endTime ? 'working' : 'not-working'
+		}
+	}
+
+	slotPropGetter = (teammate, date) => {
+		const { teamSchedule } = this.state
+		const { slotPropGetter = (teammate, date, props) => props } = this.props
+
+		// if no team schedule, then no need to render on/off
+		if (!teamSchedule) {
+			return slotPropGetter(teammate, date, {})
 		}
 
 		// pull hours out for today
-		const today = moment(date).format('YYYY-MM-DD')
+		const theDate = moment(date)
+		const today = theDate.format('YYYY-MM-DD')
+
 		let { startTime, endTime } =
 			teamSchedule[teammate.UserId] && teamSchedule[teammate.UserId][today]
 				? teamSchedule[teammate.UserId][today]
@@ -560,19 +585,19 @@ export default class BigCalendar extends Component {
 
 		// since a team schedule is passed, if any start/end times are missing, assume not working
 		if (!startTime || !endTime) {
-			return {
+			return slotPropGetter(teammate, date, {
 				className: 'not-working'
-			}
+			})
 		}
 
 		startTime = parseInt(startTime.replace(/[^0-9]/g, ''))
 		endTime = parseInt(endTime.replace(/[^0-9]/g, ''))
-		const nowTime = parseInt(moment(date).format('HHmmss'))
+		const nowTime = parseInt(theDate.format('HHmmss'))
 
-		return {
+		return slotPropGetter(teammate, date, {
 			className:
 				nowTime >= startTime && nowTime < endTime ? 'working' : 'not-working'
-		}
+		})
 	}
 
 	handleClickEvent = (options, e) => {
@@ -733,6 +758,10 @@ export default class BigCalendar extends Component {
 			calendarProps.step = step
 		}
 
+		if (titleAccessor) {
+			calendarProps.titleAccessor = titleAccessor
+		}
+
 		// Determine selected date in relation to today
 		const currentDate = moment
 			.tz(selectedDate, auth.Location.timezone)
@@ -745,9 +774,6 @@ export default class BigCalendar extends Component {
 			.startOf('day')
 		const isToday = today.isSame(selectedDateStart)
 
-		if (titleAccessor) {
-			calendarProps.titleAccessor = titleAccessor
-		}
 		let classNames = `${className || ''} ${mode === 'team' ? 'team' : 'user'} ${
 			transitioning ? 'transitioning' : ''
 		} ${view}`
@@ -925,6 +951,9 @@ export default class BigCalendar extends Component {
 											slotPropGetter={date => {
 												return this.slotPropGetter(teammate, date)
 											}}
+											dayPropGetter={date => {
+												return this.dayPropGetter(teammate, date)
+											}}
 											{...calendarProps}
 										/>
 									)}
@@ -964,7 +993,9 @@ BigCalendar.propTypes = {
 	onDropEvent: PropTypes.func,
 	onResizeEvent: PropTypes.func,
 	timeslots: PropTypes.number,
-	step: PropTypes.number
+	step: PropTypes.number,
+	slotPropGetter: PropTypes.func,
+	dayPropGetter: PropTypes.func
 }
 
 BigCalendar.defaultProps = {
