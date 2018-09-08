@@ -50,7 +50,8 @@ export default class BigCalendar extends Component {
 			optionsLoaded: [],
 			isFetchingEvents: true,
 			isSelectingScheduleDate: false,
-			teamSchedule: false // if a team schedule is supplied (keyed by user id, then date), then we render on/off hours
+			teamSchedule: false, // if a team schedule is supplied (keyed by user id, then date), then we render on/off hours
+			showOnlyWorking: false // if a team schedule is show, we unlock new ability to filter by working/not working
 		}
 		// Expected event structure:
 		// const event = {
@@ -181,7 +182,8 @@ export default class BigCalendar extends Component {
 		if (!this.calendarWrapper) {
 			return '100%'
 		}
-		const { view, mode, teammates, transitioning } = this.state
+		const { view, mode, transitioning, showOnlyWorking } = this.state
+		const teammates = this.getTeammates()
 
 		const calendarWrapperWidth = getElementWidth(this.calendarWrapper)
 		let widthOfAllCalendars = 0
@@ -235,6 +237,21 @@ export default class BigCalendar extends Component {
 		return getElementHeight(firstTeammateWrapper) || 'auto'
 	}
 
+	getTeammates = () => {
+		const {
+			teammates,
+			workingTeammates,
+			mode,
+			view,
+			showOnlyWorking
+		} = this.state
+
+		if (mode === 'team' && view === 'day' && showOnlyWorking) {
+			return workingTeammates
+		}
+		return teammates
+	}
+
 	handleChange = () => {
 		this.refresh()
 	}
@@ -277,12 +294,16 @@ export default class BigCalendar extends Component {
 		triggerOnNavigate && onNavigate && onNavigate(options)
 		try {
 			const { teamSchedule, storeSchedule, events } = await fetchEvents(options)
+
 			this.setState({
+				workingTeammates: this.workingTeammates({ schedule: teamSchedule }),
 				storeSchedule,
 				events,
 				teamSchedule,
 				isFetchingEvents: false
 			})
+
+			this.toggleShowOnCalendars()
 		} catch (err) {
 			console.log(err)
 			this.setState({ isFetchingEvents: false })
@@ -688,6 +709,36 @@ export default class BigCalendar extends Component {
 		this.jumpToTeamMode()
 	}
 
+	handleToggleShowWorking = async () => {
+		const { showOnlyWorking: oldShowOnlyWorking } = this.state
+
+		const showOnlyWorking = !oldShowOnlyWorking
+
+		await this.setState({
+			showOnlyWorking,
+			workingTeammates: this.workingTeammates()
+		})
+
+		this.toggleShowOnCalendars()
+	}
+
+	workingTeammates = ({ schedule, date } = {}) => {
+		const { teamSchedule, selectedDate, teammates } = this.state
+
+		const formattedDate = (date || selectedDate).format('YYYY-MM-DD')
+
+		if (!schedule && !teamSchedule) {
+			return teammates
+		}
+
+		return teammates.filter(teammate => {
+			return (
+				(schedule || teamSchedule)[teammate.UserId] &&
+				(schedule || teamSchedule)[teammate.UserId][formattedDate]
+			)
+		})
+	}
+
 	render() {
 		const {
 			auth,
@@ -701,7 +752,6 @@ export default class BigCalendar extends Component {
 		const {
 			selectedDate,
 			view,
-			teammates,
 			mode,
 			transitioning,
 			renderAllCalendars,
@@ -710,7 +760,9 @@ export default class BigCalendar extends Component {
 			events,
 			isFetchingEvents,
 			isSelectingScheduleDate,
-			selectedTeammate
+			selectedTeammate,
+			teamSchedule,
+			showOnlyWorking
 		} = this.state
 
 		// populate views to take into account team week
@@ -778,7 +830,7 @@ export default class BigCalendar extends Component {
 			transitioning ? 'transitioning' : ''
 		} ${view}`
 
-		let team = mode === 'team' ? teammates : [auth]
+		let team = mode === 'team' ? this.getTeammates() : [auth]
 
 		//filter authed user out and prepend
 		if (selectedTeammate) {
@@ -862,6 +914,16 @@ export default class BigCalendar extends Component {
 							</Button>
 						</div>
 					)}
+					{mode === 'team' &&
+						view === 'day' &&
+						teamSchedule && (
+							<Button
+								className="toggle-show-working"
+								onClick={this.handleToggleShowWorking}
+							>
+								{showOnlyWorking ? 'show everyone' : 'show only working'}
+							</Button>
+						)}
 				</div>
 				<div
 					className={`calendars__wrapper ${isFetching ? 'fetching' : ''}`}
@@ -894,7 +956,7 @@ export default class BigCalendar extends Component {
 											<span>
 												<Avatar top user={teammate} />
 												<span className="calendar__teammate_name">
-													{teammate.User.casualName}
+													{teammate.User.name}
 												</span>
 											</span>
 										</div>
@@ -903,7 +965,7 @@ export default class BigCalendar extends Component {
 									{idx === 0 &&
 										view === 'month' &&
 										mode === 'team' &&
-										teammates.map(teammate => (
+										team.map(teammate => (
 											<div className="avatar_wrapper">
 												<span>
 													<Avatar top user={teammate} />

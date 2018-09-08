@@ -123,7 +123,8 @@ var BigCalendar = function (_Component) {
 			optionsLoaded: [],
 			isFetchingEvents: true,
 			isSelectingScheduleDate: false,
-			teamSchedule: false // if a team schedule is supplied (keyed by user id, then date), then we render on/off hours
+			teamSchedule: false, // if a team schedule is supplied (keyed by user id, then date), then we render on/off hours
+			showOnlyWorking: false // if a team schedule is show, we unlock new ability to filter by working/not working
 
 			// Expected event structure:
 			// const event = {
@@ -161,7 +162,6 @@ var BigCalendar = function (_Component) {
 			var _state = this.state,
 			    selectedDate = _state.selectedDate,
 			    view = _state.view,
-			    teammates = _state.teammates,
 			    mode = _state.mode,
 			    transitioning = _state.transitioning,
 			    renderAllCalendars = _state.renderAllCalendars,
@@ -170,7 +170,9 @@ var BigCalendar = function (_Component) {
 			    events = _state.events,
 			    isFetchingEvents = _state.isFetchingEvents,
 			    isSelectingScheduleDate = _state.isSelectingScheduleDate,
-			    selectedTeammate = _state.selectedTeammate;
+			    selectedTeammate = _state.selectedTeammate,
+			    teamSchedule = _state.teamSchedule,
+			    showOnlyWorking = _state.showOnlyWorking;
 
 			// populate views to take into account team week
 
@@ -234,7 +236,7 @@ var BigCalendar = function (_Component) {
 
 			var classNames = (className || '') + ' ' + (mode === 'team' ? 'team' : 'user') + ' ' + (transitioning ? 'transitioning' : '') + ' ' + view;
 
-			var team = mode === 'team' ? teammates : [auth];
+			var team = mode === 'team' ? this.getTeammates() : [auth];
 
 			//filter authed user out and prepend
 			if (selectedTeammate) {
@@ -327,6 +329,14 @@ var BigCalendar = function (_Component) {
 							},
 							'show team'
 						)
+					),
+					mode === 'team' && view === 'day' && teamSchedule && _react2.default.createElement(
+						_Button2.default,
+						{
+							className: 'toggle-show-working',
+							onClick: this.handleToggleShowWorking
+						},
+						showOnlyWorking ? 'show everyone' : 'show only working'
 					)
 				),
 				_react2.default.createElement(
@@ -368,11 +378,11 @@ var BigCalendar = function (_Component) {
 										_react2.default.createElement(
 											'span',
 											{ className: 'calendar__teammate_name' },
-											teammate.User.casualName
+											teammate.User.name
 										)
 									)
 								),
-								idx === 0 && view === 'month' && mode === 'team' && teammates.map(function (teammate) {
+								idx === 0 && view === 'month' && mode === 'team' && team.map(function (teammate) {
 									return _react2.default.createElement(
 										'div',
 										{ className: 'avatar_wrapper' },
@@ -573,9 +583,10 @@ var _initialiseProps = function _initialiseProps() {
 		var _state4 = _this3.state,
 		    view = _state4.view,
 		    mode = _state4.mode,
-		    teammates = _state4.teammates,
-		    transitioning = _state4.transitioning;
+		    transitioning = _state4.transitioning,
+		    showOnlyWorking = _state4.showOnlyWorking;
 
+		var teammates = _this3.getTeammates();
 
 		var calendarWrapperWidth = getElementWidth(_this3.calendarWrapper);
 		var widthOfAllCalendars = 0;
@@ -627,6 +638,21 @@ var _initialiseProps = function _initialiseProps() {
 		return getElementHeight(firstTeammateWrapper) || 'auto';
 	};
 
+	this.getTeammates = function () {
+		var _state6 = _this3.state,
+		    teammates = _state6.teammates,
+		    workingTeammates = _state6.workingTeammates,
+		    mode = _state6.mode,
+		    view = _state6.view,
+		    showOnlyWorking = _state6.showOnlyWorking;
+
+
+		if (mode === 'team' && view === 'day' && showOnlyWorking) {
+			return workingTeammates;
+		}
+		return teammates;
+	};
+
 	this.handleChange = function () {
 		_this3.refresh();
 	};
@@ -635,13 +661,13 @@ var _initialiseProps = function _initialiseProps() {
 		var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
 			var triggerOnNavigate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-			var _state6, mode, view, teammates, selectedDate, optionsLoaded, selectedTeammate, _props2, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, _ref4, teamSchedule, storeSchedule, events;
+			var _state7, mode, view, teammates, selectedDate, optionsLoaded, selectedTeammate, _props2, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, _ref4, teamSchedule, storeSchedule, events;
 
 			return regeneratorRuntime.wrap(function _callee$(_context) {
 				while (1) {
 					switch (_context.prev = _context.next) {
 						case 0:
-							_state6 = _this3.state, mode = _state6.mode, view = _state6.view, teammates = _state6.teammates, selectedDate = _state6.selectedDate, optionsLoaded = _state6.optionsLoaded, selectedTeammate = _state6.selectedTeammate;
+							_state7 = _this3.state, mode = _state7.mode, view = _state7.view, teammates = _state7.teammates, selectedDate = _state7.selectedDate, optionsLoaded = _state7.optionsLoaded, selectedTeammate = _state7.selectedTeammate;
 							_props2 = _this3.props, auth = _props2.auth, onNavigate = _props2.onNavigate, fetchEvents = _props2.fetchEvents;
 							currentView = view === 'team_week' ? 'week' : view;
 							currentUser = selectedTeammate ? selectedTeammate : teammates.find(function (teammate) {
@@ -676,28 +702,32 @@ var _initialiseProps = function _initialiseProps() {
 							storeSchedule = _ref4.storeSchedule;
 							events = _ref4.events;
 
+
 							_this3.setState({
+								workingTeammates: _this3.workingTeammates({ schedule: teamSchedule }),
 								storeSchedule: storeSchedule,
 								events: events,
 								teamSchedule: teamSchedule,
 								isFetchingEvents: false
 							});
-							_context.next = 23;
+
+							_this3.toggleShowOnCalendars();
+							_context.next = 24;
 							break;
 
-						case 19:
-							_context.prev = 19;
+						case 20:
+							_context.prev = 20;
 							_context.t0 = _context['catch'](9);
 
 							console.log(_context.t0);
 							_this3.setState({ isFetchingEvents: false });
 
-						case 23:
+						case 24:
 						case 'end':
 							return _context.stop();
 					}
 				}
-			}, _callee, _this3, [[9, 19]]);
+			}, _callee, _this3, [[9, 20]]);
 		}));
 
 		return function () {
@@ -748,13 +778,13 @@ var _initialiseProps = function _initialiseProps() {
 
 	this.handleChangeView = function () {
 		var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(idx) {
-			var _state7, mode, view, newView, movingToWeek;
+			var _state8, mode, view, newView, movingToWeek;
 
 			return regeneratorRuntime.wrap(function _callee3$(_context3) {
 				while (1) {
 					switch (_context3.prev = _context3.next) {
 						case 0:
-							_state7 = _this3.state, mode = _state7.mode, view = _state7.view;
+							_state8 = _this3.state, mode = _state8.mode, view = _state8.view;
 							newView = _this3.state.views[idx];
 							movingToWeek = mode === 'user' && view !== 'week' && newView === 'week';
 							_context3.next = 5;
@@ -801,10 +831,10 @@ var _initialiseProps = function _initialiseProps() {
 	};
 
 	this.timeRange = function () {
-		var _state8 = _this3.state,
-		    selectedDate = _state8.selectedDate,
-		    storeSchedule = _state8.storeSchedule,
-		    events = _state8.events;
+		var _state9 = _this3.state,
+		    selectedDate = _state9.selectedDate,
+		    storeSchedule = _state9.storeSchedule,
+		    events = _state9.events;
 
 
 		var adjustedEvents = events.filter(function (event) {
@@ -982,13 +1012,13 @@ var _initialiseProps = function _initialiseProps() {
 		}, _callee5, _this3);
 	}));
 	this.handleToggleMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-		var _state9, mode, selectedTeammate;
+		var _state10, mode, selectedTeammate;
 
 		return regeneratorRuntime.wrap(function _callee6$(_context6) {
 			while (1) {
 				switch (_context6.prev = _context6.next) {
 					case 0:
-						_state9 = _this3.state, mode = _state9.mode, selectedTeammate = _state9.selectedTeammate;
+						_state10 = _this3.state, mode = _state10.mode, selectedTeammate = _state10.selectedTeammate;
 						_context6.t0 = mode;
 						_context6.next = _context6.t0 === 'team' ? 4 : 6;
 						break;
@@ -1016,10 +1046,10 @@ var _initialiseProps = function _initialiseProps() {
 	};
 
 	this.filterEvents = function (events, teammate) {
-		var _state10 = _this3.state,
-		    view = _state10.view,
-		    mode = _state10.mode,
-		    transitioning = _state10.transitioning;
+		var _state11 = _this3.state,
+		    view = _state11.view,
+		    mode = _state11.mode,
+		    transitioning = _state11.transitioning;
 
 		// make transitions faster?
 
@@ -1141,9 +1171,9 @@ var _initialiseProps = function _initialiseProps() {
 	};
 
 	this.handleCanDrag = function (event) {
-		var _state11 = _this3.state,
-		    view = _state11.view,
-		    mode = _state11.mode;
+		var _state12 = _this3.state,
+		    view = _state12.view,
+		    mode = _state12.mode;
 		var canDrag = _this3.props.canDrag;
 
 
@@ -1155,9 +1185,9 @@ var _initialiseProps = function _initialiseProps() {
 	};
 
 	this.handleCanResize = function (event) {
-		var _state12 = _this3.state,
-		    view = _state12.view,
-		    mode = _state12.mode;
+		var _state13 = _this3.state,
+		    view = _state13.view,
+		    mode = _state13.mode;
 		var canResize = _this3.props.canResize;
 
 
@@ -1245,6 +1275,54 @@ var _initialiseProps = function _initialiseProps() {
 	this.handleToggleTeamMode = function () {
 		_this3.handleClearSelectedTeammate();
 		_this3.jumpToTeamMode();
+	};
+
+	this.handleToggleShowWorking = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+		var oldShowOnlyWorking, showOnlyWorking;
+		return regeneratorRuntime.wrap(function _callee9$(_context9) {
+			while (1) {
+				switch (_context9.prev = _context9.next) {
+					case 0:
+						oldShowOnlyWorking = _this3.state.showOnlyWorking;
+						showOnlyWorking = !oldShowOnlyWorking;
+						_context9.next = 4;
+						return _this3.setState({
+							showOnlyWorking: showOnlyWorking,
+							workingTeammates: _this3.workingTeammates()
+						});
+
+					case 4:
+
+						_this3.toggleShowOnCalendars();
+
+					case 5:
+					case 'end':
+						return _context9.stop();
+				}
+			}
+		}, _callee9, _this3);
+	}));
+
+	this.workingTeammates = function () {
+		var _ref18 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+		    schedule = _ref18.schedule,
+		    date = _ref18.date;
+
+		var _state14 = _this3.state,
+		    teamSchedule = _state14.teamSchedule,
+		    selectedDate = _state14.selectedDate,
+		    teammates = _state14.teammates;
+
+
+		var formattedDate = (date || selectedDate).format('YYYY-MM-DD');
+
+		if (!schedule && !teamSchedule) {
+			return teammates;
+		}
+
+		return teammates.filter(function (teammate) {
+			return (schedule || teamSchedule)[teammate.UserId] && (schedule || teamSchedule)[teammate.UserId][formattedDate];
+		});
 	};
 };
 
