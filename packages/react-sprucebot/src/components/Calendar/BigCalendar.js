@@ -720,6 +720,9 @@ export default class BigCalendar extends Component {
 		})
 
 		this.toggleShowOnCalendars()
+		
+		// force refresh to recalc sizes
+		setTimeout(this.handleWindowResize, 500)
 	}
 
 	workingTeammates = ({ schedule, date } = {}) => {
