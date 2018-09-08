@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "6.69.0",
+	"version": "6.70.0",
 	"description": "Jam with the Sprucebot API in your favorite scripting language. 🤓",
 	"keywords": [
 		"node",
