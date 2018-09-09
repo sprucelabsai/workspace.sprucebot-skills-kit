@@ -124,7 +124,7 @@ var BigCalendar = function (_Component) {
 			isFetchingEvents: true,
 			isSelectingScheduleDate: false,
 			teamSchedule: false, // if a team schedule is supplied (keyed by user id, then date), then we render on/off hours
-			showOnlyWorking: false // if a team schedule is show, we unlock new ability to filter by working/not working
+			showOnlyWorking: true // if a team schedule is show, we unlock new ability to filter by working/not working
 
 			// Expected event structure:
 			// const event = {
@@ -165,7 +165,6 @@ var BigCalendar = function (_Component) {
 			    mode = _state.mode,
 			    transitioning = _state.transitioning,
 			    renderAllCalendars = _state.renderAllCalendars,
-			    showAllTeammates = _state.showAllTeammates,
 			    renderFirstCalendar = _state.renderFirstCalendar,
 			    events = _state.events,
 			    isFetchingEvents = _state.isFetchingEvents,
@@ -236,22 +235,12 @@ var BigCalendar = function (_Component) {
 
 			var classNames = (className || '') + ' ' + (mode === 'team' ? 'team' : 'user') + ' ' + (transitioning ? 'transitioning' : '') + ' ' + view;
 
-			var team = mode === 'team' ? this.getTeammates() : [auth];
-
-			//filter authed user out and prepend
-			if (selectedTeammate) {
-				team = [selectedTeammate];
-			} else if (view === 'month') {
-				team = [auth];
-			} else if (showAllTeammates) {
-				team = team.filter(function (teammate) {
-					return teammate.User.id !== auth.User.id;
-				});
-				team = [auth].concat(_toConsumableArray(team));
-			}
+			var team = this.getTeammates();
 
 			var isFetching = isFetchingEvents || transitioning;
 			var isLoaderOutside = view === 'week' && mode === 'user' || view === 'month';
+
+			console.log({ team: team });
 
 			return _react2.default.createElement(
 				'div',
@@ -583,8 +572,7 @@ var _initialiseProps = function _initialiseProps() {
 		var _state4 = _this3.state,
 		    view = _state4.view,
 		    mode = _state4.mode,
-		    transitioning = _state4.transitioning,
-		    showOnlyWorking = _state4.showOnlyWorking;
+		    transitioning = _state4.transitioning;
 
 		var teammates = _this3.getTeammates();
 
@@ -592,8 +580,10 @@ var _initialiseProps = function _initialiseProps() {
 		var widthOfAllCalendars = 0;
 		var minWidthOfAllCalendars = _this3.getDesiredTeammateWrapperWidth() * teammates.length;
 
-		document.querySelectorAll('.teammate_calendar__wrapper').forEach(function (wrapper) {
-			widthOfAllCalendars += getElementWidth(wrapper);
+		document.querySelectorAll('.teammate_calendar__wrapper').forEach(function (wrapper, idx) {
+			if (idx < teammates.length) {
+				widthOfAllCalendars += getElementWidth(wrapper);
+			}
 		});
 
 		widthOfAllCalendars = Math.max(minWidthOfAllCalendars, widthOfAllCalendars);
@@ -644,13 +634,32 @@ var _initialiseProps = function _initialiseProps() {
 		    workingTeammates = _state6.workingTeammates,
 		    mode = _state6.mode,
 		    view = _state6.view,
-		    showOnlyWorking = _state6.showOnlyWorking;
+		    showOnlyWorking = _state6.showOnlyWorking,
+		    selectedTeammate = _state6.selectedTeammate,
+		    showAllTeammates = _state6.showAllTeammates,
+		    teamSchedule = _state6.teamSchedule;
+		var auth = _this3.props.auth;
 
 
-		if (mode === 'team' && view === 'day' && showOnlyWorking) {
-			return workingTeammates;
+		var team = mode === 'team' ? teammates : [auth];
+
+		//filter authed user out and prepend
+		if (selectedTeammate) {
+			team = [selectedTeammate];
+		} else if (teamSchedule && mode === 'team' && view === 'day' && showOnlyWorking) {
+			return [auth].concat(_toConsumableArray(workingTeammates.filter(function (teammate) {
+				return teammate.User.id !== auth.User.id;
+			})));
+		} else if (view === 'month') {
+			team = [auth];
+		} else if (showAllTeammates) {
+			team = team.filter(function (teammate) {
+				return teammate.User.id !== auth.User.id;
+			});
+			team = [auth].concat(_toConsumableArray(team));
 		}
-		return teammates;
+
+		return team;
 	};
 
 	this.handleChange = function () {

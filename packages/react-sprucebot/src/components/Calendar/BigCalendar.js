@@ -51,7 +51,7 @@ export default class BigCalendar extends Component {
 			isFetchingEvents: true,
 			isSelectingScheduleDate: false,
 			teamSchedule: false, // if a team schedule is supplied (keyed by user id, then date), then we render on/off hours
-			showOnlyWorking: false // if a team schedule is show, we unlock new ability to filter by working/not working
+			showOnlyWorking: true // if a team schedule is show, we unlock new ability to filter by working/not working
 		}
 		// Expected event structure:
 		// const event = {
@@ -182,7 +182,7 @@ export default class BigCalendar extends Component {
 		if (!this.calendarWrapper) {
 			return '100%'
 		}
-		const { view, mode, transitioning, showOnlyWorking } = this.state
+		const { view, mode, transitioning } = this.state
 		const teammates = this.getTeammates()
 
 		const calendarWrapperWidth = getElementWidth(this.calendarWrapper)
@@ -192,8 +192,10 @@ export default class BigCalendar extends Component {
 
 		document
 			.querySelectorAll('.teammate_calendar__wrapper')
-			.forEach(wrapper => {
-				widthOfAllCalendars += getElementWidth(wrapper)
+			.forEach((wrapper, idx) => {
+				if (idx < teammates.length) {
+					widthOfAllCalendars += getElementWidth(wrapper)
+				}
 			})
 
 		widthOfAllCalendars = Math.max(minWidthOfAllCalendars, widthOfAllCalendars)
@@ -243,13 +245,41 @@ export default class BigCalendar extends Component {
 			workingTeammates,
 			mode,
 			view,
-			showOnlyWorking
+			showOnlyWorking,
+			selectedTeammate,
+			showAllTeammates,
+			teamSchedule
 		} = this.state
 
-		if (mode === 'team' && view === 'day' && showOnlyWorking) {
-			return workingTeammates
+		const { auth } = this.props
+
+		let team = mode === 'team' ? teammates : [auth]
+
+		//filter authed user out and prepend
+		if (selectedTeammate) {
+			team = [selectedTeammate]
+		} else if (
+			teamSchedule &&
+			mode === 'team' &&
+			view === 'day' &&
+			showOnlyWorking
+		) {
+			return [
+				auth,
+				...workingTeammates.filter(teammate => {
+					return teammate.User.id !== auth.User.id
+				})
+			]
+		} else if (view === 'month') {
+			team = [auth]
+		} else if (showAllTeammates) {
+			team = team.filter(teammate => {
+				return teammate.User.id !== auth.User.id
+			})
+			team = [auth, ...team]
 		}
-		return teammates
+
+		return team
 	}
 
 	handleChange = () => {
@@ -720,9 +750,6 @@ export default class BigCalendar extends Component {
 		})
 
 		this.toggleShowOnCalendars()
-		
-		// force refresh to recalc sizes
-		setTimeout(this.handleWindowResize, 500)
 	}
 
 	workingTeammates = ({ schedule, date } = {}) => {
@@ -758,7 +785,6 @@ export default class BigCalendar extends Component {
 			mode,
 			transitioning,
 			renderAllCalendars,
-			showAllTeammates,
 			renderFirstCalendar,
 			events,
 			isFetchingEvents,
@@ -833,23 +859,13 @@ export default class BigCalendar extends Component {
 			transitioning ? 'transitioning' : ''
 		} ${view}`
 
-		let team = mode === 'team' ? this.getTeammates() : [auth]
-
-		//filter authed user out and prepend
-		if (selectedTeammate) {
-			team = [selectedTeammate]
-		} else if (view === 'month') {
-			team = [auth]
-		} else if (showAllTeammates) {
-			team = team.filter(teammate => {
-				return teammate.User.id !== auth.User.id
-			})
-			team = [auth, ...team]
-		}
+		let team = this.getTeammates()
 
 		let isFetching = isFetchingEvents || transitioning
 		let isLoaderOutside =
 			(view === 'week' && mode === 'user') || view === 'month'
+
+		console.log({ team })
 
 		return (
 			<div className={`big_calendar ${classNames}`}>
