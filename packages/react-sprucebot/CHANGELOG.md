@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.70.3"></a>
+## [6.70.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.2...v6.70.3) (2018-09-09)
+
+
+### Bug Fixes
+
+* default to team schedule, better handling of resize and teammate loading ([6740faa](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6740faa))
+
+
+
+
+
 <a name="6.70.2"></a>
 ## [6.70.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.1...v6.70.2) (2018-09-08)
 
