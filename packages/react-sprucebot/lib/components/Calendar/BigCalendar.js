@@ -240,8 +240,6 @@ var BigCalendar = function (_Component) {
 			var isFetching = isFetchingEvents || transitioning;
 			var isLoaderOutside = view === 'week' && mode === 'user' || view === 'month';
 
-			console.log({ team: team });
-
 			return _react2.default.createElement(
 				'div',
 				{ className: 'big_calendar ' + classNames },

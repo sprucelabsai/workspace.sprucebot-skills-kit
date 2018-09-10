@@ -865,8 +865,6 @@ export default class BigCalendar extends Component {
 		let isLoaderOutside =
 			(view === 'week' && mode === 'user') || view === 'month'
 
-		console.log({ team })
-
 		return (
 			<div className={`big_calendar ${classNames}`}>
 				{isSelectingScheduleDate && (
