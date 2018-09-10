@@ -38,7 +38,7 @@ exports[`it renders 1`] = `
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
-      type="button"
+      type={undefined}
     >
       <span
         className="wrapper"
@@ -61,7 +61,7 @@ exports[`it renders 1`] = `
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
-      type="button"
+      type={undefined}
     >
       <span
         className="wrapper"
@@ -89,7 +89,7 @@ exports[`it renders 1`] = `
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
-      type="button"
+      type={undefined}
     >
       <span
         className="wrapper"
@@ -112,7 +112,7 @@ exports[`it renders 1`] = `
       disabled={undefined}
       href={undefined}
       onClick={[Function]}
-      type="button"
+      type={undefined}
     >
       <span
         className="wrapper"

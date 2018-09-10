@@ -250,6 +250,7 @@ Button.propTypes = {
 	primary: _propTypes2.default.bool,
 	alt: _propTypes2.default.bool,
 	secondary: _propTypes2.default.bool,
+	caution: _propTypes2.default.bool,
 	busy: _propTypes2.default.bool,
 	href: _propTypes2.default.string,
 	remove: _propTypes2.default.bool,
@@ -267,6 +268,5 @@ Button.defaultProps = {
 	secondary: false,
 	busy: false,
 	remove: false,
-	toggle: false,
-	type: 'button'
+	toggle: false
 };

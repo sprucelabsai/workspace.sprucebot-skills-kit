@@ -35,7 +35,7 @@ exports[`it renders 1`] = `
   href={undefined}
   onClick={[Function]}
   tabIndex={0}
-  type="button"
+  type={undefined}
 >
   <span
     className="wrapper"
