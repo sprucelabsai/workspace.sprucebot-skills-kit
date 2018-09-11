@@ -3,6 +3,94 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.70.4"></a>
+## [6.70.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.3...v6.70.4) (2018-09-10)
+
+
+### Bug Fixes
+
+* remove log ([43fd351](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/43fd351))
+
+
+
+
+
+<a name="6.70.3"></a>
+## [6.70.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.2...v6.70.3) (2018-09-09)
+
+
+### Bug Fixes
+
+* default to team schedule, better handling of resize and teammate loading ([6740faa](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6740faa))
+
+
+
+
+
+<a name="6.70.2"></a>
+## [6.70.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.1...v6.70.2) (2018-09-08)
+
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
+
+
+
+
+
+<a name="6.70.1"></a>
+## [6.70.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.0...v6.70.1) (2018-09-08)
+
+
+### Bug Fixes
+
+* show working ([879a79a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/879a79a))
+
+
+
+
+
+<a name="6.70.0"></a>
+# [6.70.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.69.0...v6.70.0) (2018-09-07)
+
+
+### Features
+
+* big cal tweaks ([c0c9fdc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c0c9fdc))
+
+
+
+
+
+<a name="6.69.0"></a>
+# [6.69.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.68.0...v6.69.0) (2018-09-06)
+
+
+### Bug Fixes
+
+* Adjust drag/resize condtional check ([075a11c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/075a11c))
+* Remove unneeded check in handleToggleMode ([399dabf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/399dabf))
+
+
+### Features
+
+* Add ability to switch to team and user from selectedTeammate ([f8aa203](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f8aa203))
+* Add ability to toggle BigCalendar to selected teammate ([1dc7add](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1dc7add))
+* Adjust class selectors for select teammate elements ([b87bd2b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b87bd2b))
+* Disable drag/resize for week/month views ([3e88906](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3e88906))
+* Pass single teammate as array to skills ([efa8913](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/efa8913))
+
+
+
+
+
+<a name="6.68.0"></a>
+# [6.68.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.67.0...v6.68.0) (2018-09-04)
+
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
+
+
+
+
+
 <a name="6.67.0"></a>
 # [6.67.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.66.0...v6.67.0) (2018-09-04)
 

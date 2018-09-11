@@ -14,7 +14,7 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Form = _styledComponents2.default.form.attrs({
+var Form = (0, _styledComponents2.default)('form').attrs({
 	className: 'Form'
 }).withConfig({
 	displayName: 'Form',
