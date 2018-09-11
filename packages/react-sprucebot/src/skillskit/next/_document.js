@@ -1,6 +1,8 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
+import is from 'is_js'
+
 const debug = require('debug')('react-sprucebot')
 
 export default class MyDocument extends Document {
@@ -39,12 +41,13 @@ export default class MyDocument extends Document {
 	}
 
 	render() {
-		let whitelabelClassName =
+		let bodyClassName =
 			this.props.config && this.props.config.SLUG
 				? ` skill-${this.props.config.SLUG}`
 				: ''
+
 		return (
-			<html className={`skill${whitelabelClassName}`}>
+			<html className={`skill${bodyClassName}`}>
 				<Head>
 					<title>{this.props.name}</title>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -75,7 +78,7 @@ export default class MyDocument extends Document {
 						/>
 					)}
 				</Head>
-				<body>
+				<body className={bodyClassName}>
 					<Main />
 					<NextScript />
 				</body>

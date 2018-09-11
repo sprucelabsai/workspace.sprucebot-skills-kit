@@ -18,6 +18,10 @@ var _document2 = _interopRequireDefault(_document);
 
 var _styledComponents = require('styled-components');
 
+var _is_js = require('is_js');
+
+var _is_js2 = _interopRequireDefault(_is_js);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -42,10 +46,11 @@ var MyDocument = function (_Document) {
 	_createClass(MyDocument, [{
 		key: 'render',
 		value: function render() {
-			var whitelabelClassName = this.props.config && this.props.config.SLUG ? ' skill-' + this.props.config.SLUG : '';
+			var bodyClassName = this.props.config && this.props.config.SLUG ? ' skill-' + this.props.config.SLUG : '';
+
 			return _react2.default.createElement(
 				'html',
-				{ className: 'skill' + whitelabelClassName },
+				{ className: 'skill' + bodyClassName },
 				_react2.default.createElement(
 					_document.Head,
 					null,
@@ -77,7 +82,7 @@ var MyDocument = function (_Document) {
 				),
 				_react2.default.createElement(
 					'body',
-					null,
+					{ className: bodyClassName },
 					_react2.default.createElement(_document.Main, null),
 					_react2.default.createElement(_document.NextScript, null)
 				)
