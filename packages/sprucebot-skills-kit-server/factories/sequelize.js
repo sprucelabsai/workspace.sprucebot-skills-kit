@@ -66,8 +66,6 @@ module.exports = (
 			}
 		})
 
-		await sequelize.sync()
-
 		// Run migrations if enabled
 		if (runMigrations && fs.existsSync(migrationsDir)) {
 			debug('Running sequelize migrations')
@@ -93,6 +91,8 @@ module.exports = (
 				migrationsDir
 			)
 		}
+
+		await sequelize.sync()
 	}
 
 	ctx[key] = { models, sequelize, sync }
