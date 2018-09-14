@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.70.8"></a>
+## [6.70.8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.7...v6.70.8) (2018-09-14)
+
+
+### Bug Fixes
+
+* tool tip not 24 hours ([fb25fad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fb25fad))
+
+
+
+
+
 <a name="6.70.7"></a>
 ## [6.70.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.6...v6.70.7) (2018-09-14)
 
