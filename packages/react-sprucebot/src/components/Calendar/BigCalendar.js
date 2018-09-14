@@ -643,6 +643,7 @@ export default class BigCalendar extends Component {
 
 		startTime = parseInt(startTime.replace(/[^0-9]/g, ''))
 		endTime = parseInt(endTime.replace(/[^0-9]/g, ''))
+
 		const nowTime = parseInt(theDate.format('HHmmss'))
 
 		return slotPropGetter(teammate, date, {

@@ -1136,6 +1136,7 @@ var _initialiseProps = function _initialiseProps() {
 
 		startTime = parseInt(startTime.replace(/[^0-9]/g, ''));
 		endTime = parseInt(endTime.replace(/[^0-9]/g, ''));
+
 		var nowTime = parseInt(theDate.format('HHmmss'));
 
 		return slotPropGetter(teammate, date, {
