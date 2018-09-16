@@ -647,7 +647,7 @@ export default class BigCalendar extends Component {
 		const nowTime = parseInt(theDate.format('HHmmss'))
 
 		return slotPropGetter(teammate, date, {
-			title: theDate.format('H:mma'),
+			title: theDate.format('h:mma'),
 			className:
 				nowTime >= startTime && nowTime < endTime ? 'working' : 'not-working'
 		})
