@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.10...v7.0.0) (2018-09-16)
+
+
+### Features
+
+* event contracts optional ([710bd1e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/710bd1e))
+* send version information to api on skill boot ([384ae74](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/384ae74))
+
+
+
+
+
 <a name="6.70.10"></a>
 ## [6.70.10](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.9...v6.70.10) (2018-09-16)
 
