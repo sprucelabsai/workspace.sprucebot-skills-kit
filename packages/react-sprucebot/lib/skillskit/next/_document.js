@@ -1,149 +1,137 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
 
-var _react = require('react');
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _react2 = _interopRequireDefault(_react);
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _document = require('next/document');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _document2 = _interopRequireDefault(_document);
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _react = _interopRequireDefault(require("react"));
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _document = _interopRequireWildcard(require("next/document"));
 
 var debug = require('debug')('@sprucelabs/react-sprucebot');
 
-var MyDocument = function (_Document) {
-	_inherits(MyDocument, _Document);
+var MyDocument =
+/*#__PURE__*/
+function (_Document) {
+  (0, _inherits2.default)(MyDocument, _Document);
 
-	function MyDocument() {
-		_classCallCheck(this, MyDocument);
+  function MyDocument() {
+    (0, _classCallCheck2.default)(this, MyDocument);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(MyDocument).apply(this, arguments));
+  }
 
-		return _possibleConstructorReturn(this, (MyDocument.__proto__ || Object.getPrototypeOf(MyDocument)).apply(this, arguments));
-	}
+  (0, _createClass2.default)(MyDocument, [{
+    key: "render",
+    value: function render() {
+      var bodyClassName = this.props.config && this.props.config.SLUG ? " skill-".concat(this.props.config.SLUG) : '';
+      return _react.default.createElement("html", {
+        className: "skill".concat(bodyClassName)
+      }, _react.default.createElement(_document.Head, null, _react.default.createElement("title", null, this.props.name), _react.default.createElement("meta", {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1"
+      }), _react.default.createElement("link", {
+        href: this.props.config && this.props.config.SKILL_STYLESHEET || 'https://hello.sprucebot.com/skills.css',
+        rel: "stylesheet",
+        type: "text/css",
+        charSet: "UTF-8"
+      }), _react.default.createElement("link", {
+        rel: "stylesheet",
+        href: "/_next/static/style.css"
+      }), this.props.whitelabel && _react.default.createElement("link", {
+        href: this.props.whitelabel,
+        rel: "stylesheet",
+        type: "text/css",
+        charSet: "UTF-8"
+      }), this.props.orgWhitelabel && _react.default.createElement("link", {
+        href: this.props.orgWhitelabel,
+        rel: "stylesheet",
+        type: "text/css",
+        charSet: "UTF-8"
+      })), _react.default.createElement("body", {
+        className: bodyClassName
+      }, _react.default.createElement(_document.Main, null), _react.default.createElement(_document.NextScript, null)));
+    }
+  }], [{
+    key: "getInitialProps",
+    value: function () {
+      var _getInitialProps = (0, _asyncToGenerator2.default)(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee(_ref) {
+        var renderPage, query, store, page, _store$getState, auth, config, whitelabel, orgWhitelabel;
 
-	_createClass(MyDocument, [{
-		key: 'render',
-		value: function render() {
-			var bodyClassName = this.props.config && this.props.config.SLUG ? ' skill-' + this.props.config.SLUG : '';
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                renderPage = _ref.renderPage, query = _ref.query, store = _ref.store;
+                page = renderPage(function (App) {
+                  return function (props) {
+                    return _react.default.createElement(App, props);
+                  };
+                }); // Store is undefined when hmr is the first
+                // request the server sees after boot
+                // Ideally store is always defined.
+                // Revisit when using `next>5.0.0`
 
-			return _react2.default.createElement(
-				'html',
-				{ className: 'skill' + bodyClassName },
-				_react2.default.createElement(
-					_document.Head,
-					null,
-					_react2.default.createElement(
-						'title',
-						null,
-						this.props.name
-					),
-					_react2.default.createElement('meta', { name: 'viewport', content: 'width=device-width, initial-scale=1' }),
-					_react2.default.createElement('link', {
-						href: this.props.config && this.props.config.SKILL_STYLESHEET || 'https://hello.sprucebot.com/skills.css',
-						rel: 'stylesheet',
-						type: 'text/css',
-						charSet: 'UTF-8'
-					}),
-					_react2.default.createElement('link', { rel: 'stylesheet', href: '/_next/static/style.css' }),
-					this.props.whitelabel && _react2.default.createElement('link', {
-						href: this.props.whitelabel,
-						rel: 'stylesheet',
-						type: 'text/css',
-						charSet: 'UTF-8'
-					}),
-					this.props.orgWhitelabel && _react2.default.createElement('link', {
-						href: this.props.orgWhitelabel,
-						rel: 'stylesheet',
-						type: 'text/css',
-						charSet: 'UTF-8'
-					})
-				),
-				_react2.default.createElement(
-					'body',
-					{ className: bodyClassName },
-					_react2.default.createElement(_document.Main, null),
-					_react2.default.createElement(_document.NextScript, null)
-				)
-			);
-		}
-	}], [{
-		key: 'getInitialProps',
-		value: function () {
-			var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2) {
-				var renderPage = _ref2.renderPage,
-				    query = _ref2.query,
-				    store = _ref2.store;
+                if (store) {
+                  _context.next = 5;
+                  break;
+                }
 
-				var page, _store$getState, auth, config, whitelabel, orgWhitelabel;
+                debug('No store in _document');
+                return _context.abrupt("return", (0, _objectSpread2.default)({}, page));
 
-				return regeneratorRuntime.wrap(function _callee$(_context) {
-					while (1) {
-						switch (_context.prev = _context.next) {
-							case 0:
-								page = renderPage(function (App) {
-									return function (props) {
-										return _react2.default.createElement(App, props);
-									};
-								});
-								// Store is undefined when hmr is the first
-								// request the server sees after boot
-								// Ideally store is always defined.
-								// Revisit when using `next>5.0.0`
+              case 5:
+                _store$getState = store.getState(), auth = _store$getState.auth, config = _store$getState.config;
+                whitelabel = config.WHITELABEL;
 
-								if (store) {
-									_context.next = 4;
-									break;
-								}
+                //we have any whitelabelling happening?
+                if (auth && auth.Location && auth.Location.Organization && auth.Location.Organization.allowWhiteLabelling && auth.Location.Organization.whiteLabellingStylesheetUrl) {
+                  orgWhitelabel = auth.Location.Organization.whiteLabellingStylesheetUrl;
+                }
 
-								debug('No store in _document');
-								return _context.abrupt('return', _extends({}, page));
+                return _context.abrupt("return", (0, _objectSpread2.default)({}, page, {
+                  whitelabel: whitelabel,
+                  auth: auth,
+                  config: config,
+                  orgWhitelabel: orgWhitelabel
+                }));
 
-							case 4:
-								_store$getState = store.getState(), auth = _store$getState.auth, config = _store$getState.config;
-								whitelabel = config.WHITELABEL;
-								orgWhitelabel = void 0;
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
 
-								//we have any whitelabelling happening?
-
-								if (auth && auth.Location && auth.Location.Organization && auth.Location.Organization.allowWhiteLabelling && auth.Location.Organization.whiteLabellingStylesheetUrl) {
-									orgWhitelabel = auth.Location.Organization.whiteLabellingStylesheetUrl;
-								}
-
-								return _context.abrupt('return', _extends({}, page, { whitelabel: whitelabel, auth: auth, config: config, orgWhitelabel: orgWhitelabel }));
-
-							case 9:
-							case 'end':
-								return _context.stop();
-						}
-					}
-				}, _callee, this);
-			}));
-
-			function getInitialProps(_x) {
-				return _ref.apply(this, arguments);
-			}
-
-			return getInitialProps;
-		}()
-	}]);
-
-	return MyDocument;
-}(_document2.default);
+      return function getInitialProps(_x) {
+        return _getInitialProps.apply(this, arguments);
+      };
+    }()
+  }]);
+  return MyDocument;
+}(_document.default);
 
 exports.default = MyDocument;

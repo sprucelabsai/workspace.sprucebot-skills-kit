@@ -32,6 +32,8 @@ function client(webpack, options) {
 
 	webpack = commonsChunkConfig(webpack, /\.(sass|scss|css)$/)
 
+	console.log(require('util').inspect(webpack, true, 9999))
+
 	return webpack
 }
 

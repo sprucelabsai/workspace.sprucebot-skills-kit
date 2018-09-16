@@ -1,19 +1,16 @@
-'use strict';
+"use strict";
 
-var _react = require('react');
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _react2 = _interopRequireDefault(_react);
+var _react = _interopRequireDefault(require("react"));
 
-var _List = require('./List');
+var _List = require("./List");
 
-var _enzyme = require('enzyme');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _enzyme = require("enzyme");
 
 describe('List tests', function () {
-	it('Should match the snapshot', function () {
-		var renderedComponent = (0, _enzyme.shallow)(_react2.default.createElement(_List.List, null));
-
-		expect(renderedComponent).toMatchSnapshot();
-	});
+  it('Should match the snapshot', function () {
+    var renderedComponent = (0, _enzyme.shallow)(_react.default.createElement(_List.List, null));
+    expect(renderedComponent).toMatchSnapshot();
+  });
 });

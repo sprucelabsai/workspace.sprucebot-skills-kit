@@ -1,31 +1,21 @@
-'use strict';
+"use strict";
 
-var _auth = require('./auth');
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
 
-var auth = _interopRequireWildcard(_auth);
+var auth = _interopRequireWildcard(require("./auth"));
 
-var _onboarding = require('./onboarding');
+var onboarding = _interopRequireWildcard(require("./onboarding"));
 
-var onboarding = _interopRequireWildcard(_onboarding);
+var sharable = _interopRequireWildcard(require("./sharable"));
 
-var _sharable = require('./sharable');
+var calendar = _interopRequireWildcard(require("./calendar"));
 
-var sharable = _interopRequireWildcard(_sharable);
-
-var _calendar = require('./calendar');
-
-var calendar = _interopRequireWildcard(_calendar);
-
-var _events = require('./events');
-
-var events = _interopRequireWildcard(_events);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var events = _interopRequireWildcard(require("./events"));
 
 module.exports = {
-	auth: auth,
-	onboarding: onboarding,
-	sharable: sharable,
-	calendar: calendar,
-	events: events
+  auth: auth,
+  onboarding: onboarding,
+  sharable: sharable,
+  calendar: calendar,
+  events: events
 };

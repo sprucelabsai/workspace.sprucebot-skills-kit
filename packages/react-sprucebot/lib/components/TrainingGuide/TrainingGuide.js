@@ -1,240 +1,210 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react = require('react');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _react2 = _interopRequireDefault(_react);
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _reactDom = require('react-dom');
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _reactDom2 = _interopRequireDefault(_reactDom);
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _propTypes = require('prop-types');
+var _react = _interopRequireWildcard(require("react"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _Button = require('../Button/Button');
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _Button2 = _interopRequireDefault(_Button);
+var _Button = _interopRequireDefault(require("../Button/Button"));
 
-var _BotText = require('../BotText/BotText');
+var _BotText = _interopRequireDefault(require("../BotText/BotText"));
 
-var _BotText2 = _interopRequireDefault(_BotText);
-
-var _index = require('../../skillskit/index');
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _index = _interopRequireDefault(require("../../skillskit/index"));
 
 // what is the correct way to add functionality like this?
 function height(elm) {
-	var elmHeight, elmMargin;
+  var elmHeight, elmMargin;
 
-	if (document.all) {
-		// IE
-		elmHeight = elm.currentStyle.height;
-		elmMargin = parseInt(elm.currentStyle.marginTop, 10) + parseInt(elm.currentStyle.marginBottom, 10);
-	} else {
-		// Mozilla
-		elmHeight = parseInt(document.defaultView.getComputedStyle(elm, '').getPropertyValue('height'), 10);
-		elmMargin = parseInt(document.defaultView.getComputedStyle(elm, '').getPropertyValue('margin-top'), 10) + parseInt(document.defaultView.getComputedStyle(elm, '').getPropertyValue('margin-bottom'), 10);
-	}
-	return elmHeight + elmMargin;
+  if (document.all) {
+    // IE
+    elmHeight = elm.currentStyle.height;
+    elmMargin = parseInt(elm.currentStyle.marginTop, 10) + parseInt(elm.currentStyle.marginBottom, 10);
+  } else {
+    // Mozilla
+    elmHeight = parseInt(document.defaultView.getComputedStyle(elm, '').getPropertyValue('height'), 10);
+    elmMargin = parseInt(document.defaultView.getComputedStyle(elm, '').getPropertyValue('margin-top'), 10) + parseInt(document.defaultView.getComputedStyle(elm, '').getPropertyValue('margin-bottom'), 10);
+  }
+
+  return elmHeight + elmMargin;
 }
 
-var TrainingGuide = function (_Component) {
-	_inherits(TrainingGuide, _Component);
+var TrainingGuide =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(TrainingGuide, _Component);
 
-	function TrainingGuide(props) {
-		_classCallCheck(this, TrainingGuide);
+  function TrainingGuide(props) {
+    var _this;
 
-		// every steps' dom node so we can calc heights
-		var _this = _possibleConstructorReturn(this, (TrainingGuide.__proto__ || Object.getPrototypeOf(TrainingGuide)).call(this, props));
+    (0, _classCallCheck2.default)(this, TrainingGuide);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(TrainingGuide).call(this, props)); // every steps' dom node so we can calc heights
 
-		_this.stepDomNodes = [];
+    _this.stepDomNodes = [];
+    _this.state = {
+      currentStep: 0,
+      stepHeights: props.steps.map(function () {
+        return 0;
+      }),
+      stepWidths: props.steps.map(function () {
+        return 0;
+      }),
+      transitioning: false
+    };
+    return _this;
+  }
 
-		_this.state = {
-			currentStep: 0,
-			stepHeights: props.steps.map(function () {
-				return 0;
-			}),
-			stepWidths: props.steps.map(function () {
-				return 0;
-			}),
-			transitioning: false
-		};
-		return _this;
-	}
+  (0, _createClass2.default)(TrainingGuide, [{
+    key: "next",
+    value: function next() {
+      this.setState(function (prevState, props) {
+        if (prevState.currentStep < props.steps.length - 1) {
+          return {
+            currentStep: prevState.currentStep + 1
+          };
+        }
 
-	_createClass(TrainingGuide, [{
-		key: 'next',
-		value: function next() {
-			this.setState(function (prevState, props) {
-				if (prevState.currentStep < props.steps.length - 1) {
-					return {
-						currentStep: prevState.currentStep + 1
-					};
-				}
-				return {};
-			});
-		}
-	}, {
-		key: 'componentDidUpdate',
-		value: function componentDidUpdate(prevProps, prevState) {
-			var _this2 = this;
+        return {};
+      });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      var _this2 = this;
 
-			// Scroll to next/done buttons if the current step has changed
-			if (this.state.currentStep !== prevState.currentStep) {
-				this.setState({ transitioning: true });
+      // Scroll to next/done buttons if the current step has changed
+      if (this.state.currentStep !== prevState.currentStep) {
+        this.setState({
+          transitioning: true
+        });
+        setTimeout(function () {
+          _index.default.scrollTo(_reactDom.default.findDOMNode(_this2.button).offsetTop);
 
-				setTimeout(function () {
-					_index2.default.scrollTo(_reactDom2.default.findDOMNode(_this2.button).offsetTop);
-					_this2.setState({ transitioning: false });
-				}, 1500);
-			}
-		}
-	}, {
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			var _props = this.props,
-			    steps = _props.steps,
-			    onboardingComplete = _props.onboardingComplete;
-			var currentStep = this.state.currentStep;
-			// calculate height of first element in each step
+          _this2.setState({
+            transitioning: false
+          });
+        }, 1500);
+      }
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this$props = this.props,
+          steps = _this$props.steps,
+          onboardingComplete = _this$props.onboardingComplete;
+      var currentStep = this.state.currentStep; // calculate height of first element in each step
 
-			var stepHeights = this.stepDomNodes.map(function (node) {
-				var first = node.children[0];
-				return height(first);
-			});
+      var stepHeights = this.stepDomNodes.map(function (node) {
+        var first = node.children[0];
+        return height(first);
+      }); // also set div widths so text doesn't wrap weird on animations
 
-			// also set div widths so text doesn't wrap weird on animations
-			var stepWidths = this.stepDomNodes.map(function (node) {
-				var span = node.children[0].children[0];
-				return span.offsetWidth;
-			});
+      var stepWidths = this.stepDomNodes.map(function (node) {
+        var span = node.children[0].children[0];
+        return span.offsetWidth;
+      });
+      this.setState({
+        stepHeights: stepHeights,
+        stepWidths: stepWidths,
+        currentStep: onboardingComplete ? steps.length - 1 : currentStep
+      });
+    }
+  }, {
+    key: "onComplete",
+    value: function onComplete() {
+      this.setState({
+        transitioning: true
+      }); // just show progress until done
 
-			this.setState({
-				stepHeights: stepHeights,
-				stepWidths: stepWidths,
-				currentStep: onboardingComplete ? steps.length - 1 : currentStep
-			});
-		}
-	}, {
-		key: 'onComplete',
-		value: function onComplete() {
-			this.setState({ transitioning: true }); // just show progress until done
-			this.props.onComplete();
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var _this3 = this;
+      this.props.onComplete();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
 
-			var _props2 = this.props,
-			    steps = _props2.steps,
-			    nextButtonLabel = _props2.nextButtonLabel,
-			    doneButtonLabel = _props2.doneButtonLabel,
-			    onboardingComplete = _props2.onboardingComplete;
-			var _state = this.state,
-			    currentStep = _state.currentStep,
-			    stepHeights = _state.stepHeights,
-			    stepWidths = _state.stepWidths,
-			    transitioning = _state.transitioning;
-
-			var last = currentStep === steps.length - 1;
-
-			return _react2.default.createElement(
-				'div',
-				{ className: 'training_guide' },
-				steps.map(function (step, idx) {
-					var stepStyle = stepWidths[idx] ? { width: stepWidths[idx] } : {};
-					return _react2.default.createElement(
-						'div',
-						{
-							className: 'training_guide__step ' + (idx <= currentStep ? 'on' : 'off') + ' ' + (idx === 0 ? 'first' : ''),
-							style: {
-								height: idx <= currentStep ? stepHeights[idx] : 0
-							},
-							ref: function ref(node) {
-								return _this3.stepDomNodes[idx] = node;
-							},
-							key: 'step-' + idx
-						},
-						_react2.default.createElement(
-							_BotText2.default,
-							null,
-							_react2.default.createElement(
-								'span',
-								{ style: stepStyle },
-								step
-							)
-						)
-					);
-				}),
-				_react2.default.createElement(
-					'div',
-					null,
-					!last && _react2.default.createElement(
-						_Button2.default,
-						{
-							alt: true,
-							busy: transitioning,
-							ref: function ref(_ref) {
-								_this3.button = _ref;
-							},
-							onClick: function onClick() {
-								if (!transitioning) _this3.next();
-							}
-						},
-						nextButtonLabel
-					),
-					last && _react2.default.createElement(
-						_Button2.default,
-						{
-							primary: true,
-							busy: transitioning,
-							ref: function ref(_ref2) {
-								_this3.button = _ref2;
-							},
-							onClick: function onClick() {
-								if (!transitioning) _this3.onComplete();
-							}
-						},
-						doneButtonLabel
-					)
-				)
-			);
-		}
-	}]);
-
-	return TrainingGuide;
+      var _this$props2 = this.props,
+          steps = _this$props2.steps,
+          nextButtonLabel = _this$props2.nextButtonLabel,
+          doneButtonLabel = _this$props2.doneButtonLabel,
+          onboardingComplete = _this$props2.onboardingComplete;
+      var _this$state = this.state,
+          currentStep = _this$state.currentStep,
+          stepHeights = _this$state.stepHeights,
+          stepWidths = _this$state.stepWidths,
+          transitioning = _this$state.transitioning;
+      var last = currentStep === steps.length - 1;
+      return _react.default.createElement("div", {
+        className: "training_guide"
+      }, steps.map(function (step, idx) {
+        var stepStyle = stepWidths[idx] ? {
+          width: stepWidths[idx]
+        } : {};
+        return _react.default.createElement("div", {
+          className: "training_guide__step ".concat(idx <= currentStep ? 'on' : 'off', " ").concat(idx === 0 ? 'first' : ''),
+          style: {
+            height: idx <= currentStep ? stepHeights[idx] : 0
+          },
+          ref: function ref(node) {
+            return _this3.stepDomNodes[idx] = node;
+          },
+          key: "step-".concat(idx)
+        }, _react.default.createElement(_BotText.default, null, _react.default.createElement("span", {
+          style: stepStyle
+        }, step)));
+      }), _react.default.createElement("div", null, !last && _react.default.createElement(_Button.default, {
+        alt: true,
+        busy: transitioning,
+        ref: function ref(_ref) {
+          _this3.button = _ref;
+        },
+        onClick: function onClick() {
+          if (!transitioning) _this3.next();
+        }
+      }, nextButtonLabel), last && _react.default.createElement(_Button.default, {
+        primary: true,
+        busy: transitioning,
+        ref: function ref(_ref2) {
+          _this3.button = _ref2;
+        },
+        onClick: function onClick() {
+          if (!transitioning) _this3.onComplete();
+        }
+      }, doneButtonLabel)));
+    }
+  }]);
+  return TrainingGuide;
 }(_react.Component);
 
 exports.default = TrainingGuide;
-
-
 TrainingGuide.propTypes = {
-	steps: _propTypes2.default.array.isRequired,
-	nextButtonLabel: _propTypes2.default.string.isRequired,
-	doneButtonLabel: _propTypes2.default.string.isRequired,
-	onComplete: _propTypes2.default.func.isRequired,
-	onboardingComplete: _propTypes2.default.bool.isRequired
+  steps: _propTypes.default.array.isRequired,
+  nextButtonLabel: _propTypes.default.string.isRequired,
+  doneButtonLabel: _propTypes.default.string.isRequired,
+  onComplete: _propTypes.default.func.isRequired,
+  onboardingComplete: _propTypes.default.bool.isRequired
 };
-
 TrainingGuide.defaultProps = {
-	nextButtonLabel: 'Next',
-	doneButtonLabel: 'Done',
-	onboardingComplete: false
+  nextButtonLabel: 'Next',
+  doneButtonLabel: 'Done',
+  onboardingComplete: false
 };

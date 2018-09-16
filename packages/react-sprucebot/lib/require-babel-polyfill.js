@@ -1,12 +1,13 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-exports.default = function () {
-	if (!global || !global._babelPolyfill) {
-		require('babel-core/register');
-		require('babel-polyfill');
-	}
+var _default = function () {
+  if (!global || !global._babelPolyfill) {// require('@babel/register')
+  }
 }();
+
+exports.default = _default;

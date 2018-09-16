@@ -1,72 +1,64 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react = require('react');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _react2 = _interopRequireDefault(_react);
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _IconButton = require('../IconButton/IconButton');
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _IconButton2 = _interopRequireDefault(_IconButton);
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _propTypes = require('prop-types');
+var _react = _interopRequireWildcard(require("react"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _IconButton = _interopRequireDefault(require("../IconButton/IconButton"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var HelpButton =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(HelpButton, _Component);
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  function HelpButton() {
+    (0, _classCallCheck2.default)(this, HelpButton);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(HelpButton).apply(this, arguments));
+  }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  (0, _createClass2.default)(HelpButton, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
 
-var HelpButton = function (_Component) {
-	_inherits(HelpButton, _Component);
-
-	function HelpButton() {
-		_classCallCheck(this, HelpButton);
-
-		return _possibleConstructorReturn(this, (HelpButton.__proto__ || Object.getPrototypeOf(HelpButton)).apply(this, arguments));
-	}
-
-	_createClass(HelpButton, [{
-		key: 'render',
-		value: function render() {
-			var _this2 = this;
-
-			var _props = this.props,
-			    title = _props.title,
-			    _props$body = _props.body,
-			    body = _props$body === undefined ? '' : _props$body;
-
-			return React.createElement(
-				_IconButton2.default,
-				{
-					onClick: function onClick() {
-						_this2.props.skill.showHelp({
-							title: title,
-							body: body
-						});
-					}
-				},
-				'help'
-			);
-		}
-	}]);
-
-	return HelpButton;
+      var _this$props = this.props,
+          title = _this$props.title,
+          _this$props$body = _this$props.body,
+          body = _this$props$body === void 0 ? '' : _this$props$body;
+      return React.createElement(_IconButton.default, {
+        onClick: function onClick() {
+          _this.props.skill.showHelp({
+            title: title,
+            body: body
+          });
+        }
+      }, "help");
+    }
+  }]);
+  return HelpButton;
 }(_react.Component);
 
 exports.default = HelpButton;
-
-
 HelpButton.propTypes = {
-	title: _propTypes2.default.string.isRequired,
-	body: _propTypes2.default.string
+  title: _propTypes.default.string.isRequired,
+  body: _propTypes.default.string
 };

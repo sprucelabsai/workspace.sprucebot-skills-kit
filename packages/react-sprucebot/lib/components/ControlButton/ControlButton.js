@@ -1,69 +1,47 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _propTypes = require('prop-types');
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _react = require('react');
+var _react = _interopRequireDefault(require("react"));
 
-var _react2 = _interopRequireDefault(_react);
+var _Button = _interopRequireDefault(require("../Button/Button"));
 
-var _Button = require('../Button/Button');
-
-var _Button2 = _interopRequireDefault(_Button);
-
-var _Icon = require('../Icon/Icon');
-
-var _Icon2 = _interopRequireDefault(_Icon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+var _Icon = _interopRequireDefault(require("../Icon/Icon"));
 
 var ControlButton = function ControlButton(_ref) {
-	var iconLeft = _ref.iconLeft,
-	    iconRight = _ref.iconRight,
-	    children = _ref.children,
-	    className = _ref.className,
-	    props = _objectWithoutProperties(_ref, ['iconLeft', 'iconRight', 'children', 'className']);
-
-	return _react2.default.createElement(
-		_Button2.default,
-		_extends({}, props, {
-			className: 'ControlButton control__button ' + (className || ''),
-			tabIndex: 0,
-			hideLoader: true
-		}),
-		iconLeft && _react2.default.createElement(
-			_Icon2.default,
-			{ className: 'icon__left' },
-			iconLeft
-		),
-		_react2.default.createElement(
-			'span',
-			null,
-			children
-		),
-		iconRight && _react2.default.createElement(
-			_Icon2.default,
-			{ className: 'icon__right' },
-			iconRight
-		)
-	);
+  var iconLeft = _ref.iconLeft,
+      iconRight = _ref.iconRight,
+      children = _ref.children,
+      className = _ref.className,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["iconLeft", "iconRight", "children", "className"]);
+  return _react.default.createElement(_Button.default, (0, _extends2.default)({}, props, {
+    className: "ControlButton control__button ".concat(className || ''),
+    tabIndex: 0,
+    hideLoader: true
+  }), iconLeft && _react.default.createElement(_Icon.default, {
+    className: "icon__left"
+  }, iconLeft), _react.default.createElement("span", null, children), iconRight && _react.default.createElement(_Icon.default, {
+    className: "icon__right"
+  }, iconRight));
 };
 
 ControlButton.propTypes = {
-	onClick: _propTypes2.default.func,
-	children: _propTypes2.default.any,
-	className: _propTypes2.default.string,
-	iconLeft: _propTypes2.default.string,
-	iconRight: _propTypes2.default.string
+  onClick: _propTypes.default.func,
+  children: _propTypes.default.any,
+  className: _propTypes.default.string,
+  iconLeft: _propTypes.default.string,
+  iconRight: _propTypes.default.string
 };
-
-exports.default = ControlButton;
+var _default = ControlButton;
+exports.default = _default;

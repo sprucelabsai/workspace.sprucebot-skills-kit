@@ -1,79 +1,68 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _react = require('react');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react2 = _interopRequireDefault(_react);
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _propTypes = require('prop-types');
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+var _react = _interopRequireWildcard(require("react"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var Callout =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(Callout, _Component);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  function Callout() {
+    (0, _classCallCheck2.default)(this, Callout);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Callout).apply(this, arguments));
+  }
 
-var Callout = function (_Component) {
-	_inherits(Callout, _Component);
-
-	function Callout() {
-		_classCallCheck(this, Callout);
-
-		return _possibleConstructorReturn(this, (Callout.__proto__ || Object.getPrototypeOf(Callout)).apply(this, arguments));
-	}
-
-	_createClass(Callout, [{
-		key: 'render',
-		value: function render() {
-			var _props = this.props,
-			    tag = _props.tag,
-			    children = _props.children,
-			    className = _props.className,
-			    on = _props.on,
-			    props = _objectWithoutProperties(_props, ['tag', 'children', 'className', 'on']);
-
-			var Tag = tag;
-
-			return _react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement('div', { className: 'callout_underlay ' + (on ? 'on' : 'off') }),
-				_react2.default.createElement(
-					Tag,
-					_extends({
-						className: 'callout ' + (className || '') + ' ' + (on ? 'on' : 'off')
-					}, props),
-					children
-				)
-			);
-		}
-	}]);
-
-	return Callout;
+  (0, _createClass2.default)(Callout, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          tag = _this$props.tag,
+          children = _this$props.children,
+          className = _this$props.className,
+          on = _this$props.on,
+          props = (0, _objectWithoutProperties2.default)(_this$props, ["tag", "children", "className", "on"]);
+      var Tag = tag;
+      return _react.default.createElement("div", null, _react.default.createElement("div", {
+        className: "callout_underlay ".concat(on ? 'on' : 'off')
+      }), _react.default.createElement(Tag, (0, _extends2.default)({
+        className: "callout ".concat(className || '', " ").concat(on ? 'on' : 'off')
+      }, props), children));
+    }
+  }]);
+  return Callout;
 }(_react.Component);
 
 exports.default = Callout;
-
-
 Callout.propTypes = {
-	tag: _propTypes2.default.string,
-	on: _propTypes2.default.bool
+  tag: _propTypes.default.string,
+  on: _propTypes.default.bool
 };
-
 Callout.defaultProps = {
-	tag: 'div',
-	on: true
+  tag: 'div',
+  on: true
 };

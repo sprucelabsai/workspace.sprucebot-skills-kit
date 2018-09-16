@@ -1,76 +1,78 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react = require('react');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _react2 = _interopRequireDefault(_react);
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _propTypes = require('prop-types');
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = _interopRequireWildcard(require("react"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var Loader =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(Loader, _Component);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  function Loader() {
+    (0, _classCallCheck2.default)(this, Loader);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Loader).apply(this, arguments));
+  }
 
-var Loader = function (_Component) {
-	_inherits(Loader, _Component);
-
-	function Loader() {
-		_classCallCheck(this, Loader);
-
-		return _possibleConstructorReturn(this, (Loader.__proto__ || Object.getPrototypeOf(Loader)).apply(this, arguments));
-	}
-
-	_createClass(Loader, [{
-		key: 'render',
-		value: function render() {
-			var _props = this.props,
-			    dark = _props.dark,
-			    fullWidth = _props.fullWidth,
-			    margin = _props.margin;
-
-			var dotClassName = dark ? 'loader_dot_dark' : 'loader_dot';
-			var fullWidthStyle = fullWidth ? { display: 'block', margin: '20px', textAlign: 'center' } : { margin: margin ? '' + margin : 'unset' };
-
-			return _react2.default.createElement(
-				'span',
-				{
-					className: 'loader_wrapper',
-					style: _extends({}, fullWidthStyle, this.props.loaderStyle)
-				},
-				_react2.default.createElement('span', { className: dotClassName }),
-				_react2.default.createElement('span', { className: dotClassName }),
-				_react2.default.createElement('span', { className: dotClassName })
-			);
-		}
-	}]);
-
-	return Loader;
+  (0, _createClass2.default)(Loader, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          dark = _this$props.dark,
+          fullWidth = _this$props.fullWidth,
+          margin = _this$props.margin;
+      var dotClassName = dark ? 'loader_dot_dark' : 'loader_dot';
+      var fullWidthStyle = fullWidth ? {
+        display: 'block',
+        margin: '20px',
+        textAlign: 'center'
+      } : {
+        margin: margin ? "".concat(margin) : 'unset'
+      };
+      return _react.default.createElement("span", {
+        className: "loader_wrapper",
+        style: (0, _objectSpread2.default)({}, fullWidthStyle, this.props.loaderStyle)
+      }, _react.default.createElement("span", {
+        className: dotClassName
+      }), _react.default.createElement("span", {
+        className: dotClassName
+      }), _react.default.createElement("span", {
+        className: dotClassName
+      }));
+    }
+  }]);
+  return Loader;
 }(_react.Component);
 
 exports.default = Loader;
-
-
 Loader.propTypes = {
-	dark: _propTypes2.default.bool,
-	fullWidth: _propTypes2.default.bool,
-	loaderStyle: _propTypes2.default.object
+  dark: _propTypes.default.bool,
+  fullWidth: _propTypes.default.bool,
+  loaderStyle: _propTypes.default.object
 };
-
 Loader.defaultProps = {
-	dark: true,
-	fullWidth: true,
-	loaderStyle: {}
+  dark: true,
+  fullWidth: true,
+  loaderStyle: {}
 };

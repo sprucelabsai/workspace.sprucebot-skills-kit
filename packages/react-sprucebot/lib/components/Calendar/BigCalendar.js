@@ -1,1367 +1,1266 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _react = require('react');
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _react2 = _interopRequireDefault(_react);
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 
-var _momentTimezone = require('moment-timezone');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _momentTimezone2 = _interopRequireDefault(_momentTimezone);
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _propTypes = require('prop-types');
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _isEqual = require('lodash/isEqual');
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _isEqual2 = _interopRequireDefault(_isEqual);
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
 
-var _es6Tween = require('es6-tween');
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var _Avatar = require('../Avatar/Avatar');
+var _react = _interopRequireWildcard(require("react"));
 
-var _Avatar2 = _interopRequireDefault(_Avatar);
+var _momentTimezone = _interopRequireDefault(require("moment-timezone"));
 
-var _Button = require('../Button/Button');
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _Button2 = _interopRequireDefault(_Button);
+var _isEqual = _interopRequireDefault(require("lodash/isEqual"));
 
-var _Calendar = require('./Calendar');
+var _es6Tween = require("es6-tween");
 
-var _Calendar2 = _interopRequireDefault(_Calendar);
+var _Avatar = _interopRequireDefault(require("../Avatar/Avatar"));
 
-var _ControlButton = require('../ControlButton/ControlButton');
+var _Button = _interopRequireDefault(require("../Button/Button"));
 
-var _ControlButton2 = _interopRequireDefault(_ControlButton);
+var _Calendar = _interopRequireDefault(require("./Calendar"));
 
-var _DateSelect = require('../DateSelect/DateSelect');
+var _ControlButton = _interopRequireDefault(require("../ControlButton/ControlButton"));
 
-var _DateSelect2 = _interopRequireDefault(_DateSelect);
+var _DateSelect = _interopRequireDefault(require("../DateSelect/DateSelect"));
 
-var _Dialog = require('../Dialog/Dialog');
+var _Dialog = _interopRequireDefault(require("../Dialog/Dialog"));
 
-var _Dialog2 = _interopRequireDefault(_Dialog);
+var _HorizontalWeek = _interopRequireDefault(require("./HorizontalWeek"));
 
-var _HorizontalWeek = require('./HorizontalWeek');
+var _Icon = _interopRequireDefault(require("../Icon/Icon"));
 
-var _HorizontalWeek2 = _interopRequireDefault(_HorizontalWeek);
+var _Loader = _interopRequireDefault(require("../Loader/Loader"));
 
-var _Icon = require('../Icon/Icon');
+var _Pager = _interopRequireDefault(require("../Pager/Pager"));
 
-var _Icon2 = _interopRequireDefault(_Icon);
-
-var _Loader = require('../Loader/Loader');
-
-var _Loader2 = _interopRequireDefault(_Loader);
-
-var _Pager = require('../Pager/Pager');
-
-var _Pager2 = _interopRequireDefault(_Pager);
-
-var _Tabs = require('../Tabs/Tabs');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _Tabs = require("../Tabs/Tabs");
 
 (0, _es6Tween.autoPlay)(true);
 
 var getElementWidth = function getElementWidth(element) {
-	return element && element.offsetWidth;
+  return element && element.offsetWidth;
 };
+
 var getElementHeight = function getElementHeight(element) {
-	return element && element.offsetHeight;
+  return element && element.offsetHeight;
 };
 
-var BigCalendar = function (_Component) {
-	_inherits(BigCalendar, _Component);
+var BigCalendar =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(BigCalendar, _Component);
 
-	function BigCalendar(props) {
-		_classCallCheck(this, BigCalendar);
+  function BigCalendar(_props) {
+    var _this;
 
-		var _this = _possibleConstructorReturn(this, (BigCalendar.__proto__ || Object.getPrototypeOf(BigCalendar)).call(this, props));
+    (0, _classCallCheck2.default)(this, BigCalendar);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(BigCalendar).call(this, _props));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "componentDidMount", function () {
+      //give things a sec to settle before recording sizes
+      _this.refresh();
 
-		_initialiseProps.call(_this);
+      setTimeout(function () {}, 250);
+      window.addEventListener('resize', _this.handleWindowResize);
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "componentWillUnmount", function () {
+      window.removeEventListener('resize', _this.handleWindowResize);
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "setEvents", function (events) {
+      _this.setState({
+        events: events
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "triggerRefresh", function () {
+      _this.refresh();
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "events", function () {
+      return _this.state.events;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "setView", function (view) {
+      _this.handleChangeView(0);
 
-		_this.state = {
-			currentPage: 0,
-			view: props.defaultView,
-			mode: props.defaultMode,
-			renderFirstCalendar: true, // the first calendar is always the logged in user
-			renderFirstEvents: true, // rendering events is slow, so we may defer loading them until later
-			renderAllCalendars: false,
-			renderAllEvents: true,
-			showAllTeammates: props.defaultMode === 'team',
-			transitioning: false,
-			selectedDate: (0, _momentTimezone2.default)().tz(props.auth.Location.timezone),
-			earliestTime: null,
-			latestTime: null,
-			teammates: props.teammates ? props.teammates : [],
-			views: props.supportedViews,
-			resized: 0,
-			events: [], // All events for current date range
-			storeSchedule: [], // Hours store is open for selected date range,
-			selectedTeammate: null,
-			optionsLoaded: [],
-			isFetchingEvents: true,
-			isSelectingScheduleDate: false,
-			teamSchedule: false, // if a team schedule is supplied (keyed by user id, then date), then we render on/off hours
-			showOnlyWorking: true // if a team schedule is show, we unlock new ability to filter by working/not working
+      _this.tabs.setSelected(0, '.0');
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "setMode", function (mode) {
+      _this.setState({
+        mode: mode
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "setDate", function (selectedDate) {
+      _this.setState({
+        selectedDate: selectedDate
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "generatePagerTitle", function (page) {
+      var auth = _this.props.auth;
+      var _this$state = _this.state,
+          view = _this$state.view,
+          selectedDate = _this$state.selectedDate;
+      var title;
 
-			// Expected event structure:
-			// const event = {
-			// 	title: 'My favorite event',
-			// 	className: 'shift',
-			// 	start: new Date(),
-			// 	end: new Date(),
-			// 	allDay: true,
-			//  userId: id,
-			// 	payload: { data preserved in callback }
-			// }
-		};return _this;
-	}
+      if (view === 'month') {
+        title = (0, _momentTimezone.default)(selectedDate).format('MMM YYYY');
+      } else if (view === 'week') {
+        var startOfWeek = (0, _momentTimezone.default)(selectedDate).startOf('week');
+        var endOfWeek = (0, _momentTimezone.default)(selectedDate).endOf('week');
 
-	//the earliest and latest time of all schedules
+        if (startOfWeek.isSame(endOfWeek, 'month')) {
+          title = "".concat(startOfWeek.format('MMM Do'), " - ").concat(endOfWeek.format('Do'));
+        } else {
+          title = "".concat(startOfWeek.format('MMM Do'), " - ").concat(endOfWeek.format('MMM Do'));
+        }
+      } else if (view === 'day') {
+        var now = (0, _momentTimezone.default)().tz(auth.Location.timezone).startOf('day');
+
+        var days = _momentTimezone.default.tz(selectedDate, auth.Location.timezone).startOf('day').diff(now, 'days');
+
+        switch (days) {
+          case -1:
+            title = 'Yesterday';
+            break;
+
+          case 0:
+            title = 'Today';
+            break;
+
+          case 1:
+            title = 'Tomorrow';
+            break;
+
+          default:
+            title = (0, _momentTimezone.default)(selectedDate).format('ddd, MMM Do');
+            break;
+        }
+      }
+
+      return _react.default.createElement(_ControlButton.default, {
+        className: "sub_control",
+        onClick: _this.handleShowScheduleDateDialog
+      }, title, " ", _react.default.createElement(_Icon.default, null, "keyboard_arrow_down"));
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getDesiredTeammateWrapperWidth", function () {
+      if (!_this.calendarWrapper) {
+        return '100%';
+      }
+
+      var _this$state2 = _this.state,
+          view = _this$state2.view,
+          mode = _this$state2.mode;
+      var teamDayViewWidth = _this.props.teamDayViewWidth;
+      var calendarWrapperWidth = getElementWidth(_this.calendarWrapper);
+
+      if (mode === 'team' && view === 'day') {
+        // make it a little thinner than the screen
+        return Math.min(calendarWrapperWidth - 20, teamDayViewWidth);
+      } else if (mode === 'team' && view === 'week') {
+        return '100%';
+      } else if (mode === 'team' && view === 'month') {
+        return '100%';
+      } else if (mode === 'user') {
+        return calendarWrapperWidth;
+      }
+
+      return 'auto';
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getDesiredScrollWidth", function () {
+      //act like a normal div until loaded
+      if (!_this.calendarWrapper) {
+        return '100%';
+      }
+
+      var _this$state3 = _this.state,
+          view = _this$state3.view,
+          mode = _this$state3.mode,
+          transitioning = _this$state3.transitioning;
+
+      var teammates = _this.getTeammates();
+
+      var calendarWrapperWidth = getElementWidth(_this.calendarWrapper);
+      var widthOfAllCalendars = 0;
+      var minWidthOfAllCalendars = _this.getDesiredTeammateWrapperWidth() * teammates.length;
+      document.querySelectorAll('.teammate_calendar__wrapper').forEach(function (wrapper, idx) {
+        if (idx < teammates.length) {
+          widthOfAllCalendars += getElementWidth(wrapper);
+        }
+      });
+      widthOfAllCalendars = Math.max(minWidthOfAllCalendars, widthOfAllCalendars);
+
+      if (transitioning && view === 'day') {
+        return widthOfAllCalendars;
+      }
+
+      if (mode === 'team' && view == 'day') {
+        return widthOfAllCalendars;
+      } else if (view === 'week') {
+        return calendarWrapperWidth;
+      } else if (view === 'month') {
+        return calendarWrapperWidth;
+      } else if (mode === 'user') {
+        return calendarWrapperWidth;
+      }
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getDesiredScrollHeight", function () {
+      //act like a normal div until loaded
+      if (!_this.calendarWrapper) {
+        return 'auto';
+      }
+
+      var _this$state4 = _this.state,
+          mode = _this$state4.mode,
+          view = _this$state4.view;
+
+      if (mode === 'team' && view === 'week') {
+        return 'auto';
+      } else if (view === 'month') {
+        return 'auto';
+      }
+
+      var firstTeammateWrapper = document.querySelector('.teammate_calendar__wrapper');
+
+      if (!firstTeammateWrapper) {
+        return 'auto';
+      }
+
+      return getElementHeight(firstTeammateWrapper) || 'auto';
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getTeammates", function () {
+      var _this$state5 = _this.state,
+          teammates = _this$state5.teammates,
+          workingTeammates = _this$state5.workingTeammates,
+          mode = _this$state5.mode,
+          view = _this$state5.view,
+          showOnlyWorking = _this$state5.showOnlyWorking,
+          selectedTeammate = _this$state5.selectedTeammate,
+          showAllTeammates = _this$state5.showAllTeammates,
+          teamSchedule = _this$state5.teamSchedule;
+      var auth = _this.props.auth;
+      var team = mode === 'team' ? teammates : [auth]; //filter authed user out and prepend
+
+      if (selectedTeammate) {
+        team = [selectedTeammate];
+      } else if (teamSchedule && mode === 'team' && view === 'day' && showOnlyWorking) {
+        return [auth].concat((0, _toConsumableArray2.default)(workingTeammates.filter(function (teammate) {
+          return teammate.User.id !== auth.User.id;
+        })));
+      } else if (view === 'month') {
+        team = [auth];
+      } else if (showAllTeammates) {
+        team = team.filter(function (teammate) {
+          return teammate.User.id !== auth.User.id;
+        });
+        team = [auth].concat((0, _toConsumableArray2.default)(team));
+      }
+
+      return team;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleChange", function () {
+      _this.refresh();
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "refresh",
+    /*#__PURE__*/
+    (0, _asyncToGenerator2.default)(
+    /*#__PURE__*/
+    _regenerator.default.mark(function _callee() {
+      var triggerOnNavigate,
+          _this$state6,
+          mode,
+          view,
+          teammates,
+          selectedDate,
+          optionsLoaded,
+          selectedTeammate,
+          _this$props,
+          auth,
+          onNavigate,
+          fetchEvents,
+          currentView,
+          currentUser,
+          startDate,
+          endDate,
+          options,
+          _ref2,
+          teamSchedule,
+          storeSchedule,
+          events,
+          _args = arguments;
+
+      return _regenerator.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              triggerOnNavigate = _args.length > 0 && _args[0] !== undefined ? _args[0] : false;
+              _this$state6 = _this.state, mode = _this$state6.mode, view = _this$state6.view, teammates = _this$state6.teammates, selectedDate = _this$state6.selectedDate, optionsLoaded = _this$state6.optionsLoaded, selectedTeammate = _this$state6.selectedTeammate;
+              _this$props = _this.props, auth = _this$props.auth, onNavigate = _this$props.onNavigate, fetchEvents = _this$props.fetchEvents;
+              currentView = view === 'team_week' ? 'week' : view;
+              currentUser = selectedTeammate ? selectedTeammate : teammates.find(function (teammate) {
+                return teammate.User.id === auth.UserId;
+              });
+              startDate = (0, _momentTimezone.default)(selectedDate).startOf(currentView);
+              endDate = (0, _momentTimezone.default)(selectedDate).endOf(currentView);
+              options = {
+                mode: mode,
+                startDate: startDate,
+                endDate: endDate,
+                view: currentView,
+                teammates: mode === 'user' ? [currentUser] : teammates // const eventsLoaded = this.checkOptions(options)
+                // if (!eventsLoaded) {
+
+              };
+
+              _this.setState({
+                optionsLoaded: (0, _toConsumableArray2.default)(optionsLoaded).concat([options]),
+                isFetchingEvents: true
+              });
+
+              triggerOnNavigate && onNavigate && onNavigate(options);
+              _context.prev = 10;
+              _context.next = 13;
+              return fetchEvents(options);
+
+            case 13:
+              _ref2 = _context.sent;
+              teamSchedule = _ref2.teamSchedule;
+              storeSchedule = _ref2.storeSchedule;
+              events = _ref2.events;
+
+              _this.setState({
+                workingTeammates: _this.workingTeammates({
+                  schedule: teamSchedule
+                }),
+                storeSchedule: storeSchedule,
+                events: events,
+                teamSchedule: teamSchedule,
+                isFetchingEvents: false
+              });
+
+              _this.toggleShowOnCalendars();
+
+              _context.next = 25;
+              break;
+
+            case 21:
+              _context.prev = 21;
+              _context.t0 = _context["catch"](10);
+              console.log(_context.t0);
+
+              _this.setState({
+                isFetchingEvents: false
+              });
+
+            case 25:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this, [[10, 21]]);
+    })));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "checkOptions", function (options) {
+      return _this.state.optionsLoaded.find(function (loaded) {
+        return (0, _isEqual.default)(loaded, options);
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handlePagerChange",
+    /*#__PURE__*/
+    function () {
+      var _ref3 = (0, _asyncToGenerator2.default)(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee2(page) {
+        var view, diff, stepType;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                view = _this.state.view;
+                diff = page - _this.state.currentPage;
+                stepType = view !== 'month' ? 'days' : 'months';
+                _context2.next = 5;
+                return _this.setState(function (prevState) {
+                  return {
+                    currentPage: page,
+                    selectedDate: prevState.selectedDate.add(diff, stepType)
+                  };
+                });
+
+              case 5:
+                _this.handleChange();
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      return function (_x) {
+        return _ref3.apply(this, arguments);
+      };
+    }());
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleChangeView",
+    /*#__PURE__*/
+    function () {
+      var _ref4 = (0, _asyncToGenerator2.default)(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee3(idx) {
+        var _this$state7, mode, view, newView, movingToWeek;
+
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this$state7 = _this.state, mode = _this$state7.mode, view = _this$state7.view;
+                newView = _this.state.views[idx];
+                movingToWeek = mode === 'user' && view !== 'week' && newView === 'week';
+                _context3.next = 5;
+                return _this.setState({
+                  view: newView // renderFirstCalendar: !movingToWeek
+
+                });
+
+              case 5:
+                // because month view does not show all teammates, if we are in team mode jumping OFF month view, lets
+                // re-show team wrappers
+                if (mode === 'team' && view === 'month' && newView !== 'month') {
+                  _this.toggleShowOnCalendars();
+                } else if (mode === 'user' && view !== 'week' && newView === 'week') {//NOTE: Removed this delay as it was causing DOM issues with the calendar not rendering fast enough;
+                  // Changes to BE data structure and FE should limit render lag that was initially seen
+                  // week view is heavy, give dom a sec to render before rendering calendar
+                  // this.delayedRenderWeekView()
+                }
+
+                _this.handleChange(); //trigger a refresh which causes, sizes to be recalculated. 500 delay for css transitions
 
 
-	/**
-  * DATE SELECT METHODS
-  */
+                setTimeout(function () {
+                  _this.handleWindowResize();
+                }, 500);
+
+              case 8:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      return function (_x2) {
+        return _ref4.apply(this, arguments);
+      };
+    }());
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "delayedRenderWeekView", function () {
+      setTimeout(function () {
+        _this.setState({
+          renderFirstCalendar: true
+        });
+      }, 100);
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "timeRange", function () {
+      var _this$state8 = _this.state,
+          selectedDate = _this$state8.selectedDate,
+          storeSchedule = _this$state8.storeSchedule,
+          events = _this$state8.events;
+      var adjustedEvents = events.filter(function (event) {
+        return !event.allDay;
+      }).map(function (event) {
+        return {
+          startTime: (0, _momentTimezone.default)(event.start).format('HH:mm:ss'),
+          endTime: (0, _momentTimezone.default)(event.end).format('HH:mm:ss')
+        };
+      });
+      var day = selectedDate.format('YYYY-MM-DD');
+      var combinedTimes = (0, _toConsumableArray2.default)(storeSchedule).concat((0, _toConsumableArray2.default)(adjustedEvents.filter(function (event) {
+        if (event.startTime && event.endTime) {
+          return event;
+        }
+      }).map(function (event) {
+        return {
+          startTime: event.startTime,
+          endTime: event.endTime
+        };
+      })));
+      var earliest = false;
+      var latest = false;
+
+      if (combinedTimes.length !== 0) {
+        combinedTimes.forEach(function (event) {
+          var start = (0, _momentTimezone.default)("".concat(day, " ").concat(event.startTime)).startOf('hour').subtract(2, 'hour');
+          var end = (0, _momentTimezone.default)("".concat(day, " ").concat(event.endTime)).endOf('hour').add(2, 'hour');
+
+          if (!earliest || earliest.diff(start) > 0) {
+            earliest = start;
+          }
+
+          if (!latest || latest.diff(end) < 0) {
+            latest = end;
+          }
+        });
+
+        if (!earliest.isSame(day, 'day')) {
+          earliest = (0, _momentTimezone.default)("".concat(day, " 00:00:00"));
+        }
+
+        if (!latest.isSame(day, 'day')) {
+          latest = (0, _momentTimezone.default)("".concat(day, " 23:59:59"));
+        }
+      } else {
+        earliest = (0, _momentTimezone.default)(selectedDate).hour(7).minutes(0).seconds(0);
+        latest = (0, _momentTimezone.default)(selectedDate).hour(18).minutes(0).seconds(0);
+      }
+
+      return [earliest.format('YYYY-MM-DD HH:mm:ss'), latest.format('YYYY-MM-DD HH:mm:ss')];
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "toggleShowOnCalendars", function () {
+      // show teammates calendars one at a time
+      var calendars = (0, _toConsumableArray2.default)(document.querySelectorAll('.teammate_calendar__wrapper'));
+
+      if (_this.props.auth) {
+        calendars.shift();
+      }
+
+      var delay = 100;
+      var delayBump = 200;
+      calendars.forEach(function (element) {
+        setTimeout(function () {
+          element.classList.toggle('hide', false);
+        }, delay);
+        delay += delayBump;
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "jumpToTeamMode",
+    /*#__PURE__*/
+    (0, _asyncToGenerator2.default)(
+    /*#__PURE__*/
+    _regenerator.default.mark(function _callee4() {
+      return _regenerator.default.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (!_this.state.transitioning) {
+                _context4.next = 2;
+                break;
+              }
+
+              return _context4.abrupt("return");
+
+            case 2:
+              _context4.next = 4;
+              return _this.setState({
+                transitioning: true,
+                mode: 'team',
+                showAllTeammates: true,
+                renderAllCalendars: true
+              });
+
+            case 4:
+              _this.toggleShowOnCalendars();
+
+              setTimeout(function () {
+                _this.handleChange();
+
+                _this.setState({
+                  transitioning: false
+                });
+              }, 1000);
+
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    })));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "jumpToUserMode",
+    /*#__PURE__*/
+    (0, _asyncToGenerator2.default)(
+    /*#__PURE__*/
+    _regenerator.default.mark(function _callee5() {
+      var view;
+      return _regenerator.default.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              if (!_this.state.transitioning) {
+                _context5.next = 2;
+                break;
+              }
+
+              return _context5.abrupt("return");
+
+            case 2:
+              //scroll calendar left
+              new _es6Tween.Tween({
+                y: _this.calendarWrapper.scrollLeft
+              }).to({
+                y: 0
+              }, 500).on('update', function (_ref7) {
+                var y = _ref7.y;
+                _this.calendarWrapper.scrollLeft = y;
+              }).easing(_es6Tween.Easing.Quadratic.Out).start(); // when jumping to week view in user mode, delay render because it's heavy
+
+              view = _this.state.view; //first give css transitions a sec to adjust the view
+
+              _context5.next = 6;
+              return _this.setState({
+                transitioning: true,
+                mode: 'user',
+                renderFirstCalendar: view !== 'week',
+                showAllTeammates: view !== 'week'
+              });
+
+            case 6:
+              if (view === 'week') {
+                _this.delayedRenderWeekView();
+              } // to hard on the client
 
 
-	_createClass(BigCalendar, [{
-		key: 'render',
-		value: function render() {
-			var _this2 = this;
+              _this.toggleShowOnCalendars();
 
-			var _props = this.props,
-			    auth = _props.auth,
-			    className = _props.className,
-			    supportedViews = _props.supportedViews,
-			    timeslots = _props.timeslots,
-			    step = _props.step,
-			    titleAccessor = _props.titleAccessor;
-			var _state = this.state,
-			    selectedDate = _state.selectedDate,
-			    view = _state.view,
-			    mode = _state.mode,
-			    transitioning = _state.transitioning,
-			    renderAllCalendars = _state.renderAllCalendars,
-			    renderFirstCalendar = _state.renderFirstCalendar,
-			    events = _state.events,
-			    isFetchingEvents = _state.isFetchingEvents,
-			    isSelectingScheduleDate = _state.isSelectingScheduleDate,
-			    selectedTeammate = _state.selectedTeammate,
-			    teamSchedule = _state.teamSchedule,
-			    showOnlyWorking = _state.showOnlyWorking;
+              setTimeout(function () {
+                _this.handleChange();
 
-			// populate views to take into account team week
+                _this.setState({
+                  renderAllCalendars: false,
+                  showAllTeammates: false,
+                  transitioning: false
+                });
+              }, 1000);
 
-			var selectedView = view;
-			var views = {};
-			supportedViews.forEach(function (view) {
-				views[view] = true;
-			});
+            case 9:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, this);
+    })));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleToggleMode",
+    /*#__PURE__*/
+    (0, _asyncToGenerator2.default)(
+    /*#__PURE__*/
+    _regenerator.default.mark(function _callee6() {
+      var _this$state9, mode, selectedTeammate;
 
-			views.team_week = _HorizontalWeek2.default;
+      return _regenerator.default.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _this$state9 = _this.state, mode = _this$state9.mode, selectedTeammate = _this$state9.selectedTeammate;
+              _context6.t0 = mode;
+              _context6.next = _context6.t0 === 'team' ? 4 : 6;
+              break;
 
-			if (mode === 'team' && view === 'week') {
-				selectedView = 'team_week';
-			}
+            case 4:
+              _this.jumpToUserMode();
 
-			var teammateWrapperWidth = this.getDesiredTeammateWrapperWidth();
-			var scrollWidth = this.getDesiredScrollWidth();
-			var scrollHeight = this.getDesiredScrollHeight();
+              return _context6.abrupt("break", 8);
 
-			// format times
-			var formats = {
-				// format times in left column
-				timeGutterFormat: function timeGutterFormat(date) {
-					return (0, _momentTimezone2.default)(date).format('h:mma');
-				}
+            case 6:
+              _this.jumpToTeamMode();
 
-				// setup start and end times
-			};
-			var _timeRange = this.timeRange(),
-			    _timeRange2 = _slicedToArray(_timeRange, 2),
-			    min = _timeRange2[0],
-			    max = _timeRange2[1];
+              return _context6.abrupt("break", 8);
 
-			// configure react-sprucebot calendar
+            case 8:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, this);
+    })));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleWindowResize", function () {
+      _this.setState({
+        resized: _this.state.resized++
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "filterEvents", function (events, teammate) {
+      var _this$state10 = _this.state,
+          view = _this$state10.view,
+          mode = _this$state10.mode,
+          transitioning = _this$state10.transitioning; // make transitions faster?
+
+      if (transitioning) {
+        return [];
+      }
+
+      if (mode === 'team' && view === 'month') {
+        return events;
+      }
+
+      var filteredEvents = events.filter(function (event) {
+        return event.isUniversalEvent || event.userId === teammate.User.id;
+      });
+      return filteredEvents;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "eventPropGetter", function (event) {
+      return {
+        className: "".concat(event.className || '')
+      };
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "dayPropGetter", function (teammate, date) {
+      var teamSchedule = _this.state.teamSchedule;
+      var _this$props$dayPropGe = _this.props.dayPropGetter,
+          dayPropGetter = _this$props$dayPropGe === void 0 ? function (teammate, date, props) {
+        return props;
+      } : _this$props$dayPropGe; // if no team schedule, then no need to render on/off
+
+      if (!teamSchedule) {
+        return dayPropGetter(teammate, date, {});
+      }
+
+      var theDate = (0, _momentTimezone.default)(date);
+      var today = theDate.format('YYYY-MM-DD');
+
+      var _ref9 = teamSchedule[teammate.UserId] && teamSchedule[teammate.UserId][today] ? teamSchedule[teammate.UserId][today] : {},
+          startTime = _ref9.startTime,
+          endTime = _ref9.endTime;
+
+      return {
+        className: startTime && endTime ? 'working' : 'not-working'
+      };
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "slotPropGetter", function (teammate, date) {
+      var teamSchedule = _this.state.teamSchedule;
+      var _this$props$slotPropG = _this.props.slotPropGetter,
+          slotPropGetter = _this$props$slotPropG === void 0 ? function (teammate, date, props) {
+        return props;
+      } : _this$props$slotPropG; // if no team schedule, then no need to render on/off
+
+      if (!teamSchedule) {
+        return slotPropGetter(teammate, date, {});
+      } // pull hours out for today
 
 
-			var calendarProps = {
-				view: selectedView,
-				formats: formats,
-				toolbar: false,
-				min: min,
-				max: max
+      var theDate = (0, _momentTimezone.default)(date);
+      var today = theDate.format('YYYY-MM-DD');
 
-				// Optionally passed calendar props
-			};if (timeslots) {
-				calendarProps.timeslots = timeslots;
-			}
-			if (step) {
-				calendarProps.step = step;
-			}
+      var _ref10 = teamSchedule[teammate.UserId] && teamSchedule[teammate.UserId][today] ? teamSchedule[teammate.UserId][today] : {},
+          startTime = _ref10.startTime,
+          endTime = _ref10.endTime; // since a team schedule is passed, if any start/end times are missing, assume not working
 
-			if (titleAccessor) {
-				calendarProps.titleAccessor = titleAccessor;
-			}
 
-			// Determine selected date in relation to today
-			var currentDate = _momentTimezone2.default.tz(selectedDate, auth.Location.timezone).format('YYYY-MM-DD HH:mm:ss');
-			var today = (0, _momentTimezone2.default)().tz(auth.Location.timezone).startOf('day');
-			var selectedDateStart = _momentTimezone2.default.tz(selectedDate, auth.Location.timezone).startOf('day');
-			var isToday = today.isSame(selectedDateStart);
+      if (!startTime || !endTime) {
+        return slotPropGetter(teammate, date, {
+          className: 'not-working'
+        });
+      }
 
-			var classNames = (className || '') + ' ' + (mode === 'team' ? 'team' : 'user') + ' ' + (transitioning ? 'transitioning' : '') + ' ' + view;
+      startTime = parseInt(startTime.replace(/[^0-9]/g, ''));
+      endTime = parseInt(endTime.replace(/[^0-9]/g, ''));
+      var nowTime = parseInt(theDate.format('HHmmss'));
+      return slotPropGetter(teammate, date, {
+        title: theDate.format('h:mma'),
+        className: nowTime >= startTime && nowTime < endTime ? 'working' : 'not-working'
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleClickEvent", function (options, e) {
+      var onClickEvent = _this.props.onClickEvent;
+      onClickEvent && onClickEvent(options, e);
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleClickOpenSlot", function (options, e) {
+      var onClickOpenSlot = _this.props.onClickOpenSlot;
+      onClickOpenSlot && onClickOpenSlot(options, e);
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDropEvent", function (_ref11) {
+      var event = _ref11.event,
+          start = _ref11.start,
+          end = _ref11.end;
+      var onDropEvent = _this.props.onDropEvent;
+      onDropEvent && onDropEvent(event, start, end);
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleResizeEvent", function (resizeType, _ref12) {
+      var event = _ref12.event,
+          start = _ref12.start,
+          end = _ref12.end;
+      var onResizeEvent = _this.props.onResizeEvent;
+      onResizeEvent && onResizeEvent(event, start, end);
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleCanDrag", function (event) {
+      var _this$state11 = _this.state,
+          view = _this$state11.view,
+          mode = _this$state11.mode;
+      var canDrag = _this.props.canDrag;
 
-			var team = this.getTeammates();
+      if (view === 'month' || view === 'week' && mode === 'team') {
+        return false;
+      } else if (canDrag) {
+        return canDrag(event);
+      }
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleCanResize", function (event) {
+      var _this$state12 = _this.state,
+          view = _this$state12.view,
+          mode = _this$state12.mode;
+      var canResize = _this.props.canResize;
 
-			var isFetching = isFetchingEvents || transitioning;
-			var isLoaderOutside = view === 'week' && mode === 'user' || view === 'month';
+      if (view === 'month' || view === 'week' && mode === 'team') {
+        return false;
+      } else if (canResize) {
+        return canResize(event);
+      }
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleShowScheduleDateDialog", function () {
+      _this.setState({
+        isSelectingScheduleDate: true
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleHideScheduleDateDialog", function () {
+      _this.setState({
+        isSelectingScheduleDate: false
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleScheduleDateSelect",
+    /*#__PURE__*/
+    function () {
+      var _ref13 = (0, _asyncToGenerator2.default)(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee7(date) {
+        return _regenerator.default.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                _context7.next = 2;
+                return _this.setState({
+                  isSelectingScheduleDate: false,
+                  selectedDate: date
+                });
 
-			return _react2.default.createElement(
-				'div',
-				{ className: 'big_calendar ' + classNames },
-				isSelectingScheduleDate && _react2.default.createElement(
-					_Dialog2.default,
-					{
-						title: 'Choose Date',
-						className: 'schedule_calendar_select',
-						onTapClose: this.handleHideScheduleDateDialog
-					},
-					_react2.default.createElement(_DateSelect2.default, {
-						defaultDate: selectedDate,
-						initialVisibleMonth: function initialVisibleMonth() {
-							return selectedDate;
-						},
-						onDateSelect: this.handleScheduleDateSelect,
-						timezone: auth.Location.timezone,
-						allowPastDates: true
-					}),
-					!isToday && _react2.default.createElement(
-						_Button2.default,
-						{
-							primary: true,
-							onClick: this.handleSelectToday
-						},
-						'Jump to Today'
-					)
-				),
-				_react2.default.createElement(
-					_Tabs.Tabs,
-					{
-						ref: function ref(element) {
-							return _this2.tabs = element;
-						},
-						onChange: this.handleChangeView
-					},
-					_react2.default.createElement(_Tabs.TabPane, { title: 'Day' }),
-					_react2.default.createElement(_Tabs.TabPane, { title: 'Week' }),
-					_react2.default.createElement(_Tabs.TabPane, { title: 'Month' })
-				),
-				_react2.default.createElement(
-					'div',
-					{
-						className: 'calendar__controls ' + (selectedTeammate ? 'selected-teammate-controls' : '')
-					},
-					_react2.default.createElement(_Pager2.default, {
-						infinite: true,
-						onChange: this.handlePagerChange,
-						titles: this.generatePagerTitle,
-						jumpAmount: selectedView !== 'month' ? 7 : 1,
-						showStep: selectedView === 'day'
-					}),
-					!selectedTeammate && _react2.default.createElement(
-						_Button2.default,
-						{ className: 'toggle-mode', onClick: this.handleToggleMode },
-						!selectedTeammate && mode === 'team' ? 'show just me' : 'show team'
-					),
-					selectedTeammate && _react2.default.createElement(
-						'div',
-						{ className: 'selected-teammate-wrapper' },
-						_react2.default.createElement(
-							_Button2.default,
-							{
-								className: 'toggle-mode',
-								onClick: this.handleToggleUserMode
-							},
-							'show me'
-						),
-						_react2.default.createElement(
-							_Button2.default,
-							{
-								className: 'toggle-mode',
-								onClick: this.handleToggleTeamMode
-							},
-							'show team'
-						)
-					),
-					mode === 'team' && view === 'day' && teamSchedule && _react2.default.createElement(
-						_Button2.default,
-						{
-							className: 'toggle-mode toggle-show-working',
-							onClick: this.handleToggleShowWorking
-						},
-						showOnlyWorking ? 'show everyone' : 'show only working'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{
-						className: 'calendars__wrapper ' + (isFetching ? 'fetching' : ''),
-						ref: function ref(_ref2) {
-							_this2.calendarWrapper = _ref2;
-						}
-					},
-					_react2.default.createElement(
-						'div',
-						{
-							className: 'calendar__scroll',
-							style: { width: scrollWidth, height: scrollHeight }
-						},
-						team.map(function (teammate, idx) {
-							return _react2.default.createElement(
-								'div',
-								{
-									key: 'calendar-wrapper-' + teammate.User.id,
-									className: 'teammate_calendar__wrapper ' + (idx === 0 ? '' : 'hide'),
-									style: {
-										width: teammateWrapperWidth
-									}
-								},
-								!(view === 'month' && mode === 'team') && _react2.default.createElement(
-									'div',
-									{
-										className: 'avatar_wrapper',
-										onClick: function onClick() {
-											return idx !== 0 && _this2.handleSelectTeammate(teammate);
-										}
-									},
-									_react2.default.createElement(
-										'span',
-										null,
-										_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
-										_react2.default.createElement(
-											'span',
-											{ className: 'calendar__teammate_name' },
-											teammate.User.name
-										)
-									)
-								),
-								idx === 0 && view === 'month' && mode === 'team' && team.map(function (teammate) {
-									return _react2.default.createElement(
-										'div',
-										{ className: 'avatar_wrapper' },
-										_react2.default.createElement(
-											'span',
-											null,
-											_react2.default.createElement(_Avatar2.default, { top: true, user: teammate }),
-											_react2.default.createElement(
-												'span',
-												{ className: 'calendar__teammate_name' },
-												teammate.User.casualName
-											)
-										)
-									);
-								}),
-								(idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react2.default.createElement(_Calendar2.default, _extends({
-									className: '' + (idx === 0 && !renderFirstCalendar ? 'hide' : ''),
-									currentDate: currentDate,
-									views: views,
-									events: events ? _this2.filterEvents(events, teammate) : [],
-									eventPropGetter: function eventPropGetter(event) {
-										return _this2.eventPropGetter(event);
-									},
-									onSelectEvent: function onSelectEvent(event, e) {
-										return _this2.handleClickEvent({ event: event, teammate: teammate, view: view, mode: mode }, e);
-									},
-									onSelectSlot: function onSelectSlot(_ref, e) {
-										var start = _ref.start,
-										    end = _ref.end,
-										    action = _ref.action;
-										return _this2.handleClickOpenSlot({
-											start: start,
-											end: end,
-											action: action,
-											teammate: teammate,
-											view: view,
-											mode: mode
-										}, e);
-									},
-									onEventDrop: _this2.handleDropEvent,
-									onEventResize: _this2.handleResizeEvent,
-									canDrag: _this2.handleCanDrag,
-									canResize: _this2.handleCanResize,
-									popup: selectedView === 'month',
-									slotPropGetter: function slotPropGetter(date) {
-										return _this2.slotPropGetter(teammate, date);
-									},
-									dayPropGetter: function dayPropGetter(date) {
-										return _this2.dayPropGetter(teammate, date);
-									}
-								}, calendarProps)),
-								isFetching && !isLoaderOutside && _react2.default.createElement(
-									'div',
-									{ className: 'loader__underlay' },
-									_react2.default.createElement(_Loader2.default, null)
-								)
-							);
-						})
-					),
-					isFetching && isLoaderOutside && _react2.default.createElement(
-						'div',
-						{ className: 'loader__underlay' },
-						_react2.default.createElement(_Loader2.default, null)
-					)
-				)
-			);
-		}
-	}]);
+              case 2:
+                _this.refresh();
 
-	return BigCalendar;
+              case 3:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7, this);
+      }));
+
+      return function (_x3) {
+        return _ref13.apply(this, arguments);
+      };
+    }());
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleSelectToday", function () {
+      _this.handleScheduleDateSelect((0, _momentTimezone.default)());
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleSelectTeammate",
+    /*#__PURE__*/
+    function () {
+      var _ref14 = (0, _asyncToGenerator2.default)(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee8(selectedTeammate) {
+        return _regenerator.default.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.next = 2;
+                return _this.setState({
+                  selectedTeammate: selectedTeammate,
+                  showAllTeammates: false
+                });
+
+              case 2:
+                _this.jumpToUserMode();
+
+              case 3:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8, this);
+      }));
+
+      return function (_x4) {
+        return _ref14.apply(this, arguments);
+      };
+    }());
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleClearSelectedTeammate", function () {
+      _this.setState({
+        selectedTeammate: null
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleToggleUserMode", function () {
+      _this.handleClearSelectedTeammate();
+
+      _this.jumpToUserMode();
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleToggleTeamMode", function () {
+      _this.handleClearSelectedTeammate();
+
+      _this.jumpToTeamMode();
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleToggleShowWorking",
+    /*#__PURE__*/
+    (0, _asyncToGenerator2.default)(
+    /*#__PURE__*/
+    _regenerator.default.mark(function _callee9() {
+      var oldShowOnlyWorking, showOnlyWorking;
+      return _regenerator.default.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              oldShowOnlyWorking = _this.state.showOnlyWorking;
+              showOnlyWorking = !oldShowOnlyWorking;
+              _context9.next = 4;
+              return _this.setState({
+                showOnlyWorking: showOnlyWorking,
+                workingTeammates: _this.workingTeammates()
+              });
+
+            case 4:
+              _this.toggleShowOnCalendars();
+
+            case 5:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9, this);
+    })));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "workingTeammates", function () {
+      var _ref16 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          schedule = _ref16.schedule,
+          date = _ref16.date;
+
+      var _this$state13 = _this.state,
+          teamSchedule = _this$state13.teamSchedule,
+          selectedDate = _this$state13.selectedDate,
+          teammates = _this$state13.teammates;
+      var formattedDate = (date || selectedDate).format('YYYY-MM-DD');
+
+      if (!schedule && !teamSchedule) {
+        return teammates;
+      }
+
+      return teammates.filter(function (teammate) {
+        return (schedule || teamSchedule)[teammate.UserId] && (schedule || teamSchedule)[teammate.UserId][formattedDate];
+      });
+    });
+    _this.state = {
+      currentPage: 0,
+      view: _props.defaultView,
+      mode: _props.defaultMode,
+      renderFirstCalendar: true,
+      // the first calendar is always the logged in user
+      renderFirstEvents: true,
+      // rendering events is slow, so we may defer loading them until later
+      renderAllCalendars: false,
+      renderAllEvents: true,
+      showAllTeammates: _props.defaultMode === 'team',
+      transitioning: false,
+      selectedDate: (0, _momentTimezone.default)().tz(_props.auth.Location.timezone),
+      earliestTime: null,
+      latestTime: null,
+      teammates: _props.teammates ? _props.teammates : [],
+      views: _props.supportedViews,
+      resized: 0,
+      events: [],
+      // All events for current date range
+      storeSchedule: [],
+      // Hours store is open for selected date range,
+      selectedTeammate: null,
+      optionsLoaded: [],
+      isFetchingEvents: true,
+      isSelectingScheduleDate: false,
+      teamSchedule: false,
+      // if a team schedule is supplied (keyed by user id, then date), then we render on/off hours
+      showOnlyWorking: true // if a team schedule is show, we unlock new ability to filter by working/not working
+      // Expected event structure:
+      // const event = {
+      // 	title: 'My favorite event',
+      // 	className: 'shift',
+      // 	start: new Date(),
+      // 	end: new Date(),
+      // 	allDay: true,
+      //  userId: id,
+      // 	payload: { data preserved in callback }
+      // }
+
+    };
+    return _this;
+  }
+
+  (0, _createClass2.default)(BigCalendar, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props2 = this.props,
+          auth = _this$props2.auth,
+          className = _this$props2.className,
+          supportedViews = _this$props2.supportedViews,
+          timeslots = _this$props2.timeslots,
+          step = _this$props2.step,
+          titleAccessor = _this$props2.titleAccessor;
+      var _this$state14 = this.state,
+          selectedDate = _this$state14.selectedDate,
+          view = _this$state14.view,
+          mode = _this$state14.mode,
+          transitioning = _this$state14.transitioning,
+          renderAllCalendars = _this$state14.renderAllCalendars,
+          renderFirstCalendar = _this$state14.renderFirstCalendar,
+          events = _this$state14.events,
+          isFetchingEvents = _this$state14.isFetchingEvents,
+          isSelectingScheduleDate = _this$state14.isSelectingScheduleDate,
+          selectedTeammate = _this$state14.selectedTeammate,
+          teamSchedule = _this$state14.teamSchedule,
+          showOnlyWorking = _this$state14.showOnlyWorking; // populate views to take into account team week
+
+      var selectedView = view;
+      var views = {};
+      supportedViews.forEach(function (view) {
+        views[view] = true;
+      });
+      views.team_week = _HorizontalWeek.default;
+
+      if (mode === 'team' && view === 'week') {
+        selectedView = 'team_week';
+      }
+
+      var teammateWrapperWidth = this.getDesiredTeammateWrapperWidth();
+      var scrollWidth = this.getDesiredScrollWidth();
+      var scrollHeight = this.getDesiredScrollHeight(); // format times
+
+      var formats = {
+        // format times in left column
+        timeGutterFormat: function timeGutterFormat(date) {
+          return (0, _momentTimezone.default)(date).format('h:mma');
+        } // setup start and end times
+
+      };
+
+      var _this$timeRange = this.timeRange(),
+          _this$timeRange2 = (0, _slicedToArray2.default)(_this$timeRange, 2),
+          min = _this$timeRange2[0],
+          max = _this$timeRange2[1]; // configure react-sprucebot calendar
+
+
+      var calendarProps = {
+        view: selectedView,
+        formats: formats,
+        toolbar: false,
+        min: min,
+        max: max // Optionally passed calendar props
+
+      };
+
+      if (timeslots) {
+        calendarProps.timeslots = timeslots;
+      }
+
+      if (step) {
+        calendarProps.step = step;
+      }
+
+      if (titleAccessor) {
+        calendarProps.titleAccessor = titleAccessor;
+      } // Determine selected date in relation to today
+
+
+      var currentDate = _momentTimezone.default.tz(selectedDate, auth.Location.timezone).format('YYYY-MM-DD HH:mm:ss');
+
+      var today = (0, _momentTimezone.default)().tz(auth.Location.timezone).startOf('day');
+
+      var selectedDateStart = _momentTimezone.default.tz(selectedDate, auth.Location.timezone).startOf('day');
+
+      var isToday = today.isSame(selectedDateStart);
+      var classNames = "".concat(className || '', " ").concat(mode === 'team' ? 'team' : 'user', " ").concat(transitioning ? 'transitioning' : '', " ").concat(view);
+      var team = this.getTeammates();
+      var isFetching = isFetchingEvents || transitioning;
+      var isLoaderOutside = view === 'week' && mode === 'user' || view === 'month';
+      return _react.default.createElement("div", {
+        className: "big_calendar ".concat(classNames)
+      }, isSelectingScheduleDate && _react.default.createElement(_Dialog.default, {
+        title: "Choose Date",
+        className: "schedule_calendar_select",
+        onTapClose: this.handleHideScheduleDateDialog
+      }, _react.default.createElement(_DateSelect.default, {
+        defaultDate: selectedDate,
+        initialVisibleMonth: function initialVisibleMonth() {
+          return selectedDate;
+        },
+        onDateSelect: this.handleScheduleDateSelect,
+        timezone: auth.Location.timezone,
+        allowPastDates: true
+      }), !isToday && _react.default.createElement(_Button.default, {
+        primary: true,
+        onClick: this.handleSelectToday
+      }, "Jump to Today")), _react.default.createElement(_Tabs.Tabs, {
+        ref: function ref(element) {
+          return _this2.tabs = element;
+        },
+        onChange: this.handleChangeView
+      }, _react.default.createElement(_Tabs.TabPane, {
+        title: "Day"
+      }), _react.default.createElement(_Tabs.TabPane, {
+        title: "Week"
+      }), _react.default.createElement(_Tabs.TabPane, {
+        title: "Month"
+      })), _react.default.createElement("div", {
+        className: "calendar__controls ".concat(selectedTeammate ? 'selected-teammate-controls' : '')
+      }, _react.default.createElement(_Pager.default, {
+        infinite: true,
+        onChange: this.handlePagerChange,
+        titles: this.generatePagerTitle,
+        jumpAmount: selectedView !== 'month' ? 7 : 1,
+        showStep: selectedView === 'day'
+      }), !selectedTeammate && _react.default.createElement(_Button.default, {
+        className: "toggle-mode",
+        onClick: this.handleToggleMode
+      }, !selectedTeammate && mode === 'team' ? 'show just me' : 'show team'), selectedTeammate && _react.default.createElement("div", {
+        className: "selected-teammate-wrapper"
+      }, _react.default.createElement(_Button.default, {
+        className: "toggle-mode",
+        onClick: this.handleToggleUserMode
+      }, 'show me'), _react.default.createElement(_Button.default, {
+        className: "toggle-mode",
+        onClick: this.handleToggleTeamMode
+      }, 'show team')), mode === 'team' && view === 'day' && teamSchedule && _react.default.createElement(_Button.default, {
+        className: "toggle-mode toggle-show-working",
+        onClick: this.handleToggleShowWorking
+      }, showOnlyWorking ? 'show everyone' : 'show only working')), _react.default.createElement("div", {
+        className: "calendars__wrapper ".concat(isFetching ? 'fetching' : ''),
+        ref: function ref(_ref18) {
+          _this2.calendarWrapper = _ref18;
+        }
+      }, _react.default.createElement("div", {
+        className: "calendar__scroll",
+        style: {
+          width: scrollWidth,
+          height: scrollHeight
+        }
+      }, team.map(function (teammate, idx) {
+        return _react.default.createElement("div", {
+          key: "calendar-wrapper-".concat(teammate.User.id),
+          className: "teammate_calendar__wrapper ".concat(idx === 0 ? '' : 'hide'),
+          style: {
+            width: teammateWrapperWidth
+          }
+        }, !(view === 'month' && mode === 'team') && _react.default.createElement("div", {
+          className: "avatar_wrapper",
+          onClick: function onClick() {
+            return idx !== 0 && _this2.handleSelectTeammate(teammate);
+          }
+        }, _react.default.createElement("span", null, _react.default.createElement(_Avatar.default, {
+          top: true,
+          user: teammate
+        }), _react.default.createElement("span", {
+          className: "calendar__teammate_name"
+        }, teammate.User.name))), idx === 0 && view === 'month' && mode === 'team' && team.map(function (teammate) {
+          return _react.default.createElement("div", {
+            className: "avatar_wrapper"
+          }, _react.default.createElement("span", null, _react.default.createElement(_Avatar.default, {
+            top: true,
+            user: teammate
+          }), _react.default.createElement("span", {
+            className: "calendar__teammate_name"
+          }, teammate.User.casualName)));
+        }), (idx === 0 && renderFirstCalendar || idx > 0 && renderAllCalendars) && _react.default.createElement(_Calendar.default, (0, _extends2.default)({
+          className: "".concat(idx === 0 && !renderFirstCalendar ? 'hide' : ''),
+          currentDate: currentDate,
+          views: views,
+          events: events ? _this2.filterEvents(events, teammate) : [],
+          eventPropGetter: function eventPropGetter(event) {
+            return _this2.eventPropGetter(event);
+          },
+          onSelectEvent: function onSelectEvent(event, e) {
+            return _this2.handleClickEvent({
+              event: event,
+              teammate: teammate,
+              view: view,
+              mode: mode
+            }, e);
+          },
+          onSelectSlot: function onSelectSlot(_ref17, e) {
+            var start = _ref17.start,
+                end = _ref17.end,
+                action = _ref17.action;
+            return _this2.handleClickOpenSlot({
+              start: start,
+              end: end,
+              action: action,
+              teammate: teammate,
+              view: view,
+              mode: mode
+            }, e);
+          },
+          onEventDrop: _this2.handleDropEvent,
+          onEventResize: _this2.handleResizeEvent,
+          canDrag: _this2.handleCanDrag,
+          canResize: _this2.handleCanResize,
+          popup: selectedView === 'month',
+          slotPropGetter: function slotPropGetter(date) {
+            return _this2.slotPropGetter(teammate, date);
+          },
+          dayPropGetter: function dayPropGetter(date) {
+            return _this2.dayPropGetter(teammate, date);
+          }
+        }, calendarProps)), isFetching && !isLoaderOutside && _react.default.createElement("div", {
+          className: "loader__underlay"
+        }, _react.default.createElement(_Loader.default, null)));
+      })), isFetching && isLoaderOutside && _react.default.createElement("div", {
+        className: "loader__underlay"
+      }, _react.default.createElement(_Loader.default, null))));
+    }
+  }]);
+  return BigCalendar;
 }(_react.Component);
 
-var _initialiseProps = function _initialiseProps() {
-	var _this3 = this;
-
-	this.componentDidMount = function () {
-		//give things a sec to settle before recording sizes
-		_this3.refresh();
-		setTimeout(function () {}, 250);
-		window.addEventListener('resize', _this3.handleWindowResize);
-	};
-
-	this.componentWillUnmount = function () {
-		window.removeEventListener('resize', _this3.handleWindowResize);
-	};
-
-	this.setEvents = function (events) {
-		_this3.setState({ events: events });
-	};
-
-	this.triggerRefresh = function () {
-		_this3.refresh();
-	};
-
-	this.events = function () {
-		return _this3.state.events;
-	};
-
-	this.setView = function (view) {
-		_this3.handleChangeView(0);
-		_this3.tabs.setSelected(0, '.0');
-	};
-
-	this.setMode = function (mode) {
-		_this3.setState({ mode: mode });
-	};
-
-	this.setDate = function (selectedDate) {
-		_this3.setState({ selectedDate: selectedDate });
-	};
-
-	this.generatePagerTitle = function (page) {
-		var auth = _this3.props.auth;
-		var _state2 = _this3.state,
-		    view = _state2.view,
-		    selectedDate = _state2.selectedDate;
-
-
-		var title = void 0;
-
-		if (view === 'month') {
-			title = (0, _momentTimezone2.default)(selectedDate).format('MMM YYYY');
-		} else if (view === 'week') {
-			var startOfWeek = (0, _momentTimezone2.default)(selectedDate).startOf('week');
-			var endOfWeek = (0, _momentTimezone2.default)(selectedDate).endOf('week');
-
-			if (startOfWeek.isSame(endOfWeek, 'month')) {
-				title = startOfWeek.format('MMM Do') + ' - ' + endOfWeek.format('Do');
-			} else {
-				title = startOfWeek.format('MMM Do') + ' - ' + endOfWeek.format('MMM Do');
-			}
-		} else if (view === 'day') {
-			var now = (0, _momentTimezone2.default)().tz(auth.Location.timezone).startOf('day');
-			var days = _momentTimezone2.default.tz(selectedDate, auth.Location.timezone).startOf('day').diff(now, 'days');
-
-			switch (days) {
-				case -1:
-					title = 'Yesterday';
-					break;
-				case 0:
-					title = 'Today';
-					break;
-				case 1:
-					title = 'Tomorrow';
-					break;
-				default:
-					title = (0, _momentTimezone2.default)(selectedDate).format('ddd, MMM Do');
-					break;
-			}
-		}
-
-		return _react2.default.createElement(
-			_ControlButton2.default,
-			{
-				className: 'sub_control',
-				onClick: _this3.handleShowScheduleDateDialog
-			},
-			title,
-			' ',
-			_react2.default.createElement(
-				_Icon2.default,
-				null,
-				'keyboard_arrow_down'
-			)
-		);
-	};
-
-	this.getDesiredTeammateWrapperWidth = function () {
-		if (!_this3.calendarWrapper) {
-			return '100%';
-		}
-		var _state3 = _this3.state,
-		    view = _state3.view,
-		    mode = _state3.mode;
-		var teamDayViewWidth = _this3.props.teamDayViewWidth;
-
-
-		var calendarWrapperWidth = getElementWidth(_this3.calendarWrapper);
-
-		if (mode === 'team' && view === 'day') {
-			// make it a little thinner than the screen
-			return Math.min(calendarWrapperWidth - 20, teamDayViewWidth);
-		} else if (mode === 'team' && view === 'week') {
-			return '100%';
-		} else if (mode === 'team' && view === 'month') {
-			return '100%';
-		} else if (mode === 'user') {
-			return calendarWrapperWidth;
-		}
-		return 'auto';
-	};
-
-	this.getDesiredScrollWidth = function () {
-		//act like a normal div until loaded
-		if (!_this3.calendarWrapper) {
-			return '100%';
-		}
-		var _state4 = _this3.state,
-		    view = _state4.view,
-		    mode = _state4.mode,
-		    transitioning = _state4.transitioning;
-
-		var teammates = _this3.getTeammates();
-
-		var calendarWrapperWidth = getElementWidth(_this3.calendarWrapper);
-		var widthOfAllCalendars = 0;
-		var minWidthOfAllCalendars = _this3.getDesiredTeammateWrapperWidth() * teammates.length;
-
-		document.querySelectorAll('.teammate_calendar__wrapper').forEach(function (wrapper, idx) {
-			if (idx < teammates.length) {
-				widthOfAllCalendars += getElementWidth(wrapper);
-			}
-		});
-
-		widthOfAllCalendars = Math.max(minWidthOfAllCalendars, widthOfAllCalendars);
-
-		if (transitioning && view === 'day') {
-			return widthOfAllCalendars;
-		}
-
-		if (mode === 'team' && view == 'day') {
-			return widthOfAllCalendars;
-		} else if (view === 'week') {
-			return calendarWrapperWidth;
-		} else if (view === 'month') {
-			return calendarWrapperWidth;
-		} else if (mode === 'user') {
-			return calendarWrapperWidth;
-		}
-	};
-
-	this.getDesiredScrollHeight = function () {
-		//act like a normal div until loaded
-		if (!_this3.calendarWrapper) {
-			return 'auto';
-		}
-
-		var _state5 = _this3.state,
-		    mode = _state5.mode,
-		    view = _state5.view;
-
-
-		if (mode === 'team' && view === 'week') {
-			return 'auto';
-		} else if (view === 'month') {
-			return 'auto';
-		}
-
-		var firstTeammateWrapper = document.querySelector('.teammate_calendar__wrapper');
-		if (!firstTeammateWrapper) {
-			return 'auto';
-		}
-
-		return getElementHeight(firstTeammateWrapper) || 'auto';
-	};
-
-	this.getTeammates = function () {
-		var _state6 = _this3.state,
-		    teammates = _state6.teammates,
-		    workingTeammates = _state6.workingTeammates,
-		    mode = _state6.mode,
-		    view = _state6.view,
-		    showOnlyWorking = _state6.showOnlyWorking,
-		    selectedTeammate = _state6.selectedTeammate,
-		    showAllTeammates = _state6.showAllTeammates,
-		    teamSchedule = _state6.teamSchedule;
-		var auth = _this3.props.auth;
-
-
-		var team = mode === 'team' ? teammates : [auth];
-
-		//filter authed user out and prepend
-		if (selectedTeammate) {
-			team = [selectedTeammate];
-		} else if (teamSchedule && mode === 'team' && view === 'day' && showOnlyWorking) {
-			return [auth].concat(_toConsumableArray(workingTeammates.filter(function (teammate) {
-				return teammate.User.id !== auth.User.id;
-			})));
-		} else if (view === 'month') {
-			team = [auth];
-		} else if (showAllTeammates) {
-			team = team.filter(function (teammate) {
-				return teammate.User.id !== auth.User.id;
-			});
-			team = [auth].concat(_toConsumableArray(team));
-		}
-
-		return team;
-	};
-
-	this.handleChange = function () {
-		_this3.refresh();
-	};
-
-	this.refresh = function () {
-		var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-			var triggerOnNavigate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-			var _state7, mode, view, teammates, selectedDate, optionsLoaded, selectedTeammate, _props2, auth, onNavigate, fetchEvents, currentView, currentUser, startDate, endDate, options, _ref4, teamSchedule, storeSchedule, events;
-
-			return regeneratorRuntime.wrap(function _callee$(_context) {
-				while (1) {
-					switch (_context.prev = _context.next) {
-						case 0:
-							_state7 = _this3.state, mode = _state7.mode, view = _state7.view, teammates = _state7.teammates, selectedDate = _state7.selectedDate, optionsLoaded = _state7.optionsLoaded, selectedTeammate = _state7.selectedTeammate;
-							_props2 = _this3.props, auth = _props2.auth, onNavigate = _props2.onNavigate, fetchEvents = _props2.fetchEvents;
-							currentView = view === 'team_week' ? 'week' : view;
-							currentUser = selectedTeammate ? selectedTeammate : teammates.find(function (teammate) {
-								return teammate.User.id === auth.UserId;
-							});
-							startDate = (0, _momentTimezone2.default)(selectedDate).startOf(currentView);
-							endDate = (0, _momentTimezone2.default)(selectedDate).endOf(currentView);
-							options = {
-								mode: mode,
-								startDate: startDate,
-								endDate: endDate,
-								view: currentView,
-								teammates: mode === 'user' ? [currentUser] : teammates
-
-								// const eventsLoaded = this.checkOptions(options)
-
-								// if (!eventsLoaded) {
-							};
-							_this3.setState({
-								optionsLoaded: [].concat(_toConsumableArray(optionsLoaded), [options]),
-								isFetchingEvents: true
-							});
-
-							triggerOnNavigate && onNavigate && onNavigate(options);
-							_context.prev = 9;
-							_context.next = 12;
-							return fetchEvents(options);
-
-						case 12:
-							_ref4 = _context.sent;
-							teamSchedule = _ref4.teamSchedule;
-							storeSchedule = _ref4.storeSchedule;
-							events = _ref4.events;
-
-
-							_this3.setState({
-								workingTeammates: _this3.workingTeammates({ schedule: teamSchedule }),
-								storeSchedule: storeSchedule,
-								events: events,
-								teamSchedule: teamSchedule,
-								isFetchingEvents: false
-							});
-
-							_this3.toggleShowOnCalendars();
-							_context.next = 24;
-							break;
-
-						case 20:
-							_context.prev = 20;
-							_context.t0 = _context['catch'](9);
-
-							console.log(_context.t0);
-							_this3.setState({ isFetchingEvents: false });
-
-						case 24:
-						case 'end':
-							return _context.stop();
-					}
-				}
-			}, _callee, _this3, [[9, 20]]);
-		}));
-
-		return function () {
-			return _ref3.apply(this, arguments);
-		};
-	}();
-
-	this.checkOptions = function (options) {
-		return _this3.state.optionsLoaded.find(function (loaded) {
-			return (0, _isEqual2.default)(loaded, options);
-		});
-	};
-
-	this.handlePagerChange = function () {
-		var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(page) {
-			var view, diff, stepType;
-			return regeneratorRuntime.wrap(function _callee2$(_context2) {
-				while (1) {
-					switch (_context2.prev = _context2.next) {
-						case 0:
-							view = _this3.state.view;
-							diff = page - _this3.state.currentPage;
-							stepType = view !== 'month' ? 'days' : 'months';
-							_context2.next = 5;
-							return _this3.setState(function (prevState) {
-								return {
-									currentPage: page,
-									selectedDate: prevState.selectedDate.add(diff, stepType)
-								};
-							});
-
-						case 5:
-
-							_this3.handleChange();
-
-						case 6:
-						case 'end':
-							return _context2.stop();
-					}
-				}
-			}, _callee2, _this3);
-		}));
-
-		return function (_x2) {
-			return _ref5.apply(this, arguments);
-		};
-	}();
-
-	this.handleChangeView = function () {
-		var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(idx) {
-			var _state8, mode, view, newView, movingToWeek;
-
-			return regeneratorRuntime.wrap(function _callee3$(_context3) {
-				while (1) {
-					switch (_context3.prev = _context3.next) {
-						case 0:
-							_state8 = _this3.state, mode = _state8.mode, view = _state8.view;
-							newView = _this3.state.views[idx];
-							movingToWeek = mode === 'user' && view !== 'week' && newView === 'week';
-							_context3.next = 5;
-							return _this3.setState({
-								view: newView
-								// renderFirstCalendar: !movingToWeek
-							});
-
-						case 5:
-
-							// because month view does not show all teammates, if we are in team mode jumping OFF month view, lets
-							// re-show team wrappers
-							if (mode === 'team' && view === 'month' && newView !== 'month') {
-								_this3.toggleShowOnCalendars();
-							} else if (mode === 'user' && view !== 'week' && newView === 'week') {
-								//NOTE: Removed this delay as it was causing DOM issues with the calendar not rendering fast enough;
-								// Changes to BE data structure and FE should limit render lag that was initially seen
-								// week view is heavy, give dom a sec to render before rendering calendar
-								// this.delayedRenderWeekView()
-							}
-							_this3.handleChange();
-							//trigger a refresh which causes, sizes to be recalculated. 500 delay for css transitions
-							setTimeout(function () {
-								_this3.handleWindowResize();
-							}, 500);
-
-						case 8:
-						case 'end':
-							return _context3.stop();
-					}
-				}
-			}, _callee3, _this3);
-		}));
-
-		return function (_x3) {
-			return _ref6.apply(this, arguments);
-		};
-	}();
-
-	this.delayedRenderWeekView = function () {
-		setTimeout(function () {
-			_this3.setState({ renderFirstCalendar: true });
-		}, 100);
-	};
-
-	this.timeRange = function () {
-		var _state9 = _this3.state,
-		    selectedDate = _state9.selectedDate,
-		    storeSchedule = _state9.storeSchedule,
-		    events = _state9.events;
-
-
-		var adjustedEvents = events.filter(function (event) {
-			return !event.allDay;
-		}).map(function (event) {
-			return {
-				startTime: (0, _momentTimezone2.default)(event.start).format('HH:mm:ss'),
-				endTime: (0, _momentTimezone2.default)(event.end).format('HH:mm:ss')
-			};
-		});
-
-		var day = selectedDate.format('YYYY-MM-DD');
-		var combinedTimes = [].concat(_toConsumableArray(storeSchedule), _toConsumableArray(adjustedEvents.filter(function (event) {
-			if (event.startTime && event.endTime) {
-				return event;
-			}
-		}).map(function (event) {
-			return {
-				startTime: event.startTime,
-				endTime: event.endTime
-			};
-		})));
-
-		var earliest = false;
-		var latest = false;
-
-		if (combinedTimes.length !== 0) {
-			combinedTimes.forEach(function (event) {
-				var start = (0, _momentTimezone2.default)(day + ' ' + event.startTime).startOf('hour').subtract(2, 'hour');
-				var end = (0, _momentTimezone2.default)(day + ' ' + event.endTime).endOf('hour').add(2, 'hour');
-
-				if (!earliest || earliest.diff(start) > 0) {
-					earliest = start;
-				}
-
-				if (!latest || latest.diff(end) < 0) {
-					latest = end;
-				}
-			});
-
-			if (!earliest.isSame(day, 'day')) {
-				earliest = (0, _momentTimezone2.default)(day + ' 00:00:00');
-			}
-
-			if (!latest.isSame(day, 'day')) {
-				latest = (0, _momentTimezone2.default)(day + ' 23:59:59');
-			}
-		} else {
-			earliest = (0, _momentTimezone2.default)(selectedDate).hour(7).minutes(0).seconds(0);
-
-			latest = (0, _momentTimezone2.default)(selectedDate).hour(18).minutes(0).seconds(0);
-		}
-
-		return [earliest.format('YYYY-MM-DD HH:mm:ss'), latest.format('YYYY-MM-DD HH:mm:ss')];
-	};
-
-	this.toggleShowOnCalendars = function () {
-		// show teammates calendars one at a time
-		var calendars = [].concat(_toConsumableArray(document.querySelectorAll('.teammate_calendar__wrapper')));
-
-		if (_this3.props.auth) {
-			calendars.shift();
-		}
-
-		var delay = 100;
-		var delayBump = 200;
-
-		calendars.forEach(function (element) {
-			setTimeout(function () {
-				element.classList.toggle('hide', false);
-			}, delay);
-			delay += delayBump;
-		});
-	};
-
-	this.jumpToTeamMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-		return regeneratorRuntime.wrap(function _callee4$(_context4) {
-			while (1) {
-				switch (_context4.prev = _context4.next) {
-					case 0:
-						if (!_this3.state.transitioning) {
-							_context4.next = 2;
-							break;
-						}
-
-						return _context4.abrupt('return');
-
-					case 2:
-						_context4.next = 4;
-						return _this3.setState({
-							transitioning: true,
-							mode: 'team',
-							showAllTeammates: true,
-							renderAllCalendars: true
-						});
-
-					case 4:
-
-						_this3.toggleShowOnCalendars();
-
-						setTimeout(function () {
-							_this3.handleChange();
-							_this3.setState({
-								transitioning: false
-							});
-						}, 1000);
-
-					case 6:
-					case 'end':
-						return _context4.stop();
-				}
-			}
-		}, _callee4, _this3);
-	}));
-	this.jumpToUserMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-		var view;
-		return regeneratorRuntime.wrap(function _callee5$(_context5) {
-			while (1) {
-				switch (_context5.prev = _context5.next) {
-					case 0:
-						if (!_this3.state.transitioning) {
-							_context5.next = 2;
-							break;
-						}
-
-						return _context5.abrupt('return');
-
-					case 2:
-
-						//scroll calendar left
-						new _es6Tween.Tween({
-							y: _this3.calendarWrapper.scrollLeft
-						}).to({ y: 0 }, 500).on('update', function (_ref9) {
-							var y = _ref9.y;
-
-							_this3.calendarWrapper.scrollLeft = y;
-						}).easing(_es6Tween.Easing.Quadratic.Out).start();
-
-						// when jumping to week view in user mode, delay render because it's heavy
-						view = _this3.state.view;
-
-						//first give css transitions a sec to adjust the view
-
-						_context5.next = 6;
-						return _this3.setState({
-							transitioning: true,
-							mode: 'user',
-							renderFirstCalendar: view !== 'week',
-							showAllTeammates: view !== 'week'
-						});
-
-					case 6:
-
-						if (view === 'week') {
-							_this3.delayedRenderWeekView();
-						}
-
-						// to hard on the client
-						_this3.toggleShowOnCalendars();
-
-						setTimeout(function () {
-							_this3.handleChange();
-							_this3.setState({
-								renderAllCalendars: false,
-								showAllTeammates: false,
-								transitioning: false
-							});
-						}, 1000);
-
-					case 9:
-					case 'end':
-						return _context5.stop();
-				}
-			}
-		}, _callee5, _this3);
-	}));
-	this.handleToggleMode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-		var _state10, mode, selectedTeammate;
-
-		return regeneratorRuntime.wrap(function _callee6$(_context6) {
-			while (1) {
-				switch (_context6.prev = _context6.next) {
-					case 0:
-						_state10 = _this3.state, mode = _state10.mode, selectedTeammate = _state10.selectedTeammate;
-						_context6.t0 = mode;
-						_context6.next = _context6.t0 === 'team' ? 4 : 6;
-						break;
-
-					case 4:
-						_this3.jumpToUserMode();
-						return _context6.abrupt('break', 8);
-
-					case 6:
-						_this3.jumpToTeamMode();
-						return _context6.abrupt('break', 8);
-
-					case 8:
-					case 'end':
-						return _context6.stop();
-				}
-			}
-		}, _callee6, _this3);
-	}));
-
-	this.handleWindowResize = function () {
-		_this3.setState({
-			resized: _this3.state.resized++
-		});
-	};
-
-	this.filterEvents = function (events, teammate) {
-		var _state11 = _this3.state,
-		    view = _state11.view,
-		    mode = _state11.mode,
-		    transitioning = _state11.transitioning;
-
-		// make transitions faster?
-
-		if (transitioning) {
-			return [];
-		}
-
-		if (mode === 'team' && view === 'month') {
-			return events;
-		}
-
-		var filteredEvents = events.filter(function (event) {
-			return event.isUniversalEvent || event.userId === teammate.User.id;
-		});
-
-		return filteredEvents;
-	};
-
-	this.eventPropGetter = function (event) {
-		return { className: '' + (event.className || '') };
-	};
-
-	this.dayPropGetter = function (teammate, date) {
-		var teamSchedule = _this3.state.teamSchedule;
-		var _props$dayPropGetter = _this3.props.dayPropGetter,
-		    dayPropGetter = _props$dayPropGetter === undefined ? function (teammate, date, props) {
-			return props;
-		} : _props$dayPropGetter;
-
-		// if no team schedule, then no need to render on/off
-
-		if (!teamSchedule) {
-			return dayPropGetter(teammate, date, {});
-		}
-
-		var theDate = (0, _momentTimezone2.default)(date);
-		var today = theDate.format('YYYY-MM-DD');
-
-		var _ref11 = teamSchedule[teammate.UserId] && teamSchedule[teammate.UserId][today] ? teamSchedule[teammate.UserId][today] : {},
-		    startTime = _ref11.startTime,
-		    endTime = _ref11.endTime;
-
-		return {
-			className: startTime && endTime ? 'working' : 'not-working'
-		};
-	};
-
-	this.slotPropGetter = function (teammate, date) {
-		var teamSchedule = _this3.state.teamSchedule;
-		var _props$slotPropGetter = _this3.props.slotPropGetter,
-		    slotPropGetter = _props$slotPropGetter === undefined ? function (teammate, date, props) {
-			return props;
-		} : _props$slotPropGetter;
-
-		// if no team schedule, then no need to render on/off
-
-		if (!teamSchedule) {
-			return slotPropGetter(teammate, date, {});
-		}
-
-		// pull hours out for today
-		var theDate = (0, _momentTimezone2.default)(date);
-		var today = theDate.format('YYYY-MM-DD');
-
-		var _ref12 = teamSchedule[teammate.UserId] && teamSchedule[teammate.UserId][today] ? teamSchedule[teammate.UserId][today] : {},
-		    startTime = _ref12.startTime,
-		    endTime = _ref12.endTime;
-
-		// since a team schedule is passed, if any start/end times are missing, assume not working
-
-
-		if (!startTime || !endTime) {
-			return slotPropGetter(teammate, date, {
-				className: 'not-working'
-			});
-		}
-
-		startTime = parseInt(startTime.replace(/[^0-9]/g, ''));
-		endTime = parseInt(endTime.replace(/[^0-9]/g, ''));
-
-		var nowTime = parseInt(theDate.format('HHmmss'));
-
-		return slotPropGetter(teammate, date, {
-			title: theDate.format('h:mma'),
-			className: nowTime >= startTime && nowTime < endTime ? 'working' : 'not-working'
-		});
-	};
-
-	this.handleClickEvent = function (options, e) {
-		var onClickEvent = _this3.props.onClickEvent;
-
-
-		onClickEvent && onClickEvent(options, e);
-	};
-
-	this.handleClickOpenSlot = function (options, e) {
-		var onClickOpenSlot = _this3.props.onClickOpenSlot;
-
-
-		onClickOpenSlot && onClickOpenSlot(options, e);
-	};
-
-	this.handleDropEvent = function (_ref13) {
-		var event = _ref13.event,
-		    start = _ref13.start,
-		    end = _ref13.end;
-		var onDropEvent = _this3.props.onDropEvent;
-
-
-		onDropEvent && onDropEvent(event, start, end);
-	};
-
-	this.handleResizeEvent = function (resizeType, _ref14) {
-		var event = _ref14.event,
-		    start = _ref14.start,
-		    end = _ref14.end;
-		var onResizeEvent = _this3.props.onResizeEvent;
-
-
-		onResizeEvent && onResizeEvent(event, start, end);
-	};
-
-	this.handleCanDrag = function (event) {
-		var _state12 = _this3.state,
-		    view = _state12.view,
-		    mode = _state12.mode;
-		var canDrag = _this3.props.canDrag;
-
-
-		if (view === 'month' || view === 'week' && mode === 'team') {
-			return false;
-		} else if (canDrag) {
-			return canDrag(event);
-		}
-	};
-
-	this.handleCanResize = function (event) {
-		var _state13 = _this3.state,
-		    view = _state13.view,
-		    mode = _state13.mode;
-		var canResize = _this3.props.canResize;
-
-
-		if (view === 'month' || view === 'week' && mode === 'team') {
-			return false;
-		} else if (canResize) {
-			return canResize(event);
-		}
-	};
-
-	this.handleShowScheduleDateDialog = function () {
-		_this3.setState({ isSelectingScheduleDate: true });
-	};
-
-	this.handleHideScheduleDateDialog = function () {
-		_this3.setState({ isSelectingScheduleDate: false });
-	};
-
-	this.handleScheduleDateSelect = function () {
-		var _ref15 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(date) {
-			return regeneratorRuntime.wrap(function _callee7$(_context7) {
-				while (1) {
-					switch (_context7.prev = _context7.next) {
-						case 0:
-							_context7.next = 2;
-							return _this3.setState({
-								isSelectingScheduleDate: false,
-								selectedDate: date
-							});
-
-						case 2:
-							_this3.refresh();
-
-						case 3:
-						case 'end':
-							return _context7.stop();
-					}
-				}
-			}, _callee7, _this3);
-		}));
-
-		return function (_x4) {
-			return _ref15.apply(this, arguments);
-		};
-	}();
-
-	this.handleSelectToday = function () {
-		_this3.handleScheduleDateSelect((0, _momentTimezone2.default)());
-	};
-
-	this.handleSelectTeammate = function () {
-		var _ref16 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(selectedTeammate) {
-			return regeneratorRuntime.wrap(function _callee8$(_context8) {
-				while (1) {
-					switch (_context8.prev = _context8.next) {
-						case 0:
-							_context8.next = 2;
-							return _this3.setState({ selectedTeammate: selectedTeammate, showAllTeammates: false });
-
-						case 2:
-							_this3.jumpToUserMode();
-
-						case 3:
-						case 'end':
-							return _context8.stop();
-					}
-				}
-			}, _callee8, _this3);
-		}));
-
-		return function (_x5) {
-			return _ref16.apply(this, arguments);
-		};
-	}();
-
-	this.handleClearSelectedTeammate = function () {
-		_this3.setState({ selectedTeammate: null });
-	};
-
-	this.handleToggleUserMode = function () {
-		_this3.handleClearSelectedTeammate();
-		_this3.jumpToUserMode();
-	};
-
-	this.handleToggleTeamMode = function () {
-		_this3.handleClearSelectedTeammate();
-		_this3.jumpToTeamMode();
-	};
-
-	this.handleToggleShowWorking = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
-		var oldShowOnlyWorking, showOnlyWorking;
-		return regeneratorRuntime.wrap(function _callee9$(_context9) {
-			while (1) {
-				switch (_context9.prev = _context9.next) {
-					case 0:
-						oldShowOnlyWorking = _this3.state.showOnlyWorking;
-						showOnlyWorking = !oldShowOnlyWorking;
-						_context9.next = 4;
-						return _this3.setState({
-							showOnlyWorking: showOnlyWorking,
-							workingTeammates: _this3.workingTeammates()
-						});
-
-					case 4:
-
-						_this3.toggleShowOnCalendars();
-
-					case 5:
-					case 'end':
-						return _context9.stop();
-				}
-			}
-		}, _callee9, _this3);
-	}));
-
-	this.workingTeammates = function () {
-		var _ref18 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-		    schedule = _ref18.schedule,
-		    date = _ref18.date;
-
-		var _state14 = _this3.state,
-		    teamSchedule = _state14.teamSchedule,
-		    selectedDate = _state14.selectedDate,
-		    teammates = _state14.teammates;
-
-
-		var formattedDate = (date || selectedDate).format('YYYY-MM-DD');
-
-		if (!schedule && !teamSchedule) {
-			return teammates;
-		}
-
-		return teammates.filter(function (teammate) {
-			return (schedule || teamSchedule)[teammate.UserId] && (schedule || teamSchedule)[teammate.UserId][formattedDate];
-		});
-	};
-};
-
 exports.default = BigCalendar;
-
-
 BigCalendar.propTypes = {
-	auth: _propTypes2.default.object.isRequired,
-	teammates: _propTypes2.default.array,
-	supportedViews: _propTypes2.default.array.isRequired, //NOT IMPLEMENTED
-	defaultView: _propTypes2.default.string.isRequired,
-	supportedModes: _propTypes2.default.array.isRequired, //NOT IMPLEMENTED
-	defaultMode: _propTypes2.default.string.isRequired,
-	teamDayViewWidth: _propTypes2.default.number,
-	onClickEvent: _propTypes2.default.func,
-	onClickOpenSlot: _propTypes2.default.func,
-	onDropEvent: _propTypes2.default.func,
-	onResizeEvent: _propTypes2.default.func,
-	timeslots: _propTypes2.default.number,
-	step: _propTypes2.default.number,
-	slotPropGetter: _propTypes2.default.func,
-	dayPropGetter: _propTypes2.default.func
+  auth: _propTypes.default.object.isRequired,
+  teammates: _propTypes.default.array,
+  supportedViews: _propTypes.default.array.isRequired,
+  //NOT IMPLEMENTED
+  defaultView: _propTypes.default.string.isRequired,
+  supportedModes: _propTypes.default.array.isRequired,
+  //NOT IMPLEMENTED
+  defaultMode: _propTypes.default.string.isRequired,
+  teamDayViewWidth: _propTypes.default.number,
+  onClickEvent: _propTypes.default.func,
+  onClickOpenSlot: _propTypes.default.func,
+  onDropEvent: _propTypes.default.func,
+  onResizeEvent: _propTypes.default.func,
+  timeslots: _propTypes.default.number,
+  step: _propTypes.default.number,
+  slotPropGetter: _propTypes.default.func,
+  dayPropGetter: _propTypes.default.func
 };
-
 BigCalendar.defaultProps = {
-	supportedViews: ['day', 'week', 'month'], //NOT IMPLEMENTED
-	defaultView: 'day',
-	supportedModes: ['user', 'team'], //NOT IMPLEMENTED
-	defaultMode: 'user',
-	teamDayViewWidth: 250,
-	timeslots: 4,
-	step: 15
+  supportedViews: ['day', 'week', 'month'],
+  //NOT IMPLEMENTED
+  defaultView: 'day',
+  supportedModes: ['user', 'team'],
+  //NOT IMPLEMENTED
+  defaultMode: 'user',
+  teamDayViewWidth: 250,
+  timeslots: 4,
+  step: 15
 };
