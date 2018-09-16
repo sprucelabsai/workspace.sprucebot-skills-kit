@@ -10,6 +10,12 @@ function required(name) {
 	)
 }
 
+function suggested(name) {
+	console.log(
+		`⚠️  Missing key in Sprucebot() constructor. Check your server.js and environment variables:  ${eventContract}`
+	)
+}
+
 class Sprucebot {
 	constructor({
 		apiKey = required('apiKey'),
@@ -22,7 +28,7 @@ class Sprucebot {
 		svgIcon = required('svgIcon'),
 		allowSelfSignedCerts = false,
 		dbEnabled = false,
-		eventContract = required('eventContract'),
+		eventContract = suggested('eventContract'),
 		version = 'unknown',
 		skillsKitVersion = 'unknown'
 	}) {
@@ -39,7 +45,7 @@ class Sprucebot {
 			(interfaceUrl || required('interfaceUrl')) + '/marketing'
 
 		this.dbEnabled = dbEnabled
-		this.eventContract = eventContract
+		this.eventContract = eventContract || { events: {} }
 		this._mutexes = {}
 
 		this.version = version // skill version
