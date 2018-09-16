@@ -937,7 +937,7 @@ export default class BigCalendar extends Component {
 						view === 'day' &&
 						teamSchedule && (
 							<Button
-								className="toggle-show-working"
+								className="toggle-mode toggle-show-working"
 								onClick={this.handleToggleShowWorking}
 							>
 								{showOnlyWorking ? 'show everyone' : 'show only working'}

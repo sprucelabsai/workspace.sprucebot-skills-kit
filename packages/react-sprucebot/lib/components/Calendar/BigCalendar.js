@@ -320,7 +320,7 @@ var BigCalendar = function (_Component) {
 					mode === 'team' && view === 'day' && teamSchedule && _react2.default.createElement(
 						_Button2.default,
 						{
-							className: 'toggle-show-working',
+							className: 'toggle-mode toggle-show-working',
 							onClick: this.handleToggleShowWorking
 						},
 						showOnlyWorking ? 'show everyone' : 'show only working'
