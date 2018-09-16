@@ -5,11 +5,7 @@
 	"version": "6.70.10",
 	"command": {
 		"publish": {
-			"allowBranch": [
-				"dev",
-				"master",
-				"barbershop"
-			],
+			"allowBranch": ["dev", "master", "v6"],
 			"conventionalCommits": true
 		}
 	}

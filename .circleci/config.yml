@@ -75,7 +75,7 @@ workflows:
           filters:
             branches:
               only:
-                - dev
+                - v6
       - prod_release:
           filters:
             branches:
