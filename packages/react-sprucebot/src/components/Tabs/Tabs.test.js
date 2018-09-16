@@ -1,15 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
+import { Tabs } from './Tabs'
+import { shallow } from 'enzyme'
 
-import { Tabs, TabPane } from './Tabs'
+describe('Tabs tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<Tabs />)
 
-test('Tabs renders', () => {
-	const tree = renderer.create(<Tabs />).toJSON()
-	expect(tree).toMatchSnapshot()
-})
-
-test('TabPane renders', () => {
-	const tree = renderer.create(<TabPane />).toJSON()
-	expect(tree).toMatchSnapshot()
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })

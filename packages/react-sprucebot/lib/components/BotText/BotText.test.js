@@ -4,23 +4,18 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactTestRenderer = require('react-test-renderer');
-
-var _reactTestRenderer2 = _interopRequireDefault(_reactTestRenderer);
-
-require('jest-styled-components');
-
 var _BotText = require('./BotText');
 
 var _BotText2 = _interopRequireDefault(_BotText);
 
+var _enzyme = require('enzyme');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-test('it renders', function () {
-	var tree = _reactTestRenderer2.default.create(_react2.default.createElement(
-		_BotText2.default,
-		null,
-		'Bottext children'
-	)).toJSON();
-	expect(tree).toMatchSnapshot();
+describe('BotText tests', function () {
+	it('Should match the snapshot', function () {
+		var renderedComponent = (0, _enzyme.shallow)(_react2.default.createElement(_BotText2.default, null));
+
+		expect(renderedComponent).toMatchSnapshot();
+	});
 });

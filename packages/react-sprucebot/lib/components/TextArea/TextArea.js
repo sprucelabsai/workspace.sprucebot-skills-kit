@@ -3,15 +3,12 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = TextAreaField;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _reactTextareaAutosize = require('react-textarea-autosize');
 
@@ -23,17 +20,17 @@ var _FormField2 = _interopRequireDefault(_FormField);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var StyledTextArea = (0, _styledComponents2.default)(_reactTextareaAutosize2.default).attrs({
-	className: 'TextArea'
-}).withConfig({
-	displayName: 'TextArea__StyledTextArea',
-	componentId: 'sq0zxr-0'
-})(['min-height:1em;']);
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-function TextAreaField(props) {
+var TextAreaField = function TextAreaField(_ref) {
+	var className = _ref.className,
+	    props = _objectWithoutProperties(_ref, ['className']);
+
 	return _react2.default.createElement(
 		_FormField2.default,
 		props,
-		_react2.default.createElement(StyledTextArea, null)
+		_react2.default.createElement(StyledTextArea, _extends({}, props, { className: 'TextArea ' + (className || '') }))
 	);
-}
+};
+
+exports.default = TextAreaField;

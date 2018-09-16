@@ -9,10 +9,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -38,11 +34,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var StyledTab = (0, _styledComponents2.default)(_Button2.default).withConfig({
-	displayName: 'Tabs__StyledTab',
-	componentId: 'sc-18ky9zq-0'
-})(['flex:1;']);
 
 var Tabs = exports.Tabs = function (_Component) {
 	_inherits(Tabs, _Component);
@@ -147,13 +138,13 @@ var Tabs = exports.Tabs = function (_Component) {
 				}
 
 				tabs.push(_react2.default.createElement(
-					StyledTab,
+					_Button2.default,
 					{
 						onClick: function onClick(e) {
 							_this2.onTabClick(idx, tab.key, e);
 						},
 						toggle: true,
-						className: className,
+						className: 'tab ' + (className || ''),
 						key: 'tab-' + tab.key
 					},
 					tab.props.title

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import PropTypes from 'prop-types'
 import isEqual from 'lodash/isEqual'
 import { Tween, autoPlay, Easing } from 'es6-tween'

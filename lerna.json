@@ -5,12 +5,9 @@
 	"version": "6.70.10",
 	"command": {
 		"publish": {
-			"allowBranch": [
-				"dev",
-				"master",
-				"barbershop"
-			],
-			"conventionalCommits": true
+			"allowBranch": ["dev", "prerelease/*"],
+			"conventionalCommits": true,
+			"changelogPreset": "sprucelabs"
 		}
 	}
 }

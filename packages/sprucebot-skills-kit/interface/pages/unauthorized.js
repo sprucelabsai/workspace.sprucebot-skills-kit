@@ -1,6 +1,6 @@
 import React from 'react'
 import Page from '../containers/Page'
-import { Container, H1, BotText } from 'react-sprucebot'
+import { Container, H1, BotText } from '@sprucelabs/react-sprucebot'
 
 class UnauthorizedPage extends React.Component {
 	static getInitialProps() {

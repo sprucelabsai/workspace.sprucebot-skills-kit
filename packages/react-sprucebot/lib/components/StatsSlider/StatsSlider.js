@@ -84,4 +84,6 @@ StatsSlider.propTypes = {
 	stats: _propTypes2.default.array.isRequired
 };
 
-StatsSlider.defaultProps = {};
+StatsSlider.defaultProps = {
+	stats: []
+};

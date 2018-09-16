@@ -1,42 +1,8 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import ControlButton from '../ControlButton/ControlButton'
 import Loader from '../Loader/Loader'
 import IconButton from '../IconButton/IconButton'
-
-const StyledList = styled.ul`
-	display: flex;
-	align-items: center;
-	${props => props.margin && `margin: ${props.margin}`};
-`
-
-const StyledListItem = styled.li`
-	&& {
-		${props => props.smallArrows && `flex: 0.5`};
-		${props => props.hide && `display: none`};
-		${props =>
-			props.loading &&
-			`
-				pointer-events: none;
-				cursor: not-allowed;
-			`};
-	}
-`
-
-const DropDownButton = styled(ControlButton)`
-	margin-left: 0.7em;
-`
-
-const StyledLoader = styled(Loader)`
-	&& {
-		flex: 2;
-		display: flex;
-		align-self: center;
-		align-items: center;
-		justify-content: center;
-	}
-`
 
 class Pager extends Component {
 	// Starting page
@@ -127,7 +93,7 @@ class Pager extends Component {
 		const { totalPages, titles } = this.props
 
 		const title = titles ? titles(page) : `${page + 1} of ${totalPages}`
-		return <StyledListItem className="current">{title}</StyledListItem>
+		return <li className="current">{title}</li>
 	}
 
 	render() {

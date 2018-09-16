@@ -1,10 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import Select from './Select'
+import { shallow } from 'enzyme'
 
-test('it renders', () => {
-	const tree = renderer.create(<Select />).toJSON()
-	expect(tree).toMatchSnapshot()
+describe('Select tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<Select />)
+
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })

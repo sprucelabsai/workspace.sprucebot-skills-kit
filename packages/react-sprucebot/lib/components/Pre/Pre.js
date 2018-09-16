@@ -4,15 +4,21 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _styledComponents = require('styled-components');
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Pre = (0, _styledComponents2.default)('pre').withConfig({
-	displayName: 'Pre',
-	componentId: 'r27akj-0'
-})(['font-family:Courier,\'New Courier\',monospace;font-size:0.8em;text-align:left;white-space:pre-wrap;width:100%;word-wrap:break-word;background-color:black;color:green;padding:20px;tabsize:1;']);
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+var Pre = function Pre(_ref) {
+	var className = _ref.className,
+	    props = _objectWithoutProperties(_ref, ['className']);
+
+	return _react2.default.createElement('pre', _extends({}, props, { className: 'pre ' + (className || '') }));
+};
 
 exports.default = Pre;

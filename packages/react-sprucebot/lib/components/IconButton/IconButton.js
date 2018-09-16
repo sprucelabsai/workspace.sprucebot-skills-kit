@@ -6,10 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -30,13 +26,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var StyledButton = (0, _styledComponents2.default)(_Button2.default).withConfig({
-	displayName: 'IconButton__StyledButton',
-	componentId: 'sc-38lbn2-0'
-})(['align-items:center;background:none;color:#00aac7;display:flex;font-size:', ';margin:0;padding:0;text-decoration:none;width:auto;&:hover{background:none;}'], function (props) {
-	return props.fontSize ? '' + props.fontSize : '2em';
-});
-
 var IconButton = function IconButton(_ref) {
 	var children = _ref.children,
 	    className = _ref.className,
@@ -44,14 +33,14 @@ var IconButton = function IconButton(_ref) {
 	    props = _objectWithoutProperties(_ref, ['children', 'className', 'loaderStyle']);
 
 	return _react2.default.createElement(
-		StyledButton,
+		_Button2.default,
 		_extends({
 			loaderDark: true,
 			loaderStyle: _extends({
 				fontSize: '.5em'
 			}, loaderStyle)
 		}, props, {
-			className: 'IconButton icon-button ' + (className || '')
+			className: 'IconButton icon__button ' + (className || '')
 		}),
 		_react2.default.createElement(
 			_Icon2.default,

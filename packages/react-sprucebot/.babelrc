@@ -1,13 +1,5 @@
 {
-  "presets": [
-    "es2015",
-    "stage-0",
-    "react"
-  ],
-  "plugins": [
-    "transform-object-rest-spread",
-    ["babel-plugin-styled-components", {
-    "ssr": true
-  }]],
-  "ignore": ["node_modules"]
+	"presets": ["es2015", "stage-0", "react"],
+	"plugins": ["transform-object-rest-spread", "transform-flow-strip-types"],
+	"ignore": ["node_modules"]
 }

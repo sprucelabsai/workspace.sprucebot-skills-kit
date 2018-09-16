@@ -15,5 +15,7 @@ module.exports = {
 		'<rootDir>/config/',
 		'<rootDir>/jest/',
 		'node_modules'
-	]
+	],
+	testURL: 'http://localhost/',
+	testEnvironment: 'node'
 }

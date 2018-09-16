@@ -12,10 +12,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -41,34 +37,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var StyledList = (0, _styledComponents2.default)('ul').withConfig({
-	displayName: 'Pager__StyledList',
-	componentId: 'sc-2ln22q-0'
-})(['display:flex;align-items:center;', ';'], function (props) {
-	return props.margin && 'margin: ' + props.margin;
-});
-
-var StyledListItem = (0, _styledComponents2.default)('li').withConfig({
-	displayName: 'Pager__StyledListItem',
-	componentId: 'sc-2ln22q-1'
-})(['&&{', ';', ';', ';}'], function (props) {
-	return props.smallArrows && 'flex: 0.5';
-}, function (props) {
-	return props.hide && 'display: none';
-}, function (props) {
-	return props.loading && '\n\t\t\t\tpointer-events: none;\n\t\t\t\tcursor: not-allowed;\n\t\t\t';
-});
-
-var DropDownButton = (0, _styledComponents2.default)(_ControlButton2.default).withConfig({
-	displayName: 'Pager__DropDownButton',
-	componentId: 'sc-2ln22q-2'
-})(['margin-left:0.7em;']);
-
-var StyledLoader = (0, _styledComponents2.default)(_Loader2.default).withConfig({
-	displayName: 'Pager__StyledLoader',
-	componentId: 'sc-2ln22q-3'
-})(['&&{flex:2;display:flex;align-self:center;align-items:center;justify-content:center;}']);
 
 var Pager = function (_Component) {
 	_inherits(Pager, _Component);
@@ -175,7 +143,7 @@ var Pager = function (_Component) {
 
 			var title = titles ? titles(page) : page + 1 + ' of ' + totalPages;
 			return _react2.default.createElement(
-				StyledListItem,
+				'li',
 				{ className: 'current' },
 				title
 			);

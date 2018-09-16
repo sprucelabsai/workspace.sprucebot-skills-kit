@@ -1,7 +1,7 @@
 import React from 'react'
 import config from 'config'
 import { render } from 'enzyme'
-import { testUtils } from 'react-sprucebot'
+import { testUtils } from '@sprucelabs/react-sprucebot'
 
 import { JWT, auth, guests, teammates } from '../../__mocks__/users'
 import { didOnboarding } from '../../__mocks__/onboarding'

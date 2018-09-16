@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import React from 'react'
 
-const SubmitWrapper = styled.div.attrs({
-	className: 'submit__wrapper'
-})``
+const SubmitWrapper = ({ className, ...props }) => {
+	return <div {...props} className={`submit__wrapper ${className || ''}`} />
+}
 
 export default SubmitWrapper

@@ -1,13 +1,13 @@
 {
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "**/.next": true
-  },
-  "git.ignoreLimitWarning": true,
-  "cSpell.words": ["callout", "stringify'able", "uploader"],
-  "editor.formatOnSave": true,
-  "prettier.semi": false,
-  "prettier.singleQuote": true,
-  "prettier.useTabs": true
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/bower_components": true,
+		"**/.next": true
+	},
+	"git.ignoreLimitWarning": true,
+	"editor.formatOnSave": true,
+	"prettier.semi": false,
+	"prettier.singleQuote": true,
+	"prettier.useTabs": true,
+	"javascript.validate.enable": false
 }

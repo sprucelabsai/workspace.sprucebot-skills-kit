@@ -1,8 +1,8 @@
-import { Page, withStore } from 'react-sprucebot'
+import { Page, withStore } from '@sprucelabs/react-sprucebot'
 import config from './../client'
 import actions from './../store/actions'
 import reducers from './../store/reducers'
-import { lang } from 'react-sprucebot'
+import { lang } from '@sprucelabs/react-sprucebot'
 import defaultLang from './../lang/default'
 
 let overridesLang = {}

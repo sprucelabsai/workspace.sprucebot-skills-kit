@@ -4,17 +4,21 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _styledComponents = require('styled-components');
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SubmitWrapper = (0, _styledComponents2.default)('div').attrs({
-	className: 'submit__wrapper'
-}).withConfig({
-	displayName: 'SubmitWrapper',
-	componentId: 'sc-37qkbg-0'
-})(['']);
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+var SubmitWrapper = function SubmitWrapper(_ref) {
+	var className = _ref.className,
+	    props = _objectWithoutProperties(_ref, ['className']);
+
+	return _react2.default.createElement('div', _extends({}, props, { className: 'submit__wrapper ' + (className || '') }));
+};
 
 exports.default = SubmitWrapper;

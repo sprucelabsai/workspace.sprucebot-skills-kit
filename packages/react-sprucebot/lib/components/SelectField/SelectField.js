@@ -3,15 +3,12 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.default = TextAreaField;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _classnames = require('classnames');
 
@@ -25,14 +22,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var StyledSelect = (0, _styledComponents2.default)('select').attrs({
-	className: (0, _classnames2.default)('SelectField', 'custom_dropdown')
-}).withConfig({
-	displayName: 'SelectField__StyledSelect',
-	componentId: 'sc-6thctv-0'
-})(['']);
-
-function TextAreaField(_ref) {
+var TextAreaField = function TextAreaField(_ref) {
 	var children = _ref.children,
 	    props = _objectWithoutProperties(_ref, ['children']);
 
@@ -40,9 +30,13 @@ function TextAreaField(_ref) {
 		_FormField2.default,
 		props,
 		_react2.default.createElement(
-			StyledSelect,
-			null,
+			'select',
+			_extends({}, props, {
+				className: (0, _classnames2.default)('SelectField', 'custom_dropdown')
+			}),
 			children
 		)
 	);
-}
+};
+
+exports.default = TextAreaField;

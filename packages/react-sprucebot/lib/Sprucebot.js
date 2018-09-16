@@ -88,10 +88,6 @@ var _StatsSlider = require('./components/StatsSlider/StatsSlider');
 
 var _StatsSlider2 = _interopRequireDefault(_StatsSlider);
 
-var _Styleguide = require('./components/Styleguide/Styleguide');
-
-var _Styleguide2 = _interopRequireDefault(_Styleguide);
-
 var _ImageCropper = require('./components/ImageCropper/ImageCropper');
 
 var _ImageCropper2 = _interopRequireDefault(_ImageCropper);
@@ -99,10 +95,6 @@ var _ImageCropper2 = _interopRequireDefault(_ImageCropper);
 var _TrainingGuide = require('./components/TrainingGuide/TrainingGuide');
 
 var _TrainingGuide2 = _interopRequireDefault(_TrainingGuide);
-
-var _TimeInput = require('./components/TimeInput/TimeInput');
-
-var _TimeInput2 = _interopRequireDefault(_TimeInput);
 
 var _Onboarding = require('./components/Onboarding/Onboarding');
 
@@ -227,7 +219,6 @@ var Sprucebot = _extends({
 	StatsSlider: _StatsSlider2.default,
 	ButtonGrid: ButtonGrid,
 	Stars: _Stars2.default,
-	Styleguide: _Styleguide2.default,
 	ImageCropper: _ImageCropper2.default,
 	DevControls: _DevControls2.default,
 	Callout: _Callout2.default,
@@ -237,7 +228,6 @@ var Sprucebot = _extends({
 	Error: _Error2.default,
 	FeedAttachment: _Feed.FeedAttachment,
 	TrainingGuide: _TrainingGuide2.default,
-	TimeInput: _TimeInput2.default,
 	Onboarding: _Onboarding2.default,
 	Icon: _Icon2.default,
 	HelpButton: _HelpButton2.default,

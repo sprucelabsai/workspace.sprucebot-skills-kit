@@ -5,61 +5,93 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.SectionHeading = exports.A = exports.H6 = exports.H5 = exports.H4 = exports.H3 = exports.H2 = exports.H1 = exports.Paragraph = undefined;
 
-var _styledComponents = require('styled-components');
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Paragraph = exports.Paragraph = (0, _styledComponents2.default)('p').attrs({
-	className: function className(props) {
-		return props.fine ? 'fine__print' : '';
-	}
-}).withConfig({
-	displayName: 'Typography__Paragraph',
-	componentId: 'sc-1caqefb-0'
-})(['']);
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var H1 = exports.H1 = (0, _styledComponents2.default)('h1').attrs({
-	className: function className(props) {
-		return props.with_subheader ? 'with__subheader' : '';
-	}
-}).withConfig({
-	displayName: 'Typography__H1',
-	componentId: 'sc-1caqefb-1'
-})(['']);
-var H2 = exports.H2 = (0, _styledComponents2.default)('h2').attrs({
-	className: function className(props) {
-		return props.subheader ? 'is__subheader' : '';
-	}
-}).withConfig({
-	displayName: 'Typography__H2',
-	componentId: 'sc-1caqefb-2'
-})(['']);
-var H3 = exports.H3 = (0, _styledComponents2.default)('h3').withConfig({
-	displayName: 'Typography__H3',
-	componentId: 'sc-1caqefb-3'
-})(['']);
-var H4 = exports.H4 = (0, _styledComponents2.default)('h4').withConfig({
-	displayName: 'Typography__H4',
-	componentId: 'sc-1caqefb-4'
-})(['']);
-var H5 = exports.H5 = (0, _styledComponents2.default)('h5').withConfig({
-	displayName: 'Typography__H5',
-	componentId: 'sc-1caqefb-5'
-})(['']);
-var H6 = exports.H6 = (0, _styledComponents2.default)('h6').withConfig({
-	displayName: 'Typography__H6',
-	componentId: 'sc-1caqefb-6'
-})(['']);
+var Paragraph = function Paragraph(_ref) {
+	var className = _ref.className,
+	    fine = _ref.fine,
+	    props = _objectWithoutProperties(_ref, ['className', 'fine']);
 
-var A = exports.A = (0, _styledComponents2.default)('a').withConfig({
-	displayName: 'Typography__A',
-	componentId: 'sc-1caqefb-7'
-})(['']);
-var SectionHeading = exports.SectionHeading = (0, _styledComponents2.default)('h2').attrs({
-	className: 'profile__subtitle'
-}).withConfig({
-	displayName: 'Typography__SectionHeading',
-	componentId: 'sc-1caqefb-8'
-})(['']);
+	return _react2.default.createElement('p', _extends({}, props, {
+		className: (fine ? 'fine__print' : '') + ' ' + (className || '')
+	}));
+};
+
+exports.Paragraph = Paragraph;
+var H1 = function H1(_ref2) {
+	var className = _ref2.className,
+	    with_subheader = _ref2.with_subheader,
+	    props = _objectWithoutProperties(_ref2, ['className', 'with_subheader']);
+
+	return _react2.default.createElement('h1', _extends({}, props, {
+		className: (with_subheader ? 'with__subheader' : '') + ' ' + (className || '')
+	}));
+};
+
+exports.H1 = H1;
+var H2 = function H2(_ref3) {
+	var className = _ref3.className,
+	    subheader = _ref3.subheader,
+	    props = _objectWithoutProperties(_ref3, ['className', 'subheader']);
+
+	return _react2.default.createElement('h2', _extends({}, props, {
+		className: (subheader ? 'is__subheader' : '') + ' ' + (className || '')
+	}));
+};
+
+exports.H2 = H2;
+var H3 = function H3(_ref4) {
+	var className = _ref4.className,
+	    props = _objectWithoutProperties(_ref4, ['className']);
+
+	return _react2.default.createElement('h3', _extends({}, props, { className: '' + (className || '') }));
+};
+
+exports.H3 = H3;
+var H4 = function H4(_ref5) {
+	var className = _ref5.className,
+	    props = _objectWithoutProperties(_ref5, ['className']);
+
+	return _react2.default.createElement('h4', _extends({}, props, { className: '' + (className || '') }));
+};
+
+exports.H4 = H4;
+var H5 = function H5(_ref6) {
+	var className = _ref6.className,
+	    props = _objectWithoutProperties(_ref6, ['className']);
+
+	return _react2.default.createElement('h5', _extends({}, props, { className: '' + (className || '') }));
+};
+
+exports.H5 = H5;
+var H6 = function H6(_ref7) {
+	var className = _ref7.className,
+	    props = _objectWithoutProperties(_ref7, ['className']);
+
+	return _react2.default.createElement('h6', _extends({}, props, { className: '' + (className || '') }));
+};
+
+exports.H6 = H6;
+var A = function A(_ref8) {
+	var className = _ref8.className,
+	    props = _objectWithoutProperties(_ref8, ['className']);
+
+	return _react2.default.createElement('a', _extends({}, props, { className: '' + (className || '') }));
+};
+
+exports.A = A;
+var SectionHeading = function SectionHeading(_ref9) {
+	var className = _ref9.className,
+	    props = _objectWithoutProperties(_ref9, ['className']);
+
+	return _react2.default.createElement('h2', _extends({}, props, { className: 'profile__subtitle ' + (className || '') }));
+};
+exports.SectionHeading = SectionHeading;

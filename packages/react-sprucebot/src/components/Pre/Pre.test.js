@@ -1,10 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import Pre from './Pre'
+import { shallow } from 'enzyme'
 
-test('it renders', () => {
-	const tree = renderer.create(<Pre />).toJSON()
-	expect(tree).toMatchSnapshot()
+describe('Pre tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<Pre />)
+
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })

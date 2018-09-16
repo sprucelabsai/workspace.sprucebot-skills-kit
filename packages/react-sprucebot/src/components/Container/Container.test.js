@@ -1,14 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import Container from './Container'
+import { shallow } from 'enzyme'
 
-describe('Container Component', () => {
-	test('it renders', () => {
-		const tree = renderer
-			.create(<Container>Container children</Container>)
-			.toJSON()
-		expect(tree).toMatchSnapshot()
+describe('Container tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<Container />)
+
+		expect(renderedComponent).toMatchSnapshot()
 	})
 })

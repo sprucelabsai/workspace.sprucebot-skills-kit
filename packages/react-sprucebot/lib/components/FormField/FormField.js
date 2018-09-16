@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.FieldLabel = exports.FieldError = exports.FieldWrapper = undefined;
 exports.default = Field;
 
 var _react = require('react');
@@ -13,10 +12,6 @@ var _react2 = _interopRequireDefault(_react);
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _classnames = require('classnames');
 
@@ -29,27 +24,6 @@ var _reactTextareaAutosize2 = _interopRequireDefault(_reactTextareaAutosize);
 var _Typography = require('../Typography/Typography');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var FieldWrapper = exports.FieldWrapper = (0, _styledComponents2.default)('div').attrs({
-	className: (0, _classnames2.default)('InputField', 'input__wrapper')
-}).withConfig({
-	displayName: 'FormField__FieldWrapper',
-	componentId: 'sc-14kibhg-0'
-})(['']);
-
-var FieldError = exports.FieldError = (0, _styledComponents2.default)('span').attrs({
-	className: (0, _classnames2.default)('FieldError', 'input__error', 'error-is-visible')
-}).withConfig({
-	displayName: 'FormField__FieldError',
-	componentId: 'sc-14kibhg-1'
-})(['']);
-
-var FieldLabel = exports.FieldLabel = (0, _styledComponents2.default)('span').attrs({
-	className: (0, _classnames2.default)('FieldLabel', 'input__mini__label', 'js-show-label')
-}).withConfig({
-	displayName: 'FormField__FieldLabel',
-	componentId: 'sc-14kibhg-2'
-})(['']);
 
 function Field(_ref) {
 	var _ref$input = _ref.input,
@@ -67,11 +41,13 @@ function Field(_ref) {
 	    children = _ref.children;
 
 	return _react2.default.createElement(
-		FieldWrapper,
-		null,
+		'div',
+		{ className: (0, _classnames2.default)('InputField', 'input__wrapper') },
 		label && value && _react2.default.createElement(
-			FieldLabel,
-			null,
+			'span',
+			{
+				className: (0, _classnames2.default)('FieldLabel', 'input__mini__label', 'js-show-label')
+			},
 			label
 		),
 		_react2.default.cloneElement(children, {
@@ -83,8 +59,10 @@ function Field(_ref) {
 			placeholder: placeholder
 		}),
 		touched && error && _react2.default.createElement(
-			FieldError,
-			null,
+			'span',
+			{
+				className: (0, _classnames2.default)('FieldError', 'input__error', 'error-is-visible')
+			},
 			error
 		),
 		finePrint && _react2.default.createElement(

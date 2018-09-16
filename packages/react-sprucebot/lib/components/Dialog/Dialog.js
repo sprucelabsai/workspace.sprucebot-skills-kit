@@ -12,10 +12,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
 var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -59,37 +55,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var dialogUnderlay = null;
 var currentDialogs = [];
 var dialogVerticalPadding = 30;
-
-var DialogWrapper = (0, _styledComponents2.default)('div').attrs({
-	className: function className(_ref) {
-		var _className = _ref.className;
-		return 'dialog__wrapper ' + _className;
-	}
-}).withConfig({
-	displayName: 'Dialog__DialogWrapper',
-	componentId: 'sc-1lyqie-0'
-})(['opacity:', ';'], function (props) {
-	return props.opacity;
-});
-
-var DialogContainer = (0, _styledComponents2.default)('div').attrs({
-	className: function className(_ref2) {
-		var _className2 = _ref2.className;
-		return 'dialog ' + _className2;
-	}
-}).withConfig({
-	displayName: 'Dialog__DialogContainer',
-	componentId: 'sc-1lyqie-1'
-})(['opacity:', ';'], function (props) {
-	return props.opacity;
-});
-var DialogCloseButton = (0, _styledComponents2.default)(_Button2.default).attrs({
-	className: 'btn__close_dialog',
-	remove: true
-}).withConfig({
-	displayName: 'Dialog__DialogCloseButton',
-	componentId: 'sc-1lyqie-2'
-})(['']);
 
 var timerRunning = false;
 
@@ -338,9 +303,9 @@ var Dialog = function (_Component) {
 			var hasHeader = true; // always have a header, just won't show close/title if not supplied
 
 			return typeof document !== 'undefined' && _reactDom2.default.createPortal(_react2.default.createElement(
-				DialogWrapper,
+				'div',
 				{
-					className: focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
+					className: 'dialog__wrapper ' + focusClass + ' ' + (!firstShow ? 'was-focused' : '') + ' ' + (isHidden ? 'hidden' : '') + ' dialog-' + dialogIndex,
 					onClick: function onClick(e) {
 						if (e.target.className.search('dialog__wrapper') > -1 && currentDialogs.length - 1 >= 0) {
 							currentDialogs[currentDialogs.length - 1].handleTapClose();
@@ -348,12 +313,12 @@ var Dialog = function (_Component) {
 					}
 				},
 				_react2.default.createElement(
-					DialogContainer,
+					'div',
 					_extends({
 						ref: function ref(node) {
 							return _this4.dialogNode = node;
 						},
-						className: (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
+						className: 'dialog ' + (className || '') + ' ' + (hasHeader ? 'has_header' : ''),
 						style: dialogStyle,
 						opacity: opacity
 					}, props),

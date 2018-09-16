@@ -1,3 +1,4 @@
+// @flow
 import './require-babel-polyfill'
 
 import Avatar from './components/Avatar/Avatar'
@@ -21,10 +22,8 @@ import Stars from './components/Stars/Stars'
 import DevControls from './components/DevControls/DevControls'
 import * as ButtonGrid from './components/ButtonGrid/ButtonGrid'
 import StatsSlider from './components/StatsSlider/StatsSlider'
-import Styleguide from './components/Styleguide/Styleguide'
 import ImageCropper from './components/ImageCropper/ImageCropper'
 import TrainingGuide from './components/TrainingGuide/TrainingGuide'
-import TimeInput from './components/TimeInput/TimeInput'
 import Onboarding from './components/Onboarding/Onboarding'
 import Callout from './components/Callout/Callout'
 import Dialog from './components/Dialog/Dialog'
@@ -88,7 +87,6 @@ const Sprucebot = {
 	StatsSlider,
 	ButtonGrid,
 	Stars,
-	Styleguide,
 	ImageCropper,
 	DevControls,
 	Callout,
@@ -98,7 +96,6 @@ const Sprucebot = {
 	Error,
 	FeedAttachment,
 	TrainingGuide,
-	TimeInput,
 	Onboarding,
 	Icon,
 	HelpButton,

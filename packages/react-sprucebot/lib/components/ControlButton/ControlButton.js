@@ -6,10 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _styledComponents = require('styled-components');
-
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -30,38 +26,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var StyledIconLeft = (0, _styledComponents2.default)(_Icon2.default).withConfig({
-	displayName: 'ControlButton__StyledIconLeft',
-	componentId: 'sc-1xrql3i-0'
-})(['margin-right:0.25em;']);
-
-var StyledIconRight = (0, _styledComponents2.default)(_Icon2.default).withConfig({
-	displayName: 'ControlButton__StyledIconRight',
-	componentId: 'sc-1xrql3i-1'
-})(['margin-left:0.25em;']);
-
-var StyledButton = (0, _styledComponents2.default)(_Button2.default).attrs({
-	className: function className(_ref) {
-		var _className = _ref.className;
-		return 'ControlButton control-button ' + (_className || '');
-	}
-}).withConfig({
-	displayName: 'ControlButton__StyledButton',
-	componentId: 'sc-1xrql3i-2'
-})(['align-items:center;background:none;color:#00aac7;display:inline-flex;font-weight:normal;letter-spacing:0;position:relative;margin:0;padding:0;width:auto;text-decoration:none;&:hover{background:none;}']);
-
-var ControlButton = function ControlButton(_ref2) {
-	var iconLeft = _ref2.iconLeft,
-	    iconRight = _ref2.iconRight,
-	    children = _ref2.children,
-	    props = _objectWithoutProperties(_ref2, ['iconLeft', 'iconRight', 'children']);
+var ControlButton = function ControlButton(_ref) {
+	var iconLeft = _ref.iconLeft,
+	    iconRight = _ref.iconRight,
+	    children = _ref.children,
+	    className = _ref.className,
+	    props = _objectWithoutProperties(_ref, ['iconLeft', 'iconRight', 'children', 'className']);
 
 	return _react2.default.createElement(
-		StyledButton,
-		_extends({}, props, { tabIndex: 0, hideLoader: true }),
+		_Button2.default,
+		_extends({}, props, {
+			className: 'ControlButton control__button ' + (className || ''),
+			tabIndex: 0,
+			hideLoader: true
+		}),
 		iconLeft && _react2.default.createElement(
-			StyledIconLeft,
-			null,
+			_Icon2.default,
+			{ className: 'icon__left' },
 			iconLeft
 		),
 		_react2.default.createElement(
@@ -70,8 +51,8 @@ var ControlButton = function ControlButton(_ref2) {
 			children
 		),
 		iconRight && _react2.default.createElement(
-			StyledIconRight,
-			null,
+			_Icon2.default,
+			{ className: 'icon__right' },
 			iconRight
 		)
 	);

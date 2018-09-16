@@ -10,6 +10,12 @@ function required(name) {
 	)
 }
 
+function suggested(name) {
+	console.log(
+		`⚠️  Missing key in Sprucebot() constructor. Check your server.js and environment variables:  ${eventContract}`
+	)
+}
+
 class Sprucebot {
 	constructor({
 		apiKey = required('apiKey'),
@@ -22,7 +28,9 @@ class Sprucebot {
 		svgIcon = required('svgIcon'),
 		allowSelfSignedCerts = false,
 		dbEnabled = false,
-		eventContract = required('eventContract')
+		eventContract = suggested('eventContract'),
+		version = 'unknown',
+		skillsKitVersion = 'unknown'
 	}) {
 		const hostMatches = host.match(/^(https?\:\/\/|)([^\/:?#]+)(?:[\/:?#]|$)/i)
 		const cleanedHost =
@@ -37,17 +45,19 @@ class Sprucebot {
 			(interfaceUrl || required('interfaceUrl')) + '/marketing'
 
 		this.dbEnabled = dbEnabled
-		this.eventContract = eventContract
+		this.eventContract = eventContract || { events: {} }
 		this._mutexes = {}
 
-		this.version = '1.0' // maybe pull from package.json?
+		this.version = version // skill version
+		this.skillsKitVersion = skillsKitVersion // skills kit version
+		this.apiVersion = '1.0' // maybe pull from package.json?
 
 		// Setup http(s) class with everything it needs to talk to api
 		this.https = new Https({
 			host: cleanedHost,
 			apiKey,
 			id,
-			version: this.version,
+			version: this.apiVersion,
 			allowSelfSignedCerts
 		})
 
@@ -75,7 +85,9 @@ class Sprucebot {
 			iframeUrl: this.iframeUrl,
 			marketingUrl: this.marketingUrl,
 			publicUrl: this.publicUrl,
-			eventContract: this.eventContract
+			eventContract: this.eventContract,
+			version: this.version,
+			skillsKitVersion: this.skillsKitVersion
 		}
 		const results = await this.https.patch('/', data)
 		let database = null
