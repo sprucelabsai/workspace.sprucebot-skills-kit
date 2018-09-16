@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.70.11"></a>
+## [6.70.11](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.10...v6.70.11) (2018-09-16)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
 <a name="6.70.10"></a>
 ## [6.70.10](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.9...v6.70.10) (2018-09-16)
 

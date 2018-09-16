@@ -2,10 +2,14 @@
 	"lerna": "2.9.0",
 	"npmClient": "yarn",
 	"useWorkspaces": true,
-	"version": "6.70.10",
+	"version": "6.70.11",
 	"command": {
 		"publish": {
-			"allowBranch": ["dev", "master", "v6"],
+			"allowBranch": [
+				"dev",
+				"master",
+				"v6"
+			],
 			"conventionalCommits": true
 		}
 	}
