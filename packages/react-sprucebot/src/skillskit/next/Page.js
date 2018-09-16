@@ -165,7 +165,7 @@ const Page = Wrapped => {
 			}
 
 			// NOTE: Need to do this require here so that we can be sure the global window is defined
-			const WebFont = require('webfontloader') //eslint-disable-line
+			const WebFont = require("webfontloader"); //eslint-disable-line
 			WebFont.load({
 				google: {
 					families: ['Material Icons']
@@ -186,11 +186,17 @@ const Page = Wrapped => {
 				this.props.actions.events.didUpdateUser
 			)
 
-			const bodyClassName = `${
-				is.mobile() ? 'is_mobile' : is.tablet() ? 'is_tablet' : 'is_desktop'
-			}`
+			const bodyClassNames = [
+				`${
+					is.mobile() ? 'is_mobile' : is.tablet() ? 'is_tablet' : 'is_desktop'
+				}`
+			]
 
-			document.body.classList.add(bodyClassName)
+			if (is.ios()) {
+				bodyClassNames.push('is_ios')
+			}
+
+			document.body.classList.add(...bodyClassNames)
 		}
 
 		componentWillUnmount() {

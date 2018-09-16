@@ -63,3 +63,5 @@ package-lock.json
 yarn-error.log
 
 scratchpad.js
+
+api-docs.json

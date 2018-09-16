@@ -33,12 +33,13 @@ export default class MyDocument extends Document {
 	}
 
 	render() {
-		let whitelabelClassName =
+		let bodyClassName =
 			this.props.config && this.props.config.SLUG
 				? ` skill-${this.props.config.SLUG}`
 				: ''
+
 		return (
-			<html className={`skill${whitelabelClassName}`}>
+			<html className={`skill${bodyClassName}`}>
 				<Head>
 					<title>{this.props.name}</title>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -69,7 +70,7 @@ export default class MyDocument extends Document {
 						/>
 					)}
 				</Head>
-				<body>
+				<body className={bodyClassName}>
 					<Main />
 					<NextScript />
 				</body>

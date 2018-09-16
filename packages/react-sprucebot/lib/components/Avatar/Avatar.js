@@ -45,17 +45,42 @@ var Avatar = function (_Component) {
 		}
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Avatar.__proto__ || Object.getPrototypeOf(Avatar)).call.apply(_ref, [this].concat(args))), _this), _this.handleTapEdit = function () {
-			var _this$props = _this.props,
-			    user = _this$props.user,
-			    enableProfileEditing = _this$props.enableProfileEditing;
+			var user = _this.props.user;
 
 
-			if (enableProfileEditing && user && user.User && user.User.id && user.Location && user.Location.id) {
+			if (_this.canEdit()) {
 				_skillskit2.default.editUserProfile({
 					userId: user.User.id,
 					locationId: user.Location.id
 				});
 			}
+		}, _this.canEdit = function () {
+			var _this$props = _this.props,
+			    enableProfileEditing = _this$props.enableProfileEditing,
+			    user = _this$props.user,
+			    auth = _this$props.auth;
+
+
+			var minimumRequirementsMet = auth && enableProfileEditing && user && user.User && user.User.id && user.Location && user.Location.id;
+
+			// DELETE THIS OUT WHEN ROLES ARE PROPERLY PASSED
+			if (minimumRequirementsMet && (auth.role === 'owner' || auth.role === 'teammate' || auth.User.id === user.User.id)) {
+				return true;
+			}
+			// END DELETE
+
+			//we have all the data, lets do some role checks
+			if (minimumRequirementsMet) {
+				if (auth.role === 'owner') {
+					return true;
+				} else if (auth.role === 'teammate' && user.role === 'guest') {
+					return true;
+				} else if (auth.User.id === user.User.id) {
+					return true;
+				}
+			}
+
+			return false;
 		}, _temp), _possibleConstructorReturn(_this, _ret);
 	}
 
@@ -85,7 +110,7 @@ var Avatar = function (_Component) {
 
 			return _react2.default.createElement('div', _extends({
 				style: style,
-				className: (top ? 'top__avatar' : 'avatar__wrapper') + ' ' + (className || '') + ' ' + (isOnline ? 'online' : '') + ' ' + (enableProfileEditing && user && user.User ? 'is_editable' : ''),
+				className: (top ? 'top__avatar' : 'avatar__wrapper') + ' ' + (className || '') + ' ' + (isOnline ? 'online' : '') + ' ' + (this.canEdit() ? 'is_editable' : ''),
 				onClick: this.handleTapEdit
 			}, props));
 		}
@@ -99,6 +124,7 @@ exports.default = Avatar;
 
 Avatar.propTypes = {
 	top: _propTypes2.default.bool,
+	auth: _propTypes2.default.object,
 	user: _propTypes2.default.object, //pass this or everything belowe
 	image: _propTypes2.default.string,
 	showOnlineIndicator: _propTypes2.default.bool,

@@ -3,6 +3,156 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.70.10"></a>
+## [6.70.10](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.9...v6.70.10) (2018-09-16)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.9"></a>
+## [6.70.9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.8...v6.70.9) (2018-09-15)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.8"></a>
+## [6.70.8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.7...v6.70.8) (2018-09-14)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.7"></a>
+## [6.70.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.6...v6.70.7) (2018-09-14)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.6"></a>
+## [6.70.6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.5...v6.70.6) (2018-09-13)
+
+
+### Bug Fixes
+
+* run migrations before sequelize.sync() ([561dd69](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/561dd69))
+
+
+
+
+
+<a name="6.70.5"></a>
+## [6.70.5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.4...v6.70.5) (2018-09-11)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.4"></a>
+## [6.70.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.3...v6.70.4) (2018-09-10)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.3"></a>
+## [6.70.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.2...v6.70.3) (2018-09-09)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.2"></a>
+## [6.70.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.1...v6.70.2) (2018-09-08)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.1"></a>
+## [6.70.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.0...v6.70.1) (2018-09-08)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.0"></a>
+# [6.70.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.69.0...v6.70.0) (2018-09-07)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.69.0"></a>
+# [6.69.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.68.0...v6.69.0) (2018-09-06)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.68.0"></a>
+# [6.68.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.67.0...v6.68.0) (2018-09-04)
+
+
+### Features
+
+* add firstSentAt and deliveryTry ([ea63c4d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ea63c4d))
+
+
+
+
+
+<a name="6.67.0"></a>
+# [6.67.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.66.0...v6.67.0) (2018-09-04)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.66.0"></a>
+# [6.66.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.65.2...v6.66.0) (2018-09-03)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.65.2"></a>
+## [6.65.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.65.1...v6.65.2) (2018-08-30)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
 <a name="6.65.1"></a>
 ## [6.65.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.65.0...v6.65.1) (2018-08-29)
 

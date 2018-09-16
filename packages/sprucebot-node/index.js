@@ -455,10 +455,11 @@ class Sprucebot {
 	 * @param {String} name
 	 * @param {Object} payload
 	 */
-	async emit(locationId, eventName, payload = {}) {
+	async emit(locationId, eventName, payload = {}, options) {
 		return this.https.post(`locations/${locationId}/emit`, {
 			eventName,
-			payload
+			payload,
+			options
 		})
 	}
 
@@ -468,10 +469,11 @@ class Sprucebot {
 	 * @param {String} name
 	 * @param {Object} payload
 	 */
-	async emitOrganization(organizationId, eventName, payload = {}) {
+	async emitOrganization(organizationId, eventName, payload = {}, options) {
 		return this.https.post(`organizations/${organizationId}/emit`, {
 			eventName,
-			payload
+			payload,
+			options
 		})
 	}
 
