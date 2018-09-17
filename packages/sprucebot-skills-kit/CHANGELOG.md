@@ -3,23 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [7.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.10...v7.0.0) (2018-09-16)
-
-
-### Breaking Changes
-
-* Remove styled-components and update error handling ([8f17966](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8f17966))
+# [7.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.0.0...v7.1.0) (2018-09-17)
 
 
 ### Bug Fixes
 
-* redis delete not deleting if prefix is sent with it; disable precommit ([411b716](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/411b716))
+* skills-kit vscode settings autosave, prettier, etc. ([08ea003](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/08ea003))
 
 
 ### Features
 
-* send version information to api on skill boot ([384ae74](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/384ae74))
-* update skills kit release config ([3634acf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3634acf))
+* upgrade to next 6 and babel 7 ([1bb2681](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1bb2681))
 
 
 
