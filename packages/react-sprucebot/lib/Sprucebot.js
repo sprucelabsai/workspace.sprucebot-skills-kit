@@ -90,7 +90,6 @@ var _lang = _interopRequireDefault(require("./skillskit/helpers/lang"));
 
 var _sharable = _interopRequireDefault(require("./skillskit/helpers/sharable"));
 
-// import './require-babel-polyfill'
 var Sprucebot = (0, _objectSpread2.default)({
   testUtils: {
     // Prevent confusion between withStore and createStore
