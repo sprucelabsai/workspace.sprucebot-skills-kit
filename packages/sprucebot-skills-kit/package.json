@@ -4,7 +4,7 @@
 		"access": "public"
 	},
 	"description": "The base template that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "7.1.1",
+	"version": "7.1.2",
 	"homepage": "https://github.com/sprucelabsai/sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/sprucebot-skills-kit/issues"
@@ -36,9 +36,9 @@
 	},
 	"dependencies": {
 		"@barbershopio/iso-log": "^0.1.13",
-		"@sprucelabs/react-sprucebot": "^7.1.1",
-		"@sprucelabs/sprucebot-node": "^7.1.1",
-		"@sprucelabs/sprucebot-skills-kit-server": "^7.1.1",
+		"@sprucelabs/react-sprucebot": "^7.1.2",
+		"@sprucelabs/sprucebot-node": "^7.1.2",
+		"@sprucelabs/sprucebot-skills-kit-server": "^7.1.2",
 		"@zeit/next-css": "^0.2.0",
 		"@zeit/next-sass": "^0.2.0",
 		"config": "^1.27.0",

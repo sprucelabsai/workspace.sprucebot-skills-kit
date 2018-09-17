@@ -3,12 +3,9 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [7.1.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.1.0...v7.1.1) (2018-09-17)
+## [7.1.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.1.1...v7.1.2) (2018-09-17)
 
-
-### Features
-
-* add stylesheet that can be pulled in by skills ([1bed3ec](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1bed3ec))
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
 
 
 
