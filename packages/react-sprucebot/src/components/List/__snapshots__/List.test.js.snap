@@ -2,6 +2,6 @@
 
 exports[`List tests Should match the snapshot 1`] = `
 <div
-  className="List item__list "
+  className="List item__list  "
 />
 `;

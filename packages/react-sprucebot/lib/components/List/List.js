@@ -40,7 +40,7 @@ var List = function List(_ref) {
       isSortable = _ref.isSortable,
       props = (0, _objectWithoutProperties2.default)(_ref, ["className", "isSortable"]);
   return _react.default.createElement("div", (0, _extends2.default)({}, props, {
-    className: "List item__list ".concat(isSortable ? 'sortable__item__list' : '')
+    className: "List item__list ".concat(className ? className : '', " ").concat(isSortable ? 'sortable__item__list' : '')
   }));
 };
 
