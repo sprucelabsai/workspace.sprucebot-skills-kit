@@ -82,9 +82,5 @@
 		"svgo": "^1.0.3",
 		"swagger-jsdoc": "^3.0.2"
 	},
-	"###jest": {
-		"coverageDirectory": "./coverage/",
-		"collectCoverage": true
-	},
 	"gitHead": "eac8d4ea6df58218b78c9c866b22c761df1e6447"
 }
