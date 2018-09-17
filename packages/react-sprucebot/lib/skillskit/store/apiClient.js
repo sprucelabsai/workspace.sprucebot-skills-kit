@@ -1,153 +1,143 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _axios = require('axios');
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _axios2 = _interopRequireDefault(_axios);
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _https = require('https');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _https2 = _interopRequireDefault(_https);
+var _axios = _interopRequireDefault(require("axios"));
 
-var _http = require('http');
+var _https = _interopRequireDefault(require("https"));
 
-var _http2 = _interopRequireDefault(_http);
+var _http = _interopRequireDefault(require("http"));
 
-var _qs = require('qs');
-
-var _qs2 = _interopRequireDefault(_qs);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _qs = _interopRequireDefault(require("qs"));
 
 var methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
-var ApiClient = function () {
-	function ApiClient(endpoint, _ref) {
-		var _this = this;
+var ApiClient =
+/*#__PURE__*/
+function () {
+  function ApiClient(endpoint, _ref) {
+    var _this = this;
 
-		var _ref$allowSelfSignedC = _ref.allowSelfSignedCerts,
-		    allowSelfSignedCerts = _ref$allowSelfSignedC === undefined ? false : _ref$allowSelfSignedC;
+    var _ref$allowSelfSignedC = _ref.allowSelfSignedCerts,
+        allowSelfSignedCerts = _ref$allowSelfSignedC === void 0 ? false : _ref$allowSelfSignedC;
+    (0, _classCallCheck2.default)(this, ApiClient);
+    this.jwt = undefined;
+    this.ssl = endpoint.search('https') === 0;
+    this.endpoint = endpoint;
+    this.allowSelfSignedCerts = allowSelfSignedCerts;
+    methods.forEach(function (method) {
+      _this[method.toLowerCase()] = function (path) {
+        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+        return new Promise(
+        /*#__PURE__*/
+        function () {
+          var _ref2 = (0, _asyncToGenerator2.default)(
+          /*#__PURE__*/
+          _regenerator.default.mark(function _callee(resolve, reject) {
+            var body, query, cancelToken, headers, fetchOptions, agent, fetchUrl, response, json;
+            return _regenerator.default.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    body = options.body, query = options.query, cancelToken = options.cancelToken;
+                    _context.prev = 1;
+                    headers = {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json'
+                    };
+                    fetchOptions = {
+                      method: method,
+                      headers: headers,
+                      data: body
+                    };
 
-		_classCallCheck(this, ApiClient);
-
-		this.jwt = undefined;
-		this.ssl = endpoint.search('https') === 0;
-		this.endpoint = endpoint;
-		this.allowSelfSignedCerts = allowSelfSignedCerts;
-
-		methods.forEach(function (method) {
-			_this[method.toLowerCase()] = function (path) {
-				var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-				return new Promise(function () {
-					var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(resolve, reject) {
-						var body, query, cancelToken, headers, fetchOptions, agent, fetchUrl, response, json;
-						return regeneratorRuntime.wrap(function _callee$(_context) {
-							while (1) {
-								switch (_context.prev = _context.next) {
-									case 0:
-										body = options.body, query = options.query, cancelToken = options.cancelToken;
-										_context.prev = 1;
-										headers = {
-											Accept: 'application/json',
-											'Content-Type': 'application/json'
-										};
-										fetchOptions = {
-											method: method,
-											headers: headers,
-											data: body
-										};
-
-
-										if (cancelToken) {
-											fetchOptions.cancelToken = cancelToken;
-										}
-
-										// Allows Node to accept our self signed cert
-										if (_this.ssl && _this.allowSelfSignedCerts) {
-											agent = new _https2.default.Agent({
-												rejectUnauthorized: false
-											});
-
-											fetchOptions.httpsAgent = agent;
-										}
-
-										if (_this.jwt) {
-											fetchOptions.headers['x-skill-jwt'] = _this.jwt;
-										}
-
-										fetchUrl = '' + endpoint + path;
+                    if (cancelToken) {
+                      fetchOptions.cancelToken = cancelToken;
+                    } // Allows Node to accept our self signed cert
 
 
-										if (query) {
-											fetchUrl =
-											// determine if we're appending or creating a query string
-											fetchUrl.indexOf('?') > -1 ? '' + fetchUrl + _qs2.default.stringify(query) : fetchUrl + '?' + _qs2.default.stringify(query);
-										}
+                    if (_this.ssl && _this.allowSelfSignedCerts) {
+                      agent = new _https.default.Agent({
+                        rejectUnauthorized: false
+                      });
+                      fetchOptions.httpsAgent = agent;
+                    }
 
-										// Start network request
-										_context.prev = 9;
-										_context.next = 12;
-										return (0, _axios2.default)(fetchUrl, fetchOptions);
+                    if (_this.jwt) {
+                      fetchOptions.headers['x-skill-jwt'] = _this.jwt;
+                    }
 
-									case 12:
-										response = _context.sent;
-										json = response.data;
+                    fetchUrl = "".concat(endpoint).concat(path);
 
-										resolve(json);
-										_context.next = 20;
-										break;
+                    if (query) {
+                      fetchUrl = // determine if we're appending or creating a query string
+                      fetchUrl.indexOf('?') > -1 ? "".concat(fetchUrl).concat(_qs.default.stringify(query)) : "".concat(fetchUrl, "?").concat(_qs.default.stringify(query));
+                    } // Start network request
 
-									case 17:
-										_context.prev = 17;
-										_context.t0 = _context['catch'](9);
-										return _context.abrupt('return', reject(_context.t0 && _context.t0.response && _context.t0.response.data ? _context.t0.response.data : _context.t0));
 
-									case 20:
-										_context.next = 26;
-										break;
+                    _context.prev = 9;
+                    _context.next = 12;
+                    return (0, _axios.default)(fetchUrl, fetchOptions);
 
-									case 22:
-										_context.prev = 22;
-										_context.t1 = _context['catch'](1);
+                  case 12:
+                    response = _context.sent;
+                    json = response.data;
+                    resolve(json);
+                    _context.next = 20;
+                    break;
 
-										console.error('Response failure', _context.t1);
-										reject(_context.t1);
+                  case 17:
+                    _context.prev = 17;
+                    _context.t0 = _context["catch"](9);
+                    return _context.abrupt("return", reject(_context.t0 && _context.t0.response && _context.t0.response.data ? _context.t0.response.data : _context.t0));
 
-									case 26:
-									case 'end':
-										return _context.stop();
-								}
-							}
-						}, _callee, _this, [[1, 22], [9, 17]]);
-					}));
+                  case 20:
+                    _context.next = 26;
+                    break;
 
-					return function (_x2, _x3) {
-						return _ref2.apply(this, arguments);
-					};
-				}());
-			};
-		});
-	}
+                  case 22:
+                    _context.prev = 22;
+                    _context.t1 = _context["catch"](1);
+                    console.error('Response failure', _context.t1);
+                    reject(_context.t1);
 
-	_createClass(ApiClient, [{
-		key: 'setJwt',
-		value: function setJwt(jwt) {
-			this.jwt = jwt;
-		}
-	}]);
+                  case 26:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee, this, [[1, 22], [9, 17]]);
+          }));
 
-	return ApiClient;
+          return function (_x, _x2) {
+            return _ref2.apply(this, arguments);
+          };
+        }());
+      };
+    });
+  }
+
+  (0, _createClass2.default)(ApiClient, [{
+    key: "setJwt",
+    value: function setJwt(jwt) {
+      this.jwt = jwt;
+    }
+  }]);
+  return ApiClient;
 }();
-
 /**
  * Creates a new api client to manage network requests
  * @param {string} host
@@ -156,6 +146,8 @@ var ApiClient = function () {
  */
 
 
-exports.default = function (host, options) {
-	return new ApiClient(host, options);
+var _default = function _default(host, options) {
+  return new ApiClient(host, options);
 };
+
+exports.default = _default;

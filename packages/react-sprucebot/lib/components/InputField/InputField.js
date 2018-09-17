@@ -1,24 +1,16 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 exports.default = InputField;
 
-var _react = require('react');
+var _react = _interopRequireDefault(require("react"));
 
-var _react2 = _interopRequireDefault(_react);
-
-var _FormField = require('../FormField/FormField');
-
-var _FormField2 = _interopRequireDefault(_FormField);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _FormField = _interopRequireDefault(require("../FormField/FormField"));
 
 function InputField(props) {
-	return _react2.default.createElement(
-		_FormField2.default,
-		props,
-		_react2.default.createElement('input', null)
-	);
+  return _react.default.createElement(_FormField.default, props, _react.default.createElement("input", null));
 }

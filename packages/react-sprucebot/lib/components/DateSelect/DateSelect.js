@@ -1,207 +1,202 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-require('react-dates/initialize');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _react = require('react');
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _react2 = _interopRequireDefault(_react);
+var _getPrototypeOf3 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _moment = require('moment');
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _moment2 = _interopRequireDefault(_moment);
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
 
-var _propTypes = require('prop-types');
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+require("react-dates/initialize");
 
-var _reactDates = require('react-dates');
+var _react = _interopRequireWildcard(require("react"));
 
-var _Loader = require('../Loader/Loader');
+var _moment = _interopRequireDefault(require("moment"));
 
-var _Loader2 = _interopRequireDefault(_Loader);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _Icon = require('../Icon/Icon');
+var _reactDates = require("react-dates");
 
-var _Icon2 = _interopRequireDefault(_Icon);
+var _Loader = _interopRequireDefault(require("../Loader/Loader"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _Icon = _interopRequireDefault(require("../Icon/Icon"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var DateSelect =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(DateSelect, _Component);
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  function DateSelect() {
+    var _getPrototypeOf2;
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+    var _this;
 
-var DateSelect = function (_Component) {
-	_inherits(DateSelect, _Component);
+    (0, _classCallCheck2.default)(this, DateSelect);
 
-	function DateSelect() {
-		var _ref;
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-		var _temp, _this, _ret;
+    _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(DateSelect)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
+      defaultDateSet: false,
+      focused: 1,
+      today: _this.props.timezone ? (0, _moment.default)().tz(_this.props.timezone).format('YYYY-MM-DD') : (0, _moment.default)().format('YYYY-MM-DD')
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "componentDidMount", function () {
+      var defaultDateSet = _this.state.defaultDateSet;
 
-		_classCallCheck(this, DateSelect);
+      if (!defaultDateSet) {
+        _this.setDefaultDate();
+      }
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "isDayBlocked", function (date) {
+      var availableDates = _this.props.availableDates;
 
-		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-			args[_key] = arguments[_key];
-		}
+      if (!availableDates) {
+        return false;
+      }
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DateSelect.__proto__ || Object.getPrototypeOf(DateSelect)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-			defaultDateSet: false,
-			focused: 1,
-			today: _this.props.timezone ? (0, _moment2.default)().tz(_this.props.timezone).format('YYYY-MM-DD') : (0, _moment2.default)().format('YYYY-MM-DD')
-		}, _this.componentDidMount = function () {
-			var defaultDateSet = _this.state.defaultDateSet;
+      var thisDate = date.format('YYYY-MM-DD');
+      var match = availableDates.find(function (day) {
+        return day === thisDate;
+      });
 
+      if (match) {
+        return false;
+      }
 
-			if (!defaultDateSet) {
-				_this.setDefaultDate();
-			}
-		}, _this.isDayBlocked = function (date) {
-			var availableDates = _this.props.availableDates;
+      return true;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "isOutsideRange", function (date) {
+      var today = _this.state.today;
+      var allowPastDates = _this.props.allowPastDates;
+      var pastDate = (0, _moment.default)(date.format('YYYY-MM-DD')).isBefore(today);
 
+      if (allowPastDates) {
+        return false;
+      }
 
-			if (!availableDates) {
-				return false;
-			}
+      if (date.format('YYYY-MM-DD') === today) {
+        return false;
+      }
 
-			var thisDate = date.format('YYYY-MM-DD');
-			var match = availableDates.find(function (day) {
-				return day === thisDate;
-			});
+      if (pastDate) {
+        return true;
+      }
 
-			if (match) {
-				return false;
-			}
+      return false;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDateChange", function (date) {
+      var _this$props$onDateSel = _this.props.onDateSelect,
+          onDateSelect = _this$props$onDateSel === void 0 ? function () {
+        console.log({
+          date: date
+        });
+      } : _this$props$onDateSel;
+      onDateSelect(date);
 
-			return true;
-		}, _this.isOutsideRange = function (date) {
-			var today = _this.state.today;
-			var allowPastDates = _this.props.allowPastDates;
+      _this.setState({
+        date: date
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "setDefaultDate", function () {
+      var defaultDate = _this.props.defaultDate;
 
+      _this.setState({
+        date: defaultDate,
+        defaultDateSet: true
+      });
+    });
+    return _this;
+  }
 
-			var pastDate = (0, _moment2.default)(date.format('YYYY-MM-DD')).isBefore(today);
+  (0, _createClass2.default)(DateSelect, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
 
-			if (allowPastDates) {
-				return false;
-			}
-
-			if (date.format('YYYY-MM-DD') === today) {
-				return false;
-			}
-
-			if (pastDate) {
-				return true;
-			}
-
-			return false;
-		}, _this.handleDateChange = function (date) {
-			var _this$props$onDateSel = _this.props.onDateSelect,
-			    onDateSelect = _this$props$onDateSel === undefined ? function () {
-				console.log({ date: date });
-			} : _this$props$onDateSel;
-
-
-			onDateSelect(date);
-			_this.setState({ date: date });
-		}, _this.setDefaultDate = function () {
-			var defaultDate = _this.props.defaultDate;
-
-
-			_this.setState({ date: defaultDate, defaultDateSet: true });
-		}, _temp), _possibleConstructorReturn(_this, _ret);
-	}
-
-	_createClass(DateSelect, [{
-		key: 'render',
-		value: function render() {
-			var _this2 = this;
-
-			var date = this.state.date;
-			var _props = this.props,
-			    initialVisibleMonth = _props.initialVisibleMonth,
-			    _onPrevMonthClick = _props.onPrevMonthClick,
-			    _onNextMonthClick = _props.onNextMonthClick,
-			    loading = _props.loading;
-
-
-			return _react2.default.createElement(
-				'div',
-				{
-					className: 'date_picker date_select__wrapper ' + (loading ? 'loading' : '')
-				},
-				_react2.default.createElement(
-					'div',
-					{ className: 'date_select__loader ' + (loading ? 'loading' : '') },
-					_react2.default.createElement(_Loader2.default, null)
-				),
-				_react2.default.createElement(_reactDates.DayPickerSingleDateController, {
-					date: date || null,
-					onDateChange: this.handleDateChange,
-					focused: !loading,
-					onFocusChange: function onFocusChange(_ref2) {
-						var focused = _ref2.focused;
-						return _this2.setState({ focused: focused });
-					},
-					numberOfMonths: 1,
-					isDayBlocked: this.isDayBlocked,
-					isOutsideRange: this.isOutsideRange,
-					initialVisibleMonth: initialVisibleMonth,
-					onPrevMonthClick: function onPrevMonthClick(prevMonth) {
-						return _onPrevMonthClick && _onPrevMonthClick(prevMonth);
-					},
-					onNextMonthClick: function onNextMonthClick(nextMonth) {
-						return _onNextMonthClick && _onNextMonthClick(nextMonth);
-					},
-					navPrev: _react2.default.createElement(
-						_Icon2.default,
-						{ className: 'date_select__icon ' + (loading ? 'loading' : '') },
-						'chevron_left'
-					),
-					navNext: _react2.default.createElement(
-						_Icon2.default,
-						{ className: 'date_select__icon ' + (loading ? 'loading' : '') },
-						'chevron_right'
-					),
-					keepOpenOnDateSelect: true,
-					hideKeyboardShortcutsPanel: true,
-					noBorder: true
-				})
-			);
-		}
-	}, {
-		key: 'value',
-		get: function get() {
-			return this.state.date;
-		}
-	}]);
-
-	return DateSelect;
+      var date = this.state.date;
+      var _this$props = this.props,
+          initialVisibleMonth = _this$props.initialVisibleMonth,
+          _onPrevMonthClick = _this$props.onPrevMonthClick,
+          _onNextMonthClick = _this$props.onNextMonthClick,
+          loading = _this$props.loading;
+      return _react.default.createElement("div", {
+        className: "date_picker date_select__wrapper ".concat(loading ? 'loading' : '')
+      }, _react.default.createElement("div", {
+        className: "date_select__loader ".concat(loading ? 'loading' : '')
+      }, _react.default.createElement(_Loader.default, null)), _react.default.createElement(_reactDates.DayPickerSingleDateController, {
+        date: date || null,
+        onDateChange: this.handleDateChange,
+        focused: !loading,
+        onFocusChange: function onFocusChange(_ref) {
+          var focused = _ref.focused;
+          return _this2.setState({
+            focused: focused
+          });
+        },
+        numberOfMonths: 1,
+        isDayBlocked: this.isDayBlocked,
+        isOutsideRange: this.isOutsideRange,
+        initialVisibleMonth: initialVisibleMonth,
+        onPrevMonthClick: function onPrevMonthClick(prevMonth) {
+          return _onPrevMonthClick && _onPrevMonthClick(prevMonth);
+        },
+        onNextMonthClick: function onNextMonthClick(nextMonth) {
+          return _onNextMonthClick && _onNextMonthClick(nextMonth);
+        },
+        navPrev: _react.default.createElement(_Icon.default, {
+          className: "date_select__icon ".concat(loading ? 'loading' : '')
+        }, "chevron_left"),
+        navNext: _react.default.createElement(_Icon.default, {
+          className: "date_select__icon ".concat(loading ? 'loading' : '')
+        }, "chevron_right"),
+        keepOpenOnDateSelect: true,
+        hideKeyboardShortcutsPanel: true,
+        noBorder: true
+      }));
+    }
+  }, {
+    key: "value",
+    get: function get() {
+      return this.state.date;
+    }
+  }]);
+  return DateSelect;
 }(_react.Component);
 
-exports.default = DateSelect;
-
-
+var _default = DateSelect;
+exports.default = _default;
 DateSelect.propTypes = {
-	availableDates: _propTypes2.default.array,
-	allowPastDates: _propTypes2.default.bool,
-	onDateSelect: _propTypes2.default.func.isRequired,
-	setDefaultDate: _propTypes2.default.bool,
-	defaultDate: _propTypes2.default.any,
-	initialVisibleMonth: _propTypes2.default.func,
-	onNextMonthClick: _propTypes2.default.func,
-	onPrevMonthClick: _propTypes2.default.func,
-	loading: _propTypes2.default.bool,
-	highlightDates: _propTypes2.default.array
+  availableDates: _propTypes.default.array,
+  allowPastDates: _propTypes.default.bool,
+  onDateSelect: _propTypes.default.func.isRequired,
+  setDefaultDate: _propTypes.default.bool,
+  defaultDate: _propTypes.default.any,
+  initialVisibleMonth: _propTypes.default.func,
+  onNextMonthClick: _propTypes.default.func,
+  onPrevMonthClick: _propTypes.default.func,
+  loading: _propTypes.default.bool,
+  highlightDates: _propTypes.default.array
 };
-
 DateSelect.defaultProps = {
-	allowPastDates: false,
-	loading: false
+  allowPastDates: false,
+  loading: false
 };

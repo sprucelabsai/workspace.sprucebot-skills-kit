@@ -1,102 +1,96 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react = require('react');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _react2 = _interopRequireDefault(_react);
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _propTypes = require('prop-types');
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _react = _interopRequireWildcard(require("react"));
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var Switch =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(Switch, _Component);
 
-var Switch = function (_Component) {
-	_inherits(Switch, _Component);
+  function Switch(props) {
+    var _this;
 
-	function Switch(props) {
-		_classCallCheck(this, Switch);
+    (0, _classCallCheck2.default)(this, Switch);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Switch).call(this, props));
+    _this.state = {
+      on: !!props.on
+    };
+    _this.onChange = _this.onChange.bind((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)));
+    return _this;
+  }
 
-		var _this = _possibleConstructorReturn(this, (Switch.__proto__ || Object.getPrototypeOf(Switch)).call(this, props));
+  (0, _createClass2.default)(Switch, [{
+    key: "onChange",
+    value: function onChange(e) {
+      var _this2 = this;
 
-		_this.state = {
-			on: !!props.on
-		};
+      // toggle on state of button
+      this.setState(function (prevState, props) {
+        // new 'on' state
+        var on = !prevState.on; // let any callbacks know of state change
 
-		_this.onChange = _this.onChange.bind(_this);
-		return _this;
-	}
+        if (_this2.props.onChange) {
+          _this2.props.onChange(on, e);
+        }
 
-	_createClass(Switch, [{
-		key: 'onChange',
-		value: function onChange(e) {
-			var _this2 = this;
+        return {
+          on: on
+        };
+      });
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState({
+        on: nextProps.on
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
 
-			// toggle on state of button
-			this.setState(function (prevState, props) {
-				// new 'on' state
-				var on = !prevState.on;
-
-				// let any callbacks know of state change
-				if (_this2.props.onChange) {
-					_this2.props.onChange(on, e);
-				}
-
-				return {
-					on: on
-				};
-			});
-		}
-	}, {
-		key: 'componentWillReceiveProps',
-		value: function componentWillReceiveProps(nextProps) {
-			this.setState({ on: nextProps.on });
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var _this3 = this;
-
-			return _react2.default.createElement(
-				'div',
-				{ className: 'switch switch' + (this.props.on ? ' on' : '') },
-				_react2.default.createElement(
-					'button',
-					{ onClick: function onClick() {
-							return _this3.onChange();
-						}, type: 'button' },
-					_react2.default.createElement(
-						'span',
-						null,
-						this.props.on ? 'Enabled' : 'Disabled'
-					)
-				)
-			);
-		}
-	}]);
-
-	return Switch;
+      return _react.default.createElement("div", {
+        className: "switch switch".concat(this.props.on ? ' on' : '')
+      }, _react.default.createElement("button", {
+        onClick: function onClick() {
+          return _this3.onChange();
+        },
+        type: "button"
+      }, _react.default.createElement("span", null, this.props.on ? 'Enabled' : 'Disabled')));
+    }
+  }]);
+  return Switch;
 }(_react.Component);
 
 exports.default = Switch;
-
-
 Switch.propTypes = {
-	on: _propTypes2.default.bool,
-	onChange: _propTypes2.default.func
+  on: _propTypes.default.bool,
+  onChange: _propTypes.default.func
 };
-
 Switch.defaultProps = {
-	on: false
+  on: false
 };

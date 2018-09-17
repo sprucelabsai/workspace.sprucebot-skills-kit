@@ -1,214 +1,177 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
-exports.FeedAttachment = exports.FeedItem = undefined;
+exports.FeedAttachment = exports.FeedItem = exports.default = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _react = require('react');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react2 = _interopRequireDefault(_react);
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _propTypes = require('prop-types');
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _Loader = require('../Loader/Loader');
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _Loader2 = _interopRequireDefault(_Loader);
+var _react = _interopRequireWildcard(require("react"));
 
-var _BotText = require('../BotText/BotText');
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _BotText2 = _interopRequireDefault(_BotText);
+var _Loader = _interopRequireDefault(require("../Loader/Loader"));
 
-var _Avatar = require('../Avatar/Avatar');
+var _BotText = _interopRequireDefault(require("../BotText/BotText"));
 
-var _Avatar2 = _interopRequireDefault(_Avatar);
+var _Avatar = _interopRequireDefault(require("../Avatar/Avatar"));
 
-var _moment = require('moment');
+var _moment = _interopRequireDefault(require("moment"));
 
-var _moment2 = _interopRequireDefault(_moment);
+var _Typography = require("../Typography/Typography");
 
-var _Typography = require('../Typography/Typography');
+var Feed =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(Feed, _Component);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  function Feed() {
+    (0, _classCallCheck2.default)(this, Feed);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Feed).apply(this, arguments));
+  }
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+  (0, _createClass2.default)(Feed, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          loading = _this$props.loading,
+          data = _this$props.data,
+          showHeaders = _this$props.showHeaders,
+          props = (0, _objectWithoutProperties2.default)(_this$props, ["loading", "data", "showHeaders"]);
+      var lastDay = 0;
+      return _react.default.createElement("div", (0, _extends2.default)({}, props, {
+        className: "feed__wrapper ".concat(!showHeaders ? 'no_headers' : '')
+      }), loading && _react.default.createElement(_Loader.default, null), data && data.map(function (item) {
+        var day = (0, _moment.default)(item.date).dayOfYear();
+        var header = undefined;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+        if (showHeaders && day !== lastDay) {
+          lastDay = day;
+          header = (0, _moment.default)(item.date).isSame(new Date(), 'day') ? 'Today' : (0, _moment.default)(item.date).format('MMM Do');
+        }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Feed = function (_Component) {
-	_inherits(Feed, _Component);
-
-	function Feed() {
-		_classCallCheck(this, Feed);
-
-		return _possibleConstructorReturn(this, (Feed.__proto__ || Object.getPrototypeOf(Feed)).apply(this, arguments));
-	}
-
-	_createClass(Feed, [{
-		key: 'render',
-		value: function render() {
-			var _props = this.props,
-			    loading = _props.loading,
-			    data = _props.data,
-			    showHeaders = _props.showHeaders,
-			    props = _objectWithoutProperties(_props, ['loading', 'data', 'showHeaders']);
-
-			var lastDay = 0;
-			return _react2.default.createElement(
-				'div',
-				_extends({}, props, {
-					className: 'feed__wrapper ' + (!showHeaders ? 'no_headers' : '')
-				}),
-				loading && _react2.default.createElement(_Loader2.default, null),
-				data && data.map(function (item) {
-					var day = (0, _moment2.default)(item.date).dayOfYear();
-					var header = undefined;
-					if (showHeaders && day !== lastDay) {
-						lastDay = day;
-						header = (0, _moment2.default)(item.date).isSame(new Date(), 'day') ? 'Today' : (0, _moment2.default)(item.date).format('MMM Do');
-					}
-					return _react2.default.createElement(FeedItem, _extends({ key: item.id }, item, { header: header }));
-				})
-			);
-		}
-	}]);
-
-	return Feed;
+        return _react.default.createElement(FeedItem, (0, _extends2.default)({
+          key: item.id
+        }, item, {
+          header: header
+        }));
+      }));
+    }
+  }]);
+  return Feed;
 }(_react.Component);
 
 exports.default = Feed;
-
-
 Feed.propTypes = {
-	data: _propTypes2.default.array,
-	loading: _propTypes2.default.bool,
-	showHeaders: _propTypes2.default.bool
+  data: _propTypes.default.array,
+  loading: _propTypes.default.bool,
+  showHeaders: _propTypes.default.bool
 };
-
 Feed.defaultProps = {
-	loading: false,
-	showHeaders: true
+  loading: false,
+  showHeaders: true
 };
 
-var FeedItem = exports.FeedItem = function (_Component2) {
-	_inherits(FeedItem, _Component2);
+var FeedItem =
+/*#__PURE__*/
+function (_Component2) {
+  (0, _inherits2.default)(FeedItem, _Component2);
 
-	function FeedItem() {
-		_classCallCheck(this, FeedItem);
+  function FeedItem() {
+    (0, _classCallCheck2.default)(this, FeedItem);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(FeedItem).apply(this, arguments));
+  }
 
-		return _possibleConstructorReturn(this, (FeedItem.__proto__ || Object.getPrototypeOf(FeedItem)).apply(this, arguments));
-	}
-
-	_createClass(FeedItem, [{
-		key: 'render',
-		value: function render() {
-			var _props2 = this.props,
-			    bigAvatar = _props2.bigAvatar,
-			    header = _props2.header,
-			    user = _props2.user,
-			    message = _props2.message,
-			    date = _props2.date,
-			    attachments = _props2.attachments,
-			    props = _objectWithoutProperties(_props2, ['bigAvatar', 'header', 'user', 'message', 'date', 'attachments']);
-
-			var imageKey = bigAvatar ? 'profile150@2x' : 'profile60';
-
-			return _react2.default.createElement(
-				'div',
-				_extends({ className: 'feed__item ' + (bigAvatar ? 'big_avatar' : '') }, props),
-				header && _react2.default.createElement(
-					_Typography.SectionHeading,
-					null,
-					header
-				),
-				user && _react2.default.createElement(
-					'div',
-					{ className: 'feed__avatar' },
-					_react2.default.createElement(_Avatar2.default, {
-						top: bigAvatar,
-						image: user.User.profileImages ? user.User.profileImages[imageKey] : user.User.defaultProfileImages[imageKey]
-					})
-				),
-				_react2.default.createElement(
-					_BotText2.default,
-					null,
-					message,
-					_react2.default.createElement(
-						'span',
-						{ className: 'date' },
-						(0, _moment2.default)(date).calendar()
-					)
-				),
-				this.props.attachments && _react2.default.createElement(
-					'div',
-					{ className: 'feed__attachments' },
-					attachments.map(function (attachment, idx) {
-						return _react2.default.createElement(FeedAttachment, _extends({ key: 'attachment-' + idx }, attachment));
-					})
-				)
-			);
-		}
-	}]);
-
-	return FeedItem;
+  (0, _createClass2.default)(FeedItem, [{
+    key: "render",
+    value: function render() {
+      var _this$props2 = this.props,
+          bigAvatar = _this$props2.bigAvatar,
+          header = _this$props2.header,
+          user = _this$props2.user,
+          message = _this$props2.message,
+          date = _this$props2.date,
+          attachments = _this$props2.attachments,
+          props = (0, _objectWithoutProperties2.default)(_this$props2, ["bigAvatar", "header", "user", "message", "date", "attachments"]);
+      var imageKey = bigAvatar ? 'profile150@2x' : 'profile60';
+      return _react.default.createElement("div", (0, _extends2.default)({
+        className: "feed__item ".concat(bigAvatar ? 'big_avatar' : '')
+      }, props), header && _react.default.createElement(_Typography.SectionHeading, null, header), user && _react.default.createElement("div", {
+        className: "feed__avatar"
+      }, _react.default.createElement(_Avatar.default, {
+        top: bigAvatar,
+        image: user.User.profileImages ? user.User.profileImages[imageKey] : user.User.defaultProfileImages[imageKey]
+      })), _react.default.createElement(_BotText.default, null, message, _react.default.createElement("span", {
+        className: "date"
+      }, (0, _moment.default)(date).calendar())), this.props.attachments && _react.default.createElement("div", {
+        className: "feed__attachments"
+      }, attachments.map(function (attachment, idx) {
+        return _react.default.createElement(FeedAttachment, (0, _extends2.default)({
+          key: "attachment-".concat(idx)
+        }, attachment));
+      })));
+    }
+  }]);
+  return FeedItem;
 }(_react.Component);
 
+exports.FeedItem = FeedItem;
 FeedItem.propTypes = {
-	header: _propTypes2.default.string,
-	date: _propTypes2.default.object.isRequired,
-	message: _propTypes2.default.string.isRequired,
-	user: _propTypes2.default.object,
-	attachments: _propTypes2.default.array,
-	bigAvatar: _propTypes2.default.bool
+  header: _propTypes.default.string,
+  date: _propTypes.default.object.isRequired,
+  message: _propTypes.default.string.isRequired,
+  user: _propTypes.default.object,
+  attachments: _propTypes.default.array,
+  bigAvatar: _propTypes.default.bool
 };
 
-var FeedAttachment = exports.FeedAttachment = function (_Component3) {
-	_inherits(FeedAttachment, _Component3);
+var FeedAttachment =
+/*#__PURE__*/
+function (_Component3) {
+  (0, _inherits2.default)(FeedAttachment, _Component3);
 
-	function FeedAttachment() {
-		_classCallCheck(this, FeedAttachment);
+  function FeedAttachment() {
+    (0, _classCallCheck2.default)(this, FeedAttachment);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(FeedAttachment).apply(this, arguments));
+  }
 
-		return _possibleConstructorReturn(this, (FeedAttachment.__proto__ || Object.getPrototypeOf(FeedAttachment)).apply(this, arguments));
-	}
-
-	_createClass(FeedAttachment, [{
-		key: 'render',
-		value: function render() {
-			var fullWidth = this.props.fullWidth;
-
-			var className = fullWidth ? 'full-width' : '';
-			return _react2.default.createElement(
-				'div',
-				{ className: 'feed__attachment ' + className },
-				_react2.default.createElement(
-					'div',
-					{ className: 'title' },
-					this.props.title
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'value' },
-					this.props.value
-				)
-			);
-		}
-	}]);
-
-	return FeedAttachment;
+  (0, _createClass2.default)(FeedAttachment, [{
+    key: "render",
+    value: function render() {
+      var fullWidth = this.props.fullWidth;
+      var className = fullWidth ? 'full-width' : '';
+      return _react.default.createElement("div", {
+        className: "feed__attachment ".concat(className)
+      }, _react.default.createElement("div", {
+        className: "title"
+      }, this.props.title), _react.default.createElement("div", {
+        className: "value"
+      }, this.props.value));
+    }
+  }]);
+  return FeedAttachment;
 }(_react.Component);
 
+exports.FeedAttachment = FeedAttachment;
 FeedAttachment.propTypes = {
-	title: _propTypes2.default.string.isRequired,
-	value: _propTypes2.default.any.isRequired,
-	fullWidth: _propTypes2.default.bool
+  title: _propTypes.default.string.isRequired,
+  value: _propTypes.default.any.isRequired,
+  fullWidth: _propTypes.default.bool
 };

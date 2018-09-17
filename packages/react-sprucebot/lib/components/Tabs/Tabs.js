@@ -1,217 +1,196 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
-exports.TabPane = exports.Tabs = undefined;
+exports.TabPane = exports.Tabs = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _react = require('react');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react2 = _interopRequireDefault(_react);
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _propTypes = require('prop-types');
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _Avatar = require('../Avatar/Avatar');
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _Avatar2 = _interopRequireDefault(_Avatar);
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
 
-var _Button = require('../Button/Button');
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var _Button2 = _interopRequireDefault(_Button);
+var _react = _interopRequireWildcard(require("react"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+var _Avatar = _interopRequireDefault(require("../Avatar/Avatar"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _Button = _interopRequireDefault(require("../Button/Button"));
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var Tabs =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(Tabs, _Component);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  function Tabs(props) {
+    var _this;
 
-var Tabs = exports.Tabs = function (_Component) {
-	_inherits(Tabs, _Component);
+    (0, _classCallCheck2.default)(this, Tabs);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Tabs).call(this, props));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "setSelected", function (idx, key, e) {
+      _this.onTabClick(idx, key, e);
+    });
 
-	function Tabs(props) {
-		_classCallCheck(this, Tabs);
-
-		var _this = _possibleConstructorReturn(this, (Tabs.__proto__ || Object.getPrototypeOf(Tabs)).call(this, props));
-
-		_initialiseProps.call(_this);
-
-		var children = _react2.default.Children.toArray(props.children);
-
-		// default to first selected item
-		var idx = props.selected || 0;
-		var selected = children[idx] && children[idx].key;
-
-		if (children.length > 0) {
-			children.some(function (tab) {
-				if (tab.props.selected) {
-					selected = tab.key;
-					return true;
-				}
-			});
-		}
-
-		_this.state = {
-			selected: selected,
-			children: children
-		};
-		return _this;
-	}
-
-	_createClass(Tabs, [{
-		key: 'componentWillReceiveProps',
-		value: function componentWillReceiveProps(nextProps) {
-			var newState = {
-				children: _react2.default.Children.toArray(nextProps.children)
-			};
-
-			if (typeof nextProps.selected === 'number' && nextProps.selected !== this.state.selected) {
-				newState.children.forEach(function (tab, idx) {
-					if (idx === nextProps.selected) {
-						newState.selected = tab.key;
-					}
-				});
-			}
-
-			this.setState(newState);
-		}
-	}, {
-		key: 'onTabClick',
-		value: function onTabClick(idx, key, e) {
-			if (this.state.selected !== idx) {
-				if (this.props.onChange) {
-					this.props.onChange(idx, e);
-				}
-				this.setState({
-					selected: key
-				});
-			}
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var _this2 = this;
-
-			var _state = this.state,
-			    selected = _state.selected,
-			    children = _state.children;
-
-			var _props = this.props,
-			    _ = _props.selected,
-			    props = _objectWithoutProperties(_props, ['selected']);
-
-			// build tab labels and selected
+    var children = _react.default.Children.toArray(props.children); // default to first selected item
 
 
-			var tabs = [];
-			var totalTabs = children.length;
-			var tabPanes = [];
+    var _idx = props.selected || 0;
 
-			children.forEach(function (tab, idx) {
-				var className = '';
+    var selected = children[_idx] && children[_idx].key;
 
-				switch (idx) {
-					case 0:
-						className = 'toggle__left';
-						break;
-					case totalTabs - 1:
-						className = 'toggle__right';
-						break;
-					default:
-						className = 'toggle__middle';
-						break;
-				}
+    if (children.length > 0) {
+      children.some(function (tab) {
+        if (tab.props.selected) {
+          selected = tab.key;
+          return true;
+        }
+      });
+    }
 
-				// select the proper tab
-				if (selected === tab.key) {
-					className += ' btn__toggle__active';
-					tabPanes.push(tab);
-				}
+    _this.state = {
+      selected: selected,
+      children: children
+    };
+    return _this;
+  }
 
-				tabs.push(_react2.default.createElement(
-					_Button2.default,
-					{
-						onClick: function onClick(e) {
-							_this2.onTabClick(idx, tab.key, e);
-						},
-						toggle: true,
-						className: 'tab ' + (className || ''),
-						key: 'tab-' + tab.key
-					},
-					tab.props.title
-				));
-			});
+  (0, _createClass2.default)(Tabs, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      var newState = {
+        children: _react.default.Children.toArray(nextProps.children)
+      };
 
-			return _react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					'div',
-					_extends({ className: 'toggle__wrapper' }, props),
-					tabs
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'tab__panes' },
-					tabPanes
-				)
-			);
-		}
-	}]);
+      if (typeof nextProps.selected === 'number' && nextProps.selected !== this.state.selected) {
+        newState.children.forEach(function (tab, idx) {
+          if (idx === nextProps.selected) {
+            newState.selected = tab.key;
+          }
+        });
+      }
 
-	return Tabs;
+      this.setState(newState);
+    }
+  }, {
+    key: "onTabClick",
+    value: function onTabClick(idx, key, e) {
+      if (this.state.selected !== idx) {
+        if (this.props.onChange) {
+          this.props.onChange(idx, e);
+        }
+
+        this.setState({
+          selected: key
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$state = this.state,
+          selected = _this$state.selected,
+          children = _this$state.children;
+      var _this$props = this.props,
+          _ = _this$props.selected,
+          props = (0, _objectWithoutProperties2.default)(_this$props, ["selected"]); // build tab labels and selected
+
+      var tabs = [];
+      var totalTabs = children.length;
+      var tabPanes = [];
+      children.forEach(function (tab, idx) {
+        var className = '';
+
+        switch (idx) {
+          case 0:
+            className = 'toggle__left';
+            break;
+
+          case totalTabs - 1:
+            className = 'toggle__right';
+            break;
+
+          default:
+            className = 'toggle__middle';
+            break;
+        } // select the proper tab
+
+
+        if (selected === tab.key) {
+          className += ' btn__toggle__active';
+          tabPanes.push(tab);
+        }
+
+        tabs.push(_react.default.createElement(_Button.default, {
+          onClick: function onClick(e) {
+            _this2.onTabClick(idx, tab.key, e);
+          },
+          toggle: true,
+          className: "tab ".concat(className || ''),
+          key: "tab-".concat(tab.key)
+        }, tab.props.title));
+      });
+      return _react.default.createElement("div", null, _react.default.createElement("div", (0, _extends2.default)({
+        className: "toggle__wrapper"
+      }, props), tabs), _react.default.createElement("div", {
+        className: "tab__panes"
+      }, tabPanes));
+    }
+  }]);
+  return Tabs;
 }(_react.Component);
 
-var _initialiseProps = function _initialiseProps() {
-	var _this4 = this;
-
-	this.setSelected = function (idx, key, e) {
-		_this4.onTabClick(idx, key, e);
-	};
-};
-
+exports.Tabs = Tabs;
 Tabs.propTypes = {
-	onChange: _propTypes2.default.func,
-	selected: _propTypes2.default.number
+  onChange: _propTypes.default.func,
+  selected: _propTypes.default.number
 };
 
-var TabPane = exports.TabPane = function (_Component2) {
-	_inherits(TabPane, _Component2);
+var TabPane =
+/*#__PURE__*/
+function (_Component2) {
+  (0, _inherits2.default)(TabPane, _Component2);
 
-	function TabPane() {
-		_classCallCheck(this, TabPane);
+  function TabPane() {
+    (0, _classCallCheck2.default)(this, TabPane);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(TabPane).apply(this, arguments));
+  }
 
-		return _possibleConstructorReturn(this, (TabPane.__proto__ || Object.getPrototypeOf(TabPane)).apply(this, arguments));
-	}
-
-	_createClass(TabPane, [{
-		key: 'render',
-		value: function render() {
-			var _props2 = this.props,
-			    className = _props2.className,
-			    props = _objectWithoutProperties(_props2, ['className']);
-
-			return _react2.default.createElement(
-				'div',
-				{ className: 'tap__pane ' + (className || '') },
-				this.props.children
-			);
-		}
-	}]);
-
-	return TabPane;
+  (0, _createClass2.default)(TabPane, [{
+    key: "render",
+    value: function render() {
+      var _this$props2 = this.props,
+          className = _this$props2.className,
+          props = (0, _objectWithoutProperties2.default)(_this$props2, ["className"]);
+      return _react.default.createElement("div", {
+        className: "tap__pane ".concat(className || '')
+      }, this.props.children);
+    }
+  }]);
+  return TabPane;
 }(_react.Component);
 
+exports.TabPane = TabPane;
 TabPane.propTypes = {
-	title: _propTypes2.default.string,
-	selected: _propTypes2.default.bool
+  title: _propTypes.default.string,
+  selected: _propTypes.default.bool
 };

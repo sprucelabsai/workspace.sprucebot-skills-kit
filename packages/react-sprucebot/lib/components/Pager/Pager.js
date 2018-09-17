@@ -1,237 +1,219 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _react = require('react');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react2 = _interopRequireDefault(_react);
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _propTypes = require('prop-types');
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _getPrototypeOf3 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _ControlButton = require('../ControlButton/ControlButton');
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _ControlButton2 = _interopRequireDefault(_ControlButton);
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
 
-var _Loader = require('../Loader/Loader');
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var _Loader2 = _interopRequireDefault(_Loader);
+var _react = _interopRequireWildcard(require("react"));
 
-var _IconButton = require('../IconButton/IconButton');
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _IconButton2 = _interopRequireDefault(_IconButton);
+var _ControlButton = _interopRequireDefault(require("../ControlButton/ControlButton"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _Loader = _interopRequireDefault(require("../Loader/Loader"));
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+var _IconButton = _interopRequireDefault(require("../IconButton/IconButton"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var Pager =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(Pager, _Component);
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  function Pager() {
+    var _getPrototypeOf2;
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+    var _this;
 
-var Pager = function (_Component) {
-	_inherits(Pager, _Component);
+    (0, _classCallCheck2.default)(this, Pager);
 
-	function Pager() {
-		var _ref;
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-		var _temp, _this, _ret;
+    _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(Pager)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
+      page: _this.props.page
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "componentWillReceiveProps", function (nextProps) {
+      if (nextProps.page !== _this.props.page) {
+        _this.setState({
+          page: page
+        });
+      }
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "triggerOnChange", function (page, e) {
+      var onChange = _this.props.onChange;
 
-		_classCallCheck(this, Pager);
+      if (onChange) {
+        onChange(page, e);
+      }
 
-		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-			args[_key] = arguments[_key];
-		}
+      return page;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "first", function (e) {
+      var _this$props = _this.props,
+          jumpAmount = _this$props.jumpAmount,
+          infinite = _this$props.infinite;
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Pager.__proto__ || Object.getPrototypeOf(Pager)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-			page: _this.props.page
-		}, _this.componentWillReceiveProps = function (nextProps) {
-			if (nextProps.page !== _this.props.page) {
-				_this.setState({ page: page });
-			}
-		}, _this.triggerOnChange = function (page, e) {
-			var onChange = _this.props.onChange;
+      _this.setState(function (prevState) {
+        if (infinite || jumpAmount && prevState.page - jumpAmount > 0) {
+          return {
+            page: _this.triggerOnChange(prevState.page - jumpAmount, e)
+          };
+        } else if (prevState.page > 0) {
+          return {
+            page: _this.triggerOnChange(0, e)
+          };
+        }
 
+        return {};
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "back", function (e) {
+      var _this$props2 = _this.props,
+          infinite = _this$props2.infinite,
+          _this$props2$skipAmou = _this$props2.skipAmount,
+          skipAmount = _this$props2$skipAmou === void 0 ? 1 : _this$props2$skipAmou;
 
-			if (onChange) {
-				onChange(page, e);
-			}
-			return page;
-		}, _this.first = function (e) {
-			var _this$props = _this.props,
-			    jumpAmount = _this$props.jumpAmount,
-			    infinite = _this$props.infinite;
+      _this.setState(function (prevState) {
+        if (infinite || prevState.page - skipAmount >= 0) {
+          return {
+            page: _this.triggerOnChange(prevState.page - skipAmount, e)
+          };
+        }
 
+        return {};
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "next", function (e) {
+      var _this$props3 = _this.props,
+          totalPages = _this$props3.totalPages,
+          infinite = _this$props3.infinite,
+          _this$props3$skipAmou = _this$props3.skipAmount,
+          skipAmount = _this$props3$skipAmou === void 0 ? 1 : _this$props3$skipAmou;
 
-			_this.setState(function (prevState) {
-				if (infinite || jumpAmount && prevState.page - jumpAmount > 0) {
-					return {
-						page: _this.triggerOnChange(prevState.page - jumpAmount, e)
-					};
-				} else if (prevState.page > 0) {
-					return {
-						page: _this.triggerOnChange(0, e)
-					};
-				}
-				return {};
-			});
-		}, _this.back = function (e) {
-			var _this$props2 = _this.props,
-			    infinite = _this$props2.infinite,
-			    _this$props2$skipAmou = _this$props2.skipAmount,
-			    skipAmount = _this$props2$skipAmou === undefined ? 1 : _this$props2$skipAmou;
+      _this.setState(function (prevState) {
+        if (infinite || prevState.page < totalPages - skipAmount) {
+          return {
+            page: _this.triggerOnChange(prevState.page + skipAmount, e)
+          };
+        }
 
+        return {};
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "last", function (e) {
+      var _this$props4 = _this.props,
+          totalPages = _this$props4.totalPages,
+          jumpAmount = _this$props4.jumpAmount,
+          infinite = _this$props4.infinite;
 
-			_this.setState(function (prevState) {
-				if (infinite || prevState.page - skipAmount >= 0) {
-					return {
-						page: _this.triggerOnChange(prevState.page - skipAmount, e)
-					};
-				}
-				return {};
-			});
-		}, _this.next = function (e) {
-			var _this$props3 = _this.props,
-			    totalPages = _this$props3.totalPages,
-			    infinite = _this$props3.infinite,
-			    _this$props3$skipAmou = _this$props3.skipAmount,
-			    skipAmount = _this$props3$skipAmou === undefined ? 1 : _this$props3$skipAmou;
+      _this.setState(function (prevState) {
+        if (infinite || jumpAmount && prevState.page + jumpAmount < totalPages - 1) {
+          return {
+            page: _this.triggerOnChange(prevState.page + jumpAmount, e)
+          };
+        } else if (prevState.page < totalPages - 1) {
+          return {
+            page: _this.triggerOnChange(totalPages - 1, e)
+          };
+        }
 
+        return {};
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "renderView", function () {
+      var page = _this.state.page;
+      var _this$props5 = _this.props,
+          totalPages = _this$props5.totalPages,
+          titles = _this$props5.titles;
+      var title = titles ? titles(page) : "".concat(page + 1, " of ").concat(totalPages);
+      return _react.default.createElement("li", {
+        className: "current"
+      }, title);
+    });
+    return _this;
+  }
 
-			_this.setState(function (prevState) {
-				if (infinite || prevState.page < totalPages - skipAmount) {
-					return {
-						page: _this.triggerOnChange(prevState.page + skipAmount, e)
-					};
-				}
-				return {};
-			});
-		}, _this.last = function (e) {
-			var _this$props4 = _this.props,
-			    totalPages = _this$props4.totalPages,
-			    jumpAmount = _this$props4.jumpAmount,
-			    infinite = _this$props4.infinite;
-
-
-			_this.setState(function (prevState) {
-				if (infinite || jumpAmount && prevState.page + jumpAmount < totalPages - 1) {
-					return {
-						page: _this.triggerOnChange(prevState.page + jumpAmount, e)
-					};
-				} else if (prevState.page < totalPages - 1) {
-					return {
-						page: _this.triggerOnChange(totalPages - 1, e)
-					};
-				}
-				return {};
-			});
-		}, _this.renderView = function () {
-			var page = _this.state.page;
-			var _this$props5 = _this.props,
-			    totalPages = _this$props5.totalPages,
-			    titles = _this$props5.titles;
-
-
-			var title = titles ? titles(page) : page + 1 + ' of ' + totalPages;
-			return _react2.default.createElement(
-				'li',
-				{ className: 'current' },
-				title
-			);
-		}, _temp), _possibleConstructorReturn(_this, _ret);
-	}
-	// Starting page
-
-
-	_createClass(Pager, [{
-		key: 'render',
-		value: function render() {
-			var page = this.state.page;
-
-			var _props = this.props,
-			    totalPages = _props.totalPages,
-			    showStep = _props.showStep,
-			    showJump = _props.showJump,
-			    infinite = _props.infinite,
-			    className = _props.className,
-			    props = _objectWithoutProperties(_props, ['totalPages', 'showStep', 'showJump', 'infinite', 'className']);
-
-			var first = page === 0 && !infinite;
-			var last = page === totalPages - 1 && !infinite;
-
-			return _react2.default.createElement(
-				'ul',
-				_extends({}, props, { className: className + ' pager' }),
-				showJump && _react2.default.createElement(
-					'li',
-					{ className: 'first ' + (first && 'disabled'), smallArrows: true },
-					_react2.default.createElement(
-						_IconButton2.default,
-						{ onClick: this.first },
-						'first_page'
-					)
-				),
-				showStep && _react2.default.createElement(
-					'li',
-					{ className: 'back ' + (first && 'disabled'), smallArrows: true },
-					_react2.default.createElement(
-						_IconButton2.default,
-						{ onClick: this.back },
-						'chevron_left'
-					)
-				),
-				this.renderView(),
-				showStep && _react2.default.createElement(
-					'li',
-					{ className: 'next ' + (last && 'disabled'), smallArrows: true },
-					_react2.default.createElement(
-						_IconButton2.default,
-						{ onClick: this.next },
-						'chevron_right'
-					)
-				),
-				showJump && _react2.default.createElement(
-					'li',
-					{ className: 'last ' + (last && 'disabled'), smallArrows: true },
-					_react2.default.createElement(
-						_IconButton2.default,
-						{ onClick: this.last },
-						'last_page'
-					)
-				)
-			);
-		}
-	}]);
-
-	return Pager;
+  (0, _createClass2.default)(Pager, [{
+    key: "render",
+    value: function render() {
+      var page = this.state.page;
+      var _this$props6 = this.props,
+          totalPages = _this$props6.totalPages,
+          showStep = _this$props6.showStep,
+          showJump = _this$props6.showJump,
+          infinite = _this$props6.infinite,
+          className = _this$props6.className,
+          props = (0, _objectWithoutProperties2.default)(_this$props6, ["totalPages", "showStep", "showJump", "infinite", "className"]);
+      var first = page === 0 && !infinite;
+      var last = page === totalPages - 1 && !infinite;
+      return _react.default.createElement("ul", (0, _extends2.default)({}, props, {
+        className: "".concat(className, " pager")
+      }), showJump && _react.default.createElement("li", {
+        className: "first ".concat(first && 'disabled'),
+        smallArrows: true
+      }, _react.default.createElement(_IconButton.default, {
+        onClick: this.first
+      }, "first_page")), showStep && _react.default.createElement("li", {
+        className: "back ".concat(first && 'disabled'),
+        smallArrows: true
+      }, _react.default.createElement(_IconButton.default, {
+        onClick: this.back
+      }, "chevron_left")), this.renderView(), showStep && _react.default.createElement("li", {
+        className: "next ".concat(last && 'disabled'),
+        smallArrows: true
+      }, _react.default.createElement(_IconButton.default, {
+        onClick: this.next
+      }, "chevron_right")), showJump && _react.default.createElement("li", {
+        className: "last ".concat(last && 'disabled'),
+        smallArrows: true
+      }, _react.default.createElement(_IconButton.default, {
+        onClick: this.last
+      }, "last_page")));
+    }
+  }]);
+  return Pager;
 }(_react.Component);
 
-exports.default = Pager;
-
-
+var _default = Pager;
+exports.default = _default;
 Pager.propTypes = {
-	page: _propTypes2.default.number,
-	totalPages: _propTypes2.default.number,
-	infinite: _propTypes2.default.bool,
-	onChange: _propTypes2.default.func,
-	titles: _propTypes2.default.func,
-	stepAmount: _propTypes2.default.number,
-	jumpAmount: _propTypes2.default.number
+  page: _propTypes.default.number,
+  totalPages: _propTypes.default.number,
+  infinite: _propTypes.default.bool,
+  onChange: _propTypes.default.func,
+  titles: _propTypes.default.func,
+  stepAmount: _propTypes.default.number,
+  jumpAmount: _propTypes.default.number
 };
-
 Pager.defaultProps = {
-	page: 0,
-	infinite: false,
-	stepAmount: 1,
-	showStep: true,
-	showJump: true
+  page: 0,
+  infinite: false,
+  stepAmount: 1,
+  showStep: true,
+  showJump: true
 };

@@ -1,184 +1,151 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react = require('react');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _react2 = _interopRequireDefault(_react);
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _moment = require('moment');
+var _getPrototypeOf3 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _moment2 = _interopRequireDefault(_moment);
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var _react = _interopRequireWildcard(require("react"));
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _moment = _interopRequireDefault(require("moment"));
 
-var TeamWeek = function (_Component) {
-	_inherits(TeamWeek, _Component);
+var TeamWeek =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(TeamWeek, _Component);
 
-	function TeamWeek() {
-		var _ref;
+  function TeamWeek() {
+    var _getPrototypeOf2;
 
-		var _temp, _this, _ret;
+    var _this;
 
-		_classCallCheck(this, TeamWeek);
+    (0, _classCallCheck2.default)(this, TeamWeek);
 
-		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-			args[_key] = arguments[_key];
-		}
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TeamWeek.__proto__ || Object.getPrototypeOf(TeamWeek)).call.apply(_ref, [this].concat(args))), _this), _this.handleOnClick = function (event, e) {
-			var onSelectEvent = _this.props.onSelectEvent;
+    _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(TeamWeek)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleOnClick", function (event, e) {
+      var onSelectEvent = _this.props.onSelectEvent;
+      onSelectEvent && onSelectEvent(event, e);
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "renderDayEvents", function (events, date) {
+      var _this$props = _this.props,
+          max = _this$props.max,
+          min = _this$props.min;
+      return events.filter(function (event) {
+        return (0, _moment.default)(event.start).isSame((0, _moment.default)(date), 'day');
+      }).map(function (event, index) {
+        var start = event.start,
+            end = event.end;
+        var totalMinutes = (0, _moment.default)(max).diff((0, _moment.default)(min), 'minutes');
+        var startOfDay = (0, _moment.default)("".concat(date.format('YYYY-MM-DD'), " ").concat((0, _moment.default)(min).format('HH:mm:ss')));
+        var endOfDay = (0, _moment.default)("".concat(date.format('YYYY-MM-DD'), " ").concat((0, _moment.default)(max).format('HH:mm:ss')));
+        var left = Math.round((0, _moment.default)(start).diff(startOfDay, 'minutes') / totalMinutes * 100);
+        var right = Math.round((0, _moment.default)(endOfDay).diff(end, 'minutes') / totalMinutes * 100);
+        return _react.default.createElement("div", {
+          key: "".concat(event.userId, "_").concat(event.start),
+          onClick: function onClick(e) {
+            return _this.handleOnClick(event, e);
+          },
+          className: "rbc-event event-".concat(index, " ").concat(event.className || ''),
+          style: {
+            left: "".concat(left, "%"),
+            right: "".concat(right, "%")
+          }
+        }, event.title);
+      });
+    });
+    return _this;
+  }
 
+  (0, _createClass2.default)(TeamWeek, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
 
-			onSelectEvent && onSelectEvent(event, e);
-		}, _this.renderDayEvents = function (events, date) {
-			var _this$props = _this.props,
-			    max = _this$props.max,
-			    min = _this$props.min;
+      var _this$props2 = this.props,
+          _this$props2$classNam = _this$props2.className,
+          className = _this$props2$classNam === void 0 ? '' : _this$props2$classNam,
+          date = _this$props2.date,
+          dayFormat = _this$props2.dayFormat,
+          events = _this$props2.events;
+      var currentDate = (0, _moment.default)(date).startOf('week');
+      var end = (0, _moment.default)(currentDate).endOf('week');
+      var dates = [];
 
+      do {
+        dates.push((0, _moment.default)(currentDate));
+        currentDate.add(1, 'day');
+      } while (currentDate <= end);
 
-			return events.filter(function (event) {
-				return (0, _moment2.default)(event.start).isSame((0, _moment2.default)(date), 'day');
-			}).map(function (event, index) {
-				var start = event.start,
-				    end = event.end;
-
-
-				var totalMinutes = (0, _moment2.default)(max).diff((0, _moment2.default)(min), 'minutes');
-
-				var startOfDay = (0, _moment2.default)(date.format('YYYY-MM-DD') + ' ' + (0, _moment2.default)(min).format('HH:mm:ss'));
-
-				var endOfDay = (0, _moment2.default)(date.format('YYYY-MM-DD') + ' ' + (0, _moment2.default)(max).format('HH:mm:ss'));
-
-				var left = Math.round((0, _moment2.default)(start).diff(startOfDay, 'minutes') / totalMinutes * 100);
-				var right = Math.round((0, _moment2.default)(endOfDay).diff(end, 'minutes') / totalMinutes * 100);
-
-				return _react2.default.createElement(
-					'div',
-					{
-						key: event.userId + '_' + event.start,
-						onClick: function onClick(e) {
-							return _this.handleOnClick(event, e);
-						},
-						className: 'rbc-event event-' + index + ' ' + (event.className || ''),
-						style: {
-							left: left + '%',
-							right: right + '%'
-						}
-					},
-					event.title
-				);
-			});
-		}, _temp), _possibleConstructorReturn(_this, _ret);
-	}
-
-	_createClass(TeamWeek, [{
-		key: 'render',
-		value: function render() {
-			var _this2 = this;
-
-			var _props = this.props,
-			    _props$className = _props.className,
-			    className = _props$className === undefined ? '' : _props$className,
-			    date = _props.date,
-			    dayFormat = _props.dayFormat,
-			    events = _props.events;
-
-
-			var currentDate = (0, _moment2.default)(date).startOf('week');
-			var end = (0, _moment2.default)(currentDate).endOf('week');
-
-			var dates = [];
-
-			do {
-				dates.push((0, _moment2.default)(currentDate));
-				currentDate.add(1, 'day');
-			} while (currentDate <= end);
-
-			return _react2.default.createElement(
-				'div',
-				{ className: 'team_week ' + className },
-				_react2.default.createElement(
-					'div',
-					{ className: 'rbc-time-header' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'rbc-row rbc-time-header-cell' },
-						dates.map(function (date) {
-							return _react2.default.createElement(
-								'div',
-								{ key: 'header-for-' + date.format(), className: 'rbc-header' },
-								date.format(dayFormat)
-							);
-						})
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'rbc-time-content' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'rbc-row rbc-time-content-cell' },
-						dates.map(function (date) {
-							return _react2.default.createElement(
-								'div',
-								{
-									key: 'content-for-' + date.format(),
-									className: 'rbc-day-slot rbc-day-column'
-								},
-								_react2.default.createElement(
-									'div',
-									{ className: 'rbc-allday-cell' },
-									events.filter(function (event) {
-										return event.allDay && (0, _moment2.default)(event.start).isSame((0, _moment2.default)(date), 'day');
-									}).map(function (event) {
-										return _react2.default.createElement(
-											'div',
-											{
-												key: event.title + '_' + event.start,
-												className: 'rbc-event ' + (event.className || ''),
-												onClick: function onClick(e) {
-													return _this2.handleOnClick(event, e);
-												}
-											},
-											event.title
-										);
-									})
-								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'rbc-events-wrapper' },
-									_this2.renderDayEvents(events, date)
-								)
-							);
-						})
-					)
-				)
-			);
-		}
-	}], [{
-		key: 'title',
-		value: function title(date) {
-			return 'TEST';
-		}
-	}, {
-		key: 'navigate',
-		value: function navigate(date) {
-			console.log('TEAM WEEK', date);
-		}
-	}]);
-
-	return TeamWeek;
+      return _react.default.createElement("div", {
+        className: "team_week ".concat(className)
+      }, _react.default.createElement("div", {
+        className: "rbc-time-header"
+      }, _react.default.createElement("div", {
+        className: "rbc-row rbc-time-header-cell"
+      }, dates.map(function (date) {
+        return _react.default.createElement("div", {
+          key: "header-for-".concat(date.format()),
+          className: "rbc-header"
+        }, date.format(dayFormat));
+      }))), _react.default.createElement("div", {
+        className: "rbc-time-content"
+      }, _react.default.createElement("div", {
+        className: "rbc-row rbc-time-content-cell"
+      }, dates.map(function (date) {
+        return _react.default.createElement("div", {
+          key: "content-for-".concat(date.format()),
+          className: "rbc-day-slot rbc-day-column"
+        }, _react.default.createElement("div", {
+          className: "rbc-allday-cell"
+        }, events.filter(function (event) {
+          return event.allDay && (0, _moment.default)(event.start).isSame((0, _moment.default)(date), 'day');
+        }).map(function (event) {
+          return _react.default.createElement("div", {
+            key: "".concat(event.title, "_").concat(event.start),
+            className: "rbc-event ".concat(event.className || ''),
+            onClick: function onClick(e) {
+              return _this2.handleOnClick(event, e);
+            }
+          }, event.title);
+        })), _react.default.createElement("div", {
+          className: "rbc-events-wrapper"
+        }, _this2.renderDayEvents(events, date)));
+      }))));
+    }
+  }], [{
+    key: "title",
+    value: function title(date) {
+      return 'TEST';
+    }
+  }, {
+    key: "navigate",
+    value: function navigate(date) {
+      console.log('TEAM WEEK', date);
+    }
+  }]);
+  return TeamWeek;
 }(_react.Component);
 
 exports.default = TeamWeek;

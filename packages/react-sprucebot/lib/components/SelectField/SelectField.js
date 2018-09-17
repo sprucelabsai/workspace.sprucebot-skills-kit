@@ -1,42 +1,29 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _react = require('react');
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _react2 = _interopRequireDefault(_react);
+var _react = _interopRequireDefault(require("react"));
 
-var _classnames = require('classnames');
+var _classnames = _interopRequireDefault(require("classnames"));
 
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _FormField = require('../FormField/FormField');
-
-var _FormField2 = _interopRequireDefault(_FormField);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+var _FormField = _interopRequireDefault(require("../FormField/FormField"));
 
 var TextAreaField = function TextAreaField(_ref) {
-	var children = _ref.children,
-	    props = _objectWithoutProperties(_ref, ['children']);
-
-	return _react2.default.createElement(
-		_FormField2.default,
-		props,
-		_react2.default.createElement(
-			'select',
-			_extends({}, props, {
-				className: (0, _classnames2.default)('SelectField', 'custom_dropdown')
-			}),
-			children
-		)
-	);
+  var children = _ref.children,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["children"]);
+  return _react.default.createElement(_FormField.default, props, _react.default.createElement("select", (0, _extends2.default)({}, props, {
+    className: (0, _classnames.default)('SelectField', 'custom_dropdown')
+  }), children));
 };
 
-exports.default = TextAreaField;
+var _default = TextAreaField;
+exports.default = _default;

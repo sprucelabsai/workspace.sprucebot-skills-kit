@@ -1,222 +1,203 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _react = require('react');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react2 = _interopRequireDefault(_react);
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _Loader = require('../Loader/Loader');
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _Loader2 = _interopRequireDefault(_Loader);
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _router = require('next/router');
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _router2 = _interopRequireDefault(_router);
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
 
-var _link = require('next/link');
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var _link2 = _interopRequireDefault(_link);
+var _react = _interopRequireWildcard(require("react"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _Loader = _interopRequireDefault(require("../Loader/Loader"));
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+var _router = _interopRequireDefault(require("next/router"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _link = _interopRequireDefault(require("next/link"));
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var Button =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(Button, _Component);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  function Button(props) {
+    var _this;
 
-var Button = function (_Component) {
-	_inherits(Button, _Component);
+    (0, _classCallCheck2.default)(this, Button);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Button).call(this, props));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "onClick", function (e) {
+      var busy = _this.state.busy;
+      var _this$props = _this.props,
+          disabled = _this$props.disabled,
+          onClick = _this$props.onClick,
+          href = _this$props.href,
+          target = _this$props.target,
+          router = _this$props.router;
 
-	function Button(props) {
-		_classCallCheck(this, Button);
+      if (busy || disabled) {
+        return;
+      }
 
-		var _this = _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
+      if (onClick) {
+        onClick(e);
+      } else if (href) {
+        _this.setState({
+          busy: true
+        });
+      }
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "renderView", function () {
+      var busy = _this.state.busy;
+      var _this$props2 = _this.props,
+          hideLoader = _this$props2.hideLoader,
+          loaderDark = _this$props2.loaderDark,
+          loaderStyle = _this$props2.loaderStyle,
+          children = _this$props2.children;
 
-		_this.onClick = function (e) {
-			var busy = _this.state.busy;
-			var _this$props = _this.props,
-			    disabled = _this$props.disabled,
-			    onClick = _this$props.onClick,
-			    href = _this$props.href,
-			    target = _this$props.target,
-			    router = _this$props.router;
+      if (busy && !hideLoader) {
+        return _react.default.createElement(_Loader.default, {
+          dark: loaderDark ? true : false,
+          fullWidth: false,
+          loaderStyle: loaderStyle
+        });
+      }
+
+      return children;
+    });
+    _this.state = {
+      busy: !!props.busy
+    };
+    return _this;
+  }
+
+  (0, _createClass2.default)(Button, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      if (typeof nextProps.busy !== 'undefined') {
+        this.setState({
+          busy: nextProps.busy
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props3 = this.props,
+          tag = _this$props3.tag,
+          disabled = _this$props3.disabled,
+          primary = _this$props3.primary,
+          secondary = _this$props3.secondary,
+          alt = _this$props3.alt,
+          link = _this$props3.link,
+          caution = _this$props3.caution,
+          className = _this$props3.className,
+          children = _this$props3.children,
+          submit = _this$props3.submit,
+          remove = _this$props3.remove,
+          toggle = _this$props3.toggle,
+          router = _this$props3.router,
+          loaderDark = _this$props3.loaderDark,
+          loaderStyle = _this$props3.loaderStyle,
+          propBusy = _this$props3.busy,
+          hideLoader = _this$props3.hideLoader,
+          left = _this$props3.left,
+          right = _this$props3.right,
+          href = _this$props3.href,
+          type = _this$props3.type,
+          props = (0, _objectWithoutProperties2.default)(_this$props3, ["tag", "disabled", "primary", "secondary", "alt", "link", "caution", "className", "children", "submit", "remove", "toggle", "router", "loaderDark", "loaderStyle", "busy", "hideLoader", "left", "right", "href", "type"]);
+      var busy = this.state.busy;
+
+      if (primary && secondary) {
+        return _react.default.createElement("button", {
+          className: "btn__primary"
+        }, "'primary' and 'secondary' are mutually exclusive.");
+      } else if (primary && alt) {
+        return _react.default.createElement("button", {
+          className: "btn__primary"
+        }, "'primary' and 'alt' are mutually exclusive.");
+      }
+
+      var btnClass = primary ? 'btn__primary' : '';
+      btnClass += secondary ? 'btn__secondary' : '';
+      btnClass += alt && btnClass.length > 0 ? '__alt' : '';
+      btnClass += alt && btnClass.length === 0 ? 'btn__alt' : '';
+      btnClass += disabled ? ' btn__disabled' : '';
+      btnClass += caution ? ' btn__caution' : '';
+      btnClass += link ? ' btn__link' : '';
+      btnClass += toggle ? 'btn__toggle' : '';
+
+      if (remove) {
+        btnClass = 'btn__remove';
+      } // if this button has a href or is a "remove" button, make it an anchor
 
 
-			if (busy || disabled) {
-				return;
-			}
+      var Tag;
+      var usingLink = false;
 
-			if (onClick) {
-				onClick(e);
-			} else if (href) {
-				_this.setState({ busy: true });
-			}
-		};
+      if (href || remove) {
+        Tag = _router.default.router ? _link.default : 'a';
+        usingLink = _router.default.router;
+      } else if (tag === 'button') {
+        Tag = 'button';
+      } else {
+        Tag = tag;
+      }
 
-		_this.renderView = function () {
-			var busy = _this.state.busy;
-			var _this$props2 = _this.props,
-			    hideLoader = _this$props2.hideLoader,
-			    loaderDark = _this$props2.loaderDark,
-			    loaderStyle = _this$props2.loaderStyle,
-			    children = _this$props2.children;
+      if (usingLink) {
+        return _react.default.createElement(_link.default, (0, _extends2.default)({
+          href: href
+        }, props), _react.default.createElement("a", {
+          onClick: this.onClick,
+          className: "btn ".concat(btnClass, " ").concat(className || '')
+        }, _react.default.createElement("span", {
+          className: "wrapper"
+        }, this.renderView())));
+      }
 
-
-			if (busy && !hideLoader) {
-				return _react2.default.createElement(_Loader2.default, {
-					dark: loaderDark ? true : false,
-					fullWidth: false,
-					loaderStyle: loaderStyle
-				});
-			}
-			return children;
-		};
-
-		_this.state = {
-			busy: !!props.busy
-		};
-		return _this;
-	}
-
-	_createClass(Button, [{
-		key: 'componentWillReceiveProps',
-		value: function componentWillReceiveProps(nextProps) {
-			if (typeof nextProps.busy !== 'undefined') {
-				this.setState({
-					busy: nextProps.busy
-				});
-			}
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var _props = this.props,
-			    tag = _props.tag,
-			    disabled = _props.disabled,
-			    primary = _props.primary,
-			    secondary = _props.secondary,
-			    alt = _props.alt,
-			    link = _props.link,
-			    caution = _props.caution,
-			    className = _props.className,
-			    children = _props.children,
-			    submit = _props.submit,
-			    remove = _props.remove,
-			    toggle = _props.toggle,
-			    router = _props.router,
-			    loaderDark = _props.loaderDark,
-			    loaderStyle = _props.loaderStyle,
-			    propBusy = _props.busy,
-			    hideLoader = _props.hideLoader,
-			    left = _props.left,
-			    right = _props.right,
-			    href = _props.href,
-			    type = _props.type,
-			    props = _objectWithoutProperties(_props, ['tag', 'disabled', 'primary', 'secondary', 'alt', 'link', 'caution', 'className', 'children', 'submit', 'remove', 'toggle', 'router', 'loaderDark', 'loaderStyle', 'busy', 'hideLoader', 'left', 'right', 'href', 'type']);
-
-			var busy = this.state.busy;
-
-
-			if (primary && secondary) {
-				return _react2.default.createElement(
-					'button',
-					{ className: 'btn__primary' },
-					'\'primary\' and \'secondary\' are mutually exclusive.'
-				);
-			} else if (primary && alt) {
-				return _react2.default.createElement(
-					'button',
-					{ className: 'btn__primary' },
-					'\'primary\' and \'alt\' are mutually exclusive.'
-				);
-			}
-
-			var btnClass = primary ? 'btn__primary' : '';
-			btnClass += secondary ? 'btn__secondary' : '';
-			btnClass += alt && btnClass.length > 0 ? '__alt' : '';
-			btnClass += alt && btnClass.length === 0 ? 'btn__alt' : '';
-			btnClass += disabled ? ' btn__disabled' : '';
-			btnClass += caution ? ' btn__caution' : '';
-			btnClass += link ? ' btn__link' : '';
-			btnClass += toggle ? 'btn__toggle' : '';
-
-			if (remove) {
-				btnClass = 'btn__remove';
-			}
-
-			// if this button has a href or is a "remove" button, make it an anchor
-			var Tag = void 0;
-			var usingLink = false;
-
-			if (href || remove) {
-				Tag = _router2.default.router ? _link2.default : 'a';
-				usingLink = _router2.default.router;
-			} else if (tag === 'button') {
-				Tag = 'button';
-			} else {
-				Tag = tag;
-			}
-
-			if (usingLink) {
-				return _react2.default.createElement(
-					_link2.default,
-					_extends({ href: href }, props),
-					_react2.default.createElement(
-						'a',
-						{
-							onClick: this.onClick,
-							className: 'btn ' + btnClass + ' ' + (className || '')
-						},
-						_react2.default.createElement(
-							'span',
-							{ className: 'wrapper' },
-							this.renderView()
-						)
-					)
-				);
-			}
-
-			return _react2.default.createElement(
-				Tag,
-				_extends({
-					className: 'btn ' + btnClass + ' ' + (className || ''),
-					onClick: this.onClick,
-					disabled: disabled,
-					busy: busy,
-					href: href
-				}, props, {
-					type: type
-				}),
-				_react2.default.createElement(
-					'span',
-					{ className: 'wrapper' },
-					this.renderView()
-				)
-			);
-		}
-	}]);
-
-	return Button;
+      return _react.default.createElement(Tag, (0, _extends2.default)({
+        className: "btn ".concat(btnClass, " ").concat(className || ''),
+        onClick: this.onClick,
+        disabled: disabled,
+        busy: busy,
+        href: href
+      }, props, {
+        type: type
+      }), _react.default.createElement("span", {
+        className: "wrapper"
+      }, this.renderView()));
+    }
+  }]);
+  return Button;
 }(_react.Component);
 
-Button.defaultProps = {
-	tag: 'button',
-	primary: false,
-	alt: false,
-	secondary: false,
-	busy: false,
-	remove: false,
-	toggle: false,
-	type: 'button'
-};
 exports.default = Button;
+(0, _defineProperty2.default)(Button, "defaultProps", {
+  tag: 'button',
+  primary: false,
+  alt: false,
+  secondary: false,
+  busy: false,
+  remove: false,
+  toggle: false,
+  type: 'button'
+});
