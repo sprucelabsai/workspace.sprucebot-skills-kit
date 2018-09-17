@@ -1,5 +1,15 @@
 version: 2
 jobs:
+  test:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should be set in CircleCI
+      - checkout
+      - run: yarn install --frozen-lockfile
+      - run: yarn test
   release_dev:
     docker:
       - image: circleci/node:8
@@ -61,7 +71,17 @@ workflows:
   version: 2
   do_build:
     jobs:
+      - test:
+          filters:
+            branches:
+              ignore:
+                - demo
+                - qa
+                - alpha
+                - master
       - release_dev:
+          requires:
+            - test
           filters:
             branches:
               only:
