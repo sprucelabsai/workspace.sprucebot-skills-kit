@@ -3,17 +3,9 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [7.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.0.0...v7.1.0) (2018-09-17)
+## [7.1.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.1.0...v7.1.1) (2018-09-17)
 
-
-### Bug Fixes
-
-* skills-kit vscode settings autosave, prettier, etc. ([08ea003](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/08ea003))
-
-
-### Features
-
-* upgrade to next 6 and babel 7 ([1bb2681](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1bb2681))
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit
 
 
 
