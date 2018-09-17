@@ -89,7 +89,7 @@
 		"moment": "^2.22.1",
 		"moment-timezone": "^0.5.21",
 		"next": "^6.0.0",
-		"next-redux-wrapper": "^2.0.0",
+		"next-redux-wrapper": "^1.0.0",
 		"prop-types": "^15.6.0",
 		"qs": "^6.5.1",
 		"rc-time-picker": "^3.3.1",
