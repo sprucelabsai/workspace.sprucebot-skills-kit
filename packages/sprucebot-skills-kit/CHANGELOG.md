@@ -3,12 +3,9 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [7.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.1.3...v7.2.0) (2018-09-18)
+## [7.2.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.2.0...v7.2.1) (2018-09-18)
 
-
-### Features
-
-* add vscode debugger configuration for running single server test ([e9ab9e7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e9ab9e7))
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit
 
 
 
