@@ -751,7 +751,8 @@ function (_Component) {
       var _this$props$slotPropG = _this.props.slotPropGetter,
           slotPropGetter = _this$props$slotPropG === void 0 ? function (teammate, date, props) {
         return props;
-      } : _this$props$slotPropG; // if no team schedule, then no need to render on/off
+      } : _this$props$slotPropG;
+      var className = []; // if no team schedule, then no need to render on/off
 
       if (!teamSchedule) {
         return slotPropGetter(teammate, date, {});
@@ -767,18 +768,21 @@ function (_Component) {
 
 
       if (!startTime || !endTime) {
-        return slotPropGetter(teammate, date, {
-          className: 'not-working'
-        });
+        className.push('not-working');
+      } else {
+        startTime = parseInt(startTime.replace(/[^0-9]/g, ''));
+        endTime = parseInt(endTime.replace(/[^0-9]/g, ''));
+        var nowTime = parseInt((0, _momentTimezone.default)(date).format('HHmmss'));
+        className.push(nowTime >= startTime && nowTime < endTime ? 'working' : 'not-working');
       }
 
-      startTime = parseInt(startTime.replace(/[^0-9]/g, ''));
-      endTime = parseInt(endTime.replace(/[^0-9]/g, ''));
-      var nowTime = parseInt(theDate.format('HHmmss'));
-      return slotPropGetter(teammate, date, {
-        title: theDate.format('h:mma'),
-        className: nowTime >= startTime && nowTime < endTime ? 'working' : 'not-working'
-      });
+      if ((0, _momentTimezone.default)().isBefore(date)) {
+        className.push('is_clickable');
+      }
+
+      return {
+        className: className.join(' ')
+      };
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleClickEvent", function (options, e) {
       var onClickEvent = _this.props.onClickEvent;
