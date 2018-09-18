@@ -1,0 +1,108 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should be set in CircleCI
+      - checkout
+      - run: yarn install --frozen-lockfile
+      - run: yarn test
+  release_dev:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run: yarn install --ignore-scripts --frozen-lockfile
+      - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
+      - run: git config --global user.name "$GIT_AUTHOR_NAME"
+      - run: yarn run release
+  release_demo:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should be set in CircleCI
+      - checkout
+      - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
+      - run: git config --global user.name "$GIT_AUTHOR_NAME"
+      - run: git tag v$(npx -c 'echo "$npm_package_version"')-demo
+      - run: git push --tags
+  release_qa:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should be set in CircleCI
+      - checkout
+      - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
+      - run: git config --global user.name "$GIT_AUTHOR_NAME"
+      - run: git tag v$(npx -c 'echo "$npm_package_version"')-qa
+      - run: git push --tags
+  release_alpha:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should be set in CircleCI
+      - checkout
+      - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
+      - run: git config --global user.name "$GIT_AUTHOR_NAME"
+      - run: git tag v$(npx -c 'echo "$npm_package_version"')-alpha
+      - run: git push --tags
+  release_prod:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should be set in CircleCI
+      - checkout
+      - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
+      - run: git config --global user.name "$GIT_AUTHOR_NAME"
+      - run: git tag v$(npx -c 'echo "$npm_package_version"')-master
+      - run: git push --tags
+workflows:
+  version: 2
+  do_build:
+    jobs:
+      - test:
+          filters:
+            branches:
+              ignore:
+                - demo
+                - qa
+                - alpha
+                - master
+      - release_dev:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - dev
+      - release_demo:
+          filters:
+            branches:
+              only:
+                - demo
+      - release_qa:
+          filters:
+            branches:
+              only:
+                - qa
+      - release_alpha:
+          filters:
+            branches:
+              only:
+                - alpha
+      - release_prod:
+          filters:
+            branches:
+              only:
+                - master

@@ -1,10 +1,5 @@
-import styled from 'styled-components'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
-export const ButtonGrid = styled.div.attrs({
-	className: 'btn_grid'
-})``
 
 export class GridButton extends Component {
 	render() {

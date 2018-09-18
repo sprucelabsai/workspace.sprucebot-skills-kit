@@ -1,10 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import LinkPile from './LinkPile'
+import { shallow } from 'enzyme'
 
-test('it renders', () => {
-	const tree = renderer.create(<LinkPile />).toJSON()
-	expect(tree).toMatchSnapshot()
+describe('LinkPile tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<LinkPile />)
+
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })

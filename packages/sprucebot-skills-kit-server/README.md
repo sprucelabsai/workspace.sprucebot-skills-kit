@@ -4,7 +4,7 @@
 This module relies heavily on [koajs](http://koajs.com) and [koa-router](https://github.com/alexmingoia/koa-router). It can help to be familiar with those modules, but it's probably not 100% necessary.
 
 ## Where to start?
-If you haven't already, you should totally checkout the [sprucebot-skills-kit's documentation](https://github.com/sprucelabsai/sprucebot-skills-kit/blob/dev/docs). In fact, this readme is assuming you already read it.  
+If you haven't already, you should totally checkout the [sprucebot-skills-kit's documentation](https://github.com/sprucelabsai/sprucebot-skills-kit/blob/dev/docs). In fact, this readme is assuming you already read it.
 
 ## File structure
 It is probably a good idea to go through each file to understand how they work. It'll help a lot when building your skill.
@@ -32,7 +32,7 @@ It is probably a good idea to go through each file to understand how they work. 
     * `auth.js` - Helpful methods for checking role hierarchy.
 
 ## Checking permissions
-Lets say you want to send an alert to the team when a `user` arrives. But, you have rules around how it should work. 
+Lets say you want to send an alert to the team when a `user` arrives. But, you have rules around how it should work.
 
 * `guest` arrives -> notify `teammates` and `owners`
 * `teammate` arrives -> notify `owners`
@@ -40,7 +40,7 @@ Lets say you want to send an alert to the team when a `user` arrives. But, you h
 
 Using the built-in `auth` `utility`, you have the following.
 
- * `auth.isAbove(teammate, guest)` 
+ * `auth.isAbove(teammate, guest)`
  * `auth.isAboveOrEqual(teammate, guest)`
 
 You should check the source of `utilities/auth` in this module to see how it works.
@@ -115,7 +115,7 @@ We're going to depend on newer browser features, including `FileReader` to make 
 
 ```js
 // interface/pages/owner/index.js
-import { Container, Button } from 'react-sprucebot'
+import { Container, Button } from '@sprucelabs/react-sprucebot'
 
 class OwnerDashboard extends Component {
 
@@ -138,11 +138,11 @@ class OwnerDashboard extends Component {
 			this.reader.onload = this.onFileReaderLoadFile.bind(this)
 			this.reader.onerror = this.onFileReaderLoadFileFail.bind(this)
         }
-        
+
         this.props.skill.read()
         this.props.actions.files.fetch()
 	}
-    
+
     // tiggered when clicking our nice <Button />
     selectFile() {
 
@@ -173,7 +173,7 @@ class OwnerDashboard extends Component {
         const content = e.target.result
         const name = e.target.name
 
-     
+
         // defined in our actions in the code sample below
         this.props.actions.files.upload(content, name)
 	}
@@ -198,7 +198,7 @@ class OwnerDashboard extends Component {
                 {!error && (
                     <BotText>{lang.getText('ownerDashboardBotText')}</BotText>
                 )}
-                
+
                 {error && (
                     <BotText>{error}</BotText>
                 )}
@@ -206,18 +206,18 @@ class OwnerDashboard extends Component {
                 {files.file.value && (
                     <BotText>{`Current file url: ${files.file.value}`}</BotText>
                 )}
-                
+
                 <Button busy={files.uploading} primary onClick={this.selectFile.bind(this)}>
                     {lang.getText('uploadFileButtonLabel')}
                 </Button>
 
-                <input 
-                    type="file" 
+                <input
+                    type="file"
                     ref={input => {
                         this.fileInput = input
                     }}
                     onChange={this.onFileSelect.bind(this)}
-                    style={{ display:'none' }} 
+                    style={{ display:'none' }}
                 />
             </Container>
         )
@@ -454,7 +454,7 @@ module.exports = {
 }
 
 ```
-Now, when you call `ctx.services.files.upload()` it'll invoke your `service`'s `upload()` method. 
+Now, when you call `ctx.services.files.upload()` it'll invoke your `service`'s `upload()` method.
 
 Note: Make sure you define `init(options)` in your uploader. It'll receive whatever is defined in `config/default.js` -> `services.uploads.options`.
 

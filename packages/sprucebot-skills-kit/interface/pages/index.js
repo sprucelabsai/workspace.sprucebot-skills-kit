@@ -6,12 +6,14 @@ import {
 	H1,
 	H2,
 	H3,
+	Button,
 	BotText,
 	Pre,
 	Card,
-	Paragraph as P,
-	Styleguide
-} from 'react-sprucebot'
+	Paragraph as P
+} from '@sprucelabs/react-sprucebot'
+
+import '../styles/global.scss'
 
 class DeveloperPage extends React.Component {
 	static getInitialProps(props) {
@@ -60,11 +62,13 @@ class DeveloperPage extends React.Component {
 					</svg>
 					<H1>Hello 🌲 Sprucebot 🌲 Developer!</H1>
 					<BotText>
-						Use the Styleguide below to get a jump start. For a proper
-						introduction, see "./docs/README.md" in your project.
+						Check out the developer documentation for everything you'll need to
+						get up and running
 					</BotText>
+					<Button href="https://developer.sprucebot.com" target="_blank">
+						Take me to the docs!
+					</Button>
 				</Container>
-				<Styleguide />
 			</div>
 		)
 	}

@@ -28,6 +28,11 @@ module.exports = {
 		process.env.INTERFACE_SSL_ALLOW_SELF_SIGNED === 'true',
 	API_SSL_ALLOW_SELF_SIGNED: process.env.API_SSL_ALLOW_SELF_SIGNED === 'true',
 	WHITELABEL: process.env.WHITELABEL,
+	REDIS_URL: process.env.REDIS_URL || null,
+	REDIS_DEFAULT_TTL_SEC: process.env.REDIS_DEFAULT_TTL_SEC || 300,
+	REDIS_DISABLE: process.env.REDIS_DISABLE === 'true',
+	RUN_CRONS: process.env.RUN_CRONS === 'true',
+	ENABLE_DEBUG_ROUTES: process.env.ENABLE_DEBUG_ROUTES === 'true',
 	// Event contract
 	// This sets the events that you want to subscribe to
 	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
@@ -87,8 +92,7 @@ module.exports = {
 		migrationsDir: path.resolve(__dirname, '../server/migrations'),
 		// Additional sequelize options
 		options: {
-			// Turn off sql query logging
-			// logging: false
+			logging: process.env.ORM_LOGGING === 'true' ? console.log : false
 		}
 	},
 	utilities: {}, // Settings for any utilities.

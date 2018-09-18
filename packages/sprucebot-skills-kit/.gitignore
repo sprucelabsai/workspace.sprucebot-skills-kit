@@ -69,3 +69,15 @@ client.json
 
 # lang
 interface/lang/overrides.js
+
+# Swagger
+server/static/api-docs.json
+
+# macOS files
+.DS_Store
+
+# Generated swagger docs
+server/static/api-docs.json
+
+# Rejected "git apply" patch files
+*.rej

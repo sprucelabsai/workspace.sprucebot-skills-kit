@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import React from 'react'
 
-const Container = styled.div.attrs({
-	className: 'container'
-})``
+const Container = ({ className, ...props }) => {
+	return <div {...props} className={`container ${className || ''}`} />
+}
 
 export default Container

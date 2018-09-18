@@ -3,6 +3,90 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.1.3...v7.2.0) (2018-09-18)
+
+
+### Features
+
+* add vscode debugger configuration for running single server test ([e9ab9e7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e9ab9e7))
+
+
+
+
+
+<a name="6.70.10"></a>
+## [6.70.10](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.9...v6.70.10) (2018-09-16)
+
+
+### Bug Fixes
+
+* missed file ([f24978c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f24978c))
+* time format ([864b498](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/864b498))
+
+
+
+
+
+<a name="6.70.9"></a>
+## [6.70.9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.8...v6.70.9) (2018-09-15)
+
+
+### Bug Fixes
+
+* add toggle-mode class to toggle-show-working button to fix styling ([2a67544](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2a67544))
+
+
+
+
+
+<a name="6.70.8"></a>
+## [6.70.8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.7...v6.70.8) (2018-09-14)
+
+
+### Bug Fixes
+
+* tool tip not 24 hours ([fb25fad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fb25fad))
+
+
+
+
+
+<a name="6.70.7"></a>
+## [6.70.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.6...v6.70.7) (2018-09-14)
+
+
+### Bug Fixes
+
+* hover on time slot ([5ad4510](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5ad4510))
+
+
+
+
+
+<a name="6.70.6"></a>
+## [6.70.6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.5...v6.70.6) (2018-09-13)
+
+
+### Bug Fixes
+
+* run migrations before sequelize.sync() ([561dd69](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/561dd69))
+
+
+
+
+
+<a name="6.70.5"></a>
+## [6.70.5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.4...v6.70.5) (2018-09-11)
+
+
+### Bug Fixes
+
+* is_ios on body class ([e2b8124](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e2b8124))
+
+
+
+
+
 <a name="6.70.4"></a>
 ## [6.70.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.3...v6.70.4) (2018-09-10)
 

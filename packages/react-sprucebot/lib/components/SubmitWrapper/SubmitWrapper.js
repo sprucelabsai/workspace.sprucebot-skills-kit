@@ -1,20 +1,25 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _styledComponents = require('styled-components');
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = _interopRequireDefault(require("react"));
 
-var SubmitWrapper = (0, _styledComponents2.default)('div').attrs({
-	className: 'submit__wrapper'
-}).withConfig({
-	displayName: 'SubmitWrapper',
-	componentId: 'sc-37qkbg-0'
-})(['']);
+var SubmitWrapper = function SubmitWrapper(_ref) {
+  var className = _ref.className,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["className"]);
+  return _react.default.createElement("div", (0, _extends2.default)({}, props, {
+    className: "submit__wrapper ".concat(className || '')
+  }));
+};
 
-exports.default = SubmitWrapper;
+var _default = SubmitWrapper;
+exports.default = _default;

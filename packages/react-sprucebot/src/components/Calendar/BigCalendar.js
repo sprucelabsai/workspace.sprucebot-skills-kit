@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import PropTypes from 'prop-types'
 import isEqual from 'lodash/isEqual'
 import { Tween, autoPlay, Easing } from 'es6-tween'
@@ -941,7 +941,7 @@ export default class BigCalendar extends Component {
 						view === 'day' &&
 						teamSchedule && (
 							<Button
-								className="toggle-show-working"
+								className="toggle-mode toggle-show-working"
 								onClick={this.handleToggleShowWorking}
 							>
 								{showOnlyWorking ? 'show everyone' : 'show only working'}

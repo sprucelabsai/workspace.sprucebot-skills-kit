@@ -1,10 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import SubmitWrapper from './SubmitWrapper'
+import { shallow } from 'enzyme'
 
-test('it renders', () => {
-	const tree = renderer.create(<SubmitWrapper />).toJSON()
-	expect(tree).toMatchSnapshot()
+describe('SubmitWrapper tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<SubmitWrapper />)
+
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })

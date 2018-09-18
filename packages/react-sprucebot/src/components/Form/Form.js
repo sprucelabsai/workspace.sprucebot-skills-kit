@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import React from 'react'
 import classnames from 'classnames'
 
-const Form = styled.form.attrs({
-	className: 'Form'
-})``
+const Form = ({ className, ...props }) => {
+	return <form {...props} className={`Form ${className || ''}`} />
+}
 
 export default Form

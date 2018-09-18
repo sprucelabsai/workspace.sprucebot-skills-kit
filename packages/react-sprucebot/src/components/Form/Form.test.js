@@ -1,10 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import Form from './Form'
+import { shallow } from 'enzyme'
 
-test('it renders', () => {
-	const tree = renderer.create(<Form>Form children</Form>).toJSON()
-	expect(tree).toMatchSnapshot()
+describe('Form tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<Form />)
+
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })

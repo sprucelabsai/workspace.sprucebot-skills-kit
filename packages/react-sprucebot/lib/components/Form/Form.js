@@ -1,24 +1,27 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _styledComponents = require('styled-components');
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _classnames = require('classnames');
+var _react = _interopRequireDefault(require("react"));
 
-var _classnames2 = _interopRequireDefault(_classnames);
+var _classnames = _interopRequireDefault(require("classnames"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var Form = function Form(_ref) {
+  var className = _ref.className,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["className"]);
+  return _react.default.createElement("form", (0, _extends2.default)({}, props, {
+    className: "Form ".concat(className || '')
+  }));
+};
 
-var Form = (0, _styledComponents2.default)('form').attrs({
-	className: 'Form'
-}).withConfig({
-	displayName: 'Form',
-	componentId: 'mm0wdm-0'
-})(['']);
-
-exports.default = Form;
+var _default = Form;
+exports.default = _default;

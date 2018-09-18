@@ -11,7 +11,7 @@ So you wanna create a `/owner/settings` page? Easy, create a `Component` at `int
 
 import React from 'react'
 import Page from '../../containers/Page'
-import { Container, H1 } from 'react-sprucebot'
+import { Container, H1 } from '@sprucelabs/react-sprucebot'
 
 class OwnerSettings extends React.Component {
 
@@ -25,7 +25,7 @@ class OwnerSettings extends React.Component {
     // in a browser
     componentDidMount() {
 
-        // always call skill.ready() to let Sprucebot know 
+        // always call skill.ready() to let Sprucebot know
         // your skill is ready to display
         this.props.skill.ready()
     }
@@ -35,7 +35,7 @@ class OwnerSettings extends React.Component {
     // props and state
     render() {
 
-        // you can always be certain auth exists and is an 
+        // you can always be certain auth exists and is an
         // owner because we are in the "owner" dir
         const { auth } = this.props;
 
@@ -59,7 +59,7 @@ export default Page(OwnerSettings)
 ```
 
 ## Restricting by role
-The `interface` restricts using the same rules as `server`, but does it all automatically for you. Simply creating a page under `owner`, `guest`, or `teammate` will restrict based off the following: 
+The `interface` restricts using the same rules as `server`, but does it all automatically for you. Simply creating a page under `owner`, `guest`, or `teammate` will restrict based off the following:
 
  * `/owner/*` - must be an `owner`
  * `/teammate/*` - must be an `owner` or `teammate`
@@ -195,7 +195,7 @@ module.exports = {
     locations,
     shopify
 }
-``` 
+```
 
 Phew, ok, now we can make requests and expect `state` to be accurate. Lets try incorporating it into the above `interface/owner/settings.js` page with a fancy `<Loader />` and everything.
 
@@ -204,14 +204,14 @@ Phew, ok, now we can make requests and expect `state` to be accurate. Lets try i
 
 import React from 'react'
 import Page from '../../containers/Page'
-import { 
-    Container, 
-    H1, 
-    Loader, 
-    Form, 
+import {
+    Container,
+    H1,
+    Loader,
+    Form,
     Input,
     SubmitWrapper,
-    Button } from 'react-sprucebot'
+    Button } from '@sprucelabs/react-sprucebot'
 
 class OwnerSettings extends React.Component {
 
@@ -249,7 +249,7 @@ class OwnerSettings extends React.Component {
                         owner: auth
                     })}</BotText>
                 )}
-                
+
                 {shopify.getError && (
                     <BotText>{shopify.getError.friendlyReason}</BotText>
                 )}
@@ -267,7 +267,7 @@ class OwnerSettings extends React.Component {
                         </SubmitWrapper>
                     </Form>
                 )}
-                
+
             </Container>
         )
     }
@@ -279,7 +279,7 @@ export default Page(OwnerSettings)
 ```
 
 ## getInitialProps()
-We've added some behaviors here for convenience. These are `redirect` and `public`. 
+We've added some behaviors here for convenience. These are `redirect` and `public`.
 ```js
 getInitialProps(props) {
     return {
@@ -297,7 +297,7 @@ If there are any `config/default.js` (or any environment) settings you need avai
 module.exports = {
     ...,
     myNewSetting: 'What the!??',
-    sanitizeClientConfig: config => 
+    sanitizeClientConfig: config =>
         pick(config), [
             ...,
             'myNewSetting'
@@ -334,7 +334,7 @@ Currently it is against Sprucebot rules to add custom styles to your Skill. If y
  * `getInitialProps` can run both `server` side and `client` side, so check for `window` or anything else you expect to use.
  * Dispatch actions `client` side and use a `<Loader />` so things load quickly.
  * **NEVER** `import config from 'config'` client side. It'll expose all your settings! Use `sanitizeClientConfig` && `this.props.config` instead.
- * Deving through a proxy (like ngrok) is really slow. One way to make development faster is to inspect the `iframe` in Sprucebot, copy the `src`, and paste it into a new window.  
+ * Deving through a proxy (like ngrok) is really slow. One way to make development faster is to inspect the `iframe` in Sprucebot, copy the `src`, and paste it into a new window.
  * Make sure you set the `error` to `false` on `REQUEST_SUCCESS` so any previous error is removed.
 
 # What's next?

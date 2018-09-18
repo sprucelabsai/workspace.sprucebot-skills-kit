@@ -1,129 +1,106 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _react = require('react');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react2 = _interopRequireDefault(_react);
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _propTypes = require('prop-types');
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _styledComponents = require('styled-components');
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
 
-var _Select = require('../Select/Select');
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var _Select2 = _interopRequireDefault(_Select);
+var _react = _interopRequireWildcard(require("react"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _Select = _interopRequireDefault(require("../Select/Select"));
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var DevControls =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(DevControls, _Component);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  function DevControls(props) {
+    var _this;
 
-var DevControls = function (_Component) {
-	_inherits(DevControls, _Component);
+    (0, _classCallCheck2.default)(this, DevControls);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(DevControls).call(this, props));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "onChangeRole", function (role) {
+      window.location.href = "/dev/".concat(role, "/redirect");
+    });
+    _this.state = {
+      loaded: false
+    };
+    return _this;
+  }
 
-	function DevControls(props) {
-		_classCallCheck(this, DevControls);
+  (0, _createClass2.default)(DevControls, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({
+        loaded: true
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      // don't render until loaded
+      if (!this.state.loaded) {
+        return null;
+      }
 
-		var _this = _possibleConstructorReturn(this, (DevControls.__proto__ || Object.getPrototypeOf(DevControls)).call(this, props));
+      var className = this.props.className;
+      var props = Object.assign({}, this.props);
+      var auth = props.auth; // cleanup props
 
-		_this.state = {
-			loaded: false
-		};
-		return _this;
-	}
+      delete props.auth; //easy bail if not auth'ed
 
-	_createClass(DevControls, [{
-		key: 'onChangeRole',
-		value: function onChangeRole(role) {
-			window.location.href = '/dev/' + role + '/redirect';
-		}
-	}, {
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			this.setState({
-				loaded: true
-			});
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			// don't render until loaded
-			if (!this.state.loaded) {
-				return null;
-			}
+      if (!auth || auth.error || !auth.role) {
+        return _react.default.createElement("div", (0, _extends2.default)({}, props, {
+          className: "dev_controls__no_auth ".concat(className || '')
+        }), _react.default.createElement("div", {
+          className: "error"
+        }, "You're gonna wanna be logged in for this. \uD83D\uDE4F"));
+      }
 
-			var props = Object.assign({}, this.props);
-			var auth = props.auth;
-
-			// cleanup props
-
-			delete props.auth;
-
-			//easy bail if not auth'ed
-			if (!auth || auth.error || !auth.role) {
-				return _react2.default.createElement(
-					'div',
-					props,
-					_react2.default.createElement(
-						'div',
-						{ className: 'error' },
-						'You\'re gonna wanna be logged in for this. \uD83D\uDE4F'
-					)
-				);
-			}
-
-			return _react2.default.createElement(
-				'div',
-				props,
-				_react2.default.createElement(
-					_Select2.default,
-					{ label: 'Jump to Role', onChange: this.onChangeRole.bind(this) },
-					_react2.default.createElement(
-						'option',
-						{ value: '' },
-						'Current: ',
-						auth.role
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'owner' },
-						'Owner'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'teammate' },
-						'Teammate'
-					),
-					_react2.default.createElement(
-						'option',
-						{ value: 'guest' },
-						'Guest'
-					)
-				)
-			);
-		}
-	}]);
-
-	return DevControls;
+      return _react.default.createElement("div", (0, _extends2.default)({}, props, {
+        className: "dev_controls ".concat(className || '')
+      }), _react.default.createElement(_Select.default, {
+        className: "select",
+        label: "Jump to Role",
+        onChange: this.onChangeRole
+      }, _react.default.createElement("option", {
+        value: ""
+      }, "Current: ".concat(auth.role)), _react.default.createElement("option", {
+        value: "owner"
+      }, "Owner"), _react.default.createElement("option", {
+        value: "teammate"
+      }, "Teammate"), _react.default.createElement("option", {
+        value: "guest"
+      }, "Guest")));
+    }
+  }]);
+  return DevControls;
 }(_react.Component);
 
 DevControls.propTypes = {
-	auth: _propTypes2.default.object
+  auth: _propTypes.default.object
 };
-
-exports.default = (0, _styledComponents2.default)(DevControls).withConfig({
-	displayName: 'DevControls',
-	componentId: 'lfym0t-0'
-})(['-webkit-transition:all 0.5s ease-out;-moz-transition:all 0.5s ease-out;-ms-transition:all 0.5s ease-out;-o-transition:all 0.5s ease-out;transition:all 0.5s ease-out;&:hover{opacity:1;}position:absolute;background-color:#000;color:#fff;padding:20px;opacity:0.1;.input__wrapper{margin:0;padding-top:15px;white-space:nowrap;}select{margin:0;display:inline;padding:10px;height:auto;border-radius:5px;background:#fff;width:auto;}']);
+var _default = DevControls;
+exports.default = _default;

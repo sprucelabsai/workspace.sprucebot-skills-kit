@@ -1,23 +1,17 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
-import { ServerStyleSheet } from 'styled-components'
-const debug = require('debug')('react-sprucebot')
+const debug = require('debug')('@sprucelabs/react-sprucebot')
 
 export default class MyDocument extends Document {
 	static async getInitialProps({ renderPage, query, store }) {
-		// Build stylesheets from styled-components
-		const sheet = new ServerStyleSheet()
-		const page = renderPage(App => props =>
-			sheet.collectStyles(<App {...props} />)
-		)
-		const styleTags = sheet.getStyleElement()
+		const page = renderPage(App => props => <App {...props} />)
 		// Store is undefined when hmr is the first
 		// request the server sees after boot
 		// Ideally store is always defined.
 		// Revisit when using `next>5.0.0`
 		if (!store) {
 			debug('No store in _document')
-			return { ...page, styleTags }
+			return { ...page }
 		}
 		const { auth, config } = store.getState()
 		let whitelabel = config.WHITELABEL
@@ -35,16 +29,17 @@ export default class MyDocument extends Document {
 			orgWhitelabel = auth.Location.Organization.whiteLabellingStylesheetUrl
 		}
 
-		return { ...page, styleTags, whitelabel, auth, config, orgWhitelabel }
+		return { ...page, whitelabel, auth, config, orgWhitelabel }
 	}
 
 	render() {
-		let whitelabelClassName =
+		let bodyClassName =
 			this.props.config && this.props.config.SLUG
 				? ` skill-${this.props.config.SLUG}`
 				: ''
+
 		return (
-			<html className={`skill${whitelabelClassName}`}>
+			<html className={`skill${bodyClassName}`}>
 				<Head>
 					<title>{this.props.name}</title>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -57,7 +52,7 @@ export default class MyDocument extends Document {
 						type="text/css"
 						charSet="UTF-8"
 					/>
-					{this.props.styleTags}
+					<link rel="stylesheet" href="/_next/static/style.css" />
 					{this.props.whitelabel && (
 						<link
 							href={this.props.whitelabel}
@@ -75,7 +70,7 @@ export default class MyDocument extends Document {
 						/>
 					)}
 				</Head>
-				<body>
+				<body className={bodyClassName}>
 					<Main />
 					<NextScript />
 				</body>

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders 1`] = `
+exports[`StatsSlider tests Should match the snapshot 1`] = `
 <div
   className="stat__card__slider "
 >

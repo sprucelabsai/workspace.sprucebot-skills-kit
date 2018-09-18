@@ -3,6 +3,71 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.1.3...v7.2.0) (2018-09-18)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.10"></a>
+## [6.70.10](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.9...v6.70.10) (2018-09-16)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.9"></a>
+## [6.70.9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.8...v6.70.9) (2018-09-15)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.8"></a>
+## [6.70.8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.7...v6.70.8) (2018-09-14)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.7"></a>
+## [6.70.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.6...v6.70.7) (2018-09-14)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+<a name="6.70.6"></a>
+## [6.70.6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.5...v6.70.6) (2018-09-13)
+
+
+### Bug Fixes
+
+* run migrations before sequelize.sync() ([561dd69](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/561dd69))
+
+
+
+
+
+<a name="6.70.5"></a>
+## [6.70.5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.4...v6.70.5) (2018-09-11)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
 <a name="6.70.4"></a>
 ## [6.70.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.3...v6.70.4) (2018-09-10)
 

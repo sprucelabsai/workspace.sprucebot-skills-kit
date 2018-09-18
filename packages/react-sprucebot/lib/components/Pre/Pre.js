@@ -1,18 +1,25 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _styledComponents = require('styled-components');
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = _interopRequireDefault(require("react"));
 
-var Pre = (0, _styledComponents2.default)('pre').withConfig({
-	displayName: 'Pre',
-	componentId: 'r27akj-0'
-})(['font-family:Courier,\'New Courier\',monospace;font-size:0.8em;text-align:left;white-space:pre-wrap;width:100%;word-wrap:break-word;background-color:black;color:green;padding:20px;tabsize:1;']);
+var Pre = function Pre(_ref) {
+  var className = _ref.className,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["className"]);
+  return _react.default.createElement("pre", (0, _extends2.default)({}, props, {
+    className: "pre ".concat(className || '')
+  }));
+};
 
-exports.default = Pre;
+var _default = Pre;
+exports.default = _default;

@@ -1,22 +1,16 @@
-'use strict';
+"use strict";
 
-var _react = require('react');
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _react2 = _interopRequireDefault(_react);
+var _react = _interopRequireDefault(require("react"));
 
-var _reactTestRenderer = require('react-test-renderer');
+var _Pre = _interopRequireDefault(require("./Pre"));
 
-var _reactTestRenderer2 = _interopRequireDefault(_reactTestRenderer);
+var _enzyme = require("enzyme");
 
-require('jest-styled-components');
-
-var _Pre = require('./Pre');
-
-var _Pre2 = _interopRequireDefault(_Pre);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-test('it renders', function () {
-	var tree = _reactTestRenderer2.default.create(_react2.default.createElement(_Pre2.default, null)).toJSON();
-	expect(tree).toMatchSnapshot();
+describe('Pre tests', function () {
+  it('Should match the snapshot', function () {
+    var renderedComponent = (0, _enzyme.shallow)(_react.default.createElement(_Pre.default, null));
+    expect(renderedComponent).toMatchSnapshot();
+  });
 });

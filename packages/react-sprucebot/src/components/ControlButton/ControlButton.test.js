@@ -1,17 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import ControlButton from './ControlButton'
+import { shallow } from 'enzyme'
 
-test('it renders', () => {
-	const tree = renderer.create(<ControlButton />).toJSON()
-	expect(tree).toMatchSnapshot()
+describe('ControlButton tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<ControlButton />)
+
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })
-
-// test('it renders a link', () => {
-// 	const tree = renderer
-// 		.create(<ControlButton href="https://sprucebot.com" />)
-// 		.toJSON()
-// 	expect(tree).toMatchSnapshot()
-// })

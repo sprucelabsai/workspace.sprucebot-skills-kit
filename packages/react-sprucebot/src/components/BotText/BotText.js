@@ -1,7 +1,14 @@
-import styled from 'styled-components'
+// @flow
+import React, { Component } from 'react'
 
-const BotText = styled.div.attrs({
-	className: 'bot__text'
-})``
+import type { Node } from 'react'
 
-export default BotText
+type Props = {
+	children?: Node
+}
+export default class BotText extends Component<Props> {
+	render() {
+		const { children } = this.props
+		return <div className="bot__text">{children}</div>
+	}
+}

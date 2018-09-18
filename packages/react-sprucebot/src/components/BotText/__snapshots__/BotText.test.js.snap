@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders 1`] = `
+exports[`BotText tests Should match the snapshot 1`] = `
 <div
-  className="bot__text "
->
-  Bottext children
-</div>
+  className="bot__text"
+/>
 `;

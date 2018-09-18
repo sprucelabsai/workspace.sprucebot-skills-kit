@@ -1,81 +1,65 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react = require('react');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _react2 = _interopRequireDefault(_react);
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _Dialog = require('../Dialog/Dialog');
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _Dialog2 = _interopRequireDefault(_Dialog);
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _BotText = require('../BotText/BotText');
+var _react = _interopRequireWildcard(require("react"));
 
-var _BotText2 = _interopRequireDefault(_BotText);
+var _Dialog = _interopRequireDefault(require("../Dialog/Dialog"));
 
-var _Button = require('../Button/Button');
+var _BotText = _interopRequireDefault(require("../BotText/BotText"));
 
-var _Button2 = _interopRequireDefault(_Button);
+var _Button = _interopRequireDefault(require("../Button/Button"));
 
-var _propTypes = require('prop-types');
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var Error =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(Error, _Component);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  function Error() {
+    (0, _classCallCheck2.default)(this, Error);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Error).apply(this, arguments));
+  }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Error = function (_Component) {
-	_inherits(Error, _Component);
-
-	function Error() {
-		_classCallCheck(this, Error);
-
-		return _possibleConstructorReturn(this, (Error.__proto__ || Object.getPrototypeOf(Error)).apply(this, arguments));
-	}
-
-	_createClass(Error, [{
-		key: 'render',
-		value: function render() {
-			var _props = this.props,
-			    errorMessage = _props.errorMessage,
-			    closeErrorDialog = _props.closeErrorDialog,
-			    closeErrorDialogTxt = _props.closeErrorDialogTxt;
-
-			return _react2.default.createElement(
-				_Dialog2.default,
-				{ show: !!errorMessage, onTapClose: closeErrorDialog },
-				_react2.default.createElement(
-					_BotText2.default,
-					null,
-					errorMessage
-				),
-				_react2.default.createElement(
-					_Button2.default,
-					{ onClick: closeErrorDialog },
-					closeErrorDialogTxt
-				)
-			);
-		}
-	}]);
-
-	return Error;
+  (0, _createClass2.default)(Error, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          errorMessage = _this$props.errorMessage,
+          closeErrorDialog = _this$props.closeErrorDialog,
+          closeErrorDialogTxt = _this$props.closeErrorDialogTxt;
+      return _react.default.createElement(_Dialog.default, {
+        show: !!errorMessage,
+        onTapClose: closeErrorDialog
+      }, _react.default.createElement(_BotText.default, null, errorMessage), _react.default.createElement(_Button.default, {
+        onClick: closeErrorDialog
+      }, closeErrorDialogTxt));
+    }
+  }]);
+  return Error;
 }(_react.Component);
 
 exports.default = Error;
-
-
 Error.propTypes = {
-	errorMessage: _propTypes2.default.string,
-	closeErrorDialog: _propTypes2.default.func.isRequired,
-	closeErrorDialogTxt: _propTypes2.default.string.isRequired
+  errorMessage: _propTypes.default.string,
+  closeErrorDialog: _propTypes.default.func.isRequired,
+  closeErrorDialogTxt: _propTypes.default.string.isRequired
 };

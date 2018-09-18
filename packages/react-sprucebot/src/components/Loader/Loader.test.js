@@ -1,10 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import Loader from './Loader'
+import { shallow } from 'enzyme'
 
-test('it renders', () => {
-	const tree = renderer.create(<Loader />).toJSON()
-	expect(tree).toMatchSnapshot()
+describe('Loader tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<Loader />)
+
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })

@@ -1,20 +1,25 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _styledComponents = require('styled-components');
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = _interopRequireDefault(require("react"));
 
-var Container = (0, _styledComponents2.default)('div').attrs({
-	className: 'container'
-}).withConfig({
-	displayName: 'Container',
-	componentId: 'ba0l4t-0'
-})(['']);
+var Container = function Container(_ref) {
+  var className = _ref.className,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["className"]);
+  return _react.default.createElement("div", (0, _extends2.default)({}, props, {
+    className: "container ".concat(className || '')
+  }));
+};
 
-exports.default = Container;
+var _default = Container;
+exports.default = _default;

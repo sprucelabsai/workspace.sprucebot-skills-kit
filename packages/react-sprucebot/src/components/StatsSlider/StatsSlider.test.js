@@ -1,10 +1,11 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import 'jest-styled-components'
-
 import StatsSlider from './StatsSlider'
+import { shallow } from 'enzyme'
 
-test('it renders', () => {
-	const tree = renderer.create(<StatsSlider stats={[]} />).toJSON()
-	expect(tree).toMatchSnapshot()
+describe('StatsSlider tests', () => {
+	it('Should match the snapshot', () => {
+		const renderedComponent = shallow(<StatsSlider />)
+
+		expect(renderedComponent).toMatchSnapshot()
+	})
 })

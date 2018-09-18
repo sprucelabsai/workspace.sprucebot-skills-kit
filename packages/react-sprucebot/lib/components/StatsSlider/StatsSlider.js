@@ -1,87 +1,73 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react = require('react');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _react2 = _interopRequireDefault(_react);
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _propTypes = require('prop-types');
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = _interopRequireWildcard(require("react"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var StatsSlider =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(StatsSlider, _Component);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  function StatsSlider() {
+    (0, _classCallCheck2.default)(this, StatsSlider);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(StatsSlider).apply(this, arguments));
+  }
 
-var StatsSlider = function (_Component) {
-	_inherits(StatsSlider, _Component);
-
-	function StatsSlider() {
-		_classCallCheck(this, StatsSlider);
-
-		return _possibleConstructorReturn(this, (StatsSlider.__proto__ || Object.getPrototypeOf(StatsSlider)).apply(this, arguments));
-	}
-
-	_createClass(StatsSlider, [{
-		key: 'render',
-		value: function render() {
-			var props = Object.assign({}, this.props);
-			var statCards = [];
-
-			var stats = props.stats,
-			    className = props.className;
-
-
-			delete props.stats;
-			delete props.className;
-
-			stats.forEach(function (stat, idx) {
-				statCards.push(_react2.default.createElement(
-					'div',
-					{ key: 'stat-' + idx, className: 'stat__card' },
-					stat.dir !== 0 && _react2.default.createElement('div', { className: 'icon ' + (stat.dir > 0 ? 'up' : '') }),
-					_react2.default.createElement(
-						'div',
-						{ className: 'value' },
-						stat.value
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'title' },
-						stat.title
-					)
-				));
-			});
-
-			return _react2.default.createElement(
-				'div',
-				{ className: 'stat__card__slider ' + (className || '') },
-				_react2.default.createElement(
-					'div',
-					{ className: 'stat__card__slider__scroll' },
-					statCards
-				)
-			);
-		}
-	}]);
-
-	return StatsSlider;
+  (0, _createClass2.default)(StatsSlider, [{
+    key: "render",
+    value: function render() {
+      var props = Object.assign({}, this.props);
+      var statCards = [];
+      var stats = props.stats,
+          className = props.className;
+      delete props.stats;
+      delete props.className;
+      stats.forEach(function (stat, idx) {
+        statCards.push(_react.default.createElement("div", {
+          key: "stat-".concat(idx),
+          className: "stat__card"
+        }, stat.dir !== 0 && _react.default.createElement("div", {
+          className: "icon ".concat(stat.dir > 0 ? 'up' : '')
+        }), _react.default.createElement("div", {
+          className: "value"
+        }, stat.value), _react.default.createElement("div", {
+          className: "title"
+        }, stat.title)));
+      });
+      return _react.default.createElement("div", {
+        className: "stat__card__slider ".concat(className || '')
+      }, _react.default.createElement("div", {
+        className: "stat__card__slider__scroll"
+      }, statCards));
+    }
+  }]);
+  return StatsSlider;
 }(_react.Component);
 
 exports.default = StatsSlider;
-
-
 StatsSlider.propTypes = {
-	stats: _propTypes2.default.array.isRequired
+  stats: _propTypes.default.array.isRequired
 };
-
-StatsSlider.defaultProps = {};
+StatsSlider.defaultProps = {
+  stats: []
+};

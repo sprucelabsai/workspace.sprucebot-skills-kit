@@ -1,39 +1,29 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
-exports.default = TextAreaField;
+exports.default = void 0;
 
-var _react = require('react');
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _react2 = _interopRequireDefault(_react);
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _styledComponents = require('styled-components');
+var _react = _interopRequireDefault(require("react"));
 
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
+var _reactTextareaAutosize = _interopRequireDefault(require("react-textarea-autosize"));
 
-var _reactTextareaAutosize = require('react-textarea-autosize');
+var _FormField = _interopRequireDefault(require("../FormField/FormField"));
 
-var _reactTextareaAutosize2 = _interopRequireDefault(_reactTextareaAutosize);
+var TextAreaField = function TextAreaField(_ref) {
+  var className = _ref.className,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["className"]);
+  return _react.default.createElement(_FormField.default, props, _react.default.createElement(StyledTextArea, (0, _extends2.default)({}, props, {
+    className: "TextArea ".concat(className || '')
+  })));
+};
 
-var _FormField = require('../FormField/FormField');
-
-var _FormField2 = _interopRequireDefault(_FormField);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var StyledTextArea = (0, _styledComponents2.default)(_reactTextareaAutosize2.default).attrs({
-	className: 'TextArea'
-}).withConfig({
-	displayName: 'TextArea__StyledTextArea',
-	componentId: 'sq0zxr-0'
-})(['min-height:1em;']);
-
-function TextAreaField(props) {
-	return _react2.default.createElement(
-		_FormField2.default,
-		props,
-		_react2.default.createElement(StyledTextArea, null)
-	);
-}
+var _default = TextAreaField;
+exports.default = _default;

@@ -1,105 +1,104 @@
-'use strict';
+"use strict";
+
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _react = require('react');
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _react2 = _interopRequireDefault(_react);
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _propTypes = require('prop-types');
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _Typography = require('../Typography/Typography');
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _skillskit = require('../../skillskit');
+var _react = _interopRequireWildcard(require("react"));
 
-var _skillskit2 = _interopRequireDefault(_skillskit);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _Typography = require("../Typography/Typography");
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+var _skillskit = _interopRequireDefault(require("../../skillskit"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var Search =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(Search, _Component);
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  function Search(props) {
+    var _this;
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+    (0, _classCallCheck2.default)(this, Search);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Search).call(this, props));
+    _this.state = {
+      selectedUser: null
+    };
+    return _this;
+  }
 
-var Search = function (_Component) {
-	_inherits(Search, _Component);
+  (0, _createClass2.default)(Search, [{
+    key: "onClick",
+    value: function onClick(e) {
+      e.preventDefault();
 
-	function Search(props) {
-		_classCallCheck(this, Search);
+      _skillskit.default.searchForUser({
+        locationId: this.props.locationId,
+        onCancel: this.onCancelSearch.bind(this),
+        onSelectUser: this.onSelectUser.bind(this),
+        roles: this.props.roles
+      });
 
-		var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
-
-		_this.state = {
-			selectedUser: null
-		};
-		return _this;
-	}
-
-	_createClass(Search, [{
-		key: 'onClick',
-		value: function onClick(e) {
-			e.preventDefault();
-			_skillskit2.default.searchForUser({
-				locationId: this.props.locationId,
-				onCancel: this.onCancelSearch.bind(this),
-				onSelectUser: this.onSelectUser.bind(this),
-				roles: this.props.roles
-			});
-			e.target.blur();
-		}
-	}, {
-		key: 'onCancelSearch',
-		value: function onCancelSearch() {
-			if (this.props.onCancel) {
-				this.props.onCancel();
-			}
-		}
-	}, {
-		key: 'onSelectUser',
-		value: function onSelectUser(user) {
-			this.props.onSelectUser(user);
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var _props = this.props,
-			    onCancel = _props.onCancel,
-			    onSelectUser = _props.onSelectUser,
-			    locationId = _props.locationId,
-			    props = _objectWithoutProperties(_props, ['onCancel', 'onSelectUser', 'locationId']);
-
-			return _react2.default.createElement(
-				'div',
-				{ className: 'input__wrapper search__wrapper' },
-				_react2.default.createElement('input', _extends({}, props, { type: 'search', onClick: this.onClick.bind(this) }))
-			);
-		}
-	}]);
-
-	return Search;
+      e.target.blur();
+    }
+  }, {
+    key: "onCancelSearch",
+    value: function onCancelSearch() {
+      if (this.props.onCancel) {
+        this.props.onCancel();
+      }
+    }
+  }, {
+    key: "onSelectUser",
+    value: function onSelectUser(user) {
+      this.props.onSelectUser(user);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          onCancel = _this$props.onCancel,
+          onSelectUser = _this$props.onSelectUser,
+          locationId = _this$props.locationId,
+          props = (0, _objectWithoutProperties2.default)(_this$props, ["onCancel", "onSelectUser", "locationId"]);
+      return _react.default.createElement("div", {
+        className: "input__wrapper search__wrapper"
+      }, _react.default.createElement("input", (0, _extends2.default)({}, props, {
+        type: "search",
+        onClick: this.onClick.bind(this)
+      })));
+    }
+  }]);
+  return Search;
 }(_react.Component);
 
 exports.default = Search;
-
-
 Search.propTypes = {
-	onCancel: _propTypes2.default.func,
-	onSelectUser: _propTypes2.default.func.isRequired,
-	roles: _propTypes2.default.array,
-	locationId: _propTypes2.default.string.isRequired
+  onCancel: _propTypes.default.func,
+  onSelectUser: _propTypes.default.func.isRequired,
+  roles: _propTypes.default.array,
+  locationId: _propTypes.default.string.isRequired
 };
-
 Search.defaultProps = {
-	roles: ['guest']
+  roles: ['guest']
 };
