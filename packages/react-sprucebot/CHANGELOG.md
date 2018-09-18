@@ -3,12 +3,9 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [7.1.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.1.2...v7.1.3) (2018-09-18)
+# [7.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.1.3...v7.2.0) (2018-09-18)
 
-
-### Bug Fixes
-
-* Pass className to List property ([a1db9e8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a1db9e8))
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
 
 
 
