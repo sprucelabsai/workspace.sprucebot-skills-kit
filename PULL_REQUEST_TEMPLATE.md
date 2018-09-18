@@ -1,14 +1,11 @@
-[SB-](https://jira.sprucelabs.ai/jira/browse/SB-)
+[SK-](https://sprucelabsai.atlassian.net/browse/SK-)
 
-@sprucelabsai/engineers
+## Description
 
-## Description 
 A simple description of the pull request.
 
 ## Type
+
 - [ ] Feature
 - [ ] Bug
 - [ ] Tech debt
-
-## Steps to Test or Reproduce
-Describe how to test the changes. 
