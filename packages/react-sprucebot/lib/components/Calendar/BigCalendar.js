@@ -107,7 +107,7 @@ var BigCalendar = function (_Component) {
 			mode: props.defaultMode,
 			renderFirstCalendar: true, // the first calendar is always the logged in user
 			renderFirstEvents: true, // rendering events is slow, so we may defer loading them until later
-			renderAllCalendars: false,
+			renderAllCalendars: props.defaultMode === 'team',
 			renderAllEvents: true,
 			showAllTeammates: props.defaultMode === 'team',
 			transitioning: false,
