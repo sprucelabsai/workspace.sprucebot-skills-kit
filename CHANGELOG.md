@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="6.70.12"></a>
+## [6.70.12](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.11...v6.70.12) (2018-09-19)
+
+
+### Bug Fixes
+
+* defaulting to team view works ([d336008](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d336008))
+
+
+
+
+
 <a name="6.70.11"></a>
 ## [6.70.11](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v6.70.10...v6.70.11) (2018-09-16)
 
