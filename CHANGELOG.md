@@ -3,13 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [7.2.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.2.0...v7.2.1) (2018-09-18)
+## [7.2.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.2.1...v7.2.2) (2018-09-19)
 
 
 ### Bug Fixes
 
-* fix  prettier in big calendar lib file ([f37188c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f37188c))
-* prettier changes ([63ed53a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/63ed53a))
+* add globby to skills kit ([96d9d15](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/96d9d15))
+* move babel runtime and core bridge to dependencies ([c8e0f3e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c8e0f3e))
 
 
 
