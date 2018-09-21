@@ -975,7 +975,7 @@ function (_Component) {
       // the first calendar is always the logged in user
       renderFirstEvents: true,
       // rendering events is slow, so we may defer loading them until later
-      renderAllCalendars: false,
+      renderAllCalendars: _props.defaultMode === 'team',
       renderAllEvents: true,
       showAllTeammates: _props.defaultMode === 'team',
       transitioning: false,
@@ -1001,7 +1001,7 @@ function (_Component) {
       // 	title: 'My favorite event',
       // 	className: 'shift',
       // 	start: new Date(),
-      // 	end: new Date(),
+      //  end: new Date(),
       // 	allDay: true,
       //  userId: id,
       // 	payload: { data preserved in callback }
