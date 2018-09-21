@@ -3,9 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [7.2.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.2.1...v7.2.2) (2018-09-19)
+## [7.2.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.2.2...v7.2.3) (2018-09-21)
 
-**Note:** Version bump only for package @sprucelabs/react-sprucebot
+
+### Bug Fixes
+
+* render all calendars in team view ([238f3f6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/238f3f6))
 
 
 
