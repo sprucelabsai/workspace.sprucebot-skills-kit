@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Container = ({ className, ...props }) => {
-	return <div {...props} className={`container ${className || ''}`} />
-}
+const Container = React.forwardRef(({ className, ...props }, ref) => {
+	return <div {...props} ref={ref} className={`container ${className || ''}`} />
+})
 
 export default Container
