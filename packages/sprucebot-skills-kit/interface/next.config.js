@@ -3,7 +3,6 @@ const fs = require('fs')
 const config = require('config')
 const withSass = require('@zeit/next-sass')
 const withCSS = require('@zeit/next-css')
-const commonsChunkConfig = require('@zeit/next-css/commons-chunk-config')
 
 function server(webpack, options) {
 	return webpack
@@ -29,8 +28,6 @@ function client(webpack, options) {
 			config: jsonPath
 		}
 	}
-
-	webpack = commonsChunkConfig(webpack, /\.(sass|scss|css)$/)
 
 	return webpack
 }
