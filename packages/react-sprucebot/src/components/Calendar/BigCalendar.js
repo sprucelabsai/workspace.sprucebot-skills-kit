@@ -34,7 +34,7 @@ export default class BigCalendar extends Component {
 			mode: props.defaultMode,
 			renderFirstCalendar: true, // the first calendar is always the logged in user
 			renderFirstEvents: true, // rendering events is slow, so we may defer loading them until later
-			renderAllCalendars: false,
+			renderAllCalendars: props.defaultMode === 'team',
 			renderAllEvents: true,
 			showAllTeammates: props.defaultMode === 'team',
 			transitioning: false,
@@ -58,7 +58,7 @@ export default class BigCalendar extends Component {
 		// 	title: 'My favorite event',
 		// 	className: 'shift',
 		// 	start: new Date(),
-		// 	end: new Date(),
+		//  end: new Date(),
 		// 	allDay: true,
 		//  userId: id,
 		// 	payload: { data preserved in callback }
