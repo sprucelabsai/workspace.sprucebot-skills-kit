@@ -37,9 +37,9 @@
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
 		"@barbershopio/iso-log": "^0.1.13",
-		"@sprucelabs/react-sprucebot": "^7.2.4",
+		"@sprucelabs/react-sprucebot": "^7.2.5-pre-3fd1afc.0",
 		"@sprucelabs/sprucebot-node": "^7.2.4",
-		"@sprucelabs/sprucebot-skills-kit-server": "^7.2.4",
+		"@sprucelabs/sprucebot-skills-kit-server": "^7.2.5-pre-3fd1afc.0",
 		"@zeit/next-css": "^0.2.1-canary.3",
 		"@zeit/next-sass": "^0.2.1-canary.3",
 		"babel-core": "^7.0.0-bridge.0",
