@@ -3,12 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [7.2.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.2.3...v7.2.4) (2018-09-24)
+# [7.3.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.2.4...v7.3.0) (2018-09-27)
 
 
-### Bug Fixes
+### Features
 
-* create Container with "React.forwardRef" ([9aba3c8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9aba3c8))
+* Upgrade to next 7 ([ec13055](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ec13055))
 
 
 
