@@ -61,6 +61,7 @@
 		"react-emojione": "^5.0.0",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
+		"swagger-jsdoc": "^3.0.2",
 		"universal-cookie": "^2.1.0"
 	},
 	"devDependencies": {
@@ -80,8 +81,7 @@
 		"prettier": "^1.13",
 		"raf": "^3.4.0",
 		"semantic-release": "^15.9.8",
-		"svgo": "^1.0.3",
-		"swagger-jsdoc": "^3.0.2"
+		"svgo": "^1.0.3"
 	},
 	"gitHead": "eac8d4ea6df58218b78c9c866b22c761df1e6447"
 }
