@@ -617,6 +617,15 @@ class Sprucebot {
 		}
 	}
 
+	/**
+	 * Are we currently pending a long operation?
+	 *
+	 * @param {Boolean} key
+	 */
+	async isWaiting(key) {
+		return !!this._mutexes[key]
+	}
+
 	validateEventContract(eventContract) {
 		if (!eventContract || !eventContract.events) {
 			console.warn(
