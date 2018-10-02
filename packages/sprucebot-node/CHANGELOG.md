@@ -3,9 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [7.3.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.2.4...v7.3.0) (2018-09-27)
+# [7.4.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.3.0...v7.4.0) (2018-10-02)
 
-**Note:** Version bump only for package @sprucelabs/sprucebot-node
+
+### Features
+
+* isWaiting check for long operations ([de2c963](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/de2c963))
 
 
 
