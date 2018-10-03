@@ -3,12 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [7.4.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.3.0...v7.4.0) (2018-10-02)
+## [7.4.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.4.0...v7.4.1) (2018-10-03)
 
 
-### Features
+### Bug Fixes
 
-* isWaiting check for long operations ([de2c963](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/de2c963))
+* move swagger-jsdoc to dependency ([170eca0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/170eca0))
+* Remove 404ing next stylesheet ([ab6e0fd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ab6e0fd))
 
 
 

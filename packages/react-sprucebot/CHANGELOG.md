@@ -3,9 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [7.4.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.3.0...v7.4.0) (2018-10-02)
+## [7.4.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.4.0...v7.4.1) (2018-10-03)
 
-**Note:** Version bump only for package @sprucelabs/react-sprucebot
+
+### Bug Fixes
+
+* Remove 404ing next stylesheet ([ab6e0fd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ab6e0fd))
 
 
 
