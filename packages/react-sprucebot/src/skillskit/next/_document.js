@@ -52,7 +52,6 @@ export default class MyDocument extends Document {
 						type="text/css"
 						charSet="UTF-8"
 					/>
-					<link rel="stylesheet" href="/_next/static/style.css" />
 					{this.props.whitelabel && (
 						<link
 							href={this.props.whitelabel}

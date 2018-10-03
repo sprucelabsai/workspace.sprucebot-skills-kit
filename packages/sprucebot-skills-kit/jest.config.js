@@ -28,5 +28,8 @@ module.exports = {
 		'<rootDir>/coverage/'
 	],
 	testURL: 'http://localhost/',
-	testEnvironment: 'node'
+	testEnvironment: 'node',
+	moduleNameMapper: {
+		'\\.(css|less|sass|scss)$': '<rootDir>/interface/__mocks__/styleMock.js'
+	}
 }
