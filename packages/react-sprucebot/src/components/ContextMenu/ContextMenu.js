@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import cx from 'classnames'
 import Button from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
+import Icon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
 
 type Props = {
 	actions: Array<{
@@ -42,10 +43,9 @@ export default class ContextMenu extends Component<Props, State> {
 		return (
 			<div className={buttonClass}>
 				<Button
-					kind="simple"
 					className="context-menu__button"
 					onClick={this.handleToggle}
-					text={isVisible ? 'Hide' : 'Show'}
+					icon={<Icon className="btn__line-icon" />}
 				/>
 				{isVisible && (
 					<div className={menuClass}>

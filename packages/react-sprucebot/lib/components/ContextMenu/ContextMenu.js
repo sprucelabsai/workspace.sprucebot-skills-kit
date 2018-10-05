@@ -29,6 +29,8 @@ var _classnames = _interopRequireDefault(require("classnames"));
 
 var _Button = _interopRequireDefault(require("../Button/Button"));
 
+var _ButtonGroup = _interopRequireDefault(require("../ButtonGroup/ButtonGroup"));
+
 var ContextMenu =
 /*#__PURE__*/
 function (_Component) {
@@ -81,12 +83,9 @@ function (_Component) {
         text: isVisible ? 'Hide' : 'Show'
       }), isVisible && _react.default.createElement("div", {
         className: menuClass
-      }, actions.map(function (action) {
-        return _react.default.createElement(_Button.default, {
-          key: action.text,
-          kind: "simple",
-          text: action.text
-        });
+      }, _react.default.createElement(_ButtonGroup.default, {
+        kind: "floating",
+        actions: actions
       })));
     }
   }]);
