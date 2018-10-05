@@ -31,6 +31,23 @@ var _Button = _interopRequireDefault(require("../Button/Button"));
 
 var _ButtonGroup = _interopRequireDefault(require("../ButtonGroup/ButtonGroup"));
 
+var Icon = function Icon(props) {
+  return _react.default.createElement("svg", props, _react.default.createElement("path", {
+    clipRule: "evenodd",
+    d: "M3.375 14.648a2.625 2.625 0 1 0 0-5.25 2.625 2.625 0 0 0 0 5.25zM20.625 14.648a2.625 2.625 0 1 0 0-5.25 2.625 2.625 0 0 0 0 5.25zM12 14.648a2.625 2.625 0 1 0 0-5.25 2.625 2.625 0 0 0 0 5.25z",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }));
+};
+
+Icon.defaultProps = {
+  width: "24",
+  height: "24",
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+};
+
 var ContextMenu =
 /*#__PURE__*/
 function (_Component) {
@@ -77,10 +94,11 @@ function (_Component) {
       return _react.default.createElement("div", {
         className: buttonClass
       }, _react.default.createElement(_Button.default, {
-        kind: "simple",
         className: "context-menu__button",
         onClick: this.handleToggle,
-        text: isVisible ? 'Hide' : 'Show'
+        icon: _react.default.createElement(Icon, {
+          className: "btn__line-icon"
+        })
       }), isVisible && _react.default.createElement("div", {
         className: menuClass
       }, _react.default.createElement(_ButtonGroup.default, {
