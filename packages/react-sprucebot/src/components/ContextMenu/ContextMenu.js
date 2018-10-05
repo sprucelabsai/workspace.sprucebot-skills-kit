@@ -18,6 +18,7 @@ type State = {
 }
 
 export default class ContextMenu extends Component<Props, State> {
+	ref: any
 	state = {
 		isVisible: false
 	}
@@ -26,10 +27,36 @@ export default class ContextMenu extends Component<Props, State> {
 		leftAlign: false
 	}
 
+	handleHide = (e: any) => {
+		if (e.key === 'Escape' || e.target.contains(this.ref)) {
+			this.setState(
+				{
+					isVisible: false
+				},
+				() => this.manageListeners()
+			)
+		}
+	}
+
 	handleToggle = () => {
-		this.setState(prevState => ({
-			isVisible: !prevState.isVisible
-		}))
+		this.setState(
+			prevState => ({
+				isVisible: !prevState.isVisible
+			}),
+			() => this.manageListeners()
+		)
+	}
+
+	manageListeners = () => {
+		if (typeof window !== 'undefined') {
+			if (this.state.isVisible) {
+				window.addEventListener('click', this.handleHide, false)
+				window.addEventListener('keyup', this.handleHide, false)
+			} else {
+				window.removeEventListener('click', this.handleHide, false)
+				window.removeEventListener('keyup', this.handleHide, false)
+			}
+		}
 	}
 
 	render() {
@@ -42,7 +69,7 @@ export default class ContextMenu extends Component<Props, State> {
 			'context-menu__menu-left': leftAlign
 		})
 		return (
-			<div className={buttonClass}>
+			<div className={buttonClass} ref={ref => (this.ref = ref)}>
 				<Button
 					className="context-menu__button"
 					onClick={this.handleToggle}
