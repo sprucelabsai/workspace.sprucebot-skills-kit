@@ -1,6 +1,7 @@
 // @flow
 // NOTE: Cards should be built in a way that they can be created with JSON
 import React from 'react'
+import cx from 'classnames'
 import Button from '../Button/Button'
 
 // Card Header
@@ -14,6 +15,7 @@ type CardHeaderPros = {
 
 export const CardHeader = (props: CardHeaderProps) => {
 	const { title, labelText, labelIcon, actions, contextMenu } = props
+	console.log({ labelIcon })
 	return (
 		<div className="card-header">
 			{(title || labelText || labelIcon) && (
@@ -22,7 +24,10 @@ export const CardHeader = (props: CardHeaderProps) => {
 						<div className="card-header__label">
 							{labelIcon &&
 								React.cloneElement(labelIcon, {
-									className: 'card-header__label-icon'
+									className: cx(
+										'card-header__label-icon',
+										labelIcon.props.className
+									)
 								})}
 							{labelText && (
 								<span className="card-header__label-text">{labelText}</span>

@@ -6,6 +6,7 @@ import Container from '../Layout/Container/Container'
 import Card, { CardHeader, CardBody, CardFooter, CardBuilder } from './Card'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import Button from '../Button/Button'
+import LockIcon2 from '../../../static/assets/icons/Interface-Essential/Lock/Unlock/lock-6--16w.svg'
 
 const cardJSON = {
 	header: {
@@ -105,6 +106,7 @@ stories
 				<CardHeader
 					title="This card has a label"
 					labelText="Private"
+					labelIcon={<LockIcon2 className="u-icon__no-fill u-icon__stroke" />}
 					actions={<Button kind="simple" text="Go to team" isSmall />}
 				/>
 				<CardBody>
