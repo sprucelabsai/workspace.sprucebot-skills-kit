@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 import Button from '../Button/Button'
+import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
 type Props = {
 	actions: Array<{
@@ -48,9 +49,7 @@ export default class ContextMenu extends Component<Props, State> {
 				/>
 				{isVisible && (
 					<div className={menuClass}>
-						{actions.map(action => (
-							<Button key={action.text} kind="simple" text={action.text} />
-						))}
+						<ButtonGroup kind="floating" actions={actions} />
 					</div>
 				)}
 			</div>
