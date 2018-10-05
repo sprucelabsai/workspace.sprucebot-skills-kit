@@ -36,7 +36,9 @@ const Select = (props: Props) => {
 			{label && <InputPre id={id} label={label} postLabel={postLabel} />}
 			<div className={parentClass}>
 				<select {...rest}>
-					{options.map(option => <option key={option}>{option}</option>)}
+					{options.map(option => (
+						<option key={option}>{option}</option>
+					))}
 				</select>
 				{!isSimple && <ArrowIcon className="select__icon" />}
 			</div>
