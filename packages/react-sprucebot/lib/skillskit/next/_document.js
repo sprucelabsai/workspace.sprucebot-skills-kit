@@ -55,9 +55,6 @@ function (_Document) {
         rel: "stylesheet",
         type: "text/css",
         charSet: "UTF-8"
-      }), _react.default.createElement("link", {
-        rel: "stylesheet",
-        href: "/_next/static/style.css"
       }), this.props.whitelabel && _react.default.createElement("link", {
         href: this.props.whitelabel,
         rel: "stylesheet",
