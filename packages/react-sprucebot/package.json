@@ -121,6 +121,7 @@
 		"react-textarea-autosize": "^6.0.0",
 		"redux": "^3.7.2",
 		"redux-form": "^7.3.0",
+		"velocity-react": "^1.4.1",
 		"webfontloader": "^1.6.28"
 	},
 	"jest": {

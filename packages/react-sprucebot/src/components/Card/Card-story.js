@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
 import Card, { CardHeader, CardBody, CardFooter, CardBuilder } from './Card'
+import ContextMenu from '../ContextMenu/ContextMenu'
 import Button from '../Button/Button'
 
 const cardJSON = {
@@ -71,6 +72,29 @@ stories
 				</CardBody>
 				<CardFooter>
 					<Button kind="primary" text="Add teammates" isSmall />
+				</CardFooter>
+			</Card>
+		</Container>
+	))
+	.add('With a Context Menu', () => (
+		<Container size="medium">
+			<Card>
+				<CardHeader
+					title="Add your teammates"
+					contextMenu={
+						<ContextMenu
+							actions={[{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]}
+						/>
+					}
+				/>
+				<CardBody>
+					<p>
+						Two roads diverged in a wood, and I took the one less traveled by,
+						And that has made all the difference.
+					</p>
+				</CardBody>
+				<CardFooter>
+					<Button kind="secondary" text="Get some teammates" isSmall />
 				</CardFooter>
 			</Card>
 		</Container>

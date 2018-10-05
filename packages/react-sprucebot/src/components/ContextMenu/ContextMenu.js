@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import cx from 'classnames'
+import { VelocityTransitionGroup } from 'velocity-react'
 import Button from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import Icon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
@@ -47,11 +48,22 @@ export default class ContextMenu extends Component<Props, State> {
 					onClick={this.handleToggle}
 					icon={<Icon className="btn__line-icon" />}
 				/>
-				{isVisible && (
-					<div className={menuClass}>
-						<ButtonGroup kind="floating" actions={actions} />
-					</div>
-				)}
+				<VelocityTransitionGroup
+					enter={{
+						animation: { opacity: 1, translateY: '4px' },
+						duration: 300
+					}}
+					leave={{
+						animation: { opacity: 0, translateY: '12px' },
+						duration: 300
+					}}
+				>
+					{isVisible && (
+						<div className={menuClass}>
+							<ButtonGroup kind="floating" actions={actions} />
+						</div>
+					)}
+				</VelocityTransitionGroup>
 			</div>
 		)
 	}
