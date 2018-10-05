@@ -47,11 +47,33 @@ stories
 	.add('Card', () => (
 		<Container size="medium">
 			<Card>
-				<CardHeader title="Get the most out of Spruce" />
+				<CardHeader
+					labelText={text('Label Text', '')}
+					labelIcon={
+						boolean('Label Icon', false) && (
+							<LockIcon2 className="u-icon__no-fill u-icon__stroke" />
+						)
+					}
+					title={text('Title', 'Get the most out of Spruce')}
+					actions={
+						boolean('Header Action', false) && (
+							<Button kind="simple" text="Go to team" isSmall />
+						)
+					}
+					contextMenu={
+						boolean('Header Context Menu', false) && (
+							<ContextMenu
+								actions={[{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]}
+							/>
+						)
+					}
+				/>
 				<CardBody>
 					<p>
-						Two roads diverged in a wood, and I took the one less traveled by,
-						And that has made all the difference.
+						{text(
+							'Body Copy',
+							'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+						)}
 					</p>
 				</CardBody>
 				<CardFooter>
