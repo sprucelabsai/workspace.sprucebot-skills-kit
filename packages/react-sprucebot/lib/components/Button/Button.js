@@ -27,7 +27,8 @@ var Button = function Button(props) {
       href = props.href,
       icon = props.icon,
       type = props.type,
-      rest = (0, _objectWithoutProperties2.default)(props, ["className", "kind", "isSmall", "isFullWidth", "isLoading", "text", "href", "icon", "type"]);
+      onClick = props.onClick,
+      rest = (0, _objectWithoutProperties2.default)(props, ["className", "kind", "isSmall", "isFullWidth", "isLoading", "text", "href", "icon", "type", "onClick"]);
   var btnClass = (0, _classnames.default)(className, {
     btn: true,
     'btn-primary': kind === 'primary',
@@ -39,6 +40,14 @@ var Button = function Button(props) {
     'btn-small': isSmall,
     'btn-icon-only': !text
   });
+
+  var handleClick = function handleClick(e) {
+    e.currentTarget.blur();
+
+    if (onClick) {
+      onClick();
+    }
+  };
 
   var Inner = function Inner() {
     return _react.default.createElement("span", {
@@ -54,7 +63,8 @@ var Button = function Button(props) {
 
   var button = _react.default.createElement("button", (0, _extends2.default)({
     className: btnClass,
-    type: type
+    type: type,
+    onClick: handleClick
   }, rest), _react.default.createElement(Inner, null));
 
   var anchor = _react.default.createElement("a", (0, _extends2.default)({
