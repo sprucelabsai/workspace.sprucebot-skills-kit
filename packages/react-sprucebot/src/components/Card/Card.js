@@ -5,12 +5,12 @@ type CardHeaderPros = {
 	title?: string,
 	labelText?: string,
 	labelIcon?: React.Node,
-	headerActions?: Array<React.Node>,
+	actions?: Array<React.Node>,
 	contextMenu?: React.Node
 }
 
 export const CardHeader = (props: CardHeaderProps) => {
-	const { title, labelText, labelIcon, headerActions, contextMenu } = props
+	const { title, labelText, labelIcon, actions, contextMenu } = props
 	return (
 		<div className="card-header">
 			{(title || labelText || labelIcon) && (
@@ -25,16 +25,23 @@ export const CardHeader = (props: CardHeaderProps) => {
 					{title && <h3 className="card-header__title">{title}</h3>}
 				</div>
 			)}
-			{(headerActions || contextMenu) && (
+			{(actions || contextMenu) && (
 				<div className="card-header__actions">
-					{headerActions &&
-						headerActions.length > 0 &&
-						headerActions.map(action => action)}
+					{actions && actions.length > 0 && actions.map(action => action)}
 					{contextMenu}
 				</div>
 			)}
 		</div>
 	)
+}
+
+type CardBodyProps = {
+	children: React.Node
+}
+
+export const CardBody = (props: CardBodyProps) => {
+	const { children } = props
+	return <div className="card__body-inner">{children}</div>
 }
 
 CardHeader.defualtProps = {
@@ -43,6 +50,15 @@ CardHeader.defualtProps = {
 	labelIcon: null,
 	headerActions: [],
 	contextMenu: null
+}
+
+type CardFooterProps = {
+	children: React.Node
+}
+
+export const CardFooter = (props: CardFooterProps) => {
+	const { children } = props
+	return <div className="card__footer">{children}</div>
 }
 
 type CardProps = {

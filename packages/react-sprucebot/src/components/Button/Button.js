@@ -12,7 +12,8 @@ type Props = {
 	text: string,
 	href: string,
 	icon: any,
-	type?: string
+	type?: string,
+	onClick?: Function
 }
 
 const Button = (props: Props) => {
@@ -26,6 +27,7 @@ const Button = (props: Props) => {
 		href,
 		icon,
 		type,
+		onClick,
 		...rest
 	} = props
 	const btnClass = cx(className, {
@@ -39,6 +41,13 @@ const Button = (props: Props) => {
 		'btn-small': isSmall,
 		'btn-icon-only': !text
 	})
+
+	const handleClick = (e: any) => {
+		e.currentTarget.blur()
+		if (onClick) {
+			onClick()
+		}
+	}
 
 	const Inner = () => (
 		<span className="btn__inner">
@@ -55,7 +64,7 @@ const Button = (props: Props) => {
 	)
 
 	const button = (
-		<button className={btnClass} type={type} {...rest}>
+		<button className={btnClass} type={type} onClick={handleClick} {...rest}>
 			<Inner />
 		</button>
 	)
