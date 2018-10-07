@@ -60,7 +60,7 @@ function (_Component) {
 
       if (onClick) {
         onClick(e);
-      } else if (href) {
+      } else if (href && (!target || target === 'self')) {
         _this.setState({
           busy: true
         });

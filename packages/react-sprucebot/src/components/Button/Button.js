@@ -72,7 +72,7 @@ export default class Button extends Component<Props, State> {
 
 		if (onClick) {
 			onClick(e)
-		} else if (href) {
+		} else if (href && (!target || target === 'self')) {
 			this.setState({ busy: true })
 		}
 	}

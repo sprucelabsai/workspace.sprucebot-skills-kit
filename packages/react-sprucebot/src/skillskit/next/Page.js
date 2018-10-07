@@ -9,6 +9,7 @@ import Loader from '../../components/Loader/Loader'
 import qs from 'qs'
 import lang from '../helpers/lang'
 import Router, { withRouter } from 'next/router'
+import { Container } from 'next/app'
 import is from 'is_js'
 
 const debug = require('debug')('@sprucelabs/react-sprucebot')
@@ -165,7 +166,7 @@ const Page = Wrapped => {
 			}
 
 			// NOTE: Need to do this require here so that we can be sure the global window is defined
-			const WebFont = require("webfontloader"); //eslint-disable-line
+			const WebFont = require('webfontloader') //eslint-disable-line
 			WebFont.load({
 				google: {
 					families: ['Material Icons']
@@ -226,7 +227,7 @@ const Page = Wrapped => {
 			}
 			if (this.props.config.DEV_MODE) {
 				return (
-					<div>
+					<Container>
 						{this.state.isIframed ? (
 							<style jsx global>{`
 								html,
@@ -237,11 +238,11 @@ const Page = Wrapped => {
 						) : null}
 						<DevControls auth={this.props.auth} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
-					</div>
+					</Container>
 				)
 			}
 			return (
-				<div>
+				<Container>
 					{this.state.isIframed ? (
 						<style jsx global>{`
 							html,
@@ -251,7 +252,7 @@ const Page = Wrapped => {
 						`}</style>
 					) : null}
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
-				</div>
+				</Container>
 			)
 		}
 	}
