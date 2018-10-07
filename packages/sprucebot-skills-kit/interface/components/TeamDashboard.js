@@ -70,7 +70,7 @@ export default class TeamDashboard extends Component {
 						)}
 						{guests &&
 							guests.length === 0 && (
-								<BotText>{lang.getText('noGuestsBotText')}</BotText>
+								<BotText>{lang.getText('noGuestsBotText', { auth })}</BotText>
 							)}
 						{guests &&
 							guests.length > 0 && <List>{this.userListItems(guests)}</List>}
