@@ -64,6 +64,7 @@ module.exports = async (ctx, next) => {
 }
 ```
 
+
 ## Listening to custom events
 
 A custom `event` is broken into 2 segments, the `slug` of the skill emitting it and the `event-name`. For example, the `Vip Alert` skill will emit `vip-alerts:will-send` just before an alert is sent to the team. You can hook into this event and cancel it, modify the messages sent, or send your own alerts. If you replace the `:` with a `/`, you'll have your file path.
@@ -71,9 +72,24 @@ A custom `event` is broken into 2 segments, the `slug` of the skill emitting it 
 * `vip-alerts:will-send` -> `server/events/vip-alerts/will-send.js`
 * `scratch-win:will-manually-send` -> `server/events/scratch-win/will-manually-send.js`
 
+
+## CRUD Events
+
+For events you listen to that perform an action in your skill, follow a <verb>-<noun> naming convention. For example, I might emit `booking:create-appointment` or `booking:get-location-services`
+
+* Create (POST): `create`
+
+* Read (GET): `get`
+
+* Update (PATCH): `update`
+
+* Set (PUT): `set`
+
+* Delete (DELETE): `delete`
+
 ## Emitting custom events
 
-Skills communicate with each other using the `event` system.
+Skills communicate with each other using the `event` system. Custom events are in the form of: <tense>-<verb>-<noun>, `will-send-vip-alert`.
 
 ```js
 const config = require('config')
@@ -85,9 +101,102 @@ const responses = await ctx.sb.emit(ctx.auth.Location.id, 'scratch-and-win:will-
     }),
     teammateId: ctx.auth.User.id,
     sendToSelf: config.DEV_MODE // this event will emit back to you (for testing)
+}, { // OPTIONAL Custom options
+  timeout: 10000 // Custom timeout for this event. In milliseconds
+  retry: false // Whether this event should be retried if it fails to be delivered  
 })
 
 console.log(responses) // [EventResponse, EventResponse]
+```
+
+## Event Contracts
+
+In order to receive events you'll need to subscribe to them.  Likewise, in order to emit events you should publish them along with information about required parameters. You'll set these up in `config/default.js`
+
+```
+eventContract: {
+  events: {
+    ///////// CUSTOM EVENTS /////////
+    'booking:get-service': {
+      description: 'Gets a single service',
+      publish: true,
+      subscribe: false,
+      schema: {
+        request: {
+          serviceId: {
+            required: true,
+            type: 'string'
+          },
+          includeServiceBlocks: {
+            required: false,
+            type: 'boolean'
+          }
+        },
+        response: {
+          type: object,
+          schema: {
+            status: {
+              type: 'string',
+              description: 'This will be either "success" or "failure"'
+            },
+            service: {
+              type: 'object',
+              description: 'The whole Service object'
+            }
+          }
+        }
+      }
+    },
+    ///////// CORE EVENTS /////////
+    'did-message': {
+      subscribe: true
+    },
+    'did-enter': {
+      name: 'did-enter',
+      description: 'When a guest returns and their phone hits the wifi'
+    }
+    'did-update-user': {
+      description: 'When a user role is updated',
+      subscribe: true
+    },
+    'was-installed': {
+      description: 'When the skill is installed to a location',
+      subscribe: true
+    },
+    // 'did-leave': {
+    // 	name: 'did-leave',
+    // 	description: 'Triggered an hour after a guest leaves'
+    // },
+    // 'did-message': {
+    // 	name: 'did-message',
+    // 	description: 'A guest has sent a text to Sprucebot'
+    // },
+    // 'did-add-device': {
+    // 	name: 'did-add-device',
+    // 	description:
+    // 		'When a guest adds a new device to a location. Like adding their laptop'
+    // },
+    // 'did-update-profile': {
+    // 	name: 'did-update-profile',
+    // 	description: 'When any user updates their first or last name'
+    // },
+    // 'did-opt-out': {
+    // 	name: 'did-opt-out',
+    // 	description:
+    // 		'When any guest opts out of a location. By now you have already lost access to their meta data.'
+    // },
+    // 'did-remote-rejoin': {
+    // 	name: 'did-remote-rejoin',
+    // 	description:
+    // 		'They had, at one time, opted out. But, now they have remotely opted back in'
+    // },
+    // 'will-send-training': {
+    // 	name: 'will-send-training',
+    // 	description:
+    // 		'Sprucebot has made the decision that now is the perfect time to send training material'
+    // }
+  }
+}
 ```
 
 ## EventResponse object
@@ -109,7 +218,9 @@ Events, such as `did-signup`, have an expected behavior. In this case, core send
 ```js
 // server/events/did-signup.js
 module.exports = async (ctx, next) => {
-  ctx.body = { preventDefault: true } // stop the default "Thanks for joining" and push them a reward.
+
+  // stop the default "Thanks for joining" and push them a reward.
+  ctx.body = { preventDefault: true } 
 
   // since we have 5 seconds to respond, we'll invoke next()
   // but, we don't need to await around 😂
@@ -122,6 +233,31 @@ module.exports = async (ctx, next) => {
     console.error('failed to send rewards in did-signup')
     console.error(err.stack || err)
   }
+}
+```
+
+## Naming events that are triggered by actions in your skill
+
+We follow a `will`/`did` convention for our events. When creating your own event, start it with `will-` or `did-`.
+
+`Will` events happen before an operation and should always honor `preventDefault`.
+
+`Did` events happen after any operation.
+
+```js
+// emit your custom event
+const responses = await this.sb.emit(guest.Location.id, 'myskill:will-do-something', {
+  foo: 'bar'
+})
+
+// did anyone prevent default?
+const preventDefault = responses.reduce((preventDefault, response) => {
+  return preventDefault || !!response.payload.preventDefault
+}, false)
+
+// bail
+if (preventDefault) {
+  return false
 }
 ```
 

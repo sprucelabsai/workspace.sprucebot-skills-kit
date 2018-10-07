@@ -124,13 +124,14 @@ const waitKey = `long-operation-by-location-${locationId}`;
 
 try {
     // stop many requests from causing a race condition
-    ctx.sb.wait(waitKey)
+    await ctx.sb.wait(waitKey)
 
     ... 
 
     
 } catch (err) {
     console.error(err)
+    throw err
 } finally {
     // no matter what, don't forget to stop waiting
     ctx.sb.go(waitKey)
