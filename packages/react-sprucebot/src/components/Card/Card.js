@@ -15,7 +15,6 @@ type CardHeaderPros = {
 
 export const CardHeader = (props: CardHeaderProps) => {
 	const { title, labelText, labelIcon, actions, contextMenu } = props
-	console.log({ labelIcon })
 	return (
 		<div className="card-header">
 			{(title || labelText || labelIcon) && (
@@ -162,12 +161,21 @@ export const CardBuilder = (props: CardBuilderProps) => {
 
 // Card
 type CardProps = {
-	children: React.Node
+	children: React.Node,
+	isCentered?: false
 }
 
 export const Card = (props: CardProps) => {
-	const { children } = props
-	return <div className="card">{children}</div>
+	const { children, isCentered } = props
+	return (
+		<div className={cx('card', { 'card-centered': isCentered })}>
+			{children}
+		</div>
+	)
+}
+
+Card.defaultProps = {
+	isCentered: false
 }
 
 export default Card

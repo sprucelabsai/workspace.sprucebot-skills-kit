@@ -6,6 +6,8 @@ import Container from '../Layout/Container/Container'
 import Card, { CardHeader, CardBody, CardFooter, CardBuilder } from './Card'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import Button from '../Button/Button'
+import Avatar from '../Avatar/Avatar'
+import userImageLg from '../../../static/assets/users/user-01--96w.png'
 import LockIcon2 from '../../../static/assets/icons/Interface-Essential/Lock/Unlock/lock-6--16w.svg'
 
 const cardJSON = {
@@ -140,6 +142,26 @@ stories
 						buff. Proud communicator. Introvert. Avid writer.
 					</p>
 				</CardBody>
+			</Card>
+		</Container>
+	))
+	.add('Person Card', () => (
+		<Container size="medium">
+			<Card isCentered>
+				<CardHeader />
+				<CardBody>
+					<Avatar isLarge image={userImageLg} alt="Rosamund Mueleer" />
+					<h3 className="card-header__title l-mb-xsmall">
+						Say "Happy Birthday"
+					</h3>
+					<p>
+						It’s Rosamond Mueller’s birthday today. Don’t forget to say happy
+						birthday!
+					</p>
+				</CardBody>
+				<CardFooter>
+					<Button kind="secondary" text="Send a birthday message" isSmall />
+				</CardFooter>
 			</Card>
 		</Container>
 	))
