@@ -19,17 +19,17 @@ const ListHeader = (props: Props) => {
 			<div className="list-header__text">
 				<h3 className="list-header__title">{title}</h3>
 				{subtitle && <p className="list-header__subtitle">{subtitle}</p>}
-				{actions &&
-					actions.length > 0 && (
-						<ul className="list-header__actions">
-							{actions.map((action, idx) => (
-								<li key={idx} className="list-header__action-wrapper">
-									<Button {...action} />
-								</li>
-							))}
-						</ul>
-					)}
 			</div>
+			{actions &&
+				actions.length > 0 && (
+					<ul className="list-header__actions">
+						{actions.map((action, idx) => (
+							<li key={idx} className="list-header__action-wrapper">
+								<Button {...action} />
+							</li>
+						))}
+					</ul>
+				)}
 		</div>
 	)
 }

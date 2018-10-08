@@ -21,7 +21,7 @@ const List = (props: Props) => {
 
 	return (
 		<Fragment>
-			{header && <ListHeader {...header} />}
+			{header && <ListHeader isSmall={isSmall} {...header} />}
 			<ul className={parentClass}>
 				{items.map((item, idx) => (
 					<ListItem key={idx} {...item} />
