@@ -126,18 +126,20 @@ stories
 		<Container size="medium">
 			<Card>
 				<CardHeader
-					title="This card has a label"
 					labelText="Private"
 					labelIcon={<LockIcon2 className="u-icon__no-fill u-icon__stroke" />}
-					actions={<Button kind="simple" text="Go to team" isSmall />}
+					contextMenu={
+						<ContextMenu
+							actions={[{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]}
+						/>
+					}
 				/>
 				<CardBody>
-					Whatever you can do, or dream you can, begin it. Boldness has genius,
-					power and magic in it.
+					<p>
+						Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon
+						buff. Proud communicator. Introvert. Avid writer.
+					</p>
 				</CardBody>
-				<CardFooter>
-					<Button kind="secondary" text="Get Some Skills" isSmall />
-				</CardFooter>
 			</Card>
 		</Container>
 	))
