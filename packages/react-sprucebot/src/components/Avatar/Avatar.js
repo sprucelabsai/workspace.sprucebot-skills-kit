@@ -59,13 +59,13 @@ const Avatar = (props: Props) => {
 					height={imgHeight}
 				/>
 				{showIndicator && <div className={indicatorClass} />}
-				{(name || text) && (
-					<div className="avatar__text-wrapper">
-						{name && <p className="avatar__name">{name}</p>}
-						{text && <p className="avatar__text">{text}</p>}
-					</div>
-				)}
 			</div>
+			{(name || text) && (
+				<div className="avatar__text-wrapper">
+					{name && <p className="avatar__name">{name}</p>}
+					{text && <p className="avatar__text">{text}</p>}
+				</div>
+			)}
 		</div>
 	)
 }

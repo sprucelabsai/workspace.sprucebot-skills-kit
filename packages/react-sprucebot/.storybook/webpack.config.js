@@ -29,6 +29,37 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+			},
+			{
+				test: /.*\.(gif|png|jpe?g)$/i,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							hash: 'sha512',
+							digest: 'hex',
+							name: '[hash].[ext]'
+						}
+					},
+					{
+						loader: 'image-webpack-loader',
+						query: {
+							pngquant: {
+								quality: '65-90',
+								speed: 4
+							},
+							mozjpeg: {
+								quality: 65
+							},
+							gifsicle: {
+								interlaced: false
+							},
+							optipng: {
+								optimizationLevel: 4
+							}
+						}
+					}
+				]
 			}
 		]
 	}
