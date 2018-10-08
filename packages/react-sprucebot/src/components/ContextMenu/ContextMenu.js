@@ -78,11 +78,11 @@ export default class ContextMenu extends Component<Props, State> {
 				<VelocityTransitionGroup
 					enter={{
 						animation: { opacity: 1, translateY: '4px' },
-						duration: 300
+						duration: 200
 					}}
 					leave={{
 						animation: { opacity: 0, translateY: '12px' },
-						duration: 300
+						duration: 200
 					}}
 				>
 					{isVisible && (
