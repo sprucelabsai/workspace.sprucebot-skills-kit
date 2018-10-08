@@ -3,13 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [7.4.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.4.1...v7.4.2) (2018-10-07)
+## [7.4.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.4.2...v7.4.3) (2018-10-07)
 
 
 ### Bug Fixes
 
-* cleanup ([1254ac1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1254ac1))
-* doc and dependency updates ([c87cc9c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c87cc9c))
+* bottext fix ([8980df9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8980df9))
+* no phone to start ([7a16753](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7a16753))
 
 
 
