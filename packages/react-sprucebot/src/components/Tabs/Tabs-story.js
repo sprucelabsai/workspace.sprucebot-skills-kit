@@ -16,7 +16,7 @@ stories
 				tabs={[
 					{ text: 'Team', isCurrent: true },
 					{ text: 'Guests' },
-					{ text: 'Everyone' }
+					{ text: 'Everyone', onClick: () => console.log('Click') }
 				]}
 			/>
 		</Container>

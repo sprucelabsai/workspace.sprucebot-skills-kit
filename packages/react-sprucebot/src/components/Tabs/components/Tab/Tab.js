@@ -5,12 +5,11 @@ import Button from '../../../Button/Button'
 
 export interface Props {
 	text: string;
-	href: string;
 	isCurrent?: boolean;
 }
 
 const Tab = (props: Props) => {
-	console.log({ props })
+	const { text, isCurrent, ...rest } = props
 	return (
 		<li className="tab">
 			<Button
@@ -18,7 +17,7 @@ const Tab = (props: Props) => {
 					'tab--is-current': props.isCurrent
 				})}
 				text={props.text}
-				href={props.href}
+				{...rest}
 			/>
 		</li>
 	)
