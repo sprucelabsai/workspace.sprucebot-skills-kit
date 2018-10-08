@@ -79,31 +79,9 @@ export const CardFooter = (props: CardFooterProps) => {
 // This component will build a card by taking JSON input and translating
 // it into the appropriate components
 type CardBuilderProps = {
-	header: {
-		title: string,
-		labelText?: string,
-		labelIcon?: string,
-		actions?: Array<{
-			type: 'button' | 'contextMenu',
-			actions?: Array<{
-				text: string,
-				icon: string
-			}>,
-			text?: string,
-			icon?: string
-		}>
-	},
-	body: {
-		children: Array<{
-			content: string
-		}>
-	},
-	footer?: {
-		actions: Array<{
-			text: string,
-			icon?: string
-		}>
-	}
+	header: CardHeaderProps,
+	body: CardBodyProps,
+	footer?: CardFooterProps
 }
 
 const CardBuilderKey = {
@@ -145,7 +123,6 @@ export const CardBuilder = (props: CardBuilderProps) => {
 						footerActions.length > 0 &&
 						footerActions.map(action => {
 							const Handler = CardBuilderKey[action.type]
-							console.log({ Handler })
 
 							if (!Handler || typeof Handler === 'undefined') {
 								return null
