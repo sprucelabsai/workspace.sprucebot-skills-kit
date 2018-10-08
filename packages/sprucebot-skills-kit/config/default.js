@@ -18,6 +18,7 @@ module.exports = {
 	ID: process.env.ID,
 	NAME: process.env.NAME,
 	SLUG: process.env.SLUG,
+	LOG_LEVEL: process.env.LOG_LEVEL,
 	DESCRIPTION: process.env.DESCRIPTION,
 	ICON: fs.readFileSync(path.join(__dirname, '../icon/icon.svg')).toString(),
 	PORT: process.env.PORT,
@@ -28,9 +29,7 @@ module.exports = {
 		process.env.INTERFACE_SSL_ALLOW_SELF_SIGNED === 'true',
 	API_SSL_ALLOW_SELF_SIGNED: process.env.API_SSL_ALLOW_SELF_SIGNED === 'true',
 	WHITELABEL: process.env.WHITELABEL,
-	REDIS_URL: process.env.REDIS_URL || null,
-	REDIS_DEFAULT_TTL_SEC: process.env.REDIS_DEFAULT_TTL_SEC || 300,
-	REDIS_DISABLE: process.env.REDIS_DISABLE === 'true',
+
 	RUN_CRONS: process.env.RUN_CRONS === 'true',
 	ENABLE_DEBUG_ROUTES: process.env.ENABLE_DEBUG_ROUTES === 'true',
 	// Event contract
@@ -103,6 +102,14 @@ module.exports = {
 				Bucket: 'some-bucket-name',
 				accessKeyId: process.env.AWS_ACCESS_KEY_ID,
 				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+			}
+		},
+		cache: {
+			cache: './cache/redis',
+			enable: process.env.CACHE_ENABLE === 'true',
+			options: {
+				url: process.env.REDIS_URL || null,
+				ttl: process.env.DEFAULT_TTL_SEC || 300
 			}
 		}
 	}, // Settings for any services.

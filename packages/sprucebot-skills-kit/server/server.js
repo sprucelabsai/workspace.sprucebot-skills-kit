@@ -4,6 +4,7 @@ const serve = require('@sprucelabs/sprucebot-skills-kit-server')
 const Sprucebot = require('@sprucelabs/sprucebot-node')
 const log = require('@barbershopio/iso-log')
 const generateSwaggerDocs = require('./swagger/swagger')
+const _ = require('lodash')
 
 const {
 	API_KEY,
@@ -46,15 +47,6 @@ log.setOptions({
 	useSourcemaps: false
 })
 global.log = log
-
-/*
-	Redis (optional)
-	If enabled must install: yarn add ioredis
-*/
-if (REDIS_URL) {
-	const Redis = require('./lib/Redis')
-	global.redis = new Redis()
-}
 
 if (process.env.ENABLE_SWAGGER_DOCS === 'true') {
 	generateSwaggerDocs()
