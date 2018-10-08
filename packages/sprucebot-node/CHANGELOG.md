@@ -3,12 +3,9 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [7.4.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.4.3...v7.4.4) (2018-10-08)
+# [7.5.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.4.4...v7.5.0) (2018-10-08)
 
-
-### Bug Fixes
-
-* emit event as enterprise skill ([da4dd2d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/da4dd2d))
+**Note:** Version bump only for package @sprucelabs/sprucebot-node
 
 
 
