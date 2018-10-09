@@ -23,7 +23,8 @@ export default class View extends Component<Props, State> {
 
 	toggleSidebarVisibility = () => {
 		this.setState(prevState => ({
-			sidebarIsVisible: !prevState.sidebarIsVisible
+			sidebarIsVisible: !prevState.sidebarIsVisible,
+			sidebarIsExpanded: true
 		}))
 	}
 
@@ -63,7 +64,7 @@ export default class View extends Component<Props, State> {
 					sidebarIsVisible={sidebarIsVisible}
 				/>
 				<main className="l-page-inner">
-					<div class="l-container-medium l-ph-medium">{children}</div>
+					<div class="l-container-medium ">{children}</div>
 				</main>
 			</div>
 		)
