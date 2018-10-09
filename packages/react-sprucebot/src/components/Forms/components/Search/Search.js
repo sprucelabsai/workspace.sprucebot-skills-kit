@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 import cx from 'classnames'
-import SearchIcon2 from '../../../../static/assets/icons/ic_search.svg'
-import CancelIcon from '../../../../static/assets/icons/ic_cancel.svg'
-import { InputInner } from '../FormPartials'
+import SearchIcon2 from '../../../../../static/assets/icons/ic_search.svg'
+import CancelIcon from '../../../../../static/assets/icons/ic_cancel.svg'
+import { InputInner } from '../../FormPartials'
 
 type State = {
 	value: string

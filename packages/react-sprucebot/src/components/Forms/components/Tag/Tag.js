@@ -1,8 +1,8 @@
 // @flow
 import React from 'react'
 import cx from 'classnames'
-import Button from '../../Button/Button'
-import CloseIcon from '../../../../static/assets/icons/ic_close.svg'
+import Button from '../../../Button/Button'
+import CloseIcon from '../../../../../static/assets/icons/ic_close.svg'
 
 type Props = {
 	text: string,

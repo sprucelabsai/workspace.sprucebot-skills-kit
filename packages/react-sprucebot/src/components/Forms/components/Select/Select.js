@@ -1,8 +1,8 @@
 // @flow
 import React from 'react'
 import cx from 'classnames'
-import ArrowIcon from '../../../../static/assets/icons/ic_arrow_drop_down.svg'
-import { InputPre, InputHelper } from '../FormPartials'
+import ArrowIcon from '../../../../../static/assets/icons/ic_arrow_drop_down.svg'
+import { InputPre, InputHelper } from '../../FormPartials'
 
 type Props = {
 	id: string,

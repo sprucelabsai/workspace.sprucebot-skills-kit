@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { InputPre } from '../FormPartials'
+import { InputPre } from '../../FormPartials'
 
 type Props = {
 	label: string,

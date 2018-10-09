@@ -1,8 +1,8 @@
 // @flow
 import React from 'react'
 import cx from 'classnames'
-import RadioIconYes from '../../../../static/assets/icons/ic_radio_button_checked.svg'
-import RadioIconNo from '../../../../static/assets/icons/ic_radio_button_unchecked.svg'
+import RadioIconYes from '../../../../../static/assets/icons/ic_radio_button_checked.svg'
+import RadioIconNo from '../../../../../static/assets/icons/ic_radio_button_unchecked.svg'
 
 type Props = {
 	id: string,

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import cx from 'classnames'
-import { InputPre, InputHelper } from '../FormPartials'
+import { InputPre, InputHelper } from '../../FormPartials'
 
 type Props = {
 	id: string,

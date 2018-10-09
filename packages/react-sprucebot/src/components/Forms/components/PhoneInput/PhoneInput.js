@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import ReactPhoneInput from 'react-phone-number-input'
-import { InputPre, InputHelper } from '../FormPartials'
+import { InputPre, InputHelper } from '../../FormPartials'
 
 type Props = {
 	label: string
