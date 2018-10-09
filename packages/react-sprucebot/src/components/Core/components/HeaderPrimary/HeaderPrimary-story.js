@@ -16,7 +16,8 @@ stories.addDecorator(withKnobs)
 
 const user = {
 	name: 'Madaline Gibson',
-	image: user01image
+	image: user01image,
+	tel: '(605) 230-5253'
 }
 
 const business = {

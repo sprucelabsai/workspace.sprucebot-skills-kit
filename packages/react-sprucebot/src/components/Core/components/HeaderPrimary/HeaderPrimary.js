@@ -7,7 +7,8 @@ import { Search } from '../../../Forms'
 import Button from '../../../Button/Button'
 
 type State = {
-	isMenuVisible: boolean
+	isMenuVisible: boolean,
+	isUserMenuVisible: boolean
 }
 type Props = {
 	user: Object,
@@ -16,7 +17,8 @@ type Props = {
 
 export default class HeaderPrimary extends Component<Props, State> {
 	state = {
-		isMenuVisible: false
+		isMenuVisible: false,
+		isUserMenuVisible: false
 	}
 
 	toggleMenuVisibility = () => {
@@ -25,8 +27,14 @@ export default class HeaderPrimary extends Component<Props, State> {
 		}))
 	}
 
+	toggleUserMenuVisibility = () => {
+		this.setState(prevState => ({
+			isUserMenuVisible: !prevState.isUserMenuVisible
+		}))
+	}
+
 	render() {
-		const { isMenuVisible } = this.state
+		const { isMenuVisible, isUserMenuVisible } = this.state
 		const { user, business } = this.props
 		return (
 			<header className="header-primary">
@@ -55,7 +63,11 @@ export default class HeaderPrimary extends Component<Props, State> {
 								className="text-input-small"
 								placeholder="Search anything…"
 							/>
-							<UserMenu {...user} />
+							<UserMenu
+								menuIsVisible={isUserMenuVisible}
+								toggleMenu={this.toggleUserMenuVisibility}
+								{...user}
+							/>
 						</Fragment>
 					) : (
 						<Fragment>
