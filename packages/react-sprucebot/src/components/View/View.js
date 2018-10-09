@@ -10,35 +10,45 @@ type Props = {
 	business: Object
 }
 type State = {
-	forceShowSidebar: boolean
+	sidebarIsVisible: boolean
 }
 
 export default class View extends Component<Props, State> {
 	state = {
-		forceShowSidebar: false
+		sidebarIsVisible: false
 	}
 
 	toggleSidebarVisibility = () => {
 		this.setState(prevState => ({
-			forceShowSidebar: !prevState.forceShowSidebar
+			sidebarIsVisible: !prevState.sidebarIsVisible
 		}))
 	}
 
+	forceCloseSidebar = () => {
+		this.setState({
+			sidebarIsVisible: false
+		})
+	}
+
 	render() {
-		const { forceShowSidebar } = this.state
+		const { sidebarIsVisible } = this.state
 		const { sidebarItems, user, business } = this.props
 		return (
 			<div
 				className={cx('l-page-wrapper', {
-					'menu--is-visible': forceShowSidebar
+					'menu--is-visible': sidebarIsVisible
 				})}
 			>
-				<Sidebar items={sidebarItems} />
+				<Sidebar
+					items={sidebarItems}
+					sidebarIsVisible={sidebarIsVisible}
+					forceCloseSidebar={this.forceCloseSidebar}
+				/>
 				<HeaderPrimary
 					user={user}
 					business={business}
 					toggleSidebarVisibility={this.toggleSidebarVisibility}
-					sidebarIsVisible={forceShowSidebar}
+					sidebarIsVisible={sidebarIsVisible}
 				/>
 			</div>
 		)

@@ -6,16 +6,20 @@ import CollapseIcon2 from '../../../../../../../static/assets/icons/ic_keyboard_
 
 type Props = {
 	isExpanded: boolean,
-	toggleExpanded: Function
+	toggleExpanded: Function,
+	forceCloseSidebar: Function
 }
 
 const SidebarExpander = (props: Props) => {
-	const { isExpanded, toggleExpanded } = props
+	const { isExpanded, toggleExpanded, forceCloseSidebar } = props
 	return (
 		<div className="sidebar-collapse">
 			<Button
 				icon={isExpanded ? <CollapseIcon2 /> : <ExpandIcon2 />}
-				onClick={toggleExpanded}
+				onClick={() => {
+					toggleExpanded()
+					forceCloseSidebar()
+				}}
 				isSmall
 			/>
 		</div>

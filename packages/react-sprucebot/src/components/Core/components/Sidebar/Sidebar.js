@@ -8,7 +8,9 @@ import SidebarItem, {
 import SidebarFooter from './components/SidebarFooter/SidebarFooter'
 
 type Props = {
-	items: Array<ItemProps>
+	items: Array<ItemProps>,
+	forceCloseSidebar: Function,
+	sidebarIsVisible?: boolean
 }
 type State = {
 	isExpanded: boolean
@@ -19,6 +21,18 @@ export default class Sidebar extends Component<Props, State> {
 		isExpanded: true
 	}
 
+	static defaultProps = {
+		sidebarIsVisible: false
+	}
+
+	componentWillReceiveProps(newProps: Props) {
+		if (newProps.sidebarIsVisible && !this.props.sidebarIsVisible) {
+			this.setState({
+				isExpanded: true
+			})
+		}
+	}
+
 	toggleExpanded = () => {
 		this.setState(prevState => ({
 			isExpanded: !prevState.isExpanded
@@ -27,7 +41,7 @@ export default class Sidebar extends Component<Props, State> {
 
 	render() {
 		const { isExpanded } = this.state
-		const { items } = this.props
+		const { items, forceCloseSidebar } = this.props
 
 		return (
 			<aside
@@ -38,6 +52,7 @@ export default class Sidebar extends Component<Props, State> {
 				<SidebarExpander
 					toggleExpanded={this.toggleExpanded}
 					isExpanded={isExpanded}
+					forceCloseSidebar={forceCloseSidebar}
 				/>
 				<ul className="sidebar__inner">
 					{items.map((item, idx) => (
