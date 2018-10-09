@@ -32,7 +32,7 @@ const List = (props: Props) => {
 }
 
 List.defaultProps = {
-	header: {},
+	header: null,
 	className: '',
 	isSmall: false
 }

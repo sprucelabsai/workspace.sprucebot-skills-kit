@@ -1,6 +1,7 @@
 // @flow
 import React from 'react'
 import cx from 'classnames'
+import Avatar from '../../../Avatar/Avatar'
 import Button from '../../../Button/Button'
 import Toggle from '../../../Forms/Toggle/Toggle'
 import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
@@ -8,6 +9,7 @@ import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
 export interface Props {
 	title: string;
 	subtitle?: string;
+	avatar?: string;
 	image?: string;
 	icon?: React.Node;
 	isDraggable?: boolean;
@@ -16,14 +18,23 @@ export interface Props {
 }
 
 const ListItem = (props: Props) => {
-	const { title, subtitle, image, icon, isDraggable, toggleId, actions } = props
+	const {
+		title,
+		subtitle,
+		avatar,
+		image,
+		icon,
+		isDraggable,
+		toggleId,
+		actions
+	} = props
 	const parentClass = cx('list-item', {
 		'list-item-title-only': !subtitle,
 		'list-item--is-draggable': isDraggable
 	})
 	return (
 		<li className={parentClass}>
-			{(image || icon) &&
+			{(image || icon || avatar) &&
 				!isDraggable && (
 					<div className="list-item__image-wrapper">
 						{icon &&
@@ -42,6 +53,7 @@ const ListItem = (props: Props) => {
 								height="40"
 							/>
 						)}
+						{avatar && <Avatar image={avatar} alt={title} />}
 					</div>
 				)}
 			{isDraggable && <DragHandle className="drag-handle" />}
@@ -77,6 +89,7 @@ const ListItem = (props: Props) => {
 
 ListItem.defaultProps = {
 	subtitle: '',
+	avatar: '',
 	image: '',
 	icon: null,
 	isDraggable: false,

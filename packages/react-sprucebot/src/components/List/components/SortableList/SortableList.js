@@ -10,7 +10,10 @@ import ListHeader from '../ListHeader/ListHeader'
 import ListItem from '../ListItem/ListItem'
 import { Props as ListProps } from '../../List'
 
-type Props = ListProps
+type Props = {
+	onConfirm: Function,
+	...ListProps
+}
 type State = {
 	isSorting: boolean
 }
@@ -78,11 +81,13 @@ export default class SortableComponent extends Component<Props, State> {
 		})
 	}
 
-	onCofirm = () => {
+	onConfirm = () => {
+		const { onConfirm } = this.props
 		this.setState({
 			isSorting: false
 		})
 		// Do other stuff with the API to save changes
+		onConfirm()
 	}
 
 	onSortStart = () => {
@@ -109,7 +114,7 @@ export default class SortableComponent extends Component<Props, State> {
 						actions={headerActions({
 							isSorting,
 							onClickToggle: this.toggleSorting,
-							onClickConfirm: this.toggleSorting,
+							onClickConfirm: this.onConfirm,
 							onClickCancel: this.onCancel
 						})}
 						{...header}
