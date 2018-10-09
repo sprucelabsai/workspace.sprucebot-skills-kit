@@ -5,9 +5,7 @@ import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
 import Modal from './Modal'
 import Button from '../Button/Button'
-import TextInput from '../Forms/TextInput/TextInput'
-import TextArea from '../Forms/TextArea/TextArea'
-import Checkbox from '../Forms/Checkbox/Checkbox'
+import { Checkbox, TextInput, TextArea } from '../Forms'
 
 type Props = {}
 type State = {
