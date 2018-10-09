@@ -5,15 +5,16 @@ import HelpIcon from '../../../../../../../static/assets/icons/Interface-Essenti
 
 type Props = {
 	className: string,
-	iconClassName: string
+	iconClassName: string,
+	textClassName: string
 }
 
 const HelpButton = (props: Props) => {
-	const { className, iconClassName } = props
+	const { className, iconClassName, textClassName } = props
 	return (
 		<a className={className} href="#" target="_blank" rel="noopener noreferrer">
 			<HelpIcon className={iconClassName} />
-			Help
+			<span className={textClassName}>Help</span>
 		</a>
 	)
 }
