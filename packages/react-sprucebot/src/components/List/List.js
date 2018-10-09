@@ -8,6 +8,10 @@ import ListItem, {
 	Props as ListItemProps
 } from './components/ListItem/ListItem'
 
+export const ListWrapper = (props: { children: React.Node }) => (
+	<div className="list-wrapper">{props.children}</div>
+)
+
 export interface Props {
 	header?: ListHeaderProps;
 	items: Array<ListItemProps>;

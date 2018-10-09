@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
-import List from './List'
+import List, { ListWrapper } from './List'
 import ListHeader from './components/ListHeader/ListHeader'
 import Tabs from '../Tabs/Tabs'
 import SortableList from './components/SortableList/SortableList'
@@ -131,7 +131,7 @@ class TabbedList extends Component<Props, State> {
 		const { users, tabs, activeTabIndex } = this.state
 
 		return (
-			<div className="list-wrapper">
+			<ListWrapper>
 				<ListHeader title="Notes" />
 				<Tabs
 					tabs={tabs.map((tab, idx) => ({
@@ -140,7 +140,7 @@ class TabbedList extends Component<Props, State> {
 						...tab
 					}))}
 				/>
-			</div>
+			</ListWrapper>
 		)
 	}
 }
