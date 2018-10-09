@@ -23,7 +23,7 @@ import {
 } from './components/Forms'
 import Container from './components/Layout/Container/Container'
 import List, { ListHeader, ListItem, SortableList } from './components/List'
-import Loader from './components/Forms/Loader/Loader'
+import Loader from './components/Loader/Loader'
 import Modal from './components/Modal/Modal'
 import Tabs, { Tab } from './components/Tab'
 import Toast from './components/Toast/Toast'

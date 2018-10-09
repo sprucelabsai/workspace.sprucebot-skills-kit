@@ -28,7 +28,7 @@ var _Container = _interopRequireDefault(require("./components/Layout/Container/C
 
 var _List = _interopRequireWildcard(require("./components/List"));
 
-var _Loader = _interopRequireDefault(require("./components/Forms/Loader/Loader"));
+var _Loader = _interopRequireDefault(require("./components/Loader/Loader"));
 
 var _Modal = _interopRequireDefault(require("./components/Modal/Modal"));
 
