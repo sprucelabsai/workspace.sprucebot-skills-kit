@@ -42,6 +42,7 @@ const UserMenu = (props: Props) => {
 								kind="simple"
 								text="Switch Accounts"
 								icon={<SwitchIcon className="btn__line-icon" />}
+								isFullWidth
 							/>
 						</li>
 						<li className="list-item">
@@ -49,6 +50,7 @@ const UserMenu = (props: Props) => {
 								kind="simple"
 								text="Log Out"
 								icon={<LogoutIcon className="btn__line-icon" />}
+								isFullWidth
 							/>
 						</li>
 					</ul>

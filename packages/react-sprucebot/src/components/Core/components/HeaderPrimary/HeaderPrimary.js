@@ -23,10 +23,38 @@ export default class HeaderPrimary extends Component<Props, State> {
 		isUserMenuVisible: false
 	}
 
+	ref: any
+
+	hideUserMenu = (e: any) => {
+		if (e.key === 'Escape' || e.target.contains(this.ref)) {
+			this.setState(
+				{
+					isUserMenuVisible: false
+				},
+				() => this.manageListeners()
+			)
+		}
+	}
+
 	toggleUserMenuVisibility = () => {
-		this.setState(prevState => ({
-			isUserMenuVisible: !prevState.isUserMenuVisible
-		}))
+		this.setState(
+			prevState => ({
+				isUserMenuVisible: !prevState.isUserMenuVisible
+			}),
+			() => this.manageListeners()
+		)
+	}
+
+	manageListeners = () => {
+		if (typeof window !== 'undefined') {
+			if (this.state.isUserMenuVisible) {
+				window.addEventListener('click', this.hideUserMenu, false)
+				window.addEventListener('keyup', this.hideUserMenu, false)
+			} else {
+				window.removeEventListener('click', this.hideUserMenu, false)
+				window.removeEventListener('keyup', this.hideUserMenu, false)
+			}
+		}
 	}
 
 	render() {
@@ -38,7 +66,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 			sidebarIsVisible
 		} = this.props
 		return (
-			<header className="header-primary">
+			<header className="header-primary" ref={ref => (this.ref = ref)}>
 				<div className="header-primary__left">
 					<Hamburger
 						onClick={toggleSidebarVisibility}
