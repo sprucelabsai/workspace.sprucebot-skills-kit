@@ -32,7 +32,7 @@ var _Loader = _interopRequireDefault(require("./components/Loader/Loader"));
 
 var _Modal = _interopRequireDefault(require("./components/Modal/Modal"));
 
-var _Tab = _interopRequireWildcard(require("./components/Tab"));
+var _Tabs = _interopRequireWildcard(require("./components/Tabs"));
 
 var _Toast = _interopRequireDefault(require("./components/Toast/Toast"));
 
@@ -101,8 +101,8 @@ var Sprucebot = (0, _objectSpread2.default)({
   Sidebar: _Core.Sidebar,
   Slider: _Forms.Slider,
   SortableList: _List.SortableList,
-  Tabs: _Tab.default,
-  Tab: _Tab.Tab,
+  Tabs: _Tabs.default,
+  Tab: _Tabs.Tab,
   Tag: _Forms.Tag,
   TextArea: _Forms.TextArea,
   TextInput: _Forms.TextInput,
