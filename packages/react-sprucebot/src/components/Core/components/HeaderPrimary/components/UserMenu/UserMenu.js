@@ -4,6 +4,8 @@ import { VelocityTransitionGroup } from 'velocity-react'
 import Avatar from '../../../../../Avatar/Avatar'
 import Button from '../../../../../Button/Button'
 import ListItem from '../../../../../List/components/ListItem/ListItem'
+import SwitchIcon from '../../../../../../../static/assets/icons/Users/Geometric-Close-Up-Single-User-Actions-Neutral/single-neutral-actions-up-down.svg'
+import LogoutIcon from '../../../../../../../static/assets/icons/Interface-Essential/Login/Logout/logout.svg'
 
 type Props = {
 	image: string,
@@ -36,10 +38,18 @@ const UserMenu = (props: Props) => {
 					<ul className="user-menu__menu card">
 						<ListItem avatar={image} title={name} subtitle={tel} />
 						<li className="list-item">
-							<Button kind="simple" text="Switch Accounts" />
+							<Button
+								kind="simple"
+								text="Switch Accounts"
+								icon={<SwitchIcon className="btn__line-icon" />}
+							/>
 						</li>
 						<li className="list-item">
-							<Button kind="simple" text="Log Out" />
+							<Button
+								kind="simple"
+								text="Log Out"
+								icon={<LogoutIcon className="btn__line-icon" />}
+							/>
 						</li>
 					</ul>
 				)}
