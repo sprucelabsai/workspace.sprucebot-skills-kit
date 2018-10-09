@@ -115,6 +115,7 @@
 		"react-dom": "^16.3.2",
 		"react-dropzone": "^6.0.2",
 		"react-image-crop": "3.0.11",
+		"react-modal": "^3.6.1",
 		"react-phone-number-input": "^2.2.11",
 		"react-redux": "^5.0.6",
 		"react-required-if": "^1.0.3",
