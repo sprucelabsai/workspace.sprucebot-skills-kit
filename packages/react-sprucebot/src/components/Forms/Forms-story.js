@@ -3,17 +3,19 @@ import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
-import TextInput from './TextInput/TextInput'
-import TextArea from './TextArea/TextArea'
-import Search from './Search/Search'
-import PhoneInput from './PhoneInput/PhoneInput'
-import DomainInput from './DomainInput/DomainInput'
-import Radio from './Radio/Radio'
-import Checkbox from './Checkbox/Checkbox'
-import Toggle from './Toggle/Toggle'
-import Tag from './Tag/Tag'
-import Slider from './Slider/Slider'
-import Select from './Select/Select'
+import {
+	Checkbox,
+	DomainInput,
+	PhoneInput,
+	Radio,
+	Search,
+	Select,
+	Slider,
+	Tag,
+	TextArea,
+	TextInput,
+	Toggle
+} from './index'
 
 const stories = storiesOf('Forms', module)
 
@@ -52,7 +54,7 @@ stories
 					placeholder={text('Placeholder', 'Optional category description…')}
 					defaultValue={text('Value', '')}
 					error={text('Error Text', '')}
-					helper={text('Helper Text', '.')}
+					helper={text('Helper Text', '')}
 					readOnly={boolean('Read Only', false)}
 				/>
 			</Container>
