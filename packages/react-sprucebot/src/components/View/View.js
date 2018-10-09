@@ -28,7 +28,11 @@ export default class View extends Component<Props, State> {
 		const { forceShowSidebar } = this.state
 		const { sidebarItems, user, business } = this.props
 		return (
-			<div className={cx({ 'menu--is-visible': forceShowSidebar })}>
+			<div
+				className={cx('l-page-wrapper', {
+					'menu--is-visible': forceShowSidebar
+				})}
+			>
 				<Sidebar items={sidebarItems} />
 				<HeaderPrimary
 					user={user}
