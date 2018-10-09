@@ -21,12 +21,13 @@ export interface Props {
 }
 
 const isCurrentParent = (props: Props) => {
-	if (props.items) {
-		props.items.forEach(item => {
+	const { items } = props
+	if (items) {
+		if (items.find(item => item.isCurrent)) {
+			return true
+		}
+		items.forEach(item => {
 			if (item.items) {
-				if (items.find(item => item.isCurrent)) {
-					return true
-				}
 				if (item.items.find(item => item.isCurrent)) {
 					return true
 				}
@@ -75,7 +76,7 @@ const SidebarItem = (props: Props) => {
 									</div>
 									{item.items &&
 										isCurrentParent({ items: item.items }) && (
-											<ul className="sidebar__sublist">
+											<ul className="sidebar__sub-list">
 												{item.items.map((item, idx) => {
 													const subSubClass = cx('sidebar__sub-list-item', {
 														'sidebar-item--is-current': item.isCurrent
