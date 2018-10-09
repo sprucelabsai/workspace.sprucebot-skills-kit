@@ -5,15 +5,15 @@ import MenuIcon from '../../../../../../../static/assets/icons/ic_menu.svg'
 import CloseIcon from '../../../../../../../static/assets/icons/ic_close.svg'
 
 type Props = {
-	isMenuVisible: boolean,
+	isSidebarVisible: boolean,
 	onClick: Function
 }
 
 const Hamburger = (props: Props) => {
-	const { isMenuVisible, onClick } = props
+	const { isSidebarVisible, onClick } = props
 	return (
 		<button className="hamburger btn" type="button" onClick={onClick}>
-			{isMenuVisible ? (
+			{isSidebarVisible ? (
 				<CloseIcon className="hamburger__icon" />
 			) : (
 				<MenuIcon className="hamburger__icon" />

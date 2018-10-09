@@ -7,24 +7,20 @@ import { Search } from '../../../Forms'
 import Button from '../../../Button/Button'
 
 type State = {
-	isMenuVisible: boolean,
+	isMenuExpanded: boolean,
 	isUserMenuVisible: boolean
 }
 type Props = {
 	user: Object,
-	business: Object
+	business: Object,
+	toggleSidebarVisibility: Function,
+	sidebarIsVisble: boolean
 }
 
 export default class HeaderPrimary extends Component<Props, State> {
 	state = {
-		isMenuVisible: false,
+		isMenuExpanded: false,
 		isUserMenuVisible: false
-	}
-
-	toggleMenuVisibility = () => {
-		this.setState(prevState => ({
-			isMenuVisible: !prevState.isMenuVisible
-		}))
 	}
 
 	toggleUserMenuVisibility = () => {
@@ -34,14 +30,19 @@ export default class HeaderPrimary extends Component<Props, State> {
 	}
 
 	render() {
-		const { isMenuVisible, isUserMenuVisible } = this.state
-		const { user, business } = this.props
+		const { isMenuExpanded, isUserMenuVisible } = this.state
+		const {
+			user,
+			business,
+			toggleSidebarVisibility,
+			sidebarIsVisible
+		} = this.props
 		return (
 			<header className="header-primary">
 				<div className="header-primary__left">
 					<Hamburger
-						onClick={this.toggleMenuVisibility}
-						isMenuVisible={isMenuVisible}
+						onClick={toggleSidebarVisibility}
+						isSidebarVisible={sidebarIsVisible}
 					/>
 					{business ? (
 						<div>
