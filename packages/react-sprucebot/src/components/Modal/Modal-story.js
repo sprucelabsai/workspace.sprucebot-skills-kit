@@ -5,7 +5,7 @@ import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
 import Modal from './Modal'
 import Button from '../Button/Button'
-import { Checkbox, TextInput, TextArea } from '../Forms'
+import { Checkbox, TextInput, TextArea, FormRow } from '../Forms'
 
 type Props = {
 	title: string,
@@ -58,31 +58,31 @@ class ModalExample extends Component<Props, State> {
 					/>
 					<form>
 						<Modal.Body>
-							<div className="form-row">
+							<FormRow>
 								<TextInput label="Category Name" placeholder="i.e. Barber" />
-							</div>
-							<div className="form-row">
+							</FormRow>
+							<FormRow>
 								<TextInput
 									label="Teaser"
 									postLabel="0/64"
 									placeholder="Haircuts, shaves, and touch-ups."
 									helper="Add a short teaser for your guests to see when they browse your services. Please limit to 64 characters."
 								/>
-							</div>
-							<div className="form-row">
+							</FormRow>
+							<FormRow>
 								<TextArea
 									label="Description"
 									placeholder="Optional category description…"
 									helper="Add a short teaser for your guests to see when they browse your services."
 									rows={3}
 								/>
-							</div>
-							<div className="form-row">
+							</FormRow>
+							<FormRow>
 								<Checkbox
 									label="Hide this category"
 									postText="It will still be visible to your teammates, but will be hidden from guests."
 								/>
-							</div>
+							</FormRow>
 						</Modal.Body>
 						{includeFooter && (
 							<Modal.Footer
