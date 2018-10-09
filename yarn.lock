@@ -1810,9 +1810,9 @@
     into-stream "^3.1.0"
     lodash "^4.17.4"
 
-"@sprucelabs/heartwood-components@0.6.2":
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/heartwood-components/-/heartwood-components-0.6.2.tgz#55262d3e1045cc13005f76c14eaa405050faaa3f"
+"@sprucelabs/heartwood-components@0.6.3":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@sprucelabs/heartwood-components/-/heartwood-components-0.6.3.tgz#b3393940276fdf6fee43c281042ec2b1ec381093"
   dependencies:
     "@frctl/fractal" "^1.1.5"
     "@frctl/mandelbrot" "^1.2.0"

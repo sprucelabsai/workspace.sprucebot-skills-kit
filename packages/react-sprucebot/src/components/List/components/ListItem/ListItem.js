@@ -3,7 +3,7 @@ import React from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button from '../../../Button/Button'
-import Toggle from '../../../Forms/Toggle/Toggle'
+import { Toggle } from '../../../Forms'
 import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
 
 export interface Props {
