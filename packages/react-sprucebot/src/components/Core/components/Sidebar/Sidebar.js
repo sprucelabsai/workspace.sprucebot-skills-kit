@@ -26,6 +26,7 @@ export default class Sidebar extends Component<Props, State> {
 	}
 
 	componentWillReceiveProps(newProps: Props) {
+		// NOTE: Make sure the sidebar is expanded when the Hamburger is used
 		if (newProps.sidebarIsVisible && !this.props.sidebarIsVisible) {
 			this.setState({
 				isExpanded: true
