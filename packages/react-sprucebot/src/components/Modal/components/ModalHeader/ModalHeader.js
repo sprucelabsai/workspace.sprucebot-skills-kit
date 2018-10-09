@@ -15,7 +15,7 @@ const ModalHeader = (props: Props) => {
 	return (
 		<div className="modal-header">
 			<div className="modal-header__title-wrapper">
-				{handleGoBack && <Button icon={<ArrowBack />} />}
+				{handleGoBack && <Button isSmall icon={<ArrowBack />} />}
 				<h2 className="modal-header__title">{title}</h2>
 			</div>
 			<Button isSmall icon={<CloseIcon />} onClick={onRequestClose} />

@@ -7,7 +7,12 @@ import Modal from './Modal'
 import Button from '../Button/Button'
 import { Checkbox, TextInput, TextArea } from '../Forms'
 
-type Props = {}
+type Props = {
+	title: string,
+	canGoBack: boolean,
+	hasSecondaryButton: boolean,
+	includeFooter: boolean
+}
 type State = {
 	isOpen: boolean
 }
@@ -32,6 +37,7 @@ class ModalExample extends Component<Props, State> {
 	}
 	render() {
 		const { isOpen } = this.state
+		const { title, canGoBack, hasSecondaryButton, includeFooter } = this.props
 		return (
 			<Container>
 				<Button
@@ -46,8 +52,9 @@ class ModalExample extends Component<Props, State> {
 					isSmall
 				>
 					<Modal.Header
-						title="New Service Category"
+						title={title}
 						onRequestClose={this.onRequestClose}
+						handleGoBack={canGoBack ? () => console.log('take me home') : null}
 					/>
 					<form>
 						<Modal.Body>
@@ -77,17 +84,21 @@ class ModalExample extends Component<Props, State> {
 								/>
 							</div>
 						</Modal.Body>
-						<Modal.Footer
-							primaryAction={{
-								text: 'Create Category',
-								onClick: () => console.log('Next'),
-								type: 'submit'
-							}}
-							secondaryAction={{
-								text: 'Cancel',
-								onClick: () => console.log('Cancel')
-							}}
-						/>
+						{includeFooter && (
+							<Modal.Footer
+								primaryAction={{
+									text: 'Create Category',
+									onClick: () => console.log('Next'),
+									type: 'submit'
+								}}
+								secondaryAction={
+									hasSecondaryButton && {
+										text: 'Cancel',
+										onClick: () => console.log('Cancel')
+									}
+								}
+							/>
+						)}
 					</form>
 				</Modal>
 			</Container>
@@ -99,4 +110,11 @@ const stories = storiesOf('Modal', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('Modal', () => <ModalExample />)
+stories.add('Modal', () => (
+	<ModalExample
+		title={text('Title', 'New Service Category')}
+		canGoBack={boolean('Show Back Button', false)}
+		includeFooter={boolean('Show Footer', true)}
+		hasSecondaryButton={boolean('Show Secondary Action', false)}
+	/>
+))
