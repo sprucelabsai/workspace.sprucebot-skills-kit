@@ -10,58 +10,32 @@ import SidebarFooter from './components/SidebarFooter/SidebarFooter'
 type Props = {
 	items: Array<ItemProps>,
 	forceCloseSidebar: Function,
-	sidebarIsVisible?: boolean
-}
-type State = {
-	isExpanded: boolean
+	isExpanded: boolean,
+	toggleExpanded: Function
 }
 
-export default class Sidebar extends Component<Props, State> {
-	state = {
-		isExpanded: true
-	}
+const Sidebar = (props: Props) => {
+	const { items, forceCloseSidebar, toggleExpanded, isExpanded } = props
 
-	static defaultProps = {
-		sidebarIsVisible: false
-	}
-
-	componentWillReceiveProps(newProps: Props) {
-		// NOTE: Make sure the sidebar is expanded when the Hamburger is used
-		if (newProps.sidebarIsVisible && !this.props.sidebarIsVisible) {
-			this.setState({
-				isExpanded: true
-			})
-		}
-	}
-
-	toggleExpanded = () => {
-		this.setState(prevState => ({
-			isExpanded: !prevState.isExpanded
-		}))
-	}
-
-	render() {
-		const { isExpanded } = this.state
-		const { items, forceCloseSidebar } = this.props
-
-		return (
-			<aside
-				className={cx('sidebar', {
-					'sidebar--is-collapsed': !isExpanded
-				})}
-			>
-				<SidebarExpander
-					toggleExpanded={this.toggleExpanded}
-					isExpanded={isExpanded}
-					forceCloseSidebar={forceCloseSidebar}
-				/>
-				<ul className="sidebar__inner">
-					{items.map((item, idx) => (
-						<SidebarItem key={idx} {...item} />
-					))}
-				</ul>
-				<SidebarFooter />
-			</aside>
-		)
-	}
+	return (
+		<aside
+			className={cx('sidebar', {
+				'sidebar--is-collapsed': !isExpanded
+			})}
+		>
+			<SidebarExpander
+				toggleExpanded={toggleExpanded}
+				isExpanded={isExpanded}
+				forceCloseSidebar={forceCloseSidebar}
+			/>
+			<ul className="sidebar__inner">
+				{items.map((item, idx) => (
+					<SidebarItem key={idx} {...item} />
+				))}
+			</ul>
+			<SidebarFooter />
+		</aside>
+	)
 }
+
+export default Sidebar

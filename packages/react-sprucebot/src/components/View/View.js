@@ -7,20 +7,29 @@ import Sidebar from '../Core/components/Sidebar/Sidebar'
 type Props = {
 	sidebarItems: Array<Object>,
 	user: Object,
-	business: Object
+	business: Object,
+	children: React.Node
 }
 type State = {
-	sidebarIsVisible: boolean
+	sidebarIsVisible: boolean,
+	sidebarIsExpanded: boolean
 }
 
 export default class View extends Component<Props, State> {
 	state = {
-		sidebarIsVisible: false
+		sidebarIsVisible: false,
+		sidebarIsExpanded: true
 	}
 
 	toggleSidebarVisibility = () => {
 		this.setState(prevState => ({
 			sidebarIsVisible: !prevState.sidebarIsVisible
+		}))
+	}
+
+	toggleSidebarExpanded = () => {
+		this.setState(prevState => ({
+			sidebarIsExpanded: !prevState.sidebarIsExpanded
 		}))
 	}
 
@@ -31,17 +40,20 @@ export default class View extends Component<Props, State> {
 	}
 
 	render() {
-		const { sidebarIsVisible } = this.state
-		const { sidebarItems, user, business } = this.props
+		const { sidebarIsVisible, sidebarIsExpanded } = this.state
+		const { sidebarItems, user, business, children } = this.props
 		return (
 			<div
 				className={cx('l-page-wrapper', {
-					'menu--is-visible': sidebarIsVisible
+					'menu--is-visible': sidebarIsVisible,
+					'sidebar--is-collapsed': !sidebarIsExpanded
 				})}
 			>
 				<Sidebar
 					items={sidebarItems}
 					sidebarIsVisible={sidebarIsVisible}
+					isExpanded={sidebarIsExpanded}
+					toggleExpanded={this.toggleSidebarExpanded}
 					forceCloseSidebar={this.forceCloseSidebar}
 				/>
 				<HeaderPrimary
@@ -50,6 +62,9 @@ export default class View extends Component<Props, State> {
 					toggleSidebarVisibility={this.toggleSidebarVisibility}
 					sidebarIsVisible={sidebarIsVisible}
 				/>
+				<main className="l-page-inner">
+					<div class="l-container-medium l-ph-medium">{children}</div>
+				</main>
 			</div>
 		)
 	}

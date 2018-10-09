@@ -37,5 +37,5 @@ const personalItems = [
 ]
 
 stories.add('Default', () => (
-	<Sidebar items={personalItems} STORYBOOKdoNotWrap />
+	<Sidebar items={personalItems} isExpanded STORYBOOKdoNotWrap />
 ))
