@@ -10,7 +10,15 @@ setOptions({
 		'https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/tree/dev/packages/react-sprucebot'
 })
 
-addDecorator(story => <Wrapper>{story()}</Wrapper>)
+addDecorator(story => {
+	if (
+		story().props.STORYBOOKdoNotWrap ||
+		(story().props.children && story().props.children.props.STORYBOOKdoNotWrap)
+	) {
+		return story()
+	}
+	return <Wrapper>{story()}</Wrapper>
+})
 
 function loadStories() {
 	const req = require.context('../src/components', true, /\-story\.js$/)
