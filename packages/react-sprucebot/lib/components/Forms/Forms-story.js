@@ -12,34 +12,14 @@ var _react3 = require("@storybook/addon-knobs/react");
 
 var _Container = _interopRequireDefault(require("../Layout/Container/Container"));
 
-var _TextInput = _interopRequireDefault(require("./TextInput/TextInput"));
-
-var _TextArea = _interopRequireDefault(require("./TextArea/TextArea"));
-
-var _Search = _interopRequireDefault(require("./Search/Search"));
-
-var _PhoneInput = _interopRequireDefault(require("./PhoneInput/PhoneInput"));
-
-var _DomainInput = _interopRequireDefault(require("./DomainInput/DomainInput"));
-
-var _Radio = _interopRequireDefault(require("./Radio/Radio"));
-
-var _Checkbox = _interopRequireDefault(require("./Checkbox/Checkbox"));
-
-var _Toggle = _interopRequireDefault(require("./Toggle/Toggle"));
-
-var _Tag = _interopRequireDefault(require("./Tag/Tag"));
-
-var _Slider = _interopRequireDefault(require("./Slider/Slider"));
-
-var _Select = _interopRequireDefault(require("./Select/Select"));
+var _index = require("./index");
 
 var stories = (0, _react2.storiesOf)('Forms', module);
 stories.addDecorator(_react3.withKnobs);
 stories.add('Text Input', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_TextInput.default, {
+  }, _react.default.createElement(_index.TextInput, {
     type: "text",
     id: (0, _react3.text)('id', 'input'),
     name: (0, _react3.text)('name', 'inputName'),
@@ -54,7 +34,7 @@ stories.add('Text Input', function () {
 }).add('Text Area', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_TextArea.default, {
+  }, _react.default.createElement(_index.TextArea, {
     id: (0, _react3.text)('id', 'input'),
     name: (0, _react3.text)('name', 'inputName'),
     label: (0, _react3.text)('Label', 'Category'),
@@ -62,13 +42,13 @@ stories.add('Text Input', function () {
     placeholder: (0, _react3.text)('Placeholder', 'Optional category description…'),
     defaultValue: (0, _react3.text)('Value', ''),
     error: (0, _react3.text)('Error Text', ''),
-    helper: (0, _react3.text)('Helper Text', '.'),
+    helper: (0, _react3.text)('Helper Text', ''),
     readOnly: (0, _react3.boolean)('Read Only', false)
   })));
 }).add('Search', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_Search.default, {
+  }, _react.default.createElement(_index.Search, {
     type: "text",
     placeholder: (0, _react3.text)('Placeholder', 'Search for anything…'),
     readOnly: (0, _react3.boolean)('Read Only', false)
@@ -76,14 +56,14 @@ stories.add('Text Input', function () {
 }).add('Phone Number', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_PhoneInput.default, {
+  }, _react.default.createElement(_index.PhoneInput, {
     label: "Phone Number",
     placeholder: "(555) 555-5555"
   })));
 }).add('Subdomain', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_DomainInput.default, {
+  }, _react.default.createElement(_index.DomainInput, {
     label: "Shopify Store URL",
     placeholder: "my-shopify-store",
     appendix: ".myshopify.com"
@@ -91,19 +71,19 @@ stories.add('Text Input', function () {
 }).add('Radio', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_Radio.default, {
+  }, _react.default.createElement(_index.Radio, {
     className: "l-mb-xsmall",
     id: "option-one",
     name: "radio",
     label: (0, _react3.text)('Option One', 'Option One'),
     postText: (0, _react3.text)('Helper One', '')
-  }), _react.default.createElement(_Radio.default, {
+  }), _react.default.createElement(_index.Radio, {
     className: "l-mb-xsmall",
     id: "option-two",
     name: "radio",
     label: (0, _react3.text)('Option Two', 'Option Two'),
     postText: (0, _react3.text)('Helper Two', '')
-  }), _react.default.createElement(_Radio.default, {
+  }), _react.default.createElement(_index.Radio, {
     className: "l-mb-xsmall",
     id: "option-three",
     name: "radio",
@@ -113,19 +93,19 @@ stories.add('Text Input', function () {
 }).add('Checkbox', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_Checkbox.default, {
+  }, _react.default.createElement(_index.Checkbox, {
     className: "l-mb-xsmall",
     id: "option-one",
     name: "optionOne",
     label: (0, _react3.text)('Option One', 'Option One'),
     postText: (0, _react3.text)('Helper One', '')
-  }), _react.default.createElement(_Checkbox.default, {
+  }), _react.default.createElement(_index.Checkbox, {
     className: "l-mb-xsmall",
     id: "option-two",
     name: "optionTwo",
     label: (0, _react3.text)('Option Two', 'Option Two'),
     postText: (0, _react3.text)('Helper Two', '')
-  }), _react.default.createElement(_Checkbox.default, {
+  }), _react.default.createElement(_index.Checkbox, {
     className: "l-mb-xsmall",
     id: "option-three",
     name: "optionThree",
@@ -136,7 +116,7 @@ stories.add('Text Input', function () {
 }).add('Toggle', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_Toggle.default, {
+  }, _react.default.createElement(_index.Toggle, {
     id: "toggle",
     name: "toggle",
     postText: (0, _react3.text)('Post Text', '')
@@ -144,11 +124,11 @@ stories.add('Text Input', function () {
 }).add('Tag', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_Tag.default, {
+  }, _react.default.createElement(_index.Tag, {
     className: "l-mr-small l-mb-small",
     text: (0, _react3.text)('Text', 'Barber Services'),
     isSmall: (0, _react3.boolean)('Small', false)
-  }), _react.default.createElement(_Tag.default, {
+  }), _react.default.createElement(_index.Tag, {
     className: "l-mr-small l-mb-small",
     kind: "secondary",
     text: (0, _react3.text)('Text', 'Barber Services'),
@@ -157,7 +137,7 @@ stories.add('Text Input', function () {
 }).add('Slider', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_Slider.default, {
+  }, _react.default.createElement(_index.Slider, {
     id: "slider",
     name: "slider",
     min: 0,
@@ -169,7 +149,7 @@ stories.add('Text Input', function () {
 }).add('Select', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_Select.default, {
+  }, _react.default.createElement(_index.Select, {
     label: (0, _react3.text)('Label', 'Country'),
     id: "country",
     options: ['United States', 'Canada', 'New Jersey'],

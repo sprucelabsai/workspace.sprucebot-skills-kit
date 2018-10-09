@@ -27,6 +27,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
+var _velocityReact = require("velocity-react");
+
 var _Button = _interopRequireDefault(require("../Button/Button"));
 
 var _ButtonGroup = _interopRequireDefault(require("../ButtonGroup/ButtonGroup"));
@@ -68,12 +70,34 @@ function (_Component) {
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
       isVisible: false
     });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleHide", function (e) {
+      if (e.key === 'Escape' || e.target.contains(_this.ref)) {
+        _this.setState({
+          isVisible: false
+        }, function () {
+          return _this.manageListeners();
+        });
+      }
+    });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleToggle", function () {
       _this.setState(function (prevState) {
         return {
           isVisible: !prevState.isVisible
         };
+      }, function () {
+        return _this.manageListeners();
       });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "manageListeners", function () {
+      if (typeof window !== 'undefined') {
+        if (_this.state.isVisible) {
+          window.addEventListener('click', _this.handleHide, false);
+          window.addEventListener('keyup', _this.handleHide, false);
+        } else {
+          window.removeEventListener('click', _this.handleHide, false);
+          window.removeEventListener('keyup', _this.handleHide, false);
+        }
+      }
     });
     return _this;
   }
@@ -81,6 +105,8 @@ function (_Component) {
   (0, _createClass2.default)(ContextMenu, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var isVisible = this.state.isVisible;
       var _this$props = this.props,
           actions = _this$props.actions,
@@ -92,19 +118,37 @@ function (_Component) {
         'context-menu__menu-left': leftAlign
       });
       return _react.default.createElement("div", {
-        className: buttonClass
+        className: buttonClass,
+        ref: function ref(_ref) {
+          return _this2.ref = _ref;
+        }
       }, _react.default.createElement(_Button.default, {
         className: "context-menu__button",
         onClick: this.handleToggle,
         icon: _react.default.createElement(Icon, {
           className: "btn__line-icon"
         })
-      }), isVisible && _react.default.createElement("div", {
+      }), _react.default.createElement(_velocityReact.VelocityTransitionGroup, {
+        enter: {
+          animation: {
+            opacity: 1,
+            translateY: '4px'
+          },
+          duration: 200
+        },
+        leave: {
+          animation: {
+            opacity: 0,
+            translateY: '12px'
+          },
+          duration: 200
+        }
+      }, isVisible && _react.default.createElement("div", {
         className: menuClass
       }, _react.default.createElement(_ButtonGroup.default, {
         kind: "floating",
         actions: actions
-      })));
+      }))));
     }
   }]);
   return ContextMenu;

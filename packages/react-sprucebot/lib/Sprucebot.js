@@ -8,75 +8,35 @@ var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/obje
 
 var _Avatar = _interopRequireDefault(require("./components/Avatar/Avatar"));
 
-var _BotText = _interopRequireDefault(require("./components/BotText/BotText"));
-
 var _Button = _interopRequireDefault(require("./components/Button/Button"));
 
-var _Container = _interopRequireDefault(require("./components/Container/Container"));
+var _ButtonGroup = _interopRequireDefault(require("./components/ButtonGroup/ButtonGroup"));
 
-var _DateSelect = _interopRequireDefault(require("./components/DateSelect/DateSelect"));
+var Card = _interopRequireWildcard(require("./components/Card/Card"));
 
-var _DateRangeSelect = _interopRequireDefault(require("./components/DateRangeSelect/DateRangeSelect"));
+var _ContextMenu = _interopRequireDefault(require("./components/ContextMenu/ContextMenu"));
 
-var _Calendar = _interopRequireDefault(require("./components/Calendar/Calendar"));
+var _Core = require("./components/Core");
 
-var _BigCalendar = _interopRequireDefault(require("./components/Calendar/BigCalendar"));
+var _Dropzone = _interopRequireDefault(require("./components/Dropzone/Dropzone"));
 
-var _Input = _interopRequireDefault(require("./components/Input/Input"));
+var FormPartials = _interopRequireWildcard(require("./components/Forms/FormPartials"));
 
-var _Pre = _interopRequireDefault(require("./components/Pre/Pre"));
+var _Forms = require("./components/Forms");
 
-var _Switch = _interopRequireDefault(require("./components/Switch/Switch"));
+var _Container = _interopRequireDefault(require("./components/Layout/Container/Container"));
 
-var _Loader = _interopRequireDefault(require("./components/Loader/Loader"));
+var _List = _interopRequireWildcard(require("./components/List"));
 
-var _Form = _interopRequireDefault(require("./components/Form/Form"));
+var _Loader = _interopRequireDefault(require("./components/Forms/Loader/Loader"));
 
-var _LinkPile = _interopRequireDefault(require("./components/LinkPile/LinkPile"));
+var _Modal = _interopRequireDefault(require("./components/Modal/Modal"));
 
-var _Select = _interopRequireDefault(require("./components/Select/Select"));
+var _Tab = _interopRequireWildcard(require("./components/Tab"));
 
-var _SubmitWrapper = _interopRequireDefault(require("./components/SubmitWrapper/SubmitWrapper"));
+var _Toast = _interopRequireDefault(require("./components/Toast/Toast"));
 
-var _Pager = _interopRequireDefault(require("./components/Pager/Pager"));
-
-var _Stars = _interopRequireDefault(require("./components/Stars/Stars"));
-
-var _DevControls = _interopRequireDefault(require("./components/DevControls/DevControls"));
-
-var ButtonGrid = _interopRequireWildcard(require("./components/ButtonGrid/ButtonGrid"));
-
-var _StatsSlider = _interopRequireDefault(require("./components/StatsSlider/StatsSlider"));
-
-var _ImageCropper = _interopRequireDefault(require("./components/ImageCropper/ImageCropper"));
-
-var _TrainingGuide = _interopRequireDefault(require("./components/TrainingGuide/TrainingGuide"));
-
-var _Onboarding = _interopRequireDefault(require("./components/Onboarding/Onboarding"));
-
-var _Callout = _interopRequireDefault(require("./components/Callout/Callout"));
-
-var _Dialog = _interopRequireDefault(require("./components/Dialog/Dialog"));
-
-var _Error = _interopRequireDefault(require("./components/Error/Error"));
-
-var _Feed = _interopRequireWildcard(require("./components/Feed/Feed"));
-
-var _Icon = _interopRequireDefault(require("./components/Icon/Icon"));
-
-var _IconButton = _interopRequireDefault(require("./components/IconButton/IconButton"));
-
-var _ControlButton = _interopRequireDefault(require("./components/ControlButton/ControlButton"));
-
-var _Search = _interopRequireDefault(require("./components/Search/Search"));
-
-var _HelpButton = _interopRequireDefault(require("./components/HelpButton/HelpButton"));
-
-var Typography = _interopRequireWildcard(require("./components/Typography/Typography"));
-
-var List = _interopRequireWildcard(require("./components/List/List"));
-
-var Tabs = _interopRequireWildcard(require("./components/Tabs/Tabs"));
+var _View = _interopRequireDefault(require("./components/View/View"));
 
 var _skillskit = _interopRequireDefault(require("./skillskit"));
 
@@ -116,41 +76,38 @@ var Sprucebot = (0, _objectSpread2.default)({
   _document: _document2.default,
   Page: _Page.default,
   withStore: _withStore.default,
+  sharable: _sharable.default,
   Avatar: _Avatar.default,
-  BotText: _BotText.default,
   Button: _Button.default,
+  ButtonGroup: _ButtonGroup.default
+}, Card, {
+  Checkbox: _Forms.Checkbox,
   Container: _Container.default,
-  DateSelect: _DateSelect.default,
-  DateRangeSelect: _DateRangeSelect.default,
-  Calendar: _Calendar.default,
-  BigCalendar: _BigCalendar.default,
-  Input: _Input.default,
-  Pre: _Pre.default,
-  Switch: _Switch.default,
+  ContextMenu: _ContextMenu.default,
+  DomainInput: _Forms.DomainInput,
+  Dropzone: _Dropzone.default,
+  FooterPrimary: _Core.FooterPrimary
+}, FormPartials, {
+  HeaderPrimary: _Core.HeaderPrimary,
+  List: _List.default,
+  ListHeader: _List.ListHeader,
+  ListItem: _List.ListItem,
   Loader: _Loader.default,
-  LinkPile: _LinkPile.default,
-  Form: _Form.default,
-  Select: _Select.default,
-  SubmitWrapper: _SubmitWrapper.default,
-  Pager: _Pager.default,
-  StatsSlider: _StatsSlider.default,
-  ButtonGrid: ButtonGrid,
-  Stars: _Stars.default,
-  ImageCropper: _ImageCropper.default,
-  DevControls: _DevControls.default,
-  Callout: _Callout.default,
-  Feed: _Feed.default,
-  FeedItem: _Feed.FeedItem,
-  Dialog: _Dialog.default,
-  Error: _Error.default,
-  FeedAttachment: _Feed.FeedAttachment,
-  TrainingGuide: _TrainingGuide.default,
-  Onboarding: _Onboarding.default,
-  Icon: _Icon.default,
-  HelpButton: _HelpButton.default,
-  IconButton: _IconButton.default,
-  ControlButton: _ControlButton.default,
-  Search: _Search.default,
-  sharable: _sharable.default
-}, Typography, List, Tabs, ButtonGrid);
+  Modal: _Modal.default,
+  PhoneInput: _Forms.PhoneInput,
+  Radio: _Forms.Radio,
+  Search: _Forms.Search,
+  Select: _Forms.Select,
+  Sidebar: _Core.Sidebar,
+  Slider: _Forms.Slider,
+  SortableList: _List.SortableList,
+  Tabs: _Tab.default,
+  Tab: _Tab.Tab,
+  Tag: _Forms.Tag,
+  TextArea: _Forms.TextArea,
+  TextInput: _Forms.TextInput,
+  Toast: _Toast.default,
+  Toggle: _Forms.Toggle,
+  View: _View.default
+});
 module.exports = Sprucebot;

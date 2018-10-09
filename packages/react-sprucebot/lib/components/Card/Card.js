@@ -11,6 +11,8 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _react = _interopRequireDefault(require("react"));
 
+var _classnames = _interopRequireDefault(require("classnames"));
+
 var _Button = _interopRequireDefault(require("../Button/Button"));
 
 // NOTE: Cards should be built in a way that they can be created with JSON
@@ -27,7 +29,7 @@ var CardHeader = function CardHeader(props) {
   }, (labelText || labelIcon) && _react.default.createElement("div", {
     className: "card-header__label"
   }, labelIcon && _react.default.cloneElement(labelIcon, {
-    className: 'card-header__label-icon'
+    className: (0, _classnames.default)('card-header__label-icon', labelIcon.props.className)
   }), labelText && _react.default.createElement("span", {
     className: "card-header__label-text"
   }, labelText)), title && _react.default.createElement("h3", {
@@ -106,9 +108,6 @@ var CardBuilder = function CardBuilder(props) {
     }
   }), footer && _react.default.createElement(CardFooter, null, footerActions && footerActions.length > 0 && footerActions.map(function (action) {
     var Handler = CardBuilderKey[action.type];
-    console.log({
-      Handler: Handler
-    });
 
     if (!Handler || typeof Handler === 'undefined') {
       return null;
@@ -125,12 +124,18 @@ var CardBuilder = function CardBuilder(props) {
 exports.CardBuilder = CardBuilder;
 
 var Card = function Card(props) {
-  var children = props.children;
+  var children = props.children,
+      isCentered = props.isCentered;
   return _react.default.createElement("div", {
-    className: "card"
+    className: (0, _classnames.default)('card', {
+      'card-centered': isCentered
+    })
   }, children);
 };
 
 exports.Card = Card;
+Card.defaultProps = {
+  isCentered: false
+};
 var _default = Card;
 exports.default = _default;
