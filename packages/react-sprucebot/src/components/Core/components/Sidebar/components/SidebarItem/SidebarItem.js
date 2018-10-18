@@ -1,5 +1,6 @@
 // @flow
 import React from 'react'
+import type { Node } from 'react'
 import cx from 'classnames'
 import Button from '../../../../../Button/Button'
 
@@ -7,8 +8,9 @@ type ItemProps = {
 	text: string,
 	href: string,
 	action?: Object,
-	icon?: React.Node,
-	isCurrent?: boolean
+	icon?: Node,
+	isCurrent?: boolean,
+	items: Array<ItemProps>
 }
 
 export interface Props {
@@ -16,7 +18,7 @@ export interface Props {
 	text: string;
 	href: string;
 	action?: Object;
-	icon?: React.Node;
+	icon?: any;
 	isCurrent?: boolean;
 }
 

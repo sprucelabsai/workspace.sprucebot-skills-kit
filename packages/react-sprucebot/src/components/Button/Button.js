@@ -1,19 +1,21 @@
 // @flow
 import React from 'react'
+import type { Node, Element } from 'react'
 import cx from 'classnames'
 import Loader from '../Loader/Loader'
 
-type Props = {
-	className: string,
-	kind: string,
-	isSmall: boolean,
-	isFullWidth: boolean,
-	isLoading: boolean,
-	text: string,
-	href: string,
-	icon: any,
-	type?: string,
-	onClick?: Function
+export interface Props {
+	className?: string;
+	kind?: string;
+	isSmall?: boolean;
+	isFullWidth?: boolean;
+	isLoading?: boolean;
+	text?: string;
+	href?: string;
+	// TODO: Set a proper Flow type for inline svg
+	icon?: any;
+	type?: string;
+	onClick?: Function;
 }
 
 const Button = (props: Props) => {
@@ -78,7 +80,16 @@ const Button = (props: Props) => {
 }
 
 Button.defaultProps = {
-	type: 'button'
+	className: '',
+	kind: '',
+	isSmall: false,
+	isFullWidth: false,
+	isLoading: false,
+	text: '',
+	href: '',
+	icon: null,
+	type: 'button',
+	onClick: () => null
 }
 
 export default Button

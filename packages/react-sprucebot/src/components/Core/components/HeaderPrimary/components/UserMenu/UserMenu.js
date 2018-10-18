@@ -11,7 +11,8 @@ type Props = {
 	image: string,
 	name: string,
 	menuIsVisible: boolean,
-	toggleMenu: Function
+	toggleMenu: Function,
+	tel: string
 }
 
 const UserMenu = (props: Props) => {

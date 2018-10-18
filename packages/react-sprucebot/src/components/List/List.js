@@ -1,5 +1,6 @@
 // @flow
 import React, { Fragment } from 'react'
+import type { Node } from 'react'
 import cx from 'classnames'
 import ListHeader, {
 	Props as ListHeaderProps
@@ -8,7 +9,7 @@ import ListItem, {
 	Props as ListItemProps
 } from './components/ListItem/ListItem'
 
-export const ListWrapper = (props: { children: React.Node }) => (
+export const ListWrapper = (props: { children: Node }) => (
 	<div className="list-wrapper">{props.children}</div>
 )
 

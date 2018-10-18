@@ -6,6 +6,7 @@ import Button from '../../../Button/Button'
 export interface Props {
 	text: string;
 	isCurrent?: boolean;
+	panel?: Object;
 }
 
 const Tab = (props: Props) => {
@@ -24,7 +25,8 @@ const Tab = (props: Props) => {
 }
 
 Tab.defaultProps = {
-	isCurrent: false
+	isCurrent: false,
+	panel: null
 }
 
 export default Tab

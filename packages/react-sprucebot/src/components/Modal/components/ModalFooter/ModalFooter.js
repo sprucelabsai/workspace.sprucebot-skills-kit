@@ -1,10 +1,10 @@
 // @flow
 import React from 'react'
-import Button from '../../../Button/Button'
+import Button, { Props as ButtonProps } from '../../../Button/Button'
 
 export interface Props {
-	primaryAction: Object;
-	secondaryAction?: Object;
+	primaryAction: { ...ButtonProps };
+	secondaryAction?: { ...ButtonProps };
 }
 
 const ModalFooter = (props: Props) => {

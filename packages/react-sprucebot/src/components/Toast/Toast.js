@@ -45,7 +45,8 @@ const Toast = (props: Props) => {
 }
 
 Toast.defaultProps = {
-	kind: 'neutral'
+	kind: 'neutral',
+	onUndo: () => null
 }
 
 export default Toast

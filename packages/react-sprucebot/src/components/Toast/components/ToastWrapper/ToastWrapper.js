@@ -8,7 +8,7 @@ type Props = {
 	handleRemove: Function
 }
 
-const ToastWrapper = (props: props) => {
+const ToastWrapper = (props: Props) => {
 	const { toasts, handleRemove } = props
 
 	return (

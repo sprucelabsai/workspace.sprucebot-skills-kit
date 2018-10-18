@@ -1,5 +1,6 @@
 // @flow
 import React from 'react'
+import type { Node } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button from '../../../Button/Button'
@@ -11,9 +12,9 @@ export interface Props {
 	subtitle?: string;
 	avatar?: string;
 	image?: string;
-	icon?: React.Node;
+	icon?: any;
 	isDraggable?: boolean;
-	toggleId?: boolean;
+	toggleId?: string;
 	actions?: Array<Object>;
 }
 

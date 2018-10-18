@@ -26,8 +26,27 @@ const business = {
 }
 
 stories
-	.add('Default', () => <HeaderPrimary STORYBOOKdoNotWrap />)
-	.add('Logged In', () => <HeaderPrimary STORYBOOKdoNotWrap user={user} />)
+	.add('Default', () => (
+		<HeaderPrimary
+			STORYBOOKdoNotWrap
+			sidebarIsVisible={false}
+			toggleSidebarVisibility={() => null}
+		/>
+	))
+	.add('Logged In', () => (
+		<HeaderPrimary
+			STORYBOOKdoNotWrap
+			user={user}
+			sidebarIsVisible={false}
+			toggleSidebarVisibility={() => null}
+		/>
+	))
 	.add('Logged In to Business', () => (
-		<HeaderPrimary STORYBOOKdoNotWrap user={user} business={business} />
+		<HeaderPrimary
+			STORYBOOKdoNotWrap
+			user={user}
+			business={business}
+			sidebarIsVisible={false}
+			toggleSidebarVisibility={() => null}
+		/>
 	))

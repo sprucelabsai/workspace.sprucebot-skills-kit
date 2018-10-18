@@ -12,8 +12,10 @@ setOptions({
 
 addDecorator(story => {
 	if (
-		story().props.STORYBOOKdoNotWrap ||
-		(story().props.children && story().props.children.props.STORYBOOKdoNotWrap)
+		(story().props && story().props.STORYBOOKdoNotWrap) ||
+		(story().props.children &&
+			story().props.children.props &&
+			story().props.children.props.STORYBOOKdoNotWrap)
 	) {
 		return story()
 	}

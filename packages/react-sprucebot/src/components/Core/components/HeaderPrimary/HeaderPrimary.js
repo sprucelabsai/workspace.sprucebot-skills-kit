@@ -11,10 +11,10 @@ type State = {
 	isUserMenuVisible: boolean
 }
 type Props = {
-	user: Object,
-	business: Object,
+	user?: Object,
+	business?: Object,
 	toggleSidebarVisibility: Function,
-	sidebarIsVisble: boolean
+	sidebarIsVisible: boolean
 }
 
 export default class HeaderPrimary extends Component<Props, State> {

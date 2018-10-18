@@ -3,11 +3,13 @@
 import React from 'react'
 import TextInput from '../TextInput/TextInput'
 
-type Props = {}
+type Props = {
+	id: string
+}
 
 const DomainInput = (props: Props) => {
-	const { ...rest } = props
-	return <TextInput {...rest} />
+	const { id, ...rest } = props
+	return <TextInput id={id} {...rest} />
 }
 
 export default DomainInput

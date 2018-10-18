@@ -1,12 +1,13 @@
 // @flow
 import React from 'react'
+import type { Node } from 'react'
 import cx from 'classnames'
 
 type Props = {
-	children: React.Node,
-	className: ?string,
-	size: 'small' | 'medium',
-	center: ?boolean
+	children: Node,
+	className?: string,
+	size?: 'small' | 'medium',
+	center?: boolean
 }
 
 const Container = (props: Props) => {

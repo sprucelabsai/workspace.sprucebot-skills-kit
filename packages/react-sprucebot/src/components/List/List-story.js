@@ -101,7 +101,7 @@ type TabbedState = {
 
 const TestPanel = () => <div>Test Panel</div>
 
-class TabbedList extends Component<Props, State> {
+class TabbedList extends Component<TabbedProps, TabbedState> {
 	state = {
 		users: userList02,
 		tabs: [
@@ -216,7 +216,7 @@ stories
 	.add('Settings List', () => (
 		<Container size="small">
 			<List
-				header="Settings"
+				header={{ title: 'Settings' }}
 				items={[
 					{
 						title: 'Barber',
@@ -241,7 +241,7 @@ stories
 				]}
 			/>
 			<List
-				header="Settings"
+				header={{ title: 'Settings' }}
 				isSmall={boolean('Small', false)}
 				items={[
 					{

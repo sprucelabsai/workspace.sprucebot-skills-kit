@@ -2,15 +2,13 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 import { VelocityTransitionGroup } from 'velocity-react'
-import Button from '../Button/Button'
+import Button, { Props as ButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import Icon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
 
-type Props = {
-	actions: Array<{
-		text: string
-	}>,
-	leftAlign?: boolean
+export interface Props {
+	actions: Array<ButtonProps>;
+	leftAlign?: boolean;
 }
 
 type State = {

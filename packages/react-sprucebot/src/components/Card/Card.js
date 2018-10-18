@@ -1,16 +1,18 @@
 // @flow
 // NOTE: Cards should be built in a way that they can be created with JSON
-import React from 'react'
+import React, { Fragment } from 'react'
+import type { Element, Node } from 'react'
 import cx from 'classnames'
-import Button from '../Button/Button'
+import Button, { Props as ButtonProps } from '../Button/Button'
+import { Props as ContextMenuProps } from '../ContextMenu/ContextMenu'
 
 // Card Header
-type CardHeaderPros = {
+type CardHeaderProps = {
 	title?: string,
 	labelText?: string,
-	labelIcon?: React.Node,
-	actions?: React.Node,
-	contextMenu?: React.Node
+	labelIcon?: any,
+	actions?: Array<ButtonProps>,
+	contextMenu?: Node
 }
 
 export const CardHeader = (props: CardHeaderProps) => {
@@ -38,8 +40,14 @@ export const CardHeader = (props: CardHeaderProps) => {
 			)}
 			{(actions || contextMenu) && (
 				<div className="card-header__actions">
-					{actions}
-					{contextMenu}
+					<Fragment>
+						{actions &&
+							actions.length > 0 &&
+							actions.map(action => (
+								<Button key={action.text} kind="simple" {...action} />
+							))}
+						{contextMenu}
+					</Fragment>
 				</div>
 			)}
 		</div>
@@ -48,7 +56,7 @@ export const CardHeader = (props: CardHeaderProps) => {
 
 // Card Body
 type CardBodyProps = {
-	children: React.Node
+	children: Node
 }
 
 export const CardBody = (props: CardBodyProps) => {
@@ -66,7 +74,7 @@ CardHeader.defualtProps = {
 
 // Card Footer
 type CardFooterProps = {
-	children: React.Node
+	children: Node
 }
 
 export const CardFooter = (props: CardFooterProps) => {
@@ -81,7 +89,9 @@ export const CardFooter = (props: CardFooterProps) => {
 type CardBuilderProps = {
 	header: CardHeaderProps,
 	body: CardBodyProps,
-	footer?: CardFooterProps
+	footer?: {
+		actions: Array<ButtonProps>
+	}
 }
 
 const CardBuilderKey = {
@@ -92,26 +102,14 @@ export const CardBuilder = (props: CardBuilderProps) => {
 	const { header, body, footer } = props
 	const { title, labelText, labelIcon, actions: headerActions } = header
 	const { children } = body
-	const { actions: footerActions } = footer
+	const footerActions = footer && footer.actions
 	return (
 		<Card>
 			<CardHeader
 				title={title}
 				labelText={labelText}
 				labelIcon={labelIcon}
-				actions={
-					headerActions &&
-					headerActions.length > 0 &&
-					headerActions.map(action => {
-						const Handler = CardBuilderKey[action.type]
-
-						if (!Handler || typeof Handler === 'undefined') {
-							return null
-						}
-
-						return <Handler key={action.text} kind="simple" {...action} />
-					})
-				}
+				actions={headerActions}
 			/>
 			<div
 				className="card__body-inner"
@@ -119,27 +117,32 @@ export const CardBuilder = (props: CardBuilderProps) => {
 			/>
 			{footer && (
 				<CardFooter>
-					{footerActions &&
-						footerActions.length > 0 &&
-						footerActions.map(action => {
-							const Handler = CardBuilderKey[action.type]
+					{footerActions && footerActions.length > 0
+						? footerActions.map(action => {
+								const Handler =
+									action && action.type && CardBuilderKey[action.type]
 
-							if (!Handler || typeof Handler === 'undefined') {
-								return null
-							}
+								if (!Handler || typeof Handler === 'undefined') {
+									return null
+								}
 
-							return <Handler key={action.text} kind="simple" {...action} />
-						})}
+								return <Handler key={action.text} kind="simple" {...action} />
+						  })
+						: null}
 				</CardFooter>
 			)}
 		</Card>
 	)
 }
 
+CardBuilder.defaultProps = {
+	footer: null
+}
+
 // Card
 type CardProps = {
-	children: React.Node,
-	isCentered?: false
+	children: Node,
+	isCentered?: boolean
 }
 
 export const Card = (props: CardProps) => {

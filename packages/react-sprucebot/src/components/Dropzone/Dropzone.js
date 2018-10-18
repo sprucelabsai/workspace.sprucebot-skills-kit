@@ -15,27 +15,32 @@ type Props = {
 	buttonText: string,
 	error: string,
 	uploadProgress: number,
-	onDragEnter: ?Function,
-	onDragLeave: ?Function,
-	onDragOver: ?Function,
-	onDrop: ?Function,
+	onDragEnter?: Function,
+	onDragLeave?: Function,
+	onDragOver?: Function,
+	onDrop?: Function,
 	onDropAccepted: Function,
-	onDropRejected: ?Function,
-	onFileDialogCancel: ?Function,
+	onDropRejected?: Function,
+	onFileDialogCancel?: Function,
+	onDragStart?: Function,
 	label: ?string,
-	postLabel: ?string,
-	isSmall: ?boolean,
-	isCircular: ?boolean,
-	fileWasUploaded: ?boolean
+	postLabel?: string,
+	isSmall?: boolean,
+	isCircular?: boolean,
+	fileWasUploaded?: boolean,
+	helper?: string
 }
 
-type State = {}
+type State = {
+	userCanDrop: boolean
+}
 
 export default class Dropzone extends Component<Props, State> {
 	dropzone: any
 
 	static defaultProps = {
-		fileWasUploaded: false
+		fileWasUploaded: false,
+		isSmall: false
 	}
 
 	onDragEnter = (e: any) => {

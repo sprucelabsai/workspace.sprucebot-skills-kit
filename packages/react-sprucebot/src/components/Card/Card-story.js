@@ -58,9 +58,13 @@ stories
 					}
 					title={text('Title', 'Get the most out of Spruce')}
 					actions={
-						boolean('Header Action', false) && (
-							<Button kind="simple" text="Go to team" isSmall />
-						)
+						boolean('Header Action', false) && [
+							{
+								kind: 'simple',
+								text: 'Go to team',
+								isSmall: true
+							}
+						]
 					}
 					contextMenu={
 						boolean('Header Context Menu', false) && (
@@ -89,7 +93,13 @@ stories
 			<Card>
 				<CardHeader
 					title="Add your teammates"
-					actions={<Button kind="simple" text="Go to team" isSmall />}
+					actions={[
+						{
+							kind: 'simple',
+							text: 'Go to team',
+							isSmall: true
+						}
+					]}
 				/>
 				<CardBody>
 					Whatever you can do, or dream you can, begin it. Boldness has genius,

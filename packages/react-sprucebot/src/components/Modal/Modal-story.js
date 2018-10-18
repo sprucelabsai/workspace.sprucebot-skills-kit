@@ -54,7 +54,9 @@ class ModalExample extends Component<Props, State> {
 					<Modal.Header
 						title={title}
 						onRequestClose={this.onRequestClose}
-						handleGoBack={canGoBack ? () => console.log('take me home') : null}
+						handleGoBack={
+							canGoBack ? () => console.log('take me home') : () => null
+						}
 					/>
 					<form>
 						<Modal.Body>

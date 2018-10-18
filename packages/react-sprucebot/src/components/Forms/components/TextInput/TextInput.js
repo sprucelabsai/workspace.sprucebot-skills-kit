@@ -5,15 +5,15 @@ import { InputPre, InputInner, InputHelper } from '../../FormPartials'
 
 type Props = {
 	id: string,
-	className: ?string,
-	label: ?string,
-	postLabel: ?string,
-	kind: ?string,
-	iconBefore: ?any,
-	iconAfter: ?any,
-	appendix: ?string,
-	error: ?string,
-	helper: ?string
+	className?: string,
+	label?: string,
+	postLabel?: string,
+	kind?: string,
+	iconBefore?: any,
+	iconAfter?: any,
+	appendix?: string,
+	error?: string,
+	helper?: string
 }
 
 const TextInput = (props: Props) => {

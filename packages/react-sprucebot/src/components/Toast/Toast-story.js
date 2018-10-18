@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react'
+import type { Node } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
@@ -10,7 +11,7 @@ import ToastWrapper from './components/ToastWrapper/ToastWrapper'
 const stories = storiesOf('Toast', module)
 
 type Props = {
-	children: React.Node
+	children: Node
 }
 
 type State = {

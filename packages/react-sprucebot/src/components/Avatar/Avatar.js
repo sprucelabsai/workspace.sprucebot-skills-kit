@@ -11,8 +11,8 @@ type Props = {
 	status?: 'online' | 'offline',
 	name?: string,
 	text?: string,
-	width?: number,
-	height?: number
+	width?: ?number,
+	height?: ?number
 }
 
 const Avatar = (props: Props) => {

@@ -8,7 +8,7 @@ type Props = {
 	tabs: Array<TabProps>
 }
 
-const Tabs = (props: props) => {
+const Tabs = (props: Props) => {
 	const { tabs } = props
 	const hiddenTabs = []
 	const activeTab = tabs.find(tab => tab.isCurrent)

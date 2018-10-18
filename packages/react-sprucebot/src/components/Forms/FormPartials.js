@@ -22,11 +22,11 @@ export const InputPre = (props: InputPreProps) => {
 }
 
 type InputInnerProps = {
-	kind: string,
+	kind?: string,
 	iconBefore: any,
 	iconAfter: any,
-	appendix: string,
-	handleClear: ?Function
+	appendix?: string,
+	handleClear?: Function
 }
 
 export const InputInner = (props: InputInnerProps) => {
@@ -37,7 +37,6 @@ export const InputInner = (props: InputInnerProps) => {
 				React.cloneElement(iconBefore, {
 					className: 'text-input__icon-pre'
 				})}
-			{kind === 'phone-number' && <CountryInput />}
 			{kind === 'credit-card' && <p>CC</p>}
 			<input className="text-input__input" {...rest} />
 			{appendix && <p className="text-input__appendix">{appendix}</p>}
@@ -53,8 +52,8 @@ export const InputInner = (props: InputInnerProps) => {
 }
 
 type InputHelperProps = {
-	error: string,
-	helper: string
+	error?: string,
+	helper?: string
 }
 
 export const InputHelper = (props: InputHelperProps) => {

@@ -7,14 +7,15 @@ import {
 	arrayMove
 } from 'react-sortable-hoc'
 import ListHeader from '../ListHeader/ListHeader'
-import ListItem from '../ListItem/ListItem'
+import ListItem, { Props as ListItemProps } from '../ListItem/ListItem'
 import { Props as ListProps } from '../../List'
 
 type Props = {
-	onConfirm: Function,
+	onConfirm?: Function,
 	...ListProps
 }
 type State = {
+	items: Array<ListItemProps>,
 	isSorting: boolean
 }
 const SortableItem = SortableElement(({ item }) => <ListItem {...item} />)
@@ -64,7 +65,7 @@ const headerActions = ({
 
 export default class SortableComponent extends Component<Props, State> {
 	state = {
-		items: this.props.items,
+		items: this.props.items || [],
 		isSorting: false
 	}
 
@@ -87,14 +88,16 @@ export default class SortableComponent extends Component<Props, State> {
 			isSorting: false
 		})
 		// Do other stuff with the API to save changes
-		onConfirm()
+		if (onConfirm) {
+			onConfirm()
+		}
 	}
 
 	onSortStart = () => {
 		//
 	}
 
-	onSortEnd = ({ oldIndex, newIndex }) => {
+	onSortEnd = ({ oldIndex, newIndex }: Object) => {
 		this.setState({
 			items: arrayMove(this.state.items, oldIndex, newIndex)
 		})

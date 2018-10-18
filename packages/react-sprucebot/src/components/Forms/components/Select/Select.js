@@ -7,12 +7,12 @@ import { InputPre, InputHelper } from '../../FormPartials'
 type Props = {
 	id: string,
 	options: Array<string>,
-	isSimple: ?boolean,
-	className: ?string,
-	label: ?string,
-	postLabel: ?string,
-	error: ?string,
-	helper: ?string
+	isSimple?: boolean,
+	className?: string,
+	label?: string,
+	postLabel?: string,
+	error?: string,
+	helper?: string
 }
 
 const Select = (props: Props) => {

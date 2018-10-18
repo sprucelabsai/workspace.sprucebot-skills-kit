@@ -14,7 +14,8 @@ type State = {
 
 export default class PhoneInput extends Component<Props, State> {
 	state = {
-		phone: ''
+		phone: '',
+		error: ''
 	}
 	handleChange = (phoneNumber: string) => {
 		this.setState({

@@ -10,7 +10,7 @@ type GroupProps = {
 	kind: string
 }
 
-const ButtonGroup = (props: GroupProps) => {
+const ButtonGroup = (props: GroupProps = { kind: '' }) => {
 	const btnText = text('Text', 'Hello World')
 	const isSmall = boolean('Small', false)
 	const isFullWidth = boolean('Full Width', false)
@@ -21,14 +21,15 @@ const ButtonGroup = (props: GroupProps) => {
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
 				text={btnText}
-				kind={props.kind}
+				kind={props.kind || ''}
+				isFullWidth={false}
 			/>
 			<Button
 				className="l-mr-small l-mb-small"
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
 				text={`Link ${btnText}`}
-				kind={props.kind}
+				kind={props.kind || ''}
 				href="#"
 				target="_blank"
 			/>
@@ -37,7 +38,7 @@ const ButtonGroup = (props: GroupProps) => {
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
 				text={btnText}
-				kind={props.kind}
+				kind={props.kind || ''}
 				disabled
 			/>
 			<Button
@@ -45,7 +46,7 @@ const ButtonGroup = (props: GroupProps) => {
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
 				text={btnText}
-				kind={props.kind}
+				kind={props.kind || ''}
 				disabled
 				isLoading
 			/>
@@ -54,14 +55,14 @@ const ButtonGroup = (props: GroupProps) => {
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
 				text={btnText}
-				kind={props.kind}
+				kind={props.kind || ''}
 				icon={<Icon11 className="btn__line-icon" />}
 			/>
 			<Button
 				className="l-mr-small l-mb-small"
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
-				kind={props.kind}
+				kind={props.kind || ''}
 				icon={<Icon11 className="btn__line-icon" />}
 			/>
 		</Fragment>

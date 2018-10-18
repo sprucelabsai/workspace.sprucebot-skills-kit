@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react'
+import type { Node } from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
 import Sidebar from '../Core/components/Sidebar/Sidebar'
@@ -8,7 +9,7 @@ type Props = {
 	sidebarItems: Array<Object>,
 	user: Object,
 	business: Object,
-	children: React.Node
+	children: Node
 }
 type State = {
 	sidebarIsVisible: boolean,
