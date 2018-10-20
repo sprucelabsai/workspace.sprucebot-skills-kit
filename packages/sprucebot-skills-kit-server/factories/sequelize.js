@@ -25,6 +25,10 @@ module.exports = (
 		...{ ...options, dialect: database.dialect }
 	}
 	const sequelize = new Sequelize(database.url, sqlOptions)
+
+	// Add sequelize logger
+	logger.sequelizeHooks(sequelize)
+
 	const coreModels = fs
 		.readdirSync(defaultModelsDir)
 		.filter(filterFile)

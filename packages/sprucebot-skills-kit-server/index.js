@@ -5,6 +5,7 @@ const Router = require('koa-router')
 const cron = require('node-cron')
 const _ = require('lodash')
 const bodyParser = require('koa-bodyparser')
+const logger = require('@sprucelabs/log')
 const { version } = require('./package.json')
 const defaultErrors = require('./support/errors')
 const glob = require('glob')
@@ -37,7 +38,17 @@ module.exports = async ({
 	sequelizeOptions,
 	langDir = required('langDir'),
 	staticDir = false,
-	bodyParserOptions = { jsonLimit: '1mb' }
+	bodyParserOptions = { jsonLimit: '1mb' },
+	slug = required('slug'),
+	logLevel = 'warn',
+	env = 'default',
+	packageName,
+	packageVersion,
+	metricsAppKey,
+	metricsUrl,
+	metricsEnabled,
+	metricsRequestsDisabled,
+	metricsServerStatsDisabled
 }) => {
 	debug('Starting server boot sequence with port', port)
 	// you can override error messages
@@ -67,6 +78,31 @@ module.exports = async ({
 	await app.prepare()
 
 	const koa = new Koa()
+
+	// Set up global logger
+	global.logger = logger
+	const log = logger.log
+	log.setOptions({
+		level: logLevel,
+		useSourcemaps: false,
+		appName: slug,
+		appKey: metricsAppKey,
+		appEnv: env,
+		packageName,
+		packageVersion,
+		metricsUrl,
+		metricsEnabled
+	})
+	global.log = log
+	if (metricsEnabled && !metricsRequestsDisabled) {
+		// Log request stats
+		koa.use(logger.middleware.requests())
+	}
+
+	if (metricsEnabled && !metricsServerStatsDisabled) {
+		// Log OS stats
+		logger.nodeMetrics()
+	}
 
 	/*=======================================
         =             	BASICS   	            =
