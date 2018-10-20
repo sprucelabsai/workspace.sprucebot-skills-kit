@@ -32,7 +32,8 @@ const {
 	METRICS_URL,
 	METRICS_ENABLED,
 	METRICS_REQUESTS_DISABLED,
-	METRICS_SERVER_STATS_DISABLED
+	METRICS_SERVER_STATS_DISABLED,
+	METRICS_SEQUELIZE_DISABLED
 } = require('config')
 
 if (process.env.ENABLE_SWAGGER_DOCS === 'true') {
@@ -95,7 +96,8 @@ setTimeout(async () => {
 		metricsUrl: METRICS_URL,
 		metricsEnabled: METRICS_ENABLED,
 		metricsRequestsDisabled: METRICS_REQUESTS_DISABLED,
-		metricsServerStatsDisabled: METRICS_SERVER_STATS_DISABLED
+		metricsServerStatsDisabled: METRICS_SERVER_STATS_DISABLED,
+		metricsSequelizeDisabled: METRICS_SEQUELIZE_DISABLED
 	})
 	ready = true
 }, 2000)

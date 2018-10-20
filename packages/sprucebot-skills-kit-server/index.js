@@ -48,7 +48,8 @@ module.exports = async ({
 	metricsUrl,
 	metricsEnabled,
 	metricsRequestsDisabled,
-	metricsServerStatsDisabled
+	metricsServerStatsDisabled,
+	metricsSequelizeDisabled
 }) => {
 	debug('Starting server boot sequence with port', port)
 	// you can override error messages
@@ -94,14 +95,25 @@ module.exports = async ({
 		metricsEnabled
 	})
 	global.log = log
+
+	if (metricsEnabled) {
+		log.info('Metrics: enabled')
+	} else {
+		log.info('Metrics: disabled')
+	}
+
 	if (metricsEnabled && !metricsRequestsDisabled) {
 		// Log request stats
 		koa.use(logger.middleware.requests())
+	} else {
+		log.info('Metrics: Request middleware disabled')
 	}
 
 	if (metricsEnabled && !metricsServerStatsDisabled) {
 		// Log OS stats
 		logger.nodeMetrics()
+	} else {
+		log.info('Metrics: Server stats disabled')
 	}
 
 	/*=======================================
@@ -167,7 +179,12 @@ module.exports = async ({
 		// orm if enabled
 		if (syncResponse.database) {
 			sequelizeFactory(
-				{ ...sequelizeOptions, database: syncResponse.database },
+				{
+					...sequelizeOptions,
+					database: syncResponse.database,
+					metricsEnabled,
+					metricsSequelizeDisabled
+				},
 				'db',
 				koa.context
 			)
