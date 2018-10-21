@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.6.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.5.0...v7.6.0) (2018-10-21)
+
+
+### Features
+
+* Implement sprucebot logger and audit log ([3db6d36](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3db6d36))
+
+
+
+
+
 # [7.5.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.4.4...v7.5.0) (2018-10-08)
 
 **Note:** Version bump only for package @sprucelabs/sprucebot-node
