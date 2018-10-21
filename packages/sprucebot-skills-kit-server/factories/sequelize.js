@@ -15,7 +15,15 @@ function filterFile(file) {
 }
 
 module.exports = (
-	{ runMigrations, modelsDir, migrationsDir, database, options },
+	{
+		runMigrations,
+		modelsDir,
+		migrationsDir,
+		database,
+		metricsEnabled,
+		metricsSequelizeDisabled,
+		options
+	},
 	key,
 	ctx
 ) => {
@@ -25,6 +33,14 @@ module.exports = (
 		...{ ...options, dialect: database.dialect }
 	}
 	const sequelize = new Sequelize(database.url, sqlOptions)
+
+	// Add sequelize logger
+	if (metricsEnabled && !metricsSequelizeDisabled) {
+		logger.sequelizeHooks(sequelize)
+	} else {
+		log.info('Metrics: Sequelize hooks disabled')
+	}
+
 	const coreModels = fs
 		.readdirSync(defaultModelsDir)
 		.filter(filterFile)

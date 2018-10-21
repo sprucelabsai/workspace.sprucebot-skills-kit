@@ -2,7 +2,6 @@ const skillPackage = require('../package.json')
 const path = require('path')
 const serve = require('@sprucelabs/sprucebot-skills-kit-server')
 const Sprucebot = require('@sprucelabs/sprucebot-node')
-const log = require('@barbershopio/iso-log')
 const generateSwaggerDocs = require('./swagger/swagger')
 const _ = require('lodash')
 
@@ -24,29 +23,18 @@ const {
 	bodyParserOptions,
 	sequelizeOptions,
 	eventContract,
-	LOG_LEVEL
+	SLUG,
+	LOG_LEVEL,
+	ENV,
+	PACKAGE_NAME,
+	PACKAGE_VERSION,
+	METRICS_APP_KEY,
+	METRICS_URL,
+	METRICS_ENABLED,
+	METRICS_REQUESTS_DISABLED,
+	METRICS_SERVER_STATS_DISABLED,
+	METRICS_SEQUELIZE_DISABLED
 } = require('config')
-
-// Set up global logger
-const validLevels = [
-	'trace',
-	'debug',
-	'info',
-	'warn',
-	'crit',
-	'fatal',
-	'superInfo'
-]
-let level = 'warn'
-if (LOG_LEVEL && _.includes(validLevels, LOG_LEVEL)) {
-	level = LOG_LEVEL
-}
-
-log.setOptions({
-	level,
-	useSourcemaps: false
-})
-global.log = log
 
 if (process.env.ENABLE_SWAGGER_DOCS === 'true') {
 	generateSwaggerDocs()
@@ -98,7 +86,18 @@ setTimeout(async () => {
 		langDir: path.join(__dirname, '..', 'interface', 'lang'),
 		bodyParserOptions,
 		sequelizeOptions,
-		errors
+		errors,
+		slug: SLUG,
+		logLevel: LOG_LEVEL,
+		env: ENV,
+		packageName: PACKAGE_NAME,
+		packageVersion: PACKAGE_VERSION,
+		metricsAppKey: METRICS_APP_KEY,
+		metricsUrl: METRICS_URL,
+		metricsEnabled: METRICS_ENABLED,
+		metricsRequestsDisabled: METRICS_REQUESTS_DISABLED,
+		metricsServerStatsDisabled: METRICS_SERVER_STATS_DISABLED,
+		metricsSequelizeDisabled: METRICS_SEQUELIZE_DISABLED
 	})
 	ready = true
 }, 2000)

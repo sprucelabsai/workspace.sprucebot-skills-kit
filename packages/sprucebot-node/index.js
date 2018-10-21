@@ -650,6 +650,20 @@ class Sprucebot {
 			throw new Error('INVALID_EVENT_CONTRACT')
 		}
 	}
+
+	/**
+	 * Audit log or logs to send
+	 *
+	 * @param auditLogs
+	 */
+	async audit(auditLogs) {
+		if (!Array.isArray(auditLogs)) {
+			auditLogs = [auditLogs]
+		}
+		const result = await this.https.post(`/audit`, auditLogs)
+
+		return result
+	}
 }
 
 module.exports = Sprucebot

@@ -12,3 +12,9 @@ In your `.env` you'll need to set the following variables to use caching:
 `DEFAULT_TTL_SEC=300`
 
 `REDIS_URL=redis://10.200.10.1:6379`
+
+## Usage
+
+```js
+// TODO: Add docs on cache usage
+```

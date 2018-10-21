@@ -3,6 +3,7 @@ const path = require('path')
 const { omit, pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
+const packageJSON = require('../package.json')
 // Check for .env
 try {
 	require('dotenv').config()
@@ -12,6 +13,17 @@ try {
 
 module.exports = {
 	DEV_MODE: process.env.DEV_MODE === 'true',
+	ENV: process.env.ENV || 'default',
+	PACKAGE_NAME: packageJSON.name,
+	PACKAGE_VERSION: packageJSON.version,
+	LOG_LEVEL: process.env.LOG_LEVEL || 'warn',
+	METRICS_APP_KEY: process.env.METRICS_APP_KEY,
+	METRICS_URL: process.env.METRICS_URL,
+	METRICS_ENABLED: process.env.METRICS_ENABLED === 'true',
+	METRICS_REQUESTS_DISABLED: process.env.METRICS_REQUESTS_DISABLED === 'true',
+	METRICS_SERVER_STATS_DISABLED:
+		process.env.METRICS_SERVER_STATS_DISABLED === 'true',
+	METRICS_SEQUELIZE_DISABLED: process.env.METRICS_SEQUELIZE_DISABLED === 'true',
 	API_HOST: process.env.API_HOST,
 	API_KEY: process.env.API_KEY,
 	SKILL_STYLESHEET: process.env.SKILL_STYLESHEET,
@@ -146,6 +158,11 @@ module.exports = {
 			'log_colors',
 			'nextConfig',
 			'WHITELABEL',
-			'SLUG'
+			'SLUG',
+			'PACKAGE_NAME',
+			'PACKAGE_VERSION',
+			'LOG_LEVEL',
+			'ENV',
+			'METRICS_URL'
 		])
 }
