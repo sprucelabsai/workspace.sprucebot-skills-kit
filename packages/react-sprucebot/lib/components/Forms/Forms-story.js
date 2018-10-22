@@ -158,4 +158,9 @@ stories.add('Text Input', function () {
     error: (0, _react3.text)('Error', ''),
     disabled: (0, _react3.boolean)('Disabled', false)
   })));
+}).add('Date Picker', function () {
+  return _react.default.createElement(_index.DatePicker, {
+    id: "TESTS",
+    numberOfMonths: 1
+  });
 });

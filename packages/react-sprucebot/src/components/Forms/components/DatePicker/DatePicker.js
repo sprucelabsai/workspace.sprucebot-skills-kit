@@ -1,9 +1,11 @@
 // @flow
 import React, { Component } from 'react'
 import 'react-dates/initialize'
-import 'react-dates/lib/css/_datepicker.css'
 import { SingleDatePicker } from 'react-dates'
 import moment from 'moment'
+import Button from '../../../Button/Button'
+import ArrowNext from '../../../../../static/assets/icons/ic_arrow_forward.svg'
+import ArrowBack from '../../../../../static/assets/icons/ic_arrow_back.svg'
 
 export interface Props {}
 
@@ -39,6 +41,8 @@ export default class DatePicker extends Component<Props, State> {
 				focused={isFocused}
 				onDateChange={date => this.handleDateChange(date)}
 				onFocusChange={this.toggleFocus}
+				navNext={<ArrowNext />}
+				navPrev={<ArrowBack />}
 				{...rest}
 			/>
 		)

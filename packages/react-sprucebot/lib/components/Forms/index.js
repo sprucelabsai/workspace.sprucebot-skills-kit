@@ -11,6 +11,12 @@ Object.defineProperty(exports, "Checkbox", {
     return _Checkbox2.default;
   }
 });
+Object.defineProperty(exports, "DatePicker", {
+  enumerable: true,
+  get: function get() {
+    return _DatePicker2.default;
+  }
+});
 Object.defineProperty(exports, "DomainInput", {
   enumerable: true,
   get: function get() {
@@ -79,6 +85,8 @@ Object.defineProperty(exports, "Toggle", {
 });
 
 var _Checkbox2 = _interopRequireDefault(require("./components/Checkbox/Checkbox"));
+
+var _DatePicker2 = _interopRequireDefault(require("./components/DatePicker/DatePicker"));
 
 var _DomainInput2 = _interopRequireDefault(require("./components/DomainInput/DomainInput"));
 
