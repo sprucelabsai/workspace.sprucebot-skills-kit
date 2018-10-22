@@ -12,6 +12,7 @@ import {
 	Search,
 	Select,
 	Slider,
+	Stars,
 	Tag,
 	TextArea,
 	TextInput,
@@ -200,3 +201,4 @@ stories
 		</Fragment>
 	))
 	.add('Date Picker', () => <DatePicker id="TESTS" numberOfMonths={1} />)
+	.add('Stars', () => <Stars />)

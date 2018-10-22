@@ -110,7 +110,7 @@ function (_Component) {
           isFocused = _this$state.isFocused,
           date = _this$state.date;
       var rest = (0, _extends2.default)({}, this.props);
-      return _react.default.createElement(_reactDates.SingleDatePicker, (0, _extends2.default)({
+      return _react.default.createElement(_reactDates.DayPickerSingleDateController, (0, _extends2.default)({
         date: date,
         focused: isFocused,
         onDateChange: function onDateChange(date) {
