@@ -16,7 +16,15 @@ var _index = require("./index");
 
 var stories = (0, _react2.storiesOf)('Forms', module);
 stories.addDecorator(_react3.withKnobs);
-stories.add('Text Input', function () {
+stories.add('Autosuggest', function () {
+  return _react.default.createElement(_index.Autosuggest, {
+    placeholder: "Countries",
+    defaultSuggestions: ['United States', 'Canada', 'Mexico', 'Greenland'],
+    shouldRenderSuggestions: function shouldRenderSuggestions() {
+      return true;
+    }
+  });
+}).add('Text Input', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_index.TextInput, {

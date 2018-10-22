@@ -5,6 +5,12 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+Object.defineProperty(exports, "Autosuggest", {
+  enumerable: true,
+  get: function get() {
+    return _Autosuggest2.default;
+  }
+});
 Object.defineProperty(exports, "Checkbox", {
   enumerable: true,
   get: function get() {
@@ -89,6 +95,8 @@ Object.defineProperty(exports, "Toggle", {
     return _Toggle2.default;
   }
 });
+
+var _Autosuggest2 = _interopRequireDefault(require("./components/Autosuggest/Autosuggest"));
 
 var _Checkbox2 = _interopRequireDefault(require("./components/Checkbox/Checkbox"));
 

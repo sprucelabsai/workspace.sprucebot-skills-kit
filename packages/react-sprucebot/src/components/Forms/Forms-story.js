@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
+import Button from '../Button/Button'
 import {
 	Autosuggest,
 	Checkbox,
@@ -19,6 +20,15 @@ import {
 	TextInput,
 	Toggle
 } from './index'
+import countries from '../../../.storybook/data/countries'
+
+const renderSuggestion = (suggestion: any) => (
+	<Button
+		isSmall
+		className="autosuggest__list-item-inner"
+		text={suggestion.text}
+	/>
+)
 
 const stories = storiesOf('Forms', module)
 
@@ -26,11 +36,28 @@ stories.addDecorator(withKnobs)
 
 stories
 	.add('Autosuggest', () => (
-		<Autosuggest
-			placeholder="Countries"
-			defaultSuggestions={['United States', 'Canada', 'Mexico', 'Greenland']}
-			shouldRenderSuggestions={() => true}
-		/>
+		<Container size="small">
+			<Autosuggest
+				inputPre={{
+					label: 'Country'
+				}}
+				inputHelper={{
+					helper: 'We use this information to improve your shopping experience.'
+				}}
+				placeholder="Select your country"
+				defaultSuggestions={countries}
+				shouldRenderSuggestions={() => true}
+				renderSuggestion={renderSuggestion}
+				getSuggestionValue={value => value.text}
+				getSuggestions={value =>
+					countries.filter(
+						suggestion =>
+							suggestion.text.toLowerCase().slice(0, value.length) ===
+							value.toLowerCase()
+					)
+				}
+			/>
+		</Container>
 	))
 	.add('Text Input', () => (
 		<Fragment>

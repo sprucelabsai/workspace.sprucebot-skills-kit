@@ -3,10 +3,10 @@ import React from 'react'
 import Button from '../../components/Button/Button'
 import DropdownArrow from '../../../static/assets/icons/ic_arrow_drop_down.svg'
 
-type InputPreProps = {
-	id: string,
-	label: string,
-	postLabel: ?string
+export interface InputPreProps {
+	id: string;
+	label: string;
+	postLabel: ?string;
 }
 
 export const InputPre = (props: InputPreProps) => {
@@ -21,12 +21,12 @@ export const InputPre = (props: InputPreProps) => {
 	)
 }
 
-type InputInnerProps = {
-	kind?: string,
-	iconBefore: any,
-	iconAfter: any,
-	appendix?: string,
-	handleClear?: Function
+export interface InputInnerProps {
+	kind?: string;
+	iconBefore: any;
+	iconAfter: any;
+	appendix?: string;
+	handleClear?: Function;
 }
 
 export const InputInner = (props: InputInnerProps) => {
@@ -51,9 +51,9 @@ export const InputInner = (props: InputInnerProps) => {
 	)
 }
 
-type InputHelperProps = {
-	error?: string,
-	helper?: string
+export interface InputHelperProps {
+	error?: string;
+	helper?: string;
 }
 
 export const InputHelper = (props: InputHelperProps) => {
