@@ -163,4 +163,6 @@ stories.add('Text Input', function () {
     id: "TESTS",
     numberOfMonths: 1
   });
+}).add('Stars', function () {
+  return _react.default.createElement(_index.Stars, null);
 });

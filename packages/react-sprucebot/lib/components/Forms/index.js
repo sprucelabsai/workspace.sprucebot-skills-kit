@@ -59,6 +59,12 @@ Object.defineProperty(exports, "Slider", {
     return _Slider2.default;
   }
 });
+Object.defineProperty(exports, "Stars", {
+  enumerable: true,
+  get: function get() {
+    return _Stars2.default;
+  }
+});
 Object.defineProperty(exports, "Tag", {
   enumerable: true,
   get: function get() {
@@ -101,6 +107,8 @@ var _Search2 = _interopRequireDefault(require("./components/Search/Search"));
 var _Select2 = _interopRequireDefault(require("./components/Select/Select"));
 
 var _Slider2 = _interopRequireDefault(require("./components/Slider/Slider"));
+
+var _Stars2 = _interopRequireDefault(require("./components/Stars/Stars"));
 
 var _Tag2 = _interopRequireDefault(require("./components/Tag/Tag"));
 
