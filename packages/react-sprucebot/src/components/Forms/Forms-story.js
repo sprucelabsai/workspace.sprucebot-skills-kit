@@ -5,6 +5,7 @@ import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
 import {
 	Checkbox,
+	DatePicker,
 	DomainInput,
 	PhoneInput,
 	Radio,
@@ -198,3 +199,4 @@ stories
 			</Container>
 		</Fragment>
 	))
+	.add('Date Picker', () => <DatePicker id="TESTS" numberOfMonths={1} />)

@@ -1,4 +1,5 @@
 import Checkbox from './components/Checkbox/Checkbox'
+import DatePicker from './components/DatePicker/DatePicker'
 import DomainInput from './components/DomainInput/DomainInput'
 import FormRow from './components/FormRow/FormRow'
 import PhoneInput from './components/PhoneInput/PhoneInput'
@@ -12,6 +13,7 @@ import TextInput from './components/TextInput/TextInput'
 import Toggle from './components/Toggle/Toggle'
 
 export Checkbox from './components/Checkbox/Checkbox'
+export DatePicker from './components/DatePicker/DatePicker'
 export DomainInput from './components/DomainInput/DomainInput'
 export FormRow from './components/FormRow/FormRow'
 export PhoneInput from './components/PhoneInput/PhoneInput'
