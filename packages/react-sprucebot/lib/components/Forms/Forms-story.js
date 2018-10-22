@@ -12,18 +12,47 @@ var _react3 = require("@storybook/addon-knobs/react");
 
 var _Container = _interopRequireDefault(require("../Layout/Container/Container"));
 
+var _Button = _interopRequireDefault(require("../Button/Button"));
+
 var _index = require("./index");
+
+var _countries = _interopRequireDefault(require("../../../.storybook/data/countries"));
+
+var renderSuggestion = function renderSuggestion(suggestion) {
+  return _react.default.createElement(_Button.default, {
+    isSmall: true,
+    className: "autosuggest__list-item-inner",
+    text: suggestion.text
+  });
+};
 
 var stories = (0, _react2.storiesOf)('Forms', module);
 stories.addDecorator(_react3.withKnobs);
 stories.add('Autosuggest', function () {
-  return _react.default.createElement(_index.Autosuggest, {
-    placeholder: "Countries",
-    defaultSuggestions: ['United States', 'Canada', 'Mexico', 'Greenland'],
+  return _react.default.createElement(_Container.default, {
+    size: "small"
+  }, _react.default.createElement(_index.Autosuggest, {
+    inputPre: {
+      label: 'Country'
+    },
+    inputHelper: {
+      helper: 'We use this information to improve your shopping experience.'
+    },
+    placeholder: "Select your country",
+    defaultSuggestions: _countries.default,
     shouldRenderSuggestions: function shouldRenderSuggestions() {
       return true;
+    },
+    renderSuggestion: renderSuggestion,
+    getSuggestionValue: function getSuggestionValue(value) {
+      return value.text;
+    },
+    getSuggestions: function getSuggestions(value) {
+      return _countries.default.filter(function (suggestion) {
+        return suggestion.text.toLowerCase().slice(0, value.length) === value.toLowerCase();
+      });
     }
-  });
+  }));
 }).add('Text Input', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"

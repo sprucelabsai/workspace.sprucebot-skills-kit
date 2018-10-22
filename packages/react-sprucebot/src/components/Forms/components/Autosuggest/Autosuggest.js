@@ -53,7 +53,8 @@ export default class Autosuggest extends Component<Props, State> {
 
 	onBlur = () => {
 		this.setState(prevState => ({
-			showClearButton: prevState.value && prevState.value.length > 0
+			showClearButton:
+				prevState.value && prevState.value.length > 0 ? true : false
 		}))
 	}
 

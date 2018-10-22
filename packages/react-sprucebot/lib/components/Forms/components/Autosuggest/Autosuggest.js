@@ -31,8 +31,31 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactAutosuggest = _interopRequireDefault(require("react-autosuggest"));
 
-var renderSuggestion = function renderSuggestion(suggestion) {
-  return _react.default.createElement("div", null, suggestion);
+var _Button = _interopRequireDefault(require("../../../Button/Button"));
+
+var _FormPartials = require("../../FormPartials");
+
+var ClearIcon = function ClearIcon(props) {
+  return _react.default.createElement("svg", props, _react.default.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+  }));
+};
+
+ClearIcon.defaultProps = {
+  width: "24",
+  height: "24",
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+};
+var theme = {
+  container: 'text-input',
+  input: 'text-input__inner text-input__input',
+  suggestionsContainer: 'autosuggest',
+  suggestionsContainerOpen: 'autosuggest--show-suggestions',
+  suggestionsList: 'autosuggest__list',
+  suggestion: 'autosuggest__list-item'
 };
 
 var Autosuggest =
@@ -54,13 +77,21 @@ function (_Component) {
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(Autosuggest)).call.apply(_getPrototypeOf2, [this].concat(args)));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
       value: '',
-      suggestions: _this.props.defaultSuggestions || []
+      suggestions: _this.props.defaultSuggestions || [],
+      showClearButton: false
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "onChange", function (event, _ref) {
       var newValue = _ref.newValue;
 
       _this.setState({
         value: newValue
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "onBlur", function () {
+      _this.setState(function (prevState) {
+        return {
+          showClearButton: prevState.value && prevState.value.length > 0
+        };
       });
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "onSuggestionsFetchRequested", function (_ref2) {
@@ -81,6 +112,12 @@ function (_Component) {
         suggestions: defaultSuggestions
       });
     });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleClearInput", function () {
+      _this.setState({
+        value: '',
+        showClearButton: false
+      });
+    });
     return _this;
   }
 
@@ -89,23 +126,37 @@ function (_Component) {
     value: function render() {
       var _this$state = this.state,
           value = _this$state.value,
-          suggestions = _this$state.suggestions;
+          suggestions = _this$state.suggestions,
+          showClearButton = _this$state.showClearButton;
       var _this$props = this.props,
           getSuggestionValue = _this$props.getSuggestionValue,
+          renderSuggestion = _this$props.renderSuggestion,
           placeholder = _this$props.placeholder,
-          rest = (0, _objectWithoutProperties2.default)(_this$props, ["getSuggestionValue", "placeholder"]);
+          inputPre = _this$props.inputPre,
+          inputHelper = _this$props.inputHelper,
+          rest = (0, _objectWithoutProperties2.default)(_this$props, ["getSuggestionValue", "renderSuggestion", "placeholder", "inputPre", "inputHelper"]);
       var inputProps = {
         placeholder: placeholder || '',
         value: value,
-        onChange: this.onChange
+        onChange: this.onChange,
+        onBlur: this.onBlur
       };
-      return _react.default.createElement(_reactAutosuggest.default, (0, _extends2.default)({
+      return _react.default.createElement(_react.Fragment, null, inputPre && _react.default.createElement(_FormPartials.InputPre, inputPre), _react.default.createElement("div", {
+        className: "autosuggest__wrapper"
+      }, _react.default.createElement(_reactAutosuggest.default, (0, _extends2.default)({
         suggestions: suggestions,
+        onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
         onSuggestionsClearRequested: this.onSuggestionsClearRequested,
         getSuggestionValue: getSuggestionValue,
         renderSuggestion: renderSuggestion,
-        inputProps: inputProps
-      }, rest));
+        inputProps: inputProps,
+        theme: theme
+      }, rest)), showClearButton && _react.default.createElement(_Button.default, {
+        isSmall: true,
+        className: "text-input__clear-btn",
+        icon: _react.default.createElement(ClearIcon, null),
+        onClick: this.handleClearInput
+      })), inputHelper && _react.default.createElement(_FormPartials.InputHelper, inputHelper));
     }
   }]);
   return Autosuggest;

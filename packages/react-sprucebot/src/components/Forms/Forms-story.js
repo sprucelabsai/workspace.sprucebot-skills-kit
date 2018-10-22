@@ -22,13 +22,27 @@ import {
 } from './index'
 import countries from '../../../.storybook/data/countries'
 
-const renderSuggestion = (suggestion: any) => (
-	<Button
-		isSmall
-		className="autosuggest__list-item-inner"
-		text={suggestion.text}
-	/>
-)
+const renderSuggestion = (suggestion: any) => {
+	if (suggestion.isEmptyMessage) {
+		return (
+			<div class="autosuggest__no-results">
+				<p class="autosuggest__no-results-title">
+					No matching countries found.
+				</p>
+				<p class="autosuggest__no-results-subtitle">
+					Please adjust your search and try again.
+				</p>
+			</div>
+		)
+	}
+	return (
+		<Button
+			isSmall
+			className="autosuggest__list-item-inner"
+			text={suggestion.text}
+		/>
+	)
+}
 
 const stories = storiesOf('Forms', module)
 
@@ -49,13 +63,24 @@ stories
 				shouldRenderSuggestions={() => true}
 				renderSuggestion={renderSuggestion}
 				getSuggestionValue={value => value.text}
-				getSuggestions={value =>
-					countries.filter(
+				getSuggestions={value => {
+					const results = countries.filter(
 						suggestion =>
 							suggestion.text.toLowerCase().slice(0, value.length) ===
 							value.toLowerCase()
 					)
-				}
+					// Here you could add click events to buttons or whatever else they need
+					// No Results Message
+					if (results.length === 0) {
+						return [
+							{
+								text: 'NO RESULTS',
+								isEmptyMessage: true
+							}
+						]
+					}
+					return results
+				}}
 			/>
 		</Container>
 	))
