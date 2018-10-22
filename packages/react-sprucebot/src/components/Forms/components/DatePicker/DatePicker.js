@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import 'react-dates/initialize'
-import { SingleDatePicker } from 'react-dates'
+import { DayPickerSingleDateController } from 'react-dates'
 import moment from 'moment'
 import Button from '../../../Button/Button'
 import ArrowNext from '../../../../../static/assets/icons/ic_arrow_forward.svg'
@@ -36,7 +36,7 @@ export default class DatePicker extends Component<Props, State> {
 		const { isFocused, date } = this.state
 		const { ...rest } = this.props
 		return (
-			<SingleDatePicker
+			<DayPickerSingleDateController
 				date={date}
 				focused={isFocused}
 				onDateChange={date => this.handleDateChange(date)}
