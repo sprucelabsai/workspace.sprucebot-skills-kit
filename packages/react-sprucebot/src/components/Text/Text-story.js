@@ -45,10 +45,10 @@ stories.add('Default', () => (
 					'Span',
 					"Amazon is not your competition. It is a place to get things cheap. Which is cool, because you're not a cheap business. "
 				)}
-				<Anchor href="#" target="_blank">
-					{text('Anchor', 'This is a link')}
-				</Anchor>
 			</Span>
+			<Anchor href="#" target="_blank">
+				{text('Anchor', 'This is a link')}
+			</Anchor>
 		</Text>
 	</Container>
 ))
