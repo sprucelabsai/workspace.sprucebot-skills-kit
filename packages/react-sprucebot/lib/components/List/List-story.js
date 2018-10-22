@@ -353,7 +353,9 @@ stories.add('Text List', function () {
   return _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_List.default, {
-    header: "Settings",
+    header: {
+      title: 'Settings'
+    },
     items: [{
       title: 'Barber',
       toggleId: 'barber'
@@ -371,7 +373,9 @@ stories.add('Text List', function () {
       toggleId: 'style-consulting'
     }]
   }), _react.default.createElement(_List.default, {
-    header: "Settings",
+    header: {
+      title: 'Settings'
+    },
     isSmall: (0, _react3.boolean)('Small', false),
     items: [{
       title: 'Hide this category',

@@ -1,8 +1,10 @@
 "use strict";
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -42,22 +44,25 @@ Icon11.defaultProps = {
   xmlns: "http://www.w3.org/2000/svg"
 };
 
-var ButtonGroup = function ButtonGroup(props) {
+var ButtonGroup = function ButtonGroup() {
+  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    kind: ''
+  };
   var btnText = (0, _react3.text)('Text', 'Hello World');
   var isSmall = (0, _react3.boolean)('Small', false);
   var isFullWidth = (0, _react3.boolean)('Full Width', false);
-  return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Button.default, {
+  return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Button.default, (0, _defineProperty2.default)({
     className: "l-mr-small l-mb-small",
     isSmall: isSmall,
     isFullWidth: isFullWidth,
     text: btnText,
-    kind: props.kind
-  }), _react.default.createElement(_Button.default, {
+    kind: props.kind || ''
+  }, "isFullWidth", false)), _react.default.createElement(_Button.default, {
     className: "l-mr-small l-mb-small",
     isSmall: isSmall,
     isFullWidth: isFullWidth,
     text: "Link ".concat(btnText),
-    kind: props.kind,
+    kind: props.kind || '',
     href: "#",
     target: "_blank"
   }), _react.default.createElement(_Button.default, {
@@ -65,14 +70,14 @@ var ButtonGroup = function ButtonGroup(props) {
     isSmall: isSmall,
     isFullWidth: isFullWidth,
     text: btnText,
-    kind: props.kind,
+    kind: props.kind || '',
     disabled: true
   }), _react.default.createElement(_Button.default, {
     className: "l-mr-small l-mb-small",
     isSmall: isSmall,
     isFullWidth: isFullWidth,
     text: btnText,
-    kind: props.kind,
+    kind: props.kind || '',
     disabled: true,
     isLoading: true
   }), _react.default.createElement(_Button.default, {
@@ -80,7 +85,7 @@ var ButtonGroup = function ButtonGroup(props) {
     isSmall: isSmall,
     isFullWidth: isFullWidth,
     text: btnText,
-    kind: props.kind,
+    kind: props.kind || '',
     icon: _react.default.createElement(Icon11, {
       className: "btn__line-icon"
     })
@@ -88,7 +93,7 @@ var ButtonGroup = function ButtonGroup(props) {
     className: "l-mr-small l-mb-small",
     isSmall: isSmall,
     isFullWidth: isFullWidth,
-    kind: props.kind,
+    kind: props.kind || '',
     icon: _react.default.createElement(Icon11, {
       className: "btn__line-icon"
     })

@@ -76,7 +76,18 @@ var Button = function Button(props) {
 };
 
 Button.defaultProps = {
-  type: 'button'
+  className: '',
+  kind: '',
+  isSmall: false,
+  isFullWidth: false,
+  isLoading: false,
+  text: '',
+  href: '',
+  icon: null,
+  type: 'button',
+  onClick: function onClick() {
+    return null;
+  }
 };
 var _default = Button;
 exports.default = _default;

@@ -57,7 +57,7 @@ var InputInner = function InputInner(props) {
     className: "text-input__inner"
   }, iconBefore && _react.default.cloneElement(iconBefore, {
     className: 'text-input__icon-pre'
-  }), kind === 'phone-number' && _react.default.createElement(CountryInput, null), kind === 'credit-card' && _react.default.createElement("p", null, "CC"), _react.default.createElement("input", (0, _extends2.default)({
+  }), kind === 'credit-card' && _react.default.createElement("p", null, "CC"), _react.default.createElement("input", (0, _extends2.default)({
     className: "text-input__input"
   }, rest)), appendix && _react.default.createElement("p", {
     className: "text-input__appendix"

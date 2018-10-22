@@ -34,17 +34,29 @@ var business = {
 };
 stories.add('Default', function () {
   return _react.default.createElement(_HeaderPrimary.default, {
-    STORYBOOKdoNotWrap: true
+    STORYBOOKdoNotWrap: true,
+    sidebarIsVisible: false,
+    toggleSidebarVisibility: function toggleSidebarVisibility() {
+      return null;
+    }
   });
 }).add('Logged In', function () {
   return _react.default.createElement(_HeaderPrimary.default, {
     STORYBOOKdoNotWrap: true,
-    user: user
+    user: user,
+    sidebarIsVisible: false,
+    toggleSidebarVisibility: function toggleSidebarVisibility() {
+      return null;
+    }
   });
 }).add('Logged In to Business', function () {
   return _react.default.createElement(_HeaderPrimary.default, {
     STORYBOOKdoNotWrap: true,
     user: user,
-    business: business
+    business: business,
+    sidebarIsVisible: false,
+    toggleSidebarVisibility: function toggleSidebarVisibility() {
+      return null;
+    }
   });
 });

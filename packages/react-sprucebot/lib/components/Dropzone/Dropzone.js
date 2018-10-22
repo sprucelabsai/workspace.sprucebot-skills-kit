@@ -308,5 +308,6 @@ function (_Component) {
 
 exports.default = Dropzone;
 (0, _defineProperty2.default)(Dropzone, "defaultProps", {
-  fileWasUploaded: false
+  fileWasUploaded: false,
+  isSmall: false
 });

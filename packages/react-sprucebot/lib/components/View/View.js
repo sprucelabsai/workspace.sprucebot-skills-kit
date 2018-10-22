@@ -49,12 +49,21 @@ function (_Component) {
 
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(View)).call.apply(_getPrototypeOf2, [this].concat(args)));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
-      sidebarIsVisible: false
+      sidebarIsVisible: false,
+      sidebarIsExpanded: true
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "toggleSidebarVisibility", function () {
       _this.setState(function (prevState) {
         return {
-          sidebarIsVisible: !prevState.sidebarIsVisible
+          sidebarIsVisible: !prevState.sidebarIsVisible,
+          sidebarIsExpanded: true
+        };
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "toggleSidebarExpanded", function () {
+      _this.setState(function (prevState) {
+        return {
+          sidebarIsExpanded: !prevState.sidebarIsExpanded
         };
       });
     });
@@ -69,25 +78,35 @@ function (_Component) {
   (0, _createClass2.default)(View, [{
     key: "render",
     value: function render() {
-      var sidebarIsVisible = this.state.sidebarIsVisible;
+      var _this$state = this.state,
+          sidebarIsVisible = _this$state.sidebarIsVisible,
+          sidebarIsExpanded = _this$state.sidebarIsExpanded;
       var _this$props = this.props,
           sidebarItems = _this$props.sidebarItems,
           user = _this$props.user,
-          business = _this$props.business;
+          business = _this$props.business,
+          children = _this$props.children;
       return _react.default.createElement("div", {
         className: (0, _classnames.default)('l-page-wrapper', {
-          'menu--is-visible': sidebarIsVisible
+          'menu--is-visible': sidebarIsVisible,
+          'sidebar--is-collapsed': !sidebarIsExpanded
         })
       }, _react.default.createElement(_Sidebar.default, {
         items: sidebarItems,
         sidebarIsVisible: sidebarIsVisible,
+        isExpanded: sidebarIsExpanded,
+        toggleExpanded: this.toggleSidebarExpanded,
         forceCloseSidebar: this.forceCloseSidebar
       }), _react.default.createElement(_HeaderPrimary.default, {
         user: user,
         business: business,
         toggleSidebarVisibility: this.toggleSidebarVisibility,
         sidebarIsVisible: sidebarIsVisible
-      }));
+      }), _react.default.createElement("main", {
+        className: "l-page-inner"
+      }, _react.default.createElement("div", {
+        class: "l-container-medium "
+      }, children)));
     }
   }]);
   return View;

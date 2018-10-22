@@ -37,7 +37,7 @@ var _reactSortableHoc = require("react-sortable-hoc");
 
 var _ListHeader = _interopRequireDefault(require("../ListHeader/ListHeader"));
 
-var _ListItem = _interopRequireDefault(require("../ListItem/ListItem"));
+var _ListItem = _interopRequireWildcard(require("../ListItem/ListItem"));
 
 var _List = require("../../List");
 
@@ -103,7 +103,7 @@ function (_Component) {
 
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(SortableComponent)).call.apply(_getPrototypeOf2, [this].concat(args)));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
-      items: _this.props.items,
+      items: _this.props.items || [],
       isSorting: false
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "toggleSorting", function () {
@@ -127,7 +127,9 @@ function (_Component) {
       }); // Do other stuff with the API to save changes
 
 
-      onConfirm();
+      if (onConfirm) {
+        onConfirm();
+      }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "onSortStart", function () {//
     });

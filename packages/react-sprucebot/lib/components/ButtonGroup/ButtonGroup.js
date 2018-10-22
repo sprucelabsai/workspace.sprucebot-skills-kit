@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -13,7 +15,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
-var _Button = _interopRequireDefault(require("../Button/Button"));
+var _Button = _interopRequireWildcard(require("../Button/Button"));
 
 var ButtonGroup = function ButtonGroup(props) {
   var actions = props.actions,
@@ -34,7 +36,7 @@ var ButtonGroup = function ButtonGroup(props) {
       key: action.text,
       className: "button-group__item"
     }, _react.default.createElement(_Button.default, (0, _extends2.default)({
-      kind: btnKindKey[kind],
+      kind: kind ? btnKindKey[kind] : '',
       isFullWidth: kind === 'floating'
     }, action)));
   }));

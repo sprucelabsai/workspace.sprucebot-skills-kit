@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,11 +11,13 @@ exports.default = exports.Card = exports.CardBuilder = exports.CardFooter = expo
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
-var _Button = _interopRequireDefault(require("../Button/Button"));
+var _Button = _interopRequireWildcard(require("../Button/Button"));
+
+var _ContextMenu = require("../ContextMenu/ContextMenu");
 
 // NOTE: Cards should be built in a way that they can be created with JSON
 var CardHeader = function CardHeader(props) {
@@ -36,7 +40,12 @@ var CardHeader = function CardHeader(props) {
     className: "card-header__title"
   }, title)), (actions || contextMenu) && _react.default.createElement("div", {
     className: "card-header__actions"
-  }, actions, contextMenu));
+  }, _react.default.createElement(_react.Fragment, null, actions && actions.length > 0 && actions.map(function (action) {
+    return _react.default.createElement(_Button.default, (0, _extends2.default)({
+      key: action.text,
+      kind: "simple"
+    }, action));
+  }), contextMenu)));
 }; // Card Body
 
 
@@ -84,30 +93,19 @@ var CardBuilder = function CardBuilder(props) {
       labelIcon = header.labelIcon,
       headerActions = header.actions;
   var children = body.children;
-  var footerActions = footer.actions;
+  var footerActions = footer && footer.actions;
   return _react.default.createElement(Card, null, _react.default.createElement(CardHeader, {
     title: title,
     labelText: labelText,
     labelIcon: labelIcon,
-    actions: headerActions && headerActions.length > 0 && headerActions.map(function (action) {
-      var Handler = CardBuilderKey[action.type];
-
-      if (!Handler || typeof Handler === 'undefined') {
-        return null;
-      }
-
-      return _react.default.createElement(Handler, (0, _extends2.default)({
-        key: action.text,
-        kind: "simple"
-      }, action));
-    })
+    actions: headerActions
   }), _react.default.createElement("div", {
     className: "card__body-inner",
     dangerouslySetInnerHTML: {
       __html: children
     }
-  }), footer && _react.default.createElement(CardFooter, null, footerActions && footerActions.length > 0 && footerActions.map(function (action) {
-    var Handler = CardBuilderKey[action.type];
+  }), footer && _react.default.createElement(CardFooter, null, footerActions && footerActions.length > 0 ? footerActions.map(function (action) {
+    var Handler = action && action.type && CardBuilderKey[action.type];
 
     if (!Handler || typeof Handler === 'undefined') {
       return null;
@@ -117,11 +115,14 @@ var CardBuilder = function CardBuilder(props) {
       key: action.text,
       kind: "simple"
     }, action));
-  })));
-}; // Card
-
+  }) : null));
+};
 
 exports.CardBuilder = CardBuilder;
+CardBuilder.defaultProps = {
+  footer: null // Card
+
+};
 
 var Card = function Card(props) {
   var children = props.children,

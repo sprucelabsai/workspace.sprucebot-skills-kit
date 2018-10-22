@@ -29,7 +29,7 @@ var _classnames = _interopRequireDefault(require("classnames"));
 
 var _velocityReact = require("velocity-react");
 
-var _Button = _interopRequireDefault(require("../Button/Button"));
+var _Button = _interopRequireWildcard(require("../Button/Button"));
 
 var _ButtonGroup = _interopRequireDefault(require("../ButtonGroup/ButtonGroup"));
 

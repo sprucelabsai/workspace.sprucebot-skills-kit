@@ -91,7 +91,9 @@ function (_Component) {
         onRequestClose: this.onRequestClose,
         handleGoBack: canGoBack ? function () {
           return console.log('take me home');
-        } : null
+        } : function () {
+          return null;
+        }
       }), _react.default.createElement("form", null, _react.default.createElement(_Modal.default.Body, null, _react.default.createElement(_Forms.FormRow, null, _react.default.createElement(_Forms.TextInput, {
         label: "Category Name",
         placeholder: "i.e. Barber"

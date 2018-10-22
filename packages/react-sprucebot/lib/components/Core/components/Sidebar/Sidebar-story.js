@@ -131,6 +131,10 @@ var personalItems = [{
 stories.add('Default', function () {
   return _react.default.createElement(_Sidebar.default, {
     items: personalItems,
+    isExpanded: true,
+    forceCloseSidebar: function forceCloseSidebar() {
+      return null;
+    },
     STORYBOOKdoNotWrap: true
   });
 });

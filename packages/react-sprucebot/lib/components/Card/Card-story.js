@@ -87,11 +87,11 @@ stories.add('Card', function () {
       className: "u-icon__no-fill u-icon__stroke"
     }),
     title: (0, _react3.text)('Title', 'Get the most out of Spruce'),
-    actions: (0, _react3.boolean)('Header Action', false) && _react.default.createElement(_Button.default, {
-      kind: "simple",
-      text: "Go to team",
+    actions: (0, _react3.boolean)('Header Action', false) && [{
+      kind: 'simple',
+      text: 'Go to team',
       isSmall: true
-    }),
+    }],
     contextMenu: (0, _react3.boolean)('Header Context Menu', false) && _react.default.createElement(_ContextMenu.default, {
       actions: [{
         text: 'One'
@@ -111,11 +111,11 @@ stories.add('Card', function () {
     size: "medium"
   }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.CardHeader, {
     title: "Add your teammates",
-    actions: _react.default.createElement(_Button.default, {
-      kind: "simple",
-      text: "Go to team",
+    actions: [{
+      kind: 'simple',
+      text: 'Go to team',
       isSmall: true
-    })
+    }]
   }), _react.default.createElement(_Card.CardBody, null, "Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it."), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
     kind: "primary",
     text: "Add teammates",

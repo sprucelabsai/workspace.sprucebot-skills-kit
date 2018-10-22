@@ -32,7 +32,8 @@ var Tab = function Tab(props) {
 };
 
 Tab.defaultProps = {
-  isCurrent: false
+  isCurrent: false,
+  panel: null
 };
 var _default = Tab;
 exports.default = _default;
