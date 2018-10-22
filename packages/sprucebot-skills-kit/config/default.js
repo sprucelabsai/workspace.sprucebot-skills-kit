@@ -30,7 +30,6 @@ module.exports = {
 	ID: process.env.ID,
 	NAME: process.env.NAME,
 	SLUG: process.env.SLUG,
-	LOG_LEVEL: process.env.LOG_LEVEL,
 	DESCRIPTION: process.env.DESCRIPTION,
 	ICON: fs.readFileSync(path.join(__dirname, '../icon/icon.svg')).toString(),
 	PORT: process.env.PORT,
