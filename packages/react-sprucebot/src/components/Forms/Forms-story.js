@@ -25,11 +25,11 @@ import countries from '../../../.storybook/data/countries'
 const renderSuggestion = (suggestion: any) => {
 	if (suggestion.isEmptyMessage) {
 		return (
-			<div class="autosuggest__no-results">
-				<p class="autosuggest__no-results-title">
+			<div className="autosuggest__no-results">
+				<p className="autosuggest__no-results-title">
 					No matching countries found.
 				</p>
-				<p class="autosuggest__no-results-subtitle">
+				<p className="autosuggest__no-results-subtitle">
 					Please adjust your search and try again.
 				</p>
 			</div>

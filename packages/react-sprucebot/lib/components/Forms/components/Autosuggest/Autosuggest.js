@@ -90,7 +90,7 @@ function (_Component) {
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "onBlur", function () {
       _this.setState(function (prevState) {
         return {
-          showClearButton: prevState.value && prevState.value.length > 0
+          showClearButton: prevState.value && prevState.value.length > 0 ? true : false
         };
       });
     });

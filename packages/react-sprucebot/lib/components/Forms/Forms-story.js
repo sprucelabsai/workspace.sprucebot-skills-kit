@@ -19,6 +19,16 @@ var _index = require("./index");
 var _countries = _interopRequireDefault(require("../../../.storybook/data/countries"));
 
 var renderSuggestion = function renderSuggestion(suggestion) {
+  if (suggestion.isEmptyMessage) {
+    return _react.default.createElement("div", {
+      class: "autosuggest__no-results"
+    }, _react.default.createElement("p", {
+      class: "autosuggest__no-results-title"
+    }, "No matching countries found."), _react.default.createElement("p", {
+      class: "autosuggest__no-results-subtitle"
+    }, "Please adjust your search and try again."));
+  }
+
   return _react.default.createElement(_Button.default, {
     isSmall: true,
     className: "autosuggest__list-item-inner",
@@ -48,9 +58,20 @@ stories.add('Autosuggest', function () {
       return value.text;
     },
     getSuggestions: function getSuggestions(value) {
-      return _countries.default.filter(function (suggestion) {
+      var results = _countries.default.filter(function (suggestion) {
         return suggestion.text.toLowerCase().slice(0, value.length) === value.toLowerCase();
-      });
+      }); // Here you could add click events to buttons or whatever else they need
+      // No Results Message
+
+
+      if (results.length === 0) {
+        return [{
+          text: 'NO RESULTS',
+          isEmptyMessage: true
+        }];
+      }
+
+      return results;
     }
   }));
 }).add('Text Input', function () {
