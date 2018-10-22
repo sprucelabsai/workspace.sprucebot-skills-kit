@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
 import {
+	Autosuggest,
 	Checkbox,
 	DatePicker,
 	DomainInput,
@@ -24,6 +25,13 @@ const stories = storiesOf('Forms', module)
 stories.addDecorator(withKnobs)
 
 stories
+	.add('Autosuggest', () => (
+		<Autosuggest
+			placeholder="Countries"
+			defaultSuggestions={['United States', 'Canada', 'Mexico', 'Greenland']}
+			shouldRenderSuggestions={() => true}
+		/>
+	))
 	.add('Text Input', () => (
 		<Fragment>
 			<Container size="small">

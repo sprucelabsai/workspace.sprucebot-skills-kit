@@ -1,3 +1,4 @@
+import Autosuggest from './components/Autosuggest/Autosuggest'
 import Checkbox from './components/Checkbox/Checkbox'
 import DatePicker from './components/DatePicker/DatePicker'
 import DomainInput from './components/DomainInput/DomainInput'
@@ -13,6 +14,7 @@ import TextArea from './components/TextArea/TextArea'
 import TextInput from './components/TextInput/TextInput'
 import Toggle from './components/Toggle/Toggle'
 
+export Autosuggest from './components/Autosuggest/Autosuggest'
 export Checkbox from './components/Checkbox/Checkbox'
 export DatePicker from './components/DatePicker/DatePicker'
 export DomainInput from './components/DomainInput/DomainInput'
