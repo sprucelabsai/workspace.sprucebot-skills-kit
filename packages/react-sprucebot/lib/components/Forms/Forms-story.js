@@ -21,11 +21,11 @@ var _countries = _interopRequireDefault(require("../../../.storybook/data/countr
 var renderSuggestion = function renderSuggestion(suggestion) {
   if (suggestion.isEmptyMessage) {
     return _react.default.createElement("div", {
-      class: "autosuggest__no-results"
+      className: "autosuggest__no-results"
     }, _react.default.createElement("p", {
-      class: "autosuggest__no-results-title"
+      className: "autosuggest__no-results-title"
     }, "No matching countries found."), _react.default.createElement("p", {
-      class: "autosuggest__no-results-subtitle"
+      className: "autosuggest__no-results-subtitle"
     }, "Please adjust your search and try again."));
   }
 
