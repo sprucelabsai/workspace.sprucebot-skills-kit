@@ -50,7 +50,7 @@ function (_Component) {
 
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(ModalExample)).call.apply(_getPrototypeOf2, [this].concat(args)));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
-      isOpen: true
+      isOpen: false
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "toggleVisibility", function () {
       _this.setState(function (prevState) {
@@ -91,9 +91,7 @@ function (_Component) {
         onRequestClose: this.onRequestClose,
         handleGoBack: canGoBack ? function () {
           return console.log('take me home');
-        } : function () {
-          return null;
-        }
+        } : null
       }), _react.default.createElement("form", null, _react.default.createElement(_Modal.default.Body, null, _react.default.createElement(_Forms.FormRow, null, _react.default.createElement(_Forms.TextInput, {
         label: "Category Name",
         placeholder: "i.e. Barber"
