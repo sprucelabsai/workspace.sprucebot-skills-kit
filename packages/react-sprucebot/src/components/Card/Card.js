@@ -44,7 +44,7 @@ export const CardHeader = (props: CardHeaderProps) => {
 						{actions &&
 							actions.length > 0 &&
 							actions.map(action => (
-								<Button key={action.text} kind="simple" {...action} />
+								<Button key={action.text} kind="simple" isSmall {...action} />
 							))}
 						{contextMenu}
 					</Fragment>

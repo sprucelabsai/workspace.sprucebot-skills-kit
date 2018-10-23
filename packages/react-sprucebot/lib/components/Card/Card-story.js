@@ -50,6 +50,21 @@ LockIcon2.defaultProps = {
   height: "18",
   viewBox: "0 0 16 18"
 };
+
+var AlertIcon3 = function AlertIcon3(props) {
+  return _react.default.createElement("svg", props, _react.default.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M15.413 13.333L9.18 1.433a1.333 1.333 0 0 0-2.362 0l-6.232 11.9a1.333 1.333 0 0 0 1.182 1.952H14.23a1.333 1.333 0 0 0 1.182-1.952zm-8.08-7.718a.667.667 0 0 1 1.334 0v4a.667.667 0 1 1-1.334 0v-4zm.682 7.674h.018A.984.984 0 0 0 9 12.267a1.018 1.018 0 0 0-1.016-.978h-.019A.984.984 0 0 0 7 12.309c.02.546.468.978 1.015.98z"
+  }));
+};
+
+AlertIcon3.defaultProps = {
+  width: "16",
+  height: "16",
+  viewBox: "0 0 16 16",
+  xmlns: "http://www.w3.org/2000/svg"
+};
 var cardJSON = {
   header: {
     title: 'Introducing the Card Builder! (Note: WIP)',
@@ -78,7 +93,7 @@ var cardJSON = {
 };
 var stories = (0, _react2.storiesOf)('Card', module);
 stories.addDecorator(_react3.withKnobs);
-stories.add('Card', function () {
+stories.add('To Do', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"
   }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.CardHeader, {
@@ -105,6 +120,19 @@ stories.add('Card', function () {
     kind: "secondary",
     text: "Get some skills",
     isSmall: true
+  }))));
+}).add('Critical Card', function () {
+  return _react.default.createElement(_Container.default, {
+    size: "medium"
+  }, _react.default.createElement(_Card.default, {
+    isCritical: true
+  }, _react.default.createElement(_Card.CardHeader, {
+    title: "Please update your credit card",
+    labelText: "Billing failure",
+    labelIcon: _react.default.createElement(AlertIcon3, null)
+  }), _react.default.createElement(_Card.CardBody, null, "Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference."), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
+    kind: "secondary",
+    text: "Update credit card"
   }))));
 }).add('With a Header Action', function () {
   return _react.default.createElement(_Container.default, {

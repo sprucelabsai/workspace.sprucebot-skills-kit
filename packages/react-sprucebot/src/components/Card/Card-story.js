@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
 import Card, { CardHeader, CardBody, CardFooter, CardBuilder } from './Card'
+import { Scores } from './index'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import Button from '../Button/Button'
 import Avatar from '../Avatar/Avatar'
@@ -104,6 +105,45 @@ stories
 				<CardFooter>
 					<Button kind="secondary" text="Update credit card" />
 				</CardFooter>
+			</Card>
+		</Container>
+	))
+	.add('Score Card', () => (
+		<Container size="medium">
+			<Card>
+				<CardHeader
+					title="Value of future appointments"
+					actions={[
+						{
+							text: 'Go to reports'
+						}
+					]}
+				/>
+				<CardBody>
+					<p>
+						Two roads diverged in a wood, and I took the one less traveled by,
+						And that has made all the difference.
+					</p>
+					<Scores
+						scores={[
+							{
+								id: 1,
+								label: 'Today',
+								value: '$1,848'
+							},
+							{
+								id: 2,
+								label: 'This Week',
+								value: '$5,778'
+							},
+							{
+								id: 3,
+								label: 'This Month',
+								value: '$25,068'
+							}
+						]}
+					/>
+				</CardBody>
 			</Card>
 		</Container>
 	))

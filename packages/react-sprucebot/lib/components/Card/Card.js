@@ -126,10 +126,12 @@ CardBuilder.defaultProps = {
 
 var Card = function Card(props) {
   var children = props.children,
-      isCentered = props.isCentered;
+      isCentered = props.isCentered,
+      isCritical = props.isCritical;
   return _react.default.createElement("div", {
     className: (0, _classnames.default)('card', {
-      'card-centered': isCentered
+      'card-centered': isCentered,
+      'card-critical': isCritical
     })
   }, children);
 };
