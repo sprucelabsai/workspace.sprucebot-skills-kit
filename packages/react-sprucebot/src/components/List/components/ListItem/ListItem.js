@@ -4,6 +4,9 @@ import type { Node } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button, { Props as ButtonProps } from '../../../Button/Button'
+import ContextMenu, {
+	Props as ContextMenuProps
+} from '../../../ContextMenu/ContextMenu'
 import { Toggle } from '../../../Forms'
 import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
 
@@ -16,6 +19,7 @@ export interface Props {
 	isDraggable?: boolean;
 	toggleId?: string;
 	actions?: Array<ButtonProps>;
+	contextMenu?: ContextMenuProps;
 }
 
 const ListItem = (props: Props) => {
@@ -27,7 +31,8 @@ const ListItem = (props: Props) => {
 		icon,
 		isDraggable,
 		toggleId,
-		actions
+		actions,
+		contextMenu
 	} = props
 	const parentClass = cx('list-item', {
 		'list-item-title-only': !subtitle,
@@ -69,17 +74,22 @@ const ListItem = (props: Props) => {
 				{subtitle && <p className="list-item__subtitle">{subtitle}</p>}
 			</div>
 			{!isDraggable &&
-				actions &&
-				actions.length > 0 && (
+				((actions && actions.length > 0) || contextMenu) && (
 					<div className="list-item__actions-wrapper">
-						{actions.map((action, idx) => (
-							<Button
-								key={idx}
-								isSmall
-								className="list-item__action"
-								{...action}
-							/>
-						))}
+						{actions &&
+							actions.length > 0 && (
+								<div className="list-item__actions-wrapper">
+									{actions.map((action, idx) => (
+										<Button
+											key={idx}
+											isSmall
+											className="list-item__action"
+											{...action}
+										/>
+									))}
+								</div>
+							)}
+						{contextMenu && <ContextMenu {...contextMenu} />}
 					</div>
 				)}
 			{toggleId && <Toggle id={toggleId} />}

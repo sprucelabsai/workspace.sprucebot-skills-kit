@@ -17,7 +17,10 @@ import DateIcon from '../../../static/assets/icons/Interface-Essential/Date/Cale
 import CalendarIcon from '../../../static/assets/icons/Interface-Essential/Date/Calendar/calendar-3.svg'
 import ArrowForward from '../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../static/assets/icons/ic_arrow_back.svg'
-import { singleAction } from '../../../.storybook/data/actions'
+import {
+	singleAction,
+	threeTextActions
+} from '../../../.storybook/data/actions'
 
 const stories = storiesOf('List', module)
 
@@ -105,17 +108,29 @@ stories
 					{
 						title: 'Clean Up',
 						subtitle: '$20 | 15min',
-						actions: singleAction
+						contextMenu: {
+							icon: <EditIcon />,
+							size: 'large',
+							actions: threeTextActions
+						}
 					},
 					{
 						title: 'Shampoo',
 						subtitle: '$7 | 45min',
-						actions: singleAction
+						contextMenu: {
+							icon: <EditIcon />,
+							size: 'large',
+							actions: threeTextActions
+						}
 					},
 					{
 						title: 'Young Spruce',
 						subtitle: '$23 | 50min',
-						actions: singleAction
+						contextMenu: {
+							icon: <EditIcon />,
+							size: 'large',
+							actions: threeTextActions
+						}
 					}
 				]}
 			/>

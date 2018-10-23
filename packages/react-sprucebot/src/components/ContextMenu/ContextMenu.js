@@ -9,6 +9,8 @@ import Icon from '../../../static/assets/icons/Interface-Essential/Menu/navigati
 export interface Props {
 	actions: Array<ButtonProps>;
 	isLeftAligned?: boolean;
+	size?: 'medium' | 'large';
+	icon?: any;
 }
 
 type State = {
@@ -25,8 +27,19 @@ export default class ContextMenu extends Component<Props, State> {
 		isLeftAligned: false
 	}
 
-	handleHide = (e: any) => {
-		if (e.key === 'Escape' || e.target.contains(this.ref)) {
+	handleClickOutside = (e: any) => {
+		if (e.target.contains(this.ref)) {
+			this.setState(
+				{
+					isVisible: false
+				},
+				() => this.manageListeners()
+			)
+		}
+	}
+
+	handleEscape = (e: any) => {
+		if (e.key === 'Escape') {
 			this.setState(
 				{
 					isVisible: false
@@ -48,30 +61,39 @@ export default class ContextMenu extends Component<Props, State> {
 	manageListeners = () => {
 		if (typeof window !== 'undefined') {
 			if (this.state.isVisible) {
-				window.addEventListener('click', this.handleHide, false)
-				window.addEventListener('keyup', this.handleHide, false)
+				window.addEventListener('click', this.handleClickOutside, false)
+				window.addEventListener('keyup', this.handleEscape, false)
 			} else {
-				window.removeEventListener('click', this.handleHide, false)
-				window.removeEventListener('keyup', this.handleHide, false)
+				window.removeEventListener('click', this.handleClickOutside, false)
+				window.removeEventListener('keyup', this.handleEscape, false)
 			}
 		}
 	}
 
 	render() {
 		const { isVisible } = this.state
-		const { actions, isLeftAligned } = this.props
+		const { actions, isLeftAligned, size, icon } = this.props
 		const buttonClass = cx('context-menu', {
 			'context-menu--is-visible': isVisible
 		})
 		const menuClass = cx('context-menu__menu', {
-			'context-menu__menu-left': isLeftAligned
+			'context-menu__menu-left': isLeftAligned,
+			'context-menu__menu-large': size === 'large'
 		})
 		return (
 			<div className={buttonClass} ref={ref => (this.ref = ref)}>
 				<Button
 					className="context-menu__button"
 					onClick={this.handleToggle}
-					icon={<Icon className="btn__line-icon" />}
+					icon={
+						icon ? (
+							React.cloneElement(icon, {
+								className: 'btn__line-icon'
+							})
+						) : (
+							<Icon className="btn__line-icon" />
+						)
+					}
 				/>
 				<VelocityTransitionGroup
 					enter={{
@@ -85,7 +107,14 @@ export default class ContextMenu extends Component<Props, State> {
 				>
 					{isVisible && (
 						<div className={menuClass}>
-							<ButtonGroup kind="floating" actions={actions} />
+							<ButtonGroup
+								kind="floating"
+								actions={actions.map(action => {
+									const btnAction = Object.assign({}, action)
+									btnAction.className = 'context-menu__item-btn'
+									return btnAction
+								})}
+							/>
 						</div>
 					)}
 				</VelocityTransitionGroup>
