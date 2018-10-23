@@ -142,13 +142,19 @@ CardBuilder.defaultProps = {
 // Card
 type CardProps = {
 	children: Node,
-	isCentered?: boolean
+	isCentered?: boolean,
+	isCritical?: boolean
 }
 
 export const Card = (props: CardProps) => {
-	const { children, isCentered } = props
+	const { children, isCentered, isCritical } = props
 	return (
-		<div className={cx('card', { 'card-centered': isCentered })}>
+		<div
+			className={cx('card', {
+				'card-centered': isCentered,
+				'card-critical': isCritical
+			})}
+		>
 			{children}
 		</div>
 	)

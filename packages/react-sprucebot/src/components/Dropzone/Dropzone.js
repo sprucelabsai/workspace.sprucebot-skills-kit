@@ -7,7 +7,7 @@ import Button from '../Button/Button'
 import DefaultIcon from '../../../static/assets/icons/Interface-Essential/Time-Files/time-clock-file-upload.svg'
 import UploadedIcon from '../../../static/assets/icons/Interface-Essential/Time-Files/time-clock-file-check.svg'
 import DropIcon from '../../../static/assets/icons/Interface-Essential/Select/cursor-select-4.svg'
-import WarnIcon from '../../../static/assets/icons/Interface-Essential/Alerts/alert-triangle.svg'
+import WarnIcon from '../../../static/assets/icons/Interface-Essential/Alerts/alert-triangle--56w.svg'
 
 type Props = {
 	id: string,

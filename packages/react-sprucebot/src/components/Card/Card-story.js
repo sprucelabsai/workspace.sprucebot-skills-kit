@@ -9,6 +9,7 @@ import Button from '../Button/Button'
 import Avatar from '../Avatar/Avatar'
 import userImageLg from '../../../static/assets/users/user-01--96w.png'
 import LockIcon2 from '../../../static/assets/icons/Interface-Essential/Lock/Unlock/lock-6--16w.svg'
+import AlertIcon3 from '../../../static/assets/icons/Interface-Essential/Alerts/alert-triangle--16w.svg'
 
 const cardJSON = {
 	header: {
@@ -46,7 +47,7 @@ const stories = storiesOf('Card', module)
 stories.addDecorator(withKnobs)
 
 stories
-	.add('Card', () => (
+	.add('To Do', () => (
 		<Container size="medium">
 			<Card>
 				<CardHeader
@@ -84,6 +85,24 @@ stories
 				</CardBody>
 				<CardFooter>
 					<Button kind="secondary" text="Get some skills" isSmall />
+				</CardFooter>
+			</Card>
+		</Container>
+	))
+	.add('Critical Card', () => (
+		<Container size="medium">
+			<Card isCritical>
+				<CardHeader
+					title="Please update your credit card"
+					labelText="Billing failure"
+					labelIcon={<AlertIcon3 />}
+				/>
+				<CardBody>
+					Two roads diverged in a wood, and I took the one less traveled by, And
+					that has made all the difference.
+				</CardBody>
+				<CardFooter>
+					<Button kind="secondary" text="Update credit card" />
 				</CardFooter>
 			</Card>
 		</Container>
