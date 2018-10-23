@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.7.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.6.1...v7.7.0) (2018-10-23)
+
+
+### Features
+
+* browser metrics; make ctx.sb.audit handle its own error and no await ([c9b0cf0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c9b0cf0))
+
+
+
+
+
+## [7.6.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.6.0...v7.6.1) (2018-10-22)
+
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
+
+
+
+
+
+# [7.6.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.5.0...v7.6.0) (2018-10-21)
+
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
+
+
+
+
+
 # [7.5.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.4.4...v7.5.0) (2018-10-08)
 
 **Note:** Version bump only for package @sprucelabs/react-sprucebot
