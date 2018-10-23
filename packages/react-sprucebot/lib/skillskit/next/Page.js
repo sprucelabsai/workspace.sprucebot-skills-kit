@@ -103,9 +103,18 @@ var Page = function Page(Wrapped) {
             return;
           }
         });
-        (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleRouteChangStart", function () {
+        (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleRouteChangeComplete", function () {
+          if (_this.props.config.METRICS_ENABLED && _this.props.config.METRICS_BROWSER_STATS_ENABLED) {
+            log.routeChangeComplete();
+          }
+        });
+        (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleRouteChangeStart", function () {
           // don't user skill off props, it is pulled server side and lacks all functions
           _index.default.notifyOfRouteChangeStart();
+
+          if (_this.props.config.METRICS_ENABLED && _this.props.config.METRICS_BROWSER_STATS_ENABLED) {
+            log.routeChangeStart();
+          }
         });
         _this.state = {
           attemptingReAuth: !!props.attemptingReAuth,
@@ -148,7 +157,8 @@ var Page = function Page(Wrapped) {
                       }
                     }); // setup route changes
 
-                    _router.default && _router.default.router && _router.default.router.events.on('routeChangeStart', this.handleRouteChangStart); // window listeners for reauth communication
+                    _router.default && _router.default.router && _router.default.router.events.on('routeChangeStart', this.handleRouteChangeStart);
+                    _router.default && _router.default.router && _router.default.router.events.on('routeChangeComplete', this.handleRouteChangeComplete); // window listeners for reauth communication
 
                     window.addEventListener('message', this.handleIframeMessage); // setup event listeners
 
@@ -162,7 +172,7 @@ var Page = function Page(Wrapped) {
 
                     (_document$body$classL = document.body.classList).add.apply(_document$body$classL, bodyClassNames);
 
-                  case 9:
+                  case 10:
                   case "end":
                     return _context.stop();
                 }
@@ -183,7 +193,8 @@ var Page = function Page(Wrapped) {
           _index.default.removeEventListener('did-update-user', this.props.actions.events.didUpdateUser); // remove route changes
 
 
-          _router.default && _router.default.router && _router.default.router.events.off('routeChangeStart', this.handleRouteChangStart);
+          _router.default && _router.default.router && _router.default.router.events.off('routeChangeStart', this.handleRouteChangeStart);
+          _router.default && _router.default.router && _router.default.router.events.off('routeChangeComplete', this.handleRouteChangeComplete);
         }
       }, {
         key: "render",
