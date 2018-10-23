@@ -1,4 +1,5 @@
 // @flow
+// NOTE: Relies on https://github.com/mosch/react-avatar-editor
 import React, { Component } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 import Button from '../Button/Button'

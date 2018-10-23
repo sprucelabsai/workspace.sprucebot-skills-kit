@@ -238,7 +238,8 @@ function (_Component) {
           isCircular = _this$props.isCircular,
           fileWasUploaded = _this$props.fileWasUploaded,
           uploadProgress = _this$props.uploadProgress,
-          rest = (0, _objectWithoutProperties2.default)(_this$props, ["id", "label", "postLabel", "onDrop", "buttonText", "error", "isSmall", "isCircular", "fileWasUploaded", "uploadProgress"]);
+          defaultIcon = _this$props.defaultIcon,
+          rest = (0, _objectWithoutProperties2.default)(_this$props, ["id", "label", "postLabel", "onDrop", "buttonText", "error", "isSmall", "isCircular", "fileWasUploaded", "uploadProgress", "defaultIcon"]);
       var defaultClass = (0, _classnames.default)('dropzone', {
         'dropzone-small': isSmall,
         'dropzone-circular': isCircular
@@ -280,7 +281,7 @@ function (_Component) {
           className: "dropzone__icons"
         }, !uploadProgress && !isDragAccept && !isDragReject && _react.default.createElement(_react.Fragment, null, fileWasUploaded ? _react.default.createElement(UploadedIcon, {
           className: "dropzone__icon dropzone__did-upload-icon"
-        }) : _react.default.createElement(DefaultIcon, {
+        }) : defaultIcon || _react.default.createElement(DefaultIcon, {
           className: "dropzone__icon"
         })), isDragAccept && _react.default.createElement(DropIcon, {
           className: "dropzone__icon dropzone__allow-drop-icon"
