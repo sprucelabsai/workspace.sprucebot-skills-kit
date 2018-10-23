@@ -21,6 +21,18 @@ stories.add('Pagination', function () {
     currentPage: (0, _react3.number)('Current Page', 1),
     totalPages: (0, _react3.number)('Total Pages', 100),
     showPages: (0, _react3.boolean)('Show Pages', false),
-    showJump: (0, _react3.boolean)('Show Jump', false)
+    showJump: (0, _react3.boolean)('Show Jump', false),
+    onClickNext: function onClickNext() {
+      return console.log('You clicked next');
+    },
+    onClickBack: function onClickBack() {
+      return console.log('You clicked back');
+    },
+    onPageButtonClick: function onPageButtonClick(page) {
+      return console.log('You clicked ', page);
+    },
+    onJump: function onJump(value) {
+      return console.log('Use jump: ', value);
+    }
   });
 });

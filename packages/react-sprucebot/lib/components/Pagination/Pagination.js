@@ -51,7 +51,11 @@ var Pagination = function Pagination(props) {
   var currentPage = props.currentPage,
       totalPages = props.totalPages,
       showPages = props.showPages,
-      showJump = props.showJump;
+      showJump = props.showJump,
+      onClickNext = props.onClickNext,
+      onClickBack = props.onClickBack,
+      onPageButtonClick = props.onPageButtonClick,
+      onJump = props.onJump;
   var pagesArray = [];
   var displayPages = [];
 
@@ -84,19 +88,24 @@ var Pagination = function Pagination(props) {
     })
   }, _react.default.createElement(_Button.default, {
     kind: "secondary",
+    onClick: onClickBack,
     isSmall: true,
     className: "pagination__btn",
     icon: _react.default.createElement(ArrowBack, null),
     disabled: currentPage === 1
-  }), showPages && displayPages.map(function (page) {
+  }), showPages && onPageButtonClick && displayPages.map(function (page, idx) {
     if (page.text === '…') {
       return _react.default.createElement(_Text.Text, {
+        key: idx,
         className: "pagination__page-ellipse"
       }, _react.default.createElement(_Text.Span, null, "\u2026"));
     }
 
     return _react.default.createElement(_Button.default, {
-      key: page,
+      key: idx,
+      onClick: function onClick() {
+        return onPageButtonClick(page);
+      },
       kind: currentPage === page ? 'simple' : '',
       text: page.toString(),
       isSmall: true,
@@ -104,16 +113,31 @@ var Pagination = function Pagination(props) {
     });
   }), _react.default.createElement(_Button.default, {
     kind: "secondary",
+    onClick: onClickNext,
     isSmall: true,
     className: "pagination__btn",
     icon: _react.default.createElement(ArrowNext, null),
     disabled: currentPage >= totalPages
-  }), showJump && _react.default.createElement("div", {
-    className: "pagination__jump-wrapper"
+  }), showJump && onJump && _react.default.createElement("form", {
+    className: "pagination__jump-wrapper",
+    onSubmit: function onSubmit(e) {
+      e.preventDefault();
+
+      for (var _i = 0; _i < e.currentTarget.elements.length; _i++) {
+        if (e.currentTarget.elements[_i].name === 'jump') {
+          onJump(e.currentTarget.elements[_i].value || e.currentTarget.elements[_i].placeholder);
+        }
+      }
+    }
   }, _react.default.createElement(_Text.Span, {
     className: "pagination__jump-text"
   }, "Jump:\xA0"), _react.default.createElement(_FormPartials.InputInner, {
-    placeholder: currentPage
+    name: "jump",
+    autoComplete: "off",
+    placeholder: currentPage,
+    onBlur: function onBlur(e) {
+      onJump(e.currentTarget.value || e.currentTarget.placeholder);
+    }
   })));
 };
 

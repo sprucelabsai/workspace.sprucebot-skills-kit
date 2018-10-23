@@ -11,7 +11,8 @@ import ToastWrapper from './components/ToastWrapper/ToastWrapper'
 const stories = storiesOf('Toast', module)
 
 type Props = {
-	children: Node
+	children: Node,
+	showUndo: boolean
 }
 
 type State = {
@@ -24,12 +25,14 @@ class ToastExample extends Component<Props, State> {
 	}
 
 	addToast = (kind: 'neutral' | 'positive' | 'negative') => {
+		const { showUndo } = this.props
 		this.setState(prevState => {
 			const newToasts = [...prevState.toasts]
 			newToasts.push({
 				headline: 'Neat',
 				text: 'Something just happened and it was fine',
-				kind
+				kind,
+				onUndo: showUndo ? () => console.log('Undo') : null
 			})
 			return {
 				toasts: newToasts
@@ -81,6 +84,6 @@ stories.addDecorator(withKnobs)
 
 stories.add('Toast', () => (
 	<Container size="small">
-		<ToastExample />
+		<ToastExample showUndo={boolean('Show Undo', false)} />
 	</Container>
 ))

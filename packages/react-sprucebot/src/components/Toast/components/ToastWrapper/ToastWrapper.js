@@ -10,6 +10,7 @@ type Props = {
 
 const ToastWrapper = (props: Props) => {
 	const { toasts, handleRemove } = props
+	console.log({ toasts })
 
 	return (
 		<div className="toasts-wrapper">
