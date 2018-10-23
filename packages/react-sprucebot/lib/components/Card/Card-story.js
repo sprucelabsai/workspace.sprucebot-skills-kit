@@ -20,6 +20,8 @@ var _List = _interopRequireDefault(require("../List/List"));
 
 var _Text = require("../Text/Text");
 
+var _Image = _interopRequireDefault(require("../Image/Image"));
+
 var _index = require("./index");
 
 var _ContextMenu = _interopRequireDefault(require("../ContextMenu/ContextMenu"));
@@ -178,6 +180,34 @@ stories.add('To Do', function () {
   }), _react.default.createElement(_Text.Anchor, {
     href: "#"
   }, "+3 more today"))));
+}).add('Person Card', function () {
+  return _react.default.createElement(_Container.default, {
+    size: "medium"
+  }, _react.default.createElement(_Card.default, {
+    isCentered: true
+  }, _react.default.createElement(_Card.CardHeader, null), _react.default.createElement(_Card.CardBody, null, _react.default.createElement(_Avatar.default, {
+    isLarge: true,
+    image: _user0196w.default,
+    alt: "Rosamund Mueleer"
+  }), _react.default.createElement(_Text.H3, {
+    className: "card-header__title l-mb-xsmall"
+  }, "Say \"Happy Birthday\""), _react.default.createElement(_Text.Text, null, "It\u2019s Rosamond Mueller\u2019s birthday today. Don\u2019t forget to say happy birthday!")), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
+    kind: "secondary",
+    text: "Send a birthday message",
+    isSmall: true
+  }))));
+}).add('Place Card', function () {
+  return _react.default.createElement(_Container.default, {
+    size: "medium"
+  }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Image.default, {
+    src: "https://images.unsplash.com/photo-1535401991746-da3d9055713e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9fa1c73c0d29848a6e63595c588051ad&auto=format&fit=crop&w=720&h=360&q=80",
+    width: 720,
+    height: 360,
+    className: "l-mb-small"
+  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement(_Text.H3, null, "Les Basics"), _react.default.createElement(_Text.Text, null, "101 Purdy Lakes, West Jordanmouth, NH 38827-6100")), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
+    kind: "secondary",
+    text: "Book an appointment"
+  }))));
 }).add('With a Header Action', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"
@@ -230,22 +260,6 @@ stories.add('To Do', function () {
       }]
     })
   }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement("p", null, "Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer."))));
-}).add('Person Card', function () {
-  return _react.default.createElement(_Container.default, {
-    size: "medium"
-  }, _react.default.createElement(_Card.default, {
-    isCentered: true
-  }, _react.default.createElement(_Card.CardHeader, null), _react.default.createElement(_Card.CardBody, null, _react.default.createElement(_Avatar.default, {
-    isLarge: true,
-    image: _user0196w.default,
-    alt: "Rosamund Mueleer"
-  }), _react.default.createElement("h3", {
-    className: "card-header__title l-mb-xsmall"
-  }, "Say \"Happy Birthday\""), _react.default.createElement("p", null, "It\u2019s Rosamond Mueller\u2019s birthday today. Don\u2019t forget to say happy birthday!")), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
-    kind: "secondary",
-    text: "Send a birthday message",
-    isSmall: true
-  }))));
 }).add('CardBuilder', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"

@@ -52,48 +52,6 @@ const stories = storiesOf('Card', module)
 stories.addDecorator(withKnobs)
 
 stories
-	.add('To Do', () => (
-		<Container size="medium">
-			<Card>
-				<CardHeader
-					labelText={text('Label Text', '')}
-					labelIcon={
-						boolean('Label Icon', false) && (
-							<LockIcon2 className="u-icon__no-fill u-icon__stroke" />
-						)
-					}
-					title={text('Title', 'Get the most out of Spruce')}
-					actions={
-						boolean('Header Action', false) && [
-							{
-								kind: 'simple',
-								text: 'Go to team',
-								isSmall: true
-							}
-						]
-					}
-					contextMenu={
-						boolean('Header Context Menu', false) && (
-							<ContextMenu
-								actions={[{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]}
-							/>
-						)
-					}
-				/>
-				<CardBody>
-					<p>
-						{text(
-							'Body Copy',
-							'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-						)}
-					</p>
-				</CardBody>
-				<CardFooter>
-					<Button kind="secondary" text="Get some skills" isSmall />
-				</CardFooter>
-			</Card>
-		</Container>
-	))
 	.add('Critical Card', () => (
 		<Container size="medium">
 			<Card isCritical>
@@ -103,8 +61,10 @@ stories
 					labelIcon={<AlertIcon3 />}
 				/>
 				<CardBody>
-					Two roads diverged in a wood, and I took the one less traveled by, And
-					that has made all the difference.
+					<Text className="u-lh-loose u-color-body-light">
+						Two roads diverged in a wood, and I took the one less traveled by,
+						And that has made all the difference.
+					</Text>
 				</CardBody>
 				<CardFooter>
 					<Button kind="secondary" text="Update credit card" />
@@ -124,10 +84,10 @@ stories
 					]}
 				/>
 				<CardBody>
-					<p>
+					<Text className="u-lh-loose u-color-body-light">
 						Two roads diverged in a wood, and I took the one less traveled by,
 						And that has made all the difference.
-					</p>
+					</Text>
 					<Scores
 						scores={[
 							{
@@ -178,7 +138,7 @@ stories
 					<H3 className="card-header__title l-mb-xsmall">
 						Say "Happy Birthday"
 					</H3>
-					<Text>
+					<Text className="u-lh-loose u-color-body-light">
 						It’s Rosamond Mueller’s birthday today. Don’t forget to say happy
 						birthday!
 					</Text>
@@ -198,10 +158,11 @@ stories
 					height={360}
 					className="l-mb-small"
 				/>
-
 				<CardBody>
 					<H3>Les Basics</H3>
-					<Text>101 Purdy Lakes, West Jordanmouth, NH 38827-6100</Text>
+					<Text className="u-lh-loose u-color-body-light">
+						101 Purdy Lakes, West Jordanmouth, NH 38827-6100
+					</Text>
 				</CardBody>
 				<CardFooter>
 					<Button kind="secondary" text="Book an appointment" />
@@ -209,70 +170,66 @@ stories
 			</Card>
 		</Container>
 	))
-	.add('With a Header Action', () => (
+	.add('Celebration Card', () => (
 		<Container size="medium">
-			<Card>
-				<CardHeader
-					title="Add your teammates"
-					actions={[
-						{
-							kind: 'simple',
-							text: 'Go to team',
-							isSmall: true
-						}
-					]}
+			<Card isCentered>
+				<Image
+					src="https://images.unsplash.com/photo-1499306215218-42e51ae058b2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6a6ae71facb70ced00bcbae8174ee47c&auto=format&fit=crop&w=720&h=360&q=80"
+					width={720}
+					height={360}
+					className="l-mb-small"
 				/>
+
 				<CardBody>
-					Whatever you can do, or dream you can, begin it. Boldness has genius,
-					power and magic in it.
+					<H3>Congrats on 10k guests!</H3>
+					<Text className="u-lh-loose u-color-body-light">
+						I’ve learned that people will forget what you said, people will
+						forget what you did, but people will never forget how you made them
+						feel.
+					</Text>
 				</CardBody>
-				<CardFooter>
-					<Button kind="primary" text="Add teammates" isSmall />
-				</CardFooter>
 			</Card>
 		</Container>
 	))
-	.add('With a Context Menu', () => (
+	.add('To Do', () => (
 		<Container size="medium">
 			<Card>
 				<CardHeader
-					title="Add your teammates"
+					labelText={text('Label Text', '')}
+					labelIcon={
+						boolean('Label Icon', false) && (
+							<LockIcon2 className="u-icon__no-fill u-icon__stroke" />
+						)
+					}
+					title={text('Title', 'Get the most out of Spruce')}
+					actions={
+						boolean('Header Action', false) && [
+							{
+								kind: 'simple',
+								text: 'Go to team',
+								isSmall: true
+							}
+						]
+					}
 					contextMenu={
-						<ContextMenu
-							actions={[{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]}
-						/>
+						boolean('Header Context Menu', false) && (
+							<ContextMenu
+								actions={[{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]}
+							/>
+						)
 					}
 				/>
 				<CardBody>
-					<p>
-						Two roads diverged in a wood, and I took the one less traveled by,
-						And that has made all the difference.
-					</p>
+					<Text className="u-lh-loose u-color-body-light">
+						{text(
+							'Body Copy',
+							'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+						)}
+					</Text>
 				</CardBody>
 				<CardFooter>
-					<Button kind="secondary" text="Get some teammates" isSmall />
+					<Button kind="secondary" text="Get some skills" isSmall />
 				</CardFooter>
-			</Card>
-		</Container>
-	))
-	.add('With a Label', () => (
-		<Container size="medium">
-			<Card>
-				<CardHeader
-					labelText="Private"
-					labelIcon={<LockIcon2 className="u-icon__no-fill u-icon__stroke" />}
-					contextMenu={
-						<ContextMenu
-							actions={[{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]}
-						/>
-					}
-				/>
-				<CardBody>
-					<p>
-						Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon
-						buff. Proud communicator. Introvert. Avid writer.
-					</p>
-				</CardBody>
 			</Card>
 		</Container>
 	))
