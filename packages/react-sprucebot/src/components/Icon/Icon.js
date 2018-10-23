@@ -2,16 +2,18 @@
 // NOTE: This component should only include a few of the most commonly
 // used icons for developer convenience
 import React from 'react'
-import Edit from '../../../static/assets//icons/Interface-Essential/Edit/pencil-write.svg'
+import Add from '../../../static/assets/icons/ic_add_circle_outline.svg'
 import CalendarDate from '../../../static/assets/icons/Interface-Essential/Date/Calendar/calendar-date.svg'
-import Delete from '../../../static/assets/icons/Interface-Essential/Delete/bin.svg'
 import Close from '../../../static/assets/icons/ic_close.svg'
+import Delete from '../../../static/assets/icons/Interface-Essential/Delete/bin.svg'
+import Edit from '../../../static/assets//icons/Interface-Essential/Edit/pencil-write.svg'
 
 type Props = {
 	icon: string
 }
 
 const key = {
+	add: Add,
 	close: Close,
 	date: CalendarDate,
 	delete: Delete,
