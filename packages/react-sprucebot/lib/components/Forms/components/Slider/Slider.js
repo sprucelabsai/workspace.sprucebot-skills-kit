@@ -52,11 +52,16 @@ function (_Component) {
       valueState: _this.props.value
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleChange", function (e) {
+      var onChange = _this.props.onChange;
       var newVal = e.target.value;
 
       _this.setState({
         valueState: newVal
       });
+
+      if (onChange) {
+        onChange(e);
+      }
     });
     return _this;
   }
@@ -79,7 +84,7 @@ function (_Component) {
         id: id,
         label: label,
         postLabel: postLabel
-      }), _react.default.createElement("input", (0, _extends2.default)({
+      }), _react.default.createElement("input", (0, _extends2.default)({}, rest, {
         type: "range",
         min: min,
         max: max,
@@ -91,7 +96,7 @@ function (_Component) {
           '--val': valueState
         },
         onChange: this.handleChange
-      }, rest)));
+      })));
     }
   }]);
   return Slider;

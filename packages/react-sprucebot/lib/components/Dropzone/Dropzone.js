@@ -233,18 +233,17 @@ function (_Component) {
           postLabel = _this$props.postLabel,
           onDrop = _this$props.onDrop,
           buttonText = _this$props.buttonText,
-          helper = _this$props.helper,
           error = _this$props.error,
           isSmall = _this$props.isSmall,
           isCircular = _this$props.isCircular,
           fileWasUploaded = _this$props.fileWasUploaded,
           uploadProgress = _this$props.uploadProgress,
-          rest = (0, _objectWithoutProperties2.default)(_this$props, ["id", "label", "postLabel", "onDrop", "buttonText", "helper", "error", "isSmall", "isCircular", "fileWasUploaded", "uploadProgress"]);
+          rest = (0, _objectWithoutProperties2.default)(_this$props, ["id", "label", "postLabel", "onDrop", "buttonText", "error", "isSmall", "isCircular", "fileWasUploaded", "uploadProgress"]);
       var defaultClass = (0, _classnames.default)('dropzone', {
         'dropzone-small': isSmall,
         'dropzone-circular': isCircular
       });
-      return _react.default.createElement("div", null, label && _react.default.createElement(_FormPartials.InputPre, {
+      return _react.default.createElement(_react.Fragment, null, label && _react.default.createElement(_FormPartials.InputPre, {
         id: id,
         label: label,
         postLabel: postLabel
@@ -309,5 +308,6 @@ function (_Component) {
 exports.default = Dropzone;
 (0, _defineProperty2.default)(Dropzone, "defaultProps", {
   fileWasUploaded: false,
-  isSmall: false
+  isSmall: false,
+  isCircular: false
 });

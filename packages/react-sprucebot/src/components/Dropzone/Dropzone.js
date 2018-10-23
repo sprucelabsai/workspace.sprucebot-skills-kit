@@ -1,5 +1,6 @@
 // @flow
 import React, { Component, Fragment } from 'react'
+import type { Node } from 'react'
 import ReactDropzone from 'react-dropzone'
 import cx from 'classnames'
 import { InputPre } from '../Forms/FormPartials'
@@ -28,6 +29,7 @@ export interface Props {
 	isSmall?: boolean;
 	isCircular?: boolean;
 	fileWasUploaded?: boolean;
+	defaultIcon?: Node;
 }
 
 type State = {
@@ -113,6 +115,7 @@ export default class Dropzone extends Component<Props, State> {
 			isCircular,
 			fileWasUploaded,
 			uploadProgress,
+			defaultIcon,
 			...rest
 		} = this.props
 		const defaultClass = cx('dropzone', {
@@ -160,7 +163,9 @@ export default class Dropzone extends Component<Props, State> {
 											{fileWasUploaded ? (
 												<UploadedIcon className="dropzone__icon dropzone__did-upload-icon" />
 											) : (
-												<DefaultIcon className="dropzone__icon" />
+												defaultIcon || (
+													<DefaultIcon className="dropzone__icon" />
+												)
 											)}
 										</Fragment>
 									)}
