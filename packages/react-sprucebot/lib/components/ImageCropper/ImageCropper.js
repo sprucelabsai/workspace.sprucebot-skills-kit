@@ -37,6 +37,7 @@ var _Dropzone = _interopRequireWildcard(require("../Dropzone/Dropzone"));
 
 var _Forms = require("../Forms");
 
+// NOTE: Relies on https://github.com/mosch/react-avatar-editor
 var RotateLeftIcon = function RotateLeftIcon(props) {
   return _react.default.createElement("svg", props, _react.default.createElement("path", {
     d: "M3.434 10.537a8.78 8.78 0 0 1 .523-1.274M3.069 14.425a9.006 9.006 0 0 1-.028-1.983M4.389 18.111a9 9 0 0 1-.843-1.711M7.163 20.9a9.033 9.033 0 0 1-1.506-1.2M10.98 22.248a8.974 8.974 0 0 1-1.909-.431M10 4.25h2a9.029 9.029 0 0 1 .995 18",

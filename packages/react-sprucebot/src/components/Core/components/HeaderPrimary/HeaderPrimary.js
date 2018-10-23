@@ -1,9 +1,11 @@
 // @flow
+// TODO: The Autosuggest used here will need to be updated to hook up to the API
+// and render userful results. This should probably be done as its own component
 import React, { Component, Fragment } from 'react'
 import Hamburger from './components/Hamburger/Hamburger'
 import DefaultLockup from './components/DefaultLockup/DefaultLockup'
 import UserMenu from './components/UserMenu/UserMenu'
-import { Search } from '../../../Forms'
+import { Autosuggest } from '../../../Forms'
 import Button from '../../../Button/Button'
 
 type State = {
@@ -88,9 +90,11 @@ export default class HeaderPrimary extends Component<Props, State> {
 				<div className="header-primary__right">
 					{user ? (
 						<Fragment>
-							<Search
+							<Autosuggest
 								className="text-input-small"
 								placeholder="Search anything…"
+								isSmall
+								wrapperClassName="header-primary__autosuggest"
 							/>
 							<UserMenu
 								menuIsVisible={isUserMenuVisible}

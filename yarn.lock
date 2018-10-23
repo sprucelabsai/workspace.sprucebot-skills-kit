@@ -1810,9 +1810,9 @@
     into-stream "^3.1.0"
     lodash "^4.17.4"
 
-"@sprucelabs/heartwood-components@0.6.5":
-  version "0.6.5"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/heartwood-components/-/heartwood-components-0.6.5.tgz#79734580922678c294fcfc78fc060c1370888c37"
+"@sprucelabs/heartwood-components@0.6.6":
+  version "0.6.6"
+  resolved "https://registry.yarnpkg.com/@sprucelabs/heartwood-components/-/heartwood-components-0.6.6.tgz#2f221e296c9d96a31833b9d38b2e2c9cc083e68f"
   dependencies:
     "@frctl/fractal" "^1.1.5"
     "@frctl/mandelbrot" "^1.2.0"
@@ -12346,6 +12346,12 @@ react-autowhatever@^10.1.2:
     prop-types "^15.5.8"
     react-themeable "^1.1.0"
     section-iterator "^2.0.0"
+
+react-avatar-editor@^11.0.4:
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/react-avatar-editor/-/react-avatar-editor-11.0.4.tgz#a32e2e10f1edc8480b1b852f3ab287c7b56c7ced"
+  dependencies:
+    prop-types "^15.5.8"
 
 react-big-calendar@0.19.2:
   version "0.19.2"

@@ -1,6 +1,7 @@
 // @flow
 import React, { Component, Fragment } from 'react'
 import { default as ReactAutosuggest } from 'react-autosuggest'
+import cx from 'classnames'
 import Button from '../../../Button/Button'
 import {
 	InputPre,
@@ -17,7 +18,9 @@ type Props = {
 	defaultSuggestions?: Array<any>,
 	placeholder?: string,
 	inputPre?: InputPreProps,
-	inputHelper?: InputHelperProps
+	inputHelper?: InputHelperProps,
+	isSmall?: boolean,
+	wrapperClassName?: string
 }
 
 type State = {
@@ -26,14 +29,20 @@ type State = {
 	showClearButton: boolean
 }
 
-const theme = {
-	container: 'text-input',
+type ThemeProps = {
+	isSmall?: boolean
+}
+
+const theme = (props: ThemeProps) => ({
+	container: cx('text-input', {
+		'text-input-small': props.isSmall
+	}),
 	input: 'text-input__inner text-input__input',
 	suggestionsContainer: 'autosuggest',
 	suggestionsContainerOpen: 'autosuggest--show-suggestions',
 	suggestionsList: 'autosuggest__list',
 	suggestion: 'autosuggest__list-item'
-}
+})
 
 export default class Autosuggest extends Component<Props, State> {
 	static defaultProps = {
@@ -90,6 +99,8 @@ export default class Autosuggest extends Component<Props, State> {
 			placeholder,
 			inputPre,
 			inputHelper,
+			isSmall,
+			wrapperClassName,
 			...rest
 		} = this.props
 		const inputProps = {
@@ -102,7 +113,7 @@ export default class Autosuggest extends Component<Props, State> {
 		return (
 			<Fragment>
 				{inputPre && <InputPre {...inputPre} />}
-				<div className="autosuggest__wrapper">
+				<div className={cx('autosuggest__wrapper', wrapperClassName)}>
 					<ReactAutosuggest
 						suggestions={suggestions}
 						onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -110,7 +121,7 @@ export default class Autosuggest extends Component<Props, State> {
 						getSuggestionValue={getSuggestionValue}
 						renderSuggestion={renderSuggestion}
 						inputProps={inputProps}
-						theme={theme}
+						theme={theme({ isSmall })}
 						{...rest}
 					/>
 					{showClearButton && (
