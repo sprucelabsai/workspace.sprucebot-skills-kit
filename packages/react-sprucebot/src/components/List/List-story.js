@@ -111,6 +111,7 @@ stories
 						contextMenu: {
 							icon: <EditIcon />,
 							size: 'large',
+							isSimple: true,
 							actions: threeTextActions
 						}
 					},
@@ -120,6 +121,7 @@ stories
 						contextMenu: {
 							icon: <EditIcon />,
 							size: 'large',
+							isSimple: true,
 							actions: threeTextActions
 						}
 					},
@@ -129,6 +131,7 @@ stories
 						contextMenu: {
 							icon: <EditIcon />,
 							size: 'large',
+							isSimple: true,
 							actions: threeTextActions
 						}
 					}

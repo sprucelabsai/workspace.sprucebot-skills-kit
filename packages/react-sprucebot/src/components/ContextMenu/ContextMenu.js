@@ -11,6 +11,7 @@ export interface Props {
 	isLeftAligned?: boolean;
 	size?: 'medium' | 'large';
 	icon?: any;
+	isSimple?: boolean;
 }
 
 type State = {
@@ -72,7 +73,7 @@ export default class ContextMenu extends Component<Props, State> {
 
 	render() {
 		const { isVisible } = this.state
-		const { actions, isLeftAligned, size, icon } = this.props
+		const { actions, isLeftAligned, isSimple, size, icon } = this.props
 		const buttonClass = cx('context-menu', {
 			'context-menu--is-visible': isVisible
 		})
@@ -83,6 +84,7 @@ export default class ContextMenu extends Component<Props, State> {
 		return (
 			<div className={buttonClass} ref={ref => (this.ref = ref)}>
 				<Button
+					kind={isSimple ? 'simple' : ''}
 					className="context-menu__button"
 					onClick={this.handleToggle}
 					icon={

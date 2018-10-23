@@ -29,10 +29,10 @@ var Toggle = function Toggle(props) {
     id: id
   }), _react.default.createElement("label", {
     className: "toggle__label",
-    for: id
+    htmlFor: id
   })), postText && _react.default.createElement("label", {
     className: "toggle__text",
-    for: id
+    htmlFor: id
   }, postText));
 };
 
