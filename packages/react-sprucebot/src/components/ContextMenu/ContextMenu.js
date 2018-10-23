@@ -8,7 +8,7 @@ import Icon from '../../../static/assets/icons/Interface-Essential/Menu/navigati
 
 export interface Props {
 	actions: Array<ButtonProps>;
-	leftAlign?: boolean;
+	isLeftAligned?: boolean;
 }
 
 type State = {
@@ -22,7 +22,7 @@ export default class ContextMenu extends Component<Props, State> {
 	}
 
 	static defaultProps = {
-		leftAlign: false
+		isLeftAligned: false
 	}
 
 	handleHide = (e: any) => {
@@ -59,12 +59,12 @@ export default class ContextMenu extends Component<Props, State> {
 
 	render() {
 		const { isVisible } = this.state
-		const { actions, leftAlign } = this.props
+		const { actions, isLeftAligned } = this.props
 		const buttonClass = cx('context-menu', {
 			'context-menu--is-visible': isVisible
 		})
 		const menuClass = cx('context-menu__menu', {
-			'context-menu__menu-left': leftAlign
+			'context-menu__menu-left': isLeftAligned
 		})
 		return (
 			<div className={buttonClass} ref={ref => (this.ref = ref)}>

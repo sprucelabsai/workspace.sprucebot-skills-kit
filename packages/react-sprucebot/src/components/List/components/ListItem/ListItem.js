@@ -3,7 +3,7 @@ import React from 'react'
 import type { Node } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
-import Button from '../../../Button/Button'
+import Button, { Props as ButtonProps } from '../../../Button/Button'
 import { Toggle } from '../../../Forms'
 import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
 
@@ -15,7 +15,7 @@ export interface Props {
 	icon?: any;
 	isDraggable?: boolean;
 	toggleId?: string;
-	actions?: Array<Object>;
+	actions?: Array<ButtonProps>;
 }
 
 const ListItem = (props: Props) => {

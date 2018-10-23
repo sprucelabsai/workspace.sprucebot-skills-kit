@@ -3,5 +3,5 @@ import { storiesOf } from '@storybook/react'
 import ContextMenu from './ContextMenu'
 
 storiesOf('Context Menu', module).add('Example', () => (
-	<ContextMenu actions={[{ text: 'one' }]} leftAlign />
+	<ContextMenu actions={[{ text: 'one' }]} isLeftAligned />
 ))
