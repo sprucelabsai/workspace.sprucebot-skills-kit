@@ -11,10 +11,10 @@ const Toggle = (props: Props) => {
 		<div className={parentClass}>
 			<div className="toggle">
 				<input className="toggle__input" type="checkbox" id={id} />
-				<label className="toggle__label" for={id} />
+				<label className="toggle__label" htmlFor={id} />
 			</div>
 			{postText && (
-				<label className="toggle__text" for={id}>
+				<label className="toggle__text" htmlFor={id}>
 					{postText}
 				</label>
 			)}

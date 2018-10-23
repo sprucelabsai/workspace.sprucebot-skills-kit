@@ -23,7 +23,6 @@ export interface Props {
 const List = (props: Props) => {
 	const { header, items, className, isSmall } = props
 	const parentClass = cx('list', className, { 'list-small': isSmall })
-	console.log({ items })
 
 	return (
 		<Fragment>

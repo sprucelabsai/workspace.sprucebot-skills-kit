@@ -13,25 +13,18 @@ var _react = _interopRequireDefault(require("react"));
 
 // NOTE: This component should only include a few of the most commonly
 // used icons for developer convenience
-var Edit = function Edit(props) {
+var Add = function Add(props) {
   return _react.default.createElement("svg", props, _react.default.createElement("path", {
+    fillRule: "evenodd",
     clipRule: "evenodd",
-    d: "M13.045 15.135l-3.712.531.53-3.713 9.546-9.546a2.25 2.25 0 0 1 3.182 3.182l-9.546 9.546z",
-    strokeWidth: "1.5",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }), _react.default.createElement("path", {
-    d: "M18.348 3.469L21.53 6.65M18.75 15.25v7.5a1.5 1.5 0 0 1-1.5 1.5h-15a1.5 1.5 0 0 1-1.5-1.5v-15a1.5 1.5 0 0 1 1.5-1.5h7.5",
-    strokeWidth: "1.5",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
+    d: "M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
   }));
 };
 
-Edit.defaultProps = {
+Add.defaultProps = {
   width: "24",
-  height: "25",
-  viewBox: "0 0 24 25",
+  height: "24",
+  viewBox: "0 0 24 24",
   xmlns: "http://www.w3.org/2000/svg"
 };
 
@@ -56,6 +49,21 @@ var CalendarDate = function CalendarDate(props) {
 };
 
 CalendarDate.defaultProps = {
+  width: "24",
+  height: "24",
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+};
+
+var Close = function Close(props) {
+  return _react.default.createElement("svg", props, _react.default.createElement("path", {
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
+  }));
+};
+
+Close.defaultProps = {
   width: "24",
   height: "24",
   viewBox: "0 0 24 24",
@@ -90,21 +98,29 @@ Delete.defaultProps = {
   xmlns: "http://www.w3.org/2000/svg"
 };
 
-var Close = function Close(props) {
+var Edit = function Edit(props) {
   return _react.default.createElement("svg", props, _react.default.createElement("path", {
-    fillRule: "evenodd",
     clipRule: "evenodd",
-    d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
+    d: "M13.045 15.135l-3.712.531.53-3.713 9.546-9.546a2.25 2.25 0 0 1 3.182 3.182l-9.546 9.546z",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }), _react.default.createElement("path", {
+    d: "M18.348 3.469L21.53 6.65M18.75 15.25v7.5a1.5 1.5 0 0 1-1.5 1.5h-15a1.5 1.5 0 0 1-1.5-1.5v-15a1.5 1.5 0 0 1 1.5-1.5h7.5",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
   }));
 };
 
-Close.defaultProps = {
+Edit.defaultProps = {
   width: "24",
-  height: "24",
-  viewBox: "0 0 24 24",
+  height: "25",
+  viewBox: "0 0 24 25",
   xmlns: "http://www.w3.org/2000/svg"
 };
 var key = {
+  add: Add,
   close: Close,
   date: CalendarDate,
   delete: Delete,
