@@ -15,5 +15,9 @@ stories.add('Pagination', () => (
 		totalPages={number('Total Pages', 100)}
 		showPages={boolean('Show Pages', false)}
 		showJump={boolean('Show Jump', false)}
+		onClickNext={() => console.log('You clicked next')}
+		onClickBack={() => console.log('You clicked back')}
+		onPageButtonClick={page => console.log('You clicked ', page)}
+		onJump={value => console.log('Use jump: ', value)}
 	/>
 ))

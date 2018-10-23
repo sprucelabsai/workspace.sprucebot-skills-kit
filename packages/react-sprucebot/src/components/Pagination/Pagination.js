@@ -10,12 +10,25 @@ import ArrowBack from '../../../static/assets/icons/ic_arrow_back.svg'
 type Props = {
 	currentPage: number,
 	totalPages: number,
+	onClickNext: Function,
+	onClickBack: Function,
+	onPageButtonClick?: Function,
+	onJump?: Function,
 	showPages?: boolean,
 	showJump?: boolean
 }
 
 const Pagination = (props: Props) => {
-	const { currentPage, totalPages, showPages, showJump } = props
+	const {
+		currentPage,
+		totalPages,
+		showPages,
+		showJump,
+		onClickNext,
+		onClickBack,
+		onPageButtonClick,
+		onJump
+	} = props
 	const pagesArray = []
 	let displayPages = []
 	for (let i = 1; i < totalPages + 1; i++) {
@@ -53,23 +66,26 @@ const Pagination = (props: Props) => {
 		>
 			<Button
 				kind="secondary"
+				onClick={onClickBack}
 				isSmall
 				className="pagination__btn"
 				icon={<ArrowBack />}
 				disabled={currentPage === 1}
 			/>
 			{showPages &&
-				displayPages.map(page => {
+				onPageButtonClick &&
+				displayPages.map((page, idx) => {
 					if (page.text === '…') {
 						return (
-							<Text className="pagination__page-ellipse">
+							<Text key={idx} className="pagination__page-ellipse">
 								<Span>…</Span>
 							</Text>
 						)
 					}
 					return (
 						<Button
-							key={page}
+							key={idx}
+							onClick={() => onPageButtonClick(page)}
 							kind={currentPage === page ? 'simple' : ''}
 							text={page.toString()}
 							isSmall
@@ -79,17 +95,39 @@ const Pagination = (props: Props) => {
 				})}
 			<Button
 				kind="secondary"
+				onClick={onClickNext}
 				isSmall
 				className="pagination__btn"
 				icon={<ArrowNext />}
 				disabled={currentPage >= totalPages}
 			/>
-			{showJump && (
-				<div className="pagination__jump-wrapper">
-					<Span className="pagination__jump-text">Jump:&nbsp;</Span>
-					<InputInner placeholder={currentPage} />
-				</div>
-			)}
+			{showJump &&
+				onJump && (
+					<form
+						className="pagination__jump-wrapper"
+						onSubmit={e => {
+							e.preventDefault()
+							for (let i = 0; i < e.currentTarget.elements.length; i++) {
+								if (e.currentTarget.elements[i].name === 'jump') {
+									onJump(
+										e.currentTarget.elements[i].value ||
+											e.currentTarget.elements[i].placeholder
+									)
+								}
+							}
+						}}
+					>
+						<Span className="pagination__jump-text">Jump:&nbsp;</Span>
+						<InputInner
+							name="jump"
+							autoComplete="off"
+							placeholder={currentPage}
+							onBlur={e => {
+								onJump(e.currentTarget.value || e.currentTarget.placeholder)
+							}}
+						/>
+					</form>
+				)}
 		</div>
 	)
 }
