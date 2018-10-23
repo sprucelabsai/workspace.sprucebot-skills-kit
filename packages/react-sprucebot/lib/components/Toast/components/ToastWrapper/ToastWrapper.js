@@ -20,6 +20,9 @@ var _Toast = _interopRequireWildcard(require("../../Toast"));
 var ToastWrapper = function ToastWrapper(props) {
   var toasts = props.toasts,
       handleRemove = props.handleRemove;
+  console.log({
+    toasts: toasts
+  });
   return _react.default.createElement("div", {
     className: "toasts-wrapper"
   }, _react.default.createElement(_velocityReact.VelocityTransitionGroup, {

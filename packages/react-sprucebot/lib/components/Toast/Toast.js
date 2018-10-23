@@ -64,9 +64,7 @@ var Toast = function Toast(props) {
 
 Toast.defaultProps = {
   kind: 'neutral',
-  onUndo: function onUndo() {
-    return null;
-  }
+  onUndo: null
 };
 var _default = Toast;
 exports.default = _default;
