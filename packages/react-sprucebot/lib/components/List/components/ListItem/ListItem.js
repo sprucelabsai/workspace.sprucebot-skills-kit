@@ -19,6 +19,8 @@ var _Avatar = _interopRequireDefault(require("../../../Avatar/Avatar"));
 
 var _Button = _interopRequireWildcard(require("../../../Button/Button"));
 
+var _ContextMenu = _interopRequireWildcard(require("../../../ContextMenu/ContextMenu"));
+
 var _Forms = require("../../../Forms");
 
 var DragHandle = function DragHandle(props) {
@@ -44,7 +46,8 @@ var ListItem = function ListItem(props) {
       icon = props.icon,
       isDraggable = props.isDraggable,
       toggleId = props.toggleId,
-      actions = props.actions;
+      actions = props.actions,
+      contextMenu = props.contextMenu;
   var parentClass = (0, _classnames.default)('list-item', {
     'list-item-title-only': !subtitle,
     'list-item--is-draggable': isDraggable
@@ -75,7 +78,9 @@ var ListItem = function ListItem(props) {
     className: "list-item__title"
   }, title), subtitle && _react.default.createElement("p", {
     className: "list-item__subtitle"
-  }, subtitle)), !isDraggable && actions && actions.length > 0 && _react.default.createElement("div", {
+  }, subtitle)), !isDraggable && (actions && actions.length > 0 || contextMenu) && _react.default.createElement("div", {
+    className: "list-item__actions-wrapper"
+  }, actions && actions.length > 0 && _react.default.createElement("div", {
     className: "list-item__actions-wrapper"
   }, actions.map(function (action, idx) {
     return _react.default.createElement(_Button.default, (0, _extends2.default)({
@@ -83,7 +88,7 @@ var ListItem = function ListItem(props) {
       isSmall: true,
       className: "list-item__action"
     }, action));
-  })), toggleId && _react.default.createElement(_Forms.Toggle, {
+  })), contextMenu && _react.default.createElement(_ContextMenu.default, contextMenu)), toggleId && _react.default.createElement(_Forms.Toggle, {
     id: toggleId
   }));
 };

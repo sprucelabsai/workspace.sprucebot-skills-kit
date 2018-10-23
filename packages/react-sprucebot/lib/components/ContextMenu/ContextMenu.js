@@ -70,8 +70,17 @@ function (_Component) {
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
       isVisible: false
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleHide", function (e) {
-      if (e.key === 'Escape' || e.target.contains(_this.ref)) {
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleClickOutside", function (e) {
+      if (e.target.contains(_this.ref)) {
+        _this.setState({
+          isVisible: false
+        }, function () {
+          return _this.manageListeners();
+        });
+      }
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleEscape", function (e) {
+      if (e.key === 'Escape') {
         _this.setState({
           isVisible: false
         }, function () {
@@ -91,11 +100,11 @@ function (_Component) {
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "manageListeners", function () {
       if (typeof window !== 'undefined') {
         if (_this.state.isVisible) {
-          window.addEventListener('click', _this.handleHide, false);
-          window.addEventListener('keyup', _this.handleHide, false);
+          window.addEventListener('click', _this.handleClickOutside, false);
+          window.addEventListener('keyup', _this.handleEscape, false);
         } else {
-          window.removeEventListener('click', _this.handleHide, false);
-          window.removeEventListener('keyup', _this.handleHide, false);
+          window.removeEventListener('click', _this.handleClickOutside, false);
+          window.removeEventListener('keyup', _this.handleEscape, false);
         }
       }
     });
@@ -110,12 +119,15 @@ function (_Component) {
       var isVisible = this.state.isVisible;
       var _this$props = this.props,
           actions = _this$props.actions,
-          isLeftAligned = _this$props.isLeftAligned;
+          isLeftAligned = _this$props.isLeftAligned,
+          size = _this$props.size,
+          icon = _this$props.icon;
       var buttonClass = (0, _classnames.default)('context-menu', {
         'context-menu--is-visible': isVisible
       });
       var menuClass = (0, _classnames.default)('context-menu__menu', {
-        'context-menu__menu-left': isLeftAligned
+        'context-menu__menu-left': isLeftAligned,
+        'context-menu__menu-large': size === 'large'
       });
       return _react.default.createElement("div", {
         className: buttonClass,
@@ -125,7 +137,9 @@ function (_Component) {
       }, _react.default.createElement(_Button.default, {
         className: "context-menu__button",
         onClick: this.handleToggle,
-        icon: _react.default.createElement(Icon, {
+        icon: icon ? _react.default.cloneElement(icon, {
+          className: 'btn__line-icon'
+        }) : _react.default.createElement(Icon, {
           className: "btn__line-icon"
         })
       }), _react.default.createElement(_velocityReact.VelocityTransitionGroup, {
@@ -147,7 +161,11 @@ function (_Component) {
         className: menuClass
       }, _react.default.createElement(_ButtonGroup.default, {
         kind: "floating",
-        actions: actions
+        actions: actions.map(function (action) {
+          var btnAction = Object.assign({}, action);
+          btnAction.className = 'context-menu__item-btn';
+          return btnAction;
+        })
       }))));
     }
   }]);

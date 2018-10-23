@@ -247,15 +247,27 @@ stories.add('Text List', function () {
     items: [{
       title: 'Clean Up',
       subtitle: '$20 | 15min',
-      actions: _actions.singleAction
+      contextMenu: {
+        icon: _react.default.createElement(EditIcon, null),
+        size: 'large',
+        actions: _actions.threeTextActions
+      }
     }, {
       title: 'Shampoo',
       subtitle: '$7 | 45min',
-      actions: _actions.singleAction
+      contextMenu: {
+        icon: _react.default.createElement(EditIcon, null),
+        size: 'large',
+        actions: _actions.threeTextActions
+      }
     }, {
       title: 'Young Spruce',
       subtitle: '$23 | 50min',
-      actions: _actions.singleAction
+      contextMenu: {
+        icon: _react.default.createElement(EditIcon, null),
+        size: 'large',
+        actions: _actions.threeTextActions
+      }
     }]
   }), _react.default.createElement(_List.default, {
     header: {
