@@ -176,7 +176,14 @@ const Page = Wrapped => {
 			// setup route changes
 			Router &&
 				Router.router &&
-				Router.router.events.on('routeChangeStart', this.handleRouteChangStart)
+				Router.router.events.on('routeChangeStart', this.handleRouteChangeStart)
+
+			Router &&
+				Router.router &&
+				Router.router.events.on(
+					'routeChangeComplete',
+					this.handleRouteChangeComplete
+				)
 
 			// window listeners for reauth communication
 			window.addEventListener('message', this.handleIframeMessage)
@@ -213,12 +220,37 @@ const Page = Wrapped => {
 			// remove route changes
 			Router &&
 				Router.router &&
-				Router.router.events.off('routeChangeStart', this.handleRouteChangStart)
+				Router.router.events.off(
+					'routeChangeStart',
+					this.handleRouteChangeStart
+				)
+			Router &&
+				Router.router &&
+				Router.router.events.off(
+					'routeChangeComplete',
+					this.handleRouteChangeComplete
+				)
 		}
 
-		handleRouteChangStart = () => {
+		handleRouteChangeComplete = () => {
+			if (
+				this.props.config.METRICS_ENABLED &&
+				this.props.config.METRICS_BROWSER_STATS_ENABLED
+			) {
+				log.routeChangeComplete()
+			}
+		}
+
+		handleRouteChangeStart = () => {
 			// don't user skill off props, it is pulled server side and lacks all functions
 			skill.notifyOfRouteChangeStart()
+
+			if (
+				this.props.config.METRICS_ENABLED &&
+				this.props.config.METRICS_BROWSER_STATS_ENABLED
+			) {
+				log.routeChangeStart()
+			}
 		}
 
 		render() {

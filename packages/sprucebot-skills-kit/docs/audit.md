@@ -31,22 +31,19 @@ If an owner reading the audit log clicked on it, your skill would be loaded with
 In your skill index page you'd want to read these query parameters and deep link to the guest profile where appointments are listed.
 
 ```js
-try {
-	await ctx.sb.audit({
-		type: 'createAppointment',
-		action: 'created an appointment',
-		description: `Created an appointment for ${ctx.auth.User.casualName} at ${
-			location.name
-		} for ${day} at ${startTime}`,
-		userId: ctx.auth.User.id,
-		locationId: location.id,
-		organizationId: location.OrganizationId,
-		meta: {
-			guestId,
-			appointmentId: appointment.id
-		}
-	})
-} catch (e) {
-	log.warn(e)
-}
+// This is async and will not return anything. If the call fails, log.warn(e) will be called with the error
+ctx.sb.audit({
+	type: 'createAppointment',
+	action: 'created an appointment',
+	description: `Created an appointment for ${ctx.auth.User.casualName} at ${
+		location.name
+	} for ${day} at ${startTime}`,
+	userId: ctx.auth.User.id,
+	locationId: location.id,
+	organizationId: location.OrganizationId,
+	meta: {
+		guestId,
+		appointmentId: appointment.id
+	}
+})
 ```

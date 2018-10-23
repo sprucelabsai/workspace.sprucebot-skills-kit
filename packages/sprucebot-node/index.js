@@ -656,13 +656,15 @@ class Sprucebot {
 	 *
 	 * @param auditLogs
 	 */
-	async audit(auditLogs) {
+	audit(auditLogs) {
 		if (!Array.isArray(auditLogs)) {
 			auditLogs = [auditLogs]
 		}
-		const result = await this.https.post(`/audit`, auditLogs)
-
-		return result
+		// Don't wait for the result
+		this.https
+			.post(`/audit`, auditLogs)
+			.then(() => {})
+			.catch(e => log.warn(e))
 	}
 }
 
