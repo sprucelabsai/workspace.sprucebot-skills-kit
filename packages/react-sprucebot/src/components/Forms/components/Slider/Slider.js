@@ -8,7 +8,8 @@ type Props = {
 	min: number,
 	max: number,
 	value: number,
-	postLabel: ?string
+	postLabel: ?string,
+	onChange?: Function
 }
 
 type State = {
@@ -21,10 +22,14 @@ export default class Slider extends Component<Props, State> {
 	}
 
 	handleChange = (e: any) => {
+		const { onChange } = this.props
 		const newVal = e.target.value
 		this.setState({
 			valueState: newVal
 		})
+		if (onChange) {
+			onChange(e)
+		}
 	}
 
 	render() {
@@ -34,6 +39,7 @@ export default class Slider extends Component<Props, State> {
 			<div className="slider-wrapper slider--split-color">
 				{label && <InputPre id={id} label={label} postLabel={postLabel} />}
 				<input
+					{...rest}
 					type="range"
 					min={min}
 					max={max}
@@ -45,7 +51,6 @@ export default class Slider extends Component<Props, State> {
 						'--val': valueState
 					}}
 					onChange={this.handleChange}
-					{...rest}
 				/>
 			</div>
 		)

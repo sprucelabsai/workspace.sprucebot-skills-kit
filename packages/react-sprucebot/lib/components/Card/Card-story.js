@@ -103,35 +103,7 @@ var cardJSON = {
 };
 var stories = (0, _react2.storiesOf)('Card', module);
 stories.addDecorator(_react3.withKnobs);
-stories.add('To Do', function () {
-  return _react.default.createElement(_Container.default, {
-    size: "medium"
-  }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.CardHeader, {
-    labelText: (0, _react3.text)('Label Text', ''),
-    labelIcon: (0, _react3.boolean)('Label Icon', false) && _react.default.createElement(LockIcon2, {
-      className: "u-icon__no-fill u-icon__stroke"
-    }),
-    title: (0, _react3.text)('Title', 'Get the most out of Spruce'),
-    actions: (0, _react3.boolean)('Header Action', false) && [{
-      kind: 'simple',
-      text: 'Go to team',
-      isSmall: true
-    }],
-    contextMenu: (0, _react3.boolean)('Header Context Menu', false) && _react.default.createElement(_ContextMenu.default, {
-      actions: [{
-        text: 'One'
-      }, {
-        text: 'Two'
-      }, {
-        text: 'Three'
-      }]
-    })
-  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement("p", null, (0, _react3.text)('Body Copy', 'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'))), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
-    kind: "secondary",
-    text: "Get some skills",
-    isSmall: true
-  }))));
-}).add('Critical Card', function () {
+stories.add('Critical Card', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"
   }, _react.default.createElement(_Card.default, {
@@ -140,7 +112,9 @@ stories.add('To Do', function () {
     title: "Please update your credit card",
     labelText: "Billing failure",
     labelIcon: _react.default.createElement(AlertIcon3, null)
-  }), _react.default.createElement(_Card.CardBody, null, "Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference."), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
+  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement(_Text.Text, {
+    className: "u-lh-loose u-color-body-light"
+  }, "Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.")), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
     kind: "secondary",
     text: "Update credit card"
   }))));
@@ -152,7 +126,9 @@ stories.add('To Do', function () {
     actions: [{
       text: 'Go to reports'
     }]
-  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement("p", null, "Two roads diverged in a wood, and I took the one less traveled by, And that has made all\u2028the difference."), _react.default.createElement(_index.Scores, {
+  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement(_Text.Text, {
+    className: "u-lh-loose u-color-body-light"
+  }, "Two roads diverged in a wood, and I took the one less traveled by, And that has made all\u2028the difference."), _react.default.createElement(_index.Scores, {
     scores: [{
       id: 1,
       label: 'Today',
@@ -191,7 +167,9 @@ stories.add('To Do', function () {
     alt: "Rosamund Mueleer"
   }), _react.default.createElement(_Text.H3, {
     className: "card-header__title l-mb-xsmall"
-  }, "Say \"Happy Birthday\""), _react.default.createElement(_Text.Text, null, "It\u2019s Rosamond Mueller\u2019s birthday today. Don\u2019t forget to say happy birthday!")), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
+  }, "Say \"Happy Birthday\""), _react.default.createElement(_Text.Text, {
+    className: "u-lh-loose u-color-body-light"
+  }, "It\u2019s Rosamond Mueller\u2019s birthday today. Don\u2019t forget to say happy birthday!")), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
     kind: "secondary",
     text: "Send a birthday message",
     isSmall: true
@@ -204,31 +182,40 @@ stories.add('To Do', function () {
     width: 720,
     height: 360,
     className: "l-mb-small"
-  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement(_Text.H3, null, "Les Basics"), _react.default.createElement(_Text.Text, null, "101 Purdy Lakes, West Jordanmouth, NH 38827-6100")), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
+  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement(_Text.H3, null, "Les Basics"), _react.default.createElement(_Text.Text, {
+    className: "u-lh-loose u-color-body-light"
+  }, "101 Purdy Lakes, West Jordanmouth, NH 38827-6100")), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
     kind: "secondary",
     text: "Book an appointment"
   }))));
-}).add('With a Header Action', function () {
+}).add('Celebration Card', function () {
+  return _react.default.createElement(_Container.default, {
+    size: "medium"
+  }, _react.default.createElement(_Card.default, {
+    isCentered: true
+  }, _react.default.createElement(_Image.default, {
+    src: "https://images.unsplash.com/photo-1499306215218-42e51ae058b2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6a6ae71facb70ced00bcbae8174ee47c&auto=format&fit=crop&w=720&h=360&q=80",
+    width: 720,
+    height: 360,
+    className: "l-mb-small"
+  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement(_Text.H3, null, "Congrats on 10k guests!"), _react.default.createElement(_Text.Text, {
+    className: "u-lh-loose u-color-body-light"
+  }, "I\u2019ve learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel."))));
+}).add('To Do', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"
   }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.CardHeader, {
-    title: "Add your teammates",
-    actions: [{
+    labelText: (0, _react3.text)('Label Text', ''),
+    labelIcon: (0, _react3.boolean)('Label Icon', false) && _react.default.createElement(LockIcon2, {
+      className: "u-icon__no-fill u-icon__stroke"
+    }),
+    title: (0, _react3.text)('Title', 'Get the most out of Spruce'),
+    actions: (0, _react3.boolean)('Header Action', false) && [{
       kind: 'simple',
       text: 'Go to team',
       isSmall: true
-    }]
-  }), _react.default.createElement(_Card.CardBody, null, "Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it."), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
-    kind: "primary",
-    text: "Add teammates",
-    isSmall: true
-  }))));
-}).add('With a Context Menu', function () {
-  return _react.default.createElement(_Container.default, {
-    size: "medium"
-  }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.CardHeader, {
-    title: "Add your teammates",
-    contextMenu: _react.default.createElement(_ContextMenu.default, {
+    }],
+    contextMenu: (0, _react3.boolean)('Header Context Menu', false) && _react.default.createElement(_ContextMenu.default, {
       actions: [{
         text: 'One'
       }, {
@@ -237,29 +224,13 @@ stories.add('To Do', function () {
         text: 'Three'
       }]
     })
-  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement("p", null, "Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.")), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
+  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement(_Text.Text, {
+    className: "u-lh-loose u-color-body-light"
+  }, (0, _react3.text)('Body Copy', 'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'))), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
     kind: "secondary",
-    text: "Get some teammates",
+    text: "Get some skills",
     isSmall: true
   }))));
-}).add('With a Label', function () {
-  return _react.default.createElement(_Container.default, {
-    size: "medium"
-  }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.CardHeader, {
-    labelText: "Private",
-    labelIcon: _react.default.createElement(LockIcon2, {
-      className: "u-icon__no-fill u-icon__stroke"
-    }),
-    contextMenu: _react.default.createElement(_ContextMenu.default, {
-      actions: [{
-        text: 'One'
-      }, {
-        text: 'Two'
-      }, {
-        text: 'Three'
-      }]
-    })
-  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement("p", null, "Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer."))));
 }).add('CardBuilder', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"

@@ -9,26 +9,25 @@ import UploadedIcon from '../../../static/assets/icons/Interface-Essential/Time-
 import DropIcon from '../../../static/assets/icons/Interface-Essential/Select/cursor-select-4.svg'
 import WarnIcon from '../../../static/assets/icons/Interface-Essential/Alerts/alert-triangle--56w.svg'
 
-type Props = {
-	id: string,
-	onDrop: Function,
-	buttonText: string,
-	error: string,
-	uploadProgress: number,
-	onDragEnter?: Function,
-	onDragLeave?: Function,
-	onDragOver?: Function,
-	onDrop?: Function,
-	onDropAccepted: Function,
-	onDropRejected?: Function,
-	onFileDialogCancel?: Function,
-	onDragStart?: Function,
-	label: ?string,
-	postLabel?: string,
-	isSmall?: boolean,
-	isCircular?: boolean,
-	fileWasUploaded?: boolean,
-	helper?: string
+export interface Props {
+	id: string;
+	onDrop: Function;
+	buttonText: string;
+	error: string;
+	uploadProgress: number;
+	onDragEnter?: Function;
+	onDragLeave?: Function;
+	onDragOver?: Function;
+	onDrop?: Function;
+	onDropAccepted: Function;
+	onDropRejected?: Function;
+	onFileDialogCancel?: Function;
+	onDragStart?: Function;
+	label: ?string;
+	postLabel?: string;
+	isSmall?: boolean;
+	isCircular?: boolean;
+	fileWasUploaded?: boolean;
 }
 
 type State = {
@@ -40,7 +39,8 @@ export default class Dropzone extends Component<Props, State> {
 
 	static defaultProps = {
 		fileWasUploaded: false,
-		isSmall: false
+		isSmall: false,
+		isCircular: false
 	}
 
 	onDragEnter = (e: any) => {
@@ -108,7 +108,6 @@ export default class Dropzone extends Component<Props, State> {
 			postLabel,
 			onDrop,
 			buttonText,
-			helper,
 			error,
 			isSmall,
 			isCircular,
@@ -121,7 +120,7 @@ export default class Dropzone extends Component<Props, State> {
 			'dropzone-circular': isCircular
 		})
 		return (
-			<div>
+			<Fragment>
 				{label && <InputPre id={id} label={label} postLabel={postLabel} />}
 				<ReactDropzone
 					ref={ref => (this.dropzone = ref)}
@@ -197,7 +196,7 @@ export default class Dropzone extends Component<Props, State> {
 						</Fragment>
 					)}
 				</ReactDropzone>
-			</div>
+			</Fragment>
 		)
 	}
 }
