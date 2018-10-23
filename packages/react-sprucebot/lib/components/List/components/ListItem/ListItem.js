@@ -78,7 +78,6 @@ var ListItem = function ListItem(props) {
   }, actions.map(function (action, idx) {
     return _react.default.createElement(_Button.default, (0, _extends2.default)({
       key: idx,
-      kind: "simple",
       isSmall: true,
       className: "list-item__action"
     }, action));

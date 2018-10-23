@@ -6,7 +6,8 @@ import { userList } from '../../../.storybook/data/people'
 import Container from '../Layout/Container/Container'
 import Card, { CardHeader, CardBody, CardFooter, CardBuilder } from './Card'
 import List from '../List/List'
-import { Anchor } from '../Text/Text'
+import { H3, Text, Anchor } from '../Text/Text'
+import Image from '../Image/Image'
 import { Scores } from './index'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import Button from '../Button/Button'
@@ -168,6 +169,46 @@ stories
 			</Card>
 		</Container>
 	))
+	.add('Person Card', () => (
+		<Container size="medium">
+			<Card isCentered>
+				<CardHeader />
+				<CardBody>
+					<Avatar isLarge image={userImageLg} alt="Rosamund Mueleer" />
+					<H3 className="card-header__title l-mb-xsmall">
+						Say "Happy Birthday"
+					</H3>
+					<Text>
+						It’s Rosamond Mueller’s birthday today. Don’t forget to say happy
+						birthday!
+					</Text>
+				</CardBody>
+				<CardFooter>
+					<Button kind="secondary" text="Send a birthday message" isSmall />
+				</CardFooter>
+			</Card>
+		</Container>
+	))
+	.add('Place Card', () => (
+		<Container size="medium">
+			<Card>
+				<Image
+					src="https://images.unsplash.com/photo-1535401991746-da3d9055713e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9fa1c73c0d29848a6e63595c588051ad&auto=format&fit=crop&w=720&h=360&q=80"
+					width={720}
+					height={360}
+					className="l-mb-small"
+				/>
+
+				<CardBody>
+					<H3>Les Basics</H3>
+					<Text>101 Purdy Lakes, West Jordanmouth, NH 38827-6100</Text>
+				</CardBody>
+				<CardFooter>
+					<Button kind="secondary" text="Book an appointment" />
+				</CardFooter>
+			</Card>
+		</Container>
+	))
 	.add('With a Header Action', () => (
 		<Container size="medium">
 			<Card>
@@ -232,26 +273,6 @@ stories
 						buff. Proud communicator. Introvert. Avid writer.
 					</p>
 				</CardBody>
-			</Card>
-		</Container>
-	))
-	.add('Person Card', () => (
-		<Container size="medium">
-			<Card isCentered>
-				<CardHeader />
-				<CardBody>
-					<Avatar isLarge image={userImageLg} alt="Rosamund Mueleer" />
-					<h3 className="card-header__title l-mb-xsmall">
-						Say "Happy Birthday"
-					</h3>
-					<p>
-						It’s Rosamond Mueller’s birthday today. Don’t forget to say happy
-						birthday!
-					</p>
-				</CardBody>
-				<CardFooter>
-					<Button kind="secondary" text="Send a birthday message" isSmall />
-				</CardFooter>
 			</Card>
 		</Container>
 	))

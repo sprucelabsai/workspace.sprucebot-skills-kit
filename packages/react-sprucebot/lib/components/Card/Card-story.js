@@ -10,9 +10,15 @@ var _react2 = require("@storybook/react");
 
 var _react3 = require("@storybook/addon-knobs/react");
 
+var _people = require("../../../.storybook/data/people");
+
 var _Container = _interopRequireDefault(require("../Layout/Container/Container"));
 
 var _Card = _interopRequireWildcard(require("./Card"));
+
+var _List = _interopRequireDefault(require("../List/List"));
+
+var _Text = require("../Text/Text");
 
 var _index = require("./index");
 
@@ -159,6 +165,19 @@ stories.add('To Do', function () {
       value: '$25,068'
     }]
   }))));
+}).add('People Card', function () {
+  return _react.default.createElement(_Container.default, {
+    size: "medium"
+  }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.CardHeader, {
+    title: "Your upcoming appointments",
+    actions: [{
+      text: 'View in calendar'
+    }]
+  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement(_List.default, {
+    items: _people.userList
+  }), _react.default.createElement(_Text.Anchor, {
+    href: "#"
+  }, "+3 more today"))));
 }).add('With a Header Action', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"

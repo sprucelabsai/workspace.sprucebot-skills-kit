@@ -35,6 +35,9 @@ var List = function List(props) {
   var parentClass = (0, _classnames.default)('list', className, {
     'list-small': isSmall
   });
+  console.log({
+    items: items
+  });
   return _react.default.createElement(_react.Fragment, null, header && _react.default.createElement(_ListHeader.default, (0, _extends2.default)({
     isSmall: isSmall
   }, header)), _react.default.createElement("ul", {

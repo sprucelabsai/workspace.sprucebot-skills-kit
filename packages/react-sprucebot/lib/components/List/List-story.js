@@ -26,6 +26,8 @@ var _react2 = require("@storybook/react");
 
 var _react3 = require("@storybook/addon-knobs/react");
 
+var _people = require("../../../.storybook/data/people");
+
 var _Container = _interopRequireDefault(require("../Layout/Container/Container"));
 
 var _List = _interopRequireWildcard(require("./List"));
@@ -35,24 +37,6 @@ var _ListHeader = _interopRequireDefault(require("./components/ListHeader/ListHe
 var _Tabs = _interopRequireDefault(require("../Tabs/Tabs"));
 
 var _SortableList = _interopRequireDefault(require("./components/SortableList/SortableList"));
-
-var _user0196w = _interopRequireDefault(require("../../../static/assets/users/user-01--96w.png"));
-
-var _user0296w = _interopRequireDefault(require("../../../static/assets/users/user-02--96w.png"));
-
-var _user0396w = _interopRequireDefault(require("../../../static/assets/users/user-03--96w.png"));
-
-var _user0496w = _interopRequireDefault(require("../../../static/assets/users/user-04--96w.png"));
-
-var _user0596w = _interopRequireDefault(require("../../../static/assets/users/user-05--96w.png"));
-
-var _user0696w = _interopRequireDefault(require("../../../static/assets/users/user-06--96w.png"));
-
-var _user0796w = _interopRequireDefault(require("../../../static/assets/users/user-07--96w.png"));
-
-var _user0896w = _interopRequireDefault(require("../../../static/assets/users/user-08--96w.png"));
-
-var _user0996w = _interopRequireDefault(require("../../../static/assets/users/user-09--96w.png"));
 
 var EditIcon = function EditIcon(props) {
   return _react.default.createElement("svg", props, _react.default.createElement("path", {
@@ -155,59 +139,6 @@ ArrowBack.defaultProps = {
   xmlns: "http://www.w3.org/2000/svg"
 };
 var stories = (0, _react2.storiesOf)('List', module);
-var singleAction = [{
-  icon: _react.default.createElement(EditIcon, {
-    className: "btn__line-icon"
-  })
-}];
-var userList = [{
-  avatar: _user0196w.default,
-  title: 'Vicenta Maggio',
-  subtitle: '7am–5pm, Break: 2–3:25pm',
-  actions: singleAction
-}, {
-  avatar: _user0296w.default,
-  title: 'Madaline Gibson',
-  subtitle: '9am–6pm, Break: 12–1pm',
-  actions: singleAction
-}, {
-  avatar: _user0396w.default,
-  title: 'Katlynn Pouros',
-  subtitle: '9am–5pm',
-  actions: singleAction
-}];
-var userList02 = [{
-  avatar: _user0496w.default,
-  title: 'Lacey Morissette',
-  subtitle: 'No Notes',
-  actions: singleAction
-}, {
-  avatar: _user0596w.default,
-  title: 'Jade Mohr',
-  subtitle: 'No Notes',
-  actions: singleAction
-}, {
-  avatar: _user0696w.default,
-  title: 'Gianni Block',
-  subtitle: 'No Notes',
-  actions: singleAction
-}];
-var userList03 = [{
-  avatar: _user0796w.default,
-  title: 'Camila Hintz',
-  subtitle: 'No Notes',
-  actions: singleAction
-}, {
-  avatar: _user0896w.default,
-  title: 'Ara Dare',
-  subtitle: 'No Notes',
-  actions: singleAction
-}, {
-  avatar: _user0996w.default,
-  title: 'Alexanne Stanton',
-  subtitle: 'No Notes',
-  actions: singleAction
-}];
 
 var TestPanel = function TestPanel() {
   return _react.default.createElement("div", null, "Test Panel");
@@ -231,21 +162,21 @@ function (_Component) {
 
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(TabbedList)).call.apply(_getPrototypeOf2, [this].concat(args)));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
-      users: userList02,
+      users: _people.userList02,
       tabs: [{
         text: 'Guests',
         panel: _react.default.createElement(_List.default, {
-          items: userList
+          items: _people.userList
         })
       }, {
         text: 'Team',
         panel: _react.default.createElement(_List.default, {
-          items: userList02
+          items: _people.userList02
         })
       }, {
         text: 'Settings',
         panel: _react.default.createElement(_List.default, {
-          items: userList03
+          items: _people.userList03
         })
       }],
       activeTabIndex: 0
@@ -407,7 +338,7 @@ stories.add('Text List', function () {
       }]
     },
     isSmall: (0, _react3.boolean)('Small', false),
-    items: userList
+    items: _people.userList
   }));
 }).add('People Tabbed', function () {
   return _react.default.createElement(_Container.default, {
