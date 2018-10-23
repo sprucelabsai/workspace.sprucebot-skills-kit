@@ -37,6 +37,8 @@ var _Forms = require("../../../Forms");
 
 var _Button = _interopRequireDefault(require("../../../Button/Button"));
 
+// TODO: The Autosuggest used here will need to be updated to hook up to the API
+// and render userful results. This should probably be done as its own component
 var HeaderPrimary =
 /*#__PURE__*/
 function (_Component) {
@@ -121,9 +123,11 @@ function (_Component) {
         href: "#"
       }, business.address))) : _react.default.createElement(_DefaultLockup.default, null)), _react.default.createElement("div", {
         className: "header-primary__right"
-      }, user ? _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Forms.Search, {
+      }, user ? _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Forms.Autosuggest, {
         className: "text-input-small",
-        placeholder: "Search anything\u2026"
+        placeholder: "Search anything\u2026",
+        isSmall: true,
+        wrapperClassName: "header-primary__autosuggest"
       }), _react.default.createElement(_UserMenu.default, (0, _extends2.default)({
         menuIsVisible: isUserMenuVisible,
         toggleMenu: this.toggleUserMenuVisibility

@@ -31,6 +31,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactAutosuggest = _interopRequireDefault(require("react-autosuggest"));
 
+var _classnames = _interopRequireDefault(require("classnames"));
+
 var _Button = _interopRequireDefault(require("../../../Button/Button"));
 
 var _FormPartials = require("../../FormPartials");
@@ -49,13 +51,18 @@ ClearIcon.defaultProps = {
   viewBox: "0 0 24 24",
   xmlns: "http://www.w3.org/2000/svg"
 };
-var theme = {
-  container: 'text-input',
-  input: 'text-input__inner text-input__input',
-  suggestionsContainer: 'autosuggest',
-  suggestionsContainerOpen: 'autosuggest--show-suggestions',
-  suggestionsList: 'autosuggest__list',
-  suggestion: 'autosuggest__list-item'
+
+var theme = function theme(props) {
+  return {
+    container: (0, _classnames.default)('text-input', {
+      'text-input-small': props.isSmall
+    }),
+    input: 'text-input__inner text-input__input',
+    suggestionsContainer: 'autosuggest',
+    suggestionsContainerOpen: 'autosuggest--show-suggestions',
+    suggestionsList: 'autosuggest__list',
+    suggestion: 'autosuggest__list-item'
+  };
 };
 
 var Autosuggest =
@@ -134,7 +141,9 @@ function (_Component) {
           placeholder = _this$props.placeholder,
           inputPre = _this$props.inputPre,
           inputHelper = _this$props.inputHelper,
-          rest = (0, _objectWithoutProperties2.default)(_this$props, ["getSuggestionValue", "renderSuggestion", "placeholder", "inputPre", "inputHelper"]);
+          isSmall = _this$props.isSmall,
+          wrapperClassName = _this$props.wrapperClassName,
+          rest = (0, _objectWithoutProperties2.default)(_this$props, ["getSuggestionValue", "renderSuggestion", "placeholder", "inputPre", "inputHelper", "isSmall", "wrapperClassName"]);
       var inputProps = {
         placeholder: placeholder || '',
         value: value,
@@ -142,7 +151,7 @@ function (_Component) {
         onBlur: this.onBlur
       };
       return _react.default.createElement(_react.Fragment, null, inputPre && _react.default.createElement(_FormPartials.InputPre, inputPre), _react.default.createElement("div", {
-        className: "autosuggest__wrapper"
+        className: (0, _classnames.default)('autosuggest__wrapper', wrapperClassName)
       }, _react.default.createElement(_reactAutosuggest.default, (0, _extends2.default)({
         suggestions: suggestions,
         onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
@@ -150,7 +159,9 @@ function (_Component) {
         getSuggestionValue: getSuggestionValue,
         renderSuggestion: renderSuggestion,
         inputProps: inputProps,
-        theme: theme
+        theme: theme({
+          isSmall: isSmall
+        })
       }, rest)), showClearButton && _react.default.createElement(_Button.default, {
         isSmall: true,
         className: "text-input__clear-btn",
