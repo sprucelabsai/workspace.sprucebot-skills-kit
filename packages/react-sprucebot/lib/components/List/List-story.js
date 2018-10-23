@@ -38,6 +38,8 @@ var _Tabs = _interopRequireDefault(require("../Tabs/Tabs"));
 
 var _SortableList = _interopRequireDefault(require("./components/SortableList/SortableList"));
 
+var _actions = require("../../../.storybook/data/actions");
+
 var EditIcon = function EditIcon(props) {
   return _react.default.createElement("svg", props, _react.default.createElement("path", {
     clipRule: "evenodd",
@@ -245,15 +247,15 @@ stories.add('Text List', function () {
     items: [{
       title: 'Clean Up',
       subtitle: '$20 | 15min',
-      actions: singleAction
+      actions: _actions.singleAction
     }, {
       title: 'Shampoo',
       subtitle: '$7 | 45min',
-      actions: singleAction
+      actions: _actions.singleAction
     }, {
       title: 'Young Spruce',
       subtitle: '$23 | 50min',
-      actions: singleAction
+      actions: _actions.singleAction
     }]
   }), _react.default.createElement(_List.default, {
     header: {

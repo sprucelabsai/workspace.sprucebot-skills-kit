@@ -110,12 +110,12 @@ function (_Component) {
       var isVisible = this.state.isVisible;
       var _this$props = this.props,
           actions = _this$props.actions,
-          leftAlign = _this$props.leftAlign;
+          isLeftAligned = _this$props.isLeftAligned;
       var buttonClass = (0, _classnames.default)('context-menu', {
         'context-menu--is-visible': isVisible
       });
       var menuClass = (0, _classnames.default)('context-menu__menu', {
-        'context-menu__menu-left': leftAlign
+        'context-menu__menu-left': isLeftAligned
       });
       return _react.default.createElement("div", {
         className: buttonClass,
@@ -156,5 +156,5 @@ function (_Component) {
 
 exports.default = ContextMenu;
 (0, _defineProperty2.default)(ContextMenu, "defaultProps", {
-  leftAlign: false
+  isLeftAligned: false
 });

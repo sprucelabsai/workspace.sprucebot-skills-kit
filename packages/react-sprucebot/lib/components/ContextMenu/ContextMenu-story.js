@@ -13,6 +13,6 @@ var _ContextMenu = _interopRequireDefault(require("./ContextMenu"));
     actions: [{
       text: 'one'
     }],
-    leftAlign: true
+    isLeftAligned: true
   });
 });
