@@ -75,7 +75,6 @@ const ListItem = (props: Props) => {
 						{actions.map((action, idx) => (
 							<Button
 								key={idx}
-								kind="simple"
 								isSmall
 								className="list-item__action"
 								{...action}

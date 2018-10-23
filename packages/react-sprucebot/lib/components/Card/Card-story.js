@@ -14,6 +14,8 @@ var _Container = _interopRequireDefault(require("../Layout/Container/Container")
 
 var _Card = _interopRequireWildcard(require("./Card"));
 
+var _index = require("./index");
+
 var _ContextMenu = _interopRequireDefault(require("../ContextMenu/ContextMenu"));
 
 var _Button = _interopRequireDefault(require("../Button/Button"));
@@ -133,6 +135,29 @@ stories.add('To Do', function () {
   }), _react.default.createElement(_Card.CardBody, null, "Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference."), _react.default.createElement(_Card.CardFooter, null, _react.default.createElement(_Button.default, {
     kind: "secondary",
     text: "Update credit card"
+  }))));
+}).add('Score Card', function () {
+  return _react.default.createElement(_Container.default, {
+    size: "medium"
+  }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.CardHeader, {
+    title: "Value of future appointments",
+    actions: [{
+      text: 'Go to reports'
+    }]
+  }), _react.default.createElement(_Card.CardBody, null, _react.default.createElement("p", null, "Two roads diverged in a wood, and I took the one less traveled by, And that has made all\u2028the difference."), _react.default.createElement(_index.Scores, {
+    scores: [{
+      id: 1,
+      label: 'Today',
+      value: '$1,848'
+    }, {
+      id: 2,
+      label: 'This Week',
+      value: '$5,778'
+    }, {
+      id: 3,
+      label: 'This Month',
+      value: '$25,068'
+    }]
   }))));
 }).add('With a Header Action', function () {
   return _react.default.createElement(_Container.default, {

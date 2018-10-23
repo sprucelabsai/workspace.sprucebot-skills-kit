@@ -2,8 +2,11 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
+import { userList } from '../../../.storybook/data/people'
 import Container from '../Layout/Container/Container'
 import Card, { CardHeader, CardBody, CardFooter, CardBuilder } from './Card'
+import List from '../List/List'
+import { Anchor } from '../Text/Text'
 import { Scores } from './index'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import Button from '../Button/Button'
@@ -143,6 +146,24 @@ stories
 							}
 						]}
 					/>
+				</CardBody>
+			</Card>
+		</Container>
+	))
+	.add('People Card', () => (
+		<Container size="medium">
+			<Card>
+				<CardHeader
+					title="Your upcoming appointments"
+					actions={[
+						{
+							text: 'View in calendar'
+						}
+					]}
+				/>
+				<CardBody>
+					<List items={userList} />
+					<Anchor href="#">+3 more today</Anchor>
 				</CardBody>
 			</Card>
 		</Container>

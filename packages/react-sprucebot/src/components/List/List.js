@@ -14,7 +14,7 @@ export const ListWrapper = (props: { children: Node }) => (
 )
 
 export interface Props {
-	header?: ListHeaderProps;
+	header?: ?ListHeaderProps;
 	items: Array<ListItemProps>;
 	className?: string;
 	isSmall?: boolean;
@@ -23,6 +23,7 @@ export interface Props {
 const List = (props: Props) => {
 	const { header, items, className, isSmall } = props
 	const parentClass = cx('list', className, { 'list-small': isSmall })
+	console.log({ items })
 
 	return (
 		<Fragment>

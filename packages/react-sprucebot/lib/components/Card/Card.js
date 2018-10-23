@@ -43,7 +43,8 @@ var CardHeader = function CardHeader(props) {
   }, _react.default.createElement(_react.Fragment, null, actions && actions.length > 0 && actions.map(function (action) {
     return _react.default.createElement(_Button.default, (0, _extends2.default)({
       key: action.text,
-      kind: "simple"
+      kind: "simple",
+      isSmall: true
     }, action));
   }), contextMenu)));
 }; // Card Body
