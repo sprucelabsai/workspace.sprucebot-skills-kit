@@ -1,10 +1,12 @@
 // @flow
 import React, { Component } from 'react'
 import ReactPhoneInput from 'react-phone-number-input'
+import cx from 'classnames'
 import { InputPre, InputHelper } from '../../FormPartials'
 
 type Props = {
-	label: string
+	label: string,
+	isSmall?: boolean
 }
 
 type State = {
@@ -24,9 +26,9 @@ export default class PhoneInput extends Component<Props, State> {
 	}
 	render() {
 		const { phone } = this.state
-		const { label, error, ...rest } = this.props
+		const { label, error, isSmall, ...rest } = this.props
 		return (
-			<div className="text-input">
+			<div className={cx('text-input', { 'text-input-small': isSmall })}>
 				<InputPre label={label} />
 				<ReactPhoneInput
 					inputClassName="text-input__input"

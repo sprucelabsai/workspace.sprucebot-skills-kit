@@ -13,7 +13,8 @@ type Props = {
 	iconAfter?: any,
 	appendix?: string,
 	error?: string,
-	helper?: string
+	helper?: string,
+	isSmall?: boolean
 }
 
 const TextInput = (props: Props) => {
@@ -28,12 +29,14 @@ const TextInput = (props: Props) => {
 		appendix,
 		error,
 		helper,
+		isSmall,
 		...rest
 	} = props
 
 	const parentClass = cx('text-input', {
 		className,
-		'text-input--has-error': error
+		'text-input--has-error': error,
+		'text-input-small': isSmall
 	})
 
 	return (

@@ -101,6 +101,7 @@ stories
 						'Let me help you understand why we are asking for this.'
 					)}
 					readOnly={boolean('Read Only', false)}
+					isSmall={boolean('Small', false)}
 				/>
 			</Container>
 		</Fragment>
@@ -129,6 +130,7 @@ stories
 					type="text"
 					placeholder={text('Placeholder', 'Search for anything…')}
 					readOnly={boolean('Read Only', false)}
+					isSmall={boolean('Small', false)}
 				/>
 			</Container>
 		</Fragment>
@@ -136,7 +138,11 @@ stories
 	.add('Phone Number', () => (
 		<Fragment>
 			<Container size="small">
-				<PhoneInput label="Phone Number" placeholder="(555) 555-5555" />
+				<PhoneInput
+					label="Phone Number"
+					placeholder="(555) 555-5555"
+					isSmall={boolean('Small', false)}
+				/>
 			</Container>
 		</Fragment>
 	))

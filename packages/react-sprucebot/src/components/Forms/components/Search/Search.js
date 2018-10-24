@@ -11,7 +11,8 @@ type State = {
 
 type Props = {
 	className: string,
-	defaultValue: ?string
+	defaultValue: ?string,
+	isSmall?: boolean
 }
 
 export default class Search extends Component<Props, State> {
@@ -33,10 +34,12 @@ export default class Search extends Component<Props, State> {
 	}
 
 	render() {
-		const { className, defaultValue, ...rest } = this.props
+		const { className, defaultValue, isSmall, ...rest } = this.props
 		const { value } = this.state
 		return (
-			<div className={cx('text-input', className)}>
+			<div
+				className={cx('text-input', className, { 'text-input-small': isSmall })}
+			>
 				<InputInner
 					iconBefore={<SearchIcon2 />}
 					iconAfter={value && value.length > 0 && <CancelIcon />}
