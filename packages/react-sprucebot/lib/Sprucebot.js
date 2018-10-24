@@ -24,6 +24,12 @@ var FormPartials = _interopRequireWildcard(require("./components/Forms/FormParti
 
 var _Forms = require("./components/Forms");
 
+var _Icon = _interopRequireDefault(require("./components/Icon/Icon"));
+
+var _Text = require("./components/Text/Text");
+
+var _Image = _interopRequireDefault(require("./components/Image/Image"));
+
 var _Container = _interopRequireDefault(require("./components/Layout/Container/Container"));
 
 var _List = _interopRequireWildcard(require("./components/List"));
@@ -31,6 +37,8 @@ var _List = _interopRequireWildcard(require("./components/List"));
 var _Loader = _interopRequireDefault(require("./components/Loader/Loader"));
 
 var _Modal = _interopRequireDefault(require("./components/Modal/Modal"));
+
+var _Pagination = _interopRequireDefault(require("./components/Pagination/Pagination"));
 
 var _Tabs = _interopRequireWildcard(require("./components/Tabs"));
 
@@ -77,6 +85,7 @@ var Sprucebot = (0, _objectSpread2.default)({
   Page: _Page.default,
   withStore: _withStore.default,
   sharable: _sharable.default,
+  Autosuggest: _Forms.Autosuggest,
   Avatar: _Avatar.default,
   Button: _Button.default,
   ButtonGroup: _ButtonGroup.default
@@ -89,11 +98,18 @@ var Sprucebot = (0, _objectSpread2.default)({
   FooterPrimary: _Core.FooterPrimary
 }, FormPartials, {
   HeaderPrimary: _Core.HeaderPrimary,
+  H1: _Text.H1,
+  H2: _Text.H2,
+  H3: _Text.H3,
+  H4: _Text.H4,
+  Icon: _Icon.default,
+  Image: _Image.default,
   List: _List.default,
   ListHeader: _List.ListHeader,
   ListItem: _List.ListItem,
   Loader: _Loader.default,
   Modal: _Modal.default,
+  Pagination: _Pagination.default,
   PhoneInput: _Forms.PhoneInput,
   Radio: _Forms.Radio,
   Search: _Forms.Search,
@@ -101,9 +117,12 @@ var Sprucebot = (0, _objectSpread2.default)({
   Sidebar: _Core.Sidebar,
   Slider: _Forms.Slider,
   SortableList: _List.SortableList,
+  Span: _Text.Span,
+  Stars: _Forms.Stars,
   Tabs: _Tabs.default,
   Tab: _Tabs.Tab,
   Tag: _Forms.Tag,
+  Text: _Text.Text,
   TextArea: _Forms.TextArea,
   TextInput: _Forms.TextInput,
   Toast: _Toast.default,
