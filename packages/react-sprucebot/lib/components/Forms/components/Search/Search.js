@@ -104,10 +104,13 @@ function (_Component) {
       var _this$props = this.props,
           className = _this$props.className,
           defaultValue = _this$props.defaultValue,
-          rest = (0, _objectWithoutProperties2.default)(_this$props, ["className", "defaultValue"]);
+          isSmall = _this$props.isSmall,
+          rest = (0, _objectWithoutProperties2.default)(_this$props, ["className", "defaultValue", "isSmall"]);
       var value = this.state.value;
       return _react.default.createElement("div", {
-        className: (0, _classnames.default)('text-input', className)
+        className: (0, _classnames.default)('text-input', className, {
+          'text-input-small': isSmall
+        })
       }, _react.default.createElement(_FormPartials.InputInner, (0, _extends2.default)({
         iconBefore: _react.default.createElement(SearchIcon2, null),
         iconAfter: value && value.length > 0 && _react.default.createElement(CancelIcon, null),

@@ -28,10 +28,12 @@ var TextInput = function TextInput(props) {
       appendix = props.appendix,
       error = props.error,
       helper = props.helper,
-      rest = (0, _objectWithoutProperties2.default)(props, ["id", "className", "label", "postLabel", "kind", "iconBefore", "iconAfter", "appendix", "error", "helper"]);
+      isSmall = props.isSmall,
+      rest = (0, _objectWithoutProperties2.default)(props, ["id", "className", "label", "postLabel", "kind", "iconBefore", "iconAfter", "appendix", "error", "helper", "isSmall"]);
   var parentClass = (0, _classnames.default)('text-input', {
     className: className,
-    'text-input--has-error': error
+    'text-input--has-error': error,
+    'text-input-small': isSmall
   });
   return _react.default.createElement("div", {
     className: parentClass

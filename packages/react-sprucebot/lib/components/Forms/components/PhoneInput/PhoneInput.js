@@ -31,6 +31,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactPhoneNumberInput = _interopRequireDefault(require("react-phone-number-input"));
 
+var _classnames = _interopRequireDefault(require("classnames"));
+
 var _FormPartials = require("../../FormPartials");
 
 var PhoneInput =
@@ -69,9 +71,12 @@ function (_Component) {
       var _this$props = this.props,
           label = _this$props.label,
           error = _this$props.error,
-          rest = (0, _objectWithoutProperties2.default)(_this$props, ["label", "error"]);
+          isSmall = _this$props.isSmall,
+          rest = (0, _objectWithoutProperties2.default)(_this$props, ["label", "error", "isSmall"]);
       return _react.default.createElement("div", {
-        className: "text-input"
+        className: (0, _classnames.default)('text-input', {
+          'text-input-small': isSmall
+        })
       }, _react.default.createElement(_FormPartials.InputPre, {
         label: label
       }), _react.default.createElement(_reactPhoneNumberInput.default, (0, _extends2.default)({

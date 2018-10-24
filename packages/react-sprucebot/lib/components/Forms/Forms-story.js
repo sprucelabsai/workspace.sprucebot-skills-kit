@@ -87,7 +87,8 @@ stories.add('Autosuggest', function () {
     defaultValue: (0, _react3.text)('Value', ''),
     error: (0, _react3.text)('Error Text', ''),
     helper: (0, _react3.text)('Helper Text', 'Let me help you understand why we are asking for this.'),
-    readOnly: (0, _react3.boolean)('Read Only', false)
+    readOnly: (0, _react3.boolean)('Read Only', false),
+    isSmall: (0, _react3.boolean)('Small', false)
   })));
 }).add('Text Area', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
@@ -109,14 +110,16 @@ stories.add('Autosuggest', function () {
   }, _react.default.createElement(_index.Search, {
     type: "text",
     placeholder: (0, _react3.text)('Placeholder', 'Search for anything…'),
-    readOnly: (0, _react3.boolean)('Read Only', false)
+    readOnly: (0, _react3.boolean)('Read Only', false),
+    isSmall: (0, _react3.boolean)('Small', false)
   })));
 }).add('Phone Number', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_index.PhoneInput, {
     label: "Phone Number",
-    placeholder: "(555) 555-5555"
+    placeholder: "(555) 555-5555",
+    isSmall: (0, _react3.boolean)('Small', false)
   })));
 }).add('Subdomain', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
