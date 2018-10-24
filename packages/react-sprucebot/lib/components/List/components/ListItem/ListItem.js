@@ -77,8 +77,11 @@ var ListItem = function ListItem(props) {
   }, title) : _react.default.createElement("p", {
     className: "list-item__title"
   }, title), subtitle && _react.default.createElement("p", {
-    className: "list-item__subtitle"
-  }, subtitle)), !isDraggable && (actions && actions.length > 0 || contextMenu) && _react.default.createElement("div", {
+    className: "list-item__subtitle",
+    dangerouslySetInnerHTML: {
+      __html: subtitle
+    }
+  })), !isDraggable && (actions && actions.length > 0 || contextMenu) && _react.default.createElement("div", {
     className: "list-item__actions-wrapper"
   }, actions && actions.length > 0 && _react.default.createElement("div", {
     className: "list-item__actions-wrapper"
