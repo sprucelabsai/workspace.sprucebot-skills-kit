@@ -120,6 +120,7 @@ function (_Component) {
       var _this$props = this.props,
           actions = _this$props.actions,
           isLeftAligned = _this$props.isLeftAligned,
+          isSimple = _this$props.isSimple,
           size = _this$props.size,
           icon = _this$props.icon;
       var buttonClass = (0, _classnames.default)('context-menu', {
@@ -135,6 +136,7 @@ function (_Component) {
           return _this2.ref = _ref;
         }
       }, _react.default.createElement(_Button.default, {
+        kind: isSimple ? 'simple' : '',
         className: "context-menu__button",
         onClick: this.handleToggle,
         icon: icon ? _react.default.cloneElement(icon, {

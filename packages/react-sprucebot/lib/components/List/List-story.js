@@ -250,6 +250,7 @@ stories.add('Text List', function () {
       contextMenu: {
         icon: _react.default.createElement(EditIcon, null),
         size: 'large',
+        isSimple: true,
         actions: _actions.threeTextActions
       }
     }, {
@@ -258,6 +259,7 @@ stories.add('Text List', function () {
       contextMenu: {
         icon: _react.default.createElement(EditIcon, null),
         size: 'large',
+        isSimple: true,
         actions: _actions.threeTextActions
       }
     }, {
@@ -266,6 +268,7 @@ stories.add('Text List', function () {
       contextMenu: {
         icon: _react.default.createElement(EditIcon, null),
         size: 'large',
+        isSimple: true,
         actions: _actions.threeTextActions
       }
     }]
