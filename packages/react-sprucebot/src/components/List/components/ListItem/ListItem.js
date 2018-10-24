@@ -71,7 +71,12 @@ const ListItem = (props: Props) => {
 				) : (
 					<p className="list-item__title">{title}</p>
 				)}
-				{subtitle && <p className="list-item__subtitle">{subtitle}</p>}
+				{subtitle && (
+					<p
+						className="list-item__subtitle"
+						dangerouslySetInnerHTML={{ __html: subtitle }}
+					/>
+				)}
 			</div>
 			{!isDraggable &&
 				((actions && actions.length > 0) || contextMenu) && (
