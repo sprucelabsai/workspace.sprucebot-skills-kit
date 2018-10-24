@@ -1167,6 +1167,15 @@
     lodash "^4.12.0"
     promised-handlebars "^2.0.0"
 
+"@frctl/handlebars@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@frctl/handlebars/-/handlebars-1.1.5.tgz#99e01f2536eac6ed18b9f9d3066756cbadec59ca"
+  dependencies:
+    bluebird "^3.4.1"
+    handlebars "^4.0.5"
+    lodash "^4.12.0"
+    promised-handlebars "^2.0.0"
+
 "@frctl/mandelbrot@^1.1.0", "@frctl/mandelbrot@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@frctl/mandelbrot/-/mandelbrot-1.2.0.tgz#801164a8efeb5353e74e61a326decf1007ae621d"
@@ -1810,11 +1819,12 @@
     into-stream "^3.1.0"
     lodash "^4.17.4"
 
-"@sprucelabs/heartwood-components@0.6.8":
-  version "0.6.8"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/heartwood-components/-/heartwood-components-0.6.8.tgz#60642a296dc298d8b2d1cc6cd5054a8ca39b53df"
+"@sprucelabs/heartwood-components@0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@sprucelabs/heartwood-components/-/heartwood-components-0.7.0.tgz#ea34631871be696db54066945253ca5042a6fbcc"
   dependencies:
     "@frctl/fractal" "^1.1.5"
+    "@frctl/handlebars" "^1.1.5"
     "@frctl/mandelbrot" "^1.2.0"
     browser-sync "^2.18.13"
 

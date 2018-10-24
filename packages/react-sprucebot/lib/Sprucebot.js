@@ -8,6 +8,8 @@ var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/obje
 
 var _Avatar = _interopRequireDefault(require("./components/Avatar/Avatar"));
 
+var _BotText = _interopRequireDefault(require("./components/BotText/BotText"));
+
 var _Button = _interopRequireDefault(require("./components/Button/Button"));
 
 var _ButtonGroup = _interopRequireDefault(require("./components/ButtonGroup/ButtonGroup"));
@@ -87,6 +89,7 @@ var Sprucebot = (0, _objectSpread2.default)({
   sharable: _sharable.default,
   Autosuggest: _Forms.Autosuggest,
   Avatar: _Avatar.default,
+  BotText: _BotText.default,
   Button: _Button.default,
   ButtonGroup: _ButtonGroup.default
 }, Card, {
