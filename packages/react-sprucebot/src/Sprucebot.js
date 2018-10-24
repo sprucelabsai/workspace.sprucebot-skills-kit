@@ -9,6 +9,7 @@ import { FooterPrimary, HeaderPrimary, Sidebar } from './components/Core'
 import Dropzone from './components/Dropzone/Dropzone'
 import * as FormPartials from './components/Forms/FormPartials'
 import {
+	Autosuggest,
 	Checkbox,
 	DomainInput,
 	PhoneInput,
@@ -16,15 +17,20 @@ import {
 	Search,
 	Select,
 	Slider,
+	Stars,
 	Tag,
 	TextArea,
 	TextInput,
 	Toggle
 } from './components/Forms'
+import Icon from './components/Icon/Icon'
+import { H1, H2, H3, H4, Text, Span, Anchor } from './components/Text/Text'
+import Image from './components/Image/Image'
 import Container from './components/Layout/Container/Container'
 import List, { ListHeader, ListItem, SortableList } from './components/List'
 import Loader from './components/Loader/Loader'
 import Modal from './components/Modal/Modal'
+import Pagination from './components/Pagination/Pagination'
 import Tabs, { Tab } from './components/Tabs'
 import Toast from './components/Toast/Toast'
 import View from './components/View/View'
@@ -59,6 +65,7 @@ const Sprucebot = {
 	Page,
 	withStore,
 	sharable,
+	Autosuggest,
 	Avatar,
 	Button,
 	ButtonGroup,
@@ -71,11 +78,18 @@ const Sprucebot = {
 	FooterPrimary,
 	...FormPartials,
 	HeaderPrimary,
+	H1,
+	H2,
+	H3,
+	H4,
+	Icon,
+	Image,
 	List,
 	ListHeader,
 	ListItem,
 	Loader,
 	Modal,
+	Pagination,
 	PhoneInput,
 	Radio,
 	Search,
@@ -83,9 +97,12 @@ const Sprucebot = {
 	Sidebar,
 	Slider,
 	SortableList,
+	Span,
+	Stars,
 	Tabs,
 	Tab,
 	Tag,
+	Text,
 	TextArea,
 	TextInput,
 	Toast,
