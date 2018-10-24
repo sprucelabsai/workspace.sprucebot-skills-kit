@@ -1,6 +1,7 @@
 // @flow
 
 import Avatar from './components/Avatar/Avatar'
+import BotText from './components/BotText/BotText'
 import Button from './components/Button/Button'
 import ButtonGroup from './components/ButtonGroup/ButtonGroup'
 import * as Card from './components/Card/Card'
@@ -67,6 +68,7 @@ const Sprucebot = {
 	sharable,
 	Autosuggest,
 	Avatar,
+	BotText,
 	Button,
 	ButtonGroup,
 	...Card,

@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,38 +7,37 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+var _react = _interopRequireDefault(require("react"));
 
-var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+var _classnames = _interopRequireDefault(require("classnames"));
 
-var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+var BotText = function BotText(props) {
+  var text = props.text,
+      children = props.children,
+      className = props.className,
+      rest = (0, _objectWithoutProperties2.default)(props, ["text", "children", "className"]);
 
-var _react = _interopRequireWildcard(require("react"));
-
-var BotText =
-/*#__PURE__*/
-function (_Component) {
-  (0, _inherits2.default)(BotText, _Component);
-
-  function BotText() {
-    (0, _classCallCheck2.default)(this, BotText);
-    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(BotText).apply(this, arguments));
+  if (text && !children) {
+    return _react.default.createElement("p", (0, _extends2.default)({
+      className: (0, _classnames.default)('bot-text', className),
+      dangerouslySetInnerHTML: {
+        __html: text
+      }
+    }, rest));
   }
 
-  (0, _createClass2.default)(BotText, [{
-    key: "render",
-    value: function render() {
-      var children = this.props.children;
-      return _react.default.createElement("div", {
-        className: "bot__text"
-      }, children);
-    }
-  }]);
-  return BotText;
-}(_react.Component);
+  if (children && !text) {
+    return _react.default.createElement("p", (0, _extends2.default)({
+      className: (0, _classnames.default)('bot-text', className)
+    }, rest), children);
+  }
 
-exports.default = BotText;
+  return null;
+};
+
+var _default = BotText;
+exports.default = _default;
