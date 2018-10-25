@@ -31,6 +31,7 @@ const Header = (props: Props) => {
 				<HeaderControls
 					onBackDate={props.onBackDate}
 					onNextDate={props.onNextDate}
+					onChangeView={props.onChangeView}
 				/>
 			</div>
 			<div className="bigcalendar__header-bottom">

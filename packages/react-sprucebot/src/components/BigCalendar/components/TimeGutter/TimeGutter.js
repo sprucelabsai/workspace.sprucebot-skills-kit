@@ -12,11 +12,11 @@ type Props = {
 class TimeGutter extends Component<Props> {
 	constructor(props) {
 		super(props)
-		this.domNode = React.createRef()
+		this.domNodeRef = React.createRef()
 	}
 
 	componentDidUpdate = () => {
-		this.domNode.current.scrollTop = this.props.scrollTop
+		this.domNodeRef.current.scrollTop = this.props.scrollTop
 	}
 
 	render() {
@@ -24,7 +24,7 @@ class TimeGutter extends Component<Props> {
 		return (
 			<div
 				className={cx('bigcalendar__time-gutter', className)}
-				ref={this.domNode}
+				ref={this.domNodeRef}
 				style={{
 					height: viewHeight
 				}}

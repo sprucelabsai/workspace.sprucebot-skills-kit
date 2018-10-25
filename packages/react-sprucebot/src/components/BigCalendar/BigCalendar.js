@@ -5,6 +5,7 @@ import VIEWS from './components/Views'
 import moment from 'moment-timezone'
 import memoize from 'memoize-one'
 import sizeUtils from './utils/size'
+import Cookies from 'js-cookies'
 
 // sub components
 import Header from './components/Header/Header'
@@ -24,7 +25,9 @@ type State = {
 	minTime: String,
 	maxTime: String,
 	startDate: Object,
-	currentUsers: Array<Object>
+	currentUsers: Array<Object>,
+	bodyHeight: Number,
+	bodyWidth: Number
 }
 
 class BigCalendar extends Component<Props, State> {
@@ -39,9 +42,6 @@ class BigCalendar extends Component<Props, State> {
 		selectedView: this.props.defaultView,
 		minTime: this.props.defaultMinTime,
 		maxTime: this.props.defaultMaxTime,
-		startDate:
-			this.props.startDate ||
-			moment.tz(new Date(), this.props.location.timezone),
 		currentUsers: this.props.allUsers,
 		bodyWidth: sizeUtils.bodyWidth(),
 		bodyHeight: sizeUtils.bodyHeight(),
@@ -50,7 +50,8 @@ class BigCalendar extends Component<Props, State> {
 
 	constructor(props) {
 		super(props)
-		this.domNode = React.createRef()
+		this.domNodeRef = React.createRef()
+		this.state.startDate = this.getDefaultStartDate()
 	}
 
 	componentDidMount = () => {
@@ -63,9 +64,24 @@ class BigCalendar extends Component<Props, State> {
 		window.removeEventListener('resize', this.handleSizing)
 	}
 
+	getDefaultStartDate = () => {
+		let defaultStartDate
+		if (
+			Cookies.getItem('bigcalendarDate') &&
+			moment(Cookies.getItem('bigcalendarDate')).isValid()
+		) {
+			defaultStartDate = moment(Cookies.getItem('bigcalendarDate'))
+		} else if (this.props.startDate && moment(this.props.startDate).isValid()) {
+			defaultStartDate = moment(this.props.startDate)
+		} else {
+			defaultStartDate = moment.tz(new Date(), this.props.location.timezone)
+		}
+		return defaultStartDate
+	}
+
 	handleSizing = () => {
 		//get node for scroll wrapper
-		const scrollNode = this.domNode.current.querySelectorAll(
+		const scrollNode = this.domNodeRef.current.querySelectorAll(
 			'.bigcalendar__scroll-wrapper'
 		)[0]
 
@@ -106,7 +122,14 @@ class BigCalendar extends Component<Props, State> {
 	/**
 	 * Store current state in cookie to restore calendar later
 	 */
-	preserveState = () => {}
+	preserveState = () => {
+		const dateToSave = this.state.startDate.format('YYYY-MM-DD')
+		return Cookies.setItem('bigcalendarDate', dateToSave)
+	}
+
+	componentDidUpdate() {
+		this.preserveState()
+	}
 
 	getViewDetails = (view?: String) => {
 		const v = view || this.state.selectedView
@@ -153,7 +176,7 @@ class BigCalendar extends Component<Props, State> {
 		return (
 			<div
 				className={parentClass}
-				ref={this.domNode}
+				ref={this.domNodeRef}
 				style={{
 					width: bodyWidth,
 					height: bodyHeight

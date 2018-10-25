@@ -9,5 +9,10 @@ export default {
 		return node && node.getBoundingClientRect
 			? node.getBoundingClientRect().top
 			: null
+	},
+	getLeft(node) {
+		return node && node.getBoundingClientRect
+			? node.getBoundingClientRect().left
+			: null
 	}
 }
