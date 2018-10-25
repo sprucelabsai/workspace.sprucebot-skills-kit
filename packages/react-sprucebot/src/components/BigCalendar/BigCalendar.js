@@ -4,6 +4,7 @@ import cx from 'classnames'
 import VIEWS from './components/Views'
 import moment from 'moment-timezone'
 import memoize from 'memoize-one'
+import Cookies from 'js-cookies'
 
 // sub components
 import Header from './components/Header/Header'
@@ -39,6 +40,8 @@ class BigCalendar extends Component<Props, State> {
 		minTime: this.props.defaultMinTime,
 		maxTime: this.props.defaultMaxTime,
 		startDate:
+			(Cookies.getItem('bigcalendarDate') &&
+				moment(Cookies.getItem('bigcalendarDate'))) ||
 			this.props.startDate ||
 			moment.tz(new Date(), this.props.location.timezone),
 		currentUsers: this.props.allUsers
@@ -68,7 +71,14 @@ class BigCalendar extends Component<Props, State> {
 	/**
 	 * Store current state in cookie to restore calendar later
 	 */
-	preserveState = () => {}
+	preserveState = () => {
+		const dateToSave = this.state.startDate.format('MM-DD-YYYY')
+		return Cookies.setItem('bigcalendarDate', dateToSave)
+	}
+
+	componentDidUpdate() {
+		this.preserveState()
+	}
 
 	getViewDetails = (view?: String) => {
 		const v = view || this.state.selectedView

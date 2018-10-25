@@ -30,6 +30,7 @@ const Day = (props: Props) => {
 							user={props.user}
 							minTime={props.minTime}
 							maxTime={props.maxTime}
+							key={`${user.id}-day-column`}
 						/>
 					))}
 				</div>

@@ -12,8 +12,13 @@ type Props = {
 const DayCol = (props: Props) => {
 	return (
 		<div className="bigcalendar__day-col">
-			{props.hours.map(hour => {
-				return <div className="hour-block" />
+			{props.hours.map((hour, idx) => {
+				return (
+					<div
+						className="hour-block"
+						key={`bigcalendar-${hour}-block-${idx}`}
+					/>
+				)
 			})}
 		</div>
 	)

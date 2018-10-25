@@ -12,7 +12,7 @@ const TeammateHeader = (props: Props) => {
 		<div className="bigcalendar__teammate-header">
 			{props.users.map(u => {
 				return (
-					<div className="teammate">
+					<div className="teammate" key={`bigcalendar-${u.id}-header`}>
 						<UserAvatar user={u} />
 						<div className="">
 							<p>{u.name}</p>

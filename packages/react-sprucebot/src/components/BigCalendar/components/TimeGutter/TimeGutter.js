@@ -12,7 +12,9 @@ const TimeGutter = (props: Props) => {
 		<div className="bigcalendar__time-gutter fill-height">
 			{props.hours.map((hour, idx) => {
 				return (
-					<div className="hour-block">{idx > 0 && <p>{hour.label}</p>}</div>
+					<div className="hour-block" key={`bigcalendar-gutter-block-${idx}`}>
+						{idx > 0 && <p>{hour.label}</p>}
+					</div>
 				)
 			})}
 		</div>

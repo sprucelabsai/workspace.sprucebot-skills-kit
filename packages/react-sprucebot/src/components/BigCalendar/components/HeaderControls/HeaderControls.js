@@ -11,7 +11,8 @@ type Props = {
 	list: ListProps,
 	footer: FooterProps,
 	onBackDate: Function,
-	onNextDate: Function
+	onNextDate: Function,
+	onChangeView: Function
 }
 
 const HeaderControls = (props: Props) => {
@@ -26,7 +27,7 @@ const HeaderControls = (props: Props) => {
 			/>
 			<Button kind={'simple'} isSmall={true} text={'Date'} />
 			<Button kind={'simple'} isSmall={true} text={'CalendarIcon'} />
-			<Select options={['Full Team', 'Me']} />
+			<Select options={['Full Team', 'Me']} onChange={props.onChangeView} />
 		</div>
 	)
 }
