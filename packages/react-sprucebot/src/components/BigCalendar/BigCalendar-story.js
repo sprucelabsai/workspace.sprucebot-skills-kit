@@ -9,7 +9,7 @@ const stories = storiesOf('Big Calendar', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('default', () => {
+stories.add('Big Calendar', () => {
 	const users = [
 		{
 			name: 'Carolyn Selheim-Miller',

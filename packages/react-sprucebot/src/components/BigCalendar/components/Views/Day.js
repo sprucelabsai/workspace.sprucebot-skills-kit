@@ -12,30 +12,69 @@ type Props = {
 	location: Object,
 	className?: String,
 	minTime: String,
-	maxTime: String
+	maxTime: String,
+	viewHeight: Number,
+	onScroll: Function
 }
 
-const Day = (props: Props) => {
-	return (
-		<div className="bigcalendar__view-day">
-			<div className="bigcalendar__user-header">
-				<TeammateHeader users={props.users} location={props.location} />
-			</div>
-			<div className="bigcalendar__scroll-wrapper fill-height">
-				<TimeGutter hours={props.hours} />
-				<div className="column_wrappers">
-					{props.users.map(user => (
-						<DayCol
-							hours={props.hours}
-							user={props.user}
-							minTime={props.minTime}
-							maxTime={props.maxTime}
-						/>
-					))}
+type State = {
+	scrollLeft: Number,
+	scrollTop: Number
+}
+
+class Day extends Component<Props> {
+	state = {
+		scrollLeft: 0,
+		scrollTop: 0
+	}
+
+	handleScroll = e => {
+		const target = e.target
+		const { scrollTop, scrollLeft } = target
+		this.setState({
+			scrollTop,
+			scrollLeft
+		})
+	}
+
+	render() {
+		const { users, location, hours, viewHeight, minTime, maxTime } = this.props
+		const { scrollTop, scrollLeft } = this.state
+
+		return (
+			<div className="bigcalendar__view-day">
+				<div className="bigcalendar__user-header">
+					<TeammateHeader users={users} location={location} />
+				</div>
+				<div className="bigcalendar__scroll-wrapper">
+					<TimeGutter
+						hours={hours}
+						viewHeight={viewHeight}
+						scrollTop={scrollTop}
+					/>
+					<div
+						onScroll={this.handleScroll}
+						className="column_wrappers"
+						style={{
+							height: viewHeight
+						}}
+					>
+						<div className="scroll-inner">
+							{users.map(user => (
+								<DayCol
+									key={`day-col-${user.id}`}
+									hours={hours}
+									user={user}
+									minTime={minTime}
+									maxTime={maxTime}
+								/>
+							))}
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	)
+		)
+	}
 }
 
 export default Day

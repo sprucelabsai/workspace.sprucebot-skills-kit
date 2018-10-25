@@ -13,7 +13,7 @@ const DayCol = (props: Props) => {
 	return (
 		<div className="bigcalendar__day-col">
 			{props.hours.map(hour => {
-				return <div className="hour-block" />
+				return <div key={hour.label} className="hour-block" />
 			})}
 		</div>
 	)

@@ -4,6 +4,7 @@ import cx from 'classnames'
 import VIEWS from './components/Views'
 import moment from 'moment-timezone'
 import memoize from 'memoize-one'
+import sizeUtils from './utils/size'
 
 // sub components
 import Header from './components/Header/Header'
@@ -41,7 +42,44 @@ class BigCalendar extends Component<Props, State> {
 		startDate:
 			this.props.startDate ||
 			moment.tz(new Date(), this.props.location.timezone),
-		currentUsers: this.props.allUsers
+		currentUsers: this.props.allUsers,
+		bodyWidth: sizeUtils.bodyWidth(),
+		bodyHeight: sizeUtils.bodyHeight(),
+		viewHeight: 0
+	}
+
+	constructor(props) {
+		super(props)
+		this.domNode = React.createRef()
+	}
+
+	componentDidMount = () => {
+		window.addEventListener('resize', this.handleSizing)
+		this.handleSizing()
+		setTimeout(this.handleSizing, 1000)
+	}
+
+	componentWillUnmount = () => {
+		window.removeEventListener('resize', this.handleSizing)
+	}
+
+	handleSizing = () => {
+		//get node for scroll wrapper
+		const scrollNode = this.domNode.current.querySelectorAll(
+			'.bigcalendar__scroll-wrapper'
+		)[0]
+
+		// calc positions
+		const scrollTop = sizeUtils.getTop(scrollNode)
+		const width = sizeUtils.bodyWidth()
+		const height = sizeUtils.bodyHeight()
+		const viewHeight = height - scrollTop
+
+		this.setState({
+			bodyWidth: width,
+			bodyHeight: height,
+			viewHeight
+		})
 	}
 
 	handleChangeView = view => {
@@ -100,7 +138,10 @@ class BigCalendar extends Component<Props, State> {
 			minTime,
 			maxTime,
 			startDate,
-			currentUsers
+			currentUsers,
+			bodyWidth,
+			bodyHeight,
+			viewHeight
 		} = this.state
 
 		const parentClass = cx('bigcalendar', className, {})
@@ -110,7 +151,14 @@ class BigCalendar extends Component<Props, State> {
 		const View = this.getViewDetails().View
 
 		return (
-			<div className={parentClass}>
+			<div
+				className={parentClass}
+				ref={this.domNode}
+				style={{
+					width: bodyWidth,
+					height: bodyHeight
+				}}
+			>
 				<Header
 					dateFormat={headerDateFormat}
 					selectedDate={startDate}
@@ -121,6 +169,8 @@ class BigCalendar extends Component<Props, State> {
 				/>
 				<div className="bigcalendar__view-wrapper">
 					<View
+						onScroll={this.handleViewScroll}
+						viewHeight={viewHeight}
 						hours={hours}
 						users={currentUsers}
 						location={location}
