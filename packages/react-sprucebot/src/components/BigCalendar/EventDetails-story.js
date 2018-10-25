@@ -12,11 +12,11 @@ import NoteIcon from '../../../static/assets/icons/Interface-Essential/Form-Edit
 import ServiceIcon from '../../../static/assets/icons/Interface-Essential/Lists/list-bullets-1.svg'
 import StatusIcon from '../../../static/assets/icons/Interface-Essential/Time/stopwatch.svg'
 
-const stories = storiesOf('Event Details', module)
+const stories = storiesOf('Big Calendar', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('Appointment', () => (
+stories.add('Event Details', () => (
 	<Container>
 		<EventDetails
 			header={{ title: 'Cooper Moore', label: 'Appointment' }}
