@@ -1,11 +1,10 @@
 // @flow
 import React, { Component } from 'react'
 import cx from 'classnames'
-import EventBlock from ../EventBlock/EventBlock
 
 type Props = {
-    event: Object,
-    users: Array<Object>,
+	event: Object,
+	users: Array<Object>,
 	children?: Node,
 	className?: string
 }
