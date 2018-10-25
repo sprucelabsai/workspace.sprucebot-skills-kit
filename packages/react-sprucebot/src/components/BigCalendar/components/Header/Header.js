@@ -1,6 +1,7 @@
 // @flow
 import React from 'react'
 import cx from 'classnames'
+import moment from 'moment-timezone'
 
 // sub components
 import HeaderControls from '../HeaderControls/HeaderControls'
@@ -15,26 +16,33 @@ type Props = {
 	list: ListProps,
 	footer: FooterProps,
 	selectedView: string,
-	onChangeView: Function
+	onChangeView: Function,
+	onBackDate: Function,
+	onNextDate: Function,
+	selectedDate: Object,
+	dateFormat: String
 }
 
 const Header = (props: Props) => {
 	return (
-		<div className="bigcalendar-header">
-			<div className="bigcalendar-header__top">
-				<H2 className="">Selected Date</H2>
-				<HeaderControls />
+		<div className="bigcalendar__header">
+			<div className="bigcalendar__header-top">
+				<H2 className="">{props.selectedDate.format(props.dateFormat)}</H2>
+				<HeaderControls
+					onBackDate={props.onBackDate}
+					onNextDate={props.onNextDate}
+				/>
 			</div>
-			<div className="bigcalendar-header__bottom">
-				<div className="bigcalendar-header__smalldate">
-					<p className="dow">Mo</p>
-					<p className="day">27</p>
+			<div className="bigcalendar__header-bottom">
+				<div className="bigcalendar__header-smalldate">
+					<p className="dow">{props.selectedDate.format('dd')}</p>
+					<p className="day">{props.selectedDate.format('D')}</p>
 				</div>
 				<Pagination
 					onClickNext={() => {}}
 					onClickBack={() => {}}
 					currentPage={1}
-					totalPages={3}
+					totalPages={1}
 				/>
 			</div>
 		</div>

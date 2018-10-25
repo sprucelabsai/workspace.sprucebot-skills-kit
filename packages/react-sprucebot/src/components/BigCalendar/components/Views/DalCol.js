@@ -3,13 +3,20 @@ import React, { Component } from 'react'
 import cx from 'classnames'
 
 type Props = {
-	text?: string,
-	children?: Node,
-	className?: string
+	user: Object,
+	minTime: String,
+	maxTime: String,
+	hours: Array<Object>
 }
 
 const DayCol = (props: Props) => {
-	return <div>I'm the day column view</div>
+	return (
+		<div className="bigcalendar__day-col">
+			{props.hours.map(hour => {
+				return <div className="hour-block" />
+			})}
+		</div>
+	)
 }
 
 export default DayCol

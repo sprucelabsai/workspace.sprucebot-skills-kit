@@ -15,7 +15,8 @@ type Props = {
 	onPageButtonClick?: Function,
 	onJump?: Function,
 	showPages?: boolean,
-	showJump?: boolean
+	showJump?: boolean,
+	isSimple?: boolean
 }
 
 const Pagination = (props: Props) => {
@@ -27,7 +28,8 @@ const Pagination = (props: Props) => {
 		onClickNext,
 		onClickBack,
 		onPageButtonClick,
-		onJump
+		onJump,
+		isSimple
 	} = props
 	const pagesArray = []
 	let displayPages = []
@@ -58,6 +60,9 @@ const Pagination = (props: Props) => {
 		displayPages.splice(1, 0, { text: '…' })
 		displayPages.splice(displayPages.length - 1, 0, { text: '…' })
 	}
+
+	const kind = isSimple ? 'simple' : 'secondary'
+
 	return (
 		<div
 			className={cx('pagination-wrapper', {
@@ -65,7 +70,7 @@ const Pagination = (props: Props) => {
 			})}
 		>
 			<Button
-				kind="secondary"
+				kind={kind}
 				onClick={onClickBack}
 				isSmall
 				className="pagination__btn"
@@ -94,7 +99,7 @@ const Pagination = (props: Props) => {
 					)
 				})}
 			<Button
-				kind="secondary"
+				kind={kind}
 				onClick={onClickNext}
 				isSmall
 				className="pagination__btn"

@@ -10,13 +10,20 @@ import Header from './components/Header/Header'
 
 type Props = {
 	defaultView: 'day' | 'week' | 'month',
+	defaultDate: Object,
 	slotsPerHour: Number,
 	defaultMinTime: String,
 	defaultMaxTime: String,
-	timezone: String
+	allUsers: Array<Object>,
+	headerDateFormat: String,
+	location: Object
 }
 type State = {
-	selectedView: 'day' | 'week' | 'month'
+	selectedView: 'day' | 'week' | 'month',
+	minTime: String,
+	maxTime: String,
+	startDate: Object,
+	currentUsers: Array<Object>
 }
 
 class BigCalendar extends Component<Props, State> {
@@ -25,16 +32,47 @@ class BigCalendar extends Component<Props, State> {
 		slotsPerHour: 4, // every 15 minutes
 		defaultMinTime: '00:00',
 		defaultMaxTime: '23:59',
-		timezone: 'America/Denver'
+		headerDateFormat: 'MMMM YYYY'
 	}
 	state = {
 		selectedView: this.props.defaultView,
 		minTime: this.props.defaultMinTime,
-		maxTime: this.props.defaultMaxTime
+		maxTime: this.props.defaultMaxTime,
+		startDate:
+			this.props.startDate ||
+			moment.tz(new Date(), this.props.location.timezone),
+		currentUsers: this.props.allUsers
 	}
 
 	handleChangeView = view => {
 		console.log('change view!')
+	}
+
+	handleBackDate = () => {
+		const [amount, unit] = this.getViewDetails().pageAmount
+		const nextDate = moment(this.state.startDate).subtract(amount, unit)
+
+		this.setState({
+			startDate: nextDate
+		})
+	}
+	handleNextDate = () => {
+		const [amount, unit] = this.getViewDetails().pageAmount
+		const nextDate = moment(this.state.startDate).add(amount, unit)
+
+		this.setState({
+			startDate: nextDate
+		})
+	}
+
+	/**
+	 * Store current state in cookie to restore calendar later
+	 */
+	preserveState = () => {}
+
+	getViewDetails = (view?: String) => {
+		const v = view || this.state.selectedView
+		return VIEWS[v]
 	}
 
 	generateTimeGutterHours = memoize((min, max) => {
@@ -56,23 +94,39 @@ class BigCalendar extends Component<Props, State> {
 	})
 
 	render() {
-		const { className } = this.props
-		const { selectedView, minTime, maxTime } = this.state
+		const { className, headerDateFormat, location } = this.props
+		const {
+			selectedView,
+			minTime,
+			maxTime,
+			startDate,
+			currentUsers
+		} = this.state
 
 		const parentClass = cx('bigcalendar', className, {})
 		const hours = this.generateTimeGutterHours(minTime, maxTime)
 
 		// load the view
-		const View = VIEWS[selectedView]
+		const View = this.getViewDetails().View
 
 		return (
 			<div className={parentClass}>
 				<Header
+					dateFormat={headerDateFormat}
+					selectedDate={startDate}
 					selectedView={selectedView}
 					onChangeView={this.handleChangeView}
+					onBackDate={this.handleBackDate}
+					onNextDate={this.handleNextDate}
 				/>
-				<div className="bigcalendar-view__wrapper">
-					<View hours={hours} />
+				<div className="bigcalendar__view-wrapper">
+					<View
+						hours={hours}
+						users={currentUsers}
+						location={location}
+						minTime={minTime}
+						maxTime={maxTime}
+					/>
 				</div>
 			</div>
 		)

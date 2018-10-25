@@ -1,5 +1,8 @@
 import Day from './Day'
 
 export default {
-	day: Day
+	day: {
+		View: Day,
+		pageAmount: [1, 'day']
+	}
 }

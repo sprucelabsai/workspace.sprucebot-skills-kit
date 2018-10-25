@@ -2,17 +2,17 @@
 import React from 'react'
 import cx from 'classnames'
 
-type Props = {
-	image: string,
-	alt: string,
-	isLarge?: boolean,
-	isVertical?: boolean,
-	showIndicator?: boolean,
-	status?: 'online' | 'offline',
-	name?: string,
-	text?: string,
-	width?: ?number,
-	height?: ?number
+export interface Props {
+	image: string;
+	alt: string;
+	isLarge?: boolean;
+	isVertical?: boolean;
+	showIndicator?: boolean;
+	status?: 'online' | 'offline';
+	name?: string;
+	text?: string;
+	width?: ?number;
+	height?: ?number;
 }
 
 const Avatar = (props: Props) => {
