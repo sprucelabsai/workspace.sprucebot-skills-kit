@@ -5792,7 +5792,7 @@ es6-shim@^0.35.3:
   version "0.35.3"
   resolved "https://registry.yarnpkg.com/es6-shim/-/es6-shim-0.35.3.tgz#9bfb7363feffff87a6cdb6cd93e405ec3c4b6f26"
 
-es6-tween@^5.3.0:
+es6-tween@^5.3.1:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/es6-tween/-/es6-tween-5.3.1.tgz#9b8eb6d18aa20c82270b05f1b4dc15fa1862a773"
 
@@ -13542,6 +13542,10 @@ schema-utils@^1.0.0:
     ajv "^6.1.0"
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
+
+screenfull@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/screenfull/-/screenfull-3.3.3.tgz#8cf7e706aceac2e75131aadcb81b622acfe11d39"
 
 scroll-into-view-if-needed@^2.2.16:
   version "2.2.17"

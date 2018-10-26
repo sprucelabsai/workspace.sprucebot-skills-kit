@@ -352,7 +352,14 @@ stories.add('Big Calendar', () => {
 
 	return (
 		<Container>
-			<BigCalendar allUsers={users} location={location} />
+			<BigCalendar
+				allUsers={users}
+				location={location}
+				defaultMinTime="07:00"
+				defaultMaxTime="20:00"
+				defaultStartTime="09:00"
+				defaultEndTime="18:00"
+			/>
 		</Container>
 	)
 })

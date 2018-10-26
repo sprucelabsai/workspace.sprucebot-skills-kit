@@ -33,7 +33,7 @@ const Pagination = (props: Props) => {
 	} = props
 	const pagesArray = []
 	let displayPages = []
-	for (let i = 1; i < totalPages + 1; i++) {
+	for (let i = 0; i < totalPages; i++) {
 		pagesArray.push(i)
 	}
 	if (currentPage <= 3 || totalPages - currentPage <= 3) {
@@ -75,7 +75,7 @@ const Pagination = (props: Props) => {
 				isSmall
 				className="pagination__btn"
 				icon={<ArrowBack />}
-				disabled={currentPage === 1}
+				disabled={currentPage === 0}
 			/>
 			{showPages &&
 				onPageButtonClick &&
@@ -104,7 +104,7 @@ const Pagination = (props: Props) => {
 				isSmall
 				className="pagination__btn"
 				icon={<ArrowNext />}
-				disabled={currentPage >= totalPages}
+				disabled={currentPage >= totalPages - 1}
 			/>
 			{showJump &&
 				onJump && (

@@ -1,6 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 import cx from 'classnames'
+import { Easing, Tween, autoPlay } from 'es6-tween'
+autoPlay(true)
+
 import TimeGutter from '../TimeGutter/TimeGutter'
 import TeammateHeader from '../TeammateHeader/TeammateHeader'
 import DayCol from './DayCol'
@@ -14,8 +17,12 @@ type Props = {
 	className?: String,
 	minTime: String,
 	maxTime: String,
+	startTime: String,
+	endTime: String,
 	viewHeight: Number,
-	onScroll: Function
+	onScroll: Function,
+	slotsPerHour: Number,
+	onUpdateHorizontalPagerDetails: Function
 }
 
 type State = {
@@ -31,7 +38,20 @@ class Day extends Component<Props> {
 	constructor(props) {
 		super(props)
 		this.scrollWrapperRef = React.createRef()
+		this.scrollInnerRef = React.createRef()
 	}
+
+	componentDidMount = () => {
+		this.updateHorizontalPagerDetails()
+		//TODO better way to detect everything is rendered and sized correctly
+		window.addEventListener('resize', this.updateHorizontalPagerDetails)
+		setTimeout(this.updateHorizontalPagerDetails, 1000)
+	}
+
+	componentWillUnmount = () => {
+		window.removeEventListener('resize', this.updateHorizontalPagerDetails)
+	}
+
 	handleScroll = e => {
 		const target = e.target
 		const { scrollTop, scrollLeft } = target
@@ -39,6 +59,64 @@ class Day extends Component<Props> {
 			scrollTop,
 			scrollLeft
 		})
+
+		this.updateHorizontalPagerDetails()
+	}
+
+	updateHorizontalPagerDetails = () => {
+		const { onUpdateHorizontalPagerDetails } = this.props
+
+		let currentPage
+		let totalPages = 3
+		const scrolledRight = sizeUtils.isScrolledAllTheWayRight(
+			this.scrollWrapperRef.current
+		)
+		const scrolledLeft = sizeUtils.isScrolledAllTheWayLeft(
+			this.scrollWrapperRef.current
+		)
+
+		if (scrolledRight && scrolledLeft) {
+			currentPage = 0
+			totalPages = 1
+		} else if (scrolledRight) {
+			currentPage = 2
+		} else if (scrolledLeft) {
+			currentPage = 0
+		} else {
+			currentPage = 1
+		}
+
+		onUpdateHorizontalPagerDetails({ currentPage, totalPages })
+	}
+
+	//invoked directly by BigCalendar
+	handleHorizontalPageNext = () => {
+		const { scrollLeft } = this.state
+		const pageWidth = sizeUtils.getWidth(this.scrollWrapperRef.current)
+		this.animateHorizontalTo(scrollLeft + pageWidth)
+	}
+
+	handleHorizontalPageBack = () => {
+		const { scrollLeft } = this.state
+		const pageWidth = sizeUtils.getWidth(this.scrollWrapperRef.current)
+		this.animateHorizontalTo(scrollLeft - pageWidth)
+	}
+
+	animateHorizontalTo = left => {
+		const { scrollLeft } = this.state
+		const node = this.scrollWrapperRef.current
+		const pageWidth = sizeUtils.getWidth(this.scrollWrapperRef.current)
+
+		this._activeTween = new Tween({
+			scrollLeft
+		})
+			.to({ scrollLeft: left }, 500)
+			.easing(Easing.Quintic.Out)
+			.on('update', ({ scrollLeft }) => {
+				node.scrollLeft = scrollLeft
+			})
+
+		this._activeTween.start()
 	}
 
 	handleTeammateScroll = e => {
@@ -86,13 +164,25 @@ class Day extends Component<Props> {
 	}
 
 	render() {
-		const { users, location, hours, viewHeight, minTime, maxTime } = this.props
+		const {
+			users,
+			location,
+			hours,
+			viewHeight,
+			minTime,
+			maxTime,
+			slotsPerHour,
+			startTime,
+			endTime
+		} = this.props
+
 		const { scrollTop, scrollLeft } = this.state
 
 		return (
 			<div className="bigcalendar__view-day">
 				<div className="bigcalendar__user-header">
 					<TeammateHeader
+						onMouseDown={this.handleMouseDown}
 						onScroll={this.handleTeammateScroll}
 						scrollLeft={scrollLeft}
 						users={users}
@@ -114,14 +204,18 @@ class Day extends Component<Props> {
 							height: viewHeight
 						}}
 					>
-						<div className="scroll-inner">
+						<div className="scroll-inner" ref={this.scrollInnerRef}>
 							{users.map(user => (
 								<DayCol
+									slotsPerHour={slotsPerHour}
 									key={`day-col-${user.id}`}
 									hours={hours}
 									user={user}
+									startTime={startTime}
+									endTime={endTime}
 									minTime={minTime}
 									maxTime={maxTime}
+									timezone={location.timezone}
 								/>
 							))}
 						</div>

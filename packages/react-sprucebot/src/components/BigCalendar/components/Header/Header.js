@@ -20,7 +20,12 @@ type Props = {
 	onBackDate: Function,
 	onNextDate: Function,
 	selectedDate: Object,
-	dateFormat: String
+	dateFormat: String,
+	fullScreenNodeRef: Object,
+	totalHorizontalPages: Number,
+	currentHorizontalPage: Number,
+	onHorizontalPageNext: Function,
+	onHorizontalPageBack: Function
 }
 
 const Header = (props: Props) => {
@@ -29,6 +34,7 @@ const Header = (props: Props) => {
 			<div className="bigcalendar__header-top">
 				<H2 className="">{props.selectedDate.format(props.dateFormat)}</H2>
 				<HeaderControls
+					fullScreenNodeRef={props.fullScreenNodeRef}
 					onBackDate={props.onBackDate}
 					onNextDate={props.onNextDate}
 					onChangeView={props.onChangeView}
@@ -40,10 +46,10 @@ const Header = (props: Props) => {
 					<p className="day">{props.selectedDate.format('D')}</p>
 				</div>
 				<Pagination
-					onClickNext={() => {}}
-					onClickBack={() => {}}
-					currentPage={1}
-					totalPages={1}
+					onClickNext={props.onHorizontalPageNext}
+					onClickBack={props.onHorizontalPageBack}
+					currentPage={props.currentHorizontalPage}
+					totalPages={props.totalHorizontalPages}
 				/>
 			</div>
 		</div>
