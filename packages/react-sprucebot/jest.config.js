@@ -8,13 +8,27 @@ module.exports = {
 		'node_modules',
 		'<rootDir>/lib',
 		'<rootDir>/config/',
-		'<rootDir>/jest/'
+		'<rootDir>/jest/',
+		'<rootDir>/config/test.js',
+		'<rootDir>/config/',
+		'<rootDir>/docs/',
+		'<rootDir>/icon/',
+		'<rootDir>/server/',
+		'<rootDir>/.vscode/',
+		'<rootDir>/.circleci/',
+		'<rootDir>/coverage/'
 	],
 	coveragePathIgnorePatterns: [
 		'<rootDir>/lib/',
 		'<rootDir>/config/',
 		'<rootDir>/jest/',
-		'node_modules'
+		'<rootDir>/node_modules/',
+		'<rootDir>/docs/',
+		'<rootDir>/icon/',
+		'<rootDir>/server/',
+		'<rootDir>/.vscode/',
+		'<rootDir>/.circleci/',
+		'<rootDir>/coverage/'
 	],
 	testURL: 'http://localhost/',
 	testEnvironment: 'node'
