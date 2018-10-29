@@ -18,6 +18,9 @@ export default {
 	getWidth(node) {
 		return node && node.offsetWidth ? node.offsetWidth : null
 	},
+	getHeight(node) {
+		return node && node.offsetHeight ? node.offsetHeight : null
+	},
 	getScrollWidth(node) {
 		return node && node.scrollWidth ? node.scrollWidth : null
 	},

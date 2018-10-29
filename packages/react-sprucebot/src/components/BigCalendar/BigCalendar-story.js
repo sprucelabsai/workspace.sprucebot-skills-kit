@@ -350,11 +350,58 @@ stories.add('Big Calendar', () => {
 		enableLockScreen: true
 	}
 
+	const event = {
+		id: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd023',
+		title: 'Haircut with Carolyn',
+		subtitle: 'Get them all cut',
+		durationSec: 3600,
+		startAt: '2018-11-01 13:30:00',
+		isAllDay: false,
+		userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
+		className: '',
+		eventDetails: {},
+		blocks: [
+			{
+				title: 'Primary',
+				subtitle: '',
+				durationSec: 60 * 60,
+				leftIcons: [],
+				rightIcons: [],
+				className: '',
+				markAsBusy: true
+			},
+			{
+				title: 'Processing',
+				subtitle: '',
+				durationSec: 45 * 60,
+				leftIcons: [],
+				rightIcons: [],
+				className: '',
+				markAsBusy: false
+			},
+			{
+				title: 'Finishing',
+				subtitle: '',
+				durationSec: 15 * 60,
+				leftIcons: [],
+				rightIcons: [],
+				className: '',
+				markAsBusy: true
+			}
+		]
+	}
+
 	return (
 		<Container>
 			<BigCalendar
+				onDropEvent={async event => {
+					return new Promise((resolve, reject) => {
+						setTimeout(resolve, 2000)
+					})
+				}}
 				allUsers={users}
 				location={location}
+				allEvents={[event]}
 				defaultMinTime="07:00"
 				defaultMaxTime="20:00"
 				defaultStartTime="09:00"
