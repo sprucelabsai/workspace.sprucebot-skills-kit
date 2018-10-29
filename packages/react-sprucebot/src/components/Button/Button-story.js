@@ -5,7 +5,8 @@ import {
 	withKnobs,
 	withKnobsOptions,
 	text,
-	boolean
+	boolean,
+	object
 } from '@storybook/addon-knobs/react'
 import Wrapper from '../../../.storybook/Wrapper'
 import Button from './Button'
@@ -20,82 +21,6 @@ const btnText = text('text', 'Hello World')
 const isSmall = boolean('isSmall', false)
 const isFullWidth = boolean('isFullWidth', false)
 const icon = text('icon', 'edit')
-
-const ButtonGroup = (props: GroupProps = { kind: '' }) => {
-	return (
-		<Fragment>
-			<Button
-				className={text('className', 'l-mr-small l-mb-small')}
-				isSmall={isSmall}
-				isFullWidth={isFullWidth}
-				text={btnText}
-				kind={props.kind || ''}
-				isFullWidth={false}
-				onClick={text('onClick', '() => console.log("you clicked")')}
-			/>
-			<Button
-				className={text('className', 'l-mr-small l-mb-small')}
-				isSmall={isSmall}
-				isFullWidth={isFullWidth}
-				text={`Link ${btnText}`}
-				kind={props.kind || ''}
-				href={text('href', '#')}
-				target="_blank"
-				onClick={text('onClick', '() => console.log("you clicked")')}
-			/>
-			<Button
-				className={text('className', 'l-mr-small l-mb-small')}
-				isSmall={isSmall}
-				isFullWidth={isFullWidth}
-				text={btnText}
-				kind={props.kind || ''}
-				disabled
-				onClick={text('onClick', '() => console.log("you clicked")')}
-			/>
-			<Button
-				className={text('className', 'l-mr-small l-mb-small')}
-				isSmall={isSmall}
-				isFullWidth={isFullWidth}
-				text={btnText}
-				kind={props.kind || ''}
-				disabled
-				isLoading={boolean('isLoading', true)}
-				onClick={text('onClick', '() => console.log("you clicked")')}
-			/>
-			<Button
-				className={text('className', 'l-mr-small l-mb-small')}
-				isSmall={isSmall}
-				isFullWidth={isFullWidth}
-				text={btnText}
-				kind={props.kind || ''}
-				icon={
-					icon ? (
-						<Icon
-							icon={text('icon', 'edit')}
-							className={text('iconClassName', 'btn__line-icon')}
-						/>
-					) : null
-				}
-				onClick={text('onClick', '() => console.log("you clicked")')}
-			/>
-			<Button
-				className={text('className', 'l-mr-small l-mb-small')}
-				isSmall={isSmall}
-				isFullWidth={isFullWidth}
-				kind={props.kind || ''}
-				icon={
-					icon ? (
-						<Icon
-							icon={text('icon', 'edit')}
-							className={text('iconClassName', 'btn__line-icon')}
-						/>
-					) : null
-				}
-				onClick={text('onClick', '() => console.log("you clicked")')}
-			/>
-		</Fragment>
-	)
-}
 
 const stories = storiesOf('Button', module)
 stories.addDecorator(
@@ -126,6 +51,7 @@ stories
 			href={text('href', '')}
 			target={text('target', '')}
 			onClick={text('onClick', '() => console.log("you clicked")')}
+			linkProps={object('linkProps', {})}
 		/>
 	))
 	.add('Secondary', () => (
@@ -148,6 +74,7 @@ stories
 			href={text('href', '')}
 			target={text('target', '')}
 			onClick={text('onClick', '() => console.log("you clicked")')}
+			linkProps={object('linkProps', {})}
 		/>
 	))
 	.add('Simple', () => (
@@ -170,6 +97,7 @@ stories
 			href={text('href', '')}
 			target={text('target', '')}
 			onClick={text('onClick', '() => console.log("you clicked")')}
+			linkProps={object('linkProps', {})}
 		/>
 	))
 	.add('Caution', () => (
@@ -192,5 +120,6 @@ stories
 			href={text('href', '')}
 			target={text('target', '')}
 			onClick={text('onClick', '() => console.log("you clicked")')}
+			linkProps={object('linkProps', {})}
 		/>
 	))

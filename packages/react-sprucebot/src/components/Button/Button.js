@@ -3,6 +3,10 @@
 import React from 'react'
 import type { Node, Element } from 'react'
 import cx from 'classnames'
+import is from 'is_js'
+import SingletonRouter from 'next/router'
+import Link from 'next/link'
+import type { Props as LinkProps } from 'next/link'
 import Loader from '../Loader/Loader'
 
 export type Props = {
@@ -16,7 +20,8 @@ export type Props = {
 	// TODO: Set a proper Flow type for inline svg
 	icon?: any,
 	type?: string,
-	onClick?: Function
+	onClick?: Function,
+	linkProps?: LinkProps
 }
 
 const Button = (props: Props) => {
@@ -31,6 +36,7 @@ const Button = (props: Props) => {
 		icon,
 		type,
 		onClick,
+		linkProps,
 		...rest
 	} = props
 	const btnClass = cx(className, {
@@ -44,6 +50,12 @@ const Button = (props: Props) => {
 		'btn-small': isSmall,
 		'btn-icon-only': !text
 	})
+
+	// Check if the link is relative (client-side) or absolute
+	let linkIsRelative = true
+	if (href && is.url(href)) {
+		linkIsRelative = false
+	}
 
 	const handleClick = (e: any) => {
 		e.currentTarget.blur()
@@ -72,7 +84,14 @@ const Button = (props: Props) => {
 		</button>
 	)
 
-	const anchor = (
+	// Only return a Next link if the href is relative
+	const anchor = linkIsRelative ? (
+		<Link href={href} {...linkProps}>
+			<a className={btnClass} {...rest}>
+				<Inner />
+			</a>
+		</Link>
+	) : (
 		<a href={href} className={btnClass} {...rest}>
 			<Inner />
 		</a>
