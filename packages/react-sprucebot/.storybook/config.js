@@ -10,6 +10,7 @@ import {
 import Wrapper from './Wrapper'
 
 import { setOptions } from '@storybook/addon-options'
+import { withInfo } from '@storybook/addon-info'
 
 setOptions({
 	name: 'Heartwood React Components',
@@ -30,6 +31,12 @@ addDecorator(story => {
 		<Wrapper STORYBOOKwrap={boolean('STORYBOOKwrap', true)}>{story()}</Wrapper>
 	)
 })
+
+addDecorator(
+	withInfo({
+		inline: false // Global configuration for the info addon across all of your stories.
+	})
+)
 
 function loadStories() {
 	const req = require.context('../src/components', true, /\-story\.js$/)

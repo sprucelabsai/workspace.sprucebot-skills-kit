@@ -13,7 +13,8 @@ const BotText = (props: Props) => {
 	const { text, children, className, ...rest } = props
 
 	if (!children && !text) {
-		console.error('Bot Text must either have children or text')
+		// TODO: Handle logging
+		// console.error('Bot Text must either have children or text')
 		return null
 	}
 
