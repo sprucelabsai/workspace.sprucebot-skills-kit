@@ -3,10 +3,10 @@ import React from 'react'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
 
-export interface Props {
-	text: string;
-	isCurrent?: boolean;
-	panel?: Object;
+export type Props = {
+	text: string,
+	isCurrent?: boolean,
+	panel?: Object
 }
 
 const Tab = (props: Props) => {

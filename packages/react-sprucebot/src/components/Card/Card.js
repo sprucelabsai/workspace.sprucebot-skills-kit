@@ -3,8 +3,9 @@
 import React, { Fragment } from 'react'
 import type { Element, Node } from 'react'
 import cx from 'classnames'
-import Button, { Props as ButtonProps } from '../Button/Button'
-import { Props as ContextMenuProps } from '../ContextMenu/ContextMenu'
+import Button from '../Button/Button'
+import type { Props as ButtonProps } from '../Button/Button'
+import type { Props as ContextMenuProps } from '../ContextMenu/ContextMenu'
 
 // Card Header
 type CardHeaderProps = {

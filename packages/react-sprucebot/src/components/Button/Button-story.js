@@ -16,11 +16,12 @@ type GroupProps = {
 	kind: string
 }
 
+const btnText = text('text', 'Hello World')
+const isSmall = boolean('isSmall', false)
+const isFullWidth = boolean('isFullWidth', false)
+const icon = text('icon', 'edit')
+
 const ButtonGroup = (props: GroupProps = { kind: '' }) => {
-	const btnText = text('text', 'Hello World')
-	const isSmall = boolean('isSmall', false)
-	const isFullWidth = boolean('isFullWidth', false)
-	const icon = text('icon', 'edit')
 	return (
 		<Fragment>
 			<Button
@@ -105,7 +106,91 @@ stories.addDecorator(
 stories.addDecorator(withKnobs)
 
 stories
-	.add('Primary', () => <ButtonGroup kind={text('kind', 'primary')} />)
-	.add('Secondary', () => <ButtonGroup kind={text('kind', 'secondary')} />)
-	.add('Simple', () => <ButtonGroup kind={text('kind', 'secondary')} />)
-	.add('Caution', () => <ButtonGroup kind={text('kind', 'caution')} />)
+	.add('Primary', () => (
+		<Button
+			className={text('className', 'l-mr-small l-mb-small')}
+			isSmall={isSmall}
+			isFullWidth={isFullWidth}
+			text={btnText}
+			kind={text('kind', '') || 'primary'}
+			disabled={boolean('disabled', false)}
+			isLoading={boolean('isLoading', false)}
+			icon={
+				icon ? (
+					<Icon
+						icon={text('icon', '')}
+						className={text('iconClassName', 'btn__line-icon')}
+					/>
+				) : null
+			}
+			href={text('href', '')}
+			target={text('target', '')}
+			onClick={text('onClick', '() => console.log("you clicked")')}
+		/>
+	))
+	.add('Secondary', () => (
+		<Button
+			className={text('className', 'l-mr-small l-mb-small')}
+			isSmall={isSmall}
+			isFullWidth={isFullWidth}
+			text={btnText}
+			kind={text('kind', '') || 'secondary'}
+			disabled={boolean('disabled', false)}
+			isLoading={boolean('isLoading', false)}
+			icon={
+				icon ? (
+					<Icon
+						icon={text('icon', '')}
+						className={text('iconClassName', 'btn__line-icon')}
+					/>
+				) : null
+			}
+			href={text('href', '')}
+			target={text('target', '')}
+			onClick={text('onClick', '() => console.log("you clicked")')}
+		/>
+	))
+	.add('Simple', () => (
+		<Button
+			className={text('className', 'l-mr-small l-mb-small')}
+			isSmall={isSmall}
+			isFullWidth={isFullWidth}
+			text={btnText}
+			kind={text('kind', '') || 'simple'}
+			disabled={boolean('disabled', false)}
+			isLoading={boolean('isLoading', false)}
+			icon={
+				icon ? (
+					<Icon
+						icon={text('icon', '')}
+						className={text('iconClassName', 'btn__line-icon')}
+					/>
+				) : null
+			}
+			href={text('href', '')}
+			target={text('target', '')}
+			onClick={text('onClick', '() => console.log("you clicked")')}
+		/>
+	))
+	.add('Caution', () => (
+		<Button
+			className={text('className', 'l-mr-small l-mb-small')}
+			isSmall={isSmall}
+			isFullWidth={isFullWidth}
+			text={btnText}
+			kind={text('kind', '') || 'caution'}
+			disabled={boolean('disabled', false)}
+			isLoading={boolean('isLoading', false)}
+			icon={
+				icon ? (
+					<Icon
+						icon={text('icon', '')}
+						className={text('iconClassName', 'btn__line-icon')}
+					/>
+				) : null
+			}
+			href={text('href', '')}
+			target={text('target', '')}
+			onClick={text('onClick', '() => console.log("you clicked")')}
+		/>
+	))

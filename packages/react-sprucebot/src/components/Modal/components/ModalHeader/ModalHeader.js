@@ -4,10 +4,10 @@ import Button from '../../../Button/Button'
 import ArrowBack from '../../../../../static/assets/icons/ic_arrow_back.svg'
 import CloseIcon from '../../../../../static/assets/icons/ic_close.svg'
 
-export interface Props {
-	title: string;
-	onRequestClose: Function;
-	handleGoBack?: Function;
+export type Props = {
+	title: string,
+	onRequestClose: Function,
+	handleGoBack?: Function
 }
 
 const ModalHeader = (props: Props) => {

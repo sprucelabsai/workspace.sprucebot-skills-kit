@@ -7,8 +7,9 @@ import {
 	arrayMove
 } from 'react-sortable-hoc'
 import ListHeader from '../ListHeader/ListHeader'
-import ListItem, { Props as ListItemProps } from '../ListItem/ListItem'
-import { Props as ListProps } from '../../List'
+import ListItem from '../ListItem/ListItem'
+import type { Props as ListItemProps } from '../ListItem/ListItem'
+import type { Props as ListProps } from '../../List'
 
 type Props = {
 	onConfirm?: Function,

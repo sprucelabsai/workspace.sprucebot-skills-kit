@@ -3,23 +3,24 @@ import React from 'react'
 import type { Node } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
-import Button, { Props as ButtonProps } from '../../../Button/Button'
+import Button from '../../../Button/Button'
+import type { Props as ButtonProps } from '../../../Button/Button'
 import ContextMenu, {
 	Props as ContextMenuProps
 } from '../../../ContextMenu/ContextMenu'
 import { Toggle } from '../../../Forms'
 import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
 
-export interface Props {
-	title: string;
-	subtitle?: string;
-	avatar?: string;
-	image?: string;
-	icon?: any;
-	isDraggable?: boolean;
-	toggleId?: string;
-	actions?: Array<ButtonProps>;
-	contextMenu?: ContextMenuProps;
+export type Props = {
+	title: string,
+	subtitle?: string,
+	avatar?: string,
+	image?: string,
+	icon?: any,
+	isDraggable?: boolean,
+	toggleId?: string,
+	actions?: Array<ButtonProps>,
+	contextMenu?: ContextMenuProps
 }
 
 const ListItem = (props: Props) => {

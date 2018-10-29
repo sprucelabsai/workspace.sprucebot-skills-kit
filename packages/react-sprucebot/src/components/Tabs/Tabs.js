@@ -1,7 +1,8 @@
 // @flow
 // TODO: Figure out how to split tabs up based on what's visible in the viewport
 import React, { Fragment } from 'react'
-import Tab, { Props as TabProps } from './components/Tab/Tab'
+import Tab from './components/Tab/Tab'
+import type { Props as TabProps } from './components/Tab/Tab'
 import ContextMenu from '../ContextMenu/ContextMenu'
 
 type Props = {

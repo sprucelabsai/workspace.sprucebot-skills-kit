@@ -19,12 +19,12 @@ const ToastHeader = (props: HeaderProps) => {
 	)
 }
 
-export interface Props {
-	headline: string;
-	text: string;
-	onRemove: Function;
-	kind?: 'neutral' | 'positive' | 'negative';
-	onUndo?: Function;
+export type Props = {
+	headline: string,
+	text: string,
+	onRemove: Function,
+	kind?: 'neutral' | 'positive' | 'negative',
+	onUndo?: Function
 }
 
 const Toast = (props: Props) => {

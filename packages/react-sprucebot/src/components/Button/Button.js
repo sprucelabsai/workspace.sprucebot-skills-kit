@@ -4,18 +4,18 @@ import type { Node, Element } from 'react'
 import cx from 'classnames'
 import Loader from '../Loader/Loader'
 
-export interface Props {
-	className?: string;
-	kind?: string;
-	isSmall?: boolean;
-	isFullWidth?: boolean;
-	isLoading?: boolean;
-	text?: string;
-	href?: string;
+export type Props = {
+	className?: string,
+	kind?: string,
+	isSmall?: boolean,
+	isFullWidth?: boolean,
+	isLoading?: boolean,
+	text?: string,
+	href?: string,
 	// TODO: Set a proper Flow type for inline svg
-	icon?: any;
-	type?: string;
-	onClick?: Function;
+	icon?: any,
+	type?: string,
+	onClick?: Function
 }
 
 const Button = (props: Props) => {

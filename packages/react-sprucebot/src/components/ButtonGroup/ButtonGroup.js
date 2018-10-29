@@ -1,7 +1,8 @@
 // @flow
 import React from 'react'
 import cx from 'classnames'
-import Button, { Props as ButtonProps } from '../Button/Button'
+import Button from '../Button/Button'
+import type { Props as ButtonProps } from '../Button/Button'
 
 type Props = {
 	actions: Array<ButtonProps>,

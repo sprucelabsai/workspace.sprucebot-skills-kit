@@ -34,7 +34,7 @@ addDecorator(story => {
 
 addDecorator(
 	withInfo({
-		inline: false // Global configuration for the info addon across all of your stories.
+		inline: false
 	})
 )
 

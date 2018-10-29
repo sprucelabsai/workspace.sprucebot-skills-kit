@@ -13,13 +13,13 @@ type ItemProps = {
 	items: Array<ItemProps>
 }
 
-export interface Props {
-	items?: Array<ItemProps>;
-	text: string;
-	href: string;
-	action?: Object;
-	icon?: any;
-	isCurrent?: boolean;
+export type Props = {
+	items?: Array<ItemProps>,
+	text: string,
+	href: string,
+	action?: Object,
+	icon?: any,
+	isCurrent?: boolean
 }
 
 const isCurrentParent = (props: Props) => {

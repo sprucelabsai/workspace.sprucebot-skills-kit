@@ -1,18 +1,18 @@
 // @flow
 import React from 'react'
-import Button, { Props as ButtonProps } from '../../../../../Button/Button'
-import ContextMenu, {
-	Props as ContextMenuProps
-} from '../../../../../ContextMenu/ContextMenu'
+import Button from '../../../../../Button/Button'
+import type { Props as ButtonProps } from '../../../../../Button/Button'
+import ContextMenu from '../../../../../ContextMenu/ContextMenu'
+import type { Props as ContextMenuProps } from '../../../../../ContextMenu/ContextMenu'
 import Icon from '../../../../../Icon/Icon'
 import { Text } from '../../../../../Text/Text'
 import BackIcon from '../../../../../../../static/assets/icons/ic_arrow_back.svg'
 
-export interface Props {
-	label: string;
-	title: string;
-	handleGoBack?: Function;
-	contextMenu?: ContextMenuProps;
+export type Props = {
+	label: string,
+	title: string,
+	handleGoBack?: Function,
+	contextMenu?: ContextMenuProps
 }
 
 const EventDetailsHeader = (props: Props) => {

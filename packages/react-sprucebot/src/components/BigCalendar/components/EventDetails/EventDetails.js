@@ -1,13 +1,12 @@
 // @flow
 import React from 'react'
 import cx from 'classnames'
-import List, { Props as ListProps } from '../../../List/List'
-import EventDetailsHeader, {
-	Props as HeaderProps
-} from './components/EventDetailsHeader/EventDetailsHeader'
-import EventDetailsFooter, {
-	Props as FooterProps
-} from './components/EventDetailsFooter/EventDetailsFooter'
+import List from '../../../List/List'
+import type { Props as ListProps } from '../../../List/List'
+import EventDetailsHeader from './components/EventDetailsHeader/EventDetailsHeader'
+import type { Props as HeaderProps } from './components/EventDetailsHeader/EventDetailsHeader'
+import EventDetailsFooter from './components/EventDetailsFooter/EventDetailsFooter'
+import type { Props as FooterProps } from './components/EventDetailsFooter/EventDetailsFooter'
 
 type Props = {
 	header: HeaderProps,
