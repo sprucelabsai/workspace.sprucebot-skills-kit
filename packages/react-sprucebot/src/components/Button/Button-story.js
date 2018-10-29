@@ -20,6 +20,7 @@ const ButtonGroup = (props: GroupProps = { kind: '' }) => {
 	const btnText = text('text', 'Hello World')
 	const isSmall = boolean('isSmall', false)
 	const isFullWidth = boolean('isFullWidth', false)
+	const icon = text('icon', 'edit')
 	return (
 		<Fragment>
 			<Button
@@ -67,10 +68,12 @@ const ButtonGroup = (props: GroupProps = { kind: '' }) => {
 				text={btnText}
 				kind={props.kind || ''}
 				icon={
-					<Icon
-						icon={text('icon', 'edit')}
-						className={text('iconClassName', 'btn__line-icon')}
-					/>
+					icon ? (
+						<Icon
+							icon={text('icon', 'edit')}
+							className={text('iconClassName', 'btn__line-icon')}
+						/>
+					) : null
 				}
 				onClick={text('onClick', '() => console.log("you clicked")')}
 			/>
@@ -80,10 +83,12 @@ const ButtonGroup = (props: GroupProps = { kind: '' }) => {
 				isFullWidth={isFullWidth}
 				kind={props.kind || ''}
 				icon={
-					<Icon
-						icon={text('icon', 'edit')}
-						className={text('iconClassName', 'btn__line-icon')}
-					/>
+					icon ? (
+						<Icon
+							icon={text('icon', 'edit')}
+							className={text('iconClassName', 'btn__line-icon')}
+						/>
+					) : null
 				}
 				onClick={text('onClick', '() => console.log("you clicked")')}
 			/>

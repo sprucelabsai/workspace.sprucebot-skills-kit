@@ -24,6 +24,7 @@ const Icon = (props: Props) => {
 	const { icon, ...rest } = props
 
 	if (!icon || !key[icon.toLowerCase()]) {
+		console.error(`<Icon /> could not find an icon with key ${icon}`)
 		return null
 	}
 	const Handler = key[icon.toLowerCase()]

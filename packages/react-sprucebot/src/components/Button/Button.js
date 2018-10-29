@@ -76,6 +76,14 @@ const Button = (props: Props) => {
 			<Inner />
 		</a>
 	)
+
+	if (!text && !icon) {
+		console.error(
+			'<Button /> must have text, icon, or both. Please check the props your passing.'
+		)
+		return null
+	}
+
 	return href ? anchor : button
 }
 
