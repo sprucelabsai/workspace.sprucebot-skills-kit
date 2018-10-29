@@ -1,9 +1,15 @@
 // @flow
 import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
+import {
+	withKnobs,
+	withKnobsOptions,
+	text,
+	boolean
+} from '@storybook/addon-knobs/react'
 import Wrapper from '../../../.storybook/Wrapper'
 import Button from './Button'
+import Icon from '../Icon/Icon'
 import Icon11 from '../../../static/assets/icons/Phones-Mobile-Devices/Phone/phone-retro-1.svg'
 
 type GroupProps = {
@@ -11,70 +17,90 @@ type GroupProps = {
 }
 
 const ButtonGroup = (props: GroupProps = { kind: '' }) => {
-	const btnText = text('Text', 'Hello World')
-	const isSmall = boolean('Small', false)
-	const isFullWidth = boolean('Full Width', false)
+	const btnText = text('text', 'Hello World')
+	const isSmall = boolean('isSmall', false)
+	const isFullWidth = boolean('isFullWidth', false)
 	return (
 		<Fragment>
 			<Button
-				className="l-mr-small l-mb-small"
+				className={text('className', 'l-mr-small l-mb-small')}
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
 				text={btnText}
 				kind={props.kind || ''}
 				isFullWidth={false}
+				onClick={text('onClick', '() => console.log("you clicked")')}
 			/>
 			<Button
-				className="l-mr-small l-mb-small"
+				className={text('className', 'l-mr-small l-mb-small')}
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
 				text={`Link ${btnText}`}
 				kind={props.kind || ''}
-				href="#"
+				href={text('href', '#')}
 				target="_blank"
+				onClick={text('onClick', '() => console.log("you clicked")')}
 			/>
 			<Button
-				className="l-mr-small l-mb-small"
+				className={text('className', 'l-mr-small l-mb-small')}
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
 				text={btnText}
 				kind={props.kind || ''}
 				disabled
+				onClick={text('onClick', '() => console.log("you clicked")')}
 			/>
 			<Button
-				className="l-mr-small l-mb-small"
+				className={text('className', 'l-mr-small l-mb-small')}
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
 				text={btnText}
 				kind={props.kind || ''}
 				disabled
-				isLoading
+				isLoading={boolean('isLoading', true)}
+				onClick={text('onClick', '() => console.log("you clicked")')}
 			/>
 			<Button
-				className="l-mr-small l-mb-small"
+				className={text('className', 'l-mr-small l-mb-small')}
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
 				text={btnText}
 				kind={props.kind || ''}
-				icon={<Icon11 className="btn__line-icon" />}
+				icon={
+					<Icon
+						icon={text('icon', 'edit')}
+						className={text('iconClassName', 'btn__line-icon')}
+					/>
+				}
+				onClick={text('onClick', '() => console.log("you clicked")')}
 			/>
 			<Button
-				className="l-mr-small l-mb-small"
+				className={text('className', 'l-mr-small l-mb-small')}
 				isSmall={isSmall}
 				isFullWidth={isFullWidth}
 				kind={props.kind || ''}
-				icon={<Icon11 className="btn__line-icon" />}
+				icon={
+					<Icon
+						icon={text('icon', 'edit')}
+						className={text('iconClassName', 'btn__line-icon')}
+					/>
+				}
+				onClick={text('onClick', '() => console.log("you clicked")')}
 			/>
 		</Fragment>
 	)
 }
 
 const stories = storiesOf('Button', module)
-
+stories.addDecorator(
+	withKnobsOptions({
+		escapeHTML: false
+	})
+)
 stories.addDecorator(withKnobs)
 
 stories
-	.add('Primary', () => <ButtonGroup kind="primary" />)
-	.add('Secondary', () => <ButtonGroup kind="secondary" />)
-	.add('Simple', () => <ButtonGroup kind="simple" />)
-	.add('Caution', () => <ButtonGroup kind="caution" />)
+	.add('Primary', () => <ButtonGroup kind={text('kind', 'primary')} />)
+	.add('Secondary', () => <ButtonGroup kind={text('kind', 'secondary')} />)
+	.add('Simple', () => <ButtonGroup kind={text('kind', 'secondary')} />)
+	.add('Caution', () => <ButtonGroup kind={text('kind', 'caution')} />)

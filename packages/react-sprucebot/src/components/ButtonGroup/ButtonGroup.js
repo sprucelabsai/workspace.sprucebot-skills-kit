@@ -28,6 +28,13 @@ const ButtonGroup = (props: Props) => {
 							kind={kind ? btnKindKey[kind] : ''}
 							isFullWidth={kind === 'floating'}
 							{...action}
+							kind={
+								kind === 'floating'
+									? 'simple'
+									: kind === 'segmented'
+										? 'secondary'
+										: action.kind
+							}
 						/>
 					</li>
 				)
