@@ -1,5 +1,12 @@
 import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
+import {
+	withKnobs,
+	withKnobsOptions,
+	text,
+	boolean,
+	number
+} from '@storybook/addon-knobs/react'
 import Wrapper from './Wrapper'
 
 import { setOptions } from '@storybook/addon-options'
@@ -10,17 +17,9 @@ setOptions({
 		'https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/tree/dev/packages/react-sprucebot'
 })
 
-addDecorator(story => {
-	if (
-		(story().props && story().props.STORYBOOKdoNotWrap) ||
-		(story().props.children &&
-			story().props.children.props &&
-			story().props.children.props.STORYBOOKdoNotWrap)
-	) {
-		return story()
-	}
-	return <Wrapper>{story()}</Wrapper>
-})
+addDecorator(story => (
+	<Wrapper STORYBOOKwrap={boolean('STORYBOOKwrap', true)}>{story()}</Wrapper>
+))
 
 function loadStories() {
 	const req = require.context('../src/components', true, /\-story\.js$/)
