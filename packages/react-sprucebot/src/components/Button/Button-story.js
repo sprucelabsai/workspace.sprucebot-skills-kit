@@ -40,6 +40,7 @@ stories
 			kind={text('kind', '') || 'primary'}
 			disabled={boolean('disabled', false)}
 			isLoading={boolean('isLoading', false)}
+			isSmall={boolean('isSmall', false)}
 			icon={
 				icon ? (
 					<Icon
@@ -63,6 +64,7 @@ stories
 			kind={text('kind', '') || 'secondary'}
 			disabled={boolean('disabled', false)}
 			isLoading={boolean('isLoading', false)}
+			isSmall={boolean('isSmall', false)}
 			icon={
 				icon ? (
 					<Icon
@@ -86,6 +88,7 @@ stories
 			kind={text('kind', '') || 'simple'}
 			disabled={boolean('disabled', false)}
 			isLoading={boolean('isLoading', false)}
+			isSmall={boolean('isSmall', false)}
 			icon={
 				icon ? (
 					<Icon
@@ -109,6 +112,7 @@ stories
 			kind={text('kind', '') || 'caution'}
 			disabled={boolean('disabled', false)}
 			isLoading={boolean('isLoading', false)}
+			isSmall={boolean('isSmall', false)}
 			icon={
 				icon ? (
 					<Icon
