@@ -1,7 +1,13 @@
 // @flow
 import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
+import {
+	withKnobs,
+	text,
+	boolean,
+	object,
+	number
+} from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
 import Button from '../Button/Button'
 import {
@@ -52,14 +58,14 @@ stories
 	.add('Autosuggest', () => (
 		<Container size="small">
 			<Autosuggest
-				inputPre={{
+				inputPre={object('inputPre', {
 					label: 'Country'
-				}}
-				inputHelper={{
+				})}
+				inputHelper={object('inputHelper', {
 					helper: 'We use this information to improve your shopping experience.'
-				}}
-				placeholder="Select your country"
-				defaultSuggestions={countries}
+				})}
+				placeholder={text('placeholder', 'Select your country')}
+				defaultSuggestions={object('defaultSuggestions', countries)}
 				shouldRenderSuggestions={() => true}
 				renderSuggestion={renderSuggestion}
 				getSuggestionValue={value => value.text}
@@ -91,17 +97,17 @@ stories
 					type="text"
 					id={text('id', 'input')}
 					name={text('name', 'inputName')}
-					label={text('Label', 'First Name')}
-					postLabel={text('Post Label', '')}
-					placeholder={text('Placeholder', 'i.e. Annie')}
-					defaultValue={text('Value', '')}
-					error={text('Error Text', '')}
+					label={text('label', 'First Name')}
+					postLabel={text('postLabel', '')}
+					placeholder={text('placeholder', 'i.e. Annie')}
+					defaultValue={text('defaultValue', '')}
+					error={text('error', '')}
 					helper={text(
-						'Helper Text',
+						'helper',
 						'Let me help you understand why we are asking for this.'
 					)}
-					readOnly={boolean('Read Only', false)}
-					isSmall={boolean('Small', false)}
+					readOnly={boolean('readOnly', false)}
+					isSmall={boolean('isSmall', false)}
 				/>
 			</Container>
 		</Fragment>
@@ -112,13 +118,14 @@ stories
 				<TextArea
 					id={text('id', 'input')}
 					name={text('name', 'inputName')}
-					label={text('Label', 'Category')}
-					postLabel={text('Post Label', '')}
-					placeholder={text('Placeholder', 'Optional category description…')}
-					defaultValue={text('Value', '')}
-					error={text('Error Text', '')}
-					helper={text('Helper Text', '')}
-					readOnly={boolean('Read Only', false)}
+					label={text('label', 'Category')}
+					postLabel={text('postLabel', '')}
+					placeholder={text('placeholder', 'Optional category description…')}
+					defaultValue={text('defaultValue', '')}
+					error={text('error', '')}
+					helper={text('helper', '')}
+					readOnly={boolean('readOnly', false)}
+					{...object('...rest', {})}
 				/>
 			</Container>
 		</Fragment>
@@ -128,9 +135,9 @@ stories
 			<Container size="small">
 				<Search
 					type="text"
-					placeholder={text('Placeholder', 'Search for anything…')}
-					readOnly={boolean('Read Only', false)}
-					isSmall={boolean('Small', false)}
+					placeholder={text('placeholder', 'Search for anything…')}
+					readOnly={boolean('readOnly', false)}
+					isSmall={boolean('isSmall', false)}
 				/>
 			</Container>
 		</Fragment>
@@ -139,9 +146,9 @@ stories
 		<Fragment>
 			<Container size="small">
 				<PhoneInput
-					label="Phone Number"
-					placeholder="(555) 555-5555"
-					isSmall={boolean('Small', false)}
+					label={text('label', 'Phone Number')}
+					placeholder={text('placeholder', '(555) 555-5555')}
+					isSmall={boolean('isSmall', false)}
 				/>
 			</Container>
 		</Fragment>
@@ -150,9 +157,9 @@ stories
 		<Fragment>
 			<Container size="small">
 				<DomainInput
-					label="Shopify Store URL"
-					placeholder="my-shopify-store"
-					appendix=".myshopify.com"
+					label={text('label', 'Shopify Store URL')}
+					placeholder={text('placeholder', 'my-shopify-store')}
+					appendix={text('appendix', '.myshopify.com')}
 				/>
 			</Container>
 		</Fragment>
@@ -164,22 +171,22 @@ stories
 					className="l-mb-xsmall"
 					id="option-one"
 					name="radio"
-					label={text('Option One', 'Option One')}
-					postText={text('Helper One', '')}
+					label={text('label: option one', 'Option One')}
+					postText={text('postText: option one', '')}
 				/>
 				<Radio
 					className="l-mb-xsmall"
 					id="option-two"
 					name="radio"
-					label={text('Option Two', 'Option Two')}
-					postText={text('Helper Two', '')}
+					label={text('label: option two', 'Option Two')}
+					postText={text('postText: option two', '')}
 				/>
 				<Radio
 					className="l-mb-xsmall"
 					id="option-three"
 					name="radio"
-					label={text('Option Three', 'Option Three')}
-					postText={text('Helper Three', '')}
+					label={text('label: option three', 'Option Three')}
+					postText={text('postText: option three', '')}
 				/>
 			</Container>
 		</Fragment>
@@ -191,22 +198,22 @@ stories
 					className="l-mb-xsmall"
 					id="option-one"
 					name="optionOne"
-					label={text('Option One', 'Option One')}
-					postText={text('Helper One', '')}
+					label={text('label: option one', 'Option One')}
+					postText={text('postText: option one', '')}
 				/>
 				<Checkbox
 					className="l-mb-xsmall"
 					id="option-two"
 					name="optionTwo"
-					label={text('Option Two', 'Option Two')}
-					postText={text('Helper Two', '')}
+					label={text('label: option two', 'Option Two')}
+					postText={text('postText: option two', '')}
 				/>
 				<Checkbox
 					className="l-mb-xsmall"
 					id="option-three"
 					name="optionThree"
-					label={text('Option Three', 'Option Three')}
-					postText={text('Helper Three', '')}
+					label={text('label: option three', 'Option Three')}
+					postText={text('postText: option three', '')}
 					isIndeterminate
 				/>
 			</Container>
@@ -215,7 +222,12 @@ stories
 	.add('Toggle', () => (
 		<Fragment>
 			<Container size="small">
-				<Toggle id="toggle" name="toggle" postText={text('Post Text', '')} />
+				<Toggle
+					id={text('id', 'toggle')}
+					name={text('name', 'toggle')}
+					postText={text('postText', '')}
+					className={text('className', '')}
+				/>
 			</Container>
 		</Fragment>
 	))
@@ -223,15 +235,15 @@ stories
 		<Fragment>
 			<Container size="small">
 				<Tag
-					className="l-mr-small l-mb-small"
-					text={text('Text', 'Barber Services')}
-					isSmall={boolean('Small', false)}
+					text={text('text', 'Barber Services')}
+					isSmall={boolean('isSmall', false)}
+					className={text('className', 'l-mr-small l-mb-small')}
 				/>
 				<Tag
-					className="l-mr-small l-mb-small"
 					kind="secondary"
-					text={text('Text', 'Barber Services')}
-					isSmall={boolean('Small', false)}
+					text={text('text', 'Barber Services')}
+					isSmall={boolean('isSmall', false)}
+					className={text('className', 'l-mr-small l-mb-small')}
 				/>
 			</Container>
 		</Fragment>
@@ -240,13 +252,13 @@ stories
 		<Fragment>
 			<Container size="small">
 				<Slider
-					id="slider"
-					name="slider"
-					min={0}
-					max={200}
-					value={100}
-					label="Scale"
-					postLabel="100%"
+					id={text('id', 'slider')}
+					name={text('name', 'slider')}
+					min={number('min', 0)}
+					max={number('max', 200)}
+					value={number('value', 100)}
+					label={text('label', 'Scale')}
+					postLabel={text('postLabel', '100%')}
 				/>
 			</Container>
 		</Fragment>
@@ -255,16 +267,21 @@ stories
 		<Fragment>
 			<Container size="small">
 				<Select
-					label={text('Label', 'Country')}
-					id="country"
-					options={['United States', 'Canada', 'New Jersey']}
-					isSimple={boolean('Simple', false)}
-					helper={text('Helper', '')}
-					error={text('Error', '')}
-					disabled={boolean('Disabled', false)}
+					label={text('label', 'Country')}
+					id={text('id', 'country')}
+					options={object('options', ['United States', 'Canada', 'New Jersey'])}
+					isSimple={boolean('isSimple', false)}
+					helper={text('helper', '')}
+					error={text('error', '')}
+					disabled={boolean('disabled', false)}
 				/>
 			</Container>
 		</Fragment>
 	))
-	.add('Date Picker', () => <DatePicker id="TESTS" numberOfMonths={1} />)
+	.add('Date Picker', () => (
+		<DatePicker
+			id={text('id', 'test')}
+			numberOfMonths={number('numberOfMonths', 1)}
+		/>
+	))
 	.add('Stars', () => <Stars />)
