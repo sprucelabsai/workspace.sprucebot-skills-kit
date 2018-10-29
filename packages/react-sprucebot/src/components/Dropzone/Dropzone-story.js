@@ -41,16 +41,17 @@ class DropzoneExample extends Component<Props, State> {
 		const { uploadProgress, fileWasUploaded } = this.state
 		return (
 			<Dropzone
-				id="photos"
-				label={text('Label', 'Profile Photo')}
-				accept="image/*"
+				id={text('id', 'photos')}
+				label={text('label', 'Profile Photo')}
+				postLabel={text('postLabel', '')}
+				accept={text('accpet', 'image/*')}
 				onDropAccepted={this.onDropAccepted}
-				buttonText={text('Button Text', 'Upload an Image')}
+				buttonText={text('buttonText', 'Upload an Image')}
 				fileWasUploaded={fileWasUploaded}
 				uploadProgress={uploadProgress}
-				error="Please upload an image file."
-				isSmall={boolean('Small', false)}
-				isCircular={boolean('Circular', false)}
+				error={text('error', 'Please upload an image file.')}
+				isSmall={boolean('isSmall', false)}
+				isCircular={boolean('isCircular', false)}
 			/>
 		)
 	}

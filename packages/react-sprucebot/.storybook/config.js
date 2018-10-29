@@ -17,9 +17,19 @@ setOptions({
 		'https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/tree/dev/packages/react-sprucebot'
 })
 
-addDecorator(story => (
-	<Wrapper STORYBOOKwrap={boolean('STORYBOOKwrap', true)}>{story()}</Wrapper>
-))
+addDecorator(story => {
+	if (
+		(story().props && story().props.STORYBOOKdoNotWrap) ||
+		(story().props.children &&
+			story().props.children.props &&
+			story().props.children.props.STORYBOOKdoNotWrap)
+	) {
+		return story()
+	}
+	return (
+		<Wrapper STORYBOOKwrap={boolean('STORYBOOKwrap', true)}>{story()}</Wrapper>
+	)
+})
 
 function loadStories() {
 	const req = require.context('../src/components', true, /\-story\.js$/)
