@@ -1,11 +1,14 @@
 // @flow
 import React, { Component } from 'react'
 import cx from 'classnames'
-import VIEWS from './components/Views'
 import moment from 'moment-timezone'
 import memoize from 'memoize-one'
-import sizeUtils from './utils/size'
 import Cookies from 'js-cookies'
+import { autoPlay } from 'es6-tween'
+autoPlay(true)
+
+import sizeUtils from './utils/size'
+import VIEWS from './components/Views'
 
 // sub components
 import Header from './components/Header/Header'
@@ -20,7 +23,9 @@ type Props = {
 	defaultEndTime: String,
 	allUsers: Array<Object>,
 	headerDateFormat: String,
-	location: Object
+	location: Object,
+	allEvents: Array<Object>,
+	onDropEvent: Function
 }
 type State = {
 	selectedView: 'day' | 'week' | 'month',
@@ -45,7 +50,8 @@ class BigCalendar extends Component<Props, State> {
 		defaultMaxTime: '23:59',
 		defaultStartTime: '07:00',
 		defaultEndTime: '20:00',
-		headerDateFormat: 'MMMM YYYY'
+		headerDateFormat: 'MMMM YYYY',
+		allEvents: []
 	}
 	state = {
 		selectedView: this.props.defaultView,
@@ -93,6 +99,11 @@ class BigCalendar extends Component<Props, State> {
 	}
 
 	handleSizing = () => {
+		// can sometimes fire too early (before the ref is set)
+		if (!this.domNodeRef.current) {
+			return
+		}
+
 		//get node for scroll wrapper
 		const scrollNode = this.domNodeRef.current.querySelectorAll(
 			'.bigcalendar__scroll-wrapper'
@@ -155,8 +166,16 @@ class BigCalendar extends Component<Props, State> {
 			location: { timezone }
 		} = this.props
 
-		const current = moment.tz(`2018-01-28 ${min}:00`, timezone)
-		const end = moment.tz(`2018-01-28 ${max}:00`, timezone)
+		const { startDate } = this.state
+
+		const current = moment.tz(
+			`${startDate.format('YYYY-MM-DD')} ${min}:00`,
+			timezone
+		)
+		const end = moment.tz(
+			`${startDate.format('YYYY-MM-DD')} ${max}:00`,
+			timezone
+		)
 
 		do {
 			times.push({
@@ -188,8 +207,19 @@ class BigCalendar extends Component<Props, State> {
 			this.selectedViewRef.current.handleHorizontalPageBack()
 	}
 
+	handleDropEvent = async event => {
+		const { onDropEvent } = this.props
+		return onDropEvent && onDropEvent(event)
+	}
+
 	render() {
-		const { className, headerDateFormat, location, slotsPerHour } = this.props
+		const {
+			className,
+			headerDateFormat,
+			location,
+			slotsPerHour,
+			allEvents
+		} = this.props
 
 		const {
 			selectedView,
@@ -240,6 +270,8 @@ class BigCalendar extends Component<Props, State> {
 						onUpdateHorizontalPagerDetails={
 							this.handleUpdateHorizontalPagerDetails
 						}
+						startDate={startDate}
+						events={allEvents}
 						slotsPerHour={slotsPerHour}
 						onScroll={this.handleViewScroll}
 						viewHeight={viewHeight}
@@ -251,6 +283,7 @@ class BigCalendar extends Component<Props, State> {
 						startTime={startTime}
 						endTime={endTime}
 						location={location}
+						onDropEvent={this.handleDropEvent}
 					/>
 				</div>
 			</div>

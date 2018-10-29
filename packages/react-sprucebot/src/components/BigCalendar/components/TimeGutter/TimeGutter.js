@@ -20,7 +20,7 @@ class TimeGutter extends Component<Props> {
 	}
 
 	render() {
-		const { viewHeight, hours, className } = this.props
+		const { viewHeight, hours, className, scrollTop, ...props } = this.props
 		return (
 			<div
 				className={cx('bigcalendar__time-gutter', className)}
@@ -28,6 +28,7 @@ class TimeGutter extends Component<Props> {
 				style={{
 					height: viewHeight
 				}}
+				{...props}
 			>
 				<div className="inner">
 					{hours.map((hour, idx) => {
