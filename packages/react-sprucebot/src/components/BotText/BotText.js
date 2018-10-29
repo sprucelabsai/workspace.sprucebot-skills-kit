@@ -12,6 +12,11 @@ type Props = {
 const BotText = (props: Props) => {
 	const { text, children, className, ...rest } = props
 
+	// if (!children && !text) {
+	// 	log.warn('Bot Text must either have children or text')
+	// 	return null
+	// }
+
 	if (text && !children) {
 		return (
 			<p
