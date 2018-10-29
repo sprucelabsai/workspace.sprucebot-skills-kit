@@ -5,9 +5,8 @@ import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button from '../../../Button/Button'
 import type { Props as ButtonProps } from '../../../Button/Button'
-import ContextMenu, {
-	Props as ContextMenuProps
-} from '../../../ContextMenu/ContextMenu'
+import ContextMenu from '../../../ContextMenu/ContextMenu'
+import type { Props as ContextMenuProps } from '../../../ContextMenu/ContextMenu'
 import { Toggle } from '../../../Forms'
 import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
 

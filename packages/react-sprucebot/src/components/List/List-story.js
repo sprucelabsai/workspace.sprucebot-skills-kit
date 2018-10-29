@@ -17,6 +17,8 @@ import {
 import Container from '../Layout/Container/Container'
 import List, { ListWrapper } from './List'
 import ListHeader from './components/ListHeader/ListHeader'
+import ListItem from './components/ListItem/ListItem'
+import Icon from '../Icon/Icon'
 import Tabs from '../Tabs/Tabs'
 import SortableList from './components/SortableList/SortableList'
 import EditIcon from '../../../static/assets/icons/Interface-Essential/Edit/pencil-write.svg'
@@ -93,6 +95,31 @@ stories.addDecorator(
 stories.addDecorator(withKnobs)
 
 stories
+	.add('List Item', () => (
+		<Container size="small">
+			<ListItem
+				title={text('title', 'Wed, Oct 28')}
+				subtitle={text('subtitle', '9am–4pm')}
+				avatar={text('avatar', '')}
+				image={text('image', '')}
+				icon={
+					text('icon', '') && (
+						<Icon
+							className={text(
+								'iconClassName',
+								'u-icon__no-fill u-icon__stroke'
+							)}
+							icon={text('icon', '')}
+						/>
+					)
+				}
+				isDraggable={boolean('isDraggable', false)}
+				actions={object('actions', [])}
+				toggleId={text('toggleId', '')}
+				contextMenu={object('contextMenu', null)}
+			/>
+		</Container>
+	))
 	.add('Text List', () => (
 		<Container size="small">
 			<List
