@@ -10,17 +10,37 @@ import type { Props as LinkProps } from 'next/link'
 import Loader from '../Loader/Loader'
 
 export type Props = {
+	/** Optional class to add to the button. */
 	className?: string,
+
+	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
 	kind?: string,
+
+	/** Set true to make the button less tall. */
 	isSmall?: boolean,
+
+	/** Set true to make the button fill its parent's width. */
 	isFullWidth?: boolean,
+
+	/** Set true to hide any text or icon in the button and show a loader instead. */
 	isLoading?: boolean,
+
+	/** Text for the button. */
 	text?: string,
+
+	/** Will render a link. May be relative or absolute. */
 	href?: string,
-	// TODO: Set a proper Flow type for inline svg
-	icon?: any,
+
+	/** Icon for the button. */
+	icon?: Node,
+
+	/** Type attribute for HTML button element. Defaults to 'button'. */
 	type?: string,
+
+	/** Click handler. */
 	onClick?: Function,
+
+	/** Props for Next router link: https://nextjs.org/docs/#routing. */
 	linkProps?: LinkProps
 }
 

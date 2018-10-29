@@ -8,10 +8,19 @@ import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import Icon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
 
 export type Props = {
+	/** The actions to be shown on tap/click */
 	actions: Array<ButtonProps>,
+
+	/** Set true to left align the menu */
 	isLeftAligned?: boolean,
+
+	/** Set the width of the menu. Helpful for longer text in buttons */
 	size?: 'medium' | 'large',
+
+	/** Overrides the default icon */
 	icon?: any,
+
+	/** Set true to make the button blue */
 	isSimple?: boolean
 }
 

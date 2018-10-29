@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
+import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
 import Dropzone from './Dropzone'
 
@@ -61,8 +61,27 @@ const stories = storiesOf('Dropzone', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('Dropzone', () => (
-	<Container size="small" center>
-		<DropzoneExample />
-	</Container>
-))
+stories
+
+	.add('Static', () => (
+		<Container size="small" center>
+			<Dropzone
+				id={text('id', 'photos')}
+				label={text('label', 'Profile Photo')}
+				postLabel={text('postLabel', '')}
+				accept={text('accpet', 'image/*')}
+				onDropAccepted={() => console.log('onDropAccepted')}
+				buttonText={text('buttonText', 'Upload an Image')}
+				fileWasUploaded={boolean('fileWasUploaded', false)}
+				uploadProgress={number('uploadProgress', 0)}
+				error={text('error', 'Please upload an image file.')}
+				isSmall={boolean('isSmall', false)}
+				isCircular={boolean('isCircular', false)}
+			/>
+		</Container>
+	))
+	.add('Dynamic', () => (
+		<Container size="small" center>
+			<DropzoneExample />
+		</Container>
+	))

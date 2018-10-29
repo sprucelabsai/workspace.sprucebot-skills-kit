@@ -4,6 +4,7 @@ import React from 'react'
 import TextInput from '../TextInput/TextInput'
 
 type Props = {
+	/** Unique identifier */
 	id: string
 }
 

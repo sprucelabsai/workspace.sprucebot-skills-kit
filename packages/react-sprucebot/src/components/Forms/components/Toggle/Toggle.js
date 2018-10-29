@@ -2,7 +2,16 @@
 import React from 'react'
 import cx from 'classnames'
 
-type Props = { id: string, className: string, postText: string }
+type Props = {
+	/** Unique identifier */
+	id: string,
+
+	/** Optional class */
+	className: string,
+
+	/** Text after the toggle */
+	postText: string
+}
 
 const Toggle = (props: Props) => {
 	const { id, className, postText, ...rest } = props

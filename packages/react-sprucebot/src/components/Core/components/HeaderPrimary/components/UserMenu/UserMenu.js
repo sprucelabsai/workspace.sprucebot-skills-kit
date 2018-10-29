@@ -8,10 +8,19 @@ import SwitchIcon from '../../../../../../../static/assets/icons/Users/Geometric
 import LogoutIcon from '../../../../../../../static/assets/icons/Interface-Essential/Login/Logout/logout.svg'
 
 type Props = {
+	/** User image to show in the avatar */
 	image: string,
+
+	/** User name */
 	name: string,
+
+	/** Set true to show the menu */
 	menuIsVisible: boolean,
+
+	/** Handler to toggle menu visibility */
 	toggleMenu: Function,
+
+	/** User telephone number */
 	tel: string
 }
 

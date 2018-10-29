@@ -2,7 +2,10 @@
 import React, { Fragment } from 'react'
 
 type Props = {
+	/** Class for the text */
 	className: string,
+
+	/** Class for links */
 	linkClassName: string
 }
 

@@ -9,10 +9,19 @@ import type { Props as ContextMenuProps } from '../ContextMenu/ContextMenu'
 
 // Card Header
 type CardHeaderProps = {
+	/** Title for the card */
 	title?: string,
+
+	/** Optional label to show above title */
 	labelText?: string,
+
+	/** Optional icon to show above the title and before the label */
 	labelIcon?: any,
+
+	/** Render buttons in the Card Header */
 	actions?: Array<ButtonProps>,
+
+	/** Renders a Context Menu in the Card Header */
 	contextMenu?: Node
 }
 
@@ -57,6 +66,7 @@ export const CardHeader = (props: CardHeaderProps) => {
 
 // Card Body
 type CardBodyProps = {
+	/** Children to show in the Card */
 	children: Node
 }
 
@@ -75,6 +85,7 @@ CardHeader.defualtProps = {
 
 // Card Footer
 type CardFooterProps = {
+	/** Children to show in the Card Footer */
 	children: Node
 }
 
@@ -88,9 +99,15 @@ export const CardFooter = (props: CardFooterProps) => {
 // This component will build a card by taking JSON input and translating
 // it into the appropriate components
 type CardBuilderProps = {
+	/** Card Header props */
 	header: CardHeaderProps,
+
+	/** Card Body props */
 	body: CardBodyProps,
+
+	/** Card Footer props */
 	footer?: {
+		/** Render buttons in the Card Footer */
 		actions: Array<ButtonProps>
 	}
 }
@@ -142,8 +159,13 @@ CardBuilder.defaultProps = {
 
 // Card
 type CardProps = {
+	/** Should be Card Header, Card Body, and Card Footer, unless using the card background for styling only. */
 	children: Node,
+
+	/** Set true to make all content center aligned. */
 	isCentered?: boolean,
+
+	/** Set true if this card is mission-critical for the person who sees it. */
 	isCritical?: boolean
 }
 

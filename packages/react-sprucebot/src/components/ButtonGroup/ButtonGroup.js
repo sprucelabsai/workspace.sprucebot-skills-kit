@@ -5,7 +5,10 @@ import Button from '../Button/Button'
 import type { Props as ButtonProps } from '../Button/Button'
 
 type Props = {
+	/** Array of actions to render the group's buttons. */
 	actions: Array<ButtonProps>,
+
+	/** Visual appearance of the group. */
 	kind?: 'default' | 'segmented' | 'floating'
 }
 

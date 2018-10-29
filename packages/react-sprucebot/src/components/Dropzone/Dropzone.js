@@ -11,24 +11,61 @@ import DropIcon from '../../../static/assets/icons/Interface-Essential/Select/cu
 import WarnIcon from '../../../static/assets/icons/Interface-Essential/Alerts/alert-triangle--56w.svg'
 
 export type Props = {
+	/** Unique identifier for the dropzone */
 	id: string,
+
+	/** Callback when file(s) are dropped */
 	onDrop: Function,
+
+	/** Text for the button */
 	buttonText: string,
+
+	/** Text shown when file(s) are dropped that aren't accepted */
 	error: string,
+
+	/** Displays progress while uploading */
 	uploadProgress: number,
+
+	/** onDragEnter callback */
 	onDragEnter?: Function,
+
+	/** onDragLeave callback */
 	onDragLeave?: Function,
+
+	/** onDragOver callback */
 	onDragOver?: Function,
+
+	/** onDrop callback */
 	onDrop?: Function,
+
+	/** onDropAccepted callback */
 	onDropAccepted: Function,
+
+	/** onDropRejected callback */
 	onDropRejected?: Function,
+
+	/** onFileDialogCancel callback */
 	onFileDialogCancel?: Function,
+
+	/** onDragStart callback */
 	onDragStart?: Function,
+
+	/** Optional label for the Dropzone */
 	label: ?string,
+
+	/** Optional text to show after the label */
 	postLabel?: string,
+
+	/** Set true to use a smaller Dropzone */
 	isSmall?: boolean,
+
+	/** Set true to make the Dropzone circular. Should only be used when isSmall is set to true */
 	isCircular?: boolean,
+
+	/** Set true when a file has been successfully uploaded */
 	fileWasUploaded?: boolean,
+
+	/** The icon to display before an upload has happened */
 	defaultIcon?: Node
 }
 

@@ -5,9 +5,16 @@ import Button from '../../../Button/Button'
 import CloseIcon from '../../../../../static/assets/icons/ic_close.svg'
 
 type Props = {
+	/** Tag text */
 	text: string,
+
+	/** Additional parent class */
 	className: string,
+
+	/** Sets the tag variation */
 	kind?: 'primary' | 'secondary',
+
+	/** Set true to make the tag smaller */
 	isSmall?: boolean
 }
 
