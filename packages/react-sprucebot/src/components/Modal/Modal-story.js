@@ -49,7 +49,7 @@ class ModalExample extends Component<Props, State> {
 					isOpen={isOpen}
 					onAfterOpen={this.onAfterOpen}
 					onRequestClose={this.onRequestClose}
-					isSmall
+					isSmall={boolean('isSmall', true)}
 				>
 					<Modal.Header
 						title={title}
@@ -112,9 +112,9 @@ stories.addDecorator(withKnobs)
 
 stories.add('Modal', () => (
 	<ModalExample
-		title={text('Title', 'New Service Category')}
-		canGoBack={boolean('Show Back Button', false)}
-		includeFooter={boolean('Show Footer', true)}
-		hasSecondaryButton={boolean('Show Secondary Action', false)}
+		title={text('title', 'New Service Category')}
+		canGoBack={boolean('handleGoBack', false)}
+		includeFooter={boolean('Modal.Footer', true)}
+		hasSecondaryButton={boolean('secondaryAction', false)}
 	/>
 ))
