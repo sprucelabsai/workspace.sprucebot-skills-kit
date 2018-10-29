@@ -77,10 +77,43 @@ class ImageCropperExample extends Component<Props, State> {
 
 stories.addDecorator(withKnobs)
 
-stories.add('Avatar', () => (
-	<ImageCropperExample
-		width={number('width', 160)}
-		height={number('height', 160)}
-		isCircular={boolean('isCircular', true)}
-	/>
-))
+stories
+	.add('Static', () => (
+		<Container size="small">
+			<ImageCropper
+				image={text(
+					'image',
+					'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5d43ec18ec2cf6ff854513b9e8395c1e&auto=format&fit=crop&w=320&h=320&q=80'
+				)}
+				width={number('width', 160)}
+				height={number('height', 160)}
+				isCircular={boolean('isCircular', true)}
+				dropzoneProps={{
+					id: 'dropzone',
+					onDrop: () => console.log('onDrop'),
+					onDragEnter: () => console.log('onDragEnter'),
+					onDragStart: () => console.log('onDragStart'),
+					onDragOver: () => console.log('onDragOver'),
+					onDragLeave: () => console.log('onDragLeave'),
+					onDropAccepted: () => console.log('onDropAccepted'),
+					buttonText: 'Add Image',
+					isSmall: true,
+					isCircular: boolean('isCircular', true),
+					error: 'Upload an image',
+					defaultIcon: boolean('isCircular', true) ? (
+						<AvatarIcon className="dropzone__icon" />
+					) : (
+						<ShopIcon className="dropzone__icon" />
+					)
+				}}
+				color={[249, 250, 252, 1]}
+			/>
+		</Container>
+	))
+	.add('Dynamic', () => (
+		<ImageCropperExample
+			width={number('width', 160)}
+			height={number('height', 160)}
+			isCircular={boolean('isCircular', true)}
+		/>
+	))

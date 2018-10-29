@@ -12,6 +12,7 @@ import type { Props as ListItemProps } from '../ListItem/ListItem'
 import type { Props as ListProps } from '../../List'
 
 type Props = {
+	/** onConfirm callback */
 	onConfirm?: Function,
 	...ListProps
 }

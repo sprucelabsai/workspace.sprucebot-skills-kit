@@ -5,7 +5,10 @@ import Button from '../Button/Button'
 import CloseIcon from '../../../static/assets/icons/ic_close.svg'
 
 type HeaderProps = {
+	/** Headline text */
 	headline: string,
+
+	/** Function to remove the toast */
 	onRemove: Function
 }
 
@@ -20,10 +23,19 @@ const ToastHeader = (props: HeaderProps) => {
 }
 
 export type Props = {
+	/** Headline text */
 	headline: string,
+
+	/** Text after the headline */
 	text: string,
+
+	/** Handle toast removal */
 	onRemove: Function,
+
+	/** Sets the variation of toast */
 	kind?: 'neutral' | 'positive' | 'negative',
+
+	/** Handle undoing the action that triggered the toast */
 	onUndo?: Function
 }
 

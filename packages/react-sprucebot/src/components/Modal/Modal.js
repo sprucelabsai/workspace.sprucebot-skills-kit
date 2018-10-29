@@ -2,15 +2,18 @@
 import React, { Component } from 'react'
 import ReactModal from 'react-modal'
 import cx from 'classnames'
-import ModalHeader, {
-	Props as HeaderProps
-} from './components/ModalHeader/ModalHeader'
+import ModalHeader from './components/ModalHeader/ModalHeader'
+import type { Props as HeaderProps } from './components/ModalHeader/ModalHeader'
 import ModalBody from './components/ModalBody/ModalBody'
 import ModalFooter from './components/ModalFooter/ModalFooter'
 
 type Props = {
 	...HeaderProps,
+
+	/** Set true to show the modal */
 	isOpen: boolean,
+
+	/** Set true to make the modal smaller */
 	isSmall?: boolean
 }
 type State = {}

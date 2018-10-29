@@ -6,6 +6,7 @@ import type { Props as TabProps } from './components/Tab/Tab'
 import ContextMenu from '../ContextMenu/ContextMenu'
 
 type Props = {
+	/** The tabs for this group */
 	tabs: Array<TabProps>
 }
 

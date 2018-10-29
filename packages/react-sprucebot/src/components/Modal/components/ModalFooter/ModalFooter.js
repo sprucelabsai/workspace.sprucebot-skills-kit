@@ -4,7 +4,10 @@ import Button from '../../../Button/Button'
 import type { Props as ButtonProps } from '../../../Button/Button'
 
 export type Props = {
+	/** The primary action in the footer */
 	primaryAction: { ...ButtonProps },
+
+	/** Optional secondary action */
 	secondaryAction?: { ...ButtonProps }
 }
 

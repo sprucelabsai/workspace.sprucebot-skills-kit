@@ -12,9 +12,16 @@ export const ListWrapper = (props: { children: Node }) => (
 )
 
 export type Props = {
+	/** List Header */
 	header?: ?ListHeaderProps,
+
+	/** List items */
 	items: Array<ListItemProps>,
+
+	/** Class for the list */
 	className?: string,
+
+	/** Set true to make the list smaller */
 	isSmall?: boolean
 }
 

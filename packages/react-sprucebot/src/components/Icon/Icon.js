@@ -9,6 +9,7 @@ import Delete from '../../../static/assets/icons/Interface-Essential/Delete/bin.
 import Edit from '../../../static/assets//icons/Interface-Essential/Edit/pencil-write.svg'
 
 type Props = {
+	/** The name of the icon to render. If not found, this will return null. */
 	icon: string
 }
 

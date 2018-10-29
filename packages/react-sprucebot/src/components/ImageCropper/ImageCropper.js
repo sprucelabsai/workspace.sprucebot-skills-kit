@@ -10,10 +10,19 @@ import RotateLeftIcon from '../../../static/assets/icons/Design/Rotate/rotate-ba
 import RotateRightIcon from '../../../static/assets/icons/Design/Rotate/rotate-forward.svg'
 
 type Props = {
+	/** The image. If null, this will render a Dropzone. */
 	image?: string,
+
+	/** Width of the image */
 	width: number,
+
+	/** Height of the image */
 	height: number,
+
+	/** Properties for the Dropzone */
 	dropzoneProps: DropzoneProps,
+
+	/** Set true for ciruclar image */
 	isCircular?: boolean
 }
 type State = {

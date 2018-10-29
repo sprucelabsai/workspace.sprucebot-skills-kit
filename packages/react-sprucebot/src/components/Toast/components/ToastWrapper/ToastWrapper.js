@@ -5,7 +5,10 @@ import Toast from '../../Toast'
 import type { Props as ToastProps } from '../../Toast'
 
 type Props = {
+	/** The toasts */
 	toasts: Array<ToastProps>,
+
+	/** Handle toast removal */
 	handleRemove: Function
 }
 

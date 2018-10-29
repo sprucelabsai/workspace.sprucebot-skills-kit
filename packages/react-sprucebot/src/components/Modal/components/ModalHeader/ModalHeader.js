@@ -5,8 +5,13 @@ import ArrowBack from '../../../../../static/assets/icons/ic_arrow_back.svg'
 import CloseIcon from '../../../../../static/assets/icons/ic_close.svg'
 
 export type Props = {
+	/** Title text */
 	title: string,
+
+	/** Callback to close the modal */
 	onRequestClose: Function,
+
+	/** Function to handle navigating backwards in a modal */
 	handleGoBack?: Function
 }
 

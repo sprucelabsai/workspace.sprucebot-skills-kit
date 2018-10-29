@@ -12,14 +12,31 @@ import { Toggle } from '../../../Forms'
 import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
 
 export type Props = {
+	/** Title text */
 	title: string,
+
+	/** Optional subtitle text */
 	subtitle?: string,
+
+	/** URL to show a user avatar */
 	avatar?: string,
+
+	/** URL to show an image */
 	image?: string,
-	icon?: any,
+
+	/** Inline svg icon */
+	icon?: Node,
+
+	/** Set true when the list can be reordered */
 	isDraggable?: boolean,
+
+	/** Makes the list item a setting */
 	toggleId?: string,
+
+	/** Actions associated with the list item */
 	actions?: Array<ButtonProps>,
+
+	/** Context Menu associated with the list item */
 	contextMenu?: ContextMenuProps
 }
 
