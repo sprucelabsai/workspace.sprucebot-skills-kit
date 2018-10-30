@@ -10,9 +10,19 @@ export default {
 			? node.getBoundingClientRect().top
 			: null
 	},
+	getBottom(node) {
+		return node && node.getBoundingClientRect
+			? node.getBoundingClientRect().bottom
+			: null
+	},
 	getLeft(node) {
 		return node && node.getBoundingClientRect
 			? node.getBoundingClientRect().left
+			: null
+	},
+	getRight(node) {
+		return node && node.getBoundingClientRect
+			? node.getBoundingClientRect().right
 			: null
 	},
 	getWidth(node) {

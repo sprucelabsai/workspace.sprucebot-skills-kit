@@ -30,7 +30,9 @@ type Props = {
 	events: Array<Object>,
 	startDate: Object,
 	dragThreshold: Number, // how far to drag before actually initiating drag
-	onDropEvent: Function
+	onDropEvent: Function,
+	scrollDuringDragMargin: Number, // how close to the edge do we need to get before we'll auto scroll for the user
+	dragScrollSpeed: Number // how many pixels to jump if dragging near edge of scroll
 }
 
 type State = {
@@ -47,7 +49,9 @@ class Day extends Component<Props> {
 	}
 
 	static defaultProps = {
-		dragThreshold: 10
+		dragThreshold: 10,
+		scrollDuringDragMargin: 50,
+		dragScrollSpeed: 5
 	}
 
 	_timeRangeCache = {}
@@ -81,12 +85,19 @@ class Day extends Component<Props> {
 			scrollLeft
 		})
 
+		// arrows that sit in the upper right
 		this.updateHorizontalPagerDetails()
+
+		// keep event under mouse as scroll
+		if (this._activeDrag) {
+			this.handleDragOfEvent(this._activeDrag.lastEvent, false)
+		}
 	}
 
 	getTimeRangeDetails = (min, max) => {
 		const {
 			startDate,
+			slotsPerHour,
 			location: { timezone }
 		} = this.props
 
@@ -104,6 +115,8 @@ class Day extends Component<Props> {
 
 			const minTimestamp = parseInt(minMoment.format('X'), 10)
 			const maxTimestamp = parseInt(maxMoment.format('X'), 10)
+			const hours = (maxTimestamp - minTimestamp) / 60 / 60
+			const slotDurationMin = (1 / slotsPerHour) * 60
 
 			this._timeRangeCache[key] = {
 				min,
@@ -112,7 +125,9 @@ class Day extends Component<Props> {
 				maxMoment,
 				minTimestamp,
 				maxTimestamp,
-				seconds: maxTimestamp - minTimestamp
+				seconds: maxTimestamp - minTimestamp,
+				slotDurationMin,
+				totalTimeSlots: slotsPerHour * hours
 			}
 		}
 
@@ -223,54 +238,140 @@ class Day extends Component<Props> {
 			this._startingDragPoint = { x: e.clientX, y: e.clientY }
 
 			if (idx === 0) {
-				window.addEventListener('mousemove', this.handleMouseDragOfEvent)
+				window.addEventListener('mousemove', this.handleDragOfEvent)
 			} else {
-				window.addEventListener('mousemove', this.handleMouseDragOfBlock)
+				window.addEventListener('mousemove', this.handleDragOfBlock)
 			}
 			window.addEventListener('mouseup', this.handleMouseUpOfEvent)
 		}
 	}
 
-	clampEventToNearestValidX = x => {
+	snapEventToNearestValidX = x => {
 		const dayColWidth = this.dayColWidth()
 		const nearest = Math.round(x / dayColWidth)
-		return nearest * dayColWidth
+		return Math.max(
+			0,
+			Math.min(this.props.users.length - 1, nearest) * dayColWidth
+		)
 	}
-	clampEventToNearestValidY = y => {
-		const { minTime, maxTime, slotsPerHour } = this.props
-		const range = this.getTimeRangeDetails(minTime, maxTime)
-		const hours = range.seconds / 60 / 60
-		const totalTimeSlots = hours * slotsPerHour
-		const dayColHeight = this.dayColHeight()
-		const slotHeight = dayColHeight / totalTimeSlots
+
+	snapEventToNearestValidY = (y, elementHeight = 0) => {
+		const slotHeight = this.slotHeight()
 		const nearest = Math.round(y / slotHeight)
-		return nearest * slotHeight
+		const maxTop = this.dayColHeight() - elementHeight
+		return Math.max(0, Math.min(maxTop, nearest * slotHeight))
 	}
 
-	yToTime = y => {}
+	yToTime = y => {
+		const slotHeight = this.slotHeight()
+		const range = this.getTimeRangeDetails(
+			this.props.minTime,
+			this.props.maxTime
+		)
+		const nearest = Math.round(y / slotHeight)
+		const minutesFromMinTime = nearest * range.slotDurationMin
+		const time = moment(range.minMoment).add(minutesFromMinTime, 'minutes')
+		return time.format('h:mma')
+	}
 
-	handleMouseDragOfEvent = e => {
+	xToUser = y => {
+		const slotHeight = this.slotHeight()
+		const nearest = Math.round(y / slotHeight)
+		return this.props.users[nearest]
+	}
+
+	beginScrollHorizontally = speed => {
+		if (this._scrollHorizontalSpeed !== speed) {
+			clearInterval(this._scrollHorizontalInterval)
+			this._scrollHorizontalSpeed = speed
+			this._scrollHorizontalInterval = setInterval(() => {
+				this.scrollWrapperRef.current.scrollLeft += speed
+			}, 10)
+		}
+	}
+	stopScrollingHorizontally = () => {
+		this._scrollHorizontalSpeed = 0
+		clearInterval(this._scrollHorizontalInterval)
+	}
+
+	beginScrollingVertically = speed => {
+		if (this._scrollVerticalSpeed !== speed) {
+			clearInterval(this._scrollVerticalInterval)
+			this._scrollVerticalSpeed = speed
+			this._scrollVerticalInterval = setInterval(() => {
+				this.scrollWrapperRef.current.scrollTop += speed
+			}, 10)
+		}
+	}
+	stopScrollingVertically = () => {
+		this._scrollVerticalSpeed = 0
+		clearInterval(this._scrollVerticalInterval)
+	}
+
+	handleDragOfEvent = (e, autoScroll = true) => {
 		const { dragEvent } = this.state
 		if (dragEvent) {
 			const { type } = this._activeDrag
 			const { clientX, clientY } = e
+			const { scrollDuringDragMargin, dragScrollSpeed } = this.props
 
 			const {
 				dragEventNode,
 				offsetX,
 				offsetY,
 				wrapperLeft,
-				wrapperTop
+				wrapperTop,
+				dragEventHeight
 			} = this._activeDrag
+
+			//if we are close to an edge, lets scroll that first
+			const normalizedClientX = clientX - wrapperLeft
+			const normalizedClientY = clientY - wrapperTop
+			const wrapperRight =
+				size.getRight(this.scrollWrapperRef.current) - wrapperLeft
+			const wrapperBottom =
+				size.getBottom(this.scrollWrapperRef.current) - wrapperTop
+
+			// scroll right
+			if (autoScroll) {
+				if (normalizedClientX >= wrapperRight - scrollDuringDragMargin) {
+					this.beginScrollHorizontally(dragScrollSpeed)
+				} else if (normalizedClientX <= scrollDuringDragMargin) {
+					this.beginScrollHorizontally(-dragScrollSpeed)
+				} else {
+					this.stopScrollingHorizontally()
+				}
+
+				if (normalizedClientY >= wrapperBottom - scrollDuringDragMargin) {
+					this.beginScrollingVertically(dragScrollSpeed)
+				} else if (normalizedClientY <= scrollDuringDragMargin) {
+					this.beginScrollingVertically(-dragScrollSpeed)
+				} else {
+					this.stopScrollingVertically()
+				}
+			}
 
 			const scrollTop = this.scrollWrapperRef.current.scrollTop
 			const scrollLeft = this.scrollWrapperRef.current.scrollLeft
 
-			const x = clientX - wrapperLeft + scrollLeft - offsetX
-			const y = clientY - wrapperTop + scrollTop - offsetY
+			const x = this.snapEventToNearestValidX(
+				normalizedClientX + scrollLeft - offsetX
+			)
+			const y = this.snapEventToNearestValidY(
+				normalizedClientY + scrollTop - offsetY,
+				dragEventHeight
+			)
 
-			dragEventNode.style.left = this.clampEventToNearestValidX(x) + 'px'
-			dragEventNode.style.top = this.clampEventToNearestValidY(y) + 'px'
+			// update position
+			dragEventNode.style.left = x + 'px'
+			dragEventNode.style.top = y + 'px'
+
+			// update time
+			const time = this.yToTime(y)
+			dragEventNode.querySelector('.time').innerHTML = time
+
+			//track last event
+			this._activeDrag.lastEvent = e
 		} else {
 			const { clientX, clientY } = e
 			const { x, y } = this._startingDragPoint
@@ -297,29 +398,35 @@ class Day extends Component<Props> {
 
 	handleMouseUp = e => {
 		window.removeEventListener('mousemove', this.handleMouseDragOfView)
-
 		window.removeEventListener('mouseup', this.handleMouseUp)
 	}
 	handleMouseUpOfEvent = e => {
 		if (!this.state.dragEvent) {
 			alert('SELECTED')
 		} else {
-			this.handleDropEvent()
+			this.handleDropOfEvent()
 		}
 
-		window.removeEventListener('mousemove', this.handleMouseDragOfEvent)
+		window.removeEventListener('mousemove', this.handleDragOfEvent)
 		window.removeEventListener('mouseup', this.handleMouseUpOfEvent)
 	}
 
-	handleDropEvent = async () => {
+	handleDropOfEvent = async () => {
 		const { dragEvent, dragEventNode, sourceEventNode } = this._activeDrag
 		const { onDropEvent } = this.props
 
+		// stop scrolling
+		this.stopScrollingHorizontally()
+		this.stopScrollingVertically()
+
+		this._activeDrag = null
+
 		const valid = onDropEvent ? await onDropEvent(dragEvent) : false
+
 		const reset = () => {
 			this.setState({ dragEvent: null })
-			this._activeDrag = null
 		}
+
 		if (valid) {
 			reset()
 		} else {
@@ -327,9 +434,8 @@ class Day extends Component<Props> {
 			dragEventNode.style.left = sourceEventNode.style.left
 			dragEventNode.style.top = sourceEventNode.style.top
 
-			setTimeout(() => {
-				reset()
-			}, 500)
+			// let animations finish
+			setTimeout(reset, 500)
 		}
 	}
 
@@ -389,6 +495,7 @@ class Day extends Component<Props> {
 			dragEvent,
 			sourceEvent: event,
 			dragEventNode,
+			dragEventHeight: size.getHeight(dragEventNode),
 			sourceEventNode: eventNode,
 			offsetX,
 			offsetY,
@@ -408,6 +515,13 @@ class Day extends Component<Props> {
 			'.bigcalendar__day-col'
 		)
 		return sizeUtils.getHeight(firstDayCol)
+	}
+
+	slotHeight = () => {
+		const { minTime, maxTime } = this.props
+		const range = this.getTimeRangeDetails(minTime, maxTime)
+		const dayColHeight = this.dayColHeight()
+		return dayColHeight / range.totalTimeSlots
 	}
 
 	placeEvent = event => {
