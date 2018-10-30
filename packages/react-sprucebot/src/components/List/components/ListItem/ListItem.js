@@ -3,23 +3,40 @@ import React from 'react'
 import type { Node } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
-import Button, { Props as ButtonProps } from '../../../Button/Button'
-import ContextMenu, {
-	Props as ContextMenuProps
-} from '../../../ContextMenu/ContextMenu'
+import Button from '../../../Button/Button'
+import type { Props as ButtonProps } from '../../../Button/Button'
+import ContextMenu from '../../../ContextMenu/ContextMenu'
+import type { Props as ContextMenuProps } from '../../../ContextMenu/ContextMenu'
 import { Toggle } from '../../../Forms'
 import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
 
-export interface Props {
-	title: string;
-	subtitle?: string;
-	avatar?: string;
-	image?: string;
-	icon?: any;
-	isDraggable?: boolean;
-	toggleId?: string;
-	actions?: Array<ButtonProps>;
-	contextMenu?: ContextMenuProps;
+export type Props = {
+	/** Title text */
+	title: string,
+
+	/** Optional subtitle text */
+	subtitle?: string,
+
+	/** URL to show a user avatar */
+	avatar?: string,
+
+	/** URL to show an image */
+	image?: string,
+
+	/** Inline svg icon */
+	icon?: Node,
+
+	/** Set true when the list can be reordered */
+	isDraggable?: boolean,
+
+	/** Makes the list item a setting */
+	toggleId?: string,
+
+	/** Actions associated with the list item */
+	actions?: Array<ButtonProps>,
+
+	/** Context Menu associated with the list item */
+	contextMenu?: ContextMenuProps
 }
 
 const ListItem = (props: Props) => {

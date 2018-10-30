@@ -3,16 +3,26 @@
 import React, { Component } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 import Button from '../Button/Button'
-import Dropzone, { Props as DropzoneProps } from '../Dropzone/Dropzone'
+import Dropzone from '../Dropzone/Dropzone'
+import type { Props as DropzoneProps } from '../Dropzone/Dropzone'
 import { Slider } from '../Forms'
 import RotateLeftIcon from '../../../static/assets/icons/Design/Rotate/rotate-back.svg'
 import RotateRightIcon from '../../../static/assets/icons/Design/Rotate/rotate-forward.svg'
 
 type Props = {
+	/** The image. If null, this will render a Dropzone. */
 	image?: string,
+
+	/** Width of the image */
 	width: number,
+
+	/** Height of the image */
 	height: number,
+
+	/** Properties for the Dropzone */
 	dropzoneProps: DropzoneProps,
+
+	/** Set true for ciruclar image */
 	isCircular?: boolean
 }
 type State = {

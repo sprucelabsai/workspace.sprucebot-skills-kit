@@ -19,10 +19,10 @@ class TeammateHeader extends Component<Props> {
 	}
 
 	render() {
-		const { users, onScroll } = this.props
+		const { users, onScroll, scrollLeft, ...props } = this.props
 
 		return (
-			<div className="bigcalendar__teammate-header">
+			<div className="bigcalendar__teammate-header" {...props}>
 				<div className="inner" ref={this.domNodeRef} onScroll={onScroll}>
 					{users.map(u => {
 						return (

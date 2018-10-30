@@ -1,7 +1,13 @@
 // @flow
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
+import {
+	withKnobs,
+	text,
+	boolean,
+	number,
+	object
+} from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
 import Modal from './Modal'
 import Button from '../Button/Button'
@@ -49,7 +55,7 @@ class ModalExample extends Component<Props, State> {
 					isOpen={isOpen}
 					onAfterOpen={this.onAfterOpen}
 					onRequestClose={this.onRequestClose}
-					isSmall
+					isSmall={boolean('isSmall', true)}
 				>
 					<Modal.Header
 						title={title}
@@ -110,11 +116,70 @@ const stories = storiesOf('Modal', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('Modal', () => (
-	<ModalExample
-		title={text('Title', 'New Service Category')}
-		canGoBack={boolean('Show Back Button', false)}
-		includeFooter={boolean('Show Footer', true)}
-		hasSecondaryButton={boolean('Show Secondary Action', false)}
-	/>
-))
+stories
+	.add('Modal', () => (
+		<ModalExample
+			title={text('title', 'New Service Category')}
+			canGoBack={boolean('handleGoBack', false)}
+			includeFooter={boolean('Modal.Footer', true)}
+			hasSecondaryButton={boolean('secondaryAction', false)}
+		/>
+	))
+	.add('static', () => (
+		<Modal
+			isOpen={boolean('isOpen', true)}
+			onAfterOpen={() => console.log('onAfterOpen')}
+			onRequestClose={() => console.log('onRequestClose')}
+			isSmall={boolean('isSmall', true)}
+		>
+			<Modal.Header
+				title={text('title', 'New Service Category')}
+				onRequestClose={() => console.log('onRequestClose')}
+				handleGoBack={
+					boolean('canGoBack', false) ? () => console.log('take me home') : null
+				}
+			/>
+			<form>
+				<Modal.Body>
+					<FormRow>
+						<TextInput label="Category Name" placeholder="i.e. Barber" />
+					</FormRow>
+					<FormRow>
+						<TextInput
+							label="Teaser"
+							postLabel="0/64"
+							placeholder="Haircuts, shaves, and touch-ups."
+							helper="Add a short teaser for your guests to see when they browse your services. Please limit to 64 characters."
+						/>
+					</FormRow>
+					<FormRow>
+						<TextArea
+							label="Description"
+							placeholder="Optional category description…"
+							helper="Add a short teaser for your guests to see when they browse your services."
+							rows={3}
+						/>
+					</FormRow>
+					<FormRow>
+						<Checkbox
+							label="Hide this category"
+							postText="It will still be visible to your teammates, but will be hidden from guests."
+						/>
+					</FormRow>
+				</Modal.Body>
+				{boolean('includeFooter', true) && (
+					<Modal.Footer
+						primaryAction={object('primaryAction', {
+							text: 'Create Category',
+							onClick: () => console.log('Next'),
+							type: 'submit'
+						})}
+						secondaryAction={object('secondaryAction', {
+							text: 'Cancel',
+							onClick: () => console.log('Cancel')
+						})}
+					/>
+				)}
+			</form>
+		</Modal>
+	))

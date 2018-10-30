@@ -1,16 +1,38 @@
 // @flow
 import React, { Component } from 'react'
 import cx from 'classnames'
+import moment from 'moment-timezone'
+
+import EventBlock from '../EventBlock/EventBlock'
 
 type Props = {
 	event: Object,
-	users: Array<Object>,
-	children?: Node,
-	className?: string
+	className?: string,
+	timezone: String
 }
 
 const Event = (props: Props) => {
-	return <p>I'm an event</p>
+	const { event, className, onMouseDown, timezone, ...rest } = props
+	let startAt = moment.tz(event.startAt, timezone)
+	return (
+		<div className={cx('bigcalendar__event', className)} {...rest}>
+			{event.blocks.map((block, idx) => {
+				const eventBlock = (
+					<EventBlock
+						startAt={startAt}
+						onMouseDown={e => {
+							onMouseDown && onMouseDown(e, event, block, idx)
+						}}
+						key={`block-${event.id}-${idx}`}
+						block={block}
+					/>
+				)
+
+				startAt = moment(startAt).add(block.durationSec, 'seconds')
+				return eventBlock
+			})}
+		</div>
+	)
 }
 
 export default Event

@@ -3,23 +3,24 @@ import React from 'react'
 import type { Node } from 'react'
 import cx from 'classnames'
 import Button from '../../../../../Button/Button'
+import type { Props as ButtonProps } from '../../../../../Button/Button'
 
 type ItemProps = {
 	text: string,
 	href: string,
-	action?: Object,
+	action?: ButtonProps,
 	icon?: Node,
 	isCurrent?: boolean,
 	items: Array<ItemProps>
 }
 
-export interface Props {
-	items?: Array<ItemProps>;
-	text: string;
-	href: string;
-	action?: Object;
-	icon?: any;
-	isCurrent?: boolean;
+export type Props = {
+	items?: Array<ItemProps>,
+	text: string,
+	href: string,
+	action?: Object,
+	icon?: any,
+	isCurrent?: boolean
 }
 
 const isCurrentParent = (props: Props) => {

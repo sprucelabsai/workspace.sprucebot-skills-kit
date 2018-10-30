@@ -1,8 +1,16 @@
 import React from 'react'
 import { configure, addDecorator } from '@storybook/react'
+import {
+	withKnobs,
+	withKnobsOptions,
+	text,
+	boolean,
+	number
+} from '@storybook/addon-knobs/react'
 import Wrapper from './Wrapper'
 
 import { setOptions } from '@storybook/addon-options'
+import { withInfo } from '@storybook/addon-info'
 
 setOptions({
 	name: 'Heartwood React Components',
@@ -19,8 +27,16 @@ addDecorator(story => {
 	) {
 		return story()
 	}
-	return <Wrapper>{story()}</Wrapper>
+	return (
+		<Wrapper STORYBOOKwrap={boolean('STORYBOOKwrap', true)}>{story()}</Wrapper>
+	)
 })
+
+addDecorator(
+	withInfo({
+		inline: false
+	})
+)
 
 function loadStories() {
 	const req = require.context('../src/components', true, /\-story\.js$/)

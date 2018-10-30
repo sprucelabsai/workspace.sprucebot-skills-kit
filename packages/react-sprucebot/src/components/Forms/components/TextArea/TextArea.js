@@ -4,16 +4,25 @@ import cx from 'classnames'
 import { InputPre, InputHelper } from '../../FormPartials'
 
 type Props = {
+	/** Unique identifier */
 	id: string,
+
+	/** Additional class */
 	className?: string,
+
+	/** Input label */
 	label?: string,
+
+	/** Text after label */
 	postLabel?: string,
-	kind?: string,
-	iconBefore?: any,
-	iconAfter?: any,
-	appendix?: string,
+
+	/** Error text */
 	error?: string,
+
+	/** Helper text */
 	helper?: string,
+
+	/** Set true to make the text area resizeable */
 	resizeable?: boolean
 }
 

@@ -4,16 +4,37 @@ import cx from 'classnames'
 import { InputPre, InputInner, InputHelper } from '../../FormPartials'
 
 type Props = {
+	/** Unique identifier */
 	id: string,
+
+	/** Optional class */
 	className?: string,
+
+	/** Label text */
 	label?: string,
+
+	/** Text after label */
 	postLabel?: string,
+
+	/** Useful for credit cards */
 	kind?: string,
+
+	/** Optional icon to show in the input */
 	iconBefore?: any,
+
+	/** Optional icon to show at the end of the input */
 	iconAfter?: any,
+
+	/** Optional; helpful for subdomains */
 	appendix?: string,
+
+	/** Error text */
 	error?: string,
+
+	/** Helper text */
 	helper?: string,
+
+	/** Set true to make the input less tall */
 	isSmall?: boolean
 }
 

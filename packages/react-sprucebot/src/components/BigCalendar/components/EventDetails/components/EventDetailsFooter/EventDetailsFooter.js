@@ -1,9 +1,10 @@
 // @flow
 import React from 'react'
-import Button, { Props as ButtonProps } from '../../../../../Button/Button'
+import Button from '../../../../../Button/Button'
+import type { Props as ButtonProps } from '../../../../../Button/Button'
 
-export interface Props {
-	primaryCTA: ButtonProps;
+export type Props = {
+	primaryCTA: ButtonProps
 }
 
 const EventDetailsFooter = (props: Props) => {

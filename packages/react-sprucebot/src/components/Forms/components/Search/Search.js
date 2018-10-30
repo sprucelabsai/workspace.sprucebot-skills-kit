@@ -10,8 +10,13 @@ type State = {
 }
 
 type Props = {
+	/** Parent class */
 	className: string,
+
+	/** Default input value */
 	defaultValue: ?string,
+
+	/** Set true to make the input less tall */
 	isSmall?: boolean
 }
 

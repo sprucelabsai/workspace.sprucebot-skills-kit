@@ -12,7 +12,9 @@ const stories = storiesOf('Toast', module)
 
 type Props = {
 	children: Node,
-	showUndo: boolean
+	showUndo: boolean,
+	headline: string,
+	text: string
 }
 
 type State = {
@@ -25,12 +27,12 @@ class ToastExample extends Component<Props, State> {
 	}
 
 	addToast = (kind: 'neutral' | 'positive' | 'negative') => {
-		const { showUndo } = this.props
+		const { showUndo, text, headline } = this.props
 		this.setState(prevState => {
 			const newToasts = [...prevState.toasts]
 			newToasts.push({
-				headline: 'Neat',
-				text: 'Something just happened and it was fine',
+				headline,
+				text,
 				kind,
 				onUndo: showUndo ? () => console.log('Undo') : null
 			})
@@ -84,6 +86,10 @@ stories.addDecorator(withKnobs)
 
 stories.add('Toast', () => (
 	<Container size="small">
-		<ToastExample showUndo={boolean('Show Undo', false)} />
+		<ToastExample
+			headline={text('headline', 'Neat')}
+			text={text('text', 'Something just happened and it was fine')}
+			showUndo={boolean('showUndo', false)}
+		/>
 	</Container>
 ))

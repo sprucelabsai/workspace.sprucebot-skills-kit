@@ -3,6 +3,7 @@ import React from 'react'
 import type { Node } from 'react'
 
 type Props = {
+	/** Modal children */
 	children: Node
 }
 

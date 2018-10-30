@@ -8,14 +8,31 @@ import ArrowNext from '../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../static/assets/icons/ic_arrow_back.svg'
 
 type Props = {
+	/** The current page */
 	currentPage: number,
+
+	/** Total pages */
 	totalPages: number,
+
+	/** Go forward one page */
 	onClickNext: Function,
+
+	/** Go back one page */
 	onClickBack: Function,
+
+	/** Navigate to the clicked/tapped page */
 	onPageButtonClick?: Function,
+
+	/** Navigate throught the jump input */
 	onJump?: Function,
+
+	/** Set true to display pages between arrows */
 	showPages?: boolean,
+
+	/** Set true to show the jump input */
 	showJump?: boolean,
+
+	/** Set true to use simple buttons */
 	isSimple?: boolean
 }
 
@@ -33,7 +50,7 @@ const Pagination = (props: Props) => {
 	} = props
 	const pagesArray = []
 	let displayPages = []
-	for (let i = 1; i < totalPages + 1; i++) {
+	for (let i = 0; i < totalPages; i++) {
 		pagesArray.push(i)
 	}
 	if (currentPage <= 3 || totalPages - currentPage <= 3) {
@@ -75,7 +92,7 @@ const Pagination = (props: Props) => {
 				isSmall
 				className="pagination__btn"
 				icon={<ArrowBack />}
-				disabled={currentPage === 1}
+				disabled={currentPage === 0}
 			/>
 			{showPages &&
 				onPageButtonClick &&
@@ -104,7 +121,7 @@ const Pagination = (props: Props) => {
 				isSmall
 				className="pagination__btn"
 				icon={<ArrowNext />}
-				disabled={currentPage >= totalPages}
+				disabled={currentPage >= totalPages - 1}
 			/>
 			{showJump &&
 				onJump && (

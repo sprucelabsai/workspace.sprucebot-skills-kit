@@ -5,9 +5,16 @@ import RadioIconYes from '../../../../../static/assets/icons/ic_radio_button_che
 import RadioIconNo from '../../../../../static/assets/icons/ic_radio_button_unchecked.svg'
 
 type Props = {
+	/** Unique identifier */
 	id: string,
+
+	/** Label and text for the radio */
 	label: string,
+
+	/** Optional text to show after the label */
 	postText: string,
+
+	/** Parent class */
 	className: ?string
 }
 

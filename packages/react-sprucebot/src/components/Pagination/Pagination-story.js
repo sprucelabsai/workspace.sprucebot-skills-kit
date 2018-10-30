@@ -11,10 +11,10 @@ stories.addDecorator(withKnobs)
 
 stories.add('Pagination', () => (
 	<Pagination
-		currentPage={number('Current Page', 1)}
-		totalPages={number('Total Pages', 100)}
-		showPages={boolean('Show Pages', false)}
-		showJump={boolean('Show Jump', false)}
+		currentPage={number('currentPage', 1)}
+		totalPages={number('totalPages', 100)}
+		showPages={boolean('showPages', false)}
+		showJump={boolean('showJump', false)}
 		onClickNext={() => console.log('You clicked next')}
 		onClickBack={() => console.log('You clicked back')}
 		onPageButtonClick={page => console.log('You clicked ', page)}

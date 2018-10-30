@@ -9,6 +9,7 @@ import Delete from '../../../static/assets/icons/Interface-Essential/Delete/bin.
 import Edit from '../../../static/assets//icons/Interface-Essential/Edit/pencil-write.svg'
 
 type Props = {
+	/** The name of the icon to render. If not found, this will return null. */
 	icon: string
 }
 
@@ -24,6 +25,8 @@ const Icon = (props: Props) => {
 	const { icon, ...rest } = props
 
 	if (!icon || !key[icon.toLowerCase()]) {
+		// TODO: handle logging
+		// console.error(`<Icon /> could not find an icon with key ${icon}`)
 		return null
 	}
 	const Handler = key[icon.toLowerCase()]

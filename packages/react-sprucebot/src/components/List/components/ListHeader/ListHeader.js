@@ -2,12 +2,20 @@
 import React from 'react'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
+import type { Props as ButtonProps } from '../../../Button/Button'
 
-export interface Props {
-	title: string;
-	subtitle?: string;
-	isSmall?: boolean;
-	actions?: Array<Object>;
+export type Props = {
+	/** Title text */
+	title: string,
+
+	/** Optional subtitle text */
+	subtitle?: string,
+
+	/** Set true for small lists */
+	isSmall?: boolean,
+
+	/** Actions to associate with the list header */
+	actions?: Array<ButtonProps>
 }
 
 const ListHeader = (props: Props) => {

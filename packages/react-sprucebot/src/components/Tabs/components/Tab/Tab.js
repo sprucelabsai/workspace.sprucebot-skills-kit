@@ -3,10 +3,15 @@ import React from 'react'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
 
-export interface Props {
-	text: string;
-	isCurrent?: boolean;
-	panel?: Object;
+export type Props = {
+	/** Tab text */
+	text: string,
+
+	/** Set true if this is the current tab */
+	isCurrent?: boolean,
+
+	/** Panel to show when this tab is current */
+	panel?: Object
 }
 
 const Tab = (props: Props) => {

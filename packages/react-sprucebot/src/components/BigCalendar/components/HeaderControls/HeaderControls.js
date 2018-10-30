@@ -4,6 +4,7 @@ import Select from '../../../Forms/components/Select/Select'
 import Button from '../../../Button/Button'
 import Pagination from '../../../Pagination/Pagination'
 import cx from 'classnames'
+import screenfull from 'screenfull'
 
 type Props = {
 	header: HeaderProps,
@@ -12,7 +13,8 @@ type Props = {
 	footer: FooterProps,
 	onBackDate: Function,
 	onNextDate: Function,
-	onChangeView: Function
+	onChangeView: Function,
+	fullScreenNodeRef: Object
 }
 
 const HeaderControls = (props: Props) => {
@@ -22,7 +24,7 @@ const HeaderControls = (props: Props) => {
 				isSimple={true}
 				onClickNext={props.onNextDate}
 				onClickBack={props.onBackDate}
-				currentPage={2}
+				currentPage={1}
 				totalPages={3}
 			/>
 			<Button
@@ -38,6 +40,13 @@ const HeaderControls = (props: Props) => {
 				className="bigcalendar__calendarIcon-button"
 			/>
 			<Select options={['Full Team', 'Me']} onChange={props.onChangeView} />
+			<Button
+				kind="simple"
+				text="Full Screen"
+				onClick={() => {
+					screenfull.toggle(props.fullScreenNodeRef.current)
+				}}
+			/>
 		</div>
 	)
 }

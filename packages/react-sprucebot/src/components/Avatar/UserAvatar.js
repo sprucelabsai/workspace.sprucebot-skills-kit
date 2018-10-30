@@ -1,7 +1,8 @@
 // @flow
 import React from 'react'
 import cx from 'classnames'
-import Avatar, { Props as AvatarProps } from './Avatar'
+import Avatar from './Avatar'
+import type { Props as AvatarProps } from './Avatar'
 
 type Props = {
 	...AvatarProps,

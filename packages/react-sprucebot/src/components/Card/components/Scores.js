@@ -2,8 +2,13 @@
 import React from 'react'
 
 type PanelProps = {
+	/** Unique id for looping. */
 	id: string,
+
+	/** Description of the corresponding value. */
 	label: string,
+
+	/** The value to display. */
 	value: string
 }
 

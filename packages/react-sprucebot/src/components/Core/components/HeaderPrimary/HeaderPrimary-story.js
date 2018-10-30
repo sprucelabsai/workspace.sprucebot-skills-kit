@@ -1,7 +1,13 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
+import {
+	withKnobs,
+	text,
+	boolean,
+	number,
+	object
+} from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../../../.storybook/StylesProvider'
 import Container from '../../../Layout/Container/Container'
 import HeaderPrimary from './HeaderPrimary'
@@ -29,24 +35,24 @@ stories
 	.add('Default', () => (
 		<HeaderPrimary
 			STORYBOOKdoNotWrap
-			sidebarIsVisible={false}
+			sidebarIsVisible={boolean('sidebarIsVisible', false)}
 			toggleSidebarVisibility={() => null}
 		/>
 	))
 	.add('Logged In', () => (
 		<HeaderPrimary
 			STORYBOOKdoNotWrap
-			user={user}
-			sidebarIsVisible={false}
+			user={object('user', user)}
+			sidebarIsVisible={boolean('sidebarIsVisible', false)}
 			toggleSidebarVisibility={() => null}
 		/>
 	))
 	.add('Logged In to Business', () => (
 		<HeaderPrimary
 			STORYBOOKdoNotWrap
-			user={user}
-			business={business}
-			sidebarIsVisible={false}
+			user={object('user', user)}
+			business={object('business', business)}
+			sidebarIsVisible={boolean('sidebarIsVisible', false)}
 			toggleSidebarVisibility={() => null}
 		/>
 	))

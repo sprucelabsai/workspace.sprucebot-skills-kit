@@ -1,10 +1,14 @@
 // @flow
 import React, { Component } from 'react'
 import { VelocityTransitionGroup } from 'velocity-react'
-import Toast, { Props as ToastProps } from '../../Toast'
+import Toast from '../../Toast'
+import type { Props as ToastProps } from '../../Toast'
 
 type Props = {
+	/** The toasts */
 	toasts: Array<ToastProps>,
+
+	/** Handle toast removal */
 	handleRemove: Function
 }
 

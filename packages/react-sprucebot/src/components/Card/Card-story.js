@@ -1,7 +1,13 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
+import {
+	withKnobs,
+	withKnobsOptions,
+	text,
+	boolean,
+	object
+} from '@storybook/addon-knobs/react'
 import { userList } from '../../../.storybook/data/people'
 import Container from '../Layout/Container/Container'
 import Card, { CardHeader, CardBody, CardFooter, CardBuilder } from './Card'
@@ -49,6 +55,12 @@ const cardJSON = {
 
 const stories = storiesOf('Card', module)
 
+stories.addDecorator(
+	withKnobsOptions({
+		escapeHTML: false
+	})
+)
+
 stories.addDecorator(withKnobs)
 
 stories
@@ -56,8 +68,8 @@ stories
 		<Container size="medium">
 			<Card isCritical>
 				<CardHeader
-					title="Please update your credit card"
-					labelText="Billing failure"
+					title={text('title', 'Please update your credit card')}
+					labelText={text('labelText', 'Billing failure')}
 					labelIcon={<AlertIcon3 />}
 				/>
 				<CardBody>
@@ -76,12 +88,12 @@ stories
 		<Container size="medium">
 			<Card>
 				<CardHeader
-					title="Value of future appointments"
-					actions={[
+					title={text('title', 'Value of future appointments')}
+					actions={object('actions', [
 						{
 							text: 'Go to reports'
 						}
-					]}
+					])}
 				/>
 				<CardBody>
 					<Text className="u-lh-loose u-color-body-light">
@@ -89,7 +101,7 @@ stories
 						And that has made all the difference.
 					</Text>
 					<Scores
-						scores={[
+						scores={object('scores', [
 							{
 								id: 1,
 								label: 'Today',
@@ -105,7 +117,7 @@ stories
 								label: 'This Month',
 								value: '$25,068'
 							}
-						]}
+						])}
 					/>
 				</CardBody>
 			</Card>
@@ -115,12 +127,12 @@ stories
 		<Container size="medium">
 			<Card>
 				<CardHeader
-					title="Your upcoming appointments"
-					actions={[
+					title={text('title', 'Your upcoming appointments')}
+					actions={object('actions', [
 						{
 							text: 'View in calendar'
 						}
-					]}
+					])}
 				/>
 				<CardBody>
 					<List items={userList} />
@@ -235,6 +247,6 @@ stories
 	))
 	.add('CardBuilder', () => (
 		<Container size="medium">
-			<CardBuilder {...cardJSON} />
+			<CardBuilder {...object('json', cardJSON)} />
 		</Container>
 	))

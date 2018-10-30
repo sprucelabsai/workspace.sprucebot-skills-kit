@@ -4,8 +4,29 @@ import '../src/stylesheets/vendor.sass'
 import '../src/stylesheets/global.sass'
 import '@sprucelabs/heartwood-components/stylesheets/global.scss'
 
-const Wrapper = ({ children }) => {
-	const stylesheets = process.env.STYLESHEETS.split(',')
+const Wrapper = props => {
+	const stylesheets =
+		process.env.STYLESHEETS && process.env.STYLESHEETS.split(',')
+
+	if (!props.STORYBOOKwrap) {
+		return (
+			<div className="l-page-wrapper">
+				{stylesheets &&
+					stylesheets.length > 0 && (
+						<Helmet>
+							<link
+								rel="stylesheet"
+								href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500|Source+Sans+Pro:400,600"
+							/>
+							{stylesheets.map((stylesheet, idx) => (
+								<link key={idx} rel="stylesheet" href={stylesheet} />
+							))}
+						</Helmet>
+					)}
+				{props.children}
+			</div>
+		)
+	}
 
 	return (
 		<div className="l-page-wrapper">
@@ -21,7 +42,7 @@ const Wrapper = ({ children }) => {
 						))}
 					</Helmet>
 				)}
-			<div className="l-pa-medium">{children}</div>
+			<div className="l-pa-medium">{props.children}</div>
 		</div>
 	)
 }
