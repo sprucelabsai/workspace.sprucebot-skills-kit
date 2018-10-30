@@ -34,6 +34,21 @@ export default {
 	getScrollWidth(node) {
 		return node && node.scrollWidth ? node.scrollWidth : null
 	},
+	getScrollHeight(node) {
+		return node && node.scrollHeight ? node.scrollHeight : null
+	},
+	getMaxScrollTop(node) {
+		const height = this.getHeight(node)
+		const scrollHeight = this.getScrollHeight(node)
+		const maxScroll = scrollHeight - height
+		return maxScroll
+	},
+	getMaxScrollLeft(node) {
+		const width = this.getWidth(node)
+		const scrollWidth = this.getScrollWidth(node)
+		const maxScroll = scrollWidth - width
+		return maxScroll
+	},
 	isScrolledAllTheWayRight(node) {
 		const width = this.getWidth(node)
 		const scrollWidth = this.getScrollWidth(node)

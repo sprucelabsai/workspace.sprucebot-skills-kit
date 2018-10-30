@@ -37,7 +37,7 @@ type State = {
 	currentUsers: Array<Object>,
 	bodyHeight: Number,
 	bodyWidth: Number,
-	viewHeight: Number,
+	calendarBodyHeight: Number,
 	currentHorizontalPage: Number,
 	totalHorizontalPages: Number
 }
@@ -62,7 +62,7 @@ class BigCalendar extends Component<Props, State> {
 		currentUsers: this.props.allUsers,
 		bodyWidth: sizeUtils.bodyWidth(),
 		bodyHeight: sizeUtils.bodyHeight(),
-		viewHeight: 0
+		calendarBodyHeight: 0
 	}
 
 	constructor(props) {
@@ -113,12 +113,12 @@ class BigCalendar extends Component<Props, State> {
 		const scrollTop = sizeUtils.getTop(scrollNode)
 		const width = sizeUtils.bodyWidth()
 		const height = sizeUtils.bodyHeight()
-		const viewHeight = height - scrollTop
+		const calendarBodyHeight = height - scrollTop
 
 		this.setState({
 			bodyWidth: width,
 			bodyHeight: height,
-			viewHeight
+			calendarBodyHeight
 		})
 	}
 
@@ -231,7 +231,7 @@ class BigCalendar extends Component<Props, State> {
 			currentUsers,
 			bodyWidth,
 			bodyHeight,
-			viewHeight,
+			calendarBodyHeight,
 			currentHorizontalPage,
 			totalHorizontalPages
 		} = this.state
@@ -274,7 +274,7 @@ class BigCalendar extends Component<Props, State> {
 						events={allEvents}
 						slotsPerHour={slotsPerHour}
 						onScroll={this.handleViewScroll}
-						viewHeight={viewHeight}
+						calendarBodyHeight={calendarBodyHeight}
 						hours={hours}
 						users={currentUsers}
 						location={location}

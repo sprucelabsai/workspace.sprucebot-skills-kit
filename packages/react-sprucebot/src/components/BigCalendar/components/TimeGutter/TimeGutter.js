@@ -5,7 +5,7 @@ import cx from 'classnames'
 type Props = {
 	hours: Array<Object>,
 	className?: string,
-	viewHeight: Number,
+	calendarBodyHeight: Number,
 	scrollTop: Number
 }
 
@@ -20,13 +20,19 @@ class TimeGutter extends Component<Props> {
 	}
 
 	render() {
-		const { viewHeight, hours, className, scrollTop, ...props } = this.props
+		const {
+			calendarBodyHeight,
+			hours,
+			className,
+			scrollTop,
+			...props
+		} = this.props
 		return (
 			<div
 				className={cx('bigcalendar__time-gutter', className)}
 				ref={this.domNodeRef}
 				style={{
-					height: viewHeight
+					height: calendarBodyHeight
 				}}
 				{...props}
 			>

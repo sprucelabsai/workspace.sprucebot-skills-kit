@@ -23,7 +23,7 @@ type Props = {
 	maxTime: String,
 	startTime: String,
 	endTime: String,
-	viewHeight: Number,
+	calendarBodyHeight: Number,
 	onScroll: Function,
 	slotsPerHour: Number,
 	onUpdateHorizontalPagerDetails: Function,
@@ -584,7 +584,7 @@ class Day extends Component<Props> {
 			users,
 			location,
 			hours,
-			viewHeight,
+			calendarBodyHeight,
 			minTime,
 			maxTime,
 			slotsPerHour,
@@ -610,7 +610,7 @@ class Day extends Component<Props> {
 				<div className="bigcalendar__body-wrapper">
 					<TimeGutter
 						hours={hours}
-						viewHeight={viewHeight}
+						calendarBodyHeight={calendarBodyHeight}
 						scrollTop={scrollTop}
 						onMouseDown={this.handleViewMouseDown}
 					/>
@@ -620,7 +620,7 @@ class Day extends Component<Props> {
 						ref={this.scrollWrapperRef}
 						className="bigcalendar__scroll-wrapper"
 						style={{
-							height: viewHeight
+							height: calendarBodyHeight
 						}}
 					>
 						<div className="scroll-inner" ref={this.scrollInnerRef}>
