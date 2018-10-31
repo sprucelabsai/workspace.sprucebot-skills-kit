@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.7.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.7.2...v7.7.3) (2018-10-31)
+
+
+### Bug Fixes
+
+* swagger doc should generate after sprucebot-skills-kit-server initalized ([38d097c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/38d097c))
+
+
+
+
+
 ## [7.7.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.7.1...v7.7.2) (2018-10-24)
 
 
