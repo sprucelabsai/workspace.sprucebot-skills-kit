@@ -36,17 +36,6 @@ const {
 	METRICS_SEQUELIZE_DISABLED
 } = require('config')
 
-if (process.env.ENABLE_SWAGGER_DOCS === 'true') {
-	generateSwaggerDocs()
-		.then(() => {
-			log.debug('Swagger docs generated')
-		})
-		.catch(e => {
-			log.warn('Generate swagger doc error!')
-			log.warn(e)
-		})
-}
-
 // Construct a new Sprucebot
 const sprucebot = new Sprucebot({
 	apiKey: API_KEY,
@@ -99,6 +88,16 @@ setTimeout(async () => {
 		metricsServerStatsDisabled: METRICS_SERVER_STATS_DISABLED,
 		metricsSequelizeDisabled: METRICS_SEQUELIZE_DISABLED
 	})
+	if (process.env.ENABLE_SWAGGER_DOCS === 'true') {
+		generateSwaggerDocs()
+			.then(() => {
+				console.log('ℹ️ Swagger docs generated')
+			})
+			.catch(e => {
+				console.log('⚠️ Generate swagger doc error!')
+				console.log(e)
+			})
+	}
 	ready = true
 }, 2000)
 
