@@ -59,6 +59,6 @@ export default {
 	},
 	isScrolledAllTheWayLeft(node) {
 		const scrollLeft = node.scrollLeft
-		return scrollLeft === 0
+		return scrollLeft <= 0
 	}
 }

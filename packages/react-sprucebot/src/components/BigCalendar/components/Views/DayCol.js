@@ -31,12 +31,10 @@ const DayCol = (props: Props) => {
 			.tz(`${props.date.format('YYYY-MM-DD')} ${props.endTime}`, props.timezone)
 			.format('X')
 	)
-	const secondsPerTimeslot = (1 / props.slotsPerHour) * 60 * 60
 	let isActive
 	let now
 
 	const hours = props.hours.map(hour => {
-		const timeslots = []
 		now = hour.timestamp
 		isActive = now >= start && now < end
 
@@ -47,9 +45,7 @@ const DayCol = (props: Props) => {
 					active: isActive,
 					inactive: !isActive
 				})}
-			>
-				{timeslots}
-			</div>
+			/>
 		)
 	})
 
