@@ -11,7 +11,7 @@ stories.addDecorator(withKnobs)
 
 stories.add('Pagination', () => (
 	<Pagination
-		currentPage={number('currentPage', 1)}
+		currentPage={number('currentPage', 0)}
 		totalPages={number('totalPages', 100)}
 		showPages={boolean('showPages', false)}
 		showJump={boolean('showJump', false)}
