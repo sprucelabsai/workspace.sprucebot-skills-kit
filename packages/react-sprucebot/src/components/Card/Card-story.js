@@ -8,6 +8,7 @@ import {
 	boolean,
 	object
 } from '@storybook/addon-knobs/react'
+import { onboarding } from '../../../.storybook/data/onboarding'
 import { userList } from '../../../.storybook/data/people'
 import Container from '../Layout/Container/Container'
 import Card, {
@@ -253,7 +254,7 @@ stories
 	))
 	.add('Onboarding Card', () => (
 		<Container size="medium">
-			<OnboardingCard />
+			<OnboardingCard {...onboarding} />
 		</Container>
 	))
 	.add('CardBuilder', () => (

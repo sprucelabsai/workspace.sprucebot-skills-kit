@@ -11,13 +11,16 @@ export type Props = {
 	isCurrent?: boolean,
 
 	/** Panel to show when this tab is current */
-	panel?: Object
+	panel?: Object,
+
+	/** Optional class */
+	className?: string
 }
 
 const Tab = (props: Props) => {
-	const { text, isCurrent, ...rest } = props
+	const { text, isCurrent, className, ...rest } = props
 	return (
-		<li className="tab">
+		<li className={cx('tab', className)}>
 			<Button
 				className={cx('tab__inner', {
 					'tab--is-current': props.isCurrent
