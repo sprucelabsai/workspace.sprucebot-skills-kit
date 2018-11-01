@@ -36,7 +36,7 @@ type Props = {
 	onDropEvent: Function,
 	scrollDuringDragMargin: Number, // how close to the edge do we need to get before we'll auto scroll for the user
 	dragScrollSpeed: Number, // how many pixels to jump if dragging near edge of scroll
-	indentForAvailableBlock: Number
+	eventRightMargin: Number
 }
 
 type State = {
@@ -53,7 +53,8 @@ class Day extends Component<Props> {
 	static defaultProps = {
 		dragThreshold: 10,
 		scrollDuringDragMargin: 50,
-		dragScrollSpeed: 5
+		dragScrollSpeed: 5,
+		eventRightMargin: 10
 	}
 
 	_timeRangeCache = {}
@@ -303,75 +304,124 @@ class Day extends Component<Props> {
 	getColumnMap = () => {
 		if (!this._columnMapCache) {
 			const { minTime, maxTime, startDate, events } = this.props
-			const todaysEvents = this.eventsForDay(events, startDate)
 			const range = this.getTimeRangeDetails(minTime, maxTime)
 			const totalTimeSlots = range.totalTimeSlots
-			this._columnMapCache = {}
-
 			const slotHeight = this.slotHeight()
+			let endSlot = 0
+
+			const todaysEvents = this.eventsForDay(events, startDate)
+
+			this._columnMapCache = {
+				eventDetails: {}
+			}
 
 			todaysEvents.forEach(event => {
-				// start of event position and slot
 				const currentStart = moment(event.startAt)
-				let maxColumn = 0
+				const eventMap = []
+				const { userId } = event
 
-				const eventStartY = this.timeToY(event.startAt)
-				const eventStartSlot = Math.round(eventStartY / slotHeight)
-
-				const eventEndY = this.timeToY(
-					moment(event.startAt).add(eventUtil.durationSec(event), 'seconds')
-				)
-				const eventEndSlot = Math.round(eventEndY / slotHeight)
-				const busyBySlot = []
-				const userId = event.userId
 				if (!this._columnMapCache[userId]) {
 					this._columnMapCache[userId] = new Array(totalTimeSlots).fill(null)
 				}
-				// blocks track actual position so we know what is busy and what is not
+
+				// STEP 1, build event map (the eventId and busy/available for each timeslot)
 				event.blocks.forEach(block => {
-					// calc block position and slot
 					const startY = this.timeToY(currentStart)
-					const startSlot = Math.round(startY / slotHeight)
+					const blockStartSlot = Math.round(startY / slotHeight)
 					const endAt = moment(currentStart).add(block.durationSec, 'seconds')
 					const endY = this.timeToY(endAt)
-					const endSlot = Math.round(endY / slotHeight)
+					const blockEndSlot = Math.round(endY / slotHeight)
 
-					//find total columns over we must go
-					for (let slot = startSlot; slot < endSlot; slot++) {
+					for (
+						let blockSlot = blockStartSlot;
+						blockSlot < blockEndSlot;
+						blockSlot++
+					) {
+						eventMap[blockSlot] = { eventId: event.id, busy: block.markAsBusy }
+					}
+
+					currentStart.add(block.durationSec, 'seconds')
+					endSlot = blockEndSlot
+				})
+
+				// STEP 2, check which column this event can fit in
+				let column = 0
+				let conflicts
+				do {
+					conflicts = 0
+					eventMap.forEach((details, slot) => {
+						// make sure slot / column exists
 						if (!this._columnMapCache[userId][slot]) {
 							this._columnMapCache[userId][slot] = []
 						}
-						let column = 0
-						while (
-							this._columnMapCache[userId][slot][column] &&
-							block.markAsBusy
+
+						if (!this._columnMapCache[userId][slot][column]) {
+							this._columnMapCache[userId][slot][column] = {}
+						}
+
+						if (
+							details.busy &&
+							this._columnMapCache[userId][slot][column].busy
 						) {
-							column++
+							conflicts++
 						}
-						maxColumn = Math.max(maxColumn, column)
-						while (this._columnMapCache[userId][slot].length < maxColumn) {
-							this._columnMapCache[userId][slot].push(null)
-						}
-
-						//track this slots busy
-						busyBySlot[slot] = !!block.markAsBusy
+					})
+					if (conflicts > 0) {
+						column += 1
 					}
+				} while (conflicts > 0)
 
-					//increment time and end slot
-					currentStart.add(block.durationSec, 'seconds')
+				// STEP 3, slot it in, tracking overlap
+				let overlap = false
+				eventMap.forEach((details, slot) => {
+					if (this._columnMapCache[userId][slot][column].busy === false) {
+						overlap = true
+						this._columnMapCache[userId][slot][column] = {
+							...details,
+							overlapping: 1
+						}
+					} else {
+						this._columnMapCache[userId][slot][column] = details
+					}
 				})
 
-				for (let slot = eventStartSlot; slot < eventEndSlot; slot++) {
-					if (!this._columnMapCache[userId][slot]) {
-						this._columnMapCache[userId][slot] = []
-					}
-					this._columnMapCache[userId][slot][maxColumn] = !busyBySlot[slot]
-						? null
-						: {
-								eventId: event.id,
-								isBusy: busyBySlot[slot]
-						  }
+				// STEP 4, track it for easy retrieval
+				const eventStartY = this.timeToY(event.startAt)
+				const eventStartSlot = Math.round(eventStartY / slotHeight)
+				this._columnMapCache.eventDetails[event.id] = {
+					startSlot: eventStartSlot,
+					endSlot,
+					column,
+					overlapping: overlap
 				}
+			})
+
+			// STEP 5, add additional data around each event to make sizing possible
+			todaysEvents.forEach(event => {
+				const details = this._columnMapCache.eventDetails[event.id]
+				let maxColumns = 0
+				let overlapped = false
+				for (let slot = details.startSlot; slot < details.endSlot; slot++) {
+					overlapped =
+						overlapped ||
+						this._columnMapCache[event.userId][slot][details.column].eventId !==
+							event.id
+
+					if (
+						this._columnMapCache[event.userId][slot][details.column].eventId ===
+							event.id &&
+						this._columnMapCache[event.userId][slot][details.column].busy
+					) {
+						maxColumns = Math.max(
+							maxColumns,
+							this._columnMapCache[event.userId][slot].filter(
+								details => details.busy
+							).length
+						)
+					}
+				}
+				this._columnMapCache.eventDetails[event.id].columns = maxColumns
+				this._columnMapCache.eventDetails[event.id].overlapped = overlapped
 			})
 		}
 
@@ -410,7 +460,7 @@ class Day extends Component<Props> {
 		const dayColHeight = this.dayColHeight()
 
 		if (userIndex > -1 && dayColWidth && dayColHeight) {
-			const { minTime, maxTime, indentForAvailableBlock } = this.props
+			const { minTime, maxTime, eventRightMargin } = this.props
 
 			const eventNode = this.dragGridRef.current.getEventNode(event)
 
@@ -427,78 +477,24 @@ class Day extends Component<Props> {
 			})
 
 			if (event.id !== 'dragging') {
-				const indent = this.eventIndentDetails(event)
 				const colMap = this.getColumnMap()
-				console.log({ colMap, indent })
-				let width = dayColWidth / indent.busyCols
-				let leftIndent = width * indent.startCol
+				const details = colMap.eventDetails[event.id]
+				console.log({ colMap, details })
+				let width = dayColWidth / details.columns
+				let leftIndent = width * details.column
 
-				if (indent.startCol > 0 && indent.maxCols !== indent.busyCols) {
-					// leftIndent = indent.isBusyToLeft * indent.maxCols
-					// width -= leftIndent
+				if (details.overlapped) {
+					width -= eventRightMargin * 2
+				} else if (details.overlapping) {
+					width -= eventRightMargin * 2
+					leftIndent += eventRightMargin
+				} else if (details.column === details.columns - 1) {
+					width -= eventRightMargin
 				}
 
 				eventNode.style.width = width + 'px'
 				eventNode.style.marginLeft = leftIndent + 'px'
 			}
-		}
-	}
-
-	eventIndentDetails = event => {
-		const slotHeight = this.slotHeight()
-		const colMap = this.getColumnMap()
-		const startY = this.timeToY(event.startAt)
-		const endY = this.timeToY(
-			moment(event.startAt).add(eventUtil.durationSec(event), 'seconds')
-		)
-		const startSlot = Math.round(startY / slotHeight)
-		const endSlot = Math.round(endY / slotHeight)
-		let startCol = -1
-		let maxCols = 0
-		let maxLeftBusy = 0
-		let maxRightBusy = 0
-		let amIBusy = 0
-		for (let slot = startSlot; slot < endSlot; slot++) {
-			let isBusyToLeft = 0
-			let isBusyToRight = 0
-			const cols = colMap[event.userId][slot] || []
-			maxCols = Math.max(maxCols, cols.length)
-			for (let col = 0; col < cols.length; col++) {
-				if (
-					cols[col] &&
-					(startCol === -1 ||
-						(cols[startCol] &&
-							cols[startCol].isBusy &&
-							cols[startCol].eventId === event.id))
-				) {
-					if (cols[col].eventId === event.id && startCol === -1) {
-						startCol = col
-						amIBusy = 1
-					} else if (
-						startCol !== col &&
-						cols[col].eventId !== event.id &&
-						cols[col].isBusy
-					) {
-						if (startCol > -1 && col > startCol) {
-							isBusyToRight += 1
-						} else {
-							isBusyToLeft += 1
-						}
-					}
-				}
-			}
-			maxLeftBusy = Math.max(maxLeftBusy, isBusyToLeft)
-			maxRightBusy = Math.max(maxRightBusy, isBusyToRight)
-		}
-		const colsToTheRight = maxCols - (startCol + 1)
-
-		return {
-			startCol,
-			maxCols,
-			colsToTheRight,
-			busyCols: maxLeftBusy + maxRightBusy + amIBusy,
-			isBusyToLeft: maxLeftBusy,
-			isBusyToRight: maxRightBusy
 		}
 	}
 
