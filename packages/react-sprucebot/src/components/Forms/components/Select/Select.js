@@ -5,13 +5,28 @@ import ArrowIcon from '../../../../../static/assets/icons/ic_arrow_drop_down.svg
 import { InputPre, InputHelper } from '../../FormPartials'
 
 type Props = {
+	/** Unique identifier */
 	id: string,
+
+	/** Options for the select */
 	options: Array<string>,
+
+	/** Set true to use the simple variation */
 	isSimple?: boolean,
+
+	/** Parent class */
 	className?: string,
+
+	/** Label text */
 	label?: string,
+
+	/** Text after label */
 	postLabel?: string,
+
+	/** Error text */
 	error?: string,
+
+	/** Helper text */
 	helper?: string
 }
 

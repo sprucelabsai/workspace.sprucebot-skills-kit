@@ -1,7 +1,14 @@
 // @flow
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
+import {
+	withKnobs,
+	withKnobsOptions,
+	text,
+	boolean,
+	number,
+	object
+} from '@storybook/addon-knobs/react'
 import {
 	userList,
 	userList02,
@@ -10,6 +17,8 @@ import {
 import Container from '../Layout/Container/Container'
 import List, { ListWrapper } from './List'
 import ListHeader from './components/ListHeader/ListHeader'
+import ListItem from './components/ListItem/ListItem'
+import Icon from '../Icon/Icon'
 import Tabs from '../Tabs/Tabs'
 import SortableList from './components/SortableList/SortableList'
 import EditIcon from '../../../static/assets/icons/Interface-Essential/Edit/pencil-write.svg'
@@ -77,15 +86,46 @@ class TabbedList extends Component<TabbedProps, TabbedState> {
 	}
 }
 
+stories.addDecorator(
+	withKnobsOptions({
+		escapeHTML: false
+	})
+)
+
 stories.addDecorator(withKnobs)
 
 stories
+	.add('List Item', () => (
+		<Container size="small">
+			<ListItem
+				title={text('title', 'Wed, Oct 28')}
+				subtitle={text('subtitle', '9am–4pm')}
+				avatar={text('avatar', '')}
+				image={text('image', '')}
+				icon={
+					text('icon', '') && (
+						<Icon
+							className={text(
+								'iconClassName',
+								'u-icon__no-fill u-icon__stroke'
+							)}
+							icon={text('icon', '')}
+						/>
+					)
+				}
+				isDraggable={boolean('isDraggable', false)}
+				actions={object('actions', [])}
+				toggleId={text('toggleId', '')}
+				contextMenu={object('contextMenu', null)}
+			/>
+		</Container>
+	))
 	.add('Text List', () => (
 		<Container size="small">
 			<List
-				header={{ title: 'Holidays' }}
-				isSmall={boolean('Small', false)}
-				items={[
+				header={object('header: text list', { title: 'Holidays' })}
+				isSmall={boolean('isSmall', false)}
+				items={object('items: text list', [
 					{
 						title: 'Wed, Nov 28, 2018',
 						subtitle: 'Closed'
@@ -98,13 +138,13 @@ stories
 						title: 'Wed, Dec 25, 2018',
 						subtitle: 'Closed'
 					}
-				]}
+				])}
 			/>
 			<SortableList
-				header={{ title: 'Services' }}
-				isSmall={boolean('Small', false)}
+				header={object('header: sortable list', { title: 'Services' })}
+				isSmall={boolean('isSmall', false)}
 				onConfirm={() => console.log('Confirmed!')}
-				items={[
+				items={object('items: sortable list', [
 					{
 						title: 'Clean Up',
 						subtitle: '$20 | 15min',
@@ -135,12 +175,12 @@ stories
 							actions: threeTextActions
 						}
 					}
-				]}
+				])}
 			/>
 			<List
-				header={{ title: 'Important Dates' }}
-				isSmall={boolean('Small', false)}
-				items={[
+				header={object('header: dates list', { title: 'Important Dates' })}
+				isSmall={boolean('isSmall', false)}
+				items={object('items: dates list', [
 					{
 						icon: <DateIcon className="u-icon__no-fill u-icon__stroke" />,
 						title: 'Wed, Nov 28, 2018',
@@ -156,15 +196,15 @@ stories
 						title: 'Wed, Dec 25, 2018',
 						subtitle: 'Closed'
 					}
-				]}
+				])}
 			/>
 		</Container>
 	))
 	.add('Settings List', () => (
 		<Container size="small">
 			<List
-				header={{ title: 'Settings' }}
-				items={[
+				header={object('header', { title: 'Settings' })}
+				items={object('items', [
 					{
 						title: 'Barber',
 						toggleId: 'barber'
@@ -185,18 +225,18 @@ stories
 						title: 'Style Consulting',
 						toggleId: 'style-consulting'
 					}
-				]}
+				])}
 			/>
 			<List
-				header={{ title: 'Settings' }}
-				isSmall={boolean('Small', false)}
-				items={[
+				header={object('header', { title: 'Settings' })}
+				isSmall={boolean('isSmall', false)}
+				items={object('items: two', [
 					{
 						title: 'Hide this category',
 						subtitle: 'Guests cannot book hidden services',
 						toggleId: 'hide-category'
 					}
-				]}
+				])}
 			/>
 		</Container>
 	))
@@ -225,8 +265,8 @@ stories
 						}
 					]
 				}}
-				isSmall={boolean('Small', false)}
-				items={userList}
+				isSmall={boolean('isSmall', false)}
+				items={object('items', userList)}
 			/>
 		</Container>
 	))

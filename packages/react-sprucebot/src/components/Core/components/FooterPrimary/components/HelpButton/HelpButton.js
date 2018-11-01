@@ -4,8 +4,13 @@ import Button from '../../../../../Button/Button'
 import HelpIcon from '../../../../../../../static/assets/icons/Interface-Essential/Help/question-help-square--16w.svg'
 
 type Props = {
+	/** Class for the button */
 	className: string,
+
+	/** Class for the icon */
 	iconClassName: string,
+
+	/** Class for the text */
 	textClassName: string
 }
 

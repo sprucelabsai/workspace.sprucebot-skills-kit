@@ -3,23 +3,36 @@ import React, { Component, Fragment } from 'react'
 import { default as ReactAutosuggest } from 'react-autosuggest'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
-import {
-	InputPre,
-	InputPreProps,
-	InputHelper,
-	InputHelperProps
-} from '../../FormPartials'
+import { InputPre, InputHelper } from '../../FormPartials'
+import type { InputPreProps, InputHelperProps } from '../../FormPartials'
 import ClearIcon from '../../../../../static/assets/icons/ic_cancel.svg'
 
 type Props = {
+	/** Teach Autosuggest how to calculate suggestions for any given input value. */
 	getSuggestions: Function,
+
+	/** Implement it to teach Autosuggest what should be the input value when suggestion is clicked. */
 	getSuggestionValue: Function,
+
+	/** Defines how suggestions will be rendered */
 	renderSuggestion: Function,
+
+	/** Supply default suggestions that can be shown without input */
 	defaultSuggestions?: Array<any>,
+
+	/** Placeholder for the input */
 	placeholder?: string,
+
+	/** Optional input props */
 	inputPre?: InputPreProps,
+
+	/** Optional input props */
 	inputHelper?: InputHelperProps,
+
+	/** Set true to make the input less tall */
 	isSmall?: boolean,
+
+	/** Adds a class to the Autosuggest's wrapper */
 	wrapperClassName?: string
 }
 

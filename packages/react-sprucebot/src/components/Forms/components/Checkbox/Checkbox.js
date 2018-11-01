@@ -6,10 +6,19 @@ import CheckIconNo from '../../../../../static/assets/icons/ic_check_box_outline
 import CheckIconMaybe from '../../../../../static/assets/icons/ic_indeterminate_check_box.svg'
 
 type Props = {
+	/** Unique identifier */
 	id: string,
+
+	/** Input label and text after checkbox icon */
 	label: string,
+
+	/** Optional text to show below the label */
 	postText: string,
+
+	/** Class for the checkbox wrapper */
 	className: ?string,
+
+	/** Set true if the checkbox is indeterminate */
 	isIndeterminate?: boolean
 }
 

@@ -13,9 +13,16 @@ type State = {
 	isUserMenuVisible: boolean
 }
 type Props = {
+	/** The logged-in user */
 	user?: Object,
+
+	/** The current business */
 	business?: Object,
+
+	/** Handler to toggle sidebar visibility */
 	toggleSidebarVisibility: Function,
+
+	/** Set true to show the sidebar (small screens only) */
 	sidebarIsVisible: boolean
 }
 

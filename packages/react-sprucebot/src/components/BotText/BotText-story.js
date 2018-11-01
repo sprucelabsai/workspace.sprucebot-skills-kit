@@ -12,8 +12,8 @@ stories.addDecorator(withKnobs)
 stories.add('Bot Text', () => (
 	<Container size="small">
 		<BotText
-			text={text('Text', 'Hey there from Sprucebot 🌲🤖')}
-			className={text('Class', '')}
+			text={text('text', 'Hey there from Sprucebot 🌲🤖')}
+			className={text('className', '')}
 		/>
 	</Container>
 ))

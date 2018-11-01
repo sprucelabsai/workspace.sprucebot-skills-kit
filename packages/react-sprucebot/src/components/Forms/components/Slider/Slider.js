@@ -3,12 +3,25 @@ import React, { Component } from 'react'
 import { InputPre } from '../../FormPartials'
 
 type Props = {
+	/** Label text */
 	label: string,
+
+	/** Unique identifier */
 	id: string,
+
+	/** Minimum value */
 	min: number,
+
+	/** Maximum value */
 	max: number,
+
+	/** Current value */
 	value: number,
+
+	/** Text to show after the label */
 	postLabel: ?string,
+
+	/** Callback after the slider updates its own value */
 	onChange?: Function
 }
 

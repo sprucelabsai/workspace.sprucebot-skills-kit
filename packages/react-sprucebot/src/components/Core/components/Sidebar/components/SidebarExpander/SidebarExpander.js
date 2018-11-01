@@ -5,8 +5,13 @@ import ExpandIcon2 from '../../../../../../../static/assets/icons/ic_keyboard_ar
 import CollapseIcon2 from '../../../../../../../static/assets/icons/ic_keyboard_arrow_left.svg'
 
 type Props = {
+	/** Set true to expand the sidebar */
 	isExpanded: boolean,
+
+	/** Handler to toggle sidebar visibility (large screens only) */
 	toggleExpanded: Function,
+
+	/** Handler to force the sidebar closed */
 	forceCloseSidebar: Function
 }
 

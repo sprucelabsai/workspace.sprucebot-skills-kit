@@ -1,10 +1,14 @@
 // @flow
 import React from 'react'
 import cx from 'classnames'
-import Button, { Props as ButtonProps } from '../Button/Button'
+import Button from '../Button/Button'
+import type { Props as ButtonProps } from '../Button/Button'
 
 type Props = {
+	/** Array of actions to render the group's buttons. */
 	actions: Array<ButtonProps>,
+
+	/** Visual appearance of the group. */
 	kind?: 'default' | 'segmented' | 'floating'
 }
 
@@ -28,6 +32,13 @@ const ButtonGroup = (props: Props) => {
 							kind={kind ? btnKindKey[kind] : ''}
 							isFullWidth={kind === 'floating'}
 							{...action}
+							kind={
+								kind === 'floating'
+									? 'simple'
+									: kind === 'segmented'
+										? 'secondary'
+										: action.kind
+							}
 						/>
 					</li>
 				)

@@ -5,7 +5,10 @@ import cx from 'classnames'
 import { InputPre, InputHelper } from '../../FormPartials'
 
 type Props = {
+	/** Label text */
 	label: string,
+
+	/** Set true to make the input less tall */
 	isSmall?: boolean
 }
 

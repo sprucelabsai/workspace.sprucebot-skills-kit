@@ -2,16 +2,26 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 import { VelocityTransitionGroup } from 'velocity-react'
-import Button, { Props as ButtonProps } from '../Button/Button'
+import Button from '../Button/Button'
+import type { Props as ButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import Icon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
 
-export interface Props {
-	actions: Array<ButtonProps>;
-	isLeftAligned?: boolean;
-	size?: 'medium' | 'large';
-	icon?: any;
-	isSimple?: boolean;
+export type Props = {
+	/** The actions to be shown on tap/click */
+	actions: Array<ButtonProps>,
+
+	/** Set true to left align the menu */
+	isLeftAligned?: boolean,
+
+	/** Set the width of the menu. Helpful for longer text in buttons */
+	size?: 'medium' | 'large',
+
+	/** Overrides the default icon */
+	icon?: any,
+
+	/** Set true to make the button blue */
+	isSimple?: boolean
 }
 
 type State = {

@@ -1,7 +1,13 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
+import {
+	withKnobs,
+	withKnobsOptions,
+	text,
+	boolean,
+	number
+} from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
 import Avatar from './Avatar'
 
@@ -12,29 +18,30 @@ import userImageLg from '../../../static/assets/users/user-01--96w.png'
 
 const stories = storiesOf('Avatar', module)
 
+stories.addDecorator(
+	withKnobsOptions({
+		escapeHTML: false
+	})
+)
 stories.addDecorator(withKnobs)
 
 stories.add('Avatar', () => (
 	<Container size="small">
 		<Avatar
 			image={
-				boolean('Large', false)
-					? boolean('Default Image', false)
-						? defaultImageLg
-						: userImageLg
-					: boolean('Default Image', false)
-						? defaultImage
-						: userImage
+				boolean('isLarge', false)
+					? text('image', '') || defaultImageLg
+					: text('image', '') || defaultImage
 			}
-			alt="Default User Image"
-			name={text('Name', '')}
-			text={text('Text', '')}
-			isLarge={boolean('Large', false)}
-			isVertical={boolean('Vertical', false)}
-			showIndicator={boolean('Show Indicator', false)}
-			status={boolean('Online', false) ? 'online' : 'offline'}
-			width={number('Width', null)}
-			height={number('Height', null)}
+			alt={text('alt', 'Name')}
+			isLarge={boolean('isLarge', false)}
+			isVertical={boolean('isVertical', false)}
+			showIndicator={boolean('showIndicator', false)}
+			status={text('status', 'online')}
+			name={text('name', '')}
+			text={text('text', '')}
+			width={number('width', null)}
+			height={number('height', null)}
 		/>
 	</Container>
 ))
