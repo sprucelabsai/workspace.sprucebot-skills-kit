@@ -23,9 +23,10 @@ type Props = {
 	defaultEndTime: String,
 	allUsers: Array<Object>,
 	headerDateFormat: String,
-	location: Object,
+	timezone: String,
 	allEvents: Array<Object>,
-	onDropEvent: Function
+	onDropEvent: Function,
+	viewProps: Object
 }
 type State = {
 	selectedView: 'day' | 'week' | 'month',
@@ -37,7 +38,7 @@ type State = {
 	currentUsers: Array<Object>,
 	bodyHeight: Number,
 	bodyWidth: Number,
-	viewHeight: Number,
+	calendarBodyHeight: Number,
 	currentHorizontalPage: Number,
 	totalHorizontalPages: Number
 }
@@ -51,7 +52,8 @@ class BigCalendar extends Component<Props, State> {
 		defaultStartTime: '07:00',
 		defaultEndTime: '20:00',
 		headerDateFormat: 'MMMM YYYY',
-		allEvents: []
+		allEvents: [],
+		viewProps: {}
 	}
 	state = {
 		selectedView: this.props.defaultView,
@@ -62,7 +64,7 @@ class BigCalendar extends Component<Props, State> {
 		currentUsers: this.props.allUsers,
 		bodyWidth: sizeUtils.bodyWidth(),
 		bodyHeight: sizeUtils.bodyHeight(),
-		viewHeight: 0
+		calendarBodyHeight: 0
 	}
 
 	constructor(props) {
@@ -93,7 +95,7 @@ class BigCalendar extends Component<Props, State> {
 		} else if (this.props.startDate && moment(this.props.startDate).isValid()) {
 			defaultStartDate = moment(this.props.startDate)
 		} else {
-			defaultStartDate = moment.tz(new Date(), this.props.location.timezone)
+			defaultStartDate = moment.tz(new Date(), this.props.timezone)
 		}
 		return defaultStartDate
 	}
@@ -106,19 +108,19 @@ class BigCalendar extends Component<Props, State> {
 
 		//get node for scroll wrapper
 		const scrollNode = this.domNodeRef.current.querySelectorAll(
-			'.bigcalendar__scroll-wrapper'
+			'.bigcalendar__drag-grid'
 		)[0]
 
 		// calc positions
 		const scrollTop = sizeUtils.getTop(scrollNode)
 		const width = sizeUtils.bodyWidth()
 		const height = sizeUtils.bodyHeight()
-		const viewHeight = height - scrollTop
+		const calendarBodyHeight = height - scrollTop
 
 		this.setState({
 			bodyWidth: width,
 			bodyHeight: height,
-			viewHeight
+			calendarBodyHeight
 		})
 	}
 
@@ -160,13 +162,13 @@ class BigCalendar extends Component<Props, State> {
 		return VIEWS[v]
 	}
 
-	generateTimeGutterHours = memoize((min, max) => {
-		const times = []
-		const {
-			location: { timezone }
-		} = this.props
+	getViewProps = () => {
+		return this.props.viewProps[this.state.selectedView] || {}
+	}
 
-		const { startDate } = this.state
+	generateTimeGutterHours = memoize((startDate, min, max) => {
+		const times = []
+		const { timezone } = this.props
 
 		const current = moment.tz(
 			`${startDate.format('YYYY-MM-DD')} ${min}:00`,
@@ -207,18 +209,15 @@ class BigCalendar extends Component<Props, State> {
 			this.selectedViewRef.current.handleHorizontalPageBack()
 	}
 
-	handleDropEvent = async event => {
-		const { onDropEvent } = this.props
-		return onDropEvent && onDropEvent(event)
-	}
-
 	render() {
 		const {
 			className,
 			headerDateFormat,
-			location,
 			slotsPerHour,
-			allEvents
+			allEvents,
+			onDropEvent,
+			timezone,
+			eventRightMargin
 		} = this.props
 
 		const {
@@ -231,16 +230,17 @@ class BigCalendar extends Component<Props, State> {
 			currentUsers,
 			bodyWidth,
 			bodyHeight,
-			viewHeight,
+			calendarBodyHeight,
 			currentHorizontalPage,
 			totalHorizontalPages
 		} = this.state
 
 		const parentClass = cx('bigcalendar', className, {})
-		const hours = this.generateTimeGutterHours(minTime, maxTime)
+		const hours = this.generateTimeGutterHours(startDate, minTime, maxTime)
 
 		// load the view
 		const View = this.getViewDetails().View
+		const viewProps = this.getViewProps()
 
 		return (
 			<div
@@ -266,6 +266,7 @@ class BigCalendar extends Component<Props, State> {
 				/>
 				<div className="bigcalendar__view-wrapper">
 					<View
+						{...viewProps}
 						ref={this.selectedViewRef}
 						onUpdateHorizontalPagerDetails={
 							this.handleUpdateHorizontalPagerDetails
@@ -274,16 +275,15 @@ class BigCalendar extends Component<Props, State> {
 						events={allEvents}
 						slotsPerHour={slotsPerHour}
 						onScroll={this.handleViewScroll}
-						viewHeight={viewHeight}
+						calendarBodyHeight={calendarBodyHeight}
 						hours={hours}
 						users={currentUsers}
-						location={location}
 						minTime={minTime}
 						maxTime={maxTime}
 						startTime={startTime}
 						endTime={endTime}
-						location={location}
-						onDropEvent={this.handleDropEvent}
+						timezone={timezone}
+						onDropEvent={onDropEvent}
 					/>
 				</div>
 			</div>
