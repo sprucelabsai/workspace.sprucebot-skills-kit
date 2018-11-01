@@ -47,7 +47,7 @@ stories.add('Event Details', () => (
 						}
 					},
 					{
-						icon: <NoteIcon className="u-icon__no-fill u-icon__stroke" />,
+						icon: <NoteIcon isLineIcon />,
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
@@ -58,14 +58,12 @@ stories.add('Event Details', () => (
 						]
 					},
 					{
-						icon: (
-							<Icon icon="date" className="u-icon__no-fill u-icon__stroke" />
-						),
+						icon: <Icon icon="date" isLineIcon />,
 						title: 'Mon, Oct 27, 2018',
 						subtitle: '9–10:30am'
 					},
 					{
-						icon: <ServiceIcon className="u-icon__no-fill u-icon__stroke" />,
+						icon: <ServiceIcon isLineIcon />,
 						title: 'Services',
 						subtitle:
 							'<p>Beard Tinting</p><p>Head Shave</p><p>$42 | 1hr 30min</p>',
@@ -81,7 +79,7 @@ stories.add('Event Details', () => (
 						]
 					},
 					{
-						icon: <StatusIcon className="u-icon__no-fill u-icon__stroke" />,
+						icon: <StatusIcon isLineIcon />,
 						title: 'Status',
 						subtitle: 'Not checked in',
 						contextMenu: {

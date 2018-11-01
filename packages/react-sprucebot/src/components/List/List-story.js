@@ -105,10 +105,7 @@ stories
 				icon={
 					text('icon', '') && (
 						<Icon
-							className={text(
-								'iconClassName',
-								'u-icon__no-fill u-icon__stroke'
-							)}
+							isLineIcon={boolean('isLineIcon', true)}
 							icon={text('icon', '')}
 						/>
 					)
@@ -159,7 +156,7 @@ stories
 						title: 'Shampoo',
 						subtitle: '$7 | 45min',
 						contextMenu: {
-							icon: <EditIcon />,
+							icon: <Icon icon="edit" isLineIcon />,
 							size: 'large',
 							isSimple: true,
 							actions: threeTextActions
@@ -169,7 +166,7 @@ stories
 						title: 'Young Spruce',
 						subtitle: '$23 | 50min',
 						contextMenu: {
-							icon: <EditIcon />,
+							icon: <Icon icon="edit" isLineIcon />,
 							size: 'large',
 							isSimple: true,
 							actions: threeTextActions
