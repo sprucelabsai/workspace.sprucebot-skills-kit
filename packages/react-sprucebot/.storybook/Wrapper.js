@@ -7,6 +7,7 @@ import '@sprucelabs/heartwood-components/stylesheets/global.scss'
 const Wrapper = props => {
 	const stylesheets =
 		process.env.STYLESHEETS && process.env.STYLESHEETS.split(',')
+	console.log({ stylesheets })
 
 	if (!props.STORYBOOKwrap) {
 		return (
