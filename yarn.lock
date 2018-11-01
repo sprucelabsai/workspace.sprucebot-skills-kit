@@ -2013,10 +2013,10 @@
     into-stream "^3.1.0"
     lodash "^4.17.4"
 
-"@sprucelabs/heartwood-components@0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/heartwood-components/-/heartwood-components-0.8.1.tgz#811d0fab9b8de16d4b79826bf2ef6940b0dfb4d0"
-  integrity sha512-6VoayPhFTap3jy+eCgzJVls6C7vlbbRp1WA1ib556V1Dwe7eukH1HqlerfOoYnq4Dml+/s3E8nXmXbFkdfPgbQ==
+"@sprucelabs/heartwood-components@0.8.2":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@sprucelabs/heartwood-components/-/heartwood-components-0.8.2.tgz#5299d143946ccf11106023e6d9c8a77361cf1f9e"
+  integrity sha512-lY1gtVg3Tt5G6Aiw3iAPyJ96w7P62+Zbpeb0SE18CHgZm6Xb+Mq6VsBLu/qhr4RzBWpokNMFYmINPFFML2DD7g==
   dependencies:
     "@frctl/fractal" "^1.1.5"
     "@frctl/handlebars" "^1.1.5"
