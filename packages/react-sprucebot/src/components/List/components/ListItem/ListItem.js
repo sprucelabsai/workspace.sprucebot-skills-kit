@@ -55,7 +55,7 @@ const ListItem = (props: Props) => {
 		'list-item-title-only': !subtitle,
 		'list-item--is-draggable': isDraggable
 	})
-	console.log({ icon })
+
 	return (
 		<li className={parentClass}>
 			{(image || icon || avatar) &&
