@@ -186,9 +186,15 @@ class Day extends Component<Props> {
 		}
 	}
 
-	snapEventToNearestValidX = x => {
+	snapEventToNearestValidX = ({
+		clientX,
+		dragNodeLeft,
+		event,
+		block,
+		blockIdx
+	}) => {
 		const dayColWidth = this.dayColWidth()
-		const nearest = Math.round(x / dayColWidth)
+		const nearest = Math.floor(clientX / dayColWidth)
 		return Math.max(
 			0,
 			Math.min(this.props.users.length - 1, nearest) * dayColWidth
@@ -230,6 +236,10 @@ class Day extends Component<Props> {
 		const dayColWidth = this.dayColWidth()
 		const nearest = Math.round(y / dayColWidth)
 		return this.props.users[nearest]
+	}
+
+	getDragNode = ({ event, block, blockIdx, dragEventNode, dragBlockNode }) => {
+		return blockIdx === 0 ? dragEventNode : dragBlockNode
 	}
 
 	handleDropOfEvent = async (event, newX, newY) => {
@@ -464,7 +474,6 @@ class Day extends Component<Props> {
 
 		if (userIndex > -1 && dayColWidth && dayColHeight) {
 			const { minTime, maxTime, eventRightMargin } = this.props
-
 			const eventNode = this.dragGridRef.current.getEventNode(event)
 
 			//height for blocks
@@ -482,7 +491,6 @@ class Day extends Component<Props> {
 			if (event.id !== 'dragging') {
 				const colMap = this.getColumnMap()
 				const details = colMap.eventDetails[event.id]
-				console.log({ colMap, details })
 				let width = dayColWidth / details.columns
 				let leftIndent = width * details.column
 
@@ -554,6 +562,7 @@ class Day extends Component<Props> {
 						onMouseDown={this.handleViewMouseDown}
 					/>
 					<DragGrid
+						getDragNode={this.getDragNode}
 						snapEventToNearestValidX={this.snapEventToNearestValidX}
 						snapEventToNearestValidY={this.snapEventToNearestValidY}
 						onScroll={this.handleScroll}

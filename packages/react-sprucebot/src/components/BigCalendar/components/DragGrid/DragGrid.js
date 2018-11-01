@@ -17,7 +17,8 @@ type Props = {
 	scrollDuringDragMargin: Number, // how close to the edge do we need to get before we'll auto scroll for the user
 	dragScrollSpeed: Number, // how many pixels to jump if dragging near edge of scroll
 	events: Array<Object>,
-	timezone: String
+	timezone: String,
+	getDragNode: Function
 }
 
 type State = {
@@ -46,6 +47,12 @@ class DragGrid extends Component<Props> {
 		return this.domNodeRef.current.querySelector(
 			`[data-event-id='${event.id}']`
 		)
+	}
+
+	getBlockNode = (event, blockIdx) => {
+		return this.domNodeRef.current.querySelectorAll(
+			`[data-event-id='${event.id}'] .bigcalendar__event-block`
+		)[blockIdx]
 	}
 
 	getScrollLeft = () => {
@@ -141,14 +148,10 @@ class DragGrid extends Component<Props> {
 			e.preventDefault()
 			e.stopPropagation()
 
-			this._pendingDrag = { event, block, idx }
+			this._pendingDrag = { event, block, blockIdx: idx }
 			this._startingDragPoint = { x: e.clientX, y: e.clientY }
 
-			if (idx === 0) {
-				window.addEventListener('mousemove', this.handleDragOfEvent)
-			} else {
-				window.addEventListener('mousemove', this.handleDragOfBlock)
-			}
+			window.addEventListener('mousemove', this.handleDragOfEvent)
 			window.addEventListener('mouseup', this.handleMouseUpOfEvent)
 		}
 	}
@@ -185,7 +188,6 @@ class DragGrid extends Component<Props> {
 		const { dragEvent } = this.state
 
 		if (dragEvent) {
-			const { type } = this._activeDrag
 			const { clientX, clientY } = e
 			const {
 				scrollDuringDragMargin,
@@ -199,7 +201,8 @@ class DragGrid extends Component<Props> {
 				offsetY,
 				wrapperLeft,
 				wrapperTop,
-				dragEventHeight
+				dragEventHeight,
+				sourceEvent
 			} = this._activeDrag
 
 			//if we are close to an edge, lets scroll that first
@@ -230,9 +233,12 @@ class DragGrid extends Component<Props> {
 			const scrollTop = this.domNodeRef.current.scrollTop
 			const scrollLeft = this.domNodeRef.current.scrollLeft
 
-			const x = this.props.snapEventToNearestValidX(
-				normalizedClientX + scrollLeft - offsetX
-			)
+			const x = this.props.snapEventToNearestValidX({
+				dragNodeLeft: normalizedClientX + scrollLeft - offsetX,
+				clientX: normalizedClientX + scrollLeft,
+				dragEvent,
+				sourceEvent: sourceEvent
+			})
 			const y = this.props.snapEventToNearestValidY(
 				normalizedClientY + scrollTop - offsetY,
 				dragEventHeight
@@ -255,16 +261,12 @@ class DragGrid extends Component<Props> {
 
 			const distance = Math.sqrt(a * a + b * b)
 			if (distance >= this.props.dragThreshold) {
-				if (this._pendingDrag.idx === 0) {
-					this.startDragOfEvent(e, this._pendingDrag.event)
-				} else {
-					this.startDragOfBlock(
-						e,
-						this._pendingDrag.event,
-						this._pendingDrag.block,
-						this._pendingDrag.idx
-					)
-				}
+				this.startDragOfEvent({
+					e,
+					event: this._pendingDrag.event,
+					block: this._pendingDrag.block,
+					blockIdx: this._pendingDrag.blockIdx
+				})
 				this._pendingDrag = null
 			}
 		}
@@ -319,7 +321,7 @@ class DragGrid extends Component<Props> {
 		}
 	}
 
-	startDragOfEvent = async (e, event) => {
+	startDragOfEvent = async ({ e, event, block, blockIdx }) => {
 		//clone the event and render it in the dom
 		const dragEvent = cloneDeep(event)
 		dragEvent.originalId = dragEvent.id
@@ -328,15 +330,27 @@ class DragGrid extends Component<Props> {
 		await this.setState({ dragEvent })
 
 		// make sure the event is the right size
-		const { sizeEvent, onDragEvent } = this.props
+		const { sizeEvent, onDragEvent, getDragNode } = this.props
 		sizeEvent(dragEvent)
 
 		// place this event right over the dragged one
 		const eventNode = this.getEventNode(event)
+		const blockNode = this.getBlockNode(event, blockIdx)
 		const dragEventNode = this.getEventNode(dragEvent)
+		const dragBlockNode = this.getBlockNode(dragEvent, blockIdx)
 
 		dragEventNode.style.left = eventNode.style.left
 		dragEventNode.style.top = eventNode.style.top
+
+		const dragNode = !getDragNode
+			? dragEventNode
+			: getDragNode({
+					event,
+					block,
+					blockIdx,
+					dragEventNode,
+					dragBlockNode
+			  })
 
 		//calculate offset to keep event in proper position relative to the mouse
 		const { clientX, clientY } = e
@@ -357,12 +371,16 @@ class DragGrid extends Component<Props> {
 				parseFloat(eventNode.style.marginLeft))
 
 		this._activeDrag = {
-			type: 'event',
 			dragEvent,
 			sourceEvent: event,
+			block: block,
+			blockIdx: blockIdx,
 			dragEventNode,
+			dragBlockNode,
+			dragNode,
 			dragEventHeight: size.getHeight(dragEventNode),
 			sourceEventNode: eventNode,
+			sourceBlockNode: blockNode,
 			offsetX,
 			offsetY,
 			wrapperLeft,
@@ -387,6 +405,7 @@ class DragGrid extends Component<Props> {
 			onDropEvent,
 			onDragEvent,
 			sizeEvent,
+			getDragNode,
 			...props
 		} = this.props
 
