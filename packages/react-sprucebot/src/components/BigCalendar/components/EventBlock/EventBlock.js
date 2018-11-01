@@ -16,7 +16,7 @@ const EventBlock = (props: Props) => {
 
 	return (
 		<div
-			className={cx('bigcalendar__event-block', className, {
+			className={cx('bigcalendar__event-block', className, block.className, {
 				busy: block.markAsBusy,
 				available: !block.markAsBusy
 			})}

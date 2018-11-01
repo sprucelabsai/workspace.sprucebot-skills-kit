@@ -15,7 +15,10 @@ const Event = (props: Props) => {
 	const { event, className, onMouseDown, timezone, ...rest } = props
 	let startAt = moment.tz(event.startAt, timezone)
 	return (
-		<div className={cx('bigcalendar__event', className)} {...rest}>
+		<div
+			className={cx('bigcalendar__event', className, event.className)}
+			{...rest}
+		>
 			{event.blocks.map((block, idx) => {
 				const eventBlock = (
 					<EventBlock

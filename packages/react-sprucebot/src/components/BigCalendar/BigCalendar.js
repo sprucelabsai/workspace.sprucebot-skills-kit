@@ -216,8 +216,7 @@ class BigCalendar extends Component<Props, State> {
 			slotsPerHour,
 			allEvents,
 			onDropEvent,
-			timezone,
-			eventRightMargin
+			timezone
 		} = this.props
 
 		const {

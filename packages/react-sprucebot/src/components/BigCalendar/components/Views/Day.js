@@ -420,7 +420,10 @@ class Day extends Component<Props> {
 						)
 					}
 				}
-				this._columnMapCache.eventDetails[event.id].columns = maxColumns
+				this._columnMapCache.eventDetails[event.id].columns = Math.max(
+					maxColumns,
+					this._columnMapCache.eventDetails[event.id].column + 1
+				)
 				this._columnMapCache.eventDetails[event.id].overlapped = overlapped
 			})
 		}
