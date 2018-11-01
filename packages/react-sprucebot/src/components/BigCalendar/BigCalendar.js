@@ -25,7 +25,8 @@ type Props = {
 	headerDateFormat: String,
 	timezone: String,
 	allEvents: Array<Object>,
-	onDropEvent: Function
+	onDropEvent: Function,
+	indentForAvailableBlock: Number
 }
 type State = {
 	selectedView: 'day' | 'week' | 'month',
@@ -51,7 +52,8 @@ class BigCalendar extends Component<Props, State> {
 		defaultStartTime: '07:00',
 		defaultEndTime: '20:00',
 		headerDateFormat: 'MMMM YYYY',
-		allEvents: []
+		allEvents: [],
+		indentForAvailableBlock: 10
 	}
 	state = {
 		selectedView: this.props.defaultView,
@@ -210,7 +212,8 @@ class BigCalendar extends Component<Props, State> {
 			slotsPerHour,
 			allEvents,
 			onDropEvent,
-			timezone
+			timezone,
+			indentForAvailableBlock
 		} = this.props
 
 		const {
@@ -258,6 +261,7 @@ class BigCalendar extends Component<Props, State> {
 				/>
 				<div className="bigcalendar__view-wrapper">
 					<View
+						indentForAvailableBlock={indentForAvailableBlock}
 						ref={this.selectedViewRef}
 						onUpdateHorizontalPagerDetails={
 							this.handleUpdateHorizontalPagerDetails

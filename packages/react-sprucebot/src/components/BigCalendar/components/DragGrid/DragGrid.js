@@ -350,7 +350,11 @@ class DragGrid extends Component<Props> {
 		const offsetY =
 			clientY - wrapperTop - parseFloat(eventNode.style.top) + scrollTop
 		const offsetX =
-			clientX - wrapperLeft + scrollLeft - parseFloat(eventNode.style.left)
+			clientX -
+			wrapperLeft +
+			scrollLeft -
+			(parseFloat(eventNode.style.left) +
+				parseFloat(eventNode.style.marginLeft))
 
 		this._activeDrag = {
 			type: 'event',

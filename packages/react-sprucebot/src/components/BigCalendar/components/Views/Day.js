@@ -35,7 +35,8 @@ type Props = {
 	dragThreshold: Number, // how far to drag before actually initiating drag
 	onDropEvent: Function,
 	scrollDuringDragMargin: Number, // how close to the edge do we need to get before we'll auto scroll for the user
-	dragScrollSpeed: Number // how many pixels to jump if dragging near edge of scroll
+	dragScrollSpeed: Number, // how many pixels to jump if dragging near edge of scroll
+	indentForAvailableBlock: Number
 }
 
 type State = {
@@ -85,6 +86,8 @@ class Day extends Component<Props> {
 	componentDidUpdate(prevProps) {
 		const { events, startDate } = this.props
 		if (prevProps.events !== events || prevProps.startDate !== startDate) {
+			// reset all event cache
+			this._columnMapCache = null
 			this.placeAndSize()
 		}
 	}
@@ -253,9 +256,9 @@ class Day extends Component<Props> {
 
 		if (firstDayCol) {
 			//size events
-			const { startDate } = this.props
+			const { startDate, events } = this.props
 
-			this.eventsForDay(startDate).forEach(event => {
+			this.eventsForDay(events, startDate).forEach(event => {
 				this.placeEvent(event)
 				this.sizeEvent(event)
 			})
@@ -286,8 +289,8 @@ class Day extends Component<Props> {
 		return dayColHeight / range.totalTimeSlots
 	}
 
-	eventsForDay = memoize(date => {
-		const { events, timezone } = this.props
+	eventsForDay = memoize((events, date) => {
+		const { timezone } = this.props
 		return sortBy(
 			events.filter(event => {
 				const eventStart = moment.tz(event.startAt, timezone)
@@ -299,8 +302,8 @@ class Day extends Component<Props> {
 
 	getColumnMap = () => {
 		if (!this._columnMapCache) {
-			const { minTime, maxTime, startDate } = this.props
-			const todaysEvents = this.eventsForDay(startDate)
+			const { minTime, maxTime, startDate, events } = this.props
+			const todaysEvents = this.eventsForDay(events, startDate)
 			const range = this.getTimeRangeDetails(minTime, maxTime)
 			const totalTimeSlots = range.totalTimeSlots
 			this._columnMapCache = {}
@@ -315,7 +318,10 @@ class Day extends Component<Props> {
 				const eventStartY = this.timeToY(event.startAt)
 				const eventStartSlot = Math.round(eventStartY / slotHeight)
 
-				let eventEndSlot = eventStartSlot
+				const eventEndY = this.timeToY(
+					moment(event.startAt).add(eventUtil.durationSec(event), 'seconds')
+				)
+				const eventEndSlot = Math.round(eventEndY / slotHeight)
 				const busyBySlot = []
 				const userId = event.userId
 				if (!this._columnMapCache[userId]) {
@@ -335,8 +341,11 @@ class Day extends Component<Props> {
 						if (!this._columnMapCache[userId][slot]) {
 							this._columnMapCache[userId][slot] = []
 						}
-						const column = 0
-						while (this._columnMapCache[userId][slot][column]) {
+						let column = 0
+						while (
+							this._columnMapCache[userId][slot][column] &&
+							block.markAsBusy
+						) {
 							column++
 						}
 						maxColumn = Math.max(maxColumn, column)
@@ -350,14 +359,18 @@ class Day extends Component<Props> {
 
 					//increment time and end slot
 					currentStart.add(block.durationSec, 'seconds')
-					eventEndSlot = endSlot
 				})
 
 				for (let slot = eventStartSlot; slot < eventEndSlot; slot++) {
-					this._columnMapCache[userId][slot][maxColumn] = {
-						eventId: event.id,
-						isBusy: busyBySlot[slot]
+					if (!this._columnMapCache[userId][slot]) {
+						this._columnMapCache[userId][slot] = []
 					}
+					this._columnMapCache[userId][slot][maxColumn] = !busyBySlot[slot]
+						? null
+						: {
+								eventId: event.id,
+								isBusy: busyBySlot[slot]
+						  }
 				}
 			})
 		}
@@ -374,32 +387,6 @@ class Day extends Component<Props> {
 		const dayColHeight = this.dayColHeight()
 
 		if (userIndex > -1 && dayColWidth && dayColHeight) {
-			const slotHeight = this.slotHeight()
-			const colMap = this.getColumnMap()
-
-			const startY = this.timeToY(event.startAt)
-			const endY = this.timeToY(
-				moment(event.startAt).add(eventUtil.durationSec(event), 'seconds')
-			)
-			const startSlot = Math.round(startY / slotHeight)
-			const endSlot = Math.round(endY / slotHeight)
-			let startCol = -1
-			let maxCols = 0
-
-			for (let slot = startSlot; slot < endSlot; slot++) {
-				const cols = colMap[event.userId][slot]
-				maxCols = Math.max(maxCols, cols.length)
-				if (startCol === -1) {
-					for (let col = 0; col < cols.length; col++) {
-						if (cols[col] && cols[col].eventId === event.id) {
-							startCol = col
-							break
-						}
-					}
-				}
-			}
-			const colsToTheRight = maxCols - (startCol + 1)
-
 			//left
 			const left = userIndex * dayColWidth
 			eventNode.style.left = `${left}px`
@@ -417,22 +404,102 @@ class Day extends Component<Props> {
 	}
 
 	sizeEvent = event => {
-		const { minTime, maxTime } = this.props
-
+		const { users } = this.props
+		const userIndex = findIndex(users, u => u.id === event.userId)
+		const dayColWidth = this.dayColWidth()
 		const dayColHeight = this.dayColHeight()
-		const eventNode = this.dragGridRef.current.getEventNode(event)
 
-		//height for blocks
-		const blockNodes = eventNode.querySelectorAll('.bigcalendar__event-block')
-		const dayColTimeRangeDetails = this.getTimeRangeDetails(minTime, maxTime)
+		if (userIndex > -1 && dayColWidth && dayColHeight) {
+			const { minTime, maxTime, indentForAvailableBlock } = this.props
 
-		event.blocks.forEach((block, idx) => {
-			const height =
-				(block.durationSec / dayColTimeRangeDetails.seconds) * dayColHeight
+			const eventNode = this.dragGridRef.current.getEventNode(event)
 
-			const node = blockNodes[idx]
-			node.style.height = `${height}px`
-		})
+			//height for blocks
+			const blockNodes = eventNode.querySelectorAll('.bigcalendar__event-block')
+			const dayColTimeRangeDetails = this.getTimeRangeDetails(minTime, maxTime)
+
+			event.blocks.forEach((block, idx) => {
+				const height =
+					(block.durationSec / dayColTimeRangeDetails.seconds) * dayColHeight
+
+				const node = blockNodes[idx]
+				node.style.height = `${height}px`
+			})
+
+			if (event.id !== 'dragging') {
+				const indent = this.eventIndentDetails(event)
+				const colMap = this.getColumnMap()
+				console.log({ colMap, indent })
+				let width = dayColWidth / indent.busyCols
+				let leftIndent = width * indent.startCol
+
+				if (indent.startCol > 0 && indent.maxCols !== indent.busyCols) {
+					// leftIndent = indent.isBusyToLeft * indent.maxCols
+					// width -= leftIndent
+				}
+
+				eventNode.style.width = width + 'px'
+				eventNode.style.marginLeft = leftIndent + 'px'
+			}
+		}
+	}
+
+	eventIndentDetails = event => {
+		const slotHeight = this.slotHeight()
+		const colMap = this.getColumnMap()
+		const startY = this.timeToY(event.startAt)
+		const endY = this.timeToY(
+			moment(event.startAt).add(eventUtil.durationSec(event), 'seconds')
+		)
+		const startSlot = Math.round(startY / slotHeight)
+		const endSlot = Math.round(endY / slotHeight)
+		let startCol = -1
+		let maxCols = 0
+		let maxLeftBusy = 0
+		let maxRightBusy = 0
+		let amIBusy = 0
+		for (let slot = startSlot; slot < endSlot; slot++) {
+			let isBusyToLeft = 0
+			let isBusyToRight = 0
+			const cols = colMap[event.userId][slot] || []
+			maxCols = Math.max(maxCols, cols.length)
+			for (let col = 0; col < cols.length; col++) {
+				if (
+					cols[col] &&
+					(startCol === -1 ||
+						(cols[startCol] &&
+							cols[startCol].isBusy &&
+							cols[startCol].eventId === event.id))
+				) {
+					if (cols[col].eventId === event.id && startCol === -1) {
+						startCol = col
+						amIBusy = 1
+					} else if (
+						startCol !== col &&
+						cols[col].eventId !== event.id &&
+						cols[col].isBusy
+					) {
+						if (startCol > -1 && col > startCol) {
+							isBusyToRight += 1
+						} else {
+							isBusyToLeft += 1
+						}
+					}
+				}
+			}
+			maxLeftBusy = Math.max(maxLeftBusy, isBusyToLeft)
+			maxRightBusy = Math.max(maxRightBusy, isBusyToRight)
+		}
+		const colsToTheRight = maxCols - (startCol + 1)
+
+		return {
+			startCol,
+			maxCols,
+			colsToTheRight,
+			busyCols: maxLeftBusy + maxRightBusy + amIBusy,
+			isBusyToLeft: maxLeftBusy,
+			isBusyToRight: maxRightBusy
+		}
 	}
 
 	sizeTimeLine = () => {
@@ -464,7 +531,8 @@ class Day extends Component<Props> {
 			slotsPerHour,
 			startTime,
 			endTime,
-			startDate
+			startDate,
+			events
 		} = this.props
 
 		const { scrollTop, scrollLeft } = this.state
@@ -491,7 +559,7 @@ class Day extends Component<Props> {
 						snapEventToNearestValidY={this.snapEventToNearestValidY}
 						onScroll={this.handleScroll}
 						ref={this.dragGridRef}
-						events={this.eventsForDay(startDate)}
+						events={this.eventsForDay(events, startDate)}
 						sizeEvent={this.sizeEvent}
 						timezone={timezone}
 						onDragEvent={this.handleDragOfEvent}
