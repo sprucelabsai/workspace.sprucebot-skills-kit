@@ -9,15 +9,29 @@ import Tabs from '../../Tabs/Tabs'
 import type { Props as ButtonProps } from '../../Button/Button'
 
 type Step = {
+	/** Unique identifier */
 	id: string,
+
+	/** Title that shows in the tab */
 	tabTitle: string,
+
+	/** Title that shows in the panel */
 	panelTitle: string,
+
+	/** Copy describing the step in the card's body */
 	panelCopy: string,
+
+	/** Primary CTA of this step */
 	panelCTA: ButtonProps
 }
 type Props = {
+	/** Title of the entire card */
 	title: string,
+
+	/** Steps for onboarding */
 	steps: Array<Step>,
+
+	/** Optional class to add */
 	className?: string
 }
 type State = {
