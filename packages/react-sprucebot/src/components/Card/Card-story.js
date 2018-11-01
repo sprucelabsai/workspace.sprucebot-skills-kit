@@ -10,7 +10,7 @@ import {
 } from '@storybook/addon-knobs/react'
 import { userList } from '../../../.storybook/data/people'
 import Container from '../Layout/Container/Container'
-import Card, { CardHeader, CardBody, CardFooter, CardBuilder } from './Card'
+import Card, { CardHeader, CardBody, CardFooter, CardBuilder } from './index'
 import List from '../List/List'
 import { H3, Text, Anchor } from '../Text/Text'
 import Image from '../Image/Image'
