@@ -41,6 +41,7 @@ module.exports = async ({
 	bodyParserOptions = { jsonLimit: '1mb' },
 	slug = required('slug'),
 	logLevel = 'warn',
+	logUseColors = true,
 	env = 'default',
 	packageName,
 	packageVersion,
@@ -86,6 +87,7 @@ module.exports = async ({
 	log.setOptions({
 		level: logLevel,
 		useSourcemaps: false,
+		useColors: logUseColors,
 		appName: slug,
 		appKey: metricsAppKey,
 		appEnv: env,
