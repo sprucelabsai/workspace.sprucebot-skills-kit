@@ -36,7 +36,7 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
-		"@sprucelabs/log": "^1.5.0",
+		"@sprucelabs/log": "^1.6.1",
 		"@sprucelabs/react-sprucebot": "^7.7.0",
 		"@sprucelabs/sprucebot-node": "^7.7.0",
 		"@sprucelabs/sprucebot-skills-kit-server": "^7.7.0",
@@ -68,7 +68,7 @@
 	"devDependencies": {
 		"@semantic-release/changelog": "^3.0.0",
 		"@semantic-release/git": "^7.0.1",
-		"@sprucelabs/semantic-release": "^1.0.0",
+		"@sprucelabs/semantic-release": "^1.0.1",
 		"babel-jest": "^23.6.0",
 		"conventional-changelog-sprucelabs": "^1.1.0",
 		"eslint": "^4.9.0",
@@ -81,7 +81,7 @@
 		"nodemon": "^1.18.3",
 		"prettier": "^1.13",
 		"raf": "^3.4.0",
-		"semantic-release": "^15.9.8",
+		"semantic-release": "^15.10.6",
 		"svgo": "^1.0.3"
 	},
 	"gitHead": "eac8d4ea6df58218b78c9c866b22c761df1e6447"
