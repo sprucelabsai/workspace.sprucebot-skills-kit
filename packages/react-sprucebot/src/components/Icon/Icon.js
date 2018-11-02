@@ -2,6 +2,8 @@
 // NOTE: This component should only include a few of the most commonly
 // used icons for developer convenience
 import React from 'react'
+import cx from 'classnames'
+
 import Add from '../../../static/assets/icons/ic_add_circle_outline.svg'
 import CalendarDate from '../../../static/assets/icons/Interface-Essential/Date/Calendar/calendar-date.svg'
 import Close from '../../../static/assets/icons/ic_close.svg'
@@ -10,7 +12,10 @@ import Edit from '../../../static/assets//icons/Interface-Essential/Edit/pencil-
 
 type Props = {
 	/** The name of the icon to render. If not found, this will return null. */
-	icon: string
+	icon: string,
+
+	/** Set true to render an icon with a stroke, but no fill */
+	isLineIcon?: boolean
 }
 
 const key = {
@@ -22,7 +27,7 @@ const key = {
 }
 
 const Icon = (props: Props) => {
-	const { icon, ...rest } = props
+	const { icon, isLineIcon, ...rest } = props
 
 	if (!icon || !key[icon.toLowerCase()]) {
 		// TODO: handle logging
@@ -31,7 +36,15 @@ const Icon = (props: Props) => {
 	}
 	const Handler = key[icon.toLowerCase()]
 
-	return <Handler {...rest} />
+	return (
+		<Handler
+			className={cx({
+				'u-icon__no-fill': isLineIcon,
+				'u-icon__stroke': isLineIcon
+			})}
+			{...rest}
+		/>
+	)
 }
 
 export default Icon
