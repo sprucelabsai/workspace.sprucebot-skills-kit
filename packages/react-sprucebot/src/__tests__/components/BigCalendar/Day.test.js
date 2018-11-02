@@ -14,6 +14,7 @@ describe('Day View tests', () => {
 	let props
 	let teammateHeader
 	let timeGutter
+	let dragGrid
 
 	beforeEach(() => {
 		props = {
@@ -39,11 +40,13 @@ describe('Day View tests', () => {
 
 		teammateHeader = renderedComponent.find('TeammateHeader')
 		timeGutter = renderedComponent.find('TimeGutter')
+		dragGrid = renderedComponent.find('DragGrid')
 	})
 
 	it('Renders', () => {
 		expect(renderedComponent.exists()).toEqual(true)
 		expect(teammateHeader.exists()).toEqual(true)
 		expect(timeGutter.exists()).toEqual(true)
+		expect(dragGrid.exists()).toEqual(true)
 	})
 })
