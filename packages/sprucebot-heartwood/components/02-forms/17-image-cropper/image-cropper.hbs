@@ -1,0 +1,15 @@
+<div class="image-cropper">
+	<div class="image-cropper__dropzone-wrapper">
+		{{> @dropzone }}
+	</div>
+	<div class="image-cropper__controls-row">
+		{{> @button className="btn-secondary image-cropper__rotate-btn" icon='<path fill="none" d="M2.28931 7.02463C2.38311 6.73282 2.49969 6.44884 2.63797 6.17529" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M2.046 9.61643C2.01516 9.36874 1.9998 9.11937 2 8.86977C2 8.67554 2.00911 8.48377 2.02734 8.29443" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M2.92601 12.0738C2.6988 11.7145 2.51041 11.3322 2.36401 10.9331" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M4.77524 13.9333C4.41301 13.7032 4.07643 13.435 3.77124 13.1333" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M7.32003 14.8318C6.8866 14.7827 6.45984 14.6863 6.04736 14.5444" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M6.66675 2.83301H8.00008C11.1886 2.84234 13.8166 5.33644 13.9926 8.52009C14.1686 11.7037 11.8315 14.4723 8.66341 14.833" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M9.00008 1.1665L6.66675 2.83317L9.00008 4.49984" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/>' width="16" height="16" text="Rotate Left" disabled=true}}
+		{{> @button className="btn-secondary image-cropper__rotate-btn" icon='<path fill="none" d="M13.7105 7.02463C13.6167 6.73282 13.5001 6.44884 13.3618 6.17529" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M13.9539 9.61643C13.9847 9.36874 14.0001 9.11937 13.9999 8.86977C13.9999 8.67554 13.9907 8.48377 13.9725 8.29443" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M13.074 12.0736C13.3013 11.714 13.4897 11.3312 13.636 10.9316" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M11.2246 13.9333C11.5868 13.7032 11.9234 13.435 12.2286 13.1333" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M8.67993 14.8318C9.11336 14.7827 9.54012 14.6863 9.9526 14.5444" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M9.33324 2.83301H7.99991C4.81141 2.84234 2.18335 5.33644 2.00736 8.52009C1.83138 11.7037 4.16853 14.4723 7.33657 14.833" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M7 1.1665L9.33333 2.83317L7 4.49984" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/>' width="16" height="16" text="Rotate Right" disabled=true}}
+	</div>
+	<div class="image-cropper__controls-row">
+	{{> @slider label="Scale" postLabel="100%"}}
+	</div>
+	<div class="image-cropper__controls-row">
+	{{> @button className="btn-primary btn-full-width" disabled=true text="Save"}}
+	</div>
+</div>

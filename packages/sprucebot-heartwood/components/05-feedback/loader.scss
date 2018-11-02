@@ -1,0 +1,32 @@
+@keyframes a-loading {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.loader {
+	display: flex;
+	align-items: center;
+}
+
+.loader__dot {
+	display: inline-block;
+	width: rem(8);
+	height: rem(8);
+	background-color: $c-white;
+	border-radius: 100%;
+	animation: a-loading 600ms ease-in-out infinite alternate;
+
+	&:not(:last-child) {
+		margin-right: rem(4);
+	}
+
+	@for $i from 1 through 3 {
+		&:nth-child(#{$i}) {
+			animation-delay: #{$i * 80}ms;
+		}
+	}
+}

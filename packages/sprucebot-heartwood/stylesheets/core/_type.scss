@@ -1,0 +1,118 @@
+/**
+Font Famillies
+*/
+$font-family-primary: 'Source Sans Pro', 'Roboto', 'Helvetica Neue' !default;
+$font-family-label: 'Source Code Pro', Courier, monospace !default;
+
+/**
+Set the base font size
+*/
+$font-size-base: #{$browser-context}px !default;
+
+/**
+Font Weights
+*/
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default;
+$font-weight-bold: 600 !default;
+
+/**
+Line Heights
+*/
+$line-height: 1.25 !default;
+$line-height-tight: 1.125 !default;
+$line-height-loose: 1.5 !default;
+
+/**
+Type Scale
+*/
+$typescale-map: (
+	'label': 0.6875rem,
+	'legal': 0.75rem,
+	'ui': 0.875rem,
+	'body': 1rem,
+	'h4': 1.125rem,
+	'h3': 1.25rem,
+	'h2': 1.5rem,
+	'h1': 2rem,
+	'big-h4': 3.75rem,
+	'big-h3': 4.25rem,
+	'big-h2': 4.75rem,
+	'big-h1': 5.25rem
+);
+
+@mixin typescale($size) {
+  @if map-has-key($typescale-map, $size) {
+    font-size: map-get($typescale-map, $size);
+  } @else {
+    @warn 'This is not a step of the Heartwood Type Scale!';
+  }
+}
+
+/**
+Kerning Setup
+*/
+
+@mixin type-kerning {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	font-feature-settings: 'kern' 1;
+}
+
+
+/**
+Pre-rolled type styles
+*/
+@mixin type-style-body {
+	@include typescale('body');
+	line-height: $line-height;
+	font-weight: $font-weight-normal;
+}
+
+@mixin type-style-body-em {
+	@include typescale('body');
+	line-height: $line-height;
+	font-weight: $font-weight-bold;
+}
+
+@mixin type-style-body-sm {
+	@include typescale('ui');
+	line-height: $line-height;
+	font-weight: $font-weight-normal;
+}
+
+@mixin type-style-body-sm-em {
+	@include typescale('ui');
+	line-height: $line-height;
+	font-weight: $font-weight-bold;
+}
+
+@mixin type-style-h4 {
+	@include typescale('h4');
+	line-height: $line-height-tight;
+	font-weight: $font-weight-bold;
+}
+
+@mixin type-style-h3 {
+	@include typescale('h3');
+	line-height: $line-height-tight;
+}
+
+@mixin type-style-h2 {
+	@include typescale('h2');
+	line-height: $line-height-tight;
+}
+
+@mixin type-style-h1 {
+	@include typescale('h1');
+	line-height: $line-height-tight;
+}
+
+@mixin type-style-label {
+	@include typescale('label');
+	font-family: $font-family-label;
+	font-weight: $font-weight-medium;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}

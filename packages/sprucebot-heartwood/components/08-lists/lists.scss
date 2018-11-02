@@ -1,0 +1,185 @@
+.list-header,
+.list-header__actions {
+	display: flex;
+}
+
+.list-header {
+	justify-content: space-between;
+	width: 100%;
+	padding-left: rem(16);
+}
+
+.list-header__text {
+	@include type-style-h3;
+	padding: rem(12) 0;
+
+	.list-header-small & {
+		padding: rem(4) 0;
+	}
+}
+
+.list-header__actions {
+	padding: rem(4) 0;
+}
+
+.list-header__title {
+	font-weight: $font-weight-bold;
+
+	.list-header-small & {
+		@include type-style-label;
+	}
+}
+
+.list-header__subtitle {
+	color: $c-text-light;
+}
+
+.list-header__action-secondary {
+	color: $c-text-light;
+}
+
+.list {
+	padding: 0 rem(16);
+	margin-bottom: rem(16);
+}
+
+.list-item {
+	@include typescale('body');
+	display: flex;
+	position: relative;
+
+	&:after {
+		content: '';
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		background-color: $c-border;
+	}
+
+	.list-small & {
+		@include typescale('ui')
+	}
+
+	.sortable-list & {
+		user-select: none;
+	}
+
+	* {
+		// background-color: rgba(0,0,100,0.1);
+	}
+}
+
+.list-item--is-draggable {
+	cursor: move;
+}
+
+.list-item__text-wrapper {
+	flex: 1 1 auto;
+	padding: rem(12) rem(8) rem(12) 0;
+
+	.list-small & {
+		padding: rem(8) rem(8) rem(8) 0;
+	}
+
+	.list-item-title-only & {
+		display: inline-flex;
+		align-items: center;
+	}
+}
+
+.list-item__title {
+	font-weight: $font-weight-bold;
+	
+	.list-item-title-only & {
+		font-weight: $font-weight-normal;
+	}
+}
+
+.list-item__subtitle {
+	color: $c-text-light;
+}
+
+.list-item__image-wrapper,
+.list-item__actions-wrapper,
+.list-item .toggle__wrapper {
+	flex: 0 0 auto;
+}
+
+.list-item__image-wrapper {
+	padding: rem(12) 0;
+	margin-right: rem(8);
+	line-height: 0;
+
+	.list-small & {
+		padding: rem(8) 0;
+	}
+}
+.list-item__actions-wrapper {
+	padding-top: rem(8);
+
+	.list-small & {
+		padding-top: 0;
+	}
+}
+
+.list-item__icon {
+	position: relative;
+	// top: 3px;
+	width: rem(20);
+	height: rem(20);
+
+	// .list-small & {
+	// 	top: 1px;
+	// }
+}
+
+.list-item .toggle__wrapper {
+	align-items: flex-start;
+	padding-top: rem(10);
+
+	.list-small & {
+		padding-top: rem(4);
+	}
+}
+
+.drag-handle {
+	width: rem(20);
+	height: rem(20);
+	margin: rem(14) rem(8) 0 0;
+	fill: $c-text-icon;
+}
+
+.list-item-title-only {
+
+	// Exception for People List only shows name
+	&.people-list  {
+		.list-item__actions-wrapper,
+		.list-item__text-wrapper {
+			display: inline-flex;
+			align-items: center;
+		}
+	}
+
+	// Handle icon layout
+	// .btn__inner {
+	// 	align-items: flex-start;
+	// }
+
+	// .list-item__image-wrapper,
+	.list-item__actions-wrapper {
+		padding-top: rem(2);
+	}
+}
+
+// List wrapper helper class
+.list-wrapper {
+	padding: 0 rem(16);
+
+	.list-header,
+	.list {
+		padding: 0;
+	}
+}

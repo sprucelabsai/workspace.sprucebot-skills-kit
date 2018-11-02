@@ -1,0 +1,7 @@
+.form-row {
+	margin-bottom: rem(24);
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}

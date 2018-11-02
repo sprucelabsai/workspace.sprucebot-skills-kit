@@ -1,0 +1,35 @@
+<div class="text-input__inner">
+{{#if iconBefore}}
+	{{> @icon icon=iconBefore class="text-input__icon-pre"}}
+{{/if}}
+{{#if phoneNumber }}
+	{{> @phone-country-input }}
+{{/if}}
+{{#if creditCard }}
+	{{> @credit-card-icon }}
+{{/if}}
+<input
+	type="{{ type }}"
+	class="text-input__input"
+	placeholder="{{placeholder}}"
+	{{#if value}}value="{{value}}"{{/if}}
+	{{#if name}}name="{{ name }}"{{/if}}
+	{{#if id}}id="{{ id }}"{{/if}}
+	{{#if readonly}}readonly{{/if}}
+/>
+{{#if appendix}}
+<p class="text-input__appendix">{{ appendix }}</p>
+{{/if}}
+{{#if iconAfter}}
+		{{> @simple-button icon=iconAfter className="text-input__clear-btn"}}
+{{/if}}
+{{!-- {{#if search }}
+	{{#if value}}
+		{{#unless readonly}}
+		<button class="btn btn-simple text-input__clear-btn">
+			{{> @cancel-icon}}
+		</button>
+		{{/unless}}
+	{{/if}}
+{{/if}} --}}
+</div>

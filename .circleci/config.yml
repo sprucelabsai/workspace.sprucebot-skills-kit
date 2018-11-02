@@ -23,6 +23,9 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - run: export SHA=$(git rev-parse --short HEAD) && npm run publish -- prerelease --yes --preid pre-$SHA --message "%s [skip ci]" --npm-client npm  --no-git-tag-version --no-push --npm-tag canary
+      - run: yarn build-statics
+      - run: yarn s3-sync-heartwood-canary
+      - run: yarn s3-sync-storybook-canary
   dev_release:
     docker:
       - image: circleci/node:8
@@ -38,6 +41,9 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - run: npm run publish -- --yes --force-publish --npm-tag beta --message "%s [skip ci]" --npm-client npm
+      - run: yarn build-statics
+      - run: yarn s3-sync-heartwood-dev
+      - run: yarn s3-sync-storybook-dev
   prod_release:
     docker:
       - image: circleci/node:8
@@ -53,6 +59,9 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - run: npx lerna exec --no-bail --no-private --no-sort --stream -- '[ -n "$(npm v . dist-tags.beta)" ] && npm dist-tag add ${LERNA_PACKAGE_NAME}@$(npm v . dist-tags.beta) latest'
+      - run: yarn build-statics
+      - run: yarn s3-sync-heartwood-prod
+      - run: yarn s3-sync-storybook-prod
 workflows:
   version: 2
   do_build:

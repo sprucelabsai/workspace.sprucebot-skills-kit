@@ -1,0 +1,7 @@
+<li class="tab">
+	{{#if isCurrent}}
+		{{> @button className="tab__inner tab--is-current" icon=tabIcon}}
+	{{else}}
+		{{> @button className="tab__inner" icon=tabIcon}}
+	{{/if}}
+</li>

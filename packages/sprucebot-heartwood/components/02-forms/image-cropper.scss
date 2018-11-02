@@ -1,0 +1,22 @@
+.image-cropper__dropzone-wrapper,
+.image-cropper__controls-row {
+	display: flex;
+	justify-content: center;
+}
+
+.image-cropper__dropzone-wrapper {
+	margin-bottom: rem(24);
+}
+
+.image-cropper__controls-row {
+	margin-bottom: rem(16);
+}
+
+.image-cropper__rotate-btn {
+	width: 50%;
+	margin-right: rem(16);
+
+	&:last-child {
+		margin-right: 0;
+	}
+}

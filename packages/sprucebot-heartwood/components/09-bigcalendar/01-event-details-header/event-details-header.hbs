@@ -1,0 +1,15 @@
+<div class="event-details-header">
+	{{#if canGoBack}}
+		{{> @button className="event-details-header__button btn-small" icon='<path fill-rule="evenodd" clip-rule="evenodd" d="M16.6663 9.16665H6.52467L11.183 4.50831L9.99967 3.33331L3.33301 9.99998L9.99967 16.6666L11.1747 15.4916L6.52467 10.8333H16.6663V9.16665V9.16665Z"/>'}}
+	{{/if}}
+	<div class="event-details-header__text-wrapper">
+		<p class="event-details-header__label">{{label}}</p>
+		<p class="event-details-header__title">{{title}}</p>
+	</div>
+	<div class="event-details-header__actions-wrapper">
+		{{#if contextMenu}}
+			{{> @context-menu actions=contextMenu.actions isSmall=true leftAlign=true}}
+		{{/if}}
+		{{> @button className="event-details-header__button btn-small" icon='<path fill-rule="evenodd" clip-rule="evenodd" d="M15.8334 5.3415L14.6584 4.1665L10.0001 8.82484L5.34175 4.1665L4.16675 5.3415L8.82508 9.99984L4.16675 14.6582L5.34175 15.8332L10.0001 11.1748L14.6584 15.8332L15.8334 14.6582L11.1751 9.99984L15.8334 5.3415Z"/>'}}
+	</div>
+</div>
