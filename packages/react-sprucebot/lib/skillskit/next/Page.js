@@ -53,6 +53,8 @@ var _lang = _interopRequireDefault(require("../helpers/lang"));
 
 var _router = _interopRequireWildcard(require("next/router"));
 
+var _app = require("next/app");
+
 var _is_js = _interopRequireDefault(require("is_js"));
 
 var debug = require('debug')('@sprucelabs/react-sprucebot');
@@ -101,9 +103,18 @@ var Page = function Page(Wrapped) {
             return;
           }
         });
-        (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleRouteChangStart", function () {
+        (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleRouteChangeComplete", function () {
+          if (_this.props.config.METRICS_ENABLED && _this.props.config.METRICS_BROWSER_STATS_ENABLED) {
+            log.routeChangeComplete();
+          }
+        });
+        (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleRouteChangeStart", function () {
           // don't user skill off props, it is pulled server side and lacks all functions
           _index.default.notifyOfRouteChangeStart();
+
+          if (_this.props.config.METRICS_ENABLED && _this.props.config.METRICS_BROWSER_STATS_ENABLED) {
+            log.routeChangeStart();
+          }
         });
         _this.state = {
           attemptingReAuth: !!props.attemptingReAuth,
@@ -138,7 +149,7 @@ var Page = function Page(Wrapped) {
                     } // NOTE: Need to do this require here so that we can be sure the global window is defined
 
 
-                    WebFont = require("webfontloader"); //eslint-disable-line
+                    WebFont = require('webfontloader'); //eslint-disable-line
 
                     WebFont.load({
                       google: {
@@ -146,7 +157,8 @@ var Page = function Page(Wrapped) {
                       }
                     }); // setup route changes
 
-                    _router.default && _router.default.router && _router.default.router.events.on('routeChangeStart', this.handleRouteChangStart); // window listeners for reauth communication
+                    _router.default && _router.default.router && _router.default.router.events.on('routeChangeStart', this.handleRouteChangeStart);
+                    _router.default && _router.default.router && _router.default.router.events.on('routeChangeComplete', this.handleRouteChangeComplete); // window listeners for reauth communication
 
                     window.addEventListener('message', this.handleIframeMessage); // setup event listeners
 
@@ -160,7 +172,7 @@ var Page = function Page(Wrapped) {
 
                     (_document$body$classL = document.body.classList).add.apply(_document$body$classL, bodyClassNames);
 
-                  case 9:
+                  case 10:
                   case "end":
                     return _context.stop();
                 }
@@ -181,7 +193,8 @@ var Page = function Page(Wrapped) {
           _index.default.removeEventListener('did-update-user', this.props.actions.events.didUpdateUser); // remove route changes
 
 
-          _router.default && _router.default.router && _router.default.router.events.off('routeChangeStart', this.handleRouteChangStart);
+          _router.default && _router.default.router && _router.default.router.events.off('routeChangeStart', this.handleRouteChangeStart);
+          _router.default && _router.default.router && _router.default.router.events.off('routeChangeComplete', this.handleRouteChangeComplete);
         }
       }, {
         key: "render",
@@ -191,7 +204,7 @@ var Page = function Page(Wrapped) {
           }
 
           if (this.props.config.DEV_MODE) {
-            return _react.default.createElement("div", null, this.state.isIframed ? _react.default.createElement("style", {
+            return _react.default.createElement(_app.Container, null, this.state.isIframed ? _react.default.createElement("style", {
               jsx: true,
               global: true
             }, "\n\t\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t") : null, _react.default.createElement(_DevControls.default, {
@@ -202,7 +215,7 @@ var Page = function Page(Wrapped) {
             })));
           }
 
-          return _react.default.createElement("div", null, this.state.isIframed ? _react.default.createElement("style", {
+          return _react.default.createElement(_app.Container, null, this.state.isIframed ? _react.default.createElement("style", {
             jsx: true,
             global: true
           }, "\n\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t") : null, _react.default.createElement(ConnectedWrapped, (0, _extends2.default)({}, this.props, {

@@ -33,7 +33,7 @@ var _reactAvatarEditor = _interopRequireDefault(require("react-avatar-editor"));
 
 var _Button = _interopRequireDefault(require("../Button/Button"));
 
-var _Dropzone = _interopRequireWildcard(require("../Dropzone/Dropzone"));
+var _Dropzone = _interopRequireDefault(require("../Dropzone/Dropzone"));
 
 var _Forms = require("../Forms");
 

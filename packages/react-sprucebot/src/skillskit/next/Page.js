@@ -9,6 +9,7 @@ import Loader from '../../components/Loader/Loader'
 import qs from 'qs'
 import lang from '../helpers/lang'
 import Router, { withRouter } from 'next/router'
+import { Container } from 'next/app'
 import is from 'is_js'
 
 const debug = require('debug')('@sprucelabs/react-sprucebot')
@@ -165,7 +166,7 @@ const Page = Wrapped => {
 			}
 
 			// NOTE: Need to do this require here so that we can be sure the global window is defined
-			const WebFont = require("webfontloader"); //eslint-disable-line
+			const WebFont = require('webfontloader') //eslint-disable-line
 			WebFont.load({
 				google: {
 					families: ['Material Icons']
@@ -175,7 +176,14 @@ const Page = Wrapped => {
 			// setup route changes
 			Router &&
 				Router.router &&
-				Router.router.events.on('routeChangeStart', this.handleRouteChangStart)
+				Router.router.events.on('routeChangeStart', this.handleRouteChangeStart)
+
+			Router &&
+				Router.router &&
+				Router.router.events.on(
+					'routeChangeComplete',
+					this.handleRouteChangeComplete
+				)
 
 			// window listeners for reauth communication
 			window.addEventListener('message', this.handleIframeMessage)
@@ -212,12 +220,37 @@ const Page = Wrapped => {
 			// remove route changes
 			Router &&
 				Router.router &&
-				Router.router.events.off('routeChangeStart', this.handleRouteChangStart)
+				Router.router.events.off(
+					'routeChangeStart',
+					this.handleRouteChangeStart
+				)
+			Router &&
+				Router.router &&
+				Router.router.events.off(
+					'routeChangeComplete',
+					this.handleRouteChangeComplete
+				)
 		}
 
-		handleRouteChangStart = () => {
+		handleRouteChangeComplete = () => {
+			if (
+				this.props.config.METRICS_ENABLED &&
+				this.props.config.METRICS_BROWSER_STATS_ENABLED
+			) {
+				log.routeChangeComplete()
+			}
+		}
+
+		handleRouteChangeStart = () => {
 			// don't user skill off props, it is pulled server side and lacks all functions
 			skill.notifyOfRouteChangeStart()
+
+			if (
+				this.props.config.METRICS_ENABLED &&
+				this.props.config.METRICS_BROWSER_STATS_ENABLED
+			) {
+				log.routeChangeStart()
+			}
 		}
 
 		render() {
@@ -226,7 +259,7 @@ const Page = Wrapped => {
 			}
 			if (this.props.config.DEV_MODE) {
 				return (
-					<div>
+					<Container>
 						{this.state.isIframed ? (
 							<style jsx global>{`
 								html,
@@ -237,11 +270,11 @@ const Page = Wrapped => {
 						) : null}
 						<DevControls auth={this.props.auth} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
-					</div>
+					</Container>
 				)
 			}
 			return (
-				<div>
+				<Container>
 					{this.state.isIframed ? (
 						<style jsx global>{`
 							html,
@@ -251,7 +284,7 @@ const Page = Wrapped => {
 						`}</style>
 					) : null}
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
-				</div>
+				</Container>
 			)
 		}
 	}

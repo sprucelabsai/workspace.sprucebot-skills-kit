@@ -85,7 +85,7 @@ function (_Component) {
         isOpen: isOpen,
         onAfterOpen: this.onAfterOpen,
         onRequestClose: this.onRequestClose,
-        isSmall: true
+        isSmall: (0, _react3.boolean)('isSmall', true)
       }, _react.default.createElement(_Modal.default.Header, {
         title: title,
         onRequestClose: this.onRequestClose,
@@ -106,6 +106,7 @@ function (_Component) {
         helper: "Add a short teaser for your guests to see when they browse your services.",
         rows: 3
       })), _react.default.createElement(_Forms.FormRow, null, _react.default.createElement(_Forms.Checkbox, {
+        id: "hide-category",
         label: "Hide this category",
         postText: "It will still be visible to your teammates, but will be hidden from guests."
       }))), includeFooter && _react.default.createElement(_Modal.default.Footer, {
@@ -132,9 +133,59 @@ var stories = (0, _react2.storiesOf)('Modal', module);
 stories.addDecorator(_react3.withKnobs);
 stories.add('Modal', function () {
   return _react.default.createElement(ModalExample, {
-    title: (0, _react3.text)('Title', 'New Service Category'),
-    canGoBack: (0, _react3.boolean)('Show Back Button', false),
-    includeFooter: (0, _react3.boolean)('Show Footer', true),
-    hasSecondaryButton: (0, _react3.boolean)('Show Secondary Action', false)
+    title: (0, _react3.text)('title', 'New Service Category'),
+    canGoBack: (0, _react3.boolean)('handleGoBack', false),
+    includeFooter: (0, _react3.boolean)('Modal.Footer', true),
+    hasSecondaryButton: (0, _react3.boolean)('secondaryAction', false)
   });
+}).add('static', function () {
+  return _react.default.createElement(_Modal.default, {
+    isOpen: (0, _react3.boolean)('isOpen', true),
+    onAfterOpen: function onAfterOpen() {
+      return console.log('onAfterOpen');
+    },
+    onRequestClose: function onRequestClose() {
+      return console.log('onRequestClose');
+    },
+    isSmall: (0, _react3.boolean)('isSmall', true)
+  }, _react.default.createElement(_Modal.default.Header, {
+    title: (0, _react3.text)('title', 'New Service Category'),
+    onRequestClose: function onRequestClose() {
+      return console.log('onRequestClose');
+    },
+    handleGoBack: (0, _react3.boolean)('canGoBack', false) ? function () {
+      return console.log('take me home');
+    } : null
+  }), _react.default.createElement("form", null, _react.default.createElement(_Modal.default.Body, null, _react.default.createElement(_Forms.FormRow, null, _react.default.createElement(_Forms.TextInput, {
+    label: "Category Name",
+    placeholder: "i.e. Barber"
+  })), _react.default.createElement(_Forms.FormRow, null, _react.default.createElement(_Forms.TextInput, {
+    label: "Teaser",
+    postLabel: "0/64",
+    placeholder: "Haircuts, shaves, and touch-ups.",
+    helper: "Add a short teaser for your guests to see when they browse your services. Please limit to 64 characters."
+  })), _react.default.createElement(_Forms.FormRow, null, _react.default.createElement(_Forms.TextArea, {
+    label: "Description",
+    placeholder: "Optional category description\u2026",
+    helper: "Add a short teaser for your guests to see when they browse your services.",
+    rows: 3
+  })), _react.default.createElement(_Forms.FormRow, null, _react.default.createElement(_Forms.Checkbox, {
+    id: "hide-category",
+    label: "Hide this category",
+    postText: "It will still be visible to your teammates, but will be hidden from guests."
+  }))), (0, _react3.boolean)('includeFooter', true) && _react.default.createElement(_Modal.default.Footer, {
+    primaryAction: (0, _react3.object)('primaryAction', {
+      text: 'Create Category',
+      onClick: function onClick() {
+        return console.log('Next');
+      },
+      type: 'submit'
+    }),
+    secondaryAction: (0, _react3.object)('secondaryAction', {
+      text: 'Cancel',
+      onClick: function onClick() {
+        return console.log('Cancel');
+      }
+    })
+  })));
 });

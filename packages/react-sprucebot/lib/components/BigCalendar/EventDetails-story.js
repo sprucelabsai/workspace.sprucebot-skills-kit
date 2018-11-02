@@ -81,9 +81,9 @@ StatusIcon.defaultProps = {
   viewBox: "0 0 24 24",
   xmlns: "http://www.w3.org/2000/svg"
 };
-var stories = (0, _react2.storiesOf)('Event Details', module);
+var stories = (0, _react2.storiesOf)('Big Calendar', module);
 stories.addDecorator(_react3.withKnobs);
-stories.add('Appointment', function () {
+stories.add('Event Details', function () {
   return _react.default.createElement(_Container.default, null, _react.default.createElement(_EventDetails.default, {
     header: {
       title: 'Cooper Moore',
@@ -108,7 +108,7 @@ stories.add('Appointment', function () {
         }
       }, {
         icon: _react.default.createElement(NoteIcon, {
-          className: "u-icon__no-fill u-icon__stroke"
+          isLineIcon: true
         }),
         title: 'Prefers products that aren’t tested on animals.',
         subtitle: 'Caleigh Jerde, 4 months ago',
@@ -122,13 +122,13 @@ stories.add('Appointment', function () {
       }, {
         icon: _react.default.createElement(_Icon.default, {
           icon: "date",
-          className: "u-icon__no-fill u-icon__stroke"
+          isLineIcon: true
         }),
         title: 'Mon, Oct 27, 2018',
         subtitle: '9–10:30am'
       }, {
         icon: _react.default.createElement(ServiceIcon, {
-          className: "u-icon__no-fill u-icon__stroke"
+          isLineIcon: true
         }),
         title: 'Services',
         subtitle: '<p>Beard Tinting</p><p>Head Shave</p><p>$42 | 1hr 30min</p>',
@@ -146,7 +146,7 @@ stories.add('Appointment', function () {
         }]
       }, {
         icon: _react.default.createElement(StatusIcon, {
-          className: "u-icon__no-fill u-icon__stroke"
+          isLineIcon: true
         }),
         title: 'Status',
         subtitle: 'Not checked in',

@@ -7,9 +7,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
 var _react = _interopRequireDefault(require("react"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
 
 // NOTE: This component should only include a few of the most commonly
 // used icons for developer convenience
@@ -129,14 +133,22 @@ var key = {
 
 var Icon = function Icon(props) {
   var icon = props.icon,
-      rest = (0, _objectWithoutProperties2.default)(props, ["icon"]);
+      isLineIcon = props.isLineIcon,
+      rest = (0, _objectWithoutProperties2.default)(props, ["icon", "isLineIcon"]);
 
   if (!icon || !key[icon.toLowerCase()]) {
+    // TODO: handle logging
+    // console.error(`<Icon /> could not find an icon with key ${icon}`)
     return null;
   }
 
   var Handler = key[icon.toLowerCase()];
-  return _react.default.createElement(Handler, rest);
+  return _react.default.createElement(Handler, (0, _extends2.default)({
+    className: (0, _classnames.default)({
+      'u-icon__no-fill': isLineIcon,
+      'u-icon__stroke': isLineIcon
+    })
+  }, rest));
 };
 
 var _default = Icon;

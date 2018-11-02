@@ -21,6 +21,12 @@ var BotText = function BotText(props) {
       className = props.className,
       rest = (0, _objectWithoutProperties2.default)(props, ["text", "children", "className"]);
 
+  if (!children && !text) {
+    // TODO: Handle logging
+    // console.error('Bot Text must either have children or text')
+    return null;
+  }
+
   if (text && !children) {
     return _react.default.createElement("p", (0, _extends2.default)({
       className: (0, _classnames.default)('bot-text', className),

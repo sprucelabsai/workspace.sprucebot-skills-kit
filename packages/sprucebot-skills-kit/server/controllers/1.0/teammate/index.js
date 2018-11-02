@@ -17,6 +17,7 @@ module.exports = router => {
 			}
 
 			const users = await ctx.sb.users(ctx.auth.Location.id, params)
+
 			ctx.body = users
 			await next()
 		}

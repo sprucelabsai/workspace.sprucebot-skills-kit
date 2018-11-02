@@ -35,7 +35,7 @@ var business = {
 stories.add('Default', function () {
   return _react.default.createElement(_HeaderPrimary.default, {
     STORYBOOKdoNotWrap: true,
-    sidebarIsVisible: false,
+    sidebarIsVisible: (0, _react3.boolean)('sidebarIsVisible', false),
     toggleSidebarVisibility: function toggleSidebarVisibility() {
       return null;
     }
@@ -43,8 +43,8 @@ stories.add('Default', function () {
 }).add('Logged In', function () {
   return _react.default.createElement(_HeaderPrimary.default, {
     STORYBOOKdoNotWrap: true,
-    user: user,
-    sidebarIsVisible: false,
+    user: (0, _react3.object)('user', user),
+    sidebarIsVisible: (0, _react3.boolean)('sidebarIsVisible', false),
     toggleSidebarVisibility: function toggleSidebarVisibility() {
       return null;
     }
@@ -52,9 +52,9 @@ stories.add('Default', function () {
 }).add('Logged In to Business', function () {
   return _react.default.createElement(_HeaderPrimary.default, {
     STORYBOOKdoNotWrap: true,
-    user: user,
-    business: business,
-    sidebarIsVisible: false,
+    user: (0, _react3.object)('user', user),
+    business: (0, _react3.object)('business', business),
+    sidebarIsVisible: (0, _react3.boolean)('sidebarIsVisible', false),
     toggleSidebarVisibility: function toggleSidebarVisibility() {
       return null;
     }

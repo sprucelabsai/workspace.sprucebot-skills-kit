@@ -18,7 +18,7 @@ stories.add('Tabs', function () {
   return _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_Tabs.default, {
-    tabs: [{
+    tabs: (0, _react3.object)('tabs', [{
       text: 'Team',
       isCurrent: true
     }, {
@@ -28,13 +28,13 @@ stories.add('Tabs', function () {
       onClick: function onClick() {
         return console.log('Click');
       }
-    }]
+    }])
   }));
 }).add('With Disclosure', function () {
   return _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_Tabs.default, {
-    tabs: [{
+    tabs: (0, _react3.object)('tabs', [{
       text: 'Active',
       isCurrent: true
     }, {
@@ -43,6 +43,6 @@ stories.add('Tabs', function () {
       text: 'Previous'
     }, {
       text: 'Cancelled'
-    }]
+    }])
   }));
 });
