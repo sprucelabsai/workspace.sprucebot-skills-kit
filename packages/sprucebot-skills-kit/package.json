@@ -36,7 +36,7 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
-		"@sprucelabs/log": "^1.6.1",
+		"@sprucelabs/log": "^1.6.2",
 		"@sprucelabs/react-sprucebot": "^7.7.3",
 		"@sprucelabs/sprucebot-node": "^7.7.3",
 		"@sprucelabs/sprucebot-skills-kit-server": "^7.7.3",
