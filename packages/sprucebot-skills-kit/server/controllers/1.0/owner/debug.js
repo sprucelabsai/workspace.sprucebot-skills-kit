@@ -93,7 +93,7 @@ module.exports = router => {
 			payload.sendToSelf = true
 			const responses = await ctx.sb.emit(locationId, event, payload)
 
-			ctx.body = responses[0]
+			ctx.body = { responses }
 			await next()
 		})
 	}

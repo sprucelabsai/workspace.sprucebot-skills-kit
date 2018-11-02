@@ -17,6 +17,7 @@ module.exports = {
 	PACKAGE_NAME: packageJSON.name,
 	PACKAGE_VERSION: packageJSON.version,
 	LOG_LEVEL: process.env.LOG_LEVEL || 'warn',
+	LOG_USE_COLORS: process.env.LOG_USE_COLORS !== 'false',
 	METRICS_APP_KEY: process.env.METRICS_APP_KEY,
 	METRICS_URL: process.env.METRICS_URL,
 	METRICS_ENABLED: process.env.METRICS_ENABLED === 'true',
@@ -130,14 +131,6 @@ module.exports = {
 		// passthrough to https://github.com/koajs/bodyparser
 		jsonLimit: '1mb'
 	},
-	log_colors: {
-		error: 'red',
-		warn: 'orange',
-		info: 'yellow',
-		verbose: 'green',
-		debug: 'white',
-		silly: 'pink'
-	},
 	nextConfig: {
 		dir: path.resolve(__dirname, '../interface'),
 		dev: process.env.DEV_MODE === 'true', // next.js development mode
@@ -156,7 +149,6 @@ module.exports = {
 			'INTERFACE_SSL_ALLOW_SELF_SIGNED',
 			'VIMEO_ID',
 			'DEV_MODE',
-			'log_colors',
 			'nextConfig',
 			'WHITELABEL',
 			'SLUG',
