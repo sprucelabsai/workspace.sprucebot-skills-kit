@@ -117,6 +117,8 @@ class BigCalendar extends Component<Props, State> {
 		const height = sizeUtils.bodyHeight()
 		const calendarBodyHeight = height - scrollTop
 
+		console.log({ calendarBodyHeight, scrollTop })
+
 		this.setState({
 			bodyWidth: width,
 			bodyHeight: height,

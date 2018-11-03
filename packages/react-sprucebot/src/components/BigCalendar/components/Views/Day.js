@@ -34,6 +34,7 @@ type Props = {
 	startDate: Object,
 	dragThreshold: Number, // how far to drag before actually initiating drag
 	onDropEvent: Function,
+	onDragEvent: Function,
 	scrollDuringDragMargin: Number, // how close to the edge do we need to get before we'll auto scroll for the user
 	dragScrollSpeed: Number, // how many pixels to jump if dragging near edge of scroll
 	eventRightMargin: Number
@@ -186,25 +187,19 @@ class Day extends Component<Props> {
 		}
 	}
 
-	snapEventToNearestValidX = ({
-		clientX,
-		dragNodeLeft,
-		event,
-		block,
-		blockIdx
-	}) => {
+	snapEventToNearestValidX = ({ mouseX }) => {
 		const dayColWidth = this.dayColWidth()
-		const nearest = Math.floor(clientX / dayColWidth)
+		const nearest = Math.floor(mouseX / dayColWidth)
 		return Math.max(
 			0,
 			Math.min(this.props.users.length - 1, nearest) * dayColWidth
 		)
 	}
 
-	snapEventToNearestValidY = (y, elementHeight = 0) => {
+	snapEventToNearestValidY = ({ dragNodeTop, dragNodeHeight = 0 }) => {
 		const slotHeight = this.slotHeight()
-		const nearest = Math.round(y / slotHeight)
-		const maxTop = this.dayColHeight() - elementHeight
+		const nearest = Math.round(dragNodeTop / slotHeight)
+		const maxTop = this.dayColHeight() - dragNodeHeight
 		return Math.max(0, Math.min(maxTop, nearest * slotHeight))
 	}
 
@@ -218,6 +213,18 @@ class Day extends Component<Props> {
 		const minutesFromMinTime = nearest * range.slotDurationMin
 		const time = moment(range.minMoment).add(minutesFromMinTime, 'minutes')
 		return time
+	}
+
+	heightToSeconds = height => {
+		const range = this.getTimeRangeDetails(
+			this.props.minTime,
+			this.props.maxTime
+		)
+		debugger
+		const nearest = Math.round(height / slotHeight)
+		const minutesFromMinTime = nearest * range.slotDurationMin
+
+		return minutesFromMinTime * 60
 	}
 
 	timeToY = date => {
@@ -255,9 +262,47 @@ class Day extends Component<Props> {
 
 	handleDragOfEvent = (event, dragDetails) => {
 		// update time
-		const { dragEventNode } = dragDetails
-		const time = this.yToTime(parseFloat(dragEventNode.style.top))
-		dragEventNode.querySelector('.time').innerHTML = time.format('h:mma')
+		const { onDragEvent } = this.props
+		const { dragEventNode, blockIdx } = dragDetails
+
+		// dragging an event is peasy peezy (drag grid handles it)
+		if (blockIdx === 0) {
+			const time = this.yToTime(parseFloat(dragEventNode.style.top))
+			dragEventNode.querySelector('.time').innerHTML = time.format('h:mma')
+		}
+		//dragging a block means changing duration of the block ahead of it
+		//drag grid cannot handle this
+		else {
+			const {
+				sourceBlockNode,
+				dragBlockNode,
+				eMouseMove,
+				eMouseDown
+			} = dragDetails
+
+			const previousSourceBlock = sourceBlockNode.previousSibling
+			const previousDragBlock = dragBlockNode.previousSibling
+
+			const dragDistance = eMouseMove.clientY - eMouseDown.clientY
+			const originalHeight = sizeUtil.getHeight(previousSourceBlock)
+
+			const newHeight = Math.max(
+				0,
+				this.snapEventToNearestValidY({
+					dragNodeTop: originalHeight + dragDistance
+				})
+			)
+
+			previousDragBlock.style.height = newHeight + 'px'
+
+			const duration = this.heightToSeconds(newHeight)
+
+			console.log({ duration })
+		}
+
+		// we ask drag grid to only move the dom node if we are moving the whole event (block 0)
+		const ignoreDrag = blockIdx === 0
+		return onDragEvent ? onDragEvent(event, dragDetails) : ignoreDrag
 	}
 
 	placeAndSize = () => {
@@ -310,6 +355,13 @@ class Day extends Component<Props> {
 			['startAt']
 		)
 	})
+
+	isToday = date => {
+		return (
+			this.props.startDate.format('YYYY-MM-DD') ===
+			moment.tz(date, this.props.timezone).format('YYYY-MM-DD')
+		)
+	}
 
 	getColumnMap = () => {
 		if (!this._columnMapCache) {
@@ -513,18 +565,22 @@ class Day extends Component<Props> {
 		const timeLineNode = this.scrollInnerRef.current.querySelector(
 			'.bigcalendar__time-line'
 		)
-		const pageWidth = this.dragGridRef.current.getScrollWidth()
-		timeLineNode.style.width = `${pageWidth}px`
+		if (timeLineNode) {
+			const pageWidth = this.dragGridRef.current.getScrollWidth()
+			timeLineNode.style.width = `${pageWidth}px`
+		}
 	}
 
 	placeTimeLine = () => {
-		const { timezone } = this.props
-		const now = moment.tz(new Date(), timezone)
-		const top = this.timeToY(now)
 		const timeLineNode = this.scrollInnerRef.current.querySelector(
 			'.bigcalendar__time-line'
 		)
-		timeLineNode.style.top = `${top}px`
+		if (timeLineNode) {
+			const { timezone } = this.props
+			const now = moment.tz(new Date(), timezone)
+			const top = this.timeToY(now)
+			timeLineNode.style.top = `${top}px`
+		}
 	}
 
 	render() {
@@ -591,7 +647,7 @@ class Day extends Component<Props> {
 									timezone={timezone}
 								/>
 							))}
-							<TimeLine />
+							{this.isToday() && <TimeLine />}
 						</div>
 					</DragGrid>
 				</div>

@@ -6,24 +6,16 @@ export default {
 		return document.body.clientHeight
 	},
 	getTop(node) {
-		return node && node.getBoundingClientRect
-			? node.getBoundingClientRect().top
-			: null
+		return this.getPosition(node).y
 	},
 	getBottom(node) {
-		return node && node.getBoundingClientRect
-			? node.getBoundingClientRect().bottom
-			: null
+		return this.getPosition(node).y + this.getHeight(node)
 	},
 	getLeft(node) {
-		return node && node.getBoundingClientRect
-			? node.getBoundingClientRect().left
-			: null
+		return this.getPosition(node).x
 	},
 	getRight(node) {
-		return node && node.getBoundingClientRect
-			? node.getBoundingClientRect().right
-			: null
+		return this.getLeft(node) + this.getWidth(node)
 	},
 	getWidth(node) {
 		return node && node.offsetWidth ? node.offsetWidth : null
@@ -36,6 +28,37 @@ export default {
 	},
 	getScrollHeight(node) {
 		return node && node.scrollHeight ? node.scrollHeight : null
+	},
+	getPosition(el) {
+		var xPos = 0
+		var yPos = 0
+		let count = 0
+
+		while (el) {
+			if (el.tagName == 'BODY') {
+				// deal with browser quirks with body/window/document and page scroll
+				var xScroll = el.scrollLeft || document.documentElement.scrollLeft
+				var yScroll = el.scrollTop || document.documentElement.scrollTop
+
+				xPos += el.offsetLeft - xScroll + el.clientLeft
+				yPos += el.offsetTop - yScroll + el.clientTop
+			} else {
+				const scrollLeft = count > 0 ? el.scrollLeft : 0
+				const scrollTop = count > 0 ? el.scrollTop : 0
+
+				// for all other non-BODY elements
+				xPos += el.offsetLeft - scrollLeft + el.clientLeft
+				yPos += el.offsetTop - scrollTop + el.clientTop
+			}
+
+			count++
+
+			el = el.offsetParent
+		}
+		return {
+			x: xPos,
+			y: yPos
+		}
 	},
 	getMaxScrollTop(node) {
 		const height = this.getHeight(node)

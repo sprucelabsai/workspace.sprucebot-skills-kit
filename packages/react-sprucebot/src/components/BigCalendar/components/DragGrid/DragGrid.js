@@ -110,7 +110,7 @@ class DragGrid extends Component<Props> {
 
 		// keep event under mouse as scroll
 		if (this._activeDrag) {
-			this.handleDragOfEvent(this._activeDrag.e, false)
+			this.handleDragOfEvent(this._activeDrag.eMouseMove, false)
 		}
 	}
 
@@ -196,34 +196,35 @@ class DragGrid extends Component<Props> {
 			} = this.props
 
 			const {
-				dragEventNode,
 				offsetX,
 				offsetY,
 				wrapperLeft,
 				wrapperTop,
-				dragEventHeight,
-				sourceEvent
+				dragNodeHeight,
+				sourceEvent,
+				dragNode
 			} = this._activeDrag
 
 			//if we are close to an edge, lets scroll that first
 			const normalizedClientX = clientX - wrapperLeft
 			const normalizedClientY = clientY - wrapperTop
-			const wrapperRight = size.getRight(this.domNodeRef.current) - wrapperLeft
-			const wrapperBottom = size.getBottom(this.domNodeRef.current) - wrapperTop
 
-			// scroll right
+			const wrapperRight = size.getRight(this.domNodeRef.current)
+			const wrapperBottom = size.getBottom(this.domNodeRef.current)
+
+			// scroll in any direction depending on if you're under the scrollDuringDragMargin
 			if (autoScroll) {
-				if (normalizedClientX >= wrapperRight - scrollDuringDragMargin) {
+				if (clientX >= wrapperRight - scrollDuringDragMargin) {
 					this.beginScrollHorizontally(dragScrollSpeed)
-				} else if (normalizedClientX <= scrollDuringDragMargin) {
+				} else if (clientX <= wrapperLeft + scrollDuringDragMargin) {
 					this.beginScrollHorizontally(-dragScrollSpeed)
 				} else {
 					this.stopScrollingHorizontally()
 				}
 
-				if (normalizedClientY >= wrapperBottom - scrollDuringDragMargin) {
+				if (clientY >= wrapperBottom - scrollDuringDragMargin) {
 					this.beginScrollingVertically(dragScrollSpeed)
-				} else if (normalizedClientY <= scrollDuringDragMargin) {
+				} else if (clientY <= wrapperTop + scrollDuringDragMargin) {
 					this.beginScrollingVertically(-dragScrollSpeed)
 				} else {
 					this.stopScrollingVertically()
@@ -232,27 +233,32 @@ class DragGrid extends Component<Props> {
 
 			const scrollTop = this.domNodeRef.current.scrollTop
 			const scrollLeft = this.domNodeRef.current.scrollLeft
-
-			const x = this.props.snapEventToNearestValidX({
+			const snapProps = {
 				dragNodeLeft: normalizedClientX + scrollLeft - offsetX,
-				clientX: normalizedClientX + scrollLeft,
+				dragNodeTop: normalizedClientY + scrollTop - offsetY,
+				mouseX: normalizedClientX + scrollLeft,
+				mouseY: normalizedClientY + scrollTop,
 				dragEvent,
+				dragNodeHeight,
 				sourceEvent: sourceEvent
-			})
-			const y = this.props.snapEventToNearestValidY(
-				normalizedClientY + scrollTop - offsetY,
-				dragEventHeight
-			)
-
-			// update position
-			dragEventNode.style.left = x + 'px'
-			dragEventNode.style.top = y + 'px'
+			}
+			const x = this.props.snapEventToNearestValidX(snapProps)
+			const y = this.props.snapEventToNearestValidY(snapProps)
 
 			//track last event
-			this._activeDrag.e = e
+			this._activeDrag.eMouseMove = e
 
-			onDragEvent && onDragEvent(event, this._activeDrag)
-		} else {
+			// let parent components know and have the opportunity to ignore this drag
+			const ignoreDrag = onDragEvent && onDragEvent(event, this._activeDrag)
+
+			if (ignoreDrag !== false) {
+				// update position
+				dragNode.style.left = x + 'px'
+				dragNode.style.top = y + 'px'
+			}
+		}
+		// we have not actually started dragging yet, so we check how far we've moved from click
+		else {
 			const { clientX, clientY } = e
 			const { x, y } = this._startingDragPoint
 
@@ -260,6 +266,8 @@ class DragGrid extends Component<Props> {
 			const b = y - clientY
 
 			const distance = Math.sqrt(a * a + b * b)
+
+			//start the drag!
 			if (distance >= this.props.dragThreshold) {
 				this.startDragOfEvent({
 					e,
@@ -361,14 +369,8 @@ class DragGrid extends Component<Props> {
 		const scrollTop = this.domNodeRef.current.scrollTop
 		const scrollLeft = this.domNodeRef.current.scrollLeft
 
-		const offsetY =
-			clientY - wrapperTop - parseFloat(eventNode.style.top) + scrollTop
-		const offsetX =
-			clientX -
-			wrapperLeft +
-			scrollLeft -
-			(parseFloat(eventNode.style.left) +
-				parseFloat(eventNode.style.marginLeft))
+		const offsetY = clientY - size.getTop(dragNode)
+		const offsetX = clientX - size.getLeft(dragNode)
 
 		this._activeDrag = {
 			dragEvent,
@@ -378,13 +380,17 @@ class DragGrid extends Component<Props> {
 			dragEventNode,
 			dragBlockNode,
 			dragNode,
-			dragEventHeight: size.getHeight(dragEventNode),
+			dragNodeHeight: size.getHeight(dragEventNode),
 			sourceEventNode: eventNode,
 			sourceBlockNode: blockNode,
 			offsetX,
 			offsetY,
 			wrapperLeft,
-			wrapperTop
+			wrapperTop,
+			startScrollTop: scrollTop,
+			startScrollLeft: scrollLeft,
+			eMouseDown: e,
+			eMouseMove: e
 		}
 
 		onDragEvent && onDragEvent(event, this._activeDrag)
