@@ -80,16 +80,17 @@ function (_Component) {
           uploadProgress = _this$state.uploadProgress,
           fileWasUploaded = _this$state.fileWasUploaded;
       return _react.default.createElement(_Dropzone.default, {
-        id: "photos",
-        label: (0, _react3.text)('Label', 'Profile Photo'),
-        accept: "image/*",
+        id: (0, _react3.text)('id', 'photos'),
+        label: (0, _react3.text)('label', 'Profile Photo'),
+        postLabel: (0, _react3.text)('postLabel', ''),
+        accept: (0, _react3.text)('accpet', 'image/*'),
         onDropAccepted: this.onDropAccepted,
-        buttonText: (0, _react3.text)('Button Text', 'Upload an Image'),
+        buttonText: (0, _react3.text)('buttonText', 'Upload an Image'),
         fileWasUploaded: fileWasUploaded,
         uploadProgress: uploadProgress,
-        error: "Please upload an image file.",
-        isSmall: (0, _react3.boolean)('Small', false),
-        isCircular: (0, _react3.boolean)('Circular', false)
+        error: (0, _react3.text)('error', 'Please upload an image file.'),
+        isSmall: (0, _react3.boolean)('isSmall', false),
+        isCircular: (0, _react3.boolean)('isCircular', false)
       });
     }
   }]);
@@ -98,7 +99,26 @@ function (_Component) {
 
 var stories = (0, _react2.storiesOf)('Dropzone', module);
 stories.addDecorator(_react3.withKnobs);
-stories.add('Dropzone', function () {
+stories.add('Static', function () {
+  return _react.default.createElement(_Container.default, {
+    size: "small",
+    center: true
+  }, _react.default.createElement(_Dropzone.default, {
+    id: (0, _react3.text)('id', 'photos'),
+    label: (0, _react3.text)('label', 'Profile Photo'),
+    postLabel: (0, _react3.text)('postLabel', ''),
+    accept: (0, _react3.text)('accpet', 'image/*'),
+    onDropAccepted: function onDropAccepted() {
+      return console.log('onDropAccepted');
+    },
+    buttonText: (0, _react3.text)('buttonText', 'Upload an Image'),
+    fileWasUploaded: (0, _react3.boolean)('fileWasUploaded', false),
+    uploadProgress: (0, _react3.number)('uploadProgress', 0),
+    error: (0, _react3.text)('error', 'Please upload an image file.'),
+    isSmall: (0, _react3.boolean)('isSmall', false),
+    isCircular: (0, _react3.boolean)('isCircular', false)
+  }));
+}).add('Dynamic', function () {
   return _react.default.createElement(_Container.default, {
     size: "small",
     center: true

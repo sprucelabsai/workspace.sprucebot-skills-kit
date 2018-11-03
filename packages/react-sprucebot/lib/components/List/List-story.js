@@ -34,6 +34,10 @@ var _List = _interopRequireWildcard(require("./List"));
 
 var _ListHeader = _interopRequireDefault(require("./components/ListHeader/ListHeader"));
 
+var _ListItem = _interopRequireDefault(require("./components/ListItem/ListItem"));
+
+var _Icon = _interopRequireDefault(require("../Icon/Icon"));
+
 var _Tabs = _interopRequireDefault(require("../Tabs/Tabs"));
 
 var _SortableList = _interopRequireDefault(require("./components/SortableList/SortableList"));
@@ -217,16 +221,36 @@ function (_Component) {
   return TabbedList;
 }(_react.Component);
 
+stories.addDecorator((0, _react3.withKnobsOptions)({
+  escapeHTML: false
+}));
 stories.addDecorator(_react3.withKnobs);
-stories.add('Text List', function () {
+stories.add('List Item', function () {
+  return _react.default.createElement(_Container.default, {
+    size: "small"
+  }, _react.default.createElement(_ListItem.default, {
+    title: (0, _react3.text)('title', 'Wed, Oct 28'),
+    subtitle: (0, _react3.text)('subtitle', '9am–4pm'),
+    avatar: (0, _react3.text)('avatar', ''),
+    image: (0, _react3.text)('image', ''),
+    icon: (0, _react3.text)('icon', '') && _react.default.createElement(_Icon.default, {
+      isLineIcon: (0, _react3.boolean)('isLineIcon', true),
+      icon: (0, _react3.text)('icon', '')
+    }),
+    isDraggable: (0, _react3.boolean)('isDraggable', false),
+    actions: (0, _react3.object)('actions', []),
+    toggleId: (0, _react3.text)('toggleId', ''),
+    contextMenu: (0, _react3.object)('contextMenu', null)
+  }));
+}).add('Text List', function () {
   return _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_List.default, {
-    header: {
+    header: (0, _react3.object)('header: text list', {
       title: 'Holidays'
-    },
-    isSmall: (0, _react3.boolean)('Small', false),
-    items: [{
+    }),
+    isSmall: (0, _react3.boolean)('isSmall', false),
+    items: (0, _react3.object)('items: text list', [{
       title: 'Wed, Nov 28, 2018',
       subtitle: 'Closed'
     }, {
@@ -235,16 +259,16 @@ stories.add('Text List', function () {
     }, {
       title: 'Wed, Dec 25, 2018',
       subtitle: 'Closed'
-    }]
+    }])
   }), _react.default.createElement(_SortableList.default, {
-    header: {
+    header: (0, _react3.object)('header: sortable list', {
       title: 'Services'
-    },
-    isSmall: (0, _react3.boolean)('Small', false),
+    }),
+    isSmall: (0, _react3.boolean)('isSmall', false),
     onConfirm: function onConfirm() {
       return console.log('Confirmed!');
     },
-    items: [{
+    items: (0, _react3.object)('items: sortable list', [{
       title: 'Clean Up',
       subtitle: '$20 | 15min',
       contextMenu: {
@@ -257,7 +281,10 @@ stories.add('Text List', function () {
       title: 'Shampoo',
       subtitle: '$7 | 45min',
       contextMenu: {
-        icon: _react.default.createElement(EditIcon, null),
+        icon: _react.default.createElement(_Icon.default, {
+          icon: "edit",
+          isLineIcon: true
+        }),
         size: 'large',
         isSimple: true,
         actions: _actions.threeTextActions
@@ -266,18 +293,21 @@ stories.add('Text List', function () {
       title: 'Young Spruce',
       subtitle: '$23 | 50min',
       contextMenu: {
-        icon: _react.default.createElement(EditIcon, null),
+        icon: _react.default.createElement(_Icon.default, {
+          icon: "edit",
+          isLineIcon: true
+        }),
         size: 'large',
         isSimple: true,
         actions: _actions.threeTextActions
       }
-    }]
+    }])
   }), _react.default.createElement(_List.default, {
-    header: {
+    header: (0, _react3.object)('header: dates list', {
       title: 'Important Dates'
-    },
-    isSmall: (0, _react3.boolean)('Small', false),
-    items: [{
+    }),
+    isSmall: (0, _react3.boolean)('isSmall', false),
+    items: (0, _react3.object)('items: dates list', [{
       icon: _react.default.createElement(DateIcon, {
         className: "u-icon__no-fill u-icon__stroke"
       }),
@@ -295,16 +325,16 @@ stories.add('Text List', function () {
       }),
       title: 'Wed, Dec 25, 2018',
       subtitle: 'Closed'
-    }]
+    }])
   }));
 }).add('Settings List', function () {
   return _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_List.default, {
-    header: {
+    header: (0, _react3.object)('header', {
       title: 'Settings'
-    },
-    items: [{
+    }),
+    items: (0, _react3.object)('items', [{
       title: 'Barber',
       toggleId: 'barber'
     }, {
@@ -319,17 +349,17 @@ stories.add('Text List', function () {
     }, {
       title: 'Style Consulting',
       toggleId: 'style-consulting'
-    }]
+    }])
   }), _react.default.createElement(_List.default, {
-    header: {
+    header: (0, _react3.object)('header', {
       title: 'Settings'
-    },
-    isSmall: (0, _react3.boolean)('Small', false),
-    items: [{
+    }),
+    isSmall: (0, _react3.boolean)('isSmall', false),
+    items: (0, _react3.object)('items: two', [{
       title: 'Hide this category',
       subtitle: 'Guests cannot book hidden services',
       toggleId: 'hide-category'
-    }]
+    }])
   }));
 }).add('People List', function () {
   return _react.default.createElement(_Container.default, {
@@ -354,8 +384,8 @@ stories.add('Text List', function () {
         kind: 'simple'
       }]
     },
-    isSmall: (0, _react3.boolean)('Small', false),
-    items: _people.userList
+    isSmall: (0, _react3.boolean)('isSmall', false),
+    items: (0, _react3.object)('items', _people.userList)
   }));
 }).add('People Tabbed', function () {
   return _react.default.createElement(_Container.default, {

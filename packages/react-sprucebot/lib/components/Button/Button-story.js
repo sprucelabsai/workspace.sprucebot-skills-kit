@@ -16,6 +16,8 @@ var _Wrapper = _interopRequireDefault(require("../../../.storybook/Wrapper"));
 
 var _Button = _interopRequireDefault(require("./Button"));
 
+var _Icon = _interopRequireDefault(require("../Icon/Icon"));
+
 var Icon11 = function Icon11(props) {
   return _react.default.createElement("svg", props, _react.default.createElement("path", {
     clipRule: "evenodd",
@@ -43,79 +45,73 @@ Icon11.defaultProps = {
   viewBox: "0 0 24 25",
   xmlns: "http://www.w3.org/2000/svg"
 };
-
-var ButtonGroup = function ButtonGroup() {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    kind: ''
-  };
-  var btnText = (0, _react3.text)('Text', 'Hello World');
-  var isSmall = (0, _react3.boolean)('Small', false);
-  var isFullWidth = (0, _react3.boolean)('Full Width', false);
-  return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Button.default, (0, _defineProperty2.default)({
-    className: "l-mr-small l-mb-small",
-    isSmall: isSmall,
-    isFullWidth: isFullWidth,
-    text: btnText,
-    kind: props.kind || ''
-  }, "isFullWidth", false)), _react.default.createElement(_Button.default, {
-    className: "l-mr-small l-mb-small",
-    isSmall: isSmall,
-    isFullWidth: isFullWidth,
-    text: "Link ".concat(btnText),
-    kind: props.kind || '',
-    href: "#",
-    target: "_blank"
-  }), _react.default.createElement(_Button.default, {
-    className: "l-mr-small l-mb-small",
-    isSmall: isSmall,
-    isFullWidth: isFullWidth,
-    text: btnText,
-    kind: props.kind || '',
-    disabled: true
-  }), _react.default.createElement(_Button.default, {
-    className: "l-mr-small l-mb-small",
-    isSmall: isSmall,
-    isFullWidth: isFullWidth,
-    text: btnText,
-    kind: props.kind || '',
-    disabled: true,
-    isLoading: true
-  }), _react.default.createElement(_Button.default, {
-    className: "l-mr-small l-mb-small",
-    isSmall: isSmall,
-    isFullWidth: isFullWidth,
-    text: btnText,
-    kind: props.kind || '',
-    icon: _react.default.createElement(Icon11, {
-      className: "btn__line-icon"
-    })
-  }), _react.default.createElement(_Button.default, {
-    className: "l-mr-small l-mb-small",
-    isSmall: isSmall,
-    isFullWidth: isFullWidth,
-    kind: props.kind || '',
-    icon: _react.default.createElement(Icon11, {
-      className: "btn__line-icon"
-    })
-  }));
-};
-
+var btnText = (0, _react3.text)('text', 'Hello World');
+var isSmall = (0, _react3.boolean)('isSmall', false);
+var isFullWidth = (0, _react3.boolean)('isFullWidth', false);
+var icon = (0, _react3.text)('icon', 'edit');
 var stories = (0, _react2.storiesOf)('Button', module);
+stories.addDecorator((0, _react3.withKnobsOptions)({
+  escapeHTML: false
+}));
 stories.addDecorator(_react3.withKnobs);
 stories.add('Primary', function () {
-  return _react.default.createElement(ButtonGroup, {
-    kind: "primary"
-  });
+  var _React$createElement;
+
+  return _react.default.createElement(_Button.default, (_React$createElement = {
+    className: (0, _react3.text)('className', 'l-mr-small l-mb-small'),
+    isSmall: isSmall,
+    isFullWidth: isFullWidth,
+    text: btnText,
+    kind: (0, _react3.text)('kind', '') || 'primary',
+    disabled: (0, _react3.boolean)('disabled', false),
+    isLoading: (0, _react3.boolean)('isLoading', false)
+  }, (0, _defineProperty2.default)(_React$createElement, "isSmall", (0, _react3.boolean)('isSmall', false)), (0, _defineProperty2.default)(_React$createElement, "icon", icon ? _react.default.createElement(_Icon.default, {
+    icon: (0, _react3.text)('icon', ''),
+    className: (0, _react3.text)('iconClassName', 'btn__line-icon')
+  }) : null), (0, _defineProperty2.default)(_React$createElement, "href", (0, _react3.text)('href', '')), (0, _defineProperty2.default)(_React$createElement, "target", (0, _react3.text)('target', '')), (0, _defineProperty2.default)(_React$createElement, "onClick", (0, _react3.text)('onClick', '() => console.log("you clicked")')), (0, _defineProperty2.default)(_React$createElement, "linkProps", (0, _react3.object)('linkProps', {})), _React$createElement));
 }).add('Secondary', function () {
-  return _react.default.createElement(ButtonGroup, {
-    kind: "secondary"
-  });
+  var _React$createElement2;
+
+  return _react.default.createElement(_Button.default, (_React$createElement2 = {
+    className: (0, _react3.text)('className', 'l-mr-small l-mb-small'),
+    isSmall: isSmall,
+    isFullWidth: isFullWidth,
+    text: btnText,
+    kind: (0, _react3.text)('kind', '') || 'secondary',
+    disabled: (0, _react3.boolean)('disabled', false),
+    isLoading: (0, _react3.boolean)('isLoading', false)
+  }, (0, _defineProperty2.default)(_React$createElement2, "isSmall", (0, _react3.boolean)('isSmall', false)), (0, _defineProperty2.default)(_React$createElement2, "icon", icon ? _react.default.createElement(_Icon.default, {
+    icon: (0, _react3.text)('icon', ''),
+    className: (0, _react3.text)('iconClassName', 'btn__line-icon')
+  }) : null), (0, _defineProperty2.default)(_React$createElement2, "href", (0, _react3.text)('href', '')), (0, _defineProperty2.default)(_React$createElement2, "target", (0, _react3.text)('target', '')), (0, _defineProperty2.default)(_React$createElement2, "onClick", (0, _react3.text)('onClick', '() => console.log("you clicked")')), (0, _defineProperty2.default)(_React$createElement2, "linkProps", (0, _react3.object)('linkProps', {})), _React$createElement2));
 }).add('Simple', function () {
-  return _react.default.createElement(ButtonGroup, {
-    kind: "simple"
-  });
+  var _React$createElement3;
+
+  return _react.default.createElement(_Button.default, (_React$createElement3 = {
+    className: (0, _react3.text)('className', 'l-mr-small l-mb-small'),
+    isSmall: isSmall,
+    isFullWidth: isFullWidth,
+    text: btnText,
+    kind: (0, _react3.text)('kind', '') || 'simple',
+    disabled: (0, _react3.boolean)('disabled', false),
+    isLoading: (0, _react3.boolean)('isLoading', false)
+  }, (0, _defineProperty2.default)(_React$createElement3, "isSmall", (0, _react3.boolean)('isSmall', false)), (0, _defineProperty2.default)(_React$createElement3, "icon", icon ? _react.default.createElement(_Icon.default, {
+    icon: (0, _react3.text)('icon', ''),
+    className: (0, _react3.text)('iconClassName', 'btn__line-icon')
+  }) : null), (0, _defineProperty2.default)(_React$createElement3, "href", (0, _react3.text)('href', '')), (0, _defineProperty2.default)(_React$createElement3, "target", (0, _react3.text)('target', '')), (0, _defineProperty2.default)(_React$createElement3, "onClick", (0, _react3.text)('onClick', '() => console.log("you clicked")')), (0, _defineProperty2.default)(_React$createElement3, "linkProps", (0, _react3.object)('linkProps', {})), _React$createElement3));
 }).add('Caution', function () {
-  return _react.default.createElement(ButtonGroup, {
-    kind: "caution"
-  });
+  var _React$createElement4;
+
+  return _react.default.createElement(_Button.default, (_React$createElement4 = {
+    className: (0, _react3.text)('className', 'l-mr-small l-mb-small'),
+    isSmall: isSmall,
+    isFullWidth: isFullWidth,
+    text: btnText,
+    kind: (0, _react3.text)('kind', '') || 'caution',
+    disabled: (0, _react3.boolean)('disabled', false),
+    isLoading: (0, _react3.boolean)('isLoading', false)
+  }, (0, _defineProperty2.default)(_React$createElement4, "isSmall", (0, _react3.boolean)('isSmall', false)), (0, _defineProperty2.default)(_React$createElement4, "icon", icon ? _react.default.createElement(_Icon.default, {
+    icon: (0, _react3.text)('icon', ''),
+    className: (0, _react3.text)('iconClassName', 'btn__line-icon')
+  }) : null), (0, _defineProperty2.default)(_React$createElement4, "href", (0, _react3.text)('href', '')), (0, _defineProperty2.default)(_React$createElement4, "target", (0, _react3.text)('target', '')), (0, _defineProperty2.default)(_React$createElement4, "onClick", (0, _react3.text)('onClick', '() => console.log("you clicked")')), (0, _defineProperty2.default)(_React$createElement4, "linkProps", (0, _react3.object)('linkProps', {})), _React$createElement4));
 });

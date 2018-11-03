@@ -1,8 +1,10 @@
 "use strict";
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -42,14 +44,14 @@ stories.add('Autosuggest', function () {
   return _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_index.Autosuggest, {
-    inputPre: {
+    inputPre: (0, _react3.object)('inputPre', {
       label: 'Country'
-    },
-    inputHelper: {
+    }),
+    inputHelper: (0, _react3.object)('inputHelper', {
       helper: 'We use this information to improve your shopping experience.'
-    },
-    placeholder: "Select your country",
-    defaultSuggestions: _countries.default,
+    }),
+    placeholder: (0, _react3.text)('placeholder', 'Select your country'),
+    defaultSuggestions: (0, _react3.object)('defaultSuggestions', _countries.default),
     shouldRenderSuggestions: function shouldRenderSuggestions() {
       return true;
     },
@@ -81,53 +83,53 @@ stories.add('Autosuggest', function () {
     type: "text",
     id: (0, _react3.text)('id', 'input'),
     name: (0, _react3.text)('name', 'inputName'),
-    label: (0, _react3.text)('Label', 'First Name'),
-    postLabel: (0, _react3.text)('Post Label', ''),
-    placeholder: (0, _react3.text)('Placeholder', 'i.e. Annie'),
-    defaultValue: (0, _react3.text)('Value', ''),
-    error: (0, _react3.text)('Error Text', ''),
-    helper: (0, _react3.text)('Helper Text', 'Let me help you understand why we are asking for this.'),
-    readOnly: (0, _react3.boolean)('Read Only', false),
-    isSmall: (0, _react3.boolean)('Small', false)
+    label: (0, _react3.text)('label', 'First Name'),
+    postLabel: (0, _react3.text)('postLabel', ''),
+    placeholder: (0, _react3.text)('placeholder', 'i.e. Annie'),
+    defaultValue: (0, _react3.text)('defaultValue', ''),
+    error: (0, _react3.text)('error', ''),
+    helper: (0, _react3.text)('helper', 'Let me help you understand why we are asking for this.'),
+    readOnly: (0, _react3.boolean)('readOnly', false),
+    isSmall: (0, _react3.boolean)('isSmall', false)
   })));
 }).add('Text Area', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
-  }, _react.default.createElement(_index.TextArea, {
+  }, _react.default.createElement(_index.TextArea, (0, _extends2.default)({
     id: (0, _react3.text)('id', 'input'),
     name: (0, _react3.text)('name', 'inputName'),
-    label: (0, _react3.text)('Label', 'Category'),
-    postLabel: (0, _react3.text)('Post Label', ''),
-    placeholder: (0, _react3.text)('Placeholder', 'Optional category description…'),
-    defaultValue: (0, _react3.text)('Value', ''),
-    error: (0, _react3.text)('Error Text', ''),
-    helper: (0, _react3.text)('Helper Text', ''),
-    readOnly: (0, _react3.boolean)('Read Only', false)
-  })));
+    label: (0, _react3.text)('label', 'Category'),
+    postLabel: (0, _react3.text)('postLabel', ''),
+    placeholder: (0, _react3.text)('placeholder', 'Optional category description…'),
+    defaultValue: (0, _react3.text)('defaultValue', ''),
+    error: (0, _react3.text)('error', ''),
+    helper: (0, _react3.text)('helper', ''),
+    readOnly: (0, _react3.boolean)('readOnly', false)
+  }, (0, _react3.object)('...rest', {})))));
 }).add('Search', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_index.Search, {
     type: "text",
-    placeholder: (0, _react3.text)('Placeholder', 'Search for anything…'),
-    readOnly: (0, _react3.boolean)('Read Only', false),
-    isSmall: (0, _react3.boolean)('Small', false)
+    placeholder: (0, _react3.text)('placeholder', 'Search for anything…'),
+    readOnly: (0, _react3.boolean)('readOnly', false),
+    isSmall: (0, _react3.boolean)('isSmall', false)
   })));
 }).add('Phone Number', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_index.PhoneInput, {
-    label: "Phone Number",
-    placeholder: "(555) 555-5555",
-    isSmall: (0, _react3.boolean)('Small', false)
+    label: (0, _react3.text)('label', 'Phone Number'),
+    placeholder: (0, _react3.text)('placeholder', '(555) 555-5555'),
+    isSmall: (0, _react3.boolean)('isSmall', false)
   })));
 }).add('Subdomain', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_index.DomainInput, {
-    label: "Shopify Store URL",
-    placeholder: "my-shopify-store",
-    appendix: ".myshopify.com"
+    label: (0, _react3.text)('label', 'Shopify Store URL'),
+    placeholder: (0, _react3.text)('placeholder', 'my-shopify-store'),
+    appendix: (0, _react3.text)('appendix', '.myshopify.com')
   })));
 }).add('Radio', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
@@ -136,20 +138,20 @@ stories.add('Autosuggest', function () {
     className: "l-mb-xsmall",
     id: "option-one",
     name: "radio",
-    label: (0, _react3.text)('Option One', 'Option One'),
-    postText: (0, _react3.text)('Helper One', '')
+    label: (0, _react3.text)('label: option one', 'Option One'),
+    postText: (0, _react3.text)('postText: option one', '')
   }), _react.default.createElement(_index.Radio, {
     className: "l-mb-xsmall",
     id: "option-two",
     name: "radio",
-    label: (0, _react3.text)('Option Two', 'Option Two'),
-    postText: (0, _react3.text)('Helper Two', '')
+    label: (0, _react3.text)('label: option two', 'Option Two'),
+    postText: (0, _react3.text)('postText: option two', '')
   }), _react.default.createElement(_index.Radio, {
     className: "l-mb-xsmall",
     id: "option-three",
     name: "radio",
-    label: (0, _react3.text)('Option Three', 'Option Three'),
-    postText: (0, _react3.text)('Helper Three', '')
+    label: (0, _react3.text)('label: option three', 'Option Three'),
+    postText: (0, _react3.text)('postText: option three', '')
   })));
 }).add('Checkbox', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
@@ -158,71 +160,72 @@ stories.add('Autosuggest', function () {
     className: "l-mb-xsmall",
     id: "option-one",
     name: "optionOne",
-    label: (0, _react3.text)('Option One', 'Option One'),
-    postText: (0, _react3.text)('Helper One', '')
+    label: (0, _react3.text)('label: option one', 'Option One'),
+    postText: (0, _react3.text)('postText: option one', '')
   }), _react.default.createElement(_index.Checkbox, {
     className: "l-mb-xsmall",
     id: "option-two",
     name: "optionTwo",
-    label: (0, _react3.text)('Option Two', 'Option Two'),
-    postText: (0, _react3.text)('Helper Two', '')
+    label: (0, _react3.text)('label: option two', 'Option Two'),
+    postText: (0, _react3.text)('postText: option two', '')
   }), _react.default.createElement(_index.Checkbox, {
     className: "l-mb-xsmall",
     id: "option-three",
     name: "optionThree",
-    label: (0, _react3.text)('Option Three', 'Option Three'),
-    postText: (0, _react3.text)('Helper Three', ''),
+    label: (0, _react3.text)('label: option three', 'Option Three'),
+    postText: (0, _react3.text)('postText: option three', ''),
     isIndeterminate: true
   })));
 }).add('Toggle', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_index.Toggle, {
-    id: "toggle",
-    name: "toggle",
-    postText: (0, _react3.text)('Post Text', '')
+    id: (0, _react3.text)('id', 'toggle'),
+    name: (0, _react3.text)('name', 'toggle'),
+    postText: (0, _react3.text)('postText', ''),
+    className: (0, _react3.text)('className', '')
   })));
 }).add('Tag', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_index.Tag, {
-    className: "l-mr-small l-mb-small",
-    text: (0, _react3.text)('Text', 'Barber Services'),
-    isSmall: (0, _react3.boolean)('Small', false)
+    text: (0, _react3.text)('text', 'Barber Services'),
+    isSmall: (0, _react3.boolean)('isSmall', false),
+    className: (0, _react3.text)('className', 'l-mr-small l-mb-small')
   }), _react.default.createElement(_index.Tag, {
-    className: "l-mr-small l-mb-small",
     kind: "secondary",
-    text: (0, _react3.text)('Text', 'Barber Services'),
-    isSmall: (0, _react3.boolean)('Small', false)
+    text: (0, _react3.text)('text', 'Barber Services'),
+    isSmall: (0, _react3.boolean)('isSmall', false),
+    className: (0, _react3.text)('className', 'l-mr-small l-mb-small')
   })));
 }).add('Slider', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_index.Slider, {
-    id: "slider",
-    name: "slider",
-    min: 0,
-    max: 200,
-    value: 100,
-    label: "Scale",
-    postLabel: "100%"
+    id: (0, _react3.text)('id', 'slider'),
+    name: (0, _react3.text)('name', 'slider'),
+    min: (0, _react3.number)('min', 0),
+    max: (0, _react3.number)('max', 200),
+    value: (0, _react3.number)('value', 100),
+    label: (0, _react3.text)('label', 'Scale'),
+    postLabel: (0, _react3.text)('postLabel', '100%')
   })));
 }).add('Select', function () {
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_index.Select, {
-    label: (0, _react3.text)('Label', 'Country'),
-    id: "country",
-    options: ['United States', 'Canada', 'New Jersey'],
-    isSimple: (0, _react3.boolean)('Simple', false),
-    helper: (0, _react3.text)('Helper', ''),
-    error: (0, _react3.text)('Error', ''),
-    disabled: (0, _react3.boolean)('Disabled', false)
+    label: (0, _react3.text)('label', 'Country'),
+    id: (0, _react3.text)('id', 'country'),
+    options: (0, _react3.object)('options', ['United States', 'Canada', 'New Jersey']),
+    isSimple: (0, _react3.boolean)('isSimple', false),
+    helper: (0, _react3.text)('helper', ''),
+    error: (0, _react3.text)('error', ''),
+    disabled: (0, _react3.boolean)('disabled', false)
   })));
 }).add('Date Picker', function () {
   return _react.default.createElement(_index.DatePicker, {
-    id: "TESTS",
-    numberOfMonths: 1
+    id: (0, _react3.text)('id', 'test'),
+    numberOfMonths: (0, _react3.number)('numberOfMonths', 1)
   });
 }).add('Stars', function () {
   return _react.default.createElement(_index.Stars, null);

@@ -21,20 +21,23 @@ var _user = _interopRequireDefault(require("../../../static/assets/users/user-01
 var _user0196w = _interopRequireDefault(require("../../../static/assets/users/user-01--96w.png"));
 
 var stories = (0, _react2.storiesOf)('Avatar', module);
+stories.addDecorator((0, _react3.withKnobsOptions)({
+  escapeHTML: false
+}));
 stories.addDecorator(_react3.withKnobs);
 stories.add('Avatar', function () {
   return _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_Avatar.default, {
-    image: (0, _react3.boolean)('Large', false) ? (0, _react3.boolean)('Default Image', false) ? _userPlaceholder96w.default : _user0196w.default : (0, _react3.boolean)('Default Image', false) ? _userPlaceholder.default : _user.default,
-    alt: "Default User Image",
-    name: (0, _react3.text)('Name', ''),
-    text: (0, _react3.text)('Text', ''),
-    isLarge: (0, _react3.boolean)('Large', false),
-    isVertical: (0, _react3.boolean)('Vertical', false),
-    showIndicator: (0, _react3.boolean)('Show Indicator', false),
-    status: (0, _react3.boolean)('Online', false) ? 'online' : 'offline',
-    width: (0, _react3.number)('Width', null),
-    height: (0, _react3.number)('Height', null)
+    image: (0, _react3.boolean)('isLarge', false) ? (0, _react3.text)('image', '') || _userPlaceholder96w.default : (0, _react3.text)('image', '') || _userPlaceholder.default,
+    alt: (0, _react3.text)('alt', 'Name'),
+    isLarge: (0, _react3.boolean)('isLarge', false),
+    isVertical: (0, _react3.boolean)('isVertical', false),
+    showIndicator: (0, _react3.boolean)('showIndicator', false),
+    status: (0, _react3.text)('status', 'online'),
+    name: (0, _react3.text)('name', ''),
+    text: (0, _react3.text)('text', ''),
+    width: (0, _react3.number)('width', null),
+    height: (0, _react3.number)('height', null)
   }));
 });

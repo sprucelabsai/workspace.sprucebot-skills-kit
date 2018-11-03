@@ -545,7 +545,6 @@ class Sprucebot {
 	 * @param {Array} locations
 	 */
 	async eCreateLocations({ organizationId, locations }) {
-		const data = locations
 		const result = await this.https.post(
 			`/e/organizations/${organizationId}/locations`,
 			{ locations }
@@ -560,6 +559,23 @@ class Sprucebot {
 	 */
 	async gCreateLocations({ locations }) {
 		const result = await this.https.post('/g/locations', { locations })
+		return result
+	}
+
+	/**
+	 * Emit any event as an Enterprise skill.
+	 *
+	 * @param {Object} response
+	 */
+	async eEmitEvent({ userId, locationId, eventName, payload }) {
+		const result = await this.https.post(
+			`/e/locations/${locationId}/users/${userId}/emit`,
+			{
+				eventName,
+				payload
+			}
+		)
+
 		return result
 	}
 
@@ -633,6 +649,22 @@ class Sprucebot {
 			)
 			throw new Error('INVALID_EVENT_CONTRACT')
 		}
+	}
+
+	/**
+	 * Audit log or logs to send
+	 *
+	 * @param auditLogs
+	 */
+	audit(auditLogs) {
+		if (!Array.isArray(auditLogs)) {
+			auditLogs = [auditLogs]
+		}
+		// Don't wait for the result
+		this.https
+			.post(`/audit`, auditLogs)
+			.then(() => {})
+			.catch(e => log.warn(e))
 	}
 }
 

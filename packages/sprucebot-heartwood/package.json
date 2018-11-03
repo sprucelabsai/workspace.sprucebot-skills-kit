@@ -1,0 +1,46 @@
+{
+	"name": "@sprucelabs/heartwood-components",
+	"version": "7.8.0",
+	"dependencies": {
+		"@frctl/fractal": "^1.1.5",
+		"@frctl/handlebars": "^1.1.5",
+		"@frctl/mandelbrot": "^1.2.0",
+		"browser-sync": "^2.18.13"
+	},
+	"devDependencies": {
+		"gh-pages": "^1.2.0",
+		"gulp": "^3.9.1",
+		"gulp-concat": "^2.6.1",
+		"gulp-rename": "^1.4.0",
+		"gulp-sass": "^3.1.0",
+		"gulp-sass-glob": "^1.0.8",
+		"gulp-uglify": "^3.0.1"
+	},
+	"scripts": {
+		"deploy": "gh-pages -d build",
+		"build": "gulp styles && gulp js && fractal build"
+	},
+	"description": "This is a seed project, using [Fractal](https://github.com/frctl/fractal) alongside Sass and Gulp to provide editable component-based CSS",
+	"main": "Gulpfile.js",
+	"directories": {
+		"doc": "docs"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sprucelabsai/sprucebot-heartwood.git"
+	},
+	"keywords": [
+		"heartwood",
+		"fractal",
+		"sprucebot",
+		"css",
+		"scss",
+		"sass"
+	],
+	"author": "Spruce Labs",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/sprucelabsai/sprucebot-heartwood/issues"
+	},
+	"homepage": "https://github.com/sprucelabsai/sprucebot-heartwood#readme"
+}

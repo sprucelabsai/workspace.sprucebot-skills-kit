@@ -31,7 +31,7 @@ var _reactModal = _interopRequireDefault(require("react-modal"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
-var _ModalHeader = _interopRequireWildcard(require("./components/ModalHeader/ModalHeader"));
+var _ModalHeader = _interopRequireDefault(require("./components/ModalHeader/ModalHeader"));
 
 var _ModalBody = _interopRequireDefault(require("./components/ModalBody/ModalBody"));
 

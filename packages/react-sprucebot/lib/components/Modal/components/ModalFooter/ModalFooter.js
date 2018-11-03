@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -13,7 +11,7 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _react = _interopRequireDefault(require("react"));
 
-var _Button = _interopRequireWildcard(require("../../../Button/Button"));
+var _Button = _interopRequireDefault(require("../../../Button/Button"));
 
 var ModalFooter = function ModalFooter(props) {
   var primaryAction = props.primaryAction,

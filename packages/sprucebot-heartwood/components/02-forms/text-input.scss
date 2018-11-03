@@ -1,0 +1,199 @@
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	border: 1px solid $c-ui-input-autofill;
+	-webkit-box-shadow: 0 0 0px 1000px $c-ui-input-autofill inset;
+}
+
+
+.text-input
+.text-input__input,
+.text-input
+.text-area__input {
+	width: 100%;
+}
+
+.text-input__pre {
+	@include type-style-label;
+	display: flex;
+	justify-content: space-between;
+}
+
+.text-input__post-label {
+	color: $c-text-light;
+}
+
+.text-input__helper {
+	@include type-style-body-sm;
+}
+
+.text-input__pre,
+.text-input__inner {
+	margin-bottom: rem(4);
+}
+
+
+.text-input__inner {
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	.btn__icon-wrapper {
+		line-height: 0;
+	}
+}
+
+.text-input__icon-pre {
+	position: absolute;
+	top: 50%;
+	left: rem(8);
+	transform: translate(0, -50%);
+	width: rem(20);
+	height: rem(20);
+	fill: $c-text-icon;
+	opacity: 0.7;
+}
+
+.text-input__icon-pre ~ .text-input__input  {
+	padding-left: rem(32);
+}
+
+.text-input__input,
+.text-area__input {
+	@include input-focus-state;
+	border: 1px solid $c-border;
+	border-radius: $border-radius-input;
+	font-family: $font-family-primary;
+	-webkit-appearance: none;
+
+	&[readonly] {
+		color: $c-text-light;
+		background-color: $c-grey-00;
+		border: none;
+		cursor: not-allowed;
+	}
+
+	.text-input--has-error & {
+		&:not(:focus) {
+			border-color: $c-ui-critical;
+			background-color: rgba($c-ui-critical, 0.1);
+		}
+	}
+}
+
+.text-input__input {
+	height: $tap-height;
+	padding: 0 rem(8);
+
+	.text-input-small & {
+		height: $tap-height-small;
+	}
+
+}
+
+.text-area__input {
+	padding: rem(8);
+
+	&.text-area__input-no-resize {
+		resize: none;
+	}
+}
+
+.text-input__appendix {
+	margin-left: rem(4);
+}
+
+.text-input__helper {
+	color: $c-text-light;
+	opacity: 0.8;
+
+	.text-input--has-error & {
+		color: $c-ui-critical;
+		opacity: 1;
+	}
+}
+
+.text-input__country-select,
+.text-input__credit-card-icon-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: rem(54);
+	height: 100%;
+	border-color: $c-border;
+	border-top-left-radius: $border-radius-input;
+	border-bottom-left-radius: $border-radius-input;
+
+	select {
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		cursor: pointer;
+	}
+}
+
+.text-input__credit-card-icon-wrapper {
+	display: flex;
+	align-items: center;
+	width: rem(56);
+	padding: rem(8);
+}
+
+.text-input__credit-card-icon {
+	width: 100%;
+	height: auto;
+}
+
+.text-input__country-select,
+.text-input__credit-card-icon-wrapper {
+	~ .text-input__input  {
+		padding-left: rem(62);
+	}
+	
+}
+.text-input--is-focused .text-input__country-select {
+	border-color: $c-primary;
+}
+.text-input__country-indicator {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding-left: rem(8);
+
+	.ic__dropdown-arrow {
+		fill: $c-text-icon;
+	}
+}
+
+.text-input__clear-btn.btn.btn-icon-only {
+	position: absolute;
+	top: 50%;
+	right: rem(8);
+	transform: translate(0, -50%);
+	min-width: 0;
+	width: rem(16);
+	height: rem(16);
+	padding: 0;
+
+	.btn__icon {
+		width: 100%;
+		height: 100%;
+		fill: $c-text-icon;
+		opacity: 0.7;
+	}
+
+	&:hover {
+		svg { opacity: 1;}
+	}
+}

@@ -1,0 +1,24 @@
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: $font-size-base;
+	color: $c-text;
+	background-color: $c-white;
+	height: 100%;
+}
+
+body {
+	@include type-kerning;
+	@include type-style-body;
+	font-family: $font-family-primary;
+	height: 100%;
+}
+
+strong {
+	font-weight: $font-weight-bold;
+}

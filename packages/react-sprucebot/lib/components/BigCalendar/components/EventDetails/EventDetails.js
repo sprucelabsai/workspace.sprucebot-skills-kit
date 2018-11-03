@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
@@ -13,11 +11,11 @@ var _react = _interopRequireDefault(require("react"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
-var _List = _interopRequireWildcard(require("../../../List/List"));
+var _List = _interopRequireDefault(require("../../../List/List"));
 
-var _EventDetailsHeader = _interopRequireWildcard(require("./components/EventDetailsHeader/EventDetailsHeader"));
+var _EventDetailsHeader = _interopRequireDefault(require("./components/EventDetailsHeader/EventDetailsHeader"));
 
-var _EventDetailsFooter = _interopRequireWildcard(require("./components/EventDetailsFooter/EventDetailsFooter"));
+var _EventDetailsFooter = _interopRequireDefault(require("./components/EventDetailsFooter/EventDetailsFooter"));
 
 var EventDetails = function EventDetails(props) {
   var header = props.header,

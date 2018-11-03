@@ -1,0 +1,18 @@
+$breakpoints: (
+	small: 500px,
+	medium: 750px,
+	large: 1000px,
+	x-large: 1200px
+);
+
+@mixin gt($size) {
+	@if map-has-key($breakpoints, $size) {
+		@media screen and (min-width: map-get($breakpoints, $size)) {
+			@content;
+		}
+	} @else {
+		@media screen and (min-width: $size) {
+			@content;
+		}
+	}
+}

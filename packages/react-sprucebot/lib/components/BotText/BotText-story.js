@@ -18,7 +18,7 @@ stories.add('Bot Text', function () {
   return _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(_BotText.default, {
-    text: (0, _react3.text)('Text', 'Hey there from Sprucebot 🌲🤖'),
-    className: (0, _react3.text)('Class', '')
+    text: (0, _react3.text)('text', 'Hey there from Sprucebot 🌲🤖'),
+    className: (0, _react3.text)('className', '')
   }));
 });

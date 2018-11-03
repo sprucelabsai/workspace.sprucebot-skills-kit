@@ -36,41 +36,51 @@ export default class TeamDashboard extends Component {
 	}
 
 	render() {
+		const {
+			lang,
+			auth,
+			guestsLoading,
+			guestsError,
+			guests,
+			teammates,
+			teammatesError,
+			teammatesLoading
+		} = this.props
+
 		return (
 			<div>
 				<H1>
-					{this.props.lang.getText('teamDashboardWelcome', {
-						user: this.props.auth
+					{lang.getText('teamDashboardWelcome', {
+						user: auth
 					})}
 				</H1>
 				<BotText>
-					{this.props.lang.getText('teamDashboardBotText', {
-						user: this.props.auth
+					{lang.getText('teamDashboardBotText', {
+						user: auth
 					})}
 				</BotText>
 				<SectionHeading>
-					{this.props.lang.getText('teammateDashboardHeading')}
+					{lang.getText('teammateDashboardHeading')}
 				</SectionHeading>
 				<Tabs>
-					<TabPane title={this.props.lang.getText('guestsTabTitle')}>
-						{this.props.guestsLoading && <Loader />}
-						{this.props.guestsError && (
-							<BotText>{this.props.lang.getText('errorLoadingGuests')}</BotText>
+					<TabPane title={lang.getText('guestsTabTitle')}>
+						{guestsLoading && <Loader />}
+						{guestsError && (
+							<BotText>{lang.getText('errorLoadingGuests')}</BotText>
 						)}
-						{this.props.guests && (
-							<List>{this.userListItems(this.props.guests)}</List>
-						)}
+						{guests &&
+							guests.length === 0 && (
+								<BotText>{lang.getText('noGuestsBotText', { auth })}</BotText>
+							)}
+						{guests &&
+							guests.length > 0 && <List>{this.userListItems(guests)}</List>}
 					</TabPane>
-					<TabPane title={this.props.lang.getText('teammatesTabTitle')}>
-						{this.props.teammatesLoading && <Loader />}
-						{this.props.teammatesError && (
-							<BotText>
-								{this.props.lang.getText('errorLoadingTeammates')}
-							</BotText>
+					<TabPane title={lang.getText('teammatesTabTitle')}>
+						{teammatesLoading && <Loader />}
+						{teammatesError && (
+							<BotText>{lang.getText('errorLoadingTeammates')}</BotText>
 						)}
-						{this.props.teammates && (
-							<List>{this.userListItems(this.props.teammates)}</List>
-						)}
+						{teammates && <List>{this.userListItems(teammates)}</List>}
 					</TabPane>
 				</Tabs>
 			</div>

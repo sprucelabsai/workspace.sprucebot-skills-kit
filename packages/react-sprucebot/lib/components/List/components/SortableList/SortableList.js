@@ -37,9 +37,7 @@ var _reactSortableHoc = require("react-sortable-hoc");
 
 var _ListHeader = _interopRequireDefault(require("../ListHeader/ListHeader"));
 
-var _ListItem = _interopRequireWildcard(require("../ListItem/ListItem"));
-
-var _List = require("../../List");
+var _ListItem = _interopRequireDefault(require("../ListItem/ListItem"));
 
 var SortableItem = (0, _reactSortableHoc.SortableElement)(function (_ref) {
   var item = _ref.item;

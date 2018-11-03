@@ -1,0 +1,46 @@
+<li class="list-item{{#unless subtitle}} list-item-title-only{{/unless}}{{#if isDraggable}} list-item--is-draggable{{/if}}">
+	{{#unless isDraggable}}
+		{{#if image}}
+			<div class="list-item__image-wrapper">
+				{{#if imageIsIcon}}
+					{{> @icon icon=image class=iconClass width="22" height="22"}}
+				{{/if}}
+				{{#unless imageIsIcon}}
+					{{#if imageIsAvatar}}
+						{{> @avatar}}
+					{{else}}
+						<img src="{{ image }}" class="list-item__image" alt="{{ title }}" width="40" height="40" />
+					{{/if}}
+				{{/unless}}
+			</div>
+		{{/if}}
+	{{/unless}}
+
+	{{#if isDraggable}}
+		{{> @drag-handle}}
+	{{/if}}
+
+	<div class="list-item__text-wrapper">
+		{{#unless isSetting}}
+			<p class="list-item__title">{{{title}}}</p>
+		{{/unless}}
+		{{#if isSetting}}
+			<label class="list-item__title" for="{{ toggleId }}">{{{title}}}</label>
+		{{/if}}
+		{{#if subtitle}}
+			<p class="list-item__subtitle">{{{subtitle}}}</p>
+		{{/if}}
+	</div>
+	{{#unless isDraggable}}
+		{{#if actions}}
+			<div class="list-item__actions-wrapper">
+				{{#each actions}}
+					{{> @button className="btn-simple btn-small list-item__action"}}
+				{{/each}}
+			</div>
+		{{/if}}
+		{{#if isSetting}}
+			{{> @toggle id=toggleId}}
+		{{/if}}
+	{{/unless}}
+</li>

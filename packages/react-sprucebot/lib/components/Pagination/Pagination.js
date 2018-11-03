@@ -55,24 +55,25 @@ var Pagination = function Pagination(props) {
       onClickNext = props.onClickNext,
       onClickBack = props.onClickBack,
       onPageButtonClick = props.onPageButtonClick,
-      onJump = props.onJump;
+      onJump = props.onJump,
+      isSimple = props.isSimple;
   var pagesArray = [];
   var displayPages = [];
 
-  for (var i = 1; i < totalPages + 1; i++) {
+  for (var i = 0; i < totalPages; i++) {
     pagesArray.push(i);
   }
 
-  if (currentPage <= 3 || totalPages - currentPage <= 3) {
+  if (currentPage <= 2 || totalPages - currentPage <= 2) {
     displayPages = pagesArray.filter(function (page) {
-      return page === 1 || page === 2 || page === 3 || page === totalPages || page === totalPages - 1 || page === totalPages - 2 || page === currentPage;
+      return page === 0 || page === 1 || page === 2 || page === totalPages - 1 || page === totalPages - 2 || page === totalPages - 3 || page === currentPage;
     });
     displayPages.splice(3, 0, {
       text: '…'
     });
   } else {
     displayPages = pagesArray.filter(function (page) {
-      return page === 1 || page === totalPages || page === currentPage || page === currentPage - 1 || page === currentPage + 1;
+      return page === 0 || page === totalPages - 1 || page === currentPage || page === currentPage + 1 || page === currentPage - 1;
     });
     displayPages.splice(1, 0, {
       text: '…'
@@ -82,17 +83,18 @@ var Pagination = function Pagination(props) {
     });
   }
 
+  var kind = isSimple ? 'simple' : 'secondary';
   return _react.default.createElement("div", {
     className: (0, _classnames.default)('pagination-wrapper', {
       'pagination-wrapper-minimal': !showPages
     })
   }, _react.default.createElement(_Button.default, {
-    kind: "secondary",
+    kind: kind,
     onClick: onClickBack,
     isSmall: true,
     className: "pagination__btn",
     icon: _react.default.createElement(ArrowBack, null),
-    disabled: currentPage === 1
+    disabled: currentPage === 0
   }), showPages && onPageButtonClick && displayPages.map(function (page, idx) {
     if (page.text === '…') {
       return _react.default.createElement(_Text.Text, {
@@ -107,17 +109,17 @@ var Pagination = function Pagination(props) {
         return onPageButtonClick(page);
       },
       kind: currentPage === page ? 'simple' : '',
-      text: page.toString(),
+      text: (page + 1).toString(),
       isSmall: true,
       className: "pagination__page-btn"
     });
   }), _react.default.createElement(_Button.default, {
-    kind: "secondary",
+    kind: kind,
     onClick: onClickNext,
     isSmall: true,
     className: "pagination__btn",
     icon: _react.default.createElement(ArrowNext, null),
-    disabled: currentPage >= totalPages
+    disabled: currentPage >= totalPages - 1
   }), showJump && onJump && _react.default.createElement("form", {
     className: "pagination__jump-wrapper",
     onSubmit: function onSubmit(e) {

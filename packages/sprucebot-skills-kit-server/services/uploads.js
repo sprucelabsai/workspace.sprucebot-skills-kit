@@ -10,7 +10,7 @@ module.exports = {
 	async upload(data, options = {}) {
 		if (!this.uploader) {
 			throw new Error(
-				'No uploader configured. see https://github.com/liquidg3/sprucebot-skills-kit/blob/dev/docs/uploads.md instructions'
+				'No uploader configured. see https://github.com/sprucelabsai/sprucebot-skills-kit/blob/dev/docs/uploads.md instructions'
 			)
 		}
 

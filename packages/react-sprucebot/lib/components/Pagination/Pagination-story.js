@@ -18,10 +18,10 @@ var stories = (0, _react2.storiesOf)('Pagination', module);
 stories.addDecorator(_react3.withKnobs);
 stories.add('Pagination', function () {
   return _react.default.createElement(_Pagination.default, {
-    currentPage: (0, _react3.number)('Current Page', 1),
-    totalPages: (0, _react3.number)('Total Pages', 100),
-    showPages: (0, _react3.boolean)('Show Pages', false),
-    showJump: (0, _react3.boolean)('Show Jump', false),
+    currentPage: (0, _react3.number)('currentPage', 0),
+    totalPages: (0, _react3.number)('totalPages', 100),
+    showPages: (0, _react3.boolean)('showPages', false),
+    showJump: (0, _react3.boolean)('showJump', false),
     onClickNext: function onClickNext() {
       return console.log('You clicked next');
     },

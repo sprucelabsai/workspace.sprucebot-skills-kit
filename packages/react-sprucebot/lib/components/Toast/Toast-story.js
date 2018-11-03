@@ -59,13 +59,16 @@ function (_Component) {
       toasts: []
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "addToast", function (kind) {
-      var showUndo = _this.props.showUndo;
+      var _this$props = _this.props,
+          showUndo = _this$props.showUndo,
+          text = _this$props.text,
+          headline = _this$props.headline;
 
       _this.setState(function (prevState) {
         var newToasts = (0, _toConsumableArray2.default)(prevState.toasts);
         newToasts.push({
-          headline: 'Neat',
-          text: 'Something just happened and it was fine',
+          headline: headline,
+          text: text,
           kind: kind,
           onUndo: showUndo ? function () {
             return console.log('Undo');
@@ -129,6 +132,8 @@ stories.add('Toast', function () {
   return _react.default.createElement(_Container.default, {
     size: "small"
   }, _react.default.createElement(ToastExample, {
-    showUndo: (0, _react3.boolean)('Show Undo', false)
+    headline: (0, _react3.text)('headline', 'Neat'),
+    text: (0, _react3.text)('text', 'Something just happened and it was fine'),
+    showUndo: (0, _react3.boolean)('showUndo', false)
   }));
 });
