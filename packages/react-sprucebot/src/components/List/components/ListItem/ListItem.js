@@ -55,6 +55,7 @@ const ListItem = (props: Props) => {
 		'list-item-title-only': !subtitle,
 		'list-item--is-draggable': isDraggable
 	})
+
 	return (
 		<li className={parentClass}>
 			{(image || icon || avatar) &&
@@ -64,7 +65,11 @@ const ListItem = (props: Props) => {
 							React.cloneElement(icon, {
 								className: cx(
 									'list-item__icon',
-									icon.props && icon.props.className
+									icon.props && icon.props.className,
+									{
+										'u-icon__no-fill': icon.props && icon.props.isLineIcon,
+										'u-icon__stroke': icon.props && icon.props.isLineIcon
+									}
 								)
 							})}
 						{image && (

@@ -53,26 +53,26 @@ const Pagination = (props: Props) => {
 	for (let i = 0; i < totalPages; i++) {
 		pagesArray.push(i)
 	}
-	if (currentPage <= 3 || totalPages - currentPage <= 3) {
+	if (currentPage <= 2 || totalPages - currentPage <= 2) {
 		displayPages = pagesArray.filter(
 			page =>
+				page === 0 ||
 				page === 1 ||
 				page === 2 ||
-				page === 3 ||
-				page === totalPages ||
 				page === totalPages - 1 ||
 				page === totalPages - 2 ||
+				page === totalPages - 3 ||
 				page === currentPage
 		)
 		displayPages.splice(3, 0, { text: '…' })
 	} else {
 		displayPages = pagesArray.filter(
 			page =>
-				page === 1 ||
-				page === totalPages ||
+				page === 0 ||
+				page === totalPages - 1 ||
 				page === currentPage ||
-				page === currentPage - 1 ||
-				page === currentPage + 1
+				page === currentPage + 1 ||
+				page === currentPage - 1
 		)
 		displayPages.splice(1, 0, { text: '…' })
 		displayPages.splice(displayPages.length - 1, 0, { text: '…' })
@@ -109,7 +109,7 @@ const Pagination = (props: Props) => {
 							key={idx}
 							onClick={() => onPageButtonClick(page)}
 							kind={currentPage === page ? 'simple' : ''}
-							text={page.toString()}
+							text={(page + 1).toString()}
 							isSmall
 							className="pagination__page-btn"
 						/>

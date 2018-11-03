@@ -85,6 +85,7 @@ class ModalExample extends Component<Props, State> {
 							</FormRow>
 							<FormRow>
 								<Checkbox
+									id="hide-category"
 									label="Hide this category"
 									postText="It will still be visible to your teammates, but will be hidden from guests."
 								/>
@@ -162,6 +163,7 @@ stories
 					</FormRow>
 					<FormRow>
 						<Checkbox
+							id="hide-category"
 							label="Hide this category"
 							postText="It will still be visible to your teammates, but will be hidden from guests."
 						/>

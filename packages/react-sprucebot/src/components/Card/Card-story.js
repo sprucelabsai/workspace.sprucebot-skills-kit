@@ -8,9 +8,16 @@ import {
 	boolean,
 	object
 } from '@storybook/addon-knobs/react'
+import { onboarding } from '../../../.storybook/data/onboarding'
 import { userList } from '../../../.storybook/data/people'
 import Container from '../Layout/Container/Container'
-import Card, { CardHeader, CardBody, CardFooter, CardBuilder } from './Card'
+import Card, {
+	CardHeader,
+	CardBody,
+	CardFooter,
+	CardBuilder,
+	OnboardingCard
+} from './index'
 import List from '../List/List'
 import { H3, Text, Anchor } from '../Text/Text'
 import Image from '../Image/Image'
@@ -243,6 +250,11 @@ stories
 					<Button kind="secondary" text="Get some skills" isSmall />
 				</CardFooter>
 			</Card>
+		</Container>
+	))
+	.add('Onboarding Card', () => (
+		<Container size="medium">
+			<OnboardingCard {...onboarding} />
 		</Container>
 	))
 	.add('CardBuilder', () => (

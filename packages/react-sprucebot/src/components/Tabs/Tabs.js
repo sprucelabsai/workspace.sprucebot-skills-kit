@@ -14,13 +14,12 @@ const Tabs = (props: Props) => {
 	const { tabs } = props
 	const hiddenTabs = []
 	const activeTab = tabs.find(tab => tab.isCurrent)
-	console.log({ activeTab })
+
 	// TODO: Determine how hidden tabs work
 	return (
 		<Fragment>
 			<ul className="tab-group">
 				{tabs.map(tab => {
-					console.log({ tab })
 					return <Tab key={tab.text} {...tab} />
 				})}
 				{hiddenTabs &&
