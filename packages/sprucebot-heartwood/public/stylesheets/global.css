@@ -3432,8 +3432,7 @@ select:-webkit-autofill:focus {
     right: 0px;
     bottom: -20px;
     padding-bottom: 20px;
-    position: absolute;
-    -webkit-overflow-scrolling: touch; }
+    position: absolute; }
   .bigcalendar__teammate-header .teammate {
     font-size: 0.75rem;
     display: flex;
@@ -3445,7 +3444,6 @@ select:-webkit-autofill:focus {
 .bigcalendar__drag-grid {
   position: relative;
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
   border-left: 1px solid #cccfd6; }
   .bigcalendar__drag-grid .scroll-inner {
     display: flex; }

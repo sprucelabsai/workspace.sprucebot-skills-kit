@@ -12,13 +12,6 @@ import storyEvents from './storyEvents'
 
 const stories = storiesOf('Big Calendar', module)
 
-// const details = {
-// 	header: { title: 'Taco Bell', label: 'Appointment' },
-// 	status: 'event-busy',
-// 	list: { items: [] },
-// 	footer: { primaryCTA: { text: 'DO IT NOW!' } }
-// }
-
 class BigCalendarExample extends Component {
 	state = {
 		users: storyUsers,

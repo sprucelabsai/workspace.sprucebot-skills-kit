@@ -49,6 +49,8 @@ var _DragGrid = _interopRequireDefault(require("../DragGrid/DragGrid"));
 
 var _DayCol = _interopRequireDefault(require("./DayCol"));
 
+var _EventDetails = _interopRequireDefault(require("../../components/EventDetails/EventDetails"));
+
 var _size = _interopRequireDefault(require("../../utils/size"));
 
 var _event = _interopRequireDefault(require("../../utils/event"));
@@ -65,10 +67,7 @@ function (_Component) {
 
     (0, _classCallCheck2.default)(this, Day);
     _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Day).call(this, props));
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
-      scrollLeft: 0,
-      scrollTop: 0
-    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {});
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "_timeRangeCache", {});
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "_columnMapCache", null);
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "componentDidMount", function () {
@@ -90,14 +89,13 @@ function (_Component) {
       var target = e.target;
       var scrollTop = target.scrollTop,
           scrollLeft = target.scrollLeft;
+      _this.teammateHeaderRef.current.domNodeRef.current.scrollLeft = scrollLeft;
+      _this.timeGutterRef.current.domNodeRef.current.scrollTop = scrollTop; // // arrows that sit in the upper right
+      // this.updateHorizontalPagerDetails()
 
-      _this.setState({
-        scrollTop: scrollTop,
-        scrollLeft: scrollLeft
-      }); // arrows that sit in the upper right
-
-
-      _this.updateHorizontalPagerDetails();
+      if (_this._lastDragDetails) {
+        _this.handleDragOfEvent(_this._lastDragDetails.event, _this._lastDragDetails.dragDetails);
+      }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getTimeRangeDetails", function (min, max) {
       var _this$props = _this.props,
@@ -245,6 +243,11 @@ function (_Component) {
           dragBlockNode = _ref3.dragBlockNode;
       return blockIdx === 0 ? dragEventNode : dragBlockNode;
     });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseDownOnView", function (e) {
+      if (!e.target.classList.contains('hour-block')) {
+        return false;
+      }
+    });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseDownOnEvent", function (_ref4) {
       var e = _ref4.e,
           event = _ref4.event,
@@ -301,9 +304,13 @@ function (_Component) {
         };
       }
 
+      _this._scrollStartingPosition = {
+        left: _this.dragGridRef.current.getScrollLeft(),
+        top: _this.dragGridRef.current.getScrollTop()
+      };
       return response;
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDropOfEvent",
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDropEvent",
     /*#__PURE__*/
     function () {
       var _ref5 = (0, _asyncToGenerator2.default)(
@@ -319,6 +326,7 @@ function (_Component) {
                 resizeDetails = _this._resizeDetails || {};
                 _this._dragDetails = null;
                 _this._resizeDetails = null;
+                _this._lastDragDetails = null;
                 newStartTime = dragDetails.newStartAt || resizeDetails.newStartAt || _this.yToTime(newY);
                 newUser = _this.xToUser(newX);
                 onDropEvent = _this.props.onDropEvent;
@@ -328,7 +336,7 @@ function (_Component) {
                   newUser: newUser && newUser.id !== event.userId ? newUser : null
                 }, dragDetails, resizeDetails)));
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -341,7 +349,13 @@ function (_Component) {
       };
     }());
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDragOfEvent", function (event, dragDetails) {
-      // update time
+      // if anything is selected, null it
+      if (_this.state.selectedEvent) {
+        _this.setState({
+          selectedEvent: null
+        });
+      }
+
       var _this$props3 = _this.props,
           onDragEvent = _this$props3.onDragEvent,
           timezone = _this$props3.timezone;
@@ -353,12 +367,14 @@ function (_Component) {
 
       if (_this._resizeDetails) {
         cancelDrag = true;
+        var startingScrollTop = _this._scrollStartingPosition.top;
+        var deltaScrollTop = _this.dragGridRef.current.getScrollTop() - startingScrollTop;
         var dragBlockNode = dragDetails.dragBlockNode,
             eMouseMove = dragDetails.eMouseMove,
             eMouseDown = dragDetails.eMouseDown,
             _blockIdx = dragDetails.blockIdx,
             sourceBlockNode = dragDetails.sourceBlockNode;
-        var dragDistance = eMouseMove.clientY - eMouseDown.clientY;
+        var dragDistance = eMouseMove.clientY + deltaScrollTop - eMouseDown.clientY;
 
         var originalHeight = _size.default.getHeight(sourceBlockNode);
 
@@ -390,6 +406,8 @@ function (_Component) {
           distance = Math.max(distance, originalTop * -1); // so it won't go too far down
 
           distance = Math.min(distance, originalHeight - slotHeight);
+        } else if (direction === 's') {
+          distance = Math.min(distance, _this.dayColHeight() - _size.default.getLocalBottom(sourceEventNode));
         }
 
         var height = originalHeight;
@@ -401,11 +419,12 @@ function (_Component) {
         }
 
         height = Math.max(slotHeight, height);
-        dragBlockNode.style.height = height + 'px';
+        dragBlockNode.style.height = parseInt(height) + 'px';
         resizeDetails.blockUpdates.push({
           blockIdx: _blockIdx,
           newDurationSec: _this.heightToSeconds(height)
-        });
+        }); // if we are resizing the first block north, we actually need to
+        // move the whole event up and adjust the start time
 
         if (_blockIdx > 0 && direction === 'n') {
           var previousDragBlock = dragBlockNode.previousSibling;
@@ -417,7 +436,7 @@ function (_Component) {
 
 
           _height = Math.min(_height, originalHeight + previousHeight - slotHeight);
-          previousDragBlock.style.height = _height + 'px';
+          previousDragBlock.style.height = parseInt(_height) + 'px';
           resizeDetails.blockUpdates.push({
             blockIdx: _blockIdx - 1,
             newDurationSec: _this.heightToSeconds(_height)
@@ -434,6 +453,7 @@ function (_Component) {
             var newStartAt = _momentTimezone.default.tz(event.startAt, timezone).subtract(deltaSeconds, 'seconds');
 
             resizeDetails.newStartAt = newStartAt;
+            dragEventNode.querySelector('.time').innerHTML = newStartAt.format('h:mma');
           }
 
         _this._resizeDetails = resizeDetails;
@@ -443,6 +463,7 @@ function (_Component) {
           var time = _this.yToTime(parseFloat(dragEventNode.style.top));
 
           dragEventNode.querySelector('.time').innerHTML = time.format('h:mma');
+          _this._didDragEvent = true;
         } //dragging a block means changing duration of the block ahead of it
         //drag grid cannot handle this
         else {
@@ -460,20 +481,12 @@ function (_Component) {
 
             var maxDistance = _this.dayColHeight() - _size.default.getLocalBottom(sourceEventNode);
 
-            console.log({
-              maxDistance: maxDistance,
-              dragDistance: _dragDistance,
-              rect: sourceEventNode.getBoundingClientRect(),
-              dayColHeight: _this.dayColHeight(),
-              bottom: _size.default.getLocalBottom(sourceEventNode)
-            });
-
             var _distance = Math.min(_dragDistance, maxDistance);
 
             var newHeight = Math.max(0, _this.snapEventToNearestValidY({
               dragNodeTop: _originalHeight + _distance
             }));
-            _previousDragBlock.style.height = newHeight + 'px';
+            _previousDragBlock.style.height = parseInt(newHeight) + 'px';
 
             var duration = _this.heightToSeconds(newHeight);
 
@@ -487,7 +500,110 @@ function (_Component) {
       // all other drags are ignored
 
 
+      _this._lastDragDetails = {
+        event: event,
+        dragDetails: dragDetails
+      };
       return onDragEvent ? onDragEvent(event, dragDetails) : !cancelDrag;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleSelectEvent",
+    /*#__PURE__*/
+    function () {
+      var _ref7 = (0, _asyncToGenerator2.default)(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee2(_ref6) {
+        var event, block, blockIdx, eventNode, detailsNode, detailsWidth, gridWidth, eventRight, eventLeft, detailsRight, top;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                event = _ref6.event, block = _ref6.block, blockIdx = _ref6.blockIdx;
+
+                if (!event.details) {
+                  _context2.next = 14;
+                  break;
+                }
+
+                _context2.next = 4;
+                return _this.setState({
+                  selectedEvent: event
+                });
+
+              case 4:
+                // place details next to event
+                eventNode = _this.dragGridRef.current.getEventNode(event);
+                detailsNode = _this.dragGridRef.current.domNodeRef.current.querySelector('.event-details');
+                detailsWidth = _size.default.getWidth(detailsNode);
+                gridWidth = _this.dragGridRef.current.getWidth();
+                eventRight = _size.default.getLocalRight(eventNode);
+                eventLeft = _size.default.getLocalLeft(eventNode);
+                detailsRight = eventRight + detailsWidth;
+                top = _size.default.getLocalTop(eventNode);
+                detailsNode.style.top = "".concat(top, "px");
+
+                if (detailsRight > gridWidth) {
+                  detailsNode.style.left = "".concat(eventLeft - detailsWidth, "px");
+                } else {
+                  detailsNode.style.left = "".concat(eventRight, "px");
+                }
+
+              case 14:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      return function (_x4) {
+        return _ref7.apply(this, arguments);
+      };
+    }());
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDeselectEvent", function () {
+      _this.setState({
+        selectedEvent: null
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleHighlightEvent",
+    /*#__PURE__*/
+    function () {
+      var _ref9 = (0, _asyncToGenerator2.default)(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee3(_ref8) {
+        var event, block, blockIdx;
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                event = _ref8.event, block = _ref8.block, blockIdx = _ref8.blockIdx;
+
+                _this.setState({
+                  highlightedEventAndBlock: {
+                    event: event,
+                    block: block,
+                    blockIdx: blockIdx
+                  }
+                });
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      return function (_x5) {
+        return _ref9.apply(this, arguments);
+      };
+    }());
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleUnHighlightEvent", function () {
+      _this.setState({
+        highlightedEventAndBlock: null
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleCloseEventDetails", function () {
+      _this.handleDeselectEvent();
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "placeAndSize", function () {
       var firstDayCol = _this.scrollInnerRef.current.querySelector('.bigcalendar__day-col');
@@ -719,7 +835,7 @@ function (_Component) {
         event.blocks.forEach(function (block, idx) {
           var height = block.durationSec / dayColTimeRangeDetails.seconds * dayColHeight;
           var node = blockNodes[idx];
-          node.style.height = "".concat(height, "px");
+          node.style.height = "".concat(parseInt(height), "px");
         });
 
         if (event.id !== 'dragging') {
@@ -767,6 +883,8 @@ function (_Component) {
     });
     _this.dragGridRef = _react.default.createRef();
     _this.scrollInnerRef = _react.default.createRef();
+    _this.teammateHeaderRef = _react.default.createRef();
+    _this.timeGutterRef = _react.default.createRef();
     return _this;
   }
 
@@ -799,36 +917,55 @@ function (_Component) {
           startDate = _this$props9.startDate,
           events = _this$props9.events;
       var _this$state = this.state,
-          scrollTop = _this$state.scrollTop,
-          scrollLeft = _this$state.scrollLeft;
+          selectedEvent = _this$state.selectedEvent,
+          highlightedEventAndBlock = _this$state.highlightedEventAndBlock;
+      console.log('render');
+      var eventDetails = null;
+
+      if (selectedEvent && selectedEvent.details) {
+        eventDetails = (0, _objectSpread2.default)({}, selectedEvent.details);
+        eventDetails.header = eventDetails.header || {};
+        eventDetails.header.onClickClose = this.handleCloseEventDetails;
+      }
+
       return _react.default.createElement("div", {
-        className: "bigcalendar__view-day"
+        className: (0, _classnames.default)('bigcalendar__view-day', {
+          'has-selected-event': !!selectedEvent,
+          'has-highlighted-event': !!highlightedEventAndBlock
+        })
       }, _react.default.createElement("div", {
         className: "bigcalendar__user-header"
       }, _react.default.createElement(_TeammateHeader.default, {
         onMouseDown: this.handleViewMouseDown,
         onScroll: this.handleTeammateScroll,
-        scrollLeft: scrollLeft,
-        users: users
+        users: users,
+        ref: this.teammateHeaderRef
       })), _react.default.createElement("div", {
         className: "bigcalendar__body-wrapper"
       }, _react.default.createElement(_TimeGutter.default, {
         hours: hours,
         calendarBodyHeight: calendarBodyHeight,
-        scrollTop: scrollTop,
-        onMouseDown: this.handleViewMouseDown
+        onMouseDown: this.handleViewMouseDown,
+        ref: this.timeGutterRef
       }), _react.default.createElement(_DragGrid.default, {
+        onMouseDownOnView: this.handleMouseDownOnView,
+        onSelectEvent: this.handleSelectEvent,
+        onDeselectEvent: this.handleDeselectEvent,
+        onHighlightEvent: this.handleHighlightEvent,
+        onUnHighlightEvent: this.handleUnHighlightEvent,
         onMouseDownOnEvent: this.handleMouseDownOnEvent,
         getDragNode: this.getDragNode,
         snapEventToNearestValidX: this.snapEventToNearestValidX,
         snapEventToNearestValidY: this.snapEventToNearestValidY,
         onScroll: this.handleScroll,
         ref: this.dragGridRef,
+        selectedEvent: selectedEvent,
+        highlightedEventAndBlock: highlightedEventAndBlock,
         events: this.eventsForDay(events, startDate),
         sizeEvent: this.sizeEvent,
         timezone: timezone,
         onDragEvent: this.handleDragOfEvent,
-        onDropEvent: this.handleDropOfEvent,
+        onDropEvent: this.handleDropEvent,
         style: {
           height: calendarBodyHeight
         }
@@ -848,7 +985,7 @@ function (_Component) {
           maxTime: maxTime,
           timezone: timezone
         });
-      }), this.isToday() && _react.default.createElement(_TimeLine.default, null)))));
+      }), this.isToday() && _react.default.createElement(_TimeLine.default, null)), eventDetails && _react.default.createElement(_EventDetails.default, eventDetails))));
     }
   }]);
   return Day;

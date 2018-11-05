@@ -23,10 +23,6 @@ var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/ge
 
 var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _react = _interopRequireWildcard(require("react"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
@@ -43,9 +39,6 @@ function (_Component) {
 
     (0, _classCallCheck2.default)(this, TeammateHeader);
     _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(TeammateHeader).call(this, props));
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "componentDidUpdate", function () {
-      _this.domNodeRef.current.scrollLeft = _this.props.scrollLeft;
-    });
     _this.domNodeRef = _react.default.createRef();
     return _this;
   }
@@ -56,8 +49,7 @@ function (_Component) {
       var _this$props = this.props,
           users = _this$props.users,
           onScroll = _this$props.onScroll,
-          scrollLeft = _this$props.scrollLeft,
-          props = (0, _objectWithoutProperties2.default)(_this$props, ["users", "onScroll", "scrollLeft"]);
+          props = (0, _objectWithoutProperties2.default)(_this$props, ["users", "onScroll"]);
       return _react.default.createElement("div", (0, _extends2.default)({
         className: "bigcalendar__teammate-header"
       }, props), _react.default.createElement("div", {

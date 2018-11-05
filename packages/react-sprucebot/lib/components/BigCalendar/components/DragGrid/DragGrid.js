@@ -17,6 +17,8 @@ var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"))
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
+var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
+
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
@@ -46,6 +48,8 @@ var _indexOf = _interopRequireDefault(require("lodash/indexOf"));
 var _Event = _interopRequireDefault(require("../Event/Event"));
 
 var _size = _interopRequireDefault(require("../../utils/size"));
+
+var _event = _interopRequireDefault(require("../../utils/event"));
 
 var DragGrid =
 /*#__PURE__*/
@@ -113,27 +117,43 @@ function (_Component) {
       var onScroll = _this.props.onScroll;
       onScroll && onScroll(e); // keep event under mouse as scroll
 
-      if (_this._activeDrag) {
+      if (_this._activeDrag && _this._handleDragOnScroll) {
         _this.handleDragOfEvent(_this._activeDrag.eMouseMove, false);
       }
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseDownOfView", function (e) {
-      var clientX = e.clientX,
-          clientY = e.clientY,
-          target = e.target;
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseDownOnView", function (e) {
+      var _eventUtil$clientXY = _event.default.clientXY(e),
+          clientX = _eventUtil$clientXY.clientX,
+          clientY = _eventUtil$clientXY.clientY;
+
+      var _this$props$onMouseDo = _this.props.onMouseDownOnView,
+          onMouseDownOnView = _this$props$onMouseDo === void 0 ? function () {
+        return true;
+      } : _this$props$onMouseDo;
+
+      if (onMouseDownOnView(e) === false) {
+        return false;
+      }
+
       _this._dragOffset = {
         startingScrollLeft: _this.getScrollLeft(),
         startingScrollTop: _this.getScrollTop(),
         startingClientX: clientX,
         startingClientY: clientY
       };
+      console.log('mouse down in view');
       e.preventDefault();
-      window.addEventListener('mousemove', _this.handleMouseDragOfView);
-      window.addEventListener('mouseup', _this.handleMouseUp);
+      window.addEventListener('mousemove', _this.handleMouseDragOfView, {
+        passive: false
+      });
+      window.addEventListener('mouseup', _this.handleMouseUpFromView);
+      return true;
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseDragOfView", function (e) {
-      var clientX = e.clientX,
-          clientY = e.clientY;
+      var _eventUtil$clientXY2 = _event.default.clientXY(e),
+          clientX = _eventUtil$clientXY2.clientX,
+          clientY = _eventUtil$clientXY2.clientY;
+
       var _this$_dragOffset = _this._dragOffset,
           startingClientX = _this$_dragOffset.startingClientX,
           startingClientY = _this$_dragOffset.startingClientY,
@@ -143,6 +163,22 @@ function (_Component) {
       var deltaTop = clientY - startingClientY;
       _this.domNodeRef.current.scrollLeft = startingScrollLeft - deltaLeft;
       _this.domNodeRef.current.scrollTop = startingScrollTop - deltaTop;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleTouchStartOnView", function (e) {
+      console.log('touch start on view');
+
+      if (_this.handleMouseDownOnView(e) !== false) {
+        window.addEventListener('touchend', _this.handleTouchEndOnView, {
+          passive: false
+        });
+      }
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleTouchEndOnView", function (e) {
+      console.log('touch end on view');
+
+      _this.handleMouseUpFromView(e);
+
+      window.removeEventListener('touchend', _this.handleTouchEndOnView);
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getEventsAtLocation", function (_ref2) {
       var x = _ref2.x,
@@ -183,11 +219,15 @@ function (_Component) {
       var e = _ref3.e,
           event = _ref3.event,
           block = _ref3.block,
-          blockIdx = _ref3.blockIdx;
-      var _this$props$onMouseDo = _this.props.onMouseDownOnEvent,
-          onMouseDownOnEvent = _this$props$onMouseDo === void 0 ? function (args) {
+          blockIdx = _ref3.blockIdx,
+          _ref3$stopEvent = _ref3.stopEvent,
+          stopEvent = _ref3$stopEvent === void 0 ? true : _ref3$stopEvent,
+          _ref3$setListeners = _ref3.setListeners,
+          setListeners = _ref3$setListeners === void 0 ? true : _ref3$setListeners;
+      var _this$props$onMouseDo2 = _this.props.onMouseDownOnEvent,
+          onMouseDownOnEvent = _this$props$onMouseDo2 === void 0 ? function (args) {
         return blockIdx === 0 ? args : false;
-      } : _this$props$onMouseDo;
+      } : _this$props$onMouseDo2;
       var results = onMouseDownOnEvent({
         e: e,
         event: event,
@@ -196,15 +236,124 @@ function (_Component) {
       });
 
       if (results) {
-        e.preventDefault();
-        e.stopPropagation();
+        stopEvent && e.preventDefault();
+        stopEvent && e.stopPropagation();
         _this._pendingDrag = results;
+
+        var _eventUtil$clientXY3 = _event.default.clientXY(e),
+            clientX = _eventUtil$clientXY3.clientX,
+            clientY = _eventUtil$clientXY3.clientY;
+
         _this._startingDragPoint = {
-          x: e.clientX,
-          y: e.clientY
+          x: clientX,
+          y: clientY
         };
-        window.addEventListener('mousemove', _this.handleDragOfEvent);
-        window.addEventListener('mouseup', _this.handleMouseUpOfEvent);
+        setListeners && window.addEventListener('mousemove', _this.handleDragOfEvent, {
+          passive: false
+        });
+        setListeners && window.addEventListener('mouseup', _this.handleMouseUpFromEvent, {
+          passive: false
+        });
+      }
+
+      return results !== false;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleTouchStartOnEvent", function (_ref4) {
+      var e = _ref4.e,
+          event = _ref4.event,
+          block = _ref4.block,
+          blockIdx = _ref4.blockIdx;
+      clearTimeout(_this._longPressTimeout);
+      window.addEventListener('touchend', _this.handleTouchEndOnEvent);
+      window.addEventListener('touchmove', _this.handleTouchDragOfEvent, {
+        passive: false
+      });
+      e.persist();
+      e.preventDefault();
+      e.stopPropagation();
+      _this._pendingTouch = {
+        e: e,
+        event: event,
+        block: block,
+        blockIdx: blockIdx
+      };
+      _this._longPressTimeout = setTimeout(function () {
+        _this._longPressTimeout = false;
+
+        _this.handleLongPressOnEvent({
+          e: e,
+          event: event,
+          block: block,
+          blockIdx: blockIdx
+        });
+      }, 200);
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleTouchStartOnDragEvent", function (_ref5) {
+      var e = _ref5.e,
+          event = _ref5.event,
+          block = _ref5.block,
+          blockIdx = _ref5.blockIdx;
+      window.addEventListener('touchend', _this.handleTouchEndOnEvent);
+      window.addEventListener('touchmove', _this.handleTouchDragOfEvent, {
+        passive: false
+      });
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleTouchEndOnEvent", function (e) {
+      // we did not successfully long press, simulate all mouse events hurry
+      if (_this._longPressTimeout) {
+        clearInterval(_this._longPressTimeout);
+        var args = _this._pendingTouch; //start by simulating mouse down
+
+        _this.handleMouseDownOnEvent((0, _objectSpread2.default)({}, args, {
+          setListeners: false,
+          stopEvent: false
+        }));
+
+        _this.handleMouseUpFromEvent(_this._pendingTouch.e);
+      } else if (_this._touchDragging) {
+        _this._touchDragging = false;
+        var _this$props = _this.props,
+            highlightedEventAndBlock = _this$props.highlightedEventAndBlock,
+            onUnHighlightEvent = _this$props.onUnHighlightEvent; // if we have actually moved the drag node, drop it and be done with drag/resize
+
+        _this.handleDropEvent();
+
+        if (highlightedEventAndBlock && onUnHighlightEvent) {
+          onUnHighlightEvent();
+        }
+      }
+
+      window.removeEventListener('touchmove', _this.handleTouchDragOfEvent);
+      window.removeEventListener('touchend', _this.handleTouchEndOnEvent);
+      _this.domNodeRef.current.style.overflow = 'auto';
+      document.body.style.overflow = 'auto';
+      e.preventDefault();
+      e.stopPropagation();
+      _this._handleDragOnScroll = false;
+      _this._pendingTouch = null;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleLongPressOnEvent", function (_ref6) {
+      var e = _ref6.e,
+          event = _ref6.event,
+          block = _ref6.block,
+          blockIdx = _ref6.blockIdx;
+      var _this$props$onHighlig = _this.props.onHighlightEvent,
+          onHighlightEvent = _this$props$onHighlig === void 0 ? function () {
+        return true;
+      } : _this$props$onHighlig;
+
+      if (onHighlightEvent({
+        e: e,
+        event: event,
+        block: block,
+        blockIdx: blockIdx
+      }) !== false) {
+        _this.startDragOfEvent({
+          e: e,
+          event: event,
+          block: block,
+          blockIdx: blockIdx
+        });
       }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "beginScrollHorizontally", function (speed) {
@@ -233,17 +382,38 @@ function (_Component) {
       _this._scrollVerticalSpeed = 0;
       clearInterval(_this._scrollVerticalInterval);
     });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleTouchDragOfEvent", function (e) {
+      clearTimeout(_this._longPressTimeout);
+      _this._longPressTimeout = false;
+
+      if (_this._activeDrag) {
+        if (_this.domNodeRef.current.style.overflow !== 'hidden') {
+          _this.domNodeRef.current.style.overflow = 'hidden';
+          document.body.style.webkitTouchCallout = 'none';
+          document.body.style.webkitUserSelect = 'none';
+          document.body.style.overflow = 'hidden';
+          _this._touchDragging = true;
+        }
+
+        _this.handleDragOfEvent(e);
+
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDragOfEvent", function (e) {
       var autoScroll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       var dragEvent = _this.state.dragEvent;
 
       if (dragEvent) {
-        var clientX = e.clientX,
-            clientY = e.clientY;
-        var _this$props = _this.props,
-            scrollDuringDragMargin = _this$props.scrollDuringDragMargin,
-            dragScrollSpeed = _this$props.dragScrollSpeed,
-            onDragEvent = _this$props.onDragEvent;
+        var _eventUtil$clientXY4 = _event.default.clientXY(e),
+            clientX = _eventUtil$clientXY4.clientX,
+            clientY = _eventUtil$clientXY4.clientY;
+
+        var _this$props2 = _this.props,
+            scrollDuringDragMargin = _this$props2.scrollDuringDragMargin,
+            dragScrollSpeed = _this$props2.dragScrollSpeed,
+            onDragEvent = _this$props2.onDragEvent;
         var _this$_activeDrag = _this._activeDrag,
             offsetX = _this$_activeDrag.offsetX,
             offsetY = _this$_activeDrag.offsetY,
@@ -307,8 +477,10 @@ function (_Component) {
         }
       } // we have not actually started dragging yet, so we check how far we've moved from click
       else {
-          var _clientX = e.clientX,
-              _clientY = e.clientY;
+          var _eventUtil$clientXY5 = _event.default.clientXY(e),
+              _clientX = _eventUtil$clientXY5.clientX,
+              _clientY = _eventUtil$clientXY5.clientY;
+
           var _this$_startingDragPo = _this._startingDragPoint,
               _x = _this$_startingDragPo.x,
               _y = _this$_startingDragPo.y;
@@ -328,21 +500,56 @@ function (_Component) {
           }
         }
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseUp", function (e) {
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseUpFromView", function (e) {
+      console.log('mouse up from view');
       window.removeEventListener('mousemove', _this.handleMouseDragOfView);
-      window.removeEventListener('mouseup', _this.handleMouseUp);
+      window.removeEventListener('mouseup', _this.handleMouseUpFromView);
+
+      var _ref7 = _this._dragOffset || {},
+          _ref7$startingScrollL = _ref7.startingScrollLeft,
+          startingScrollLeft = _ref7$startingScrollL === void 0 ? 0 : _ref7$startingScrollL,
+          _ref7$startingScrollT = _ref7.startingScrollTop,
+          startingScrollTop = _ref7$startingScrollT === void 0 ? 0 : _ref7$startingScrollT;
+
+      var _this$props3 = _this.props,
+          selectedEvent = _this$props3.selectedEvent,
+          highlightedEventAndBlock = _this$props3.highlightedEventAndBlock,
+          onDeselectEvent = _this$props3.onDeselectEvent,
+          onUnHighlightEvent = _this$props3.onUnHighlightEvent;
+
+      var moved = startingScrollLeft !== _this.getScrollLeft() || startingScrollTop !== _this.getScrollTop();
+
+      if (selectedEvent && !moved) {
+        onDeselectEvent && onDeselectEvent();
+      }
+
+      if (highlightedEventAndBlock && !moved) {
+        onUnHighlightEvent && onUnHighlightEvent();
+      }
+
+      if (_this.state.dragEvent && !moved) {
+        _this.handleDropEvent();
+      }
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseUpOfEvent", function (e) {
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseUpFromEvent", function (e) {
+      console.log('mouse up of event');
+
       if (!_this.state.dragEvent) {
-        alert('SELECTED');
+        _this.props.onSelectEvent({
+          event: _this._pendingDrag.event,
+          block: _this._pendingDrag.block,
+          blockIdx: _this._pendingDrag.blockIdx
+        });
+
+        _this._pendingDrag = null;
       } else {
-        _this.handleDropOfEvent();
+        _this.handleDropEvent();
       }
 
       window.removeEventListener('mousemove', _this.handleDragOfEvent);
-      window.removeEventListener('mouseup', _this.handleMouseUpOfEvent);
+      window.removeEventListener('mouseup', _this.handleMouseUpFromEvent);
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDropOfEvent",
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDropEvent",
     /*#__PURE__*/
     (0, _asyncToGenerator2.default)(
     /*#__PURE__*/
@@ -407,16 +614,16 @@ function (_Component) {
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "startDragOfEvent",
     /*#__PURE__*/
     function () {
-      var _ref6 = (0, _asyncToGenerator2.default)(
+      var _ref10 = (0, _asyncToGenerator2.default)(
       /*#__PURE__*/
-      _regenerator.default.mark(function _callee2(_ref5) {
-        var e, event, block, blockIdx, dragEvent, _this$props2, sizeEvent, onDragEvent, getDragNode, eventNode, blockNode, dragEventNode, dragBlockNode, dragNode, clientX, clientY, wrapperLeft, wrapperTop, scrollTop, scrollLeft, offsetY, offsetX;
+      _regenerator.default.mark(function _callee2(_ref9) {
+        var e, event, block, blockIdx, dragEvent, _this$props4, sizeEvent, onDragEvent, getDragNode, eventNode, blockNode, dragEventNode, dragBlockNode, dragNode, _eventUtil$clientXY6, clientX, clientY, wrapperLeft, wrapperTop, scrollTop, scrollLeft, offsetY, offsetX;
 
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                e = _ref5.e, event = _ref5.event, block = _ref5.block, blockIdx = _ref5.blockIdx;
+                e = _ref9.e, event = _ref9.event, block = _ref9.block, blockIdx = _ref9.blockIdx;
                 //clone the event and render it in the dom
                 dragEvent = (0, _cloneDeep.default)(event);
                 dragEvent.originalId = dragEvent.id;
@@ -428,7 +635,7 @@ function (_Component) {
 
               case 6:
                 // make sure the event is the right size
-                _this$props2 = _this.props, sizeEvent = _this$props2.sizeEvent, onDragEvent = _this$props2.onDragEvent, getDragNode = _this$props2.getDragNode;
+                _this$props4 = _this.props, sizeEvent = _this$props4.sizeEvent, onDragEvent = _this$props4.onDragEvent, getDragNode = _this$props4.getDragNode;
                 sizeEvent(dragEvent); // place this event right over the dragged one
 
                 eventNode = _this.getEventNode(event);
@@ -445,7 +652,7 @@ function (_Component) {
                   dragBlockNode: dragBlockNode
                 }); //calculate offset to keep event in proper position relative to the mouse
 
-                clientX = e.clientX, clientY = e.clientY;
+                _eventUtil$clientXY6 = _event.default.clientXY(e), clientX = _eventUtil$clientXY6.clientX, clientY = _eventUtil$clientXY6.clientY;
                 wrapperLeft = _size.default.getLeft(_this.domNodeRef.current);
                 wrapperTop = _size.default.getTop(_this.domNodeRef.current);
                 scrollTop = _this.domNodeRef.current.scrollTop;
@@ -472,9 +679,10 @@ function (_Component) {
                   eMouseDown: e,
                   eMouseMove: e
                 };
+                _this._handleDragOnScroll = true;
                 onDragEvent && onDragEvent(event, _this._activeDrag);
 
-              case 24:
+              case 25:
               case "end":
                 return _context2.stop();
             }
@@ -483,7 +691,7 @@ function (_Component) {
       }));
 
       return function (_x2) {
-        return _ref6.apply(this, arguments);
+        return _ref10.apply(this, arguments);
       };
     }());
     _this.domNodeRef = _react.default.createRef();
@@ -495,40 +703,55 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var _this$props3 = this.props,
-          className = _this$props3.className,
-          children = _this$props3.children,
-          onScroll = _this$props3.onScroll,
-          onMouseDownOnEvent = _this$props3.onMouseDownOnEvent,
-          dragThreshold = _this$props3.dragThreshold,
-          scrollDuringDragMargin = _this$props3.scrollDuringDragMargin,
-          dragScrollSpeed = _this$props3.dragScrollSpeed,
-          snapEventToNearestValidX = _this$props3.snapEventToNearestValidX,
-          snapEventToNearestValidY = _this$props3.snapEventToNearestValidY,
-          events = _this$props3.events,
-          timezone = _this$props3.timezone,
-          onDropEvent = _this$props3.onDropEvent,
-          onDragEvent = _this$props3.onDragEvent,
-          sizeEvent = _this$props3.sizeEvent,
-          getDragNode = _this$props3.getDragNode,
-          props = (0, _objectWithoutProperties2.default)(_this$props3, ["className", "children", "onScroll", "onMouseDownOnEvent", "dragThreshold", "scrollDuringDragMargin", "dragScrollSpeed", "snapEventToNearestValidX", "snapEventToNearestValidY", "events", "timezone", "onDropEvent", "onDragEvent", "sizeEvent", "getDragNode"]);
+      var _this$props5 = this.props,
+          className = _this$props5.className,
+          children = _this$props5.children,
+          onScroll = _this$props5.onScroll,
+          onMouseDownOnEvent = _this$props5.onMouseDownOnEvent,
+          onMouseDownOnView = _this$props5.onMouseDownOnView,
+          onSelectEvent = _this$props5.onSelectEvent,
+          onDeselectEvent = _this$props5.onDeselectEvent,
+          onHighlightEvent = _this$props5.onHighlightEvent,
+          onUnHighlightEvent = _this$props5.onUnHighlightEvent,
+          dragThreshold = _this$props5.dragThreshold,
+          scrollDuringDragMargin = _this$props5.scrollDuringDragMargin,
+          dragScrollSpeed = _this$props5.dragScrollSpeed,
+          snapEventToNearestValidX = _this$props5.snapEventToNearestValidX,
+          snapEventToNearestValidY = _this$props5.snapEventToNearestValidY,
+          events = _this$props5.events,
+          timezone = _this$props5.timezone,
+          onDropEvent = _this$props5.onDropEvent,
+          onDragEvent = _this$props5.onDragEvent,
+          sizeEvent = _this$props5.sizeEvent,
+          getDragNode = _this$props5.getDragNode,
+          selectedEvent = _this$props5.selectedEvent,
+          highlightedEventAndBlock = _this$props5.highlightedEventAndBlock,
+          props = (0, _objectWithoutProperties2.default)(_this$props5, ["className", "children", "onScroll", "onMouseDownOnEvent", "onMouseDownOnView", "onSelectEvent", "onDeselectEvent", "onHighlightEvent", "onUnHighlightEvent", "dragThreshold", "scrollDuringDragMargin", "dragScrollSpeed", "snapEventToNearestValidX", "snapEventToNearestValidY", "events", "timezone", "onDropEvent", "onDragEvent", "sizeEvent", "getDragNode", "selectedEvent", "highlightedEventAndBlock"]);
       var dragEvent = this.state.dragEvent;
       return _react.default.createElement("div", (0, _extends2.default)({
         ref: this.domNodeRef
       }, props, {
         onScroll: this.handleScroll,
-        onMouseDown: this.handleMouseDownOfView,
+        onMouseDown: this.handleMouseDownOnView,
+        onTouchStart: this.handleTouchStartOnView,
         className: (0, _classnames.default)('bigcalendar__drag-grid ', className)
       }), children, events.map(function (event) {
         return _react.default.createElement(_Event.default, {
           key: "event-".concat(event.id),
-          className: dragEvent && dragEvent.originalId === event.id ? 'is-drag-source' : '',
+          className: (0, _classnames.default)({
+            'is-drag-source': dragEvent && dragEvent.originalId === event.id,
+            'is-selected': selectedEvent && selectedEvent.id === event.id,
+            'is-highlighted': highlightedEventAndBlock && highlightedEventAndBlock.event.id === event.id
+          }),
           onMouseDown: _this2.handleMouseDownOnEvent,
+          onTouchStart: _this2.handleTouchStartOnEvent,
           "data-event-id": event.id,
           event: event,
           timezone: timezone
         });
       }), dragEvent && _react.default.createElement(_Event.default, {
+        highlightedBlockIdx: highlightedEventAndBlock && highlightedEventAndBlock.blockIdx,
+        onTouchStart: this.handleTouchStartOnDragEvent,
         className: "is-active-drag",
         "data-event-id": "dragging",
         event: dragEvent,

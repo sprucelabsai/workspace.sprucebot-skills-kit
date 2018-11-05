@@ -23,10 +23,6 @@ var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/ge
 
 var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
-var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-
 var _react = _interopRequireWildcard(require("react"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
@@ -41,9 +37,6 @@ function (_Component) {
 
     (0, _classCallCheck2.default)(this, TimeGutter);
     _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(TimeGutter).call(this, props));
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "componentDidUpdate", function () {
-      _this.domNodeRef.current.scrollTop = _this.props.scrollTop;
-    });
     _this.domNodeRef = _react.default.createRef();
     return _this;
   }
@@ -55,8 +48,7 @@ function (_Component) {
           calendarBodyHeight = _this$props.calendarBodyHeight,
           hours = _this$props.hours,
           className = _this$props.className,
-          scrollTop = _this$props.scrollTop,
-          props = (0, _objectWithoutProperties2.default)(_this$props, ["calendarBodyHeight", "hours", "className", "scrollTop"]);
+          props = (0, _objectWithoutProperties2.default)(_this$props, ["calendarBodyHeight", "hours", "className"]);
       return _react.default.createElement("div", (0, _extends2.default)({
         className: (0, _classnames.default)('bigcalendar__time-gutter', className),
         ref: this.domNodeRef,
