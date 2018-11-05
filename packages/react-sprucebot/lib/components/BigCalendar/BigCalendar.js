@@ -208,8 +208,7 @@ function (_Component) {
           slotsPerHour = _this$props.slotsPerHour,
           allEvents = _this$props.allEvents,
           onDropEvent = _this$props.onDropEvent,
-          timezone = _this$props.timezone,
-          eventRightMargin = _this$props.eventRightMargin;
+          timezone = _this$props.timezone;
       var _this$state = this.state,
           selectedView = _this$state.selectedView,
           minTime = _this$state.minTime,

@@ -9,9 +9,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
-
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
@@ -178,19 +178,23 @@ function (_Component) {
         _this.dragGridRef.current.setScrollLeft(teammateLeft);
       }
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "snapEventToNearestValidX", function (x) {
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "snapEventToNearestValidX", function (_ref) {
+      var mouseX = _ref.mouseX;
+
       var dayColWidth = _this.dayColWidth();
 
-      var nearest = Math.round(x / dayColWidth);
+      var nearest = Math.floor(mouseX / dayColWidth);
       return Math.max(0, Math.min(_this.props.users.length - 1, nearest) * dayColWidth);
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "snapEventToNearestValidY", function (y) {
-      var elementHeight = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "snapEventToNearestValidY", function (_ref2) {
+      var dragNodeTop = _ref2.dragNodeTop,
+          _ref2$dragNodeHeight = _ref2.dragNodeHeight,
+          dragNodeHeight = _ref2$dragNodeHeight === void 0 ? 0 : _ref2$dragNodeHeight;
 
       var slotHeight = _this.slotHeight();
 
-      var nearest = Math.round(y / slotHeight);
-      var maxTop = _this.dayColHeight() - elementHeight;
+      var nearest = Math.round(dragNodeTop / slotHeight);
+      var maxTop = _this.dayColHeight() - dragNodeHeight;
       return Math.max(0, Math.min(maxTop, nearest * slotHeight));
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "yToTime", function (y) {
@@ -202,6 +206,14 @@ function (_Component) {
       var minutesFromMinTime = nearest * range.slotDurationMin;
       var time = (0, _momentTimezone.default)(range.minMoment).add(minutesFromMinTime, 'minutes');
       return time;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "heightToSeconds", function (height) {
+      var range = _this.getTimeRangeDetails(_this.props.minTime, _this.props.maxTime);
+
+      var dayColHeight = _this.dayColHeight();
+
+      var ratio = height / dayColHeight;
+      return range.seconds * ratio;
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "timeToY", function (date) {
       var _this$props2 = _this.props,
@@ -225,38 +237,98 @@ function (_Component) {
       var nearest = Math.round(y / dayColWidth);
       return _this.props.users[nearest];
     });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getDragNode", function (_ref3) {
+      var event = _ref3.event,
+          block = _ref3.block,
+          blockIdx = _ref3.blockIdx,
+          dragEventNode = _ref3.dragEventNode,
+          dragBlockNode = _ref3.dragBlockNode;
+      return blockIdx === 0 ? dragEventNode : dragBlockNode;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseDownOnEvent", function (_ref4) {
+      var e = _ref4.e,
+          event = _ref4.event,
+          block = _ref4.block,
+          blockIdx = _ref4.blockIdx;
+      var response = {
+        e: e,
+        event: event,
+        block: block,
+        blockIdx: blockIdx
+      };
+      var target = e.target; // if we clicked an available block, find any events under us to see if
+      // we should pass the click to them
+
+      if (!block.markAsBusy) {
+        var matches = _this.dragGridRef.current.getEventsAtLocation({
+          x: e.clientX,
+          y: e.clientY
+        }); // the first one would actually match the event passed here
+        // so lets check the first event under us
+
+
+        matches.shift(); //filter out non busy (available) blocks
+
+        matches = matches.filter(function (match) {
+          return match.block.markAsBusy;
+        });
+
+        if (matches.length > 0) {
+          response.event = matches[0].event;
+          response.block = matches[0].block;
+          response.blockIdx = matches[0].blockIdx;
+          var resize = matches[0].resize;
+
+          if (resize) {
+            var eventNode = _this.dragGridRef.current.getEventNode(matches[0].event);
+
+            target = eventNode.querySelector(".".concat(resize.direction));
+          }
+        } // ignore the click entirely so it gets passed onto the drag grid view
+        else {
+            return false;
+          }
+      } // did we click a resize handle? if so, lets set up for that
+
+
+      if (target.classList.contains('resize-handle')) {
+        _this._resizeDetails = {
+          e: e,
+          event: response.event,
+          block: response.block,
+          blockIdx: response.blockIdx,
+          direction: target.classList.contains('resize-n') ? 'n' : 's'
+        };
+      }
+
+      return response;
+    });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDropOfEvent",
     /*#__PURE__*/
     function () {
-      var _ref = (0, _asyncToGenerator2.default)(
+      var _ref5 = (0, _asyncToGenerator2.default)(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee(event, newX, newY) {
-        var newStartTime, newUser, onDropEvent, pass;
+        var dragDetails, resizeDetails, newStartTime, newUser, onDropEvent;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                newStartTime = _this.yToTime(newY);
+                // reset some things
+                dragDetails = _this._dragDetails || {};
+                resizeDetails = _this._resizeDetails || {};
+                _this._dragDetails = null;
+                _this._resizeDetails = null;
+                newStartTime = dragDetails.newStartAt || resizeDetails.newStartAt || _this.yToTime(newY);
                 newUser = _this.xToUser(newX);
                 onDropEvent = _this.props.onDropEvent;
-                _context.t0 = onDropEvent;
-
-                if (!_context.t0) {
-                  _context.next = 8;
-                  break;
-                }
-
-                _context.next = 7;
-                return onDropEvent(event, newStartTime, newUser);
-
-              case 7:
-                _context.t0 = _context.sent;
+                return _context.abrupt("return", onDropEvent && onDropEvent((0, _objectSpread2.default)({
+                  event: event,
+                  newStartAt: newStartTime,
+                  newUser: newUser && newUser.id !== event.userId ? newUser : null
+                }, dragDetails, resizeDetails)));
 
               case 8:
-                pass = _context.t0;
-                return _context.abrupt("return", pass);
-
-              case 10:
               case "end":
                 return _context.stop();
             }
@@ -265,25 +337,166 @@ function (_Component) {
       }));
 
       return function (_x, _x2, _x3) {
-        return _ref.apply(this, arguments);
+        return _ref5.apply(this, arguments);
       };
     }());
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDragOfEvent", function (event, dragDetails) {
       // update time
-      var dragEventNode = dragDetails.dragEventNode;
+      var _this$props3 = _this.props,
+          onDragEvent = _this$props3.onDragEvent,
+          timezone = _this$props3.timezone;
+      var dragEventNode = dragDetails.dragEventNode,
+          blockIdx = dragDetails.blockIdx,
+          sourceEventNode = dragDetails.sourceEventNode; // to track the cancelling of drag grid moving the event for us
 
-      var time = _this.yToTime(parseFloat(dragEventNode.style.top));
+      var cancelDrag = false;
 
-      dragEventNode.querySelector('.time').innerHTML = time.format('h:mma');
+      if (_this._resizeDetails) {
+        cancelDrag = true;
+        var dragBlockNode = dragDetails.dragBlockNode,
+            eMouseMove = dragDetails.eMouseMove,
+            eMouseDown = dragDetails.eMouseDown,
+            _blockIdx = dragDetails.blockIdx,
+            sourceBlockNode = dragDetails.sourceBlockNode;
+        var dragDistance = eMouseMove.clientY - eMouseDown.clientY;
+
+        var originalHeight = _size.default.getHeight(sourceBlockNode);
+
+        var slotHeight = _this.slotHeight();
+
+        var originalTop = parseFloat(sourceEventNode.style.top);
+        var direction = _this._resizeDetails.direction;
+        var resizeDetails = (0, _objectSpread2.default)({}, _this._resizeDetails, {
+          blockUpdates: [] // drag always changes the height of the selected block, so lets set the height
+          // callout that height is set differently deppending on drag direction
+          // also, when dragging north, we should not be able to drag more than the height
+          // of the previous block (if there is one)
+
+        });
+
+        var distance = _this.snapEventToNearestValidY({
+          dragNodeTop: Math.abs(dragDistance)
+        });
+
+        if (dragDistance < 0) {
+          distance *= -1;
+        } // clamp distance
+
+
+        if (direction === 'n' && _blockIdx > 0) {
+          distance = Math.max(distance, _size.default.getHeight(sourceBlockNode.previousSibling) * -1);
+        } else if (direction === 'n') {
+          // so it won't go too far up
+          distance = Math.max(distance, originalTop * -1); // so it won't go too far down
+
+          distance = Math.min(distance, originalHeight - slotHeight);
+        }
+
+        var height = originalHeight;
+
+        if (direction === 's') {
+          height += distance;
+        } else {
+          height -= distance;
+        }
+
+        height = Math.max(slotHeight, height);
+        dragBlockNode.style.height = height + 'px';
+        resizeDetails.blockUpdates.push({
+          blockIdx: _blockIdx,
+          newDurationSec: _this.heightToSeconds(height)
+        });
+
+        if (_blockIdx > 0 && direction === 'n') {
+          var previousDragBlock = dragBlockNode.previousSibling;
+          var previousSourceBlock = sourceBlockNode.previousSibling;
+
+          var previousHeight = _size.default.getHeight(previousSourceBlock);
+
+          var _height = previousHeight + distance; // can't go too big or it starts to feel like dragging a block down
+
+
+          _height = Math.min(_height, originalHeight + previousHeight - slotHeight);
+          previousDragBlock.style.height = _height + 'px';
+          resizeDetails.blockUpdates.push({
+            blockIdx: _blockIdx - 1,
+            newDurationSec: _this.heightToSeconds(_height)
+          });
+        } // don't resize this block if we're dragging north and we're the first block
+        //if we are the first block, we have to move the whole event up the inverse
+        //of the change in the height of the block
+        else if (_blockIdx === 0 && direction === 'n') {
+            var newTop = originalTop + distance;
+            dragEventNode.style.top = "".concat(newTop, "px");
+
+            var deltaSeconds = _this.heightToSeconds(distance * -1);
+
+            var newStartAt = _momentTimezone.default.tz(event.startAt, timezone).subtract(deltaSeconds, 'seconds');
+
+            resizeDetails.newStartAt = newStartAt;
+          }
+
+        _this._resizeDetails = resizeDetails;
+      } // dragging an event is peasy peezy (drag grid handles it)
+      // we'll just make some day view only updates
+      else if (blockIdx === 0) {
+          var time = _this.yToTime(parseFloat(dragEventNode.style.top));
+
+          dragEventNode.querySelector('.time').innerHTML = time.format('h:mma');
+        } //dragging a block means changing duration of the block ahead of it
+        //drag grid cannot handle this
+        else {
+            cancelDrag = true;
+            var _sourceBlockNode = dragDetails.sourceBlockNode,
+                _dragBlockNode = dragDetails.dragBlockNode,
+                _eMouseMove = dragDetails.eMouseMove,
+                _eMouseDown = dragDetails.eMouseDown;
+            var previousSourceBlockNode = _sourceBlockNode.previousSibling;
+            var _previousDragBlock = _dragBlockNode.previousSibling;
+
+            var _dragDistance = _eMouseMove.clientY - _eMouseDown.clientY;
+
+            var _originalHeight = _size.default.getHeight(previousSourceBlockNode);
+
+            var maxDistance = _this.dayColHeight() - _size.default.getLocalBottom(sourceEventNode);
+
+            console.log({
+              maxDistance: maxDistance,
+              dragDistance: _dragDistance,
+              rect: sourceEventNode.getBoundingClientRect(),
+              dayColHeight: _this.dayColHeight(),
+              bottom: _size.default.getLocalBottom(sourceEventNode)
+            });
+
+            var _distance = Math.min(_dragDistance, maxDistance);
+
+            var newHeight = Math.max(0, _this.snapEventToNearestValidY({
+              dragNodeTop: _originalHeight + _distance
+            }));
+            _previousDragBlock.style.height = newHeight + 'px';
+
+            var duration = _this.heightToSeconds(newHeight);
+
+            _this._dragDetails = {
+              blockUpdates: [{
+                blockIdx: blockIdx - 1,
+                newDurationSec: duration
+              }]
+            };
+          } // we ask drag grid to only move the dom node if we are moving the whole event (block 0)
+      // all other drags are ignored
+
+
+      return onDragEvent ? onDragEvent(event, dragDetails) : !cancelDrag;
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "placeAndSize", function () {
       var firstDayCol = _this.scrollInnerRef.current.querySelector('.bigcalendar__day-col');
 
       if (firstDayCol) {
         //size events
-        var _this$props3 = _this.props,
-            startDate = _this$props3.startDate,
-            events = _this$props3.events;
+        var _this$props4 = _this.props,
+            startDate = _this$props4.startDate,
+            events = _this$props4.events;
 
         _this.eventsForDay(events, startDate).forEach(function (event) {
           _this.placeEvent(event);
@@ -308,9 +521,9 @@ function (_Component) {
       return _size.default.getHeight(firstDayCol);
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "slotHeight", function () {
-      var _this$props4 = _this.props,
-          minTime = _this$props4.minTime,
-          maxTime = _this$props4.maxTime;
+      var _this$props5 = _this.props,
+          minTime = _this$props5.minTime,
+          maxTime = _this$props5.maxTime;
 
       var range = _this.getTimeRangeDetails(minTime, maxTime);
 
@@ -326,13 +539,16 @@ function (_Component) {
         return eventStart.format('YYYY-MM-DD') === date.format('YYYY-MM-DD');
       }), ['startAt']);
     }));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "isToday", function (date) {
+      return _this.props.startDate.format('YYYY-MM-DD') === _momentTimezone.default.tz(date, _this.props.timezone).format('YYYY-MM-DD');
+    });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getColumnMap", function () {
       if (!_this._columnMapCache) {
-        var _this$props5 = _this.props,
-            minTime = _this$props5.minTime,
-            maxTime = _this$props5.maxTime,
-            startDate = _this$props5.startDate,
-            events = _this$props5.events;
+        var _this$props6 = _this.props,
+            minTime = _this$props6.minTime,
+            maxTime = _this$props6.maxTime,
+            startDate = _this$props6.startDate,
+            events = _this$props6.events;
 
         var range = _this.getTimeRangeDetails(minTime, maxTime);
 
@@ -442,7 +658,7 @@ function (_Component) {
             }
           }
 
-          _this._columnMapCache.eventDetails[event.id].columns = maxColumns;
+          _this._columnMapCache.eventDetails[event.id].columns = Math.max(maxColumns, _this._columnMapCache.eventDetails[event.id].column + 1);
           _this._columnMapCache.eventDetails[event.id].overlapped = overlapped;
         });
       }
@@ -488,10 +704,10 @@ function (_Component) {
       var dayColHeight = _this.dayColHeight();
 
       if (userIndex > -1 && dayColWidth && dayColHeight) {
-        var _this$props6 = _this.props,
-            minTime = _this$props6.minTime,
-            maxTime = _this$props6.maxTime,
-            eventRightMargin = _this$props6.eventRightMargin;
+        var _this$props7 = _this.props,
+            minTime = _this$props7.minTime,
+            maxTime = _this$props7.maxTime,
+            eventRightMargin = _this$props7.eventRightMargin;
 
         var eventNode = _this.dragGridRef.current.getEventNode(event); //height for blocks
 
@@ -510,10 +726,6 @@ function (_Component) {
           var colMap = _this.getColumnMap();
 
           var details = colMap.eventDetails[event.id];
-          console.log({
-            colMap: colMap,
-            details: details
-          });
           var width = dayColWidth / details.columns;
           var leftIndent = width * details.column;
 
@@ -534,20 +746,24 @@ function (_Component) {
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "sizeTimeLine", function () {
       var timeLineNode = _this.scrollInnerRef.current.querySelector('.bigcalendar__time-line');
 
-      var pageWidth = _this.dragGridRef.current.getScrollWidth();
+      if (timeLineNode) {
+        var pageWidth = _this.dragGridRef.current.getScrollWidth();
 
-      timeLineNode.style.width = "".concat(pageWidth, "px");
+        timeLineNode.style.width = "".concat(pageWidth, "px");
+      }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "placeTimeLine", function () {
-      var timezone = _this.props.timezone;
-
-      var now = _momentTimezone.default.tz(new Date(), timezone);
-
-      var top = _this.timeToY(now);
-
       var timeLineNode = _this.scrollInnerRef.current.querySelector('.bigcalendar__time-line');
 
-      timeLineNode.style.top = "".concat(top, "px");
+      if (timeLineNode) {
+        var timezone = _this.props.timezone;
+
+        var now = _momentTimezone.default.tz(new Date(), timezone);
+
+        var top = _this.timeToY(now);
+
+        timeLineNode.style.top = "".concat(top, "px");
+      }
     });
     _this.dragGridRef = _react.default.createRef();
     _this.scrollInnerRef = _react.default.createRef();
@@ -557,9 +773,9 @@ function (_Component) {
   (0, _createClass2.default)(Day, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      var _this$props7 = this.props,
-          events = _this$props7.events,
-          startDate = _this$props7.startDate;
+      var _this$props8 = this.props,
+          events = _this$props8.events,
+          startDate = _this$props8.startDate;
 
       if (prevProps.events !== events || prevProps.startDate !== startDate) {
         // reset all event cache
@@ -570,18 +786,18 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this$props8 = this.props,
-          users = _this$props8.users,
-          hours = _this$props8.hours,
-          timezone = _this$props8.timezone,
-          calendarBodyHeight = _this$props8.calendarBodyHeight,
-          minTime = _this$props8.minTime,
-          maxTime = _this$props8.maxTime,
-          slotsPerHour = _this$props8.slotsPerHour,
-          startTime = _this$props8.startTime,
-          endTime = _this$props8.endTime,
-          startDate = _this$props8.startDate,
-          events = _this$props8.events;
+      var _this$props9 = this.props,
+          users = _this$props9.users,
+          hours = _this$props9.hours,
+          timezone = _this$props9.timezone,
+          calendarBodyHeight = _this$props9.calendarBodyHeight,
+          minTime = _this$props9.minTime,
+          maxTime = _this$props9.maxTime,
+          slotsPerHour = _this$props9.slotsPerHour,
+          startTime = _this$props9.startTime,
+          endTime = _this$props9.endTime,
+          startDate = _this$props9.startDate,
+          events = _this$props9.events;
       var _this$state = this.state,
           scrollTop = _this$state.scrollTop,
           scrollLeft = _this$state.scrollLeft;
@@ -602,6 +818,8 @@ function (_Component) {
         scrollTop: scrollTop,
         onMouseDown: this.handleViewMouseDown
       }), _react.default.createElement(_DragGrid.default, {
+        onMouseDownOnEvent: this.handleMouseDownOnEvent,
+        getDragNode: this.getDragNode,
         snapEventToNearestValidX: this.snapEventToNearestValidX,
         snapEventToNearestValidY: this.snapEventToNearestValidY,
         onScroll: this.handleScroll,
@@ -630,7 +848,7 @@ function (_Component) {
           maxTime: maxTime,
           timezone: timezone
         });
-      }), _react.default.createElement(_TimeLine.default, null)))));
+      }), this.isToday() && _react.default.createElement(_TimeLine.default, null)))));
     }
   }]);
   return Day;

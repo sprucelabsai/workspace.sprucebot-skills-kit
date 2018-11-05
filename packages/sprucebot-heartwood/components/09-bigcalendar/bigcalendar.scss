@@ -1,10 +1,19 @@
 $time-gutter-width: rem(50);
 $day-col-width: rem(150);
+$selected-event-width: rem(150);
+$event-indent-width: rem(50);
 
 .bigcalendar {
     
 
     
+}
+
+body.sb-show-main {
+}
+
+.l-pa-medium {
+    padding: 0 !important;
 }
 
 .bigcalendar__header-top {
@@ -68,9 +77,23 @@ $day-col-width: rem(150);
 
 }
 
+.bigcalendar__drag-grid {
+    position: relative;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border-left: 1px solid $c-border;
+    .scroll-inner {
+        display: flex;
+    }
+    .hour-block {
+        border-bottom: 1px solid $c-border;
+        &.inactive {
+            border-color: lighten($c-border, 5%);
+        }
+    }
+}
 
 .bigcalendar__view-day {
-
     
     .bigcalendar__time-gutter {
         @include type-style-label;
@@ -86,14 +109,6 @@ $day-col-width: rem(150);
             top: rem(-6);
         }
     }
-    
-    
-    .bigcalendar__scroll-wrapper {
-        position: relative;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
     
     .bigcalendar__time-gutter .inner {
         overflow-y: auto;
@@ -132,22 +147,38 @@ $day-col-width: rem(150);
             border:none;
         }
     }
-    
-    .bigcalendar__scroll-wrapper {
-        border-left: 1px solid $c-border;
-        .scroll-inner {
-            display: flex;
-        }
-        .hour-block {
-            border-bottom: 1px solid $c-border;
-            &.inactive {
-                border-color: lighten($c-border, 5%);
-            }
+ 
+    .bigcalendar__event {
+        width: $day-col-width;
+        &.is-selected {
+            max-width: $selected-event-width;
         }
     }
 
-    .bigcalendar__event {
-        width: $day-col-width;
+    &.has-highlighted-event,
+    &.has-selected-event {
+
+
+        .bigcalendar__day-col,
+        .bigcalendar__event {
+            opacity: 0.4;
+        }
+        .is-active-drag.bigcalendar__event,
+        .is-selected.bigcalendar__event {
+            opacity: 1;
+        }
+    }
+
+    .bigcalendar__time-line {
+        height:1px;
+        background-color: $c-primary-dark;
+        position: absolute;
+        left:0px;
+    }
+
+    .event-details {
+        position: absolute;
+        z-index: 4;
     }
 
 }
@@ -157,13 +188,14 @@ $day-col-width: rem(150);
     position: absolute;
     left:0px;
     top:0px;
+    z-index: 1;
 
     &.is-drag-source {
         opacity: 0.5;
     }
 
     &.is-active-drag {
-        cursor: move;
+        
     }
 
     &.animate {
@@ -180,12 +212,37 @@ $day-col-width: rem(150);
     background: linear-gradient(to bottom, $c-primary 0%, $c-primary-dark 100%); 
     color: #fff;
     cursor: pointer;
-
+    position: relative;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    
     &.available {
+        z-index: 1;
         background: transparent;
         cursor: default;
         p {
             display: none;
+        }
+    }
+    
+    &.busy  {
+        
+        z-index: 2;
+
+        .resize-handle {
+            position: absolute;    
+            left:0px;
+            right:0px;
+            height: 5px;
+            
+            &.resize-n {
+                top:0px;
+                cursor:ns-resize;
+            }
+            
+            &.resize-s {
+                bottom: 0px;
+                cursor:ns-resize;
+            }
         }
     }
 

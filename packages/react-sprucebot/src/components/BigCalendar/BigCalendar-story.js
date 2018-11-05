@@ -8,6 +8,13 @@ import cloneDeep from 'lodash/cloneDeep'
 
 const stories = storiesOf('Big Calendar', module)
 
+const details = {
+	header: { title: 'Taco Bell', label: 'Appointment' },
+	status: 'event-busy',
+	list: { items: [] },
+	footer: { primaryCTA: { text: 'DO IT NOW!' } }
+}
+
 class BigCalendarExample extends Component {
 	state = {
 		users: [
@@ -356,7 +363,7 @@ class BigCalendarExample extends Component {
 				isAllDay: false,
 				userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 				className: '',
-				eventDetails: {},
+				details,
 				blocks: [
 					{
 						title: 'Primary',
@@ -394,7 +401,7 @@ class BigCalendarExample extends Component {
 				isAllDay: false,
 				userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 				className: '',
-				eventDetails: {},
+				details,
 				blocks: [
 					{
 						title: 'Primary',
@@ -414,7 +421,7 @@ class BigCalendarExample extends Component {
 				isAllDay: false,
 				userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 				className: '',
-				eventDetails: {},
+				details,
 				blocks: [
 					{
 						title: 'Shave',
@@ -443,7 +450,7 @@ class BigCalendarExample extends Component {
 				isAllDay: false,
 				userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 				className: '',
-				eventDetails: {},
+				details,
 				blocks: [
 					{
 						title: 'Wax',
@@ -481,7 +488,7 @@ class BigCalendarExample extends Component {
 				isAllDay: false,
 				userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 				className: '',
-				eventDetails: {},
+				details,
 				blocks: [
 					{
 						title: 'Haircut',
@@ -515,13 +522,25 @@ class BigCalendarExample extends Component {
 		]
 	}
 
-	handleDropEvent = (event, newStart, newUser) => {
-		const eventsCopy = cloneDeep(this.state.events)
+	handleDropEvent = ({ event, newStartAt, newUser, blockUpdates }) => {
+		console.log({ event, newStartAt, newUser, blockUpdates })
+
+		const eventsCopy = [...this.state.events]
 		const eventCopy = cloneDeep(event)
+		if (newUser) {
+			eventCopy.userId = newUser.id
+		}
+		if (newStartAt) {
+			eventCopy.startAt = newStartAt.format('YYYY-MM-DD HH:mm:ss')
+		}
 
-		eventCopy.userId = newUser.id
-		eventCopy.startAt = newStart.format('YYYY-MM-DD HH:mm:ss')
+		if (blockUpdates) {
+			blockUpdates.forEach(update => {
+				eventCopy.blocks[update.blockIdx].durationSec = update.newDurationSec
+			})
+		}
 
+		eventCopy.blocks = eventCopy.blocks.filter(block => block.durationSec > 0)
 		const eventIdx = this.state.events.indexOf(event)
 		eventsCopy.splice(eventIdx, 1)
 		eventsCopy.push(eventCopy)

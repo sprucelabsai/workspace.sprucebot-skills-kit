@@ -4,6 +4,8 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
+
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
@@ -436,11 +438,37 @@ function (_Component) {
         }]
       }]
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDropEvent", function (event, newStart, newUser) {
-      var eventsCopy = (0, _cloneDeep.default)(_this.state.events);
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDropEvent", function (_ref) {
+      var event = _ref.event,
+          newStartAt = _ref.newStartAt,
+          newUser = _ref.newUser,
+          blockUpdates = _ref.blockUpdates;
+      console.log({
+        event: event,
+        newStartAt: newStartAt,
+        newUser: newUser,
+        blockUpdates: blockUpdates
+      });
+      var eventsCopy = (0, _toConsumableArray2.default)(_this.state.events);
       var eventCopy = (0, _cloneDeep.default)(event);
-      eventCopy.userId = newUser.id;
-      eventCopy.startAt = newStart.format('YYYY-MM-DD HH:mm:ss');
+
+      if (newUser) {
+        eventCopy.userId = newUser.id;
+      }
+
+      if (newStartAt) {
+        eventCopy.startAt = newStartAt.format('YYYY-MM-DD HH:mm:ss');
+      }
+
+      if (blockUpdates) {
+        blockUpdates.forEach(function (update) {
+          eventCopy.blocks[update.blockIdx].durationSec = update.newDurationSec;
+        });
+      }
+
+      eventCopy.blocks = eventCopy.blocks.filter(function (block) {
+        return block.durationSec > 0;
+      });
 
       var eventIdx = _this.state.events.indexOf(event);
 

@@ -17,6 +17,8 @@ var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"))
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
+
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
@@ -61,6 +63,9 @@ function (_Component) {
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getEventNode", function (event) {
       return _this.domNodeRef.current.querySelector("[data-event-id='".concat(event.id, "']"));
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getBlockNode", function (event, blockIdx) {
+      return _this.domNodeRef.current.querySelectorAll("[data-event-id='".concat(event.id, "'] .bigcalendar__event-block"))[blockIdx];
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getScrollLeft", function () {
       return _this.domNodeRef.current.scrollLeft;
@@ -109,7 +114,7 @@ function (_Component) {
       onScroll && onScroll(e); // keep event under mouse as scroll
 
       if (_this._activeDrag) {
-        _this.handleDragOfEvent(_this._activeDrag.e, false);
+        _this.handleDragOfEvent(_this._activeDrag.eMouseMove, false);
       }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseDownOfView", function (e) {
@@ -139,26 +144,66 @@ function (_Component) {
       _this.domNodeRef.current.scrollLeft = startingScrollLeft - deltaLeft;
       _this.domNodeRef.current.scrollTop = startingScrollTop - deltaTop;
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseDownOfEvent", function (e, event, block, idx) {
-      if (block.markAsBusy) {
-        e.preventDefault();
-        e.stopPropagation();
-        _this._pendingDrag = {
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getEventsAtLocation", function (_ref2) {
+      var x = _ref2.x,
+          y = _ref2.y;
+      var matches = document.elementsFromPoint(x, y);
+      var blockNodes = matches.filter(function (node) {
+        return node.classList.contains('bigcalendar__event-block');
+      });
+      var resizes = [false].concat((0, _toConsumableArray2.default)(matches.filter(function (node) {
+        return node.classList.contains('resize-handle');
+      }))).map(function (match) {
+        if (match) {
+          return {
+            direction: match.className.split(' ')[0]
+          };
+        }
+      });
+      var events = blockNodes.map(function (blockNode, idx) {
+        var eventNode = blockNode.parentNode;
+        var eventId = eventNode.dataset.eventId;
+
+        var event = _this.props.events.find(function (event) {
+          return event.id === eventId;
+        });
+
+        var blockIdx = (0, _toConsumableArray2.default)(eventNode.children).indexOf(blockNode);
+        var block = event.blocks[blockIdx];
+        return {
           event: event,
           block: block,
-          idx: idx
+          blockIdx: blockIdx,
+          resize: resizes[idx]
         };
+      });
+      return events;
+    });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseDownOnEvent", function (_ref3) {
+      var e = _ref3.e,
+          event = _ref3.event,
+          block = _ref3.block,
+          blockIdx = _ref3.blockIdx;
+      var _this$props$onMouseDo = _this.props.onMouseDownOnEvent,
+          onMouseDownOnEvent = _this$props$onMouseDo === void 0 ? function (args) {
+        return blockIdx === 0 ? args : false;
+      } : _this$props$onMouseDo;
+      var results = onMouseDownOnEvent({
+        e: e,
+        event: event,
+        block: block,
+        blockIdx: blockIdx
+      });
+
+      if (results) {
+        e.preventDefault();
+        e.stopPropagation();
+        _this._pendingDrag = results;
         _this._startingDragPoint = {
           x: e.clientX,
           y: e.clientY
         };
-
-        if (idx === 0) {
-          window.addEventListener('mousemove', _this.handleDragOfEvent);
-        } else {
-          window.addEventListener('mousemove', _this.handleDragOfBlock);
-        }
-
+        window.addEventListener('mousemove', _this.handleDragOfEvent);
         window.addEventListener('mouseup', _this.handleMouseUpOfEvent);
       }
     });
@@ -193,7 +238,6 @@ function (_Component) {
       var dragEvent = _this.state.dragEvent;
 
       if (dragEvent) {
-        var type = _this._activeDrag.type;
         var clientX = e.clientX,
             clientY = e.clientY;
         var _this$props = _this.props,
@@ -201,30 +245,34 @@ function (_Component) {
             dragScrollSpeed = _this$props.dragScrollSpeed,
             onDragEvent = _this$props.onDragEvent;
         var _this$_activeDrag = _this._activeDrag,
-            dragEventNode = _this$_activeDrag.dragEventNode,
             offsetX = _this$_activeDrag.offsetX,
             offsetY = _this$_activeDrag.offsetY,
             wrapperLeft = _this$_activeDrag.wrapperLeft,
             wrapperTop = _this$_activeDrag.wrapperTop,
-            dragEventHeight = _this$_activeDrag.dragEventHeight; //if we are close to an edge, lets scroll that first
+            dragNodeHeight = _this$_activeDrag.dragNodeHeight,
+            sourceEvent = _this$_activeDrag.sourceEvent,
+            dragNode = _this$_activeDrag.dragNode; //if we are close to an edge, lets scroll that first
 
         var normalizedClientX = clientX - wrapperLeft;
         var normalizedClientY = clientY - wrapperTop;
-        var wrapperRight = _size.default.getRight(_this.domNodeRef.current) - wrapperLeft;
-        var wrapperBottom = _size.default.getBottom(_this.domNodeRef.current) - wrapperTop; // scroll right
+
+        var wrapperRight = _size.default.getRight(_this.domNodeRef.current);
+
+        var wrapperBottom = _size.default.getBottom(_this.domNodeRef.current); // scroll in any direction depending on if you're under the scrollDuringDragMargin
+
 
         if (autoScroll) {
-          if (normalizedClientX >= wrapperRight - scrollDuringDragMargin) {
+          if (clientX >= wrapperRight - scrollDuringDragMargin) {
             _this.beginScrollHorizontally(dragScrollSpeed);
-          } else if (normalizedClientX <= scrollDuringDragMargin) {
+          } else if (clientX <= wrapperLeft + scrollDuringDragMargin) {
             _this.beginScrollHorizontally(-dragScrollSpeed);
           } else {
             _this.stopScrollingHorizontally();
           }
 
-          if (normalizedClientY >= wrapperBottom - scrollDuringDragMargin) {
+          if (clientY >= wrapperBottom - scrollDuringDragMargin) {
             _this.beginScrollingVertically(dragScrollSpeed);
-          } else if (normalizedClientY <= scrollDuringDragMargin) {
+          } else if (clientY <= wrapperTop + scrollDuringDragMargin) {
             _this.beginScrollingVertically(-dragScrollSpeed);
           } else {
             _this.stopScrollingVertically();
@@ -233,37 +281,52 @@ function (_Component) {
 
         var scrollTop = _this.domNodeRef.current.scrollTop;
         var scrollLeft = _this.domNodeRef.current.scrollLeft;
+        var snapProps = {
+          dragNodeLeft: normalizedClientX + scrollLeft - offsetX,
+          dragNodeTop: normalizedClientY + scrollTop - offsetY,
+          mouseX: normalizedClientX + scrollLeft,
+          mouseY: normalizedClientY + scrollTop,
+          dragEvent: dragEvent,
+          dragNodeHeight: dragNodeHeight,
+          sourceEvent: sourceEvent
+        };
 
-        var x = _this.props.snapEventToNearestValidX(normalizedClientX + scrollLeft - offsetX);
+        var x = _this.props.snapEventToNearestValidX(snapProps);
 
-        var y = _this.props.snapEventToNearestValidY(normalizedClientY + scrollTop - offsetY, dragEventHeight); // update position
+        var y = _this.props.snapEventToNearestValidY(snapProps); //track last event
 
 
-        dragEventNode.style.left = x + 'px';
-        dragEventNode.style.top = y + 'px'; //track last event
+        _this._activeDrag.eMouseMove = e; // let parent components know and have the opportunity to ignore this drag
 
-        _this._activeDrag.e = e;
-        onDragEvent && onDragEvent(event, _this._activeDrag);
-      } else {
-        var _clientX = e.clientX,
-            _clientY = e.clientY;
-        var _this$_startingDragPo = _this._startingDragPoint,
-            _x = _this$_startingDragPo.x,
-            _y = _this$_startingDragPo.y;
-        var a = _x - _clientX;
-        var b = _y - _clientY;
-        var distance = Math.sqrt(a * a + b * b);
+        var ignoreDrag = onDragEvent && onDragEvent(sourceEvent, _this._activeDrag);
 
-        if (distance >= _this.props.dragThreshold) {
-          if (_this._pendingDrag.idx === 0) {
-            _this.startDragOfEvent(e, _this._pendingDrag.event);
-          } else {
-            _this.startDragOfBlock(e, _this._pendingDrag.event, _this._pendingDrag.block, _this._pendingDrag.idx);
-          }
-
-          _this._pendingDrag = null;
+        if (ignoreDrag !== false) {
+          // update position
+          dragNode.style.left = x + 'px';
+          dragNode.style.top = y + 'px';
         }
-      }
+      } // we have not actually started dragging yet, so we check how far we've moved from click
+      else {
+          var _clientX = e.clientX,
+              _clientY = e.clientY;
+          var _this$_startingDragPo = _this._startingDragPoint,
+              _x = _this$_startingDragPo.x,
+              _y = _this$_startingDragPo.y;
+          var a = _x - _clientX;
+          var b = _y - _clientY;
+          var distance = Math.sqrt(a * a + b * b); //start the drag!
+
+          if (distance >= _this.props.dragThreshold) {
+            _this.startDragOfEvent({
+              e: e,
+              event: _this._pendingDrag.event,
+              block: _this._pendingDrag.block,
+              blockIdx: _this._pendingDrag.blockIdx
+            });
+
+            _this._pendingDrag = null;
+          }
+        }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseUp", function (e) {
       window.removeEventListener('mousemove', _this.handleMouseDragOfView);
@@ -344,56 +407,74 @@ function (_Component) {
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "startDragOfEvent",
     /*#__PURE__*/
     function () {
-      var _ref3 = (0, _asyncToGenerator2.default)(
+      var _ref6 = (0, _asyncToGenerator2.default)(
       /*#__PURE__*/
-      _regenerator.default.mark(function _callee2(e, event) {
-        var dragEvent, _this$props2, sizeEvent, onDragEvent, eventNode, dragEventNode, clientX, clientY, wrapperLeft, wrapperTop, scrollTop, scrollLeft, offsetY, offsetX;
+      _regenerator.default.mark(function _callee2(_ref5) {
+        var e, event, block, blockIdx, dragEvent, _this$props2, sizeEvent, onDragEvent, getDragNode, eventNode, blockNode, dragEventNode, dragBlockNode, dragNode, clientX, clientY, wrapperLeft, wrapperTop, scrollTop, scrollLeft, offsetY, offsetX;
 
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                e = _ref5.e, event = _ref5.event, block = _ref5.block, blockIdx = _ref5.blockIdx;
                 //clone the event and render it in the dom
                 dragEvent = (0, _cloneDeep.default)(event);
                 dragEvent.originalId = dragEvent.id;
                 dragEvent.id = "dragging";
-                _context2.next = 5;
+                _context2.next = 6;
                 return _this.setState({
                   dragEvent: dragEvent
                 });
 
-              case 5:
+              case 6:
                 // make sure the event is the right size
-                _this$props2 = _this.props, sizeEvent = _this$props2.sizeEvent, onDragEvent = _this$props2.onDragEvent;
+                _this$props2 = _this.props, sizeEvent = _this$props2.sizeEvent, onDragEvent = _this$props2.onDragEvent, getDragNode = _this$props2.getDragNode;
                 sizeEvent(dragEvent); // place this event right over the dragged one
 
                 eventNode = _this.getEventNode(event);
+                blockNode = _this.getBlockNode(event, blockIdx);
                 dragEventNode = _this.getEventNode(dragEvent);
+                dragBlockNode = _this.getBlockNode(dragEvent, blockIdx);
                 dragEventNode.style.left = eventNode.style.left;
-                dragEventNode.style.top = eventNode.style.top; //calculate offset to keep event in proper position relative to the mouse
+                dragEventNode.style.top = eventNode.style.top;
+                dragNode = !getDragNode ? dragEventNode : getDragNode({
+                  event: event,
+                  block: block,
+                  blockIdx: blockIdx,
+                  dragEventNode: dragEventNode,
+                  dragBlockNode: dragBlockNode
+                }); //calculate offset to keep event in proper position relative to the mouse
 
                 clientX = e.clientX, clientY = e.clientY;
                 wrapperLeft = _size.default.getLeft(_this.domNodeRef.current);
                 wrapperTop = _size.default.getTop(_this.domNodeRef.current);
                 scrollTop = _this.domNodeRef.current.scrollTop;
                 scrollLeft = _this.domNodeRef.current.scrollLeft;
-                offsetY = clientY - wrapperTop - parseFloat(eventNode.style.top) + scrollTop;
-                offsetX = clientX - wrapperLeft + scrollLeft - (parseFloat(eventNode.style.left) + parseFloat(eventNode.style.marginLeft));
+                offsetY = clientY - _size.default.getTop(dragNode);
+                offsetX = clientX - _size.default.getLeft(dragNode);
                 _this._activeDrag = {
-                  type: 'event',
                   dragEvent: dragEvent,
                   sourceEvent: event,
+                  block: block,
+                  blockIdx: blockIdx,
                   dragEventNode: dragEventNode,
-                  dragEventHeight: _size.default.getHeight(dragEventNode),
+                  dragBlockNode: dragBlockNode,
+                  dragNode: dragNode,
+                  dragNodeHeight: _size.default.getHeight(dragEventNode),
                   sourceEventNode: eventNode,
+                  sourceBlockNode: blockNode,
                   offsetX: offsetX,
                   offsetY: offsetY,
                   wrapperLeft: wrapperLeft,
-                  wrapperTop: wrapperTop
+                  wrapperTop: wrapperTop,
+                  startScrollTop: scrollTop,
+                  startScrollLeft: scrollLeft,
+                  eMouseDown: e,
+                  eMouseMove: e
                 };
                 onDragEvent && onDragEvent(event, _this._activeDrag);
 
-              case 20:
+              case 24:
               case "end":
                 return _context2.stop();
             }
@@ -401,8 +482,8 @@ function (_Component) {
         }, _callee2, this);
       }));
 
-      return function (_x2, _x3) {
-        return _ref3.apply(this, arguments);
+      return function (_x2) {
+        return _ref6.apply(this, arguments);
       };
     }());
     _this.domNodeRef = _react.default.createRef();
@@ -418,6 +499,7 @@ function (_Component) {
           className = _this$props3.className,
           children = _this$props3.children,
           onScroll = _this$props3.onScroll,
+          onMouseDownOnEvent = _this$props3.onMouseDownOnEvent,
           dragThreshold = _this$props3.dragThreshold,
           scrollDuringDragMargin = _this$props3.scrollDuringDragMargin,
           dragScrollSpeed = _this$props3.dragScrollSpeed,
@@ -428,7 +510,8 @@ function (_Component) {
           onDropEvent = _this$props3.onDropEvent,
           onDragEvent = _this$props3.onDragEvent,
           sizeEvent = _this$props3.sizeEvent,
-          props = (0, _objectWithoutProperties2.default)(_this$props3, ["className", "children", "onScroll", "dragThreshold", "scrollDuringDragMargin", "dragScrollSpeed", "snapEventToNearestValidX", "snapEventToNearestValidY", "events", "timezone", "onDropEvent", "onDragEvent", "sizeEvent"]);
+          getDragNode = _this$props3.getDragNode,
+          props = (0, _objectWithoutProperties2.default)(_this$props3, ["className", "children", "onScroll", "onMouseDownOnEvent", "dragThreshold", "scrollDuringDragMargin", "dragScrollSpeed", "snapEventToNearestValidX", "snapEventToNearestValidY", "events", "timezone", "onDropEvent", "onDragEvent", "sizeEvent", "getDragNode"]);
       var dragEvent = this.state.dragEvent;
       return _react.default.createElement("div", (0, _extends2.default)({
         ref: this.domNodeRef
@@ -440,7 +523,7 @@ function (_Component) {
         return _react.default.createElement(_Event.default, {
           key: "event-".concat(event.id),
           className: dragEvent && dragEvent.originalId === event.id ? 'is-drag-source' : '',
-          onMouseDown: _this2.handleMouseDownOfEvent,
+          onMouseDown: _this2.handleMouseDownOnEvent,
           "data-event-id": event.id,
           event: event,
           timezone: timezone

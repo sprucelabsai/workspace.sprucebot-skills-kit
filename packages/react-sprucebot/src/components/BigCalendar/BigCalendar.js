@@ -26,7 +26,8 @@ type Props = {
 	timezone: String,
 	allEvents: Array<Object>,
 	onDropEvent: Function,
-	viewProps: Object
+	viewProps: Object,
+	longPressDelay: Number
 }
 type State = {
 	selectedView: 'day' | 'week' | 'month',
@@ -53,7 +54,8 @@ class BigCalendar extends Component<Props, State> {
 		defaultEndTime: '20:00',
 		headerDateFormat: 'MMMM YYYY',
 		allEvents: [],
-		viewProps: {}
+		viewProps: {},
+		longPressDelay: 500
 	}
 	state = {
 		selectedView: this.props.defaultView,
@@ -116,8 +118,6 @@ class BigCalendar extends Component<Props, State> {
 		const width = sizeUtils.bodyWidth()
 		const height = sizeUtils.bodyHeight()
 		const calendarBodyHeight = height - scrollTop
-
-		console.log({ calendarBodyHeight, scrollTop })
 
 		this.setState({
 			bodyWidth: width,
@@ -218,7 +218,16 @@ class BigCalendar extends Component<Props, State> {
 			slotsPerHour,
 			allEvents,
 			onDropEvent,
-			timezone
+			timezone,
+			longPressDelay,
+			allUsers,
+			defaultMinTime,
+			defaultMaxTime,
+			defaultStartTime,
+			defaultEndTime,
+			defaultView,
+			viewProps: _,
+			...props
 		} = this.props
 
 		const {
@@ -251,6 +260,7 @@ class BigCalendar extends Component<Props, State> {
 					width: bodyWidth,
 					height: bodyHeight
 				}}
+				{...props}
 			>
 				<Header
 					dateFormat={headerDateFormat}
@@ -267,7 +277,7 @@ class BigCalendar extends Component<Props, State> {
 				/>
 				<div className="bigcalendar__view-wrapper">
 					<View
-						{...viewProps}
+						longPressDelay={longPressDelay}
 						ref={this.selectedViewRef}
 						onUpdateHorizontalPagerDetails={
 							this.handleUpdateHorizontalPagerDetails
@@ -285,6 +295,7 @@ class BigCalendar extends Component<Props, State> {
 						endTime={endTime}
 						timezone={timezone}
 						onDropEvent={onDropEvent}
+						{...viewProps}
 					/>
 				</div>
 			</div>

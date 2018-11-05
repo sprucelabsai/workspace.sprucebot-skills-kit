@@ -23,17 +23,23 @@ var EventBlock = function EventBlock(props) {
   var block = props.block,
       className = props.className,
       startAt = props.startAt,
-      rest = (0, _objectWithoutProperties2.default)(props, ["block", "className", "startAt"]);
+      rest = (0, _objectWithoutProperties2.default)(props, ["block", "className", "startAt"]); // NOTE: you MUST keep resize-n the first class in any resize-handle
+  // IT MUST BE IN THE FORM OF resize-[n|s|e|w]
+
   return _react.default.createElement("div", (0, _extends2.default)({
-    className: (0, _classnames.default)('bigcalendar__event-block', className, {
+    className: (0, _classnames.default)('bigcalendar__event-block', className, block.className, {
       busy: block.markAsBusy,
       available: !block.markAsBusy
     })
-  }, rest), _react.default.createElement("p", {
+  }, rest), _react.default.createElement("div", {
+    className: "resize-n resize-handle"
+  }), _react.default.createElement("p", {
     className: "title"
   }, block.title), _react.default.createElement("p", {
     className: "time"
-  }, startAt.format('h:mma')));
+  }, startAt.format('h:mma')), _react.default.createElement("div", {
+    className: "resize-s resize-handle"
+  }));
 };
 
 var _default = EventBlock;

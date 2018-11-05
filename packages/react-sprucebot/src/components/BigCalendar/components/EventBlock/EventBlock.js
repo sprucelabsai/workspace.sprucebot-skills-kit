@@ -14,6 +14,9 @@ type Props = {
 const EventBlock = (props: Props) => {
 	const { block, className, startAt, ...rest } = props
 
+	// NOTE: you MUST keep resize-n the first class in any resize-handle
+	// IT MUST BE IN THE FORM OF resize-[n|s|e|w]
+
 	return (
 		<div
 			className={cx('bigcalendar__event-block', className, block.className, {
@@ -22,8 +25,10 @@ const EventBlock = (props: Props) => {
 			})}
 			{...rest}
 		>
+			<div className="resize-n resize-handle" />
 			<p className="title">{block.title}</p>
 			<p className="time">{startAt.format('h:mma')}</p>
+			<div className="resize-s resize-handle" />
 		</div>
 	)
 }

@@ -11,17 +11,23 @@ var _default = {
   bodyHeight: function bodyHeight() {
     return document.body.clientHeight;
   },
+  getLocalTop: function getLocalTop(node) {
+    return node.getBoundingClientRect().top;
+  },
   getTop: function getTop(node) {
-    return node && node.getBoundingClientRect ? node.getBoundingClientRect().top : null;
+    return this.getPosition(node).y;
+  },
+  getLocalBottom: function getLocalBottom(node) {
+    return node.offsetTop;
   },
   getBottom: function getBottom(node) {
-    return node && node.getBoundingClientRect ? node.getBoundingClientRect().bottom : null;
+    return this.getLocalTop(node) + node.offsetHeight;
   },
   getLeft: function getLeft(node) {
-    return node && node.getBoundingClientRect ? node.getBoundingClientRect().left : null;
+    return this.getPosition(node).x;
   },
   getRight: function getRight(node) {
-    return node && node.getBoundingClientRect ? node.getBoundingClientRect().right : null;
+    return this.getLeft(node) + this.getWidth(node);
   },
   getWidth: function getWidth(node) {
     return node && node.offsetWidth ? node.offsetWidth : null;
@@ -34,6 +40,35 @@ var _default = {
   },
   getScrollHeight: function getScrollHeight(node) {
     return node && node.scrollHeight ? node.scrollHeight : null;
+  },
+  getPosition: function getPosition(el) {
+    var xPos = 0;
+    var yPos = 0;
+    var count = 0;
+
+    while (el) {
+      if (el.tagName == 'BODY') {
+        // deal with browser quirks with body/window/document and page scroll
+        var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+        var yScroll = el.scrollTop || document.documentElement.scrollTop;
+        xPos += el.offsetLeft - xScroll + el.clientLeft;
+        yPos += el.offsetTop - yScroll + el.clientTop;
+      } else {
+        var scrollLeft = count > 0 ? el.scrollLeft : 0;
+        var scrollTop = count > 0 ? el.scrollTop : 0; // for all other non-BODY elements
+
+        xPos += el.offsetLeft - scrollLeft + el.clientLeft;
+        yPos += el.offsetTop - scrollTop + el.clientTop;
+      }
+
+      count++;
+      el = el.offsetParent;
+    }
+
+    return {
+      x: xPos,
+      y: yPos
+    };
   },
   getMaxScrollTop: function getMaxScrollTop(node) {
     var height = this.getHeight(node);

@@ -31,12 +31,17 @@ var Event = function Event(props) {
   var startAt = _momentTimezone.default.tz(event.startAt, timezone);
 
   return _react.default.createElement("div", (0, _extends2.default)({
-    className: (0, _classnames.default)('bigcalendar__event', className)
+    className: (0, _classnames.default)('bigcalendar__event', className, event.className)
   }, rest), event.blocks.map(function (block, idx) {
     var eventBlock = _react.default.createElement(_EventBlock.default, {
       startAt: startAt,
       onMouseDown: function onMouseDown(e) {
-        _onMouseDown && _onMouseDown(e, event, block, idx);
+        _onMouseDown && _onMouseDown({
+          e: e,
+          event: event,
+          block: block,
+          blockIdx: idx
+        });
       },
       key: "block-".concat(event.id, "-").concat(idx),
       block: block

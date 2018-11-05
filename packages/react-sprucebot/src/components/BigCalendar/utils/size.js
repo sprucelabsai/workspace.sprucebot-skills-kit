@@ -5,14 +5,26 @@ export default {
 	bodyHeight() {
 		return document.body.clientHeight
 	},
+	getLocalTop(node) {
+		return node.offsetTop
+	},
 	getTop(node) {
 		return this.getPosition(node).y
+	},
+	getLocalBottom(node) {
+		return this.getLocalTop(node) + node.offsetHeight
 	},
 	getBottom(node) {
 		return this.getPosition(node).y + this.getHeight(node)
 	},
+	getLocalLeft(node) {
+		return node.offsetLeft
+	},
 	getLeft(node) {
 		return this.getPosition(node).x
+	},
+	getLocalRight(node) {
+		return this.getLocalLeft(node) + this.getWidth(node)
 	},
 	getRight(node) {
 		return this.getLeft(node) + this.getWidth(node)
