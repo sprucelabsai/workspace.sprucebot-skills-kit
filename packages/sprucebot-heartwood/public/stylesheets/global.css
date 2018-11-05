@@ -3564,6 +3564,26 @@ select:-webkit-autofill:focus {
       .bigcalendar__event-block.busy .resize-handle.resize-s {
         bottom: 0px;
         cursor: ns-resize; }
+  .bigcalendar__event-block.event-fill-1 {
+    background: #fff;
+    border: 1px solid #0076D6;
+    color: #0076D6; }
+  .bigcalendar__event-block.event-fill-2 {
+    background: #E6F1FB;
+    border: 1px solid #0076D6;
+    color: #005499; }
+  .bigcalendar__event-block.event-fill-3 {
+    background: #5a5ae6;
+    border: none;
+    color: #fff; }
+  .bigcalendar__event-block.event-fill-4 {
+    background: #ffedcc;
+    border: 1px solid #bf5b00;
+    color: #242933; }
+  .bigcalendar__event-block.event-fill-5 {
+    background: #ffdad3;
+    border: 1px solid #e51b3d;
+    color: #242933; }
 
 .event-details {
   max-width: 20rem;

@@ -2,7 +2,7 @@ import moment from 'moment'
 
 const today = moment()
 
-const eventDetails = {
+const details = {
 	header: { title: 'Taco Bell', label: 'Appointment' },
 	status: 'event-busy',
 	list: { items: [] },
@@ -17,7 +17,7 @@ export default [
 		isAllDay: false,
 		userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Hair Tinting',
@@ -55,7 +55,7 @@ export default [
 		isAllDay: false,
 		userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'The Ultimate',
@@ -75,7 +75,7 @@ export default [
 		isAllDay: false,
 		userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Shave',
@@ -113,7 +113,7 @@ export default [
 		isAllDay: false,
 		userId: '78245981-5022-49a7-b2f2-6ac687e0f3d1',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Wax',
@@ -151,7 +151,7 @@ export default [
 		isAllDay: false,
 		userId: '78245981-5022-49a7-b2f2-6ac687e0f3d1',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'The Ultimate',
@@ -171,7 +171,7 @@ export default [
 		isAllDay: false,
 		userId: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Nose Wax',
@@ -191,7 +191,7 @@ export default [
 		isAllDay: false,
 		userId: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: '24k Gold Facial',
@@ -229,7 +229,7 @@ export default [
 		isAllDay: false,
 		userId: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Brow Wax',
@@ -249,7 +249,7 @@ export default [
 		isAllDay: false,
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Spruced Up Shave',
@@ -287,7 +287,7 @@ export default [
 		isAllDay: false,
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Head Shave',
@@ -307,7 +307,7 @@ export default [
 		isAllDay: false,
 		userId: 'ce914128-c77c-40fa-b5ef-d6faa3ed26a1',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Head Shave',
@@ -327,7 +327,7 @@ export default [
 		isAllDay: false,
 		userId: 'ce914128-c77c-40fa-b5ef-d6faa3ed26a1',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Young Spruce',
@@ -347,7 +347,7 @@ export default [
 		isAllDay: false,
 		userId: '7a96fb12-b01c-45f3-9c09-d0922d5eaa44',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Beard Trim',
@@ -367,7 +367,7 @@ export default [
 		isAllDay: false,
 		userId: '7a96fb12-b01c-45f3-9c09-d0922d5eaa44',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'The Ultimate',
@@ -405,7 +405,7 @@ export default [
 		isAllDay: false,
 		userId: '061bb108-7795-4f62-972c-7ee426b71668',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Signature',
@@ -443,7 +443,7 @@ export default [
 		isAllDay: false,
 		userId: '061bb108-7795-4f62-972c-7ee426b71668',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Head Shave',
@@ -463,7 +463,7 @@ export default [
 		isAllDay: false,
 		userId: '061bb108-7795-4f62-972c-7ee426b71668',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Signature Follow-up',
@@ -483,7 +483,7 @@ export default [
 		isAllDay: false,
 		userId: '724d2986-ba56-4560-a1ab-74088b974274',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Beard Tinting',
@@ -521,7 +521,7 @@ export default [
 		isAllDay: false,
 		userId: '724d2986-ba56-4560-a1ab-74088b974274',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Brow Wax',
@@ -541,7 +541,7 @@ export default [
 		isAllDay: false,
 		userId: '724d2986-ba56-4560-a1ab-74088b974274',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Nose Wax',
@@ -561,7 +561,7 @@ export default [
 		isAllDay: false,
 		userId: 'df65bf1f-efae-41bd-af5f-a8714807dfef',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: '24k Gold Facial',
@@ -599,7 +599,7 @@ export default [
 		isAllDay: false,
 		userId: 'df65bf1f-efae-41bd-af5f-a8714807dfef',
 		className: '',
-		eventDetails,
+		details,
 		blocks: [
 			{
 				title: 'Clothing Consult',
