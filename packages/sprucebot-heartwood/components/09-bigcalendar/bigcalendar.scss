@@ -62,7 +62,7 @@ body.sb-show-main {
         bottom:-20px;
         padding-bottom:20px;
         position: absolute;
-        -webkit-overflow-scrolling: touch;
+        // -webkit-overflow-scrolling: touch;
     }
     .teammate {
         @include typescale('legal');
@@ -80,7 +80,7 @@ body.sb-show-main {
 .bigcalendar__drag-grid {
     position: relative;
     overflow: auto;
-    -webkit-overflow-scrolling: touch;
+    // -webkit-overflow-scrolling: touch;
     border-left: 1px solid $c-border;
     .scroll-inner {
         display: flex;
@@ -225,9 +225,7 @@ body.sb-show-main {
     }
     
     &.busy  {
-        
         z-index: 2;
-
         .resize-handle {
             position: absolute;    
             left:0px;
@@ -245,6 +243,5 @@ body.sb-show-main {
             }
         }
     }
-
     
 }
