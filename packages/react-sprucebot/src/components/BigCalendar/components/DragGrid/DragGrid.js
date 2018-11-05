@@ -179,6 +179,7 @@ class DragGrid extends Component<Props> {
 	handleTouchEndOnView = e => {
 		console.log('touch end on view')
 		this.handleMouseUpFromView(e)
+		window.removeEventListener('touchend', this.handleTouchEndOnView)
 	}
 
 	getEventsAtLocation = ({ x, y }) => {
@@ -225,6 +226,8 @@ class DragGrid extends Component<Props> {
 		const results = onMouseDownOnEvent({ e, event, block, blockIdx })
 
 		if (results) {
+			console.log('mousedown', blockIdx)
+
 			stopEvent && e.preventDefault()
 			stopEvent && e.stopPropagation()
 
@@ -310,6 +313,14 @@ class DragGrid extends Component<Props> {
 	handleLongPressOnEvent = ({ e, event, block, blockIdx }) => {
 		const { onHighlightEvent = () => true } = this.props
 		if (onHighlightEvent({ e, event, block, blockIdx }) !== false) {
+			this.handleMouseDownOnEvent({
+				e,
+				event,
+				block,
+				blockIdx,
+				setListeners: false,
+				stopEvent: false
+			})
 			this.startDragOfEvent({ e, event, block, blockIdx })
 		}
 	}

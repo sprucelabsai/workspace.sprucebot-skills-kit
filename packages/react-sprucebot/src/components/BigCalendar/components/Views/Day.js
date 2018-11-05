@@ -372,7 +372,9 @@ class Day extends Component<Props> {
 			} = dragDetails
 
 			const dragDistance =
-				eMouseMove.clientY + deltaScrollTop - eMouseDown.clientY
+				eventUtil.clientXY(eMouseMove).clientY +
+				deltaScrollTop -
+				eventUtil.clientXY(eMouseDown).clientY
 			const originalHeight = sizeUtil.getHeight(sourceBlockNode)
 			const slotHeight = this.slotHeight()
 			const originalTop = parseFloat(sourceEventNode.style.top)
@@ -488,8 +490,15 @@ class Day extends Component<Props> {
 
 			const previousSourceBlockNode = sourceBlockNode.previousSibling
 			const previousDragBlock = dragBlockNode.previousSibling
+			const { top: startingScrollTop } = this._scrollStartingPosition
 
-			const dragDistance = eMouseMove.clientY - eMouseDown.clientY
+			const deltaScrollTop =
+				this.dragGridRef.current.getScrollTop() - startingScrollTop
+
+			const dragDistance =
+				eventUtil.clientXY(eMouseMove).clientY +
+				deltaScrollTop -
+				eventUtil.clientXY(eMouseDown).clientY
 			const originalHeight = sizeUtil.getHeight(previousSourceBlockNode)
 			const maxDistance =
 				this.dayColHeight() - sizeUtil.getLocalBottom(sourceEventNode)
@@ -561,6 +570,10 @@ class Day extends Component<Props> {
 
 	handleUnHighlightEvent = () => {
 		this.setState({ highlightedEventAndBlock: null })
+	}
+
+	handleCloseEventDetails = () => {
+		this.handleDeselectEvent()
 	}
 
 	placeAndSize = () => {
@@ -857,6 +870,14 @@ class Day extends Component<Props> {
 		} = this.props
 
 		const { selectedEvent, highlightedEventAndBlock } = this.state
+		console.log('render')
+
+		let eventDetails = null
+		if (selectedEvent && selectedEvent.details) {
+			eventDetails = { ...selectedEvent.details }
+			eventDetails.header = eventDetails.header || {}
+			eventDetails.header.onClickClose = this.handleCloseEventDetails
+		}
 
 		return (
 			<div
@@ -920,10 +941,7 @@ class Day extends Component<Props> {
 							))}
 							{this.isToday() && <TimeLine />}
 						</div>
-						{selectedEvent &&
-							selectedEvent.details && (
-								<EventDetails {...selectedEvent.details} />
-							)}
+						{eventDetails && <EventDetails {...eventDetails} />}
 					</DragGrid>
 				</div>
 			</div>

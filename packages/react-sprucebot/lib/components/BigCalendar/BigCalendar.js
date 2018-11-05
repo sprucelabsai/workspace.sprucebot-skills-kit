@@ -11,6 +11,8 @@ exports.default = void 0;
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
@@ -208,7 +210,16 @@ function (_Component) {
           slotsPerHour = _this$props.slotsPerHour,
           allEvents = _this$props.allEvents,
           onDropEvent = _this$props.onDropEvent,
-          timezone = _this$props.timezone;
+          timezone = _this$props.timezone,
+          longPressDelay = _this$props.longPressDelay,
+          allUsers = _this$props.allUsers,
+          defaultMinTime = _this$props.defaultMinTime,
+          defaultMaxTime = _this$props.defaultMaxTime,
+          defaultStartTime = _this$props.defaultStartTime,
+          defaultEndTime = _this$props.defaultEndTime,
+          defaultView = _this$props.defaultView,
+          _ = _this$props.viewProps,
+          props = (0, _objectWithoutProperties2.default)(_this$props, ["className", "headerDateFormat", "slotsPerHour", "allEvents", "onDropEvent", "timezone", "longPressDelay", "allUsers", "defaultMinTime", "defaultMaxTime", "defaultStartTime", "defaultEndTime", "defaultView", "viewProps"]);
       var _this$state = this.state,
           selectedView = _this$state.selectedView,
           minTime = _this$state.minTime,
@@ -227,14 +238,14 @@ function (_Component) {
 
       var View = this.getViewDetails().View;
       var viewProps = this.getViewProps();
-      return _react.default.createElement("div", {
+      return _react.default.createElement("div", (0, _extends2.default)({
         className: parentClass,
         ref: this.domNodeRef,
         style: {
           width: bodyWidth,
           height: bodyHeight
         }
-      }, _react.default.createElement(_Header.default, {
+      }, props), _react.default.createElement(_Header.default, {
         dateFormat: headerDateFormat,
         selectedDate: startDate,
         selectedView: selectedView,
@@ -248,7 +259,8 @@ function (_Component) {
         onHorizontalPageBack: this.handleHorizontalPageBack
       }), _react.default.createElement("div", {
         className: "bigcalendar__view-wrapper"
-      }, _react.default.createElement(View, (0, _extends2.default)({}, viewProps, {
+      }, _react.default.createElement(View, (0, _extends2.default)({
+        longPressDelay: longPressDelay,
         ref: this.selectedViewRef,
         onUpdateHorizontalPagerDetails: this.handleUpdateHorizontalPagerDetails,
         startDate: startDate,
@@ -264,7 +276,7 @@ function (_Component) {
         endTime: endTime,
         timezone: timezone,
         onDropEvent: onDropEvent
-      }))));
+      }, viewProps))));
     }
   }]);
   return BigCalendar;
@@ -280,7 +292,8 @@ function (_Component) {
   defaultEndTime: '20:00',
   headerDateFormat: 'MMMM YYYY',
   allEvents: [],
-  viewProps: {}
+  viewProps: {},
+  longPressDelay: 500
 });
 var _default = BigCalendar;
 exports.default = _default;

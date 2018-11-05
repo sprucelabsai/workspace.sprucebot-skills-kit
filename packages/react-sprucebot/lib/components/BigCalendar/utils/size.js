@@ -12,19 +12,25 @@ var _default = {
     return document.body.clientHeight;
   },
   getLocalTop: function getLocalTop(node) {
-    return node.getBoundingClientRect().top;
+    return node.offsetTop;
   },
   getTop: function getTop(node) {
     return this.getPosition(node).y;
   },
   getLocalBottom: function getLocalBottom(node) {
-    return node.offsetTop;
+    return this.getLocalTop(node) + node.offsetHeight;
   },
   getBottom: function getBottom(node) {
-    return this.getLocalTop(node) + node.offsetHeight;
+    return this.getPosition(node).y + this.getHeight(node);
+  },
+  getLocalLeft: function getLocalLeft(node) {
+    return node.offsetLeft;
   },
   getLeft: function getLeft(node) {
     return this.getPosition(node).x;
+  },
+  getLocalRight: function getLocalRight(node) {
+    return this.getLocalLeft(node) + this.getWidth(node);
   },
   getRight: function getRight(node) {
     return this.getLeft(node) + this.getWidth(node);

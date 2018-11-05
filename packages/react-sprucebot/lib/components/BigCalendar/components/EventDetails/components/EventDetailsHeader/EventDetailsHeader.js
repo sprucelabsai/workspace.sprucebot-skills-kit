@@ -37,11 +37,13 @@ BackIcon.defaultProps = {
 var EventDetailsHeader = function EventDetailsHeader(props) {
   var label = props.label,
       title = props.title,
-      handleGoBack = props.handleGoBack,
+      onClickBack = props.onClickBack,
+      onClickClose = props.onClickClose,
       contextMenu = props.contextMenu;
   return _react.default.createElement("div", {
     className: "event-details-header"
-  }, handleGoBack && _react.default.createElement(_Button.default, {
+  }, onClickBack && _react.default.createElement(_Button.default, {
+    onClick: onClickBack,
     isSmall: true,
     className: "event-details-header__button",
     icon: _react.default.createElement(BackIcon, null)
@@ -56,6 +58,7 @@ var EventDetailsHeader = function EventDetailsHeader(props) {
   }, contextMenu && _react.default.createElement(_ContextMenu.default, (0, _extends2.default)({
     isSmall: true
   }, contextMenu)), _react.default.createElement(_Button.default, {
+    onClick: onClickClose,
     isSmall: true,
     className: "event-details-header__button",
     icon: _react.default.createElement(_Icon.default, {

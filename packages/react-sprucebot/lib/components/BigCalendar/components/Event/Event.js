@@ -25,8 +25,10 @@ var Event = function Event(props) {
   var event = props.event,
       className = props.className,
       _onMouseDown = props.onMouseDown,
+      _onTouchStart = props.onTouchStart,
       timezone = props.timezone,
-      rest = (0, _objectWithoutProperties2.default)(props, ["event", "className", "onMouseDown", "timezone"]);
+      highlightedBlockIdx = props.highlightedBlockIdx,
+      rest = (0, _objectWithoutProperties2.default)(props, ["event", "className", "onMouseDown", "onTouchStart", "timezone", "highlightedBlockIdx"]);
 
   var startAt = _momentTimezone.default.tz(event.startAt, timezone);
 
@@ -37,6 +39,14 @@ var Event = function Event(props) {
       startAt: startAt,
       onMouseDown: function onMouseDown(e) {
         _onMouseDown && _onMouseDown({
+          e: e,
+          event: event,
+          block: block,
+          blockIdx: idx
+        });
+      },
+      onTouchStart: function onTouchStart(e) {
+        _onTouchStart && _onTouchStart({
           e: e,
           event: event,
           block: block,
