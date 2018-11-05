@@ -15,9 +15,9 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _classnames = _interopRequireDefault(require("classnames"));
 
-var _ListHeader = _interopRequireWildcard(require("./components/ListHeader/ListHeader"));
+var _ListHeader = _interopRequireDefault(require("./components/ListHeader/ListHeader"));
 
-var _ListItem = _interopRequireWildcard(require("./components/ListItem/ListItem"));
+var _ListItem = _interopRequireDefault(require("./components/ListItem/ListItem"));
 
 var ListWrapper = function ListWrapper(props) {
   return _react.default.createElement("div", {

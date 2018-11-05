@@ -22,9 +22,9 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING
 		},
 		// phoneNumber May not be available depending on skill permissions
-		phoneNumber: {
-			type: DataTypes.STRING
-		},
+		// phoneNumber: {
+		// 	type: DataTypes.STRING
+		// },
 		profileImageUUID: {
 			type: DataTypes.STRING
 		},

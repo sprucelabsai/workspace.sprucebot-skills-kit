@@ -5,8 +5,7 @@ import cx from 'classnames'
 type Props = {
 	hours: Array<Object>,
 	className?: string,
-	calendarBodyHeight: Number,
-	scrollTop: Number
+	calendarBodyHeight: Number
 }
 
 class TimeGutter extends Component<Props> {
@@ -15,18 +14,8 @@ class TimeGutter extends Component<Props> {
 		this.domNodeRef = React.createRef()
 	}
 
-	componentDidUpdate = () => {
-		this.domNodeRef.current.scrollTop = this.props.scrollTop
-	}
-
 	render() {
-		const {
-			calendarBodyHeight,
-			hours,
-			className,
-			scrollTop,
-			...props
-		} = this.props
+		const { calendarBodyHeight, hours, className, ...props } = this.props
 		return (
 			<div
 				className={cx('bigcalendar__time-gutter', className)}

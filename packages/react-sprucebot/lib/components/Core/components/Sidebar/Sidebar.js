@@ -17,7 +17,7 @@ var _classnames = _interopRequireDefault(require("classnames"));
 
 var _SidebarExpander = _interopRequireDefault(require("./components/SidebarExpander/SidebarExpander"));
 
-var _SidebarItem = _interopRequireWildcard(require("./components/SidebarItem/SidebarItem"));
+var _SidebarItem = _interopRequireDefault(require("./components/SidebarItem/SidebarItem"));
 
 var _SidebarFooter = _interopRequireDefault(require("./components/SidebarFooter/SidebarFooter"));
 

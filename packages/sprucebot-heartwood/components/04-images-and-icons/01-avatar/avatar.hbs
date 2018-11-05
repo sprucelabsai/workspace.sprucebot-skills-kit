@@ -1,0 +1,16 @@
+<div class="avatar-wrapper{{#if isLarge}} avatar-wrapper-large{{/if}}{{#if text}} avatar-wrapper-has-text{{/if}}{{#if isVertical}} avatar-wrapper-vertical{{/if}}">
+	<div class="avatar__image-wrapper">
+		<img class="avatar" src={{image}} alt={{alt}} {{#if isLarge}}width="96" height="96"{{else}}width="{{#if width}}{{width}}{{else}}40{{/if}}" height="{{#if height}}{{height}}{{else}}40{{/if}}"{{/if}} />
+		{{#if showIndicator}}
+		<div class="avatar__indicator{{#if isOnline}} avatar__indicator--is-online{{/if}}"></div>
+		{{/if}}
+	</div>
+	{{#if name}}
+	<div class="avatar__text-wrapper">
+		<p class="avatar__name">{{name}}</p>
+		{{#if text}}
+			<p class="avatar__text">{{text}}</p>
+		{{/if}}
+	</div>
+	{{/if}}
+</div>

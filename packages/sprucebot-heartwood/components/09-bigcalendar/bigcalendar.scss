@@ -1,0 +1,250 @@
+$time-gutter-width: rem(50);
+$day-col-width: rem(150);
+$selected-event-width: rem(150);
+$event-indent-width: rem(50);
+
+.bigcalendar {
+    
+
+    
+}
+
+body.sb-show-main {
+}
+
+.l-pa-medium {
+    padding: 0 !important;
+}
+
+.bigcalendar__header-top {
+    border-bottom: 1px solid $c-border;
+    display:flex;
+}
+
+.bigcalendar__header-controls {
+    display:flex;
+}
+
+.bigcalendar__header-bottom {
+    border-left: 1px solid $c-border;
+    border-bottom: 1px solid $c-border;
+    margin-left: $time-gutter-width;
+    display: flex;
+    align-content: center;
+    padding: rem(5);
+    justify-content: space-between;
+}
+
+.bigcalendar__header-smalldate {
+
+    .dow {
+        font-size: rem(10);
+    }
+
+    .day {
+        font-size: rem(20);
+    }
+}
+
+
+.bigcalendar__teammate-header {
+    margin-left: $time-gutter-width;
+    position: relative;
+    overflow: hidden;
+    border-left: 1px solid $c-border;
+    height: rem(50);
+    .inner {
+        overflow-x: auto;    
+        display: flex;
+        left:0px;
+        top:0px;
+        right:0px;
+        bottom:-20px;
+        padding-bottom:20px;
+        position: absolute;
+        -webkit-overflow-scrolling: touch;
+    }
+    .teammate {
+        @include typescale('legal');
+        display: flex;
+        align-items: center;
+        font-weight: $font-weight-bold;
+    }
+
+    .avatar__image-wrapper {
+        padding:rem(3);
+    }
+
+}
+
+.bigcalendar__drag-grid {
+    position: relative;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border-left: 1px solid $c-border;
+    .scroll-inner {
+        display: flex;
+    }
+    .hour-block {
+        border-bottom: 1px solid $c-border;
+        &.inactive {
+            border-color: lighten($c-border, 5%);
+        }
+    }
+}
+
+.bigcalendar__view-day {
+    
+    .bigcalendar__time-gutter {
+        @include type-style-label;
+        min-width: $time-gutter-width;
+        max-width: $time-gutter-width;
+        text-align: right;
+        padding-right:rem(5);
+        position: relative;
+        overflow: hidden;
+        
+        p {
+            position: relative;
+            top: rem(-6);
+        }
+    }
+    
+    .bigcalendar__time-gutter .inner {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .bigcalendar__body-wrapper {
+        display: flex;
+        border-top: 1px solid $c-border;
+    }
+
+    .bigcalendar__day-col, 
+    .bigcalendar__teammate-header .teammate {
+        min-width: $day-col-width;
+        max-width: $day-col-width;
+        border-right: 1px solid $c-border;
+    }
+
+    .hour-block {
+        height: rem(50);
+        display: flex;
+        flex-direction: column;
+
+        
+        .timeslot {
+            flex:1;
+            border-bottom: 1px solid lighten($c-border, 10%);
+        }  
+        
+        &.inactive, .timeslot.inactive {
+            background-color: lighten($c-border, 15%);
+            
+        }
+        
+        .timeslot:last-of-type {
+            border:none;
+        }
+    }
+ 
+    .bigcalendar__event {
+        width: $day-col-width;
+        &.is-selected {
+            max-width: $selected-event-width;
+        }
+    }
+
+    &.has-highlighted-event,
+    &.has-selected-event {
+
+
+        .bigcalendar__day-col,
+        .bigcalendar__event {
+            opacity: 0.4;
+        }
+        .is-active-drag.bigcalendar__event,
+        .is-selected.bigcalendar__event {
+            opacity: 1;
+        }
+    }
+
+    .bigcalendar__time-line {
+        height:1px;
+        background-color: $c-primary-dark;
+        position: absolute;
+        left:0px;
+    }
+
+    .event-details {
+        position: absolute;
+        z-index: 4;
+    }
+
+}
+
+.bigcalendar__event {
+    border: 1px solid $c-primary;
+    position: absolute;
+    left:0px;
+    top:0px;
+    z-index: 1;
+
+    &.is-drag-source {
+        opacity: 0.5;
+    }
+
+    &.is-active-drag {
+        
+    }
+
+    &.animate {
+        -webkit-transition: all 0.5s ease-out;
+        -moz-transition: all 0.5s ease-out;
+        -ms-transition: all 0.5s ease-out;
+        -o-transition: all 0.5s ease-out;
+        transition: all 0.5s ease-out;
+    }
+}
+
+.bigcalendar__event-block {
+    @include type-style-body-sm;
+    background: linear-gradient(to bottom, $c-primary 0%, $c-primary-dark 100%); 
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    
+    &.available {
+        z-index: 1;
+        background: transparent;
+        cursor: default;
+        p {
+            display: none;
+        }
+    }
+    
+    &.busy  {
+        
+        z-index: 2;
+
+        .resize-handle {
+            position: absolute;    
+            left:0px;
+            right:0px;
+            height: 5px;
+            
+            &.resize-n {
+                top:0px;
+                cursor:ns-resize;
+            }
+            
+            &.resize-s {
+                bottom: 0px;
+                cursor:ns-resize;
+            }
+        }
+    }
+
+    
+}

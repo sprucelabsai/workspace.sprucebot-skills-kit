@@ -1,0 +1,11 @@
+	<span class="btn__inner">
+		{{#if icon}}
+		<span class="btn__icon-wrapper">
+			{{> @icon icon=icon class=(concat 'btn__icon ' iconClass) }}
+		</span>
+		{{/if}}
+		{{#if text}}
+			<span class="btn__text">{{text}}</span>
+		{{/if}}
+		{{#if loading}}{{> @loader }}{{/if}}
+	</span>

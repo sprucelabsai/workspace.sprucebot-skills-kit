@@ -11,6 +11,7 @@ import TimeGutter from '../TimeGutter/TimeGutter'
 import TeammateHeader from '../TeammateHeader/TeammateHeader'
 import DragGrid from '../DragGrid/DragGrid'
 import DayCol from './DayCol'
+import EventDetails from '../../components/EventDetails/EventDetails'
 
 import sizeUtil from '../../utils/size'
 import eventUtil from '../../utils/event'
@@ -34,21 +35,20 @@ type Props = {
 	startDate: Object,
 	dragThreshold: Number, // how far to drag before actually initiating drag
 	onDropEvent: Function,
+	onDragEvent: Function,
 	scrollDuringDragMargin: Number, // how close to the edge do we need to get before we'll auto scroll for the user
 	dragScrollSpeed: Number, // how many pixels to jump if dragging near edge of scroll
-	eventRightMargin: Number
+	eventRightMargin: Number,
+	longPressDelay: Number
 }
 
 type State = {
-	scrollLeft: Number,
-	scrollTop: Number
+	selectedEvent: Object,
+	highlightedEventAndBlock: Object
 }
 
 class Day extends Component<Props> {
-	state = {
-		scrollLeft: 0,
-		scrollTop: 0
-	}
+	state = {}
 
 	static defaultProps = {
 		dragThreshold: 10,
@@ -64,6 +64,8 @@ class Day extends Component<Props> {
 		super(props)
 		this.dragGridRef = React.createRef()
 		this.scrollInnerRef = React.createRef()
+		this.teammateHeaderRef = React.createRef()
+		this.timeGutterRef = React.createRef()
 	}
 
 	componentDidMount = () => {
@@ -96,13 +98,19 @@ class Day extends Component<Props> {
 	handleScroll = e => {
 		const target = e.target
 		const { scrollTop, scrollLeft } = target
-		this.setState({
-			scrollTop,
-			scrollLeft
-		})
 
-		// arrows that sit in the upper right
-		this.updateHorizontalPagerDetails()
+		this.teammateHeaderRef.current.domNodeRef.current.scrollLeft = scrollLeft
+		this.timeGutterRef.current.domNodeRef.current.scrollTop = scrollTop
+
+		// // arrows that sit in the upper right
+		// this.updateHorizontalPagerDetails()
+
+		if (this._lastDragDetails) {
+			this.handleDragOfEvent(
+				this._lastDragDetails.event,
+				this._lastDragDetails.dragDetails
+			)
+		}
 	}
 
 	getTimeRangeDetails = (min, max) => {
@@ -186,19 +194,19 @@ class Day extends Component<Props> {
 		}
 	}
 
-	snapEventToNearestValidX = x => {
+	snapEventToNearestValidX = ({ mouseX }) => {
 		const dayColWidth = this.dayColWidth()
-		const nearest = Math.round(x / dayColWidth)
+		const nearest = Math.floor(mouseX / dayColWidth)
 		return Math.max(
 			0,
 			Math.min(this.props.users.length - 1, nearest) * dayColWidth
 		)
 	}
 
-	snapEventToNearestValidY = (y, elementHeight = 0) => {
+	snapEventToNearestValidY = ({ dragNodeTop, dragNodeHeight = 0 }) => {
 		const slotHeight = this.slotHeight()
-		const nearest = Math.round(y / slotHeight)
-		const maxTop = this.dayColHeight() - elementHeight
+		const nearest = Math.round(dragNodeTop / slotHeight)
+		const maxTop = this.dayColHeight() - dragNodeHeight
 		return Math.max(0, Math.min(maxTop, nearest * slotHeight))
 	}
 
@@ -212,6 +220,16 @@ class Day extends Component<Props> {
 		const minutesFromMinTime = nearest * range.slotDurationMin
 		const time = moment(range.minMoment).add(minutesFromMinTime, 'minutes')
 		return time
+	}
+
+	heightToSeconds = height => {
+		const range = this.getTimeRangeDetails(
+			this.props.minTime,
+			this.props.maxTime
+		)
+		const dayColHeight = this.dayColHeight()
+		const ratio = height / dayColHeight
+		return range.seconds * ratio
 	}
 
 	timeToY = date => {
@@ -232,22 +250,317 @@ class Day extends Component<Props> {
 		return this.props.users[nearest]
 	}
 
-	handleDropOfEvent = async (event, newX, newY) => {
-		const newStartTime = this.yToTime(newY)
+	getDragNode = ({ event, block, blockIdx, dragEventNode, dragBlockNode }) => {
+		return blockIdx === 0 ? dragEventNode : dragBlockNode
+	}
+
+	handleMouseDownOnView = e => {
+		if (!e.target.classList.contains('hour-block')) {
+			return false
+		}
+	}
+
+	handleMouseDownOnEvent = ({ e, event, block, blockIdx }) => {
+		const response = { e, event, block, blockIdx }
+		let target = e.target
+		// if we clicked an available block, find any events under us to see if
+		// we should pass the click to them
+		if (!block.markAsBusy) {
+			let matches = this.dragGridRef.current.getEventsAtLocation({
+				x: e.clientX,
+				y: e.clientY
+			})
+			// the first one would actually match the event passed here
+			// so lets check the first event under us
+			matches.shift()
+
+			//filter out non busy (available) blocks
+			matches = matches.filter(match => match.block.markAsBusy)
+
+			if (matches.length > 0) {
+				response.event = matches[0].event
+				response.block = matches[0].block
+				response.blockIdx = matches[0].blockIdx
+
+				const resize = matches[0].resize
+
+				if (resize) {
+					const eventNode = this.dragGridRef.current.getEventNode(
+						matches[0].event
+					)
+					target = eventNode.querySelector(`.${resize.direction}`)
+				}
+			}
+			// ignore the click entirely so it gets passed onto the drag grid view
+			else {
+				return false
+			}
+		}
+
+		// did we click a resize handle? if so, lets set up for that
+		if (target.classList.contains('resize-handle')) {
+			this._resizeDetails = {
+				e,
+				event: response.event,
+				block: response.block,
+				blockIdx: response.blockIdx,
+				direction: target.classList.contains('resize-n') ? 'n' : 's'
+			}
+		}
+
+		this._scrollStartingPosition = {
+			left: this.dragGridRef.current.getScrollLeft(),
+			top: this.dragGridRef.current.getScrollTop()
+		}
+
+		return response
+	}
+
+	handleDropEvent = async (event, newX, newY) => {
+		// reset some things
+		const dragDetails = this._dragDetails || {}
+		const resizeDetails = this._resizeDetails || {}
+
+		this._dragDetails = null
+		this._resizeDetails = null
+		this._lastDragDetails = null
+
+		const newStartTime =
+			dragDetails.newStartAt || resizeDetails.newStartAt || this.yToTime(newY)
 		const newUser = this.xToUser(newX)
 
 		const { onDropEvent } = this.props
-		const pass =
-			onDropEvent && (await onDropEvent(event, newStartTime, newUser))
 
-		return pass
+		return (
+			onDropEvent &&
+			onDropEvent({
+				event,
+				newStartAt: newStartTime,
+				newUser: newUser && newUser.id !== event.userId ? newUser : null,
+				...dragDetails,
+				...resizeDetails
+			})
+		)
 	}
 
 	handleDragOfEvent = (event, dragDetails) => {
-		// update time
-		const { dragEventNode } = dragDetails
-		const time = this.yToTime(parseFloat(dragEventNode.style.top))
-		dragEventNode.querySelector('.time').innerHTML = time.format('h:mma')
+		// if anything is selected, null it
+		if (this.state.selectedEvent) {
+			this.setState({
+				selectedEvent: null
+			})
+		}
+
+		const { onDragEvent, timezone } = this.props
+		const { dragEventNode, blockIdx, sourceEventNode } = dragDetails
+
+		// to track the cancelling of drag grid moving the event for us
+		let cancelDrag = false
+
+		if (this._resizeDetails) {
+			cancelDrag = true
+			const { top: startingScrollTop } = this._scrollStartingPosition
+
+			const deltaScrollTop =
+				this.dragGridRef.current.getScrollTop() - startingScrollTop
+			const {
+				dragBlockNode,
+				eMouseMove,
+				eMouseDown,
+				blockIdx,
+				sourceBlockNode
+			} = dragDetails
+
+			const dragDistance =
+				eMouseMove.clientY + deltaScrollTop - eMouseDown.clientY
+			const originalHeight = sizeUtil.getHeight(sourceBlockNode)
+			const slotHeight = this.slotHeight()
+			const originalTop = parseFloat(sourceEventNode.style.top)
+
+			const { direction } = this._resizeDetails
+			const resizeDetails = {
+				...this._resizeDetails,
+				blockUpdates: []
+			}
+
+			// drag always changes the height of the selected block, so lets set the height
+			// callout that height is set differently deppending on drag direction
+			// also, when dragging north, we should not be able to drag more than the height
+			// of the previous block (if there is one)
+
+			let distance = this.snapEventToNearestValidY({
+				dragNodeTop: Math.abs(dragDistance)
+			})
+
+			if (dragDistance < 0) {
+				distance *= -1
+			}
+
+			// clamp distance
+			if (direction === 'n' && blockIdx > 0) {
+				distance = Math.max(
+					distance,
+					sizeUtil.getHeight(sourceBlockNode.previousSibling) * -1
+				)
+			} else if (direction === 'n') {
+				// so it won't go too far up
+				distance = Math.max(distance, originalTop * -1)
+
+				// so it won't go too far down
+				distance = Math.min(distance, originalHeight - slotHeight)
+			} else if (direction === 's') {
+				distance = Math.min(
+					distance,
+					this.dayColHeight() - sizeUtil.getLocalBottom(sourceEventNode)
+				)
+			}
+
+			let height = originalHeight
+			if (direction === 's') {
+				height += distance
+			} else {
+				height -= distance
+			}
+			height = Math.max(slotHeight, height)
+
+			dragBlockNode.style.height = parseInt(height) + 'px'
+
+			resizeDetails.blockUpdates.push({
+				blockIdx: blockIdx,
+				newDurationSec: this.heightToSeconds(height)
+			})
+
+			// if we are resizing the first block north, we actually need to
+			// move the whole event up and adjust the start time
+			if (blockIdx > 0 && direction === 'n') {
+				const previousDragBlock = dragBlockNode.previousSibling
+				const previousSourceBlock = sourceBlockNode.previousSibling
+				const previousHeight = sizeUtil.getHeight(previousSourceBlock)
+
+				let height = previousHeight + distance
+
+				// can't go too big or it starts to feel like dragging a block down
+				height = Math.min(height, originalHeight + previousHeight - slotHeight)
+
+				previousDragBlock.style.height = parseInt(height) + 'px'
+
+				resizeDetails.blockUpdates.push({
+					blockIdx: blockIdx - 1,
+					newDurationSec: this.heightToSeconds(height)
+				})
+			}
+			// don't resize this block if we're dragging north and we're the first block
+			//if we are the first block, we have to move the whole event up the inverse
+			//of the change in the height of the block
+			else if (blockIdx === 0 && direction === 'n') {
+				const newTop = originalTop + distance
+				dragEventNode.style.top = `${newTop}px`
+				const deltaSeconds = this.heightToSeconds(distance * -1)
+				const newStartAt = moment
+					.tz(event.startAt, timezone)
+					.subtract(deltaSeconds, 'seconds')
+
+				resizeDetails.newStartAt = newStartAt
+				dragEventNode.querySelector('.time').innerHTML = newStartAt.format(
+					'h:mma'
+				)
+			}
+
+			this._resizeDetails = resizeDetails
+		}
+		// dragging an event is peasy peezy (drag grid handles it)
+		// we'll just make some day view only updates
+		else if (blockIdx === 0) {
+			const time = this.yToTime(parseFloat(dragEventNode.style.top))
+			dragEventNode.querySelector('.time').innerHTML = time.format('h:mma')
+			this._didDragEvent = true
+		}
+		//dragging a block means changing duration of the block ahead of it
+		//drag grid cannot handle this
+		else {
+			cancelDrag = true
+			const {
+				sourceBlockNode,
+				dragBlockNode,
+				eMouseMove,
+				eMouseDown
+			} = dragDetails
+
+			const previousSourceBlockNode = sourceBlockNode.previousSibling
+			const previousDragBlock = dragBlockNode.previousSibling
+
+			const dragDistance = eMouseMove.clientY - eMouseDown.clientY
+			const originalHeight = sizeUtil.getHeight(previousSourceBlockNode)
+			const maxDistance =
+				this.dayColHeight() - sizeUtil.getLocalBottom(sourceEventNode)
+
+			let distance = Math.min(dragDistance, maxDistance)
+
+			const newHeight = Math.max(
+				0,
+				this.snapEventToNearestValidY({
+					dragNodeTop: originalHeight + distance
+				})
+			)
+
+			previousDragBlock.style.height = parseInt(newHeight) + 'px'
+
+			const duration = this.heightToSeconds(newHeight)
+			this._dragDetails = {
+				blockUpdates: [
+					{
+						blockIdx: blockIdx - 1,
+						newDurationSec: duration
+					}
+				]
+			}
+		}
+
+		// we ask drag grid to only move the dom node if we are moving the whole event (block 0)
+		// all other drags are ignored
+		this._lastDragDetails = { event, dragDetails }
+		return onDragEvent ? onDragEvent(event, dragDetails) : !cancelDrag
+	}
+
+	handleSelectEvent = async ({ event, block, blockIdx }) => {
+		if (event.details) {
+			await this.setState({
+				selectedEvent: event
+			})
+
+			// place details next to event
+			const eventNode = this.dragGridRef.current.getEventNode(event)
+			const detailsNode = this.dragGridRef.current.domNodeRef.current.querySelector(
+				'.event-details'
+			)
+
+			const detailsWidth = sizeUtil.getWidth(detailsNode)
+			const gridWidth = this.dragGridRef.current.getWidth()
+			const eventRight = sizeUtil.getLocalRight(eventNode)
+			const eventLeft = sizeUtil.getLocalLeft(eventNode)
+			const detailsRight = eventRight + detailsWidth
+
+			const top = sizeUtil.getLocalTop(eventNode)
+			detailsNode.style.top = `${top}px`
+
+			if (detailsRight > gridWidth) {
+				detailsNode.style.left = `${eventLeft - detailsWidth}px`
+			} else {
+				detailsNode.style.left = `${eventRight}px`
+			}
+		}
+	}
+
+	handleDeselectEvent = () => {
+		this.setState({ selectedEvent: null })
+	}
+
+	handleHighlightEvent = async ({ event, block, blockIdx }) => {
+		this.setState({ highlightedEventAndBlock: { event, block, blockIdx } })
+	}
+
+	handleUnHighlightEvent = () => {
+		this.setState({ highlightedEventAndBlock: null })
 	}
 
 	placeAndSize = () => {
@@ -300,6 +613,13 @@ class Day extends Component<Props> {
 			['startAt']
 		)
 	})
+
+	isToday = date => {
+		return (
+			this.props.startDate.format('YYYY-MM-DD') ===
+			moment.tz(date, this.props.timezone).format('YYYY-MM-DD')
+		)
+	}
 
 	getColumnMap = () => {
 		if (!this._columnMapCache) {
@@ -420,7 +740,10 @@ class Day extends Component<Props> {
 						)
 					}
 				}
-				this._columnMapCache.eventDetails[event.id].columns = maxColumns
+				this._columnMapCache.eventDetails[event.id].columns = Math.max(
+					maxColumns,
+					this._columnMapCache.eventDetails[event.id].column + 1
+				)
 				this._columnMapCache.eventDetails[event.id].overlapped = overlapped
 			})
 		}
@@ -461,7 +784,6 @@ class Day extends Component<Props> {
 
 		if (userIndex > -1 && dayColWidth && dayColHeight) {
 			const { minTime, maxTime, eventRightMargin } = this.props
-
 			const eventNode = this.dragGridRef.current.getEventNode(event)
 
 			//height for blocks
@@ -473,13 +795,12 @@ class Day extends Component<Props> {
 					(block.durationSec / dayColTimeRangeDetails.seconds) * dayColHeight
 
 				const node = blockNodes[idx]
-				node.style.height = `${height}px`
+				node.style.height = `${parseInt(height)}px`
 			})
 
 			if (event.id !== 'dragging') {
 				const colMap = this.getColumnMap()
 				const details = colMap.eventDetails[event.id]
-				console.log({ colMap, details })
 				let width = dayColWidth / details.columns
 				let leftIndent = width * details.column
 
@@ -502,18 +823,22 @@ class Day extends Component<Props> {
 		const timeLineNode = this.scrollInnerRef.current.querySelector(
 			'.bigcalendar__time-line'
 		)
-		const pageWidth = this.dragGridRef.current.getScrollWidth()
-		timeLineNode.style.width = `${pageWidth}px`
+		if (timeLineNode) {
+			const pageWidth = this.dragGridRef.current.getScrollWidth()
+			timeLineNode.style.width = `${pageWidth}px`
+		}
 	}
 
 	placeTimeLine = () => {
-		const { timezone } = this.props
-		const now = moment.tz(new Date(), timezone)
-		const top = this.timeToY(now)
 		const timeLineNode = this.scrollInnerRef.current.querySelector(
 			'.bigcalendar__time-line'
 		)
-		timeLineNode.style.top = `${top}px`
+		if (timeLineNode) {
+			const { timezone } = this.props
+			const now = moment.tz(new Date(), timezone)
+			const top = this.timeToY(now)
+			timeLineNode.style.top = `${top}px`
+		}
 	}
 
 	render() {
@@ -531,35 +856,49 @@ class Day extends Component<Props> {
 			events
 		} = this.props
 
-		const { scrollTop, scrollLeft } = this.state
+		const { selectedEvent, highlightedEventAndBlock } = this.state
 
 		return (
-			<div className="bigcalendar__view-day">
+			<div
+				className={cx('bigcalendar__view-day', {
+					'has-selected-event': !!selectedEvent,
+					'has-highlighted-event': !!highlightedEventAndBlock
+				})}
+			>
 				<div className="bigcalendar__user-header">
 					<TeammateHeader
 						onMouseDown={this.handleViewMouseDown}
 						onScroll={this.handleTeammateScroll}
-						scrollLeft={scrollLeft}
 						users={users}
+						ref={this.teammateHeaderRef}
 					/>
 				</div>
 				<div className="bigcalendar__body-wrapper">
 					<TimeGutter
 						hours={hours}
 						calendarBodyHeight={calendarBodyHeight}
-						scrollTop={scrollTop}
 						onMouseDown={this.handleViewMouseDown}
+						ref={this.timeGutterRef}
 					/>
 					<DragGrid
+						onMouseDownOnView={this.handleMouseDownOnView}
+						onSelectEvent={this.handleSelectEvent}
+						onDeselectEvent={this.handleDeselectEvent}
+						onHighlightEvent={this.handleHighlightEvent}
+						onUnHighlightEvent={this.handleUnHighlightEvent}
+						onMouseDownOnEvent={this.handleMouseDownOnEvent}
+						getDragNode={this.getDragNode}
 						snapEventToNearestValidX={this.snapEventToNearestValidX}
 						snapEventToNearestValidY={this.snapEventToNearestValidY}
 						onScroll={this.handleScroll}
 						ref={this.dragGridRef}
+						selectedEvent={selectedEvent}
+						highlightedEventAndBlock={highlightedEventAndBlock}
 						events={this.eventsForDay(events, startDate)}
 						sizeEvent={this.sizeEvent}
 						timezone={timezone}
 						onDragEvent={this.handleDragOfEvent}
-						onDropEvent={this.handleDropOfEvent}
+						onDropEvent={this.handleDropEvent}
 						style={{
 							height: calendarBodyHeight
 						}}
@@ -579,8 +918,12 @@ class Day extends Component<Props> {
 									timezone={timezone}
 								/>
 							))}
-							<TimeLine />
+							{this.isToday() && <TimeLine />}
 						</div>
+						{selectedEvent &&
+							selectedEvent.details && (
+								<EventDetails {...selectedEvent.details} />
+							)}
 					</DragGrid>
 				</div>
 			</div>

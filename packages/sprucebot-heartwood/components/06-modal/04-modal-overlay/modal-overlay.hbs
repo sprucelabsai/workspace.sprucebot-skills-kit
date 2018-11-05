@@ -1,0 +1,49 @@
+<div class="modal-overlay">
+	<div class="modal modal-small">
+		<form>
+			{{> @modal-header title="New Service Category"}}
+			<div class="modal-body">
+				<div class="form-row">
+					{{>
+						@text-input
+						id="name"
+						label="Category Name"
+						placeholder="i.e. Barber"
+					}}
+				</div>
+				<div class="form-row">
+					{{>
+						@text-input
+						id="teaser"
+						label="Teaser"
+						placeholder="Haircuts, shaves, and touch-ups."
+						helper="Add a short teaser for your guests to see when they browse your services. Please limit to 64 characters."
+						postLabel='0/64'
+					}}
+				</div>
+				<div class="form-row">
+					{{>
+						@textarea
+						id="description"
+						label="Description"
+						placeholder="Optional category description…"
+						helper="Add a short teaser for your guests to see when they browse your services."
+						rows=3
+					}}
+				</div>
+				<div class="form-row">
+					{{>
+						@checkbox
+						id="hide"
+						label="Hide this category"
+						postText="It will still be visible to your teammates, but will be hidden from guests."
+						iconYes='<path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>'
+						iconNo='<path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/><path d="M0 0h24v24H0z" fill="none"/>'
+						iconMaybe='<defs><path id="a" d="M0 0h24v24H0z"/></defs><clipPath id="b">use xlink:href="#a" overflow="visible"/></clipPath><path clip-path="url(#b)" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/>'
+					}}
+				</div>
+			</div>
+			{{> @modal-footer primaryAction="Create Category" secondaryAction="Cancel"}}
+		</form>
+	</div>
+</div>

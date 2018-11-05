@@ -1,0 +1,36 @@
+// Color
+.u-color-secondary {
+	color: $c-secondary;
+}
+
+.u-color-body-light {
+	color: $c-text-light;
+}
+
+// Typography
+.u-td-strikethrough {
+	text-decoration: line-through;
+}
+
+.u-ff-proportional-oldstyle {
+	font-feature-settings: 'onum', 'pnum';
+	font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+.u-lh-loose {
+	line-height: 1.5
+}
+
+// Display
+.u-display-ib {
+	display: inline-block;
+}
+
+// Icons
+.u-icon__no-fill {
+	fill: none;
+}
+
+.u-icon__stroke {
+	stroke: $c-text-icon;
+}

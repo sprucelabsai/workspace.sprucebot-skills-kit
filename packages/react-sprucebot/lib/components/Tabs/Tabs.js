@@ -13,7 +13,7 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _Tab = _interopRequireWildcard(require("./components/Tab/Tab"));
+var _Tab = _interopRequireDefault(require("./components/Tab/Tab"));
 
 var _ContextMenu = _interopRequireDefault(require("../ContextMenu/ContextMenu"));
 
@@ -23,17 +23,11 @@ var Tabs = function Tabs(props) {
   var hiddenTabs = [];
   var activeTab = tabs.find(function (tab) {
     return tab.isCurrent;
-  });
-  console.log({
-    activeTab: activeTab
   }); // TODO: Determine how hidden tabs work
 
   return _react.default.createElement(_react.Fragment, null, _react.default.createElement("ul", {
     className: "tab-group"
   }, tabs.map(function (tab) {
-    console.log({
-      tab: tab
-    });
     return _react.default.createElement(_Tab.default, (0, _extends2.default)({
       key: tab.text
     }, tab));

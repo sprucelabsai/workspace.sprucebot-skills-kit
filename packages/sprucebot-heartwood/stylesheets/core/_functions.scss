@@ -1,0 +1,41 @@
+/**
+Browser Context
+This value will have a cascading affect on typography and layout.
+Avoid changing it unless absolutely necessary.
+*/
+$browser-context: 16 !default;
+
+@function em($pixels, $context: $browser-context) {
+	@return #{$pixels/$context}em;
+}
+
+@function rem($pixels, $context: $browser-context) {
+	@return #{$pixels/$context}em;
+}
+
+@function rem($px) {
+	$rem: $px / $browser-context;
+	@return #{$rem}rem;
+}
+
+@mixin placeholder {
+	&::-webkit-input-placeholder {
+		@content;
+	}
+
+	&:-moz-placeholder {
+		@content;
+	}
+
+	&::-moz-placeholder {
+		@content;
+	}
+
+	&:-ms-input-placeholder {
+		@content;
+	}
+
+	&.placeholder {
+		@content;
+	}
+}

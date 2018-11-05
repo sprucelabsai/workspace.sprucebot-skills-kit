@@ -14,7 +14,7 @@ var _Button = _interopRequireDefault(require("./components/Button/Button"));
 
 var _ButtonGroup = _interopRequireDefault(require("./components/ButtonGroup/ButtonGroup"));
 
-var Card = _interopRequireWildcard(require("./components/Card/Card"));
+var Card = _interopRequireWildcard(require("./components/Card"));
 
 var _ContextMenu = _interopRequireDefault(require("./components/ContextMenu/ContextMenu"));
 

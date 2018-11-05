@@ -1,0 +1,16 @@
+<ul class="accordion">
+	<li class="accordion__item">
+		{{> @simple-button text=buttonData.text icon=buttonData.icon className="btn btn-full-width"}}
+		<div class="accordion__panel">
+			<p>Hey look there is wayaaaaay more stuff in here</p>
+		</div>
+	</li>
+	<li class="accordion__item accordion__item--expanded">
+		{{> @simple-button text="Style Consulting" icon=buttonData.icon className="btn btn-full-width"}}
+		<div class="accordion__panel">
+			<p>Advice on your gear</p>
+		</div>
+	</li>
+</ul>
+
+<script src="{{ path '/js/03-structure/accordion.js'}}" ></script>

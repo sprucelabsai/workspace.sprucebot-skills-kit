@@ -3,12 +3,68 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [7.4.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.4.0...v7.4.1) (2018-10-03)
+# [7.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.7.3...v7.8.0) (2018-11-02)
+
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
 
 
-### Bug Fixes
 
-* Remove 404ing next stylesheet ([ab6e0fd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ab6e0fd))
+
+
+## [7.7.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.7.2...v7.7.3) (2018-10-31)
+
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
+
+
+
+
+
+## [7.7.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.7.1...v7.7.2) (2018-10-24)
+
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
+
+
+
+
+
+## [7.7.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.7.0...v7.7.1) (2018-10-23)
+
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
+
+
+
+
+
+# [7.7.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.6.1...v7.7.0) (2018-10-23)
+
+
+### Features
+
+* browser metrics; make ctx.sb.audit handle its own error and no await ([c9b0cf0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c9b0cf0))
+
+
+
+
+
+## [7.6.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.6.0...v7.6.1) (2018-10-22)
+
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
+
+
+
+
+
+# [7.6.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.5.0...v7.6.0) (2018-10-21)
+
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
+
+
+
+
+
+# [7.5.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.4.4...v7.5.0) (2018-10-08)
+
+**Note:** Version bump only for package @sprucelabs/react-sprucebot
 
 
 

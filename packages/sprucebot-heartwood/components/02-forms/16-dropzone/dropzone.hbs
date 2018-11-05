@@ -1,0 +1,48 @@
+<div
+	class="
+		dropzone
+		{{#if isHovered}} dropzone--is-hovered{{/if}}
+		{{#if isUploading}} dropzone--is-uploading{{/if}}
+		{{#if hasError}} dropzone--has-error{{/if}}
+		{{#if isSmall}} dropzone-small{{/if}}
+		{{#if isCircular}} dropzone-circular{{/if}}"
+>
+	{{#unless isUploading}}
+	<div class="dropzone__icons">
+		{{#if isHovered}}
+			{{> @icon icon='<path fill="none" fill-rule="evenodd" clip-rule="evenodd" d="M38.6563 53.6056C38.5023 54.2286 38.1896 54.2473 37.9563 53.6476L28.791 29.5326C28.5576 28.9329 28.868 28.6273 29.4676 28.8513L53.683 37.9326C54.2826 38.1659 54.2663 38.4693 53.6433 38.6326L41.5753 41.6496L38.6563 53.6056Z" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M47.3223 28.9727C47.2243 29.395 47.124 29.8173 47.012 30.2373" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M29.1154 47.2681C28.1494 47.3871 27.1974 47.6227 26.2244 47.6484" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M19.2734 47.1335C17.375 46.7024 15.5383 46.0345 13.8064 45.1455" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M9.06045 41.9206C7.59801 40.6371 6.29802 39.1796 5.18945 37.5806" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M2.14675 31.3038C1.58951 29.4394 1.26044 27.5144 1.16675 25.5708" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M1.56104 19.8336C1.95428 17.9267 2.58124 16.0756 3.4277 14.3223" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M7.34082 8.5652C8.6572 7.13135 10.1518 5.87199 11.7882 4.81787" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M16.9612 2.31917C17.8688 1.96917 18.8278 1.80117 19.7612 1.53984C20.7318 1.42084 21.6838 1.1875 22.6568 1.1665" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M29.6101 1.66553C31.5084 2.09584 33.3451 2.76295 35.0771 3.65119" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M39.8208 6.88818C41.2852 8.17123 42.5861 9.62964 43.6941 11.2305" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M46.7368 17.5C47.2943 19.3643 47.6233 21.2894 47.7168 23.233" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/>' width="56" height="56"}}
+		{{else}}
+			{{#if hasError}}
+				{{> @icon icon='<path fill="none" fill-rule="evenodd" clip-rule="evenodd" d="M52.6236 48.2474C52.9371 48.6464 52.9574 49.179 52.675 49.5971C52.3926 50.0151 51.8631 50.2363 51.3332 50.1575H4.66657C4.13669 50.2363 3.60717 50.0151 3.32478 49.5971C3.04238 49.179 3.06269 48.6464 3.37624 48.2474L26.9569 5.06381C27.5309 4.01258 28.4689 4.01258 29.0429 5.06381L52.6236 48.2474Z" stroke="#E51B3D" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M28 36.2778V21.3213" stroke="#E51B3D" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M27.979 40.5513C27.8251 40.554 27.6788 40.6133 27.5731 40.7158C27.4674 40.8182 27.411 40.9552 27.4166 41.0961C27.4291 41.3878 27.6905 41.6187 28.0093 41.6196H28.021C28.1749 41.6168 28.3211 41.5576 28.4269 41.4551C28.5326 41.3527 28.589 41.2156 28.5833 41.0747C28.571 40.7863 28.3152 40.5567 28 40.5513H27.9883" stroke="#E51B3D" stroke-linecap="round" stroke-linejoin="round"/>' width="56" height="52"}}
+			{{else}}
+				{{#if uploadSuccess}}
+					{{> @icon icon='<path fill="none" d="M24.5 54.8337H3.49996C2.2113 54.8337 1.16663 53.789 1.16663 52.5003V3.50033C1.16663 2.21166 2.2113 1.16699 3.49996 1.16699H34.517C35.1361 1.16774 35.7295 1.41452 36.1666 1.85299L44.8163 10.5003C45.2539 10.9378 45.4998 11.5312 45.5 12.15V19.8337" stroke="#00B2A4" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M21.0979 36.1207C15.1214 35.5694 10.5383 30.5736 10.503 24.5719C10.4677 18.5701 14.9918 13.5208 20.9614 12.8994C26.931 12.2779 32.3982 16.287 33.5999 22.1673" stroke="#00B2A4" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M22.1666 17.5029V24.5029H26.8333" stroke="#00B2A4" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" fill-rule="evenodd" clip-rule="evenodd" d="M40.8333 54.8359C48.5652 54.8359 54.8333 48.5679 54.8333 40.8359C54.8333 33.104 48.5652 26.8359 40.8333 26.8359C33.1013 26.8359 26.8333 33.104 26.8333 40.8359C26.8333 48.5679 33.1013 54.8359 40.8333 54.8359Z" stroke="#00B2A4" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M47.0725 36.7646L40.2942 45.804C39.9892 46.2096 39.5234 46.463 39.0172 46.4988C38.511 46.5346 38.0142 46.3493 37.6552 45.9906L34.1552 42.4906" stroke="#00B2A4" stroke-linecap="round" stroke-linejoin="round"/>' width="56" height="56"}}
+				{{else}}
+					{{!-- Default Icon --}}
+					{{> @icon icon=defaultIcon width="56" height="56"}}
+				{{/if}}
+			{{/if}}
+		{{/if}}
+	</div>
+	{{/unless}}
+	{{#if isUploading}}
+		<p class="dropzone__helper-text">Uploading…</p>
+		<div class="dropzone__uploading-progress-wrapper">
+			<div class="dropzone__uploading-progress" style="width: 20%;"></div>
+		</div>
+	{{/if}}
+	{{#if uploadSuccess}}
+		<p class="dropzone__helper-text">File Uploaded</p>
+	{{/if}}
+	{{#if isSmall}}
+		{{> @button className="btn-simple btn-small dropzone__btn" text=uploadBtnText disabled=isUploading}}
+	{{else}}
+		{{> @button className="btn-secondary dropzone__btn" text=uploadBtnText disabled=isUploading}}
+	{{/if}}
+	{{#unless isCircular}}
+		<p class="dropzone__text">or drop files to upload</p>
+	{{/unless}}
+	{{#if helperText}}
+		<p class="dropzone__helper-text-bottom">{{{helperText}}}</p>
+	{{/if}}
+</div>

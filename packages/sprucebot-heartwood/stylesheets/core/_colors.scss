@@ -1,0 +1,70 @@
+/**
+Greyscale
+These are default values to base semantic colors on
+*/
+$c-black: #0a0c10;
+$c-grey-09: #2c323d;
+$c-grey-08: #3e4552;
+$c-grey-07: #525966;
+$c-grey-06: #69707d;
+$c-grey-05: #818894;
+$c-grey-04: #9aa0ab;
+$c-grey-03: #b2b7c1;
+$c-grey-02: #cccfd6;
+$c-grey-01: #e5e7eb;
+$c-grey-00: #f3f4f6;
+$c-off-white: #f9fafc;
+$c-white: #fff;
+
+/**
+Text Colors
+*/
+$c-text: $c-grey-09 !default;
+$c-text-light: $c-grey-07 !default;
+$c-text-placeholder: $c-grey-05 !default;
+$c-text-icon: $c-grey-05 !default;
+
+/**
+Background Colors
+*/
+$c-bg: $c-off-white !default;
+$c-bg-light: $c-white !default;
+
+/**
+Border Colors
+*/
+$c-border: $c-grey-02 !default;
+$c-border-light: $c-grey-01 !default;
+
+/**
+Primaries
+*/
+$c-primary: #0076D6 !default;
+$c-primary-light: #0099FF !default;
+$c-primary-dark: #005499 !default;
+
+/**
+Secondaries
+*/
+$c-secondary: #5a5ae6 !default;
+$c-secondary-light: #8388f0 !default;
+$c-secondary-dark: #4136ba !default;
+
+/**
+UI Colors
+*/
+$c-ui-input-autofill: #e0edf8 !default;
+$c-ui-online: #00b2a4 !default;
+$c-ui-online-lighter: #defffd !default;
+$c-ui-offline: $c-grey-03 !default;
+$c-ui-success: $c-primary !default;
+$c-ui-success-light: $c-primary-light !default;
+$c-ui-success-dark: $c-primary-dark !default;
+$c-ui-warn: #ffa600 !default;
+$c-ui-warn-light: #ffedcc !default;
+$c-ui-warn-dark: #bf5b00 !default;
+$c-ui-critical: #e51b3d !default;
+$c-ui-critical-light: #ffdad3 !default;
+$c-ui-critical-dark: #bf060c !default;
+
+

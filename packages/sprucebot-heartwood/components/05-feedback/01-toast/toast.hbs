@@ -1,0 +1,7 @@
+<div class="toast{{#if isNegative}} toast-negative{{/if}}{{#if isPositive}} toast-positive{{/if}}">
+	{{> @toast-header text=headline}}
+	<div class="toast__body">{{body}}</div>
+	{{#if footerAction}}
+	{{> @simple-button text="Undo"}}
+	{{/if}}
+</div>

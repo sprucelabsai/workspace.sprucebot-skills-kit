@@ -13,5 +13,9 @@ module.exports = {
 	errorLoadingGuests: `Oh no! I could not load guests!`,
 	errorLoadingTeammates: `Oh no! I could not load teammates!`,
 	guestsTabTitle: `Guests`,
-	teammatesTabTitle: `Teammates`
+	teammatesTabTitle: `Teammates`,
+	noGuestsBotText: ({ auth }) =>
+		`Nobody has visited ${
+			auth.Location.name
+		} yet! Have them join the wifi to get connected!`
 }

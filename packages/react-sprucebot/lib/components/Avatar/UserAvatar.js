@@ -1,0 +1,30 @@
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _Avatar = _interopRequireDefault(require("./Avatar"));
+
+var UserAvatar = function UserAvatar(props) {
+  var user = props.user,
+      rest = (0, _objectWithoutProperties2.default)(props, ["user"]);
+  var profileImage = user.profileImages.profile150 || user.defaultProfileImages.profile150;
+  return _react.default.createElement(_Avatar.default, (0, _extends2.default)({
+    image: profileImage
+  }, rest));
+};
+
+var _default = UserAvatar;
+exports.default = _default;
