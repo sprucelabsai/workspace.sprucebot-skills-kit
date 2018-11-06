@@ -3,6 +3,19 @@ $day-col-width: rem(150);
 $selected-event-width: rem(150);
 $event-indent-width: rem(50);
 
+@mixin eventFill($fillColor, $borderColor, $textColor) {
+    border: 1px solid $borderColor;
+        .bigcalendar__event-block.busy {
+            background: $fillColor;
+            color: $textColor;
+        }
+        .bigcalendar__event-block {
+            border-bottom: 1px solid $borderColor;
+        }
+        .bigcalendar__event-block:last-of-type {
+            border-bottom: none;
+        }
+}
 
 .bigcalendar {
     
@@ -206,13 +219,35 @@ body.sb-show-main {
         -o-transition: all 0.5s ease-out;
         transition: all 0.5s ease-out;
     }
+
+
+     &.event-fill-1 {
+         @include eventFill($c-white, $c-primary, $c-primary)
+    }
+
+    &.event-fill-2 {
+        @include eventFill(#E6F1FB, $c-primary, $c-primary-dark)
+    }
+
+    &.event-fill-3 {
+        @include eventFill($c-secondary, $c-secondary, $c-white)
+    }
+
+    &.event-fill-4 {
+        @include eventFill($c-ui-warn-light, $c-ui-warn-dark, #242933)
+    }
+
+    &.event-fill-5 {
+        @include eventFill($c-ui-critical-light, $c-ui-critical, #242933)
+    }
 }
 
 .bigcalendar__event-block {
     @include type-style-body-sm;
-    background: linear-gradient(to bottom, $c-primary 0%, $c-primary-dark 100%); 
+    background: $c-primary;
     color: #fff;
     cursor: pointer;
+    overflow: hidden;
     position: relative;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     
@@ -228,7 +263,7 @@ body.sb-show-main {
     &.busy  {
         z-index: 2;
         .resize-handle {
-            position: absolute;    
+            position: absolute;
             left:0px;
             right:0px;
             height: 5px;
@@ -244,35 +279,4 @@ body.sb-show-main {
             }
         }
     }
-
-    &.event-fill-1 {
-        background: $c-white;
-        border: 1px solid $c-primary;
-        color: $c-primary;
-    }
-
-    &.event-fill-2 {
-        background: #E6F1FB;
-        border: 1px solid $c-primary;
-        color: $c-primary-dark;
-    }
-
-    &.event-fill-3 {
-        background: $c-secondary;
-        border: none;
-        color: $c-white;
-    }
-
-    &.event-fill-4 {
-        background: $c-ui-warn-light;
-        border: 1px solid $c-ui-warn-dark;
-        color: #242933;
-    }
-
-    &.event-fill-5 {
-        background: $c-ui-critical-light;
-        border: 1px solid $c-ui-critical;
-        color: #242933;
-    }
-    
 }

@@ -17,7 +17,19 @@ export default [
 		isAllDay: false,
 		userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 		className: '',
-		details,
+		details: {
+			className: '',
+			header: {
+				title: 'Steve Soothsayer',
+				label: 'Appointment'
+			},
+			list: { items: [] },
+			footer: {
+				primaryCTA: {
+					text: 'DO IT NOW!'
+				}
+			}
+		},
 		blocks: [
 			{
 				title: 'Hair Tinting',
@@ -54,7 +66,7 @@ export default [
 		startAt: today.set({ hour: 8, minute: 45 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
-		className: '',
+		className: 'event-fill-2',
 		details,
 		blocks: [
 			{
@@ -108,7 +120,7 @@ export default [
 	},
 	{
 		id: 'da6e0219-6006-4d63-b5da-f5d40f6815c5',
-		durationSec: 6300,
+		durationSec: 7200,
 		startAt: today.set({ hour: 16, minute: 30 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '78245981-5022-49a7-b2f2-6ac687e0f3d1',
@@ -118,7 +130,7 @@ export default [
 			{
 				title: 'Wax',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -147,7 +159,7 @@ export default [
 	{
 		id: 'da6e0219-6006-4d63-b5da-f5d40f6815c6',
 		durationSec: 2700,
-		startAt: today.set({ hour: 16 }).format('YYYY-MM-DD HH:mm:ss'),
+		startAt: today.set({ hour: 13 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '78245981-5022-49a7-b2f2-6ac687e0f3d1',
 		className: '',
@@ -166,17 +178,17 @@ export default [
 	},
 	{
 		id: 'da6e0219-6006-4d63-b5da-f5d40f6815c7',
-		durationSec: 1800,
+		durationSec: 2700,
 		startAt: today.set({ hour: 10 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff',
-		className: '',
+		className: 'event-fill-2',
 		details,
 		blocks: [
 			{
 				title: 'Nose Wax',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -186,17 +198,17 @@ export default [
 	},
 	{
 		id: 'da6e0219-6006-4d63-b5da-f5d40f6815c8',
-		durationSec: 3600,
+		durationSec: 4500,
 		startAt: today.set({ hour: 11 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff',
-		className: '',
+		className: 'event-fill-4',
 		details,
 		blocks: [
 			{
 				title: '24k Gold Facial',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -224,7 +236,7 @@ export default [
 	},
 	{
 		id: 'da6e0219-6006-4d63-b5da-f5d40f6815c9',
-		durationSec: 1800,
+		durationSec: 2700,
 		startAt: today.set({ hour: 14, minute: 15 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff',
@@ -234,7 +246,7 @@ export default [
 			{
 				title: 'Brow Wax',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -248,7 +260,7 @@ export default [
 		startAt: today.set({ hour: 9, minute: 15 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
-		className: '',
+		className: 'event-fill-2',
 		details,
 		blocks: [
 			{
@@ -282,17 +294,17 @@ export default [
 	},
 	{
 		id: '66f30076-fa15-4501-aeab-c8da0b7988a2',
-		durationSec: 1800,
+		durationSec: 2700,
 		startAt: today.set({ hour: 11 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
-		className: '',
+		className: 'event-fill-4',
 		details,
 		blocks: [
 			{
 				title: 'Head Shave',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -302,7 +314,7 @@ export default [
 	},
 	{
 		id: '66f30076-fa15-4501-aeab-c8da0b7988a3',
-		durationSec: 1800,
+		durationSec: 2700,
 		startAt: today.set({ hour: 14, minute: 15 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'ce914128-c77c-40fa-b5ef-d6faa3ed26a1',
@@ -312,7 +324,7 @@ export default [
 			{
 				title: 'Head Shave',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -342,17 +354,17 @@ export default [
 	},
 	{
 		id: '66f30076-fa15-4501-aeab-c8da0b7988a5',
-		durationSec: 1800,
+		durationSec: 2700,
 		startAt: today.set({ hour: 10 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '7a96fb12-b01c-45f3-9c09-d0922d5eaa44',
-		className: '',
+		className: 'event-fill-5',
 		details,
 		blocks: [
 			{
 				title: 'Beard Trim',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -404,7 +416,7 @@ export default [
 		startAt: today.set({ hour: 11, minute: 30 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '061bb108-7795-4f62-972c-7ee426b71668',
-		className: '',
+		className: 'event-fill-3',
 		details,
 		blocks: [
 			{
@@ -438,7 +450,7 @@ export default [
 	},
 	{
 		id: '66f30076-fa15-4501-aeab-c8da0b7988a8',
-		durationSec: 1800,
+		durationSec: 2700,
 		startAt: today.set({ hour: 14 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '061bb108-7795-4f62-972c-7ee426b71668',
@@ -448,7 +460,7 @@ export default [
 			{
 				title: 'Head Shave',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -458,17 +470,17 @@ export default [
 	},
 	{
 		id: '66f30076-fa15-4501-aeab-c8da0b7988a9',
-		durationSec: 1800,
+		durationSec: 2700,
 		startAt: today.set({ hour: 15 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '061bb108-7795-4f62-972c-7ee426b71668',
-		className: '',
+		className: 'event-fill-1',
 		details,
 		blocks: [
 			{
 				title: 'Signature Follow-up',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -482,7 +494,7 @@ export default [
 		startAt: today.set({ hour: 9, minute: 45 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '724d2986-ba56-4560-a1ab-74088b974274',
-		className: '',
+		className: 'event-fill-2',
 		details,
 		blocks: [
 			{
@@ -516,7 +528,7 @@ export default [
 	},
 	{
 		id: 'e911af72-9bbf-4a8b-b588-d24e7a938058',
-		durationSec: 1800,
+		durationSec: 2700,
 		startAt: today.set({ hour: 12 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '724d2986-ba56-4560-a1ab-74088b974274',
@@ -526,7 +538,7 @@ export default [
 			{
 				title: 'Brow Wax',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -546,7 +558,7 @@ export default [
 			{
 				title: 'Nose Wax',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -556,17 +568,17 @@ export default [
 	},
 	{
 		id: 'e911af72-9bbf-4a8b-b588-d24e7a938060',
-		durationSec: 3600,
+		durationSec: 4500,
 		startAt: today.set({ hour: 10, minute: 30 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'df65bf1f-efae-41bd-af5f-a8714807dfef',
-		className: '',
+		className: 'event-fill-2',
 		details,
 		blocks: [
 			{
 				title: '24k Gold Facial',
 				subtitle: '',
-				durationSec: 30 * 60,
+				durationSec: 45 * 60,
 				leftIcons: [],
 				rightIcons: [],
 				className: '',
@@ -598,7 +610,7 @@ export default [
 		startAt: today.set({ hour: 13, minute: 30 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'df65bf1f-efae-41bd-af5f-a8714807dfef',
-		className: '',
+		className: 'event-fill-1',
 		details,
 		blocks: [
 			{

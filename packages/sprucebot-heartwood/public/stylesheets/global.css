@@ -3533,14 +3533,60 @@ select:-webkit-autofill:focus {
     -ms-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
     transition: all 0.5s ease-out; }
+  .bigcalendar__event.event-fill-1 {
+    border: 1px solid #0076D6; }
+    .bigcalendar__event.event-fill-1 .bigcalendar__event-block.busy {
+      background: #fff;
+      color: #0076D6; }
+    .bigcalendar__event.event-fill-1 .bigcalendar__event-block {
+      border-bottom: 1px solid #0076D6; }
+    .bigcalendar__event.event-fill-1 .bigcalendar__event-block:last-of-type {
+      border-bottom: none; }
+  .bigcalendar__event.event-fill-2 {
+    border: 1px solid #0076D6; }
+    .bigcalendar__event.event-fill-2 .bigcalendar__event-block.busy {
+      background: #E6F1FB;
+      color: #005499; }
+    .bigcalendar__event.event-fill-2 .bigcalendar__event-block {
+      border-bottom: 1px solid #0076D6; }
+    .bigcalendar__event.event-fill-2 .bigcalendar__event-block:last-of-type {
+      border-bottom: none; }
+  .bigcalendar__event.event-fill-3 {
+    border: 1px solid #5a5ae6; }
+    .bigcalendar__event.event-fill-3 .bigcalendar__event-block.busy {
+      background: #5a5ae6;
+      color: #fff; }
+    .bigcalendar__event.event-fill-3 .bigcalendar__event-block {
+      border-bottom: 1px solid #5a5ae6; }
+    .bigcalendar__event.event-fill-3 .bigcalendar__event-block:last-of-type {
+      border-bottom: none; }
+  .bigcalendar__event.event-fill-4 {
+    border: 1px solid #bf5b00; }
+    .bigcalendar__event.event-fill-4 .bigcalendar__event-block.busy {
+      background: #ffedcc;
+      color: #242933; }
+    .bigcalendar__event.event-fill-4 .bigcalendar__event-block {
+      border-bottom: 1px solid #bf5b00; }
+    .bigcalendar__event.event-fill-4 .bigcalendar__event-block:last-of-type {
+      border-bottom: none; }
+  .bigcalendar__event.event-fill-5 {
+    border: 1px solid #e51b3d; }
+    .bigcalendar__event.event-fill-5 .bigcalendar__event-block.busy {
+      background: #ffdad3;
+      color: #242933; }
+    .bigcalendar__event.event-fill-5 .bigcalendar__event-block {
+      border-bottom: 1px solid #e51b3d; }
+    .bigcalendar__event.event-fill-5 .bigcalendar__event-block:last-of-type {
+      border-bottom: none; }
 
 .bigcalendar__event-block {
   font-size: 0.875rem;
   line-height: 1.25;
   font-weight: 400;
-  background: linear-gradient(to bottom, #0076D6 0%, #005499 100%);
+  background: #0076D6;
   color: #fff;
   cursor: pointer;
+  overflow: hidden;
   position: relative;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
   .bigcalendar__event-block.available {
@@ -3562,26 +3608,6 @@ select:-webkit-autofill:focus {
       .bigcalendar__event-block.busy .resize-handle.resize-s {
         bottom: 0px;
         cursor: ns-resize; }
-  .bigcalendar__event-block.event-fill-1 {
-    background: #fff;
-    border: 1px solid #0076D6;
-    color: #0076D6; }
-  .bigcalendar__event-block.event-fill-2 {
-    background: #E6F1FB;
-    border: 1px solid #0076D6;
-    color: #005499; }
-  .bigcalendar__event-block.event-fill-3 {
-    background: #5a5ae6;
-    border: none;
-    color: #fff; }
-  .bigcalendar__event-block.event-fill-4 {
-    background: #ffedcc;
-    border: 1px solid #bf5b00;
-    color: #242933; }
-  .bigcalendar__event-block.event-fill-5 {
-    background: #ffdad3;
-    border: 1px solid #e51b3d;
-    color: #242933; }
 
 .event-details {
   max-width: 20rem;
