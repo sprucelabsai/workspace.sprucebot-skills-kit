@@ -204,12 +204,15 @@ class DragGrid extends Component<Props> {
 		const events = blockNodes.map((blockNode, idx) => {
 			const eventNode = blockNode.parentNode
 			const eventId = eventNode.dataset.eventId
+			if (eventId === 'dragging') {
+				return false
+			}
 			const event = this.props.events.find(event => event.id === eventId)
 			const blockIdx = [...eventNode.children].indexOf(blockNode)
 			const block = event.blocks[blockIdx]
 			return { event, block, blockIdx, resize: resizes[idx] }
 		})
-		return events
+		return events.filter(event => event)
 	}
 
 	handleMouseDownOnEvent = ({
