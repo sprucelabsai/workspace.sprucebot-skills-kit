@@ -3583,12 +3583,14 @@ select:-webkit-autofill:focus {
   font-size: 0.875rem;
   line-height: 1.25;
   font-weight: 400;
+  overflow: hidden;
   background: #0076D6;
   color: #fff;
   cursor: pointer;
-  overflow: hidden;
   position: relative;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  .bigcalendar__event-block:not(:nth-child(1)) .time {
+    display: none; }
   .bigcalendar__event-block.available {
     z-index: 1;
     background: transparent;
@@ -3612,7 +3614,7 @@ select:-webkit-autofill:focus {
       .bigcalendar__event-block.busy .resize-handle .resize-highlight-handle {
         display: none; }
   .bigcalendar__event-block.is-highlighted {
-    overflow: auto; }
+    overflow: visible; }
     .bigcalendar__event-block.is-highlighted .resize-handle {
       height: 10px; }
       .bigcalendar__event-block.is-highlighted .resize-handle .resize-highlight-handle {
