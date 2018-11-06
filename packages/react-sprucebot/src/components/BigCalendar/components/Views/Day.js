@@ -325,7 +325,7 @@ class Day extends Component<Props> {
 	}
 
 	handleDropEvent = async (event, newX, newY) => {
-		console.log('drop event in day')
+		// console.log('drop event in day')
 		// reset some things
 		const dragDetails = this._dragDetails || {}
 		const resizeDetails = this._resizeDetails || {}
@@ -367,7 +367,7 @@ class Day extends Component<Props> {
 		let cancelDrag = false
 
 		if (this._resizeDetails) {
-			console.log('handle drag resizing')
+			// console.log('handle drag resizing')
 			cancelDrag = true
 			const { top: startingScrollTop } = this._scrollStartingPosition
 
@@ -488,14 +488,16 @@ class Day extends Component<Props> {
 			this._didDragEvent = true
 		}
 		//dragging a block means changing duration of the block ahead of it
-		//drag grid cannot handle this
+		//drag grid cannot handle this. but, we do want to move the event, so
+		//we'll want to move the event on the x as well
 		else {
 			cancelDrag = true
 			const {
 				sourceBlockNode,
 				dragBlockNode,
 				eMouseMove,
-				eMouseDown
+				eMouseDown,
+				x
 			} = dragDetails
 
 			const previousSourceBlockNode = sourceBlockNode.previousSibling
@@ -523,6 +525,7 @@ class Day extends Component<Props> {
 			)
 
 			previousDragBlock.style.height = parseInt(newHeight) + 'px'
+			dragEventNode.style.left = x + 'px'
 
 			const duration = this.heightToSeconds(newHeight)
 			this._dragDetails = {
@@ -880,7 +883,7 @@ class Day extends Component<Props> {
 		} = this.props
 
 		const { selectedEvent, highlightedEventAndBlock } = this.state
-		console.log('render')
+		// console.log('render')
 
 		let eventDetails = null
 		if (selectedEvent && selectedEvent.details) {

@@ -145,7 +145,7 @@ class DragGrid extends Component<Props> {
 			startingClientX: clientX,
 			startingClientY: clientY
 		}
-		console.log('mouse down in view')
+		// console.log('mouse down in view')
 		e.preventDefault()
 		window.addEventListener('mousemove', this.handleMouseDragOfView, {
 			passive: false
@@ -171,7 +171,7 @@ class DragGrid extends Component<Props> {
 	}
 
 	handleTouchStartOnView = e => {
-		console.log('touch start on view')
+		// console.log('touch start on view')
 		if (this.handleMouseDownOnView(e) !== false) {
 			window.addEventListener('touchend', this.handleTouchEndOnView, {
 				passive: false
@@ -180,7 +180,7 @@ class DragGrid extends Component<Props> {
 	}
 
 	handleTouchEndOnView = e => {
-		console.log('touch end on view')
+		// console.log('touch end on view')
 		this.handleMouseUpFromView(e)
 		window.removeEventListener('touchend', this.handleTouchEndOnView)
 	}
@@ -204,12 +204,15 @@ class DragGrid extends Component<Props> {
 		const events = blockNodes.map((blockNode, idx) => {
 			const eventNode = blockNode.parentNode
 			const eventId = eventNode.dataset.eventId
+			if (eventId === 'dragging') {
+				return false
+			}
 			const event = this.props.events.find(event => event.id === eventId)
 			const blockIdx = [...eventNode.children].indexOf(blockNode)
 			const block = event.blocks[blockIdx]
 			return { event, block, blockIdx, resize: resizes[idx] }
 		})
-		return events
+		return events.filter(event => event)
 	}
 
 	handleMouseDownOnEvent = ({
@@ -229,7 +232,7 @@ class DragGrid extends Component<Props> {
 		const results = onMouseDownOnEvent({ e, event, block, blockIdx })
 
 		if (results) {
-			console.log('mousedown', blockIdx)
+			// console.log('mousedown', blockIdx)
 
 			stopEvent && e.preventDefault()
 			stopEvent && e.stopPropagation()
@@ -287,7 +290,7 @@ class DragGrid extends Component<Props> {
 	}
 
 	handleTouchEndOnEvent = e => {
-		console.log('touch end on event')
+		// console.log('touch end on event')
 		// we did not successfully long press, simulate all mouse events hurry
 		if (this._longPressTimeout) {
 			clearInterval(this._longPressTimeout)
@@ -371,15 +374,31 @@ class DragGrid extends Component<Props> {
 		clearTimeout(this._longPressTimeout)
 		this._longPressTimeout = false
 		if (this._activeDrag) {
-			if (this.domNodeRef.current.style.overflow !== 'hidden') {
-				this.domNodeRef.current.style.overflow = 'hidden'
-				document.body.style.webkitTouchCallout = 'none'
-				document.body.style.webkitUserSelect = 'none'
-				document.body.style.overflow = 'hidden'
+			const { clientX, clientY } = eventUtil.clientXY(e)
+			const { x, y } = this._startingDragPoint
+
+			const a = x - clientX
+			const b = y - clientY
+
+			const distance = Math.sqrt(a * a + b * b)
+
+			// console.log({ distance })
+
+			//start the drag!
+			if (distance >= this.props.dragThreshold) {
+				if (this.domNodeRef.current.style.overflow !== 'hidden') {
+					this.domNodeRef.current.style.overflow = 'hidden'
+					document.body.style.webkitTouchCallout = 'none'
+					document.body.style.webkitUserSelect = 'none'
+					document.body.style.overflow = 'hidden'
+				}
 				this._touchDragging = true
 			}
 
-			this.handleDragOfEvent(e)
+			if (this._touchDragging) {
+				this.handleDragOfEvent(e)
+			}
+
 			e.preventDefault()
 			e.stopPropagation()
 		}
@@ -448,6 +467,8 @@ class DragGrid extends Component<Props> {
 
 			//track last event
 			this._activeDrag.eMouseMove = e
+			this._activeDrag.x = x
+			this._activeDrag.y = y
 
 			// let parent components know and have the opportunity to ignore this drag
 			const ignoreDrag =
@@ -483,7 +504,7 @@ class DragGrid extends Component<Props> {
 	}
 
 	handleMouseUpFromView = e => {
-		console.log('mouse up from view')
+		// console.log('mouse up from view')
 		window.removeEventListener('mousemove', this.handleMouseDragOfView)
 		window.removeEventListener('mouseup', this.handleMouseUpFromView)
 
@@ -514,7 +535,7 @@ class DragGrid extends Component<Props> {
 	}
 
 	handleMouseUpFromEvent = e => {
-		console.log('mouse up of event')
+		// console.log('mouse up of event')
 		if (!this.state.dragEvent) {
 			this.props.onSelectEvent({
 				event: this._pendingDrag.event,
@@ -533,7 +554,7 @@ class DragGrid extends Component<Props> {
 	handleDropEvent = async () => {
 		const { dragEventNode, sourceEvent, sourceEventNode } = this._activeDrag
 		const { onDropEvent } = this.props
-		console.log('drop event in grid')
+		// console.log('drop event in grid')
 		// stop scrolling
 		this.stopScrollingHorizontally()
 		this.stopScrollingVertically()
