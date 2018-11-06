@@ -27,8 +27,18 @@ const HeaderControls = (props: Props) => {
 				currentPage={1}
 				totalPages={3}
 			/>
-			<Button kind={'simple'} isSmall={true} text={'Date'} />
-			<Button kind={'simple'} isSmall={true} text={'CalendarIcon'} />
+			<Button
+				kind={'simple'}
+				isSmall={true}
+				text={'Date'}
+				className="bigcalendar__selectedDate-button"
+			/>
+			<Button
+				kind={'simple'}
+				isSmall={true}
+				text={'CalendarIcon'}
+				className="bigcalendar__calendarIcon-button"
+			/>
 			<Select options={['Full Team', 'Me']} onChange={props.onChangeView} />
 			<Button
 				kind="simple"

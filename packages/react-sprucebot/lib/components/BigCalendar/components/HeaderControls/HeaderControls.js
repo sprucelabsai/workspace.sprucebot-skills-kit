@@ -31,11 +31,13 @@ var HeaderControls = function HeaderControls(props) {
   }), _react.default.createElement(_Button.default, {
     kind: 'simple',
     isSmall: true,
-    text: 'Date'
+    text: 'Date',
+    className: "bigcalendar__selectedDate-button"
   }), _react.default.createElement(_Button.default, {
     kind: 'simple',
     isSmall: true,
-    text: 'CalendarIcon'
+    text: 'CalendarIcon',
+    className: "bigcalendar__calendarIcon-button"
   }), _react.default.createElement(_Select.default, {
     options: ['Full Team', 'Me'],
     onChange: props.onChangeView

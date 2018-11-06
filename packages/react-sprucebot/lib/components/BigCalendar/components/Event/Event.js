@@ -25,18 +25,33 @@ var Event = function Event(props) {
   var event = props.event,
       className = props.className,
       _onMouseDown = props.onMouseDown,
+      _onTouchStart = props.onTouchStart,
       timezone = props.timezone,
-      rest = (0, _objectWithoutProperties2.default)(props, ["event", "className", "onMouseDown", "timezone"]);
+      highlightedBlockIdx = props.highlightedBlockIdx,
+      rest = (0, _objectWithoutProperties2.default)(props, ["event", "className", "onMouseDown", "onTouchStart", "timezone", "highlightedBlockIdx"]);
 
   var startAt = _momentTimezone.default.tz(event.startAt, timezone);
 
   return _react.default.createElement("div", (0, _extends2.default)({
-    className: (0, _classnames.default)('bigcalendar__event', className)
+    className: (0, _classnames.default)('bigcalendar__event', className, event.className)
   }, rest), event.blocks.map(function (block, idx) {
     var eventBlock = _react.default.createElement(_EventBlock.default, {
       startAt: startAt,
       onMouseDown: function onMouseDown(e) {
-        _onMouseDown && _onMouseDown(e, event, block, idx);
+        _onMouseDown && _onMouseDown({
+          e: e,
+          event: event,
+          block: block,
+          blockIdx: idx
+        });
+      },
+      onTouchStart: function onTouchStart(e) {
+        _onTouchStart && _onTouchStart({
+          e: e,
+          event: event,
+          block: block,
+          blockIdx: idx
+        });
       },
       key: "block-".concat(event.id, "-").concat(idx),
       block: block
