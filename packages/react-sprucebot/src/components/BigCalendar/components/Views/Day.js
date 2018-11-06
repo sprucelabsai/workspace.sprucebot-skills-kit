@@ -267,8 +267,8 @@ class Day extends Component<Props> {
 		// we should pass the click to them
 		if (!block.markAsBusy) {
 			let matches = this.dragGridRef.current.getEventsAtLocation({
-				x: e.clientX,
-				y: e.clientY
+				x: eventUtil.clientXY(e).clientX,
+				y: eventUtil.clientXY(e).clientY
 			})
 			// the first one would actually match the event passed here
 			// so lets check the first event under us
@@ -298,13 +298,22 @@ class Day extends Component<Props> {
 		}
 
 		// did we click a resize handle? if so, lets set up for that
-		if (target.classList.contains('resize-handle')) {
+		if (
+			target.classList.contains('resize-handle') ||
+			target.parentNode.classList.contains('resize-handle')
+		) {
+			const direction =
+				target.classList.contains('resize-n') ||
+				target.parentNode.classList.contains('resize-n')
+					? 'n'
+					: 's'
+
 			this._resizeDetails = {
 				e,
 				event: response.event,
 				block: response.block,
 				blockIdx: response.blockIdx,
-				direction: target.classList.contains('resize-n') ? 'n' : 's'
+				direction
 			}
 		}
 
@@ -312,11 +321,11 @@ class Day extends Component<Props> {
 			left: this.dragGridRef.current.getScrollLeft(),
 			top: this.dragGridRef.current.getScrollTop()
 		}
-
 		return response
 	}
 
 	handleDropEvent = async (event, newX, newY) => {
+		console.log('drop event in day')
 		// reset some things
 		const dragDetails = this._dragDetails || {}
 		const resizeDetails = this._resizeDetails || {}
@@ -358,6 +367,7 @@ class Day extends Component<Props> {
 		let cancelDrag = false
 
 		if (this._resizeDetails) {
+			console.log('handle drag resizing')
 			cancelDrag = true
 			const { top: startingScrollTop } = this._scrollStartingPosition
 
@@ -372,9 +382,10 @@ class Day extends Component<Props> {
 			} = dragDetails
 
 			const dragDistance =
-				eventUtil.clientXY(eMouseMove).clientY +
-				deltaScrollTop -
-				eventUtil.clientXY(eMouseDown).clientY
+				eventUtil.clientXY(eMouseMove).clientY -
+				eventUtil.clientXY(eMouseDown).clientY +
+				deltaScrollTop
+
 			const originalHeight = sizeUtil.getHeight(sourceBlockNode)
 			const slotHeight = this.slotHeight()
 			const originalTop = parseFloat(sourceEventNode.style.top)
@@ -432,8 +443,7 @@ class Day extends Component<Props> {
 				newDurationSec: this.heightToSeconds(height)
 			})
 
-			// if we are resizing the first block north, we actually need to
-			// move the whole event up and adjust the start time
+			// if we are dragging a block after the first, resize the previous block
 			if (blockIdx > 0 && direction === 'n') {
 				const previousDragBlock = dragBlockNode.previousSibling
 				const previousSourceBlock = sourceBlockNode.previousSibling

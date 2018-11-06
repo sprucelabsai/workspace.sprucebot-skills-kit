@@ -67,6 +67,10 @@ class DragGrid extends Component<Props> {
 		)[blockIdx]
 	}
 
+	eventById = id => {
+		return this.props.events.find(e => e.id === id)
+	}
+
 	getScrollLeft = () => {
 		return this.domNodeRef.current.scrollLeft
 	}
@@ -117,7 +121,6 @@ class DragGrid extends Component<Props> {
 	}
 
 	handleScroll = e => {
-		const target = e.target
 		const { onScroll } = this.props
 
 		onScroll && onScroll(e)
@@ -267,6 +270,16 @@ class DragGrid extends Component<Props> {
 	}
 
 	handleTouchStartOnDragEvent = ({ e, event, block, blockIdx }) => {
+		this.handleMouseDownOnEvent({
+			e,
+			event: this.eventById(event.originalId),
+			block,
+			blockIdx,
+			setListeners: false
+		})
+		e.persist()
+		this._activeDrag.eMouseDown = e
+
 		window.addEventListener('touchend', this.handleTouchEndOnEvent)
 		window.addEventListener('touchmove', this.handleTouchDragOfEvent, {
 			passive: false
@@ -274,6 +287,7 @@ class DragGrid extends Component<Props> {
 	}
 
 	handleTouchEndOnEvent = e => {
+		console.log('touch end on event')
 		// we did not successfully long press, simulate all mouse events hurry
 		if (this._longPressTimeout) {
 			clearInterval(this._longPressTimeout)
@@ -364,6 +378,7 @@ class DragGrid extends Component<Props> {
 				document.body.style.overflow = 'hidden'
 				this._touchDragging = true
 			}
+
 			this.handleDragOfEvent(e)
 			e.preventDefault()
 			e.stopPropagation()
@@ -518,7 +533,7 @@ class DragGrid extends Component<Props> {
 	handleDropEvent = async () => {
 		const { dragEventNode, sourceEvent, sourceEventNode } = this._activeDrag
 		const { onDropEvent } = this.props
-
+		console.log('drop event in grid')
 		// stop scrolling
 		this.stopScrollingHorizontally()
 		this.stopScrollingVertically()
@@ -662,8 +677,9 @@ class DragGrid extends Component<Props> {
 						className={cx({
 							'is-drag-source': dragEvent && dragEvent.originalId === event.id,
 							'is-selected': selectedEvent && selectedEvent.id === event.id,
-							'is-highlighted':
+							'is-highlight-source':
 								highlightedEventAndBlock &&
+								highlightedEventAndBlock.event &&
 								highlightedEventAndBlock.event.id === event.id
 						})}
 						onMouseDown={this.handleMouseDownOnEvent}
@@ -680,7 +696,12 @@ class DragGrid extends Component<Props> {
 							highlightedEventAndBlock && highlightedEventAndBlock.blockIdx
 						}
 						onTouchStart={this.handleTouchStartOnDragEvent}
-						className="is-active-drag"
+						className={cx('is-active-drag', {
+							'is-active-highlighted':
+								highlightedEventAndBlock &&
+								highlightedEventAndBlock.event &&
+								highlightedEventAndBlock.event.id === dragEvent.id
+						})}
 						data-event-id="dragging"
 						event={dragEvent}
 						timezone={timezone}

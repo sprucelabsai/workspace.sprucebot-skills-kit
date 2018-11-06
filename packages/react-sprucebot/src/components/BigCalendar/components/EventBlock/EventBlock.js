@@ -25,10 +25,14 @@ const EventBlock = (props: Props) => {
 			})}
 			{...rest}
 		>
-			<div className="resize-n resize-handle" />
+			<div className="resize-n resize-handle">
+				<div className="resize-highlight-handle" />
+			</div>
 			<p className="title">{block.title}</p>
 			<p className="time">{startAt.format('h:mma')}</p>
-			<div className="resize-s resize-handle" />
+			<div className="resize-s resize-handle">
+				<div className="resize-highlight-handle" />
+			</div>
 		</div>
 	)
 }

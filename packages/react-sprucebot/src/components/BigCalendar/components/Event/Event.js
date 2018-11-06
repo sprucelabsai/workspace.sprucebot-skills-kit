@@ -30,6 +30,9 @@ const Event = (props: Props) => {
 			{event.blocks.map((block, idx) => {
 				const eventBlock = (
 					<EventBlock
+						className={cx({
+							'is-highlighted': highlightedBlockIdx === idx
+						})}
 						startAt={startAt}
 						onMouseDown={e => {
 							onMouseDown && onMouseDown({ e, event, block, blockIdx: idx })
