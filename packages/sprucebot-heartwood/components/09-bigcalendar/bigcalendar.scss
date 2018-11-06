@@ -285,6 +285,7 @@ body.sb-show-main {
     }
 
     &.is-highlighted {
+        overflow: auto;
         .resize-handle {
             height: 10px;
          
