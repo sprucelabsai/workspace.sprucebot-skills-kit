@@ -14,3 +14,26 @@ global.log = {
 	superInfo: () => console.log('superInfo', arguments),
 	metric: () => console.log('metric', arguments)
 }
+
+// taken from: https://github.com/facebook/jest/issues/3457
+// added to test propTypes
+expect.extend({
+	toBeType(received, argument) {
+		const initialType = typeof received
+		const type =
+			initialType === 'object'
+				? Array.isArray(received)
+					? 'array'
+					: initialType
+				: initialType
+		return type === argument
+			? {
+					message: () => `expected ${received} to be type ${argument}`,
+					pass: true
+			  }
+			: {
+					message: () => `expected ${received} to be type ${argument}`,
+					pass: false
+			  }
+	}
+})

@@ -1,6 +1,6 @@
 module.exports = {
 	verbose: true,
-	setupFiles: ['<rootDir>/jest/enzymeSetup.js'],
+	setupTestFrameworkScriptFile: '<rootDir>/jest/enzymeSetup.js',
 	coverageDirectory: './coverage/',
 	collectCoverage: true,
 	snapshotSerializers: ['enzyme-to-json/serializer'],

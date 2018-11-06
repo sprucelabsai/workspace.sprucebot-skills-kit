@@ -49,4 +49,24 @@ describe('Day View tests', () => {
 		expect(timeGutter.exists()).toEqual(true)
 		expect(dragGrid.exists()).toEqual(true)
 	})
+
+	it('Includes all the correct propTypes', () => {
+		expect(renderedComponent.prop('onScroll')).toBeType('function')
+		expect(renderedComponent.prop('viewHeight')).toBeType('number')
+		expect(renderedComponent.prop('hours')).toBeType('array')
+		expect(renderedComponent.prop('location')).toBeType('object')
+		expect(renderedComponent.prop('minTime')).toBeType('string')
+		expect(renderedComponent.prop('maxTime')).toBeType('string')
+		expect(renderedComponent.prop('events')).toBeType('array')
+		expect(renderedComponent.prop('dragThreshold')).toBeType('number')
+		expect(renderedComponent.prop('showRightProps')).toBeType('boolean')
+		expect(renderedComponent.prop('startTime')).toBeType('string')
+		expect(renderedComponent.prop('endTime')).toBeType('string')
+		expect(renderedComponent.prop('slotsPerHour')).toBeType('number')
+		expect(renderedComponent.prop('onUpdateHorizontalPagerDetails')).toBeType(
+			'function'
+		)
+		expect(renderedComponent.prop('startDate')).toBeType('object')
+		expect(renderedComponent.prop('onDropEvent')).toBeType('function')
+	})
 })

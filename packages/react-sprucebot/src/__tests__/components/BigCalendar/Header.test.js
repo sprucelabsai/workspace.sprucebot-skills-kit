@@ -11,18 +11,18 @@ describe('Header tests', () => {
 	let dayOfWeek
 	let numericalDate
 	let pagination
+	let props
 
 	beforeEach(() => {
-		renderedComponent = shallow(
-			<Header
-				dateFormat={'MMMM YYYY'}
-				selectedDate={moment()}
-				selectedView={'Team'}
-				onChangeView={() => {}}
-				onBackDate={() => {}}
-				onNextDate={() => {}}
-			/>
-		)
+		props = {
+			dateFormat: 'MMMM YYYY',
+			selectedDate: moment(),
+			selectedView: 'Team',
+			onChangeView: jest.fn(),
+			onBackDate: jest.fn(),
+			onNextDate: jest.fn()
+		}
+		renderedComponent = shallow(<Header {...props} />)
 
 		monthHeader = renderedComponent.find('H2')
 		controls = renderedComponent.find('HeaderControls')

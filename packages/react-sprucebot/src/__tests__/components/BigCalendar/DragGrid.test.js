@@ -5,7 +5,6 @@ import moment from 'moment'
 
 import DragGrid from '../../../components/BigCalendar/components/DragGrid/DragGrid'
 
-import users from '../../../__mocks__/stubs/users'
 import location from '../../../__mocks__/stubs/location'
 import events from '../../../__mocks__/stubs/events'
 
@@ -26,7 +25,6 @@ describe('DragGrid behavior', () => {
 			snapEventToNearestValidX: jest.fn(),
 			snapEventToNearestValidY: jest.fn(),
 			onScroll: jest.fn(),
-			ref: '',
 			events: eventsForDay,
 			sizeEvent: jest.fn(),
 			timezone: location.timezone,
@@ -42,7 +40,19 @@ describe('DragGrid behavior', () => {
 		expect(renderedComponent.exists()).toEqual(true)
 	})
 
-	it('Renders all events for day', () => {
-		expect(renderedComponent.find('Event').length).toEqual(eventsForDay.length)
+	it('Includes all the correct propTypes', () => {
+		expect(renderedComponent.prop('snapEventToNearestValidX')).toBeType(
+			'function'
+		)
+		expect(renderedComponent.prop('snapEventToNearestValidY')).toBeType(
+			'function'
+		)
+		expect(renderedComponent.prop('onScroll')).toBeType('function')
+		expect(renderedComponent.prop('events')).toBeType('array')
+		expect(renderedComponent.prop('sizeEvent')).toBeType('function')
+		expect(renderedComponent.prop('timezone')).toBeType('string')
+		expect(renderedComponent.prop('onDragEvent')).toBeType('function')
+		expect(renderedComponent.prop('onDropEvent')).toBeType('function')
+		expect(renderedComponent.prop('style')).toBeType('object')
 	})
 })

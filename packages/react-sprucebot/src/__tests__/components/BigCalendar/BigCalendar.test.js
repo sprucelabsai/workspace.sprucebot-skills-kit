@@ -1,7 +1,6 @@
 import 'jsdom-global/register'
 import React from 'react'
 import { mount } from 'enzyme'
-import moment from 'moment'
 
 import BigCalendar from '../../../components/BigCalendar/BigCalendar'
 import users from '../../../__mocks__/stubs/users'
@@ -43,6 +42,12 @@ describe('BigCalendar tests', () => {
 			expect(teamPagination.exists()).toEqual(true)
 			expect(viewWrapper.exists()).toEqual(true)
 			expect(dayView.exists()).toEqual(true)
+		})
+
+		it('Includes all the correct propTypes', () => {
+			expect(renderedComponent.prop('allUsers')).toBeType('array')
+			expect(renderedComponent.prop('allEvents')).toBeType('array')
+			expect(renderedComponent.prop('location')).toBeType('object')
 		})
 
 		it('Sets the date back one day when the back date button is clicked', () => {
