@@ -6,7 +6,7 @@ import CardBuilder from './components/CardBuilder'
 import OnboardingCard from './components/OnboardingCard'
 import Scores from './components/Scores'
 
-export default Card
+export Card from './Card'
 export CardHeader from './components/CardHeader'
 export CardBody from './components/CardBody'
 export CardFooter from './components/CardFooter'
