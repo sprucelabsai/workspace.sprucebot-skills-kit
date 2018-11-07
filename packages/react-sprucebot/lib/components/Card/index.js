@@ -5,6 +5,12 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+Object.defineProperty(exports, "Card", {
+  enumerable: true,
+  get: function get() {
+    return _Card2.default;
+  }
+});
 Object.defineProperty(exports, "CardHeader", {
   enumerable: true,
   get: function get() {
@@ -41,9 +47,8 @@ Object.defineProperty(exports, "Scores", {
     return _Scores2.default;
   }
 });
-exports.default = void 0;
 
-var _Card = _interopRequireDefault(require("./Card"));
+var _Card2 = _interopRequireDefault(require("./Card"));
 
 var _CardHeader2 = _interopRequireDefault(require("./components/CardHeader"));
 
@@ -56,6 +61,3 @@ var _CardBuilder2 = _interopRequireDefault(require("./components/CardBuilder"));
 var _OnboardingCard2 = _interopRequireDefault(require("./components/OnboardingCard"));
 
 var _Scores2 = _interopRequireDefault(require("./components/Scores"));
-
-var _default = _Card.default;
-exports.default = _default;

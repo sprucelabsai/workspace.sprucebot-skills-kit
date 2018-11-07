@@ -2,7 +2,8 @@ import React, { Fragment } from 'react'
 import Helmet from 'react-helmet'
 import '../src/stylesheets/vendor.sass'
 import '../src/stylesheets/global.sass'
-import '@sprucelabs/heartwood-components/stylesheets/global.scss'
+// import '@sprucelabs/heartwood-components/stylesheets/global.scss'
+import '../../sprucebot-heartwood/stylesheets/global.scss'
 
 const StylesProvider = ({ children }) => {
 	const stylesheets =

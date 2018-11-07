@@ -1,7 +1,5 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 var _react = _interopRequireDefault(require("react"));
@@ -16,7 +14,7 @@ var _people = require("../../../.storybook/data/people");
 
 var _Container = _interopRequireDefault(require("../Layout/Container/Container"));
 
-var _index = _interopRequireWildcard(require("./index"));
+var _index = require("./index");
 
 var _List = _interopRequireDefault(require("../List/List"));
 
@@ -109,7 +107,7 @@ stories.addDecorator(_react3.withKnobs);
 stories.add('Critical Card', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"
-  }, _react.default.createElement(_index.default, {
+  }, _react.default.createElement(_index.Card, {
     isCritical: true
   }, _react.default.createElement(_index.CardHeader, {
     title: (0, _react3.text)('title', 'Please update your credit card'),
@@ -124,7 +122,7 @@ stories.add('Critical Card', function () {
 }).add('Score Card', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"
-  }, _react.default.createElement(_index.default, null, _react.default.createElement(_index.CardHeader, {
+  }, _react.default.createElement(_index.Card, null, _react.default.createElement(_index.CardHeader, {
     title: (0, _react3.text)('title', 'Value of future appointments'),
     actions: (0, _react3.object)('actions', [{
       text: 'Go to reports'
@@ -149,7 +147,7 @@ stories.add('Critical Card', function () {
 }).add('People Card', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"
-  }, _react.default.createElement(_index.default, null, _react.default.createElement(_index.CardHeader, {
+  }, _react.default.createElement(_index.Card, null, _react.default.createElement(_index.CardHeader, {
     title: (0, _react3.text)('title', 'Your upcoming appointments'),
     actions: (0, _react3.object)('actions', [{
       text: 'View in calendar'
@@ -162,7 +160,7 @@ stories.add('Critical Card', function () {
 }).add('Person Card', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"
-  }, _react.default.createElement(_index.default, {
+  }, _react.default.createElement(_index.Card, {
     isCentered: true
   }, _react.default.createElement(_index.CardHeader, null), _react.default.createElement(_index.CardBody, null, _react.default.createElement(_Avatar.default, {
     isLarge: true,
@@ -180,7 +178,7 @@ stories.add('Critical Card', function () {
 }).add('Place Card', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"
-  }, _react.default.createElement(_index.default, null, _react.default.createElement(_Image.default, {
+  }, _react.default.createElement(_index.Card, null, _react.default.createElement(_Image.default, {
     src: "https://images.unsplash.com/photo-1535401991746-da3d9055713e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9fa1c73c0d29848a6e63595c588051ad&auto=format&fit=crop&w=720&h=360&q=80",
     width: 720,
     height: 360,
@@ -194,7 +192,7 @@ stories.add('Critical Card', function () {
 }).add('Celebration Card', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"
-  }, _react.default.createElement(_index.default, {
+  }, _react.default.createElement(_index.Card, {
     isCentered: true
   }, _react.default.createElement(_Image.default, {
     src: "https://images.unsplash.com/photo-1499306215218-42e51ae058b2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6a6ae71facb70ced00bcbae8174ee47c&auto=format&fit=crop&w=720&h=360&q=80",
@@ -207,7 +205,7 @@ stories.add('Critical Card', function () {
 }).add('To Do', function () {
   return _react.default.createElement(_Container.default, {
     size: "medium"
-  }, _react.default.createElement(_index.default, null, _react.default.createElement(_index.CardHeader, {
+  }, _react.default.createElement(_index.Card, null, _react.default.createElement(_index.CardHeader, {
     labelText: (0, _react3.text)('Label Text', ''),
     labelIcon: (0, _react3.boolean)('Label Icon', false) && _react.default.createElement(LockIcon2, {
       className: "u-icon__no-fill u-icon__stroke"

@@ -14,7 +14,9 @@ type Props = {
 	onBackDate: Function,
 	onNextDate: Function,
 	onChangeView: Function,
-	fullScreenNodeRef: Object
+	fullScreenNodeRef: Object,
+	userModeOptions: Array<Object>,
+	onChangeUserMode: Function
 }
 
 const HeaderControls = (props: Props) => {
@@ -39,7 +41,13 @@ const HeaderControls = (props: Props) => {
 				text={'CalendarIcon'}
 				className="bigcalendar__calendarIcon-button"
 			/>
-			<Select options={['Full Team', 'Me']} onChange={props.onChangeView} />
+			{props.userModeOptions &&
+				props.onChangeUserMode && (
+					<Select
+						options={props.userModeOptions}
+						onChange={props.onChangeUserMode}
+					/>
+				)}
 			<Button
 				kind="simple"
 				text="Full Screen"

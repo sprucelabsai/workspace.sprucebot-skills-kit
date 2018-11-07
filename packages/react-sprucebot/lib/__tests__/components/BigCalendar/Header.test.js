@@ -17,15 +17,17 @@ describe('Header tests', function () {
   var dayOfWeek;
   var numericalDate;
   var pagination;
+  var props;
   beforeEach(function () {
-    renderedComponent = (0, _enzyme.shallow)(_react.default.createElement(_Header.default, {
+    props = {
       dateFormat: 'MMMM YYYY',
       selectedDate: (0, _moment.default)(),
       selectedView: 'Team',
-      onChangeView: function onChangeView() {},
-      onBackDate: function onBackDate() {},
-      onNextDate: function onNextDate() {}
-    }));
+      onChangeView: jest.fn(),
+      onBackDate: jest.fn(),
+      onNextDate: jest.fn()
+    };
+    renderedComponent = (0, _enzyme.shallow)(_react.default.createElement(_Header.default, props));
     monthHeader = renderedComponent.find('H2');
     controls = renderedComponent.find('HeaderControls');
     dayOfWeek = renderedComponent.find('.dow');

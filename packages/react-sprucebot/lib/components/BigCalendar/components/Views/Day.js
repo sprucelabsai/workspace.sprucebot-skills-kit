@@ -91,7 +91,8 @@ function (_Component) {
           scrollLeft = target.scrollLeft;
       _this.teammateHeaderRef.current.domNodeRef.current.scrollLeft = scrollLeft;
       _this.timeGutterRef.current.domNodeRef.current.scrollTop = scrollTop; // // arrows that sit in the upper right
-      // this.updateHorizontalPagerDetails()
+
+      _this.updateHorizontalPagerDetails();
 
       if (_this._lastDragDetails) {
         _this.handleDragOfEvent(_this._lastDragDetails.event, _this._lastDragDetails.dragDetails);
@@ -154,14 +155,14 @@ function (_Component) {
       });
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleHorizontalPageNext", function () {
-      var scrollLeft = _this.state.scrollLeft;
+      var scrollLeft = _this.dragGridRef.current.getScrollLeft();
 
       var pageWidth = _this.dragGridRef.current.getWidth();
 
       _this.dragGridRef.current.animateHorizontalTo(scrollLeft + pageWidth);
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleHorizontalPageBack", function () {
-      var scrollLeft = _this.state.scrollLeft;
+      var scrollLeft = _this.dragGridRef.current.getScrollLeft();
 
       var pageWidth = _this.dragGridRef.current.getWidth();
 
@@ -170,7 +171,8 @@ function (_Component) {
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleTeammateScroll", function (e) {
       var target = e.target;
       var teammateLeft = target.scrollLeft;
-      var viewLeft = _this.state.scrollLeft;
+
+      var viewLeft = _this.dragGridRef.current.getScrollLeft();
 
       if (teammateLeft !== viewLeft) {
         _this.dragGridRef.current.setScrollLeft(teammateLeft);
@@ -264,8 +266,8 @@ function (_Component) {
 
       if (!block.markAsBusy) {
         var matches = _this.dragGridRef.current.getEventsAtLocation({
-          x: e.clientX,
-          y: e.clientY
+          x: _event.default.clientXY(e).clientX,
+          y: _event.default.clientXY(e).clientY
         }); // the first one would actually match the event passed here
         // so lets check the first event under us
 
@@ -294,13 +296,14 @@ function (_Component) {
       } // did we click a resize handle? if so, lets set up for that
 
 
-      if (target.classList.contains('resize-handle')) {
+      if (target.classList.contains('resize-handle') || target.parentNode.classList.contains('resize-handle')) {
+        var direction = target.classList.contains('resize-n') || target.parentNode.classList.contains('resize-n') ? 'n' : 's';
         _this._resizeDetails = {
           e: e,
           event: response.event,
           block: response.block,
           blockIdx: response.blockIdx,
-          direction: target.classList.contains('resize-n') ? 'n' : 's'
+          direction: direction
         };
       }
 
@@ -321,6 +324,7 @@ function (_Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                // console.log('drop event in day')
                 // reset some things
                 dragDetails = _this._dragDetails || {};
                 resizeDetails = _this._resizeDetails || {};
@@ -366,6 +370,7 @@ function (_Component) {
       var cancelDrag = false;
 
       if (_this._resizeDetails) {
+        // console.log('handle drag resizing')
         cancelDrag = true;
         var startingScrollTop = _this._scrollStartingPosition.top;
         var deltaScrollTop = _this.dragGridRef.current.getScrollTop() - startingScrollTop;
@@ -374,7 +379,7 @@ function (_Component) {
             eMouseDown = dragDetails.eMouseDown,
             _blockIdx = dragDetails.blockIdx,
             sourceBlockNode = dragDetails.sourceBlockNode;
-        var dragDistance = eMouseMove.clientY + deltaScrollTop - eMouseDown.clientY;
+        var dragDistance = _event.default.clientXY(eMouseMove).clientY - _event.default.clientXY(eMouseDown).clientY + deltaScrollTop;
 
         var originalHeight = _size.default.getHeight(sourceBlockNode);
 
@@ -423,8 +428,7 @@ function (_Component) {
         resizeDetails.blockUpdates.push({
           blockIdx: _blockIdx,
           newDurationSec: _this.heightToSeconds(height)
-        }); // if we are resizing the first block north, we actually need to
-        // move the whole event up and adjust the start time
+        }); // if we are dragging a block after the first, resize the previous block
 
         if (_blockIdx > 0 && direction === 'n') {
           var previousDragBlock = dragBlockNode.previousSibling;
@@ -465,17 +469,22 @@ function (_Component) {
           dragEventNode.querySelector('.time').innerHTML = time.format('h:mma');
           _this._didDragEvent = true;
         } //dragging a block means changing duration of the block ahead of it
-        //drag grid cannot handle this
+        //drag grid cannot handle this. but, we do want to move the event, so
+        //we'll want to move the event on the x as well
         else {
             cancelDrag = true;
             var _sourceBlockNode = dragDetails.sourceBlockNode,
                 _dragBlockNode = dragDetails.dragBlockNode,
                 _eMouseMove = dragDetails.eMouseMove,
-                _eMouseDown = dragDetails.eMouseDown;
+                _eMouseDown = dragDetails.eMouseDown,
+                x = dragDetails.x;
             var previousSourceBlockNode = _sourceBlockNode.previousSibling;
             var _previousDragBlock = _dragBlockNode.previousSibling;
+            var _startingScrollTop = _this._scrollStartingPosition.top;
 
-            var _dragDistance = _eMouseMove.clientY - _eMouseDown.clientY;
+            var _deltaScrollTop = _this.dragGridRef.current.getScrollTop() - _startingScrollTop;
+
+            var _dragDistance = _event.default.clientXY(_eMouseMove).clientY + _deltaScrollTop - _event.default.clientXY(_eMouseDown).clientY;
 
             var _originalHeight = _size.default.getHeight(previousSourceBlockNode);
 
@@ -487,6 +496,7 @@ function (_Component) {
               dragNodeTop: _originalHeight + _distance
             }));
             _previousDragBlock.style.height = parseInt(newHeight) + 'px';
+            dragEventNode.style.left = x + 'px';
 
             var duration = _this.heightToSeconds(newHeight);
 
@@ -919,7 +929,6 @@ function (_Component) {
       var _this$state = this.state,
           selectedEvent = _this$state.selectedEvent,
           highlightedEventAndBlock = _this$state.highlightedEventAndBlock;
-      console.log('render');
       var eventDetails = null;
 
       if (selectedEvent && selectedEvent.details) {

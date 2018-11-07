@@ -30,6 +30,8 @@ var Header = function Header(props) {
   }, _react.default.createElement(_Text.H2, {
     className: ""
   }, props.selectedDate.format(props.dateFormat)), _react.default.createElement(_HeaderControls.default, {
+    userModeOptions: props.userModeOptions,
+    onChangeUserMode: props.onChangeUserMode,
     fullScreenNodeRef: props.fullScreenNodeRef,
     onBackDate: props.onBackDate,
     onNextDate: props.onNextDate,

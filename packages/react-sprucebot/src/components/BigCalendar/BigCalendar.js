@@ -27,7 +27,9 @@ type Props = {
 	allEvents: Array<Object>,
 	onDropEvent: Function,
 	viewProps: Object,
-	longPressDelay: Number
+	longPressDelay: Number,
+	userModeOptions: Array<Object>,
+	onChangeUserMode: Function
 }
 type State = {
 	selectedView: 'day' | 'week' | 'month',
@@ -85,6 +87,12 @@ class BigCalendar extends Component<Props, State> {
 
 	componentWillUnmount = () => {
 		window.removeEventListener('resize', this.handleSizing)
+	}
+
+	setCurrentUsers = users => {
+		this.setState({
+			currentUsers: users
+		})
 	}
 
 	getDefaultStartDate = () => {
@@ -196,10 +204,15 @@ class BigCalendar extends Component<Props, State> {
 	})
 
 	handleUpdateHorizontalPagerDetails = ({ currentPage, totalPages }) => {
-		this.setState({
-			currentHorizontalPage: currentPage,
-			totalHorizontalPages: totalPages
-		})
+		if (
+			this.state.currentHorizontalPage !== currentPage ||
+			this.state.totalHorizontalPages !== totalPages
+		) {
+			this.setState({
+				currentHorizontalPage: currentPage,
+				totalHorizontalPages: totalPages
+			})
+		}
 	}
 
 	handleHorizontalPageNext = () => {
@@ -227,6 +240,8 @@ class BigCalendar extends Component<Props, State> {
 			defaultEndTime,
 			defaultView,
 			viewProps: _,
+			userModeOptions,
+			onChangeUserMode,
 			...props
 		} = this.props
 
@@ -263,6 +278,8 @@ class BigCalendar extends Component<Props, State> {
 				{...props}
 			>
 				<Header
+					userModeOptions={userModeOptions}
+					onChangeUserMode={onChangeUserMode}
 					dateFormat={headerDateFormat}
 					selectedDate={startDate}
 					selectedView={selectedView}

@@ -103,7 +103,7 @@ class Day extends Component<Props> {
 		this.timeGutterRef.current.domNodeRef.current.scrollTop = scrollTop
 
 		// // arrows that sit in the upper right
-		// this.updateHorizontalPagerDetails()
+		this.updateHorizontalPagerDetails()
 
 		if (this._lastDragDetails) {
 			this.handleDragOfEvent(
@@ -173,13 +173,13 @@ class Day extends Component<Props> {
 
 	//invoked directly by BigCalendar
 	handleHorizontalPageNext = () => {
-		const { scrollLeft } = this.state
+		const scrollLeft = this.dragGridRef.current.getScrollLeft()
 		const pageWidth = this.dragGridRef.current.getWidth()
 		this.dragGridRef.current.animateHorizontalTo(scrollLeft + pageWidth)
 	}
 
 	handleHorizontalPageBack = () => {
-		const { scrollLeft } = this.state
+		const scrollLeft = this.dragGridRef.current.getScrollLeft()
 		const pageWidth = this.dragGridRef.current.getWidth()
 		this.dragGridRef.current.animateHorizontalTo(scrollLeft - pageWidth)
 	}
@@ -187,7 +187,7 @@ class Day extends Component<Props> {
 	handleTeammateScroll = e => {
 		const target = e.target
 		const { scrollLeft: teammateLeft } = target
-		const { scrollLeft: viewLeft } = this.state
+		const viewLeft = this.dragGridRef.current.getScrollLeft()
 
 		if (teammateLeft !== viewLeft) {
 			this.dragGridRef.current.setScrollLeft(teammateLeft)
@@ -883,7 +883,6 @@ class Day extends Component<Props> {
 		} = this.props
 
 		const { selectedEvent, highlightedEventAndBlock } = this.state
-		// console.log('render')
 
 		let eventDetails = null
 		if (selectedEvent && selectedEvent.details) {

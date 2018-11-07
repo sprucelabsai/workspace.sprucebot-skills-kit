@@ -36,6 +36,9 @@ var Event = function Event(props) {
     className: (0, _classnames.default)('bigcalendar__event', className, event.className)
   }, rest), event.blocks.map(function (block, idx) {
     var eventBlock = _react.default.createElement(_EventBlock.default, {
+      className: (0, _classnames.default)({
+        'is-highlighted': highlightedBlockIdx === idx
+      }),
       startAt: startAt,
       onMouseDown: function onMouseDown(e) {
         _onMouseDown && _onMouseDown({

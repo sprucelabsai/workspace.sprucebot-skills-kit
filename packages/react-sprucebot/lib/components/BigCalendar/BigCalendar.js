@@ -179,10 +179,12 @@ function (_Component) {
       var currentPage = _ref.currentPage,
           totalPages = _ref.totalPages;
 
-      _this.setState({
-        currentHorizontalPage: currentPage,
-        totalHorizontalPages: totalPages
-      });
+      if (_this.state.currentHorizontalPage !== currentPage || _this.state.totalHorizontalPages !== totalPages) {
+        _this.setState({
+          currentHorizontalPage: currentPage,
+          totalHorizontalPages: totalPages
+        });
+      }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleHorizontalPageNext", function () {
       _this.selectedViewRef.current.handleHorizontalPageNext && _this.selectedViewRef.current.handleHorizontalPageNext();
@@ -219,7 +221,9 @@ function (_Component) {
           defaultEndTime = _this$props.defaultEndTime,
           defaultView = _this$props.defaultView,
           _ = _this$props.viewProps,
-          props = (0, _objectWithoutProperties2.default)(_this$props, ["className", "headerDateFormat", "slotsPerHour", "allEvents", "onDropEvent", "timezone", "longPressDelay", "allUsers", "defaultMinTime", "defaultMaxTime", "defaultStartTime", "defaultEndTime", "defaultView", "viewProps"]);
+          userModeOptions = _this$props.userModeOptions,
+          onChangeUserMode = _this$props.onChangeUserMode,
+          props = (0, _objectWithoutProperties2.default)(_this$props, ["className", "headerDateFormat", "slotsPerHour", "allEvents", "onDropEvent", "timezone", "longPressDelay", "allUsers", "defaultMinTime", "defaultMaxTime", "defaultStartTime", "defaultEndTime", "defaultView", "viewProps", "userModeOptions", "onChangeUserMode"]);
       var _this$state = this.state,
           selectedView = _this$state.selectedView,
           minTime = _this$state.minTime,
@@ -246,6 +250,8 @@ function (_Component) {
           height: bodyHeight
         }
       }, props), _react.default.createElement(_Header.default, {
+        userModeOptions: userModeOptions,
+        onChangeUserMode: onChangeUserMode,
         dateFormat: headerDateFormat,
         selectedDate: startDate,
         selectedView: selectedView,
@@ -277,6 +283,11 @@ function (_Component) {
         timezone: timezone,
         onDropEvent: onDropEvent
       }, viewProps))));
+    }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(props, state) {
+      debugger;
     }
   }]);
   return BigCalendar;

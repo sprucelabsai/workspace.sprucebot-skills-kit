@@ -25,7 +25,9 @@ type Props = {
 	totalHorizontalPages: Number,
 	currentHorizontalPage: Number,
 	onHorizontalPageNext: Function,
-	onHorizontalPageBack: Function
+	onHorizontalPageBack: Function,
+	userModeOptions: Array<Object>,
+	onChangeUserMode: Function
 }
 
 const Header = (props: Props) => {
@@ -34,6 +36,8 @@ const Header = (props: Props) => {
 			<div className="bigcalendar__header-top">
 				<H2 className="">{props.selectedDate.format(props.dateFormat)}</H2>
 				<HeaderControls
+					userModeOptions={props.userModeOptions}
+					onChangeUserMode={props.onChangeUserMode}
 					fullScreenNodeRef={props.fullScreenNodeRef}
 					onBackDate={props.onBackDate}
 					onNextDate={props.onNextDate}

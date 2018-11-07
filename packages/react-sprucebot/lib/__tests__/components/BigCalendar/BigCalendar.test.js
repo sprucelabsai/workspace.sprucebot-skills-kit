@@ -8,8 +8,6 @@ var _react = _interopRequireDefault(require("react"));
 
 var _enzyme = require("enzyme");
 
-var _moment = _interopRequireDefault(require("moment"));
-
 var _BigCalendar = _interopRequireDefault(require("../../../components/BigCalendar/BigCalendar"));
 
 var _users = _interopRequireDefault(require("../../../__mocks__/stubs/users"));
@@ -50,6 +48,11 @@ describe('BigCalendar tests', function () {
       expect(teamPagination.exists()).toEqual(true);
       expect(viewWrapper.exists()).toEqual(true);
       expect(dayView.exists()).toEqual(true);
+    });
+    it('Includes all the correct propTypes', function () {
+      expect(renderedComponent.prop('allUsers')).toBeType('array');
+      expect(renderedComponent.prop('allEvents')).toBeType('array');
+      expect(renderedComponent.prop('location')).toBeType('object');
     });
     it('Sets the date back one day when the back date button is clicked', function () {
       var backButton = datePagination.find('button').at(0);

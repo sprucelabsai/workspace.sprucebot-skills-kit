@@ -33,13 +33,17 @@ var EventBlock = function EventBlock(props) {
     })
   }, rest), _react.default.createElement("div", {
     className: "resize-n resize-handle"
-  }), _react.default.createElement("p", {
+  }, _react.default.createElement("div", {
+    className: "resize-highlight-handle"
+  })), _react.default.createElement("p", {
     className: "title"
   }, block.title), _react.default.createElement("p", {
     className: "time"
   }, startAt.format('h:mma')), _react.default.createElement("div", {
     className: "resize-s resize-handle"
-  }));
+  }, _react.default.createElement("div", {
+    className: "resize-highlight-handle"
+  })));
 };
 
 var _default = EventBlock;
