@@ -216,7 +216,11 @@ stories.add('Autosuggest', function () {
   }, _react.default.createElement(_index.Select, {
     label: (0, _react3.text)('label', 'Country'),
     id: (0, _react3.text)('id', 'country'),
-    options: (0, _react3.object)('options', ['United States', 'Canada', 'New Jersey']),
+    options: (0, _react3.object)('options', {
+      us: 'United States',
+      ca: 'Canada',
+      nj: 'New Jersey'
+    }),
     isSimple: (0, _react3.boolean)('isSimple', false),
     helper: (0, _react3.text)('helper', ''),
     error: (0, _react3.text)('error', ''),

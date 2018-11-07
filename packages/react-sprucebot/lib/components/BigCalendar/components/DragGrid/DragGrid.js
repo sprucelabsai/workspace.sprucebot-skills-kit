@@ -71,6 +71,11 @@ function (_Component) {
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getBlockNode", function (event, blockIdx) {
       return _this.domNodeRef.current.querySelectorAll("[data-event-id='".concat(event.id, "'] .bigcalendar__event-block"))[blockIdx];
     });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "eventById", function (id) {
+      return _this.props.events.find(function (e) {
+        return e.id === id;
+      });
+    });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "getScrollLeft", function () {
       return _this.domNodeRef.current.scrollLeft;
     });
@@ -113,7 +118,6 @@ function (_Component) {
       _this._activeTween.start();
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleScroll", function (e) {
-      var target = e.target;
       var onScroll = _this.props.onScroll;
       onScroll && onScroll(e); // keep event under mouse as scroll
 
@@ -139,9 +143,9 @@ function (_Component) {
         startingScrollLeft: _this.getScrollLeft(),
         startingScrollTop: _this.getScrollTop(),
         startingClientX: clientX,
-        startingClientY: clientY
+        startingClientY: clientY // console.log('mouse down in view')
+
       };
-      console.log('mouse down in view');
       e.preventDefault();
       window.addEventListener('mousemove', _this.handleMouseDragOfView, {
         passive: false
@@ -165,8 +169,7 @@ function (_Component) {
       _this.domNodeRef.current.scrollTop = startingScrollTop - deltaTop;
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleTouchStartOnView", function (e) {
-      console.log('touch start on view');
-
+      // console.log('touch start on view')
       if (_this.handleMouseDownOnView(e) !== false) {
         window.addEventListener('touchend', _this.handleTouchEndOnView, {
           passive: false
@@ -174,8 +177,7 @@ function (_Component) {
       }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleTouchEndOnView", function (e) {
-      console.log('touch end on view');
-
+      // console.log('touch end on view')
       _this.handleMouseUpFromView(e);
 
       window.removeEventListener('touchend', _this.handleTouchEndOnView);
@@ -200,6 +202,10 @@ function (_Component) {
         var eventNode = blockNode.parentNode;
         var eventId = eventNode.dataset.eventId;
 
+        if (eventId === 'dragging') {
+          return false;
+        }
+
         var event = _this.props.events.find(function (event) {
           return event.id === eventId;
         });
@@ -213,7 +219,9 @@ function (_Component) {
           resize: resizes[idx]
         };
       });
-      return events;
+      return events.filter(function (event) {
+        return event;
+      });
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseDownOnEvent", function (_ref3) {
       var e = _ref3.e,
@@ -236,6 +244,7 @@ function (_Component) {
       });
 
       if (results) {
+        // console.log('mousedown', blockIdx)
         stopEvent && e.preventDefault();
         stopEvent && e.stopPropagation();
         _this._pendingDrag = results;
@@ -293,12 +302,24 @@ function (_Component) {
           event = _ref5.event,
           block = _ref5.block,
           blockIdx = _ref5.blockIdx;
+
+      _this.handleMouseDownOnEvent({
+        e: e,
+        event: _this.eventById(event.originalId),
+        block: block,
+        blockIdx: blockIdx,
+        setListeners: false
+      });
+
+      e.persist();
+      _this._activeDrag.eMouseDown = e;
       window.addEventListener('touchend', _this.handleTouchEndOnEvent);
       window.addEventListener('touchmove', _this.handleTouchDragOfEvent, {
         passive: false
       });
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleTouchEndOnEvent", function (e) {
+      // console.log('touch end on event')
       // we did not successfully long press, simulate all mouse events hurry
       if (_this._longPressTimeout) {
         clearInterval(_this._longPressTimeout);
@@ -348,6 +369,15 @@ function (_Component) {
         block: block,
         blockIdx: blockIdx
       }) !== false) {
+        _this.handleMouseDownOnEvent({
+          e: e,
+          event: event,
+          block: block,
+          blockIdx: blockIdx,
+          setListeners: false,
+          stopEvent: false
+        });
+
         _this.startDragOfEvent({
           e: e,
           event: event,
@@ -387,15 +417,32 @@ function (_Component) {
       _this._longPressTimeout = false;
 
       if (_this._activeDrag) {
-        if (_this.domNodeRef.current.style.overflow !== 'hidden') {
-          _this.domNodeRef.current.style.overflow = 'hidden';
-          document.body.style.webkitTouchCallout = 'none';
-          document.body.style.webkitUserSelect = 'none';
-          document.body.style.overflow = 'hidden';
+        var _eventUtil$clientXY4 = _event.default.clientXY(e),
+            clientX = _eventUtil$clientXY4.clientX,
+            clientY = _eventUtil$clientXY4.clientY;
+
+        var _this$_startingDragPo = _this._startingDragPoint,
+            x = _this$_startingDragPo.x,
+            y = _this$_startingDragPo.y;
+        var a = x - clientX;
+        var b = y - clientY;
+        var distance = Math.sqrt(a * a + b * b); // console.log({ distance })
+        //start the drag!
+
+        if (distance >= _this.props.dragThreshold) {
+          if (_this.domNodeRef.current.style.overflow !== 'hidden') {
+            _this.domNodeRef.current.style.overflow = 'hidden';
+            document.body.style.webkitTouchCallout = 'none';
+            document.body.style.webkitUserSelect = 'none';
+            document.body.style.overflow = 'hidden';
+          }
+
           _this._touchDragging = true;
         }
 
-        _this.handleDragOfEvent(e);
+        if (_this._touchDragging) {
+          _this.handleDragOfEvent(e);
+        }
 
         e.preventDefault();
         e.stopPropagation();
@@ -406,9 +453,9 @@ function (_Component) {
       var dragEvent = _this.state.dragEvent;
 
       if (dragEvent) {
-        var _eventUtil$clientXY4 = _event.default.clientXY(e),
-            clientX = _eventUtil$clientXY4.clientX,
-            clientY = _eventUtil$clientXY4.clientY;
+        var _eventUtil$clientXY5 = _event.default.clientXY(e),
+            clientX = _eventUtil$clientXY5.clientX,
+            clientY = _eventUtil$clientXY5.clientY;
 
         var _this$props2 = _this.props,
             scrollDuringDragMargin = _this$props2.scrollDuringDragMargin,
@@ -466,7 +513,9 @@ function (_Component) {
         var y = _this.props.snapEventToNearestValidY(snapProps); //track last event
 
 
-        _this._activeDrag.eMouseMove = e; // let parent components know and have the opportunity to ignore this drag
+        _this._activeDrag.eMouseMove = e;
+        _this._activeDrag.x = x;
+        _this._activeDrag.y = y; // let parent components know and have the opportunity to ignore this drag
 
         var ignoreDrag = onDragEvent && onDragEvent(sourceEvent, _this._activeDrag);
 
@@ -477,13 +526,13 @@ function (_Component) {
         }
       } // we have not actually started dragging yet, so we check how far we've moved from click
       else {
-          var _eventUtil$clientXY5 = _event.default.clientXY(e),
-              _clientX = _eventUtil$clientXY5.clientX,
-              _clientY = _eventUtil$clientXY5.clientY;
+          var _eventUtil$clientXY6 = _event.default.clientXY(e),
+              _clientX = _eventUtil$clientXY6.clientX,
+              _clientY = _eventUtil$clientXY6.clientY;
 
-          var _this$_startingDragPo = _this._startingDragPoint,
-              _x = _this$_startingDragPo.x,
-              _y = _this$_startingDragPo.y;
+          var _this$_startingDragPo2 = _this._startingDragPoint,
+              _x = _this$_startingDragPo2.x,
+              _y = _this$_startingDragPo2.y;
           var a = _x - _clientX;
           var b = _y - _clientY;
           var distance = Math.sqrt(a * a + b * b); //start the drag!
@@ -501,7 +550,7 @@ function (_Component) {
         }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseUpFromView", function (e) {
-      console.log('mouse up from view');
+      // console.log('mouse up from view')
       window.removeEventListener('mousemove', _this.handleMouseDragOfView);
       window.removeEventListener('mouseup', _this.handleMouseUpFromView);
 
@@ -532,8 +581,7 @@ function (_Component) {
       }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleMouseUpFromEvent", function (e) {
-      console.log('mouse up of event');
-
+      // console.log('mouse up of event')
       if (!_this.state.dragEvent) {
         _this.props.onSelectEvent({
           event: _this._pendingDrag.event,
@@ -561,7 +609,8 @@ function (_Component) {
           switch (_context.prev = _context.next) {
             case 0:
               _this$_activeDrag2 = _this._activeDrag, dragEventNode = _this$_activeDrag2.dragEventNode, sourceEvent = _this$_activeDrag2.sourceEvent, sourceEventNode = _this$_activeDrag2.sourceEventNode;
-              onDropEvent = _this.props.onDropEvent; // stop scrolling
+              onDropEvent = _this.props.onDropEvent; // console.log('drop event in grid')
+              // stop scrolling
 
               _this.stopScrollingHorizontally();
 
@@ -617,7 +666,7 @@ function (_Component) {
       var _ref10 = (0, _asyncToGenerator2.default)(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee2(_ref9) {
-        var e, event, block, blockIdx, dragEvent, _this$props4, sizeEvent, onDragEvent, getDragNode, eventNode, blockNode, dragEventNode, dragBlockNode, dragNode, _eventUtil$clientXY6, clientX, clientY, wrapperLeft, wrapperTop, scrollTop, scrollLeft, offsetY, offsetX;
+        var e, event, block, blockIdx, dragEvent, _this$props4, sizeEvent, onDragEvent, getDragNode, eventNode, blockNode, dragEventNode, dragBlockNode, dragNode, _eventUtil$clientXY7, clientX, clientY, wrapperLeft, wrapperTop, scrollTop, scrollLeft, offsetY, offsetX;
 
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
@@ -652,7 +701,7 @@ function (_Component) {
                   dragBlockNode: dragBlockNode
                 }); //calculate offset to keep event in proper position relative to the mouse
 
-                _eventUtil$clientXY6 = _event.default.clientXY(e), clientX = _eventUtil$clientXY6.clientX, clientY = _eventUtil$clientXY6.clientY;
+                _eventUtil$clientXY7 = _event.default.clientXY(e), clientX = _eventUtil$clientXY7.clientX, clientY = _eventUtil$clientXY7.clientY;
                 wrapperLeft = _size.default.getLeft(_this.domNodeRef.current);
                 wrapperTop = _size.default.getTop(_this.domNodeRef.current);
                 scrollTop = _this.domNodeRef.current.scrollTop;
@@ -741,7 +790,7 @@ function (_Component) {
           className: (0, _classnames.default)({
             'is-drag-source': dragEvent && dragEvent.originalId === event.id,
             'is-selected': selectedEvent && selectedEvent.id === event.id,
-            'is-highlighted': highlightedEventAndBlock && highlightedEventAndBlock.event.id === event.id
+            'is-highlight-source': highlightedEventAndBlock && highlightedEventAndBlock.event && highlightedEventAndBlock.event.id === event.id
           }),
           onMouseDown: _this2.handleMouseDownOnEvent,
           onTouchStart: _this2.handleTouchStartOnEvent,
@@ -752,7 +801,9 @@ function (_Component) {
       }), dragEvent && _react.default.createElement(_Event.default, {
         highlightedBlockIdx: highlightedEventAndBlock && highlightedEventAndBlock.blockIdx,
         onTouchStart: this.handleTouchStartOnDragEvent,
-        className: "is-active-drag",
+        className: (0, _classnames.default)('is-active-drag', {
+          'is-active-highlighted': highlightedEventAndBlock && highlightedEventAndBlock.event && highlightedEventAndBlock.event.id === dragEvent.id
+        }),
         "data-event-id": "dragging",
         event: dragEvent,
         timezone: timezone

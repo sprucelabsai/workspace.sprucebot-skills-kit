@@ -12,7 +12,7 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
 
-var _getPrototypeOf3 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
 var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
@@ -44,18 +44,11 @@ var BigCalendarExample =
 function (_Component) {
   (0, _inherits2.default)(BigCalendarExample, _Component);
 
-  function BigCalendarExample() {
-    var _getPrototypeOf2;
-
+  function BigCalendarExample(props) {
     var _this;
 
     (0, _classCallCheck2.default)(this, BigCalendarExample);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(BigCalendarExample)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(BigCalendarExample).call(this, props));
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
       users: _storyUsers.default,
       events: _storyEvents.default,
@@ -130,6 +123,33 @@ function (_Component) {
 
       return true;
     });
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleUserModeChange", function (e) {
+      switch (e.target.value) {
+        case 'everyone':
+          _this.setState({
+            users: _storyUsers.default
+          });
+
+          break;
+
+        case 'me':
+          _this.setState({
+            users: [_storyUsers.default[0]]
+          });
+
+          break;
+
+        case 'working':
+          _this.setState({
+            users: _storyUsers.default
+          });
+
+          break;
+      }
+
+      console.log(e.target.value);
+    });
+    _this.bigCalRef = _react.default.createRef();
     return _this;
   }
 
@@ -140,7 +160,14 @@ function (_Component) {
           users = _this$state.users,
           location = _this$state.location,
           events = _this$state.events;
+      console.log(users);
       return _react.default.createElement(_Container.default, null, _react.default.createElement(_BigCalendar.default, {
+        userModeOptions: {
+          team: 'Everyone',
+          working: 'Working',
+          me: 'Me'
+        },
+        onChangeUserMode: this.handleUserModeChange,
         onDropEvent: this.handleDropEvent,
         allUsers: users,
         timezone: location.timezone,

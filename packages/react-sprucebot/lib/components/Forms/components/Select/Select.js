@@ -52,10 +52,11 @@ var Select = function Select(props) {
     postLabel: postLabel
   }), _react.default.createElement("div", {
     className: parentClass
-  }, _react.default.createElement("select", rest, options.map(function (option) {
+  }, _react.default.createElement("select", rest, Object.keys(options).map(function (key) {
     return _react.default.createElement("option", {
-      key: option
-    }, option);
+      value: key,
+      key: key
+    }, options[key]);
   })), !isSimple && _react.default.createElement(ArrowIcon, {
     className: "select__icon"
   })), (error || helper) && _react.default.createElement(_FormPartials.InputHelper, {

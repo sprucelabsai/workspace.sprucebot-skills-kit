@@ -75,8 +75,8 @@ body.sb-show-main {
         bottom:-20px;
         padding-bottom:20px;
         position: absolute;
-        // -webkit-overflow-scrolling: touch;
     }
+    
     .teammate {
         @include typescale('legal');
         display: flex;

@@ -12,8 +12,6 @@ var _moment = _interopRequireDefault(require("moment"));
 
 var _DragGrid = _interopRequireDefault(require("../../../components/BigCalendar/components/DragGrid/DragGrid"));
 
-var _users = _interopRequireDefault(require("../../../__mocks__/stubs/users"));
-
 var _location = _interopRequireDefault(require("../../../__mocks__/stubs/location"));
 
 var _events = _interopRequireDefault(require("../../../__mocks__/stubs/events"));
@@ -34,7 +32,6 @@ describe('DragGrid behavior', function () {
       snapEventToNearestValidX: jest.fn(),
       snapEventToNearestValidY: jest.fn(),
       onScroll: jest.fn(),
-      ref: '',
       events: eventsForDay,
       sizeEvent: jest.fn(),
       timezone: _location.default.timezone,
@@ -49,7 +46,15 @@ describe('DragGrid behavior', function () {
   it('Renders', function () {
     expect(renderedComponent.exists()).toEqual(true);
   });
-  it('Renders all events for day', function () {
-    expect(renderedComponent.find('Event').length).toEqual(eventsForDay.length);
+  it('Includes all the correct propTypes', function () {
+    expect(renderedComponent.prop('snapEventToNearestValidX')).toBeType('function');
+    expect(renderedComponent.prop('snapEventToNearestValidY')).toBeType('function');
+    expect(renderedComponent.prop('onScroll')).toBeType('function');
+    expect(renderedComponent.prop('events')).toBeType('array');
+    expect(renderedComponent.prop('sizeEvent')).toBeType('function');
+    expect(renderedComponent.prop('timezone')).toBeType('string');
+    expect(renderedComponent.prop('onDragEvent')).toBeType('function');
+    expect(renderedComponent.prop('onDropEvent')).toBeType('function');
+    expect(renderedComponent.prop('style')).toBeType('object');
   });
 });

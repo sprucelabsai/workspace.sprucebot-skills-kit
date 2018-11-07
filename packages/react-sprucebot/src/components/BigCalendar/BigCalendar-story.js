@@ -49,6 +49,11 @@ class BigCalendarExample extends Component {
 		}
 	}
 
+	constructor(props) {
+		super(props)
+		this.bigCalRef = React.createRef()
+	}
+
 	handleDropEvent = ({ event, newStartAt, newUser, blockUpdates }) => {
 		console.log({ event, newStartAt, newUser, blockUpdates })
 
@@ -76,12 +81,38 @@ class BigCalendarExample extends Component {
 		return true
 	}
 
+	handleUserModeChange = e => {
+		switch (e.target.value) {
+			case 'everyone':
+				this.bigCalRef.current.setCurrentUsers(storyUsers)
+				break
+			case 'me':
+				this.bigCalRef.current.setCurrentUsers([storyUsers[0]])
+				break
+			case 'working':
+				this.bigCalRef.current.setCurrentUsers([
+					storyUsers[0],
+					storyUsers[3],
+					storyUsers[4]
+				])
+				break
+		}
+		console.log(e.target.value)
+	}
+
 	render() {
 		const { users, location, events } = this.state
 
 		return (
 			<Container>
 				<BigCalendar
+					ref={this.bigCalRef}
+					userModeOptions={{
+						everyone: 'Everyone',
+						working: 'Working',
+						me: 'Me'
+					}}
+					onChangeUserMode={this.handleUserModeChange}
 					onDropEvent={this.handleDropEvent}
 					allUsers={users}
 					timezone={location.timezone}

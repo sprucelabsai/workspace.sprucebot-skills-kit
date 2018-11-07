@@ -38,9 +38,9 @@ var HeaderControls = function HeaderControls(props) {
     isSmall: true,
     text: 'CalendarIcon',
     className: "bigcalendar__calendarIcon-button"
-  }), _react.default.createElement(_Select.default, {
-    options: ['Full Team', 'Me'],
-    onChange: props.onChangeView
+  }), props.userModeOptions && props.onChangeUserMode && _react.default.createElement(_Select.default, {
+    options: props.userModeOptions,
+    onChange: props.onChangeUserMode
   }), _react.default.createElement(_Button.default, {
     kind: "simple",
     text: "Full Screen",
