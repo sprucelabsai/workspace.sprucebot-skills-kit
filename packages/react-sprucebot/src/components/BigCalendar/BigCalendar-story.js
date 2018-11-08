@@ -67,8 +67,8 @@ class BigCalendarExample extends Component {
 		}
 
 		if (blockUpdates) {
-			blockUpdates.forEach(update => {
-				eventCopy.blocks[update.blockIdx].durationSec = update.newDurationSec
+			blockUpdates.forEach((update, blockIdx) => {
+				eventCopy.blocks[blockIdx].durationSec = update.newDurationSec
 			})
 		}
 

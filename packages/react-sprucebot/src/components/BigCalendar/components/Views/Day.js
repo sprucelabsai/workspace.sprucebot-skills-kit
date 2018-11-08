@@ -44,7 +44,7 @@ type Props = {
 
 type State = {
 	selectedEvent: Object,
-	highlightedEventAndBlock: Object
+	highlightedEvent: Object
 }
 
 class Day extends Component<Props> {
@@ -59,6 +59,7 @@ class Day extends Component<Props> {
 
 	_timeRangeCache = {}
 	_columnMapCache = null
+	_dragResizeUpdates = null
 
 	constructor(props) {
 		super(props)
@@ -105,7 +106,10 @@ class Day extends Component<Props> {
 		// // arrows that sit in the upper right
 		this.updateHorizontalPagerDetails()
 
-		if (this._lastDragDetails) {
+		if (
+			this._lastDragDetails &&
+			this.dragGridRef.current.isMouseDownOnEvent()
+		) {
 			this.handleDragOfEvent(
 				this._lastDragDetails.event,
 				this._lastDragDetails.dragDetails
@@ -315,12 +319,16 @@ class Day extends Component<Props> {
 				blockIdx: response.blockIdx,
 				direction
 			}
+		} else {
+			this._resizeDetails = null
 		}
 
-		this._scrollStartingPosition = {
-			left: this.dragGridRef.current.getScrollLeft(),
-			top: this.dragGridRef.current.getScrollTop()
+		if (!this._dragResizeUpdates) {
+			this._dragResizeUpdates = {
+				blockUpdates: []
+			}
 		}
+
 		return response
 	}
 
@@ -328,14 +336,14 @@ class Day extends Component<Props> {
 		// console.log('drop event in day')
 		// reset some things
 		const dragDetails = this._dragDetails || {}
-		const resizeDetails = this._resizeDetails || {}
+		const { blockUpdates } = this._dragResizeUpdates || {}
 
 		this._dragDetails = null
 		this._resizeDetails = null
 		this._lastDragDetails = null
+		this._dragResizeUpdates = null
 
-		const newStartTime =
-			dragDetails.newStartAt || resizeDetails.newStartAt || this.yToTime(newY)
+		const newStartTime = this.yToTime(newY)
 		const newUser = this.xToUser(newX)
 
 		const { onDropEvent } = this.props
@@ -347,7 +355,7 @@ class Day extends Component<Props> {
 				newStartAt: newStartTime,
 				newUser: newUser && newUser.id !== event.userId ? newUser : null,
 				...dragDetails,
-				...resizeDetails
+				blockUpdates
 			})
 		)
 	}
@@ -360,8 +368,8 @@ class Day extends Component<Props> {
 			})
 		}
 
-		const { onDragEvent, timezone } = this.props
-		const { dragEventNode, blockIdx, sourceEventNode } = dragDetails
+		const { onDragEvent } = this.props
+		const { dragEventNode, blockIdx } = dragDetails
 
 		// to track the cancelling of drag grid moving the event for us
 		let cancelDrag = false
@@ -369,38 +377,37 @@ class Day extends Component<Props> {
 		if (this._resizeDetails) {
 			// console.log('handle drag resizing')
 			cancelDrag = true
-			const { top: startingScrollTop } = this._scrollStartingPosition
 
-			const deltaScrollTop =
-				this.dragGridRef.current.getScrollTop() - startingScrollTop
 			const {
-				dragBlockNode,
 				eMouseMove,
 				eMouseDown,
 				blockIdx,
-				sourceBlockNode
+				dragBlockNode,
+				dragBlockNodeHeight,
+				dragEventNodeTop,
+				dragBlockNodeHeights,
+				dragEventNodeBottom,
+				startScrollTop
 			} = dragDetails
+
+			const deltaScrollTop =
+				this.dragGridRef.current.getScrollTop() - startScrollTop
 
 			const dragDistance =
 				eventUtil.clientXY(eMouseMove).clientY -
 				eventUtil.clientXY(eMouseDown).clientY +
 				deltaScrollTop
 
-			const originalHeight = sizeUtil.getHeight(sourceBlockNode)
+			const originalHeight = dragBlockNodeHeight
 			const slotHeight = this.slotHeight()
-			const originalTop = parseFloat(sourceEventNode.style.top)
+			const originalTop = dragEventNodeTop
 
 			const { direction } = this._resizeDetails
-			const resizeDetails = {
-				...this._resizeDetails,
-				blockUpdates: []
-			}
 
 			// drag always changes the height of the selected block, so lets set the height
 			// callout that height is set differently deppending on drag direction
 			// also, when dragging north, we should not be able to drag more than the height
 			// of the previous block (if there is one)
-
 			let distance = this.snapEventToNearestValidY({
 				dragNodeTop: Math.abs(dragDistance)
 			})
@@ -411,10 +418,7 @@ class Day extends Component<Props> {
 
 			// clamp distance
 			if (direction === 'n' && blockIdx > 0) {
-				distance = Math.max(
-					distance,
-					sizeUtil.getHeight(sourceBlockNode.previousSibling) * -1
-				)
+				distance = Math.max(distance, dragBlockNodeHeights[blockIdx - 1] * -1)
 			} else if (direction === 'n') {
 				// so it won't go too far up
 				distance = Math.max(distance, originalTop * -1)
@@ -422,10 +426,7 @@ class Day extends Component<Props> {
 				// so it won't go too far down
 				distance = Math.min(distance, originalHeight - slotHeight)
 			} else if (direction === 's') {
-				distance = Math.min(
-					distance,
-					this.dayColHeight() - sizeUtil.getLocalBottom(sourceEventNode)
-				)
+				distance = Math.min(distance, this.dayColHeight() - dragEventNodeBottom)
 			}
 
 			let height = originalHeight
@@ -438,16 +439,14 @@ class Day extends Component<Props> {
 
 			dragBlockNode.style.height = parseInt(height) + 'px'
 
-			resizeDetails.blockUpdates.push({
-				blockIdx: blockIdx,
+			this._dragResizeUpdates.blockUpdates[blockIdx] = {
 				newDurationSec: this.heightToSeconds(height)
-			})
+			}
 
 			// if we are dragging a block after the first, resize the previous block
 			if (blockIdx > 0 && direction === 'n') {
 				const previousDragBlock = dragBlockNode.previousSibling
-				const previousSourceBlock = sourceBlockNode.previousSibling
-				const previousHeight = sizeUtil.getHeight(previousSourceBlock)
+				const previousHeight = dragBlockNodeHeights[blockIdx - 1]
 
 				let height = previousHeight + distance
 
@@ -456,10 +455,9 @@ class Day extends Component<Props> {
 
 				previousDragBlock.style.height = parseInt(height) + 'px'
 
-				resizeDetails.blockUpdates.push({
-					blockIdx: blockIdx - 1,
+				this._dragResizeUpdates.blockUpdates[blockIdx - 1] = {
 					newDurationSec: this.heightToSeconds(height)
-				})
+				}
 			}
 			// don't resize this block if we're dragging north and we're the first block
 			//if we are the first block, we have to move the whole event up the inverse
@@ -467,18 +465,10 @@ class Day extends Component<Props> {
 			else if (blockIdx === 0 && direction === 'n') {
 				const newTop = originalTop + distance
 				dragEventNode.style.top = `${newTop}px`
-				const deltaSeconds = this.heightToSeconds(distance * -1)
-				const newStartAt = moment
-					.tz(event.startAt, timezone)
-					.subtract(deltaSeconds, 'seconds')
 
-				resizeDetails.newStartAt = newStartAt
-				dragEventNode.querySelector('.time').innerHTML = newStartAt.format(
-					'h:mma'
-				)
+				const start = this.yToTime(newTop)
+				dragEventNode.querySelector('.time').innerHTML = start.format('h:mma')
 			}
-
-			this._resizeDetails = resizeDetails
 		}
 		// dragging an event is peasy peezy (drag grid handles it)
 		// we'll just make some day view only updates
@@ -493,27 +483,26 @@ class Day extends Component<Props> {
 		else {
 			cancelDrag = true
 			const {
-				sourceBlockNode,
 				dragBlockNode,
 				eMouseMove,
 				eMouseDown,
+				dragBlockNodeHeights,
+				dragEventNodeBottom,
+				startScrollTop,
 				x
 			} = dragDetails
 
-			const previousSourceBlockNode = sourceBlockNode.previousSibling
 			const previousDragBlock = dragBlockNode.previousSibling
-			const { top: startingScrollTop } = this._scrollStartingPosition
 
 			const deltaScrollTop =
-				this.dragGridRef.current.getScrollTop() - startingScrollTop
+				this.dragGridRef.current.getScrollTop() - startScrollTop
 
 			const dragDistance =
 				eventUtil.clientXY(eMouseMove).clientY +
 				deltaScrollTop -
 				eventUtil.clientXY(eMouseDown).clientY
-			const originalHeight = sizeUtil.getHeight(previousSourceBlockNode)
-			const maxDistance =
-				this.dayColHeight() - sizeUtil.getLocalBottom(sourceEventNode)
+			const originalHeight = dragBlockNodeHeights[blockIdx - 1]
+			const maxDistance = this.dayColHeight() - dragEventNodeBottom
 
 			let distance = Math.min(dragDistance, maxDistance)
 
@@ -528,19 +517,15 @@ class Day extends Component<Props> {
 			dragEventNode.style.left = x + 'px'
 
 			const duration = this.heightToSeconds(newHeight)
-			this._dragDetails = {
-				blockUpdates: [
-					{
-						blockIdx: blockIdx - 1,
-						newDurationSec: duration
-					}
-				]
+			this._dragResizeUpdates.blockUpdates[blockIdx - 1] = {
+				newDurationSec: duration
 			}
 		}
 
+		this._lastDragDetails = { event, dragDetails }
+
 		// we ask drag grid to only move the dom node if we are moving the whole event (block 0)
 		// all other drags are ignored
-		this._lastDragDetails = { event, dragDetails }
 		return onDragEvent ? onDragEvent(event, dragDetails) : !cancelDrag
 	}
 
@@ -578,11 +563,11 @@ class Day extends Component<Props> {
 	}
 
 	handleHighlightEvent = async ({ event, block, blockIdx }) => {
-		this.setState({ highlightedEventAndBlock: { event, block, blockIdx } })
+		this.setState({ highlightedEvent: event })
 	}
 
 	handleUnHighlightEvent = () => {
-		this.setState({ highlightedEventAndBlock: null })
+		this.setState({ highlightedEvent: null })
 	}
 
 	handleCloseEventDetails = () => {
@@ -882,7 +867,7 @@ class Day extends Component<Props> {
 			events
 		} = this.props
 
-		const { selectedEvent, highlightedEventAndBlock } = this.state
+		const { selectedEvent, highlightedEvent } = this.state
 
 		let eventDetails = null
 		if (selectedEvent && selectedEvent.details) {
@@ -895,7 +880,7 @@ class Day extends Component<Props> {
 			<div
 				className={cx('bigcalendar__view-day', {
 					'has-selected-event': !!selectedEvent,
-					'has-highlighted-event': !!highlightedEventAndBlock
+					'has-highlighted-event': !!highlightedEvent
 				})}
 			>
 				<div className="bigcalendar__user-header">
@@ -926,7 +911,7 @@ class Day extends Component<Props> {
 						onScroll={this.handleScroll}
 						ref={this.dragGridRef}
 						selectedEvent={selectedEvent}
-						highlightedEventAndBlock={highlightedEventAndBlock}
+						highlightedEvent={highlightedEvent}
 						events={this.eventsForDay(events, startDate)}
 						sizeEvent={this.sizeEvent}
 						timezone={timezone}

@@ -1,8 +1,9 @@
 {
 	"search.exclude": {
-		"**/node_modules": true,
+		"**/.next": true,
 		"**/bower_components": true,
-		"**/.next": true
+		"**/node_modules": true,
+		"lib": true
 	},
 	"git.ignoreLimitWarning": true,
 	"cSpell.words": ["callout", "stringify'able", "uploader"],

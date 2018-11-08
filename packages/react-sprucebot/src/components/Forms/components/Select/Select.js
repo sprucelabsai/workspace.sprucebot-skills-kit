@@ -52,7 +52,7 @@ const Select = (props: Props) => {
 			<div className={parentClass}>
 				<select {...rest}>
 					{Object.keys(options).map(key => (
-						<option value={key} key={key}>
+						<option value={key} key={`${key}`}>
 							{options[key]}
 						</option>
 					))}

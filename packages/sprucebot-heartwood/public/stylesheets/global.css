@@ -3494,11 +3494,6 @@ select:-webkit-autofill:focus {
   .bigcalendar__view-day .hour-block .timeslot:last-of-type {
     border: none; }
 
-.bigcalendar__view-day .bigcalendar__event {
-  width: 9.375rem; }
-  .bigcalendar__view-day .bigcalendar__event.is-selected {
-    max-width: 9.375rem; }
-
 .bigcalendar__view-day.has-highlighted-event .bigcalendar__day-col,
 .bigcalendar__view-day.has-highlighted-event .bigcalendar__event, .bigcalendar__view-day.has-selected-event .bigcalendar__day-col,
 .bigcalendar__view-day.has-selected-event .bigcalendar__event {
@@ -3518,6 +3513,34 @@ select:-webkit-autofill:focus {
 .bigcalendar__view-day .event-details {
   position: absolute;
   z-index: 4; }
+
+.bigcalendar__view-day .bigcalendar__event {
+  width: 9.375rem; }
+  .bigcalendar__view-day .bigcalendar__event.is-selected {
+    max-width: 9.375rem; }
+  .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy {
+    overflow: visible; }
+    .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle {
+      height: 10px; }
+      .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle .resize-highlight-handle {
+        height: 10px;
+        width: 10px;
+        border: 1px solid #0076D6;
+        display: block;
+        border-radius: 50%;
+        background-color: #fff;
+        position: absolute; }
+      .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle.resize-n {
+        top: -5px;
+        right: 0px; }
+        .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle.resize-n .resize-highlight-handle {
+          right: 10px;
+          top: 0px; }
+      .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle.resize-s {
+        bottom: -5px; }
+        .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle.resize-s .resize-highlight-handle {
+          left: 10px;
+          top: 0px; }
 
 .bigcalendar__event {
   border: 1px solid #0076D6;
@@ -3613,29 +3636,6 @@ select:-webkit-autofill:focus {
         cursor: ns-resize; }
       .bigcalendar__event-block.busy .resize-handle .resize-highlight-handle {
         display: none; }
-  .bigcalendar__event-block.is-highlighted {
-    overflow: visible; }
-    .bigcalendar__event-block.is-highlighted .resize-handle {
-      height: 10px; }
-      .bigcalendar__event-block.is-highlighted .resize-handle .resize-highlight-handle {
-        height: 10px;
-        width: 10px;
-        border: 1px solid #0076D6;
-        display: block;
-        border-radius: 50%;
-        background-color: #fff;
-        position: absolute; }
-      .bigcalendar__event-block.is-highlighted .resize-handle.resize-n {
-        top: -5px;
-        right: 0px; }
-        .bigcalendar__event-block.is-highlighted .resize-handle.resize-n .resize-highlight-handle {
-          right: 10px;
-          top: 0px; }
-      .bigcalendar__event-block.is-highlighted .resize-handle.resize-s {
-        bottom: -5px; }
-        .bigcalendar__event-block.is-highlighted .resize-handle.resize-s .resize-highlight-handle {
-          left: 10px;
-          top: 0px; }
 
 .event-details {
   max-width: 20rem;
