@@ -179,7 +179,7 @@ class DragGrid extends Component<Props> {
 	}
 
 	handleTouchEndOnView = e => {
-		// console.log('touch end on view')
+		console.log('touch end on view')
 		this.handleMouseUpFromView(e)
 
 		window.removeEventListener('touchend', this.handleTouchEndOnView)
@@ -295,6 +295,8 @@ class DragGrid extends Component<Props> {
 
 		this.startDragOfEvent({ e, event, block, blockIdx })
 
+		this._tapOnDragEventTime = new Date()
+
 		window.addEventListener('touchend', this.handleTouchEndOnEvent)
 		window.addEventListener('touchmove', this.handleTouchDragOfEvent, {
 			passive: false
@@ -302,7 +304,7 @@ class DragGrid extends Component<Props> {
 	}
 
 	handleTouchEndOnEvent = e => {
-		// console.log('touch end on event')
+		console.log('touch end on event')
 		// we did not successfully long press, simulate all mouse events hurry
 		if (this._longPressTimeout) {
 			clearInterval(this._longPressTimeout)
@@ -316,8 +318,14 @@ class DragGrid extends Component<Props> {
 				stopEvent: false
 			})
 			this.handleMouseUpFromEvent(this._pendingTouch.e)
+		} else if (this._tapOnDragEventTime) {
+			const diff = new Date() - this._tapOnDragEventTime
+			if (diff < 250) {
+				this.handleMouseUpFromEvent(e)
+			}
 		}
 
+		this._tapOnDragEventTime = null
 		this._touchDragging = false
 		this._isMouseDownOnEvent = false
 
@@ -332,6 +340,10 @@ class DragGrid extends Component<Props> {
 
 		this._handleDragOnScroll = false
 		this._pendingTouch = null
+
+		//if we are scrolling, kill it
+		this.stopScrollingHorizontally()
+		this.stopScrollingVertically()
 	}
 
 	handleLongPressOnEvent = ({ e, event, block, blockIdx }) => {
@@ -379,6 +391,7 @@ class DragGrid extends Component<Props> {
 
 	handleTouchDragOfEvent = e => {
 		clearTimeout(this._longPressTimeout)
+		clearTimeout(this._tapOnDragEventTimeout)
 		this._longPressTimeout = false
 		if (this._activeDrag) {
 			const { clientX, clientY } = eventUtil.clientXY(e)
@@ -415,6 +428,9 @@ class DragGrid extends Component<Props> {
 		const { dragEvent } = this.state
 
 		if (dragEvent) {
+			//clearing this will ensure event is not deselect after it is dropped
+			this._tapOnDragEventTime = null
+
 			const { clientX, clientY } = eventUtil.clientXY(e)
 			const {
 				scrollDuringDragMargin,
