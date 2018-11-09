@@ -1,4 +1,4 @@
-const debug = require('debug')('sprucebot-skills-kit-server')
+const debug = require('debug')('spruce-skill-server')
 const Koa = require('koa')
 const next = require('next')
 const Router = require('koa-router')

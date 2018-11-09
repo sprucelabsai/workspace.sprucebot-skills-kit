@@ -1,4 +1,4 @@
-const debug = require('debug')('sprucebot-skills-kit-server')
+const debug = require('debug')('spruce-skill-server')
 
 module.exports = (router, options) => {
 	const listenersByEventName = options.listenersByEventName

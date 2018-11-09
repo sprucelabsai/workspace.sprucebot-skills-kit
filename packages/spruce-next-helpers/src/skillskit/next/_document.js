@@ -1,6 +1,6 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
-const debug = require('debug')('@sprucelabs/react-sprucebot')
+const debug = require('debug')('@sprucelabs/spruce-next-helpers')
 
 export default class MyDocument extends Document {
 	static async getInitialProps({ renderPage, query, store }) {

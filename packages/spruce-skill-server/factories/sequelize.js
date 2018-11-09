@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const debug = require('debug')('sprucebot-skills-kit-server')
+const debug = require('debug')('spruce-skill-server')
 const Sequelize = require('sequelize')
 const Umzug = require('umzug')
 

@@ -1,6 +1,6 @@
 const url = require('../utilities/url')
 const https = require('https')
-var debug = require('debug')('@sprucelabs/sprucebot-node')
+var debug = require('debug')('@sprucelabs/spruce-node')
 
 module.exports = class Https {
 	constructor({ host, apiKey, id, version, allowSelfSignedCerts = false }) {

@@ -12,7 +12,7 @@ import Router, { withRouter } from 'next/router'
 import { Container } from 'next/app'
 import is from 'is_js'
 
-const debug = require('debug')('@sprucelabs/react-sprucebot')
+const debug = require('debug')('@sprucelabs/spruce-next-helpers')
 
 const setCookie = (named, value, req, res) => {
 	if (req && req.headers) {

@@ -1,4 +1,4 @@
-const debug = require('debug')('sprucebot-skills-kit-server')
+const debug = require('debug')('spruce-skill-server')
 
 module.exports = (router, options) => {
 	router.post('/api/1.0/guest/sharable/emit.json', async (ctx, next) => {
