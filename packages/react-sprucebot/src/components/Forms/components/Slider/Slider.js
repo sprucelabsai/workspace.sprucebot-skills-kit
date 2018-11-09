@@ -21,33 +21,39 @@ type Props = {
 	/** Text to show after the label */
 	postLabel: ?string,
 
-	/** Callback after the slider updates its own value */
+	/** Callback after the slider updates its own value.
+	 * Using this property will place the slider in controlled mode. */
 	onChange?: Function
 }
 
 type State = {
-	valueState: number
+	uncontrolledValue: number
 }
 
 export default class Slider extends Component<Props, State> {
 	state = {
-		valueState: this.props.value
+		uncontrolledValue: this.props.value
 	}
 
-	handleChange = (e: any) => {
-		const { onChange } = this.props
-		const newVal = e.target.value
+	handleUncontrolledChange = (e: any) => {
 		this.setState({
-			valueState: newVal
+			uncontrolledValue: e.target.value
 		})
-		if (onChange) {
-			onChange(e)
-		}
 	}
 
 	render() {
-		const { valueState } = this.state
-		const { label, id, postLabel, min, max, value, ...rest } = this.props
+		const { uncontrolledValue } = this.state
+		const {
+			label,
+			id,
+			postLabel,
+			min,
+			max,
+			value,
+			onChange,
+			...rest
+		} = this.props
+
 		return (
 			<div className="slider-wrapper slider--split-color">
 				{label && <InputPre id={id} label={label} postLabel={postLabel} />}
@@ -56,14 +62,14 @@ export default class Slider extends Component<Props, State> {
 					type="range"
 					min={min}
 					max={max}
-					value={valueState}
+					value={onChange ? value : uncontrolledValue}
 					className="slider"
 					style={{
 						'--min': min,
 						'--max': max,
-						'--val': valueState
+						'--val': onChange ? value : uncontrolledValue
 					}}
-					onChange={this.handleChange}
+					onChange={onChange ? onChange : this.handleUncontrolledChange}
 				/>
 			</div>
 		)
