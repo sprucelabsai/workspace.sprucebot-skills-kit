@@ -47,7 +47,7 @@ function (_Document) {
       var bodyClassName = this.props.config && this.props.config.SLUG ? " skill-".concat(this.props.config.SLUG) : '';
       return _react.default.createElement("html", {
         className: "skill".concat(bodyClassName)
-      }, _react.default.createElement(_document.Head, null, _react.default.createElement("title", null, this.props.name), _react.default.createElement("meta", {
+      }, _react.default.createElement(_document.Head, null, _react.default.createElement("meta", {
         name: "viewport",
         content: "width=device-width, initial-scale=1"
       }), _react.default.createElement("link", {

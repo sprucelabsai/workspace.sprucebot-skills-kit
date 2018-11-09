@@ -36,6 +36,7 @@ import * as Typography from './components/Typography/Typography'
 import * as List from './components/List/List'
 import * as Tabs from './components/Tabs/Tabs'
 import skill from './skillskit'
+import _app from './skillskit/next/_app'
 import _document from './skillskit/next/_document'
 import Page from './skillskit/next/Page'
 import withStore, { createStore } from './skillskit/store/withStore'
@@ -62,6 +63,7 @@ const Sprucebot = {
 	},
 	lang,
 	skill,
+	_app,
 	_document,
 	Page,
 	withStore,
