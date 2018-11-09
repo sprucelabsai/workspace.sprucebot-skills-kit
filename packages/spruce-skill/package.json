@@ -24,7 +24,7 @@
 		"local": "nodemon server/server.js --exec \"node --inspect=4006\" --watch server --watch config --verbose --ignore server/swagger --ignore server/static",
 		"interface": "next ./interface -p 3006",
 		"lint": "./node_modules/.bin/eslint '**/**/*{.js}'",
-		"test": "yarn run build && jest --clearCache && jest",
+		"#test": "yarn run build && jest --clearCache && jest",
 		"test:server": "PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true mocha --exit 'server/tests/**/*Tests.js'",
 		"test:server:single": "PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true mocha --exit",
 		"icon": "./node_modules/.bin/svgo icon/icon.svg",
