@@ -27,7 +27,8 @@
 		"prepush": "npm run lint && npm run test",
 		"watch": "chokidar 'src/**/*.js' -c 'npm run build'",
 		"storybook": "start-storybook -p 6006",
-		"build-storybook": "build-storybook"
+		"build-storybook": "build-storybook",
+		"postinstall": "npm run build"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.0.0",

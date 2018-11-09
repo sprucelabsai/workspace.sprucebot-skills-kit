@@ -1,8 +1,8 @@
-import { Page, withStore } from '@sprucelabs/react-heartwood-components'
+import { Page, withStore } from '@sprucelabs/spruce-next-helpers'
 import config from './../client'
 import actions from './../store/actions'
 import reducers from './../store/reducers'
-import { lang } from '@sprucelabs/react-heartwood-components'
+import { lang } from '@sprucelabs/spruce-next-helpers'
 import defaultLang from './../lang/default'
 
 let overridesLang = {}

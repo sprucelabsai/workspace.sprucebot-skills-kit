@@ -19,7 +19,7 @@
 		"npm": "^5.4.2"
 	},
 	"scripts": {
-		"#build": "next build interface",
+		"build": "next build interface",
 		"start": "node ./server/server.js",
 		"local": "nodemon server/server.js --exec \"node --inspect=4006\" --watch server --watch config --verbose --ignore server/swagger --ignore server/static",
 		"interface": "next ./interface -p 3006",
@@ -30,8 +30,8 @@
 		"icon": "./node_modules/.bin/svgo icon/icon.svg",
 		"precommit": "npm run lint",
 		"prepush": "npm run lint && npm run test",
-		"#heroku-postbuild": "npm run build",
-		"#postinstall": "npm run build",
+		"heroku-postbuild": "npm run build",
+		"postinstall": "npm run build",
 		"release": "semantic-release"
 	},
 	"dependencies": {

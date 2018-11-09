@@ -18,7 +18,8 @@
 	},
 	"scripts": {
 		"deploy": "gh-pages -d build",
-		"build": "gulp styles && gulp js && fractal build"
+		"build": "gulp styles && gulp js && fractal build",
+		"postinstall": "npm run build"
 	},
 	"description": "This is a seed project, using [Fractal](https://github.com/frctl/fractal) alongside Sass and Gulp to provide editable component-based CSS",
 	"main": "Gulpfile.js",
