@@ -11,17 +11,19 @@ import BackIcon from '../../../../../../../static/assets/icons/ic_arrow_back.svg
 export type Props = {
 	label: string,
 	title: string,
-	handleGoBack?: Function,
+	onClickBack?: Function,
+	onClickClose: Function,
 	contextMenu?: ContextMenuProps
 }
 
 const EventDetailsHeader = (props: Props) => {
-	const { label, title, handleGoBack, contextMenu } = props
+	const { label, title, onClickBack, onClickClose, contextMenu } = props
 
 	return (
 		<div className="event-details-header">
-			{handleGoBack && (
+			{onClickBack && (
 				<Button
+					onClick={onClickBack}
 					isSmall
 					className="event-details-header__button"
 					icon={<BackIcon />}
@@ -34,6 +36,7 @@ const EventDetailsHeader = (props: Props) => {
 			<div className="event-details-header__actions-wrapper">
 				{contextMenu && <ContextMenu isSmall {...contextMenu} />}
 				<Button
+					onClick={onClickClose}
 					isSmall
 					className="event-details-header__button"
 					icon={<Icon icon="close" />}

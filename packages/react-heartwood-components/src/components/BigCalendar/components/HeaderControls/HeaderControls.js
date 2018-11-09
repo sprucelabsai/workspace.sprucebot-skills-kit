@@ -14,7 +14,9 @@ type Props = {
 	onBackDate: Function,
 	onNextDate: Function,
 	onChangeView: Function,
-	fullScreenNodeRef: Object
+	fullScreenNodeRef: Object,
+	userModeOptions: Array<Object>,
+	onChangeUserMode: Function
 }
 
 const HeaderControls = (props: Props) => {
@@ -27,9 +29,25 @@ const HeaderControls = (props: Props) => {
 				currentPage={1}
 				totalPages={3}
 			/>
-			<Button kind={'simple'} isSmall={true} text={'Date'} />
-			<Button kind={'simple'} isSmall={true} text={'CalendarIcon'} />
-			<Select options={['Full Team', 'Me']} onChange={props.onChangeView} />
+			<Button
+				kind={'simple'}
+				isSmall={true}
+				text={'Date'}
+				className="bigcalendar__selectedDate-button"
+			/>
+			<Button
+				kind={'simple'}
+				isSmall={true}
+				text={'CalendarIcon'}
+				className="bigcalendar__calendarIcon-button"
+			/>
+			{props.userModeOptions &&
+				props.onChangeUserMode && (
+					<Select
+						options={props.userModeOptions}
+						onChange={props.onChangeUserMode}
+					/>
+				)}
 			<Button
 				kind="simple"
 				text="Full Screen"

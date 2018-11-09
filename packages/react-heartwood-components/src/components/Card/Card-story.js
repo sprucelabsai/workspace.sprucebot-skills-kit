@@ -11,7 +11,8 @@ import {
 import { onboarding } from '../../../.storybook/data/onboarding'
 import { userList } from '../../../.storybook/data/people'
 import Container from '../Layout/Container/Container'
-import Card, {
+import {
+	Card,
 	CardHeader,
 	CardBody,
 	CardFooter,

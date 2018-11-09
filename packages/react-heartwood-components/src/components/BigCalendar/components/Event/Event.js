@@ -12,16 +12,29 @@ type Props = {
 }
 
 const Event = (props: Props) => {
-	const { event, className, onMouseDown, timezone, ...rest } = props
+	const {
+		event,
+		className,
+		onMouseDown,
+		onTouchStart,
+		timezone,
+		...rest
+	} = props
 	let startAt = moment.tz(event.startAt, timezone)
 	return (
-		<div className={cx('bigcalendar__event', className)} {...rest}>
+		<div
+			className={cx('bigcalendar__event', className, event.className)}
+			{...rest}
+		>
 			{event.blocks.map((block, idx) => {
 				const eventBlock = (
 					<EventBlock
 						startAt={startAt}
 						onMouseDown={e => {
-							onMouseDown && onMouseDown(e, event, block, idx)
+							onMouseDown && onMouseDown({ e, event, block, blockIdx: idx })
+						}}
+						onTouchStart={e => {
+							onTouchStart && onTouchStart({ e, event, block, blockIdx: idx })
 						}}
 						key={`block-${event.id}-${idx}`}
 						block={block}

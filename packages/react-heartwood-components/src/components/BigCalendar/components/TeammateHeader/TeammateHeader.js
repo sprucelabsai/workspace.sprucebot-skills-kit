@@ -5,7 +5,6 @@ import UserAvatar from '../../../Avatar/UserAvatar'
 
 type Props = {
 	users: Array<Object>,
-	scrollLeft: Number,
 	onScroll: Function
 }
 
@@ -14,12 +13,9 @@ class TeammateHeader extends Component<Props> {
 		super(props)
 		this.domNodeRef = React.createRef()
 	}
-	componentDidUpdate = () => {
-		this.domNodeRef.current.scrollLeft = this.props.scrollLeft
-	}
 
 	render() {
-		const { users, onScroll, scrollLeft, ...props } = this.props
+		const { users, onScroll, ...props } = this.props
 
 		return (
 			<div className="bigcalendar__teammate-header" {...props}>

@@ -269,7 +269,11 @@ stories
 				<Select
 					label={text('label', 'Country')}
 					id={text('id', 'country')}
-					options={object('options', ['United States', 'Canada', 'New Jersey'])}
+					options={object('options', {
+						us: 'United States',
+						ca: 'Canada',
+						nj: 'New Jersey'
+					})}
 					isSimple={boolean('isSimple', false)}
 					helper={text('helper', '')}
 					error={text('error', '')}
