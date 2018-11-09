@@ -80,6 +80,8 @@ var Tabs = _interopRequireWildcard(require("./components/Tabs/Tabs"));
 
 var _skillskit = _interopRequireDefault(require("./skillskit"));
 
+var _app2 = _interopRequireDefault(require("./skillskit/next/_app"));
+
 var _document2 = _interopRequireDefault(require("./skillskit/next/_document"));
 
 var _Page = _interopRequireDefault(require("./skillskit/next/Page"));
@@ -113,6 +115,7 @@ var Sprucebot = (0, _objectSpread2.default)({
   },
   lang: _lang.default,
   skill: _skillskit.default,
+  _app: _app2.default,
   _document: _document2.default,
   Page: _Page.default,
   withStore: _withStore.default,
