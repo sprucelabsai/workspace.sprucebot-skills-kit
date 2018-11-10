@@ -6,7 +6,7 @@ const myCustomisedTheme = mandelbrot({
     skin: "black",
     styles: [
         "default",
-        "/stylesheets/global.css"
+        "/stylesheets/heartwood-components.css"
     ]
 });
 /*
