@@ -193,19 +193,15 @@ export default class Dropzone extends Component<Props, State> {
 								</Fragment>
 							)}
 							<div className="dropzone__icons">
-								{!uploadProgress &&
-									!isDragAccept &&
-									!isDragReject && (
-										<Fragment>
-											{fileWasUploaded ? (
-												<UploadedIcon className="dropzone__icon dropzone__did-upload-icon" />
-											) : (
-												defaultIcon || (
-													<DefaultIcon className="dropzone__icon" />
-												)
-											)}
-										</Fragment>
-									)}
+								{!uploadProgress && !isDragAccept && !isDragReject && (
+									<Fragment>
+										{fileWasUploaded ? (
+											<UploadedIcon className="dropzone__icon dropzone__did-upload-icon" />
+										) : (
+											defaultIcon || <DefaultIcon className="dropzone__icon" />
+										)}
+									</Fragment>
+								)}
 								{isDragAccept && (
 									<DropIcon className="dropzone__icon dropzone__allow-drop-icon" />
 								)}

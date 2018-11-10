@@ -41,13 +41,12 @@ const HeaderControls = (props: Props) => {
 				text={'CalendarIcon'}
 				className="bigcalendar__calendarIcon-button"
 			/>
-			{props.userModeOptions &&
-				props.onChangeUserMode && (
-					<Select
-						options={props.userModeOptions}
-						onChange={props.onChangeUserMode}
-					/>
-				)}
+			{props.userModeOptions && props.onChangeUserMode && (
+				<Select
+					options={props.userModeOptions}
+					onChange={props.onChangeUserMode}
+				/>
+			)}
 			<Button
 				kind="simple"
 				text="Full Screen"

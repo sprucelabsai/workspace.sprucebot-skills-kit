@@ -36,8 +36,8 @@ const ButtonGroup = (props: Props) => {
 								kind === 'floating'
 									? 'simple'
 									: kind === 'segmented'
-										? 'secondary'
-										: action.kind
+									? 'secondary'
+									: action.kind
 							}
 						/>
 					</li>
