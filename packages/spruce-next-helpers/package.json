@@ -25,8 +25,7 @@
 		"#test": "jest",
 		"precommit": "npm run lint && npm run build",
 		"prepush": "npm run lint && npm run test",
-		"watch": "chokidar 'src/**/*.js' -c 'npm run build'",
-		"postinstall": "npm run build"
+		"watch": "chokidar 'src/**/*.js' -c 'npm run build'"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.0.0",

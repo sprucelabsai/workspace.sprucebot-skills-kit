@@ -31,7 +31,7 @@
 		"precommit": "npm run lint",
 		"prepush": "npm run lint && npm run test",
 		"heroku-postbuild": "npm run build",
-		"postinstall": "npm run build",
+		"#postinstall": "npm run build",
 		"release": "semantic-release"
 	},
 	"dependencies": {
