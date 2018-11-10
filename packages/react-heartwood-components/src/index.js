@@ -4,7 +4,15 @@ export { default as Avatar } from './components/Avatar/Avatar'
 export { default as BotText } from './components/BotText/BotText'
 export { default as Button } from './components/Button/Button'
 export { default as ButtonGroup } from './components/ButtonGroup/ButtonGroup'
-export { default as Card } from './components/Card'
+export {
+	default as Card,
+	CardHeader,
+	CardBody,
+	CardFooter,
+	CardBuilder,
+	OnboardingCard,
+	Scores
+} from './components/Card'
 export { default as ContextMenu } from './components/ContextMenu/ContextMenu'
 export { FooterPrimary, HeaderPrimary, Sidebar } from './components/Core'
 export { default as Dropzone } from './components/Dropzone/Dropzone'

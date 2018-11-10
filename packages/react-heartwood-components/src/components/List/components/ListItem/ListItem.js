@@ -58,32 +58,31 @@ const ListItem = (props: Props) => {
 
 	return (
 		<li className={parentClass}>
-			{(image || icon || avatar) &&
-				!isDraggable && (
-					<div className="list-item__image-wrapper">
-						{icon &&
-							React.cloneElement(icon, {
-								className: cx(
-									'list-item__icon',
-									icon.props && icon.props.className,
-									{
-										'u-icon__no-fill': icon.props && icon.props.isLineIcon,
-										'u-icon__stroke': icon.props && icon.props.isLineIcon
-									}
-								)
-							})}
-						{image && (
-							<img
-								src={image}
-								className="list-item__image"
-								alt={title}
-								width="40"
-								height="40"
-							/>
-						)}
-						{avatar && <Avatar image={avatar} alt={title} />}
-					</div>
-				)}
+			{(image || icon || avatar) && !isDraggable && (
+				<div className="list-item__image-wrapper">
+					{icon &&
+						React.cloneElement(icon, {
+							className: cx(
+								'list-item__icon',
+								icon.props && icon.props.className,
+								{
+									'u-icon__no-fill': icon.props && icon.props.isLineIcon,
+									'u-icon__stroke': icon.props && icon.props.isLineIcon
+								}
+							)
+						})}
+					{image && (
+						<img
+							src={image}
+							className="list-item__image"
+							alt={title}
+							width="40"
+							height="40"
+						/>
+					)}
+					{avatar && <Avatar image={avatar} alt={title} />}
+				</div>
+			)}
 			{isDraggable && <DragHandle className="drag-handle" />}
 			<div className="list-item__text-wrapper">
 				{toggleId ? (
@@ -100,25 +99,23 @@ const ListItem = (props: Props) => {
 					/>
 				)}
 			</div>
-			{!isDraggable &&
-				((actions && actions.length > 0) || contextMenu) && (
-					<div className="list-item__actions-wrapper">
-						{actions &&
-							actions.length > 0 && (
-								<div className="list-item__actions-wrapper">
-									{actions.map((action, idx) => (
-										<Button
-											key={idx}
-											isSmall
-											className="list-item__action"
-											{...action}
-										/>
-									))}
-								</div>
-							)}
-						{contextMenu && <ContextMenu {...contextMenu} />}
-					</div>
-				)}
+			{!isDraggable && ((actions && actions.length > 0) || contextMenu) && (
+				<div className="list-item__actions-wrapper">
+					{actions && actions.length > 0 && (
+						<div className="list-item__actions-wrapper">
+							{actions.map((action, idx) => (
+								<Button
+									key={idx}
+									isSmall
+									className="list-item__action"
+									{...action}
+								/>
+							))}
+						</div>
+					)}
+					{contextMenu && <ContextMenu {...contextMenu} />}
+				</div>
+			)}
 			{toggleId && <Toggle id={toggleId} />}
 		</li>
 	)

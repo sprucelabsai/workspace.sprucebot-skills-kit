@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { Select } from '@sprucelabs/react-heartwood-components'
+
 class DevControls extends Component {
 	constructor(props) {
 		super(props)
@@ -8,8 +10,8 @@ class DevControls extends Component {
 			loaded: false
 		}
 	}
-	onChangeRole = role => {
-		window.location.href = `/dev/${role}/redirect`
+	onChangeRole = e => {
+		window.location.href = `/dev/${e.target.value}/redirect`
 	}
 	componentDidMount() {
 		this.setState({
@@ -42,16 +44,17 @@ class DevControls extends Component {
 
 		return (
 			<div {...props} className={`dev_controls ${className || ''}`}>
-				<select
+				<Select
 					className={`select`}
 					label="Jump to Role"
 					onChange={this.onChangeRole}
-				>
-					<option value="">{`Current: ${auth.role}`}</option>
-					<option value="owner">Owner</option>
-					<option value="teammate">Teammate</option>
-					<option value="guest">Guest</option>
-				</select>
+					options={{
+						'': `Current: ${auth.role}`,
+						owner: 'Owner',
+						teammate: 'Teammate',
+						guest: 'Guest'
+					}}
+				/>
 			</div>
 		)
 	}

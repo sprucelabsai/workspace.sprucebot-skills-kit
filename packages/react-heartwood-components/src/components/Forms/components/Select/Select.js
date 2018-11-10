@@ -33,7 +33,7 @@ type Props = {
 const Select = (props: Props) => {
 	const {
 		id,
-		options,
+		options = {},
 		isSimple,
 		className,
 		label,
