@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import cx from 'classnames'
 
 import findIndex from 'lodash/findIndex'
@@ -48,7 +48,7 @@ type State = {
 	highlightedEvent: Object
 }
 
-class Day extends Component<Props> {
+class Day extends PureComponent<Props> {
 	state = {}
 
 	static defaultProps = {
@@ -90,11 +90,16 @@ class Day extends Component<Props> {
 	}
 
 	componentDidUpdate(prevProps) {
-		const { events, startDate } = this.props
-		if (prevProps.events !== events || prevProps.startDate !== startDate) {
+		const { events, startDate, users } = this.props
+		if (
+			prevProps.events !== events ||
+			prevProps.startDate !== startDate ||
+			prevProps.users !== users
+		) {
 			// reset all event cache
 			this._columnMapCache = null
 			this.placeAndSize()
+			this.sizeTimeLine()
 		}
 	}
 
@@ -846,8 +851,10 @@ class Day extends Component<Props> {
 			'.bigcalendar__time-line'
 		)
 		if (timeLineNode) {
+			timeLineNode.style.display = 'none'
 			const pageWidth = this.dragGridRef.current.getScrollWidth()
 			timeLineNode.style.width = `${pageWidth}px`
+			timeLineNode.style.display = 'block'
 		}
 	}
 

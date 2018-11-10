@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import cx from 'classnames'
 import { Easing, Tween } from 'es6-tween'
 import cloneDeep from 'lodash/cloneDeep'
@@ -37,7 +37,7 @@ type State = {
 	dragBlock: Object
 }
 
-class DragGrid extends Component<Props> {
+class DragGrid extends PureComponent<Props> {
 	state = {
 		scrollLeft: 0,
 		scrollTop: 0

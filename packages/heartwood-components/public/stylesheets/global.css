@@ -3478,12 +3478,12 @@ select:-webkit-autofill:focus {
 
 .bigcalendar__view-day .bigcalendar__day-col,
 .bigcalendar__view-day .bigcalendar__teammate-header .teammate {
-  min-width: 9.375rem;
-  max-width: 9.375rem;
+  min-width: 12.5rem;
+  max-width: 12.5rem;
   border-right: 1px solid #cccfd6; }
 
 .bigcalendar__view-day .hour-block {
-  height: 3.125rem;
+  height: 3.75rem;
   display: flex;
   flex-direction: column; }
   .bigcalendar__view-day .hour-block .timeslot {
@@ -3515,9 +3515,9 @@ select:-webkit-autofill:focus {
   z-index: 4; }
 
 .bigcalendar__view-day .bigcalendar__event {
-  width: 9.375rem; }
+  width: 12.5rem; }
   .bigcalendar__view-day .bigcalendar__event.is-selected {
-    max-width: 9.375rem; }
+    max-width: 12.5rem; }
   .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy {
     overflow: visible; }
     .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle {
@@ -3612,6 +3612,12 @@ select:-webkit-autofill:focus {
   cursor: pointer;
   position: relative;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  .bigcalendar__event-block p {
+    padding-left: 5px; }
+  .bigcalendar__event-block p:first-of-type {
+    padding-top: 2px; }
+  .bigcalendar__event-block .title {
+    font-weight: 600; }
   .bigcalendar__event-block:not(:nth-child(1)) .time {
     display: none; }
   .bigcalendar__event-block.available {
@@ -3639,6 +3645,16 @@ select:-webkit-autofill:focus {
         display: none; }
   .bigcalendar__event-block.busy .resize-handle.resize-n {
     display: block; }
+  .bigcalendar__event-block .left-icons, .bigcalendar__event-block .right-icons {
+    position: absolute;
+    left: 2px;
+    top: 2px; }
+    .bigcalendar__event-block .left-icons svg, .bigcalendar__event-block .right-icons svg {
+      width: 15px;
+      stroke: #fff; }
+  .bigcalendar__event-block .right-icons {
+    left: auto;
+    right: 2px; }
 
 .event-details {
   max-width: 20rem;

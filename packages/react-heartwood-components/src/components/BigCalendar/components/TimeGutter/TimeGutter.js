@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import cx from 'classnames'
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 	calendarBodyHeight: Number
 }
 
-class TimeGutter extends Component<Props> {
+class TimeGutter extends PureComponent<Props> {
 	constructor(props) {
 		super(props)
 		this.domNodeRef = React.createRef()

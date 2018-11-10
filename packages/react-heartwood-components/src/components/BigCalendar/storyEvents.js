@@ -94,11 +94,11 @@ export default [
 		},
 		blocks: [
 			{
-				title: 'Hair Tinting',
-				subtitle: '',
+				title: 'Jessica Alba',
+				subtitle: 'Hair Tinting',
 				durationSec: 60 * 60,
 				leftIcons: [],
-				rightIcons: [],
+				rightIcons: [{ icon: 'edit', isLineIcon: true, title: 'go to hell' }],
 				className: '',
 				markAsBusy: true
 			},

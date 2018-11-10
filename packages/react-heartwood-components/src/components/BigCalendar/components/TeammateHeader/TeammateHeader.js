@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import cx from 'classnames'
 import UserAvatar from '../../../Avatar/UserAvatar'
 
@@ -8,7 +8,7 @@ type Props = {
 	onScroll: Function
 }
 
-class TeammateHeader extends Component<Props> {
+class TeammateHeader extends PureComponent<Props> {
 	constructor(props) {
 		super(props)
 		this.domNodeRef = React.createRef()

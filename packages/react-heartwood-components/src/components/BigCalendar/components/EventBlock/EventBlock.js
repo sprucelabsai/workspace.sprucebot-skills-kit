@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import cx from 'classnames'
-import moment from 'moment-timezone'
+import Icon from '../../../Icon/Icon'
 
 type Props = {
 	block: Object,
@@ -25,14 +25,40 @@ const EventBlock = (props: Props) => {
 			})}
 			{...rest}
 		>
+			{block.leftIcons &&
+				block.leftIcons.length > 0 && (
+					<div className="left-icons">
+						{block.leftIcons.map(icon => (
+							<span title={icon.title}>
+								<Icon {...icon} />
+							</span>
+						))}
+					</div>
+				)}
 			<div className="resize-n resize-handle">
 				<div className="resize-highlight-handle" />
 			</div>
-			<p className="title">{block.title}</p>
+			<p className="title" dangerouslySetInnerHTML={{ __html: block.title }} />
+			{block.subtitle && (
+				<p
+					className="subtitle"
+					dangerouslySetInnerHTML={{ __html: block.subtitle }}
+				/>
+			)}
 			<p className="time">{startAt.format('h:mma')}</p>
 			<div className="resize-s resize-handle">
 				<div className="resize-highlight-handle" />
 			</div>
+			{block.rightIcons &&
+				block.rightIcons.length > 0 && (
+					<div className="right-icons">
+						{block.rightIcons.map(icon => (
+							<span title={icon.title}>
+								<Icon {...icon} />
+							</span>
+						))}
+					</div>
+				)}
 		</div>
 	)
 }

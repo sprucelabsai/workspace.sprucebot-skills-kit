@@ -57,8 +57,7 @@ class BigCalendar extends Component<Props, State> {
 		headerDateFormat: 'MMMM YYYY',
 		allEvents: [],
 		viewProps: {},
-		longPressDelay: 500,
-		allowResizeToZeroDurationBlocks: false
+		longPressDelay: 500
 	}
 	state = {
 		selectedView: this.props.defaultView,
