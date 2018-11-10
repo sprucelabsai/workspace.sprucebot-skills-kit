@@ -304,6 +304,7 @@ body.sb-show-main {
         }
     }
     
+    &.available:last-child,
     &.busy  {
         z-index: 2;
         .resize-handle {
@@ -314,6 +315,7 @@ body.sb-show-main {
             z-index: 4;
             
             &.resize-n {
+                display: none;
                 top:0px;
                 cursor:ns-resize;
             }
@@ -326,6 +328,12 @@ body.sb-show-main {
             .resize-highlight-handle {
                 display: none;
             }
+        }
+    }
+
+    &.busy  {
+        .resize-handle.resize-n {
+            display: block;
         }
     }
 

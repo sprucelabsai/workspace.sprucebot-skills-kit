@@ -39,7 +39,8 @@ type Props = {
 	scrollDuringDragMargin: Number, // how close to the edge do we need to get before we'll auto scroll for the user
 	dragScrollSpeed: Number, // how many pixels to jump if dragging near edge of scroll
 	eventRightMargin: Number,
-	longPressDelay: Number
+	longPressDelay: Number,
+	allowResizeToZeroDurationBlocks: Boolean
 }
 
 type State = {
@@ -54,7 +55,8 @@ class Day extends Component<Props> {
 		dragThreshold: 10,
 		scrollDuringDragMargin: 50,
 		dragScrollSpeed: 5,
-		eventRightMargin: 10
+		eventRightMargin: 10,
+		allowResizeToZeroDurationBlocks: true
 	}
 
 	_timeRangeCache = {}
@@ -264,12 +266,18 @@ class Day extends Component<Props> {
 		}
 	}
 
+	getMinBlockResizeHeight = event => {
+		return this.props.allowResizeToZeroDurationBlocks && event.blocks.length > 1
+			? 0
+			: this.slotHeight()
+	}
+
 	handleMouseDownOnEvent = ({ e, event, block, blockIdx }) => {
 		const response = { e, event, block, blockIdx }
 		let target = e.target
 		// if we clicked an available block, find any events under us to see if
 		// we should pass the click to them
-		if (!block.markAsBusy) {
+		if (!block.markAsBusy && blockIdx !== event.blocks.length - 1) {
 			let matches = this.dragGridRef.current.getEventsAtLocation({
 				x: eventUtil.clientXY(e).clientX,
 				y: eventUtil.clientXY(e).clientY
@@ -279,7 +287,7 @@ class Day extends Component<Props> {
 			matches.shift()
 
 			//filter out non busy (available) blocks
-			matches = matches.filter(match => match.block.markAsBusy)
+			matches = matches.filter(match => match.block.markAsBusy || match.resize)
 
 			if (matches.length > 0) {
 				response.event = matches[0].event
@@ -399,7 +407,7 @@ class Day extends Component<Props> {
 				deltaScrollTop
 
 			const originalHeight = dragBlockNodeHeight
-			const slotHeight = this.slotHeight()
+			const minBlockResizeHeight = this.getMinBlockResizeHeight(event)
 			const originalTop = dragEventNodeTop
 
 			const { direction } = this._resizeDetails
@@ -424,7 +432,7 @@ class Day extends Component<Props> {
 				distance = Math.max(distance, originalTop * -1)
 
 				// so it won't go too far down
-				distance = Math.min(distance, originalHeight - slotHeight)
+				distance = Math.min(distance, originalHeight - minBlockResizeHeight)
 			} else if (direction === 's') {
 				distance = Math.min(distance, this.dayColHeight() - dragEventNodeBottom)
 			}
@@ -435,7 +443,7 @@ class Day extends Component<Props> {
 			} else {
 				height -= distance
 			}
-			height = Math.max(slotHeight, height)
+			height = Math.max(minBlockResizeHeight, height)
 
 			dragBlockNode.style.height = parseInt(height) + 'px'
 
@@ -451,7 +459,10 @@ class Day extends Component<Props> {
 				let height = previousHeight + distance
 
 				// can't go too big or it starts to feel like dragging a block down
-				height = Math.min(height, originalHeight + previousHeight - slotHeight)
+				height = Math.min(
+					height,
+					originalHeight + previousHeight - minBlockResizeHeight
+				)
 
 				previousDragBlock.style.height = parseInt(height) + 'px'
 

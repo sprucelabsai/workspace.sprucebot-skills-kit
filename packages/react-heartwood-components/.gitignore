@@ -27,6 +27,7 @@ node_modules
 *.iws
 *.sublime-*
 .idea/
+*.cache
 *.DS_Store
 
 storybook-static/
