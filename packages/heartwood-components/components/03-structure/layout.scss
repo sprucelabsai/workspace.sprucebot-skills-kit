@@ -6,7 +6,7 @@
 }
 
 .layout__section {
-	flex: 1 1 layout('sm')
+	flex: 1 1 layout('sm');
 }
 
 // Margins
@@ -31,8 +31,9 @@
 	margin-bottom: map-get($typescale-map, 'h3');
 }
 
-.l-mr-small { margin-right: map-get($typescale-map, 'body'); }
-
+.l-mr-small {
+	margin-right: map-get($typescale-map, 'body');
+}
 
 // Padding
 .l-pl-0 {

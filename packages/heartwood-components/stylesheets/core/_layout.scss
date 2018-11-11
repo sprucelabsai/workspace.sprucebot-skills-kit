@@ -33,11 +33,11 @@ $spacingscale-map: (
 );
 
 @function spacing($scale) {
-  @if map-has-key($spacingscale-map, $scale) {
-    @return map-get($spacingscale-map, $scale);
-  } @else {
-    @warn 'This is not a step of the Heartwood Spacing Scale!';
-  }
+	@if map-has-key($spacingscale-map, $scale) {
+		@return map-get($spacingscale-map, $scale);
+	} @else {
+		@warn 'This is not a step of the Heartwood Spacing Scale!';
+	}
 }
 
 /**
@@ -54,9 +54,9 @@ $layoutscale-map: (
 );
 
 @function layout($scale) {
-  @if map-has-key($layoutscale-map, $scale) {
-    @return map-get($layoutscale-map, $scale);
-  } @else {
-    @warn 'This is not a step of the Heartwood Layout Scale!';
-  }
+	@if map-has-key($layoutscale-map, $scale) {
+		@return map-get($layoutscale-map, $scale);
+	} @else {
+		@warn 'This is not a step of the Heartwood Layout Scale!';
+	}
 }
