@@ -25,16 +25,15 @@ const EventBlock = (props: Props) => {
 			})}
 			{...rest}
 		>
-			{block.leftIcons &&
-				block.leftIcons.length > 0 && (
-					<div className="left-icons">
-						{block.leftIcons.map(icon => (
-							<span title={icon.title}>
-								<Icon {...icon} />
-							</span>
-						))}
-					</div>
-				)}
+			{block.leftIcons && block.leftIcons.length > 0 && (
+				<div className="left-icons">
+					{block.leftIcons.map(icon => (
+						<span title={icon.title}>
+							<Icon {...icon} />
+						</span>
+					))}
+				</div>
+			)}
 			<div className="resize-n resize-handle">
 				<div className="resize-highlight-handle" />
 			</div>
@@ -49,16 +48,15 @@ const EventBlock = (props: Props) => {
 			<div className="resize-s resize-handle">
 				<div className="resize-highlight-handle" />
 			</div>
-			{block.rightIcons &&
-				block.rightIcons.length > 0 && (
-					<div className="right-icons">
-						{block.rightIcons.map(icon => (
-							<span title={icon.title}>
-								<Icon {...icon} />
-							</span>
-						))}
-					</div>
-				)}
+			{block.rightIcons && block.rightIcons.length > 0 && (
+				<div className="right-icons">
+					{block.rightIcons.map(icon => (
+						<span title={icon.title}>
+							<Icon {...icon} />
+						</span>
+					))}
+				</div>
+			)}
 		</div>
 	)
 }
