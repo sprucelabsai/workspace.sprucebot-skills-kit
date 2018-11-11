@@ -56,9 +56,16 @@ class BigCalendarExample extends Component {
 
 	handleDropEvent = ({ event, newStartAt, newUser, blockUpdates }) => {
 		console.log({ event, newStartAt, newUser, blockUpdates })
-
 		const eventsCopy = [...this.state.events]
 		const eventCopy = cloneDeep(event)
+		if (
+			event.userId === 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27' ||
+			(newUser && newUser.id === 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27')
+		) {
+			return false
+		} else if (newUser) {
+			eventCopy.userId = newUser.id
+		}
 
 		if (newStartAt) {
 			eventCopy.startAt = newStartAt.format('YYYY-MM-DD HH:mm:ss')
@@ -75,15 +82,8 @@ class BigCalendarExample extends Component {
 		eventsCopy.splice(eventIdx, 1)
 		eventsCopy.push(eventCopy)
 
-		let success = true
-		if (newUser && newUser.id === 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27') {
-			success = false
-		} else if (newUser) {
-			eventCopy.userId = newUser.id
-		}
-
 		this.setState({ events: eventsCopy })
-		return success
+		return true
 	}
 
 	handleUserModeChange = e => {

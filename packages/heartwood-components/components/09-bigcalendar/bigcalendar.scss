@@ -19,7 +19,6 @@ $event-indent-width: rem(50);
 
 .bigcalendar {
 
-    
 }
 
 body.sb-show-main {
@@ -199,7 +198,9 @@ body.sb-show-main {
             .busy { 
                 overflow: visible;
                 .resize-handle {
-                    height: 10px;
+                    height: auto;
+                    width:auto;
+                    padding:5px;
                 
                     .resize-highlight-handle {
                         height:10px;
@@ -208,24 +209,18 @@ body.sb-show-main {
                         display: block;
                         border-radius:50%;
                         background-color: #fff;
-                        position: absolute;
                     }
                     
                     &.resize-n {
-                        top:-5px;
                         right:0px;
-                        .resize-highlight-handle { 
-                            right:10px;
-                            top:0px;
-                        }
+                        left:auto;
+                        top:-10px;
                     }
         
                     &.resize-s {
-                        bottom: -5px;
-                        .resize-highlight-handle { 
-                            left:10px;
-                            top:0px;
-                        }
+                        right:auto;
+                        left:0;
+                        bottom: -10px;
                     }
         
                 } 
@@ -250,7 +245,7 @@ body.sb-show-main {
         
     }
 
-    &.animate {
+    &.animate, &.animate .bigcalendar__event-block {
         -webkit-transition: all 0.5s ease-out;
         -moz-transition: all 0.5s ease-out;
         -ms-transition: all 0.5s ease-out;
