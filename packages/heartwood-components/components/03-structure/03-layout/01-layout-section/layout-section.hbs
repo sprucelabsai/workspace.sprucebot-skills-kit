@@ -1,5 +1,5 @@
 {{#each sections}}
-<div class="layout__section">
-	{{{ this }}}
+<div class="layout__section{{#if this.secondary}} layout__section--secondary{{/if}}">
+	{{> @card this.card }}
 </div>
 {{/each}}

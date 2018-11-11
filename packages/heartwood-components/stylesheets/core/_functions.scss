@@ -9,11 +9,6 @@ $browser-context: 16 !default;
 	@return #{$pixels/$context}em;
 }
 
-@function rem($pixels, $context: $browser-context) {
-	@return #{$pixels/$context}em;
-}
-
 @function rem($px) {
-	$rem: $px / $browser-context;
-	@return #{$rem}rem;
+	@return $px / $browser-context * 1rem;
 }

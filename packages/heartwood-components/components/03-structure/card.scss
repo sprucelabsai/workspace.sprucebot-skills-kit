@@ -1,7 +1,7 @@
 .card {
 	width: 100%;
-	max-width: rem(720);
-	padding-bottom: rem(16);	
+	min-width: layout-width('secondary', 'min');
+	padding-bottom: rem(16);
 	background-color: $c-bg-light;
 	box-shadow: $dimension-floating;
 
@@ -28,7 +28,7 @@
 		align-items: flex-end;
 	}
 	.card-critical & {
-		border-top: 4px solid $c-ui-critical; 
+		border-top: 4px solid $c-ui-critical;
 	}
 
 	@include gt('small') {
@@ -42,7 +42,7 @@
 	align-items: center;
 
 	.card-critical & {
-		color: $c-ui-critical; 
+		color: $c-ui-critical;
 	}
 }
 
@@ -50,7 +50,7 @@
 	margin-right: rem(4);
 
 	.card-critical & {
-		fill: $c-ui-critical; 
+		fill: $c-ui-critical;
 	}
 }
 
@@ -81,7 +81,7 @@
 }
 
 .card__body-inner {
-	padding: 0 rem(16) rem(16);
+	padding: 0 spacing('md') spacing('md');
 
 	@include gt('small') {
 		padding: 0 rem(24);
@@ -91,7 +91,7 @@
 }
 
 .card__footer {
-	padding: rem(16) rem(16) 0 rem(16);
+	padding: spacing('md') spacing('md') 0 spacing('md');
 
 	@include gt('small') {
 		padding-left: rem(24);
@@ -135,7 +135,7 @@
 
 	@include gt('medium') {
 		border-right: 1px solid $c-border;
-	
+
 		&:last-of-type {
 			border-right: none;
 		}
@@ -147,11 +147,10 @@
 }
 
 .card__score-value {
-	@include typescale('big-h4');	
+	@include typescale('big-h4');
 }
 
 .card img {
 	max-width: 100%;
 	height: auto;
 }
-

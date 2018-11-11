@@ -1,12 +1,25 @@
+$secondary-basis: layout-width(secondary, min);
+$primary-basis: layout-width(primary, min);
+$relative-size: $primary-basis / $secondary-basis;
+
 .layout {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-start;
 	justify-content: center;
+	margin: -#{spacing('md')} 0 0 -#{spacing('md')};
+
+	&--center {
+		margin: -#{spacing('md')} auto 0 auto;
+	}
 }
 
 .layout__section {
-	flex: 1 1 layout('sm');
+	flex: $relative-size $relative-size $primary-basis;
+	margin: spacing('md') 0 0 spacing('md');
+	&--secondary {
+		flex: 1 1 $secondary-basis;
+	}
 }
 
 // Margins

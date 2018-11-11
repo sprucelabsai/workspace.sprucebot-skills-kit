@@ -41,22 +41,23 @@ $spacingscale-map: (
 }
 
 /**
-Layout Scale
+Layout Width
 */
-$layoutscale-map: (
-	'2xs': 1rem,
-	'xs': 1.5rem,
-	'sm': 2rem,
-	'md': 3rem,
-	'lg': 4rem,
-	'xl': 6rem,
-	'2xl': 10rem
+$layout-width-map: (
+	'primary': (
+		min: rem(480),
+		max: rem(640)
+	),
+	'secondary': (
+		min: rem(240),
+		max: rem(320)
+	)
 );
 
-@function layout($scale) {
-	@if map-has-key($layoutscale-map, $scale) {
-		@return map-get($layoutscale-map, $scale);
+@function layout-width($name, $value: null) {
+	@if map-has-key(map-get($layout-width-map, $name), $value) {
+		@return map-get(map-get($layout-width-map, $name), $value);
 	} @else {
-		@warn 'This is not a step of the Heartwood Layout Scale!';
+		@warn 'This is not a valid Heartwood Layout Width!';
 	}
 }
