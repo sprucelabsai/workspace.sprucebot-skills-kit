@@ -22,18 +22,17 @@ const Tabs = (props: Props) => {
 				{tabs.map(tab => {
 					return <Tab key={tab.text} {...tab} />
 				})}
-				{hiddenTabs &&
-					hiddenTabs.length > 0 && (
-						<li className="tab">
-							<ContextMenu
-								actions={[
-									{
-										text: 'Edit'
-									}
-								]}
-							/>
-						</li>
-					)}
+				{hiddenTabs && hiddenTabs.length > 0 && (
+					<li className="tab">
+						<ContextMenu
+							actions={[
+								{
+									text: 'Edit'
+								}
+							]}
+						/>
+					</li>
+				)}
 			</ul>
 			{activeTab && activeTab.panel}
 		</Fragment>

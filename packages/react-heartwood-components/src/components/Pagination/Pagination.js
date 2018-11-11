@@ -123,33 +123,32 @@ const Pagination = (props: Props) => {
 				icon={<ArrowNext />}
 				disabled={currentPage >= totalPages - 1}
 			/>
-			{showJump &&
-				onJump && (
-					<form
-						className="pagination__jump-wrapper"
-						onSubmit={e => {
-							e.preventDefault()
-							for (let i = 0; i < e.currentTarget.elements.length; i++) {
-								if (e.currentTarget.elements[i].name === 'jump') {
-									onJump(
-										e.currentTarget.elements[i].value ||
-											e.currentTarget.elements[i].placeholder
-									)
-								}
+			{showJump && onJump && (
+				<form
+					className="pagination__jump-wrapper"
+					onSubmit={e => {
+						e.preventDefault()
+						for (let i = 0; i < e.currentTarget.elements.length; i++) {
+							if (e.currentTarget.elements[i].name === 'jump') {
+								onJump(
+									e.currentTarget.elements[i].value ||
+										e.currentTarget.elements[i].placeholder
+								)
 							}
+						}
+					}}
+				>
+					<Span className="pagination__jump-text">Jump:&nbsp;</Span>
+					<InputInner
+						name="jump"
+						autoComplete="off"
+						placeholder={currentPage}
+						onBlur={e => {
+							onJump(e.currentTarget.value || e.currentTarget.placeholder)
 						}}
-					>
-						<Span className="pagination__jump-text">Jump:&nbsp;</Span>
-						<InputInner
-							name="jump"
-							autoComplete="off"
-							placeholder={currentPage}
-							onBlur={e => {
-								onJump(e.currentTarget.value || e.currentTarget.placeholder)
-							}}
-						/>
-					</form>
-				)}
+					/>
+				</form>
+			)}
 		</div>
 	)
 }

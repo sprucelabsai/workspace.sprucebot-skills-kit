@@ -41,7 +41,6 @@ export default class MyDocument extends Document {
 		return (
 			<html className={`skill${bodyClassName}`}>
 				<Head>
-					<title>{this.props.name}</title>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
 					<link
 						href={

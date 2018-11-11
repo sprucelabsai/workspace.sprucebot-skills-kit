@@ -61,46 +61,44 @@ const SidebarItem = (props: Props) => {
 				</a>
 				{action && <Button {...action} />}
 			</div>
-			{items &&
-				items.length > 0 && (
-					<ul className="sidebar__sub-list">
-						{items.map((item, idx) => {
-							const subClass = cx('sidebar__sub-list-item', {
-								'sidebar-item--is-current': item.isCurrent,
-								'sidebar-item--is-current-parent':
-									item.items && isCurrentParent({ items: item.items })
-							})
-							return (
-								<li key={idx} className={subClass}>
-									<div className="sidebar-item__inner">
-										<a href={item.href} className="sidebar-item__link">
-											{item.text}
-										</a>
-									</div>
-									{item.items &&
-										isCurrentParent({ items: item.items }) && (
-											<ul className="sidebar__sub-list">
-												{item.items.map((item, idx) => {
-													const subSubClass = cx('sidebar__sub-list-item', {
-														'sidebar-item--is-current': item.isCurrent
-													})
-													return (
-														<li key={idx} className={subSubClass}>
-															<div className="sidebar-item__inner">
-																<a href="sidebar-item__link" href={item.href}>
-																	{item.text}
-																</a>
-															</div>
-														</li>
-													)
-												})}
-											</ul>
-										)}
-								</li>
-							)
-						})}
-					</ul>
-				)}
+			{items && items.length > 0 && (
+				<ul className="sidebar__sub-list">
+					{items.map((item, idx) => {
+						const subClass = cx('sidebar__sub-list-item', {
+							'sidebar-item--is-current': item.isCurrent,
+							'sidebar-item--is-current-parent':
+								item.items && isCurrentParent({ items: item.items })
+						})
+						return (
+							<li key={idx} className={subClass}>
+								<div className="sidebar-item__inner">
+									<a href={item.href} className="sidebar-item__link">
+										{item.text}
+									</a>
+								</div>
+								{item.items && isCurrentParent({ items: item.items }) && (
+									<ul className="sidebar__sub-list">
+										{item.items.map((item, idx) => {
+											const subSubClass = cx('sidebar__sub-list-item', {
+												'sidebar-item--is-current': item.isCurrent
+											})
+											return (
+												<li key={idx} className={subSubClass}>
+													<div className="sidebar-item__inner">
+														<a href="sidebar-item__link" href={item.href}>
+															{item.text}
+														</a>
+													</div>
+												</li>
+											)
+										})}
+									</ul>
+								)}
+							</li>
+						)
+					})}
+				</ul>
+			)}
 		</li>
 	)
 }
