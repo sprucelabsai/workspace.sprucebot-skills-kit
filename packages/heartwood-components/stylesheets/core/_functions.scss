@@ -17,25 +17,3 @@ $browser-context: 16 !default;
 	$rem: $px / $browser-context;
 	@return #{$rem}rem;
 }
-
-@mixin placeholder {
-	&::-webkit-input-placeholder {
-		@content;
-	}
-
-	&:-moz-placeholder {
-		@content;
-	}
-
-	&::-moz-placeholder {
-		@content;
-	}
-
-	&:-ms-input-placeholder {
-		@content;
-	}
-
-	&.placeholder {
-		@content;
-	}
-}
