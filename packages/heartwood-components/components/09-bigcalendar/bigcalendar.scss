@@ -200,7 +200,7 @@ body.sb-show-main {
                 .resize-handle {
                     height: auto;
                     width:auto;
-                    padding:5px;
+                    padding:8px;
                 
                     .resize-highlight-handle {
                         height:10px;
@@ -214,13 +214,13 @@ body.sb-show-main {
                     &.resize-n {
                         right:0px;
                         left:auto;
-                        top:-10px;
+                        top:-12px;
                     }
         
                     &.resize-s {
                         right:auto;
                         left:0;
-                        bottom: -10px;
+                        bottom: -12px;
                     }
         
                 } 
