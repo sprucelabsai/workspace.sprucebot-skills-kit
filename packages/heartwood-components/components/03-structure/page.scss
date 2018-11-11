@@ -1,0 +1,24 @@
+// Page
+.page-wrapper {
+	background-color: $c-bg;
+	@include gt('medium') {
+		padding: 0 spacing('xl');
+	}
+}
+
+.page-header {
+    margin-bottom: spacing('xl');
+	padding: spacing('md') spacing('md') 0;
+	@include gt('medium') {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+.page-header__back-link {
+	display: inline-flex;
+	align-items: center;
+	height: rem(44);
+	color: inherit;
+	text-decoration: none;
+}

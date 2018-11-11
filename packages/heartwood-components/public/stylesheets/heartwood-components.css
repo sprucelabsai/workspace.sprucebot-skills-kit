@@ -912,6 +912,12 @@ Kerning Setup
 /**
 Pre-rolled type styles
 */
+/**
+Spacing Scale
+*/
+/**
+Layout Scale
+*/
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -2718,6 +2724,36 @@ select:-webkit-autofill:focus {
   font-weight: 600;
   border-bottom: 1px solid #cccfd6; }
 
+.page-wrapper {
+  background-color: #f9fafc; }
+  @media screen and (min-width: 750px) {
+    .page-wrapper {
+      padding: 0 2rem; } }
+
+.page-header {
+  margin-bottom: 2rem;
+  padding: 1rem 1rem 0; }
+  @media screen and (min-width: 750px) {
+    .page-header {
+      padding-left: 0;
+      padding-right: 0; } }
+
+.page-header__back-link {
+  display: inline-flex;
+  align-items: center;
+  height: 2.75rem;
+  color: inherit;
+  text-decoration: none; }
+
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center; }
+
+.layout__section {
+  flex: 1 1 2rem; }
+
 .l-ma-small {
   margin: 1rem; }
 
@@ -2788,9 +2824,6 @@ select:-webkit-autofill:focus {
   display: flex;
   align-items: center; }
 
-.l-page-wrapper {
-  background-color: #f9fafc; }
-
 .l-page-inner {
   min-height: 100vh;
   padding-top: 3rem; }
@@ -2799,13 +2832,6 @@ select:-webkit-autofill:focus {
       padding-left: 15rem; } }
   .sidebar--is-collapsed .l-page-inner {
     padding-left: 2.5rem; }
-
-.l-page-header__back-link {
-  display: inline-flex;
-  align-items: center;
-  height: 2.75rem;
-  color: inherit;
-  text-decoration: none; }
 
 .l-detail-wrapper {
   display: flex;

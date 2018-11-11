@@ -97,7 +97,7 @@ module.exports = {
 					image
 				},
 				pageTitle: 'Alejandra Pollich',
-				parentView: {
+				breadcrumb: {
 					href: '#',
 					title: 'Guests'
 				},
