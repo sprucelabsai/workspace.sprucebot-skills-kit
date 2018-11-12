@@ -1,7 +1,6 @@
 // Page
 
 .page-wrapper {
-	margin: 0 auto;
 	max-width: layout-width('primary', 'max') + layout-width('secondary', 'max') +
 		(spacing('xl') * 2) + spacing('md');
 	min-height: 100vh;
@@ -11,6 +10,10 @@
 
 	&--single-column {
 		max-width: layout-width('primary', 'max') + (spacing('xl') * 2);
+	}
+
+	&--centered {
+		margin: 0 auto;
 	}
 }
 

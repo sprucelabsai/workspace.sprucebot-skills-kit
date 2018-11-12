@@ -2560,7 +2560,6 @@ select:-webkit-autofill:focus {
 
 .card {
   width: 100%;
-  min-width: 15rem;
   padding-bottom: 1rem;
   background-color: #fff;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.05); }
@@ -2725,7 +2724,6 @@ select:-webkit-autofill:focus {
   border-bottom: 1px solid #cccfd6; }
 
 .page-wrapper {
-  margin: 0 auto;
   max-width: 65rem;
   min-height: 100vh; }
   @media screen and (min-width: 750px) {
@@ -2733,6 +2731,8 @@ select:-webkit-autofill:focus {
       padding: 0 2rem; } }
   .page-wrapper--single-column {
     max-width: 44rem; }
+  .page-wrapper--centered {
+    margin: 0 auto; }
 
 .page-header {
   padding: 2rem 2rem 0; }
