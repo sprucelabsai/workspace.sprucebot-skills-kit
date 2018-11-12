@@ -618,6 +618,7 @@ class DragGrid extends PureComponent<Props> {
 			dragEventNode.classList.toggle('animate', true)
 			dragEventNode.style.left = sourceEventNode.style.left
 			dragEventNode.style.top = sourceEventNode.style.top
+			dragEventNode.style.width = sourceEventNode.style.width
 
 			const sourceBlocks = sourceEventNode.querySelectorAll(
 				'.bigcalendar__event-block'

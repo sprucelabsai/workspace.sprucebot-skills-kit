@@ -3393,9 +3393,6 @@ select:-webkit-autofill:focus {
   .list-wrapper .list {
     padding: 0; }
 
-.bigcalendar {
-  opacity: 0.5; }
-
 .l-pa-medium {
   padding: 0 !important; }
 
@@ -3524,26 +3521,24 @@ select:-webkit-autofill:focus {
   .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy {
     overflow: visible; }
     .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle {
-      height: 10px; }
+      height: auto;
+      width: auto;
+      padding: 8px; }
       .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle .resize-highlight-handle {
         height: 10px;
         width: 10px;
         border: 1px solid #0076D6;
         display: block;
         border-radius: 50%;
-        background-color: #fff;
-        position: absolute; }
+        background-color: #fff; }
       .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle.resize-n {
-        top: -5px;
-        right: 0px; }
-        .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle.resize-n .resize-highlight-handle {
-          right: 10px;
-          top: 0px; }
+        right: 0px;
+        left: auto;
+        top: -12px; }
       .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle.resize-s {
-        bottom: -5px; }
-        .bigcalendar__view-day .bigcalendar__event.is-active-highlight .busy .resize-handle.resize-s .resize-highlight-handle {
-          left: 10px;
-          top: 0px; }
+        right: auto;
+        left: 0;
+        bottom: -12px; }
 
 .bigcalendar__event {
   border: 1px solid #0076D6;
@@ -3553,7 +3548,7 @@ select:-webkit-autofill:focus {
   z-index: 1; }
   .bigcalendar__event.is-drag-source {
     opacity: 0.5; }
-  .bigcalendar__event.animate {
+  .bigcalendar__event.animate, .bigcalendar__event.animate .bigcalendar__event-block {
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
     -ms-transition: all 0.5s ease-out;

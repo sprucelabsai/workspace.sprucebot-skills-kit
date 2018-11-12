@@ -14,36 +14,36 @@ import VIEWS from './components/Views'
 import Header from './components/Header/Header'
 
 type Props = {
-	defaultView: 'day' | 'week' | 'month',
-	defaultDate: Object,
-	slotsPerHour: Number,
-	defaultMinTime: String,
-	defaultMaxTime: String,
-	defaultStartTime: String,
-	defaultEndTime: String,
+	defaultView?: 'day' | 'week' | 'month',
+	defaultStartDate?: Object,
+	onChangeStartDate?: Function,
+	slotsPerHour?: Number,
+	defaultMinTime?: String,
+	defaultMaxTime?: String,
+	defaultStartTime?: String,
+	defaultEndTime?: String,
 	allUsers: Array<Object>,
-	headerDateFormat: String,
+	headerDateFormat?: String,
 	timezone: String,
-	allEvents: Array<Object>,
-	onDropEvent: Function,
-	viewProps: Object,
-	longPressDelay: Number,
-	userModeOptions: Array<Object>,
-	onChangeUserMode: Function
+	allEvents?: Array<Object>,
+	onDropEvent?: Function,
+	viewProps?: Object,
+	longPressDelay?: Number,
+	userModeSelectOptions?: Array<Object>,
+	onChangeUserMode?: Function,
+	defaultUserMode?: String,
+	userSchedules?: Object // { userId: { date: { startTime, endTime }, '2018-01-10': { startTime: '09:00', endTime: '20:00' } } }
 }
 type State = {
 	selectedView: 'day' | 'week' | 'month',
-	minTime: String,
-	maxTime: String,
-	startTime: String,
-	endTime: String,
 	startDate: Object,
-	currentUsers: Array<Object>,
 	bodyHeight: Number,
 	bodyWidth: Number,
 	calendarBodyHeight: Number,
 	currentHorizontalPage: Number,
-	totalHorizontalPages: Number
+	totalHorizontalPages: Number,
+	users: Array<Object>,
+	userMode?: String
 }
 
 class BigCalendar extends Component<Props, State> {
@@ -61,21 +61,32 @@ class BigCalendar extends Component<Props, State> {
 	}
 	state = {
 		selectedView: this.props.defaultView,
-		minTime: this.props.defaultMinTime,
-		maxTime: this.props.defaultMaxTime,
-		startTime: this.props.defaultStartTime,
-		endTime: this.props.defaultEndTime,
-		currentUsers: this.props.allUsers,
-		bodyWidth: sizeUtils.bodyWidth(),
-		bodyHeight: sizeUtils.bodyHeight(),
-		calendarBodyHeight: 0
+		bodyWidth: -1,
+		bodyHeight: -1,
+		calendarBodyHeight: 0,
+		users: this.props.allUsers,
+		userMode: this.props.defaultUserMode
 	}
 
-	constructor(props) {
+	constructor(props: Props) {
 		super(props)
 		this.domNodeRef = React.createRef()
 		this.selectedViewRef = React.createRef()
 		this.state.startDate = this.getDefaultStartDate()
+
+		const { allUsers, timezone } = props
+
+		if (!allUsers) {
+			throw new Error(
+				'Please supply `allUsers` prop to BigCalendar. Make sure it as array of User objects {id, name}'
+			)
+		}
+
+		if (!timezone) {
+			throw new Error(
+				'Please supply `timezone` prop to BigCalendar. Use what moment uses (see TZ* col): https://en.wikipedia.org/wiki/List_of_tz_database_time_zones'
+			)
+		}
 	}
 
 	componentDidMount = () => {
@@ -89,25 +100,43 @@ class BigCalendar extends Component<Props, State> {
 		window.removeEventListener('resize', this.handleSizing)
 	}
 
-	setCurrentUsers = users => {
-		this.setState({
-			currentUsers: users
-		})
-	}
-
 	getDefaultStartDate = () => {
+		// TODO use cookies that can work both client and server side
+		return moment.tz(
+			this.props.defaultStartDate || new Date(),
+			this.props.timezone
+		)
+
+		const { timezone } = this.props
+
 		let defaultStartDate
 		if (
 			Cookies.getItem('bigcalendarDate') &&
 			moment(Cookies.getItem('bigcalendarDate')).isValid()
 		) {
 			defaultStartDate = moment(Cookies.getItem('bigcalendarDate'))
-		} else if (this.props.startDate && moment(this.props.startDate).isValid()) {
-			defaultStartDate = moment(this.props.startDate)
 		} else {
-			defaultStartDate = moment.tz(new Date(), this.props.timezone)
+			defaultStartDate = moment.tz(
+				this.props.defaultStartDate || new Date(),
+				timezone
+			)
 		}
 		return defaultStartDate
+	}
+
+	getDateRange = () => {
+		const { startDate, selectedView } = this.state
+
+		const {
+			pageAmount: [duration, unit]
+		} = VIEWS[selectedView]
+
+		return {
+			startAt: moment(startDate).startOf('day'),
+			endAt: moment(startDate)
+				.add(duration, unit)
+				.endOf('day')
+		}
 	}
 
 	handleSizing = () => {
@@ -142,17 +171,20 @@ class BigCalendar extends Component<Props, State> {
 		const [amount, unit] = this.getViewDetails().pageAmount
 		const nextDate = moment(this.state.startDate).subtract(amount, unit)
 
-		this.setState({
-			startDate: nextDate
-		})
+		this._setStartDate(nextDate)
 	}
+
 	handleNextDate = () => {
 		const [amount, unit] = this.getViewDetails().pageAmount
 		const nextDate = moment(this.state.startDate).add(amount, unit)
 
-		this.setState({
-			startDate: nextDate
-		})
+		this._setStartDate(nextDate)
+	}
+
+	_setStartDate = async date => {
+		const { onChangeStartDate = () => {} } = this.props
+		await this.setState({ startDate: date })
+		onChangeStartDate(date)
 	}
 
 	/**
@@ -224,6 +256,60 @@ class BigCalendar extends Component<Props, State> {
 			this.selectedViewRef.current.handleHorizontalPageBack()
 	}
 
+	getStartTimeForUser = (user, date) => {
+		const { userSchedules, defaultStartTime } = this.props
+
+		// if there is a user schedule object, but this day is empty, assume they are not working
+		if (
+			userSchedules &&
+			(!userSchedules[user.id] ||
+				!userSchedules[user.id][date.format('YYYY-MM-DD')])
+		) {
+			return false
+		}
+
+		const time =
+			userSchedules &&
+			userSchedules[user.id] &&
+			userSchedules[user.id][date.format('YYYY-MM-DD')]
+				? userSchedules[user.id][date.format('YYYY-MM-DD')].startTime
+				: defaultStartTime
+
+		return time
+	}
+
+	getEndTimeForUser = (user, date) => {
+		const { userSchedules, defaultEndTime } = this.props
+
+		// if there is a user schedule object, but this day is empty, assume they are not working
+		if (
+			userSchedules &&
+			(!userSchedules[user.id] ||
+				!userSchedules[user.id][date.format('YYYY-MM-DD')])
+		) {
+			return false
+		}
+
+		const time =
+			userSchedules &&
+			userSchedules[user.id] &&
+			userSchedules[user.id][date.format('YYYY-MM-DD')]
+				? userSchedules[user.id][date.format('YYYY-MM-DD')].endTime
+				: defaultEndTime
+
+		return time
+	}
+
+	handleChangeUserMode = mode => {
+		const { onChangeUserMode = () => {} } = this.props
+		this.setState({ userMode: mode })
+		onChangeUserMode(mode)
+	}
+
+	setCurrentUsers = users => {
+		this.setState({ users })
+	}
+
 	render() {
 		const {
 			className,
@@ -233,35 +319,39 @@ class BigCalendar extends Component<Props, State> {
 			onDropEvent,
 			timezone,
 			longPressDelay,
-			allUsers,
 			defaultMinTime,
 			defaultMaxTime,
 			defaultStartTime,
 			defaultEndTime,
 			defaultView,
 			viewProps: _,
-			userModeOptions,
+			userModeSelectOptions,
 			onChangeUserMode,
+			defaultUserMode,
+			userSchedules,
+			allUsers,
+			onChangeStartDate,
 			...props
 		} = this.props
 
 		const {
 			selectedView,
-			minTime,
-			maxTime,
-			startTime,
-			endTime,
 			startDate,
-			currentUsers,
 			bodyWidth,
 			bodyHeight,
 			calendarBodyHeight,
 			currentHorizontalPage,
-			totalHorizontalPages
+			totalHorizontalPages,
+			users,
+			userMode
 		} = this.state
 
 		const parentClass = cx('bigcalendar', className, {})
-		const hours = this.generateTimeGutterHours(startDate, minTime, maxTime)
+		const hours = this.generateTimeGutterHours(
+			startDate,
+			defaultMinTime,
+			defaultMaxTime
+		)
 
 		// load the view
 		const View = this.getViewDetails().View
@@ -278,8 +368,9 @@ class BigCalendar extends Component<Props, State> {
 				{...props}
 			>
 				<Header
-					userModeOptions={userModeOptions}
-					onChangeUserMode={onChangeUserMode}
+					userModeSelectOptions={userModeSelectOptions}
+					onChangeUserMode={this.handleChangeUserMode}
+					userMode={userMode}
 					dateFormat={headerDateFormat}
 					selectedDate={startDate}
 					selectedView={selectedView}
@@ -305,13 +396,16 @@ class BigCalendar extends Component<Props, State> {
 						onScroll={this.handleViewScroll}
 						calendarBodyHeight={calendarBodyHeight}
 						hours={hours}
-						users={currentUsers}
-						minTime={minTime}
-						maxTime={maxTime}
-						startTime={startTime}
-						endTime={endTime}
+						users={users}
+						minTime={defaultMinTime}
+						maxTime={defaultMaxTime}
+						startTime={defaultStartTime}
+						endTime={defaultEndTime}
 						timezone={timezone}
 						onDropEvent={onDropEvent}
+						userSchedules={userSchedules}
+						getStartTimeForUser={this.getStartTimeForUser}
+						getEndTimeForUser={this.getEndTimeForUser}
 						{...viewProps}
 					/>
 				</div>

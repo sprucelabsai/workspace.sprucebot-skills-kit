@@ -40,7 +40,9 @@ type Props = {
 	dragScrollSpeed: Number, // how many pixels to jump if dragging near edge of scroll
 	eventRightMargin: Number,
 	longPressDelay: Number,
-	allowResizeToZeroDurationBlocks: Boolean
+	allowResizeToZeroDurationBlocks: Boolean,
+	getStartTimeForUser: Function,
+	getEndTimeForUser: Function
 }
 
 type State = {
@@ -186,13 +188,17 @@ class Day extends PureComponent<Props> {
 	handleHorizontalPageNext = () => {
 		const scrollLeft = this.dragGridRef.current.getScrollLeft()
 		const pageWidth = this.dragGridRef.current.getWidth()
-		this.dragGridRef.current.animateHorizontalTo(scrollLeft + pageWidth)
+		this.dragGridRef.current.animateHorizontalTo(
+			this.snapEventToNearestValidX({ mouseX: scrollLeft + pageWidth })
+		)
 	}
 
 	handleHorizontalPageBack = () => {
 		const scrollLeft = this.dragGridRef.current.getScrollLeft()
 		const pageWidth = this.dragGridRef.current.getWidth()
-		this.dragGridRef.current.animateHorizontalTo(scrollLeft - pageWidth)
+		this.dragGridRef.current.animateHorizontalTo(
+			this.snapEventToNearestValidX({ mouseX: scrollLeft - pageWidth })
+		)
 	}
 
 	handleTeammateScroll = e => {
@@ -635,7 +641,10 @@ class Day extends PureComponent<Props> {
 		return sortBy(
 			events.filter(event => {
 				const eventStart = moment.tz(event.startAt, timezone)
-				return eventStart.format('YYYY-MM-DD') === date.format('YYYY-MM-DD')
+				return (
+					event.id &&
+					eventStart.format('YYYY-MM-DD') === date.format('YYYY-MM-DD')
+				)
 			}),
 			['startAt']
 		)
@@ -650,7 +659,7 @@ class Day extends PureComponent<Props> {
 
 	getColumnMap = () => {
 		if (!this._columnMapCache) {
-			const { minTime, maxTime, startDate, events } = this.props
+			const { minTime, maxTime, startDate, events, timezone } = this.props
 			const range = this.getTimeRangeDetails(minTime, maxTime)
 			const totalTimeSlots = range.totalTimeSlots
 			const slotHeight = this.slotHeight()
@@ -663,7 +672,7 @@ class Day extends PureComponent<Props> {
 			}
 
 			todaysEvents.forEach(event => {
-				const currentStart = moment(event.startAt)
+				const currentStart = moment.tz(event.startAt, timezone)
 				const eventMap = []
 				const { userId } = event
 
@@ -734,6 +743,7 @@ class Day extends PureComponent<Props> {
 
 				// STEP 4, track it for easy retrieval
 				const eventStartY = this.timeToY(event.startAt)
+
 				const eventStartSlot = Math.round(eventStartY / slotHeight)
 				this._columnMapCache.eventDetails[event.id] = {
 					startSlot: eventStartSlot,
@@ -804,6 +814,7 @@ class Day extends PureComponent<Props> {
 	}
 
 	sizeEvent = event => {
+		const eventNode = this.dragGridRef.current.getEventNode(event)
 		const { users } = this.props
 		const userIndex = findIndex(users, u => u.id === event.userId)
 		const dayColWidth = this.dayColWidth()
@@ -811,7 +822,6 @@ class Day extends PureComponent<Props> {
 
 		if (userIndex > -1 && dayColWidth && dayColHeight) {
 			const { minTime, maxTime, eventRightMargin } = this.props
-			const eventNode = this.dragGridRef.current.getEventNode(event)
 
 			//height for blocks
 			const blockNodes = eventNode.querySelectorAll('.bigcalendar__event-block')
@@ -879,10 +889,10 @@ class Day extends PureComponent<Props> {
 			minTime,
 			maxTime,
 			slotsPerHour,
-			startTime,
-			endTime,
 			startDate,
-			events
+			events,
+			getStartTimeForUser,
+			getEndTimeForUser
 		} = this.props
 
 		const { selectedEvent, highlightedEvent } = this.state
@@ -947,8 +957,8 @@ class Day extends PureComponent<Props> {
 									key={`day-col-${user.id}`}
 									hours={hours}
 									user={user}
-									startTime={startTime}
-									endTime={endTime}
+									startTime={getStartTimeForUser(user, startDate)}
+									endTime={getEndTimeForUser(user, startDate)}
 									minTime={minTime}
 									maxTime={maxTime}
 									timezone={timezone}

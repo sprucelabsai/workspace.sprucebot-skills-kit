@@ -16,6 +16,7 @@ class BigCalendarExample extends Component {
 	state = {
 		users: storyUsers,
 		events: storyEvents,
+		userMode: 'everyone',
 		// events: [],
 		location: {
 			id: '9139bfeb-7143-4a50-abad-2f768decb1d1',
@@ -86,8 +87,8 @@ class BigCalendarExample extends Component {
 		return true
 	}
 
-	handleUserModeChange = e => {
-		switch (e.target.value) {
+	handleUserModeChange = mode => {
+		switch (mode) {
 			case 'everyone':
 				this.bigCalRef.current.setCurrentUsers(storyUsers)
 				break
@@ -102,21 +103,21 @@ class BigCalendarExample extends Component {
 				])
 				break
 		}
-		console.log(e.target.value)
 	}
 
 	render() {
-		const { users, location, events } = this.state
+		const { users, location, events, userMode } = this.state
 
 		return (
 			<Container>
 				<BigCalendar
 					ref={this.bigCalRef}
-					userModeOptions={{
+					userModeSelectOptions={{
 						everyone: 'Everyone',
 						working: 'Working',
 						me: 'Me'
 					}}
+					defaultUserMode={userMode}
 					onChangeUserMode={this.handleUserModeChange}
 					onDropEvent={this.handleDropEvent}
 					allUsers={users}

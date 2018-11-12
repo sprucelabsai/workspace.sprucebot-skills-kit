@@ -11,9 +11,11 @@ type Props = {
 
 const UserAvatar = (props: Props) => {
 	const { user, ...rest } = props
+	const { profileImages = {}, defaultProfileImages = {} } = user
 
 	const profileImage =
-		user.profileImages.profile150 || user.defaultProfileImages.profile150
+		(profileImages && profileImages.profile150) ||
+		(defaultProfileImages && defaultProfileImages.profile150)
 
 	return <Avatar image={profileImage} {...rest} />
 }
