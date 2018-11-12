@@ -8,6 +8,10 @@
 	@include gt('medium') {
 		padding: 0 spacing('xl');
 	}
+
+	&--single-column {
+		max-width: layout-width('primary', 'max') + (spacing('xl') * 2);
+	}
 }
 
 .page-header {

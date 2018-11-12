@@ -1,13 +1,13 @@
 <div class="card{{#if centered}} card-centered{{/if}}">
 	{{#if preHeader}}
-		{{{preHeader}}}
+	{{{preHeader}}}
 	{{/if}}
 	{{> @card-header}}
 	<div class="card__body">{{{children}}}</div>
 	{{#if footerActions}}
 	<div class="card__footer">
 		{{#each footerActions}}
-			{{> @button}}
+		{{> @button}}
 		{{/each}}
 	</div>
 	{{/if}}

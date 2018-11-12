@@ -74,53 +74,7 @@ $relative-size: $primary-basis / $secondary-basis;
 	}
 }
 
-// Containers
-// TODO: Add other margin helper classes
-.l-container {
-	flex: 1 0 auto;
-	max-width: rem(1200);
-
-	&-ctr {
-		margin-left: auto;
-		margin-right: auto;
-	}
-}
-
-.l-container-small {
-	max-width: rem(480);
-}
-
-.l-container-medium {
-	max-width: rem(720);
-}
-
-// Flexbox Layout
-.l-flex-container {
-	display: flex;
-	flex-flow: row wrap;
-	margin-top: rem(-16);
-	margin-left: rem(-16);
-}
-
-.l-flex-col {
-	flex: 1 1 auto;
-	max-width: calc(100% - #{rem(16)});
-	margin-top: rem(16);
-	margin-left: rem(16);
-}
-
 // Centering
-.l-flex-center-all {
-	display: flex;
-	justify-content: center;
-	align-content: center;
-	align-items: center;
-}
-
-.l-flex-center-vertical {
-	display: flex;
-	align-items: center;
-}
 
 .l-page-inner {
 	min-height: 100vh;

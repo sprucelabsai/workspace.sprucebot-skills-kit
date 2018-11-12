@@ -2731,6 +2731,8 @@ select:-webkit-autofill:focus {
   @media screen and (min-width: 750px) {
     .page-wrapper {
       padding: 0 2rem; } }
+  .page-wrapper--single-column {
+    max-width: 44rem; }
 
 .page-header {
   padding: 2rem 2rem 0; }
@@ -2798,41 +2800,6 @@ select:-webkit-autofill:focus {
     .l-ph-medium {
       padding-left: 2rem;
       padding-right: 2rem; } }
-
-.l-container {
-  flex: 1 0 auto;
-  max-width: 75rem; }
-  .l-container-ctr {
-    margin-left: auto;
-    margin-right: auto; }
-
-.l-container-small {
-  max-width: 30rem; }
-
-.l-container-medium {
-  max-width: 45rem; }
-
-.l-flex-container {
-  display: flex;
-  flex-flow: row wrap;
-  margin-top: -1rem;
-  margin-left: -1rem; }
-
-.l-flex-col {
-  flex: 1 1 auto;
-  max-width: calc(100% - 1rem);
-  margin-top: 1rem;
-  margin-left: 1rem; }
-
-.l-flex-center-all {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center; }
-
-.l-flex-center-vertical {
-  display: flex;
-  align-items: center; }
 
 .l-page-inner {
   min-height: 100vh;
