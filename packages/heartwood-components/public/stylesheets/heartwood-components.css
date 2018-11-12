@@ -2762,9 +2762,11 @@ select:-webkit-autofill:focus {
 
 .layout__section {
   flex: 2 2 30rem;
-  margin: 1rem 0 0 1rem; }
+  margin: 1rem 0 0 1rem;
+  min-width: 51%; }
   .layout__section--secondary {
-    flex: 1 1 15rem; }
+    flex: 1 1 15rem;
+    min-width: 0; }
 
 .l-ma-small {
   margin: 1rem; }

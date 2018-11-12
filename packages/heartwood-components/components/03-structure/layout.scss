@@ -17,8 +17,10 @@ $relative-size: $primary-basis / $secondary-basis;
 .layout__section {
 	flex: $relative-size $relative-size $primary-basis;
 	margin: spacing('md') 0 0 spacing('md');
+	min-width: 51%;
 	&--secondary {
 		flex: 1 1 $secondary-basis;
+		min-width: 0;
 	}
 }
 
