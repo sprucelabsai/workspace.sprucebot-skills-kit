@@ -80,7 +80,7 @@
 }
 
 .card__body-inner {
-	padding: 0 spacing('md') spacing('md');
+	padding: 0 spacing('base') spacing('base');
 
 	@include gt('small') {
 		padding: 0 rem(24);
@@ -90,7 +90,7 @@
 }
 
 .card__footer {
-	padding: spacing('md') spacing('md') 0 spacing('md');
+	padding: spacing('base') spacing('base') 0 spacing('base');
 
 	@include gt('small') {
 		padding-left: rem(24);

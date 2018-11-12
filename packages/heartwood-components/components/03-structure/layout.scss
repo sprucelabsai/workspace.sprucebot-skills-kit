@@ -7,16 +7,16 @@ $relative-size: $primary-basis / $secondary-basis;
 	flex-wrap: wrap;
 	align-items: flex-start;
 	justify-content: center;
-	margin: -#{spacing('md')} 0 0 -#{spacing('md')};
+	margin: -#{spacing('base')} 0 0 -#{spacing('base')};
 
 	&--center {
-		margin: -#{spacing('md')} auto 0 auto;
+		margin: -#{spacing('base')} auto 0 auto;
 	}
 }
 
 .layout__section {
 	flex: $relative-size $relative-size $primary-basis;
-	margin: spacing('md') 0 0 spacing('md');
+	margin: spacing('base') 0 0 spacing('base');
 	min-width: 51%;
 	&--secondary {
 		flex: 1 1 $secondary-basis;

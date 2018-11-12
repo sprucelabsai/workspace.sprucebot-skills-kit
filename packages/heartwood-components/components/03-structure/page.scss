@@ -2,14 +2,14 @@
 
 .page-wrapper {
 	max-width: layout-width('primary', 'max') + layout-width('secondary', 'max') +
-		(spacing('xl') * 2) + spacing('md');
+		(spacing('extra-loose') * 2) + spacing('base');
 	min-height: 100vh;
 	@include gt('medium') {
-		padding: 0 spacing('xl');
+		padding: 0 spacing('extra-loose');
 	}
 
 	&--single-column {
-		max-width: layout-width('primary', 'max') + (spacing('xl') * 2);
+		max-width: layout-width('primary', 'max') + (spacing('extra-loose') * 2);
 	}
 
 	&--centered {
@@ -18,7 +18,7 @@
 }
 
 .page-header {
-	padding: spacing('xl') spacing('xl') 0;
+	padding: spacing('extra-loose') spacing('extra-loose') 0;
 	@include gt('medium') {
 		padding-left: 0;
 		padding-right: 0;
@@ -34,5 +34,5 @@
 }
 
 .page-content {
-	margin-top: spacing('xl');
+	margin-top: spacing('extra-loose');
 }
