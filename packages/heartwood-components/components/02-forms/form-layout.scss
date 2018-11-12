@@ -1,0 +1,23 @@
+$primary-basis: (layout-width(primary, max) - (spacing('base') * 2)) / 3;
+$condensed-basis: (layout-width(primary, min) - (spacing('base') * 3)) / 4;
+
+.form-layout {
+	margin: -#{spacing('base')} 0 0 -#{spacing('base')};
+}
+
+.form-layout__group {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.form-layout__item {
+	flex: 1 1 $primary-basis;
+	margin: spacing('base') 0 0 spacing('base');
+	min-width: $primary-basis;
+	.form-layout__group--condensed & {
+		flex-basis: $condensed-basis;
+		min-width: $condensed-basis;
+	}
+}

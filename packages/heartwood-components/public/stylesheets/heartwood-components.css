@@ -2525,6 +2525,23 @@ select:-webkit-autofill:focus {
 .toggle__text {
   margin-left: 0.5rem; }
 
+.form-layout {
+  margin: -1rem 0 0 -1rem; }
+
+.form-layout__group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center; }
+
+.form-layout__item {
+  flex: 1 1 12.66667rem;
+  margin: 1rem 0 0 1rem;
+  min-width: 12.66667rem; }
+  .form-layout__group--condensed .form-layout__item {
+    flex-basis: 6.75rem;
+    min-width: 6.75rem; }
+
 .accordion__panel {
   height: 0;
   visibility: hidden;

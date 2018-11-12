@@ -1,16 +1,16 @@
 // Vendor
-@import "vendor/react-dates/datepicker";
+@import 'vendor/react-dates/datepicker';
 
 // Core
-@import "core/core-styles";
+@import 'core/core-styles';
 
 // Base
 $css--reset: true;
-@import "base/normalize";
-@import "base/reset";
-@import "base/base";
-@import "base/utilities";
-@import "base/type";
+@import 'base/normalize';
+@import 'base/reset';
+@import 'base/base';
+@import 'base/utilities';
+@import 'base/type';
 
 // Components
 // NOTE: Must be imported individually to work as a node module
@@ -29,6 +29,7 @@ $css--reset: true;
 @import '../components/02-forms/tag';
 @import '../components/02-forms/text-input';
 @import '../components/02-forms/toggle';
+@import '../components/02-forms/form-layout';
 @import '../components/03-structure/accordion';
 @import '../components/03-structure/card';
 @import '../components/03-structure/onboarding-card';
