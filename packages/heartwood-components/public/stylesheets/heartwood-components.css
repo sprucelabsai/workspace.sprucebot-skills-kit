@@ -2723,15 +2723,15 @@ select:-webkit-autofill:focus {
   font-weight: 600;
   border-bottom: 1px solid #cccfd6; }
 
-.page-wrapper {
+.page {
   max-width: 65rem;
   min-height: 100vh; }
   @media screen and (min-width: 750px) {
-    .page-wrapper {
+    .page {
       padding: 0 2rem; } }
-  .page-wrapper--single-column {
+  .page--single-column {
     max-width: 44rem; }
-  .page-wrapper--centered {
+  .page--centered {
     margin: 0 auto; }
 
 .page-header {
@@ -2767,9 +2767,6 @@ select:-webkit-autofill:focus {
   .layout__section--secondary {
     flex: 1 1 15rem;
     min-width: 0; }
-
-.l-ma-small {
-  margin: 1rem; }
 
 .l-mb-xsmall {
   margin-bottom: 0.5rem; }

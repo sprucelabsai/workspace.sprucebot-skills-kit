@@ -32,7 +32,7 @@ const getCookie = (named, req, res) => {
 	}
 }
 
-const Page = Wrapped => {
+const PageWrapper = Wrapped => {
 	const ConnectedWrapped = withRouter(Wrapped)
 
 	return class extends Component {
@@ -290,4 +290,4 @@ const Page = Wrapped => {
 	}
 }
 
-export default Wrapped => Page(Wrapped)
+export default Wrapped => PageWrapper(Wrapped)

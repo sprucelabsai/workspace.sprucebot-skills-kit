@@ -119,7 +119,7 @@ module.exports = {
 			context: {
 				title: null,
 				children:
-					'<div class="avatar-wrapper avatar-wrapper-large"><div class="avatar__image-wrapper"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5d43ec18ec2cf6ff854513b9e8395c1e&auto=format&fit=crop&w=192&h=192&q=80" alt="avatar" width="96" height="96" /></div></div><h3 class="card-header__title l-mb-xsmall">Say "Happy Birthday"</h3><p>It’s Rosamond Mueller’s birthday today. Don’t forget to say happy birthday!</p>',
+					'<div class="avatar-wrapper avatar-wrapper-large"><div class="avatar__image-wrapper"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5d43ec18ec2cf6ff854513b9e8395c1e&auto=format&fit=crop&w=192&h=192&q=80" alt="avatar" width="96" height="96" /></div></div><h3 class="card-header__title">Say "Happy Birthday"</h3><p>It’s Rosamond Mueller’s birthday today. Don’t forget to say happy birthday!</p>',
 				centered: true,
 				footerActions: [
 					{
