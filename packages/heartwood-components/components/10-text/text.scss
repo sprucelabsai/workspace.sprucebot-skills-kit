@@ -1,3 +1,21 @@
+.text__container {
+	> * + * {
+		margin-top: spacing('base');
+	}
+
+	&--spacing-tight {
+		> * + * {
+			margin-top: spacing('tight');
+		}
+	}
+
+	&--spacing-loose {
+		> * + * {
+			margin-top: spacing('loose');
+		}
+	}
+}
+
 .text__heading {
 	@include typescale('heading-md');
 	font-weight: $font-weight-bold;

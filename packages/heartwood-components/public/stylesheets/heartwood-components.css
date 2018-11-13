@@ -3615,6 +3615,15 @@ select:-webkit-autofill:focus {
   .event-details-footer .btn {
     margin-bottom: 0; }
 
+.text__container > * + * {
+  margin-top: 1rem; }
+
+.text__container--spacing-tight > * + * {
+  margin-top: 0.5rem; }
+
+.text__container--spacing-loose > * + * {
+  margin-top: 1.25rem; }
+
 .text__heading {
   font-size: 1.25rem;
   font-weight: 600; }

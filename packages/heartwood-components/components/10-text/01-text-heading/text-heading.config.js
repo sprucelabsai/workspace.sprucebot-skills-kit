@@ -10,7 +10,6 @@ module.exports = {
 	preview: '@main-preview',
 	context: {
 		element: 'h2',
-		className: 'text__heading',
 		text: 'Welcome Back!'
 	},
 	variants: [
