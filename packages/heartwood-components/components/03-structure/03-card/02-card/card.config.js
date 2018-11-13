@@ -21,9 +21,7 @@ module.exports = {
 	title: 'Card',
 	collated: true,
 	collator: function(markup, item) {
-		return `<!-- Start: @${
-			item.handle
-		} -->\n<div class="layout__section">${markup}</div>\n<!-- End: @${
+		return `<!-- Start: @${item.handle} -->\n${markup}\n<!-- End: @${
 			item.handle
 		} -->\n`
 	},

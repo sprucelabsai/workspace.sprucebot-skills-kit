@@ -1,6 +1,6 @@
 module.exports = {
 	context: {
-		content: '<p>Page Content</p>'
+		content: 'Page Content'
 	},
 	variants: [
 		{

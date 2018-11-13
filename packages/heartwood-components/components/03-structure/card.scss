@@ -85,8 +85,6 @@
 	@include gt('small') {
 		padding: 0 rem(24);
 	}
-
-	// background-color: rgba(0,0,100,0.1);
 }
 
 .card__footer {
@@ -98,18 +96,10 @@
 	}
 }
 
-// Groups
-.card-group__wrapper {
-	@include gt('small') {
-		padding: rem(16);
-	}
-}
-.card-group .card {
-	margin-bottom: rem(8);
+// Spacing
 
-	@include gt('small') {
-		margin-bottom: rem(16);
-	}
+.card + .card {
+	margin-top: spacing('base');
 }
 
 // Styles for Score Cards
