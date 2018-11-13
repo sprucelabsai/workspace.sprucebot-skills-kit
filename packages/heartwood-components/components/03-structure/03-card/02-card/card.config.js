@@ -20,6 +20,13 @@ const contextMenu = {
 module.exports = {
 	title: 'Card',
 	collated: true,
+	collator: function(markup, item) {
+		return `<!-- Start: @${
+			item.handle
+		} -->\n<div class="layout__section">${markup}</div>\n<!-- End: @${
+			item.handle
+		} -->\n`
+	},
 	context: {
 		title: 'Get the most out of Sprucebot',
 		children:

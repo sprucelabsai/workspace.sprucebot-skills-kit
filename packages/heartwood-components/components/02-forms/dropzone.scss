@@ -10,7 +10,7 @@
 	background-color: $c-bg;
 	border: 2px dashed $c-border;
 	border-radius: 4px;
-	
+
 	&:hover {
 		border: 2px solid $c-primary;
 	}
@@ -40,7 +40,7 @@
 
 .dropzone__helper-text,
 .dropzone__helper-text-bottom {
-	@include typescale('h3');
+	@include typescale('heading-md');
 
 	.dropzone-small & {
 		@include typescale('body');
@@ -69,7 +69,7 @@
 }
 
 .dropzone__uploading-text {
-	@include typescale('h3');
+	@include typescale('heading-md');
 }
 
 .dropzone__uploading-progress-wrapper {

@@ -4,7 +4,7 @@ module.exports = {
 	collated: true,
 	collator: function(markup, item) {
 		return `<!-- Start: @${item.handle} -->\n<h2 style="margin: 3rem 0;">${
-			item.title
+			item.label
 		}</h2><div>${markup}</div>\n<!-- End: @${item.handle} -->\n`
 	},
 	context: {

@@ -31,22 +31,22 @@ $typescale-map: (
 	'legal': 0.75rem,
 	'ui': 0.875rem,
 	'body': 1rem,
-	'h4': 1.125rem,
-	'h3': 1.25rem,
-	'h2': 1.5rem,
-	'h1': 2rem,
-	'big-h4': 3.75rem,
-	'big-h3': 4.25rem,
-	'big-h2': 4.75rem,
-	'big-h1': 5.25rem
+	'heading-sm': 1.125rem,
+	'heading-md': 1.25rem,
+	'heading-lg': 1.5rem,
+	'heading-xl': 2rem,
+	'display-sm': 3.75rem,
+	'display-md': 4.25rem,
+	'display-lg': 4.75rem,
+	'display-xl': 5.25rem
 );
 
 @mixin typescale($size) {
-  @if map-has-key($typescale-map, $size) {
-    font-size: map-get($typescale-map, $size);
-  } @else {
-    @warn 'This is not a step of the Heartwood Type Scale!';
-  }
+	@if map-has-key($typescale-map, $size) {
+		font-size: map-get($typescale-map, $size);
+	} @else {
+		@warn 'This is not a step of the Heartwood Type Scale!';
+	}
 }
 
 /**
@@ -59,7 +59,6 @@ Kerning Setup
 	text-rendering: optimizeLegibility;
 	font-feature-settings: 'kern' 1;
 }
-
 
 /**
 Pre-rolled type styles

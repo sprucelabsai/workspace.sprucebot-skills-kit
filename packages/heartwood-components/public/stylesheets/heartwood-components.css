@@ -1517,10 +1517,13 @@ h3 {
   font-size: 1.25rem;
   font-weight: 600; }
 
-h4, h5, h6 {
+h4,
+h5,
+h6 {
   font-size: 1rem; }
 
-h1, h4 {
+h1,
+h4 {
   font-weight: 600; }
 
 a {
@@ -2791,9 +2794,6 @@ select:-webkit-autofill:focus {
 .l-mb-small {
   margin-bottom: 1rem; }
 
-.l-mb-large {
-  margin-bottom: 1.25rem; }
-
 .l-mr-small {
   margin-right: 1rem; }
 
@@ -3190,7 +3190,6 @@ select:-webkit-autofill:focus {
   padding-left: 1rem; }
 
 .list-header__text {
-  font-size: 1.25rem;
   line-height: 1.125;
   padding: 0.75rem 0; }
   .list-header-small .list-header__text {
@@ -3616,7 +3615,6 @@ select:-webkit-autofill:focus {
   letter-spacing: 1px; }
 
 .event-details-header__title {
-  font-size: 1.25rem;
   line-height: 1.125; }
 
 .event-details-footer {
