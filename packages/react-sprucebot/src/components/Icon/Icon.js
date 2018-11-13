@@ -9,6 +9,8 @@ import CalendarDate from '../../../static/assets/icons/Interface-Essential/Date/
 import Close from '../../../static/assets/icons/ic_close.svg'
 import Delete from '../../../static/assets/icons/Interface-Essential/Delete/bin.svg'
 import Edit from '../../../static/assets//icons/Interface-Essential/Edit/pencil-write.svg'
+import fullscreen from '../../../static/assets/icons/ic_fullscreen.svg'
+import fullscreen_exit from '../../../static/assets/icons/ic_fullscreen_exit.svg'
 
 type Props = {
 	/** The name of the icon to render. If not found, this will return null. */
@@ -23,7 +25,9 @@ const key = {
 	close: Close,
 	date: CalendarDate,
 	delete: Delete,
-	edit: Edit
+	edit: Edit,
+	fullscreen,
+	fullscreen_exit
 }
 
 const Icon = (props: Props) => {

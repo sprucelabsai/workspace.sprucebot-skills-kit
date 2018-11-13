@@ -32,10 +32,44 @@ body.sb-show-main {
 .bigcalendar__header-top {
     border-bottom: 1px solid $c-border;
     display:flex;
+    align-items: center;
+
+    h2 {
+        margin: 0 rem(10);
+        white-space: nowrap;
+    }
 }
 
 .bigcalendar__header-controls {
     display:flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .bigcalendar_date-picker {
+        position: absolute;
+        z-index: 4;
+
+        .DayPickerKeyboardShortcuts_show {
+            display: none;
+        }
+    }
+}
+
+.bigcalendar__date-scroll-controls {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 25%;
+
+    select {
+        height: 75%;
+    }
+}
+
+.bigcalendar__fullscreen-control {
+    display: flex;
+    align-items: center;
 }
 
 .bigcalendar__header-bottom {

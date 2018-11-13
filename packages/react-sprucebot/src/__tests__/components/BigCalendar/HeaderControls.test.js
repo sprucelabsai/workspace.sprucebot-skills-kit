@@ -17,6 +17,12 @@ describe('HeaderControl tests', () => {
 				onChangeView={() => {}}
 				onBackDate={() => {}}
 				onNextDate={() => {}}
+				onChangeView={() => {}}
+				userModeOptions={[]}
+				onChangeUserMode={() => {}}
+				onSelectDate={() => {}}
+				onDateToToday={() => {}}
+				selectedDate={moment()}
 			/>
 		)
 
