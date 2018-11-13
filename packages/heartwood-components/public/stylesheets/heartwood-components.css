@@ -3617,6 +3617,23 @@ select:-webkit-autofill:focus {
   .event-details-footer .btn {
     margin-bottom: 0; }
 
+.text__heading {
+  font-size: 1.25rem;
+  font-weight: 600; }
+
+.text__body {
+  font-size: 1rem;
+  font-weight: 400;
+  -webkit-font-feature-settings: 'onum', 'pnum';
+          font-feature-settings: 'onum', 'pnum';
+  font-variant-numeric: oldstyle-nums proportional-nums; }
+
+.text__style--strong {
+  font-weight: 600; }
+
+.text__style--emphasis {
+  font-style: italic; }
+
 .hamburger {
   display: inline-block;
   position: relative;

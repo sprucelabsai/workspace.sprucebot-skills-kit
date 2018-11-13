@@ -1,5 +1,5 @@
 module.exports = {
-	title: 'Heading',
+	title: 'Text',
 	status: 'wip',
 	collated: true,
 	collator: function(markup, item) {
@@ -9,18 +9,7 @@ module.exports = {
 	},
 	preview: '@main-preview',
 	context: {
-		element: 'h2',
-		className: 'text__heading',
-		text: 'Welcome Back!'
-	},
-	variants: [
-		{
-			name: 'subheading',
-			label: 'Heading as H3',
-			context: {
-				element: 'h3',
-				text: "You're Still Here?"
-			}
-		}
-	]
+		text:
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+	}
 }

@@ -1,0 +1,20 @@
+.text__heading {
+	@include typescale('heading-md');
+	font-weight: $font-weight-bold;
+}
+
+.text__body {
+	@include typescale('body');
+	font-weight: $font-weight-normal;
+	font-feature-settings: 'onum', 'pnum';
+	font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+.text__style {
+	&--strong {
+		font-weight: $font-weight-bold;
+	}
+	&--emphasis {
+		font-style: italic;
+	}
+}
