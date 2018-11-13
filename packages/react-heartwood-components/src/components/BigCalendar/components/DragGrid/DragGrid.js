@@ -528,7 +528,9 @@ class DragGrid extends PureComponent<Props> {
 					e,
 					event: this._pendingDrag.event,
 					block: this._pendingDrag.block,
-					blockIdx: this._pendingDrag.blockIdx
+					blockIdx: this._pendingDrag.blockIdx,
+					clientX: x,
+					clientY: y
 				})
 				this._pendingDrag = null
 			}
@@ -640,7 +642,14 @@ class DragGrid extends PureComponent<Props> {
 		return this._isMouseDownOnEvent
 	}
 
-	startDragOfEvent = async ({ e, event, block, blockIdx }) => {
+	startDragOfEvent = async ({
+		e,
+		event,
+		block,
+		blockIdx,
+		clientX: overrideClientX,
+		clientY: overrideClientY
+	}) => {
 		let dragEvent = null
 		let originalEvent = null
 
@@ -685,7 +694,9 @@ class DragGrid extends PureComponent<Props> {
 			  })
 
 		//calculate offset to keep event in proper position relative to the mouse
-		const { clientX, clientY } = eventUtil.clientXY(e)
+		let { clientX, clientY } = eventUtil.clientXY(e)
+		clientX = overrideClientX || clientX
+		clientY = overrideClientY || clientY
 
 		const wrapperLeft = sizeUtil.getLeft(this.domNodeRef.current)
 		const wrapperTop = sizeUtil.getTop(this.domNodeRef.current)

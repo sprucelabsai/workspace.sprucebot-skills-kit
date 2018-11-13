@@ -102,6 +102,10 @@ class Day extends PureComponent<Props> {
 			this._columnMapCache = null
 			this.placeAndSize()
 			this.sizeTimeLine()
+
+			if (this.state.dragEvent) {
+				this.handleDeselectEvent()
+			}
 		}
 	}
 
@@ -355,7 +359,7 @@ class Day extends PureComponent<Props> {
 		// console.log('drop event in day')
 		// reset some things
 		const dragDetails = this._dragDetails || {}
-		const { blockUpdates } = this._dragResizeUpdates || {}
+		const { blockUpdates = [] } = this._dragResizeUpdates || {}
 
 		this._dragDetails = null
 		this._resizeDetails = null
@@ -374,7 +378,7 @@ class Day extends PureComponent<Props> {
 				newStartAt: newStartTime,
 				newUser: newUser && newUser.id !== event.userId ? newUser : null,
 				...dragDetails,
-				blockUpdates
+				blockUpdates: blockUpdates.length === 0 ? null : blockUpdates
 			})
 		)
 	}

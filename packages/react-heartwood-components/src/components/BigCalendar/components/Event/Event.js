@@ -29,6 +29,7 @@ const Event = (props: Props) => {
 			{event.blocks.map((block, idx) => {
 				const eventBlock = (
 					<EventBlock
+						resizable={event.resizable !== false}
 						startAt={startAt}
 						onMouseDown={e => {
 							onMouseDown && onMouseDown({ e, event, block, blockIdx: idx })
