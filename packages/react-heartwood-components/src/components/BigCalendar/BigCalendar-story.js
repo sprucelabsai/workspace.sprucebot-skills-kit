@@ -16,6 +16,7 @@ class BigCalendarExample extends Component {
 	state = {
 		users: storyUsers,
 		events: storyEvents,
+		userMode: 'everyone',
 		// events: [],
 		location: {
 			id: '9139bfeb-7143-4a50-abad-2f768decb1d1',
@@ -56,9 +57,16 @@ class BigCalendarExample extends Component {
 
 	handleDropEvent = ({ event, newStartAt, newUser, blockUpdates }) => {
 		console.log({ event, newStartAt, newUser, blockUpdates })
-
 		const eventsCopy = [...this.state.events]
 		const eventCopy = cloneDeep(event)
+		if (
+			event.userId === 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27' ||
+			(newUser && newUser.id === 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27')
+		) {
+			return false
+		} else if (newUser) {
+			eventCopy.userId = newUser.id
+		}
 
 		if (newStartAt) {
 			eventCopy.startAt = newStartAt.format('YYYY-MM-DD HH:mm:ss')
@@ -75,19 +83,12 @@ class BigCalendarExample extends Component {
 		eventsCopy.splice(eventIdx, 1)
 		eventsCopy.push(eventCopy)
 
-		let success = true
-		if (newUser && newUser.id === 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27') {
-			success = false
-		} else if (newUser) {
-			eventCopy.userId = newUser.id
-		}
-
 		this.setState({ events: eventsCopy })
-		return success
+		return true
 	}
 
-	handleUserModeChange = e => {
-		switch (e.target.value) {
+	handleUserModeChange = mode => {
+		switch (mode) {
 			case 'everyone':
 				this.bigCalRef.current.setCurrentUsers(storyUsers)
 				break
@@ -102,21 +103,21 @@ class BigCalendarExample extends Component {
 				])
 				break
 		}
-		console.log(e.target.value)
 	}
 
 	render() {
-		const { users, location, events } = this.state
+		const { users, location, events, userMode } = this.state
 
 		return (
 			<Container>
 				<BigCalendar
 					ref={this.bigCalRef}
-					userModeOptions={{
+					userModeSelectOptions={{
 						everyone: 'Everyone',
 						working: 'Working',
 						me: 'Me'
 					}}
+					defaultUserMode={userMode}
 					onChangeUserMode={this.handleUserModeChange}
 					onDropEvent={this.handleDropEvent}
 					allUsers={users}

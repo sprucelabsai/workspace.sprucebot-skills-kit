@@ -179,8 +179,10 @@ class DragGrid extends PureComponent<Props> {
 	}
 
 	handleTouchEndOnView = e => {
-		console.log('touch end on view')
+		// console.log('touch end on view')
 		this.handleMouseUpFromView(e)
+		e.preventDefault()
+		e.stopPropagation()
 
 		window.removeEventListener('touchend', this.handleTouchEndOnView)
 	}
@@ -284,13 +286,19 @@ class DragGrid extends PureComponent<Props> {
 	handleTouchStartOnDragEvent = ({ e, event, block, blockIdx }) => {
 		const originalEvent = this.eventById(event.originalId)
 
-		this.handleMouseDownOnEvent({
-			e,
-			event: originalEvent,
-			block,
-			blockIdx,
-			setListeners: false
-		})
+		if (
+			!this.handleMouseDownOnEvent({
+				e,
+				event: originalEvent,
+				block,
+				blockIdx,
+				setListeners: false
+			})
+		) {
+			e.preventDefault()
+			e.stopPropagation()
+			return
+		}
 		e.persist()
 
 		this.startDragOfEvent({ e, event, block, blockIdx })
@@ -304,7 +312,7 @@ class DragGrid extends PureComponent<Props> {
 	}
 
 	handleTouchEndOnEvent = e => {
-		console.log('touch end on event')
+		// console.log('touch end on event')
 		// we did not successfully long press, simulate all mouse events hurry
 		if (this._longPressTimeout) {
 			clearInterval(this._longPressTimeout)
@@ -520,7 +528,9 @@ class DragGrid extends PureComponent<Props> {
 					e,
 					event: this._pendingDrag.event,
 					block: this._pendingDrag.block,
-					blockIdx: this._pendingDrag.blockIdx
+					blockIdx: this._pendingDrag.blockIdx,
+					clientX: x,
+					clientY: y
 				})
 				this._pendingDrag = null
 			}
@@ -601,12 +611,27 @@ class DragGrid extends PureComponent<Props> {
 			this.setState({ dragEvent: null })
 		}
 
+		// if valid, clear everything immediately and move on
 		if (valid) {
 			reset()
-		} else {
+		}
+		// if not valid, animate this event back into place and then reset state
+		else {
 			dragEventNode.classList.toggle('animate', true)
 			dragEventNode.style.left = sourceEventNode.style.left
 			dragEventNode.style.top = sourceEventNode.style.top
+			dragEventNode.style.width = sourceEventNode.style.width
+
+			const sourceBlocks = sourceEventNode.querySelectorAll(
+				'.bigcalendar__event-block'
+			)
+			const dragBlocks = dragEventNode.querySelectorAll(
+				'.bigcalendar__event-block'
+			)
+
+			sourceBlocks.forEach((block, blockIdx) => {
+				dragBlocks[blockIdx].style.height = block.style.height
+			})
 
 			// let animations finish
 			setTimeout(reset, 500)
@@ -617,7 +642,14 @@ class DragGrid extends PureComponent<Props> {
 		return this._isMouseDownOnEvent
 	}
 
-	startDragOfEvent = async ({ e, event, block, blockIdx }) => {
+	startDragOfEvent = async ({
+		e,
+		event,
+		block,
+		blockIdx,
+		clientX: overrideClientX,
+		clientY: overrideClientY
+	}) => {
 		let dragEvent = null
 		let originalEvent = null
 
@@ -662,7 +694,9 @@ class DragGrid extends PureComponent<Props> {
 			  })
 
 		//calculate offset to keep event in proper position relative to the mouse
-		const { clientX, clientY } = eventUtil.clientXY(e)
+		let { clientX, clientY } = eventUtil.clientXY(e)
+		clientX = overrideClientX || clientX
+		clientY = overrideClientY || clientY
 
 		const wrapperLeft = sizeUtil.getLeft(this.domNodeRef.current)
 		const wrapperTop = sizeUtil.getTop(this.domNodeRef.current)

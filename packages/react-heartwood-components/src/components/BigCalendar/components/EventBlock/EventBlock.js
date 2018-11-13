@@ -8,11 +8,12 @@ type Props = {
 	text?: string,
 	children?: Node,
 	className?: string,
-	startAt: Object
+	startAt: Object,
+	resizable: Boolean
 }
 
 const EventBlock = (props: Props) => {
-	const { block, className, startAt, ...rest } = props
+	const { block, resizable, className, startAt, ...rest } = props
 
 	// NOTE: you MUST keep resize-n the first class in any resize-handle
 	// IT MUST BE IN THE FORM OF resize-[n|s|e|w]
@@ -25,19 +26,20 @@ const EventBlock = (props: Props) => {
 			})}
 			{...rest}
 		>
-			{block.leftIcons &&
-				block.leftIcons.length > 0 && (
-					<div className="left-icons">
-						{block.leftIcons.map(icon => (
-							<span title={icon.title}>
-								<Icon {...icon} />
-							</span>
-						))}
-					</div>
-				)}
-			<div className="resize-n resize-handle">
-				<div className="resize-highlight-handle" />
-			</div>
+			{block.leftIcons && block.leftIcons.length > 0 && (
+				<div className="left-icons">
+					{block.leftIcons.map(icon => (
+						<span title={icon.title}>
+							<Icon {...icon} />
+						</span>
+					))}
+				</div>
+			)}
+			{resizable && (
+				<div className="resize-n resize-handle">
+					<div className="resize-highlight-handle" />
+				</div>
+			)}
 			<p className="title" dangerouslySetInnerHTML={{ __html: block.title }} />
 			{block.subtitle && (
 				<p
@@ -46,19 +48,20 @@ const EventBlock = (props: Props) => {
 				/>
 			)}
 			<p className="time">{startAt.format('h:mma')}</p>
-			<div className="resize-s resize-handle">
-				<div className="resize-highlight-handle" />
-			</div>
-			{block.rightIcons &&
-				block.rightIcons.length > 0 && (
-					<div className="right-icons">
-						{block.rightIcons.map(icon => (
-							<span title={icon.title}>
-								<Icon {...icon} />
-							</span>
-						))}
-					</div>
-				)}
+			{resizable && (
+				<div className="resize-s resize-handle">
+					<div className="resize-highlight-handle" />
+				</div>
+			)}
+			{block.rightIcons && block.rightIcons.length > 0 && (
+				<div className="right-icons">
+					{block.rightIcons.map(icon => (
+						<span title={icon.title}>
+							<Icon {...icon} />
+						</span>
+					))}
+				</div>
+			)}
 		</div>
 	)
 }
