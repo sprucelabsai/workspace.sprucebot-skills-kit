@@ -27,7 +27,7 @@
 
 	.btn__inner {
 		justify-content: flex-start;
-	}	
+	}
 }
 
 .autosuggest__list-item-inner:hover {
@@ -36,7 +36,7 @@
 
 .autosuggest__no-results {
 	@include typescale('ui');
-	padding: rem(8);
+	padding: spacing('tight');
 	background-color: $c-bg;
 }
 
@@ -49,4 +49,6 @@
 	color: $c-text-light;
 }
 
-.text-input__clear-btn .btn__icon-wrapper { line-height: 0; }
+.text-input__clear-btn .btn__icon-wrapper {
+	line-height: 0;
+}

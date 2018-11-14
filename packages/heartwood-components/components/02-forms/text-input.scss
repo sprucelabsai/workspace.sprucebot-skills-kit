@@ -1,10 +1,8 @@
 /* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover
-textarea:-webkit-autofill:focus,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
@@ -12,11 +10,8 @@ select:-webkit-autofill:focus {
 	-webkit-box-shadow: 0 0 0px 1000px $c-ui-input-autofill inset;
 }
 
-
-.text-input
-.text-input__input,
-.text-input
-.text-area__input {
+.text-input .text-input__input,
+.text-input .text-area__input {
 	width: 100%;
 }
 
@@ -39,7 +34,6 @@ select:-webkit-autofill:focus {
 	margin-bottom: rem(4);
 }
 
-
 .text-input__inner {
 	position: relative;
 	display: flex;
@@ -53,7 +47,7 @@ select:-webkit-autofill:focus {
 .text-input__icon-pre {
 	position: absolute;
 	top: 50%;
-	left: rem(8);
+	left: spacing('tight');
 	transform: translate(0, -50%);
 	width: rem(20);
 	height: rem(20);
@@ -61,7 +55,7 @@ select:-webkit-autofill:focus {
 	opacity: 0.7;
 }
 
-.text-input__icon-pre ~ .text-input__input  {
+.text-input__icon-pre ~ .text-input__input {
 	padding-left: rem(32);
 }
 
@@ -90,16 +84,15 @@ select:-webkit-autofill:focus {
 
 .text-input__input {
 	height: $tap-height;
-	padding: 0 rem(8);
+	padding: 0 spacing('tight');
 
 	.text-input-small & {
 		height: $tap-height-small;
 	}
-
 }
 
 .text-area__input {
-	padding: rem(8);
+	padding: spacing('tight');
 
 	&.text-area__input-no-resize {
 		resize: none;
@@ -143,7 +136,7 @@ select:-webkit-autofill:focus {
 	display: flex;
 	align-items: center;
 	width: rem(56);
-	padding: rem(8);
+	padding: spacing('tight');
 }
 
 .text-input__credit-card-icon {
@@ -153,10 +146,9 @@ select:-webkit-autofill:focus {
 
 .text-input__country-select,
 .text-input__credit-card-icon-wrapper {
-	~ .text-input__input  {
+	~ .text-input__input {
 		padding-left: rem(62);
 	}
-	
 }
 .text-input--is-focused .text-input__country-select {
 	border-color: $c-primary;
@@ -169,7 +161,7 @@ select:-webkit-autofill:focus {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	padding-left: rem(8);
+	padding-left: spacing('tight');
 
 	.ic__dropdown-arrow {
 		fill: $c-text-icon;
@@ -179,7 +171,7 @@ select:-webkit-autofill:focus {
 .text-input__clear-btn.btn.btn-icon-only {
 	position: absolute;
 	top: 50%;
-	right: rem(8);
+	right: spacing('tight');
 	transform: translate(0, -50%);
 	min-width: 0;
 	width: rem(16);
@@ -194,6 +186,8 @@ select:-webkit-autofill:focus {
 	}
 
 	&:hover {
-		svg { opacity: 1;}
+		svg {
+			opacity: 1;
+		}
 	}
 }

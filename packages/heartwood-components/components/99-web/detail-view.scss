@@ -1,0 +1,36 @@
+// DETAIL LAYOUT SPECIFIC
+// TODO: UPDATE THIS WHEN DETAIL LAYOUT IS UPDATED
+.detail-view {
+	display: flex;
+	flex-flow: column;
+
+	.detail-view-container {
+		width: 100%;
+		padding: 0;
+		margin-top: rem(20);
+	}
+
+	@include gt('large') {
+		flex-flow: row;
+	}
+}
+
+.detail-view__image {
+	padding-left: rem(16);
+	margin-bottom: rem(16);
+	@include gt('large') {
+		padding-left: rem(48);
+		margin-bottom: rem(32);
+	}
+}
+
+.detail-view__content {
+	width: 100%;
+	@include gt('medium') {
+		padding: 0 rem(16);
+	}
+
+	@include gt('large') {
+		padding: 0 rem(32);
+	}
+}

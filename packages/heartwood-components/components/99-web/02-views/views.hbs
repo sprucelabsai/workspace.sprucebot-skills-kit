@@ -7,12 +7,12 @@
 			<div class="page-content">
 				{{> @page-header}}
 				{{#if isDetail}}
-				<div class="l-detail-wrapper">
-					<section class="l-detail__image">
+				<div class="detail-view">
+					<section class="detail-view__image">
 						{{> @avatar isLarge=true
 						image='https://images.unsplash.com/photo-1517462964-21fdcec3f25b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9c6622d956bd3bb519516691c31141f4&auto=format&fit=crop&w=192&h=192&q=80'}}
 					</section>
-					<section class="l-detail__content">
+					<section class="detail-view__content">
 
 						{{#> @card }}{{#> @card-section }}Twenty years from now you will be more disappointed by the
 						things

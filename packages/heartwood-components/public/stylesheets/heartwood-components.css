@@ -1558,7 +1558,7 @@ Baseline styling for all buttons
   position: relative;
   display: inline-block;
   height: 3rem;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
   border-radius: 4px;
   text-decoration: none;
   cursor: pointer; }
@@ -2787,9 +2787,6 @@ select:-webkit-autofill:focus {
 .l-mr-small {
   margin-right: 1rem; }
 
-.l-pl-0 {
-  padding-left: 0; }
-
 .l-pb-0 {
   padding: 0; }
 
@@ -2806,34 +2803,6 @@ select:-webkit-autofill:focus {
     .l-ph-medium {
       padding-left: 2rem;
       padding-right: 2rem; } }
-
-.l-detail-wrapper {
-  display: flex;
-  flex-flow: column; }
-  .l-detail-wrapper .l-detail-container {
-    width: 100%;
-    padding: 0;
-    margin-top: 1.25rem; }
-  @media screen and (min-width: 1000px) {
-    .l-detail-wrapper {
-      flex-flow: row; } }
-
-.l-detail__image {
-  padding-left: 1rem;
-  margin-bottom: 1rem; }
-  @media screen and (min-width: 1000px) {
-    .l-detail__image {
-      padding-left: 3rem;
-      margin-bottom: 2rem; } }
-
-.l-detail__content {
-  width: 100%; }
-  @media screen and (min-width: 750px) {
-    .l-detail__content {
-      padding: 0 1rem; } }
-  @media screen and (min-width: 1000px) {
-    .l-detail__content {
-      padding: 0 2rem; } }
 
 .avatar-wrapper {
   font-size: 0.875rem;
@@ -3896,5 +3865,33 @@ select:-webkit-autofill:focus {
     padding: 0.5rem; }
   .sidebar.sidebar--is-collapsed .sidebar-item__icon {
     margin-right: 0; }
+
+.detail-view {
+  display: flex;
+  flex-flow: column; }
+  .detail-view .detail-view-container {
+    width: 100%;
+    padding: 0;
+    margin-top: 1.25rem; }
+  @media screen and (min-width: 1000px) {
+    .detail-view {
+      flex-flow: row; } }
+
+.detail-view__image {
+  padding-left: 1rem;
+  margin-bottom: 1rem; }
+  @media screen and (min-width: 1000px) {
+    .detail-view__image {
+      padding-left: 3rem;
+      margin-bottom: 2rem; } }
+
+.detail-view__content {
+  width: 100%; }
+  @media screen and (min-width: 750px) {
+    .detail-view__content {
+      padding: 0 1rem; } }
+  @media screen and (min-width: 1000px) {
+    .detail-view__content {
+      padding: 0 2rem; } }
 
 /*# sourceMappingURL=heartwood-components.css.map */

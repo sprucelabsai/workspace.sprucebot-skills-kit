@@ -14,7 +14,9 @@
 		height: rem(32);
 	}
 
-	.text-input__inner { margin-bottom: 0; }
+	.text-input__inner {
+		margin-bottom: 0;
+	}
 
 	.text-input {
 		flex: 1 0 auto;
@@ -23,7 +25,7 @@
 }
 
 .header-primary__user-btn {
-	padding-right: rem(8);
+	padding-right: spacing('tight');
 }
 
 .header-primary__left,
@@ -35,7 +37,7 @@
 
 .header-primary__right {
 	justify-content: flex-end;
-	padding-right: rem(8);
+	padding-right: spacing('tight');
 }
 
 .header-primary__autosuggest {

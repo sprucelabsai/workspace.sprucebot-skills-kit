@@ -60,7 +60,7 @@
 	}
 
 	.list-small & {
-		@include typescale('ui')
+		@include typescale('ui');
 	}
 
 	.sortable-list & {
@@ -92,7 +92,7 @@
 
 .list-item__title {
 	font-weight: $font-weight-bold;
-	
+
 	.list-item-title-only & {
 		font-weight: $font-weight-normal;
 	}
@@ -110,7 +110,7 @@
 
 .list-item__image-wrapper {
 	padding: rem(12) 0;
-	margin-right: rem(8);
+	margin-right: spacing('tight');
 	line-height: 0;
 
 	.list-small & {
@@ -118,7 +118,7 @@
 	}
 }
 .list-item__actions-wrapper {
-	padding-top: rem(8);
+	padding-top: spacing('tight');
 
 	.list-small & {
 		padding-top: 0;
@@ -153,9 +153,8 @@
 }
 
 .list-item-title-only {
-
 	// Exception for People List only shows name
-	&.people-list  {
+	&.people-list {
 		.list-item__actions-wrapper,
 		.list-item__text-wrapper {
 			display: inline-flex;

@@ -36,7 +36,7 @@
 	border-top: 1px solid $c-border;
 
 	.btn {
-		margin-bottom: rem(8);
+		margin-bottom: spacing('tight');
 
 		&:last-child {
 			margin-bottom: 0;

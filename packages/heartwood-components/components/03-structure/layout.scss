@@ -43,11 +43,6 @@ $relative-size: $primary-basis / $secondary-basis;
 	margin-right: map-get($typescale-map, 'body');
 }
 
-// Padding
-.l-pl-0 {
-	padding-left: 0;
-}
-
 .l-pb-0 {
 	padding: 0;
 }
@@ -66,41 +61,5 @@ $relative-size: $primary-basis / $secondary-basis;
 	@include gt('large') {
 		padding-left: rem(32);
 		padding-right: rem(32);
-	}
-}
-
-// Layout Specific
-.l-detail-wrapper {
-	display: flex;
-	flex-flow: column;
-
-	.l-detail-container {
-		width: 100%;
-		padding: 0;
-		margin-top: rem(20);
-	}
-
-	@include gt('large') {
-		flex-flow: row;
-	}
-}
-
-.l-detail__image {
-	padding-left: rem(16);
-	margin-bottom: rem(16);
-	@include gt('large') {
-		padding-left: rem(48);
-		margin-bottom: rem(32);
-	}
-}
-
-.l-detail__content {
-	width: 100%;
-	@include gt('medium') {
-		padding: 0 rem(16);
-	}
-
-	@include gt('large') {
-		padding: 0 rem(32);
 	}
 }

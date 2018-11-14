@@ -2,7 +2,7 @@
 	display: inline-flex;
 
 	.button-group__item {
-		margin-right: rem(8);
+		margin-right: spacing('tight');
 
 		&:last-child {
 			margin-right: 0;
