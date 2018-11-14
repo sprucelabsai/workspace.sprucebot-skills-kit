@@ -29,29 +29,29 @@ export type CardHeaderProps = {
 const CardHeader = (props: CardHeaderProps) => {
 	const { title, labelText, labelIcon, actions, contextMenu } = props
 	return (
-		<div className="card-header">
+		<div className="card__header">
 			{(title || labelText || labelIcon) && (
-				<div className="card-header__text">
+				<div className="card__header-text">
 					{(labelText || labelIcon) && (
-						<div className="card-header__label">
+						<div className="card__header-label">
 							{labelIcon && (
 								<Icon
 									customIcon={labelIcon.customIcon}
 									icon={labelIcon.name}
 									isLineIcon={labelIcon.isLineIcon}
-									className={cx('card-header__label-icon', labelIcon.className)}
+									className={cx('card__header-label-icon', labelIcon.className)}
 								/>
 							)}
 							{labelText && (
-								<span className="card-header__label-text">{labelText}</span>
+								<span className="card__header-label-text">{labelText}</span>
 							)}
 						</div>
 					)}
-					{title && <h3 className="card-header__title">{title}</h3>}
+					{title && <h3 className="card__title">{title}</h3>}
 				</div>
 			)}
 			{(actions || contextMenu) && (
-				<div className="card-header__actions">
+				<div className="card__header-actions">
 					<Fragment>
 						{actions &&
 							actions.length > 0 &&

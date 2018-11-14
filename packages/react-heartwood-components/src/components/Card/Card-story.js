@@ -80,7 +80,7 @@ stories
 					labelText={text('labelText', 'Billing failure')}
 					labelIcon={{ customIcon: AlertIcon3 }}
 				/>
-				<CardBody>
+				<CardBody isSectioned>
 					<Text className="u-lh-loose u-color-body-light">
 						Two roads diverged in a wood, and I took the one less traveled by,
 						And that has made all the difference.
@@ -103,7 +103,7 @@ stories
 						}
 					])}
 				/>
-				<CardBody>
+				<CardBody isSectioned>
 					<Text className="u-lh-loose u-color-body-light">
 						Two roads diverged in a wood, and I took the one less traveled by,
 						And that has made all the difference.
@@ -142,7 +142,7 @@ stories
 						}
 					])}
 				/>
-				<CardBody>
+				<CardBody isSectioned>
 					<List items={userList} />
 					<Anchor href="#">+3 more today</Anchor>
 				</CardBody>
@@ -153,7 +153,7 @@ stories
 		<Container size="medium">
 			<Card isCentered>
 				<CardHeader />
-				<CardBody>
+				<CardBody isSectioned>
 					<Avatar isLarge image={userImageLg} alt="Rosamund Mueleer" />
 					<H3 className="card-header__title l-mb-xsmall">
 						Say "Happy Birthday"
@@ -178,7 +178,7 @@ stories
 					height={360}
 					className="l-mb-small"
 				/>
-				<CardBody>
+				<CardBody isSectioned>
 					<H3>Les Basics</H3>
 					<Text className="u-lh-loose u-color-body-light">
 						101 Purdy Lakes, West Jordanmouth, NH 38827-6100
@@ -200,7 +200,7 @@ stories
 					className="l-mb-small"
 				/>
 
-				<CardBody>
+				<CardBody isSectioned>
 					<H3>Congrats on 10k guests!</H3>
 					<Text className="u-lh-loose u-color-body-light">
 						I’ve learned that people will forget what you said, people will
@@ -240,7 +240,7 @@ stories
 						)
 					}
 				/>
-				<CardBody>
+				<CardBody isSectioned>
 					<Text className="u-lh-loose u-color-body-light">
 						{text(
 							'Body Copy',
