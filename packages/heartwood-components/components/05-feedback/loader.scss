@@ -21,7 +21,7 @@
 	animation: a-loading 600ms ease-in-out infinite alternate;
 
 	&:not(:last-child) {
-		margin-right: rem(4);
+		margin-right: spacing('extra-tight');
 	}
 
 	@for $i from 1 through 3 {

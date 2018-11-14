@@ -41,7 +41,7 @@
 }
 
 .autosuggest__no-results-title {
-	margin-bottom: rem(2);
+	margin-bottom: 0.5 * spacing('extra-tight');
 	font-weight: $font-weight-bold;
 }
 

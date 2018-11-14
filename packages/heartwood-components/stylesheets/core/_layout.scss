@@ -21,13 +21,15 @@ $breakpoints-map: (
 Spacing
 */
 
+$spacing-unit: 16;
+
 $spacing-map: (
 	'none': 0,
-	'extra-tight': 0.25rem,
-	'tight': 0.5rem,
-	'base': 1rem,
-	'loose': 1.25rem,
-	'extra-loose': 2rem
+	'extra-tight': rem($spacing-unit * 0.25),
+	'tight': rem($spacing-unit * 0.5),
+	'base': rem($spacing-unit * 1),
+	'loose': rem($spacing-unit * 1.25),
+	'extra-loose': rem($spacing-unit * 2)
 );
 
 @function spacing($size: 'base') {

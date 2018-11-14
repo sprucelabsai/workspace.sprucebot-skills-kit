@@ -9,7 +9,7 @@
 	flex: 0 0 auto;
 	width: rem(20);
 	height: rem(20);
-	margin-right: rem(4);
+	margin-right: spacing('extra-tight');
 	fill: $c-primary;
 
 	.checkbox-item__icon-no {
@@ -69,7 +69,7 @@
 
 .checkbox-item__post-text {
 	@include type-style-body-sm;
-	margin-top: rem(4);
-	padding-left: rem(24);
+	margin-top: spacing('extra-tight');
+	padding-left: 1.5 * spacing('base');
 	color: $c-text-light;
 }

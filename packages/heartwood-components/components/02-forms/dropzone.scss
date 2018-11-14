@@ -4,7 +4,7 @@
 	justify-content: flex-end;
 	align-items: center;
 	position: relative;
-	padding: rem(16);
+	padding: spacing('base');
 	width: 100%;
 	min-height: rem(240);
 	background-color: $c-bg;
@@ -22,7 +22,7 @@
 
 .dropzone__icons,
 .dropzone__btn {
-	margin-bottom: rem(16);
+	margin-bottom: spacing('base');
 }
 
 .dropzone__icons {
@@ -49,7 +49,7 @@
 
 .dropzone__helper-text-bottom {
 	position: absolute;
-	bottom: rem(16);
+	bottom: spacing('base');
 	left: 0;
 	width: 100%;
 	text-align: center;
@@ -65,7 +65,7 @@
 
 .dropzone__helper-text,
 .dropzone__uploading-progress-wrapper {
-	margin-bottom: rem(16);
+	margin-bottom: spacing('base');
 }
 
 .dropzone__uploading-text {

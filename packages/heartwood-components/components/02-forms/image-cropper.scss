@@ -5,16 +5,16 @@
 }
 
 .image-cropper__dropzone-wrapper {
-	margin-bottom: rem(24);
+	margin-bottom: 1.5 * spacing('base');
 }
 
 .image-cropper__controls-row {
-	margin-bottom: rem(16);
+	margin-bottom: spacing('base');
 }
 
 .image-cropper__rotate-btn {
 	width: 50%;
-	margin-right: rem(16);
+	margin-right: spacing('base');
 
 	&:last-child {
 		margin-right: 0;

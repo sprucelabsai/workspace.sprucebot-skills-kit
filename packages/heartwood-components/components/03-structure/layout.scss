@@ -48,18 +48,18 @@ $relative-size: $primary-basis / $secondary-basis;
 }
 
 .l-pa-medium {
-	padding: rem(16);
+	padding: spacing('base');
 	@include gt('large') {
-		padding: rem(32);
+		padding: spacing('extra-loose');
 	}
 }
 
 .l-ph-medium {
-	padding-left: rem(16);
-	padding-right: rem(16);
+	padding-left: spacing('base');
+	padding-right: spacing('base');
 
 	@include gt('large') {
-		padding-left: rem(32);
-		padding-right: rem(32);
+		padding-left: spacing('extra-loose');
+		padding-right: spacing('extra-loose');
 	}
 }

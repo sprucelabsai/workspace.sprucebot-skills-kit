@@ -9,7 +9,7 @@
 			border-bottom-right-radius: 0;
 			border-right: none;
 		}
-	
+
 		&:last-of-type {
 			border-top-left-radius: 0;
 			border-bottom-left-radius: 0;
@@ -35,7 +35,7 @@
 .pagination__jump-wrapper {
 	display: inline-flex;
 	align-items: center;
-	margin-left: rem(16);
+	margin-left: spacing('base');
 
 	.text-input__inner {
 		margin-bottom: 0;

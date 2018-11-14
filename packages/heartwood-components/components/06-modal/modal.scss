@@ -11,7 +11,7 @@
 .modal-header {
 	display: flex;
 	justify-content: space-between;
-	padding: rem(16);
+	padding: spacing('base');
 	border-bottom: 1px solid $c-border;
 }
 
@@ -32,7 +32,7 @@
 	display: flex;
 	flex-flow: column;
 	flex: 1 0 auto;
-	padding: rem(16);
+	padding: spacing('base');
 	border-top: 1px solid $c-border;
 
 	.btn {
@@ -54,7 +54,7 @@
 }
 
 .modal-body {
-	padding: rem(16);
+	padding: spacing('base');
 	overflow: scroll;
 }
 
@@ -84,15 +84,15 @@
 		}
 
 		@include gt('small') {
-			top: rem(16);
-			left: rem(16);
+			top: spacing('base');
+			left: spacing('base');
 			width: calc(100% - #{rem(32)});
 			max-height: calc(100% - #{rem(32)});
 		}
 
 		@include gt('medium') {
-			top: rem(32);
-			left: rem(32);
+			top: spacing('extra-loose');
+			left: spacing('extra-loose');
 			width: calc(100% - #{rem(64)});
 			max-height: calc(100% - #{rem(64)});
 		}

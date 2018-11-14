@@ -1,5 +1,4 @@
 .onboarding-card {
-
 	.tab-group {
 		flex-flow: column;
 		align-items: stretch;
@@ -25,7 +24,7 @@
 	.tab__inner.btn {
 		display: none;
 		height: 100%;
-		padding: rem(16);
+		padding: spacing('base');
 		width: 100%;
 
 		&.tab--is-current {
@@ -60,7 +59,7 @@
 }
 
 .onboarding-card__title {
-	padding: rem(16);
+	padding: spacing('base');
 	font-weight: $font-weight-bold;
 	border-bottom: 1px solid $c-border;
 }

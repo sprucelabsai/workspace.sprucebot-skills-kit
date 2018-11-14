@@ -92,8 +92,8 @@
 .DayPickerNavigation {
 	display: flex;
 	position: absolute;
-	top: rem(16);
-	right: rem(8);
+	top: spacing('base');
+	right: spacing('tight');
 }
 
 .DayPickerNavigation_button {

@@ -31,7 +31,7 @@ select:-webkit-autofill:focus {
 
 .text-input__pre,
 .text-input__inner {
-	margin-bottom: rem(4);
+	margin-bottom: spacing('extra-tight');
 }
 
 .text-input__inner {
@@ -56,7 +56,7 @@ select:-webkit-autofill:focus {
 }
 
 .text-input__icon-pre ~ .text-input__input {
-	padding-left: rem(32);
+	padding-left: spacing('extra-loose');
 }
 
 .text-input__input,
@@ -100,7 +100,7 @@ select:-webkit-autofill:focus {
 }
 
 .text-input__appendix {
-	margin-left: rem(4);
+	margin-left: spacing('extra-tight');
 }
 
 .text-input__helper {

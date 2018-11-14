@@ -50,7 +50,7 @@
 }
 
 .header-primary__lockup-icon {
-	margin-right: rem(4);
+	margin-right: spacing('extra-tight');
 	stroke: $c-white;
 }
 
@@ -79,7 +79,7 @@
 
 @include gt('medium') {
 	.header-primary {
-		padding-left: rem(16);
+		padding-left: spacing('base');
 
 		.hamburger {
 			display: none;
@@ -100,7 +100,7 @@
 	top: 100%;
 	right: 0;
 	width: rem(256);
-	padding-bottom: rem(4);
+	padding-bottom: spacing('extra-tight');
 	color: $c-text;
 
 	.avatar__image-wrapper {
@@ -109,7 +109,7 @@
 	}
 
 	.list-item:first-child {
-		margin: 0 rem(16);
+		margin: 0 spacing('base');
 	}
 
 	.list-item:not(:first-child):after {

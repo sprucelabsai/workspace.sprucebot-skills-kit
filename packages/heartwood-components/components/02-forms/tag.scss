@@ -2,7 +2,7 @@
 	display: inline-flex;
 	align-items: center;
 	height: $tap-height;
-	padding-left: rem(16);
+	padding-left: spacing('base');
 	border-radius: $border-radius-button;
 
 	&.tag-small {

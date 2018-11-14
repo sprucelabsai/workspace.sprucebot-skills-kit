@@ -12,14 +12,14 @@
 	display: flex;
 	align-items: flex-start;
 	width: 100%;
-	padding: rem(16) rem(16) rem(10) rem(16);
+	padding: spacing('base') spacing('base') rem(10) spacing('base');
 
 	.event-confirmed &,
 	.event-in-progress &,
 	.block & {
 		color: $c-white;
 
-		.event-details-header__button, {
+		.event-details-header__button {
 			.btn__icon {
 				fill: $c-white;
 			}
@@ -39,7 +39,7 @@
 	.event-unconfirmed & {
 		border: 1px solid $c-primary;
 
-		.event-details-header__button, {
+		.event-details-header__button {
 			.btn__icon {
 				fill: $c-primary;
 			}
@@ -85,7 +85,7 @@
 
 // Footer Styles
 .event-details-footer {
-	padding: rem(16);
+	padding: spacing('base');
 	background-color: $c-bg;
 	border-top: 1px solid $c-border;
 

@@ -35,7 +35,7 @@
 
 	&.button-group-floating {
 		flex-flow: column;
-		padding: rem(4) 0;
+		padding: spacing('extra-tight') 0;
 		border-radius: 2px;
 		background-color: $c-white;
 		box-shadow: $dimension-floating;

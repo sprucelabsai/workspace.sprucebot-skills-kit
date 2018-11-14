@@ -4,8 +4,8 @@
 	flex-flow: column;
 	align-items: center;
 	flex: 0 1 auto;
-	margin-right: rem(16);
-	
+	margin-right: spacing('base');
+
 	&:last-child {
 		margin-right: 0;
 	}
@@ -13,7 +13,7 @@
 
 .tab__inner {
 	position: relative;
-	padding: rem(8) 0;
+	padding: spacing('tight') 0;
 	color: $c-text-light;
 	text-decoration: none;
 
@@ -28,10 +28,12 @@
 		background-color: $c-primary;
 	}
 
-	&.tab--is-current{
+	&.tab--is-current {
 		color: $c-text;
 
-		&:after { display: block; }
+		&:after {
+			display: block;
+		}
 	}
 }
 

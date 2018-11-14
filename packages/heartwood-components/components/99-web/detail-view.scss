@@ -7,7 +7,7 @@
 	.detail-view-container {
 		width: 100%;
 		padding: 0;
-		margin-top: rem(20);
+		margin-top: spacing('loose');
 	}
 
 	@include gt('large') {
@@ -16,21 +16,21 @@
 }
 
 .detail-view__image {
-	padding-left: rem(16);
-	margin-bottom: rem(16);
+	padding-left: spacing('base');
+	margin-bottom: spacing('base');
 	@include gt('large') {
 		padding-left: rem(48);
-		margin-bottom: rem(32);
+		margin-bottom: spacing('extra-loose');
 	}
 }
 
 .detail-view__content {
 	width: 100%;
 	@include gt('medium') {
-		padding: 0 rem(16);
+		padding: 0 spacing('base');
 	}
 
 	@include gt('large') {
-		padding: 0 rem(32);
+		padding: 0 spacing('extra-loose');
 	}
 }
