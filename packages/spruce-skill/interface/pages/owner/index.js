@@ -6,59 +6,21 @@ import {
 	PageContent
 } from '@sprucelabs/react-heartwood-components'
 
-class OwnerDashboard extends React.Component {
-	// static async getInitialProps({ auth, store }) {
-	// 	// load everything
-	// 	if (auth) {
-	// 		await Promise.all([
-	// 			store.dispatch(users.guests()),
-	// 			store.dispatch(users.teammates())
-	// 		])
-	// 	}
-
-	// 	return {}
-	// }
-
+class OwnerPage extends React.Component {
 	componentDidMount() {
 		this.props.skill.ready() // Show the skill
 	}
 
 	render() {
-		// let {
-		// 	auth,
-		// 	lang,
-		// 	users: {
-		// 		guestsLoading = true,
-		// 		guestsError,
-		// 		guests,
-		// 		teammatesLoading = true,
-		// 		teammatesError,
-		// 		teammates
-		// 	},
-		// 	onboarding
-		// } = this.props
-
-		// const dashboardProps = {
-		// 	lang,
-		// 	guestsLoading,
-		// 	guestsError,
-		// 	guests,
-		// 	teammatesLoading,
-		// 	teammatesError,
-		// 	teammates,
-		// 	auth,
-		// 	getText: this.props.lang.getText
-		// }
-
 		return (
 			<Page className="owner-dashboard">
-				<PageHeader title="Heartwood Foundation" />
+				<PageHeader title="Owner Page" />
 				<PageContent>
-					<p>Hello World</p>
+					<p>Hello, Owner!</p>
 				</PageContent>
 			</Page>
 		)
 	}
 }
 
-export default PageWrapper(OwnerDashboard)
+export default PageWrapper(OwnerPage)
