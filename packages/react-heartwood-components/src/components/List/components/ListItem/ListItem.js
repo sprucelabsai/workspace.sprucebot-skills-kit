@@ -4,6 +4,7 @@ import type { Node } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button from '../../../Button/Button'
+import Icon from '../../../Icon/Icon'
 import type { Props as ButtonProps } from '../../../Button/Button'
 import ContextMenu from '../../../ContextMenu/ContextMenu'
 import type { Props as ContextMenuProps } from '../../../ContextMenu/ContextMenu'
@@ -24,7 +25,7 @@ export type Props = {
 	image?: string,
 
 	/** Inline svg icon */
-	icon?: Node,
+	icon?: object,
 
 	/** Set true when the list can be reordered */
 	isDraggable?: boolean,
@@ -51,6 +52,7 @@ const ListItem = (props: Props) => {
 		actions,
 		contextMenu
 	} = props
+
 	const parentClass = cx('list-item', {
 		'list-item-title-only': !subtitle,
 		'list-item--is-draggable': isDraggable
@@ -60,17 +62,14 @@ const ListItem = (props: Props) => {
 		<li className={parentClass}>
 			{(image || icon || avatar) && !isDraggable && (
 				<div className="list-item__image-wrapper">
-					{icon &&
-						React.cloneElement(icon, {
-							className: cx(
-								'list-item__icon',
-								icon.props && icon.props.className,
-								{
-									'u-icon__no-fill': icon.props && icon.props.isLineIcon,
-									'u-icon__stroke': icon.props && icon.props.isLineIcon
-								}
-							)
-						})}
+					{icon && (
+						<Icon
+							customIcon={icon.customIcon}
+							icon={icon.name}
+							isLineIcon={icon.isLineIcon}
+							className={cx('list-item__icon', icon.className, {})}
+						/>
+					)}
 					{image && (
 						<img
 							src={image}

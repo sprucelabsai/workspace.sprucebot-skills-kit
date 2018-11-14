@@ -17,7 +17,7 @@ const ToastHeader = (props: HeaderProps) => {
 	return (
 		<div className="toast__header">
 			<p>{headline}</p>
-			<Button icon={<CloseIcon />} onClick={onRemove} />
+			<Button icon={{ customIcon: CloseIcon }} onClick={onRemove} />
 		</div>
 	)
 }

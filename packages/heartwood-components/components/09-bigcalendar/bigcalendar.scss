@@ -209,6 +209,10 @@ body.sb-show-main {
         }
     }
 
+    .bigcalendar__drag-grid {
+        flex-grow: 2;
+    }
+
     .bigcalendar__time-line {
         height:1px;
         background-color: $c-primary-dark;
@@ -262,6 +266,12 @@ body.sb-show-main {
         }
     }
 
+}
+
+.modal {
+    .event-details {
+        max-width: 100%;
+    }
 }
 
 .bigcalendar__event {

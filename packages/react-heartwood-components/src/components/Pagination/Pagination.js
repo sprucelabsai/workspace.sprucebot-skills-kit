@@ -91,7 +91,7 @@ const Pagination = (props: Props) => {
 				onClick={onClickBack}
 				isSmall
 				className="pagination__btn"
-				icon={<ArrowBack />}
+				icon={{ customIcon: ArrowBack }}
 				disabled={currentPage === 0}
 			/>
 			{showPages &&
@@ -120,7 +120,7 @@ const Pagination = (props: Props) => {
 				onClick={onClickNext}
 				isSmall
 				className="pagination__btn"
-				icon={<ArrowNext />}
+				icon={{ customIcon: ArrowNext }}
 				disabled={currentPage >= totalPages - 1}
 			/>
 			{showJump && onJump && (

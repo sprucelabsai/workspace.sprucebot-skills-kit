@@ -5,7 +5,9 @@ import { VelocityTransitionGroup } from 'velocity-react'
 import Button from '../Button/Button'
 import type { Props as ButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
-import Icon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
+
+import Icon from '../Icon/Icon'
+import MoreIcon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
 
 export type Props = {
 	/** The actions to be shown on tap/click */
@@ -97,15 +99,7 @@ export default class ContextMenu extends Component<Props, State> {
 					kind={isSimple ? 'simple' : ''}
 					className="context-menu__button"
 					onClick={this.handleToggle}
-					icon={
-						icon ? (
-							React.cloneElement(icon, {
-								className: 'btn__line-icon'
-							})
-						) : (
-							<Icon className="btn__line-icon" />
-						)
-					}
+					icon={icon || { customIcon: MoreIcon, isLineIcon: true }}
 				/>
 				<VelocityTransitionGroup
 					enter={{

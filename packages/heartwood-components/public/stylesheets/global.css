@@ -3504,6 +3504,9 @@ select:-webkit-autofill:focus {
 .bigcalendar__view-day.has-selected-event .is-selected.bigcalendar__event {
   opacity: 1; }
 
+.bigcalendar__view-day .bigcalendar__drag-grid {
+  flex-grow: 2; }
+
 .bigcalendar__view-day .bigcalendar__time-line {
   height: 1px;
   background-color: #005499;
@@ -3539,6 +3542,9 @@ select:-webkit-autofill:focus {
         right: auto;
         left: 0;
         bottom: -12px; }
+
+.modal .event-details {
+  max-width: 100%; }
 
 .bigcalendar__event {
   border: 1px solid #0076D6;
