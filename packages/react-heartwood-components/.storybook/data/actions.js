@@ -4,7 +4,10 @@ import EditIcon from '../../static/assets/icons/Interface-Essential/Edit/pencil-
 
 export const singleAction = [
 	{
-		icon: <Icon icon="edit" isLineIcon className="btn__line-icon" />,
+		icon: {
+			name: 'edit',
+			isLineIcon: true
+		},
 		kind: 'simple'
 	}
 ]

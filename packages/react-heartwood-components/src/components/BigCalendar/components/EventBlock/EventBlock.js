@@ -28,8 +28,8 @@ const EventBlock = (props: Props) => {
 		>
 			{block.leftIcons && block.leftIcons.length > 0 && (
 				<div className="left-icons">
-					{block.leftIcons.map(icon => (
-						<span title={icon.title}>
+					{block.leftIcons.map((icon, idx) => (
+						<span title={icon.title} key={`${icon.title}-idx`}>
 							<Icon {...icon} />
 						</span>
 					))}
@@ -55,8 +55,8 @@ const EventBlock = (props: Props) => {
 			)}
 			{block.rightIcons && block.rightIcons.length > 0 && (
 				<div className="right-icons">
-					{block.rightIcons.map(icon => (
-						<span title={icon.title}>
+					{block.rightIcons.map((icon, idx) => (
+						<span title={icon.title} key={`${icon.title}-idx`}>
 							<Icon {...icon} />
 						</span>
 					))}

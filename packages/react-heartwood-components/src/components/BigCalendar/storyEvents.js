@@ -1,6 +1,5 @@
 import moment from 'moment'
 
-import Icon from '../Icon/Icon'
 import NoteIcon from '../../../static/assets/icons/Interface-Essential/Form-Edition/paper-write.svg'
 import ServiceIcon from '../../../static/assets/icons/Interface-Essential/Lists/list-bullets-1.svg'
 import StatusIcon from '../../../static/assets/icons/Interface-Essential/Time/stopwatch.svg'
@@ -33,43 +32,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '1-3pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Hair Tinting</p><p>$70 | 2hrs</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -146,43 +145,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '8:45-9:30am'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>The Ultimate</p><p>$70 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Services Complete',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -241,43 +240,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '9:15-10:45am'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Spruced Up Shave</p><p>$40 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Paid',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -349,43 +348,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '4:30-6:30pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Wax</p><p>$70 | 2hr</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Mark as late'
@@ -459,43 +458,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '1-1:45pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>The Ultimate</p><p>$70 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -554,43 +553,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '10:30-11:15am'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Nose Wax</p><p>$7 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Checked In',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -649,43 +648,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '11:30am-12:45pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>24k Gold Facial</p><p>$100 | 1hr 15min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Late',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -759,43 +758,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '2:15-3pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Brow Wax</p><p>$10 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -854,43 +853,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '1-3pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Hair Tinting</p><p>$70 | 2hrs</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -967,43 +966,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '8:45-9:30am'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>The Ultimate</p><p>$70 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Late',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -1059,43 +1058,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '2:15-3pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Head Shave</p><p>$30 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -1154,43 +1153,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '3:15-4pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Young Spruce</p><p>$23 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -1249,43 +1248,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '10:15-11am'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Beard Trim</p><p>$12 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Unpaid',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -1344,43 +1343,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '12:15-2pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>The Ultimate</p><p>$70 | 1hr 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -1457,43 +1456,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '11:30am-12:45pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Signature</p><p>$40 | 1hr 15min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Checked In',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -1570,43 +1569,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '2-2:45pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Head Shave</p><p>$70 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -1665,43 +1664,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '3-3:45pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Signature Follow-up</p><p>Free | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Unconfirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Confirm appointment'
@@ -1760,43 +1759,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '9:45-10:15am'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Beard Tinting</p><p>$70 | 1hr 30min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Checked In',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -1873,43 +1872,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '12-12:45pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Brow Wax</p><p>$20 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -1968,43 +1967,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '2-2:45pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Nose Wax</p><p>$15 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -2063,43 +2062,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '10:30-11:45am'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>24k Gold Facial</p><p>$100 | 1hr 15min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Checked In',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'
@@ -2173,43 +2172,43 @@ export default [
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: `${today.format('ddd, MMM D, YYYY')}`,
 						subtitle: '1:30-2:15pm'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle: '<p>Clothing Consult</p><p>$70 | 45min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Unconfirmed',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Confirm appointment'

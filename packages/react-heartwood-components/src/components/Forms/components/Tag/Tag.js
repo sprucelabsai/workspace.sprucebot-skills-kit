@@ -28,7 +28,12 @@ const Tag = (props: Props) => {
 	return (
 		<div className={parentClass}>
 			<span className="tag__text">{text}</span>
-			<Button className="tag__btn" icon={<CloseIcon />} />
+			<Button
+				className="tag__btn"
+				icon={{
+					customIcon: CloseIcon
+				}}
+			/>
 		</div>
 	)
 }
