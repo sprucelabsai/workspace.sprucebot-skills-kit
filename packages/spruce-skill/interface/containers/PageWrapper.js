@@ -1,4 +1,4 @@
-import { Page, withStore } from '@sprucelabs/spruce-next-helpers'
+import { PageWrapper, withStore } from '@sprucelabs/spruce-next-helpers'
 import config from './../client'
 import actions from './../store/actions'
 import reducers from './../store/reducers'
@@ -14,7 +14,7 @@ try {
 lang.mixin(defaultLang, overridesLang || {})
 
 export default Wrapped =>
-	withStore(Page(Wrapped), {
+	withStore(PageWrapper(Wrapped), {
 		actions,
 		reducers,
 		config: { ...config }

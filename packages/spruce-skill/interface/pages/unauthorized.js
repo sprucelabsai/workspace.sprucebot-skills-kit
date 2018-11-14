@@ -1,5 +1,5 @@
 import React from 'react'
-import Page from '../containers/Page'
+import PageWrapper from '../containers/PageWrapper'
 import { Container, H1, BotText } from '@sprucelabs/react-heartwood-components'
 
 class UnauthorizedPage extends React.Component {
@@ -28,4 +28,4 @@ class UnauthorizedPage extends React.Component {
 	}
 }
 
-export default Page(UnauthorizedPage)
+export default PageWrapper(UnauthorizedPage)

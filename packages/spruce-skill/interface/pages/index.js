@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import Link from 'next/link'
-import Page from '../containers/Page'
+import PageWrapper from '../containers/PageWrapper'
 import {
 	Container,
 	H1,
@@ -75,4 +75,4 @@ class DeveloperPage extends React.Component {
 	}
 }
 
-export default Page(DeveloperPage)
+export default PageWrapper(DeveloperPage)

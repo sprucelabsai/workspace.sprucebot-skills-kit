@@ -44,7 +44,7 @@ gulp.task('watch', function() {
 	// don't watch our import file for changes, watch the underlying partials for changes. If changes, run styles task to re-compile
 	gulp.watch(
 		['stylesheets/**/*.scss', 'components/**/*.scss', 'components/**/*.js'],
-		['styles', 'js']
+		['styles', 'styles-minify', 'js']
 	)
 })
 

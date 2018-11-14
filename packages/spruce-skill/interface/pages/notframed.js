@@ -1,4 +1,4 @@
 import { Component } from 'react'
-import Page from '../containers/Page'
+import PageWrapper from '../containers/PageWrapper'
 
 class NotFramed extends Component {}

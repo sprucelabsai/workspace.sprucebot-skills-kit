@@ -1,4 +1,9 @@
-import { BotText, Container, H1, Paragraph as P } from '@sprucelabs/react-heartwood-components'
+import {
+	BotText,
+	Container,
+	H1,
+	Paragraph as P
+} from '@sprucelabs/react-heartwood-components'
 
 import Page from '../../containers/Page'
 import React from 'react'
@@ -39,4 +44,4 @@ class GuestPage extends React.Component {
 	}
 }
 
-export default Page(GuestPage)
+export default PageWrapper(GuestPage)

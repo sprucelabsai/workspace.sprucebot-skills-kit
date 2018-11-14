@@ -57,4 +57,4 @@ class TeammateDashboard extends React.Component {
 	}
 }
 
-export default Page(TeammateDashboard)
+export default PageWrapper(TeammateDashboard)
