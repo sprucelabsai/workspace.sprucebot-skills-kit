@@ -20,10 +20,14 @@ const ModalHeader = (props: Props) => {
 	return (
 		<div className="modal-header">
 			<div className="modal-header__title-wrapper">
-				{handleGoBack && <Button isSmall icon={<ArrowBack />} />}
+				{handleGoBack && <Button isSmall icon={{ customIcon: ArrowBack }} />}
 				<h2 className="modal-header__title">{title}</h2>
 			</div>
-			<Button isSmall icon={<CloseIcon />} onClick={onRequestClose} />
+			<Button
+				isSmall
+				icon={{ customIcon: CloseIcon }}
+				onClick={onRequestClose}
+			/>
 		</div>
 	)
 }

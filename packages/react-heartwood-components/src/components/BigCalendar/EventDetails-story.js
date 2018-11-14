@@ -7,7 +7,6 @@ import EventDetails, {
 	EventDetailsHeader,
 	EventDetailsFooter
 } from './components/EventDetails'
-import Icon from '../Icon/Icon'
 import NoteIcon from '../../../static/assets/icons/Interface-Essential/Form-Edition/paper-write.svg'
 import ServiceIcon from '../../../static/assets/icons/Interface-Essential/Lists/list-bullets-1.svg'
 import StatusIcon from '../../../static/assets/icons/Interface-Essential/Time/stopwatch.svg'
@@ -47,44 +46,44 @@ stories.add('Event Details', () => (
 						}
 					},
 					{
-						icon: <NoteIcon isLineIcon />,
+						icon: { customIcon: NoteIcon, isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <Icon icon="date" isLineIcon />,
+						icon: { name: 'date', isLineIcon: true },
 						title: 'Mon, Oct 27, 2018',
 						subtitle: '9–10:30am'
 					},
 					{
-						icon: <ServiceIcon isLineIcon />,
+						icon: { customIcon: ServiceIcon, isLineIcon: true },
 						title: 'Services',
 						subtitle:
 							'<p>Beard Tinting</p><p>Head Shave</p><p>$42 | 1hr 30min</p>',
 						actions: [
 							{
 								kind: 'simple',
-								icon: <Icon icon="add" />
+								icon: { name: 'add' }
 							},
 							{
 								kind: 'simple',
-								icon: <Icon icon="edit" className="btn__line-icon" />
+								icon: { name: 'edit', isLineIcon: true }
 							}
 						]
 					},
 					{
-						icon: <StatusIcon isLineIcon />,
+						icon: { customIcon: StatusIcon, isLineIcon: true },
 						title: 'Status',
 						subtitle: 'Not checked in',
 						contextMenu: {
 							isSimple: true,
-							icon: <Icon icon="edit" className="btn__line-icon" />,
+							icon: { name: 'edit', isLineIcon: true },
 							actions: [
 								{
 									text: 'Check guest in'

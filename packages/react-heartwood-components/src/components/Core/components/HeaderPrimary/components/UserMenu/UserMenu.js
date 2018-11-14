@@ -51,7 +51,10 @@ const UserMenu = (props: Props) => {
 							<Button
 								kind="simple"
 								text="Switch Accounts"
-								icon={<SwitchIcon className="btn__line-icon" />}
+								icon={{
+									customIcon: SwitchIcon,
+									isLineIcon: true
+								}}
 								isFullWidth
 							/>
 						</li>
@@ -59,7 +62,10 @@ const UserMenu = (props: Props) => {
 							<Button
 								kind="simple"
 								text="Log Out"
-								icon={<LogoutIcon className="btn__line-icon" />}
+								icon={{
+									customIcon: LogoutIcon,
+									isLineIcon: true
+								}}
 								isFullWidth
 							/>
 						</li>

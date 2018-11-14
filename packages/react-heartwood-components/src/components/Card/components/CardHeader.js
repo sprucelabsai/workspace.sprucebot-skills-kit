@@ -4,6 +4,7 @@ import React, { Fragment } from 'react'
 import type { Element, Node } from 'react'
 import cx from 'classnames'
 import Button from '../../Button/Button'
+import Icon from '../../Icon/Icon'
 import type { Props as ButtonProps } from '../../Button/Button'
 import type { Props as ContextMenuProps } from '../../ContextMenu/ContextMenu'
 
@@ -33,13 +34,14 @@ const CardHeader = (props: CardHeaderProps) => {
 				<div className="card-header__text">
 					{(labelText || labelIcon) && (
 						<div className="card-header__label">
-							{labelIcon &&
-								React.cloneElement(labelIcon, {
-									className: cx(
-										'card-header__label-icon',
-										labelIcon.props.className
-									)
-								})}
+							{labelIcon && (
+								<Icon
+									customIcon={labelIcon.customIcon}
+									icon={labelIcon.name}
+									isLineIcon={labelIcon.isLineIcon}
+									className={cx('card-header__label-icon', labelIcon.className)}
+								/>
+							)}
 							{labelText && (
 								<span className="card-header__label-text">{labelText}</span>
 							)}

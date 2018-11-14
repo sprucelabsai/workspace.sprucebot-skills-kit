@@ -41,14 +41,10 @@ stories
 			disabled={boolean('disabled', false)}
 			isLoading={boolean('isLoading', false)}
 			isSmall={boolean('isSmall', false)}
-			icon={
-				icon ? (
-					<Icon
-						icon={text('icon', '')}
-						className={text('iconClassName', 'btn__line-icon')}
-					/>
-				) : null
-			}
+			icon={{
+				name: text('icon', ''),
+				className: text('iconClassName', 'btn__line-icon')
+			}}
 			href={text('href', '')}
 			target={text('target', '')}
 			onClick={text('onClick', '() => console.log("you clicked")')}
@@ -65,14 +61,10 @@ stories
 			disabled={boolean('disabled', false)}
 			isLoading={boolean('isLoading', false)}
 			isSmall={boolean('isSmall', false)}
-			icon={
-				icon ? (
-					<Icon
-						icon={text('icon', '')}
-						className={text('iconClassName', 'btn__line-icon')}
-					/>
-				) : null
-			}
+			icon={{
+				name: text('icon', ''),
+				className: text('iconClassName', 'btn__line-icon')
+			}}
 			href={text('href', '')}
 			target={text('target', '')}
 			onClick={text('onClick', '() => console.log("you clicked")')}
@@ -89,14 +81,10 @@ stories
 			disabled={boolean('disabled', false)}
 			isLoading={boolean('isLoading', false)}
 			isSmall={boolean('isSmall', false)}
-			icon={
-				icon ? (
-					<Icon
-						icon={text('icon', '')}
-						className={text('iconClassName', 'btn__line-icon')}
-					/>
-				) : null
-			}
+			icon={{
+				name: text('icon', ''),
+				className: text('iconClassName', 'btn__line-icon')
+			}}
 			href={text('href', '')}
 			target={text('target', '')}
 			onClick={text('onClick', '() => console.log("you clicked")')}
@@ -113,14 +101,10 @@ stories
 			disabled={boolean('disabled', false)}
 			isLoading={boolean('isLoading', false)}
 			isSmall={boolean('isSmall', false)}
-			icon={
-				icon ? (
-					<Icon
-						icon={text('icon', '')}
-						className={text('iconClassName', 'btn__line-icon')}
-					/>
-				) : null
-			}
+			icon={{
+				name: text('icon', ''),
+				className: text('iconClassName', 'btn__line-icon')
+			}}
 			href={text('href', '')}
 			target={text('target', '')}
 			onClick={text('onClick', '() => console.log("you clicked")')}

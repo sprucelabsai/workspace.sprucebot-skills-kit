@@ -88,7 +88,10 @@ export default class ImageCropper extends Component<Props, State> {
 						kind="secondary"
 						className="image-cropper__rotate-btn"
 						text="Rotate Left"
-						icon={<RotateLeftIcon className="btn__line-icon" />}
+						icon={{
+							customIcon: RotateLeftIcon,
+							isLineIcon: true
+						}}
 						disabled={!image}
 						onClick={() => this.handleRotate('left')}
 					/>
@@ -96,7 +99,10 @@ export default class ImageCropper extends Component<Props, State> {
 						kind="secondary"
 						className="image-cropper__rotate-btn"
 						text="Rotate Right"
-						icon={<RotateRightIcon className="btn__line-icon" />}
+						icon={{
+							customIcon: RotateRightIcon,
+							isLineIcon: true
+						}}
 						disabled={!image}
 						onClick={() => this.handleRotate('right')}
 					/>

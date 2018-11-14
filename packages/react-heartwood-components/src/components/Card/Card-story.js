@@ -78,7 +78,7 @@ stories
 				<CardHeader
 					title={text('title', 'Please update your credit card')}
 					labelText={text('labelText', 'Billing failure')}
-					labelIcon={<AlertIcon3 />}
+					labelIcon={{ customIcon: AlertIcon3 }}
 				/>
 				<CardBody>
 					<Text className="u-lh-loose u-color-body-light">
@@ -217,9 +217,10 @@ stories
 				<CardHeader
 					labelText={text('Label Text', '')}
 					labelIcon={
-						boolean('Label Icon', false) && (
-							<LockIcon2 className="u-icon__no-fill u-icon__stroke" />
-						)
+						boolean('Label Icon', false) && {
+							customIcon: LockIcon2,
+							isLineIcon: true
+						}
 					}
 					title={text('Title', 'Get the most out of Spruce')}
 					actions={

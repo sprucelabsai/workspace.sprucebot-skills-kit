@@ -146,7 +146,10 @@ stories
 						title: 'Clean Up',
 						subtitle: '$20 | 15min',
 						contextMenu: {
-							icon: <EditIcon />,
+							icon: {
+								name: 'edit',
+								isLineIcon: true
+							},
 							size: 'large',
 							isSimple: true,
 							actions: threeTextActions
@@ -156,7 +159,10 @@ stories
 						title: 'Shampoo',
 						subtitle: '$7 | 45min',
 						contextMenu: {
-							icon: <Icon icon="edit" isLineIcon />,
+							icon: {
+								name: 'edit',
+								isLineIcon: true
+							},
 							size: 'large',
 							isSimple: true,
 							actions: threeTextActions
@@ -166,7 +172,10 @@ stories
 						title: 'Young Spruce',
 						subtitle: '$23 | 50min',
 						contextMenu: {
-							icon: <Icon icon="edit" isLineIcon />,
+							icon: {
+								name: 'edit',
+								isLineIcon: true
+							},
 							size: 'large',
 							isSimple: true,
 							actions: threeTextActions
@@ -179,17 +188,26 @@ stories
 				isSmall={boolean('isSmall', false)}
 				items={object('items: dates list', [
 					{
-						icon: <DateIcon className="u-icon__no-fill u-icon__stroke" />,
+						icon: {
+							customIcon: DateIcon,
+							isLineIcon: true
+						},
 						title: 'Wed, Nov 28, 2018',
 						subtitle: 'Closed'
 					},
 					{
-						icon: <DateIcon className="u-icon__no-fill u-icon__stroke" />,
+						icon: {
+							customIcon: DateIcon,
+							isLineIcon: true
+						},
 						title: 'Thu, Nov 29, 2018',
 						subtitle: 'Closed'
 					},
 					{
-						icon: <DateIcon className="u-icon__no-fill u-icon__stroke" />,
+						icon: {
+							customIcon: DateIcon,
+							isLineIcon: true
+						},
 						title: 'Wed, Dec 25, 2018',
 						subtitle: 'Closed'
 					}
@@ -249,15 +267,22 @@ stories
 							kind: 'simple'
 						},
 						{
-							icon: <CalendarIcon className="btn__line-icon" />,
+							icon: {
+								customIcon: CalendarIcon,
+								isLineIcon: true
+							},
 							kind: 'simple'
 						},
 						{
-							icon: <ArrowBack />,
+							icon: {
+								customIcon: ArrowBack
+							},
 							kind: 'simple'
 						},
 						{
-							icon: <ArrowForward />,
+							icon: {
+								customIcon: ArrowForward
+							},
 							kind: 'simple'
 						}
 					]

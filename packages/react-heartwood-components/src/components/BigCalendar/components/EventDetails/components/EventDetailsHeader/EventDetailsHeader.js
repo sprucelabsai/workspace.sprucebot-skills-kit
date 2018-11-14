@@ -26,7 +26,9 @@ const EventDetailsHeader = (props: Props) => {
 					onClick={onClickBack}
 					isSmall
 					className="event-details-header__button"
-					icon={<BackIcon />}
+					icon={{
+						customIcon: BackIcon
+					}}
 				/>
 			)}
 			<div className="event-details-header__text-wrapper">
@@ -39,7 +41,9 @@ const EventDetailsHeader = (props: Props) => {
 					onClick={onClickClose}
 					isSmall
 					className="event-details-header__button"
-					icon={<Icon icon="close" />}
+					icon={{
+						customIcon: BackIcon
+					}}
 				/>
 			</div>
 		</div>
