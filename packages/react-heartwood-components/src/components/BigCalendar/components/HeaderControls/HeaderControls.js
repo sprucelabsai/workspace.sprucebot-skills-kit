@@ -1,5 +1,5 @@
 // @flow
-import React, {Component} from 'react'
+import React from 'react'
 import cx from 'classnames'
 import screenfull from 'screenfull'
 
@@ -33,7 +33,7 @@ type State = {
 	isFullScreen: boolean
 }
 
-class HeaderControls extends Component<Props, State> {
+class HeaderControls extends React.Component<Props, State> {
 	state = {
 		isDatePickerShown: false,
 		isFullScreen: false
