@@ -22,7 +22,8 @@ describe('BigCalendar tests', () => {
 			props = {
 				allUsers: users,
 				location: location,
-				allEvents: events
+				allEvents: events,
+				timezone: 'America/Denver'
 			}
 
 			renderedComponent = mount(<BigCalendar {...props} />)

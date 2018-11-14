@@ -187,6 +187,13 @@ class BigCalendar extends Component<Props, State> {
 		onChangeStartDate(date)
 	}
 
+	handleDateToToday = async () => {
+		const date = moment()
+		const { onChangeStartDate = () => {} } = this.props
+		await this.setState({ startDate: date })
+		onChangeStartDate(date)
+	}
+
 	/**
 	 * Store current state in cookie to restore calendar later
 	 */
@@ -382,6 +389,8 @@ class BigCalendar extends Component<Props, State> {
 					totalHorizontalPages={totalHorizontalPages}
 					onHorizontalPageNext={this.handleHorizontalPageNext}
 					onHorizontalPageBack={this.handleHorizontalPageBack}
+					onSelectDate={this._setStartDate}
+					onDateToToday={this.handleDateToToday}
 				/>
 				<div className="bigcalendar__view-wrapper">
 					<View

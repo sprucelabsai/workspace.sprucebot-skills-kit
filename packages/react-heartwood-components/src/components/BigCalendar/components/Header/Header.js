@@ -28,7 +28,9 @@ type Props = {
 	onHorizontalPageBack: Function,
 	userModeSelectOptions?: Array<Object>,
 	onChangeUserMode?: Function,
-	userMode?: String
+	userMode?: String,
+	onDateToToday: Function,
+	onSelectDate: Function
 }
 
 const Header = (props: Props) => {
@@ -44,6 +46,9 @@ const Header = (props: Props) => {
 					onBackDate={props.onBackDate}
 					onNextDate={props.onNextDate}
 					onChangeView={props.onChangeView}
+					onSelectDate={props.onSelectDate}
+					onDateToToday={props.onDateToToday}
+					selectedDate={props.selectedDate}
 				/>
 			</div>
 			<div className="bigcalendar__header-bottom">
