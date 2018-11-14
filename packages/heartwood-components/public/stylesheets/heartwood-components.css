@@ -2807,15 +2807,6 @@ select:-webkit-autofill:focus {
       padding-left: 2rem;
       padding-right: 2rem; } }
 
-.l-page-inner {
-  min-height: 100vh;
-  padding-top: 3rem; }
-  @media screen and (min-width: 750px) {
-    .l-page-inner {
-      padding-left: 15rem; } }
-  .sidebar--is-collapsed .l-page-inner {
-    padding-left: 2.5rem; }
-
 .l-detail-wrapper {
   display: flex;
   flex-flow: column; }
@@ -3642,33 +3633,14 @@ select:-webkit-autofill:focus {
 .text__style--emphasis {
   font-style: italic; }
 
-.hamburger {
-  display: inline-block;
-  position: relative;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 0;
-  background-color: #2c323d; }
-  .hamburger:focus {
-    background-color: #2c323d; }
-
-.hamburger__icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  fill: #fff; }
-
-.hamburger__close {
-  display: none; }
-  .hamburger--is-open .hamburger__close {
-    display: block; }
-
-.hamburger__open {
-  display: block; }
-  .hamburger--is-open .hamburger__open {
-    display: none; }
+.main-content {
+  min-height: 100vh;
+  padding-top: 3rem; }
+  @media screen and (min-width: 750px) {
+    .main-content {
+      padding-left: 15rem; } }
+  .sidebar--is-collapsed .main-content {
+    padding-left: 2.5rem; }
 
 .header-primary {
   position: fixed;
@@ -3756,6 +3728,34 @@ select:-webkit-autofill:focus {
     margin-bottom: 0; }
   .user-menu__menu .btn__inner {
     justify-content: flex-start; }
+
+.hamburger {
+  display: inline-block;
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0;
+  background-color: #2c323d; }
+  .hamburger:focus {
+    background-color: #2c323d; }
+
+.hamburger__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  fill: #fff; }
+
+.hamburger__close {
+  display: none; }
+  .hamburger--is-open .hamburger__close {
+    display: block; }
+
+.hamburger__open {
+  display: block; }
+  .hamburger--is-open .hamburger__open {
+    display: none; }
 
 .sidebar {
   font-size: 0.875rem;
