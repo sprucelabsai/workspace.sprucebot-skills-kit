@@ -17,7 +17,7 @@
 	}
 }
 
-.page-header {
+.page__header {
 	padding: spacing('extra-loose') spacing('extra-loose') 0;
 	@include gt('medium') {
 		padding-left: 0;
@@ -25,14 +25,29 @@
 	}
 }
 
-.page-header__back-link {
+.page__header-back-link {
 	display: inline-flex;
 	align-items: center;
 	height: rem(44);
-	color: inherit;
+	color: $c-text-light;
+	padding: spacing('none');
 	text-decoration: none;
+
+	&:hover {
+		color: $c-text;
+	}
+
+	&:hover .page__header-back-link-icon {
+		fill: $c-text;
+	}
 }
 
-.page-content {
+.page__header-back-link-icon {
+	fill: $c-text-light;
+	height: rem(24);
+	margin-left: rem(-8);
+}
+
+.page__content {
 	margin: spacing('extra-loose') 0;
 }

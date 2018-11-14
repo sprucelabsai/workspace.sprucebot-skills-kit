@@ -12,7 +12,7 @@ export type CardBodyProps = {
 	children: Node,
 
 	/** Whether to wrap children in CardSection */
-	isSectioned: boolean
+	isSectioned?: boolean
 }
 
 const CardBody = (props: CardBodyProps) => {
@@ -22,6 +22,10 @@ const CardBody = (props: CardBodyProps) => {
 			{isSectioned ? <CardSection>{children}</CardSection> : children}
 		</div>
 	)
+}
+
+CardBody.defaultProps = {
+	isSectioned: true
 }
 
 export default CardBody

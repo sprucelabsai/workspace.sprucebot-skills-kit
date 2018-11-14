@@ -2686,7 +2686,7 @@ select:-webkit-autofill:focus {
   font-size: 3.75rem; }
 
 .card img {
-  max-width: 100%;
+  width: 100%;
   height: auto; }
 
 .onboarding-card .tab-group {
@@ -2747,21 +2747,31 @@ select:-webkit-autofill:focus {
   .page--centered {
     margin: 0 auto; }
 
-.page-header {
+.page__header {
   padding: 2rem 2rem 0; }
   @media screen and (min-width: 750px) {
-    .page-header {
+    .page__header {
       padding-left: 0;
       padding-right: 0; } }
 
-.page-header__back-link {
+.page__header-back-link {
   display: inline-flex;
   align-items: center;
   height: 2.75rem;
-  color: inherit;
+  color: #525966;
+  padding: 0;
   text-decoration: none; }
+  .page__header-back-link:hover {
+    color: #2c323d; }
+  .page__header-back-link:hover .page__header-back-link-icon {
+    fill: #2c323d; }
 
-.page-content {
+.page__header-back-link-icon {
+  fill: #525966;
+  height: 1.5rem;
+  margin-left: -0.5rem; }
+
+.page__content {
   margin: 2rem 0; }
 
 .layout {
