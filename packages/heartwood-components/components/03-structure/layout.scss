@@ -27,10 +27,6 @@ $relative-size: $primary-basis / $secondary-basis;
 // Margins
 // NOTE: Margins are using the same values from our type scale
 
-.l-mb-xsmall {
-	margin-bottom: rem(8);
-}
-
 .l-mb-small {
 	margin-bottom: map-get($typescale-map, 'body');
 }

@@ -24,6 +24,10 @@ const hbs = require('@frctl/handlebars')({
 			var arg = Array.prototype.slice.call(arguments, 0)
 			arg.pop()
 			return arg.join('')
+		},
+		defaultVal: function(value, defaultVal) {
+			var out = value || defaultVal
+			return out
 		}
 	}
 	/* other configuration options here */

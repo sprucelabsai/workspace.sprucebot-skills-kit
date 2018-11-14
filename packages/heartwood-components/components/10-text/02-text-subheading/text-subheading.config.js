@@ -1,5 +1,5 @@
 module.exports = {
-	title: 'Heading',
+	title: 'Subheading',
 	status: 'wip',
 	collated: true,
 	collator: function(markup, item) {
@@ -9,16 +9,16 @@ module.exports = {
 	},
 	preview: '@main-preview',
 	context: {
-		element: 'h2',
-		text: 'Welcome Back!'
+		element: 'h3',
+		text: "Here's a section worth looking at"
 	},
 	variants: [
 		{
-			name: 'heading-h3',
-			label: 'Heading as H3',
+			name: 'subheading-h4',
+			label: 'Subheading as H4',
 			context: {
 				element: 'h3',
-				text: "You're Still Here?"
+				text: 'Do you fancy this section instead?'
 			}
 		}
 	]

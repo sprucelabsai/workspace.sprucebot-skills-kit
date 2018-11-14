@@ -1,26 +1,24 @@
-
-
-<div class="card-header">
-	<div class="card-header__text">
+<div class="card__header">
+	<div class="card__header-text">
 		{{#if label}}
-		<div class="card-header__label">
+		<div class="card__header-label">
 			{{#if label.icon}}
-				{{> @icon icon=label.icon class="card-header__label-icon" width=label.iconWidth height=label.iconHeight}}
+			{{> @icon icon=label.icon class="card__header-label-icon" width=label.iconWidth height=label.iconHeight}}
 			{{/if}}
-			<span class="card-header__label-text">{{label.text}}</span>
+			<span class="card__header-label-text">{{label.text}}</span>
 		</div>
 		{{/if}}
 		{{#if title}}
-			<h3 class="card-header__title">{{{title}}}</h3>
+		<h3 class="card__title">{{{title}}}</h3>
 		{{/if}}
 	</div>
 	{{#if headerActions}}
-	<div class="card-header__actions">
+	<div class="card__header-actions">
 		{{#each headerActions}}
-			{{> @button}}
+		{{> @button}}
 		{{/each}}
 		{{#if contextMenu}}
-			{{> @context-menu actions=contextMenu.actions}}
+		{{> @context-menu actions=contextMenu.actions}}
 		{{/if}}
 	</div>
 	{{/if}}

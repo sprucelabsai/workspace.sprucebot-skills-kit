@@ -27,8 +27,9 @@ module.exports = {
 	},
 	context: {
 		title: 'Get the most out of Sprucebot',
-		children:
-			'<div class="card__body-inner">Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.</div>',
+		children: [
+			'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+		],
 		footerActions: [
 			{
 				text: 'Get some skills',
@@ -41,8 +42,9 @@ module.exports = {
 			name: 'Actions',
 			context: {
 				title: 'Add your teammates',
-				children:
-					'<div class="card__body-inner"><p>Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.</p></div>',
+				children: [
+					'<p>Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.</p>'
+				],
 				headerActions: [
 					{
 						text: 'Go to team',
@@ -68,8 +70,9 @@ module.exports = {
 					iconWidth: '16',
 					iconHeight: '18'
 				},
-				children:
-					'<div class="card__body-inner">Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.</div>',
+				children: [
+					'Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.'
+				],
 				headerActions: true,
 				contextMenu: contextMenu
 			}
@@ -85,8 +88,9 @@ module.exports = {
 					iconWidth: '16',
 					iconHeight: '18'
 				},
-				children:
-					'<div class="card__body-inner">Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer.</div>',
+				children: [
+					'Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer.'
+				],
 				headerActions: true,
 				contextMenu: contextMenu,
 				footerActions: null
@@ -96,8 +100,9 @@ module.exports = {
 			name: 'Context only',
 			context: {
 				title: null,
-				children:
-					'<div class="card__body-inner">Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer.</div>',
+				children: [
+					'Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer.'
+				],
 				headerActions: true,
 				contextMenu: contextMenu,
 				footerActions: null
@@ -107,8 +112,9 @@ module.exports = {
 			name: 'Actions 02',
 			context: {
 				title: 'If you could time travel, what would you do?',
-				children:
-					'<div class="card__body-inner">Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do, so throw off the bowlines, sail away from safe harbor, catch the trade winds in your sails. Explore, Dream, Discover.</div>',
+				children: [
+					'Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do, so throw off the bowlines, sail away from safe harbor, catch the trade winds in your sails. Explore, Dream, Discover.'
+				],
 				headerActions: true,
 				contextMenu: contextMenu,
 				footerActions: [
@@ -123,8 +129,9 @@ module.exports = {
 			name: 'centered',
 			context: {
 				title: null,
-				children:
-					'<div class="avatar-wrapper avatar-wrapper-large"><div class="avatar__image-wrapper"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5d43ec18ec2cf6ff854513b9e8395c1e&auto=format&fit=crop&w=192&h=192&q=80" alt="avatar" width="96" height="96" /></div></div><h3 class="card-header__title">Say "Happy Birthday"</h3><p>It’s Rosamond Mueller’s birthday today. Don’t forget to say happy birthday!</p>',
+				children: [
+					'<div class="avatar-wrapper avatar-wrapper-large"><div class="avatar__image-wrapper"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5d43ec18ec2cf6ff854513b9e8395c1e&auto=format&fit=crop&w=192&h=192&q=80" alt="avatar" width="96" height="96" /></div></div><h3 class="card-header__title">Say "Happy Birthday"</h3><p>It’s Rosamond Mueller’s birthday today. Don’t forget to say happy birthday!</p>'
+				],
 				centered: true,
 				footerActions: [
 					{

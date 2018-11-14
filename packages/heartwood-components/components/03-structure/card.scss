@@ -1,6 +1,6 @@
 .card {
 	width: 100%;
-	padding-bottom: rem(16);
+	padding-bottom: spacing('base');
 	background-color: $c-bg-light;
 	box-shadow: $dimension-floating;
 
@@ -13,14 +13,14 @@
 	}
 
 	@include gt('small') {
-		padding-bottom: rem(24);
+		padding-bottom: spacing('loose');
 	}
 }
 
-.card-header {
+.card__header {
 	display: flex;
 	justify-content: space-between;
-	padding: rem(16);
+	padding: spacing('base');
 
 	.card-centered & {
 		flex-flow: column-reverse;
@@ -31,11 +31,11 @@
 	}
 
 	@include gt('small') {
-		padding: rem(16) rem(24);
+		padding: spacing('loose') spacing('loose');
 	}
 }
 
-.card-header__label {
+.card__header-label {
 	@include type-style-label;
 	display: inline-flex;
 	align-items: center;
@@ -45,30 +45,30 @@
 	}
 }
 
-.card-header__label-icon {
-	margin-right: rem(4);
+.card__header-label-icon {
+	margin-right: spacing('extra-tight');
 
 	.card-critical & {
 		fill: $c-ui-critical;
 	}
 }
 
-.card-header__actions {
+.card__header-actions {
 	flex: 0 0 auto;
-	margin-top: rem(-8);
-	margin-left: rem(8);
+	margin-top: -#{spacing('tight')};
+	margin-left: spacing('tight');
 
 	.context-menu .context-menu__button {
-		width: rem(36);
-		height: rem(36);
+		width: spacing('extra-loose');
+		height: spacing('extra-loose');
 	}
 
 	@include gt('small') {
-		margin-top: rem(-4);
+		margin-top: -#{spacing('extra-tight')};
 	}
 }
 
-.card-header__title {
+.card__header-title {
 	@include typescale('body');
 	flex: 1 1 auto;
 	width: 100%;
@@ -79,11 +79,11 @@
 	}
 }
 
-.card__body-inner {
+.card__section {
 	padding: 0 spacing('base') spacing('base');
 
 	@include gt('small') {
-		padding: 0 rem(24);
+		padding: 0 spacing('loose');
 	}
 }
 
@@ -91,8 +91,8 @@
 	padding: spacing('base') spacing('base') 0 spacing('base');
 
 	@include gt('small') {
-		padding-left: rem(24);
-		padding-right: rem(24);
+		padding-left: spacing('loose');
+		padding-right: spacing('loose');
 	}
 }
 
@@ -108,7 +108,7 @@
 	display: flex;
 	flex-flow: column;
 	justify-content: stretch;
-	margin-top: rem(16);
+	margin-top: spacing('base');
 
 	@include gt('medium') {
 		flex-flow: row;
@@ -117,7 +117,7 @@
 
 .card__score {
 	flex: 1 0 auto;
-	padding: rem(16);
+	padding: spacing('base');
 	text-align: center;
 	color: $c-text-light;
 	border-top: 1px solid $c-border;

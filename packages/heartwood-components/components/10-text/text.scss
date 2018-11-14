@@ -17,6 +17,10 @@
 }
 
 .text__heading {
+	@include typescale('heading-lg');
+	font-weight: $font-weight-normal;
+}
+.text__subheading {
 	@include typescale('heading-md');
 	font-weight: $font-weight-bold;
 }

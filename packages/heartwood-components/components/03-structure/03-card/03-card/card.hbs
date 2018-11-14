@@ -3,7 +3,11 @@
 	{{{preHeader}}}
 	{{/if}}
 	{{> @card-header}}
-	<div class="card__body">{{{children}}}</div>
+	<div class="card__body">{{#> @partial-block }}
+		{{#each children }}
+		{{#> @card-section }}{{{ this }}}{{/@card-section}}
+		{{/each}}
+		{{/@partial-block}}</div>
 	{{#if footerActions}}
 	<div class="card__footer">
 		{{#each footerActions}}
