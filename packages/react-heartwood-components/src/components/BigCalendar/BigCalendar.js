@@ -189,7 +189,7 @@ class BigCalendar extends Component<Props, State> {
 
 	handleDateToToday = async () => {
 		const date = moment()
-		const { onChangeStartDate = () => { } } = this.props
+		const { onChangeStartDate = () => {} } = this.props
 		await this.setState({ startDate: date })
 		onChangeStartDate(date)
 	}

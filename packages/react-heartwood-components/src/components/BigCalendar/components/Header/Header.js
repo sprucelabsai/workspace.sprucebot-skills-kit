@@ -31,7 +31,7 @@ type Props = {
 	userMode?: String,
 	onDateToToday: Function,
 	onSelectDate: Function
-};
+}
 
 const Header = (props: Props) => {
 	return (

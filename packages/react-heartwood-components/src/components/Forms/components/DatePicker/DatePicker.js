@@ -6,7 +6,7 @@ import moment from 'moment'
 import ArrowNext from '../../../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../../../static/assets/icons/ic_arrow_back.svg'
 
-export type Props = { onSelectDate: Function };
+export type Props = { onSelectDate: Function }
 
 type State = {
 	date: Object,
@@ -30,7 +30,7 @@ export default class DatePicker extends Component<Props, State> {
 			date
 		})
 		if (this.props.onSelectDate) {
-			this.props.onSelectDate(date);
+			this.props.onSelectDate(date)
 		}
 	}
 
