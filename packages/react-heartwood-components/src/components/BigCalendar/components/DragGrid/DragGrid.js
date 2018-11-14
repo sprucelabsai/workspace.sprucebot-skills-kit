@@ -92,6 +92,10 @@ class DragGrid extends PureComponent<Props> {
 		return sizeUtil.getWidth(this.domNodeRef.current)
 	}
 
+	getHeight = () => {
+		return sizeUtil.getHeight(this.domNodeRef.current)
+	}
+
 	getScrollWidth = () => {
 		return sizeUtil.getScrollWidth(this.domNodeRef.current)
 	}
@@ -340,8 +344,8 @@ class DragGrid extends PureComponent<Props> {
 		window.removeEventListener('touchmove', this.handleTouchDragOfEvent)
 		window.removeEventListener('touchend', this.handleTouchEndOnEvent)
 
-		this.domNodeRef.current.style.overflow = 'auto'
-		document.body.style.overflow = 'auto'
+		this.domNodeRef.current.style.overflow = ''
+		document.body.style.overflow = ''
 
 		e.preventDefault()
 		e.stopPropagation()
@@ -589,6 +593,11 @@ class DragGrid extends PureComponent<Props> {
 		window.removeEventListener('mouseup', this.handleMouseUpFromEvent)
 	}
 
+	cancelDrag = () => {
+		this._activeDrag = null
+		this.setState({ dragEvent: null })
+	}
+
 	handleDropEvent = async () => {
 		const { dragEventNode, sourceEvent, sourceEventNode } = this._activeDrag
 		const { onDropEvent } = this.props
@@ -608,7 +617,7 @@ class DragGrid extends PureComponent<Props> {
 			: false
 
 		const reset = () => {
-			this.setState({ dragEvent: null })
+			this.cancelDrag()
 		}
 
 		// if valid, clear everything immediately and move on

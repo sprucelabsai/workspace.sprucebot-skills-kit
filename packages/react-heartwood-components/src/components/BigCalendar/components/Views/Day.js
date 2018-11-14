@@ -13,6 +13,8 @@ import DragGrid from '../DragGrid/DragGrid'
 import DayCol from './DayCol'
 import EventDetails from '../../components/EventDetails/EventDetails'
 
+import Modal from '../../../Modal/Modal'
+
 import sizeUtil from '../../utils/size'
 import eventUtil from '../../utils/event'
 import TimeLine from '../TimeLine/TimeLine'
@@ -67,6 +69,8 @@ class Day extends PureComponent<Props> {
 
 	constructor(props) {
 		super(props)
+
+		this.domNodeRef = React.createRef()
 		this.dragGridRef = React.createRef()
 		this.scrollInnerRef = React.createRef()
 		this.teammateHeaderRef = React.createRef()
@@ -84,6 +88,7 @@ class Day extends PureComponent<Props> {
 		//TODO better way to detect everything is rendered and sized correctly
 		setTimeout(this.updateHorizontalPagerDetails, 1000)
 		setTimeout(this.placeAndSize, 1000)
+		setTimeout(this.placeTimeLine, 1000)
 	}
 
 	componentWillUnmount = () => {
@@ -103,8 +108,23 @@ class Day extends PureComponent<Props> {
 			this.placeAndSize()
 			this.sizeTimeLine()
 
-			if (this.state.dragEvent) {
-				this.handleDeselectEvent()
+			if (prevProps.startDate !== startDate || prevProps.users !== users) {
+				this.setState({ highlightedEvent: null, selectedEvent: null })
+				this.dragGridRef.current.cancelDrag()
+			}
+			// if we only changed events, lets make sure to update our selection
+			else if (prevProps.events !== events) {
+				if (this.state.selectedEvent) {
+					const match = events.find(
+						event => event.id === this.state.selectedEvent.id
+					)
+
+					if (match) {
+						this.handleSelectEvent({ event: match })
+					} else {
+						this.handleDeselectEvent()
+					}
+				}
 			}
 		}
 	}
@@ -276,9 +296,11 @@ class Day extends PureComponent<Props> {
 	}
 
 	handleMouseDownOnView = e => {
-		if (!e.target.classList.contains('hour-block')) {
-			return false
-		}
+		return (
+			e.target.classList.contains('hour-block') ||
+			e.target.classList.contains('scroll-inner') ||
+			e.target.classList.contains('bigcalendar__drag-grid')
+		)
 	}
 
 	getMinBlockResizeHeight = event => {
@@ -558,28 +580,44 @@ class Day extends PureComponent<Props> {
 	handleSelectEvent = async ({ event, block, blockIdx }) => {
 		if (event.details) {
 			await this.setState({
-				selectedEvent: event
+				selectedEvent: event,
+				showEventDetailsInDialog: false
 			})
 
 			// place details next to event
 			const eventNode = this.dragGridRef.current.getEventNode(event)
-			const detailsNode = this.dragGridRef.current.domNodeRef.current.querySelector(
+			const detailsNode = this.domNodeRef.current.querySelector(
 				'.event-details'
 			)
 
 			const detailsWidth = sizeUtil.getWidth(detailsNode)
 			const gridWidth = this.dragGridRef.current.getWidth()
+			const scrollLeft = this.dragGridRef.current.getScrollLeft()
 			const eventRight = sizeUtil.getLocalRight(eventNode)
 			const eventLeft = sizeUtil.getLocalLeft(eventNode)
 			const detailsRight = eventRight + detailsWidth
 
 			const top = sizeUtil.getLocalTop(eventNode)
-			detailsNode.style.top = `${top}px`
+			let setTop = false
+			let showInDialog = false
 
-			if (detailsRight > gridWidth) {
-				detailsNode.style.left = `${eventLeft - detailsWidth}px`
+			if (detailsRight > gridWidth + scrollLeft) {
+				if (eventLeft - detailsWidth < 0) {
+					showInDialog = true
+				} else {
+					setTop = true
+					detailsNode.style.left = `${eventLeft - detailsWidth}px`
+				}
 			} else {
+				setTop = true
 				detailsNode.style.left = `${eventRight}px`
+			}
+
+			if (setTop) {
+				detailsNode.style.top = `${top}px`
+			}
+			if (showInDialog) {
+				this.setState({ showEventDetailsInDialog: true })
 			}
 		}
 	}
@@ -880,7 +918,12 @@ class Day extends PureComponent<Props> {
 			const { timezone } = this.props
 			const now = moment.tz(new Date(), timezone)
 			const top = this.timeToY(now)
-			timeLineNode.style.top = `${top}px`
+			if (top > this.dayColHeight()) {
+				timeLineNode.style.display = 'none'
+			} else {
+				timeLineNode.style.display = ''
+				timeLineNode.style.top = `${top}px`
+			}
 		}
 	}
 
@@ -899,7 +942,11 @@ class Day extends PureComponent<Props> {
 			getEndTimeForUser
 		} = this.props
 
-		const { selectedEvent, highlightedEvent } = this.state
+		const {
+			selectedEvent,
+			highlightedEvent,
+			showEventDetailsInDialog
+		} = this.state
 
 		let eventDetails = null
 		if (selectedEvent && selectedEvent.details) {
@@ -910,6 +957,7 @@ class Day extends PureComponent<Props> {
 
 		return (
 			<div
+				ref={this.domNodeRef}
 				className={cx('bigcalendar__view-day', {
 					'has-selected-event': !!selectedEvent,
 					'has-highlighted-event': !!highlightedEvent
@@ -970,9 +1018,16 @@ class Day extends PureComponent<Props> {
 							))}
 							{this.isToday() && <TimeLine />}
 						</div>
-						{eventDetails && <EventDetails {...eventDetails} />}
+						{eventDetails && !showEventDetailsInDialog && (
+							<EventDetails {...eventDetails} />
+						)}
 					</DragGrid>
 				</div>
+				{eventDetails && showEventDetailsInDialog && (
+					<Modal isOpen={true} isSmall={true}>
+						<EventDetails {...eventDetails} />
+					</Modal>
+				)}
 			</div>
 		)
 	}
