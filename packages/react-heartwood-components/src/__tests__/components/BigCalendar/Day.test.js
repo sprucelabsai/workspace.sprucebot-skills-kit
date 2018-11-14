@@ -33,7 +33,15 @@ describe('Day View tests', () => {
 			slotsPerHour: 4,
 			onUpdateHorizontalPagerDetails: jest.fn(),
 			startDate: moment(),
-			onDropEvent: jest.fn()
+			onDropEvent: jest.fn(),
+			onDragEvent: jest.fn(),
+			scrollDuringDragMargin: 0,
+			dragScrollSpeed: 100,
+			eventRightMargin: 2,
+			longPressDelay: 2,
+			allowResizeToZeroDurationBlocks: true,
+			getStartTimeForUser: jest.fn(),
+			getEndTimeForUser: jest.fn()
 		}
 
 		renderedComponent = mount(<Day {...props} />)

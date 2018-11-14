@@ -3,11 +3,10 @@ import React, { Component } from 'react'
 import 'react-dates/initialize'
 import { DayPickerSingleDateController } from 'react-dates'
 import moment from 'moment'
-import Button from '../../../Button/Button'
 import ArrowNext from '../../../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../../../static/assets/icons/ic_arrow_back.svg'
 
-export type Props = {}
+export type Props = { onSelectDate: Function }
 
 type State = {
 	date: Object,
@@ -30,6 +29,9 @@ export default class DatePicker extends Component<Props, State> {
 		this.setState({
 			date
 		})
+		if (this.props.onSelectDate) {
+			this.props.onSelectDate(date)
+		}
 	}
 
 	render() {
