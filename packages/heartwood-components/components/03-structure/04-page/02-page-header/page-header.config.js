@@ -4,11 +4,11 @@ module.exports = {
 	},
 	variants: [
 		{
-			name: 'breadcrumb',
-			label: 'With Breadcrumb',
+			name: 'back',
+			label: 'With Back Link',
 			context: {
 				title: 'Page Title',
-				breadcrumb: {
+				backLink: {
 					href: '#',
 					title: 'Previous Page'
 				}

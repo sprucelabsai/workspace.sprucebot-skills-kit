@@ -4,11 +4,11 @@
 		{{> @tabs}}
 	</div>
 	{{> @card-header}}
-	<div class="card__body"><div class="card__body-inner">{{{children}}}</div></div>
+	<div class="card__body">{{#> @card-section }}{{{children}}}{{/@card-section}}</div>
 	{{#if footerActions}}
 	<div class="card__footer">
 		{{#each footerActions}}
-			{{> @button}}
+		{{> @button}}
 		{{/each}}
 	</div>
 	{{/if}}

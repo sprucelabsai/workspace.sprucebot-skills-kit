@@ -13,13 +13,14 @@
 						image='https://images.unsplash.com/photo-1517462964-21fdcec3f25b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9c6622d956bd3bb519516691c31141f4&auto=format&fit=crop&w=192&h=192&q=80'}}
 					</section>
 					<section class="l-detail__content">
-						<div class="card-group">
-							{{> @card children='<div class="card__body-inner">Twenty years from now you will be more disappointed by the
-								things
-								that you didn’t do than by the ones you did do, so throw off the bowlines, sail away from safe harbor, catch
-								the
-								trade winds in your sails. Explore, Dream, Discover.</div>'}}
-						</div>
+
+						{{#> @card }}{{#> @card-section }}Twenty years from now you will be more disappointed by the
+						things
+						that you didn’t do than by the ones you did do, so throw off the bowlines, sail away from safe harbor, catch
+						the
+						trade winds in your sails. Explore, Dream, Discover.{{/@card-section }}
+						{{/@card}}
+
 					</section>
 				</div>
 				{{else}}

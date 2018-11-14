@@ -13,8 +13,9 @@ module.exports = {
 				secondary: false,
 				card: {
 					title: 'Get the most out of Sprucebot',
-					children:
-						'<div class="card__body-inner">Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.</div>',
+					children: [
+						'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+					],
 					footerActions: [
 						{
 							text: 'Get some skills',
@@ -27,8 +28,9 @@ module.exports = {
 				secondary: false,
 				card: {
 					title: 'Get the most out of Sprucebot',
-					children:
-						'<div class="card__body-inner">Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.</div>',
+					children: [
+						'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+					],
 					footerActions: [
 						{
 							text: 'Get some skills',
@@ -48,8 +50,9 @@ module.exports = {
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
-							children:
-								'<div class="card__body-inner">Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.</div>',
+							children: [
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+							],
 							footerActions: [
 								{
 									text: 'Get some skills',
@@ -62,8 +65,9 @@ module.exports = {
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
-							children:
-								'<div class="card__body-inner">Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.</div>',
+							children: [
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+							],
 							footerActions: [
 								{
 									text: 'Get some skills',
@@ -83,8 +87,9 @@ module.exports = {
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
-							children:
-								'<div class="card__body-inner">Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.</div>',
+							children: [
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+							],
 							footerActions: [
 								{
 									text: 'Get some skills',
@@ -97,8 +102,9 @@ module.exports = {
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
-							children:
-								'<div class="card__body-inner">Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.</div>',
+							children: [
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+							],
 							footerActions: [
 								{
 									text: 'Get some skills',
@@ -111,8 +117,9 @@ module.exports = {
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
-							children:
-								'<div class="card__body-inner">Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.</div>',
+							children: [
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+							],
 							footerActions: [
 								{
 									text: 'Get some skills',
@@ -132,8 +139,9 @@ module.exports = {
 						secondary: false,
 						card: {
 							title: 'Get the most out of Sprucebot',
-							children:
-								'<div class="card__body-inner">Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.</div>',
+							children: [
+								']Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+							],
 							footerActions: [
 								{
 									text: 'Get some skills',
@@ -146,8 +154,9 @@ module.exports = {
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
-							children:
-								'<div class="card__body-inner">Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.</div>',
+							children: [
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+							],
 							footerActions: [
 								{
 									text: 'Get some skills',
