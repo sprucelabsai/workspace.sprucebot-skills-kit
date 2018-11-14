@@ -42,7 +42,10 @@ export type Props = {
 	onClick?: Function,
 
 	/** Props for Next router link: https://nextjs.org/docs/#routing. */
-	linkProps?: LinkProps
+	linkProps?: LinkProps,
+
+	/** Will be passed back with the on click. */
+	payload?: Object
 }
 
 const Button = (props: Props) => {
@@ -58,6 +61,7 @@ const Button = (props: Props) => {
 		type,
 		onClick,
 		linkProps,
+		payload,
 		...rest
 	} = props
 	const btnClass = cx(className, {
@@ -81,7 +85,7 @@ const Button = (props: Props) => {
 	const handleClick = (e: any) => {
 		e.currentTarget.blur()
 		if (onClick) {
-			onClick()
+			onClick(props.payload)
 		}
 	}
 
