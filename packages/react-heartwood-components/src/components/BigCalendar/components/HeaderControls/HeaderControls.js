@@ -2,16 +2,14 @@
 import React, {Component} from 'react'
 import cx from 'classnames'
 import screenfull from 'screenfull'
-import moment from 'moment-timezone';
 
 import Select from '../../../Forms/components/Select/Select'
 import Button from '../../../Button/Button'
-import Icon from '../../../Icon/Icon';
 import Pagination from '../../../Pagination/Pagination'
-import DatePicker from '../../../Forms/components/DatePicker/DatePicker';
+import DatePicker from '../../../Forms/components/DatePicker/DatePicker'
 
-import FullScreenIcon from '../../../../../static/assets/icons/ic_fullscreen.svg';
-import FullScreenExitIcon from '../../../../../static/assets/icons/ic_fullscreen_exit.svg';
+import FullScreenIcon from '../../../../../static/assets/icons/ic_fullscreen.svg'
+import FullScreenExitIcon from '../../../../../static/assets/icons/ic_fullscreen_exit.svg'
 
 type Props = {
 	header: HeaderProps,
@@ -28,12 +26,12 @@ type Props = {
 	onSelectDate: Function,
 	onDateToToday: Function,
 	selectedDate: Object
-};
+}
 
 type State = {
 	isDatePickerShown: boolean,
 	isFullScreen: boolean
-};
+}
 
 class HeaderControls extends Component<Props, State> {
 	state = {
@@ -90,25 +88,44 @@ class HeaderControls extends Component<Props, State> {
 					<Button 
 						kind={'simple'} 
 						className="bigcalendar__calendarIcon-button" 
-						icon={{ icon: "date", isLineIcon: true }} 
+						icon={{ name: 'date', isLineIcon: true }} 
 						onClick={() => this.toggleDatePicker()} 
 					/>
 					{isDatePickerShown && (
 						<div className="bigcalendar_date-picker">
-							<DatePicker date={selectedDate} onSelectDate={this.onSelectDate} />
-						</div>)}
+							<DatePicker 
+								date={selectedDate} 
+								onSelectDate={this.onSelectDate} 
+							/>
+						</div>
+					)}
 				</div>
 					{userModeSelectOptions && onChangeUserMode && userMode && (
-						<Select options={userModeSelectOptions} onChange={e => {
-									onChangeUserMode(e.target.value);
-								}} value={userMode} />)}
+						<Select 
+							options={userModeSelectOptions} 
+							onChange={e => {
+									onChangeUserMode(e.target.value)
+								}} 
+							value={userMode} 
+						/>
+					)}
 				</div>
 				<div className="bigcalendar__fullscreen-control">
-					{isFullScreen ? <Button kind={"simple"} icon={{ customIcon: FullScreenExitIcon, isLineIcon: false }} onClick={() => {
-								this.toggleFullScreen();
-							}} /> : <Button kind={'simple'} icon={{ customIcon: FullScreenIcon, isLineIcon: false }} onClick={() => {
-								this.toggleFullScreen();
-							}} />}
+					{isFullScreen ? (
+						<Button 
+							kind={'simple'} 
+							icon={{ 
+								customIcon: FullScreenExitIcon, 
+								isLineIcon: false 
+							}} 
+							onClick={() => {this.toggleFullScreen()}} />
+					) : (
+						<Button 
+							kind={'simple'} 
+							icon={{ customIcon: FullScreenIcon, isLineIcon: false }} 
+							onClick={() => {this.toggleFullScreen()}} 
+						/>
+					)}
 				</div>
 			</div>)
 	}
