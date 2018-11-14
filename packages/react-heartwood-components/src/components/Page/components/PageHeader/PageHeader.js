@@ -3,8 +3,8 @@ import React from 'react'
 import is from 'is_js'
 import Link from 'next/link'
 import type { Props as LinkProps } from 'next/link'
-import Icon from '../Icon/Icon'
-import BackIcon from '../../../static/assets/icons/ic_keyboard_arrow_left.svg'
+import Icon from '../../../Icon/Icon'
+import BackIcon from '../../../../../static/assets/icons/ic_keyboard_arrow_left.svg'
 
 export type PageHeaderProps = {
 	/** Title of the Page */

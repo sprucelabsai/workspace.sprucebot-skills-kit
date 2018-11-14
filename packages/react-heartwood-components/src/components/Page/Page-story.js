@@ -2,9 +2,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text } from '@storybook/addon-knobs/react'
-import Page from './Page'
-import PageHeader from './PageHeader'
-import PageContent from './PageContent'
+import Page, { PageHeader, PageContent } from './index'
 
 const stories = storiesOf('Page', module)
 
