@@ -1,10 +1,17 @@
 // @flow
-import React from 'react'
-import Select from '../../../Forms/components/Select/Select'
-import Button from '../../../Button/Button'
-import Pagination from '../../../Pagination/Pagination'
+import React, {Component} from 'react'
 import cx from 'classnames'
 import screenfull from 'screenfull'
+import moment from 'moment-timezone';
+
+import Select from '../../../Forms/components/Select/Select'
+import Button from '../../../Button/Button'
+import Icon from '../../../Icon/Icon';
+import Pagination from '../../../Pagination/Pagination'
+import DatePicker from '../../../Forms/components/DatePicker/DatePicker';
+
+import FullScreenIcon from '../../../../../static/assets/icons/ic_fullscreen.svg';
+import FullScreenExitIcon from '../../../../../static/assets/icons/ic_fullscreen_exit.svg';
 
 type Props = {
 	header: HeaderProps,
@@ -17,49 +24,94 @@ type Props = {
 	fullScreenNodeRef: Object,
 	userModeSelectOptions?: Array<Object>,
 	onChangeUserMode?: Function,
-	userMode?: String
-}
+	userMode?: String,
+	onSelectDate: Function,
+	onDateToToday: Function,
+	selectedDate: Object
+};
 
-const HeaderControls = (props: Props) => {
-	return (
+type State = {
+	isDatePickerShown: boolean,
+	isFullScreen: boolean
+};
+
+class HeaderControls extends Component<Props, State> {
+	state = {
+		isDatePickerShown: false,
+		isFullScreen: false
+	}
+
+	toggleDatePicker = () => {
+		this.setState({ isDatePickerShown: !this.state.isDatePickerShown })
+	}
+
+	onSelectDate = date => {
+		this.props.onSelectDate && this.props.onSelectDate(date)
+
+		this.setState({ isDatePickerShown: false })
+	}
+
+	toggleFullScreen = () => {
+		screenfull.toggle(this.props.fullScreenNodeRef.current)
+		this.setState({ isFullScreen: !this.state.isFullScreen })
+	}
+
+	render() {
+		const {
+			onBackDate,
+			onNextDate,
+			onDateToToday,
+			userModeSelectOptions,
+			onChangeUserMode,
+			userMode,
+			selectedDate
+		} = this.props
+
+		const { isDatePickerShown, isFullScreen } = this.state
+
+		return (
 		<div className="bigcalendar__header-controls">
-			<Pagination
-				isSimple={true}
-				onClickNext={props.onNextDate}
-				onClickBack={props.onBackDate}
-				currentPage={1}
-				totalPages={3}
-			/>
-			<Button
-				kind={'simple'}
-				isSmall={true}
-				text={'Date'}
-				className="bigcalendar__selectedDate-button"
-			/>
-			<Button
-				kind={'simple'}
-				isSmall={true}
-				text={'CalendarIcon'}
-				className="bigcalendar__calendarIcon-button"
-			/>
-			{props.userModeSelectOptions && props.onChangeUserMode && props.userMode && (
-				<Select
-					options={props.userModeSelectOptions}
-					onChange={e => {
-						props.onChangeUserMode(e.target.value)
-					}}
-					value={props.userMode}
+			<div className="bigcalendar__date-scroll-controls">
+				<Pagination 
+					isSimple={true} 
+					onClickNext={onNextDate} 
+					onClickBack={onBackDate} 
+					currentPage={1} 
+					totalPages={3} 
 				/>
-			)}
-			<Button
-				kind="simple"
-				text="Full Screen"
-				onClick={() => {
-					screenfull.toggle(props.fullScreenNodeRef.current)
-				}}
-			/>
-		</div>
-	)
+				<Button 
+					kind={'simple'} 
+					isSmall={true} 
+					text={'Today'} 
+					className="bigcalendar__selectedDate-button" 
+					onClick={() => onDateToToday()} 
+				/>
+				<div className="bigcalendar__date-select">
+					<Button 
+						kind={'simple'} 
+						className="bigcalendar__calendarIcon-button" 
+						icon={{ icon: "date", isLineIcon: true }} 
+						onClick={() => this.toggleDatePicker()} 
+					/>
+					{isDatePickerShown && (
+						<div className="bigcalendar_date-picker">
+							<DatePicker date={selectedDate} onSelectDate={this.onSelectDate} />
+						</div>)}
+				</div>
+					{userModeSelectOptions && onChangeUserMode && userMode && (
+						<Select options={userModeSelectOptions} onChange={e => {
+									onChangeUserMode(e.target.value);
+								}} value={userMode} />)}
+				</div>
+				<div className="bigcalendar__fullscreen-control">
+					{isFullScreen ? <Button kind={"simple"} icon={{ customIcon: FullScreenExitIcon, isLineIcon: false }} onClick={() => {
+								this.toggleFullScreen();
+							}} /> : <Button kind={'simple'} icon={{ customIcon: FullScreenIcon, isLineIcon: false }} onClick={() => {
+								this.toggleFullScreen();
+							}} />}
+				</div>
+			</div>)
+	}
 }
 
 export default HeaderControls
