@@ -27,18 +27,18 @@ const key = {
 }
 
 const Icon = (props: Props) => {
-	const { icon, isLineIcon, ...rest } = props
+	const { icon, customIcon, isLineIcon, className, ...rest } = props
 
-	if (!icon || !key[icon.toLowerCase()]) {
+	if (!customIcon && (!icon || !key[icon.toLowerCase()])) {
 		// TODO: handle logging
 		// console.error(`<Icon /> could not find an icon with key ${icon}`)
 		return null
 	}
-	const Handler = key[icon.toLowerCase()]
+	const Handler = customIcon || key[icon.toLowerCase()]
 
 	return (
 		<Handler
-			className={cx({
+			className={cx(className, {
 				'u-icon__no-fill': isLineIcon,
 				'u-icon__stroke': isLineIcon
 			})}

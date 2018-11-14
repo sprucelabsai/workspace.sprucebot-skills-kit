@@ -141,7 +141,9 @@ export default class Autosuggest extends Component<Props, State> {
 						<Button
 							isSmall
 							className="text-input__clear-btn"
-							icon={<ClearIcon />}
+							icon={{
+								customIcon: ClearIcon
+							}}
 							onClick={this.handleClearInput}
 						/>
 					)}

@@ -8,6 +8,7 @@ import SingletonRouter from 'next/router'
 import Link from 'next/link'
 import type { Props as LinkProps } from 'next/link'
 import Loader from '../Loader/Loader'
+import Icon from '../Icon/Icon'
 
 export type Props = {
 	/** Optional class to add to the button. */
@@ -88,9 +89,18 @@ const Button = (props: Props) => {
 		<span className="btn__inner">
 			{icon && (
 				<span className="btn__icon-wrapper">
-					{React.cloneElement(icon, {
-						className: cx('btn__icon', icon.props.className)
-					})}
+					<Icon
+						customIcon={icon.customIcon}
+						icon={icon.name}
+						isLineIcon={icon.isLineIcon}
+						className={cx(
+							{
+								btn__icon: true,
+								'btn__line-icon': icon.isLineIcon
+							},
+							icon.className
+						)}
+					/>
 				</span>
 			)}
 			{text && <span className="btn__text">{text}</span>}

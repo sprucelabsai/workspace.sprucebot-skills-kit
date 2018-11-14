@@ -20,7 +20,9 @@ const SidebarExpander = (props: Props) => {
 	return (
 		<div className="sidebar-collapse">
 			<Button
-				icon={isExpanded ? <CollapseIcon2 /> : <ExpandIcon2 />}
+				icon={{
+					customIcon: isExpanded ? CollapseIcon2 : ExpandIcon2
+				}}
 				onClick={() => {
 					toggleExpanded()
 					forceCloseSidebar()
