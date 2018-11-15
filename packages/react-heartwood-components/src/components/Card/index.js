@@ -1,4 +1,4 @@
-export { default as Card } from './Card'
+export default from './Card'
 export CardHeader from './components/CardHeader'
 export CardBody from './components/CardBody'
 export CardSection from './components/CardSection'

@@ -1,6 +1,7 @@
 // @flow
 import React from 'react'
 import is from 'is_js'
+import cx from 'classnames'
 import Link from 'next/link'
 import type { Props as LinkProps } from 'next/link'
 import Icon from '../../../Icon/Icon'
@@ -13,6 +14,9 @@ export type PageHeaderProps = {
 	/** Optional back link href. Outputs next Link if relative, otherwise outputs anchor */
 	backLinkHref?: string,
 
+	/** Optional function to handle back click */
+	onClickBack?: Function,
+
 	/** Back link text */
 	backLinkText?: string,
 
@@ -21,36 +25,50 @@ export type PageHeaderProps = {
 }
 
 const PageHeader = (props: PageHeaderProps) => {
-	const { title, backLinkHref, backLinkText, linkProps } = props
+	const { title, backLinkHref, onClickBack, backLinkText, linkProps } = props
 
+	const backLinkClass = 'page__header-back-link'
 	let anchor
 
-	if (backLinkHref) {
+	if (onClickBack || backLinkHref) {
 		const backIcon = (
 			<span className="page__header-back-link-icon">
 				<Icon customIcon={BackIcon} />
 			</span>
 		)
 
-		// Check if the link is relative (client-side) or absolute
-		let linkIsRelative = true
-		if (backLinkHref && is.url(backLinkHref)) {
-			linkIsRelative = false
-		}
-		// Only return a Next link if the href is relative
-		anchor = linkIsRelative ? (
-			<Link href={backLinkHref} {...linkProps}>
-				<a className="page__header-back-link">
+		if (onClickBack) {
+			anchor = (
+				<button
+					className={cx(backLinkClass, 'btn')}
+					type="button"
+					onClick={onClickBack}
+				>
+					{backIcon}
+					{backLinkText}
+				</button>
+			)
+		} else if (backLinkHref) {
+			// Check if the link is relative (client-side) or absolute
+			let linkIsRelative = true
+			if (backLinkHref && is.url(backLinkHref)) {
+				linkIsRelative = false
+			}
+			// Only return a Next link if the href is relative
+			anchor = linkIsRelative ? (
+				<Link href={backLinkHref} {...linkProps}>
+					<a className={backLinkClass}>
+						{backIcon}
+						{backLinkText}
+					</a>
+				</Link>
+			) : (
+				<a href={backLinkHref} className={backLinkClass}>
 					{backIcon}
 					{backLinkText}
 				</a>
-			</Link>
-		) : (
-			<a href={backLinkHref} className="page__header-back-link">
-				{backIcon}
-				{backLinkText}
-			</a>
-		)
+			)
+		}
 	}
 
 	return (
