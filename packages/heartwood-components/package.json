@@ -9,17 +9,20 @@
 		"gulp-cli": "2.0.1"
 	},
 	"devDependencies": {
+		"fs-extra": "^7.0.1",
 		"gh-pages": "^1.2.0",
 		"gulp": "^3.9.1",
 		"gulp-concat": "^2.6.1",
 		"gulp-rename": "^1.4.0",
 		"gulp-sass": "^3.1.0",
 		"gulp-sass-glob": "^1.0.8",
-		"gulp-uglify": "^3.0.1"
+		"gulp-uglify": "^3.0.1",
+		"through2": "^3.0.0"
 	},
 	"scripts": {
+		"prepublish": "npm run build",
 		"deploy": "gh-pages -d build",
-		"build": "gulp styles && gulp js && fractal build"
+		"build": "gulp styles && gulp js && gulp svg && fractal build"
 	},
 	"description": "This is a seed project, using [Fractal](https://github.com/frctl/fractal) alongside Sass and Gulp to provide editable component-based CSS",
 	"main": "Gulpfile.js",
