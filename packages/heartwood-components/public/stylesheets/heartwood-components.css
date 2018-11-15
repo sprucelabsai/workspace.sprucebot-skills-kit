@@ -2748,7 +2748,10 @@ select:-webkit-autofill:focus {
     margin: 0 auto; }
 
 .page__header {
-  padding: 2rem 2rem 0; }
+  padding: 1rem 1rem 0; }
+  @media screen and (min-width: 500px) {
+    .page__header {
+      padding: 1.25rem 1.25rem 0; } }
   @media screen and (min-width: 750px) {
     .page__header {
       padding-left: 0;
@@ -2787,9 +2790,10 @@ select:-webkit-autofill:focus {
   flex: 2 2 30rem;
   margin: 1rem 0 0 1rem;
   min-width: 51%; }
-  .layout__section--secondary {
-    flex: 1 1 15rem;
-    min-width: 0; }
+  @media screen and (min-width: 750px) {
+    .layout__section--secondary {
+      flex: 1 1 15rem;
+      min-width: 0; } }
 
 .l-mb-small {
   margin-bottom: 1rem; }

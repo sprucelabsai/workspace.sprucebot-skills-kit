@@ -3,7 +3,12 @@ import PageWrapper from '../../containers/PageWrapper'
 import {
 	Page,
 	PageHeader,
-	PageContent
+	PageContent,
+	Layout,
+	LayoutSection,
+	Card,
+	CardHeader,
+	CardBody
 } from '@sprucelabs/react-heartwood-components'
 
 class TeammatePage extends React.Component {
@@ -13,10 +18,40 @@ class TeammatePage extends React.Component {
 
 	render() {
 		return (
-			<Page className="owner-dashboard">
-				<PageHeader title="Teammate Page" />
+			<Page className="owner-page">
+				<PageHeader
+					title="Teammate Page"
+					onClickBack={() => Router.back()}
+					backLinkText="Previous Page"
+				/>
 				<PageContent>
-					<p>Hello, Teammate</p>
+					<Layout>
+						<LayoutSection>
+							<Card>
+								<CardHeader title="Get the most out of Spruce" />
+								<CardBody>
+									Two roads diverged in a wood, and I took the one less traveled
+									by, And that has made all the difference.
+								</CardBody>
+							</Card>
+							<Card>
+								<CardHeader title="Get the most out of Spruce" />
+								<CardBody>
+									Two roads diverged in a wood, and I took the one less traveled
+									by, And that has made all the difference.
+								</CardBody>
+							</Card>
+						</LayoutSection>
+						<LayoutSection isSecondary>
+							<Card>
+								<CardHeader title="Here is some secondary content" />
+								<CardBody>
+									Two roads diverged in a wood, and I took the one less traveled
+									by, And that has made all the difference.
+								</CardBody>
+							</Card>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)

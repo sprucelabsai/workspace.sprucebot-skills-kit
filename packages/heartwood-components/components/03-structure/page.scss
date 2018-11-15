@@ -18,7 +18,10 @@
 }
 
 .page__header {
-	padding: spacing('extra-loose') spacing('extra-loose') 0;
+	padding: spacing('base') spacing('base') 0;
+	@include gt('small') {
+		padding: spacing('loose') spacing('loose') 0;
+	}
 	@include gt('medium') {
 		padding-left: 0;
 		padding-right: 0;

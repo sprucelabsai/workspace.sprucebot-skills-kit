@@ -1,5 +1,6 @@
 import React from 'react'
 import PageWrapper from '../../containers/PageWrapper'
+import Router from 'next/router'
 import {
 	Page,
 	PageHeader,
@@ -13,8 +14,12 @@ class GuestPage extends React.Component {
 
 	render() {
 		return (
-			<Page className="owner-dashboard">
-				<PageHeader title="Guest Page" />
+			<Page className="guest-page">
+				<PageHeader
+					title="Guest Page"
+					onClickBack={() => Router.back()}
+					backLinkText="Previous Page"
+				/>
 				<PageContent>
 					<p>Hello, Guest</p>
 				</PageContent>

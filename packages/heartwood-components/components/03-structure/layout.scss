@@ -19,8 +19,10 @@ $relative-size: $primary-basis / $secondary-basis;
 	margin: spacing('base') 0 0 spacing('base');
 	min-width: 51%;
 	&--secondary {
-		flex: 1 1 $secondary-basis;
-		min-width: 0;
+		@include gt('medium') {
+			flex: 1 1 $secondary-basis;
+			min-width: 0;
+		}
 	}
 }
 

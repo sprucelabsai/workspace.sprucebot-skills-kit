@@ -13,8 +13,12 @@ class OwnerPage extends React.Component {
 
 	render() {
 		return (
-			<Page className="owner-dashboard">
-				<PageHeader title="Owner Page" />
+			<Page className="owner-page">
+				<PageHeader
+					title="Owner Page"
+					onClickBack={() => Router.back()}
+					backLinkText="Previous Page"
+				/>
 				<PageContent>
 					<p>Hello, Owner!</p>
 				</PageContent>
