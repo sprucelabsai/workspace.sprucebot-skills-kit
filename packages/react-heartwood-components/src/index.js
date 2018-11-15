@@ -33,7 +33,12 @@ export {
 	Toggle
 } from './components/Forms'
 export { default as Icon } from './components/Icon/Icon'
-export { H1, H2, H3, H4, Text, Span, Anchor } from './components/Text/Text'
+export { default as Heading } from './components/Heading/Heading'
+export { default as Subheading } from './components/Subheading/Subheading'
+export {
+	default as TextContainer
+} from './components/TextContainer/TextContainer'
+export { default as Text } from './components/Text/Text'
 export { default as Image } from './components/Image/Image'
 export { default as Layout, LayoutSection } from './components/Layout'
 export { default as Container } from './components/Layout/Container/Container'
