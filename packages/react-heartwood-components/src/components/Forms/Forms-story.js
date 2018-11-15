@@ -24,7 +24,10 @@ import {
 	Tag,
 	TextArea,
 	TextInput,
-	Toggle
+	Toggle,
+	FormLayout,
+	FormLayoutGroup,
+	FormLayoutItem
 } from './index'
 import countries from '../../../.storybook/data/countries'
 
@@ -289,3 +292,33 @@ stories
 		/>
 	))
 	.add('Stars', () => <Stars />)
+	.add('Form Layout', () => (
+		<FormLayout>
+			<FormLayoutItem>
+				<TextInput
+					type="text"
+					label="Name of Business"
+					placeholder="i.e. Annie's Bagels"
+				/>
+			</FormLayoutItem>
+			<FormLayoutGroup>
+				<FormLayoutItem>
+					<TextInput type="text" label="First Name" placeholder="i.e. Annie" />
+				</FormLayoutItem>
+				<FormLayoutItem>
+					<TextInput type="text" label="Last Name" placeholder="i.e. Smith" />
+				</FormLayoutItem>
+			</FormLayoutGroup>
+			<FormLayoutGroup isCondensed>
+				<FormLayoutItem>
+					<TextInput type="text" label="Price" />
+				</FormLayoutItem>
+				<FormLayoutItem>
+					<TextInput type="text" label="Duration" />
+				</FormLayoutItem>
+				<FormLayoutItem>
+					<TextInput type="text" label="Commission" />
+				</FormLayoutItem>
+			</FormLayoutGroup>
+		</FormLayout>
+	))
