@@ -27,8 +27,8 @@ export const Card = (props: CardProps) => {
 	return (
 		<div
 			className={cx('card', className, {
-				'card-centered': isCentered,
-				'card-critical': isCritical
+				'card--centered': isCentered,
+				'card--critical': isCritical
 			})}
 		>
 			{children}

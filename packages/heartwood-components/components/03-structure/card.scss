@@ -8,7 +8,7 @@
 		// background-color: rgba(0,0,255,0.1);
 	}
 
-	&.card-centered {
+	&--centered {
 		text-align: center;
 	}
 
@@ -22,11 +22,11 @@
 	justify-content: space-between;
 	padding: spacing('base');
 
-	.card-centered & {
+	.card--centered & {
 		flex-flow: column-reverse;
 		align-items: flex-end;
 	}
-	.card-critical & {
+	.card--critical & {
 		border-top: 4px solid $c-ui-critical;
 	}
 
@@ -40,7 +40,7 @@
 	display: inline-flex;
 	align-items: center;
 
-	.card-critical & {
+	.card--critical & {
 		color: $c-ui-critical;
 	}
 }
@@ -48,7 +48,7 @@
 .card__header-label-icon {
 	margin-right: spacing('extra-tight');
 
-	.card-critical & {
+	.card--critical & {
 		fill: $c-ui-critical;
 	}
 }

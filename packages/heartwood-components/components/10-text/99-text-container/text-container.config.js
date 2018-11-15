@@ -22,7 +22,7 @@ module.exports = {
 			name: 'tight',
 			label: 'Text Container - Tight Spacing',
 			context: {
-				modifierClass: 'text__container--spacing-tight',
+				modifierClass: 'text-container--spacing-tight',
 				headingText: 'Text Container - Tight Spacing'
 			}
 		},
@@ -30,7 +30,7 @@ module.exports = {
 			name: 'loose',
 			label: 'Text Container - Loose Spacing',
 			context: {
-				modifierClass: 'text__container--spacing-loose',
+				modifierClass: 'text-container--spacing-loose',
 				headingText: 'Text Container - Loose Spacing'
 			}
 		}
