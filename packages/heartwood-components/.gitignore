@@ -10,3 +10,6 @@ yarn-error.log
 
 # Build directory
 /build
+
+# Built files
+icons.json

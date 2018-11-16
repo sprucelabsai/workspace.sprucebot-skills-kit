@@ -19,15 +19,16 @@
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
 	"scripts": {
-		"build": "babel ./src --out-dir ./lib",
+		"build": "npm run icons && babel ./src --out-dir ./lib",
+		"icons": "node ./scripts/generateIcons.js",
 		"clean": "rm -rf lib/*",
 		"lint": "eslint src",
 		"test": "jest",
 		"precommit": "npm run lint && npm run build",
 		"prepush": "npm run lint && npm run test",
 		"watch": "chokidar 'src/**/*.js' -c 'npm run build'",
-		"storybook": "start-storybook -p 6006",
-		"build-storybook": "build-storybook"
+		"storybook": "npm run icons && start-storybook -p 6006",
+		"build-storybook": "npm run icons && build-storybook"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.0.0",
@@ -87,7 +88,7 @@
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
-		"@sprucelabs/heartwood-components": "0.8.3",
+		"@sprucelabs/heartwood-components": "7.8.0",
 		"axios": "^0.18.0",
 		"blueimp-canvas-to-blob": "^3.14.0",
 		"classnames": "^2.2.5",
