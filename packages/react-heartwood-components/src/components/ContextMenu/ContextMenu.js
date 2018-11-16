@@ -23,7 +23,10 @@ export type Props = {
 	icon?: any,
 
 	/** Set true to make the button blue */
-	isSimple?: boolean
+	isSimple?: boolean,
+
+	/** Set tot true makes the menu close when any action is selected */
+	closeOnSelectAction: boolean
 }
 
 type State = {
@@ -83,6 +86,13 @@ export default class ContextMenu extends Component<Props, State> {
 		}
 	}
 
+	handleClickAction = (payload, callback) => {
+		if (this.props.closeOnSelectAction) {
+			this.handleToggle()
+		}
+		callback && callback(payload)
+	}
+
 	render() {
 		const { isVisible } = this.state
 		const { actions, isLeftAligned, isSimple, size, icon } = this.props
@@ -116,7 +126,11 @@ export default class ContextMenu extends Component<Props, State> {
 							<ButtonGroup
 								kind="floating"
 								actions={actions.map(action => {
-									const btnAction = Object.assign({}, action)
+									const btnAction = { ...action }
+									const oldOnclick = btnAction.onClick
+									btnAction.onClick = payload => {
+										this.handleClickAction(payload, oldOnclick)
+									}
 									btnAction.className = 'context-menu__item-btn'
 									return btnAction
 								})}

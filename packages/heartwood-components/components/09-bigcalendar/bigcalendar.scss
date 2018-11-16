@@ -308,7 +308,6 @@ body.sb-show-main {
         transition: all 0.5s ease-out;
     }
 
-
     &.event-fill-available {
          @include eventFill($c-white, $c-primary, $c-primary, $c-primary)
     }

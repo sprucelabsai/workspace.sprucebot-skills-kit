@@ -108,7 +108,7 @@ class Day extends PureComponent<Props> {
 			this.placeAndSize()
 			this.sizeTimeLine()
 
-			if (prevProps.startDate !== startDate || prevProps.users !== users) {
+			if (prevProps.startDate !== startDate) {
 				this.setState({ highlightedEvent: null, selectedEvent: null })
 				this.dragGridRef.current.cancelDrag()
 			}
@@ -118,6 +118,8 @@ class Day extends PureComponent<Props> {
 					const match = events.find(
 						event => event.id === this.state.selectedEvent.id
 					)
+
+					console.log('did Update', match)
 
 					if (match) {
 						this.handleSelectEvent({ event: match })
