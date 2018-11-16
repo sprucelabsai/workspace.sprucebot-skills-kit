@@ -32,3 +32,4 @@ node_modules
 
 storybook-static/
 lib/
+src/icons.js
