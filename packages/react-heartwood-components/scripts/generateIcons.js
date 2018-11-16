@@ -10,4 +10,4 @@ each(icons, (iconPath, iconName) => {
 	)
 })
 
-fs.outputFile('./src/icons.js', lines.join('\n'))
+fs.outputFile('./src/icons.js', lines.join('\n') + '\n')
