@@ -1,12 +1,8 @@
-var fs = require('fs-extra')
-var gulp = require('gulp')
-var rename = require('gulp-rename')
-var sass = require('gulp-sass')
-var sassGlob = require('gulp-sass-glob')
-var concat = require('gulp-concat')
-var rename = require('gulp-rename')
-var uglify = require('gulp-uglify')
-var through = require('through2')
+const fs = require('fs-extra')
+const gulp = require('gulp')
+const sass = require('gulp-sass')
+const sassGlob = require('gulp-sass-glob')
+const through = require('through2')
 
 // a task to import base variables first, then from within our import file, fetch component styles and add them to a concatenated output file
 gulp.task('styles', function() {
@@ -14,7 +10,6 @@ gulp.task('styles', function() {
 		.src(['stylesheets/global.scss'])
 		.pipe(sassGlob())
 		.pipe(sass().on('error', sass.logError))
-		// .pipe(rename('site.css'))
 		// this is where site.css will be output. You'll reference this file in your _preview.hbs, so make sure the location is located in the static asset folder defined in fractal.js
 		.pipe(gulp.dest('./public/stylesheets'))
 })
@@ -22,7 +17,6 @@ gulp.task('styles', function() {
 gulp.task('js', function() {
 	gulp
 		.src(['components/**/*.js', '!components/**/*.config.js'])
-		// .pipe(concat('scripts.js'))
 		.pipe(gulp.dest('./public/js'))
 })
 

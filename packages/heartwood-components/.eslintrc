@@ -2,6 +2,8 @@
 	"plugins": ["prettier"],
 	"rules": {
 		"no-undef": "error",
+		"prefer-const": "error",
+		"no-var": "error",
 		"no-unused-vars": "error",
 		"prettier/prettier": [
 			"error",
@@ -21,12 +23,11 @@
 		}
 	},
 	"extends": ["prettier"],
+	"env": {
+		"browser": true,
+		"node": true
+	},
 	"globals": {
-		"window": true,
-		"Promise": true,
-		"module": true,
-		"require": true,
-		"setTimeout": true,
 		"log": true
 	}
 }
