@@ -34,6 +34,7 @@ type Props = {
 	defaultUserMode?: String,
 	userSchedules?: Object // { userId: { date: { startTime, endTime }, '2018-01-10': { startTime: '09:00', endTime: '20:00' } } }
 }
+
 type State = {
 	selectedView: 'day' | 'week' | 'month',
 	startDate: Object,
@@ -315,6 +316,10 @@ class BigCalendar extends Component<Props, State> {
 
 	setCurrentUsers = users => {
 		this.setState({ users })
+	}
+
+	getCurrentUsers = () => {
+		return this.state.users
 	}
 
 	render() {

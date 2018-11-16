@@ -68,7 +68,7 @@
 .event-details-header .context-menu {
 	&.context-menu--is-visible .context-menu__button,
 	.context-menu__button:focus {
-		background-color: $c-primary-dark;
+		background-color: rgba(0,0,0,0.05);
 	}
 }
 

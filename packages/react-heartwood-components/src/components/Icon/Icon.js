@@ -16,6 +16,8 @@ import CheckCircle from '../../../static/assets/icons/ic_check_circle.svg'
 import Late from '../../../static/assets/icons/ic_late.svg'
 import Disable from '../../../static/assets/icons/ic_disable.svg'
 import Teammates from '../../../static/assets/icons/ic_teammates.svg'
+import Wifi from '../../../static/assets/icons/ic_wifi.svg'
+import MessageFailed from '../../../static/assets/icons/ic_message_failed.svg'
 
 type Props = {
 	/** The name of the icon to render. If not found, this will return null. */
@@ -37,7 +39,9 @@ const key = {
 	late: Late,
 	payment_success_solid: PaymentSuccessSolid,
 	disable: Disable,
-	teammates: Teammates
+	teammates: Teammates,
+	wifi: Wifi,
+	message_failed: MessageFailed
 }
 
 const Icon = (props: Props) => {

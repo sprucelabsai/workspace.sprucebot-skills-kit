@@ -597,10 +597,11 @@ class Day extends PureComponent<Props> {
 			const eventLeft = sizeUtil.getLocalLeft(eventNode)
 			const detailsRight = eventRight + detailsWidth
 
-			const top = sizeUtil.getLocalTop(eventNode)
+			let top = sizeUtil.getLocalTop(eventNode)
 			let setTop = false
 			let showInDialog = false
 
+			// check x positioning
 			if (detailsRight > gridWidth + scrollLeft) {
 				if (eventLeft - detailsWidth < 0) {
 					showInDialog = true
@@ -614,6 +615,14 @@ class Day extends PureComponent<Props> {
 			}
 
 			if (setTop) {
+				//check y positioning
+				const detailsBottom = sizeUtil.getHeight(detailsNode) + top
+				const gridHeight = this.dragGridRef.current.getScrollHeight()
+
+				console.log({ detailsBottom, gridHeight })
+				if (detailsBottom > gridHeight) {
+					top = gridHeight - sizeUtil.getHeight(detailsNode)
+				}
 				detailsNode.style.top = `${top}px`
 			}
 			if (showInDialog) {
@@ -688,7 +697,7 @@ class Day extends PureComponent<Props> {
 					eventStart.format('YYYY-MM-DD') === date.format('YYYY-MM-DD')
 				)
 			}),
-			['startAt']
+			['startAt', 'title']
 		)
 	})
 
