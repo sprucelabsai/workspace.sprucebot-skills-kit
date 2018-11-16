@@ -1728,65 +1728,65 @@ Classes for button variations
   opacity: 0;
   visibility: hidden; }
 
-.button-group {
+.hw-button-group {
   display: inline-flex; }
-  .button-group .button-group__item {
+  .hw-button-group .hw-button-group__item {
     margin-right: 0.5rem; }
-    .button-group .button-group__item:last-child {
+    .hw-button-group .hw-button-group__item:last-child {
       margin-right: 0; }
-  .button-group.button-group-segmented .button-group__item {
+  .hw-button-group.hw-button-group--segmented .hw-button-group__item {
     margin-right: 0; }
-    .button-group.button-group-segmented .button-group__item:not(:last-child) .btn {
+    .hw-button-group.hw-button-group--segmented .hw-button-group__item:not(:last-child) .hw-btn {
       border-right: none; }
-    .button-group.button-group-segmented .button-group__item:not(:first-child):not(:last-child) .btn {
+    .hw-button-group.hw-button-group--segmented .hw-button-group__item:not(:first-child):not(:last-child) .hw-btn {
       border-radius: 0; }
-    .button-group.button-group-segmented .button-group__item:first-child .btn {
+    .hw-button-group.hw-button-group--segmented .hw-button-group__item:first-child .hw-btn {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0; }
-    .button-group.button-group-segmented .button-group__item:last-child .btn {
+    .hw-button-group.hw-button-group--segmented .hw-button-group__item:last-child .hw-btn {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0; }
-  .button-group.button-group-floating {
+  .hw-button-group.hw-button-group--floating {
     flex-flow: column;
     padding: 0.25rem 0;
     border-radius: 2px;
     background-color: #fff;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.05); }
-    .button-group.button-group-floating .button-group__item {
+    .hw-button-group.hw-button-group--floating .hw-button-group__item {
       margin-right: 0; }
-      .button-group.button-group-floating .button-group__item .btn {
+      .hw-button-group.hw-button-group--floating .hw-button-group__item .hw-btn {
         margin-bottom: 0; }
-    .button-group.button-group-floating .btn__inner {
+    .hw-button-group.hw-button-group--floating .hw-btn__inner {
       justify-content: flex-start; }
 
-.context-menu {
+.hw-context-menu {
   position: relative;
   display: inline-block; }
 
-.context-menu__button .btn__icon {
+.hw-context-menu__button .hw-btn__icon {
   stroke: #818894; }
 
-.context-menu__button.btn-simple .btn__icon {
+.hw-context-menu__button.btn-simple .hw-btn__icon {
   fill: #0076D6; }
-  .context-menu__button.btn-simple .btn__icon.btn__line-icon {
+  .hw-context-menu__button.btn-simple .hw-btn__icon.btn__line-icon {
     fill: none;
     stroke: #0076D6; }
 
-.context-menu--is-visible .context-menu__button {
+.hw-context-menu--is-visible .hw-context-menu__button {
   background-color: #f3f4f6; }
 
-.context-menu__menu {
+.hw-context-menu__menu {
   position: absolute;
   top: 100%;
   right: 0;
   z-index: 2;
   width: 10rem; }
-  .context-menu__menu.context-menu__menu-large {
+  .hw-context-menu__menu.hw-context-menu__menu--large {
     width: 15rem; }
-  .context-menu__menu.context-menu__menu-left {
+  .hw-context-menu__menu.hw-context-menu__menu--left {
     right: auto;
     left: 0; }
-  .context-menu--is-hidden .context-menu__menu {
+  .hw-context-menu--is-hidden .hw-context-menu__menu {
     -webkit-transform: translate(0, 4px);
             transform: translate(0, 4px);
     opacity: 0;
@@ -1794,10 +1794,10 @@ Classes for button variations
     transition: opacity 300ms ease, visibility 0s linear 300ms, -webkit-transform 300ms ease;
     transition: opacity 300ms ease, transform 300ms ease, visibility 0s linear 300ms;
     transition: opacity 300ms ease, transform 300ms ease, visibility 0s linear 300ms, -webkit-transform 300ms ease; }
-  .context-menu__menu .button-group {
+  .hw-context-menu__menu .hw-button-group {
     width: 100%; }
 
-.context-menu__item-btn {
+.hw-context-menu__item-btn {
   text-align: left; }
 
 .autosuggest__wrapper {
@@ -2899,11 +2899,11 @@ select:-webkit-autofill:focus {
   100% {
     opacity: 1; } }
 
-.loader {
+.hw-loader {
   display: flex;
   align-items: center; }
 
-.loader__dot {
+.hw-loader__dot {
   display: inline-block;
   width: 0.5rem;
   height: 0.5rem;
@@ -2911,15 +2911,15 @@ select:-webkit-autofill:focus {
   border-radius: 100%;
   -webkit-animation: a-loading 600ms ease-in-out infinite alternate;
           animation: a-loading 600ms ease-in-out infinite alternate; }
-  .loader__dot:not(:last-child) {
+  .hw-loader__dot:not(:last-child) {
     margin-right: 0.25rem; }
-  .loader__dot:nth-child(1) {
+  .hw-loader__dot:nth-child(1) {
     -webkit-animation-delay: 80ms;
             animation-delay: 80ms; }
-  .loader__dot:nth-child(2) {
+  .hw-loader__dot:nth-child(2) {
     -webkit-animation-delay: 160ms;
             animation-delay: 160ms; }
-  .loader__dot:nth-child(3) {
+  .hw-loader__dot:nth-child(3) {
     -webkit-animation-delay: 240ms;
             animation-delay: 240ms; }
 

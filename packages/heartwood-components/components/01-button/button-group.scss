@@ -1,7 +1,7 @@
-.button-group {
+.#{$ns}-button-group {
 	display: inline-flex;
 
-	.button-group__item {
+	.#{$ns}-button-group__item {
 		margin-right: spacing('tight');
 
 		&:last-child {
@@ -9,46 +9,46 @@
 		}
 	}
 
-	&.button-group-segmented {
-		.button-group__item {
+	&.#{$ns}-button-group--segmented {
+		.#{$ns}-button-group__item {
 			margin-right: 0;
 
-			&:not(:last-child) .btn {
+			&:not(:last-child) .#{$ns}-btn {
 				border-right: none;
 			}
 
-			&:not(:first-child):not(:last-child) .btn {
+			&:not(:first-child):not(:last-child) .#{$ns}-btn {
 				border-radius: 0;
 			}
 
-			&:first-child .btn {
+			&:first-child .#{$ns}-btn {
 				border-top-right-radius: 0;
 				border-bottom-right-radius: 0;
 			}
 
-			&:last-child .btn {
+			&:last-child .#{$ns}-btn {
 				border-top-left-radius: 0;
 				border-bottom-left-radius: 0;
 			}
 		}
 	}
 
-	&.button-group-floating {
+	&.#{$ns}-button-group--floating {
 		flex-flow: column;
 		padding: spacing('extra-tight') 0;
 		border-radius: 2px;
 		background-color: $c-white;
 		box-shadow: $dimension-floating;
 
-		.button-group__item {
+		.#{$ns}-button-group__item {
 			margin-right: 0;
 
-			.btn {
+			.#{$ns}-btn {
 				margin-bottom: 0;
 			}
 		}
 
-		.btn__inner {
+		.#{$ns}-btn__inner {
 			justify-content: flex-start;
 		}
 	}

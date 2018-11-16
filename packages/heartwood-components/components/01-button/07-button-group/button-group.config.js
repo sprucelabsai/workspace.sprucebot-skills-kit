@@ -1,3 +1,5 @@
+const Classes = require('../../classes')
+
 module.exports = {
 	title: 'Action List',
 	collated: true,
@@ -12,11 +14,13 @@ module.exports = {
 		actions: [
 			{
 				text: 'Confirm Changes',
-				className: 'btn-primary'
+				className: Classes.ButtonPrimary,
+				Classes: Classes
 			},
 			{
 				text: 'Cancel',
-				className: 'btn-secondary'
+				className: Classes.ButtonSecondary,
+				Classes: Classes
 			}
 		]
 	},
@@ -28,15 +32,18 @@ module.exports = {
 				actions: [
 					{
 						text: 'Option One',
-						className: 'btn-secondary'
+						className: Classes.ButtonSecondary,
+						Classes: Classes
 					},
 					{
 						text: 'Option Two',
-						className: 'btn-secondary'
+						className: Classes.ButtonSecondary,
+						Classes: Classes
 					},
 					{
 						text: 'Option Three',
-						className: 'btn-secondary'
+						className: Classes.ButtonSecondary,
+						Classes: Classes
 					}
 				]
 			}
@@ -48,15 +55,18 @@ module.exports = {
 				actions: [
 					{
 						text: 'Edit Service',
-						className: 'btn-simple btn-full-width'
+						className: `${Classes.ButtonSimple} ${Classes.Button_FullWidth}`,
+						Classes: Classes
 					},
 					{
 						text: 'Hide Service',
-						className: 'btn-simple btn-full-width'
+						className: `${Classes.ButtonSimple} ${Classes.Button_FullWidth}`,
+						Classes: Classes
 					},
 					{
 						text: 'Move to Category',
-						className: 'btn-simple btn-full-width'
+						className: `${Classes.ButtonSimple} ${Classes.Button_FullWidth}`,
+						Classes: Classes
 					}
 				]
 			}

@@ -1,3 +1,5 @@
+const Classes = require('../../classes')
+
 module.exports = {
 	title: 'Context Menu',
 	context: {
@@ -5,13 +7,18 @@ module.exports = {
 		actions: [
 			{
 				text: 'Edit Service',
-				className: 'btn-simple btn-full-width'
-			}, {
+				className: `${Classes.ButtonSimple} ${Classes.Button_FullWidth}`,
+				Classes: Classes
+			},
+			{
 				text: 'Hide Service',
-				className: 'btn-simple btn-full-width'
-			}, {
+				className: `${Classes.ButtonSimple} ${Classes.Button_FullWidth}`,
+				Classes: Classes
+			},
+			{
 				text: 'Move to Category',
-				className: 'btn-simple btn-full-width'
+				className: `${Classes.ButtonSimple} ${Classes.Button_FullWidth}`,
+				Classes: Classes
 			}
 		]
 	}

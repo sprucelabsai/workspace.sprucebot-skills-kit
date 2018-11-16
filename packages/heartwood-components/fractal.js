@@ -26,6 +26,11 @@ const hbs = require('@frctl/handlebars')({
 			arg.pop()
 			return arg.join('')
 		},
+		space: function() {
+			var arg = Array.prototype.slice.call(arguments, 0)
+			arg.pop()
+			return arg.join(' ')
+		},
 		defaultVal: function(value, defaultVal) {
 			var out = value || defaultVal
 			return out

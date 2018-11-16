@@ -7,12 +7,12 @@
 	}
 }
 
-.loader {
+.#{$ns}-loader {
 	display: flex;
 	align-items: center;
 }
 
-.loader__dot {
+.#{$ns}-loader__dot {
 	display: inline-block;
 	width: rem(8);
 	height: rem(8);

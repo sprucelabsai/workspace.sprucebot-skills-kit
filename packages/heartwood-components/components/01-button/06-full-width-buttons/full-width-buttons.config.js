@@ -1,4 +1,4 @@
-const Classes = require('../button-classes')
+const Classes = require('../../classes')
 
 module.exports = {
 	title: 'Button Variations',

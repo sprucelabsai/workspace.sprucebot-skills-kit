@@ -1,5 +1,7 @@
 {{#if href}}
 <a class="{{ Classes.Button }} {{className}} {{#unless text}} {{ Classes.Button_IconOnly }} {{/unless}}" href="{{ href }}"
- {{#if disabled}} disabled{{/if}}> {{> @btn-inner}} </a> {{else}} <button class="{{ Classes.Button }} {{className}} {{#unless text}} {{ Classes.Button_IconOnly }} {{/unless}}"
+ {{#if disabled}} disabled{{/if}}>{{> @btn-inner}}</a>
+{{else}}
+<button class="{{ Classes.Button }} {{className}} {{#unless text}} {{ Classes.Button_IconOnly }} {{/unless}}"
  type="{{#if type}}{{ type }}{{else}}button{{/if}}" {{#if disabled}} disabled{{/if}}> {{> @btn-inner}} </button>
- {{/if}}
+{{/if}}

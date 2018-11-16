@@ -1,13 +1,13 @@
-.context-menu {
+.#{$ns}-context-menu {
 	position: relative;
 	display: inline-block;
 }
 
-.context-menu__button .btn__icon {
+.#{$ns}-context-menu__button .#{$ns}-btn__icon {
 	stroke: $c-text-icon;
 }
 
-.context-menu__button.btn-simple .btn__icon {
+.#{$ns}-context-menu__button.btn-simple .#{$ns}-btn__icon {
 	fill: $c-primary;
 
 	&.btn__line-icon {
@@ -16,41 +16,41 @@
 	}
 }
 
-	
-.context-menu--is-visible {
-	.context-menu__button {
+.#{$ns}-context-menu--is-visible {
+	.#{$ns}-context-menu__button {
 		background-color: $c-grey-00;
 	}
 }
 
-	
-
-.context-menu__menu {
+.#{$ns}-context-menu__menu {
 	position: absolute;
 	top: 100%;
 	right: 0;
 	z-index: 2;
 	width: rem(160);
 
-	&.context-menu__menu-large {
+	&.#{$ns}-context-menu__menu--large {
 		width: rem(240);
 	}
 
-	&.context-menu__menu-left {
+	&.#{$ns}-context-menu__menu--left {
 		right: auto;
 		left: 0;
 	}
 
-	.context-menu--is-hidden & {
+	.#{$ns}-context-menu--is-hidden & {
 		transform: translate(0, 4px);
 		opacity: 0;
 		visibility: hidden;
-		transition: opacity 300ms ease, transform 300ms ease, visibility 0s linear 300ms;
+		transition: opacity 300ms ease, transform 300ms ease,
+			visibility 0s linear 300ms;
 	}
 
-	.button-group { width: 100%; }
+	.#{$ns}-button-group {
+		width: 100%;
+	}
 }
 
-.context-menu__item-btn {
+.#{$ns}-context-menu__item-btn {
 	text-align: left;
 }
