@@ -19,14 +19,15 @@
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
 	"scripts": {
-		"build": "babel ./src --out-dir ./lib",
+		"build": "npm run icons && npm run compile_javascript",
+		"compile_javascript": "babel ./src --out-dir ./lib",
 		"icons": "node ./scripts/generateIcons.js",
 		"clean": "rm -rf lib/*",
 		"lint": "eslint src",
 		"test": "jest",
-		"precommit": "npm run lint && npm run icons && npm run build",
+		"precommit": "npm run lint && npm run compile_javascript",
 		"prepush": "npm run lint && npm run test",
-		"watch": "npm run icons && chokidar 'src/**/*.js' -c 'npm run build'",
+		"watch": "npm run build && chokidar 'src/**/*.js' -c 'npm run compile_javascript'",
 		"storybook": "npm run icons && start-storybook -p 6006",
 		"build-storybook": "npm run icons && build-storybook"
 	},
