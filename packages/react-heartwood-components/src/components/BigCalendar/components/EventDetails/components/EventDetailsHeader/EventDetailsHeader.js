@@ -6,7 +6,6 @@ import ContextMenu from '../../../../../ContextMenu/ContextMenu'
 import type { Props as ContextMenuProps } from '../../../../../ContextMenu/ContextMenu'
 import Icon from '../../../../../Icon/Icon'
 import { Text } from '../../../../../Text/Text'
-import BackIcon from '../../../../../../../static/assets/icons/ic_arrow_back.svg'
 
 export type Props = {
 	label: string,
@@ -27,7 +26,7 @@ const EventDetailsHeader = (props: Props) => {
 					isSmall
 					className="event-details-header__button"
 					icon={{
-						customIcon: BackIcon
+						name: 'close'
 					}}
 				/>
 			)}
@@ -41,9 +40,7 @@ const EventDetailsHeader = (props: Props) => {
 					onClick={onClickClose}
 					isSmall
 					className="event-details-header__button"
-					icon={{
-						customIcon: BackIcon
-					}}
+					icon="close"
 				/>
 			</div>
 		</div>

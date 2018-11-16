@@ -38,10 +38,7 @@ type State = {
 }
 
 class DragGrid extends PureComponent<Props> {
-	state = {
-		scrollLeft: 0,
-		scrollTop: 0
-	}
+	state = {}
 
 	constructor(props) {
 		super(props)
@@ -98,6 +95,10 @@ class DragGrid extends PureComponent<Props> {
 
 	getScrollWidth = () => {
 		return sizeUtil.getScrollWidth(this.domNodeRef.current)
+	}
+
+	getScrollHeight = () => {
+		return sizeUtil.getScrollHeight(this.domNodeRef.current)
 	}
 
 	isScrolledAllTheWayRight = () => {
@@ -229,6 +230,11 @@ class DragGrid extends PureComponent<Props> {
 		stopEvent = true,
 		setListeners = true
 	}) => {
+		//ignore right clicks
+		if (e.button === 2) {
+			return false
+		}
+
 		const {
 			onMouseDownOnEvent = args => {
 				return blockIdx === 0 ? args : false
@@ -245,6 +251,7 @@ class DragGrid extends PureComponent<Props> {
 			stopEvent && e.stopPropagation()
 
 			this._pendingDrag = results
+
 			const { clientX, clientY } = eventUtil.clientXY(e)
 			this._startingDragPoint = { x: clientX, y: clientY }
 
@@ -439,7 +446,7 @@ class DragGrid extends PureComponent<Props> {
 	handleDragOfEvent = (e, autoScroll = true) => {
 		const { dragEvent } = this.state
 
-		if (dragEvent) {
+		if (this._activeDrag) {
 			//clearing this will ensure event is not deselect after it is dropped
 			this._tapOnDragEventTime = null
 
@@ -517,7 +524,7 @@ class DragGrid extends PureComponent<Props> {
 			}
 		}
 		// we have not actually started dragging yet, so we check how far we've moved from click
-		else {
+		else if (this._pendingDrag) {
 			const { clientX, clientY } = eventUtil.clientXY(e)
 			const { x, y } = this._startingDragPoint
 
@@ -576,7 +583,7 @@ class DragGrid extends PureComponent<Props> {
 		this._isMouseDownOnEvent = false
 
 		// console.log('mouse up of event')
-		if (!this.state.dragEvent) {
+		if (!this.state.dragEvent && this._pendingDrag) {
 			this.props.onSelectEvent({
 				event: this._pendingDrag.event,
 				block: this._pendingDrag.block,

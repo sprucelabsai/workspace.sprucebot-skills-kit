@@ -3,22 +3,33 @@ $day-col-width: rem(200);
 $selected-event-width: $day-col-width;
 $event-indent-width: rem(50);
 
-@mixin eventFill($fillColor, $borderColor, $textColor) {
-    border: 1px solid $borderColor;
-        .bigcalendar__event-block.busy {
-            background: $fillColor;
-            color: $textColor;
-        }
+@mixin eventFill($fillColor, $borderColor, $textColor, $iconColor) {
+        border: 1px solid $borderColor;
         .bigcalendar__event-block {
             border-bottom: 1px solid $borderColor;
+            color: $textColor;
+
+            &.busy {
+                background: $fillColor;
+            }
+
+            .icons svg {
+                fill: $iconColor;
+
+                &.u-icon__no-fill.u-icon__stroke {
+                    stroke: $iconColor;
+                    fill: none;
+                }
+            }
         }
         .bigcalendar__event-block:last-of-type {
             border-bottom: none;
         }
+        
 }
 
 .bigcalendar {
-
+    background-color: #fff;
 }
 
 body.sb-show-main {
@@ -298,32 +309,36 @@ body.sb-show-main {
     }
 
 
-    &.event-fill-1 {
-         @include eventFill($c-white, $c-primary, $c-primary)
+    &.event-fill-available {
+         @include eventFill($c-white, $c-primary, $c-primary, $c-primary)
     }
 
-    &.event-fill-2 {
-        @include eventFill(#E6F1FB, $c-primary, $c-primary-dark)
+    &.event-fill-unavailable {
+        @include eventFill($c-primary, $c-primary, $c-white, $c-white)
     }
 
-    &.event-fill-3 {
-        @include eventFill($c-secondary, $c-secondary, $c-white)
+    &.event-fill-unavailable-alt {
+        @include eventFill($c-secondary, $c-secondary, $c-white, $c-white)
     }
 
-    &.event-fill-4 {
-        @include eventFill($c-ui-warn-light, $c-ui-warn-dark, #242933)
+    &.event-fill-past {
+        @include eventFill(rgba($c-primary, 0.5), $c-primary, $c-primary, $c-primary)
     }
 
-    &.event-fill-5 {
-        @include eventFill($c-ui-critical-light, $c-ui-critical, #242933)
+    &.event-fill-warn {
+        @include eventFill($c-ui-warn-lighter, $c-ui-warn-dark, $c-text, $c-ui-warn-dark)
+    }
+
+    &.event-fill-crit {
+        @include eventFill($c-ui-critical-lighter, $c-ui-critical, $c-text, $c-ui-critical)
     }
 }
 
 .bigcalendar__event-block {
     @include type-style-body-sm;
     overflow: hidden;
-    background: $c-primary;
-    color: #fff;
+    // background: $c-primary;
+    // color: #fff;
     cursor: pointer;
     position: relative;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -390,19 +405,27 @@ body.sb-show-main {
 
     .left-icons, .right-icons {
         position: absolute;
-        left:2px;
-        top:2px;
+        left: rem(4);
+        top: rem(4);
 
         svg {
-            width:15px;
-            stroke: #fff;
+            width: rem(16);
+            height: auto;
+            margin-left: rem(8);
         }
     }
 
     .right-icons {
-        left:auto;
-        right:2px;
+        left: auto;
+        right: rem(4);
     }
 
     
+}
+
+.bigcalendar__event {
+    .time,
+    .subtitle {
+        opacity: 0.8;
+    }
 }
