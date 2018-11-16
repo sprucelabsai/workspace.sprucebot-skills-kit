@@ -1,33 +1,41 @@
+const Classes = require('../button-classes')
+
 module.exports = {
 	title: 'Button Variations',
 	status: 'wip',
 	collated: true,
 	collator: function(markup, item) {
-        return `<!-- Start: @${item.handle} -->\n<div>${markup}</div>\n<!-- End: @${item.handle} -->\n`
+		return `<!-- Start: @${item.handle} -->\n<div>${markup}</div>\n<!-- End: @${
+			item.handle
+		} -->\n`
 	},
 	context: {
 		text: 'Full Width Buttons',
-		className: 'btn-primary btn-full-width',
+		className: `${Classes.ButtonPrimary} ${Classes.Button_FullWidth}`,
 		type: 'button'
 	},
 	variants: [
 		{
 			name: 'primary small',
 			context: {
-				className: 'btn-primary btn-small btn-full-width',
+				className: `${Classes.ButtonPrimary} ${Classes.Button_Small} ${
+					Classes.Button_FullWidth
+				}`
 			}
 		},
 		{
 			name: 'secondary',
 			context: {
-				className: 'btn-secondary btn-full-width',
+				className: `${Classes.ButtonSecondary} ${Classes.Button_FullWidth}`
 			}
 		},
 		{
 			name: 'secondary small',
 			context: {
-				className: 'btn-secondary btn-small btn-full-width',
+				className: `${Classes.ButtonSecondary} ${Classes.Button_Small} ${
+					Classes.Button_FullWidth
+				}`
 			}
 		}
 	]
-  }
+}

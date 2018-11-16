@@ -1,18 +1,5 @@
 {{#if href}}
-<a
-	class="btn {{className}} {{#unless text}} btn-icon-only {{/unless}}"
-	href="{{ href }}"
-	{{#if disabled}}disabled{{/if}}
->
-	{{> @btn-inner}}
-</a>
-{{else}}
-<button
-	class="btn {{className}} {{#unless text}} btn-icon-only {{/unless}}"
-	type="{{#if type}}{{ type }}{{else}}button{{/if}}"
-	{{#if disabled}}disabled{{/if}}
->
-	{{> @btn-inner}}
-	
-</button>
-{{/if}}
+<a class="{{ Classes.Button }} {{className}} {{#unless text}} {{ Classes.Button_IconOnly }} {{/unless}}" href="{{ href }}"
+ {{#if disabled}} disabled{{/if}}> {{> @btn-inner}} </a> {{else}} <button class="{{ Classes.Button }} {{className}} {{#unless text}} {{ Classes.Button_IconOnly }} {{/unless}}"
+ type="{{#if type}}{{ type }}{{else}}button{{/if}}" {{#if disabled}} disabled{{/if}}> {{> @btn-inner}} </button>
+ {{/if}}

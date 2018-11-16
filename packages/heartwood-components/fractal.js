@@ -1,5 +1,6 @@
 'use strict'
 const mandelbrot = require('@frctl/mandelbrot')
+const Classes = require('./components/classes')
 
 const myCustomisedTheme = mandelbrot({
 	favicon: '/favicon.ico',
@@ -88,3 +89,7 @@ fractal.web.set('builder.dest', 'build') // destination for the static export
 
 // Set the default preview
 fractal.components.set('default.preview', '@main-preview')
+
+fractal.components.set('default.context', {
+	Classes: Classes
+})

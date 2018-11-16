@@ -42,15 +42,15 @@ Button Variation mixins
 		border: 1px solid $color;
 	}
 
-	.loader__dot {
+	.#{$ns}-loader__dot {
 		background-color: $color;
 	}
 
-	.btn__icon {
+	.#{$ns}-btn__icon {
 		fill: $color;
 	}
 
-	.btn__line-icon {
+	.#{$ns}-btn__line-icon {
 		fill: none;
 		stroke: $color;
 	}
@@ -61,21 +61,21 @@ Button Variation mixins
 			background-color: rgba($bg, 0.5);
 			color: rgba($color, 0.8);
 
-			.btn__icon {
+			.#{$ns}-btn__icon {
 				fill: rgba($color, 0.8);
 			}
 
-			.btn__line-icon {
+			.#{$ns}-btn__line-icon {
 				fill: none;
 				stroke: rgba($color, 0.8);
 			}
 		} @else {
 			color: rgba($color, 0.5);
 
-			.btn__icon {
+			.#{$ns}-btn__icon {
 				fill: rgba($color, 0.5);
 
-				.btn__line-icon {
+				.#{$ns}-btn__line-icon {
 					fill: none;
 					stroke: rgba($color, 0.5);
 				}
@@ -121,7 +121,7 @@ Button Variation mixins
 /**
 Baseline styling for all buttons
 */
-.btn {
+.#{$ns}-btn {
 	@extend %reset-button;
 	position: relative;
 	display: inline-block;
@@ -131,25 +131,25 @@ Baseline styling for all buttons
 	text-decoration: none;
 	cursor: pointer;
 
-	&.btn-icon-only {
+	&.#{$ns}-btn--icon-only {
 		width: $tap-height;
 
-		&.btn-small {
+		&.#{$ns}-btn--small {
 			width: $tap-height-small;
 		}
 	}
 
-	.btn__line-icon {
+	.#{$ns}-btn__line-icon {
 		fill: none;
 		stroke: $c-text-icon;
 	}
 
-	&.btn-small {
+	&.#{$ns}-btn--small {
 		height: $tap-height-small;
 		padding: 0 spacing('tight');
 	}
 
-	&.btn-full-width {
+	&.#{$ns}-btn--full-width {
 		width: 100%;
 		margin-bottom: spacing('tight');
 	}
@@ -162,7 +162,7 @@ Baseline styling for all buttons
 		outline: none;
 	}
 
-	.loader {
+	.#{$ns}-loader {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -172,7 +172,7 @@ Baseline styling for all buttons
 
 // Establish a valid flex context inside the button
 // This lets us set height however we want
-.btn__inner {
+.#{$ns}-btn__inner {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -180,63 +180,63 @@ Baseline styling for all buttons
 	height: 100%;
 }
 
-.btn__icon,
-.btn__text {
+.#{$ns}-btn__icon,
+.#{$ns}-btn__text {
 	vertical-align: middle;
 }
 
-.btn__icon {
+.#{$ns}-btn__icon {
 	position: relative;
 	top: -1px;
 	width: rem(16);
 	height: auto;
 	opacity: 0.7;
 
-	.btn-icon-only & {
+	.#{$ns}-btn--icon-only & {
 		top: 0;
 		width: rem(20);
 		opacity: 1;
 	}
 
-	.btn:not(:disabled):hover & {
+	.#{$ns}-btn:not(:disabled):hover & {
 		opacity: 1;
 	}
 
-	.btn:disabled & {
+	.#{$ns}-btn:disabled & {
 		opacity: 0.4;
 	}
 }
 
-.btn__icon-wrapper ~ .btn__text {
+.#{$ns}-btn__icon-wrapper ~ .#{$ns}-btn__text {
 	margin-left: spacing('extra-tight');
 }
 
-.btn-icon-only {
+.#{$ns}-btn--icon-only {
 	line-height: 0;
 }
 
 /** 
 Classes for button variations
 */
-.btn-primary {
+.#{$ns}-btn-primary {
 	@include btn;
 }
 
-.btn-secondary {
+.#{$ns}-btn-secondary {
 	@include btn($color: $c-primary, $is-outline: true, $is-solid: false);
 }
 
-.btn-caution {
+.#{$ns}-btn-caution {
 	@include btn($bg: $c-ui-critical);
 }
 
-.btn-simple {
+.#{$ns}-btn-simple {
 	@include btn($color: $c-primary, $is-simple: true, $is-solid: false);
 }
 
-.btn__text,
-.btn__icon {
-	.btn--loading & {
+.#{$ns}-btn__text,
+.#{$ns}-btn__icon {
+	.#{$ns}-btn--loading & {
 		opacity: 0;
 		visibility: hidden;
 	}

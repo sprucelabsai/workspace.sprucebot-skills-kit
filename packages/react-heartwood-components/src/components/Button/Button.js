@@ -9,6 +9,7 @@ import Link from 'next/link'
 import type { Props as LinkProps } from 'next/link'
 import Loader from '../Loader/Loader'
 import Icon from '../Icon/Icon'
+import Heartwood from '@sprucelabs/heartwood-components/heartwood-components'
 
 export type Props = {
 	/** Optional class to add to the button. */
@@ -61,15 +62,15 @@ const Button = (props: Props) => {
 		...rest
 	} = props
 	const btnClass = cx(className, {
-		btn: true,
-		'btn-primary': kind === 'primary',
-		'btn-secondary': kind === 'secondary',
-		'btn-caution': kind === 'caution',
-		'btn-simple': kind === 'simple',
-		'btn-full-width': isFullWidth,
-		'btn--loading': isLoading,
-		'btn-small': isSmall,
-		'btn-icon-only': !text
+		[Heartwood.Classes.Button]: true,
+		[Heartwood.Classes.ButtonPrimary]: kind === 'primary',
+		[Heartwood.Classes.ButtonSecondary]: kind === 'secondary',
+		[Heartwood.Classes.ButtonCaution]: kind === 'caution',
+		[Heartwood.Classes.ButtonSimple]: kind === 'simple',
+		[Heartwood.Classes.Button_FullWidth]: isFullWidth,
+		[Heartwood.Classes.Button_Loading]: isLoading,
+		[Heartwood.Classes.Button_Small]: isSmall,
+		[Heartwood.Classes.Button_IconOnly]: !text
 	})
 
 	// Check if the link is relative (client-side) or absolute
@@ -86,9 +87,9 @@ const Button = (props: Props) => {
 	}
 
 	const Inner = () => (
-		<span className="btn__inner">
+		<span className={Heartwood.Classes.Button_Inner}>
 			{icon && (
-				<span className="btn__icon-wrapper">
+				<span className={Heartwood.Classes.Button_IconWrapper}>
 					<Icon
 						customIcon={icon.customIcon}
 						icon={icon.name}
@@ -96,14 +97,14 @@ const Button = (props: Props) => {
 						className={cx(
 							{
 								btn__icon: true,
-								'btn__line-icon': icon.isLineIcon
+								[Heartwood.Classes.Button_LineIcon]: icon.isLineIcon
 							},
 							icon.className
 						)}
 					/>
 				</span>
 			)}
-			{text && <span className="btn__text">{text}</span>}
+			{text && <span className={Heartwood.Classes.Button_Text}>{text}</span>}
 			{isLoading && <Loader />}
 		</span>
 	)

@@ -1530,7 +1530,7 @@ a {
   color: #0076D6;
   text-decoration: none; }
 
-.btn {
+.hw-btn {
   border: none;
   margin: 0;
   padding: 0;
@@ -1554,7 +1554,7 @@ Button Variation mixins
 /**
 Baseline styling for all buttons
 */
-.btn {
+.hw-btn {
   position: relative;
   display: inline-block;
   height: 3rem;
@@ -1562,169 +1562,169 @@ Baseline styling for all buttons
   border-radius: 4px;
   text-decoration: none;
   cursor: pointer; }
-  .btn.btn-icon-only {
+  .hw-btn.hw-btn--icon-only {
     width: 3rem; }
-    .btn.btn-icon-only.btn-small {
+    .hw-btn.hw-btn--icon-only.hw-btn--small {
       width: 2.25rem; }
-  .btn .btn__line-icon {
+  .hw-btn .hw-btn__line-icon {
     fill: none;
     stroke: #818894; }
-  .btn.btn-small {
+  .hw-btn.hw-btn--small {
     height: 2.25rem;
     padding: 0 0.5rem; }
-  .btn.btn-full-width {
+  .hw-btn.hw-btn--full-width {
     width: 100%;
     margin-bottom: 0.5rem; }
-  .btn:disabled {
+  .hw-btn:disabled {
     cursor: not-allowed; }
-  .btn:focus {
+  .hw-btn:focus {
     outline: none; }
-  .btn .loader {
+  .hw-btn .hw-loader {
     position: absolute;
     top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%); }
 
-.btn__inner {
+.hw-btn__inner {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%; }
 
-.btn__icon,
-.btn__text {
+.hw-btn__icon,
+.hw-btn__text {
   vertical-align: middle; }
 
-.btn__icon {
+.hw-btn__icon {
   position: relative;
   top: -1px;
   width: 1rem;
   height: auto;
   opacity: 0.7; }
-  .btn-icon-only .btn__icon {
+  .hw-btn--icon-only .hw-btn__icon {
     top: 0;
     width: 1.25rem;
     opacity: 1; }
-  .btn:not(:disabled):hover .btn__icon {
+  .hw-btn:not(:disabled):hover .hw-btn__icon {
     opacity: 1; }
-  .btn:disabled .btn__icon {
+  .hw-btn:disabled .hw-btn__icon {
     opacity: 0.4; }
 
-.btn__icon-wrapper ~ .btn__text {
+.hw-btn__icon-wrapper ~ .hw-btn__text {
   margin-left: 0.25rem; }
 
-.btn-icon-only {
+.hw-btn--icon-only {
   line-height: 0; }
 
 /** 
 Classes for button variations
 */
-.btn-primary {
+.hw-btn-primary {
   color: #fff;
   background-color: #0076D6; }
-  .btn-primary .loader__dot {
+  .hw-btn-primary .hw-loader__dot {
     background-color: #fff; }
-  .btn-primary .btn__icon {
+  .hw-btn-primary .hw-btn__icon {
     fill: #fff; }
-  .btn-primary .btn__line-icon {
+  .hw-btn-primary .hw-btn__line-icon {
     fill: none;
     stroke: #fff; }
-  .btn-primary:disabled {
+  .hw-btn-primary:disabled {
     background-color: rgba(0, 118, 214, 0.5);
     color: rgba(255, 255, 255, 0.8); }
-    .btn-primary:disabled .btn__icon {
+    .hw-btn-primary:disabled .hw-btn__icon {
       fill: rgba(255, 255, 255, 0.8); }
-    .btn-primary:disabled .btn__line-icon {
+    .hw-btn-primary:disabled .hw-btn__line-icon {
       fill: none;
       stroke: rgba(255, 255, 255, 0.8); }
-  .btn-primary:not(:disabled):hover {
+  .hw-btn-primary:not(:disabled):hover {
     background-color: #0084f0; }
-  .btn-primary:not(:disabled):active {
+  .hw-btn-primary:not(:disabled):active {
     box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 8px 0 rgba(0, 0, 0, 0.1); }
-    .btn-primary:not(:disabled):active:hover {
+    .hw-btn-primary:not(:disabled):active:hover {
       background-color: #0076D6; }
-  .btn-primary:not(:disabled):not(:active):focus {
+  .hw-btn-primary:not(:disabled):not(:active):focus {
     box-shadow: 0 0 0 3px rgba(0, 118, 214, 0.4); }
 
-.btn-secondary {
+.hw-btn-secondary {
   color: #0076D6;
   border: 1px solid #0076D6; }
-  .btn-secondary .loader__dot {
+  .hw-btn-secondary .hw-loader__dot {
     background-color: #0076D6; }
-  .btn-secondary .btn__icon {
+  .hw-btn-secondary .hw-btn__icon {
     fill: #0076D6; }
-  .btn-secondary .btn__line-icon {
+  .hw-btn-secondary .hw-btn__line-icon {
     fill: none;
     stroke: #0076D6; }
-  .btn-secondary:disabled {
+  .hw-btn-secondary:disabled {
     color: rgba(0, 118, 214, 0.5);
     border-color: rgba(0, 118, 214, 0.5); }
-    .btn-secondary:disabled .btn__icon {
+    .hw-btn-secondary:disabled .hw-btn__icon {
       fill: rgba(0, 118, 214, 0.5); }
-      .btn-secondary:disabled .btn__icon .btn__line-icon {
+      .hw-btn-secondary:disabled .hw-btn__icon .hw-btn__line-icon {
         fill: none;
         stroke: rgba(0, 118, 214, 0.5); }
-  .btn-secondary:not(:disabled):hover {
+  .hw-btn-secondary:not(:disabled):hover {
     background-color: rgba(0, 118, 214, 0.05); }
-  .btn-secondary:not(:disabled):active {
+  .hw-btn-secondary:not(:disabled):active {
     background-color: rgba(0, 118, 214, 0.1); }
-  .btn-secondary:not(:disabled):not(:active):focus {
+  .hw-btn-secondary:not(:disabled):not(:active):focus {
     box-shadow: 0 0 0 3px rgba(0, 118, 214, 0.4); }
 
-.btn-caution {
+.hw-btn-caution {
   color: #fff;
   background-color: #e51b3d; }
-  .btn-caution .loader__dot {
+  .hw-btn-caution .hw-loader__dot {
     background-color: #fff; }
-  .btn-caution .btn__icon {
+  .hw-btn-caution .hw-btn__icon {
     fill: #fff; }
-  .btn-caution .btn__line-icon {
+  .hw-btn-caution .hw-btn__line-icon {
     fill: none;
     stroke: #fff; }
-  .btn-caution:disabled {
+  .hw-btn-caution:disabled {
     background-color: rgba(229, 27, 61, 0.5);
     color: rgba(255, 255, 255, 0.8); }
-    .btn-caution:disabled .btn__icon {
+    .hw-btn-caution:disabled .hw-btn__icon {
       fill: rgba(255, 255, 255, 0.8); }
-    .btn-caution:disabled .btn__line-icon {
+    .hw-btn-caution:disabled .hw-btn__line-icon {
       fill: none;
       stroke: rgba(255, 255, 255, 0.8); }
-  .btn-caution:not(:disabled):hover {
+  .hw-btn-caution:not(:disabled):hover {
     background-color: #e83250; }
-  .btn-caution:not(:disabled):active {
+  .hw-btn-caution:not(:disabled):active {
     box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 8px 0 rgba(0, 0, 0, 0.1); }
-    .btn-caution:not(:disabled):active:hover {
+    .hw-btn-caution:not(:disabled):active:hover {
       background-color: #e51b3d; }
-  .btn-caution:not(:disabled):not(:active):focus {
+  .hw-btn-caution:not(:disabled):not(:active):focus {
     box-shadow: 0 0 0 3px rgba(229, 27, 61, 0.4); }
 
-.btn-simple {
+.hw-btn-simple {
   color: #0076D6; }
-  .btn-simple .loader__dot {
+  .hw-btn-simple .hw-loader__dot {
     background-color: #0076D6; }
-  .btn-simple .btn__icon {
+  .hw-btn-simple .hw-btn__icon {
     fill: #0076D6; }
-  .btn-simple .btn__line-icon {
+  .hw-btn-simple .hw-btn__line-icon {
     fill: none;
     stroke: #0076D6; }
-  .btn-simple:disabled {
+  .hw-btn-simple:disabled {
     color: rgba(0, 118, 214, 0.5); }
-    .btn-simple:disabled .btn__icon {
+    .hw-btn-simple:disabled .hw-btn__icon {
       fill: rgba(0, 118, 214, 0.5); }
-      .btn-simple:disabled .btn__icon .btn__line-icon {
+      .hw-btn-simple:disabled .hw-btn__icon .hw-btn__line-icon {
         fill: none;
         stroke: rgba(0, 118, 214, 0.5); }
-  .btn-simple:not(:disabled):hover {
+  .hw-btn-simple:not(:disabled):hover {
     background-color: rgba(0, 118, 214, 0.05); }
-  .btn-simple:not(:disabled):active {
+  .hw-btn-simple:not(:disabled):active {
     background-color: rgba(0, 118, 214, 0.1); }
-  .btn-simple:not(:disabled):not(:active):focus {
+  .hw-btn-simple:not(:disabled):not(:active):focus {
     background-color: rgba(0, 118, 214, 0.05); }
 
-.btn--loading .btn__text, .btn--loading
-.btn__icon {
+.hw-btn--loading .hw-btn__text, .hw-btn--loading
+.hw-btn__icon {
   opacity: 0;
   visibility: hidden; }
 
