@@ -119,8 +119,6 @@ class Day extends PureComponent<Props> {
 						event => event.id === this.state.selectedEvent.id
 					)
 
-					console.log('did Update', match)
-
 					if (match) {
 						this.handleSelectEvent({ event: match })
 					} else {
@@ -591,6 +589,8 @@ class Day extends PureComponent<Props> {
 			const detailsNode = this.domNodeRef.current.querySelector(
 				'.event-details'
 			)
+			// move details view away to grid sizes correctly for below calculations
+			detailsNode.style.top = '-200em'
 
 			const detailsWidth = sizeUtil.getWidth(detailsNode)
 			const gridWidth = this.dragGridRef.current.getWidth()
@@ -621,7 +621,6 @@ class Day extends PureComponent<Props> {
 				const detailsBottom = sizeUtil.getHeight(detailsNode) + top
 				const gridHeight = this.dragGridRef.current.getScrollHeight()
 
-				console.log({ detailsBottom, gridHeight })
 				if (detailsBottom > gridHeight) {
 					top = gridHeight - sizeUtil.getHeight(detailsNode)
 				}

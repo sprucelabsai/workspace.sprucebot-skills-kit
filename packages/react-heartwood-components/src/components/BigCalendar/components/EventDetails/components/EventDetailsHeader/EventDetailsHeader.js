@@ -40,7 +40,7 @@ const EventDetailsHeader = (props: Props) => {
 					onClick={onClickClose}
 					isSmall
 					className="event-details-header__button"
-					icon="close"
+					icon={{ name: 'close' }}
 				/>
 			</div>
 		</div>

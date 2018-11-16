@@ -33,8 +33,7 @@ type Props = {
 }
 
 type State = {
-	dragEvent: Object,
-	dragBlock: Object
+	dragEvent: Object
 }
 
 class DragGrid extends PureComponent<Props> {
@@ -230,8 +229,10 @@ class DragGrid extends PureComponent<Props> {
 		stopEvent = true,
 		setListeners = true
 	}) => {
-		//ignore right clicks
-		if (e.button === 2) {
+		//ignore right clicks and if we have dropped something that is waiting to save
+		if (e.button === 2 || this._pendingDrop) {
+			e.preventDefault()
+			e.stopPropagation()
 			return false
 		}
 
@@ -602,7 +603,9 @@ class DragGrid extends PureComponent<Props> {
 
 	cancelDrag = () => {
 		this._activeDrag = null
-		this.setState({ dragEvent: null })
+		this.setState(() => {
+			return { dragEvent: null }
+		})
 	}
 
 	handleDropEvent = async () => {
@@ -614,17 +617,25 @@ class DragGrid extends PureComponent<Props> {
 		this.stopScrollingVertically()
 
 		this._activeDrag = null
+		this._pendingDrop = true
 
-		const valid = onDropEvent
-			? await onDropEvent(
-					sourceEvent,
-					parseFloat(dragEventNode.style.left),
-					parseFloat(dragEventNode.style.top)
-			  )
-			: false
+		let valid
+		try {
+			valid = onDropEvent
+				? await onDropEvent(
+						sourceEvent,
+						parseFloat(dragEventNode.style.left),
+						parseFloat(dragEventNode.style.top)
+				  )
+				: false
+		} catch (err) {
+			log.crit('failed to handle drop', err)
+			valid = false
+		}
 
 		const reset = () => {
 			this.cancelDrag()
+			this._pendingDrop = false
 		}
 
 		// if valid, clear everything immediately and move on
@@ -679,7 +690,9 @@ class DragGrid extends PureComponent<Props> {
 			dragEvent.originalId = dragEvent.id
 			dragEvent.id = `dragging`
 
-			await this.setState({ dragEvent })
+			await this.setState(() => {
+				return { dragEvent }
+			})
 
 			// make sure the event is the right size
 			const { sizeEvent } = this.props
