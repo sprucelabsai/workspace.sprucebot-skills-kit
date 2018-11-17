@@ -1,3 +1,3 @@
-import * as Classes from './components/classes'
+const Classes = require('./components/classes')
 
-export default { Classes }
+module.exports = { Classes: Classes }

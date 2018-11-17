@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Tests Primary Button Should render correctly 1`] = `
+"<button class=\\"hw-btn hw-btn-primary \\" type=\\"button\\"> <span class=\\"hw-btn__inner\\">
+	<span class=\\"hw-btn__text\\">Button</span>
+</span>
+</button>"
+`;
+
+exports[`Button Tests Secondary Button Should render correctly 1`] = `
+"<button class=\\"hw-btn hw-btn-secondary \\" type=\\"button\\"> <span class=\\"hw-btn__inner\\">
+	<span class=\\"hw-btn__text\\">Button</span>
+</span>
+</button>"
+`;
+
+exports[`Button: Primary Button should render correctly 1`] = `
+"<button class=\\"hw-btn hw-btn-primary \\" type=\\"button\\"> <span class=\\"hw-btn__inner\\">
+	<span class=\\"hw-btn__text\\">Button</span>
+</span>
+</button>"
+`;
+
+exports[`Button: Secondary Button should render correctly 1`] = `
+"<button class=\\"hw-btn hw-btn-secondary \\" type=\\"button\\"> <span class=\\"hw-btn__inner\\">
+	<span class=\\"hw-btn__text\\">Button</span>
+</span>
+</button>"
+`;
