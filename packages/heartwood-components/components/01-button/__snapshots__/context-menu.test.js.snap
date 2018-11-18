@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Tests Context Menu Should render correctly 1`] = `
+"<div class=\\"hw-context-menu hw-context-menu--is-hidden\\">
+    <button class=\\"hw-btn hw-btn-simple hw-context-menu__button hw-btn--icon-only\\"
+    type=\\"button\\"><span class=\\"hw-btn__inner\\">
+			<span class=\\"hw-btn__icon-wrapper\\">
+				<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
+				<svg class=\\"hw-btn__icon \\" version=\\" 1.1\\" id=\\"Layer_1\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"
+				 x=\\"0px\\" y=\\"0px\\" width=\\"24px\\" height=\\"24px\\"
+				 viewBox=\\"0 0 24 24\\" enable-background=\\"new 0 0 24 24\\"
+				 xml:space=\\"preserve\\">
+					<path fill-rule=\\"evenodd\\" fill=\\"none\\" clip-rule=\\"evenodd\\" d=\\"M3.375 14.648C4.82475 14.648 6 13.4727 6 12.023C6 10.5732 4.82475 9.39799 3.375 9.39799C1.92525 9.39799 0.75 10.5732 0.75 12.023C0.75 13.4727 1.92525 14.648 3.375 14.648Z\\"  stroke-width=\\"1.5\\" stroke-linecap=\\"round\\" stroke-linejoin=\\"round\\"/><path fill-rule=\\"evenodd\\" fill=\\"none\\" clip-rule=\\"evenodd\\" d=\\"M20.625 14.648C22.0747 14.648 23.25 13.4727 23.25 12.023C23.25 10.5732 22.0747 9.39799 20.625 9.39799C19.1753 9.39799 18 10.5732 18 12.023C18 13.4727 19.1753 14.648 20.625 14.648Z\\"  stroke-width=\\"1.5\\" stroke-linecap=\\"round\\" stroke-linejoin=\\"round\\"/><path fill-rule=\\"evenodd\\" fill=\\"none\\" clip-rule=\\"evenodd\\" d=\\"M12 14.648C13.4497 14.648 14.625 13.4727 14.625 12.023C14.625 10.5732 13.4497 9.39799 12 9.39799C10.5503 9.39799 9.375 10.5732 9.375 12.023C9.375 13.4727 10.5503 14.648 12 14.648Z\\"  stroke-width=\\"1.5\\" stroke-linecap=\\"round\\" stroke-linejoin=\\"round\\"/>
+				</svg>	</span>
+</span>
+    </button>
+    <div class=\\"hw-context-menu__menu hw-context-menu__menu--left\\">
+        <ul class=\\"hw-button-group hw-button-group--floating\\">
+            <li class=\\"hw-button-group__item\\">
+                <button class=\\"hw-btn \\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+						<span class=\\"hw-btn__text\\">Edit Service</span>
+</span>
+                </button>
+            </li>
+            <li class=\\"hw-button-group__item\\">
+                <button class=\\"hw-btn \\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+						<span class=\\"hw-btn__text\\">Hide Service</span>
+</span>
+                </button>
+            </li>
+            <li class=\\"hw-button-group__item\\">
+                <button class=\\"hw-btn \\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+						<span class=\\"hw-btn__text\\">Move to Category</span>
+</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>"
+`;
+
+exports[`Context Menu Tests Should render correctly 1`] = `
+"<div class=\\"hw-context-menu hw-context-menu--is-hidden\\">
+    <button class=\\"hw-btn hw-btn-simple hw-context-menu__button hw-btn--icon-only\\"
+    type=\\"button\\"><span class=\\"hw-btn__inner\\">
+			<span class=\\"hw-btn__icon-wrapper\\">
+				<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
+				<svg class=\\"hw-btn__icon \\" version=\\" 1.1\\" id=\\"Layer_1\\" xmlns=\\"http://www.w3.org/2000/svg\\" xmlns:xlink=\\"http://www.w3.org/1999/xlink\\"
+				 x=\\"0px\\" y=\\"0px\\" width=\\"24px\\" height=\\"24px\\"
+				 viewBox=\\"0 0 24 24\\" enable-background=\\"new 0 0 24 24\\"
+				 xml:space=\\"preserve\\">
+					<path fill-rule=\\"evenodd\\" fill=\\"none\\" clip-rule=\\"evenodd\\" d=\\"M3.375 14.648C4.82475 14.648 6 13.4727 6 12.023C6 10.5732 4.82475 9.39799 3.375 9.39799C1.92525 9.39799 0.75 10.5732 0.75 12.023C0.75 13.4727 1.92525 14.648 3.375 14.648Z\\"  stroke-width=\\"1.5\\" stroke-linecap=\\"round\\" stroke-linejoin=\\"round\\"/><path fill-rule=\\"evenodd\\" fill=\\"none\\" clip-rule=\\"evenodd\\" d=\\"M20.625 14.648C22.0747 14.648 23.25 13.4727 23.25 12.023C23.25 10.5732 22.0747 9.39799 20.625 9.39799C19.1753 9.39799 18 10.5732 18 12.023C18 13.4727 19.1753 14.648 20.625 14.648Z\\"  stroke-width=\\"1.5\\" stroke-linecap=\\"round\\" stroke-linejoin=\\"round\\"/><path fill-rule=\\"evenodd\\" fill=\\"none\\" clip-rule=\\"evenodd\\" d=\\"M12 14.648C13.4497 14.648 14.625 13.4727 14.625 12.023C14.625 10.5732 13.4497 9.39799 12 9.39799C10.5503 9.39799 9.375 10.5732 9.375 12.023C9.375 13.4727 10.5503 14.648 12 14.648Z\\"  stroke-width=\\"1.5\\" stroke-linecap=\\"round\\" stroke-linejoin=\\"round\\"/>
+				</svg>	</span>
+</span>
+    </button>
+    <div class=\\"hw-context-menu__menu hw-context-menu__menu--left\\">
+        <ul class=\\"hw-button-group hw-button-group--floating\\">
+            <li class=\\"hw-button-group__item\\">
+                <button class=\\"hw-btn \\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+						<span class=\\"hw-btn__text\\">Edit Service</span>
+</span>
+                </button>
+            </li>
+            <li class=\\"hw-button-group__item\\">
+                <button class=\\"hw-btn \\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+						<span class=\\"hw-btn__text\\">Hide Service</span>
+</span>
+                </button>
+            </li>
+            <li class=\\"hw-button-group__item\\">
+                <button class=\\"hw-btn \\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+						<span class=\\"hw-btn__text\\">Move to Category</span>
+</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>"
+`;

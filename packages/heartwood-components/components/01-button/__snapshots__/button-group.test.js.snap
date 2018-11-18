@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Group Tests Floating Button Group Should render correctly 1`] = `
+"<ul class=\\"hw-button-group hw-button-group--floating\\">
+    <li class=\\"hw-button-group__item\\">
+        <button class=\\"hw-btn hw-btn-simple hw-btn--full-width\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+				<span class=\\"hw-btn__text\\">Edit Service</span>
+</span>
+        </button>
+    </li>
+    <li class=\\"hw-button-group__item\\">
+        <button class=\\"hw-btn hw-btn-simple hw-btn--full-width\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+				<span class=\\"hw-btn__text\\">Hide Service</span>
+</span>
+        </button>
+    </li>
+    <li class=\\"hw-button-group__item\\">
+        <button class=\\"hw-btn hw-btn-simple hw-btn--full-width\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+				<span class=\\"hw-btn__text\\">Move to Category</span>
+</span>
+        </button>
+    </li>
+</ul>"
+`;
+
+exports[`Button Group Tests Segmented Button Group Should render correctly 1`] = `
+"<ul class=\\"hw-button-group hw-button-group--segmented\\">
+    <li class=\\"hw-button-group__item\\">
+        <button class=\\"hw-btn hw-btn-secondary\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+				<span class=\\"hw-btn__text\\">Option One</span>
+</span>
+        </button>
+    </li>
+    <li class=\\"hw-button-group__item\\">
+        <button class=\\"hw-btn hw-btn-secondary\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+				<span class=\\"hw-btn__text\\">Option Two</span>
+</span>
+        </button>
+    </li>
+    <li class=\\"hw-button-group__item\\">
+        <button class=\\"hw-btn hw-btn-secondary\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+				<span class=\\"hw-btn__text\\">Option Three</span>
+</span>
+        </button>
+    </li>
+</ul>"
+`;
+
+exports[`Button Group Tests Should render correctly 1`] = `
+"<ul class=\\"hw-button-group\\">
+    <li class=\\"hw-button-group__item\\">
+        <button class=\\"hw-btn hw-btn-primary\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+				<span class=\\"hw-btn__text\\">Confirm Changes</span>
+</span>
+        </button>
+    </li>
+    <li class=\\"hw-button-group__item\\">
+        <button class=\\"hw-btn hw-btn-secondary\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+				<span class=\\"hw-btn__text\\">Cancel</span>
+</span>
+        </button>
+    </li>
+</ul>"
+`;

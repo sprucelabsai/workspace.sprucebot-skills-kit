@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Tests Caution Button Should render correctly 1`] = `
+"<button class=\\"hw-btn hw-btn-caution\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+	<span class=\\"hw-btn__text\\">Button</span>
+</span>
+</button>"
+`;
+
+exports[`Button Tests Full-Width Button Should render correctly 1`] = `
+"<button class=\\"hw-btn hw-btn-primary hw-btn--full-width\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+	<span class=\\"hw-btn__text\\">Button</span>
+</span>
+</button>"
+`;
+
+exports[`Button Tests Primary Button Should render correctly 1`] = `
+"<button class=\\"hw-btn hw-btn-primary\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+	<span class=\\"hw-btn__text\\">Button</span>
+</span>
+</button>"
+`;
+
+exports[`Button Tests Secondary Button Should render correctly 1`] = `
+"<button class=\\"hw-btn hw-btn-secondary\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+	<span class=\\"hw-btn__text\\">Button</span>
+</span>
+</button>"
+`;
+
+exports[`Button Tests Simple Button Should render correctly 1`] = `
+"<button class=\\"hw-btn hw-btn-simple\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+	<span class=\\"hw-btn__text\\">Button</span>
+</span>
+</button>"
+`;
+
+exports[`Button Tests Small Button Should render correctly 1`] = `
+"<button class=\\"hw-btn hw-btn-primary hw-btn--small\\" type=\\"button\\"><span class=\\"hw-btn__inner\\">
+	<span class=\\"hw-btn__text\\">Button</span>
+</span>
+</button>"
+`;

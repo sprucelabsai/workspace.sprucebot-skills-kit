@@ -1,7 +1,7 @@
 const Classes = require('../../classes')
 
 module.exports = {
-	title: 'Action List',
+	title: 'Button Group',
 	collated: true,
 	collator: function(markup, item) {
 		return `<!-- Start: @${
