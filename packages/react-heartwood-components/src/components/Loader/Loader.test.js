@@ -5,7 +5,6 @@ import { shallow } from 'enzyme'
 describe('Loader tests', () => {
 	it('Should match the snapshot', () => {
 		const renderedComponent = shallow(<Loader />)
-
 		expect(renderedComponent).toMatchSnapshot()
 	})
 })
