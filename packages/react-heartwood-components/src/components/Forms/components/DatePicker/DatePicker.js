@@ -15,7 +15,7 @@ type State = {
 
 export default class DatePicker extends Component<Props, State> {
 	state = {
-		isFocused: false,
+		isFocused: true,
 		date: this.props.date || moment()
 	}
 
