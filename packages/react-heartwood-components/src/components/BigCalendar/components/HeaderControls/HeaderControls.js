@@ -19,13 +19,14 @@ type Props = {
 	onBackDate: Function,
 	onNextDate: Function,
 	onChangeView: Function,
-	fullScreenNodeRef: Object,
+	fullScreenNode: Object,
 	userModeSelectOptions?: Array<Object>,
 	onChangeUserMode?: Function,
 	userMode?: String,
 	onSelectDate: Function,
 	onDateToToday: Function,
-	selectedDate: Object
+	selectedDate: Object,
+	isMobile: boolean
 }
 
 type State = {
@@ -35,8 +36,14 @@ type State = {
 
 class HeaderControls extends Component<Props, State> {
 	state = {
-		isDatePickerShown: false,
+		isDatePickerShown: this.props.isMobile,
 		isFullScreen: false
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.isMobile !== this.props.isMobile) {
+			this.setState({ isDatePickerShown: nextProps.isMobile })
+		}
 	}
 
 	toggleDatePicker = () => {
@@ -46,11 +53,13 @@ class HeaderControls extends Component<Props, State> {
 	onSelectDate = date => {
 		this.props.onSelectDate && this.props.onSelectDate(date)
 
-		this.setState({ isDatePickerShown: false })
+		if (!this.props.isMobile) {
+			this.setState({ isDatePickerShown: false })
+		}
 	}
 
 	toggleFullScreen = () => {
-		screenfull.toggle(this.props.fullScreenNodeRef.current)
+		screenfull.toggle(this.props.fullScreenNode)
 		this.setState({ isFullScreen: !this.state.isFullScreen })
 	}
 

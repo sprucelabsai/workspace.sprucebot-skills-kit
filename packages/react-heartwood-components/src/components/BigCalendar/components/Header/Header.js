@@ -21,7 +21,7 @@ type Props = {
 	selectedDate: Object,
 	dateFormat: String,
 	mobileDateFormat: String,
-	fullScreenNodeRef: Object,
+	fullScreenNode: Object,
 	totalHorizontalPages: Number,
 	currentHorizontalPage: Number,
 	onHorizontalPageNext: Function,
@@ -43,6 +43,7 @@ class Header extends PureComponent<Props, State> {
 	state = {
 		showingSubMenu: false
 	}
+
 	handleShowSubMenu = () => {
 		console.log('show')
 		this.setState({ showingSubMenu: true })
@@ -58,7 +59,7 @@ class Header extends PureComponent<Props, State> {
 			userModeSelectOptions,
 			onChangeUserMode,
 			userMode,
-			fullScreenNodeRef,
+			fullScreenNode,
 			onBackDate,
 			onNextDate,
 			onChangeView,
@@ -91,13 +92,14 @@ class Header extends PureComponent<Props, State> {
 							userModeSelectOptions={userModeSelectOptions}
 							onChangeUserMode={onChangeUserMode}
 							userMode={userMode}
-							fullScreenNodeRef={fullScreenNodeRef}
+							fullScreenNode={fullScreenNode}
 							onBackDate={onBackDate}
 							onNextDate={onNextDate}
 							onChangeView={onChangeView}
 							onSelectDate={onSelectDate}
 							onDateToToday={onDateToToday}
 							selectedDate={selectedDate}
+							isMobile={this.state.showingSubMenu}
 						/>
 					</div>
 					<Button

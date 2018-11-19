@@ -47,7 +47,8 @@ type Props = {
 	getEndTimeForUser: Function,
 	doubleClickTime: Number,
 	onDoubleClick: Function,
-	newEventDefaultDurationSec: Number
+	newEventDefaultDurationSec: Number,
+	doubleClickToCreate: Boolean
 }
 
 type State = {
@@ -146,8 +147,10 @@ class Day extends PureComponent<Props> {
 	}
 
 	handleResize = () => {
-		this.updateHorizontalPagerDetails()
-		this.placeAndSize()
+		if (this.dragGridRef.current) {
+			this.updateHorizontalPagerDetails()
+			this.placeAndSize()
+		}
 	}
 
 	handleScroll = e => {
@@ -764,16 +767,25 @@ class Day extends PureComponent<Props> {
 	}
 
 	eventsForDay = memoize((events, date) => {
-		const { timezone } = this.props
+		const { timezone, minTime, maxTime } = this.props
+		const min = moment.tz(
+			`${date.format('YYYY-MM-DD')} ${minTime}:00`,
+			timezone
+		)
+		const max = moment.tz(
+			`${date.format('YYYY-MM-DD')} ${maxTime}:00`,
+			timezone
+		)
 		return sortBy(
 			events.filter(event => {
 				const eventStart = moment.tz(event.startAt, timezone)
 				return (
 					event.id &&
-					eventStart.format('YYYY-MM-DD') === date.format('YYYY-MM-DD')
+					eventStart.format('YYYY-MM-DD') === date.format('YYYY-MM-DD') &&
+					eventStart.isBetween(min, max)
 				)
 			}),
-			['startAt', 'title']
+			['startAt', 'title', 'subtitle']
 		)
 	})
 
@@ -1095,15 +1107,21 @@ class Day extends PureComponent<Props> {
 		}
 	}
 
-	handleDoubleClick = ({ e }) => {
-		const { onDoubleClick } = this.props
+	handleClick = ({ e }) => {
+		const { onClick, doubleClickToCreate } = this.props
+		if (doubleClickToCreate) {
+			return
+		}
 
 		let time
 		const { clientX, clientY } = this.dragGridRef.current.globalToLocal(
 			eventUtil.clientXY(e)
 		)
 		// if they clicked the header, time is null
-		if (e.currentTarget.classList.contains('bigcalendar__teammate-header')) {
+		if (
+			e.currentTarget.classList &&
+			e.currentTarget.classList.contains('bigcalendar__teammate-header')
+		) {
 			time = null
 		} else {
 			time = this.yToTime(
@@ -1114,6 +1132,37 @@ class Day extends PureComponent<Props> {
 		const user = this.xToUser(
 			this.snapEventToNearestValidX({ mouseX: clientX })
 		)
+
+		return onClick && onClick({ time, user, e })
+	}
+
+	handleDoubleClick = ({ e }) => {
+		const { onDoubleClick, doubleClickToCreate } = this.props
+
+		let time
+		const { clientX, clientY } = this.dragGridRef.current.globalToLocal(
+			eventUtil.clientXY(e)
+		)
+		// if they clicked the header, time is null
+		if (
+			e.currentTarget.classList &&
+			e.currentTarget.classList.contains('bigcalendar__teammate-header')
+		) {
+			time = null
+		} else {
+			time = this.yToTime(
+				this.snapEventToNearestValidY({ dragNodeTop: clientY })
+			)
+		}
+
+		const user = this.xToUser(
+			this.snapEventToNearestValidX({ mouseX: clientX })
+		)
+
+		// pass through double clicks on teammate header
+		if (!doubleClickToCreate && time) {
+			return
+		}
 
 		return onDoubleClick && onDoubleClick({ time, user, e })
 	}
@@ -1166,7 +1215,8 @@ class Day extends PureComponent<Props> {
 			getStartTimeForUser,
 			getEndTimeForUser,
 			doubleClickTime,
-			longPressDelay
+			longPressDelay,
+			doubleClickToCreate
 		} = this.props
 
 		const {
@@ -1238,6 +1288,7 @@ class Day extends PureComponent<Props> {
 						onDragEvent={this.handleDragOfEvent}
 						onDropEvent={this.handleDropEvent}
 						onDoubleClick={this.handleDoubleClick}
+						onClick={this.handleClick}
 						doubleClickTime={doubleClickTime}
 						longPressDelay={longPressDelay}
 						onLongPressView={this.handleLongPressView}
