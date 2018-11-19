@@ -86,7 +86,7 @@ select:-webkit-autofill:focus {
 	height: $tap-height;
 	padding: 0 spacing('tight');
 
-	.#{$ns}-text-input-small & {
+	.#{$ns}-text-input--small & {
 		height: $tap-height-small;
 	}
 }
@@ -168,7 +168,7 @@ select:-webkit-autofill:focus {
 	}
 }
 
-.#{$ns}-text-input__clear-btn.#{$ns}-btn.#{$ns}-btn-icon-only {
+.#{$ns}-text-input__clear-btn.#{$ns}-btn.#{$ns}-btn--icon-only {
 	position: absolute;
 	top: 50%;
 	right: spacing('tight');

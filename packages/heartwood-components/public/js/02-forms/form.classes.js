@@ -10,6 +10,7 @@ module.exports = {
 	CheckboxItem_Icon_No: `${NS}-checkbox-item__icon-no`,
 	CheckboxItem_Icon_Maybe: `${NS}-checkbox-item__icon-maybe`,
 	TextInput: `${NS}-text-input`,
+	TextInput_Small: `${NS}-text-input--small`,
 	TextInput_CreditCardIconWrapper: `${NS}-text-input__credit-card-icon-wrapper`,
 	TextInput_CreditCardIcon: `${NS}-text-input__credit-card-icon`,
 	TextInput_Helper: `${NS}-text-input__helper`,

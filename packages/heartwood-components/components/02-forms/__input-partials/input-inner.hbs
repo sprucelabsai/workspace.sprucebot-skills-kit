@@ -1,6 +1,6 @@
 <div class="{{ Classes.TextInput_Inner }}">
 {{#if iconBefore}}
-	{{> @icon icon=iconBefore class="{{ Classes.TextInput_IconPre }}"}}
+	{{> @icon icon=iconBefore class=Classes.TextInput_IconPre}}
 {{/if}}
 {{#if phoneNumber }}
 	{{> @phone-country-input }}
@@ -21,7 +21,7 @@
 <p class="{{ Classes.TextInput_Appendix }}">{{ appendix }}</p>
 {{/if}}
 {{#if iconAfter}}
-		{{> @simple-button icon=iconAfter className="{{ Classes.TextInput_ClearButton }}"}}
+		{{> @simple-button icon=iconAfter className=Classes.TextInput_ClearButton }}
 {{/if}}
 {{!-- {{#if search }}
 	{{#if value}}
