@@ -6,7 +6,7 @@ import moment from 'moment'
 import ArrowNext from '../../../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../../../static/assets/icons/ic_arrow_back.svg'
 
-export type Props = { onSelectDate: Function }
+export type Props = { onSelectDate: Function, date?: Object }
 
 type State = {
 	date: Object,
@@ -15,8 +15,14 @@ type State = {
 
 export default class DatePicker extends Component<Props, State> {
 	state = {
-		isFocused: false,
-		date: moment()
+		isFocused: true,
+		date: this.props.date || moment()
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.date !== nextProps.date) {
+			this.setState({ date: nextProps.date })
+		}
 	}
 
 	toggleFocus = () => {
@@ -40,6 +46,7 @@ export default class DatePicker extends Component<Props, State> {
 		return (
 			<DayPickerSingleDateController
 				date={date}
+				initialVisibleMonth={() => date}
 				focused={isFocused}
 				onDateChange={date => this.handleDateChange(date)}
 				onFocusChange={this.toggleFocus}
