@@ -1,6 +1,6 @@
 .message {
 	display: flex;
-	padding: rem(6) rem(16);
+	padding: rem(6) rem(16) rem(6) 0;
 
 	&:hover {
 		background-color: $c-grey-00;
@@ -11,9 +11,22 @@
 	}
 }
 
-.message__from-image {
+.message__pre {
 	margin-right: rem(8);
-	border-radius: 100%;
+	line-height: 0;
+
+	.message__original-timestamp {
+		position: relative;
+		top: rem(2);
+		width: rem(56);
+		text-align: right;
+		line-height: $line-height;
+	}
+}
+
+.message__from-image,
+.message__pre .avatar-wrapper {
+	margin-left: rem(16);
 
 	&.message__from-sprucebot-image {
 		border-radius: rem(4);
@@ -22,7 +35,9 @@
 
 .message__from-text,
 .message__detail,
-.message__follow-up-btn {
+.message__follow-up-btn,
+.message__original-timestamp,
+.message__reply {
 	@include typescale('ui');
 }
 
@@ -34,7 +49,9 @@
 	font-weight: $font-weight-bold;
 }
 
-.message__original-timestamp {
+.message__original-timestamp,
+.message__reply,
+.message__detail {
 	color: $c-text-light;
 }
 
@@ -44,12 +61,44 @@
 }
 
 .message__detail {
-	color: $c-text-light;
+	margin-bottom: rem(4);
 }
 
 .message__follow-up-btn.btn {
 	padding-left: 0;
 	padding-right: 0;
-	height: rem(26);
+	height: auto;
 	color: $c-primary;
+
+	.btn__inner {
+		align-items: flex-start;
+	}
+}
+
+.message__reply {
+	display: flex;
+}
+
+.message__reply-icon {
+	width: rem(16);
+	height: auto;
+	margin-right: rem(4);
+}
+
+.message__reply-icon-success {
+	fill: none;
+	stroke: $c-ui-online;
+}
+
+.message__body {
+	p + p,
+	blockquote {
+		margin-top: rem(8);
+	}
+}
+
+.message__body blockquote {
+	padding-left: rem(8);
+	border-left: 2px solid $c-border;
+	color: $c-text-light;
 }

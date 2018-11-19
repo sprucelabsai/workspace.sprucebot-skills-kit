@@ -4018,21 +4018,34 @@ select:-webkit-autofill:focus {
 
 .message {
   display: flex;
-  padding: 0.375rem 1rem; }
+  padding: 0.375rem 1rem 0.375rem 0; }
   .message:hover {
     background-color: #f3f4f6; }
   .message--is-highlighted {
     background-color: rgba(0, 153, 255, 0.05); }
 
-.message__from-image {
+.message__pre {
   margin-right: 0.5rem;
-  border-radius: 100%; }
-  .message__from-image.message__from-sprucebot-image {
+  line-height: 0; }
+  .message__pre .message__original-timestamp {
+    position: relative;
+    top: 0.125rem;
+    width: 3.5rem;
+    text-align: right;
+    line-height: 1.25; }
+
+.message__from-image,
+.message__pre .avatar-wrapper {
+  margin-left: 1rem; }
+  .message__from-image.message__from-sprucebot-image,
+  .message__pre .avatar-wrapper.message__from-sprucebot-image {
     border-radius: 0.25rem; }
 
 .message__from-text,
 .message__detail,
-.message__follow-up-btn {
+.message__follow-up-btn,
+.message__original-timestamp,
+.message__reply {
   font-size: 0.875rem; }
 
 .message__main {
@@ -4041,7 +4054,9 @@ select:-webkit-autofill:focus {
 .message__from-name {
   font-weight: 600; }
 
-.message__original-timestamp {
+.message__original-timestamp,
+.message__reply,
+.message__detail {
   color: #525966; }
 
 .message__body {
@@ -4049,10 +4064,33 @@ select:-webkit-autofill:focus {
   max-width: 30rem; }
 
 .message__detail {
-  color: #525966; }
+  margin-bottom: 0.25rem; }
 
 .message__follow-up-btn.btn {
   padding-left: 0;
   padding-right: 0;
-  height: 1.625rem;
+  height: auto;
   color: #0076D6; }
+  .message__follow-up-btn.btn .btn__inner {
+    align-items: flex-start; }
+
+.message__reply {
+  display: flex; }
+
+.message__reply-icon {
+  width: 1rem;
+  height: auto;
+  margin-right: 0.25rem; }
+
+.message__reply-icon-success {
+  fill: none;
+  stroke: #00b2a4; }
+
+.message__body p + p,
+.message__body blockquote {
+  margin-top: 0.5rem; }
+
+.message__body blockquote {
+  padding-left: 0.5rem;
+  border-left: 2px solid #cccfd6;
+  color: #525966; }
