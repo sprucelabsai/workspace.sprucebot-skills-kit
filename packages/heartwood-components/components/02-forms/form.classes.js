@@ -49,5 +49,9 @@ module.exports = {
 	TagPrimary: `${NS}-tag-primary`,
 	TagSecondary: `${NS}-tag-secondary`,
 	Tag_Text: `${NS}-tag__text`,
-	Tag_Button: `${NS}-tag__btn`
+	Tag_Button: `${NS}-tag__btn`,
+	Stars: `${NS}-stars`,
+	Star: `${NS}-star`,
+	StarInput_Wrapper: `${NS}-star-input__wrapper`,
+	StarInput: `${NS}-star-input`
 }

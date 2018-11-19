@@ -2242,53 +2242,53 @@ Classes for button variations
     .slider:disabled::-ms-track {
       cursor: not-allowed; }
 
-.star {
+.hw-star {
   stroke: #0076D6;
   fill: none;
   opacity: 0; }
 
-.star--filled {
+.hw-star--filled {
   fill: #0076D6; }
 
-.stars {
+.hw-stars {
   position: relative;
   height: 1.5rem; }
-  .stars:not(:hover) .star-input__wrapper .star-input:checked ~ .star,
-  .stars:hover .star-input__wrapper:hover .star-input ~ .star {
+  .hw-stars:not(:hover) .hw-star-input__wrapper .hw-star-input:checked ~ .hw-star,
+  .hw-stars:hover .hw-star-input__wrapper:hover .hw-star-input ~ .hw-star {
     opacity: 1;
     fill: #0076D6; }
 
-.star-input__wrapper {
+.hw-star-input__wrapper {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   cursor: pointer; }
-  .star-input__wrapper .star:last-of-type {
+  .hw-star-input__wrapper .hw-star:last-of-type {
     opacity: 1; }
 
-.star-input__wrapper:nth-child(1) {
+.hw-star-input__wrapper:nth-child(1) {
   z-index: 5; }
 
-.star-input__wrapper:nth-child(2) {
+.hw-star-input__wrapper:nth-child(2) {
   z-index: 4; }
 
-.star-input__wrapper:nth-child(3) {
+.hw-star-input__wrapper:nth-child(3) {
   z-index: 3; }
 
-.star-input__wrapper:nth-child(4) {
+.hw-star-input__wrapper:nth-child(4) {
   z-index: 2; }
 
-.star-input__wrapper:nth-child(5) {
+.hw-star-input__wrapper:nth-child(5) {
   z-index: 1; }
 
-.star-input {
+.hw-star-input {
   position: absolute;
   top: 0;
   left: 0;
   opacity: 0; }
 
-.star-output-wrapper {
+.hw-star-output-wrapper {
   position: static; }
 
 .hw-tag {

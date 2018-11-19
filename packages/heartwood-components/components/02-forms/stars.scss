@@ -1,63 +1,66 @@
-.star {
+.#{$ns}-star {
 	stroke: $c-primary;
 	fill: none;
 	opacity: 0;
 }
 
-.star--filled {
+.#{$ns}-star--filled {
 	fill: $c-primary;
 }
 
-.stars {
+.#{$ns}-stars {
 	position: relative;
 	height: rem(24);
 
-	&:not(:hover) .star-input__wrapper .star-input:checked ~ .star,
-	&:hover .star-input__wrapper:hover .star-input ~ .star {
+	&:not(:hover)
+		.#{$ns}-star-input__wrapper
+		.#{$ns}-star-input:checked
+		~ .#{$ns}-star,
+	&:hover .#{$ns}-star-input__wrapper:hover .#{$ns}-star-input ~ .#{$ns}-star {
 		opacity: 1;
 		fill: $c-primary;
 	}
 }
 
-.star-input__wrapper {
+.#{$ns}-star-input__wrapper {
 	position: absolute;
 	top: 0;
 	left: 0;
 	height: 100%;
 	cursor: pointer;
 
-	.star:last-of-type {
+	.#{$ns}-star:last-of-type {
 		opacity: 1;
 	}
 }
 
-.star-input__wrapper:nth-child(1) {
+.#{$ns}-star-input__wrapper:nth-child(1) {
 	z-index: 5;
 }
-  
-.star-input__wrapper:nth-child(2) {
+
+.#{$ns}-star-input__wrapper:nth-child(2) {
 	z-index: 4;
 }
 
-.star-input__wrapper:nth-child(3) {
+.#{$ns}-star-input__wrapper:nth-child(3) {
 	z-index: 3;
 }
 
-.star-input__wrapper:nth-child(4) {
+.#{$ns}-star-input__wrapper:nth-child(4) {
 	z-index: 2;
 }
 
-.star-input__wrapper:nth-child(5) {
+.#{$ns}-star-input__wrapper:nth-child(5) {
 	z-index: 1;
 }
 
-.star-input {
+.#{$ns}-star-input {
 	position: absolute;
 	top: 0;
 	left: 0;
 	opacity: 0;
 }
 
-.star-output-wrapper {
+.#{$ns}-star-output-wrapper {
 	position: static;
 }
