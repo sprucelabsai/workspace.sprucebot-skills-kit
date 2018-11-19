@@ -2777,21 +2777,21 @@ select:-webkit-autofill:focus {
 .page__content {
   margin: 2rem 0; }
 
-.layout {
+.hw-layout {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
   margin: -1rem 0 0 -1rem; }
-  .layout--center {
+  .hw-layout--center {
     margin: -1rem auto 0 auto; }
 
-.layout__section {
+.hw-layout__section {
   flex: 2 2 30rem;
   margin: 1rem 0 0 1rem;
   min-width: 51%; }
   @media screen and (min-width: 750px) {
-    .layout__section--secondary {
+    .hw-layout__section--secondary {
       flex: 1 1 15rem;
       min-width: 0; } }
 

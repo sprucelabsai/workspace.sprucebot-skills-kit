@@ -2,7 +2,7 @@ $secondary-basis: layout-width(secondary, min);
 $primary-basis: layout-width(primary, min);
 $relative-size: $primary-basis / $secondary-basis;
 
-.layout {
+.#{$ns}-layout {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-start;
@@ -14,7 +14,7 @@ $relative-size: $primary-basis / $secondary-basis;
 	}
 }
 
-.layout__section {
+.#{$ns}-layout__section {
 	flex: $relative-size $relative-size $primary-basis;
 	margin: spacing('base') 0 0 spacing('base');
 	min-width: 51%;

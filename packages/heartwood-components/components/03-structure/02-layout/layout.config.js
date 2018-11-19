@@ -12,6 +12,7 @@ module.exports = {
 	context: {
 		sections: [
 			{
+				Classes: Classes,
 				secondary: false,
 				card: {
 					title: 'Get the most out of Sprucebot',
@@ -27,6 +28,7 @@ module.exports = {
 				}
 			},
 			{
+				Classes: Classes,
 				secondary: false,
 				card: {
 					title: 'Get the most out of Sprucebot',
@@ -49,6 +51,7 @@ module.exports = {
 			context: {
 				sections: [
 					{
+						Classes: Classes,
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
@@ -64,6 +67,7 @@ module.exports = {
 						}
 					},
 					{
+						Classes: Classes,
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
@@ -86,6 +90,7 @@ module.exports = {
 			context: {
 				sections: [
 					{
+						Classes: Classes,
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
@@ -101,6 +106,7 @@ module.exports = {
 						}
 					},
 					{
+						Classes: Classes,
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
@@ -116,6 +122,7 @@ module.exports = {
 						}
 					},
 					{
+						Classes: Classes,
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
@@ -138,6 +145,7 @@ module.exports = {
 			context: {
 				sections: [
 					{
+						Classes: Classes,
 						secondary: false,
 						card: {
 							title: 'Get the most out of Sprucebot',
@@ -153,6 +161,7 @@ module.exports = {
 						}
 					},
 					{
+						Classes: Classes,
 						secondary: true,
 						card: {
 							title: 'Get the most out of Sprucebot',
