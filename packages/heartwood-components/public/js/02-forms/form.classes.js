@@ -5,10 +5,6 @@ module.exports = {
 	FormLayout_Item: `${NS}form-layout__item`,
 	FormLayout_Group: `${NS}-form-layout__group`,
 	FormLayout_Group_Condensed: `${NS}-form-layout__group--condensed`,
-	CheckboxItem_Icon: `${NS}-checkbox-item__icon`,
-	CheckboxItem_Icon_Yes: `${NS}-checkbox-item__icon-yes`,
-	CheckboxItem_Icon_No: `${NS}-checkbox-item__icon-no`,
-	CheckboxItem_Icon_Maybe: `${NS}-checkbox-item__icon-maybe`,
 	TextInput: `${NS}-text-input`,
 	TextInput_Small: `${NS}-text-input--small`,
 	TextInput_CreditCardIconWrapper: `${NS}-text-input__credit-card-icon-wrapper`,
@@ -33,5 +29,15 @@ module.exports = {
 	AutoSuggest_ListItemInner: `${NS}-autosuggest__list-item-inner`,
 	AutoSuggest_NoResults: `${NS}-autosuggest__no-results`,
 	AutoSuggest_NoResultsTitle: `${NS}-autosuggest__no-results-title`,
-	AutoSuggest_NoResultsSubtitle: `${NS}-autosuggest__no-results-subtitle`
+	AutoSuggest_NoResultsSubtitle: `${NS}-autosuggest__no-results-subtitle`,
+	CheckboxItem: `${NS}-checkbox-item`,
+	CheckboxItem_Inner: `${NS}-checkbox-item__inner`,
+	CheckboxItem_Input: `${NS}-checkbox-item__input`,
+	CheckboxItem_Label: `${NS}-checkbox-item__label`,
+	CheckboxItem_Icons: `${NS}-checkbox-item__icons`,
+	CheckboxItem_Icon: `${NS}-checkbox-item__icon`,
+	CheckboxItem_IconYes: `${NS}-checkbox-item__icon-yes`,
+	CheckboxItem_IconNo: `${NS}-checkbox-item__icon-no`,
+	CheckboxItem_IconMaybe: `${NS}-checkbox-item__icon-maybe`,
+	CheckboxItem_PostText: `${NS}-checkbox-item__post-text`
 }

@@ -1,14 +1,14 @@
-<div class="checkbox-item">
-	<div class="checkbox-item__inner">
-		<input class="checkbox-item__input" type="checkbox" id="{{ id }}" name="{{ name}}" value="{{ value }}" {{#if checked}}checked{{/if}} {{#if maybe}}indeterminate{{/if}}/>
-		<label class="checkbox-item__label" for="{{id}}">{{label}}</label>
-		<div class="checkbox-item__icons">
-			{{> @icon icon=iconYes class="checkbox-item__icon checkbox-item__icon-yes"}}
-			{{> @icon icon=iconMaybe class="checkbox-item__icon checkbox-item__icon-maybe"}}
-			{{> @icon icon=iconNo class="checkbox-item__icon checkbox-item__icon-no"}}
+<div class="{{ Classes.CheckboxItem }}">
+	<div class="{{ Classes.CheckboxItem_Inner }}">
+		<input class="{{ Classes.CheckboxItem_Input }}" type="checkbox" id="{{ id }}" name="{{ name}}" value="{{ value }}" {{#if checked}}checked{{/if}} {{#if maybe}}indeterminate{{/if}}/>
+		<label class="{{ Classes.CheckboxItem_Label }}" for="{{id}}">{{label}}</label>
+		<div class="{{ Classes.CheckboxItem_Icons }}">
+			{{> @icon icon=iconYes class=(space Classes.CheckboxItem_Icon Classes.CheckboxItem_IconYes)}}
+			{{> @icon icon=iconMaybe class=(space Classes.CheckboxItem_Icon Classes.CheckboxItem_IconMaybe)}}
+			{{> @icon icon=iconNo class=(space Classes.CheckboxItem_Icon Classes.CheckboxItem_IconNo)}}
 		</div>
 	</div>
 	{{#if postText}}
-	<p class="checkbox-item__post-text">{{ postText }}</p>
+	<p class="{{ Classes.CheckboxItem_PostText }}">{{ postText }}</p>
 	{{/if}}
 </div>

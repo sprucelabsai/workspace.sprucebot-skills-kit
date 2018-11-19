@@ -1842,32 +1842,32 @@ Classes for button variations
 .hw-text-input__clear-btn .hw-btn__icon-wrapper {
   line-height: 0; }
 
-.checkbox-item__inner {
+.hw-checkbox-item__inner {
   display: flex;
   flex-flow: row-reverse;
   justify-content: flex-end;
   position: relative; }
 
-.checkbox-item__icons {
+.hw-checkbox-item__icons {
   flex: 0 0 auto;
   width: 1.25rem;
   height: 1.25rem;
   margin-right: 0.25rem;
   fill: #0076D6; }
-  .checkbox-item__icons .checkbox-item__icon-no {
+  .hw-checkbox-item__icons .hw-checkbox-item__icon-no {
     fill: #818894;
     display: block; }
 
-.checkbox-item__icon {
+.hw-checkbox-item__icon {
   width: 100%;
   height: 100%;
   display: none; }
 
-.checkbox-item__label {
+.hw-checkbox-item__label {
   font-weight: 600;
   cursor: pointer; }
 
-.checkbox-item__input {
+.hw-checkbox-item__input {
   position: absolute;
   top: 0;
   left: 0;
@@ -1879,20 +1879,20 @@ Classes for button variations
   -moz-appearance: none;
   appearance: none;
   cursor: pointer; }
-  .checkbox-item__input:focus {
+  .hw-checkbox-item__input:focus {
     outline: none; }
-  .checkbox-item__input:checked ~ .checkbox-item__icons .checkbox-item__icon-yes {
+  .hw-checkbox-item__input:checked ~ .hw-checkbox-item__icons .hw-checkbox-item__icon-yes {
     display: block; }
-  .checkbox-item__input:checked ~ .checkbox-item__icons .checkbox-item__icon-no,
-  .checkbox-item__input:checked ~ .checkbox-item__icons .checkbox-item__icon-maybe {
+  .hw-checkbox-item__input:checked ~ .hw-checkbox-item__icons .hw-checkbox-item__icon-no,
+  .hw-checkbox-item__input:checked ~ .hw-checkbox-item__icons .hw-checkbox-item__icon-maybe {
     display: none; }
-  .checkbox-item__input[indeterminate] ~ .checkbox-item__icons .checkbox-item__icon-maybe {
+  .hw-checkbox-item__input[indeterminate] ~ .hw-checkbox-item__icons .hw-checkbox-item__icon-maybe {
     display: block; }
-  .checkbox-item__input[indeterminate] ~ .checkbox-item__icons .checkbox-item__icon-no,
-  .checkbox-item__input[indeterminate] ~ .checkbox-item__icons .checkbox-item__icon-yes {
+  .hw-checkbox-item__input[indeterminate] ~ .hw-checkbox-item__icons .hw-checkbox-item__icon-no,
+  .hw-checkbox-item__input[indeterminate] ~ .hw-checkbox-item__icons .hw-checkbox-item__icon-yes {
     display: none; }
 
-.checkbox-item__post-text {
+.hw-checkbox-item__post-text {
   font-size: 0.875rem;
   line-height: 1.25;
   font-weight: 400;

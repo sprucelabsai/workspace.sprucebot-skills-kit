@@ -1,13 +1,13 @@
-<div class="checkbox-item">
-	<div class="checkbox-item__inner">
-		<input class="checkbox-item__input" type="radio" name="{{ name }}" id="{{ id }}" />
-		<label class="checkbox-item__label" for="{{ id }}">{{ label }}</label>
-		<div class="checkbox-item__icons">
-			{{> @icon icon=radioYes class="checkbox-item__icon checkbox-item__icon-yes"}}
-			{{> @icon icon=radioNo class="checkbox-item__icon checkbox-item__icon-no"}}
+<div class="{{ Classes.CheckboxItem }}">
+	<div class="{{ Classes.CheckboxItem_Inner }}">
+		<input class="{{ Classes.CheckboxItem_Input }}" type="radio" name="{{ name }}" id="{{ id }}" />
+		<label class="{{ Classes.CheckboxItem_Label }}" for="{{ id }}">{{ label }}</label>
+		<div class="{{ Classes.CheckboxItem_Icons }}">
+			{{> @icon icon=radioYes class=(space Classes.CheckboxItem_Icon Classes.CheckboxItem_IconYes)}}
+			{{> @icon icon=radioNo class=(space Classes.CheckboxItem_Icon Classes.CheckboxItem_IconNo)}}
 		</div>
 	</div>
 	{{#if postText}}
-	<p class="checkbox-item__post-text">{{ postText }}</p>
+	<p class="{{ Classes.CheckboxItem_PostText }}">{{ postText }}</p>
 	{{/if}}
 </div>
