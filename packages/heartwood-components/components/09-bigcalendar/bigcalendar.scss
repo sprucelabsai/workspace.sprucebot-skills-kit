@@ -33,6 +33,8 @@ $event-indent-width: rem(50);
 
 .bigcalendar {
     background-color: #fff;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; /* Disable selection/copy in UIWebView */
 }
 
 body.sb-show-main {
@@ -359,12 +361,13 @@ body.sb-show-main {
         transition: all 0.5s ease-out;
     }
 
+    @include eventFill($c-primary, $c-primary, $c-white, $c-white)
+
     &.event-fill-available {
          @include eventFill($c-white, $c-primary, $c-primary, $c-primary)
     }
 
     &.event-fill-unavailable {
-        @include eventFill($c-primary, $c-primary, $c-white, $c-white)
     }
 
     &.event-fill-unavailable-alt {
@@ -372,7 +375,7 @@ body.sb-show-main {
     }
 
     &.event-fill-past {
-        @include eventFill(rgba($c-primary, 0.5), $c-primary, $c-primary, $c-primary)
+        @include eventFill(lighten($c-primary, 50%), $c-primary, $c-primary, $c-primary)
     }
 
     &.event-fill-warn {
