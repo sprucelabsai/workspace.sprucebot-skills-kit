@@ -2323,11 +2323,11 @@ select:-webkit-autofill:focus {
   border: 1px solid #e0edf8;
   -webkit-box-shadow: 0 0 0px 1000px #e0edf8 inset; }
 
-.text-input .text-input__input,
-.text-input .text-area__input {
+.hw-text-input .hw-text-input__input,
+.hw-text-input .hw-text-area__input {
   width: 100%; }
 
-.text-input__pre {
+.hw-text-input__pre {
   font-size: 0.6875rem;
   font-family: "Source Code Pro", Courier, monospace;
   font-weight: 500;
@@ -2336,26 +2336,26 @@ select:-webkit-autofill:focus {
   display: flex;
   justify-content: space-between; }
 
-.text-input__post-label {
+.hw-text-input__post-label {
   color: #525966; }
 
-.text-input__helper {
+.hw-text-input__helper {
   font-size: 0.875rem;
   line-height: 1.25;
   font-weight: 400; }
 
-.text-input__pre,
-.text-input__inner {
+.hw-text-input__pre,
+.hw-text-input__inner {
   margin-bottom: 0.25rem; }
 
-.text-input__inner {
+.hw-text-input__inner {
   position: relative;
   display: flex;
   align-items: center; }
-  .text-input__inner .btn__icon-wrapper {
+  .hw-text-input__inner .hw-btn__icon-wrapper {
     line-height: 0; }
 
-.text-input__icon-pre {
+.hw-text-input__icon-pre {
   position: absolute;
   top: 50%;
   left: 0.5rem;
@@ -2366,54 +2366,54 @@ select:-webkit-autofill:focus {
   fill: #818894;
   opacity: 0.7; }
 
-.text-input__icon-pre ~ .text-input__input {
+.hw-text-input__icon-pre ~ .hw-text-input__input {
   padding-left: 2rem; }
 
-.text-input__input,
-.text-area__input {
+.hw-text-input__input,
+.hw-text-area__input {
   border: 1px solid #cccfd6;
   border-radius: 4px;
   font-family: "Source Sans Pro", "Roboto", "Helvetica Neue";
   -webkit-appearance: none; }
-  .text-input__input:not(:disabled):not([readonly]):focus,
-  .text-area__input:not(:disabled):not([readonly]):focus {
+  .hw-text-input__input:not(:disabled):not([readonly]):focus,
+  .hw-text-area__input:not(:disabled):not([readonly]):focus {
     outline: none;
     border-color: #0076D6;
     box-shadow: 0 0 0 3px rgba(0, 118, 214, 0.4); }
-  .text-input__input[readonly],
-  .text-area__input[readonly] {
+  .hw-text-input__input[readonly],
+  .hw-text-area__input[readonly] {
     color: #525966;
     background-color: #f3f4f6;
     border: none;
     cursor: not-allowed; }
-  .text-input--has-error .text-input__input:not(:focus), .text-input--has-error
-  .text-area__input:not(:focus) {
+  .hw-text-input--has-error .hw-text-input__input:not(:focus), .hw-text-input--has-error
+  .hw-text-area__input:not(:focus) {
     border-color: #e51b3d;
     background-color: rgba(229, 27, 61, 0.1); }
 
-.text-input__input {
+.hw-text-input__input {
   height: 3rem;
   padding: 0 0.5rem; }
-  .text-input-small .text-input__input {
+  .hw-text-input-small .hw-text-input__input {
     height: 2.25rem; }
 
-.text-area__input {
+.hw-text-area__input {
   padding: 0.5rem; }
-  .text-area__input.text-area__input-no-resize {
+  .hw-text-area__input.hw-text-area__input-no-resize {
     resize: none; }
 
-.text-input__appendix {
+.hw-text-input__appendix {
   margin-left: 0.25rem; }
 
-.text-input__helper {
+.hw-text-input__helper {
   color: #525966;
   opacity: 0.8; }
-  .text-input--has-error .text-input__helper {
+  .hw-text-input--has-error .hw-text-input__helper {
     color: #e51b3d;
     opacity: 1; }
 
-.text-input__country-select,
-.text-input__credit-card-icon-wrapper {
+.hw-text-input__country-select,
+.hw-text-input__credit-card-icon-wrapper {
   position: absolute;
   top: 0;
   left: 0;
@@ -2422,31 +2422,31 @@ select:-webkit-autofill:focus {
   border-color: #cccfd6;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px; }
-  .text-input__country-select select,
-  .text-input__credit-card-icon-wrapper select {
+  .hw-text-input__country-select select,
+  .hw-text-input__credit-card-icon-wrapper select {
     width: 100%;
     height: 100%;
     opacity: 0;
     cursor: pointer; }
 
-.text-input__credit-card-icon-wrapper {
+.hw-text-input__credit-card-icon-wrapper {
   display: flex;
   align-items: center;
   width: 3.5rem;
   padding: 0.5rem; }
 
-.text-input__credit-card-icon {
+.hw-text-input__credit-card-icon {
   width: 100%;
   height: auto; }
 
-.text-input__country-select ~ .text-input__input,
-.text-input__credit-card-icon-wrapper ~ .text-input__input {
+.hw-text-input__country-select ~ .hw-text-input__input,
+.hw-text-input__credit-card-icon-wrapper ~ .hw-text-input__input {
   padding-left: 3.875rem; }
 
-.text-input--is-focused .text-input__country-select {
+.hw-text-input--is-focused .hw-text-input__country-select {
   border-color: #0076D6; }
 
-.text-input__country-indicator {
+.hw-text-input__country-indicator {
   display: flex;
   align-items: center;
   position: absolute;
@@ -2455,10 +2455,10 @@ select:-webkit-autofill:focus {
   width: 100%;
   height: 100%;
   padding-left: 0.5rem; }
-  .text-input__country-indicator .ic__dropdown-arrow {
+  .hw-text-input__country-indicator .hw-ic__dropdown-arrow {
     fill: #818894; }
 
-.text-input__clear-btn.btn.btn-icon-only {
+.hw-text-input__clear-btn.hw-btn.hw-btn-icon-only {
   position: absolute;
   top: 50%;
   right: 0.5rem;
@@ -2468,12 +2468,12 @@ select:-webkit-autofill:focus {
   width: 1rem;
   height: 1rem;
   padding: 0; }
-  .text-input__clear-btn.btn.btn-icon-only .btn__icon {
+  .hw-text-input__clear-btn.hw-btn.hw-btn-icon-only .hw-btn__icon {
     width: 100%;
     height: 100%;
     fill: #818894;
     opacity: 0.7; }
-  .text-input__clear-btn.btn.btn-icon-only:hover svg {
+  .hw-text-input__clear-btn.hw-btn.hw-btn-icon-only:hover svg {
     opacity: 1; }
 
 .toggle__wrapper {

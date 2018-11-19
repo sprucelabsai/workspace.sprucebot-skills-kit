@@ -10,41 +10,41 @@ select:-webkit-autofill:focus {
 	-webkit-box-shadow: 0 0 0px 1000px $c-ui-input-autofill inset;
 }
 
-.text-input .text-input__input,
-.text-input .text-area__input {
+.#{$ns}-text-input .#{$ns}-text-input__input,
+.#{$ns}-text-input .#{$ns}-text-area__input {
 	width: 100%;
 }
 
-.text-input__pre {
+.#{$ns}-text-input__pre {
 	@include type-style-label;
 	display: flex;
 	justify-content: space-between;
 }
 
-.text-input__post-label {
+.#{$ns}-text-input__post-label {
 	color: $c-text-light;
 }
 
-.text-input__helper {
+.#{$ns}-text-input__helper {
 	@include type-style-body-sm;
 }
 
-.text-input__pre,
-.text-input__inner {
+.#{$ns}-text-input__pre,
+.#{$ns}-text-input__inner {
 	margin-bottom: spacing('extra-tight');
 }
 
-.text-input__inner {
+.#{$ns}-text-input__inner {
 	position: relative;
 	display: flex;
 	align-items: center;
 
-	.btn__icon-wrapper {
+	.#{$ns}-btn__icon-wrapper {
 		line-height: 0;
 	}
 }
 
-.text-input__icon-pre {
+.#{$ns}-text-input__icon-pre {
 	position: absolute;
 	top: 50%;
 	left: spacing('tight');
@@ -55,12 +55,12 @@ select:-webkit-autofill:focus {
 	opacity: 0.7;
 }
 
-.text-input__icon-pre ~ .text-input__input {
+.#{$ns}-text-input__icon-pre ~ .#{$ns}-text-input__input {
 	padding-left: spacing('extra-loose');
 }
 
-.text-input__input,
-.text-area__input {
+.#{$ns}-text-input__input,
+.#{$ns}-text-area__input {
 	@include input-focus-state;
 	border: 1px solid $c-border;
 	border-radius: $border-radius-input;
@@ -74,7 +74,7 @@ select:-webkit-autofill:focus {
 		cursor: not-allowed;
 	}
 
-	.text-input--has-error & {
+	.#{$ns}-text-input--has-error & {
 		&:not(:focus) {
 			border-color: $c-ui-critical;
 			background-color: rgba($c-ui-critical, 0.1);
@@ -82,39 +82,39 @@ select:-webkit-autofill:focus {
 	}
 }
 
-.text-input__input {
+.#{$ns}-text-input__input {
 	height: $tap-height;
 	padding: 0 spacing('tight');
 
-	.text-input-small & {
+	.#{$ns}-text-input-small & {
 		height: $tap-height-small;
 	}
 }
 
-.text-area__input {
+.#{$ns}-text-area__input {
 	padding: spacing('tight');
 
-	&.text-area__input-no-resize {
+	&.#{$ns}-text-area__input-no-resize {
 		resize: none;
 	}
 }
 
-.text-input__appendix {
+.#{$ns}-text-input__appendix {
 	margin-left: spacing('extra-tight');
 }
 
-.text-input__helper {
+.#{$ns}-text-input__helper {
 	color: $c-text-light;
 	opacity: 0.8;
 
-	.text-input--has-error & {
+	.#{$ns}-text-input--has-error & {
 		color: $c-ui-critical;
 		opacity: 1;
 	}
 }
 
-.text-input__country-select,
-.text-input__credit-card-icon-wrapper {
+.#{$ns}-text-input__country-select,
+.#{$ns}-text-input__credit-card-icon-wrapper {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -132,28 +132,28 @@ select:-webkit-autofill:focus {
 	}
 }
 
-.text-input__credit-card-icon-wrapper {
+.#{$ns}-text-input__credit-card-icon-wrapper {
 	display: flex;
 	align-items: center;
 	width: rem(56);
 	padding: spacing('tight');
 }
 
-.text-input__credit-card-icon {
+.#{$ns}-text-input__credit-card-icon {
 	width: 100%;
 	height: auto;
 }
 
-.text-input__country-select,
-.text-input__credit-card-icon-wrapper {
-	~ .text-input__input {
+.#{$ns}-text-input__country-select,
+.#{$ns}-text-input__credit-card-icon-wrapper {
+	~ .#{$ns}-text-input__input {
 		padding-left: rem(62);
 	}
 }
-.text-input--is-focused .text-input__country-select {
+.#{$ns}-text-input--is-focused .#{$ns}-text-input__country-select {
 	border-color: $c-primary;
 }
-.text-input__country-indicator {
+.#{$ns}-text-input__country-indicator {
 	display: flex;
 	align-items: center;
 	position: absolute;
@@ -163,12 +163,12 @@ select:-webkit-autofill:focus {
 	height: 100%;
 	padding-left: spacing('tight');
 
-	.ic__dropdown-arrow {
+	.#{$ns}-ic__dropdown-arrow {
 		fill: $c-text-icon;
 	}
 }
 
-.text-input__clear-btn.btn.btn-icon-only {
+.#{$ns}-text-input__clear-btn.#{$ns}-btn.#{$ns}-btn-icon-only {
 	position: absolute;
 	top: 50%;
 	right: spacing('tight');
@@ -178,7 +178,7 @@ select:-webkit-autofill:focus {
 	height: rem(16);
 	padding: 0;
 
-	.btn__icon {
+	.#{$ns}-btn__icon {
 		width: 100%;
 		height: 100%;
 		fill: $c-text-icon;

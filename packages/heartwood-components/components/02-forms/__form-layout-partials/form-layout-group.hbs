@@ -1,4 +1,4 @@
-<div class="form-layout__group{{#if condensed}} form-layout__group--condensed{{/if}}">
+<div class="{{ Classes.FormLayout_Group }}{{#if condensed}} {{ Classes.FormLayout_Group_Condensed }}{{/if}}">
 	{{#each formLayoutItems}}
 	{{> @form-layout-item this }}
 	{{/each}}
