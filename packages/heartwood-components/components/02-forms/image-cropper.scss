@@ -1,18 +1,18 @@
-.image-cropper__dropzone-wrapper,
-.image-cropper__controls-row {
+.#{$ns}-image-cropper__dropzone-wrapper,
+.#{$ns}-image-cropper__controls-row {
 	display: flex;
 	justify-content: center;
 }
 
-.image-cropper__dropzone-wrapper {
+.#{$ns}-image-cropper__dropzone-wrapper {
 	margin-bottom: 1.5 * spacing('base');
 }
 
-.image-cropper__controls-row {
+.#{$ns}-image-cropper__controls-row {
 	margin-bottom: spacing('base');
 }
 
-.image-cropper__rotate-btn {
+.#{$ns}-image-cropper__rotate-btn {
 	width: 50%;
 	margin-right: spacing('base');
 

@@ -72,5 +72,9 @@ module.exports = {
 	Dropzone_HelperTextBottom: `${NS}-dropzone__helper-text-bottom`,
 	Dropzone_Button: `${NS}-dropzone__btn`,
 	Dropzone_UploadingProgressWrapper: `${NS}-dropzone__uploading-progress-wrapper`,
-	Dropzone_UploadingProgress: `${NS}-dropzone__uploading-progress`
+	Dropzone_UploadingProgress: `${NS}-dropzone__uploading-progress`,
+	ImageCropper: `${NS}-image-cropper`,
+	ImageCropper_DropzoneWrapper: `${NS}-image-cropper__dropzone-wrapper`,
+	ImageCropper_ControlsRow: `${NS}-image-cropper__controls-row`,
+	ImageCropper_RotateButton: `${NS}-image-cropper__rotate-btn`
 }
