@@ -2,6 +2,7 @@ const Classes = require('../../../classes')
 
 module.exports = {
 	context: {
+		Classes: Classes,
 		title: 'Page Title'
 	},
 	variants: [
@@ -9,6 +10,7 @@ module.exports = {
 			name: 'back',
 			label: 'With Back Link',
 			context: {
+				Classes: Classes,
 				title: 'Page Title',
 				backLink: {
 					href: '#',

@@ -1,6 +1,6 @@
 // Page
 
-.page {
+.#{$ns}-page {
 	max-width: layout-width('primary', 'max') + layout-width('secondary', 'max') +
 		(spacing('extra-loose') * 2) + spacing('base');
 	min-height: 100vh;
@@ -17,7 +17,7 @@
 	}
 }
 
-.page__header {
+.#{$ns}-page__header {
 	padding: spacing('base') spacing('base') 0;
 	@include gt('small') {
 		padding: spacing('loose') spacing('loose') 0;
@@ -28,7 +28,7 @@
 	}
 }
 
-.page__header-back-link {
+.#{$ns}-page__header-back-link {
 	display: inline-flex;
 	align-items: center;
 	height: rem(44);
@@ -40,17 +40,17 @@
 		color: $c-text;
 	}
 
-	&:hover .page__header-back-link-icon {
+	&:hover .#{$ns}-page__header-back-link-icon {
 		fill: $c-text;
 	}
 }
 
-.page__header-back-link-icon {
+.#{$ns}-page__header-back-link-icon {
 	fill: $c-text-light;
 	height: rem(24);
 	margin-left: rem(-8);
 }
 
-.page__content {
+.#{$ns}-page__content {
 	margin: spacing('extra-loose') 0;
 }
