@@ -56,5 +56,8 @@ module.exports = {
 	StarInput: `${NS}-star-input`,
 	SliderWrapper: `${NS}-slider-wrapper`,
 	Slider: `${NS}-slider`,
-	Slider_SplitColor: `${NS}-slider--split-color`
+	Slider_SplitColor: `${NS}-slider--split-color`,
+	Select_Wrapper: `${NS}-select__wrapper`,
+	Select: `${NS}-select`,
+	Select_Icon: `${NS}-select__icon`
 }

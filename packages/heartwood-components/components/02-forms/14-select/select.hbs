@@ -1,15 +1,15 @@
-<div class="select__wrapper">
+<div class="{{ Classes.Select_Wrapper }}">
 	{{#if label}}
 		{{> @input-pre }}
 	{{/if}}
-	<div class="select text-input__inner {{class}}">
+	<div class="{{ Classes.Select }} {{ Classes.TextInput_Inner }} {{class}}">
 		<select>
 			{{#each options}}
 			<option>{{ this }}</option>
 			{{/each}}
 		</select>
 		{{#unless isSimple}}
-			{{> @icon icon=icon class="select__icon"}}
+			{{> @icon icon=icon class=Classes.Select_Icon }}
 		{{/unless}}
 	</div>
 	{{> @input-helper}}

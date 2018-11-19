@@ -1,19 +1,19 @@
-.select {
+.#{$ns}-select {
 	@include btn-focus-state;
 	position: relative;
 	height: $tap-height;
 	color: $c-primary;
 
-	&.select-small {
+	&.#{$ns}-select-small {
 		height: $tap-height-small;
 	}
 
-	&.select--has-error {
+	&.#{$ns}-select--has-error {
 		border-color: $c-ui-critical;
 		background-image: none;
 		background-color: $c-ui-critical-light;
 
-		+ .text-input__helper {
+		+ .#{$ns}-text-input__helper {
 			color: $c-ui-critical;
 			opacity: 1;
 		}
@@ -43,7 +43,7 @@
 	}
 }
 
-.select__icon {
+.#{$ns}-select__icon {
 	position: absolute;
 	top: 50%;
 	right: spacing('tight');
@@ -51,7 +51,7 @@
 	fill: $c-primary;
 }
 
-.select.select-simple {
+.#{$ns}-select.#{$ns}-select-simple {
 	background-image: none;
 	color: $c-primary;
 
@@ -59,7 +59,7 @@
 		border: none;
 	}
 
-	&.select--has-error {
+	&.#{$ns}-select--has-error {
 		color: $c-text;
 	}
 }
