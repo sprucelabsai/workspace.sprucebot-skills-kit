@@ -1,0 +1,24 @@
+<div class="message">
+    <span class="message__pre">
+        {{#if from.images}}
+        {{#each from.images}}
+        <img class="message__from-image{{#if isSprucebot}} message__from-sprucebot-image{{/if}}" src="{{src}}" alt="{{ alt }}"
+            width="40" height="40" />
+        {{/each}}
+        {{else}}
+        <p class="message__original-timestamp">{{ dateSent }}</p>
+        {{/if}}
+    </span>
+    <span class="message__main">
+        {{#if from }}
+        <p class="message__from-text"><span class="message__from-name">{{from.name}}</span><span class="message__original-timestamp">{{dateSent}}</span></p>
+        {{/if}}
+        {{{ body }}}
+        {{#if detail}}
+        <p class="message__small-text">{{detail}}</p>
+        {{/if}}
+        {{#if followUp}}
+        {{> @button text=followUp.text className="btn-small message__follow-up-btn" }}
+        {{/if}}
+    </span>
+</div>
