@@ -1,29 +1,29 @@
-.tag {
+.#{$ns}-tag {
 	display: inline-flex;
 	align-items: center;
 	height: $tap-height;
 	padding-left: spacing('base');
 	border-radius: $border-radius-button;
 
-	&.tag-small {
+	&.#{$ns}-tag-small {
 		height: $tap-height-small;
 	}
 }
 
-.tag-primary {
+.#{$ns}-tag-primary {
 	background-color: $c-primary;
 	color: $c-white;
 
-	.btn__icon {
+	.#{$ns}-btn__icon {
 		fill: $c-white;
 	}
 }
 
-.tag-secondary {
+.#{$ns}-tag-secondary {
 	border: 1px solid $c-primary;
 	color: $c-primary;
 
-	.btn__icon {
+	.#{$ns}-btn__icon {
 		fill: $c-primary;
 	}
 }

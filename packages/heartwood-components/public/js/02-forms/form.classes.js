@@ -44,5 +44,10 @@ module.exports = {
 	Toggle: `${NS}-toggle`,
 	Toggle_Input: `${NS}-toggle__input`,
 	Toggle_Label: `${NS}-toggle__label`,
-	Toggle_Text: `${NS}-toggle__text`
+	Toggle_Text: `${NS}-toggle__text`,
+	Tag: `${NS}-tag`,
+	TagPrimary: `${NS}-tag-primary`,
+	TagSecondary: `${NS}-tag-secondary`,
+	Tag_Text: `${NS}-tag__text`,
+	Tag_Button: `${NS}-tag__btn`
 }

@@ -1,8 +1,8 @@
-<div class="tag {{class}}{{#if isSmall}} tag-small{{/if}}">
-	<span class="tag__text">{{{tagText}}}</span>
+<div class="{{ Classes.Tag }} {{class}}{{#if isSmall}} tag-small{{/if}}">
+	<span class="{{ Classes.Tag_Text }}">{{{tagText}}}</span>
 	{{#if isSmall}}
-	{{> @button className="btn-small tag__btn" width="20" height="20" icon='<path fill-rule="evenodd" clip-rule="evenodd" d="M15.8334 5.3415L14.6584 4.1665L10.0001 8.82484L5.34175 4.1665L4.16675 5.3415L8.82508 9.99984L4.16675 14.6582L5.34175 15.8332L10.0001 11.1748L14.6584 15.8332L15.8334 14.6582L11.1751 9.99984L15.8334 5.3415Z"/>'}}
+	{{> @button className=(space Classes.Button_Small Classes.Tag_Button) width="20" height="20" icon='<path fill-rule="evenodd" clip-rule="evenodd" d="M15.8334 5.3415L14.6584 4.1665L10.0001 8.82484L5.34175 4.1665L4.16675 5.3415L8.82508 9.99984L4.16675 14.6582L5.34175 15.8332L10.0001 11.1748L14.6584 15.8332L15.8334 14.6582L11.1751 9.99984L15.8334 5.3415Z"/>'}}
 	{{else}}
-	{{> @button className="tag__btn" width="20" height="20" icon='<path fill-rule="evenodd" clip-rule="evenodd" d="M15.8334 5.3415L14.6584 4.1665L10.0001 8.82484L5.34175 4.1665L4.16675 5.3415L8.82508 9.99984L4.16675 14.6582L5.34175 15.8332L10.0001 11.1748L14.6584 15.8332L15.8334 14.6582L11.1751 9.99984L15.8334 5.3415Z"/>'}}
+	{{> @button className=Classes.Tag_Button width="20" height="20" icon='<path fill-rule="evenodd" clip-rule="evenodd" d="M15.8334 5.3415L14.6584 4.1665L10.0001 8.82484L5.34175 4.1665L4.16675 5.3415L8.82508 9.99984L4.16675 14.6582L5.34175 15.8332L10.0001 11.1748L14.6584 15.8332L15.8334 14.6582L11.1751 9.99984L15.8334 5.3415Z"/>'}}
 	{{/if}}
 </div>

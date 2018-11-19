@@ -12,7 +12,7 @@ module.exports = {
 	},
 	context: {
 		tagText: 'Spruced Up Shave',
-		class: 'tag-primary'
+		class: Classes.TagPrimary
 	},
 	variants: [
 		{
@@ -24,13 +24,13 @@ module.exports = {
 		{
 			name: 'Secondary',
 			context: {
-				class: 'tag-secondary'
+				class: Classes.TagSecondary
 			}
 		},
 		{
 			name: 'Secondary Small',
 			context: {
-				class: 'tag-secondary',
+				class: Classes.TagSecondary,
 				isSmall: true
 			}
 		}

@@ -2291,25 +2291,25 @@ Classes for button variations
 .star-output-wrapper {
   position: static; }
 
-.tag {
+.hw-tag {
   display: inline-flex;
   align-items: center;
   height: 3rem;
   padding-left: 1rem;
   border-radius: 4px; }
-  .tag.tag-small {
+  .hw-tag.hw-tag-small {
     height: 2.25rem; }
 
-.tag-primary {
+.hw-tag-primary {
   background-color: #0076D6;
   color: #fff; }
-  .tag-primary .btn__icon {
+  .hw-tag-primary .hw-btn__icon {
     fill: #fff; }
 
-.tag-secondary {
+.hw-tag-secondary {
   border: 1px solid #0076D6;
   color: #0076D6; }
-  .tag-secondary .btn__icon {
+  .hw-tag-secondary .hw-btn__icon {
     fill: #0076D6; }
 
 /* Change Autocomplete styles in Chrome*/
