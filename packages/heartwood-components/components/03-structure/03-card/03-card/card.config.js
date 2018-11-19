@@ -28,13 +28,13 @@ module.exports = {
 	},
 	context: {
 		title: 'Get the most out of Sprucebot',
-		children: [
-			'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-		],
+		children:
+			'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.',
 		footerActions: [
 			{
+				Classes: Classes,
 				text: 'Get some skills',
-				className: 'btn-secondary btn-small'
+				className: `${Classes.ButtonSecondary} ${Classes.Button_Small}`
 			}
 		]
 	},
@@ -43,19 +43,20 @@ module.exports = {
 			name: 'Actions',
 			context: {
 				title: 'Add your teammates',
-				children: [
-					'<p>Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.</p>'
-				],
+				children:
+					'<p>Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.</p>',
 				headerActions: [
 					{
+						Classes: Classes,
 						text: 'Go to team',
-						className: 'btn-simple btn-small'
+						className: `${Classes.ButtonSimple} ${Classes.Button_Small}`
 					}
 				],
 				footerActions: [
 					{
+						Classes: Classes,
 						text: 'Add teammates',
-						className: 'btn-primary btn-small'
+						className: `${Classes.ButtonPrimary} ${Classes.Button_Small}`
 					}
 				]
 			}
@@ -71,9 +72,8 @@ module.exports = {
 					iconWidth: '16',
 					iconHeight: '18'
 				},
-				children: [
-					'Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.'
-				],
+				children:
+					'Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.',
 				headerActions: true,
 				contextMenu: contextMenu
 			}
@@ -89,9 +89,8 @@ module.exports = {
 					iconWidth: '16',
 					iconHeight: '18'
 				},
-				children: [
-					'Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer.'
-				],
+				children:
+					'Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer.',
 				headerActions: true,
 				contextMenu: contextMenu,
 				footerActions: null
@@ -101,9 +100,8 @@ module.exports = {
 			name: 'Context only',
 			context: {
 				title: null,
-				children: [
-					'Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer.'
-				],
+				children:
+					'Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer.',
 				headerActions: true,
 				contextMenu: contextMenu,
 				footerActions: null
@@ -113,15 +111,15 @@ module.exports = {
 			name: 'Actions 02',
 			context: {
 				title: 'If you could time travel, what would you do?',
-				children: [
-					'Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do, so throw off the bowlines, sail away from safe harbor, catch the trade winds in your sails. Explore, Dream, Discover.'
-				],
+				children:
+					'Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do, so throw off the bowlines, sail away from safe harbor, catch the trade winds in your sails. Explore, Dream, Discover.',
 				headerActions: true,
 				contextMenu: contextMenu,
 				footerActions: [
 					{
+						Classes: Classes,
 						text: 'Catch fireflies at night',
-						className: 'btn-secondary btn-small'
+						className: `${Classes.ButtonSecondary} ${Classes.Button_Small}`
 					}
 				]
 			}
@@ -130,14 +128,14 @@ module.exports = {
 			name: 'centered',
 			context: {
 				title: null,
-				children: [
-					'<div class="avatar-wrapper avatar-wrapper-large"><div class="avatar__image-wrapper"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5d43ec18ec2cf6ff854513b9e8395c1e&auto=format&fit=crop&w=192&h=192&q=80" alt="avatar" width="96" height="96" /></div></div><h3 class="card-header__title">Say "Happy Birthday"</h3><p>It’s Rosamond Mueller’s birthday today. Don’t forget to say happy birthday!</p>'
-				],
+				children:
+					'<div class="avatar-wrapper avatar-wrapper-large"><div class="avatar__image-wrapper"><img class="avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5d43ec18ec2cf6ff854513b9e8395c1e&auto=format&fit=crop&w=192&h=192&q=80" alt="avatar" width="96" height="96" /></div></div><h3 class="card-header__title">Say "Happy Birthday"</h3><p>It’s Rosamond Mueller’s birthday today. Don’t forget to say happy birthday!</p>',
 				centered: true,
 				footerActions: [
 					{
+						Classes: Classes,
 						text: 'Send a birthday message',
-						className: 'btn-secondary btn-small'
+						className: `${Classes.ButtonSecondary} ${Classes.Button_Small}`
 					}
 				]
 			}

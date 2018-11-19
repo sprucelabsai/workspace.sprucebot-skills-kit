@@ -1,4 +1,4 @@
-.card {
+.#{$ns}-card {
 	width: 100%;
 	padding-bottom: spacing('base');
 	background-color: $c-bg-light;
@@ -17,16 +17,16 @@
 	}
 }
 
-.card__header {
+.#{$ns}-card__header {
 	display: flex;
 	justify-content: space-between;
 	padding: spacing('base');
 
-	.card--centered & {
+	.#{$ns}-card--centered & {
 		flex-flow: column-reverse;
 		align-items: flex-end;
 	}
-	.card--critical & {
+	.#{$ns}-card--critical & {
 		border-top: 4px solid $c-ui-critical;
 	}
 
@@ -35,30 +35,30 @@
 	}
 }
 
-.card__header-label {
+.#{$ns}-card__header-label {
 	@include type-style-label;
 	display: inline-flex;
 	align-items: center;
 
-	.card--critical & {
+	.#{$ns}-card--critical & {
 		color: $c-ui-critical;
 	}
 }
 
-.card__header-label-icon {
+.#{$ns}-card__header-label-icon {
 	margin-right: spacing('extra-tight');
 
-	.card--critical & {
+	.#{$ns}-card--critical & {
 		fill: $c-ui-critical;
 	}
 }
 
-.card__header-actions {
+.#{$ns}-card__header-actions {
 	flex: 0 0 auto;
 	margin-top: -#{spacing('tight')};
 	margin-left: spacing('tight');
 
-	.context-menu .context-menu__button {
+	.#{$ns}-context-menu .#{$ns}-context-menu__button {
 		width: spacing('extra-loose');
 		height: spacing('extra-loose');
 	}
@@ -68,7 +68,7 @@
 	}
 }
 
-.card__header-title {
+.#{$ns}-card__header-title {
 	@include typescale('body');
 	flex: 1 1 auto;
 	width: 100%;
@@ -79,7 +79,7 @@
 	}
 }
 
-.card__section {
+.#{$ns}-card__section {
 	padding: 0 spacing('base') spacing('base');
 
 	@include gt('small') {
@@ -87,7 +87,7 @@
 	}
 }
 
-.card__footer {
+.#{$ns}-card__footer {
 	padding: spacing('base') spacing('base') 0 spacing('base');
 
 	@include gt('small') {
@@ -98,13 +98,13 @@
 
 // Spacing
 
-.card + .card {
+.#{$ns}-card + .#{$ns}-card {
 	margin-top: spacing('base');
 }
 
 // Styles for Score Cards
 
-.card__scores {
+.#{$ns}-card__scores {
 	display: flex;
 	flex-flow: column;
 	justify-content: stretch;
@@ -115,7 +115,7 @@
 	}
 }
 
-.card__score {
+.#{$ns}-card__score {
 	flex: 1 0 auto;
 	padding: spacing('base');
 	text-align: center;
@@ -131,15 +131,15 @@
 	}
 }
 
-.card__score-label {
+.#{$ns}-card__score-label {
 	@include type-style-label;
 }
 
-.card__score-value {
+.#{$ns}-card__score-value {
 	@include typescale('display-sm');
 }
 
-.card img {
+.#{$ns}-card img {
 	width: 100%;
 	height: auto;
 }

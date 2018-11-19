@@ -15,14 +15,15 @@ module.exports = {
 				Classes: Classes,
 				secondary: false,
 				card: {
+					Classes: Classes,
 					title: 'Get the most out of Sprucebot',
-					children: [
-						'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-					],
+					children:
+						'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.',
 					footerActions: [
 						{
+							Classes: Classes,
 							text: 'Get some skills',
-							className: 'btn-secondary btn-small'
+							className: `${Classes.ButtonSecondary} ${Classes.Button_Small}`
 						}
 					]
 				}
@@ -31,14 +32,15 @@ module.exports = {
 				Classes: Classes,
 				secondary: false,
 				card: {
+					Classes: Classes,
 					title: 'Get the most out of Sprucebot',
-					children: [
-						'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-					],
+					children:
+						'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.',
 					footerActions: [
 						{
+							Classes: Classes,
 							text: 'Get some skills',
-							className: 'btn-secondary btn-small'
+							className: `${Classes.ButtonSecondary} ${Classes.Button_Small}`
 						}
 					]
 				}
@@ -54,14 +56,17 @@ module.exports = {
 						Classes: Classes,
 						secondary: true,
 						card: {
+							Classes: Classes,
 							title: 'Get the most out of Sprucebot',
-							children: [
-								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-							],
+							children:
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.',
 							footerActions: [
 								{
+									Classes: Classes,
 									text: 'Get some skills',
-									className: 'btn-secondary btn-small'
+									className: `${Classes.ButtonSecondary} ${
+										Classes.Button_Small
+									}`
 								}
 							]
 						}
@@ -70,14 +75,17 @@ module.exports = {
 						Classes: Classes,
 						secondary: true,
 						card: {
+							Classes: Classes,
 							title: 'Get the most out of Sprucebot',
-							children: [
-								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-							],
+							children:
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.',
 							footerActions: [
 								{
+									Classes: Classes,
 									text: 'Get some skills',
-									className: 'btn-secondary btn-small'
+									className: `${Classes.ButtonSecondary} ${
+										Classes.Button_Small
+									}`
 								}
 							]
 						}
@@ -93,14 +101,17 @@ module.exports = {
 						Classes: Classes,
 						secondary: true,
 						card: {
+							Classes: Classes,
 							title: 'Get the most out of Sprucebot',
-							children: [
-								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-							],
+							children:
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.',
 							footerActions: [
 								{
+									Classes: Classes,
 									text: 'Get some skills',
-									className: 'btn-secondary btn-small'
+									className: `${Classes.ButtonSecondary} ${
+										Classes.Button_Small
+									}`
 								}
 							]
 						}
@@ -109,14 +120,17 @@ module.exports = {
 						Classes: Classes,
 						secondary: true,
 						card: {
+							Classes: Classes,
 							title: 'Get the most out of Sprucebot',
-							children: [
-								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-							],
+							children:
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.',
 							footerActions: [
 								{
+									Classes: Classes,
 									text: 'Get some skills',
-									className: 'btn-secondary btn-small'
+									className: `${Classes.ButtonSecondary} ${
+										Classes.Button_Small
+									}`
 								}
 							]
 						}
@@ -125,14 +139,17 @@ module.exports = {
 						Classes: Classes,
 						secondary: true,
 						card: {
+							Classes: Classes,
 							title: 'Get the most out of Sprucebot',
-							children: [
-								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-							],
+							children:
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.',
 							footerActions: [
 								{
+									Classes: Classes,
 									text: 'Get some skills',
-									className: 'btn-secondary btn-small'
+									className: `${Classes.ButtonSecondary} ${
+										Classes.Button_Small
+									}`
 								}
 							]
 						}
@@ -148,14 +165,17 @@ module.exports = {
 						Classes: Classes,
 						secondary: false,
 						card: {
+							Classes: Classes,
 							title: 'Get the most out of Sprucebot',
-							children: [
-								']Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-							],
+							children:
+								']Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.',
 							footerActions: [
 								{
+									Classes: Classes,
 									text: 'Get some skills',
-									className: 'btn-secondary btn-small'
+									className: `${Classes.ButtonSecondary} ${
+										Classes.Button_Small
+									}`
 								}
 							]
 						}
@@ -164,14 +184,17 @@ module.exports = {
 						Classes: Classes,
 						secondary: true,
 						card: {
+							Classes: Classes,
 							title: 'Get the most out of Sprucebot',
-							children: [
-								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-							],
+							children:
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.',
 							footerActions: [
 								{
+									Classes: Classes,
 									text: 'Get some skills',
-									className: 'btn-secondary btn-small'
+									className: `${Classes.ButtonSecondary} ${
+										Classes.Button_Small
+									}`
 								}
 							]
 						}

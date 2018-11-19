@@ -1,15 +1,13 @@
-<div class="card{{#if centered}} card--centered{{/if}}">
+<div class="{{ Classes.Card }}{{#if centered}} {{ Classes.Card_Centered }}{{/if}}">
 	{{#if preHeader}}
 	{{{preHeader}}}
 	{{/if}}
 	{{> @card-header}}
-	<div class="card__body">{{#> @partial-block }}
-		{{#each children }}
-		{{#> @card-section }}{{{ this }}}{{/@card-section}}
-		{{/each}}
+	<div class="{{ Classes.Card_Body }}">{{#> @partial-block }}
+		{{#> @card-section }}{{{ children }}}{{/@card-section}}
 		{{/@partial-block}}</div>
 	{{#if footerActions}}
-	<div class="card__footer">
+	<div class="{{ Classes.Card_Footer }}">
 		{{#each footerActions}}
 		{{> @button}}
 		{{/each}}
