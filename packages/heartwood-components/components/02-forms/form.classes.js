@@ -2,7 +2,7 @@ const NS = require('../components.config').NS
 
 module.exports = {
 	FormLayout: `${NS}-form-layout`,
-	FormLayout_Item: `${NS}form-layout__item`,
+	FormLayout_Item: `${NS}-form-layout__item`,
 	FormLayout_Group: `${NS}-form-layout__group`,
 	FormLayout_Group_Condensed: `${NS}-form-layout__group--condensed`,
 	TextInput: `${NS}-text-input`,
