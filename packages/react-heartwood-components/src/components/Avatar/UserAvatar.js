@@ -10,14 +10,22 @@ type Props = {
 }
 
 const UserAvatar = (props: Props) => {
-	const { user, ...rest } = props
+	const { user, className, ...rest } = props
 	const { profileImages = {}, defaultProfileImages = {} } = user
 
 	const profileImage =
 		(profileImages && profileImages.profile150) ||
 		(defaultProfileImages && defaultProfileImages.profile150)
 
-	return <Avatar image={profileImage} {...rest} />
+	return (
+		<Avatar
+			image={profileImage}
+			className={cx(className, {
+				'default-avatar': !profileImages || !profileImages.profile150
+			})}
+			{...rest}
+		/>
+	)
 }
 
 export default UserAvatar

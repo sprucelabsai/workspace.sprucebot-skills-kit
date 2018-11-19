@@ -840,7 +840,7 @@ class DragGrid extends PureComponent<Props> {
 			// place this event right over the dragged one
 			dragEventNode.style.left = eventNode.style.left
 			dragEventNode.style.top = eventNode.style.top
-		} else if (overrideLeft && overrideTop) {
+		} else if (overrideLeft !== undefined && overrideTop !== undefined) {
 			dragEventNode.style.left = overrideLeft + 'px'
 			dragEventNode.style.top = overrideTop + 'px'
 		}

@@ -45,9 +45,10 @@ const Avatar = (props: Props) => {
 		name,
 		text,
 		width,
-		height
+		height,
+		className
 	} = props
-	const wrapperClass = cx('avatar-wrapper', {
+	const wrapperClass = cx('avatar-wrapper', className, {
 		'avatar-wrapper-large': isLarge,
 		'avatar-wrapper-has-text': text,
 		'avatar-wrapper-vertical': isVertical
