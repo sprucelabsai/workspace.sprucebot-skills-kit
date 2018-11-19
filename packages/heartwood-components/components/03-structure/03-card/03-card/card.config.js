@@ -1,4 +1,5 @@
 // TODO: Add example of scoreboard card
+const Classes = require('../../classes')
 
 const contextMenu = {
 	actions: [

@@ -1,3 +1,5 @@
+const Classes = require('../../classes')
+
 module.exports = {
 	title: 'Subheading',
 	status: 'wip',
