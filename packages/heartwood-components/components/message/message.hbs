@@ -11,11 +11,13 @@
     </span>
     <span class="message__main">
         {{#if from }}
-        <p class="message__from-text"><span class="message__from-name">{{from.name}}</span><span class="message__original-timestamp">{{dateSent}}</span></p>
+        <p class="message__from-text"><span class="message__from-name">{{from.name}}</span>&nbsp;<span class="message__original-timestamp">{{dateSent}}</span></p>
         {{/if}}
-        {{{ body }}}
+        <div class="message__body">
+            {{{ body }}}
+        </div>
         {{#if detail}}
-        <p class="message__small-text">{{detail}}</p>
+        <p class="message__detail">{{detail}}</p>
         {{/if}}
         {{#if followUp}}
         {{> @button text=followUp.text className="btn-small message__follow-up-btn" }}
