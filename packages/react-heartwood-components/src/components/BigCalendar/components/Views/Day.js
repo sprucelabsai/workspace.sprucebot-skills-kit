@@ -1268,7 +1268,11 @@ class Day extends PureComponent<Props> {
 					</DragGrid>
 				</div>
 				{eventDetails && showEventDetailsInDialog && (
-					<Modal isOpen={true} isSmall={true} onRequestClose={this.handleDeselectEvent}>
+					<Modal
+						isOpen={true}
+						isSmall={true}
+						onRequestClose={this.handleDeselectEvent}
+					>
 						<EventDetails {...eventDetails} />
 					</Modal>
 				)}
