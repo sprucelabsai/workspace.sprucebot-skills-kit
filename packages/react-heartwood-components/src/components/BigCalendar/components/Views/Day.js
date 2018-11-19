@@ -764,16 +764,25 @@ class Day extends PureComponent<Props> {
 	}
 
 	eventsForDay = memoize((events, date) => {
-		const { timezone } = this.props
+		const { timezone, minTime, maxTime } = this.props
+		const min = moment.tz(
+			`${date.format('YYYY-MM-DD')} ${minTime}:00`,
+			timezone
+		)
+		const max = moment.tz(
+			`${date.format('YYYY-MM-DD')} ${maxTime}:00`,
+			timezone
+		)
 		return sortBy(
 			events.filter(event => {
 				const eventStart = moment.tz(event.startAt, timezone)
 				return (
 					event.id &&
-					eventStart.format('YYYY-MM-DD') === date.format('YYYY-MM-DD')
+					eventStart.format('YYYY-MM-DD') === date.format('YYYY-MM-DD') &&
+					eventStart.isBetween(min, max)
 				)
 			}),
-			['startAt', 'title']
+			['startAt', 'title', 'subtitle']
 		)
 	})
 

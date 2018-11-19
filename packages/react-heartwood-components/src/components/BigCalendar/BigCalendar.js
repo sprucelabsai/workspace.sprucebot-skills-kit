@@ -386,7 +386,13 @@ class BigCalendar extends Component<Props, State> {
 					onChangeView={this.handleChangeView}
 					onBackDate={this.handleBackDate}
 					onNextDate={this.handleNextDate}
-					fullScreenNodeRef={this.domNodeRef}
+					fullScreenNode={
+						typeof document !== 'undefined'
+							? document.body
+							: this.domNodeRef
+							? this.domNodeRef.current
+							: null
+					}
 					currentHorizontalPage={currentHorizontalPage}
 					totalHorizontalPages={totalHorizontalPages}
 					onHorizontalPageNext={this.handleHorizontalPageNext}

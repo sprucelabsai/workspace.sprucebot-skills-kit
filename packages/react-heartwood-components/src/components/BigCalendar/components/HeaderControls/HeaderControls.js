@@ -19,7 +19,7 @@ type Props = {
 	onBackDate: Function,
 	onNextDate: Function,
 	onChangeView: Function,
-	fullScreenNodeRef: Object,
+	fullScreenNode: Object,
 	userModeSelectOptions?: Array<Object>,
 	onChangeUserMode?: Function,
 	userMode?: String,
@@ -50,7 +50,7 @@ class HeaderControls extends Component<Props, State> {
 	}
 
 	toggleFullScreen = () => {
-		screenfull.toggle(this.props.fullScreenNodeRef.current)
+		screenfull.toggle(this.props.fullScreenNode)
 		this.setState({ isFullScreen: !this.state.isFullScreen })
 	}
 
