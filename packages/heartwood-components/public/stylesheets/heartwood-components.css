@@ -1993,7 +1993,7 @@ Classes for button variations
     outline: none;
     background-color: #f9fafc; }
 
-.dropzone {
+.hw-dropzone {
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
@@ -2005,99 +2005,99 @@ Classes for button variations
   background-color: #f9fafc;
   border: 2px dashed #cccfd6;
   border-radius: 4px; }
-  .dropzone:hover {
+  .hw-dropzone:hover {
     border: 2px solid #0076D6; }
-  .dropzone.dropzone-small {
+  .hw-dropzone.hw-dropzone-small {
     min-height: 10rem; }
 
-.dropzone__icons,
-.dropzone__btn {
+.hw-dropzone__icons,
+.hw-dropzone__btn {
   margin-bottom: 1rem; }
 
-.dropzone__icons {
+.hw-dropzone__icons {
   line-height: 0; }
 
-.dropzone__icon {
+.hw-dropzone__icon {
   stroke: #818894;
   fill: none; }
 
-.dropzone__text {
+.hw-dropzone__text {
   color: #525966; }
 
-.dropzone__helper-text,
-.dropzone__helper-text-bottom {
+.hw-dropzone__helper-text,
+.hw-dropzone__helper-text-bottom {
   font-size: 1.25rem; }
-  .dropzone-small .dropzone__helper-text, .dropzone-small
-  .dropzone__helper-text-bottom {
+  .hw-dropzone-small .hw-dropzone__helper-text, .hw-dropzone-small
+  .hw-dropzone__helper-text-bottom {
     font-size: 1rem; }
 
-.dropzone__helper-text-bottom {
+.hw-dropzone__helper-text-bottom {
   position: absolute;
   bottom: 1rem;
   left: 0;
   width: 100%;
   text-align: center; }
 
-.dropzone__warn-drop-icon {
+.hw-dropzone__warn-drop-icon {
   stroke: #e51b3d; }
 
-.dropzone__did-upload-icon {
+.hw-dropzone__did-upload-icon {
   stroke: #00b2a4; }
 
-.dropzone__helper-text,
-.dropzone__uploading-progress-wrapper {
+.hw-dropzone__helper-text,
+.hw-dropzone__uploading-progress-wrapper {
   margin-bottom: 1rem; }
 
-.dropzone__uploading-text {
+.hw-dropzone__uploading-text {
   font-size: 1.25rem; }
 
-.dropzone__uploading-progress-wrapper {
+.hw-dropzone__uploading-progress-wrapper {
   position: relative;
   width: 100%;
   height: 0.5rem;
   background-color: #e5e7eb; }
 
-.dropzone__uploading-progress {
+.hw-dropzone__uploading-progress {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   background-color: #0076D6; }
 
-.dropzone-small .dropzone__btn {
+.hw-dropzone-small .hw-dropzone__btn {
   margin-bottom: 0; }
 
-.dropzone-small .dropzone__icons {
+.hw-dropzone-small .hw-dropzone__icons {
   margin-bottom: 0.5rem; }
 
-.dropzone-circular {
+.hw-dropzone-circular {
   border-radius: 9999px;
   max-width: 10rem; }
-  .dropzone-circular .dropzone__btn {
+  .hw-dropzone-circular .hw-dropzone__btn {
     margin-bottom: 0.5rem; }
-  .dropzone-circular .dropzone__icons {
+  .hw-dropzone-circular .hw-dropzone__icons {
     margin-bottom: 0; }
 
-.dropzone--is-hovered .dropzone__btn,
-.dropzone--is-hovered .dropzone__text,
-.dropzone--has-error .dropzone__btn,
-.dropzone--has-error .dropzone__text {
+.hw-dropzone--is-hovered .hw-dropzone__btn,
+.hw-dropzone--is-hovered .hw-dropzone__text,
+.hw-dropzone--has-error .hw-dropzone__btn,
+.hw-dropzone--has-error .hw-dropzone__text {
   opacity: 0;
   visibility: hidden; }
 
-.dropzone--is-hovered.dropzone {
+.hw-dropzone--is-hovered.hw-dropzone {
   background-color: #f9fafc;
   border: 2px solid #0076D6; }
 
-.dropzone--has-error.dropzone {
+.hw-dropzone--has-error.hw-dropzone {
   background-color: #ffdad3;
   border: 2px solid #e51b3d; }
 
-.dropzone--is-uploading.dropzone,
-.dropzone--is-disabled.dropzone {
+.hw-dropzone--is-uploading.hw-dropzone,
+.hw-dropzone--is-disabled.hw-dropzone {
   border: 2px solid #cccfd6; }
-  .dropzone--is-uploading.dropzone:hover,
-  .dropzone--is-disabled.dropzone:hover {
+  .hw-dropzone--is-uploading.hw-dropzone:hover,
+  .hw-dropzone--is-disabled.hw-dropzone:hover {
     border: 2px solid #cccfd6; }
 
 .form-row {

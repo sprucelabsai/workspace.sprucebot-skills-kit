@@ -1,14 +1,14 @@
 <div
 	class="
-		dropzone
-		{{#if isHovered}} dropzone--is-hovered{{/if}}
-		{{#if isUploading}} dropzone--is-uploading{{/if}}
-		{{#if hasError}} dropzone--has-error{{/if}}
-		{{#if isSmall}} dropzone-small{{/if}}
-		{{#if isCircular}} dropzone-circular{{/if}}"
+		{{ Classes.Dropzone }}
+		{{#if isHovered}} {{ Classes.Dropzone_IsHovered }}{{/if}}
+		{{#if isUploading}} {{ Classes.Dropzone_IsUploading }}{{/if}}
+		{{#if hasError}} {{ Classes.Dropzone_HasError }}{{/if}}
+		{{#if isSmall}} {{ Classes.DropzoneSmall }}{{/if}}
+		{{#if isCircular}} {{ Classes.DropzoneCircular }}{{/if}}"
 >
 	{{#unless isUploading}}
-	<div class="dropzone__icons">
+	<div class="{{ Classes.Dropzone_Icons }}">
 		{{#if isHovered}}
 			{{> @icon icon='<path fill="none" fill-rule="evenodd" clip-rule="evenodd" d="M38.6563 53.6056C38.5023 54.2286 38.1896 54.2473 37.9563 53.6476L28.791 29.5326C28.5576 28.9329 28.868 28.6273 29.4676 28.8513L53.683 37.9326C54.2826 38.1659 54.2663 38.4693 53.6433 38.6326L41.5753 41.6496L38.6563 53.6056Z" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M47.3223 28.9727C47.2243 29.395 47.124 29.8173 47.012 30.2373" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M29.1154 47.2681C28.1494 47.3871 27.1974 47.6227 26.2244 47.6484" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M19.2734 47.1335C17.375 46.7024 15.5383 46.0345 13.8064 45.1455" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M9.06045 41.9206C7.59801 40.6371 6.29802 39.1796 5.18945 37.5806" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M2.14675 31.3038C1.58951 29.4394 1.26044 27.5144 1.16675 25.5708" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M1.56104 19.8336C1.95428 17.9267 2.58124 16.0756 3.4277 14.3223" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M7.34082 8.5652C8.6572 7.13135 10.1518 5.87199 11.7882 4.81787" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M16.9612 2.31917C17.8688 1.96917 18.8278 1.80117 19.7612 1.53984C20.7318 1.42084 21.6838 1.1875 22.6568 1.1665" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M29.6101 1.66553C31.5084 2.09584 33.3451 2.76295 35.0771 3.65119" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M39.8208 6.88818C41.2852 8.17123 42.5861 9.62964 43.6941 11.2305" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M46.7368 17.5C47.2943 19.3643 47.6233 21.2894 47.7168 23.233" stroke="#737780" stroke-linecap="round" stroke-linejoin="round"/>' width="56" height="56"}}
 		{{else}}
@@ -26,23 +26,23 @@
 	</div>
 	{{/unless}}
 	{{#if isUploading}}
-		<p class="dropzone__helper-text">Uploading…</p>
-		<div class="dropzone__uploading-progress-wrapper">
-			<div class="dropzone__uploading-progress" style="width: 20%;"></div>
+		<p class="{{ Classes.Dropzone_HelperText }}">Uploading…</p>
+		<div class="{{ Classes.Dropzone_UploadingProgressWrapper }}">
+			<div class="{{ Classes.Dropzone_UploadingProgress }}" style="width: 20%;"></div>
 		</div>
 	{{/if}}
 	{{#if uploadSuccess}}
-		<p class="dropzone__helper-text">File Uploaded</p>
+		<p class="{{ Classes.Dropzone_HelperText }}">File Uploaded</p>
 	{{/if}}
 	{{#if isSmall}}
-		{{> @button className="btn-simple btn-small dropzone__btn" text=uploadBtnText disabled=isUploading}}
+		{{> @button className=(space Classes.ButtonSimple Classes.Button_Small Classes.Dropzone_Button) text=uploadBtnText disabled=isUploading}}
 	{{else}}
-		{{> @button className="btn-secondary dropzone__btn" text=uploadBtnText disabled=isUploading}}
+		{{> @button className=(space Classes.ButtonSecondary Classes.Dropzone_Button) text=uploadBtnText disabled=isUploading}}
 	{{/if}}
 	{{#unless isCircular}}
-		<p class="dropzone__text">or drop files to upload</p>
+		<p class="{{ Classes.Dropzone_Text }}">or drop files to upload</p>
 	{{/unless}}
 	{{#if helperText}}
-		<p class="dropzone__helper-text-bottom">{{{helperText}}}</p>
+		<p class="{{ Classes.Dropzone_HelperTextBottom }}">{{{helperText}}}</p>
 	{{/if}}
 </div>

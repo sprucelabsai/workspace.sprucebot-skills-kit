@@ -59,5 +59,18 @@ module.exports = {
 	Slider_SplitColor: `${NS}-slider--split-color`,
 	Select_Wrapper: `${NS}-select__wrapper`,
 	Select: `${NS}-select`,
-	Select_Icon: `${NS}-select__icon`
+	Select_Icon: `${NS}-select__icon`,
+	Dropzone: `${NS}-dropzone`,
+	Dropzone_Text: `${NS}-dropzone__text`,
+	Dropzone_IsHovered: `${NS}-dropzone--is-hovered`,
+	Dropzone_IsUploading: `${NS}-dropzone--is-uploading`,
+	Dropzone_HasError: `${NS}-dropzone--has-error`,
+	DropzoneSmall: `${NS}-dropzone-small`,
+	DropzoneCircular: `${NS}-dropzone-circular`,
+	Dropzone_Icons: `${NS}-dropzone__icons`,
+	Dropzone_HelperText: `${NS}-dropzone__helper-text`,
+	Dropzone_HelperTextBottom: `${NS}-dropzone__helper-text-bottom`,
+	Dropzone_Button: `${NS}-dropzone__btn`,
+	Dropzone_UploadingProgressWrapper: `${NS}-dropzone__uploading-progress-wrapper`,
+	Dropzone_UploadingProgress: `${NS}-dropzone__uploading-progress`
 }
