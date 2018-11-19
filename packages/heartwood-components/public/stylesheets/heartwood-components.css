@@ -2178,20 +2178,20 @@ Classes for button variations
   .select.select-simple.select--has-error {
     color: #2c323d; }
 
-.slider-wrapper {
+.hw-slider-wrapper {
   width: 100%; }
 
-.slider {
+.hw-slider {
   --range: calc(var(--max) - var(--min));
-  --ratio: calc((var(--val) - var(--min))/var(--range));
-  --sx: calc(.5*1.5rem + var(--ratio)*(100% - 1.5rem));
+  --ratio: calc((var(--val) - var(--min)) / var(--range));
+  --sx: calc(0.5 *1.5rem + var(--ratio) * (100% - 1.5rem));
   width: 100%;
   margin: 0.625rem 0;
   background: transparent;
   -webkit-appearance: none; }
-  .slider:focus {
+  .hw-slider:focus {
     outline: none; }
-  .slider::-webkit-slider-thumb {
+  .hw-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 1.5rem;
     height: 1.5rem;
@@ -2200,7 +2200,7 @@ Classes for button variations
     border-radius: 9999px;
     border: 1px solid #cccfd6;
     background-color: #f9fafc; }
-  .slider::-moz-range-thumb {
+  .hw-slider::-moz-range-thumb {
     -webkit-appearance: none;
     width: 1.5rem;
     height: 1.5rem;
@@ -2208,7 +2208,7 @@ Classes for button variations
     border-radius: 9999px;
     border: 1px solid #cccfd6;
     background-color: #f9fafc; }
-  .slider::-ms-thumb {
+  .hw-slider::-ms-thumb {
     -webkit-appearance: none;
     width: 1.5rem;
     height: 1.5rem;
@@ -2216,30 +2216,30 @@ Classes for button variations
     border-radius: 9999px;
     border: 1px solid #cccfd6;
     background-color: #f9fafc; }
-  .slider::-webkit-slider-runnable-track {
+  .hw-slider::-webkit-slider-runnable-track {
     height: 0.25rem;
     border-radius: 9999px;
     background-color: #818894;
     cursor: pointer; }
-    .slider--split-color .slider::-webkit-slider-runnable-track {
+    .hw-slider--split-color .hw-slider::-webkit-slider-runnable-track {
       background: linear-gradient(#0076D6, #0076D6) 0/var(--sx) 100% no-repeat #818894; }
-  .slider::-moz-range-track {
+  .hw-slider::-moz-range-track {
     height: 0.25rem;
     border-radius: 9999px;
     background-color: #818894;
     cursor: pointer; }
-  .slider::-ms-track {
+  .hw-slider::-ms-track {
     height: 0.25rem;
     border-radius: 9999px;
     background-color: #818894;
     cursor: pointer; }
-  .slider:disabled {
+  .hw-slider:disabled {
     cursor: not-allowed; }
-    .slider:disabled::-webkit-slider-runnable-track {
+    .hw-slider:disabled::-webkit-slider-runnable-track {
       cursor: not-allowed; }
-    .slider:disabled::-moz-range-track {
+    .hw-slider:disabled::-moz-range-track {
       cursor: not-allowed; }
-    .slider:disabled::-ms-track {
+    .hw-slider:disabled::-ms-track {
       cursor: not-allowed; }
 
 .hw-star {

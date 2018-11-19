@@ -1,7 +1,6 @@
 // TODO: Investigate if there is a better approach to do
 // a split-color approach
 
-
 $thumb-d: rem(24);
 
 @mixin range-thumb {
@@ -19,29 +18,35 @@ $thumb-d: rem(24);
 	border-radius: 9999px;
 	background-color: $c-text-placeholder;
 	cursor: pointer;
-	
+
 	@if $fill == 1 {
-		.slider--split-color & {
+		.#{$ns}-slider--split-color & {
 			background: linear-gradient($c-primary, $c-primary)
-				0/ var(--sx) 100% no-repeat $c-text-placeholder;
+				0 /
+				var(--sx)
+				100%
+				no-repeat
+				$c-text-placeholder;
 		}
 	}
 }
 
-.slider-wrapper {
+.#{$ns}-slider-wrapper {
 	width: 100%;
 }
 
-.slider {
+.#{$ns}-slider {
 	--range: calc(var(--max) - var(--min));
-	--ratio: calc((var(--val) - var(--min))/var(--range));
-	--sx: calc(.5*#{$thumb-d} + var(--ratio)*(100% - #{$thumb-d}));
+	--ratio: calc((var(--val) - var(--min)) / var(--range));
+	--sx: calc(0.5 *#{$thumb-d} + var(--ratio) * (100% - #{$thumb-d}));
 	width: 100%;
 	margin: rem(10) 0;
 	background: transparent;
 	-webkit-appearance: none;
 
-	&:focus { outline: none; }
+	&:focus {
+		outline: none;
+	}
 
 	// NOTE: It is necessary to repeat these instead of comma-separating them
 	// Otherwise, the browser will drop these styles
@@ -80,4 +85,3 @@ $thumb-d: rem(24);
 		}
 	}
 }
-
