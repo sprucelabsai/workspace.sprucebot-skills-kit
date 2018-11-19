@@ -35,6 +35,8 @@ type Props = {
 	userMode?: String,
 	doubleClickTime: Number,
 	onDoubleClickView?: Function,
+	onClickView?: Function,
+	doubleClickToCreate?: Boolean,
 	userSchedules?: Object // { userId: { date: { startTime, endTime }, '2018-01-10': { startTime: '09:00', endTime: '20:00' } } }
 }
 
@@ -61,7 +63,8 @@ class BigCalendar extends Component<Props, State> {
 		allEvents: [],
 		viewProps: {},
 		longPressDelay: 500,
-		doubleClickTime: 250
+		doubleClickTime: 250,
+		doubleClickToCreate: false // defaults to single click
 	}
 	state = {
 		selectedView: this.props.defaultView,
@@ -341,6 +344,8 @@ class BigCalendar extends Component<Props, State> {
 			onChangeStartDate,
 			doubleClickTime,
 			onDoubleClickView,
+			onClickView,
+			doubleClickToCreate,
 			...props
 		} = this.props
 
@@ -425,6 +430,8 @@ class BigCalendar extends Component<Props, State> {
 						getEndTimeForUser={this.getEndTimeForUser}
 						doubleClickTime={doubleClickTime}
 						onDoubleClick={onDoubleClickView}
+						onClick={onClickView}
+						doubleClickToCreate={doubleClickToCreate}
 						{...viewProps}
 					/>
 				</div>

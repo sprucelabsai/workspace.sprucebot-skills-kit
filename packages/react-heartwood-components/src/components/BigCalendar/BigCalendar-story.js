@@ -117,6 +117,14 @@ class BigCalendarExample extends Component {
 		this.setState({ userMode: mode, users })
 	}
 
+	handleDoubleClickView = ({ time, user }) => {
+		alert(`double click at ${time.format('h:mm')} with ${user.name}`)
+	}
+
+	handleClickView = ({ time, user }) => {
+		alert(`single click at ${time.format('h:mm')} with ${user.name}`)
+	}
+
 	render() {
 		const { users, location, events, userMode } = this.state
 
@@ -139,6 +147,8 @@ class BigCalendarExample extends Component {
 					defaultMaxTime="20:00"
 					defaultStartTime="09:00"
 					defaultEndTime="18:00"
+					onDoubleClickView={this.handleDoubleClickView}
+					onClickView={this.handleClickView}
 				/>
 			</Container>
 		)

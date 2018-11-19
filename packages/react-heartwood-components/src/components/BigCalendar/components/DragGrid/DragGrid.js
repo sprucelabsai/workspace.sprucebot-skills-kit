@@ -15,6 +15,7 @@ type Props = {
 	onMouseDownOnEvent: Function,
 	onMouseDownOnView: Function,
 	onDoubleClick?: Function,
+	onClick?: Function,
 	dragThreshold: Number, // how far to drag before actually initiating drag
 	onDropEvent: Function,
 	onDragEvent: Function,
@@ -662,7 +663,8 @@ class DragGrid extends PureComponent<Props> {
 			selectedEvent,
 			highlightedEvent,
 			onDeselectEvent,
-			onUnHighlightEvent
+			onUnHighlightEvent,
+			onClick = () => {}
 		} = this.props
 
 		const moved =
@@ -679,6 +681,15 @@ class DragGrid extends PureComponent<Props> {
 
 		if (this.state.dragEvent && !moved) {
 			this.handleDropEvent()
+		}
+		if (
+			!moved &&
+			!selectedEvent &&
+			!highlightedEvent &&
+			!this.state.dragEvent &&
+			new Date() - this._lastClickTime < 200
+		) {
+			onClick({ e })
 		}
 	}
 
@@ -946,6 +957,7 @@ class DragGrid extends PureComponent<Props> {
 			doubleClickTime,
 			onLongPressView,
 			longPressDelay,
+			onClick,
 			...props
 		} = this.props
 

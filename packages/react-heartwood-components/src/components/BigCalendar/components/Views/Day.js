@@ -47,7 +47,8 @@ type Props = {
 	getEndTimeForUser: Function,
 	doubleClickTime: Number,
 	onDoubleClick: Function,
-	newEventDefaultDurationSec: Number
+	newEventDefaultDurationSec: Number,
+	doubleClickToCreate: Boolean
 }
 
 type State = {
@@ -1106,15 +1107,51 @@ class Day extends PureComponent<Props> {
 		}
 	}
 
-	handleDoubleClick = ({ e }) => {
-		const { onDoubleClick } = this.props
+	handleClick = ({ e }) => {
+		const { onClick, doubleClickToCreate } = this.props
+		if (doubleClickToCreate) {
+			return
+		}
 
 		let time
 		const { clientX, clientY } = this.dragGridRef.current.globalToLocal(
 			eventUtil.clientXY(e)
 		)
 		// if they clicked the header, time is null
-		if (e.currentTarget.classList.contains('bigcalendar__teammate-header')) {
+		if (
+			e.currentTarget.classList &&
+			e.currentTarget.classList.contains('bigcalendar__teammate-header')
+		) {
+			time = null
+		} else {
+			time = this.yToTime(
+				this.snapEventToNearestValidY({ dragNodeTop: clientY })
+			)
+		}
+
+		const user = this.xToUser(
+			this.snapEventToNearestValidX({ mouseX: clientX })
+		)
+
+		return onClick && onClick({ time, user, e })
+	}
+
+	handleDoubleClick = ({ e }) => {
+		const { onDoubleClick, doubleClickToCreate } = this.props
+
+		if (!doubleClickToCreate) {
+			return
+		}
+
+		let time
+		const { clientX, clientY } = this.dragGridRef.current.globalToLocal(
+			eventUtil.clientXY(e)
+		)
+		// if they clicked the header, time is null
+		if (
+			e.currentTarget.classList &&
+			e.currentTarget.classList.contains('bigcalendar__teammate-header')
+		) {
 			time = null
 		} else {
 			time = this.yToTime(
@@ -1177,7 +1214,8 @@ class Day extends PureComponent<Props> {
 			getStartTimeForUser,
 			getEndTimeForUser,
 			doubleClickTime,
-			longPressDelay
+			longPressDelay,
+			doubleClickToCreate
 		} = this.props
 
 		const {
@@ -1249,6 +1287,7 @@ class Day extends PureComponent<Props> {
 						onDragEvent={this.handleDragOfEvent}
 						onDropEvent={this.handleDropEvent}
 						onDoubleClick={this.handleDoubleClick}
+						onClick={this.handleClick}
 						doubleClickTime={doubleClickTime}
 						longPressDelay={longPressDelay}
 						onLongPressView={this.handleLongPressView}
