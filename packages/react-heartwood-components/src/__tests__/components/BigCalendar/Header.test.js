@@ -39,10 +39,4 @@ describe('Header tests', () => {
 		expect(numericalDate.exists()).toEqual(true)
 		expect(pagination.exists()).toEqual(true)
 	})
-
-	it('Displays the correct date', () => {
-		expect(monthHeader.children().text()).toEqual(moment().format('MMMM YYYY'))
-		expect(dayOfWeek.text()).toEqual(moment().format('dd'))
-		expect(numericalDate.text()).toEqual(moment().format('D'))
-	})
 })
