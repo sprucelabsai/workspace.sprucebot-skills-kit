@@ -1779,6 +1779,9 @@ Classes for button variations
   .context-menu__menu.context-menu__menu-left {
     right: auto;
     left: 0; }
+  .context-menu__menu.context-menu__menu-top {
+    top: auto;
+    bottom: 100%; }
   .context-menu--is-hidden .context-menu__menu {
     transform: translate(0, 4px);
     opacity: 0;
