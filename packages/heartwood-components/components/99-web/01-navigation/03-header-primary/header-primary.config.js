@@ -1,6 +1,6 @@
+const Classes = require('../../../classes')
 const image =
 	'https://images.unsplash.com/photo-1524593689594-aae2f26b75ab?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4c06a1bc6123a9ac6645a269314334b2&auto=format&fit=crop&w=192&h=192&q=80'
-const Classes = require('../../classes')
 
 module.exports = {
 	title: 'Header Primary',

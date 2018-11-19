@@ -1,4 +1,4 @@
-const Classes = require('../../classes')
+const Classes = require('../../../classes')
 
 module.exports = {
 	title: 'Card Header',
