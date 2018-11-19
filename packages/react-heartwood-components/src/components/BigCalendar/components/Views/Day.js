@@ -146,8 +146,10 @@ class Day extends PureComponent<Props> {
 	}
 
 	handleResize = () => {
-		this.updateHorizontalPagerDetails()
-		this.placeAndSize()
+		if (this.dragGridRef.current) {
+			this.updateHorizontalPagerDetails()
+			this.placeAndSize()
+		}
 	}
 
 	handleScroll = e => {

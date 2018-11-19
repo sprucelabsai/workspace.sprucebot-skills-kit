@@ -191,6 +191,7 @@ class DragGrid extends PureComponent<Props> {
 			passive: false
 		})
 		window.addEventListener('mouseup', this.handleMouseUpFromView)
+		document.body.addEventListener('mouseleave', this.handleMouseUpFromView)
 
 		return true
 	}
@@ -321,6 +322,15 @@ class DragGrid extends PureComponent<Props> {
 				window.addEventListener('mouseup', this.handleMouseUpFromEvent, {
 					passive: false
 				})
+
+			setListeners &&
+				document.body.addEventListener(
+					'mouseleave',
+					this.handleMouseUpFromEvent,
+					{
+						passive: false
+					}
+				)
 		}
 
 		return results !== false
@@ -641,6 +651,7 @@ class DragGrid extends PureComponent<Props> {
 		// console.log('mouse up from view')
 		window.removeEventListener('mousemove', this.handleMouseDragOfView)
 		window.removeEventListener('mouseup', this.handleMouseUpFromView)
+		document.body.removeEventListener('mouseleave', this.handleMouseUpFromView)
 
 		this._isDraggingView = false
 
@@ -690,6 +701,7 @@ class DragGrid extends PureComponent<Props> {
 
 		window.removeEventListener('mousemove', this.handleDragOfEvent)
 		window.removeEventListener('mouseup', this.handleMouseUpFromEvent)
+		document.body.removeEventListener('mouseleave', this.handleMouseUpFromEvent)
 	}
 
 	cancelDrag = () => {
