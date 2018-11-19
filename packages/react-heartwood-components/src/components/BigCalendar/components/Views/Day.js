@@ -1139,10 +1139,6 @@ class Day extends PureComponent<Props> {
 	handleDoubleClick = ({ e }) => {
 		const { onDoubleClick, doubleClickToCreate } = this.props
 
-		if (!doubleClickToCreate) {
-			return
-		}
-
 		let time
 		const { clientX, clientY } = this.dragGridRef.current.globalToLocal(
 			eventUtil.clientXY(e)
@@ -1162,6 +1158,11 @@ class Day extends PureComponent<Props> {
 		const user = this.xToUser(
 			this.snapEventToNearestValidX({ mouseX: clientX })
 		)
+
+		// pass through double clicks on teammate header
+		if (!doubleClickToCreate && time) {
+			return
+		}
 
 		return onDoubleClick && onDoubleClick({ time, user, e })
 	}
