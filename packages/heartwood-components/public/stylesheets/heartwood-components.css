@@ -1800,10 +1800,10 @@ Classes for button variations
 .hw-context-menu__item-btn {
   text-align: left; }
 
-.autosuggest__wrapper {
+.hw-autosuggest__wrapper {
   position: relative; }
 
-.autosuggest {
+.hw-autosuggest {
   display: none;
   position: absolute;
   top: 100%;
@@ -1816,30 +1816,30 @@ Classes for button variations
   border: 1px solid #cccfd6;
   border-radius: 2px;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.05); }
-  .autosuggest.autosuggest--show-suggestions {
+  .hw-autosuggest.hw-autosuggest--show-suggestions {
     display: block; }
 
-.autosuggest__list-item-inner {
+.hw-autosuggest__list-item-inner {
   width: 100%; }
-  .autosuggest__list-item-inner .btn__inner {
+  .hw-autosuggest__list-item-inner .hw-btn__inner {
     justify-content: flex-start; }
 
-.autosuggest__list-item-inner:hover {
+.hw-autosuggest__list-item-inner:hover {
   background-color: #f9fafc; }
 
-.autosuggest__no-results {
+.hw-autosuggest__no-results {
   font-size: 0.875rem;
   padding: 0.5rem;
   background-color: #f9fafc; }
 
-.autosuggest__no-results-title {
+.hw-autosuggest__no-results-title {
   margin-bottom: 0.125rem;
   font-weight: 600; }
 
-.autosuggest__no-results-subtitle {
+.hw-autosuggest__no-results-subtitle {
   color: #525966; }
 
-.text-input__clear-btn .btn__icon-wrapper {
+.hw-text-input__clear-btn .hw-btn__icon-wrapper {
   line-height: 0; }
 
 .checkbox-item__inner {

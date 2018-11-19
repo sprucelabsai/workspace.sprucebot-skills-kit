@@ -25,5 +25,13 @@ module.exports = {
 	TextInput_CountrySelect: `${NS}-text-input__country-select`,
 	TextInput_CountryIndicator: `${NS}-text-input__country-indicator`,
 	TextArea_Input: `${NS}-text-area__input`,
-	TextArea_InputNoResize: `${NS}-text-area__input-no-resize`
+	TextArea_InputNoResize: `${NS}-text-area__input-no-resize`,
+	AutoSuggest_Wrapper: `${NS}-autosuggest__wrapper`,
+	AutoSuggest: `${NS}-autosuggest`,
+	AutoSuggest_List: `${NS}-autosuggest__list`,
+	AutoSuggest_ListItem: `${NS}-autosuggest__list-item`,
+	AutoSuggest_ListItemInner: `${NS}-autosuggest__list-item-inner`,
+	AutoSuggest_NoResults: `${NS}-autosuggest__no-results`,
+	AutoSuggest_NoResultsTitle: `${NS}-autosuggest__no-results-title`,
+	AutoSuggest_NoResultsSubtitle: `${NS}-autosuggest__no-results-subtitle`
 }

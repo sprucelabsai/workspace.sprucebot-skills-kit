@@ -1,22 +1,22 @@
-<div class="text-input {{class}}">
+<div class="{{ Classes.TextInput }} {{class}}">
 	{{#if label}}
 		{{> @input-pre }}
 	{{/if}}
-	<div class="autosuggest__wrapper">
+	<div class="{{ Classes.AutoSuggest_Wrapper }}">
 		{{> @input-inner }}
-		<div class="autosuggest">
+		<div class="{{ Classes.AutoSuggest }}">
 			{{#if options}}
-			<ul class="autosuggest__list">
+			<ul class="{{ Classes.AutoSuggest_List }}">
 				{{#each options}}
-					<li class="autosuggest__list-item">
-						{{> @button className="btn-small autosuggest__list-item-inner"}}
+					<li class="{{ Classes.AutoSuggest_ListItem }}">
+						{{> @button text=text className=(space Classes.Button_Small Classes.AutoSuggest_ListItemInner) }}
 					</li>
 				{{/each}}
 			</ul>
 			{{else}}
-				<div class="autosuggest__no-results">
-					<p class="autosuggest__no-results-title">No matching countries found.</p>
-					<p class="autosuggest__no-results-subtitle">Please adjust your search and try again.</p>
+				<div class="{{ Classes.AutoSuggest_NoResults }}">
+					<p class="{{ Classes.AutoSuggest_NoResultsTitle }}">No matching countries found.</p>
+					<p class="{{ Classes.AutoSuggest_NoResultsSubtitle }}">Please adjust your search and try again.</p>
 				</div>
 			{{/if}}
 		</div>
