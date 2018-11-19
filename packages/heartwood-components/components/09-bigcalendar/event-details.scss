@@ -11,6 +11,7 @@
 .event-details-header {
 	display: flex;
 	align-items: flex-start;
+	flex-shrink: 0;
 	width: 100%;
 	padding: rem(16) rem(16) rem(10) rem(16);
 
