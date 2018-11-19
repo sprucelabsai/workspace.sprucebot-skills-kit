@@ -71,14 +71,37 @@ body.sb-show-main {
     justify-content: space-between;
     width: 100%;
 
-
+    .bigcalendar_date-picker-underlay {
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
     .bigcalendar_date-picker {
+        left: 0;
         position: absolute;
         z-index: 4;
+
+        @media only screen and (min-width: 375px) {
+            left: auto;
+            right: 0;
+        }
+
+        @include gt('medium') {
+            right: auto;
+        }
 
         .DayPickerKeyboardShortcuts_show {
             display: none;
         }
+    }
+}
+
+
+.bigcalendar__date-select {
+    @media only screen and (min-width: 375px) {
+        position: relative;
     }
 }
 
@@ -519,9 +542,13 @@ body.sb-show-main {
         top:0px;
         right:0px;
         bottom:0px;
-        left:20px;
+        left:0px;
         background: #fff;
         z-index: 5;
+
+        @media only screen and (min-width: 340px) {
+            left: 20px;
+        }
 
         .bigcalendar-hide-menu__button {
             position: absolute;

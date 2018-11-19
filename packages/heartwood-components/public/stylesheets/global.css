@@ -3421,11 +3421,29 @@ select:-webkit-autofill:focus {
   display: flex;
   justify-content: space-between;
   width: 100%; }
+  .bigcalendar__header-controls .bigcalendar_date-picker-underlay {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%; }
   .bigcalendar__header-controls .bigcalendar_date-picker {
+    left: 0;
     position: absolute;
     z-index: 4; }
+    @media only screen and (min-width: 375px) {
+      .bigcalendar__header-controls .bigcalendar_date-picker {
+        left: auto;
+        right: 0; } }
+    @media screen and (min-width: 750px) {
+      .bigcalendar__header-controls .bigcalendar_date-picker {
+        right: auto; } }
     .bigcalendar__header-controls .bigcalendar_date-picker .DayPickerKeyboardShortcuts_show {
       display: none; }
+
+@media only screen and (min-width: 375px) {
+  .bigcalendar__date-select {
+    position: relative; } }
 
 .bigcalendar__date-scroll-controls {
   display: flex;
@@ -3798,9 +3816,14 @@ select:-webkit-autofill:focus {
     top: 0px;
     right: 0px;
     bottom: 0px;
-    left: 20px;
+    left: 0px;
     background: #fff;
-    z-index: 5; }
+    z-index: 5; } }
+  @media only screen and (max-width: 375px) and (min-width: 340px) {
+    .bigcalendar__mobile-submenu.showing {
+      left: 20px; } }
+
+@media only screen and (max-width: 375px) {
     .bigcalendar__mobile-submenu.showing .bigcalendar-hide-menu__button {
       position: absolute;
       top: 0px;
