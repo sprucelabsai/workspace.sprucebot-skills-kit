@@ -25,7 +25,8 @@ type Props = {
 	userMode?: String,
 	onSelectDate: Function,
 	onDateToToday: Function,
-	selectedDate: Object
+	selectedDate: Object,
+	isMobile: boolean
 }
 
 type State = {
@@ -35,8 +36,14 @@ type State = {
 
 class HeaderControls extends Component<Props, State> {
 	state = {
-		isDatePickerShown: false,
+		isDatePickerShown: this.props.isMobile,
 		isFullScreen: false
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.isMobile !== this.props.isMobile) {
+			this.setState({ isDatePickerShown: nextProps.isMobile })
+		}
 	}
 
 	toggleDatePicker = () => {
@@ -46,7 +53,9 @@ class HeaderControls extends Component<Props, State> {
 	onSelectDate = date => {
 		this.props.onSelectDate && this.props.onSelectDate(date)
 
-		this.setState({ isDatePickerShown: false })
+		if (!this.props.isMobile) {
+			this.setState({ isDatePickerShown: false })
+		}
 	}
 
 	toggleFullScreen = () => {
