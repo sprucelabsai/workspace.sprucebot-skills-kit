@@ -102,6 +102,7 @@ class HeaderControls extends Component<Props, State> {
 					</div>
 					{userModeSelectOptions && onChangeUserMode && userMode && (
 						<Select
+							className="user-mode-select"
 							options={userModeSelectOptions}
 							onChange={e => {
 								onChangeUserMode(e.target.value)

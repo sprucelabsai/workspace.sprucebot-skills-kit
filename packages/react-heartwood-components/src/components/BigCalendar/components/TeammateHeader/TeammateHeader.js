@@ -2,10 +2,13 @@
 import React, { PureComponent } from 'react'
 import cx from 'classnames'
 import UserAvatar from '../../../Avatar/UserAvatar'
+import eventUtil from '../../utils/event'
 
 type Props = {
 	users: Array<Object>,
-	onScroll: Function
+	onScroll: Function,
+	onDoubleClick?: Function,
+	doubleClickTime: Number
 }
 
 class TeammateHeader extends PureComponent<Props> {
@@ -14,11 +17,40 @@ class TeammateHeader extends PureComponent<Props> {
 		this.domNodeRef = React.createRef()
 	}
 
+	handleClick = e => {
+		const { doubleClickTime, onDoubleClick = () => {} } = this.props
+		if (
+			this._lastClickTime &&
+			new Date() - this._lastClickTime < doubleClickTime
+		) {
+			let { clientX, clientY } = eventUtil.clientXY(e)
+			clientX = clientX + this.domNodeRef.current.scrollLeft
+
+			onDoubleClick({ clientX, clientY, e })
+		}
+		this._lastClickTime = new Date()
+
+		// keep it from highlighting text
+		e.stopPropagation()
+		e.preventDefault()
+	}
+
 	render() {
-		const { users, onScroll, ...props } = this.props
+		const {
+			users,
+			onScroll,
+			onDoubleClick,
+			doubleClickTime,
+			onClick,
+			...props
+		} = this.props
 
 		return (
-			<div className="bigcalendar__teammate-header" {...props}>
+			<div
+				className="bigcalendar__teammate-header"
+				{...props}
+				onClick={this.handleClick}
+			>
 				<div className="inner" ref={this.domNodeRef} onScroll={onScroll}>
 					{users.map(u => {
 						return (

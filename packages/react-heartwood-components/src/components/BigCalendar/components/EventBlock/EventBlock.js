@@ -40,7 +40,12 @@ const EventBlock = (props: Props) => {
 					<div className="resize-highlight-handle" />
 				</div>
 			)}
-			<p className="title" dangerouslySetInnerHTML={{ __html: block.title }} />
+			{block.title && (
+				<p
+					className="title"
+					dangerouslySetInnerHTML={{ __html: block.title }}
+				/>
+			)}
 			{block.subtitle && (
 				<p
 					className="subtitle"

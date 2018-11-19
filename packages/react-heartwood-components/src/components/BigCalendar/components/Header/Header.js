@@ -1,12 +1,11 @@
 // @flow
-import React from 'react'
+import React, { PureComponent } from 'react'
 import cx from 'classnames'
-import moment from 'moment-timezone'
 
 // sub components
 import HeaderControls from '../HeaderControls/HeaderControls'
-import Button from '../../../Button/Button'
 import Pagination from '../../../Pagination/Pagination'
+import Button from '../../../Button/Button'
 
 import { H2 } from '../../../Text/Text'
 
@@ -21,6 +20,7 @@ type Props = {
 	onNextDate: Function,
 	selectedDate: Object,
 	dateFormat: String,
+	mobileDateFormat: String,
 	fullScreenNodeRef: Object,
 	totalHorizontalPages: Number,
 	currentHorizontalPage: Number,
@@ -30,41 +30,98 @@ type Props = {
 	onChangeUserMode?: Function,
 	userMode?: String,
 	onDateToToday: Function,
-	onSelectDate: Function
+	onSelectDate: Function,
+	onDoubleClick?: Function,
+	onClickMore?: Function
 }
 
-const Header = (props: Props) => {
-	return (
-		<div className="bigcalendar__header">
-			<div className="bigcalendar__header-top">
-				<H2 className="">{props.selectedDate.format(props.dateFormat)}</H2>
-				<HeaderControls
-					userModeSelectOptions={props.userModeSelectOptions}
-					onChangeUserMode={props.onChangeUserMode}
-					userMode={props.userMode}
-					fullScreenNodeRef={props.fullScreenNodeRef}
-					onBackDate={props.onBackDate}
-					onNextDate={props.onNextDate}
-					onChangeView={props.onChangeView}
-					onSelectDate={props.onSelectDate}
-					onDateToToday={props.onDateToToday}
-					selectedDate={props.selectedDate}
-				/>
-			</div>
-			<div className="bigcalendar__header-bottom">
-				<div className="bigcalendar__header-smalldate">
-					<p className="dow">{props.selectedDate.format('dd')}</p>
-					<p className="day">{props.selectedDate.format('D')}</p>
+type State = {
+	showingSubMenu: Boolean
+}
+
+class Header extends PureComponent<Props, State> {
+	state = {
+		showingSubMenu: false
+	}
+	handleShowSubMenu = () => {
+		console.log('show')
+		this.setState({ showingSubMenu: true })
+	}
+	handleHideSubMenu = () => {
+		this.setState({ showingSubMenu: false })
+	}
+	render() {
+		const {
+			selectedDate,
+			dateFormat,
+			mobileDateFormat,
+			userModeSelectOptions,
+			onChangeUserMode,
+			userMode,
+			fullScreenNodeRef,
+			onBackDate,
+			onNextDate,
+			onChangeView,
+			onSelectDate,
+			onDateToToday,
+			onHorizontalPageNext,
+			onHorizontalPageBack,
+			currentHorizontalPage,
+			totalHorizontalPages,
+			doubleClickTime,
+			selectedView,
+			...props
+		} = this.props
+		return (
+			<div className="bigcalendar__header" {...props}>
+				<div className="bigcalendar__header-top">
+					<H2 className="">{selectedDate.format(dateFormat)}</H2>
+					<div
+						className={cx('bigcalendar__mobile-submenu', {
+							showing: this.state.showingSubMenu
+						})}
+					>
+						<Button
+							className="bigcalendar-hide-menu__button"
+							icon={{ name: 'close' }}
+							onClick={this.handleHideSubMenu}
+						/>
+						<H2 className="">{selectedDate.format(mobileDateFormat)}</H2>
+						<HeaderControls
+							userModeSelectOptions={userModeSelectOptions}
+							onChangeUserMode={onChangeUserMode}
+							userMode={userMode}
+							fullScreenNodeRef={fullScreenNodeRef}
+							onBackDate={onBackDate}
+							onNextDate={onNextDate}
+							onChangeView={onChangeView}
+							onSelectDate={onSelectDate}
+							onDateToToday={onDateToToday}
+							selectedDate={selectedDate}
+						/>
+					</div>
+					<Button
+						kind={'simple'}
+						className="bigcalendar-menu__button"
+						onClick={this.handleShowSubMenu}
+						icon={{ name: 'more', isLineIcon: true }}
+					/>
 				</div>
-				<Pagination
-					onClickNext={props.onHorizontalPageNext}
-					onClickBack={props.onHorizontalPageBack}
-					currentPage={props.currentHorizontalPage}
-					totalPages={props.totalHorizontalPages}
-				/>
+				<div className="bigcalendar__header-bottom">
+					<div className="bigcalendar__header-smalldate">
+						<p className="dow">{selectedDate.format('dd')}</p>
+						<p className="day">{selectedDate.format('D')}</p>
+					</div>
+					<Pagination
+						onClickNext={onHorizontalPageNext}
+						onClickBack={onHorizontalPageBack}
+						currentPage={currentHorizontalPage}
+						totalPages={totalHorizontalPages}
+					/>
+				</div>
 			</div>
-		</div>
-	)
+		)
+	}
 }
 
 export default Header

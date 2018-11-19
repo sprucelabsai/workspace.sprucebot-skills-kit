@@ -20,7 +20,7 @@ describe('BigCalendar tests', () => {
 
 		beforeEach(() => {
 			props = {
-				allUsers: users,
+				users: users,
 				location: location,
 				allEvents: events,
 				timezone: 'America/Denver'
@@ -46,7 +46,7 @@ describe('BigCalendar tests', () => {
 		})
 
 		it('Includes all the correct propTypes', () => {
-			expect(renderedComponent.prop('allUsers')).toBeType('array')
+			expect(renderedComponent.prop('users')).toBeType('array')
 			expect(renderedComponent.prop('allEvents')).toBeType('array')
 			expect(renderedComponent.prop('location')).toBeType('object')
 		})

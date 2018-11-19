@@ -36,7 +36,7 @@ export default class DatePicker extends Component<Props, State> {
 
 	render() {
 		const { isFocused, date } = this.state
-		const { ...rest } = this.props
+		const { onSelectDate, ...rest } = this.props
 		return (
 			<DayPickerSingleDateController
 				date={date}
