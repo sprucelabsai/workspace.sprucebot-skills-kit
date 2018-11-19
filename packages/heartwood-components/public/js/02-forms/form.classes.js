@@ -39,5 +39,10 @@ module.exports = {
 	CheckboxItem_IconYes: `${NS}-checkbox-item__icon-yes`,
 	CheckboxItem_IconNo: `${NS}-checkbox-item__icon-no`,
 	CheckboxItem_IconMaybe: `${NS}-checkbox-item__icon-maybe`,
-	CheckboxItem_PostText: `${NS}-checkbox-item__post-text`
+	CheckboxItem_PostText: `${NS}-checkbox-item__post-text`,
+	Toggle_Wrapper: `${NS}-toggle__wrapper`,
+	Toggle: `${NS}-toggle`,
+	Toggle_Input: `${NS}-toggle__input`,
+	Toggle_Label: `${NS}-toggle__label`,
+	Toggle_Text: `${NS}-toggle__text`
 }

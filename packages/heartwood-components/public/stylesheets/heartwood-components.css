@@ -2476,16 +2476,16 @@ select:-webkit-autofill:focus {
   .hw-text-input__clear-btn.hw-btn.hw-btn--icon-only:hover svg {
     opacity: 1; }
 
-.toggle__wrapper {
+.hw-toggle__wrapper {
   display: flex;
   align-items: center; }
 
-.toggle {
+.hw-toggle {
   position: relative;
   width: 3rem;
   height: 1.625rem; }
 
-.toggle__input {
+.hw-toggle__input {
   position: absolute;
   top: 0;
   left: 0;
@@ -2496,15 +2496,15 @@ select:-webkit-autofill:focus {
   -webkit-appearance: none;
   -moz-appearance: none;
        appearance: none; }
-  .toggle__input:focus {
+  .hw-toggle__input:focus {
     outline: none; }
-  .toggle__input:checked ~ .toggle__label {
+  .hw-toggle__input:checked ~ .hw-toggle__label {
     background-color: #0076D6; }
-    .toggle__input:checked ~ .toggle__label:after {
+    .hw-toggle__input:checked ~ .hw-toggle__label:after {
       -webkit-transform: translate(24px, 4px);
               transform: translate(24px, 4px); }
 
-.toggle__label {
+.hw-toggle__label {
   position: relative;
   display: inline-block;
   width: 100%;
@@ -2512,7 +2512,7 @@ select:-webkit-autofill:focus {
   border-radius: 9999px;
   background-color: #525966;
   cursor: pointer; }
-  .toggle__label:after {
+  .hw-toggle__label:after {
     content: '';
     display: block;
     width: 1.125rem;
@@ -2525,7 +2525,7 @@ select:-webkit-autofill:focus {
     border-radius: 9999px;
     background-color: #fff; }
 
-.toggle__text {
+.hw-toggle__text {
   margin-left: 0.5rem; }
 
 .form-layout {

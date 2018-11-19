@@ -1,7 +1,7 @@
-<div class="toggle__wrapper">
-	<div class="toggle">
-		<input class="toggle__input" type="checkbox" id="{{ id }}" {{#if on}}checked{{/if}}/>
-		<label class="toggle__label" for="{{ id }}" />
+<div class="{{ Classes.Toggle_Wrapper }}">
+	<div class="{{ Classes.Toggle }}">
+		<input class="{{ Classes.Toggle_Input }}" type="checkbox" id="{{ id }}" {{#if on}}checked{{/if}}/>
+		<label class="{{ Classes.Toggle_Label }}" for="{{ id }}" />
 	</div>
-	{{#if postText}}<label class="toggle__text" for="{{ id }}">{{postText}}</label>{{/if}}
+	{{#if postText}}<label class="{{ Classes.Toggle_Text }}" for="{{ id }}">{{postText}}</label>{{/if}}
 </div>

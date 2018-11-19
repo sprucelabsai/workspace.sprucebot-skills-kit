@@ -1,14 +1,14 @@
-.toggle__wrapper {
+.#{$ns}-toggle__wrapper {
 	display: flex;
 	align-items: center;
 }
-.toggle {
+.#{$ns}-toggle {
 	position: relative;
 	width: rem(48);
 	height: rem(26);
 }
 
-.toggle__input {
+.#{$ns}-toggle__input {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -24,7 +24,7 @@
 	}
 
 	&:checked {
-		~ .toggle__label {
+		~ .#{$ns}-toggle__label {
 			background-color: $c-primary;
 
 			&:after {
@@ -34,7 +34,7 @@
 	}
 }
 
-.toggle__label {
+.#{$ns}-toggle__label {
 	position: relative;
 	display: inline-block;
 	width: 100%;
@@ -55,6 +55,6 @@
 	}
 }
 
-.toggle__text {
+.#{$ns}-toggle__text {
 	margin-left: spacing('tight');
 }
