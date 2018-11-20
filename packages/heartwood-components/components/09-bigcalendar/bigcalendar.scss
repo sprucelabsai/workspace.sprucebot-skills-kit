@@ -210,7 +210,7 @@ body.sb-show-main {
 .bigcalendar__drag-grid {
     position: relative;
     overflow: auto;
-    -webkit-overflow-scrolling: touch;
+    // -webkit-overflow-scrolling: touch;
     border-left: 1px solid $c-border;
     .scroll-inner {
         display: flex;
