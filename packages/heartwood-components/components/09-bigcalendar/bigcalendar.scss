@@ -32,8 +32,12 @@ $event-indent-width: rem(50);
 }
 body,
 html {
-  position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
 }
+
 .bigcalendar {
     background-color: #fff;
     -webkit-touch-callout: none;
