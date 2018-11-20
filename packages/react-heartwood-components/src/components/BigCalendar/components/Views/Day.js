@@ -157,8 +157,14 @@ class Day extends PureComponent<Props> {
 		const target = e.target
 		const { scrollTop, scrollLeft } = target
 
-		this.teammateHeaderRef.current.domNodeRef.current.scrollLeft = scrollLeft
-		this.timeGutterRef.current.domNodeRef.current.scrollTop = scrollTop
+		this.teammateHeaderRef.current.domNodeRef.current.scrollLeft = Math.max(
+			0,
+			scrollLeft
+		)
+		this.timeGutterRef.current.domNodeRef.current.scrollTop = Math.max(
+			0,
+			scrollTop
+		)
 
 		// // arrows that sit in the upper right
 		this.updateHorizontalPagerDetails()
