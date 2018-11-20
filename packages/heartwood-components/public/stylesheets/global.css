@@ -2154,6 +2154,7 @@ Classes for button variations
       cursor: not-allowed; }
 
 .select__icon {
+  pointer-events: none;
   position: absolute;
   top: 50%;
   right: 0.5rem;
