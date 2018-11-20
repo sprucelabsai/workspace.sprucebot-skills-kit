@@ -45,6 +45,7 @@
 }
 
 .select__icon {
+	pointer-events: none;
 	position: absolute;
 	top: 50%;
 	right: rem(8);
