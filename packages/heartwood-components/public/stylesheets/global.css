@@ -2154,6 +2154,7 @@ Classes for button variations
       cursor: not-allowed; }
 
 .select__icon {
+  pointer-events: none;
   position: absolute;
   top: 50%;
   right: 0.5rem;
@@ -3935,7 +3936,10 @@ html {
   background-color: rgba(0, 0, 0, 0.05); }
 
 .event-details-header__text-wrapper {
-  flex: 1 0 auto; }
+  flex: 1 1 auto; }
+
+.event-details-header__actions-wrapper {
+  flex: 0 0 auto; }
 
 .event-details-header__label {
   font-size: 0.6875rem;
