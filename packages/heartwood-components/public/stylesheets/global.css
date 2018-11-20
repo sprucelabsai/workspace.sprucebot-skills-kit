@@ -3767,6 +3767,9 @@ select:-webkit-autofill:focus {
     padding-left: 5px; }
   .bigcalendar__event-block p:first-of-type {
     padding-top: 2px; }
+  .bigcalendar__event-block .content-wrapper {
+    overflow: hidden;
+    height: 100%; }
   .bigcalendar__event-block .title {
     font-weight: 600;
     display: inline-block;
