@@ -655,6 +655,7 @@ class DragGrid extends PureComponent<Props> {
 		document.body.removeEventListener('mouseleave', this.handleMouseUpFromView)
 
 		this._isDraggingView = false
+		this.domNodeRef.current.style.webkitOverflowScrolling = ''
 
 		const { startingScrollLeft = 0, startingScrollTop = 0 } =
 			this._dragOffset || {}
@@ -695,6 +696,8 @@ class DragGrid extends PureComponent<Props> {
 
 	handleMouseUpFromEvent = e => {
 		this._isMouseDownOnEvent = false
+
+		this.domNodeRef.current.style.webkitOverflowScrolling = ''
 
 		// console.log('mouse up of event')
 		if (!this.state.dragEvent && this._pendingDrag) {
@@ -829,6 +832,8 @@ class DragGrid extends PureComponent<Props> {
 	}) => {
 		let dragEvent = overrideDragEvent
 		let originalEvent = null
+
+		this.domNodeRef.current.style.webkitOverflowScrolling = 'auto'
 
 		if (event && event.id === 'dragging') {
 			dragEvent = event

@@ -428,22 +428,25 @@ class Day extends PureComponent<Props> {
 		this._lastDragDetails = null
 		this._dragResizeUpdates = null
 
-		const newStartAt = this.yToTime(newY)
+		let newStartAt = this.yToTime(newY)
 		const newUser = this.xToUser(newX)
 
-		const { onDropEvent, timezone, startDate } = this.props
+		const { onDropEvent, timezone } = this.props
 
+		if (
+			newStartAt &&
+			event &&
+			newStartAt.format('YYYY-MM-DD HH:mm') ===
+				moment.tz(event.startAt, timezone).format('YYYY-MM-DD HH:mm')
+		) {
+			newStartAt = null
+		}
 		return (
 			onDropEvent &&
 			onDropEvent({
 				event,
 				dragEvent,
-				newStartAt:
-					newStartAt &&
-					newStartAt.format('YYYY-MM-DD HH:mm') !==
-						moment.tz(event.startAt, timezone).format('YYYY-MM-DD HH:mm')
-						? newStartAt
-						: null,
+				newStartAt,
 				newUser:
 					!event || (newUser && newUser.id !== event.userId) ? newUser : null,
 				...dragDetails,
