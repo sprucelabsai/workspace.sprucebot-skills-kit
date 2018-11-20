@@ -1,12 +1,12 @@
 const fs = require('fs-extra')
-var gulp = require('gulp')
-var sass = require('gulp-sass')
-var rename = require('gulp-rename')
-var sassGlob = require('gulp-sass-glob')
-var postcss = require('gulp-postcss')
-var autoprefixer = require('autoprefixer')
-var cssnano = require('cssnano')
-var sourcemaps = require('gulp-sourcemaps')
+const gulp = require('gulp')
+const sass = require('gulp-sass')
+const rename = require('gulp-rename')
+const sassGlob = require('gulp-sass-glob')
+const postcss = require('gulp-postcss')
+const autoprefixer = require('autoprefixer')
+const cssnano = require('cssnano')
+const sourcemaps = require('gulp-sourcemaps')
 const through = require('through2')
 
 // a task to import base variables first, then from within our import file, fetch component styles and add them to a concatenated output file
@@ -32,7 +32,7 @@ gulp.task('styles-minify', function() {
 				suffix: '.min'
 			})
 		)
-		.pipe(gulp.dest('./build/stylesheets'))
+		.pipe(gulp.dest('./public/stylesheets'))
 })
 
 gulp.task('js', function() {
