@@ -45,7 +45,6 @@ class Header extends PureComponent<Props, State> {
 	}
 
 	handleShowSubMenu = () => {
-		console.log('show')
 		this.setState({ showingSubMenu: true })
 	}
 	handleHideSubMenu = () => {
@@ -104,7 +103,7 @@ class Header extends PureComponent<Props, State> {
 							onSelectDate={onSelectDate}
 							onDateToToday={onDateToToday}
 							selectedDate={selectedDate}
-							showDatePicker={this.state.showingSubMenu}
+							isDatePickerShown={this.state.showingSubMenu}
 						/>
 					</div>
 					<Button
