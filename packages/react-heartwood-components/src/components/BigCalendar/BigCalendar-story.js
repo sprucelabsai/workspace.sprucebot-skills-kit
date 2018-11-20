@@ -55,7 +55,21 @@ class BigCalendarExample extends Component {
 		this.bigCalRef = React.createRef()
 	}
 
-	handleDropEvent = ({ event, newStartAt, newUser, blockUpdates }) => {
+	handleDropEvent = ({
+		event,
+		dragEvent,
+		newStartAt,
+		newUser,
+		blockUpdates
+	}) => {
+		if (!event) {
+			alert(
+				`you created a new event at ${newStartAt.format(
+					'YYYY-MM-DD HH:mma'
+				)} for ${newUser.name}`
+			)
+			return false
+		}
 		console.log({ event, newStartAt, newUser, blockUpdates })
 		const eventsCopy = [...this.state.events]
 		const eventCopy = cloneDeep(event)
@@ -88,21 +102,27 @@ class BigCalendarExample extends Component {
 	}
 
 	handleUserModeChange = mode => {
+		let users
 		switch (mode) {
 			case 'everyone':
-				this.bigCalRef.current.setCurrentUsers(storyUsers)
+				users = storyUsers
 				break
 			case 'me':
-				this.bigCalRef.current.setCurrentUsers([storyUsers[0]])
+				users = [storyUsers[0]]
 				break
 			case 'working':
-				this.bigCalRef.current.setCurrentUsers([
-					storyUsers[0],
-					storyUsers[3],
-					storyUsers[4]
-				])
+				users = [storyUsers[0], storyUsers[3], storyUsers[4]]
 				break
 		}
+		this.setState({ userMode: mode, users })
+	}
+
+	handleDoubleClickView = ({ time, user }) => {
+		alert(`double click at ${time.format('h:mm')} with ${user.name}`)
+	}
+
+	handleClickView = ({ time, user }) => {
+		alert(`single click at ${time.format('h:mm')} with ${user.name}`)
 	}
 
 	render() {
@@ -117,16 +137,18 @@ class BigCalendarExample extends Component {
 						working: 'Working',
 						me: 'Me'
 					}}
-					defaultUserMode={userMode}
+					userMode={userMode}
 					onChangeUserMode={this.handleUserModeChange}
 					onDropEvent={this.handleDropEvent}
-					allUsers={users}
+					users={users}
 					timezone={location.timezone}
 					allEvents={events}
 					defaultMinTime="07:00"
 					defaultMaxTime="20:00"
 					defaultStartTime="09:00"
 					defaultEndTime="18:00"
+					onDoubleClickView={this.handleDoubleClickView}
+					onClickView={this.handleClickView}
 				/>
 			</Container>
 		)

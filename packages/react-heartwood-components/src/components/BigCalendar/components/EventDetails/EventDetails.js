@@ -26,9 +26,9 @@ const EventDetails = (props: Props) => {
 
 	return (
 		<div className={parentClass}>
-			<EventDetailsHeader {...header} />
+			{header && <EventDetailsHeader {...header} />}
 			<List {...list} />
-			<EventDetailsFooter {...footer} />
+			{footer && <EventDetailsFooter {...footer} />}
 		</div>
 	)
 }

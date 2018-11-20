@@ -16,6 +16,9 @@ export type Props = {
 	/** Set true to left align the menu */
 	isLeftAligned?: boolean,
 
+	/** Set true to align menu above button */
+	isBottomAligned?: boolean,
+
 	/** Set the width of the menu. Helpful for longer text in buttons */
 	size?: 'medium' | 'large',
 
@@ -23,7 +26,10 @@ export type Props = {
 	icon?: any,
 
 	/** Set true to make the button blue */
-	isSimple?: boolean
+	isSimple?: boolean,
+
+	/** Set tot true makes the menu close when any action is selected */
+	closeOnSelectAction: boolean
 }
 
 type State = {
@@ -31,24 +37,31 @@ type State = {
 }
 
 export default class ContextMenu extends Component<Props, State> {
-	ref: any
+	ref = React.createRef()
+	menuRef = React.createRef()
 	state = {
-		isVisible: false
+		isVisible: false,
+		overflowBottom: false,
+		overflowLeft: false
 	}
 
 	static defaultProps = {
-		isLeftAligned: false
+		isLeftAligned: false,
+		isBottomAligned: false
+	}
+
+	componentWillUnmount = () => {
+		document.removeEventListener('click', this.handleClickOutside, false)
+		document.removeEventListener('keyup', this.handleEscape, false)
 	}
 
 	handleClickOutside = (e: any) => {
-		if (e.target.contains(this.ref)) {
-			this.setState(
-				{
-					isVisible: false
-				},
-				() => this.manageListeners()
-			)
-		}
+		this.setState(
+			{
+				isVisible: false
+			},
+			() => this.manageListeners()
+		)
 	}
 
 	handleEscape = (e: any) => {
@@ -67,34 +80,95 @@ export default class ContextMenu extends Component<Props, State> {
 			prevState => ({
 				isVisible: !prevState.isVisible
 			}),
-			() => this.manageListeners()
+			() => {
+				this.manageListeners()
+
+				if (this.props.onToggleContextMenuVisible) {
+					this.props.onToggleContextMenuVisible(this.state.isVisible)
+				}
+
+				var overflowLeft = false
+				var overflowBottom = false
+
+				if (this.menuRef && this.menuRef.current) {
+					const overflowParent = this.findOverflowParent(this.menuRef.current)
+
+					if (overflowParent) {
+						const overflowBox = overflowParent.getBoundingClientRect()
+						const overflowBoxBottom = overflowBox.top + overflowBox.height
+						const menuBox = this.menuRef.current.getBoundingClientRect()
+						const menuBottom = menuBox.top + menuBox.height
+
+						if (menuBottom > overflowBoxBottom) {
+							overflowBottom = true
+						} else if (menuBox.left < overflowBox.left) {
+							overflowLeft = true
+						}
+					}
+				}
+
+				this.setState(prevState => ({
+					overflowLeft: !prevState.isLeftAligned && overflowLeft,
+					overflowBottom: !prevState.isBottomAligned && overflowBottom
+				}))
+			}
 		)
 	}
 
+	findOverflowParent = node => {
+		if (node == null || typeof node === 'undefined' || node.nodeType !== 1) {
+			return null
+		}
+
+		const computedStyle = window.getComputedStyle(node)
+
+		if (computedStyle.overflow !== 'visible') {
+			return node
+		} else {
+			return this.findOverflowParent(node.parentNode)
+		}
+	}
+
 	manageListeners = () => {
-		if (typeof window !== 'undefined') {
+		if (typeof document !== 'undefined') {
 			if (this.state.isVisible) {
-				window.addEventListener('click', this.handleClickOutside, false)
-				window.addEventListener('keyup', this.handleEscape, false)
+				document.addEventListener('click', this.handleClickOutside, false)
+				document.addEventListener('keyup', this.handleEscape, false)
 			} else {
-				window.removeEventListener('click', this.handleClickOutside, false)
-				window.removeEventListener('keyup', this.handleEscape, false)
+				document.removeEventListener('click', this.handleClickOutside, false)
+				document.removeEventListener('keyup', this.handleEscape, false)
 			}
 		}
 	}
 
+	handleClickAction = (payload, callback) => {
+		if (this.props.closeOnSelectAction) {
+			this.handleToggle()
+		}
+		callback && callback(payload)
+	}
+
 	render() {
-		const { isVisible } = this.state
-		const { actions, isLeftAligned, isSimple, size, icon } = this.props
+		const { isVisible, overflowBottom, overflowLeft } = this.state
+		const {
+			actions,
+			isLeftAligned,
+			isBottomAligned,
+			isSimple,
+			size,
+			icon
+		} = this.props
 		const buttonClass = cx('context-menu', {
 			'context-menu--is-visible': isVisible
 		})
 		const menuClass = cx('context-menu__menu', {
-			'context-menu__menu-left': isLeftAligned,
-			'context-menu__menu-large': size === 'large'
+			'context-menu__menu-left': isLeftAligned || overflowLeft,
+			'context-menu__menu-large': size === 'large',
+			'context-menu__menu-top': isBottomAligned || overflowBottom
 		})
+
 		return (
-			<div className={buttonClass} ref={ref => (this.ref = ref)}>
+			<div className={buttonClass} ref={this.ref}>
 				<Button
 					kind={isSimple ? 'simple' : ''}
 					className="context-menu__button"
@@ -112,11 +186,15 @@ export default class ContextMenu extends Component<Props, State> {
 					}}
 				>
 					{isVisible && (
-						<div className={menuClass}>
+						<div className={menuClass} ref={this.menuRef}>
 							<ButtonGroup
 								kind="floating"
 								actions={actions.map(action => {
-									const btnAction = Object.assign({}, action)
+									const btnAction = { ...action }
+									const oldOnclick = btnAction.onClick
+									btnAction.onClick = payload => {
+										this.handleClickAction(payload, oldOnclick)
+									}
 									btnAction.className = 'context-menu__item-btn'
 									return btnAction
 								})}

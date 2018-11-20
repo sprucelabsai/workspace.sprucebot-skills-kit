@@ -22,8 +22,9 @@ type Props = {
 	defaultMaxTime?: String,
 	defaultStartTime?: String,
 	defaultEndTime?: String,
-	allUsers: Array<Object>,
 	headerDateFormat?: String,
+	mobileHeaderDateFormat?: String,
+	users: Array<Object>,
 	timezone: String,
 	allEvents?: Array<Object>,
 	onDropEvent?: Function,
@@ -31,9 +32,14 @@ type Props = {
 	longPressDelay?: Number,
 	userModeSelectOptions?: Array<Object>,
 	onChangeUserMode?: Function,
-	defaultUserMode?: String,
+	userMode?: String,
+	doubleClickTime: Number,
+	onDoubleClickView?: Function,
+	onClickView?: Function,
+	doubleClickToCreate?: Boolean,
 	userSchedules?: Object // { userId: { date: { startTime, endTime }, '2018-01-10': { startTime: '09:00', endTime: '20:00' } } }
 }
+
 type State = {
 	selectedView: 'day' | 'week' | 'month',
 	startDate: Object,
@@ -41,9 +47,7 @@ type State = {
 	bodyWidth: Number,
 	calendarBodyHeight: Number,
 	currentHorizontalPage: Number,
-	totalHorizontalPages: Number,
-	users: Array<Object>,
-	userMode?: String
+	totalHorizontalPages: Number
 }
 
 class BigCalendar extends Component<Props, State> {
@@ -55,17 +59,18 @@ class BigCalendar extends Component<Props, State> {
 		defaultStartTime: '07:00',
 		defaultEndTime: '20:00',
 		headerDateFormat: 'MMMM YYYY',
+		mobileHeaderDateFormat: 'MMMM Do YYYY',
 		allEvents: [],
 		viewProps: {},
-		longPressDelay: 500
+		longPressDelay: 500,
+		doubleClickTime: 250,
+		doubleClickToCreate: false // defaults to single click
 	}
 	state = {
 		selectedView: this.props.defaultView,
 		bodyWidth: -1,
 		bodyHeight: -1,
-		calendarBodyHeight: 0,
-		users: this.props.allUsers,
-		userMode: this.props.defaultUserMode
+		calendarBodyHeight: 0
 	}
 
 	constructor(props: Props) {
@@ -74,11 +79,11 @@ class BigCalendar extends Component<Props, State> {
 		this.selectedViewRef = React.createRef()
 		this.state.startDate = this.getDefaultStartDate()
 
-		const { allUsers, timezone } = props
+		const { users, timezone } = props
 
-		if (!allUsers) {
+		if (!users) {
 			throw new Error(
-				'Please supply `allUsers` prop to BigCalendar. Make sure it as array of User objects {id, name}'
+				'Please supply `users` prop to BigCalendar. Make sure it as array of User objects {id, name}'
 			)
 		}
 
@@ -187,6 +192,13 @@ class BigCalendar extends Component<Props, State> {
 		onChangeStartDate(date)
 	}
 
+	handleDateToToday = async () => {
+		const date = moment()
+		const { onChangeStartDate = () => {} } = this.props
+		await this.setState({ startDate: date })
+		onChangeStartDate(date)
+	}
+
 	/**
 	 * Store current state in cookie to restore calendar later
 	 */
@@ -248,10 +260,13 @@ class BigCalendar extends Component<Props, State> {
 	}
 
 	handleHorizontalPageNext = () => {
+		// calling directly to avoid re-render before a potentially heavy animation
 		this.selectedViewRef.current.handleHorizontalPageNext &&
 			this.selectedViewRef.current.handleHorizontalPageNext()
 	}
+
 	handleHorizontalPageBack = () => {
+		// calling directly to avoid re-render before a potentially heavy animation
 		this.selectedViewRef.current.handleHorizontalPageBack &&
 			this.selectedViewRef.current.handleHorizontalPageBack()
 	}
@@ -302,18 +317,14 @@ class BigCalendar extends Component<Props, State> {
 
 	handleChangeUserMode = mode => {
 		const { onChangeUserMode = () => {} } = this.props
-		this.setState({ userMode: mode })
 		onChangeUserMode(mode)
-	}
-
-	setCurrentUsers = users => {
-		this.setState({ users })
 	}
 
 	render() {
 		const {
 			className,
 			headerDateFormat,
+			mobileHeaderDateFormat,
 			slotsPerHour,
 			allEvents,
 			onDropEvent,
@@ -327,10 +338,14 @@ class BigCalendar extends Component<Props, State> {
 			viewProps: _,
 			userModeSelectOptions,
 			onChangeUserMode,
-			defaultUserMode,
+			userMode,
 			userSchedules,
-			allUsers,
+			users,
 			onChangeStartDate,
+			doubleClickTime,
+			onDoubleClickView,
+			onClickView,
+			doubleClickToCreate,
 			...props
 		} = this.props
 
@@ -341,9 +356,7 @@ class BigCalendar extends Component<Props, State> {
 			bodyHeight,
 			calendarBodyHeight,
 			currentHorizontalPage,
-			totalHorizontalPages,
-			users,
-			userMode
+			totalHorizontalPages
 		} = this.state
 
 		const parentClass = cx('bigcalendar', className, {})
@@ -372,16 +385,25 @@ class BigCalendar extends Component<Props, State> {
 					onChangeUserMode={this.handleChangeUserMode}
 					userMode={userMode}
 					dateFormat={headerDateFormat}
+					mobileDateFormat={mobileHeaderDateFormat}
 					selectedDate={startDate}
 					selectedView={selectedView}
 					onChangeView={this.handleChangeView}
 					onBackDate={this.handleBackDate}
 					onNextDate={this.handleNextDate}
-					fullScreenNodeRef={this.domNodeRef}
+					fullScreenNode={
+						typeof document !== 'undefined'
+							? document.body
+							: this.domNodeRef
+							? this.domNodeRef.current
+							: null
+					}
 					currentHorizontalPage={currentHorizontalPage}
 					totalHorizontalPages={totalHorizontalPages}
 					onHorizontalPageNext={this.handleHorizontalPageNext}
 					onHorizontalPageBack={this.handleHorizontalPageBack}
+					onSelectDate={this._setStartDate}
+					onDateToToday={this.handleDateToToday}
 				/>
 				<div className="bigcalendar__view-wrapper">
 					<View
@@ -406,6 +428,10 @@ class BigCalendar extends Component<Props, State> {
 						userSchedules={userSchedules}
 						getStartTimeForUser={this.getStartTimeForUser}
 						getEndTimeForUser={this.getEndTimeForUser}
+						doubleClickTime={doubleClickTime}
+						onDoubleClick={onDoubleClickView}
+						onClick={onClickView}
+						doubleClickToCreate={doubleClickToCreate}
 						{...viewProps}
 					/>
 				</div>

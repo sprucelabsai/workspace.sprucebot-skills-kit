@@ -11,6 +11,7 @@
 .event-details-header {
 	display: flex;
 	align-items: flex-start;
+	flex-shrink: 0;
 	width: 100%;
 	padding: spacing('base') spacing('base') rem(10) spacing('base');
 
@@ -68,7 +69,7 @@
 .event-details-header .context-menu {
 	&.context-menu--is-visible .context-menu__button,
 	.context-menu__button:focus {
-		background-color: $c-primary-dark;
+		background-color: rgba(0,0,0,0.05);
 	}
 }
 

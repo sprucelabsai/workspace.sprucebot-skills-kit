@@ -27,7 +27,7 @@ const EventBlock = (props: Props) => {
 			{...rest}
 		>
 			{block.leftIcons && block.leftIcons.length > 0 && (
-				<div className="left-icons">
+				<div className="icons left-icons">
 					{block.leftIcons.map((icon, idx) => (
 						<span title={icon.title} key={`${icon.title}-idx`}>
 							<Icon {...icon} />
@@ -40,7 +40,12 @@ const EventBlock = (props: Props) => {
 					<div className="resize-highlight-handle" />
 				</div>
 			)}
-			<p className="title" dangerouslySetInnerHTML={{ __html: block.title }} />
+			{block.title && (
+				<p
+					className="title"
+					dangerouslySetInnerHTML={{ __html: block.title }}
+				/>
+			)}
 			{block.subtitle && (
 				<p
 					className="subtitle"
@@ -54,7 +59,7 @@ const EventBlock = (props: Props) => {
 				</div>
 			)}
 			{block.rightIcons && block.rightIcons.length > 0 && (
-				<div className="right-icons">
+				<div className="icons right-icons">
 					{block.rightIcons.map((icon, idx) => (
 						<span title={icon.title} key={`${icon.title}-idx`}>
 							<Icon {...icon} />

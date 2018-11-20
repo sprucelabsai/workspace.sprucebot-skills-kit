@@ -14,6 +14,8 @@ type Props = {
 	snapEventToNearestValidY: Function,
 	onMouseDownOnEvent: Function,
 	onMouseDownOnView: Function,
+	onDoubleClick?: Function,
+	onClick?: Function,
 	dragThreshold: Number, // how far to drag before actually initiating drag
 	onDropEvent: Function,
 	onDragEvent: Function,
@@ -29,19 +31,17 @@ type Props = {
 	longPressDelay: Number,
 	onHighlightEvent: Function,
 	sizeEvent: Function,
-	onDeselectEvent: Function
+	onDeselectEvent: Function,
+	onLongPressView?: Function,
+	doubleClickTime: Number
 }
 
 type State = {
-	dragEvent: Object,
-	dragBlock: Object
+	dragEvent: Object
 }
 
 class DragGrid extends PureComponent<Props> {
-	state = {
-		scrollLeft: 0,
-		scrollTop: 0
-	}
+	state = {}
 
 	constructor(props) {
 		super(props)
@@ -100,6 +100,18 @@ class DragGrid extends PureComponent<Props> {
 		return sizeUtil.getScrollWidth(this.domNodeRef.current)
 	}
 
+	getScrollHeight = () => {
+		return sizeUtil.getScrollHeight(this.domNodeRef.current)
+	}
+
+	getLeft = () => {
+		return sizeUtil.getLeft(this.domNodeRef.current)
+	}
+
+	getTop = () => {
+		return sizeUtil.getTop(this.domNodeRef.current)
+	}
+
 	isScrolledAllTheWayRight = () => {
 		return sizeUtil.isScrolledAllTheWayRight(this.domNodeRef.current)
 	}
@@ -134,13 +146,38 @@ class DragGrid extends PureComponent<Props> {
 		}
 	}
 
+	globalToLocal = ({ clientX, clientY }) => {
+		const gridTop = this.getTop()
+		const gridLeft = this.getLeft()
+		const scrollTop = this.getScrollTop()
+		const scrollLeft = this.getScrollLeft()
+
+		return {
+			clientX: clientX - gridLeft + scrollLeft,
+			clientY: clientY - gridTop + scrollTop
+		}
+	}
+
 	handleMouseDownOnView = e => {
 		const { clientX, clientY } = eventUtil.clientXY(e)
-		const { onMouseDownOnView = () => true } = this.props
+		const {
+			onMouseDownOnView = () => true,
+			onDoubleClick = () => {},
+			doubleClickTime
+		} = this.props
+
+		if (
+			this._lastClickTime &&
+			new Date() - this._lastClickTime < doubleClickTime
+		) {
+			return onDoubleClick({ clientX, clientY, e })
+		}
 
 		if (onMouseDownOnView(e) === false) {
 			return false
 		}
+
+		this._lastClickTime = new Date()
 
 		this._dragOffset = {
 			startingScrollLeft: this.getScrollLeft(),
@@ -150,10 +187,12 @@ class DragGrid extends PureComponent<Props> {
 		}
 		// console.log('mouse down in view')
 		e.preventDefault()
+		e.stopPropagation()
 		window.addEventListener('mousemove', this.handleMouseDragOfView, {
 			passive: false
 		})
 		window.addEventListener('mouseup', this.handleMouseUpFromView)
+		document.body.addEventListener('mouseleave', this.handleMouseUpFromView)
 
 		return true
 	}
@@ -171,22 +210,42 @@ class DragGrid extends PureComponent<Props> {
 
 		this.domNodeRef.current.scrollLeft = startingScrollLeft - deltaLeft
 		this.domNodeRef.current.scrollTop = startingScrollTop - deltaTop
+
+		this._isDraggingView = true
 	}
 
 	handleTouchStartOnView = e => {
+		// don't register clicks (so double click won't fire)
+		this._lastClickTime = null
+		clearTimeout(this._longPressTimeout)
+
 		// console.log('touch start on view')
 		if (this.handleMouseDownOnView(e) !== false) {
 			window.addEventListener('touchend', this.handleTouchEndOnView, {
 				passive: false
 			})
+
+			let { clientX, clientY } = eventUtil.clientXY(e)
+			const { longPressDelay } = this.props
+
+			e.persist()
+			this._longPressTimeout = setTimeout(() => {
+				this._longPressTimeout = false
+				this.handleLongPressOnView({ e, clientX, clientY })
+			}, longPressDelay)
 		}
 	}
 
 	handleTouchEndOnView = e => {
-		// console.log('touch end on view')
-		this.handleMouseUpFromView(e)
-		e.preventDefault()
-		e.stopPropagation()
+		// long press is still active
+		if (this._longPressTimeout) {
+			clearTimeout(this._longPressTimeout)
+
+			// console.log('touch end on view')
+			this.handleMouseUpFromView(e)
+			e.preventDefault()
+			e.stopPropagation()
+		}
 
 		window.removeEventListener('touchend', this.handleTouchEndOnView)
 	}
@@ -229,6 +288,13 @@ class DragGrid extends PureComponent<Props> {
 		stopEvent = true,
 		setListeners = true
 	}) => {
+		//ignore right clicks and if we have dropped something that is waiting to save
+		if (e.button === 2 || this._pendingDrop) {
+			e.preventDefault()
+			e.stopPropagation()
+			return false
+		}
+
 		const {
 			onMouseDownOnEvent = args => {
 				return blockIdx === 0 ? args : false
@@ -245,6 +311,7 @@ class DragGrid extends PureComponent<Props> {
 			stopEvent && e.stopPropagation()
 
 			this._pendingDrag = results
+
 			const { clientX, clientY } = eventUtil.clientXY(e)
 			this._startingDragPoint = { x: clientX, y: clientY }
 
@@ -256,6 +323,15 @@ class DragGrid extends PureComponent<Props> {
 				window.addEventListener('mouseup', this.handleMouseUpFromEvent, {
 					passive: false
 				})
+
+			setListeners &&
+				document.body.addEventListener(
+					'mouseleave',
+					this.handleMouseUpFromEvent,
+					{
+						passive: false
+					}
+				)
 		}
 
 		return results !== false
@@ -280,11 +356,12 @@ class DragGrid extends PureComponent<Props> {
 		e.preventDefault()
 		e.stopPropagation()
 
+		const { longPressDelay } = this.props
 		this._pendingTouch = { e, event, block, blockIdx }
 		this._longPressTimeout = setTimeout(() => {
 			this._longPressTimeout = false
 			this.handleLongPressOnEvent({ e, event, block, blockIdx })
-		}, 200)
+		}, longPressDelay)
 	}
 
 	handleTouchStartOnDragEvent = ({ e, event, block, blockIdx }) => {
@@ -330,11 +407,20 @@ class DragGrid extends PureComponent<Props> {
 				stopEvent: false
 			})
 			this.handleMouseUpFromEvent(this._pendingTouch.e)
-		} else if (this._tapOnDragEventTime) {
+		}
+		// if we simply tapped the event, deselect
+		else if (this._tapOnDragEventTime) {
 			const diff = new Date() - this._tapOnDragEventTime
 			if (diff < 250) {
 				this.handleMouseUpFromEvent(e)
 			}
+		}
+		//if we are dragging a long pressed, new event
+		else if (
+			this.state.dragEvent &&
+			this.state.dragEvent.originalId === 'new'
+		) {
+			this.handleMouseUpFromEvent()
 		}
 
 		this._tapOnDragEventTime = null
@@ -370,6 +456,27 @@ class DragGrid extends PureComponent<Props> {
 				stopEvent: false
 			})
 			this.startDragOfEvent({ e, event, block, blockIdx })
+		}
+	}
+
+	handleLongPressOnView = ({ e, clientX, clientY }) => {
+		const { startingScrollLeft, startingScrollTop } = this._dragOffset
+		const scrollLeft = this.getScrollLeft()
+		const scrollTop = this.getScrollTop()
+
+		const pos = eventUtil.clientXY(e)
+
+		this._startingDragPoint = { x: pos.clientX, y: pos.clientY }
+
+		const a = startingScrollLeft - scrollLeft
+		const b = startingScrollTop - scrollTop
+
+		const distance = Math.sqrt(a * a + b * b)
+
+		const { dragThreshold } = this.props
+		if (distance <= dragThreshold) {
+			const { onLongPressView = () => {} } = this.props
+			onLongPressView({ e, clientX, clientY })
 		}
 	}
 
@@ -439,7 +546,7 @@ class DragGrid extends PureComponent<Props> {
 	handleDragOfEvent = (e, autoScroll = true) => {
 		const { dragEvent } = this.state
 
-		if (dragEvent) {
+		if (this._activeDrag) {
 			//clearing this will ensure event is not deselect after it is dropped
 			this._tapOnDragEventTime = null
 
@@ -517,7 +624,7 @@ class DragGrid extends PureComponent<Props> {
 			}
 		}
 		// we have not actually started dragging yet, so we check how far we've moved from click
-		else {
+		else if (this._pendingDrag) {
 			const { clientX, clientY } = eventUtil.clientXY(e)
 			const { x, y } = this._startingDragPoint
 
@@ -545,14 +652,19 @@ class DragGrid extends PureComponent<Props> {
 		// console.log('mouse up from view')
 		window.removeEventListener('mousemove', this.handleMouseDragOfView)
 		window.removeEventListener('mouseup', this.handleMouseUpFromView)
+		document.body.removeEventListener('mouseleave', this.handleMouseUpFromView)
+
+		this._isDraggingView = false
 
 		const { startingScrollLeft = 0, startingScrollTop = 0 } =
 			this._dragOffset || {}
+
 		const {
 			selectedEvent,
 			highlightedEvent,
 			onDeselectEvent,
-			onUnHighlightEvent
+			onUnHighlightEvent,
+			onClick = () => {}
 		} = this.props
 
 		const moved =
@@ -570,13 +682,22 @@ class DragGrid extends PureComponent<Props> {
 		if (this.state.dragEvent && !moved) {
 			this.handleDropEvent()
 		}
+		if (
+			!moved &&
+			!selectedEvent &&
+			!highlightedEvent &&
+			!this.state.dragEvent &&
+			new Date() - this._lastClickTime < 200
+		) {
+			onClick({ e })
+		}
 	}
 
 	handleMouseUpFromEvent = e => {
 		this._isMouseDownOnEvent = false
 
 		// console.log('mouse up of event')
-		if (!this.state.dragEvent) {
+		if (!this.state.dragEvent && this._pendingDrag) {
 			this.props.onSelectEvent({
 				event: this._pendingDrag.event,
 				block: this._pendingDrag.block,
@@ -591,37 +712,50 @@ class DragGrid extends PureComponent<Props> {
 
 		window.removeEventListener('mousemove', this.handleDragOfEvent)
 		window.removeEventListener('mouseup', this.handleMouseUpFromEvent)
+		document.body.removeEventListener('mouseleave', this.handleMouseUpFromEvent)
 	}
 
 	cancelDrag = () => {
 		this._activeDrag = null
-		this.setState({ dragEvent: null })
+		this.setState(() => {
+			return { dragEvent: null }
+		})
 	}
 
 	handleDropEvent = async () => {
 		const { dragEventNode, sourceEvent, sourceEventNode } = this._activeDrag
 		const { onDropEvent } = this.props
+		const { dragEvent } = this.state
+
 		// console.log('drop event in grid')
 		// stop scrolling
 		this.stopScrollingHorizontally()
 		this.stopScrollingVertically()
-
 		this._activeDrag = null
+		this._pendingDrop = true
 
-		const valid = onDropEvent
-			? await onDropEvent(
-					sourceEvent,
-					parseFloat(dragEventNode.style.left),
-					parseFloat(dragEventNode.style.top)
-			  )
-			: false
+		let valid
+		try {
+			valid = onDropEvent
+				? await onDropEvent({
+						event: sourceEvent,
+						dragEvent,
+						newX: parseFloat(dragEventNode.style.left),
+						newY: parseFloat(dragEventNode.style.top)
+				  })
+				: false
+		} catch (err) {
+			console.log('failed to handle drop', err)
+			valid = false
+		}
 
 		const reset = () => {
 			this.cancelDrag()
+			this._pendingDrop = false
 		}
 
 		// if valid, clear everything immediately and move on
-		if (valid) {
+		if (valid || !sourceEventNode) {
 			reset()
 		}
 		// if not valid, animate this event back into place and then reset state
@@ -651,28 +785,65 @@ class DragGrid extends PureComponent<Props> {
 		return this._isMouseDownOnEvent
 	}
 
+	isDraggingEvent = () => {
+		return !!this._activeDrag
+	}
+
+	isDraggingView = () => {
+		return this._isDraggingView
+	}
+
+	getDragNode = () => {
+		return this.isDraggingEvent() ? this._activeDrag.dragNode : null
+	}
+
+	// TOUCH ONLY, assuming touch is down here
+	dropNewEventAndDrag = async ({ event, e, left, top }) => {
+		const dragDetails = await this.startDragOfEvent({
+			dragEvent: event,
+			e,
+			overrideTop: top,
+			overrideLeft: left
+		})
+
+		this.props.sizeEvent(dragDetails.dragEvent)
+		// this.handleTouchStartOnDragEvent({})
+		window.addEventListener('touchend', this.handleTouchEndOnEvent)
+		window.addEventListener('touchmove', this.handleTouchDragOfEvent, {
+			passive: false
+		})
+
+		return dragDetails
+	}
+
 	startDragOfEvent = async ({
 		e,
 		event,
 		block,
-		blockIdx,
+		blockIdx = 0,
+		dragEvent: overrideDragEvent,
 		clientX: overrideClientX,
-		clientY: overrideClientY
+		clientY: overrideClientY,
+		overrideTop,
+		overrideLeft
 	}) => {
-		let dragEvent = null
+		let dragEvent = overrideDragEvent
 		let originalEvent = null
 
-		if (event.id === 'dragging') {
+		if (event && event.id === 'dragging') {
 			dragEvent = event
 			originalEvent = this.eventById(event.originalId)
-		} else {
+		} else if (event || dragEvent) {
 			//clone the event and render it in the dom
+			//if there is no event, this is a long press to creat one
 			originalEvent = event
-			dragEvent = cloneDeep(originalEvent)
+			dragEvent = cloneDeep(originalEvent || dragEvent)
 			dragEvent.originalId = dragEvent.id
 			dragEvent.id = `dragging`
 
-			await this.setState({ dragEvent })
+			await this.setState(() => {
+				return { dragEvent }
+			})
 
 			// make sure the event is the right size
 			const { sizeEvent } = this.props
@@ -681,15 +852,20 @@ class DragGrid extends PureComponent<Props> {
 
 		const { onDragEvent, getDragNode } = this.props
 
-		const eventNode = this.getEventNode(originalEvent)
-		const blockNode = this.getBlockNode(originalEvent, blockIdx)
+		const eventNode = originalEvent ? this.getEventNode(originalEvent) : null
+		const blockNode = originalEvent
+			? this.getBlockNode(originalEvent, blockIdx)
+			: null
 		const dragEventNode = this.getEventNode(dragEvent)
 		const dragBlockNode = this.getBlockNode(dragEvent, blockIdx)
 
-		if (event.id !== 'dragging') {
+		if (event && event.id !== 'dragging') {
 			// place this event right over the dragged one
 			dragEventNode.style.left = eventNode.style.left
 			dragEventNode.style.top = eventNode.style.top
+		} else if (overrideLeft !== undefined && overrideTop !== undefined) {
+			dragEventNode.style.left = overrideLeft + 'px'
+			dragEventNode.style.top = overrideTop + 'px'
 		}
 
 		const dragNode = !getDragNode
@@ -730,9 +906,11 @@ class DragGrid extends PureComponent<Props> {
 			dragBlockNodeHeight: sizeUtil.getHeight(dragBlockNode),
 			sourceEventNode: eventNode,
 			sourceBlockNode: blockNode,
-			dragBlockNodeHeights: event.blocks.map((block, idx) => {
-				return sizeUtil.getHeight(this.getBlockNode(event, idx))
-			}),
+			dragBlockNodeHeights: event
+				? event.blocks.map((block, idx) => {
+						return sizeUtil.getHeight(this.getBlockNode(event, idx))
+				  })
+				: [],
 			offsetX,
 			offsetY,
 			wrapperLeft,
@@ -740,11 +918,15 @@ class DragGrid extends PureComponent<Props> {
 			startScrollTop: scrollTop,
 			startScrollLeft: scrollLeft,
 			eMouseDown: e,
-			eMouseMove: e
+			eMouseMove: e,
+			startingClientX: clientX,
+			startingClientY: clientY
 		}
 
 		this._handleDragOnScroll = true
 		onDragEvent && onDragEvent(originalEvent, this._activeDrag)
+
+		return this._activeDrag
 	}
 
 	render() {
@@ -771,6 +953,11 @@ class DragGrid extends PureComponent<Props> {
 			getDragNode,
 			selectedEvent,
 			highlightedEvent,
+			onDoubleClick,
+			doubleClickTime,
+			onLongPressView,
+			longPressDelay,
+			onClick,
 			...props
 		} = this.props
 
@@ -791,7 +978,10 @@ class DragGrid extends PureComponent<Props> {
 						key={`event-${event.id}`}
 						className={cx({
 							'is-drag-source': dragEvent && dragEvent.originalId === event.id,
-							'is-selected': selectedEvent && selectedEvent.id === event.id,
+							'is-selected':
+								selectedEvent &&
+								(selectedEvent.id === event.id ||
+									(selectedEvent.group && selectedEvent.group === event.group)),
 							'is-highlight-source':
 								highlightedEvent && highlightedEvent.id === event.id
 						})}

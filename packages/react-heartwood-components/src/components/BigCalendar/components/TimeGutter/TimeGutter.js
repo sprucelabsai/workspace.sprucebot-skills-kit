@@ -15,7 +15,13 @@ class TimeGutter extends PureComponent<Props> {
 	}
 
 	render() {
-		const { calendarBodyHeight, hours, className, ...props } = this.props
+		const {
+			calendarBodyHeight,
+			hours,
+			className,
+			children,
+			...props
+		} = this.props
 		return (
 			<div
 				className={cx('bigcalendar__time-gutter', className)}
@@ -33,6 +39,7 @@ class TimeGutter extends PureComponent<Props> {
 							</div>
 						)
 					})}
+					{children}
 				</div>
 			</div>
 		)

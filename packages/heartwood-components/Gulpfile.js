@@ -1,3 +1,4 @@
+const fs = require('fs-extra')
 var gulp = require('gulp')
 var sass = require('gulp-sass')
 var rename = require('gulp-rename')
@@ -6,6 +7,7 @@ var postcss = require('gulp-postcss')
 var autoprefixer = require('autoprefixer')
 var cssnano = require('cssnano')
 var sourcemaps = require('gulp-sourcemaps')
+const through = require('through2')
 
 // a task to import base variables first, then from within our import file, fetch component styles and add them to a concatenated output file
 gulp.task('styles', function() {
@@ -37,6 +39,36 @@ gulp.task('js', function() {
 	gulp
 		.src(['components/**/*.js', '!components/**/*.config.js'])
 		.pipe(gulp.dest('./public/js'))
+})
+
+gulp.task('svg', function() {
+	const cwd = process.cwd()
+	const all = {}
+
+	gulp
+		.src(['public/icons/*.svg'])
+		.pipe(
+			(function() {
+				return through.obj(function(file, enc, cb) {
+					const projectPath = file.path.split(cwd)[1]
+					const matches = /^\/public\/icons\/ic_([^\n\r]*).svg$/gi.exec(
+						projectPath
+					)
+
+					if (matches) {
+						all[matches[1]] = projectPath
+					}
+
+					cb()
+				})
+			})()
+		)
+		.on('data', data => {
+			all.push(data)
+		})
+		.on('end', () => {
+			fs.writeJson('./icons.json', all)
+		})
 })
 
 // watcher
