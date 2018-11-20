@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 import screenfull from 'screenfull'
+import isEqual from 'lodash'
+import moment from 'moment-timezone'
 
 import Select from '../../../Forms/components/Select/Select'
 import Button from '../../../Button/Button'
@@ -26,7 +28,7 @@ type Props = {
 	onSelectDate: Function,
 	onDateToToday: Function,
 	selectedDate: Object,
-	showDatePicker: boolean
+	isMobile: boolean
 }
 
 type State = {
@@ -36,13 +38,17 @@ type State = {
 
 class HeaderControls extends Component<Props, State> {
 	state = {
-		isDatePickerShown: this.props.showDatePicker,
-		isFullScreen: false
+		isDatePickerShown: this.props.isMobile,
+		isFullScreen: false,
+		selectedDate: this.props.selectedDate
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.showDatePicker !== this.props.showDatePicker) {
-			this.setState({ isDatePickerShown: false })
+		if (nextProps.isMobile !== this.props.isMobile) {
+			this.setState({ isDatePickerShown: nextProps.isMobile })
+		}
+		if (!isEqual(this.props.selectedDate, nextProps.selectedDate)) {
+			this.setState({ selectedDate: nextProps.selectedDate })
 		}
 	}
 
@@ -53,9 +59,10 @@ class HeaderControls extends Component<Props, State> {
 	onSelectDate = date => {
 		this.props.onSelectDate && this.props.onSelectDate(date)
 
-		if (!this.props.showDatePicker) {
+		if (!this.props.isMobile) {
 			this.setState({ isDatePickerShown: false })
 		}
+		this.setState({ selectedDate: date })
 	}
 
 	toggleFullScreen = () => {
@@ -63,18 +70,22 @@ class HeaderControls extends Component<Props, State> {
 		this.setState({ isFullScreen: !this.state.isFullScreen })
 	}
 
+	onSetDateToToday = () => {
+		const { onDateToToday } = this.props
+		onDateToToday && onDateToToday()
+		this.setState({ selectedDate: moment() })
+	}
+
 	render() {
 		const {
 			onBackDate,
 			onNextDate,
-			onDateToToday,
 			userModeSelectOptions,
 			onChangeUserMode,
-			userMode,
-			selectedDate
+			userMode
 		} = this.props
 
-		const { isDatePickerShown, isFullScreen } = this.state
+		const { selectedDate, isDatePickerShown, isFullScreen } = this.state
 
 		return (
 			<div className="bigcalendar__header-controls">
@@ -91,7 +102,7 @@ class HeaderControls extends Component<Props, State> {
 						isSmall={true}
 						text={'Today'}
 						className="bigcalendar__selectedDate-button"
-						onClick={() => onDateToToday()}
+						onClick={this.onSetDateToToday}
 					/>
 					<div className="bigcalendar__date-select">
 						<Button
@@ -102,10 +113,6 @@ class HeaderControls extends Component<Props, State> {
 						/>
 						{isDatePickerShown && (
 							<div className="bigcalendar_date-picker">
-								<div
-									className="bigcalendar_date-picker-underlay"
-									onClick={() => this.toggleDatePicker()}
-								/>
 								<DatePicker
 									date={selectedDate}
 									onSelectDate={this.onSelectDate}

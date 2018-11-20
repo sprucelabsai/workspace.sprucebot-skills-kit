@@ -3865,10 +3865,16 @@ select:-webkit-autofill:focus {
       padding: 0 8px;
       align-content: center; }
       .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls .bigcalendar__date-scroll-controls {
+        flex-direction: column;
         flex-wrap: wrap;
         justify-content: flex-start; }
+        .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls .bigcalendar__date-scroll-controls .bigcalendar_date-picker {
+          position: relative; }
         .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls .bigcalendar__date-scroll-controls .select-wrapper {
-          width: 80%; } }
+          width: 80%; }
+      .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls .pagination-wrapper,
+      .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls .bigcalendar__calendarIcon-button {
+        display: none; } }
     @media only screen and (max-width: 500px) and (min-width: 500px) {
       .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls {
         padding: 0; } }

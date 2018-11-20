@@ -601,11 +601,19 @@ body.sb-show-main {
             padding: 0 8px;
             align-content: center;
             .bigcalendar__date-scroll-controls {
+                flex-direction: column;
                 flex-wrap: wrap;
                 justify-content: flex-start;
+                .bigcalendar_date-picker {
+                    position: relative;
+                }
                 .select-wrapper {
                     width: 80%;
                 }
+            }
+            .pagination-wrapper,
+            .bigcalendar__calendarIcon-button {
+                display: none;
             }
 
             @include gt('small') {
