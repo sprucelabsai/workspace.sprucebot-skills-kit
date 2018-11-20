@@ -3531,7 +3531,6 @@ html {
 .bigcalendar__drag-grid {
   position: relative;
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
   border-left: 1px solid #cccfd6; }
   .bigcalendar__drag-grid .scroll-inner {
     display: flex; }
