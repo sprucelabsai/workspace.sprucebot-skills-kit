@@ -88,23 +88,23 @@ Pre-rolled type styles
 }
 
 @mixin type-style-h4 {
-	@include typescale('h4');
+	@include typescale('heading-sm');
 	line-height: $line-height-tight;
 	font-weight: $font-weight-bold;
 }
 
 @mixin type-style-h3 {
-	@include typescale('h3');
+	@include typescale('heading-md');
 	line-height: $line-height-tight;
 }
 
 @mixin type-style-h2 {
-	@include typescale('h2');
+	@include typescale('heading-lg');
 	line-height: $line-height-tight;
 }
 
 @mixin type-style-h1 {
-	@include typescale('h1');
+	@include typescale('heading-xl');
 	line-height: $line-height-tight;
 }
 

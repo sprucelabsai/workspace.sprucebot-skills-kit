@@ -3157,6 +3157,7 @@ select:-webkit-autofill:focus {
   padding-left: 1rem; }
 
 .list-header__text {
+  font-size: 1.25rem;
   line-height: 1.125;
   padding: 0.75rem 0; }
   .list-header-small .list-header__text {
@@ -3803,6 +3804,7 @@ select:-webkit-autofill:focus {
   letter-spacing: 1px; }
 
 .event-details-header__title {
+  font-size: 1.25rem;
   line-height: 1.125; }
 
 .event-details-footer {
