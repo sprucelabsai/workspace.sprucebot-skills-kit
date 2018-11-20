@@ -19,7 +19,7 @@ import Card, {
 	OnboardingCard
 } from './index'
 import List from '../List/List'
-import { H3, Text, Anchor } from '../Text/Text'
+import Text from '../Text/Text'
 import Image from '../Image/Image'
 import { Scores } from './index'
 import ContextMenu from '../ContextMenu/ContextMenu'
@@ -143,7 +143,7 @@ stories
 				/>
 				<CardBody>
 					<List items={userList} />
-					<Anchor href="#">+3 more today</Anchor>
+					<a href="#">+3 more today</a>
 				</CardBody>
 			</Card>
 		</Container>
@@ -154,9 +154,9 @@ stories
 				<CardHeader />
 				<CardBody>
 					<Avatar isLarge image={userImageLg} alt="Rosamund Mueleer" />
-					<H3 className="card-header__title l-mb-xsmall">
+					<h3 className="card-header__title l-mb-xsmall">
 						Say "Happy Birthday"
-					</H3>
+					</h3>
 					<Text className="u-lh-loose u-color-body-light">
 						It’s Rosamond Mueller’s birthday today. Don’t forget to say happy
 						birthday!
@@ -178,7 +178,7 @@ stories
 					className="l-mb-small"
 				/>
 				<CardBody>
-					<H3>Les Basics</H3>
+					<h3>Les Basics</h3>
 					<Text className="u-lh-loose u-color-body-light">
 						101 Purdy Lakes, West Jordanmouth, NH 38827-6100
 					</Text>
@@ -200,7 +200,7 @@ stories
 				/>
 
 				<CardBody>
-					<H3>Congrats on 10k guests!</H3>
+					<h3>Congrats on 10k guests!</h3>
 					<Text className="u-lh-loose u-color-body-light">
 						I’ve learned that people will forget what you said, people will
 						forget what you did, but people will never forget how you made them
