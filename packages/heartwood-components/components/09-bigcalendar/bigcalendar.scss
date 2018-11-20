@@ -30,6 +30,13 @@ $event-indent-width: rem(50);
         }
         
 }
+body,
+html {
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+}
 
 .bigcalendar {
     background-color: #fff;
@@ -202,7 +209,7 @@ body.sb-show-main {
 .bigcalendar__drag-grid {
     position: relative;
     overflow: auto;
-    // -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
     border-left: 1px solid $c-border;
     .scroll-inner {
         display: flex;
