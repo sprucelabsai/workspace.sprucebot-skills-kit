@@ -42,7 +42,7 @@ class HeaderControls extends Component<Props, State> {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.isMobile !== this.props.isMobile) {
-			this.setState({ isDatePickerShown: nextProps.isMobile })
+			this.setState({ isDatePickerShown: false })
 		}
 	}
 
