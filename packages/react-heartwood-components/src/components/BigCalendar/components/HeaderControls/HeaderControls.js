@@ -28,7 +28,7 @@ type Props = {
 	onSelectDate: Function,
 	onDateToToday: Function,
 	selectedDate: Object,
-	isMobile: boolean
+	isDatePickerShown: boolean
 }
 
 type State = {
@@ -38,14 +38,14 @@ type State = {
 
 class HeaderControls extends Component<Props, State> {
 	state = {
-		isDatePickerShown: this.props.isMobile,
+		isDatePickerShown: this.props.isDatePickerShown,
 		isFullScreen: false,
 		selectedDate: this.props.selectedDate
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.isMobile !== this.props.isMobile) {
-			this.setState({ isDatePickerShown: nextProps.isMobile })
+		if (nextProps.isDatePickerShown !== this.props.isDatePickerShown) {
+			this.setState({ isDatePickerShown: nextProps.isDatePickerShown })
 		}
 		if (!isEqual(this.props.selectedDate, nextProps.selectedDate)) {
 			this.setState({ selectedDate: nextProps.selectedDate })
@@ -59,7 +59,7 @@ class HeaderControls extends Component<Props, State> {
 	onSelectDate = date => {
 		this.props.onSelectDate && this.props.onSelectDate(date)
 
-		if (!this.props.isMobile) {
+		if (!this.props.isDatePickerShown) {
 			this.setState({ isDatePickerShown: false })
 		}
 		this.setState({ selectedDate: date })

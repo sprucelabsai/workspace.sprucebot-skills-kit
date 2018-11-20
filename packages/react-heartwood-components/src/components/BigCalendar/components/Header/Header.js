@@ -103,7 +103,7 @@ class Header extends PureComponent<Props, State> {
 							onSelectDate={onSelectDate}
 							onDateToToday={onDateToToday}
 							selectedDate={selectedDate}
-							isMobile={this.state.showingSubMenu}
+							isDatePickerShown={this.state.showingSubMenu}
 						/>
 					</div>
 					<Button
