@@ -118,7 +118,11 @@ class BigCalendarExample extends Component {
 	}
 
 	handleDoubleClickView = ({ time, user }) => {
-		alert(`double click at ${time.format('h:mm')} with ${user.name}`)
+		if (!time) {
+			alert(`double clicked header for ${user.name}`)
+		} else {
+			alert(`double click at ${time.format('h:mm')} with ${user.name}`)
+		}
 	}
 
 	handleClickView = ({ time, user }) => {

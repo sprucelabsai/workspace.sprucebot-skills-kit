@@ -40,19 +40,21 @@ const EventBlock = (props: Props) => {
 					<div className="resize-highlight-handle" />
 				</div>
 			)}
-			{block.title && (
-				<p
-					className="title"
-					dangerouslySetInnerHTML={{ __html: block.title }}
-				/>
-			)}
-			{block.subtitle && (
-				<p
-					className="subtitle"
-					dangerouslySetInnerHTML={{ __html: block.subtitle }}
-				/>
-			)}
-			<p className="time">{startAt.format('h:mma')}</p>
+			<div className="content-wrapper">
+				{block.title && (
+					<p
+						className="title"
+						dangerouslySetInnerHTML={{ __html: block.title }}
+					/>
+				)}
+				{block.subtitle && (
+					<p
+						className="subtitle"
+						dangerouslySetInnerHTML={{ __html: block.subtitle }}
+					/>
+				)}
+				<p className="time">{startAt.format('h:mma')}</p>
+			</div>
 			{resizable && (
 				<div className="resize-s resize-handle">
 					<div className="resize-highlight-handle" />

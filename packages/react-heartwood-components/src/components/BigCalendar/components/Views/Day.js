@@ -323,9 +323,9 @@ class Day extends PureComponent<Props> {
 		return top
 	}
 
-	xToUser = y => {
+	xToUser = x => {
 		const dayColWidth = this.dayColWidth()
-		const nearest = Math.round(y / dayColWidth)
+		const nearest = Math.floor(x / dayColWidth)
 		return this.props.users[nearest]
 	}
 
@@ -441,7 +441,7 @@ class Day extends PureComponent<Props> {
 				newStartAt:
 					newStartAt &&
 					newStartAt.format('YYYY-MM-DD HH:mm') !==
-						moment.tz(startDate, timezone).format('YYYY-MM-DD HH:mm')
+						moment.tz(event.startAt, timezone).format('YYYY-MM-DD HH:mm')
 						? newStartAt
 						: null,
 				newUser:
@@ -782,7 +782,7 @@ class Day extends PureComponent<Props> {
 				return (
 					event.id &&
 					eventStart.format('YYYY-MM-DD') === date.format('YYYY-MM-DD') &&
-					eventStart.isBetween(min, max)
+					eventStart.isBetween(min, max, null, '[]')
 				)
 			}),
 			['startAt', 'title', 'subtitle']
@@ -1246,7 +1246,7 @@ class Day extends PureComponent<Props> {
 			>
 				<div className="bigcalendar__user-header">
 					<TeammateHeader
-						onMouseDown={this.handleViewMouseDown}
+						// onMouseDown={this.handleViewMouseDown}
 						onDoubleClick={this.handleDoubleClick}
 						doubleClickTime={doubleClickTime}
 						onScroll={this.handleTeammateScroll}
@@ -1258,7 +1258,7 @@ class Day extends PureComponent<Props> {
 					<TimeGutter
 						hours={hours}
 						calendarBodyHeight={calendarBodyHeight}
-						onMouseDown={this.handleViewMouseDown}
+						// onMouseDown={this.handleViewMouseDown}
 						ref={this.timeGutterRef}
 					>
 						<div

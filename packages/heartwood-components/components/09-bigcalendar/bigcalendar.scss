@@ -404,6 +404,11 @@ body.sb-show-main {
         padding-top:2px;
     }
 
+    .content-wrapper {
+        overflow: hidden;
+        height: 100%;
+    }
+
     .title {
         // ensures it is rendered above any icons
         font-weight:$font-weight-bold;
