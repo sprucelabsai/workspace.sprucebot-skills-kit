@@ -2901,7 +2901,7 @@ select:-webkit-autofill:focus {
 
 .modal-body {
   padding: 1rem;
-  overflow: scroll; }
+  overflow-y: auto; }
 
 .modal-overlay {
   position: fixed;
@@ -2919,7 +2919,7 @@ select:-webkit-autofill:focus {
     left: 0;
     width: 100%;
     max-height: 100%;
-    overflow: scroll; }
+    overflow-y: auto; }
     .modal-overlay .modal.modal-small {
       max-width: 30rem;
       left: 50%;
@@ -3396,6 +3396,13 @@ select:-webkit-autofill:focus {
   .list-wrapper .list {
     padding: 0; }
 
+body,
+html {
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px; }
+
 .bigcalendar {
   background-color: #fff;
   -webkit-touch-callout: none;
@@ -3514,13 +3521,15 @@ select:-webkit-autofill:focus {
     font-size: 0.75rem;
     display: flex;
     align-items: center;
-    font-weight: 600; }
+    font-weight: 600;
+    height: 3.125rem; }
   .bigcalendar__teammate-header .avatar__image-wrapper {
     padding: 0.1875rem; }
 
 .bigcalendar__drag-grid {
   position: relative;
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
   border-left: 1px solid #cccfd6; }
   .bigcalendar__drag-grid .scroll-inner {
     display: flex; }

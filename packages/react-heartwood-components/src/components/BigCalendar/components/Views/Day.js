@@ -157,8 +157,14 @@ class Day extends PureComponent<Props> {
 		const target = e.target
 		const { scrollTop, scrollLeft } = target
 
-		this.teammateHeaderRef.current.domNodeRef.current.scrollLeft = scrollLeft
-		this.timeGutterRef.current.domNodeRef.current.scrollTop = scrollTop
+		this.teammateHeaderRef.current.domNodeRef.current.scrollLeft = Math.max(
+			0,
+			scrollLeft
+		)
+		this.timeGutterRef.current.domNodeRef.current.scrollTop = Math.max(
+			0,
+			scrollTop
+		)
 
 		// // arrows that sit in the upper right
 		this.updateHorizontalPagerDetails()
@@ -428,22 +434,25 @@ class Day extends PureComponent<Props> {
 		this._lastDragDetails = null
 		this._dragResizeUpdates = null
 
-		const newStartAt = this.yToTime(newY)
+		let newStartAt = this.yToTime(newY)
 		const newUser = this.xToUser(newX)
 
-		const { onDropEvent, timezone, startDate } = this.props
+		const { onDropEvent, timezone } = this.props
 
+		if (
+			newStartAt &&
+			event &&
+			newStartAt.format('YYYY-MM-DD HH:mm') ===
+				moment.tz(event.startAt, timezone).format('YYYY-MM-DD HH:mm')
+		) {
+			newStartAt = null
+		}
 		return (
 			onDropEvent &&
 			onDropEvent({
 				event,
 				dragEvent,
-				newStartAt:
-					newStartAt &&
-					newStartAt.format('YYYY-MM-DD HH:mm') !==
-						moment.tz(event.startAt, timezone).format('YYYY-MM-DD HH:mm')
-						? newStartAt
-						: null,
+				newStartAt,
 				newUser:
 					!event || (newUser && newUser.id !== event.userId) ? newUser : null,
 				...dragDetails,
