@@ -59,7 +59,7 @@ class BigCalendar extends Component<Props, State> {
 		defaultStartTime: '07:00',
 		defaultEndTime: '20:00',
 		headerDateFormat: 'MMMM YYYY',
-		mobileHeaderDateFormat: 'MMMM Do YYYY',
+		mobileHeaderDateFormat: 'MMMM Do, YYYY',
 		allEvents: [],
 		viewProps: {},
 		longPressDelay: 500,

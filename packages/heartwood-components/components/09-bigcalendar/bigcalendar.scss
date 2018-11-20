@@ -59,9 +59,27 @@ body.sb-show-main {
     display: none; 
 }
 
+.bigcalendar__mobile-submenu-underlay {
+    background-color: rgba(0,0,0,0.8);
+    content: '';
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    &.showing {
+        @media only screen and (max-width: 500px) {
+            display: block;
+        }
+    }
+}
+
 .bigcalendar__mobile-submenu {
     display: flex;
     width:100%;
+
     h2,
     .bigcalendar-hide-menu__button {
         display: none;
@@ -73,14 +91,41 @@ body.sb-show-main {
     justify-content: space-between;
     width: 100%;
 
-
+    .bigcalendar_date-picker-underlay {
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
     .bigcalendar_date-picker {
+        left: 0;
         position: absolute;
         z-index: 4;
+
+        @media only screen and (min-width: 328px) {
+            left: 8px;
+        }
+
+        @include gt('small') {
+            left: auto;
+            right: 0;
+        }
+
+        @include gt('medium') {
+            right: auto;
+        }
 
         .DayPickerKeyboardShortcuts_show {
             display: none;
         }
+    }
+}
+
+
+.bigcalendar__date-select {
+    @include gt('small') {
+        position: relative;
     }
 }
 
@@ -526,9 +571,13 @@ body.sb-show-main {
         top:0px;
         right:0px;
         bottom:0px;
-        left:20px;
+        left:0px;
         background: #fff;
         z-index: 5;
+
+        @media only screen and (min-width: 340px) {
+            left: 20px;
+        }
 
         .bigcalendar-hide-menu__button {
             position: absolute;
@@ -549,23 +598,18 @@ body.sb-show-main {
         }
 
         .bigcalendar__header-controls {
+            padding: 0 8px;
             align-content: center;
             .bigcalendar__date-scroll-controls {
-                flex-direction: column;
                 flex-wrap: wrap;
                 justify-content: flex-start;
-                .bigcalendar_date-picker {
-                    position: relative;
-                }
                 .select-wrapper {
                     width: 80%;
                 }
             }
-            .pagination-wrapper {
-                display: none;
-            }
-            .bigcalendar__calendarIcon-button {
-                display: none;
+
+            @include gt('small') {
+                padding: 0;
             }
         }
 

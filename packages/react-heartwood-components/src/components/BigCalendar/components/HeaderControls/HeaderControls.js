@@ -42,7 +42,7 @@ class HeaderControls extends Component<Props, State> {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.showDatePicker !== this.props.showDatePicker) {
-			this.setState({ isDatePickerShown: nextProps.showDatePicker })
+			this.setState({ isDatePickerShown: false })
 		}
 	}
 
@@ -102,6 +102,10 @@ class HeaderControls extends Component<Props, State> {
 						/>
 						{isDatePickerShown && (
 							<div className="bigcalendar_date-picker">
+								<div
+									className="bigcalendar_date-picker-underlay"
+									onClick={() => this.toggleDatePicker()}
+								/>
 								<DatePicker
 									date={selectedDate}
 									onSelectDate={this.onSelectDate}

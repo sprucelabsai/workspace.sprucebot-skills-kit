@@ -78,6 +78,11 @@ class Header extends PureComponent<Props, State> {
 				<div className="bigcalendar__header-top">
 					<H2 className="">{selectedDate.format(dateFormat)}</H2>
 					<div
+						className={cx('bigcalendar__mobile-submenu-underlay', {
+							showing: this.state.showingSubMenu
+						})}
+					/>
+					<div
 						className={cx('bigcalendar__mobile-submenu', {
 							showing: this.state.showingSubMenu
 						})}

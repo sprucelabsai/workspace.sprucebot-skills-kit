@@ -1779,6 +1779,9 @@ Classes for button variations
   .context-menu__menu.context-menu__menu-left {
     right: auto;
     left: 0; }
+  .context-menu__menu.context-menu__menu-top {
+    top: auto;
+    bottom: 100%; }
   .context-menu--is-hidden .context-menu__menu {
     transform: translate(0, 4px);
     opacity: 0;
@@ -3394,7 +3397,10 @@ select:-webkit-autofill:focus {
     padding: 0; }
 
 .bigcalendar {
-  background-color: #fff; }
+  background-color: #fff;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  /* Disable selection/copy in UIWebView */ }
 
 .l-pa-medium {
   padding: 0 !important; }
@@ -3410,6 +3416,19 @@ select:-webkit-autofill:focus {
 .bigcalendar__header .bigcalendar-menu__button {
   display: none; }
 
+.bigcalendar__mobile-submenu-underlay {
+  background-color: rgba(0, 0, 0, 0.8);
+  content: '';
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%; }
+  @media only screen and (max-width: 500px) {
+    .bigcalendar__mobile-submenu-underlay.showing {
+      display: block; } }
+
 .bigcalendar__mobile-submenu {
   display: flex;
   width: 100%; }
@@ -3421,11 +3440,32 @@ select:-webkit-autofill:focus {
   display: flex;
   justify-content: space-between;
   width: 100%; }
+  .bigcalendar__header-controls .bigcalendar_date-picker-underlay {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%; }
   .bigcalendar__header-controls .bigcalendar_date-picker {
+    left: 0;
     position: absolute;
     z-index: 4; }
+    @media only screen and (min-width: 328px) {
+      .bigcalendar__header-controls .bigcalendar_date-picker {
+        left: 8px; } }
+    @media screen and (min-width: 500px) {
+      .bigcalendar__header-controls .bigcalendar_date-picker {
+        left: auto;
+        right: 0; } }
+    @media screen and (min-width: 750px) {
+      .bigcalendar__header-controls .bigcalendar_date-picker {
+        right: auto; } }
     .bigcalendar__header-controls .bigcalendar_date-picker .DayPickerKeyboardShortcuts_show {
       display: none; }
+
+@media screen and (min-width: 500px) {
+  .bigcalendar__date-select {
+    position: relative; } }
 
 .bigcalendar__date-scroll-controls {
   display: flex;
@@ -3610,7 +3650,8 @@ select:-webkit-autofill:focus {
   position: absolute;
   left: 0px;
   top: 0px;
-  z-index: 1; }
+  z-index: 1;
+  border: 1px solid #0076D6; }
   .bigcalendar__event.is-drag-source {
     opacity: 0.5; }
   .bigcalendar__event.animate, .bigcalendar__event.animate .bigcalendar__event-block {
@@ -3619,6 +3660,20 @@ select:-webkit-autofill:focus {
     -ms-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
     transition: all 0.5s ease-out; }
+  .bigcalendar__event .bigcalendar__event-block {
+    border-bottom: 1px solid #0076D6;
+    color: #fff; }
+    .bigcalendar__event .bigcalendar__event-block.busy {
+      background: #0076D6; }
+      .bigcalendar__event .bigcalendar__event-block.busy .title {
+        background: #0076D6; }
+    .bigcalendar__event .bigcalendar__event-block .icons svg {
+      fill: #fff; }
+      .bigcalendar__event .bigcalendar__event-block .icons svg.u-icon__no-fill.u-icon__stroke {
+        stroke: #fff;
+        fill: none; }
+  .bigcalendar__event .bigcalendar__event-block:last-of-type {
+    border-bottom: none; }
   .bigcalendar__event.event-fill-available {
     border: 1px solid #0076D6; }
     .bigcalendar__event.event-fill-available .bigcalendar__event-block {
@@ -3634,22 +3689,6 @@ select:-webkit-autofill:focus {
           stroke: #0076D6;
           fill: none; }
     .bigcalendar__event.event-fill-available .bigcalendar__event-block:last-of-type {
-      border-bottom: none; }
-  .bigcalendar__event.event-fill-unavailable {
-    border: 1px solid #0076D6; }
-    .bigcalendar__event.event-fill-unavailable .bigcalendar__event-block {
-      border-bottom: 1px solid #0076D6;
-      color: #fff; }
-      .bigcalendar__event.event-fill-unavailable .bigcalendar__event-block.busy {
-        background: #0076D6; }
-        .bigcalendar__event.event-fill-unavailable .bigcalendar__event-block.busy .title {
-          background: #0076D6; }
-      .bigcalendar__event.event-fill-unavailable .bigcalendar__event-block .icons svg {
-        fill: #fff; }
-        .bigcalendar__event.event-fill-unavailable .bigcalendar__event-block .icons svg.u-icon__no-fill.u-icon__stroke {
-          stroke: #fff;
-          fill: none; }
-    .bigcalendar__event.event-fill-unavailable .bigcalendar__event-block:last-of-type {
       border-bottom: none; }
   .bigcalendar__event.event-fill-unavailable-alt {
     border: 1px solid #5a5ae6; }
@@ -3673,9 +3712,9 @@ select:-webkit-autofill:focus {
       border-bottom: 1px solid #0076D6;
       color: #0076D6; }
       .bigcalendar__event.event-fill-past .bigcalendar__event-block.busy {
-        background: rgba(0, 118, 214, 0.5); }
+        background: #d6edff; }
         .bigcalendar__event.event-fill-past .bigcalendar__event-block.busy .title {
-          background: rgba(0, 118, 214, 0.5); }
+          background: #d6edff; }
       .bigcalendar__event.event-fill-past .bigcalendar__event-block .icons svg {
         fill: #0076D6; }
         .bigcalendar__event.event-fill-past .bigcalendar__event-block .icons svg.u-icon__no-fill.u-icon__stroke {
@@ -3782,7 +3821,7 @@ select:-webkit-autofill:focus {
   .bigcalendar__header .bigcalendar__fullscreen-control {
     display: none; } }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 500px) {
   .bigcalendar__header-top {
     height: 3rem;
     justify-content: space-between; }
@@ -3797,9 +3836,14 @@ select:-webkit-autofill:focus {
     top: 0px;
     right: 0px;
     bottom: 0px;
-    left: 20px;
+    left: 0px;
     background: #fff;
-    z-index: 5; }
+    z-index: 5; } }
+  @media only screen and (max-width: 500px) and (min-width: 340px) {
+    .bigcalendar__mobile-submenu.showing {
+      left: 20px; } }
+
+@media only screen and (max-width: 500px) {
     .bigcalendar__mobile-submenu.showing .bigcalendar-hide-menu__button {
       position: absolute;
       top: 0px;
@@ -3815,19 +3859,18 @@ select:-webkit-autofill:focus {
       border-bottom: 1px solid #cccfd6;
       margin: 0; }
     .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls {
+      padding: 0 8px;
       align-content: center; }
       .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls .bigcalendar__date-scroll-controls {
-        flex-direction: column;
         flex-wrap: wrap;
         justify-content: flex-start; }
-        .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls .bigcalendar__date-scroll-controls .bigcalendar_date-picker {
-          position: relative; }
         .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls .bigcalendar__date-scroll-controls .select-wrapper {
-          width: 80%; }
-      .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls .pagination-wrapper {
-        display: none; }
-      .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls .bigcalendar__calendarIcon-button {
-        display: none; }
+          width: 80%; } }
+    @media only screen and (max-width: 500px) and (min-width: 500px) {
+      .bigcalendar__mobile-submenu.showing .bigcalendar__header-controls {
+        padding: 0; } }
+
+@media only screen and (max-width: 500px) {
     .bigcalendar__mobile-submenu.showing .bigcalendar__fullscreen-control {
       display: none; }
   .bigcalendar__header-bottom {
@@ -3845,6 +3888,7 @@ select:-webkit-autofill:focus {
 .event-details-header {
   display: flex;
   align-items: flex-start;
+  flex-shrink: 0;
   width: 100%;
   padding: 1rem 1rem 0.625rem 1rem; }
   .event-confirmed .event-details-header,
