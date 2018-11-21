@@ -33,14 +33,16 @@ type Props = {
 
 type State = {
 	isDatePickerShown: boolean,
-	isFullScreen: boolean
+	isFullScreen: boolean,
+	shouldResetDatePicker: boolean
 }
 
 class HeaderControls extends Component<Props, State> {
 	state = {
 		isDatePickerShown: this.props.isDatePickerShown,
 		isFullScreen: false,
-		selectedDate: this.props.selectedDate
+		selectedDate: this.props.selectedDate,
+		shouldResetDatePicker: false
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -73,7 +75,15 @@ class HeaderControls extends Component<Props, State> {
 	onSetDateToToday = () => {
 		const { onDateToToday } = this.props
 		onDateToToday && onDateToToday()
-		this.setState({ selectedDate: moment() })
+		this.setState(
+			prevState => ({
+				selectedDate: moment(),
+				shouldResetDatePicker: prevState.isDatePickerShown
+			}),
+			() => {
+				this.setState({ shouldResetDatePicker: false })
+			}
+		)
 	}
 
 	render() {
@@ -85,7 +95,12 @@ class HeaderControls extends Component<Props, State> {
 			userMode
 		} = this.props
 
-		const { selectedDate, isDatePickerShown, isFullScreen } = this.state
+		const {
+			selectedDate,
+			isDatePickerShown,
+			isFullScreen,
+			shouldResetDatePicker
+		} = this.state
 
 		return (
 			<div className="bigcalendar__header-controls">
@@ -111,7 +126,7 @@ class HeaderControls extends Component<Props, State> {
 							icon={{ name: 'date', isLineIcon: true }}
 							onClick={() => this.toggleDatePicker()}
 						/>
-						{isDatePickerShown && (
+						{isDatePickerShown && !shouldResetDatePicker && (
 							<div className="bigcalendar_date-picker">
 								<DatePicker
 									date={selectedDate}
