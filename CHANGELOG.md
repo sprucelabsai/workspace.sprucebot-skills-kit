@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.8.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.2...v7.8.3) (2018-11-09)
+
+
+### Bug Fixes
+
+* Implement NextJS _app.js, remove title from _document.js ([5f46b2c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5f46b2c))
+
+
+
+
+
+## [7.8.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.1...v7.8.2) (2018-11-07)
+
+
+### Bug Fixes
+
+* upgrade logger for better browser compatibility ([1340c04](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1340c04))
+
+
+
+
+
+## [7.8.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.0...v7.8.1) (2018-11-07)
+
+
+### Bug Fixes
+
+* Remove broken association for Organization model ([a4c2c29](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a4c2c29))
+
+
+
+
+
 # [7.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.7.3...v7.8.0) (2018-11-02)
 
 
