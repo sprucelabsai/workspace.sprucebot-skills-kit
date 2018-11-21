@@ -347,8 +347,8 @@ class Day extends PureComponent<Props> {
 		)
 	}
 
-	getMinBlockResizeHeight = event => {
-		return this.props.allowResizeToZeroDurationBlocks && event.blocks.length > 1
+	getMinBlockResizeHeight = (event, blockIdx) => {
+		return this.props.allowResizeToZeroDurationBlocks && blockIdx > 0
 			? 0
 			: this.slotHeight()
 	}
@@ -502,7 +502,7 @@ class Day extends PureComponent<Props> {
 				deltaScrollTop
 
 			const originalHeight = dragBlockNodeHeight
-			const minBlockResizeHeight = this.getMinBlockResizeHeight(event)
+			const minBlockResizeHeight = this.getMinBlockResizeHeight(event, blockIdx)
 			const originalTop = dragEventNodeTop
 
 			const { direction } = this._resizeDetails

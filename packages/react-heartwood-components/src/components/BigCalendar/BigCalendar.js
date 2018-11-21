@@ -346,6 +346,7 @@ class BigCalendar extends Component<Props, State> {
 			onDoubleClickView,
 			onClickView,
 			doubleClickToCreate,
+			defaultstartdate,
 			...props
 		} = this.props
 
