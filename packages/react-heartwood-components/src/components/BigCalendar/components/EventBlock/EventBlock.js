@@ -31,7 +31,7 @@ const EventBlock = (props: Props) => {
 			{block.leftIcons && block.leftIcons.length > 0 && (
 				<div className="icons left-icons">
 					{block.leftIcons.map((icon, idx) => (
-						<span title={icon.title} key={`${icon.title}-idx`}>
+						<span title={icon.title} key={`${icon.title}-${idx}`}>
 							<Icon {...icon} />
 						</span>
 					))}
