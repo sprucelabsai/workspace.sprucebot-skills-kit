@@ -1251,7 +1251,6 @@ class Day extends PureComponent<Props> {
 					'no-users': users.length === 0
 				})}
 				onMouseMove={this.handleMouseMove}
-				onMouseOut={this.handleMouseMove}
 			>
 				<div className="bigcalendar__user-header">
 					<TeammateHeader

@@ -327,7 +327,7 @@ class DragGrid extends PureComponent<Props> {
 			setListeners &&
 				document.body.addEventListener(
 					'mouseleave',
-					this.handleMouseUpFromEvent,
+					this.handleCancelMouseUpFromEvent,
 					{
 						passive: false
 					}
@@ -694,7 +694,11 @@ class DragGrid extends PureComponent<Props> {
 		}
 	}
 
-	handleMouseUpFromEvent = e => {
+	handleCancelMouseUpFromEvent = e => {
+		return this.handleMouseUpFromEvent(e, { overrideValid: false })
+	}
+
+	handleMouseUpFromEvent = (e, { overrideValid } = {}) => {
 		this._isMouseDownOnEvent = false
 
 		this.domNodeRef.current.style.webkitOverflowScrolling = ''
@@ -708,14 +712,17 @@ class DragGrid extends PureComponent<Props> {
 			})
 			this._pendingDrag = null
 		} else {
-			this.handleDropEvent()
+			this.handleDropEvent({ overrideValid })
 			this.props.onDeselectEvent && this.props.onDeselectEvent()
 			this.props.onUnHighlightEvent && this.props.onUnHighlightEvent()
 		}
 
 		window.removeEventListener('mousemove', this.handleDragOfEvent)
 		window.removeEventListener('mouseup', this.handleMouseUpFromEvent)
-		document.body.removeEventListener('mouseleave', this.handleMouseUpFromEvent)
+		document.body.removeEventListener(
+			'mouseleave',
+			this.handleCancelMouseUpFromEvent
+		)
 	}
 
 	cancelDrag = () => {
@@ -725,7 +732,7 @@ class DragGrid extends PureComponent<Props> {
 		})
 	}
 
-	handleDropEvent = async () => {
+	handleDropEvent = async ({ overrideValid }) => {
 		const { dragEventNode, sourceEvent, sourceEventNode } = this._activeDrag
 		const { onDropEvent } = this.props
 		const { dragEvent } = this.state
@@ -739,14 +746,18 @@ class DragGrid extends PureComponent<Props> {
 
 		let valid
 		try {
-			valid = onDropEvent
-				? await onDropEvent({
-						event: sourceEvent,
-						dragEvent,
-						newX: parseFloat(dragEventNode.style.left),
-						newY: parseFloat(dragEventNode.style.top)
-				  })
-				: false
+			if (typeof overrideValid === 'boolean') {
+				valid = overrideValid
+			} else {
+				valid = onDropEvent
+					? await onDropEvent({
+							event: sourceEvent,
+							dragEvent,
+							newX: parseFloat(dragEventNode.style.left),
+							newY: parseFloat(dragEventNode.style.top)
+					  })
+					: false
+			}
 		} catch (err) {
 			console.log('failed to handle drop', err)
 			valid = false

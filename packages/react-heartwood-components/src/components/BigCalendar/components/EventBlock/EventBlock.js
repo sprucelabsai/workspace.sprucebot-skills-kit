@@ -17,7 +17,9 @@ const EventBlock = (props: Props) => {
 
 	// NOTE: you MUST keep resize-n the first class in any resize-handle
 	// IT MUST BE IN THE FORM OF resize-[n|s|e|w]
-
+	const blockTitle = [block.title, block.subtitle, startAt.format('h:mma')]
+		.filter(i => i)
+		.join(' - ')
 	return (
 		<div
 			className={cx('bigcalendar__event-block', className, block.className, {
@@ -40,7 +42,7 @@ const EventBlock = (props: Props) => {
 					<div className="resize-highlight-handle" />
 				</div>
 			)}
-			<div className="content-wrapper">
+			<div className="content-wrapper" title={blockTitle}>
 				{block.title && (
 					<p
 						className="title"

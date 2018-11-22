@@ -33,7 +33,7 @@ class BigCalendarExample extends Component {
 			},
 			OrganizationId: 'bc02c800-60f2-4e37-8ed1-a32f6a50e0a2',
 			isPublic: false,
-			timezone: 'America/Denver',
+			timezone: 'America/New_York',
 			archived: false,
 			profileImages: {
 				profile60:
