@@ -17,12 +17,13 @@ import Modal from '../../../Modal/Modal'
 
 import sizeUtil from '../../utils/size'
 import eventUtil from '../../utils/event'
+import timeUtil from '../../utils/time'
+
 import TimeLine from '../TimeLine/TimeLine'
 
 type Props = {
 	showRightProps: boolean,
 	users: Array<Object>,
-	hours: Array<Object>,
 	timezone: String,
 	className?: String,
 	minTime: String,
@@ -38,26 +39,34 @@ type Props = {
 	dragThreshold: Number, // how far to drag before actually initiating drag
 	onDropEvent: Function,
 	onDragEvent: Function,
-	scrollDuringDragMargin: Number, // how close to the edge do we need to get before we'll auto scroll for the user
+	scrollDuringDragMargin?: Number, // how close to the edge do we need to get before we'll auto scroll for the user
 	dragScrollSpeed: Number, // how many pixels to jump if dragging near edge of scroll
 	eventRightMargin: Number,
 	longPressDelay: Number,
-	allowResizeToZeroDurationBlocks: Boolean,
+	allowResizeToZeroDurationBlocks?: Boolean,
+	allowResizeFirstBlockToZeroDuration?: Boolean,
 	getStartTimeForUser: Function,
 	getEndTimeForUser: Function,
 	doubleClickTime: Number,
 	onDoubleClick: Function,
 	newEventDefaultDurationSec: Number,
-	doubleClickToCreate: Boolean
+	doubleClickToCreate: Boolean,
+	eventTimeFormat: String,
+	timeGutterFormat?: String
 }
 
 type State = {
 	selectedEvent: Object,
-	highlightedEvent: Object
+	highlightedEvent: Object,
+	enableAutoScrollX: Boolean,
+	enableAutoScrollY: Boolean
 }
 
 class Day extends PureComponent<Props> {
-	state = {}
+	state = {
+		enableAutoScrollX: true,
+		enableAutoScrollY: true
+	}
 
 	static defaultProps = {
 		dragThreshold: 10,
@@ -65,7 +74,9 @@ class Day extends PureComponent<Props> {
 		dragScrollSpeed: 5,
 		eventRightMargin: 10,
 		allowResizeToZeroDurationBlocks: true,
-		newEventDefaultDurationSec: 900 * 4 // 60 minutes
+		allowResizeFirstBlockToZeroDuration: false,
+		newEventDefaultDurationSec: 900 * 4, // 60 minutes
+		timeGutterFormat: 'ha'
 	}
 
 	_timeRangeCache = {}
@@ -104,24 +115,27 @@ class Day extends PureComponent<Props> {
 	}
 
 	componentDidUpdate(prevProps) {
-		const { events, startDate, users } = this.props
+		const { events, startDate, users, slotsPerHour } = this.props
 		if (
 			prevProps.events !== events ||
 			prevProps.startDate !== startDate ||
-			prevProps.users !== users
+			prevProps.users !== users ||
+			prevProps.slotsPerHour !== slotsPerHour
 		) {
 			// reset all event cache
 			this._columnMapCache = null
 			this.placeAndSize()
-			this.sizeTimeLine()
 			this.updateHorizontalPagerDetails()
 
+			if (prevProps.slotsPerHour !== slotsPerHour) {
+				this._timeRangeCache = {}
+			}
 			if (prevProps.startDate !== startDate) {
 				this.setState({ highlightedEvent: null, selectedEvent: null })
 				this.dragGridRef.current.cancelDrag()
 			}
 			// if we only changed events, lets make sure to update our selection
-			else if (prevProps.events !== events) {
+			if (prevProps.events !== events) {
 				if (this.state.selectedEvent) {
 					const match = events.find(
 						event => event.id === this.state.selectedEvent.id
@@ -135,7 +149,7 @@ class Day extends PureComponent<Props> {
 				}
 			}
 			//consider deselecting higher up for this
-			else if (
+			if (
 				prevProps.users !== users &&
 				prevProps.users.length !== users.length
 			) {
@@ -168,7 +182,7 @@ class Day extends PureComponent<Props> {
 
 		// // arrows that sit in the upper right
 		this.updateHorizontalPagerDetails()
-		this.updateTimeIndicatorTime()
+		this.updateTimeIndicator()
 
 		if (
 			this._lastDragDetails &&
@@ -348,7 +362,9 @@ class Day extends PureComponent<Props> {
 	}
 
 	getMinBlockResizeHeight = (event, blockIdx) => {
-		return this.props.allowResizeToZeroDurationBlocks && blockIdx > 0
+		return (this.props.allowResizeToZeroDurationBlocks && blockIdx > 0) ||
+			(this.props.allowResizeToZeroDurationBlocks &&
+				this.props.allowResizeFirstBlockToZeroDuration)
 			? 0
 			: this.slotHeight()
 	}
@@ -1057,7 +1073,7 @@ class Day extends PureComponent<Props> {
 				gridWidth,
 				gridHeight
 			}
-			this.updateTimeIndicatorTime()
+			this.updateTimeIndicator()
 		} else {
 			this.hideMouseTimeIndicator()
 		}
@@ -1069,10 +1085,11 @@ class Day extends PureComponent<Props> {
 		}
 	}
 
-	updateTimeIndicatorTime = () => {
+	updateTimeIndicator = () => {
 		// probably a touch device so no mouse movement has taken place yet
 		// or we're moving around the view,ignore everything
 		if (!this._lastMouseMove || this.dragGridRef.current.isDraggingView()) {
+			this.mouseTimeIndicator.current.style.display = 'none'
 			return
 		}
 
@@ -1080,25 +1097,23 @@ class Day extends PureComponent<Props> {
 
 		// stick to gradding event
 		if (this.dragGridRef.current.isDraggingEvent()) {
-			const dragNode = this.dragGridRef.current.getDragNode()
 			// cannot use getLocalTop because we may be dragging a block (vs the whole event)
 			// and that would return the top from the event (first positioned parent)
 			// are we resizing?
-			if (
-				!this._resizeDetails ||
-				(this._resizeDetails && this._resizeDetails.direction === 'n')
-			) {
-				y = sizeUtil.getTop(dragNode)
-			} else {
+			const dragNode = this.dragGridRef.current.getDragBlockNode()
+
+			if (this._resizeDetails && this._resizeDetails.direction === 's') {
 				y = sizeUtil.getBottom(dragNode)
+			} else {
+				y = sizeUtil.getTop(dragNode)
 			}
 		}
 
 		const bodyTop = sizeUtil.getTop(this.bodyWrapperRef.current)
 		const scrollTop = this.dragGridRef.current.getScrollTop()
-		const indicatorHeight = sizeUtil.getHeight(this.mouseTimeIndicator.current)
+		// const indicatorHeight = sizeUtil.getHeight(this.mouseTimeIndicator.current)
 
-		y = y - bodyTop + scrollTop - indicatorHeight / 2
+		y = y - bodyTop + scrollTop
 
 		const top = this.snapEventToNearestValidY({
 			dragNodeTop: y
@@ -1213,7 +1228,6 @@ class Day extends PureComponent<Props> {
 	render() {
 		const {
 			users,
-			hours,
 			timezone,
 			calendarBodyHeight,
 			minTime,
@@ -1225,13 +1239,19 @@ class Day extends PureComponent<Props> {
 			getEndTimeForUser,
 			doubleClickTime,
 			longPressDelay,
-			doubleClickToCreate
+			eventTimeFormat,
+			dragThreshold,
+			dragScrollSpeed,
+			scrollDuringDragMargin,
+			timeGutterFormat
 		} = this.props
 
 		const {
 			selectedEvent,
 			highlightedEvent,
-			showEventDetailsInDialog
+			showEventDetailsInDialog,
+			enableAutoScrollX,
+			enableAutoScrollY
 		} = this.state
 
 		let eventDetails = null
@@ -1240,6 +1260,14 @@ class Day extends PureComponent<Props> {
 			eventDetails.header = eventDetails.header || {}
 			eventDetails.header.onClickClose = this.handleCloseEventDetails
 		}
+
+		const hours = timeUtil.generateTimeGutterHours({
+			date: startDate,
+			min: minTime,
+			max: maxTime,
+			timezone,
+			format: timeGutterFormat
+		})
 
 		return (
 			<div
@@ -1300,6 +1328,12 @@ class Day extends PureComponent<Props> {
 						doubleClickTime={doubleClickTime}
 						longPressDelay={longPressDelay}
 						onLongPressView={this.handleLongPressView}
+						timeFormat={eventTimeFormat}
+						dragThreshold={dragThreshold}
+						scrollDuringDragMargin={scrollDuringDragMargin}
+						dragScrollSpeed={dragScrollSpeed}
+						enableAutoScrollX={enableAutoScrollX}
+						enableAutoScrollY={enableAutoScrollY}
 						style={{
 							height: calendarBodyHeight
 						}}

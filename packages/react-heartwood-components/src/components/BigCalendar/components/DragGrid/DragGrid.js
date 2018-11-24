@@ -33,7 +33,10 @@ type Props = {
 	sizeEvent: Function,
 	onDeselectEvent: Function,
 	onLongPressView?: Function,
-	doubleClickTime: Number
+	doubleClickTime: Number,
+	timeFormat: String,
+	enableAutoScrollX: Boolean,
+	enableAutoScrollY: Boolean
 }
 
 type State = {
@@ -43,15 +46,16 @@ type State = {
 class DragGrid extends PureComponent<Props> {
 	state = {}
 
-	constructor(props) {
-		super(props)
-		this.domNodeRef = React.createRef()
-	}
-
 	static defaultProps = {
 		dragThreshold: 10,
 		scrollDuringDragMargin: 50,
-		dragScrollSpeed: 5
+		dragScrollSpeed: 5,
+		enableAutoScrollX: true,
+		enableAutoScrollY: true
+	}
+	constructor(props) {
+		super(props)
+		this.domNodeRef = React.createRef()
 	}
 
 	getEventNode = event => {
@@ -481,7 +485,7 @@ class DragGrid extends PureComponent<Props> {
 	}
 
 	beginScrollHorizontally = speed => {
-		if (this._scrollHorizontalSpeed !== speed) {
+		if (this.props.enableAutoScrollX && this._scrollHorizontalSpeed !== speed) {
 			clearInterval(this._scrollHorizontalInterval)
 			this._scrollHorizontalSpeed = speed
 			this._scrollHorizontalInterval = setInterval(() => {
@@ -495,7 +499,7 @@ class DragGrid extends PureComponent<Props> {
 	}
 
 	beginScrollingVertically = speed => {
-		if (this._scrollVerticalSpeed !== speed) {
+		if (this.props.enableAutoScrollY && this._scrollVerticalSpeed !== speed) {
 			clearInterval(this._scrollVerticalInterval)
 			this._scrollVerticalSpeed = speed
 			this._scrollVerticalInterval = setInterval(() => {
@@ -811,6 +815,10 @@ class DragGrid extends PureComponent<Props> {
 		return this.isDraggingEvent() ? this._activeDrag.dragNode : null
 	}
 
+	getDragBlockNode = () => {
+		return this._activeDrag ? this._activeDrag.dragBlockNode : null
+	}
+
 	// TOUCH ONLY, assuming touch is down here
 	dropNewEventAndDrag = async ({ event, e, left, top }) => {
 		const dragDetails = await this.startDragOfEvent({
@@ -974,6 +982,7 @@ class DragGrid extends PureComponent<Props> {
 			onLongPressView,
 			longPressDelay,
 			onClick,
+			timeFormat,
 			...props
 		} = this.props
 
@@ -991,6 +1000,7 @@ class DragGrid extends PureComponent<Props> {
 				{children}
 				{events.map(event => (
 					<Event
+						timeFormat={timeFormat}
 						key={`event-${event.id}`}
 						className={cx({
 							'is-drag-source': dragEvent && dragEvent.originalId === event.id,
@@ -1011,6 +1021,7 @@ class DragGrid extends PureComponent<Props> {
 
 				{dragEvent && (
 					<Event
+						timeFormat={timeFormat}
 						onTouchStart={this.handleTouchStartOnDragEvent}
 						className={cx('is-active-drag', {
 							'is-active-highlight':

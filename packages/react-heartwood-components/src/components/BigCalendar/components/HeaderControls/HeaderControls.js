@@ -22,7 +22,7 @@ type Props = {
 	onNextDate: Function,
 	onChangeView: Function,
 	fullScreenNode: Object,
-	userModeSelectOptions?: Array<Object>,
+	userModeOptions?: Array<Object>,
 	onChangeUserMode?: Function,
 	userMode?: String,
 	onSelectDate: Function,
@@ -90,7 +90,7 @@ class HeaderControls extends Component<Props, State> {
 		const {
 			onBackDate,
 			onNextDate,
-			userModeSelectOptions,
+			userModeOptions,
 			onChangeUserMode,
 			userMode
 		} = this.props
@@ -135,10 +135,10 @@ class HeaderControls extends Component<Props, State> {
 							</div>
 						)}
 					</div>
-					{userModeSelectOptions && onChangeUserMode && userMode && (
+					{userModeOptions && onChangeUserMode && userMode && (
 						<Select
 							className="user-mode-select"
-							options={userModeSelectOptions}
+							options={userModeOptions}
 							onChange={e => {
 								onChangeUserMode(e.target.value)
 							}}

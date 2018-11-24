@@ -1,58 +1,47 @@
 // @flow
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, select } from '@storybook/addon-knobs/react'
+import {
+	withKnobs,
+	date,
+	text,
+	object,
+	number,
+	boolean
+} from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
 import BigCalendar from './BigCalendar'
 import cloneDeep from 'lodash/cloneDeep'
+import moment from 'moment'
 
 // Mock data
 import storyUsers from './storyUsers'
 import storyEvents from './storyEvents'
 
 const stories = storiesOf('Big Calendar', module)
+const today = moment()
+
+const CATEGORIES = {
+	data: 'Data',
+	ranges: 'Date/Time Ranges',
+	modes: 'User Modes',
+	formatting: 'Formatting',
+	dayView: 'Day View',
+	interactions: 'Interactions',
+	schedules: 'Schedules'
+}
 
 class BigCalendarExample extends Component {
 	state = {
 		users: storyUsers,
 		events: storyEvents,
-		userMode: 'everyone',
-		// events: [],
-		location: {
-			id: '9139bfeb-7143-4a50-abad-2f768decb1d1',
-			name: 'Barbershop #32',
-			addressLine1: '3833 Steele st',
-			addressLine2: 'Unit D',
-			addressCity: 'Denver',
-			addressState: 'CO',
-			addressZip: '80205',
-			addressCountry: 'US',
-			geo: {
-				lat: 39.7695943,
-				lng: -104.9500088
-			},
-			OrganizationId: 'bc02c800-60f2-4e37-8ed1-a32f6a50e0a2',
-			isPublic: false,
-			timezone: 'America/New_York',
-			archived: false,
-			profileImages: {
-				profile60:
-					'https://s3.amazonaws.com/sprucebot-dev/default-profile--X60.jpg',
-				'profile60@2x':
-					'https://s3.amazonaws.com/sprucebot-dev/default-profile--X60@2x.jpg',
-				profile150:
-					'https://s3.amazonaws.com/sprucebot-dev/default-profile--X150.jpg',
-				'profile150@2x':
-					'https://s3.amazonaws.com/sprucebot-dev/default-profile--X150@2x.jpg'
-			},
-			phoneNumber: null,
-			enableLockScreen: true
-		}
+		userMode: 'everyone'
 	}
 
 	constructor(props) {
 		super(props)
 		this.bigCalRef = React.createRef()
+		this
 	}
 
 	handleDropEvent = ({
@@ -130,29 +119,140 @@ class BigCalendarExample extends Component {
 	}
 
 	render() {
-		const { users, location, events, userMode } = this.state
+		const { users, events, userMode } = this.state
 
 		return (
 			<Container>
 				<BigCalendar
-					ref={this.bigCalRef}
-					userModeSelectOptions={{
-						everyone: 'Everyone',
-						working: 'Working',
-						me: 'Me'
-					}}
-					userMode={userMode}
-					onChangeUserMode={this.handleUserModeChange}
-					onDropEvent={this.handleDropEvent}
+					// users={object('users', users, CATEGORIES.data)}
+					// allEvents={object('allEvents', events, CATEGORIES.data)}
 					users={users}
-					timezone={location.timezone}
 					allEvents={events}
-					defaultMinTime="07:00"
-					defaultMaxTime="20:00"
-					defaultStartTime="09:00"
-					defaultEndTime="18:00"
+					defaultStartDate={date(
+						'defaultStartDate',
+						today.toDate(),
+						CATEGORIES.ranges
+					)}
+					slotsPerHour={number(
+						'slotsPerHour',
+						4,
+						{ range: true, min: 1, max: 12 },
+						CATEGORIES.ranges
+					)}
+					timezone={text('timezone', 'America/Denver', CATEGORIES.ranges)}
+					defaultMinTime={text('defaultMinTime', '07:00', CATEGORIES.ranges)}
+					defaultMaxTime={text('defaultMaxTime', '20:00', CATEGORIES.ranges)}
+					defaultStartTime={text(
+						'defaultStartTime',
+						'09:00',
+						CATEGORIES.ranges
+					)}
+					defaultEndTime={text('defaultEndTime', '18:00', CATEGORIES.ranges)}
+					userModeOptions={object(
+						'userModeOptions',
+						{
+							everyone: 'Everyone',
+							working: 'Working',
+							me: 'Me'
+						},
+						CATEGORIES.modes
+					)}
+					userMode={text('userMode', userMode, CATEGORIES.modes)}
+					headerDateFormat={text(
+						'headerDateFormat',
+						'MMMM YYYY',
+						CATEGORIES.formatting
+					)}
+					mobileHeaderDateFormat={text(
+						'mobileHeaderDateFormat',
+						'MMMM Do, YYYY',
+						CATEGORIES.formatting
+					)}
+					eventTimeFormat={text(
+						'eventTimeFormat',
+						'h:mma',
+						CATEGORIES.formatting
+					)}
+					longPressDelay={number(
+						'longPressDelay',
+						500,
+						{},
+						CATEGORIES.interactions
+					)}
+					doubleClickToCreate={boolean(
+						'doubleClickToCreate',
+						false,
+						CATEGORIES.interactions
+					)}
+					doubleClickTime={number(
+						'doubleClickTime',
+						250,
+						{},
+						CATEGORIES.interactions
+					)}
+					userSchedules={object(
+						'userSchedules',
+						{
+							'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff': {
+								'2019-01-28': { startTime: '10:00', endTime: '18:00' }
+							},
+							'909beac7-42f7-443f-bd86-c762705c0c18': {
+								'2019-01-28': { startTime: '08:00', endTime: '16:00' }
+							},
+							'ce914128-c77c-40fa-b5ef-d6faa3ed26a1': {
+								'2019-01-28': { startTime: '11:00', endTime: '19:00' }
+							}
+						},
+						CATEGORIES.schedules
+					)}
+					viewProps={{
+						day: {
+							newEventDefaultDuractionSec: number(
+								'viewProps.day.newEventDefaultDuractionSec',
+								900 * 4,
+								{},
+								CATEGORIES.dayView
+							),
+							allowResizeToZeroDurationBlocks: boolean(
+								'viewProps.day.allowResizeToZeroDurationBlocks',
+								true,
+								CATEGORIES.dayView
+							),
+							allowResizeFirstBlockToZeroDuration: boolean(
+								'viewProps.day.allowResizeFirstBlockToZeroDuration',
+								false,
+								CATEGORIES.dayView
+							),
+							dragThreshold: number(
+								'viewProps.day.dragThreshold',
+								10,
+								{},
+								CATEGORIES.dayView
+							),
+							dragScrollSpeed: number(
+								'viewProps.day.dragScrollSpeed',
+								5,
+								{},
+								CATEGORIES.dayView
+							),
+							timeGutterFormat: text(
+								'viewProps.day.timeGutterFormat',
+								'ha',
+								CATEGORIES.dayView
+							),
+							scrollDuringDragMargin: number(
+								'viewProps.day.scrollDuringDragMargin',
+								50,
+								{},
+								CATEGORIES.dayView
+							)
+						}
+					}}
 					onDoubleClickView={this.handleDoubleClickView}
 					onClickView={this.handleClickView}
+					onChangeUserMode={this.handleUserModeChange}
+					ref={this.bigCalRef}
+					onDropEvent={this.handleDropEvent}
 				/>
 			</Container>
 		)

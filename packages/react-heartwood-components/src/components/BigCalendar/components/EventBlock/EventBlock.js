@@ -9,15 +9,16 @@ type Props = {
 	children?: Node,
 	className?: string,
 	startAt: Object,
-	resizable: Boolean
+	resizable: Boolean,
+	timeFormat: String
 }
 
 const EventBlock = (props: Props) => {
-	const { block, resizable, className, startAt, ...rest } = props
+	const { block, resizable, className, startAt, timeFormat, ...rest } = props
 
 	// NOTE: you MUST keep resize-n the first class in any resize-handle
 	// IT MUST BE IN THE FORM OF resize-[n|s|e|w]
-	const blockTitle = [block.title, block.subtitle, startAt.format('h:mma')]
+	const blockTitle = [block.title, block.subtitle, startAt.format(timeFormat)]
 		.filter(i => i)
 		.join(' - ')
 	return (
@@ -55,7 +56,7 @@ const EventBlock = (props: Props) => {
 						dangerouslySetInnerHTML={{ __html: block.subtitle }}
 					/>
 				)}
-				<p className="time">{startAt.format('h:mma')}</p>
+				<p className="time">{startAt.format(timeFormat)}</p>
 			</div>
 			{resizable && (
 				<div className="resize-s resize-handle">

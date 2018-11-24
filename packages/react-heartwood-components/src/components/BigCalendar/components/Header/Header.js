@@ -26,7 +26,7 @@ type Props = {
 	currentHorizontalPage: Number,
 	onHorizontalPageNext: Function,
 	onHorizontalPageBack: Function,
-	userModeSelectOptions?: Array<Object>,
+	userModeOptions?: Array<Object>,
 	onChangeUserMode?: Function,
 	userMode?: String,
 	onDateToToday: Function,
@@ -55,7 +55,7 @@ class Header extends PureComponent<Props, State> {
 			selectedDate,
 			dateFormat,
 			mobileDateFormat,
-			userModeSelectOptions,
+			userModeOptions,
 			onChangeUserMode,
 			userMode,
 			fullScreenNode,
@@ -93,7 +93,7 @@ class Header extends PureComponent<Props, State> {
 						/>
 						<H2 className="">{selectedDate.format(mobileDateFormat)}</H2>
 						<HeaderControls
-							userModeSelectOptions={userModeSelectOptions}
+							userModeOptions={userModeOptions}
 							onChangeUserMode={onChangeUserMode}
 							userMode={userMode}
 							fullScreenNode={fullScreenNode}
