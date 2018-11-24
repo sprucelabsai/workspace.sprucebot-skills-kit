@@ -3410,6 +3410,8 @@ html {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   /* Disable selection/copy in UIWebView */ }
+  .bigcalendar * {
+    box-sizing: border-box; }
 
 .l-pa-medium {
   padding: 0 !important; }
@@ -3584,7 +3586,7 @@ html {
   border-right: 1px solid #cccfd6; }
 
 .bigcalendar__view-day .hour-block {
-  height: 3.75rem;
+  height: 5rem;
   display: flex;
   flex-direction: column; }
   .bigcalendar__view-day .hour-block .timeslot {
