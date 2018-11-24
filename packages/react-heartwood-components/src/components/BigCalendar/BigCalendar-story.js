@@ -194,13 +194,22 @@ class BigCalendarExample extends Component {
 						'userSchedules',
 						{
 							'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff': {
-								'2019-01-28': { startTime: '10:00', endTime: '18:00' }
+								[today.format('YYYY-MM-DD')]: {
+									startTime: '10:00',
+									endTime: '18:00'
+								}
 							},
 							'909beac7-42f7-443f-bd86-c762705c0c18': {
-								'2019-01-28': { startTime: '08:00', endTime: '16:00' }
+								[today.format('YYYY-MM-DD')]: {
+									startTime: '08:00',
+									endTime: '16:00'
+								}
 							},
 							'ce914128-c77c-40fa-b5ef-d6faa3ed26a1': {
-								'2019-01-28': { startTime: '11:00', endTime: '19:00' }
+								[today.format('YYYY-MM-DD')]: {
+									startTime: '11:00',
+									endTime: '19:00'
+								}
 							}
 						},
 						CATEGORIES.schedules
