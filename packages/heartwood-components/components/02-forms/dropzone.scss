@@ -1,0 +1,151 @@
+.dropzone {
+	display: flex;
+	flex-flow: column;
+	justify-content: flex-end;
+	align-items: center;
+	position: relative;
+	padding: rem(16);
+	width: 100%;
+	min-height: rem(240);
+	background-color: $c-bg;
+	border: 2px dashed $c-border;
+	border-radius: 4px;
+	
+	&:hover {
+		border: 2px solid $c-primary;
+	}
+
+	&.dropzone-small {
+		min-height: rem(160);
+	}
+}
+
+.dropzone__icons,
+.dropzone__btn {
+	margin-bottom: rem(16);
+}
+
+.dropzone__icons {
+	line-height: 0;
+}
+
+.dropzone__icon {
+	stroke: $c-text-icon;
+	fill: none;
+}
+
+.dropzone__text {
+	color: $c-text-light;
+}
+
+.dropzone__helper-text,
+.dropzone__helper-text-bottom {
+	@include typescale('h3');
+
+	.dropzone-small & {
+		@include typescale('body');
+	}
+}
+
+.dropzone__helper-text-bottom {
+	position: absolute;
+	bottom: rem(16);
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+
+.dropzone__warn-drop-icon {
+	stroke: $c-ui-critical;
+}
+
+.dropzone__did-upload-icon {
+	stroke: $c-ui-online;
+}
+
+.dropzone__helper-text,
+.dropzone__uploading-progress-wrapper {
+	margin-bottom: rem(16);
+}
+
+.dropzone__uploading-text {
+	@include typescale('h3');
+}
+
+.dropzone__uploading-progress-wrapper {
+	position: relative;
+	width: 100%;
+	height: rem(8);
+	background-color: $c-grey-01;
+}
+
+.dropzone__uploading-progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	background-color: $c-primary;
+}
+
+// Small Variant
+.dropzone-small {
+	.dropzone__btn {
+		margin-bottom: 0;
+	}
+
+	.dropzone__icons {
+		margin-bottom: rem(8);
+	}
+}
+
+// Circular Variant
+.dropzone-circular {
+	border-radius: 9999px;
+	max-width: rem(160);
+
+	.dropzone__btn {
+		margin-bottom: rem(8);
+	}
+
+	.dropzone__icons {
+		margin-bottom: 0;
+	}
+}
+
+// States
+.dropzone--is-hovered,
+.dropzone--has-error {
+	.dropzone__btn,
+	.dropzone__text {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+// Hover Styles
+.dropzone--is-hovered {
+	&.dropzone {
+		background-color: $c-bg;
+		border: 2px solid $c-primary;
+	}
+}
+
+// Error Styles
+.dropzone--has-error {
+	&.dropzone {
+		background-color: $c-ui-critical-light;
+		border: 2px solid $c-ui-critical;
+	}
+}
+
+// Uploading Styles
+.dropzone--is-uploading,
+.dropzone--is-disabled {
+	&.dropzone {
+		border: 2px solid $c-border;
+
+		&:hover {
+			border: 2px solid $c-border;
+		}
+	}
+}

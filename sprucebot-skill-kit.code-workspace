@@ -1,20 +1,28 @@
 {
 	"folders": [
 		{
-			"path": "packages/sprucebot-skills-kit",
-			"name": "Sprucebot Skills Kit Template"
+			"path": "packages/heartwood-components",
+			"name": "Heartwood Components and Styles"
 		},
 		{
-			"path": "packages/react-sprucebot",
-			"name": "React Sprucebot Components"
+			"path": "packages/react-heartwood-components",
+			"name": "React Heartwood Implementation of Components"
 		},
 		{
-			"path": "packages/sprucebot-skills-kit-server",
-			"name": "Sprucebot Skills Kit Server Koa"
+			"path": "packages/spruce-next-helpers",
+			"name": "Skill Next.js Helper Files / Utilities"
 		},
 		{
-			"path": "packages/sprucebot-node",
-			"name": "Sprucebot Node (API)"
+			"path": "packages/spruce-node",
+			"name": "Spruce Node (API) Wrapper"
+		},
+		{
+			"path": "packages/spruce-skill",
+			"name": "Spruce Skill Template"
+		},
+		{
+			"path": "packages/spruce-skill-server",
+			"name": "Spruce Skill Server (Koa)"
 		},
 		{
 			"path": ".",

@@ -1,0 +1,26 @@
+<header class="header-primary">
+	<div class="header-primary__left">
+		{{> @hamburger}}
+		{{#if business}}
+			<div>
+				<p class="header-primary__text"><a href="#">{{{business}}}</a></p>
+				{{#if address}}
+				<p class="header-primary__text header-primary__address"><a href="#">{{{address}}}</a></p>
+				{{/if}}
+			</div>
+		{{else}}
+			<p class="header-primary__lockup" href="#">
+				{{> @default-lockup}}
+			</p>
+		{{/if}}
+	</div>
+	<div class="header-primary__right">
+		{{#if user}}
+			{{> @search class="text-input-small" placeholder="Search anything…"}}
+			{{> @user-menu}}
+		{{else}}
+			{{> @button className="btn-small" text="Log In"}}
+			{{> @button className="btn-primary btn-small" text="Sign Up"}}
+		{{/if}}
+	</div>
+</header>

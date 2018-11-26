@@ -1,0 +1,24 @@
+@mixin speech-bubble($reverse: false) {
+    @if ($reverse) {
+        border-radius: 24px 24px 24px 0;
+    } @else {
+        border-radius: 24px 24px 0 24px;
+    }
+}
+
+// Replace default outline with box-shadow
+@mixin btn-focus-state($focus-color: $c-primary) {
+    &:not(:disabled):not([readonly]):not(:active):focus {
+        outline: none;
+        border-color: $focus-color;
+        box-shadow: 0 0 0 3px rgba($focus-color, 0.4);
+    }
+}
+
+@mixin input-focus-state($focus-color: $c-primary) {
+    &:not(:disabled):not([readonly]):focus {
+        outline: none;
+        border-color: $focus-color;
+        box-shadow: 0 0 0 3px rgba($focus-color, 0.4);
+    }
+}

@@ -3,10 +3,12 @@
 	"private": true,
 	"name": "workspace.sprucebot-skills-kit",
 	"workspaces": [
-		"packages/sprucebot-skills-kit",
-		"packages/sprucebot-node",
-		"packages/sprucebot-skills-kit-server",
-		"packages/react-sprucebot"
+		"packages/heartwood-components",
+		"packages/react-heartwood-components",
+		"packages/spruce-next-helpers",
+		"packages/spruce-node",
+		"packages/spruce-skill",
+		"packages/spruce-skill-server"
 	],
 	"scripts": {
 		"local": "pm2 start ecosystem.config.js && echo 'run `yarn run log` to tail the logs'",
@@ -17,12 +19,20 @@
 		"build": "lerna run build",
 		"watch": "lerna run watch --stream",
 		"start": "pm2 start ecosystem.config.js --no-daemon",
-		"heroku-postbuild": "npm run build",
-		"test": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node",
+		"test": "jest --clearCache && yarn build && lerna run test --parallel --ignore sprucebot-node",
 		"test:update": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node -- -u",
 		"prepush": "npm run lint && npm run test",
 		"publish": "lerna publish --log-level=silly",
-		"clean": "rm -rf node_modules/ && rm -rf packages/react-sprucebot/node_modules/ && rm -rf packages/sprucebot-node/node_modules/ && rm -rf packages/sprucebot-skills-kit/node_modules/ && rm -rf packages/sprucebot-skills-kit-server/node_modules/"
+		"clean": "rm -rf node_modules/ && rm -rf packages/react-sprucebot/node_modules/ && rm -rf packages/sprucebot-node/node_modules/ && rm -rf packages/sprucebot-skills-kit/node_modules/ && rm -rf packages/sprucebot-skills-kit-server/node_modules/",
+		"build-statics": "npm run build-storybook && npm run build-heartwood",
+		"build-storybook": "cd packages/react-heartwood-components && npm run build-storybook",
+		"build-heartwood": "cd packages/heartwood-components && npm run build",
+		"s3-sync-heartwood-canary": "aws s3 sync ./packages/heartwood-components/build/ s3://canary-heartwood.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE",
+		"s3-sync-storybook-canary": "aws s3 sync ./packages/react-heartwood-components/storybook-static/ s3://canary-storybook.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE",
+		"s3-sync-heartwood-dev": "aws s3 sync ./packages/heartwood-components/build/ s3://dev-heartwood.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE",
+		"s3-sync-storybook-dev": "aws s3 sync ./packages/react-heartwood-components/storybook-static/ s3://dev-storybook.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE",
+		"s3-sync-heartwood-prod": "aws s3 sync ./packages/heartwood-components/build/ s3://heartwood.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE",
+		"s3-sync-storybook-prod": "aws s3 sync ./packages/react-heartwood-components/storybook-static/ s3://storybook.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE"
 	},
 	"dependencies": {
 		"pm2": "^2.10.1"
