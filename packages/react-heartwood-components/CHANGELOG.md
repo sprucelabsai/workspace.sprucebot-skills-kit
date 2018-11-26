@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.9.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.3...v7.9.0) (2018-11-26)
+
+
+### Bug Fixes
+
+* bad events ([c9470d2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c9470d2))
+* drag and drop fixes ([a557023](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a557023))
+* progress ([9240771](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9240771))
+
+
+
+
+
 ## [7.8.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.2...v7.8.3) (2018-11-09)
 
 
