@@ -128,6 +128,10 @@ class HeaderControls extends Component<Props, State> {
 						/>
 						{isDatePickerShown && !shouldResetDatePicker && (
 							<div className="bigcalendar_date-picker">
+								<div
+									className="bigcalendar_date-picker-underlay"
+									onClick={() => this.toggleDatePicker()}
+								/>
 								<DatePicker
 									date={selectedDate}
 									onSelectDate={this.onSelectDate}
