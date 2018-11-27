@@ -3657,6 +3657,8 @@ html {
 
 .modal .event-details {
   max-width: 100%; }
+  .modal .event-details .card {
+    box-shadow: none; }
 
 .bigcalendar__event {
   border: 1px solid #0076D6;
