@@ -2,7 +2,7 @@
     <span class="message__pre">
         {{#if from.image}}
         {{#if from.isSprucebot}}
-        <img class="message__from-image{{#if isSprucebot}} message__from-sprucebot-image{{/if}}" src="{{ from.image.src }}"
+        <img class="message__from-image{{#if from.isSprucebot}} message__from-sprucebot-image{{/if}}" src="{{ from.image.src }}"
             alt="{{ from.image.alt }}" width="40" height="40" />
         {{else}}
         {{> @avatar image=from.image.src showIndicator=true isOnline=from.isOnline}}
