@@ -187,7 +187,8 @@ body.sb-show-main {
     border-left: 1px solid $c-border;
     height: rem(50);
     .inner {
-        overflow-x: auto;    
+        overflow-x: auto;
+        overflow-y: hidden;
         display: flex;
         left:0px;
         top:0px;
