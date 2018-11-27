@@ -397,6 +397,9 @@ body.sb-show-main {
 .modal {
     .event-details {
         max-width: 100%;
+        .card {
+            box-shadow: none;
+        }
     }
 }
 
