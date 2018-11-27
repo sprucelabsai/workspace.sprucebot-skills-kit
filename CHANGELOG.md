@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.9.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.9.0...v7.9.1) (2018-11-27)
+
+
+### Breaking Changes
+
+* 8.0 ([dce008d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dce008d))
+
+
+### Bug Fixes
+
+* update nodemon https://www.npmjs.com/advisories/737 ([668246f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/668246f))
+
+
+
+
+
 # [7.9.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.3...v7.9.0) (2018-11-26)
 
 
