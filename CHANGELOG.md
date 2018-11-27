@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.9.1...v8.0.0) (2018-11-27)
+
+
+### Breaking Changes
+
+* v8 ([2601044](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2601044))
+
+
+
+
+
 ## [7.9.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.9.0...v7.9.1) (2018-11-27)
 
 
