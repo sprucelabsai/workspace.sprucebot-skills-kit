@@ -3514,6 +3514,7 @@ html {
   height: 3.125rem; }
   .bigcalendar__teammate-header .inner {
     overflow-x: auto;
+    overflow-y: hidden;
     display: flex;
     left: 0px;
     top: 0px;
