@@ -20,6 +20,7 @@
 		"autoprefixer": "^9.3.1",
 		"cssnano": "^4.1.7",
 		"gulp-postcss": "^8.0.0",
+		"gulp-sourcemaps": "^2.6.4",
 		"through2": "^3.0.0"
 	},
 	"scripts": {
