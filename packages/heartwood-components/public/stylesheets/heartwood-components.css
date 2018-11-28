@@ -1835,10 +1835,10 @@ Classes for button variations
   background-color: #f9fafc; }
 
 .autosuggest__no-results-title {
-  margin-bottom: 0.125rem;
   font-weight: 600; }
 
 .autosuggest__no-results-subtitle {
+  margin-top: 0.125rem;
   color: #525966; }
 
 .text-input__clear-btn .btn__icon-wrapper {
@@ -2012,9 +2012,9 @@ Classes for button variations
   .dropzone.dropzone-small {
     min-height: 10rem; }
 
-.dropzone__icons,
-.dropzone__btn {
-  margin-bottom: 1rem; }
+.dropzone__btn,
+.dropzone__text {
+  margin-top: 1rem; }
 
 .dropzone__icons {
   line-height: 0; }
@@ -2046,9 +2046,8 @@ Classes for button variations
 .dropzone__did-upload-icon {
   stroke: #00b2a4; }
 
-.dropzone__helper-text,
 .dropzone__uploading-progress-wrapper {
-  margin-bottom: 1rem; }
+  margin-top: 1rem; }
 
 .dropzone__uploading-text {
   font-size: 1.25rem; }
@@ -2067,18 +2066,13 @@ Classes for button variations
   background-color: #0076D6; }
 
 .dropzone-small .dropzone__btn {
-  margin-bottom: 0; }
-
-.dropzone-small .dropzone__icons {
-  margin-bottom: 0.5rem; }
+  margin-top: 0.5rem; }
 
 .dropzone-circular {
   border-radius: 9999px;
   max-width: 10rem; }
   .dropzone-circular .dropzone__btn {
-    margin-bottom: 0.5rem; }
-  .dropzone-circular .dropzone__icons {
-    margin-bottom: 0; }
+    margin: 0.5rem auto; }
 
 .dropzone--is-hovered .dropzone__btn,
 .dropzone--is-hovered .dropzone__text,

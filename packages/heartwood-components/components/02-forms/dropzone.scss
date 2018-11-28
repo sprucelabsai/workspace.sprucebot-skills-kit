@@ -20,9 +20,9 @@
 	}
 }
 
-.dropzone__icons,
-.dropzone__btn {
-	margin-bottom: spacing('base');
+.dropzone__btn,
+.dropzone__text {
+	margin-top: spacing('base');
 }
 
 .dropzone__icons {
@@ -63,9 +63,8 @@
 	stroke: $c-ui-online;
 }
 
-.dropzone__helper-text,
 .dropzone__uploading-progress-wrapper {
-	margin-bottom: spacing('base');
+	margin-top: spacing('base');
 }
 
 .dropzone__uploading-text {
@@ -90,11 +89,7 @@
 // Small Variant
 .dropzone-small {
 	.dropzone__btn {
-		margin-bottom: 0;
-	}
-
-	.dropzone__icons {
-		margin-bottom: spacing('tight');
+		margin-top: spacing('tight');
 	}
 }
 
@@ -104,11 +99,7 @@
 	max-width: rem(160);
 
 	.dropzone__btn {
-		margin-bottom: spacing('tight');
-	}
-
-	.dropzone__icons {
-		margin-bottom: 0;
+		margin: spacing('tight') auto;
 	}
 }
 
