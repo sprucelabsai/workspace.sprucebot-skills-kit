@@ -1,9 +1,7 @@
 import React from 'react'
 import App, { Container } from 'next/app'
 
-if (typeof window !== 'undefined') {
-	global.log = require('@sprucelabs/log')
-}
+global.log = require('@sprucelabs/log/client')
 
 export default class MyApp extends App {
 	static async getInitialProps({ Component, router, ctx }) {

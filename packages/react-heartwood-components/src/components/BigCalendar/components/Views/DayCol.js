@@ -48,7 +48,7 @@ const DayCol = (props: Props) => {
 
 		return (
 			<div
-				key={hour.label}
+				key={`${hour.timestamp}-daycol`}
 				className={cx('hour-block', {
 					active: isActive,
 					inactive: !isActive

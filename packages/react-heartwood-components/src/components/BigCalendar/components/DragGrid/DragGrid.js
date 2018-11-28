@@ -33,7 +33,10 @@ type Props = {
 	sizeEvent: Function,
 	onDeselectEvent: Function,
 	onLongPressView?: Function,
-	doubleClickTime: Number
+	doubleClickTime: Number,
+	timeFormat: String,
+	enableAutoScrollX: Boolean,
+	enableAutoScrollY: Boolean
 }
 
 type State = {
@@ -43,15 +46,16 @@ type State = {
 class DragGrid extends PureComponent<Props> {
 	state = {}
 
-	constructor(props) {
-		super(props)
-		this.domNodeRef = React.createRef()
-	}
-
 	static defaultProps = {
 		dragThreshold: 10,
 		scrollDuringDragMargin: 50,
-		dragScrollSpeed: 5
+		dragScrollSpeed: 5,
+		enableAutoScrollX: true,
+		enableAutoScrollY: true
+	}
+	constructor(props) {
+		super(props)
+		this.domNodeRef = React.createRef()
 	}
 
 	getEventNode = event => {
@@ -327,7 +331,7 @@ class DragGrid extends PureComponent<Props> {
 			setListeners &&
 				document.body.addEventListener(
 					'mouseleave',
-					this.handleMouseUpFromEvent,
+					this.handleCancelMouseUpFromEvent,
 					{
 						passive: false
 					}
@@ -481,7 +485,7 @@ class DragGrid extends PureComponent<Props> {
 	}
 
 	beginScrollHorizontally = speed => {
-		if (this._scrollHorizontalSpeed !== speed) {
+		if (this.props.enableAutoScrollX && this._scrollHorizontalSpeed !== speed) {
 			clearInterval(this._scrollHorizontalInterval)
 			this._scrollHorizontalSpeed = speed
 			this._scrollHorizontalInterval = setInterval(() => {
@@ -495,7 +499,7 @@ class DragGrid extends PureComponent<Props> {
 	}
 
 	beginScrollingVertically = speed => {
-		if (this._scrollVerticalSpeed !== speed) {
+		if (this.props.enableAutoScrollY && this._scrollVerticalSpeed !== speed) {
 			clearInterval(this._scrollVerticalInterval)
 			this._scrollVerticalSpeed = speed
 			this._scrollVerticalInterval = setInterval(() => {
@@ -655,6 +659,7 @@ class DragGrid extends PureComponent<Props> {
 		document.body.removeEventListener('mouseleave', this.handleMouseUpFromView)
 
 		this._isDraggingView = false
+		this.domNodeRef.current.style.webkitOverflowScrolling = ''
 
 		const { startingScrollLeft = 0, startingScrollTop = 0 } =
 			this._dragOffset || {}
@@ -693,8 +698,14 @@ class DragGrid extends PureComponent<Props> {
 		}
 	}
 
-	handleMouseUpFromEvent = e => {
+	handleCancelMouseUpFromEvent = e => {
+		return this.handleMouseUpFromEvent(e, { overrideValid: false })
+	}
+
+	handleMouseUpFromEvent = (e, { overrideValid } = {}) => {
 		this._isMouseDownOnEvent = false
+
+		this.domNodeRef.current.style.webkitOverflowScrolling = ''
 
 		// console.log('mouse up of event')
 		if (!this.state.dragEvent && this._pendingDrag) {
@@ -705,14 +716,17 @@ class DragGrid extends PureComponent<Props> {
 			})
 			this._pendingDrag = null
 		} else {
-			this.handleDropEvent()
+			this.handleDropEvent({ overrideValid })
 			this.props.onDeselectEvent && this.props.onDeselectEvent()
 			this.props.onUnHighlightEvent && this.props.onUnHighlightEvent()
 		}
 
 		window.removeEventListener('mousemove', this.handleDragOfEvent)
 		window.removeEventListener('mouseup', this.handleMouseUpFromEvent)
-		document.body.removeEventListener('mouseleave', this.handleMouseUpFromEvent)
+		document.body.removeEventListener(
+			'mouseleave',
+			this.handleCancelMouseUpFromEvent
+		)
 	}
 
 	cancelDrag = () => {
@@ -722,7 +736,7 @@ class DragGrid extends PureComponent<Props> {
 		})
 	}
 
-	handleDropEvent = async () => {
+	handleDropEvent = async ({ overrideValid }) => {
 		const { dragEventNode, sourceEvent, sourceEventNode } = this._activeDrag
 		const { onDropEvent } = this.props
 		const { dragEvent } = this.state
@@ -736,14 +750,18 @@ class DragGrid extends PureComponent<Props> {
 
 		let valid
 		try {
-			valid = onDropEvent
-				? await onDropEvent({
-						event: sourceEvent,
-						dragEvent,
-						newX: parseFloat(dragEventNode.style.left),
-						newY: parseFloat(dragEventNode.style.top)
-				  })
-				: false
+			if (typeof overrideValid === 'boolean') {
+				valid = overrideValid
+			} else {
+				valid = onDropEvent
+					? await onDropEvent({
+							event: sourceEvent,
+							dragEvent,
+							newX: parseFloat(dragEventNode.style.left),
+							newY: parseFloat(dragEventNode.style.top)
+					  })
+					: false
+			}
 		} catch (err) {
 			console.log('failed to handle drop', err)
 			valid = false
@@ -797,6 +815,10 @@ class DragGrid extends PureComponent<Props> {
 		return this.isDraggingEvent() ? this._activeDrag.dragNode : null
 	}
 
+	getDragBlockNode = () => {
+		return this._activeDrag ? this._activeDrag.dragBlockNode : null
+	}
+
 	// TOUCH ONLY, assuming touch is down here
 	dropNewEventAndDrag = async ({ event, e, left, top }) => {
 		const dragDetails = await this.startDragOfEvent({
@@ -829,6 +851,8 @@ class DragGrid extends PureComponent<Props> {
 	}) => {
 		let dragEvent = overrideDragEvent
 		let originalEvent = null
+
+		this.domNodeRef.current.style.webkitOverflowScrolling = 'auto'
 
 		if (event && event.id === 'dragging') {
 			dragEvent = event
@@ -958,6 +982,7 @@ class DragGrid extends PureComponent<Props> {
 			onLongPressView,
 			longPressDelay,
 			onClick,
+			timeFormat,
 			...props
 		} = this.props
 
@@ -975,6 +1000,7 @@ class DragGrid extends PureComponent<Props> {
 				{children}
 				{events.map(event => (
 					<Event
+						timeFormat={timeFormat}
 						key={`event-${event.id}`}
 						className={cx({
 							'is-drag-source': dragEvent && dragEvent.originalId === event.id,
@@ -995,6 +1021,7 @@ class DragGrid extends PureComponent<Props> {
 
 				{dragEvent && (
 					<Event
+						timeFormat={timeFormat}
 						onTouchStart={this.handleTouchStartOnDragEvent}
 						className={cx('is-active-drag', {
 							'is-active-highlight':

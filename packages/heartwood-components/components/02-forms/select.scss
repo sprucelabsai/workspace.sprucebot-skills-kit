@@ -44,6 +44,7 @@
 }
 
 .select__icon {
+	pointer-events: none;
 	position: absolute;
 	top: 50%;
 	right: spacing('tight');

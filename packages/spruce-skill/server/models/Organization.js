@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
 
 	Organization.associate = function(models) {
 		Organization.hasMany(models.Location, { constraints: false })
-		Organization.hasMany(models.Service, { constraints: false })
 	}
 
 	return Organization

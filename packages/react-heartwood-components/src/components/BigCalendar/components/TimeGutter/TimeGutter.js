@@ -34,7 +34,7 @@ class TimeGutter extends PureComponent<Props> {
 				<div className="inner">
 					{hours.map((hour, idx) => {
 						return (
-							<div key={hour.label} className="hour-block">
+							<div key={`${hour.timestamp}-gutter`} className="hour-block">
 								{idx > 0 && <p>{hour.label}</p>}
 							</div>
 						)

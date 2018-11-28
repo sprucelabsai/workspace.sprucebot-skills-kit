@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "7.8.0",
+	"version": "8.0.2",
 	"main": "lib/index.js",
 	"description": "React components for your Sprucebot Skill 💪🏼",
 	"keywords": [
@@ -89,7 +89,7 @@
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
-		"@sprucelabs/heartwood-components": "7.8.0",
+		"@sprucelabs/heartwood-components": "^8.0.2",
 		"axios": "^0.18.0",
 		"blueimp-canvas-to-blob": "^3.14.0",
 		"classnames": "^2.2.5",

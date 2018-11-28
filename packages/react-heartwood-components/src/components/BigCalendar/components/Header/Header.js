@@ -24,7 +24,7 @@ type Props = {
 	currentHorizontalPage: Number,
 	onHorizontalPageNext: Function,
 	onHorizontalPageBack: Function,
-	userModeSelectOptions?: Array<Object>,
+	userModeOptions?: Array<Object>,
 	onChangeUserMode?: Function,
 	userMode?: String,
 	onDateToToday: Function,
@@ -43,7 +43,6 @@ class Header extends PureComponent<Props, State> {
 	}
 
 	handleShowSubMenu = () => {
-		console.log('show')
 		this.setState({ showingSubMenu: true })
 	}
 	handleHideSubMenu = () => {
@@ -54,7 +53,7 @@ class Header extends PureComponent<Props, State> {
 			selectedDate,
 			dateFormat,
 			mobileDateFormat,
-			userModeSelectOptions,
+			userModeOptions,
 			onChangeUserMode,
 			userMode,
 			fullScreenNode,
@@ -92,7 +91,7 @@ class Header extends PureComponent<Props, State> {
 						/>
 						<h2>{selectedDate.format(mobileDateFormat)}</h2>
 						<HeaderControls
-							userModeSelectOptions={userModeSelectOptions}
+							userModeOptions={userModeOptions}
 							onChangeUserMode={onChangeUserMode}
 							userMode={userMode}
 							fullScreenNode={fullScreenNode}
@@ -102,7 +101,7 @@ class Header extends PureComponent<Props, State> {
 							onSelectDate={onSelectDate}
 							onDateToToday={onDateToToday}
 							selectedDate={selectedDate}
-							isMobile={this.state.showingSubMenu}
+							isDatePickerShown={this.state.showingSubMenu}
 						/>
 					</div>
 					<Button

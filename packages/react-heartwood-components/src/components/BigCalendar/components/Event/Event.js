@@ -8,7 +8,8 @@ import EventBlock from '../EventBlock/EventBlock'
 type Props = {
 	event: Object,
 	className?: string,
-	timezone: String
+	timezone: String,
+	timeFormat: String
 }
 
 const Event = (props: Props) => {
@@ -18,6 +19,7 @@ const Event = (props: Props) => {
 		onMouseDown,
 		onTouchStart,
 		timezone,
+		timeFormat,
 		...rest
 	} = props
 	let startAt = moment.tz(event.startAt, timezone)
@@ -31,6 +33,7 @@ const Event = (props: Props) => {
 					<EventBlock
 						resizable={event.resizable !== false}
 						startAt={startAt}
+						timeFormat={timeFormat}
 						onMouseDown={e => {
 							onMouseDown && onMouseDown({ e, event, block, blockIdx: idx })
 						}}

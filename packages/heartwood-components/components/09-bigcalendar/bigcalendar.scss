@@ -30,11 +30,23 @@ $event-indent-width: rem(50);
         }
         
 }
+body,
+html {
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow: hidden;
+}
 
 .bigcalendar {
     background-color: #fff;
     -webkit-touch-callout: none;
     -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+
+    * {
+        box-sizing: border-box;
+    }
 }
 
 body.sb-show-main {
@@ -171,7 +183,8 @@ body.sb-show-main {
     border-left: 1px solid $c-border;
     height: rem(50);
     .inner {
-        overflow-x: auto;    
+        overflow-x: auto;
+        overflow-y: hidden;
         display: flex;
         left:0px;
         top:0px;
@@ -186,6 +199,7 @@ body.sb-show-main {
         display: flex;
         align-items: center;
         font-weight: $font-weight-bold;
+        height: rem(50);
     }
 
     .avatar__image-wrapper {
@@ -236,6 +250,9 @@ body.sb-show-main {
         width: $day-col-width;
     }
 
+    .bigcalendar__day-col {
+    } 
+
     .bigcalendar__event {
     }
 
@@ -276,7 +293,7 @@ body.sb-show-main {
     }
 
     .hour-block {
-        height: rem(60);
+        height: rem(80);
         display: flex;
         flex-direction: column;
 
@@ -402,7 +419,7 @@ body.sb-show-main {
         transition: all 0.5s ease-out;
     }
 
-    @include eventFill($c-primary, $c-primary, $c-white, $c-white)
+    @include eventFill($c-primary, $c-primary, $c-white, $c-white);
 
     &.event-fill-available {
          @include eventFill($c-white, $c-primary, $c-primary, $c-primary)
@@ -443,6 +460,11 @@ body.sb-show-main {
 
     p:first-of-type {
         padding-top:2px;
+    }
+
+    .content-wrapper {
+        overflow: hidden;
+        height: 100%;
     }
 
     .title {
@@ -592,11 +614,19 @@ body.sb-show-main {
             padding: 0 8px;
             align-content: center;
             .bigcalendar__date-scroll-controls {
+                flex-direction: column;
                 flex-wrap: wrap;
                 justify-content: flex-start;
+                .bigcalendar_date-picker {
+                    position: relative;
+                }
                 .select-wrapper {
                     width: 80%;
                 }
+            }
+            .pagination-wrapper,
+            .bigcalendar__calendarIcon-button {
+                display: none;
             }
 
             @include gt('small') {
