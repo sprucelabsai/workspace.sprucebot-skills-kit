@@ -151,7 +151,9 @@ Baseline styling for all buttons
 
 	&.btn-full-width {
 		width: 100%;
-		margin-bottom: spacing('tight');
+		+ .btn-full-width {
+			margin-top: spacing('tight');
+		}
 	}
 
 	&:disabled {

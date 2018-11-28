@@ -46,7 +46,7 @@ export default class View extends Component<Props, State> {
 		const { sidebarItems, user, business, children } = this.props
 		return (
 			<div
-				className={cx('l-page-wrapper', {
+				className={cx('main-wrapper', {
 					'menu--is-visible': sidebarIsVisible,
 					'sidebar--is-collapsed': !sidebarIsExpanded
 				})}
@@ -64,9 +64,7 @@ export default class View extends Component<Props, State> {
 					toggleSidebarVisibility={this.toggleSidebarVisibility}
 					sidebarIsVisible={sidebarIsVisible}
 				/>
-				<main className="l-page-inner">
-					<div class="l-container-medium ">{children}</div>
-				</main>
+				<main className="main-content">{children}</main>
 			</div>
 		)
 	}

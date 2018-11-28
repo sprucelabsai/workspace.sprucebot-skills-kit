@@ -15,7 +15,7 @@ const Wrapper = props => {
 	)
 	if (!props.STORYBOOKwrap) {
 		return (
-			<div className="l-page-wrapper">
+			<div className="main-wrapper">
 				<Helmet>
 					<link
 						rel="stylesheet"
@@ -34,7 +34,7 @@ const Wrapper = props => {
 	}
 
 	return (
-		<div className="l-page-wrapper">
+		<div className="main-wrapper">
 			<Helmet>
 				<link
 					rel="stylesheet"
@@ -47,7 +47,7 @@ const Wrapper = props => {
 					))}
 				{meta}
 			</Helmet>
-			<div className="l-pa-medium">{props.children}</div>
+			<div style={{ padding: '1rem' }}>{props.children}</div>
 		</div>
 	)
 }

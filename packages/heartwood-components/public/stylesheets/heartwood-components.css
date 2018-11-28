@@ -1573,8 +1573,9 @@ Baseline styling for all buttons
     height: 2.25rem;
     padding: 0 0.5rem; }
   .btn.btn-full-width {
-    width: 100%;
-    margin-bottom: 0.5rem; }
+    width: 100%; }
+    .btn.btn-full-width + .btn-full-width {
+      margin-top: 0.5rem; }
   .btn:disabled {
     cursor: not-allowed; }
   .btn:focus {
@@ -1754,8 +1755,6 @@ Classes for button variations
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.05); }
     .button-group.button-group-floating .button-group__item {
       margin-right: 0; }
-      .button-group.button-group-floating .button-group__item .btn {
-        margin-bottom: 0; }
     .button-group.button-group-floating .btn__inner {
       justify-content: flex-start; }
 
