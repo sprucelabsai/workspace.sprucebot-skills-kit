@@ -148,7 +148,7 @@
 	@include typescale('display-sm');
 }
 
-.card img {
+.card > img {
 	width: 100%;
 	height: auto;
 }

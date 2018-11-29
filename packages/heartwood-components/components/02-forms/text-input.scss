@@ -19,6 +19,10 @@ select:-webkit-autofill:focus {
 	@include type-style-label;
 	display: flex;
 	justify-content: space-between;
+
+	+ * {
+		margin-top: spacing('extra-tight');
+	}
 }
 
 .text-input__post-label {
@@ -27,6 +31,7 @@ select:-webkit-autofill:focus {
 
 .text-input__helper {
 	@include type-style-body-sm;
+	margin-top: spacing('extra-tight');
 }
 
 .text-input > * + * {

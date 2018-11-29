@@ -2329,6 +2329,8 @@ select:-webkit-autofill:focus {
   letter-spacing: 1px;
   display: flex;
   justify-content: space-between; }
+  .text-input__pre + * {
+    margin-top: 0.25rem; }
 
 .text-input__post-label {
   color: #525966; }
@@ -2336,7 +2338,8 @@ select:-webkit-autofill:focus {
 .text-input__helper {
   font-size: 0.875rem;
   line-height: 1.25;
-  font-weight: 400; }
+  font-weight: 400;
+  margin-top: 0.25rem; }
 
 .text-input > * + * {
   margin-top: 0.25rem; }
@@ -2685,7 +2688,7 @@ select:-webkit-autofill:focus {
 .card__score-value {
   font-size: 3.75rem; }
 
-.card img {
+.card > img {
   width: 100%;
   height: auto; }
 

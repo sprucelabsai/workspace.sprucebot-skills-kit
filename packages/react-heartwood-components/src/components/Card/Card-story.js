@@ -47,7 +47,7 @@ const cardJSON = {
 		]
 	},
 	body: {
-		children: `<p>The Card Builder enables Skill devs to build cards using JSON. It should not be used for core cards.</p>`
+		children: `The Card Builder enables Skill devs to build cards using JSON. It should not be used for core cards.`
 	},
 	footer: {
 		actions: [
@@ -145,7 +145,9 @@ stories
 				/>
 				<CardBody>
 					<List items={userList} />
-					<a href="#">+3 more today</a>
+					<a href="#" style={{ display: 'block' }}>
+						+3 more today
+					</a>
 				</CardBody>
 			</Card>
 		</Container>
