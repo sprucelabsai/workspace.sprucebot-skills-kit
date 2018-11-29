@@ -4,10 +4,9 @@
 	flex-flow: column;
 	align-items: center;
 	flex: 0 1 auto;
-	margin-right: spacing('base');
 
-	&:last-child {
-		margin-right: 0;
+	+ .tab {
+		margin-left: spacing('base');
 	}
 }
 

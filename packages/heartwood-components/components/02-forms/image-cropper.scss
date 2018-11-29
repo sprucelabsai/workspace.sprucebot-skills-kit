@@ -10,9 +10,7 @@
 
 .image-cropper__rotate-btn {
 	width: 50%;
-	margin-right: spacing('base');
-
-	&:last-child {
-		margin-right: 0;
+	+ .image-cropper__rotate-btn {
+		margin-left: spacing('base');
 	}
 }

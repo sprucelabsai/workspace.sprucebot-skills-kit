@@ -46,7 +46,9 @@
 }
 
 .card__header-label-icon {
-	margin-right: spacing('extra-tight');
+	+ .card__header-label-text {
+		margin-left: spacing('extra-tight');
+	}
 
 	.card--critical & {
 		fill: $c-ui-critical;

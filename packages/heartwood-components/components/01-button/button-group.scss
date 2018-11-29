@@ -1,17 +1,13 @@
 .button-group {
 	display: inline-flex;
 
-	.button-group__item {
-		margin-right: spacing('tight');
-
-		&:last-child {
-			margin-right: 0;
-		}
+	.button-group__item + .button-group__item {
+		margin-left: spacing('tight');
 	}
 
 	&.button-group-segmented {
 		.button-group__item {
-			margin-right: 0;
+			margin-left: 0;
 
 			&:not(:last-child) .btn {
 				border-right: none;
@@ -41,7 +37,7 @@
 		box-shadow: $dimension-floating;
 
 		.button-group__item {
-			margin-right: 0;
+			margin-left: 0;
 		}
 
 		.btn__inner {

@@ -13,7 +13,6 @@
 	flex: 0 0 auto;
 	width: rem(20);
 	height: rem(20);
-	margin-right: spacing('extra-tight');
 	fill: $c-primary;
 
 	.checkbox-item__icon-no {
@@ -30,6 +29,7 @@
 
 .checkbox-item__label {
 	font-weight: 600;
+	margin-left: spacing('extra-tight');
 	cursor: pointer;
 }
 

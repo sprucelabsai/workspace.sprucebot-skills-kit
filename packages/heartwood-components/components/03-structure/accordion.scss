@@ -33,8 +33,11 @@
 		.btn__icon {
 			width: 100%;
 			height: auto;
-			margin-right: spacing('extra-tight');
 			fill: $c-text-icon;
+		}
+
+		.btn__text {
+			margin-left: spacing('extra-tight');
 		}
 	}
 }

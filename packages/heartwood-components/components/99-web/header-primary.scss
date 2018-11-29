@@ -46,8 +46,11 @@
 }
 
 .header-primary__lockup-icon {
-	margin-right: spacing('extra-tight');
 	stroke: $c-white;
+
+	+ * {
+		margin-left: spacing('extra-tight');
+	}
 }
 
 .header-primary__text {
