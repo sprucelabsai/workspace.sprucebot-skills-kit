@@ -2096,10 +2096,8 @@ Classes for button variations
   .dropzone--is-disabled.dropzone:hover {
     border: 2px solid #cccfd6; }
 
-.form-row {
-  margin-bottom: 1.5rem; }
-  .form-row:last-child {
-    margin-bottom: 0; }
+.form-row + .form-row {
+  margin-top: 1.5rem; }
 
 .image-cropper__dropzone-wrapper,
 .image-cropper__controls-row {
