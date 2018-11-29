@@ -1,4 +1,4 @@
-<div class="form-layout">
+<div class="form-layout{{#if modifierClass}} {{modifierClass}}{{/if}}">
     {{#each formLayoutGroups}}
     {{> @form-layout-group this }}
     {{/each}}

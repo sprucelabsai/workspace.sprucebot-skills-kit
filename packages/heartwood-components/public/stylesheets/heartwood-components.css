@@ -2525,7 +2525,9 @@ select:-webkit-autofill:focus {
   margin-left: 0.5rem; }
 
 .form-layout {
-  margin: -1rem 0 0 -1rem; }
+  margin: -2rem 0 0 -1rem; }
+  .form-layout--spacing-tight {
+    margin: -1rem 0 0 -1rem; }
 
 .form-layout__group {
   display: flex;
@@ -2535,11 +2537,13 @@ select:-webkit-autofill:focus {
 
 .form-layout__item {
   flex: 1 1 12.66667rem;
-  margin: 1rem 0 0 1rem;
+  margin: 2rem 0 0 1rem;
   min-width: 12.66667rem; }
   .form-layout__group--condensed .form-layout__item {
     flex-basis: 6.75rem;
     min-width: 6.75rem; }
+  .form-layout--spacing-tight .form-layout__item {
+    margin: 1rem 0 0 1rem; }
 
 .accordion__panel {
   height: 0;
@@ -2778,7 +2782,7 @@ select:-webkit-autofill:focus {
   margin-left: -0.5rem; }
 
 .page__content {
-  margin: 2rem 0; }
+  padding: 2rem 0; }
 
 .layout {
   display: flex;
@@ -3247,14 +3251,6 @@ select:-webkit-autofill:focus {
   .list-wrapper .list {
     padding: 0; }
 
-body,
-html {
-  left: 0px;
-  top: 0px;
-  bottom: 0px;
-  right: 0px;
-  overflow: hidden; }
-
 .bigcalendar {
   background-color: #fff;
   -webkit-touch-callout: none;
@@ -3444,7 +3440,8 @@ html {
   .bigcalendar__view-day .hour-block .timeslot {
     flex: 1;
     border-bottom: 1px solid #e8eaed; }
-  .bigcalendar__view-day .hour-block.inactive, .bigcalendar__view-day .hour-block .timeslot.inactive {
+  .bigcalendar__view-day .hour-block.inactive,
+  .bigcalendar__view-day .hour-block .timeslot.inactive {
     background-color: #f6f7f8; }
   .bigcalendar__view-day .hour-block .timeslot:last-of-type {
     border: none; }
@@ -3518,7 +3515,8 @@ html {
   border: 1px solid #0076D6; }
   .bigcalendar__event.is-drag-source {
     opacity: 0.5; }
-  .bigcalendar__event.animate, .bigcalendar__event.animate .bigcalendar__event-block {
+  .bigcalendar__event.animate,
+  .bigcalendar__event.animate .bigcalendar__event-block {
     transition: all 0.5s ease-out; }
   .bigcalendar__event .bigcalendar__event-block {
     border-bottom: 1px solid #0076D6;
@@ -3664,11 +3662,13 @@ html {
         display: none; }
   .bigcalendar__event-block.busy .resize-handle.resize-n {
     display: block; }
-  .bigcalendar__event-block .left-icons, .bigcalendar__event-block .right-icons {
+  .bigcalendar__event-block .left-icons,
+  .bigcalendar__event-block .right-icons {
     position: absolute;
     left: 0.25rem;
     top: 0.25rem; }
-    .bigcalendar__event-block .left-icons svg, .bigcalendar__event-block .right-icons svg {
+    .bigcalendar__event-block .left-icons svg,
+    .bigcalendar__event-block .right-icons svg {
       width: 1rem;
       height: auto;
       margin-left: 0.5rem; }

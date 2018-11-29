@@ -6,7 +6,8 @@ import {
 	text,
 	boolean,
 	object,
-	number
+	number,
+	select
 } from '@storybook/addon-knobs/react'
 import Button from '../Button/Button'
 import {
@@ -29,6 +30,11 @@ import {
 	FormLayoutItem
 } from './index'
 import countries from '../../../.storybook/data/countries'
+
+const spacingOptions = {
+	Base: null,
+	Tight: 'tight'
+}
 
 const renderSuggestion = (suggestion: any) => {
 	if (suggestion.isEmptyMessage) {
@@ -260,7 +266,9 @@ stories
 	))
 	.add('Stars', () => <Stars />)
 	.add('Form Layout', () => (
-		<FormLayout>
+		<FormLayout
+			spacing={select('spacing', spacingOptions, spacingOptions.Base)}
+		>
 			<FormLayoutItem>
 				<TextInput
 					type="text"

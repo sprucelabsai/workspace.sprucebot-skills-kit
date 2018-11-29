@@ -7,13 +7,28 @@ export type FormLayoutProps = {
 	children: Node,
 
 	/** Class name for the layout */
-	className?: string
+	className?: string,
+
+	/** Vertical spacing of the FormLayoutItem components */
+	spacing?: 'base' | 'tight'
 }
 
 const FormLayout = (props: FormLayoutProps) => {
-	const { children, className } = props
+	const { children, className, spacing } = props
 
-	return <div className={cx('form-layout', className)}>{children}</div>
+	return (
+		<div
+			className={cx('form-layout', className, {
+				'form-layout--spacing-tight': spacing === 'tight'
+			})}
+		>
+			{children}
+		</div>
+	)
+}
+
+FormLayout.defaultProps = {
+	spacing: 'base'
 }
 
 export default FormLayout

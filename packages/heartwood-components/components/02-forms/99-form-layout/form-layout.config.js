@@ -23,6 +23,24 @@ module.exports = {
 	},
 	variants: [
 		{
+			name: 'Tight Vertical Spacing',
+			context: {
+				modifierClass: 'form-layout--spacing-tight',
+				formLayoutItems: [
+					{
+						textInput: {
+							label: 'Input Label'
+						}
+					},
+					{
+						textInput: {
+							label: 'Input Label'
+						}
+					}
+				]
+			}
+		},
+		{
 			name: 'Field Group',
 			context: {
 				formLayoutItems: [],
