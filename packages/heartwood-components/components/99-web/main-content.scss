@@ -7,6 +7,8 @@
 	}
 
 	.sidebar--is-collapsed & {
-		padding-left: rem(40);
+		@include gt('medium') {
+			padding-left: rem(40);
+		}
 	}
 }

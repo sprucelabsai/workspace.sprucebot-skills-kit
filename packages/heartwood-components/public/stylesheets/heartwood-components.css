@@ -2783,6 +2783,14 @@ select:-webkit-autofill:focus {
 
 .page__content {
   padding: 2rem 0; }
+  .page__content > .text-container {
+    padding: 0 1rem; }
+    @media screen and (min-width: 500px) {
+      .page__content > .text-container {
+        padding: 0 1.25rem; } }
+    @media screen and (min-width: 750px) {
+      .page__content > .text-container {
+        padding: 0; } }
 
 .layout {
   display: flex;
@@ -3854,8 +3862,9 @@ select:-webkit-autofill:focus {
   @media screen and (min-width: 750px) {
     .main-content {
       padding-left: 15rem; } }
-  .sidebar--is-collapsed .main-content {
-    padding-left: 2.5rem; }
+  @media screen and (min-width: 750px) {
+    .sidebar--is-collapsed .main-content {
+      padding-left: 2.5rem; } }
 
 .header-primary {
   position: fixed;

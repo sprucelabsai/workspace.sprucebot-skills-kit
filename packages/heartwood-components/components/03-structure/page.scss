@@ -53,4 +53,14 @@
 
 .page__content {
 	padding: spacing('extra-loose') 0;
+
+	> .text-container {
+		padding: 0 spacing('base');
+		@include gt('small') {
+			padding: 0 spacing('loose');
+		}
+		@include gt('medium') {
+			padding: 0;
+		}
+	}
 }
