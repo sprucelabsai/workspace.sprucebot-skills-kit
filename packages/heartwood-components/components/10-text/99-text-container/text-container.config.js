@@ -33,6 +33,14 @@ module.exports = {
 				modifierClass: 'text-container--spacing-loose',
 				headingText: 'Text Container - Loose Spacing'
 			}
+		},
+		{
+			name: 'centered',
+			label: 'Text Container - Centered',
+			context: {
+				modifierClass: 'text-container--centered',
+				headingText: 'Text Container'
+			}
 		}
 	]
 }

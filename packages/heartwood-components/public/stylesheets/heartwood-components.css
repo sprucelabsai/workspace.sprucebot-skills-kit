@@ -3835,6 +3835,12 @@ select:-webkit-autofill:focus {
 .text-container--spacing-loose > * + * {
   margin-top: 1.25rem; }
 
+.text-container--centered {
+  text-align: center; }
+  .text-container--centered > * {
+    margin-left: auto;
+    margin-right: auto; }
+
 .heading {
   font-size: 1.5rem;
   font-weight: 400; }

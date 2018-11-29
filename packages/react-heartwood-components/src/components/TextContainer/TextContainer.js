@@ -10,15 +10,19 @@ export type TextContainerProps = {
 	className?: string,
 
 	/** Vertical spacing of the child components */
-	spacing?: 'tight' | 'loose'
+	spacing?: 'tight' | 'loose',
+
+	/** Whether the children of the text container are centered */
+	isCentered?: boolean
 }
 
 const TextContainer = (props: TextContainerProps) => {
-	const { children, className, spacing } = props
+	const { children, className, spacing, isCentered } = props
 
 	return (
 		<div
 			className={cx('text-container', className, {
+				'text-container--centered': isCentered,
 				'text-container--spacing-tight': spacing === 'tight',
 				'text-container--spacing-loose': spacing === 'loose'
 			})}
@@ -26,6 +30,10 @@ const TextContainer = (props: TextContainerProps) => {
 			{children}
 		</div>
 	)
+}
+
+TextContainer.defaultProps = {
+	isCentered: false
 }
 
 export default TextContainer

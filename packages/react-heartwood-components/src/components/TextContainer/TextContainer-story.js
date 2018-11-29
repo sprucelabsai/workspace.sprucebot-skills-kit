@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, select } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 import TextContainer from './TextContainer'
 import Heading from '../Heading/Heading'
 import Subheading from '../Subheading/Subheading'
@@ -20,6 +20,7 @@ stories.addDecorator(withKnobs)
 stories.add('Text Container', () => (
 	<TextContainer
 		spacing={select('spacing', spacingOptions, spacingOptions.Base)}
+		isCentered={boolean('isCentered', false)}
 	>
 		<Heading>Do you like roller coasters?</Heading>
 		<Subheading>If you could time travel, what would you do?</Subheading>

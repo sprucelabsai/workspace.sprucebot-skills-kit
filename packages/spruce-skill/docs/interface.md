@@ -13,7 +13,11 @@ So you wanna create a `/owner/settings` page? Easy, create a `Component` at `int
 
 import React from 'react'
 import PageWrapper from '../../containers/PageWrapper'
-import { Container, H1 } from '@sprucelabs/react-heartwood-components'
+import {
+  Page,
+  PageHeader,
+  PageContent
+} from '@sprucelabs/react-heartwood-components'
 
 class OwnerSettings extends React.Component {
   // this method can be run both server side and client side
@@ -38,20 +42,22 @@ class OwnerSettings extends React.Component {
     // owner because we are in the "owner" dir
     const { auth } = this.props
 
-    // Container should always be the outer most component
+    // Page should always be the outer most component
     return (
-      <Container className="owner-settings">
-        <H1>
-          {this.props.lang.getText('ownerSettingsHeading', {
+      <Page className="owner-settings">
+        <PageHeader
+          title={this.props.lang.getText('ownerSettingsHeading', {
             owner: auth
           })}
-        </H1>
-        <BotText>
-          {this.props.lang.getText('ownerSettingsBotTex', {
-            owner: auth
-          })}
-        </BotText>
-      </Container>
+        />
+        <PageContent>
+          <BotText>
+            {this.props.lang.getText('ownerSettingsBotTex', {
+              owner: auth
+            })}
+          </BotText>
+        </PageContent>
+      </Page>
     )
   }
 }
@@ -224,8 +230,9 @@ Phew, ok, now we can make requests and expect `state` to be accurate. Lets try i
 import React from 'react'
 import PageWrapper from '../../containers/PageWrapper'
 import {
-  Container,
-  H1,
+  Page,
+  PageHeader,
+  PageContent,
   Loader,
   Form,
   Input,
@@ -256,52 +263,53 @@ class OwnerSettings extends React.Component {
 
     // we'll handle the 3 states we setup; request, success, error
     return (
-      <Container className="owner-settings">
-        <H1>
-          {lang.getText('ownerSettingsHeading', {
+      <Page className="owner-settings">
+        <PageHeader
+          title={lang.getText('ownerSettingsHeading', {
             owner: auth
           })}
-        </H1>
+        />
+        <PageContent>
+          {!shopify.getError && (
+            <BotText>
+              {lang.getText('ownerSettingsBotTex', {
+                owner: auth
+              })}
+            </BotText>
+          )}
 
-        {!shopify.getError && (
-          <BotText>
-            {lang.getText('ownerSettingsBotTex', {
-              owner: auth
-            })}
-          </BotText>
-        )}
+          {shopify.getError && (
+            <BotText>{shopify.getError.friendlyReason}</BotText>
+          )}
 
-        {shopify.getError && (
-          <BotText>{shopify.getError.friendlyReason}</BotText>
-        )}
+          {shopify.getting && <Loader />}
 
-        {shopify.getting && <Loader />}
-
-        {shopify.settings && (
-          <Form>
-            <Input
-              label={lang.getText('shopNameLabel')}
-              defaultValue={shopify.settings.shopName}
-            />
-            <Input
-              label={lang.getText('apiKeyLabel')}
-              defaultValue={shopify.settings.shopName}
-            />
-            <Input
-              label={lang.getText('accessTokenLabel')}
-              defaultValue={shopify.settings.shopName}
-            />
-            <SubmitWrapper>
-              <Button alt onClick={skill.back()}>
-                {lang.getText('backToDashboardButtonLabel')}
-              </Button>
-              <Button type="submit" primary>
-                {lang.getText('saveButtonLabel')}
-              </Button>
-            </SubmitWrapper>
-          </Form>
-        )}
-      </Container>
+          {shopify.settings && (
+            <Form>
+              <Input
+                label={lang.getText('shopNameLabel')}
+                defaultValue={shopify.settings.shopName}
+              />
+              <Input
+                label={lang.getText('apiKeyLabel')}
+                defaultValue={shopify.settings.shopName}
+              />
+              <Input
+                label={lang.getText('accessTokenLabel')}
+                defaultValue={shopify.settings.shopName}
+              />
+              <SubmitWrapper>
+                <Button alt onClick={skill.back()}>
+                  {lang.getText('backToDashboardButtonLabel')}
+                </Button>
+                <Button type="submit" primary>
+                  {lang.getText('saveButtonLabel')}
+                </Button>
+              </SubmitWrapper>
+            </Form>
+          )}
+        </PageContent>
+      </Page>
     )
   }
 }
