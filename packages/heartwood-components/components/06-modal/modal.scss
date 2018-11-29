@@ -43,7 +43,7 @@
 		flex-flow: row-reverse;
 		justify-content: space-between;
 
-		.btn {
+		.btn + .btn {
 			margin-top: 0;
 		}
 	}

@@ -7,7 +7,7 @@ import Heading from '../Heading/Heading'
 import Subheading from '../Subheading/Subheading'
 import Text from '../Text/Text'
 
-const stories = storiesOf('Text', module)
+const stories = storiesOf('Text Container', module)
 
 const spacingOptions = {
 	Base: null,

@@ -2992,7 +2992,7 @@ select:-webkit-autofill:focus {
     .modal-footer {
       flex-flow: row-reverse;
       justify-content: space-between; }
-      .modal-footer .btn {
+      .modal-footer .btn + .btn {
         margin-top: 0; } }
 
 .modal-body {
@@ -4045,7 +4045,7 @@ html {
 .sidebar-item__link {
   display: inline-flex;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.725rem;
   color: inherit;
   text-decoration: none; }
 

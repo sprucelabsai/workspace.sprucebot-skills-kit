@@ -89,7 +89,7 @@
 .sidebar-item__link {
 	display: inline-flex;
 	align-items: center;
-	padding: spacing('tight') spacing('base');
+	padding: spacing('tight') 0.725 * spacing('base');
 	color: inherit;
 	text-decoration: none;
 }
