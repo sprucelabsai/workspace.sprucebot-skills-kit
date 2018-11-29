@@ -41,7 +41,6 @@ export {
 export { default as Text } from './components/Text/Text'
 export { default as Image } from './components/Image/Image'
 export { default as Layout, LayoutSection } from './components/Layout'
-export { default as Container } from './components/Layout/Container/Container'
 export {
 	default as List,
 	ListHeader,
