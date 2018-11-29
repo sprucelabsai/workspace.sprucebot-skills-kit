@@ -2104,11 +2104,8 @@ Classes for button variations
   display: flex;
   justify-content: center; }
 
-.image-cropper__dropzone-wrapper {
-  margin-bottom: 1.5rem; }
-
 .image-cropper__controls-row {
-  margin-bottom: 1rem; }
+  margin-top: 1rem; }
 
 .image-cropper__rotate-btn {
   width: 50%;
