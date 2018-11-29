@@ -17,7 +17,7 @@ type Props = {
 
 const EventDetails = (props: Props) => {
 	const { header, list, status, footer } = props
-	const parentClass = cx('event-details card l-pb-0', {
+	const parentClass = cx('event-details', {
 		'event-confirmed': status === 'event-busy',
 		'event-unconfirmed': status === 'event-unconfirmed',
 		break: status === 'break',

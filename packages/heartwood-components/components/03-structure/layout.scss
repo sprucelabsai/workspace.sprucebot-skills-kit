@@ -25,24 +25,3 @@ $relative-size: $primary-basis / $secondary-basis;
 		}
 	}
 }
-
-.l-pb-0 {
-	padding: 0;
-}
-
-.l-pa-medium {
-	padding: spacing('base');
-	@include gt('large') {
-		padding: spacing('extra-loose');
-	}
-}
-
-.l-ph-medium {
-	padding-left: spacing('base');
-	padding-right: spacing('base');
-
-	@include gt('large') {
-		padding-left: spacing('extra-loose');
-		padding-right: spacing('extra-loose');
-	}
-}

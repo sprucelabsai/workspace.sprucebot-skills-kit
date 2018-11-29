@@ -2796,23 +2796,6 @@ select:-webkit-autofill:focus {
       flex: 1 1 15rem;
       min-width: 0; } }
 
-.l-pb-0 {
-  padding: 0; }
-
-.l-pa-medium {
-  padding: 1rem; }
-  @media screen and (min-width: 1000px) {
-    .l-pa-medium {
-      padding: 2rem; } }
-
-.l-ph-medium {
-  padding-left: 1rem;
-  padding-right: 1rem; }
-  @media screen and (min-width: 1000px) {
-    .l-ph-medium {
-      padding-left: 2rem;
-      padding-right: 2rem; } }
-
 .avatar-wrapper {
   font-size: 0.875rem;
   display: inline-flex;
@@ -3764,8 +3747,13 @@ html {
     border: none; } }
 
 .event-details {
+  width: 100%;
+  padding-bottom: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.05);
   max-width: 20rem;
-  background-color: #fff; }
+  background-color: #fff;
+  padding-bottom: 0; }
   .event-details .list .list-item:last-child:after {
     display: none; }
 
