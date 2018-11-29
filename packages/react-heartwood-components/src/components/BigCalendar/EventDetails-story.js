@@ -3,10 +3,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs/react'
 import Container from '../Layout/Container/Container'
-import EventDetails, {
-	EventDetailsHeader,
-	EventDetailsFooter
-} from './components/EventDetails'
+import EventDetails from './components/EventDetails'
 import NoteIcon from '../../../static/assets/icons/Interface-Essential/Form-Edition/paper-write.svg'
 import ServiceIcon from '../../../static/assets/icons/Interface-Essential/Lists/list-bullets-1.svg'
 import StatusIcon from '../../../static/assets/icons/Interface-Essential/Time/stopwatch.svg'
