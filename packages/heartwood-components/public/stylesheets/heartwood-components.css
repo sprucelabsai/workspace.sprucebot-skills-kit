@@ -3318,11 +3318,15 @@ html {
   justify-content: space-between;
   width: 100%; }
   .bigcalendar__header-controls .bigcalendar_date-picker-underlay {
+    display: none;
     height: 100%;
     left: 0;
     position: fixed;
     top: 0;
     width: 100%; }
+    @media only screen and (min-width: 500px) {
+      .bigcalendar__header-controls .bigcalendar_date-picker-underlay {
+        display: block; } }
   .bigcalendar__header-controls .bigcalendar_date-picker {
     left: 0;
     position: absolute;
