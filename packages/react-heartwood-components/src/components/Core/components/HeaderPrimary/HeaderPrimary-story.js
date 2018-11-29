@@ -9,7 +9,6 @@ import {
 	object
 } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../../../.storybook/StylesProvider'
-import Container from '../../../Layout/Container/Container'
 import HeaderPrimary from './HeaderPrimary'
 import user01image from '../../../../../static/assets/users/user-01--96w.png'
 

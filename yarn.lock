@@ -2190,7 +2190,7 @@
     global "^4.3.2"
     prop-types "^15.6.2"
 
-"@storybook/addon-options@^4.0.0-alpha.21":
+"@storybook/addon-options@^4.0.8":
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/@storybook/addon-options/-/addon-options-4.0.8.tgz#9c3c9205a651d7b57220f444ad71cd91759b53d3"
   integrity sha512-vUVN2EdBJkmReRThGpgpS8bgbu/uS0+ToS+T1ofZ9CEvg5wcaiPNo6jnHqLZni0lncCAeDKh4uwbS7dFZCdmsA==

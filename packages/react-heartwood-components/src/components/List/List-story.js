@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
@@ -14,7 +14,6 @@ import {
 	userList02,
 	userList03
 } from '../../../.storybook/data/people'
-import Container from '../Layout/Container/Container'
 import List, { ListWrapper } from './List'
 import ListHeader from './components/ListHeader/ListHeader'
 import ListItem from './components/ListItem/ListItem'
@@ -96,29 +95,27 @@ stories.addDecorator(withKnobs)
 
 stories
 	.add('List Item', () => (
-		<Container size="small">
-			<ListItem
-				title={text('title', 'Wed, Oct 28')}
-				subtitle={text('subtitle', '9am–4pm')}
-				avatar={text('avatar', '')}
-				image={text('image', '')}
-				icon={
-					text('icon', '') && (
-						<Icon
-							isLineIcon={boolean('isLineIcon', true)}
-							icon={text('icon', '')}
-						/>
-					)
-				}
-				isDraggable={boolean('isDraggable', false)}
-				actions={object('actions', [])}
-				toggleId={text('toggleId', '')}
-				contextMenu={object('contextMenu', null)}
-			/>
-		</Container>
+		<ListItem
+			title={text('title', 'Wed, Oct 28')}
+			subtitle={text('subtitle', '9am–4pm')}
+			avatar={text('avatar', '')}
+			image={text('image', '')}
+			icon={
+				text('icon', '') && (
+					<Icon
+						isLineIcon={boolean('isLineIcon', true)}
+						icon={text('icon', '')}
+					/>
+				)
+			}
+			isDraggable={boolean('isDraggable', false)}
+			actions={object('actions', [])}
+			toggleId={text('toggleId', '')}
+			contextMenu={object('contextMenu', null)}
+		/>
 	))
 	.add('Text List', () => (
-		<Container size="small">
+		<Fragment>
 			<List
 				header={object('header: text list', { title: 'Holidays' })}
 				isSmall={boolean('isSmall', false)}
@@ -213,10 +210,10 @@ stories
 					}
 				])}
 			/>
-		</Container>
+		</Fragment>
 	))
 	.add('Settings List', () => (
-		<Container size="small">
+		<Fragment>
 			<List
 				header={object('header', { title: 'Settings' })}
 				items={object('items', [
@@ -253,47 +250,41 @@ stories
 					}
 				])}
 			/>
-		</Container>
+		</Fragment>
 	))
 	.add('People List', () => (
-		<Container size="small">
-			<List
-				header={{
-					title: 'Team Schedule',
-					subtitle: 'Mon, Sep 27',
-					actions: [
-						{
-							text: 'Today',
-							kind: 'simple'
+		<List
+			header={{
+				title: 'Team Schedule',
+				subtitle: 'Mon, Sep 27',
+				actions: [
+					{
+						text: 'Today',
+						kind: 'simple'
+					},
+					{
+						icon: {
+							customIcon: CalendarIcon,
+							isLineIcon: true
 						},
-						{
-							icon: {
-								customIcon: CalendarIcon,
-								isLineIcon: true
-							},
-							kind: 'simple'
+						kind: 'simple'
+					},
+					{
+						icon: {
+							customIcon: ArrowBack
 						},
-						{
-							icon: {
-								customIcon: ArrowBack
-							},
-							kind: 'simple'
+						kind: 'simple'
+					},
+					{
+						icon: {
+							customIcon: ArrowForward
 						},
-						{
-							icon: {
-								customIcon: ArrowForward
-							},
-							kind: 'simple'
-						}
-					]
-				}}
-				isSmall={boolean('isSmall', false)}
-				items={object('items', userList)}
-			/>
-		</Container>
+						kind: 'simple'
+					}
+				]
+			}}
+			isSmall={boolean('isSmall', false)}
+			items={object('items', userList)}
+		/>
 	))
-	.add('People Tabbed', () => (
-		<Container size="small">
-			<TabbedList />
-		</Container>
-	))
+	.add('People Tabbed', () => <TabbedList />)

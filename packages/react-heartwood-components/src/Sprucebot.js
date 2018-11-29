@@ -27,7 +27,6 @@ import {
 import Icon from './components/Icon/Icon'
 import { H1, H2, H3, H4, Text, Span, Anchor } from './components/Text/Text'
 import Image from './components/Image/Image'
-import Container from './components/Layout/Container/Container'
 import List, { ListHeader, ListItem, SortableList } from './components/List'
 import Loader from './components/Loader/Loader'
 import Modal from './components/Modal/Modal'
@@ -73,7 +72,6 @@ const Sprucebot = {
 	ButtonGroup,
 	...Card,
 	Checkbox,
-	Container,
 	ContextMenu,
 	DomainInput,
 	Dropzone,

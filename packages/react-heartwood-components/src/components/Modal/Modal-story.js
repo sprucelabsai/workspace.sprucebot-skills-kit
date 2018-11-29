@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
@@ -8,7 +8,6 @@ import {
 	number,
 	object
 } from '@storybook/addon-knobs/react'
-import Container from '../Layout/Container/Container'
 import Modal from './Modal'
 import Button from '../Button/Button'
 import { Checkbox, TextInput, TextArea, FormRow } from '../Forms'
@@ -45,7 +44,7 @@ class ModalExample extends Component<Props, State> {
 		const { isOpen } = this.state
 		const { title, canGoBack, hasSecondaryButton, includeFooter } = this.props
 		return (
-			<Container>
+			<Fragment>
 				<Button
 					kind="secondary"
 					text="Give me modal"
@@ -108,7 +107,7 @@ class ModalExample extends Component<Props, State> {
 						)}
 					</form>
 				</Modal>
-			</Container>
+			</Fragment>
 		)
 	}
 }

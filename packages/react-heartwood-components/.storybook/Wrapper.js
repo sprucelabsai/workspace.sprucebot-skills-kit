@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import Helmet from 'react-helmet'
+import Page, { PageContent } from '../src/components/Page'
 import '../src/stylesheets/vendor.sass'
 import '../src/stylesheets/global.sass'
 import '@sprucelabs/heartwood-components/stylesheets/heartwood-components.scss'
@@ -48,7 +49,9 @@ const Wrapper = props => {
 					))}
 				{meta}
 			</Helmet>
-			<div style={{ padding: '1rem' }}>{props.children}</div>
+			<Page isSingleColumn>
+				<PageContent>{props.children}</PageContent>
+			</Page>
 		</div>
 	)
 }
