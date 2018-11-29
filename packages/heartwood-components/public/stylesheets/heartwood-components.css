@@ -1844,6 +1844,9 @@ Classes for button variations
 .text-input__clear-btn .btn__icon-wrapper {
   line-height: 0; }
 
+.checkbox-item + .checkbox-item {
+  margin-top: 0.25rem; }
+
 .checkbox-item__inner {
   display: flex;
   flex-flow: row-reverse;
@@ -2291,6 +2294,8 @@ Classes for button variations
   border-radius: 4px; }
   .tag.tag-small {
     height: 2.25rem; }
+  .tag + .tag {
+    margin-left: 1rem; }
 
 .tag-primary {
   background-color: #0076D6;
@@ -2578,6 +2583,8 @@ select:-webkit-autofill:focus {
   @media screen and (min-width: 500px) {
     .card {
       padding-bottom: 1.25rem; } }
+  .card > img + * {
+    margin-top: 1rem; }
 
 .card__header {
   display: flex;
@@ -2627,6 +2634,10 @@ select:-webkit-autofill:focus {
   @media screen and (min-width: 500px) {
     .card__header-title {
       font-size: 1.25rem; } }
+
+.card__body .text {
+  color: #525966;
+  line-height: 1.5; }
 
 .card__section {
   padding: 0 1rem 1rem; }
@@ -2784,12 +2795,6 @@ select:-webkit-autofill:focus {
     .layout__section--secondary {
       flex: 1 1 15rem;
       min-width: 0; } }
-
-.l-mb-small {
-  margin-bottom: 1rem; }
-
-.l-mr-small {
-  margin-right: 1rem; }
 
 .l-pb-0 {
   padding: 0; }

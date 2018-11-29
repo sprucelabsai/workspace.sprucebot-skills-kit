@@ -26,25 +26,6 @@ $relative-size: $primary-basis / $secondary-basis;
 	}
 }
 
-// Margins
-// NOTE: Margins are using the same values from our type scale
-
-.l-mb-small {
-	margin-bottom: map-get($typescale-map, 'body');
-}
-
-.l-mb-medium {
-	margin-bottom: map-get($typescale-map, 'h5');
-}
-
-.l-mb-large {
-	margin-bottom: map-get($typescale-map, 'h3');
-}
-
-.l-mr-small {
-	margin-right: map-get($typescale-map, 'body');
-}
-
 .l-pb-0 {
 	padding: 0;
 }

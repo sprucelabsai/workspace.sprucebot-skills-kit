@@ -15,6 +15,10 @@
 	@include gt('small') {
 		padding-bottom: spacing('loose');
 	}
+
+	> img + * {
+		margin-top: spacing('base');
+	}
 }
 
 .card__header {
@@ -76,6 +80,13 @@
 
 	@include gt('small') {
 		@include typescale('heading-md');
+	}
+}
+
+.card__body {
+	.text {
+		color: $c-text-light;
+		line-height: $line-height-loose;
 	}
 }
 

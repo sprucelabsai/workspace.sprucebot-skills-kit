@@ -19,7 +19,9 @@ import Card, {
 	OnboardingCard
 } from './index'
 import List from '../List/List'
+import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
+import Subheading from '../Subheading/Subheading'
 import Image from '../Image/Image'
 import { Scores } from './index'
 import ContextMenu from '../ContextMenu/ContextMenu'
@@ -80,7 +82,7 @@ stories
 					labelIcon={{ customIcon: AlertIcon3 }}
 				/>
 				<CardBody>
-					<Text className="u-lh-loose u-color-body-light">
+					<Text>
 						Two roads diverged in a wood, and I took the one less traveled by,
 						And that has made all the difference.
 					</Text>
@@ -103,7 +105,7 @@ stories
 					])}
 				/>
 				<CardBody>
-					<Text className="u-lh-loose u-color-body-light">
+					<Text>
 						Two roads diverged in a wood, and I took the one less traveled by,
 						And that has made all the difference.
 					</Text>
@@ -154,13 +156,15 @@ stories
 				<CardHeader />
 				<CardBody>
 					<Avatar isLarge image={userImageLg} alt="Rosamund Mueleer" />
-					<h3 className="card-header__title l-mb-xsmall">
-						Say "Happy Birthday"
-					</h3>
-					<Text className="u-lh-loose u-color-body-light">
-						It’s Rosamond Mueller’s birthday today. Don’t forget to say happy
-						birthday!
-					</Text>
+					<TextContainer spacing="tight">
+						<Subheading className="card-header__title" element="h3">
+							Say "Happy Birthday"
+						</Subheading>
+						<Text>
+							It’s Rosamond Mueller’s birthday today. Don’t forget to say happy
+							birthday!
+						</Text>
+					</TextContainer>
 				</CardBody>
 				<CardFooter>
 					<Button kind="secondary" text="Send a birthday message" isSmall />
@@ -175,13 +179,10 @@ stories
 					src="https://images.unsplash.com/photo-1535401991746-da3d9055713e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9fa1c73c0d29848a6e63595c588051ad&auto=format&fit=crop&w=720&h=360&q=80"
 					width={720}
 					height={360}
-					className="l-mb-small"
 				/>
 				<CardBody>
 					<h3>Les Basics</h3>
-					<Text className="u-lh-loose u-color-body-light">
-						101 Purdy Lakes, West Jordanmouth, NH 38827-6100
-					</Text>
+					<Text>101 Purdy Lakes, West Jordanmouth, NH 38827-6100</Text>
 				</CardBody>
 				<CardFooter>
 					<Button kind="secondary" text="Book an appointment" />
@@ -196,12 +197,11 @@ stories
 					src="https://images.unsplash.com/photo-1499306215218-42e51ae058b2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6a6ae71facb70ced00bcbae8174ee47c&auto=format&fit=crop&w=720&h=360&q=80"
 					width={720}
 					height={360}
-					className="l-mb-small"
 				/>
 
 				<CardBody>
 					<h3>Congrats on 10k guests!</h3>
-					<Text className="u-lh-loose u-color-body-light">
+					<Text>
 						I’ve learned that people will forget what you said, people will
 						forget what you did, but people will never forget how you made them
 						feel.
@@ -240,7 +240,7 @@ stories
 					}
 				/>
 				<CardBody>
-					<Text className="u-lh-loose u-color-body-light">
+					<Text>
 						{text(
 							'Body Copy',
 							'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'

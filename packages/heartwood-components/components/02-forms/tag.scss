@@ -8,6 +8,10 @@
 	&.tag-small {
 		height: $tap-height-small;
 	}
+
+	+ .tag {
+		margin-left: spacing('base');
+	}
 }
 
 .tag-primary {

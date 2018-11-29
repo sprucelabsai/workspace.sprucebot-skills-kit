@@ -27,6 +27,7 @@ addDecorator(story => {
 	) {
 		return story()
 	}
+
 	return (
 		<Wrapper STORYBOOKwrap={boolean('STORYBOOKwrap', true)}>{story()}</Wrapper>
 	)

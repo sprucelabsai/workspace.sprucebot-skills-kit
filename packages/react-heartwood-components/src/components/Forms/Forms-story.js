@@ -171,21 +171,18 @@ stories
 		<Fragment>
 			<Container size="small">
 				<Radio
-					className="l-mb-xsmall"
 					id="option-one"
 					name="radio"
 					label={text('label: option one', 'Option One')}
 					postText={text('postText: option one', '')}
 				/>
 				<Radio
-					className="l-mb-xsmall"
 					id="option-two"
 					name="radio"
 					label={text('label: option two', 'Option Two')}
 					postText={text('postText: option two', '')}
 				/>
 				<Radio
-					className="l-mb-xsmall"
 					id="option-three"
 					name="radio"
 					label={text('label: option three', 'Option Three')}
@@ -198,21 +195,18 @@ stories
 		<Fragment>
 			<Container size="small">
 				<Checkbox
-					className="l-mb-xsmall"
 					id="option-one"
 					name="optionOne"
 					label={text('label: option one', 'Option One')}
 					postText={text('postText: option one', '')}
 				/>
 				<Checkbox
-					className="l-mb-xsmall"
 					id="option-two"
 					name="optionTwo"
 					label={text('label: option two', 'Option Two')}
 					postText={text('postText: option two', '')}
 				/>
 				<Checkbox
-					className="l-mb-xsmall"
 					id="option-three"
 					name="optionThree"
 					label={text('label: option three', 'Option Three')}
@@ -240,13 +234,11 @@ stories
 				<Tag
 					text={text('text', 'Barber Services')}
 					isSmall={boolean('isSmall', false)}
-					className={text('className', 'l-mr-small l-mb-small')}
 				/>
 				<Tag
 					kind="secondary"
 					text={text('text', 'Barber Services')}
 					isSmall={boolean('isSmall', false)}
-					className={text('className', 'l-mr-small l-mb-small')}
 				/>
 			</Container>
 		</Fragment>

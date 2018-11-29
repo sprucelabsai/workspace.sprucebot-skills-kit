@@ -1,3 +1,7 @@
+.checkbox-item + .checkbox-item {
+	margin-top: spacing('extra-tight');
+}
+
 .checkbox-item__inner {
 	display: flex;
 	flex-flow: row-reverse;
