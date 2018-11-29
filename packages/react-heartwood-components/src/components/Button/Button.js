@@ -91,7 +91,7 @@ const Button = (props: Props) => {
 
 	const Inner = () => (
 		<span className="btn__inner">
-			{icon && icon.name && (
+			{icon && (icon.customIcon || icon.name) && (
 				<span className="btn__icon-wrapper">
 					<Icon
 						customIcon={icon.customIcon}
