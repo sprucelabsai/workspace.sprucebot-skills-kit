@@ -56,10 +56,6 @@
 	left: spacing('base');
 }
 
-.toast-wrapper {
-	margin-bottom: spacing('base');
-
-	&:last-child {
-		margin-bottom: 0;
-	}
+.toast-wrapper + .toast-wrapper {
+	margin-top: spacing('base');
 }

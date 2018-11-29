@@ -29,9 +29,8 @@ select:-webkit-autofill:focus {
 	@include type-style-body-sm;
 }
 
-.text-input__pre,
-.text-input__inner {
-	margin-bottom: spacing('extra-tight');
+.text-input > * + * {
+	margin-top: spacing('extra-tight');
 }
 
 .text-input__inner {

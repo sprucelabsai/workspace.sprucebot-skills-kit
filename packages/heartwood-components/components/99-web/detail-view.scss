@@ -17,10 +17,8 @@
 
 .detail-view__image {
 	padding-left: spacing('base');
-	margin-bottom: spacing('base');
 	@include gt('large') {
 		padding-left: rem(48);
-		margin-bottom: spacing('extra-loose');
 	}
 }
 

@@ -14,10 +14,6 @@
 		height: rem(32);
 	}
 
-	.text-input__inner {
-		margin-bottom: 0;
-	}
-
 	.text-input {
 		flex: 1 0 auto;
 		display: none;
@@ -114,10 +110,6 @@
 
 	.list-item:not(:first-child):after {
 		display: none;
-	}
-
-	.btn {
-		margin-bottom: 0;
 	}
 
 	.btn__inner {

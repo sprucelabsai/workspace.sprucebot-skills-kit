@@ -40,7 +40,10 @@
 
 .list {
 	padding: 0 spacing('base');
-	margin-bottom: spacing('base');
+}
+
+.list + * {
+	margin-top: spacing('base');
 }
 
 .list-item {
