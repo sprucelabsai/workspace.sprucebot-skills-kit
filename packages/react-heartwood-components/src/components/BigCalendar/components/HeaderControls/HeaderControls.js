@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 import screenfull from 'screenfull'
+import isEqual from 'lodash'
+import moment from 'moment-timezone'
 
 import Select from '../../../Forms/components/Select/Select'
 import Button from '../../../Button/Button'
@@ -20,29 +22,35 @@ type Props = {
 	onNextDate: Function,
 	onChangeView: Function,
 	fullScreenNode: Object,
-	userModeSelectOptions?: Array<Object>,
+	userModeOptions?: Array<Object>,
 	onChangeUserMode?: Function,
 	userMode?: String,
 	onSelectDate: Function,
 	onDateToToday: Function,
 	selectedDate: Object,
-	isMobile: boolean
+	isDatePickerShown: boolean
 }
 
 type State = {
 	isDatePickerShown: boolean,
-	isFullScreen: boolean
+	isFullScreen: boolean,
+	shouldResetDatePicker: boolean
 }
 
 class HeaderControls extends Component<Props, State> {
 	state = {
-		isDatePickerShown: this.props.isMobile,
-		isFullScreen: false
+		isDatePickerShown: this.props.isDatePickerShown,
+		isFullScreen: false,
+		selectedDate: this.props.selectedDate,
+		shouldResetDatePicker: false
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.isMobile !== this.props.isMobile) {
-			this.setState({ isDatePickerShown: nextProps.isMobile })
+		if (nextProps.isDatePickerShown !== this.props.isDatePickerShown) {
+			this.setState({ isDatePickerShown: nextProps.isDatePickerShown })
+		}
+		if (!isEqual(this.props.selectedDate, nextProps.selectedDate)) {
+			this.setState({ selectedDate: nextProps.selectedDate })
 		}
 	}
 
@@ -53,9 +61,10 @@ class HeaderControls extends Component<Props, State> {
 	onSelectDate = date => {
 		this.props.onSelectDate && this.props.onSelectDate(date)
 
-		if (!this.props.isMobile) {
+		if (!this.props.isDatePickerShown) {
 			this.setState({ isDatePickerShown: false })
 		}
+		this.setState({ selectedDate: date })
 	}
 
 	toggleFullScreen = () => {
@@ -63,18 +72,35 @@ class HeaderControls extends Component<Props, State> {
 		this.setState({ isFullScreen: !this.state.isFullScreen })
 	}
 
+	onSetDateToToday = () => {
+		const { onDateToToday } = this.props
+		onDateToToday && onDateToToday()
+		this.setState(
+			prevState => ({
+				selectedDate: moment(),
+				shouldResetDatePicker: prevState.isDatePickerShown
+			}),
+			() => {
+				this.setState({ shouldResetDatePicker: false })
+			}
+		)
+	}
+
 	render() {
 		const {
 			onBackDate,
 			onNextDate,
-			onDateToToday,
-			userModeSelectOptions,
+			userModeOptions,
 			onChangeUserMode,
-			userMode,
-			selectedDate
+			userMode
 		} = this.props
 
-		const { isDatePickerShown, isFullScreen } = this.state
+		const {
+			selectedDate,
+			isDatePickerShown,
+			isFullScreen,
+			shouldResetDatePicker
+		} = this.state
 
 		return (
 			<div className="bigcalendar__header-controls">
@@ -91,7 +117,7 @@ class HeaderControls extends Component<Props, State> {
 						isSmall={true}
 						text={'Today'}
 						className="bigcalendar__selectedDate-button"
-						onClick={() => onDateToToday()}
+						onClick={this.onSetDateToToday}
 					/>
 					<div className="bigcalendar__date-select">
 						<Button
@@ -100,8 +126,12 @@ class HeaderControls extends Component<Props, State> {
 							icon={{ name: 'date', isLineIcon: true }}
 							onClick={() => this.toggleDatePicker()}
 						/>
-						{isDatePickerShown && (
+						{isDatePickerShown && !shouldResetDatePicker && (
 							<div className="bigcalendar_date-picker">
+								<div
+									className="bigcalendar_date-picker-underlay"
+									onClick={() => this.toggleDatePicker()}
+								/>
 								<DatePicker
 									date={selectedDate}
 									onSelectDate={this.onSelectDate}
@@ -109,10 +139,10 @@ class HeaderControls extends Component<Props, State> {
 							</div>
 						)}
 					</div>
-					{userModeSelectOptions && onChangeUserMode && userMode && (
+					{userModeOptions && onChangeUserMode && userMode && (
 						<Select
 							className="user-mode-select"
-							options={userModeSelectOptions}
+							options={userModeOptions}
 							onChange={e => {
 								onChangeUserMode(e.target.value)
 							}}

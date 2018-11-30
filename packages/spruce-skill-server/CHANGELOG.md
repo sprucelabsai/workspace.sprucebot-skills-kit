@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.0.1...v8.0.2) (2018-11-27)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+## [8.0.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.0.0...v8.0.1) (2018-11-27)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+# [8.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.9.1...v8.0.0) (2018-11-27)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+## [7.9.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.9.0...v7.9.1) (2018-11-27)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+# [7.9.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.3...v7.9.0) (2018-11-26)
+
+
+### Features
+
+* add error capture endpoint ([09564c5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/09564c5))
+
+
+
+
+
+## [7.8.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.2...v7.8.3) (2018-11-09)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
+## [7.8.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.1...v7.8.2) (2018-11-07)
+
+
+### Bug Fixes
+
+* upgrade logger for better browser compatibility ([1340c04](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1340c04))
+
+
+
+
+
+## [7.8.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.0...v7.8.1) (2018-11-07)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit-server
+
+
+
+
+
 # [7.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.7.3...v7.8.0) (2018-11-02)
 
 

@@ -9,15 +9,18 @@ type Props = {
 	children?: Node,
 	className?: string,
 	startAt: Object,
-	resizable: Boolean
+	resizable: Boolean,
+	timeFormat: String
 }
 
 const EventBlock = (props: Props) => {
-	const { block, resizable, className, startAt, ...rest } = props
+	const { block, resizable, className, startAt, timeFormat, ...rest } = props
 
 	// NOTE: you MUST keep resize-n the first class in any resize-handle
 	// IT MUST BE IN THE FORM OF resize-[n|s|e|w]
-
+	const blockTitle = [block.title, block.subtitle, startAt.format(timeFormat)]
+		.filter(i => i)
+		.join(' - ')
 	return (
 		<div
 			className={cx('bigcalendar__event-block', className, block.className, {
@@ -29,7 +32,7 @@ const EventBlock = (props: Props) => {
 			{block.leftIcons && block.leftIcons.length > 0 && (
 				<div className="icons left-icons">
 					{block.leftIcons.map((icon, idx) => (
-						<span title={icon.title} key={`${icon.title}-idx`}>
+						<span title={icon.title} key={`${icon.title}-${idx}`}>
 							<Icon {...icon} />
 						</span>
 					))}
@@ -40,19 +43,21 @@ const EventBlock = (props: Props) => {
 					<div className="resize-highlight-handle" />
 				</div>
 			)}
-			{block.title && (
-				<p
-					className="title"
-					dangerouslySetInnerHTML={{ __html: block.title }}
-				/>
-			)}
-			{block.subtitle && (
-				<p
-					className="subtitle"
-					dangerouslySetInnerHTML={{ __html: block.subtitle }}
-				/>
-			)}
-			<p className="time">{startAt.format('h:mma')}</p>
+			<div className="content-wrapper" title={blockTitle}>
+				{block.title && (
+					<p
+						className="title"
+						dangerouslySetInnerHTML={{ __html: block.title }}
+					/>
+				)}
+				{block.subtitle && (
+					<p
+						className="subtitle"
+						dangerouslySetInnerHTML={{ __html: block.subtitle }}
+					/>
+				)}
+				<p className="time">{startAt.format(timeFormat)}</p>
+			</div>
 			{resizable && (
 				<div className="resize-s resize-handle">
 					<div className="resize-highlight-handle" />

@@ -14,9 +14,14 @@ type State = {
 }
 
 export default class DatePicker extends Component<Props, State> {
-	state = {
-		isFocused: true,
-		date: this.props.date || moment()
+	constructor(props) {
+		super(props)
+		this.state = {
+			isFocused: true,
+			date: this.props.date || moment()
+		}
+
+		this.datePickerRef = React.createRef()
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -31,7 +36,9 @@ export default class DatePicker extends Component<Props, State> {
 		}))
 	}
 
-	handleDateChange = (date: any) => {
+	handleDateChange = async (date: any) => {
+		this.datePickerRef.current.setState({ currentMonth: date })
+
 		this.setState({
 			date
 		})
@@ -45,6 +52,7 @@ export default class DatePicker extends Component<Props, State> {
 		const { onSelectDate, ...rest } = this.props
 		return (
 			<DayPickerSingleDateController
+				ref={this.datePickerRef}
 				date={date}
 				initialVisibleMonth={() => date}
 				focused={isFocused}

@@ -2,12 +2,12 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 import moment from 'moment-timezone'
-import memoize from 'memoize-one'
-import Cookies from 'js-cookies'
+
 import { autoPlay } from 'es6-tween'
 autoPlay(true)
 
-import sizeUtils from './utils/size'
+import sizeUtil from './utils/size'
+
 import VIEWS from './components/Views'
 
 // sub components
@@ -30,12 +30,15 @@ type Props = {
 	onDropEvent?: Function,
 	viewProps?: Object,
 	longPressDelay?: Number,
-	userModeSelectOptions?: Array<Object>,
+	userModeOptions?: Array<Object>,
 	onChangeUserMode?: Function,
 	userMode?: String,
 	doubleClickTime: Number,
 	onDoubleClickView?: Function,
-	userSchedules?: Object // { userId: { date: { startTime, endTime }, '2018-01-10': { startTime: '09:00', endTime: '20:00' } } }
+	onClickView?: Function,
+	doubleClickToCreate?: Boolean,
+	userSchedules?: Object, // { userId: { date: { startTime, endTime }, '2018-01-10': { startTime: '09:00', endTime: '20:00' } } }
+	eventTimeFormat: String
 }
 
 type State = {
@@ -57,11 +60,13 @@ class BigCalendar extends Component<Props, State> {
 		defaultStartTime: '07:00',
 		defaultEndTime: '20:00',
 		headerDateFormat: 'MMMM YYYY',
-		mobileHeaderDateFormat: 'MMMM Do YYYY',
+		mobileHeaderDateFormat: 'MMMM Do, YYYY',
 		allEvents: [],
 		viewProps: {},
 		longPressDelay: 500,
-		doubleClickTime: 250
+		doubleClickTime: 250,
+		doubleClickToCreate: false, // defaults to single click
+		eventTimeFormat: 'h:mma'
 	}
 	state = {
 		selectedView: this.props.defaultView,
@@ -108,22 +113,6 @@ class BigCalendar extends Component<Props, State> {
 			this.props.defaultStartDate || new Date(),
 			this.props.timezone
 		)
-
-		const { timezone } = this.props
-
-		let defaultStartDate
-		if (
-			Cookies.getItem('bigcalendarDate') &&
-			moment(Cookies.getItem('bigcalendarDate')).isValid()
-		) {
-			defaultStartDate = moment(Cookies.getItem('bigcalendarDate'))
-		} else {
-			defaultStartDate = moment.tz(
-				this.props.defaultStartDate || new Date(),
-				timezone
-			)
-		}
-		return defaultStartDate
 	}
 
 	getDateRange = () => {
@@ -153,9 +142,9 @@ class BigCalendar extends Component<Props, State> {
 		)[0]
 
 		// calc positions
-		const scrollTop = sizeUtils.getTop(scrollNode)
-		const width = sizeUtils.bodyWidth()
-		const height = sizeUtils.bodyHeight()
+		const scrollTop = sizeUtil.getTop(scrollNode)
+		const width = sizeUtil.bodyWidth()
+		const height = sizeUtil.bodyHeight()
 		const calendarBodyHeight = height - scrollTop
 
 		this.setState({
@@ -196,17 +185,7 @@ class BigCalendar extends Component<Props, State> {
 		onChangeStartDate(date)
 	}
 
-	/**
-	 * Store current state in cookie to restore calendar later
-	 */
-	preserveState = () => {
-		const dateToSave = this.state.startDate.format('YYYY-MM-DD')
-		return Cookies.setItem('bigcalendarDate', dateToSave)
-	}
-
-	componentDidUpdate() {
-		this.preserveState()
-	}
+	componentDidUpdate() {}
 
 	getViewDetails = (view?: String) => {
 		const v = view || this.state.selectedView
@@ -216,33 +195,6 @@ class BigCalendar extends Component<Props, State> {
 	getViewProps = () => {
 		return this.props.viewProps[this.state.selectedView] || {}
 	}
-
-	generateTimeGutterHours = memoize((startDate, min, max) => {
-		const times = []
-		const { timezone } = this.props
-
-		const current = moment.tz(
-			`${startDate.format('YYYY-MM-DD')} ${min}:00`,
-			timezone
-		)
-		const end = moment.tz(
-			`${startDate.format('YYYY-MM-DD')} ${max}:00`,
-			timezone
-		)
-
-		do {
-			times.push({
-				label: current.format('ha'),
-				date: current.toDate(),
-				hour: parseInt(current.format('h'), 10),
-				timestamp: parseInt(current.format('X'), 10)
-			})
-
-			current.add(1, 'hours')
-		} while (current.toDate() < end.toDate())
-
-		return times
-	})
 
 	handleUpdateHorizontalPagerDetails = ({ currentPage, totalPages }) => {
 		if (
@@ -333,7 +285,7 @@ class BigCalendar extends Component<Props, State> {
 			defaultEndTime,
 			defaultView,
 			viewProps: _,
-			userModeSelectOptions,
+			userModeOptions,
 			onChangeUserMode,
 			userMode,
 			userSchedules,
@@ -341,6 +293,10 @@ class BigCalendar extends Component<Props, State> {
 			onChangeStartDate,
 			doubleClickTime,
 			onDoubleClickView,
+			onClickView,
+			doubleClickToCreate,
+			defaultStartDate,
+			eventTimeFormat,
 			...props
 		} = this.props
 
@@ -355,11 +311,6 @@ class BigCalendar extends Component<Props, State> {
 		} = this.state
 
 		const parentClass = cx('bigcalendar', className, {})
-		const hours = this.generateTimeGutterHours(
-			startDate,
-			defaultMinTime,
-			defaultMaxTime
-		)
 
 		// load the view
 		const View = this.getViewDetails().View
@@ -376,7 +327,7 @@ class BigCalendar extends Component<Props, State> {
 				{...props}
 			>
 				<Header
-					userModeSelectOptions={userModeSelectOptions}
+					userModeOptions={userModeOptions}
 					onChangeUserMode={this.handleChangeUserMode}
 					userMode={userMode}
 					dateFormat={headerDateFormat}
@@ -412,7 +363,6 @@ class BigCalendar extends Component<Props, State> {
 						slotsPerHour={slotsPerHour}
 						onScroll={this.handleViewScroll}
 						calendarBodyHeight={calendarBodyHeight}
-						hours={hours}
 						users={users}
 						minTime={defaultMinTime}
 						maxTime={defaultMaxTime}
@@ -425,6 +375,9 @@ class BigCalendar extends Component<Props, State> {
 						getEndTimeForUser={this.getEndTimeForUser}
 						doubleClickTime={doubleClickTime}
 						onDoubleClick={onDoubleClickView}
+						onClick={onClickView}
+						doubleClickToCreate={doubleClickToCreate}
+						eventTimeFormat={eventTimeFormat}
 						{...viewProps}
 					/>
 				</div>

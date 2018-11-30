@@ -18,7 +18,11 @@ class TeammateHeader extends PureComponent<Props> {
 	}
 
 	handleClick = e => {
-		const { doubleClickTime, onDoubleClick = () => {} } = this.props
+		const {
+			doubleClickTime,
+			onDoubleClick = () => {},
+			onClick = () => {}
+		} = this.props
 		if (
 			this._lastClickTime &&
 			new Date() - this._lastClickTime < doubleClickTime
@@ -27,6 +31,8 @@ class TeammateHeader extends PureComponent<Props> {
 			clientX = clientX + this.domNodeRef.current.scrollLeft
 
 			onDoubleClick({ clientX, clientY, e })
+		} else {
+			onClick(e)
 		}
 		this._lastClickTime = new Date()
 

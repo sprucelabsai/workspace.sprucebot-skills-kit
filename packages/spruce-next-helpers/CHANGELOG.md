@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.0.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.0.1...v8.0.2) (2018-11-27)
+
+**Note:** Version bump only for package @sprucelabs/spruce-next-helpers
+
+
+
+
+
+## [8.0.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.0.0...v8.0.1) (2018-11-27)
+
+**Note:** Version bump only for package @sprucelabs/spruce-next-helpers
+
+
+
+
+
+# [8.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.9.1...v8.0.0) (2018-11-27)
+
+**Note:** Version bump only for package @sprucelabs/spruce-next-helpers
+
+
+
+
+
+## [7.9.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.9.0...v7.9.1) (2018-11-27)
+
+**Note:** Version bump only for package @sprucelabs/spruce-next-helpers
+
+
+
+
+
+# [7.9.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.3...v7.9.0) (2018-11-26)
+
+
+### Bug Fixes
+
+* Add _app.js, nix title in _document bug from Next7 migration ([bc2fcbc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bc2fcbc))
+
+
+
+
+
 # [7.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.7.3...v7.8.0) (2018-11-02)
 
 **Note:** Version bump only for package @sprucelabs/react-sprucebot
