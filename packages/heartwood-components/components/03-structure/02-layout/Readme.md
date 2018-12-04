@@ -2,7 +2,7 @@
 
 The Layout element is simply a wrapper element used to provide proper spacing to nested Layout Sections.
 
-Use a Layout element whenever you need to provide vertical spacing to sections of a page or to divide content into multiple columns.
+Use a Layout element whenever you need to provide horizontal padding and vertical spacing to sections of a page or to divide content into multiple columns.
 
 ---
 
