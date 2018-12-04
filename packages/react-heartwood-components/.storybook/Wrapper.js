@@ -49,7 +49,7 @@ const Wrapper = props => {
 					))}
 				{meta}
 			</Helmet>
-			<Page isSingleColumn>
+			<Page>
 				<PageContent>{props.children}</PageContent>
 			</Page>
 		</div>

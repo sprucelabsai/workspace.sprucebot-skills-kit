@@ -36,3 +36,18 @@ stories
 			<LayoutSection isSecondary>{card}</LayoutSection>
 		</Layout>
 	))
+	.add('Wide Layout', () => (
+		<Layout width="wide">
+			<LayoutSection>{card}</LayoutSection>
+		</Layout>
+	))
+	.add('Full-Width Layout', () => (
+		<Layout width="full-width">
+			<LayoutSection>{card}</LayoutSection>
+		</Layout>
+	))
+	.add('Full-Bleed Layout', () => (
+		<Layout width="full-width" isFullBleed>
+			<LayoutSection>{card}</LayoutSection>
+		</Layout>
+	))

@@ -11,19 +11,15 @@ type PageProps = {
 	/** Set true to make page content center aligned. */
 	isCentered?: boolean,
 
-	/** Set true to make reduce maximum width of the page. */
-	isSingleColumn?: boolean,
-
 	/** Optional classname */
 	className?: string
 }
 
 export const Page = (props: PageProps) => {
-	const { children, isSingleColumn, isCentered, className } = props
+	const { children, isCentered, className } = props
 	return (
 		<div
 			className={cx('page', className, {
-				'page--single-column': isSingleColumn,
 				'page--centered': isCentered
 			})}
 		>
@@ -33,8 +29,7 @@ export const Page = (props: PageProps) => {
 }
 
 Page.defaultProps = {
-	isCentered: false,
-	isSingleColumn: false
+	isCentered: false
 }
 
 export default Page
