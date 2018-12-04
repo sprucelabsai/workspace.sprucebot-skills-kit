@@ -1,26 +1,44 @@
-$secondary-basis: layout-width(secondary, min);
-$primary-basis: layout-width(primary, min);
-$relative-size: $primary-basis / $secondary-basis;
+$layout-padding: spacing('extra-loose');
+$layout-section-spacing: spacing('base');
+$layout-max-width: layout-width('base') + $layout-padding * 2;
+$layout-max-width-wide: layout-width('wide') + $layout-padding * 2;
+$layout-section-secondary-basis: (
+		layout-width('base') - ($layout-padding * 2) - ($layout-section-spacing * 3)
+	) / 3;
 
 .layout {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-start;
 	justify-content: center;
-	margin: -#{spacing('base')} 0 0 -#{spacing('base')};
+	margin: -#{$layout-section-spacing} 0 0 -#{$layout-section-spacing};
+	max-width: $layout-max-width;
 
-	&--center {
-		margin: -#{spacing('base')} auto 0 auto;
+	@include gt('small') {
+		padding: 0 spacing('extra-loose');
+	}
+
+	&--centered {
+		margin: -#{$layout-section-spacing} auto 0 auto;
+	}
+
+	&--wide {
+		max-width: $layout-max-width-wide;
+	}
+
+	+ .layout {
+		margin-top: spacing('base');
 	}
 }
 
 .layout__section {
-	flex: $relative-size $relative-size $primary-basis;
-	margin: spacing('base') 0 0 spacing('base');
+	flex: 1 1;
+	margin: $layout-section-spacing 0 0 $layout-section-spacing;
 	min-width: 51%;
+
 	&--secondary {
-		@include gt('medium') {
-			flex: 1 1 $secondary-basis;
+		@include gt('small') {
+			flex: 1 1 $layout-section-secondary-basis;
 			min-width: 0;
 		}
 	}

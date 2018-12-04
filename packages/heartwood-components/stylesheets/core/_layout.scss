@@ -44,19 +44,13 @@ $spacing-map: (
 Layout Width
 */
 $layout-width-map: (
-	'primary': (
-		min: rem(480),
-		max: rem(640)
-	),
-	'secondary': (
-		min: rem(240),
-		max: rem(320)
-	)
+	'base': rem(720),
+	'wide': rem(1040)
 );
 
-@function layout-width($name, $value: null) {
-	@if map-has-key(map-get($layout-width-map, $name), $value) {
-		@return map-get(map-get($layout-width-map, $name), $value);
+@function layout-width($size: 'base') {
+	@if map-has-key($layout-width-map, $size) {
+		@return map-get($layout-width-map, $size);
 	} @else {
 		@warn 'This is not a valid Heartwood Layout Width!';
 	}

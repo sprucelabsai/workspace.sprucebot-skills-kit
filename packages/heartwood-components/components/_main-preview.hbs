@@ -10,11 +10,14 @@
 
 <body>
 	{{#if renderInPage }}
-	<div class="page{{#if singleColumn }} page--single-column{{/if}}">
+	<div class="page">
 		<div class="page__content">
-			{{#>@partial-block}}
-			{{{ yield }}}
-			{{/@partial-block}}
+			<div class="layout">
+				<div class="layout__section">
+					{{#>@partial-block}}
+					{{{ yield }}}
+					{{/@partial-block}}</div>
+			</div>
 		</div>
 	</div>
 	{{else}}

@@ -1,5 +1,5 @@
-$primary-basis: (layout-width(primary, max) - (spacing('base') * 2)) / 3;
-$condensed-basis: (layout-width(primary, min) - (spacing('base') * 3)) / 4;
+$primary-basis: (layout-width('base') - (spacing('base') * 2)) / 3;
+$condensed-basis: (layout-width('base') - (spacing('base') * 3)) / 4;
 
 .form-layout {
 	margin: -#{spacing('extra-loose')} 0 0 -#{spacing('base')};

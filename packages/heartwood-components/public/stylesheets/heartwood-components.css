@@ -2536,12 +2536,12 @@ select:-webkit-autofill:focus {
   justify-content: center; }
 
 .form-layout__item {
-  flex: 1 1 12.66667rem;
+  flex: 1 1 14.33333rem;
   margin: 2rem 0 0 1rem;
-  min-width: 12.66667rem; }
+  min-width: 14.33333rem; }
   .form-layout__group--condensed .form-layout__item {
-    flex-basis: 6.75rem;
-    min-width: 6.75rem; }
+    flex-basis: 10.5rem;
+    min-width: 10.5rem; }
   .form-layout--spacing-tight .form-layout__item {
     margin: 1rem 0 0 1rem; }
 
@@ -2744,15 +2744,7 @@ select:-webkit-autofill:focus {
   border-bottom: 1px solid #cccfd6; }
 
 .page {
-  max-width: 65rem;
   min-height: 100vh; }
-  @media screen and (min-width: 750px) {
-    .page {
-      padding: 0 2rem; } }
-  .page--single-column {
-    max-width: 44rem; }
-  .page--centered {
-    margin: 0 auto; }
 
 .page__header {
   padding: 1rem 1rem 0; }
@@ -2797,17 +2789,25 @@ select:-webkit-autofill:focus {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
-  margin: -1rem 0 0 -1rem; }
-  .layout--center {
+  margin: -1rem 0 0 -1rem;
+  max-width: 49rem; }
+  @media screen and (min-width: 500px) {
+    .layout {
+      padding: 0 2rem; } }
+  .layout--centered {
     margin: -1rem auto 0 auto; }
+  .layout--wide {
+    max-width: 69rem; }
+  .layout + .layout {
+    margin-top: 1rem; }
 
 .layout__section {
-  flex: 2 2 30rem;
+  flex: 1 1;
   margin: 1rem 0 0 1rem;
   min-width: 51%; }
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 500px) {
     .layout__section--secondary {
-      flex: 1 1 15rem;
+      flex: 1 1 12.66667rem;
       min-width: 0; } }
 
 .avatar-wrapper {
