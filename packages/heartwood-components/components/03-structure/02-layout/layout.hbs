@@ -1,4 +1,4 @@
-<div class="layout">
+<div class="layout{{#if layoutModifierClass }} {{layoutModifierClass}}{{/if}}">
 	{{#> @partial-block }}
 	{{#each sections}}
 	{{> @layout-section }}

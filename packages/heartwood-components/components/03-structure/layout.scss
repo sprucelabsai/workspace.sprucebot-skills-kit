@@ -15,6 +15,9 @@ $layout-section-secondary-basis: (
 	max-width: $layout-max-width;
 
 	@include gt('small') {
+		padding: spacing('loose') spacing('loose') 0;
+	}
+	@include gt('medium') {
 		padding: 0 spacing('extra-loose');
 	}
 
@@ -24,6 +27,14 @@ $layout-section-secondary-basis: (
 
 	&--wide {
 		max-width: $layout-max-width-wide;
+	}
+
+	&--full-width {
+		max-width: none;
+	}
+
+	&--full-bleed {
+		padding: 0;
 	}
 
 	+ .layout {

@@ -167,6 +167,75 @@ module.exports = {
 					}
 				]
 			}
+		},
+		{
+			name: 'Wide',
+			context: {
+				layoutModifierClass: 'layout--wide',
+				sections: [
+					{
+						secondary: false,
+						card: {
+							title: 'Get the most out of Sprucebot',
+							children: [
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+							],
+							footerActions: [
+								{
+									text: 'Get some skills',
+									className: 'btn-secondary btn-small'
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			name: 'Full-Width',
+			context: {
+				layoutModifierClass: 'layout--full-width',
+				sections: [
+					{
+						secondary: false,
+						card: {
+							title: 'Get the most out of Sprucebot',
+							children: [
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+							],
+							footerActions: [
+								{
+									text: 'Get some skills',
+									className: 'btn-secondary btn-small'
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			name: 'Full-Bleed',
+			context: {
+				layoutModifierClass: 'layout--full-width layout--full-bleed',
+				sections: [
+					{
+						secondary: false,
+						card: {
+							title: 'Get the most out of Sprucebot',
+							children: [
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+							],
+							footerActions: [
+								{
+									text: 'Get some skills',
+									className: 'btn-secondary btn-small'
+								}
+							]
+						}
+					}
+				]
+			}
 		}
 	]
 }

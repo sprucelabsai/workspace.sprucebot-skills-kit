@@ -2753,8 +2753,7 @@ select:-webkit-autofill:focus {
       padding: 1.25rem 1.25rem 0; } }
   @media screen and (min-width: 750px) {
     .page__header {
-      padding-left: 0;
-      padding-right: 0; } }
+      padding: 2rem 2rem 0; } }
 
 .page__header-back-link {
   display: inline-flex;
@@ -2793,11 +2792,18 @@ select:-webkit-autofill:focus {
   max-width: 49rem; }
   @media screen and (min-width: 500px) {
     .layout {
+      padding: 1.25rem 1.25rem 0; } }
+  @media screen and (min-width: 750px) {
+    .layout {
       padding: 0 2rem; } }
   .layout--centered {
     margin: -1rem auto 0 auto; }
   .layout--wide {
     max-width: 69rem; }
+  .layout--full-width {
+    max-width: none; }
+  .layout--full-bleed {
+    padding: 0; }
   .layout + .layout {
     margin-top: 1rem; }
 

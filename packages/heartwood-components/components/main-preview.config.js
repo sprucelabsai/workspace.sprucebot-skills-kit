@@ -1,5 +1,6 @@
 module.exports = {
 	context: {
-		renderInPage: true
+		renderInPage: true,
+		isSectioned: true
 	}
 }
