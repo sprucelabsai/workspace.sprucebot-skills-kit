@@ -1,116 +1,114 @@
 .card {
 	width: 100%;
-	max-width: rem(720);
-	padding-bottom: rem(16);	
+	padding-bottom: spacing('base');
 	background-color: $c-bg-light;
 	box-shadow: $dimension-floating;
 
-	* {
-		// background-color: rgba(0,0,255,0.1);
-	}
-
-	&.card-centered {
+	&--centered {
 		text-align: center;
 	}
 
 	@include gt('small') {
-		padding-bottom: rem(24);
+		padding-bottom: spacing('loose');
+	}
+
+	> img + * {
+		margin-top: spacing('base');
 	}
 }
 
-.card-header {
+.card__header {
 	display: flex;
 	justify-content: space-between;
-	padding: rem(16);
+	padding: spacing('base');
 
-	.card-centered & {
+	.card--centered & {
 		flex-flow: column-reverse;
 		align-items: flex-end;
 	}
-	.card-critical & {
-		border-top: 4px solid $c-ui-critical; 
+	.card--critical & {
+		border-top: 4px solid $c-ui-critical;
 	}
 
 	@include gt('small') {
-		padding: rem(16) rem(24);
+		padding: spacing('loose') spacing('loose');
 	}
 }
 
-.card-header__label {
+.card__header-label {
 	@include type-style-label;
 	display: inline-flex;
 	align-items: center;
 
-	.card-critical & {
-		color: $c-ui-critical; 
+	.card--critical & {
+		color: $c-ui-critical;
 	}
 }
 
-.card-header__label-icon {
-	margin-right: rem(4);
+.card__header-label-icon {
+	+ .card__header-label-text {
+		margin-left: spacing('extra-tight');
+	}
 
-	.card-critical & {
-		fill: $c-ui-critical; 
+	.card--critical & {
+		fill: $c-ui-critical;
 	}
 }
 
-.card-header__actions {
+.card__header-actions {
 	flex: 0 0 auto;
-	margin-top: rem(-8);
-	margin-left: rem(8);
+	margin-top: -#{spacing('tight')};
+	margin-left: spacing('tight');
 
 	.context-menu .context-menu__button {
-		width: rem(36);
-		height: rem(36);
+		width: spacing('extra-loose');
+		height: spacing('extra-loose');
 	}
 
 	@include gt('small') {
-		margin-top: rem(-4);
+		margin-top: -#{spacing('extra-tight')};
 	}
 }
 
-.card-header__title {
+.card__header-title {
 	@include typescale('body');
 	flex: 1 1 auto;
 	width: 100%;
 	font-weight: $font-weight-bold;
 
 	@include gt('small') {
-		@include typescale('h3');
+		@include typescale('heading-md');
 	}
 }
 
-.card__body-inner {
-	padding: 0 rem(16) rem(16);
+.card__body {
+	.text {
+		color: $c-text-light;
+		line-height: $line-height-loose;
+	}
+}
+
+.card__section {
+	padding: 0 spacing('base') spacing('base');
 
 	@include gt('small') {
-		padding: 0 rem(24);
+		padding: 0 spacing('loose');
 	}
-
-	// background-color: rgba(0,0,100,0.1);
 }
 
 .card__footer {
-	padding: rem(16) rem(16) 0 rem(16);
+	padding: spacing('base') spacing('base') 0 spacing('base');
 
 	@include gt('small') {
-		padding-left: rem(24);
-		padding-right: rem(24);
+		padding-left: spacing('loose');
+		padding-right: spacing('loose');
 	}
 }
 
-// Groups
-.card-group__wrapper {
-	@include gt('small') {
-		padding: rem(16);
-	}
-}
-.card-group .card {
-	margin-bottom: rem(8);
+// Spacing
 
-	@include gt('small') {
-		margin-bottom: rem(16);
-	}
+.card + .card {
+	margin-top: spacing('base');
 }
 
 // Styles for Score Cards
@@ -119,7 +117,7 @@
 	display: flex;
 	flex-flow: column;
 	justify-content: stretch;
-	margin-top: rem(16);
+	margin-top: spacing('base');
 
 	@include gt('medium') {
 		flex-flow: row;
@@ -128,14 +126,14 @@
 
 .card__score {
 	flex: 1 0 auto;
-	padding: rem(16);
+	padding: spacing('base');
 	text-align: center;
 	color: $c-text-light;
 	border-top: 1px solid $c-border;
 
 	@include gt('medium') {
 		border-right: 1px solid $c-border;
-	
+
 		&:last-of-type {
 			border-right: none;
 		}
@@ -147,11 +145,10 @@
 }
 
 .card__score-value {
-	@include typescale('big-h4');	
+	@include typescale('display-sm');
 }
 
-.card img {
-	max-width: 100%;
+.card > img {
+	width: 100%;
 	height: auto;
 }
-

@@ -4,8 +4,7 @@ import Button from '../../../../../Button/Button'
 import type { Props as ButtonProps } from '../../../../../Button/Button'
 import ContextMenu from '../../../../../ContextMenu/ContextMenu'
 import type { Props as ContextMenuProps } from '../../../../../ContextMenu/ContextMenu'
-import Icon from '../../../../../Icon/Icon'
-import { Text } from '../../../../../Text/Text'
+import Text from '../../../../../Text/Text'
 
 export type Props = {
 	label: string,

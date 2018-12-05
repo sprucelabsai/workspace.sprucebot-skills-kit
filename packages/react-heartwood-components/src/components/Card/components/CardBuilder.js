@@ -5,6 +5,7 @@ import type { Element, Node } from 'react'
 import cx from 'classnames'
 import Card from '../Card'
 import CardHeader from './CardHeader'
+import CardBody from './CardBody'
 import CardFooter from './CardFooter'
 import Button from '../../Button/Button'
 import type { Props as ButtonProps } from '../../Button/Button'
@@ -37,7 +38,7 @@ const CardBuilderKey = {
 const CardBuilder = (props: CardBuilderProps) => {
 	const { header, body, footer } = props
 	const { title, labelText, labelIcon, actions: headerActions } = header
-	const { children } = body
+	const { children, isSectioned } = body
 	const footerActions = footer && footer.actions
 	return (
 		<Card>
@@ -47,10 +48,7 @@ const CardBuilder = (props: CardBuilderProps) => {
 				labelIcon={labelIcon}
 				actions={headerActions}
 			/>
-			<div
-				className="card__body-inner"
-				dangerouslySetInnerHTML={{ __html: children }}
-			/>
+			<CardBody isSectioned={isSectioned}>{children}</CardBody>
 			{footer && (
 				<CardFooter>
 					{footerActions && footerActions.length > 0

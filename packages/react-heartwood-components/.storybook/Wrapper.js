@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
 import Helmet from 'react-helmet'
+import Page, { PageContent } from '../src/components/Page'
 import '../src/stylesheets/vendor.sass'
 import '../src/stylesheets/global.sass'
-import '@sprucelabs/heartwood-components/stylesheets/global.scss'
+import '@sprucelabs/heartwood-components/stylesheets/heartwood-components.scss'
 
 const Wrapper = props => {
 	const stylesheets =
@@ -13,9 +14,10 @@ const Wrapper = props => {
 			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 		/>
 	)
+
 	if (!props.STORYBOOKwrap) {
 		return (
-			<div className="l-page-wrapper">
+			<div className="main-wrapper">
 				<Helmet>
 					<link
 						rel="stylesheet"
@@ -34,7 +36,7 @@ const Wrapper = props => {
 	}
 
 	return (
-		<div className="l-page-wrapper">
+		<div className="main-wrapper">
 			<Helmet>
 				<link
 					rel="stylesheet"
@@ -47,7 +49,9 @@ const Wrapper = props => {
 					))}
 				{meta}
 			</Helmet>
-			<div className="l-pa-medium">{props.children}</div>
+			<Page>
+				<PageContent>{props.children}</PageContent>
+			</Page>
 		</div>
 	)
 }

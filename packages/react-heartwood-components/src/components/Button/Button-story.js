@@ -8,10 +8,7 @@ import {
 	boolean,
 	object
 } from '@storybook/addon-knobs/react'
-import Wrapper from '../../../.storybook/Wrapper'
 import Button from './Button'
-import Icon from '../Icon/Icon'
-import Icon11 from '../../../static/assets/icons/Phones-Mobile-Devices/Phone/phone-retro-1.svg'
 
 type GroupProps = {
 	kind: string
@@ -33,7 +30,6 @@ stories.addDecorator(withKnobs)
 stories
 	.add('Primary', () => (
 		<Button
-			className={text('className', 'l-mr-small l-mb-small')}
 			isSmall={isSmall}
 			isFullWidth={isFullWidth}
 			text={btnText}
@@ -42,7 +38,7 @@ stories
 			isLoading={boolean('isLoading', false)}
 			isSmall={boolean('isSmall', false)}
 			icon={{
-				name: text('icon', ''),
+				name: text('icon', null),
 				className: text('iconClassName', 'btn__line-icon')
 			}}
 			href={text('href', '')}
@@ -53,7 +49,6 @@ stories
 	))
 	.add('Secondary', () => (
 		<Button
-			className={text('className', 'l-mr-small l-mb-small')}
 			isSmall={isSmall}
 			isFullWidth={isFullWidth}
 			text={btnText}
@@ -62,7 +57,7 @@ stories
 			isLoading={boolean('isLoading', false)}
 			isSmall={boolean('isSmall', false)}
 			icon={{
-				name: text('icon', ''),
+				name: text('icon', null),
 				className: text('iconClassName', 'btn__line-icon')
 			}}
 			href={text('href', '')}
@@ -73,7 +68,6 @@ stories
 	))
 	.add('Simple', () => (
 		<Button
-			className={text('className', 'l-mr-small l-mb-small')}
 			isSmall={isSmall}
 			isFullWidth={isFullWidth}
 			text={btnText}
@@ -82,7 +76,7 @@ stories
 			isLoading={boolean('isLoading', false)}
 			isSmall={boolean('isSmall', false)}
 			icon={{
-				name: text('icon', ''),
+				name: text('icon', null),
 				className: text('iconClassName', 'btn__line-icon')
 			}}
 			href={text('href', '')}
@@ -93,7 +87,6 @@ stories
 	))
 	.add('Caution', () => (
 		<Button
-			className={text('className', 'l-mr-small l-mb-small')}
 			isSmall={isSmall}
 			isFullWidth={isFullWidth}
 			text={btnText}
@@ -102,7 +95,7 @@ stories
 			isLoading={boolean('isLoading', false)}
 			isSmall={boolean('isSmall', false)}
 			icon={{
-				name: text('icon', ''),
+				name: text('icon', null),
 				className: text('iconClassName', 'btn__line-icon')
 			}}
 			href={text('href', '')}

@@ -7,7 +7,7 @@ module.exports = {
 	collator: function(markup, item) {
 		return `<!-- Start: @${
 			item.handle
-		} -->\n<div style="margin-bottom: 2rem;">${markup}</div>\n<!-- End: @${
+		} -->\n<div style="margin-top: 2rem;">${markup}</div>\n<!-- End: @${
 			item.handle
 		} -->\n`
 	},

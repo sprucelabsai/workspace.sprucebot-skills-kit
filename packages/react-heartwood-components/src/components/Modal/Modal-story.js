@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
@@ -8,10 +8,15 @@ import {
 	number,
 	object
 } from '@storybook/addon-knobs/react'
-import Container from '../Layout/Container/Container'
 import Modal from './Modal'
 import Button from '../Button/Button'
-import { Checkbox, TextInput, TextArea, FormRow } from '../Forms'
+import {
+	Checkbox,
+	TextInput,
+	TextArea,
+	FormLayout,
+	FormLayoutItem
+} from '../Forms'
 
 type Props = {
 	title: string,
@@ -45,7 +50,7 @@ class ModalExample extends Component<Props, State> {
 		const { isOpen } = this.state
 		const { title, canGoBack, hasSecondaryButton, includeFooter } = this.props
 		return (
-			<Container>
+			<Fragment>
 				<Button
 					kind="secondary"
 					text="Give me modal"
@@ -64,32 +69,34 @@ class ModalExample extends Component<Props, State> {
 					/>
 					<form>
 						<Modal.Body>
-							<FormRow>
-								<TextInput label="Category Name" placeholder="i.e. Barber" />
-							</FormRow>
-							<FormRow>
-								<TextInput
-									label="Teaser"
-									postLabel="0/64"
-									placeholder="Haircuts, shaves, and touch-ups."
-									helper="Add a short teaser for your guests to see when they browse your services. Please limit to 64 characters."
-								/>
-							</FormRow>
-							<FormRow>
-								<TextArea
-									label="Description"
-									placeholder="Optional category description…"
-									helper="Add a short teaser for your guests to see when they browse your services."
-									rows={3}
-								/>
-							</FormRow>
-							<FormRow>
-								<Checkbox
-									id="hide-category"
-									label="Hide this category"
-									postText="It will still be visible to your teammates, but will be hidden from guests."
-								/>
-							</FormRow>
+							<FormLayout>
+								<FormLayoutItem>
+									<TextInput label="Category Name" placeholder="i.e. Barber" />
+								</FormLayoutItem>
+								<FormLayoutItem>
+									<TextInput
+										label="Teaser"
+										postLabel="0/64"
+										placeholder="Haircuts, shaves, and touch-ups."
+										helper="Add a short teaser for your guests to see when they browse your services. Please limit to 64 characters."
+									/>
+								</FormLayoutItem>
+								<FormLayoutItem>
+									<TextArea
+										label="Description"
+										placeholder="Optional category description…"
+										helper="Add a short teaser for your guests to see when they browse your services."
+										rows={3}
+									/>
+								</FormLayoutItem>
+								<FormLayoutItem>
+									<Checkbox
+										id="hide-category"
+										label="Hide this category"
+										postText="It will still be visible to your teammates, but will be hidden from guests."
+									/>
+								</FormLayoutItem>
+							</FormLayout>
 						</Modal.Body>
 						{includeFooter && (
 							<Modal.Footer
@@ -108,7 +115,7 @@ class ModalExample extends Component<Props, State> {
 						)}
 					</form>
 				</Modal>
-			</Container>
+			</Fragment>
 		)
 	}
 }
@@ -142,32 +149,34 @@ stories
 			/>
 			<form>
 				<Modal.Body>
-					<FormRow>
-						<TextInput label="Category Name" placeholder="i.e. Barber" />
-					</FormRow>
-					<FormRow>
-						<TextInput
-							label="Teaser"
-							postLabel="0/64"
-							placeholder="Haircuts, shaves, and touch-ups."
-							helper="Add a short teaser for your guests to see when they browse your services. Please limit to 64 characters."
-						/>
-					</FormRow>
-					<FormRow>
-						<TextArea
-							label="Description"
-							placeholder="Optional category description…"
-							helper="Add a short teaser for your guests to see when they browse your services."
-							rows={3}
-						/>
-					</FormRow>
-					<FormRow>
-						<Checkbox
-							id="hide-category"
-							label="Hide this category"
-							postText="It will still be visible to your teammates, but will be hidden from guests."
-						/>
-					</FormRow>
+					<FormLayout>
+						<FormLayoutItem>
+							<TextInput label="Category Name" placeholder="i.e. Barber" />
+						</FormLayoutItem>
+						<FormLayoutItem>
+							<TextInput
+								label="Teaser"
+								postLabel="0/64"
+								placeholder="Haircuts, shaves, and touch-ups."
+								helper="Add a short teaser for your guests to see when they browse your services. Please limit to 64 characters."
+							/>
+						</FormLayoutItem>
+						<FormLayoutItem>
+							<TextArea
+								label="Description"
+								placeholder="Optional category description…"
+								helper="Add a short teaser for your guests to see when they browse your services."
+								rows={3}
+							/>
+						</FormLayoutItem>
+						<FormLayoutItem>
+							<Checkbox
+								id="hide-category"
+								label="Hide this category"
+								postText="It will still be visible to your teammates, but will be hidden from guests."
+							/>
+						</FormLayoutItem>
+					</FormLayout>
 				</Modal.Body>
 				{boolean('includeFooter', true) && (
 					<Modal.Footer

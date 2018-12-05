@@ -15,7 +15,7 @@ Heartwood is a design system made of foundational decisions that ensure cohesion
 1. Start Fractal with `fractal start --sync`
 2. Run Gulp to compile Sass to CSS: `gulp watch`
 
-If you're running this project with `react-sprucebot`, you can pull in the local stylesheet by adding its url to `.env`, i.e. `STYLESHEETS=http://xxx.xxx.xxx:3000/stylesheets/global.css`.
+If you're running this project with `react-sprucebot`, you can pull in the local stylesheet by adding its url to `.env`, i.e. `STYLESHEETS=http://xxx.xxx.xxx:3000/stylesheets/heartwood-components.css`.
 
 ## Contributing
 1. New components should be added on feature branches, i.e. `feature/my-new-component`

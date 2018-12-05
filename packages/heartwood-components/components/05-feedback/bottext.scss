@@ -1,12 +1,12 @@
 .bot-text {
 	@include speech-bubble(reverse);
 	display: table;
-	padding: rem(12) rem(16);
+	padding: 0.75 * spacing('base') spacing('loose');
 	max-width: rem(450);
 	background-color: $c-white;
 	color: $c-text-light;
 
-	@media screen and (min-width: 500px ) {
+	@media screen and (min-width: 500px) {
 		line-height: 1.375;
 	}
 }

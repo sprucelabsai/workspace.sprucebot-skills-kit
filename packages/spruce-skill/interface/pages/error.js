@@ -1,5 +1,5 @@
 import React from 'react'
-import Page from '../containers/Page'
+import PageWrapper from '../containers/PageWrapper'
 
 const ErrorPage = () => (
 	<div>
@@ -7,4 +7,4 @@ const ErrorPage = () => (
 	</div>
 )
 
-export default Page(ErrorPage)
+export default PageWrapper(ErrorPage)

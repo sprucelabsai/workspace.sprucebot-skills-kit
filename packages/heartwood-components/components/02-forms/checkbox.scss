@@ -1,3 +1,7 @@
+.checkbox-item + .checkbox-item {
+	margin-top: spacing('extra-tight');
+}
+
 .checkbox-item__inner {
 	display: flex;
 	flex-flow: row-reverse;
@@ -9,7 +13,6 @@
 	flex: 0 0 auto;
 	width: rem(20);
 	height: rem(20);
-	margin-right: rem(4);
 	fill: $c-primary;
 
 	.checkbox-item__icon-no {
@@ -26,6 +29,7 @@
 
 .checkbox-item__label {
 	font-weight: 600;
+	margin-left: spacing('extra-tight');
 	cursor: pointer;
 }
 
@@ -69,7 +73,7 @@
 
 .checkbox-item__post-text {
 	@include type-style-body-sm;
-	margin-top: rem(4);
-	padding-left: rem(24);
+	margin-top: spacing('extra-tight');
+	padding-left: 1.5 * spacing('base');
 	color: $c-text-light;
 }

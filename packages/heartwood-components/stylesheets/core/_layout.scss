@@ -1,18 +1,57 @@
-$breakpoints: (
-	small: 500px,
-	medium: 750px,
-	large: 1000px,
-	x-large: 1200px
+$breakpoints-map: (
+	'small': 500px,
+	'medium': 750px,
+	'large': 1000px,
+	'x-large': 1200px
 );
 
 @mixin gt($size) {
-	@if map-has-key($breakpoints, $size) {
-		@media screen and (min-width: map-get($breakpoints, $size)) {
+	@if map-has-key($breakpoints-map, $size) {
+		@media screen and (min-width: map-get($breakpoints-map, $size)) {
 			@content;
 		}
 	} @else {
 		@media screen and (min-width: $size) {
 			@content;
 		}
+	}
+}
+
+/**
+Spacing
+*/
+
+$spacing-unit: 16;
+
+$spacing-map: (
+	'none': 0,
+	'extra-tight': rem($spacing-unit * 0.25),
+	'tight': rem($spacing-unit * 0.5),
+	'base': rem($spacing-unit * 1),
+	'loose': rem($spacing-unit * 1.25),
+	'extra-loose': rem($spacing-unit * 2)
+);
+
+@function spacing($size: 'base') {
+	@if map-has-key($spacing-map, $size) {
+		@return map-get($spacing-map, $size);
+	} @else {
+		@warn 'This is not a step of the Heartwood Spacing Scale!';
+	}
+}
+
+/**
+Layout Width
+*/
+$layout-width-map: (
+	'base': rem(720),
+	'wide': rem(1040)
+);
+
+@function layout-width($size: 'base') {
+	@if map-has-key($layout-width-map, $size) {
+		@return map-get($layout-width-map, $size);
+	} @else {
+		@warn 'This is not a valid Heartwood Layout Width!';
 	}
 }

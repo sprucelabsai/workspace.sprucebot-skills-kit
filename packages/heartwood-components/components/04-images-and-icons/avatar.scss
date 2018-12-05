@@ -14,7 +14,7 @@
 	}
 
 	&.avatar-wrapper-large {
-		@include typescale('body')
+		@include typescale('body');
 	}
 }
 
@@ -41,7 +41,9 @@
 	}
 }
 
-.avatar { border-radius: 100%; }
+.avatar {
+	border-radius: 100%;
+}
 
 .avatar__indicator {
 	width: rem(10);
@@ -58,8 +60,8 @@
 	}
 
 	.avatar-wrapper-large & {
-		top: rem(8);
-		right: rem(8);
+		top: spacing('tight');
+		right: spacing('tight');
 	}
 }
 
@@ -72,7 +74,7 @@
 }
 
 .avatar__text-wrapper {
-	margin-left: rem(4);
+	margin-left: spacing('extra-tight');
 
 	&.avatar-wrapper-has-text {
 		margin-top: rem(2);

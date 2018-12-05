@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
-import Container from '../Layout/Container/Container'
 import Pagination from './Pagination'
 
 const stories = storiesOf('Pagination', module)

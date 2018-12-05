@@ -1,24 +1,7 @@
-import Autosuggest from './components/Autosuggest/Autosuggest'
-import Checkbox from './components/Checkbox/Checkbox'
-import DatePicker from './components/DatePicker/DatePicker'
-import DomainInput from './components/DomainInput/DomainInput'
-import FormRow from './components/FormRow/FormRow'
-import PhoneInput from './components/PhoneInput/PhoneInput'
-import Radio from './components/Radio/Radio'
-import Search from './components/Search/Search'
-import Select from './components/Select/Select'
-import Slider from './components/Slider/Slider'
-import Stars from './components/Stars/Stars'
-import Tag from './components/Tag/Tag'
-import TextArea from './components/TextArea/TextArea'
-import TextInput from './components/TextInput/TextInput'
-import Toggle from './components/Toggle/Toggle'
-
 export Autosuggest from './components/Autosuggest/Autosuggest'
 export Checkbox from './components/Checkbox/Checkbox'
 export DatePicker from './components/DatePicker/DatePicker'
 export DomainInput from './components/DomainInput/DomainInput'
-export FormRow from './components/FormRow/FormRow'
 export PhoneInput from './components/PhoneInput/PhoneInput'
 export Radio from './components/Radio/Radio'
 export Search from './components/Search/Search'
@@ -29,3 +12,8 @@ export Tag from './components/Tag/Tag'
 export TextArea from './components/TextArea/TextArea'
 export TextInput from './components/TextInput/TextInput'
 export Toggle from './components/Toggle/Toggle'
+export {
+	default as FormLayout,
+	FormLayoutGroup,
+	FormLayoutItem
+} from './components/FormLayout'

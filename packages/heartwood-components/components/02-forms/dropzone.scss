@@ -4,13 +4,13 @@
 	justify-content: flex-end;
 	align-items: center;
 	position: relative;
-	padding: rem(16);
+	padding: spacing('base');
 	width: 100%;
 	min-height: rem(240);
 	background-color: $c-bg;
 	border: 2px dashed $c-border;
 	border-radius: 4px;
-	
+
 	&:hover {
 		border: 2px solid $c-primary;
 	}
@@ -20,9 +20,9 @@
 	}
 }
 
-.dropzone__icons,
-.dropzone__btn {
-	margin-bottom: rem(16);
+.dropzone__btn,
+.dropzone__text {
+	margin-top: spacing('base');
 }
 
 .dropzone__icons {
@@ -40,7 +40,7 @@
 
 .dropzone__helper-text,
 .dropzone__helper-text-bottom {
-	@include typescale('h3');
+	@include typescale('heading-md');
 
 	.dropzone-small & {
 		@include typescale('body');
@@ -49,7 +49,7 @@
 
 .dropzone__helper-text-bottom {
 	position: absolute;
-	bottom: rem(16);
+	bottom: spacing('base');
 	left: 0;
 	width: 100%;
 	text-align: center;
@@ -63,13 +63,12 @@
 	stroke: $c-ui-online;
 }
 
-.dropzone__helper-text,
 .dropzone__uploading-progress-wrapper {
-	margin-bottom: rem(16);
+	margin-top: spacing('base');
 }
 
 .dropzone__uploading-text {
-	@include typescale('h3');
+	@include typescale('heading-md');
 }
 
 .dropzone__uploading-progress-wrapper {
@@ -90,11 +89,7 @@
 // Small Variant
 .dropzone-small {
 	.dropzone__btn {
-		margin-bottom: 0;
-	}
-
-	.dropzone__icons {
-		margin-bottom: rem(8);
+		margin-top: spacing('tight');
 	}
 }
 
@@ -104,11 +99,7 @@
 	max-width: rem(160);
 
 	.dropzone__btn {
-		margin-bottom: rem(8);
-	}
-
-	.dropzone__icons {
-		margin-bottom: 0;
+		margin: spacing('tight') auto;
 	}
 }
 

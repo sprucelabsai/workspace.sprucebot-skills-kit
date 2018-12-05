@@ -1,12 +1,18 @@
 import React from 'react'
-import Page from '../containers/Page'
-import { Container, H1, BotText } from '@sprucelabs/react-heartwood-components'
+import PageWrapper from '../containers/PageWrapper'
+import {
+	Page,
+	PageHeader,
+	PageContent,
+	BotText
+} from '@sprucelabs/react-heartwood-components'
 import ReactDOM from 'react-dom'
 
 class MarketingPage extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {}
+		this.containerDiv = React.createRef()
 	}
 
 	static getInitialProps(props) {
@@ -20,7 +26,7 @@ class MarketingPage extends React.Component {
 
 	// track sizes for marketing video
 	sizes() {
-		const container = ReactDOM.findDOMNode(this.mainContainer)
+		const container = this.containerDiv.current
 		const computed = window.getComputedStyle(container)
 		const width =
 			parseFloat(computed.width) -
@@ -56,28 +62,27 @@ class MarketingPage extends React.Component {
 
 	render() {
 		return (
-			<Container
-				className="marketing"
-				ref={container => {
-					this.mainContainer = container
-				}}
-			>
-				<H1>{this.props.name}</H1>
-				<BotText>{this.props.description}</BotText>
-				{this.props.vimeoId && (
-					<iframe
-						width={this.state.videoWidth}
-						height={this.state.videoHeight}
-						className="vimeo"
-						title="Marketing"
-						src={`https://player.vimeo.com/video/${this.props.vimeoId}`}
-						frameBorder="0"
-						allowFullScreen
-					/>
-				)}
-			</Container>
+			<Page className="marketing">
+				<PageHeader title={this.props.name} />
+				<PageContent>
+					<div ref={this.containerDiv}>
+						<BotText>{this.props.description}</BotText>
+						{this.props.vimeoId && (
+							<iframe
+								width={this.state.videoWidth}
+								height={this.state.videoHeight}
+								className="vimeo"
+								title="Marketing"
+								src={`https://player.vimeo.com/video/${this.props.vimeoId}`}
+								frameBorder="0"
+								allowFullScreen
+							/>
+						)}
+					</div>
+				</PageContent>
+			</Page>
 		)
 	}
 }
 
-export default Page(MarketingPage)
+export default PageWrapper(MarketingPage)

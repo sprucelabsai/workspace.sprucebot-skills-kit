@@ -1,7 +1,5 @@
 .form-row {
-	margin-bottom: rem(24);
-
-	&:last-child {
-		margin-bottom: 0;
+	+ .form-row {
+		margin-top: 1.5 * spacing('base');
 	}
 }

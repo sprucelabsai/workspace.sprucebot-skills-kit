@@ -1,0 +1,7 @@
+<div class="layout{{#if layoutModifierClass }} {{layoutModifierClass}}{{/if}}">
+	{{#> @partial-block }}
+	{{#each sections}}
+	{{> @layout-section }}
+	{{/each}}
+	{{/@partial-block}}
+</div>

@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
-import Container from '../Layout/Container/Container'
 import Dropzone from './Dropzone'
 
 type Props = {}
@@ -64,24 +63,18 @@ stories.addDecorator(withKnobs)
 stories
 
 	.add('Static', () => (
-		<Container size="small" center>
-			<Dropzone
-				id={text('id', 'photos')}
-				label={text('label', 'Profile Photo')}
-				postLabel={text('postLabel', '')}
-				accept={text('accpet', 'image/*')}
-				onDropAccepted={() => console.log('onDropAccepted')}
-				buttonText={text('buttonText', 'Upload an Image')}
-				fileWasUploaded={boolean('fileWasUploaded', false)}
-				uploadProgress={number('uploadProgress', 0)}
-				error={text('error', 'Please upload an image file.')}
-				isSmall={boolean('isSmall', false)}
-				isCircular={boolean('isCircular', false)}
-			/>
-		</Container>
+		<Dropzone
+			id={text('id', 'photos')}
+			label={text('label', 'Profile Photo')}
+			postLabel={text('postLabel', '')}
+			accept={text('accpet', 'image/*')}
+			onDropAccepted={() => console.log('onDropAccepted')}
+			buttonText={text('buttonText', 'Upload an Image')}
+			fileWasUploaded={boolean('fileWasUploaded', false)}
+			uploadProgress={number('uploadProgress', 0)}
+			error={text('error', 'Please upload an image file.')}
+			isSmall={boolean('isSmall', false)}
+			isCircular={boolean('isCircular', false)}
+		/>
 	))
-	.add('Dynamic', () => (
-		<Container size="small" center>
-			<DropzoneExample />
-		</Container>
-	))
+	.add('Dynamic', () => <DropzoneExample />)

@@ -1,9 +1,11 @@
 # Errors
+
 `Server` side errors are defined in `config/errors.js` and include a `friendlyReason` that you can render on the `interface`.
 
 This kit ships with some errors pre-defined, but undoubtedly you'll be defining your own. Then, when you want to throw an error, you simply `ctx.throw('ERROR_KEY')` or `ctx.assert(assertion,'ERROR_KEY')`. The entire `error` object is returned in the response.
 
 ## Error object
+
 ```js
 module.exports = {
     [key: String]: {
@@ -16,50 +18,52 @@ module.exports = {
 ```
 
 ## Built-in errors
+
 ```js
 // config/errors.js
 module.exports = {
-	UNKNOWN: {
-		code: 500,
-		status: 'failure',
-		reason: 'A server side error occurred.',
-		friendlyReason:
-			"I honestly have no idea what went wrong, but I've let the humans know and they are on it!"
-	},
-	ROUTE_NOT_FOUND: {
-		code: 404,
-		status: 'failure',
-		reason: 'Invalid route. Check the path and request methods',
-		friendlyReason: 'The droids you were looking for could not be found.'
-	},
-	LOCATION_NOT_FOUND: {
-		code: 404,
-		status: 'failure',
-		reason: 'Location could not be found.',
-		friendlyReason: 'I could not find the location you are looking for.'
-	},
-	USER_NOT_FOUND: {
-		code: 404,
-		status: 'failure',
-		reason: 'User could not be found.',
-		friendlyReason: "No joke, I can't find that user."
-	},
-	INVALID_AUTHENTICATION: {
-		code: 401,
-		status: 'failure',
-		reason: 'Authentication failed.',
-		friendlyReason: "Sorry, you can't be here right now."
-	},
-	NOT_AUTHORIZED: {
-		code: 403,
-		status: 'failure',
-		reason: 'Permission denied.',
-		friendlyReason: 'Permission denied.'
-	}
+  UNKNOWN: {
+    code: 500,
+    status: 'failure',
+    reason: 'A server side error occurred.',
+    friendlyReason:
+      "I honestly have no idea what went wrong, but I've let the humans know and they are on it!"
+  },
+  ROUTE_NOT_FOUND: {
+    code: 404,
+    status: 'failure',
+    reason: 'Invalid route. Check the path and request methods',
+    friendlyReason: 'The droids you were looking for could not be found.'
+  },
+  LOCATION_NOT_FOUND: {
+    code: 404,
+    status: 'failure',
+    reason: 'Location could not be found.',
+    friendlyReason: 'I could not find the location you are looking for.'
+  },
+  USER_NOT_FOUND: {
+    code: 404,
+    status: 'failure',
+    reason: 'User could not be found.',
+    friendlyReason: "No joke, I can't find that user."
+  },
+  INVALID_AUTHENTICATION: {
+    code: 401,
+    status: 'failure',
+    reason: 'Authentication failed.',
+    friendlyReason: "Sorry, you can't be here right now."
+  },
+  NOT_AUTHORIZED: {
+    code: 403,
+    status: 'failure',
+    reason: 'Permission denied.',
+    friendlyReason: 'Permission denied.'
+  }
 }
 ```
 
 ## Throwing errors
+
 There are 2 ways to throw errors. By throwing one manually with `ctx.throw` or through a failed assertion with `ctx.assert`
 
 ```js
@@ -84,7 +88,8 @@ module.exports = router => {
 ```
 
 ## Rendering errors client side
-You can safely render `friendlyReason` whenever an error occurs on the `server`. Your `reducer` will 
+
+You can safely render `friendlyReason` whenever an error occurs on the `server`. Your `reducer` will
 
 ```js
 render() {
@@ -92,18 +97,19 @@ render() {
 	const { shopify } = this.props
 
 	return (
-		<Container className="owner-settings">
+		<Fragment>
 
 			{shopify.fetchError && (
 				<BotText>{shopify.fetchError.friendlyReason}</BotText>
 			)}
 
-		</Container>
+		</Fragment>
 	)
 }
 ```
 
 ## Defining your errors
+
 Then, all we have to do is define the errors.
 
 ```js
@@ -125,7 +131,9 @@ module.exports = {
 }
 
 ```
+
 ## Overriding friendlyReason
+
 ```js
 // server/controllers/1.0/teammate/index.js
 module.exports = router => {
@@ -136,7 +144,7 @@ module.exports = router => {
         ctx.assert(typeof(ctx.request.body.favoriteColor1) === 'string', 'MISSING_FAVORITE_COLOR', {
 			friendlyReason: 'You forgot the first color'
 		})
-		
+
         ctx.assert(typeof(ctx.request.body.favoriteColor2) === 'string', 'MISSING_FAVORITE_COLOR', {
 			friendlyReason: 'You forgot the second color'
 		})
@@ -154,8 +162,10 @@ module.exports = router => {
 ```
 
 ## Gotchya's
- * There is no way (or need) to throw errors in the `interface`. Almost all your logic should be contained in `services` and `utilities` on the `server`. The `interface` is just that, the interface.
- * You can render `friendlyMessage` right in your `interface`, but you don't have to.
+
+- There is no way (or need) to throw errors in the `interface`. Almost all your logic should be contained in `services` and `utilities` on the `server`. The `interface` is just that, the interface.
+- You can render `friendlyMessage` right in your `interface`, but you don't have to.
 
 # What's next?
+
 We're done with the essentials! Lets get started on something very specific, [uploads](uploads.md)!

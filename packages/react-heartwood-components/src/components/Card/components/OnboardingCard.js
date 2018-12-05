@@ -79,7 +79,7 @@ export default class OnboardingCard extends Component<Props, State> {
 					{tabs && <Tabs tabs={tabs} />}
 				</div>
 				<CardHeader title={steps[currentStep].panelTitle} />
-				<CardBody>{steps[currentStep].panelCopy}</CardBody>
+				<CardBody isSectioned>{steps[currentStep].panelCopy}</CardBody>
 				<CardFooter>
 					<Button kind="primary" {...steps[currentStep].panelCTA} />
 				</CardFooter>

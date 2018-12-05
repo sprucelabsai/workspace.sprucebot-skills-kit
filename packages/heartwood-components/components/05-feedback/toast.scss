@@ -2,11 +2,11 @@
 	@include type-style-body-sm;
 	display: inline-block;
 	min-width: rem(288);
-	padding: rem(8) rem(12);
+	padding: spacing('tight');
 	border: 1px solid $c-border;
 	border-radius: 2px;
 	background-color: $c-white;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
 	&.toast-negative {
 		background-color: $c-ui-critical-light;
@@ -35,7 +35,7 @@
 	@include type-style-body-sm-em;
 	display: flex;
 	justify-content: space-between;
-	padding-bottom: rem(4);
+	padding-bottom: spacing('extra-tight');
 
 	.btn {
 		@include type-style-body-sm-em;
@@ -52,12 +52,10 @@
 
 .toasts-wrapper {
 	position: absolute;
-	bottom: rem(16);
-	left: rem(16);
+	bottom: spacing('base');
+	left: spacing('base');
 }
 
-.toast-wrapper {
-	margin-bottom: rem(16);
-
-	&:last-child { margin-bottom: 0; }
+.toast-wrapper + .toast-wrapper {
+	margin-top: spacing('base');
 }

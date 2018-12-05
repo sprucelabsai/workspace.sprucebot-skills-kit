@@ -1,17 +1,13 @@
 .button-group {
 	display: inline-flex;
 
-	.button-group__item {
-		margin-right: rem(8);
-
-		&:last-child {
-			margin-right: 0;
-		}
+	.button-group__item + .button-group__item {
+		margin-left: spacing('tight');
 	}
 
 	&.button-group-segmented {
 		.button-group__item {
-			margin-right: 0;
+			margin-left: 0;
 
 			&:not(:last-child) .btn {
 				border-right: none;
@@ -35,17 +31,13 @@
 
 	&.button-group-floating {
 		flex-flow: column;
-		padding: rem(4) 0;
+		padding: spacing('extra-tight') 0;
 		border-radius: 2px;
 		background-color: $c-white;
 		box-shadow: $dimension-floating;
 
 		.button-group__item {
-			margin-right: 0;
-
-			.btn {
-				margin-bottom: 0;
-			}
+			margin-left: 0;
 		}
 
 		.btn__inner {

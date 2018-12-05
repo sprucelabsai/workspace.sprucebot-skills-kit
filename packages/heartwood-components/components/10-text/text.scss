@@ -1,0 +1,50 @@
+.text-container {
+	> * + * {
+		margin-top: spacing('base');
+	}
+
+	&--spacing-tight {
+		> * + * {
+			margin-top: spacing('tight');
+		}
+	}
+
+	&--spacing-loose {
+		> * + * {
+			margin-top: spacing('loose');
+		}
+	}
+
+	&--centered {
+		text-align: center;
+		> * {
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+}
+
+.heading {
+	@include typescale('heading-lg');
+	font-weight: $font-weight-normal;
+}
+.subheading {
+	@include typescale('heading-md');
+	font-weight: $font-weight-bold;
+}
+
+.text {
+	@include typescale('body');
+	font-weight: $font-weight-normal;
+	font-feature-settings: 'onum', 'pnum';
+	font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+.text__style {
+	&--strong {
+		font-weight: $font-weight-bold;
+	}
+	&--emphasis {
+		font-style: italic;
+	}
+}

@@ -7,8 +7,6 @@ import HeaderControls from '../HeaderControls/HeaderControls'
 import Pagination from '../../../Pagination/Pagination'
 import Button from '../../../Button/Button'
 
-import { H2 } from '../../../Text/Text'
-
 type Props = {
 	header: HeaderProps,
 	status: 'event-busy' | 'event-unconfirmed' | 'break' | 'block',
@@ -75,7 +73,7 @@ class Header extends PureComponent<Props, State> {
 		return (
 			<div className="bigcalendar__header" {...props}>
 				<div className="bigcalendar__header-top">
-					<H2 className="">{selectedDate.format(dateFormat)}</H2>
+					<h2>{selectedDate.format(dateFormat)}</h2>
 					<div
 						className={cx('bigcalendar__mobile-submenu-underlay', {
 							showing: this.state.showingSubMenu
@@ -91,7 +89,7 @@ class Header extends PureComponent<Props, State> {
 							icon={{ name: 'close' }}
 							onClick={this.handleHideSubMenu}
 						/>
-						<H2 className="">{selectedDate.format(mobileDateFormat)}</H2>
+						<h2>{selectedDate.format(mobileDateFormat)}</h2>
 						<HeaderControls
 							userModeOptions={userModeOptions}
 							onChangeUserMode={onChangeUserMode}

@@ -1,0 +1,14 @@
+.main-content {
+	min-height: 100vh;
+	padding-top: rem(48);
+
+	@include gt('medium') {
+		padding-left: rem(240);
+	}
+
+	.sidebar--is-collapsed & {
+		@include gt('medium') {
+			padding-left: rem(40);
+		}
+	}
+}

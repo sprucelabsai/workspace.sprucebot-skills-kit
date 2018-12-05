@@ -1,4 +1,3 @@
-
 *,
 *:after,
 *:before {
@@ -8,13 +7,13 @@
 html {
 	font-size: $font-size-base;
 	color: $c-text;
-	background-color: $c-white;
 	height: 100%;
 }
 
 body {
 	@include type-kerning;
 	@include type-style-body;
+	background-color: $c-bg;
 	font-family: $font-family-primary;
 	height: 100%;
 }

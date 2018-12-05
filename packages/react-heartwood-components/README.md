@@ -13,7 +13,7 @@
 
 ## Running Storybook locally
 
-1. From `packages/react-sprucebot`, run `yarn storybook`
+1. From `packages/react-heartwood-components`, run `yarn storybook`
 2. If you need to load additional stylesheets, i.e. from `sprucebot-heartwood`, you can specify them in `.env` as `STYLESHEETS`
 
 ## Adding stories
@@ -22,11 +22,11 @@ Any `.js` file that ends with `-story.js` will be automatically added to Storybo
 
 ## Usage in Skills
 
-1. Add the current prerelease version: `yarn add @sprucelabs/react-sprucebot@7.x.x`
+1. Add the current prerelease version: `yarn add @sprucelabs/react-heartwood-components@8.x.x`
 2. Import components:
 
 ```js
-import { Button } from '@sprucelabs/react-sprucebot'
+import { Button } from '@sprucelabs/react-heartwood-components'
 ```
 
 ## React Docgen

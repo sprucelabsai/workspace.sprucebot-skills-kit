@@ -1,0 +1,8 @@
+<header class="page__header">
+	{{#if backLink}}
+	<a class="page__header-back-link" href="{{backLink.href}}">{{> @icon icon='
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M12.842 13.825L9.02533 10L12.842 6.175L11.667 5L6.66699 10L11.667 15L12.842 13.825Z" />'
+		width="20" height="20" class="page__header-back-link-icon"}}{{backLink.title}}</a>
+	{{/if}}
+	<h1>{{ title }}</h1>
+</header>

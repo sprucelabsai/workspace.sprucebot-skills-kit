@@ -4,19 +4,13 @@
 	justify-content: center;
 }
 
-.image-cropper__dropzone-wrapper {
-	margin-bottom: rem(24);
-}
-
 .image-cropper__controls-row {
-	margin-bottom: rem(16);
+	margin-top: spacing('base');
 }
 
 .image-cropper__rotate-btn {
 	width: 50%;
-	margin-right: rem(16);
-
-	&:last-child {
-		margin-right: 0;
+	+ .image-cropper__rotate-btn {
+		margin-left: spacing('base');
 	}
 }

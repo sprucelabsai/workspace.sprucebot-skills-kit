@@ -18,8 +18,7 @@ const Icon = (props: Props) => {
 	const { icon, customIcon, isLineIcon, className, ...rest } = props
 
 	if (!customIcon && (!icon || !icons[icon.toLowerCase()])) {
-		log.warn(`<Icon /> could not find an icon with key ${icon}`)
-		return null
+		throw new Error(`<Icon /> could not find an icon with key ${icon}`)
 	}
 	const Handler = customIcon || icons[icon.toLowerCase()]
 

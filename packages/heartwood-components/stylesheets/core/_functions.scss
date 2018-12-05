@@ -9,33 +9,6 @@ $browser-context: 16 !default;
 	@return #{$pixels/$context}em;
 }
 
-@function rem($pixels, $context: $browser-context) {
-	@return #{$pixels/$context}em;
-}
-
 @function rem($px) {
-	$rem: $px / $browser-context;
-	@return #{$rem}rem;
-}
-
-@mixin placeholder {
-	&::-webkit-input-placeholder {
-		@content;
-	}
-
-	&:-moz-placeholder {
-		@content;
-	}
-
-	&::-moz-placeholder {
-		@content;
-	}
-
-	&:-ms-input-placeholder {
-		@content;
-	}
-
-	&.placeholder {
-		@content;
-	}
+	@return $px / $browser-context * 1rem;
 }

@@ -1,0 +1,25 @@
+<div class="card__header">
+	<div class="card__header-text">
+		{{#if label}}
+		<div class="card__header-label">
+			{{#if label.icon}}
+			{{> @icon icon=label.icon class="card__header-label-icon" width=label.iconWidth height=label.iconHeight}}
+			{{/if}}
+			<span class="card__header-label-text">{{label.text}}</span>
+		</div>
+		{{/if}}
+		{{#if title}}
+		<h3 class="card__title">{{{title}}}</h3>
+		{{/if}}
+	</div>
+	{{#if headerActions}}
+	<div class="card__header-actions">
+		{{#each headerActions}}
+		{{> @button}}
+		{{/each}}
+		{{#if contextMenu}}
+		{{> @context-menu actions=contextMenu.actions}}
+		{{/if}}
+	</div>
+	{{/if}}
+</div>

@@ -24,7 +24,7 @@ describe('Header tests', () => {
 		}
 		renderedComponent = shallow(<Header {...props} />)
 
-		monthHeader = renderedComponent.find('H2')
+		monthHeader = renderedComponent.find('h2')
 		controls = renderedComponent.find('HeaderControls')
 		dayOfWeek = renderedComponent.find('.dow')
 		numericalDate = renderedComponent.find('.day')

@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import type { Node } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
-import Container from '../Layout/Container/Container'
 import Button from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import Toast from './Toast'
@@ -85,11 +84,9 @@ class ToastExample extends Component<Props, State> {
 stories.addDecorator(withKnobs)
 
 stories.add('Toast', () => (
-	<Container size="small">
-		<ToastExample
-			headline={text('headline', 'Neat')}
-			text={text('text', 'Something just happened and it was fine')}
-			showUndo={boolean('showUndo', false)}
-		/>
-	</Container>
+	<ToastExample
+		headline={text('headline', 'Neat')}
+		text={text('text', 'Something just happened and it was fine')}
+		showUndo={boolean('showUndo', false)}
+	/>
 ))

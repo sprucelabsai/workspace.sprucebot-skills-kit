@@ -1,60 +1,61 @@
 import React from 'react'
-import { Container } from '@sprucelabs/react-heartwood-components'
+import PageWrapper from '../../containers/PageWrapper'
+import {
+	Page,
+	PageHeader,
+	PageContent,
+	Layout,
+	LayoutSection,
+	Card,
+	CardHeader,
+	CardBody
+} from '@sprucelabs/react-heartwood-components'
 
-import Page from '../../containers/Page'
-import TeamDashboard from '../../components/TeamDashboard'
-import * as users from '../../store/actions/users'
-
-class TeammateDashboard extends React.Component {
-	static async getInitialProps({ auth, store }) {
-		// load everything
-		if (auth) {
-			await Promise.all([
-				store.dispatch(users.guests()),
-				store.dispatch(users.teammates())
-			])
-		}
-
-		return {}
-	}
-
+class TeammatePage extends React.Component {
 	componentDidMount() {
 		this.props.skill.ready() // Show the skill
 	}
 
 	render() {
-		let {
-			auth,
-			lang,
-			users: {
-				guestsLoading = true,
-				guestsError,
-				guests,
-				teammatesLoading = true,
-				teammatesError,
-				teammates
-			},
-			onboarding
-		} = this.props
-
-		const dashboardProps = {
-			lang,
-			guestsLoading,
-			guestsError,
-			guests,
-			teammatesLoading,
-			teammatesError,
-			teammates,
-			auth,
-			getText: this.props.lang.getText
-		}
-
 		return (
-			<Container className="teammate-dashboard">
-				<TeamDashboard {...dashboardProps} />
-			</Container>
+			<Page className="owner-page">
+				<PageHeader
+					title="Teammate Page"
+					onClickBack={() => Router.back()}
+					backLinkText="Previous Page"
+				/>
+				<PageContent>
+					<Layout>
+						<LayoutSection>
+							<Card>
+								<CardHeader title="Get the most out of Spruce" />
+								<CardBody>
+									Two roads diverged in a wood, and I took the one less traveled
+									by, And that has made all the difference.
+								</CardBody>
+							</Card>
+							<Card>
+								<CardHeader title="Get the most out of Spruce" />
+								<CardBody>
+									Two roads diverged in a wood, and I took the one less traveled
+									by, And that has made all the difference.
+								</CardBody>
+							</Card>
+						</LayoutSection>
+						<LayoutSection isSecondary>
+							<Card>
+								<CardHeader title="Here is some secondary content" />
+								<CardBody>
+									Two roads diverged in a wood, and I took the one less traveled
+									by, And that has made all the difference.
+								</CardBody>
+							</Card>
+						</LayoutSection>
+					</Layout>
+				</PageContent>
+			</Page>
 		)
 	}
 }
 
-export default Page(TeammateDashboard)
+export default PageWrapper(TeammatePage)

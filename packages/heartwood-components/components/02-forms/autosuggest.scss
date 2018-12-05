@@ -27,7 +27,7 @@
 
 	.btn__inner {
 		justify-content: flex-start;
-	}	
+	}
 }
 
 .autosuggest__list-item-inner:hover {
@@ -36,17 +36,19 @@
 
 .autosuggest__no-results {
 	@include typescale('ui');
-	padding: rem(8);
+	padding: spacing('tight');
 	background-color: $c-bg;
 }
 
 .autosuggest__no-results-title {
-	margin-bottom: rem(2);
 	font-weight: $font-weight-bold;
 }
 
 .autosuggest__no-results-subtitle {
+	margin-top: 0.5 * spacing('extra-tight');
 	color: $c-text-light;
 }
 
-.text-input__clear-btn .btn__icon-wrapper { line-height: 0; }
+.text-input__clear-btn .btn__icon-wrapper {
+	line-height: 0;
+}

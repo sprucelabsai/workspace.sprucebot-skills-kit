@@ -1,0 +1,15 @@
+<div class="card onboarding-card{{#if centered}} card--centered{{/if}}">
+	<div class="onboarding-card__header">
+		<p class="onboarding-card__title">Keep the ball rolling!</p>
+		{{> @tabs}}
+	</div>
+	{{> @card-header}}
+	<div class="card__body">{{#> @card-section }}{{{children}}}{{/@card-section}}</div>
+	{{#if footerActions}}
+	<div class="card__footer">
+		{{#each footerActions}}
+		{{> @button}}
+		{{/each}}
+	</div>
+	{{/if}}
+</div>

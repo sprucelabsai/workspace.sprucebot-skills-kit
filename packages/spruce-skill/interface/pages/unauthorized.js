@@ -1,6 +1,11 @@
 import React from 'react'
-import Page from '../containers/Page'
-import { Container, H1, BotText } from '@sprucelabs/react-heartwood-components'
+import PageWrapper from '../containers/PageWrapper'
+import {
+	Page,
+	PageHeader,
+	PageContent,
+	BotText
+} from '@sprucelabs/react-heartwood-components'
 
 class UnauthorizedPage extends React.Component {
 	static getInitialProps() {
@@ -15,17 +20,17 @@ class UnauthorizedPage extends React.Component {
 
 	render() {
 		return (
-			<Container>
-				<div className="unauthorized">
-					<H1>Permission Denied</H1>
+			<Page className="unauthorized">
+				<PageHeader title="Permission Denied" />
+				<PageContent>
 					<BotText>
 						Well, this is kinda awkward, but you can't be wherever it was you
 						were trying to be.
 					</BotText>
-				</div>
-			</Container>
+				</PageContent>
+			</Page>
 		)
 	}
 }
 
-export default Page(UnauthorizedPage)
+export default PageWrapper(UnauthorizedPage)

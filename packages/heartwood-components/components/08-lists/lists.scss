@@ -6,7 +6,7 @@
 .list-header {
 	justify-content: space-between;
 	width: 100%;
-	padding-left: rem(16);
+	padding-left: spacing('base');
 }
 
 .list-header__text {
@@ -14,12 +14,12 @@
 	padding: rem(12) 0;
 
 	.list-header-small & {
-		padding: rem(4) 0;
+		padding: spacing('extra-tight') 0;
 	}
 }
 
 .list-header__actions {
-	padding: rem(4) 0;
+	padding: spacing('extra-tight') 0;
 }
 
 .list-header__title {
@@ -39,8 +39,11 @@
 }
 
 .list {
-	padding: 0 rem(16);
-	margin-bottom: rem(16);
+	padding: 0 spacing('base');
+}
+
+.list + * {
+	margin-top: spacing('base');
 }
 
 .list-item {
@@ -60,7 +63,7 @@
 	}
 
 	.list-small & {
-		@include typescale('ui')
+		@include typescale('ui');
 	}
 
 	.sortable-list & {
@@ -78,10 +81,10 @@
 
 .list-item__text-wrapper {
 	flex: 1 1 auto;
-	padding: rem(12) rem(8) rem(12) 0;
+	padding: rem(12) spacing('tight') rem(12) 0;
 
 	.list-small & {
-		padding: rem(8) rem(8) rem(8) 0;
+		padding: spacing('tight') spacing('tight') spacing('tight') 0;
 	}
 
 	.list-item-title-only & {
@@ -92,7 +95,7 @@
 
 .list-item__title {
 	font-weight: $font-weight-bold;
-	
+
 	.list-item-title-only & {
 		font-weight: $font-weight-normal;
 	}
@@ -110,15 +113,18 @@
 
 .list-item__image-wrapper {
 	padding: rem(12) 0;
-	margin-right: rem(8);
 	line-height: 0;
 
+	+ * {
+		margin-left: spacing('tight');
+	}
+
 	.list-small & {
-		padding: rem(8) 0;
+		padding: spacing('tight') 0;
 	}
 }
 .list-item__actions-wrapper {
-	padding-top: rem(8);
+	padding-top: spacing('tight');
 
 	.list-small & {
 		padding-top: 0;
@@ -141,21 +147,20 @@
 	padding-top: rem(10);
 
 	.list-small & {
-		padding-top: rem(4);
+		padding-top: spacing('extra-tight');
 	}
 }
 
 .drag-handle {
 	width: rem(20);
 	height: rem(20);
-	margin: rem(14) rem(8) 0 0;
+	margin: rem(14) spacing('tight') 0 0;
 	fill: $c-text-icon;
 }
 
 .list-item-title-only {
-
 	// Exception for People List only shows name
-	&.people-list  {
+	&.people-list {
 		.list-item__actions-wrapper,
 		.list-item__text-wrapper {
 			display: inline-flex;
@@ -176,7 +181,7 @@
 
 // List wrapper helper class
 .list-wrapper {
-	padding: 0 rem(16);
+	padding: 0 spacing('base');
 
 	.list-header,
 	.list {

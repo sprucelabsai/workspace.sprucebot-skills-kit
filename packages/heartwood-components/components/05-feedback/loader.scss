@@ -20,8 +20,8 @@
 	border-radius: 100%;
 	animation: a-loading 600ms ease-in-out infinite alternate;
 
-	&:not(:last-child) {
-		margin-right: rem(4);
+	+ .loader__dot {
+		margin-left: spacing('extra-tight');
 	}
 
 	@for $i from 1 through 3 {

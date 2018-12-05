@@ -6,9 +6,9 @@ import {
 	text,
 	boolean,
 	object,
-	number
+	number,
+	select
 } from '@storybook/addon-knobs/react'
-import Container from '../Layout/Container/Container'
 import Button from '../Button/Button'
 import {
 	Autosuggest,
@@ -24,9 +24,17 @@ import {
 	Tag,
 	TextArea,
 	TextInput,
-	Toggle
+	Toggle,
+	FormLayout,
+	FormLayoutGroup,
+	FormLayoutItem
 } from './index'
 import countries from '../../../.storybook/data/countries'
+
+const spacingOptions = {
+	Base: null,
+	Tight: 'tight'
+}
 
 const renderSuggestion = (suggestion: any) => {
 	if (suggestion.isEmptyMessage) {
@@ -56,230 +64,198 @@ stories.addDecorator(withKnobs)
 
 stories
 	.add('Autosuggest', () => (
-		<Container size="small">
-			<Autosuggest
-				inputPre={object('inputPre', {
-					label: 'Country'
-				})}
-				inputHelper={object('inputHelper', {
-					helper: 'We use this information to improve your shopping experience.'
-				})}
-				placeholder={text('placeholder', 'Select your country')}
-				defaultSuggestions={object('defaultSuggestions', countries)}
-				shouldRenderSuggestions={() => true}
-				renderSuggestion={renderSuggestion}
-				getSuggestionValue={value => value.text}
-				getSuggestions={value => {
-					const results = countries.filter(
-						suggestion =>
-							suggestion.text.toLowerCase().slice(0, value.length) ===
-							value.toLowerCase()
-					)
-					// Here you could add click events to buttons or whatever else they need
-					// No Results Message
-					if (results.length === 0) {
-						return [
-							{
-								text: 'NO RESULTS',
-								isEmptyMessage: true
-							}
-						]
-					}
-					return results
-				}}
-			/>
-		</Container>
+		<Autosuggest
+			inputPre={object('inputPre', {
+				label: 'Country'
+			})}
+			inputHelper={object('inputHelper', {
+				helper: 'We use this information to improve your shopping experience.'
+			})}
+			placeholder={text('placeholder', 'Select your country')}
+			defaultSuggestions={object('defaultSuggestions', countries)}
+			shouldRenderSuggestions={() => true}
+			renderSuggestion={renderSuggestion}
+			getSuggestionValue={value => value.text}
+			getSuggestions={value => {
+				const results = countries.filter(
+					suggestion =>
+						suggestion.text.toLowerCase().slice(0, value.length) ===
+						value.toLowerCase()
+				)
+				// Here you could add click events to buttons or whatever else they need
+				// No Results Message
+				if (results.length === 0) {
+					return [
+						{
+							text: 'NO RESULTS',
+							isEmptyMessage: true
+						}
+					]
+				}
+				return results
+			}}
+		/>
 	))
 	.add('Text Input', () => (
 		<Fragment>
-			<Container size="small">
-				<TextInput
-					type="text"
-					id={text('id', 'input')}
-					name={text('name', 'inputName')}
-					label={text('label', 'First Name')}
-					postLabel={text('postLabel', '')}
-					placeholder={text('placeholder', 'i.e. Annie')}
-					defaultValue={text('defaultValue', '')}
-					error={text('error', '')}
-					helper={text(
-						'helper',
-						'Let me help you understand why we are asking for this.'
-					)}
-					readOnly={boolean('readOnly', false)}
-					isSmall={boolean('isSmall', false)}
-				/>
-			</Container>
+			<TextInput
+				type="text"
+				id={text('id', 'input')}
+				name={text('name', 'inputName')}
+				label={text('label', 'First Name')}
+				postLabel={text('postLabel', '')}
+				placeholder={text('placeholder', 'i.e. Annie')}
+				defaultValue={text('defaultValue', '')}
+				error={text('error', '')}
+				helper={text(
+					'helper',
+					'Let me help you understand why we are asking for this.'
+				)}
+				readOnly={boolean('readOnly', false)}
+				isSmall={boolean('isSmall', false)}
+			/>
 		</Fragment>
 	))
 	.add('Text Area', () => (
 		<Fragment>
-			<Container size="small">
-				<TextArea
-					id={text('id', 'input')}
-					name={text('name', 'inputName')}
-					label={text('label', 'Category')}
-					postLabel={text('postLabel', '')}
-					placeholder={text('placeholder', 'Optional category description…')}
-					defaultValue={text('defaultValue', '')}
-					error={text('error', '')}
-					helper={text('helper', '')}
-					readOnly={boolean('readOnly', false)}
-					{...object('...rest', {})}
-				/>
-			</Container>
+			<TextArea
+				id={text('id', 'input')}
+				name={text('name', 'inputName')}
+				label={text('label', 'Category')}
+				postLabel={text('postLabel', '')}
+				placeholder={text('placeholder', 'Optional category description…')}
+				defaultValue={text('defaultValue', '')}
+				error={text('error', '')}
+				helper={text('helper', '')}
+				readOnly={boolean('readOnly', false)}
+				{...object('...rest', {})}
+			/>
 		</Fragment>
 	))
 	.add('Search', () => (
 		<Fragment>
-			<Container size="small">
-				<Search
-					type="text"
-					placeholder={text('placeholder', 'Search for anything…')}
-					readOnly={boolean('readOnly', false)}
-					isSmall={boolean('isSmall', false)}
-				/>
-			</Container>
+			<Search
+				type="text"
+				placeholder={text('placeholder', 'Search for anything…')}
+				readOnly={boolean('readOnly', false)}
+				isSmall={boolean('isSmall', false)}
+			/>
 		</Fragment>
 	))
 	.add('Phone Number', () => (
 		<Fragment>
-			<Container size="small">
-				<PhoneInput
-					label={text('label', 'Phone Number')}
-					placeholder={text('placeholder', '(555) 555-5555')}
-					isSmall={boolean('isSmall', false)}
-				/>
-			</Container>
+			<PhoneInput
+				label={text('label', 'Phone Number')}
+				placeholder={text('placeholder', '(555) 555-5555')}
+				isSmall={boolean('isSmall', false)}
+			/>
 		</Fragment>
 	))
 	.add('Subdomain', () => (
 		<Fragment>
-			<Container size="small">
-				<DomainInput
-					label={text('label', 'Shopify Store URL')}
-					placeholder={text('placeholder', 'my-shopify-store')}
-					appendix={text('appendix', '.myshopify.com')}
-				/>
-			</Container>
+			<DomainInput
+				label={text('label', 'Shopify Store URL')}
+				placeholder={text('placeholder', 'my-shopify-store')}
+				appendix={text('appendix', '.myshopify.com')}
+			/>
 		</Fragment>
 	))
 	.add('Radio', () => (
 		<Fragment>
-			<Container size="small">
-				<Radio
-					className="l-mb-xsmall"
-					id="option-one"
-					name="radio"
-					label={text('label: option one', 'Option One')}
-					postText={text('postText: option one', '')}
-				/>
-				<Radio
-					className="l-mb-xsmall"
-					id="option-two"
-					name="radio"
-					label={text('label: option two', 'Option Two')}
-					postText={text('postText: option two', '')}
-				/>
-				<Radio
-					className="l-mb-xsmall"
-					id="option-three"
-					name="radio"
-					label={text('label: option three', 'Option Three')}
-					postText={text('postText: option three', '')}
-				/>
-			</Container>
+			<Radio
+				id="option-one"
+				name="radio"
+				label={text('label: option one', 'Option One')}
+				postText={text('postText: option one', '')}
+			/>
+			<Radio
+				id="option-two"
+				name="radio"
+				label={text('label: option two', 'Option Two')}
+				postText={text('postText: option two', '')}
+			/>
+			<Radio
+				id="option-three"
+				name="radio"
+				label={text('label: option three', 'Option Three')}
+				postText={text('postText: option three', '')}
+			/>
 		</Fragment>
 	))
 	.add('Checkbox', () => (
 		<Fragment>
-			<Container size="small">
-				<Checkbox
-					className="l-mb-xsmall"
-					id="option-one"
-					name="optionOne"
-					label={text('label: option one', 'Option One')}
-					postText={text('postText: option one', '')}
-				/>
-				<Checkbox
-					className="l-mb-xsmall"
-					id="option-two"
-					name="optionTwo"
-					label={text('label: option two', 'Option Two')}
-					postText={text('postText: option two', '')}
-				/>
-				<Checkbox
-					className="l-mb-xsmall"
-					id="option-three"
-					name="optionThree"
-					label={text('label: option three', 'Option Three')}
-					postText={text('postText: option three', '')}
-					isIndeterminate
-				/>
-			</Container>
+			<Checkbox
+				id="option-one"
+				name="optionOne"
+				label={text('label: option one', 'Option One')}
+				postText={text('postText: option one', '')}
+			/>
+			<Checkbox
+				id="option-two"
+				name="optionTwo"
+				label={text('label: option two', 'Option Two')}
+				postText={text('postText: option two', '')}
+			/>
+			<Checkbox
+				id="option-three"
+				name="optionThree"
+				label={text('label: option three', 'Option Three')}
+				postText={text('postText: option three', '')}
+				isIndeterminate
+			/>
 		</Fragment>
 	))
 	.add('Toggle', () => (
 		<Fragment>
-			<Container size="small">
-				<Toggle
-					id={text('id', 'toggle')}
-					name={text('name', 'toggle')}
-					postText={text('postText', '')}
-					className={text('className', '')}
-				/>
-			</Container>
+			<Toggle
+				id={text('id', 'toggle')}
+				name={text('name', 'toggle')}
+				postText={text('postText', '')}
+				className={text('className', '')}
+			/>
 		</Fragment>
 	))
 	.add('Tag', () => (
 		<Fragment>
-			<Container size="small">
-				<Tag
-					text={text('text', 'Barber Services')}
-					isSmall={boolean('isSmall', false)}
-					className={text('className', 'l-mr-small l-mb-small')}
-				/>
-				<Tag
-					kind="secondary"
-					text={text('text', 'Barber Services')}
-					isSmall={boolean('isSmall', false)}
-					className={text('className', 'l-mr-small l-mb-small')}
-				/>
-			</Container>
+			<Tag
+				text={text('text', 'Barber Services')}
+				isSmall={boolean('isSmall', false)}
+			/>
+			<Tag
+				kind="secondary"
+				text={text('text', 'Barber Services')}
+				isSmall={boolean('isSmall', false)}
+			/>
 		</Fragment>
 	))
 	.add('Slider', () => (
 		<Fragment>
-			<Container size="small">
-				<Slider
-					id={text('id', 'slider')}
-					name={text('name', 'slider')}
-					min={number('min', 0)}
-					max={number('max', 200)}
-					value={number('value', 100)}
-					label={text('label', 'Scale')}
-					postLabel={text('postLabel', '100%')}
-				/>
-			</Container>
+			<Slider
+				id={text('id', 'slider')}
+				name={text('name', 'slider')}
+				min={number('min', 0)}
+				max={number('max', 200)}
+				value={number('value', 100)}
+				label={text('label', 'Scale')}
+				postLabel={text('postLabel', '100%')}
+			/>
 		</Fragment>
 	))
 	.add('Select', () => (
 		<Fragment>
-			<Container size="small">
-				<Select
-					label={text('label', 'Country')}
-					id={text('id', 'country')}
-					options={object('options', {
-						us: 'United States',
-						ca: 'Canada',
-						nj: 'New Jersey'
-					})}
-					isSimple={boolean('isSimple', false)}
-					helper={text('helper', '')}
-					error={text('error', '')}
-					disabled={boolean('disabled', false)}
-				/>
-			</Container>
+			<Select
+				label={text('label', 'Country')}
+				id={text('id', 'country')}
+				options={object('options', {
+					us: 'United States',
+					ca: 'Canada',
+					nj: 'New Jersey'
+				})}
+				isSimple={boolean('isSimple', false)}
+				helper={text('helper', '')}
+				error={text('error', '')}
+				disabled={boolean('disabled', false)}
+			/>
 		</Fragment>
 	))
 	.add('Date Picker', () => (
@@ -289,3 +265,35 @@ stories
 		/>
 	))
 	.add('Stars', () => <Stars />)
+	.add('Form Layout', () => (
+		<FormLayout
+			spacing={select('spacing', spacingOptions, spacingOptions.Base)}
+		>
+			<FormLayoutItem>
+				<TextInput
+					type="text"
+					label="Name of Business"
+					placeholder="i.e. Annie's Bagels"
+				/>
+			</FormLayoutItem>
+			<FormLayoutGroup>
+				<FormLayoutItem>
+					<TextInput type="text" label="First Name" placeholder="i.e. Annie" />
+				</FormLayoutItem>
+				<FormLayoutItem>
+					<TextInput type="text" label="Last Name" placeholder="i.e. Smith" />
+				</FormLayoutItem>
+			</FormLayoutGroup>
+			<FormLayoutGroup isCondensed>
+				<FormLayoutItem>
+					<TextInput type="text" label="Price" />
+				</FormLayoutItem>
+				<FormLayoutItem>
+					<TextInput type="text" label="Duration" />
+				</FormLayoutItem>
+				<FormLayoutItem>
+					<TextInput type="text" label="Commission" />
+				</FormLayoutItem>
+			</FormLayoutGroup>
+		</FormLayout>
+	))

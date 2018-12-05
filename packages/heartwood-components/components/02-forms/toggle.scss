@@ -19,7 +19,9 @@
 	-webkit-appearance: none;
 	appearance: none;
 
-	&:focus { outline: none; }
+	&:focus {
+		outline: none;
+	}
 
 	&:checked {
 		~ .toggle__label {
@@ -54,5 +56,5 @@
 }
 
 .toggle__text {
-	margin-left: rem(8);
+	margin-left: spacing('tight');
 }

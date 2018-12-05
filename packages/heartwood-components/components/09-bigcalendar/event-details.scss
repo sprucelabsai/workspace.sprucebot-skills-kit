@@ -1,10 +1,16 @@
 .event-details {
+	width: 100%;
+	padding-bottom: spacing('base');
+	background-color: $c-bg-light;
+	box-shadow: $dimension-floating;
 	max-width: rem(320);
 	background-color: $c-bg-light;
 
 	.list .list-item:last-child:after {
 		display: none;
 	}
+
+	padding-bottom: 0;
 }
 
 // Header Styles
@@ -13,14 +19,14 @@
 	align-items: flex-start;
 	flex-shrink: 0;
 	width: 100%;
-	padding: rem(16) rem(16) rem(10) rem(16);
+	padding: spacing('base') spacing('base') rem(10) spacing('base');
 
 	.event-confirmed &,
 	.event-in-progress &,
 	.block & {
 		color: $c-white;
 
-		.event-details-header__button, {
+		.event-details-header__button {
 			.btn__icon {
 				fill: $c-white;
 			}
@@ -40,7 +46,7 @@
 	.event-unconfirmed & {
 		border: 1px solid $c-primary;
 
-		.event-details-header__button, {
+		.event-details-header__button {
 			.btn__icon {
 				fill: $c-primary;
 			}
@@ -69,7 +75,7 @@
 .event-details-header .context-menu {
 	&.context-menu--is-visible .context-menu__button,
 	.context-menu__button:focus {
-		background-color: rgba(0,0,0,0.05);
+		background-color: rgba(0, 0, 0, 0.05);
 	}
 }
 
@@ -90,11 +96,7 @@
 
 // Footer Styles
 .event-details-footer {
-	padding: rem(16);
+	padding: spacing('base');
 	background-color: $c-bg;
 	border-top: 1px solid $c-border;
-
-	.btn {
-		margin-bottom: 0;
-	}
 }

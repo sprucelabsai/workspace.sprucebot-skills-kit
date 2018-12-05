@@ -3,7 +3,9 @@ module.exports = {
 	status: 'wip',
 	collated: true,
 	collator: function(markup, item) {
-        return `<!-- Start: @${item.handle} -->\n<div>${markup}</div>\n<!-- End: @${item.handle} -->\n`
+		return `<!-- Start: @${item.handle} -->\n${markup}\n<!-- End: @${
+			item.handle
+		} -->\n`
 	},
 	context: {
 		text: 'Full Width Buttons',
@@ -14,20 +16,20 @@ module.exports = {
 		{
 			name: 'primary small',
 			context: {
-				className: 'btn-primary btn-small btn-full-width',
+				className: 'btn-primary btn-small btn-full-width'
 			}
 		},
 		{
 			name: 'secondary',
 			context: {
-				className: 'btn-secondary btn-full-width',
+				className: 'btn-secondary btn-full-width'
 			}
 		},
 		{
 			name: 'secondary small',
 			context: {
-				className: 'btn-secondary btn-small btn-full-width',
+				className: 'btn-secondary btn-small btn-full-width'
 			}
 		}
 	]
-  }
+}

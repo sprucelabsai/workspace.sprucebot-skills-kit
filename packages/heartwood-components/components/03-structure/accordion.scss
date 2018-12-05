@@ -9,17 +9,15 @@
 .accordion__panel {
 	height: 0;
 	visibility: hidden;
-	padding-left: rem(24);
+	padding-left: 1.5 * spacing('base');
 	opacity: 0;
 }
 
-
 .accordion__item {
-	// padding-bottom: rem(16);
+	// padding-bottom: spacing('base');
 	border-bottom: 1px solid $c-border;
 
 	> .btn {
-		margin-bottom: 0;
 		padding: 0;
 		font-weight: $font-weight-bold;
 		color: inherit;
@@ -31,12 +29,15 @@
 		.btn__icon-wrapper {
 			width: rem(20);
 		}
-		
+
 		.btn__icon {
 			width: 100%;
 			height: auto;
-			margin-right: rem(4);
 			fill: $c-text-icon;
+		}
+
+		.btn__text {
+			margin-left: spacing('extra-tight');
 		}
 	}
 }
@@ -49,7 +50,7 @@
 	}
 	.accordion__panel {
 		height: auto;
-		padding-bottom: rem(16);
+		padding-bottom: spacing('base');
 		visibility: visible;
 		opacity: 1;
 	}
