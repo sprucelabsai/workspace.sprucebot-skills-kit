@@ -355,9 +355,11 @@ class Day extends PureComponent<Props> {
 
 	handleMouseDownOnView = e => {
 		return (
-			e.target.classList.contains('hour-block') ||
-			e.target.classList.contains('scroll-inner') ||
-			e.target.classList.contains('bigcalendar__drag-grid')
+			e.target.classList.contains('hour-block') || // clicked on hour block
+			e.target.classList.contains('scroll-inner') || // clicked anywhere inside the drag scroll area
+			e.target.classList.contains('bigcalendar__drag-grid') || // clicked on the drag view specifically
+			(e.target.parentNode.classList.contains('bigcalendar__event-block') &&
+				e.target.parentNode.classList.contains('available')) // they clicked on an available block (markAsBusy === false)
 		)
 	}
 
@@ -402,9 +404,9 @@ class Day extends PureComponent<Props> {
 					target = eventNode.querySelector(`.${resize.direction}`)
 				}
 			}
-			// ignore the click entirely so it gets passed onto the drag grid view
+			// bail now so click gets passed onto the drag grid view
 			else {
-				return false
+				return response
 			}
 		}
 
