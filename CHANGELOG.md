@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.1.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.1.1...v8.1.2) (2018-12-05)
+
+
+### Bug Fixes
+
+* [SB-1391](https://sprucelabsai.atlassian.net/browse/SB-1391) ([f66177a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f66177a))
+
+
+
+
+
 ## [8.1.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.1.0...v8.1.1) (2018-12-05)
 
 **Note:** Version bump only for package workspace.sprucebot-skills-kit
