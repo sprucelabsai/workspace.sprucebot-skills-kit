@@ -30,7 +30,10 @@ export {
 	Tag,
 	TextArea,
 	TextInput,
-	Toggle
+	Toggle,
+	FormLayout,
+	FormLayoutGroup,
+	FormLayoutItem
 } from './components/Forms'
 export { default as Icon } from './components/Icon/Icon'
 export { default as Heading } from './components/Heading/Heading'
