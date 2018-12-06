@@ -307,7 +307,11 @@ class DragGrid extends PureComponent<Props> {
 
 		const results = onMouseDownOnEvent({ e, event, block, blockIdx })
 
-		if (results) {
+		// if they clicked on an available block (not busy) and the parent view has not returned false
+		if (results && !block.markAsBusy) {
+			this.handleMouseDownOnView(e)
+			return
+		} else if (results) {
 			// console.log('mousedown', blockIdx)
 			this._isMouseDownOnEvent = true
 
