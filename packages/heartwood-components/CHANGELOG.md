@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.1.3](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.1.2...v8.1.3) (2018-12-06)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
 ## [8.1.2](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.1.1...v8.1.2) (2018-12-05)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components
