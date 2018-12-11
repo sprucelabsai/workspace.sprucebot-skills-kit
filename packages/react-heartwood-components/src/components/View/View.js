@@ -9,6 +9,8 @@ type Props = {
 	sidebarItems: Array<Object>,
 	user: Object,
 	business: Object,
+	getSearchSuggestionValue?: Function,
+	renderSearchSuggestion?: Function,
 	children: Node
 }
 type State = {
@@ -43,7 +45,14 @@ export default class View extends Component<Props, State> {
 
 	render() {
 		const { sidebarIsVisible, sidebarIsExpanded } = this.state
-		const { sidebarItems, user, business, children } = this.props
+		const {
+			sidebarItems,
+			user,
+			business,
+			getSearchSuggestionValue,
+			renderSearchSuggestion,
+			children
+		} = this.props
 		return (
 			<div
 				className={cx('main-wrapper', {
@@ -63,6 +72,8 @@ export default class View extends Component<Props, State> {
 					business={business}
 					toggleSidebarVisibility={this.toggleSidebarVisibility}
 					sidebarIsVisible={sidebarIsVisible}
+					getSearchSuggestionValue={getSearchSuggestionValue}
+					renderSearchSuggestion={renderSearchSuggestion}
 				/>
 				<main className="main-content">{children}</main>
 			</div>
