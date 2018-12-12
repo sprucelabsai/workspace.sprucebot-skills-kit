@@ -1,5 +1,6 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
+import Heartwood from '@sprucelabs/heartwood-components'
 const debug = require('debug')('@sprucelabs/spruce-next-helpers')
 
 export default class MyDocument extends Document {
@@ -45,7 +46,9 @@ export default class MyDocument extends Document {
 					<link
 						href={
 							(this.props.config && this.props.config.SKILL_STYLESHEET) ||
-							'https://hello.sprucebot.com/skills.css'
+							`https://cdnurl/stylesheets/${
+								Heartwood.version
+							}/heartwood-components.min.css`
 						}
 						rel="stylesheet"
 						type="text/css"
