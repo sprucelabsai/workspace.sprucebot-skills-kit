@@ -23,7 +23,13 @@ type Props = {
 	toggleSidebarVisibility: Function,
 
 	/** Set true to show the sidebar (small screens only) */
-	sidebarIsVisible: boolean
+	sidebarIsVisible: boolean,
+
+	/** Passthrough function to show search suggestion value */
+	getSearchSuggestionValue?: Function,
+
+	/** Passthrough function to render search suggestions */
+	renderSearchSuggestion?: Function
 }
 
 export default class HeaderPrimary extends Component<Props, State> {
@@ -72,7 +78,9 @@ export default class HeaderPrimary extends Component<Props, State> {
 			user,
 			business,
 			toggleSidebarVisibility,
-			sidebarIsVisible
+			sidebarIsVisible,
+			getSearchSuggestionValue,
+			renderSearchSuggestion
 		} = this.props
 		return (
 			<header className="header-primary" ref={ref => (this.ref = ref)}>
@@ -97,12 +105,16 @@ export default class HeaderPrimary extends Component<Props, State> {
 				<div className="header-primary__right">
 					{user ? (
 						<Fragment>
-							<Autosuggest
-								className="text-input-small"
-								placeholder="Search anything…"
-								isSmall
-								wrapperClassName="header-primary__autosuggest"
-							/>
+							{getSearchSuggestionValue && renderSearchSuggestion && (
+								<Autosuggest
+									className="text-input-small"
+									placeholder="Search anything…"
+									isSmall
+									wrapperClassName="header-primary__autosuggest"
+									getSuggestionValue={getSearchSuggestionValue}
+									renderSuggestion={renderSearchSuggestion}
+								/>
+							)}
 							<UserMenu
 								menuIsVisible={isUserMenuVisible}
 								toggleMenu={this.toggleUserMenuVisibility}
