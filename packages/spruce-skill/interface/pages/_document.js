@@ -1,2 +1,3 @@
 import { _document } from '@sprucelabs/spruce-next-helpers'
-export default _document
+import Heartwood from '@sprucelabs/heartwood-components'
+export default _document(Heartwood.version)
