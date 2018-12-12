@@ -2,82 +2,76 @@ import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 const debug = require('debug')('@sprucelabs/spruce-next-helpers')
 
-export default HEARTWOOD_STYLESHEET_VERSION =>
-	class MyDocument extends Document {
-		static async getInitialProps({ renderPage, query, store }) {
-			const page = renderPage(App => props => <App {...props} />)
-			// Store is undefined when hmr is the first
-			// request the server sees after boot
-			// Ideally store is always defined.
-			// Revisit when using `next>5.0.0`
-			if (!store) {
-				debug('No store in _document')
-				return { ...page }
-			}
-			const { auth, config } = store.getState()
-			let whitelabel = config.WHITELABEL
+export default class MyDocument extends Document {
+	static async getInitialProps({ renderPage, query, store }) {
+		const page = renderPage(App => props => <App {...props} />)
+		// Store is undefined when hmr is the first
+		// request the server sees after boot
+		// Ideally store is always defined.
+		// Revisit when using `next>5.0.0`
+		if (!store) {
+			debug('No store in _document')
+			return { ...page }
+		}
+		const { auth, config } = store.getState()
+		let whitelabel = config.WHITELABEL
 
-			let orgWhitelabel
+		let orgWhitelabel
 
-			//we have any whitelabelling happening?
-			if (
-				auth &&
-				auth.Location &&
-				auth.Location.Organization &&
-				auth.Location.Organization.allowWhiteLabelling &&
-				auth.Location.Organization.whiteLabellingStylesheetUrl
-			) {
-				orgWhitelabel = auth.Location.Organization.whiteLabellingStylesheetUrl
-			}
-
-			return { ...page, whitelabel, auth, config, orgWhitelabel }
+		//we have any whitelabelling happening?
+		if (
+			auth &&
+			auth.Location &&
+			auth.Location.Organization &&
+			auth.Location.Organization.allowWhiteLabelling &&
+			auth.Location.Organization.whiteLabellingStylesheetUrl
+		) {
+			orgWhitelabel = auth.Location.Organization.whiteLabellingStylesheetUrl
 		}
 
-		render() {
-			let bodyClassName =
-				this.props.config && this.props.config.SLUG
-					? ` skill-${this.props.config.SLUG}`
-					: ''
+		return { ...page, whitelabel, auth, config, orgWhitelabel }
+	}
 
-			return (
-				<html className={`skill${bodyClassName}`}>
-					<Head>
-						<meta
-							name="viewport"
-							content="width=device-width, initial-scale=1"
-						/>
+	render() {
+		let bodyClassName =
+			this.props.config && this.props.config.SLUG
+				? ` skill-${this.props.config.SLUG}`
+				: ''
+
+		return (
+			<html className={`skill${bodyClassName}`}>
+				<Head>
+					<meta name="viewport" content="width=device-width, initial-scale=1" />
+					{this.props.config && this.props.config.SKILL_STYLESHEET && (
 						<link
-							href={
-								(this.props.config && this.props.config.SKILL_STYLESHEET) ||
-								`https://cdnurl/stylesheets/${HEARTWOOD_STYLESHEET_VERSION ||
-									'latest'}/heartwood-components.min.css`
-							}
+							href={this.props.config.SKILL_STYLESHEET}
 							rel="stylesheet"
 							type="text/css"
 							charSet="UTF-8"
 						/>
-						{this.props.whitelabel && (
-							<link
-								href={this.props.whitelabel}
-								rel="stylesheet"
-								type="text/css"
-								charSet="UTF-8"
-							/>
-						)}
-						{this.props.orgWhitelabel && (
-							<link
-								href={this.props.orgWhitelabel}
-								rel="stylesheet"
-								type="text/css"
-								charSet="UTF-8"
-							/>
-						)}
-					</Head>
-					<body className={bodyClassName}>
-						<Main />
-						<NextScript />
-					</body>
-				</html>
-			)
-		}
+					)}
+					{this.props.whitelabel && (
+						<link
+							href={this.props.whitelabel}
+							rel="stylesheet"
+							type="text/css"
+							charSet="UTF-8"
+						/>
+					)}
+					{this.props.orgWhitelabel && (
+						<link
+							href={this.props.orgWhitelabel}
+							rel="stylesheet"
+							type="text/css"
+							charSet="UTF-8"
+						/>
+					)}
+				</Head>
+				<body className={bodyClassName}>
+					<Main />
+					<NextScript />
+				</body>
+			</html>
+		)
 	}
+}

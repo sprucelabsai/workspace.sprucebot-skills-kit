@@ -4,6 +4,7 @@ const { omit, pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
 const packageJSON = require('../package.json')
+const HEARTWOOD_VERSION = require('@sprucelabs/heartwood-components').version
 // Check for .env
 try {
 	require('dotenv').config()
@@ -29,7 +30,10 @@ module.exports = {
 	METRICS_SEQUELIZE_DISABLED: process.env.METRICS_SEQUELIZE_DISABLED === 'true',
 	API_HOST: process.env.API_HOST,
 	API_KEY: process.env.API_KEY,
-	SKILL_STYLESHEET: process.env.SKILL_STYLESHEET,
+	SKILL_STYLESHEET:
+		process.env.SKILL_STYLESHEET ||
+		`https://CHANGE_ME_CDN_URL/stylesheets/${HEARTWOOD_VERSION ||
+			'latest'}/heartwood-components.min.css`,
 	ID: process.env.ID,
 	NAME: process.env.NAME,
 	SLUG: process.env.SLUG,
