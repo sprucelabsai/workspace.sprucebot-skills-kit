@@ -385,6 +385,7 @@ body.sb-show-main {
 	left: 0px;
 	top: 0px;
 	z-index: 1;
+	box-shadow: 0 0 0px 1px rgba(255, 255, 255, 1);
 
 	&.is-drag-source {
 		opacity: 0.5;
@@ -503,12 +504,12 @@ body.sb-show-main {
 			&.resize-n {
 				display: none;
 				top: 0px;
-				cursor: ns-resize;
+				cursor: s-resize;
 			}
 
 			&.resize-s {
 				bottom: 0px;
-				cursor: ns-resize;
+				cursor: n-resize;
 			}
 
 			.resize-highlight-handle {
