@@ -12,6 +12,28 @@ try {
 }
 
 module.exports = {
+	cards: {
+		exampleCard: {
+			type: 'standard',
+			comment: 'An example card',
+			title: 'My first skill card',
+			description: 'Example of how to display a card',
+			pages: ['user-dashboard'],
+			isCritical: true,
+			canDismiss: false,
+			isTemporary: false,
+			isCentered: true,
+			roles: ['owner', 'groupManager', 'manager', 'teammate', 'guest'],
+			layout: {
+				header: {},
+				body: {},
+				footerActions: {
+					primary: {},
+					secondary: {}
+				}
+			}
+		}
+	},
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
 	PACKAGE_NAME: packageJSON.name,
@@ -51,6 +73,9 @@ module.exports = {
 	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
 	eventContract: {
 		events: {
+			'get-page-cards': {
+				description: 'Core asks this skill to provide cards for a dashboard'
+			}
 			// Other events we could subscribe to
 			// 'was-installed': {
 			// 	name: 'was-installed',
