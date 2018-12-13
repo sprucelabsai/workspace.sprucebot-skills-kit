@@ -119,5 +119,20 @@ module.exports = (sequelize, DataTypes) => {
 		})
 	}
 
+	User.scopes = {
+		public: {
+			attributes: [
+				'id',
+				'firstName',
+				'lastName',
+				'name',
+				'profileImageUUID',
+				'profileImages',
+				'defaultProfileImages',
+				'casualName'
+			]
+		}
+	}
+
 	return User
 }

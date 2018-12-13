@@ -18,6 +18,7 @@ const waresFactory = require('./factories/wares')
 const listenersFactory = require('./factories/listeners')
 const sequelizeFactory = require('./factories/sequelize')
 const lang = require('./helpers/lang')
+const gqlRouter = require('./gql/router')
 
 const required = key => {
 	throw new Error(`SkillKit server needs ${key}`)
@@ -50,7 +51,8 @@ module.exports = async ({
 	metricsEnabled,
 	metricsRequestsDisabled,
 	metricsServerStatsDisabled,
-	metricsSequelizeDisabled
+	metricsSequelizeDisabled,
+	gqlOptions
 }) => {
 	debug('Starting server boot sequence with port', port)
 	// you can override error messages
@@ -333,6 +335,8 @@ module.exports = async ({
 		console.error(err)
 		throw err
 	}
+
+	gqlRouter(koa, gqlOptions)
 
 	/*======================================
         =          Client Side Routes          =

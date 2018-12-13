@@ -58,6 +58,24 @@ module.exports = (
 	const models = coreModels.concat(skillModels).reduce((models, file) => {
 		var model = sequelize.import(file)
 		models[model.name] = model
+
+		if (!model.scopes) {
+			model.scopes = {
+				public: {
+					attributes: []
+				}
+			}
+		}
+		model.scopeObj = {}
+		Object.keys(model.scopes).forEach(scope => {
+			model.scopeObj[scope] = {}
+			if (model.scopes[scope] && model.scopes[scope].attributes) {
+				model.scopes[scope].attributes.forEach(key => {
+					model.scopeObj[scope][key] = true
+				})
+			}
+		})
+
 		debug('Imported Skill Model: ', model.name)
 		return models
 	}, {})

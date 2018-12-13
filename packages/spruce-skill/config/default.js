@@ -68,6 +68,14 @@ module.exports = {
 
 	RUN_CRONS: process.env.RUN_CRONS === 'true',
 	ENABLE_DEBUG_ROUTES: process.env.ENABLE_DEBUG_ROUTES === 'true',
+	GRAPHQL_MAX_DEPTH: process.env.GRAPHQL_MAX_DEPTH
+		? +process.env.GRAPHQL_MAX_DEPTH
+		: 10,
+	GRAPHQL_MAX_COMPLEXITY: process.env.GRAPHQL_MAX_COMPLEXITY
+		? +process.env.GRAPHQL_MAX_COMPLEXITY
+		: 1500,
+	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
+	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
 	// Event contract
 	// This sets the events that you want to subscribe to
 	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
@@ -122,6 +130,9 @@ module.exports = {
 			// 		'Sprucebot has made the decision that now is the perfect time to send training material'
 			// }
 		}
+	},
+	gqlOptions: {
+		gqlDir: path.resolve(__dirname, '../server/gql')
 	},
 	sequelizeOptions: {
 		enabled: process.env.DB_ENABLED === 'true',
