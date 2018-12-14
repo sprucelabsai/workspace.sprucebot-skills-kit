@@ -42,15 +42,14 @@ export default class MyDocument extends Document {
 			<html className={`skill${bodyClassName}`}>
 				<Head>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
-					<link
-						href={
-							(this.props.config && this.props.config.SKILL_STYLESHEET) ||
-							'https://hello.sprucebot.com/skills.css'
-						}
-						rel="stylesheet"
-						type="text/css"
-						charSet="UTF-8"
-					/>
+					{this.props.config && this.props.config.SKILL_STYLESHEET && (
+						<link
+							href={this.props.config.SKILL_STYLESHEET}
+							rel="stylesheet"
+							type="text/css"
+							charSet="UTF-8"
+						/>
+					)}
 					{this.props.whitelabel && (
 						<link
 							href={this.props.whitelabel}

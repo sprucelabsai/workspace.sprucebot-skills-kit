@@ -27,12 +27,13 @@
 		"build-statics": "npm run build-storybook && npm run build-heartwood",
 		"build-storybook": "cd packages/react-heartwood-components && npm run build-storybook",
 		"build-heartwood": "cd packages/heartwood-components && npm run build",
-		"s3-sync-heartwood-canary": "aws s3 sync ./packages/heartwood-components/build/ s3://canary-heartwood.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE",
-		"s3-sync-storybook-canary": "aws s3 sync ./packages/react-heartwood-components/storybook-static/ s3://canary-storybook.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE",
-		"s3-sync-heartwood-dev": "aws s3 sync ./packages/heartwood-components/build/ s3://dev-heartwood.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE",
-		"s3-sync-storybook-dev": "aws s3 sync ./packages/react-heartwood-components/storybook-static/ s3://dev-storybook.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE",
-		"s3-sync-heartwood-prod": "aws s3 sync ./packages/heartwood-components/build/ s3://heartwood.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE",
-		"s3-sync-storybook-prod": "aws s3 sync ./packages/react-heartwood-components/storybook-static/ s3://storybook.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE"
+		"s3-sync-heartwood-canary": "aws s3 sync ./packages/heartwood-components/build/ s3://canary-heartwood.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE --exclude=.gitkeep",
+		"s3-sync-storybook-canary": "aws s3 sync ./packages/react-heartwood-components/storybook-static/ s3://canary-storybook.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE --exclude=.gitkeep",
+		"s3-sync-heartwood-dev": "aws s3 sync ./packages/heartwood-components/build/ s3://dev-heartwood.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE --exclude=.gitkeep",
+		"s3-sync-storybook-dev": "aws s3 sync ./packages/react-heartwood-components/storybook-static/ s3://dev-storybook.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE --exclude=.gitkeep",
+		"s3-sync-heartwood-prod": "aws s3 sync ./packages/heartwood-components/build/ s3://heartwood.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE --exclude=.gitkeep",
+		"s3-sync-storybook-prod": "aws s3 sync ./packages/react-heartwood-components/storybook-static/ s3://storybook.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE --exclude=.gitkeep",
+		"s3-sync-stylesheets": "aws s3 sync ./packages/heartwood-components/build/stylesheets/* \"s3://cdn.spruce.ai/stylesheets/$(node -p \"require('./packages/heartwood-components/package.json').version\")/\" --acl=public-read --cache-control max-age=604800,public --metadata-directive REPLACE --exclude=.gitkeep && aws s3 sync ./packages/heartwood-components/build/stylesheets/* \"s3://cdn.spruce.ai/stylesheets/latest/\" --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE --exclude=.gitkeep"
 	},
 	"dependencies": {
 		"pm2": "^2.10.1"
