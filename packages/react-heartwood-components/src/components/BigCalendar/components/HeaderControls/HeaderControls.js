@@ -123,7 +123,7 @@ class HeaderControls extends Component<Props, State> {
 						<Button
 							kind={'simple'}
 							className="bigcalendar__calendarIcon-button"
-							icon={{ name: 'date', isLineIcon: true }}
+							icon={{ name: 'calendar', isLineIcon: true }}
 							onClick={() => this.toggleDatePicker()}
 						/>
 						{isDatePickerShown && !shouldResetDatePicker && (
