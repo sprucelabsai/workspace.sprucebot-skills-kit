@@ -62,7 +62,7 @@ type State = {
 	enableAutoScrollY: Boolean
 }
 
-class Day extends PureComponent<Props> {
+class Day extends PureComponent<Props, State> {
 	state = {
 		enableAutoScrollX: true,
 		enableAutoScrollY: true
@@ -82,6 +82,9 @@ class Day extends PureComponent<Props> {
 	_timeRangeCache = {}
 	_columnMapCache = null
 	_dragResizeUpdates = null
+	_lastHoverEvent = null
+
+	dayColRefs: Array<DayCol> = []
 
 	constructor(props) {
 		super(props)
@@ -93,6 +96,7 @@ class Day extends PureComponent<Props> {
 		this.timeGutterRef = React.createRef()
 		this.mouseTimeIndicator = React.createRef()
 		this.bodyWrapperRef = React.createRef()
+		this.dayColRefs = []
 	}
 
 	componentDidMount = () => {
@@ -287,9 +291,13 @@ class Day extends PureComponent<Props> {
 		)
 	}
 
-	snapEventToNearestValidY = ({ dragNodeTop, dragNodeHeight = 0 }) => {
+	snapEventToNearestValidY = ({
+		dragNodeTop,
+		dragNodeHeight = 0,
+		round = Math.round
+	}) => {
 		const slotHeight = this.slotHeight()
-		const nearest = Math.round(dragNodeTop / slotHeight)
+		const nearest = round(dragNodeTop / slotHeight)
 		const maxTop = this.dayColHeight() - dragNodeHeight
 		return Math.max(0, Math.min(maxTop, nearest * slotHeight))
 	}
@@ -351,8 +359,9 @@ class Day extends PureComponent<Props> {
 		return blockIdx === 0 ? dragEventNode : dragBlockNode
 	}
 
-	handleMouseDownOnView = e => {
+	handleMouseDownOnView = (e: Event) => {
 		return (
+			e.target.classList.contains('timeslot') || // clicked a timeslot
 			e.target.classList.contains('hour-block') || // clicked on hour block
 			e.target.classList.contains('scroll-inner') || // clicked anywhere inside the drag scroll area
 			e.target.classList.contains('bigcalendar__drag-grid') || // clicked on the drag view specifically
@@ -781,7 +790,8 @@ class Day extends PureComponent<Props> {
 		const firstDayCol = this.scrollInnerRef.current.querySelector(
 			'.bigcalendar__day-col'
 		)
-		return sizeUtil.getHeight(firstDayCol)
+		const height = sizeUtil.getHeight(firstDayCol)
+		return height
 	}
 
 	slotHeight = () => {
@@ -1051,10 +1061,48 @@ class Day extends PureComponent<Props> {
 		}
 	}
 
-	handleMouseMove = e => {
+	handleMouseMove = (e: Event) => {
 		const gridPosition = sizeUtil.getPosition(this.bodyWrapperRef.current)
 		const gridWidth = sizeUtil.getWidth(this.bodyWrapperRef.current)
 		const gridHeight = sizeUtil.getHeight(this.bodyWrapperRef.current)
+		const { clientX: x, clientY: y } = eventUtil.clientXY(e)
+
+		if (this.dragGridRef.current.isDraggingEvent()) {
+			this._lastHoverEvent = null
+		} else {
+			// update hover state on all daycols
+			let hoverEvent = this.dragGridRef.current.getEventsAtLocation({
+				x,
+				y
+			})[0]
+
+			//first lets make sure it's not because a hit test failed
+			if (
+				this._lastHoverEvent &&
+				!hoverEvent &&
+				sizeUtil.doesIntersect({ x, y, node: this._lastHoverEvent.blockNode })
+			) {
+				hoverEvent = this._lastHoverEvent
+			} else {
+				if (
+					this._lastHoverEvent &&
+					(!hoverEvent ||
+						this._lastHoverEvent.event.id !== hoverEvent.event.id ||
+						hoverEvent.block.markAsBusy)
+				) {
+					this._lastHoverEvent.eventNode.classList.toggle(
+						'hover-available',
+						false
+					)
+				}
+
+				if (hoverEvent && !hoverEvent.block.markAsBusy) {
+					hoverEvent.eventNode.classList.toggle('hover-available', true)
+				}
+			}
+
+			this._lastHoverEvent = hoverEvent
+		}
 
 		if (
 			e.clientX > gridPosition.x &&
@@ -1067,8 +1115,8 @@ class Day extends PureComponent<Props> {
 			}
 
 			this._lastMouseMove = {
-				x: e.clientX,
-				y: e.clientY,
+				x,
+				y,
 				gridPosition,
 				gridWidth,
 				gridHeight
@@ -1095,7 +1143,7 @@ class Day extends PureComponent<Props> {
 
 		let y = this._lastMouseMove.y
 
-		// stick to gradding event
+		// stick to dradding event
 		if (this.dragGridRef.current.isDraggingEvent()) {
 			// cannot use getLocalTop because we may be dragging a block (vs the whole event)
 			// and that would return the top from the event (first positioned parent)
@@ -1111,12 +1159,12 @@ class Day extends PureComponent<Props> {
 
 		const bodyTop = sizeUtil.getTop(this.bodyWrapperRef.current)
 		const scrollTop = this.dragGridRef.current.getScrollTop()
-		// const indicatorHeight = sizeUtil.getHeight(this.mouseTimeIndicator.current)
 
 		y = y - bodyTop + scrollTop
 
 		const top = this.snapEventToNearestValidY({
-			dragNodeTop: y
+			dragNodeTop: y,
+			round: Math.floor
 		})
 
 		const time = this.yToTime(top)
@@ -1125,6 +1173,8 @@ class Day extends PureComponent<Props> {
 		if (minutes === '00') {
 			this.mouseTimeIndicator.current.style.display = 'none'
 		} else {
+			this.mouseTimeIndicator.current.style.lineHeight =
+				this.slotHeight() + 'px'
 			this.mouseTimeIndicator.current.style.top = top + 'px'
 			this.mouseTimeIndicator.current.style.display = 'block'
 			this.mouseTimeIndicator.current.innerHTML = `:${minutes}`
@@ -1243,7 +1293,9 @@ class Day extends PureComponent<Props> {
 			dragThreshold,
 			dragScrollSpeed,
 			scrollDuringDragMargin,
-			timeGutterFormat
+			timeGutterFormat,
+			headerCellDowFormat,
+			headerCellDayFormat
 		} = this.props
 
 		const {
@@ -1337,8 +1389,11 @@ class Day extends PureComponent<Props> {
 						}}
 					>
 						<div className="scroll-inner" ref={this.scrollInnerRef}>
-							{users.map(user => (
+							{users.map((user, idx) => (
 								<DayCol
+									ref={ref => {
+										this.dayColRefs[idx] = ref
+									}}
 									date={startDate}
 									slotsPerHour={slotsPerHour}
 									key={`day-col-${user.id}`}

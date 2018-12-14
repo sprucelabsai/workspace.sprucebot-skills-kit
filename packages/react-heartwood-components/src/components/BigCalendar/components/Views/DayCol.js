@@ -3,61 +3,81 @@ import React, { Component } from 'react'
 import cx from 'classnames'
 import moment from 'moment-timezone'
 
+import type { ElementRef } from 'react'
+
 type Props = {
 	user: Object,
-	minTime: String,
-	maxTime: String,
-	startTime: String,
-	endTime: String,
+	minTime: string,
+	maxTime: string,
+	startTime: string,
+	endTime: string,
 	hours: Array<Object>,
-	slotsPerHour: Number,
-	timezone: String,
+	slotsPerHour: number,
+	timezone: string,
 	date: Object
 }
 
-const DayCol = (props: Props) => {
-	// convert everything to timestamps for easy comparison in lots of loops
-	const start = props.startTime
-		? parseInt(
-				moment
-					.tz(
-						`${props.date.format('YYYY-MM-DD')} ${props.startTime}`,
-						props.timezone
-					)
-					.format('X'),
-				10
-		  )
-		: false
+export default class DayCol extends Component<Props> {
+	domNodeRef: { current: null | ElementRef<'div'> }
 
-	const end = props.endTime
-		? parseInt(
-				moment
-					.tz(
-						`${props.date.format('YYYY-MM-DD')} ${props.endTime}`,
-						props.timezone
-					)
-					.format('X')
-		  )
-		: false
-	let isActive
-	let now
+	handleHover = ({ x, y }: { x: number, y: number }) => {}
 
-	const hours = props.hours.map(hour => {
-		now = hour.timestamp
-		isActive = start && end && now >= start && now < end
+	render() {
+		const {
+			startTime,
+			endTime,
+			timezone,
+			slotsPerHour,
+			date,
+			hours
+		} = this.props
+
+		// convert everything to timestamps for easy comparison in lots of loops
+		const start = startTime
+			? parseInt(
+					moment
+						.tz(`${date.format('YYYY-MM-DD')} ${startTime}`, timezone)
+						.format('X'),
+					10
+			  )
+			: false
+
+		const end = endTime
+			? parseInt(
+					moment
+						.tz(`${date.format('YYYY-MM-DD')} ${endTime}`, timezone)
+						.format('X')
+			  )
+			: false
+		let isActive
+		let now
+
+		const hourElements = hours.map(hour => {
+			now = hour.timestamp
+			isActive = start && end && now >= start && now < end
+
+			const slots = []
+			for (let c = 0; c < slotsPerHour; c++) {
+				slots.push(<div key={`${hour.hour}-${c}`} className={'timeslot'} />)
+			}
+
+			return (
+				<div
+					key={`${hour.timestamp}-daycol`}
+					className={cx('hour-block', {
+						active: isActive,
+						inactive: !isActive
+					})}
+				>
+					{slots}
+				</div>
+			)
+		})
 
 		return (
-			<div
-				key={`${hour.timestamp}-daycol`}
-				className={cx('hour-block', {
-					active: isActive,
-					inactive: !isActive
-				})}
-			/>
+			<div className="bigcalendar__day-col" ref={this.domNodeRef}>
+				{hourElements}
+			</div>
 		)
-	})
-
-	return <div className="bigcalendar__day-col">{hours}</div>
+	}
 }
-
-export default DayCol

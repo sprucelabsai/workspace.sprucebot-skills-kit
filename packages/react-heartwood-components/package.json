@@ -83,9 +83,7 @@
 		"react-helmet": "^5.2.0",
 		"react-test-renderer": "^16.0.0"
 	},
-	"peerDependencies": {
-		"redux-form": "^7.3.0"
-	},
+	"peerDependencies": {},
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",

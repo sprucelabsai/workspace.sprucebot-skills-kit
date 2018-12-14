@@ -1,14 +1,16 @@
 // @flow
 // TODO: Incorporate Next.js router link
 import React from 'react'
-import type { Node, Element } from 'react'
 import cx from 'classnames'
 import is from 'is_js'
 import SingletonRouter from 'next/router'
 import Link from 'next/link'
-import type { Props as LinkProps } from 'next/link'
 import Loader from '../Loader/Loader'
 import Icon from '../Icon/Icon'
+
+import type { Node, Element } from 'react'
+import type { Props as LinkProps } from 'next/link'
+import type { Props as IconProps } from '../Icon/Icon'
 
 export type Props = {
 	/** Optional class to add to the button. */
@@ -33,7 +35,7 @@ export type Props = {
 	href?: string,
 
 	/** Icon for the button. */
-	icon?: Node,
+	icon?: Node | IconProps,
 
 	/** Type attribute for HTML button element. Defaults to 'button'. */
 	type?: string,
