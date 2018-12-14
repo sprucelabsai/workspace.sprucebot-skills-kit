@@ -113,7 +113,7 @@ class Header extends PureComponent<Props, State> {
 				</div>
 				<div className="bigcalendar__header-bottom">
 					<div className="bigcalendar__header-smalldate">
-						<p className="dow">{selectedDate.format('dd')}</p>
+						<p className="dow">{selectedDate.format('ddd')}</p>
 						<p className="day">{selectedDate.format('D')}</p>
 					</div>
 					<Pagination
