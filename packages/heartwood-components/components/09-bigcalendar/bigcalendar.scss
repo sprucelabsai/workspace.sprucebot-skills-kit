@@ -405,14 +405,19 @@ body.sb-show-main {
 
 	@include eventFill($c-primary, $c-primary, $c-white, $c-white);
 
-	&.event-fill-available {
+	&.event-fill-tentative {
 		@include eventFill($c-white, $c-primary, $c-primary, $c-primary);
 	}
 
 	&.event-fill-unavailable {
+		@include eventFill($c-grey-00, $c-grey-00, $c-text, $c-text);
 	}
 
-	&.event-fill-unavailable-alt {
+	&.event-fill-blocked {
+		@include eventFill($c-grey-07, $c-grey-07, $c-white, $c-white);
+	}
+
+	&.event-fill-active {
 		@include eventFill($c-secondary, $c-secondary, $c-white, $c-white);
 	}
 
@@ -434,7 +439,7 @@ body.sb-show-main {
 		);
 	}
 
-	&.event-fill-crit {
+	&.event-fill-critical {
 		@include eventFill(
 			$c-ui-critical-lighter,
 			$c-ui-critical,
