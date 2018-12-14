@@ -39,10 +39,11 @@ stories.add('Table', () => (
 	<Layout width="full-width">
 		<Card>
 			<Table
-				// className="services-table"
+				className="services-table"
 				data={data}
 				columns={columns}
 				defaultPageSize={2}
+				loading={false}
 			/>
 		</Card>
 	</Layout>
