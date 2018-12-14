@@ -14,6 +14,10 @@ class TimeGutter extends PureComponent<Props> {
 		this.domNodeRef = React.createRef()
 	}
 
+	setScrollTop = top => {
+		this.domNodeRef.current.scrollTop = top
+	}
+
 	render() {
 		const {
 			calendarBodyHeight,

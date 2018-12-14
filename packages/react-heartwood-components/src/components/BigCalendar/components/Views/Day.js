@@ -171,14 +171,10 @@ class Day extends PureComponent<Props> {
 		const target = e.target
 		const { scrollTop, scrollLeft } = target
 
-		this.teammateHeaderRef.current.domNodeRef.current.scrollLeft = Math.max(
-			0,
-			scrollLeft
-		)
-		this.timeGutterRef.current.domNodeRef.current.scrollTop = Math.max(
-			0,
-			scrollTop
-		)
+		this._ignoreNextTeammateScroll = true
+
+		this.teammateHeaderRef.current.setScrollLeft(Math.max(0, scrollLeft))
+		this.timeGutterRef.current.setScrollTop(Math.max(0, scrollTop))
 
 		// // arrows that sit in the upper right
 		this.updateHorizontalPagerDetails()
@@ -273,11 +269,13 @@ class Day extends PureComponent<Props> {
 	handleTeammateScroll = e => {
 		const target = e.target
 		const { scrollLeft: teammateLeft } = target
-		const viewLeft = this.dragGridRef.current.getScrollLeft()
 
-		if (teammateLeft !== viewLeft) {
-			this.dragGridRef.current.setScrollLeft(teammateLeft)
+		if (this._ignoreNextTeammateScroll) {
+			this._ignoreNextTeammateScroll = false
+			return true
 		}
+
+		this.dragGridRef.current.setScrollLeft(teammateLeft)
 	}
 
 	snapEventToNearestValidX = ({ mouseX }) => {
@@ -1284,7 +1282,6 @@ class Day extends PureComponent<Props> {
 			>
 				<div className="bigcalendar__user-header">
 					<TeammateHeader
-						// onMouseDown={this.handleViewMouseDown}
 						onDoubleClick={this.handleDoubleClick}
 						doubleClickTime={doubleClickTime}
 						onScroll={this.handleTeammateScroll}
@@ -1296,7 +1293,6 @@ class Day extends PureComponent<Props> {
 					<TimeGutter
 						hours={hours}
 						calendarBodyHeight={calendarBodyHeight}
-						// onMouseDown={this.handleViewMouseDown}
 						ref={this.timeGutterRef}
 					>
 						<div

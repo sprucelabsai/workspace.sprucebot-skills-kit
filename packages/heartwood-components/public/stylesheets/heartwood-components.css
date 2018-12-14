@@ -3526,6 +3526,7 @@ select:-webkit-autofill:focus {
   left: 0px;
   top: 0px;
   z-index: 1;
+  box-shadow: 0 0 0px 1px white;
   border: 1px solid #0076D6; }
   .bigcalendar__event.is-drag-source {
     opacity: 0.5; }
@@ -3668,10 +3669,10 @@ select:-webkit-autofill:focus {
       .bigcalendar__event-block.available:last-child .resize-handle.resize-n, .bigcalendar__event-block.busy .resize-handle.resize-n {
         display: none;
         top: 0px;
-        cursor: ns-resize; }
+        cursor: s-resize; }
       .bigcalendar__event-block.available:last-child .resize-handle.resize-s, .bigcalendar__event-block.busy .resize-handle.resize-s {
         bottom: 0px;
-        cursor: ns-resize; }
+        cursor: n-resize; }
       .bigcalendar__event-block.available:last-child .resize-handle .resize-highlight-handle, .bigcalendar__event-block.busy .resize-handle .resize-highlight-handle {
         display: none; }
   .bigcalendar__event-block.busy .resize-handle.resize-n {

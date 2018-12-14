@@ -41,6 +41,10 @@ class TeammateHeader extends PureComponent<Props> {
 		e.preventDefault()
 	}
 
+	setScrollLeft = left => {
+		this.domNodeRef.current.scrollLeft = left
+	}
+
 	render() {
 		const {
 			users,

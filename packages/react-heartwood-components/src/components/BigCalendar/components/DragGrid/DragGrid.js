@@ -529,8 +529,6 @@ class DragGrid extends PureComponent<Props> {
 
 			const distance = Math.sqrt(a * a + b * b)
 
-			// console.log({ distance })
-
 			//start the drag!
 			if (distance >= this.props.dragThreshold) {
 				if (this.domNodeRef.current.style.overflow !== 'hidden') {
@@ -987,6 +985,8 @@ class DragGrid extends PureComponent<Props> {
 			longPressDelay,
 			onClick,
 			timeFormat,
+			enableAutoScrollX,
+			enableAutoScrollY,
 			...props
 		} = this.props
 
