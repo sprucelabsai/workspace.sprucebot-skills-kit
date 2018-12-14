@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import Helmet from 'react-helmet'
-import '../src/stylesheets/vendor.sass'
 import '../src/stylesheets/global.sass'
 import '../../heartwood-components/stylesheets/heartwood-components.scss'
 
