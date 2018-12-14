@@ -3816,33 +3816,46 @@ select:-webkit-autofill:focus {
   align-items: flex-start;
   flex-shrink: 0;
   width: 100%;
-  padding: 1rem 1rem 0.625rem 1rem; }
-  .event-confirmed .event-details-header,
-  .event-in-progress .event-details-header,
-  .block .event-details-header {
+  padding: 1rem 1rem 0.625rem 1rem;
+  background-color: #1953cb;
+  color: #fff; }
+  .event-details-header .event-details-header__button svg {
+    fill: #fff; }
+  .event-fill-active .event-details-header {
+    background-color: #5a5ae6;
     color: #fff; }
-    .event-confirmed .event-details-header .event-details-header__button .btn__icon,
-    .event-in-progress .event-details-header .event-details-header__button .btn__icon,
-    .block .event-details-header .event-details-header__button .btn__icon {
+    .event-fill-active .event-details-header .event-details-header__button svg {
       fill: #fff; }
-    .event-confirmed .event-details-header .context-menu__button .btn__icon,
-    .event-in-progress .event-details-header .context-menu__button .btn__icon,
-    .block .event-details-header .context-menu__button .btn__icon {
-      stroke: #fff; }
-  .event-confirmed .event-details-header {
-    background-color: #1953cb; }
-  .event-unconfirmed .event-details-header {
-    border: 1px solid #1953cb; }
-    .event-unconfirmed .event-details-header .event-details-header__button .btn__icon {
+  .event-fill-tentative .event-details-header {
+    background-color: #fff;
+    color: #1953cb; }
+    .event-fill-tentative .event-details-header .event-details-header__button svg {
       fill: #1953cb; }
-    .event-unconfirmed .event-details-header .context-menu__button .btn__icon {
-      stroke: #1953cb; }
-  .event-in-progress .event-details-header {
-    background-color: #5a5ae6; }
-  .break .event-details-header {
-    background-color: #e5e7eb; }
-  .block .event-details-header {
-    background-color: #525966; }
+  .event-fill-critical .event-details-header {
+    background-color: #ffebec;
+    color: #2c323d; }
+    .event-fill-critical .event-details-header .event-details-header__button svg {
+      fill: #2c323d; }
+  .event-fill-warn .event-details-header {
+    background-color: #fdf1db;
+    color: #2c323d; }
+    .event-fill-warn .event-details-header .event-details-header__button svg {
+      fill: #2c323d; }
+  .event-fill-past .event-details-header {
+    background-color: #e7eefc;
+    color: #1953cb; }
+    .event-fill-past .event-details-header .event-details-header__button svg {
+      fill: #1953cb; }
+  .event-fill-blocked .event-details-header {
+    background-color: #525966;
+    color: #fff; }
+    .event-fill-blocked .event-details-header .event-details-header__button svg {
+      fill: #fff; }
+  .event-fill-unavailable .event-details-header {
+    background-color: #f3f4f6;
+    color: #2c323d; }
+    .event-fill-unavailable .event-details-header .event-details-header__button svg {
+      fill: #2c323d; }
 
 .event-details-header .context-menu.context-menu--is-visible .context-menu__button,
 .event-details-header .context-menu .context-menu__button:focus {

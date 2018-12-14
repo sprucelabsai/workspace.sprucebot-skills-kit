@@ -1203,7 +1203,7 @@ class Day extends PureComponent<Props> {
 			id: 'new',
 			startAt: startAt.format('YYYY-MM-DD HH:mm'),
 			userId: user.id,
-			className: 'event-fill-tentative',
+			kind: 'tentative',
 			blocks: [
 				{
 					durationSec: newEventDefaultDurationSec,

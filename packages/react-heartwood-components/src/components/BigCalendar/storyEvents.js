@@ -14,6 +14,7 @@ export default [
 		userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 		className: '',
 		details: {
+			kind: '',
 			header: { title: 'Cooper Moore', label: 'Appointment' },
 			list: {
 				items: [
@@ -127,6 +128,7 @@ export default [
 		userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 		kind: 'critical',
 		details: {
+			kind: 'critical',
 			header: { title: 'Edward Goldner', label: 'Appointment' },
 			list: {
 				items: [
@@ -222,6 +224,7 @@ export default [
 		userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
 		className: '',
 		details: {
+			kind: '',
 			header: { title: 'Edwin McLaughlin', label: 'Appointment' },
 			list: {
 				items: [
@@ -330,6 +333,7 @@ export default [
 		userId: '78245981-5022-49a7-b2f2-6ac687e0f3d1',
 		kind: 'default',
 		details: {
+			kind: '',
 			header: { title: 'Edward Powloski', label: 'Appointment' },
 			list: {
 				items: [
@@ -440,6 +444,7 @@ export default [
 		userId: '78245981-5022-49a7-b2f2-6ac687e0f3d1',
 		kind: 'active',
 		details: {
+			kind: 'active',
 			header: { title: 'Dario Stehr', label: 'Appointment' },
 			list: {
 				items: [
@@ -535,6 +540,7 @@ export default [
 		userId: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff',
 		kind: 'warn',
 		details: {
+			kind: 'warn',
 			header: { title: 'Friedrich Doyle', label: 'Appointment' },
 			list: {
 				items: [
@@ -630,6 +636,7 @@ export default [
 		userId: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff',
 		kind: 'warn',
 		details: {
+			kind: 'warn',
 			header: { title: 'Matt Hoeger', label: 'Appointment' },
 			list: {
 				items: [
@@ -740,6 +747,7 @@ export default [
 		userId: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff',
 		className: '',
 		details: {
+			kind: '',
 			header: { title: 'Franco Carter', label: 'Appointment' },
 			list: {
 				items: [
@@ -835,6 +843,7 @@ export default [
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
 		kind: 'critical',
 		details: {
+			kind: 'critical',
 			header: { title: 'Kip Wilkinson', label: 'Appointment' },
 			list: {
 				items: [
@@ -948,6 +957,7 @@ export default [
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
 		kind: 'warn',
 		details: {
+			kind: 'warn',
 			header: { title: 'Vincenza Jerde', label: 'Appointment' },
 			list: {
 				items: [
@@ -1040,6 +1050,7 @@ export default [
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
 		kind: 'blocked',
 		details: {
+			kind: 'blocked',
 			header: { title: 'Ricky Padilla', label: 'Block' },
 			list: {
 				items: []
@@ -1048,7 +1059,7 @@ export default [
 		},
 		blocks: [
 			{
-				title: 'Break',
+				title: 'Block',
 				subtitle: '',
 				durationSec: 45 * 60,
 				leftIcons: [],
@@ -1065,6 +1076,7 @@ export default [
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
 		kind: 'unavailable',
 		details: {
+			kind: 'unavailable',
 			header: { title: 'Ricky Padilla', label: 'Break' },
 			list: {
 				items: []
@@ -1090,6 +1102,7 @@ export default [
 		userId: 'ce914128-c77c-40fa-b5ef-d6faa3ed26a1',
 		className: '',
 		details: {
+			kind: '',
 			header: { title: 'Hector Smith', label: 'Appointment' },
 			list: {
 				items: [
@@ -1185,6 +1198,7 @@ export default [
 		userId: 'ce914128-c77c-40fa-b5ef-d6faa3ed26a1',
 		className: '',
 		details: {
+			kind: '',
 			header: { title: 'Khalid Adams', label: 'Appointment' },
 			list: {
 				items: [
@@ -1280,6 +1294,7 @@ export default [
 		userId: '7a96fb12-b01c-45f3-9c09-d0922d5eaa44',
 		kind: 'critical',
 		details: {
+			kind: 'critical',
 			header: { title: 'Eric Romaguera', label: 'Appointment' },
 			list: {
 				items: [
@@ -1375,6 +1390,7 @@ export default [
 		userId: '7a96fb12-b01c-45f3-9c09-d0922d5eaa44',
 		className: '',
 		details: {
+			kind: '',
 			header: { title: 'Karl Johnson', label: 'Appointment' },
 			list: {
 				items: [
@@ -1488,6 +1504,7 @@ export default [
 		userId: '061bb108-7795-4f62-972c-7ee426b71668',
 		kind: 'past',
 		details: {
+			kind: 'past',
 			header: { title: 'Shane Vandervort', label: 'Appointment' },
 			list: {
 				items: [
@@ -1601,6 +1618,7 @@ export default [
 		userId: '061bb108-7795-4f62-972c-7ee426b71668',
 		className: '',
 		details: {
+			kind: '',
 			header: { title: 'Cal Moore', label: 'Appointment' },
 			list: {
 				items: [
@@ -1696,6 +1714,7 @@ export default [
 		userId: '061bb108-7795-4f62-972c-7ee426b71668',
 		kind: 'tentative',
 		details: {
+			kind: 'tentative',
 			header: { title: 'Lyle Johnson', label: 'Appointment' },
 			list: {
 				items: [
@@ -1791,6 +1810,7 @@ export default [
 		userId: '724d2986-ba56-4560-a1ab-74088b974274',
 		kind: 'past',
 		details: {
+			kind: 'past',
 			header: { title: 'Alex Lang', label: 'Appointment' },
 			list: {
 				items: [
@@ -1904,6 +1924,7 @@ export default [
 		userId: '724d2986-ba56-4560-a1ab-74088b974274',
 		className: '',
 		details: {
+			kind: '',
 			header: { title: 'Jared Hilpert', label: 'Appointment' },
 			list: {
 				items: [
@@ -1999,6 +2020,7 @@ export default [
 		userId: '724d2986-ba56-4560-a1ab-74088b974274',
 		className: '',
 		details: {
+			kind: '',
 			header: { title: 'Anderson Corwin', label: 'Appointment' },
 			list: {
 				items: [
@@ -2094,6 +2116,7 @@ export default [
 		userId: 'df65bf1f-efae-41bd-af5f-a8714807dfef',
 		kind: 'past',
 		details: {
+			kind: 'past',
 			header: { title: 'Fred Hudson', label: 'Appointment' },
 			list: {
 				items: [
@@ -2204,6 +2227,7 @@ export default [
 		userId: 'df65bf1f-efae-41bd-af5f-a8714807dfef',
 		kind: 'tentative',
 		details: {
+			kind: 'tentative',
 			header: { title: 'Tom Quigley', label: 'Appointment' },
 			list: {
 				items: [
