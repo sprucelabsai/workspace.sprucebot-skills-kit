@@ -125,7 +125,7 @@ export default [
 		startAt: today.set({ hour: 8, minute: 45 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'ee65a588-75f8-414c-b3b0-7d1e9f2c7a27',
-		type: 'critical',
+		kind: 'critical',
 		details: {
 			header: { title: 'Edward Goldner', label: 'Appointment' },
 			list: {
@@ -328,7 +328,7 @@ export default [
 		startAt: today.set({ hour: 16, minute: 30 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '78245981-5022-49a7-b2f2-6ac687e0f3d1',
-		type: 'default',
+		kind: 'default',
 		details: {
 			header: { title: 'Edward Powloski', label: 'Appointment' },
 			list: {
@@ -438,7 +438,7 @@ export default [
 		startAt: today.set({ hour: 13, minute: 0 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '78245981-5022-49a7-b2f2-6ac687e0f3d1',
-		type: 'active',
+		kind: 'active',
 		details: {
 			header: { title: 'Dario Stehr', label: 'Appointment' },
 			list: {
@@ -533,7 +533,7 @@ export default [
 		startAt: today.set({ hour: 10, minute: 30 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff',
-		type: 'warn',
+		kind: 'warn',
 		details: {
 			header: { title: 'Friedrich Doyle', label: 'Appointment' },
 			list: {
@@ -628,7 +628,7 @@ export default [
 		startAt: today.set({ hour: 11, minute: 30 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff',
-		type: 'warn',
+		kind: 'warn',
 		details: {
 			header: { title: 'Matt Hoeger', label: 'Appointment' },
 			list: {
@@ -833,7 +833,7 @@ export default [
 		startAt: today.set({ hour: 9, minute: 15 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
-		type: 'critical',
+		kind: 'critical',
 		details: {
 			header: { title: 'Kip Wilkinson', label: 'Appointment' },
 			list: {
@@ -946,7 +946,7 @@ export default [
 		startAt: today.set({ hour: 11, minute: 0 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
-		type: 'warn',
+		kind: 'warn',
 		details: {
 			header: { title: 'Vincenza Jerde', label: 'Appointment' },
 			list: {
@@ -1038,7 +1038,7 @@ export default [
 		startAt: today.set({ hour: 15, minute: 0 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
-		type: 'blocked',
+		kind: 'blocked',
 		details: {
 			header: { title: 'Ricky Padilla', label: 'Block' },
 			list: {
@@ -1063,7 +1063,7 @@ export default [
 		startAt: today.set({ hour: 14, minute: 0 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '909beac7-42f7-443f-bd86-c762705c0c18',
-		type: 'unavailable',
+		kind: 'unavailable',
 		details: {
 			header: { title: 'Ricky Padilla', label: 'Break' },
 			list: {
@@ -1278,7 +1278,7 @@ export default [
 		startAt: today.set({ hour: 10, minute: 0 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '7a96fb12-b01c-45f3-9c09-d0922d5eaa44',
-		type: 'critical',
+		kind: 'critical',
 		details: {
 			header: { title: 'Eric Romaguera', label: 'Appointment' },
 			list: {
@@ -1486,7 +1486,7 @@ export default [
 		startAt: today.set({ hour: 11, minute: 30 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '061bb108-7795-4f62-972c-7ee426b71668',
-		type: 'past',
+		kind: 'past',
 		details: {
 			header: { title: 'Shane Vandervort', label: 'Appointment' },
 			list: {
@@ -1694,7 +1694,7 @@ export default [
 		startAt: today.set({ hour: 15, minute: 0 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '061bb108-7795-4f62-972c-7ee426b71668',
-		type: 'tentative',
+		kind: 'tentative',
 		details: {
 			header: { title: 'Lyle Johnson', label: 'Appointment' },
 			list: {
@@ -1789,7 +1789,7 @@ export default [
 		startAt: today.set({ hour: 9, minute: 45 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: '724d2986-ba56-4560-a1ab-74088b974274',
-		type: 'past',
+		kind: 'past',
 		details: {
 			header: { title: 'Alex Lang', label: 'Appointment' },
 			list: {
@@ -2092,7 +2092,7 @@ export default [
 		startAt: today.set({ hour: 10, minute: 30 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'df65bf1f-efae-41bd-af5f-a8714807dfef',
-		type: 'past',
+		kind: 'past',
 		details: {
 			header: { title: 'Fred Hudson', label: 'Appointment' },
 			list: {
@@ -2202,7 +2202,7 @@ export default [
 		startAt: today.set({ hour: 13, minute: 30 }).format('YYYY-MM-DD HH:mm:ss'),
 		isAllDay: false,
 		userId: 'df65bf1f-efae-41bd-af5f-a8714807dfef',
-		type: 'tentative',
+		kind: 'tentative',
 		details: {
 			header: { title: 'Tom Quigley', label: 'Appointment' },
 			list: {
