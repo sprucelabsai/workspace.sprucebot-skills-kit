@@ -1,0 +1,46 @@
+/**
+Presentation Example
+PLEASE DELETE ME
+*/
+.services-table {
+	.table-row,
+	.table-header-row {
+		@supports (display: grid) {
+			display: grid;
+			grid-template-columns: 200px 80px 120px auto;
+		}
+	}
+}
+
+.table {
+	//
+}
+
+.table-row,
+.table-header-row {
+	display: flex;
+	border-bottom: 1px solid $c-border-light;
+}
+.table {
+	.table-cell,
+	.table-header-cell {
+		width: 100%;
+	}
+}
+
+.table-header-row {
+	background-color: $c-grey-00;
+}
+
+.table-header-cell {
+	@include type-style-label;
+	padding-top: spacing('tight');
+	padding-left: spacing('tight');
+	padding-bottom: spacing('tight');
+}
+
+.table-cell {
+	padding-top: rem(12);
+	padding-left: spacing('tight');
+	padding-bottom: rem(12);
+}
