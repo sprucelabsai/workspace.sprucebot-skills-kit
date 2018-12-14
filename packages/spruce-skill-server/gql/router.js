@@ -2,22 +2,46 @@ const Router = require('koa-router')
 const graphqlHTTP = require('koa-graphql')
 const Schema = require('./Schema')
 const _ = require('lodash')
+const jwt = require('jsonwebtoken')
 const depthLimit = require('graphql-depth-limit')
 const QueryComplexity = require('graphql-query-complexity')
 const { createContext, EXPECTED_OPTIONS_KEY } = require('dataloader-sequelize')
 const config = require('config')
 const errors = config.errors
+// const auth = require('../middleware/auth')
 
 const queryComplexity = QueryComplexity.default
 const simpleEstimator = QueryComplexity.simpleEstimator
 const fieldConfigEstimator = QueryComplexity.fieldConfigEstimator
+
+const auth = async (ctx, next) => {
+	let token = ctx.cookies.get('jwt') || ctx.request.headers['x-skill-jwt']
+	const decoded = jwt.verify(token, config.API_KEY.toString().toLowerCase())
+	const userId = decoded.userId
+	const locationId = decoded.locationId
+	const query = `
+		{
+			User (
+				id: "${userId}"
+			) {
+				id
+				firstName
+			}
+		}
+	`
+	const user = await ctx.sb.query(query)
+	// ctx.auth = await ctx.sb.user(decoded.locationId, decoded.userId)
+	await next()
+}
 
 module.exports = (koa, gqlOptions) => {
 	// Get schema
 	const schema = new Schema({ ctx: koa.context, gqlDir: gqlOptions.gqlDir })
 
 	const router = new Router()
+
 	if (config.GRAPHQL_ENABLED) {
+		router.use(auth)
 		router.all(
 			'/graphql',
 			async (context, next) => {

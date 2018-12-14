@@ -51,6 +51,7 @@ function enhancedAttributeFields(model: any, options?: Object) {
 			const rootPath = fullPathScope.replace(/\..*$/, '')
 			const scopes = context.scopes[rootPath]
 			let scope = 'public'
+
 			const pluralModelName = inflection.pluralize(model.name)
 			if (scopes && scopes[model.name]) {
 				scope = scopes[model.name]
@@ -134,20 +135,19 @@ module.exports = ctx => {
 					const scopes = context.scopes[rootPath]
 					const parentPathScope = pathScope.replace(/\.[^.]+$/, '')
 					let parentScope = 'public'
-					const pluralParentModelName = inflection.pluralize(obj.modelName)
+					const parentModelName = obj.constructor.name
+					const pluralParentModelName = inflection.pluralize(parentModelName)
 					if (scopes && scopes[parentPathScope]) {
 						parentScope = scopes[parentPathScope]
 					}
 
 					if (
-						!ctx.db.models[obj.modelName].scopeObj ||
-						!ctx.db.models[obj.modelName].scopeObj[parentScope] ||
-						!ctx.db.models[obj.modelName].scopeObj[parentScope][modelName]
+						!ctx.db.models[parentModelName].scopeObj ||
+						!ctx.db.models[parentModelName].scopeObj[parentScope] ||
+						!ctx.db.models[parentModelName].scopeObj[parentScope][modelName]
 					) {
 						context.warnings.push(
-							`Association for ${
-								obj.modelName
-							} with scope '${parentScope}' does not include '${modelName}'`
+							`Association for ${parentModelName} with scope '${parentScope}' does not include '${modelName}'`
 						)
 						return null
 					}
@@ -176,14 +176,15 @@ module.exports = ctx => {
 						}
 					})(obj, args, context, info, pathScope)
 					if (result && result.dataValues) {
+						const modelName = result.constructor.name
 						Object.keys(result.dataValues).forEach(field => {
 							if (
-								!ctx.db.models[result.modelName].scopeObj[scope] ||
-								!ctx.db.models[result.modelName].scopeObj[scope][field]
+								!ctx.db.models[modelName].scopeObj[scope] ||
+								!ctx.db.models[modelName].scopeObj[scope][field]
 							) {
 								if (requestedFields[field]) {
 									context.warnings.push(
-										`Field Not Authorized: ${result.modelName}.${field}`
+										`Field Not Authorized: ${modelName}.${field}`
 									)
 								}
 								if (context.unauthorizedValue) {
@@ -209,7 +210,7 @@ module.exports = ctx => {
 			type: GraphQLObjectType,
 			complexity?: number
 		}) {
-			const modelName = model.target.modelName
+			const modelName = model.target.name
 			return {
 				complexity: complexity || 100,
 				type: new GraphQLList(type),
@@ -223,11 +224,14 @@ module.exports = ctx => {
 					if (!context.warnings) {
 						context.warnings = []
 					}
+
 					const pluralModelName = inflection.pluralize(modelName)
 					const pathScope = pathToScope(info.path)
 
 					let parentScope = 'public'
-					const pluralParentModelName = inflection.pluralize(obj.modelName)
+
+					const parentModelName = obj.constructor.name
+					const pluralParentModelName = inflection.pluralize(parentModelName)
 
 					const rootPath = pathScope.replace(/\..*$/, '')
 					const scopes = context.scopes[rootPath]
@@ -237,14 +241,15 @@ module.exports = ctx => {
 					}
 
 					if (
-						!ctx.db.models[obj.modelName].scopeObj ||
-						!ctx.db.models[obj.modelName].scopeObj[parentScope] ||
-						!ctx.db.models[obj.modelName].scopeObj[parentScope][pluralModelName]
+						!ctx.db.models[parentModelName] ||
+						!ctx.db.models[parentModelName].scopeObj ||
+						!ctx.db.models[parentModelName].scopeObj[parentScope] ||
+						!ctx.db.models[parentModelName].scopeObj[parentScope][
+							pluralModelName
+						]
 					) {
 						context.warnings.push(
-							`Association for ${
-								obj.modelName
-							} with scope '${parentScope}' does not include '${pluralModelName}'`
+							`Association for ${parentModelName} with scope '${parentScope}' does not include '${pluralModelName}'`
 						)
 						return null
 					}
@@ -274,16 +279,16 @@ module.exports = ctx => {
 					})(obj, args, context, info)
 					if (result && Array.isArray(result)) {
 						result.forEach(r => {
+							const modelName = r.constructor.name
 							Object.keys(r.dataValues).forEach(field => {
-								// if (!ctx.db.models[r.modelName].scopeObj[scope] || !ctx.db.models[r.modelName].scopeObj[scope][field]) {
-								const s = ctx.db.models[r.modelName].scopeObj[scope]
+								const s = ctx.db.models[modelName].scopeObj[scope]
 								if (
-									!ctx.db.models[r.modelName].scopeObj[scope] ||
-									!ctx.db.models[r.modelName].scopeObj[scope][field]
+									!ctx.db.models[modelName].scopeObj[scope] ||
+									!ctx.db.models[modelName].scopeObj[scope][field]
 								) {
 									if (requestedFields[field]) {
 										context.warnings.push(
-											`Field Not Authorized: ${r.modelName}.${field}`
+											`Field Not Authorized: ${modelName}.${field}`
 										)
 									}
 									if (context.unauthorizedValue) {

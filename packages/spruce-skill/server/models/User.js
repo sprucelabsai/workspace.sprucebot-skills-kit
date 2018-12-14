@@ -131,6 +131,20 @@ module.exports = (sequelize, DataTypes) => {
 				'defaultProfileImages',
 				'casualName'
 			]
+		},
+		team: {
+			attributes: [
+				'id',
+				'firstName',
+				'lastName',
+				'name',
+				'profileImageUUID',
+				'profileImages',
+				'defaultProfileImages',
+				'casualName',
+				'Locations',
+				'UserLocations'
+			]
 		}
 	}
 

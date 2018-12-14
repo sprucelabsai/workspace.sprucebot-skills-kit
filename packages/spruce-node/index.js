@@ -105,6 +105,14 @@ class Sprucebot {
 		return this.https.get('/database/provision')
 	}
 
+	async query(query) {
+		return this.https.query(query)
+	}
+
+	async mutation(query) {
+		return this.https.mutation(query)
+	}
+
 	/**
 	 * Fetch a user based on their id and location
 	 *

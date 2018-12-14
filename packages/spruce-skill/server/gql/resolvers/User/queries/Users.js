@@ -36,9 +36,10 @@ module.exports = ctx => {
 					// 	throw new Error('USER_NOT_LOGGED_IN')
 					// }
 
-					// context.scopes.Users = {
-					// 	Users: 'public'
-					// }
+					context.scopes.Users = {
+						Users: 'team'
+						// 'Users.UserLocations': 'team'
+					}
 
 					return findOptions
 				}

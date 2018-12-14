@@ -15,5 +15,6 @@
 		"**/.git/subtree-cache/**": true,
 		"**/node_modules/**": true
 	},
-	"flow.useNPMPackagedFlow": true
+	"flow.useNPMPackagedFlow": true,
+	"debug.node.autoAttach": "on"
 }

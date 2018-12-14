@@ -90,4 +90,6 @@ module.exports = router => {
 		}
 		await next()
 	})
+
+	router.use('*', auth)
 }
