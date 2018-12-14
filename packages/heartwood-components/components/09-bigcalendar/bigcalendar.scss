@@ -239,13 +239,8 @@ body.sb-show-main {
 		width: $day-col-width;
 	}
 
-	.bigcalendar__day-col {
-	}
-
-	.bigcalendar__event {
-	}
-
-	.bigcalendar__event &.is-selected {
+	.bigcalendar__event.hover-available {
+		pointer-events: none;
 	}
 
 	&.single-user {
@@ -257,9 +252,6 @@ body.sb-show-main {
 			min-width: 100%;
 			max-width: 100%;
 			width: 100%;
-		}
-
-		.bigcalendar__event &.is-selected {
 		}
 	}
 
@@ -288,6 +280,16 @@ body.sb-show-main {
 		.timeslot {
 			flex: 1;
 			border-bottom: 1px solid lighten($c-border, 10%);
+			display: none;
+			cursor: pointer;
+
+			&:hover {
+				background-color: lighten($c-border, 10%);
+			}
+		}
+
+		&:hover .timeslot {
+			display: flex;
 		}
 
 		&.inactive,
@@ -321,6 +323,8 @@ body.sb-show-main {
 		background-color: $c-primary-dark;
 		position: absolute;
 		left: 0px;
+		pointer-events: none;
+		z-index: 2;
 	}
 
 	.event-details {
@@ -332,7 +336,6 @@ body.sb-show-main {
 		position: absolute;
 		@include type-style-label;
 		right: 0px;
-		margin-top: -6px;
 		&.hide {
 			opacity: 0;
 		}
@@ -405,14 +408,19 @@ body.sb-show-main {
 
 	@include eventFill($c-primary, $c-primary, $c-white, $c-white);
 
-	&.event-fill-available {
+	&.event-fill-tentative {
 		@include eventFill($c-white, $c-primary, $c-primary, $c-primary);
 	}
 
 	&.event-fill-unavailable {
+		@include eventFill($c-grey-00, $c-grey-00, $c-text, $c-text);
 	}
 
-	&.event-fill-unavailable-alt {
+	&.event-fill-blocked {
+		@include eventFill($c-grey-07, $c-grey-07, $c-white, $c-white);
+	}
+
+	&.event-fill-active {
 		@include eventFill($c-secondary, $c-secondary, $c-white, $c-white);
 	}
 
@@ -434,7 +442,7 @@ body.sb-show-main {
 		);
 	}
 
-	&.event-fill-crit {
+	&.event-fill-critical {
 		@include eventFill(
 			$c-ui-critical-lighter,
 			$c-ui-critical,
