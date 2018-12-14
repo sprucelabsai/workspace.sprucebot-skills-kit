@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -13,7 +13,7 @@ jobs:
       - run: yarn test
   pre_release:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -31,7 +31,7 @@ jobs:
       - run: yarn s3-sync-storybook-canary
   dev_release:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -51,7 +51,7 @@ jobs:
       - run: yarn s3-sync-storybook-dev
   prod_release:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - add_ssh_keys:
           fingerprints:
