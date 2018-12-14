@@ -32,7 +32,7 @@ module.exports = {
 	API_KEY: process.env.API_KEY,
 	SKILL_STYLESHEET:
 		process.env.SKILL_STYLESHEET ||
-		`https://CHANGE_ME_CDN_URL/stylesheets/${HEARTWOOD_VERSION ||
+		`https://cdn.spruce.ai/stylesheets/${HEARTWOOD_VERSION ||
 			'latest'}/heartwood-components.min.css`,
 	ID: process.env.ID,
 	NAME: process.env.NAME,
