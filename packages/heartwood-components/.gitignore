@@ -10,6 +10,7 @@ yarn-error.log
 
 # Build directory
 /build
+/public/stylesheets
 
 # Built files
 icons.json

@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.2.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.2.0...v8.2.1) (2018-12-14)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
+# [8.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.1.5...v8.2.0) (2018-12-14)
+
+
+### Features
+
+* fix select styling and update colors ([f0220ea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f0220ea))
+* point skill to versioned stylesheet ([36dd001](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/36dd001))
+* sync stylesheets to cdn ([f9735d7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f9735d7))
+
+
+
+
+
 ## [8.1.5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.1.4...v8.1.5) (2018-12-12)
 
 **Note:** Version bump only for package workspace.sprucebot-skills-kit
