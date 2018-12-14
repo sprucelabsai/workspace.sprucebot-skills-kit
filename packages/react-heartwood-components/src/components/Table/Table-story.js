@@ -42,7 +42,7 @@ stories.add('Table', () => (
 				className="services-table"
 				data={data}
 				columns={columns}
-				sortable={true}
+				sortable={false}
 				defaultPageSize={data.length}
 				defaultSorted={[
 					{
@@ -57,6 +57,11 @@ stories.add('Table', () => (
 					totalPages: 87,
 					currentPage: 0
 				}}
+				isSelectable={true}
+				selectType="checkbox"
+				toggleAll={() => console.log('toggleAll')}
+				toggleSelection={() => console.log('toggleSelection')}
+				keyField="id"
 			/>
 		</Card>
 	</Layout>

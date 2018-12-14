@@ -20,7 +20,7 @@ type Props = {
 }
 
 const Table = (props: Props) => {
-	const { className, isSelectable, paginationProps } = props
+	const { className, isSelectable, paginationProps, ...rest } = props
 	const TableComponent = isSelectable ? checkboxHOC(ReactTable) : ReactTable
 	return (
 		<TableComponent
@@ -44,9 +44,9 @@ const Table = (props: Props) => {
 			}}
 			ThComponent={tableProps => {
 				const { toggleSort, className, ...rest } = tableProps
-				// const isSortable =
-				// 	className && className.indexOf('-cursor-pointer') > -1
-				const isSortable = true
+				const isSortable =
+					className && className.indexOf('-cursor-pointer') > -1
+				// const isSortable = true
 				const isSortedAsc = className && className.indexOf('-sort-asc') > -1
 				const isSortedDesc =
 					tableProps.className &&
@@ -81,7 +81,7 @@ const Table = (props: Props) => {
 					<Pagination {...paginationProps} {...tableProps} />
 				</div>
 			)}
-			{...props}
+			{...rest}
 		/>
 	)
 }
