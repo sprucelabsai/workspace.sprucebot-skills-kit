@@ -37,6 +37,37 @@ PLEASE DELETE ME
 	padding-top: spacing('tight');
 	padding-left: spacing('tight');
 	padding-bottom: spacing('tight');
+
+	&.table-header-cell--is-sortable {
+		padding-top: spacing('extra-tight');
+		padding-bottom: spacing('extra-tight');
+		cursor: pointer;
+
+		// NOTE: Code smells due to restrictions of vendor library: https://github.com/react-tools/react-table
+		> * {
+			display: inline-block;
+		}
+
+		.rt-resizable-header-content {
+			position: relative;
+			top: rem(-7);
+		}
+	}
+}
+
+.table-header-cell__icon {
+	flex: 0 0 auto;
+	opacity: 0;
+	visibility: hidden;
+
+	&.table-header-cell__icon--is-visible {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+.table-header-cell__icon--is-reversed {
+	transform: rotate(180deg);
 }
 
 .table-cell {

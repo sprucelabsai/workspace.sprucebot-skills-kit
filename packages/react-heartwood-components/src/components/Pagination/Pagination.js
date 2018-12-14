@@ -80,8 +80,6 @@ const Pagination = (props: Props) => {
 
 	const kind = isSimple ? 'simple' : 'secondary'
 
-	console.log({ displayPages })
-
 	return (
 		<div
 			className={cx('pagination-wrapper', {

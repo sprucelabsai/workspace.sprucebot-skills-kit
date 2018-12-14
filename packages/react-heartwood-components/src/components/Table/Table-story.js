@@ -42,7 +42,14 @@ stories.add('Table', () => (
 				className="services-table"
 				data={data}
 				columns={columns}
+				sortable={true}
 				defaultPageSize={data.length}
+				defaultSorted={[
+					{
+						id: 'publicName',
+						desc: false
+					}
+				]}
 				loading={false}
 				paginationProps={{
 					showPages: true,
