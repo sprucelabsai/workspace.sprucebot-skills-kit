@@ -2,7 +2,7 @@
 import React from 'react'
 import cx from 'classnames'
 import Button from '../Button/Button'
-import { Text, Span } from '../Text/Text'
+import Text, { Span } from '../Text/Text'
 import { InputInner } from '../Forms/FormPartials'
 import ArrowNext from '../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../static/assets/icons/ic_arrow_back.svg'
@@ -79,6 +79,8 @@ const Pagination = (props: Props) => {
 	}
 
 	const kind = isSimple ? 'simple' : 'secondary'
+
+	console.log({ displayPages })
 
 	return (
 		<div

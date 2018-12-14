@@ -45,6 +45,12 @@ PLEASE DELETE ME
 	padding-bottom: rem(12);
 }
 
+.table-pagination__wrapper {
+	padding-top: spacing('base');
+	padding-right: spacing('base');
+	padding-left: spacing('base');
+}
+
 .table-loader {
 	display: none;
 }

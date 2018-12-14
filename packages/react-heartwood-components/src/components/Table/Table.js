@@ -42,7 +42,9 @@ const Table = (props: Props) => {
 				}
 			}}
 			PaginationComponent={tableProps => (
-				<Pagination {...paginationProps} {...tableProps} />
+				<div className="table-pagination__wrapper">
+					<Pagination {...paginationProps} {...tableProps} />
+				</div>
 			)}
 			{...props}
 		/>

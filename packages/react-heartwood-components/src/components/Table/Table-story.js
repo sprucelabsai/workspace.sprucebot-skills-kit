@@ -42,8 +42,14 @@ stories.add('Table', () => (
 				className="services-table"
 				data={data}
 				columns={columns}
-				defaultPageSize={2}
+				defaultPageSize={data.length}
 				loading={false}
+				paginationProps={{
+					showPages: true,
+					onPageButtonClick: () => console.log('onPageButtonClick'),
+					totalPages: 87,
+					currentPage: 0
+				}}
 			/>
 		</Card>
 	</Layout>
