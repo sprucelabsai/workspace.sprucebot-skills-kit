@@ -9,7 +9,16 @@ type Props = {
 	event: Object,
 	className?: string,
 	timezone: String,
-	timeFormat: String
+	timeFormat: String,
+	type:
+		| 'default'
+		| 'tentative'
+		| 'active'
+		| 'unavailable'
+		| 'blocked'
+		| 'past'
+		| 'warn'
+		| 'critical'
 }
 
 const Event = (props: Props) => {
@@ -20,12 +29,21 @@ const Event = (props: Props) => {
 		onTouchStart,
 		timezone,
 		timeFormat,
+		type,
 		...rest
 	} = props
 	let startAt = moment.tz(event.startAt, timezone)
 	return (
 		<div
-			className={cx('bigcalendar__event', className, event.className)}
+			className={cx('bigcalendar__event', className, {
+				'event-fill-tentative': event.type === 'tentative',
+				'event-fill-unavailable': event.type === 'unavailable',
+				'event-fill-blocked': event.type === 'blocked',
+				'event-fill-active': event.type === 'active',
+				'event-fill-past': event.type === 'past',
+				'event-fill-warn': event.type === 'warn',
+				'event-fill-critical': event.type === 'critical'
+			})}
 			{...rest}
 		>
 			{event.blocks.map((block, idx) => {
@@ -50,6 +68,10 @@ const Event = (props: Props) => {
 			})}
 		</div>
 	)
+}
+
+Event.defaultProps = {
+	type: 'default'
 }
 
 export default Event
