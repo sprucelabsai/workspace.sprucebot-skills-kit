@@ -35,10 +35,19 @@
 		cursor: pointer;
 
 		&[disabled] {
-			color: $c-grey-01;
-			background-color: $c-grey-02;
-			border: none;
+			color: rgba($c-primary, 0.5);
+			border-color: rgba($c-primary, 0.5);
 			cursor: not-allowed;
+
+			&[readonly] {
+				border: none;
+				background-color: $c-grey-00;
+				color: $c-text-light;
+
+				+ .select__icon {
+					display: none;
+				}
+			}
 		}
 	}
 }

@@ -4,6 +4,7 @@ const { omit, pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
 const packageJSON = require('../package.json')
+const HEARTWOOD_VERSION = require('@sprucelabs/heartwood-components').version
 // Check for .env
 try {
 	require('dotenv').config()
@@ -51,7 +52,10 @@ module.exports = {
 	METRICS_SEQUELIZE_DISABLED: process.env.METRICS_SEQUELIZE_DISABLED === 'true',
 	API_HOST: process.env.API_HOST,
 	API_KEY: process.env.API_KEY,
-	SKILL_STYLESHEET: process.env.SKILL_STYLESHEET,
+	SKILL_STYLESHEET:
+		process.env.SKILL_STYLESHEET ||
+		`https://cdn.spruce.ai/stylesheets/${HEARTWOOD_VERSION ||
+			'latest'}/heartwood-components.min.css`,
 	ID: process.env.ID,
 	NAME: process.env.NAME,
 	SLUG: process.env.SLUG,
@@ -81,6 +85,9 @@ module.exports = {
 	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
 	eventContract: {
 		events: {
+			'get-views': {
+				description: 'Core asks for views to display on a page'
+			},
 			'get-page-cards': {
 				description: 'Core asks this skill to provide cards for a dashboard'
 			}

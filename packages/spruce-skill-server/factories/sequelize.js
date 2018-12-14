@@ -41,10 +41,12 @@ module.exports = (
 		log.info('Metrics: Sequelize hooks disabled')
 	}
 
-	const coreModels = fs
-		.readdirSync(defaultModelsDir)
-		.filter(filterFile)
-		.map(file => path.resolve(defaultModelsDir, file))
+	const coreModels = fs.existsSync(defaultModelsDir)
+		? fs
+				.readdirSync(defaultModelsDir)
+				.filter(filterFile)
+				.map(file => path.resolve(defaultModelsDir, file))
+		: []
 
 	let skillModels = []
 	if (fs.existsSync(modelsDir)) {

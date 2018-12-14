@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.2.1](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.2.0...v8.2.1) (2018-12-14)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+# [8.2.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.1.5...v8.2.0) (2018-12-14)
+
+
+### Features
+
+* fix select styling and update colors ([f0220ea](https://github.com/sprucelabsai/sprucebot-heartwood/commit/f0220ea))
+* point skill to versioned stylesheet ([36dd001](https://github.com/sprucelabsai/sprucebot-heartwood/commit/36dd001))
+
+
+
+
+
+## [8.1.5](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.1.4...v8.1.5) (2018-12-12)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
 ## [8.1.4](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.1.3...v8.1.4) (2018-12-11)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components

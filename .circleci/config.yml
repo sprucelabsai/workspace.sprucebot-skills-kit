@@ -49,6 +49,7 @@ jobs:
       - run: yarn build-statics
       - run: yarn s3-sync-heartwood-dev
       - run: yarn s3-sync-storybook-dev
+      - run: yarn s3-sync-stylesheets
   prod_release:
     docker:
       - image: circleci/node:10
