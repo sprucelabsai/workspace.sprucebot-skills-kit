@@ -21,8 +21,10 @@
 
 	.header-primary__left {
 		padding-left: spacing('tight');
+	}
 
-		&.has-hamburger {
+	&.hamburger-enabled {
+		.header-primary__left {
 			padding-left: 0;
 		}
 	}

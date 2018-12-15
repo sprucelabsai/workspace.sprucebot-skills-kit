@@ -96,7 +96,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 		return (
 			<header
 				className={cx('header-primary', {
-					'has-hamburger': enableHamburgerMenu
+					'hamburger-enabled': enableHamburgerMenu
 				})}
 				ref={ref => (this.ref = ref)}
 			>
