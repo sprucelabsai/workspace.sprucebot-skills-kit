@@ -38,7 +38,7 @@ type State = {
 
 class Header extends PureComponent<Props, State> {
 	static defaultProps = {
-		cellDowFormat: 'dd',
+		cellDowFormat: 'ddd',
 		cellDayFormat: 'D'
 	}
 
