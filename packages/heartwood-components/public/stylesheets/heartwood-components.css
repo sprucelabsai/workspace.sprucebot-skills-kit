@@ -3430,6 +3430,9 @@ select:-webkit-autofill:focus {
   max-width: 12.5rem;
   width: 12.5rem; }
 
+.bigcalendar__view-day .bigcalendar__event.hover-available {
+  pointer-events: none; }
+
 .bigcalendar__view-day.single-user {
   width: 80%;
   margin: 0 auto;
@@ -3458,7 +3461,13 @@ select:-webkit-autofill:focus {
   flex-direction: column; }
   .bigcalendar__view-day .hour-block .timeslot {
     flex: 1;
-    border-bottom: 1px solid #e8eaed; }
+    border-bottom: 1px solid #e8eaed;
+    display: none;
+    cursor: pointer; }
+    .bigcalendar__view-day .hour-block .timeslot:hover {
+      background-color: #e8eaed; }
+  .bigcalendar__view-day .hour-block:hover .timeslot {
+    display: flex; }
   .bigcalendar__view-day .hour-block.inactive,
   .bigcalendar__view-day .hour-block .timeslot.inactive {
     background-color: #f6f7f8; }
@@ -3482,7 +3491,9 @@ select:-webkit-autofill:focus {
   height: 1px;
   background-color: #072e99;
   position: absolute;
-  left: 0px; }
+  left: 0px;
+  pointer-events: none;
+  z-index: 2; }
 
 .bigcalendar__view-day .event-details {
   position: absolute;
@@ -3495,8 +3506,7 @@ select:-webkit-autofill:focus {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
-  right: 0px;
-  margin-top: -6px; }
+  right: 0px; }
   .bigcalendar__view-day .bigcalendar__day-view-mouse-time-indicator.hide {
     opacity: 0; }
 
@@ -3920,7 +3930,6 @@ select:-webkit-autofill:focus {
   font-style: italic; }
 
 .main-content {
-  min-height: 100vh;
   padding-top: 3rem; }
   @media screen and (min-width: 750px) {
     .main-content {
