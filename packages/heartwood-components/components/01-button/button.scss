@@ -137,6 +137,11 @@ Baseline styling for all buttons
 		&.btn-small {
 			width: $tap-height-small;
 		}
+		.btn__text {
+			left: -999rem;
+			position: absolute;
+			width: 0;
+		}
 	}
 
 	.btn__line-icon {
