@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.3.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.2.1...v8.3.0) (2018-12-15)
+
+
+### Bug Fixes
+
+* [SBL-1491](https://sprucelabsai.atlassian.net/browse/SBL-1491) on eventblocks bring right-icons above title ([0ad772f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/0ad772f))
+
+
+### Features
+
+* implement calendar event types in place of classes ([610b0bd](https://github.com/sprucelabsai/sprucebot-heartwood/commit/610b0bd))
+
+
+
+
+
 ## [8.2.1](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.2.0...v8.2.1) (2018-12-14)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components
