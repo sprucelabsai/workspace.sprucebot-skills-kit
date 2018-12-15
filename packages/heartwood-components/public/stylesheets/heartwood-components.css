@@ -4109,8 +4109,8 @@ select:-webkit-autofill:focus {
     display: none; }
   .header-primary .header-primary__left {
     padding-left: 0.5rem; }
-    .header-primary .header-primary__left.has-hamburger {
-      padding-left: 0; }
+  .header-primary.hamburger-enabled .header-primary__left {
+    padding-left: 0; }
 
 .header-primary__user-btn {
   padding-right: 0.5rem; }
