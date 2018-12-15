@@ -18,6 +18,14 @@
 		flex: 1 0 auto;
 		display: none;
 	}
+
+	.header-primary__left {
+		padding-left: spacing('tight');
+
+		&.has-hamburger {
+			padding-left: 0;
+		}
+	}
 }
 
 .header-primary__user-btn {

@@ -1617,6 +1617,9 @@ body {
 strong {
   font-weight: 600; }
 
+.visually-hidden {
+  visibility: hidden; }
+
 .u-color-secondary {
   color: #5a5ae6; }
 
@@ -1702,6 +1705,10 @@ Baseline styling for all buttons
     width: 3rem; }
     .btn.btn-icon-only.btn-small {
       width: 2.25rem; }
+    .btn.btn-icon-only .btn__text {
+      left: -999rem;
+      position: absolute;
+      width: 0; }
   .btn .btn__line-icon {
     fill: none;
     stroke: #818894; }
@@ -2665,6 +2672,9 @@ select:-webkit-autofill:focus {
 .toggle__text {
   margin-left: 0.5rem; }
 
+* + .form-layout {
+  margin-top: 1rem; }
+
 .form-layout {
   margin: -2rem 0 0 -1rem; }
   .form-layout--spacing-tight {
@@ -2791,6 +2801,8 @@ select:-webkit-autofill:focus {
   @media screen and (min-width: 500px) {
     .card__section {
       padding: 0 1.25rem; } }
+  .card__section + .card__section {
+    margin-top: 1rem; }
 
 .card__footer {
   padding: 1rem 1rem 0 1rem; }
@@ -2939,6 +2951,8 @@ select:-webkit-autofill:focus {
       padding: 0 2rem; } }
   .layout--centered {
     margin: -1rem auto 0 auto; }
+  .layout--tight {
+    max-width: 34rem; }
   .layout--wide {
     max-width: 69rem; }
   .layout--full-width {
@@ -4074,6 +4088,8 @@ select:-webkit-autofill:focus {
   @media screen and (min-width: 750px) {
     .sidebar--is-collapsed .main-content {
       padding-left: 2.5rem; } }
+  .sidebar--is-missing .main-content {
+    padding-left: 0; }
 
 .header-primary {
   position: fixed;
@@ -4091,6 +4107,10 @@ select:-webkit-autofill:focus {
   .header-primary .text-input {
     flex: 1 0 auto;
     display: none; }
+  .header-primary .header-primary__left {
+    padding-left: 0.5rem; }
+    .header-primary .header-primary__left.has-hamburger {
+      padding-left: 0; }
 
 .header-primary__user-btn {
   padding-right: 0.5rem; }

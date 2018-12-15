@@ -94,6 +94,10 @@
 	@include gt('small') {
 		padding: 0 spacing('loose');
 	}
+
+	+ .card__section {
+		margin-top: 1rem;
+	}
 }
 
 .card__footer {
