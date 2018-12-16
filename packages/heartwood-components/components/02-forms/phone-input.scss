@@ -1,0 +1,37 @@
+.react-phone-number-input {
+	position: relative;
+}
+.react-phone-number-input__icon {
+	border: none;
+}
+.react-phone-number-input__country {
+	border: 1px solid $c-border;
+	border-top-left-radius: $border-radius-input;
+	border-bottom-left-radius: $border-radius-input;
+	display: flex;
+	justify-content: center;
+	padding-left: spacing('tight');
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: rem(54);
+	height: 100%;
+
+	.text-input--has-error
+		.react-phone-number-input:not(.react-phone-number-input--focus)
+		& {
+		border-color: $c-ui-critical;
+	}
+
+	~ .text-input__input {
+		padding-left: rem(62);
+	}
+
+	&:hover {
+		background-color: rgba($c-primary, 0.05);
+	}
+}
+
+.react-phone-number-input__country-select-arrow {
+	color: $c-text-icon;
+}
