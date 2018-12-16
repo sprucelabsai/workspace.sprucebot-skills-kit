@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.3.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.3.0...v8.3.1) (2018-12-16)
+
+
+### Bug Fixes
+
+* **heartwood:** Remove min-height from .main-content ([d1009b0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d1009b0))
+
+
+
+
+
 # [8.3.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.2.1...v8.3.0) (2018-12-15)
 
 
