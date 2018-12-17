@@ -48,5 +48,11 @@ module.exports = {
 		reason: 'Could not save finishedOnboarding',
 		friendlyReason:
 			'I had a problem trying to let the Bots know you had finished onboarding.  Maybe try again?'
+	},
+	INVALID_PAYLOAD: {
+		code: 400,
+		status: 'failure',
+		reason: 'The event payload was invalid',
+		friendlyReason: 'Sorry, something went wrong'
 	}
 }

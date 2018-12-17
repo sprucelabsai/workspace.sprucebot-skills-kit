@@ -16,6 +16,77 @@ module.exports = class Https {
 		this.allowSelfSignedCerts = allowSelfSignedCerts
 	}
 
+	async query(query) {
+		return new Promise((resolve, reject) => {
+			const path = '/graphql'
+			// API Key must go with each request
+			const headers = {
+				'x-skill-api-key': this.apiKey,
+				'Content-Type': 'application/json'
+			}
+
+			log.debug({
+				method: 'POST',
+				host: this.host,
+				headers,
+				rejectUnauthorized: !this.allowSelfSignedCerts,
+				path
+			})
+
+			const request = https.request(
+				{
+					method: 'POST',
+					host: this.host,
+					headers,
+					rejectUnauthorized: !this.allowSelfSignedCerts,
+					path
+				},
+				response => {
+					this.handleResponse(request, response, resolve, reject)
+				}
+			)
+
+			log.debug({
+				query
+			})
+
+			request.end(
+				JSON.stringify({
+					query
+				})
+			)
+		})
+	}
+	async mutation(query) {
+		return new Promise((resolve, reject) => {
+			const path = '/graphql'
+			// API Key must go with each request
+			const headers = {
+				'x-skill-api-key': this.apiKey,
+				'Content-Type': 'application/json'
+			}
+
+			const request = https.request(
+				{
+					method: 'POST',
+					host: this.host,
+					headers,
+					rejectUnauthorized: !this.allowSelfSignedCerts,
+					path
+				},
+				response => {
+					this.handleResponse(request, response, resolve, reject)
+				}
+			)
+
+			request.end(
+				JSON.stringify({
+					mutation: query
+				})
+			)
+		})
+	}
+
 	/**
 	 * GET an endpoint.
 	 *
