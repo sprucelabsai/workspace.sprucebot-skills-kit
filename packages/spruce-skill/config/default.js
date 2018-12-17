@@ -15,22 +15,34 @@ try {
 module.exports = {
 	cards: {
 		exampleCard: {
-			type: 'standard',
-			comment: 'An example card',
-			title: 'My first skill card',
-			description: 'Example of how to display a card',
-			pages: ['user-dashboard'],
-			isCritical: true,
-			canDismiss: false,
-			isTemporary: false,
-			isCentered: true,
-			roles: ['owner', 'groupManager', 'manager', 'teammate', 'guest'],
-			layout: {
-				header: {},
-				body: {},
-				footerActions: {
-					primary: {},
-					secondary: {}
+			meta: {
+				title: 'Example card in default config',
+				comment: 'This is a developer example card',
+				kind: 'standard', // standard, carousel, and appointment
+				slug: 'user_dashboard'
+			},
+			card: {
+				header: {
+					title: 'Example card in default config'
+				},
+				bodies: [
+					{
+						image: {
+							url: 'https://picsum.photos/720/360/?random',
+							text: 'Random image being set.',
+							width: 720,
+							heght: 360
+						}
+					}
+				],
+				footer: {
+					primary: {
+						text: 'Sprucebot Docs',
+						destination: {
+							url: 'https://docs.sprucebot.com',
+							target: '_blank'
+						}
+					}
 				}
 			}
 		}
