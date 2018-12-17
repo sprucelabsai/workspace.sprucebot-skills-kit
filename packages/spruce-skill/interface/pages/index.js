@@ -79,13 +79,14 @@ class DeveloperPage extends React.Component {
 									text: 'Take me to the docs!',
 									kind: 'primary',
 									target: '_blank',
-									href: 'https://canary-storybook.sprucelabs.ai'
+									href:
+										'https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/tree/dev/packages/spruce-skill/docs#-sprucebot-skills-kit-'
 								},
 								{
 									text: 'Take me to the style guide!',
 									kind: 'secondary',
 									target: '_blank',
-									href: 'https://hello.sprucebot.com/styleguide'
+									href: 'https://canary-storybook.sprucelabs.ai'
 								}
 							]}
 						/>
