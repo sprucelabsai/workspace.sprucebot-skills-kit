@@ -4,7 +4,7 @@
 		"access": "public"
 	},
 	"description": "The base template that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "8.2.1",
+	"version": "8.3.1",
 	"sprucebot-skills-kit-version": "8.2.1",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit",
 	"bugs": {
