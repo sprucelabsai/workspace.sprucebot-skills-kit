@@ -5,8 +5,10 @@ import {
 	Page,
 	PageContent,
 	Heading,
+	Subheading,
 	TextContainer,
-	Button,
+	Text,
+	ButtonGroup,
 	BotText
 } from '@sprucelabs/react-heartwood-components'
 
@@ -62,17 +64,31 @@ class DeveloperPage extends React.Component {
 						<BotText>
 							Use "Jump to Role" above to get started. Also, check out the
 							developer documentation for everything you'll need to get up and
-							running!
+							running! We have added some great new features for you around the
+							new cards and skill views.
 						</BotText>
-						<Button href="https://developer.sprucebot.com" target="_blank">
-							Take me to the docs!
-						</Button>
-						<Button
-							href="https://hello.sprucebot.com/styleguide"
-							target="_blank"
-						>
-							Take me to the style guide!
-						</Button>
+
+						<Subheading>Docs</Subheading>
+						<Text>Cards: TODO: Link here</Text>
+						<Text>Skill Views: TODO: Link here</Text>
+
+						<ButtonGroup
+							kind=""
+							actions={[
+								{
+									text: 'Take me to the docs!',
+									kind: 'primary',
+									target: '_blank',
+									href: 'https://canary-storybook.sprucelabs.ai'
+								},
+								{
+									text: 'Take me to the style guide!',
+									kind: 'secondary',
+									target: '_blank',
+									href: 'https://hello.sprucebot.com/styleguide'
+								}
+							]}
+						/>
 					</TextContainer>
 				</PageContent>
 			</Page>
