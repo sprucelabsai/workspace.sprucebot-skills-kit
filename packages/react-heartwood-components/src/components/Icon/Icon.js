@@ -6,12 +6,16 @@ import cx from 'classnames'
 
 import * as icons from '../../icons.js'
 
-type Props = {
+export type Props = {
 	/** The name of the icon to render. If not found, this will return null. */
 	icon: string,
 
 	/** Set true to render an icon with a stroke, but no fill */
-	isLineIcon?: boolean
+	isLineIcon?: boolean,
+
+	customIcon?: any,
+
+	className?: string
 }
 
 const Icon = (props: Props) => {

@@ -95,5 +95,12 @@ export default {
 	isScrolledAllTheWayLeft(node) {
 		const scrollLeft = node.scrollLeft
 		return scrollLeft <= 0
+	},
+	doesIntersect({ x, y, node }) {
+		const { x: left, y: top } = this.getPosition(node)
+		const right = left + this.getWidth(node)
+		const bottom = top + this.getHeight(node)
+
+		return x >= left && x <= right && y >= top && y <= bottom
 	}
 }

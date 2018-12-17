@@ -43,7 +43,7 @@ type State = {
 	dragEvent: Object
 }
 
-class DragGrid extends PureComponent<Props> {
+class DragGrid extends PureComponent<Props, State> {
 	state = {}
 
 	static defaultProps = {
@@ -279,7 +279,14 @@ class DragGrid extends PureComponent<Props> {
 			const event = this.props.events.find(event => event.id === eventId)
 			const blockIdx = [...eventNode.children].indexOf(blockNode)
 			const block = event.blocks[blockIdx]
-			return { event, block, blockIdx, resize: resizes[idx] }
+			return {
+				event,
+				block,
+				blockIdx,
+				resize: resizes[idx],
+				eventNode,
+				blockNode
+			}
 		})
 		return events.filter(event => event)
 	}
@@ -528,8 +535,6 @@ class DragGrid extends PureComponent<Props> {
 			const b = y - clientY
 
 			const distance = Math.sqrt(a * a + b * b)
-
-			// console.log({ distance })
 
 			//start the drag!
 			if (distance >= this.props.dragThreshold) {
@@ -987,6 +992,8 @@ class DragGrid extends PureComponent<Props> {
 			longPressDelay,
 			onClick,
 			timeFormat,
+			enableAutoScrollX,
+			enableAutoScrollY,
 			...props
 		} = this.props
 

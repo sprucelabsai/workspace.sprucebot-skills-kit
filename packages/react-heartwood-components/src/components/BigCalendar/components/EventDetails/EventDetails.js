@@ -10,18 +10,29 @@ import type { Props as FooterProps } from './components/EventDetailsFooter/Event
 
 type Props = {
 	header: HeaderProps,
-	status: 'event-busy' | 'event-unconfirmed' | 'break' | 'block',
+	kind:
+		| 'default'
+		| 'tentative'
+		| 'active'
+		| 'unavailable'
+		| 'blocked'
+		| 'past'
+		| 'warn'
+		| 'critical',
 	list: ListProps,
 	footer: FooterProps
 }
 
 const EventDetails = (props: Props) => {
-	const { header, list, status, footer } = props
+	const { header, list, kind, footer } = props
 	const parentClass = cx('event-details', {
-		'event-confirmed': status === 'event-busy',
-		'event-unconfirmed': status === 'event-unconfirmed',
-		break: status === 'break',
-		block: status === 'block'
+		'event-fill-tentative': kind === 'tentative',
+		'event-fill-unavailable': kind === 'unavailable',
+		'event-fill-blocked': kind === 'blocked',
+		'event-fill-active': kind === 'active',
+		'event-fill-past': kind === 'past',
+		'event-fill-warn': kind === 'warn',
+		'event-fill-critical': kind === 'critical'
 	})
 
 	return (
@@ -31,6 +42,10 @@ const EventDetails = (props: Props) => {
 			{footer && <EventDetailsFooter {...footer} />}
 		</div>
 	)
+}
+
+EventDetails.defaultProps = {
+	kind: 'default'
 }
 
 export default EventDetails

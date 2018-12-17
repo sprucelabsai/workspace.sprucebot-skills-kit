@@ -1,3 +1,16 @@
+@mixin eventDetailsHeaderFill($fillColor, $borderColor, $textColor) {
+	// border-bottom: 1px solid $borderColor;
+	background-color: $fillColor;
+	color: $textColor;
+
+	.event-details-header__button svg {
+		fill: $textColor;
+	}
+	.bigcalendar__event-block:last-of-type {
+		// border-bottom: none;
+	}
+}
+
 .event-details {
 	width: 100%;
 	padding-bottom: spacing('base');
@@ -21,54 +34,45 @@
 	width: 100%;
 	padding: spacing('base') spacing('base') rem(10) spacing('base');
 
-	.event-confirmed &,
-	.event-in-progress &,
-	.block & {
-		color: $c-white;
+	@include eventDetailsHeaderFill($c-primary, $c-primary, $c-white);
 
-		.event-details-header__button {
-			.btn__icon {
-				fill: $c-white;
-			}
-		}
-
-		.context-menu__button {
-			.btn__icon {
-				stroke: $c-white;
-			}
-		}
+	.event-fill-active & {
+		@include eventDetailsHeaderFill($c-secondary, $c-white, $c-white);
 	}
 
-	.event-confirmed & {
-		background-color: $c-primary;
+	.event-fill-tentative & {
+		@include eventDetailsHeaderFill($c-white, $c-primary, $c-primary);
 	}
 
-	.event-unconfirmed & {
-		border: 1px solid $c-primary;
-
-		.event-details-header__button {
-			.btn__icon {
-				fill: $c-primary;
-			}
-		}
-
-		.context-menu__button {
-			.btn__icon {
-				stroke: $c-primary;
-			}
-		}
+	.event-fill-critical & {
+		@include eventDetailsHeaderFill(
+			$c-ui-critical-lighter,
+			$c-ui-critical,
+			$c-text
+		);
+	}
+	.event-fill-warn & {
+		@include eventDetailsHeaderFill(
+			$c-ui-warn-lighter,
+			$c-ui-warn-dark,
+			$c-text
+		);
 	}
 
-	.event-in-progress & {
-		background-color: $c-secondary;
+	.event-fill-past & {
+		@include eventDetailsHeaderFill(
+			lighten($c-primary, 50%),
+			$c-primary,
+			$c-primary
+		);
 	}
 
-	.break & {
-		background-color: $c-grey-01;
+	.event-fill-blocked & {
+		@include eventDetailsHeaderFill($c-grey-07, $c-grey-07, $c-white);
 	}
 
-	.block & {
-		background-color: $c-text-light;
+	.event-fill-unavailable & {
+		@include eventDetailsHeaderFill($c-grey-00, $c-text, $c-text);
 	}
 }
 

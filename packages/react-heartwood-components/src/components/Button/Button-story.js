@@ -37,6 +37,7 @@ stories
 			disabled={boolean('disabled', false)}
 			isLoading={boolean('isLoading', false)}
 			isSmall={boolean('isSmall', false)}
+			isIconOnly={boolean('isIconOnly', false)}
 			icon={{
 				name: text('icon', null),
 				className: text('iconClassName', 'btn__line-icon')

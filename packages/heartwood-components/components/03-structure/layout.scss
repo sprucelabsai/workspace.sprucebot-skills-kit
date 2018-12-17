@@ -1,6 +1,7 @@
 $layout-padding: spacing('extra-loose');
 $layout-section-spacing: spacing('base');
 $layout-max-width: layout-width('base') + $layout-padding * 2;
+$layout-tight: layout-width('tight') + $layout-padding * 2;
 $layout-max-width-wide: layout-width('wide') + $layout-padding * 2;
 $layout-section-secondary-basis: (
 		layout-width('base') - ($layout-padding * 2) - ($layout-section-spacing * 3)
@@ -23,6 +24,10 @@ $layout-section-secondary-basis: (
 
 	&--centered {
 		margin: -#{$layout-section-spacing} auto 0 auto;
+	}
+
+	&--tight {
+		max-width: $layout-tight;
 	}
 
 	&--wide {

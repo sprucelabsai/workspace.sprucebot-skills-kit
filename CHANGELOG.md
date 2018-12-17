@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.3.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.3.0...v8.3.1) (2018-12-16)
+
+
+### Bug Fixes
+
+* **heartwood:** Remove min-height from .main-content ([d1009b0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d1009b0))
+
+
+
+
+
+# [8.3.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.2.1...v8.3.0) (2018-12-15)
+
+
+### Bug Fixes
+
+* [SBL-1491](https://sprucelabsai.atlassian.net/browse/SBL-1491) on eventblocks bring right-icons above title ([0ad772f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0ad772f))
+* [SBL-1494](https://sprucelabsai.atlassian.net/browse/SBL-1494) update date picker icon to calendar without 17 on it ([2c03e18](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2c03e18))
+* [SBL-1495](https://sprucelabsai.atlassian.net/browse/SBL-1495) update DOW format to be 3 letters ([fdd8827](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fdd8827))
+
+
+### Features
+
+* implement calendar event types in place of classes ([610b0bd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/610b0bd))
+
+
+
+
+
+## [8.2.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.2.0...v8.2.1) (2018-12-14)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
+# [8.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.1.5...v8.2.0) (2018-12-14)
+
+
+### Features
+
+* fix select styling and update colors ([f0220ea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f0220ea))
+* point skill to versioned stylesheet ([36dd001](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/36dd001))
+* sync stylesheets to cdn ([f9735d7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f9735d7))
+
+
+
+
+
+## [8.1.5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.1.4...v8.1.5) (2018-12-12)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
 ## [8.1.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.1.3...v8.1.4) (2018-12-11)
 
 **Note:** Version bump only for package workspace.sprucebot-skills-kit

@@ -4,26 +4,40 @@ import cx from 'classnames'
 import UserAvatar from '../../../Avatar/UserAvatar'
 import eventUtil from '../../utils/event'
 
+import type { ElementRef } from 'react'
+
+type DoubleClickParams = {
+	clientX: number,
+	clientY: number,
+	e: Event
+}
+
 type Props = {
 	users: Array<Object>,
+	doubleClickTime: number,
 	onScroll: Function,
-	onDoubleClick?: Function,
-	doubleClickTime: Number
+	onDoubleClick?: (params: DoubleClickParams) => void,
+	onClick?: (e: Event) => void
 }
 
 class TeammateHeader extends PureComponent<Props> {
-	constructor(props) {
+	domNodeRef: { current: null | ElementRef<'div'> }
+	_lastClickTime: Date
+
+	constructor(props: Props) {
 		super(props)
 		this.domNodeRef = React.createRef()
 	}
 
-	handleClick = e => {
+	handleClick = (e: Event) => {
 		const {
 			doubleClickTime,
-			onDoubleClick = () => {},
-			onClick = () => {}
+			onDoubleClick = (params: DoubleClickParams) => {},
+			onClick = (e: Event) => {}
 		} = this.props
+
 		if (
+			this.domNodeRef.current &&
 			this._lastClickTime &&
 			new Date() - this._lastClickTime < doubleClickTime
 		) {
@@ -39,6 +53,12 @@ class TeammateHeader extends PureComponent<Props> {
 		// keep it from highlighting text
 		e.stopPropagation()
 		e.preventDefault()
+	}
+
+	setScrollLeft = (left: number) => {
+		if (this.domNodeRef.current) {
+			this.domNodeRef.current.scrollLeft = left
+		}
 	}
 
 	render() {

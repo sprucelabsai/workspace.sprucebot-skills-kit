@@ -36,6 +36,11 @@ stories
 			<LayoutSection isSecondary>{card}</LayoutSection>
 		</Layout>
 	))
+	.add('Tight Layout', () => (
+		<Layout width="tight">
+			<LayoutSection>{card}</LayoutSection>
+		</Layout>
+	))
 	.add('Wide Layout', () => (
 		<Layout width="wide">
 			<LayoutSection>{card}</LayoutSection>

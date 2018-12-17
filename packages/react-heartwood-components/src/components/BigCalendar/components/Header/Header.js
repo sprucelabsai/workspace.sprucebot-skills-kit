@@ -1,6 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
 import cx from 'classnames'
+import moment from 'moment-timezone'
 
 // sub components
 import HeaderControls from '../HeaderControls/HeaderControls'
@@ -8,36 +9,39 @@ import Pagination from '../../../Pagination/Pagination'
 import Button from '../../../Button/Button'
 
 type Props = {
-	header: HeaderProps,
-	status: 'event-busy' | 'event-unconfirmed' | 'break' | 'block',
-	list: ListProps,
-	footer: FooterProps,
 	selectedView: string,
 	onChangeView: Function,
 	onBackDate: Function,
 	onNextDate: Function,
-	selectedDate: Object,
-	dateFormat: String,
-	mobileDateFormat: String,
-	fullScreenNode: Object,
-	totalHorizontalPages: Number,
-	currentHorizontalPage: Number,
+	selectedDate: moment,
+	dateFormat: string,
+	mobileDateFormat: string,
+	fullScreenNode?: HTMLElement | HTMLBodyElement | null,
+	totalHorizontalPages: number,
+	currentHorizontalPage: number,
 	onHorizontalPageNext: Function,
 	onHorizontalPageBack: Function,
 	userModeOptions?: Array<Object>,
 	onChangeUserMode?: Function,
-	userMode?: String,
+	userMode?: string,
 	onDateToToday: Function,
 	onSelectDate: Function,
 	onDoubleClick?: Function,
-	onClickMore?: Function
+	onClickMore?: Function,
+	cellDowFormat?: string,
+	cellDayFormat?: string
 }
 
 type State = {
-	showingSubMenu: Boolean
+	showingSubMenu: boolean
 }
 
 class Header extends PureComponent<Props, State> {
+	static defaultProps = {
+		cellDowFormat: 'ddd',
+		cellDayFormat: 'D'
+	}
+
 	state = {
 		showingSubMenu: false
 	}
@@ -66,8 +70,9 @@ class Header extends PureComponent<Props, State> {
 			onHorizontalPageBack,
 			currentHorizontalPage,
 			totalHorizontalPages,
-			doubleClickTime,
 			selectedView,
+			cellDowFormat,
+			cellDayFormat,
 			...props
 		} = this.props
 		return (
@@ -113,8 +118,8 @@ class Header extends PureComponent<Props, State> {
 				</div>
 				<div className="bigcalendar__header-bottom">
 					<div className="bigcalendar__header-smalldate">
-						<p className="dow">{selectedDate.format('dd')}</p>
-						<p className="day">{selectedDate.format('D')}</p>
+						<p className="dow">{selectedDate.format(cellDowFormat)}</p>
+						<p className="day">{selectedDate.format(cellDayFormat)}</p>
 					</div>
 					<Pagination
 						onClickNext={onHorizontalPageNext}
