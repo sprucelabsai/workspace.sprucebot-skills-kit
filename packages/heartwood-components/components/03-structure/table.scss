@@ -36,8 +36,6 @@ PLEASE DELETE ME
 	width: 100%;
 
 	&.table-checkbox-cell {
-		display: inline-flex;
-		align-items: center;
 		padding-left: spacing('base');
 		width: rem(36);
 	}
@@ -62,6 +60,11 @@ PLEASE DELETE ME
 	padding-left: spacing('tight');
 	padding-bottom: spacing('extra-tight');
 	height: rem(44);
+
+	&.table-checkbox-cell {
+		display: inline-flex;
+		align-items: center;
+	}
 
 	&.table-header-cell--is-sortable {
 		cursor: pointer;
