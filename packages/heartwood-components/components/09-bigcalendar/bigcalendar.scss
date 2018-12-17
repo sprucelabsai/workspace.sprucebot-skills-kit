@@ -480,7 +480,6 @@ body.sb-show-main {
 		display: inline-block;
 		background: #fff;
 		position: relative;
-		z-index: 2;
 		width: auto;
 	}
 
@@ -537,6 +536,8 @@ body.sb-show-main {
 		position: absolute;
 		left: rem(4);
 		top: rem(4);
+		z-index: 2;
+		background-color: inherit;
 
 		svg {
 			width: rem(16);

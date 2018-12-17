@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.2.1",
+	"version": "8.3.1",
 	"main": "lib/index.js",
 	"description": "React components for your Sprucebot Skill 💪🏼",
 	"keywords": [
@@ -83,11 +83,10 @@
 		"react-helmet": "^5.2.0",
 		"react-test-renderer": "^16.0.0"
 	},
-	"peerDependencies": {},
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
-		"@sprucelabs/heartwood-components": "^8.2.1",
+		"@sprucelabs/heartwood-components": "^8.3.1",
 		"axios": "^0.18.0",
 		"blueimp-canvas-to-blob": "^3.14.0",
 		"classnames": "^2.2.5",
