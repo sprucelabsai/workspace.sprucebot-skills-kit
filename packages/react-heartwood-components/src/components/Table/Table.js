@@ -1,10 +1,12 @@
 // @flow
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import ReactTable from 'react-table'
 import cx from 'classnames'
 import { Checkbox } from '../Forms'
 import Pagination from '../Pagination/Pagination'
 import Icon from '../Icon/Icon'
+import ContextMenu from '../ContextMenu/ContextMenu'
+import type { Props as ButtonProps } from '../Button/Button'
 import type { Props as PaginationProps } from '../Pagination/Pagination'
 
 type Props = {
@@ -28,6 +30,9 @@ type Props = {
 
 	/** Pagination component props */
 	paginationProps?: PaginationProps,
+
+	/** Enable bulk actions for selectable tables */
+	bulkActions: Array<ButtonProps>,
 
 	/** Makes the table sortable */
 	sortable?: boolean
@@ -96,6 +101,7 @@ export default class Table extends Component<Props, State> {
 			isSelectable,
 			kind,
 			pluralKind,
+			bulkActions,
 			sortable,
 			...rest
 		} = this.props
@@ -157,7 +163,21 @@ export default class Table extends Component<Props, State> {
 				} else if (idx === 1) {
 					return {
 						...col,
-						Header: <p className="table-selected-text">{selectedText}</p>
+						// TODO: Add actions menu for selected location bulk operations
+						Header: (
+							<Fragment>
+								<p className="table-selected-text">{selectedText}</p>
+								{bulkActions && bulkActions.length > 0 && (
+									<ContextMenu
+										actions={bulkActions}
+										text="Actions"
+										isSimple
+										isTextOnly
+										isLeftAligned
+									/>
+								)}
+							</Fragment>
+						)
 					}
 				}
 				return { ...col, Header: null }

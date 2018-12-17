@@ -43,7 +43,7 @@ stories.add('Table', () => (
 				data={data}
 				columns={columns}
 				sortable={true}
-				defaultPageSize={data.length - 1}
+				defaultPageSize={data.length}
 				defaultSorted={[
 					{
 						id: 'publicName',
@@ -60,6 +60,24 @@ stories.add('Table', () => (
 				isSelectable={true}
 				kind="location"
 				selectType="checkbox"
+				bulkActions={[
+					{
+						text: 'Add to location group',
+						onClick: () => console.log('Click')
+					},
+					{
+						text: 'Make locations live',
+						onClick: () => console.log('Click')
+					},
+					{
+						text: 'Hide locations',
+						onClick: () => console.log('Click')
+					},
+					{
+						text: 'Delete locations',
+						onClick: () => console.log('Click')
+					}
+				]}
 				toggleAll={() => console.log('toggleAll')}
 				toggleSelection={() => console.log('toggleSelection')}
 				keyField="id"

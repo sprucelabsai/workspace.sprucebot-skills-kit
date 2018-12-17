@@ -13,7 +13,16 @@ PLEASE DELETE ME
 }
 
 .table {
-	//
+	.context-menu {
+		@include type-style-body-sm;
+
+		.context-menu__item-btn {
+			color: $c-text;
+		}
+	}
+	.context-menu__button {
+		height: rem(36);
+	}
 }
 
 .table-row,
@@ -27,6 +36,8 @@ PLEASE DELETE ME
 	width: 100%;
 
 	&.table-checkbox-cell {
+		display: inline-flex;
+		align-items: center;
 		padding-left: spacing('base');
 		width: rem(36);
 	}
@@ -45,23 +56,19 @@ PLEASE DELETE ME
 
 .table-header-cell {
 	@include type-style-label;
-	padding-top: spacing('tight');
+	display: inline-flex;
+	align-items: center;
+	padding-top: spacing('extra-tight');
 	padding-left: spacing('tight');
-	padding-bottom: spacing('tight');
+	padding-bottom: spacing('extra-tight');
+	height: rem(44);
 
 	&.table-header-cell--is-sortable {
-		padding-top: spacing('extra-tight');
-		padding-bottom: spacing('extra-tight');
 		cursor: pointer;
 
 		// NOTE: Code smells due to restrictions of vendor library: https://github.com/react-tools/react-table
 		> * {
 			display: inline-block;
-		}
-
-		.rt-resizable-header-content {
-			position: relative;
-			top: rem(-6);
 		}
 	}
 
@@ -95,6 +102,8 @@ PLEASE DELETE ME
 
 .table-selected-text {
 	@include type-style-body-sm;
+	display: inline-block;
+	margin-right: rem(8);
 }
 
 .table-pagination__wrapper {
