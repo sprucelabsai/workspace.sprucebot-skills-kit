@@ -1,5 +1,4 @@
 .main-content {
-	min-height: 100vh;
 	padding-top: rem(48);
 
 	@include gt('medium') {
@@ -10,5 +9,9 @@
 		@include gt('medium') {
 			padding-left: rem(40);
 		}
+	}
+
+	.sidebar--is-missing & {
+		padding-left: 0;
 	}
 }

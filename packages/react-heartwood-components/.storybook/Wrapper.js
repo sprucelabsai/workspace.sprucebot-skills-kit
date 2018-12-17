@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import Helmet from 'react-helmet'
 import Page, { PageContent } from '../src/components/Page'
-import '../src/stylesheets/vendor.sass'
 import '../src/stylesheets/global.sass'
 import '@sprucelabs/heartwood-components/stylesheets/heartwood-components.scss'
 

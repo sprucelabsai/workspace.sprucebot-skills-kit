@@ -13,7 +13,7 @@ export type LayoutProps = {
 	isFullBleed?: boolean,
 
 	/** Sets the width of the layout */
-	width?: 'base' | 'wide' | 'full-width'
+	width?: 'base' | 'tight' | 'wide' | 'full-width'
 }
 
 const Layout = (props: LayoutProps) => {
@@ -24,6 +24,7 @@ const Layout = (props: LayoutProps) => {
 			className={cx('layout', className, {
 				'layout--centered': isCentered,
 				'layout--wide': width === 'wide',
+				'layout--tight': width === 'tight',
 				'layout--full-width': width === 'full-width',
 				'layout--full-bleed': isFullBleed
 			})}

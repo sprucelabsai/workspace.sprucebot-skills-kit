@@ -6,7 +6,7 @@ import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
 import Sidebar from '../Core/components/Sidebar/Sidebar'
 
 type Props = {
-	sidebarItems: Array<Object>,
+	sidebarItems?: Array<Object>,
 	user: Object,
 	business: Object,
 	getSearchSuggestionValue?: Function,
@@ -53,23 +53,30 @@ export default class View extends Component<Props, State> {
 			renderSearchSuggestion,
 			children
 		} = this.props
+
 		return (
 			<div
 				className={cx('main-wrapper', {
 					'menu--is-visible': sidebarIsVisible,
-					'sidebar--is-collapsed': !sidebarIsExpanded
+					'sidebar--is-collapsed': !sidebarIsExpanded,
+					'sidebar--is-missing': !sidebarItems || sidebarItems.length === 0
 				})}
 			>
-				<Sidebar
-					items={sidebarItems}
-					sidebarIsVisible={sidebarIsVisible}
-					isExpanded={sidebarIsExpanded}
-					toggleExpanded={this.toggleSidebarExpanded}
-					forceCloseSidebar={this.forceCloseSidebar}
-				/>
+				{sidebarItems && sidebarItems.length > 0 && (
+					<Sidebar
+						items={sidebarItems}
+						sidebarIsVisible={sidebarIsVisible}
+						isExpanded={sidebarIsExpanded}
+						toggleExpanded={this.toggleSidebarExpanded}
+						forceCloseSidebar={this.forceCloseSidebar}
+					/>
+				)}
 				<HeaderPrimary
 					user={user}
 					business={business}
+					enableHamburgerMenu={
+						sidebarItems && sidebarItems.length > 0 ? true : false
+					}
 					toggleSidebarVisibility={this.toggleSidebarVisibility}
 					sidebarIsVisible={sidebarIsVisible}
 					getSearchSuggestionValue={getSearchSuggestionValue}

@@ -14,17 +14,14 @@ import FullScreenIcon from '../../../../../static/assets/icons/ic_fullscreen.svg
 import FullScreenExitIcon from '../../../../../static/assets/icons/ic_fullscreen_exit.svg'
 
 type Props = {
-	header: HeaderProps,
 	status: 'event-busy' | 'event-unconfirmed' | 'break' | 'block',
-	list: ListProps,
-	footer: FooterProps,
 	onBackDate: Function,
 	onNextDate: Function,
 	onChangeView: Function,
 	fullScreenNode: Object,
 	userModeOptions?: Array<Object>,
 	onChangeUserMode?: Function,
-	userMode?: String,
+	userMode?: string,
 	onSelectDate: Function,
 	onDateToToday: Function,
 	selectedDate: Object,
@@ -58,7 +55,7 @@ class HeaderControls extends Component<Props, State> {
 		this.setState({ isDatePickerShown: !this.state.isDatePickerShown })
 	}
 
-	onSelectDate = date => {
+	onSelectDate = (date: moment) => {
 		this.props.onSelectDate && this.props.onSelectDate(date)
 
 		if (!this.props.isDatePickerShown) {
@@ -123,7 +120,7 @@ class HeaderControls extends Component<Props, State> {
 						<Button
 							kind={'simple'}
 							className="bigcalendar__calendarIcon-button"
-							icon={{ name: 'date', isLineIcon: true }}
+							icon={{ name: 'calendar', isLineIcon: true }}
 							onClick={() => this.toggleDatePicker()}
 						/>
 						{isDatePickerShown && !shouldResetDatePicker && (

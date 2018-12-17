@@ -1,14 +1,16 @@
 // @flow
 // TODO: Incorporate Next.js router link
 import React from 'react'
-import type { Node, Element } from 'react'
 import cx from 'classnames'
 import is from 'is_js'
 import SingletonRouter from 'next/router'
 import Link from 'next/link'
-import type { Props as LinkProps } from 'next/link'
 import Loader from '../Loader/Loader'
 import Icon from '../Icon/Icon'
+
+import type { Node, Element } from 'react'
+import type { Props as LinkProps } from 'next/link'
+import type { Props as IconProps } from '../Icon/Icon'
 
 export type Props = {
 	/** Optional class to add to the button. */
@@ -26,6 +28,9 @@ export type Props = {
 	/** Set true to hide any text or icon in the button and show a loader instead. */
 	isLoading?: boolean,
 
+	/** Set true to hide any text in the button. Text should still be provided for accessibility. */
+	isIconOnly?: boolean,
+
 	/** Text for the button. */
 	text?: string,
 
@@ -33,7 +38,7 @@ export type Props = {
 	href?: string,
 
 	/** Icon for the button. */
-	icon?: Node,
+	icon?: Node | IconProps,
 
 	/** Type attribute for HTML button element. Defaults to 'button'. */
 	type?: string,
@@ -55,6 +60,7 @@ const Button = (props: Props) => {
 		isSmall,
 		isFullWidth,
 		isLoading,
+		isIconOnly,
 		text,
 		href,
 		icon,
@@ -73,7 +79,10 @@ const Button = (props: Props) => {
 		'btn-full-width': isFullWidth,
 		'btn--loading': isLoading,
 		'btn-small': isSmall,
-		'btn-icon-only': !text
+		'btn-icon-only': !text || isIconOnly
+	})
+	const textClass = cx('btn__text', {
+		'visually-hidden': isIconOnly
 	})
 
 	// Check if the link is relative (client-side) or absolute
@@ -107,7 +116,7 @@ const Button = (props: Props) => {
 					/>
 				</span>
 			)}
-			{text && <span className="btn__text">{text}</span>}
+			{text && <span className={textClass}>{text}</span>}
 			{isLoading && <Loader />}
 		</span>
 	)
@@ -148,6 +157,7 @@ Button.defaultProps = {
 	isSmall: false,
 	isFullWidth: false,
 	isLoading: false,
+	isIconOnly: false,
 	text: '',
 	href: '',
 	icon: null,

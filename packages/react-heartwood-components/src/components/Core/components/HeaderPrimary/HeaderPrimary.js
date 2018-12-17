@@ -7,6 +7,7 @@ import DefaultLockup from './components/DefaultLockup/DefaultLockup'
 import UserMenu from './components/UserMenu/UserMenu'
 import { Autosuggest } from '../../../Forms'
 import Button from '../../../Button/Button'
+import cx from 'classnames'
 
 type State = {
 	isMenuExpanded: boolean,
@@ -29,10 +30,17 @@ type Props = {
 	getSearchSuggestionValue?: Function,
 
 	/** Passthrough function to render search suggestions */
-	renderSearchSuggestion?: Function
+	renderSearchSuggestion?: Function,
+
+	/** Whether or not we will need to handle hamburger functionality */
+	enableHamburgerMenu: boolean
 }
 
 export default class HeaderPrimary extends Component<Props, State> {
+	static defaultProps = {
+		enableHamburgerMenu: true
+	}
+
 	state = {
 		isMenuExpanded: false,
 		isUserMenuVisible: false
@@ -40,7 +48,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 
 	ref: any
 
-	hideUserMenu = (e: any) => {
+	hideUserMenu = (e: Event) => {
 		if (e.key === 'Escape' || e.target.contains(this.ref)) {
 			this.setState(
 				{
@@ -74,21 +82,31 @@ export default class HeaderPrimary extends Component<Props, State> {
 
 	render() {
 		const { isMenuExpanded, isUserMenuVisible } = this.state
+
 		const {
 			user,
 			business,
 			toggleSidebarVisibility,
 			sidebarIsVisible,
 			getSearchSuggestionValue,
-			renderSearchSuggestion
+			renderSearchSuggestion,
+			enableHamburgerMenu
 		} = this.props
+
 		return (
-			<header className="header-primary" ref={ref => (this.ref = ref)}>
+			<header
+				className={cx('header-primary', {
+					'hamburger-enabled': enableHamburgerMenu
+				})}
+				ref={ref => (this.ref = ref)}
+			>
 				<div className="header-primary__left">
-					<Hamburger
-						onClick={toggleSidebarVisibility}
-						isSidebarVisible={sidebarIsVisible}
-					/>
+					{enableHamburgerMenu && (
+						<Hamburger
+							onClick={toggleSidebarVisibility}
+							isSidebarVisible={sidebarIsVisible}
+						/>
+					)}
 					{business ? (
 						<div>
 							<p className="header-primary__text">{business.name}</p>

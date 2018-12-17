@@ -8,6 +8,7 @@ export {
 	default as Card,
 	CardHeader,
 	CardBody,
+	CardSection,
 	CardFooter,
 	CardBuilder,
 	OnboardingCard,
