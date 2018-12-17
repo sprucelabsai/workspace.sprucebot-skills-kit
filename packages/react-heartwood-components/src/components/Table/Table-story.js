@@ -1,11 +1,12 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text } from '@storybook/addon-knobs/react'
+import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import { data, generateLocations } from '../../../.storybook/data/tableData'
 import Table, { TableSearch } from './index'
 import Layout, { LayoutSection } from '../Layout'
-import Card from '../Card/Card'
+import Card, { CardHeader } from '../Card'
+import Tabs from '../Tabs'
 
 const stories = storiesOf('Table', module)
 
@@ -52,6 +53,19 @@ stories
 			<Layout width="full-width">
 				<LayoutSection>
 					<Card>
+						{boolean('Show Title', false) && (
+							<CardHeader title={text('Title', 'Locations')} />
+						)}
+						{boolean('Show Tabs', false) && (
+							<Tabs
+								tabs={[
+									{ text: 'All locations', isCurrent: true },
+									{ text: 'Midwest' },
+									{ text: 'Northeast' }
+								]}
+								isPadded
+							/>
+						)}
 						<TableSearch placeholder="Search locations…" />
 						<Table
 							className="services-table"
@@ -83,6 +97,9 @@ stories
 		<Layout width="full-width">
 			<LayoutSection>
 				<Card>
+					{boolean('Show Title', false) && (
+						<CardHeader title={text('Title', 'Locations')} />
+					)}
 					<TableSearch placeholder="Search locations…" />
 					<Table
 						className="services-table-selectable"
