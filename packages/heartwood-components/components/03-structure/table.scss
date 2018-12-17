@@ -5,20 +5,20 @@ PLEASE DELETE ME
 .services-table {
 	.table-row,
 	.table-header-row {
-		@supports (display: grid) {
-			display: grid;
-			grid-template-columns: 200px 80px 120px auto;
-		}
+		// @supports (display: grid) {
+		// 	display: grid;
+		// 	grid-template-columns: 200px 80px 120px auto;
+		// }
 	}
 }
 
 .services-table-selectable {
 	.table-row,
 	.table-header-row {
-		@supports (display: grid) {
-			display: grid;
-			grid-template-columns: 36px 200px 80px 120px auto;
-		}
+		// @supports (display: grid) {
+		// 	display: grid;
+		// 	grid-template-columns: 36px 200px 80px 120px auto;
+		// }
 	}
 }
 
@@ -34,6 +34,19 @@ PLEASE DELETE ME
 		height: rem(36);
 	}
 }
+
+.table__inner {
+	overflow: auto;
+}
+
+// .table__inner,
+// .table__pagination {
+// 	padding-left: spacing('base');
+
+// 	@include gt('small') {
+// 		padding-left: 0;
+// 	}
+// }
 
 .table-row,
 .table-header-row {
@@ -114,6 +127,10 @@ PLEASE DELETE ME
 	padding-top: rem(12);
 	padding-left: spacing('tight');
 	padding-bottom: rem(12);
+
+	&:last-child {
+		padding-right: spacing('tight');
+	}
 }
 
 .table-selected-text {

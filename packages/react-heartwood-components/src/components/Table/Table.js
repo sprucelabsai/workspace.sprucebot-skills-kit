@@ -136,7 +136,7 @@ export default class Table extends Component<Props, State> {
 					)
 				},
 				sortable: false,
-				width: 'auto'
+				width: 36
 			})
 		}
 
@@ -174,6 +174,7 @@ export default class Table extends Component<Props, State> {
 										isSimple
 										isTextOnly
 										isLeftAligned
+										closeOnSelectAction
 									/>
 								)}
 							</Fragment>
@@ -191,6 +192,12 @@ export default class Table extends Component<Props, State> {
 				columns={renderColumns}
 				className={cx('table', className)}
 				sortable={isSelectable && selectedIds.length > 0 ? false : sortable}
+				getTableProps={() => ({
+					className: 'table__inner'
+				})}
+				getTbodyProps={() => ({
+					className: 'table__body'
+				})}
 				getTheadTrProps={() => ({
 					className: cx('table-header-row', {
 						'table-header-row--has-selections':
@@ -211,6 +218,9 @@ export default class Table extends Component<Props, State> {
 						'table-checkbox-cell': column.id === 'checkbox'
 					}),
 					width: 'auto'
+				})}
+				getPaginationProps={() => ({
+					className: 'table__paginationq'
 				})}
 				getLoadingProps={state => {
 					return {
