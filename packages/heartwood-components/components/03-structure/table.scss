@@ -7,7 +7,7 @@ PLEASE DELETE ME
 	.table-header-row {
 		@supports (display: grid) {
 			display: grid;
-			grid-template-columns: 20px 200px 80px 120px auto;
+			grid-template-columns: 200px 80px 120px auto;
 		}
 	}
 }
