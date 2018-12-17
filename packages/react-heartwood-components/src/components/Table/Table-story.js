@@ -58,7 +58,7 @@ stories.add('Table', () => (
 					currentPage: 0
 				}}
 				isSelectable={true}
-				kind="location location location location location location"
+				kind="location"
 				selectType="checkbox"
 				toggleAll={() => console.log('toggleAll')}
 				toggleSelection={() => console.log('toggleSelection')}

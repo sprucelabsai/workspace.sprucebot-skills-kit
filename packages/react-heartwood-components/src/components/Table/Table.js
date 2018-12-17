@@ -27,7 +27,10 @@ type Props = {
 	pluralKind?: string,
 
 	/** Pagination component props */
-	paginationProps?: PaginationProps
+	paginationProps?: PaginationProps,
+
+	/** Makes the table sortable */
+	sortable?: boolean
 }
 
 type State = {
@@ -93,6 +96,7 @@ export default class Table extends Component<Props, State> {
 			isSelectable,
 			kind,
 			pluralKind,
+			sortable,
 			...rest
 		} = this.props
 		const { selectedIds, allRowsSelected } = this.state
@@ -132,8 +136,8 @@ export default class Table extends Component<Props, State> {
 
 		// Handle updating header columns when at least one row is selected
 		if (isSelectable && selectedIds.length > 0) {
-			let selectedText = ''
 			const numSelectedRows = selectedIds.length
+			let selectedText = `${numSelectedRows} selected`
 			if (numSelectedRows > 1) {
 				if (pluralKind) {
 					selectedText = `${numSelectedRows} ${pluralKind} selected`
@@ -166,6 +170,7 @@ export default class Table extends Component<Props, State> {
 				data={data}
 				columns={renderColumns}
 				className={cx('table', className)}
+				sortable={isSelectable && selectedIds.length > 0 ? false : sortable}
 				getTheadTrProps={() => ({
 					className: cx('table-header-row', {
 						'table-header-row--has-selections':
@@ -208,23 +213,25 @@ export default class Table extends Component<Props, State> {
 							onClick={toggleSort}
 							className={cx(className, {
 								'table-header-cell--is-sortable':
-									isSortable || isSortedAsc || isSortedDesc,
+									(isSortable || isSortedAsc || isSortedDesc) &&
+									selectedIds.length === 0,
 								'table-header-cell--is-sorted-asc': isSortedAsc,
 								'table-header-cell--is-sorted-desc': isSortedDesc
 							})}
 							{...rest}
 						>
 							{tableProps.children}
-							{(isSortable || isSortedAsc || isSortedDesc) && (
-								<Icon
-									icon="arrow_drop_down"
-									className={cx('table-header-cell__icon', {
-										'table-header-cell__icon--is-visible':
-											isSortedAsc || isSortedDesc,
-										'table-header-cell__icon--is-reversed': isSortedDesc
-									})}
-								/>
-							)}
+							{(isSortable || isSortedAsc || isSortedDesc) &&
+								selectedIds.length === 0 && (
+									<Icon
+										icon="arrow_drop_down"
+										className={cx('table-header-cell__icon', {
+											'table-header-cell__icon--is-visible':
+												isSortedAsc || isSortedDesc,
+											'table-header-cell__icon--is-reversed': isSortedDesc
+										})}
+									/>
+								)}
 						</div>
 					)
 				}}
