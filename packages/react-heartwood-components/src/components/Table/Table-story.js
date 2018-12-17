@@ -2,7 +2,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text } from '@storybook/addon-knobs/react'
-import { data } from '../../../.storybook/data/tableData'
+import { data, generateLocations } from '../../../.storybook/data/tableData'
 import Table from './Table'
 import Layout, { LayoutSection } from '../Layout'
 import Card from '../Card/Card'
@@ -10,6 +10,8 @@ import Card from '../Card/Card'
 const stories = storiesOf('Table', module)
 
 stories.addDecorator(withKnobs)
+
+const locations = generateLocations({ amount: 50 })
 
 const columns = [
 	{
@@ -44,35 +46,38 @@ const columns = [
 ]
 
 stories
-	.add('Table', () => (
-		<Layout width="full-width">
-			<LayoutSection>
-				<Card>
-					<Table
-						className="services-table"
-						data={data}
-						columns={columns}
-						sortable={true}
-						defaultPageSize={data.length}
-						defaultSorted={[
-							{
-								id: 'publicName',
-								desc: false
-							}
-						]}
-						loading={false}
-						paginationProps={{
-							showPages: true,
-							onPageButtonClick: () => console.log('onPageButtonClick'),
-							totalPages: 87,
-							currentPage: 0
-						}}
-						keyField="id"
-					/>
-				</Card>
-			</LayoutSection>
-		</Layout>
-	))
+	.add('Table', () => {
+		console.log({ locations })
+		return (
+			<Layout width="full-width">
+				<LayoutSection>
+					<Card>
+						<Table
+							className="services-table"
+							data={data}
+							columns={columns}
+							sortable={true}
+							defaultPageSize={data.length}
+							defaultSorted={[
+								{
+									id: 'publicName',
+									desc: false
+								}
+							]}
+							loading={false}
+							paginationProps={{
+								showPages: true,
+								onPageButtonClick: () => console.log('onPageButtonClick'),
+								totalPages: 87,
+								currentPage: 0
+							}}
+							keyField="id"
+						/>
+					</Card>
+				</LayoutSection>
+			</Layout>
+		)
+	})
 	.add('Selectable Table', () => (
 		<Layout width="full-width">
 			<LayoutSection>

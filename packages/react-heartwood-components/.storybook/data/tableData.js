@@ -1,3 +1,27 @@
+import Faker from 'Faker'
+import uuidv1 from 'uuid/v1'
+
+export const generateLocations = ({ amount }) => {
+	const locations = []
+
+	for (let i = 0; i < amount; i++) {
+		locations.push({
+			id: Faker.random.number(amount),
+			publicName: Faker.Company.companyName(),
+			storeNumber: Faker.random.number(amount),
+			status: 'open',
+			address:
+				Faker.Address.streetAddress() +
+				', ' +
+				Faker.Address.city() +
+				', IL ' +
+				Faker.Address.zipCode('#####')
+		})
+	}
+
+	return locations
+}
+
 export const data = [
 	{
 		id: 1,
