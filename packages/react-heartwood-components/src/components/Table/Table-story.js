@@ -3,7 +3,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text } from '@storybook/addon-knobs/react'
 import { data, generateLocations } from '../../../.storybook/data/tableData'
-import Table from './Table'
+import Table, { TableSearch } from './index'
 import Layout, { LayoutSection } from '../Layout'
 import Card from '../Card/Card'
 
@@ -52,6 +52,7 @@ stories
 			<Layout width="full-width">
 				<LayoutSection>
 					<Card>
+						<TableSearch placeholder="Search locations…" />
 						<Table
 							className="services-table"
 							data={locations}
@@ -82,6 +83,7 @@ stories
 		<Layout width="full-width">
 			<LayoutSection>
 				<Card>
+					<TableSearch placeholder="Search locations…" />
 					<Table
 						className="services-table-selectable"
 						data={locations}

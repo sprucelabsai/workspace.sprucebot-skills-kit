@@ -163,7 +163,6 @@ export default class Table extends Component<Props, State> {
 				} else if (idx === 1) {
 					return {
 						...col,
-						// TODO: Add actions menu for selected location bulk operations
 						Header: (
 							<Fragment>
 								<p className="table-selected-text">{selectedText}</p>
@@ -233,7 +232,6 @@ export default class Table extends Component<Props, State> {
 					const { toggleSort, className, ...rest } = tableProps
 					const isSortable =
 						className && className.indexOf('-cursor-pointer') > -1
-					// const isSortable = true
 					const isSortedAsc = className && className.indexOf('-sort-asc') > -1
 					const isSortedDesc =
 						tableProps.className &&

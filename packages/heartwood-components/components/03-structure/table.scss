@@ -1,27 +1,3 @@
-/**
-Presentation Example
-PLEASE DELETE ME
-*/
-.services-table {
-	.table-row,
-	.table-header-row {
-		// @supports (display: grid) {
-		// 	display: grid;
-		// 	grid-template-columns: 200px 80px 120px auto;
-		// }
-	}
-}
-
-.services-table-selectable {
-	.table-row,
-	.table-header-row {
-		// @supports (display: grid) {
-		// 	display: grid;
-		// 	grid-template-columns: 36px 200px 80px 120px auto;
-		// }
-	}
-}
-
 .table {
 	.context-menu {
 		@include type-style-body-sm;
@@ -33,6 +9,11 @@ PLEASE DELETE ME
 	.context-menu__button {
 		height: rem(36);
 	}
+}
+
+.table-search__wrapper {
+	padding: spacing('base');
+	border-bottom: 1px solid $c-border;
 }
 
 .table__inner {

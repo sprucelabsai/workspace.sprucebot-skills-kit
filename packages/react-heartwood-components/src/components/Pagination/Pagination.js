@@ -79,8 +79,6 @@ const Pagination = (props: Props) => {
 		displayPages.splice(1, 0, { text: '…' })
 		displayPages.splice(displayPages.length - 1, 0, { text: '…' })
 	}
-	console.log({ totalPages })
-	console.log({ displayPages })
 
 	const kind = isSimple ? 'simple' : 'secondary'
 
