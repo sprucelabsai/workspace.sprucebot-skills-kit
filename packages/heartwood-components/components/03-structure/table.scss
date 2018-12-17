@@ -7,7 +7,7 @@ PLEASE DELETE ME
 	.table-header-row {
 		@supports (display: grid) {
 			display: grid;
-			grid-template-columns: 20px 200px 80px 120px auto;
+			grid-template-columns: 36px 200px 80px 120px auto;
 		}
 	}
 }
@@ -21,15 +21,26 @@ PLEASE DELETE ME
 	display: flex;
 	border-bottom: 1px solid $c-border-light;
 }
-.table {
-	.table-cell,
-	.table-header-cell {
-		width: 100%;
+
+.table-cell,
+.table-header-cell {
+	width: 100%;
+
+	&.table-checkbox-cell {
+		padding-left: spacing('base');
+		width: rem(36);
 	}
 }
 
 .table-header-row {
 	background-color: $c-grey-00;
+
+	&.table-header-row--has-selections {
+		display: flex;
+		.table-header-cell:nth-child(n + 3) {
+			display: none;
+		}
+	}
 }
 
 .table-header-cell {
@@ -53,6 +64,11 @@ PLEASE DELETE ME
 			top: rem(-7);
 		}
 	}
+
+	.table-header-row--has-selections & {
+		letter-spacing: 0;
+		text-transform: none;
+	}
 }
 
 .table-header-cell__icon {
@@ -75,6 +91,10 @@ PLEASE DELETE ME
 	padding-top: rem(12);
 	padding-left: spacing('tight');
 	padding-bottom: rem(12);
+}
+
+.table-selected-text {
+	@include type-style-body-sm;
 }
 
 .table-pagination__wrapper {

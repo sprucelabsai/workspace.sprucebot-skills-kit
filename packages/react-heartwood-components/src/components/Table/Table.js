@@ -20,6 +20,12 @@ type Props = {
 	/** Set true if the table rows can be selected */
 	isSelectable?: boolean,
 
+	/** The kind of data this table displays. This will affect the text shown when at least one row is selected. */
+	kind?: string,
+
+	/** Optional text for pluralization when multiple rows are selected */
+	pluralKind?: string,
+
 	/** Pagination component props */
 	paginationProps?: PaginationProps
 }
@@ -85,6 +91,8 @@ export default class Table extends Component<Props, State> {
 			className,
 			paginationProps,
 			isSelectable,
+			kind,
+			pluralKind,
 			...rest
 		} = this.props
 		const { selectedIds, allRowsSelected } = this.state
@@ -112,13 +120,43 @@ export default class Table extends Component<Props, State> {
 					return (
 						<Checkbox
 							id={id}
-							// TODO: Make this be selected when all rows are selected
 							checked={selectedIds.indexOf(id) > -1}
 							onChange={() => this.handleChange({ id, pageSize })}
 						/>
 					)
 				},
-				sortable: false
+				sortable: false,
+				width: 'auto'
+			})
+		}
+
+		// Handle updating header columns when at least one row is selected
+		if (isSelectable && selectedIds.length > 0) {
+			let selectedText = ''
+			const numSelectedRows = selectedIds.length
+			if (numSelectedRows > 1) {
+				if (pluralKind) {
+					selectedText = `${numSelectedRows} ${pluralKind} selected`
+				} else if (kind) {
+					selectedText = `${numSelectedRows} ${kind}s selected`
+				}
+			} else {
+				if (kind) {
+					selectedText = `${numSelectedRows} ${kind} selected`
+				}
+			}
+
+			// Change the header text to reflect which rows are selected
+			renderColumns = renderColumns.map((col, idx) => {
+				if (idx === 0) {
+					return col
+				} else if (idx === 1) {
+					return {
+						...col,
+						Header: <p className="table-selected-text">{selectedText}</p>
+					}
+				}
+				return { ...col, Header: null }
 			})
 		}
 
@@ -129,16 +167,25 @@ export default class Table extends Component<Props, State> {
 				columns={renderColumns}
 				className={cx('table', className)}
 				getTheadTrProps={() => ({
-					className: 'table-header-row'
+					className: cx('table-header-row', {
+						'table-header-row--has-selections':
+							isSelectable && selectedIds.length > 0
+					})
 				})}
-				getTheadThProps={() => ({
-					className: 'table-header-cell'
+				getTheadThProps={(state, rowInfo, column, instance) => ({
+					className: cx('table-header-cell', {
+						'table-checkbox-cell': column.id === 'checkbox'
+					}),
+					width: 'auto'
 				})}
 				getTrProps={() => ({
 					className: 'table-row'
 				})}
-				getTdProps={() => ({
-					className: 'table-cell'
+				getTdProps={(state, rowInfo, column, instance) => ({
+					className: cx('table-cell', {
+						'table-checkbox-cell': column.id === 'checkbox'
+					}),
+					width: 'auto'
 				})}
 				getLoadingProps={state => {
 					return {
