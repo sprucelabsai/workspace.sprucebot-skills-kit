@@ -67,7 +67,7 @@ stories
 		<Layout width="full-width">
 			<Card>
 				<Table
-					className="services-table table--is-selectable"
+					className="services-table-selectable"
 					data={data}
 					columns={columns}
 					sortable={true}

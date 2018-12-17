@@ -10,14 +10,14 @@ PLEASE DELETE ME
 			grid-template-columns: 200px 80px 120px auto;
 		}
 	}
+}
 
-	&.table--is-selectable {
-		.table-row,
-		.table-header-row {
-			@supports (display: grid) {
-				display: grid;
-				grid-template-columns: 36px 200px 80px 120px auto;
-			}
+.services-table-selectable {
+	.table-row,
+	.table-header-row {
+		@supports (display: grid) {
+			display: grid;
+			grid-template-columns: 36px 200px 80px 120px auto;
 		}
 	}
 }
