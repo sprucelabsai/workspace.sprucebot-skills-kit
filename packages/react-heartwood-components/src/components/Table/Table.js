@@ -1,15 +1,21 @@
 // @flow
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
-import checkboxHOC from 'react-table/lib/hoc/selectTable'
 import cx from 'classnames'
+import { Checkbox } from '../Forms'
 import Pagination from '../Pagination/Pagination'
 import Icon from '../Icon/Icon'
 import type { Props as PaginationProps } from '../Pagination/Pagination'
 
 type Props = {
+	/** Columns of the table */
+	columns: Array<Object>,
+
 	/** Optional classname to add to the table. Useful for grid styling */
 	className?: string,
+
+	/** Set true if the table rows can be selected */
+	isSelectable?: boolean,
 
 	/** Pagination component props */
 	paginationProps?: PaginationProps
@@ -21,13 +27,37 @@ export default class Table extends Component<Props, State> {
 	state = {}
 	static defaultProps = {
 		className: '',
-		paginationProps: {}
+		paginationProps: {},
+		isSelectable: false
 	}
 
 	render() {
-		const { className, paginationProps, ...rest } = this.props
+		const {
+			columns,
+			className,
+			paginationProps,
+			isSelectable,
+			...rest
+		} = this.props
+
+		let renderColumns = [...columns]
+		if (isSelectable) {
+			renderColumns.unshift({
+				id: 'checkbox',
+				accessor: '',
+				Header: () => <Checkbox />,
+				Cell: ({ original }) => {
+					const { id } = original
+					console.log({ original })
+					return <Checkbox id={id} />
+				},
+				sortable: false
+			})
+		}
+
 		return (
 			<ReactTable
+				columns={renderColumns}
 				className={cx('table', className)}
 				getTheadTrProps={() => ({
 					className: 'table-header-row'
