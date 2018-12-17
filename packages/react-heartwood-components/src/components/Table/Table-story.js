@@ -112,7 +112,30 @@ stories
 					{boolean('Show Title', false) && (
 						<CardHeader title={text('Title', 'Locations')} />
 					)}
+					{boolean('Show Tabs', false) && (
+						<Tabs
+							tabs={[
+								{ text: 'All locations', isCurrent: true },
+								{ text: 'Midwest' },
+								{ text: 'Northeast' }
+							]}
+							isPadded
+						/>
+					)}
 					<TableSearch placeholder="Search locations…" />
+					{boolean('Is Filtered', false) && (
+						<TableFilters
+							filters={[
+								{ text: 'State: IL' },
+								{ text: 'Status: Published' },
+								{ text: 'City: Bolingbrook' },
+								{ text: 'City: Chicago' },
+								{
+									text: 'Chimera Hair Salon'
+								}
+							]}
+						/>
+					)}
 					<Table
 						className="services-table-selectable"
 						data={locations}

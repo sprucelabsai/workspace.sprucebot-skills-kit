@@ -1,4 +1,5 @@
 // @flow
+// Uses React Table. See https://react-table.js.org/#/story/readme details.
 import React, { Component, Fragment } from 'react'
 import ReactTable from 'react-table'
 import cx from 'classnames'
