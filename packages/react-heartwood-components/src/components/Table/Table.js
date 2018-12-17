@@ -25,12 +25,16 @@ type Props = {
 }
 
 type State = {
-	selectedIds: Array<string>
+	selectedIds: Array<string>,
+	allRowsSelected: boolean
 }
 
 export default class Table extends Component<Props, State> {
+	table: any
+
 	state = {
-		selectedIds: []
+		selectedIds: [],
+		allRowsSelected: false
 	}
 	static defaultProps = {
 		className: '',
@@ -38,7 +42,7 @@ export default class Table extends Component<Props, State> {
 		isSelectable: false
 	}
 
-	handleChange = ({ id }: any) => {
+	handleChange = ({ id, pageSize }: any) => {
 		this.setState(prevState => {
 			const idx = prevState.selectedIds.indexOf(id)
 			let newIds = [...prevState.selectedIds]
@@ -52,9 +56,26 @@ export default class Table extends Component<Props, State> {
 				}
 			}
 			return {
-				selectedIds: newIds
+				selectedIds: newIds,
+				allRowsSelected: newIds.length === pageSize
 			}
 		})
+	}
+
+	handleSelectAll = () => {
+		const currentPage = this.table.state.page
+		const pageSize = this.table.state.pageSize
+		const allRows = this.table.getResolvedState().sortedData
+		const startIdx = currentPage * pageSize
+		const currentRows = allRows
+			.slice(startIdx, startIdx + pageSize)
+			.map(item => item._original)
+		const selectedIds = currentRows.map(row => row.id)
+
+		this.setState(prevState => ({
+			allRowsSelected: !prevState.allRowsSelected,
+			selectedIds: prevState.allRowsSelected ? [] : selectedIds
+		}))
 	}
 
 	render() {
@@ -66,7 +87,7 @@ export default class Table extends Component<Props, State> {
 			isSelectable,
 			...rest
 		} = this.props
-		const { selectedIds } = this.state
+		const { selectedIds, allRowsSelected } = this.state
 
 		let renderColumns = [...columns]
 		if (isSelectable) {
@@ -75,15 +96,27 @@ export default class Table extends Component<Props, State> {
 				accessor: '',
 				Header: () => (
 					<Checkbox
+						id=""
 						isIndeterminate={
-							selectedIds.length > 0 && selectedIds.length < data.length
+							!allRowsSelected &&
+							(selectedIds.length > 0 && selectedIds.length < data.length)
 						}
-						checked={selectedIds.length === data.length}
+						// NOTE: Using state here because this Header can't access page size on its own
+						checked={allRowsSelected}
+						onChange={() => this.handleSelectAll()}
 					/>
 				),
-				Cell: ({ original }) => {
+				Cell: props => {
+					const { original, pageSize } = props
 					const { id } = original
-					return <Checkbox id={id} onChange={() => this.handleChange({ id })} />
+					return (
+						<Checkbox
+							id={id}
+							// TODO: Make this be selected when all rows are selected
+							checked={selectedIds.indexOf(id) > -1}
+							onChange={() => this.handleChange({ id, pageSize })}
+						/>
+					)
 				},
 				sortable: false
 			})
@@ -91,6 +124,7 @@ export default class Table extends Component<Props, State> {
 
 		return (
 			<ReactTable
+				ref={ref => (this.table = ref)}
 				data={data}
 				columns={renderColumns}
 				className={cx('table', className)}

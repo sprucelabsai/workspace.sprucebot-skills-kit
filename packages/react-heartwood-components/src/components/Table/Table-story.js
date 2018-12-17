@@ -43,7 +43,7 @@ stories.add('Table', () => (
 				data={data}
 				columns={columns}
 				sortable={true}
-				defaultPageSize={data.length}
+				defaultPageSize={data.length - 1}
 				defaultSorted={[
 					{
 						id: 'publicName',
