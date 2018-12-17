@@ -11,15 +11,15 @@ const stories = storiesOf('Table', module)
 
 stories.addDecorator(withKnobs)
 
-const locations = generateLocations({ amount: 50 })
+const locations = generateLocations({ amount: 200 })
 
 const columns = [
 	{
 		Header: 'Public Name',
 		accessor: 'publicName',
 		// NOTE: It looks like with has to be passed here to override built-in inline styles
-		minWidth: 200,
-		maxWidth: 300
+		minWidth: 300,
+		maxWidth: 400
 		// width: 'auto'
 	},
 	{
@@ -39,8 +39,8 @@ const columns = [
 	{
 		Header: 'Address',
 		accessor: 'address',
-		minWidth: 340,
-		maxWidth: 400
+		minWidth: 420,
+		maxWidth: 500
 		// width: '100%'
 	}
 ]
@@ -54,10 +54,10 @@ stories
 					<Card>
 						<Table
 							className="services-table"
-							data={data}
+							data={locations}
 							columns={columns}
 							sortable={true}
-							defaultPageSize={data.length}
+							defaultPageSize={50}
 							defaultSorted={[
 								{
 									id: 'publicName',

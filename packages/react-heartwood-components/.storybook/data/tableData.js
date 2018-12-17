@@ -6,16 +6,16 @@ export const generateLocations = ({ amount }) => {
 
 	for (let i = 0; i < amount; i++) {
 		locations.push({
-			id: Faker.random.number(amount),
+			id: uuidv1(),
 			publicName: Faker.Company.companyName(),
 			storeNumber: Faker.random.number(amount),
-			status: 'open',
+			status: Math.floor(Math.random() * 2) == 0 ? 'Open' : 'Hidden',
 			address:
 				Faker.Address.streetAddress() +
 				', ' +
 				Faker.Address.city() +
 				', IL ' +
-				Faker.Address.zipCode('#####')
+				Faker.Address.zipCode()
 		})
 	}
 
