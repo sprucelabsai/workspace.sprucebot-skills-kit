@@ -11,7 +11,7 @@ const stories = storiesOf('Table', module)
 
 stories.addDecorator(withKnobs)
 
-const locations = generateLocations({ amount: 200 })
+const locations = generateLocations({ amount: 149 })
 
 const columns = [
 	{
@@ -68,7 +68,7 @@ stories
 							paginationProps={{
 								showPages: true,
 								onPageButtonClick: () => console.log('onPageButtonClick'),
-								totalPages: 87,
+								totalPages: Math.ceil(locations.length / 50),
 								currentPage: 0
 							}}
 							keyField="id"
@@ -84,10 +84,10 @@ stories
 				<Card>
 					<Table
 						className="services-table-selectable"
-						data={data}
+						data={locations}
 						columns={columns}
 						sortable={true}
-						defaultPageSize={data.length}
+						defaultPageSize={50}
 						defaultSorted={[
 							{
 								id: 'publicName',
@@ -98,7 +98,7 @@ stories
 						paginationProps={{
 							showPages: true,
 							onPageButtonClick: () => console.log('onPageButtonClick'),
-							totalPages: 87,
+							totalPages: Math.ceil(locations.length / 50),
 							currentPage: 0
 						}}
 						isSelectable

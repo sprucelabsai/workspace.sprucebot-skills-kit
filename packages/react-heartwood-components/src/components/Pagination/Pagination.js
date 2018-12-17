@@ -64,7 +64,9 @@ const Pagination = (props: Props) => {
 				page === totalPages - 3 ||
 				page === currentPage
 		)
-		displayPages.splice(3, 0, { text: '…' })
+		if (totalPages > 6) {
+			displayPages.splice(3, 0, { text: '…' })
+		}
 	} else {
 		displayPages = pagesArray.filter(
 			page =>
@@ -77,6 +79,8 @@ const Pagination = (props: Props) => {
 		displayPages.splice(1, 0, { text: '…' })
 		displayPages.splice(displayPages.length - 1, 0, { text: '…' })
 	}
+	console.log({ totalPages })
+	console.log({ displayPages })
 
 	const kind = isSimple ? 'simple' : 'secondary'
 
