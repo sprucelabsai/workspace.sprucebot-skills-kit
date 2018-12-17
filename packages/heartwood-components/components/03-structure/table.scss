@@ -7,7 +7,17 @@ PLEASE DELETE ME
 	.table-header-row {
 		@supports (display: grid) {
 			display: grid;
-			grid-template-columns: 36px 200px 80px 120px auto;
+			grid-template-columns: 200px 80px 120px auto;
+		}
+	}
+
+	&.table--is-selectable {
+		.table-row,
+		.table-header-row {
+			@supports (display: grid) {
+				display: grid;
+				grid-template-columns: 36px 200px 80px 120px auto;
+			}
 		}
 	}
 }
@@ -35,8 +45,11 @@ PLEASE DELETE ME
 .table-header-cell {
 	width: 100%;
 
-	&.table-checkbox-cell {
+	&:first-child {
 		padding-left: spacing('base');
+	}
+
+	&.table-checkbox-cell {
 		width: rem(36);
 	}
 }
