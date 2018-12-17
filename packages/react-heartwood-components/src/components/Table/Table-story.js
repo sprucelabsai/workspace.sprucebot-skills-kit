@@ -42,7 +42,7 @@ stories.add('Table', () => (
 				className="services-table"
 				data={data}
 				columns={columns}
-				sortable={false}
+				sortable={true}
 				defaultPageSize={data.length}
 				defaultSorted={[
 					{
