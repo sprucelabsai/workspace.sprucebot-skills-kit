@@ -8,6 +8,9 @@ import Icon from '../Icon/Icon'
 import type { Props as PaginationProps } from '../Pagination/Pagination'
 
 type Props = {
+	/** Table data */
+	data: Array<Object>,
+
 	/** Columns of the table */
 	columns: Array<Object>,
 
@@ -21,35 +24,66 @@ type Props = {
 	paginationProps?: PaginationProps
 }
 
-type State = {}
+type State = {
+	selectedIds: Array<string>
+}
 
 export default class Table extends Component<Props, State> {
-	state = {}
+	state = {
+		selectedIds: []
+	}
 	static defaultProps = {
 		className: '',
 		paginationProps: {},
 		isSelectable: false
 	}
 
+	handleChange = ({ id }: any) => {
+		this.setState(prevState => {
+			const idx = prevState.selectedIds.indexOf(id)
+			let newIds = [...prevState.selectedIds]
+			if (idx > -1) {
+				newIds.splice(idx, 1)
+			} else {
+				if (prevState.selectedIds.length === 0) {
+					newIds = [id]
+				} else {
+					newIds.push(id)
+				}
+			}
+			return {
+				selectedIds: newIds
+			}
+		})
+	}
+
 	render() {
 		const {
+			data,
 			columns,
 			className,
 			paginationProps,
 			isSelectable,
 			...rest
 		} = this.props
+		const { selectedIds } = this.state
 
 		let renderColumns = [...columns]
 		if (isSelectable) {
 			renderColumns.unshift({
 				id: 'checkbox',
 				accessor: '',
-				Header: () => <Checkbox />,
+				Header: () => (
+					<Checkbox
+						isIndeterminate={
+							selectedIds.length > 0 && selectedIds.length < data.length
+						}
+						checked={selectedIds.length === data.length}
+					/>
+				),
 				Cell: ({ original }) => {
 					const { id } = original
-					console.log({ original })
-					return <Checkbox id={id} />
+					return <Checkbox id={id} onChange={() => this.handleChange({ id })} />
 				},
 				sortable: false
 			})
@@ -57,6 +91,7 @@ export default class Table extends Component<Props, State> {
 
 		return (
 			<ReactTable
+				data={data}
 				columns={renderColumns}
 				className={cx('table', className)}
 				getTheadTrProps={() => ({
