@@ -16,18 +16,20 @@
 	border-bottom: 1px solid $c-border;
 }
 
+.table-filters__wrapper {
+	display: flex;
+	flex-flow: row nowrap;
+	padding: spacing('tight') spacing('base');
+	overflow-x: auto;
+
+	.tag {
+		flex: 1 0 auto;
+	}
+}
+
 .table__inner {
 	overflow: auto;
 }
-
-// .table__inner,
-// .table__pagination {
-// 	padding-left: spacing('base');
-
-// 	@include gt('small') {
-// 		padding-left: 0;
-// 	}
-// }
 
 .table-row,
 .table-header-row {

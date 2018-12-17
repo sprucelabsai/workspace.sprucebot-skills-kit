@@ -3,7 +3,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import { data, generateLocations } from '../../../.storybook/data/tableData'
-import Table, { TableSearch } from './index'
+import Table, { TableSearch, TableFilters } from './index'
 import Layout, { LayoutSection } from '../Layout'
 import Card, { CardHeader } from '../Card'
 import Tabs from '../Tabs'
@@ -20,8 +20,8 @@ const columns = [
 		accessor: 'publicName',
 		// NOTE: It looks like with has to be passed here to override built-in inline styles
 		minWidth: 300,
-		maxWidth: 400
-		// width: 'auto'
+		maxWidth: 400,
+		Cell: row => <a href="#">{row.value}</a>
 	},
 	{
 		Header: 'Store',
@@ -48,7 +48,6 @@ const columns = [
 
 stories
 	.add('Table', () => {
-		console.log({ locations })
 		return (
 			<Layout width="full-width">
 				<LayoutSection>
@@ -67,6 +66,19 @@ stories
 							/>
 						)}
 						<TableSearch placeholder="Search locations…" />
+						{boolean('Is Filtered', false) && (
+							<TableFilters
+								filters={[
+									{ text: 'State: IL' },
+									{ text: 'Status: Published' },
+									{ text: 'City: Bolingbrook' },
+									{ text: 'City: Chicago' },
+									{
+										text: 'Chimera Hair Salon'
+									}
+								]}
+							/>
+						)}
 						<Table
 							className="services-table"
 							data={locations}
