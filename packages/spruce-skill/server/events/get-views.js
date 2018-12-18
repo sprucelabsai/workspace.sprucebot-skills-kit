@@ -12,6 +12,20 @@ module.exports = async (ctx, next) => {
 
 		switch (ctx.event.payload.page) {
 			case 'location_dashboard':
+				if (
+					!ctx.event.payload.locationId ||
+					!ctx.event.payload.organizationId
+				) {
+					throw new Error('MISSING_PARAMETERS')
+				}
+				const showPage = await ctx.services.acl.userIsAuthorizedForAcls({
+					userId: ctx.event.payload.userId,
+					locationId: ctx.event.payload.locationId,
+					organizationId: ctx.event.payload.organizationId,
+					permissions: {
+						core: ['can_manage_organization']
+					}
+				})
 				views.push({
 					title: 'My skill',
 					url: `${config.INTERFACE_HOST}/location-dashboard`
