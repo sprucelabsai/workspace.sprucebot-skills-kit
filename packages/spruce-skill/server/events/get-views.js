@@ -31,6 +31,12 @@ module.exports = async (ctx, next) => {
 					url: `${config.INTERFACE_HOST}/location-dashboard`
 				})
 				break
+			case 'marketing':
+				views.push({
+					title: 'My skill',
+					url: `${config.INTERFACE_HOST}/marketing`
+				})
+				break
 		}
 
 		ctx.body = views
