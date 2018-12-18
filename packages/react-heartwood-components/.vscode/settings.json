@@ -8,7 +8,5 @@
 	"git.ignoreLimitWarning": true,
 	"cSpell.words": ["callout", "stringify'able", "uploader"],
 	"editor.formatOnSave": true,
-	"prettier.semi": false,
-	"prettier.singleQuote": true,
-	"prettier.useTabs": true
+	"prettier.eslintIntegration": true
 }

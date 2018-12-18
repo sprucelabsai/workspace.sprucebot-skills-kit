@@ -6,9 +6,7 @@
 	},
 	"git.ignoreLimitWarning": true,
 	"editor.formatOnSave": true,
-	"prettier.semi": false,
-	"prettier.singleQuote": true,
-	"prettier.useTabs": true,
+	"prettier.eslintIntegration": true,
 	"editor.formatOnSaveTimeout": 750,
 	"workbench.editor.swipeToNavigate": true
 }
