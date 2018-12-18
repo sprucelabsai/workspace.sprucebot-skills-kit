@@ -13,6 +13,40 @@ try {
 }
 
 module.exports = {
+	cards: {
+		exampleCard: {
+			meta: {
+				title: 'Example card in default config',
+				comment: 'This is a developer example card',
+				kind: 'standard', // standard, carousel, and appointment
+				slug: 'user_dashboard'
+			},
+			card: {
+				header: {
+					title: 'Example card in default config'
+				},
+				bodies: [
+					{
+						image: {
+							url: 'https://picsum.photos/720/360/?random',
+							text: 'Random image being set.',
+							width: 720,
+							heght: 360
+						}
+					}
+				],
+				footer: {
+					primary: {
+						text: 'Sprucebot Docs',
+						destination: {
+							url: 'https://docs.sprucebot.com',
+							target: '_blank'
+						}
+					}
+				}
+			}
+		}
+	},
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
 	PACKAGE_NAME: packageJSON.name,
@@ -55,6 +89,9 @@ module.exports = {
 	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
 	eventContract: {
 		events: {
+			'get-page-cards': {
+				description: 'Core asks this skill to provide cards for a dashboard'
+			}
 			// Other events we could subscribe to
 			// 'was-installed': {
 			// 	name: 'was-installed',

@@ -34,7 +34,8 @@ const {
 	METRICS_ENABLED,
 	METRICS_REQUESTS_DISABLED,
 	METRICS_SERVER_STATS_DISABLED,
-	METRICS_SEQUELIZE_DISABLED
+	METRICS_SEQUELIZE_DISABLED,
+	cards
 } = require('config')
 
 // Construct a new Sprucebot
@@ -51,7 +52,8 @@ const sprucebot = new Sprucebot({
 	dbEnabled: sequelizeOptions && sequelizeOptions.enabled,
 	eventContract: eventContract,
 	version: skillPackage.version,
-	skillsKitVersion: skillPackage['sprucebot-skills-kit-version']
+	skillsKitVersion: skillPackage['sprucebot-skills-kit-version'],
+	cards
 })
 
 let server
@@ -88,7 +90,8 @@ setTimeout(async () => {
 		metricsEnabled: METRICS_ENABLED,
 		metricsRequestsDisabled: METRICS_REQUESTS_DISABLED,
 		metricsServerStatsDisabled: METRICS_SERVER_STATS_DISABLED,
-		metricsSequelizeDisabled: METRICS_SEQUELIZE_DISABLED
+		metricsSequelizeDisabled: METRICS_SEQUELIZE_DISABLED,
+		cards
 	})
 	if (process.env.ENABLE_SWAGGER_DOCS === 'true') {
 		generateSwaggerDocs()
