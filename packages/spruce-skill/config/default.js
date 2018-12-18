@@ -96,7 +96,7 @@ module.exports = {
 		// These are ACLs from other skills or core that we're requesting
 		requests: {
 			// The permissions from Core that we're requesting
-			core: ['can_manage_location'],
+			core: ['can_manage_organization', 'can_update_location'],
 			// The keys are the skill slug with an array of permissions from that skill we're requesting
 			scheduling: ['can_update_timeblocks'],
 			booking: ['can_create_appointment', 'can_edit_teammate_appointments']
@@ -106,12 +106,14 @@ module.exports = {
 			can_do_example: {
 				// The label will show up to describe this permission on the Organization Jobs management page
 				label: 'If the user can create an appointment for another user.',
+				// The type may be "organization" or "location". This determines how the permission is checked.
+				type: 'location',
 				// The default permissions for this ACL will be used if it is not overridden on the Organization Jobs management page
 				defaults: {
 					guest: false,
-					teammate: true,
-					manager: true,
-					groupManager: true
+					teammate: false,
+					manager: false,
+					groupManager: false
 				}
 			}
 		}

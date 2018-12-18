@@ -5,10 +5,8 @@ import {
 	Page,
 	PageContent,
 	Heading,
-	Subheading,
 	TextContainer,
-	Text,
-	ButtonGroup,
+	Button,
 	BotText
 } from '@sprucelabs/react-heartwood-components'
 
@@ -17,7 +15,7 @@ import '../styles/global.scss'
 class DeveloperPage extends React.Component {
 	static getInitialProps(props) {
 		return {
-			public: props.config.DEV_MODE
+			// public: props.config.DEV_MODE
 		}
 	}
 
@@ -64,32 +62,17 @@ class DeveloperPage extends React.Component {
 						<BotText>
 							Use "Jump to Role" above to get started. Also, check out the
 							developer documentation for everything you'll need to get up and
-							running! We have added some great new features for you around the
-							new cards and skill views.
+							running!
 						</BotText>
-
-						<Subheading>Docs</Subheading>
-						<Text>Cards: TODO: Link here</Text>
-						<Text>Skill Views: TODO: Link here</Text>
-
-						<ButtonGroup
-							kind=""
-							actions={[
-								{
-									text: 'Take me to the docs!',
-									kind: 'primary',
-									target: '_blank',
-									href:
-										'https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/tree/dev/packages/spruce-skill/docs#-sprucebot-skills-kit-'
-								},
-								{
-									text: 'Take me to the style guide!',
-									kind: 'secondary',
-									target: '_blank',
-									href: 'https://canary-storybook.sprucelabs.ai'
-								}
-							]}
-						/>
+						<Button href="https://developer.sprucebot.com" target="_blank">
+							Take me to the docs!
+						</Button>
+						<Button
+							href="https://hello.sprucebot.com/styleguide"
+							target="_blank"
+						>
+							Take me to the style guide!
+						</Button>
 					</TextContainer>
 					{props.auth &&
 						props.auth.acl &&
