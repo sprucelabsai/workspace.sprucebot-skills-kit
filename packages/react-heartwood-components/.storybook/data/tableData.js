@@ -1,4 +1,4 @@
-import Faker from 'Faker'
+import faker from 'faker'
 import uuidv1 from 'uuid/v1'
 
 export const generateLocations = ({ amount }) => {
@@ -7,15 +7,17 @@ export const generateLocations = ({ amount }) => {
 	for (let i = 0; i < amount; i++) {
 		locations.push({
 			id: uuidv1(),
-			publicName: Faker.Company.companyName(),
-			storeNumber: Faker.random.number(amount),
+			publicName: faker.company.companyName(),
+			storeNumber: faker.random.number(amount),
 			status: Math.floor(Math.random() * 2) == 0 ? 'Open' : 'Hidden',
 			address:
-				Faker.Address.streetAddress() +
+				faker.address.streetAddress() +
 				', ' +
-				Faker.Address.city() +
-				', IL ' +
-				Faker.Address.zipCode()
+				faker.address.city() +
+				', ' +
+				faker.address.stateAbbr() +
+				' ' +
+				faker.address.zipCode()
 		})
 	}
 
