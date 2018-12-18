@@ -28,13 +28,15 @@ module.exports = async (ctx, next) => {
 				})
 				views.push({
 					title: 'My skill',
-					url: `${config.INTERFACE_HOST}/location-dashboard`
+					host: `${config.INTERFACE_HOST}`,
+					path: '/location-dashboard'
 				})
 				break
 			case 'marketing':
 				views.push({
 					title: 'My skill',
-					url: `${config.INTERFACE_HOST}/marketing`
+					host: `${config.INTERFACE_HOST}`,
+					path: '/marketing'
 				})
 				break
 		}
