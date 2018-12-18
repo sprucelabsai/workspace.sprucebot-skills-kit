@@ -6,7 +6,7 @@ import {
 	PageContent
 } from '@sprucelabs/react-heartwood-components'
 
-class OwnerPage extends React.Component {
+class OwnerLocationDashboardPage extends React.Component {
 	componentDidMount() {
 		this.props.skill.ready() // Show the skill
 	}
@@ -27,4 +27,4 @@ class OwnerPage extends React.Component {
 	}
 }
 
-export default PageWrapper(OwnerPage)
+export default PageWrapper(OwnerLocationDashboardPage)
