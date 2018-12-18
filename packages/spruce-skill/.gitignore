@@ -59,6 +59,7 @@ typings/
 
 # Next.js build
 .next/
+build/
 
 # PM2 ecosystem
 ecosystem.config.js
