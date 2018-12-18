@@ -28,21 +28,18 @@ const columns = [
 		accessor: 'storeNumber',
 		minWidth: 80,
 		maxWidth: 100
-		// width: '100%'
 	},
 	{
 		Header: 'Status',
 		accessor: 'status',
 		minWidth: 80,
 		maxWidth: 100
-		// width: '100%'
 	},
 	{
 		Header: 'Address',
 		accessor: 'address',
 		minWidth: 420,
 		maxWidth: 500
-		// width: '100%'
 	}
 ]
 

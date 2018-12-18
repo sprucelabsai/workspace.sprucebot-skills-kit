@@ -108,9 +108,9 @@ export default class Table extends Component<Props, State> {
 		} = this.props
 		const { selectedIds, allRowsSelected } = this.state
 
-		let renderColumns = [...columns]
+		let columnsToRender = [...columns]
 		if (isSelectable) {
-			renderColumns.unshift({
+			columnsToRender.unshift({
 				id: 'checkbox',
 				accessor: '',
 				Header: () => (
@@ -158,7 +158,7 @@ export default class Table extends Component<Props, State> {
 			}
 
 			// Change the header text to reflect which rows are selected
-			renderColumns = renderColumns.map((col, idx) => {
+			columnsToRender = columnsToRender.map((col, idx) => {
 				if (idx === 0) {
 					return col
 				} else if (idx === 1) {
@@ -189,7 +189,7 @@ export default class Table extends Component<Props, State> {
 			<ReactTable
 				ref={ref => (this.table = ref)}
 				data={data}
-				columns={renderColumns}
+				columns={columnsToRender}
 				className={cx('table', className)}
 				sortable={isSelectable && selectedIds.length > 0 ? false : sortable}
 				getTableProps={() => ({

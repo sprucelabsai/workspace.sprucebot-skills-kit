@@ -39,11 +39,9 @@ export default class Checkbox extends Component<Props, State> {
 	}
 
 	handleChange = () => {
-		console.log('handleChange')
 		const { onChange } = this.props
 		this.setState(prevState => {
 			if (prevState.isIndeterminateState) {
-				console.log('Isnt indeterminate')
 				return {
 					isIndeterminateState: false
 				}
