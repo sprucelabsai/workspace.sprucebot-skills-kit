@@ -6,7 +6,8 @@ import type { Props as AvatarProps } from './Avatar'
 
 type Props = {
 	...AvatarProps,
-	user: Object
+	user: Object,
+	className?: string
 }
 
 const UserAvatar = (props: Props) => {

@@ -21,3 +21,7 @@ body {
 strong {
 	font-weight: $font-weight-bold;
 }
+
+.visually-hidden {
+	visibility: hidden;
+}

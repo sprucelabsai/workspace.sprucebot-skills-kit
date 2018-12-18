@@ -9,7 +9,10 @@ type Props = {
 	label: string,
 
 	/** Set true to make the input less tall */
-	isSmall?: boolean
+	isSmall?: boolean,
+
+	/** Helper text */
+	helper?: string
 }
 
 type State = {
@@ -29,7 +32,7 @@ export default class PhoneInput extends Component<Props, State> {
 	}
 	render() {
 		const { phone } = this.state
-		const { label, error, isSmall, ...rest } = this.props
+		const { label, error, isSmall, helper, ...rest } = this.props
 		return (
 			<div className={cx('text-input', { 'text-input-small': isSmall })}>
 				<InputPre label={label} />
@@ -43,7 +46,7 @@ export default class PhoneInput extends Component<Props, State> {
 					international={false}
 					{...rest}
 				/>
-				{error && <InputHelper error={error} />}
+				{(helper || error) && <InputHelper helper={helper} error={error} />}
 			</div>
 		)
 	}

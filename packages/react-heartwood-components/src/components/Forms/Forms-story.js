@@ -155,8 +155,8 @@ stories
 		<Fragment>
 			<DomainInput
 				label={text('label', 'Shopify Store URL')}
-				placeholder={text('placeholder', 'my-shopify-store')}
-				appendix={text('appendix', '.myshopify.com')}
+				placeholder={text('placeholder', 'my-spruce-org')}
+				appendix={text('appendix', '.spruce.ai')}
 			/>
 		</Fragment>
 	))

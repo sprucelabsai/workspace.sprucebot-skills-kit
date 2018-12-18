@@ -169,6 +169,29 @@ module.exports = {
 			}
 		},
 		{
+			name: 'Tight',
+			context: {
+				layoutModifierClass: 'layout--tight',
+				sections: [
+					{
+						secondary: false,
+						card: {
+							title: 'Get the most out of Sprucebot',
+							children: [
+								'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
+							],
+							footerActions: [
+								{
+									text: 'Get some skills',
+									className: 'btn-secondary btn-small'
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
 			name: 'Wide',
 			context: {
 				layoutModifierClass: 'layout--wide',
