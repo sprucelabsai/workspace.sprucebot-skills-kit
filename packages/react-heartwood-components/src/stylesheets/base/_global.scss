@@ -1,9 +1,12 @@
 /* stylelint-disable */
-*, *:before, *:after {
+*,
+*:before,
+*:after {
 	box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
 	@include font-smoothing;
 	font-size: 100%;
 	line-height: 1.25;
