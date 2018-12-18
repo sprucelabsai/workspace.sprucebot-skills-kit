@@ -21,6 +21,7 @@ module.exports = class Https {
 			const path = '/graphql'
 			// API Key must go with each request
 			const headers = {
+				'x-skill-id': this.id,
 				'x-skill-api-key': this.apiKey,
 				'Content-Type': 'application/json'
 			}
@@ -46,10 +47,6 @@ module.exports = class Https {
 				}
 			)
 
-			log.debug({
-				query
-			})
-
 			request.end(
 				JSON.stringify({
 					query
@@ -62,6 +59,7 @@ module.exports = class Https {
 			const path = '/graphql'
 			// API Key must go with each request
 			const headers = {
+				'x-skill-id': this.id,
 				'x-skill-api-key': this.apiKey,
 				'Content-Type': 'application/json'
 			}
