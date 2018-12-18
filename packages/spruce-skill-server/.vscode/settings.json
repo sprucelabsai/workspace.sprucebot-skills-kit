@@ -1,6 +1,5 @@
 {
-    "git.ignoreLimitWarning": true,
-    "cSpell.words": [
-        "uploader"
-    ]
+	"git.ignoreLimitWarning": true,
+	"cSpell.words": ["uploader"],
+	"prettier.eslintIntegration": true
 }

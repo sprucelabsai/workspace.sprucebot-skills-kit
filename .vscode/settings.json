@@ -6,9 +6,6 @@
 	},
 	"git.ignoreLimitWarning": true,
 	"editor.formatOnSave": true,
-	"prettier.semi": false,
-	"prettier.singleQuote": true,
-	"prettier.useTabs": true,
 	"javascript.validate.enable": false,
 	"files.watcherExclude": {
 		"**/.git/objects/**": true,

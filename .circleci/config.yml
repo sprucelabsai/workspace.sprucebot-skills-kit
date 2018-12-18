@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -13,7 +13,23 @@ jobs:
       - run: yarn test
   pre_release:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
+      - run: sudo apt-get install awscli
+      - checkout
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - run: export SHA=$(git rev-parse --short HEAD) && npm run publish -- prerelease --yes --preid pre-$SHA --message "%s [skip ci]" --npm-client npm  --no-git-tag-version --no-push
+      - run: yarn build-statics
+  canary:
+    docker:
+      - image: circleci/node:10
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -31,7 +47,7 @@ jobs:
       - run: yarn s3-sync-storybook-canary
   dev_release:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -52,7 +68,7 @@ jobs:
       - run: yarn s3-sync-stylesheets
   prod_release:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -86,6 +102,13 @@ workflows:
             branches:
               only:
                 - /prerelease\/.*/
+      - canary:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - canary
       - dev_release:
           requires:
             - test
