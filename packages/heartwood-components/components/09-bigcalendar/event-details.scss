@@ -85,6 +85,8 @@
 
 .event-details-header__text-wrapper {
 	flex: 1 1 auto;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 .event-details-header__actions-wrapper {
