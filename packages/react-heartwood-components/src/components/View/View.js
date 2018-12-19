@@ -12,8 +12,8 @@ type Props = {
 	getSearchSuggestionValue?: Function,
 	renderSearchSuggestion?: Function,
 	children: Node,
-	toggleSidebarVisibility: Function,
-	toggleSidebarExpanded: Function,
+	setSidebarVisibility: Function,
+	setSidebarExpanded: Function,
 	forceCloseSidebar: Function,
 	isSidebarVisible?: boolean,
 	isSidebarExpanded?: boolean
@@ -28,8 +28,8 @@ const View = (props: Props) => {
 		renderSearchSuggestion,
 		isSidebarVisible,
 		isSidebarExpanded,
-		toggleSidebarExpanded,
-		toggleSidebarVisibility,
+		setSidebarExpanded,
+		setSidebarVisibility,
 		forceCloseSidebar,
 		children
 	} = props
@@ -47,7 +47,7 @@ const View = (props: Props) => {
 					items={sidebarItems}
 					isSidebarVisible={isSidebarVisible}
 					isExpanded={isSidebarExpanded}
-					toggleExpanded={toggleSidebarExpanded}
+					setExpanded={setSidebarExpanded}
 					forceCloseSidebar={forceCloseSidebar}
 				/>
 			)}
@@ -57,7 +57,7 @@ const View = (props: Props) => {
 				enableHamburgerMenu={
 					sidebarItems && sidebarItems.length > 0 ? true : false
 				}
-				toggleSidebarVisibility={toggleSidebarVisibility}
+				setSidebarVisibility={setSidebarVisibility}
 				isSidebarVisible={isSidebarVisible}
 				getSearchSuggestionValue={getSearchSuggestionValue}
 				renderSearchSuggestion={renderSearchSuggestion}

@@ -20,8 +20,8 @@ type Props = {
 	/** The current business */
 	business?: Object,
 
-	/** Handler to toggle sidebar visibility */
-	toggleSidebarVisibility: Function,
+	/** Handler to set sidebar visibility to true or false */
+	setSidebarVisibility: Function,
 
 	/** Set true to show the sidebar (small screens only) */
 	isSidebarVisible: boolean,
@@ -59,7 +59,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 		}
 	}
 
-	toggleUserMenuVisibility = () => {
+	setUserMenuVisibility = () => {
 		this.setState(
 			prevState => ({
 				isUserMenuVisible: !prevState.isUserMenuVisible
@@ -86,7 +86,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 		const {
 			user,
 			business,
-			toggleSidebarVisibility,
+			setSidebarVisibility,
 			isSidebarVisible,
 			getSearchSuggestionValue,
 			renderSearchSuggestion,
@@ -103,7 +103,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 				<div className="header-primary__left">
 					{enableHamburgerMenu && (
 						<Hamburger
-							onClick={toggleSidebarVisibility}
+							onClick={setSidebarVisibility}
 							isSidebarVisible={isSidebarVisible}
 						/>
 					)}
@@ -135,7 +135,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 							)}
 							<UserMenu
 								menuIsVisible={isUserMenuVisible}
-								toggleMenu={this.toggleUserMenuVisibility}
+								setMenu={this.setUserMenuVisibility}
 								{...user}
 							/>
 						</Fragment>

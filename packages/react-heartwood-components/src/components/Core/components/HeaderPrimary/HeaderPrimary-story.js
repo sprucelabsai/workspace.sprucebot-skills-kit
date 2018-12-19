@@ -35,7 +35,7 @@ stories
 		<HeaderPrimary
 			STORYBOOKdoNotWrap
 			isSidebarVisible={boolean('isSidebarVisible', false)}
-			toggleSidebarVisibility={() => null}
+			setSidebarVisibility={() => null}
 		/>
 	))
 	.add('Logged In', () => (
@@ -43,7 +43,7 @@ stories
 			STORYBOOKdoNotWrap
 			user={object('user', user)}
 			isSidebarVisible={boolean('isSidebarVisible', false)}
-			toggleSidebarVisibility={() => null}
+			setSidebarVisibility={() => null}
 		/>
 	))
 	.add('Logged In to Business', () => (
@@ -52,6 +52,6 @@ stories
 			user={object('user', user)}
 			business={object('business', business)}
 			isSidebarVisible={boolean('isSidebarVisible', false)}
-			toggleSidebarVisibility={() => null}
+			setSidebarVisibility={() => null}
 		/>
 	))
