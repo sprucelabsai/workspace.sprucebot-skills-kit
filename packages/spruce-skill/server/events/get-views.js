@@ -9,8 +9,30 @@ module.exports = async (ctx, next) => {
 		}
 
 		const views = []
+		const title = 'Example'
+		const host = `${config.INTERFACE_HOST}`
 
 		switch (ctx.event.payload.page) {
+			case 'profile_user':
+				// TODO: guest and teammate profiles will differ
+				// what's the best way to handle this? In the view? or profile_{role}
+
+				views.push({
+					title,
+					host,
+					path: '/user/profile/'
+				})
+				break
+			case 'dashboard_user':
+				// TODO: guest and teammate dashboards will differ
+				// what's the best way to handle this? In the view? or dashboard_{role}
+
+				views.push({
+					title,
+					host,
+					path: '/user/dashboard/'
+				})
+				break
 			case 'location_dashboard':
 				if (
 					!ctx.event.payload.locationId ||
@@ -27,16 +49,34 @@ module.exports = async (ctx, next) => {
 					}
 				})
 				views.push({
-					title: 'My skill',
-					host: `${config.INTERFACE_HOST}`,
-					path: '/location-dashboard'
+					title,
+					host,
+					path: '/location/dashboard/'
 				})
 				break
-			case 'marketing':
+			case 'location_settings':
 				views.push({
-					title: 'My skill',
-					host: `${config.INTERFACE_HOST}`,
-					path: '/marketing'
+					title,
+					host,
+					path: '/location/settings/'
+				})
+				break
+			case 'public_org':
+				// QUESTION: anything we need to change for public pages?
+
+				views.push({
+					title,
+					host,
+					path: '/o/' // QUESTION: any reason to append the org here?
+				})
+				break
+			case 'public_location':
+				// QUESTION: anything we need to change for public pages?
+
+				views.push({
+					title,
+					host,
+					path: '/l/' // QUESTION: any reason to append the location here?
 				})
 				break
 		}
