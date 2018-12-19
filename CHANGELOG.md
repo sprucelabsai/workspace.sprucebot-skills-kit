@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.5.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.4.0...v8.5.0) (2018-12-19)
+
+
+### Breaking Changes
+
+* upgrade to node 10 and add flow support ([b696dfc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b696dfc))
+
+
+### Bug Fixes
+
+* remove flow from config files and gql helpers so production build runs ([13c7fd9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/13c7fd9))
+
+
+### Features
+
+* GraphQL ([73e6066](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/73e6066))
+* Users and UserLocations queries; gql enhancements ([2d68c37](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2d68c37))
+
+
+
+
+
 # [8.4.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.3.4...v8.4.0) (2018-12-19)
 
 

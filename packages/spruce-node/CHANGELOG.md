@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.5.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.4.0...v8.5.0) (2018-12-19)
+
+
+### Features
+
+* Users and UserLocations queries; gql enhancements ([2d68c37](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2d68c37))
+
+
+
+
+
 # [8.4.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.3.4...v8.4.0) (2018-12-19)
 
 **Note:** Version bump only for package @sprucelabs/spruce-node
