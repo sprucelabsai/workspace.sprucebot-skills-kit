@@ -19,7 +19,10 @@ type Props = {
 	className: ?string,
 
 	/** Set true if the checkbox is indeterminate */
-	isIndeterminate?: boolean
+	isIndeterminate?: boolean,
+
+	/** Optional onChange callback */
+	onChange?: Function
 }
 
 type State = {
@@ -36,6 +39,7 @@ export default class Checkbox extends Component<Props, State> {
 	}
 
 	handleChange = () => {
+		const { onChange } = this.props
 		this.setState(prevState => {
 			if (prevState.isIndeterminateState) {
 				return {
@@ -43,6 +47,10 @@ export default class Checkbox extends Component<Props, State> {
 				}
 			}
 		})
+
+		if (onChange) {
+			onChange()
+		}
 	}
 
 	render() {
@@ -65,8 +73,9 @@ export default class Checkbox extends Component<Props, State> {
 						type="checkbox"
 						id={id}
 						indeterminate={isIndeterminateState ? 'true' : null}
-						onChange={this.handleChange}
 						{...rest}
+						// Always use internal change handler
+						onChange={this.handleChange}
 					/>
 					<label className="checkbox-item__label" htmlFor={id}>
 						{label}

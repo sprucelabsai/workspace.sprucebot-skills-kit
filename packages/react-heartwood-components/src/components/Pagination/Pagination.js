@@ -2,7 +2,7 @@
 import React from 'react'
 import cx from 'classnames'
 import Button from '../Button/Button'
-import { Text, Span } from '../Text/Text'
+import Text, { Span } from '../Text/Text'
 import { InputInner } from '../Forms/FormPartials'
 import ArrowNext from '../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../static/assets/icons/ic_arrow_back.svg'
@@ -64,7 +64,9 @@ const Pagination = (props: Props) => {
 				page === totalPages - 3 ||
 				page === currentPage
 		)
-		displayPages.splice(3, 0, { text: '…' })
+		if (totalPages > 6) {
+			displayPages.splice(3, 0, { text: '…' })
+		}
 	} else {
 		displayPages = pagesArray.filter(
 			page =>
