@@ -11,40 +11,51 @@ type Props = {
 	business: Object,
 	getSearchSuggestionValue?: Function,
 	renderSearchSuggestion?: Function,
-	children: Node
+	children: Node,
+	toggleSidebarVisibility?: Function,
+	toggleSidebarExpanded?: Function,
+	isSidebarVisible?: boolean,
+	isSidebarExpanded?: boolean
 }
 type State = {
-	sidebarIsVisible: boolean,
-	sidebarIsExpanded: boolean
+	isSidebarVisible: boolean,
+	isSidebarExpanded: boolean
 }
 
 export default class View extends Component<Props, State> {
+	static defaultProps = {
+		isSidebarVisible: false,
+		isSidebarExpanded: true
+	}
+
 	state = {
-		sidebarIsVisible: false,
-		sidebarIsExpanded: true
+		isSidebarVisible: this.props.isSidebarVisible,
+		isSidebarExpanded: this.props.isSidebarExpanded
 	}
 
 	toggleSidebarVisibility = () => {
 		this.setState(prevState => ({
-			sidebarIsVisible: !prevState.sidebarIsVisible,
-			sidebarIsExpanded: true
+			isSidebarVisible: !prevState.isSidebarVisible,
+			isSidebarExpanded: true
 		}))
+		this.props.toggleSidebarVisibility && this.props.toggleSidebarVisibility()
 	}
 
 	toggleSidebarExpanded = () => {
 		this.setState(prevState => ({
-			sidebarIsExpanded: !prevState.sidebarIsExpanded
+			isSidebarExpanded: !prevState.isSidebarExpanded
 		}))
+		this.props.toggleSidebarExpanded && this.props.toggleSidebarExpanded()
 	}
 
 	forceCloseSidebar = () => {
 		this.setState({
-			sidebarIsVisible: false
+			isSidebarVisible: false
 		})
 	}
 
 	render() {
-		const { sidebarIsVisible, sidebarIsExpanded } = this.state
+		const { isSidebarVisible, isSidebarExpanded } = this.state
 		const {
 			sidebarItems,
 			user,
@@ -57,16 +68,16 @@ export default class View extends Component<Props, State> {
 		return (
 			<div
 				className={cx('main-wrapper', {
-					'menu--is-visible': sidebarIsVisible,
-					'sidebar--is-collapsed': !sidebarIsExpanded,
+					'menu--is-visible': isSidebarVisible,
+					'sidebar--is-collapsed': !isSidebarExpanded,
 					'sidebar--is-missing': !sidebarItems || sidebarItems.length === 0
 				})}
 			>
 				{sidebarItems && sidebarItems.length > 0 && (
 					<Sidebar
 						items={sidebarItems}
-						sidebarIsVisible={sidebarIsVisible}
-						isExpanded={sidebarIsExpanded}
+						isSidebarVisible={isSidebarVisible}
+						isExpanded={isSidebarExpanded}
 						toggleExpanded={this.toggleSidebarExpanded}
 						forceCloseSidebar={this.forceCloseSidebar}
 					/>
@@ -78,7 +89,7 @@ export default class View extends Component<Props, State> {
 						sidebarItems && sidebarItems.length > 0 ? true : false
 					}
 					toggleSidebarVisibility={this.toggleSidebarVisibility}
-					sidebarIsVisible={sidebarIsVisible}
+					isSidebarVisible={isSidebarVisible}
 					getSearchSuggestionValue={getSearchSuggestionValue}
 					renderSearchSuggestion={renderSearchSuggestion}
 				/>
