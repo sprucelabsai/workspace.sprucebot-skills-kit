@@ -413,7 +413,7 @@ body.sb-show-main {
 	}
 
 	&.event-fill-unavailable {
-		@include eventFill($c-grey-00, $c-grey-00, $c-text, $c-text);
+		@include eventFill($c-grey-00, $c-border, $c-text, $c-text);
 	}
 
 	&.event-fill-blocked {
