@@ -1,24 +1,32 @@
 // @flow
 // TODO: Figure out how to split tabs up based on what's visible in the viewport
 import React, { Fragment } from 'react'
+import cx from 'classnames'
 import Tab from './components/Tab/Tab'
 import type { Props as TabProps } from './components/Tab/Tab'
 import ContextMenu from '../ContextMenu/ContextMenu'
 
 type Props = {
 	/** The tabs for this group */
-	tabs: Array<TabProps>
+	tabs: Array<TabProps>,
+
+	/** Adds horizontal Padding */
+	isPadded?: boolean
 }
 
 const Tabs = (props: Props) => {
-	const { tabs } = props
+	const { tabs, isPadded } = props
 	const hiddenTabs = []
 	const activeTab = tabs.find(tab => tab.isCurrent)
 
 	// TODO: Determine how hidden tabs work
 	return (
 		<Fragment>
-			<ul className="tab-group">
+			<ul
+				className={cx('tab-group', {
+					'tab-group--is-padded': isPadded
+				})}
+			>
 				{tabs.map(tab => {
 					return <Tab key={tab.text} {...tab} />
 				})}
@@ -37,6 +45,10 @@ const Tabs = (props: Props) => {
 			{activeTab && activeTab.panel}
 		</Fragment>
 	)
+}
+
+Tabs.defaultProps = {
+	isPadded: false
 }
 
 export default Tabs

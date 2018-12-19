@@ -1,8 +1,8 @@
 // @flow
+const config = require('config')
 const { GraphQLList, GraphQLString } = require('graphql')
 const { Op } = require('sequelize')
 const { resolver, defaultListArgs } = require('graphql-sequelize')
-// const { defaultArgs, defaultBefore } = require('../../../_helpers')
 
 module.exports = ctx => {
 	const queries = {
@@ -11,18 +11,26 @@ module.exports = ctx => {
 			type: new GraphQLList(ctx.gql.types.User),
 			args: {
 				...defaultListArgs(),
-				// ...defaultArgs(),
 				organizationId: {
-					description:
-						'Organization permissions may grant access to additional fields.',
+					description: 'The organizationId to fetch users for',
+					type: GraphQLString
+				},
+				locationId: {
+					description: 'The locationId to fetch users for',
 					type: GraphQLString
 				}
 			},
 			resolve: resolver(ctx.db.models.User, {
 				before: (findOptions, args, context, info) => {
-					// defaultBefore(findOptions, args, context, info)
+					ctx.gql.helpers.defaultBefore(findOptions, args, context, info)
+					if (!context.auth.User) {
+						throw new Error('USER_NOT_LOGGED_IN')
+					}
 					if (!context.scopes) {
 						context.scopes = {}
+					}
+					if (!context.findOptions) {
+						context.findOptions = {}
 					}
 					if (
 						!findOptions.limit ||
@@ -32,14 +40,7 @@ module.exports = ctx => {
 						findOptions.limit = 50
 					}
 
-					// if (!context.user) {
-					// 	throw new Error('USER_NOT_LOGGED_IN')
-					// }
-
-					context.scopes.Users = {
-						Users: 'team'
-						// 'Users.UserLocations': 'team'
-					}
+					context.scopes.Users = config.scopes.Users.public()
 
 					return findOptions
 				}

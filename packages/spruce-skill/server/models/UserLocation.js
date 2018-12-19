@@ -39,7 +39,16 @@ module.exports = (sequelize, DataTypes) => {
 			attributes: ['id']
 		},
 		team: {
-			attributes: ['id', 'role', 'status', 'visits', 'lastRecordedVisit']
+			attributes: [
+				'id',
+				'role',
+				'status',
+				'visits',
+				'lastRecordedVisit',
+				'User',
+				'Location',
+				'Job'
+			]
 		}
 	}
 

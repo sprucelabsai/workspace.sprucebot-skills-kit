@@ -3,6 +3,53 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.4.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.3.4...v8.4.0) (2018-12-19)
+
+
+### Features
+
+* add bulk actions ([ee9a5f0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ee9a5f0))
+* add checkboxes with ids ([a5053a1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a5053a1))
+* add example with filters ([4d52ce6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4d52ce6))
+* add faker ([8e473eb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8e473eb))
+* add react-table package ([5e761b0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5e761b0))
+* add seleted and indeterminate states to the header checkbox ([908e8ab](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/908e8ab))
+* add table search component ([92147f0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/92147f0))
+* add uuid as devdependency ([04b18c7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/04b18c7))
+* adjust pagination component ([59966ad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/59966ad))
+* better checkbox alignment ([1957d55](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1957d55))
+* better rules for selecatble layout ([1413312](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1413312))
+* cleanup ([abd262e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/abd262e))
+* control rows checked when all are checked ([1f9bbfb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1f9bbfb))
+* convert to component ([9d0bf38](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9d0bf38))
+* correct cell padding ([ef41845](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ef41845))
+* filter styling ([c4a5c60](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c4a5c60))
+* get checboxes in for selectable table ([7a9af58](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7a9af58))
+* hide table loader by default ([e0482d8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e0482d8))
+* improve scrolling overflow ([70d6302](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/70d6302))
+* make examples work for both types of table ([e95fd2a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e95fd2a))
+* make table unsortable while there are selections ([9d68fb6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9d68fb6))
+* more fake data for examples ([fe86c15](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fe86c15))
+* more styling and add boolean to make the table rows selectable ([edf2d7b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/edf2d7b))
+* reenable sorting and correct icon color ([eb0e08f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/eb0e08f))
+* replace Faker with faker ([ce6be7c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ce6be7c))
+* start stubbing out fake data and table story ([7793cfe](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7793cfe))
+* test out pagination component in table ([13d27bb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/13d27bb))
+* update for faker ([a521c03](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a521c03))
+* update text with selections ([11386b3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/11386b3))
+
+
+
+
+
+## [8.3.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.3.3...v8.3.4) (2018-12-19)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
 ## [8.3.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.3.2...v8.3.3) (2018-12-18)
 
 **Note:** Version bump only for package workspace.sprucebot-skills-kit

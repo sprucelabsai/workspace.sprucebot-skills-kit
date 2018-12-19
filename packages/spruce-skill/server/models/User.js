@@ -143,7 +143,9 @@ module.exports = (sequelize, DataTypes) => {
 				'defaultProfileImages',
 				'casualName',
 				'Locations',
-				'UserLocations'
+				'UserLocations',
+				'UserGroups',
+				'UserOrganizations'
 			]
 		}
 	}

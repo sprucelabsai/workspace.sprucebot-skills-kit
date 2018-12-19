@@ -16,4 +16,10 @@ const Text = (props: TextProps) => {
 	return <p className={cx('text', className)}>{children}</p>
 }
 
+export const Span = (props: TextProps) => {
+	const { children, className } = props
+
+	return <span className={cx('text', className)}>{children}</span>
+}
+
 export default Text

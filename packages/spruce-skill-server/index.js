@@ -41,7 +41,7 @@ module.exports = async ({
 	staticDir = false,
 	bodyParserOptions = { jsonLimit: '1mb' },
 	slug = required('slug'),
-	logLevel = 'warn',
+	logLevel = 'info',
 	logUseColors = true,
 	env = 'default',
 	packageName,

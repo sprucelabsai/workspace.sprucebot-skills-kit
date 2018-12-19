@@ -2,6 +2,10 @@
 
 .page {
 	min-height: 100vh;
+
+	&--no-header {
+		margin-top: 4rem;
+	}
 }
 
 .page__header {
