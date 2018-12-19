@@ -1,4 +1,3 @@
-// @flow
 const parseFields = require('graphql-parse-fields')
 // Sequelize uses the inflection library for it's naming
 const inflection = require('inflection')
@@ -16,7 +15,7 @@ const {
 	defaultArgs
 } = require('graphql-sequelize')
 
-function pathToScope(path: Object, prevPath?: string) {
+function pathToScope(path, prevPath) {
 	let scope = ''
 	if (prevPath && typeof path.key === 'string') {
 		scope += `${path.key}.${prevPath}`
@@ -31,7 +30,7 @@ function pathToScope(path: Object, prevPath?: string) {
 	return scope
 }
 
-function enhancedAttributeFields(model: any, options?: Object) {
+function enhancedAttributeFields(model, options) {
 	if (!options) {
 		options = {}
 	}
@@ -86,26 +85,13 @@ module.exports = ctx => {
 				}
 			}
 		},
-		defaultBefore: function defaultBefore(
-			findOptions: Object,
-			args: Object,
-			context: Object,
-			info: Object
-		) {
+		defaultBefore: function defaultBefore(findOptions, args, context, info) {
 			context.warnings = []
 			if (args.unauthorizedValue) {
 				context.unauthorizedValue = args.unauthorizedValue
 			}
 		},
-		association: function association({
-			model,
-			type,
-			complexity
-		}: {
-			model: any,
-			type: GraphQLObjectType,
-			complexity?: number
-		}) {
+		association: function association({ model, type, complexity }) {
 			if (!model) {
 				log.warn('No model supplied')
 				return
@@ -115,12 +101,7 @@ module.exports = ctx => {
 				complexity: complexity || 100,
 				type,
 				args: defaultArgs(model),
-				resolve: async (
-					obj: Object,
-					args: Object,
-					context: Object,
-					info: Object
-				) => {
+				resolve: async (obj, args, context, info) => {
 					if (!context.warnings) {
 						context.warnings = []
 					}
@@ -200,26 +181,13 @@ module.exports = ctx => {
 			}
 		},
 
-		associationList: function associationList({
-			model,
-			type,
-			complexity
-		}: {
-			model: any,
-			type: GraphQLObjectType,
-			complexity?: number
-		}) {
+		associationList: function associationList({ model, type, complexity }) {
 			const modelName = model.target.name
 			return {
 				complexity: complexity || 100,
 				type: new GraphQLList(type),
 				args: defaultListArgs(model),
-				resolve: async (
-					obj: any,
-					args: Object,
-					context: Object,
-					info: Object
-				) => {
+				resolve: async (obj, args, context, info) => {
 					if (!context.warnings) {
 						context.warnings = []
 					}
@@ -308,7 +276,7 @@ module.exports = ctx => {
 			}
 		},
 
-		attributes: function attributes(model: any, options?: Object) {
+		attributes: function attributes(model, options) {
 			const attrs = {
 				...enhancedAttributeFields(model, options)
 			}

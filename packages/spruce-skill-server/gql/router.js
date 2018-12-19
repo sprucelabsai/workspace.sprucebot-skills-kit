@@ -8,7 +8,6 @@ const QueryComplexity = require('graphql-query-complexity')
 const { createContext, EXPECTED_OPTIONS_KEY } = require('dataloader-sequelize')
 const config = require('config')
 const errors = config.errors
-// const auth = require('../middleware/auth')
 
 const queryComplexity = QueryComplexity.default
 const simpleEstimator = QueryComplexity.simpleEstimator
@@ -66,7 +65,6 @@ const auth = async (ctx, next) => {
 		log.debug(e)
 		ctx.auth = {}
 	}
-	// ctx.auth = await ctx.sb.user(decoded.locationId, decoded.userId)
 	await next()
 }
 

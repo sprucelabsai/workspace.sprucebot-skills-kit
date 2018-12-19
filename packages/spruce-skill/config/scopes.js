@@ -1,7 +1,6 @@
-// @flow
 // For mutations/queries that may need to add a base path to the scope.
 // For example, if you have a mutation called "updateAppointment" that returns an "Appointment", the base scope would be "updateAppointment"
-function scopeWithBase({ base, scope }: { base: string, scope: Object }) {
+function scopeWithBase({ base, scope }) {
 	if (!base) {
 		return scope
 	}
@@ -15,14 +14,14 @@ function scopeWithBase({ base, scope }: { base: string, scope: Object }) {
 
 module.exports = {
 	Users: {
-		public: (base: string) =>
+		public: base =>
 			scopeWithBase({
 				scope: {
 					Users: 'public'
 				},
 				base
 			}),
-		team: (base: string) =>
+		team: base =>
 			scopeWithBase({
 				scope: {
 					Users: 'team',
@@ -37,7 +36,7 @@ module.exports = {
 			})
 	},
 	UserLocations: {
-		team: (base: string) =>
+		team: base =>
 			scopeWithBase({
 				scope: {
 					UserLocations: 'team',
