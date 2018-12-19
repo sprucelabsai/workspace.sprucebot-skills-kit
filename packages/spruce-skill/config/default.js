@@ -84,11 +84,49 @@ module.exports = {
 
 	RUN_CRONS: process.env.RUN_CRONS === 'true',
 	ENABLE_DEBUG_ROUTES: process.env.ENABLE_DEBUG_ROUTES === 'true',
+	GRAPHQL_MAX_DEPTH: process.env.GRAPHQL_MAX_DEPTH
+		? +process.env.GRAPHQL_MAX_DEPTH
+		: 10,
+	GRAPHQL_MAX_COMPLEXITY: process.env.GRAPHQL_MAX_COMPLEXITY
+		? +process.env.GRAPHQL_MAX_COMPLEXITY
+		: 1500,
+	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
+	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
+	scopes: require('./scopes'),
+	acl: {
+		// These are ACLs from other skills or core that we're requesting
+		requests: {
+			// The permissions from Core that we're requesting
+			core: ['can_manage_organization', 'can_update_location'],
+			// The keys are the skill slug with an array of permissions from that skill we're requesting
+			scheduling: ['can_update_timeblocks'],
+			booking: ['can_create_appointment', 'can_edit_teammate_appointments']
+		},
+		// These are the ACLs that this skill publishes
+		publishes: {
+			can_do_example: {
+				// The label will show up to describe this permission on the Organization Jobs management page
+				label: 'If the user can create an appointment for another user.',
+				// The type may be "organization" or "location". This determines how the permission is checked.
+				type: 'location',
+				// The default permissions for this ACL will be used if it is not overridden on the Organization Jobs management page
+				defaults: {
+					guest: false,
+					teammate: false,
+					manager: false,
+					groupManager: false
+				}
+			}
+		}
+	},
 	// Event contract
 	// This sets the events that you want to subscribe to
 	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
 	eventContract: {
 		events: {
+			'get-views': {
+				description: 'Core asks for views to display on a page'
+			},
 			'get-page-cards': {
 				description: 'Core asks this skill to provide cards for a dashboard'
 			}
@@ -138,6 +176,9 @@ module.exports = {
 			// 		'Sprucebot has made the decision that now is the perfect time to send training material'
 			// }
 		}
+	},
+	gqlOptions: {
+		gqlDir: path.resolve(__dirname, '../server/gql')
 	},
 	sequelizeOptions: {
 		enabled: process.env.DB_ENABLED === 'true',

@@ -1,4 +1,10 @@
 {
+	"javascript.validate.enable": false,
+	"files.watcherExclude": {
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/node_modules/**": true
+	},
 	"search.exclude": {
 		"**/node_modules": true,
 		"**/bower_components": true,
@@ -8,5 +14,6 @@
 	"editor.formatOnSave": true,
 	"prettier.eslintIntegration": true,
 	"editor.formatOnSaveTimeout": 750,
-	"workbench.editor.swipeToNavigate": true
+	"workbench.editor.swipeToNavigate": true,
+	"flow.useNPMPackagedFlow": true
 }
