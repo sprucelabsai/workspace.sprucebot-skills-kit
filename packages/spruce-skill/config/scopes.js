@@ -13,4 +13,38 @@ function scopeWithBase({ base, scope }: { base: string, scope: Object }) {
 	return baseScope
 }
 
-module.exports = {}
+module.exports = {
+	Users: {
+		public: (base: string) =>
+			scopeWithBase({
+				scope: {
+					Users: 'public'
+				},
+				base
+			}),
+		team: (base: string) =>
+			scopeWithBase({
+				scope: {
+					Users: 'team',
+					'Users.UserGroups': 'team',
+					'Users.UserGroups.Job': 'team',
+					'Users.UserOrganizations': 'team',
+					'Users.UserLocations': 'team',
+					'Users.UserLocations.Job': 'team',
+					'Users.UserLocations.Location': 'public'
+				},
+				base
+			})
+	},
+	UserLocations: {
+		team: (base: string) =>
+			scopeWithBase({
+				scope: {
+					UserLocations: 'team',
+					'UserLocations.User': 'team',
+					'UserLocations.Location': 'public'
+				},
+				base
+			})
+	}
+}

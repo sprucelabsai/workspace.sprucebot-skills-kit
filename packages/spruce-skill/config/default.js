@@ -92,6 +92,7 @@ module.exports = {
 		: 1500,
 	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
+	scopes: require('./scopes'),
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
 		requests: {

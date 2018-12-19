@@ -26,14 +26,6 @@ module.exports = class Https {
 				'Content-Type': 'application/json'
 			}
 
-			log.debug({
-				method: 'POST',
-				host: this.host,
-				headers,
-				rejectUnauthorized: !this.allowSelfSignedCerts,
-				path
-			})
-
 			const request = https.request(
 				{
 					method: 'POST',
@@ -54,6 +46,7 @@ module.exports = class Https {
 			)
 		})
 	}
+
 	async mutation(query) {
 		return new Promise((resolve, reject) => {
 			const path = '/graphql'

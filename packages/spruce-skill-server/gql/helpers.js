@@ -75,11 +75,6 @@ function enhancedAttributeFields(model: any, options?: Object) {
 	return attrFields
 }
 
-// module.exports.attributes = attributes
-// module.exports.attributeFields = enhancedAttributeFields
-// module.exports.association = association
-// module.exports.associationList = associationList
-
 module.exports = ctx => {
 	const methods = {
 		defaultArgs: function defaultArgs() {
@@ -166,10 +161,14 @@ module.exports = ctx => {
 							if (!findOptions.where) {
 								findOptions.where = {}
 							}
-							if (context.findOptions && context.findOptions[pathScope]) {
+							if (
+								context.findOptions &&
+								context.findOptions[rootPath] &&
+								context.findOptions[rootPath][pathScope]
+							) {
 								findOptions.where = {
 									...findOptions.where,
-									...context.findOptions[pathScope]
+									...context.findOptions[rootPath][pathScope]
 								}
 							}
 							return findOptions
@@ -268,10 +267,14 @@ module.exports = ctx => {
 							if (!findOptions.where) {
 								findOptions.where = {}
 							}
-							if (context.findOptions && context.findOptions[pathScope]) {
+							if (
+								context.findOptions &&
+								context.findOptions[rootPath] &&
+								context.findOptions[rootPath][pathScope]
+							) {
 								findOptions.where = {
 									...findOptions.where,
-									...context.findOptions[pathScope]
+									...context.findOptions[rootPath][pathScope]
 								}
 							}
 							return findOptions
