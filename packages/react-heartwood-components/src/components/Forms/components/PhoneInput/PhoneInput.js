@@ -34,7 +34,12 @@ export default class PhoneInput extends Component<Props, State> {
 		const { phone } = this.state
 		const { label, error, isSmall, helper, ...rest } = this.props
 		return (
-			<div className={cx('text-input', { 'text-input-small': isSmall })}>
+			<div
+				className={cx('text-input', {
+					'text-input--has-error': error,
+					'text-input-small': isSmall
+				})}
+			>
 				<InputPre label={label} />
 				<ReactPhoneInput
 					inputClassName="text-input__input"

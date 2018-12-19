@@ -11,16 +11,20 @@ type PageProps = {
 	/** Set true to make page content center aligned. */
 	isCentered?: boolean,
 
+	/** Set false to add extra spacing to top of page when there is no PageHeader. */
+	hasHeader?: boolean,
+
 	/** Optional classname */
 	className?: string
 }
 
 export const Page = (props: PageProps) => {
-	const { children, isCentered, className } = props
+	const { children, isCentered, hasHeader, className } = props
 	return (
 		<div
 			className={cx('page', className, {
-				'page--centered': isCentered
+				'page--centered': isCentered,
+				'page--no-header': !hasHeader
 			})}
 		>
 			{children}
@@ -29,7 +33,8 @@ export const Page = (props: PageProps) => {
 }
 
 Page.defaultProps = {
-	isCentered: false
+	isCentered: false,
+	hasHeader: true
 }
 
 export default Page

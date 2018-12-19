@@ -34,5 +34,23 @@ module.exports = (sequelize, DataTypes) => {
 		UserLocation.belongsTo(models.Location, { constraints: false })
 	}
 
+	UserLocation.scopes = {
+		public: {
+			attributes: ['id']
+		},
+		team: {
+			attributes: [
+				'id',
+				'role',
+				'status',
+				'visits',
+				'lastRecordedVisit',
+				'User',
+				'Location',
+				'Job'
+			]
+		}
+	}
+
 	return UserLocation
 }

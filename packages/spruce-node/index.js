@@ -31,7 +31,8 @@ class Sprucebot {
 		eventContract = suggested('eventContract'),
 		version = 'unknown',
 		skillsKitVersion = 'unknown',
-		cards = suggested('cards')
+		cards = suggested('cards'),
+		acl = suggested('acl')
 	}) {
 		const hostMatches = host.match(/^(https?\:\/\/|)([^\/:?#]+)(?:[\/:?#]|$)/i)
 		const cleanedHost =
@@ -43,6 +44,7 @@ class Sprucebot {
 		this.webhookUrl = (serverUrl || required('serverUrl')) + '/hook.json'
 		this.iframeUrl = interfaceUrl || required('interfaceUrl')
 		this.cards = cards || {}
+		this.acl = acl || {}
 		this.marketingUrl =
 			(interfaceUrl || required('interfaceUrl')) + '/marketing'
 
@@ -90,7 +92,8 @@ class Sprucebot {
 			eventContract: this.eventContract,
 			version: this.version,
 			skillsKitVersion: this.skillsKitVersion,
-			cards: this.cards
+			cards: this.cards,
+			acl: this.acl
 		}
 		const results = await this.https.patch('/', data)
 		let database = null
@@ -103,6 +106,14 @@ class Sprucebot {
 
 	async provisionDatabase() {
 		return this.https.get('/database/provision')
+	}
+
+	async query(query) {
+		return this.https.query(query)
+	}
+
+	async mutation(query) {
+		return this.https.mutation(query)
 	}
 
 	/**

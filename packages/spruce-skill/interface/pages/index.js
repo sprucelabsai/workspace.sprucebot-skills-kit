@@ -91,6 +91,16 @@ class DeveloperPage extends React.Component {
 							]}
 						/>
 					</TextContainer>
+					{props.auth &&
+						props.auth.acl &&
+						Object.keys(props.auth.acl).map(slug => (
+							<Fragment>
+								<Heading>{slug}</Heading>
+								{Object.keys(props.auth.acl[slug]).map(perm => (
+									<p>{`${perm}: ${props.auth.acl[slug][perm]}`}</p>
+								))}
+							</Fragment>
+						))}
 				</PageContent>
 			</Page>
 		)

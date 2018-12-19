@@ -112,11 +112,9 @@ const PageWrapper = Wrapped => {
 				const { jwt, ...rest } = query
 				const queryString = qs.stringify(rest)
 
-				// we are at '/' then redirect to the corresponding role's path
+				// if we are at '/' then redirect to the corresponding role's path, otherwise just pass it along and let the page handle it
 				if (props.pathname === '/') {
 					redirect = `/${role}?${queryString}`
-				} else if (role !== firstPart) {
-					redirect = `/unauthorized`
 				}
 			}
 

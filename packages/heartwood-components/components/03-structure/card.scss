@@ -20,7 +20,7 @@
 .card__header {
 	display: flex;
 	justify-content: space-between;
-	padding: spacing('base');
+	padding: spacing('base') spacing('base') spacing('tight') spacing('base');
 
 	.card--centered & {
 		flex-flow: column-reverse;
@@ -31,7 +31,7 @@
 	}
 
 	@include gt('small') {
-		padding: spacing('loose') spacing('loose');
+		padding: spacing('loose') spacing('loose') spacing('tight') spacing('loose');
 	}
 }
 
