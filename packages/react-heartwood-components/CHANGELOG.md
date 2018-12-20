@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.1...v8.5.2) (2018-12-20)
+
+
+### Bug Fixes
+
+* **icons:** Don't die if the icon can't be found ([7fba61d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7fba61d))
+
+
+
+
+
 ## [8.5.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.0...v8.5.1) (2018-12-19)
 
 
