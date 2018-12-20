@@ -11,7 +11,7 @@ export type Props = {
 	isAnchor?: boolean,
 
 	/** Method used to render anchor, if isAnchor is true */
-	anchorRenderer?: Function,
+	AnchorComponent?: Function,
 
 	/** Set true if this is the current tab */
 	isCurrent?: boolean,
@@ -23,28 +23,34 @@ export type Props = {
 	className?: string
 }
 
+const DefaultAnchor = ({ className, text, href, target }) => (
+	<a className={className} href={href} target={target}>
+		{text}
+	</a>
+)
+
 const Tab = ({
 	isAnchor,
-	anchorRenderer = ({ tabClassNames, isCurrent, text, rest }) => (
-		<a className={tabClassNames} {...rest}>
-			{text}
-		</a>
-	),
+	AnchorComponent = DefaultAnchor,
 	text,
 	isCurrent,
 	className,
 	...rest
 }: Props) => {
-	const tabClassNames = cx('tab__inner', {
+	const tabClickElementClassNames = cx('tab__inner', {
 		'tab--is-current': isCurrent
 	})
 
 	return (
 		<li className={cx('tab', className)}>
 			{isAnchor ? (
-				anchorRenderer({ tabClassNames, isCurrent, text, rest })
+				<AnchorComponent
+					className={tabClickElementClassNames}
+					text={text}
+					{...rest}
+				/>
 			) : (
-				<Button className={tabClassNames} text={text} {...rest} />
+				<Button className={tabClickElementClassNames} text={text} {...rest} />
 			)}
 		</li>
 	)
