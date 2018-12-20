@@ -9,6 +9,7 @@ type Props = {
 	sidebarItems?: Array<Object>,
 	user: Object,
 	business: Object,
+	getSearchSuggestions?: Function,
 	getSearchSuggestionValue?: Function,
 	renderSearchSuggestion?: Function,
 	children: Node,
@@ -16,7 +17,8 @@ type Props = {
 	toggleSidebarExpanded: Function,
 	forceCloseSidebar: Function,
 	isSidebarVisible?: boolean,
-	isSidebarExpanded?: boolean
+	isSidebarExpanded?: boolean,
+	searchPlaceholder?: string
 }
 
 const View = (props: Props) => {
@@ -24,6 +26,7 @@ const View = (props: Props) => {
 		sidebarItems,
 		user,
 		business,
+		getSearchSuggestions,
 		getSearchSuggestionValue,
 		renderSearchSuggestion,
 		isSidebarVisible,
@@ -31,6 +34,7 @@ const View = (props: Props) => {
 		toggleSidebarExpanded,
 		toggleSidebarVisibility,
 		forceCloseSidebar,
+		searchPlaceholder,
 		children
 	} = props
 
@@ -59,8 +63,10 @@ const View = (props: Props) => {
 				}
 				toggleSidebarVisibility={toggleSidebarVisibility}
 				isSidebarVisible={isSidebarVisible}
+				getSearchSuggestions={getSearchSuggestions}
 				getSearchSuggestionValue={getSearchSuggestionValue}
 				renderSearchSuggestion={renderSearchSuggestion}
+				searchPlaceholder={searchPlaceholder}
 			/>
 			<main className="main-content">{children}</main>
 		</div>
