@@ -37,7 +37,7 @@ const Tab = ({
 	className,
 	...rest
 }: Props) => {
-	const tabClickElementClassNames = cx('tab__inner', {
+	const tabActionElementClassNames = cx('tab__inner', {
 		'tab--is-current': isCurrent
 	})
 
@@ -45,12 +45,12 @@ const Tab = ({
 		<li className={cx('tab', className)}>
 			{isAnchor ? (
 				<AnchorComponent
-					className={tabClickElementClassNames}
+					className={tabActionElementClassNames}
 					text={text}
 					{...rest}
 				/>
 			) : (
-				<Button className={tabClickElementClassNames} text={text} {...rest} />
+				<Button className={tabActionElementClassNames} text={text} {...rest} />
 			)}
 		</li>
 	)
