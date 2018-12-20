@@ -21,7 +21,7 @@ type Props = {
 	business?: Object,
 
 	/** Handler to set sidebar visibility to true or false */
-	setSidebarVisibility: Function,
+	toggleSidebarVisibility: Function,
 
 	/** Set true to show the sidebar (small screens only) */
 	isSidebarVisible: boolean,
@@ -86,7 +86,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 		const {
 			user,
 			business,
-			setSidebarVisibility,
+			toggleSidebarVisibility,
 			isSidebarVisible,
 			getSearchSuggestionValue,
 			renderSearchSuggestion,
@@ -103,7 +103,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 				<div className="header-primary__left">
 					{enableHamburgerMenu && (
 						<Hamburger
-							onClick={setSidebarVisibility}
+							onClick={toggleSidebarVisibility}
 							isSidebarVisible={isSidebarVisible}
 						/>
 					)}
