@@ -7,11 +7,8 @@ export type Props = {
 	/** Tab text */
 	text: string,
 
-	/** Should tab be displayed as an anchor, rather than a button? */
-	isAnchor?: boolean,
-
 	/** Method used to render anchor, if isAnchor is true */
-	AnchorComponent?: Function,
+	AnchorComponent?: Node,
 
 	/** Set true if this is the current tab */
 	isCurrent?: boolean,
@@ -23,35 +20,23 @@ export type Props = {
 	className?: string
 }
 
-const DefaultAnchor = ({ className, text, href, target }) => (
-	<a className={className} href={href} target={target}>
-		{text}
-	</a>
-)
-
 const Tab = ({
-	isAnchor,
-	AnchorComponent = DefaultAnchor,
+	AnchorComponent,
 	text,
 	isCurrent,
 	className,
 	...rest
 }: Props) => {
-	const tabActionElementClassNames = cx('tab__inner', {
-		'tab--is-current': isCurrent
-	})
-
 	return (
 		<li className={cx('tab', className)}>
-			{isAnchor ? (
-				<AnchorComponent
-					className={tabActionElementClassNames}
-					text={text}
-					{...rest}
-				/>
-			) : (
-				<Button className={tabActionElementClassNames} text={text} {...rest} />
-			)}
+			<Button
+				AnchorComponent={AnchorComponent}
+				className={cx('tab__inner', {
+					'tab--is-current': isCurrent
+				})}
+				text={text}
+				{...rest}
+			/>
 		</li>
 	)
 }
