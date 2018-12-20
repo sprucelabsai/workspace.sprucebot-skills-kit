@@ -20,7 +20,7 @@ class DashboardUserPage extends React.Component {
 					backLinkText="Previous Page"
 				/>
 				<PageContent>
-					<p>Welcome to the user dashboard exmaple skill view!</p>
+					<p>Welcome to the user dashboard example skill view!</p>
 				</PageContent>
 			</Page>
 		)

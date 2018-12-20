@@ -20,7 +20,7 @@ class DashboardLocationPage extends React.Component {
 					backLinkText="Previous Page"
 				/>
 				<PageContent>
-					<p>Welcome to the location dashboard exmaple skill view!</p>
+					<p>Welcome to the location dashboard example skill view!</p>
 				</PageContent>
 			</Page>
 		)
