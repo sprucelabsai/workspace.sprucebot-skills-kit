@@ -4,6 +4,7 @@ import type { Node } from 'react'
 import cx from 'classnames'
 import Button from '../../../../../Button/Button'
 import type { Props as ButtonProps } from '../../../../../Button/Button'
+import Icon from '../../../../../Icon/Icon'
 
 type ItemProps = {
 	text: string,
@@ -50,13 +51,12 @@ const SidebarItem = (props: Props) => {
 		<li className={parentClass}>
 			<div className="sidebar-item__inner">
 				<a className="sidebar-item__link" href={href}>
-					{icon &&
-						React.cloneElement(icon, {
-							className: cx(
-								'sidebar-item__icon',
-								icon.props && icon.props.className
-							)
-						})}
+					{icon && (
+						<Icon
+							{...icon}
+							className={cx('sidebar-item__icon', icon.className)}
+						/>
+					)}
 					<span className="sidebar-item__text">{text}</span>
 				</a>
 				{action && <Button {...action} />}
