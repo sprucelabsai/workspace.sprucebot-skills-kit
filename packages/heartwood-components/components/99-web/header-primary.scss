@@ -48,6 +48,29 @@
 
 .header-primary__autosuggest {
 	flex: 1 0 auto;
+
+	.text-input__input {
+		background-color: $c-grey-07;
+		border-color: $c-grey-08;
+		color: $c-white;
+	}
+	.text-input__input::placeholder {
+		color: $c-grey-01;
+	}
+
+	.text-input__input:focus {
+		background-color: $c-white;
+		border-color: $c-grey-08;
+		color: $c-grey-08;
+	}
+
+	.autosuggest__list-item-inner {
+		color: $c-grey-07;
+	}
+
+	.autosuggest__no-results-title {
+		color: $c-grey-08;
+	}
 }
 
 .header-primary__lockup {
