@@ -35,6 +35,9 @@ type Props = {
 	/** Passthrough function to render search suggestions */
 	renderSearchSuggestion?: Function,
 
+	/** Passthrough called every time suggestion is selected */
+	onSearchSuggestionSelected?: Function,
+
 	/** Whether or not we will need to handle hamburger functionality */
 	enableHamburgerMenu: boolean,
 
@@ -96,6 +99,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 			isSidebarVisible,
 			getSearchSuggestions,
 			getSearchSuggestionValue,
+			onSearchSuggestionSelected,
 			renderSearchSuggestion,
 			enableHamburgerMenu,
 			searchPlaceholder
@@ -140,6 +144,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 									getSuggestions={getSearchSuggestions}
 									getSuggestionValue={getSearchSuggestionValue}
 									renderSuggestion={renderSearchSuggestion}
+									onSuggestionSelected={onSearchSuggestionSelected}
 								/>
 							)}
 							<UserMenu
