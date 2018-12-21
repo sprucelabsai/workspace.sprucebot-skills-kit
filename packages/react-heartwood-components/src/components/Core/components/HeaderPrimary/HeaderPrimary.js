@@ -26,7 +26,7 @@ type Props = {
 	/** Set true to show the sidebar (small screens only) */
 	isSidebarVisible: boolean,
 
-	/** Passthrough function to calculate suggestions */
+	/** Passthrough function to calculate search suggestions */
 	getSearchSuggestions?: Function,
 
 	/** Passthrough function to show search suggestion value */
