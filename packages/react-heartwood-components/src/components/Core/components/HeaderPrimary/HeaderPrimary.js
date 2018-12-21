@@ -59,7 +59,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 		}
 	}
 
-	setUserMenuVisibility = () => {
+	toggleUserMenuVisibility = () => {
 		this.setState(
 			prevState => ({
 				isUserMenuVisible: !prevState.isUserMenuVisible
@@ -135,7 +135,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 							)}
 							<UserMenu
 								menuIsVisible={isUserMenuVisible}
-								setMenu={this.setUserMenuVisibility}
+								toggleMenu={this.toggleUserMenuVisibility}
 								{...user}
 							/>
 						</Fragment>
