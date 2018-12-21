@@ -20,11 +20,11 @@ type Props = {
 	/** The current business */
 	business?: Object,
 
-	/** Handler to toggle sidebar visibility */
+	/** Handler to set sidebar visibility to true or false */
 	toggleSidebarVisibility: Function,
 
 	/** Set true to show the sidebar (small screens only) */
-	sidebarIsVisible: boolean,
+	isSidebarVisible: boolean,
 
 	/** Passthrough function to show search suggestion value */
 	getSearchSuggestionValue?: Function,
@@ -87,7 +87,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 			user,
 			business,
 			toggleSidebarVisibility,
-			sidebarIsVisible,
+			isSidebarVisible,
 			getSearchSuggestionValue,
 			renderSearchSuggestion,
 			enableHamburgerMenu
@@ -104,7 +104,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 					{enableHamburgerMenu && (
 						<Hamburger
 							onClick={toggleSidebarVisibility}
-							isSidebarVisible={sidebarIsVisible}
+							isSidebarVisible={isSidebarVisible}
 						/>
 					)}
 					{business ? (
