@@ -7,19 +7,63 @@ export type TextProps = {
 	children: Node,
 
 	/** Class name for the component */
-	className?: string
+	className?: string,
+
+	/** The element to render. Defaults to p for Text and span for Span */
+	element?:
+		| 'a'
+		| 'abbr'
+		| 'blockquote'
+		| 'br'
+		| 'cite'
+		| 'code'
+		| 'data'
+		| 'dd'
+		| 'dl'
+		| 'dt'
+		| 'figcaption'
+		| 'figure'
+		| 'kbd'
+		| 'li'
+		| 'mark'
+		| 'ol'
+		| 'p'
+		| 'pre'
+		| 'q'
+		| 's'
+		| 'span'
+		| 'sub'
+		| 'sup'
+		| 'time'
+		| 'ul'
 }
 
 const Text = (props: TextProps) => {
-	const { children, className } = props
+	const { children, className, element, ...rest } = props
+	let Element = 'p'
+	if (element) {
+		Element = element
+	}
 
-	return <p className={cx('text', className)}>{children}</p>
+	return (
+		<Element className={cx('text', className)} {...rest}>
+			{children}
+		</Element>
+	)
 }
 
 export const Span = (props: TextProps) => {
-	const { children, className } = props
+	const { children, className, element, ...rest } = props
+	let Element = 'span'
+	if (element) {
+		Element = element
+	}
 
-	return <span className={cx('text', className)}>{children}</span>
+	return (
+		<Element className={cx('text', className)} {...rest}>
+			{children}
+		</Element>
+	)
 }
 
 export default Text
