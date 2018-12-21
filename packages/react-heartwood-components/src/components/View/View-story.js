@@ -28,19 +28,19 @@ stories.addDecorator(withKnobs)
 const personalItems = [
 	{
 		text: 'Home',
-		icon: <HomeIcon className="sidebar-item__line-icon" />,
+		icon: { icon: 'home', className: 'sidebar-item__line-icon' },
 		isCurrent: true,
 		href: '#'
 	},
 	{
 		text: 'Teams',
-		icon: <TeamsIcon className="sidebar-item__line-icon" />,
+		icon: { icon: 'team', className: 'sidebar-item__line-icon' },
 		isCurrent: false,
 		href: '#'
 	},
 	{
 		text: 'Notification Preferences',
-		icon: <NotificationsIcon className="sidebar-item__line-icon" />,
+		icon: { icon: 'messages', className: 'sidebar-item__line-icon' },
 		isCurrent: false,
 		href: '#'
 	}

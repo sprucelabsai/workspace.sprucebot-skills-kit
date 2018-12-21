@@ -55,6 +55,9 @@ export { default as Loader } from './components/Loader/Loader'
 export { default as Modal } from './components/Modal/Modal'
 export { default as Pagination } from './components/Pagination/Pagination'
 export { default as Tabs, Tab } from './components/Tabs'
+export {
+	default as ToastWrapper
+} from './components/Toast/components/ToastWrapper/ToastWrapper'
 export { default as Toast } from './components/Toast/Toast'
 export { default as View } from './components/View/View'
 export { default as BigCalendar } from './components/BigCalendar/BigCalendar'
