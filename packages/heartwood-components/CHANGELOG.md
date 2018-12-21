@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.4](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.5.3...v8.5.4) (2018-12-21)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+## [8.5.3](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.5.2...v8.5.3) (2018-12-20)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+## [8.5.2](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.5.1...v8.5.2) (2018-12-20)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+## [8.5.1](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.5.0...v8.5.1) (2018-12-19)
+
+
+### Bug Fixes
+
+* [SBL-1568](https://sprucelabsai.atlassian.net/browse/SBL-1568) hide event title overflow ([aa1d47e](https://github.com/sprucelabsai/sprucebot-heartwood/commit/aa1d47e))
+
+
+
+
+
 # [8.5.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.4.0...v8.5.0) (2018-12-19)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components

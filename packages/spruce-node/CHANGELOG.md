@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.3...v8.5.4) (2018-12-21)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.5.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.2...v8.5.3) (2018-12-20)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.5.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.1...v8.5.2) (2018-12-20)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.5.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.0...v8.5.1) (2018-12-19)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
 # [8.5.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.4.0...v8.5.0) (2018-12-19)
 
 

@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.5.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.3...v8.5.4) (2018-12-21)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
+## [8.5.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.2...v8.5.3) (2018-12-20)
+
+
+### Bug Fixes
+
+* missed table ([e0c85c0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e0c85c0))
+
+
+
+
+
+## [8.5.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.1...v8.5.2) (2018-12-20)
+
+
+### Bug Fixes
+
+* **icons:** Don't die if the icon can't be found ([7fba61d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7fba61d))
+
+
+
+
+
+## [8.5.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.0...v8.5.1) (2018-12-19)
+
+
+### Bug Fixes
+
+* [SBL-1568](https://sprucelabsai.atlassian.net/browse/SBL-1568) hide event title overflow ([aa1d47e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/aa1d47e))
+
+
+
+
+
 # [8.5.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.4.0...v8.5.0) (2018-12-19)
 
 

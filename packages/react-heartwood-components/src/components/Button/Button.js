@@ -1,15 +1,12 @@
 // @flow
-// TODO: Incorporate Next.js router link
 import React from 'react'
 import cx from 'classnames'
 import is from 'is_js'
-import SingletonRouter from 'next/router'
-import Link from 'next/link'
 import Loader from '../Loader/Loader'
 import Icon from '../Icon/Icon'
+import BasicAnchor from '../_utilities/Anchor'
 
 import type { Node, Element } from 'react'
-import type { Props as LinkProps } from 'next/link'
 import type { Props as IconProps } from '../Icon/Icon'
 
 export type Props = {
@@ -46,11 +43,11 @@ export type Props = {
 	/** Click handler. */
 	onClick?: Function,
 
-	/** Props for Next router link: https://nextjs.org/docs/#routing. */
-	linkProps?: LinkProps,
-
 	/** Will be passed back with the on click. */
-	payload?: Object
+	payload?: Object,
+
+	/** Component used to render anchor */
+	AnchorComponent?: Node
 }
 
 const Button = (props: Props) => {
@@ -66,8 +63,8 @@ const Button = (props: Props) => {
 		icon,
 		type,
 		onClick,
-		linkProps,
 		payload,
+		AnchorComponent = BasicAnchor,
 		...rest
 	} = props
 	const btnClass = cx(className, {
@@ -84,12 +81,6 @@ const Button = (props: Props) => {
 	const textClass = cx('btn__text', {
 		'visually-hidden': isIconOnly
 	})
-
-	// Check if the link is relative (client-side) or absolute
-	let linkIsRelative = true
-	if (href && is.url(href)) {
-		linkIsRelative = false
-	}
 
 	const handleClick = (e: any) => {
 		e.currentTarget.blur()
@@ -127,17 +118,10 @@ const Button = (props: Props) => {
 		</button>
 	)
 
-	// Only return a Next link if the href is relative
-	const anchor = linkIsRelative ? (
-		<Link href={href} {...linkProps}>
-			<a className={btnClass} {...rest}>
-				<Inner />
-			</a>
-		</Link>
-	) : (
-		<a href={href} className={btnClass} {...rest}>
+	const anchor = (
+		<AnchorComponent href={href} className={btnClass} {...rest}>
 			<Inner />
-		</a>
+		</AnchorComponent>
 	)
 
 	if (!text && !icon) {
