@@ -4,6 +4,9 @@ import ReactPhoneInput from 'react-phone-number-input'
 import cx from 'classnames'
 import { InputPre, InputHelper } from '../../FormPartials'
 
+// for validating and formatting
+export { formatPhoneNumber, isValidPhoneNumber } from 'react-phone-number-input'
+
 type Props = {
 	/** Label text */
 	label: string,
@@ -12,7 +15,10 @@ type Props = {
 	isSmall?: boolean,
 
 	/** Helper text */
-	helper?: string
+	helper?: string,
+
+	/** Any error message to be rendered */
+	error?: string
 }
 
 type State = {
@@ -44,9 +50,9 @@ export default class PhoneInput extends Component<Props, State> {
 				<ReactPhoneInput
 					inputClassName="text-input__input"
 					value={phone}
-					countries={['US', 'GB', 'CA']}
+					countries={['US']}
 					country="US"
-					labels={{ US: 'United States', GB: 'Great Britain', CA: 'Canada' }}
+					labels={{ US: 'United States' }}
 					onChange={this.handleChange}
 					international={false}
 					{...rest}

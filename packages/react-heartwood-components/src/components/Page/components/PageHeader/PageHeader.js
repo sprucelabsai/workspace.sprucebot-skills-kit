@@ -72,7 +72,7 @@ const PageHeader = (props: PageHeaderProps) => {
 	}
 
 	return (
-		<header class="page__header">
+		<header className="page__header">
 			{anchor && anchor}
 			{/* <a class="page__header-back-link" href="#">
             <?xml version="1.0" encoding="utf-8"?>

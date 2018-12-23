@@ -36,7 +36,10 @@ type Props = {
 	bulkActions: Array<ButtonProps>,
 
 	/** Makes the table sortable */
-	sortable?: boolean
+	sortable?: boolean,
+
+	/** Handle clicking on a row */
+	onClickRow?: (e: MouseEvent, meta: { idx: number, item: Object }) => void
 }
 
 type State = {
@@ -91,6 +94,21 @@ export default class Table extends Component<Props, State> {
 			allRowsSelected: !prevState.allRowsSelected,
 			selectedIds: prevState.allRowsSelected ? [] : selectedIds
 		}))
+	}
+
+	handleClickRow = (e: MouseEvent, handleOriginal) => {
+		const { onClickRow = () => {} } = this.props
+
+		// determine which row we clicked
+		const children = [...e.currentTarget.parentNode.parentNode.children]
+		const idx = children.indexOf(e.currentTarget.parentNode)
+
+		onClickRow(e, {
+			idx,
+			item: this.props.data[idx]
+		})
+
+		handleOriginal && handleOriginal(e)
 	}
 
 	render() {
@@ -211,7 +229,8 @@ export default class Table extends Component<Props, State> {
 					width: 'auto'
 				})}
 				getTrProps={() => ({
-					className: 'table-row'
+					className: 'table-row',
+					onClick: this.handleClickRow
 				})}
 				getTdProps={(state, rowInfo, column, instance) => ({
 					className: cx('table-cell', {
