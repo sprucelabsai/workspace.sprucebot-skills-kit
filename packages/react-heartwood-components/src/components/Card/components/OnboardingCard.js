@@ -76,7 +76,7 @@ export default class OnboardingCard extends Component<Props, State> {
 			<Card className="onboarding-card">
 				<div className="onboarding-card__header">
 					<p className="onboarding-card__title">{title}</p>
-					{tabs && <Tabs tabs={tabs} />}
+					{tabs && <Tabs tabs={tabs} isPadded={false} isTruncatable={false} />}
 				</div>
 				<CardHeader title={steps[currentStep].panelTitle} />
 				<CardBody isSectioned>{steps[currentStep].panelCopy}</CardBody>

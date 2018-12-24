@@ -13,7 +13,10 @@ type Props = {
 	tabs: Array<TabProps>,
 
 	/** Adds horizontal Padding */
-	isPadded?: boolean
+	isPadded?: boolean,
+
+	/** Set false to prevent truncation behavior */
+	isTruncatable?: boolean
 }
 
 type State = {
@@ -48,7 +51,8 @@ export default class Tabs extends Component<Props, State> {
 	}
 
 	static defaultProps = {
-		isPadded: false
+		isPadded: true,
+		isTruncatable: true
 	}
 
 	tabGroup: any
@@ -57,15 +61,23 @@ export default class Tabs extends Component<Props, State> {
 	debouncedResize = debounce(() => this.handleWindowResize(), 500)
 
 	componentDidMount() {
-		this.handleInitialMeasurement()
-		if (typeof window !== 'undefined') {
-			window.addEventListener('resize', this.debouncedResize, false)
+		const { isTruncatable } = this.props
+
+		if (isTruncatable) {
+			this.handleInitialMeasurement()
+			if (typeof window !== 'undefined') {
+				window.addEventListener('resize', this.debouncedResize, false)
+			}
 		}
 	}
 
 	componentWillUnmount() {
-		if (typeof window !== 'undefined') {
-			window.removeEventListener('resize', this.debouncedResize, false)
+		const { isTruncatable } = this.props
+
+		if (isTruncatable) {
+			if (typeof window !== 'undefined') {
+				window.removeEventListener('resize', this.debouncedResize, false)
+			}
 		}
 	}
 
@@ -127,7 +139,7 @@ export default class Tabs extends Component<Props, State> {
 	}
 
 	render() {
-		const { tabs, isPadded } = this.props
+		const { tabs, isPadded, isTruncatable } = this.props
 		const { hiddenTabIndices, isContextTabVisible, activeTabIndex } = this.state
 		const hiddenTabs = []
 		const activeTab = tabs.find(tab => tab.isCurrent)
@@ -163,14 +175,16 @@ export default class Tabs extends Component<Props, State> {
 						}
 						return <Tab key={tab.text} {...tab} />
 					})}
-					<li
-						ref={ref => (this.contextTab = ref)}
-						className={cx('tab context-tab', {
-							'context-tab--is-visible': isContextTabVisible
-						})}
-					>
-						<ContextMenu actions={hiddenTabs} closeOnSelectAction />
-					</li>
+					{isTruncatable && (
+						<li
+							ref={ref => (this.contextTab = ref)}
+							className={cx('tab context-tab', {
+								'context-tab--is-visible': isContextTabVisible
+							})}
+						>
+							<ContextMenu actions={hiddenTabs} closeOnSelectAction />
+						</li>
+					)}
 				</ul>
 				{activeTab && activeTab.panel}
 			</Fragment>
