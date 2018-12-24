@@ -1,12 +1,25 @@
-<ul class="tab-group">
+<ul class="tab-group{{#if overflow}} tab-group--spacing-even{{/if}}">
 	{{#each tabs}}
 	{{> @tab text=text isCurrent=isCurrent href=href}}
 	{{/each}}
-	{{#if overflow}}
+	<li class="tab disclosure-tab{{#if overflow}} disclosure-tab--is-visible{{/if}}">{{> @button className="btn-small
+		btn-simple" icon='
+		<path fill-rule="evenodd" fill="none" clip-rule="evenodd" d="M3.375 14.648C4.82475 14.648 6 13.4727 6 12.023C6 10.5732 4.82475 9.39799 3.375 9.39799C1.92525 9.39799 0.75 10.5732 0.75 12.023C0.75 13.4727 1.92525 14.648 3.375 14.648Z"
+		 stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+		<path fill-rule="evenodd" fill="none" clip-rule="evenodd" d="M20.625 14.648C22.0747 14.648 23.25 13.4727 23.25 12.023C23.25 10.5732 22.0747 9.39799 20.625 9.39799C19.1753 9.39799 18 10.5732 18 12.023C18 13.4727 19.1753 14.648 20.625 14.648Z"
+		 stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+		<path fill-rule="evenodd" fill="none" clip-rule="evenodd" d="M12 14.648C13.4497 14.648 14.625 13.4727 14.625 12.023C14.625 10.5732 13.4497 9.39799 12 9.39799C10.5503 9.39799 9.375 10.5732 9.375 12.023C9.375 13.4727 10.5503 14.648 12 14.648Z"
+		 stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />'}}
+	</li>
+	{{!-- {{#if overflow}}
 	<li class="tab">
-	{{> @button className="btn-small btn-simple" icon='<path fill-rule="evenodd" fill="none" clip-rule="evenodd" d="M3.375 14.648C4.82475 14.648 6 13.4727 6 12.023C6 10.5732 4.82475 9.39799 3.375 9.39799C1.92525 9.39799 0.75 10.5732 0.75 12.023C0.75 13.4727 1.92525 14.648 3.375 14.648Z" stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-	<path fill-rule="evenodd" fill="none" clip-rule="evenodd" d="M20.625 14.648C22.0747 14.648 23.25 13.4727 23.25 12.023C23.25 10.5732 22.0747 9.39799 20.625 9.39799C19.1753 9.39799 18 10.5732 18 12.023C18 13.4727 19.1753 14.648 20.625 14.648Z" stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-	<path fill-rule="evenodd" fill="none" clip-rule="evenodd" d="M12 14.648C13.4497 14.648 14.625 13.4727 14.625 12.023C14.625 10.5732 13.4497 9.39799 12 9.39799C10.5503 9.39799 9.375 10.5732 9.375 12.023C9.375 13.4727 10.5503 14.648 12 14.648Z" stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'}}
-	{{/if}}
+		{{> @button className="btn-small btn-simple" icon='
+		<path fill-rule="evenodd" fill="none" clip-rule="evenodd" d="M3.375 14.648C4.82475 14.648 6 13.4727 6 12.023C6 10.5732 4.82475 9.39799 3.375 9.39799C1.92525 9.39799 0.75 10.5732 0.75 12.023C0.75 13.4727 1.92525 14.648 3.375 14.648Z"
+		 stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+		<path fill-rule="evenodd" fill="none" clip-rule="evenodd" d="M20.625 14.648C22.0747 14.648 23.25 13.4727 23.25 12.023C23.25 10.5732 22.0747 9.39799 20.625 9.39799C19.1753 9.39799 18 10.5732 18 12.023C18 13.4727 19.1753 14.648 20.625 14.648Z"
+		 stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+		<path fill-rule="evenodd" fill="none" clip-rule="evenodd" d="M12 14.648C13.4497 14.648 14.625 13.4727 14.625 12.023C14.625 10.5732 13.4497 9.39799 12 9.39799C10.5503 9.39799 9.375 10.5732 9.375 12.023C9.375 13.4727 10.5503 14.648 12 14.648Z"
+		 stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />'}}
+		{{/if}} --}}
 	</li>
 </ul>

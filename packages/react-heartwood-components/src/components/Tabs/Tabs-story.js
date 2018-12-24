@@ -24,6 +24,20 @@ stories
 			])}
 		/>
 	))
+	.add('Many Tabs', () => (
+		<Tabs
+			tabs={object('tabs', [
+				{ text: 'Team', isCurrent: true },
+				{ text: 'Guests' },
+				{ text: 'Everyone', onClick: () => console.log('Click') },
+				{ text: 'All' },
+				{ text: 'Active' },
+				{ text: 'Hidden' },
+				{ text: 'Public' },
+				{ text: 'Private' }
+			])}
+		/>
+	))
 	.add('With Disclosure', () => (
 		<Tabs
 			tabs={object('tabs', [
