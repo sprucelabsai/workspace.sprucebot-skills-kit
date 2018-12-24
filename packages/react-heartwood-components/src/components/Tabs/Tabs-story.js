@@ -20,7 +20,8 @@ stories
 			tabs={object('tabs', [
 				{ text: 'Team', isCurrent: true },
 				{ text: 'Guests' },
-				{ text: 'Everyone', onClick: () => console.log('Click') }
+				{ text: 'Everyone', onClick: () => console.log('Click') },
+				{ text: 'Little Black Book 📓' }
 			])}
 		/>
 	))

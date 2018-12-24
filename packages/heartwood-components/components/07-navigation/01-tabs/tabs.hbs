@@ -1,4 +1,4 @@
-<ul class="tab-group{{#if overflow}} tab-group--spacing-even{{/if}}">
+<ul class="tab-group{{#if isPadded}} tab-group--is-padded{{/if}}{{#if overflow}} tab-group--spacing-even{{/if}}">
 	{{#each tabs}}
 	{{> @tab text=text isCurrent=isCurrent href=href}}
 	{{/each}}

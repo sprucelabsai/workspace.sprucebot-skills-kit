@@ -107,7 +107,12 @@ const Button = (props: Props) => {
 					/>
 				</span>
 			)}
-			{text && <span className={textClass}>{text}</span>}
+			{text && (
+				<span
+					className={textClass}
+					dangerouslySetInnerHTML={{ __html: text }}
+				/>
+			)}
 			{isLoading && <Loader />}
 		</span>
 	)

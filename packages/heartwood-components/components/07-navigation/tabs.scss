@@ -82,3 +82,8 @@
 		height: 100%;
 	}
 }
+
+// Prevent emoji from influencing tab height
+.tab__emoji {
+	line-height: 0;
+}
