@@ -27,11 +27,11 @@ stories
 	.add('Many Tabs', () => (
 		<Tabs
 			tabs={object('tabs', [
-				{ text: 'Team', isCurrent: true },
+				{ text: 'Team' },
 				{ text: 'Guests' },
 				{ text: 'Everyone', onClick: () => console.log('Click') },
 				{ text: 'All' },
-				{ text: 'Active' },
+				{ text: 'Active', isCurrent: true },
 				{ text: 'Hidden' },
 				{ text: 'Public' },
 				{ text: 'Private' }

@@ -17,6 +17,9 @@ type Props = {
 }
 
 type State = {
+	/** Index of the currently active tab */
+	activeTabIndex: number,
+
 	/** The indices of tabs to be hidden */
 	hiddenTabIndices: Array<number>,
 
@@ -30,8 +33,14 @@ type State = {
 	isContextTabVisible: boolean
 }
 
+const getActiveTabIndex = (tabs: Array<TabProps>) => {
+	const activeTabIndex = tabs.findIndex(tab => tab.isCurrent)
+	return activeTabIndex
+}
+
 export default class Tabs extends Component<Props, State> {
 	state = {
+		activeTabIndex: getActiveTabIndex(this.props.tabs),
 		hiddenTabIndices: [],
 		tabWidths: [],
 		disclosureTabWidth: [],
@@ -93,10 +102,10 @@ export default class Tabs extends Component<Props, State> {
 		const wrapperWidth = wrapper.offsetWidth
 		const contextTabWidth = this.contextTab.offsetWidth
 		const { tabs } = this.props
-		const { tabWidths } = this.state
+		const { tabWidths, activeTabIndex } = this.state
 		const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
 		const hiddenTabIndices = []
-		let width = tabWidths[0]
+		let width = activeTabIndex > -1 ? tabWidths[activeTabIndex] : tabWidths[0]
 
 		if (wrapperWidth > totalTabsWidth) {
 			this.setState({
@@ -119,13 +128,24 @@ export default class Tabs extends Component<Props, State> {
 
 	render() {
 		const { tabs, isPadded } = this.props
-		const { hiddenTabIndices, isContextTabVisible } = this.state
+		const { hiddenTabIndices, isContextTabVisible, activeTabIndex } = this.state
 		const hiddenTabs = []
 		const activeTab = tabs.find(tab => tab.isCurrent)
 		if (hiddenTabIndices.length > 0) {
 			hiddenTabIndices.forEach(idx => {
-				hiddenTabs.push(tabs[idx])
+				if (idx !== activeTabIndex) {
+					hiddenTabs.push(tabs[idx])
+				}
 			})
+		}
+		let tabsToShow = [...tabs]
+		if (
+			activeTabIndex > -1 &&
+			hiddenTabIndices.length > 0 &&
+			hiddenTabIndices.indexOf(activeTabIndex) > -1
+		) {
+			tabsToShow.splice(activeTabIndex, 1)
+			tabsToShow = [tabs[activeTabIndex], ...tabsToShow]
 		}
 
 		return (
@@ -137,7 +157,7 @@ export default class Tabs extends Component<Props, State> {
 						'tab-group--spacing-even': hiddenTabIndices.length > 0
 					})}
 				>
-					{tabs.map((tab, idx) => {
+					{tabsToShow.map((tab, idx) => {
 						if (hiddenTabIndices.indexOf(idx) > -1) {
 							return null
 						}
