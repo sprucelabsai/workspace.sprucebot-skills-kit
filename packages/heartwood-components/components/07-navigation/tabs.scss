@@ -4,9 +4,10 @@
 	flex-flow: column;
 	align-items: center;
 	flex: 0 1 auto;
+	padding: 0 spacing('base');
 
 	+ .tab {
-		margin-left: spacing('base');
+		padding-left: 0;
 	}
 }
 
@@ -43,41 +44,26 @@
 .tab-group {
 	display: flex;
 	width: 100%;
-	padding: 0 spacing('base');
 	overflow: hidden;
 	border-bottom: 1px solid $c-border;
 
 	&.tab-group--spacing-even {
-		justify-content: space-between;
-	}
 
-	// > .tab > .btn {
-	// 	@include typescale('ui');
-	// 	height: auto;
-	// }
-
-	// .btn-icon-only {
-	// 	height: rem(34);
-	// 	width: rem(34);
-	// 	min-width: 0;
-	// 	border-radius: 0;
-	// }
-
-	&.tab-group--is-padded {
-		padding-left: spacing('base');
-		padding-right: spacing('base');
+		.tab {
+			flex: 1 1 auto;
+		}
 	}
 }
 
-.disclosure-tab {
+.context-tab {
 	display: none;
 
-	&.disclosure-tab--is-visible {
+	&.context-tab--is-visible {
 		display: inline;
 	}
 }
 
-.tab-group .tab.disclosure-tab .btn {
+.tab-group .tab.context-tab .btn {
 	height: 100%;
 	border-radius: 0;
 }
