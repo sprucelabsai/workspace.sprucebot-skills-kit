@@ -64,9 +64,18 @@
 	.context-menu {
 		height: 100%;
 	}
+
+	.context-menu__item-btn {
+		height: rem(34);
+		color: inherit;
+	}
 }
 
-.tab-group .tab.context-tab .btn {
-	height: 100%;
-	border-radius: 0;
+.tab-group .tab.context-tab {
+	.btn {
+		border-radius: 0;
+	}
+	.context-menu__button {
+		height: 100%;
+	}
 }
