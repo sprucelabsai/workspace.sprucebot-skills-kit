@@ -42,42 +42,42 @@ export default class Tabs extends Component<Props, State> {
 		isPadded: false
 	}
 
-	tabGroup: any;
-	contextTab: any;
+	tabGroup: any
+	contextTab: any
 
 	debouncedResize = debounce(() => this.handleWindowResize(), 500)
 
 	componentDidMount() {
-		this.handleInitialMeasurement();
+		this.handleInitialMeasurement()
 		if (typeof window !== 'undefined') {
-			window.addEventListener('resize', this.debouncedResize, false);
+			window.addEventListener('resize', this.debouncedResize, false)
 		}
 	}
 
 	componentWillUnmount() {
 		if (typeof window !== 'undefined') {
-			window.removeEventListener('resize', this.debouncedResize, false);
+			window.removeEventListener('resize', this.debouncedResize, false)
 		}
 	}
 
 	handleWindowResize = () => {
-		this.handleMeasurement();
+		this.handleMeasurement()
 	}
 
 	handleInitialMeasurement = () => {
 		// Purpose: get the initial measurements for child tabs
-		const wrapper = this.tabGroup;
-		const wrapperWidth = wrapper.offsetWidth;
-		const contextTabWidth = this.contextTab.offsetWidth;
-		const children = wrapper.childNodes;
-		const childrenArray = Array.prototype.slice.call(children);
-		const tabWidths = [];
+		const wrapper = this.tabGroup
+		const wrapperWidth = wrapper.offsetWidth
+		const contextTabWidth = this.contextTab.offsetWidth
+		const children = wrapper.childNodes
+		const childrenArray = Array.prototype.slice.call(children)
+		const tabWidths = []
 		childrenArray.forEach(child => {
 			if (!child.classList.contains('context-tab')) {
 				tabWidths.push(child.offsetWidth)
 			}
 		})
-		const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0);
+		const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
 		this.setState({
 			tabWidths,
 			contextTabWidth,
@@ -87,14 +87,14 @@ export default class Tabs extends Component<Props, State> {
 	}
 
 	handleMeasurement = () => {
-		const wrapper = this.tabGroup;
-		const wrapperWidth = wrapper.offsetWidth;
-		const contextTabWidth = this.contextTab.offsetWidth;
-		const { tabs } = this.props;
-		const { tabWidths } = this.state;
-		const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0);
-		const hiddenTabIndices = [];
-		let width = tabWidths[0];
+		const wrapper = this.tabGroup
+		const wrapperWidth = wrapper.offsetWidth
+		const contextTabWidth = this.contextTab.offsetWidth
+		const { tabs } = this.props
+		const { tabWidths } = this.state
+		const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
+		const hiddenTabIndices = []
+		let width = tabWidths[0]
 
 		if (wrapperWidth > totalTabsWidth) {
 			this.setState({
@@ -106,7 +106,7 @@ export default class Tabs extends Component<Props, State> {
 				if ((width + contextTabWidth) > wrapperWidth) {
 					hiddenTabIndices.push(idx)
 				}
-				width += tabWidths[idx + 1];
+				width += tabWidths[idx + 1]
 			})
 			this.setState({
 				hiddenTabIndices,
@@ -117,9 +117,9 @@ export default class Tabs extends Component<Props, State> {
 
 	render() {
 		const { tabs, isPadded } = this.props
-		const { hiddenTabIndices, isContextTabVisible } = this.state;
-		const hiddenTabs = [];
-		const activeTab = tabs.find(tab => tab.isCurrent);
+		const { hiddenTabIndices, isContextTabVisible } = this.state
+		const hiddenTabs = []
+		const activeTab = tabs.find(tab => tab.isCurrent)
 		if (hiddenTabIndices.length > 0) {
 			hiddenTabIndices.forEach(idx => {
 				hiddenTabs.push(tabs[idx])
@@ -137,7 +137,7 @@ export default class Tabs extends Component<Props, State> {
 				>
 					{tabs.map((tab, idx) => {
 						if (hiddenTabIndices.indexOf(idx) > -1) {
-							return null;
+							return null
 						}
 						return <Tab key={tab.text} {...tab} />
 					})}
