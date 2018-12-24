@@ -78,12 +78,14 @@ export default class Tabs extends Component<Props, State> {
 			}
 		})
 		const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
-		this.setState({
-			tabWidths,
-			contextTabWidth,
-			isContextTabVisible: totalTabsWidth > wrapperWidth
-		}, () => this.handleMeasurement())
-
+		this.setState(
+			{
+				tabWidths,
+				contextTabWidth,
+				isContextTabVisible: totalTabsWidth > wrapperWidth
+			},
+			() => this.handleMeasurement()
+		)
 	}
 
 	handleMeasurement = () => {
@@ -103,7 +105,7 @@ export default class Tabs extends Component<Props, State> {
 			})
 		} else {
 			tabs.forEach((tab, idx) => {
-				if ((width + contextTabWidth) > wrapperWidth) {
+				if (width + contextTabWidth > wrapperWidth) {
 					hiddenTabIndices.push(idx)
 				}
 				width += tabWidths[idx + 1]
@@ -129,7 +131,7 @@ export default class Tabs extends Component<Props, State> {
 		return (
 			<Fragment>
 				<ul
-					ref={ref => this.tabGroup = ref}
+					ref={ref => (this.tabGroup = ref)}
 					className={cx('tab-group', {
 						'tab-group--is-padded': isPadded,
 						'tab-group--spacing-even': hiddenTabIndices.length > 0
@@ -141,9 +143,12 @@ export default class Tabs extends Component<Props, State> {
 						}
 						return <Tab key={tab.text} {...tab} />
 					})}
-					<li ref={ref => this.contextTab = ref} className={cx("tab context-tab", {
-						'context-tab--is-visible': isContextTabVisible
-					})}>
+					<li
+						ref={ref => (this.contextTab = ref)}
+						className={cx('tab context-tab', {
+							'context-tab--is-visible': isContextTabVisible
+						})}
+					>
 						<ContextMenu actions={hiddenTabs} closeOnSelectAction />
 					</li>
 				</ul>
@@ -152,4 +157,3 @@ export default class Tabs extends Component<Props, State> {
 		)
 	}
 }
-
