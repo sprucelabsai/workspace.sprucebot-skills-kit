@@ -118,8 +118,14 @@ export default class Tabs extends Component<Props, State> {
 	render() {
 		const { tabs, isPadded } = this.props
 		const { hiddenTabIndices, isContextTabVisible } = this.state;
-		const hiddenTabs = []
-		const activeTab = tabs.find(tab => tab.isCurrent)
+		const hiddenTabs = [];
+		const activeTab = tabs.find(tab => tab.isCurrent);
+		if (hiddenTabIndices.length > 0) {
+			hiddenTabIndices.forEach(idx => {
+				hiddenTabs.push(tabs[idx])
+			})
+		}
+
 		return (
 			<Fragment>
 				<ul
@@ -138,7 +144,7 @@ export default class Tabs extends Component<Props, State> {
 					<li ref={ref => this.contextTab = ref} className={cx("tab context-tab", {
 						'context-tab--is-visible': isContextTabVisible
 					})}>
-						<Button isSmall icon={{ name: 'more', isLineIcon: true }} />
+						<ContextMenu actions={hiddenTabs} closeOnSelectAction />
 					</li>
 				</ul>
 				{activeTab && activeTab.panel}
