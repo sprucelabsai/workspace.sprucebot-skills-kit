@@ -17,6 +17,9 @@ type Props = {
 	/** Defines how suggestions will be rendered */
 	renderSuggestion: Function,
 
+	/** Will be called every time suggestion is selected via mouse or keyboard. */
+	onSuggestionSelected: Function,
+
 	/** Supply default suggestions that can be shown without input */
 	defaultSuggestions?: Array<any>,
 
@@ -109,6 +112,7 @@ export default class Autosuggest extends Component<Props, State> {
 		const {
 			getSuggestionValue,
 			renderSuggestion,
+			onSuggestionSelected,
 			placeholder,
 			inputPre,
 			inputHelper,
@@ -133,6 +137,7 @@ export default class Autosuggest extends Component<Props, State> {
 						onSuggestionsClearRequested={this.onSuggestionsClearRequested}
 						getSuggestionValue={getSuggestionValue}
 						renderSuggestion={renderSuggestion}
+						onSuggestionSelected={onSuggestionSelected}
 						inputProps={inputProps}
 						theme={theme({ isSmall })}
 						{...rest}

@@ -26,19 +26,28 @@ type Props = {
 	/** Set true to show the sidebar (small screens only) */
 	isSidebarVisible: boolean,
 
+	/** Passthrough function to calculate search suggestions */
+	getSearchSuggestions?: Function,
+
 	/** Passthrough function to show search suggestion value */
 	getSearchSuggestionValue?: Function,
 
 	/** Passthrough function to render search suggestions */
 	renderSearchSuggestion?: Function,
 
+	/** Passthrough called every time suggestion is selected */
+	onSearchSuggestionSelected?: Function,
+
 	/** Whether or not we will need to handle hamburger functionality */
-	enableHamburgerMenu: boolean
+	enableHamburgerMenu: boolean,
+
+	searchPlaceholder?: string
 }
 
 export default class HeaderPrimary extends Component<Props, State> {
 	static defaultProps = {
-		enableHamburgerMenu: true
+		enableHamburgerMenu: true,
+		searchPlaceholder: 'Search anything…'
 	}
 
 	state = {
@@ -88,9 +97,12 @@ export default class HeaderPrimary extends Component<Props, State> {
 			business,
 			toggleSidebarVisibility,
 			isSidebarVisible,
+			getSearchSuggestions,
 			getSearchSuggestionValue,
+			onSearchSuggestionSelected,
 			renderSearchSuggestion,
-			enableHamburgerMenu
+			enableHamburgerMenu,
+			searchPlaceholder
 		} = this.props
 
 		return (
@@ -126,11 +138,13 @@ export default class HeaderPrimary extends Component<Props, State> {
 							{getSearchSuggestionValue && renderSearchSuggestion && (
 								<Autosuggest
 									className="text-input-small"
-									placeholder="Search anything…"
+									placeholder={searchPlaceholder}
 									isSmall
 									wrapperClassName="header-primary__autosuggest"
+									getSuggestions={getSearchSuggestions}
 									getSuggestionValue={getSearchSuggestionValue}
 									renderSuggestion={renderSearchSuggestion}
+									onSuggestionSelected={onSearchSuggestionSelected}
 								/>
 							)}
 							<UserMenu
