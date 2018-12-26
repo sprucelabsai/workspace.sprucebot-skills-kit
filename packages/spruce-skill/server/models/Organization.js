@@ -24,5 +24,11 @@ module.exports = (sequelize, DataTypes) => {
 		Organization.hasMany(models.Location, { constraints: false })
 	}
 
+	Organization.scopes = {
+		public: {
+			attributes: ['id', 'name']
+		}
+	}
+
 	return Organization
 }

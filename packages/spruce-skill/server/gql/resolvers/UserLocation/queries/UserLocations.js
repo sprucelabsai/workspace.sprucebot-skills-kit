@@ -61,7 +61,7 @@ module.exports = ctx => {
 							{
 								userId: context.auth.User.id,
 								organizationId: args.organizationId,
-								permission: {
+								permissions: {
 									core: ['can_view_organization_roles']
 								}
 							}

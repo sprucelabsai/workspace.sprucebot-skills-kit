@@ -304,6 +304,38 @@ module.exports = ctx => {
 			})
 
 			return attrs
+		},
+		withCount: async function withCount(options) {
+			const model = options.model
+			const findOptions = options.findOptions
+			const context = options.context
+
+			const where = findOptions.where || {}
+			const count = await model.count({
+				where
+			})
+			context.totalCount = count
+		},
+		resolver: function enhancedResolver(model, options) {
+			const before = options.before
+			return resolver(model, {
+				...options,
+				before: async (findOptions, args, context, info) => {
+					let finalFindOptions = findOptions
+					if (before) {
+						finalFindOptions = await before(findOptions, args, context, info)
+					}
+					if (args.withCount === true) {
+						await this.withCount({
+							model,
+							findOptions: finalFindOptions,
+							context
+						})
+					}
+
+					return finalFindOptions
+				}
+			})
 		}
 	}
 
