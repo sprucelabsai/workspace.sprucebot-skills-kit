@@ -14,13 +14,14 @@ export type FormLayoutProps = {
 }
 
 const FormLayout = (props: FormLayoutProps) => {
-	const { children, className, spacing } = props
+	const { children, className, spacing, ...rest } = props
 
 	return (
 		<div
 			className={cx('form-layout', className, {
 				'form-layout--spacing-tight': spacing === 'tight'
 			})}
+			{...rest}
 		>
 			{children}
 		</div>
