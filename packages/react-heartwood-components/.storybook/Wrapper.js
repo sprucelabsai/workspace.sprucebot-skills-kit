@@ -18,10 +18,6 @@ const Wrapper = props => {
 		return (
 			<div className="main-wrapper">
 				<Helmet>
-					<link
-						rel="stylesheet"
-						href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500|Source+Sans+Pro:400,600"
-					/>
 					{stylesheets &&
 						stylesheets.length > 0 &&
 						stylesheets.map((stylesheet, idx) => (
@@ -37,10 +33,6 @@ const Wrapper = props => {
 	return (
 		<div className="main-wrapper">
 			<Helmet>
-				<link
-					rel="stylesheet"
-					href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500|Source+Sans+Pro:400,600"
-				/>
 				{stylesheets &&
 					stylesheets.length > 0 &&
 					stylesheets.map((stylesheet, idx) => (

@@ -25,3 +25,19 @@ strong {
 .visually-hidden {
 	visibility: hidden;
 }
+
+// Handle FOIT if desired
+@if global-variable-exists(foit) == false or $foit == true {
+	.fonts-loading {
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		p {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+}
