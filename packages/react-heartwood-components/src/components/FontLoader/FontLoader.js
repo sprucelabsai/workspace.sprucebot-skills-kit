@@ -52,10 +52,18 @@ export default class FontLoader extends Component<Props, State> {
 		// Load all the fonts
 		Promise.all(fontsToObserve)
 			.then(fonts => {
-				console.log({ fonts })
+				if (typeof log !== 'undefined') {
+					log.info('Fonts loaded: ', fonts)
+				} else {
+					console.log('Fonts loaded: ', fonts)
+				}
 			})
 			.catch(err => {
-				console.warn(err)
+				if (typeof log !== 'undefined') {
+					log.warn(err)
+				} else {
+					console.error(err)
+				}
 			})
 			.finally(() => {
 				// Show me the fonts!
