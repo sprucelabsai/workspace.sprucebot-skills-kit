@@ -1,8 +1,36 @@
 import React, { Fragment } from 'react'
 import Helmet from 'react-helmet'
 import Page, { PageContent } from '../src/components/Page'
+import FontLoader from '../src/components/FontLoader/FontLoader'
 import '../src/stylesheets/global.sass'
 import '@sprucelabs/heartwood-components/stylesheets/heartwood-components.scss'
+
+const fonts = [
+	{
+		name: 'Source Sans Pro',
+		weight: 400,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro',
+			rel: 'stylesheet'
+		}
+	},
+	{
+		name: 'Source Sans Pro',
+		weight: 600,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:600',
+			rel: 'stylesheet'
+		}
+	},
+	{
+		name: 'Source Code Pro',
+		weight: 500,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Code+Pro:500',
+			rel: 'stylesheet'
+		}
+	}
+]
 
 const Wrapper = props => {
 	const stylesheets =
@@ -25,6 +53,7 @@ const Wrapper = props => {
 						))}
 					{meta}
 				</Helmet>
+				<FontLoader fonts={[...fonts]} />
 				{props.children}
 			</div>
 		)
@@ -40,6 +69,7 @@ const Wrapper = props => {
 					))}
 				{meta}
 			</Helmet>
+			<FontLoader fonts={[...fonts]} />
 			<Page>
 				<PageContent>{props.children}</PageContent>
 			</Page>
