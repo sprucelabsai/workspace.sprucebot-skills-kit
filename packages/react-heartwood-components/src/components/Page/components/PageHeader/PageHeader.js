@@ -72,11 +72,11 @@ const PageHeader = (props: PageHeaderProps) => {
 	}
 
 	return (
-		<header class="page__header">
+		<header className="page__header">
 			{anchor && anchor}
-			{/* <a class="page__header-back-link" href="#">
+			{/* <a className="page__header-back-link" href="#">
             <?xml version="1.0" encoding="utf-8"?>
-        <svg class="page__header-back-link-icon" version=" 1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns: xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+        <svg className="page__header-back-link-icon" version=" 1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns: xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
     
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12.842 13.825L9.02533 10L12.842 6.175L11.667 5L6.66699 10L11.667 15L12.842 13.825Z" />
         </svg>Previous Page</a> */}

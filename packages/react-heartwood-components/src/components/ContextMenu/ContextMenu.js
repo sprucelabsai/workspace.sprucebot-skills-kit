@@ -22,6 +22,10 @@ export type Props = {
 	/** Set the width of the menu. Helpful for longer text in buttons */
 	size?: 'medium' | 'large',
 
+	/** Adds text to the collapsed menu */
+	// NOTE: This should be required for accessibility
+	text?: string,
+
 	/** Overrides the default icon */
 	icon?: any,
 
@@ -29,7 +33,10 @@ export type Props = {
 	isSimple?: boolean,
 
 	/** Set tot true makes the menu close when any action is selected */
-	closeOnSelectAction: boolean
+	closeOnSelectAction: boolean,
+
+	/** Hide the icon entirely */
+	isTextOnly: boolean
 }
 
 type State = {
@@ -47,7 +54,8 @@ export default class ContextMenu extends Component<Props, State> {
 
 	static defaultProps = {
 		isLeftAligned: false,
-		isBottomAligned: false
+		isBottomAligned: false,
+		isTextOnly: false
 	}
 
 	componentWillUnmount = () => {
@@ -156,7 +164,9 @@ export default class ContextMenu extends Component<Props, State> {
 			isBottomAligned,
 			isSimple,
 			size,
-			icon
+			icon,
+			text,
+			isTextOnly
 		} = this.props
 		const buttonClass = cx('context-menu', {
 			'context-menu--is-visible': isVisible
@@ -173,7 +183,10 @@ export default class ContextMenu extends Component<Props, State> {
 					kind={isSimple ? 'simple' : ''}
 					className="context-menu__button"
 					onClick={this.handleToggle}
-					icon={icon || { customIcon: MoreIcon, isLineIcon: true }}
+					icon={
+						!isTextOnly && (icon || { customIcon: MoreIcon, isLineIcon: true })
+					}
+					text={text}
 				/>
 				<VelocityTransitionGroup
 					enter={{

@@ -82,6 +82,7 @@ module.exports = async ({
 	await app.prepare()
 
 	const koa = new Koa()
+	koa.proxy = true
 
 	// Set up global logger
 	global.logger = logger

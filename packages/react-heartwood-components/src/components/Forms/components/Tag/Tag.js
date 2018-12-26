@@ -30,6 +30,7 @@ const Tag = (props: Props) => {
 			<span className="tag__text">{text}</span>
 			<Button
 				className="tag__btn"
+				isSmall={isSmall}
 				icon={{
 					customIcon: CloseIcon
 				}}

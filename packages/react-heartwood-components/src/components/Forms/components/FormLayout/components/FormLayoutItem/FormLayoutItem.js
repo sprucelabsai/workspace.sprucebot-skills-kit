@@ -11,9 +11,13 @@ export type FormLayoutItemProps = {
 }
 
 const FormLayoutItem = (props: FormLayoutItemProps) => {
-	const { children, className } = props
+	const { children, className, ...rest } = props
 
-	return <div className={cx('form-layout__item', className)}>{children}</div>
+	return (
+		<div className={cx('form-layout__item', className)} {...rest}>
+			{children}
+		</div>
+	)
 }
 
 export default FormLayoutItem

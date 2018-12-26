@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.3.3",
+	"version": "8.6.3",
 	"main": "lib/index.js",
 	"description": "React components for your Sprucebot Skill 💪🏼",
 	"keywords": [
@@ -77,16 +77,18 @@
 		"eslint-plugin-prettier": "^2.3.1",
 		"eslint-plugin-react": "^7.4.0",
 		"extract-text-webpack-plugin": "^3.0.2",
+		"faker": "^4.1.0",
 		"husky": "^0.14.3",
 		"jest": "^22.0.5",
 		"prettier": "^1.13",
 		"react-helmet": "^5.2.0",
-		"react-test-renderer": "^16.0.0"
+		"react-test-renderer": "^16.0.0",
+		"uuid": "^3.3.2"
 	},
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
-		"@sprucelabs/heartwood-components": "^8.3.3",
+		"@sprucelabs/heartwood-components": "^8.6.3",
 		"axios": "^0.18.0",
 		"blueimp-canvas-to-blob": "^3.14.0",
 		"classnames": "^2.2.5",
@@ -125,6 +127,7 @@
 		"react-redux": "^5.0.6",
 		"react-required-if": "^1.0.3",
 		"react-sortable-hoc": "^0.8.3",
+		"react-table": "^6.8.6",
 		"react-textarea-autosize": "^6.0.0",
 		"redux": "^3.7.2",
 		"redux-form": "^7.3.0",

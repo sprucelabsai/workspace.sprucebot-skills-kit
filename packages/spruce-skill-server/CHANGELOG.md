@@ -3,6 +3,103 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.6.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.2...v8.6.3) (2018-12-26)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+## [8.6.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.1...v8.6.2) (2018-12-26)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+## [8.6.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.0...v8.6.1) (2018-12-21)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+# [8.6.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.4...v8.6.0) (2018-12-21)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+## [8.5.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.3...v8.5.4) (2018-12-21)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+## [8.5.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.2...v8.5.3) (2018-12-20)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+## [8.5.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.1...v8.5.2) (2018-12-20)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+## [8.5.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.0...v8.5.1) (2018-12-19)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+# [8.5.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.4.0...v8.5.0) (2018-12-19)
+
+
+### Bug Fixes
+
+* remove flow from config files and gql helpers so production build runs ([13c7fd9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/13c7fd9))
+
+
+### Features
+
+* GraphQL ([73e6066](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/73e6066))
+* Users and UserLocations queries; gql enhancements ([2d68c37](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2d68c37))
+
+
+
+
+
+# [8.4.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.3.4...v8.4.0) (2018-12-19)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+## [8.3.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.3.3...v8.3.4) (2018-12-19)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
 ## [8.3.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.3.2...v8.3.3) (2018-12-18)
 
 **Note:** Version bump only for package @sprucelabs/spruce-skill-server

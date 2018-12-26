@@ -51,4 +51,9 @@
 		min-width: 0;
 		border-radius: 0;
 	}
+
+	&.tab-group--is-padded {
+		padding-left: spacing('base');
+		padding-right: spacing('base');
+	}
 }

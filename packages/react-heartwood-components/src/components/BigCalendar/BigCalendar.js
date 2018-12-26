@@ -77,7 +77,7 @@ class BigCalendar extends Component<Props, State> {
 		doubleClickTime: 250,
 		doubleClickToCreate: false, // defaults to single click
 		eventTimeFormat: 'h:mma',
-		headerCellDowFormat: 'dd',
+		headerCellDowFormat: 'ddd',
 		headerCellDayFormat: 'D'
 	}
 

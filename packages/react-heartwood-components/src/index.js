@@ -34,7 +34,9 @@ export {
 	Toggle,
 	FormLayout,
 	FormLayoutGroup,
-	FormLayoutItem
+	FormLayoutItem,
+	formatPhoneNumber,
+	isValidPhoneNumber
 } from './components/Forms'
 export { default as Icon } from './components/Icon/Icon'
 export { default as Heading } from './components/Heading/Heading'
@@ -55,7 +57,11 @@ export { default as Loader } from './components/Loader/Loader'
 export { default as Modal } from './components/Modal/Modal'
 export { default as Pagination } from './components/Pagination/Pagination'
 export { default as Tabs, Tab } from './components/Tabs'
+export {
+	default as ToastWrapper
+} from './components/Toast/components/ToastWrapper/ToastWrapper'
 export { default as Toast } from './components/Toast/Toast'
 export { default as View } from './components/View/View'
 export { default as BigCalendar } from './components/BigCalendar/BigCalendar'
 export { default as Page, PageHeader, PageContent } from './components/Page'
+export { default as Table, TableSearch, TableFilters } from './components/Table'

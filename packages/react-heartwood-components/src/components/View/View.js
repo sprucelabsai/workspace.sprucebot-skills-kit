@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import type { Node } from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
@@ -9,81 +9,71 @@ type Props = {
 	sidebarItems?: Array<Object>,
 	user: Object,
 	business: Object,
+	getSearchSuggestions?: Function,
 	getSearchSuggestionValue?: Function,
 	renderSearchSuggestion?: Function,
-	children: Node
+	onSearchSuggestionSelected?: Function,
+	children: Node,
+	toggleSidebarVisibility: Function,
+	toggleSidebarExpanded: Function,
+	forceCloseSidebar: Function,
+	isSidebarVisible?: boolean,
+	isSidebarExpanded?: boolean,
+	searchPlaceholder?: string
 }
-type State = {
-	sidebarIsVisible: boolean,
-	sidebarIsExpanded: boolean
-}
 
-export default class View extends Component<Props, State> {
-	state = {
-		sidebarIsVisible: false,
-		sidebarIsExpanded: true
-	}
+const View = (props: Props) => {
+	const {
+		sidebarItems,
+		user,
+		business,
+		getSearchSuggestions,
+		getSearchSuggestionValue,
+		renderSearchSuggestion,
+		onSearchSuggestionSelected,
+		isSidebarVisible,
+		isSidebarExpanded,
+		toggleSidebarExpanded,
+		toggleSidebarVisibility,
+		forceCloseSidebar,
+		searchPlaceholder,
+		children
+	} = props
 
-	toggleSidebarVisibility = () => {
-		this.setState(prevState => ({
-			sidebarIsVisible: !prevState.sidebarIsVisible,
-			sidebarIsExpanded: true
-		}))
-	}
-
-	toggleSidebarExpanded = () => {
-		this.setState(prevState => ({
-			sidebarIsExpanded: !prevState.sidebarIsExpanded
-		}))
-	}
-
-	forceCloseSidebar = () => {
-		this.setState({
-			sidebarIsVisible: false
-		})
-	}
-
-	render() {
-		const { sidebarIsVisible, sidebarIsExpanded } = this.state
-		const {
-			sidebarItems,
-			user,
-			business,
-			getSearchSuggestionValue,
-			renderSearchSuggestion,
-			children
-		} = this.props
-
-		return (
-			<div
-				className={cx('main-wrapper', {
-					'menu--is-visible': sidebarIsVisible,
-					'sidebar--is-collapsed': !sidebarIsExpanded,
-					'sidebar--is-missing': !sidebarItems || sidebarItems.length === 0
-				})}
-			>
-				{sidebarItems && sidebarItems.length > 0 && (
-					<Sidebar
-						items={sidebarItems}
-						sidebarIsVisible={sidebarIsVisible}
-						isExpanded={sidebarIsExpanded}
-						toggleExpanded={this.toggleSidebarExpanded}
-						forceCloseSidebar={this.forceCloseSidebar}
-					/>
-				)}
-				<HeaderPrimary
-					user={user}
-					business={business}
-					enableHamburgerMenu={
-						sidebarItems && sidebarItems.length > 0 ? true : false
-					}
-					toggleSidebarVisibility={this.toggleSidebarVisibility}
-					sidebarIsVisible={sidebarIsVisible}
-					getSearchSuggestionValue={getSearchSuggestionValue}
-					renderSearchSuggestion={renderSearchSuggestion}
+	return (
+		<div
+			className={cx('main-wrapper', {
+				'menu--is-visible': isSidebarVisible,
+				'sidebar--is-collapsed': !isSidebarExpanded,
+				'sidebar--is-missing': !sidebarItems || sidebarItems.length === 0
+			})}
+		>
+			{sidebarItems && sidebarItems.length > 0 && (
+				<Sidebar
+					items={sidebarItems}
+					isSidebarVisible={isSidebarVisible}
+					isExpanded={isSidebarExpanded}
+					toggleExpanded={toggleSidebarExpanded}
+					forceCloseSidebar={forceCloseSidebar}
 				/>
-				<main className="main-content">{children}</main>
-			</div>
-		)
-	}
+			)}
+			<HeaderPrimary
+				user={user}
+				business={business}
+				enableHamburgerMenu={
+					sidebarItems && sidebarItems.length > 0 ? true : false
+				}
+				toggleSidebarVisibility={toggleSidebarVisibility}
+				isSidebarVisible={isSidebarVisible}
+				getSearchSuggestions={getSearchSuggestions}
+				getSearchSuggestionValue={getSearchSuggestionValue}
+				renderSearchSuggestion={renderSearchSuggestion}
+				onSearchSuggestionSelected={onSearchSuggestionSelected}
+				searchPlaceholder={searchPlaceholder}
+			/>
+			<main className="main-content">{children}</main>
+		</div>
+	)
 }
+
+export default View

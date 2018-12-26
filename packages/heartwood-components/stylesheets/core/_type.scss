@@ -65,46 +65,54 @@ Pre-rolled type styles
 */
 @mixin type-style-body {
 	@include typescale('body');
+	font-family: $font-family-primary;
 	line-height: $line-height;
 	font-weight: $font-weight-normal;
 }
 
 @mixin type-style-body-em {
 	@include typescale('body');
+	font-family: $font-family-primary;
 	line-height: $line-height;
 	font-weight: $font-weight-bold;
 }
 
 @mixin type-style-body-sm {
 	@include typescale('ui');
+	font-family: $font-family-primary;
 	line-height: $line-height;
 	font-weight: $font-weight-normal;
 }
 
 @mixin type-style-body-sm-em {
 	@include typescale('ui');
+	font-family: $font-family-primary;
 	line-height: $line-height;
 	font-weight: $font-weight-bold;
 }
 
 @mixin type-style-h4 {
 	@include typescale('heading-sm');
+	font-family: $font-family-primary;
 	line-height: $line-height-tight;
 	font-weight: $font-weight-bold;
 }
 
 @mixin type-style-h3 {
 	@include typescale('heading-md');
+	font-family: $font-family-primary;
 	line-height: $line-height-tight;
 }
 
 @mixin type-style-h2 {
 	@include typescale('heading-lg');
+	font-family: $font-family-primary;
 	line-height: $line-height-tight;
 }
 
 @mixin type-style-h1 {
 	@include typescale('heading-xl');
+	font-family: $font-family-primary;
 	line-height: $line-height-tight;
 }
 

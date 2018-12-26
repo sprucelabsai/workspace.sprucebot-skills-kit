@@ -1,0 +1,133 @@
+.table {
+	.context-menu {
+		@include type-style-body-sm;
+
+		.context-menu__item-btn {
+			color: $c-text;
+		}
+	}
+	.context-menu__button {
+		height: rem(36);
+	}
+}
+
+.table-search__wrapper {
+	padding: spacing('base');
+	border-bottom: 1px solid $c-border;
+}
+
+.table-filters__wrapper {
+	display: flex;
+	flex-flow: row nowrap;
+	padding: spacing('tight') spacing('base');
+	overflow-x: auto;
+
+	.tag {
+		flex: 1 0 auto;
+	}
+}
+
+.table__inner {
+	overflow: auto;
+}
+
+.table-row,
+.table-header-row {
+	display: flex;
+	border-bottom: 1px solid $c-border-light;
+}
+
+.table-cell,
+.table-header-cell {
+	width: 100%;
+
+	&:first-child {
+		padding-left: spacing('base');
+	}
+
+	&.table-checkbox-cell {
+		width: rem(36);
+	}
+}
+
+.table-header-row {
+	background-color: $c-grey-00;
+
+	&.table-header-row--has-selections {
+		display: flex;
+		.table-header-cell:nth-child(n + 3) {
+			display: none;
+		}
+	}
+}
+
+.table-header-cell {
+	@include type-style-label;
+	display: inline-flex;
+	align-items: center;
+	padding-top: spacing('extra-tight');
+	padding-left: spacing('tight');
+	padding-bottom: spacing('extra-tight');
+	height: rem(44);
+
+	&.table-checkbox-cell {
+		display: inline-flex;
+		align-items: center;
+	}
+
+	&.table-header-cell--is-sortable {
+		cursor: pointer;
+
+		// NOTE: Code smells due to restrictions of vendor library: https://github.com/react-tools/react-table
+		> * {
+			display: inline-block;
+		}
+	}
+
+	.table-header-row--has-selections & {
+		letter-spacing: 0;
+		text-transform: none;
+	}
+}
+
+.table-header-cell__icon {
+	flex: 0 0 auto;
+	opacity: 0;
+	visibility: hidden;
+	fill: $c-text-icon;
+
+	&.table-header-cell__icon--is-visible {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+.table-header-cell__icon--is-reversed {
+	transform: rotate(180deg);
+}
+
+.table-cell {
+	padding-top: rem(12);
+	padding-left: spacing('tight');
+	padding-bottom: rem(12);
+
+	&:last-child {
+		padding-right: spacing('tight');
+	}
+}
+
+.table-selected-text {
+	@include type-style-body-sm;
+	display: inline-block;
+	margin-right: rem(8);
+}
+
+.table-pagination__wrapper {
+	padding-top: spacing('base');
+	padding-right: spacing('base');
+	padding-left: spacing('base');
+}
+
+.table-loader {
+	display: none;
+}
