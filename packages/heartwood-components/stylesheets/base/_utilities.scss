@@ -18,7 +18,7 @@
 }
 
 .u-lh-loose {
-	line-height: 1.5
+	line-height: 1.5;
 }
 
 // Display
@@ -33,4 +33,11 @@
 
 .u-icon__stroke {
 	stroke: $c-text-icon;
+}
+
+.debug-layout {
+	background-color: rgba(255, 0, 0, 0.05);
+	* {
+		background-color: rgba(255, 0, 0, 0.05);
+	}
 }

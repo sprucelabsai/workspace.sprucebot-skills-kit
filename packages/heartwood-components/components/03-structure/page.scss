@@ -9,12 +9,16 @@
 }
 
 .page__header {
-	padding: spacing('base') spacing('base') 0;
+	padding: spacing('base');
 	@include gt('small') {
-		padding: spacing('loose') spacing('loose') 0;
+		padding: 1.5rem;
 	}
 	@include gt('medium') {
-		padding: spacing('extra-loose') spacing('extra-loose') 0;
+		padding: 1.5rem spacing('extra-loose');
+	}
+
+	&--has-bottom-border {
+		border-bottom: 1px solid $c-border-light;
 	}
 }
 

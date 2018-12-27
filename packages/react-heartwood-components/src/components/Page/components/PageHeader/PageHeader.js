@@ -4,7 +4,9 @@ import is from 'is_js'
 import cx from 'classnames'
 import Link from 'next/link'
 import type { Props as LinkProps } from 'next/link'
+import type { Props as ButtonProps } from '../../../Button/Button'
 import Icon from '../../../Icon/Icon'
+import Button from '../../../Button/Button'
 import BackIcon from '../../../../../static/assets/icons/ic_keyboard_arrow_left.svg'
 
 export type PageHeaderProps = {
@@ -21,11 +23,25 @@ export type PageHeaderProps = {
 	backLinkText?: string,
 
 	/** Props for Next router link: https://nextjs.org/docs/#routing. */
-	linkProps?: LinkProps
+	linkProps?: LinkProps,
+
+	/** Adds a button to the page header for its primary action. */
+	primaryAction?: ButtonProps,
+
+	/** Set true to add a border to the page header */
+	hasBottomBorder?: boolean
 }
 
 const PageHeader = (props: PageHeaderProps) => {
-	const { title, backLinkHref, onClickBack, backLinkText, linkProps } = props
+	const {
+		title,
+		backLinkHref,
+		onClickBack,
+		backLinkText,
+		linkProps,
+		primaryAction,
+		hasBottomBorder
+	} = props
 
 	const backLinkClass = 'page__header-back-link'
 	let anchor
@@ -72,7 +88,11 @@ const PageHeader = (props: PageHeaderProps) => {
 	}
 
 	return (
-		<header className="page__header">
+		<header
+			className={cx('page__header', 'debug-layout', {
+				'page__header--has-bottom-border': hasBottomBorder
+			})}
+		>
 			{anchor && anchor}
 			{/* <a className="page__header-back-link" href="#">
             <?xml version="1.0" encoding="utf-8"?>
@@ -81,6 +101,7 @@ const PageHeader = (props: PageHeaderProps) => {
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12.842 13.825L9.02533 10L12.842 6.175L11.667 5L6.66699 10L11.667 15L12.842 13.825Z" />
         </svg>Previous Page</a> */}
 			<h1>{title}</h1>
+			{primaryAction && <Button {...primaryAction} />}
 		</header>
 	)
 }
@@ -88,7 +109,9 @@ const PageHeader = (props: PageHeaderProps) => {
 PageHeader.defaultProps = {
 	title: '',
 	backLinkText: 'Back',
-	backLinkHref: ''
+	backLinkHref: '',
+	primaryAction: null,
+	hasBottomBorder: false
 }
 
 export default PageHeader

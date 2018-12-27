@@ -1,5 +1,6 @@
 h1 {
 	@include typescale('heading-xl');
+	line-height: $line-height-tight;
 }
 
 h2 {
