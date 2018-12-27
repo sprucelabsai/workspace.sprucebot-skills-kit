@@ -85,7 +85,7 @@ const Button = (props: Props) => {
 	const handleClick = (e: any) => {
 		e.currentTarget.blur()
 		if (onClick) {
-			onClick(props.payload)
+			onClick(props.payload || e)
 		}
 	}
 
