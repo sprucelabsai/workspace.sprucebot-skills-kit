@@ -2,6 +2,8 @@
 import React, { Fragment } from 'react'
 import type { Element, Node } from 'react'
 import cx from 'classnames'
+import PageHeader from './components/PageHeader/PageHeader'
+import type { PageHeaderProps } from './components/PageHeader/PageHeader'
 
 // Card
 type PageProps = {
@@ -15,11 +17,14 @@ type PageProps = {
 	hasHeader?: boolean,
 
 	/** Optional classname */
-	className?: string
+	className?: string,
+
+	/** Page header props */
+	pageHeader?: PageHeaderProps
 }
 
 export const Page = (props: PageProps) => {
-	const { children, isCentered, hasHeader, className } = props
+	const { children, isCentered, hasHeader, className, pageHeader } = props
 	return (
 		<div
 			className={cx('page', className, {
@@ -27,6 +32,7 @@ export const Page = (props: PageProps) => {
 				'page--no-header': !hasHeader
 			})}
 		>
+			{pageHeader && <PageHeader {...pageHeader} />}
 			{children}
 		</div>
 	)
@@ -34,7 +40,8 @@ export const Page = (props: PageProps) => {
 
 Page.defaultProps = {
 	isCentered: false,
-	hasHeader: true
+	hasHeader: true,
+	pageHeader: null
 }
 
 export default Page
