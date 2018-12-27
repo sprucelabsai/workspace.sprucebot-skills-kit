@@ -45,6 +45,25 @@
 	margin-left: rem(-8);
 }
 
+.page__header-inner {
+	display: flex;
+	flex-flow: column;
+	align-items: flex-start;
+
+	.btn {
+		margin-top: spacing('base');
+	}
+
+	@include gt('small') {
+		flex-flow: row;
+		justify-content: space-between;
+
+		.btn {
+			margin-top: 0;
+		}
+	}
+}
+
 .page__content {
 	padding: spacing('extra-loose') 0;
 
