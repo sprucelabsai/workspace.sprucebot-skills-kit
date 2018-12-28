@@ -7,6 +7,9 @@ export type Props = {
 	/** Tab text */
 	text: string,
 
+	/** Tab icon */
+	icon?: string,
+
 	/** Method used to render anchor, if isAnchor is true */
 	AnchorComponent?: Node,
 
@@ -23,6 +26,7 @@ export type Props = {
 const Tab = ({
 	AnchorComponent,
 	text,
+	icon,
 	isCurrent,
 	className,
 	...rest
@@ -35,6 +39,7 @@ const Tab = ({
 					'tab--is-current': isCurrent
 				})}
 				text={text}
+				icon={icon}
 				{...rest}
 			/>
 		</li>
@@ -43,7 +48,8 @@ const Tab = ({
 
 Tab.defaultProps = {
 	isCurrent: false,
-	panel: null
+	panel: null,
+	icon: ''
 }
 
 export default Tab
