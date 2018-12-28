@@ -9,16 +9,27 @@
 }
 
 .page__header {
-	padding: spacing('base');
+	padding: spacing('base') spacing('base') 0;
+
 	@include gt('small') {
-		padding: 1.5rem;
+		padding: 1.5rem 1.5rem 0;
 	}
+
 	@include gt('medium') {
-		padding: 1.5rem spacing('extra-loose');
+		padding: 1.5rem spacing('extra-loose') 0 spacing('extra-loose');
 	}
 
 	&--has-bottom-border {
+		padding-bottom: spacing('base');
 		border-bottom: 1px solid $c-border-light;
+
+		@include gt('small') {
+			padding-bottom: 1.5rem;
+		}
+
+		// @include gt('medium') {
+		// 	padding: 1.5rem spacing('extra-loose') 0 spacing('extra-loose');
+		// }
 	}
 }
 
