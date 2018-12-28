@@ -8,6 +8,7 @@ import * as Card from './components/Card'
 import ContextMenu from './components/ContextMenu/ContextMenu'
 import { FooterPrimary, HeaderPrimary, Sidebar } from './components/Core'
 import Dropzone from './components/Dropzone/Dropzone'
+import FontLoader from './components/FontLoader/FontLoader'
 import * as FormPartials from './components/Forms/FormPartials'
 import {
 	Autosuggest,
@@ -75,6 +76,7 @@ const Sprucebot = {
 	ContextMenu,
 	DomainInput,
 	Dropzone,
+	FontLoader,
 	FooterPrimary,
 	...FormPartials,
 	HeaderPrimary,
