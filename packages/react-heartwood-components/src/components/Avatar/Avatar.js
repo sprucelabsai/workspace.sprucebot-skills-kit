@@ -46,7 +46,8 @@ const Avatar = (props: Props) => {
 		text,
 		width,
 		height,
-		className
+		className,
+		...rest
 	} = props
 	const wrapperClass = cx('avatar-wrapper', className, {
 		'avatar-wrapper-large': isLarge,
@@ -77,6 +78,7 @@ const Avatar = (props: Props) => {
 					alt={alt}
 					width={imgWidth}
 					height={imgHeight}
+					{...rest}
 				/>
 				{showIndicator && <div className={indicatorClass} />}
 			</div>
