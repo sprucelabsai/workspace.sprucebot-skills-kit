@@ -329,6 +329,8 @@ stories
 						kind: 'simple',
 						isSmall: true
 					},
+					backLinkHref: '#',
+					backLinkText: 'Locations',
 					tabs: skillViewTabs
 				}}
 			/>
