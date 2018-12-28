@@ -68,7 +68,7 @@ stories
 			toggleSidebarVisibility={() => null}
 			getSearchSuggestionValue={() => null}
 			renderSearchSuggestion={() => null}
-			isLocationManagmentVisible
+			isLocationManagmentButtonVisible
 		/>
 	))
 	.add('Location, Owner', () => (
@@ -80,7 +80,7 @@ stories
 			toggleSidebarVisibility={() => null}
 			getSearchSuggestionValue={() => null}
 			renderSearchSuggestion={() => null}
-			isLocationManagmentVisible
-			isSkillManagementVisible
+			isLocationManagmentButtonVisible
+			isSkillManagementButtonVisible
 		/>
 	))

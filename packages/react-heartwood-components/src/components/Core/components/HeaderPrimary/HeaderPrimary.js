@@ -11,7 +11,8 @@ import cx from 'classnames'
 
 type State = {
 	isMenuExpanded: boolean,
-	isUserMenuVisible: boolean
+	isUserMenuVisible: boolean,
+	isLocationMenuVisible: boolean
 }
 type Props = {
 	/** The logged-in user */
@@ -45,23 +46,24 @@ type Props = {
 	searchPlaceholder?: string,
 
 	/** Set true to show location management shortcut */
-	isLocationManagmentVisible?: boolean,
+	isLocationManagmentButtonVisible?: boolean,
 
 	/** Set true to show skill management shortcut */
-	isSkillManagementVisible: boolean
+	isSkillManagementButtonVisible: boolean
 }
 
 export default class HeaderPrimary extends Component<Props, State> {
 	static defaultProps = {
 		enableHamburgerMenu: true,
 		searchPlaceholder: 'Search…',
-		isLocationManagmentVisible: false,
-		isSkillManagementVisible: false
+		isLocationManagmentButtonVisible: false,
+		isSkillManagementButtonVisible: false
 	}
 
 	state = {
 		isMenuExpanded: false,
-		isUserMenuVisible: false
+		isUserMenuVisible: false,
+		isLocationMenuVisible: false
 	}
 
 	ref: any
@@ -77,10 +79,30 @@ export default class HeaderPrimary extends Component<Props, State> {
 		}
 	}
 
+	hideLocationMenu = (e: Event) => {
+		if (e.key === 'Escape' || e.target.contains(this.ref)) {
+			this.setState(
+				{
+					isLocationMenuVisible: false
+				},
+				() => this.manageListeners()
+			)
+		}
+	}
+
 	toggleUserMenuVisibility = () => {
 		this.setState(
 			prevState => ({
 				isUserMenuVisible: !prevState.isUserMenuVisible
+			}),
+			() => this.manageListeners()
+		)
+	}
+
+	toggleLocationMenuVisibility = () => {
+		this.setState(
+			prevState => ({
+				isLocationMenuVisible: !prevState.isLocationMenuVisible
 			}),
 			() => this.manageListeners()
 		)
@@ -91,15 +113,24 @@ export default class HeaderPrimary extends Component<Props, State> {
 			if (this.state.isUserMenuVisible) {
 				window.addEventListener('click', this.hideUserMenu, false)
 				window.addEventListener('keyup', this.hideUserMenu, false)
+			} else if (this.state.isLocationMenuVisible) {
+				window.addEventListener('click', this.hideLocationMenu, false)
+				window.addEventListener('keyup', this.hideLocationMenu, false)
 			} else {
 				window.removeEventListener('click', this.hideUserMenu, false)
 				window.removeEventListener('keyup', this.hideUserMenu, false)
+				window.removeEventListener('click', this.hideLocationMenu, false)
+				window.removeEventListener('keyup', this.hideLocationMenu, false)
 			}
 		}
 	}
 
 	render() {
-		const { isMenuExpanded, isUserMenuVisible } = this.state
+		const {
+			isMenuExpanded,
+			isUserMenuVisible,
+			isLocationMenuVisible
+		} = this.state
 
 		const {
 			user,
@@ -112,8 +143,8 @@ export default class HeaderPrimary extends Component<Props, State> {
 			renderSearchSuggestion,
 			enableHamburgerMenu,
 			searchPlaceholder,
-			isLocationManagmentVisible,
-			isSkillManagementVisible
+			isLocationManagmentButtonVisible,
+			isSkillManagementButtonVisible
 		} = this.props
 
 		return (
@@ -146,21 +177,27 @@ export default class HeaderPrimary extends Component<Props, State> {
 				<div className="header-primary__right">
 					{user ? (
 						<Fragment>
-							{location && isLocationManagmentVisible && (
-								<Button
-									className="header-primary__shortcut-btn"
-									icon={{ name: 'location' }}
-									text="Location"
-									isIconOnly
-								/>
+							{location && isLocationManagmentButtonVisible && (
+								<div className="header-primary__shortcut-btn-wrapper">
+									<Button
+										onClick={this.toggleLocationMenuVisibility}
+										className="header-primary__shortcut-btn"
+										icon={{ name: 'location' }}
+										text="Location"
+										isIconOnly
+									/>
+									{isLocationMenuVisible && <div>Hello</div>}
+								</div>
 							)}
-							{isSkillManagementVisible && (
-								<Button
-									className="header-primary__shortcut-btn"
-									icon={{ name: 'skill' }}
-									text="Skills"
-									isIconOnly
-								/>
+							{isSkillManagementButtonVisible && (
+								<div className="header-primary__shortcut-btn-wrapper">
+									<Button
+										className="header-primary__shortcut-btn"
+										icon={{ name: 'skill' }}
+										text="Skills"
+										isIconOnly
+									/>
+								</div>
 							)}
 							{getSearchSuggestionValue && renderSearchSuggestion && (
 								<Autosuggest
