@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.7.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.6.3...v8.7.0) (2018-12-28)
+
+
+### Features
+
+* add classes for overflow ([a3fcbe1](https://github.com/sprucelabsai/sprucebot-heartwood/commit/a3fcbe1))
+* correct styling of context menu when used with tabs ([0a1a38a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/0a1a38a))
+* get the rights to be hidden on initial render and update on window resize ([51d1fc1](https://github.com/sprucelabsai/sprucebot-heartwood/commit/51d1fc1))
+* make tab truncation controllable to prevent it with onboarding cards ([71f2a43](https://github.com/sprucelabsai/sprucebot-heartwood/commit/71f2a43))
+* pass hidden tabs into context menu ([09ff5cb](https://github.com/sprucelabsai/sprucebot-heartwood/commit/09ff5cb))
+
+
+
+
+
 ## [8.6.3](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.6.2...v8.6.3) (2018-12-26)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components

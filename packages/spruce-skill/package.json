@@ -4,7 +4,7 @@
 		"access": "public"
 	},
 	"description": "The base template that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "8.6.3",
+	"version": "8.7.0",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
@@ -38,12 +38,12 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
-		"@sprucelabs/heartwood-components": "^8.6.3",
+		"@sprucelabs/heartwood-components": "^8.7.0",
 		"@sprucelabs/log": "^1.6.2",
-		"@sprucelabs/react-heartwood-components": "^8.6.3",
-		"@sprucelabs/spruce-next-helpers": "^8.6.3",
-		"@sprucelabs/spruce-node": "^8.6.3",
-		"@sprucelabs/spruce-skill-server": "^8.6.3",
+		"@sprucelabs/react-heartwood-components": "^8.7.0",
+		"@sprucelabs/spruce-next-helpers": "^8.7.0",
+		"@sprucelabs/spruce-node": "^8.7.0",
+		"@sprucelabs/spruce-skill-server": "^8.7.0",
 		"@zeit/next-css": "^1.0.1",
 		"@zeit/next-sass": "^1.0.1",
 		"babel-core": "^7.0.0-bridge.0",

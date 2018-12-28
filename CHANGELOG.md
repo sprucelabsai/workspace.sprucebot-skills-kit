@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.7.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.3...v8.7.0) (2018-12-28)
+
+
+### Features
+
+* add classes for overflow ([a3fcbe1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a3fcbe1))
+* correct styling of context menu when used with tabs ([0a1a38a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0a1a38a))
+* fix prettier errors ([231d76c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/231d76c))
+* fix prettier errors ([d6bf66f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d6bf66f))
+* get the rights to be hidden on initial render and update on window resize ([51d1fc1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51d1fc1))
+* make tab truncation controllable to prevent it with onboarding cards ([71f2a43](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/71f2a43))
+* pass hidden tabs into context menu ([09ff5cb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/09ff5cb))
+* prevent active tab from getting hidden in context menu ([650d9ed](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/650d9ed))
+
+
+
+
+
 ## [8.6.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.2...v8.6.3) (2018-12-26)
 
 **Note:** Version bump only for package workspace.sprucebot-skills-kit
