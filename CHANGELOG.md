@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.9.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.8.0...v8.9.0) (2018-12-28)
+
+
+### Features
+
+* add onSelected callback ([3e3248b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3e3248b))
+* correct padding on header tabs ([fa3f149](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fa3f149))
+
+
+
+
+
 # [8.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.7.0...v8.8.0) (2018-12-28)
 
 
