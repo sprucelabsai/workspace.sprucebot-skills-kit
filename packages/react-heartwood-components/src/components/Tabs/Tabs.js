@@ -16,29 +16,49 @@ type Props = {
 	isPadded?: boolean,
 
 	/** Set false to prevent truncation behavior */
-	isTruncatable?: boolean
+	isTruncatable?: boolean,
+
+	/** Optional class to add to the tab group */
+	className?: String
 }
 
-type State = {
-	/** Index of the currently active tab */
-	activeTabIndex: number,
+const Tabs = (props: Props) => {
+	const { tabs, isPadded, className } = props
+	const hiddenTabs = []
+	const activeTab = tabs.find(tab => tab.isCurrent)
 
-	/** The indices of tabs to be hidden */
-	hiddenTabIndices: Array<number>,
-
-	/** Measured widths of tabs after first render */
-	tabWidths: Array<number>,
-
-	/** Measured width of context tab after first render */
-	contextTabWidth: number,
-
-	/** Controls visibility of the context menu */
-	isContextTabVisible: boolean
+	// TODO: Determine how hidden tabs work
+	return (
+		<Fragment>
+			<ul
+				className={cx('tab-group', className, {
+					'tab-group--is-padded': isPadded
+				})}
+			>
+				{tabs.map(tab => {
+					return <Tab key={tab.text} {...tab} />
+				})}
+				{hiddenTabs && hiddenTabs.length > 0 && (
+					<li className="tab">
+						<ContextMenu
+							actions={[
+								{
+									text: 'Edit'
+								}
+							]}
+						/>
+					</li>
+				)}
+			</ul>
+			{activeTab && activeTab.panel}
+		</Fragment>
+	)
 }
 
-const getActiveTabIndex = (tabs: Array<TabProps>) => {
-	const activeTabIndex = tabs.findIndex(tab => tab.isCurrent)
-	return activeTabIndex
+Tabs.defaultProps = {
+	isPadded: false,
+	isTruncatable: true,
+	className: ''
 }
 
 export default class Tabs extends Component<Props, State> {

@@ -75,6 +75,7 @@
 	width: rem(16);
 	height: rem(16);
 	stroke: $c-text-icon;
+	fill: none;
 
 	.sidebar:not(.sidebar--is-collapsed) & + * {
 		margin-left: spacing('tight');
