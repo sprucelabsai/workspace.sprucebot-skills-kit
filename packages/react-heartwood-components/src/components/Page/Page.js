@@ -26,7 +26,7 @@ type PageProps = {
 export const Page = (props: PageProps) => {
 	const { children, isCentered, hasHeader, className, pageHeader } = props
 	return (
-		<div
+		<main
 			className={cx('page', className, {
 				'page--centered': isCentered,
 				'page--no-header': !hasHeader
@@ -34,7 +34,7 @@ export const Page = (props: PageProps) => {
 		>
 			{pageHeader && <PageHeader {...pageHeader} />}
 			{children}
-		</div>
+		</main>
 	)
 }
 
