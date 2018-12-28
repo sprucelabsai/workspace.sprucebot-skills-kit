@@ -19,7 +19,7 @@ const Toggle = (props: Props) => {
 	return (
 		<div className={parentClass}>
 			<div className="toggle">
-				<input className="toggle__input" type="checkbox" id={id} />
+				<input className="toggle__input" type="checkbox" id={id} {...rest} />
 				<label className="toggle__label" htmlFor={id} />
 			</div>
 			{postText && (
