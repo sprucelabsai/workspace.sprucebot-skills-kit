@@ -1,11 +1,6 @@
 .onboarding-card {
 	.tab-group {
-		// flex-flow: column;
 		align-items: stretch;
-
-		@include gt('medium') {
-			flex-flow: row;
-		}
 	}
 
 	.tab {
