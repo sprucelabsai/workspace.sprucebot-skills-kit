@@ -17,8 +17,8 @@ type Props = {
 	/** The logged-in user */
 	user?: Object,
 
-	/** The current business */
-	business?: Object,
+	/** The current location */
+	location?: Object,
 
 	/** Handler to set sidebar visibility to true or false */
 	toggleSidebarVisibility: Function,
@@ -41,13 +41,22 @@ type Props = {
 	/** Whether or not we will need to handle hamburger functionality */
 	enableHamburgerMenu: boolean,
 
-	searchPlaceholder?: string
+	/** Placeholder text for the search field */
+	searchPlaceholder?: string,
+
+	/** Set true to show location management shortcut */
+	isLocationManagmentVisible?: boolean,
+
+	/** Set true to show skill management shortcut */
+	isSkillManagementVisible: boolean
 }
 
 export default class HeaderPrimary extends Component<Props, State> {
 	static defaultProps = {
 		enableHamburgerMenu: true,
-		searchPlaceholder: 'Search anything…'
+		searchPlaceholder: 'Search…',
+		isLocationManagmentVisible: false,
+		isSkillManagementVisible: false
 	}
 
 	state = {
@@ -94,7 +103,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 
 		const {
 			user,
-			business,
+			location,
 			toggleSidebarVisibility,
 			isSidebarVisible,
 			getSearchSuggestions,
@@ -102,7 +111,9 @@ export default class HeaderPrimary extends Component<Props, State> {
 			onSearchSuggestionSelected,
 			renderSearchSuggestion,
 			enableHamburgerMenu,
-			searchPlaceholder
+			searchPlaceholder,
+			isLocationManagmentVisible,
+			isSkillManagementVisible
 		} = this.props
 
 		return (
@@ -112,19 +123,19 @@ export default class HeaderPrimary extends Component<Props, State> {
 				})}
 				ref={ref => (this.ref = ref)}
 			>
+				{enableHamburgerMenu && (
+					<Hamburger
+						onClick={toggleSidebarVisibility}
+						isSidebarVisible={isSidebarVisible}
+					/>
+				)}
 				<div className="header-primary__left">
-					{enableHamburgerMenu && (
-						<Hamburger
-							onClick={toggleSidebarVisibility}
-							isSidebarVisible={isSidebarVisible}
-						/>
-					)}
-					{business ? (
-						<div>
-							<p className="header-primary__text">{business.name}</p>
-							{business.address && (
+					{location ? (
+						<div className="header-primary__location">
+							<p className="header-primary__text">{location.name}</p>
+							{location.address && (
 								<p className="header-primary__text header-primary__address">
-									<a href="#">{business.address}</a>
+									<a href="#">{location.address}</a>
 								</p>
 							)}
 						</div>
@@ -135,6 +146,22 @@ export default class HeaderPrimary extends Component<Props, State> {
 				<div className="header-primary__right">
 					{user ? (
 						<Fragment>
+							{location && isLocationManagmentVisible && (
+								<Button
+									className="header-primary__shortcut-btn"
+									icon={{ name: 'location' }}
+									text="Location"
+									isIconOnly
+								/>
+							)}
+							{isSkillManagementVisible && (
+								<Button
+									className="header-primary__shortcut-btn"
+									icon={{ name: 'skill' }}
+									text="Skills"
+									isIconOnly
+								/>
+							)}
 							{getSearchSuggestionValue && renderSearchSuggestion && (
 								<Autosuggest
 									className="text-input-small"
