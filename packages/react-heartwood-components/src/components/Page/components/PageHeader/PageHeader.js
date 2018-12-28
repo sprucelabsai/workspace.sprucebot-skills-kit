@@ -108,7 +108,7 @@ const PageHeader = (props: PageHeaderProps) => {
 				</div>
 			</div>
 			{tabs && tabs.length > 0 && (
-				<Tabs className="page__header-tabs" tabs={tabs} />
+				<Tabs isPadded={false} className="page__header-tabs" tabs={tabs} />
 			)}
 		</header>
 	)

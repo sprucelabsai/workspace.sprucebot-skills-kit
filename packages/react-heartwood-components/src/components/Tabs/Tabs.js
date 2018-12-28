@@ -38,7 +38,8 @@ export default class Tabs extends Component<Props, State> {
 
 	static defaultProps = {
 		isPadded: true,
-		isTruncatable: true
+		isTruncatable: true,
+		className: ''
 	}
 
 	tabGroup: any
@@ -125,7 +126,7 @@ export default class Tabs extends Component<Props, State> {
 	}
 
 	render() {
-		const { tabs, isPadded, isTruncatable } = this.props
+		const { tabs, isPadded, isTruncatable, className } = this.props
 		const { hiddenTabIndices, isContextTabVisible, activeTabIndex } = this.state
 		const hiddenTabs = []
 		const activeTab = tabs.find(tab => tab.isCurrent)
@@ -150,7 +151,7 @@ export default class Tabs extends Component<Props, State> {
 			<Fragment>
 				<ul
 					ref={ref => (this.tabGroup = ref)}
-					className={cx('tab-group', {
+					className={cx('tab-group', className, {
 						'tab-group--is-padded': isPadded,
 						'tab-group--spacing-even': hiddenTabIndices.length > 0
 					})}
