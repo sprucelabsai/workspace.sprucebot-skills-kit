@@ -26,7 +26,9 @@ const UserAvatar = (props: Props) => {
 			})}
 			{...rest}
 			onError={e => {
-				e.target.src = defaultProfileImages.profile150
+				if (defaultProfileImages && defaultProfileImages.profile150) {
+					e.target.src = defaultProfileImages.profile150
+				}
 			}}
 		/>
 	)
