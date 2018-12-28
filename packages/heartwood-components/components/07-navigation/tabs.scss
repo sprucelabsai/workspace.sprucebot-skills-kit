@@ -5,6 +5,10 @@
 	align-items: center;
 	flex: 0 1 auto;
 
+	+ .tab {
+		padding-left: spacing('base');
+	}
+
 	.tab-group--is-padded & {
 		padding: 0 spacing('base');
 
