@@ -22,43 +22,9 @@ type Props = {
 	className?: String
 }
 
-const Tabs = (props: Props) => {
-	const { tabs, isPadded, className } = props
-	const hiddenTabs = []
-	const activeTab = tabs.find(tab => tab.isCurrent)
-
-	// TODO: Determine how hidden tabs work
-	return (
-		<Fragment>
-			<ul
-				className={cx('tab-group', className, {
-					'tab-group--is-padded': isPadded
-				})}
-			>
-				{tabs.map(tab => {
-					return <Tab key={tab.text} {...tab} />
-				})}
-				{hiddenTabs && hiddenTabs.length > 0 && (
-					<li className="tab">
-						<ContextMenu
-							actions={[
-								{
-									text: 'Edit'
-								}
-							]}
-						/>
-					</li>
-				)}
-			</ul>
-			{activeTab && activeTab.panel}
-		</Fragment>
-	)
-}
-
-Tabs.defaultProps = {
-	isPadded: false,
-	isTruncatable: true,
-	className: ''
+const getActiveTabIndex = (tabs: Array<TabProps>) => {
+	const activeTabIndex = tabs.findIndex(tab => tab.isCurrent)
+	return activeTabIndex
 }
 
 export default class Tabs extends Component<Props, State> {
