@@ -5,8 +5,12 @@
 	align-items: center;
 	flex: 0 1 auto;
 
-	+ .tab {
-		margin-left: spacing('base');
+	.tab-group--is-padded & {
+		padding: 0 spacing('base');
+
+		+ .tab {
+			padding-left: 0;
+		}
 	}
 }
 
@@ -36,24 +40,45 @@
 	}
 }
 
+.tab .tab__inner {
+	height: auto;
+}
+
 .tab-group {
 	display: flex;
+	width: 100%;
 	border-bottom: 1px solid $c-border;
 
-	> .tab > .btn {
-		@include typescale('ui');
-		height: auto;
+	&.tab-group--spacing-even {
+		.tab {
+			flex: 1 1 auto;
+			padding: 0;
+		}
+	}
+}
+
+.context-tab {
+	display: none;
+
+	&.context-tab--is-visible {
+		display: inline;
 	}
 
-	.btn-icon-only {
+	.context-menu {
+		height: 100%;
+	}
+
+	.context-menu__item-btn {
 		height: rem(34);
-		width: rem(34);
-		min-width: 0;
+		color: inherit;
+	}
+}
+
+.tab-group .tab.context-tab {
+	.btn {
 		border-radius: 0;
 	}
-
-	&.tab-group--is-padded {
-		padding-left: spacing('base');
-		padding-right: spacing('base');
+	.context-menu__button {
+		height: 100%;
 	}
 }
