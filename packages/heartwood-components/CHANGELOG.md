@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.8.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.7.0...v8.8.0) (2018-12-28)
+
+
+### Features
+
+* add icon variation ([d2e7ac7](https://github.com/sprucelabsai/sprucebot-heartwood/commit/d2e7ac7))
+* add new icon files ([81e148f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/81e148f))
+* add props and styles for bottom border ([77ede06](https://github.com/sprucelabsai/sprucebot-heartwood/commit/77ede06))
+* add skill view example ([1384e5b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1384e5b))
+* add support for tabs in page header ([c7ec484](https://github.com/sprucelabsai/sprucebot-heartwood/commit/c7ec484))
+* add variations ([918b677](https://github.com/sprucelabsai/sprucebot-heartwood/commit/918b677))
+* cleanup ([2703775](https://github.com/sprucelabsai/sprucebot-heartwood/commit/2703775))
+* give page the capacity to render header on its own ([ee18376](https://github.com/sprucelabsai/sprucebot-heartwood/commit/ee18376))
+* improve responsiveness ([b27540c](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b27540c))
+* make stroke icon styling the default ([d6e1c6f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/d6e1c6f))
+* merge latest, fix conflict ([581e480](https://github.com/sprucelabsai/sprucebot-heartwood/commit/581e480))
+* show icon in onboarding card tab ([52fd623](https://github.com/sprucelabsai/sprucebot-heartwood/commit/52fd623))
+* styling ([aa41aa9](https://github.com/sprucelabsai/sprucebot-heartwood/commit/aa41aa9))
+* styling to match select to text input when it's in a form ([6db4276](https://github.com/sprucelabsai/sprucebot-heartwood/commit/6db4276))
+* tabs in header styling ([e4632f5](https://github.com/sprucelabsai/sprucebot-heartwood/commit/e4632f5))
+* work better with layout components ([441c6df](https://github.com/sprucelabsai/sprucebot-heartwood/commit/441c6df))
+
+
+
+
+
 # [8.7.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.6.3...v8.7.0) (2018-12-28)
 
 

@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.7.0...v8.8.0) (2018-12-28)
+
+
+### Features
+
+* add props and styles for bottom border ([77ede06](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/77ede06))
+* add skill view example ([1384e5b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1384e5b))
+* add support for tabs in page header ([c7ec484](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c7ec484))
+* add variations ([918b677](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/918b677))
+* change element from div to main ([4fc3632](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4fc3632))
+* change main back to div ([c162929](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c162929))
+* give page the capacity to render header on its own ([ee18376](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ee18376))
+* merge latest, fix conflict ([581e480](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/581e480))
+* show icon in onboarding card tab ([52fd623](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/52fd623))
+* styling ([aa41aa9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/aa41aa9))
+* tabs in header styling ([e4632f5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e4632f5))
+* work better with layout components ([441c6df](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/441c6df))
+
+
+
+
+
 # [8.7.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.3...v8.7.0) (2018-12-28)
 
 
