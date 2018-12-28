@@ -24,7 +24,7 @@
 	.tab__inner.btn {
 		display: inline-block;
 		height: 100%;
-		padding: spacing('base');
+		padding: spacing('tight') spacing('base');
 		width: 100%;
 	}
 
