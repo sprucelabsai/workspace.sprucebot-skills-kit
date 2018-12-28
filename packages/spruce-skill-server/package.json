@@ -4,7 +4,7 @@
 		"access": "public"
 	},
 	"description": "The engine that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "8.6.3",
+	"version": "8.7.0",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
