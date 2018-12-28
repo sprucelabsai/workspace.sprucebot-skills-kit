@@ -11,11 +11,14 @@ type Props = {
 	tabs: Array<TabProps>,
 
 	/** Adds horizontal Padding */
-	isPadded?: boolean
+	isPadded?: boolean,
+
+	/** Optional class to add to the tab group */
+	className?: String
 }
 
 const Tabs = (props: Props) => {
-	const { tabs, isPadded } = props
+	const { tabs, isPadded, className } = props
 	const hiddenTabs = []
 	const activeTab = tabs.find(tab => tab.isCurrent)
 
@@ -23,7 +26,7 @@ const Tabs = (props: Props) => {
 	return (
 		<Fragment>
 			<ul
-				className={cx('tab-group', {
+				className={cx('tab-group', className, {
 					'tab-group--is-padded': isPadded
 				})}
 			>
@@ -48,7 +51,8 @@ const Tabs = (props: Props) => {
 }
 
 Tabs.defaultProps = {
-	isPadded: false
+	isPadded: false,
+	className: ''
 }
 
 export default Tabs

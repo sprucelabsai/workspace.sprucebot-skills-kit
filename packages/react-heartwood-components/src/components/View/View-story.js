@@ -85,6 +85,16 @@ const business = {
 	address: '7678 N High St, Denver, CO'
 }
 
+const skillViewTabs = [
+	{
+		text: 'Info',
+		isCurrent: true
+	},
+	{
+		text: 'Scheduling'
+	}
+]
+
 stories
 	.add('Default', () => (
 		<View
@@ -316,8 +326,10 @@ stories
 					primaryAction: {
 						text: 'Go to location dashboard',
 						icon: { name: 'new_tab' },
-						kind: 'simple'
-					}
+						kind: 'simple',
+						isSmall: true
+					},
+					tabs: skillViewTabs
 				}}
 			/>
 		</View>
