@@ -36,6 +36,10 @@
 		}
 	}
 
+	.tab__inner:after {
+		height: rem(4);
+	}
+
 	.btn__inner {
 		justify-content: flex-start;
 		height: 100%;
