@@ -82,5 +82,6 @@ stories
 			renderSearchSuggestion={() => null}
 			isLocationManagmentButtonVisible
 			isSkillManagementButtonVisible
+			skillsHref="#"
 		/>
 	))

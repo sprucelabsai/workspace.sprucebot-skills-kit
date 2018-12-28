@@ -117,7 +117,8 @@
 		background-color: rgba($c-white, 0.05);
 	}
 
-	&:active {
+	&:active,
+	&--is-active {
 		background-color: $c-black;
 	}
 
@@ -130,6 +131,24 @@
 		fill: none;
 		stroke: $c-white;
 	}
+}
+
+.header-primary__shortcut-btn-wrapper {
+	position: relative;
+}
+
+.header-primary__location-menu {
+	position: absolute;
+	top: calc(100% + #{rem(4)});
+	left: rem(-4);
+	width: rem(256);
+	padding-bottom: spacing('tight');
+	color: $c-text;
+}
+
+.header-primary__location-management-btn {
+	margin-left: rem(20);
+	margin-top: spacing('tight');
 }
 
 @include gt('small') {

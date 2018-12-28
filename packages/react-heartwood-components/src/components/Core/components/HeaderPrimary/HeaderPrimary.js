@@ -5,8 +5,11 @@ import React, { Component, Fragment } from 'react'
 import Hamburger from './components/Hamburger/Hamburger'
 import DefaultLockup from './components/DefaultLockup/DefaultLockup'
 import UserMenu from './components/UserMenu/UserMenu'
+import LocationMenu from './components/LocationMenu/LocationMenu'
 import { Autosuggest } from '../../../Forms'
 import Button from '../../../Button/Button'
+import Card from '../../../Card'
+import List from '../../../List'
 import cx from 'classnames'
 
 type State = {
@@ -49,7 +52,13 @@ type Props = {
 	isLocationManagmentButtonVisible?: boolean,
 
 	/** Set true to show skill management shortcut */
-	isSkillManagementButtonVisible: boolean
+	isSkillManagementButtonVisible: boolean,
+
+	/** Destination for the skills link */
+	skillsHref?: string,
+
+	/** Destination for the location management link */
+	locationManagementHref?: string
 }
 
 export default class HeaderPrimary extends Component<Props, State> {
@@ -57,7 +66,9 @@ export default class HeaderPrimary extends Component<Props, State> {
 		enableHamburgerMenu: true,
 		searchPlaceholder: 'Search…',
 		isLocationManagmentButtonVisible: false,
-		isSkillManagementButtonVisible: false
+		isSkillManagementButtonVisible: false,
+		skillsHref: '',
+		locationManagementHref: ''
 	}
 
 	state = {
@@ -144,7 +155,9 @@ export default class HeaderPrimary extends Component<Props, State> {
 			enableHamburgerMenu,
 			searchPlaceholder,
 			isLocationManagmentButtonVisible,
-			isSkillManagementButtonVisible
+			isSkillManagementButtonVisible,
+			skillsHref,
+			locationManagementHref
 		} = this.props
 
 		return (
@@ -178,16 +191,13 @@ export default class HeaderPrimary extends Component<Props, State> {
 					{user ? (
 						<Fragment>
 							{location && isLocationManagmentButtonVisible && (
-								<div className="header-primary__shortcut-btn-wrapper">
-									<Button
-										onClick={this.toggleLocationMenuVisibility}
-										className="header-primary__shortcut-btn"
-										icon={{ name: 'location' }}
-										text="Location"
-										isIconOnly
-									/>
-									{isLocationMenuVisible && <div>Hello</div>}
-								</div>
+								<LocationMenu
+									onClick={this.toggleLocationMenuVisibility}
+									isMenuVisible={isLocationMenuVisible}
+									locationManagementHref={locationManagementHref}
+									locationName={location.name}
+									locationAddress={location.address}
+								/>
 							)}
 							{isSkillManagementButtonVisible && (
 								<div className="header-primary__shortcut-btn-wrapper">
@@ -196,6 +206,8 @@ export default class HeaderPrimary extends Component<Props, State> {
 										icon={{ name: 'skill' }}
 										text="Skills"
 										isIconOnly
+										href={skillsHref}
+										target="_blank"
 									/>
 								</div>
 							)}
