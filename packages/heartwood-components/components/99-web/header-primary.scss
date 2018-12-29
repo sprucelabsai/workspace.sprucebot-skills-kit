@@ -137,13 +137,25 @@
 	position: relative;
 }
 
-.header-primary__location-menu {
+.header-primary__location-menu-wrapper {
 	position: absolute;
 	top: calc(100% + #{rem(4)});
-	left: rem(-4);
+	left: 50%;
+
+	@include gt('small') {
+		left: rem(-4);
+	}
+}
+
+.header-primary__location-menu {
+	transform: translate(-50%, 0);
 	width: rem(256);
 	padding-bottom: spacing('tight');
 	color: $c-text;
+
+	@include gt('small') {
+		transform: translate(0, 0);
+	}
 }
 
 .header-primary__location-management-btn {

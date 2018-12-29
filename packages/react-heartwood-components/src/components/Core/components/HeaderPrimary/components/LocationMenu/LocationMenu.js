@@ -27,36 +27,38 @@ export default props => (
 		/>
 		<VelocityTransitionGroup
 			enter={{
-				animation: { opacity: 1, translateY: '4px' },
+				animation: { opacity: 1, translateY: '0px' },
 				duration: 200
 			}}
 			leave={{
-				animation: { opacity: 0, translateY: '8px' },
+				animation: { opacity: 0, translateY: '4px' },
 				duration: 0
 			}}
 		>
 			{props.isMenuVisible && (
-				<Card className="header-primary__location-menu">
-					<List
-						className="header-primary__location-info"
-						items={[
-							{
-								title: props.locationName,
-								subtitle: props.locationAddress,
-								icon: {
-									name: 'location',
-									isLineIcon: true
+				<div className="header-primary__location-menu-wrapper">
+					<Card className="header-primary__location-menu">
+						<List
+							className="header-primary__location-info"
+							items={[
+								{
+									title: props.locationName,
+									subtitle: props.locationAddress,
+									icon: {
+										name: 'location',
+										isLineIcon: true
+									}
 								}
-							}
-						]}
-					/>
-					<Button
-						kind="simple"
-						className="header-primary__location-management-btn"
-						text="Manage locations"
-						href={props.locationManagementHref}
-					/>
-				</Card>
+							]}
+						/>
+						<Button
+							kind="simple"
+							className="header-primary__location-management-btn"
+							text="Manage locations"
+							href={props.locationManagementHref}
+						/>
+					</Card>
+				</div>
 			)}
 		</VelocityTransitionGroup>
 	</div>
