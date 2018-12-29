@@ -142,7 +142,7 @@
 	top: calc(100% + #{rem(4)});
 	left: 50%;
 
-	@include gt('small') {
+	@include gt('medium') {
 		left: rem(-4);
 	}
 }
@@ -153,7 +153,7 @@
 	padding-bottom: spacing('tight');
 	color: $c-text;
 
-	@include gt('small') {
+	@include gt('medium') {
 		transform: translate(0, 0);
 	}
 }
