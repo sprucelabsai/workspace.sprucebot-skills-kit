@@ -140,22 +140,14 @@
 .header-primary__location-menu-wrapper {
 	position: absolute;
 	top: calc(100% + #{rem(4)});
-	left: 50%;
-
-	@include gt('medium') {
-		left: rem(-4);
-	}
+	left: rem(-4);
 }
 
 .header-primary__location-menu {
-	transform: translate(-50%, 0);
 	width: rem(256);
 	padding-bottom: spacing('tight');
 	color: $c-text;
-
-	@include gt('medium') {
-		transform: translate(0, 0);
-	}
+	transform: translate(0, 0);
 }
 
 .header-primary__location-management-btn {
