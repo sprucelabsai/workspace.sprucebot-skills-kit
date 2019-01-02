@@ -97,6 +97,7 @@ export default class Tabs extends Component<Props, State> {
 	}
 
 	handleMeasurement = () => {
+		// TODO: Make this fire when sidebars change
 		const wrapper = this.tabGroup
 		const wrapperWidth = wrapper.offsetWidth
 		const contextTabWidth = this.contextTab.offsetWidth
