@@ -3,6 +3,83 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.10.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.9.1...v8.10.0) (2019-01-03)
+
+
+### Features
+
+* fix text overflow ([81ad157](https://github.com/sprucelabsai/sprucebot-heartwood/commit/81ad157))
+* fix transform ([f2dc334](https://github.com/sprucelabsai/sprucebot-heartwood/commit/f2dc334))
+* hook up fontloader component and add toggleable css to handle FOIT ([27001ea](https://github.com/sprucelabsai/sprucebot-heartwood/commit/27001ea))
+* improve responsiveness ([d4cd4a9](https://github.com/sprucelabsai/sprucebot-heartwood/commit/d4cd4a9))
+* make FOIT include labels and spans ([3be0910](https://github.com/sprucelabsai/sprucebot-heartwood/commit/3be0910))
+* move location menu into own component ([b5e9cf6](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b5e9cf6))
+* update header styles ([8886554](https://github.com/sprucelabsai/sprucebot-heartwood/commit/8886554))
+
+
+
+
+
+## [8.9.1](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.9.0...v8.9.1) (2018-12-28)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+# [8.9.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.8.0...v8.9.0) (2018-12-28)
+
+
+### Features
+
+* correct padding on header tabs ([fa3f149](https://github.com/sprucelabsai/sprucebot-heartwood/commit/fa3f149))
+
+
+
+
+
+# [8.8.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.7.0...v8.8.0) (2018-12-28)
+
+
+### Features
+
+* add icon variation ([d2e7ac7](https://github.com/sprucelabsai/sprucebot-heartwood/commit/d2e7ac7))
+* add new icon files ([81e148f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/81e148f))
+* add props and styles for bottom border ([77ede06](https://github.com/sprucelabsai/sprucebot-heartwood/commit/77ede06))
+* add skill view example ([1384e5b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1384e5b))
+* add support for tabs in page header ([c7ec484](https://github.com/sprucelabsai/sprucebot-heartwood/commit/c7ec484))
+* add variations ([918b677](https://github.com/sprucelabsai/sprucebot-heartwood/commit/918b677))
+* cleanup ([2703775](https://github.com/sprucelabsai/sprucebot-heartwood/commit/2703775))
+* give page the capacity to render header on its own ([ee18376](https://github.com/sprucelabsai/sprucebot-heartwood/commit/ee18376))
+* improve responsiveness ([b27540c](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b27540c))
+* make stroke icon styling the default ([d6e1c6f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/d6e1c6f))
+* merge latest, fix conflict ([581e480](https://github.com/sprucelabsai/sprucebot-heartwood/commit/581e480))
+* show icon in onboarding card tab ([52fd623](https://github.com/sprucelabsai/sprucebot-heartwood/commit/52fd623))
+* styling ([aa41aa9](https://github.com/sprucelabsai/sprucebot-heartwood/commit/aa41aa9))
+* styling to match select to text input when it's in a form ([6db4276](https://github.com/sprucelabsai/sprucebot-heartwood/commit/6db4276))
+* tabs in header styling ([e4632f5](https://github.com/sprucelabsai/sprucebot-heartwood/commit/e4632f5))
+* work better with layout components ([441c6df](https://github.com/sprucelabsai/sprucebot-heartwood/commit/441c6df))
+
+
+
+
+
+# [8.7.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.6.3...v8.7.0) (2018-12-28)
+
+
+### Features
+
+* add classes for overflow ([a3fcbe1](https://github.com/sprucelabsai/sprucebot-heartwood/commit/a3fcbe1))
+* correct styling of context menu when used with tabs ([0a1a38a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/0a1a38a))
+* get the rights to be hidden on initial render and update on window resize ([51d1fc1](https://github.com/sprucelabsai/sprucebot-heartwood/commit/51d1fc1))
+* make tab truncation controllable to prevent it with onboarding cards ([71f2a43](https://github.com/sprucelabsai/sprucebot-heartwood/commit/71f2a43))
+* pass hidden tabs into context menu ([09ff5cb](https://github.com/sprucelabsai/sprucebot-heartwood/commit/09ff5cb))
+
+
+
+
+
 ## [8.6.3](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.6.2...v8.6.3) (2018-12-26)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components

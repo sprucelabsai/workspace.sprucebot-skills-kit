@@ -19,6 +19,8 @@ import Card, {
 } from './index'
 import List from '../List/List'
 import TextContainer from '../TextContainer/TextContainer'
+import Page, { PageContent } from '../Page'
+import Layout, { LayoutSection } from '../Layout'
 import Text from '../Text/Text'
 import Subheading from '../Subheading/Subheading'
 import Image from '../Image/Image'
@@ -68,6 +70,16 @@ stories.addDecorator(
 		escapeHTML: false
 	})
 )
+
+stories.addDecorator(story => (
+	<Page>
+		<PageContent>
+			<Layout>
+				<LayoutSection>{story()}</LayoutSection>
+			</Layout>
+		</PageContent>
+	</Page>
+))
 
 stories.addDecorator(withKnobs)
 

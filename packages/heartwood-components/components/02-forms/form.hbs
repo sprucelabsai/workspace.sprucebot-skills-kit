@@ -1,0 +1,22 @@
+<form class="form-layout form-layout--spacing-tight">
+    <div class="form-layout__group">
+        <div class="form-layout__item">
+            {{> @text-input label="First Name" placeholder="Annie"}}
+        </div>
+        <div class="form-layout__item">
+            {{> @text-input label="Last Name" placeholder="Clark"}}
+        </div>
+    </div>
+    <div class="form-layout__group">
+        <div class="form-layout__item">
+            {{> @select label="Role/Job" isSimple=false icon='
+            <path d="M7 10l5 5 5-5z" />
+            <path d="M0 0h24v24H0z" fill="none" />' }}
+        </div>
+    </div>
+    <div class="form-layout__group">
+        <div class="form-layout__item">
+            {{> @phone-input label="Phone Number" phoneNumber=true placeholder="(555) 555-5555"}}
+        </div>
+    </div>
+</form>

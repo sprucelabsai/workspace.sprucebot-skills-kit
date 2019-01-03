@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.10.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.9.1...v8.10.0) (2019-01-03)
+
+**Note:** Version bump only for package @sprucelabs/spruce-next-helpers
+
+
+
+
+
+## [8.9.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.9.0...v8.9.1) (2018-12-28)
+
+**Note:** Version bump only for package @sprucelabs/spruce-next-helpers
+
+
+
+
+
+# [8.9.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.8.0...v8.9.0) (2018-12-28)
+
+**Note:** Version bump only for package @sprucelabs/spruce-next-helpers
+
+
+
+
+
+# [8.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.7.0...v8.8.0) (2018-12-28)
+
+**Note:** Version bump only for package @sprucelabs/spruce-next-helpers
+
+
+
+
+
+# [8.7.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.3...v8.7.0) (2018-12-28)
+
+**Note:** Version bump only for package @sprucelabs/spruce-next-helpers
+
+
+
+
+
 ## [8.6.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.2...v8.6.3) (2018-12-26)
 
 **Note:** Version bump only for package @sprucelabs/spruce-next-helpers

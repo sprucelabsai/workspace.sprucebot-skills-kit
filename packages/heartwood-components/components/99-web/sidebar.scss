@@ -75,14 +75,15 @@
 	width: rem(16);
 	height: rem(16);
 	stroke: $c-text-icon;
-	fill: $c-text-icon;
+	fill: none;
 
 	.sidebar:not(.sidebar--is-collapsed) & + * {
 		margin-left: spacing('tight');
 	}
 
-	&.sidebar-item__line-icon {
-		fill: none;
+	&.sidebar-item__icon--fill {
+		stroke: none;
+		fill: $c-text-icon;
 	}
 }
 
@@ -109,6 +110,11 @@
 .sidebar-item--is-current-parent {
 	.sidebar-item__icon {
 		stroke: $c-primary;
+
+		&.sidebar-item__icon--fill {
+			stroke: none;
+			fill: $c-primary;
+		}
 	}
 }
 

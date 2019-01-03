@@ -10,7 +10,7 @@ export const onboarding = {
 			id: '1',
 			isComplete: true,
 			tabTitle: 'Add your first location',
-			tabIcon: <CheckIcon className="u-icon__no-fill u-icon__stroke" />,
+			tabIcon: { name: 'check_circle' },
 			panelTitle: 'Add your first location',
 			panelCopy:
 				'Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it. –Johann Wolfgang von Goethe',
@@ -21,7 +21,7 @@ export const onboarding = {
 		{
 			id: '2',
 			tabTitle: 'Set up your team',
-			tabIcon: <LocationIcon className="u-icon__no-fill u-icon__stroke" />,
+			tabIcon: { name: 'location', isLineIcon: true },
 			panelTitle: 'Add your teammates and their info',
 			panelCopy:
 				'Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it. –Johann Wolfgang von Goethe',
@@ -31,7 +31,7 @@ export const onboarding = {
 		},
 		{
 			id: '3',
-			tabIcon: <LaunchIcon className="u-icon__no-fill u-icon__stroke" />,
+			tabIcon: { name: 'launch', isLineIcon: true },
 			tabTitle: 'Go live',
 			panelTitle: 'Go live and start welcoming guests',
 			panelCopy:

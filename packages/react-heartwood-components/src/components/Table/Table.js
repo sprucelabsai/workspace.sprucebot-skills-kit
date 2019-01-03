@@ -39,7 +39,10 @@ type Props = {
 	sortable?: boolean,
 
 	/** Handle clicking on a row */
-	onClickRow?: (e: MouseEvent, meta: { idx: number, item: Object }) => void
+	onClickRow?: (e: MouseEvent, meta: { idx: number, item: Object }) => void,
+
+	/** Callback when selection changes */
+	onSelection?: ({ selectedIds: Array<string | number> }) => void
 }
 
 type State = {
@@ -61,26 +64,33 @@ export default class Table extends Component<Props, State> {
 	}
 
 	handleChange = ({ id, pageSize }: any) => {
-		this.setState(prevState => {
-			const idx = prevState.selectedIds.indexOf(id)
-			let newIds = [...prevState.selectedIds]
-			if (idx > -1) {
-				newIds.splice(idx, 1)
-			} else {
-				if (prevState.selectedIds.length === 0) {
-					newIds = [id]
+		const { onSelection } = this.props
+		this.setState(
+			prevState => {
+				const idx = prevState.selectedIds.indexOf(id)
+				let newIds = [...prevState.selectedIds]
+				if (idx > -1) {
+					newIds.splice(idx, 1)
 				} else {
-					newIds.push(id)
+					if (prevState.selectedIds.length === 0) {
+						newIds = [id]
+					} else {
+						newIds.push(id)
+					}
 				}
+				return {
+					selectedIds: newIds,
+					allRowsSelected: newIds.length === pageSize
+				}
+			},
+			() => {
+				onSelection && onSelection({ selectedIds: this.state.selectedIds })
 			}
-			return {
-				selectedIds: newIds,
-				allRowsSelected: newIds.length === pageSize
-			}
-		})
+		)
 	}
 
 	handleSelectAll = () => {
+		const { onSelection } = this.props
 		const currentPage = this.table.state.page
 		const pageSize = this.table.state.pageSize
 		const allRows = this.table.getResolvedState().sortedData
@@ -90,10 +100,15 @@ export default class Table extends Component<Props, State> {
 			.map(item => item._original)
 		const selectedIds = currentRows.map(row => row.id)
 
-		this.setState(prevState => ({
-			allRowsSelected: !prevState.allRowsSelected,
-			selectedIds: prevState.allRowsSelected ? [] : selectedIds
-		}))
+		this.setState(
+			prevState => ({
+				allRowsSelected: !prevState.allRowsSelected,
+				selectedIds: prevState.allRowsSelected ? [] : selectedIds
+			}),
+			() => {
+				onSelection && onSelection({ selectedIds: this.state.selectedIds })
+			}
+		)
 	}
 
 	handleClickRow = (e: MouseEvent, handleOriginal) => {

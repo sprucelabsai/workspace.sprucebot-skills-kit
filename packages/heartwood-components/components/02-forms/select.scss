@@ -73,3 +73,18 @@
 		color: $c-text;
 	}
 }
+
+form {
+	.select {
+		color: $c-text;
+
+		select {
+			border-color: $c-border;
+			background-color: $c-bg-light;
+		}
+	}
+
+	.select__icon {
+		fill: $c-text-icon;
+	}
+}

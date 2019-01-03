@@ -3,6 +3,95 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.10.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.9.1...v8.10.0) (2019-01-03)
+
+
+### Features
+
+* add font loader to storybook ([c672b3e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c672b3e))
+* add fontfaceobserver ([2ebc604](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2ebc604))
+* export fontloader ([27ab97f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/27ab97f))
+* fix text overflow ([81ad157](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/81ad157))
+* fix transform ([f2dc334](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f2dc334))
+* hook up fontloader component and add toggleable css to handle FOIT ([27001ea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/27001ea))
+* hook up state and listeneres for location menu ([87f3026](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/87f3026))
+* improve responsiveness ([d4cd4a9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d4cd4a9))
+* logging ([b5e49fb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b5e49fb))
+* make FOIT include labels and spans ([3be0910](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3be0910))
+* move location menu into own component ([b5e9cf6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b5e9cf6))
+* snap location menu to correct position ([b27571c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b27571c))
+* update header styles ([8886554](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8886554))
+* verify that fontloader works in calendar ([c176d43](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c176d43))
+
+
+
+
+
+## [8.9.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.9.0...v8.9.1) (2018-12-28)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
+# [8.9.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.8.0...v8.9.0) (2018-12-28)
+
+
+### Features
+
+* add onSelected callback ([3e3248b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3e3248b))
+* correct padding on header tabs ([fa3f149](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fa3f149))
+
+
+
+
+
+# [8.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.7.0...v8.8.0) (2018-12-28)
+
+
+### Features
+
+* add icon variation ([d2e7ac7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d2e7ac7))
+* add new icon files ([81e148f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/81e148f))
+* add props and styles for bottom border ([77ede06](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/77ede06))
+* add skill view example ([1384e5b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1384e5b))
+* add support for tabs in page header ([c7ec484](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c7ec484))
+* add variations ([918b677](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/918b677))
+* change element from div to main ([4fc3632](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4fc3632))
+* change main back to div ([c162929](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c162929))
+* cleanup ([2703775](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2703775))
+* give page the capacity to render header on its own ([ee18376](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ee18376))
+* improve responsiveness ([b27540c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b27540c))
+* make stroke icon styling the default ([d6e1c6f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d6e1c6f))
+* show icon in onboarding card tab ([52fd623](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/52fd623))
+* styling ([aa41aa9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/aa41aa9))
+* styling to match select to text input when it's in a form ([6db4276](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6db4276))
+* tabs in header styling ([e4632f5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e4632f5))
+* work better with layout components ([441c6df](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/441c6df))
+
+
+
+
+
+# [8.7.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.3...v8.7.0) (2018-12-28)
+
+
+### Features
+
+* add classes for overflow ([a3fcbe1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a3fcbe1))
+* correct styling of context menu when used with tabs ([0a1a38a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0a1a38a))
+* fix prettier errors ([231d76c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/231d76c))
+* fix prettier errors ([d6bf66f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d6bf66f))
+* get the rights to be hidden on initial render and update on window resize ([51d1fc1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51d1fc1))
+* make tab truncation controllable to prevent it with onboarding cards ([71f2a43](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/71f2a43))
+* pass hidden tabs into context menu ([09ff5cb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/09ff5cb))
+* prevent active tab from getting hidden in context menu ([650d9ed](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/650d9ed))
+
+
+
+
+
 ## [8.6.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.2...v8.6.3) (2018-12-26)
 
 **Note:** Version bump only for package workspace.sprucebot-skills-kit

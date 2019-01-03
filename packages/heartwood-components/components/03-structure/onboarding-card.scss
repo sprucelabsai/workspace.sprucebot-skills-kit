@@ -1,11 +1,6 @@
 .onboarding-card {
 	.tab-group {
-		flex-flow: column;
 		align-items: stretch;
-
-		@include gt('medium') {
-			flex-flow: row;
-		}
 	}
 
 	.tab {
@@ -22,31 +17,29 @@
 	}
 
 	.tab__inner.btn {
-		display: none;
+		display: inline-block;
 		height: 100%;
-		padding: spacing('base');
+		padding: spacing('tight') spacing('base');
 		width: 100%;
+	}
 
-		&.tab--is-current {
-			display: inline-block;
-		}
+	.tab__inner .btn__text {
+		display: none;
+		margin: 0;
 
-		@include gt('medium') {
-			display: inline-block;
+		@include gt('small') {
+			display: block;
 		}
 	}
 
+	.tab__inner:after {
+		height: rem(4);
+	}
+
 	.btn__inner {
-		justify-content: flex-start;
+		justify-content: center;
+		flex-flow: column;
 		height: 100%;
-
-		@include gt('medium') {
-			justify-content: center;
-		}
-
-		@include gt('medium') {
-			flex-flow: column;
-		}
 	}
 
 	.btn__icon {

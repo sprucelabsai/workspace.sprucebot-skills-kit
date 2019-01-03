@@ -1,6 +1,6 @@
 {
 	"name": "@sprucelabs/heartwood-components",
-	"version": "8.6.3",
+	"version": "8.10.0",
 	"dependencies": {
 		"@frctl/fractal": "^1.1.5",
 		"@frctl/handlebars": "^1.1.5",
