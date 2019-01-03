@@ -66,7 +66,12 @@ const orgItems = [
 	{
 		text: 'Skills',
 		icon: { icon: 'skill' },
-		href: '#'
+		href: '#',
+		action: {
+			text: 'Get Skills',
+			href: '#',
+			isSmall: true
+		}
 	},
 	{
 		text: 'Settings',
@@ -335,7 +340,9 @@ stories
 					tabs: skillViewTabs
 				}}
 			>
-				<Sidebar side="right" isLarge isExpanded />
+				<Sidebar side="right" isLarge isExpanded>
+					<p>Hello a I ama sidebar children</p>
+				</Sidebar>
 			</Page>
 		</View>
 	))

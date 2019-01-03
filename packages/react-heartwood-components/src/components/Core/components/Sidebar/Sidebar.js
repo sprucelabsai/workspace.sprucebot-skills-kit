@@ -8,7 +8,10 @@ import SidebarFooter from './components/SidebarFooter/SidebarFooter'
 
 type Props = {
 	/** Items to display in the sidebar */
-	items: Array<ItemProps>,
+	items?: Array<ItemProps>,
+
+	/** Children to add to the sidebar */
+	children?: Node,
 
 	/** Include a footer in the sidebar */
 	footer?: Node,
@@ -18,6 +21,9 @@ type Props = {
 
 	/** Set true to make the sidebar larger. Defaults to false. */
 	isLarge?: boolean,
+
+	/** Enables the user to collapse the sidebar on desktop. Defaults to true. */
+	isCollapsible?: boolean,
 
 	/** Handler to force the sidebar to collapse */
 	forceCloseSidebar: Function,
@@ -32,11 +38,13 @@ type Props = {
 const Sidebar = (props: Props) => {
 	const {
 		items,
+		children,
 		footer,
 		forceCloseSidebar,
 		toggleExpanded,
 		isExpanded,
 		isLarge,
+		isCollapsible,
 		side
 	} = props
 
@@ -49,23 +57,33 @@ const Sidebar = (props: Props) => {
 				'sidebar--is-collapsed': !isExpanded
 			})}
 		>
-			<ul className="sidebar__inner">
-				{items &&
-					items.length > 0 &&
-					items.map((item, idx) => <SidebarItem key={idx} {...item} />)}
-			</ul>
+			<div className="sidebar__inner">
+				{items && items.length > 0 && (
+					<ul className="sidebar__items">
+						{items.map((item, idx) => (
+							<SidebarItem key={idx} {...item} />
+						))}
+					</ul>
+				)}
+				{children && children}
+			</div>
 			{footer && footer}
-			<SidebarExpander
-				toggleExpanded={toggleExpanded}
-				isExpanded={isExpanded}
-				forceCloseSidebar={forceCloseSidebar}
-			/>
+			{isCollapsible && (
+				<SidebarExpander
+					toggleExpanded={toggleExpanded}
+					isExpanded={isExpanded}
+					forceCloseSidebar={forceCloseSidebar}
+				/>
+			)}
 		</aside>
 	)
 }
 
 Sidebar.defaultProps = {
 	isLarge: false,
+	isCollapsible: true,
+	items: [],
+	children: null,
 	footer: null
 }
 
