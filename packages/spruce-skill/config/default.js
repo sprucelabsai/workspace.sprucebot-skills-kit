@@ -212,7 +212,7 @@ module.exports = {
 	}, // Settings for any services.
 	bodyParserOptions: {
 		// passthrough to https://github.com/koajs/bodyparser
-		jsonLimit: '1mb'
+		jsonLimit: '5mb'
 	},
 	nextConfig: {
 		dir: path.resolve(__dirname, '../interface'),
