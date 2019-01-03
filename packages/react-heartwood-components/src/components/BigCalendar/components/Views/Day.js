@@ -1185,7 +1185,7 @@ class Day extends PureComponent<Props, State> {
 		}
 	}
 
-	handleClick = ({ e }) => {
+	handleClickView = (e : MouseEvent) => {
 		const { onClick, doubleClickToCreate } = this.props
 		if (doubleClickToCreate) {
 			return
@@ -1214,7 +1214,7 @@ class Day extends PureComponent<Props, State> {
 		return onClick && onClick({ time, user, e })
 	}
 
-	handleDoubleClick = ({ e }) => {
+	handleDoubleClick = (e: MouseEvent) => {
 		const { onDoubleClick, doubleClickToCreate } = this.props
 
 		let time
@@ -1378,7 +1378,7 @@ class Day extends PureComponent<Props, State> {
 						onDragEvent={this.handleDragOfEvent}
 						onDropEvent={this.handleDropEvent}
 						onDoubleClick={this.handleDoubleClick}
-						onClick={this.handleClick}
+						onClickView={this.handleClickView}
 						doubleClickTime={doubleClickTime}
 						longPressDelay={longPressDelay}
 						onLongPressView={this.handleLongPressView}

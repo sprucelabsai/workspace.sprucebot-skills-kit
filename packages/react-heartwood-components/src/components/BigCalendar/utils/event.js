@@ -13,16 +13,16 @@ export default {
 		return durationSec
 	},
 	clientXY(e: MouseEvent | TouchEvent): { clientX: number, clientY: number } {
-		if (e instanceof TouchEvent) {
+		if (e.touches instanceof Array && e.touches[0]) {
 			return {
 				clientX: e.touches[0].pageX,
 				clientY: e.touches[0].pageY
 			}
-		} else {
-			return {
-				clientX: e.clientX,
-				clientY: e.clientY
-			}
+		}
+
+		return {
+			clientX: typeof e.clientX === 'number' ? e.clientX : 0,
+			clientY: typeof e.clientY === 'number' ? e.clientY : 0
 		}
 	}
 }
