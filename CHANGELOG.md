@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.10.1-alpha.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.0...v8.10.1-alpha.0) (2019-01-03)
+
+
+### Bug Fixes
+
+* Tag prerelease branches with `prerelease` tag ([c365584](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c365584))
+
+
+
+
+
 # [8.10.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.9.1...v8.10.0) (2019-01-03)
 
 
