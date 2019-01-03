@@ -21,45 +21,48 @@ import timeUtil from '../../utils/time'
 
 import TimeLine from '../TimeLine/TimeLine'
 
+import type { ElementRef } from 'react'
+import type { Event as EventType } from '../../types'
+
 type Props = {
 	showRightProps: boolean,
 	users: Array<Object>,
-	timezone: String,
-	className?: String,
-	minTime: String,
-	maxTime: String,
-	startTime: String,
-	endTime: String,
-	calendarBodyHeight: Number,
+	timezone: string,
+	className?: string,
+	minTime: string,
+	maxTime: string,
+	startTime: string,
+	endTime: string,
+	calendarBodyHeight: number,
 	onScroll: Function,
-	slotsPerHour: Number,
+	slotsPerHour: number,
 	onUpdateHorizontalPagerDetails: Function,
-	events: Array<Object>,
+	events: Array<EventType>,
 	startDate: Object,
-	dragThreshold: Number, // how far to drag before actually initiating drag
+	dragThreshold: number, // how far to drag before actually initiating drag
 	onDropEvent: Function,
 	onDragEvent: Function,
-	scrollDuringDragMargin?: Number, // how close to the edge do we need to get before we'll auto scroll for the user
-	dragScrollSpeed: Number, // how many pixels to jump if dragging near edge of scroll
-	eventRightMargin: Number,
-	longPressDelay: Number,
-	allowResizeToZeroDurationBlocks?: Boolean,
-	allowResizeFirstBlockToZeroDuration?: Boolean,
+	scrollDuringDragMargin?: number, // how close to the edge do we need to get before we'll auto scroll for the user
+	dragScrollSpeed: number, // how many pixels to jump if dragging near edge of scroll
+	eventRightMargin: number,
+	longPressDelay: number,
+	allowResizeToZeroDurationBlocks?: boolean,
+	allowResizeFirstBlockToZeroDuration?: boolean,
 	getStartTimeForUser: Function,
 	getEndTimeForUser: Function,
-	doubleClickTime: Number,
+	doubleClickTime: number,
 	onDoubleClick: Function,
-	newEventDefaultDurationSec: Number,
-	doubleClickToCreate: Boolean,
-	eventTimeFormat: String,
-	timeGutterFormat?: String
+	newEventDefaultDurationSec: number,
+	doubleClickToCreate: boolean,
+	eventTimeFormat: string,
+	timeGutterFormat?: string
 }
 
 type State = {
-	selectedEvent: Object,
-	highlightedEvent: Object,
-	enableAutoScrollX: Boolean,
-	enableAutoScrollY: Boolean
+	selectedEvent?: EventType,
+	highlightedEvent?: EventType,
+	enableAutoScrollX: boolean,
+	enableAutoScrollY: boolean
 }
 
 class Day extends PureComponent<Props, State> {
@@ -84,9 +87,11 @@ class Day extends PureComponent<Props, State> {
 	_dragResizeUpdates = null
 	_lastHoverEvent = null
 
-	dayColRefs: Array<DayCol> = []
+	domNodeRef: { current: null | ElementRef<'div'> }
+	dragGridRef: { current: null | ElementRef<DragGrid> }
+	scrollInnerRef: { current: null | ElementRef<'div'> }
 
-	constructor(props) {
+	constructor(props: Props) {
 		super(props)
 
 		this.domNodeRef = React.createRef()
@@ -96,7 +101,6 @@ class Day extends PureComponent<Props, State> {
 		this.timeGutterRef = React.createRef()
 		this.mouseTimeIndicator = React.createRef()
 		this.bodyWrapperRef = React.createRef()
-		this.dayColRefs = []
 	}
 
 	componentDidMount = () => {
@@ -1391,9 +1395,6 @@ class Day extends PureComponent<Props, State> {
 						<div className="scroll-inner" ref={this.scrollInnerRef}>
 							{users.map((user, idx) => (
 								<DayCol
-									ref={ref => {
-										this.dayColRefs[idx] = ref
-									}}
 									date={startDate}
 									slotsPerHour={slotsPerHour}
 									key={`day-col-${user.id}`}

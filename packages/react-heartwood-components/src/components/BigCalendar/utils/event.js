@@ -1,5 +1,9 @@
+// @flow
+
+import type { Event as EventType, EventBlock as EventBlockType } from '../types'
+
 export default {
-	durationSec(event) {
+	durationSec(event: EventType): number {
 		let durationSec = 0
 
 		event.blocks.forEach(block => {
@@ -8,8 +12,8 @@ export default {
 
 		return durationSec
 	},
-	clientXY(e) {
-		if (e.touches && e.touches[0]) {
+	clientXY(e: MouseEvent | TouchEvent): { clientX: number, clientY: number } {
+		if (e instanceof TouchEvent) {
 			return {
 				clientX: e.touches[0].pageX,
 				clientY: e.touches[0].pageY

@@ -9,42 +9,80 @@ import Event from '../Event/Event'
 import sizeUtil from '../../utils/size'
 import eventUtil from '../../utils/event'
 
+import type { ElementRef } from 'react'
+import type {
+	Event as EventType,
+	EventBlock as EventBlockType
+} from '../../types'
+
 type Props = {
-	snapEventToNearestValidX: Function,
-	snapEventToNearestValidY: Function,
 	onMouseDownOnEvent: Function,
 	onMouseDownOnView: Function,
 	onDoubleClick?: Function,
 	onClick?: Function,
-	dragThreshold: Number, // how far to drag before actually initiating drag
+	onScroll?: Function,
 	onDropEvent: Function,
 	onDragEvent: Function,
-	scrollDuringDragMargin: Number, // how close to the edge do we need to get before we'll auto scroll for the user
-	dragScrollSpeed: Number, // how many pixels to jump if dragging near edge of scroll
-	events: Array<Object>,
-	timezone: String,
-	getDragNode: Function,
-	highlightedEvent: Object,
 	onUnHighlightEvent: Function,
 	onSelectEvent: Function,
-	selectedEvent: Object,
-	longPressDelay: Number,
-	onHighlightEvent: Function,
-	sizeEvent: Function,
 	onDeselectEvent: Function,
 	onLongPressView?: Function,
-	doubleClickTime: Number,
-	timeFormat: String,
-	enableAutoScrollX: Boolean,
-	enableAutoScrollY: Boolean
+	onHighlightEvent: Function,
+	snapEventToNearestValidX: Function,
+	snapEventToNearestValidY: Function,
+	dragThreshold: number, // how far to drag before actually initiating drag
+	scrollDuringDragMargin: number, // how close to the edge do we need to get before we'll auto scroll for the user
+	dragScrollSpeed: number, // how many pixels to jump if dragging near edge of scroll
+	events: Array<EventType>,
+	timezone: string,
+	getDragNode: Function,
+	highlightedEvent: Object,
+	selectedEvent: Object,
+	longPressDelay: number,
+	sizeEvent: Function,
+	doubleClickTime: number,
+	timeFormat: string,
+	enableAutoScrollX: boolean,
+	enableAutoScrollY: boolean
 }
 
 type State = {
-	dragEvent: Object
+	dragEvent?: EventType
 }
 
 class DragGrid extends PureComponent<Props, State> {
 	state = {}
+
+	domNodeRef: { current: null | ElementRef<'div'> }
+
+	/** animater for scrolling to x */
+	_activeTween: Tween
+
+	/** details of what is being dragged */
+	_activeDrag: {
+		dragEvent: EventType & { originalId: string },
+		dragEventNode: HTMLDivElement,
+		sourceEvent: EventType,
+		sourceEventNode: HTMLDivElement
+	} | null
+
+	/** tracking for double click */
+	_lastClickTime: Date | null
+
+	/** tracking for long press */
+	_longPressTimeout: number | null
+
+	/** how fast are we vertically scrolling? */
+	_scrollVerticalSpeed: number
+
+	/** we just dropped something, but are waiting for confirmation */
+	_isPendingDrop: boolean
+
+	/** is the mouse down on any event */
+	_isMouseDownOnEvent: boolean
+
+	/** is dragging the view (causing scroll) */
+	_isDraggingView: boolean
 
 	static defaultProps = {
 		dragThreshold: 10,
@@ -53,78 +91,83 @@ class DragGrid extends PureComponent<Props, State> {
 		enableAutoScrollX: true,
 		enableAutoScrollY: true
 	}
-	constructor(props) {
+
+	constructor(props: Props) {
 		super(props)
 		this.domNodeRef = React.createRef()
 	}
 
-	getEventNode = event => {
-		return this.domNodeRef.current.querySelector(
-			`[data-event-id='${event.id}']`
+	getEventNode = (event: EventType): HTMLElement | null => {
+		return (
+			this.domNodeRef.current &&
+			this.domNodeRef.current.querySelector(`[data-event-id='${event.id}']`)
 		)
 	}
 
-	getBlockNode = (event, blockIdx) => {
-		return this.domNodeRef.current.querySelectorAll(
-			`[data-event-id='${event.id}'] .bigcalendar__event-block`
-		)[blockIdx]
+	getBlockNode = (event: EventType, blockIdx: number): HTMLElement | null => {
+		return (
+			this.domNodeRef.current &&
+			this.domNodeRef.current.querySelectorAll(
+				`[data-event-id='${event.id}'] .bigcalendar__event-block`
+			)[blockIdx]
+		)
 	}
 
-	eventById = id => {
+	eventById = (id: string) => {
 		return this.props.events.find(e => e.id === id)
 	}
 
-	getScrollLeft = () => {
-		return this.domNodeRef.current.scrollLeft
+	getScrollLeft = (): number => {
+		return this.domNodeRef.current ? this.domNodeRef.current.scrollLeft : 0
 	}
 
-	getScrollTop = () => {
-		return this.domNodeRef.current.scrollTop
+	getScrollTop = (): number => {
+		return this.domNodeRef.current ? this.domNodeRef.current.scrollTop : 0
 	}
 
-	setScrollTop = top => {
-		this.domNodeRef.current.scrollTop = top
+	setScrollTop = (top: number): DragGrid => {
+		this.domNodeRef.current && (this.domNodeRef.current.scrollTop = top)
 		return this
 	}
 
-	setScrollLeft = left => {
-		this.domNodeRef.current.scrollLeft = left
+	setScrollLeft = (left: number): DragGrid => {
+		this.domNodeRef.current && (this.domNodeRef.current.scrollLeft = left)
 		return this
 	}
 
-	getWidth = () => {
+	getWidth = (): number => {
 		return sizeUtil.getWidth(this.domNodeRef.current)
 	}
 
-	getHeight = () => {
+	getHeight = (): number => {
 		return sizeUtil.getHeight(this.domNodeRef.current)
 	}
 
-	getScrollWidth = () => {
+	getScrollWidth = (): number => {
 		return sizeUtil.getScrollWidth(this.domNodeRef.current)
 	}
 
-	getScrollHeight = () => {
+	getScrollHeight = (): number => {
 		return sizeUtil.getScrollHeight(this.domNodeRef.current)
 	}
 
-	getLeft = () => {
+	getLeft = (): number => {
 		return sizeUtil.getLeft(this.domNodeRef.current)
 	}
 
-	getTop = () => {
+	getTop = (): number => {
 		return sizeUtil.getTop(this.domNodeRef.current)
 	}
 
-	isScrolledAllTheWayRight = () => {
+	isScrolledAllTheWayRight = (): boolean => {
 		return sizeUtil.isScrolledAllTheWayRight(this.domNodeRef.current)
 	}
 
-	isScrolledAllTheWayLeft = () => {
+	isScrolledAllTheWayLeft = (): boolean => {
 		return sizeUtil.isScrolledAllTheWayLeft(this.domNodeRef.current)
 	}
 
-	animateHorizontalTo = left => {
+	animateHorizontalTo = (left: number) => {
 		const scrollLeft = this.getScrollLeft()
 
 		this._activeTween = new Tween({
@@ -139,18 +182,24 @@ class DragGrid extends PureComponent<Props, State> {
 		this._activeTween.start()
 	}
 
-	handleScroll = e => {
+	handleScroll = (e: MouseEvent) => {
 		const { onScroll } = this.props
 
 		onScroll && onScroll(e)
 
 		// keep event under mouse as scroll
-		if (this._activeDrag && this._handleDragOnScroll) {
+		if (this._activeDrag) {
 			this.handleDragOfEvent(this._activeDrag.eMouseMove, false)
 		}
 	}
 
-	globalToLocal = ({ clientX, clientY }) => {
+	globalToLocal = ({
+		clientX,
+		clientY
+	}: {
+		clientX: number,
+		clientY: number
+	}) => {
 		const gridTop = this.getTop()
 		const gridLeft = this.getLeft()
 		const scrollTop = this.getScrollTop()
@@ -162,7 +211,7 @@ class DragGrid extends PureComponent<Props, State> {
 		}
 	}
 
-	handleMouseDownOnView = e => {
+	handleMouseDownOnView = (e: MouseEvent) => {
 		const { clientX, clientY } = eventUtil.clientXY(e)
 		const {
 			onMouseDownOnView = () => true,
@@ -189,6 +238,7 @@ class DragGrid extends PureComponent<Props, State> {
 			startingClientX: clientX,
 			startingClientY: clientY
 		}
+
 		// console.log('mouse down in view')
 		e.preventDefault()
 		e.stopPropagation()
@@ -201,7 +251,7 @@ class DragGrid extends PureComponent<Props, State> {
 		return true
 	}
 
-	handleMouseDragOfView = e => {
+	handleMouseDragOfView = (e: MouseEvent) => {
 		const { clientX, clientY } = eventUtil.clientXY(e)
 		const {
 			startingClientX,
@@ -300,7 +350,7 @@ class DragGrid extends PureComponent<Props, State> {
 		setListeners = true
 	}) => {
 		//ignore right clicks and if we have dropped something that is waiting to save
-		if (e.button === 2 || this._pendingDrop) {
+		if (e.button === 2 || this._isPendingDrop) {
 			e.preventDefault()
 			e.stopPropagation()
 			return false
@@ -397,7 +447,8 @@ class DragGrid extends PureComponent<Props, State> {
 		}
 		e.persist()
 
-		this.startDragOfEvent({ e, event, block, blockIdx })
+		const { clientX, clientY } = eventUtil.clientXY(e)
+		this.startDragOfEvent({ clientX, clientY, event, block, blockIdx })
 
 		this._tapOnDragEventTime = new Date()
 
@@ -451,7 +502,6 @@ class DragGrid extends PureComponent<Props, State> {
 		e.preventDefault()
 		e.stopPropagation()
 
-		this._handleDragOnScroll = false
 		this._pendingTouch = null
 
 		//if we are scrolling, kill it
@@ -509,7 +559,7 @@ class DragGrid extends PureComponent<Props, State> {
 		clearInterval(this._scrollHorizontalInterval)
 	}
 
-	beginScrollingVertically = speed => {
+	beginScrollingVertically = (speed: number) => {
 		if (this.props.enableAutoScrollY && this._scrollVerticalSpeed !== speed) {
 			clearInterval(this._scrollVerticalInterval)
 			this._scrollVerticalSpeed = speed
@@ -661,7 +711,7 @@ class DragGrid extends PureComponent<Props, State> {
 		}
 	}
 
-	handleMouseUpFromView = e => {
+	handleMouseUpFromView = (e: MouseEvent) => {
 		// console.log('mouse up from view')
 		window.removeEventListener('mousemove', this.handleMouseDragOfView)
 		window.removeEventListener('mouseup', this.handleMouseUpFromView)
@@ -745,17 +795,17 @@ class DragGrid extends PureComponent<Props, State> {
 		})
 	}
 
-	handleDropEvent = async ({ overrideValid }) => {
-		const { dragEventNode, sourceEvent, sourceEventNode } = this._activeDrag
+	handleDropEvent = async ({ overrideValid }: { overrideValid?: boolean }) => {
+		const { dragEventNode, sourceEvent, sourceEventNode } =
+			this._activeDrag || {}
 		const { onDropEvent } = this.props
 		const { dragEvent } = this.state
 
-		// console.log('drop event in grid')
 		// stop scrolling
 		this.stopScrollingHorizontally()
 		this.stopScrollingVertically()
 		this._activeDrag = null
-		this._pendingDrop = true
+		this._isPendingDrop = true
 
 		let valid
 		try {
@@ -778,7 +828,7 @@ class DragGrid extends PureComponent<Props, State> {
 
 		const reset = () => {
 			this.cancelDrag()
-			this._pendingDrop = false
+			this._isPendingDrop = false
 		}
 
 		// if valid, clear everything immediately and move on
@@ -808,7 +858,7 @@ class DragGrid extends PureComponent<Props, State> {
 		}
 	}
 
-	isMouseDownOnEvent = () => {
+	isMouseDownOnEvent = (): boolean => {
 		return this._isMouseDownOnEvent
 	}
 
@@ -828,7 +878,7 @@ class DragGrid extends PureComponent<Props, State> {
 		return this._activeDrag ? this._activeDrag.dragBlockNode : null
 	}
 
-	// TOUCH ONLY, assuming touch is down here
+	// TOUCH ONLY, assuming touch is down
 	dropNewEventAndDrag = async ({ event, e, left, top }) => {
 		const dragDetails = await this.startDragOfEvent({
 			dragEvent: event,
@@ -848,15 +898,19 @@ class DragGrid extends PureComponent<Props, State> {
 	}
 
 	startDragOfEvent = async ({
-		e,
+		clientX,
+		clientY,
 		event,
 		block,
 		blockIdx = 0,
-		dragEvent: overrideDragEvent,
-		clientX: overrideClientX,
-		clientY: overrideClientY,
-		overrideTop,
-		overrideLeft
+		dragEvent: overrideDragEvent
+	}: {
+		clientX: number,
+		clientY: number,
+		event: EventType,
+		block: EventBlockType,
+		blockIdx: number,
+		dragEvent?: EventType
 	}) => {
 		let dragEvent = overrideDragEvent
 		let originalEvent = null
@@ -912,10 +966,6 @@ class DragGrid extends PureComponent<Props, State> {
 			  })
 
 		//calculate offset to keep event in proper position relative to the mouse
-		let { clientX, clientY } = eventUtil.clientXY(e)
-		clientX = overrideClientX || clientX
-		clientY = overrideClientY || clientY
-
 		const wrapperLeft = sizeUtil.getLeft(this.domNodeRef.current)
 		const wrapperTop = sizeUtil.getTop(this.domNodeRef.current)
 
@@ -956,7 +1006,6 @@ class DragGrid extends PureComponent<Props, State> {
 			startingClientY: clientY
 		}
 
-		this._handleDragOnScroll = true
 		onDragEvent && onDragEvent(originalEvent, this._activeDrag)
 
 		return this._activeDrag

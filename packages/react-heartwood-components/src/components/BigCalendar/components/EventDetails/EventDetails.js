@@ -8,7 +8,7 @@ import type { Props as HeaderProps } from './components/EventDetailsHeader/Event
 import EventDetailsFooter from './components/EventDetailsFooter/EventDetailsFooter'
 import type { Props as FooterProps } from './components/EventDetailsFooter/EventDetailsFooter'
 
-type Props = {
+export type Props = {
 	header: HeaderProps,
 	kind:
 		| 'default'

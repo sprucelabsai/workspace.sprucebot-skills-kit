@@ -5,20 +5,15 @@ import moment from 'moment-timezone'
 
 import EventBlock from '../EventBlock/EventBlock'
 
+import type { Event as EventType } from '../../types'
+
 type Props = {
-	event: Object,
+	event: EventType,
 	className?: string,
-	timezone: String,
-	timeFormat: String,
-	kind:
-		| 'default'
-		| 'tentative'
-		| 'active'
-		| 'unavailable'
-		| 'blocked'
-		| 'past'
-		| 'warn'
-		| 'critical'
+	timezone: string,
+	timeFormat: string,
+	onMouseDown?: Function,
+	onTouchStart?: Function
 }
 
 const Event = (props: Props) => {
@@ -29,7 +24,6 @@ const Event = (props: Props) => {
 		onTouchStart,
 		timezone,
 		timeFormat,
-		kind,
 		...rest
 	} = props
 	let startAt = moment.tz(event.startAt, timezone)

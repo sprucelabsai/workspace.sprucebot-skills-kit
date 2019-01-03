@@ -2,25 +2,29 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 import Icon from '../../../Icon/Icon'
+import moment from 'moment-timezone'
+
+import type { EventBlock as EventBlockType } from '../../types'
 
 type Props = {
-	block: Object,
+	block: EventBlockType,
 	text?: string,
 	children?: Node,
 	className?: string,
-	startAt: Object,
-	resizable: Boolean,
-	timeFormat: String
+	startAt: moment,
+	resizable: boolean,
+	timeFormat: string
 }
 
 const EventBlock = (props: Props) => {
 	const { block, resizable, className, startAt, timeFormat, ...rest } = props
 
-	// NOTE: you MUST keep resize-n the first class in any resize-handle
-	// IT MUST BE IN THE FORM OF resize-[n|s|e|w]
 	const blockTitle = [block.title, block.subtitle, startAt.format(timeFormat)]
 		.filter(i => i)
 		.join(' - ')
+
+	// NOTE: you MUST keep resize-n the first class in any resize-handle
+	// IT MUST BE IN THE FORM OF resize-[n|s|e|w]
 	return (
 		<div
 			className={cx('bigcalendar__event-block', className, block.className, {

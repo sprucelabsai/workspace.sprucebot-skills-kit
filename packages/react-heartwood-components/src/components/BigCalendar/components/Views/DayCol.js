@@ -14,10 +14,11 @@ type Props = {
 	hours: Array<Object>,
 	slotsPerHour: number,
 	timezone: string,
-	date: Object
+	date: moment
 }
 
 export default class DayCol extends Component<Props> {
+	/** outer most node */
 	domNodeRef: { current: null | ElementRef<'div'> }
 
 	handleHover = ({ x, y }: { x: number, y: number }) => {}
