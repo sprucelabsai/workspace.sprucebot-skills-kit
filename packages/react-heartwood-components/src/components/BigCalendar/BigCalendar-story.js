@@ -263,4 +263,6 @@ class BigCalendarExample extends Component {
 
 stories.addDecorator(withKnobs)
 
-stories.add('Big Calendar', () => <BigCalendarExample STORYBOOKdoNotWrap />)
+stories.add('Big Calendar', () => (
+	<BigCalendarExample STORYBOOKdoNotWrap={false} />
+))
