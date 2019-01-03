@@ -3,7 +3,7 @@ import React from 'react'
 import type { Node } from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
-import Sidebar from '../Core/components/Sidebar/Sidebar'
+import { Sidebar, SidebarFooter } from '../Core'
 
 type Props = {
 	sidebarItems?: Array<Object>,
@@ -51,10 +51,12 @@ const View = (props: Props) => {
 			{sidebarItems && sidebarItems.length > 0 && (
 				<Sidebar
 					items={sidebarItems}
+					footer={<SidebarFooter />}
 					isSidebarVisible={isSidebarVisible}
 					isExpanded={isSidebarExpanded}
 					toggleExpanded={toggleSidebarExpanded}
 					forceCloseSidebar={forceCloseSidebar}
+					side="left"
 				/>
 			)}
 			<HeaderPrimary

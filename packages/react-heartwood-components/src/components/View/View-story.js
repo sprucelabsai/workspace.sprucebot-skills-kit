@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../.storybook/StylesProvider'
 import user01image from '../../../static/assets/users/user-01--96w.png'
+import { Sidebar } from '../Core'
 import Page from '../Page/Page'
 import PageHeader from '../Page/components/PageHeader/PageHeader'
 import PageContent from '../Page/components/PageContent/PageContent'
@@ -333,6 +334,8 @@ stories
 					backLinkText: 'Locations',
 					tabs: skillViewTabs
 				}}
-			/>
+			>
+				<Sidebar side="right" isLarge isExpanded />
+			</Page>
 		</View>
 	))
