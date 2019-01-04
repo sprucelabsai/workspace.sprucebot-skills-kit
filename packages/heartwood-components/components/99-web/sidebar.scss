@@ -20,7 +20,7 @@
 	border-right: 1px solid $c-border-light;
 
 	// NOTE: This classname may change
-	.menu--is-visible & {
+	&.sidebar--is-mobile-expanded {
 		transform: translate(0, 0);
 	}
 
@@ -28,7 +28,7 @@
 		transform: translate(0, 0);
 
 		// NOTE: This classname may change
-		.menu--is-visible & {
+		&.sidebar--is-mobile-expanded {
 			transform: translate(0, 0);
 		}
 	}
@@ -40,7 +40,7 @@
 	border-left: 1px solid $c-border-light;
 
 	// NOTE: This classname may change
-	.menu--is-visible & {
+	&.sidebar--is-mobile-expanded {
 		transform: translate(0, 0);
 	}
 
@@ -48,10 +48,28 @@
 		transform: translate(0, 0);
 
 		// NOTE: This classname may change
-		.menu--is-visible & {
+		&.sidebar--is-mobile-expanded {
 			transform: translate(0, 0);
 		}
 	}
+}
+
+.sidebar-header {
+	display: flex;
+	justify-content: space-between;
+	padding-top: spacing('tight');
+
+	&.sidebar-header--mobile {
+		@include gt('990px') {
+			display: none;
+		}
+	}
+}
+
+.sidebar-header__title {
+	@include type-style-h2;
+	margin-top: rem(4);
+	font-weight: $font-weight-bold;
 }
 
 .sidebar__inner {

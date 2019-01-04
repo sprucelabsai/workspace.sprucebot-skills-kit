@@ -61,6 +61,7 @@
 	height: rem(24);
 	margin-left: rem(-8);
 }
+
 .page__header-main {
 	display: flex;
 	flex-flow: column;
@@ -76,7 +77,7 @@
 		}
 	}
 
-	.btn {
+	> .btn {
 		flex: 0 0 auto;
 		margin-top: spacing('tight');
 
@@ -104,6 +105,18 @@
 		.btn {
 			margin-top: 0;
 		}
+	}
+}
+
+.page__header-title-wrapper {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.page__header-sidebar-btn {
+	@include gt('990px') {
+		display: none;
 	}
 }
 
