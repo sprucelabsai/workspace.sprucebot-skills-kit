@@ -56,4 +56,4 @@ TBD
 
 - [Heartwood Components in Fractal](https://dev.sprucebot.com)
 - [Heartwood Components in Figma](https://www.figma.com/file/I0By1hIW5Y6sEkMUKkGa9dRz/Heartwood-v1.1?node-id=2%3A19)
-- [React Storybook](https://storybook.js.org/?)
+- [React Storybook](https://storybook.js.org/)
