@@ -273,15 +273,15 @@ stories
 				<TextInput
 					type="text"
 					label="Name of Business"
-					placeholder="i.e. Annie's Bagels"
+					placeholder="e.g. Annie's Bagels"
 				/>
 			</FormLayoutItem>
 			<FormLayoutGroup>
 				<FormLayoutItem>
-					<TextInput type="text" label="First Name" placeholder="i.e. Annie" />
+					<TextInput type="text" label="First Name" placeholder="e.g. Annie" />
 				</FormLayoutItem>
 				<FormLayoutItem>
-					<TextInput type="text" label="Last Name" placeholder="i.e. Smith" />
+					<TextInput type="text" label="Last Name" placeholder="e.g. Smith" />
 				</FormLayoutItem>
 			</FormLayoutGroup>
 			<FormLayoutGroup isCondensed>
