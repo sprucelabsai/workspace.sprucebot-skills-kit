@@ -221,7 +221,7 @@ class SkillViewExample extends Component<Props, State> {
 				>
 					<Sidebar
 						side="right"
-						isCollapsible={true}
+						isCollapsible={false}
 						isLarge
 						isExpanded={sidebarsExpanded.right}
 						isMobileExpanded={sidebarsMobileExpanded.right}
