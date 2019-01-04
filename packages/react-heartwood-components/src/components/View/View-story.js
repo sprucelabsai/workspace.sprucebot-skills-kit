@@ -122,6 +122,30 @@ class SkillViewExample extends Component<Props, State> {
 		}
 	}
 
+	componentDidMount = () => {
+		if (typeof window !== 'undefined') {
+			window.addEventListener('resize', this.onResize, false)
+		}
+	}
+
+	componentWillUnmount = () => {
+		if (typeof window !== 'undefined') {
+			window.removeEventListener('resize', this.onResize, false)
+		}
+	}
+
+	onResize = () => {
+		const { sidebarsMobileExpanded } = this.state
+		if (typeof window !== 'undefined') {
+			if (window.innerWidth > 990 && sidebarsMobileExpanded.right) {
+				this.hideRightSidebar()
+			}
+			if (window.innerWidth > 750 && sidebarsMobileExpanded.left) {
+				this.hideLeftSidebar()
+			}
+		}
+	}
+
 	handleSidebarToggle = (side: string) => {
 		this.setState(prevState => ({
 			sidebarsExpanded: {
@@ -136,6 +160,28 @@ class SkillViewExample extends Component<Props, State> {
 			sidebarsMobileExpanded: {
 				...prevState.sidebarsMobileExpanded,
 				[side]: !prevState.sidebarsMobileExpanded[side]
+			},
+			sidebarsExpanded: {
+				...prevState.sidebarsExpanded,
+				[side]: true
+			}
+		}))
+	}
+
+	hideRightSidebar = () => {
+		this.setState(prevState => ({
+			sidebarsMobileExpanded: {
+				...prevState.sidebarsMobileExpanded,
+				right: false
+			}
+		}))
+	}
+
+	hideLeftSidebar = () => {
+		this.setState(prevState => ({
+			sidebarsMobileExpanded: {
+				...prevState.sidebarsMobileExpanded,
+				left: false
 			}
 		}))
 	}
@@ -175,7 +221,7 @@ class SkillViewExample extends Component<Props, State> {
 				>
 					<Sidebar
 						side="right"
-						isCollapsible={false}
+						isCollapsible={true}
 						isLarge
 						isExpanded={sidebarsExpanded.right}
 						isMobileExpanded={sidebarsMobileExpanded.right}
