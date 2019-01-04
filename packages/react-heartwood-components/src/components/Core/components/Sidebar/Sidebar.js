@@ -83,13 +83,11 @@ const Sidebar = (props: Props) => {
 			)}
 			<div className="sidebar__inner">
 				{items && items.length > 0 && (
-					<SidebarSection>
-						<ul className="sidebar__items">
-							{items.map((item, idx) => (
-								<SidebarItem key={idx} {...item} />
-							))}
-						</ul>
-					</SidebarSection>
+					<ul className="sidebar__items">
+						{items.map((item, idx) => (
+							<SidebarItem key={idx} {...item} />
+						))}
+					</ul>
 				)}
 				<div className="sidebar__content">{children && children}</div>
 			</div>
