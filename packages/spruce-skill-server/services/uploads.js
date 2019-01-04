@@ -16,29 +16,54 @@ module.exports = {
 		organizationId,
 		locationId,
 		teammateId,
-		guestId,
-		filename
+		guestId
 	}) {
-		const strImageSizes = imageSizes ? imageSizes.join(',') : []
-		const req = request
-			.put(`${process.env.API_HOST}/api/2.0/skills/${process.env.ID}/files`)
-			.set({
-				'x-skill-api-key': process.env.API_KEY
+		try {
+			if (process.env.API_SSL_ALLOW_SELF_SIGNED === 'true') {
+				process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+			}
+			const strImageSizes = imageSizes ? imageSizes.join(',') : []
+			const req = request
+				.put(`${process.env.API_HOST}/api/2.0/skills/${process.env.ID}/files`)
+				.set({
+					'x-skill-api-key': process.env.API_KEY
+				})
+				.type('form')
+				.field('imageSizes', strImageSizes)
+
+			req.field('acl', acl || 'private')
+
+			if (refId) {
+				req.field('refId', refId)
+			}
+
+			if (organizationId) {
+				req.field('organizationId', organizationId)
+			}
+			if (locationId) {
+				req.field('locationId', locationId)
+			}
+			if (teammateId) {
+				req.field('teammateId', teammateId)
+			}
+			if (guestId) {
+				req.field('guestId', guestId)
+			}
+
+			files.forEach(file => {
+				req.attach('image', file.path, {
+					filename: file.name,
+					contentType: file.type
+				})
 			})
-			.field('imageSizes', strImageSizes)
-			.field('refId', refId)
-			.field('organizationId', organizationId)
-			.field('locationId', locationId)
-			.field('teammateId', teammateId)
-			.field('guestId', guestId)
 
-		files.forEach(file => {
-			req.attach('image', file, { filename })
-		})
+			const saveResult = await req
 
-		const saveResult = await req
-
-		return saveResult
+			return saveResult.body
+		} catch (e) {
+			log.crit(e)
+			throw e
+		}
 	},
 
 	async upload(data, options = {}) {

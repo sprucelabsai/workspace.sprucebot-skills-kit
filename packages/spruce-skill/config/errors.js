@@ -54,5 +54,18 @@ module.exports = {
 		status: 'failure',
 		reason: 'The event payload was invalid',
 		friendlyReason: 'Sorry, something went wrong'
+	},
+	NOT_IMPLEMENTED: {
+		code: 510,
+		status: 'failure',
+		reason: 'The handler for this action has not been implemented.',
+		friendlyReason: 'Sorry, something went wrong'
+	},
+	// Upload
+	INVALID_FILE_FORMAT: {
+		code: 400,
+		status: 'failure',
+		reason: 'The file format is invalid.',
+		friendlyReason: "Sorry, I wasn't able to process your file(s)"
 	}
 }
