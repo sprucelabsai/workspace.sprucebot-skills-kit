@@ -52,8 +52,8 @@ export const InputInner = (props: InputInnerProps) => {
 }
 
 export type InputHelperProps = {
-	error?: string,
-	helper?: string
+	error?: any,
+	helper?: any
 }
 
 export const InputHelper = (props: InputHelperProps) => {
