@@ -104,6 +104,7 @@ const Sidebar = (props: Props) => {
 }
 
 Sidebar.defaultProps = {
+	isExpanded: true,
 	isLarge: false,
 	isCollapsible: true,
 	items: [],
