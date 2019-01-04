@@ -15,8 +15,10 @@
 	"directories": {
 		"lib": "lib"
 	},
+	"main": "index.js",
 	"files": [
 		"dist",
+		"errors.js",
 		"graphql.js"
 	],
 	"repository": {

@@ -1,1 +1,1 @@
-module.exports = require('./dist/lib/graphql')
+module.exports = require('./dist/graphql')
