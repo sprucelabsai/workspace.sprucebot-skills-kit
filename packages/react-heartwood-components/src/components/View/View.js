@@ -19,6 +19,7 @@ type Props = {
 	forceCloseSidebar: Function,
 	isSidebarVisible?: boolean,
 	isSidebarExpanded?: boolean,
+	isSidebarMobileExpanded?: boolean,
 	searchPlaceholder?: string
 }
 
@@ -33,6 +34,7 @@ const View = (props: Props) => {
 		onSearchSuggestionSelected,
 		isSidebarVisible,
 		isSidebarExpanded,
+		isSidebarMobileExpanded,
 		toggleSidebarExpanded,
 		toggleSidebarVisibility,
 		forceCloseSidebar,
@@ -54,6 +56,7 @@ const View = (props: Props) => {
 					footer={<SidebarFooter />}
 					isSidebarVisible={isSidebarVisible}
 					isExpanded={isSidebarExpanded}
+					isMobileExpanded={isSidebarMobileExpanded}
 					toggleExpanded={toggleSidebarExpanded}
 					forceCloseSidebar={forceCloseSidebar}
 					side="left"
@@ -66,7 +69,7 @@ const View = (props: Props) => {
 					sidebarItems && sidebarItems.length > 0 ? true : false
 				}
 				toggleSidebarVisibility={toggleSidebarVisibility}
-				isSidebarVisible={isSidebarVisible}
+				isSidebarVisible={isSidebarMobileExpanded}
 				getSearchSuggestions={getSearchSuggestions}
 				getSearchSuggestionValue={getSearchSuggestionValue}
 				renderSearchSuggestion={renderSearchSuggestion}

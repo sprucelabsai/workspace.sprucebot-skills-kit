@@ -106,7 +106,8 @@ const skillViewTabs = [
 
 type Props = {}
 type State = {
-	sidebarsExpanded: Object
+	sidebarsExpanded: Object,
+	sidebarsMobileExpanded: Object
 }
 
 class SkillViewExample extends Component<Props, State> {
@@ -114,6 +115,10 @@ class SkillViewExample extends Component<Props, State> {
 		sidebarsExpanded: {
 			right: true,
 			left: true
+		},
+		sidebarsMobileExpanded: {
+			right: false,
+			left: false
 		}
 	}
 
@@ -126,8 +131,17 @@ class SkillViewExample extends Component<Props, State> {
 		}))
 	}
 
+	handleMobileSidebarToggle = (side: string) => {
+		this.setState(prevState => ({
+			sidebarsMobileExpanded: {
+				...prevState.sidebarsMobileExpanded,
+				[side]: !prevState.sidebarsMobileExpanded[side]
+			}
+		}))
+	}
+
 	render() {
-		const { sidebarsExpanded } = this.state
+		const { sidebarsExpanded, sidebarsMobileExpanded } = this.state
 		return (
 			<View
 				STORYBOOKdoNotWrap
@@ -135,7 +149,9 @@ class SkillViewExample extends Component<Props, State> {
 				user={user}
 				business={business}
 				isSidebarExpanded={sidebarsExpanded.left}
+				isSidebarMobileExpanded={sidebarsMobileExpanded.left}
 				toggleSidebarExpanded={() => this.handleSidebarToggle('left')}
+				toggleSidebarVisibility={() => this.handleMobileSidebarToggle('left')}
 			>
 				<Page
 					pageHeader={{
@@ -148,6 +164,10 @@ class SkillViewExample extends Component<Props, State> {
 						},
 						backLinkHref: '#',
 						backLinkText: 'Locations',
+						sidebarExpander: {
+							icon: { name: 'more_vertical', isLineIcon: true },
+							onClick: () => this.handleMobileSidebarToggle('right')
+						},
 						tabs: skillViewTabs
 					}}
 					hasSidebar="large"
@@ -158,6 +178,7 @@ class SkillViewExample extends Component<Props, State> {
 						isCollapsible={false}
 						isLarge
 						isExpanded={sidebarsExpanded.right}
+						isMobileExpanded={sidebarsMobileExpanded.right}
 						toggleExpanded={() => this.handleSidebarToggle('right')}
 					>
 						<SidebarSection>

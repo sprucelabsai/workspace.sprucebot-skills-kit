@@ -25,11 +25,14 @@ type Props = {
 	/** Enables the user to collapse the sidebar on desktop. Defaults to true. */
 	isCollapsible?: boolean,
 
+	/** Set true to expand the sidebar (large screens only) */
+	isExpanded: boolean,
+
+	/** Set true to expand the sidebar on small screens */
+	isMobileExpanded?: boolean,
+
 	/** Handler to force the sidebar to collapse */
 	forceCloseSidebar: Function,
-
-	/** Set true to expand the sidebar (small screens only) */
-	isExpanded: boolean,
 
 	/** Handler to toggle the visibility of the sidebar */
 	toggleExpanded: Function
@@ -45,6 +48,7 @@ const Sidebar = (props: Props) => {
 		isExpanded,
 		isLarge,
 		isCollapsible,
+		isMobileExpanded,
 		side
 	} = props
 
@@ -54,7 +58,8 @@ const Sidebar = (props: Props) => {
 				'sidebar--left': side === 'left',
 				'sidebar--right': side === 'right',
 				'sidebar--large': isLarge,
-				'sidebar--is-collapsed': !isExpanded
+				'sidebar--is-collapsed': !isExpanded,
+				'sidebar--is-mobile-expanded': isMobileExpanded
 			})}
 		>
 			<div className="sidebar__inner">
@@ -84,7 +89,8 @@ Sidebar.defaultProps = {
 	isCollapsible: true,
 	items: [],
 	children: null,
-	footer: null
+	footer: null,
+	isMobileExpanded: false
 }
 
 export default Sidebar
