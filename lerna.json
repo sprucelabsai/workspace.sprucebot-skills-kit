@@ -5,10 +5,7 @@
 	"version": "8.10.0",
 	"command": {
 		"publish": {
-			"allowBranch": [
-				"dev",
-				"prerelease/*"
-			],
+			"allowBranch": ["dev", "canary", "prerelease/*"],
 			"conventionalCommits": true,
 			"changelogPreset": "sprucelabs"
 		}
