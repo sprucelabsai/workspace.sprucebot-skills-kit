@@ -1,11 +1,19 @@
 // @flow
 import React from 'react'
+import cx from 'classnames'
 import type { Node } from 'react'
 
 type Props = {
-	children: Node
+	children: Node,
+	className?: string
 }
 
-export default (props: Props) => (
-	<div className="sidebar-section">{props.children}</div>
+const SidebarSection = (props: Props) => (
+	<div className={cx('sidebar-section', props.className)}>{props.children}</div>
 )
+
+SidebarSection.defaultProps = {
+	className: ''
+}
+
+export default SidebarSection

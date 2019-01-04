@@ -180,6 +180,14 @@ class SkillViewExample extends Component<Props, State> {
 						isExpanded={sidebarsExpanded.right}
 						isMobileExpanded={sidebarsMobileExpanded.right}
 						toggleExpanded={() => this.handleSidebarToggle('right')}
+						mobileHeader={{
+							title: 'Chimera Salon at the Point',
+							action: {
+								icon: { name: 'close' },
+								isSmall: true,
+								onClick: () => this.handleMobileSidebarToggle('right')
+							}
+						}}
 					>
 						<SidebarSection>
 							<Card isSmall>
