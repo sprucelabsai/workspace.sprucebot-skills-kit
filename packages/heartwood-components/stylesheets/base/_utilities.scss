@@ -26,6 +26,11 @@
 	display: inline-block;
 }
 
+// Margin
+.u-ml-tight {
+	margin-left: spacing('tight');
+}
+
 // Icons
 .u-icon__no-fill {
 	fill: none;
@@ -33,4 +38,18 @@
 
 .u-icon__stroke {
 	stroke: $c-text-icon;
+}
+
+// Flex
+.u-flex-row {
+	display: flex;
+	flex-flow: row;
+}
+
+.u-flex-child-grow {
+	flex: 1 0 auto;
+}
+
+.u-flex-child-shrink {
+	flex: 0 1 auto;
 }

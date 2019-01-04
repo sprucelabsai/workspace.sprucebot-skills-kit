@@ -18,17 +18,21 @@ type CardProps = {
 	/** Set true if this card is mission-critical for the person who sees it. */
 	isCritical?: boolean,
 
+	/** Set true to render a smaller card variation */
+	isSmall?: boolean,
+
 	/** Optional classname */
 	className?: string
 }
 
 export const Card = (props: CardProps) => {
-	const { children, isCentered, isCritical, className } = props
+	const { children, isCentered, isCritical, isSmall, className } = props
 	return (
 		<div
 			className={cx('card', className, {
 				'card--centered': isCentered,
-				'card--critical': isCritical
+				'card--critical': isCritical,
+				'card--small': isSmall
 			})}
 		>
 			{children}

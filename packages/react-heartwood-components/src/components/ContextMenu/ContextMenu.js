@@ -32,11 +32,17 @@ export type Props = {
 	/** Set true to make the button blue */
 	isSimple?: boolean,
 
+	/** Set true to make the button smaller */
+	isSmall?: boolean,
+
 	/** Set tot true makes the menu close when any action is selected */
 	closeOnSelectAction: boolean,
 
 	/** Hide the icon entirely */
-	isTextOnly: boolean
+	isTextOnly: boolean,
+
+	/** Optional classname that applies to the button */
+	className?: string
 }
 
 type State = {
@@ -55,7 +61,9 @@ export default class ContextMenu extends Component<Props, State> {
 	static defaultProps = {
 		isLeftAligned: false,
 		isBottomAligned: false,
-		isTextOnly: false
+		isTextOnly: false,
+		isSmall: false,
+		className: ''
 	}
 
 	componentWillUnmount = () => {
@@ -163,12 +171,14 @@ export default class ContextMenu extends Component<Props, State> {
 			isLeftAligned,
 			isBottomAligned,
 			isSimple,
+			isSmall,
 			size,
 			icon,
 			text,
-			isTextOnly
+			isTextOnly,
+			className
 		} = this.props
-		const buttonClass = cx('context-menu', {
+		const buttonClass = cx('context-menu', className, {
 			'context-menu--is-visible': isVisible
 		})
 		const menuClass = cx('context-menu__menu', {
@@ -187,6 +197,7 @@ export default class ContextMenu extends Component<Props, State> {
 						!isTextOnly && (icon || { customIcon: MoreIcon, isLineIcon: true })
 					}
 					text={text}
+					isSmall={isSmall}
 				/>
 				<VelocityTransitionGroup
 					enter={{
