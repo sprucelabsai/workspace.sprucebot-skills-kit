@@ -287,4 +287,12 @@
 
 .sidebar-section {
 	padding: spacing('tight') spacing('tight') 0;
+
+	&.sidebar-section--centered {
+		text-align: center;
+	}
+
+	&.sidebar-section--loose {
+		padding-top: rem(24);
+	}
 }

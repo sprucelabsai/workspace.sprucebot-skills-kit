@@ -8,17 +8,21 @@ import { Sidebar, SidebarSection } from '../Core'
 import Card, { CardHeader, CardBody, CardFooter } from '../Card'
 import Button from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
+import ContextMenu from '../ContextMenu/ContextMenu'
 import Page from '../Page/Page'
 import PageHeader from '../Page/components/PageHeader/PageHeader'
 import PageContent from '../Page/components/PageContent/PageContent'
 import Layout, { LayoutSection } from '../../components/Layout'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
+import TextStyle from '../TextStyle/TextStyle'
 import Heading from '../Heading/Heading'
 import Subheading from '../Subheading/Subheading'
 import Icon from '../Icon/Icon'
+import Avatar from '../Avatar/Avatar'
 
 import View from './View.js'
+import simple from 'graphql-query-complexity/dist/estimators/simple'
 
 const ProvideStyles = storyFn => <StylesProvider>{storyFn()}</StylesProvider>
 
@@ -80,6 +84,26 @@ const orgItems = [
 		text: 'Settings',
 		icon: { icon: 'settings' },
 		href: '#'
+	}
+]
+
+const bizItems = [
+	{
+		text: 'Dashboard',
+		icon: { icon: 'dashboard' }
+	},
+	{
+		text: 'Guests',
+		icon: { icon: 'guests' },
+		isCurrent: true
+	},
+	{
+		text: 'Team',
+		icon: { icon: 'team' }
+	},
+	{
+		text: 'Calendar',
+		icon: { icon: 'calendar' }
 	}
 ]
 
@@ -290,3 +314,56 @@ stories
 		</View>
 	))
 	.add('Skill View', () => <SkillViewExample STORYBOOKdoNotWrap />)
+	.add('Guest Profile', () => (
+		<View
+			STORYBOOKdoNotWrap
+			sidebarItems={bizItems}
+			user={user}
+			business={business}
+			isSidebarExpanded
+		>
+			<Page hasSidebar>
+				<Sidebar isLarge isCollapsible={false} side="right">
+					<SidebarSection isCentered spacing="loose">
+						<Avatar
+							isLarge
+							isCentered
+							image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
+						/>
+						<Heading>
+							<TextStyle type="strong">Dorian Feeney</TextStyle>
+						</Heading>
+					</SidebarSection>
+					<SidebarSection className="u-flex-row">
+						<Button
+							kind="secondary"
+							className="u-flex-child-grow"
+							text="Call Dorian"
+							icon={{
+								name: 'phone',
+								isLineIcon: true
+							}}
+						/>
+						<ContextMenu
+							className="u-ml-tight"
+							actions={[
+								{
+									text: 'One action'
+								},
+								{
+									text: 'two action'
+								},
+								{
+									text: 'red action'
+								},
+								{
+									text: 'blue action'
+								}
+							]}
+							isSimple
+						/>
+					</SidebarSection>
+				</Sidebar>
+			</Page>
+		</View>
+	))
