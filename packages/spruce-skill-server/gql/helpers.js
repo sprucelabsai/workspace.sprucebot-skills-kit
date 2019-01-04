@@ -306,9 +306,7 @@ module.exports = ctx => {
 			return attrs
 		},
 		withCount: async function withCount(options) {
-			const model = options.model
-			const findOptions = options.findOptions
-			const context = options.context
+			const { model, findOptions, context } = options
 
 			const where = findOptions.where || {}
 			const count = await model.count({
