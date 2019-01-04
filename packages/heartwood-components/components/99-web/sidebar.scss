@@ -7,12 +7,17 @@
 	flex: 0 0 auto;
 	height: calc(100vh - #{rem(48)});
 	width: rem(240);
-	transform: translate(-100%, 0);
 	background-color: $c-grey-00;
 
 	&.sidebar--large {
 		width: rem(360);
 	}
+}
+
+.sidebar--left {
+	transform: translate(-100%, 0);
+	left: 0;
+	border-right: 1px solid $c-border-light;
 
 	// NOTE: This classname may change
 	.menu--is-visible & {
@@ -29,14 +34,24 @@
 	}
 }
 
-.sidebar--left {
-	left: 0;
-	border-right: 1px solid $c-border-light;
-}
-
 .sidebar--right {
+	transform: translate(100%, 0);
 	right: 0;
 	border-left: 1px solid $c-border-light;
+
+	// NOTE: This classname may change
+	.menu--is-visible & {
+		transform: translate(0, 0);
+	}
+
+	@include gt('990px') {
+		transform: translate(0, 0);
+
+		// NOTE: This classname may change
+		.menu--is-visible & {
+			transform: translate(0, 0);
+		}
+	}
 }
 
 .sidebar__inner {

@@ -21,10 +21,12 @@
 }
 
 .page--has-sidebar {
-	padding-right: rem(360);
+	@include gt('990px') {
+		padding-right: rem(360);
 
-	&.page--sidebar-is-collapsed {
-		padding-right: rem(40);
+		&.page--sidebar-is-collapsed {
+			padding-right: rem(40);
+		}
 	}
 }
 
