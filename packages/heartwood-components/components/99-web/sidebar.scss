@@ -292,7 +292,12 @@
 		text-align: center;
 	}
 
-	&.sidebar-section--loose {
+	&.sidebar-section--horizontal-loose {
+		padding-left: rem(24);
+		padding-right: rem(24);
+	}
+
+	&.sidebar-section--vertical-loose {
 		padding-top: rem(24);
 	}
 }

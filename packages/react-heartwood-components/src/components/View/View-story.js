@@ -324,7 +324,11 @@ stories
 		>
 			<Page hasSidebar>
 				<Sidebar isLarge isCollapsible={false} side="right">
-					<SidebarSection isCentered spacing="loose">
+					<SidebarSection
+						isCentered
+						verticalSpacing="loose"
+						horizontalSpacing="loose"
+					>
 						<Avatar
 							isLarge
 							isCentered
@@ -334,7 +338,7 @@ stories
 							<TextStyle type="strong">Dorian Feeney</TextStyle>
 						</Heading>
 					</SidebarSection>
-					<SidebarSection className="u-flex-row">
+					<SidebarSection horizontalSpacing="loose" className="u-flex-row">
 						<Button
 							kind="secondary"
 							className="u-flex-child-grow"

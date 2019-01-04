@@ -13,17 +13,27 @@ type Props = {
 	/** Set true to center align horizontally */
 	isCentered?: boolean,
 
-	/** Spacing options */
-	spacing?: 'base' | 'loose'
+	/** Horizontal Spacing options */
+	horizontalSpacing?: 'base' | 'loose',
+
+	/** Vertical Spacing options */
+	verticalSpacing?: 'base' | 'loose'
 }
 
 const SidebarSection = (props: Props) => {
-	const { children, className, isCentered, spacing } = props
+	const {
+		children,
+		className,
+		isCentered,
+		horizontalSpacing,
+		verticalSpacing
+	} = props
 	return (
 		<div
 			className={cx('sidebar-section', className, {
 				'sidebar-section--centered': isCentered,
-				'sidebar-section--loose': spacing === 'loose'
+				'sidebar-section--horizontal-loose': horizontalSpacing === 'loose',
+				'sidebar-section--vertical-loose': verticalSpacing === 'loose'
 			})}
 		>
 			{children}
