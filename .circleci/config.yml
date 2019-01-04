@@ -46,7 +46,7 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: npm run publish -- --yes --canary --no-git-reset --preid canary --npm-client npm --no-push --npm-tag canary
+      - run: npm run publish -- --yes --canary --force-publish --npm-tag canary --message "%s [skip ci]" --npm-client npm
       - run: yarn build-statics
       - run: yarn s3-sync-heartwood-canary
       - run: yarn s3-sync-storybook-canary
