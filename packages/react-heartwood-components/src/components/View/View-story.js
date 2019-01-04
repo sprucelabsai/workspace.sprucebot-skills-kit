@@ -340,6 +340,7 @@ stories
 					</SidebarSection>
 					<SidebarSection horizontalSpacing="loose" className="u-flex-row">
 						<Button
+							isSmall
 							kind="secondary"
 							className="u-flex-child-grow"
 							text="Call Dorian"
@@ -349,6 +350,7 @@ stories
 							}}
 						/>
 						<ContextMenu
+							isSmall
 							className="u-ml-tight"
 							actions={[
 								{
