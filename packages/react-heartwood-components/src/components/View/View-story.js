@@ -4,7 +4,10 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../.storybook/StylesProvider'
 import user01image from '../../../static/assets/users/user-01--96w.png'
-import { Sidebar } from '../Core'
+import { Sidebar, SidebarSection } from '../Core'
+import Card, { CardHeader, CardBody, CardFooter } from '../Card'
+import Button from '../Button/Button'
+import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import Page from '../Page/Page'
 import PageHeader from '../Page/components/PageHeader/PageHeader'
 import PageContent from '../Page/components/PageContent/PageContent'
@@ -152,11 +155,44 @@ class SkillViewExample extends Component<Props, State> {
 				>
 					<Sidebar
 						side="right"
+						isCollapsible={false}
 						isLarge
 						isExpanded={sidebarsExpanded.right}
 						toggleExpanded={() => this.handleSidebarToggle('right')}
 					>
-						<p>Hello a I ama sidebar children</p>
+						<SidebarSection>
+							<Card isSmall>
+								<CardHeader
+									labelText="Location Status"
+									labelIcon={{ name: 'hide', isLineIcon: true }}
+									title="This location is hidden"
+								/>
+								<CardBody>
+									<p>
+										This location is currently hidden from guests, but is
+										visible to you and your teammates.
+									</p>
+								</CardBody>
+								<CardFooter>
+									{/* <Button kind="simple" isSmall text="Preview as guest" />
+								<Button kind="primary" isSmall text="Make location live" /> */}
+									<ButtonGroup
+										actions={[
+											{
+												text: 'Preview as guest',
+												kind: 'simple',
+												isSmall: true
+											},
+											{
+												text: 'Make location live',
+												kind: 'primary',
+												isSmall: true
+											}
+										]}
+									/>
+								</CardFooter>
+							</Card>
+						</SidebarSection>
 					</Sidebar>
 				</Page>
 			</View>
