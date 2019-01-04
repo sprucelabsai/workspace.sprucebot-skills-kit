@@ -17,7 +17,7 @@ stories.addDecorator(withKnobs)
 stories
 	.add('Page', () => (
 		<Page
-			pageHeader={{
+			header={{
 				title: text('title', '') || 'Page Title'
 			}}
 		>
@@ -28,7 +28,7 @@ stories
 	))
 	.add('With Back Link', () => (
 		<Page
-			pageHeader={{
+			header={{
 				title: text('title', 'Page Title'),
 				backLinkHref: '#',
 				backLinkText: text('backLinkText', 'Back'),
@@ -42,7 +42,7 @@ stories
 	))
 	.add('With Primary Action', () => (
 		<Page
-			pageHeader={{
+			header={{
 				title: text('title', 'Page Title'),
 				primaryAction: {
 					text: boolean('text', 'Do something'),
@@ -60,7 +60,7 @@ stories
 	))
 	.add('With Back Link & Primary Action', () => (
 		<Page
-			pageHeader={{
+			header={{
 				title: text('title', 'Page Title'),
 				backLinkHref: '#',
 				backLinkText: text('backLinkText', 'Back'),

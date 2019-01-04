@@ -200,7 +200,7 @@ class SkillViewExample extends Component<Props, State> {
 				toggleSidebarVisibility={() => this.handleMobileSidebarToggle('left')}
 			>
 				<Page
-					pageHeader={{
+					header={{
 						title: 'Chimera Hair Salon at the Point',
 						primaryAction: {
 							text: 'Go to location dashboard',
@@ -280,13 +280,13 @@ stories
 			sidebarItems={personalItems}
 			user={user}
 			business={business}
+			isSidebarExpanded
 		>
-			<Page>
-				<PageHeader
-					title="Hello Human"
-					hasBottomBorder={boolean('hasBottomBorder', false)}
-				/>
-			</Page>
+			<Page
+				header={{
+					title: 'Hello Human'
+				}}
+			/>
 		</View>
 	))
 	.add('Skill View', () => <SkillViewExample STORYBOOKdoNotWrap />)

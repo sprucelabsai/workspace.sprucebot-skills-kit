@@ -38,7 +38,7 @@ type Props = {
 	isCollapsible?: boolean,
 
 	/** Set true to expand the sidebar (large screens only) */
-	isExpanded: boolean,
+	isExpanded?: boolean,
 
 	/** Set true to expand the sidebar on small screens */
 	isMobileExpanded?: boolean,

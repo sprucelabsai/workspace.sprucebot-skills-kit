@@ -20,7 +20,7 @@ type PageProps = {
 	className?: string,
 
 	/** Page header props */
-	pageHeader?: PageHeaderProps,
+	header?: PageHeaderProps,
 
 	/** Set true if the page has a sidebar. Defaults to ''. */
 	hasSidebar?: boolean,
@@ -35,7 +35,7 @@ export const Page = (props: PageProps) => {
 		isCentered,
 		hasHeader,
 		className,
-		pageHeader,
+		header,
 		hasSidebar,
 		sidebarIsCollapsed
 	} = props
@@ -48,7 +48,7 @@ export const Page = (props: PageProps) => {
 				'page--sidebar-is-collapsed': sidebarIsCollapsed
 			})}
 		>
-			{pageHeader && <PageHeader {...pageHeader} />}
+			{header && <PageHeader {...header} />}
 			{children}
 		</div>
 	)
@@ -57,7 +57,7 @@ export const Page = (props: PageProps) => {
 Page.defaultProps = {
 	isCentered: false,
 	hasHeader: true,
-	pageHeader: null,
+	header: null,
 	hasSidebar: false,
 	sidebarIsCollapsed: false
 }
