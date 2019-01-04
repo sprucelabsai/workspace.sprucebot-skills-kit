@@ -9,7 +9,7 @@ import ClearIcon from '../../../../../static/assets/icons/ic_cancel.svg'
 
 type Props = {
 	/** Teach Autosuggest how to calculate suggestions for any given input value. */
-	getSuggestions: Function,
+	getSuggestions: (value: string) => Promise<Array<Object>> | null,
 
 	/** Implement it to teach Autosuggest what should be the input value when suggestion is clicked. */
 	getSuggestionValue: Function,
@@ -83,11 +83,11 @@ export default class Autosuggest extends Component<Props, State> {
 		}))
 	}
 
-	onSuggestionsFetchRequested = ({ value }: any) => {
+	onSuggestionsFetchRequested = async ({ value }: any) => {
 		// Do some stuff to get suggestions
 		// May be async/passed by parent
 		const { getSuggestions } = this.props
-		const suggestions = getSuggestions(value)
+		const suggestions = await getSuggestions(value)
 		this.setState({
 			suggestions
 		})
@@ -118,13 +118,16 @@ export default class Autosuggest extends Component<Props, State> {
 			inputHelper,
 			isSmall,
 			wrapperClassName,
+			inputProps: originalInputProps = {},
 			...rest
 		} = this.props
+
 		const inputProps = {
-			placeholder: placeholder || '',
-			value,
-			onChange: this.onChange,
-			onBlur: this.onBlur
+			...originalInputProps,
+			placeholder: originalInputProps.placeholder || placeholder || '',
+			value: originalInputProps.value || value,
+			onChange: originalInputProps.onChange || this.onChange,
+			onBlur: originalInputProps.onBlur || this.onBlur
 		}
 
 		return (
