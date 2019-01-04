@@ -1,0 +1,58 @@
+{
+	"name": "@sprucelabs/spruce-utils",
+	"publishConfig": {
+		"access": "public"
+	},
+	"version": "8.10.0",
+	"description": "Reusable Spruce utilities for Skills and other projects",
+	"author": "George Pantazis <gcpantazis@gmail.com>",
+	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit#readme",
+	"license": "MIT",
+	"engines": {
+		"node": ">=10 <11",
+		"npm": ">=5"
+	},
+	"directories": {
+		"lib": "lib"
+	},
+	"files": [
+		"dist",
+		"graphql.js"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sprucelabsai/workspace.sprucebot-skills-kit.git"
+	},
+	"scripts": {
+		"build": "babel -d dist lib",
+		"watch": "npm run build && chokidar 'lib/**/*.js' -c 'npm run build'",
+		"lint": "flow && eslint ."
+	},
+	"bugs": {
+		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
+	},
+	"dependencies": {
+		"@babel/core": "^7.1.6",
+		"@babel/preset-flow": "^7.0.0",
+		"apollo-boost": "^0.1.22",
+		"apollo-link": "^1.2.6",
+		"apollo-link-http": "^1.5.9",
+		"fetch-ponyfill": "^6.0.2",
+		"graphql": "^14.0.2",
+		"graphql-tag": "^2.10.0",
+		"handlebars": "^4.0.12",
+		"lodash": "^4.17.11"
+	},
+	"devDependencies": {
+		"babel-eslint": "^10.0.1",
+		"chokidar": "^2.0.4",
+		"eslint": "^5.9.0",
+		"eslint-config-prettier": "^3.3.0",
+		"eslint-plugin-flowtype": "^3.2.0",
+		"eslint-plugin-jsx-a11y": "^6.1.2",
+		"eslint-plugin-prettier": "^3.0.0",
+		"eslint-plugin-react": "^7.11.1",
+		"flow-bin": "^0.87.0",
+		"prettier": "^1.15.2"
+	}
+}
