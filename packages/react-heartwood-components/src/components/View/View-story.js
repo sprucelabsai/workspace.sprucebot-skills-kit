@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../.storybook/StylesProvider'
@@ -100,6 +100,69 @@ const skillViewTabs = [
 		text: 'Scheduling'
 	}
 ]
+
+type Props = {}
+type State = {
+	sidebarsExpanded: Object
+}
+
+class SkillViewExample extends Component<Props, State> {
+	state = {
+		sidebarsExpanded: {
+			right: true,
+			left: true
+		}
+	}
+
+	handleSidebarToggle = (side: string) => {
+		this.setState(prevState => ({
+			sidebarsExpanded: {
+				...prevState.sidebarsExpanded,
+				[side]: !prevState.sidebarsExpanded[side]
+			}
+		}))
+	}
+
+	render() {
+		const { sidebarsExpanded } = this.state
+		return (
+			<View
+				STORYBOOKdoNotWrap
+				sidebarItems={orgItems}
+				user={user}
+				business={business}
+				isSidebarExpanded={sidebarsExpanded.left}
+				toggleSidebarExpanded={() => this.handleSidebarToggle('left')}
+			>
+				<Page
+					pageHeader={{
+						title: 'Chimera Hair Salon at the Point',
+						primaryAction: {
+							text: 'Go to location dashboard',
+							icon: { name: 'new_tab' },
+							kind: 'simple',
+							isSmall: true
+						},
+						backLinkHref: '#',
+						backLinkText: 'Locations',
+						tabs: skillViewTabs
+					}}
+					hasSidebar="large"
+					sidebarIsCollapsed={!sidebarsExpanded.right}
+				>
+					<Sidebar
+						side="right"
+						isLarge
+						isExpanded={sidebarsExpanded.right}
+						toggleExpanded={() => this.handleSidebarToggle('right')}
+					>
+						<p>Hello a I ama sidebar children</p>
+					</Sidebar>
+				</Page>
+			</View>
+		)
+	}
+}
 
 stories
 	.add('Default', () => (
@@ -318,31 +381,4 @@ stories
 			</Page>
 		</View>
 	))
-	.add('Skill View', () => (
-		<View
-			STORYBOOKdoNotWrap
-			sidebarItems={orgItems}
-			user={user}
-			business={business}
-			isSidebarExpanded
-		>
-			<Page
-				pageHeader={{
-					title: 'Chimera Hair Salon at the Point',
-					primaryAction: {
-						text: 'Go to location dashboard',
-						icon: { name: 'new_tab' },
-						kind: 'simple',
-						isSmall: true
-					},
-					backLinkHref: '#',
-					backLinkText: 'Locations',
-					tabs: skillViewTabs
-				}}
-			>
-				<Sidebar side="right" isLarge isExpanded>
-					<p>Hello a I ama sidebar children</p>
-				</Sidebar>
-			</Page>
-		</View>
-	))
+	.add('Skill View', () => <SkillViewExample STORYBOOKdoNotWrap />)

@@ -65,7 +65,7 @@ const Sidebar = (props: Props) => {
 						))}
 					</ul>
 				)}
-				{children && children}
+				<div className="sidebar__content">{children && children}</div>
 			</div>
 			{footer && footer}
 			{isCollapsible && (

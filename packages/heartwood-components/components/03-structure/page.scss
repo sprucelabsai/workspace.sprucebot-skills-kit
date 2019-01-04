@@ -20,6 +20,14 @@
 	}
 }
 
+.page--has-sidebar {
+	padding-right: rem(360);
+
+	&.page--sidebar-is-collapsed {
+		padding-right: rem(40);
+	}
+}
+
 .page__header-main {
 	padding: 0 spacing('base') 00;
 
