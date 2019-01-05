@@ -15,11 +15,21 @@ import type {
 	EventBlock as EventBlockType
 } from '../../types'
 
+export type EventSelection = {
+	event: EventType,
+	block: EventBlockType,
+	blockIdx: number
+}
+
 type Props = {
-	onMouseDownOnEvent: Function,
-	onMouseDownOnView: (e: MouseEvent) => boolean | null,
-	onDoubleClick?: (e: MouseEvent) => boolean | null,
-	onClickView?: (e: MouseEvent) => boolean | null,
+	/** Triggerd when an event is clicked. Return false to cancel. Return selection with any changes you need. */
+	onMouseDownOnEvent: (
+		e: MouseEvent,
+		selection: EventSelection
+	) => EventSelection | boolean,
+	onMouseDownOnView: (e: MouseEvent) => boolean,
+	onDoubleClickView?: (e: MouseEvent) => boolean,
+	onClickView?: (e: MouseEvent) => boolean,
 	onScroll?: Function,
 	onDropEvent: Function,
 	onDragEvent: Function,
@@ -56,7 +66,7 @@ class DragGrid extends PureComponent<Props, State> {
 	domNodeRef: { current: null | ElementRef<'div'> }
 
 	/** animater for scrolling to x */
-	_activeTween: Tween
+	_activeTween: ?Tween
 
 	/** details of what is being dragged */
 	_activeDrag: {
@@ -67,36 +77,39 @@ class DragGrid extends PureComponent<Props, State> {
 	} | null
 
 	/** tracking for double click */
-	_lastClickTime: Date | null
+	_lastClickTime: ?Date
 
 	/** tracking for long press */
-	_longPressTimeout: number | null
+	_longPressTimeout: ?TimeoutID
 
 	/** how fast are we vertically scrolling? */
-	_scrollVerticalSpeed: number
+	_scrollVerticalSpeed: number = 0
 
 	/** how fast are we scrolling horizontally */
-	_scrollHorizontalSpeed: number
+	_scrollHorizontalSpeed: number = 0
 
 	/** we just dropped something, but are waiting for confirmation */
-	_isPendingDrop: boolean
+	_isPendingDrop: boolean = false
 
 	/** is the mouse down on any event */
-	_isMouseDownOnEvent: boolean
+	_isMouseDownOnEvent: boolean = false
 
 	/** is the mouse down on the main view (probably for dragging view around) */
-	_isMouseDownOnView: boolean
+	_isMouseDownOnView: boolean = false
 
 	/** is dragging the view (causing scroll) */
-	_isDraggingView: boolean
+	_isDraggingView: boolean = false
 
 	/** tracks mouse position  */
-	_mouseDownOnViewStartPosition: {
+	_mouseDownPosition: ?{
 		startingScrollLeft: number,
 		startingScrollTop: number,
 		startingClientX: number,
 		startingClientY: number
-	} | null
+	}
+
+	/** we just clicked on an event, so if we move, get ready to drag */
+	_pendingDrag: ?EventSelection
 
 	static defaultProps = {
 		dragThreshold: 10,
@@ -213,7 +226,7 @@ class DragGrid extends PureComponent<Props, State> {
 	}: {
 		clientX: number,
 		clientY: number
-	}) => {
+	}): { clientX: number, clientY: number } => {
 		const gridTop = this.getTop()
 		const gridLeft = this.getLeft()
 		const scrollTop = this.getScrollTop()
@@ -225,16 +238,16 @@ class DragGrid extends PureComponent<Props, State> {
 		}
 	}
 
-	handleMouseDownOnView = (e: MouseEvent) => {
+	handleMouseDownOnView = (e: MouseEvent): boolean => {
 		const { clientX, clientY } = eventUtil.clientXY(e)
-		const { onMouseDownOnView, onDoubleClick, doubleClickTime } = this.props
+		const { onMouseDownOnView, onDoubleClickView, doubleClickTime } = this.props
 
 		if (
-			onDoubleClick &&
+			onDoubleClickView &&
 			this._lastClickTime &&
 			new Date() - this._lastClickTime < doubleClickTime
 		) {
-			return onDoubleClick(e)
+			return onDoubleClickView(e)
 		}
 
 		if (onMouseDownOnView && onMouseDownOnView(e) === false) {
@@ -243,7 +256,7 @@ class DragGrid extends PureComponent<Props, State> {
 
 		this._lastClickTime = new Date()
 		this._isMouseDownOnView = true
-		this._mouseDownOnViewStartPosition = {
+		this._mouseDownPosition = {
 			startingScrollLeft: this.getScrollLeft(),
 			startingScrollTop: this.getScrollTop(),
 			startingClientX: clientX,
@@ -268,6 +281,8 @@ class DragGrid extends PureComponent<Props, State> {
 
 		if (this._isMouseDownOnView) {
 			this.handleDragOfView({ clientX, clientY })
+		} else if (this._isMouseDownOnEvent) {
+			console.log('dragging event')
 		}
 	}
 
@@ -283,7 +298,7 @@ class DragGrid extends PureComponent<Props, State> {
 			startingClientY,
 			startingScrollLeft,
 			startingScrollTop
-		} = this._mouseDownOnViewStartPosition || {}
+		} = this._mouseDownPosition || {}
 
 		const deltaLeft = clientX - startingClientX
 		const deltaTop = clientY - startingClientY
@@ -296,10 +311,10 @@ class DragGrid extends PureComponent<Props, State> {
 		this._isDraggingView = true
 	}
 
-	handleTouchStartOnView = e => {
+	handleTouchStartOnView = (e: MouseEvent) => {
 		// don't register clicks (so double click won't fire)
 		this._lastClickTime = null
-		clearTimeout(this._longPressTimeout)
+		this._longPressTimeout && clearTimeout(this._longPressTimeout)
 
 		// console.log('touch start on view')
 		if (this.handleMouseDownOnView(e) !== false) {
@@ -310,24 +325,21 @@ class DragGrid extends PureComponent<Props, State> {
 			let { clientX, clientY } = eventUtil.clientXY(e)
 			const { longPressDelay } = this.props
 
-			e.persist()
 			this._longPressTimeout = setTimeout(() => {
-				this._longPressTimeout = false
-				this.handleLongPressOnView({ e, clientX, clientY })
+				this._longPressTimeout = null
+				this.handleLongPressOnView({ clientX, clientY })
 			}, longPressDelay)
 		}
 	}
 
-	handleTouchEndOnView = e => {
+	handleTouchEndOnView = (e: MouseEvent) => {
 		// long press is still active
-		if (this._longPressTimeout) {
-			clearTimeout(this._longPressTimeout)
+		this._longPressTimeout && clearTimeout(this._longPressTimeout)
 
-			// console.log('touch end on view')
-			this.handleMouseUpFromView(e)
-			e.preventDefault()
-			e.stopPropagation()
-		}
+		// console.log('touch end on view')
+		this.handleMouseUpFromView(e)
+		e.preventDefault()
+		e.stopPropagation()
 
 		window.removeEventListener('touchend', this.handleTouchEndOnView)
 	}
@@ -338,31 +350,53 @@ class DragGrid extends PureComponent<Props, State> {
 	}: {
 		x: number,
 		y: number
-	}): Array<EventType> => {
+	}): Array<
+		EventSelection & {
+			resize: {
+				direction: string
+			},
+			eventNode: HTMLDivElement,
+			blockNode: HTMLDivElement
+		}
+	> => {
 		const matches = document.elementsFromPoint(x, y)
 		const blockNodes = matches.filter(node =>
 			node.classList.contains('bigcalendar__event-block')
 		)
-		const resizes = [
-			false,
-			...matches.filter(node => node.classList.contains('resize-handle'))
-		].map(match => {
-			if (match) {
-				return {
-					direction: match.className.split(' ')[0]
+		const resizes = matches
+			.filter(node => node.classList.contains('resize-handle'))
+			.map(match => {
+				if (match) {
+					return {
+						direction: match.className.split(' ')[0]
+					}
 				}
-			}
-		})
+			})
 
-		const events = blockNodes.map((blockNode, idx) => {
+		const events: Array<
+			EventSelection & {
+				resize: {
+					direction: string
+				},
+				eventNode: HTMLDivElement,
+				blockNode: HTMLDivElement
+			}
+		> = blockNodes.map((blockNode, idx) => {
 			const eventNode = blockNode.parentNode
 			const eventId = eventNode.dataset.eventId
 			if (eventId === 'dragging') {
 				return false
 			}
-			const event = this.props.events.find(event => event.id === eventId)
+			const event: ?EventType = this.props.events.find(
+				event => event.id === eventId
+			)
+			if (!event) {
+				return false
+			}
+
 			const blockIdx = [...eventNode.children].indexOf(blockNode)
 			const block = event.blocks[blockIdx]
+
 			return {
 				event,
 				block,
@@ -372,17 +406,20 @@ class DragGrid extends PureComponent<Props, State> {
 				blockNode
 			}
 		})
+
 		return events.filter(event => event)
 	}
 
-	handleMouseDownOnEvent = ({
-		e,
-		event,
-		block,
-		blockIdx,
-		stopEvent = true,
-		setListeners = true
-	}) => {
+	handleMouseDownOnEvent = (
+		e: MouseEvent,
+		{
+			event,
+			block,
+			blockIdx,
+			stopEvent = true,
+			setListeners = true
+		}: EventSelection
+	) => {
 		//ignore right clicks and if we have dropped something that is waiting to save
 		if (e.button === 2 || this._isPendingDrop) {
 			e.preventDefault()
@@ -391,12 +428,13 @@ class DragGrid extends PureComponent<Props, State> {
 		}
 
 		const {
-			onMouseDownOnEvent = args => {
-				return blockIdx === 0 ? args : false
-			}
+			onMouseDownOnEvent = (
+				e: MouseEvent,
+				selection: EventSelection
+			): EventSelection | boolean => (blockIdx === 0 ? selection : false)
 		} = this.props
 
-		const results = onMouseDownOnEvent({ e, event, block, blockIdx })
+		const results = onMouseDownOnEvent(e, { event, block, blockIdx })
 
 		// if they clicked on an available block (not busy) and the parent view has not returned false
 		if (results && !block.markAsBusy) {
@@ -412,7 +450,12 @@ class DragGrid extends PureComponent<Props, State> {
 			this._pendingDrag = results
 
 			const { clientX, clientY } = eventUtil.clientXY(e)
-			this._startingDragPoint = { x: clientX, y: clientY }
+			this._mouseDownPosition = {
+				startingScrollLeft: this.getScrollLeft(),
+				startingScrollTop: this.getScrollTop(),
+				startingClientX: clientX,
+				startingClientY: clientY
+			}
 
 			setListeners &&
 				window.addEventListener('mousemove', this.handleDragOfEvent, {
@@ -424,6 +467,7 @@ class DragGrid extends PureComponent<Props, State> {
 				})
 
 			setListeners &&
+				document.body &&
 				document.body.addEventListener(
 					'mouseleave',
 					this.handleCancelMouseUpFromEvent,
@@ -558,17 +602,25 @@ class DragGrid extends PureComponent<Props, State> {
 		}
 	}
 
-	handleLongPressOnView = ({ e, clientX, clientY }) => {
-		const {
-			startingScrollLeft,
-			startingScrollTop
-		} = this._mouseDownOnViewStartPosition
+	handleLongPressOnView = ({
+		clientX,
+		clientY
+	}: {
+		clientX: number,
+		clientY: number
+	}) => {
+		const { startingScrollLeft, startingScrollTop } =
+			this._mouseDownPosition || {}
+
 		const scrollLeft = this.getScrollLeft()
 		const scrollTop = this.getScrollTop()
 
-		const pos = eventUtil.clientXY(e)
-
-		this._startingDragPoint = { x: pos.clientX, y: pos.clientY }
+		this._mouseDownPosition = {
+			startingScrollLeft: this.getScrollLeft(),
+			startingScrollTop: this.getScrollTop(),
+			startingClientX: clientX,
+			startingClientY: clientY
+		}
 
 		const a = startingScrollLeft - scrollLeft
 		const b = startingScrollTop - scrollTop
@@ -578,7 +630,7 @@ class DragGrid extends PureComponent<Props, State> {
 		const { dragThreshold } = this.props
 		if (distance <= dragThreshold) {
 			const { onLongPressView = () => {} } = this.props
-			onLongPressView({ e, clientX, clientY })
+			onLongPressView({ clientX, clientY })
 		}
 	}
 
@@ -752,7 +804,11 @@ class DragGrid extends PureComponent<Props, State> {
 		window.removeEventListener('mousemove', this.handleMouseMoveOnView)
 		window.removeEventListener('mouseup', this.handleMouseUpFromView)
 
-		document.body.removeEventListener('mouseleave', this.handleMouseUpFromView)
+		document.body &&
+			document.body.removeEventListener(
+				'mouseleave',
+				this.handleMouseUpFromView
+			)
 
 		this._isMouseDownOnView = false
 		this._isDraggingView = false
@@ -761,7 +817,7 @@ class DragGrid extends PureComponent<Props, State> {
 			(this.domNodeRef.current.style.webkitOverflowScrolling = '')
 
 		const { startingScrollLeft = 0, startingScrollTop = 0 } =
-			this._mouseDownOnViewStartPosition || {}
+			this._mouseDownPosition || {}
 
 		const {
 			selectedEvent,
@@ -784,6 +840,7 @@ class DragGrid extends PureComponent<Props, State> {
 		}
 
 		if (this.state.dragEvent && !moved) {
+			debugger //?? why does this ever hit?
 			this.handleDropEvent()
 		}
 		if (
@@ -1076,7 +1133,7 @@ class DragGrid extends PureComponent<Props, State> {
 			getDragNode,
 			selectedEvent,
 			highlightedEvent,
-			onDoubleClick,
+			onDoubleClickView,
 			doubleClickTime,
 			onLongPressView,
 			longPressDelay,

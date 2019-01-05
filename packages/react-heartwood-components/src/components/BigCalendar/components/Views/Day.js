@@ -23,6 +23,7 @@ import TimeLine from '../TimeLine/TimeLine'
 
 import type { ElementRef } from 'react'
 import type { Event as EventType } from '../../types'
+import type { EventSelection } from '../DragGrid/DragGrid'
 
 type Props = {
 	showRightProps: boolean,
@@ -382,7 +383,10 @@ class Day extends PureComponent<Props, State> {
 			: this.slotHeight()
 	}
 
-	handleMouseDownOnEvent = ({ e, event, block, blockIdx }) => {
+	handleMouseDownOnEvent = (
+		e: MouseEvent,
+		{ event, block, blockIdx }: EventSelection
+	) => {
 		this.deselectAllTextSelections()
 
 		const response = { e, event, block, blockIdx }
@@ -1185,7 +1189,7 @@ class Day extends PureComponent<Props, State> {
 		}
 	}
 
-	handleClickView = (e : MouseEvent) => {
+	handleClickView = (e: MouseEvent) => {
 		const { onClick, doubleClickToCreate } = this.props
 		if (doubleClickToCreate) {
 			return
