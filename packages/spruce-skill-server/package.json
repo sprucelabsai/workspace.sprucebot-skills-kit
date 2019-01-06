@@ -45,6 +45,9 @@
 		"sequelize": "^4.33.4",
 		"umzug": "^2.1.0"
 	},
+	"peerDependencies": {
+		"sqlite3": "^4.0.4"
+	},
 	"devDependencies": {
 		"add": "^2.0.6",
 		"aws-sdk": "^2.153.0",

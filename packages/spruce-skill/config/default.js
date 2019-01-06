@@ -7,7 +7,8 @@ const packageJSON = require('../package.json')
 const HEARTWOOD_VERSION = require('@sprucelabs/heartwood-components').version
 // Check for .env
 try {
-	require('dotenv').config()
+	const path = `${__dirname}/../.env`
+	require('dotenv').config({ path })
 } catch (e) {
 	console.error('Missing .env file for this project')
 }
@@ -47,6 +48,8 @@ module.exports = {
 			}
 		}
 	},
+	DATABASE_URL_TESTING:
+		process.env.DATABASE_URL_TESTING || `sqlite:${__dirname}/../tmp/testing.db`,
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
 	PACKAGE_NAME: packageJSON.name,
