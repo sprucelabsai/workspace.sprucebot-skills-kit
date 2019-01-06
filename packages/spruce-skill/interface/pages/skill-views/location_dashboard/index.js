@@ -7,10 +7,46 @@ import {
 	Dropzone
 } from '@sprucelabs/react-heartwood-components'
 import request from 'superagent'
+import { GraphQLClient } from '@sprucelabs/spruce-next-helpers'
 
 class DashboardLocationPage extends React.Component {
-	componentDidMount() {
+	static async getInitialProps(props) {
+		if (props.auth) {
+		}
+
+		try {
+			const gqlClient = GraphQLClient(props)
+			const result = await gqlClient.query({
+				query: `{
+				Users {
+					id
+				}
+			}`
+			})
+			console.log({ result })
+		} catch (e) {
+			console.log(e)
+		}
+
+		return {}
+	}
+
+	async componentDidMount() {
 		this.props.skill.ready() // Show the skill
+
+		try {
+			const gqlClient = GraphQLClient(this.props)
+			const result = await gqlClient.query({
+				query: `{
+				Users {
+					id
+				}
+			}`
+			})
+			console.log({ result })
+		} catch (e) {
+			console.log(e)
+		}
 	}
 
 	onDrop = async (acceptedFiles, rejectedFiles) => {

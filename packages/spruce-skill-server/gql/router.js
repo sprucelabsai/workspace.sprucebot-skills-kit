@@ -16,6 +16,12 @@ const fieldConfigEstimator = QueryComplexity.fieldConfigEstimator
 const auth = async (ctx, next) => {
 	try {
 		let token = ctx.cookies.get('jwt') || ctx.request.headers['x-skill-jwt']
+
+		// Check for token in Authorization header
+		if (!token && ctx.request.headers['authorization']) {
+			token = ctx.request.headers['authorization'].replace('JWT ', '')
+		}
+
 		if (!token) {
 			await next()
 			return
