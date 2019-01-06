@@ -75,6 +75,7 @@
 		"react-emojione": "^5.0.0",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
+		"superagent": "^4.1.0",
 		"swagger-jsdoc": "^3.0.2",
 		"universal-cookie": "^2.1.0"
 	},

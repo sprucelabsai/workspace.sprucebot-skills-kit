@@ -12,7 +12,7 @@ function required(name) {
 
 function suggested(name) {
 	console.log(
-		`⚠️  Missing key in Sprucebot() constructor. Check your server.js and environment variables:  ${eventContract}`
+		`⚠️  Missing key in Sprucebot() constructor. Check your server.js and environment variables: ${name}`
 	)
 }
 
