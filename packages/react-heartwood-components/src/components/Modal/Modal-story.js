@@ -71,7 +71,7 @@ class ModalExample extends Component<Props, State> {
 						<Modal.Body>
 							<FormLayout>
 								<FormLayoutItem>
-									<TextInput label="Category Name" placeholder="i.e. Barber" />
+									<TextInput label="Category Name" placeholder="e.g. Barber" />
 								</FormLayoutItem>
 								<FormLayoutItem>
 									<TextInput
@@ -151,7 +151,7 @@ stories
 				<Modal.Body>
 					<FormLayout>
 						<FormLayoutItem>
-							<TextInput label="Category Name" placeholder="i.e. Barber" />
+							<TextInput label="Category Name" placeholder="e.g. Barber" />
 						</FormLayoutItem>
 						<FormLayoutItem>
 							<TextInput

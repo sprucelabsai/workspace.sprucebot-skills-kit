@@ -20,19 +20,35 @@ type PageProps = {
 	className?: string,
 
 	/** Page header props */
-	pageHeader?: PageHeaderProps
+	header?: PageHeaderProps,
+
+	/** Set true if the page has a sidebar. Defaults to ''. */
+	hasSidebar?: boolean,
+
+	/** Set true if the page has a sidebar that is collapsed. Defaults to false. */
+	sidebarIsCollapsed?: boolean
 }
 
 export const Page = (props: PageProps) => {
-	const { children, isCentered, hasHeader, className, pageHeader } = props
+	const {
+		children,
+		isCentered,
+		hasHeader,
+		className,
+		header,
+		hasSidebar,
+		sidebarIsCollapsed
+	} = props
 	return (
 		<div
 			className={cx('page', className, {
 				'page--centered': isCentered,
-				'page--no-header': !hasHeader
+				'page--no-header': !hasHeader,
+				'page--has-sidebar': hasSidebar,
+				'page--sidebar-is-collapsed': sidebarIsCollapsed
 			})}
 		>
-			{pageHeader && <PageHeader {...pageHeader} />}
+			{header && <PageHeader {...header} />}
 			{children}
 		</div>
 	)
@@ -41,7 +57,9 @@ export const Page = (props: PageProps) => {
 Page.defaultProps = {
 	isCentered: false,
 	hasHeader: true,
-	pageHeader: null
+	header: null,
+	hasSidebar: false,
+	sidebarIsCollapsed: false
 }
 
 export default Page

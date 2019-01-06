@@ -46,6 +46,7 @@ export {
 	default as TextContainer
 } from './components/TextContainer/TextContainer'
 export { default as Text } from './components/Text/Text'
+export { default as TextStyle } from './components/TextStyle/TextStyle'
 export { default as Image } from './components/Image/Image'
 export { default as Layout, LayoutSection } from './components/Layout'
 export {
