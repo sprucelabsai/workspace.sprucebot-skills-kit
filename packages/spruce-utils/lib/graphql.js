@@ -6,6 +6,7 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import fetchPonyfill from 'fetch-ponyfill'
 import https from 'https'
+import gql from 'graphql-tag'
 
 import { SpruceWebError } from './errors'
 
@@ -58,6 +59,16 @@ export class GraphQLClient {
 		try {
 			response = await this.client[operationType]({
 				...options,
+				query:
+					options.query &&
+					gql`
+						${options.query}
+					`,
+				mutation:
+					options.mutation &&
+					gql`
+						${options.mutation}
+					`,
 				context: {
 					headers: {
 						Authorization: token ? `JWT ${token}` : null
