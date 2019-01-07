@@ -2023,22 +2023,6 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@sprucelabs/semantic-release/-/semantic-release-1.0.1.tgz#ef373f17d69ab28b3b70b637045c1b12f0b191ea"
 
-"@sprucelabs/spruce-utils@^8.10.1":
-  version "8.10.2-pre-b9cd79ce.0"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/spruce-utils/-/spruce-utils-8.10.2-pre-b9cd79ce.0.tgz#3b14709ef230902463923c0883271ce29f1a2537"
-  integrity sha512-AF1xMWbVmGNUS9/zQGknUtmDqHe42B67kCC8Q/pqcN67erzAAcbIm7ERFuc91bjGI6gCkAyRlC1+Pn7Viwc5WQ==
-  dependencies:
-    "@babel/core" "^7.1.6"
-    "@babel/preset-flow" "^7.0.0"
-    apollo-boost "^0.1.22"
-    apollo-link "^1.2.6"
-    apollo-link-http "^1.5.9"
-    fetch-ponyfill "^6.0.2"
-    graphql "^14.0.2"
-    graphql-tag "^2.10.0"
-    handlebars "^4.0.12"
-    lodash "^4.17.11"
-
 "@storybook/addon-actions@^4.0.0-alpha.21":
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-4.1.2.tgz#0249822e85accf85311a1a4a6f8feee7cc42e171"
