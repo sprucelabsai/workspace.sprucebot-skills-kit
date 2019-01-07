@@ -15,10 +15,10 @@ class DashboardLocationPage extends React.Component {
 			const result = await gqlClient.query({
 				token: props.auth && props.auth.jwt,
 				query: `{
-				Users {
-					id
-				}
-			}`
+					Users {
+						id
+					}
+				}`
 			})
 			log.debug({ result })
 		} catch (e) {
@@ -35,10 +35,10 @@ class DashboardLocationPage extends React.Component {
 			const result = await gqlClient.query({
 				token: this.props.auth && this.props.auth.jwt,
 				query: `{
-				Users {
-					id
-				}
-			}`
+					Users {
+						id
+					}
+				}`
 			})
 			log.debug({ result })
 		} catch (e) {
