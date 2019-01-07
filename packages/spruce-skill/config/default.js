@@ -90,6 +90,7 @@ module.exports = {
 	GRAPHQL_MAX_COMPLEXITY: process.env.GRAPHQL_MAX_COMPLEXITY
 		? +process.env.GRAPHQL_MAX_COMPLEXITY
 		: 1500,
+	DB_ENABLED: process.env.DB_ENABLED === 'true',
 	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
 	scopes: require('./scopes'),
@@ -211,7 +212,7 @@ module.exports = {
 	}, // Settings for any services.
 	bodyParserOptions: {
 		// passthrough to https://github.com/koajs/bodyparser
-		jsonLimit: '1mb'
+		jsonLimit: '5mb'
 	},
 	nextConfig: {
 		dir: path.resolve(__dirname, '../interface'),

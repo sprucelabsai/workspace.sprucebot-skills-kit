@@ -51,7 +51,7 @@ module.exports = async (ctx, next) => {
 				views.push({
 					title,
 					host,
-					path: '/location/dashboard/'
+					path: '/skill-views/location_dashboard'
 				})
 				break
 			case 'location_settings':
