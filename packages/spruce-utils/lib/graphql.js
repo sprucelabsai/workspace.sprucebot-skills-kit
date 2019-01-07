@@ -56,8 +56,22 @@ export class GraphQLClient {
 	) => {
 		let response
 
+		let clientMethod = null
+
+		if (operationType === 'query') {
+			clientMethod = 'query'
+		} else if (operationType === 'mutation') {
+			clientMethod = 'mutate'
+		}
+
+		if (!clientMethod) {
+			throw new SpruceWebError(
+				`GraphQL: No matching client method for operation of type "${operationType}"`
+			)
+		}
+
 		try {
-			response = await this.client[operationType]({
+			response = await this.client[clientMethod]({
 				...options,
 				query:
 					options.query &&
