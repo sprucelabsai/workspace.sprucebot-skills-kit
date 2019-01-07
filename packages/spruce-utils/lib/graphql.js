@@ -18,23 +18,18 @@ type GraphQLOperationProps = {|
 |}
 
 export class GraphQLClient {
-	constructor({ rejectUnauthorized, uri, token }) {
+	constructor({ rejectUnauthorized, uri }) {
 		const agent = new https.Agent({
 			rejectUnauthorized
 		})
 
 		const { fetch } = fetchPonyfill({})
 
-		console.log({ linkToken: token })
-
 		const httpLink = createHttpLink({
 			uri,
 			fetch,
 			credentials: 'same-origin',
-			fetchOptions: { agent },
-			headers: {
-				Authorization: token ? `JWT ${token}` : null
-			}
+			fetchOptions: { agent }
 		})
 
 		const addExtensionsLink = new ApolloLink((operation, forward) => {
@@ -62,7 +57,7 @@ export class GraphQLClient {
 		let response
 
 		try {
-			const query = {
+			response = await this.client[operationType]({
 				...options,
 				query:
 					options.query &&
@@ -73,19 +68,13 @@ export class GraphQLClient {
 					options.mutation &&
 					gql`
 						${options.mutation}
-					`
-			}
-
-			// The token might already be set from the constructor so only set it here if it's actually defined
-			if (token) {
-				query.context = {
+					`,
+				context: {
 					headers: {
-						Authorization: `JWT ${token}`
+						Authorization: token ? `JWT ${token}` : null
 					}
 				}
-			}
-
-			response = await this.client[operationType](query)
+			})
 		} catch (e) {
 			if (e.networkError || e.graphQLErrors) {
 				const graphQLErrors = get(e, 'graphQLErrors', [])

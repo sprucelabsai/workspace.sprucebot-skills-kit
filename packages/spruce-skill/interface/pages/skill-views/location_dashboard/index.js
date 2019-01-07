@@ -7,25 +7,22 @@ import {
 	Dropzone
 } from '@sprucelabs/react-heartwood-components'
 import request from 'superagent'
-import { GraphQLClient } from '@sprucelabs/spruce-next-helpers'
+import { gqlClient } from '@sprucelabs/spruce-next-helpers'
 
 class DashboardLocationPage extends React.Component {
 	static async getInitialProps(props) {
-		if (props.auth) {
-		}
-
 		try {
-			const gqlClient = GraphQLClient(props)
 			const result = await gqlClient.query({
+				token: props.auth && props.auth.jwt,
 				query: `{
 				Users {
 					id
 				}
 			}`
 			})
-			console.log({ result })
+			log.debug({ result })
 		} catch (e) {
-			console.log(e)
+			log.error(e)
 		}
 
 		return {}
@@ -35,17 +32,17 @@ class DashboardLocationPage extends React.Component {
 		this.props.skill.ready() // Show the skill
 
 		try {
-			const gqlClient = GraphQLClient(this.props)
 			const result = await gqlClient.query({
+				token: this.props.auth && this.props.auth.jwt,
 				query: `{
 				Users {
 					id
 				}
 			}`
 			})
-			console.log({ result })
+			log.debug({ result })
 		} catch (e) {
-			console.log(e)
+			log.error(e)
 		}
 	}
 
