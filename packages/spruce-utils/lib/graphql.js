@@ -112,7 +112,7 @@ export class GraphQLClient {
 		return this.operation(options, 'query')
 	}
 
-	mutation = (options: GraphQLOperationProps) => {
+	mutate = (options: GraphQLOperationProps) => {
 		return this.operation(options, 'mutation')
 	}
 }
