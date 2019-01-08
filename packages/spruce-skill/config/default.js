@@ -16,9 +16,11 @@ module.exports = {
 	cards: {
 		exampleCard: {
 			meta: {
+				id: 'example-card-user-dashboard',
 				title: 'Example card in default config',
 				comment: 'This is a developer example card',
 				kind: 'standard', // standard, carousel, and appointment
+				page: 'user_dashboard',
 				slug: 'user_dashboard'
 			},
 			card: {
@@ -128,7 +130,7 @@ module.exports = {
 				description: 'Core asks for views to display on a page'
 			},
 			'get-cards': {
-				description: 'Core asks this skill to provide cards for a dashboard'
+				description: 'Core asks this skill to provide cards'
 			}
 			// Other events we could subscribe to
 			// 'was-installed': {
