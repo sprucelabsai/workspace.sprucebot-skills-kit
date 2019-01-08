@@ -4,7 +4,7 @@ const next = require('next')
 const Router = require('koa-router')
 const cron = require('node-cron')
 const _ = require('lodash')
-const bodyParser = require('koa-bodyparser')
+const koaBody = require('koa-body')
 const logger = require('@sprucelabs/log')
 const { version } = require('./package.json')
 const defaultErrors = require('./support/errors')
@@ -125,7 +125,12 @@ module.exports = async ({
         =             	BASICS   	            =
         =======================================*/
 	koa.use(cors())
-	koa.use(bodyParser(bodyParserOptions))
+	koa.use(
+		koaBody({
+			multipart: true,
+			...bodyParserOptions
+		})
+	)
 	staticDir && koa.use(staticServe(staticDir))
 
 	const router = new Router()

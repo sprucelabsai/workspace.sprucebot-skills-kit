@@ -110,6 +110,7 @@ module.exports = (koa, gqlOptions) => {
 							friendlyReason: errors[code].friendlyReason
 						}
 					} else {
+						log.warn(e)
 						formattedError = {
 							name: 'UNKNOWN',
 							code: errors.UNKNOWN.code,

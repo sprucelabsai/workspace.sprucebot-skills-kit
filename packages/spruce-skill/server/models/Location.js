@@ -66,5 +66,23 @@ module.exports = (sequelize, DataTypes) => {
 		})
 	}
 
+	Location.scopes = {
+		public: {
+			attributes: [
+				'id',
+				'name',
+				'addressLine1',
+				'addressLine2',
+				'addressCity',
+				'addressState',
+				'addressZip',
+				'addressCountry',
+				'timezone',
+				'isPublic',
+				'geo'
+			]
+		}
+	}
+
 	return Location
 }

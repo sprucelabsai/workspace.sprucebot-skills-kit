@@ -1,0 +1,17 @@
+{
+	"sourceType": "unambiguous",
+	"presets": [
+		"@babel/flow",
+		[
+			"next/babel",
+			{
+				"preset-env": {
+					"targets": {
+						"browsers": "> 1%"
+					}
+				}
+			}
+		]
+	],
+	"plugins": []
+}

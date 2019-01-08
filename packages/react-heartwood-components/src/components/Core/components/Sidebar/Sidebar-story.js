@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../../../.storybook/StylesProvider'
@@ -36,11 +36,36 @@ const personalItems = [
 	}
 ]
 
-stories.add('Default', () => (
-	<Sidebar
-		items={personalItems}
-		isExpanded
-		forceCloseSidebar={() => null}
-		STORYBOOKdoNotWrap
-	/>
-))
+type Props = {}
+
+type State = {
+	showSidebar: boolean
+}
+
+class Example extends Component {
+	state = {
+		showSidebar: true
+	}
+
+	handleToggleSidebar = () => {
+		this.setState(prevState => ({
+			showSidebar: !prevState.showSidebar
+		}))
+	}
+
+	render() {
+		const { showSidebar } = this.state
+
+		return (
+			<Sidebar
+				items={personalItems}
+				isExpanded={showSidebar}
+				toggleExpanded={this.handleToggleSidebar}
+				forceCloseSidebar={() => null}
+				STORYBOOKdoNotWrap
+			/>
+		)
+	}
+}
+
+stories.add('Default', () => <Example />)

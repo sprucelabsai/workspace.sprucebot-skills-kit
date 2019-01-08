@@ -4,7 +4,6 @@ import * as actions from '../store/actions'
 import ServerCookies from 'cookies'
 import ClientCookies from 'js-cookies'
 import skill from '../index'
-import DevControls from './DevControls'
 import { Loader } from '@sprucelabs/react-heartwood-components'
 import qs from 'qs'
 import lang from '../helpers/lang'
@@ -266,7 +265,6 @@ const PageWrapper = Wrapped => {
 								}
 							`}</style>
 						) : null}
-						<DevControls auth={this.props.auth} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 					</Container>
 				)

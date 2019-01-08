@@ -8,7 +8,8 @@
 		"packages/spruce-next-helpers",
 		"packages/spruce-node",
 		"packages/spruce-skill",
-		"packages/spruce-skill-server"
+		"packages/spruce-skill-server",
+		"packages/spruce-utils"
 	],
 	"scripts": {
 		"local": "pm2 start ecosystem.config.js && echo 'run `yarn run log` to tail the logs'",
