@@ -127,7 +127,7 @@ module.exports = {
 			'get-views': {
 				description: 'Core asks for views to display on a page'
 			},
-			'get-page-cards': {
+			'get-cards': {
 				description: 'Core asks this skill to provide cards for a dashboard'
 			}
 			// Other events we could subscribe to
