@@ -19,34 +19,37 @@ module.exports = {
 				id: 'example-card-user-dashboard',
 				title: 'Example card in default config',
 				comment: 'This is a developer example card',
-				kind: 'standard', // standard, carousel, and appointment
+				type: 'standard', // standard, carousel, and appointment
 				page: 'user_dashboard',
-				slug: 'user_dashboard'
+				slug: 'user-dashboard',
+				kind: 'standard'
 			},
-			card: {
-				header: {
-					title: 'Example card in default config'
-				},
-				bodies: [
-					{
-						image: {
-							url: 'https://picsum.photos/720/360/?random',
-							text: 'Random image being set.',
-							width: 720,
-							heght: 360
+			layouts: [
+				{
+					header: {
+						title: 'Example card in default config'
+					},
+					bodies: [
+						{
+							image: {
+								url: 'https://picsum.photos/720/360/?random',
+								text: 'Random image being set.',
+								width: 720,
+								heght: 360
+							}
 						}
-					}
-				],
-				footer: {
-					primary: {
-						text: 'Sprucebot Docs',
-						destination: {
-							url: 'https://docs.sprucebot.com',
-							target: '_blank'
+					],
+					footer: {
+						primary: {
+							text: 'Sprucebot Docs',
+							destination: {
+								url: 'https://docs.sprucebot.com',
+								target: '_blank'
+							}
 						}
 					}
 				}
-			}
+			]
 		}
 	},
 	DEV_MODE: process.env.DEV_MODE === 'true',
