@@ -13,6 +13,98 @@ try {
 }
 
 module.exports = {
+	settings: require('./settings'),
+	// settings: {
+	// 	/*
+	// 	<setting name>: { // Setting name must be a valid non-quoted json key. i.e. 'my_setting' is valid but 'my-setting' is not because it would have to be quoted in json
+	// 		settingType: 'user', // Valid options are "user", "location", and "organization"
+	// 		label: 'Setting short description',
+	// 		description: 'A longer description that describes exactly what this setting does and generally gives more detail',
+	// 		// Valid input types are:
+	// 		// toggle - A true/false toggle
+	// 		// throggle - An unset/true/false toggle
+	// 		// string - A single line text input
+	// 		// text - A multi-line text input
+	// 		// number - A single line number input
+	// 		// percent - A single line number input for percentage
+	// 		inputType: 'toggle',
+	// 		defaultValue: null // The default value for this setting or null if there is no default
+	// 		validate: {
+	// 			// The validate object can handle 3 types of validations and at most 1 validation should be defined
+	// 			// Validate by function:
+	// 			func: val => +val > 3 ,
+	// 			// Validate by regex:
+	// 			regex: /[a-zA-Z]/,
+	// 			// Validate by emitting event that this skill can handle:
+	// 			event: 'validate-setting',
+
+	// 			// The message to display if the validation failed (func and regex only)
+	// 			msg: 'Please enter a number that is greater than 3'
+	// 		}
+	// 	}
+	// 	*/
+	// 	receive_notifications: {
+	// 		settingType: 'user',
+	// 		label: 'Receive notifications',
+	// 		description: 'Opt in to receive notifications from this skill.',
+	// 		inputType: 'toggle',
+	// 		defaultValue: true
+	// 	},
+	// 	enable_organization_notifications: {
+	// 		settingType: 'organization',
+	// 		label: 'Enable organization notifications',
+	// 		description:
+	// 			'Toggle notifications from this skill on/off for the entire organization.',
+	// 		inputType: 'toggle',
+	// 		defaultValue: true
+	// 	},
+	// 	enable_location_notifications: {
+	// 		settingType: 'location',
+	// 		label: 'Enable location notifications',
+	// 		description:
+	// 			'Override the organization settings at a particular location.',
+	// 		inputType: 'throggle',
+	// 		defaultValue: null // null defaultValue denotes that this setting is not set to anything by default
+	// 	},
+	// 	setting_for_booking: {
+	// 		// slug: 'booking', // Specifying a slug will show this setting under a different skill's settings
+	// 		settingType: 'location',
+	// 		label: 'A setting for another skill',
+	// 		description:
+	// 			'Example of a setting that displays in the booking skill settings.',
+	// 		inputType: 'throggle',
+	// 		defaultValue: null
+	// 	},
+	// 	number_setting_func: {
+	// 		settingType: 'user',
+	// 		label: 'Enter a number',
+	// 		description: 'Non-negative number',
+	// 		inputType: 'number',
+	// 		validate: {
+	// 			func: 'val => val >= 0',
+	// 			msg: 'Please enter a number 0 or greater'
+	// 		}
+	// 	},
+	// 	number_setting: {
+	// 		settingType: 'user',
+	// 		label: 'Enter a string',
+	// 		description: 'A string that begins with a letter',
+	// 		inputType: 'string',
+	// 		validate: {
+	// 			regex: '/[a-zA-Z].*/',
+	// 			msg: 'Please enter a string that starts with a letter'
+	// 		}
+	// 	},
+	// 	event_validate_setting: {
+	// 		settingType: 'user',
+	// 		label: 'Enter some text',
+	// 		description: 'Some text that will be validated via an event',
+	// 		inputType: 'text',
+	// 		validate: {
+	// 			event: 'validate-setting'
+	// 		}
+	// 	}
+	// },
 	cards: {
 		exampleCard: {
 			meta: {
@@ -125,6 +217,12 @@ module.exports = {
 	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
 	eventContract: {
 		events: {
+			'get-settings': {
+				description: 'Core asks for settings to display on a page'
+			},
+			'validate-settings': {
+				description: 'Core asks for settings validation'
+			},
 			'get-views': {
 				description: 'Core asks for views to display on a page'
 			},
