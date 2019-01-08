@@ -10,20 +10,17 @@ module.exports = async (ctx, next) => {
 
 		const userId = ctx.event.payload.userId
 
-		// Check slug
-		// ctx.event.Skill
-		// Check user
-		// ctx.auth
-
-		// 'skill_settings_user'
-		// 'skill_settings_org'
-		// 'skill_settings_location'
-
+		/*
+			ctx.utilities.settings.getSettings() is a helper method that will:
+			1. Filter the settings returned based on the setting "page"
+			2. Filter the settings returned based on the setting "acls"
+		*/
 		const settings = await ctx.utilities.settings.getSettings({
 			page: ctx.event.payload.page,
-			settings: config.settings,
+			settings: config.settings, // Define your settings in config/settings.js
 			userId,
 			overrides: [
+				// Override certain settings values here. A use case here is localization.
 				{
 					name: 'receive_notifications',
 					props: {

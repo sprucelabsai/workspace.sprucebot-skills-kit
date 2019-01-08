@@ -22,7 +22,7 @@ module.exports = async (ctx, next) => {
 		let canSave = true
 		// TODO: Validate the settings
 		if (!canSave) {
-			// An array of errors where name is the setting name and reason will be displayed to the user
+			// If there are errors, return an array of errors where name is the setting name and reason will be displayed to the user.
 			body.errors = [
 				{
 					name: 'receive_notifications',
