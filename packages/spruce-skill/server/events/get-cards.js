@@ -6,9 +6,11 @@ module.exports = async (ctx, next) => {
 		log.debug('** Event: get-page-cards **', { event: ctx.event })
 
 		// Determine which cards should be sent to the user
+		const cards = []
 
-		const cards = config.cards
-		ctx.body = { cards }
+		cards.push(config.cards.exampleCard)
+
+		ctx.body = cards
 		await next()
 	} catch (e) {
 		eventError({
