@@ -9,6 +9,7 @@ export type Event = {
 	startAt: string, // ISO 8601
 	className?: string,
 	group?: string,
+	resizable?: boolean,
 	kind?:
 		| 'default'
 		| 'tentative'

@@ -5,15 +5,21 @@ import moment from 'moment-timezone'
 
 import EventBlock from '../EventBlock/EventBlock'
 
-import type { Event as EventType } from '../../types'
+import type { Event as EventType, EventBlock as BlockType } from '../../types'
 
 type Props = {
 	event: EventType,
 	className?: string,
 	timezone: string,
 	timeFormat: string,
-	onMouseDown?: Function,
-	onTouchStart?: Function
+	onMouseDown?: (
+		e: MouseEvent,
+		payload: { event: EventType, block: BlockType, blockIdx: number }
+	) => void | boolean,
+	onTouchStart?: (
+		e: MouseEvent,
+		payload: { event: EventType, block: BlockType, blockIdx: number }
+	) => void | boolean
 }
 
 const Event = (props: Props) => {
@@ -47,10 +53,14 @@ const Event = (props: Props) => {
 						startAt={startAt}
 						timeFormat={timeFormat}
 						onMouseDown={e => {
-							onMouseDown && onMouseDown({ e, event, block, blockIdx: idx })
+							return (
+								onMouseDown && onMouseDown(e, { event, block, blockIdx: idx })
+							)
 						}}
 						onTouchStart={e => {
-							onTouchStart && onTouchStart({ e, event, block, blockIdx: idx })
+							return (
+								onTouchStart && onTouchStart(e, { event, block, blockIdx: idx })
+							)
 						}}
 						key={`block-${event.id}-${idx}`}
 						block={block}
