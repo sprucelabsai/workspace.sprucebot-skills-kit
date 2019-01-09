@@ -6,9 +6,8 @@ module.exports = async (ctx, next) => {
 		log.debug('** Event: get-page-cards **', { event: ctx.event })
 
 		// Determine which cards should be sent to the user
-		const cards = []
-
-		config.cards[0].layouts = [
+		const cards = concat(config.cards)
+		const exampleLayout = [
 			{
 				header: {
 					title: 'Example card in default config'
@@ -35,7 +34,9 @@ module.exports = async (ctx, next) => {
 			}
 		]
 
-		cards.concat(config.cards)
+		cards.forEach(card => {
+			card.layouts = exampleLayout
+		})
 
 		ctx.body = cards
 		await next()
