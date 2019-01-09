@@ -92,7 +92,6 @@ class Sprucebot {
 			eventContract: this.eventContract,
 			version: this.version,
 			skillsKitVersion: this.skillsKitVersion,
-			cards: this.cards,
 			acl: this.acl
 		}
 		const results = await this.https.patch('/', data)
