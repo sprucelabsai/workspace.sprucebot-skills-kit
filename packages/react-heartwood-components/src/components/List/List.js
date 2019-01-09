@@ -4,6 +4,7 @@ import type { Node } from 'react'
 import cx from 'classnames'
 import ListHeader from './components/ListHeader/ListHeader'
 import ListItem from './components/ListItem/ListItem'
+import PermissionsListItem from './components/PermissionsListItem/PermissionsListItem'
 import type { Props as ListHeaderProps } from './components/ListHeader/ListHeader'
 import type { Props as ListItemProps } from './components/ListItem/ListItem'
 
@@ -22,20 +23,27 @@ export type Props = {
 	className?: string,
 
 	/** Set true to make the list smaller */
-	isSmall?: boolean
+	isSmall?: boolean,
+
+	/**  Set true to use PermissionsListItem */
+	isPermissionsList?: boolean
 }
 
 const List = (props: Props) => {
-	const { header, items, className, isSmall } = props
+	const { header, items, className, isSmall, isPermissionsList } = props
 	const parentClass = cx('list', className, { 'list-small': isSmall })
 
 	return (
 		<Fragment>
 			{header && <ListHeader isSmall={isSmall} {...header} />}
 			<ul className={parentClass}>
-				{items.map((item, idx) => (
-					<ListItem key={idx} {...item} />
-				))}
+				{items.map((item, idx) =>
+					isPermissionsList ? (
+						<PermissionsListItem key={idx} {...item} />
+					) : (
+						<ListItem key={idx} {...item} />
+					)
+				)}
 			</ul>
 		</Fragment>
 	)
@@ -44,7 +52,8 @@ const List = (props: Props) => {
 List.defaultProps = {
 	header: null,
 	className: '',
-	isSmall: false
+	isSmall: false,
+	isPermissionsList: false
 }
 
 export default List

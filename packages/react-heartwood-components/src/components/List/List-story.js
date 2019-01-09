@@ -288,3 +288,28 @@ stories
 		/>
 	))
 	.add('People Tabbed', () => <TabbedList />)
+
+	.add('Permissions List', () => (
+		<List
+			header={{
+				title: 'Permissions List',
+				subtitle: 'To determine who can do what when'
+			}}
+			isPermissionsList
+			items={[
+				{
+					title: 'Can manage / update organization details',
+					subtitle: 'Things like address, name, and purpose in life',
+					isPermissionAllowed: true
+				},
+				{
+					title: 'Can create a new Location for the Organization',
+					isPermissionAllowed: false
+				},
+				{
+					title: 'Can view organization roles, groups, and jobs',
+					isPermissionAllowed: false
+				}
+			]}
+		/>
+	))
