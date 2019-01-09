@@ -126,7 +126,7 @@ module.exports = [
 						type: 'boolean',
 						// Only include this setting in get-settings event response if the user has these permissions:
 						acls: {
-							local_workspace: ['can_do_example_organization']
+							workspace: ['can_do_example_organization']
 						},
 						props: {
 							label: 'Example setting',
@@ -154,7 +154,7 @@ module.exports = [
 						type: 'boolean',
 						// Only include this setting in get-settings event response if the user has these permissions:
 						acls: {
-							local_workspace: ['can_do_example_location']
+							workspace: ['can_do_example_location']
 						},
 						props: {
 							label: 'Example setting',

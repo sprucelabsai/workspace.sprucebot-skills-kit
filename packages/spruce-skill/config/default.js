@@ -14,6 +14,7 @@ try {
 
 module.exports = {
 	settings: require('./settings'),
+	auth: require('./auth'),
 	// settings: {
 	// 	/*
 	// 	<setting name>: { // Setting name must be a valid non-quoted json key. i.e. 'my_setting' is valid but 'my-setting' is not because it would have to be quoted in json

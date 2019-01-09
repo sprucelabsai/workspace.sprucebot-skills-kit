@@ -59,6 +59,7 @@ class DashboardLocationPage extends React.Component {
 	}
 
 	render() {
+		log.debug({ props: this.props })
 		return (
 			<Page className="dashboard-location-page">
 				<PageHeader
