@@ -13,8 +13,8 @@ try {
 }
 
 module.exports = {
-	cards: {
-		exampleCard: {
+	cards: [
+		{
 			meta: {
 				id: `${process.env.SLUG.toLowerCase().replace(
 					/-/g,
@@ -26,35 +26,37 @@ module.exports = {
 				type: 'standard', // standard, carousel, and appointment
 				page: 'user_dashboard',
 				kind: 'standard'
-			},
-			layouts: [
-				{
-					header: {
-						title: 'Example card in default config'
-					},
-					bodies: [
-						{
-							image: {
-								url: 'https://picsum.photos/720/360/?random',
-								text: 'Random image being set.',
-								width: 720,
-								heght: 360
-							}
-						}
-					],
-					footer: {
-						primary: {
-							text: 'Sprucebot Docs',
-							destination: {
-								url: 'https://docs.sprucebot.com',
-								target: '_blank'
-							}
-						}
-					}
-				}
-			]
+			}
+		},
+		{
+			meta: {
+				id: `${process.env.SLUG.toLowerCase().replace(
+					/-/g,
+					'_'
+				)}_example_card_user_profile`,
+				skillSlug: process.env.SLUG,
+				title: 'Example card in default config',
+				comment: 'This is a developer example card',
+				type: 'standard', // standard, carousel, and appointment
+				page: 'user_profile',
+				kind: 'standard'
+			}
+		},
+		{
+			meta: {
+				id: `${process.env.SLUG.toLowerCase().replace(
+					/-/g,
+					'_'
+				)}_example_card_location_dashboard`,
+				skillSlug: process.env.SLUG,
+				title: 'Example card in default config',
+				comment: 'This is a developer example card',
+				type: 'standard', // standard, carousel, and appointment
+				page: 'location_dashboard',
+				kind: 'standard'
+			}
 		}
-	},
+	],
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
 	PACKAGE_NAME: packageJSON.name,
