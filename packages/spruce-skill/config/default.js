@@ -21,7 +21,7 @@ module.exports = {
 				comment: 'This is a developer example card',
 				type: 'standard', // standard, carousel, and appointment
 				page: 'user_dashboard',
-				slug: 'user-dashboard',
+				slug: 'user_dashboard_example_card',
 				kind: 'standard'
 			},
 			layouts: [
