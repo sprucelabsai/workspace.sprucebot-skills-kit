@@ -16,10 +16,7 @@ module.exports = {
 	cards: [
 		{
 			meta: {
-				id: `${process.env.SLUG.toLowerCase().replace(
-					/-/g,
-					'_'
-				)}_example_card_user_dashboard`,
+				id: 'example_card_user_dashboard',
 				skillSlug: process.env.SLUG,
 				title: 'Example card in default config',
 				comment: 'This is a developer example card',
@@ -30,10 +27,7 @@ module.exports = {
 		},
 		{
 			meta: {
-				id: `${process.env.SLUG.toLowerCase().replace(
-					/-/g,
-					'_'
-				)}_example_card_user_profile`,
+				id: 'example_card_user_profile',
 				skillSlug: process.env.SLUG,
 				title: 'Example card in default config',
 				comment: 'This is a developer example card',
@@ -44,10 +38,7 @@ module.exports = {
 		},
 		{
 			meta: {
-				id: `${process.env.SLUG.toLowerCase().replace(
-					/-/g,
-					'_'
-				)}_example_card_location_dashboard`,
+				id: 'example_card_location_dashboard',
 				skillSlug: process.env.SLUG,
 				title: 'Example card in default config',
 				comment: 'This is a developer example card',
