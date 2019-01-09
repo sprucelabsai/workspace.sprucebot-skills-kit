@@ -11,6 +11,11 @@ export default class MyApp extends App {
 			pageProps = await Component.getInitialProps(ctx)
 		}
 
+		// Set log level for SSR
+		global.log.setOptions({
+			level: pageProps.initialState.config.LOG_LEVEL
+		})
+
 		return { pageProps }
 	}
 
@@ -25,6 +30,18 @@ export default class MyApp extends App {
 			METRICS_ENABLED,
 			METRICS_BROWSER_STATS_ENABLED
 		} = this.props.pageProps.initialState.config
+
+		console.log({
+			level: LOG_LEVEL,
+			appName: SLUG,
+			appEnv: ENV,
+			userAgent:
+				navigator && navigator.userAgent ? navigator.userAgent : 'unknown',
+			packageVersion: PACKAGE_VERSION,
+			packageName: PACKAGE_NAME,
+			metricsUrl: METRICS_URL,
+			metricsEnabled: METRICS_ENABLED
+		})
 
 		global.log.setOptions({
 			level: LOG_LEVEL,
