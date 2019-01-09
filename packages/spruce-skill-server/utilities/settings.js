@@ -1,6 +1,7 @@
 const _ = require('lodash')
 
 module.exports = {
+	// Gets current values of settings after checking to ensure the user has permission
 	async getRequestedSettings({
 		settings,
 		requestedSettings,
@@ -89,7 +90,7 @@ module.exports = {
 
 		return result.data.GetSettings ? result.data.GetSettings.settings : {}
 	},
-	// Used in the get-settings event
+	// Used in the get-settings event. Filter out the settings to only the page requested and only the settings the user has permission to via acls
 	async getSettings(options) {
 		const page = options.page
 		const settings = options.settings
@@ -151,6 +152,7 @@ module.exports = {
 		return finalSettings
 	},
 
+	// Given settings and the acls, removes settings that the user does not have access to
 	removeSettingsByAcls({ settings, acls }) {
 		settings.forEach(pageSetting => {
 			if (pageSetting.cards) {

@@ -4,8 +4,6 @@ import {
 	GO_AUTH_ERROR_V2
 } from '../actions/auth'
 
-import { DID_UPDATE_USER } from '../actions/events'
-
 export default function reducer(state = null, action) {
 	switch (action.type) {
 		case GO_AUTH_REQUEST_V2:

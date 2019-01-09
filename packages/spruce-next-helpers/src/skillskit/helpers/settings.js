@@ -4,6 +4,7 @@ export default {
 	configure(token) {
 		this.token = token
 	},
+	// TODO: Cache settings?
 	async get(options) {
 		let requestedSettings = []
 		if (typeof options === 'string') {

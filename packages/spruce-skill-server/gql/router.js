@@ -39,7 +39,6 @@ const auth = async (ctx, next) => {
 				firstName
 				lastName
 				acl
-				settings
 				UserLocations {
 					role
 					LocationId
