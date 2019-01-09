@@ -5,8 +5,17 @@ module.exports = async (ctx, next) => {
 	try {
 		log.debug('** Event: get-page-cards **', { event: ctx.event })
 
+		const page = ctx.event.payload.page ? ctx.event.payload.page : null
+		const guestId = ctx.event.payload.guestId ? ctx.event.payload.guestId : null
+		const locationId = ctx.event.payload.locationId
+			? ctx.event.payload.locationId
+			: null
+		const organizationId = ctx.event.payload.organizationId
+			? ctx.event.payload.organizationId
+			: null
+
 		// Determine which cards should be sent to the user
-		const cards = concat(config.cards)
+		const cards = config.cards
 		const exampleLayout = [
 			{
 				header: {
