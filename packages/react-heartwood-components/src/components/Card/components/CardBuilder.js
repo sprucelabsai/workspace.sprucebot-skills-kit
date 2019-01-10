@@ -17,7 +17,7 @@ import type { CardBodyProps } from './CardBody'
 // CardBuilder
 // This component will build a card by taking JSON input and translating
 // it into the appropriate components
-type CardBuilderProps = {
+export type CardBuilderProps = {
 	/** Card Header props */
 	header: CardHeaderProps,
 

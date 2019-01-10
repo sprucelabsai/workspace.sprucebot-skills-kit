@@ -6,7 +6,12 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import fetchPonyfill from 'fetch-ponyfill'
 import https from 'https'
-import gql from 'graphql-tag'
+import gql, { disableFragmentWarnings } from 'graphql-tag'
+
+// Disabling this for now. This warning is useful if you have a central
+// store of global fragments, but we're using them in a distributed / dynamic
+// manner. Might revisit later.
+disableFragmentWarnings()
 
 import { SpruceWebError } from './errors'
 
@@ -56,8 +61,22 @@ export class GraphQLClient {
 	) => {
 		let response
 
+		let clientMethod = null
+
+		if (operationType === 'query') {
+			clientMethod = 'query'
+		} else if (operationType === 'mutation') {
+			clientMethod = 'mutate'
+		}
+
+		if (!clientMethod) {
+			throw new SpruceWebError(
+				`GraphQL: No matching client method for operation of type "${operationType}"`
+			)
+		}
+
 		try {
-			response = await this.client[operationType]({
+			response = await this.client[clientMethod]({
 				...options,
 				query:
 					options.query &&
@@ -112,7 +131,7 @@ export class GraphQLClient {
 		return this.operation(options, 'query')
 	}
 
-	mutation = (options: GraphQLOperationProps) => {
+	mutate = (options: GraphQLOperationProps) => {
 		return this.operation(options, 'mutation')
 	}
 }
