@@ -258,14 +258,6 @@ const PageWrapper = Wrapped => {
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
-						{this.state.isIframed ? (
-							<style jsx global>{`
-								html,
-								body {
-									overflow: hidden;
-								}
-							`}</style>
-						) : null}
 						<DevControls auth={this.props.auth} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 					</Container>
@@ -273,14 +265,6 @@ const PageWrapper = Wrapped => {
 			}
 			return (
 				<Container>
-					{this.state.isIframed ? (
-						<style jsx global>{`
-							html,
-							body {
-								overflow: hidden;
-							}
-						`}</style>
-					) : null}
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 				</Container>
 			)
