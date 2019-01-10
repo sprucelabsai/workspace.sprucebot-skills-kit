@@ -1,0 +1,14 @@
+<div class="save-bar">
+	<div class="save-bar__left">
+		{{#if business}}
+		<p class="save-bar__text"><a href="#">{{{business}}}</a></p>
+		{{else}}
+		<p class="save-bar__text"><a href="#">Sprucebot</a></p>
+		{{/if}}
+	</div>
+	<div class="save-bar__right">
+		<p class="save-bar__title">Unsaved changes</p>
+		{{> @button className="btn-simple btn-small" text="Discard"}}
+		{{> @button className="btn-primary btn-small" text="Save"}}
+	</div>
+</div>
