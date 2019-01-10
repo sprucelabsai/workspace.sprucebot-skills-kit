@@ -44,6 +44,7 @@
 		"@sprucelabs/spruce-next-helpers": "^8.10.1",
 		"@sprucelabs/spruce-node": "^8.10.1",
 		"@sprucelabs/spruce-skill-server": "^8.10.1",
+		"@sprucelabs/spruce-utils": "^8",
 		"@zeit/next-css": "^1.0.1",
 		"@zeit/next-sass": "^1.0.1",
 		"babel-core": "^7.0.0-bridge.0",
