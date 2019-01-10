@@ -7,10 +7,41 @@ import {
 	Dropzone
 } from '@sprucelabs/react-heartwood-components'
 import request from 'superagent'
+import { gqlClient, settings } from '@sprucelabs/spruce-next-helpers'
 
 class DashboardLocationPage extends React.Component {
-	componentDidMount() {
+	static async getInitialProps(props) {
+		try {
+			settings.configure(props.auth && props.auth.jwt)
+
+			const result = await settings.get([
+				'org_example',
+				'receive_notifications'
+			])
+			log.debug('Got settings for location_dashboard', result)
+		} catch (e) {
+			log.error(e)
+		}
+
+		return {}
+	}
+
+	async componentDidMount() {
 		this.props.skill.ready() // Show the skill
+
+		try {
+			const result = await gqlClient.query({
+				token: this.props.auth && this.props.auth.jwt,
+				query: `{
+					Users {
+						id
+					}
+				}`
+			})
+			log.debug({ result })
+		} catch (e) {
+			log.error(e)
+		}
 	}
 
 	onDrop = async (acceptedFiles, rejectedFiles) => {
@@ -26,6 +57,7 @@ class DashboardLocationPage extends React.Component {
 	}
 
 	render() {
+		// log.debug({ props: this.props })
 		return (
 			<Page className="dashboard-location-page">
 				<PageHeader

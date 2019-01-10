@@ -106,17 +106,27 @@ module.exports = {
 		},
 		// These are the ACLs that this skill publishes
 		publishes: {
-			can_do_example: {
+			can_do_example_location: {
 				// The label will show up to describe this permission on the Organization Jobs management page
-				label: 'If the user can create an appointment for another user.',
+				label: 'If the user can do this example thing for a location.',
 				// The type may be "organization" or "location". This determines how the permission is checked.
 				type: 'location',
 				// The default permissions for this ACL will be used if it is not overridden on the Organization Jobs management page
 				defaults: {
 					guest: false,
-					teammate: false,
-					manager: false,
-					groupManager: false
+					teammate: true,
+					manager: true,
+					groupManager: true
+				}
+			},
+			can_do_example_organization: {
+				label: 'If the user can do this example thing for an organization.',
+				type: 'organization',
+				defaults: {
+					guest: false,
+					teammate: true,
+					manager: true,
+					groupManager: true
 				}
 			}
 		}
@@ -126,6 +136,12 @@ module.exports = {
 	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
 	eventContract: {
 		events: {
+			'get-settings': {
+				description: 'Core asks for settings to display on a page'
+			},
+			'validate-settings': {
+				description: 'Core asks for settings validation'
+			},
 			'get-views': {
 				description: 'Core asks for views to display on a page'
 			},
