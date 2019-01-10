@@ -8,7 +8,12 @@
 	</div>
 	<div class="save-bar__right">
 		<p class="save-bar__title">Unsaved changes</p>
-		{{> @button className="btn-simple btn-small" text="Discard"}}
-		{{> @button className="btn-primary btn-small" text="Save"}}
+		{{#if isLoading}}
+		{{> @button className="btn-simple btn-small" disabled="true" text="Discard"}}
+		{{> @button className="btn-primary btn-small btn--loading" loading="true" disabled="true" text="Save"}}
+		{{else}}
+		{{> @button className="btn btn-simple btn-small" text="Discard"}}
+		{{> @button className="btn btn-primary btn-small" text="Save"}}
+		{{/if}}
 	</div>
 </div>
