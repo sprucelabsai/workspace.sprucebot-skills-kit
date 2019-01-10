@@ -6,7 +6,12 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import fetchPonyfill from 'fetch-ponyfill'
 import https from 'https'
-import gql from 'graphql-tag'
+import gql, { disableFragmentWarnings } from 'graphql-tag'
+
+// Disabling this for now. This warning is useful if you have a central
+// store of global fragments, but we're using them in a distributed / dynamic
+// manner. Might revisit later.
+disableFragmentWarnings()
 
 import { SpruceWebError } from './errors'
 
