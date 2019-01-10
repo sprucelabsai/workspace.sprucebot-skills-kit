@@ -31,7 +31,7 @@ const PermissionsListItem = (props: Props) => {
 		onChangePermission
 	} = props
 
-	const parentClass = cx('list-item permissions-list-item', {
+	const parentClass = cx('permissions-list-item', {
 		'list-item-title-only': !subtitle
 	})
 
@@ -42,6 +42,10 @@ const PermissionsListItem = (props: Props) => {
 					icon={isPermissionAllowed ? 'check_circle' : 'close'}
 					isLineIcon
 					className={'list-item__icon'}
+					className={cx('list-item__icon', {
+						'permission-allowed__icon': isPermissionAllowed,
+						'permission-not-allowed__icon': !isPermissionAllowed
+					})}
 				/>
 			</div>
 			<div className="list-item__text-wrapper">
@@ -53,11 +57,13 @@ const PermissionsListItem = (props: Props) => {
 					/>
 				)}
 			</div>
-			<Select
-				options={options}
-				defaultValue={isPermissionAllowed}
-				onChange={onChangePermission && onChangePermission}
-			/>
+			<div className="permission-list-item__select-wrapper">
+				<Select
+					options={options}
+					defaultValue={isPermissionAllowed}
+					onChange={onChangePermission && onChangePermission}
+				/>
+			</div>
 		</li>
 	)
 }

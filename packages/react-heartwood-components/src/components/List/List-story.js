@@ -304,6 +304,7 @@ stories
 				},
 				{
 					title: 'Can create a new Location for the Organization',
+					subtitle: 'Things like address, name, and purpose in life',
 					isPermissionAllowed: false
 				},
 				{
