@@ -17,11 +17,13 @@ import Text from '../../Text/Text'
 import Image from '../../Image/Image'
 import List from '../../List/List'
 import Scores from './Scores'
+import OnboardingCard from './OnboardingCard'
 
 import type { Props as ButtonProps } from '../../Button/Button'
 import type { Props as ContextMenuProps } from '../../ContextMenu/ContextMenu'
 import type { CardHeaderProps } from './CardHeader'
 import type { CardBodyProps } from './CardBody'
+import type { Step } from './OnboardingCard'
 
 export type CardBuilderProps = {
 	/** Card Header props */
@@ -31,7 +33,10 @@ export type CardBuilderProps = {
 	headerImage?: Object,
 
 	/** Card Body props */
-	body: CardBodyProps,
+	body?: CardBodyProps,
+
+	/** For an onboarding card */
+	steps: Array<Step>,
 
 	/** Card Footer props */
 	footer?: {
@@ -59,9 +64,14 @@ const renderChild = child => {
 }
 
 const CardBuilder = (props: CardBuilderProps) => {
-	const { header, headerImage, body, footer } = props
+	const { header, headerImage, body, footer, steps } = props
+
+	if (steps) {
+		return <OnboardingCard {...props} />
+	}
+
 	const { title, labelText, labelIcon, actions: headerActions } = header || {}
-	const { children, isSectioned } = body
+	const { children, isSectioned } = body || {}
 	const footerActions = footer && footer.actions
 	return (
 		<Card>
