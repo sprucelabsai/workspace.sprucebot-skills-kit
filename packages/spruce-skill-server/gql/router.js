@@ -16,13 +16,20 @@ const fieldConfigEstimator = QueryComplexity.fieldConfigEstimator
 const auth = async (ctx, next) => {
 	try {
 		let token = ctx.cookies.get('jwt') || ctx.request.headers['x-skill-jwt']
+
+		// Check for token in Authorization header
+		if (!token && ctx.request.headers['authorization']) {
+			token = ctx.request.headers['authorization'].replace('JWT ', '')
+		}
+
 		if (!token) {
 			await next()
 			return
 		}
 		const decoded = jwt.verify(token, config.API_KEY.toString().toLowerCase())
 		const userId = decoded.userId
-		const locationId = decoded.locationId
+		const locationId = decoded.locationId || null
+		const organizationId = decoded.organizationId || null
 		const query = `
 		{
 			User (
@@ -31,6 +38,7 @@ const auth = async (ctx, next) => {
 				id
 				firstName
 				lastName
+				acl
 				UserLocations {
 					role
 					LocationId
@@ -59,7 +67,9 @@ const auth = async (ctx, next) => {
 	`
 		const result = await ctx.sb.query(query)
 		ctx.auth = {
-			User: result.data.User
+			User: result.data.User,
+			locationId,
+			organizationId
 		}
 	} catch (e) {
 		log.debug(e)
