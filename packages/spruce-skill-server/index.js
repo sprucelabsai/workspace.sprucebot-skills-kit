@@ -19,6 +19,7 @@ const listenersFactory = require('./factories/listeners')
 const sequelizeFactory = require('./factories/sequelize')
 const lang = require('./helpers/lang')
 const gqlRouter = require('./gql/router')
+const gqlListeners = require('./gql/listeners')
 
 const required = key => {
 	throw new Error(`SkillKit server needs ${key}`)
@@ -343,6 +344,7 @@ module.exports = async ({
 	}
 
 	gqlRouter(koa, gqlOptions)
+	gqlListeners(koa, gqlOptions)
 
 	/*======================================
         =          Client Side Routes          =
