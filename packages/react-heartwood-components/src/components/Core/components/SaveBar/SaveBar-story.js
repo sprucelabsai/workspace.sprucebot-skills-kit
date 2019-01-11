@@ -26,6 +26,9 @@ const location = {
 stories
 	.add('Default', () => (
 		<SaveBar
+			isVisible={boolean('isVisible', true)}
+			isSaving={boolean('isSaving', false)}
+			isDiscarding={boolean('isDiscarding', false)}
 			onDiscard={() => console.log('DISCARD')}
 			onSave={() => console.log('SAVE')}
 			STORYBOOKdoNotWrap
@@ -33,6 +36,9 @@ stories
 	))
 	.add('Saving', () => (
 		<SaveBar
+			isVisible={boolean('isVisible', true)}
+			isSaving={boolean('isSaving', false)}
+			isDiscarding={boolean('isDiscarding', false)}
 			onDiscard={() => console.log('DISCARD')}
 			onSave={() => console.log('SAVE')}
 			isSaving={true}
@@ -41,6 +47,9 @@ stories
 	))
 	.add('Discarding', () => (
 		<SaveBar
+			isVisible={boolean('isVisible', true)}
+			isSaving={boolean('isSaving', false)}
+			isDiscarding={boolean('isDiscarding', false)}
 			onDiscard={() => console.log('DISCARD')}
 			onSave={() => console.log('SAVE')}
 			isDiscarding={true}

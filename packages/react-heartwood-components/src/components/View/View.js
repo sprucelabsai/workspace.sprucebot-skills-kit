@@ -22,7 +22,11 @@ type Props = {
 	isSidebarExpanded?: boolean,
 	isSidebarMobileExpanded?: boolean,
 	searchPlaceholder?: string,
-	isSaveBarVisible?: boolean
+	isSaveBarVisible?: boolean,
+	onSaveBarSave?: Function,
+	onSaveBarDiscard?: Function,
+	isSaveBarSaving?: boolean,
+	isSaveBarDiscarding?: boolean
 }
 
 const View = (props: Props) => {
@@ -38,6 +42,10 @@ const View = (props: Props) => {
 		isSidebarExpanded,
 		isSidebarMobileExpanded,
 		isSaveBarVisible,
+		onSaveBarSave,
+		onSaveBarDiscard,
+		isSaveBarSaving,
+		isSaveBarDiscarding,
 		toggleSidebarExpanded,
 		toggleSidebarVisibility,
 		forceCloseSidebar,
@@ -79,7 +87,13 @@ const View = (props: Props) => {
 				onSearchSuggestionSelected={onSearchSuggestionSelected}
 				searchPlaceholder={searchPlaceholder}
 			/>
-			<SaveBar isVisible={isSaveBarVisible} />
+			<SaveBar
+				isVisible={isSaveBarVisible}
+				onSaveBarSave={onSaveBarSave}
+				onSaveBarDiscard={onSaveBarDiscard}
+				isSaving={isSaveBarSaving}
+				isDiscarding={isSaveBarDiscarding}
+			/>
 			<main className="main-content">{children}</main>
 		</div>
 	)

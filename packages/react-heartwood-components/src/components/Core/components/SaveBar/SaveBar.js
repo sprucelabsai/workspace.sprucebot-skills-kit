@@ -24,7 +24,7 @@ export type Props = {
 	onDiscard?: Function,
 
 	/** The function to execute when user selects save */
-	onSave?: Function
+	onSave: Function
 }
 
 type State = {}
@@ -69,14 +69,16 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 
 					<div className="save-bar__right">
 						<p className="save-bar__title">{message}</p>
-						<Button
-							kind="simple"
-							text="Discard"
-							onClick={onDiscard}
-							disabled={isDiscarding || isSaving}
-							isLoading={isDiscarding}
-							isSmall
-						/>
+						{onDiscard && (
+							<Button
+								kind="simple"
+								text="Discard"
+								onClick={onDiscard}
+								disabled={isDiscarding || isSaving}
+								isLoading={isDiscarding}
+								isSmall
+							/>
+						)}
 						<Button
 							kind="primary"
 							text="Save"
