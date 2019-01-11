@@ -343,9 +343,6 @@ module.exports = async ({
 		throw err
 	}
 
-	gqlRouter(koa, gqlOptions)
-	gqlListeners(koa, gqlOptions)
-
 	/*======================================
         =          Client Side Routes          =
         ======================================*/
@@ -404,6 +401,9 @@ module.exports = async ({
         ======================================*/
 	// TODO better handling hosting only server or interface
 	const server = koa.listen(port, err => {
+		gqlRouter(koa, gqlOptions, server)
+		gqlListeners(koa, gqlOptions, server)
+
 		if (err) throw err
 		console.log(
 			` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`

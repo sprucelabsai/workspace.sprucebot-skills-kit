@@ -26,12 +26,20 @@ module.exports = ctx => {
 				)
 				log.warn(response.errors)
 			} else if (response.data && response.data.ExampleStream) {
-				log.debug(
-					`Received ExampleStream event from: ${
-						config.API_GRAPHQL_SUBSCRIPTION_URI
-					}`
-				)
-				log.debug(response.data.ExampleStream)
+				try {
+					console.log(
+						`Received ExampleStream event from: ${
+							config.API_GRAPHQL_SUBSCRIPTION_URI
+						}`
+					)
+					console.log(response.data.ExampleStream)
+					ctx.gqlServer.pubsub.publish(
+						`EXAMPLE_STREAM`,
+						response.data.ExampleStream
+					)
+				} catch (e) {
+					console.log(e)
+				}
 			}
 		},
 		onError: err => {

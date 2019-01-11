@@ -8,6 +8,7 @@ module.exports = (koa, gqlOptions) => {
 		log.debug('GraphQL listeners disabled')
 		return
 	}
+
 	const gqlDir = gqlOptions.gqlDir
 	const serverHost = config.API_HOST
 	const allowSelfSigned = config.API_SSL_ALLOW_SELF_SIGNED

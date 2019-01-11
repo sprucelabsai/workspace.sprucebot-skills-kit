@@ -5,6 +5,7 @@
 	},
 	"description": "The base template that drives your Sprucebot Skill! ⚙️🌲🤖",
 	"version": "8.10.1",
+	"sprucebot-skills-kit-version": "8.10.1",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
@@ -73,6 +74,7 @@
 		"node-sass": "^4.9.3",
 		"prop-types": "^15.6.0",
 		"react": "^16.0.0",
+		"react-apollo": "^2.3.3",
 		"react-dom": "^16.0.0",
 		"react-emojione": "^5.0.0",
 		"react-redux": "^5.0.6",
