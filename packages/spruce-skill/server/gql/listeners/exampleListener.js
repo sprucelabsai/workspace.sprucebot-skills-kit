@@ -15,13 +15,13 @@ module.exports = ctx => {
 
 	// Create the subscription and listen
 	ctx.gqlSubscriptions.subscribe({
-		uri: config.API_GRAPHQL_SUBSCRIPTION_URI,
+		uri: config.API_GRAPHQL_SUBSCRIPTIONS_URI,
 		subscription,
 		onEvent: response => {
 			if (response.errors) {
 				log.debug(
 					`Received ExampleStream event with error from: ${
-						config.API_GRAPHQL_SUBSCRIPTION_URI
+						config.API_GRAPHQL_SUBSCRIPTIONS_URI
 					}`
 				)
 				log.warn(response.errors)
@@ -29,7 +29,7 @@ module.exports = ctx => {
 				try {
 					console.log(
 						`Received ExampleStream event from: ${
-							config.API_GRAPHQL_SUBSCRIPTION_URI
+							config.API_GRAPHQL_SUBSCRIPTIONS_URI
 						}`
 					)
 					console.log(response.data.ExampleStream)
