@@ -63,6 +63,101 @@ const cardJSON = {
 	}
 }
 
+const cardJSON2 = {
+	header: {
+		title: 'Your sales for today!'
+	},
+	body: {
+		children: [
+			{
+				type: 'text',
+				props: { children: 'This is your typical score card' }
+			},
+			{
+				type: 'scores',
+				props: {
+					scores: [
+						{ id: 1, label: 'Today', value: '$1,848' },
+						{ id: 2, label: 'This Week', value: '$5,778' },
+						{ id: 3, label: 'This Month', value: '$25,068' }
+					]
+				}
+			}
+		]
+	}
+}
+const cardJSON3 = {
+	title: 'Setup your first skill!',
+	steps: [
+		{
+			id: '1',
+			isComplete: true,
+			tabTitle: 'Add your first location',
+			panelTitle: 'It is time to add your location.',
+			panelCopy: "It's going to be so great, you know it!"
+		},
+		{
+			id: '2',
+			tabTitle: 'Set up your team',
+			tabIcon: { name: 'location', isLineIcon: true },
+			panelTitle: 'Team setup is the best',
+			panelCopy: 'Teammwork makes the dream work!'
+		},
+		{
+			id: '3',
+			tabIcon: { name: 'launch', isLineIcon: true },
+			tabTitle: 'Go live',
+			panelTitle: "You're ready to go live!",
+			panelCopy: 'Do it! Do it!'
+		}
+	]
+}
+const cardJSON4 = {
+	header: {
+		labelText: 'The last example!'
+	},
+	body: {
+		children: [
+			{
+				type: 'list',
+				props: {
+					header: {
+						title: 'This is a list!'
+					},
+					items: [
+						{
+							title: 'This is so cool!',
+							subtitle: 'For sure!',
+							icon: { name: 'complete', isLineIcon: true }
+						},
+						{
+							title: 'Takes all the props a List can take!',
+							icon: { name: 'complete', isLineIcon: true }
+						}
+					]
+				}
+			},
+			{
+				type: 'text',
+				props: {
+					children: 'Following up with text component!'
+				}
+			}
+		]
+	},
+	footer: {
+		actions: [
+			{
+				type: 'button',
+				text: 'Do things',
+				kind: 'secondary',
+				icon: '',
+				isSmall: true
+			}
+		]
+	}
+}
+
 const stories = storiesOf('Card', module)
 
 stories.addDecorator(
@@ -252,4 +347,9 @@ stories
 		</Card>
 	))
 	.add('Onboarding Card', () => <OnboardingCard {...onboarding} />)
-	.add('CardBuilder', () => <CardBuilder {...object('json', cardJSON)} />)
+	.add('CardBuilder', () => [
+		<CardBuilder {...object('json', cardJSON)} />,
+		<CardBuilder {...object('json2', cardJSON2)} />,
+		<CardBuilder {...object('json3', cardJSON3)} />,
+		<CardBuilder {...object('json4', cardJSON4)} />
+	])

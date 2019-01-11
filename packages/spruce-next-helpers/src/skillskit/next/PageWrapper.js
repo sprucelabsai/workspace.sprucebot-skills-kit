@@ -51,7 +51,10 @@ const PageWrapper = Wrapped => {
 
 			if (jwt) {
 				try {
-					await store.dispatch(actions.auth.go(jwt))
+					await Promise.all([
+						store.dispatch(actions.auth.go(jwt)),
+						store.dispatch(actions.auth.goV2(jwt))
+					])
 					await store.dispatch(actions.onboarding.didOnboarding())
 
 					// only save cookie if a new one has been passed
@@ -70,6 +73,7 @@ const PageWrapper = Wrapped => {
 
 			const state = store.getState()
 
+			// v1 Legacy authentication logic
 			if (state.auth && !state.auth.error) {
 				state.auth.role =
 					(state.config.DEV_MODE && getCookie('devRole', req, res)) ||
@@ -101,7 +105,7 @@ const PageWrapper = Wrapped => {
 				(!state.auth || !state.auth.role || state.auth.error)
 			) {
 				// no redirect is set, we're not public, but auth failed
-				redirect = '/unauthorized'
+				// redirect = '/unauthorized'
 				debug('AUTH FAILED', state)
 			} else if (!redirect && !props.public) {
 				// all things look good, lets just make sure we're in the right area (owner, teammate, or guest)
@@ -134,6 +138,15 @@ const PageWrapper = Wrapped => {
 				(!state.auth || !state.auth.role)
 			) {
 				props.attemptingReAuth = true
+			}
+
+			// v2 authentication
+			if (state.authV2 && state.authV2.User) {
+				debug(
+					`Auth V2 Logged in user: ${state.authV2.User.id} / ${
+						state.authV2.User.firstName
+					} ${state.authV2.User.lastName}`
+				)
 			}
 
 			// We can only return a plain object here because it is passed to the browser
@@ -257,28 +270,12 @@ const PageWrapper = Wrapped => {
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
-						{this.state.isIframed ? (
-							<style jsx global>{`
-								html,
-								body {
-									overflow: hidden;
-								}
-							`}</style>
-						) : null}
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 					</Container>
 				)
 			}
 			return (
 				<Container>
-					{this.state.isIframed ? (
-						<style jsx global>{`
-							html,
-							body {
-								overflow: hidden;
-							}
-						`}</style>
-					) : null}
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 				</Container>
 			)
