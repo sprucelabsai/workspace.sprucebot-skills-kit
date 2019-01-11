@@ -24,7 +24,7 @@ module.exports = ctx => {
 						config.API_GRAPHQL_SUBSCRIPTION_URI
 					}`
 				)
-				log.warn(data.errors)
+				log.warn(response.errors)
 			} else if (response.data && response.data.ExampleStream) {
 				log.debug(
 					`Received ExampleStream event from: ${
