@@ -19,7 +19,8 @@
 	"files": [
 		"dist",
 		"errors.js",
-		"graphql.js"
+		"graphql.js",
+		"iframes.js"
 	],
 	"repository": {
 		"type": "git",
