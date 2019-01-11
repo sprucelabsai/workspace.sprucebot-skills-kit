@@ -263,7 +263,7 @@ stories
 			numberOfMonths={number('numberOfMonths', 1)}
 			kind={select(
 				'kind',
-				{ SingleDate: 'singleDate', DateRange: 'dateRange' },
+				{ singleDate: 'singleDate', dateRange: 'dateRange' },
 				'singleDate'
 			)}
 			onSelectDateRange={({ startDate, endDate }) =>

@@ -5,7 +5,6 @@ import {
 	DayPickerSingleDateController,
 	DayPickerRangeController
 } from 'react-dates'
-import { START_DATE, END_DATE } from 'react-dates/src/constants'
 import moment from 'moment'
 import ArrowNext from '../../../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../../../static/assets/icons/ic_arrow_back.svg'
@@ -41,7 +40,7 @@ export default class DatePicker extends Component<Props, State> {
 			date: this.props.date || moment(),
 			startDate: this.props.initialStartDate,
 			endDate: this.props.initialEndDate,
-			focusedInput: START_DATE
+			focusedInput: 'startDate'
 		}
 
 		this.datePickerRef = React.createRef()
@@ -62,7 +61,7 @@ export default class DatePicker extends Component<Props, State> {
 	handleFocusChange = focusedInput => {
 		this.setState({
 			// Force the focusedInput to always be truthy so that dates are always selectable
-			focusedInput: !focusedInput ? START_DATE : focusedInput
+			focusedInput: !focusedInput ? 'startDate' : focusedInput
 		})
 	}
 
