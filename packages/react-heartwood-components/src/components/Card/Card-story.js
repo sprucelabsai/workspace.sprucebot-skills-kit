@@ -88,29 +88,31 @@ const cardJSON2 = {
 }
 const cardJSON3 = {
 	title: 'Setup your first skill!',
-	steps: [
-		{
-			id: '1',
-			isComplete: true,
-			tabTitle: 'Add your first location',
-			panelTitle: 'It is time to add your location.',
-			panelCopy: "It's going to be so great, you know it!"
-		},
-		{
-			id: '2',
-			tabTitle: 'Set up your team',
-			tabIcon: { name: 'location', isLineIcon: true },
-			panelTitle: 'Team setup is the best',
-			panelCopy: 'Teammwork makes the dream work!'
-		},
-		{
-			id: '3',
-			tabIcon: { name: 'launch', isLineIcon: true },
-			tabTitle: 'Go live',
-			panelTitle: "You're ready to go live!",
-			panelCopy: 'Do it! Do it!'
-		}
-	]
+	onboarding: {
+		steps: [
+			{
+				id: '1',
+				isComplete: true,
+				tabTitle: 'Add your first location',
+				panelTitle: 'It is time to add your location.',
+				panelCopy: "It's going to be so great, you know it!"
+			},
+			{
+				id: '2',
+				tabTitle: 'Set up your team',
+				tabIcon: { name: 'location', isLineIcon: true },
+				panelTitle: 'Team setup is the best',
+				panelCopy: 'Teammwork makes the dream work!'
+			},
+			{
+				id: '3',
+				tabIcon: { name: 'launch', isLineIcon: true },
+				tabTitle: 'Go live',
+				panelTitle: "You're ready to go live!",
+				panelCopy: 'Do it! Do it!'
+			}
+		]
+	}
 }
 const cardJSON4 = {
 	header: {
@@ -325,13 +327,9 @@ stories
 						}
 					]
 				}
-				contextMenu={
-					boolean('Header Context Menu', false) && (
-						<ContextMenu
-							actions={[{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]}
-						/>
-					)
-				}
+				contextMenu={object('contextMenu', {
+					actions: [{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]
+				})}
 			/>
 			<CardBody>
 				<Text>
