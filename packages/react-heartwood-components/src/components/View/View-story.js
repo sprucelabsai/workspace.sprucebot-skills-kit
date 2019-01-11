@@ -313,6 +313,22 @@ stories
 			/>
 		</View>
 	))
+	.add('Save Bar', () => (
+		<View
+			STORYBOOKdoNotWrap
+			sidebarItems={personalItems}
+			user={user}
+			business={business}
+			isSidebarExpanded
+			isSaveBarVisible={boolean('isSaveBarVisible', true)}
+		>
+			<Page
+				header={{
+					title: 'Hello Human'
+				}}
+			/>
+		</View>
+	))
 	.add('Skill View', () => <SkillViewExample STORYBOOKdoNotWrap />)
 	.add('Guest Profile', () => (
 		<View

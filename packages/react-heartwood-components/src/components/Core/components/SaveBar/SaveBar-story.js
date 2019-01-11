@@ -23,4 +23,27 @@ const location = {
 	address: '7678 N High St, Denver, CO'
 }
 
-stories.add('Default', () => <SaveBar STORYBOOKdoNotWrap />)
+stories
+	.add('Default', () => (
+		<SaveBar
+			onDiscard={() => console.log('DISCARD')}
+			onSave={() => console.log('SAVE')}
+			STORYBOOKdoNotWrap
+		/>
+	))
+	.add('Saving', () => (
+		<SaveBar
+			onDiscard={() => console.log('DISCARD')}
+			onSave={() => console.log('SAVE')}
+			isSaving={true}
+			STORYBOOKdoNotWrap
+		/>
+	))
+	.add('Discarding', () => (
+		<SaveBar
+			onDiscard={() => console.log('DISCARD')}
+			onSave={() => console.log('SAVE')}
+			isDiscarding={true}
+			STORYBOOKdoNotWrap
+		/>
+	))
