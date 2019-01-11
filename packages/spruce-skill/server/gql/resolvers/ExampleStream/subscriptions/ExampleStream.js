@@ -6,7 +6,7 @@ const { defaultListArgs } = require('graphql-sequelize')
 const EXAMPLE_STREAM = 'EXAMPLE_STREAM'
 
 /*
-	This subscription acts as a proxy for an external graphql server.
+	This subscription acts as a proxy for an external graphql server. In this case for the Core API. See server/gql/listeners/exampleListener.js
 */
 module.exports = ctx => {
 	const responseType = new GraphQLObjectType({
@@ -27,6 +27,19 @@ module.exports = ctx => {
 	const subscriptions = {
 		ExampleStream: {
 			subscribe: (payload, args, context, info) => {
+				/*
+					You can check for authorization here. The params are extracted from a valid JWT token sent in the header with format of:
+					"Authorization": "JWT <token>"
+
+					The fields that could be set are:
+					context.userId
+					context.locationId
+					context.organizationId
+
+					In this example, we're not doing any authorization checks
+				*/
+				log.debug('ExampleStream subscribe context', { context })
+
 				return ctx.gqlServer.pubsub.asyncIterator(EXAMPLE_STREAM)
 			},
 			description:
@@ -39,6 +52,7 @@ module.exports = ctx => {
 				context: Object,
 				info: Object
 			) {
+				// Just pass through the payload from the event that was triggered in server/gql/listeners/exampleListener.js
 				return payload
 			}
 		}

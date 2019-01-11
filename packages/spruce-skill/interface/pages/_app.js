@@ -4,18 +4,16 @@ import config from 'config'
 global.log = require('@sprucelabs/log/client')
 
 // Set up log options
+const isClient = typeof window !== 'undefined'
 global.log.setOptions({
 	level: config.LOG_LEVEL,
 	appName: config.SLUG,
 	appEnv: config.ENV,
-	userAgent:
-		typeof navigator !== 'undefined' && navigator.userAgent
-			? navigator.userAgent
-			: 'unknown',
+	userAgent: isClient && navigator.userAgent ? navigator.userAgent : 'unknown',
 	packageVersion: config.PACKAGE_VERSION,
 	packageName: config.PACKAGE_NAME,
 	metricsUrl: config.METRICS_URL,
-	metricsEnabled: config.METRICS_ENABLED
+	metricsEnabled: isClient && config.METRICS_ENABLED
 })
 
 export default class MyApp extends App {

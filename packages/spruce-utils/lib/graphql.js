@@ -42,9 +42,6 @@ export class GraphQLClient {
 				uri: wsUri,
 				options: {
 					reconnect: true
-					// connectionCallback: e => {
-					// 	console.log('connectionCallback', e)
-					// }
 				}
 			})
 

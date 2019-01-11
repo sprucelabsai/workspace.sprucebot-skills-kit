@@ -1,8 +1,8 @@
 const { execute, subscribe } = require('graphql')
 const { SubscriptionServer } = require('subscriptions-transport-ws')
 const { PubSub } = require('graphql-subscriptions')
-// const GraphQLSubscriptionServer = require('../lib/GraphQLSubscriptionServer')
-// const { verifyJWT } = require('../lib/jwt')
+const config = require('config')
+const jwt = require('jsonwebtoken')
 
 module.exports = class GQLSubscriptionServer {
 	constructor(options) {
@@ -20,7 +20,6 @@ module.exports = class GQLSubscriptionServer {
 					schema: options.schema,
 					onConnect: this.onConnect.bind(this),
 					onDisconnect: this.onDisconnect.bind(this)
-					// onOperation: this.onOperation.bind(this)
 				},
 				{
 					server: options.server,
@@ -35,8 +34,8 @@ module.exports = class GQLSubscriptionServer {
 	}
 
 	async onConnect(params, socket) {
-		const subscriptionContext = {}
-		console.log('GQL Subscription Socket Connected', { params })
+		let subscriptionContext = {}
+		log.debug('GQL Subscription Socket Connected', { params })
 
 		let authHeader
 
@@ -46,30 +45,26 @@ module.exports = class GQLSubscriptionServer {
 			authHeader = params.authorization
 		}
 
-		// if (authHeader) {
-		// 	subscriptionContext.user = await this.authenticate(authHeader)
-		// }
-		console.log(subscriptionContext)
+		if (authHeader) {
+			const jwtData = this.authenticate(authHeader)
+			subscriptionContext = {
+				userId: jwtData && jwtData.userId,
+				locationId: jwtData && jwtData.locationId,
+				organizationId: jwtData && jwtData.organizationId
+			}
+		}
+
 		return subscriptionContext
 	}
 
 	async onDisconnect(params, socket) {
-		console.log('onDisconnect', params)
+		log.debug('GQL Subscription client disconnected')
 	}
 
-	async onOperation(params, socket) {
-		console.log('onOperation', params)
+	authenticate(authorizationHeader) {
+		const token = authorizationHeader.replace('JWT ', '')
+		const decoded = jwt.verify(token, config.API_KEY.toString().toLowerCase())
+
+		return decoded
 	}
-
-	// async authenticate(authorizationHeader: string) {
-	// 	const token = authorizationHeader.replace('JWT ', '')
-	// 	const data = verifyJWT(token)
-
-	// 	if (data && data.userId) {
-	// 		const user = await orm.models.User.authById(data.userId)
-	// 		return user
-	// 	}
-
-	// 	return null
-	// }
 }
