@@ -17,6 +17,7 @@ module.exports = class Schema {
 			])
 			let queries = {}
 			let mutations = {}
+			let subscriptions = {}
 			// Load GQL types first and assign to ctx.gql.types[<type name>]
 			typePaths.forEach(path => {
 				try {
@@ -41,6 +42,7 @@ module.exports = class Schema {
 					// Resolvers may contain queries and/or mutations
 					queries = Object.assign(queries, def.queries || {})
 					mutations = Object.assign(mutations, def.mutations || {})
+					subscriptions = Object.assign(subscriptions, def.subscriptions || {})
 				} catch (e) {
 					log.warn(`Unable to import GraphQL fields from ${path}`, e)
 				}
@@ -57,6 +59,12 @@ module.exports = class Schema {
 				resolvers.mutation = new GraphQLObjectType({
 					name: 'Mutation',
 					fields: mutations
+				})
+			}
+			if (subscriptions && Object.keys(subscriptions).length > 0) {
+				resolvers.subscription = new GraphQLObjectType({
+					name: 'Subscription',
+					fields: subscriptions
 				})
 			}
 

@@ -4,6 +4,10 @@ import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { split } from 'apollo-link'
+import { WebSocketLink } from 'apollo-link-ws'
+import { getMainDefinition } from 'apollo-utilities'
+
 import fetchPonyfill from 'fetch-ponyfill'
 import https from 'https'
 import gql, { disableFragmentWarnings } from 'graphql-tag'
@@ -23,7 +27,7 @@ type GraphQLOperationProps = {|
 |}
 
 export class GraphQLClient {
-	constructor({ rejectUnauthorized, uri }) {
+	constructor({ rejectUnauthorized, uri, wsUri }) {
 		const agent = new https.Agent({
 			rejectUnauthorized
 		})
@@ -36,17 +40,59 @@ export class GraphQLClient {
 			credentials: 'same-origin',
 			fetchOptions: { agent }
 		})
-
-		const addExtensionsLink = new ApolloLink((operation, forward) => {
-			return forward(operation).map(response => {
-				response.data.extensions = response.extensions
-				return response
+		let link = httpLink
+		if (typeof window !== 'undefined' && wsUri) {
+			const wsLink = new WebSocketLink({
+				uri: wsUri,
+				options: {
+					reconnect: true
+				}
 			})
-		})
+
+			wsLink.subscriptionClient.onConnected(() =>
+				log.debug('GraphQL Subscriptions websocket connected')
+			)
+			wsLink.subscriptionClient.onReconnected(() =>
+				log.debug('GraphQL Subscriptions websocket reconnected')
+			)
+			wsLink.subscriptionClient.onConnecting(() =>
+				log.debug('GraphQL Subscriptions websocket attempting to connect')
+			)
+			wsLink.subscriptionClient.onReconnecting(() =>
+				log.debug('GraphQL Subscriptions websocket attempting to reconnect')
+			)
+			wsLink.subscriptionClient.onDisconnected(() =>
+				log.debug('GraphQL Subscriptions websocket disconnected')
+			)
+			wsLink.subscriptionClient.onError(e =>
+				log.warn('GraphQL Subscriptions websocket error', e)
+			)
+
+			const addExtensionsLink = new ApolloLink((operation, forward) => {
+				return forward(operation).map(response => {
+					response.data.extensions = response.extensions
+					return response
+				})
+			})
+
+			link = split(
+				// split based on operation type
+				({ query }) => {
+					const { kind, operation } = getMainDefinition(query)
+					return kind === 'OperationDefinition' && operation === 'subscription'
+				},
+				wsLink,
+				addExtensionsLink.concat(httpLink)
+			)
+		} else {
+			log.debug('GraphQL Subscriptions disabled.', {
+				wsUri: wsUri || '<NOT SET>'
+			})
+		}
 
 		this.client = new ApolloClient({
 			cache: new InMemoryCache(),
-			link: addExtensionsLink.concat(httpLink),
+			link,
 			defaultOptions: {
 				query: {
 					fetchPolicy: 'no-cache'
