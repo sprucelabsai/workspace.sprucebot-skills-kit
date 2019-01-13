@@ -18,36 +18,6 @@ module.exports = async (ctx, next) => {
 
 		// Determine which cards should be sent to the user
 		const cards = config.cards
-		const exampleLayout = [
-			{
-				header: {
-					title: 'Example card in default config'
-				},
-				bodies: [
-					{
-						image: {
-							url: 'https://picsum.photos/720/360/?random',
-							text: 'Random image being set.',
-							width: 720,
-							heght: 360
-						}
-					}
-				],
-				footer: {
-					primary: {
-						text: 'Sprucebot Docs',
-						destination: {
-							url: 'https://docs.sprucebot.com',
-							target: '_blank'
-						}
-					}
-				}
-			}
-		]
-
-		cards.forEach(card => {
-			card.layouts = exampleLayout
-		})
 
 		ctx.body = cards
 		await next()
