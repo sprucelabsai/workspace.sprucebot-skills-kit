@@ -17,7 +17,11 @@ module.exports = async (ctx, next) => {
 		const cardIds = ctx.event.payload.cardIds ? ctx.event.payload.cardIds : null
 
 		// Determine which cards should be sent to the user
-		const cards = config.cards
+		const cards = config.cards[page]
+
+		// filter out if cardIds exists
+
+		// create data based on the user
 
 		ctx.body = cards
 		await next()
