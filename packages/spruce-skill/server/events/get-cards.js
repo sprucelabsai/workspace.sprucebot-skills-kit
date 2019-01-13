@@ -14,6 +14,8 @@ module.exports = async (ctx, next) => {
 			? ctx.event.payload.organizationId
 			: null
 
+		const cardIds = ctx.event.payload.cardIds ? ctx.event.payload.cardIds : null
+
 		// Determine which cards should be sent to the user
 		const cards = config.cards
 		const exampleLayout = [
