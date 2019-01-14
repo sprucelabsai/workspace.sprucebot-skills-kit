@@ -57,7 +57,7 @@ export default class PhoneInput extends Component<Props, State> {
 					international={false}
 					{...rest}
 				/>
-				{helper || (error && <InputHelper helper={helper} error={error} />)}
+				{(helper || error) && <InputHelper helper={helper} error={error} />}
 			</div>
 		)
 	}
