@@ -4,7 +4,7 @@
 		"access": "public"
 	},
 	"description": "The engine that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "8.9.1",
+	"version": "8.10.1",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
@@ -30,9 +30,10 @@
 		"glob": "^7.1.2",
 		"graphql-depth-limit": "^1.1.0",
 		"graphql-query-complexity": "^0.2.2",
+		"graphql-subscriptions": "^1.0.0",
 		"jsonwebtoken": "^8.1.0",
 		"koa": "^2.4.1",
-		"koa-bodyparser": "^4.2.0",
+		"koa-body": "^4.0.6",
 		"koa-graphql": "^0.8.0",
 		"koa-mount": "^4.0.0",
 		"koa-router": "^7.2.1",
@@ -43,6 +44,7 @@
 		"react": "^16.2.0",
 		"react-dom": "^16.0.0",
 		"sequelize": "^4.33.4",
+		"subscriptions-transport-ws": "^0.9.15",
 		"umzug": "^2.1.0"
 	},
 	"devDependencies": {

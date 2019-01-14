@@ -6,3 +6,5 @@ export CardFooter from './components/CardFooter'
 export CardBuilder from './components/CardBuilder'
 export OnboardingCard from './components/OnboardingCard'
 export Scores from './components/Scores'
+
+export type { CardBuilderProps } from './components/CardBuilder'

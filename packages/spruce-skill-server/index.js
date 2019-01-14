@@ -4,7 +4,7 @@ const next = require('next')
 const Router = require('koa-router')
 const cron = require('node-cron')
 const _ = require('lodash')
-const bodyParser = require('koa-bodyparser')
+const koaBody = require('koa-body')
 const logger = require('@sprucelabs/log')
 const { version } = require('./package.json')
 const defaultErrors = require('./support/errors')
@@ -19,6 +19,7 @@ const listenersFactory = require('./factories/listeners')
 const sequelizeFactory = require('./factories/sequelize')
 const lang = require('./helpers/lang')
 const gqlRouter = require('./gql/router')
+const gqlListeners = require('./gql/listeners')
 
 const required = key => {
 	throw new Error(`SkillKit server needs ${key}`)
@@ -125,7 +126,12 @@ module.exports = async ({
         =             	BASICS   	            =
         =======================================*/
 	koa.use(cors())
-	koa.use(bodyParser(bodyParserOptions))
+	koa.use(
+		koaBody({
+			multipart: true,
+			...bodyParserOptions
+		})
+	)
 	staticDir && koa.use(staticServe(staticDir))
 
 	const router = new Router()
@@ -337,8 +343,6 @@ module.exports = async ({
 		throw err
 	}
 
-	gqlRouter(koa, gqlOptions)
-
 	/*======================================
         =          Client Side Routes          =
         ======================================*/
@@ -397,6 +401,9 @@ module.exports = async ({
         ======================================*/
 	// TODO better handling hosting only server or interface
 	const server = koa.listen(port, err => {
+		gqlRouter(koa, gqlOptions, server)
+		gqlListeners(koa, gqlOptions, server)
+
 		if (err) throw err
 		console.log(
 			` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`

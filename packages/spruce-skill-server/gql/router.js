@@ -7,6 +7,7 @@ const depthLimit = require('graphql-depth-limit')
 const QueryComplexity = require('graphql-query-complexity')
 const { createContext, EXPECTED_OPTIONS_KEY } = require('dataloader-sequelize')
 const config = require('config')
+const GraphQLSubscriptionServer = require('../lib/GraphQLSubscriptionServer')
 const errors = config.errors
 
 const queryComplexity = QueryComplexity.default
@@ -16,13 +17,20 @@ const fieldConfigEstimator = QueryComplexity.fieldConfigEstimator
 const auth = async (ctx, next) => {
 	try {
 		let token = ctx.cookies.get('jwt') || ctx.request.headers['x-skill-jwt']
+
+		// Check for token in Authorization header
+		if (!token && ctx.request.headers['authorization']) {
+			token = ctx.request.headers['authorization'].replace('JWT ', '')
+		}
+
 		if (!token) {
 			await next()
 			return
 		}
 		const decoded = jwt.verify(token, config.API_KEY.toString().toLowerCase())
 		const userId = decoded.userId
-		const locationId = decoded.locationId
+		const locationId = decoded.locationId || null
+		const organizationId = decoded.organizationId || null
 		const query = `
 		{
 			User (
@@ -31,6 +39,7 @@ const auth = async (ctx, next) => {
 				id
 				firstName
 				lastName
+				acl
 				UserLocations {
 					role
 					LocationId
@@ -59,7 +68,9 @@ const auth = async (ctx, next) => {
 	`
 		const result = await ctx.sb.query(query)
 		ctx.auth = {
-			User: result.data.User
+			User: result.data.User,
+			locationId,
+			organizationId
 		}
 	} catch (e) {
 		log.debug(e)
@@ -68,7 +79,7 @@ const auth = async (ctx, next) => {
 	await next()
 }
 
-module.exports = (koa, gqlOptions) => {
+module.exports = (koa, gqlOptions, server) => {
 	if (!config.DB_ENABLED) {
 		log.info('GraphQL disabled because DB_ENABLED=false')
 		return
@@ -81,6 +92,13 @@ module.exports = (koa, gqlOptions) => {
 
 	// Get schema
 	const schema = new Schema({ ctx: koa.context, gqlDir: gqlOptions.gqlDir })
+
+	// Create the subscription server
+	koa.context.gqlServer = new GraphQLSubscriptionServer({
+		server,
+		schema,
+		enabled: true
+	})
 
 	const router = new Router()
 
@@ -110,6 +128,7 @@ module.exports = (koa, gqlOptions) => {
 							friendlyReason: errors[code].friendlyReason
 						}
 					} else {
+						log.warn(e)
 						formattedError = {
 							name: 'UNKNOWN',
 							code: errors.UNKNOWN.code,

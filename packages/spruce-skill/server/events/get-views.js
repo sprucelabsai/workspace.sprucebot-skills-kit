@@ -33,7 +33,7 @@ module.exports = async (ctx, next) => {
 					path: '/user/dashboard/'
 				})
 				break
-			case 'location_dashboard':
+			case 'dashboard_location':
 				if (
 					!ctx.event.payload.locationId ||
 					!ctx.event.payload.organizationId
@@ -49,9 +49,10 @@ module.exports = async (ctx, next) => {
 					}
 				})
 				views.push({
+					id: 'dashboard_location',
 					title,
 					host,
-					path: '/location/dashboard/'
+					path: '/skill-views/location_dashboard'
 				})
 				break
 			case 'location_settings':

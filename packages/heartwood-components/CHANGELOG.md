@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.10.1](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.10.0...v8.10.1) (2019-01-04)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+# [8.10.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.9.1...v8.10.0) (2019-01-03)
+
+
+### Features
+
+* fix text overflow ([81ad157](https://github.com/sprucelabsai/sprucebot-heartwood/commit/81ad157))
+* fix transform ([f2dc334](https://github.com/sprucelabsai/sprucebot-heartwood/commit/f2dc334))
+* hook up fontloader component and add toggleable css to handle FOIT ([27001ea](https://github.com/sprucelabsai/sprucebot-heartwood/commit/27001ea))
+* improve responsiveness ([d4cd4a9](https://github.com/sprucelabsai/sprucebot-heartwood/commit/d4cd4a9))
+* make FOIT include labels and spans ([3be0910](https://github.com/sprucelabsai/sprucebot-heartwood/commit/3be0910))
+* move location menu into own component ([b5e9cf6](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b5e9cf6))
+* update header styles ([8886554](https://github.com/sprucelabsai/sprucebot-heartwood/commit/8886554))
+
+
+
+
+
 ## [8.9.1](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.9.0...v8.9.1) (2018-12-28)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components
