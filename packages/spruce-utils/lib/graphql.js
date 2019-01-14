@@ -26,14 +26,39 @@ type GraphQLOperationProps = {|
 	token?: string
 |}
 
+// Stub logging so that it works if you don't have
+// sprucebot-log in the global namespace.
+// TODO: come up with a permanent solution for this.
+let log = {
+	debug: (...args) => {
+		console.log(...args)
+	},
+	warn: (...args) => {
+		console.log(...args)
+	}
+}
+
+if (global && global.log) {
+	log = global.log
+}
+
 export class GraphQLClient {
-	constructor({ rejectUnauthorized, uri, wsUri }) {
+	client: any
+
+	constructor({
+		rejectUnauthorized,
+		uri,
+		wsUri
+	}: {
+		rejectUnauthorized: boolean,
+		uri: string,
+		wsUri: string
+	}) {
 		const agent = new https.Agent({
 			rejectUnauthorized
 		})
 
 		const { fetch } = fetchPonyfill({})
-
 		const httpLink = createHttpLink({
 			uri,
 			fetch,
@@ -41,6 +66,7 @@ export class GraphQLClient {
 			fetchOptions: { agent }
 		})
 		let link = httpLink
+
 		if (typeof window !== 'undefined' && wsUri) {
 			const wsLink = new WebSocketLink({
 				uri: wsUri,
@@ -167,7 +193,7 @@ export class GraphQLClient {
 		const warnings = get(response, 'data.extensions.warnings', [])
 
 		if (warnings.length > 0) {
-			console.log(JSON.stringify(warnings))
+			log.warn(JSON.stringify(warnings))
 		}
 
 		return response
