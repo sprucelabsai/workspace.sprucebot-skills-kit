@@ -3,7 +3,7 @@ const path = require('path')
 const { omit, pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
-const cards = require('./errors')
+const cards = require('./cards')
 const packageJSON = require('../package.json')
 const HEARTWOOD_VERSION = require('@sprucelabs/heartwood-components').version
 // Check for .env
