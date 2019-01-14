@@ -17,7 +17,7 @@ type Props = {
 	/** Helper text */
 	helper?: string,
 
-	/** Any error messageto be rendered */
+	/** Any error message to be rendered */
 	error?: string
 }
 
