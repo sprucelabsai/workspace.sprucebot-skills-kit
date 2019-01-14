@@ -16,12 +16,19 @@ module.exports = async (ctx, next) => {
 
 		const cardIds = ctx.event.payload.cardIds ? ctx.event.payload.cardIds : null
 
-		// Determine which cards should be sent to the user
-		const cards = config.cards[page]
+		const pageCards = config.cards[page]
+		let cards = pageCards
 
 		// filter out if cardIds exists
-
+		if (cardIds && cardIds.length > 0) {
+			cards = []
+			cards = pageCards.filter(card => cardIds.indexOf(card.id) >= 0)
+		}
 		// create data based on the user
+		cards = cards.map(card => {
+			card.skillSlug = process.env.SLUG
+			return card
+		})
 
 		ctx.body = cards
 		await next()
