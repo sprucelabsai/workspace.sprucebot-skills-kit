@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import ReactPhoneInput from 'react-phone-number-input'
 import cx from 'classnames'
-import { InputPre, InputHelper, InputHelperProps } from '../../FormPartials'
+import { InputPre, InputHelper } from '../../FormPartials'
 
 // for validating and formatting
 export { formatPhoneNumber, isValidPhoneNumber } from 'react-phone-number-input'
@@ -14,8 +14,11 @@ type Props = {
 	/** Set true to make the input less tall */
 	isSmall?: boolean,
 
-	/** Optional input props */
-	inputHelper?: InputHelperProps
+	/** Helper text */
+	helper?: string,
+
+	/** Any error messageto be rendered */
+	error?: string
 }
 
 type State = {
@@ -35,7 +38,7 @@ export default class PhoneInput extends Component<Props, State> {
 	}
 	render() {
 		const { phone } = this.state
-		const { label, isSmall, inputHelper, ...rest } = this.props
+		const { label, error, isSmall, helper, ...rest } = this.props
 		return (
 			<div
 				className={cx('text-input', {
@@ -54,7 +57,7 @@ export default class PhoneInput extends Component<Props, State> {
 					international={false}
 					{...rest}
 				/>
-				{inputHelper && <InputHelper {...inputHelper} />}
+				{helper || (error && <InputHelper helper={helper} error={error} />)}
 			</div>
 		)
 	}
