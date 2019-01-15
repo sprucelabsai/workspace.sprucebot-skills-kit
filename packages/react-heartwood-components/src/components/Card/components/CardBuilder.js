@@ -18,12 +18,13 @@ import Image from '../../Image/Image'
 import List from '../../List/List'
 import Scores from './Scores'
 import OnboardingCard from './OnboardingCard'
+import ButtonGroup from '../../ButtonGroup/ButtonGroup'
 
 import type { Props as ButtonProps } from '../../Button/Button'
 import type { Props as ContextMenuProps } from '../../ContextMenu/ContextMenu'
 import type { CardHeaderProps } from './CardHeader'
 import type { CardBodyProps } from './CardBody'
-import type { Step } from './OnboardingCard'
+import type { Step, Props as OnboardingProps } from './OnboardingCard'
 
 export type CardBuilderProps = {
 	/** Card Header props */
@@ -32,11 +33,11 @@ export type CardBuilderProps = {
 	/** optionally pass props to an image tag to be rendered in the header */
 	headerImage?: Object,
 
+	/** all onboarding props */
+	onboarding?: OnboardingProps,
+
 	/** Card Body props */
 	body?: CardBodyProps,
-
-	/** For an onboarding card */
-	steps: Array<Step>,
 
 	/** Card Footer props */
 	footer?: {
@@ -57,53 +58,32 @@ const CardBuilderKey = {
 const renderChild = child => {
 	const Handler = (child && child.type && CardBuilderKey[child.type]) || Text
 	return typeof Handler === 'function' ? (
-		Handler({ ...child.props, key: child.key })
+		Handler({ ...child.props })
 	) : (
-		<Handler key={child.key} {...child.props} />
+		<Handler {...child.props} />
 	)
 }
 
 const CardBuilder = (props: CardBuilderProps) => {
-	const { header, headerImage, body, footer, steps } = props
+	const { header, headerImage, body, footer, onboarding } = props
 
-	if (steps) {
-		return <OnboardingCard {...props} />
+	if (onboarding) {
+		return <OnboardingCard {...onboarding} />
 	}
 
-	const { title, labelText, labelIcon, actions: headerActions } = header || {}
 	const { children, isSectioned } = body || {}
-	const footerActions = footer && footer.actions
 	return (
 		<Card>
-			{header && (
-				<CardHeader
-					title={title}
-					labelText={labelText}
-					labelIcon={labelIcon}
-					actions={headerActions}
-				/>
-			)}
+			{header && <CardHeader {...header} />}
 			{headerImage && <Image {...headerImage} />}
 			{children && (
 				<CardBody isSectioned={isSectioned}>
 					{Array.isArray(children) ? children.map(renderChild) : children}
 				</CardBody>
 			)}
-			{footer && (
+			{footer && footer.actions && (
 				<CardFooter>
-					{footerActions && footerActions.length > 0
-						? footerActions.map(action => {
-								const Handler =
-									(action && action.type && CardBuilderKey[action.type]) ||
-									Button
-
-								if (!Handler || typeof Handler === 'undefined') {
-									return null
-								}
-
-								return <Handler key={action.text} kind="simple" {...action} />
-						  })
-						: null}
+					<ButtonGroup {...footer} />
 				</CardFooter>
 			)}
 		</Card>
