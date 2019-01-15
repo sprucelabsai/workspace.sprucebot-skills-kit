@@ -4,7 +4,9 @@ const { omit, pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
 const packageJSON = require('../package.json')
-const HEARTWOOD_VERSION = require('@sprucelabs/heartwood-components').version
+const HEARTWOOD_VERSION = encodeURIComponent(
+	require('@sprucelabs/heartwood-components').version
+)
 // Check for .env
 try {
 	require('dotenv').config()
@@ -98,6 +100,7 @@ module.exports = {
 	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
 	scopes: require('./scopes'),
+	auth: require('./auth'),
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
 		requests: {
