@@ -7,6 +7,7 @@ const depthLimit = require('graphql-depth-limit')
 const QueryComplexity = require('graphql-query-complexity')
 const { createContext, EXPECTED_OPTIONS_KEY } = require('dataloader-sequelize')
 const config = require('config')
+const GraphQLSubscriptionServer = require('../lib/GraphQLSubscriptionServer')
 const errors = config.errors
 
 const queryComplexity = QueryComplexity.default
@@ -78,7 +79,7 @@ const auth = async (ctx, next) => {
 	await next()
 }
 
-module.exports = (koa, gqlOptions) => {
+module.exports = (koa, gqlOptions, server) => {
 	if (!config.DB_ENABLED) {
 		log.info('GraphQL disabled because DB_ENABLED=false')
 		return
@@ -91,6 +92,13 @@ module.exports = (koa, gqlOptions) => {
 
 	// Get schema
 	const schema = new Schema({ ctx: koa.context, gqlDir: gqlOptions.gqlDir })
+
+	// Create the subscription server
+	koa.context.gqlServer = new GraphQLSubscriptionServer({
+		server,
+		schema,
+		enabled: true
+	})
 
 	const router = new Router()
 
