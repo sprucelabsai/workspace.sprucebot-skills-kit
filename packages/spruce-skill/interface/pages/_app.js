@@ -1,7 +1,20 @@
 import React from 'react'
 import App, { Container } from 'next/app'
-
+import config from 'config'
 global.log = require('@sprucelabs/log/client')
+
+// Set up log options
+const isClient = typeof window !== 'undefined'
+global.log.setOptions({
+	level: config.LOG_LEVEL,
+	appName: config.SLUG,
+	appEnv: config.ENV,
+	userAgent: isClient && navigator.userAgent ? navigator.userAgent : 'unknown',
+	packageVersion: config.PACKAGE_VERSION,
+	packageName: config.PACKAGE_NAME,
+	metricsUrl: config.METRICS_URL,
+	metricsEnabled: isClient && config.METRICS_ENABLED
+})
 
 export default class MyApp extends App {
 	static async getInitialProps({ Component, router, ctx }) {
@@ -10,11 +23,6 @@ export default class MyApp extends App {
 		if (Component.getInitialProps) {
 			pageProps = await Component.getInitialProps(ctx)
 		}
-
-		// Set log level for SSR
-		global.log.setOptions({
-			level: pageProps.initialState.config.LOG_LEVEL
-		})
 
 		return { pageProps }
 	}
@@ -30,19 +38,6 @@ export default class MyApp extends App {
 			METRICS_ENABLED,
 			METRICS_BROWSER_STATS_ENABLED
 		} = this.props.pageProps.initialState.config
-
-		// Set log level and options for browser
-		global.log.setOptions({
-			level: LOG_LEVEL,
-			appName: SLUG,
-			appEnv: ENV,
-			userAgent:
-				navigator && navigator.userAgent ? navigator.userAgent : 'unknown',
-			packageVersion: PACKAGE_VERSION,
-			packageName: PACKAGE_NAME,
-			metricsUrl: METRICS_URL,
-			metricsEnabled: METRICS_ENABLED
-		})
 
 		if (METRICS_ENABLED && METRICS_BROWSER_STATS_ENABLED) {
 			// We need to wait to ensure that "loadTime" has been set
