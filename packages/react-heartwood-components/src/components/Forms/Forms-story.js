@@ -260,8 +260,15 @@ stories
 	))
 	.add('Date Picker', () => (
 		<DatePicker
-			id={text('id', 'test')}
 			numberOfMonths={number('numberOfMonths', 1)}
+			kind={select(
+				'kind',
+				{ singleDate: 'singleDate', dateRange: 'dateRange' },
+				'singleDate'
+			)}
+			onSelectDateRange={({ startDate, endDate }) =>
+				console.log(startDate, endDate)
+			}
 		/>
 	))
 	.add('Stars', () => <Stars />)
