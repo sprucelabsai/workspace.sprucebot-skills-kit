@@ -1,16 +1,59 @@
-import React from 'react'
+// @flow
+import React, { Fragment } from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
 	Page,
 	PageHeader,
 	PageContent,
-	Dropzone
+	Dropzone,
+	ListItem
 } from '@sprucelabs/react-heartwood-components'
 import request from 'superagent'
+import { gqlClient, settings } from '@sprucelabs/spruce-next-helpers'
+import { Subscription } from 'react-apollo'
+import gql from 'graphql-tag'
 
+const EXAMPLE_SUBSCRIPTION = gql`
+	subscription ExampleStream {
+		ExampleStream {
+			message
+			sentAt
+		}
+	}
+`
 class DashboardLocationPage extends React.Component {
-	componentDidMount() {
+	static async getInitialProps(props) {
+		try {
+			settings.configure(props.auth && props.auth.jwt)
+
+			const result = await settings.get([
+				'org_example',
+				'receive_notifications'
+			])
+			log.debug('Got settings for location_dashboard', result)
+		} catch (e) {
+			log.error(e)
+		}
+
+		return {}
+	}
+
+	async componentDidMount() {
 		this.props.skill.ready() // Show the skill
+
+		try {
+			const result = await gqlClient.query({
+				token: this.props.auth && this.props.auth.jwt,
+				query: `{
+					Users {
+						id
+					}
+				}`
+			})
+			log.debug({ result })
+		} catch (e) {
+			log.error(e)
+		}
 	}
 
 	onDrop = async (acceptedFiles, rejectedFiles) => {
@@ -35,6 +78,33 @@ class DashboardLocationPage extends React.Component {
 				/>
 				<PageContent>
 					<p>Welcome to the location dashboard example skill view!</p>
+					{typeof window !== 'undefined' && (
+						<Subscription
+							client={gqlClient.client}
+							onSubscriptionData={options => {
+								// You can process data here outside of rendering if necessary
+							}}
+							subscription={EXAMPLE_SUBSCRIPTION}
+							variables={{}}
+							fetchPolicy={'no-cache'}
+							shouldResubscribe={true}
+						>
+							{({ data, loading, err }) => {
+								if (err) {
+									return <p>Error getting data from Subscription</p>
+								}
+								if (data && data.ExampleStream) {
+									return (
+										<ListItem
+											title={data.ExampleStream.message}
+											subtitle={data.ExampleStream.sentAt}
+										/>
+									)
+								}
+								return null
+							}}
+						</Subscription>
+					)}
 					<p>{"Here's an example of uploading files"}</p>
 					<Dropzone onDrop={this.onDrop} />
 				</PageContent>

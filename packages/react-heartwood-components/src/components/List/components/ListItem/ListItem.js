@@ -25,7 +25,7 @@ export type Props = {
 	image?: string,
 
 	/** Inline svg icon */
-	icon?: object,
+	icon?: Object,
 
 	/** Set true when the list can be reordered */
 	isDraggable?: boolean,

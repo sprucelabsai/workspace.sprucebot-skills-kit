@@ -16,7 +16,7 @@ export type Props = {
 	header?: ?ListHeaderProps,
 
 	/** List items */
-	items: Array<ListItemProps>,
+	items?: Array<ListItemProps>,
 
 	/** Class for the list */
 	className?: string,
@@ -26,16 +26,15 @@ export type Props = {
 }
 
 const List = (props: Props) => {
-	const { header, items, className, isSmall } = props
+	const { header, items, className, isSmall, children } = props
 	const parentClass = cx('list', className, { 'list-small': isSmall })
 
 	return (
 		<Fragment>
 			{header && <ListHeader isSmall={isSmall} {...header} />}
 			<ul className={parentClass}>
-				{items.map((item, idx) => (
-					<ListItem key={idx} {...item} />
-				))}
+				{items && items.map((item, idx) => <ListItem key={idx} {...item} />)}
+				{children}
 			</ul>
 		</Fragment>
 	)
