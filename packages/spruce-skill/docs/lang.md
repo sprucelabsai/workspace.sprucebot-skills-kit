@@ -9,21 +9,21 @@ All your `terms` go into `interface/lang/default.js`. A `term` can be a String o
 ```js
 // interface/lang/default.js
 module.exports = {
-  botName: 'Sprucebot',
-  botNamePlural: 'Sprucebots',
-  teamDashboardWelcome: ({ user, botName }) =>
-    `Welcome back ${user.User.causalName}!`,
-  teamDashboardBotText: ({ user }) =>
-    user.status === 'online'
-      ? `You are at ${user.Location.name} as we speak! That's so cool! 🙌🏼`
-      : `Next time you get into ${
-          user.Location.name
-        }, don't forget to join the wifi! 👊🏼`,
-  teammateDashboardHeading: `Who's Online`,
-  errorLoadingGuests: `Oh no! I could not load guests!`,
-  errorLoadingTeammates: `Oh no! I could not load teammates!`,
-  guestsTabTitle: `Guests`,
-  teammatesTabTitle: `Teammates`
+	botName: 'Sprucebot',
+	botNamePlural: 'Sprucebots',
+	teamDashboardWelcome: ({ user, botName }) =>
+		`Welcome back ${user.User.causalName}!`,
+	teamDashboardBotText: ({ user }) =>
+		user.status === 'online'
+			? `You are at ${user.Location.name} as we speak! That's so cool! 🙌🏼`
+			: `Next time you get into ${
+					user.Location.name
+			  }, don't forget to join the wifi! 👊🏼`,
+	teammateDashboardHeading: `Who's Online`,
+	errorLoadingGuests: `Oh no! I could not load guests!`,
+	errorLoadingTeammates: `Oh no! I could not load teammates!`,
+	guestsTabTitle: `Guests`,
+	teammatesTabTitle: `Teammates`
 }
 ```
 
@@ -66,10 +66,11 @@ render() {
     const { auth } = this.props;
 
     return (
-        <Page className="owner-settings">
-            <PageHeader title={this.props.lang.getText('ownerSettingsHeading', {
+        <Page className="owner-settings" header={{
+            title: this.props.lang.getText('ownerSettingsHeading', {
                 owner: auth
-            })} />
+            })
+        }}>
             <PageContent><BotText>{this.props.lang.getText('ownerSettingsBotTex', {
                 owner: auth
             })}</BotText></PageContent>
