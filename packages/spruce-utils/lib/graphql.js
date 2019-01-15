@@ -110,10 +110,6 @@ export class GraphQLClient {
 				wsLink,
 				addExtensionsLink.concat(httpLink)
 			)
-		} else {
-			log.debug('GraphQL Subscriptions disabled.', {
-				wsUri: wsUri || '<NOT SET>'
-			})
 		}
 
 		this.client = new ApolloClient({
