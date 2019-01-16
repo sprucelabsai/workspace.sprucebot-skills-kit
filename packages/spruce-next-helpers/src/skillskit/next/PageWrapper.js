@@ -80,7 +80,7 @@ const PageWrapper = Wrapped => {
 			let props = { pathname, query, asPath }
 
 			const jwt = query.jwt || getCookie('jwt', req, res)
-			debugger
+
 			// authv1
 			if (jwt) {
 				try {
@@ -135,7 +135,6 @@ const PageWrapper = Wrapped => {
 					(state.auth.version === 1 && !state.auth.role) ||
 					state.auth.error)
 			) {
-				debugger
 				// no redirect is set, we're not public, but auth failed
 				redirect = '/unauthorized'
 				debug('AUTH FAILED', state)
