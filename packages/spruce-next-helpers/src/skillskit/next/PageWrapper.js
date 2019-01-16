@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react'
 
 import * as actions from '../store/actions'
@@ -31,44 +32,72 @@ const getCookie = (named, req, res) => {
 	}
 }
 
+type Props = {
+	pathname: string,
+	query: Object,
+	asPath: string,
+	store: Object,
+	res?: Object,
+	req?: Object
+}
+
+type State = {
+	isIframed: boolean
+}
+
+export type WrappedInitialProps = {
+	...Props,
+	auth?: {
+		authing: boolean,
+		User?: Object,
+		Location?: Object,
+		Organization?: Object,
+		error?: Object
+	}
+}
+
 const PageWrapper = Wrapped => {
 	const ConnectedWrapped = withRouter(Wrapped)
 
-	return class extends Component {
-		constructor(props) {
+	return class extends Component<Props, State> {
+		constructor(props: Props) {
 			super(props)
 			this.state = {
-				attemptingReAuth: !!props.attemptingReAuth,
+				// attemptingReAuth: !!props.attemptingReAuth,
 				isIframed: true
 			}
 		}
 
 		// Everything here is run server side
-		static async getInitialProps({ pathname, query, asPath, store, res, req }) {
-			let props = { pathname, query, asPath, skill }
+		static async getInitialProps({
+			pathname,
+			query,
+			asPath,
+			store,
+			res,
+			req
+		}: Props) {
+			let props = { pathname, query, asPath }
 
 			const jwt = query.jwt || getCookie('jwt', req, res)
 
+			// authv1
 			if (jwt) {
 				try {
-					await Promise.all([
-						store.dispatch(actions.auth.go(jwt)),
-						store.dispatch(actions.auth.goV2(jwt))
-					])
-					await store.dispatch(actions.onboarding.didOnboarding())
-
-					// only save cookie if a new one has been passed
-					if (query.jwt) {
-						setCookie('jwt', query.jwt, req, res)
-					}
+					await store.dispatch(actions.auth.go(jwt))
 				} catch (err) {
 					debug(err)
 					debug('Error fetching user from jwt')
 				}
-			} else {
-				debug(
-					'This looks pretty bad. You are missing a jwt and will probably be unauthorized'
-				)
+			}
+			// authv2
+			else {
+				try {
+					await store.dispatch(actions.authV2.go(query.jwtV2 || null))
+				} catch (err) {
+					debug(err)
+					debug('Error fetching user from jwtV2')
+				}
 			}
 
 			const state = store.getState()
@@ -102,10 +131,12 @@ const PageWrapper = Wrapped => {
 			} else if (
 				!redirect &&
 				!props.public &&
-				(!state.auth || !state.auth.role || state.auth.error)
+				(!state.auth ||
+					(state.auth.version === 1 && !state.auth.role) ||
+					state.auth.error)
 			) {
 				// no redirect is set, we're not public, but auth failed
-				// redirect = '/unauthorized'
+				redirect = '/unauthorized'
 				debug('AUTH FAILED', state)
 			} else if (!redirect && !props.public) {
 				// all things look good, lets just make sure we're in the right area (owner, teammate, or guest)
@@ -133,19 +164,20 @@ const PageWrapper = Wrapped => {
 			}
 
 			// if we are /unauthorized, don't have a cookie, but have NOT done cookie check
-			if (
-				props.pathname === '/unauthorized' &&
-				(!state.auth || !state.auth.role)
-			) {
-				props.attemptingReAuth = true
-			}
+			// TODO Remove re-auth after proving it works as expected in legacy skill
+			// if (
+			// 	props.pathname === '/unauthorized' &&
+			// 	(!state.auth || !state.auth.role)
+			// ) {
+			// 	props.attemptingReAuth = true
+			// }
 
 			// v2 authentication
-			if (state.authV2 && state.authV2.User) {
+			if (state.auth && state.auth.User) {
 				debug(
-					`Auth V2 Logged in user: ${state.authV2.User.id} / ${
-						state.authV2.User.firstName
-					} ${state.authV2.User.lastName}`
+					`AuthLogged in user: ${state.auth.User.id} / ${
+						state.auth.User.firstName
+					} ${state.auth.User.lastName}`
 				)
 			}
 
@@ -156,23 +188,23 @@ const PageWrapper = Wrapped => {
 
 		handleIframeMessage = e => {
 			// we are not going to try and authenticate again (cookie setting)
-			if (e.data === 'Skill:NotReAuthing') {
-				this.setState({
-					attemptingReAuth: false
-				})
-				return
-			}
+			// if (e.data === 'Skill:NotReAuthing') {
+			// 	this.setState({
+			// 		attemptingReAuth: false
+			// 	})
+			// 	return
+			// }
 		}
 		async componentDidMount() {
 			if (window.self === window.top || window.__SBTEAMMATE__) {
 				// make sure we are being loaded inside sb
 				console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL')
 				this.setState({
-					attemptingReAuth: false,
+					// attemptingReAuth: false,
 					isIframed: !!window.__SBTEAMMATE__
 				})
-			} else if (this.props.attemptingReAuth) {
-				skill.forceAuth()
+				// } else if (this.props.attemptingReAuth) {
+				// skill.forceAuth()
 			}
 
 			// NOTE: Need to do this require here so that we can be sure the global window is defined
@@ -264,9 +296,9 @@ const PageWrapper = Wrapped => {
 		}
 
 		render() {
-			if (this.state.attemptingReAuth) {
-				return <Loader />
-			}
+			// if (this.state.attemptingReAuth) {
+			// return <Loader />
+			// }
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>

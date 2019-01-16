@@ -31,5 +31,32 @@ module.exports = ({ userId, locationId, organizationId }) => `
 			OrganizationId
 		}
 	}
+	${
+		organizationId
+			? `
+	Organization(
+		id: "${organizationId}"
+	) {
+		id
+		name
+		slug
+	}
+	`
+			: ``
+	}
+	
+	${
+		locationId
+			? `
+	Location(
+		id: "${locationId}"
+	) {
+		id
+		name
+		slug
+	}
+	`
+			: ``
+	}
 }
 `
