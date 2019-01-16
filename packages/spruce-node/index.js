@@ -33,7 +33,7 @@ class Sprucebot {
 		skillsKitVersion = 'unknown',
 		cards = suggested('cards'),
 		acl = suggested('acl'),
-		skillViewVersion = suggested('skillViewVersion')
+		viewVersion = suggested('viewVersion')
 	}) {
 		const hostMatches = host.match(/^(https?\:\/\/|)([^\/:?#]+)(?:[\/:?#]|$)/i)
 		const cleanedHost =
@@ -46,7 +46,7 @@ class Sprucebot {
 		this.iframeUrl = interfaceUrl || required('interfaceUrl')
 		this.cards = cards || {}
 		this.acl = acl || {}
-		this.skillViewVersion = skillViewVersion || 1
+		this.viewVersion = viewVersion || 1
 		this.marketingUrl =
 			(interfaceUrl || required('interfaceUrl')) + '/marketing'
 
@@ -96,7 +96,7 @@ class Sprucebot {
 			skillsKitVersion: this.skillsKitVersion,
 			cards: this.cards,
 			acl: this.acl,
-			skillViewVersion: this.skillViewVersion
+			viewVersion: this.viewVersion
 		}
 		const results = await this.https.patch('/', data)
 		let database = null

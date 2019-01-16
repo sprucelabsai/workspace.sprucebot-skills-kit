@@ -55,7 +55,7 @@ module.exports = {
 	EVENT_VERSION: process.env.EVENT_VERSION ? +process.env.EVENT_VERSION : 1,
 	PACKAGE_NAME: packageJSON.name,
 	PACKAGE_VERSION: packageJSON.version,
-	SKILL_VIEW_VERSION: process.env.SKILL_VIEW_VERSION || 1,
+	VIEW_VERSION: process.env.VIEW_VERSION || 1,
 	LOG_LEVEL: process.env.LOG_LEVEL || 'warn',
 	LOG_USE_COLORS: process.env.LOG_USE_COLORS !== 'false',
 	METRICS_APP_KEY: process.env.METRICS_APP_KEY,
@@ -268,6 +268,6 @@ module.exports = {
 			'METRICS_URL',
 			'METRICS_ENABLED',
 			'METRICS_BROWSER_STATS_ENABLED',
-			'SKILL_VIEW_VERSION'
+			'VIEW_VERSION'
 		])
 }

@@ -38,7 +38,7 @@ const {
 	cards,
 	gqlOptions,
 	acl,
-	SKILL_VIEW_VERSION
+	VIEW_VERSION
 } = require('config')
 
 // Construct a new Sprucebot
@@ -58,7 +58,7 @@ const sprucebot = new Sprucebot({
 	skillsKitVersion: skillPackage['sprucebot-skills-kit-version'],
 	cards,
 	acl,
-	skillViewVersion: SKILL_VIEW_VERSION
+	viewVersion: VIEW_VERSION
 })
 
 let server
