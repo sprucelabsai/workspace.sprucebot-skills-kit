@@ -30,10 +30,7 @@
 		"test:server": "PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true mocha --exit 'server/tests/**/*Tests.js'",
 		"test:server:single": "PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true mocha --exit",
 		"icon": "./node_modules/.bin/svgo icon/icon.svg",
-		"precommit": "npm run lint",
-		"prepush": "npm run lint && npm run test",
 		"heroku-postbuild": "npm run build",
-		"#postinstall": "npm run build",
 		"release": "semantic-release"
 	},
 	"dependencies": {
