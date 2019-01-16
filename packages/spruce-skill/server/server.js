@@ -37,7 +37,8 @@ const {
 	METRICS_SEQUELIZE_DISABLED,
 	cards,
 	gqlOptions,
-	acl
+	acl,
+	SKILL_VIEW_VERSION
 } = require('config')
 
 // Construct a new Sprucebot
@@ -56,7 +57,8 @@ const sprucebot = new Sprucebot({
 	version: skillPackage.version,
 	skillsKitVersion: skillPackage['sprucebot-skills-kit-version'],
 	cards,
-	acl
+	acl,
+	skillViewVersion: SKILL_VIEW_VERSION
 })
 
 let server
