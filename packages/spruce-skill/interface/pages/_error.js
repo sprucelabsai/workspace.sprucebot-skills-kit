@@ -1,7 +1,6 @@
 import React from 'react'
 import {
 	Page,
-	PageHeader,
 	PageContent,
 	BotText
 } from '@sprucelabs/react-heartwood-components'
@@ -14,8 +13,11 @@ export default class Error extends React.Component {
 
 	render() {
 		return (
-			<Page>
-				<PageHeader title="Oh dang. I'm sorry." />
+			<Page
+				header={{
+					title: "Oh dang. I'm sorry."
+				}}
+			>
 				<PageContent>
 					<div className="error">
 						{this.props.statusCode && this.props.statusCode === 404 && (

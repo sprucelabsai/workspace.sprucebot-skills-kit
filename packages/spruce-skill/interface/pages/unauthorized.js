@@ -2,7 +2,6 @@ import React from 'react'
 import PageWrapper from '../containers/PageWrapper'
 import {
 	Page,
-	PageHeader,
 	PageContent,
 	BotText
 } from '@sprucelabs/react-heartwood-components'
@@ -20,8 +19,7 @@ class UnauthorizedPage extends React.Component {
 
 	render() {
 		return (
-			<Page className="unauthorized">
-				<PageHeader title="Permission Denied" />
+			<Page className="unauthorized" header={{ title: 'Permission Denied' }}>
 				<PageContent>
 					<BotText>
 						Well, this is kinda awkward, but you can't be wherever it was you

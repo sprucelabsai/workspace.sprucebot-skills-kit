@@ -8,6 +8,11 @@ function SpruceWebError(message = '', data) {
 
 SpruceWebError.prototype = new Error()
 
+const options = {
+	logFunction: console.log,
+	logStyle: 'string'
+}
+
 function logData(data) {
 	const result = {
 		buildId: process.env.DEPLOYMENT_TAG,
@@ -25,16 +30,22 @@ function logData(data) {
 				})
 			}
 
-			// TODO: Integrate with Ken's Logging.
-			console.log(JSON.stringify(result))
+			if (options.logStyle === 'string') {
+				options.logFunction(JSON.stringify(result))
+			} else {
+				options.logFunction(result)
+			}
 		} catch (e) {
 			// Don't need to do anthing.
 		}
 	} else {
 		extend(result, { realm: 'server' }, data)
 
-		// TODO: Integrate with Ken's Logging.
-		console.log(JSON.stringify(result))
+		if (options.logStyle === 'string') {
+			options.logFunction(JSON.stringify(result))
+		} else {
+			options.logFunction(result)
+		}
 	}
 }
 
@@ -46,7 +57,13 @@ function trackError(errorObject, additionalData = {}) {
 	return logData(extend({}, serializeError(errorObject), additionalData))
 }
 
+function configure({ logFunction, logStyle }) {
+	options.logFunction = logFunction
+	options.logStyle = logStyle
+}
+
 module.exports = {
 	SpruceWebError,
-	trackError
+	trackError,
+	configure
 }
