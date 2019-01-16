@@ -1,16 +1,28 @@
+/// @flow
 import React from 'react'
 import PageWrapper from '../containers/PageWrapper'
 import {
 	Page,
 	PageHeader,
 	PageContent,
-	BotText
+	Text,
+	Layout,
+	LayoutSection,
+	CardBuilder
 } from '@sprucelabs/react-heartwood-components'
 
-class UnauthorizedPage extends React.Component {
-	static getInitialProps() {
+import type { WrappedInitialProps } from '../containers/PageWrapper'
+
+type Props = {
+	skill: Object
+}
+
+type State = {}
+
+class UnauthorizedPage extends React.Component<Props, State> {
+	static getInitialProps(props: WrappedInitialProps) {
 		return {
-			public: true // does not require the user to be of a certain role
+			public: true // does not require the user to be auth'ed
 		}
 	}
 
@@ -21,12 +33,18 @@ class UnauthorizedPage extends React.Component {
 	render() {
 		return (
 			<Page className="unauthorized">
-				<PageHeader title="Permission Denied" />
 				<PageContent>
-					<BotText>
-						Well, this is kinda awkward, but you can't be wherever it was you
-						were trying to be.
-					</BotText>
+					<Layout>
+						<LayoutSection>
+							<CardBuilder
+								header={{ title: 'Permission Denied' }}
+								body={{
+									children:
+										"Well, this is kinda awkward, but you can't be wherever it was you were trying to be."
+								}}
+							/>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)

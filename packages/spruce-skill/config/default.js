@@ -52,6 +52,7 @@ module.exports = {
 	],
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
+	EVENT_VERSION: process.env.EVENT_VERSION ? +process.env.EVENT_VERSION : 1,
 	PACKAGE_NAME: packageJSON.name,
 	PACKAGE_VERSION: packageJSON.version,
 	LOG_LEVEL: process.env.LOG_LEVEL || 'warn',
