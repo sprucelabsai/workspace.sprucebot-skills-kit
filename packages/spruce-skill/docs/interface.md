@@ -13,53 +13,51 @@ So you wanna create a `/owner/settings` page? Easy, create a `Component` at `int
 
 import React from 'react'
 import PageWrapper from '../../containers/PageWrapper'
-import {
-  Page,
-  PageHeader,
-  PageContent
-} from '@sprucelabs/react-heartwood-components'
+import { Page, PageContent } from '@sprucelabs/react-heartwood-components'
 
 class OwnerSettings extends React.Component {
-  // this method can be run both server side and client side
-  // so be aware of your environment (tips below)
-  static getInitialProps({ props }) {
-    return {}
-  }
+	// this method can be run both server side and client side
+	// so be aware of your environment (tips below)
+	static getInitialProps({ props }) {
+		return {}
+	}
 
-  // always runs client side, so you can be certain you are
-  // in a browser
-  componentDidMount() {
-    // always call skill.ready() to let Sprucebot know
-    // your skill is ready to display
-    this.props.skill.ready()
-  }
+	// always runs client side, so you can be certain you are
+	// in a browser
+	componentDidMount() {
+		// always call skill.ready() to let Sprucebot know
+		// your skill is ready to display
+		this.props.skill.ready()
+	}
 
-  // can run both server and client side, which should not
-  // be a problem since you should only be accessing local
-  // props and state
-  render() {
-    // you can always be certain auth exists and is an
-    // owner because we are in the "owner" dir
-    const { auth } = this.props
+	// can run both server and client side, which should not
+	// be a problem since you should only be accessing local
+	// props and state
+	render() {
+		// you can always be certain auth exists and is an
+		// owner because we are in the "owner" dir
+		const { auth } = this.props
 
-    // Page should always be the outer most component
-    return (
-      <Page className="owner-settings">
-        <PageHeader
-          title={this.props.lang.getText('ownerSettingsHeading', {
-            owner: auth
-          })}
-        />
-        <PageContent>
-          <BotText>
-            {this.props.lang.getText('ownerSettingsBotTex', {
-              owner: auth
-            })}
-          </BotText>
-        </PageContent>
-      </Page>
-    )
-  }
+		// Page should always be the outer most component
+		return (
+			<Page
+				className="owner-settings"
+				header={{
+					title: this.props.lang.getText('ownerSettingsHeading', {
+						owner: auth
+					})
+				}}
+			>
+				<PageContent>
+					<BotText>
+						{this.props.lang.getText('ownerSettingsBotTex', {
+							owner: auth
+						})}
+					</BotText>
+				</PageContent>
+			</Page>
+		)
+	}
 }
 
 // Wrapping your component in Page is what make the whole thing work
@@ -95,41 +93,41 @@ All actions need 3 states, `REQUEST`, `SUCCESS`, `ERROR`. They are all used and 
 ```js
 // interface/store/actions/shopify.js
 export const GET_SHOPIFY_SETTINGS_REQUEST =
-  'shopify/GET_SHOPIFY_SETTINGS_REQUEST'
+	'shopify/GET_SHOPIFY_SETTINGS_REQUEST'
 export const GET_SHOPIFY_SETTINGS_SUCCESS =
-  'shopify/GET_SHOPIFY_SETTINGS_SUCCESS'
+	'shopify/GET_SHOPIFY_SETTINGS_SUCCESS'
 export const GET_SHOPIFY_SETTINGS_ERROR = 'shopify/GET_SHOPIFY_SETTINGS_ERROR'
 
 export const UPDATE_SHOPIFY_SETTINGS_REQUEST =
-  'shopify/UPDATE_SHOPIFY_SETTINGS_REQUEST'
+	'shopify/UPDATE_SHOPIFY_SETTINGS_REQUEST'
 export const UPDATE_SHOPIFY_SETTINGS_SUCCESS =
-  'shopify/UPDATE_SHOPIFY_SETTINGS_SUCCESS'
+	'shopify/UPDATE_SHOPIFY_SETTINGS_SUCCESS'
 export const UPDATE_SHOPIFY_SETTINGS_ERROR =
-  'shopify/UPDATE_SHOPIFY_SETTINGS_ERROR'
+	'shopify/UPDATE_SHOPIFY_SETTINGS_ERROR'
 
 export function get() {
-  return {
-    types: [
-      GET_SHOPIFY_SETTINGS_REQUEST,
-      GET_SHOPIFY_SETTINGS_SUCCESS,
-      GET_SHOPIFY_SETTINGS_ERROR
-    ],
-    promise: client => client.get(`/api/1.0/owner/shopify/settings.json`)
-  }
+	return {
+		types: [
+			GET_SHOPIFY_SETTINGS_REQUEST,
+			GET_SHOPIFY_SETTINGS_SUCCESS,
+			GET_SHOPIFY_SETTINGS_ERROR
+		],
+		promise: client => client.get(`/api/1.0/owner/shopify/settings.json`)
+	}
 }
 
 export function update(settings) {
-  return {
-    types: [
-      UPDATE_SHOPIFY_REQUEST,
-      UPDATE_SHOPIFY_SUCCESS,
-      UPDATE_SHOPIFY_ERROR
-    ],
-    promise: client =>
-      client.post(`/api/1.0/owner/shopify/settings.json`, {
-        body: settings
-      })
-  }
+	return {
+		types: [
+			UPDATE_SHOPIFY_REQUEST,
+			UPDATE_SHOPIFY_SUCCESS,
+			UPDATE_SHOPIFY_ERROR
+		],
+		promise: client =>
+			client.post(`/api/1.0/owner/shopify/settings.json`, {
+				body: settings
+			})
+	}
 }
 ```
 
@@ -142,9 +140,9 @@ import * as locations from './locations'
 import * as shopify from './shopify'
 
 module.exports = {
-  users,
-  locations,
-  shopify
+	users,
+	locations,
+	shopify
 }
 ```
 
@@ -155,55 +153,55 @@ Every time state changes, you need to take that new state and update the current
 ```js
 // interface/store/reducers/shopify.js
 import {
-  UPDATE_SHOPIFY_SETTINGS_REQUEST,
-  UPDATE_SHOPIFY_SETTINGS_SUCCESS,
-  UPDATE_SHOPIFY_SETTINGS_ERROR,
-  GET_SHOPIFY_SETTINGS_REQUEST,
-  GET_SHOPIFY_SETTINGS_SUCCESS,
-  GET_SHOPIFY_SETTINGS_ERROR
+	UPDATE_SHOPIFY_SETTINGS_REQUEST,
+	UPDATE_SHOPIFY_SETTINGS_SUCCESS,
+	UPDATE_SHOPIFY_SETTINGS_ERROR,
+	GET_SHOPIFY_SETTINGS_REQUEST,
+	GET_SHOPIFY_SETTINGS_SUCCESS,
+	GET_SHOPIFY_SETTINGS_ERROR
 } from '../actions/shopify'
 
 export default function reducer(state = null, action) {
-  switch (action.type) {
-    case GET_SHOPIFY_SETTINGS_REQUEST:
-      return {
-        ...state,
-        getting: true
-      }
-    case GET_SHOPIFY_SETTINGS_SUCCESS:
-      return {
-        ...state,
-        settings: action.result,
-        getError: false,
-        getting: false
-      }
-    case GET_SHOPIFY_SETTINGS_ERROR:
-      return {
-        ...state,
-        getError: action.error,
-        getting: false
-      }
-    case UPDATE_SHOPIFY_SETTINGS_REQUEST:
-      return {
-        ...state,
-        updating: true
-      }
-    case UPDATE_SHOPIFY_SETTINGS_SUCCESS:
-      return {
-        ...state,
-        settings: action.result,
-        getError: false,
-        updating: false
-      }
-    case UPDATE_SHOPIFY_SETTINGS_ERROR:
-      return {
-        ...state,
-        updateError: action.error,
-        updating: false
-      }
-    default:
-      return state
-  }
+	switch (action.type) {
+		case GET_SHOPIFY_SETTINGS_REQUEST:
+			return {
+				...state,
+				getting: true
+			}
+		case GET_SHOPIFY_SETTINGS_SUCCESS:
+			return {
+				...state,
+				settings: action.result,
+				getError: false,
+				getting: false
+			}
+		case GET_SHOPIFY_SETTINGS_ERROR:
+			return {
+				...state,
+				getError: action.error,
+				getting: false
+			}
+		case UPDATE_SHOPIFY_SETTINGS_REQUEST:
+			return {
+				...state,
+				updating: true
+			}
+		case UPDATE_SHOPIFY_SETTINGS_SUCCESS:
+			return {
+				...state,
+				settings: action.result,
+				getError: false,
+				updating: false
+			}
+		case UPDATE_SHOPIFY_SETTINGS_ERROR:
+			return {
+				...state,
+				updateError: action.error,
+				updating: false
+			}
+		default:
+			return state
+	}
 }
 ```
 
@@ -216,9 +214,9 @@ import locations from './locations'
 import shopify from './shopify'
 
 module.exports = {
-  users,
-  locations,
-  shopify
+	users,
+	locations,
+	shopify
 }
 ```
 
@@ -230,88 +228,89 @@ Phew, ok, now we can make requests and expect `state` to be accurate. Lets try i
 import React from 'react'
 import PageWrapper from '../../containers/PageWrapper'
 import {
-  Page,
-  PageHeader,
-  PageContent,
-  Loader,
-  Form,
-  Input,
-  SubmitWrapper,
-  Button
+	Page,
+	PageContent,
+	Loader,
+	Form,
+	Input,
+	SubmitWrapper,
+	Button
 } from '@sprucelabs/react-heartwood-components'
 
 class OwnerSettings extends React.Component {
-  static getInitialProps(props) {
-    return {}
-  }
+	static getInitialProps(props) {
+		return {}
+	}
 
-  componentDidMount() {
-    this.props.skill.ready()
+	componentDidMount() {
+		this.props.skill.ready()
 
-    // get the shopify settings using our new action
-    this.props.actions.shopify.get()
-  }
+		// get the shopify settings using our new action
+		this.props.actions.shopify.get()
+	}
 
-  onSubmit(e) {
-    console.log(e)
-  }
+	onSubmit(e) {
+		console.log(e)
+	}
 
-  render() {
-    // our reducer will set the props for us as the state of the app changes
-    // and this will trigger a re-render
-    const { auth, shopify, lang, skill } = this.props
+	render() {
+		// our reducer will set the props for us as the state of the app changes
+		// and this will trigger a re-render
+		const { auth, shopify, lang, skill } = this.props
 
-    // we'll handle the 3 states we setup; request, success, error
-    return (
-      <Page className="owner-settings">
-        <PageHeader
-          title={lang.getText('ownerSettingsHeading', {
-            owner: auth
-          })}
-        />
-        <PageContent>
-          {!shopify.getError && (
-            <BotText>
-              {lang.getText('ownerSettingsBotTex', {
-                owner: auth
-              })}
-            </BotText>
-          )}
+		// we'll handle the 3 states we setup; request, success, error
+		return (
+			<Page
+				className="owner-settings"
+				header={{
+					title: lang.getText('ownerSettingsHeading', {
+						owner: auth
+					})
+				}}
+			>
+				<PageContent>
+					{!shopify.getError && (
+						<BotText>
+							{lang.getText('ownerSettingsBotTex', {
+								owner: auth
+							})}
+						</BotText>
+					)}
 
-          {shopify.getError && (
-            <BotText>{shopify.getError.friendlyReason}</BotText>
-          )}
+					{shopify.getError && (
+						<BotText>{shopify.getError.friendlyReason}</BotText>
+					)}
 
-          {shopify.getting && <Loader />}
+					{shopify.getting && <Loader />}
 
-          {shopify.settings && (
-            <Form>
-              <Input
-                label={lang.getText('shopNameLabel')}
-                defaultValue={shopify.settings.shopName}
-              />
-              <Input
-                label={lang.getText('apiKeyLabel')}
-                defaultValue={shopify.settings.shopName}
-              />
-              <Input
-                label={lang.getText('accessTokenLabel')}
-                defaultValue={shopify.settings.shopName}
-              />
-              <SubmitWrapper>
-                <Button alt onClick={skill.back()}>
-                  {lang.getText('backToDashboardButtonLabel')}
-                </Button>
-                <Button type="submit" primary>
-                  {lang.getText('saveButtonLabel')}
-                </Button>
-              </SubmitWrapper>
-            </Form>
-          )}
-        </PageContent>
-      </Page>
-    )
-  }
+					{shopify.settings && (
+						<Form>
+							<Input
+								label={lang.getText('shopNameLabel')}
+								defaultValue={shopify.settings.shopName}
+							/>
+							<Input
+								label={lang.getText('apiKeyLabel')}
+								defaultValue={shopify.settings.shopName}
+							/>
+							<Input
+								label={lang.getText('accessTokenLabel')}
+								defaultValue={shopify.settings.shopName}
+							/>
+							<SubmitWrapper>
+								<Button alt onClick={skill.back()}>
+									{lang.getText('backToDashboardButtonLabel')}
+								</Button>
+								<Button type="submit" primary>
+									{lang.getText('saveButtonLabel')}
+								</Button>
+							</SubmitWrapper>
+						</Form>
+					)}
+				</PageContent>
+			</Page>
+		)
+	}
 }
 
 // Wrapping your component in Page is what make the whole thing work

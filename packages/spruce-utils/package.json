@@ -19,7 +19,8 @@
 	"files": [
 		"dist",
 		"errors.js",
-		"graphql.js"
+		"graphql.js",
+		"iframes.js"
 	],
 	"repository": {
 		"type": "git",
@@ -44,7 +45,8 @@
 		"graphql": "^14.0.2",
 		"graphql-tag": "^2.10.0",
 		"handlebars": "^4.0.12",
-		"lodash": "^4.17.11"
+		"lodash": "^4.17.11",
+		"subscriptions-transport-ws": "^0.9.15"
 	},
 	"devDependencies": {
 		"babel-eslint": "^10.0.1",
