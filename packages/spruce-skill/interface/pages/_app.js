@@ -28,18 +28,7 @@ export default class MyApp extends App {
 	}
 
 	componentDidMount() {
-		const {
-			PACKAGE_VERSION,
-			PACKAGE_NAME,
-			LOG_LEVEL,
-			SLUG,
-			ENV,
-			METRICS_URL,
-			METRICS_ENABLED,
-			METRICS_BROWSER_STATS_ENABLED
-		} = this.props.pageProps.initialState.config
-
-		if (METRICS_ENABLED && METRICS_BROWSER_STATS_ENABLED) {
+		if (config.METRICS_ENABLED && config.METRICS_BROWSER_STATS_ENABLED) {
 			// We need to wait to ensure that "loadTime" has been set
 			setTimeout(() => {
 				log.collectBrowserMetrics()

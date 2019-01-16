@@ -2,7 +2,6 @@ import React from 'react'
 import PageWrapper from '../containers/PageWrapper'
 import {
 	Page,
-	PageHeader,
 	PageContent,
 	BotText
 } from '@sprucelabs/react-heartwood-components'
@@ -61,8 +60,7 @@ class MarketingPage extends React.Component {
 
 	render() {
 		return (
-			<Page className="marketing">
-				<PageHeader title={this.props.name} />
+			<Page className="marketing" header={{ title: this.props.name }}>
 				<PageContent>
 					<div ref={this.containerDiv}>
 						<BotText>{this.props.description}</BotText>

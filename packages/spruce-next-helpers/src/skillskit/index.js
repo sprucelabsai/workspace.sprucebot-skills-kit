@@ -106,13 +106,11 @@ const skill = {
 	},
 
 	ready: function({ resetUrlTrail = false } = { resetUrlTrail: false }) {
-		this.resized()
 		postMessage({
 			name: 'Skill:Loaded',
 			url: window.location.href,
 			resetUrlTrail
 		})
-		this.resizedInterval = setInterval(this.resized.bind(this), 300)
 	},
 
 	scrollTo: function(offset) {

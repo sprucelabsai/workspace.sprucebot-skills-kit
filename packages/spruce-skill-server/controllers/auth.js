@@ -8,8 +8,8 @@ module.exports = router => {
 		await next()
 	})
 
-	router.get('/api/2.0/auth/:jwtV2.json', async (ctx, next) => {
-		ctx.body = ctx.authV2
+	router.post('/api/2.0/auth.json', async (ctx, next) => {
+		ctx.body = ctx.auth
 		await next()
 	})
 

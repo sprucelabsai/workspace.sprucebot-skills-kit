@@ -1,10 +1,6 @@
 import React from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
-import {
-	Page,
-	PageHeader,
-	PageContent
-} from '@sprucelabs/react-heartwood-components'
+import { Page, PageContent } from '@sprucelabs/react-heartwood-components'
 
 class DashboardUserPage extends React.Component {
 	componentDidMount() {
@@ -13,12 +9,14 @@ class DashboardUserPage extends React.Component {
 
 	render() {
 		return (
-			<Page className="dashboard-user-page">
-				<PageHeader
-					title="Dashboard User Page"
-					onClickBack={() => Router.back()}
-					backLinkText="Previous Page"
-				/>
+			<Page
+				className="dashboard-user-page"
+				header={{
+					title: 'Dashboard User Page',
+					onClickBack: () => Router.back(),
+					backLinkText: 'Previous Page'
+				}}
+			>
 				<PageContent>
 					<p>Welcome to the user dashboard example skill view!</p>
 				</PageContent>
