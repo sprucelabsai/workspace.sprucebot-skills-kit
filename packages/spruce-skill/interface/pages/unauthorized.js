@@ -3,7 +3,6 @@ import React from 'react'
 import PageWrapper from '../containers/PageWrapper'
 import {
 	Page,
-	PageHeader,
 	PageContent,
 	Text,
 	Layout,

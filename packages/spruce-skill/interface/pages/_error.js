@@ -2,7 +2,9 @@ import React from 'react'
 import {
 	Page,
 	PageContent,
-	BotText
+	Layout,
+	LayoutSection,
+	CardBuilder
 } from '@sprucelabs/react-heartwood-components'
 
 export default class Error extends React.Component {
@@ -23,22 +25,19 @@ export default class Error extends React.Component {
 				}}
 			>
 				<PageContent>
-					<div className="error">
-						{this.props.statusCode && this.props.statusCode === 404 && (
-							<BotText>
-								I can't find the page you are looking for. I really apologize
-								about that.
-							</BotText>
-						)}
-						{!this.props.statusCode ||
-							(this.props.statusCode !== 404 && (
-								<BotText>
-									I had one job; run the website. Apparently I can't even do
-									that. I've let the humans know as they're probably better
-									equipped to fix this than I am.
-								</BotText>
-							))}
-					</div>
+					<Layout>
+						<LayoutSection>
+							<CardBuilder
+								header={{ title: "Oh dang! I'm so sorry!" }}
+								body={{
+									children:
+										this.props.statusCode && this.props.statusCode === 404
+											? "I can't find the page you are looking for. I really apologize about that."
+											: "I had one job; run the website. Apparently I can't even do that. I've let the humans know as they're probably better equipped to fix this than I am."
+								}}
+							/>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)
