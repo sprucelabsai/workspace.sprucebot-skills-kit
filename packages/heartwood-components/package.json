@@ -24,7 +24,6 @@
 		"through2": "^3.0.0"
 	},
 	"scripts": {
-		"prepublish": "npm run build",
 		"deploy": "gh-pages -d build",
 		"build": "gulp styles && gulp styles-minify && gulp js && gulp svg && fractal build"
 	},
