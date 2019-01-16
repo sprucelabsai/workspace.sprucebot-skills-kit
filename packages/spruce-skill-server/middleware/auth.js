@@ -97,7 +97,10 @@ module.exports = router => {
 				const result = await ctx.sb.query(query)
 
 				ctx.authV2 = {
-					User: result.data.User
+					locationId,
+					organizationId,
+					User: result.data.User,
+					jwt: token
 				}
 
 				debug(`middleware/auth token valid`)
@@ -116,6 +119,7 @@ module.exports = router => {
 	router.param('jwtV2', authV2)
 
 	router.use('/api/1.0/*', auth)
+	router.use('/api/2.0/*', authV2)
 	// authorize paths for team, owner, and guest
 	// router.use('/api/*/teammate/*', auth)
 	router.use('/api/1.0/teammate/*', async (ctx, next) => {
