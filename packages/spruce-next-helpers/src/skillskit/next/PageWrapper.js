@@ -85,6 +85,7 @@ const PageWrapper = Wrapped => {
 			if (jwt) {
 				try {
 					await store.dispatch(actions.auth.go(jwt))
+					setCookie('jwt', query.jwt, req, res)
 				} catch (err) {
 					debug(err)
 					debug('Error fetching user from jwt')
@@ -93,7 +94,14 @@ const PageWrapper = Wrapped => {
 			// authv2
 			else {
 				try {
-					await store.dispatch(actions.authV2.go(query.jwtV2 || null))
+					await store.dispatch(
+						actions.authV2.go(query.jwtV2 || getCookie('jwtV2', req, res))
+					)
+					debugger
+					if (query.jwtV2) {
+						setCookie('jwtV2', query.jwtV2, req, res)
+					}
+					console.log('set cookie to', getCookie('jwtV2', req, res))
 				} catch (err) {
 					debug(err)
 					debug('Error fetching user from jwtV2')
@@ -103,7 +111,7 @@ const PageWrapper = Wrapped => {
 			const state = store.getState()
 
 			// v1 Legacy authentication logic
-			if (state.auth && !state.auth.error) {
+			if (state.auth && !state.auth.error && state.auth.version === 1) {
 				state.auth.role =
 					(state.config.DEV_MODE && getCookie('devRole', req, res)) ||
 					state.auth.role
