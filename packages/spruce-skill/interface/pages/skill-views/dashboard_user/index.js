@@ -4,7 +4,8 @@ import {
 	Page,
 	PageContent,
 	Layout,
-	LayoutSection
+	LayoutSection,
+	Text
 } from '@sprucelabs/react-heartwood-components'
 
 class DashboardUserPage extends React.Component {

@@ -72,14 +72,6 @@ module.exports = async (ctx: Object, next: Function) => {
 				) {
 					throw new Error('MISSING_PARAMETERS')
 				}
-				const showPage = await ctx.services.acl.userIsAuthorizedForAcls({
-					userId: ctx.event.userId,
-					locationId: ctx.event.payload.locationId,
-					organizationId: ctx.event.payload.organizationId,
-					permissions: {
-						core: ['can_manage_organization']
-					}
-				})
 				views.push({
 					id: 'uniqueId4',
 					title: 'Example Location Dashboard',
