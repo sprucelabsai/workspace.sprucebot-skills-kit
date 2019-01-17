@@ -14,7 +14,7 @@ export default class Error extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.skill.ready() // Show the skill
+		// this.props.skill.ready() // Show the skill
 	}
 
 	render() {
