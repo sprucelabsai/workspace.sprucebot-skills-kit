@@ -63,7 +63,7 @@ class TestSkillView extends React.Component<Props> {
 				<PageContent>
 					<Layout>
 						<LayoutSection>
-							<Text>Welcome to the location dashboard example skill view!</Text>
+							<Text>{`Welcome to the location dashboard example skill view!`}</Text>
 							{typeof window !== 'undefined' && (
 								<Subscription
 									client={gqlClient.client}
