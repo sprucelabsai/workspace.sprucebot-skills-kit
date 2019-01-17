@@ -21,6 +21,9 @@ type Props = {
 	/** The logged-in user */
 	user?: Object,
 
+	/** The current organization */
+	organization?: Object,
+
 	/** The current location */
 	location?: Object,
 

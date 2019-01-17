@@ -1,14 +1,15 @@
 // @flow
 import React from 'react'
-import type { Node } from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
 import { Sidebar, SidebarFooter } from '../Core'
+import type { Node } from 'react'
 
 type Props = {
 	sidebarItems?: Array<Object>,
 	user: Object,
-	businessName: Object,
+	organization: Object,
+	location: Object,
 	getSearchSuggestions?: Function,
 	getSearchSuggestionValue?: Function,
 	renderSearchSuggestion?: Function,
