@@ -8,6 +8,29 @@ module.exports = {
 		}
 	},
 
+	async deleteFileItems({ fileItemIds }) {
+		if (!fileItemIds) {
+			log.warn('Missing "fileItemIds"')
+			throw new Error('MISSING_PARAMETERS')
+		}
+
+		const fileItemIdsStr = fileItemIds.map(fid => `"${fid}"`)
+
+		const query = `mutation {
+			deleteFileItems (
+				input: {
+					fileItemIds: [${fileItemIdsStr.join(',')}]
+				}
+			) {
+				status
+			}
+		}`
+
+		const result = await this.sb.query(query)
+
+		return result
+	},
+
 	async uploadImages({
 		files,
 		acl,
