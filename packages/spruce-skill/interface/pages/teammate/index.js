@@ -2,7 +2,6 @@ import React from 'react'
 import PageWrapper from '../../containers/PageWrapper'
 import {
 	Page,
-	PageHeader,
 	PageContent,
 	Layout,
 	LayoutSection,
@@ -18,12 +17,14 @@ class TeammatePage extends React.Component {
 
 	render() {
 		return (
-			<Page className="owner-page">
-				<PageHeader
-					title="Teammate Page"
-					onClickBack={() => Router.back()}
-					backLinkText="Previous Page"
-				/>
+			<Page
+				className="owner-page"
+				header={{
+					title: 'Teammate Page',
+					onClickBack: () => Router.back(),
+					backLinkText: 'Previous Page'
+				}}
+			>
 				<PageContent>
 					<Layout>
 						<LayoutSection>

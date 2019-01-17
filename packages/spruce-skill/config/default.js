@@ -5,7 +5,9 @@ const fs = require('fs')
 const errors = require('./errors')
 const cards = require('./cards')
 const packageJSON = require('../package.json')
-const HEARTWOOD_VERSION = require('@sprucelabs/heartwood-components').version
+const HEARTWOOD_VERSION = encodeURIComponent(
+	require('@sprucelabs/heartwood-components').version
+)
 // Check for .env
 try {
 	require('dotenv').config()
@@ -17,8 +19,10 @@ module.exports = {
 	cards: cards,
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
+	EVENT_VERSION: process.env.EVENT_VERSION ? +process.env.EVENT_VERSION : 1,
 	PACKAGE_NAME: packageJSON.name,
 	PACKAGE_VERSION: packageJSON.version,
+	VIEW_VERSION: process.env.VIEW_VERSION || 1,
 	LOG_LEVEL: process.env.LOG_LEVEL || 'warn',
 	LOG_USE_COLORS: process.env.LOG_USE_COLORS !== 'false',
 	METRICS_APP_KEY: process.env.METRICS_APP_KEY,
@@ -65,6 +69,7 @@ module.exports = {
 	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
 	scopes: require('./scopes'),
+	auth: require('./auth'),
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
 		requests: {
@@ -229,6 +234,7 @@ module.exports = {
 			'ENV',
 			'METRICS_URL',
 			'METRICS_ENABLED',
-			'METRICS_BROWSER_STATS_ENABLED'
+			'METRICS_BROWSER_STATS_ENABLED',
+			'VIEW_VERSION'
 		])
 }

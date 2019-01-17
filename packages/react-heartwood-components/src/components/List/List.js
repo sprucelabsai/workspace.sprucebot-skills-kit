@@ -13,7 +13,7 @@ export const ListWrapper = (props: { children: Node }) => (
 
 export type Props = {
 	/** List Header */
-	header?: ?ListHeaderProps,
+	header?: ListHeaderProps,
 
 	/** List items */
 	items?: Array<ListItemProps>,
@@ -22,7 +22,10 @@ export type Props = {
 	className?: string,
 
 	/** Set true to make the list smaller */
-	isSmall?: boolean
+	isSmall?: boolean,
+
+	/** any passthrough to render in the body of the list */
+	children?: any
 }
 
 const List = (props: Props) => {
@@ -34,7 +37,7 @@ const List = (props: Props) => {
 			{header && <ListHeader isSmall={isSmall} {...header} />}
 			<ul className={parentClass}>
 				{items && items.map((item, idx) => <ListItem key={idx} {...item} />)}
-				{children}
+				{children && children}
 			</ul>
 		</Fragment>
 	)

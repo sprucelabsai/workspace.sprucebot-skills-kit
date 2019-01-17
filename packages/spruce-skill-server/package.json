@@ -16,9 +16,7 @@
 	],
 	"scripts": {
 		"lint": "eslint '**/**/*{.js}'",
-		"test": "jest",
-		"precommit": "npm run lint",
-		"prepush": "npm run lint && npm run test"
+		"test": "jest"
 	},
 	"dependencies": {
 		"@koa/cors": "2",
