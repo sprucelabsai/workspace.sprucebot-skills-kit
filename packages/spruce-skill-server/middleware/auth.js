@@ -144,7 +144,7 @@ module.exports = (router, options) => {
 				debug('No listener found for ', eventName)
 			}
 
-			next()
+			await next()
 		})
 	}
 
