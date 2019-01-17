@@ -3,6 +3,7 @@ const path = require('path')
 const { omit, pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
+const cards = require('./cards')
 const packageJSON = require('../package.json')
 const HEARTWOOD_VERSION = encodeURIComponent(
 	require('@sprucelabs/heartwood-components').version
@@ -15,41 +16,7 @@ try {
 }
 
 module.exports = {
-	cards: [
-		{
-			meta: {
-				id: 'example_card_user_dashboard',
-				skillSlug: process.env.SLUG,
-				title: 'Example card in default config',
-				comment: 'This is a developer example card',
-				type: 'standard', // standard, carousel, and appointment
-				page: 'user_dashboard',
-				kind: 'standard'
-			}
-		},
-		{
-			meta: {
-				id: 'example_card_user_profile',
-				skillSlug: process.env.SLUG,
-				title: 'Example card in default config',
-				comment: 'This is a developer example card',
-				type: 'standard', // standard, carousel, and appointment
-				page: 'user_profile',
-				kind: 'standard'
-			}
-		},
-		{
-			meta: {
-				id: 'example_card_location_dashboard',
-				skillSlug: process.env.SLUG,
-				title: 'Example card in default config',
-				comment: 'This is a developer example card',
-				type: 'standard', // standard, carousel, and appointment
-				page: 'location_dashboard',
-				kind: 'standard'
-			}
-		}
-	],
+	cards: cards,
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
 	EVENT_VERSION: process.env.EVENT_VERSION ? +process.env.EVENT_VERSION : 1,
