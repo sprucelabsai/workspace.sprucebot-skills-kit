@@ -3,12 +3,11 @@ import React, { Fragment } from 'react'
 import PageWrapper from '../../containers/PageWrapper'
 import {
 	Page,
-	PageHeader,
 	PageContent,
 	Text,
 	ListItem,
 	Layout,
-	LayoutItem
+	LayoutSection
 } from '@sprucelabs/react-heartwood-components'
 import request from 'superagent'
 import { gqlClient, settings } from '@sprucelabs/spruce-next-helpers'
@@ -63,7 +62,7 @@ class TestSkillView extends React.Component<Props> {
 			<Page className="dashboard-location-page">
 				<PageContent>
 					<Layout>
-						<LayoutItem>
+						<LayoutSection>
 							<Text>Welcome to the location dashboard example skill view!</Text>
 							{typeof window !== 'undefined' && (
 								<Subscription
@@ -93,7 +92,7 @@ class TestSkillView extends React.Component<Props> {
 								</Subscription>
 							)}
 							<p>{"Here's an example of uploading files"}</p>
-						</LayoutItem>
+						</LayoutSection>
 					</Layout>
 				</PageContent>
 			</Page>
