@@ -59,13 +59,24 @@ module.exports = {
 								if (
 									tokens[0].value === '=' &&
 									tokens[1].value === 'gql' &&
-									tokens[2].type === 'Template' &&
-									tokens[2].value.match(/{([^}]+|)\${/gi)
+									tokens[2].type === 'Template'
 								) {
-									context.report(
-										node,
-										'No nested interpolation in GraphQL documents.'
-									)
+									// `value` will return up until the `${` (if one exists).
+									// Bad: { ${
+									// Good: { {} } ${
+									// Good: { {} }
+									const openBrackets = tokens[2].value.match(/{/gi)
+									const closeBrackets = tokens[2].value.match(/}/gi)
+
+									if (
+										(openBrackets && openBrackets.length - 1) >
+										(closeBrackets && closeBrackets.length)
+									) {
+										context.report(
+											node,
+											'No nested interpolation in GraphQL documents.'
+										)
+									}
 								}
 
 								if (tokens[0].value === '=' && tokens[1].type === 'Template') {
