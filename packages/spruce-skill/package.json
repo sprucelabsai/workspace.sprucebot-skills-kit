@@ -24,7 +24,7 @@
 		"start": "node ./build/server.js",
 		"local": "nodemon ./server/server.js --exec \"npm run kill-inspect && flow-node --inspect=4080\" --watch server --watch config --verbose --ignore server/swagger --ignore server/static",
 		"kill-inspect": "kill-port 4080",
-		"interface": "next ./interface -p 3006",
+		"interface": "next ./interface -p 3080",
 		"lint": "./node_modules/.bin/eslint '**/**/*{.js}'",
 		"test": "yarn run build && jest",
 		"test:server": "PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true mocha --exit 'server/tests/**/*Tests.js'",
