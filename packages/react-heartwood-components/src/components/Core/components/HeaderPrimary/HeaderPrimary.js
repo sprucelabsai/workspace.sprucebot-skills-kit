@@ -152,6 +152,12 @@ export default class HeaderPrimary extends Component<Props, State> {
 			} else {
 				return (
 					<div className="header-primary__organization">
+						{organization.image && (
+							<div
+								class="header-primary__organization-image"
+								style={{ backgroundImage: `url(${organization.image})` }}
+							/>
+						)}
 						<p className="header-primary__text">{organization.name}</p>
 					</div>
 				)
