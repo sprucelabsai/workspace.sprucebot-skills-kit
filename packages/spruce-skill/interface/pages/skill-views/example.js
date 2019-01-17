@@ -64,7 +64,7 @@ class TestSkillView extends React.Component<Props> {
 				<PageContent>
 					<Layout>
 						<LayoutItem>
-							<Text>Welcome to the location dashboard example skill view!</Text>
+							<Text>{`Welcome to the location dashboard example skill view!`}</Text>
 							{typeof window !== 'undefined' && (
 								<Subscription
 									client={gqlClient.client}
@@ -78,7 +78,9 @@ class TestSkillView extends React.Component<Props> {
 								>
 									{({ data, loading, err }) => {
 										if (err) {
-											return <p>Error getting data from Subscription</p>
+											return (
+												<Text>{`Error getting data from Subscription`}</Text>
+											)
 										}
 										if (data && data.ExampleStream) {
 											return (
@@ -92,7 +94,7 @@ class TestSkillView extends React.Component<Props> {
 									}}
 								</Subscription>
 							)}
-							<p>{"Here's an example of uploading files"}</p>
+							<Text>{"Here's an example of uploading files"}</Text>
 						</LayoutItem>
 					</Layout>
 				</PageContent>
