@@ -77,6 +77,7 @@
 	}
 }
 
+.header-primary__organization,
 .header-primary__lockup {
 	display: flex;
 	align-items: center;
@@ -87,6 +88,17 @@
 
 	+ * {
 		margin-left: spacing('extra-tight');
+	}
+}
+
+.header-primary__organization-image {
+	background-position: center;
+	background-size: cover;
+	height: 2rem;
+	width: 2rem;
+
+	+ * {
+		margin-left: spacing('tight');
 	}
 }
 

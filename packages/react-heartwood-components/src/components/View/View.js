@@ -8,7 +8,7 @@ import { Sidebar, SidebarFooter } from '../Core'
 type Props = {
 	sidebarItems?: Array<Object>,
 	user: Object,
-	business: Object,
+	businessName: Object,
 	getSearchSuggestions?: Function,
 	getSearchSuggestionValue?: Function,
 	renderSearchSuggestion?: Function,
@@ -27,7 +27,8 @@ const View = (props: Props) => {
 	const {
 		sidebarItems,
 		user,
-		business,
+		organization,
+		location,
 		getSearchSuggestions,
 		getSearchSuggestionValue,
 		renderSearchSuggestion,
@@ -64,7 +65,8 @@ const View = (props: Props) => {
 			)}
 			<HeaderPrimary
 				user={user}
-				business={business}
+				organization={organization}
+				location={location}
 				enableHamburgerMenu={
 					sidebarItems && sidebarItems.length > 0 ? true : false
 				}
