@@ -17,6 +17,9 @@ module.exports = async (ctx, next) => {
 		const cardIds = ctx.event.payload.cardIds ? ctx.event.payload.cardIds : null
 
 		const pageCards = config.cards[page]
+		if (!pageCards || !Array.isArray(pageCards)) {
+			pageCards = []
+		}
 		let cards = pageCards
 
 		// filter out if cardIds exists
