@@ -21,6 +21,8 @@
 	"dependencies": {
 		"@koa/cors": "2",
 		"@sprucelabs/log": "^1.7.0",
+		"apollo-link": "1.2.6",
+		"apollo-link-ws": "1.0.12",
 		"config": "^1.28.0",
 		"cookies": "^0.7.1",
 		"dataloader-sequelize": "^1.7.6",
