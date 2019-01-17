@@ -20,7 +20,7 @@
 		"build": "lerna run build",
 		"watch": "lerna run watch --stream",
 		"start": "pm2 start ecosystem.config.js --no-daemon",
-		"test": "jest --clearCache && yarn build && lerna run test --parallel --ignore sprucebot-node",
+		"test": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node",
 		"test:update": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node -- -u",
 		"publish": "lerna publish --log-level=silly",
 		"clean": "rm -rf node_modules/ && rm -rf packages/react-sprucebot/node_modules/ && rm -rf packages/sprucebot-node/node_modules/ && rm -rf packages/sprucebot-skills-kit/node_modules/ && rm -rf packages/sprucebot-skills-kit-server/node_modules/",
