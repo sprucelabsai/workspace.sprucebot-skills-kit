@@ -97,11 +97,9 @@ const PageWrapper = Wrapped => {
 					await store.dispatch(
 						actions.authV2.go(query.jwtV2 || getCookie('jwtV2', req, res))
 					)
-					debugger
 					if (query.jwtV2) {
 						setCookie('jwtV2', query.jwtV2, req, res)
 					}
-					console.log('set cookie to', getCookie('jwtV2', req, res))
 				} catch (err) {
 					debug(err)
 					debug('Error fetching user from jwtV2')
