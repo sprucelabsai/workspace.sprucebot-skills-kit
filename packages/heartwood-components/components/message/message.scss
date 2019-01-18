@@ -37,7 +37,8 @@
 .message__detail,
 .message__follow-up-btn,
 .message__original-timestamp,
-.message__reply {
+.message__reply,
+.message__reply * {
 	@include typescale('ui');
 }
 
@@ -77,12 +78,19 @@
 
 .message__reply {
 	display: flex;
+	+ .message__reply {
+		margin-top: 0.125rem;
+	}
 }
 
 .message__reply-icon {
 	width: rem(16);
-	height: auto;
+	height: rem(16);
 	margin-right: rem(4);
+}
+
+.message__reply-text {
+	color: $c-text-light;
 }
 
 .message__reply-icon-success {

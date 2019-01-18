@@ -1,5 +1,6 @@
 // @flow
 import React from 'react'
+import moment from 'moment-timezone'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
@@ -14,19 +15,75 @@ import Layout, { LayoutSection } from '../Layout'
 import Text from '../Text/Text'
 
 const messageJSON = {
-	body: {
-		text: `{{name}} let's you {{boldString}}. duh. kthxbai!`,
+	fromName: 'Sprucebot',
+	fromImage:
+		'https://cloudsky1080.files.wordpress.com/2018/08/grumpycat.png?w=128',
+	dateSent: moment(),
+	message: {
+		text: `{{name}} has an {{appointment}} scheduled for {{date}}`,
 		context: {
 			name: {
 				type: 'text',
-				props: { element: 'a', children: 'MessageBuilder' }
+				props: { element: 'a', children: 'Dorian Feeney' }
 			},
-			boldString: {
+			appointment: {
+				type: 'text',
+				props: { element: 'a', children: 'upcoming appointment' }
+			},
+			date: {
 				type: 'textStyle',
-				props: { type: 'strong', children: 'build messages' }
+				props: { type: 'strong', children: 'February 12th' }
 			}
 		}
-	}
+	},
+	detail: 'Booked via Booking Skill',
+	replies: [
+		{
+			type: 'success',
+			text: 'Dorian is not receiving notifications. {{call}}',
+			context: {
+				call: {
+					type: 'text',
+					props: { element: 'a', children: 'Call Dorian' }
+				}
+			}
+		},
+		{
+			type: 'success',
+			text: 'Dorian is not receiving notifications. {{call}}',
+			context: {
+				call: {
+					type: 'text',
+					props: { element: 'a', children: 'Call Dorian' }
+				}
+			}
+		},
+		{
+			type: 'success',
+			text:
+				'Dorian has not confirmed the appointment yet. {{confirm}} or {{call}}',
+			context: {
+				confirm: {
+					type: 'text',
+					props: { element: 'a', children: 'Confirm Appointment' }
+				},
+				call: {
+					type: 'text',
+					props: { element: 'a', children: 'Call Dorian' }
+				}
+			}
+		},
+		{
+			type: 'success',
+			text: 'Appointment was confirmed by {{teammate}}',
+			context: {
+				teammate: {
+					type: 'text',
+					props: { element: 'a', children: 'Camila Hintz' }
+				}
+			}
+		}
+	]
 }
 
 const stories = storiesOf('Message', module)
