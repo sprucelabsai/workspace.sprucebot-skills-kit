@@ -83,6 +83,10 @@
 	align-items: center;
 }
 
+.header-primary__lockup {
+	padding-left: spacing('tight');
+}
+
 .header-primary__lockup-icon {
 	stroke: $c-white;
 
@@ -194,7 +198,7 @@
 	}
 
 	.header-primary__left {
-		padding-left: spacing('base');
+		padding-left: spacing('tight');
 	}
 }
 
