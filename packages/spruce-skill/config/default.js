@@ -121,7 +121,8 @@ module.exports = {
 				description: 'Core asks for views to display on a page'
 			},
 			'get-cards': {
-				description: 'Core asks this skill to provide cards'
+				description: 'Core asks this skill to provide cards',
+				subscribe: true
 			}
 			// Other events we could subscribe to
 			// 'was-installed': {
