@@ -1,6 +1,12 @@
 import React from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
-import { Page, PageContent } from '@sprucelabs/react-heartwood-components'
+import {
+	Page,
+	PageContent,
+	Layout,
+	LayoutSection,
+	Text
+} from '@sprucelabs/react-heartwood-components'
 
 class UserProfilePage extends React.Component {
 	componentDidMount() {
@@ -18,7 +24,11 @@ class UserProfilePage extends React.Component {
 				}}
 			>
 				<PageContent>
-					<p>Welcome to the Example user profile view!</p>
+					<Layout>
+						<LayoutSection>
+							<Text>{`Welcome to the Example user profile view!`}</Text>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)
