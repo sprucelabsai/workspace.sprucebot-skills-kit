@@ -1,6 +1,12 @@
 import React from 'react'
 import PageWrapper from '../../containers/PageWrapper'
-import { Page, PageContent } from '@sprucelabs/react-heartwood-components'
+import {
+	Page,
+	PageContent,
+	Layout,
+	LayoutSection,
+	Text
+} from '@sprucelabs/react-heartwood-components'
 
 class OwnerPage extends React.Component {
 	componentDidMount() {
@@ -18,7 +24,11 @@ class OwnerPage extends React.Component {
 				}}
 			>
 				<PageContent>
-					<p>Hello, Owner!</p>
+					<Layout>
+						<LayoutSection>
+							<Text>{`Hello, Owner!`}</Text>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)
