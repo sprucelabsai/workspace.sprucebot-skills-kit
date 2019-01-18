@@ -1,14 +1,15 @@
 // @flow
 import React from 'react'
-import type { Node } from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
 import { Sidebar, SidebarFooter } from '../Core'
+import type { Node } from 'react'
 
 type Props = {
 	sidebarItems?: Array<Object>,
 	user: Object,
-	business: Object,
+	organization: Object,
+	location: Object,
 	getSearchSuggestions?: Function,
 	getSearchSuggestionValue?: Function,
 	renderSearchSuggestion?: Function,
@@ -27,7 +28,8 @@ const View = (props: Props) => {
 	const {
 		sidebarItems,
 		user,
-		business,
+		organization,
+		location,
 		getSearchSuggestions,
 		getSearchSuggestionValue,
 		renderSearchSuggestion,
@@ -64,7 +66,8 @@ const View = (props: Props) => {
 			)}
 			<HeaderPrimary
 				user={user}
-				business={business}
+				organization={organization}
+				location={location}
 				enableHamburgerMenu={
 					sidebarItems && sidebarItems.length > 0 ? true : false
 				}

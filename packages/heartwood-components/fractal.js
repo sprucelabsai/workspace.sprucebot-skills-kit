@@ -21,12 +21,12 @@ const fractal = (module.exports = require('@frctl/fractal').create())
 const hbs = require('@frctl/handlebars')({
 	helpers: {
 		concat: function() {
-			var arg = Array.prototype.slice.call(arguments, 0)
+			const arg = Array.prototype.slice.call(arguments, 0)
 			arg.pop()
 			return arg.join('')
 		},
 		defaultVal: function(value, defaultVal) {
-			var out = value || defaultVal
+			const out = value || defaultVal
 			return out
 		}
 	}
