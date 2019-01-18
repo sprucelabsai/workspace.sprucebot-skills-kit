@@ -26,7 +26,7 @@ module.exports = {
 									if (QueryOptionType === 'Identifier') {
 										if (
 											!QueryOption.value.name.match(
-												new RegExp(`.*${rule.suffix}`, 'gi')
+												new RegExp(`.*${rule.suffix}$`, 'gi')
 											)
 										) {
 											context.report(
@@ -50,34 +50,34 @@ module.exports = {
 							}
 						})
 					},
+					TemplateLiteral(node) {
+						// `value` will return up until the `${` (if one exists).
+						// Bad: { ${
+						// Good: { {} } ${
+						// Good: { {} }
+						const source = context.getSourceCode()
+						const tokens = source.getTokens(node)
+						const previousTokens = source.getTokensBefore(node, { count: 1 })
+
+						const openBrackets = tokens[0].value.match(/{/gi)
+						const closeBrackets = tokens[0].value.match(/}/gi)
+
+						if (
+							previousTokens[0].value === 'gql' &&
+							(openBrackets && openBrackets.length - 1) >
+								(closeBrackets && closeBrackets.length)
+						) {
+							context.report(
+								node,
+								'No nested interpolation in GraphQL documents.'
+							)
+						}
+					},
 					Identifier(node) {
 						rules.forEach(rule => {
-							if (node.name.match(new RegExp(`.*${rule.suffix}`, 'gi'))) {
+							if (node.name.match(new RegExp(`.*${rule.suffix}$`, 'gi'))) {
 								const source = context.getSourceCode()
 								const tokens = source.getTokensAfter(node, { count: 3 })
-
-								if (
-									tokens[0].value === '=' &&
-									tokens[1].value === 'gql' &&
-									tokens[2].type === 'Template'
-								) {
-									// `value` will return up until the `${` (if one exists).
-									// Bad: { ${
-									// Good: { {} } ${
-									// Good: { {} }
-									const openBrackets = tokens[2].value.match(/{/gi)
-									const closeBrackets = tokens[2].value.match(/}/gi)
-
-									if (
-										(openBrackets && openBrackets.length - 1) >
-										(closeBrackets && closeBrackets.length)
-									) {
-										context.report(
-											node,
-											'No nested interpolation in GraphQL documents.'
-										)
-									}
-								}
 
 								if (tokens[0].value === '=' && tokens[1].type === 'Template') {
 									context.report(
