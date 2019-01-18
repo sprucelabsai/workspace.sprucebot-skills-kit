@@ -16,7 +16,10 @@ const fieldConfigEstimator = QueryComplexity.fieldConfigEstimator
 
 const auth = async (ctx, next) => {
 	try {
-		let token = ctx.cookies.get('jwt') || ctx.request.headers['x-skill-jwt'] || ctx.request.headers['x-skill-jwt-v2']
+		let token =
+			ctx.cookies.get('jwt') ||
+			ctx.request.headers['x-skill-jwt'] ||
+			ctx.request.headers['x-skill-jwt-v2']
 
 		// Check for token in Authorization header
 		if (!token && ctx.request.headers['authorization']) {
@@ -31,47 +34,7 @@ const auth = async (ctx, next) => {
 		const userId = decoded.userId
 		const locationId = decoded.locationId || null
 		const organizationId = decoded.organizationId || null
-		const query = `
-		{
-			User (
-				id: "${userId}"
-			) {
-				id
-				firstName
-				lastName
-				acl
-				UserLocations {
-					role
-					LocationId
-					Job {
-						name
-						isDefault
-						role
-					}
-				}
-				UserGroups {
-					Group {
-						name
-					}
-					Job {
-						name
-						isDefault
-						role
-					}
-				}
-				UserOrganizations {
-					role
-					OrganizationId
-				}
-			}
-		}
-	`
-		const result = await ctx.sb.query(query)
-		ctx.auth = {
-			User: result.data.User,
-			locationId,
-			organizationId
-		}
+		ctx.auth = config.auth({ userId, locationId, organizationId })
 	} catch (e) {
 		log.debug(e)
 		ctx.auth = {}
