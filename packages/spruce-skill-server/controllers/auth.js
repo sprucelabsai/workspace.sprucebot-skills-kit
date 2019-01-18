@@ -10,6 +10,9 @@ module.exports = router => {
 
 	router.post('/api/2.0/auth.json', async (ctx, next) => {
 		ctx.body = ctx.auth
+		if (!ctx.auth) {
+			throw new Error('INVALID_AUTHENTICATION')
+		}
 		await next()
 	})
 

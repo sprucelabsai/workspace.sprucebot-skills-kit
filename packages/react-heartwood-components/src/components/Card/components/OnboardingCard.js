@@ -24,6 +24,7 @@ export type Step = {
 	/** Primary CTA of this step */
 	panelCTA: ButtonProps
 }
+
 export type Props = {
 	/** Title of the entire card */
 	title: string,

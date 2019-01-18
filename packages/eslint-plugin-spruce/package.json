@@ -1,0 +1,22 @@
+{
+	"name": "@sprucelabs/eslint-plugin-spruce",
+	"publishConfig": {
+		"access": "public"
+	},
+	"version": "8.10.0",
+	"description": "ESLint plugin for Spruce Javascript projects",
+	"author": "George Pantazis <gcpantazis@gmail.com>",
+	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit#readme",
+	"license": "MIT",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sprucelabsai/workspace.sprucebot-skills-kit.git"
+	},
+	"scripts": {},
+	"bugs": {
+		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
+	},
+	"dependencies": {},
+	"devDependencies": {}
+}

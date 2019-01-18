@@ -1,7 +1,13 @@
 import React from 'react'
 import PageWrapper from '../../containers/PageWrapper'
 import Router from 'next/router'
-import { Page, PageContent } from '@sprucelabs/react-heartwood-components'
+import {
+	Page,
+	PageContent,
+	Layout,
+	LayoutSection,
+	Text
+} from '@sprucelabs/react-heartwood-components'
 
 class GuestPage extends React.Component {
 	componentDidMount() {
@@ -19,7 +25,11 @@ class GuestPage extends React.Component {
 				}}
 			>
 				<PageContent>
-					<p>Hello, Guest</p>
+					<Layout>
+						<LayoutSection>
+							<Text>{`Hello, Guest`}</Text>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)
