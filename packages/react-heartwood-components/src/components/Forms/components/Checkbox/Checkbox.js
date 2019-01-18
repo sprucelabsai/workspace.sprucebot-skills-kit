@@ -38,7 +38,7 @@ export default class Checkbox extends Component<Props, State> {
 		isIndeterminateState: this.props.isIndeterminate
 	}
 
-	handleChange = () => {
+	handleChange = e => {
 		const { onChange } = this.props
 		this.setState(prevState => {
 			if (prevState.isIndeterminateState) {
@@ -49,7 +49,7 @@ export default class Checkbox extends Component<Props, State> {
 		})
 
 		if (onChange) {
-			onChange()
+			onChange(e)
 		}
 	}
 
