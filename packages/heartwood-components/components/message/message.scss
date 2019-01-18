@@ -115,6 +115,15 @@
 	stroke: $c-ui-online;
 }
 
+.message__reply-icon-warn {
+	fill: none;
+	stroke: $c-ui-warn;
+}
+
+.message__reply-icon-critical {
+	fill: $c-ui-critical;
+}
+
 .message__body {
 	p + p,
 	blockquote {

@@ -44,7 +44,7 @@ const messageJSON = {
 	},
 	replies: [
 		{
-			type: 'success',
+			type: 'critical',
 			text: 'Dorian is not receiving notifications. {{call}}',
 			context: {
 				call: {
@@ -54,8 +54,8 @@ const messageJSON = {
 			}
 		},
 		{
-			type: 'success',
-			text: 'Dorian has not confirmed the appointment yet. {{call}}',
+			type: 'warn',
+			text: 'Dorian has not confirmed this appointment yet. {{call}}',
 			context: {
 				call: {
 					type: 'button',

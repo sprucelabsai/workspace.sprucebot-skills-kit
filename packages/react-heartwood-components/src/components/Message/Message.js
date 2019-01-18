@@ -62,7 +62,7 @@ export const Message = (props: MessageProps) => {
 					iconClass = 'message__reply-icon-success'
 					break
 				case 'warn':
-					icon = 'caution_solid'
+					icon = 'caution'
 					iconClass = 'message__reply-icon-warn'
 					break
 				case 'critical':
