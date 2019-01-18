@@ -38,16 +38,20 @@ class TestSkillView extends React.Component<Props> {
 		return {}
 	}
 
+	componentWillMount() {
+		gqlClient.setToken(this.props.auth && this.props.auth.jwt)
+	}
+
 	async componentDidMount() {
 		try {
 			const result = await gqlClient.query({
-				token: this.props.auth.jwt,
 				query: `{
                     Users {
                         id
 					}
 				}`
 			})
+
 			log.debug({ result })
 		} catch (e) {
 			log.error(e)

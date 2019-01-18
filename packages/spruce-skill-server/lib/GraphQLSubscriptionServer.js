@@ -46,11 +46,15 @@ module.exports = class GQLSubscriptionServer {
 		}
 
 		if (authHeader) {
-			const jwtData = this.authenticate(authHeader)
-			subscriptionContext = {
-				userId: jwtData && jwtData.userId,
-				locationId: jwtData && jwtData.locationId,
-				organizationId: jwtData && jwtData.organizationId
+			try {
+				const jwtData = this.authenticate(authHeader)
+				subscriptionContext = {
+					userId: jwtData && jwtData.userId,
+					locationId: jwtData && jwtData.locationId,
+					organizationId: jwtData && jwtData.organizationId
+				}
+			} catch (e) {
+				log.debug('GQL Subscription Authentication failed')
 			}
 		}
 
