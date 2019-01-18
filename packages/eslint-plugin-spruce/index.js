@@ -11,6 +11,7 @@ module.exports = {
 					CallExpression(node) {
 						rules.forEach(rule => {
 							if (node.callee.name === rule.method) {
+								// Get value of the primary option, validate.
 								const QueryOption = node.arguments[0].properties.find(
 									o => o.key.name === rule.option
 								)
@@ -46,6 +47,18 @@ module.exports = {
 											}\` should be a template literal tagged with \`gql\` from \`graphql-tag\`.`
 										)
 									}
+								}
+
+								// Deprecate `token`.
+								const TokenQueryOption = node.arguments[0].properties.find(
+									o => o.key.name === 'token'
+								)
+
+								if (TokenQueryOption) {
+									context.report(
+										node,
+										`\`token\` is deprecated on this API; \`token\` should be provided with \`.setToken()\` once per client.`
+									)
 								}
 							}
 						})
