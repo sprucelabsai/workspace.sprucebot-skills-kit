@@ -37,39 +37,29 @@ const messageJSON = {
 		}
 	},
 	detail: 'Booked via Booking Skill',
+	primaryAction: {
+		text: 'Confirm Appointment',
+		href: '#',
+		target: '_blank'
+	},
 	replies: [
 		{
 			type: 'success',
 			text: 'Dorian is not receiving notifications. {{call}}',
 			context: {
 				call: {
-					type: 'text',
-					props: { element: 'a', children: 'Call Dorian' }
+					type: 'button',
+					props: { href: '#', text: 'Call Dorian', target: '_blank' }
 				}
 			}
 		},
 		{
 			type: 'success',
-			text: 'Dorian is not receiving notifications. {{call}}',
+			text: 'Dorian has not confirmed the appointment yet. {{call}}',
 			context: {
 				call: {
-					type: 'text',
-					props: { element: 'a', children: 'Call Dorian' }
-				}
-			}
-		},
-		{
-			type: 'success',
-			text:
-				'Dorian has not confirmed the appointment yet. {{confirm}} or {{call}}',
-			context: {
-				confirm: {
-					type: 'text',
-					props: { element: 'a', children: 'Confirm Appointment' }
-				},
-				call: {
-					type: 'text',
-					props: { element: 'a', children: 'Call Dorian' }
+					type: 'button',
+					props: { href: '#', text: 'Call Dorian', target: '_blank' }
 				}
 			}
 		},
@@ -78,8 +68,8 @@ const messageJSON = {
 			text: 'Appointment was confirmed by {{teammate}}',
 			context: {
 				teammate: {
-					type: 'text',
-					props: { element: 'a', children: 'Camila Hintz' }
+					type: 'button',
+					props: { href: '#', text: 'Camila Hintz', target: '_blank' }
 				}
 			}
 		}

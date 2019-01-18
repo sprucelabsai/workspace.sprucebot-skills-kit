@@ -70,10 +70,15 @@
 	padding-right: 0;
 	height: auto;
 	color: $c-primary;
+	font-weight: $font-weight-bold;
 
 	.btn__inner {
 		align-items: flex-start;
 	}
+}
+
+.message__replies {
+	margin-top: spacing('tight');
 }
 
 .message__reply {
@@ -81,12 +86,24 @@
 	+ .message__reply {
 		margin-top: 0.125rem;
 	}
+
+	.btn {
+		padding-left: 0;
+		padding-right: 0;
+		height: auto;
+		color: $c-primary;
+
+		.btn__inner {
+			align-items: flex-start;
+		}
+	}
 }
 
 .message__reply-icon {
 	width: rem(16);
 	height: rem(16);
 	margin-right: rem(4);
+	flex-shrink: 0;
 }
 
 .message__reply-text {

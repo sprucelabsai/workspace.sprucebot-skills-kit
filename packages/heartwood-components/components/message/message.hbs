@@ -22,7 +22,10 @@
         <p class="message__detail">{{detail}}</p>
         {{/if}}
         {{#if reply}}
-        <p class="message__reply">{{> @icon icon=reply.icon class=reply.iconClass width="16" height="16"}}<span class="message__reply-text">{{reply.text}}</span></p>
+        <div class="message__replies">
+            <p class="message__reply">{{> @icon icon=reply.icon class=reply.iconClass width="16" height="16"}}<span
+                    class="message__reply-text">{{reply.text}}</span></p>
+        </div>
         {{/if}}
         {{#if followUp}}
         {{> @button text=followUp.text className="btn-small message__follow-up-btn" }}

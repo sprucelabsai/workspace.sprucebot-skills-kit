@@ -3,7 +3,10 @@ import React, { Fragment } from 'react'
 import moment from 'moment-timezone'
 import cx from 'classnames'
 
+import Button from '../Button/Button'
 import Icon from '../Icon/Icon'
+
+import type { Props as ButtonProps } from '../../Button/Button'
 
 type MessageProps = {
 	/** Message children. */
@@ -27,6 +30,9 @@ type MessageProps = {
 	/** Gives additional context for the message */
 	detail?: string,
 
+	/** An action related to this message */
+	primaryAction?: ButtonProps,
+
 	/** Optional classname */
 	className?: string
 }
@@ -40,7 +46,8 @@ export const Message = (props: MessageProps) => {
 		fromAlt,
 		dateSent,
 		replies,
-		detail
+		detail,
+		primaryAction
 	} = props
 
 	const renderReply = reply => {
@@ -61,7 +68,12 @@ export const Message = (props: MessageProps) => {
 				case 'critical':
 					icon = 'caution_solid'
 					iconClass = 'message__reply-icon-critical'
+					break
+				default:
+					return null
 			}
+		} else {
+			return null
 		}
 
 		console.log('ICON', icon, iconClass)
@@ -99,7 +111,17 @@ export const Message = (props: MessageProps) => {
 				</p>
 				<p class="message__body">{children}</p>
 				{detail && <p class="message__detail">{detail}</p>}
-				{replies && replies.map(renderReply)}
+				{primaryAction && (
+					<Button
+						className="btn-small message__follow-up-btn"
+						{...primaryAction}
+					/>
+				)}
+				{replies && replies.length && (
+					<div class="message__replies">
+						{replies && replies.map(renderReply)}
+					</div>
+				)}
 			</span>
 		</div>
 	)

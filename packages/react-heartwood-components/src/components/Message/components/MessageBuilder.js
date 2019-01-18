@@ -7,10 +7,12 @@ import cx from 'classnames'
 import Message from '../Message'
 
 import type { MessageProps } from '../Message'
+import type { Props as ButtonProps } from '../../Button/Button'
 
 // COMPONENTS THAT CAN GO INTO THIS COMPONENT, KEEP MINIMAL
 import Text from '../../Text/Text'
 import TextStyle from '../../TextStyle/TextStyle'
+import Button from '../../Button/Button'
 
 export type MessageBuilderProps = {
 	/** Name of message sender */
@@ -28,13 +30,17 @@ export type MessageBuilderProps = {
 	/** Detail string gives additional context about this message */
 	detail?: string,
 
-	/** Replies to the message */
+	/** An action related to this message */
+	primaryAction?: ButtonProps,
+
+	/** Contextual information and additional actions associated to the message */
 	replies?: Array
 }
 
 const MessageBuilderKey = {
 	text: Text,
-	textStyle: TextStyle
+	textStyle: TextStyle,
+	button: Button
 }
 
 const renderChild = child => {
@@ -75,7 +81,15 @@ const TemplateEngine = (text, context) => {
 }
 
 const MessageBuilder = (props: MessageBuilderProps) => {
-	const { fromName, fromImage, dateSent, message, detail, replies } = props
+	const {
+		fromName,
+		fromImage,
+		dateSent,
+		message,
+		detail,
+		primaryAction,
+		replies
+	} = props
 
 	const { text: messageText, context: messageContext } = message || {}
 
@@ -101,6 +115,7 @@ const MessageBuilder = (props: MessageBuilderProps) => {
 				TemplateEngine(messageText, messageContext)
 			}
 			detail={detail}
+			primaryAction={primaryAction}
 			replies={messageReplies}
 		/>
 	)
