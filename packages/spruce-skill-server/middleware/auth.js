@@ -98,7 +98,7 @@ module.exports = (router, options) => {
 			ctx.cookies.get('jwtV2') ||
 			ctx.request.headers['x-skill-jwt-v2']
 		if (token) {
-			ctx.cookies.set('jwtV2', token, { secure: true, httpOnly: false })
+			ctx.cookies.set('jwtV2', token, { secure: true })
 			debug(`middleware/auth found token checking`)
 			try {
 				const { auth, decoded } = await decodeV2(ctx, token)

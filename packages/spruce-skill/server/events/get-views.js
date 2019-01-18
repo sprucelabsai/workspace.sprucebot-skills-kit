@@ -76,8 +76,7 @@ module.exports = async (ctx: Object, next: Function) => {
 					id: 'uniqueId4',
 					title: 'Example Location Dashboard',
 					host,
-					// path: '/skill-views/location_dashboard'
-					path: '/skill-views/example'
+					path: '/skill-views/location_dashboard'
 				})
 				break
 
