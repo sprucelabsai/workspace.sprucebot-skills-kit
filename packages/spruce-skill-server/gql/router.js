@@ -62,7 +62,8 @@ module.exports = (koa, gqlOptions, server) => {
 	koa.context.gqlServer = new GraphQLSubscriptionServer({
 		server,
 		schema,
-		enabled: true
+		enabled: true,
+		ctx: koa.context
 	})
 
 	const router = new Router()

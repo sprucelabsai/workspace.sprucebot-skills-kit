@@ -10,6 +10,8 @@ module.exports = class GQLSubscriptionServer {
 			throw new Error('No server to attach to')
 		}
 
+		this.ctx = options.ctx
+
 		// Set up GraphQL subscriptions
 		this.pubsub = new PubSub()
 		if (options.enabled) {
@@ -51,7 +53,8 @@ module.exports = class GQLSubscriptionServer {
 				subscriptionContext = {
 					userId: jwtData && jwtData.userId,
 					locationId: jwtData && jwtData.locationId,
-					organizationId: jwtData && jwtData.organizationId
+					organizationId: jwtData && jwtData.organizationId,
+					ctx: this.ctx
 				}
 			} catch (e) {
 				log.debug('GQL Subscription Authentication failed')
