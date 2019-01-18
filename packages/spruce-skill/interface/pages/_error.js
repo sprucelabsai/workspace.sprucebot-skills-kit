@@ -7,6 +7,8 @@ import {
 	CardBuilder
 } from '@sprucelabs/react-heartwood-components'
 
+import { skill } from '@sprucelabs/spruce-next-helpers'
+
 export default class Error extends React.Component {
 	static getInitialProps({ res, err }) {
 		const statusCode = res ? res.statusCode : err ? err.statusCode : null
@@ -14,16 +16,12 @@ export default class Error extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.skill.ready() // Show the skill
+		skill.ready() // Show the skill
 	}
 
 	render() {
 		return (
-			<Page
-				header={{
-					title: "Oh dang. I'm sorry"
-				}}
-			>
+			<Page header={{}}>
 				<PageContent>
 					<Layout>
 						<LayoutSection>

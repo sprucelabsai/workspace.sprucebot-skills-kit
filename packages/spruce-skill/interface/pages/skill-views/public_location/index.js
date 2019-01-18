@@ -1,6 +1,12 @@
 import React from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
-import { Page, PageContent } from '@sprucelabs/react-heartwood-components'
+import {
+	Page,
+	PageContent,
+	Layout,
+	LayoutSection,
+	Text
+} from '@sprucelabs/react-heartwood-components'
 
 class PublicLocationPage extends React.Component {
 	componentDidMount() {
@@ -18,7 +24,10 @@ class PublicLocationPage extends React.Component {
 				}}
 			>
 				<PageContent>
-					<p>Welcome to the Example public location view!</p>
+					<Layout>
+						<LayoutSection />
+					</Layout>
+					<Text>{`Welcome to the Example public location view!`}</Text>
 				</PageContent>
 			</Page>
 		)
