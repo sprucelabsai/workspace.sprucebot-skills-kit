@@ -11,9 +11,9 @@ module.exports = async (ctx: Object, next: Function) => {
 		}
 
 		const {
-			auth: { User, Location, Organization },
+			/* auth: { User, Location, Organization }, */
 			event: {
-				payload: { page, skillSlug, pageUserId, locationId }
+				payload: { page, skillSlug /* , pageUserId, locationId */ }
 			}
 		}: {
 			auth: { User?: Object, Location?: Object, Organization?: Object },

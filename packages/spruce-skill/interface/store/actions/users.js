@@ -25,7 +25,7 @@ export function update(userId, values) {
 export function get(userId) {
 	return {
 		types: [GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_ERROR],
-		promise: (client, auth) =>
+		promise: (client /* , auth  */) =>
 			client.get(`/api/1.0/teammate/users/${userId}.json`)
 	}
 }
@@ -33,7 +33,7 @@ export function get(userId) {
 export function guests(query) {
 	return {
 		types: [LIST_GUESTS_REQUEST, LIST_GUESTS_SUCCESS, LIST_GUESTS_ERROR],
-		promise: (client, auth) => {
+		promise: (client /* , auth  */) => {
 			return client.get(`/api/1.0/teammate/guests.json`, query)
 		}
 	}
@@ -46,7 +46,7 @@ export function teammates(query) {
 			LIST_TEAMMATES_SUCCESS,
 			LIST_TEAMMATES_ERROR
 		],
-		promise: (client, auth) => {
+		promise: (client /* , auth  */) => {
 			return client.get(`/api/1.0/teammate/teammates.json`, query)
 		}
 	}

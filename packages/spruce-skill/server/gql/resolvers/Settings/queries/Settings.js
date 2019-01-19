@@ -28,8 +28,8 @@ module.exports = ctx => {
 			async resolve(
 				source: Object,
 				args: Object,
-				context: Object,
-				info: Object
+				context: Object
+				// info: Object
 			) {
 				if (!context.auth || !context.auth.User) {
 					throw new Error('USER_NOT_LOGGED_IN')

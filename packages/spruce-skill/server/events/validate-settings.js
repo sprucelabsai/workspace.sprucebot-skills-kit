@@ -14,11 +14,13 @@ module.exports = async (ctx, next) => {
 			throw new Error('INVALID_PAYLOAD')
 		}
 
-		const settings = ctx.event.payload.settings
-		const userId = ctx.event.payload.userId
+		// const settings = ctx.event.payload.settings
+		// const userId = ctx.event.payload.userId
+
 		let body = {}
 
 		let canSave = true
+
 		// TODO: Validate the settings
 		if (!canSave) {
 			// If there are errors, return an array of errors where name is the setting name and reason will be displayed to the user.
