@@ -9,6 +9,7 @@ module.exports = {
 	rules: {
 		curly: 'error',
 		'react/jsx-no-undef': 'error',
+		'no-console': 'off',
 		'no-undef': 'error',
 		'no-var': 'error',
 		'no-unreachable': 'error',
@@ -31,9 +32,13 @@ module.exports = {
 		}
 	},
 	env: {
+		jest: true,
 		browser: true,
 		node: true,
 		es6: true
+	},
+	globals: {
+		log: true
 	},
 	settings: {
 		flowtype: {},
