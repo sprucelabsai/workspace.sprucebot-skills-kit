@@ -1,4 +1,3 @@
-const config = require('config')
 const { eventError } = require('../lib/errorHandler')
 
 module.exports = async (ctx, next) => {

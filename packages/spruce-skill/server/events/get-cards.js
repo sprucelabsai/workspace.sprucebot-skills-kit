@@ -6,13 +6,14 @@ module.exports = async (ctx, next) => {
 		log.debug('** Event: get-page-cards **', { event: ctx.event })
 
 		const page = ctx.event.payload.page ? ctx.event.payload.page : null
-		const guestId = ctx.event.payload.guestId ? ctx.event.payload.guestId : null
-		const locationId = ctx.event.payload.locationId
-			? ctx.event.payload.locationId
-			: null
-		const organizationId = ctx.event.payload.organizationId
-			? ctx.event.payload.organizationId
-			: null
+
+		// const guestId = ctx.event.payload.guestId ? ctx.event.payload.guestId : null
+		// const locationId = ctx.event.payload.locationId
+		// 	? ctx.event.payload.locationId
+		// 	: null
+		// const organizationId = ctx.event.payload.organizationId
+		// 	? ctx.event.payload.organizationId
+		// 	: null
 
 		const cardIds = ctx.event.payload.cardIds ? ctx.event.payload.cardIds : null
 

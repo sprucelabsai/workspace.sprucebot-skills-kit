@@ -1,11 +1,6 @@
 // @flow
 const config = require('config')
-const {
-	GraphQLString,
-	GraphQLNonNull,
-	GraphQLList,
-	GraphQLObjectType
-} = require('graphql')
+const { GraphQLString, GraphQLNonNull } = require('graphql')
 const { resolver } = require('graphql-sequelize')
 
 module.exports = ctx => {
