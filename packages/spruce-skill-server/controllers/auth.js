@@ -3,7 +3,7 @@ const config = require('config')
 const Cookies = require('cookies')
 
 module.exports = router => {
-	router.get('/api/1.0/auth/:jwt.json', async (ctx, next) => {
+	router.post('/api/1.0/auth.json', async (ctx, next) => {
 		ctx.body = ctx.auth
 		await next()
 	})

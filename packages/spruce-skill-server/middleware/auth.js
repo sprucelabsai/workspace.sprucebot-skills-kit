@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-var debug = require('debug')('spruce-skills-kit-server')
+let debug = require('debug')('spruce-skills-kit-server')
 const config = require('config')
 
 module.exports = (router, options) => {
@@ -15,6 +15,7 @@ module.exports = (router, options) => {
 
 		let token =
 			id ||
+			ctx.request.body.jwt ||
 			ctx.request.query.jwt ||
 			ctx.cookies.get('jwt') ||
 			ctx.request.headers['x-skill-jwt']
@@ -116,9 +117,6 @@ module.exports = (router, options) => {
 
 		await next()
 	}
-
-	router.param('jwt', auth)
-	router.param('jwtV2', authV2)
 
 	router.use('/api/1.0/*', auth)
 	router.use('/api/2.0/*', authV2)
