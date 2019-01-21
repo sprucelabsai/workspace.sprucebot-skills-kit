@@ -21,14 +21,14 @@
         {{#if detail}}
         <p class="message__detail">{{detail}}</p>
         {{/if}}
+        {{#if primaryAction}}
+        {{> @button text=primaryAction.text className="btn-small message__primary-action-btn" }}
+        {{/if}}
         {{#if reply}}
         <div class="message__replies">
             <p class="message__reply">{{> @icon icon=reply.icon class=reply.iconClass width="16" height="16"}}<span
                     class="message__reply-text">{{reply.text}}</span></p>
         </div>
-        {{/if}}
-        {{#if followUp}}
-        {{> @button text=followUp.text className="btn-small message__follow-up-btn" }}
         {{/if}}
     </span>
 </div>

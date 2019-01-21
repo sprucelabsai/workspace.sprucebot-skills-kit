@@ -35,7 +35,7 @@
 
 .message__from-text,
 .message__detail,
-.message__follow-up-btn,
+.message__primary-action-btn,
 .message__original-timestamp,
 .message__reply,
 .message__reply * {
@@ -65,7 +65,7 @@
 	margin-bottom: rem(4);
 }
 
-.message__follow-up-btn.btn {
+.message__primary-action-btn.btn {
 	padding-left: 0;
 	padding-right: 0;
 	height: auto;

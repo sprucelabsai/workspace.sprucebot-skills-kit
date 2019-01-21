@@ -113,7 +113,7 @@ export const Message = (props: MessageProps) => {
 				{detail && <p class="message__detail">{detail}</p>}
 				{primaryAction && (
 					<Button
-						className="btn-small message__follow-up-btn"
+						className="btn-small message__primary-action-btn"
 						{...primaryAction}
 					/>
 				)}
