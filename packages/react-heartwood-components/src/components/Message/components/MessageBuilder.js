@@ -13,6 +13,7 @@ import type { Props as ButtonProps } from '../../Button/Button'
 import Text from '../../Text/Text'
 import TextStyle from '../../TextStyle/TextStyle'
 import Button from '../../Button/Button'
+import Image from '../../Image/Image'
 
 export type MessageBuilderProps = {
 	/** Name of message sender */
@@ -34,7 +35,10 @@ export type MessageBuilderProps = {
 	primaryAction?: ButtonProps,
 
 	/** Contextual information and additional actions associated to the message */
-	replies?: Array
+	replies?: Array,
+
+	/** Attachment content associated to the message */
+	attachments?: Array
 }
 
 const MessageBuilderKey = {
@@ -43,13 +47,30 @@ const MessageBuilderKey = {
 	button: Button
 }
 
-const renderChild = child => {
+const MessageAttachmentKey = {
+	image: Image
+}
+
+const renderMessageChild = child => {
 	const Handler =
 		(child && child.type && MessageBuilderKey[child.type]) || Fragment
 	return typeof Handler === 'function' ? (
 		Handler({ ...child.props })
 	) : (
 		<Handler {...child.props} />
+	)
+}
+
+const renderAttachmentChild = child => {
+	const Handler =
+		(child && child.type && MessageAttachmentKey[child.type]) || Fragment
+	const className = cx(child.props.className, {
+		'message__attachment-image': child.type === 'image'
+	})
+	return typeof Handler === 'function' ? (
+		Handler({ className, ...child.props })
+	) : (
+		<Handler className={className} {...child.props} />
 	)
 }
 
@@ -77,7 +98,7 @@ const TemplateEngine = (text, context) => {
 	}
 	add(text.substr(cursor, text.length - cursor))
 
-	return children.map(renderChild)
+	return children.map(renderMessageChild)
 }
 
 const MessageBuilder = (props: MessageBuilderProps) => {
@@ -88,12 +109,14 @@ const MessageBuilder = (props: MessageBuilderProps) => {
 		message,
 		detail,
 		primaryAction,
-		replies
+		replies,
+		attachments
 	} = props
 
 	const { text: messageText, context: messageContext } = message || {}
 
 	var messageReplies = []
+	var messageAttachments = []
 
 	if (replies) {
 		messageReplies = replies.map(reply => {
@@ -102,6 +125,10 @@ const MessageBuilder = (props: MessageBuilderProps) => {
 				children: TemplateEngine(reply.text, reply.context)
 			}
 		})
+	}
+
+	if (attachments) {
+		messageAttachments = attachments.map(renderAttachmentChild)
 	}
 
 	return (
@@ -117,6 +144,7 @@ const MessageBuilder = (props: MessageBuilderProps) => {
 			detail={detail}
 			primaryAction={primaryAction}
 			replies={messageReplies}
+			attachments={messageAttachments}
 		/>
 	)
 }

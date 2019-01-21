@@ -27,6 +27,9 @@ type MessageProps = {
 	/** Informative replies to the message */
 	replies?: Array,
 
+	/** Additional content related to the message */
+	attachments?: Array,
+
 	/** Gives additional context for the message */
 	detail?: string,
 
@@ -46,6 +49,7 @@ export const Message = (props: MessageProps) => {
 		fromAlt,
 		dateSent,
 		replies,
+		attachments,
 		detail,
 		primaryAction
 	} = props
@@ -76,8 +80,6 @@ export const Message = (props: MessageProps) => {
 			return null
 		}
 
-		console.log('ICON', icon, iconClass)
-
 		return (
 			<p class="message__reply">
 				{icon && (
@@ -86,6 +88,10 @@ export const Message = (props: MessageProps) => {
 				<span class="message__reply-text">{children}</span>
 			</p>
 		)
+	}
+
+	const renderAttachment = attachment => {
+		return <div class="message__attachment">{attachment}</div>
 	}
 
 	return (
@@ -118,8 +124,11 @@ export const Message = (props: MessageProps) => {
 					/>
 				)}
 				{replies && replies.length && (
-					<div class="message__replies">
-						{replies && replies.map(renderReply)}
+					<div class="message__replies">{replies.map(renderReply)}</div>
+				)}
+				{attachments && attachments.length && (
+					<div class="message__attachments">
+						{attachments.map(renderAttachment)}
 					</div>
 				)}
 			</span>

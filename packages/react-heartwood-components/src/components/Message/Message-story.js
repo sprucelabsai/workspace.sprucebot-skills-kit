@@ -73,6 +73,15 @@ const messageJSON = {
 				}
 			}
 		}
+	],
+	attachments: [
+		{
+			type: 'image',
+			props: {
+				src:
+					'https://c8.alamy.com/comp/CRJ923/young-customer-service-man-with-brace-doing-the-ok-sign-CRJ923.jpg'
+			}
+		}
 	]
 }
 
