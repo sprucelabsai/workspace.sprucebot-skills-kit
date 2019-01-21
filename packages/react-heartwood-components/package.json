@@ -25,8 +25,6 @@
 		"clean": "rm -rf lib/*",
 		"lint": "eslint src",
 		"test": "jest",
-		"precommit": "npm run lint && npm run compile_javascript",
-		"prepush": "npm run lint && npm run test",
 		"watch": "npm run build && chokidar 'src/**/*.js' -c 'npm run compile_javascript'",
 		"storybook": "npm run icons && start-storybook -p 6006",
 		"build-storybook": "npm run icons && build-storybook"

@@ -7,6 +7,7 @@ const depthLimit = require('graphql-depth-limit')
 const QueryComplexity = require('graphql-query-complexity')
 const { createContext, EXPECTED_OPTIONS_KEY } = require('dataloader-sequelize')
 const config = require('config')
+const GraphQLSubscriptionServer = require('../lib/GraphQLSubscriptionServer')
 const errors = config.errors
 
 const queryComplexity = QueryComplexity.default
@@ -15,7 +16,10 @@ const fieldConfigEstimator = QueryComplexity.fieldConfigEstimator
 
 const auth = async (ctx, next) => {
 	try {
-		let token = ctx.cookies.get('jwt') || ctx.request.headers['x-skill-jwt']
+		let token =
+			ctx.cookies.get('jwt') ||
+			ctx.request.headers['x-skill-jwt'] ||
+			ctx.request.headers['x-skill-jwt-v2']
 
 		// Check for token in Authorization header
 		if (!token && ctx.request.headers['authorization']) {
@@ -30,55 +34,17 @@ const auth = async (ctx, next) => {
 		const userId = decoded.userId
 		const locationId = decoded.locationId || null
 		const organizationId = decoded.organizationId || null
-		const query = `
-		{
-			User (
-				id: "${userId}"
-			) {
-				id
-				firstName
-				lastName
-				acl
-				UserLocations {
-					role
-					LocationId
-					Job {
-						name
-						isDefault
-						role
-					}
-				}
-				UserGroups {
-					Group {
-						name
-					}
-					Job {
-						name
-						isDefault
-						role
-					}
-				}
-				UserOrganizations {
-					role
-					OrganizationId
-				}
-			}
-		}
-	`
-		const result = await ctx.sb.query(query)
-		ctx.auth = {
-			User: result.data.User,
-			locationId,
-			organizationId
-		}
+		const result = await ctx.sb.query(
+			config.auth({ userId, locationId, organizationId })
+		)
+		ctx.auth = { ...result.data, jwt: token }
 	} catch (e) {
 		log.debug(e)
-		ctx.auth = {}
 	}
 	await next()
 }
 
-module.exports = (koa, gqlOptions) => {
+module.exports = (koa, gqlOptions, server) => {
 	if (!config.DB_ENABLED) {
 		log.info('GraphQL disabled because DB_ENABLED=false')
 		return
@@ -91,6 +57,13 @@ module.exports = (koa, gqlOptions) => {
 
 	// Get schema
 	const schema = new Schema({ ctx: koa.context, gqlDir: gqlOptions.gqlDir })
+
+	// Create the subscription server
+	koa.context.gqlServer = new GraphQLSubscriptionServer({
+		server,
+		schema,
+		enabled: true
+	})
 
 	const router = new Router()
 
@@ -145,7 +118,10 @@ module.exports = (koa, gqlOptions) => {
 							simpleEstimator({ defaultComplexity: 1 })
 						],
 						maximumComplexity: config.GRAPHQL_MAX_COMPLEXITY,
-						variables: {},
+						variables:
+							request.body && request.body.variables
+								? request.body.variables
+								: {},
 						onComplete: complexity => {
 							ctx.queryCost = complexity
 						}

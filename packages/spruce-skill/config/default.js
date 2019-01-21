@@ -3,8 +3,11 @@ const path = require('path')
 const { omit, pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
+const cards = require('./cards')
 const packageJSON = require('../package.json')
-const HEARTWOOD_VERSION = require('@sprucelabs/heartwood-components').version
+const HEARTWOOD_VERSION = encodeURIComponent(
+	require('@sprucelabs/heartwood-components').version
+)
 // Check for .env
 try {
 	require('dotenv').config()
@@ -13,45 +16,13 @@ try {
 }
 
 module.exports = {
-	cards: [
-		{
-			meta: {
-				id: 'example_card_user_dashboard',
-				skillSlug: process.env.SLUG,
-				title: 'Example card in default config',
-				comment: 'This is a developer example card',
-				type: 'standard', // standard, carousel, and appointment
-				page: 'user_dashboard',
-				kind: 'standard'
-			}
-		},
-		{
-			meta: {
-				id: 'example_card_user_profile',
-				skillSlug: process.env.SLUG,
-				title: 'Example card in default config',
-				comment: 'This is a developer example card',
-				type: 'standard', // standard, carousel, and appointment
-				page: 'user_profile',
-				kind: 'standard'
-			}
-		},
-		{
-			meta: {
-				id: 'example_card_location_dashboard',
-				skillSlug: process.env.SLUG,
-				title: 'Example card in default config',
-				comment: 'This is a developer example card',
-				type: 'standard', // standard, carousel, and appointment
-				page: 'location_dashboard',
-				kind: 'standard'
-			}
-		}
-	],
+	cards: cards,
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
+	EVENT_VERSION: process.env.EVENT_VERSION ? +process.env.EVENT_VERSION : 1,
 	PACKAGE_NAME: packageJSON.name,
 	PACKAGE_VERSION: packageJSON.version,
+	VIEW_VERSION: process.env.VIEW_VERSION || 1,
 	LOG_LEVEL: process.env.LOG_LEVEL || 'warn',
 	LOG_USE_COLORS: process.env.LOG_USE_COLORS !== 'false',
 	METRICS_APP_KEY: process.env.METRICS_APP_KEY,
@@ -64,6 +35,9 @@ module.exports = {
 		process.env.METRICS_SERVER_STATS_DISABLED === 'true',
 	METRICS_SEQUELIZE_DISABLED: process.env.METRICS_SEQUELIZE_DISABLED === 'true',
 	API_HOST: process.env.API_HOST,
+	GRAPHQL_SUBSCRIPTIONS_URI: process.env.GRAPHQL_SUBSCRIPTIONS_URI,
+	GRAPHQL_LISTENERS_ENABLED: process.env.GRAPHQL_LISTENERS_ENABLED === 'true',
+	API_GRAPHQL_SUBSCRIPTIONS_URI: process.env.API_GRAPHQL_SUBSCRIPTIONS_URI,
 	API_KEY: process.env.API_KEY,
 	SKILL_STYLESHEET:
 		process.env.SKILL_STYLESHEET ||
@@ -95,6 +69,7 @@ module.exports = {
 	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
 	scopes: require('./scopes'),
+	auth: require('./auth'),
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
 		requests: {
@@ -146,7 +121,8 @@ module.exports = {
 				description: 'Core asks for views to display on a page'
 			},
 			'get-cards': {
-				description: 'Core asks this skill to provide cards'
+				description: 'Core asks this skill to provide cards',
+				subscribe: true
 			}
 			// Other events we could subscribe to
 			// 'was-installed': {
@@ -245,6 +221,7 @@ module.exports = {
 			'ICON',
 			'DESCRIPTION',
 			'SERVER_HOST',
+			'GRAPHQL_SUBSCRIPTIONS_URI',
 			'SKILL_STYLESHEET',
 			'INTERFACE_SSL_ALLOW_SELF_SIGNED',
 			'VIMEO_ID',
@@ -258,6 +235,7 @@ module.exports = {
 			'ENV',
 			'METRICS_URL',
 			'METRICS_ENABLED',
-			'METRICS_BROWSER_STATS_ENABLED'
+			'METRICS_BROWSER_STATS_ENABLED',
+			'VIEW_VERSION'
 		])
 }
