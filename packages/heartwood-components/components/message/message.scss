@@ -35,9 +35,10 @@
 
 .message__from-text,
 .message__detail,
-.message__follow-up-btn,
+.message__primary-action-btn,
 .message__original-timestamp,
-.message__reply {
+.message__reply,
+.message__reply * {
 	@include typescale('ui');
 }
 
@@ -64,30 +65,74 @@
 	margin-bottom: rem(4);
 }
 
-.message__follow-up-btn.btn {
+.message__primary-action-btn.btn {
 	padding-left: 0;
 	padding-right: 0;
 	height: auto;
 	color: $c-primary;
+	font-weight: $font-weight-bold;
 
 	.btn__inner {
 		align-items: flex-start;
 	}
 }
 
+.message__replies {
+	margin-top: spacing('tight');
+}
+
 .message__reply {
 	display: flex;
+	+ .message__reply {
+		margin-top: 0.125rem;
+	}
+
+	.btn {
+		padding-left: 0;
+		padding-right: 0;
+		height: auto;
+		color: $c-primary;
+
+		.btn__inner {
+			align-items: flex-start;
+		}
+	}
 }
 
 .message__reply-icon {
 	width: rem(16);
-	height: auto;
+	height: rem(16);
 	margin-right: rem(4);
+	flex-shrink: 0;
+}
+
+.message__reply-text {
+	color: $c-text-light;
 }
 
 .message__reply-icon-success {
 	fill: none;
 	stroke: $c-ui-online;
+}
+
+.message__reply-icon-warn {
+	fill: none;
+	stroke: $c-ui-warn;
+}
+
+.message__reply-icon-critical {
+	fill: $c-ui-critical;
+}
+
+.message__attachments {
+	margin-top: spacing('tight');
+}
+
+.message__attachment-image {
+	border-radius: 4px;
+	max-height: rem(320);
+	max-width: rem(320);
+	height: auto;
 }
 
 .message__body {
