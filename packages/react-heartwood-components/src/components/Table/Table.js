@@ -23,6 +23,9 @@ type Props = {
 	/** Set true if the table rows can be selected */
 	isSelectable?: boolean,
 
+	/** any Id's that are selected by default when the page loads */
+	initialSelectedIds?: Array<string | number>,
+
 	/** The kind of data this table displays. This will affect the text shown when at least one row is selected. */
 	kind?: string,
 
@@ -46,21 +49,25 @@ type Props = {
 }
 
 type State = {
-	selectedIds: Array<string>,
+	selectedIds: Array<string | number>,
 	allRowsSelected: boolean
 }
 
 export default class Table extends Component<Props, State> {
 	table: any
 
-	state = {
-		selectedIds: [],
-		allRowsSelected: false
-	}
 	static defaultProps = {
 		className: '',
 		paginationProps: {},
 		isSelectable: false
+	}
+
+	constructor(props: Props) {
+		super(props)
+		this.state = {
+			selectedIds: props.initialSelectedIds || [],
+			allRowsSelected: false
+		}
 	}
 
 	handleChange = ({ id, pageSize }: any) => {
