@@ -140,7 +140,7 @@ export class GraphQLClient {
 	}
 
 	operation = async (
-		{ ...options }: GraphQLOperationProps,
+		{ token, ...options }: GraphQLOperationProps,
 		operationType: 'query' | 'mutation'
 	) => {
 		let response
@@ -159,6 +159,8 @@ export class GraphQLClient {
 			)
 		}
 
+		let jwtToken = token || this.token
+
 		try {
 			response = await this.client[clientMethod]({
 				...options,
@@ -174,7 +176,7 @@ export class GraphQLClient {
 					`,
 				context: {
 					headers: {
-						Authorization: this.token ? `JWT ${this.token}` : null
+						Authorization: jwtToken ? `JWT ${jwtToken}` : undefined
 					}
 				}
 			})
