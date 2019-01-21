@@ -21,6 +21,9 @@ type Props = {
 	/** The logged-in user */
 	user?: Object,
 
+	/** The current organization */
+	organization?: Object,
+
 	/** The current location */
 	location?: Object,
 
@@ -136,6 +139,37 @@ export default class HeaderPrimary extends Component<Props, State> {
 		}
 	}
 
+	renderHeader = (organization: Object, location: Object) => {
+		if (organization) {
+			if (location) {
+				return (
+					<div className="header-primary__location">
+						<p className="header-primary__text">{location.name}</p>
+						{location.address && (
+							<p className="header-primary__text header-primary__address">
+								<a href="#">{location.address}</a>
+							</p>
+						)}
+					</div>
+				)
+			} else {
+				return (
+					<div className="header-primary__organization">
+						{organization.image && (
+							<div
+								class="header-primary__organization-image"
+								style={{ backgroundImage: `url(${organization.image})` }}
+							/>
+						)}
+						<p className="header-primary__text">{organization.name}</p>
+					</div>
+				)
+			}
+		} else {
+			return <DefaultLockup />
+		}
+	}
+
 	render() {
 		const {
 			isMenuExpanded,
@@ -145,6 +179,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 
 		const {
 			user,
+			organization,
 			location,
 			toggleSidebarVisibility,
 			isSidebarVisible,
@@ -174,18 +209,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 					/>
 				)}
 				<div className="header-primary__left">
-					{location ? (
-						<div className="header-primary__location">
-							<p className="header-primary__text">{location.name}</p>
-							{location.address && (
-								<p className="header-primary__text header-primary__address">
-									<a href="#">{location.address}</a>
-								</p>
-							)}
-						</div>
-					) : (
-						<DefaultLockup />
-					)}
+					{this.renderHeader(organization, location)}
 				</div>
 				<div className="header-primary__right">
 					{user ? (

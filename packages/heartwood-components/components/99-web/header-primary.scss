@@ -77,9 +77,14 @@
 	}
 }
 
+.header-primary__organization,
 .header-primary__lockup {
 	display: flex;
 	align-items: center;
+}
+
+.header-primary__lockup {
+	padding-left: spacing('tight');
 }
 
 .header-primary__lockup-icon {
@@ -87,6 +92,18 @@
 
 	+ * {
 		margin-left: spacing('extra-tight');
+	}
+}
+
+.header-primary__organization-image {
+	background-position: center;
+	background-size: cover;
+	border-radius: 2px;
+	height: 2rem;
+	width: 2rem;
+
+	+ * {
+		margin-left: spacing('tight');
 	}
 }
 
@@ -181,7 +198,7 @@
 	}
 
 	.header-primary__left {
-		padding-left: spacing('base');
+		padding-left: spacing('tight');
 	}
 }
 
