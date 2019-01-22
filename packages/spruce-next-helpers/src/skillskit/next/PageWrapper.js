@@ -16,7 +16,10 @@ const debug = require('debug')('@sprucelabs/spruce-next-helpers')
 
 const setCookie = (named, value, req, res) => {
 	if (req && req.headers) {
-		const cookies = new ServerCookies(req, res, { secure: true })
+		const cookies = new ServerCookies(req, res, {
+			secure: true,
+			httpOnly: false
+		})
 		return cookies.set(named, value)
 	} else {
 		return ClientCookies.setItem(named, value)
@@ -25,7 +28,10 @@ const setCookie = (named, value, req, res) => {
 
 const getCookie = (named, req, res) => {
 	if (req && req.headers) {
-		const cookies = new ServerCookies(req, res, { secure: true })
+		const cookies = new ServerCookies(req, res, {
+			secure: true,
+			httpOnly: false
+		})
 		return cookies.get(named)
 	} else {
 		return ClientCookies.getItem(named)
@@ -85,7 +91,7 @@ const PageWrapper = Wrapped => {
 			if (jwt) {
 				try {
 					await store.dispatch(actions.auth.go(jwt))
-					setCookie('jwt', query.jwt, req, res)
+					setCookie('jwt', jwt, req, res)
 				} catch (err) {
 					debug(err)
 					debug('Error fetching user from jwt')
