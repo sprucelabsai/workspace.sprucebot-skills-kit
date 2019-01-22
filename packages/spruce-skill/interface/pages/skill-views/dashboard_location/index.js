@@ -41,8 +41,12 @@ class DashboardLocationPage extends React.Component {
 		return {}
 	}
 
-	componentWillMount() {
-		gqlClient.setToken(this.props.auth && this.props.auth.jwt)
+	constructor(props) {
+		super(props)
+
+		if (typeof window !== 'undefined') {
+			gqlClient.setToken(props.auth && props.auth.jwt)
+		}
 	}
 
 	async componentDidMount() {
