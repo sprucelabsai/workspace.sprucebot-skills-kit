@@ -17,8 +17,7 @@
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
-	"dependencies": {},
-	"devDependencies": {
+	"dependencies": {
 		"eslint-config-prettier": "^3.3.0",
 		"eslint-plugin-flowtype": "^3.2.0",
 		"eslint-plugin-jsx-a11y": "^6.1.2",
