@@ -30,7 +30,7 @@ var skill = {
   resized: function resized() {
     var body = document.body,
         html = document.documentElement;
-    var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight, this.minHeight);
+    var height = body.clientHeight;
 
     if (height > this.height + 10 || height < this.height - 10) {
       this.height = height;
