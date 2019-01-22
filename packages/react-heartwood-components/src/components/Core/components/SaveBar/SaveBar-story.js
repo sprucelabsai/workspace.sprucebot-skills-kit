@@ -29,6 +29,8 @@ stories
 			isVisible={boolean('isVisible', true)}
 			isSaving={boolean('isSaving', false)}
 			isDiscarding={boolean('isDiscarding', false)}
+			isSaveDisabled={boolean('isSaveDisabled', false)}
+			isDiscardDisabled={boolean('isDiscardDisabled', false)}
 			onDiscard={() => console.log('DISCARD')}
 			onSave={() => console.log('SAVE')}
 			STORYBOOKdoNotWrap
@@ -39,6 +41,8 @@ stories
 			isVisible={boolean('isVisible', true)}
 			isSaving={boolean('isSaving', false)}
 			isDiscarding={boolean('isDiscarding', false)}
+			isSaveDisabled={boolean('isSaveDisabled', false)}
+			isDiscardDisabled={boolean('isDiscardDisabled', false)}
 			onDiscard={() => console.log('DISCARD')}
 			onSave={() => console.log('SAVE')}
 			isSaving={true}
@@ -50,6 +54,8 @@ stories
 			isVisible={boolean('isVisible', true)}
 			isSaving={boolean('isSaving', false)}
 			isDiscarding={boolean('isDiscarding', false)}
+			isSaveDisabled={boolean('isSaveDisabled', false)}
+			isDiscardDisabled={boolean('isDiscardDisabled', false)}
 			onDiscard={() => console.log('DISCARD')}
 			onSave={() => console.log('SAVE')}
 			isDiscarding={true}

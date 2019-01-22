@@ -2,7 +2,6 @@
 import React from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
-import SaveBar from '../Core/components/SaveBar/SaveBar'
 import { Sidebar, SidebarFooter } from '../Core'
 import type { Node } from 'react'
 
@@ -22,12 +21,7 @@ type Props = {
 	isSidebarVisible?: boolean,
 	isSidebarExpanded?: boolean,
 	isSidebarMobileExpanded?: boolean,
-	searchPlaceholder?: string,
-	isSaveBarVisible?: boolean,
-	onSaveBarSave?: Function,
-	onSaveBarDiscard?: Function,
-	isSaveBarSaving?: boolean,
-	isSaveBarDiscarding?: boolean
+	searchPlaceholder?: string
 }
 
 const View = (props: Props) => {
@@ -43,11 +37,6 @@ const View = (props: Props) => {
 		isSidebarVisible,
 		isSidebarExpanded,
 		isSidebarMobileExpanded,
-		isSaveBarVisible,
-		onSaveBarSave,
-		onSaveBarDiscard,
-		isSaveBarSaving,
-		isSaveBarDiscarding,
 		toggleSidebarExpanded,
 		toggleSidebarVisibility,
 		forceCloseSidebar,
@@ -89,13 +78,6 @@ const View = (props: Props) => {
 				renderSearchSuggestion={renderSearchSuggestion}
 				onSearchSuggestionSelected={onSearchSuggestionSelected}
 				searchPlaceholder={searchPlaceholder}
-			/>
-			<SaveBar
-				isVisible={isSaveBarVisible}
-				onSaveBarSave={onSaveBarSave}
-				onSaveBarDiscard={onSaveBarDiscard}
-				isSaving={isSaveBarSaving}
-				isDiscarding={isSaveBarDiscarding}
 			/>
 			<main className="main-content">{children}</main>
 		</div>

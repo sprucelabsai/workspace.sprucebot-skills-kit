@@ -1,4 +1,5 @@
 .save-bar {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	display: flex;
 	position: fixed;
 	z-index: 2;
@@ -12,6 +13,8 @@
 	color: $c-text;
 	opacity: 0;
 	transition: all 300ms ease-out;
+	left: 0;
+	top: 0;
 }
 .save-bar--visible {
 	pointer-events: auto;

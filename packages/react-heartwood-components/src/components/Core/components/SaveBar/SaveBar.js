@@ -1,5 +1,6 @@
 // @flow
 import React from 'react'
+import ReactDOM from 'react-dom'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
 import { CSSTransition } from 'react-transition-group'
@@ -12,13 +13,19 @@ export type Props = {
 	message?: string,
 
 	/** Set to true to show the save bar */
-	isVisible?: boolean,
+	isVisible: boolean,
+
+	/** Set to true to disable the discard button */
+	isDiscardDisabled: Boolean,
+
+	/** Set to true to disable the save button */
+	isSaveDisabled: boolean,
 
 	/** Set to true while the discard action is being executed */
-	isDiscarding?: boolean,
+	isDiscarding: boolean,
 
 	/** Set to true while the save action is being executed */
-	isSaving?: boolean,
+	isSaving: boolean,
 
 	/** The function to execute when user selects discard */
 	onDiscard?: Function,
@@ -36,7 +43,9 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 		message: 'Unsaved changes',
 		isVisible: false,
 		isDiscarding: false,
-		isSaving: false
+		isSaving: false,
+		isDiscardDisabled: false,
+		isSaveDisabled: false
 	}
 
 	render() {
@@ -46,12 +55,17 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 			isVisible,
 			isDiscarding,
 			isSaving,
+			isDiscardDisabled,
+			isSaveDisabled,
 			onDiscard,
 			onSave
 		} = this.props
-		const classes = cx('')
 
-		return (
+		if (typeof document === 'undefined') {
+			return null
+		}
+
+		return ReactDOM.createPortal(
 			<CSSTransition
 				in={isVisible}
 				appear={true}
@@ -74,7 +88,7 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 								kind="simple"
 								text="Discard"
 								onClick={onDiscard}
-								disabled={isDiscarding || isSaving}
+								disabled={isDiscardDisabled || (isDiscarding || isSaving)}
 								isLoading={isDiscarding}
 								isSmall
 							/>
@@ -83,13 +97,14 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 							kind="primary"
 							text="Save"
 							onClick={onSave}
-							disabled={isDiscarding || isSaving}
+							disabled={isSaveDisabled || (isDiscarding || isSaving)}
 							isLoading={isSaving}
 							isSmall
 						/>
 					</div>
 				</div>
-			</CSSTransition>
+			</CSSTransition>,
+			document.body
 		)
 	}
 }
