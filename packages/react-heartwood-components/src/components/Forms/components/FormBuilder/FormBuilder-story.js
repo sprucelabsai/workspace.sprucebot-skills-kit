@@ -15,4 +15,18 @@ const stories = storiesOf('FormBuilder', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('Basic', () => <FormBuilder />)
+stories.add('Basic', () => (
+	<FormBuilder
+		rows={[
+			{
+				fields: [
+					{
+						element: 'textInput',
+						label: 'Base Price',
+						placeholder: '$20'
+					}
+				]
+			}
+		]}
+	/>
+))
