@@ -3,8 +3,11 @@ const path = require('path')
 const { omit, pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
+const cards = require('./cards')
 const packageJSON = require('../package.json')
-const HEARTWOOD_VERSION = require('@sprucelabs/heartwood-components').version
+const HEARTWOOD_VERSION = encodeURIComponent(
+	require('@sprucelabs/heartwood-components').version
+)
 // Check for .env
 try {
 	const path = `${__dirname}/../.env`
@@ -14,46 +17,13 @@ try {
 }
 
 module.exports = {
-	cards: {
-		exampleCard: {
-			meta: {
-				title: 'Example card in default config',
-				comment: 'This is a developer example card',
-				kind: 'standard', // standard, carousel, and appointment
-				slug: 'user_dashboard'
-			},
-			card: {
-				header: {
-					title: 'Example card in default config'
-				},
-				bodies: [
-					{
-						image: {
-							url: 'https://picsum.photos/720/360/?random',
-							text: 'Random image being set.',
-							width: 720,
-							heght: 360
-						}
-					}
-				],
-				footer: {
-					primary: {
-						text: 'Sprucebot Docs',
-						destination: {
-							url: 'https://docs.sprucebot.com',
-							target: '_blank'
-						}
-					}
-				}
-			}
-		}
-	},
-	DATABASE_URL_TESTING:
-		process.env.DATABASE_URL_TESTING || `sqlite:${__dirname}/../tmp/testing.db`,
+	cards: cards,
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
+	EVENT_VERSION: process.env.EVENT_VERSION ? +process.env.EVENT_VERSION : 1,
 	PACKAGE_NAME: packageJSON.name,
 	PACKAGE_VERSION: packageJSON.version,
+	VIEW_VERSION: process.env.VIEW_VERSION || 1,
 	LOG_LEVEL: process.env.LOG_LEVEL || 'warn',
 	LOG_USE_COLORS: process.env.LOG_USE_COLORS !== 'false',
 	METRICS_APP_KEY: process.env.METRICS_APP_KEY,
@@ -66,6 +36,9 @@ module.exports = {
 		process.env.METRICS_SERVER_STATS_DISABLED === 'true',
 	METRICS_SEQUELIZE_DISABLED: process.env.METRICS_SEQUELIZE_DISABLED === 'true',
 	API_HOST: process.env.API_HOST,
+	GRAPHQL_SUBSCRIPTIONS_URI: process.env.GRAPHQL_SUBSCRIPTIONS_URI,
+	GRAPHQL_LISTENERS_ENABLED: process.env.GRAPHQL_LISTENERS_ENABLED === 'true',
+	API_GRAPHQL_SUBSCRIPTIONS_URI: process.env.API_GRAPHQL_SUBSCRIPTIONS_URI,
 	API_KEY: process.env.API_KEY,
 	SKILL_STYLESHEET:
 		process.env.SKILL_STYLESHEET ||
@@ -97,6 +70,7 @@ module.exports = {
 	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
 	scopes: require('./scopes'),
+	auth: require('./auth'),
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
 		requests: {
@@ -108,17 +82,27 @@ module.exports = {
 		},
 		// These are the ACLs that this skill publishes
 		publishes: {
-			can_do_example: {
+			can_do_example_location: {
 				// The label will show up to describe this permission on the Organization Jobs management page
-				label: 'If the user can create an appointment for another user.',
+				label: 'If the user can do this example thing for a location.',
 				// The type may be "organization" or "location". This determines how the permission is checked.
 				type: 'location',
 				// The default permissions for this ACL will be used if it is not overridden on the Organization Jobs management page
 				defaults: {
 					guest: false,
-					teammate: false,
-					manager: false,
-					groupManager: false
+					teammate: true,
+					manager: true,
+					groupManager: true
+				}
+			},
+			can_do_example_organization: {
+				label: 'If the user can do this example thing for an organization.',
+				type: 'organization',
+				defaults: {
+					guest: false,
+					teammate: true,
+					manager: true,
+					groupManager: true
 				}
 			}
 		}
@@ -128,11 +112,18 @@ module.exports = {
 	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
 	eventContract: {
 		events: {
+			'get-settings': {
+				description: 'Core asks for settings to display on a page'
+			},
+			'validate-settings': {
+				description: 'Core asks for settings validation'
+			},
 			'get-views': {
 				description: 'Core asks for views to display on a page'
 			},
-			'get-page-cards': {
-				description: 'Core asks this skill to provide cards for a dashboard'
+			'get-cards': {
+				description: 'Core asks this skill to provide cards',
+				subscribe: true
 			}
 			// Other events we could subscribe to
 			// 'was-installed': {
@@ -231,6 +222,7 @@ module.exports = {
 			'ICON',
 			'DESCRIPTION',
 			'SERVER_HOST',
+			'GRAPHQL_SUBSCRIPTIONS_URI',
 			'SKILL_STYLESHEET',
 			'INTERFACE_SSL_ALLOW_SELF_SIGNED',
 			'VIMEO_ID',
@@ -244,6 +236,7 @@ module.exports = {
 			'ENV',
 			'METRICS_URL',
 			'METRICS_ENABLED',
-			'METRICS_BROWSER_STATS_ENABLED'
+			'METRICS_BROWSER_STATS_ENABLED',
+			'VIEW_VERSION'
 		])
 }

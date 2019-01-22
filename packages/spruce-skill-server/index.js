@@ -19,6 +19,7 @@ const listenersFactory = require('./factories/listeners')
 const sequelizeFactory = require('./factories/sequelize')
 const lang = require('./helpers/lang')
 const gqlRouter = require('./gql/router')
+const gqlListeners = require('./gql/listeners')
 
 const required = key => {
 	throw new Error(`SkillKit server needs ${key}`)
@@ -342,8 +343,6 @@ module.exports = async ({
 		throw err
 	}
 
-	gqlRouter(koa, gqlOptions)
-
 	/*======================================
         =          Client Side Routes          =
         ======================================*/
@@ -402,6 +401,9 @@ module.exports = async ({
         ======================================*/
 	// TODO better handling hosting only server or interface
 	const server = koa.listen(port, err => {
+		gqlRouter(koa, gqlOptions, server)
+		gqlListeners(koa, gqlOptions, server)
+
 		if (err) throw err
 		console.log(
 			` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`

@@ -63,7 +63,7 @@ module.exports = (
 
 	// All models available together <3
 	const models = coreModels.concat(skillModels).reduce((models, file) => {
-		var model = sequelize.import(file)
+		const model = require(file)(sequelize, Sequelize, ctx)
 		models[model.name] = model
 
 		if (!model.scopes) {

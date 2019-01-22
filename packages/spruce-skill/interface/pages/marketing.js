@@ -2,9 +2,10 @@ import React from 'react'
 import PageWrapper from '../containers/PageWrapper'
 import {
 	Page,
-	PageHeader,
 	PageContent,
-	BotText
+	BotText,
+	Layout,
+	LayoutSection
 } from '@sprucelabs/react-heartwood-components'
 import ReactDOM from 'react-dom'
 
@@ -61,23 +62,26 @@ class MarketingPage extends React.Component {
 
 	render() {
 		return (
-			<Page className="marketing">
-				<PageHeader title={this.props.name} />
+			<Page className="marketing" header={{ title: this.props.name }}>
 				<PageContent>
-					<div ref={this.containerDiv}>
-						<BotText>{this.props.description}</BotText>
-						{this.props.vimeoId && (
-							<iframe
-								width={this.state.videoWidth}
-								height={this.state.videoHeight}
-								className="vimeo"
-								title="Marketing"
-								src={`https://player.vimeo.com/video/${this.props.vimeoId}`}
-								frameBorder="0"
-								allowFullScreen
-							/>
-						)}
-					</div>
+					<Layout>
+						<LayoutSection>
+							<div ref={this.containerDiv}>
+								<BotText>{this.props.description}</BotText>
+								{this.props.vimeoId && (
+									<iframe
+										width={this.state.videoWidth}
+										height={this.state.videoHeight}
+										className="vimeo"
+										title="Marketing"
+										src={`https://player.vimeo.com/video/${this.props.vimeoId}`}
+										frameBorder="0"
+										allowFullScreen
+									/>
+								)}
+							</div>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)
