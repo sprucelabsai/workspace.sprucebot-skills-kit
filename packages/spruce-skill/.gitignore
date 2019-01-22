@@ -84,3 +84,5 @@ server/static/api-docs.json
 *.rej
 
 build/
+
+tmp/
