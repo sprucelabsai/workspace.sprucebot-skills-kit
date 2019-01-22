@@ -20,7 +20,8 @@ export {
 	FooterPrimary,
 	HeaderPrimary,
 	Sidebar,
-	SidebarSection
+	SidebarSection,
+	SaveBar
 } from './components/Core'
 export { default as Dropzone } from './components/Dropzone/Dropzone'
 export { default as FontLoader } from './components/FontLoader/FontLoader'
