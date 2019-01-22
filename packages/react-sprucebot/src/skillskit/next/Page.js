@@ -260,7 +260,7 @@ const Page = Wrapped => {
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
-						{this.state.isIframed ? (
+						{false && this.state.isIframed ? (
 							<style jsx global>{`
 								html,
 								body {
@@ -275,7 +275,7 @@ const Page = Wrapped => {
 			}
 			return (
 				<Container>
-					{this.state.isIframed ? (
+					{false && this.state.isIframed ? (
 						<style jsx global>{`
 							html,
 							body {

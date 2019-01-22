@@ -14,16 +14,19 @@ const skill = {
 	 * Called anytime a skill is resized to let the parent know what to set the height of the iframe to
 	 */
 	resized: function() {
-		var height = 0
-		var body = document.body
-		var docEl = document.documentElement
+		let body = document.body,
+			html = document.documentElement
 
-		var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop
-		var clientTop = docEl.clientTop || body.clientTop || 0
-		var top = scrollTop - clientTop
-		var height = Math.max(this.minHeight, top + body.clientHeight)
+		let height = Math.max(
+			body.scrollHeight,
+			body.offsetHeight,
+			html.clientHeight,
+			html.scrollHeight,
+			html.offsetHeight,
+			this.minHeight
+		)
 
-		if (height != this.height) {
+		if (height > this.height + 10 || height < this.height - 10) {
 			this.height = height
 			postMessage({
 				name: 'Skill:Resized',

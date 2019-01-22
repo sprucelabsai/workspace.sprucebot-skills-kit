@@ -208,7 +208,7 @@ var Page = function Page(Wrapped) {
         }
 
         if (this.props.config.DEV_MODE) {
-          return _react.default.createElement(_app.Container, null, this.state.isIframed ? _react.default.createElement("style", {
+          return _react.default.createElement(_app.Container, null, false && this.state.isIframed ? _react.default.createElement("style", {
             jsx: true,
             global: true
           }, "\n\t\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t") : null, _react.default.createElement(_DevControls.default, {
@@ -219,7 +219,7 @@ var Page = function Page(Wrapped) {
           })));
         }
 
-        return _react.default.createElement(_app.Container, null, this.state.isIframed ? _react.default.createElement("style", {
+        return _react.default.createElement(_app.Container, null, false && this.state.isIframed ? _react.default.createElement("style", {
           jsx: true,
           global: true
         }, "\n\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t") : null, _react.default.createElement(ConnectedWrapped, (0, _extends2.default)({}, this.props, {
