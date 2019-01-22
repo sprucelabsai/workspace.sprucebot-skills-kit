@@ -24,7 +24,7 @@ function reducer() {
       });
 
     case _auth.GO_AUTH_SUCCESS:
-      return (0, _objectSpread2.default)({}, state, action.result, {
+      return (0, _objectSpread2.default)({}, state, {}, action.result, {
         authing: false
       });
 
@@ -42,7 +42,7 @@ function reducer() {
         user = updatedUser;
       }
 
-      return (0, _objectSpread2.default)({}, state, user);
+      return (0, _objectSpread2.default)({}, state, {}, user);
 
     default:
       return state;

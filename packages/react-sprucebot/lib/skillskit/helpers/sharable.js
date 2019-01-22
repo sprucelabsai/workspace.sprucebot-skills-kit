@@ -84,7 +84,7 @@ var _default = function _default(config, Sharable) {
       });
     }
 
-    return (0, _objectSpread2.default)({}, actions, newActions);
+    return (0, _objectSpread2.default)({}, actions, {}, newActions);
   };
 
   return (

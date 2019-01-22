@@ -155,5 +155,5 @@ var Sprucebot = (0, _objectSpread2.default)({
   ControlButton: _ControlButton.default,
   Search: _Search.default,
   sharable: _sharable.default
-}, Typography, List, Tabs, ButtonGrid);
+}, Typography, {}, List, {}, Tabs, {}, ButtonGrid);
 module.exports = Sprucebot;

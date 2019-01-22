@@ -44,7 +44,7 @@ function createStore(_ref) {
       allowSelfSignedCerts: config.INTERFACE_SSL_ALLOW_SELF_SIGNED
     });
     var enhancer = composeEnhancers((0, _redux.applyMiddleware)((0, _clientApiMiddleware.default)(client), (0, _loggerMiddleware.default)()));
-    var allReducers = (0, _objectSpread2.default)({}, _reducers.default, reducers);
+    var allReducers = (0, _objectSpread2.default)({}, _reducers.default, {}, reducers);
     var store = (0, _redux.createStore)((0, _redux.combineReducers)(allReducers), (0, _objectSpread2.default)({}, initialState, {
       config: config
     }), enhancer);
@@ -86,7 +86,7 @@ function withStore(Component, _ref2) {
   var actions = _ref2.actions,
       reducers = _ref2.reducers,
       config = _ref2.config;
-  var unboundActions = (0, _objectSpread2.default)({}, _actions.default, actions);
+  var unboundActions = (0, _objectSpread2.default)({}, _actions.default, {}, actions);
 
   var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     var map = {};

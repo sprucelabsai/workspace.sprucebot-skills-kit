@@ -52,7 +52,7 @@ function (_Component) {
       };
       return _react.default.createElement("span", {
         className: "loader_wrapper",
-        style: (0, _objectSpread2.default)({}, fullWidthStyle, this.props.loaderStyle)
+        style: (0, _objectSpread2.default)({}, fullWidthStyle, {}, this.props.loaderStyle)
       }, _react.default.createElement("span", {
         className: dotClassName
       }), _react.default.createElement("span", {

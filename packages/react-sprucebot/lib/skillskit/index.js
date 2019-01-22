@@ -205,9 +205,11 @@ var skill = {
       }, _callee, this);
     }));
 
-    return function showHelp(_x) {
+    function showHelp(_x) {
       return _showHelp.apply(this, arguments);
-    };
+    }
+
+    return showHelp;
   }(),
   handleIframeMessage: function handleIframeMessage(e) {
     if (typeof e.data === 'string') {
@@ -324,9 +326,11 @@ var skill = {
       }, _callee2, this);
     }));
 
-    return function confirm(_x2) {
+    function confirm(_x2) {
       return _confirm.apply(this, arguments);
-    };
+    }
+
+    return confirm;
   }(),
 
   /**

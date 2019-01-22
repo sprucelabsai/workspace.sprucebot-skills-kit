@@ -27,7 +27,7 @@ var _default = {
   },
   getText: function getText(key) {
     var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var translations = (0, _objectSpread2.default)({}, this.lang, this.overrides, context);
+    var translations = (0, _objectSpread2.default)({}, this.lang, {}, this.overrides, {}, context);
 
     if (translations[key]) {
       return typeof translations[key] === 'function' ? translations[key](translations) : translations[key];

@@ -338,7 +338,7 @@ function (_Component) {
               };
 
               _this.setState({
-                optionsLoaded: (0, _toConsumableArray2.default)(optionsLoaded).concat([options]),
+                optionsLoaded: [].concat((0, _toConsumableArray2.default)(optionsLoaded), [options]),
                 isFetchingEvents: true
               });
 
@@ -498,7 +498,7 @@ function (_Component) {
         };
       });
       var day = selectedDate.format('YYYY-MM-DD');
-      var combinedTimes = (0, _toConsumableArray2.default)(storeSchedule).concat((0, _toConsumableArray2.default)(adjustedEvents.filter(function (event) {
+      var combinedTimes = [].concat((0, _toConsumableArray2.default)(storeSchedule), (0, _toConsumableArray2.default)(adjustedEvents.filter(function (event) {
         if (event.startTime && event.endTime) {
           return event;
         }
