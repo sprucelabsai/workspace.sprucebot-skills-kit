@@ -35,9 +35,7 @@ class TestSkillView extends React.Component<Props> {
 		if (props.auth && props.auth.User) {
 			console.log('a user is logged in!')
 		}
-		return {
-			redirect: '/skill-views/skill_settings_org/index2'
-		}
+		return {}
 	}
 
 	async componentDidMount() {
