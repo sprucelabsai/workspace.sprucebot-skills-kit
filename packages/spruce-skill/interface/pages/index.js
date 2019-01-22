@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import Link from 'next/link'
 import PageWrapper from '../containers/PageWrapper'
 import {
 	Page,
@@ -98,10 +97,12 @@ class DeveloperPage extends React.Component {
 							{props.auth &&
 								props.auth.acl &&
 								Object.keys(props.auth.acl).map(slug => (
-									<Fragment>
+									<Fragment key={`slug-${slug}`}>
 										<Heading>{slug}</Heading>
 										{Object.keys(props.auth.acl[slug]).map(perm => (
-											<Text>{`${perm}: ${props.auth.acl[slug][perm]}`}</Text>
+											<Text key={`slugPermission-${slug}-${perm}`}>{`${perm}: ${
+												props.auth.acl[slug][perm]
+											}`}</Text>
 										))}
 									</Fragment>
 								))}

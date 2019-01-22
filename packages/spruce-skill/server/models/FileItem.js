@@ -1,9 +1,9 @@
 // 🌲🤖 This is a core model, available if DB_ENABLED=true
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
-const config = require('config')
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
+// const config = require('config')
+// const Sequelize = require('sequelize')
+// const Op = Sequelize.Op
 
 const modelName = 'FileItem'
 

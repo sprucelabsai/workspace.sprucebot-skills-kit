@@ -4,11 +4,11 @@ const config = require('config')
 const withSass = require('@zeit/next-sass')
 const withCSS = require('@zeit/next-css')
 
-function server(webpack, options) {
+function server(webpack) {
 	return webpack
 }
 
-function client(webpack, options) {
+function client(webpack) {
 	const jsonPath = path.resolve(__dirname, './client.json')
 	// Remove sensitive keys
 	const clientConfig = config.sanitizeClientConfig({ ...config })
@@ -44,7 +44,7 @@ function client(webpack, options) {
 	return webpack
 }
 
-function shared(webpack, options) {
+function shared(webpack) {
 	return webpack
 }
 

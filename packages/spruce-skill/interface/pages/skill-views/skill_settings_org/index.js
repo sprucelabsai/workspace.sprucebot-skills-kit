@@ -1,5 +1,5 @@
 // @flow
-import React, { Fragment } from 'react'
+import React from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
 	Page,
@@ -9,8 +9,7 @@ import {
 	Layout,
 	LayoutSection
 } from '@sprucelabs/react-heartwood-components'
-import request from 'superagent'
-import { gqlClient, settings } from '@sprucelabs/spruce-next-helpers'
+import { gqlClient } from '@sprucelabs/spruce-next-helpers'
 import { Subscription } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -38,8 +37,12 @@ class TestSkillView extends React.Component<Props> {
 		return {}
 	}
 
-	componentWillMount() {
-		gqlClient.setToken(this.props.auth && this.props.auth.jwt)
+	constructor(props) {
+		super(props)
+
+		if (typeof window !== 'undefined') {
+			gqlClient.setToken(props.auth && props.auth.jwt)
+		}
 	}
 
 	async componentDidMount() {
@@ -61,7 +64,6 @@ class TestSkillView extends React.Component<Props> {
 	}
 
 	render() {
-		const { auth } = this.props
 		return (
 			<Page className="dashboard-location-page">
 				<PageContent>
@@ -71,15 +73,17 @@ class TestSkillView extends React.Component<Props> {
 							{typeof window !== 'undefined' && (
 								<Subscription
 									client={gqlClient.client}
-									onSubscriptionData={options => {
-										// You can process data here outside of rendering if necessary
-									}}
+									onSubscriptionData={
+										(/* options */) => {
+											// You can process data here outside of rendering if necessary
+										}
+									}
 									subscription={EXAMPLE_SUBSCRIPTION}
 									variables={{}}
 									fetchPolicy={'no-cache'}
 									shouldResubscribe={true}
 								>
-									{({ data, loading, err }) => {
+									{({ data, err }) => {
 										if (err) {
 											return (
 												<Text>{`Error getting data from Subscription`}</Text>

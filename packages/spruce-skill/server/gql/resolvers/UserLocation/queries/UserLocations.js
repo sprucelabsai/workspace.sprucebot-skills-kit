@@ -1,11 +1,6 @@
 // @flow
 const config = require('config')
-const {
-	GraphQLString,
-	GraphQLNonNull,
-	GraphQLList,
-	GraphQLObjectType
-} = require('graphql')
+const { GraphQLString, GraphQLList } = require('graphql')
 const { Op } = require('sequelize')
 const { resolver, defaultListArgs } = require('graphql-sequelize')
 

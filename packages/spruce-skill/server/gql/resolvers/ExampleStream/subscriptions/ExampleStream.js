@@ -1,7 +1,7 @@
 // @flow
-const config = require('config')
-const { GraphQLList, GraphQLString, GraphQLObjectType } = require('graphql')
-const { defaultListArgs } = require('graphql-sequelize')
+// const config = require('config')
+const { GraphQLString, GraphQLObjectType } = require('graphql')
+// const { defaultListArgs } = require('graphql-sequelize')
 
 const EXAMPLE_STREAM = 'EXAMPLE_STREAM'
 
@@ -26,7 +26,7 @@ module.exports = ctx => {
 
 	const subscriptions = {
 		ExampleStream: {
-			subscribe: (payload, args, context, info) => {
+			subscribe: (payload, args, context /* , info */) => {
 				/*
 					You can check for authorization here. The params are extracted from a valid JWT token sent in the header with format of:
 					"Authorization": "JWT <token>"
@@ -48,10 +48,10 @@ module.exports = ctx => {
 			type: responseType,
 			args: {},
 			async resolve(
-				payload: Object,
-				args: Object,
-				context: Object,
-				info: Object
+				payload: Object
+				// args: Object,
+				// context: Object,
+				// info: Object
 			) {
 				// Just pass through the payload from the event that was triggered in server/gql/listeners/exampleListener.js
 				return payload
