@@ -22,8 +22,7 @@ import { SpruceWebError } from './errors'
 type GraphQLOperationProps = {|
 	variables?: any,
 	query?: string,
-	mutation?: string,
-	token?: string
+	mutation?: string
 |}
 
 // Stub logging so that it works if you don't have
@@ -44,6 +43,7 @@ if (global && global.log) {
 
 export class GraphQLClient {
 	client: any
+	token: ?string
 
 	constructor({
 		rejectUnauthorized,
@@ -71,7 +71,15 @@ export class GraphQLClient {
 			const wsLink = new WebSocketLink({
 				uri: wsUri,
 				options: {
-					reconnect: true
+					reconnect: true,
+					lazy: true,
+					connectionParams: () => {
+						if (this.token) {
+							return {
+								Authorization: `JWT ${this.token}`
+							}
+						}
+					}
 				}
 			})
 
@@ -127,6 +135,10 @@ export class GraphQLClient {
 		})
 	}
 
+	setToken(token: string) {
+		this.token = token
+	}
+
 	operation = async (
 		{ token, ...options }: GraphQLOperationProps,
 		operationType: 'query' | 'mutation'
@@ -147,6 +159,8 @@ export class GraphQLClient {
 			)
 		}
 
+		let jwtToken = token || this.token
+
 		try {
 			response = await this.client[clientMethod]({
 				...options,
@@ -162,7 +176,7 @@ export class GraphQLClient {
 					`,
 				context: {
 					headers: {
-						Authorization: token ? `JWT ${token}` : null
+						Authorization: jwtToken ? `JWT ${jwtToken}` : undefined
 					}
 				}
 			})

@@ -32,6 +32,7 @@ module.exports = ctx => {
 					"Authorization": "JWT <token>"
 
 					The fields that could be set are:
+					context.ctx - The underlying server context where you can make queries like "context.ctx.db.models.User.findOne(...)"
 					context.userId
 					context.locationId
 					context.organizationId
