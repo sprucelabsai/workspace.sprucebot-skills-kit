@@ -5,11 +5,6 @@ export const GO_AUTH_ERROR = 'auth/GO_AUTH_ERROR'
 export function go(jwt) {
 	return {
 		types: [GO_AUTH_REQUEST, GO_AUTH_SUCCESS, GO_AUTH_ERROR],
-		promise: client =>
-			client.post(`/api/1.0/auth.json`, {
-				body: {
-					jwt
-				}
-			})
+		promise: client => client.get(`/api/1.0/auth/${jwt}.json`)
 	}
 }
