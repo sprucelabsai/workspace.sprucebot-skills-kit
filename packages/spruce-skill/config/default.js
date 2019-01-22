@@ -44,6 +44,8 @@ module.exports = {
 		process.env.SKILL_STYLESHEET ||
 		`https://cdn.spruce.ai/stylesheets/${HEARTWOOD_VERSION ||
 			'latest'}/heartwood-components.min.css`,
+	DATABASE_URL_TESTING:
+		process.env.DATABASE_URL_TESTING || `sqlite:${__dirname}/../tmp/testing.db`,
 	ID: process.env.ID,
 	NAME: process.env.NAME,
 	SLUG: process.env.SLUG,

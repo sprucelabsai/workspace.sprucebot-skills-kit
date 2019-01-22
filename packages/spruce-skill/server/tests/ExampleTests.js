@@ -20,6 +20,8 @@ class ExampleTests extends Base {
 	}
 
 	async trivialAssert() {
+		const location = await this.koa.context.db.models.Location.findOne()
+		console.log({ location })
 		assert.isTrue(true)
 	}
 }

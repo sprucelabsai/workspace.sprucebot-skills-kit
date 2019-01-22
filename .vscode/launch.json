@@ -37,12 +37,13 @@
 			"cwd": "${workspaceRoot}",
 			"env": {
 				// "NODE_ENV": "local",
-				"DEBUG": "config",
+				"DEBUG": "config spruce-skill-server",
 				"NODE_CONFIG_DIR": "${workspaceRoot}/packages/spruce-skill/config",
 				"PORT": "8010",
 				"BLUEBIRD_W_FORGOTTEN_RETURN": "0",
 				"ALLOW_NON_SSL": "true",
 				"ORM_LOGGING": "true",
+				"API_ONLY": "true",
 				"TESTING": "true",
 				"DISABLE_MIGRATIONS": "true"
 			}

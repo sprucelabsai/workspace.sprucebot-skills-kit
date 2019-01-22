@@ -3,7 +3,6 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 const globby = require('globby')
 const faker = require('faker')
 const supertest = require('supertest')
-// const PhoneNumberParser = require('../server/lib/PhoneNumberParser');
 
 // The base test model that all others will extend
 module.exports = class Base {
@@ -26,7 +25,7 @@ module.exports = class Base {
 				payload
 			},
 			db: {
-				models: this.app.context.db.models
+				models: this.koa.context.db.models
 			},
 			body: {}
 		}
@@ -40,7 +39,7 @@ module.exports = class Base {
 			for (let i = 0; i < mocks.length; i += 1) {
 				// $FlowIgnore
 				const Mock = require(mocks[i])
-				const mock = new Mock(this.app)
+				const mock = new Mock(this.koa)
 				this.mocks[mock.key] = mock
 				await mock.setup(options)
 			}
@@ -56,8 +55,10 @@ module.exports = class Base {
 	async beforeBase(options?: Object) {
 		try {
 			// $FlowIgnore
-			const server = await require(`${__dirname}/../server`)
+			const { koa, server } = await require(`${__dirname}/../server`)
+			// const server = await require(`${__dirname}/../server`)
 			this.server = server
+			this.koa = koa
 			this.request = supertest(this.server)
 
 			if (!options || !options.disableMocks) {
