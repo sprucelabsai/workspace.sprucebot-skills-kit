@@ -5,12 +5,12 @@ Enzyme.configure({ adapter: new Adapter() })
 
 // Mock the global logger that is always available
 global.log = {
-	trace: () => console.log('trace', arguments),
-	debug: () => console.log('debug', arguments),
-	info: () => console.log('info', arguments),
-	warn: () => console.log('warn', arguments),
-	crit: () => console.log('crit', arguments),
-	error: () => console.log('error', arguments),
-	superInfo: () => console.log('superInfo', arguments),
-	metric: () => console.log('metric', arguments)
+	trace: (...args) => console.log('trace', args),
+	debug: (...args) => console.log('debug', args),
+	info: (...args) => console.log('info', args),
+	warn: (...args) => console.log('warn', args),
+	crit: (...args) => console.log('crit', args),
+	error: (...args) => console.log('error', args),
+	superInfo: (...args) => console.log('superInfo', args),
+	metric: (...args) => console.log('metric', args)
 }

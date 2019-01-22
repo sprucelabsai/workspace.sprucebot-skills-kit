@@ -1,7 +1,6 @@
 // @flow
 const config = require('config')
 const { GraphQLList, GraphQLString } = require('graphql')
-const { Op } = require('sequelize')
 const { resolver, defaultListArgs } = require('graphql-sequelize')
 
 module.exports = ctx => {

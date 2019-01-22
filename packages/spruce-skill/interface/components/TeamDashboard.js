@@ -4,7 +4,6 @@ import moment from 'moment-timezone'
 import {
 	H1,
 	BotText,
-	Paragraph as P,
 	Tabs,
 	TabPane,
 	SectionHeading,
@@ -68,12 +67,12 @@ export default class TeamDashboard extends Component {
 						{guestsError && (
 							<BotText>{lang.getText('errorLoadingGuests')}</BotText>
 						)}
-						{guests &&
-							guests.length === 0 && (
-								<BotText>{lang.getText('noGuestsBotText', { auth })}</BotText>
-							)}
-						{guests &&
-							guests.length > 0 && <List>{this.userListItems(guests)}</List>}
+						{guests && guests.length === 0 && (
+							<BotText>{lang.getText('noGuestsBotText', { auth })}</BotText>
+						)}
+						{guests && guests.length > 0 && (
+							<List>{this.userListItems(guests)}</List>
+						)}
 					</TabPane>
 					<TabPane title={lang.getText('teammatesTabTitle')}>
 						{teammatesLoading && <Loader />}

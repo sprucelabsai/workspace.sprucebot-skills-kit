@@ -4,6 +4,7 @@
 	"name": "workspace.sprucebot-skills-kit",
 	"workspaces": [
 		"packages/eslint-plugin-spruce",
+		"packages/eslint-config-spruce",
 		"packages/heartwood-components",
 		"packages/react-heartwood-components",
 		"packages/spruce-next-helpers",

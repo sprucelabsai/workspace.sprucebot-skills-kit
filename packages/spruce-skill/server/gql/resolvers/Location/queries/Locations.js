@@ -18,7 +18,7 @@ module.exports = ctx => {
 				}
 			},
 			resolve: ctx.gql.helpers.resolver(ctx.db.models.Location, {
-				before: async (findOptions, args, context, info) => {
+				before: async (findOptions, args, context /* , info */) => {
 					if (!context.scopes) {
 						context.scopes = {}
 					}
