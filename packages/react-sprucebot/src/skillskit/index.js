@@ -17,14 +17,7 @@ const skill = {
 		let body = document.body,
 			html = document.documentElement
 
-		let height = Math.max(
-			body.scrollHeight,
-			body.offsetHeight,
-			html.clientHeight,
-			html.scrollHeight,
-			html.offsetHeight,
-			this.minHeight
-		)
+		let height = body.clientHeight
 
 		if (height > this.height + 10 || height < this.height - 10) {
 			this.height = height
