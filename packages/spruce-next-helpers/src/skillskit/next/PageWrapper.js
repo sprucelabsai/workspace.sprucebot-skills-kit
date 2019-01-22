@@ -87,7 +87,6 @@ const PageWrapper = Wrapped => {
 
 			const jwt = query.jwt || getCookie('jwt', req, res)
 
-			debugger //eslint-disable-line
 			// authv1
 			if (jwt) {
 				try {
