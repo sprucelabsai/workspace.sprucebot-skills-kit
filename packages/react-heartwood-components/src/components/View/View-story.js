@@ -20,6 +20,7 @@ import Heading from '../Heading/Heading'
 import Subheading from '../Subheading/Subheading'
 import Icon from '../Icon/Icon'
 import Avatar from '../Avatar/Avatar'
+import SaveBar from '../Core/components/SaveBar/SaveBar'
 
 import View from './View.js'
 import simple from 'graphql-query-complexity/dist/estimators/simple'
@@ -311,6 +312,22 @@ stories
 					title: 'Hello Human'
 				}}
 			/>
+		</View>
+	))
+	.add('Save Bar', () => (
+		<View
+			STORYBOOKdoNotWrap
+			sidebarItems={personalItems}
+			user={user}
+			business={business}
+			isSidebarExpanded
+		>
+			<Page
+				header={{
+					title: 'Hello Human'
+				}}
+			/>
+			<SaveBar isVisible={boolean('isVisible', true)} />
 		</View>
 	))
 	.add('Skill View', () => <SkillViewExample STORYBOOKdoNotWrap />)
