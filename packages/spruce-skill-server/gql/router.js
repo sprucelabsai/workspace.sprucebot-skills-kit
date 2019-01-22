@@ -119,7 +119,10 @@ module.exports = (koa, gqlOptions, server) => {
 							simpleEstimator({ defaultComplexity: 1 })
 						],
 						maximumComplexity: config.GRAPHQL_MAX_COMPLEXITY,
-						variables: {},
+						variables:
+							request.body && request.body.variables
+								? request.body.variables
+								: {},
 						onComplete: complexity => {
 							ctx.queryCost = complexity
 						}
