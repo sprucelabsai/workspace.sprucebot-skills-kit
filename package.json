@@ -20,7 +20,6 @@
 		"heroku-postbuild": "npm run build",
 		"test": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node",
 		"test:update": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node -- -u",
-		"prepush": "npm run lint && npm run test",
 		"publish": "lerna publish --log-level=silly",
 		"clean": "rm -rf node_modules/ && rm -rf packages/react-sprucebot/node_modules/ && rm -rf packages/sprucebot-node/node_modules/ && rm -rf packages/sprucebot-skills-kit/node_modules/ && rm -rf packages/sprucebot-skills-kit-server/node_modules/"
 	},
