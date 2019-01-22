@@ -1,6 +1,5 @@
 // @flow
 import React, { Fragment } from 'react'
-import PageWrapper from '../../containers/PageWrapper'
 import {
 	Page,
 	PageContent,
@@ -14,7 +13,8 @@ import { gqlClient, settings } from '@sprucelabs/spruce-next-helpers'
 import { Subscription } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import type { WrappedInitialProps } from '../../containers/PageWrapper'
+import PageWrapper from '../../../containers/PageWrapper'
+import type { WrappedInitialProps } from '../../../containers/PageWrapper'
 
 const EXAMPLE_SUBSCRIPTION = gql`
 	subscription ExampleStream {
@@ -35,7 +35,9 @@ class TestSkillView extends React.Component<Props> {
 		if (props.auth && props.auth.User) {
 			console.log('a user is logged in!')
 		}
-		return {}
+		return {
+			redirect: '/skill-views/skill_settings_org/index2'
+		}
 	}
 
 	async componentDidMount() {
