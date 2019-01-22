@@ -155,8 +155,8 @@ function (_Component) {
       var usingLink = false;
 
       if (href || remove) {
-        Tag = _router.default.router ? _link.default : 'a';
-        usingLink = _router.default.router;
+        Tag = _router.default.router && false ? _link.default : 'a';
+        usingLink = false; //SingletonRouter.router
       } else if (tag === 'button') {
         Tag = 'button';
       } else {

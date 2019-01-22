@@ -153,8 +153,8 @@ export default class Button extends Component<Props, State> {
 		let usingLink = false
 
 		if (href || remove) {
-			Tag = SingletonRouter.router ? Link : 'a'
-			usingLink = SingletonRouter.router
+			Tag = SingletonRouter.router && false ? Link : 'a'
+			usingLink = false //SingletonRouter.router
 		} else if (tag === 'button') {
 			Tag = 'button'
 		} else {
