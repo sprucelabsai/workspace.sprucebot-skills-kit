@@ -118,6 +118,8 @@ module.exports = (router, options) => {
 		await next()
 	}
 
+	router.param('jwt', auth)
+
 	router.use('/api/1.0/*', auth)
 	router.use('/api/2.0/*', authV2)
 
