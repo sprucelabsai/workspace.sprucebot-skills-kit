@@ -13,7 +13,7 @@ import { gqlClient } from '@sprucelabs/spruce-next-helpers'
 import { Subscription } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import type { WrappedInitialProps } from '../../containers/PageWrapper'
+import type { WrappedInitialProps } from '../../../containers/PageWrapper'
 
 const EXAMPLE_SUBSCRIPTION = gql`
 	subscription ExampleStream {

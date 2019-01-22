@@ -37,7 +37,7 @@ module.exports = async (ctx: Object, next: Function) => {
 						id: 'uniqueId',
 						title: 'Example Skill Setting',
 						host,
-						path: '/skill-views/example'
+						path: '/skill-views/skill_settings_org'
 					})
 				}
 
