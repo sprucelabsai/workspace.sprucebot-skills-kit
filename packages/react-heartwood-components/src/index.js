@@ -28,6 +28,7 @@ export {
 	Autosuggest,
 	Checkbox,
 	DomainInput,
+	FormBuilder,
 	PhoneInput,
 	Radio,
 	Search,
