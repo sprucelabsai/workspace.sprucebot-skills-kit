@@ -35,6 +35,7 @@ class TestSkillView extends React.Component<Props> {
 		if (props.auth && props.auth.User) {
 			console.log('a user is logged in!')
 		}
+
 		return {}
 	}
 
