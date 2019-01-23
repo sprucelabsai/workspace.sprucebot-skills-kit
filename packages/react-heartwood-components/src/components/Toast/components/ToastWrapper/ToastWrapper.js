@@ -12,26 +12,28 @@ type Props = {
 	handleRemove: Function
 }
 
-const ToastWrapper = (props: Props) => {
-	const { toasts, handleRemove } = props
+type State = {}
 
-	return (
-		<div className="toasts-wrapper">
-			<VelocityTransitionGroup
-				enter={{ animation: { opacity: 1, translateX: 0 }, duration: 300 }}
-				leave={{
-					animation: { opacity: 0, translateX: '-4px' },
-					duration: 0
-				}}
-			>
-				{toasts.map(toast => (
-					<div key={toast.id} className="toast-wrapper">
-						<Toast onRemove={() => handleRemove(toast.id)} {...toast} />
-					</div>
-				))}
-			</VelocityTransitionGroup>
-		</div>
-	)
+export default class ToastWrapper extends Component<Props, State> {
+	render() {
+		const { toasts, handleRemove } = this.props
+
+		return (
+			<div className="toasts-wrapper">
+				<VelocityTransitionGroup
+					enter={{ animation: { opacity: 1, translateX: 0 }, duration: 300 }}
+					leave={{
+						animation: { opacity: 0, translateX: '-4px' },
+						duration: 0
+					}}
+				>
+					{toasts.map(toast => (
+						<div key={toast.id} className="toast-wrapper">
+							<Toast onRemove={() => handleRemove(toast.id)} {...toast} />
+						</div>
+					))}
+				</VelocityTransitionGroup>
+			</div>
+		)
+	}
 }
-
-export default ToastWrapper

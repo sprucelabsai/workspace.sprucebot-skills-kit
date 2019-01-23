@@ -42,6 +42,11 @@ class ToastExample extends Component<Props, State> {
 			positive: 'You did something amazing. Congrats!',
 			negative: 'Run away! This is awful.'
 		}
+		const timeouts = {
+			neutral: false,
+			positive: 1000,
+			negative: 4000
+		}
 		this.setState(prevState => {
 			const newToasts = [...prevState.toasts]
 			newToasts.push({
@@ -49,7 +54,8 @@ class ToastExample extends Component<Props, State> {
 				text: texts[kind],
 				kind,
 				id: ids[kind],
-				onUndo: showUndo ? () => console.log('Undo') : null
+				onUndo: showUndo ? () => console.log('Undo') : null,
+				timeout: timeouts[kind]
 			})
 			return {
 				toasts: newToasts
