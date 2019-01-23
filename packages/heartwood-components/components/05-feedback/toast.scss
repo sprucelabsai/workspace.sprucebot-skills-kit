@@ -3,19 +3,20 @@
 	display: inline-block;
 	min-width: rem(288);
 	padding: spacing('tight');
-	border: 1px solid $c-border;
+	// border: 1px solid $c-border;
 	border-radius: 2px;
-	background-color: $c-white;
+	background-color: $c-text;
+	color: $c-white;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
 	&.toast-negative {
-		background-color: $c-ui-critical-light;
-		border-color: $c-ui-critical;
+		background-color: $c-ui-critical-dark;
+		// border-color: $c-ui-critical;
 	}
 
 	&.toast-positive {
-		background-color: $c-ui-online-lighter;
-		border-color: $c-ui-online;
+		background-color: $c-ui-online-dark;
+		// border-color: $c-ui-online;
 	}
 
 	.btn {
@@ -47,6 +48,12 @@
 		.btn__inner {
 			align-items: flex-start;
 		}
+	}
+
+	.btn__icon {
+		width: rem(16);
+		height: rem(16);
+		fill: rgba($c-white, 0.8);
 	}
 }
 
