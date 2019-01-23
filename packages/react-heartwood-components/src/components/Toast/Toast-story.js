@@ -86,7 +86,10 @@ stories.addDecorator(withKnobs)
 stories.add('Toast', () => (
 	<ToastExample
 		headline={text('headline', 'Neat')}
-		text={text('text', 'Something just happened and it was fine')}
+		text={text(
+			'text',
+			'Something just happened and it was fine. Something just happened and it was fine. Something just happened and it was fine. Something just happened and it was fine'
+		)}
 		showUndo={boolean('showUndo', false)}
 	/>
 ))

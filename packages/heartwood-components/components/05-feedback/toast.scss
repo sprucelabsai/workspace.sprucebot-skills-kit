@@ -2,8 +2,8 @@
 	@include type-style-body-sm;
 	display: inline-block;
 	min-width: rem(288);
+	max-width: rem(400);
 	padding: spacing('tight');
-	// border: 1px solid $c-border;
 	border-radius: 2px;
 	background-color: $c-text;
 	color: $c-white;
@@ -11,12 +11,10 @@
 
 	&.toast-negative {
 		background-color: $c-ui-critical-dark;
-		// border-color: $c-ui-critical;
 	}
 
 	&.toast-positive {
 		background-color: $c-ui-online-dark;
-		// border-color: $c-ui-online;
 	}
 
 	.btn {
@@ -29,6 +27,10 @@
 		.btn__inner {
 			align-items: flex-end;
 		}
+	}
+
+	@include gt('small') {
+		margin-right: spacing('tight');
 	}
 }
 
@@ -43,7 +45,6 @@
 		padding: 0;
 		min-width: 0;
 		height: rem(20);
-		color: $c-primary;
 
 		.btn__inner {
 			align-items: flex-start;
@@ -58,9 +59,14 @@
 }
 
 .toasts-wrapper {
-	position: absolute;
-	bottom: spacing('base');
-	left: spacing('base');
+	position: fixed;
+	bottom: 0;
+	left: 0;
+
+	@include gt('small') {
+		bottom: spacing('base');
+		left: spacing('base');
+	}
 }
 
 .toast-wrapper + .toast-wrapper {
