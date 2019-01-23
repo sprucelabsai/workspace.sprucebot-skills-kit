@@ -30,7 +30,7 @@ export default class ToastWrapper extends Component<Props, State> {
 		const uniqToasts = uniqBy(props.toasts, 'id')
 		let timeouts = { ...state.timeouts }
 		uniqToasts.forEach(toast => {
-			if (toast.timeout !== 'never' && !state.timeouts[toast.id]) {
+			if (toast.timeout !== 'never') {
 				timeouts[toast.id] = setTimeout(
 					() => {
 						props.handleRemove(toast.id)
@@ -42,8 +42,17 @@ export default class ToastWrapper extends Component<Props, State> {
 		return { toasts: uniqToasts, timeouts }
 	}
 
+	onRemoveClick = (id: string) => {
+		const { timeouts } = this.state
+		const { handleRemove } = this.props
+		if (timeouts[id]) {
+			clearTimeout(timeouts[id])
+		}
+		handleRemove(id)
+	}
+
 	render() {
-		const { toasts, handleRemove } = this.props
+		const { toasts } = this.props
 
 		return (
 			<div className="toasts-wrapper">
@@ -56,7 +65,7 @@ export default class ToastWrapper extends Component<Props, State> {
 				>
 					{toasts.map(toast => (
 						<div key={toast.id} className="toast-wrapper">
-							<Toast onRemove={() => handleRemove(toast.id)} {...toast} />
+							<Toast onRemove={() => this.onRemoveClick(toast.id)} {...toast} />
 						</div>
 					))}
 				</VelocityTransitionGroup>

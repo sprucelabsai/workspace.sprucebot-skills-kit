@@ -45,7 +45,7 @@ class ToastExample extends Component<Props, State> {
 		const timeouts = {
 			neutral: 'never',
 			positive: 10000,
-			negative: 4000
+			negative: 3000
 		}
 		this.setState(prevState => {
 			const newToasts = [...prevState.toasts]
