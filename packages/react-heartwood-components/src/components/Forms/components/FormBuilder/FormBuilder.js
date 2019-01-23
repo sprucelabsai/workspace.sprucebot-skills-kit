@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik'
 import FormInner from './components/FormInner/FormInner'
 import Card, { CardBody, CardHeader } from '../../../Card'
 import Layout, { LayoutSection } from '../../../Layout'
+import { SaveBar } from '../../../Core'
 
 import type { FormInnerRowProps } from './components/FormInner/FormInner'
 import type { FormLayoutProps } from '../FormLayout/FormLayout'
@@ -46,7 +47,15 @@ const FormBuilder = (props: Props) => {
 			validate={values => validate(values)}
 			onSubmit={props => onSubmit(props)}
 			render={props => {
-				const { values, errors, touched, handleChange, handleBlur } = props
+				console.log({ props })
+				const {
+					values,
+					errors,
+					touched,
+					handleChange,
+					handleBlur,
+					dirty
+				} = props
 				return (
 					<Form className="formbuilder">
 						{kind === 'page' && sections && sections.length > 0 && (
@@ -76,6 +85,7 @@ const FormBuilder = (props: Props) => {
 								secondaryCTA={secondaryCTA}
 							/>
 						)}
+						{kind === 'page' && <SaveBar isVisible={dirty} />}
 					</Form>
 				)
 			}}
