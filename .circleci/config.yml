@@ -8,7 +8,7 @@ jobs:
           fingerprints:
             - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
       - checkout
-      - run: node -v && npm -v && aws --version
+      - run: node -v && npm -v
       - run: yarn install --frozen-lockfile
       - run: yarn lint
       - run: yarn build
@@ -20,7 +20,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
-      - run: node -v && npm -v && aws --version
+      - run: aws --version
       - run: export PATH=$HOME/.local/bin:$PATH && pip install awscli --upgrade --user
       - checkout
       - run: yarn install --frozen-lockfile
@@ -40,7 +40,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
-      - run: node -v && npm -v && aws --version
+      - run: aws --version
       - run: export PATH=$HOME/.local/bin:$PATH && pip install awscli --upgrade --user
       - checkout
       - run: yarn install --frozen-lockfile
@@ -62,7 +62,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
-      - run: node -v && npm -v && aws --version
+      - run: aws --version
       - run: export PATH=$HOME/.local/bin:$PATH && pip install awscli --upgrade --user
       - checkout
       - run: yarn install --frozen-lockfile
@@ -84,7 +84,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
-      - run: node -v && npm -v && aws --version
+      - run: aws --version
       - run: export PATH=$HOME/.local/bin:$PATH && pip install awscli --upgrade --user
       - checkout
       - run: yarn install --frozen-lockfile
