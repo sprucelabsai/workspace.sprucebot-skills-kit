@@ -56,7 +56,7 @@ const FormBuilder = (props: Props) => {
 		<Formik
 			initialValues={initialValues}
 			validate={values => validate(values)}
-			onSubmit={onSubmit}
+			onSubmit={props => onSubmit(props)}
 			render={props => {
 				const { values, errors, touched, handleChange, handleBlur } = props
 				console.log({ props })
@@ -91,13 +91,19 @@ const FormBuilder = (props: Props) => {
 								))}
 							{primaryCTA && (
 								<FormLayoutGroup>
-									{secondaryCTA && <Button {...secondaryCTA} />}
-									<Button
-										kind="primary"
-										type="submit"
-										disabled={!props.isValid}
-										{...primaryCTA}
-									/>
+									{secondaryCTA && (
+										<FormLayoutItem>
+											<Button {...secondaryCTA} />
+										</FormLayoutItem>
+									)}
+									<FormLayoutItem>
+										<Button
+											kind="primary"
+											type="submit"
+											disabled={!props.isValid}
+											{...primaryCTA}
+										/>
+									</FormLayoutItem>
 								</FormLayoutGroup>
 							)}
 						</FormLayout>

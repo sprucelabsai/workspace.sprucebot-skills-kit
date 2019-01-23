@@ -90,6 +90,7 @@ stories
 				}
 				return errors
 			}}
+			onSubmit={values => console.log('Submit', { values })}
 			initialValues={{
 				publicName: 'Chimera Hair Salon',
 				streetAddress: '',
