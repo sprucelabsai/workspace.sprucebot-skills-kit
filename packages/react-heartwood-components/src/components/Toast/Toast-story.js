@@ -27,12 +27,28 @@ class ToastExample extends Component<Props, State> {
 
 	addToast = (kind: 'neutral' | 'positive' | 'negative') => {
 		const { showUndo, text, headline } = this.props
+		const ids = {
+			neutral: '1',
+			positive: '2',
+			negative: '3'
+		}
+		const headlines = {
+			neutral: 'Neat',
+			positive: 'Great!',
+			negative: 'Oh No!'
+		}
+		const texts = {
+			neutral: 'Something just happened and it was fine.',
+			positive: 'You did something amazing. Congrats!',
+			negative: 'Run away! This is awful.'
+		}
 		this.setState(prevState => {
 			const newToasts = [...prevState.toasts]
 			newToasts.push({
-				headline,
-				text,
+				headline: headlines[kind],
+				text: texts[kind],
 				kind,
+				id: ids[kind],
 				onUndo: showUndo ? () => console.log('Undo') : null
 			})
 			return {
@@ -41,9 +57,10 @@ class ToastExample extends Component<Props, State> {
 		})
 	}
 
-	removeToast = (idx: number) => {
+	removeToast = (id: string) => {
 		this.setState(prevState => {
 			const toasts = [...prevState.toasts]
+			const idx = toasts.findIndex(toast => toast.id === id)
 			const removedToast = toasts.splice(idx, 1)
 			return {
 				toasts
@@ -86,10 +103,7 @@ stories.addDecorator(withKnobs)
 stories.add('Toast', () => (
 	<ToastExample
 		headline={text('headline', 'Neat')}
-		text={text(
-			'text',
-			'Something just happened and it was fine. Something just happened and it was fine. Something just happened and it was fine. Something just happened and it was fine'
-		)}
+		text={text('text', 'Something just happened and it was fine.')}
 		showUndo={boolean('showUndo', false)}
 	/>
 ))

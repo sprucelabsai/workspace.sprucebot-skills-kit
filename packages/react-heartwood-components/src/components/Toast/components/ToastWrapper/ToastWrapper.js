@@ -19,11 +19,14 @@ const ToastWrapper = (props: Props) => {
 		<div className="toasts-wrapper">
 			<VelocityTransitionGroup
 				enter={{ animation: { opacity: 1, translateX: 0 }, duration: 300 }}
-				leave={{ animation: { opacity: 0, translateX: '-4px' }, duration: 0 }}
+				leave={{
+					animation: { opacity: 0, translateX: '-4px' },
+					duration: 0
+				}}
 			>
-				{toasts.map((toast, idx) => (
-					<div key={idx} className="toast-wrapper">
-						<Toast onRemove={() => handleRemove(idx)} {...toast} />
+				{toasts.map(toast => (
+					<div key={toast.id} className="toast-wrapper">
+						<Toast onRemove={() => handleRemove(toast.id)} {...toast} />
 					</div>
 				))}
 			</VelocityTransitionGroup>
