@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 import FontFaceObserver from 'fontfaceobserver'
 import Helmet from 'react-helmet'
-import { number } from '@storybook/addon-knobs/dist/deprecated'
 
 type Font = {
 	name: string,
