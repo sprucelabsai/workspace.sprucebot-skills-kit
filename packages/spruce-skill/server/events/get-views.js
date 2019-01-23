@@ -11,9 +11,9 @@ module.exports = async (ctx: Object, next: Function) => {
 		}
 
 		const {
-			auth: { User, Location, Organization },
+			/* auth: { User, Location, Organization }, */
 			event: {
-				payload: { page, skillSlug, pageUserId, locationId }
+				payload: { page, skillSlug /* , pageUserId, locationId */ }
 			}
 		}: {
 			auth: { User?: Object, Location?: Object, Organization?: Object },
@@ -37,7 +37,7 @@ module.exports = async (ctx: Object, next: Function) => {
 						id: 'uniqueId',
 						title: 'Example Skill Setting',
 						host,
-						path: '/skill-views/example'
+						path: '/skill-views/skill_settings_org'
 					})
 				}
 

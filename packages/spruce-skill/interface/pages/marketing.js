@@ -7,7 +7,6 @@ import {
 	Layout,
 	LayoutSection
 } from '@sprucelabs/react-heartwood-components'
-import ReactDOM from 'react-dom'
 
 class MarketingPage extends React.Component {
 	constructor(props) {

@@ -3,6 +3,7 @@ const { WebSocketLink } = require('apollo-link-ws')
 const { SubscriptionClient } = require('subscriptions-transport-ws')
 const ws = require('ws')
 const gql = require('graphql-tag')
+const config = require('config')
 
 module.exports = class GraphQLSubscriptions {
 	constructor() {
@@ -33,7 +34,17 @@ module.exports = class GraphQLSubscriptions {
 		this.consumers.push(consumer)
 	}
 	getWsClient({ wsurl, onConnected, onDisconnected, onReconnected }) {
-		const client = new SubscriptionClient(wsurl, { reconnect: true }, ws)
+		const client = new SubscriptionClient(
+			wsurl,
+			{
+				reconnect: true,
+				connectionParams: {
+					'x-skill-id': config.ID,
+					'x-skill-api-key': config.API_KEY
+				}
+			},
+			ws
+		)
 		if (onConnected) {
 			client.onConnected(onConnected)
 		}

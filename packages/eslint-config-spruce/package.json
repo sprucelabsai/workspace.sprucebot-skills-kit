@@ -1,10 +1,10 @@
 {
-	"name": "@sprucelabs/eslint-plugin-spruce",
+	"name": "@sprucelabs/eslint-config-spruce",
 	"publishConfig": {
 		"access": "public"
 	},
 	"version": "8.10.1",
-	"description": "ESLint plugin for Spruce Javascript projects",
+	"description": "ESLint configuration for Spruce Javascript projects",
 	"author": "George Pantazis <gcpantazis@gmail.com>",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit#readme",
 	"license": "MIT",
@@ -17,6 +17,15 @@
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
-	"dependencies": {},
-	"devDependencies": {}
+	"dependencies": {
+		"babel-eslint": "^10.0.1",
+		"eslint-config-prettier": "^3.3.0",
+		"eslint-plugin-flowtype": "^3.2.0",
+		"eslint-plugin-jsx-a11y": "^6.1.2",
+		"eslint-plugin-prettier": "^3.0.0",
+		"eslint-plugin-react": "^7.11.1"
+	},
+	"peerDependencies": {
+		"eslint": ">= 3"
+	}
 }
