@@ -7,6 +7,7 @@ import {
 	FormLayoutGroup,
 	FormLayoutItem
 } from '../../index'
+import List from '../../../List'
 
 import type { FormLayoutProps } from '../FormLayout'
 import type { FormLayoutGroupProps } from '../FormLayout/components/FormLayoutGroup'
@@ -35,7 +36,8 @@ const FormBuilder = (props: Props) => {
 	const { initialValues, onSubmit, rows, formLayout } = props
 
 	const Elements = {
-		textInput: TextInput
+		textInput: TextInput,
+		list: List
 	}
 	return (
 		<Formik

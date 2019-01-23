@@ -19,6 +19,27 @@ stories.add('Basic', () => (
 	<FormBuilder
 		rows={[
 			{
+				id: 'settings',
+				fields: [
+					{
+						id: 'settingsList',
+						element: 'list',
+						items: [
+							{
+								title: 'Guest SMS cancellations',
+								subtitle: 'Guests can cancel an appointment via SMS',
+								toggleId: 'smsCancellations'
+							},
+							{
+								title: 'Guest SMS confirmations',
+								subtitle: 'Guests can confirm an appointment via SMS',
+								toggleId: 'smsConfirmations'
+							}
+						]
+					}
+				]
+			},
+			{
 				id: 'basePriceRow',
 				fields: [
 					{
