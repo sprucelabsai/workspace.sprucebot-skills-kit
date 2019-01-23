@@ -17,7 +17,7 @@ import type { FormLayoutGroupProps } from '../FormLayout/components/FormLayoutGr
 import type { FormLayoutItemProps } from '../FormLayout/components/FormLayoutItem'
 import type { Props as ButtonProps } from '../../../../../Button/Button'
 
-export type FormInnerField = {
+export type FormInnerFieldProps = {
 	id: string,
 	element: string,
 	itemLayout: FormLayoutItemProps,
@@ -25,14 +25,13 @@ export type FormInnerField = {
 	description?: string
 }
 
-export type FormInnerRow = {
+export type FormInnerRowProps = {
 	id: string,
 	fields: Array<Field>,
 	groupLayout: FormLayoutGroupProps
 }
 
 export type FormInnerProps = {
-	initialValues: Object,
 	rows: Array<Row>,
 	formLayout: FormLayoutProps,
 	formikProps: FormikProps,
@@ -41,14 +40,7 @@ export type FormInnerProps = {
 }
 
 const FormInner = (props: Props) => {
-	const {
-		initialValues,
-		rows,
-		formLayout,
-		formikProps,
-		primaryCTA,
-		secondaryCTA
-	} = props
+	const { rows, formLayout, formikProps, primaryCTA, secondaryCTA } = props
 	const {
 		handleChange,
 		handleBlur,

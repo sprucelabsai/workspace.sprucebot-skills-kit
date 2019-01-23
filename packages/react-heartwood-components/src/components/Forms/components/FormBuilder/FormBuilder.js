@@ -37,7 +37,6 @@ const FormBuilder = (props: Props) => {
 					<Form className="formbuilder">
 						<FormInner
 							formLayout={formLayout}
-							initialValues={initialValues}
 							rows={rows}
 							formikProps={props}
 							primaryCTA={primaryCTA}
