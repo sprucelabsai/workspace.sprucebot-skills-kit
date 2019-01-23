@@ -54,7 +54,8 @@ const FormBuilder = (props: Props) => {
 					touched,
 					handleChange,
 					handleBlur,
-					dirty
+					dirty,
+					isValid
 				} = props
 				return (
 					<Form className="formbuilder">
@@ -85,7 +86,9 @@ const FormBuilder = (props: Props) => {
 								secondaryCTA={secondaryCTA}
 							/>
 						)}
-						{kind === 'page' && <SaveBar isVisible={dirty} />}
+						{kind === 'page' && (
+							<SaveBar isVisible={dirty} isSaveDisabled={!isValid} />
+						)}
 					</Form>
 				)
 			}}

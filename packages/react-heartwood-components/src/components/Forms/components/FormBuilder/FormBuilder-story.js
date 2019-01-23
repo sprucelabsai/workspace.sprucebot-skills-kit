@@ -225,6 +225,31 @@ stories
 						apptReminder2: '1hr',
 						apptReminder2Buffer: '2hrs'
 					}}
+					validate={values => {
+						let errors = {}
+						if (!values.pastApptEditingCutoff) {
+							errors.pastApptEditingCutoff = 'Please include a cutoff time'
+						}
+						if (!values.pastApptBookingCutoff) {
+							errors.pastApptBookingCutoff = 'Please include a cutoff time'
+						}
+						if (!values.guestUpdateDelays) {
+							errors.guestUpdateDelays = 'Please include a delay'
+						}
+						if (!values.apptReminder1) {
+							errors.apptReminder1 = 'Please include a reminder time'
+						}
+						if (!values.apptReminder1Buffer) {
+							errors.apptReminder1Buffer = 'Please include a buffer time'
+						}
+						if (!values.apptReminder2) {
+							errors.apptReminder2 = 'Please include a reminder time'
+						}
+						if (!values.apptReminder2Buffer) {
+							errors.apptReminder2Buffer = 'Please include a buffer time'
+						}
+						return errors
+					}}
 					onSubmit={values => console.log('Submit', { values })}
 					formLayout={{
 						spacing: 'tight'
@@ -242,7 +267,8 @@ stories
 											id: 'pastApptEditingCutoff',
 											title: 'Cutoff for editing appointments in the past',
 											description:
-												'Once an appointment is past, how many minutes should I wait until I block the ability to edit it? Note: Paid appointments cannot be edited.	'
+												'Once an appointment is past, how many minutes should I wait until I block the ability to edit it? Note: Paid appointments cannot be edited.',
+											required: true
 										}
 									]
 								},
