@@ -1,11 +1,6 @@
 // @flow
 const config = require('config')
-const {
-	GraphQLString,
-	GraphQLNonNull,
-	GraphQLList,
-	GraphQLObjectType
-} = require('graphql')
+const { GraphQLString, GraphQLNonNull } = require('graphql')
 const { resolver } = require('graphql-sequelize')
 
 module.exports = ctx => {
@@ -22,7 +17,7 @@ module.exports = ctx => {
 				...ctx.gql.helpers.defaultArgs()
 			},
 			resolve: resolver(ctx.db.models.Organization, {
-				before: async (findOptions, args, context, info) => {
+				before: async (findOptions, args, context /* , info */) => {
 					if (!context.scopes) {
 						context.scopes = {}
 					}
@@ -31,11 +26,11 @@ module.exports = ctx => {
 						context.where = {}
 					}
 
-					const org = await ctx.db.models.Organization.findOne({
-						where: {
-							id: args.id
-						}
-					})
+					// const org = await ctx.db.models.Organization.findOne({
+					// 	where: {
+					// 		id: args.id
+					// 	}
+					// })
 
 					findOptions.where.id = args.id
 

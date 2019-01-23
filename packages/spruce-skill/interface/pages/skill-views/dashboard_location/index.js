@@ -1,5 +1,6 @@
 // @flow
-import React, { Fragment } from 'react'
+import React from 'react'
+import Router from 'next/router'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
 	Page,
@@ -40,8 +41,12 @@ class DashboardLocationPage extends React.Component {
 		return {}
 	}
 
-	componentWillMount() {
-		gqlClient.setToken(this.props.auth && this.props.auth.jwt)
+	constructor(props) {
+		super(props)
+
+		if (typeof window !== 'undefined') {
+			gqlClient.setToken(props.auth && props.auth.jwt)
+		}
 	}
 
 	async componentDidMount() {
@@ -91,15 +96,17 @@ class DashboardLocationPage extends React.Component {
 							{typeof window !== 'undefined' && (
 								<Subscription
 									client={gqlClient.client}
-									onSubscriptionData={options => {
-										// You can process data here outside of rendering if necessary
-									}}
+									onSubscriptionData={
+										(/* options */) => {
+											// You can process data here outside of rendering if necessary
+										}
+									}
 									subscription={EXAMPLE_SUBSCRIPTION}
 									variables={{}}
 									fetchPolicy={'no-cache'}
 									shouldResubscribe={true}
 								>
-									{({ data, loading, err }) => {
+									{({ data, err }) => {
 										if (err) {
 											return (
 												<Text>{`Error getting data from Subscription`}</Text>

@@ -5,7 +5,7 @@ import * as actions from '../store/actions'
 import ServerCookies from 'cookies'
 import ClientCookies from 'js-cookies'
 import skill from '../index'
-import { Loader } from '@sprucelabs/react-heartwood-components'
+import { Loader, FontLoader } from '@sprucelabs/react-heartwood-components'
 import qs from 'qs'
 import lang from '../helpers/lang'
 import Router, { withRouter } from 'next/router'
@@ -16,7 +16,10 @@ const debug = require('debug')('@sprucelabs/spruce-next-helpers')
 
 const setCookie = (named, value, req, res) => {
 	if (req && req.headers) {
-		const cookies = new ServerCookies(req, res, { secure: true })
+		const cookies = new ServerCookies(req, res, {
+			secure: true,
+			httpOnly: false
+		})
 		return cookies.set(named, value)
 	} else {
 		return ClientCookies.setItem(named, value)
@@ -25,12 +28,43 @@ const setCookie = (named, value, req, res) => {
 
 const getCookie = (named, req, res) => {
 	if (req && req.headers) {
-		const cookies = new ServerCookies(req, res, { secure: true })
+		const cookies = new ServerCookies(req, res, {
+			secure: true,
+			httpOnly: false
+		})
 		return cookies.get(named)
 	} else {
 		return ClientCookies.getItem(named)
 	}
 }
+
+// This is only temporary until theming is set up
+const fonts = [
+	{
+		name: 'Source Sans Pro',
+		weight: 400,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro',
+			rel: 'stylesheet'
+		}
+	},
+	{
+		name: 'Source Sans Pro',
+		weight: 600,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:600',
+			rel: 'stylesheet'
+		}
+	},
+	{
+		name: 'Source Code Pro',
+		weight: 500,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Code+Pro:500',
+			rel: 'stylesheet'
+		}
+	}
+]
 
 type Props = {
 	pathname: string,
@@ -85,7 +119,7 @@ const PageWrapper = Wrapped => {
 			if (jwt) {
 				try {
 					await store.dispatch(actions.auth.go(jwt))
-					setCookie('jwt', query.jwt, req, res)
+					setCookie('jwt', jwt, req, res)
 				} catch (err) {
 					debug(err)
 					debug('Error fetching user from jwt')
@@ -308,12 +342,14 @@ const PageWrapper = Wrapped => {
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
+						<FontLoader fonts={fonts} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 					</Container>
 				)
 			}
 			return (
 				<Container>
+					<FontLoader fonts={fonts} />
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 				</Container>
 			)

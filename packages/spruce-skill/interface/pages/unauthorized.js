@@ -4,13 +4,12 @@ import PageWrapper from '../containers/PageWrapper'
 import {
 	Page,
 	PageContent,
-	Text,
 	Layout,
 	LayoutSection,
 	CardBuilder
 } from '@sprucelabs/react-heartwood-components'
 
-import type { WrappedInitialProps } from '../containers/PageWrapper'
+// import type { WrappedInitialProps } from '../containers/PageWrapper'
 
 type Props = {
 	skill: Object
@@ -19,7 +18,7 @@ type Props = {
 type State = {}
 
 class UnauthorizedPage extends React.Component<Props, State> {
-	static getInitialProps(props: WrappedInitialProps) {
+	static getInitialProps(/* props: WrappedInitialProps */) {
 		return {
 			public: true // does not require the user to be auth'ed
 		}

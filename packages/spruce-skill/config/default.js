@@ -1,6 +1,6 @@
 // https://github.com/lorenwest/node-config/wiki/Configuration-Files
 const path = require('path')
-const { omit, pick } = require('lodash')
+const { pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
 const cards = require('./cards')

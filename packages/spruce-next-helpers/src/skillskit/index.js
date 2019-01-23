@@ -105,11 +105,12 @@ const skill = {
 		})
 	},
 
-	ready: function({ resetUrlTrail = false } = { resetUrlTrail: false }) {
+	ready: function({ resetUrlTrail = false, showHeader = true } = {}) {
 		postMessage({
 			name: 'Skill:Loaded',
 			url: window.location.href,
-			resetUrlTrail
+			resetUrlTrail,
+			showHeader
 		})
 	},
 

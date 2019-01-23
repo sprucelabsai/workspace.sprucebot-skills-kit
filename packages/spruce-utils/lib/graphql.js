@@ -65,7 +65,15 @@ export class GraphQLClient {
 			credentials: 'same-origin',
 			fetchOptions: { agent }
 		})
-		let link = httpLink
+
+		let link
+
+		const addExtensionsLink = new ApolloLink((operation, forward) => {
+			return forward(operation).map(response => {
+				response.data.extensions = response.extensions
+				return response
+			})
+		})
 
 		if (typeof window !== 'undefined' && wsUri) {
 			const wsLink = new WebSocketLink({
@@ -102,13 +110,6 @@ export class GraphQLClient {
 				log.warn('GraphQL Subscriptions websocket error', e)
 			)
 
-			const addExtensionsLink = new ApolloLink((operation, forward) => {
-				return forward(operation).map(response => {
-					response.data.extensions = response.extensions
-					return response
-				})
-			})
-
 			link = split(
 				// split based on operation type
 				({ query }) => {
@@ -119,6 +120,8 @@ export class GraphQLClient {
 				addExtensionsLink.concat(httpLink)
 			)
 		} else {
+			link = addExtensionsLink.concat(httpLink)
+
 			log.debug('GraphQL Subscriptions disabled.', {
 				wsUri: wsUri || '<NOT SET>'
 			})

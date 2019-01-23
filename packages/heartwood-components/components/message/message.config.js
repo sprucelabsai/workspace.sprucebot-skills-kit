@@ -47,7 +47,7 @@ module.exports = {
 				dateSent: '2:33pm',
 				body: '<p>Dorian connected to the in-store wifi.</p>',
 				detail: null,
-				followUp: null,
+				primaryAction: null,
 				reply: null
 			}
 		},
@@ -59,7 +59,7 @@ module.exports = {
 				body:
 					'<p>Dorian has an <a href="#">upcoming appointment</a> in five minutes.</p>',
 				detail: null,
-				followUp: {
+				primaryAction: {
 					text: 'Check Dorian in'
 				},
 				reply: null
@@ -81,7 +81,7 @@ module.exports = {
 				dateSent: '4:02pm',
 				body:
 					'<p>Hey Dorian, thanks for stopping by! I hope to see you again soon.</p>',
-				followUp: null,
+				primaryAction: null,
 				reply: null,
 				detail: null
 			}
@@ -92,7 +92,7 @@ module.exports = {
 				dateSent: '8:23pm',
 				body:
 					'<p>Dorian submitted a review of Camila Hintz:</p><blockquote>Camila is the best! she was courteous, funny, and gave me a great haircut. 10 outta 10!</blockquote>',
-				followUp: null,
+				primaryAction: null,
 				reply: null,
 				detail: 'Feedback submitted via Feedback skill'
 			}
