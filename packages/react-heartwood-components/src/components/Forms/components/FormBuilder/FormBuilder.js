@@ -87,7 +87,11 @@ const FormBuilder = (props: Props) => {
 							/>
 						)}
 						{kind === 'page' && (
-							<SaveBar isVisible={dirty} isSaveDisabled={!isValid} />
+							<SaveBar
+								isVisible={dirty}
+								onDiscard={() => props.resetForm()}
+								isSaveDisabled={!isValid}
+							/>
 						)}
 					</Form>
 				)
