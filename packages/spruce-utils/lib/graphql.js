@@ -187,7 +187,6 @@ export class GraphQLClient {
 			if (e.networkError || e.graphQLErrors) {
 				const graphQLErrors = get(e, 'graphQLErrors', [])
 				const networkErrors = get(e, 'networkError.result.errors', [])
-				const warnings = get(e, 'networkError.extensions.warnings', [])
 
 				const errors = networkErrors.concat(graphQLErrors)
 
@@ -196,9 +195,7 @@ export class GraphQLClient {
 						.map(error => error.reason)
 						.join(', ')}]`,
 					{
-						graphQLErrors,
-						networkError: e.networkError,
-						warnings
+						originalError: e
 					}
 				)
 			} else {
