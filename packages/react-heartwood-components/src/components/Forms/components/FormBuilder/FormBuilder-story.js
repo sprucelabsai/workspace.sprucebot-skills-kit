@@ -219,7 +219,11 @@ stories
 						pastApptEditingCutoff: '45min',
 						pastApptBookingCutoff: '10min',
 						guestUpdateDelays: '1min',
-						autoConfirmAppts: true
+						autoConfirmAppts: true,
+						apptReminder1: '24hrs',
+						apptReminder1Buffer: '48hrs',
+						apptReminder2: '1hr',
+						apptReminder2Buffer: '2hrs'
 					}}
 					onSubmit={values => console.log('Submit', { values })}
 					formLayout={{
@@ -293,78 +297,54 @@ stories
 							]
 						},
 						{
-							id: 'section2',
+							id: 'reminderSettings',
+							title: 'Reminder Settings',
 							rows: [
 								{
-									id: 'row1',
+									id: 'apptReminder1Row',
 									fields: [
 										{
-											id: 'field1',
+											id: 'apptReminder1',
 											element: 'textInput',
-											label: 'Name',
-											placeholder: 'e.g. Ralph'
+											title: 'Appointment Reminder 1',
+											description:
+												'How many hours before an appointment should I send the first reminder?'
 										}
 									]
-								}
-							]
-						}
-					]}
-					rows={[
-						{
-							id: 'pastEditingCutoffRow',
-							fields: [
+								},
 								{
-									element: 'textInput',
-									id: 'pastApptEditingCutoff',
-									title: 'Cutoff for editing appointments in the past',
-									description:
-										'Once an appointment is past, how many minutes should I wait until I block the ability to edit it? Note: Paid appointments cannot be edited.	'
-								}
-							]
-						},
-						{
-							id: 'pastApptBookingCutoffRow',
-							fields: [
-								{
-									element: 'textInput',
-									id: 'pastApptBookingCutoff',
-									title: 'Booking past appointment cutoff',
-									description:
-										'How far in the past should I allow appointments to be booked?	'
-								}
-							]
-						},
-						{
-							id: 'guestUpdateDelaysRow',
-							fields: [
-								{
-									element: 'textInput',
-									id: 'guestUpdateDelays',
-									title: 'Guest update delays',
-									description:
-										'How long should I wait before sending an update text to the guest when changes are made to their appointment? This gives you time to make a few edits back-to-back without the guest receiving a ton of texts.'
-								}
-							]
-						},
-						{
-							id: 'autoConfirmRow',
-							fields: [
-								{
-									id: 'autoConfirm',
-									element: 'list',
-									items: [
+									id: 'apptReminder1BufferRow',
+									fields: [
 										{
-											id: 'autoConfirm',
-											title: 'Auto-Confirm Appointments',
-											subtitle:
-												'Should I auto-confirm all booked appointments?',
-											toggleId: 'autoConfirm',
-											toggleProps: {
-												defaultChecked: true,
-												onChange: () => {
-													console.log('Boop')
-												}
-											}
+											id: 'apptReminder1Buffer',
+											element: 'textInput',
+											title: 'Appointment Reminder 1 Buffer',
+											description:
+												"How many hours before an appointment does a guest need to book to activate the first reminder? Example, I don't want to send a 24 hour reminder if someone booked 25 hours ago because they'd get a confirmation text and then a reminder an hour later."
+										}
+									]
+								},
+								{
+									id: 'apptReminder2Row',
+									fields: [
+										{
+											id: 'apptReminder2',
+											element: 'textInput',
+											title: 'Appointment Reminder 2',
+											description:
+												'How many hours before an appointment should I send the second reminder?'
+										}
+									]
+								},
+								{
+									id: 'apptReminder2BufferRow',
+									fields: [
+										{
+											id: 'apptReminder2Buffer',
+											element: 'textInput',
+											title: 'Appointment Reminder 2 Buffer',
+											description:
+												"How many hours before an appointment does a guest need to book to activate the second reminder?  Example, I don't want to send an hour reminder if someone booked 61 minutes ago because they'd get a confirmation text and then a reminder a minute later.	"
 										}
 									]
 								}
