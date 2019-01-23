@@ -48,7 +48,12 @@ function enhancedAttributeFields(model, options) {
 			const fullPathScope = pathToScope(info.path)
 			const pathScope = fullPathScope.replace(/\.[^.]+$/, '')
 			const rootPath = fullPathScope.replace(/\..*$/, '')
-			const scopes = context.scopes[rootPath]
+			if (!context.scopes) {
+				log.warn(
+					`GQL: No scopes (i.e. context.scopes.NAME) defined for ${rootPath}`
+				)
+			}
+			const scopes = context.scopes && context.scopes[rootPath]
 			let scope = 'public'
 
 			const pluralModelName = inflection.pluralize(model.name)
@@ -108,7 +113,12 @@ module.exports = ctx => {
 
 					const pathScope = pathToScope(info.path)
 					const rootPath = pathScope.replace(/\..*$/, '')
-					const scopes = context.scopes[rootPath]
+					if (!context.scopes) {
+						log.warn(
+							`GQL: No scopes (i.e. context.scopes.NAME) defined for ${rootPath}`
+						)
+					}
+					const scopes = context.scopes && context.scopes[rootPath]
 					const parentPathScope = pathScope.replace(/\.[^.]+$/, '')
 					let parentScope = 'public'
 					const parentModelName = obj.constructor.name
@@ -201,7 +211,12 @@ module.exports = ctx => {
 					const pluralParentModelName = inflection.pluralize(parentModelName)
 
 					const rootPath = pathScope.replace(/\..*$/, '')
-					const scopes = context.scopes[rootPath]
+					if (!context.scopes) {
+						log.warn(
+							`GQL: No scopes (i.e. context.scopes.NAME) defined for ${rootPath}`
+						)
+					}
+					const scopes = context.scopes && context.scopes[rootPath]
 					const parentPathScope = pathScope.replace(/\.[^.]+$/, '')
 					if (scopes && scopes[parentPathScope]) {
 						parentScope = scopes[parentPathScope]
