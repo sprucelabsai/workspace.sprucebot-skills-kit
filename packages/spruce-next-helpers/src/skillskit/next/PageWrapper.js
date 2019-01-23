@@ -5,7 +5,7 @@ import * as actions from '../store/actions'
 import ServerCookies from 'cookies'
 import ClientCookies from 'js-cookies'
 import skill from '../index'
-import { Loader } from '@sprucelabs/react-heartwood-components'
+import { Loader, FontLoader } from '@sprucelabs/react-heartwood-components'
 import qs from 'qs'
 import lang from '../helpers/lang'
 import Router, { withRouter } from 'next/router'
@@ -37,6 +37,34 @@ const getCookie = (named, req, res) => {
 		return ClientCookies.getItem(named)
 	}
 }
+
+// This is only temporary until theming is set up
+const fonts = [
+	{
+		name: 'Source Sans Pro',
+		weight: 400,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro',
+			rel: 'stylesheet'
+		}
+	},
+	{
+		name: 'Source Sans Pro',
+		weight: 600,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:600',
+			rel: 'stylesheet'
+		}
+	},
+	{
+		name: 'Source Code Pro',
+		weight: 500,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Code+Pro:500',
+			rel: 'stylesheet'
+		}
+	}
+]
 
 type Props = {
 	pathname: string,
@@ -314,12 +342,14 @@ const PageWrapper = Wrapped => {
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
+						<FontLoader fonts={fonts} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 					</Container>
 				)
 			}
 			return (
 				<Container>
+					<FontLoader fonts={fonts} />
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 				</Container>
 			)

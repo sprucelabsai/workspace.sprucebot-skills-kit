@@ -43,7 +43,7 @@ const StylesProvider = ({ children }) => {
 						<link key={idx} rel="stylesheet" href={stylesheet} />
 					))}
 			</Helmet>
-			<FontLoader fonts={[...fonts]} />
+			<FontLoader fonts={fonts} />
 			{children}
 		</Fragment>
 	)
