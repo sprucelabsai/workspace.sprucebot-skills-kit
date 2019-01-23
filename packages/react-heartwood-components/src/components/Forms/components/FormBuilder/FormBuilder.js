@@ -65,7 +65,7 @@ const FormBuilder = (props: Props) => {
 			render={props => {
 				const { values, errors, touched, handleChange, handleBlur } = props
 				return (
-					<Form>
+					<Form className="formbuilder">
 						<FormLayout {...formLayout}>
 							{rows &&
 								rows.length > 0 &&

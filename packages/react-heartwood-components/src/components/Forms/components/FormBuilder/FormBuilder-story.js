@@ -31,7 +31,7 @@ const withLayout = storyFn => (
 )
 
 stories.addDecorator(withKnobs)
-// stories.addDecorator(withLayout)
+stories.addDecorator(withLayout)
 
 stories
 	.add('Basic', () => (
@@ -184,91 +184,77 @@ stories
 		/>
 	))
 	.add('Settings page', () => (
-		<Page>
-			<PageContent>
-				<Layout>
-					<LayoutSection>
-						<Card>
-							<CardHeader title="Appointment settings" />
-							<CardBody>
-								<FormBuilder
-									initialValues={{
-										pastApptEditingCutoff: '45min',
-										pastApptBookingCutoff: '10min',
-										guestUpdateDelays: '1min',
-										autoConfirmAppts: true
-									}}
-									onSubmit={values => console.log('Submit', { values })}
-									formLayout={{
-										spacing: 'tight'
-									}}
-									rows={[
-										{
-											id: 'pastEditingCutoffRow',
-											fields: [
-												{
-													element: 'textInput',
-													id: 'pastApptEditingCutoff',
-													title: 'Cutoff for editing appointments in the past',
-													description:
-														'Once an appointment is past, how many minutes should I wait until I block the ability to edit it? Note: Paid appointments cannot be edited.	'
-												}
-											]
-										},
-										{
-											id: 'pastApptBookingCutoffRow',
-											fields: [
-												{
-													element: 'textInput',
-													id: 'pastApptBookingCutoff',
-													title: 'Booking past appointment cutoff',
-													description:
-														'How far in the past should I allow appointments to be booked?	'
-												}
-											]
-										},
-										{
-											id: 'guestUpdateDelaysRow',
-											fields: [
-												{
-													element: 'textInput',
-													id: 'guestUpdateDelays',
-													title: 'Guest update delays',
-													description:
-														'How long should I wait before sending an update text to the guest when changes are made to their appointment? This gives you time to make a few edits back-to-back without the guest receiving a ton of texts.'
-												}
-											]
-										},
-										{
-											id: 'autoConfirmRow',
-											fields: [
-												{
-													id: 'autoConfirm',
-													element: 'list',
-													items: [
-														{
-															id: 'autoConfirm',
-															title: 'Auto-Confirm Appointments',
-															subtitle:
-																'Should I auto-confirm all booked appointments?',
-															toggleId: 'autoConfirm',
-															toggleProps: {
-																defaultChecked: true,
-																onChange: () => {
-																	console.log('Boop')
-																}
-															}
-														}
-													]
-												}
-											]
+		<FormBuilder
+			initialValues={{
+				pastApptEditingCutoff: '45min',
+				pastApptBookingCutoff: '10min',
+				guestUpdateDelays: '1min',
+				autoConfirmAppts: true
+			}}
+			onSubmit={values => console.log('Submit', { values })}
+			formLayout={{
+				spacing: 'tight'
+			}}
+			rows={[
+				{
+					id: 'pastEditingCutoffRow',
+					fields: [
+						{
+							element: 'textInput',
+							id: 'pastApptEditingCutoff',
+							title: 'Cutoff for editing appointments in the past',
+							description:
+								'Once an appointment is past, how many minutes should I wait until I block the ability to edit it? Note: Paid appointments cannot be edited.	'
+						}
+					]
+				},
+				{
+					id: 'pastApptBookingCutoffRow',
+					fields: [
+						{
+							element: 'textInput',
+							id: 'pastApptBookingCutoff',
+							title: 'Booking past appointment cutoff',
+							description:
+								'How far in the past should I allow appointments to be booked?	'
+						}
+					]
+				},
+				{
+					id: 'guestUpdateDelaysRow',
+					fields: [
+						{
+							element: 'textInput',
+							id: 'guestUpdateDelays',
+							title: 'Guest update delays',
+							description:
+								'How long should I wait before sending an update text to the guest when changes are made to their appointment? This gives you time to make a few edits back-to-back without the guest receiving a ton of texts.'
+						}
+					]
+				},
+				{
+					id: 'autoConfirmRow',
+					fields: [
+						{
+							id: 'autoConfirm',
+							element: 'list',
+							items: [
+								{
+									id: 'autoConfirm',
+									title: 'Auto-Confirm Appointments',
+									subtitle: 'Should I auto-confirm all booked appointments?',
+									toggleId: 'autoConfirm',
+									toggleProps: {
+										defaultChecked: true,
+										onChange: () => {
+											console.log('Boop')
 										}
-									]}
-								/>
-							</CardBody>
-						</Card>
-					</LayoutSection>
-				</Layout>
-			</PageContent>
-		</Page>
+									}
+								}
+							]
+						}
+					]
+				}
+			]}
+		/>
 	))
