@@ -8,24 +8,31 @@ import {
 	FormLayoutItem
 } from '../../index'
 
+import type { FormLayoutProps } from '../FormLayout'
+import type { FormLayoutGroupProps } from '../FormLayout/components/FormLayoutGroup'
+import type { FormLayoutItemProps } from '../FormLayout/components/FormLayoutItem'
+
 type Field = {
 	id: string,
-	element: string
+	element: string,
+	itemLayout: FormLayoutItemProps
 }
 
 type Row = {
 	id: string,
-	fields: Array<Field>
+	fields: Array<Field>,
+	groupLayout: FormLayoutGroupProps
 }
 
 type Props = {
 	initialValues: Object,
 	onSubmit: Function,
-	rows: Array<Row>
+	rows: Array<Row>,
+	formLayout: FormLayoutProps
 }
 
 const FormBuilder = (props: Props) => {
-	const { initialValues, onSubmit, rows } = props
+	const { initialValues, onSubmit, rows, formLayout } = props
 
 	const Elements = {
 		textInput: TextInput
@@ -36,7 +43,7 @@ const FormBuilder = (props: Props) => {
 			onSubmit={onSubmit}
 			render={props => (
 				<Form>
-					<FormLayout>
+					<FormLayout {...formLayout}>
 						{rows &&
 							rows.length > 0 &&
 							rows.map(row => (
