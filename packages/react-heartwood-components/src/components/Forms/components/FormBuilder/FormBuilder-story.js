@@ -19,8 +19,10 @@ stories.add('Basic', () => (
 	<FormBuilder
 		rows={[
 			{
+				id: 'basePriceRow',
 				fields: [
 					{
+						id: 'basePrice',
 						element: 'textInput',
 						label: 'Base Price',
 						placeholder: '$20'
