@@ -43,8 +43,8 @@ class ToastExample extends Component<Props, State> {
 			negative: 'Run away! This is awful.'
 		}
 		const timeouts = {
-			neutral: false,
-			positive: 1000,
+			neutral: 'never',
+			positive: 10000,
 			negative: 4000
 		}
 		this.setState(prevState => {
