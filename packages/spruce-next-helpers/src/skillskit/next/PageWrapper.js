@@ -342,14 +342,14 @@ const PageWrapper = Wrapped => {
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
-						<FontLoader fonts={[...fonts]} />
+						<FontLoader fonts={fonts} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 					</Container>
 				)
 			}
 			return (
 				<Container>
-					<FontLoader fonts={[...fonts]} />
+					<FontLoader fonts={fonts} />
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 				</Container>
 			)
