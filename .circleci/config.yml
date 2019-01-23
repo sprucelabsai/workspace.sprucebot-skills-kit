@@ -9,7 +9,8 @@ jobs:
             - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
       - checkout
       - run: node -v && npm -v
-      - run: export PATH=$HOME/.local/bin:$PATH && pip install awscli --upgrade --user
+      - run: pip install awscli --upgrade --user
+      - run: echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
       - run: $HOME/.local/bin/aws --version
       - run: aws --version
       - run: yarn install --frozen-lockfile
