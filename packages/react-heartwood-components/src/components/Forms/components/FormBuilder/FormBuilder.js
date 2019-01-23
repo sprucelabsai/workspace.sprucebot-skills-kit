@@ -57,7 +57,13 @@ const FormBuilder = (props: Props) => {
 											const Handler = Elements[field.element]
 											return (
 												<FormLayoutItem key={field.id}>
-													{Handler && <Handler {...rest} />}
+													{Handler && (
+														<Handler
+															onChange={props.handleChange}
+															onBlur={props.handleBlur}
+															{...rest}
+														/>
+													)}
 												</FormLayoutItem>
 											)
 										})}
