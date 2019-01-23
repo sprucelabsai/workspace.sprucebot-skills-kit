@@ -11,6 +11,7 @@ import List from '../../../List'
 import Button from '../../../Button/Button'
 import Text from '../../../Text/Text'
 import TextStyle from '../../../TextStyle/TextStyle'
+import { SaveBar } from '../../../Core'
 
 import type { FormLayoutProps } from '../FormLayout'
 import type { FormLayoutGroupProps } from '../FormLayout/components/FormLayoutGroup'
@@ -63,7 +64,6 @@ const FormBuilder = (props: Props) => {
 			onSubmit={props => onSubmit(props)}
 			render={props => {
 				const { values, errors, touched, handleChange, handleBlur } = props
-				console.log({ props })
 				return (
 					<Form>
 						<FormLayout {...formLayout}>
