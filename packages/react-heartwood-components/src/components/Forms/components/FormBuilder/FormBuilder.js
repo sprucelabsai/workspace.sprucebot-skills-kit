@@ -1,41 +1,14 @@
 // @flow
 import React from 'react'
 import { Formik, Form } from 'formik'
-import {
-	TextInput,
-	FormLayout,
-	FormLayoutGroup,
-	FormLayoutItem
-} from '../../index'
-import List from '../../../List'
-import Button from '../../../Button/Button'
-import Text from '../../../Text/Text'
-import TextStyle from '../../../TextStyle/TextStyle'
-import { SaveBar } from '../../../Core'
+import FormInner from './components/FormInner/FormInner'
 
-import type { FormLayoutProps } from '../FormLayout'
-import type { FormLayoutGroupProps } from '../FormLayout/components/FormLayoutGroup'
-import type { FormLayoutItemProps } from '../FormLayout/components/FormLayoutItem'
-import type { Props as ButtonProps } from '../../../Button/Button'
-
-type Field = {
-	id: string,
-	element: string,
-	itemLayout: FormLayoutItemProps,
-	title?: string,
-	description?: string
-}
-
-type Row = {
-	id: string,
-	fields: Array<Field>,
-	groupLayout: FormLayoutGroupProps
-}
+import type { FormInnerProps } from './components/FormInner/FormInner'
 
 type Props = {
 	initialValues: Object,
 	onSubmit: Function,
-	rows: Array<Row>,
+	rows: Array<FormInnerRowProps>,
 	formLayout: FormLayoutProps,
 	validate?: Function,
 	primaryCTA?: ButtonProps,
@@ -53,10 +26,6 @@ const FormBuilder = (props: Props) => {
 		validate
 	} = props
 
-	const Elements = {
-		textInput: TextInput,
-		list: List
-	}
 	return (
 		<Formik
 			initialValues={initialValues}
@@ -66,55 +35,14 @@ const FormBuilder = (props: Props) => {
 				const { values, errors, touched, handleChange, handleBlur } = props
 				return (
 					<Form className="formbuilder">
-						<FormLayout {...formLayout}>
-							{rows &&
-								rows.length > 0 &&
-								rows.map(row => (
-									<FormLayoutGroup key={row.id}>
-										{row.fields &&
-											row.fields.length > 0 &&
-											row.fields.map(field => {
-												const { element, title, description, ...rest } = field
-												const Handler = Elements[field.element]
-												return (
-													<FormLayoutItem key={field.id}>
-														{title && (
-															<TextStyle type="strong">{title}</TextStyle>
-														)}
-														{description && <Text>{description}</Text>}
-														{Handler && (
-															<Handler
-																name={field.id}
-																onChange={handleChange}
-																onBlur={handleBlur}
-																value={values[field.id]}
-																error={touched[field.id] && errors[field.id]}
-																{...rest}
-															/>
-														)}
-													</FormLayoutItem>
-												)
-											})}
-									</FormLayoutGroup>
-								))}
-							{primaryCTA && (
-								<FormLayoutGroup>
-									{secondaryCTA && (
-										<FormLayoutItem>
-											<Button {...secondaryCTA} />
-										</FormLayoutItem>
-									)}
-									<FormLayoutItem>
-										<Button
-											kind="primary"
-											type="submit"
-											disabled={!props.isValid}
-											{...primaryCTA}
-										/>
-									</FormLayoutItem>
-								</FormLayoutGroup>
-							)}
-						</FormLayout>
+						<FormInner
+							formLayout={formLayout}
+							initialValues={initialValues}
+							rows={rows}
+							formikProps={props}
+							primaryCTA={primaryCTA}
+							secondaryCTA={secondaryCTA}
+						/>
 					</Form>
 				)
 			}}

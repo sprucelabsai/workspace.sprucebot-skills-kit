@@ -69,6 +69,7 @@ stories
 	.add('With Submit', () => (
 		<FormBuilder
 			validate={values => {
+				console.log('Validate: ', { values })
 				let errors = {}
 				if (!values.publicName) {
 					errors.publicName = 'Please include a public name'
