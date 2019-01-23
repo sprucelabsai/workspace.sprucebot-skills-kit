@@ -9,15 +9,16 @@ import type { FormInnerRowProps } from './components/FormInner/FormInner'
 import type { FormLayoutProps } from '../FormLayout/FormLayout'
 import type { Props as ButtonProps } from '../../../Button/Button'
 
-type Section = {
+type CardProps = {
 	id: string,
 	rows: Array<FormInnerRowProps>
 }
 
 type Props = {
+	kind?: 'default' | 'page' | 'modal',
 	initialValues: Object,
 	onSubmit: Function,
-	sections: Array<Section>,
+	cards: Array<CardProps>,
 	rows: Array<FormInnerRowProps>,
 	formLayout: FormLayoutProps,
 	validate?: Function,
@@ -27,9 +28,10 @@ type Props = {
 
 const FormBuilder = (props: Props) => {
 	const {
+		kind,
 		initialValues,
 		onSubmit,
-		sections,
+		cards,
 		rows,
 		formLayout,
 		primaryCTA,
@@ -46,15 +48,15 @@ const FormBuilder = (props: Props) => {
 				const { values, errors, touched, handleChange, handleBlur } = props
 				return (
 					<Form className="formbuilder">
-						{sections && sections.length > 0 && (
+						{kind === 'page' && cards && cards.length > 0 && (
 							<Layout>
 								<LayoutSection>
-									{sections.map(section => (
-										<Card key={section.id}>
+									{cards.map(card => (
+										<Card key={card.id}>
 											<CardBody>
 												<FormInner
 													formLayout={formLayout}
-													rows={section.rows}
+													rows={card.rows}
 													formikProps={props}
 												/>
 											</CardBody>
@@ -63,13 +65,15 @@ const FormBuilder = (props: Props) => {
 								</LayoutSection>
 							</Layout>
 						)}
-						<FormInner
-							formLayout={formLayout}
-							rows={rows}
-							formikProps={props}
-							primaryCTA={primaryCTA}
-							secondaryCTA={secondaryCTA}
-						/>
+						{kind === 'default' && (
+							<FormInner
+								formLayout={formLayout}
+								rows={rows}
+								formikProps={props}
+								primaryCTA={primaryCTA}
+								secondaryCTA={secondaryCTA}
+							/>
+						)}
 					</Form>
 				)
 			}}
@@ -78,6 +82,7 @@ const FormBuilder = (props: Props) => {
 }
 
 FormBuilder.defaultProps = {
+	kind: 'default',
 	validate: () => null,
 	primaryCTA: null,
 	secondaryCTA: null
