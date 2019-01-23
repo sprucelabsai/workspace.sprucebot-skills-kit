@@ -2,15 +2,16 @@
 import React, { Fragment } from 'react'
 import { Formik, Form } from 'formik'
 import FormInner from './components/FormInner/FormInner'
-import Card, { CardBody } from '../../../Card'
+import Card, { CardBody, CardHeader } from '../../../Card'
 import Layout, { LayoutSection } from '../../../Layout'
 
 import type { FormInnerRowProps } from './components/FormInner/FormInner'
 import type { FormLayoutProps } from '../FormLayout/FormLayout'
 import type { Props as ButtonProps } from '../../../Button/Button'
 
-type CardProps = {
+type SectionProps = {
 	id: string,
+	title?: string,
 	rows: Array<FormInnerRowProps>
 }
 
@@ -18,7 +19,7 @@ type Props = {
 	kind?: 'default' | 'page' | 'modal',
 	initialValues: Object,
 	onSubmit: Function,
-	cards: Array<CardProps>,
+	sections: Array<SectionProps>,
 	rows: Array<FormInnerRowProps>,
 	formLayout: FormLayoutProps,
 	validate?: Function,
@@ -31,7 +32,7 @@ const FormBuilder = (props: Props) => {
 		kind,
 		initialValues,
 		onSubmit,
-		cards,
+		sections,
 		rows,
 		formLayout,
 		primaryCTA,
@@ -48,21 +49,22 @@ const FormBuilder = (props: Props) => {
 				const { values, errors, touched, handleChange, handleBlur } = props
 				return (
 					<Form className="formbuilder">
-						{kind === 'page' && cards && cards.length > 0 && (
+						{kind === 'page' && sections && sections.length > 0 && (
 							<Layout>
-								<LayoutSection>
-									{cards.map(card => (
-										<Card key={card.id}>
+								{sections.map(section => (
+									<LayoutSection key={section.id} id={section.id}>
+										<Card>
+											{section.title && <CardHeader title={section.title} />}
 											<CardBody>
 												<FormInner
 													formLayout={formLayout}
-													rows={card.rows}
+													rows={section.rows}
 													formikProps={props}
 												/>
 											</CardBody>
 										</Card>
-									))}
-								</LayoutSection>
+									</LayoutSection>
+								))}
 							</Layout>
 						)}
 						{kind === 'default' && (

@@ -225,9 +225,10 @@ stories
 					formLayout={{
 						spacing: 'tight'
 					}}
-					cards={[
+					sections={[
 						{
-							id: 'secOne',
+							id: 'appointmentSettings',
+							title: 'Appointment settings',
 							rows: [
 								{
 									id: 'pastEditingCutoffRow',
