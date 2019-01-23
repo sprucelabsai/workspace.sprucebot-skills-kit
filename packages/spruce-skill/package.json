@@ -27,8 +27,8 @@
 		"interface": "next ./interface -p 3080",
 		"lint": "eslint --ext .js .",
 		"test": "yarn run build && jest",
-		"test:server": "PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true mocha --exit 'server/tests/**/*Tests.js'",
-		"test:server:single": "PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true mocha --exit",
+		"test:server": "npm run build && cp src/.env build | true && PORT=3010 LOG_LEVEL=warn DISABLE_MIGRATIONS=true NODE_ENV=local DISABLE_MIGRATIONS=true BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true mocha -r flow-remove-types/register --exit 'server/tests/**/*Tests.js'",
+		"test:server:single": "npm run build && cp src/.env build | true && PORT=3010 LOG_LEVEL=warn DISABLE_MIGRATIONS=true NODE_ENV=local DISABLE_MIGRATIONS=true BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true mocha -r flow-remove-types/register --exit",
 		"icon": "svgo icon/icon.svg",
 		"heroku-postbuild": "npm run build",
 		"release": "semantic-release"
