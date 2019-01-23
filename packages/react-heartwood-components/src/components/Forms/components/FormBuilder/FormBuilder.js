@@ -9,6 +9,8 @@ import {
 } from '../../index'
 import List from '../../../List'
 import Button from '../../../Button/Button'
+import Text from '../../../Text/Text'
+import TextStyle from '../../../TextStyle/TextStyle'
 
 import type { FormLayoutProps } from '../FormLayout'
 import type { FormLayoutGroupProps } from '../FormLayout/components/FormLayoutGroup'
@@ -18,7 +20,9 @@ import type { Props as ButtonProps } from '../../../Button/Button'
 type Field = {
 	id: string,
 	element: string,
-	itemLayout: FormLayoutItemProps
+	itemLayout: FormLayoutItemProps,
+	title?: string,
+	description?: string
 }
 
 type Row = {
@@ -70,10 +74,14 @@ const FormBuilder = (props: Props) => {
 										{row.fields &&
 											row.fields.length > 0 &&
 											row.fields.map(field => {
-												const { element, ...rest } = field
+												const { element, title, description, ...rest } = field
 												const Handler = Elements[field.element]
 												return (
 													<FormLayoutItem key={field.id}>
+														{title && (
+															<TextStyle type="strong">{title}</TextStyle>
+														)}
+														{description && <Text>{description}</Text>}
 														{Handler && (
 															<Handler
 																name={field.id}

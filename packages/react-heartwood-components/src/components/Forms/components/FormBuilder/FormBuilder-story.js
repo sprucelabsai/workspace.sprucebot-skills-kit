@@ -11,7 +11,7 @@ import {
 } from '@storybook/addon-knobs/react'
 import FormBuilder from './FormBuilder'
 import Page, { PageContent } from '../../../Page'
-import Card, { CardBody, CardSection } from '../../../Card'
+import Card, { CardHeader, CardBody, CardSection } from '../../../Card'
 import Layout, { LayoutSection } from '../../../Layout'
 
 const stories = storiesOf('FormBuilder', module)
@@ -31,7 +31,7 @@ const withLayout = storyFn => (
 )
 
 stories.addDecorator(withKnobs)
-stories.addDecorator(withLayout)
+// stories.addDecorator(withLayout)
 
 stories
 	.add('Basic', () => (
@@ -182,4 +182,45 @@ stories
 				text: 'Add location'
 			}}
 		/>
+	))
+	.add('Settings page', () => (
+		<Page>
+			<PageContent>
+				<Layout>
+					<LayoutSection>
+						<Card>
+							<CardHeader title="Appointment settings" />
+							<CardBody>
+								<FormBuilder
+									initialValues={{
+										pastApptEditingCutoff: '45min',
+										pastApptBookingCutoff: '10min',
+										guestUpdateDelays: '1min',
+										autoConfirmAppts: true
+									}}
+									onSubmit={values => console.log('Submit', { values })}
+									formLayout={{
+										spacing: 'tight'
+									}}
+									rows={[
+										{
+											id: 'pastEditingCutoffRow',
+											fields: [
+												{
+													element: 'textInput',
+													id: 'pastApptEditingCutoff',
+													title: 'Cutoff for editing appointments in the past',
+													description:
+														'Once an appointment is past, how many minutes should I wait until I block the ability to edit it? Note: Paid appointments cannot be edited.	'
+												}
+											]
+										}
+									]}
+								/>
+							</CardBody>
+						</Card>
+					</LayoutSection>
+				</Layout>
+			</PageContent>
+		</Page>
 	))
