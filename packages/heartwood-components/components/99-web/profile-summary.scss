@@ -1,0 +1,11 @@
+.profile-summary {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	background-color: $c-grey-00;
+	border-bottom: 1px solid $c-border-light;
+}
+
+.profile-summary__name {
+	flex: 1 0 auto;
+}
