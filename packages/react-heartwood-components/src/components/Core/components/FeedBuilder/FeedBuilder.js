@@ -36,7 +36,6 @@ const formatMessages = (messages: Array<MessageProps>) => {
 			// Check if the messages were sent within the minimum difference to hide the image
 			const nextMessage = messages[idx + 1]
 			const diff = message.dateSent.diff(nextMessage.dateSent, 'minutes')
-			console.log(diff)
 			if (diff <= compareDiff) {
 				// Remove the image
 				formattedMessage.fromImage = null
