@@ -138,8 +138,16 @@ const FormBuilder = (props: Props) => {
 								</Modal.Body>
 								{primaryCTA && (
 									<Modal.Footer
-										primaryAction={primaryCTA}
-										secondaryAction={secondaryCTA}
+										primaryAction={{
+											...primaryCTA,
+											type: 'submit',
+											disabled: !isValid || isSubmitting,
+											isLoading: isSubmitting
+										}}
+										secondaryAction={{
+											...secondaryCTA,
+											disabled: isSubmitting
+										}}
 									/>
 								)}
 							</Fragment>

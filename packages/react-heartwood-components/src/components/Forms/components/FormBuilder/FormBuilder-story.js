@@ -393,6 +393,22 @@ stories
 				<Modal isOpen>
 					<Modal.Header title="New location group" />
 					<FormBuilder
+						initialValues={{
+							groupName: ''
+						}}
+						validate={values => {
+							let errors = {}
+
+							if (!groupName) {
+								errors.groupName = 'Please name this group'
+							}
+
+							return errors
+						}}
+						onSubmit={values => console.log('Submit', { values })}
+						formLayout={{
+							spacing: 'tight'
+						}}
 						kind="modal"
 						rows={[
 							{
