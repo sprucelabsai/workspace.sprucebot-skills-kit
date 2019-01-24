@@ -11,7 +11,7 @@ const stories = storiesOf('Toast', module)
 
 type Props = {
 	children: Node,
-	showUndo: boolean,
+	showFollowup: boolean,
 	headline: string,
 	text: string
 }
@@ -26,7 +26,7 @@ class ToastExample extends Component<Props, State> {
 	}
 
 	addToast = (kind: 'neutral' | 'positive' | 'negative') => {
-		const { showUndo, text, headline } = this.props
+		const { showFollowup, text, headline } = this.props
 		const ids = {
 			neutral: '1',
 			positive: '2',
@@ -54,7 +54,7 @@ class ToastExample extends Component<Props, State> {
 				text: texts[kind],
 				kind,
 				id: ids[kind],
-				onUndo: showUndo ? () => console.log('Undo') : null,
+				followupAction: showFollowup ? () => console.log('Undo') : null,
 				timeout: timeouts[kind]
 			})
 			return {
@@ -110,6 +110,6 @@ stories.add('Toast', () => (
 	<ToastExample
 		headline={text('headline', 'Neat')}
 		text={text('text', 'Something just happened and it was fine.')}
-		showUndo={boolean('showUndo', false)}
+		showFollowup={boolean('showFollowup', false)}
 	/>
 ))
