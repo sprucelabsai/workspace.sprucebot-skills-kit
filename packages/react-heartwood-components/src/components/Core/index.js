@@ -1,3 +1,4 @@
+import FeedBuilder from './components/FeedBuilder/FeedBuilder'
 import FooterPrimary from './components/FooterPrimary/FooterPrimary'
 import HeaderPrimary from './components/HeaderPrimary/HeaderPrimary'
 import Sidebar from './components/Sidebar/Sidebar'
@@ -5,6 +6,7 @@ import SidebarFooter from './components/Sidebar/components/SidebarFooter/Sidebar
 import SidebarSection from './components/Sidebar/components/SidebarSection/SidebarSection'
 import SaveBar from './components/SaveBar/SaveBar'
 
+export FeedBuilder from './components/FeedBuilder/FeedBuilder'
 export FooterPrimary from './components/FooterPrimary/FooterPrimary'
 export HeaderPrimary from './components/HeaderPrimary/HeaderPrimary'
 export Sidebar from './components/Sidebar/Sidebar'

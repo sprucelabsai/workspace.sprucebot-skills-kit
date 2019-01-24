@@ -17,6 +17,7 @@ export {
 } from './components/Card'
 export { default as ContextMenu } from './components/ContextMenu/ContextMenu'
 export {
+	FeedBuilder,
 	FooterPrimary,
 	HeaderPrimary,
 	Sidebar,
