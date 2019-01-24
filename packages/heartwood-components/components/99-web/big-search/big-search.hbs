@@ -1,10 +1,9 @@
 <div class="big-search-overlay">
     <div class="big-search">
-        <div class="big-search__search-bar">
+
+        <div class="big-search__header">
             <div class="text-input__inner">{{> @icon icon=searchInputIcon class="text-input__icon-pre"}}<input class="text-input__input"
                     placeholder="{{ placeholder }}" value="{{ value }}" /></div>
-        </div>
-        <div class="big-search__body">
             {{#if value }}
             <button class="btn big-search__search-context-btn" type="button">
                 <span class="btn__inner">
@@ -20,7 +19,10 @@
                 </span>
             </button>
             {{/if}}
+        </div>
+        <div class="big-search__body">
             {{> @people-list }}
         </div>
+
     </div>
 </div>

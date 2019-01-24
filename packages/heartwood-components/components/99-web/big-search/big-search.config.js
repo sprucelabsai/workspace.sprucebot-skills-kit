@@ -82,6 +82,48 @@ module.exports = {
 						image: image3,
 						imageIsAvatar: true,
 						actions: defaultSearchActions
+					},
+					{
+						title: 'Vicenta Maggio',
+						subtitle: '7am–5pm, Break: 2–3:25pm',
+						image,
+						imageIsAvatar: true,
+						actions: defaultSearchActions
+					},
+					{
+						title: 'Madaline Gibson',
+						subtitle: '9am–6pm, Break: 12–1pm',
+						image: image2,
+						imageIsAvatar: true,
+						actions: defaultSearchActions
+					},
+					{
+						title: 'Katlynn Pouros',
+						subtitle: '9am–5pm',
+						image: image3,
+						imageIsAvatar: true,
+						actions: defaultSearchActions
+					},
+					{
+						title: 'Vicenta Maggio',
+						subtitle: '7am–5pm, Break: 2–3:25pm',
+						image,
+						imageIsAvatar: true,
+						actions: defaultSearchActions
+					},
+					{
+						title: 'Madaline Gibson',
+						subtitle: '9am–6pm, Break: 12–1pm',
+						image: image2,
+						imageIsAvatar: true,
+						actions: defaultSearchActions
+					},
+					{
+						title: 'Katlynn Pouros',
+						subtitle: '9am–5pm',
+						image: image3,
+						imageIsAvatar: true,
+						actions: defaultSearchActions
 					}
 				]
 			}
