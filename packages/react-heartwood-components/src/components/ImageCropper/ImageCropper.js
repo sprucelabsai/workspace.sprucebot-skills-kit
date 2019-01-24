@@ -116,7 +116,7 @@ export default class ImageCropper extends Component<Props, State> {
 							customIcon: RotateLeftIcon,
 							isLineIcon: true
 						}}
-						disabled={!image}
+						disabled={!image || isSubmitting}
 						onClick={() => this.handleRotate('left')}
 					/>
 					<Button
@@ -127,7 +127,7 @@ export default class ImageCropper extends Component<Props, State> {
 							customIcon: RotateRightIcon,
 							isLineIcon: true
 						}}
-						disabled={!image}
+						disabled={!image || isSubmitting}
 						onClick={() => this.handleRotate('right')}
 					/>
 				</div>
@@ -139,7 +139,7 @@ export default class ImageCropper extends Component<Props, State> {
 						max={100}
 						value={sliderValue}
 						postLabel={`${Math.round(scale * 100)}%`}
-						disabled={!image}
+						disabled={!image || isSubmitting}
 						onChange={this.handleScale}
 					/>
 				</div>
