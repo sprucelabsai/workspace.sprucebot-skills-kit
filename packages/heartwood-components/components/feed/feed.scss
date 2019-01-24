@@ -1,3 +1,8 @@
+.message-feed__wrapper {
+	position: relative;
+	margin-top: rem(-48);
+}
+
 .message-feed {
 	display: flex;
 	flex-flow: column-reverse;
@@ -8,4 +13,9 @@
 	height: 100vh;
 	overflow-x: hidden;
 	overflow-y: scroll;
+
+	> *:last-child {
+		// TODO: Needs a better solution — this highlights empty space
+		padding-top: rem(64);
+	}
 }

@@ -38,12 +38,16 @@ const formatMessages = (messages: Array<MessageProps>) => {
 			const diff = message.dateSent.diff(nextMessage.dateSent, 'minutes')
 			if (diff <= compareDiff) {
 				// Remove the image
-				formattedMessage.fromImage = null
+				formattedMessage.from = {
+					...formattedMessage.from,
+					image: null
+				}
 			}
 		}
 
 		formattedMessages.push(formattedMessage)
 	})
+	console.log({ formattedMessages })
 	return formattedMessages
 }
 
@@ -51,14 +55,16 @@ const FeedBuilder = (props: Props) => {
 	const { messages, emptyText } = props
 	const formattedMessages = formatMessages(messages)
 	return (
-		<div className="message-feed">
-			{formattedMessages && formattedMessages.length > 0 ? (
-				formattedMessages.map(message => (
-					<MessageBuilder key={message.id} {...message} />
-				))
-			) : (
-				<p>{emptyText}</p>
-			)}
+		<div className="message-feed__wrapper">
+			<div className="message-feed">
+				{formattedMessages && formattedMessages.length > 0 ? (
+					formattedMessages.map(message => (
+						<MessageBuilder key={message.id} {...message} />
+					))
+				) : (
+					<p>{emptyText}</p>
+				)}
+			</div>
 		</div>
 	)
 }
