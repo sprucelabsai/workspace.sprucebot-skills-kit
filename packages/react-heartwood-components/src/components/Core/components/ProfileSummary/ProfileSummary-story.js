@@ -13,5 +13,6 @@ stories.add('Basic', () => (
 	<ProfileSummary
 		image={text('image', defaultImageLg)}
 		name={text('name', 'Dorian Feeney')}
+		onButtonClick={() => console.log('onButtonClick')}
 	/>
 ))

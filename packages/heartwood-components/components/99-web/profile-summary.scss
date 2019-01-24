@@ -1,11 +1,15 @@
 .profile-summary {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	width: 100%;
+	padding: rem(12) spacing('base');
 	background-color: $c-grey-00;
 	border-bottom: 1px solid $c-border-light;
 }
 
 .profile-summary__name {
-	flex: 1 0 auto;
+	flex: 1 1 auto;
+	margin-left: spacing('tight');
+	font-weight: $font-weight-bold;
 }
