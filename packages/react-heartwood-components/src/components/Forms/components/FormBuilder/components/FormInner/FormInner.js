@@ -56,8 +56,6 @@ const FormInner = (props: Props) => {
 		list: List
 	}
 
-	console.log({ formikProps })
-
 	return (
 		<FormLayout {...formLayout}>
 			{rows &&
