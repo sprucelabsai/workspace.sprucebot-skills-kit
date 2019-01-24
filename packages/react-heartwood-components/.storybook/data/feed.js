@@ -25,47 +25,112 @@ const guests = {
 	}
 }
 
-export const messages = [
+const sprucebotMessages = [
 	{
-		from: senders.sprucebot,
-		isFromSprucebot: true,
-		dateSent: moment(),
-		message: {
-			text: '{{guest}} submitted a review of {{teammate}}: {{review}}',
-			context: {
-				guest: {
-					type: 'text',
-					props: { element: 'span', children: guests.dorianFeeney.firstName }
-				},
-				teammate: {
-					type: 'text',
-					props: { element: 'span', children: senders.teammate01.name }
-				},
-				review: {
-					type: 'text',
-					props: {
-						element: 'blockquote',
-						children:
-							'Camila is the best! she was courteous, funny, and gave me a great haircut. 10 outta 10!'
-					}
+		text:
+			'This is a message from Sprucebot. There are many like it, but this one is yours',
+		context: {}
+	},
+	{
+		text: '{{guest}} submitted a review of {{teammate}}: {{review}}',
+		context: {
+			guest: {
+				type: 'text',
+				props: { element: 'span', children: guests.dorianFeeney.firstName }
+			},
+			teammate: {
+				type: 'text',
+				props: { element: 'span', children: senders.teammate01.name }
+			},
+			review: {
+				type: 'text',
+				props: {
+					element: 'blockquote',
+					children:
+						'Camila is the best! she was courteous, funny, and gave me a great haircut. 10 outta 10!'
 				}
 			}
 		}
 	},
 	{
+		text:
+			'I just asked {{guest}} to review their most recent appointment. Good luck!',
+		context: {
+			guest: {
+				type: 'text',
+				props: { element: 'span', children: guests.dorianFeeney.firstName }
+			}
+		}
+	},
+	{
+		text: "{{guest}}'s {{payment}} has been processed",
+		context: {
+			guest: {
+				type: 'text',
+				props: { element: 'span', children: guests.dorianFeeney.firstName }
+			},
+			payment: {
+				type: 'text',
+				props: { element: 'a', href: '#', children: 'payment' }
+			}
+		}
+	},
+	{
+		text: '{{guest}} has an {{appointment}} ending in 5 minutes.',
+		context: {
+			guest: {
+				type: 'text',
+				props: { element: 'span', children: guests.dorianFeeney.firstName }
+			},
+			appointment: {
+				type: 'text',
+				props: { element: 'a', href: '#', children: 'appointment' }
+			}
+		}
+	},
+	{
+		text: '{{guest}} has an {{upcoming appointment}} in 5 minutes.',
+		context: {
+			guest: {
+				type: 'text',
+				props: { element: 'span', children: guestFirstName }
+			},
+			'upcoming appointment': {
+				type: 'text',
+				props: { element: 'a', href: '#', children: 'upcoming appointment' }
+			}
+		}
+	}
+]
+
+export const generateMessages = ({ count, interval = 1 }) => {
+	const messages = []
+
+	for (let i = 0; i < count; i++) {
+		messages.push({
+			from: senders.sprucebot,
+			isFromSprucebot: true,
+			dateSent: moment().subtract(i * interval, 'minutes'),
+			message:
+				sprucebotMessages[Math.floor(Math.random() * sprucebotMessages.length)]
+		})
+	}
+
+	return messages
+}
+
+export const messages = [
+	{
+		from: senders.sprucebot,
+		isFromSprucebot: true,
+		dateSent: moment(),
+		message: sprucebotMessages[1]
+	},
+	{
 		from: senders.sprucebot,
 		isFromSprucebot: true,
 		dateSent: moment().subtract(173, 'minutes'),
-		message: {
-			text:
-				'I just asked {{guest}} to review their most recent appointment. Good luck!',
-			context: {
-				guest: {
-					type: 'text',
-					props: { element: 'span', children: guests.dorianFeeney.firstName }
-				}
-			}
-		},
+		message: sprucebotMessages[2],
 		detail: 'Request sent from Reviews skill'
 	},
 	{
@@ -80,37 +145,13 @@ export const messages = [
 		from: senders.sprucebot,
 		isFromSprucebot: true,
 		dateSent: moment().subtract(201, 'minutes'),
-		message: {
-			text: "{{guest}}'s {{payment}} has been processed",
-			context: {
-				guest: {
-					type: 'text',
-					props: { element: 'span', children: guests.dorianFeeney.firstName }
-				},
-				payment: {
-					type: 'text',
-					props: { element: 'a', href: '#', children: 'payment' }
-				}
-			}
-		}
+		message: sprucebotMessages[3]
 	},
 	{
 		from: senders.sprucebot,
 		isFromSprucebot: true,
 		dateSent: moment().subtract(208, 'minutes'),
-		message: {
-			text: '{{guest}} has an {{appointment}} ending in 5 minutes.',
-			context: {
-				guest: {
-					type: 'text',
-					props: { element: 'span', children: guests.dorianFeeney.firstName }
-				},
-				appointment: {
-					type: 'text',
-					props: { element: 'a', href: '#', children: 'appointment' }
-				}
-			}
-		},
+		message: sprucebotMessages[4],
 		replies: [
 			{
 				type: 'success',
@@ -122,19 +163,7 @@ export const messages = [
 		from: senders.sprucebot,
 		isFromSprucebot: true,
 		dateSent: moment().subtract(268, 'minutes'),
-		message: {
-			text: '{{guest}} has an {{upcoming appointment}} in 5 minutes.',
-			context: {
-				guest: {
-					type: 'text',
-					props: { element: 'span', children: guestFirstName }
-				},
-				'upcoming appointment': {
-					type: 'text',
-					props: { element: 'a', href: '#', children: 'upcoming appointment' }
-				}
-			}
-		},
+		message: sprucebotMessages[5],
 		replies: [
 			{
 				type: 'success',

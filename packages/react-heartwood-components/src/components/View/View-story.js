@@ -22,7 +22,7 @@ import Icon from '../Icon/Icon'
 import Avatar from '../Avatar/Avatar'
 import SaveBar from '../Core/components/SaveBar/SaveBar'
 import FeedBuilder from '../Core/components/FeedBuilder/FeedBuilder'
-import { messages } from '../../../.storybook/data/feed'
+import { messages, generateMessages } from '../../../.storybook/data/feed'
 
 import View from './View.js'
 import simple from 'graphql-query-complexity/dist/estimators/simple'
@@ -342,7 +342,9 @@ stories
 			isSidebarExpanded
 		>
 			<Page hasSidebar>
-				<FeedBuilder messages={[]} />
+				<FeedBuilder
+					messages={generateMessages({ count: 1000, interval: 31 })}
+				/>
 				<Sidebar isLarge isCollapsible={false} side="right">
 					<SidebarSection
 						isCentered
