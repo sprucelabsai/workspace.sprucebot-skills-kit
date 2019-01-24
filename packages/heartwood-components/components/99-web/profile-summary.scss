@@ -6,10 +6,6 @@
 	padding: rem(12) spacing('base');
 	background-color: $c-grey-00;
 	border-bottom: 1px solid $c-border-light;
-
-	@include gt('990px') {
-		display: none;
-	}
 }
 
 .profile-summary__name {
