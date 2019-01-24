@@ -5,8 +5,13 @@ import Button from '../../../Button/Button'
 import Text from '../../../Text/Text'
 
 type Props = {
+	/** User profile image */
 	image: string,
+
+	/** Use name */
 	name: string,
+
+	/** Function for the button */
 	onButtonClick: Function
 }
 
