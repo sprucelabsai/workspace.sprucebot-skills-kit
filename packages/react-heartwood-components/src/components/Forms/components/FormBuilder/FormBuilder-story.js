@@ -390,7 +390,7 @@ stories
 	.add('In a modal', () => (
 		<Page>
 			<PageContent>
-				<Modal isOpen>
+				<Modal isOpen isSmall>
 					<Modal.Header title="New location group" />
 					<FormBuilder
 						initialValues={{
