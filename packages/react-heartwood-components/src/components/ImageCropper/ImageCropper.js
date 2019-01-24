@@ -26,7 +26,10 @@ type Props = {
 	isCircular?: boolean,
 
 	/** Callback when save button is clicked */
-	onSubmit?: Function
+	onSubmit?: Function,
+
+	/** Callback when upload new button is clicked */
+	onUploadNewImage?: Function
 }
 type State = {
 	scale: number,
@@ -78,6 +81,7 @@ export default class ImageCropper extends Component<Props, State> {
 			height,
 			isCircular,
 			dropzoneProps,
+			onUploadNewImage,
 			...rest
 		} = this.props
 		const { scale, rotate, isSubmitting, sliderValue } = this.state
@@ -140,9 +144,17 @@ export default class ImageCropper extends Component<Props, State> {
 					/>
 				</div>
 				<div className="image-cropper__controls-row">
+					{image && (
+						<Button
+							kind="simple"
+							text="Upload another image"
+							disabled={isSubmitting}
+							onClick={onUploadNewImage}
+						/>
+					)}
 					<Button
 						kind="primary"
-						isFullWidth
+						isFullWidth={image ? false : true}
 						text="Save Image"
 						disabled={!image || isSubmitting}
 						isLoading={isSubmitting}
