@@ -10,6 +10,7 @@ import {
 	select
 } from '@storybook/addon-knobs/react'
 import FormBuilder from './FormBuilder'
+import Modal from '../../../Modal/Modal'
 import Page, { PageContent } from '../../../Page'
 import Card, { CardHeader, CardBody, CardSection } from '../../../Card'
 import Layout, { LayoutSection } from '../../../Layout'
@@ -383,6 +384,37 @@ stories
 						}
 					]}
 				/>
+			</PageContent>
+		</Page>
+	))
+	.add('In a modal', () => (
+		<Page>
+			<PageContent>
+				<Modal isOpen>
+					<Modal.Header title="New location group" />
+					<FormBuilder
+						kind="modal"
+						rows={[
+							{
+								id: 'groupNameRow',
+								fields: [
+									{
+										id: 'groupName',
+										element: 'textInput',
+										label: 'Group Name',
+										placeholder: 'e.g. East, West, Midwest, etc…'
+									}
+								]
+							}
+						]}
+						primaryCTA={{
+							text: 'Create group'
+						}}
+						secondaryCTA={{
+							text: 'Cancel'
+						}}
+					/>
+				</Modal>
 			</PageContent>
 		</Page>
 	))

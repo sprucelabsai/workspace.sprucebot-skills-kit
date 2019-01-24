@@ -6,6 +6,7 @@ import Card, { CardBody, CardHeader } from '../../../Card'
 import Layout, { LayoutSection } from '../../../Layout'
 import { SaveBar } from '../../../Core'
 import Button from '../../../Button/Button'
+import Modal from '../../../Modal/Modal'
 
 import type { FormInnerRowProps } from './components/FormInner/FormInner'
 import type { FormLayoutProps } from '../FormLayout/FormLayout'
@@ -125,6 +126,23 @@ const FormBuilder = (props: Props) => {
 								primaryCTA={primaryCTA}
 								secondaryCTA={secondaryCTA}
 							/>
+						)}
+						{kind === 'modal' && (
+							<Fragment>
+								<Modal.Body>
+									<FormInner
+										formLayout={formLayout}
+										rows={rows}
+										formikProps={props}
+									/>
+								</Modal.Body>
+								{primaryCTA && (
+									<Modal.Footer
+										primaryAction={primaryCTA}
+										secondaryAction={secondaryCTA}
+									/>
+								)}
+							</Fragment>
 						)}
 					</Form>
 				)
