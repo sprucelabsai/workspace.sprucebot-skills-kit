@@ -47,13 +47,16 @@ const FormInner = (props: Props) => {
 		values,
 		errors,
 		touched,
-		isValid
+		isValid,
+		isSubmitting
 	} = formikProps
 
 	const Elements = {
 		textInput: TextInput,
 		list: List
 	}
+
+	console.log({ formikProps })
 
 	return (
 		<FormLayout {...formLayout}>
@@ -87,14 +90,15 @@ const FormInner = (props: Props) => {
 				<FormLayoutGroup>
 					{secondaryCTA && (
 						<FormLayoutItem>
-							<Button {...secondaryCTA} />
+							<Button disabled={isSubmitting} {...secondaryCTA} />
 						</FormLayoutItem>
 					)}
 					<FormLayoutItem>
 						<Button
 							kind="primary"
 							type="submit"
-							disabled={!isValid}
+							disabled={!isValid || isSubmitting}
+							isLoading={isSubmitting}
 							{...primaryCTA}
 						/>
 					</FormLayoutItem>

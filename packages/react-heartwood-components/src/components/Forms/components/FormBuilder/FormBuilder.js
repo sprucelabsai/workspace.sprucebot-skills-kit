@@ -55,7 +55,8 @@ const FormBuilder = (props: Props) => {
 					handleChange,
 					handleBlur,
 					dirty,
-					isValid
+					isValid,
+					isSubmitting
 				} = props
 				return (
 					<Form className="formbuilder">
@@ -77,9 +78,14 @@ const FormBuilder = (props: Props) => {
 								))}
 								<SaveBar
 									isVisible={dirty}
-									onSave={props => onSubmit(props)}
+									onSave={() => {
+										props.setSubmitting(true)
+										onSubmit({ values })
+									}}
 									onDiscard={() => props.resetForm()}
 									isSaveDisabled={!isValid}
+									isSaving={isSubmitting}
+									isDiscardDisabled={isSubmitting}
 								/>
 								{/* NOTE: The form won't submit on enter key pressed without this hidden button */}
 								<Button
