@@ -1,6 +1,7 @@
 const { execute, subscribe } = require('graphql')
 const { SubscriptionServer } = require('subscriptions-transport-ws')
 const { PubSub } = require('graphql-subscriptions')
+const { RedisPubSub } = require('graphql-redis-subscriptions')
 const config = require('config')
 const jwt = require('jsonwebtoken')
 
@@ -13,7 +14,16 @@ module.exports = class GQLSubscriptionServer {
 		this.ctx = options.ctx
 
 		// Set up GraphQL subscriptions
-		this.pubsub = new PubSub()
+		if (process.env.REDIS_URL) {
+			// Prefer using redis subscriptions so multiple servers can be run
+			this.pubsub = new RedisPubSub({
+				publisher: new Redis(process.env.REDIS_URL),
+				subscriber: new Redis(process.env.REDIS_URL)
+			})
+		} else {
+			// Fall back to regular pubsub which will only work properly if a single instance is running
+			this.pubsub = new PubSub()
+		}
 		if (options.enabled) {
 			this.subServer = new SubscriptionServer(
 				{

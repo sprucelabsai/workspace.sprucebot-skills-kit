@@ -4,6 +4,7 @@ function SpruceWebError(message = '', data) {
 	this.name = 'SpruceWebError'
 	this.message = `${this.name} :: ${message}`
 	this.data = data
+	this.stack = new Error().stack
 }
 
 SpruceWebError.prototype = new Error()
@@ -50,7 +51,21 @@ function logData(data) {
 }
 
 function serializeError(error) {
-	return pick(error, ['message', 'arguments', 'type', 'name', 'stack', 'data'])
+	const dataForSerialization = pick(error, [
+		'message',
+		'arguments',
+		'type',
+		'name',
+		'stack',
+		'data'
+	])
+
+	// Split on newlines for prettier logs
+	dataForSerialization.stack =
+		typeof dataForSerialization.stack === 'string' &&
+		dataForSerialization.stack.split('\n')
+
+	return dataForSerialization
 }
 
 function trackError(errorObject, additionalData = {}) {

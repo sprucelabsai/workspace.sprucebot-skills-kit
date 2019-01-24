@@ -2,6 +2,7 @@ export Autosuggest from './components/Autosuggest/Autosuggest'
 export Checkbox from './components/Checkbox/Checkbox'
 export DatePicker from './components/DatePicker/DatePicker'
 export DomainInput from './components/DomainInput/DomainInput'
+export FormBuilder from './components/FormBuilder/FormBuilder'
 export PhoneInput, {
 	formatPhoneNumber,
 	isValidPhoneNumber
