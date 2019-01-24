@@ -36,11 +36,14 @@ export type Props = {
 	kind?: 'neutral' | 'positive' | 'negative',
 
 	/** Handle a followup action */
-	followupAction?: Function
+	followupAction?: Function,
+
+	/** Text for the followup action */
+	followupText?: string
 }
 
 const Toast = (props: Props) => {
-	const { headline, kind, text, followupAction, onRemove } = props
+	const { headline, kind, text, followupAction, followupText, onRemove } = props
 	const toastClass = cx('toast', {
 		'toast-positive': kind === 'positive',
 		'toast-negative': kind === 'negative'
@@ -51,14 +54,17 @@ const Toast = (props: Props) => {
 			<div className="toast__body">
 				<p>{text}</p>
 			</div>
-			{followupAction && <Button text="Undo" onClick={followupAction} />}
+			{followupAction && (
+				<Button text={followupText} onClick={followupAction} />
+			)}
 		</div>
 	)
 }
 
 Toast.defaultProps = {
 	kind: 'neutral',
-	onUndo: null
+	followupAction: null,
+	followupText: 'Undo'
 }
 
 export default Toast
