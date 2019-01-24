@@ -47,7 +47,6 @@ const formatMessages = (messages: Array<MessageProps>) => {
 
 		formattedMessages.push(formattedMessage)
 	})
-	console.log({ formattedMessages })
 	return formattedMessages
 }
 
