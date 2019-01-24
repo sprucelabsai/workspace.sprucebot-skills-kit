@@ -3,6 +3,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import moment from 'moment-timezone'
 import FeedBuilder from './FeedBuilder'
+import Page, { PageContent } from '../../../Page'
 
 const stories = storiesOf('Feed Builder', module)
 
