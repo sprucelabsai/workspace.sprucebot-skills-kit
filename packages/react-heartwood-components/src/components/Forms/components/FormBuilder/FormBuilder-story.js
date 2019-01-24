@@ -280,7 +280,8 @@ stories
 											id: 'pastApptBookingCutoff',
 											title: 'Booking past appointment cutoff',
 											description:
-												'How far in the past should I allow appointments to be booked?	'
+												'How far in the past should I allow appointments to be booked?',
+											required: true
 										}
 									]
 								},
@@ -292,7 +293,8 @@ stories
 											id: 'guestUpdateDelays',
 											title: 'Guest update delays',
 											description:
-												'How long should I wait before sending an update text to the guest when changes are made to their appointment? This gives you time to make a few edits back-to-back without the guest receiving a ton of texts.'
+												'How long should I wait before sending an update text to the guest when changes are made to their appointment? This gives you time to make a few edits back-to-back without the guest receiving a ton of texts.',
+											required: true
 										}
 									]
 								},
@@ -334,7 +336,8 @@ stories
 											element: 'textInput',
 											title: 'Appointment Reminder 1',
 											description:
-												'How many hours before an appointment should I send the first reminder?'
+												'How many hours before an appointment should I send the first reminder?',
+											required: true
 										}
 									]
 								},
@@ -346,7 +349,8 @@ stories
 											element: 'textInput',
 											title: 'Appointment Reminder 1 Buffer',
 											description:
-												"How many hours before an appointment does a guest need to book to activate the first reminder? Example, I don't want to send a 24 hour reminder if someone booked 25 hours ago because they'd get a confirmation text and then a reminder an hour later."
+												"How many hours before an appointment does a guest need to book to activate the first reminder? Example, I don't want to send a 24 hour reminder if someone booked 25 hours ago because they'd get a confirmation text and then a reminder an hour later.",
+											required: true
 										}
 									]
 								},
@@ -370,7 +374,8 @@ stories
 											element: 'textInput',
 											title: 'Appointment Reminder 2 Buffer',
 											description:
-												"How many hours before an appointment does a guest need to book to activate the second reminder?  Example, I don't want to send an hour reminder if someone booked 61 minutes ago because they'd get a confirmation text and then a reminder a minute later.	"
+												"How many hours before an appointment does a guest need to book to activate the second reminder?  Example, I don't want to send an hour reminder if someone booked 61 minutes ago because they'd get a confirmation text and then a reminder a minute later.",
+											required: true
 										}
 									]
 								}
