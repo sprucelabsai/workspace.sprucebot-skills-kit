@@ -23,24 +23,31 @@ type Props = {
 	dropzoneProps: DropzoneProps,
 
 	/** Set true for ciruclar image */
-	isCircular?: boolean
+	isCircular?: boolean,
+
+	/** Callback when save button is clicked */
+	onSubmit?: Function
 }
 type State = {
 	scale: number,
-	rotate: number
+	rotate: number,
+	isSubmitting: boolean
 }
 
 export default class ImageCropper extends Component<Props, State> {
 	state = {
-		scale: 1,
-		rotate: 0
+		scale: 0.5,
+		sliderValue: 50,
+		rotate: 0,
+		isSubmitting: false
 	}
 
 	handleScale = (e: any) => {
 		const newVal = e.currentTarget.value
 
 		this.setState({
-			scale: newVal / 100
+			scale: newVal / 100,
+			sliderValue: newVal
 		})
 	}
 
@@ -54,6 +61,16 @@ export default class ImageCropper extends Component<Props, State> {
 		})
 	}
 
+	handleSubmit = async () => {
+		const canvasImg = this.avatarEditor.getImageScaledToCanvas()
+
+		if (this.props.onSubmit) {
+			this.setState({ isSubmitting: true })
+			await this.props.onSubmit(canvasImg)
+			this.setState({ isSubmitting: false })
+		}
+	}
+
 	render() {
 		const {
 			image,
@@ -63,7 +80,7 @@ export default class ImageCropper extends Component<Props, State> {
 			dropzoneProps,
 			...rest
 		} = this.props
-		const { scale, rotate } = this.state
+		const { scale, rotate, isSubmitting, sliderValue } = this.state
 		return (
 			<div className="image-cropper">
 				<div className="image-cropper__dropzone-wrapper">
@@ -72,12 +89,15 @@ export default class ImageCropper extends Component<Props, State> {
 							image={image}
 							width={width}
 							height={height}
-							scale={scale}
+							scale={scale + 1}
 							rotate={rotate}
 							border={0}
 							borderRadius={isCircular ? 100 : 0}
 							color={[255, 255, 255, 1]}
 							{...rest}
+							ref={editor => {
+								this.avatarEditor = editor
+							}}
 						/>
 					) : (
 						<Dropzone {...dropzoneProps} />
@@ -111,9 +131,9 @@ export default class ImageCropper extends Component<Props, State> {
 					<Slider
 						label="Scale"
 						id="scale"
-						min="100"
-						max="200"
-						value={100}
+						min={0}
+						max={100}
+						value={sliderValue}
 						postLabel={`${Math.round(scale * 100)}%`}
 						disabled={!image}
 						onChange={this.handleScale}
@@ -124,7 +144,9 @@ export default class ImageCropper extends Component<Props, State> {
 						kind="primary"
 						isFullWidth
 						text="Save Image"
-						disabled={!image}
+						disabled={!image || isSubmitting}
+						isLoading={isSubmitting}
+						onClick={() => this.handleSubmit()}
 					/>
 				</div>
 			</div>
