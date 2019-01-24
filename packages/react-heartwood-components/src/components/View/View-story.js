@@ -342,7 +342,7 @@ stories
 			isSidebarExpanded
 		>
 			<Page hasSidebar>
-				<FeedBuilder messages={messages} />
+				<FeedBuilder messages={[]} />
 				<Sidebar isLarge isCollapsible={false} side="right">
 					<SidebarSection
 						isCentered

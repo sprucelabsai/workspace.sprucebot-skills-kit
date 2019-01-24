@@ -25,3 +25,9 @@
 	padding: spacing('tight') 0;
 	border-bottom: 1px solid $c-border;
 }
+
+.message-feed__empty-text {
+	@include type-style-h3;
+	padding: spacing('base');
+	color: $c-text-light;
+}

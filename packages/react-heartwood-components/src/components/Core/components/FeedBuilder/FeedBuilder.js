@@ -56,7 +56,6 @@ const groupMessages = (messages: Array<MessageProps>) => {
 	const groupedMessages = []
 
 	messages.forEach((message, idx) => {
-		console.log(message.dateSent.isSame(new Date(), 'year'))
 		const daySent = message.dateSent.calendar(null, {
 			sameDay: '[Today]',
 			lastDay: '[Yesterday]',
@@ -75,7 +74,6 @@ const groupMessages = (messages: Array<MessageProps>) => {
 			match.messages.push(idx)
 		}
 	})
-	console.log({ groupedMessages })
 
 	return groupedMessages
 }
@@ -100,16 +98,8 @@ const FeedBuilder = (props: Props) => {
 						</Fragment>
 					))
 				) : (
-					<p>{emptyText}</p>
+					<Text className="message-feed__empty-text">{emptyText}</Text>
 				)}
-
-				{/* {formattedMessages && formattedMessages.length > 0 ? (
-					formattedMessages.map((message, idx) => {
-						return <MessageBuilder key={message.id} {...message} />
-					})
-				) : (
-					<p>{emptyText}</p>
-				)} */}
 			</div>
 		</div>
 	)
