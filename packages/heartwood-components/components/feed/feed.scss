@@ -15,7 +15,6 @@
 	overflow-y: scroll;
 
 	> *:last-child {
-		// TODO: Needs a better solution — this highlights empty space
 		padding-top: rem(64);
 	}
 }

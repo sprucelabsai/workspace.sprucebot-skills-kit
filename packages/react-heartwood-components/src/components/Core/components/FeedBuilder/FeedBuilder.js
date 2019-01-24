@@ -57,12 +57,21 @@ const FeedBuilder = (props: Props) => {
 		<div className="message-feed__wrapper">
 			<div className="message-feed">
 				{formattedMessages && formattedMessages.length > 0 ? (
-					formattedMessages.map(message => (
-						<MessageBuilder key={message.id} {...message} />
-					))
+					formattedMessages.map((message, idx) => {
+						const prevMessage = formattedMessages[idx - 1]
+						if (
+							prevMessage &&
+							!message.dateSent.isSame(prevMessage.dateSent, 'day')
+						) {
+							console.log('Different Day')
+							// Return the message followed by a day header
+						}
+						return <MessageBuilder key={message.id} {...message} />
+					})
 				) : (
 					<p>{emptyText}</p>
 				)}
+				<p>Today</p>
 			</div>
 		</div>
 	)
