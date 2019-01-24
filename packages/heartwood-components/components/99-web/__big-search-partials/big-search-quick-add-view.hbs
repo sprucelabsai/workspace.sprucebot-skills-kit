@@ -1,0 +1,70 @@
+<div class="big-search__view-header">
+	{{> @button className="btn-small" width="20" height="20" icon='
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M16.6663 9.16665H6.52467L11.183 4.50831L9.99967 3.33331L3.33301 9.99998L9.99967 16.6666L11.1747 15.4916L6.52467 10.8333H16.6663V9.16665V9.16665Z" />'}}
+	<div class="big-search__view-header-title-wrapper">
+		<h2 class="big-search__view-header-title">{{{title}}}</h2>
+	</div>
+	{{> @button className="btn-small" width="20" height="20" icon='
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M15.8334 5.3415L14.6584 4.1665L10.0001 8.82484L5.34175 4.1665L4.16675 5.3415L8.82508 9.99984L4.16675 14.6582L5.34175 15.8332L10.0001 11.1748L14.6584 15.8332L15.8334 14.6582L11.1751 9.99984L15.8334 5.3415Z" />'}}
+</div>
+<div class="big-search__view-body{{#if isCentered}} big-search__view-body--centered{{/if}}">
+	{{#unless existingUser }}
+	<form class="big-search__quick-add-form">
+		<div class="form-layout form-layout--spacing-tight">
+			<div class="form-layout__item">{{> @phone-input phoneNumber="true" type="tel"
+				label="Phone Number"
+				placeholder="(555) 555-5555"
+				id="phone-number"
+				name="phoneNumber"
+				value=phoneNumberValue
+				}}
+			</div>
+			{{#if phoneNumberValue }}
+			{{#unless existingUser }}
+			<div class="form-layout__group">
+				<div class="form-layout__item">{{> @text-input label="First Name (Optional)"
+					placeholder="Guest's first name" }}</div>
+				<div class="form-layout__item">{{> @text-input label="Last Name (Optional)"
+					placeholder="Guest's last name" }}</div>
+			</div>
+			{{/unless}}
+			{{/if}}
+		</div>
+
+	</form>
+	{{/unless}}
+	{{#if existingUser }}
+	<form class="big-search__update-user-form">
+		<div class="form-layout form-layout--spacing-tight">
+			<div class="form-layout__item">{{> @subheading text=existingUserMessage }}</div>
+			<div class="form-layout__item big-search__update-user-avatar">
+				{{> @avatar existingUser }}
+			</div>
+			<div class="form-layout__group">
+				<div class="form-layout__item">{{> @text-input label="First Name"
+					placeholder="Guest's first name" value=existingUser.firstName }}</div>
+				<div class="form-layout__item">{{> @text-input label="Last Name"
+					placeholder="Guest's last name" value=existingUser.lastName }}</div>
+			</div>
+			<div class="form-layout__item">{{> @phone-input phoneNumber="true" type="tel"
+				label="Phone Number"
+				placeholder="(555) 555-5555"
+				id="phone-number"
+				name="phoneNumber"
+				value=phoneNumberValue
+				}}
+			</div>
+		</div>
+	</form>
+	{{/if}}
+</div>
+{{#orCond primaryAction secondaryAction }}
+<div class="big-search__view-footer">
+	{{#if primaryAction}}
+	{{> @button className="btn-primary" text=primaryAction}}
+	{{/if}}
+	{{#if secondaryAction}}
+	{{> @button className="btn-secondary" text=secondaryAction}}
+	{{/if}}
+</div>
+{{/orCond}}

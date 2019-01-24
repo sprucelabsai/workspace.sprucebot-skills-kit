@@ -20,112 +20,129 @@ const image3 =
 module.exports = {
 	title: 'Big Search',
 	context: {
+		view: 'search',
 		placeholder: 'Search teammates…',
 		searchInputIcon:
 			'<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/>',
 		showQuickAdd: true,
 		searchContextBtnIcon: addIcon,
-		listHeaderTitle: 'Recent Searches',
-		items: [
+		searchListItems: [
 			{
-				title: 'Vicenta Maggio',
-				subtitle: '7am–5pm, Break: 2–3:25pm',
-				image,
-				imageIsAvatar: true,
-				actions: defaultSearchActions
-			},
-			{
-				title: 'Madaline Gibson',
-				subtitle: '9am–6pm, Break: 12–1pm',
-				image: image2,
-				imageIsAvatar: true,
-				actions: defaultSearchActions
-			},
-			{
-				title: 'Katlynn Pouros',
-				subtitle: '9am–5pm',
-				image: image3,
-				imageIsAvatar: true,
-				actions: defaultSearchActions
+				type: 'people-list',
+				parentClass: 'people-list',
+				listHeaderTitle: 'Recent Searches',
+				actions: [],
+				items: [
+					{
+						title: 'Vicenta Maggio',
+						subtitle: 'Last visited 2 hours ago',
+						image,
+						imageIsAvatar: true,
+						actions: []
+					},
+					{
+						title: 'Madaline Gibson',
+						subtitle: 'Last visited 2 days ago',
+						image: image2,
+						imageIsAvatar: true,
+						actions: []
+					},
+					{
+						title: 'Katlynn Pouros',
+						subtitle: 'Last visited 3 weeks ago',
+						image: image3,
+						imageIsAvatar: true,
+						actions: []
+					}
+				]
 			}
 		]
 	},
 	variants: [
 		{
-			name: 'Searching',
+			name: 'searching',
+			label: 'Searching',
 			context: {
-				placeholder: 'Search teammates…',
+				view: 'search',
 				value: 'Vicenta',
 				searchInputIcon:
 					'<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/>',
-				showQuickAdd: true,
+				showQuickAdd: false,
 				searchContextBtnIcon: searchIcon,
-				listHeaderTitle: 'Recent Searches',
-				items: [
+				searchListItems: [
 					{
-						title: 'Vicenta Maggio',
-						subtitle: '7am–5pm, Break: 2–3:25pm',
-						image,
-						imageIsAvatar: true,
-						actions: defaultSearchActions
-					},
-					{
-						title: 'Madaline Gibson',
-						subtitle: '9am–6pm, Break: 12–1pm',
-						image: image2,
-						imageIsAvatar: true,
-						actions: defaultSearchActions
-					},
-					{
-						title: 'Katlynn Pouros',
-						subtitle: '9am–5pm',
-						image: image3,
-						imageIsAvatar: true,
-						actions: defaultSearchActions
-					},
-					{
-						title: 'Vicenta Maggio',
-						subtitle: '7am–5pm, Break: 2–3:25pm',
-						image,
-						imageIsAvatar: true,
-						actions: defaultSearchActions
-					},
-					{
-						title: 'Madaline Gibson',
-						subtitle: '9am–6pm, Break: 12–1pm',
-						image: image2,
-						imageIsAvatar: true,
-						actions: defaultSearchActions
-					},
-					{
-						title: 'Katlynn Pouros',
-						subtitle: '9am–5pm',
-						image: image3,
-						imageIsAvatar: true,
-						actions: defaultSearchActions
-					},
-					{
-						title: 'Vicenta Maggio',
-						subtitle: '7am–5pm, Break: 2–3:25pm',
-						image,
-						imageIsAvatar: true,
-						actions: defaultSearchActions
-					},
-					{
-						title: 'Madaline Gibson',
-						subtitle: '9am–6pm, Break: 12–1pm',
-						image: image2,
-						imageIsAvatar: true,
-						actions: defaultSearchActions
-					},
-					{
-						title: 'Katlynn Pouros',
-						subtitle: '9am–5pm',
-						image: image3,
-						imageIsAvatar: true,
-						actions: defaultSearchActions
+						type: 'people-list',
+						parentClass: 'people-list',
+						actions: [],
+						items: [
+							{
+								title: 'Vicenta Maggio',
+								subtitle: 'Last visited 2 hours ago',
+								image,
+								imageIsAvatar: true,
+								actions: []
+							},
+							{
+								title: 'Vicenta Ramirez',
+								subtitle: 'Last visited 2 days ago',
+								image: image2,
+								imageIsAvatar: true,
+								actions: []
+							},
+							{
+								title: 'Allison Vicenta',
+								subtitle: 'Last visited 3 weeks ago',
+								image: image3,
+								imageIsAvatar: true,
+								actions: []
+							}
+						]
 					}
 				]
+			}
+		},
+		{
+			name: 'quick-add',
+			label: 'Quick Add',
+			context: {
+				view: 'quick-add',
+				title: 'Quick add guest',
+				primaryAction: 'Add guest'
+			}
+		},
+		{
+			name: 'quick-add-name',
+			label: 'Quick Add - Name',
+			context: {
+				view: 'quick-add',
+				title: 'Quick add guest',
+				existingUser: null,
+				phoneNumberValue: '(555) 555-5555',
+				primaryAction: 'Save',
+				secondaryAction: 'Cancel'
+			}
+		},
+		{
+			name: 'quick-add-exists',
+			label: 'Quick Add - Existing User',
+			context: {
+				view: 'quick-add',
+				isCentered: true,
+				title: 'Quick add guest',
+				phoneNumberValue: '(555) 555-5555',
+				existingUserMessage:
+					'It looks like a user with that phone number already exists',
+				existingUser: {
+					firstName: 'Vicenta',
+					lastName: 'Maggio',
+					phoneNumber: '(555) 555-5555',
+					jobTitle: 'Guest',
+					image,
+					imageIsAvatar: true,
+					isLarge: true
+				},
+				primaryAction: 'Go to profile',
+				secondaryAction: 'Cancel'
 			}
 		}
 	]
