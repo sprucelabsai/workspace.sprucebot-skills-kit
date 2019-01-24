@@ -24,6 +24,7 @@ export {
 	SaveBar
 } from './components/Core'
 export { default as Dropzone } from './components/Dropzone/Dropzone'
+export { default as FontLoader } from './components/FontLoader/FontLoader'
 export { default as FormPartials } from './components/Forms/FormPartials'
 export {
 	Autosuggest,
@@ -54,6 +55,7 @@ export {
 export { default as Text } from './components/Text/Text'
 export { default as TextStyle } from './components/TextStyle/TextStyle'
 export { default as Image } from './components/Image/Image'
+export { default as ImageCropper } from './components/ImageCropper/ImageCropper'
 export { default as Layout, LayoutSection } from './components/Layout'
 export {
 	default as List,

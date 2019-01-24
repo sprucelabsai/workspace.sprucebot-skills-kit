@@ -1,6 +1,9 @@
 // This is the query that will be run and attached to ctx.authV2 and props.authV2
 module.exports = ({ userId, locationId, organizationId }) => `
 {
+	${
+		userId
+			? `
 	User (
 		id: "${userId}"
 	) {
@@ -30,6 +33,8 @@ module.exports = ({ userId, locationId, organizationId }) => `
 			role
 			OrganizationId
 		}
+	}`
+			: ``
 	}
 	${
 		organizationId
