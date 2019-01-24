@@ -81,53 +81,62 @@ export const Message = (props: MessageProps) => {
 		}
 
 		return (
-			<p class="message__reply">
+			<p className="message__reply">
 				{icon && (
 					<Icon icon={icon} className={cx('message__reply-icon', iconClass)} />
 				)}
-				<span class="message__reply-text">{children}</span>
+				<span className="message__reply-text">{children}</span>
 			</p>
 		)
 	}
 
 	const renderAttachment = attachment => {
-		return <div class="message__attachment">{attachment}</div>
+		return <div className="message__attachment">{attachment}</div>
 	}
 
 	return (
 		<div className={cx('message', className)}>
-			<span class="message__pre">
-				<img
-					class="message__from-image"
-					src={fromImage || ''}
-					alt={fromAlt || fromName || ''}
-					width="40"
-					height="40"
-				/>
+			<span className="message__pre">
+				{fromImage ? (
+					<img
+						className="message__from-image"
+						src={fromImage || ''}
+						alt={fromAlt || fromName || ''}
+						width="40"
+						height="40"
+					/>
+				) : (
+					<span className="message__original-timestamp">
+						{' '}
+						{dateSent.format('hh:mma')}
+					</span>
+				)}
 			</span>
-			<span class="message__main">
-				<p class="message__from-text">
-					{fromName && <span class="message__from-name">{fromName}</span>}
-					{dateSent && (
-						<span class="message__original-timestamp">
-							{' '}
-							{dateSent.format('hh:mma')}
-						</span>
-					)}
-				</p>
-				<p class="message__body">{children}</p>
-				{detail && <p class="message__detail">{detail}</p>}
+			<span className="message__main">
+				{fromImage && (
+					<p className="message__from-text">
+						{fromName && <span className="message__from-name">{fromName}</span>}
+						{dateSent && (
+							<span className="message__original-timestamp">
+								{' '}
+								{dateSent.format('hh:mma')}
+							</span>
+						)}
+					</p>
+				)}
+				<p className="message__body">{children}</p>
+				{detail && <p className="message__detail">{detail}</p>}
 				{primaryAction && (
 					<Button
 						className="btn-small message__primary-action-btn"
 						{...primaryAction}
 					/>
 				)}
-				{replies && replies.length && (
-					<div class="message__replies">{replies.map(renderReply)}</div>
+				{replies && replies.length > 0 && (
+					<div className="message__replies">{replies.map(renderReply)}</div>
 				)}
-				{attachments && attachments.length && (
-					<div class="message__attachments">
+				{attachments && attachments.length > 0 && (
+					<div className="message__attachments">
 						{attachments.map(renderAttachment)}
 					</div>
 				)}

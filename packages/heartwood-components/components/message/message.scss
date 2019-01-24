@@ -9,11 +9,18 @@
 	&--is-highlighted {
 		background-color: rgba($c-primary-light, 0.05);
 	}
+
+	// background-color: rgba(255, 0, 0, 0.1);
+	// * {
+	// 	background-color: rgba(255, 0, 0, 0.1);
+	// }
 }
 
 .message__pre {
+	min-width: rem(56);
 	margin-right: rem(8);
 	line-height: 0;
+	text-align: right;
 
 	.message__original-timestamp {
 		position: relative;
