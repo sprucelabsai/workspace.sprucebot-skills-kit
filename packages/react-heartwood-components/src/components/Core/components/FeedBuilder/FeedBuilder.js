@@ -56,9 +56,14 @@ const groupMessages = (messages: Array<MessageProps>) => {
 	const groupedMessages = []
 
 	messages.forEach((message, idx) => {
+		console.log(message.dateSent.isSame(new Date(), 'year'))
 		const daySent = message.dateSent.calendar(null, {
 			sameDay: '[Today]',
-			lastDay: '[Yesterday]'
+			lastDay: '[Yesterday]',
+			lastWeek: '[Last] dddd',
+			sameElse: message.dateSent.isSame(new Date(), 'year')
+				? 'ddd, MMMM DD'
+				: 'ddd, MMMM DD, YYYY'
 		})
 		const match = groupedMessages.find(group => group.name === daySent)
 		if (!match) {
