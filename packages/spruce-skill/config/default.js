@@ -15,6 +15,12 @@ try {
 	console.error('Missing .env file for this project')
 }
 
+// When running locally we use 'flow-node' so it can handle flowtypes. When in a non-local environment we need to use the build/ directory where flowtypes have been stripped
+const baseDirectory =
+	process.env.ENV === 'local'
+		? `${__dirname}/../server`
+		: `${__dirname}/../build`
+
 module.exports = {
 	cards: cards,
 	DEV_MODE: process.env.DEV_MODE === 'true',
@@ -172,13 +178,13 @@ module.exports = {
 		}
 	},
 	gqlOptions: {
-		gqlDir: path.resolve(__dirname, '../server/gql')
+		gqlDir: `${baseDirectory}/gql`
 	},
 	sequelizeOptions: {
 		enabled: process.env.DB_ENABLED === 'true',
 		runMigrations: process.env.DB_MIGRATIONS === 'true',
-		modelsDir: path.resolve(__dirname, '../server/models'),
-		migrationsDir: path.resolve(__dirname, '../server/migrations'),
+		modelsDir: `${baseDirectory}/models`,
+		migrationsDir: `${baseDirectory}/migrations`,
 		// Additional sequelize options
 		options: {
 			logging: process.env.ORM_LOGGING === 'true' ? console.log : false
