@@ -52,7 +52,7 @@ export default class ToastWrapper extends Component<Props, State> {
 	}
 
 	render() {
-		const { toasts } = this.props
+		const { toasts } = this.state
 
 		return (
 			<div className="toasts-wrapper">
