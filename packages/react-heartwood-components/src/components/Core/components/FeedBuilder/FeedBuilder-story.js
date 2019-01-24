@@ -26,6 +26,7 @@ const messages = [
 			image: fromImage,
 			alt: 'sprucebot'
 		},
+		isFromSprucebot: true,
 		dateSent: moment(),
 		message: {
 			text: 'Dorian submitted a review of {{teammate}}: {{review}}',
@@ -53,6 +54,7 @@ const messages = [
 			image: fromImage,
 			alt: 'sprucebot'
 		},
+		isFromSprucebot: true,
 		dateSent: moment().subtract(173, 'minutes'),
 		message: {
 			text:
@@ -88,6 +90,7 @@ const messages = [
 			image: fromImage,
 			alt: 'sprucebot'
 		},
+		isFromSprucebot: true,
 		dateSent: moment().subtract(201, 'minutes'),
 		message: {
 			text: "{{guest}}'s {{payment}} has been processed",
@@ -111,6 +114,7 @@ const messages = [
 			image: fromImage,
 			alt: 'sprucebot'
 		},
+		isFromSprucebot: true,
 		dateSent: moment().subtract(208, 'minutes'),
 		message: {
 			text: '{{guest}} has an {{appointment}} ending in 5 minutes.',
@@ -140,6 +144,7 @@ const messages = [
 			image: fromImage,
 			alt: 'sprucebot'
 		},
+		isFromSprucebot: true,
 		dateSent: moment().subtract(268, 'minutes'),
 		message: {
 			text: '{{guest}} has an {{upcoming appointment}} in 5 minutes.',
@@ -182,6 +187,7 @@ const messages = [
 			image: fromImage,
 			alt: 'sprucebot'
 		},
+		isFromSprucebot: true,
 		dateSent: moment().subtract(276, 'minutes'),
 		message: {
 			text: 'Dorian connected to the in-store wifi.',
@@ -196,6 +202,7 @@ const messages = [
 			image: fromImage,
 			alt: 'sprucebot'
 		},
+		isFromSprucebot: true,
 		dateSent: moment().subtract(734, 'minutes'),
 		message: {
 			text: '{{guest}} booked an appointment for {{appointment}}.',

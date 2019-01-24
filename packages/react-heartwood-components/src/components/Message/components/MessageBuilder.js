@@ -49,7 +49,10 @@ export type MessageBuilderProps = {
 	replies?: Array,
 
 	/** Attachment content associated to the message */
-	attachments?: Array
+	attachments?: Array,
+
+	/** Set true if the message is from Sprucebot */
+	isFromSprucebot?: boolean
 }
 
 const MessageBuilderKey = {
@@ -120,7 +123,8 @@ const MessageBuilder = (props: MessageBuilderProps) => {
 		detail,
 		primaryAction,
 		replies,
-		attachments
+		attachments,
+		isFromSprucebot
 	} = props
 
 	const { text: messageText, context: messageContext } = message || {}
@@ -154,6 +158,7 @@ const MessageBuilder = (props: MessageBuilderProps) => {
 			primaryAction={primaryAction}
 			replies={messageReplies}
 			attachments={messageAttachments}
+			isFromSprucebot={isFromSprucebot}
 		/>
 	)
 }

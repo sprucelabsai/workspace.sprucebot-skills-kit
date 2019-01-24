@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import moment from 'moment-timezone'
 import cx from 'classnames'
 
+import Avatar from '../Avatar/Avatar'
 import Button from '../Button/Button'
 import Icon from '../Icon/Icon'
 
@@ -45,7 +46,10 @@ type MessageProps = {
 	primaryAction?: ButtonProps,
 
 	/** Optional classname */
-	className?: string
+	className?: string,
+
+	/** Set true if the message is from Sprucebot */
+	isFromSprucebot?: boolean
 }
 
 export const Message = (props: MessageProps) => {
@@ -57,7 +61,8 @@ export const Message = (props: MessageProps) => {
 		replies,
 		attachments,
 		detail,
-		primaryAction
+		primaryAction,
+		isFromSprucebot
 	} = props
 
 	const { id: fromId, name: fromName, image: fromImage, alt: fromAlt } = from
@@ -102,17 +107,30 @@ export const Message = (props: MessageProps) => {
 		return <div className="message__attachment">{attachment}</div>
 	}
 
+	const renderImage = ({ image, alt, isFromSprucebot }) => {
+		if (isFromSprucebot) {
+			return (
+				<img
+					className="message__from-image message__from-sprucebot-image"
+					src={image || ''}
+					alt={alt || ''}
+					width="40"
+					height="40"
+				/>
+			)
+		}
+		return <Avatar image={image || ''} alt={alt || ''} />
+	}
+
 	return (
 		<div className={cx('message', className)}>
 			<span className="message__pre">
 				{fromImage ? (
-					<img
-						className="message__from-image"
-						src={fromImage || ''}
-						alt={fromAlt || fromName || ''}
-						width="40"
-						height="40"
-					/>
+					renderImage({
+						image: fromImage,
+						alt: fromAlt || fromName || '',
+						isFromSprucebot
+					})
 				) : (
 					<span className="message__original-timestamp">
 						{' '}
@@ -151,6 +169,10 @@ export const Message = (props: MessageProps) => {
 			</span>
 		</div>
 	)
+}
+
+Message.defaultProps = {
+	isFromSprucebot: false
 }
 
 export default Message
