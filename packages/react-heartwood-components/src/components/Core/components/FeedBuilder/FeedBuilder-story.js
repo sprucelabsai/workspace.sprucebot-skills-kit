@@ -20,8 +20,12 @@ const guestFirstName = 'Dorian'
 const messages = [
 	{
 		id: '1',
-		fromName,
-		fromImage,
+		from: {
+			id: 'sprucebot',
+			name: fromName,
+			image: fromImage,
+			alt: 'sprucebot'
+		},
 		dateSent: moment(),
 		message: {
 			text: 'Dorian submitted a review of {{teammate}}: {{review}}',
@@ -43,8 +47,12 @@ const messages = [
 	},
 	{
 		id: '2',
-		fromName,
-		fromImage,
+		from: {
+			id: 'sprucebot',
+			name: fromName,
+			image: fromImage,
+			alt: 'sprucebot'
+		},
 		dateSent: moment().subtract(173, 'minutes'),
 		message: {
 			text:
@@ -60,8 +68,12 @@ const messages = [
 	},
 	{
 		id: '3',
-		fromName: teammateName,
-		fromImage: teammateImage,
+		from: {
+			id: 'teammate01',
+			name: teammateName,
+			image: teammateImage,
+			alt: teammateName
+		},
 		dateSent: moment().subtract(200, 'minutes'),
 		message: {
 			text: 'Hey Dorian, thanks for stopping by! I hope to see you again soon.',
@@ -70,8 +82,12 @@ const messages = [
 	},
 	{
 		id: '4',
-		fromName,
-		fromImage,
+		from: {
+			id: 'sprucebot',
+			name: fromName,
+			image: fromImage,
+			alt: 'sprucebot'
+		},
 		dateSent: moment().subtract(201, 'minutes'),
 		message: {
 			text: "{{guest}}'s {{payment}} has been processed",
@@ -89,8 +105,12 @@ const messages = [
 	},
 	{
 		id: '5',
-		fromName,
-		fromImage,
+		from: {
+			id: 'sprucebot',
+			name: fromName,
+			image: fromImage,
+			alt: 'sprucebot'
+		},
 		dateSent: moment().subtract(208, 'minutes'),
 		message: {
 			text: '{{guest}} has an {{appointment}} ending in 5 minutes.',
@@ -114,8 +134,12 @@ const messages = [
 	},
 	{
 		id: '6',
-		fromName,
-		fromImage,
+		from: {
+			id: 'sprucebot',
+			name: fromName,
+			image: fromImage,
+			alt: 'sprucebot'
+		},
 		dateSent: moment().subtract(268, 'minutes'),
 		message: {
 			text: '{{guest}} has an {{upcoming appointment}} in 5 minutes.',
@@ -152,8 +176,12 @@ const messages = [
 	},
 	{
 		id: '7',
-		fromName,
-		fromImage,
+		from: {
+			id: 'sprucebot',
+			name: fromName,
+			image: fromImage,
+			alt: 'sprucebot'
+		},
 		dateSent: moment().subtract(276, 'minutes'),
 		message: {
 			text: 'Dorian connected to the in-store wifi.',
@@ -162,8 +190,12 @@ const messages = [
 	},
 	{
 		id: '8',
-		fromName,
-		fromImage,
+		from: {
+			id: 'sprucebot',
+			name: fromName,
+			image: fromImage,
+			alt: 'sprucebot'
+		},
 		dateSent: moment().subtract(734, 'minutes'),
 		message: {
 			text: '{{guest}} booked an appointment for {{appointment}}.',

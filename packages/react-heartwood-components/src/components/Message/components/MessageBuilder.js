@@ -15,12 +15,23 @@ import TextStyle from '../../TextStyle/TextStyle'
 import Button from '../../Button/Button'
 import Image from '../../Image/Image'
 
-export type MessageBuilderProps = {
-	/** Name of message sender */
-	fromName?: string,
+type FromProps = {
+	/** Unique id of the sender */
+	id: string,
 
-	/** Image for message sender */
-	fromImage?: string,
+	/** Image associated with message sender */
+	image?: string,
+
+	/** Name associated with message sender */
+	name?: string,
+
+	/** Alt description with message sender */
+	alt?: string
+}
+
+export type MessageBuilderProps = {
+	/** Information about the sender */
+	from: FromProps,
 
 	/** Message body */
 	dateSent?: Date,
@@ -103,8 +114,7 @@ const TemplateEngine = (text, context) => {
 
 const MessageBuilder = (props: MessageBuilderProps) => {
 	const {
-		fromName,
-		fromImage,
+		from,
 		dateSent,
 		message,
 		detail,
@@ -133,8 +143,7 @@ const MessageBuilder = (props: MessageBuilderProps) => {
 
 	return (
 		<Message
-			fromName={fromName}
-			fromImage={fromImage}
+			from={from}
 			dateSent={dateSent}
 			children={
 				messageText &&

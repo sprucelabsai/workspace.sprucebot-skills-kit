@@ -27,10 +27,11 @@ const formatMessages = (messages: Array<MessageProps>) => {
 	messages.forEach((message, idx) => {
 		let formattedMessage = { ...message }
 		// Check if messages are from the same source
-		// TODO: This should rely on a unique id rather than fromName
 		if (
 			idx + 1 < messages.length &&
-			message.fromName === messages[idx + 1].fromName
+			message.from &&
+			messages[idx + 1].from &&
+			message.from.id === messages[idx + 1].from.id
 		) {
 			// Check if the messages were sent within the minimum difference to hide the image
 			const nextMessage = messages[idx + 1]

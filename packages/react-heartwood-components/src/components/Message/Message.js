@@ -8,18 +8,26 @@ import Icon from '../Icon/Icon'
 
 import type { Props as ButtonProps } from '../../Button/Button'
 
+type FromProps = {
+	/** Unique id of the sender */
+	id: string,
+
+	/** Image associated with message sender */
+	image?: string,
+
+	/** Name associated with message sender */
+	name?: string,
+
+	/** Alt description with message sender */
+	alt?: string
+}
+
 type MessageProps = {
 	/** Message children. */
 	children: Node,
 
-	/** Image associated with message sender */
-	fromImage?: string,
-
-	/** Name associated with message sender */
-	fromName?: string,
-
-	/** Alt description with message sender */
-	fromAlt?: string,
+	/** Information about the sender */
+	from: FromProps,
 
 	/** Date the message was sent */
 	dateSent?: moment,
@@ -44,15 +52,15 @@ export const Message = (props: MessageProps) => {
 	const {
 		children,
 		className,
-		fromImage,
-		fromName,
-		fromAlt,
+		from,
 		dateSent,
 		replies,
 		attachments,
 		detail,
 		primaryAction
 	} = props
+
+	const { id: fromId, name: fromName, image: fromImage, alt: fromAlt } = from
 
 	const renderReply = reply => {
 		const { type, children } = reply
