@@ -207,7 +207,7 @@ export const messages = [
 	{
 		from: senders.sprucebot,
 		isFromSprucebot: true,
-		dateSent: moment().subtract(1, 'days'),
+		dateSent: moment().subtract(2, 'days'),
 		message: {
 			text:
 				"Welcome to the feed. This is where you can find out what's happening with {{guest}}",

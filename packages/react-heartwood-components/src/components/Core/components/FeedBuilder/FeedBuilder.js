@@ -1,8 +1,10 @@
 // @flow
-import React from 'react'
+import React, { Fragment } from 'react'
+import moment from 'moment-timezone'
 import Message, { MessageBuilder } from '../../../Message'
+import Text from '../../../Text/Text'
 
-import type { MessageBuilderProps } from '../../../Message'
+import type from '../../../Message'
 
 type MessageProps = {
 	/** Unique id for the message */
@@ -50,28 +52,59 @@ const formatMessages = (messages: Array<MessageProps>) => {
 	return formattedMessages
 }
 
+const groupMessages = (messages: Array<MessageProps>) => {
+	const groupedMessages = []
+
+	messages.forEach((message, idx) => {
+		const daySent = message.dateSent.calendar(null, {
+			sameDay: '[Today]',
+			lastDay: '[Yesterday]'
+		})
+		const match = groupedMessages.find(group => group.name === daySent)
+		if (!match) {
+			groupedMessages.push({
+				name: daySent,
+				messages: [idx]
+			})
+		} else {
+			match.messages.push(idx)
+		}
+	})
+	console.log({ groupedMessages })
+
+	return groupedMessages
+}
+
 const FeedBuilder = (props: Props) => {
 	const { messages, emptyText } = props
 	const formattedMessages = formatMessages(messages)
+	const messageGroups = groupMessages(formattedMessages)
 	return (
 		<div className="message-feed__wrapper">
 			<div className="message-feed">
-				{formattedMessages && formattedMessages.length > 0 ? (
+				{messageGroups && messageGroups.length > 0 ? (
+					messageGroups.map(group => (
+						<Fragment key={group.name}>
+							{group.messages.map(messageIdx => (
+								<MessageBuilder
+									key={messageIdx}
+									{...formattedMessages[messageIdx]}
+								/>
+							))}
+							<Text className="message-feed__day-header">{group.name}</Text>
+						</Fragment>
+					))
+				) : (
+					<p>{emptyText}</p>
+				)}
+
+				{/* {formattedMessages && formattedMessages.length > 0 ? (
 					formattedMessages.map((message, idx) => {
-						const prevMessage = formattedMessages[idx - 1]
-						if (
-							prevMessage &&
-							!message.dateSent.isSame(prevMessage.dateSent, 'day')
-						) {
-							console.log('Different Day')
-							// Return the message followed by a day header
-						}
 						return <MessageBuilder key={message.id} {...message} />
 					})
 				) : (
 					<p>{emptyText}</p>
-				)}
-				<p>Today</p>
+				)} */}
 			</div>
 		</div>
 	)

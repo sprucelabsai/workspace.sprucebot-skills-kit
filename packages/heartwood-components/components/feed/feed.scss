@@ -18,3 +18,10 @@
 		padding-top: rem(64);
 	}
 }
+
+.message-feed__day-header {
+	width: calc(100% - #{rem(32)});
+	margin: spacing('base');
+	padding: spacing('tight') 0;
+	border-bottom: 1px solid $c-border;
+}
