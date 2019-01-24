@@ -17,7 +17,7 @@ try {
 
 // When running locally we use 'flow-node' so it can handle flowtypes. When in a non-local environment we need to use the build/ directory where flowtypes have been stripped
 const baseDirectory =
-	process.env.NODE_ENV === 'local'
+	process.env.ENV === 'local'
 		? `${__dirname}/../server`
 		: `${__dirname}/../build`
 
