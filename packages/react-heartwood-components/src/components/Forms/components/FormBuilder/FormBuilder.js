@@ -12,20 +12,42 @@ import type { FormLayoutProps } from '../FormLayout/FormLayout'
 import type { Props as ButtonProps } from '../../../Button/Button'
 
 type SectionProps = {
+	/** Unique id for the section */
 	id: string,
+
+	/** Optional title to show at the top of the card */
 	title?: string,
+
+	/** Rows for this card */
 	rows: Array<FormInnerRowProps>
 }
 
 type Props = {
+	/** Determines how the form should be build. Default builds a simple form */
 	kind?: 'default' | 'page' | 'modal',
+
+	/** Initial values to be passed into the form */
 	initialValues: Object,
+
+	/** Submit handler */
 	onSubmit: Function,
+
+	/** Use sections when the form to be built is a full page */
 	sections: Array<SectionProps>,
+
+	/** Use rows to build a simple form */
 	rows: Array<FormInnerRowProps>,
+
+	/** Form layout props */
 	formLayout: FormLayoutProps,
+
+	/** Validation handler. This isn't needed when the form is made of toggles only. */
 	validate?: Function,
+
+	/** Optional when rendering a primary cta in the form */
 	primaryCTA?: ButtonProps,
+
+	/** Optional when using a secondary cta in the form */
 	secondaryCTA?: ButtonProps
 }
 

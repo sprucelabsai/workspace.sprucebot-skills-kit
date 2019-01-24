@@ -18,24 +18,47 @@ import type { FormLayoutItemProps } from '../FormLayout/components/FormLayoutIte
 import type { Props as ButtonProps } from '../../../../../Button/Button'
 
 export type FormInnerFieldProps = {
+	/** Unique id for the field */
 	id: string,
+
+	/** The type of element to render */
 	element: string,
+
+	/** Layout props for the form layout item that wraps the field */
 	itemLayout: FormLayoutItemProps,
+
+	/** Optional title to show before the field */
 	title?: string,
+
+	/** Optional description to show after the title */
 	description?: string
 }
 
 export type FormInnerRowProps = {
+	/** Unique id for the row */
 	id: string,
+
+	/** Fields that are in this row */
 	fields: Array<Field>,
+
+	/** Layout props for the form layout group */
 	groupLayout: FormLayoutGroupProps
 }
 
 export type FormInnerProps = {
+	/** Rows in this form */
 	rows: Array<Row>,
+
+	/** Layout properties for the form layout */
 	formLayout: FormLayoutProps,
+
+	/** Props to pass through from Formik */
 	formikProps: FormikProps,
+
+	/** Optional when using a primary cta in the form */
 	primaryCTA?: ButtonProps,
+
+	/** Optional when including a secondary cta in the form */
 	secondaryCTA?: ButtonProps
 }
 
