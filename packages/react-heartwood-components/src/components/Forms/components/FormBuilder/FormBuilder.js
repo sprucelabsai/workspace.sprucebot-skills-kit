@@ -5,6 +5,7 @@ import FormInner from './components/FormInner/FormInner'
 import Card, { CardBody, CardHeader } from '../../../Card'
 import Layout, { LayoutSection } from '../../../Layout'
 import { SaveBar } from '../../../Core'
+import Button from '../../../Button/Button'
 
 import type { FormInnerRowProps } from './components/FormInner/FormInner'
 import type { FormLayoutProps } from '../FormLayout/FormLayout'
@@ -47,7 +48,6 @@ const FormBuilder = (props: Props) => {
 			validate={values => validate(values)}
 			onSubmit={props => onSubmit(props)}
 			render={props => {
-				console.log({ props })
 				const {
 					values,
 					errors,
@@ -75,6 +75,18 @@ const FormBuilder = (props: Props) => {
 										</Card>
 									</LayoutSection>
 								))}
+								<SaveBar
+									isVisible={dirty}
+									onSave={props => onSubmit(props)}
+									onDiscard={() => props.resetForm()}
+									isSaveDisabled={!isValid}
+								/>
+								{/* NOTE: The form won't submit on enter key pressed without this hidden button */}
+								<Button
+									type="submit"
+									text="submit"
+									style={{ display: 'none' }}
+								/>
 							</Layout>
 						)}
 						{kind === 'default' && (
@@ -84,13 +96,6 @@ const FormBuilder = (props: Props) => {
 								formikProps={props}
 								primaryCTA={primaryCTA}
 								secondaryCTA={secondaryCTA}
-							/>
-						)}
-						{kind === 'page' && (
-							<SaveBar
-								isVisible={dirty}
-								onDiscard={() => props.resetForm()}
-								isSaveDisabled={!isValid}
 							/>
 						)}
 					</Form>
