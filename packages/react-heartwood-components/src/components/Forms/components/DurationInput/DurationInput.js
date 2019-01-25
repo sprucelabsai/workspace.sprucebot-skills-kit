@@ -19,14 +19,22 @@ type Props = {
 	skipMinutes?: number,
 
 	/** Default value (in minutes)  */
-	defaultValue?: number
+	defaultValue?: number,
+
+	/** title rendered when no results are found */
+	noResultsTitle?: string,
+
+	/** subtitle rendered when no results are found */
+	noResultsSubtitle?: string
 } & AutoSuggestProps
 
 export default class DurationInput extends Component<Props> {
 	static defaultProps = {
 		minMinutes: 5,
 		maxMinutes: 180,
-		skipMinutes: 5
+		skipMinutes: 5,
+		noResultsTitle: 'Invalid duration.',
+		noResultsSubtitle: 'Please adjust your search and try again.'
 	}
 
 	constructor(props: Props) {
@@ -35,13 +43,12 @@ export default class DurationInput extends Component<Props> {
 
 	renderSuggestion = (suggestion: any) => {
 		if (suggestion.isEmptyMessage) {
+			const { noResultsTitle, noResultsSubtitle } = this.props
 			return (
 				<div className="autosuggest__no-results">
-					<p className="autosuggest__no-results-title">
-						No matching countries found.
-					</p>
+					<p className="autosuggest__no-results-title">{noResultsTitle}</p>
 					<p className="autosuggest__no-results-subtitle">
-						Please adjust your search and try again.
+						{noResultsSubtitle}
 					</p>
 				</div>
 			)
@@ -89,13 +96,12 @@ export default class DurationInput extends Component<Props> {
 			defaultValue,
 			...props
 		} = this.props
+
 		const suggestions = this.generateSuggestions(
 			minMinutes,
 			maxMinutes,
 			skipMinutes
 		)
-
-		console.log(suggestions, defaultValue)
 
 		return (
 			<Autosuggest
