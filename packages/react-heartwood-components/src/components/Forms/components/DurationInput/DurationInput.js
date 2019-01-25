@@ -37,10 +37,6 @@ export default class DurationInput extends Component<Props> {
 		noResultsSubtitle: 'Please adjust your search and try again.'
 	}
 
-	constructor(props: Props) {
-		super(props)
-	}
-
 	renderSuggestion = (suggestion: any) => {
 		if (suggestion.isEmptyMessage) {
 			const { noResultsTitle, noResultsSubtitle } = this.props
