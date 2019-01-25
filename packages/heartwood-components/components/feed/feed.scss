@@ -1,23 +1,23 @@
-.message-feed__wrapper {
-	position: relative;
-	margin-top: rem(-48);
-}
+// .message-feed__wrapper {
+// 	position: relative;
+// 	margin-top: rem(-48);
+// }
 
-.message-feed {
-	display: flex;
-	flex-flow: column-reverse;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100vh;
-	overflow-x: hidden;
-	overflow-y: scroll;
+// .message-feed {
+// 	display: flex;
+// 	flex-flow: column-reverse;
+// 	position: absolute;
+// 	top: 0;
+// 	left: 0;
+// 	width: 100%;
+// 	height: 100vh;
+// 	overflow-x: hidden;
+// 	overflow-y: scroll;
 
-	> *:last-child {
-		padding-top: rem(64);
-	}
-}
+// 	> *:last-child {
+// 		padding-top: rem(64);
+// 	}
+// }
 
 .message-feed__day-header {
 	width: calc(100% - #{rem(32)});
