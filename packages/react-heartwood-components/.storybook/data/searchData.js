@@ -17,7 +17,6 @@ export const recentSearchResults = [
 			{
 				avatar: user01image,
 				title: 'Lacey Morissette',
-				subtitle: 'Guest',
 				actions: []
 			},
 			{
@@ -38,11 +37,13 @@ export const recentSearchResults = [
 
 export const suggestedSearchResults = [
 	{
+		header: {
+			title: 'Guests'
+		},
 		items: [
 			{
 				avatar: user04image,
 				title: 'Vicenta Maggio',
-				subtitle: 'Guest',
 				actions: []
 			},
 			{

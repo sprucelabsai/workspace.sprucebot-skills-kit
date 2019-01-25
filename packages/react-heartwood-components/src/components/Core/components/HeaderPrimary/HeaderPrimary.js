@@ -35,23 +35,14 @@ type Props = {
 	/** Set true to show the sidebar (small screens only) */
 	isSidebarVisible: boolean,
 
-	/** Passthrough function to calculate search suggestions */
-	getSearchSuggestions?: Function,
-
-	/** Passthrough function to show search suggestion value */
-	getSearchSuggestionValue?: Function,
-
-	/** Passthrough array of lists to display for search suggestions */
-	suggestedSearchResults?: Array<ListProps>,
-
-	/** Passthrough called every time suggestion is selected */
-	onSearchSuggestionSelected?: Function,
-
 	/** Whether or not we will need to handle hamburger functionality */
 	enableHamburgerMenu: boolean,
 
 	/** Placeholder text for the search field */
 	searchPlaceholder?: string,
+
+	/** Handle search click */
+	onClickSearch?: Function,
 
 	/** Set true to show location management shortcut */
 	isLocationManagmentButtonVisible?: boolean,
@@ -79,8 +70,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 	state = {
 		isMenuExpanded: false,
 		isUserMenuVisible: false,
-		isLocationMenuVisible: false,
-		isBigSearchVisible: false
+		isLocationMenuVisible: false
 	}
 
 	ref: any
@@ -107,6 +97,10 @@ export default class HeaderPrimary extends Component<Props, State> {
 		}
 	}
 
+	handleSearchClick = () => {
+		this.props.onClickSearch && this.props.onClickSearch()
+	}
+
 	toggleUserMenuVisibility = () => {
 		this.setState(
 			prevState => ({
@@ -123,12 +117,6 @@ export default class HeaderPrimary extends Component<Props, State> {
 			}),
 			() => this.manageListeners()
 		)
-	}
-
-	toggleBigSearchVisibility = () => {
-		this.setState(prevState => ({
-			isBigSearchVisible: !prevState.isBigSearchVisible
-		}))
 	}
 
 	manageListeners = () => {
@@ -183,8 +171,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 		const {
 			isMenuExpanded,
 			isUserMenuVisible,
-			isLocationMenuVisible,
-			isBigSearchVisible
+			isLocationMenuVisible
 		} = this.state
 
 		const {
@@ -193,12 +180,9 @@ export default class HeaderPrimary extends Component<Props, State> {
 			location,
 			toggleSidebarVisibility,
 			isSidebarVisible,
-			getSearchSuggestions,
-			getSearchSuggestionValue,
-			onSearchSuggestionSelected,
-			suggestedSearchResults,
 			enableHamburgerMenu,
 			searchPlaceholder,
+			onClickSearch,
 			isLocationManagmentButtonVisible,
 			isSkillManagementButtonVisible,
 			skillsHref,
@@ -246,22 +230,16 @@ export default class HeaderPrimary extends Component<Props, State> {
 								</div>
 							)}
 							<Button
-								text="Search"
-								kind="primary"
-								onClick={this.toggleBigSearchVisibility}
+								text={searchPlaceholder}
+								icon={{ name: 'search' }}
+								className="header-primary__search-btn"
+								onClick={this.handleSearchClick}
 							/>
 							<UserMenu
 								menuIsVisible={isUserMenuVisible}
 								toggleMenu={this.toggleUserMenuVisibility}
 								{...user}
 							/>
-							{isBigSearchVisible && (
-								<BigSearch
-									isVisible={true}
-									getSearchSuggestions={getSearchSuggestions}
-									onClose={this.toggleBigSearchVisibility}
-								/>
-							)}
 						</Fragment>
 					) : (
 						<Fragment>

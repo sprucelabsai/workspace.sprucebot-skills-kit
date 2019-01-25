@@ -3,6 +3,7 @@ import React from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
 import { Sidebar, SidebarFooter } from '../Core'
+import { BigSearch } from '../Core'
 import type { Node } from 'react'
 
 type Props = {
@@ -10,10 +11,6 @@ type Props = {
 	user: Object,
 	organization: Object,
 	location: Object,
-	getSearchSuggestions?: Function,
-	getSearchSuggestionValue?: Function,
-	renderSearchSuggestion?: Function,
-	onSearchSuggestionSelected?: Function,
 	children: Node,
 	toggleSidebarVisibility: Function,
 	toggleSidebarExpanded: Function,
@@ -21,6 +18,10 @@ type Props = {
 	isSidebarVisible?: boolean,
 	isSidebarExpanded?: boolean,
 	isSidebarMobileExpanded?: boolean,
+	onClickSearch?: Function,
+	onCloseBigSearch?: Function,
+	getSearchSuggestions?: Function,
+	isBigSearchVisible: boolean,
 	searchPlaceholder?: string
 }
 
@@ -30,17 +31,17 @@ const View = (props: Props) => {
 		user,
 		organization,
 		location,
-		getSearchSuggestions,
-		getSearchSuggestionValue,
-		renderSearchSuggestion,
-		onSearchSuggestionSelected,
 		isSidebarVisible,
 		isSidebarExpanded,
 		isSidebarMobileExpanded,
 		toggleSidebarExpanded,
 		toggleSidebarVisibility,
 		forceCloseSidebar,
+		getSearchSuggestions,
+		onClickSearch,
+		onCloseBigSearch,
 		searchPlaceholder,
+		isBigSearchVisible,
 		children
 	} = props
 
@@ -73,12 +74,16 @@ const View = (props: Props) => {
 				}
 				toggleSidebarVisibility={toggleSidebarVisibility}
 				isSidebarVisible={isSidebarMobileExpanded}
-				getSearchSuggestions={getSearchSuggestions}
-				getSearchSuggestionValue={getSearchSuggestionValue}
-				renderSearchSuggestion={renderSearchSuggestion}
-				onSearchSuggestionSelected={onSearchSuggestionSelected}
 				searchPlaceholder={searchPlaceholder}
+				onClickSearch={onClickSearch}
 			/>
+			{isBigSearchVisible && (
+				<BigSearch
+					onClose={onCloseBigSearch}
+					getSearchSuggestions={getSearchSuggestions}
+				/>
+			)}
+
 			<main className="main-content">{children}</main>
 		</div>
 	)

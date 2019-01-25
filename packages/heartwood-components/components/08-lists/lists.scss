@@ -4,6 +4,7 @@
 }
 
 .list-header {
+	flex-shrink: 0;
 	justify-content: space-between;
 	width: 100%;
 	padding-left: spacing('base');

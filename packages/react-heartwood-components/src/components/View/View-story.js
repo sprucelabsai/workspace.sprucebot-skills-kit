@@ -141,13 +141,13 @@ const skillViewTabs = [
 	}
 ]
 
-type Props = {}
-type State = {
+type SkillViewProps = {}
+type SkillViewState = {
 	sidebarsExpanded: Object,
 	sidebarsMobileExpanded: Object
 }
 
-class SkillViewExample extends Component<Props, State> {
+class SkillViewExample extends Component<SkillViewProps, SkillViewState> {
 	state = {
 		sidebarsExpanded: {
 			right: true,
@@ -310,6 +310,95 @@ class SkillViewExample extends Component<Props, State> {
 	}
 }
 
+type SearchViewProps = {}
+type SearchViewState = {
+	isBigSearchVisible: boolean
+}
+
+class SearchViewExample extends Component<SearchViewProps, SearchViewState> {
+	state = {
+		isBigSearchVisible: false
+	}
+
+	getSearchSuggestions = async (value: string) => {
+		await new Promise(resolve => setTimeout(resolve, 600))
+		return suggestedSearchResults
+	}
+
+	toggleBigSearch = () => {
+		this.setState(prevState => ({
+			isBigSearchVisible: !prevState.isBigSearchVisible
+		}))
+	}
+
+	render() {
+		const { isBigSearchVisible } = this.state
+		return (
+			<View
+				sidebarItems={bizItems}
+				user={user}
+				organization={organization}
+				location={location}
+				isSidebarExpanded
+				isBigSearchVisible={isBigSearchVisible}
+				getSearchSuggestions={this.getSearchSuggestions}
+				onClickSearch={this.toggleBigSearch}
+				onCloseBigSearch={this.toggleBigSearch}
+			>
+				<Page hasSidebar>
+					<Sidebar isLarge isCollapsible={false} side="right">
+						<SidebarSection
+							isCentered
+							verticalSpacing="loose"
+							horizontalSpacing="loose"
+						>
+							<Avatar
+								isLarge
+								isCentered
+								image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
+							/>
+							<Heading>
+								<TextStyle type="strong">Dorian Feeney</TextStyle>
+							</Heading>
+						</SidebarSection>
+						<SidebarSection horizontalSpacing="loose" className="u-flex-row">
+							<Button
+								isSmall
+								kind="secondary"
+								className="u-flex-child-grow"
+								text="Call Dorian"
+								icon={{
+									name: 'phone',
+									isLineIcon: true
+								}}
+							/>
+							<ContextMenu
+								isSmall
+								className="u-ml-tight"
+								actions={[
+									{
+										text: 'One action'
+									},
+									{
+										text: 'two action'
+									},
+									{
+										text: 'red action'
+									},
+									{
+										text: 'blue action'
+									}
+								]}
+								isSimple
+							/>
+						</SidebarSection>
+					</Sidebar>
+				</Page>
+			</View>
+		)
+	}
+}
+
 stories
 	.add('Default', () => (
 		<View
@@ -403,71 +492,4 @@ stories
 			</Page>
 		</View>
 	))
-	.add('Big Search', () => {
-		const getSearchSuggestions = async (value: string) => {
-			await new Promise(resolve => setTimeout(resolve, 300))
-			return suggestedSearchResults
-		}
-
-		return (
-			<View
-				STORYBOOKdoNotWrap
-				sidebarItems={bizItems}
-				user={user}
-				organization={organization}
-				location={location}
-				isSidebarExpanded
-				getSearchSuggestions={getSearchSuggestions}
-			>
-				<Page hasSidebar>
-					<Sidebar isLarge isCollapsible={false} side="right">
-						<SidebarSection
-							isCentered
-							verticalSpacing="loose"
-							horizontalSpacing="loose"
-						>
-							<Avatar
-								isLarge
-								isCentered
-								image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
-							/>
-							<Heading>
-								<TextStyle type="strong">Dorian Feeney</TextStyle>
-							</Heading>
-						</SidebarSection>
-						<SidebarSection horizontalSpacing="loose" className="u-flex-row">
-							<Button
-								isSmall
-								kind="secondary"
-								className="u-flex-child-grow"
-								text="Call Dorian"
-								icon={{
-									name: 'phone',
-									isLineIcon: true
-								}}
-							/>
-							<ContextMenu
-								isSmall
-								className="u-ml-tight"
-								actions={[
-									{
-										text: 'One action'
-									},
-									{
-										text: 'two action'
-									},
-									{
-										text: 'red action'
-									},
-									{
-										text: 'blue action'
-									}
-								]}
-								isSimple
-							/>
-						</SidebarSection>
-					</Sidebar>
-				</Page>
-			</View>
-		)
-	})
+	.add('Big Search', () => <SearchViewExample STORYBOOKdoNotWrap />)

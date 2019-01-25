@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
-import { Formik, Form } from 'formik'
 import cx from 'classnames'
+import { debounce } from 'lodash'
 import { CSSTransition } from 'react-transition-group'
 
 import Icon from '../../../Icon/Icon'
@@ -14,6 +14,8 @@ import type { Props as TabProps } from '../../../Tabs/Tabs'
 import type { Props as ListProps } from '../../../List/List'
 import type { Props as ListItemProps } from '../../../List'
 
+type TabbedListProps = { text: string, items: Array<ListItemProps> }
+
 type Props = {
 	/** The placeholder displayed in search bar */
 	searchPlaceholder?: string,
@@ -21,19 +23,16 @@ type Props = {
 	/** The list of initial results to show when search is displayed */
 	initialSearchResults?: Array<ListProps>,
 
-	/** The tabbed search results for a submitted query */
-	searchResults?:
-		| ListProps
-		| Array<{ text: string, items: Array<ListItemProps> }>,
-
-	/** Whether search is visible */
-	isVisible: boolean,
-
 	/** Get search suggestions as search value changes */
 	getSearchSuggestions: (value: string) => Promise<Array<ListProps>>,
 
-	/** Handle search submit */
-	onSearchSubmit?: (value: string) => void,
+	/** Debounce time in ms for getSearchSuggestions calls */
+	getSearchSuggestionsDebounce: number,
+
+	/** Handle search submit. Can respond with a list or tabbed lists of results */
+	getSearchResults?: (
+		value: string
+	) => Promise<ListProps | Array<TabbedListProps>>,
 
 	/** Handle close button click */
 	onClose?: () => void
@@ -44,12 +43,13 @@ type State = {
 	searchValue: string,
 	searchContextBarIsHighlighted: boolean,
 	activeSearchResultsTabIndex: number,
-	suggestedSearchResults: Array<ListProps>
+	suggestedSearchResults: Array<ListProps>,
+	searchResults: Array<ListProps>
 }
 
 export default class BigSearch extends Component<Props, State> {
 	static defaultProps = {
-		isVisible: false
+		getSearchSuggestionsDebounce: 200
 	}
 
 	state = {
@@ -67,25 +67,37 @@ export default class BigSearch extends Component<Props, State> {
 		this.searchInputRef && this.searchInputRef.current.focus()
 	}
 
-	handleSearchValueChange = async (e: any) => {
-		const searchValue = e.target.value
-		this.setState({
-			searchValue,
-			searchContextBarIsHighlighted: searchValue !== ''
-		})
+	getSearchSuggestions = debounce(async (searchValue: string) => {
 		try {
 			const suggestedSearchResults = await this.props.getSearchSuggestions(
 				searchValue
 			)
 			this.setState({ suggestedSearchResults: suggestedSearchResults })
 		} catch (err) {
-			console.log(err)
+			// TODO: Track error here?
 		}
+	}, this.props.getSearchSuggestionsDebounce)
+
+	handleSearchValueChange = (e: any) => {
+		const searchValue = e.target.value
+		this.setState({
+			searchValue,
+			searchContextBarIsHighlighted: searchValue !== ''
+		})
+		this.getSearchSuggestions(searchValue)
 	}
 
-	handleSearchSubmit = () => {
-		const searchValue = this.state.searchValue
-		this.props.onSearchSubmit && this.props.onSearchSubmit(searchValue)
+	handleSearchSubmit = async (e: any) => {
+		e.preventDefault()
+		if (this.props.getSearchResults) {
+			const searchValue = this.state.searchValue
+			try {
+				const searchResults = await this.props.getSearchResults(searchValue)
+				this.setState({ searchResults: searchResults })
+			} catch (err) {
+				// TODO: Track error here?
+			}
+		}
 	}
 
 	handleClearSearchValue = () => {
@@ -113,22 +125,20 @@ export default class BigSearch extends Component<Props, State> {
 		return <List isSmall={true} {...results} />
 	}
 
-	renderTabbedSearchResults = (results: Array<TabProps>) => {
+	renderTabbedSearchResults = (results: Array<TabbedListProps>) => {
 		const { activeSearchResultsTabIndex } = this.state
 		return (
 			<Tabs
-				tabs={results.map<{ text: string, items: Array<ListItemProps> }>(
-					(result, idx) => {
-						const { text, items } = result
-						return {
-							text: text,
-							isCurrent: idx === activeSearchResultsTabIndex,
-							panel: <List isSmall={true} items={items} />,
-							onClick: () => this.handleTabClick(idx),
-							...result
-						}
+				tabs={results.map<TabbedListProps>((result, idx) => {
+					const { text, items } = result
+					return {
+						text: text,
+						isCurrent: idx === activeSearchResultsTabIndex,
+						panel: <List isSmall={true} items={items} />,
+						onClick: () => this.handleTabClick(idx),
+						...result
 					}
-				)}
+				})}
 			/>
 		)
 	}
@@ -158,7 +168,7 @@ export default class BigSearch extends Component<Props, State> {
 			searchContextBarIsHighlighted,
 			suggestedSearchResults
 		} = this.state
-		const { isVisible, searchResults } = this.props
+		const { searchResults } = this.props
 
 		if (suggestedSearchResults.length === 0 && !searchResults) {
 			return (
@@ -176,6 +186,8 @@ export default class BigSearch extends Component<Props, State> {
 					})}
 					text={searchValue}
 					icon={{ name: 'search' }}
+					onClick={this.handleSearchSubmit}
+					type="submit"
 				/>
 			)
 		}
@@ -188,45 +200,48 @@ export default class BigSearch extends Component<Props, State> {
 			searchContextBarIsHighlighted
 		} = this.state
 
-		const { isVisible, searchPlaceholder } = this.props
+		const { searchPlaceholder } = this.props
 
 		return (
 			<CSSTransition
-				in={isVisible}
+				in={true}
 				appear={true}
 				classNames="big-search-overlay"
 				timeout={100}
 			>
 				<div
-					className={cx('big-search-overlay', {
-						'big-search-overlay--visible': isVisible
-					})}
+					className={cx('big-search-overlay')}
 					onClick={this.handleClickOverlay}
 				>
 					<div className="big-search" ref={this.bigSearchRef}>
 						<div className="big-search__search-view-header">
-							<div className="big-search__search-view-search-bar">
-								<div className={'text-input'}>
-									<div className="text-input__inner">
-										<Icon icon={'search'} className="text-input__icon-pre" />
-										<input
-											ref={this.searchInputRef}
-											className="text-input__input"
-											placeholder={searchPlaceholder || 'Search'}
-											value={searchValue}
-											onChange={this.handleSearchValueChange}
+							<form onSubmit={this.handleSearchSubmit}>
+								<div className="big-search__search-view-search-bar">
+									<div className={'text-input'}>
+										<div className="text-input__inner">
+											<Icon icon={'search'} className="text-input__icon-pre" />
+											<input
+												ref={this.searchInputRef}
+												className="text-input__input"
+												placeholder={searchPlaceholder || 'Search'}
+												value={searchValue}
+												onChange={this.handleSearchValueChange}
+											/>
+										</div>
+									</div>
+									<div className="big-search__search-view-search-bar-buttons">
+										<Button
+											text="Clear"
+											onClick={this.handleClearSearchValue}
+										/>
+										<Button
+											icon={{ name: 'close' }}
+											onClick={this.handleClickCloseSearch}
 										/>
 									</div>
 								</div>
-								<div className="big-search__search-view-search-bar-buttons">
-									<Button text="Clear" onClick={this.handleClearSearchValue} />
-									<Button
-										icon={{ name: 'close' }}
-										onClick={this.handleClickCloseSearch}
-									/>
-								</div>
-							</div>
-							{this.renderSearchContextButton()}
+								{this.renderSearchContextButton()}
+							</form>
 						</div>
 						<div className="big-search__view-body">
 							{this.renderSearchResults()}
