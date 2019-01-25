@@ -20,19 +20,17 @@ type Props = {
 	/** The placeholder displayed in search bar */
 	searchPlaceholder?: string,
 
-	/** The list of initial results to show when search is displayed */
+	/** The list of initial results to show when search is displayed. Can provide multiple lists. */
 	initialSearchResults?: Array<ListProps>,
 
-	/** Get search suggestions as search value changes */
+	/** Get search suggestions as search value changes. Can respond with multiple lists. */
 	getSearchSuggestions: (value: string) => Promise<Array<ListProps>>,
 
 	/** Debounce time in ms for getSearchSuggestions calls */
 	getSearchSuggestionsDebounce: number,
 
-	/** Handle search submit. Can respond with a list or tabbed lists of results */
-	getSearchResults?: (
-		value: string
-	) => Promise<ListProps | Array<TabbedListProps>>,
+	/** Handle search submit. Can respond with tabbed lists of results */
+	getSearchResults?: (value: string) => Promise<Array<TabbedListProps>>,
 
 	/** Handle close button click */
 	onClose?: () => void
@@ -44,7 +42,7 @@ type State = {
 	searchContextBarIsHighlighted: boolean,
 	activeSearchResultsTabIndex: number,
 	suggestedSearchResults: Array<ListProps>,
-	searchResults: Array<ListProps>
+	searchResults: Array<TabbedListProps>
 }
 
 export default class BigSearch extends Component<Props, State> {
@@ -57,7 +55,8 @@ export default class BigSearch extends Component<Props, State> {
 		searchValue: '',
 		searchContextBarIsHighlighted: false,
 		activeSearchResultsTabIndex: 0,
-		suggestedSearchResults: []
+		suggestedSearchResults: [],
+		searchResults: []
 	}
 
 	bigSearchRef: any = React.createRef()
@@ -101,7 +100,11 @@ export default class BigSearch extends Component<Props, State> {
 	}
 
 	handleClearSearchValue = () => {
-		this.setState({ searchValue: '' })
+		this.setState({
+			searchValue: '',
+			suggestedSearchResults: [],
+			searchResults: []
+		})
 	}
 
 	handleClickCloseSearch = () => {
@@ -127,38 +130,50 @@ export default class BigSearch extends Component<Props, State> {
 
 	renderTabbedSearchResults = (results: Array<TabbedListProps>) => {
 		const { activeSearchResultsTabIndex } = this.state
-		return (
-			<Tabs
-				tabs={results.map<TabbedListProps>((result, idx) => {
-					const { text, items } = result
-					return {
-						text: text,
-						isCurrent: idx === activeSearchResultsTabIndex,
-						panel: <List isSmall={true} items={items} />,
-						onClick: () => this.handleTabClick(idx),
-						...result
-					}
-				})}
-			/>
-		)
+		if (results.length > 1) {
+			return (
+				<Tabs
+					tabs={results.map<TabbedListProps>((result, idx) => {
+						const { text, items } = result
+						return {
+							text: text,
+							isCurrent: idx === activeSearchResultsTabIndex,
+							panel: <List isSmall={true} items={items} />,
+							onClick: () => this.handleTabClick(idx),
+							...result
+						}
+					})}
+				/>
+			)
+		} else if (results[0]) {
+			// render as a list if only 1 set of results
+			const resultsList = {
+				header: {
+					title: results[0].text || ''
+				},
+				items: results[0].items || []
+			}
+			return this.renderSearchResultsList(resultsList)
+		}
 	}
 
 	renderSearchResults = () => {
-		const { searchValue, suggestedSearchResults } = this.state
-		const { initialSearchResults, searchResults } = this.props
+		const { searchValue, suggestedSearchResults, searchResults } = this.state
+		const { initialSearchResults } = this.props
 
 		if (
 			initialSearchResults &&
 			suggestedSearchResults.length === 0 &&
-			!searchResults
+			searchResults.length === 0
 		) {
 			return initialSearchResults.map<ListProps>(this.renderSearchResultsList)
-		} else if (suggestedSearchResults.length > 0 && !searchResults) {
+		} else if (
+			suggestedSearchResults.length > 0 &&
+			searchResults.length === 0
+		) {
 			return suggestedSearchResults.map<ListProps>(this.renderSearchResultsList)
 		} else if (searchResults) {
-			return Array.isArray(searchResults)
-				? this.renderTabbedSearchResults(searchResults)
-				: this.renderSearchResultsList(searchResults)
+			return this.renderTabbedSearchResults(searchResults)
 		}
 	}
 
@@ -166,11 +181,11 @@ export default class BigSearch extends Component<Props, State> {
 		const {
 			searchValue,
 			searchContextBarIsHighlighted,
-			suggestedSearchResults
+			suggestedSearchResults,
+			searchResults
 		} = this.state
-		const { searchResults } = this.props
 
-		if (suggestedSearchResults.length === 0 && !searchResults) {
+		if (suggestedSearchResults.length === 0 && searchResults.length === 0) {
 			return (
 				<Button
 					className="big-search__search-view-add-btn"
@@ -178,7 +193,7 @@ export default class BigSearch extends Component<Props, State> {
 					icon={{ name: 'add' }}
 				/>
 			)
-		} else if (searchValue && !searchResults) {
+		} else if (searchValue && searchResults.length === 0) {
 			return (
 				<Button
 					className={cx('big-search__search-view-context-bar-btn', {

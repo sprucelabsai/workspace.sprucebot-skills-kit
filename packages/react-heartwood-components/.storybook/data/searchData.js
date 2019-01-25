@@ -37,9 +37,6 @@ export const recentSearchResults = [
 
 export const suggestedSearchResults = [
 	{
-		header: {
-			title: 'Guests'
-		},
 		items: [
 			{
 				avatar: user04image,

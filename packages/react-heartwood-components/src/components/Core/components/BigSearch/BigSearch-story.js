@@ -13,28 +13,13 @@ import {
 const stories = storiesOf('Big Search', module)
 
 stories.addDecorator(withKnobs)
-stories
-	.add('Default', () => {
-		return (
-			<BigSearch isVisible={true} initialSearchResults={recentSearchResults} />
-		)
-	})
-	.add('Suggested Search Results', () => {
-		return (
-			<BigSearch
-				isVisible={true}
-				initialSearchResults={recentSearchResults}
-				suggestedSearchResults={suggestedSearchResults}
-			/>
-		)
-	})
-	.add('Search Results', () => {
-		return (
-			<BigSearch
-				isVisible={true}
-				initialSearchResults={recentSearchResults}
-				suggestedSearchResults={suggestedSearchResults}
-				searchResults={searchResults}
-			/>
-		)
-	})
+stories.add('Default', () => {
+	return (
+		<BigSearch
+			isVisible={true}
+			initialSearchResults={recentSearchResults}
+			getSearchSuggestions={async () => suggestedSearchResults}
+			getSearchResults={async () => searchResults}
+		/>
+	)
+})
