@@ -89,16 +89,20 @@
 		&:focus,
 		&:hover {
 			background-color: $c-primary;
-			color: white;
+			.btn__text {
+				color: white;
+			}
 			.btn__icon {
-				fill: white;
+				stroke: white;
 			}
 		}
 		.btn__inner {
-			justify-content: flex-start;
+			justify-content: space-between;
+			flex-flow: row-reverse;
 		}
 		.btn__icon {
-			fill: $c-primary;
+			fill: none;
+			stroke: $c-primary;
 			margin-left: auto;
 			opacity: 1;
 			width: rem(20);

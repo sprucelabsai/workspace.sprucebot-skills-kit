@@ -12,19 +12,10 @@
 
 	</div>
 	{{#if value }}
-	<button class="btn big-search__search-view-context-btn" type="button">
-		<span class="btn__inner">
-			<span class="btn__text">{{value}}</span>
-			{{> @icon icon=searchContextBtnIcon class="btn__icon" }}
-		</span>
-	</button>
+	{{> @button className="big-search__search-view-context-btn" type="button" text=value icon=searchContextBtnIcon }}
 	{{else}}
-	<button class="btn big-search__search-view-context-btn" type="button">
-		<span class="btn__inner">
-			<span class="btn__text">Quick add a new guest</span>
-			{{> @icon icon=searchContextBtnIcon class="btn__icon" }}
-		</span>
-	</button>
+	{{> @button className="big-search__search-view-context-btn" type="button" text="Quick add a new guest"
+	icon=searchContextBtnIcon }}
 	{{/if}}
 </div>
 <div class="big-search__search-view-body">
