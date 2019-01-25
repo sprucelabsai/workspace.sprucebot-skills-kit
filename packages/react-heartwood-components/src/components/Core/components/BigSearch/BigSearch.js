@@ -67,6 +67,7 @@ export default class BigSearch extends Component<Props, State> {
 	}
 
 	getSearchSuggestions = debounce(async (searchValue: string) => {
+		this.setState({ suggestedSearchResults: [], searchResults: [] })
 		try {
 			const suggestedSearchResults = await this.props.getSearchSuggestions(
 				searchValue
