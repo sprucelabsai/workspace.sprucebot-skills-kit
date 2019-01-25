@@ -82,12 +82,12 @@
 	.big-search__search-view-search-bar-buttons {
 		display: flex;
 		position: absolute;
-		right: spacing('base');
+		right: spacing('extra-tight');
 		top: 50%;
 		transform: translateY(-50%);
 
 		@include gt('medium') {
-			right: spacing('loose');
+			right: spacing('tight');
 		}
 	}
 
@@ -95,7 +95,7 @@
 	.big-search__search-view-context-bar-btn {
 		background-color: $c-off-white;
 		border-radius: 0;
-		padding-right: spacing('extra-loose');
+		padding-right: spacing('loose');
 		width: 100%;
 		&:focus,
 		&:hover,
@@ -157,7 +157,7 @@
 	}
 
 	.big-search__view-body {
-		padding: spacing('base');
+		padding-top: spacing('tight');
 		display: flex;
 		flex-direction: column;
 		overflow-y: auto;
