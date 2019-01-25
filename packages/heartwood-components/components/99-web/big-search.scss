@@ -1,11 +1,25 @@
 .big-search-overlay {
+	opacity: 0;
 	position: fixed;
+	pointer-events: none;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	z-index: 9;
 	background-color: rgba(0, 0, 0, 0.8);
+	transition: all 100ms ease-out;
+
+	&--visible {
+		pointer-events: auto;
+	}
+}
+
+.big-search-overlay-enter-done {
+	opacity: 1;
+}
+.big-search-overlay-exit-done {
+	opacity: 0;
 }
 
 .big-search {
@@ -77,23 +91,18 @@
 		}
 	}
 
-	.big-search__search-view-body {
-		overflow-y: auto;
-	}
-
-	.big-search__search-view-context-btn {
+	.big-search__search-view-add-btn,
+	.big-search__search-view-context-bar-btn {
 		background-color: $c-off-white;
 		border-radius: 0;
 		padding-right: spacing('extra-loose');
 		width: 100%;
 		&:focus,
-		&:hover {
+		&:hover,
+		&--highlighted {
 			background-color: $c-primary;
 			.btn__text {
 				color: white;
-			}
-			.btn__icon {
-				stroke: white;
 			}
 		}
 		.btn__inner {
@@ -101,13 +110,37 @@
 			flex-flow: row-reverse;
 		}
 		.btn__icon {
-			fill: none;
-			stroke: $c-primary;
 			margin-left: auto;
 			opacity: 1;
 			width: rem(20);
 			top: auto;
 			justify-self: flex-end;
+		}
+	}
+
+	.big-search__search-view-context-bar-btn {
+		.btn__icon {
+			fill: $c-primary;
+			stroke: none;
+		}
+		&--highlighted,
+		&:hover {
+			.btn__icon {
+				fill: white;
+			}
+		}
+	}
+
+	.big-search__search-view-add-btn {
+		.btn__icon {
+			fill: none;
+			stroke: $c-primary;
+		}
+		&--highlighted,
+		&:hover {
+			.btn__icon {
+				stroke: white;
+			}
 		}
 	}
 
