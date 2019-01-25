@@ -15,6 +15,7 @@ import {
 	Checkbox,
 	DatePicker,
 	DomainInput,
+	DurationInput,
 	PhoneInput,
 	Radio,
 	Search,
@@ -94,6 +95,17 @@ stories
 				}
 				return results
 			}}
+		/>
+	))
+	.add('Duration Input', () => (
+		<DurationInput
+			inputPre={object('inputPre', {
+				label: 'Duration'
+			})}
+			placeholder={text('placeholder', 'How long is this going to take?')}
+			minMinutes={number('minMinutes', 5)}
+			maxMinutes={number('maxMinutes', 180)}
+			skipMinutes={number('skipMinutes', 5)}
 		/>
 	))
 	.add('Text Input', () => (
