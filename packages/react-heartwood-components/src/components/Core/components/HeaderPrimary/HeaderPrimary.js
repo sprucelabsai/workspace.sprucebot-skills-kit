@@ -10,12 +10,14 @@ import { Autosuggest } from '../../../Forms'
 import Button from '../../../Button/Button'
 import Card from '../../../Card'
 import List from '../../../List'
+import BigSearch from '../BigSearch/BigSearch'
 import cx from 'classnames'
 
 type State = {
 	isMenuExpanded: boolean,
 	isUserMenuVisible: boolean,
-	isLocationMenuVisible: boolean
+	isLocationMenuVisible: boolean,
+	isBigSearchVisible: boolean
 }
 type Props = {
 	/** The logged-in user */
@@ -77,7 +79,8 @@ export default class HeaderPrimary extends Component<Props, State> {
 	state = {
 		isMenuExpanded: false,
 		isUserMenuVisible: false,
-		isLocationMenuVisible: false
+		isLocationMenuVisible: false,
+		isBigSearchVisible: false
 	}
 
 	ref: any
@@ -120,6 +123,12 @@ export default class HeaderPrimary extends Component<Props, State> {
 			}),
 			() => this.manageListeners()
 		)
+	}
+
+	toggleBigSearchVisibility = () => {
+		this.setState(prevState => ({
+			isBigSearchVisible: !prevState.isBigSearchVisible
+		}))
 	}
 
 	manageListeners = () => {
@@ -174,7 +183,8 @@ export default class HeaderPrimary extends Component<Props, State> {
 		const {
 			isMenuExpanded,
 			isUserMenuVisible,
-			isLocationMenuVisible
+			isLocationMenuVisible,
+			isBigSearchVisible
 		} = this.state
 
 		const {
@@ -235,23 +245,22 @@ export default class HeaderPrimary extends Component<Props, State> {
 									/>
 								</div>
 							)}
-							{getSearchSuggestionValue && renderSearchSuggestion && (
-								<Autosuggest
-									className="text-input-small"
-									placeholder={searchPlaceholder}
-									isSmall
-									wrapperClassName="header-primary__autosuggest"
-									getSuggestions={getSearchSuggestions}
-									getSuggestionValue={getSearchSuggestionValue}
-									renderSuggestion={renderSearchSuggestion}
-									onSuggestionSelected={onSearchSuggestionSelected}
-								/>
-							)}
+							<Button
+								text="Search"
+								kind="primary"
+								onClick={this.toggleBigSearchVisibility}
+							/>
 							<UserMenu
 								menuIsVisible={isUserMenuVisible}
 								toggleMenu={this.toggleUserMenuVisibility}
 								{...user}
 							/>
+							{isBigSearchVisible && (
+								<BigSearch
+									isVisible={true}
+									onClose={this.toggleBigSearchVisibility}
+								/>
+							)}
 						</Fragment>
 					) : (
 						<Fragment>

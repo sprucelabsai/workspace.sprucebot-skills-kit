@@ -58,6 +58,7 @@ export default class BigSearch extends Component<Props, State> {
 		activeSearchResultsTabIndex: 0
 	}
 
+	bigSearchRef: any = React.createRef()
 	searchInputRef: any = React.createRef()
 
 	componentDidMount = () => {
@@ -83,8 +84,17 @@ export default class BigSearch extends Component<Props, State> {
 		this.setState({ searchValue: '' })
 	}
 
-	handleCloseSearch = () => {
+	handleClickCloseSearch = () => {
 		this.props.onClose && this.props.onClose()
+	}
+
+	handleClickOverlay = (e: any) => {
+		if (
+			this.bigSearchRef.current &&
+			e.target.contains(this.bigSearchRef.current)
+		) {
+			this.props.onClose && this.props.onClose()
+		}
 	}
 
 	handleTabClick = (idx: number) => {
@@ -179,16 +189,17 @@ export default class BigSearch extends Component<Props, State> {
 					className={cx('big-search-overlay', {
 						'big-search-overlay--visible': isVisible
 					})}
+					onClick={this.handleClickOverlay}
 				>
-					<div className="big-search">
+					<div className="big-search" ref={this.bigSearchRef}>
 						<div className="big-search__search-view-header">
 							<div className="big-search__search-view-search-bar">
 								<div className={'text-input'}>
-									<div class="text-input__inner">
+									<div className="text-input__inner">
 										<Icon icon={'search'} className="text-input__icon-pre" />
 										<input
 											ref={this.searchInputRef}
-											class="text-input__input"
+											className="text-input__input"
 											placeholder="CHANGE ME"
 											value={searchValue}
 											onChange={this.handleSearchValueChange}
@@ -199,7 +210,7 @@ export default class BigSearch extends Component<Props, State> {
 									<Button text="Clear" onClick={this.handleClearSearchValue} />
 									<Button
 										icon={{ name: 'close' }}
-										onClick={this.handleCloseSearch}
+										onClick={this.handleClickCloseSearch}
 									/>
 								</div>
 							</div>
