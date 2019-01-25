@@ -37,6 +37,11 @@
 // 	height: calc(100vh - #{rem(48)});
 // }
 
+// .message-feed,
+// .message-feed__message-wrapper {
+// 	transform: scaleY(-1);
+// }
+
 .message-feed__wrapper {
 	display: flex;
 }
