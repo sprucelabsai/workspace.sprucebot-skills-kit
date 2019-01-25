@@ -15,11 +15,11 @@ import type { Props as ListProps } from '../../../List/List'
 import type { Props as ListItemProps } from '../../../List'
 
 type Props = {
+	/** The placeholder displayed in search bar */
+	searchPlaceholder?: string,
+
 	/** The list of initial results to show when search is displayed */
 	initialSearchResults?: Array<ListProps>,
-
-	/** The search results to display as the user is entering search query */
-	suggestedSearchResults?: Array<ListProps>,
 
 	/** The tabbed search results for a submitted query */
 	searchResults?:
@@ -29,8 +29,8 @@ type Props = {
 	/** Whether search is visible */
 	isVisible: boolean,
 
-	/** Handle search value change */
-	onSearchValueChange?: (value: string) => void,
+	/** Get search suggestions as search value changes */
+	getSearchSuggestions: (value: string) => Promise<Array<ListProps>>,
 
 	/** Handle search submit */
 	onSearchSubmit?: (value: string) => void,
@@ -43,7 +43,8 @@ type State = {
 	isAddButtonVisible: boolean,
 	searchValue: string,
 	searchContextBarIsHighlighted: boolean,
-	activeSearchResultsTabIndex: number
+	activeSearchResultsTabIndex: number,
+	suggestedSearchResults: Array<ListProps>
 }
 
 export default class BigSearch extends Component<Props, State> {
@@ -55,7 +56,8 @@ export default class BigSearch extends Component<Props, State> {
 		isAddButtonVisible: false,
 		searchValue: '',
 		searchContextBarIsHighlighted: false,
-		activeSearchResultsTabIndex: 0
+		activeSearchResultsTabIndex: 0,
+		suggestedSearchResults: []
 	}
 
 	bigSearchRef: any = React.createRef()
@@ -65,14 +67,20 @@ export default class BigSearch extends Component<Props, State> {
 		this.searchInputRef && this.searchInputRef.current.focus()
 	}
 
-	handleSearchValueChange = (e: any) => {
+	handleSearchValueChange = async (e: any) => {
 		const searchValue = e.target.value
 		this.setState({
 			searchValue,
 			searchContextBarIsHighlighted: searchValue !== ''
 		})
-		this.props.onSearchValueChange &&
-			this.props.onSearchValueChange(searchValue)
+		try {
+			const suggestedSearchResults = await this.props.getSearchSuggestions(
+				searchValue
+			)
+			this.setState({ suggestedSearchResults: suggestedSearchResults })
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	handleSearchSubmit = () => {
@@ -126,16 +134,16 @@ export default class BigSearch extends Component<Props, State> {
 	}
 
 	renderSearchResults = () => {
-		const { searchValue } = this.state
-		const {
-			initialSearchResults,
-			suggestedSearchResults,
-			searchResults
-		} = this.props
+		const { searchValue, suggestedSearchResults } = this.state
+		const { initialSearchResults, searchResults } = this.props
 
-		if (initialSearchResults && !suggestedSearchResults && !searchResults) {
+		if (
+			initialSearchResults &&
+			suggestedSearchResults.length === 0 &&
+			!searchResults
+		) {
 			return initialSearchResults.map<ListProps>(this.renderSearchResultsList)
-		} else if (suggestedSearchResults && !searchResults) {
+		} else if (suggestedSearchResults.length > 0 && !searchResults) {
 			return suggestedSearchResults.map<ListProps>(this.renderSearchResultsList)
 		} else if (searchResults) {
 			return Array.isArray(searchResults)
@@ -145,10 +153,14 @@ export default class BigSearch extends Component<Props, State> {
 	}
 
 	renderSearchContextButton = () => {
-		const { searchValue, searchContextBarIsHighlighted } = this.state
-		const { isVisible, suggestedSearchResults, searchResults } = this.props
+		const {
+			searchValue,
+			searchContextBarIsHighlighted,
+			suggestedSearchResults
+		} = this.state
+		const { isVisible, searchResults } = this.props
 
-		if (!suggestedSearchResults && !searchResults) {
+		if (suggestedSearchResults.length === 0 && !searchResults) {
 			return (
 				<Button
 					className="big-search__search-view-add-btn"
@@ -176,7 +188,7 @@ export default class BigSearch extends Component<Props, State> {
 			searchContextBarIsHighlighted
 		} = this.state
 
-		const { isVisible } = this.props
+		const { isVisible, searchPlaceholder } = this.props
 
 		return (
 			<CSSTransition
@@ -200,7 +212,7 @@ export default class BigSearch extends Component<Props, State> {
 										<input
 											ref={this.searchInputRef}
 											className="text-input__input"
-											placeholder="CHANGE ME"
+											placeholder={searchPlaceholder || 'Search'}
 											value={searchValue}
 											onChange={this.handleSearchValueChange}
 										/>

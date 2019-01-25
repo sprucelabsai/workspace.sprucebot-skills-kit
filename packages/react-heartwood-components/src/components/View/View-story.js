@@ -25,6 +25,12 @@ import SaveBar from '../Core/components/SaveBar/SaveBar'
 import View from './View.js'
 import simple from 'graphql-query-complexity/dist/estimators/simple'
 
+import {
+	recentSearchResults,
+	suggestedSearchResults,
+	searchResults
+} from '../../../.storybook/data/searchData'
+
 const ProvideStyles = storyFn => <StylesProvider>{storyFn()}</StylesProvider>
 
 const stories = storiesOf('View', module)
@@ -397,63 +403,71 @@ stories
 			</Page>
 		</View>
 	))
-	.add('Big Search', () => (
-		<View
-			STORYBOOKdoNotWrap
-			sidebarItems={bizItems}
-			user={user}
-			organization={organization}
-			location={location}
-			isSidebarExpanded
-		>
-			<Page hasSidebar>
-				<Sidebar isLarge isCollapsible={false} side="right">
-					<SidebarSection
-						isCentered
-						verticalSpacing="loose"
-						horizontalSpacing="loose"
-					>
-						<Avatar
-							isLarge
+	.add('Big Search', () => {
+		const getSearchSuggestions = async (value: string) => {
+			await new Promise(resolve => setTimeout(resolve, 300))
+			return suggestedSearchResults
+		}
+
+		return (
+			<View
+				STORYBOOKdoNotWrap
+				sidebarItems={bizItems}
+				user={user}
+				organization={organization}
+				location={location}
+				isSidebarExpanded
+				getSearchSuggestions={getSearchSuggestions}
+			>
+				<Page hasSidebar>
+					<Sidebar isLarge isCollapsible={false} side="right">
+						<SidebarSection
 							isCentered
-							image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
-						/>
-						<Heading>
-							<TextStyle type="strong">Dorian Feeney</TextStyle>
-						</Heading>
-					</SidebarSection>
-					<SidebarSection horizontalSpacing="loose" className="u-flex-row">
-						<Button
-							isSmall
-							kind="secondary"
-							className="u-flex-child-grow"
-							text="Call Dorian"
-							icon={{
-								name: 'phone',
-								isLineIcon: true
-							}}
-						/>
-						<ContextMenu
-							isSmall
-							className="u-ml-tight"
-							actions={[
-								{
-									text: 'One action'
-								},
-								{
-									text: 'two action'
-								},
-								{
-									text: 'red action'
-								},
-								{
-									text: 'blue action'
-								}
-							]}
-							isSimple
-						/>
-					</SidebarSection>
-				</Sidebar>
-			</Page>
-		</View>
-	))
+							verticalSpacing="loose"
+							horizontalSpacing="loose"
+						>
+							<Avatar
+								isLarge
+								isCentered
+								image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
+							/>
+							<Heading>
+								<TextStyle type="strong">Dorian Feeney</TextStyle>
+							</Heading>
+						</SidebarSection>
+						<SidebarSection horizontalSpacing="loose" className="u-flex-row">
+							<Button
+								isSmall
+								kind="secondary"
+								className="u-flex-child-grow"
+								text="Call Dorian"
+								icon={{
+									name: 'phone',
+									isLineIcon: true
+								}}
+							/>
+							<ContextMenu
+								isSmall
+								className="u-ml-tight"
+								actions={[
+									{
+										text: 'One action'
+									},
+									{
+										text: 'two action'
+									},
+									{
+										text: 'red action'
+									},
+									{
+										text: 'blue action'
+									}
+								]}
+								isSimple
+							/>
+						</SidebarSection>
+					</Sidebar>
+				</Page>
+			</View>
+		)
+	})

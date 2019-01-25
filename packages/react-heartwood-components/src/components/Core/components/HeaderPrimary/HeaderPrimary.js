@@ -41,8 +41,8 @@ type Props = {
 	/** Passthrough function to show search suggestion value */
 	getSearchSuggestionValue?: Function,
 
-	/** Passthrough function to render search suggestions */
-	renderSearchSuggestion?: Function,
+	/** Passthrough array of lists to display for search suggestions */
+	suggestedSearchResults?: Array<ListProps>,
 
 	/** Passthrough called every time suggestion is selected */
 	onSearchSuggestionSelected?: Function,
@@ -196,7 +196,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 			getSearchSuggestions,
 			getSearchSuggestionValue,
 			onSearchSuggestionSelected,
-			renderSearchSuggestion,
+			suggestedSearchResults,
 			enableHamburgerMenu,
 			searchPlaceholder,
 			isLocationManagmentButtonVisible,
@@ -258,6 +258,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 							{isBigSearchVisible && (
 								<BigSearch
 									isVisible={true}
+									getSearchSuggestions={getSearchSuggestions}
 									onClose={this.toggleBigSearchVisibility}
 								/>
 							)}
