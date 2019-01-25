@@ -7,7 +7,7 @@ import { InputPre, InputHelper } from '../../FormPartials'
 import type { InputPreProps, InputHelperProps } from '../../FormPartials'
 import ClearIcon from '../../../../../static/assets/icons/ic_cancel.svg'
 
-type Props = {
+export type Props = {
 	/** Teach Autosuggest how to calculate suggestions for any given input value. */
 	getSuggestions: (value: string) => Promise<Array<Object>> | null,
 
@@ -25,6 +25,9 @@ type Props = {
 
 	/** Placeholder for the input */
 	placeholder?: string,
+
+	/** optionally pass a default value for this input */
+	defaultValue?: string,
 
 	/** Optional input props */
 	inputPre?: InputPreProps,
@@ -64,10 +67,15 @@ export default class Autosuggest extends Component<Props, State> {
 	static defaultProps = {
 		defaultSuggestions: []
 	}
-	state = {
-		value: '',
-		suggestions: this.props.defaultSuggestions || [],
-		showClearButton: false
+
+	constructor(props: Props) {
+		super(props)
+
+		this.state = {
+			value: props.defaultValue || '',
+			suggestions: this.props.defaultSuggestions || [],
+			showClearButton: false
+		}
 	}
 
 	onChange = (event: any, { newValue }: any) => {

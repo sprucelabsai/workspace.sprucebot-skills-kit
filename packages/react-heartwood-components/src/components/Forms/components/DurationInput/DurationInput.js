@@ -16,7 +16,10 @@ type Props = {
 	maxMinutes?: number,
 
 	/** when generating suggestions, how much much time is there between suggestions */
-	skipMinutes?: number
+	skipMinutes?: number,
+
+	/** Default value (in minutes)  */
+	defaultValue?: number
 } & AutoSuggestProps
 
 export default class DurationInput extends Component<Props> {
@@ -54,38 +57,49 @@ export default class DurationInput extends Component<Props> {
 
 	generateSuggestions = memoize((min, max, skip) => {
 		return range(min, max, skip)
-			.map(num => {
-				let hours = Math.floor(num / 60)
-				let minutes = num % 60
-
-				let value = ''
-
-				if (hours > 0) {
-					value += `${hours}hr`
-				}
-
-				if (minutes > 0) {
-					value += `${minutes}min`
-				}
-
-				return value.trim()
-			})
+			.map(this.transformMinutes)
 			.map(duration => ({
 				text: duration,
 				search: duration.replace(/[^0-9hm]/g, '')
 			}))
 	})
 
+	transformMinutes = (num: number): string => {
+		let hours = Math.floor(num / 60)
+		let minutes = num % 60
+
+		let value = ''
+
+		if (hours > 0) {
+			value += `${hours}hr`
+		}
+
+		if (minutes > 0) {
+			value += `${minutes}min`
+		}
+
+		return value.trim()
+	}
+
 	render() {
-		const { minMinutes, maxMinutes, skipMinutes, ...props } = this.props
+		const {
+			minMinutes,
+			maxMinutes,
+			skipMinutes,
+			defaultValue,
+			...props
+		} = this.props
 		const suggestions = this.generateSuggestions(
 			minMinutes,
 			maxMinutes,
 			skipMinutes
 		)
 
+		console.log(suggestions, defaultValue)
+
 		return (
 			<Autosuggest
+				defaultValue={defaultValue && this.transformMinutes(defaultValue)}
 				defaultSuggestions={suggestions}
 				shouldRenderSuggestions={() => true}
 				renderSuggestion={this.renderSuggestion}

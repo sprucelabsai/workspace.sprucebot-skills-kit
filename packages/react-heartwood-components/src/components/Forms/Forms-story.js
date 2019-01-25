@@ -106,6 +106,7 @@ stories
 			minMinutes={number('minMinutes', 5)}
 			maxMinutes={number('maxMinutes', 180)}
 			skipMinutes={number('skipMinutes', 5)}
+			defaultValue={number('defaultValue', 15)}
 		/>
 	))
 	.add('Text Input', () => (
