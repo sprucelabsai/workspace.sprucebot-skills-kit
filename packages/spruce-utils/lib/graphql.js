@@ -1,5 +1,5 @@
 // @flow
-import { get } from 'lodash'
+import { compact, get } from 'lodash'
 import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import { createHttpLink } from 'apollo-link-http'
@@ -164,6 +164,16 @@ export class GraphQLClient {
 
 		let jwtToken = token || this.token
 
+		const gqlDocumentBody = get(options, `${operationType}.loc.source.body`, '')
+			.replace(/[ \t\n]+/gi, ' ')
+			.trim()
+
+		// Pull names of queries or mutations out for logging.
+		const definitions = get(options, `${operationType}.definitions`, [])
+		const definitionNames = compact(
+			definitions.map(definition => get(definition, 'name.value'))
+		)
+
 		try {
 			response = await this.client[clientMethod]({
 				...options,
@@ -191,11 +201,13 @@ export class GraphQLClient {
 				const errors = networkErrors.concat(graphQLErrors)
 
 				throw new SpruceWebError(
-					`GraphQL Request Failed. Reasons: [${errors
-						.map(error => error.reason)
-						.join(', ')}]`,
+					`GraphQL Request Failed (${operationType} ${definitionNames.join(
+						'/'
+					)}). Reasons: [${errors.map(error => error.reason).join(', ')}]`,
 					{
-						originalError: e
+						originalError: e,
+						gqlDocumentBody,
+						variables: options.variables
 					}
 				)
 			} else {

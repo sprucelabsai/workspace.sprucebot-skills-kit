@@ -89,6 +89,12 @@
 		color: $c-text-light;
 		line-height: $line-height-loose;
 	}
+	&:first-child {
+		padding-top: spacing('base');
+		@include gt('small') {
+			padding-top: spacing('loose');
+		}
+	}
 }
 
 .card__section {
