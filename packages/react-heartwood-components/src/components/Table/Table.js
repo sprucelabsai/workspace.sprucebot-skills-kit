@@ -14,6 +14,9 @@ type Props = {
 	/** Table data */
 	data: Array<Object>,
 
+	/** The total number of rows which this table can access */
+	totalRows: number,
+
 	/** Columns of the table */
 	columns: Array<Object>,
 
@@ -71,7 +74,7 @@ export default class Table extends Component<Props, State> {
 	}
 
 	handleChange = ({ id, pageSize }: any) => {
-		const { onSelection } = this.props
+		const { onSelection, totalRows } = this.props
 		this.setState(
 			prevState => {
 				const idx = prevState.selectedIds.indexOf(id)
@@ -87,7 +90,7 @@ export default class Table extends Component<Props, State> {
 				}
 				return {
 					selectedIds: newIds,
-					allRowsSelected: newIds.length === pageSize
+					allRowsSelected: newIds.length === totalRows
 				}
 			},
 			() => {
@@ -105,12 +108,14 @@ export default class Table extends Component<Props, State> {
 		const currentRows = allRows
 			.slice(startIdx, startIdx + pageSize)
 			.map(item => item._original)
-		const selectedIds = currentRows.map(row => row.id)
+		const visibleIds = currentRows.map(row => row.id)
 
 		this.setState(
 			prevState => ({
-				allRowsSelected: !prevState.allRowsSelected,
-				selectedIds: prevState.allRowsSelected ? [] : selectedIds
+				selectedIds:
+					prevState.selectedIds.length > 0
+						? []
+						: [...prevState.selectedIds, ...visibleIds]
 			}),
 			() => {
 				onSelection && onSelection({ selectedIds: this.state.selectedIds })
@@ -136,6 +141,7 @@ export default class Table extends Component<Props, State> {
 	render() {
 		const {
 			data,
+			totalRows,
 			columns,
 			className,
 			paginationProps,
@@ -149,6 +155,7 @@ export default class Table extends Component<Props, State> {
 		const { selectedIds, allRowsSelected } = this.state
 
 		let columnsToRender = [...columns]
+
 		if (isSelectable) {
 			columnsToRender.unshift({
 				id: 'checkbox',
@@ -157,11 +164,10 @@ export default class Table extends Component<Props, State> {
 					<Checkbox
 						id=""
 						isIndeterminate={
-							!allRowsSelected &&
-							(selectedIds.length > 0 && selectedIds.length < data.length)
+							selectedIds.length > 0 && selectedIds.length < totalRows
 						}
 						// NOTE: Using state here because this Header can't access page size on its own
-						checked={allRowsSelected}
+						checked={selectedIds.length > 0}
 						onChange={() => this.handleSelectAll()}
 					/>
 				),
