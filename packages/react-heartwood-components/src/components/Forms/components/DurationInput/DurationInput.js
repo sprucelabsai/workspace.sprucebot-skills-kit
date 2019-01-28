@@ -25,7 +25,10 @@ type Props = {
 	noResultsTitle?: string,
 
 	/** subtitle rendered when no results are found */
-	noResultsSubtitle?: string
+	noResultsSubtitle?: string,
+
+	/** pass an error message to the input, this is show only after a valid duration is selected */
+	error?: string
 } & AutoSuggestProps
 
 type State = {
@@ -157,6 +160,11 @@ export default class DurationInput extends Component<Props, State> {
 
 			const search = value.replace(/[^0-9hm]/g, '')
 
+			// we typed something, but it was nothing valid
+			if (value.length > 0 && search.length === 0) {
+				return []
+			}
+
 			const suggestions = this.generateSuggestions(
 				minMinutes,
 				maxMinutes,
@@ -181,6 +189,8 @@ export default class DurationInput extends Component<Props, State> {
 			maxMinutes,
 			skipMinutes,
 			defaultValue,
+			error,
+			helper,
 			...props
 		} = this.props
 
@@ -199,7 +209,7 @@ export default class DurationInput extends Component<Props, State> {
 					onChange: this.handleChange,
 					onBlur: this.handleBlur
 				}}
-				error={validationError}
+				error={validationError || error}
 				defaultSuggestions={suggestions}
 				shouldRenderSuggestions={() => true}
 				renderSuggestion={this.renderSuggestion}
