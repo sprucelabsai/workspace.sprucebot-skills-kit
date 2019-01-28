@@ -1,6 +1,13 @@
 // @flow
-import React, { Fragment } from 'react'
+import React, { Component, Fragment } from 'react'
 import moment from 'moment-timezone'
+import {
+	List,
+	AutoSizer,
+	CellMeasurer,
+	CellMeasurerCache,
+	InfiniteLoader
+} from 'react-virtualized'
 import Message, { MessageBuilder } from '../../../Message'
 import Text from '../../../Text/Text'
 
@@ -16,8 +23,23 @@ type Props = {
 	/** Messages for the feed */
 	messages?: Array<MessageProps>,
 
+	/** The total number of messages in the feed. Used for infinite scrolling. */
+	messageCount?: number,
+
 	/** Text for the empty state of this feed */
-	emptyText?: string
+	emptyText?: string,
+
+	/** Callback to load rows */
+	onRowsRequested: Function,
+
+	/** Number of messages to load at a time */
+	pageSize?: number
+}
+
+type State = {
+	rows: Array<MessageProps>,
+	rowCount: number,
+	scrollToIndex: number
 }
 
 // The difference in minutes between two message where only the first one
@@ -78,36 +100,115 @@ const groupMessages = (messages: Array<MessageProps>) => {
 	return groupedMessages
 }
 
-const FeedBuilder = (props: Props) => {
-	const { messages, emptyText } = props
-	const formattedMessages = formatMessages(messages)
-	const messageGroups = groupMessages(formattedMessages)
-	return (
-		<div className="message-feed__wrapper">
-			<div className="message-feed">
-				{messageGroups && messageGroups.length > 0 ? (
-					messageGroups.map(group => (
-						<Fragment key={group.name}>
-							{group.messages.map(messageIdx => (
-								<MessageBuilder
-									key={messageIdx}
-									{...formattedMessages[messageIdx]}
-								/>
-							))}
-							<Text className="message-feed__day-header">{group.name}</Text>
-						</Fragment>
-					))
-				) : (
-					<Text className="message-feed__empty-text">{emptyText}</Text>
-				)}
+export default class FeedBuilder extends Component<Props, State> {
+	list: any
+	cache = new CellMeasurerCache({})
+	state = {
+		rows: [],
+		rowCount: this.props.messages.length,
+		scrollToIndex: this.props.messages.length + 1
+	}
+	static defaultProps = {
+		messages: [],
+		messageCount: 0,
+		emptyText: 'No messages',
+		pageSize: 50
+	}
+
+	isRowLoaded = ({ index }) => {
+		const { messages } = this.props
+		return index > 0
+	}
+
+	loadMoreRows = ({ startIndex, stopIndex }) => {
+		const { messages, messageCount, onRowsRequested } = this.props
+		// Do API Stuff™
+
+		if (this.list && messages.length < messageCount) {
+			onRowsRequested()
+			this.cache.clearAll()
+			this.list.recomputeRowHeights(0)
+			this.setState(prevState => ({
+				rowCount: messages.length + 50,
+				scrollToIndex: messages.length + 50 - prevState.rowCount
+			}))
+		}
+		let done
+		return new Promise(resolve => (done = resolve))
+	}
+
+	renderRow = ({ index, key, parent, style, isScrolling, isVisible }) => {
+		const { messages } = this.props
+		const reversedMessages = [...messages].reverse()
+
+		return (
+			<CellMeasurer
+				cache={this.cache}
+				columnIndex={0}
+				key={key}
+				parent={parent}
+				rowIndex={index}
+			>
+				<div className="message-feed__message-wrapper" key={key} style={style}>
+					<MessageBuilder {...reversedMessages[index]} />
+				</div>
+			</CellMeasurer>
+		)
+	}
+
+	render() {
+		const { messages, messageCount, emptyText, pageSize } = this.props
+		const { scrollToIndex, rowCount } = this.state
+		// const formattedMessages = formatMessages(messages)
+		// const messageGroups = groupMessages(formattedMessages)
+		return (
+			<div className="message-feed__wrapper">
+				<div className="message-feed">
+					<InfiniteLoader
+						ref={ref => (this.infiniteLoader = ref)}
+						isRowLoaded={this.isRowLoaded}
+						loadMoreRows={this.loadMoreRows}
+						rowCount={messageCount}
+						threshold={1}
+					>
+						{({ onRowsRendered, registerChild }) => (
+							<AutoSizer className="message-feed__autosizer">
+								{({ height, width }) => (
+									<div ref={registerChild}>
+										<List
+											ref={ref => (this.list = ref)}
+											className="message-feed__virtual-list"
+											height={height}
+											width={width}
+											rowCount={rowCount}
+											rowHeight={this.cache.rowHeight}
+											rowRenderer={this.renderRow}
+											scrollToIndex={pageSize}
+											scrollToAlignment="end"
+											onRowsRendered={onRowsRendered}
+										/>
+									</div>
+								)}
+							</AutoSizer>
+						)}
+					</InfiniteLoader>
+					{/* {messageGroups && messageGroups.length > 0 ? (
+						messageGroups.map(group => (
+							<Fragment key={group.name}>
+								{group.messages.map(messageIdx => (
+									<MessageBuilder
+										key={messageIdx}
+										{...formattedMessages[messageIdx]}
+									/>
+								))}
+								<Text className="message-feed__day-header">{group.name}</Text>
+							</Fragment>
+						))
+					) : (
+						<Text className="message-feed__empty-text">{emptyText}</Text>
+					)} */}
+				</div>
 			</div>
-		</div>
-	)
+		)
+	}
 }
-
-FeedBuilder.defaultProps = {
-	messages: [],
-	emptyText: 'No messages'
-}
-
-export default FeedBuilder

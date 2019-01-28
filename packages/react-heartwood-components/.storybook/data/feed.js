@@ -103,16 +103,28 @@ const sprucebotMessages = [
 	}
 ]
 
-export const generateMessages = ({ count, interval = 1 }) => {
+export const generateMessages = ({
+	count,
+	interval = 1,
+	startDate,
+	startIndex = 0
+}) => {
 	const messages = []
 
 	for (let i = 0; i < count; i++) {
+		const message =
+			sprucebotMessages[Math.floor(Math.random() * sprucebotMessages.length)]
+		const messageNumber = startIndex + i
 		messages.push({
 			from: senders.sprucebot,
 			isFromSprucebot: true,
-			dateSent: moment().subtract(i * interval, 'minutes'),
-			message:
-				sprucebotMessages[Math.floor(Math.random() * sprucebotMessages.length)]
+			dateSent: startDate
+				? moment(startDate).subtract(interval * i, 'minutes')
+				: moment().subtract(interval * i, 'minutes'),
+			message: {
+				...message,
+				text: `${messageNumber} ${message.text}`
+			}
 		})
 	}
 

@@ -65,6 +65,10 @@ export const Message = (props: MessageProps) => {
 		isFromSprucebot
 	} = props
 
+	if (typeof from === 'undefined') {
+		return null
+	}
+
 	const { id: fromId, name: fromName, image: fromImage, alt: fromAlt } = from
 
 	const renderReply = reply => {
