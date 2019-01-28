@@ -108,11 +108,21 @@ export default class FeedBuilder extends Component<Props, State> {
 		rowCount: this.props.messages.length,
 		scrollToIndex: this.props.messages.length + 1
 	}
+
 	static defaultProps = {
 		messages: [],
 		messageCount: 0,
 		emptyText: 'No messages',
 		pageSize: 50
+	}
+
+	onResize = () => {
+		console.log('onResize')
+		if (this.list && this.cache) {
+			this.cache.clearAll()
+			this.list.recomputeRowHeights(0)
+			this.list.forceUpdateGrid()
+		}
 	}
 
 	isRowLoaded = ({ index }) => {
@@ -172,7 +182,10 @@ export default class FeedBuilder extends Component<Props, State> {
 						threshold={1}
 					>
 						{({ onRowsRendered, registerChild }) => (
-							<AutoSizer className="message-feed__autosizer">
+							<AutoSizer
+								className="message-feed__autosizer"
+								onResize={this.onResize}
+							>
 								{({ height, width }) => (
 									<div ref={registerChild}>
 										<List
