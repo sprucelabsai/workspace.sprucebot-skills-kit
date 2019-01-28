@@ -31,7 +31,7 @@ const Legal = (props: Props) => {
 					Privacy Policy
 				</a>
 			</p>
-			<p className={className}>© Spruce Labs 2018</p>
+			<p className={className}>© Spruce Labs 2019</p>
 		</Fragment>
 	)
 }
