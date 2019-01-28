@@ -38,6 +38,7 @@ type Props = {
 
 type State = {
 	rows: Array<MessageProps>,
+	groups: Object,
 	rowCount: number,
 	scrollToIndex: number
 }
@@ -118,11 +119,14 @@ const groupMessages = (messages: Array<MessageProps>) => {
 
 export default class FeedBuilder extends Component<Props, State> {
 	list: any
-	cache = new CellMeasurerCache({})
+	cache = new CellMeasurerCache({
+		fixedWidth: true
+	})
 	state = {
 		rows: [],
-		rowCount: this.props.messages.length,
-		scrollToIndex: this.props.messages.length + 1
+		groups: {},
+		rowCount: 0,
+		scrollToIndex: 1
 	}
 
 	static defaultProps = {
@@ -130,6 +134,20 @@ export default class FeedBuilder extends Component<Props, State> {
 		messageCount: 0,
 		emptyText: 'No messages',
 		pageSize: 50
+	}
+
+	static getDerivedStateFromProps(props: Props, state: State) {
+		const { messages } = props
+		const formattedMessages = formatMessages(messages)
+		const reversedMessages = [...formattedMessages].reverse()
+		const groups = groupMessages(reversedMessages)
+
+		return {
+			rows: reversedMessages,
+			rowCount: messages.length,
+			scrollToIndex: messages.length + 1,
+			groups
+		}
 	}
 
 	onResize = () => {
@@ -151,10 +169,6 @@ export default class FeedBuilder extends Component<Props, State> {
 
 		if (this.list && messages.length < messageCount) {
 			onRowsRequested()
-			this.setState(prevState => ({
-				rowCount: messages.length + pageSize,
-				scrollToIndex: messages.length + pageSize - prevState.rowCount
-			}))
 			this.cache.clearAll()
 			this.list.recomputeRowHeights(0)
 			this.list.forceUpdateGrid()
@@ -165,36 +179,30 @@ export default class FeedBuilder extends Component<Props, State> {
 
 	renderRow = ({ index, key, parent, style, isScrolling, isVisible }) => {
 		const { messages } = this.props
-		// TODO: This all needs to be moved elsewhere — it's causing scroll-thrash
-		const formattedMessages = formatMessages(messages)
-		const reversedMessages = [...formattedMessages].reverse()
-		const groups = groupMessages(reversedMessages)
+		const { rows, groups } = this.state
 		const groupMatch = groups[index]
 
 		return (
-			<Fragment>
-				<CellMeasurer
-					cache={this.cache}
-					columnIndex={0}
-					key={key}
-					parent={parent}
-					rowIndex={index}
+			<CellMeasurer
+				cache={this.cache}
+				columnIndex={0}
+				key={key}
+				parent={parent}
+				rowIndex={index}
+			>
+				<div
+					className="message-feed__message-wrapper"
+					style={{
+						...style,
+						visibility: isScrolling ? 'visible' : 'visible'
+					}}
 				>
-					<div
-						className="message-feed__message-wrapper"
-						key={key}
-						style={{
-							...style,
-							visibility: isScrolling ? 'hidden' : 'visible'
-						}}
-					>
-						{groupMatch && (
-							<Text className="message-feed__day-header">{groupMatch}</Text>
-						)}
-						<MessageBuilder {...reversedMessages[index]} />
-					</div>
-				</CellMeasurer>
-			</Fragment>
+					{groupMatch && (
+						<Text className="message-feed__day-header">{groupMatch}</Text>
+					)}
+					<MessageBuilder {...rows[index]} />
+				</div>
+			</CellMeasurer>
 		)
 	}
 
@@ -221,6 +229,7 @@ export default class FeedBuilder extends Component<Props, State> {
 										<List
 											ref={ref => (this.list = ref)}
 											className="message-feed__virtual-list"
+											deferredMeasurementCache={this.cache}
 											height={height}
 											width={width}
 											rowCount={rowCount}
