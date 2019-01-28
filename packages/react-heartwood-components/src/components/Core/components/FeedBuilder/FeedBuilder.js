@@ -117,7 +117,6 @@ export default class FeedBuilder extends Component<Props, State> {
 	}
 
 	onResize = () => {
-		console.log('onResize')
 		if (this.list && this.cache) {
 			this.cache.clearAll()
 			this.list.recomputeRowHeights(0)
