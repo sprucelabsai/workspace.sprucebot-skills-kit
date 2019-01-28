@@ -1,6 +1,6 @@
 // @flow
 import React, { Component, Fragment } from 'react'
-import { range } from 'lodash'
+import { range, findIndex } from 'lodash'
 import memoize from 'memoize-one'
 
 import Autosuggest from '../Autosuggest/Autosuggest'
@@ -47,9 +47,7 @@ export default class DurationInput extends Component<Props, State> {
 	constructor(props: Props) {
 		super(props)
 		this.state = {
-			value: props.defaultValue
-				? this.transformMinutes(props.defaultValue)
-				: '',
+			value: props.defaultValue ? this.minutesToStr(props.defaultValue) : '',
 			validationError: null
 		}
 	}
@@ -76,15 +74,17 @@ export default class DurationInput extends Component<Props, State> {
 	}
 
 	generateSuggestions = memoize((min, max, skip) => {
-		return range(min, max + skip, skip)
-			.map(this.transformMinutes)
-			.map(duration => ({
+		return range(min, max + skip, skip).map(minutes => {
+			const duration = this.minutesToStr(minutes)
+			return {
 				text: duration,
-				search: duration.replace(/[^0-9hm]/g, '')
-			}))
+				search: duration.replace(/[^0-9hm]/g, ''),
+				minutes
+			}
+		})
 	})
 
-	transformMinutes = (num: number): string => {
+	minutesToStr = (num: number): string => {
 		let hours = Math.floor(num / 60)
 		let minutes = num % 60
 
@@ -101,21 +101,34 @@ export default class DurationInput extends Component<Props, State> {
 		return value.trim()
 	}
 
+	strToMinutes = (str: string): number => {
+		const { minMinutes, maxMinutes, skipMinutes } = this.props
+		const suggestions = this.generateSuggestions(
+			minMinutes,
+			maxMinutes,
+			skipMinutes
+		)
+		const idx = findIndex(suggestions, suggestion => suggestion.text === str)
+
+		const suggestion = suggestions[idx]
+		return suggestion.minutes
+	}
+
 	handleChange = e => {
-		const { onChange } = this.props
 		const { value } = e.target
-
 		this.setState({ value })
-
-		onChange && onChange(e)
 	}
 
 	handleBlur = e => {
 		const { onBlur } = this.props
+		const { onChange } = this.props
+
 		const value = e.target.value
 		const matches = this.searchSuggestions(value)
 		if (value.length > 0 && matches.length > 0) {
 			this.setState({ value: matches[0].text, validationError: null })
+			// only fire on change if the new value is valid
+			onChange && onChange(this.strToMinutes(matches[0].text), e)
 		} else if (value.length > 0) {
 			this.setState({ validationError: 'You must select a valid duration.' })
 		}

@@ -107,6 +107,7 @@ stories
 			maxMinutes={number('maxMinutes', 60 * 4)}
 			skipMinutes={number('skipMinutes', 5)}
 			defaultValue={number('defaultValue')}
+			onChange={(minutes, e) => console.log(minutes, e)}
 		/>
 	))
 	.add('Text Input', () => (
