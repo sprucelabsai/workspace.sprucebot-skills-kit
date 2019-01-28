@@ -76,6 +76,22 @@ const formatMessages = (messages: Array<MessageProps>) => {
 
 const groupMessages = (messages: Array<MessageProps>) => {
 	const groupedMessages = []
+	const groups = {}
+
+	messages.forEach((message, idx) => {
+		const daySent = message.dateSent.calendar(null, {
+			sameDay: '[Today]',
+			lastDay: '[Yesterday]',
+			lastWeek: '[Last] dddd',
+			sameElse: message.dateSent.isSame(new Date(), 'year')
+				? 'ddd, MMMM DD'
+				: 'ddd, MMMM DD, YYYY'
+		})
+		const match = Object.values(groups).findIndex(value => value === daySent)
+		if (match === -1) {
+			groups[idx] = daySent
+		}
+	})
 
 	messages.forEach((message, idx) => {
 		const daySent = message.dateSent.calendar(null, {
@@ -97,7 +113,7 @@ const groupMessages = (messages: Array<MessageProps>) => {
 		}
 	})
 
-	return groupedMessages
+	return groups
 }
 
 export default class FeedBuilder extends Component<Props, State> {
@@ -130,17 +146,18 @@ export default class FeedBuilder extends Component<Props, State> {
 	}
 
 	loadMoreRows = ({ startIndex, stopIndex }) => {
-		const { messages, messageCount, onRowsRequested } = this.props
+		const { messages, messageCount, onRowsRequested, pageSize } = this.props
 		// Do API Stuff™
 
 		if (this.list && messages.length < messageCount) {
 			onRowsRequested()
+			this.setState(prevState => ({
+				rowCount: messages.length + pageSize,
+				scrollToIndex: messages.length + pageSize - prevState.rowCount
+			}))
 			this.cache.clearAll()
 			this.list.recomputeRowHeights(0)
-			this.setState(prevState => ({
-				rowCount: messages.length + 50,
-				scrollToIndex: messages.length + 50 - prevState.rowCount
-			}))
+			this.list.forceUpdateGrid()
 		}
 		let done
 		return new Promise(resolve => (done = resolve))
@@ -148,28 +165,42 @@ export default class FeedBuilder extends Component<Props, State> {
 
 	renderRow = ({ index, key, parent, style, isScrolling, isVisible }) => {
 		const { messages } = this.props
-		const reversedMessages = [...messages].reverse()
+		// TODO: This all needs to be moved elsewhere — it's causing scroll-thrash
+		const formattedMessages = formatMessages(messages)
+		const reversedMessages = [...formattedMessages].reverse()
+		const groups = groupMessages(reversedMessages)
+		const groupMatch = groups[index]
 
 		return (
-			<CellMeasurer
-				cache={this.cache}
-				columnIndex={0}
-				key={key}
-				parent={parent}
-				rowIndex={index}
-			>
-				<div className="message-feed__message-wrapper" key={key} style={style}>
-					<MessageBuilder {...reversedMessages[index]} />
-				</div>
-			</CellMeasurer>
+			<Fragment>
+				<CellMeasurer
+					cache={this.cache}
+					columnIndex={0}
+					key={key}
+					parent={parent}
+					rowIndex={index}
+				>
+					<div
+						className="message-feed__message-wrapper"
+						key={key}
+						style={{
+							...style,
+							visibility: isScrolling ? 'hidden' : 'visible'
+						}}
+					>
+						{groupMatch && (
+							<Text className="message-feed__day-header">{groupMatch}</Text>
+						)}
+						<MessageBuilder {...reversedMessages[index]} />
+					</div>
+				</CellMeasurer>
+			</Fragment>
 		)
 	}
 
 	render() {
 		const { messages, messageCount, emptyText, pageSize } = this.props
 		const { scrollToIndex, rowCount } = this.state
-		// const formattedMessages = formatMessages(messages)
-		// const messageGroups = groupMessages(formattedMessages)
 		return (
 			<div className="message-feed__wrapper">
 				<div className="message-feed">
@@ -195,7 +226,7 @@ export default class FeedBuilder extends Component<Props, State> {
 											rowCount={rowCount}
 											rowHeight={this.cache.rowHeight}
 											rowRenderer={this.renderRow}
-											scrollToIndex={pageSize}
+											scrollToIndex={pageSize + 5}
 											scrollToAlignment="end"
 											onRowsRendered={onRowsRendered}
 										/>
@@ -204,21 +235,6 @@ export default class FeedBuilder extends Component<Props, State> {
 							</AutoSizer>
 						)}
 					</InfiniteLoader>
-					{/* {messageGroups && messageGroups.length > 0 ? (
-						messageGroups.map(group => (
-							<Fragment key={group.name}>
-								{group.messages.map(messageIdx => (
-									<MessageBuilder
-										key={messageIdx}
-										{...formattedMessages[messageIdx]}
-									/>
-								))}
-								<Text className="message-feed__day-header">{group.name}</Text>
-							</Fragment>
-						))
-					) : (
-						<Text className="message-feed__empty-text">{emptyText}</Text>
-					)} */}
 				</div>
 			</div>
 		)
