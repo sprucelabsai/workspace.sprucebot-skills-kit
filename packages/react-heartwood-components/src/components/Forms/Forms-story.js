@@ -104,9 +104,10 @@ stories
 			})}
 			placeholder={text('placeholder', 'How long is this going to take?')}
 			minMinutes={number('minMinutes', 5)}
-			maxMinutes={number('maxMinutes', 180)}
+			maxMinutes={number('maxMinutes', 60 * 4)}
 			skipMinutes={number('skipMinutes', 5)}
-			defaultValue={number('defaultValue', 15)}
+			defaultValue={number('defaultValue')}
+			onChange={(minutes, e) => console.log(minutes, e)}
 		/>
 	))
 	.add('Text Input', () => (

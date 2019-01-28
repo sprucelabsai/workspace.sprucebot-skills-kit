@@ -1,6 +1,6 @@
 // @flow
 import React, { Component, Fragment } from 'react'
-import { range } from 'lodash'
+import { range, findIndex } from 'lodash'
 import memoize from 'memoize-one'
 
 import Autosuggest from '../Autosuggest/Autosuggest'
@@ -25,16 +25,34 @@ type Props = {
 	noResultsTitle?: string,
 
 	/** subtitle rendered when no results are found */
-	noResultsSubtitle?: string
+	noResultsSubtitle?: string,
+
+	/** pass an error message to the input, this is show only after a valid duration is selected */
+	error?: string
 } & AutoSuggestProps
 
-export default class DurationInput extends Component<Props> {
+type State = {
+	value: string,
+	validationError: ?string
+}
+
+export default class DurationInput extends Component<Props, State> {
 	static defaultProps = {
 		minMinutes: 5,
 		maxMinutes: 180,
 		skipMinutes: 5,
 		noResultsTitle: 'Invalid duration.',
 		noResultsSubtitle: 'Please adjust your search and try again.'
+	}
+
+	_searchCache: { [key: string]: Array<string> } = {}
+
+	constructor(props: Props) {
+		super(props)
+		this.state = {
+			value: props.defaultValue ? this.minutesToStr(props.defaultValue) : '',
+			validationError: null
+		}
 	}
 
 	renderSuggestion = (suggestion: any) => {
@@ -59,15 +77,17 @@ export default class DurationInput extends Component<Props> {
 	}
 
 	generateSuggestions = memoize((min, max, skip) => {
-		return range(min, max, skip)
-			.map(this.transformMinutes)
-			.map(duration => ({
+		return range(min, max + skip, skip).map(minutes => {
+			const duration = this.minutesToStr(minutes)
+			return {
 				text: duration,
-				search: duration.replace(/[^0-9hm]/g, '')
-			}))
+				search: duration.replace(/[^0-9hm]/g, ''),
+				minutes
+			}
+		})
 	})
 
-	transformMinutes = (num: number): string => {
+	minutesToStr = (num: number): string => {
 		let hours = Math.floor(num / 60)
 		let minutes = num % 60
 
@@ -84,14 +104,97 @@ export default class DurationInput extends Component<Props> {
 		return value.trim()
 	}
 
+	strToMinutes = (str: string): number => {
+		const { minMinutes, maxMinutes, skipMinutes } = this.props
+		const suggestions = this.generateSuggestions(
+			minMinutes,
+			maxMinutes,
+			skipMinutes
+		)
+		const idx = findIndex(suggestions, suggestion => suggestion.text === str)
+
+		const suggestion = suggestions[idx]
+		return suggestion.minutes
+	}
+
+	handleChange = e => {
+		const { value } = e.target
+		this.setState({ value })
+	}
+
+	handleBlur = e => {
+		const { onBlur } = this.props
+		const { onChange } = this.props
+
+		const value = e.target.value
+		const matches = this.searchSuggestions(value)
+		if (value.length > 0 && matches.length > 0) {
+			this.setState({ value: matches[0].text, validationError: null })
+			// only fire on change if the new value is valid
+			onChange && onChange(this.strToMinutes(matches[0].text), e)
+		} else if (value.length > 0) {
+			this.setState({ validationError: 'You must select a valid duration.' })
+		}
+
+		onBlur && onBlur(e)
+	}
+
+	handleGetSuggestions = value => {
+		const matches = this.searchSuggestions(value)
+		// Here you could add click events to buttons or whatever else they need
+		// No Results Message
+		if (matches.length === 0) {
+			return [
+				{
+					text: 'NO RESULTS',
+					isEmptyMessage: true
+				}
+			]
+		}
+		return matches
+	}
+
+	searchSuggestions = memoize(
+		(value): Array<string> => {
+			const { minMinutes, maxMinutes, skipMinutes } = this.props
+
+			const search = value.replace(/[^0-9hm]/g, '')
+
+			// we typed something, but it was nothing valid
+			if (value.length > 0 && search.length === 0) {
+				return []
+			}
+
+			const suggestions = this.generateSuggestions(
+				minMinutes,
+				maxMinutes,
+				skipMinutes
+			)
+
+			const results = suggestions.filter(
+				suggestion => suggestion.search.search(search) > -1
+			)
+
+			return results
+		}
+	)
+
+	handleSelectSuggestion = (e, suggestion) => {
+		this.setState({ value: suggestion.suggestionValue })
+	}
+
 	render() {
 		const {
 			minMinutes,
 			maxMinutes,
 			skipMinutes,
 			defaultValue,
+			error,
+			helper,
 			...props
 		} = this.props
+
+		const { value, validationError } = this.state
 
 		const suggestions = this.generateSuggestions(
 			minMinutes,
@@ -101,29 +204,18 @@ export default class DurationInput extends Component<Props> {
 
 		return (
 			<Autosuggest
-				defaultValue={defaultValue && this.transformMinutes(defaultValue)}
+				inputProps={{
+					value: value,
+					onChange: this.handleChange,
+					onBlur: this.handleBlur
+				}}
+				error={validationError || error}
 				defaultSuggestions={suggestions}
 				shouldRenderSuggestions={() => true}
 				renderSuggestion={this.renderSuggestion}
 				getSuggestionValue={value => value.text}
-				getSuggestions={value => {
-					const search = value.replace(/[^0-9hm]/g, '')
-
-					const results = suggestions.filter(
-						suggestion => suggestion.search.search(search) > -1
-					)
-					// Here you could add click events to buttons or whatever else they need
-					// No Results Message
-					if (results.length === 0) {
-						return [
-							{
-								text: 'NO RESULTS',
-								isEmptyMessage: true
-							}
-						]
-					}
-					return results
-				}}
+				getSuggestions={this.handleGetSuggestions}
+				onSuggestionSelected={this.handleSelectSuggestion}
 				{...props}
 			/>
 		)
