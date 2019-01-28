@@ -79,6 +79,12 @@
 			transform: translate(-50%, 0);
 		}
 
+		&.modal-medium {
+			max-width: rem(640);
+			left: 50%;
+			transform: translate(-50%, 0);
+		}
+
 		@include gt('small') {
 			top: spacing('base');
 			left: spacing('base');
