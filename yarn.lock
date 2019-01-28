@@ -8948,8 +8948,6 @@ formidable@^1.1.1, formidable@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/formidable/-/formidable-1.2.1.tgz#70fb7ca0290ee6ff961090415f4b3df3d2082659"
   integrity sha512-Fs9VRguL0gqGHkXS5GQiMCr1VhZBxz0JnJs4JmMp/2jL18Fmbzvv7vOFRU+U8TBkHEE/CX1qDXzJplVULgsLeg==
-<<<<<<< HEAD
-=======
 
 formik@^1.4.2:
   version "1.4.2"
@@ -8965,7 +8963,6 @@ formik@^1.4.2:
     react-fast-compare "^2.0.1"
     tiny-warning "^1.0.2"
     tslib "^1.9.3"
->>>>>>> canary
 
 forwarded@~0.1.2:
   version "0.1.2"
@@ -13049,27 +13046,21 @@ lodash.restparam@^3.0.0:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/lodash.restparam/-/lodash.restparam-3.6.1.tgz#936a4e309ef330a7645ed4145986c85ae5b20805"
   integrity sha1-k2pOMJ7zMKdkXtQUWYbIWuWyCAU=
-<<<<<<< HEAD
-=======
 
 lodash.sample@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/lodash.sample/-/lodash.sample-4.2.1.tgz#5e4291b0c753fa1abeb0aab8fb29df1b66f07f6d"
   integrity sha1-XkKRsMdT+hq+sKq4+ynfG2bwf20=
->>>>>>> canary
 
 lodash.set@^4.3.2:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
   integrity sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM=
-<<<<<<< HEAD
-=======
 
 lodash.shuffle@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.shuffle/-/lodash.shuffle-4.2.0.tgz#145b5053cf875f6f5c2a33f48b6e9948c6ec7b4b"
   integrity sha1-FFtQU8+HX29cKjP0i26ZSMbse0s=
->>>>>>> canary
 
 lodash.some@^4.6.0:
   version "4.6.0"
