@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.9.1",
+	"version": "8.10.1",
 	"main": "lib/index.js",
 	"description": "React components for your Sprucebot Skill 💪🏼",
 	"keywords": [
@@ -25,8 +25,6 @@
 		"clean": "rm -rf lib/*",
 		"lint": "eslint src",
 		"test": "jest",
-		"precommit": "npm run lint && npm run compile_javascript",
-		"prepush": "npm run lint && npm run test",
 		"watch": "npm run build && chokidar 'src/**/*.js' -c 'npm run compile_javascript'",
 		"storybook": "npm run icons && start-storybook -p 6006",
 		"build-storybook": "npm run icons && build-storybook"
@@ -81,14 +79,13 @@
 		"husky": "^0.14.3",
 		"jest": "^22.0.5",
 		"prettier": "^1.13",
-		"react-helmet": "^5.2.0",
 		"react-test-renderer": "^16.0.0",
 		"uuid": "^3.3.2"
 	},
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
-		"@sprucelabs/heartwood-components": "^8.9.1",
+		"@sprucelabs/heartwood-components": "^8.10.1",
 		"axios": "^0.18.0",
 		"blueimp-canvas-to-blob": "^3.14.0",
 		"classnames": "^2.2.5",
@@ -97,6 +94,8 @@
 		"es6-tween": "^5.3.1",
 		"exenv": "^1.2.2",
 		"exif-orientation-image": "^1.0.1",
+		"fontfaceobserver": "^2.1.0",
+		"formik": "^1.4.2",
 		"image-webpack-loader": "^4.3.1",
 		"imagesloaded": "^4.1.4",
 		"is_js": "^0.9.0",
@@ -121,6 +120,7 @@
 		"react-dnd-touch-backend": "^0.4.0",
 		"react-dom": "^16.3.2",
 		"react-dropzone": "^6.0.2",
+		"react-helmet": "^5.2.0",
 		"react-image-crop": "3.0.11",
 		"react-modal": "^3.6.1",
 		"react-phone-number-input": "^2.2.11",
@@ -129,6 +129,7 @@
 		"react-sortable-hoc": "^0.8.3",
 		"react-table": "^6.8.6",
 		"react-textarea-autosize": "^6.0.0",
+		"react-transition-group": "^2.5.2",
 		"redux": "^3.7.2",
 		"redux-form": "^7.3.0",
 		"screenfull": "^3.3.3",

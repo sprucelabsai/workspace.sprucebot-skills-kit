@@ -17,7 +17,6 @@ module.exports = (router, options) => {
 			debug('No listeners found, ignoring')
 			// no listener, ignore here
 			ctx.body = { status: 'success', ignore: true }
-			next()
 		}
 	})
 }

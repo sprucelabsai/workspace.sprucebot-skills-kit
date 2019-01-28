@@ -1,6 +1,6 @@
 {
 	"name": "@sprucelabs/heartwood-components",
-	"version": "8.9.1",
+	"version": "8.10.1",
 	"dependencies": {
 		"@frctl/fractal": "^1.1.5",
 		"@frctl/handlebars": "^1.1.5",
@@ -24,7 +24,6 @@
 		"through2": "^3.0.0"
 	},
 	"scripts": {
-		"prepublish": "npm run build",
 		"deploy": "gh-pages -d build",
 		"build": "gulp styles && gulp styles-minify && gulp js && gulp svg && fractal build"
 	},

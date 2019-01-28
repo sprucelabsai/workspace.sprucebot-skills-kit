@@ -8,7 +8,7 @@ import type { Props as TabProps } from './components/Tab/Tab'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import Button from '../Button/Button'
 
-type Props = {
+export type Props = {
 	/** The tabs for this group */
 	tabs: Array<TabProps>,
 
@@ -22,12 +22,14 @@ type Props = {
 	className?: String
 }
 
+//TODO properly define State type
+
 const getActiveTabIndex = (tabs: Array<TabProps>) => {
 	const activeTabIndex = tabs.findIndex(tab => tab.isCurrent)
 	return activeTabIndex
 }
 
-export default class Tabs extends Component<Props, State> {
+export default class Tabs extends Component<Props> {
 	state = {
 		activeTabIndex: getActiveTabIndex(this.props.tabs),
 		hiddenTabIndices: [],

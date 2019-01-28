@@ -1,9 +1,12 @@
 import React from 'react'
+import Router from 'next/router'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
 	Page,
-	PageHeader,
-	PageContent
+	PageContent,
+	Layout,
+	LayoutSection,
+	Text
 } from '@sprucelabs/react-heartwood-components'
 
 class PublicLocationPage extends React.Component {
@@ -13,14 +16,19 @@ class PublicLocationPage extends React.Component {
 
 	render() {
 		return (
-			<Page className="public-location-page">
-				<PageHeader
-					title="Public Location Page"
-					onClickBack={() => Router.back()}
-					backLinkText="Previous Page"
-				/>
+			<Page
+				className="public-location-page"
+				header={{
+					title: 'Public Location Page',
+					onClickBack: () => Router.back(),
+					backLinkText: 'Previous Page'
+				}}
+			>
 				<PageContent>
-					<p>Welcome to the Example public location view!</p>
+					<Layout>
+						<LayoutSection />
+					</Layout>
+					<Text>{`Welcome to the Example public location view!`}</Text>
 				</PageContent>
 			</Page>
 		)

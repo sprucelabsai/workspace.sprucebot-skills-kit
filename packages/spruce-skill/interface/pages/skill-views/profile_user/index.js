@@ -1,9 +1,12 @@
 import React from 'react'
+import Router from 'next/router'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
 	Page,
-	PageHeader,
-	PageContent
+	PageContent,
+	Layout,
+	LayoutSection,
+	Text
 } from '@sprucelabs/react-heartwood-components'
 
 class UserProfilePage extends React.Component {
@@ -13,14 +16,20 @@ class UserProfilePage extends React.Component {
 
 	render() {
 		return (
-			<Page className="user-profile-page">
-				<PageHeader
-					title="User Profile Page"
-					onClickBack={() => Router.back()}
-					backLinkText="Previous Page"
-				/>
+			<Page
+				className="user-profile-page"
+				header={{
+					title: 'User Profile Page',
+					onClickBack: () => Router.back(),
+					backLinkText: 'Previous Page'
+				}}
+			>
 				<PageContent>
-					<p>Welcome to the Example user profile view!</p>
+					<Layout>
+						<LayoutSection>
+							<Text>{`Welcome to the Example user profile view!`}</Text>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)

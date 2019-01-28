@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.10.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.0...v8.10.1) (2019-01-04)
+
+
+### Bug Fixes
+
+* Canary/prerelease tagging and publish ([eef4fa4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/eef4fa4))
+* Tag prerelease branches with `prerelease` tag ([c365584](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c365584))
+
+
+
+
+
+# [8.10.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.9.1...v8.10.0) (2019-01-03)
+
+
+### Features
+
+* add font loader to storybook ([c672b3e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c672b3e))
+* add fontfaceobserver ([2ebc604](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2ebc604))
+* export fontloader ([27ab97f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/27ab97f))
+* fix text overflow ([81ad157](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/81ad157))
+* fix transform ([f2dc334](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f2dc334))
+* hook up fontloader component and add toggleable css to handle FOIT ([27001ea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/27001ea))
+* hook up state and listeneres for location menu ([87f3026](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/87f3026))
+* improve responsiveness ([d4cd4a9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d4cd4a9))
+* logging ([b5e49fb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b5e49fb))
+* make FOIT include labels and spans ([3be0910](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3be0910))
+* move location menu into own component ([b5e9cf6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b5e9cf6))
+* snap location menu to correct position ([b27571c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b27571c))
+* update header styles ([8886554](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8886554))
+* verify that fontloader works in calendar ([c176d43](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c176d43))
+
+
+
+
+
 ## [8.9.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.9.0...v8.9.1) (2018-12-28)
 
 **Note:** Version bump only for package workspace.sprucebot-skills-kit

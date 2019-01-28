@@ -25,9 +25,14 @@ const user = {
 	tel: '(605) 230-5253'
 }
 
-const business = {
-	name: 'Chimera Hair Salon',
+const location = {
+	name: 'Chimera Hair Salon at the Point',
 	address: '7678 N High St, Denver, CO'
+}
+const organization = {
+	name: 'Chimera Hair Salon',
+	image:
+		'https://www.logoground.com/uploads/2018130762018-04-113965123chimera%20logo%20chimera%20logo.jpg'
 }
 
 stories
@@ -44,14 +49,58 @@ stories
 			user={object('user', user)}
 			isSidebarVisible={boolean('isSidebarVisible', false)}
 			toggleSidebarVisibility={() => null}
+			getSearchSuggestionValue={() => null}
+			renderSearchSuggestion={() => null}
 		/>
 	))
-	.add('Logged In to Business', () => (
+	.add('Logged In to Organization', () => (
 		<HeaderPrimary
 			STORYBOOKdoNotWrap
 			user={object('user', user)}
-			business={object('business', business)}
+			organization={object('organization', organization)}
 			isSidebarVisible={boolean('isSidebarVisible', false)}
 			toggleSidebarVisibility={() => null}
+			getSearchSuggestionValue={() => null}
+			renderSearchSuggestion={() => null}
+		/>
+	))
+	.add('Logged In to location', () => (
+		<HeaderPrimary
+			STORYBOOKdoNotWrap
+			user={object('user', user)}
+			organization={object('organization', organization)}
+			location={object('location', location)}
+			isSidebarVisible={boolean('isSidebarVisible', false)}
+			toggleSidebarVisibility={() => null}
+			getSearchSuggestionValue={() => null}
+			renderSearchSuggestion={() => null}
+		/>
+	))
+	.add('Location, Group Manager', () => (
+		<HeaderPrimary
+			STORYBOOKdoNotWrap
+			user={object('user', user)}
+			organization={object('organization', organization)}
+			location={object('location', location)}
+			isSidebarVisible={boolean('isSidebarVisible', false)}
+			toggleSidebarVisibility={() => null}
+			getSearchSuggestionValue={() => null}
+			renderSearchSuggestion={() => null}
+			isLocationManagmentButtonVisible
+		/>
+	))
+	.add('Location, Owner', () => (
+		<HeaderPrimary
+			STORYBOOKdoNotWrap
+			user={object('user', user)}
+			organization={object('organization', organization)}
+			location={object('location', location)}
+			isSidebarVisible={boolean('isSidebarVisible', false)}
+			toggleSidebarVisibility={() => null}
+			getSearchSuggestionValue={() => null}
+			renderSearchSuggestion={() => null}
+			isLocationManagmentButtonVisible
+			isSkillManagementButtonVisible
+			skillsHref="#"
 		/>
 	))
