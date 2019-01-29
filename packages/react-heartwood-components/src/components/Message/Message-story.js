@@ -116,7 +116,7 @@ stories
 			from={{ name: '', image: '', alt: '', id: '' }}
 			dateSent={moment()}
 		>
-			It's lonely over here.
+			{`It's lonely over here.`}
 		</Message>
 	))
 	.add('MessageBuilder', () => [

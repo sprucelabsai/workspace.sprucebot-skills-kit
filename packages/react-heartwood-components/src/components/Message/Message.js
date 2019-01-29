@@ -116,7 +116,7 @@ export const Message = (props: MessageProps) => {
 			return (
 				<img
 					className="message__from-image message__from-sprucebot-image"
-					src={image || ''}
+					src={image || null}
 					alt={alt || ''}
 					width="40"
 					height="40"
