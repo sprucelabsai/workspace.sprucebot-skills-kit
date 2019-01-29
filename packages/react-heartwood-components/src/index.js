@@ -22,7 +22,8 @@ export {
 	HeaderPrimary,
 	Sidebar,
 	SidebarSection,
-	SaveBar
+	SaveBar,
+	ProfileSummary
 } from './components/Core'
 export { default as Dropzone } from './components/Dropzone/Dropzone'
 export { default as FontLoader } from './components/FontLoader/FontLoader'
