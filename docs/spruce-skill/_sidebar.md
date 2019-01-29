@@ -1,29 +1,29 @@
-- [Spruce Skill](spruce-skill/)
+- [Spruce Skill](docs/spruce-skill/)
 
-  - [Skills](skills.md)
+  - [Skills](./skills.md)
 
-  - [Server](server.md)
+  - [Server](./server.md)
 
-  - [Interface](interface.md)
+  - [Interface](./interface.md)
 
-  - [Core API](api.md)
+  - [Core API](./api.md)
 
-  - [User](user.md)
+  - [User](./user.md)
 
-  - [Meta](meta.md)
+  - [Meta](./meta.md)
 
-  - [Events](events.md)
+  - [Events](./events.md)
 
-  - [Lang](lang.md)
+  - [Lang](./lang.md)
 
-  - [Messages](messages.md)
+  - [Messages](./messages.md)
 
-  - [Errors](errors.md)
+  - [Errors](./errors.md)
 
-  - [Training](training.md)
+  - [Training](./training.md)
 
-  - [Uploading Files](uploads.md)
+  - [Uploading Files](./uploads.md)
 
-  - [Caching](cache.md)
+  - [Caching](./cache.md)
 
-  - [Audit Logs](audit.md)
+  - [Audit Logs](./audit.md)
