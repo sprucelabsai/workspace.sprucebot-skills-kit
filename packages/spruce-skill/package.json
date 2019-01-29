@@ -74,6 +74,7 @@
 		"react-emojione": "^5.0.0",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
+		"slug": "^0.9.3",
 		"subscriptions-transport-ws": "^0.9.15",
 		"superagent": "^4.1.0",
 		"swagger-jsdoc": "^3.0.2",

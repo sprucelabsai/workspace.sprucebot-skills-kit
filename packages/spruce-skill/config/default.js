@@ -77,6 +77,7 @@ module.exports = {
 	DB_ENABLED: process.env.DB_ENABLED === 'true',
 	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
+	TESTING: process.env.TESTING === 'true',
 	scopes: require('./scopes'),
 	auth: require('./auth'),
 	acl: {

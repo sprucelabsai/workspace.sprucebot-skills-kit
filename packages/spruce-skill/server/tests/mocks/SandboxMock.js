@@ -1,6 +1,9 @@
 // @flow
 const _ = require('lodash')
-const { generateUserJWT } = require('../../server/lib/jwt')
+const { generateSkillJWT } = require('../lib/jwt')
+const faker = require('faker')
+const uuid = require('uuid')
+const slug = require('slug')
 
 module.exports = class SandboxMock {
 	key: string
@@ -15,6 +18,7 @@ module.exports = class SandboxMock {
 	otherUsers: Object
 
 	constructor(app) {
+		this.ctx = app.context
 		this.key = 'sandbox'
 		this.app = app
 		this.sandbox = {}
@@ -38,7 +42,7 @@ module.exports = class SandboxMock {
 			options = {} // eslint-disable-line
 		}
 
-		this.createSandbox({
+		await this.createSandbox({
 			numLocations: options.numLocations || 1,
 			numOwners: options.numOwners || 3,
 			numGroupManagers: options.numGroupManagers || 3,
@@ -46,6 +50,21 @@ module.exports = class SandboxMock {
 			numTeammates: options.numTeammates || 3,
 			numGuests: options.numGuests || 4
 		})
+	}
+
+	async createSkill() {
+		const skillName = faker.lorem.words()
+		const skillSlug = slug(skillName, { lower: true })
+		const skill = await this.ctx.db.models.Skill.create({
+			id: uuid.v4(),
+			apiKey: uuid.v4(),
+			name: skillName,
+			slug: skillSlug,
+			description: faker.lorem.sentences(),
+			icon: ''
+		})
+
+		return skill
 	}
 
 	async createSandbox(options: {
@@ -63,28 +82,27 @@ module.exports = class SandboxMock {
 			users?: any,
 			skillMappings?: any
 		} = {}
+
+		this.skill = await this.createSkill()
+
 		const numLocations = options.numLocations
 		const numOwners = options.numOwners
 		const numTeammates = options.numTeammates
 		const numGroupManagers = options.numGroupManagers
 		const numManagers = options.numManagers
 		const numGuests = options.numGuests
-		const skillSlugs = options.skillSlugs
-		const skill = options.skill
 
 		// Create the organization
-		sandbox.organization = await this.createOrganization({
-			slug: skill.slug
-		})
+		sandbox.organization = await this.createOrganization()
 
-		await this.createDefaultGroup({
+		const group = await this.createDefaultGroup({
 			organizationId: sandbox.organization.id
 		})
 
 		// Create the locations
 		sandbox.locations = await this.createLocations({
 			organizationId: sandbox.organization.id,
-			slug: skill.slug,
+			group,
 			numLocations
 		})
 
@@ -116,19 +134,13 @@ module.exports = class SandboxMock {
 			sandbox.users.userGroups = sandbox.users.userGroups.concat(
 				result.userGroups
 			)
-
-			// Create access points for each location
-			sandbox.locations[i].accessPoints = await this.createAccessPoints({
-				location: sandbox.locations[i],
-				numAccessPoints: 1
-			})
 		}
 	}
 
-	async createOrganization(options: { slug: string }) {
+	async createOrganization() {
 		try {
-			const orgName = `${options.slug}-${uuid.v4()}`
-			const organization = await orm.models.Organization.create({
+			const orgName = uuid.v4()
+			const organization = await this.ctx.db.models.Organization.create({
 				name: orgName
 			})
 
@@ -140,13 +152,13 @@ module.exports = class SandboxMock {
 	}
 
 	async createDefaultGroup(organizationId: string) {
-		const { group, locationGroups } = await orm.models.Group.create({
+		const group = await this.ctx.db.models.Group.create({
 			isDefault: true,
 			name: 'All Locations',
 			organizationId
 		})
 
-		return { group, locationGroups }
+		return group
 	}
 
 	async createDefaultJobs() {
@@ -174,28 +186,23 @@ module.exports = class SandboxMock {
 			}
 		]
 
-		const result = await orm.models.Job.bulkCreate(jobData)
+		const result = await this.ctx.db.models.Job.bulkCreate(jobData)
 
 		return result
 	}
 
 	async createLocations(options: {
 		organizationId: any,
-		slug: string,
+		group: any,
 		numLocations: number
 	}) {
 		try {
 			// Get default group
-			const group = await orm.models.Group.findOne({
-				where: {
-					OrganizationId: options.organizationId,
-					isDefault: true
-				}
-			})
+			const group = options.group
 			const locationsData = []
 			const locationGroupData = []
 			for (let i = 0; i < options.numLocations; i += 1) {
-				const locationName = `${options.slug}-${uuid.v4()}`
+				const locationName = uuid.v4()
 				const id = uuid.v4()
 				locationsData.push({
 					id,
@@ -211,14 +218,14 @@ module.exports = class SandboxMock {
 					addressZip: faker.address.zipCode(),
 					storeNum: faker.company.companyName(),
 					addressCountry: 'US',
-					geo: {
+					geo: JSON.stringify({
 						lat: faker.address.latitude(),
 						lng: faker.address.longitude()
-					},
+					}),
 					profileImageUUID: null,
 					isPublic: true,
 					OrganizationId: options.organizationId,
-					slug: services.util.slugify(locationName)
+					slug: slug(locationName, { lower: true })
 				})
 
 				locationGroupData.push({
@@ -227,9 +234,9 @@ module.exports = class SandboxMock {
 				})
 			}
 
-			const result = await orm.models.Location.bulkCreate(locationsData)
+			const result = await this.ctx.db.models.Location.bulkCreate(locationsData)
 			const reloadPromises = result.map(r => r.reload())
-			await orm.models.LocationGroup.bulkCreate(locationGroupData)
+			await this.ctx.db.models.LocationGroup.bulkCreate(locationGroupData)
 			await Promise.all(reloadPromises)
 			return result
 		} catch (e) {
@@ -249,14 +256,14 @@ module.exports = class SandboxMock {
 	}) {
 		try {
 			// Get jobs
-			const jobs = await orm.models.Job.findAll({
+			const jobs = await this.ctx.db.models.Job.findAll({
 				where: {
 					OrganizationId: options.organizationId
 				}
 			})
 
 			// Get default group
-			const group = await orm.models.Group.findOne({
+			const group = await this.ctx.db.models.Group.findOne({
 				where: {
 					OrganizationId: options.organizationId,
 					isDefault: true
@@ -327,28 +334,30 @@ module.exports = class SandboxMock {
 				userLocationsData.push(result.userLocation)
 			}
 
-			const users = await orm.models.User.bulkCreate(usersData)
-			const userLocations = await orm.models.UserLocation.bulkCreate(
+			const users = await this.ctx.db.models.User.bulkCreate(usersData)
+			const userLocations = await this.ctx.db.models.UserLocation.bulkCreate(
 				userLocationsData
 			)
 			const userOrganizations =
 				userOrganizationsData.length > 0
-					? await orm.models.UserOrganization.bulkCreate(userOrganizationsData)
+					? await this.ctx.db.models.UserOrganization.bulkCreate(
+							userOrganizationsData
+					  )
 					: []
 			const userGroups =
 				userGroupsData.length > 0
-					? await orm.models.UserGroup.bulkCreate(userGroupsData)
+					? await this.ctx.db.models.UserGroup.bulkCreate(userGroupsData)
 					: []
 
 			const userIds = users.map(u => u.id)
 
-			const fullUsers = await orm.models.User.findAll({
+			const fullUsers = await this.ctx.db.models.User.findAll({
 				where: {
 					id: {
 						[Op.in]: userIds
 					}
 				},
-				include: orm.models.User.includes({
+				include: this.ctx.db.models.User.includes({
 					organizationId: options.organizationId,
 					locationId: options.locationId
 				})
@@ -451,6 +460,99 @@ module.exports = class SandboxMock {
 				}
 			})
 		}
+	}
+
+	createUserData(options: {
+		type?: string,
+		jobs: any,
+		group: any,
+		role: string,
+		locationId: string,
+		organizationId?: string
+	}) {
+		const job = options.jobs
+			? options.jobs.find(j => j.role === options.role)
+			: null
+
+		const user = {
+			id: uuid.v4(),
+			firstName: faker.name.firstName(),
+			lastName: faker.name.lastName(),
+			phoneNumber: this.createPhone(),
+			type: options.type || 'regular',
+			profileImageUUID: null,
+			superuser: false,
+			isDebug: true
+		}
+		let userLocation
+		if (options.role === 'guest') {
+			userLocation = {
+				visits: _.random(0, 1000),
+				role: options.role,
+				UserId: user.id,
+				LocationId: options.locationId,
+				JobId: null
+			}
+		}
+
+		if (job && _.includes(['manager', 'teammate'], job.role)) {
+			let ulRole = job.role
+			if (job.role === 'manager') {
+				ulRole = 'owner'
+			}
+			userLocation = {
+				visits: _.random(0, 1000),
+				role: ulRole,
+				UserId: user.id,
+				LocationId: options.locationId,
+				JobId: job.id
+			}
+		}
+		let userGroup
+		if (job && job.role === 'groupManager') {
+			userGroup = {
+				UserId: user.id,
+				GroupId: options.group.id,
+				OrganizationId: options.organizationId,
+				JobId: job.id
+			}
+			userLocation = {
+				UserId: user.id,
+				LocationId: options.locationId,
+				JobId: null,
+				visits: 0,
+				role: 'owner'
+			}
+		}
+
+		let userOrganization
+
+		if (options.role === 'owner' && options.organizationId) {
+			userOrganization = {
+				role: options.role,
+				UserId: user.id,
+				OrganizationId: options.organizationId
+			}
+			userLocation = {
+				UserId: user.id,
+				LocationId: options.locationId,
+				JobId: null,
+				visits: 0,
+				role: 'owner'
+			}
+		}
+
+		return {
+			user,
+			userLocation,
+			userOrganization,
+			userGroup
+		}
+	}
+
+	createPhone() {
+		const phone = faker.phone.phoneNumberFormat(0)
+		return `555${phone.substr(3)}`
 	}
 
 	async teardown() {
