@@ -21,8 +21,11 @@ type Props = {
 	onClickSearch?: Function,
 	onCloseBigSearch?: Function,
 	getSearchSuggestions?: Function,
+	getSearchResults?: Function,
 	isBigSearchVisible: boolean,
-	searchPlaceholder?: string
+	searchPlaceholder?: string,
+	searchNoResultsTitle?: string,
+	searchNoResultsSubtitle?: string
 }
 
 const View = (props: Props) => {
@@ -38,9 +41,12 @@ const View = (props: Props) => {
 		toggleSidebarVisibility,
 		forceCloseSidebar,
 		getSearchSuggestions,
+		getSearchResults,
 		onClickSearch,
 		onCloseBigSearch,
 		searchPlaceholder,
+		searchNoResultsTitle,
+		searchNoResultsSubtitle,
 		isBigSearchVisible,
 		children
 	} = props
@@ -79,8 +85,11 @@ const View = (props: Props) => {
 			/>
 			{isBigSearchVisible && (
 				<BigSearch
+					noResultsTitle={searchNoResultsTitle}
+					noResultsSubtitle={searchNoResultsSubtitle}
 					onClose={onCloseBigSearch}
 					getSearchSuggestions={getSearchSuggestions}
+					getSearchResults={getSearchResults}
 				/>
 			)}
 

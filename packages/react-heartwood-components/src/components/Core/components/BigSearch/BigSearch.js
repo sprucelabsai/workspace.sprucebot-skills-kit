@@ -125,8 +125,8 @@ export default class BigSearch extends Component<Props, State> {
 		this.setState({ activeSearchResultsTabIndex: idx })
 	}
 
-	renderSearchResultsList = (results: ListProps) => {
-		return <List isSmall={true} {...results} />
+	renderSearchResultsList = (results: Array<ListProps>) => {
+		return results.map(resultList => <List isSmall={true} {...resultList} />)
 	}
 
 	renderTabbedSearchResults = (results: Array<TabbedListProps>) => {
@@ -148,13 +148,17 @@ export default class BigSearch extends Component<Props, State> {
 			)
 		} else if (results[0]) {
 			// render as a list if only 1 set of results
-			const resultsList = {
-				header: {
-					title: results[0].text || ''
-				},
-				items: results[0].items || []
-			}
+			const resultsList = [
+				{
+					header: {
+						title: results[0].text || ''
+					},
+					items: results[0].items || []
+				}
+			]
 			return this.renderSearchResultsList(resultsList)
+		} else {
+			return []
 		}
 	}
 
@@ -163,16 +167,14 @@ export default class BigSearch extends Component<Props, State> {
 		const { initialSearchResults } = this.props
 
 		if (
+			!searchValue &&
 			initialSearchResults &&
 			suggestedSearchResults.length === 0 &&
 			searchResults.length === 0
 		) {
-			return initialSearchResults.map<ListProps>(this.renderSearchResultsList)
-		} else if (
-			suggestedSearchResults.length > 0 &&
-			searchResults.length === 0
-		) {
-			return suggestedSearchResults.map<ListProps>(this.renderSearchResultsList)
+			return this.renderSearchResultsList(initialSearchResults)
+		} else if (searchResults.length === 0) {
+			return this.renderSearchResultsList(suggestedSearchResults)
 		} else if (searchResults) {
 			return this.renderTabbedSearchResults(searchResults)
 		}
@@ -186,7 +188,7 @@ export default class BigSearch extends Component<Props, State> {
 			searchResults
 		} = this.state
 
-		if (suggestedSearchResults.length === 0 && searchResults.length === 0) {
+		if (!searchValue && searchResults.length === 0) {
 			return (
 				<Button
 					className="big-search__search-view-add-btn"
