@@ -1,8 +1,6 @@
 // @flow
 import React, { Component } from 'react'
 import cx from 'classnames'
-import SearchIcon2 from '../../../../../static/assets/icons/ic_search.svg'
-import CancelIcon from '../../../../../static/assets/icons/ic_cancel.svg'
 import { InputInner } from '../../FormPartials'
 
 type State = {
@@ -46,8 +44,8 @@ export default class Search extends Component<Props, State> {
 				className={cx('text-input', className, { 'text-input-small': isSmall })}
 			>
 				<InputInner
-					iconBefore={<SearchIcon2 />}
-					iconAfter={value && value.length > 0 && <CancelIcon />}
+					iconBefore="search"
+					iconAfter={value && value.length > 0 && 'cancel'}
 					onChange={this.handleChange}
 					value={value}
 					handleClear={this.handleClear}

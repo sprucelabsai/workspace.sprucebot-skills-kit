@@ -14,7 +14,8 @@ module.exports = [
 	{
 		title: 'General', // This is the name of the tab on the settings page
 		page: 'skill_settings_user', // This is the page where these settings should be displayed.
-		cards: [
+		id: 'general',
+		sections: [
 			// Array of cards to display on the page
 			{
 				title: 'Appointment Stuff', // The title of the card. Use this to group settings together
@@ -42,12 +43,10 @@ module.exports = [
 						name: 'receive_notifications_or_something',
 						type: 'select',
 						props: {
-							options: [
-								{
-									label: 'Taylor',
-									value: 'blah blah blah'
-								}
-							],
+							options: {
+								foo: 'bar',
+								bar: 'foo'
+							},
 							label: 'Receive notifications',
 							helper:
 								'Opt in to receive notifications from this skill. The current org setting is {{enable_organization_notifications}}.',
@@ -69,7 +68,8 @@ module.exports = [
 	{
 		title: 'General',
 		page: 'skill_settings_user_org',
-		cards: [
+		id: 'general',
+		sections: [
 			{
 				title: 'Example User Organization Settings Card',
 				fields: [
@@ -93,7 +93,8 @@ module.exports = [
 	{
 		title: 'General',
 		page: 'skill_settings_user_location',
-		cards: [
+		id: 'general',
+		sections: [
 			{
 				title: 'Example User Location Settings Card',
 				fields: [
@@ -113,39 +114,75 @@ module.exports = [
 			}
 		]
 	},
-	// Org settings
+	// Org skill settings
 	{
 		title: 'General',
 		page: 'skill_settings_org',
-		cards: [
+		id: 'general',
+		sections: [
 			{
 				title: 'Example Organization Settings Card',
 				fields: [
 					{
-						name: 'org_example',
+						name: 'example_boolean',
 						type: 'boolean',
 						// Only include this setting in get-settings event response if the user has these permissions:
-						acls: {
+						acls_disabled: {
 							workspace: ['can_do_example_organization']
 						},
 						props: {
-							label: 'Example setting',
-							helper: 'This is an example of a setting.',
-							isSmall: true,
-							iconBefore: 'caution',
-							defaultValue: true,
-							required: true
+							label: 'Example boolean',
+							helper: 'This is an example of a boolean.',
+							defaultValue: true
+						}
+					},
+					{
+						name: 'example_select',
+						type: 'select',
+						// Only include this setting in get-settings event response if the user has these permissions:
+						acls_disabled: {
+							workspace: ['can_do_example_organization']
+						},
+						props: {
+							options: {
+								option1: 'Go Team',
+								option2: 'No Go Team!'
+							},
+							label: 'Example select',
+							helper: 'This is an example of a setting.'
+						}
+					},
+					{
+						name: 'example_duration',
+						type: 'duration',
+						props: {
+							minMinutes: 5,
+							maxMinutes: 60 * 5,
+							label: 'Example duration',
+							helper: 'This is an example of a setting that is a duration.'
+						}
+					},
+					{
+						name: 'example_text',
+						type: 'text',
+						acls_disabled: {
+							workspace: ['can_do_example_organization']
+						},
+						props: {
+							label: 'Example text',
+							helper: 'This is an example of a text setting.'
 						}
 					}
 				]
 			}
 		]
 	},
-	// Location settings
+	// Location skill settings
 	{
 		title: 'General',
 		page: 'skill_settings_location',
-		cards: [
+		id: 'general',
+		sections: [
 			{
 				title: 'Example Location Settings Card',
 				fields: [

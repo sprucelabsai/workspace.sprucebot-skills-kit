@@ -21,7 +21,8 @@
 		}
 	}
 
-	.text + .text-input {
+	.text + .text-input,
+	.text + .select-wrapper {
 		margin-top: spacing('tight');
 	}
 }

@@ -1,53 +1,42 @@
 // @flow
-import React from 'react'
+import React, { Fragment } from 'react'
+
 import {
 	TextInput,
 	FormLayout,
 	FormLayoutGroup,
-	FormLayoutItem
+	FormLayoutItem,
+	Select,
+	DurationInput
 } from '../../../../index'
+
 import List from '../../../../../List'
+
 import Text from '../../../../../Text/Text'
 import TextStyle from '../../../../../TextStyle/TextStyle'
 import Button from '../../../../../Button/Button'
 
 import type { FormikProps } from 'formik'
-import type { FormLayoutProps } from '../FormLayout'
-import type { FormLayoutGroupProps } from '../FormLayout/components/FormLayoutGroup'
-import type { FormLayoutItemProps } from '../FormLayout/components/FormLayoutItem'
+import type { FormLayoutProps } from '../../../FormLayout/FormLayout'
+import type { FormLayoutGroupProps } from '../../../FormLayout/components/FormLayoutGroup/FormLayoutGroup'
+import type { FormLayoutItemProps } from '../../../FormLayout/components/FormLayoutItem/FormLayoutItem'
 import type { Props as ButtonProps } from '../../../../../Button/Button'
+import type { Props as ToggleProps } from '../../../../components/Toggle/Toggle'
 
 export type FormInnerFieldProps = {
-	/** Unique id for the field */
-	id: string,
+	/** Unique name/id for the field */
+	name: string,
 
 	/** The type of element to render */
-	element: string,
+	type: string,
 
-	/** Layout props for the form layout item that wraps the field */
-	itemLayout: FormLayoutItemProps,
-
-	/** Optional title to show before the field */
-	title?: string,
-
-	/** Optional description to show after the title */
-	description?: string
-}
-
-export type FormInnerRowProps = {
-	/** Unique id for the row */
-	id: string,
-
-	/** Fields that are in this row */
-	fields: Array<Field>,
-
-	/** Layout props for the form layout group */
-	groupLayout: FormLayoutGroupProps
+	/** Props to pass through to the field */
+	props?: Object
 }
 
 export type FormInnerProps = {
-	/** Rows in this form */
-	rows: Array<Row>,
+	/** Fields in this form */
+	fields: Array<FormInnerFieldProps>,
 
 	/** Layout properties for the form layout */
 	formLayout: FormLayoutProps,
@@ -56,82 +45,168 @@ export type FormInnerProps = {
 	formikProps: FormikProps,
 
 	/** Optional when using a primary cta in the form */
-	primaryCTA?: ButtonProps,
+	primaryCTA?: ?ButtonProps,
 
 	/** Optional when including a secondary cta in the form */
-	secondaryCTA?: ButtonProps
+	secondaryCTA?: ?ButtonProps,
+
+	/** handle some on change */
+	onChange?: Function
 }
 
-const FormInner = (props: Props) => {
-	const { rows, formLayout, formikProps, primaryCTA, secondaryCTA } = props
-	const {
-		handleChange,
-		handleBlur,
-		values,
-		errors,
-		touched,
-		isValid,
-		isSubmitting
-	} = formikProps
+type BooleanProps = ToggleProps & {
+	name: string,
+	label?: string,
+	value?: boolean,
+	helper?: string,
+	defaultValue?: boolean,
+	onBlur: Function,
+	formikProps: FormikProps
+}
 
-	const Elements = {
-		textInput: TextInput,
-		list: List
+class BooleanField extends React.PureComponent<BooleanProps> {
+	handleChange = e => {
+		const { onBlur, name } = this.props
+		const {
+			formikProps: { setFieldValue }
+		} = this.props
+		setFieldValue(name, e.target.checked)
+		onBlur(e)
+	}
+	render() {
+		const { label, helper, defaultValue, value, ...rest } = this.props
+		const toggleId = this.props.name || ''
+		const checked = typeof value === 'undefined' ? !!defaultValue : !!value
+		const toggleProps = { ...rest, onChange: this.handleChange }
+		if (!!value) {
+			toggleProps.defaultChecked = true
+		}
+
+		return (
+			<List
+				items={[
+					{
+						title: label,
+						subtitle: helper,
+						toggleId,
+						toggleProps
+					}
+				]}
+			/>
+		)
+	}
+}
+
+class FormInner extends React.PureComponent<FormInnerProps> {
+	static defaultProps = {
+		primaryCTA: null,
+		secondaryCTA: null
 	}
 
-	return (
-		<FormLayout {...formLayout}>
-			{rows &&
-				rows.length > 0 &&
-				rows.map(row => (
-					<FormLayoutGroup key={row.id}>
-						{row.fields &&
-							row.fields.length > 0 &&
-							row.fields.map(field => {
-								const { element, title, description, ...rest } = field
-								const Handler = Elements[field.element]
-								return (
-									<FormLayoutItem key={field.id}>
-										{title && <TextStyle type="strong">{title}</TextStyle>}
-										{description && <Text>{description}</Text>}
-										<Handler
-											name={field.id}
-											onChange={handleChange}
-											onBlur={handleBlur}
-											value={values[field.id]}
-											error={touched[field.id] && errors[field.id]}
-											{...rest}
-										/>
-									</FormLayoutItem>
-								)
-							})}
-					</FormLayoutGroup>
-				))}
-			{primaryCTA && (
-				<FormLayoutGroup>
-					{secondaryCTA && (
-						<FormLayoutItem>
-							<Button disabled={isSubmitting} {...secondaryCTA} />
-						</FormLayoutItem>
-					)}
-					<FormLayoutItem>
-						<Button
-							kind="primary"
-							type="submit"
-							disabled={!isValid || isSubmitting}
-							isLoading={isSubmitting}
-							{...primaryCTA}
-						/>
-					</FormLayoutItem>
-				</FormLayoutGroup>
-			)}
-		</FormLayout>
-	)
-}
+	handleChange = (
+		name: string,
+		type: string,
+		eOrValue: KeyboardEvent | any,
+		eOrNull: KeyboardEvent | null
+	) => {
+		let value: any = eOrNull ? eOrValue : eOrValue.target.value
+		let shouldValidate = true
+		switch (type) {
+			case 'boolean':
+				value = value === 'on'
+				shouldValidate = false // it can only be valid values
+				break
+		}
+		const {
+			formikProps: { setFieldValue }
+		} = this.props
 
-FormInner.defaultProps = {
-	primaryCTA: null,
-	secondaryCTA: null
+		setFieldValue(name, value, shouldValidate)
+		const { onChange } = this.props
+		onChange && onChange(value, eOrNull || eOrValue)
+	}
+
+	renderChild = (child: FormInnerFieldProps) => {
+		const Elements = {
+			text: TextInput,
+			boolean: BooleanField,
+			select: Select,
+			duration: DurationInput
+		}
+		const { formikProps } = this.props
+		const Handler = (child && child.type && Elements[child.type]) || TextInput
+		const props = { ...child.props, name: child.name, formikProps }
+		return !Handler.prototype.render ? Handler(props) : <Handler {...props} />
+	}
+
+	render() {
+		const {
+			formLayout,
+			formikProps,
+			fields,
+			primaryCTA,
+			secondaryCTA
+		} = this.props
+
+		const {
+			handleBlur,
+			values,
+			errors,
+			touched,
+			isValid,
+			isSubmitting
+		} = formikProps
+
+		return (
+			<FormLayout {...formLayout}>
+				{fields &&
+					fields.length > 0 &&
+					fields.map(field => {
+						const { type, props, ...rest } = field
+						return (
+							<FormLayoutItem key={field.name}>
+								{this.renderChild({
+									type,
+									name: field.name,
+									props: {
+										...props,
+										onChange: (eOrValue, eOrNull) => {
+											this.handleChange(
+												field.name,
+												field.type,
+												eOrValue,
+												eOrNull
+											)
+										},
+										onBlur: handleBlur,
+										value: values ? values[field.name] : '',
+										error: touched[field.name] && errors[field.name]
+									}
+								})}
+							</FormLayoutItem>
+						)
+					})}
+				{primaryCTA && (
+					<FormLayoutGroup>
+						{secondaryCTA && (
+							<FormLayoutItem>
+								<Button disabled={isSubmitting} {...secondaryCTA} />
+							</FormLayoutItem>
+						)}
+						<FormLayoutItem>
+							<Button
+								kind="primary"
+								type="submit"
+								disabled={!isValid || isSubmitting}
+								isLoading={isSubmitting}
+								{...primaryCTA}
+							/>
+						</FormLayoutItem>
+					</FormLayoutGroup>
+				)}
+			</FormLayout>
+		)
+	}
 }
 
 export default FormInner

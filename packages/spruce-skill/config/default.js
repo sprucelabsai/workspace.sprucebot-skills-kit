@@ -4,6 +4,8 @@ const { pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
 const cards = require('./cards')
+const settings = require('./settings')
+
 const packageJSON = require('../package.json')
 const HEARTWOOD_VERSION = encodeURIComponent(
 	require('@sprucelabs/heartwood-components').version
@@ -76,6 +78,7 @@ module.exports = {
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
 	scopes: require('./scopes'),
 	auth: require('./auth'),
+	settings,
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
 		requests: {
