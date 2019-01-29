@@ -11,7 +11,7 @@ const stories = storiesOf('Toast', module)
 
 type Props = {
 	children: Node,
-	showUndo: boolean,
+	showFollowup: boolean,
 	headline: string,
 	text: string
 }
@@ -26,14 +26,36 @@ class ToastExample extends Component<Props, State> {
 	}
 
 	addToast = (kind: 'neutral' | 'positive' | 'negative') => {
-		const { showUndo, text, headline } = this.props
+		const { showFollowup, text, headline } = this.props
+		const ids = {
+			neutral: '1',
+			positive: '2',
+			negative: '3'
+		}
+		const headlines = {
+			neutral: 'Neat',
+			positive: 'Great!',
+			negative: 'Oh No!'
+		}
+		const texts = {
+			neutral: 'Something just happened and it was fine.',
+			positive: 'You did something amazing. Congrats!',
+			negative: 'Run away! This is awful.'
+		}
+		const timeouts = {
+			neutral: 'never',
+			positive: 10000,
+			negative: 3000
+		}
 		this.setState(prevState => {
 			const newToasts = [...prevState.toasts]
 			newToasts.push({
-				headline,
-				text,
+				headline: headlines[kind],
+				text: texts[kind],
 				kind,
-				onUndo: showUndo ? () => console.log('Undo') : null
+				id: ids[kind],
+				followupAction: showFollowup ? () => console.log('Undo') : null,
+				timeout: timeouts[kind]
 			})
 			return {
 				toasts: newToasts
@@ -41,9 +63,10 @@ class ToastExample extends Component<Props, State> {
 		})
 	}
 
-	removeToast = (idx: number) => {
+	removeToast = (id: string) => {
 		this.setState(prevState => {
 			const toasts = [...prevState.toasts]
+			const idx = toasts.findIndex(toast => toast.id === id)
 			const removedToast = toasts.splice(idx, 1)
 			return {
 				toasts
@@ -86,7 +109,7 @@ stories.addDecorator(withKnobs)
 stories.add('Toast', () => (
 	<ToastExample
 		headline={text('headline', 'Neat')}
-		text={text('text', 'Something just happened and it was fine')}
-		showUndo={boolean('showUndo', false)}
+		text={text('text', 'Something just happened and it was fine.')}
+		showFollowup={boolean('showFollowup', false)}
 	/>
 ))
