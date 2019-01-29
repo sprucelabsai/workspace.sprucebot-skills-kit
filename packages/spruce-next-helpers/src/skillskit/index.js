@@ -30,9 +30,6 @@ const skill = {
 	},
 
 	ready: function({ resetUrlTrail = false, showHeader = true } = {}) {
-		Iframes.sendMessage({
-			to: window.parent
-		})
 		postMessage({
 			name: 'Skill:Loaded',
 			url: window.location.href,
