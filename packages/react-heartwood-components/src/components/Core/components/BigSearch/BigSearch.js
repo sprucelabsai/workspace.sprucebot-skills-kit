@@ -151,7 +151,7 @@ export default class BigSearch extends Component<Props, State> {
 			const resultsList = [
 				{
 					header: results[0].text && {
-						title: results[0].text || ''
+						title: results[0].text
 					},
 					items: results[0].items || []
 				}
