@@ -150,7 +150,7 @@ export default class BigSearch extends Component<Props, State> {
 			// render as a list if only 1 set of results
 			const resultsList = [
 				{
-					header: {
+					header: results[0].text && {
 						title: results[0].text || ''
 					},
 					items: results[0].items || []
