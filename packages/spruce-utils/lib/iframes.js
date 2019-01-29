@@ -40,7 +40,7 @@ export default class Iframes {
 	}
 
 	static onMessage(eventName: string, callback: Function) {
-		const responseHandler = event => {
+		const responseHandler = (event: Object) => {
 			const RootDomainRegex = new RegExp(/[\w\d-]+\.[\w\d-]+$/)
 			const thisRootDomain = window.location.hostname.match(RootDomainRegex)
 			const sourceRootDomain = event.source.location.hostname.match(
@@ -72,12 +72,16 @@ export default class Iframes {
 						  }
 
 					callback(event.data.dataFromUser, responder)
-
-					window.removeEventListener('message', responseHandler)
 				}
 			}
 		}
 
+		responseHandler.destroy = () => {
+			window.removeEventListener('message', responseHandler)
+		}
+
 		window.addEventListener('message', responseHandler, false)
+
+		return responseHandler
 	}
 }

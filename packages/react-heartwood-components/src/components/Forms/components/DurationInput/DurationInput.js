@@ -45,12 +45,13 @@ export default class DurationInput extends Component<Props, State> {
 		noResultsSubtitle: 'Please adjust your search and try again.'
 	}
 
-	_searchCache: { [key: string]: Array<string> } = {}
-
 	constructor(props: Props) {
 		super(props)
 		this.state = {
-			value: props.defaultValue ? this.minutesToStr(props.defaultValue) : '',
+			value:
+				props.defaultValue || props.value
+					? this.minutesToStr(props.defaultValue || props.value)
+					: '',
 			validationError: null
 		}
 	}
@@ -190,7 +191,6 @@ export default class DurationInput extends Component<Props, State> {
 			skipMinutes,
 			defaultValue,
 			error,
-			helper,
 			...props
 		} = this.props
 

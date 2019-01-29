@@ -8,7 +8,7 @@ import { SaveBar } from '../../../Core'
 import Button from '../../../Button/Button'
 import Modal from '../../../Modal/Modal'
 
-import type { FormInnerRowProps } from './components/FormInner/FormInner'
+import type { FormInnerFieldProps } from './components/FormInner/FormInner'
 import type { FormLayoutProps } from '../FormLayout/FormLayout'
 import type { Props as ButtonProps } from '../../../Button/Button'
 
@@ -19,8 +19,8 @@ type SectionProps = {
 	/** Optional title to show at the top of the card */
 	title?: string,
 
-	/** Rows for this card */
-	rows: Array<FormInnerRowProps>
+	/** Fields for this card */
+	fields: Array<FormInnerFieldProps & { currentValue: any }>
 }
 
 type Props = {
@@ -35,9 +35,6 @@ type Props = {
 
 	/** Use sections when the form to be built is a full page */
 	sections: Array<SectionProps>,
-
-	/** Use rows to build a simple form */
-	rows: Array<FormInnerRowProps>,
 
 	/** Form layout props */
 	formLayout: FormLayoutProps,
@@ -55,21 +52,30 @@ type Props = {
 const FormBuilder = (props: Props) => {
 	const {
 		kind,
-		initialValues,
 		onSubmit,
 		sections,
-		rows,
 		formLayout,
 		primaryCTA,
 		secondaryCTA,
 		validate
 	} = props
 
+	const initialValues = sections.reduce((values, section) => {
+		values = section.fields.reduce((values, field) => {
+			values[field.name] = field.currentValue
+			return values
+		}, values)
+
+		return values
+	}, {})
+
 	return (
 		<Formik
 			initialValues={initialValues}
-			validate={values => validate(values)}
-			onSubmit={props => onSubmit(props)}
+			validate={validate}
+			onSubmit={onSubmit}
+			validateOnBlur={true}
+			validateOnChange={false}
 			render={props => {
 				const {
 					values,
@@ -77,10 +83,17 @@ const FormBuilder = (props: Props) => {
 					touched,
 					handleChange,
 					handleBlur,
+					handleSubmit,
+					handleReset,
 					dirty,
 					isValid,
-					isSubmitting
+					isSubmitting,
+					resetForm,
+					setFieldValue,
+					setSubmitting,
+					form
 				} = props
+
 				return (
 					<Form className="formbuilder">
 						{kind === 'page' && sections && sections.length > 0 && (
@@ -92,7 +105,7 @@ const FormBuilder = (props: Props) => {
 											<CardBody>
 												<FormInner
 													formLayout={formLayout}
-													rows={section.rows}
+													fields={section.fields}
 													formikProps={props}
 												/>
 											</CardBody>
@@ -101,11 +114,8 @@ const FormBuilder = (props: Props) => {
 								))}
 								<SaveBar
 									isVisible={dirty}
-									onSave={() => {
-										props.setSubmitting(true)
-										onSubmit({ values })
-									}}
-									onDiscard={() => props.resetForm()}
+									onSave={handleSubmit}
+									onDiscard={handleReset}
 									isSaveDisabled={!isValid}
 									isSaving={isSubmitting}
 									isDiscardDisabled={isSubmitting}
@@ -118,23 +128,30 @@ const FormBuilder = (props: Props) => {
 								/>
 							</Layout>
 						)}
-						{kind === 'default' && (
-							<FormInner
-								formLayout={formLayout}
-								rows={rows}
-								formikProps={props}
-								primaryCTA={primaryCTA}
-								secondaryCTA={secondaryCTA}
-							/>
-						)}
+						{kind === 'default' &&
+							sections &&
+							sections.length > 0 &&
+							sections.map(section => (
+								<FormInner
+									formLayout={formLayout}
+									fields={section.fields}
+									formikProps={props}
+									primaryCTA={primaryCTA}
+									secondaryCTA={secondaryCTA}
+								/>
+							))}
 						{kind === 'modal' && (
 							<Fragment>
 								<Modal.Body>
-									<FormInner
-										formLayout={formLayout}
-										rows={rows}
-										formikProps={props}
-									/>
+									{sections &&
+										sections.length > 0 &&
+										sections.map(section => (
+											<FormInner
+												formLayout={formLayout}
+												fields={section.fields}
+												formikProps={props}
+											/>
+										))}
 								</Modal.Body>
 								{primaryCTA && (
 									<Modal.Footer
