@@ -16,6 +16,10 @@
 	margin: spacing('base');
 	padding: spacing('tight') 0;
 	border-bottom: 1px solid $c-border;
+
+	@supports (position: sticky) {
+		position: sticky;
+	}
 }
 
 .message-feed__empty-text {
