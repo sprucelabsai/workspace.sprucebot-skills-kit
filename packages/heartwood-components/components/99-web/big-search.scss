@@ -171,6 +171,26 @@
 		&--centered {
 			align-items: center;
 		}
+
+		form {
+			padding: spacing('tight');
+			@include gt('medium') {
+				padding: spacing('base');
+			}
+		}
+
+		.subheading {
+			text-align: center;
+		}
+
+		.loader {
+			justify-content: center;
+			padding: spacing('tight') 0 spacing('loose');
+		}
+
+		.loader__dot {
+			background-color: $c-primary;
+		}
 	}
 
 	.big-search__view-footer {
@@ -195,7 +215,20 @@
 	}
 }
 
-.big-search__update-user-avatar {
+.big-search__quick-add-form {
+	.big-search__quick-add-first-name,
+	.big-search__quick-add-last-name {
+		display: none;
+	}
+	&--show-user-fields {
+		.big-search__quick-add-first-name,
+		.big-search__quick-add-last-name {
+			display: block;
+		}
+	}
+}
+
+.big-search__quick-add-user-avatar {
 	display: flex;
 	justify-content: center;
 }

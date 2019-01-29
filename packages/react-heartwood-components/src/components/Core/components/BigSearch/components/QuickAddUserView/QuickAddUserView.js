@@ -1,0 +1,215 @@
+//@flow
+import React, { PureComponent, Fragment } from 'react'
+import cx from 'classnames'
+import { Formik, Form } from 'formik'
+
+import BigSearchHeader from '../BigSearchHeader/BigSearchheader'
+
+import Avatar from '../../../../../Avatar/Avatar'
+import Subheading from '../../../../../Subheading/Subheading'
+import Loader from '../../../../../Loader/Loader'
+import {
+	TextInput,
+	PhoneInput,
+	FormLayout,
+	FormLayoutGroup,
+	FormLayoutItem,
+	isValidPhoneNumber
+} from '../../../../../Forms'
+
+type Props = {
+	/** pass through handle back button click */
+	onClickBack: () => void,
+
+	/** pass through handle close button click */
+	onClickClose: () => void
+}
+
+type State = {
+	existingUser?: {
+		id: string,
+		phoneNumber: string,
+		image?: string,
+		firstName?: string,
+		lastName?: string
+	},
+	canAddOrUpdateUser: boolean,
+	isSearchingUsers: boolean
+}
+
+import user01image from '../../../../../../../static/assets/users/user-01--96w.png'
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+export default class QuickAddUserView extends PureComponent<Props, State> {
+	_formRef: any = React.createRef()
+
+	state = {
+		existingUser: null,
+		canAddOrUpdateUser: false,
+		isSearchingUsers: false
+	}
+
+	searchExistingUsers = async phoneNumber => {
+		console.log('search', phoneNumber)
+		//TODO: Search for existing users and populate form if existing user is found.
+		this.setState({ isSearchingUsers: true })
+		const existingUser =
+			phoneNumber === '+13035555555'
+				? {
+						id: '123',
+						image: user01image,
+						firstName: 'Vicenta',
+						lastName: 'Maggio',
+						phoneNumber: '+13035555555'
+				  }
+				: null
+		return sleep(1000).then(() => {
+			this.setState({
+				canAddOrUpdateUser: true,
+				isSearchingUsers: false,
+				existingUser: existingUser
+			})
+		})
+	}
+
+	handlePhoneChange = (phone: string) => {
+		const { current: form } = this._formRef
+		if (form instanceof Formik) {
+			form.setFieldValue('phoneNumber', phone)
+		}
+	}
+	handlePhoneBlur = () => {
+		const { current: form } = this._formRef
+		if (form instanceof Formik) {
+			form.setFieldTouched('phoneNumber', true)
+		}
+	}
+
+	handleValidation = async (values: Object) => {
+		const errors = {}
+
+		this.setState({ canAddOrUpdateUser: false, existingUser: null })
+
+		try {
+			const isInvalidPhone =
+				!values.phoneNumber || !isValidPhoneNumber(values.phoneNumber, 'US')
+					? (errors.phoneNumber = 'Please enter a valid phone number.')
+					: false
+
+			if (!isInvalidPhone) {
+				this.searchExistingUsers(values.phoneNumber)
+			}
+		} catch (err) {
+			values.phoneNumber = 'Please enter a valid phone number.'
+		}
+
+		if (Object.keys(errors).length > 0) {
+			throw errors
+		}
+
+		return {}
+	}
+
+	render() {
+		const { onClickBack, onClickClose } = this.props
+		const { existingUser, isSearchingUsers, canAddOrUpdateUser } = this.state
+		return (
+			<Fragment>
+				<BigSearchHeader
+					onClickBack={onClickBack}
+					onClickClose={onClickClose}
+					title="Quick add a guest"
+				/>
+				<div className={cx('big-search__view-body')}>
+					<Formik
+						ref={this._formRef}
+						initialValues={existingUser}
+						validate={this.handleValidation}
+						render={props => {
+							const {
+								values,
+								errors,
+								touched,
+								handleChange,
+								handleBlur,
+								dirty,
+								isValid,
+								isSubmitting
+							} = props
+							return (
+								<Form
+									className={cx('big-search__quick-add-form', {
+										'big-search__quick-add-form--show-user-fields': canAddOrUpdateUser
+									})}
+								>
+									<FormLayout spacing="tight">
+										<FormLayoutItem>
+											{
+												<PhoneInput
+													name="phoneNumber"
+													label="Phone Number"
+													placeholder="(555) 555-5555"
+													onChange={this.handlePhoneChange}
+													onBlur={this.handlePhoneBlur}
+													value={values.phoneNumber || ''}
+													error={touched.phoneNumber && errors.phoneNumber}
+												/>
+											}
+										</FormLayoutItem>
+										{existingUser && (
+											<FormLayoutItem>
+												<Subheading>
+													It looks like a user with that number already exists:
+												</Subheading>
+											</FormLayoutItem>
+										)}
+										{existingUser && existingUser.image && (
+											<FormLayoutItem>
+												<Avatar
+													className="big-search__quick-add-user-avatar"
+													alt={existingUser.firstName || ''}
+													image={existingUser.image}
+													isLarge
+												/>
+											</FormLayoutItem>
+										)}
+										<FormLayoutGroup>
+											<FormLayoutItem className="big-search__quick-add-first-name">
+												{
+													<TextInput
+														name="firstName"
+														label="First Name (Optional)"
+														placeholder="Guest's first name"
+														onChange={handleChange}
+														onBlur={handleBlur}
+														value={values.firstName || ''}
+														error={touched.firstName && errors.firstName}
+													/>
+												}
+											</FormLayoutItem>
+											<FormLayoutItem className="big-search__quick-add-last-name">
+												{
+													<TextInput
+														name="lastName"
+														label="Last Name (Optional)"
+														placeholder="Guest's last name"
+														onChange={handleChange}
+														onBlur={handleBlur}
+														value={values.lastName || ''}
+														error={touched.lastName && errors.lastName}
+													/>
+												}
+											</FormLayoutItem>
+										</FormLayoutGroup>
+									</FormLayout>
+								</Form>
+							)
+						}}
+					/>
+					{isSearchingUsers && <Loader />}
+				</div>
+			</Fragment>
+		)
+	}
+}

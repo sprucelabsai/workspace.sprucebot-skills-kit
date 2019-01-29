@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import cx from 'classnames'
 import { debounce } from 'lodash'
 import { CSSTransition } from 'react-transition-group'
@@ -9,6 +9,7 @@ import List from '../../../List/List'
 import Tabs from '../../../Tabs/Tabs'
 import { InputInner } from '../../../Forms/FormPartials'
 import Button from '../../../Button/Button'
+import QuickAddUserView from './components/QuickAddUserView/QuickAddUserView'
 
 import type { Props as TabProps } from '../../../Tabs/Tabs'
 import type { Props as ListProps } from '../../../List/List'
@@ -42,7 +43,8 @@ type State = {
 	searchContextBarIsHighlighted: boolean,
 	activeSearchResultsTabIndex: number,
 	suggestedSearchResults: Array<ListProps>,
-	searchResults: Array<TabbedListProps>
+	searchResults: Array<TabbedListProps>,
+	currentView: 'search' | 'quick-add' | 'custom-view'
 }
 
 export default class BigSearch extends Component<Props, State> {
@@ -56,7 +58,8 @@ export default class BigSearch extends Component<Props, State> {
 		searchContextBarIsHighlighted: false,
 		activeSearchResultsTabIndex: 0,
 		suggestedSearchResults: [],
-		searchResults: []
+		searchResults: [],
+		currentView: 'search'
 	}
 
 	bigSearchRef: any = React.createRef()
@@ -77,6 +80,14 @@ export default class BigSearch extends Component<Props, State> {
 			// TODO: Track error here?
 		}
 	}, this.props.getSearchSuggestionsDebounce)
+
+	handleClickQuickAdd = () => {
+		this.setState({ currentView: 'quick-add' })
+	}
+
+	handleClickQuckAddBack = () => {
+		this.setState({ currentView: 'search' })
+	}
 
 	handleSearchValueChange = (e: any) => {
 		const searchValue = e.target.value
@@ -194,6 +205,7 @@ export default class BigSearch extends Component<Props, State> {
 					className="big-search__search-view-add-btn"
 					text="Quick add a new guest"
 					icon={{ name: 'add' }}
+					onClick={this.handleClickQuickAdd}
 				/>
 			)
 		} else if (searchValue && searchResults.length === 0) {
@@ -215,7 +227,8 @@ export default class BigSearch extends Component<Props, State> {
 		const {
 			isAddButtonVisible,
 			searchValue,
-			searchContextBarIsHighlighted
+			searchContextBarIsHighlighted,
+			currentView
 		} = this.state
 
 		const { searchPlaceholder } = this.props
@@ -232,38 +245,51 @@ export default class BigSearch extends Component<Props, State> {
 					onClick={this.handleClickOverlay}
 				>
 					<div className="big-search" ref={this.bigSearchRef}>
-						<div className="big-search__search-view-header">
-							<form onSubmit={this.handleSearchSubmit}>
-								<div className="big-search__search-view-search-bar">
-									<div className={'text-input'}>
-										<div className="text-input__inner">
-											<Icon icon={'search'} className="text-input__icon-pre" />
-											<input
-												ref={this.searchInputRef}
-												className="text-input__input"
-												placeholder={searchPlaceholder || 'Search'}
-												value={searchValue}
-												onChange={this.handleSearchValueChange}
-											/>
+						{currentView === 'search' && (
+							<Fragment>
+								<div className="big-search__search-view-header">
+									<form onSubmit={this.handleSearchSubmit}>
+										<div className="big-search__search-view-search-bar">
+											<div className={'text-input'}>
+												<div className="text-input__inner">
+													<Icon
+														icon={'search'}
+														className="text-input__icon-pre"
+													/>
+													<input
+														ref={this.searchInputRef}
+														className="text-input__input"
+														placeholder={searchPlaceholder || 'Search'}
+														value={searchValue}
+														onChange={this.handleSearchValueChange}
+													/>
+												</div>
+											</div>
+											<div className="big-search__search-view-search-bar-buttons">
+												<Button
+													text="Clear"
+													onClick={this.handleClearSearchValue}
+												/>
+												<Button
+													icon={{ name: 'close' }}
+													onClick={this.handleClickCloseSearch}
+												/>
+											</div>
 										</div>
-									</div>
-									<div className="big-search__search-view-search-bar-buttons">
-										<Button
-											text="Clear"
-											onClick={this.handleClearSearchValue}
-										/>
-										<Button
-											icon={{ name: 'close' }}
-											onClick={this.handleClickCloseSearch}
-										/>
-									</div>
+										{this.renderSearchContextButton()}
+									</form>
 								</div>
-								{this.renderSearchContextButton()}
-							</form>
-						</div>
-						<div className="big-search__view-body">
-							{this.renderSearchResults()}
-						</div>
+								<div className={cx('big-search__view-body')}>
+									{this.renderSearchResults()}
+								</div>
+							</Fragment>
+						)}
+						{currentView === 'quick-add' && (
+							<QuickAddUserView
+								onClickBack={this.handleClickQuckAddBack}
+								onClickClose={this.handleClickCloseSearch}
+							/>
+						)}
 					</div>
 				</div>
 			</CSSTransition>
