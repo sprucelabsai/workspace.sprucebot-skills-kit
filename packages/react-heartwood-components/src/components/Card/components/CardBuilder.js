@@ -57,7 +57,7 @@ const CardBuilderKey = {
 
 const renderChild = child => {
 	const Handler = (child && child.type && CardBuilderKey[child.type]) || Text
-	return typeof Handler === 'function' ? (
+	return !Handler.prototype.render ? (
 		Handler({ ...child.props })
 	) : (
 		<Handler {...child.props} />

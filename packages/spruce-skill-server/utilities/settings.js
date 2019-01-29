@@ -20,7 +20,10 @@ module.exports = {
 					if (card.fields) {
 						for (let j = 0; j < card.fields.length; j += 1) {
 							const field = card.fields[j]
-							if (_.includes(requestedSettings, field.name)) {
+							if (
+								!requestedSettings ||
+								_.includes(requestedSettings, field.name)
+							) {
 								// Get acls
 								fields.push(field)
 								if (field.acls) {

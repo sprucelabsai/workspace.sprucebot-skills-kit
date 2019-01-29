@@ -2,7 +2,7 @@
 import React from 'react'
 import cx from 'classnames'
 
-type Props = {
+export type Props = {
 	/** Unique identifier */
 	id: string,
 
