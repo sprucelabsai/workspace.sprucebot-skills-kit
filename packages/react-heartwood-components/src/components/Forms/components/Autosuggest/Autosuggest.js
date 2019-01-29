@@ -42,7 +42,7 @@ export type Props = {
 	error?: string,
 
 	/** Helper text */
-	helper?: string,
+	helper?: string | Node,
 
 	/** Set true to make the input less tall */
 	isSmall?: boolean,
