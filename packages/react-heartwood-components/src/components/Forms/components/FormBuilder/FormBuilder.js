@@ -74,7 +74,6 @@ const FormBuilder = (props: Props) => {
 			initialValues={initialValues}
 			validate={validate}
 			onSubmit={onSubmit}
-			onReset={(values, bag) => console.log(values)}
 			validateOnBlur={true}
 			validateOnChange={false}
 			render={props => {
