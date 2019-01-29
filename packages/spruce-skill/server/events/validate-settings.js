@@ -5,7 +5,7 @@ module.exports = async (ctx, next) => {
 		log.debug('**** validate-settings', { event: ctx.event })
 		const { auth, event } = ctx
 
-		if (!auth.User || !auth.Organization) {
+		if (!auth.User || (!auth.Organization && !auth.Location)) {
 			throw new Error('NOT_AUTHORIZED')
 		}
 
