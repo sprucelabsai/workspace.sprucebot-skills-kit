@@ -3,3 +3,25 @@
 		margin-top: 1.5 * spacing('base');
 	}
 }
+
+.formbuilder {
+	.list {
+		padding: 0;
+	}
+
+	.form-layout {
+		margin-top: 0;
+	}
+
+	.form-layout__item {
+		margin-top: rem(12);
+
+		.text {
+			line-height: 1.25;
+		}
+	}
+
+	.text + .text-input {
+		margin-top: spacing('tight');
+	}
+}

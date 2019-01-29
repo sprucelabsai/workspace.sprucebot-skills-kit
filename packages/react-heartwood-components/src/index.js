@@ -30,6 +30,8 @@ export {
 	Autosuggest,
 	Checkbox,
 	DomainInput,
+	DurationInput,
+	FormBuilder,
 	PhoneInput,
 	Radio,
 	Search,
@@ -55,6 +57,7 @@ export {
 export { default as Text } from './components/Text/Text'
 export { default as TextStyle } from './components/TextStyle/TextStyle'
 export { default as Image } from './components/Image/Image'
+export { default as ImageCropper } from './components/ImageCropper/ImageCropper'
 export { default as Layout, LayoutSection } from './components/Layout'
 export {
 	default as List,
