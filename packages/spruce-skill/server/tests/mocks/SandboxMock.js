@@ -4,6 +4,7 @@ const { generateSkillJWT } = require('../lib/jwt')
 const faker = require('faker')
 const uuid = require('uuid')
 const slug = require('slug')
+const config = require('config')
 const { Op } = require('sequelize')
 
 module.exports = class SandboxMock {
@@ -70,7 +71,7 @@ module.exports = class SandboxMock {
 			icon: ''
 		})
 
-		skill.apiKey = uuid.v4()
+		skill.apiKey = config.API_KEY
 
 		return skill
 	}

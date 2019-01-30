@@ -10,7 +10,7 @@ class ExampleTests extends Base {
 
 	setup() {
 		it('Can do a trivial assert', () => this.trivialAssert())
-		it('Can make a gql request', () => this.gqlRequest())
+		it('Can get users', () => this.getUsers())
 	}
 
 	async before() {
@@ -26,8 +26,19 @@ class ExampleTests extends Base {
 		assert.isTrue(true)
 	}
 
-	async gqlRequest() {
-		const { body } = await this.request.post('/graphql')
+	async getUsers() {
+		const query = `query {
+			Users {
+				id
+				firstName
+				lastName
+		  }}`
+		const { body } = await this.request
+			.post('/graphql')
+			.set('Authorization', `JWT ${this.organization.owner[0].jwt}`)
+			.send({
+				query
+			})
 
 		log.debug(body)
 	}
