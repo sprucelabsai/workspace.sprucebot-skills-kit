@@ -23,9 +23,6 @@ type Props = {
 	/** Messages for the feed */
 	messages?: Array<MessageProps>,
 
-	/** The total number of messages in the feed. Used for infinite scrolling. */
-	messageCount?: number,
-
 	/** Text for the empty state of this feed */
 	emptyText?: string,
 
@@ -133,7 +130,6 @@ export default class FeedBuilder extends Component<Props, State> {
 
 	static defaultProps = {
 		messages: [],
-		messageCount: 0,
 		emptyText: 'No messages',
 		pageSize: 50
 	}
@@ -167,16 +163,15 @@ export default class FeedBuilder extends Component<Props, State> {
 	}
 
 	loadMoreRows = ({ startIndex, stopIndex }) => {
-		const { messages, messageCount, onRowsRequested, pageSize } = this.props
+		const { messages, onRowsRequested, pageSize } = this.props
 		const { isLoading } = this.state
 		// Do API Stuff™
-		console.log('loadMoreRows')
 
 		if (isLoading) {
 			return
 		}
 
-		if (this.list && messages.length < messageCount) {
+		if (this.list) {
 			this.setState({
 				isLoading: true
 			})
@@ -219,7 +214,7 @@ export default class FeedBuilder extends Component<Props, State> {
 	}
 
 	render() {
-		const { messages, messageCount, emptyText, pageSize } = this.props
+		const { messages, emptyText, pageSize } = this.props
 		const { scrollToIndex, rowCount } = this.state
 		return (
 			<div className="message-feed__wrapper">
