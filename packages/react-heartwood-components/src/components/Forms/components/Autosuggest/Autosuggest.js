@@ -8,6 +8,9 @@ import type { InputPreProps, InputHelperProps } from '../../FormPartials'
 import ClearIcon from '../../../../../static/assets/icons/ic_cancel.svg'
 
 export type Props = {
+	/** Unique identifier */
+	id: string,
+
 	/** Teach Autosuggest how to calculate suggestions for any given input value. */
 	getSuggestions: (value: string) => Promise<Array<Object>> | null,
 
@@ -29,8 +32,11 @@ export type Props = {
 	/** optionally pass a default value for this input */
 	defaultValue?: string,
 
-	/** Optional input props */
-	inputPre?: InputPreProps,
+	/** optional label */
+	label?: string,
+
+	/** Text after label */
+	postLabel?: string,
 
 	/** Error text */
 	error?: string,
@@ -42,7 +48,13 @@ export type Props = {
 	isSmall?: boolean,
 
 	/** Adds a class to the Autosuggest's wrapper */
-	wrapperClassName?: string
+	wrapperClassName?: string,
+
+	/** passed through to react autosuggest */
+	inputProps?: Object,
+
+	/** optional class name for wrapper */
+	className?: string
 }
 
 type State = {
@@ -100,7 +112,7 @@ export default class Autosuggest extends Component<Props, State> {
 		const { getSuggestions } = this.props
 		const suggestions = await getSuggestions(value)
 		this.setState({
-			suggestions
+			suggestions: suggestions || []
 		})
 	}
 
@@ -125,10 +137,12 @@ export default class Autosuggest extends Component<Props, State> {
 			renderSuggestion,
 			onSuggestionSelected,
 			placeholder,
-			inputPre,
+			label,
 			error,
 			helper,
 			isSmall,
+			id,
+			postLabel,
 			wrapperClassName,
 			inputProps: originalInputProps = {},
 			className,
@@ -150,7 +164,7 @@ export default class Autosuggest extends Component<Props, State> {
 
 		return (
 			<div className={parentClass}>
-				{inputPre && <InputPre {...inputPre} />}
+				{label && <InputPre label={label} id={id} postLabel={postLabel} />}
 				<div className={cx('autosuggest__wrapper', wrapperClassName)}>
 					<ReactAutosuggest
 						suggestions={suggestions}
