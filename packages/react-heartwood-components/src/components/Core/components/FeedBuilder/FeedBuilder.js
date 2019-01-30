@@ -40,7 +40,8 @@ type State = {
 	rows: Array<MessageProps>,
 	groups: Object,
 	rowCount: number,
-	scrollToIndex: number
+	scrollToIndex: number,
+	isLoading: boolean
 }
 
 // The difference in minutes between two message where only the first one
@@ -126,7 +127,8 @@ export default class FeedBuilder extends Component<Props, State> {
 		rows: [],
 		groups: {},
 		rowCount: 0,
-		scrollToIndex: 1
+		scrollToIndex: 1,
+		isLoading: false
 	}
 
 	static defaultProps = {
@@ -146,7 +148,8 @@ export default class FeedBuilder extends Component<Props, State> {
 			rows: reversedMessages,
 			rowCount: messages.length,
 			scrollToIndex: messages.length + 1,
-			groups
+			groups,
+			isLoading: false
 		}
 	}
 
@@ -165,9 +168,18 @@ export default class FeedBuilder extends Component<Props, State> {
 
 	loadMoreRows = ({ startIndex, stopIndex }) => {
 		const { messages, messageCount, onRowsRequested, pageSize } = this.props
+		const { isLoading } = this.state
 		// Do API Stuff™
+		console.log('loadMoreRows')
+
+		if (isLoading) {
+			return
+		}
 
 		if (this.list && messages.length < messageCount) {
+			this.setState({
+				isLoading: true
+			})
 			onRowsRequested()
 			this.cache.clearAll()
 			this.list.recomputeRowHeights(0)
@@ -216,7 +228,7 @@ export default class FeedBuilder extends Component<Props, State> {
 						ref={ref => (this.infiniteLoader = ref)}
 						isRowLoaded={this.isRowLoaded}
 						loadMoreRows={this.loadMoreRows}
-						rowCount={messageCount}
+						rowCount={rowCount + 1}
 						threshold={1}
 					>
 						{({ onRowsRendered, registerChild }) => (
