@@ -37,6 +37,33 @@ export const recentSearchResults = [
 
 export const suggestedSearchResults = [
 	{
+		header: {
+			title: 'Guests/Teammates'
+		},
+		items: [
+			{
+				avatar: user04image,
+				title: 'Vicenta Maggio',
+				actions: []
+			},
+			{
+				avatar: user05image,
+				title: 'Vicenta Ramirez',
+				subtitle: 'Guest',
+				actions: []
+			},
+			{
+				avatar: user06image,
+				title: 'Allison Vicenta',
+				subtitle: 'Manager',
+				actions: []
+			}
+		]
+	},
+	{
+		header: {
+			title: 'Shopify Customers'
+		},
 		items: [
 			{
 				avatar: user04image,

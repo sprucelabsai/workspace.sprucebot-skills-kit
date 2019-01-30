@@ -57,7 +57,6 @@ export default class QuickAddUserView extends PureComponent<Props, State> {
 	}
 
 	searchExistingUsers = async (phoneNumber: string) => {
-		console.log('SEARCH')
 		this.setState({ isSearchingUsers: true })
 
 		//TODO: Search for existing users and populate form if existing user is found.
@@ -100,7 +99,7 @@ export default class QuickAddUserView extends PureComponent<Props, State> {
 		this.setState({ isSubmitting: true })
 		//TODO: Submit the quick add form
 		const mockRequest = ms => new Promise(resolve => setTimeout(resolve, ms))
-		console.log('submitting...')
+
 		return mockRequest(1000).then(() => {
 			this.setState({ isSubmitting: false })
 
