@@ -17,19 +17,25 @@ export const recentSearchResults = [
 			{
 				avatar: user01image,
 				title: 'Lacey Morissette',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user02image,
 				title: 'Jade Mohr',
 				subtitle: 'Stylist',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user03image,
 				title: 'Gianni Block',
 				subtitle: 'Guest',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			}
 		]
 	}
@@ -44,19 +50,25 @@ export const suggestedSearchResults = [
 			{
 				avatar: user04image,
 				title: 'Vicenta Maggio',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user05image,
 				title: 'Vicenta Ramirez',
 				subtitle: 'Guest',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user06image,
 				title: 'Allison Vicenta',
 				subtitle: 'Manager',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			}
 		]
 	},
@@ -68,19 +80,25 @@ export const suggestedSearchResults = [
 			{
 				avatar: user04image,
 				title: 'Vicenta Maggio',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user05image,
 				title: 'Vicenta Ramirez',
 				subtitle: 'Guest',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user06image,
 				title: 'Allison Vicenta',
 				subtitle: 'Manager',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			}
 		]
 	}
@@ -94,19 +112,25 @@ export const searchResults = [
 				avatar: user04image,
 				title: 'Vicenta Maggio',
 				subtitle: 'Guest',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user05image,
 				title: 'Vicenta Ramirez',
 				subtitle: 'Guest',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user06image,
 				title: 'Allison Vicenta',
 				subtitle: 'Guest',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			}
 		]
 	},
@@ -117,19 +141,25 @@ export const searchResults = [
 				avatar: user04image,
 				title: 'Vicenta Maggio',
 				subtitle: 'Stylist',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user05image,
 				title: 'Vicenta Ramirez',
 				subtitle: 'Manager',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user06image,
 				title: 'Allison Vicenta',
 				subtitle: 'Teammate',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			}
 		]
 	},
@@ -140,19 +170,25 @@ export const searchResults = [
 				avatar: user04image,
 				title: 'Vicenta Maggio',
 				subtitle: 'Customer since 03/18',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user05image,
 				title: 'Vicenta Ramirez',
 				subtitle: 'Customer since 07/14',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			},
 			{
 				avatar: user06image,
 				title: 'Allison Vicenta',
 				subtitle: 'Customer since 01/19',
-				actions: []
+				primaryAction: {
+					onClick: () => console.log('clicked!')
+				}
 			}
 		]
 	}

@@ -215,6 +215,22 @@
 	}
 }
 
+.big-search__search-results-list {
+	.list-item {
+		&:hover {
+			.btn {
+				background-color: $c-primary;
+			}
+			&:after {
+				opacity: 0;
+			}
+			p {
+				color: $c-white;
+			}
+		}
+	}
+}
+
 .big-search__quick-add-form {
 	.big-search__quick-add-first-name,
 	.big-search__quick-add-last-name {

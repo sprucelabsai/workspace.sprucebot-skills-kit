@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { Fragment } from 'react'
 import type { Node } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
@@ -33,6 +33,9 @@ export type Props = {
 	/** Makes the list item a setting */
 	toggleId?: string,
 
+	/** A primary action that turns the entire list item into a clickable button */
+	primaryAction?: ButtonProps,
+
 	/** Actions associated with the list item */
 	actions?: Array<ButtonProps>,
 
@@ -52,6 +55,7 @@ const ListItem = (props: Props) => {
 		icon,
 		isDraggable,
 		toggleId,
+		primaryAction,
 		actions,
 		contextMenu,
 		toggleProps
@@ -62,8 +66,8 @@ const ListItem = (props: Props) => {
 		'list-item--is-draggable': isDraggable
 	})
 
-	return (
-		<li className={parentClass}>
+	const ListItemInner = () => (
+		<Fragment>
 			{(image || icon || avatar) && !isDraggable && (
 				<div className="list-item__image-wrapper">
 					{icon && (
@@ -120,6 +124,18 @@ const ListItem = (props: Props) => {
 				</div>
 			)}
 			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
+		</Fragment>
+	)
+
+	return (
+		<li className={parentClass}>
+			{primaryAction ? (
+				<Button {...primaryAction}>
+					<ListItemInner />
+				</Button>
+			) : (
+				<ListItemInner />
+			)}
 		</li>
 	)
 }

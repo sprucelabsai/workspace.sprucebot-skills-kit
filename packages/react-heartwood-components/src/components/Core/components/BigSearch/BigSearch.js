@@ -140,7 +140,13 @@ export default class BigSearch extends Component<Props, State> {
 	}
 
 	renderSearchResultsList = (results: Array<ListProps>) => {
-		return results.map(resultList => <List isSmall={true} {...resultList} />)
+		return results.map(resultList => (
+			<List
+				className="big-search__search-results-list"
+				isSmall={true}
+				{...resultList}
+			/>
+		))
 	}
 
 	renderTabbedSearchResults = (results: Array<TabbedListProps>) => {
