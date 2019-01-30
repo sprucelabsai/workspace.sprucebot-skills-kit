@@ -2,7 +2,6 @@
 import React, { PureComponent, Fragment } from 'react'
 
 import Button from '../../../../../Button/Button'
-import { TextInput, PhoneInput } from '../../../../../Forms'
 
 type Props = {
 	/** title displayed in the header */

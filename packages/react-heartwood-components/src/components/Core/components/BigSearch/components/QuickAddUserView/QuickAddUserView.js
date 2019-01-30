@@ -4,6 +4,7 @@ import cx from 'classnames'
 import { Formik, Form } from 'formik'
 
 import BigSearchHeader from '../BigSearchHeader/BigSearchheader'
+import BigSearchFooter from '../BigSearchFooter/BigSearchFooter'
 
 import Avatar from '../../../../../Avatar/Avatar'
 import Subheading from '../../../../../Subheading/Subheading'
@@ -17,7 +18,18 @@ import {
 	isValidPhoneNumber
 } from '../../../../../Forms'
 
+type User = {
+	id: string,
+	phoneNumber: string,
+	image?: string,
+	firstName?: string,
+	lastName?: string
+}
+
 type Props = {
+	/** handle user added or updated */
+	onUserAddedOrUpdated: (user: User) => void,
+
 	/** pass through handle back button click */
 	onClickBack: () => void,
 
@@ -26,50 +38,73 @@ type Props = {
 }
 
 type State = {
-	existingUser?: {
-		id: string,
-		phoneNumber: string,
-		image?: string,
-		firstName?: string,
-		lastName?: string
-	},
+	existingUser: ?User,
+	currentPhoneNumber: string,
 	canAddOrUpdateUser: boolean,
-	isSearchingUsers: boolean
+	isSearchingUsers: boolean,
+	isSubmitting: boolean
 }
-
-import user01image from '../../../../../../../static/assets/users/user-01--96w.png'
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 export default class QuickAddUserView extends PureComponent<Props, State> {
 	_formRef: any = React.createRef()
 
 	state = {
 		existingUser: null,
+		currentPhoneNumber: '',
 		canAddOrUpdateUser: false,
-		isSearchingUsers: false
+		isSearchingUsers: false,
+		isSubmitting: false
 	}
 
-	searchExistingUsers = async phoneNumber => {
-		console.log('search', phoneNumber)
-		//TODO: Search for existing users and populate form if existing user is found.
+	searchExistingUsers = async (phoneNumber: string) => {
+		console.log('SEARCH')
 		this.setState({ isSearchingUsers: true })
+
+		//TODO: Search for existing users and populate form if existing user is found.
 		const existingUser =
 			phoneNumber === '+13035555555'
 				? {
 						id: '123',
-						image: user01image,
+						image: require('../../../../../../../static/assets/users/user-01--96w.png'),
 						firstName: 'Vicenta',
 						lastName: 'Maggio',
 						phoneNumber: '+13035555555'
 				  }
 				: null
-		return sleep(1000).then(() => {
+
+		const mockRequest = ms => new Promise(resolve => setTimeout(resolve, ms))
+		return mockRequest(1000).then(() => {
 			this.setState({
 				canAddOrUpdateUser: true,
 				isSearchingUsers: false,
 				existingUser: existingUser
 			})
+
+			this.resetQuickAddForm({
+				...existingUser,
+				phoneNumber:
+					(existingUser && existingUser.phoneNumber) ||
+					this.state.currentPhoneNumber
+			})
+		})
+	}
+
+	resetQuickAddForm = (existingUser?: Object) => {
+		const { current: form } = this._formRef
+		if (form instanceof Formik) {
+			form.resetForm(existingUser)
+		}
+	}
+
+	handleSubmitQuickAdd = async (values: Object) => {
+		this.setState({ isSubmitting: true })
+		//TODO: Submit the quick add form
+		const mockRequest = ms => new Promise(resolve => setTimeout(resolve, ms))
+		console.log('submitting...')
+		return mockRequest(1000).then(() => {
+			this.setState({ isSubmitting: false })
+
+			this.onUserAddedOrUpdated && this.onUserAddedOrUpdated({})
 		})
 	}
 
@@ -89,16 +124,25 @@ export default class QuickAddUserView extends PureComponent<Props, State> {
 	handleValidation = async (values: Object) => {
 		const errors = {}
 
-		this.setState({ canAddOrUpdateUser: false, existingUser: null })
-
 		try {
 			const isInvalidPhone =
 				!values.phoneNumber || !isValidPhoneNumber(values.phoneNumber, 'US')
 					? (errors.phoneNumber = 'Please enter a valid phone number.')
 					: false
 
-			if (!isInvalidPhone) {
-				this.searchExistingUsers(values.phoneNumber)
+			if (
+				values.phoneNumber &&
+				values.phoneNumber !== this.state.currentPhoneNumber
+			) {
+				this.setState({
+					canAddOrUpdateUser: false,
+					existingUser: null,
+					currentPhoneNumber: values.phoneNumber
+				})
+
+				if (!isInvalidPhone) {
+					this.searchExistingUsers(values.phoneNumber)
+				}
 			}
 		} catch (err) {
 			values.phoneNumber = 'Please enter a valid phone number.'
@@ -124,7 +168,7 @@ export default class QuickAddUserView extends PureComponent<Props, State> {
 				<div className={cx('big-search__view-body')}>
 					<Formik
 						ref={this._formRef}
-						initialValues={existingUser}
+						initialValues={existingUser || {}}
 						validate={this.handleValidation}
 						render={props => {
 							const {
@@ -209,6 +253,17 @@ export default class QuickAddUserView extends PureComponent<Props, State> {
 					/>
 					{isSearchingUsers && <Loader />}
 				</div>
+				{canAddOrUpdateUser && (
+					<BigSearchFooter
+						primaryAction={{
+							text: existingUser ? 'Go' : 'Add guest',
+							type: 'submit',
+							disabled: false,
+							isLoading: false,
+							onClick: this.handleSubmitQuickAdd
+						}}
+					/>
+				)}
 			</Fragment>
 		)
 	}

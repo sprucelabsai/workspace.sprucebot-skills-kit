@@ -33,6 +33,9 @@ type Props = {
 	/** Handle search submit. Can respond with tabbed lists of results */
 	getSearchResults?: (value: string) => Promise<Array<TabbedListProps>>,
 
+	/** Handle added or updated user via quick add */
+	onUserAddedOrUpdated?: (user: Object) => void,
+
 	/** Handle close button click */
 	onClose?: () => void
 }
@@ -231,7 +234,7 @@ export default class BigSearch extends Component<Props, State> {
 			currentView
 		} = this.state
 
-		const { searchPlaceholder } = this.props
+		const { searchPlaceholder, onUserAddedOrUpdated } = this.props
 
 		return (
 			<CSSTransition
@@ -286,6 +289,7 @@ export default class BigSearch extends Component<Props, State> {
 						)}
 						{currentView === 'quick-add' && (
 							<QuickAddUserView
+								onUserAddedOrUpdated={onUserAddedOrUpdated}
 								onClickBack={this.handleClickQuckAddBack}
 								onClickClose={this.handleClickCloseSearch}
 							/>
