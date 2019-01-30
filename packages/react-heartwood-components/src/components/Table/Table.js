@@ -276,6 +276,7 @@ export default class Table extends Component<Props, State> {
 							: 'table-loader'
 					}
 				}}
+				getNoDataProps={() => ({ className: 'table__no-results-message ' })}
 				ThComponent={tableProps => {
 					const { toggleSort, className, ...rest } = tableProps
 					const isSortable =
