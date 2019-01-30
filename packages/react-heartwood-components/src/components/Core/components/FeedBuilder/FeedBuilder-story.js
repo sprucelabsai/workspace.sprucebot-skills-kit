@@ -39,7 +39,10 @@ class FeedBuilderExample extends Component<Props, State> {
 				startIndex: lastMessageIndex
 			})
 			return {
-				messages: [...prevState.messages].concat(newMessages)
+				messages:
+					prevState.messages.length < 500
+						? [...prevState.messages].concat(newMessages)
+						: prevState.messages
 			}
 		})
 	}

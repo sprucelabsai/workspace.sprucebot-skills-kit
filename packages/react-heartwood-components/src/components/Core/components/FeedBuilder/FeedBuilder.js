@@ -38,7 +38,8 @@ type State = {
 	groups: Object,
 	rowCount: number,
 	scrollToIndex: number,
-	isLoading: boolean
+	isLoading: boolean,
+	allLoaded: boolean
 }
 
 // The difference in minutes between two message where only the first one
@@ -125,7 +126,8 @@ export default class FeedBuilder extends Component<Props, State> {
 		groups: {},
 		rowCount: 0,
 		scrollToIndex: 1,
-		isLoading: false
+		isLoading: false,
+		allLoaded: false
 	}
 
 	static defaultProps = {
@@ -136,10 +138,21 @@ export default class FeedBuilder extends Component<Props, State> {
 
 	static getDerivedStateFromProps(props: Props, state: State) {
 		const { messages } = props
+		const { rowCount } = state
 		const formattedMessages = formatMessages(messages)
 		const reversedMessages = [...formattedMessages].reverse()
 		const groups = groupMessages(reversedMessages)
-
+		if (messages.length === rowCount) {
+			// Stop loading — there are no more messages to add
+			return {
+				rows: reversedMessages,
+				rowCount: messages.length,
+				scrollToIndex: messages.length + 1,
+				groups,
+				isLoading: false,
+				allLoaded: true
+			}
+		}
 		return {
 			rows: reversedMessages,
 			rowCount: messages.length,
@@ -164,10 +177,10 @@ export default class FeedBuilder extends Component<Props, State> {
 
 	loadMoreRows = ({ startIndex, stopIndex }) => {
 		const { messages, onRowsRequested, pageSize } = this.props
-		const { isLoading } = this.state
+		const { isLoading, allLoaded } = this.state
 		// Do API Stuff™
 
-		if (isLoading) {
+		if (isLoading || allLoaded) {
 			return
 		}
 
