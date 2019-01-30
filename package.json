@@ -22,6 +22,7 @@
 		"build": "lerna run build",
 		"watch": "lerna run watch --stream",
 		"start": "pm2 start ecosystem.config.js --no-daemon",
+		"docs": "docsify serve -p 3100 ./",
 		"test": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node",
 		"test:update": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node -- -u",
 		"publish": "lerna publish --log-level=silly",
@@ -44,6 +45,7 @@
 	"devDependencies": {
 		"commitizen": "^2.9.6",
 		"conventional-changelog-sprucelabs": "^1.1.0",
+		"docsify": "^4.8.6",
 		"husky": "^0.14.3",
 		"lerna": "^3.2.1",
 		"npm-utils": "^2.0.3"
