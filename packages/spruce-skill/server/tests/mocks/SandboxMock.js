@@ -4,6 +4,7 @@ const { generateSkillJWT } = require('../lib/jwt')
 const faker = require('faker')
 const uuid = require('uuid')
 const slug = require('slug')
+const { Op } = require('sequelize')
 
 module.exports = class SandboxMock {
 	key: string
@@ -42,7 +43,7 @@ module.exports = class SandboxMock {
 			options = {} // eslint-disable-line
 		}
 
-		await this.createSandbox({
+		const sandbox = await this.createSandbox({
 			numLocations: options.numLocations || 1,
 			numOwners: options.numOwners || 3,
 			numGroupManagers: options.numGroupManagers || 3,
@@ -50,6 +51,12 @@ module.exports = class SandboxMock {
 			numTeammates: options.numTeammates || 3,
 			numGuests: options.numGuests || 4
 		})
+
+		const { locations, organization } = this.parseUsers(sandbox)
+
+		this.locations = locations
+		this.organization = organization
+		log.debug('Sandbox mock created')
 	}
 
 	async createSkill() {
@@ -57,12 +64,13 @@ module.exports = class SandboxMock {
 		const skillSlug = slug(skillName, { lower: true })
 		const skill = await this.ctx.db.models.Skill.create({
 			id: uuid.v4(),
-			apiKey: uuid.v4(),
 			name: skillName,
 			slug: skillSlug,
 			description: faker.lorem.sentences(),
 			icon: ''
 		})
+
+		skill.apiKey = uuid.v4()
 
 		return skill
 	}
@@ -94,6 +102,8 @@ module.exports = class SandboxMock {
 
 		// Create the organization
 		sandbox.organization = await this.createOrganization()
+
+		await this.createDefaultJobs(sandbox.organization)
 
 		const group = await this.createDefaultGroup({
 			organizationId: sandbox.organization.id
@@ -135,6 +145,8 @@ module.exports = class SandboxMock {
 				result.userGroups
 			)
 		}
+
+		return sandbox
 	}
 
 	async createOrganization() {
@@ -151,38 +163,38 @@ module.exports = class SandboxMock {
 		}
 	}
 
-	async createDefaultGroup(organizationId: string) {
+	async createDefaultGroup(options: { organizationId: string }) {
 		const group = await this.ctx.db.models.Group.create({
 			isDefault: true,
 			name: 'All Locations',
-			organizationId
+			OrganizationId: options.organizationId
 		})
 
 		return group
 	}
 
-	async createDefaultJobs() {
+	async createDefaultJobs(organization) {
 		const jobData = [
 			{
 				id: uuid.v4(),
 				role: 'teammate',
 				isDefault: true,
 				name: 'Teammate',
-				OrganizationId: organizationId
+				OrganizationId: organization.id
 			},
 			{
 				id: uuid.v4(),
 				role: 'manager',
 				isDefault: true,
 				name: 'Manager',
-				OrganizationId: organizationId
+				OrganizationId: organization.id
 			},
 			{
 				id: uuid.v4(),
 				role: 'groupManager',
 				isDefault: true,
 				name: 'Group Manager',
-				OrganizationId: organizationId
+				OrganizationId: organization.id
 			}
 		]
 
@@ -357,10 +369,28 @@ module.exports = class SandboxMock {
 						[Op.in]: userIds
 					}
 				},
-				include: this.ctx.db.models.User.includes({
-					organizationId: options.organizationId,
-					locationId: options.locationId
-				})
+				include: [
+					{
+						required: false,
+						model: this.ctx.db.models.UserOrganization
+					},
+					{
+						required: false,
+						model: this.ctx.db.models.UserLocation,
+						include: [this.ctx.db.models.Job]
+					},
+					{
+						required: false,
+						model: this.ctx.db.models.UserGroup,
+						include: [
+							this.ctx.db.models.Job,
+							{
+								model: this.ctx.db.models.Group,
+								include: this.ctx.db.models.Location
+							}
+						]
+					}
+				]
 			})
 
 			return {
@@ -381,28 +411,33 @@ module.exports = class SandboxMock {
 		locations: Object,
 		organization: Object
 	}) {
-		const data = options.data
 		const users = options.users
-		const locations = options.locations
+		const locations = {}
+		options.locations.forEach(location => {
+			locations[location.id] = location
+		})
+		const location = options.locations[0]
 		const organization = options.organization
 
-		if (data.users && data.users.users) {
-			data.users.users.forEach(user => {
-				const jwt = generateUserJWT({
-					user
+		if (users && users.users) {
+			users.users.forEach(user => {
+				const jwt = generateSkillJWT({
+					skill: this.skill,
+					user,
+					location,
+					organization
 				})
-				if (_.includes(['success', 'superuser'], user.type)) {
-					users[user.type].push({
-						...user.get(),
-						jwt
-					})
-				}
+
 				if (
 					user.UserLocations &&
 					user.UserLocations[0] &&
 					(user.UserLocations[0].role === 'guest' ||
 						user.UserLocations[0].JobId)
 				) {
+					if (!locations[user.UserLocations[0].LocationId]) {
+						locations[user.UserLocations[0].LocationId] = {}
+					}
+
 					if (
 						!locations[user.UserLocations[0].LocationId][
 							user.UserLocations[0].role
@@ -420,16 +455,6 @@ module.exports = class SandboxMock {
 					})
 				}
 				if (user.UserGroups && user.UserGroups[0]) {
-					// For tests, only groupManager is currently used.
-					// TODO: Support other group roles in the future
-
-					// if (!this.organization[user.UserGroups[0].role]) {
-					// 	this.organization[user.UserGroups[0].role] = [];
-					// }
-					// this.organization[user.UserGroups[0].role].push({
-					// 	...user.get(),
-					// 	jwt
-					// });
 					if (!organization.groupManager) {
 						organization.groupManager = []
 					}
@@ -446,20 +471,12 @@ module.exports = class SandboxMock {
 						...user.get(),
 						jwt
 					})
-
-					// For v1 backwards compatibility, set org users on each location as well
-					// Object.keys(this.locations).forEach(locationId => {
-					// 	if (!this.locations[locationId][user.UserOrganizations[0].role]) {
-					// 		this.locations[locationId][user.UserOrganizations[0].role] = [];
-					// 	}
-					// 	this.locations[locationId][user.UserOrganizations[0].role].push({
-					// 		...user.get(),
-					// 		jwt
-					// 	});
-					// });
 				}
 			})
 		}
+
+		log.debug('done parsing users')
+		return { locations, organization }
 	}
 
 	createUserData(options: {

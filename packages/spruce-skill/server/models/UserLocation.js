@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
 	UserLocation.associate = function(models) {
 		UserLocation.belongsTo(models.User, { constraints: false })
 		UserLocation.belongsTo(models.Location, { constraints: false })
+		UserLocation.belongsTo(models.Job, { constraints: false })
 	}
 
 	UserLocation.scopes = {

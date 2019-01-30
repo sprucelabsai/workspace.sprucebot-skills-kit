@@ -117,6 +117,20 @@ module.exports = (sequelize, DataTypes) => {
 		User.hasMany(models.UserLocation, {
 			constraints: false
 		})
+		User.belongsToMany(models.Organization, {
+			through: 'UserOrganization',
+			constraints: false
+		})
+		User.hasMany(models.UserOrganization, {
+			constraints: false
+		})
+		User.belongsToMany(models.Group, {
+			through: 'UserGroup',
+			constraints: false
+		})
+		User.hasMany(models.UserGroup, {
+			constraints: false
+		})
 	}
 
 	User.scopes = {
