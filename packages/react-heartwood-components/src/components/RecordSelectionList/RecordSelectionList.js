@@ -130,38 +130,40 @@ export default class RecordSelectionList extends Component<Props, State> {
 		}
 
 		return (
-			<InfiniteLoader
-				ref={ref => (this.infiniteLoader = ref)}
-				isRowLoaded={isRowLoaded}
-				loadMoreRows={loadMoreRows}
-				rowCount={selectedIds.length}
-				threshold={1}
-			>
-				{({ onRowsRendered, registerChild }) => (
-					<AutoSizer
-						className="record-selection__autosizer"
-						onResize={onResize}
-					>
-						{({ height, width }) => (
-							<div ref={registerChild}>
-								<List
-									ref={ref => (this.list = ref)}
-									className="record-selection__virtual-list"
-									deferredMeasurementCache={this.cache}
-									height={height}
-									width={width}
-									rowCount={selectedIds.length}
-									rowHeight={this.cache.rowHeight}
-									rowRenderer={this.renderRow}
-									scrollToIndex={20}
-									scrollToAlignment="end"
-									onRowsRendered={onRowsRendered}
-								/>
-							</div>
-						)}
-					</AutoSizer>
-				)}
-			</InfiniteLoader>
+			<div className="record-selection__list-wrapper">
+				<InfiniteLoader
+					ref={ref => (this.infiniteLoader = ref)}
+					isRowLoaded={isRowLoaded}
+					loadMoreRows={loadMoreRows}
+					rowCount={selectedIds.length}
+					threshold={1}
+				>
+					{({ onRowsRendered, registerChild }) => (
+						<AutoSizer
+							className="record-selection__autosizer"
+							onResize={onResize}
+						>
+							{({ height, width }) => (
+								<div ref={registerChild}>
+									<List
+										ref={ref => (this.list = ref)}
+										className="record-selection__virtual-list"
+										deferredMeasurementCache={this.cache}
+										height={height}
+										width={width}
+										rowCount={selectedIds.length}
+										rowHeight={this.cache.rowHeight}
+										rowRenderer={this.renderRow}
+										scrollToIndex={0}
+										scrollToAlignment="end"
+										onRowsRendered={onRowsRendered}
+									/>
+								</div>
+							)}
+						</AutoSizer>
+					)}
+				</InfiniteLoader>
+			</div>
 		)
 	}
 

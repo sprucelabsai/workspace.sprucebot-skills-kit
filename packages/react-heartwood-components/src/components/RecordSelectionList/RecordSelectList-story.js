@@ -13,7 +13,7 @@ const stories = storiesOf('RecordSelectionList', module)
 
 stories.addDecorator(withKnobs)
 
-const locations = generateLocations({ amount: 120 })
+const locations = generateLocations({ amount: 20 })
 
 class WithModalExample extends Component<Props, State> {
 	state = {
@@ -41,8 +41,8 @@ class WithModalExample extends Component<Props, State> {
 						isModal={boolean('isModal', true)}
 						recordTypeName={text('recordTypeName', 'locations')}
 						totalRecordCount={number('totalRecordCount', 120)}
-						selectedIds={locations.splice(0, 20).map(loc => loc.id)}
-						loadData={() => locations.splice(0, 20)}
+						selectedIds={locations.map(loc => loc.id)}
+						loadData={() => generateLocations({ amount: 20 })}
 						onCancel={this.toggleModal}
 						onSelectAll={() => alert('all locations selected!')}
 						recordItemProps={record => ({

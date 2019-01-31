@@ -189,20 +189,23 @@
 	}
 }
 
-.record-selection__list .text-container {
-	align-items: flex-start;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin: 1rem;
+.record-selection__list {
+	.text-container {
+		align-items: flex-start;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin: 1rem;
 
-	.btn {
-		height: auto;
-		margin: 0;
-		padding: 0;
+		.btn {
+			height: auto;
+			margin: 0;
+			padding: 0;
+		}
 	}
 
-	.record-selection__autosizer {
-		height: 90vh;
+	.record-selection__list-wrapper {
+		position: relative;
+		min-height: 28rem;
 	}
 }
