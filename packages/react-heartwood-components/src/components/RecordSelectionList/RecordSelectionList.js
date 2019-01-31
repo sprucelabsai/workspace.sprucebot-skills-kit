@@ -1,8 +1,15 @@
 import React, { Component, Fragment } from 'react'
 import cx from 'classnames'
-import cloneDeep from 'lodash'
 
-import List from '../List'
+import {
+	List,
+	AutoSizer,
+	CellMeasurer,
+	CellMeasurerCache,
+	InfiniteLoader
+} from 'react-virtualized'
+
+// import List from '../List'
 import RecordSelectionListItem from './RecordSelectionListItem'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import Modal from '../Modal/Modal'
@@ -10,6 +17,7 @@ import Heading from '../Heading/Heading'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
 import Button from '../Button/Button'
+import Search from '../Forms/components/Search/Search'
 
 type Props = {
 	selectedIds: Array<string>,
@@ -39,6 +47,11 @@ type Props = {
 }
 
 export default class RecordSelectionList extends Component<Props, State> {
+	list: any
+	cache = new CellMeasurerCache({
+		fixedWidth: true
+	})
+
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -52,6 +65,104 @@ export default class RecordSelectionList extends Component<Props, State> {
 			loadedRecords: this.props.loadData(),
 			selectedIds: this.props.selectedIds
 		})
+	}
+
+	renderRow = ({ index, key, parent, style, isScrolling, isVisible }) => {
+		const { recordItemProps } = this.props
+		const { loadedRecords } = this.state
+
+		const record = loadedRecords[index]
+
+		return (
+			record && (
+				<CellMeasurer
+					cache={this.cache}
+					columnIndex={0}
+					key={key}
+					parent={parent}
+					rowIndex={index}
+				>
+					<div
+						className="record-selection__record-wrapper"
+						style={{
+							...style,
+							visibility: isScrolling ? 'visible' : 'visible'
+						}}
+					>
+						<RecordSelectionListItem
+							key={key}
+							onRemoveSelection={this.handleRemoveSelection}
+							{...recordItemProps(record)}
+						/>
+					</div>
+				</CellMeasurer>
+			)
+		)
+	}
+
+	renderList = () => {
+		const { selectedIds } = this.state
+		const { loadData } = this.props
+
+		const isRowLoaded = ({ index }) => {
+			return index > 0
+		}
+
+		const loadMoreRows = ({ startIndex, stopIndex }) => {
+			// Do API Stuff™
+
+			if (this.list) {
+				loadData()
+				this.cache.clearAll()
+				this.list.recomputeRowHeights(0)
+				this.list.forceUpdateGrid()
+			}
+			let done
+			return new Promise(resolve => (done = resolve))
+		}
+
+		const onResize = () => {
+			if (this.list && this.cache) {
+				this.cache.clearAll()
+				this.list.recomputeRowHeights(0)
+				this.list.forceUpdateGrid()
+			}
+		}
+
+		return (
+			<InfiniteLoader
+				ref={ref => (this.infiniteLoader = ref)}
+				isRowLoaded={isRowLoaded}
+				loadMoreRows={loadMoreRows}
+				rowCount={selectedIds.length}
+				threshold={1}
+			>
+				{({ onRowsRendered, registerChild }) => (
+					<AutoSizer
+						className="record-selection__autosizer"
+						onResize={onResize}
+					>
+						{({ height, width }) => (
+							<div ref={registerChild}>
+								<List
+									ref={ref => (this.list = ref)}
+									className="record-selection__virtual-list"
+									deferredMeasurementCache={this.cache}
+									height={height}
+									width={width}
+									rowCount={selectedIds.length}
+									rowHeight={this.cache.rowHeight}
+									rowRenderer={this.renderRow}
+									scrollToIndex={20}
+									scrollToAlignment="end"
+									onRowsRendered={onRowsRendered}
+								/>
+							</div>
+						)}
+					</AutoSizer>
+				)}
+			</InfiniteLoader>
+		)
 	}
 
 	handleRemoveSelection = id => {
@@ -99,14 +210,19 @@ export default class RecordSelectionList extends Component<Props, State> {
 						onClick={onSelectAll}
 					/>
 				</TextContainer>
-				<List {...rest}>
+				<Search placeholder={`Search ${recordTypeName}...`} />
+				{this.renderList({
+					list: loadedRecords,
+					loadNextPage: this.props.loadData
+				})}
+				{/* <List {...rest}>
 					{loadedRecords.map(r => (
 						<RecordSelectionListItem
 							onRemoveSelection={this.handleRemoveSelection}
 							{...this.props.recordItemProps(r)}
 						/>
 					))}
-				</List>
+				</List> */}
 			</Fragment>
 		)
 
