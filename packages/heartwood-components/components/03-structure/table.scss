@@ -128,6 +128,14 @@
 	padding-left: spacing('base');
 }
 
-.table-loader {
+.table-loader,
+.table-loader--is-visible {
 	display: none;
+}
+
+.table__no-results-message {
+	@include type-style-body-sm;
+	padding-top: spacing('base');
+	padding-right: spacing('base');
+	padding-left: spacing('base');
 }
