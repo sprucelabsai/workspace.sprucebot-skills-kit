@@ -20,7 +20,7 @@
 		"stop": "pm2 stop ecosystem.config.js",
 		"lint": "lerna run lint",
 		"build": "lerna run build",
-		"watch": "lerna run watch --stream",
+		"watch": "lerna run watch --no-sort --stream",
 		"start": "pm2 start ecosystem.config.js --no-daemon",
 		"test": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node",
 		"test:update": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node -- -u",
