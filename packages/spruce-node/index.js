@@ -67,11 +67,9 @@ class Sprucebot {
 			version: this.apiVersion,
 			allowSelfSignedCerts
 		}
-		if (process.env.TESTING === 'true') {
-			this.adapter = new MockHttps(adapterOptions)
-		} else {
-			this.adapter = new Https(adapterOptions)
-		}
+
+		this.adapterOptions = adapterOptions
+		this.adapter = new Https(adapterOptions)
 
 		console.log(
 			`🌲 Sprucebot🌲 Skills Kit API ${
@@ -81,6 +79,13 @@ class Sprucebot {
 				'*'
 			)} \nname : ${name}\n---------------------------------`
 		)
+	}
+
+	setOptions(options) {
+		if (options.useMockApi) {
+			const customMocks = options.customMocks || {}
+			this.adapter = new MockHttps({ ...this.adapterOptions, customMocks })
+		}
 	}
 
 	/**

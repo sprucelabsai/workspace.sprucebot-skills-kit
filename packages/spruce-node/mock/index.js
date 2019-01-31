@@ -5,7 +5,14 @@ const fs = require('fs')
 const { mockServer } = require('graphql-tools')
 
 module.exports = class MockHttps {
-	constructor({ host, apiKey, id, version, allowSelfSignedCerts = false }) {
+	constructor({
+		host,
+		apiKey,
+		id,
+		version,
+		allowSelfSignedCerts = false,
+		customMocks
+	}) {
 		if (!host || !apiKey || !id || !version) {
 			throw new Error(
 				'You gotta pass host, apiKey, id, and version to the Http constructor.'
@@ -17,11 +24,15 @@ module.exports = class MockHttps {
 		this.version = version
 		this.allowSelfSignedCerts = allowSelfSignedCerts
 
+		// this.createServer({ customMocks })
+	}
+
+	async mockApiGQLServerInit({ customMocks }) {
 		const introspectionSchemaResult = JSON.parse(
 			fs.readFileSync(`${__dirname}/apiSchema.json`)
 		)
 		const schema = buildClientSchema(introspectionSchemaResult.data)
-		this.mockServer = mockServer(schema)
+		this.mockServer = mockServer(schema, customMocks)
 	}
 
 	async query(query) {
@@ -58,34 +69,36 @@ module.exports = class MockHttps {
 	}
 
 	async mutation(query) {
-		return new Promise((resolve, reject) => {
-			const path = '/graphql'
-			// API Key must go with each request
-			const headers = {
-				'x-skill-id': this.id,
-				'x-skill-api-key': this.apiKey,
-				'Content-Type': 'application/json'
-			}
+		const result = await this.mockServer.query(query)
+		return result
+		// return new Promise((resolve, reject) => {
+		// 	const path = '/graphql'
+		// 	// API Key must go with each request
+		// 	const headers = {
+		// 		'x-skill-id': this.id,
+		// 		'x-skill-api-key': this.apiKey,
+		// 		'Content-Type': 'application/json'
+		// 	}
 
-			const request = https.request(
-				{
-					method: 'POST',
-					host: this.host,
-					headers,
-					rejectUnauthorized: !this.allowSelfSignedCerts,
-					path
-				},
-				response => {
-					this.handleResponse(request, response, resolve, reject)
-				}
-			)
+		// 	const request = https.request(
+		// 		{
+		// 			method: 'POST',
+		// 			host: this.host,
+		// 			headers,
+		// 			rejectUnauthorized: !this.allowSelfSignedCerts,
+		// 			path
+		// 		},
+		// 		response => {
+		// 			this.handleResponse(request, response, resolve, reject)
+		// 		}
+		// 	)
 
-			request.end(
-				JSON.stringify({
-					mutation: query
-				})
-			)
-		})
+		// 	request.end(
+		// 		JSON.stringify({
+		// 			mutation: query
+		// 		})
+		// 	)
+		// })
 	}
 
 	/**

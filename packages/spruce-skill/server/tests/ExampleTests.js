@@ -27,12 +27,13 @@ class ExampleTests extends Base {
 	}
 
 	async getUsers() {
-		const query = `query {
+		const query = `{
 			Users {
 				id
 				firstName
 				lastName
-		  }}`
+			}
+		}`
 		const { body } = await this.request
 			.post('/graphql')
 			.set('Authorization', `JWT ${this.organization.owner[0].jwt}`)
