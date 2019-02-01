@@ -54,7 +54,10 @@ export type Props = {
 	inputProps?: Object,
 
 	/** optional class name for wrapper */
-	className?: string
+	className?: string,
+
+	/** disable this input */
+	disabled?: boolean
 }
 
 type State = {
@@ -146,6 +149,7 @@ export default class Autosuggest extends Component<Props, State> {
 			wrapperClassName,
 			inputProps: originalInputProps = {},
 			className,
+			disabled,
 			...rest
 		} = this.props
 
@@ -154,7 +158,8 @@ export default class Autosuggest extends Component<Props, State> {
 			placeholder: originalInputProps.placeholder || placeholder || '',
 			value: originalInputProps.value || value,
 			onChange: originalInputProps.onChange || this.onChange,
-			onBlur: originalInputProps.onBlur || this.onBlur
+			onBlur: originalInputProps.onBlur || this.onBlur,
+			disabled
 		}
 
 		const parentClass = cx('text-input', {
