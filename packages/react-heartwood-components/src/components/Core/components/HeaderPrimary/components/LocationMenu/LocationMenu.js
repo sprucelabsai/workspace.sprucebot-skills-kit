@@ -42,7 +42,6 @@ export default class LocationMenu extends Component<Props, State> {
 
 	updateMenuPosition = () => {
 		const { menuPosX } = this.state
-		const { isMenuVisible } = this.props
 		const menuWidth = 256
 		const minMargin = 2
 		const menuOffsetLeft = this.menuWrapper.offsetLeft

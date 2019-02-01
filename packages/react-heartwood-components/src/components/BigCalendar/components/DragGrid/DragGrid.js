@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react'
 import cx from 'classnames'
 import { Easing, Tween } from 'es6-tween'
 import cloneDeep from 'lodash/cloneDeep'
-import indexOf from 'lodash/indexOf'
 
 import Event from '../Event/Event'
 import sizeUtil from '../../utils/size'
@@ -966,34 +965,11 @@ class DragGrid extends PureComponent<Props, State> {
 		const {
 			className,
 			children,
-			onScroll,
-			onMouseDownOnEvent,
-			onMouseDownOnView,
-			onSelectEvent,
-			onDeselectEvent,
-			onHighlightEvent,
-			onUnHighlightEvent,
-			dragThreshold,
-			scrollDuringDragMargin,
-			dragScrollSpeed,
-			snapEventToNearestValidX,
-			snapEventToNearestValidY,
 			events,
 			timezone,
-			onDropEvent,
-			onDragEvent,
-			sizeEvent,
-			getDragNode,
 			selectedEvent,
 			highlightedEvent,
-			onDoubleClick,
-			doubleClickTime,
-			onLongPressView,
-			longPressDelay,
-			onClick,
 			timeFormat,
-			enableAutoScrollX,
-			enableAutoScrollY,
 			...props
 		} = this.props
 

@@ -1,5 +1,5 @@
 // @flow
-import React, { Fragment } from 'react'
+import React from 'react'
 import moment from 'moment-timezone'
 import cx from 'classnames'
 
@@ -56,8 +56,8 @@ export const Message = (props: MessageProps) => {
 
 	const renderReply = reply => {
 		const { type, children } = reply
-		var icon = null
-		var iconClass = null
+		let icon = null
+		let iconClass = null
 
 		if (type) {
 			switch (type) {
@@ -81,42 +81,42 @@ export const Message = (props: MessageProps) => {
 		}
 
 		return (
-			<p class="message__reply">
+			<p className="message__reply">
 				{icon && (
 					<Icon icon={icon} className={cx('message__reply-icon', iconClass)} />
 				)}
-				<span class="message__reply-text">{children}</span>
+				<span className="message__reply-text">{children}</span>
 			</p>
 		)
 	}
 
 	const renderAttachment = attachment => {
-		return <div class="message__attachment">{attachment}</div>
+		return <div className="message__attachment">{attachment}</div>
 	}
 
 	return (
 		<div className={cx('message', className)}>
-			<span class="message__pre">
+			<span className="message__pre">
 				<img
-					class="message__from-image"
+					className="message__from-image"
 					src={fromImage || ''}
 					alt={fromAlt || fromName || ''}
 					width="40"
 					height="40"
 				/>
 			</span>
-			<span class="message__main">
-				<p class="message__from-text">
-					{fromName && <span class="message__from-name">{fromName}</span>}
+			<span className="message__main">
+				<p className="message__from-text">
+					{fromName && <span className="message__from-name">{fromName}</span>}
 					{dateSent && (
-						<span class="message__original-timestamp">
+						<span className="message__original-timestamp">
 							{' '}
 							{dateSent.format('hh:mma')}
 						</span>
 					)}
 				</p>
-				<p class="message__body">{children}</p>
-				{detail && <p class="message__detail">{detail}</p>}
+				<p className="message__body">{children}</p>
+				{detail && <p className="message__detail">{detail}</p>}
 				{primaryAction && (
 					<Button
 						className="btn-small message__primary-action-btn"
@@ -124,10 +124,10 @@ export const Message = (props: MessageProps) => {
 					/>
 				)}
 				{replies && replies.length && (
-					<div class="message__replies">{replies.map(renderReply)}</div>
+					<div className="message__replies">{replies.map(renderReply)}</div>
 				)}
 				{attachments && attachments.length && (
-					<div class="message__attachments">
+					<div className="message__attachments">
 						{attachments.map(renderAttachment)}
 					</div>
 				)}

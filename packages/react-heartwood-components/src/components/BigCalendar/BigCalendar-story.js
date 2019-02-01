@@ -43,13 +43,7 @@ class BigCalendarExample extends Component {
 		this
 	}
 
-	handleDropEvent = ({
-		event,
-		dragEvent,
-		newStartAt,
-		newUser,
-		blockUpdates
-	}) => {
+	handleDropEvent = ({ event, newStartAt, newUser, blockUpdates }) => {
 		if (!event) {
 			alert(
 				`you created a new event at ${newStartAt.format(
