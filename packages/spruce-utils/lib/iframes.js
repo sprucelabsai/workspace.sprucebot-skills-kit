@@ -1,5 +1,5 @@
 // @flow
-import { SpruceWebError } from '@sprucelabs/spruce-utils/errors'
+import { SpruceWebError } from './errors'
 
 export type IframeMessageOptions = {|
 	to: any,
