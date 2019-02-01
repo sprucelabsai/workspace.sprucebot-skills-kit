@@ -6,6 +6,7 @@
 			"next/babel",
 			{
 				"preset-env": {
+					"modules": "auto",
 					"targets": {
 						"browsers": "> 1%"
 					}
