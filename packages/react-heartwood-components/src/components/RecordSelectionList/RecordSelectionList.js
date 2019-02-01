@@ -17,7 +17,6 @@ import Heading from '../Heading/Heading'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
 import Button from '../Button/Button'
-import Search from '../Forms/components/Search/Search'
 
 type Props = {
 	selectedIds: Array<string>,
@@ -212,7 +211,6 @@ export default class RecordSelectionList extends Component<Props, State> {
 						onClick={onSelectAll}
 					/>
 				</TextContainer>
-				<Search placeholder={`Search ${recordTypeName}...`} />
 				{this.renderList({
 					list: loadedRecords,
 					loadNextPage: this.props.loadData
