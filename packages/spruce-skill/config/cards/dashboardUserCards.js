@@ -49,68 +49,62 @@ const eventCard = {
 		width: 720,
 		height: 360
 	},
-	body: {
-		children: [
-			{
-				type: 'text',
-				props: {
-					key: 'text',
-					text:
-						"Learn about how your whole family can enjoy our new hair care products. 2 Day's only"
-				}
+	body: [
+		{
+			key: 'text',
+			text:
+				"Learn about how your whole family can enjoy our new hair care products. 2 Day's only"
+		},
+		{
+			key: 'a-list',
+			header: {
+				key: 'heading-key',
+				title: 'A fantastic list!',
+				subtitle: 'A great subtitle!'
 			},
-			{
-				type: 'list',
-				props: {
-					key: 'a-list',
-					header: {
-						title: 'A fantastic list!',
-						subtitle: 'A great subtitle!'
-					},
-					items: [
+			items: [
+				{
+					title: 'Fri, Feb 10th 2018',
+					subtitle: '7am-2pm',
+					icon: { name: 'calendar', isLineIcon: true },
+					key: 'first',
+					actions: [
 						{
-							title: 'Fri, Feb 10th 2018',
-							subtitle: '7am-2pm',
-							icon: { name: 'calendar', isLineIcon: true },
-							key: 'first',
-							actions: [
-								{
-									text: 'Sign Up',
-									key: 'sign-up',
-									// event: 'example:test-event',
-									// payload: { some: 'payload' }
-									// destination: {
-									// slug: 'location_dashboard',
-									// query: '',
-									url: 'https://www.eventbrite.com/',
-									target: '_blank'
-								}
-							]
-						},
+							text: 'Sign Up',
+							key: 'sign-up',
+							// event: 'example:test-event',
+							// payload: { some: 'payload' }
+							// destination: {
+							// slug: 'location_dashboard',
+							// query: '',
+							url: 'https://www.eventbrite.com/',
+							target: '_blank'
+						}
+					]
+				},
+				{
+					title: 'Fri, Feb 17th 2018',
+					subtitle: '7am-2pm',
+					key: 'second',
+					avatar: 'https://randomuser.me/api/portraits/women/40.jpg',
+					actions: [
 						{
-							title: 'Fri, Feb 17th 2018',
-							subtitle: '7am-2pm',
-							key: 'second',
-							avatar: 'https://randomuser.me/api/portraits/women/40.jpg',
-							actions: [
-								{
-									text: 'Sign Up',
-									key: 'sign-up',
-									// event: 'example:test-event',
-									// payload: { some: 'payload' }
-									// destination: {
-									// slug: 'location_dashboard',
-									// query: '',
-									url: 'https://www.eventbrite.com/',
-									target: '_blank'
-								}
-							]
+							text: 'Sign Up',
+							key: 'sign-up',
+							// event: 'example:test-event',
+							// payload: { some: 'payload' }
+							// destination: {
+							// slug: 'location_dashboard',
+							// query: '',
+							url: 'https://www.eventbrite.com/',
+							target: '_blank'
 						}
 					]
 				}
-			}
-		]
-	}
+			],
+			props: {}
+		}
+	]
 }
 
 const celebrateCard = {
@@ -119,35 +113,31 @@ const celebrateCard = {
 		width: 720,
 		height: 360
 	},
-	body: {
-		children: [
-			{
-				type: 'text',
-				props: {
-					key: 'first',
-					children: 'Congrats you have made 100 appointments this week!'
-				}
+	body: [
+		{
+			type: 'text',
+			props: {
+				key: 'first',
+				children: 'Congrats you have made 100 appointments this week!'
 			}
-		]
-	}
+		}
+	]
 }
 
 const bookAppointmentCard = {
 	header: {
 		title: "Looks like it's time for your next appointment!"
 	},
-	body: {
-		children: [
-			{
-				type: 'text',
-				props: {
-					key: 'second',
-					children:
-						"We haven't seen you in 5 week! Book an appointment today with Ken Goldfarb."
-				}
+	body: [
+		{
+			type: 'text',
+			props: {
+				key: 'second',
+				children:
+					"We haven't seen you in 5 week! Book an appointment today with Ken Goldfarb."
 			}
-		]
-	},
+		}
+	],
 	footer: {
 		actions: [
 			{
@@ -231,32 +221,30 @@ const upcomingAppointmentCard = {
 			}
 		]
 	},
-	body: {
-		children: [
-			{
-				type: 'list',
-				props: {
-					header: {
-						title: 'Looks like you have an upcoming appointment.',
-						subtitle: 'Friday, Feb 12th, 2018 @ 3:00pm with Ken Goldfarb.'
+	body: [
+		{
+			type: 'list',
+			props: {
+				header: {
+					title: 'Looks like you have an upcoming appointment.',
+					subtitle: 'Friday, Feb 12th, 2018 @ 3:00pm with Ken Goldfarb.'
+				},
+				items: [
+					{
+						title: 'Hair Color',
+						subtitle: '10:30am-12pm',
+						icon: 'calendar',
+						avatar: 'https://randomuser.me/api/portraits/men/29.jpg'
 					},
-					items: [
-						{
-							title: 'Hair Color',
-							subtitle: '10:30am-12pm',
-							icon: 'calendar',
-							avatar: 'https://randomuser.me/api/portraits/men/29.jpg'
-						},
-						{
-							title: 'Haircut',
-							subtitle: '12pm-2pm',
-							icon: 'calendar'
-						}
-					]
-				}
+					{
+						title: 'Haircut',
+						subtitle: '12pm-2pm',
+						icon: 'calendar'
+					}
+				]
 			}
-		]
-	},
+		}
+	],
 	footer: {
 		primary: {
 			text: 'Goto Appointment',
@@ -274,17 +262,15 @@ const basicCard = {
 	header: {
 		title: 'The is an example of a basic card.'
 	},
-	body: {
-		children: [
-			{
-				type: 'text',
-				props: {
-					children:
-						'Just a little bit of info for you just in case you needed it.'
-				}
+	body: [
+		{
+			type: 'text',
+			props: {
+				children:
+					'Just a little bit of info for you just in case you needed it.'
 			}
-		]
-	},
+		}
+	],
 	footer: {
 		actions: [
 			{
@@ -315,17 +301,15 @@ const criticalCard = {
 		icon: 'critical',
 		iconText: 'Billing Failure'
 	},
-	body: {
-		children: [
-			{
-				type: 'text',
-				props: {
-					children:
-						'Just a little bit of info for you just in case you needed it.'
-				}
+	body: [
+		{
+			type: 'text',
+			props: {
+				children:
+					'Just a little bit of info for you just in case you needed it.'
 			}
-		]
-	},
+		}
+	],
 	footer: {
 		actions: [
 			{
@@ -354,36 +338,34 @@ const scoreCard = {
 	header: {
 		title: 'Value of future appointments'
 	},
-	body: {
-		children: [
-			{
-				type: 'text',
-				props: {
-					children:
-						'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
-				}
-			},
-			{
-				type: 'scores',
-				props: {
-					scores: [
-						{
-							label: 'Today',
-							value: '$1,800'
-						},
-						{
-							label: 'This week',
-							value: '$3,500'
-						},
-						{
-							label: 'Last Week',
-							value: '$3,900'
-						}
-					]
-				}
+	body: [
+		{
+			type: 'text',
+			props: {
+				children:
+					'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
 			}
-		]
-	},
+		},
+		{
+			type: 'scores',
+			props: {
+				scores: [
+					{
+						label: 'Today',
+						value: '$1,800'
+					},
+					{
+						label: 'This week',
+						value: '$3,500'
+					},
+					{
+						label: 'Last Week',
+						value: '$3,900'
+					}
+				]
+			}
+		}
+	],
 	footer: {
 		actions: [
 			{

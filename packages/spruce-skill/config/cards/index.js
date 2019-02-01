@@ -1,5 +1,5 @@
-const userDashboardCards = require('./userDashboardCards')
+const dashboardUserCards = require('./dashboardUserCards')
 
 module.exports = {
-	user_dashboard: userDashboardCards
+	dashboard_user: dashboardUserCards
 }
