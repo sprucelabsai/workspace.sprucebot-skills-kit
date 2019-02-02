@@ -69,6 +69,7 @@ export default class Checkbox extends Component<Props, State> {
 			<div className={parentClass}>
 				<div className="checkbox-item__inner">
 					<input
+						autoComplete={'off'}
 						className="checkbox-item__input"
 						type="checkbox"
 						id={id}
