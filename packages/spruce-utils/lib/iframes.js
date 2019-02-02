@@ -83,7 +83,6 @@ export default class Iframes {
 
 				callback(data, responder)
 			}
-			// }
 		}
 
 		responseHandler.destroy = () => {
