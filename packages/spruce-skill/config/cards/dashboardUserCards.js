@@ -507,28 +507,28 @@ const headerActionCard: CardBuilder = {
 	}
 }
 
-const congratsCard: CardBuilder = {
-	header: {
-		title: 'Congrats on 5 guests!'
-	},
-	body: {
-		isSectioned: false,
-		children: [
-			{
-				key: '001',
-				type: 'image',
-				style: 'hero',
-				src:
-					'https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6b2b3eeca79a80926667ec71b01eac12&auto=format&fit=crop&w=1000&q=80'
-			},
-			{
-				key: '002',
-				text:
-					"I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel."
-			}
-		]
-	}
-}
+// const congratsCard: CardBuilder = {
+// 	header: {
+// 		title: 'Congrats on 5 guests!'
+// 	},
+// 	body: {
+// 		isSectioned: false,
+// 		children: [
+// 			{
+// 				key: '001',
+// 				type: 'image',
+// 				style: 'hero',
+// 				src:
+// 					'https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6b2b3eeca79a80926667ec71b01eac12&auto=format&fit=crop&w=1000&q=80'
+// 			},
+// 			{
+// 				key: '002',
+// 				text:
+// 					"I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel."
+// 			}
+// 		]
+// 	}
+// }
 
 const happyBirthdayCard: CardBuilder = {
 	header: {
