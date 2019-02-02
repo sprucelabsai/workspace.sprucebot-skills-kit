@@ -16,26 +16,17 @@ export const recentSearchResults = [
 		items: [
 			{
 				avatar: user01image,
-				title: 'Lacey Morissette',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				title: 'Lacey Morissette'
 			},
 			{
 				avatar: user02image,
 				title: 'Jade Mohr',
-				subtitle: 'Stylist',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Stylist'
 			},
 			{
 				avatar: user03image,
 				title: 'Gianni Block',
-				subtitle: 'Guest',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Guest'
 			}
 		]
 	}
@@ -49,26 +40,17 @@ export const suggestedSearchResults = [
 		items: [
 			{
 				avatar: user04image,
-				title: 'Vicenta Maggio',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				title: 'Vicenta Maggio'
 			},
 			{
 				avatar: user05image,
 				title: 'Vicenta Ramirez',
-				subtitle: 'Guest',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Guest'
 			},
 			{
 				avatar: user06image,
 				title: 'Allison Vicenta',
-				subtitle: 'Manager',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Manager'
 			}
 		]
 	},
@@ -79,26 +61,17 @@ export const suggestedSearchResults = [
 		items: [
 			{
 				avatar: user04image,
-				title: 'Vicenta Maggio',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				title: 'Vicenta Maggio'
 			},
 			{
 				avatar: user05image,
 				title: 'Vicenta Ramirez',
-				subtitle: 'Guest',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Guest'
 			},
 			{
 				avatar: user06image,
 				title: 'Allison Vicenta',
-				subtitle: 'Manager',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Manager'
 			}
 		]
 	}
@@ -111,26 +84,17 @@ export const searchResults = [
 			{
 				avatar: user04image,
 				title: 'Vicenta Maggio',
-				subtitle: 'Guest',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Guest'
 			},
 			{
 				avatar: user05image,
 				title: 'Vicenta Ramirez',
-				subtitle: 'Guest',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Guest'
 			},
 			{
 				avatar: user06image,
 				title: 'Allison Vicenta',
-				subtitle: 'Guest',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Guest'
 			}
 		]
 	},
@@ -140,26 +104,17 @@ export const searchResults = [
 			{
 				avatar: user04image,
 				title: 'Vicenta Maggio',
-				subtitle: 'Stylist',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Stylist'
 			},
 			{
 				avatar: user05image,
 				title: 'Vicenta Ramirez',
-				subtitle: 'Manager',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Manager'
 			},
 			{
 				avatar: user06image,
 				title: 'Allison Vicenta',
-				subtitle: 'Teammate',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Teammate'
 			}
 		]
 	},
@@ -169,26 +124,17 @@ export const searchResults = [
 			{
 				avatar: user04image,
 				title: 'Vicenta Maggio',
-				subtitle: 'Customer since 03/18',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Customer since 03/18'
 			},
 			{
 				avatar: user05image,
 				title: 'Vicenta Ramirez',
-				subtitle: 'Customer since 07/14',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Customer since 07/14'
 			},
 			{
 				avatar: user06image,
 				title: 'Allison Vicenta',
-				subtitle: 'Customer since 01/19',
-				primaryAction: {
-					onClick: () => console.log('clicked!')
-				}
+				subtitle: 'Customer since 01/19'
 			}
 		]
 	}

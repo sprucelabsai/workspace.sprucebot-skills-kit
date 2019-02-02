@@ -220,12 +220,12 @@
 		&:hover {
 			.btn {
 				background-color: $c-primary;
+				p {
+					color: $c-white;
+				}
 			}
 			&:after {
 				opacity: 0;
-			}
-			p {
-				color: $c-white;
 			}
 		}
 	}

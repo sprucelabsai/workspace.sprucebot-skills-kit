@@ -10,10 +10,18 @@ import Tabs from '../../../Tabs/Tabs'
 import { InputInner } from '../../../Forms/FormPartials'
 import Button from '../../../Button/Button'
 import QuickAddUserView from './components/QuickAddUserView/QuickAddUserView'
+import BigSearchBody from './components/BigSearchBody/BigSearchBody'
 
 import type { Props as TabProps } from '../../../Tabs/Tabs'
 import type { Props as ListProps } from '../../../List/List'
 import type { Props as ListItemProps } from '../../../List'
+
+// TODO: Hook up real search data
+import {
+	recentSearchResults,
+	suggestedSearchResults,
+	searchResults
+} from '../../../../../.storybook/data/searchData'
 
 type TabbedListProps = { text: string, items: Array<ListItemProps> }
 
@@ -47,7 +55,7 @@ type State = {
 	activeSearchResultsTabIndex: number,
 	suggestedSearchResults: Array<ListProps>,
 	searchResults: Array<TabbedListProps>,
-	currentView: 'search' | 'quick-add' | 'custom-view'
+	currentView: 'search' | 'quick-add' | 'merge'
 }
 
 export default class BigSearch extends Component<Props, State> {
@@ -84,6 +92,39 @@ export default class BigSearch extends Component<Props, State> {
 		}
 	}, this.props.getSearchSuggestionsDebounce)
 
+	getSearchResults = async (searchValue: string) => {
+		// TODO: Replace with real search
+		const mockRequest = ms => new Promise(resolve => setTimeout(resolve, ms))
+		return mockRequest(1000).then(() => {
+			// TODO: Map real data to search result items
+			// This is just looping through mock data that is already structured as search result items
+			// and dding button functionality
+			const searchResultsData = searchResults.map(result => {
+				if (result.text === 'Shopify Customers') {
+					result.items.map(item => {
+						item['actions'] = [
+							{
+								text: 'Import',
+								onClick: () => this.handleImportUser(item),
+								kind: 'secondary'
+							}
+						]
+					})
+				} else {
+					result.items.map(
+						item =>
+							(item['primaryAction'] = {
+								onClick: () => console.log('clicked!')
+							})
+					)
+				}
+				return result
+			})
+			console.log('DATA', searchResultsData)
+			return searchResultsData
+		})
+	}
+
 	handleClickQuickAdd = () => {
 		this.setState({ currentView: 'quick-add' })
 	}
@@ -103,15 +144,17 @@ export default class BigSearch extends Component<Props, State> {
 
 	handleSearchSubmit = async (e: any) => {
 		e.preventDefault()
-		if (this.props.getSearchResults) {
-			const searchValue = this.state.searchValue
-			try {
-				const searchResults = await this.props.getSearchResults(searchValue)
-				this.setState({ searchResults: searchResults })
-			} catch (err) {
-				// TODO: Track error here?
-			}
+		const searchValue = this.state.searchValue
+		try {
+			const searchResults = await this.getSearchResults(searchValue)
+			this.setState({ searchResults: searchResults })
+		} catch (err) {
+			// TODO: Track error here?
 		}
+	}
+
+	handleImportUser = async (user: Object) => {
+		console.log('import user', user)
 	}
 
 	handleClearSearchValue = () => {
@@ -140,8 +183,9 @@ export default class BigSearch extends Component<Props, State> {
 	}
 
 	renderSearchResultsList = (results: Array<ListProps>) => {
-		return results.map(resultList => (
+		return results.map((resultList, idx) => (
 			<List
+				key={idx}
 				className="big-search__search-results-list"
 				isSmall={true}
 				{...resultList}
@@ -151,6 +195,7 @@ export default class BigSearch extends Component<Props, State> {
 
 	renderTabbedSearchResults = (results: Array<TabbedListProps>) => {
 		const { activeSearchResultsTabIndex } = this.state
+		console.log(results)
 		if (results.length > 1) {
 			return (
 				<Tabs
@@ -288,9 +333,7 @@ export default class BigSearch extends Component<Props, State> {
 										{this.renderSearchContextButton()}
 									</form>
 								</div>
-								<div className={cx('big-search__view-body')}>
-									{this.renderSearchResults()}
-								</div>
+								<BigSearchBody>{this.renderSearchResults()}</BigSearchBody>
 							</Fragment>
 						)}
 						{currentView === 'quick-add' && (

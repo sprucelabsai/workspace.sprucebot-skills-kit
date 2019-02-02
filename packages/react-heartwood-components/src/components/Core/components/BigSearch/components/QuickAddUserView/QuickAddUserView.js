@@ -4,6 +4,7 @@ import cx from 'classnames'
 import { Formik, Form } from 'formik'
 
 import BigSearchHeader from '../BigSearchHeader/BigSearchheader'
+import BigSearchBody from '../BigSearchBody/BigSearchBody'
 import BigSearchFooter from '../BigSearchFooter/BigSearchFooter'
 
 import Avatar from '../../../../../Avatar/Avatar'
@@ -164,7 +165,7 @@ export default class QuickAddUserView extends PureComponent<Props, State> {
 					onClickClose={onClickClose}
 					title="Quick add a guest"
 				/>
-				<div className={cx('big-search__view-body')}>
+				<BigSearchBody>
 					<Formik
 						ref={this._formRef}
 						initialValues={existingUser || {}}
@@ -251,7 +252,7 @@ export default class QuickAddUserView extends PureComponent<Props, State> {
 						}}
 					/>
 					{isSearchingUsers && <Loader />}
-				</div>
+				</BigSearchBody>
 				{canAddOrUpdateUser && (
 					<BigSearchFooter
 						primaryAction={{

@@ -6,8 +6,7 @@ import BigSearch from '../BigSearch/BigSearch'
 
 import {
 	recentSearchResults,
-	suggestedSearchResults,
-	searchResults
+	suggestedSearchResults
 } from '../../../../../.storybook/data/searchData'
 
 const stories = storiesOf('Big Search', module)
@@ -19,7 +18,6 @@ stories.add('Default', () => {
 			isVisible={true}
 			initialSearchResults={recentSearchResults}
 			getSearchSuggestions={async () => suggestedSearchResults}
-			getSearchResults={async () => searchResults}
 		/>
 	)
 })
