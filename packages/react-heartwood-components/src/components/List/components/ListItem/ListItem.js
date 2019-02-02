@@ -40,7 +40,10 @@ export type Props = {
 	contextMenu?: ContextMenuProps,
 
 	/** Props passed to the toggle when it is used */
-	toggleProps?: Object
+	toggleProps?: Object,
+
+	/** Set to true to show separator for this list item if followed by another list item. */
+	isSeparatorShowing: boolean
 }
 
 const ListItem = (props: Props) => {
@@ -54,12 +57,14 @@ const ListItem = (props: Props) => {
 		toggleId,
 		actions,
 		contextMenu,
-		toggleProps
+		toggleProps,
+		isSeparatorShowing
 	} = props
 
 	const parentClass = cx('list-item', {
 		'list-item-title-only': !subtitle,
-		'list-item--is-draggable': isDraggable
+		'list-item--is-draggable': isDraggable,
+		'list-item--separator-hidden': !isSeparatorShowing
 	})
 
 	return (
@@ -132,6 +137,7 @@ ListItem.defaultProps = {
 	isDraggable: false,
 	toggleId: '',
 	actions: [],
+	isSeparatorShowing: true,
 	toggleProps: {}
 }
 
