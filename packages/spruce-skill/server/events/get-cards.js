@@ -5,11 +5,11 @@ module.exports = async (ctx, next) => {
 	try {
 		log.debug('** Event: get-page-cards **', { event: ctx.event })
 
-		const {
-			auth: { User, Location, Organization },
-			event
-		} = ctx
-		const page = event.payload.page ? event.payload.page : null
+		// const {
+		// 	// auth: { User, Location, Organization },
+		// 	// event
+		// } = ctx
+		// const page = event.payload.page ? event.payload.page : null
 		const cards = config.cards.dashboard_user
 
 		// const locationId = event.payload.locationId
