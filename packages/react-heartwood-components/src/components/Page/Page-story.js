@@ -4,6 +4,8 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, select } from '@storybook/addon-knobs/react'
 import Page, { PageHeader, PageContent } from './index'
 
+import { manyTabs } from '../../../.storybook/data/tabs'
+
 const buttonKinds = {
 	Primary: 'primary',
 	Secondary: 'secondary',
@@ -75,6 +77,20 @@ stories
 		>
 			<PageContent>
 				<p>Page Content</p>
+			</PageContent>
+		</Page>
+	))
+	.add('With many tabs', () => (
+		<Page
+			header={{
+				title: text('title', 'Page Title'),
+				backLinkHref: '#',
+				backLinkText: text('backLinkText', 'Back'),
+				tabs: manyTabs
+			}}
+		>
+			<PageContent>
+				<p>Hello I ama PageContent</p>
 			</PageContent>
 		</Page>
 	))
