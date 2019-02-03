@@ -43,36 +43,32 @@ stories
 						<Card>
 							<CardBody>
 								<FormBuilder
-									rows={[
+									kind="page"
+									validate={console.log}
+									sections={object('sections', [
 										{
-											id: 'settings',
+											title: 'Appointment Settings',
 											fields: [
 												{
-													id: 'settingsList',
-													element: 'list',
-													items: [
-														{
-															title: 'Guest SMS cancellations',
-															subtitle:
-																'Guests can cancel an appointment via SMS',
-															toggleId: 'smsCancellations',
-															toggleProps: {
-																onChange: () => {
-																	console.log('Boop')
-																}
-															}
-														},
-														{
-															title: 'Guest SMS confirmations',
-															subtitle:
-																'Guests can confirm an appointment via SMS',
-															toggleId: 'smsConfirmations'
-														}
-													]
+													name: 'guestSMSCancellations',
+													type: 'boolean',
+													props: {
+														label: 'Guest SMS cancellations',
+														helper: 'Guests can cancel an appointment via SMS'
+													}
+												},
+												{
+													name: 'Personalized Message',
+													type: 'text',
+													props: {
+														label: 'Confirmation message',
+														helper:
+															'You have {{Organization.name}} and {{Location.name}}'
+													}
 												}
 											]
 										}
-									]}
+									])}
 								/>
 							</CardBody>
 						</Card>
@@ -125,81 +121,75 @@ stories
 									formLayout={{
 										spacing: 'tight'
 									}}
-									rows={[
+									sections={object('sections', [
 										{
-											id: 'publicNameRow',
 											fields: [
 												{
-													element: 'textInput',
-													id: 'publicName',
-													label: 'Public Name',
-													helper: 'This is the name that your guests will see',
-													required: true
-												}
-											]
-										},
-										{
-											id: 'streetAddressRow',
-											fields: [
-												{
-													element: 'textInput',
-													id: 'streetAddress',
-													label: 'Street Address',
-													placeholder: '123 High St',
-													required: true
-												}
-											]
-										},
-										{
-											id: 'streetAddress2row',
-											fields: [
-												{
-													element: 'textInput',
-													id: 'streetAddress2',
-													label: 'Unit, Suite, Etc… (Optional)',
-													required: false
-												}
-											]
-										},
-										{
-											id: 'cityAndPostalRow',
-											fields: [
-												{
-													id: 'city',
-													element: 'textInput',
-													label: 'City',
-													placeholder: 'Springfield',
-													required: true
+													type: 'text',
+													name: 'publicName',
+													props: {
+														label: 'Public Name',
+														helper:
+															'This is the name that your guests will see',
+														required: true
+													}
 												},
 												{
-													id: 'postalCode',
-													element: 'textInput',
-													label: 'Postal / Zip Code',
-													placeholder: '888888',
-													required: true
-												}
-											]
-										},
-										{
-											id: 'countryAndRegionRow',
-											fields: [
-												{
-													id: 'country',
-													element: 'textInput',
-													label: 'Country',
-													placeholder: 'Select an option…',
-													required: true
+													type: 'text',
+													name: 'streetAddress',
+													props: {
+														label: 'Street Address',
+														placeholder: '123 High St',
+														required: true
+													}
 												},
 												{
-													id: 'region',
-													element: 'textInput',
-													label: 'State',
-													placeholder: 'Select an option…',
-													required: true
+													type: 'text',
+													name: 'streetAddress2',
+													props: {
+														label: 'Unit, Suite, Etc… (Optional)',
+														required: false
+													}
+												},
+												{
+													name: 'city',
+													type: 'text',
+													props: {
+														label: 'City',
+														placeholder: 'Springfield',
+														required: true
+													}
+												},
+												{
+													name: 'postalCode',
+													type: 'text',
+													props: {
+														label: 'Postal / Zip Code',
+														placeholder: '888888',
+														required: true
+													}
+												},
+												{
+													name: 'country',
+													type: 'text',
+													props: {
+														label: 'Country',
+														placeholder: 'Select an option…',
+														required: true
+													}
+												},
+												{
+													name: 'region',
+													type: 'text',
+													props: {
+														label: 'State',
+														placeholder: 'Select an option…',
+														required: true
+													}
 												}
 											]
 										}
-									]}
+									])}
 									primaryCTA={{
 										text: 'Add location'
 									}}
@@ -255,134 +245,114 @@ stories
 					formLayout={{
 						spacing: 'tight'
 					}}
-					sections={[
+					sections={object('sections', [
 						{
-							id: 'appointmentSettings',
 							title: 'Appointment settings',
-							rows: [
+							fields: [
 								{
-									id: 'pastEditingCutoffRow',
-									fields: [
-										{
-											element: 'textInput',
-											id: 'pastApptEditingCutoff',
-											title: 'Cutoff for editing appointments in the past',
-											description:
-												'Once an appointment is past, how many minutes should I wait until I block the ability to edit it? Note: Paid appointments cannot be edited.',
-											required: true
-										}
-									]
+									type: 'duration',
+									name: 'pastApptEditingCutoff',
+									props: {
+										minMinutes: 5,
+										maxMinutes: 60 * 5,
+										label: 'Cutoff for editing appointments in the past',
+										helper:
+											'Once an appointment is past, how many minutes should I wait until I block the ability to edit it? Note: Paid appointments cannot be edited.',
+										required: true
+									}
 								},
 								{
-									id: 'pastApptBookingCutoffRow',
-									fields: [
-										{
-											element: 'textInput',
-											id: 'pastApptBookingCutoff',
-											title: 'Booking past appointment cutoff',
-											description:
-												'How far in the past should I allow appointments to be booked?',
-											required: true
-										}
-									]
+									type: 'text',
+									name: 'pastApptBookingCutoff',
+									props: {
+										label: 'Booking past appointment cutoff',
+										helper:
+											'How far in the past should I allow appointments to be booked?',
+										required: true
+									}
 								},
 								{
-									id: 'guestUpdateDelaysRow',
-									fields: [
-										{
-											element: 'textInput',
-											id: 'guestUpdateDelays',
-											title: 'Guest update delays',
-											description:
-												'How long should I wait before sending an update text to the guest when changes are made to their appointment? This gives you time to make a few edits back-to-back without the guest receiving a ton of texts.',
-											required: true
-										}
-									]
+									type: 'text',
+									name: 'guestUpdateDelays',
+									props: {
+										label: 'Guest update delays',
+										helper:
+											'How long should I wait before sending an update text to the guest when changes are made to their appointment? This gives you time to make a few edits back-to-back without the guest receiving a ton of texts.',
+										required: true
+									}
 								},
 								{
-									id: 'autoConfirmRow',
-									fields: [
-										{
-											id: 'autoConfirm',
-											element: 'list',
-											items: [
-												{
-													id: 'autoConfirm',
-													title: 'Auto-Confirm Appointments',
-													subtitle:
-														'Should I auto-confirm all booked appointments?',
-													toggleId: 'autoConfirm',
-													toggleProps: {
-														defaultChecked: true,
-														onChange: () => {
-															console.log('Boop')
-														}
-													}
-												}
-											]
-										}
-									]
+									name: 'autoConfirm',
+									type: 'boolean',
+									props: {
+										label: 'Auto-Confirm Appointments',
+										helper: 'Should I auto-confirm all booked appointments?',
+										defaultValue: false
+									}
 								}
 							]
 						},
 						{
-							id: 'reminderSettings',
 							title: 'Reminder Settings',
-							rows: [
+							fields: [
 								{
-									id: 'apptReminder1Row',
-									fields: [
-										{
-											id: 'apptReminder1',
-											element: 'textInput',
-											title: 'Appointment Reminder 1',
-											description:
-												'How many hours before an appointment should I send the first reminder?',
-											required: true
-										}
-									]
+									name: 'apptReminder1',
+									type: 'text',
+									props: {
+										label: 'Appointment Reminder 1',
+										helper:
+											'How many hours before an appointment should I send the first reminder?',
+										required: true
+									}
 								},
 								{
-									id: 'apptReminder1BufferRow',
-									fields: [
-										{
-											id: 'apptReminder1Buffer',
-											element: 'textInput',
-											title: 'Appointment Reminder 1 Buffer',
-											description:
-												"How many hours before an appointment does a guest need to book to activate the first reminder? Example, I don't want to send a 24 hour reminder if someone booked 25 hours ago because they'd get a confirmation text and then a reminder an hour later.",
-											required: true
-										}
-									]
+									name: 'apptReminder1Buffer',
+									type: 'text',
+									props: {
+										label: 'Appointment Reminder 1 Buffer',
+										helper:
+											"How many hours before an appointment does a guest need to book to activate the first reminder? Example, I don't want to send a 24 hour reminder if someone booked 25 hours ago because they'd get a confirmation text and then a reminder an hour later.",
+										required: true
+									}
 								},
 								{
-									id: 'apptReminder2Row',
-									fields: [
-										{
-											id: 'apptReminder2',
-											element: 'textInput',
-											title: 'Appointment Reminder 2',
-											description:
-												'How many hours before an appointment should I send the second reminder?'
-										}
-									]
+									name: 'apptReminder2',
+									type: 'text',
+									props: {
+										label: 'Appointment Reminder 2',
+										helper:
+											'How many hours before an appointment should I send the second reminder?'
+									}
 								},
 								{
-									id: 'apptReminder2BufferRow',
-									fields: [
-										{
-											id: 'apptReminder2Buffer',
-											element: 'textInput',
-											title: 'Appointment Reminder 2 Buffer',
-											description:
-												"How many hours before an appointment does a guest need to book to activate the second reminder?  Example, I don't want to send an hour reminder if someone booked 61 minutes ago because they'd get a confirmation text and then a reminder a minute later.",
-											required: true
-										}
-									]
+									name: 'apptReminder2Buffer',
+									type: 'text',
+									props: {
+										label: 'Appointment Reminder 2 Buffer',
+										helper:
+											"How many hours before an appointment does a guest need to book to activate the second reminder?  Example, I don't want to send an hour reminder if someone booked 61 minutes ago because they'd get a confirmation text and then a reminder a minute later.",
+										required: true
+									}
+								},
+								{
+									name: 'appointmentSync',
+									type: 'select',
+									props: {
+										label: 'How often should I sync appointments?',
+										helper:
+											'How often should I check for new appointments and sync them?',
+										options: {
+											hourly: 'Hourly',
+											daily: 'Daily',
+											weekly: 'Weekly'
+										},
+										defaultValue: 'weekly',
+										required: true
+									}
 								}
 							]
 						}
-					]}
+					])}
 				/>
 			</PageContent>
 		</Page>
@@ -410,15 +380,16 @@ stories
 							spacing: 'tight'
 						}}
 						kind="modal"
-						rows={[
+						sections={[
 							{
-								id: 'groupNameRow',
 								fields: [
 									{
-										id: 'groupName',
-										element: 'textInput',
-										label: 'Group Name',
-										placeholder: 'e.g. East, West, Midwest, etc…'
+										name: 'groupName',
+										type: 'text',
+										props: {
+											label: 'Group Name',
+											placeholder: 'e.g. East, West, Midwest, etc…'
+										}
 									}
 								]
 							}

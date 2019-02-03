@@ -4,6 +4,8 @@ import Sidebar from './components/Sidebar/Sidebar'
 import SidebarFooter from './components/Sidebar/components/SidebarFooter/SidebarFooter'
 import SidebarSection from './components/Sidebar/components/SidebarSection/SidebarSection'
 import SaveBar from './components/SaveBar/SaveBar'
+import BigSearch from './components/BigSearch/BigSearch'
+import ProfileSummary from './components/ProfileSummary/ProfileSummary'
 
 export FooterPrimary from './components/FooterPrimary/FooterPrimary'
 export HeaderPrimary from './components/HeaderPrimary/HeaderPrimary'
@@ -12,3 +14,4 @@ export SidebarFooter from './components/Sidebar/components/SidebarFooter/Sidebar
 export SidebarSection from './components/Sidebar/components/SidebarSection/SidebarSection'
 export SaveBar from './components/SaveBar/SaveBar'
 export BigSearch from './components/BigSearch/BigSearch'
+export ProfileSummary from './components/ProfileSummary/ProfileSummary'

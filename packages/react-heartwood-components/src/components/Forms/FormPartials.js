@@ -2,6 +2,7 @@
 import React from 'react'
 import Button from '../../components/Button/Button'
 import DropdownArrow from '../../../static/assets/icons/ic_arrow_drop_down.svg'
+import Icon from '../../components/Icon/Icon'
 
 export type InputPreProps = {
 	id: string,
@@ -23,8 +24,8 @@ export const InputPre = (props: InputPreProps) => {
 
 export type InputInnerProps = {
 	kind?: string,
-	iconBefore: any,
-	iconAfter: any,
+	iconBefore?: string,
+	iconAfter?: any,
 	appendix?: string,
 	handleClear?: Function
 }
@@ -33,10 +34,9 @@ export const InputInner = (props: InputInnerProps) => {
 	const { kind, iconBefore, iconAfter, appendix, handleClear, ...rest } = props
 	return (
 		<div className="text-input__inner">
-			{iconBefore &&
-				React.cloneElement(iconBefore, {
-					className: 'text-input__icon-pre'
-				})}
+			{iconBefore && (
+				<Icon icon={iconBefore} className={'text-input__icon-pre'} />
+			)}
 			{kind === 'credit-card' && <p>CC</p>}
 			<input className="text-input__input" {...rest} />
 			{appendix && <p className="text-input__appendix">{appendix}</p>}
@@ -53,7 +53,7 @@ export const InputInner = (props: InputInnerProps) => {
 
 export type InputHelperProps = {
 	error?: string,
-	helper?: string
+	helper?: any
 }
 
 export const InputHelper = (props: InputHelperProps) => {

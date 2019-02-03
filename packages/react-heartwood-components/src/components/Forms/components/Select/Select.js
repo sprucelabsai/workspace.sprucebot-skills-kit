@@ -40,12 +40,14 @@ const Select = (props: Props) => {
 		postLabel,
 		error,
 		helper,
+		value,
 		...rest
 	} = props
 	const parentClass = cx('select text-input__inner', className, {
 		'select-simple': isSimple,
 		'select--has-error': error
 	})
+
 	return (
 		<div className="select-wrapper">
 			{label && <InputPre id={id} label={label} postLabel={postLabel} />}
