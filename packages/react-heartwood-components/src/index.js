@@ -87,5 +87,8 @@ export type { Props as TabsProps } from './components/Tabs/Tabs'
 export type { Props as TabProps } from './components/Tabs/components/Tab/Tab'
 export type { Props as ButtonProps } from './components/Button/Button'
 export type {
+	RecordTableFetchOptions
+} from './components/RecordTable/RecordTable'
+export type {
 	Props as SaveBarProps
 } from './components/Core/components/SaveBar/SaveBar'
