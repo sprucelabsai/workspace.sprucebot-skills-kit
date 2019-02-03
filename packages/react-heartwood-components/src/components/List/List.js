@@ -28,7 +28,7 @@ export type Props = {
 	children?: any,
 
 	/** Set to true to show separators between list items */
-	isShowingSeparators: boolean
+	areSeparatorsVisible: boolean
 }
 
 const List = (props: Props) => {
@@ -37,12 +37,12 @@ const List = (props: Props) => {
 		items,
 		className,
 		isSmall,
-		isShowingSeparators,
+		areSeparatorsVisible,
 		children
 	} = props
 	const parentClass = cx('list', className, {
 		'list-small': isSmall,
-		'list--separators-hidden': !isShowingSeparators
+		'list--separators-hidden': !areSeparatorsVisible
 	})
 
 	return (
@@ -60,7 +60,7 @@ List.defaultProps = {
 	header: null,
 	className: '',
 	isSmall: false,
-	isShowingSeparators: true
+	areSeparatorsVisible: true
 }
 
 export default List

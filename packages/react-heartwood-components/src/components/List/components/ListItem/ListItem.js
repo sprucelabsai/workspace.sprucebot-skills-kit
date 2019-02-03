@@ -43,7 +43,7 @@ export type Props = {
 	toggleProps?: Object,
 
 	/** Set to true to show separator for this list item if followed by another list item. */
-	isSeparatorShowing: boolean
+	isSeparatorVisible: boolean
 }
 
 const ListItem = (props: Props) => {
@@ -58,13 +58,13 @@ const ListItem = (props: Props) => {
 		actions,
 		contextMenu,
 		toggleProps,
-		isSeparatorShowing
+		isSeparatorVisible
 	} = props
 
 	const parentClass = cx('list-item', {
 		'list-item-title-only': !subtitle,
 		'list-item--is-draggable': isDraggable,
-		'list-item--separator-hidden': !isSeparatorShowing
+		'list-item--separator-hidden': !isSeparatorVisible
 	})
 
 	return (
@@ -137,7 +137,7 @@ ListItem.defaultProps = {
 	isDraggable: false,
 	toggleId: '',
 	actions: [],
-	isSeparatorShowing: true,
+	isSeparatorVisible: true,
 	toggleProps: {}
 }
 
