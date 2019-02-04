@@ -85,7 +85,7 @@ const SidebarItem = (props: Props) => {
 											return (
 												<li key={idx} className={subSubClass}>
 													<div className="sidebar-item__inner">
-														<a href="sidebar-item__link" href={item.href}>
+														<a className="sidebar-item__link" href={item.href}>
 															{item.text}
 														</a>
 													</div>

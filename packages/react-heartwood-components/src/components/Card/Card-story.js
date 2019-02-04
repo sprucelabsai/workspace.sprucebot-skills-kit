@@ -25,7 +25,6 @@ import Text from '../Text/Text'
 import Subheading from '../Subheading/Subheading'
 import Image from '../Image/Image'
 import { Scores } from './index'
-import ContextMenu from '../ContextMenu/ContextMenu'
 import Button from '../Button/Button'
 import Avatar from '../Avatar/Avatar'
 import userImageLg from '../../../static/assets/users/user-01--96w.png'
@@ -261,7 +260,7 @@ stories
 				<Avatar isLarge image={userImageLg} alt="Rosamund Mueleer" />
 				<TextContainer spacing="tight">
 					<Subheading className="card-header__title" element="h3">
-						Say "Happy Birthday"
+						{`Say "Happy Birthday"`}
 					</Subheading>
 					<Text>
 						It’s Rosamond Mueller’s birthday today. Don’t forget to say happy
@@ -346,8 +345,8 @@ stories
 	))
 	.add('Onboarding Card', () => <OnboardingCard {...onboarding} />)
 	.add('CardBuilder', () => [
-		<CardBuilder {...object('json', cardJSON)} />,
-		<CardBuilder {...object('json2', cardJSON2)} />,
-		<CardBuilder {...object('json3', cardJSON3)} />,
-		<CardBuilder {...object('json4', cardJSON4)} />
+		<CardBuilder key="foo-0" {...object('json', cardJSON)} />,
+		<CardBuilder key="foo-1" {...object('json2', cardJSON2)} />,
+		<CardBuilder key="foo-2" {...object('json3', cardJSON3)} />,
+		<CardBuilder key="foo-3" {...object('json4', cardJSON4)} />
 	])

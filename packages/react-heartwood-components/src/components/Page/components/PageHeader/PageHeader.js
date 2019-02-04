@@ -10,7 +10,6 @@ import Icon from '../../../Icon/Icon'
 import Button from '../../../Button/Button'
 import Tabs from '../../../Tabs/Tabs'
 import BackIcon from '../../../../../static/assets/icons/ic_keyboard_arrow_left.svg'
-import SidebarExpander from '../../../Core/components/Sidebar/components/SidebarExpander/SidebarExpander'
 
 export type PageHeaderProps = {
 	/** Title of the Page */

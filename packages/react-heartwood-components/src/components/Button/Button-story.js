@@ -1,5 +1,5 @@
 // @flow
-import React, { Fragment } from 'react'
+import React from 'react'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
@@ -10,14 +10,8 @@ import {
 } from '@storybook/addon-knobs/react'
 import Button from './Button'
 
-type GroupProps = {
-	kind: string
-}
-
 const btnText = text('text', 'Hello World')
-const isSmall = boolean('isSmall', false)
 const isFullWidth = boolean('isFullWidth', false)
-const icon = text('icon', 'edit')
 
 const stories = storiesOf('Button', module)
 stories.addDecorator(
@@ -30,7 +24,6 @@ stories.addDecorator(withKnobs)
 stories
 	.add('Primary', () => (
 		<Button
-			isSmall={isSmall}
 			isFullWidth={isFullWidth}
 			text={btnText}
 			kind={text('kind', '') || 'primary'}
@@ -50,7 +43,6 @@ stories
 	))
 	.add('Secondary', () => (
 		<Button
-			isSmall={isSmall}
 			isFullWidth={isFullWidth}
 			text={btnText}
 			kind={text('kind', '') || 'secondary'}
@@ -69,7 +61,6 @@ stories
 	))
 	.add('Simple', () => (
 		<Button
-			isSmall={isSmall}
 			isFullWidth={isFullWidth}
 			text={btnText}
 			kind={text('kind', '') || 'simple'}
@@ -88,7 +79,6 @@ stories
 	))
 	.add('Caution', () => (
 		<Button
-			isSmall={isSmall}
 			isFullWidth={isFullWidth}
 			text={btnText}
 			kind={text('kind', '') || 'caution'}
