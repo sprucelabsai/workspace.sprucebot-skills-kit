@@ -35,8 +35,8 @@ export default class MyDocument extends Document {
 	render() {
 		let bodyClassName =
 			this.props.config && this.props.config.SLUG
-				? ` skill-${this.props.config.SLUG}`
-				: ''
+				? `skill skill-${this.props.config.SLUG}`
+				: 'skill'
 
 		return (
 			<html className={`skill${bodyClassName}`}>

@@ -210,7 +210,7 @@ export default class Table extends Component<Props, State> {
 				} else if (idx === 1) {
 					return {
 						...col,
-						Header: (
+						Header: () => (
 							<Fragment>
 								<p className="table-selected-text">{selectedText}</p>
 								{bulkActions && bulkActions.length > 0 && (
