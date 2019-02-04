@@ -970,7 +970,7 @@ class DragGrid extends PureComponent<Props, State> {
 			selectedEvent,
 			highlightedEvent,
 			timeFormat,
-			...props
+			style
 		} = this.props
 
 		const { dragEvent } = this.state
@@ -978,7 +978,7 @@ class DragGrid extends PureComponent<Props, State> {
 		return (
 			<div
 				ref={this.domNodeRef}
-				{...props}
+				style={style}
 				onScroll={this.handleScroll}
 				onMouseDown={this.handleMouseDownOnView}
 				onTouchStart={this.handleTouchStartOnView}
