@@ -874,6 +874,20 @@ const textBodyCardResponse: CardResponse = {
 	cardBuilder: textBodyCard
 }
 
+const congratsCardResponse: CardResponse = {
+	title: 'congratsCard',
+	comment: 'Congrats Card',
+	id: 'example:congratsCard',
+	roles: ['owner', 'groupManager', 'manager', 'teammate', 'guest'],
+	description: 'Test Card',
+	skillSlug: 'booking',
+	page: 'dashboard_location',
+	order: '0',
+	isTemporary: false,
+	canDismiss: true,
+	cardBuilder: congratsCard
+}
+
 const headerActionCardResponse: CardResponse = {
 	title: 'headerActionCard',
 	comment: 'Test Card',
@@ -954,6 +968,7 @@ const cardResponses: Array<CardResponse> = [
 	scoreCardResponse,
 	textBodyCardResponse,
 	headerActionCardResponse,
+	congratsCardResponse,
 	happyBirthdayCardResponse,
 	upcomingAppointmentCardResponse,
 	vfaCardResponse,
