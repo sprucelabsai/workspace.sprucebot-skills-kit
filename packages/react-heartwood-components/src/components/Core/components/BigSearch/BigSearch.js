@@ -18,9 +18,9 @@ import type { Props as ListItemProps } from '../../../List'
 
 // TODO: Hook up real search data
 import {
-	recentSearchResults,
-	suggestedSearchResults,
-	searchResults
+	mockRecentSearchResults,
+	mockSuggestedSearchResults,
+	mockSearchResults
 } from '../../../../../.storybook/data/searchData'
 
 type TabbedListProps = { text: string, items: Array<ListItemProps> }
@@ -32,14 +32,8 @@ type Props = {
 	/** The list of initial results to show when search is displayed. Can provide multiple lists. */
 	initialSearchResults?: Array<ListProps>,
 
-	/** Get search suggestions as search value changes. Can respond with multiple lists. */
-	getSearchSuggestions: (value: string) => Promise<Array<ListProps>>,
-
 	/** Debounce time in ms for getSearchSuggestions calls */
 	getSearchSuggestionsDebounce: number,
-
-	/** Handle search submit. Can respond with tabbed lists of results */
-	getSearchResults?: (value: string) => Promise<Array<TabbedListProps>>,
 
 	/** Handle added or updated user via quick add */
 	onUserAddedOrUpdated?: (user: Object) => void,
@@ -81,15 +75,58 @@ export default class BigSearch extends Component<Props, State> {
 	}
 
 	getSearchSuggestions = debounce(async (searchValue: string) => {
-		this.setState({ suggestedSearchResults: [], searchResults: [] })
-		try {
-			const suggestedSearchResults = await this.props.getSearchSuggestions(
-				searchValue
-			)
-			this.setState({ suggestedSearchResults: suggestedSearchResults })
-		} catch (err) {
-			// TODO: Track error here?
-		}
+		// TODO: Replace with real search
+		const mockRequest = ms => new Promise(resolve => setTimeout(resolve, ms))
+		return mockRequest(1000).then(() => {
+			// TODO: Map real data to search result items
+			// This is just looping through mock data that is already structured as search result items
+			// and dding button functionality
+			let searchSuggestions: Array<ListProps> = []
+
+			if (mockSuggestedSearchResults.internal) {
+				const internalResults = mockSuggestedSearchResults.internal.map(
+					result => {
+						return {
+							avatar: result.avatar,
+							title: result.name,
+							subtitle: result.description,
+							primaryAction: {
+								onClick: () => console.log('clicked internal result')
+							}
+						}
+						return result
+					}
+				)
+
+				searchSuggestions.push({
+					header: { title: 'Guests and Teammates' },
+					items: internalResults
+				})
+			}
+
+			if (mockSuggestedSearchResults.external) {
+				mockSuggestedSearchResults.external.forEach(mockResult => {
+					let externalResultsList = {
+						header: {
+							title: mockResult.heading
+						},
+						items: mockResult.users.map(user => {
+							return {
+								avatar: user.avatar,
+								title: user.name,
+								subtitle: user.description,
+								primaryAction: {
+									onClick: () => console.log('clicked!')
+								}
+							}
+						})
+					}
+					searchSuggestions.push(externalResultsList)
+				})
+			}
+			this.setState({ suggestedSearchResults: searchSuggestions })
+			return searchSuggestions
+		})
 	}, this.props.getSearchSuggestionsDebounce)
 
 	getSearchResults = async (searchValue: string) => {
@@ -99,30 +136,56 @@ export default class BigSearch extends Component<Props, State> {
 			// TODO: Map real data to search result items
 			// This is just looping through mock data that is already structured as search result items
 			// and dding button functionality
-			const searchResultsData = searchResults.map(result => {
-				if (result.text === 'Shopify Customers') {
-					result.items.map(item => {
-						item['actions'] = [
-							{
-								text: 'Import',
-								onClick: () => this.handleImportUser(item),
-								kind: 'secondary'
+			let searchResults: Array<ListProps> = []
+
+			if (mockSearchResults.internal) {
+				const internalResults = mockSearchResults.internal.map(result => {
+					return {
+						avatar: result.avatar,
+						title: result.name,
+						subtitle: result.description,
+						primaryAction: {
+							onClick: () => console.log('clicked internal result')
+						}
+					}
+					return result
+				})
+
+				searchResults.push({
+					text: 'Guests and Teammates',
+					items: internalResults
+				})
+			}
+
+			if (mockSearchResults.external) {
+				mockSearchResults.external.forEach(mockResult => {
+					let externalResultsList = {
+						text: mockResult.heading,
+						items: mockResult.users.map(user => {
+							return {
+								avatar: user.avatar,
+								title: user.name,
+								subtitle: user.description,
+								actions: [
+									{
+										text: 'Import',
+										kind: 'secondary',
+										onClick: () => console.log('clicked!')
+									}
+								]
 							}
-						]
-					})
-				} else {
-					result.items.map(
-						item =>
-							(item['primaryAction'] = {
-								onClick: () => console.log('clicked!')
-							})
-					)
-				}
-				return result
-			})
-			console.log('DATA', searchResultsData)
-			return searchResultsData
+						})
+					}
+					searchResults.push(externalResultsList)
+				})
+			}
+
+			return searchResults
 		})
+	}
+
+	handleClickImportUser = () => {
+		this.setState({ currentView: 'merge' })
 	}
 
 	handleClickQuickAdd = () => {
@@ -133,7 +196,7 @@ export default class BigSearch extends Component<Props, State> {
 		this.setState({ currentView: 'search' })
 	}
 
-	handleSearchValueChange = (e: any) => {
+	handleSearchValueChange = async (e: any) => {
 		const searchValue = e.target.value
 		this.setState({
 			searchValue,
@@ -195,7 +258,6 @@ export default class BigSearch extends Component<Props, State> {
 
 	renderTabbedSearchResults = (results: Array<TabbedListProps>) => {
 		const { activeSearchResultsTabIndex } = this.state
-		console.log(results)
 		if (results.length > 1) {
 			return (
 				<Tabs

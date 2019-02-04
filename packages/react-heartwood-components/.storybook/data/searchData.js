@@ -8,134 +8,166 @@ import user07image from '../../static/assets/users/user-07--96w.png'
 import user08image from '../../static/assets/users/user-08--96w.png'
 import user09image from '../../static/assets/users/user-09--96w.png'
 
-export const recentSearchResults = [
+export const mockRecentSearchResults = [
 	{
-		header: {
-			title: 'Recent Searches'
-		},
-		items: [
-			{
-				avatar: user01image,
-				title: 'Lacey Morissette'
-			},
-			{
-				avatar: user02image,
-				title: 'Jade Mohr',
-				subtitle: 'Stylist'
-			},
-			{
-				avatar: user03image,
-				title: 'Gianni Block',
-				subtitle: 'Guest'
-			}
-		]
+		avatar: user01image,
+		name: 'Lacey Morissette',
+		description: 'Guest'
+	},
+	{
+		avatar: user02image,
+		name: 'Jade Mohr',
+		description: 'Stylist'
+	},
+	{
+		avatar: user03image,
+		name: 'Gianni Block',
+		description: 'Guest'
 	}
 ]
 
-export const suggestedSearchResults = [
-	{
-		header: {
-			title: 'Guests/Teammates'
+export const mockSuggestedSearchResults = {
+	internal: [
+		{
+			avatar: user04image,
+			name: 'Vicenta Maggio-Suggest',
+			desription: 'Teammate'
 		},
-		items: [
-			{
-				avatar: user04image,
-				title: 'Vicenta Maggio'
-			},
-			{
-				avatar: user05image,
-				title: 'Vicenta Ramirez',
-				subtitle: 'Guest'
-			},
-			{
-				avatar: user06image,
-				title: 'Allison Vicenta',
-				subtitle: 'Manager'
-			}
-		]
-	},
-	{
-		header: {
-			title: 'Shopify Customers'
+		{
+			avatar: user05image,
+			name: 'Vicenta Ramirez',
+			description: 'Guest'
 		},
-		items: [
-			{
-				avatar: user04image,
-				title: 'Vicenta Maggio'
-			},
-			{
-				avatar: user05image,
-				title: 'Vicenta Ramirez',
-				subtitle: 'Guest'
-			},
-			{
-				avatar: user06image,
-				title: 'Allison Vicenta',
-				subtitle: 'Manager'
-			}
-		]
-	}
-]
+		{
+			avatar: user06image,
+			name: 'Allison Vicenta',
+			description: 'Manager'
+		}
+	],
+	external: [
+		{
+			heading: 'Shopify Customers',
+			skill: 'Shopify',
+			users: [
+				{
+					avatar: user04image,
+					name: 'Vicenta Maggio-Suggest',
+					description: 'Customer since 03/18'
+				},
+				{
+					avatar: user05image,
+					name: 'Vicenta Ramirez',
+					description: 'Customer since 07/14'
+				},
+				{
+					avatar: user06image,
+					name: 'Allison Vicenta',
+					description: 'Customer since 01/19'
+				}
+			]
+		}
+	]
+}
 
-export const searchResults = [
-	{
-		text: 'Guests',
-		items: [
-			{
-				avatar: user04image,
-				title: 'Vicenta Maggio',
-				subtitle: 'Guest'
-			},
-			{
-				avatar: user05image,
-				title: 'Vicenta Ramirez',
-				subtitle: 'Guest'
-			},
-			{
-				avatar: user06image,
-				title: 'Allison Vicenta',
-				subtitle: 'Guest'
-			}
-		]
-	},
-	{
-		text: 'Teammates',
-		items: [
-			{
-				avatar: user04image,
-				title: 'Vicenta Maggio',
-				subtitle: 'Stylist'
-			},
-			{
-				avatar: user05image,
-				title: 'Vicenta Ramirez',
-				subtitle: 'Manager'
-			},
-			{
-				avatar: user06image,
-				title: 'Allison Vicenta',
-				subtitle: 'Teammate'
-			}
-		]
-	},
-	{
-		text: 'Shopify Customers',
-		items: [
-			{
-				avatar: user04image,
-				title: 'Vicenta Maggio',
-				subtitle: 'Customer since 03/18'
-			},
-			{
-				avatar: user05image,
-				title: 'Vicenta Ramirez',
-				subtitle: 'Customer since 07/14'
-			},
-			{
-				avatar: user06image,
-				title: 'Allison Vicenta',
-				subtitle: 'Customer since 01/19'
-			}
-		]
-	}
-]
+export const mockSearchResults = {
+	internal: [
+		{
+			avatar: user04image,
+			name: 'Vicenta Maggio-Result',
+			desription: 'Teammate'
+		},
+		{
+			avatar: user05image,
+			name: 'Vicenta Ramirez',
+			description: 'Guest'
+		},
+		{
+			avatar: user06image,
+			name: 'Allison Vicenta',
+			description: 'Manager'
+		},
+		{
+			avatar: user04image,
+			name: 'Vicenta Maggio',
+			desription: 'Teammate'
+		},
+		{
+			avatar: user05image,
+			name: 'Vicenta Ramirez',
+			description: 'Guest'
+		},
+		{
+			avatar: user06image,
+			name: 'Allison Vicenta',
+			description: 'Manager'
+		},
+		{
+			avatar: user04image,
+			name: 'Vicenta Maggio',
+			desription: 'Teammate'
+		},
+		{
+			avatar: user05image,
+			name: 'Vicenta Ramirez',
+			description: 'Guest'
+		},
+		{
+			avatar: user06image,
+			name: 'Allison Vicenta',
+			description: 'Manager'
+		}
+	],
+	external: [
+		{
+			heading: 'Shopify Customers',
+			skill: 'Shopify',
+			users: [
+				{
+					avatar: user04image,
+					name: 'Vicenta Maggio-Result',
+					description: 'Customer since 03/18'
+				},
+				{
+					avatar: user05image,
+					name: 'Vicenta Ramirez',
+					description: 'Customer since 07/14'
+				},
+				{
+					avatar: user06image,
+					name: 'Allison Vicenta',
+					description: 'Customer since 01/19'
+				},
+				{
+					avatar: user04image,
+					name: 'Vicenta Maggio',
+					description: 'Customer since 03/18'
+				},
+				{
+					avatar: user05image,
+					name: 'Vicenta Ramirez',
+					description: 'Customer since 07/14'
+				},
+				{
+					avatar: user06image,
+					name: 'Allison Vicenta',
+					description: 'Customer since 01/19'
+				},
+				{
+					avatar: user04image,
+					name: 'Vicenta Maggio',
+					description: 'Customer since 03/18'
+				},
+				{
+					avatar: user05image,
+					name: 'Vicenta Ramirez',
+					description: 'Customer since 07/14'
+				},
+				{
+					avatar: user06image,
+					name: 'Allison Vicenta',
+					description: 'Customer since 01/19'
+				}
+			]
+		}
+	]
+}
