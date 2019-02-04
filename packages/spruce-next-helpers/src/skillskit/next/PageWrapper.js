@@ -270,12 +270,6 @@ const PageWrapper = Wrapped => {
 			// window listeners for reauth communication
 			window.addEventListener('message', this.handleIframeMessage)
 
-			// setup event listeners
-			skill.addEventListener(
-				'did-update-user',
-				this.props.actions.events.didUpdateUser
-			)
-
 			const bodyClassNames = [
 				`${
 					is.mobile() ? 'is_mobile' : is.tablet() ? 'is_tablet' : 'is_desktop'
@@ -292,12 +286,6 @@ const PageWrapper = Wrapped => {
 		componentWillUnmount() {
 			// remove all listeners
 			window.removeEventListener('message', this.handleIframeMessage)
-
-			// no more user updates
-			skill.removeEventListener(
-				'did-update-user',
-				this.props.actions.events.didUpdateUser
-			)
 
 			// remove route changes
 			Router &&
