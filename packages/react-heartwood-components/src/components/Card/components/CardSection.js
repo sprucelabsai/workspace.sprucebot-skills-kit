@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import type { Element, Node } from 'react'
+import type { Node } from 'react'
 
 // Card Section
 export type CardSectionProps = {

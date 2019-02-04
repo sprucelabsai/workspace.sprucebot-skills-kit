@@ -10,6 +10,7 @@ import type { Props as FooterProps } from './components/EventDetailsFooter/Event
 
 type Props = {
 	header: HeaderProps,
+	// eslint-disable-next-line flowtype/space-after-type-colon
 	kind:
 		| 'default'
 		| 'tentative'

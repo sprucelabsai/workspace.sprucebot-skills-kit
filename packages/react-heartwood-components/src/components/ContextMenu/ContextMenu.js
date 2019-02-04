@@ -6,7 +6,6 @@ import Button from '../Button/Button'
 import type { Props as ButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
-import Icon from '../Icon/Icon'
 import MoreIcon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
 
 export type Props = {
@@ -71,7 +70,7 @@ export default class ContextMenu extends Component<Props, State> {
 		document.removeEventListener('keyup', this.handleEscape, false)
 	}
 
-	handleClickOutside = (e: any) => {
+	handleClickOutside = () => {
 		this.setState(
 			{
 				isVisible: false
@@ -103,8 +102,8 @@ export default class ContextMenu extends Component<Props, State> {
 					this.props.onToggleContextMenuVisible(this.state.isVisible)
 				}
 
-				var overflowLeft = false
-				var overflowBottom = false
+				let overflowLeft = false
+				let overflowBottom = false
 
 				if (this.menuRef && this.menuRef.current) {
 					const overflowParent = this.findOverflowParent(this.menuRef.current)
