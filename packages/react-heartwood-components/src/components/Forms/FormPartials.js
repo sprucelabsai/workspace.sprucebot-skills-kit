@@ -1,7 +1,6 @@
 // @flow
 import React from 'react'
 import Button from '../../components/Button/Button'
-import DropdownArrow from '../../../static/assets/icons/ic_arrow_drop_down.svg'
 import Icon from '../../components/Icon/Icon'
 
 export type InputPreProps = {

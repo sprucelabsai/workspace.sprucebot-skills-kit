@@ -1,9 +1,9 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean } from '@storybook/addon-knobs/react'
+import { withKnobs } from '@storybook/addon-knobs/react'
 import Layout, { LayoutSection } from './index'
-import Card, { CardHeader, CardBody, CardSection } from '../Card'
+import Card, { CardHeader, CardBody } from '../Card'
 const stories = storiesOf('Layout', module)
 
 stories.addDecorator(withKnobs)

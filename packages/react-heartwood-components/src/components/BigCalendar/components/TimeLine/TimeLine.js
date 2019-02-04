@@ -1,7 +1,6 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import cx from 'classnames'
-import moment from 'moment-timezone'
 
 type Props = {}
 

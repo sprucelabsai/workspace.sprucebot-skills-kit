@@ -21,15 +21,9 @@ const ButtonGroup = (props: Props) => {
 	return (
 		<ul className={parentClass}>
 			{actions.map(action => {
-				const btnKindKey = {
-					default: action.kind,
-					segmented: 'secondary',
-					floating: 'simple'
-				}
 				return (
 					<li key={action.text} className="button-group__item">
 						<Button
-							kind={kind ? btnKindKey[kind] : ''}
 							isFullWidth={kind === 'floating'}
 							{...action}
 							kind={

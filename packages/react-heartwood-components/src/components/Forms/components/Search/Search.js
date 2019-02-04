@@ -37,7 +37,7 @@ export default class Search extends Component<Props, State> {
 	}
 
 	render() {
-		const { className, defaultValue, isSmall, ...rest } = this.props
+		const { className, isSmall, ...rest } = this.props
 		const { value } = this.state
 		return (
 			<div

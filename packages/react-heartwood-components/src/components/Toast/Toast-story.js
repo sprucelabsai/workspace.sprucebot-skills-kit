@@ -2,10 +2,8 @@
 import React, { Component } from 'react'
 import type { Node } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
-import Button from '../Button/Button'
+import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
-import Toast from './Toast'
 import ToastWrapper from './components/ToastWrapper/ToastWrapper'
 const stories = storiesOf('Toast', module)
 
@@ -26,7 +24,7 @@ class ToastExample extends Component<Props, State> {
 	}
 
 	addToast = (kind: 'neutral' | 'positive' | 'negative') => {
-		const { showFollowup, text, headline } = this.props
+		const { showFollowup } = this.props
 		const ids = {
 			neutral: '1',
 			positive: '2',
@@ -63,11 +61,10 @@ class ToastExample extends Component<Props, State> {
 		})
 	}
 
-	removeToast = (id: string) => {
+	// TODO: Hook up this functionality
+	removeToast = () => {
 		this.setState(prevState => {
 			const toasts = [...prevState.toasts]
-			const idx = toasts.findIndex(toast => toast.id === id)
-			const removedToast = toasts.splice(idx, 1)
 			return {
 				toasts
 			}
@@ -75,7 +72,6 @@ class ToastExample extends Component<Props, State> {
 	}
 
 	render() {
-		const { children } = this.props
 		const { toasts } = this.state
 		return (
 			<div>

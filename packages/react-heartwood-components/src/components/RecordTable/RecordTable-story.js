@@ -1,8 +1,7 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
-import RecordTable from './RecordTable'
+import { withKnobs } from '@storybook/addon-knobs/react'
 
 const stories = storiesOf('RecordTable', module)
 

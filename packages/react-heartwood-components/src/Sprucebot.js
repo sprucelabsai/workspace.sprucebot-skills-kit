@@ -26,7 +26,7 @@ import {
 	Toggle
 } from './components/Forms'
 import Icon from './components/Icon/Icon'
-import { H1, H2, H3, H4, Text, Span, Anchor } from './components/Text/Text'
+import { H1, H2, H3, H4, Text, Span } from './components/Text/Text'
 import Image from './components/Image/Image'
 import List, { ListHeader, ListItem, SortableList } from './components/List'
 import Loader from './components/Loader/Loader'

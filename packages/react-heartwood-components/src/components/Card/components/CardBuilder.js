@@ -1,10 +1,7 @@
 // @flow
 // NOTE: Cards should be built in a way that they can be created with JSON
-import React, { Fragment } from 'react'
-import type { Element, Node } from 'react'
+import React from 'react'
 import { pick } from 'lodash'
-
-import cx from 'classnames'
 
 import Card from '../Card'
 import CardHeader from './CardHeader'
@@ -22,10 +19,9 @@ import OnboardingCard from './OnboardingCard'
 import ButtonGroup from '../../ButtonGroup/ButtonGroup'
 
 import type { Props as ButtonProps } from '../../Button/Button'
-import type { Props as ContextMenuProps } from '../../ContextMenu/ContextMenu'
 import type { CardHeaderProps } from './CardHeader'
 import type { CardBodyProps } from './CardBody'
-import type { Step, Props as OnboardingProps } from './OnboardingCard'
+import type { Props as OnboardingProps } from './OnboardingCard'
 
 export type CardBuilderProps = {
 	/** Card Header props */
