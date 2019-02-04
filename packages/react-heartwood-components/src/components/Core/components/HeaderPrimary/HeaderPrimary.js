@@ -6,7 +6,6 @@ import Hamburger from './components/Hamburger/Hamburger'
 import DefaultLockup from './components/DefaultLockup/DefaultLockup'
 import UserMenu from './components/UserMenu/UserMenu'
 import LocationMenu from './components/LocationMenu/LocationMenu'
-import { Autosuggest } from '../../../Forms'
 import Button from '../../../Button/Button'
 import cx from 'classnames'
 
@@ -174,7 +173,6 @@ export default class HeaderPrimary extends Component<Props, State> {
 			isSidebarVisible,
 			enableHamburgerMenu,
 			searchPlaceholder,
-			onClickSearch,
 			isLocationManagmentButtonVisible,
 			isSkillManagementButtonVisible,
 			skillsHref,
