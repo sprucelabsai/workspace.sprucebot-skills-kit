@@ -1,4 +1,3 @@
-const config = require('config')
 const { eventError } = require('../lib/errorHandler')
 
 module.exports = async (ctx, next) => {
@@ -9,7 +8,7 @@ module.exports = async (ctx, next) => {
 		// 	// auth: { User, Location, Organization },
 		// 	// event
 		// } = ctx
-		const page = event.payload.page ? event.payload.page : null
+		// const page = event.payload.page ? event.payload.page : null
 
 		// const locationId = event.payload.locationId
 		// 	? event.payload.locationId
@@ -20,7 +19,7 @@ module.exports = async (ctx, next) => {
 
 		// const cardIds = event.payload.cardIds ? event.payload.cardIds : null
 
-		let pageCards = ctx.services.cards.getDummyCards[page]
+		// let pageCards = ctx.services.cards.getDummyCards[page]
 		// if (!pageCards || !Array.isArray(pageCards)) {
 		// 	pageCards = []
 		// }
