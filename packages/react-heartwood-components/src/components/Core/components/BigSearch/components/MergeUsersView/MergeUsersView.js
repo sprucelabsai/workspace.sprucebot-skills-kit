@@ -3,11 +3,15 @@ import React, { PureComponent, Fragment } from 'react'
 import cx from 'classnames'
 import { Formik, Form } from 'formik'
 
+import List from '../../../../../List'
+
 import BigSearchHeader from '../BigSearchHeader/BigSearchheader'
+import BigSearchBody from '../BigSearchBody/BigSearchBody'
 import BigSearchFooter from '../BigSearchFooter/BigSearchFooter'
 
 import Avatar from '../../../../../Avatar/Avatar'
 import Text from '../../../../../Text/Text'
+
 import {
 	TextInput,
 	FormLayout,
@@ -18,12 +22,23 @@ import {
 type User = {
 	id: string,
 	phoneNumber: string,
-	image?: string,
-	firstName?: string,
-	lastName?: string
+	avatar?: string,
+	name?: string
 }
 
 type Props = {
+	/** imported user to merge */
+	importedUser: User,
+
+	/** internal user to merge with */
+	internalUser: User,
+
+	/** imported user title */
+	importedUserTitle?: string,
+
+	/** pass through handle confirm merge */
+	onClickConfirmMerge: () => void,
+
 	/** pass through handle back button click */
 	onClickBack: () => void,
 
@@ -38,6 +53,10 @@ export default class QuickAddUserView extends PureComponent<Props, State> {
 
 	state = {}
 
+	static defaultProps = {
+		importedUserTitle: 'Imported User'
+	}
+
 	handleValidation = async (values: Object) => {
 		const errors = {}
 
@@ -49,7 +68,14 @@ export default class QuickAddUserView extends PureComponent<Props, State> {
 	}
 
 	render() {
-		const { onClickBack, onClickClose } = this.props
+		const {
+			importedUser,
+			internalUser,
+			importedUserTitle,
+			onClickConfirmMerge,
+			onClickBack,
+			onClickClose
+		} = this.props
 
 		return (
 			<Fragment>
@@ -58,11 +84,33 @@ export default class QuickAddUserView extends PureComponent<Props, State> {
 					onClickClose={onClickClose}
 					title="Merge users?"
 				/>
-				<BigSearchBody>
+				<BigSearchBody className={'big-search__merge-users-view'}>
 					<Text>
 						It looks like a user with that phone number already exists. Would
 						you like to merge these users?
 					</Text>
+					<List
+						isSmall
+						header={{ title: importedUserTitle }}
+						items={[
+							{
+								avatar: importedUser.avatar || '',
+								title: importedUser.name || '',
+								description: importedUser.description || ''
+							}
+						]}
+					/>
+					<List
+						isSmall
+						header={{ title: 'Internal User' }}
+						items={[
+							{
+								avatar: importedUser.avatar || '',
+								title: importedUser.name || '',
+								description: importedUser.description || ''
+							}
+						]}
+					/>
 				</BigSearchBody>
 				<BigSearchFooter
 					primaryAction={{
@@ -70,7 +118,13 @@ export default class QuickAddUserView extends PureComponent<Props, State> {
 						type: 'submit',
 						disabled: false,
 						isLoading: false,
-						onClick: () => console.log('submit')
+						onClick: onClickConfirmMerge
+					}}
+					secondaryAction={{
+						text: 'Cancel',
+						disabled: false,
+						isLoading: false,
+						onClick: onClickBack
 					}}
 				/>
 			</Fragment>

@@ -63,7 +63,8 @@ const ListItem = (props: Props) => {
 
 	const parentClass = cx('list-item', {
 		'list-item-title-only': !subtitle,
-		'list-item--is-draggable': isDraggable
+		'list-item--is-draggable': isDraggable,
+		'list-item--primary-action': primaryAction
 	})
 
 	const ListItemInner = () => (

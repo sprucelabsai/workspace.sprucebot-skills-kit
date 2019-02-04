@@ -10,16 +10,19 @@ import user09image from '../../static/assets/users/user-09--96w.png'
 
 export const mockRecentSearchResults = [
 	{
+		id: '123',
 		avatar: user01image,
 		name: 'Lacey Morissette',
 		description: 'Guest'
 	},
 	{
+		id: '123',
 		avatar: user02image,
 		name: 'Jade Mohr',
 		description: 'Stylist'
 	},
 	{
+		id: '123',
 		avatar: user03image,
 		name: 'Gianni Block',
 		description: 'Guest'
@@ -29,16 +32,19 @@ export const mockRecentSearchResults = [
 export const mockSuggestedSearchResults = {
 	internal: [
 		{
+			id: '123',
 			avatar: user04image,
-			name: 'Vicenta Maggio-Suggest',
+			name: 'Vicenta Maggio',
 			desription: 'Teammate'
 		},
 		{
+			id: '123',
 			avatar: user05image,
 			name: 'Vicenta Ramirez',
 			description: 'Guest'
 		},
 		{
+			id: '123',
 			avatar: user06image,
 			name: 'Allison Vicenta',
 			description: 'Manager'
@@ -51,7 +57,7 @@ export const mockSuggestedSearchResults = {
 			users: [
 				{
 					avatar: user04image,
-					name: 'Vicenta Maggio-Suggest',
+					name: 'Vicenta Maggio',
 					description: 'Customer since 03/18'
 				},
 				{
@@ -72,46 +78,55 @@ export const mockSuggestedSearchResults = {
 export const mockSearchResults = {
 	internal: [
 		{
+			id: '123',
 			avatar: user04image,
 			name: 'Vicenta Maggio-Result',
 			desription: 'Teammate'
 		},
 		{
+			id: '123',
 			avatar: user05image,
 			name: 'Vicenta Ramirez',
 			description: 'Guest'
 		},
 		{
+			id: '123',
 			avatar: user06image,
 			name: 'Allison Vicenta',
 			description: 'Manager'
 		},
 		{
+			id: '123',
 			avatar: user04image,
 			name: 'Vicenta Maggio',
 			desription: 'Teammate'
 		},
 		{
+			id: '123',
 			avatar: user05image,
 			name: 'Vicenta Ramirez',
 			description: 'Guest'
 		},
 		{
+			id: '123',
 			avatar: user06image,
 			name: 'Allison Vicenta',
 			description: 'Manager'
 		},
 		{
+			id: '123',
 			avatar: user04image,
 			name: 'Vicenta Maggio',
 			desription: 'Teammate'
 		},
 		{
+			id: '123',
 			avatar: user05image,
 			name: 'Vicenta Ramirez',
 			description: 'Guest'
 		},
 		{
+			id: '123',
 			avatar: user06image,
 			name: 'Allison Vicenta',
 			description: 'Manager'

@@ -216,9 +216,9 @@
 }
 
 .big-search__search-results-list {
-	.list-item {
+	.list-item.list-item--primary-action {
 		&:hover {
-			.btn {
+			> .btn {
 				background-color: $c-primary;
 				p {
 					color: $c-white;
@@ -241,6 +241,14 @@
 		.big-search__quick-add-last-name {
 			display: block;
 		}
+	}
+}
+
+.big-search__merge-users-view {
+	padding: spacing('base');
+
+	.text {
+		margin: spacing('base') 0;
 	}
 }
 

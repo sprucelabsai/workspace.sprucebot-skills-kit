@@ -10,6 +10,7 @@ import Tabs from '../../../Tabs/Tabs'
 import { InputInner } from '../../../Forms/FormPartials'
 import Button from '../../../Button/Button'
 import QuickAddUserView from './components/QuickAddUserView/QuickAddUserView'
+import MergeUsersView from './components/MergeUsersView/MergeUsersView'
 import BigSearchBody from './components/BigSearchBody/BigSearchBody'
 
 import type { Props as TabProps } from '../../../Tabs/Tabs'
@@ -49,6 +50,8 @@ type State = {
 	activeSearchResultsTabIndex: number,
 	suggestedSearchResults: Array<ListProps>,
 	searchResults: Array<TabbedListProps>,
+	mergeInternalUser: Object,
+	mergeImportedUser: Object,
 	currentView: 'search' | 'quick-add' | 'merge'
 }
 
@@ -77,7 +80,7 @@ export default class BigSearch extends Component<Props, State> {
 	getSearchSuggestions = debounce(async (searchValue: string) => {
 		// TODO: Replace with real search
 		const mockRequest = ms => new Promise(resolve => setTimeout(resolve, ms))
-		return mockRequest(1000).then(() => {
+		return mockRequest(500).then(() => {
 			// TODO: Map real data to search result items
 			// This is just looping through mock data that is already structured as search result items
 			// and dding button functionality
@@ -115,9 +118,13 @@ export default class BigSearch extends Component<Props, State> {
 								avatar: user.avatar,
 								title: user.name,
 								subtitle: user.description,
-								primaryAction: {
-									onClick: () => console.log('clicked!')
-								}
+								actions: [
+									{
+										text: 'Import',
+										kind: 'secondary',
+										onClick: () => this.handleImportUser(user)
+									}
+								]
 							}
 						})
 					}
@@ -132,7 +139,7 @@ export default class BigSearch extends Component<Props, State> {
 	getSearchResults = async (searchValue: string) => {
 		// TODO: Replace with real search
 		const mockRequest = ms => new Promise(resolve => setTimeout(resolve, ms))
-		return mockRequest(1000).then(() => {
+		return mockRequest(500).then(() => {
 			// TODO: Map real data to search result items
 			// This is just looping through mock data that is already structured as search result items
 			// and dding button functionality
@@ -170,7 +177,7 @@ export default class BigSearch extends Component<Props, State> {
 									{
 										text: 'Import',
 										kind: 'secondary',
-										onClick: () => console.log('clicked!')
+										onClick: () => this.handleImportUser(user.id)
 									}
 								]
 							}
@@ -184,15 +191,24 @@ export default class BigSearch extends Component<Props, State> {
 		})
 	}
 
-	handleClickImportUser = () => {
-		this.setState({ currentView: 'merge' })
+	confirmMerge = (internalUser: Ojbect, importedUser: Object) => {
+		this.setState({
+			currentView: 'merge',
+			mergeInternalUser: internalUser,
+			mergeImportedUser: importedUser
+		})
+	}
+
+	handleClickConfirmMerge = (internalUser: Object, importedUser: Object) => {
+		// TODO: Merge user for real
+		console.log('MERGE USERS')
 	}
 
 	handleClickQuickAdd = () => {
 		this.setState({ currentView: 'quick-add' })
 	}
 
-	handleClickQuckAddBack = () => {
+	handleClickViewBack = () => {
 		this.setState({ currentView: 'search' })
 	}
 
@@ -217,7 +233,14 @@ export default class BigSearch extends Component<Props, State> {
 	}
 
 	handleImportUser = async (user: Object) => {
-		console.log('import user', user)
+		// TODO: Replace with real import/merge
+		const mockRequest = ms => new Promise(resolve => setTimeout(resolve, ms))
+		return mockRequest(500).then(() => {
+			let internalUser = user
+			internalUser.id = '123'
+
+			this.confirmMerge(internalUser, user)
+		})
 	}
 
 	handleClearSearchValue = () => {
@@ -344,6 +367,8 @@ export default class BigSearch extends Component<Props, State> {
 			isAddButtonVisible,
 			searchValue,
 			searchContextBarIsHighlighted,
+			mergeImportedUser,
+			mergeInternalUser,
 			currentView
 		} = this.state
 
@@ -401,10 +426,27 @@ export default class BigSearch extends Component<Props, State> {
 						{currentView === 'quick-add' && (
 							<QuickAddUserView
 								onUserAddedOrUpdated={onUserAddedOrUpdated}
-								onClickBack={this.handleClickQuckAddBack}
+								onClickBack={this.handleClickViewBack}
 								onClickClose={this.handleClickCloseSearch}
 							/>
 						)}
+						{currentView === 'merge' &&
+							mergeImportedUser &&
+							mergeInternalUser && (
+								<MergeUsersView
+									importedUser={mergeImportedUser}
+									internalUser={mergeInternalUser}
+									importedUserTitle={'Shopify User'}
+									onClickConfirmMerge={() =>
+										this.handleClickConfirmMerge(
+											mergeInternalUser,
+											mergeImportedUser
+										)
+									}
+									onClickBack={this.handleClickViewBack}
+									onClickClose={this.handleClickCloseSearch}
+								/>
+							)}
 					</div>
 				</div>
 			</CSSTransition>
