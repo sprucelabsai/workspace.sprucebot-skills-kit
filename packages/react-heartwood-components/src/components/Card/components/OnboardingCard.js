@@ -65,7 +65,7 @@ export default class OnboardingCard extends Component<Props, State> {
 
 	render() {
 		const { currentStep } = this.state
-		const { title, steps, className } = this.props
+		const { title, steps } = this.props
 		const tabs = steps.map((step, idx) => ({
 			text: step.tabTitle,
 			icon: step.tabIcon,

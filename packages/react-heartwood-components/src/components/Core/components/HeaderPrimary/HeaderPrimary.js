@@ -8,9 +8,6 @@ import UserMenu from './components/UserMenu/UserMenu'
 import LocationMenu from './components/LocationMenu/LocationMenu'
 import { Autosuggest } from '../../../Forms'
 import Button from '../../../Button/Button'
-import Card from '../../../Card'
-import List from '../../../List'
-import BigSearch from '../BigSearch/BigSearch'
 import cx from 'classnames'
 
 type State = {
@@ -154,7 +151,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 					<div className="header-primary__organization">
 						{organization.image && (
 							<div
-								class="header-primary__organization-image"
+								className="header-primary__organization-image"
 								style={{ backgroundImage: `url(${organization.image})` }}
 							/>
 						)}
@@ -168,11 +165,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 	}
 
 	render() {
-		const {
-			isMenuExpanded,
-			isUserMenuVisible,
-			isLocationMenuVisible
-		} = this.state
+		const { isUserMenuVisible, isLocationMenuVisible } = this.state
 
 		const {
 			user,

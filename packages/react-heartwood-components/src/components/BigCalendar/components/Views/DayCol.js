@@ -20,7 +20,7 @@ type Props = {
 export default class DayCol extends Component<Props> {
 	domNodeRef: { current: null | ElementRef<'div'> }
 
-	handleHover = ({ x, y }: { x: number, y: number }) => {}
+	handleHover = (/* { x, y }: { x: number, y: number } */) => {}
 
 	render() {
 		const {

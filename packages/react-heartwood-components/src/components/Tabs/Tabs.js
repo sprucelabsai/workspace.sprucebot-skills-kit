@@ -6,7 +6,6 @@ import cx from 'classnames'
 import Tab from './components/Tab/Tab'
 import type { Props as TabProps } from './components/Tab/Tab'
 import ContextMenu from '../ContextMenu/ContextMenu'
-import Button from '../Button/Button'
 
 export type Props = {
 	/** The tabs for this group */
