@@ -9,8 +9,7 @@ module.exports = async (ctx, next) => {
 		// 	// auth: { User, Location, Organization },
 		// 	// event
 		// } = ctx
-		// const page = event.payload.page ? event.payload.page : null
-		const cards = config.cards.dashboard_user
+		const page = event.payload.page ? event.payload.page : null
 
 		// const locationId = event.payload.locationId
 		// 	? event.payload.locationId
@@ -21,7 +20,7 @@ module.exports = async (ctx, next) => {
 
 		// const cardIds = event.payload.cardIds ? event.payload.cardIds : null
 
-		// let pageCards = config.cards[page]
+		let pageCards = ctx.services.cards.getDummyCards[page]
 		// if (!pageCards || !Array.isArray(pageCards)) {
 		// 	pageCards = []
 		// }
@@ -38,7 +37,7 @@ module.exports = async (ctx, next) => {
 		// 	return card
 		// })
 
-		ctx.body = cards
+		ctx.body = []
 		await next()
 	} catch (e) {
 		eventError({
