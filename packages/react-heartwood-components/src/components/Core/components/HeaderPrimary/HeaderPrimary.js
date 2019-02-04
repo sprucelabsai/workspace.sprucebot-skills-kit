@@ -13,8 +13,7 @@ import cx from 'classnames'
 type State = {
 	isMenuExpanded: boolean,
 	isUserMenuVisible: boolean,
-	isLocationMenuVisible: boolean,
-	isBigSearchVisible: boolean
+	isLocationMenuVisible: boolean
 }
 type Props = {
 	/** The logged-in user */
