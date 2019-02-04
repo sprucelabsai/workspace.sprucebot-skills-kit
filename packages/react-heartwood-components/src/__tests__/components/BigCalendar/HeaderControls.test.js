@@ -1,6 +1,5 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import moment from 'moment'
 
 import HeaderControls from '../../../components/BigCalendar/components/HeaderControls/HeaderControls'
 
@@ -9,7 +8,6 @@ describe('HeaderControl tests', () => {
 	let pagination
 	let selectedDateButton
 	let calendarIconButton
-	let viewSelect
 
 	beforeEach(() => {
 		renderedComponent = shallow(
@@ -27,7 +25,6 @@ describe('HeaderControl tests', () => {
 		calendarIconButton = renderedComponent.find(
 			'.bigcalendar__calendarIcon-button'
 		)
-		viewSelect = renderedComponent.find('Select')
 	})
 
 	it('Renders', () => {

@@ -5,14 +5,11 @@ import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
 	withKnobsOptions,
-	text,
-	boolean,
 	object
 } from '@storybook/addon-knobs/react'
 import Message, { MessageBuilder } from './index'
 import Page, { PageContent } from '../Page'
 import Layout, { LayoutSection } from '../Layout'
-import Text from '../Text/Text'
 
 const messageJSON = {
 	fromName: 'Sprucebot',
@@ -106,7 +103,7 @@ stories.addDecorator(story => (
 stories.addDecorator(withKnobs)
 
 stories
-	.add('Message', () => <Message>It's lonely over here.</Message>)
+	.add('Message', () => <Message>It is lonely over here.</Message>)
 	.add('MessageBuilder', () => [
-		<MessageBuilder {...object('json', messageJSON)} />
+		<MessageBuilder key="foo" {...object('json', messageJSON)} />
 	])

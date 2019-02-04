@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../.storybook/StylesProvider'
 import user01image from '../../../static/assets/users/user-01--96w.png'
 import { Sidebar, SidebarSection } from '../Core'
@@ -10,20 +10,12 @@ import Button from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import Page from '../Page/Page'
-import PageHeader from '../Page/components/PageHeader/PageHeader'
-import PageContent from '../Page/components/PageContent/PageContent'
-import Layout, { LayoutSection } from '../../components/Layout'
-import TextContainer from '../TextContainer/TextContainer'
-import Text from '../Text/Text'
 import TextStyle from '../TextStyle/TextStyle'
 import Heading from '../Heading/Heading'
-import Subheading from '../Subheading/Subheading'
-import Icon from '../Icon/Icon'
 import Avatar from '../Avatar/Avatar'
 import SaveBar from '../Core/components/SaveBar/SaveBar'
 
 import View from './View.js'
-import simple from 'graphql-query-complexity/dist/estimators/simple'
 
 const ProvideStyles = storyFn => <StylesProvider>{storyFn()}</StylesProvider>
 
