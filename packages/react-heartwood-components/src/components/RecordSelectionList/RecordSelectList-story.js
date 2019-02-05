@@ -12,7 +12,50 @@ const stories = storiesOf('RecordSelectionList', module)
 
 stories.addDecorator(withKnobs)
 
-const locations = generateLocations({ amount: 1000 })
+const locations = generateLocations({
+	amount: number('totalRecordCount', 100)
+})
+
+stories.add('Default, async record loading', () => (
+	<RecordSelectionList
+		isModal={boolean('isModal', false)}
+		recordTypeName={text('recordTypeName', 'locations')}
+		selectedIds={locations.map(loc => loc.id)}
+		loadRecords={async ({ limit, offset }) => {
+			// Artificial API wait time
+			await new Promise(resolve =>
+				setTimeout(() => {
+					resolve()
+				}, Math.random() * 2000)
+			)
+
+			return locations.slice(offset, offset + limit)
+		}}
+		recordItemProps={record => ({
+			id: record.id,
+			key: record.id,
+			title: record.publicName,
+			subtitle: record.address,
+			icon: { name: 'location', isLineIcon: true }
+		})}
+	/>
+))
+
+stories.add('Default, static record list', () => (
+	<RecordSelectionList
+		isModal={boolean('isModal', false)}
+		recordTypeName={text('recordTypeName', 'locations')}
+		selectedIds={locations.map(loc => loc.id)}
+		records={locations}
+		recordItemProps={record => ({
+			id: record.id,
+			key: record.id,
+			title: record.publicName,
+			subtitle: record.address,
+			icon: { name: 'location', isLineIcon: true }
+		})}
+	/>
+))
 
 class WithModalExample extends Component<Props, State> {
 	state = {
@@ -36,12 +79,10 @@ class WithModalExample extends Component<Props, State> {
 					onRequestClose={this.toggleModal}
 				>
 					<RecordSelectionList
-						isSmall={boolean('isSmall', true)}
 						isModal={boolean('isModal', true)}
 						recordTypeName={text('recordTypeName', 'locations')}
-						totalRecordCount={number('totalRecordCount', 120)}
 						selectedIds={locations.map(loc => loc.id)}
-						loadData={() => generateLocations({ amount: 20 })}
+						loadRecords={() => generateLocations({ amount: 20 })}
 						onCancel={this.toggleModal}
 						onSelectAll={() => alert('all locations selected!')}
 						recordItemProps={record => ({
@@ -57,24 +98,5 @@ class WithModalExample extends Component<Props, State> {
 		)
 	}
 }
-
-stories.add('Default', () => (
-	<RecordSelectionList
-		isSmall={boolean('isSmall', true)}
-		isModal={boolean('isModal', false)}
-		recordTypeName={text('recordTypeName', 'locations')}
-		totalRecordCount={number('totalRecordCount', 100)}
-		selectedIds={locations.map(loc => loc.id)}
-		onSelectAll={() => alert('all locations selected!')}
-		loadData={() => locations}
-		recordItemProps={record => ({
-			id: record.id,
-			key: record.id,
-			title: record.publicName,
-			subtitle: record.address,
-			icon: { name: 'location', isLineIcon: true }
-		})}
-	/>
-))
 
 stories.add('In modal', () => <WithModalExample />)

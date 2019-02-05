@@ -16,21 +16,24 @@ import Modal from '../Modal/Modal'
 import Heading from '../Heading/Heading'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
-import Button from '../Button/Button'
 
 type Props = {
-	selectedIds: Array<string>,
+	/** Static list of records */
+	records: Array<any>,
 
-	loadData: (Array<string>) => Promise<Array<Object>>,
+	/** Load records asyncronously */
+	loadRecords: (
+		Array<{ limit: number, offset: number, filter: string }>
+	) => Promise<Array<Object>>,
+
+	/** IDs in this record list which have been selected */
+	selectedIds: Array<string>,
 
 	/** Called when Cancel button is clicked or modal is closed */
 	onCancel: () => void,
 
 	/** Called when Update Selection button is clicked */
 	onUpdate: (Array<string>) => void,
-
-	/** Called when Select All button is clicked */
-	onSelectAll: Function,
 
 	/** Total number of records available to be selected */
 	totalRecordCount: number,
@@ -53,17 +56,32 @@ export default class RecordSelectionList extends Component<Props, State> {
 
 	constructor(props) {
 		super(props)
+
+		if (props.records && props.loadedRecords) {
+			throw new Error(
+				'RecordSelectionList: You provided `records` and `loadRecords` but I only want one.`'
+			)
+		}
+
 		this.state = {
-			loadedRecords: [],
-			selectedIds: []
+			loadedRecords: props.records || [],
+			selectedIds: props.selectedIds
 		}
 	}
 
-	componentDidMount() {
-		this.setState({
-			loadedRecords: this.props.loadData(),
-			selectedIds: this.props.selectedIds
-		})
+	async componentDidMount() {
+		const { loadRecords } = this.props
+
+		if (loadRecords) {
+			const initialRecords = await loadRecords({
+				offset: 0,
+				limit: 10
+			})
+
+			this.setState({
+				loadedRecords: initialRecords
+			})
+		}
 	}
 
 	renderRow = ({ index, key, parent, style }) => {
@@ -98,25 +116,35 @@ export default class RecordSelectionList extends Component<Props, State> {
 		)
 	}
 
-	renderList = () => {
-		const { selectedIds } = this.state
-		const { loadData } = this.props
+	handleInfiniteLoad = async () => {
+		const { loadRecords } = this.props
+		const { loadedRecords, isLoading } = this.state
 
-		const isRowLoaded = ({ index }) => {
-			return !!selectedIds[index]
+		if (isLoading || !loadRecords) {
+			return
 		}
 
-		const loadMoreRows = async () => {
-			// Do API Stuff™
+		this.setState({ isLoading: true })
 
-			if (loadData) {
-				loadData()
-				// this.cache.clearAll()
-				// this.list.recomputeRowHeights(0)
-				// this.list.forceUpdateGrid()
-			}
+		const newRows = await loadRecords({
+			offset: loadedRecords.length,
+			limit: 10
+		})
 
-			return true
+		this.setState({
+			isLoading: false,
+			loadedRecords: [...loadedRecords, ...newRows]
+		})
+
+		return true
+	}
+
+	renderList = () => {
+		const { totalRecordCount } = this.props
+		const { selectedIds, loadedRecords } = this.state
+
+		const isRowLoaded = ({ index }) => {
+			return loadedRecords.find(record => record.id === selectedIds[index])
 		}
 
 		const onResize = () => {
@@ -133,8 +161,16 @@ export default class RecordSelectionList extends Component<Props, State> {
 					{({ height, width }) => (
 						<InfiniteLoader
 							isRowLoaded={isRowLoaded}
-							loadMoreRows={loadMoreRows}
-							rowCount={selectedIds.length}
+							loadMoreRows={() => {
+								this.handleInfiniteLoad()
+							}}
+							// If we can know the total record count, we can stop the loader
+							// from attempting to load more when nothing's there. Passing
+							// Infinity just tells it to keep trying.
+							// TODO: We could fix the record count in state if `handleInfiniteLoad`
+							// ever returns 0 results, but that might get complex with
+							// filtering, or other states this form could hit.
+							rowCount={totalRecordCount || Infinity}
 						>
 							{({ onRowsRendered, registerChild }) => (
 								<List
@@ -146,7 +182,7 @@ export default class RecordSelectionList extends Component<Props, State> {
 									deferredMeasurementCache={this.cache}
 									height={height}
 									width={width}
-									rowCount={selectedIds.length}
+									rowCount={loadedRecords.length}
 									rowHeight={this.cache.rowHeight}
 									rowRenderer={this.renderRow}
 									onRowsRendered={onRowsRendered}
@@ -178,15 +214,8 @@ export default class RecordSelectionList extends Component<Props, State> {
 	}
 
 	render() {
-		const {
-			isModal,
-			onCancel,
-			onUpdate,
-			onSelectAll,
-			recordTypeName,
-			totalRecordCount
-		} = this.props
-		const { selectedIds, loadedRecords } = this.state
+		const { isModal, onCancel, onUpdate, recordTypeName } = this.props
+		const { selectedIds } = this.state
 
 		const totalSelected = selectedIds.length
 
@@ -196,24 +225,9 @@ export default class RecordSelectionList extends Component<Props, State> {
 			<Fragment>
 				<TextContainer>
 					<Text>{`${totalSelected} ${recordTypeName} are selected`}</Text>
-					<Button
-						kind={'simple'}
-						text={`Select all ${totalRecordCount} ${recordTypeName}`}
-						onClick={onSelectAll}
-					/>
 				</TextContainer>
-				{this.renderList({
-					list: loadedRecords,
-					loadNextPage: this.props.loadData
-				})}
-				{/* <List {...rest}>
-					{loadedRecords.map(r => (
-						<RecordSelectionListItem
-							onRemoveSelection={this.handleRemoveSelection}
-							{...this.props.recordItemProps(r)}
-						/>
-					))}
-				</List> */}
+
+				{this.renderList()}
 			</Fragment>
 		)
 
