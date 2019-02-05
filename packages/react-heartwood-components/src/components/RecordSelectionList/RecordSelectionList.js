@@ -103,17 +103,17 @@ export default class RecordSelectionList extends Component<Props, State> {
 		const { loadData } = this.props
 
 		const isRowLoaded = ({ index }) => {
-			return index > 0
+			return !!selectedIds[index]
 		}
 
-		const loadMoreRows = async (/* { startIndex, stopIndex } */) => {
+		const loadMoreRows = async () => {
 			// Do API Stuff™
 
-			if (this.list) {
+			if (loadData) {
 				loadData()
-				this.cache.clearAll()
-				this.list.recomputeRowHeights(0)
-				this.list.forceUpdateGrid()
+				// this.cache.clearAll()
+				// this.list.recomputeRowHeights(0)
+				// this.list.forceUpdateGrid()
 			}
 
 			return true
@@ -129,38 +129,32 @@ export default class RecordSelectionList extends Component<Props, State> {
 
 		return (
 			<div className="record-selection__list-wrapper">
-				<InfiniteLoader
-					ref={ref => (this.infiniteLoader = ref)}
-					isRowLoaded={isRowLoaded}
-					loadMoreRows={loadMoreRows}
-					rowCount={selectedIds.length}
-					threshold={1}
-				>
-					{({ onRowsRendered, registerChild }) => (
-						<AutoSizer
-							className="record-selection__autosizer"
-							onResize={onResize}
+				<AutoSizer onResize={onResize}>
+					{({ height, width }) => (
+						<InfiniteLoader
+							isRowLoaded={isRowLoaded}
+							loadMoreRows={loadMoreRows}
+							rowCount={selectedIds.length}
 						>
-							{({ height, width }) => (
-								<div ref={registerChild}>
-									<List
-										ref={ref => (this.list = ref)}
-										className="record-selection__virtual-list"
-										deferredMeasurementCache={this.cache}
-										height={height}
-										width={width}
-										rowCount={selectedIds.length}
-										rowHeight={this.cache.rowHeight}
-										rowRenderer={this.renderRow}
-										scrollToIndex={0}
-										scrollToAlignment="end"
-										onRowsRendered={onRowsRendered}
-									/>
-								</div>
+							{({ onRowsRendered, registerChild }) => (
+								<List
+									ref={ref => {
+										this.list = ref
+										registerChild(ref)
+									}}
+									className="record-selection__virtual-list"
+									deferredMeasurementCache={this.cache}
+									height={height}
+									width={width}
+									rowCount={selectedIds.length}
+									rowHeight={this.cache.rowHeight}
+									rowRenderer={this.renderRow}
+									onRowsRendered={onRowsRendered}
+								/>
 							)}
-						</AutoSizer>
+						</InfiniteLoader>
 					)}
-				</InfiniteLoader>
+				</AutoSizer>
 			</div>
 		)
 	}
