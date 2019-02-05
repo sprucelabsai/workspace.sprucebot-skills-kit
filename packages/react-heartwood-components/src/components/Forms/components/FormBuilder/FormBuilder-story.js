@@ -1,35 +1,14 @@
 // @flow
-import React, { Fragment } from 'react'
+import React from 'react'
 import { storiesOf } from '@storybook/react'
-import {
-	withKnobs,
-	text,
-	boolean,
-	object,
-	number,
-	select
-} from '@storybook/addon-knobs/react'
+import { withKnobs, object } from '@storybook/addon-knobs/react'
 import FormBuilder from './FormBuilder'
 import Modal from '../../../Modal/Modal'
 import Page, { PageContent } from '../../../Page'
-import Card, { CardHeader, CardBody, CardSection } from '../../../Card'
+import Card, { CardBody } from '../../../Card'
 import Layout, { LayoutSection } from '../../../Layout'
 
 const stories = storiesOf('FormBuilder', module)
-
-const withLayout = storyFn => (
-	<Page>
-		<PageContent>
-			<Layout>
-				<LayoutSection>
-					<Card>
-						<CardBody>{storyFn()}</CardBody>
-					</Card>
-				</LayoutSection>
-			</Layout>
-		</PageContent>
-	</Page>
-)
 
 stories.addDecorator(withKnobs)
 // stories.addDecorator(withLayout)
@@ -366,12 +345,13 @@ stories
 						initialValues={{
 							groupName: ''
 						}}
-						validate={values => {
+						validate={() => {
 							let errors = {}
 
-							if (!groupName) {
-								errors.groupName = 'Please name this group'
-							}
+							// TODO: Hook up groupName custom error
+							// if (!groupName) {
+							// 	errors.groupName = 'Please name this group'
+							// }
 
 							return errors
 						}}

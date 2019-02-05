@@ -1,12 +1,11 @@
 // @flow
 import React from 'react'
 import cx from 'classnames'
-import is from 'is_js'
 import Loader from '../Loader/Loader'
 import Icon from '../Icon/Icon'
 import BasicAnchor from '../_utilities/Anchor'
 
-import type { Node, Element } from 'react'
+import type { Node } from 'react'
 import type { Props as IconProps } from '../Icon/Icon'
 
 export type Props = {
@@ -63,7 +62,6 @@ const Button = (props: Props) => {
 		icon,
 		type,
 		onClick,
-		payload,
 		AnchorComponent = BasicAnchor,
 		...rest
 	} = props

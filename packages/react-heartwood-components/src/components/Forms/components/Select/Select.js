@@ -40,7 +40,6 @@ const Select = (props: Props) => {
 		postLabel,
 		error,
 		helper,
-		value,
 		...rest
 	} = props
 	const parentClass = cx('select text-input__inner', className, {

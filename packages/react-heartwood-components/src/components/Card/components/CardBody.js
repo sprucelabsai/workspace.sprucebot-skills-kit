@@ -3,8 +3,6 @@
 import React from 'react'
 import type { Node } from 'react'
 import CardSection from './CardSection'
-import type { Props as ButtonProps } from '../../Button/Button'
-import type { Props as ContextMenuProps } from '../../ContextMenu/ContextMenu'
 
 // Card Body
 export type CardBodyProps = {
