@@ -1,9 +1,7 @@
 // @flow
 // NOTE: Cards should be built in a way that they can be created with JSON
-import React, { Fragment } from 'react'
-import type { Element, Node } from 'react'
-
-import cx from 'classnames'
+import React from 'react'
+import { pick } from 'lodash'
 
 import Card from '../Card'
 import CardHeader from './CardHeader'
@@ -21,10 +19,9 @@ import OnboardingCard from './OnboardingCard'
 import ButtonGroup from '../../ButtonGroup/ButtonGroup'
 
 import type { Props as ButtonProps } from '../../Button/Button'
-import type { Props as ContextMenuProps } from '../../ContextMenu/ContextMenu'
 import type { CardHeaderProps } from './CardHeader'
 import type { CardBodyProps } from './CardBody'
-import type { Step, Props as OnboardingProps } from './OnboardingCard'
+import type { Props as OnboardingProps } from './OnboardingCard'
 
 export type CardBuilderProps = {
 	/** Card Header props */
@@ -47,31 +44,89 @@ export type CardBuilderProps = {
 }
 
 const CardBuilderKey = {
-	button: Button,
-	image: Image,
-	heading: Heading,
-	text: Text,
-	list: List,
-	scores: Scores
+	CardBodyButton: {
+		component: Button,
+		mapProps: child => ({
+			...pick(child, [
+				'key',
+				'className',
+				'kind',
+				'isSmall',
+				'isFullWidth',
+				'isLoading',
+				'isIconOnly',
+				'text',
+				'href',
+				'icon',
+				'target',
+				'payload'
+			]),
+			...child.props
+		})
+	},
+	CardBodyImage: {
+		component: Image,
+		mapProps: child => ({
+			...pick(child, ['key', 'src', 'type']),
+			...child.props
+		})
+	},
+	CardBodyHeading: {
+		component: Heading,
+		mapProps: child => ({
+			...pick(child, ['key', 'title', 'subtitle']),
+			...child.props
+		})
+	},
+	CardBodyText: {
+		component: Text,
+		mapProps: child => ({
+			...pick(child, ['key']),
+			...child.props,
+			children: child.text
+		})
+	},
+	CardBodyList: {
+		component: List,
+		mapProps: child => ({
+			...pick(child, ['key', 'items', 'heading']),
+			...child.props
+		})
+	},
+	CardBodyScores: {
+		component: Scores,
+		mapProps: child => ({
+			...pick(child, ['key', 'scores']),
+			...child.props
+		})
+	}
 }
 
 const renderChild = child => {
-	const Handler = (child && child.type && CardBuilderKey[child.type]) || Text
+	const Type = (child &&
+		child.__typename &&
+		CardBuilderKey[child.__typename]) || {
+		component: Text,
+		mapProps: child => ({ ...child, ...child.props })
+	}
+
+	const { component, mapProps } = Type
+	const Handler = component
+	const props = mapProps(child)
+
 	return !Handler.prototype.render ? (
-		Handler({ ...child.props })
+		Handler({ ...props })
 	) : (
-		<Handler {...child.props} />
+		<Handler {...props} />
 	)
 }
 
 const CardBuilder = (props: CardBuilderProps) => {
 	const { header, headerImage, body, footer, onboarding } = props
-
 	if (onboarding) {
 		return <OnboardingCard {...onboarding} />
 	}
-
-	const { children, isSectioned } = body || {}
+	const { children, isSectioned = true } = body || {}
 	return (
 		<Card>
 			{header && <CardHeader {...header} />}

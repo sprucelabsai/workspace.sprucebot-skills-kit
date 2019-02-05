@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import moment from 'moment-timezone'
 
@@ -10,6 +10,7 @@ type Props = {
 	className?: string,
 	timezone: String,
 	timeFormat: String,
+	// eslint-disable-next-line flowtype/space-after-type-colon
 	kind:
 		| 'default'
 		| 'tentative'
@@ -29,7 +30,6 @@ const Event = (props: Props) => {
 		onTouchStart,
 		timezone,
 		timeFormat,
-		kind,
 		...rest
 	} = props
 	let startAt = moment.tz(event.startAt, timezone)

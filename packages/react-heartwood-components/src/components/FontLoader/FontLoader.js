@@ -3,12 +3,6 @@ import React, { Component } from 'react'
 import FontFaceObserver from 'fontfaceobserver'
 import Helmet from 'react-helmet'
 
-type Font = {
-	name: string,
-	weight: string | number,
-	style?: string
-}
-
 type LoadResult = {
 	name: string,
 	loaded: boolean

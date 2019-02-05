@@ -1,10 +1,9 @@
 // @flow
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { default as ReactAutosuggest } from 'react-autosuggest'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
 import { InputPre, InputHelper } from '../../FormPartials'
-import type { InputPreProps, InputHelperProps } from '../../FormPartials'
 import ClearIcon from '../../../../../static/assets/icons/ic_cancel.svg'
 
 export type Props = {
@@ -102,7 +101,7 @@ export default class Autosuggest extends Component<Props, State> {
 		})
 	}
 
-	onBlur = (event: any) => {
+	onBlur = () => {
 		this.setState(prevState => ({
 			showClearButton:
 				prevState.value && prevState.value.length > 0 ? true : false

@@ -78,20 +78,11 @@ const FormBuilder = (props: Props) => {
 			validateOnChange={false}
 			render={props => {
 				const {
-					values,
-					errors,
-					touched,
-					handleChange,
-					handleBlur,
 					handleSubmit,
 					handleReset,
 					dirty,
 					isValid,
-					isSubmitting,
-					resetForm,
-					setFieldValue,
-					setSubmitting,
-					form
+					isSubmitting
 				} = props
 
 				return (
@@ -131,8 +122,9 @@ const FormBuilder = (props: Props) => {
 						{kind === 'default' &&
 							sections &&
 							sections.length > 0 &&
-							sections.map(section => (
+							sections.map((section, idx) => (
 								<FormInner
+									key={`section-${idx}`}
 									formLayout={formLayout}
 									fields={section.fields}
 									formikProps={props}
@@ -145,8 +137,9 @@ const FormBuilder = (props: Props) => {
 								<Modal.Body>
 									{sections &&
 										sections.length > 0 &&
-										sections.map(section => (
+										sections.map((section, idx) => (
 											<FormInner
+												key={`section-${idx}`}
 												formLayout={formLayout}
 												fields={section.fields}
 												formikProps={props}

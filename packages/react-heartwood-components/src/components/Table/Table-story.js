@@ -2,7 +2,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
-import { data, generateLocations } from '../../../.storybook/data/tableData'
+import { generateLocations } from '../../../.storybook/data/tableData'
 import Table, { TableSearch, TableFilters } from './index'
 import Layout, { LayoutSection } from '../Layout'
 import Card, { CardHeader } from '../Card'
@@ -21,7 +21,9 @@ const columns = [
 		// NOTE: It looks like with has to be passed here to override built-in inline styles
 		minWidth: 300,
 		maxWidth: 400,
-		Cell: row => <a href="#">{row.value}</a>
+		Cell: function PublicNameCell(row) {
+			return <a href="#">{row.value}</a>
+		}
 	},
 	{
 		Header: 'Store',

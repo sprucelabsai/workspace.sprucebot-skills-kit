@@ -1,11 +1,10 @@
 // @flow
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import SidebarExpander from './components/SidebarExpander/SidebarExpander'
 import SidebarItem from './components/SidebarItem/SidebarItem'
 import SidebarSection from './components/SidebarSection/SidebarSection'
 import type { Props as ItemProps } from './components/SidebarItem/SidebarItem'
-import SidebarFooter from './components/SidebarFooter/SidebarFooter'
 import Button from '../../../Button/Button'
 import type { Props as ButtonProps } from '../../../Button/Button'
 import Text from '../../../Text/Text'
