@@ -1,5 +1,5 @@
+//@flow
 import React, { Component, Fragment } from 'react'
-import cx from 'classnames'
 
 import {
 	List,
@@ -66,7 +66,7 @@ export default class RecordSelectionList extends Component<Props, State> {
 		})
 	}
 
-	renderRow = ({ index, key, parent, style, isScrolling, isVisible }) => {
+	renderRow = ({ index, key, parent, style }) => {
 		const { recordItemProps } = this.props
 		const { loadedRecords } = this.state
 
@@ -84,8 +84,7 @@ export default class RecordSelectionList extends Component<Props, State> {
 					<div
 						className="record-selection__record-wrapper"
 						style={{
-							...style,
-							visibility: isScrolling ? 'visible' : 'visible'
+							...style
 						}}
 					>
 						<RecordSelectionListItem
@@ -107,7 +106,7 @@ export default class RecordSelectionList extends Component<Props, State> {
 			return index > 0
 		}
 
-		const loadMoreRows = ({ startIndex, stopIndex }) => {
+		const loadMoreRows = async (/* { startIndex, stopIndex } */) => {
 			// Do API Stuff™
 
 			if (this.list) {
@@ -116,8 +115,8 @@ export default class RecordSelectionList extends Component<Props, State> {
 				this.list.recomputeRowHeights(0)
 				this.list.forceUpdateGrid()
 			}
-			let done
-			return new Promise(resolve => (done = resolve))
+
+			return true
 		}
 
 		const onResize = () => {
@@ -190,10 +189,8 @@ export default class RecordSelectionList extends Component<Props, State> {
 			onCancel,
 			onUpdate,
 			onSelectAll,
-			renderRecord,
 			recordTypeName,
-			totalRecordCount,
-			...rest
+			totalRecordCount
 		} = this.props
 		const { selectedIds, loadedRecords } = this.state
 

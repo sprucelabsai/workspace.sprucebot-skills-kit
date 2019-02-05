@@ -5,7 +5,6 @@ import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
-import RecordSelectionListItem from '../RecordSelectionList/RecordSelectionListItem'
 import Modal from '../Modal/Modal'
 import Button from '../Button/Button'
 
@@ -13,7 +12,7 @@ const stories = storiesOf('RecordSelectionList', module)
 
 stories.addDecorator(withKnobs)
 
-const locations = generateLocations({ amount: 20 })
+const locations = generateLocations({ amount: 1000 })
 
 class WithModalExample extends Component<Props, State> {
 	state = {
