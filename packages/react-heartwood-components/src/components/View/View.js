@@ -11,10 +11,6 @@ type Props = {
 	user: Object,
 	organization: Object,
 	location: Object,
-	getSearchSuggestions?: Function,
-	getSearchSuggestionValue?: Function,
-	renderSearchSuggestion?: Function,
-	onSearchSuggestionSelected?: Function,
 	children: Node,
 	toggleSidebarVisibility: Function,
 	toggleSidebarExpanded: Function,
@@ -22,6 +18,7 @@ type Props = {
 	isSidebarVisible?: boolean,
 	isSidebarExpanded?: boolean,
 	isSidebarMobileExpanded?: boolean,
+	onClickSearch?: Function,
 	searchPlaceholder?: string
 }
 
@@ -32,16 +29,13 @@ const View = (props: Props) => {
 		user,
 		organization,
 		location,
-		getSearchSuggestions,
-		getSearchSuggestionValue,
-		renderSearchSuggestion,
-		onSearchSuggestionSelected,
 		isSidebarVisible,
 		isSidebarExpanded,
 		isSidebarMobileExpanded,
 		toggleSidebarExpanded,
 		toggleSidebarVisibility,
 		forceCloseSidebar,
+		onClickSearch,
 		searchPlaceholder,
 		children
 	} = props
@@ -76,12 +70,10 @@ const View = (props: Props) => {
 				}
 				toggleSidebarVisibility={toggleSidebarVisibility}
 				isSidebarVisible={isSidebarMobileExpanded}
-				getSearchSuggestions={getSearchSuggestions}
-				getSearchSuggestionValue={getSearchSuggestionValue}
-				renderSearchSuggestion={renderSearchSuggestion}
-				onSearchSuggestionSelected={onSearchSuggestionSelected}
 				searchPlaceholder={searchPlaceholder}
+				onClickSearch={onClickSearch}
 			/>
+
 			<main className="main-content">{children}</main>
 		</div>
 	)
