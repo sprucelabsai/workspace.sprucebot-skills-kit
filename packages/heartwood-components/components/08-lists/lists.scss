@@ -51,7 +51,8 @@
 	display: flex;
 	position: relative;
 
-	&:not(:last-child):after {
+	.list:not(.list--separators-hidden)
+		&:not(:last-child):not(.list-item--separator-hidden):after {
 		content: '';
 		display: block;
 		position: absolute;
