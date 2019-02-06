@@ -19,6 +19,7 @@
 		"logs": "yarn run log",
 		"stop": "pm2 stop ecosystem.config.js",
 		"lint": "lerna run lint",
+		"flow": "flow",
 		"build": "lerna run build",
 		"watch": "lerna run watch --no-sort --stream",
 		"start": "pm2 start ecosystem.config.js --no-daemon",
@@ -45,6 +46,7 @@
 	"devDependencies": {
 		"commitizen": "^2.9.6",
 		"conventional-changelog-sprucelabs": "^1.1.0",
+		"flow-bin": "^0.92.1",
 		"husky": "^0.14.3",
 		"lerna": "^3.2.1",
 		"npm-utils": "^2.0.3"
