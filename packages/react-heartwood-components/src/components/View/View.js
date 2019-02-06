@@ -7,6 +7,7 @@ import type { Node } from 'react'
 
 type Props = {
 	sidebarItems?: Array<Object>,
+	sidebarBackLink?: Object,
 	user: Object,
 	organization: Object,
 	location: Object,
@@ -27,6 +28,7 @@ type Props = {
 const View = (props: Props) => {
 	const {
 		sidebarItems,
+		sidebarBackLink,
 		user,
 		organization,
 		location,
@@ -55,6 +57,7 @@ const View = (props: Props) => {
 			{sidebarItems && sidebarItems.length > 0 && (
 				<Sidebar
 					items={sidebarItems}
+					backLink={sidebarBackLink}
 					footer={<SidebarFooter />}
 					isSidebarVisible={isSidebarVisible}
 					isExpanded={isSidebarExpanded}

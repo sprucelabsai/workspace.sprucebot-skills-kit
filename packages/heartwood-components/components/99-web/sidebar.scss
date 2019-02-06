@@ -98,6 +98,10 @@ html.skill .sidebar {
 	}
 }
 
+.sidebar-item__back-link {
+	border-top: 1px solid $c-border-light;
+}
+
 .sidebar-item,
 .sidebar__footer {
 	@include type-style-body-sm-em;
