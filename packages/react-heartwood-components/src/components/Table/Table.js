@@ -73,7 +73,7 @@ export default class Table extends Component<Props, State> {
 		}
 	}
 
-	handleChange = ({ id, pageSize }: any) => {
+	handleChange = ({ id }: any) => {
 		const { onSelection, totalRows } = this.props
 		this.setState(
 			prevState => {
@@ -152,7 +152,7 @@ export default class Table extends Component<Props, State> {
 			sortable,
 			...rest
 		} = this.props
-		const { selectedIds, allRowsSelected } = this.state
+		const { selectedIds } = this.state
 
 		let columnsToRender = [...columns]
 
@@ -250,7 +250,7 @@ export default class Table extends Component<Props, State> {
 							isSelectable && selectedIds.length > 0
 					})
 				})}
-				getTheadThProps={(state, rowInfo, column, instance) => ({
+				getTheadThProps={(state, rowInfo, column) => ({
 					className: cx('table-header-cell', {
 						'table-checkbox-cell': column.id === 'checkbox'
 					}),
@@ -260,7 +260,7 @@ export default class Table extends Component<Props, State> {
 					className: 'table-row',
 					onClick: this.handleClickRow
 				})}
-				getTdProps={(state, rowInfo, column, instance) => ({
+				getTdProps={(state, rowInfo, column) => ({
 					className: cx('table-cell', {
 						'table-checkbox-cell': column.id === 'checkbox'
 					}),

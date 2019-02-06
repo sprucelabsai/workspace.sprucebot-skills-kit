@@ -15,7 +15,7 @@ type Props = {
 }
 
 const SidebarExpander = (props: Props) => {
-	const { isExpanded, toggleExpanded, forceCloseSidebar } = props
+	const { toggleExpanded, forceCloseSidebar } = props
 	return (
 		<div className="sidebar-collapse">
 			<Button

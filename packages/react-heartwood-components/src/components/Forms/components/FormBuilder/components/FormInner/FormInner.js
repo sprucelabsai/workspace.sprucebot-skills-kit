@@ -1,5 +1,5 @@
 // @flow
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import {
 	TextInput,
@@ -12,14 +12,10 @@ import {
 
 import List from '../../../../../List'
 
-import Text from '../../../../../Text/Text'
-import TextStyle from '../../../../../TextStyle/TextStyle'
 import Button from '../../../../../Button/Button'
 
 import type { FormikProps } from 'formik'
 import type { FormLayoutProps } from '../../../FormLayout/FormLayout'
-import type { FormLayoutGroupProps } from '../../../FormLayout/components/FormLayoutGroup/FormLayoutGroup'
-import type { FormLayoutItemProps } from '../../../FormLayout/components/FormLayoutItem/FormLayoutItem'
 import type { Props as ButtonProps } from '../../../../../Button/Button'
 import type { Props as ToggleProps } from '../../../../components/Toggle/Toggle'
 
@@ -74,11 +70,10 @@ class BooleanField extends React.PureComponent<BooleanProps> {
 		onBlur(e)
 	}
 	render() {
-		const { label, helper, defaultValue, value, ...rest } = this.props
+		const { label, helper, value, ...rest } = this.props
 		const toggleId = this.props.name || ''
-		const checked = typeof value === 'undefined' ? !!defaultValue : !!value
 		const toggleProps = { ...rest, onChange: this.handleChange }
-		if (!!value) {
+		if (value) {
 			toggleProps.defaultChecked = true
 		}
 
@@ -162,7 +157,7 @@ class FormInner extends React.PureComponent<FormInnerProps> {
 				{fields &&
 					fields.length > 0 &&
 					fields.map(field => {
-						const { type, props, ...rest } = field
+						const { type, props } = field
 						return (
 							<FormLayoutItem key={field.name}>
 								{this.renderChild({

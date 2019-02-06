@@ -82,7 +82,7 @@ export default class Dropzone extends Component<Props, State> {
 		isCircular: false
 	}
 
-	onDragEnter = (e: any) => {
+	onDragEnter = () => {
 		const { onDragEnter } = this.props
 		if (onDragEnter) {
 			onDragEnter()
@@ -147,7 +147,6 @@ export default class Dropzone extends Component<Props, State> {
 			id,
 			label,
 			postLabel,
-			onDrop,
 			buttonText,
 			error,
 			isSmall,

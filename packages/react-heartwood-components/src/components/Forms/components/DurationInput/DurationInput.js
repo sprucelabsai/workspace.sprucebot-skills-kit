@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { range, findIndex } from 'lodash'
 import memoize from 'memoize-one'
 
@@ -226,7 +226,6 @@ export default class DurationInput extends Component<Props, State> {
 			minMinutes,
 			maxMinutes,
 			skipMinutes,
-			defaultValue,
 			error,
 			placeholder,
 			...props

@@ -1,5 +1,4 @@
 [ignore]
-.*/node_modules/babel-plugin-flow-runtime/.*
 
 [include]
 src/
@@ -7,15 +6,10 @@ src/
 [libs]
 
 [options]
-module.file_ext=.js
-module.file_ext=.json
-module.file_ext=.jsx
-module.file_ext=.css
-module.file_ext=.scss
-module.name_mapper.extension='scss' -> 'empty/object'
-esproposal.decorators=ignore
-module.system.node.resolve_dirname=src
-module.system.node.resolve_dirname=node_modules
-suppress_type=$FlowIssue
-suppress_type=@flowIgnore
-suppress_comment= \\(.\\|\n\\)*\\$\\(FlowFixMe\\|FlowIgnore\\)
+module.system.node.resolve_dirname=../../node_modules
+
+[declarations]
+../../node_modules
+
+[untyped]
+../../node_modules

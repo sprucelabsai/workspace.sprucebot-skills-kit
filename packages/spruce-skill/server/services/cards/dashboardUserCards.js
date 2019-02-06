@@ -507,28 +507,28 @@ const headerActionCard: CardBuilder = {
 	}
 }
 
-// const congratsCard: CardBuilder = {
-// 	header: {
-// 		title: 'Congrats on 5 guests!'
-// 	},
-// 	body: {
-// 		isSectioned: false,
-// 		children: [
-// 			{
-// 				key: '001',
-// 				type: 'image',
-// 				style: 'hero',
-// 				src:
-// 					'https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6b2b3eeca79a80926667ec71b01eac12&auto=format&fit=crop&w=1000&q=80'
-// 			},
-// 			{
-// 				key: '002',
-// 				text:
-// 					"I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel."
-// 			}
-// 		]
-// 	}
-// }
+const congratsCard: CardBuilder = {
+	header: {
+		title: 'Congrats on 5 guests!'
+	},
+	body: {
+		isSectioned: false,
+		children: [
+			{
+				key: '001',
+				type: 'image',
+				style: 'hero',
+				src:
+					'https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6b2b3eeca79a80926667ec71b01eac12&auto=format&fit=crop&w=1000&q=80'
+			},
+			{
+				key: '002',
+				text:
+					"I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel."
+			}
+		]
+	}
+}
 
 const happyBirthdayCard: CardBuilder = {
 	header: {
@@ -874,10 +874,24 @@ const textBodyCardResponse: CardResponse = {
 	cardBuilder: textBodyCard
 }
 
+const congratsCardResponse: CardResponse = {
+	title: 'congratsCard',
+	comment: 'Congrats Card',
+	id: 'example:congratsCard',
+	roles: ['owner', 'groupManager', 'manager', 'teammate', 'guest'],
+	description: 'Test Card',
+	skillSlug: 'booking',
+	page: 'dashboard_location',
+	order: '0',
+	isTemporary: false,
+	canDismiss: true,
+	cardBuilder: congratsCard
+}
+
 const headerActionCardResponse: CardResponse = {
 	title: 'headerActionCard',
 	comment: 'Test Card',
-	id: 'example:testCard',
+	id: 'example:headerActionCard',
 	roles: ['owner', 'groupManager', 'manager', 'teammate', 'guest'],
 	description: 'Test Card',
 	skillSlug: 'booking',
@@ -891,7 +905,7 @@ const headerActionCardResponse: CardResponse = {
 const happyBirthdayCardResponse: CardResponse = {
 	title: 'happyBirthdayCard',
 	comment: 'Test Card',
-	id: 'example:testCard',
+	id: 'example:birthdayCard',
 	roles: ['owner', 'groupManager', 'manager', 'teammate', 'guest'],
 	description: 'Test Card',
 	skillSlug: 'booking',
@@ -905,7 +919,7 @@ const happyBirthdayCardResponse: CardResponse = {
 const upcomingAppointmentCardResponse: CardResponse = {
 	title: 'upcomingAppointmentCard',
 	comment: 'Test Card',
-	id: 'example:testCard',
+	id: 'example:upcomingAppointmentCard',
 	roles: ['owner', 'groupManager', 'manager', 'teammate', 'guest'],
 	description: 'Test Card',
 	skillSlug: 'booking',
@@ -919,7 +933,7 @@ const upcomingAppointmentCardResponse: CardResponse = {
 const vfaCardResponse: CardResponse = {
 	title: 'vfaCard',
 	comment: 'Test Card',
-	id: 'example:testCard',
+	id: 'example:vfaCard',
 	roles: ['owner', 'groupManager', 'manager', 'teammate', 'guest'],
 	description: 'Test Card',
 	skillSlug: 'booking',
@@ -933,7 +947,7 @@ const vfaCardResponse: CardResponse = {
 const onboardingCardResponse: CardResponse = {
 	title: 'Onboarding',
 	comment: 'Test Card',
-	id: 'example:testCard',
+	id: 'example:onboardingCard',
 	roles: ['owner', 'groupManager', 'manager', 'teammate', 'guest'],
 	description: 'Test Card',
 	skillSlug: 'booking',
@@ -954,6 +968,7 @@ const cardResponses: Array<CardResponse> = [
 	scoreCardResponse,
 	textBodyCardResponse,
 	headerActionCardResponse,
+	congratsCardResponse,
 	happyBirthdayCardResponse,
 	upcomingAppointmentCardResponse,
 	vfaCardResponse,
