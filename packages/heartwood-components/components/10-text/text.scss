@@ -39,9 +39,11 @@
 	font-feature-settings: 'onum', 'pnum';
 	font-variant-numeric: oldstyle-nums proportional-nums;
 	.icon {
-		height: 1rem;
+		height: 0.85em;
+		width: 0.85em;
 		margin: 0 0.2rem;
-		width: 1rem;
+		position: relative;
+		bottom: -0.1em;
 	}
 }
 
@@ -56,9 +58,6 @@ a.text {
 		&.u-icon__stroke {
 			stroke: $c-primary;
 		}
-		height: 1rem;
-		margin: 0 0.2rem;
-		width: 1rem;
 	}
 }
 
