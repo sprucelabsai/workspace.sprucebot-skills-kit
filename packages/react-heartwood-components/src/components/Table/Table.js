@@ -210,7 +210,7 @@ export default class Table extends Component<Props, State> {
 				} else if (idx === 1) {
 					return {
 						...col,
-						Header: (
+						Header: () => (
 							<Fragment>
 								<p className="table-selected-text">{selectedText}</p>
 								{bulkActions && bulkActions.length > 0 && (
@@ -312,11 +312,14 @@ export default class Table extends Component<Props, State> {
 						</div>
 					)
 				}}
-				PaginationComponent={tableProps => (
-					<div className="table-pagination__wrapper">
-						<Pagination {...paginationProps} {...tableProps} />
-					</div>
-				)}
+				PaginationComponent={tableProps =>
+					tableProps.page === 0 &&
+					tableProps.data.length <= tableProps.pageSize ? null : (
+						<div className="table-pagination__wrapper">
+							<Pagination {...paginationProps} {...tableProps} />
+						</div>
+					)
+				}
 				{...rest}
 			/>
 		)

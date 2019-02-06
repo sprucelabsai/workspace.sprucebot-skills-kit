@@ -26,6 +26,9 @@ export type Props = {
 	/** Inline svg icon */
 	icon?: Object,
 
+	/** Set true to add left spacing. useful in aligning with other list items that have icons or images */
+	isLeftIndented?: boolean,
+
 	/** Set true when the list can be reordered */
 	isDraggable?: boolean,
 
@@ -42,7 +45,13 @@ export type Props = {
 	contextMenu?: ContextMenuProps,
 
 	/** Props passed to the toggle when it is used */
-	toggleProps?: Object
+	toggleProps?: Object,
+
+	/** Set to true to show separator for this list item if followed by another list item. */
+	isSeparatorVisible: boolean,
+
+	/** Optional class name for list item */
+	className?: string
 }
 
 const ListItem = (props: Props) => {
@@ -57,13 +66,16 @@ const ListItem = (props: Props) => {
 		primaryAction,
 		actions,
 		contextMenu,
-		toggleProps
+		toggleProps,
+		isSeparatorVisible,
+		className
 	} = props
 
-	const parentClass = cx('list-item', {
+	const parentClass = cx('list-item', className, {
 		'list-item-title-only': !subtitle,
 		'list-item--is-draggable': isDraggable,
 		'list-item--primary-action': primaryAction
+		'list-item--separator-hidden': !isSeparatorVisible
 	})
 
 	const ListItemInner = () => (
@@ -148,6 +160,7 @@ ListItem.defaultProps = {
 	isDraggable: false,
 	toggleId: '',
 	actions: [],
+	isSeparatorVisible: true,
 	toggleProps: {}
 }
 
