@@ -1,6 +1,5 @@
 // @flow
 import React from 'react'
-// import Router from 'next/router'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
 	Page,
