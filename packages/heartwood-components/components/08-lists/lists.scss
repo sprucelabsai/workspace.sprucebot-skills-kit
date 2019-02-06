@@ -4,6 +4,7 @@
 }
 
 .list-header {
+	flex-shrink: 0;
 	justify-content: space-between;
 	width: 100%;
 	padding-left: spacing('base');
@@ -74,6 +75,17 @@
 	* {
 		// background-color: rgba(0,0,100,0.1);
 	}
+
+	> .btn {
+		border-radius: 0;
+		height: auto;
+		margin: 0 -#{spacing('base')};
+		padding: 0 spacing('base');
+		width: calc(100% + #{spacing('base') * 2});
+		> .btn__inner {
+			text-align: left;
+		}
+	}
 }
 
 .list-item--is-draggable {
@@ -128,7 +140,7 @@
 	padding-top: spacing('tight');
 
 	.list-small & {
-		padding-top: 0;
+		padding-top: spacing('extra-tight');
 	}
 }
 

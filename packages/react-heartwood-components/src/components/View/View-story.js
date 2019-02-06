@@ -106,8 +106,14 @@ const user = {
 	tel: '(605) 230-5253'
 }
 
-const business = {
+const organization = {
 	name: 'Chimera Hair Salon',
+	image:
+		'https://www.logoground.com/uploads/2018130762018-04-113965123chimera%20logo%20chimera%20logo.jpg'
+}
+
+const location = {
+	name: 'Chimera Hair Salon at the Point',
 	address: '7678 N High St, Denver, CO'
 }
 
@@ -121,13 +127,13 @@ const skillViewTabs = [
 	}
 ]
 
-type Props = {}
-type State = {
+type SkillViewProps = {}
+type SkillViewState = {
 	sidebarsExpanded: Object,
 	sidebarsMobileExpanded: Object
 }
 
-class SkillViewExample extends Component<Props, State> {
+class SkillViewExample extends Component<SkillViewProps, SkillViewState> {
 	state = {
 		sidebarsExpanded: {
 			right: true,
@@ -210,7 +216,7 @@ class SkillViewExample extends Component<Props, State> {
 				STORYBOOKdoNotWrap
 				sidebarItems={orgItems}
 				user={user}
-				business={business}
+				organization={organization}
 				isSidebarExpanded={sidebarsExpanded.left}
 				isSidebarMobileExpanded={sidebarsMobileExpanded.left}
 				toggleSidebarExpanded={() => this.handleSidebarToggle('left')}
@@ -296,7 +302,7 @@ stories
 			STORYBOOKdoNotWrap
 			sidebarItems={personalItems}
 			user={user}
-			business={business}
+			organization={organization}
 			isSidebarExpanded
 		>
 			<Page
@@ -311,7 +317,7 @@ stories
 			STORYBOOKdoNotWrap
 			sidebarItems={personalItems}
 			user={user}
-			business={business}
+			organization={organization}
 			isSidebarExpanded
 		>
 			<Page
@@ -328,7 +334,8 @@ stories
 			STORYBOOKdoNotWrap
 			sidebarItems={bizItems}
 			user={user}
-			business={business}
+			organization={organization}
+			location={location}
 			isSidebarExpanded
 		>
 			<Page hasSidebar>

@@ -18,7 +18,7 @@ export type Props = {
 	isTruncatable?: boolean,
 
 	/** Optional class to add to the tab group */
-	className?: String
+	className?: string
 }
 
 //TODO properly define State type
