@@ -74,7 +74,7 @@ const ListItem = (props: Props) => {
 	const parentClass = cx('list-item', className, {
 		'list-item-title-only': !subtitle,
 		'list-item--is-draggable': isDraggable,
-		'list-item--primary-action': primaryAction
+		'list-item--primary-action': primaryAction,
 		'list-item--separator-hidden': !isSeparatorVisible
 	})
 
