@@ -136,21 +136,20 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		}
 	}
 
-	handleClickTab = (e: MouseEvent, idx: number, tab: Tab) => {
+	handleClickTab = (e: MouseEvent, tab: Tab) => {
 		const { onClickTab } = this.props
 		let cancel = false
 
 		if (onClickTab) {
 			cancel =
 				onClickTab(e, {
-					idx,
 					payload: tab.payload,
 					key: tab.key
 				}) === false
 		}
 
 		if (!cancel) {
-			this.setState({ selectedTab: tab.key })
+			this.setState({ currentPage: 0, selectedTab: tab.key }, this.refresh)
 		}
 	}
 
@@ -218,10 +217,6 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		}
 
 		this.setState(sort, this.refresh)
-	}
-
-	handleClickTab = (e: MouseEvent, tab: Tab) => {
-		this.setState({ currentPage: 0, selectedTab: tab.key }, this.refresh)
 	}
 
 	handleSearchSuggestions = async (value: string) => {
