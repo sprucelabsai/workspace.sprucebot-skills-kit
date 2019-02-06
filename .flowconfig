@@ -1,7 +1,7 @@
 [ignore]
 
 [include]
-src/
+packages/
 
 [libs]
 
@@ -12,6 +12,3 @@ src/
 
 [untyped]
 .*/node_modules
-.*/packages/spruce-skill
-.*/packages/spruce-next-helpers
-.*/packages/spruce-utils
