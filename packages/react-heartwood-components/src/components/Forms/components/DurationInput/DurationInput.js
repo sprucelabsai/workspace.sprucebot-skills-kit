@@ -21,6 +21,9 @@ type Props = {
 	/** Default value (in minutes)  */
 	defaultValue?: number,
 
+	/** placeholder to be formatted nicely (expects minutes) */
+	placeholder?: string,
+
 	/** title rendered when no results are found */
 	noResultsTitle?: string,
 
@@ -219,7 +222,14 @@ export default class DurationInput extends Component<Props, State> {
 	)
 
 	render() {
-		const { minMinutes, maxMinutes, skipMinutes, error, ...props } = this.props
+		const {
+			minMinutes,
+			maxMinutes,
+			skipMinutes,
+			error,
+			placeholder,
+			...props
+		} = this.props
 
 		const { value, validationError } = this.state
 
@@ -243,6 +253,11 @@ export default class DurationInput extends Component<Props, State> {
 				getSuggestionValue={value => value.text}
 				getSuggestions={this.handleGetSuggestions}
 				onSuggestionSelected={this.handleSelectSuggestion}
+				placeholder={
+					placeholder && typeof placeholder === 'number'
+						? DurationInput.minutesToStr(placeholder)
+						: placeholder
+				}
 				{...props}
 			/>
 		)
