@@ -1,5 +1,5 @@
-//@flow
-import React, { Component, Fragment } from 'react'
+// @flow
+import React, { Component } from 'react'
 
 import {
 	List,
@@ -9,31 +9,25 @@ import {
 	InfiniteLoader
 } from 'react-virtualized'
 
-// import List from '../List'
 import RecordSelectionListItem from './RecordSelectionListItem'
-import ButtonGroup from '../ButtonGroup/ButtonGroup'
-import Modal from '../Modal/Modal'
-import Heading from '../Heading/Heading'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
 
-type Props = {
+type RecordSelectionListProps = {|
 	/** Static list of records */
 	records: Array<any>,
 
 	/** Load records asyncronously */
-	loadRecords: (
-		Array<{ limit: number, offset: number, filter: string }>
-	) => Promise<Array<Object>>,
+	loadRecords: ({ limit: number, offset: number, filter?: string }) => Promise<
+		Array<Object>
+	>,
 
 	/** IDs in this record list which have been selected */
 	selectedIds: Array<string>,
 
-	/** Called when Cancel button is clicked or modal is closed */
-	onCancel: () => void,
+	onSelect: string => void,
 
-	/** Called when Update Selection button is clicked */
-	onUpdate: (Array<string>) => void,
+	onRemove: string => void,
 
 	/** Total number of records available to be selected */
 	totalRecordCount: number,
@@ -41,23 +35,29 @@ type Props = {
 	/** Name of record type */
 	recordTypeName: string,
 
-	/** Whether or not list is rendered in a modal */
-	isModal?: boolean,
-
 	/** Outlines props that are passed to list item */
 	recordItemProps: Function
+|}
+
+type RecordSelectionListState = {
+	selectedIds: Array<string>,
+	loadedRecords: Array<any>,
+	isLoading: boolean
 }
 
-export default class RecordSelectionList extends Component<Props, State> {
+export default class RecordSelectionList extends Component<
+	RecordSelectionListProps,
+	RecordSelectionListState
+> {
 	list: any
 	cache = new CellMeasurerCache({
 		fixedWidth: true
 	})
 
-	constructor(props) {
+	constructor(props: RecordSelectionListProps) {
 		super(props)
 
-		if (props.records && props.loadedRecords) {
+		if (props.records && props.loadRecords) {
 			throw new Error(
 				'RecordSelectionList: You provided `records` and `loadRecords` but I only want one.`'
 			)
@@ -65,7 +65,8 @@ export default class RecordSelectionList extends Component<Props, State> {
 
 		this.state = {
 			loadedRecords: props.records || [],
-			selectedIds: props.selectedIds
+			selectedIds: props.selectedIds,
+			isLoading: false
 		}
 	}
 
@@ -84,7 +85,17 @@ export default class RecordSelectionList extends Component<Props, State> {
 		}
 	}
 
-	renderRow = ({ index, key, parent, style }) => {
+	renderRow = ({
+		index,
+		key,
+		parent,
+		style
+	}: {
+		index: number,
+		key: string,
+		parent: any,
+		style: Object
+	}) => {
 		const { recordItemProps } = this.props
 		const { loadedRecords } = this.state
 
@@ -139,63 +150,7 @@ export default class RecordSelectionList extends Component<Props, State> {
 		return true
 	}
 
-	renderList = () => {
-		const { totalRecordCount } = this.props
-		const { selectedIds, loadedRecords } = this.state
-
-		const isRowLoaded = ({ index }) => {
-			return loadedRecords.find(record => record.id === selectedIds[index])
-		}
-
-		const onResize = () => {
-			if (this.list && this.cache) {
-				this.cache.clearAll()
-				this.list.recomputeRowHeights(0)
-				this.list.forceUpdateGrid()
-			}
-		}
-
-		return (
-			<div className="record-selection__list-wrapper">
-				<AutoSizer onResize={onResize}>
-					{({ height, width }) => (
-						<InfiniteLoader
-							isRowLoaded={isRowLoaded}
-							loadMoreRows={() => {
-								this.handleInfiniteLoad()
-							}}
-							// If we can know the total record count, we can stop the loader
-							// from attempting to load more when nothing's there. Passing
-							// Infinity just tells it to keep trying.
-							// TODO: We could fix the record count in state if `handleInfiniteLoad`
-							// ever returns 0 results, but that might get complex with
-							// filtering, or other states this form could hit.
-							rowCount={totalRecordCount || Infinity}
-						>
-							{({ onRowsRendered, registerChild }) => (
-								<List
-									ref={ref => {
-										this.list = ref
-										registerChild(ref)
-									}}
-									className="record-selection__virtual-list"
-									deferredMeasurementCache={this.cache}
-									height={height}
-									width={width}
-									rowCount={loadedRecords.length}
-									rowHeight={this.cache.rowHeight}
-									rowRenderer={this.renderRow}
-									onRowsRendered={onRowsRendered}
-								/>
-							)}
-						</InfiniteLoader>
-					)}
-				</AutoSizer>
-			</div>
-		)
-	}
-
-	handleRemoveSelection = id => {
+	handleRemoveSelection = (id: string) => {
 		const { loadedRecords, selectedIds } = this.state
 		const updatedLoadedRecords = loadedRecords.slice(0)
 		const updatedSelectedIds = selectedIds.slice(0)
@@ -214,60 +169,66 @@ export default class RecordSelectionList extends Component<Props, State> {
 	}
 
 	render() {
-		const { isModal, onCancel, onUpdate, recordTypeName } = this.props
-		const { selectedIds } = this.state
+		const { recordTypeName, totalRecordCount } = this.props
+		const { selectedIds, loadedRecords } = this.state
 
 		const totalSelected = selectedIds.length
 
-		const title = `Selected ${recordTypeName}`
+		const isRowLoaded = ({ index }) => {
+			return loadedRecords.find(record => record.id === selectedIds[index])
+		}
 
-		const body = (
-			<Fragment>
+		const onResize = () => {
+			if (this.list && this.cache) {
+				this.cache.clearAll()
+				this.list.recomputeRowHeights(0)
+				this.list.forceUpdateGrid()
+			}
+		}
+
+		return (
+			<div className="record-selection__list">
 				<TextContainer>
 					<Text>{`${totalSelected} ${recordTypeName} are selected`}</Text>
 				</TextContainer>
 
-				{this.renderList()}
-			</Fragment>
-		)
-
-		const actions = [
-			{
-				kind: 'primary',
-				text: 'Update selection',
-				onClick: () => onUpdate(),
-				disabled: this.props.selectedIds === selectedIds
-			},
-			{
-				kind: 'secondary',
-				text: 'Cancel',
-				onClick: () => onCancel()
-			}
-		]
-
-		return (
-			<div className="record-selection__list">
-				{isModal ? (
-					<Fragment>
-						<Modal.Header title={title} onRequestClose={onCancel} />
-						<Modal.Body>{body}</Modal.Body>
-						<Modal.Footer
-							primaryAction={actions[0]}
-							secondaryAction={actions[1]}
-						/>
-					</Fragment>
-				) : (
-					<Fragment>
-						<Heading>{title}</Heading>
-						{body}
-						<ButtonGroup actions={actions} />
-					</Fragment>
-				)}
+				<div className="record-selection__list-wrapper">
+					<AutoSizer onResize={onResize}>
+						{({ height, width }) => (
+							<InfiniteLoader
+								isRowLoaded={isRowLoaded}
+								loadMoreRows={() => {
+									this.handleInfiniteLoad()
+								}}
+								// If we can know the total record count, we can stop the loader
+								// from attempting to load more when nothing's there. Passing
+								// Infinity just tells it to keep trying.
+								// TODO: We could fix the record count in state if `handleInfiniteLoad`
+								// ever returns 0 results, but that might get complex with
+								// filtering, or other states this form could hit.
+								rowCount={totalRecordCount || Infinity}
+							>
+								{({ onRowsRendered, registerChild }) => (
+									<List
+										ref={ref => {
+											this.list = ref
+											registerChild(ref)
+										}}
+										className="record-selection__virtual-list"
+										deferredMeasurementCache={this.cache}
+										height={height}
+										width={width}
+										rowCount={loadedRecords.length}
+										rowHeight={this.cache.rowHeight}
+										rowRenderer={this.renderRow}
+										onRowsRendered={onRowsRendered}
+									/>
+								)}
+							</InfiniteLoader>
+						)}
+					</AutoSizer>
+				</div>
 			</div>
 		)
 	}
-}
-
-RecordSelectionList.defaultProps = {
-	isModal: false
 }
