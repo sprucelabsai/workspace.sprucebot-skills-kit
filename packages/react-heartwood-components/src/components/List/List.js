@@ -25,12 +25,25 @@ export type Props = {
 	isSmall?: boolean,
 
 	/** any passthrough to render in the body of the list */
-	children?: any
+	children?: any,
+
+	/** Set to true to show separators between list items */
+	areSeparatorsVisible: boolean
 }
 
 const List = (props: Props) => {
-	const { header, items, className, isSmall, children } = props
-	const parentClass = cx('list', className, { 'list-small': isSmall })
+	const {
+		header,
+		items,
+		className,
+		isSmall,
+		areSeparatorsVisible,
+		children
+	} = props
+	const parentClass = cx('list', className, {
+		'list-small': isSmall,
+		'list--separators-hidden': !areSeparatorsVisible
+	})
 
 	return (
 		<Fragment>
@@ -46,7 +59,8 @@ const List = (props: Props) => {
 List.defaultProps = {
 	header: null,
 	className: '',
-	isSmall: false
+	isSmall: false,
+	areSeparatorsVisible: true
 }
 
 export default List
