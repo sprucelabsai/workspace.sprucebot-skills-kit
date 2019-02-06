@@ -1,13 +1,7 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import {
-	withKnobs,
-	text,
-	boolean,
-	number,
-	object
-} from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, object } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../../../.storybook/StylesProvider'
 import HeaderPrimary from './HeaderPrimary'
 import user01image from '../../../../../static/assets/users/user-01--96w.png'
@@ -26,8 +20,13 @@ const user = {
 }
 
 const location = {
-	name: 'Chimera Hair Salon',
+	name: 'Chimera Hair Salon at the Point',
 	address: '7678 N High St, Denver, CO'
+}
+const organization = {
+	name: 'Chimera Hair Salon',
+	image:
+		'https://www.logoground.com/uploads/2018130762018-04-113965123chimera%20logo%20chimera%20logo.jpg'
 }
 
 stories
@@ -48,10 +47,22 @@ stories
 			renderSearchSuggestion={() => null}
 		/>
 	))
+	.add('Logged In to Organization', () => (
+		<HeaderPrimary
+			STORYBOOKdoNotWrap
+			user={object('user', user)}
+			organization={object('organization', organization)}
+			isSidebarVisible={boolean('isSidebarVisible', false)}
+			toggleSidebarVisibility={() => null}
+			getSearchSuggestionValue={() => null}
+			renderSearchSuggestion={() => null}
+		/>
+	))
 	.add('Logged In to location', () => (
 		<HeaderPrimary
 			STORYBOOKdoNotWrap
 			user={object('user', user)}
+			organization={object('organization', organization)}
 			location={object('location', location)}
 			isSidebarVisible={boolean('isSidebarVisible', false)}
 			toggleSidebarVisibility={() => null}
@@ -63,6 +74,7 @@ stories
 		<HeaderPrimary
 			STORYBOOKdoNotWrap
 			user={object('user', user)}
+			organization={object('organization', organization)}
 			location={object('location', location)}
 			isSidebarVisible={boolean('isSidebarVisible', false)}
 			toggleSidebarVisibility={() => null}
@@ -75,6 +87,7 @@ stories
 		<HeaderPrimary
 			STORYBOOKdoNotWrap
 			user={object('user', user)}
+			organization={object('organization', organization)}
 			location={object('location', location)}
 			isSidebarVisible={boolean('isSidebarVisible', false)}
 			toggleSidebarVisibility={() => null}

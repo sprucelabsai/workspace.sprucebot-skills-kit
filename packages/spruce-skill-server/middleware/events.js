@@ -3,6 +3,11 @@ const jwt = require('jsonwebtoken')
 const config = require('config')
 
 module.exports = (router, options) => {
+	// LEGACY EVENT MANAGER, CHECK ./auth.js FOR > V1
+	if (config.EVENT_VERSION !== 1) {
+		return
+	}
+
 	const listenersByEventName = options.listenersByEventName
 
 	router.use(async (ctx, next) => {

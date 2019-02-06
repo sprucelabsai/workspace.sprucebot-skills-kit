@@ -33,6 +33,7 @@ Button Variation mixins
 	$is-simple: false
 ) {
 	color: $color;
+	min-width: rem(60);
 
 	@if $is-solid == true {
 		background-color: $bg;

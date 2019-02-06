@@ -8,7 +8,7 @@ import Button from '../../Button/Button'
 import Tabs from '../../Tabs/Tabs'
 import type { Props as ButtonProps } from '../../Button/Button'
 
-type Step = {
+export type Step = {
 	/** Unique identifier */
 	id: string,
 
@@ -24,7 +24,8 @@ type Step = {
 	/** Primary CTA of this step */
 	panelCTA: ButtonProps
 }
-type Props = {
+
+export type Props = {
 	/** Title of the entire card */
 	title: string,
 
@@ -34,6 +35,7 @@ type Props = {
 	/** Optional class to add */
 	className?: string
 }
+
 type State = {
 	currentStep: number
 }
@@ -63,7 +65,7 @@ export default class OnboardingCard extends Component<Props, State> {
 
 	render() {
 		const { currentStep } = this.state
-		const { title, steps, className } = this.props
+		const { title, steps } = this.props
 		const tabs = steps.map((step, idx) => ({
 			text: step.tabTitle,
 			icon: step.tabIcon,

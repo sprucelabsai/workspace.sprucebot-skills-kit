@@ -1,9 +1,12 @@
 import React from 'react'
+import Router from 'next/router'
 import PageWrapper from '../../containers/PageWrapper'
 import {
 	Page,
-	PageHeader,
-	PageContent
+	PageContent,
+	Layout,
+	LayoutSection,
+	Text
 } from '@sprucelabs/react-heartwood-components'
 
 class OwnerPage extends React.Component {
@@ -13,14 +16,20 @@ class OwnerPage extends React.Component {
 
 	render() {
 		return (
-			<Page className="owner-page">
-				<PageHeader
-					title="Owner Page"
-					onClickBack={() => Router.back()}
-					backLinkText="Previous Page"
-				/>
+			<Page
+				className="owner-page"
+				header={{
+					title: 'Owner Page',
+					onClickBack: () => Router.back(),
+					backLinkText: 'Previous Page'
+				}}
+			>
 				<PageContent>
-					<p>Hello, Owner!</p>
+					<Layout>
+						<LayoutSection>
+							<Text>{`Hello, Owner!`}</Text>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)

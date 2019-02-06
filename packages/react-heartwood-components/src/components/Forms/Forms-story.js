@@ -15,6 +15,7 @@ import {
 	Checkbox,
 	DatePicker,
 	DomainInput,
+	DurationInput,
 	PhoneInput,
 	Radio,
 	Search,
@@ -30,6 +31,7 @@ import {
 	FormLayoutItem
 } from './index'
 import countries from '../../../.storybook/data/countries'
+import { stringify } from 'querystring'
 
 const spacingOptions = {
 	Base: null,
@@ -65,9 +67,7 @@ stories.addDecorator(withKnobs)
 stories
 	.add('Autosuggest', () => (
 		<Autosuggest
-			inputPre={object('inputPre', {
-				label: 'Country'
-			})}
+			label={stringify('label', 'Country')}
 			inputHelper={object('inputHelper', {
 				helper: 'We use this information to improve your shopping experience.'
 			})}
@@ -94,6 +94,17 @@ stories
 				}
 				return results
 			}}
+		/>
+	))
+	.add('Duration Input', () => (
+		<DurationInput
+			label={stringify('label', 'Duration')}
+			placeholder={text('placeholder', 'How long is this going to take?')}
+			minMinutes={number('minMinutes', 5)}
+			maxMinutes={number('maxMinutes', 60 * 4)}
+			skipMinutes={number('skipMinutes', 5)}
+			defaultValue={number('defaultValue')}
+			onChange={(minutes, e) => console.log(minutes, e)}
 		/>
 	))
 	.add('Text Input', () => (
@@ -260,8 +271,15 @@ stories
 	))
 	.add('Date Picker', () => (
 		<DatePicker
-			id={text('id', 'test')}
 			numberOfMonths={number('numberOfMonths', 1)}
+			kind={select(
+				'kind',
+				{ singleDate: 'singleDate', dateRange: 'dateRange' },
+				'singleDate'
+			)}
+			onSelectDateRange={({ startDate, endDate }) =>
+				console.log(startDate, endDate)
+			}
 		/>
 	))
 	.add('Stars', () => <Stars />)
@@ -273,15 +291,15 @@ stories
 				<TextInput
 					type="text"
 					label="Name of Business"
-					placeholder="i.e. Annie's Bagels"
+					placeholder="e.g. Annie's Bagels"
 				/>
 			</FormLayoutItem>
 			<FormLayoutGroup>
 				<FormLayoutItem>
-					<TextInput type="text" label="First Name" placeholder="i.e. Annie" />
+					<TextInput type="text" label="First Name" placeholder="e.g. Annie" />
 				</FormLayoutItem>
 				<FormLayoutItem>
-					<TextInput type="text" label="Last Name" placeholder="i.e. Smith" />
+					<TextInput type="text" label="Last Name" placeholder="e.g. Smith" />
 				</FormLayoutItem>
 			</FormLayoutGroup>
 			<FormLayoutGroup isCondensed>

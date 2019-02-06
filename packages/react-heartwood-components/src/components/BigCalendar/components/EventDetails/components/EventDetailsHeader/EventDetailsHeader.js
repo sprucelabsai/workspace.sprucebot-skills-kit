@@ -1,7 +1,6 @@
 // @flow
 import React from 'react'
 import Button from '../../../../../Button/Button'
-import type { Props as ButtonProps } from '../../../../../Button/Button'
 import ContextMenu from '../../../../../ContextMenu/ContextMenu'
 import type { Props as ContextMenuProps } from '../../../../../ContextMenu/ContextMenu'
 import Text from '../../../../../Text/Text'

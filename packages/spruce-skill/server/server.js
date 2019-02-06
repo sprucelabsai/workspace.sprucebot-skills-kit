@@ -3,7 +3,6 @@ const path = require('path')
 const serve = require('@sprucelabs/spruce-skill-server')
 const Sprucebot = require('@sprucelabs/spruce-node')
 const generateSwaggerDocs = require('./swagger/swagger')
-const _ = require('lodash')
 
 const {
 	API_KEY,
@@ -16,8 +15,6 @@ const {
 	SERVER_HOST,
 	INTERFACE_HOST,
 	API_SSL_ALLOW_SELF_SIGNED,
-	REDIS_URL,
-	ENABLE_SWAGGER_DOCS,
 	nextConfig,
 	errors,
 	bodyParserOptions,
@@ -37,7 +34,8 @@ const {
 	METRICS_SEQUELIZE_DISABLED,
 	cards,
 	gqlOptions,
-	acl
+	acl,
+	VIEW_VERSION
 } = require('config')
 
 // Construct a new Sprucebot
@@ -56,12 +54,12 @@ const sprucebot = new Sprucebot({
 	version: skillPackage.version,
 	skillsKitVersion: skillPackage['sprucebot-skills-kit-version'],
 	cards,
-	acl
+	acl,
+	viewVersion: VIEW_VERSION
 })
 
 let server
 let ready = false
-let timeout
 let readyChecks = 0
 
 // serve the skill, wait 2 seconds for debugger to connect

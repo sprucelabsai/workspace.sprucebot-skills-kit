@@ -6,9 +6,8 @@ import cx from 'classnames'
 import Tab from './components/Tab/Tab'
 import type { Props as TabProps } from './components/Tab/Tab'
 import ContextMenu from '../ContextMenu/ContextMenu'
-import Button from '../Button/Button'
 
-type Props = {
+export type Props = {
 	/** The tabs for this group */
 	tabs: Array<TabProps>,
 
@@ -22,12 +21,14 @@ type Props = {
 	className?: String
 }
 
+//TODO properly define State type
+
 const getActiveTabIndex = (tabs: Array<TabProps>) => {
 	const activeTabIndex = tabs.findIndex(tab => tab.isCurrent)
 	return activeTabIndex
 }
 
-export default class Tabs extends Component<Props, State> {
+export default class Tabs extends Component<Props> {
 	state = {
 		activeTabIndex: getActiveTabIndex(this.props.tabs),
 		hiddenTabIndices: [],
@@ -97,6 +98,7 @@ export default class Tabs extends Component<Props, State> {
 	}
 
 	handleMeasurement = () => {
+		// TODO: Make this fire when sidebars change
 		const wrapper = this.tabGroup
 		const wrapperWidth = wrapper.offsetWidth
 		const contextTabWidth = this.contextTab.offsetWidth

@@ -82,7 +82,7 @@ export default class Dropzone extends Component<Props, State> {
 		isCircular: false
 	}
 
-	onDragEnter = (e: any) => {
+	onDragEnter = () => {
 		const { onDragEnter } = this.props
 		if (onDragEnter) {
 			onDragEnter()
@@ -91,53 +91,55 @@ export default class Dropzone extends Component<Props, State> {
 			userCanDrop: true
 		})
 	}
-	onDragLeave = () => {
+	onDragLeave = (...args) => {
 		const { onDragLeave } = this.props
 		if (onDragLeave) {
-			onDragLeave()
+			onDragLeave(...args)
 		}
 		this.setState({
 			userCanDrop: false
 		})
 	}
-	onDragOver = () => {
+	onDragOver = (...args) => {
 		const { onDragOver } = this.props
 		if (onDragOver) {
-			onDragOver()
+			onDragOver(...args)
 		}
 	}
-	onDragStart = () => {
+	onDragStart = (...args) => {
 		const { onDragStart } = this.props
 		if (onDragStart) {
-			onDragStart()
+			onDragStart(...args)
 		}
 	}
-	onDrop = () => {
+	onDrop = (...args) => {
 		const { onDrop } = this.props
 		if (onDrop) {
-			onDrop()
+			onDrop(...args)
 		}
 	}
-	onDropAccepted = () => {
+	onDropAccepted = (...args) => {
 		const { onDropAccepted } = this.props
-		onDropAccepted()
+		if (onDropAccepted) {
+			onDropAccepted(...args)
+		}
 		this.setState({
 			userCanDrop: false
 		})
 	}
-	onDropRejected = () => {
+	onDropRejected = (...args) => {
 		const { onDropRejected } = this.props
 		if (onDropRejected) {
-			onDropRejected()
+			onDropRejected(...args)
 		}
 		this.setState({
 			userCanDrop: false
 		})
 	}
-	onFileDialogCancel = () => {
+	onFileDialogCancel = (...args) => {
 		const { onFileDialogCancel } = this.props
 		if (onFileDialogCancel) {
-			onFileDialogCancel()
+			onFileDialogCancel(...args)
 		}
 	}
 	render() {
@@ -145,7 +147,6 @@ export default class Dropzone extends Component<Props, State> {
 			id,
 			label,
 			postLabel,
-			onDrop,
 			buttonText,
 			error,
 			isSmall,

@@ -14,13 +14,14 @@ export type LayoutSectionProps = {
 }
 
 const LayoutSection = (props: LayoutSectionProps) => {
-	const { className, isSecondary, children } = props
+	const { className, isSecondary, children, ...rest } = props
 
 	return (
 		<div
 			className={cx('layout__section', className, {
 				'layout__section--secondary': isSecondary
 			})}
+			{...rest}
 		>
 			{children}
 		</div>

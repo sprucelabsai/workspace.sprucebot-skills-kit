@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import ReactModal from 'react-modal'
 import cx from 'classnames'
 import ModalHeader from './components/ModalHeader/ModalHeader'
@@ -13,21 +13,24 @@ type Props = {
 	/** Set true to show the modal */
 	isOpen: boolean,
 
-	/** Set true to make the modal smaller */
-	isSmall?: boolean
+	/** Size of the modal */
+	size: 'small' | 'medium' | 'full-width'
 }
 type State = {}
 
-export default class Modal extends Component<Props, State> {
+export default class Modal extends React.PureComponent<Props, State> {
 	static Header = ModalHeader
 	static Body = ModalBody
 	static Footer = ModalFooter
 	static defaultProps = {
-		isSmall: false
+		size: 'medium'
 	}
 	render() {
-		const { isOpen, isSmall, ...rest } = this.props
-		const modalClassName = cx('modal', { 'modal-small': isSmall })
+		const { isOpen, size, ...rest } = this.props
+		const modalClassName = cx('modal', {
+			'modal-small': size === 'small',
+			'modal-medium': size === 'medium'
+		})
 		return (
 			<ReactModal
 				isOpen={isOpen}

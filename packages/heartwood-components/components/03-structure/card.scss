@@ -46,6 +46,9 @@
 }
 
 .card__header-label-icon {
+	width: rem(16);
+	height: rem(16);
+	stroke-width: 1px;
 	+ .card__header-label-text {
 		margin-left: spacing('extra-tight');
 	}
@@ -82,9 +85,15 @@
 }
 
 .card__body {
-	.text {
+	.text:not(a) {
 		color: $c-text-light;
 		line-height: $line-height-loose;
+	}
+	&:first-child {
+		padding-top: spacing('base');
+		@include gt('small') {
+			padding-top: spacing('loose');
+		}
 	}
 }
 
@@ -106,6 +115,15 @@
 	@include gt('small') {
 		padding-left: spacing('loose');
 		padding-right: spacing('loose');
+	}
+}
+
+.card--small {
+	.card__title {
+		@include typescale('body');
+	}
+	.card__body {
+		@include typescale('ui');
 	}
 }
 

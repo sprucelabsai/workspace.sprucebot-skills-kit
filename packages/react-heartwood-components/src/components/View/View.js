@@ -1,14 +1,15 @@
 // @flow
 import React from 'react'
-import type { Node } from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
-import Sidebar from '../Core/components/Sidebar/Sidebar'
+import { Sidebar, SidebarFooter } from '../Core'
+import type { Node } from 'react'
 
 type Props = {
 	sidebarItems?: Array<Object>,
 	user: Object,
-	business: Object,
+	organization: Object,
+	location: Object,
 	getSearchSuggestions?: Function,
 	getSearchSuggestionValue?: Function,
 	renderSearchSuggestion?: Function,
@@ -19,6 +20,7 @@ type Props = {
 	forceCloseSidebar: Function,
 	isSidebarVisible?: boolean,
 	isSidebarExpanded?: boolean,
+	isSidebarMobileExpanded?: boolean,
 	searchPlaceholder?: string
 }
 
@@ -26,13 +28,15 @@ const View = (props: Props) => {
 	const {
 		sidebarItems,
 		user,
-		business,
+		organization,
+		location,
 		getSearchSuggestions,
 		getSearchSuggestionValue,
 		renderSearchSuggestion,
 		onSearchSuggestionSelected,
 		isSidebarVisible,
 		isSidebarExpanded,
+		isSidebarMobileExpanded,
 		toggleSidebarExpanded,
 		toggleSidebarVisibility,
 		forceCloseSidebar,
@@ -51,20 +55,24 @@ const View = (props: Props) => {
 			{sidebarItems && sidebarItems.length > 0 && (
 				<Sidebar
 					items={sidebarItems}
+					footer={<SidebarFooter />}
 					isSidebarVisible={isSidebarVisible}
 					isExpanded={isSidebarExpanded}
+					isMobileExpanded={isSidebarMobileExpanded}
 					toggleExpanded={toggleSidebarExpanded}
 					forceCloseSidebar={forceCloseSidebar}
+					side="left"
 				/>
 			)}
 			<HeaderPrimary
 				user={user}
-				business={business}
+				organization={organization}
+				location={location}
 				enableHamburgerMenu={
 					sidebarItems && sidebarItems.length > 0 ? true : false
 				}
 				toggleSidebarVisibility={toggleSidebarVisibility}
-				isSidebarVisible={isSidebarVisible}
+				isSidebarVisible={isSidebarMobileExpanded}
 				getSearchSuggestions={getSearchSuggestions}
 				getSearchSuggestionValue={getSearchSuggestionValue}
 				renderSearchSuggestion={renderSearchSuggestion}

@@ -46,6 +46,7 @@ const Select = (props: Props) => {
 		'select-simple': isSimple,
 		'select--has-error': error
 	})
+
 	return (
 		<div className="select-wrapper">
 			{label && <InputPre id={id} label={label} postLabel={postLabel} />}

@@ -6,7 +6,6 @@ import Button from '../Button/Button'
 import type { Props as ButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
-import Icon from '../Icon/Icon'
 import MoreIcon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
 
 export type Props = {
@@ -32,11 +31,17 @@ export type Props = {
 	/** Set true to make the button blue */
 	isSimple?: boolean,
 
+	/** Set true to make the button smaller */
+	isSmall?: boolean,
+
 	/** Set tot true makes the menu close when any action is selected */
 	closeOnSelectAction: boolean,
 
 	/** Hide the icon entirely */
-	isTextOnly: boolean
+	isTextOnly: boolean,
+
+	/** Optional classname that applies to the button */
+	className?: string
 }
 
 type State = {
@@ -55,7 +60,9 @@ export default class ContextMenu extends Component<Props, State> {
 	static defaultProps = {
 		isLeftAligned: false,
 		isBottomAligned: false,
-		isTextOnly: false
+		isTextOnly: false,
+		isSmall: false,
+		className: ''
 	}
 
 	componentWillUnmount = () => {
@@ -63,7 +70,7 @@ export default class ContextMenu extends Component<Props, State> {
 		document.removeEventListener('keyup', this.handleEscape, false)
 	}
 
-	handleClickOutside = (e: any) => {
+	handleClickOutside = () => {
 		this.setState(
 			{
 				isVisible: false
@@ -95,8 +102,8 @@ export default class ContextMenu extends Component<Props, State> {
 					this.props.onToggleContextMenuVisible(this.state.isVisible)
 				}
 
-				var overflowLeft = false
-				var overflowBottom = false
+				let overflowLeft = false
+				let overflowBottom = false
 
 				if (this.menuRef && this.menuRef.current) {
 					const overflowParent = this.findOverflowParent(this.menuRef.current)
@@ -163,12 +170,14 @@ export default class ContextMenu extends Component<Props, State> {
 			isLeftAligned,
 			isBottomAligned,
 			isSimple,
+			isSmall,
 			size,
 			icon,
 			text,
-			isTextOnly
+			isTextOnly,
+			className
 		} = this.props
-		const buttonClass = cx('context-menu', {
+		const buttonClass = cx('context-menu', className, {
 			'context-menu--is-visible': isVisible
 		})
 		const menuClass = cx('context-menu__menu', {
@@ -187,6 +196,7 @@ export default class ContextMenu extends Component<Props, State> {
 						!isTextOnly && (icon || { customIcon: MoreIcon, isLineIcon: true })
 					}
 					text={text}
+					isSmall={isSmall}
 				/>
 				<VelocityTransitionGroup
 					enter={{

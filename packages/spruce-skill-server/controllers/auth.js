@@ -8,6 +8,14 @@ module.exports = router => {
 		await next()
 	})
 
+	router.post('/api/2.0/auth.json', async (ctx, next) => {
+		ctx.body = ctx.auth
+		if (!ctx.auth) {
+			throw new Error('INVALID_AUTHENTICATION')
+		}
+		await next()
+	})
+
 	// if in dev mode, we'll allow role overrides
 	if (config.DEV_MODE) {
 		router.get('/dev/:role/redirect', async (ctx, next) => {

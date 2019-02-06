@@ -2,16 +2,14 @@
 import React, { Component } from 'react'
 import type { Node } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
-import Button from '../Button/Button'
+import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
-import Toast from './Toast'
 import ToastWrapper from './components/ToastWrapper/ToastWrapper'
 const stories = storiesOf('Toast', module)
 
 type Props = {
 	children: Node,
-	showUndo: boolean,
+	showFollowup: boolean,
 	headline: string,
 	text: string
 }
@@ -26,14 +24,36 @@ class ToastExample extends Component<Props, State> {
 	}
 
 	addToast = (kind: 'neutral' | 'positive' | 'negative') => {
-		const { showUndo, text, headline } = this.props
+		const { showFollowup } = this.props
+		const ids = {
+			neutral: '1',
+			positive: '2',
+			negative: '3'
+		}
+		const headlines = {
+			neutral: 'Neat',
+			positive: 'Great!',
+			negative: 'Oh No!'
+		}
+		const texts = {
+			neutral: 'Something just happened and it was fine.',
+			positive: 'You did something amazing. Congrats!',
+			negative: 'Run away! This is awful.'
+		}
+		const timeouts = {
+			neutral: 'never',
+			positive: 10000,
+			negative: 3000
+		}
 		this.setState(prevState => {
 			const newToasts = [...prevState.toasts]
 			newToasts.push({
-				headline,
-				text,
+				headline: headlines[kind],
+				text: texts[kind],
 				kind,
-				onUndo: showUndo ? () => console.log('Undo') : null
+				id: ids[kind],
+				followupAction: showFollowup ? () => console.log('Undo') : null,
+				timeout: timeouts[kind]
 			})
 			return {
 				toasts: newToasts
@@ -41,10 +61,10 @@ class ToastExample extends Component<Props, State> {
 		})
 	}
 
-	removeToast = (idx: number) => {
+	// TODO: Hook up this functionality
+	removeToast = () => {
 		this.setState(prevState => {
 			const toasts = [...prevState.toasts]
-			const removedToast = toasts.splice(idx, 1)
 			return {
 				toasts
 			}
@@ -52,7 +72,6 @@ class ToastExample extends Component<Props, State> {
 	}
 
 	render() {
-		const { children } = this.props
 		const { toasts } = this.state
 		return (
 			<div>
@@ -86,7 +105,7 @@ stories.addDecorator(withKnobs)
 stories.add('Toast', () => (
 	<ToastExample
 		headline={text('headline', 'Neat')}
-		text={text('text', 'Something just happened and it was fine')}
-		showUndo={boolean('showUndo', false)}
+		text={text('text', 'Something just happened and it was fine.')}
+		showFollowup={boolean('showFollowup', false)}
 	/>
 ))

@@ -1,6 +1,5 @@
 // @flow
 import React from 'react'
-import type { Node } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button from '../../../Button/Button'
@@ -25,7 +24,7 @@ export type Props = {
 	image?: string,
 
 	/** Inline svg icon */
-	icon?: object,
+	icon?: Object,
 
 	/** Set true when the list can be reordered */
 	isDraggable?: boolean,
@@ -37,7 +36,10 @@ export type Props = {
 	actions?: Array<ButtonProps>,
 
 	/** Context Menu associated with the list item */
-	contextMenu?: ContextMenuProps
+	contextMenu?: ContextMenuProps,
+
+	/** Props passed to the toggle when it is used */
+	toggleProps?: Object
 }
 
 const ListItem = (props: Props) => {
@@ -50,7 +52,8 @@ const ListItem = (props: Props) => {
 		isDraggable,
 		toggleId,
 		actions,
-		contextMenu
+		contextMenu,
+		toggleProps
 	} = props
 
 	const parentClass = cx('list-item', {
@@ -115,7 +118,7 @@ const ListItem = (props: Props) => {
 					{contextMenu && <ContextMenu {...contextMenu} />}
 				</div>
 			)}
-			{toggleId && <Toggle id={toggleId} />}
+			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
 		</li>
 	)
 }
@@ -127,7 +130,8 @@ ListItem.defaultProps = {
 	icon: null,
 	isDraggable: false,
 	toggleId: '',
-	actions: []
+	actions: [],
+	toggleProps: {}
 }
 
 export default ListItem

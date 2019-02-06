@@ -13,29 +13,31 @@ export const ListWrapper = (props: { children: Node }) => (
 
 export type Props = {
 	/** List Header */
-	header?: ?ListHeaderProps,
+	header?: ListHeaderProps,
 
 	/** List items */
-	items: Array<ListItemProps>,
+	items?: Array<ListItemProps>,
 
 	/** Class for the list */
 	className?: string,
 
 	/** Set true to make the list smaller */
-	isSmall?: boolean
+	isSmall?: boolean,
+
+	/** any passthrough to render in the body of the list */
+	children?: any
 }
 
 const List = (props: Props) => {
-	const { header, items, className, isSmall } = props
+	const { header, items, className, isSmall, children } = props
 	const parentClass = cx('list', className, { 'list-small': isSmall })
 
 	return (
 		<Fragment>
 			{header && <ListHeader isSmall={isSmall} {...header} />}
 			<ul className={parentClass}>
-				{items.map((item, idx) => (
-					<ListItem key={idx} {...item} />
-				))}
+				{items && items.map((item, idx) => <ListItem key={idx} {...item} />)}
+				{children && children}
 			</ul>
 		</Fragment>
 	)
