@@ -34,10 +34,14 @@ export type Props = {
 	onSave: Function
 }
 
-type State = {}
+type State = {
+	isClient: boolean
+}
 
 export default class SaveBar extends React.PureComponent<Props, State> {
-	state = {}
+	state = {
+		isClient: false
+	}
 
 	static defaultProps = {
 		message: 'Unsaved changes',
@@ -46,6 +50,12 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 		isSaving: false,
 		isDiscardDisabled: false,
 		isSaveDisabled: false
+	}
+
+	componentDidMount() {
+		this.setState({
+			isClient: true
+		})
 	}
 
 	render() {
@@ -61,7 +71,9 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 			onSave
 		} = this.props
 
-		if (typeof document === 'undefined') {
+		const { isClient } = this.state
+
+		if (!isClient) {
 			return null
 		}
 
