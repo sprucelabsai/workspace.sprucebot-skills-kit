@@ -52,7 +52,6 @@
 		"enzyme": "^3.3.0",
 		"enzyme-adapter-react-16": "^1.1.1",
 		"enzyme-to-json": "^3.3.1",
-		"flow-bin": "^0.89.0",
 		"flow-node": "^1.2.3",
 		"globby": "^8.0.1",
 		"graphql": "^14.0.2",
