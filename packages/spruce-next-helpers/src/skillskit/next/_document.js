@@ -35,11 +35,11 @@ export default class MyDocument extends Document {
 	render() {
 		let bodyClassName =
 			this.props.config && this.props.config.SLUG
-				? `skill skill-${this.props.config.SLUG}`
-				: 'skill'
+				? `skill-${this.props.config.SLUG}`
+				: ''
 
 		return (
-			<html className={`skill${bodyClassName}`}>
+			<html className={`skill ${bodyClassName}`}>
 				<Head>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
 					{this.props.config && this.props.config.SKILL_STYLESHEET && (
