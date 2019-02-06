@@ -19,9 +19,7 @@ class PublicOrganizationPage extends React.Component {
 			<Page
 				className="public-organization-page"
 				header={{
-					title: 'Public Organization Page',
-					onClickBack: () => Router.back(),
-					backLinkText: 'Previous Page'
+					title: 'Public Organization Page'
 				}}
 			>
 				<PageContent>

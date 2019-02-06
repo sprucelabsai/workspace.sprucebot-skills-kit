@@ -19,9 +19,7 @@ class LocationSettingsPage extends React.Component {
 			<Page
 				className="location-settings-page"
 				header={{
-					title: 'Location Settings Page',
-					onClickBack: () => Router.back(),
-					backLinkText: 'Previous Page'
+					title: 'Location Settings Page'
 				}}
 			>
 				<PageContent>

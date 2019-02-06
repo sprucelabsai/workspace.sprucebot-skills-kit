@@ -102,10 +102,17 @@ const CardBuilderKey = {
 	}
 }
 
+CardBuilderKey.button = CardBuilderKey.CardBodyButton
+CardBuilderKey.image = CardBuilderKey.CardBodyImage
+CardBuilderKey.heading = CardBuilderKey.CardBodyHeading
+CardBuilderKey.text = CardBuilderKey.CardBodyText
+CardBuilderKey.list = CardBuilderKey.CardBodyList
+CardBuilderKey.scores = CardBuilderKey.CardBodyScores
+
 const renderChild = child => {
 	const Type = (child &&
-		child.__typename &&
-		CardBuilderKey[child.__typename]) || {
+		(child.__typename || child.type) &&
+		CardBuilderKey[child.__typename || child.type]) || {
 		component: Text,
 		mapProps: child => ({ ...child, ...child.props })
 	}

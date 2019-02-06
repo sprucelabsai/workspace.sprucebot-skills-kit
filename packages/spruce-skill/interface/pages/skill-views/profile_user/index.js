@@ -19,9 +19,7 @@ class UserProfilePage extends React.Component {
 			<Page
 				className="user-profile-page"
 				header={{
-					title: 'User Profile Page',
-					onClickBack: () => Router.back(),
-					backLinkText: 'Previous Page'
+					title: 'User Profile Page'
 				}}
 			>
 				<PageContent>

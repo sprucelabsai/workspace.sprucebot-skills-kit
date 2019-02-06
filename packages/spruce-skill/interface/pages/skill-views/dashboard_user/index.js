@@ -16,14 +16,7 @@ class DashboardUserPage extends React.Component {
 
 	render() {
 		return (
-			<Page
-				className="dashboard-user-page"
-				header={{
-					title: 'Dashboard User Page',
-					onClickBack: () => Router.back(),
-					backLinkText: 'Previous Page'
-				}}
-			>
+			<Page>
 				<PageContent>
 					<Layout>
 						<LayoutSection>

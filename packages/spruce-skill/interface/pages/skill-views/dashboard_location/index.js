@@ -81,14 +81,7 @@ class DashboardLocationPage extends React.Component {
 
 	render() {
 		return (
-			<Page
-				className="dashboard-location-page"
-				header={{
-					title: 'Dashboard Location Page',
-					onClickBack: () => Router.back(),
-					backLinkText: 'Previous Page'
-				}}
-			>
+			<Page>
 				<PageContent>
 					<Layout>
 						<LayoutSection>
