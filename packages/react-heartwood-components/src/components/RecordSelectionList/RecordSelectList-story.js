@@ -63,6 +63,12 @@ stories.add('Default, static record list', () => {
 	)
 })
 
+type Props = {}
+
+type State = {
+	isModalOpen: boolean
+}
+
 class WithModalExample extends Component<Props, State> {
 	state = {
 		isModalOpen: false
@@ -92,8 +98,6 @@ class WithModalExample extends Component<Props, State> {
 						recordTypeName={text('recordTypeName', 'locations')}
 						selectedIds={locations.map(loc => loc.id)}
 						loadRecords={() => generateLocations({ amount: 20 })}
-						onCancel={this.toggleModal}
-						onSelectAll={() => alert('all locations selected!')}
 						recordItemProps={record => ({
 							id: record.id,
 							key: record.id,

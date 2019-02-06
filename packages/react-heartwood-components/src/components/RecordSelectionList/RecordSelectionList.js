@@ -15,28 +15,28 @@ import Text from '../Text/Text'
 
 type RecordSelectionListProps = {|
 	/** Static list of records */
-	records: Array<any>,
+	records?: Array<any>,
 
 	/** Load records asyncronously */
-	loadRecords: ({ limit: number, offset: number, filter?: string }) => Promise<
+	loadRecords?: ({ limit: number, offset: number, filter?: string }) => Promise<
 		Array<Object>
 	>,
 
 	/** IDs in this record list which have been selected */
-	selectedIds: Array<string>,
+	selectedIds?: Array<string>,
 
-	onSelect: string => void,
+	onSelect?: string => void,
 
-	onRemove: string => void,
+	onRemove?: string => void,
 
 	/** Total number of records available to be selected */
-	totalRecordCount: number,
+	totalRecordCount?: number,
 
 	/** Name of record type */
-	recordTypeName: string,
+	recordTypeName?: string,
 
 	/** Outlines props that are passed to list item */
-	recordItemProps: Function
+	recordItemProps?: Function
 |}
 
 type RecordSelectionListState = {
