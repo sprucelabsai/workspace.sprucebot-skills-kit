@@ -102,6 +102,7 @@ const CardBuilderKey = {
 	}
 }
 
+// map to simple type names for imperative usage
 CardBuilderKey.button = CardBuilderKey.CardBodyButton
 CardBuilderKey.image = CardBuilderKey.CardBodyImage
 CardBuilderKey.heading = CardBuilderKey.CardBodyHeading
