@@ -34,15 +34,9 @@ export type Props = {
 	onSave: Function
 }
 
-type State = {
-	isClient: boolean
-}
+type State = {}
 
 export default class SaveBar extends React.PureComponent<Props, State> {
-	state = {
-		isClient: false
-	}
-
 	_element = null
 
 	static defaultProps = {
@@ -71,8 +65,6 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 			onDiscard,
 			onSave
 		} = this.props
-
-		const { isClient } = this.state
 
 		if (!this._element) {
 			return null
