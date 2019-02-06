@@ -1,5 +1,4 @@
 import React from 'react'
-import Router from 'next/router'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
 	Page,
@@ -19,9 +18,7 @@ class PublicLocationPage extends React.Component {
 			<Page
 				className="public-location-page"
 				header={{
-					title: 'Public Location Page',
-					onClickBack: () => Router.back(),
-					backLinkText: 'Previous Page'
+					title: 'Public Location Page'
 				}}
 			>
 				<PageContent>

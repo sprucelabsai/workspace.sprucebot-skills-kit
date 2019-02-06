@@ -1,6 +1,5 @@
 // @flow
 import React from 'react'
-import Router from 'next/router'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
 	Page,
@@ -81,14 +80,7 @@ class DashboardLocationPage extends React.Component {
 
 	render() {
 		return (
-			<Page
-				className="dashboard-location-page"
-				header={{
-					title: 'Dashboard Location Page',
-					onClickBack: () => Router.back(),
-					backLinkText: 'Previous Page'
-				}}
-			>
+			<Page>
 				<PageContent>
 					<Layout>
 						<LayoutSection>
