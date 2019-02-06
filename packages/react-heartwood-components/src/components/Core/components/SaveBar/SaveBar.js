@@ -43,6 +43,8 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 		isClient: false
 	}
 
+	_element = null
+
 	static defaultProps = {
 		message: 'Unsaved changes',
 		isVisible: false,
@@ -53,9 +55,8 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 	}
 
 	componentDidMount() {
-		this.setState({
-			isClient: true
-		})
+		this._element = document.body
+		this.forceUpdate()
 	}
 
 	render() {
@@ -73,7 +74,7 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 
 		const { isClient } = this.state
 
-		if (!isClient) {
+		if (!this._element) {
 			return null
 		}
 
@@ -116,7 +117,7 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 					</div>
 				</div>
 			</CSSTransition>,
-			document.body
+			this._element
 		)
 	}
 }
