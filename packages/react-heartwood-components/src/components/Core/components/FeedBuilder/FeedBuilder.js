@@ -189,8 +189,7 @@ export default class FeedBuilder extends Component<Props, State> {
 			this.list.recomputeRowHeights(0)
 			this.list.forceUpdateGrid()
 		}
-		let done
-		return new Promise(resolve => (done = resolve))
+		return new Promise(resolve => resolve)
 	}
 
 	renderRow = ({ index, key, parent, style, isScrolling }) => {
