@@ -57,15 +57,23 @@ class BasicExample extends Component<Props, State> {
 						}, Math.random() * 1000)
 					)
 
+					let results = []
+
 					if (search) {
 						const filteredLocations = locations.filter(location => {
 							return location.publicName.match(new RegExp(search, 'ig'))
 						})
 
-						return filteredLocations.slice(offset, offset + limit)
+						results = filteredLocations.slice(offset, offset + limit)
+					} else {
+						results = locations.slice(offset, offset + limit)
 					}
 
-					return locations.slice(offset, offset + limit)
+					console.log('Simulated response')
+					console.log('==================')
+					console.log(results)
+
+					return results
 				}}
 				renderRecord={record => (
 					<RecordSelectionListItem

@@ -195,9 +195,9 @@ export default class RecordSelectionList extends Component<
 				isLoading: false,
 				loadedRecords: [...loadedRecords, ...newRows]
 			})
-
-			return true
 		}
+
+		return true
 	}
 
 	handleSearchUpdate = async (e: SyntheticInputEvent<HTMLInputElement>) => {
@@ -239,7 +239,7 @@ export default class RecordSelectionList extends Component<
 		const { loadedRecords, search } = this.state
 		const totalSelected = selectedIds.length
 		const isRowLoaded = ({ index }) => {
-			return loadedRecords.find(record => record.id === selectedIds[index])
+			return !!loadedRecords[index]
 		}
 		const onResize = () => {
 			if (this.list && this.cache) {
