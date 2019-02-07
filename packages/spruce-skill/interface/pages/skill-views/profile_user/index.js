@@ -1,5 +1,4 @@
 import React from 'react'
-import Router from 'next/router'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
 	Page,
@@ -19,9 +18,7 @@ class UserProfilePage extends React.Component {
 			<Page
 				className="user-profile-page"
 				header={{
-					title: 'User Profile Page',
-					onClickBack: () => Router.back(),
-					backLinkText: 'Previous Page'
+					title: 'User Profile Page'
 				}}
 			>
 				<PageContent>

@@ -64,56 +64,7 @@ module.exports = [
 			}
 		]
 	},
-	// User Org settings
-	{
-		title: 'General',
-		page: 'skill_settings_user_org',
-		id: 'general',
-		sections: [
-			{
-				title: 'Example User Organization Settings Card',
-				fields: [
-					{
-						name: 'user_org_example',
-						type: 'boolean',
-						props: {
-							label: 'Example setting',
-							helper: 'This is an example of a setting.',
-							isSmall: true,
-							iconBefore: 'caution',
-							defaultValue: true,
-							required: true
-						}
-					}
-				]
-			}
-		]
-	},
-	// User location settings
-	{
-		title: 'General',
-		page: 'skill_settings_user_location',
-		id: 'general',
-		sections: [
-			{
-				title: 'Example User Location Settings Card',
-				fields: [
-					{
-						name: 'user_location_example',
-						type: 'boolean',
-						props: {
-							label: 'Example setting',
-							helper: 'This is an example of a setting.',
-							isSmall: true,
-							iconBefore: 'caution',
-							defaultValue: true,
-							required: true
-						}
-					}
-				]
-			}
-		]
-	},
+
 	// Org skill settings
 	{
 		title: 'General',

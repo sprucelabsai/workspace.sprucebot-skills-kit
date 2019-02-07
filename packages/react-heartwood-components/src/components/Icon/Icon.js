@@ -32,7 +32,7 @@ const Icon = (props: Props) => {
 
 	return (
 		<Handler
-			className={cx(className, {
+			className={cx(className, 'icon', {
 				'u-icon__no-fill': isLineIcon,
 				'u-icon__stroke': isLineIcon
 			})}
