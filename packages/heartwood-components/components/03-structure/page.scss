@@ -8,6 +8,12 @@
 	}
 }
 
+.header-primary + .main-content {
+	.page {
+		min-height: calc(100vh - #{rem(48)});
+	}
+}
+
 .page__header {
 	padding-top: spacing('base');
 

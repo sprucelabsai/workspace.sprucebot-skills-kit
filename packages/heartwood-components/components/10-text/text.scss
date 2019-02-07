@@ -38,6 +38,27 @@
 	font-weight: $font-weight-normal;
 	font-feature-settings: 'onum', 'pnum';
 	font-variant-numeric: oldstyle-nums proportional-nums;
+	.icon {
+		height: 0.85em;
+		width: 0.85em;
+		margin: 0 0.2rem;
+		position: relative;
+		bottom: -0.1em;
+	}
+}
+
+a.text {
+	color: $c-primary;
+	display: inline-flex;
+	align-items: center;
+	.icon {
+		&:not(.u-icon__no-fill) {
+			fill: $c-primary;
+		}
+		&.u-icon__stroke {
+			stroke: $c-primary;
+		}
+	}
 }
 
 .text__style {

@@ -52,6 +52,11 @@
 .modal-body {
 	padding: spacing('base');
 	overflow-y: auto;
+
+	> img {
+		height: auto;
+		width: 100%;
+	}
 }
 
 .modal-overlay {

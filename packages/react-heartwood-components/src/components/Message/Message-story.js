@@ -11,10 +11,15 @@ import Message, { MessageBuilder } from './index'
 import Page, { PageContent } from '../Page'
 import Layout, { LayoutSection } from '../Layout'
 
+const fromName = 'Sprucebot'
+const fromImage =
+	'https://cloudsky1080.files.wordpress.com/2018/08/grumpycat.png?w=128'
+
 const messageJSON = {
-	fromName: 'Sprucebot',
-	fromImage:
-		'https://cloudsky1080.files.wordpress.com/2018/08/grumpycat.png?w=128',
+	from: {
+		name: fromName,
+		image: fromImage
+	},
 	dateSent: moment(),
 	message: {
 		text: `{{name}} has an {{appointment}} scheduled for {{date}}`,
@@ -103,7 +108,14 @@ stories.addDecorator(story => (
 stories.addDecorator(withKnobs)
 
 stories
-	.add('Message', () => <Message>It is lonely over here.</Message>)
+	.add('Message', () => (
+		<Message
+			from={{ name: '', image: '', alt: '', id: '' }}
+			dateSent={moment()}
+		>
+			{`It's lonely over here.`}
+		</Message>
+	))
 	.add('MessageBuilder', () => [
 		<MessageBuilder key="foo" {...object('json', messageJSON)} />
 	])
