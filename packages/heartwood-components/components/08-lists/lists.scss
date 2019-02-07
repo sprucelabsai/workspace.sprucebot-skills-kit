@@ -92,6 +92,10 @@
 	cursor: move;
 }
 
+.list-item--is-disabled {
+	color: $c-grey-04;
+}
+
 .list-item__text-wrapper {
 	flex: 1 1 auto;
 	padding: rem(12) spacing('tight') rem(12) 0;
@@ -116,6 +120,18 @@
 
 .list-item__subtitle {
 	color: $c-text-light;
+
+	.list-item--is-disabled & {
+		color: $c-grey-04;
+	}
+}
+
+.list-item__note {
+	color: $c-text-light;
+
+	.list-item--is-disabled & {
+		color: $c-grey-04;
+	}
 }
 
 .list-item__image-wrapper,
