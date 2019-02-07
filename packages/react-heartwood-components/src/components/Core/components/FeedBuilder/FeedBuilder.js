@@ -1,6 +1,5 @@
 // @flow
-import React, { Component, Fragment } from 'react'
-import moment from 'moment-timezone'
+import React, { Component } from 'react'
 import {
 	List,
 	AutoSizer,
@@ -8,10 +7,8 @@ import {
 	CellMeasurerCache,
 	InfiniteLoader
 } from 'react-virtualized'
-import Message, { MessageBuilder } from '../../../Message'
+import { MessageBuilder } from '../../../Message'
 import Text from '../../../Text/Text'
-
-import type from '../../../Message'
 
 type MessageProps = {
 	/** Unique id for the message */
@@ -171,12 +168,11 @@ export default class FeedBuilder extends Component<Props, State> {
 	}
 
 	isRowLoaded = ({ index }) => {
-		const { messages } = this.props
 		return index > 0
 	}
 
-	loadMoreRows = ({ startIndex, stopIndex }) => {
-		const { messages, onRowsRequested, pageSize } = this.props
+	loadMoreRows = () => {
+		const { onRowsRequested } = this.props
 		const { isLoading, allLoaded } = this.state
 		// Do API Stuff™
 
@@ -197,8 +193,7 @@ export default class FeedBuilder extends Component<Props, State> {
 		return new Promise(resolve => (done = resolve))
 	}
 
-	renderRow = ({ index, key, parent, style, isScrolling, isVisible }) => {
-		const { messages } = this.props
+	renderRow = ({ index, key, parent, style, isScrolling }) => {
 		const { rows, groups } = this.state
 		const groupMatch = groups[index]
 
@@ -227,8 +222,8 @@ export default class FeedBuilder extends Component<Props, State> {
 	}
 
 	render() {
-		const { messages, emptyText, pageSize } = this.props
-		const { scrollToIndex, rowCount } = this.state
+		const { pageSize } = this.props
+		const { rowCount } = this.state
 		return (
 			<div className="message-feed__wrapper">
 				<div className="message-feed">

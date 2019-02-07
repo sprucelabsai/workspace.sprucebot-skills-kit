@@ -1,15 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import moment from 'moment-timezone'
 import FeedBuilder from './FeedBuilder'
-import Page, { PageContent } from '../../../Page'
-import View from '../../../View/View'
-import { Sidebar, SidebarSection } from '../../../Core'
 import StylesProvider from '../../../../../.storybook/StylesProvider'
-import { messages, generateMessages } from '../../../../../.storybook/data/feed'
-
-import user01image from '../../../../../static/assets/users/user-01--96w.png'
+import { generateMessages } from '../../../../../.storybook/data/feed'
 
 const ProvideStyles = storyFn => <StylesProvider>{storyFn()}</StylesProvider>
 

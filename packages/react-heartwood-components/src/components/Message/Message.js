@@ -69,7 +69,7 @@ export const Message = (props: MessageProps) => {
 		return null
 	}
 
-	const { id: fromId, name: fromName, image: fromImage, alt: fromAlt } = from
+	const { name: fromName, image: fromImage, alt: fromAlt } = from
 
 	const renderReply = reply => {
 		const { type, children } = reply

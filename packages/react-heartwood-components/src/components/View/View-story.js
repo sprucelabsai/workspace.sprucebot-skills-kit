@@ -15,11 +15,9 @@ import Heading from '../Heading/Heading'
 import Avatar from '../Avatar/Avatar'
 import SaveBar from '../Core/components/SaveBar/SaveBar'
 import FeedBuilder from '../Core/components/FeedBuilder/FeedBuilder'
-import { messages, generateMessages } from '../../../.storybook/data/feed'
+import { generateMessages } from '../../../.storybook/data/feed'
 
 import View from './View.js'
-import simple from 'graphql-query-complexity/dist/estimators/simple'
-import { generate } from 'rxjs'
 
 const ProvideStyles = storyFn => <StylesProvider>{storyFn()}</StylesProvider>
 
@@ -104,11 +102,6 @@ const bizItems = [
 	}
 ]
 
-const bizBackLink = {
-	text: 'Organization Dashboard',
-	href: '#'
-}
-
 const user = {
 	name: 'Madaline Gibson',
 	image: user01image,
@@ -119,11 +112,6 @@ const organization = {
 	name: 'Chimera Hair Salon',
 	image:
 		'https://www.logoground.com/uploads/2018130762018-04-113965123chimera%20logo%20chimera%20logo.jpg'
-}
-
-const location = {
-	name: 'Chimera Hair Salon at the Point',
-	address: '7678 N High St, Denver, CO'
 }
 
 const skillViewTabs = [
