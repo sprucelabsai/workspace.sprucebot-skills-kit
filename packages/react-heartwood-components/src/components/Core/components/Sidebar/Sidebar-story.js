@@ -36,6 +36,11 @@ const personalItems = [
 	}
 ]
 
+const backLink = {
+	text: 'Organization Dashboard',
+	href: '#'
+}
+
 class Example extends Component {
 	state = {
 		showSidebar: true
@@ -53,6 +58,7 @@ class Example extends Component {
 		return (
 			<Sidebar
 				items={personalItems}
+				backLink={backLink}
 				isExpanded={showSidebar}
 				toggleExpanded={this.handleToggleSidebar}
 				forceCloseSidebar={() => null}

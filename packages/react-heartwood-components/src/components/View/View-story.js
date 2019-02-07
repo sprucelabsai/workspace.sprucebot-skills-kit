@@ -100,6 +100,11 @@ const bizItems = [
 	}
 ]
 
+const bizBackLink = {
+	text: 'Organization Dashboard',
+	href: '#'
+}
+
 const user = {
 	name: 'Madaline Gibson',
 	image: user01image,
@@ -333,6 +338,7 @@ stories
 		<View
 			STORYBOOKdoNotWrap
 			sidebarItems={bizItems}
+			sidebarBackLink={bizBackLink}
 			user={user}
 			organization={organization}
 			location={location}
