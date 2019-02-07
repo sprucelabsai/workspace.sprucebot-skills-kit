@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import {
 	List,
@@ -9,41 +9,48 @@ import {
 	InfiniteLoader
 } from 'react-virtualized'
 
-import RecordSelectionListItem from './RecordSelectionListItem'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
 
+import type { Node } from 'react'
+
+type Record = any
+type RecordId = string
+
 type RecordSelectionListProps = {|
-	/** Static list of records */
-	records?: Array<any>,
+	/** Required method to render a record into a node */
+	renderRecord: any => Node,
 
-	/** Load records asyncronously */
-	loadRecords?: ({ limit: number, offset: number, filter?: string }) => Promise<
-		Array<Object>
-	>,
+	/** Load records for the offset/limit provided */
+	loadRecords: ({ offset: number, limit: number }) => Promise<Array<Record>>,
 
-	/** IDs in this record list which have been selected */
-	selectedIds?: Array<string>,
-
-	onSelect?: string => void,
-
-	onRemove?: string => void,
-
-	/** Total number of records available to be selected */
+	/** Total number of records that could be in this list.
+	 * Optional, but optimizes infinite load and adds supplementary UI */
 	totalRecordCount?: number,
 
-	/** Name of record type */
-	recordTypeName?: string,
+	/** Array of IDs in this collection of records that should be marked as selected */
+	selectedIds?: Array<RecordId>,
 
-	/** Outlines props that are passed to list item */
-	recordItemProps?: Function
+	/** Can the user select many or one records in this list? */
+	canSelect?: 'many' | 'one',
+
+	/** Can the user remove records from this list? */
+	canRemove?: boolean,
+
+	/** Callback for selection of a record */
+	onSelect?: RecordId => void,
+
+	/** Callback for removal of a record */
+	onRemove?: RecordId => void
 |}
 
-type RecordSelectionListState = {
-	selectedIds: Array<string>,
-	loadedRecords: Array<any>,
+type RecordSelectionListState = {|
+	/** Records that have been loaded into state via `loadRecords` */
+	loadedRecords: Array<Record>,
+
+	/** Is the list loading data? */
 	isLoading: boolean
-}
+|}
 
 export default class RecordSelectionList extends Component<
 	RecordSelectionListProps,
@@ -57,15 +64,8 @@ export default class RecordSelectionList extends Component<
 	constructor(props: RecordSelectionListProps) {
 		super(props)
 
-		if (props.records && props.loadRecords) {
-			throw new Error(
-				'RecordSelectionList: You provided `records` and `loadRecords` but I only want one.`'
-			)
-		}
-
 		this.state = {
-			loadedRecords: props.records || [],
-			selectedIds: props.selectedIds,
+			loadedRecords: [],
 			isLoading: false
 		}
 	}
@@ -73,16 +73,14 @@ export default class RecordSelectionList extends Component<
 	async componentDidMount() {
 		const { loadRecords } = this.props
 
-		if (loadRecords) {
-			const initialRecords = await loadRecords({
-				offset: 0,
-				limit: 10
-			})
+		const initialRecords = await loadRecords({
+			offset: 0,
+			limit: 10
+		})
 
-			this.setState({
-				loadedRecords: initialRecords
-			})
-		}
+		this.setState({
+			loadedRecords: initialRecords
+		})
 	}
 
 	renderRow = ({
@@ -96,7 +94,7 @@ export default class RecordSelectionList extends Component<
 		parent: any,
 		style: Object
 	}) => {
-		const { recordItemProps } = this.props
+		const { renderRecord } = this.props
 		const { loadedRecords } = this.state
 
 		const record = loadedRecords[index]
@@ -116,11 +114,7 @@ export default class RecordSelectionList extends Component<
 							...style
 						}}
 					>
-						<RecordSelectionListItem
-							key={key}
-							onRemoveSelection={this.handleRemoveSelection}
-							{...recordItemProps(record)}
-						/>
+						<Fragment key={key}>{renderRecord(record)}</Fragment>
 					</div>
 				</CellMeasurer>
 			)
@@ -150,27 +144,11 @@ export default class RecordSelectionList extends Component<
 		return true
 	}
 
-	handleRemoveSelection = (id: string) => {
-		const { loadedRecords, selectedIds } = this.state
-		const updatedLoadedRecords = loadedRecords.slice(0)
-		const updatedSelectedIds = selectedIds.slice(0)
-
-		const recordToRemove = updatedLoadedRecords.find(r => r.id === id)
-		const loadedIdx = updatedLoadedRecords.indexOf(recordToRemove)
-		updatedLoadedRecords.splice(loadedIdx, 1)
-
-		const selectedIdx = updatedSelectedIds.indexOf(id)
-		updatedSelectedIds.splice(selectedIdx, 1)
-
-		this.setState({
-			loadedRecords: updatedLoadedRecords,
-			selectedIds: updatedSelectedIds
-		})
-	}
+	handleRemoveSelection = () => {}
 
 	render() {
-		const { recordTypeName, totalRecordCount } = this.props
-		const { selectedIds, loadedRecords } = this.state
+		const { selectedIds = [], totalRecordCount } = this.props
+		const { loadedRecords } = this.state
 
 		const totalSelected = selectedIds.length
 
@@ -189,7 +167,7 @@ export default class RecordSelectionList extends Component<
 		return (
 			<div className="record-selection__list">
 				<TextContainer>
-					<Text>{`${totalSelected} ${recordTypeName} are selected`}</Text>
+					<Text>{`${totalSelected} are selected`}</Text>
 				</TextContainer>
 
 				<div className="record-selection__list-wrapper">

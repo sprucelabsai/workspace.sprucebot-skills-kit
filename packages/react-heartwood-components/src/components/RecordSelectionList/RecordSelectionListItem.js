@@ -3,7 +3,7 @@
 import React from 'react'
 import ListItem from '../List/components/ListItem/ListItem'
 
-type Props = {
+type RecordSelectionListItemProps = {
 	/** Title text */
 	title: string,
 
@@ -16,27 +16,11 @@ type Props = {
 	/** Inline svg icon */
 	icon?: Object,
 
-	/** Called when remove icon is clicked */
-	onRemoveSelection: string => void,
-
 	id: string
 }
 
-const RecordSelectionListItem = (props: Props) => {
-	return (
-		<ListItem
-			actions={[
-				{
-					icon: {
-						name: 'remove_circle',
-						isLineIcon: true
-					},
-					onClick: () => props.onRemoveSelection(props.id)
-				}
-			]}
-			{...props}
-		/>
-	)
+const RecordSelectionListItem = (props: RecordSelectionListItemProps) => {
+	return <ListItem {...props} />
 }
 
 export default RecordSelectionListItem
