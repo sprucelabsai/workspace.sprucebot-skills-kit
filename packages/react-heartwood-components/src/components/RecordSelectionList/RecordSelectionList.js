@@ -44,7 +44,7 @@ type RecordSelectionListProps = {|
 	/** Callback for selection of a record */
 	onSelect?: RecordId => void,
 
-	/** Callback for removal of a record */
+	/** Callback for when user requests to remove a record from the list. */
 	onRemove?: RecordId => void
 |}
 
@@ -90,6 +90,21 @@ export default class RecordSelectionList extends Component<
 		})
 	}
 
+	// Lifecycle required since we need to manually tell virtualized to update if these props
+	// change. This is mostly for storybook but it may be nice to support later in product.
+	componentDidUpdate(prevProps: RecordSelectionListProps) {
+		const { canRemove, canSelect } = this.props
+
+		if (
+			prevProps.canRemove !== canRemove ||
+			prevProps.canSelect !== canSelect
+		) {
+			this.cache.clearAll()
+			this.list.recomputeRowHeights(0)
+			this.list.forceUpdateGrid()
+		}
+	}
+
 	renderRow = ({
 		index,
 		key,
@@ -101,7 +116,14 @@ export default class RecordSelectionList extends Component<
 		parent: any,
 		style: Object
 	}) => {
-		const { renderRecord } = this.props
+		const {
+			selectedIds,
+			renderRecord,
+			canSelect,
+			canRemove,
+			onSelect,
+			onRemove
+		} = this.props
 		const { loadedRecords } = this.state
 
 		const record = loadedRecords[index]
@@ -119,7 +141,33 @@ export default class RecordSelectionList extends Component<
 						className="record-selection__record-wrapper"
 						style={{ ...style }}
 					>
+						{onSelect && canSelect && (
+							<input
+								type={canSelect === 'one' ? 'radio' : 'checkbox'}
+								onChange={() => {
+									onSelect(record.id)
+								}}
+								checked={selectedIds && selectedIds.indexOf(record.id) >= 0}
+							/>
+						)}
+
 						<Fragment key={key}>{renderRecord(record)}</Fragment>
+
+						{onRemove && canRemove && (
+							<button
+								onClick={() => {
+									this.setState({
+										loadedRecords: loadedRecords.filter(
+											loadedRecord => loadedRecord.id !== record.id
+										)
+									})
+
+									onRemove(record.id)
+								}}
+							>
+								x
+							</button>
+						)}
 					</div>
 				</CellMeasurer>
 			)
@@ -202,7 +250,7 @@ export default class RecordSelectionList extends Component<
 		return (
 			<div className="record-selection__list">
 				<TextContainer>
-					<Text>{`${totalSelected} are selected`}</Text>
+					<Text>{`${totalSelected} selected`}</Text>
 				</TextContainer>
 
 				<input type="text" value={search} onChange={this.handleSearchUpdate} />
@@ -214,8 +262,7 @@ export default class RecordSelectionList extends Component<
 								isRowLoaded={isRowLoaded}
 								loadMoreRows={() => {
 									this.handleInfiniteLoad()
-								}}
-								// If we can know the total record count, we can stop the loader
+								}} // If we can know the total record count, we can stop the loader
 								// from attempting to load more when nothing's there. Passing
 								// Infinity just tells it to keep trying.
 								// TODO: We could fix the record count in state if `handleInfiniteLoad`
@@ -237,6 +284,7 @@ export default class RecordSelectionList extends Component<
 										rowHeight={this.cache.rowHeight}
 										rowRenderer={this.renderRow}
 										onRowsRendered={onRowsRendered}
+										selectedIds={JSON.stringify(selectedIds)}
 									/>
 								)}
 							</InfiniteLoader>
