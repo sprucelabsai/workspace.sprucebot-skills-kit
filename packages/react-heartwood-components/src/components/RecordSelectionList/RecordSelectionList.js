@@ -22,7 +22,11 @@ type RecordSelectionListProps = {|
 	renderRecord: any => Node,
 
 	/** Load records for the offset/limit provided */
-	loadRecords: ({ offset: number, limit: number }) => Promise<Array<Record>>,
+	loadRecords: ({|
+		offset: number,
+		limit: number,
+		search?: string
+	|}) => Promise<Array<Record>>,
 
 	/** Total number of records that could be in this list.
 	 * Optional, but optimizes infinite load and adds supplementary UI */
@@ -49,7 +53,13 @@ type RecordSelectionListState = {|
 	loadedRecords: Array<Record>,
 
 	/** Is the list loading data? */
-	isLoading: boolean
+	isLoading: boolean,
+
+	/** Search value */
+	search: string,
+
+	/** ID to manage the last request to loadRecords */
+	loadingId?: string
 |}
 
 export default class RecordSelectionList extends Component<
@@ -64,10 +74,7 @@ export default class RecordSelectionList extends Component<
 	constructor(props: RecordSelectionListProps) {
 		super(props)
 
-		this.state = {
-			loadedRecords: [],
-			isLoading: false
-		}
+		this.state = { loadedRecords: [], isLoading: false, search: '' }
 	}
 
 	async componentDidMount() {
@@ -110,9 +117,7 @@ export default class RecordSelectionList extends Component<
 				>
 					<div
 						className="record-selection__record-wrapper"
-						style={{
-							...style
-						}}
+						style={{ ...style }}
 					>
 						<Fragment key={key}>{renderRecord(record)}</Fragment>
 					</div>
@@ -123,9 +128,9 @@ export default class RecordSelectionList extends Component<
 
 	handleInfiniteLoad = async () => {
 		const { loadRecords } = this.props
-		const { loadedRecords, isLoading } = this.state
+		const { loadedRecords, isLoading, search } = this.state
 
-		if (isLoading || !loadRecords) {
+		if (isLoading) {
 			return
 		}
 
@@ -133,7 +138,8 @@ export default class RecordSelectionList extends Component<
 
 		const newRows = await loadRecords({
 			offset: loadedRecords.length,
-			limit: 10
+			limit: 10,
+			search
 		})
 
 		this.setState({
@@ -144,18 +150,47 @@ export default class RecordSelectionList extends Component<
 		return true
 	}
 
+	handleSearchUpdate = async (e: SyntheticInputEvent<HTMLInputElement>) => {
+		const { loadRecords } = this.props
+
+		// Search will rapid-fire, but we only want to use the last result.
+		// If this value doesn't change by the time the API responds, we'll use
+		// that data to update the list!
+		const uniqueId = `${Math.random()}`
+
+		this.setState({
+			search: e.target.value,
+			isLoading: true,
+			loadingId: uniqueId
+		})
+
+		// When we search, we'll want to reset the list, so back to offset 0!
+		const newRows = await loadRecords({
+			offset: 0,
+			limit: 10,
+			search: e.target.value
+		})
+
+		if (uniqueId === this.state.loadingId) {
+			// We reset the list with the zero offset, so clear everything out.
+			// This will scroll the user back to the top automatically.
+			this.cache.clearAll()
+			this.list.recomputeRowHeights(0)
+			this.list.forceUpdateGrid()
+
+			this.setState({ isLoading: false, loadedRecords: newRows })
+		}
+	}
+
 	handleRemoveSelection = () => {}
 
 	render() {
 		const { selectedIds = [], totalRecordCount } = this.props
-		const { loadedRecords } = this.state
-
+		const { loadedRecords, search } = this.state
 		const totalSelected = selectedIds.length
-
 		const isRowLoaded = ({ index }) => {
 			return loadedRecords.find(record => record.id === selectedIds[index])
 		}
-
 		const onResize = () => {
 			if (this.list && this.cache) {
 				this.cache.clearAll()
@@ -169,6 +204,8 @@ export default class RecordSelectionList extends Component<
 				<TextContainer>
 					<Text>{`${totalSelected} are selected`}</Text>
 				</TextContainer>
+
+				<input type="text" value={search} onChange={this.handleSearchUpdate} />
 
 				<div className="record-selection__list-wrapper">
 					<AutoSizer onResize={onResize}>

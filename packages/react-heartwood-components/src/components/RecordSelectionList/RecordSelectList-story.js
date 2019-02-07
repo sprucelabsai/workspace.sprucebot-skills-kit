@@ -21,13 +21,21 @@ stories.add('Default, async record loading', () => {
 	return (
 		<RecordSelectionList
 			selectedIds={locations.map(loc => loc.id)}
-			loadRecords={async ({ limit, offset }) => {
+			loadRecords={async ({ limit, offset, search }) => {
 				// Artificial API wait time
 				await new Promise(resolve =>
 					setTimeout(() => {
 						resolve()
 					}, Math.random() * 1000)
 				)
+
+				if (search) {
+					const filteredLocations = locations.filter(location => {
+						return location.publicName.match(new RegExp(search, 'ig'))
+					})
+
+					return filteredLocations.slice(offset, offset + limit)
+				}
 
 				return locations.slice(offset, offset + limit)
 			}}
