@@ -35,7 +35,7 @@ export type Props = {
 	label?: string,
 
 	/** Text after label */
-	postLabel?: string,
+	postLabel?: string | Node,
 
 	/** Error text */
 	error?: string,
