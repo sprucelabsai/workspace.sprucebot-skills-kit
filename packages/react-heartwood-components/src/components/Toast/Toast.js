@@ -23,6 +23,9 @@ const ToastHeader = (props: HeaderProps) => {
 }
 
 export type Props = {
+	/** Unique ID for the toast */
+	id: string,
+
 	/** Headline text */
 	headline: string,
 
