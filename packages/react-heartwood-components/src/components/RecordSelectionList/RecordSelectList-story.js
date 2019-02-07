@@ -78,6 +78,8 @@ class BasicExample extends Component<Props, State> {
 				canSelect={canSelect}
 				canRemove={canRemove}
 				onSelect={id => {
+					// Typically you'd want "many" or "one", so you'd only need one side
+					// of this conditional.
 					if (canSelect === 'many') {
 						if (selectedIds.indexOf(id) >= 0) {
 							this.setState({
@@ -95,8 +97,13 @@ class BasicExample extends Component<Props, State> {
 					}
 				}}
 				onRemove={id => {
+					// The component maintains state of the records it has loaded, but
+					// it's up to you to remove them from your list in your local state.
+					// Also, if for some reason you want to have selection alongside deletion,
+					// you should be sure to clear out the selection at the same time.
 					this.setState({
-						selectedIds: selectedIds.filter(selectedId => selectedId !== id)
+						selectedIds: selectedIds.filter(selectedId => selectedId !== id),
+						locations: locations.filter(location => location.id !== id)
 					})
 				}}
 			/>

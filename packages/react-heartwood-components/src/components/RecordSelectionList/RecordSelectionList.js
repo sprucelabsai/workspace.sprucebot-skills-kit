@@ -190,12 +190,14 @@ export default class RecordSelectionList extends Component<
 			search
 		})
 
-		this.setState({
-			isLoading: false,
-			loadedRecords: [...loadedRecords, ...newRows]
-		})
+		if (newRows.length > 0) {
+			this.setState({
+				isLoading: false,
+				loadedRecords: [...loadedRecords, ...newRows]
+			})
 
-		return true
+			return true
+		}
 	}
 
 	handleSearchUpdate = async (e: SyntheticInputEvent<HTMLInputElement>) => {
