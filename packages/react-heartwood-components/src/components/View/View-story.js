@@ -14,6 +14,8 @@ import TextStyle from '../TextStyle/TextStyle'
 import Heading from '../Heading/Heading'
 import Avatar from '../Avatar/Avatar'
 import SaveBar from '../Core/components/SaveBar/SaveBar'
+import FeedBuilder from '../Core/components/FeedBuilder/FeedBuilder'
+import { generateMessages } from '../../../.storybook/data/feed'
 
 import View from './View.js'
 
@@ -100,11 +102,6 @@ const bizItems = [
 	}
 ]
 
-const bizBackLink = {
-	text: 'Organization Dashboard',
-	href: '#'
-}
-
 const user = {
 	name: 'Madaline Gibson',
 	image: user01image,
@@ -115,11 +112,6 @@ const organization = {
 	name: 'Chimera Hair Salon',
 	image:
 		'https://www.logoground.com/uploads/2018130762018-04-113965123chimera%20logo%20chimera%20logo.jpg'
-}
-
-const location = {
-	name: 'Chimera Hair Salon at the Point',
-	address: '7678 N High St, Denver, CO'
 }
 
 const skillViewTabs = [
@@ -334,64 +326,70 @@ stories
 		</View>
 	))
 	.add('Skill View', () => <SkillViewExample STORYBOOKdoNotWrap />)
-	.add('Guest Profile', () => (
-		<View
-			STORYBOOKdoNotWrap
-			sidebarItems={bizItems}
-			sidebarBackLink={bizBackLink}
-			user={user}
-			organization={organization}
-			location={location}
-			isSidebarExpanded
-		>
-			<Page hasSidebar>
-				<Sidebar isLarge isCollapsible={false} side="right">
-					<SidebarSection
-						isCentered
-						verticalSpacing="loose"
-						horizontalSpacing="loose"
-					>
-						<Avatar
-							isLarge
+	.add('Guest Profile', () => {
+		let messages = generateMessages({ count: 50, interval: 31 })
+		return (
+			<View
+				STORYBOOKdoNotWrap
+				sidebarItems={bizItems}
+				user={user}
+				business={organization}
+				isSidebarExpanded
+			>
+				<Page hasSidebar>
+					<FeedBuilder
+						messages={messages}
+						messageCount={50}
+						onRowsRequested={() => null}
+					/>
+					<Sidebar isLarge isCollapsible={false} side="right">
+						<SidebarSection
 							isCentered
-							image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
-						/>
-						<Heading>
-							<TextStyle type="strong">Dorian Feeney</TextStyle>
-						</Heading>
-					</SidebarSection>
-					<SidebarSection horizontalSpacing="loose" className="u-flex-row">
-						<Button
-							isSmall
-							kind="secondary"
-							className="u-flex-child-grow"
-							text="Call Dorian"
-							icon={{
-								name: 'phone',
-								isLineIcon: true
-							}}
-						/>
-						<ContextMenu
-							isSmall
-							className="u-ml-tight"
-							actions={[
-								{
-									text: 'One action'
-								},
-								{
-									text: 'two action'
-								},
-								{
-									text: 'red action'
-								},
-								{
-									text: 'blue action'
-								}
-							]}
-							isSimple
-						/>
-					</SidebarSection>
-				</Sidebar>
-			</Page>
-		</View>
-	))
+							verticalSpacing="loose"
+							horizontalSpacing="loose"
+						>
+							<Avatar
+								isLarge
+								isCentered
+								image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
+							/>
+							<Heading>
+								<TextStyle type="strong">Dorian Feeney</TextStyle>
+							</Heading>
+						</SidebarSection>
+						<SidebarSection horizontalSpacing="loose" className="u-flex-row">
+							<Button
+								isSmall
+								kind="secondary"
+								className="u-flex-child-grow"
+								text="Call Dorian"
+								icon={{
+									name: 'phone',
+									isLineIcon: true
+								}}
+							/>
+							<ContextMenu
+								isSmall
+								className="u-ml-tight"
+								actions={[
+									{
+										text: 'One action'
+									},
+									{
+										text: 'two action'
+									},
+									{
+										text: 'red action'
+									},
+									{
+										text: 'blue action'
+									}
+								]}
+								isSimple
+							/>
+						</SidebarSection>
+					</Sidebar>
+				</Page>
+			</View>
+		)
+	})
