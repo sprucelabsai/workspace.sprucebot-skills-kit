@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../.storybook/StylesProvider'
 import user01image from '../../../static/assets/users/user-01--96w.png'
 import { Sidebar, SidebarSection } from '../Core'
@@ -10,15 +10,8 @@ import Button from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import Page from '../Page/Page'
-import PageHeader from '../Page/components/PageHeader/PageHeader'
-import PageContent from '../Page/components/PageContent/PageContent'
-import Layout, { LayoutSection } from '../../components/Layout'
-import TextContainer from '../TextContainer/TextContainer'
-import Text from '../Text/Text'
 import TextStyle from '../TextStyle/TextStyle'
 import Heading from '../Heading/Heading'
-import Subheading from '../Subheading/Subheading'
-import Icon from '../Icon/Icon'
 import Avatar from '../Avatar/Avatar'
 import SaveBar from '../Core/components/SaveBar/SaveBar'
 import FeedBuilder from '../Core/components/FeedBuilder/FeedBuilder'
@@ -111,14 +104,25 @@ const bizItems = [
 	}
 ]
 
+const bizBackLink = {
+	text: 'Organization Dashboard',
+	href: '#'
+}
+
 const user = {
 	name: 'Madaline Gibson',
 	image: user01image,
 	tel: '(605) 230-5253'
 }
 
-const business = {
+const organization = {
 	name: 'Chimera Hair Salon',
+	image:
+		'https://www.logoground.com/uploads/2018130762018-04-113965123chimera%20logo%20chimera%20logo.jpg'
+}
+
+const location = {
+	name: 'Chimera Hair Salon at the Point',
 	address: '7678 N High St, Denver, CO'
 }
 
@@ -132,13 +136,13 @@ const skillViewTabs = [
 	}
 ]
 
-type Props = {}
-type State = {
+type SkillViewProps = {}
+type SkillViewState = {
 	sidebarsExpanded: Object,
 	sidebarsMobileExpanded: Object
 }
 
-class SkillViewExample extends Component<Props, State> {
+class SkillViewExample extends Component<SkillViewProps, SkillViewState> {
 	state = {
 		sidebarsExpanded: {
 			right: true,
@@ -221,7 +225,7 @@ class SkillViewExample extends Component<Props, State> {
 				STORYBOOKdoNotWrap
 				sidebarItems={orgItems}
 				user={user}
-				business={business}
+				organization={organization}
 				isSidebarExpanded={sidebarsExpanded.left}
 				isSidebarMobileExpanded={sidebarsMobileExpanded.left}
 				toggleSidebarExpanded={() => this.handleSidebarToggle('left')}
@@ -307,7 +311,7 @@ stories
 			STORYBOOKdoNotWrap
 			sidebarItems={personalItems}
 			user={user}
-			business={business}
+			organization={organization}
 			isSidebarExpanded
 		>
 			<Page
@@ -322,7 +326,7 @@ stories
 			STORYBOOKdoNotWrap
 			sidebarItems={personalItems}
 			user={user}
-			business={business}
+			organization={organization}
 			isSidebarExpanded
 		>
 			<Page
@@ -341,7 +345,7 @@ stories
 				STORYBOOKdoNotWrap
 				sidebarItems={bizItems}
 				user={user}
-				business={business}
+				business={organization}
 				isSidebarExpanded
 			>
 				<Page hasSidebar>

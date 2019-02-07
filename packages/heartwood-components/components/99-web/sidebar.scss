@@ -14,6 +14,11 @@
 	}
 }
 
+html.skill .sidebar {
+	top: 0;
+	height: 100%;
+}
+
 .sidebar--left {
 	transform: translate(-100%, 0);
 	left: 0;
@@ -91,6 +96,10 @@
 			color: $c-primary;
 		}
 	}
+}
+
+.sidebar-item__back-link {
+	border-top: 1px solid $c-border-light;
 }
 
 .sidebar-item,

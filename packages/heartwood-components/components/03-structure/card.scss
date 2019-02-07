@@ -85,7 +85,7 @@
 }
 
 .card__body {
-	.text {
+	.text:not(a) {
 		color: $c-text-light;
 		line-height: $line-height-loose;
 	}

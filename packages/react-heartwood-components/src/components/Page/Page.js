@@ -1,6 +1,6 @@
 // @flow
-import React, { Fragment } from 'react'
-import type { Element, Node } from 'react'
+import React from 'react'
+import type { Node } from 'react'
 import cx from 'classnames'
 import PageHeader from './components/PageHeader/PageHeader'
 import type { PageHeaderProps } from './components/PageHeader/PageHeader'

@@ -1,5 +1,5 @@
 // @flow
-import React, { Fragment } from 'react'
+import React from 'react'
 import moment from 'moment-timezone'
 import cx from 'classnames'
 
@@ -73,8 +73,8 @@ export const Message = (props: MessageProps) => {
 
 	const renderReply = reply => {
 		const { type, children } = reply
-		var icon = null
-		var iconClass = null
+		let icon = null
+		let iconClass = null
 
 		if (type) {
 			switch (type) {

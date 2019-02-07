@@ -1,12 +1,11 @@
 // @flow
 import React, { Fragment } from 'react'
-import type { Element, Node } from 'react'
 
 import cx from 'classnames'
 
 import Message from '../Message'
 
-import type { MessageProps } from '../Message'
+import type {} from '../Message'
 import type { Props as ButtonProps } from '../../Button/Button'
 
 // COMPONENTS THAT CAN GO INTO THIS COMPONENT, KEEP MINIMAL
@@ -88,15 +87,13 @@ const renderAttachmentChild = child => {
 	)
 }
 
-const TemplateEngine = (text, context) => {
-	var re = /{{([^}}]+)?}}/g,
+const TemplateEngine = (text = '', context = {}) => {
+	let re = /{{([^}}]+)?}}/g,
 		children = [],
 		cursor = 0,
-		text = text || '',
-		context = context || {},
 		match
 
-	var add = function(line, js) {
+	let add = function(line, js) {
 		if (line !== '') {
 			children.push({
 				props: { element: 'span', children: line.replace(/"/g, '\\"') }
@@ -129,8 +126,8 @@ const MessageBuilder = (props: MessageBuilderProps) => {
 
 	const { text: messageText, context: messageContext } = message || {}
 
-	var messageReplies = []
-	var messageAttachments = []
+	let messageReplies = []
+	let messageAttachments = []
 
 	if (replies) {
 		messageReplies = replies.map(reply => {
@@ -149,17 +146,16 @@ const MessageBuilder = (props: MessageBuilderProps) => {
 		<Message
 			from={from}
 			dateSent={dateSent}
-			children={
-				messageText &&
-				messageContext &&
-				TemplateEngine(messageText, messageContext)
-			}
 			detail={detail}
 			primaryAction={primaryAction}
 			replies={messageReplies}
 			attachments={messageAttachments}
 			isFromSprucebot={isFromSprucebot}
-		/>
+		>
+			{messageText &&
+				messageContext &&
+				TemplateEngine(messageText, messageContext)}
+		</Message>
 	)
 }
 

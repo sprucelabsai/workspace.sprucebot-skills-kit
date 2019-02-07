@@ -5,14 +5,11 @@ import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
 	withKnobsOptions,
-	text,
-	boolean,
 	object
 } from '@storybook/addon-knobs/react'
 import Message, { MessageBuilder } from './index'
 import Page, { PageContent } from '../Page'
 import Layout, { LayoutSection } from '../Layout'
-import Text from '../Text/Text'
 
 const fromName = 'Sprucebot'
 const fromImage =
@@ -120,5 +117,5 @@ stories
 		</Message>
 	))
 	.add('MessageBuilder', () => [
-		<MessageBuilder {...object('json', messageJSON)} />
+		<MessageBuilder key="foo" {...object('json', messageJSON)} />
 	])

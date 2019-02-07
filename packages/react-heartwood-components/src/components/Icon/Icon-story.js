@@ -1,7 +1,6 @@
 // @flow
 import React from 'react'
 import { each, keys, map } from 'lodash'
-import cx from 'classnames'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 import Icon from './Icon'

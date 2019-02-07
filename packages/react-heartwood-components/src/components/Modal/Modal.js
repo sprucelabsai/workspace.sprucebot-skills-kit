@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import ReactModal from 'react-modal'
 import cx from 'classnames'
 import ModalHeader from './components/ModalHeader/ModalHeader'
