@@ -40,7 +40,7 @@ type RecordSelectionListProps = {|
 	/** Can the search the records in the list? */
 	canSearch?: boolean,
 
-  /** Array of IDs that should not be selectable */
+	/** Array of IDs that should not be selectable */
 	unselectableIds?: Array<RecordId>,
 
 	/** Can the user select many or one records in this list? */
