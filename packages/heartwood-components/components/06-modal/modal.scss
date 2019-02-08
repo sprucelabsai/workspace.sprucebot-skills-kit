@@ -116,6 +116,16 @@
 		flex-flow: column;
 		height: 100%;
 	}
+
+	.modal.paged-modal {
+		.paged-modal__page {
+			display: none;
+
+			&--is-current {
+				display: block;
+			}
+		}
+	}
 }
 
 // Override so that bot text works in modals

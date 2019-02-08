@@ -3,19 +3,20 @@ import React from 'react'
 import ReactModal from 'react-modal'
 import cx from 'classnames'
 import ModalHeader from './components/ModalHeader/ModalHeader'
-import type { Props as HeaderProps } from './components/ModalHeader/ModalHeader'
 import ModalBody from './components/ModalBody/ModalBody'
 import ModalFooter from './components/ModalFooter/ModalFooter'
 
-type Props = {
-	...HeaderProps,
-
+export type Props = {
 	/** Set true to show the modal */
 	isOpen: boolean,
 
 	/** Size of the modal */
-	size: 'small' | 'medium' | 'full-width'
+	size: 'small' | 'medium' | 'full-width',
+
+	/** Optional class name */
+	className?: string
 }
+
 type State = {}
 
 export default class Modal extends React.PureComponent<Props, State> {
@@ -25,9 +26,10 @@ export default class Modal extends React.PureComponent<Props, State> {
 	static defaultProps = {
 		size: 'medium'
 	}
+
 	render() {
-		const { isOpen, size, ...rest } = this.props
-		const modalClassName = cx('modal', {
+		const { isOpen, size, className, ...rest } = this.props
+		const modalClassName = cx('modal', className, {
 			'modal-small': size === 'small',
 			'modal-medium': size === 'medium'
 		})

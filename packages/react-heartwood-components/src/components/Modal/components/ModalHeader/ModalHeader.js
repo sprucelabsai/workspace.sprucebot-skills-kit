@@ -12,15 +12,21 @@ export type Props = {
 	onRequestClose: Function,
 
 	/** Function to handle navigating backwards in a modal */
-	handleGoBack?: Function
+	onClickBack?: Function
 }
 
 const ModalHeader = (props: Props) => {
-	const { title, onRequestClose, handleGoBack } = props
+	const { title, onRequestClose, onClickBack } = props
 	return (
 		<div className="modal-header">
 			<div className="modal-header__title-wrapper">
-				{handleGoBack && <Button isSmall icon={{ customIcon: ArrowBack }} />}
+				{onClickBack && (
+					<Button
+						isSmall
+						icon={{ customIcon: ArrowBack }}
+						onClick={onClickBack}
+					/>
+				)}
 				<h2 className="modal-header__title">{title}</h2>
 			</div>
 			<Button
