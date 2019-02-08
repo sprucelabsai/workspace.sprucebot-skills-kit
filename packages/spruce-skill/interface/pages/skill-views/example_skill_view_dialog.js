@@ -35,21 +35,16 @@ class TestSkillView extends React.Component<Props> {
 				<PageContent>
 					<Layout>
 						<LayoutSection>
+							<div>Hooray from inside your skill!</div>
 							<Button
-								text="Open a skill view dialog!"
+								text="I'm done please close this modal!"
 								kind="primary"
 								disabled={false}
-								icon={{ name: 'new_tab' }}
+								icon={{ name: 'remove', isLineIcon: true }}
 								onClick={() => {
 									Iframes.sendMessage({
 										to: window.parent,
-										eventName: 'SkillViewDialog:Open',
-										data: {
-											title: 'A Cool Skill View Dialog',
-											src: `${window.location.protocol}//${
-												window.location.hostname
-											}/skill-views/example_skill_view_dialog`
-										}
+										eventName: 'SkillViewDialog:Close'
 									})
 								}}
 							/>
