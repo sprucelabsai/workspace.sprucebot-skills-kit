@@ -1,10 +1,8 @@
 // These are the base settings for your skill which are returned from the 'get-settings' event
 
 /*
-Valid "page" types:
+Valid pages:
 skill_settings_user
-skill_settings_user_org
-skill_settings_user_location
 skill_settings_org
 skill_settings_location
 */

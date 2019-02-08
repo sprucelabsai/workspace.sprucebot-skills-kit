@@ -4,6 +4,7 @@ const { pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
 const settings = require('./settings')
+const calendars = require('./calendars')
 
 const packageJSON = require('../package.json')
 const HEARTWOOD_VERSION = encodeURIComponent(
@@ -77,6 +78,7 @@ module.exports = {
 	scopes: require('./scopes'),
 	auth: require('./auth'),
 	settings,
+	calendars,
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
 		requests: {
@@ -129,6 +131,14 @@ module.exports = {
 			},
 			'get-cards': {
 				description: 'Core asks this skill to provide cards',
+				subscribe: true
+			},
+			'get-calendar': {
+				description: 'Core asks this skill to provide a specific calendar',
+				subscribe: true
+			},
+			'get-calendars': {
+				description: 'Core asks this skill to provide calendars',
 				subscribe: true
 			}
 			// Other events we could subscribe to

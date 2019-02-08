@@ -1,6 +1,6 @@
 // @flow
 
-import type { Props as EventType } from './components/EventDetails/EventDetails'
+import type { Props as EventDetailsType } from './components/EventDetails/EventDetails'
 import type { Props as IconType } from './components/Icon/Icon'
 
 export type Event = {
@@ -10,8 +10,7 @@ export type Event = {
 	className?: string,
 	group?: string,
 	resizable?: boolean,
-	kind?:
-		| 'default'
+	kind?: | 'default'
 		| 'tentative'
 		| 'active'
 		| 'unavailable'
@@ -20,7 +19,7 @@ export type Event = {
 		| 'warn'
 		| 'critical',
 	blocks: Array<EventBlock>,
-	details: EventType
+	details: EventDetailsType
 }
 
 export type EventBlock = {

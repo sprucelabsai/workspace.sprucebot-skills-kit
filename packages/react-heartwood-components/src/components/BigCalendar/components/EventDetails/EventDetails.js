@@ -9,7 +9,7 @@ import EventDetailsFooter from './components/EventDetailsFooter/EventDetailsFoot
 import type { Props as FooterProps } from './components/EventDetailsFooter/EventDetailsFooter'
 
 export type Props = {
-	header: HeaderProps,
+	header?: HeaderProps,
 	// eslint-disable-next-line flowtype/space-after-type-colon
 	kind:
 		| 'default'
@@ -21,7 +21,7 @@ export type Props = {
 		| 'warn'
 		| 'critical',
 	list: ListProps,
-	footer: FooterProps
+	footer?: FooterProps
 }
 
 const EventDetails = (props: Props) => {
