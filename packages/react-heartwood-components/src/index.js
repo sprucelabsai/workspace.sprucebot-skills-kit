@@ -71,6 +71,7 @@ export {
 } from './components/List'
 export { default as Loader } from './components/Loader/Loader'
 export { default as Modal } from './components/Modal/Modal'
+export { default as PagedModal } from './components/PagedModal/PagedModal'
 export { default as Pagination } from './components/Pagination/Pagination'
 export { default as Tabs, Tab } from './components/Tabs'
 export {
