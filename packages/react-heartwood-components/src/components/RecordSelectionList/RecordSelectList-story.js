@@ -48,6 +48,7 @@ class BasicExample extends Component<Props, State> {
 
 		return (
 			<RecordSelectionList
+				canSearch
 				selectedIds={selectedIds}
 				loadRecords={async ({ limit, offset, search }) => {
 					// Artificial API wait time

@@ -134,6 +134,7 @@ Baseline styling for all buttons
 
 	&.btn-icon-only {
 		width: $tap-height;
+		min-width: 0;
 
 		&.btn-small {
 			width: $tap-height-small;

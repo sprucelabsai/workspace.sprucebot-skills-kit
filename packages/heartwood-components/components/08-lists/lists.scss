@@ -208,17 +208,25 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		margin: 1rem;
-
-		.btn {
-			height: auto;
-			margin: 0;
-			padding: 0;
-		}
+		padding: spacing('base') 0;
 	}
 
 	.record-selection__list-wrapper {
 		position: relative;
 		min-height: 28rem;
+	}
+
+	.record-selection__record-wrapper {
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid $c-grey-03;
+	}
+
+	.record-selection__record-select {
+		margin-right: spacing('tight');
+	}
+
+	.record-selection__record-content {
+		flex: 1;
 	}
 }
