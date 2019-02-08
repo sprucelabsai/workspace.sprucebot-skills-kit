@@ -40,6 +40,9 @@ type RecordSelectionListProps = {|
 	/** Can the search the records in the list? */
 	canSearch?: boolean,
 
+  /** Array of IDs that should not be selectable */
+	unselectableIds?: Array<RecordId>,
+
 	/** Can the user select many or one records in this list? */
 	canSelect?: 'many' | 'one',
 
@@ -126,6 +129,7 @@ export default class RecordSelectionList extends Component<
 	}) => {
 		const {
 			selectedIds,
+			unselectableIds,
 			renderRecord,
 			canSelect,
 			canRemove,
@@ -156,6 +160,9 @@ export default class RecordSelectionList extends Component<
 								onChange={() => {
 									onSelect(record.id)
 								}}
+								disabled={
+									unselectableIds && unselectableIds.indexOf(record.id) >= 0
+								}
 								checked={selectedIds && selectedIds.indexOf(record.id) >= 0}
 							/>
 						)}
