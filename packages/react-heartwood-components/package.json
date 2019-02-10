@@ -27,7 +27,9 @@
 		"test": "jest",
 		"watch": "npm run build && chokidar 'src/**/*.js' -c 'npm run compile_javascript'",
 		"storybook": "npm run icons && start-storybook -p 6006",
-		"build-storybook": "npm run icons && build-storybook"
+		"build-storybook": "npm run icons && build-storybook",
+		"docz:dev": "docz dev",
+		"docz:build": "docz build"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.0.0",
