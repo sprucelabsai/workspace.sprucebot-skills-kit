@@ -2,12 +2,13 @@
 name: Button
 ---
 
+import { Playground, PropsTable } from 'docz'
 import Button from './Button'
 
 # Button
 
-<Button
-	kind="primary"
-	className="global_btn__rvopf"
-	text="Click it or lose it"
-/>
+<Playground>
+	<Button kind="primary" text="Click it or lose it" />
+</Playground>
+
+<PropsTable of={Button} />
