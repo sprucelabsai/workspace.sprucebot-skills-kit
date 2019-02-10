@@ -68,6 +68,8 @@
 		"babel-plugin-inline-react-svg": "^0.5.4",
 		"babel-runtime": "^6.26.0",
 		"chokidar-cli": "^1.2.0",
+		"docz": "^0.13.7",
+		"docz-theme-default": "^0.13.7",
 		"enzyme": "^3.3.0",
 		"enzyme-adapter-react-16": "^1.1.1",
 		"enzyme-to-json": "^3.3.1",
