@@ -1,0 +1,35 @@
+{
+  "config": {
+    "title": "React Heartwood Components",
+    "description": "React components for your Sprucebot Skill 💪🏼",
+    "menu": [],
+    "ordering": "descending",
+    "version": "8.10.1",
+    "repository": null,
+    "native": false,
+    "codeSandbox": true,
+    "themeConfig": {},
+    "plugins": [
+      {}
+    ]
+  },
+  "entries": {
+    "src/components/Button/Button.mdx": {
+      "name": "Button",
+      "id": "2b773349a016959194c905ce6ad9d2d4",
+      "filepath": "src/components/Button/Button.mdx",
+      "link": null,
+      "slug": "src-components-button-button",
+      "route": "/src-components-button-button",
+      "order": 0,
+      "menu": null,
+      "headings": [
+        {
+          "depth": 1,
+          "slug": "button",
+          "value": "Button"
+        }
+      ]
+    }
+  }
+}
