@@ -76,7 +76,7 @@ export default class PagedModal extends React.PureComponent<Props, State> {
 		return (
 			<Modal isOpen={isOpen} size={size} className="paged-modal">
 				<Modal.Header
-					title={currentPage.title}
+					title={(currentPage && currentPage.title) || ''}
 					onRequestClose={onRequestClose}
 					onClickBack={canGoBack && onClickBack}
 				/>
@@ -89,7 +89,7 @@ export default class PagedModal extends React.PureComponent<Props, State> {
 						{page.body}
 					</Modal.Body>
 				))}
-				{currentPage.footerPrimaryAction && (
+				{currentPage && currentPage.footerPrimaryAction && (
 					<Modal.Footer
 						primaryAction={currentPage.footerPrimaryAction}
 						secondaryAction={currentPage.footerSecondaryAction}
