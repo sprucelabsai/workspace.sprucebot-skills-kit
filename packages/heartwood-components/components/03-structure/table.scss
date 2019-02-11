@@ -140,14 +140,3 @@
 	padding-right: spacing('base');
 	padding-left: spacing('base');
 }
-
-.record_table__user_cell {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
-
-	.text {
-		padding: 0 0.5rem;
-	}
-}
