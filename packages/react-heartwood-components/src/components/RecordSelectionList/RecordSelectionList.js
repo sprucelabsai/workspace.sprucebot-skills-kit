@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 
 import {
 	List,
@@ -9,6 +9,8 @@ import {
 	InfiniteLoader
 } from 'react-virtualized'
 
+import { TextInput, Checkbox, Radio } from '../Forms'
+import Button from '../Button/Button'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
 
@@ -35,6 +37,9 @@ type RecordSelectionListProps = {|
 	/** Array of IDs in this collection of records that should be marked as selected */
 	selectedIds?: Array<RecordId>,
 
+	/** Can the search the records in the list? */
+	canSearch?: boolean,
+
 	/** Array of IDs that should not be selectable */
 	unselectableIds?: Array<RecordId>,
 
@@ -43,6 +48,9 @@ type RecordSelectionListProps = {|
 
 	/** Can the user remove records from this list? */
 	canRemove?: boolean,
+
+	/** Optionally provide a placeholder to the search input */
+	searchPlaceholder?: string,
 
 	/** Callback for selection of a record */
 	onSelect?: RecordId => void,
@@ -131,6 +139,7 @@ export default class RecordSelectionList extends Component<
 		const { loadedRecords } = this.state
 
 		const record = loadedRecords[index]
+		const SelectionComponent = canSelect === 'one' ? Radio : Checkbox
 
 		return (
 			record && (
@@ -146,8 +155,8 @@ export default class RecordSelectionList extends Component<
 						style={{ ...style }}
 					>
 						{onSelect && canSelect && (
-							<input
-								type={canSelect === 'one' ? 'radio' : 'checkbox'}
+							<SelectionComponent
+								className="record-selection__record-select"
 								onChange={() => {
 									onSelect(record.id)
 								}}
@@ -158,10 +167,16 @@ export default class RecordSelectionList extends Component<
 							/>
 						)}
 
-						<Fragment key={key}>{renderRecord(record)}</Fragment>
+						<div className="record-selection__record-content" key={key}>
+							{renderRecord(record)}
+						</div>
 
 						{onRemove && canRemove && (
-							<button
+							<Button
+								kind="simple"
+								disabled={false}
+								isSmall
+								icon={{ name: 'remove_circle', className: 'btn__line-icon' }}
 								onClick={() => {
 									this.setState({
 										loadedRecords: loadedRecords.filter(
@@ -171,9 +186,7 @@ export default class RecordSelectionList extends Component<
 
 									onRemove(record.id)
 								}}
-							>
-								x
-							</button>
+							/>
 						)}
 					</div>
 				</CellMeasurer>
@@ -242,7 +255,12 @@ export default class RecordSelectionList extends Component<
 	handleRemoveSelection = () => {}
 
 	render() {
-		const { selectedIds = [], totalRecordCount } = this.props
+		const {
+			selectedIds = [],
+			totalRecordCount,
+			canSearch,
+			searchPlaceholder
+		} = this.props
 		const { loadedRecords, search } = this.state
 		const totalSelected = selectedIds.length
 		const isRowLoaded = ({ index }) => {
@@ -262,7 +280,14 @@ export default class RecordSelectionList extends Component<
 					<Text>{`${totalSelected} selected`}</Text>
 				</TextContainer>
 
-				<input type="text" value={search} onChange={this.handleSearchUpdate} />
+				{canSearch && (
+					<TextInput
+						type="text"
+						placeholder={searchPlaceholder || 'Search...'}
+						value={search}
+						onChange={this.handleSearchUpdate}
+					/>
+				)}
 
 				<div className="record-selection__list-wrapper">
 					<AutoSizer onResize={onResize}>
