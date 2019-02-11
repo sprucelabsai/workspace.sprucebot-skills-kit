@@ -55,6 +55,7 @@ class BasicExample extends Component<Props, State> {
 
 		return (
 			<RecordSelectionList
+				canSearch
 				selectedIds={selectedIds}
 				unselectableIds={unselectableIds}
 				loadRecords={async ({ limit, offset, search }) => {
