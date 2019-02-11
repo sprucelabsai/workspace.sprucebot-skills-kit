@@ -86,6 +86,9 @@ export { default as RecordTable } from './components/RecordTable/RecordTable'
 export {
 	default as RecordSelectionList
 } from './components/RecordSelectionList/RecordSelectionList'
+export {
+	default as RecordSelectionListItem
+} from './components/RecordSelectionList/RecordSelectionListItem'
 
 // Types
 export type { CardBuilderProps } from './components/Card'
