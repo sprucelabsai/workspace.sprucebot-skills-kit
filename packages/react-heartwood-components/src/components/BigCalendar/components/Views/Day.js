@@ -1199,7 +1199,10 @@ class Day extends PureComponent<Props, State> {
 			time = null
 		} else {
 			time = this.yToTime(
-				this.snapEventToNearestValidY({ dragNodeTop: clientY })
+				this.snapEventToNearestValidY({
+					dragNodeTop: clientY,
+					round: Math.floor
+				})
 			)
 		}
 
@@ -1225,7 +1228,10 @@ class Day extends PureComponent<Props, State> {
 			time = null
 		} else {
 			time = this.yToTime(
-				this.snapEventToNearestValidY({ dragNodeTop: clientY })
+				this.snapEventToNearestValidY({
+					dragNodeTop: clientY,
+					round: Math.floor
+				})
 			)
 		}
 
