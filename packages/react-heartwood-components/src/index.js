@@ -82,6 +82,9 @@ export { default as BigCalendar } from './components/BigCalendar/BigCalendar'
 export { default as Page, PageHeader, PageContent } from './components/Page'
 export { default as Table, TableSearch, TableFilters } from './components/Table'
 export { default as RecordTable } from './components/RecordTable/RecordTable'
+export {
+	default as RecordSelectionList
+} from './components/RecordSelectionList/RecordSelectionList'
 
 // Types
 export type { CardBuilderProps } from './components/Card'

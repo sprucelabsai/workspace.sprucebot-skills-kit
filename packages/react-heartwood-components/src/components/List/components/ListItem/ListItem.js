@@ -17,6 +17,9 @@ export type Props = {
 	/** Optional subtitle text */
 	subtitle?: string,
 
+	/** Optional note text */
+	note?: string,
+
 	/** URL to show a user avatar */
 	avatar?: string,
 
@@ -31,6 +34,9 @@ export type Props = {
 
 	/** Set true when the list can be reordered */
 	isDraggable?: boolean,
+
+	/** Set true when the list can be reordered */
+	isDisabled?: boolean,
 
 	/** Makes the list item a setting */
 	toggleId?: string,
@@ -58,10 +64,12 @@ const ListItem = (props: Props) => {
 	const {
 		title,
 		subtitle,
+		note,
 		avatar,
 		image,
 		icon,
 		isDraggable,
+		isDisabled,
 		toggleId,
 		primaryAction,
 		actions,
@@ -74,6 +82,7 @@ const ListItem = (props: Props) => {
 	const parentClass = cx('list-item', className, {
 		'list-item-title-only': !subtitle,
 		'list-item--is-draggable': isDraggable,
+		'list-item--is-disabled': isDisabled,
 		'list-item--primary-action': primaryAction,
 		'list-item--separator-hidden': !isSeparatorVisible
 	})
@@ -115,6 +124,12 @@ const ListItem = (props: Props) => {
 					<p
 						className="list-item__subtitle"
 						dangerouslySetInnerHTML={{ __html: subtitle }}
+					/>
+				)}
+				{note && (
+					<p
+						className="list-item__note"
+						dangerouslySetInnerHTML={{ __html: note }}
 					/>
 				)}
 			</div>

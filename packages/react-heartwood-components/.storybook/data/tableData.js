@@ -1,5 +1,5 @@
 import faker from 'faker'
-import uuidv1 from 'uuid/v1'
+import uuidv1 from 'uuid/v4'
 
 export const generateLocations = ({ amount }) => {
 	const locations = []
