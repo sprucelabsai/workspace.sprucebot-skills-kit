@@ -10,6 +10,9 @@ export type Props = {
 	/** Set true to show the modal */
 	isOpen: boolean,
 
+	/** Should the modal stretch to its maximum height whatever the content? */
+	isFullHeight: boolean,
+
 	/** Size of the modal */
 	size: 'small' | 'medium' | 'full-width',
 
@@ -29,10 +32,11 @@ export default class Modal extends React.PureComponent<Props, State> {
 	}
 
 	render() {
-		const { isOpen, size, className, ...rest } = this.props
+		const { isOpen, size, isFullHeight, className, ...rest } = this.props
 		const modalClassName = cx('modal', className, {
 			'modal-small': size === 'small',
-			'modal-medium': size === 'medium'
+			'modal-medium': size === 'medium',
+			'modal-fullHeight': isFullHeight
 		})
 		return (
 			<ReactModal

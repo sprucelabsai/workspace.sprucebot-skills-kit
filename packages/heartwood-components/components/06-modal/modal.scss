@@ -90,6 +90,10 @@
 			transform: translate(-50%, 0);
 		}
 
+		&.modal-fullHeight {
+			height: 100%;
+		}
+
 		@include gt('small') {
 			top: spacing('base');
 			left: spacing('base');
