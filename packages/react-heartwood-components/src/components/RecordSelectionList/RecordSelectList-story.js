@@ -24,6 +24,7 @@ type Props = {
 type State = {
 	isModalOpen?: boolean,
 	selectedIds: Array<string>,
+	unselectableIds: Array<string>,
 	locations: Array<Object>
 }
 
@@ -39,16 +40,24 @@ class BasicExample extends Component<Props, State> {
 			selectedIds = sampleSize(selectedIds, Math.floor(selectedIds.length / 2))
 		}
 
-		this.state = { selectedIds, locations: props.locations }
+		const unselectedIds = props.locations
+			.map(loc => loc.id)
+			.filter(locationId => selectedIds.indexOf(locationId) === -1)
+
+		const unselectableIds = sampleSize(unselectedIds, unselectedIds.length / 2)
+
+		this.state = { selectedIds, locations: props.locations, unselectableIds }
 	}
 
 	render() {
 		const { canSelect, canRemove } = this.props
-		const { selectedIds, locations } = this.state
+		const { selectedIds, locations, unselectableIds } = this.state
 
 		return (
 			<RecordSelectionList
+				canSearch
 				selectedIds={selectedIds}
+				unselectableIds={unselectableIds}
 				loadRecords={async ({ limit, offset, search }) => {
 					// Artificial API wait time
 					await new Promise(resolve =>
@@ -81,6 +90,11 @@ class BasicExample extends Component<Props, State> {
 						title={record.publicName}
 						subtitle={record.address}
 						icon={{ name: 'location', isLineIcon: true }}
+						isDisabled={unselectableIds.indexOf(record.id) >= 0}
+						note={
+							unselectableIds.indexOf(record.id) >= 0 &&
+							'Location already in group!'
+						}
 					/>
 				)}
 				canSelect={canSelect}
@@ -94,14 +108,10 @@ class BasicExample extends Component<Props, State> {
 								selectedIds: selectedIds.filter(selectedId => selectedId !== id)
 							})
 						} else {
-							this.setState({
-								selectedIds: [...selectedIds, id]
-							})
+							this.setState({ selectedIds: [...selectedIds, id] })
 						}
 					} else if (canSelect === 'one') {
-						this.setState({
-							selectedIds: [id]
-						})
+						this.setState({ selectedIds: [id] })
 					}
 				}}
 				onRemove={id => {

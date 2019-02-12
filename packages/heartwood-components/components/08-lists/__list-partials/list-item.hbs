@@ -1,4 +1,4 @@
-<li class="list-item{{#unless subtitle}} list-item-title-only{{/unless}}{{#if isDraggable}} list-item--is-draggable{{/if}}">
+<li class="list-item{{#unless subtitle}} list-item-title-only{{/unless}}{{#if isDraggable}} list-item--is-draggable{{/if}}{{#if isDisabled}} list-item--is-disabled{{/if}}">
 	{{#unless isDraggable}}
 		{{#if image}}
 			<div class="list-item__image-wrapper">
@@ -29,6 +29,9 @@
 		{{/if}}
 		{{#if subtitle}}
 			<p class="list-item__subtitle">{{{subtitle}}}</p>
+		{{/if}}
+		{{#if note}}
+			<p class="list-item__note">{{{note}}}</p>
 		{{/if}}
 	</div>
 	{{#unless isDraggable}}
