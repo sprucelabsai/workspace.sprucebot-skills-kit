@@ -1,7 +1,7 @@
 // @flow
 
 import type { Props as EventDetailsType } from './components/EventDetails/EventDetails'
-import type { Props as IconType } from './components/Icon/Icon'
+import type { Props as IconType } from '../Icon/Icon'
 
 export type Event = {
 	id: string,

@@ -28,7 +28,7 @@ const Icon = (props: Props) => {
 		console.warn(`<Icon /> could not find an icon with key `, icon)
 		return null
 	}
-	const Handler = customIcon || icons[icon.toLowerCase()]
+	const Handler = customIcon || icons[icon && icon.toLowerCase()]
 
 	return (
 		<Handler

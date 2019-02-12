@@ -37,7 +37,7 @@ export type Props = {
 	href?: string,
 
 	/** Icon for the button. */
-	icon?: Node | IconProps,
+	icon?: IconProps,
 
 	/** Type attribute for HTML button element. Defaults to 'button'. */
 	type?: string,
@@ -97,11 +97,11 @@ const Button = (props: Props) => {
 				children
 			) : (
 				<Fragment>
-					{icon && (icon.customIcon || icon.name) && (
+					{icon && (icon.customIcon || icon.icon) && (
 						<span className="btn__icon-wrapper">
 							<Icon
 								customIcon={icon.customIcon}
-								icon={icon.name}
+								icon={icon.icon}
 								isLineIcon={icon.isLineIcon}
 								className={cx(
 									{
@@ -126,7 +126,7 @@ const Button = (props: Props) => {
 		</button>
 	)
 
-	const anchor = (
+	const anchor = AnchorComponent && (
 		<AnchorComponent href={href} className={btnClass} {...rest}>
 			<Inner />
 		</AnchorComponent>

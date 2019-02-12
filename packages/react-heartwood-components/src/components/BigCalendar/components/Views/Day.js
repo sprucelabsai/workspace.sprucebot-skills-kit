@@ -24,54 +24,115 @@ import TimeLine from '../TimeLine/TimeLine'
 import type { ElementRef } from 'react'
 import type { Event as EventType } from '../../types'
 import type { EventSelection } from '../DragGrid/DragGrid'
+import type { User } from '../../BigCalendar'
 
 type Props = {
-	showRightProps: boolean,
-	users: Array<Object>,
+	/** all users to be rendered for this day */
+	users: Array<User>,
+
+	/** timezone of current calendar */
 	timezone: string,
+
+	/** passthrough classname */
 	className?: string,
+
+	/** earliest time to show on each day */
 	minTime: string,
+
+	/** latest time to show on each day */
 	maxTime: string,
+
+	/** everything before startTime is dimmed out */
 	startTime: string,
+
+	/** column is dimmed out after endTime */
 	endTime: string,
+
+	/** how tall the body of the calendar should be */
 	calendarBodyHeight: number,
+
+	/** trigger when scrolling any direction */
 	onScroll: Function,
+
+	/** how to split up an hour (4 = 15 minutes) */
 	slotsPerHour: number,
+
+	/** whenever scroll changes (like adding/removing users) this is tirggered  */
 	onUpdateHorizontalPagerDetails: Function,
+
+	/** all events, no matter what, i'll worry about what to render and what to skip */
 	events: Array<EventType>,
+
+	/** the starting date (end date matches on day view) */
 	startDate: Object,
-	dragThreshold: number, // how far to drag before actually initiating drag
+
+	/** how far do we have to drag before we can actually drag */
+	dragThreshold: number,
+
+	/** called when an event is dropped */
 	onDropEvent: Function,
+
+	/** called as an event is being dragged */
 	onDragEvent: Function,
-	scrollDuringDragMargin?: number, // how close to the edge do we need to get before we'll auto scroll for the user
-	dragScrollSpeed: number, // how many pixels to jump if dragging near edge of scroll
+
+	/** how close to the edge do we need to get before we'll auto scroll for the user */
+	scrollDuringDragMargin?: number,
+
+	/** how many pixels to jump if dragging near edge of scroll */
+	dragScrollSpeed: number,
+
+	/** how far should we move over to make space for double/tripple booking */
 	eventRightMargin: number,
+
+	/** how long to press before it counts as a long press (ms) */
 	longPressDelay: number,
+
+	/** should we be able to resize zero duration blocks? */
 	allowResizeToZeroDurationBlocks?: boolean,
+
+	/** should we allow shrinking of first block to zero */
 	allowResizeFirstBlockToZeroDuration?: boolean,
-	getStartTimeForUser: Function,
-	getEndTimeForUser: Function,
+
+	/** i pass a user and the current date, you return the time HH:MM this user starts their shift */
+	getStartTimeForUser: (user: User, date: moment) => string,
+
+	/** i pass a user and current date, you return the time HH:MM this user ends their shift */
+	getEndTimeForUser: (user: User, date: moment) => string,
+
+	/** time in ms someone needs to click twice for a double click to count */
 	doubleClickTime: number,
+
+	/** triggered when two clicks happen within double click time (only called if doubleClickToCreate is true) */
 	onDoubleClick: Function,
-	newEventDefaultDurationSec: number,
+
+	/** should we use double click to create an event */
 	doubleClickToCreate: boolean,
+
+	/** the duration of a new event (long press) in seconds */
+	newEventDefaultDurationSec: number,
+
+	/** format for event time rendered on the event */
 	eventTimeFormat: string,
+
+	/** format for time rendered in gutter */
 	timeGutterFormat?: string
 }
 
 type State = {
-	selectedEvent?: EventType,
-	highlightedEvent?: EventType,
+	/** any currently selected event */
+	selectedEvent?: ?EventType,
+
+	/** an event that is highlighted is one that is long pressed and in "edit mode" */
+	highlightedEvent?: ?EventType,
+
+	/** should we auto scroll x axis while dragging? */
 	enableAutoScrollX: boolean,
+
+	/** should we auto scroll y axis while dragging? */
 	enableAutoScrollY: boolean
 }
 
 class Day extends PureComponent<Props, State> {
-	state = {
-		enableAutoScrollX: true,
-		enableAutoScrollY: true
-	}
-
 	static defaultProps = {
 		dragThreshold: 10,
 		scrollDuringDragMargin: 50,
@@ -87,10 +148,18 @@ class Day extends PureComponent<Props, State> {
 	_columnMapCache = null
 	_dragResizeUpdates = null
 	_lastHoverEvent = null
+	_timeLineInterval: ?IntervalID
+
+	/** should the teammate header scroll trigger a body scroll (ignored when body is scrolling) */
+	_ignoreNextTeammateScroll: boolean = false
 
 	domNodeRef: { current: null | ElementRef<'div'> }
-	dragGridRef: { current: null | ElementRef<DragGrid> }
+	dragGridRef: { current: null | DragGrid }
 	scrollInnerRef: { current: null | ElementRef<'div'> }
+	bodyWrapperRef: { current: null | ElementRef<'div'> }
+	teammateHeaderRef: { current: null | TeammateHeader }
+	timeGutterRef: { current: null | TimeGutter }
+	mouseTimeIndicatorRef: { current: null | ElementRef<'div'> }
 
 	constructor(props: Props) {
 		super(props)
@@ -100,8 +169,17 @@ class Day extends PureComponent<Props, State> {
 		this.scrollInnerRef = React.createRef()
 		this.teammateHeaderRef = React.createRef()
 		this.timeGutterRef = React.createRef()
-		this.mouseTimeIndicator = React.createRef()
+		this.mouseTimeIndicatorRef = React.createRef()
 		this.bodyWrapperRef = React.createRef()
+
+		this.state = {
+			enableAutoScrollX: true,
+			enableAutoScrollY: true
+		}
+	}
+
+	getBodyNode = () => {
+		return this.bodyWrapperRef.current
 	}
 
 	componentDidMount = () => {
@@ -119,11 +197,11 @@ class Day extends PureComponent<Props, State> {
 	}
 
 	componentWillUnmount = () => {
-		clearInterval(this._timeLineInterval)
+		this._timeLineInterval && clearInterval(this._timeLineInterval)
 		window.removeEventListener('resize', this.updateHorizontalPagerDetails)
 	}
 
-	componentDidUpdate(prevProps) {
+	componentDidUpdate(prevProps: Props) {
 		const { events, startDate, users, slotsPerHour } = this.props
 		if (
 			prevProps.events !== events ||
@@ -141,14 +219,13 @@ class Day extends PureComponent<Props, State> {
 			}
 			if (prevProps.startDate !== startDate) {
 				this.setState({ highlightedEvent: null, selectedEvent: null })
-				this.dragGridRef.current.cancelDrag()
+				this.dragGridRef.current && this.dragGridRef.current.cancelDrag()
 			}
 			// if we only changed events, lets make sure to update our selection
 			if (prevProps.events !== events) {
-				if (this.state.selectedEvent) {
-					const match = events.find(
-						event => event.id === this.state.selectedEvent.id
-					)
+				const { selectedEvent } = this.state
+				if (selectedEvent) {
+					const match = events.find(event => event.id === selectedEvent.id)
 
 					if (match) {
 						this.handleSelectEvent({ event: match })
@@ -176,31 +253,37 @@ class Day extends PureComponent<Props, State> {
 		}
 	}
 
-	handleScroll = e => {
-		const target = e.target
-		const { scrollTop, scrollLeft } = target
+	handleScroll = (e: Event) => {
+		const { target } = e
 
-		this._ignoreNextTeammateScroll = true
+		if (target instanceof HTMLElement) {
+			const { scrollTop, scrollLeft } = target
 
-		this.teammateHeaderRef.current.setScrollLeft(Math.max(0, scrollLeft))
-		this.timeGutterRef.current.setScrollTop(Math.max(0, scrollTop))
+			this._ignoreNextTeammateScroll = true
 
-		// // arrows that sit in the upper right
-		this.updateHorizontalPagerDetails()
-		this.updateTimeIndicator()
+			this.teammateHeaderRef.current &&
+				this.teammateHeaderRef.current.setScrollLeft(Math.max(0, scrollLeft))
 
-		if (
-			this._lastDragDetails &&
-			this.dragGridRef.current.isMouseDownOnEvent()
-		) {
-			this.handleDragOfEvent(
-				this._lastDragDetails.event,
-				this._lastDragDetails.dragDetails
-			)
+			this.timeGutterRef.current &&
+				this.timeGutterRef.current.setScrollTop(Math.max(0, scrollTop))
+
+			// // arrows that sit in the upper right
+			this.updateHorizontalPagerDetails()
+			this.updateTimeIndicator()
+
+			if (
+				this._lastDragDetails &&
+				this.dragGridRef.current.isMouseDownOnEvent()
+			) {
+				this.handleDragOfEvent(
+					this._lastDragDetails.event,
+					this._lastDragDetails.dragDetails
+				)
+			}
 		}
 	}
 
-	getTimeRangeDetails = (min, max) => {
+	getTimeRangeDetails = (min: string, max: string) => {
 		const { startDate, slotsPerHour, timezone } = this.props
 
 		const key = `${startDate.format('YYYY-MM-DD')}-${min}-${max}`
@@ -1118,8 +1201,8 @@ class Day extends PureComponent<Props, State> {
 			e.clientY > gridPosition.y &&
 			e.clientY < gridPosition.y + gridHeight
 		) {
-			if (this.mouseTimeIndicator.current.classList.contains('hide')) {
-				this.mouseTimeIndicator.current.classList.remove('hide')
+			if (this.mouseTimeIndicatorRef.current.classList.contains('hide')) {
+				this.mouseTimeIndicatorRef.current.classList.remove('hide')
 			}
 
 			this._lastMouseMove = {
@@ -1131,13 +1214,13 @@ class Day extends PureComponent<Props, State> {
 			}
 			this.updateTimeIndicator()
 		} else {
-			this.hideMouseTimeIndicator()
+			this.hideMouseTimeIndicatorRef()
 		}
 	}
 
-	hideMouseTimeIndicator = () => {
-		if (!this.mouseTimeIndicator.current.classList.contains('hide')) {
-			this.mouseTimeIndicator.current.classList.add('hide')
+	hideMouseTimeIndicatorRef = () => {
+		if (!this.mouseTimeIndicatorRef.current.classList.contains('hide')) {
+			this.mouseTimeIndicatorRef.current.classList.add('hide')
 		}
 	}
 
@@ -1145,7 +1228,7 @@ class Day extends PureComponent<Props, State> {
 		// probably a touch device so no mouse movement has taken place yet
 		// or we're moving around the view,ignore everything
 		if (!this._lastMouseMove || this.dragGridRef.current.isDraggingView()) {
-			this.mouseTimeIndicator.current.style.display = 'none'
+			this.mouseTimeIndicatorRef.current.style.display = 'none'
 			return
 		}
 
@@ -1179,13 +1262,13 @@ class Day extends PureComponent<Props, State> {
 		const minutes = time.format('mm')
 
 		if (minutes === '00') {
-			this.mouseTimeIndicator.current.style.display = 'none'
+			this.mouseTimeIndicatorRef.current.style.display = 'none'
 		} else {
-			this.mouseTimeIndicator.current.style.lineHeight =
+			this.mouseTimeIndicatorRef.current.style.lineHeight =
 				this.slotHeight() + 'px'
-			this.mouseTimeIndicator.current.style.top = top + 'px'
-			this.mouseTimeIndicator.current.style.display = 'block'
-			this.mouseTimeIndicator.current.innerHTML = `:${minutes}`
+			this.mouseTimeIndicatorRef.current.style.top = top + 'px'
+			this.mouseTimeIndicatorRef.current.style.display = 'block'
+			this.mouseTimeIndicatorRef.current.innerHTML = `:${minutes}`
 		}
 	}
 
@@ -1207,7 +1290,10 @@ class Day extends PureComponent<Props, State> {
 			time = null
 		} else {
 			time = this.yToTime(
-				this.snapEventToNearestValidY({ dragNodeTop: clientY })
+				this.snapEventToNearestValidY({
+					dragNodeTop: clientY,
+					round: Math.floor
+				})
 			)
 		}
 
@@ -1233,7 +1319,10 @@ class Day extends PureComponent<Props, State> {
 			time = null
 		} else {
 			time = this.yToTime(
-				this.snapEventToNearestValidY({ dragNodeTop: clientY })
+				this.snapEventToNearestValidY({
+					dragNodeTop: clientY,
+					round: Math.floor
+				})
 			)
 		}
 
@@ -1269,16 +1358,18 @@ class Day extends PureComponent<Props, State> {
 				}
 			]
 		}
-		const dragDetails = await this.dragGridRef.current.dropNewEventAndDrag({
-			event,
-			e,
-			left: this.snapEventToNearestValidX({ mouseX: clientX }),
-			top: this.snapEventToNearestValidY({
-				dragNodeTop:
-					clientY - this.secondsToHeight(newEventDefaultDurationSec / 2),
-				dragNodeHeight: this.secondsToHeight(newEventDefaultDurationSec)
-			})
-		})
+		const dragDetails = await this.dragGridRef.current.dropNewEventAndBeginDrag(
+			{
+				event,
+				e,
+				left: this.snapEventToNearestValidX({ mouseX: clientX }),
+				top: this.snapEventToNearestValidY({
+					dragNodeTop:
+						clientY - this.secondsToHeight(newEventDefaultDurationSec / 2),
+					dragNodeHeight: this.secondsToHeight(newEventDefaultDurationSec)
+				})
+			}
+		)
 
 		return dragDetails
 	}
@@ -1354,7 +1445,7 @@ class Day extends PureComponent<Props, State> {
 						ref={this.timeGutterRef}
 					>
 						<div
-							ref={this.mouseTimeIndicator}
+							ref={this.mouseTimeIndicatorRef}
 							className="bigcalendar__day-view-mouse-time-indicator hide"
 						>
 							...

@@ -21,43 +21,105 @@ type ViewProps = {
 }
 
 type Props = {
+	/** default view to render */
 	defaultView: 'day' | 'week' | 'month',
+
+	/** passthrough className */
 	className?: string,
+
+	/** on which day should the calendar start? */
 	defaultStartDate?: Object,
+
+	/** callback for when a date is changed */
 	onChangeStartDate?: moment => void,
+
+	/** how to divide the hour (4 = 15 minutes) */
 	slotsPerHour?: number,
+
+	/** The minimum time to render for any day (may move to Day and Week view) */
 	defaultMinTime?: string,
+
+	/** The max time to render for any day (may move to Day and Week view)  */
 	defaultMaxTime?: string,
+
+	/** The time a shift starts (anything before is dimmed out, may move to Day/Week) */
 	defaultStartTime?: string,
+
+	/** The time a shift ends (anything after is dimmed out, may move to Day/Week) */
 	defaultEndTime?: string,
+
+	/** moment.js format for rendering date in header */
 	headerDateFormat: string,
+
+	/** moment.js form afro rending date in header on small screens */
 	mobileHeaderDateFormat: string,
-	users: Array<Object>,
+
+	/** All users to render when userMode = team */
+	users: Array<User>,
+
+	/** Timezone for this calendar (America/Denver) */
 	timezone: string,
+
+	/** All events, give them all, I'll control which to render and where. more events = faster paging */
 	allEvents?: Array<Object>,
+
+	/** Called whenever an event is dropped */
 	onDropEvent?: Function,
+
+	/** Passed directly to any view being rendered (Day/IndividualWeek/TeamWeek/etc.) */
 	viewProps: ViewProps,
+
+	/** How long do you have to press down to invoke the create event process */
 	longPressDelay?: number,
+
+	/** Different user modes we can switch between (team, individual, etc.)  */
 	userModeOptions?: Array<Object>,
-	onChangeUserMode?: string => void,
+
+	/** The currently selected user mode (you have to match this with an option from userModeOptions) */
 	userMode?: string,
+
+	/** When the userMode dropdown in HeaderControls is changed */
+	onChangeUserMode?: string => void,
+
+	/** How fast do you have to click to count it as a double click (ms) */
 	doubleClickTime: number,
+
+	/** Called when a double click is executed within the doubleClickTime (only called if doubleClickToCreate === true) */
 	onDoubleClickView?: Function,
+
+	/** When any click is made on a view (only called if doubleClickToCreate === false) */
 	onClickView?: Function,
+
+	/** Should i start creating an event when you double click? */
 	doubleClickToCreate?: boolean,
-	userSchedules?: Object, // { userId: { date: { startTime, endTime }, '2018-01-10': { startTime: '09:00', endTime: '20:00' } } }
+
+	/** User schedules in the standard Spruce format: { userId: { date: { startTime, endTime }, '2018-01-10': { startTime: '09:00', endTime: '20:00' } } } */
+	userSchedules?: Object,
+
+	/** How should time be formated on an event */
 	eventTimeFormat: string,
+
+	/** format for day of week */
 	headerCellDowFormat?: string,
+
+	/** the day format */
 	headerCellDayFormat?: string
 }
 
 type State = {
+	/** the currently selected view (todo: remove from state?) */
 	selectedView: 'day' | 'week' | 'month',
+
+	/** the current start date (todo: remove from state?) */
 	startDate?: moment,
-	bodyHeight: number,
-	bodyWidth: number,
+
+	/** Height calculated for body to scroll properly  */
 	calendarBodyHeight: number,
+
+	/** For paging left and right using header controls */
 	currentHorizontalPage: number,
+
+	/** Total pages we can page right using header controls */
 	totalHorizontalPages: number
 }
 
@@ -81,21 +143,13 @@ class BigCalendar extends Component<Props, State> {
 		headerCellDayFormat: 'D'
 	}
 
-	state = {
-		selectedView: this.props.defaultView,
-		bodyWidth: -1,
-		bodyHeight: -1,
-		calendarBodyHeight: 0,
-		startDate: null,
-		currentHorizontalPage: 0,
-		totalHorizontalPages: 0
-	}
-
 	domNodeRef: { current: any }
+
 	selectedViewRef: {
 		current: ?{
 			handleHorizontalPageNext: ?Function,
-			handleHorizontalPageBack: ?Function
+			handleHorizontalPageBack: ?Function,
+			getBodyNode: Function
 		}
 	}
 
@@ -105,9 +159,6 @@ class BigCalendar extends Component<Props, State> {
 		// setup refs
 		this.domNodeRef = React.createRef()
 		this.selectedViewRef = React.createRef()
-
-		// default start date
-		this.state.startDate = this.getDefaultStartDate()
 
 		// make sure users and timezone are passed
 		const { users, timezone } = props
@@ -122,6 +173,14 @@ class BigCalendar extends Component<Props, State> {
 			throw new Error(
 				'Please supply `timezone` prop to BigCalendar. Use what moment uses (see TZ* col): https://en.wikipedia.org/wiki/List_of_tz_database_time_zones'
 			)
+		}
+
+		this.state = {
+			selectedView: props.defaultView,
+			calendarBodyHeight: 0,
+			currentHorizontalPage: 0,
+			totalHorizontalPages: 0,
+			startDate: this.getDefaultStartDate()
 		}
 	}
 
@@ -161,24 +220,19 @@ class BigCalendar extends Component<Props, State> {
 
 	handleSizing = () => {
 		// can sometimes fire too early (before the ref is set)
-		if (!this.domNodeRef.current) {
+		if (!this.selectedViewRef.current) {
 			return
 		}
 
 		//get node for scroll wrapper
-		const scrollNode = this.domNodeRef.current.querySelectorAll(
-			'.bigcalendar__drag-grid'
-		)[0]
+		const bodyNode = this.selectedViewRef.current.getBodyNode()
 
 		// calc positions
-		const scrollTop = sizeUtil.getTop(scrollNode)
-		const width = sizeUtil.bodyWidth()
+		const scrollTop = sizeUtil.getTop(bodyNode)
 		const height = sizeUtil.bodyHeight()
 		const calendarBodyHeight = height - scrollTop
 
 		this.setState({
-			bodyWidth: width,
-			bodyHeight: height,
 			calendarBodyHeight
 		})
 	}
@@ -201,20 +255,16 @@ class BigCalendar extends Component<Props, State> {
 		this._setStartDate(nextDate)
 	}
 
-	_setStartDate = async (date: moment) => {
-		const { onChangeStartDate = () => {} } = this.props
-		await this.setState({ startDate: date })
-		onChangeStartDate(date)
-	}
-
 	handleDateToToday = async () => {
 		const date = moment()
-		const { onChangeStartDate = () => {} } = this.props
-		await this.setState({ startDate: date })
-		onChangeStartDate(date)
+		this._setStartDate(date)
 	}
 
-	componentDidUpdate() {}
+	_setStartDate = async (date: moment) => {
+		const { onChangeStartDate } = this.props
+		await this.setState({ startDate: date })
+		onChangeStartDate && onChangeStartDate(date)
+	}
 
 	getViewDetails = (view?: String) => {
 		const v = view || this.state.selectedView
@@ -342,8 +392,6 @@ class BigCalendar extends Component<Props, State> {
 		const {
 			selectedView,
 			startDate,
-			bodyWidth,
-			bodyHeight,
 			calendarBodyHeight,
 			currentHorizontalPage,
 			totalHorizontalPages
@@ -356,17 +404,7 @@ class BigCalendar extends Component<Props, State> {
 		const viewProps = this.getViewProps()
 
 		return (
-			<div
-				className={parentClass}
-				ref={this.domNodeRef}
-				style={
-					{
-						// width: bodyWidth,
-						// height: bodyHeight
-					}
-				}
-				{...props}
-			>
+			<div className={parentClass} ref={this.domNodeRef} {...props}>
 				<Header
 					userModeOptions={userModeOptions}
 					onChangeUserMode={this.handleChangeUserMode}
