@@ -1,0 +1,9 @@
+.empty-state {
+	color: $c-text-light;
+	padding: spacing('base');
+	text-align: center;
+
+	&__headline {
+		font-weight: $font-weight-bold;
+	}
+}
