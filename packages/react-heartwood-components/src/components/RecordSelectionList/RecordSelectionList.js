@@ -53,10 +53,10 @@ type RecordSelectionListProps = {|
 	searchPlaceholder?: string,
 
 	/** Callback for selection of a record */
-	onSelect?: RecordId => void,
+	onSelect ?: (RecordId, Record) => void,
 
 	/** Callback for when user requests to remove a record from the list. */
-	onRemove?: RecordId => void
+	onRemove?: (RecordId, Record) => void
 |}
 
 type RecordSelectionListState = {|
@@ -158,7 +158,7 @@ export default class RecordSelectionList extends Component<
 							<SelectionComponent
 								className="record-selection__record-select"
 								onChange={() => {
-									onSelect(record.id)
+									onSelect(record.id, record)
 								}}
 								disabled={
 									unselectableIds && unselectableIds.indexOf(record.id) >= 0
@@ -184,7 +184,7 @@ export default class RecordSelectionList extends Component<
 										)
 									})
 
-									onRemove(record.id)
+									onRemove(record.id, record)
 								}}
 							/>
 						)}
