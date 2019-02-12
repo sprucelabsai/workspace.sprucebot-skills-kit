@@ -37,7 +37,8 @@ export const Page = (props: PageProps) => {
 		className,
 		header,
 		hasSidebar,
-		sidebarIsCollapsed
+		sidebarIsCollapsed,
+		...passThroughProps
 	} = props
 	return (
 		<div
@@ -47,6 +48,7 @@ export const Page = (props: PageProps) => {
 				'page--has-sidebar': hasSidebar,
 				'page--sidebar-is-collapsed': sidebarIsCollapsed
 			})}
+			{...passThroughProps}
 		>
 			{header && <PageHeader {...header} />}
 			{children}

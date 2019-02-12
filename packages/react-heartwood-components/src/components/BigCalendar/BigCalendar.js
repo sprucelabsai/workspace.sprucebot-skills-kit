@@ -303,8 +303,8 @@ class BigCalendar extends Component<Props, State> {
 	}
 
 	handleChangeUserMode = (mode: 'day' | 'week' | 'month') => {
-		const { onChangeUserMode = () => {} } = this.props
-		onChangeUserMode(mode)
+		const { onChangeUserMode } = this.props
+		onChangeUserMode && onChangeUserMode(mode)
 	}
 
 	render() {
@@ -335,6 +335,10 @@ class BigCalendar extends Component<Props, State> {
 			...props
 		} = this.props
 
+		// remove uneeded vars
+		delete props.viewProps
+		delete props.defaultView
+
 		const {
 			selectedView,
 			startDate,
@@ -355,10 +359,12 @@ class BigCalendar extends Component<Props, State> {
 			<div
 				className={parentClass}
 				ref={this.domNodeRef}
-				style={{
-					width: bodyWidth,
-					height: bodyHeight
-				}}
+				style={
+					{
+						// width: bodyWidth,
+						// height: bodyHeight
+					}
+				}
 				{...props}
 			>
 				<Header

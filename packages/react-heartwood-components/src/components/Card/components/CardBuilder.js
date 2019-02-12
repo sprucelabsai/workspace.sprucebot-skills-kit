@@ -43,86 +43,84 @@ export type CardBuilderProps = {
 	}
 }
 
-const CardBuilderKey = {
-	CardBodyButton: {
-		component: Button,
-		mapProps: child => ({
-			...pick(child, [
-				'key',
-				'className',
-				'kind',
-				'isSmall',
-				'isFullWidth',
-				'isLoading',
-				'isIconOnly',
-				'text',
-				'href',
-				'icon',
-				'target',
-				'payload'
-			]),
-			...child.props
-		})
-	},
-	CardBodyImage: {
-		component: Image,
-		mapProps: child => ({
-			...pick(child, ['key', 'src', 'type']),
-			...child.props
-		})
-	},
-	CardBodyHeading: {
-		component: Heading,
-		mapProps: child => ({
-			...pick(child, ['key', 'title', 'subtitle']),
-			...child.props
-		})
-	},
-	CardBodyText: {
-		component: Text,
-		mapProps: child => ({
-			...pick(child, ['key']),
-			...child.props,
-			children: child.text
-		})
-	},
-	CardBodyList: {
-		component: List,
-		mapProps: child => ({
-			...pick(child, ['key', 'items', 'heading']),
-			...child.props
-		})
-	},
-	CardBodyScores: {
-		component: Scores,
-		mapProps: child => ({
-			...pick(child, ['key', 'scores']),
-			...child.props
-		})
-	}
-}
-
-// map to simple type names for imperative usage
-CardBuilderKey.button = CardBuilderKey.CardBodyButton
-CardBuilderKey.image = CardBuilderKey.CardBodyImage
-CardBuilderKey.heading = CardBuilderKey.CardBodyHeading
-CardBuilderKey.text = CardBuilderKey.CardBodyText
-CardBuilderKey.list = CardBuilderKey.CardBodyList
-CardBuilderKey.scores = CardBuilderKey.CardBodyScores
-
 const renderChild = child => {
-	const Type = (child &&
-		(child.__typename || child.type) &&
-		CardBuilderKey[child.__typename || child.type]) || {
-		component: Text,
-		mapProps: child => ({ ...child, ...child.props })
+	// having this defined outside the function breaks in storybook
+	const CardBuilderKey = {
+		CardBodyButton: {
+			component: Button,
+			mapProps: child => ({
+				...pick(child, [
+					'key',
+					'className',
+					'kind',
+					'isSmall',
+					'isFullWidth',
+					'isLoading',
+					'isIconOnly',
+					'text',
+					'href',
+					'icon',
+					'target',
+					'payload'
+				]),
+				...child.props
+			})
+		},
+		CardBodyImage: {
+			component: Image,
+			mapProps: child => ({
+				...pick(child, ['key', 'src', 'type']),
+				...child.props
+			})
+		},
+		CardBodyHeading: {
+			component: Heading,
+			mapProps: child => ({
+				...pick(child, ['key', 'title', 'subtitle']),
+				...child.props
+			})
+		},
+		CardBodyText: {
+			component: Text,
+			mapProps: child => ({
+				...pick(child, ['key']),
+				...child.props,
+				children: child.text
+			})
+		},
+		CardBodyList: {
+			component: List,
+			mapProps: child => ({
+				...pick(child, ['key', 'items', 'header']),
+				...child.props
+			})
+		},
+		CardBodyScores: {
+			component: Scores,
+			mapProps: child => ({
+				...pick(child, ['key', 'scores']),
+				...child.props
+			})
+		}
 	}
+
+	const aliasMap = {
+		button: 'CardBodyButton',
+		image: 'CardBodyImage',
+		heading: 'CardBodyHeading',
+		text: 'CardBodyText',
+		list: 'CardBodyList',
+		scores: 'CardBodyScores'
+	}
+
+	const Type =
+		CardBuilderKey[child.__typename || aliasMap[child.type || 'text']]
 
 	const { component, mapProps } = Type
 	const Handler = component
 	const props = mapProps(child)
 
-	return !Handler.prototype.render ? (
+	return !Handler.prototype || !Handler.prototype.render ? (
 		Handler({ ...props })
 	) : (
 		<Handler {...props} />

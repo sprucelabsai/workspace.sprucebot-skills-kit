@@ -4,6 +4,7 @@
 
 A Skill is a "micro-app". That is, a bit of functionality hyper focused on a single use-case. It consists of a `server` and an `interface`. Together, with `events` and `messages`, Skills can connect people in whole new ways.
 
+- [Glossary](glossary.md)
 - [Skills](skills.md) <- Start here after reading below
 - [Server](server.md)
 - [Interface](interface.md)
@@ -48,7 +49,7 @@ This two pronged approach is the crux of our small business strategy. We want Be
 
 Amazon rocks, doesn't it? Pretty much everything you need, basement prices, delivered right to your door. If Becca tried to compete with Amazon, she'd get smoked. She's gotta focus on the things that make brick-and-mortar unique. This means she needs to be building human-to-human relationships.
 
-You've never logged into Amazon, had it say, "Welcome back ${firstName}" and thought to yourself, "Wow, that was nice!" But, when you walk into your favorite boutique, coffee shop, outdoor shop, barbershop, or salon and are welcomed by name, everything changes.
+You've never logged into Amazon, had it say, "Welcome back \${firstName}" and thought to yourself, "Wow, that was nice!" But, when you walk into your favorite boutique, coffee shop, outdoor shop, barbershop, or salon and are welcomed by name, everything changes.
 
 ## Promote human-to-human connection
 

@@ -74,6 +74,9 @@ class Header extends PureComponent<Props, State> {
 			cellDayFormat,
 			...props
 		} = this.props
+
+		delete props.selectedView
+
 		return (
 			<div className="bigcalendar__header" {...props}>
 				<div className="bigcalendar__header-top">

@@ -72,7 +72,7 @@ const View = (props: Props) => {
 					sidebarItems && sidebarItems.length > 0 ? true : false
 				}
 				toggleSidebarVisibility={toggleSidebarVisibility}
-				isSidebarVisible={isSidebarMobileExpanded}
+				isSidebarVisible={isSidebarMobileExpanded || false}
 				getSearchSuggestions={getSearchSuggestions}
 				getSearchSuggestionValue={getSearchSuggestionValue}
 				renderSearchSuggestion={renderSearchSuggestion}
