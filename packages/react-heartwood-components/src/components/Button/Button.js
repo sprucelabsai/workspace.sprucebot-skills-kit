@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { Fragment } from 'react'
 import cx from 'classnames'
 import Loader from '../Loader/Loader'
 import Icon from '../Icon/Icon'
@@ -11,6 +11,9 @@ import type { Props as IconProps } from '../Icon/Icon'
 export type Props = {
 	/** Optional class to add to the button. */
 	className?: string,
+
+	/** Optional children passed into button */
+	children?: Node,
 
 	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
 	kind?: string,
@@ -63,6 +66,7 @@ const Button = (props: Props) => {
 		type,
 		onClick,
 		AnchorComponent = BasicAnchor,
+		children,
 		...rest
 	} = props
 	const btnClass = cx(className, {
@@ -74,7 +78,7 @@ const Button = (props: Props) => {
 		'btn-full-width': isFullWidth,
 		'btn--loading': isLoading,
 		'btn-small': isSmall,
-		'btn-icon-only': !text || isIconOnly
+		'btn-icon-only': (!children && !text) || isIconOnly
 	})
 	const textClass = cx('btn__text', {
 		'visually-hidden': isIconOnly
@@ -89,24 +93,30 @@ const Button = (props: Props) => {
 
 	const Inner = () => (
 		<span className="btn__inner">
-			{icon && (icon.customIcon || icon.name) && (
-				<span className="btn__icon-wrapper">
-					<Icon
-						customIcon={icon.customIcon}
-						icon={icon.name}
-						isLineIcon={icon.isLineIcon}
-						className={cx(
-							{
-								btn__icon: true,
-								'btn__line-icon': icon.isLineIcon
-							},
-							icon.className
-						)}
-					/>
-				</span>
+			{children ? (
+				children
+			) : (
+				<Fragment>
+					{icon && (icon.customIcon || icon.name) && (
+						<span className="btn__icon-wrapper">
+							<Icon
+								customIcon={icon.customIcon}
+								icon={icon.name}
+								isLineIcon={icon.isLineIcon}
+								className={cx(
+									{
+										btn__icon: true,
+										'btn__line-icon': icon.isLineIcon
+									},
+									icon.className
+								)}
+							/>
+						</span>
+					)}
+					{text && <span className={textClass}>{text}</span>}
+					{isLoading && <Loader />}
+				</Fragment>
 			)}
-			{text && <span className={textClass}>{text}</span>}
-			{isLoading && <Loader />}
 		</span>
 	)
 
@@ -122,7 +132,7 @@ const Button = (props: Props) => {
 		</AnchorComponent>
 	)
 
-	if (!text && !icon) {
+	if (!children && !text && !icon) {
 		// TODO: Handle Logging
 		// console.error(
 		// 	'<Button /> must have text, icon, or both. Please check the props your passing.'

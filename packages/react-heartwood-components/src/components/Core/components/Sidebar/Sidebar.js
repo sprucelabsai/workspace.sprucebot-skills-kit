@@ -21,6 +21,9 @@ type Props = {
 	/** Items to display in the sidebar */
 	items?: Array<ItemProps>,
 
+	/** Back link item to handle navigation back to previous location */
+	backLink?: ItemProps,
+
 	/** Children to add to the sidebar */
 	children?: Node,
 
@@ -52,6 +55,7 @@ type Props = {
 const Sidebar = (props: Props) => {
 	const {
 		items,
+		backLink,
 		children,
 		footer,
 		forceCloseSidebar,
@@ -86,6 +90,19 @@ const Sidebar = (props: Props) => {
 						{items.map((item, idx) => (
 							<SidebarItem key={idx} {...item} />
 						))}
+						{backLink && (
+							<SidebarItem
+								key="sidebar-back-link"
+								className="sidebar-item__back-link"
+								icon={
+									backLink.icon || {
+										icon: 'arrow_back',
+										className: 'sidebar-item__icon--fill'
+									}
+								}
+								{...backLink}
+							/>
+						)}
 					</ul>
 				)}
 				<div className="sidebar__content">{children && children}</div>

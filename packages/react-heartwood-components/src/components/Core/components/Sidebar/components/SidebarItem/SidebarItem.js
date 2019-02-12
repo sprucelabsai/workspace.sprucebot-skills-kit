@@ -9,6 +9,7 @@ import Icon from '../../../../../Icon/Icon'
 type ItemProps = {
 	text: string,
 	href: string,
+	className?: string,
 	action?: ButtonProps,
 	icon?: Node,
 	isCurrent?: boolean,
@@ -17,6 +18,7 @@ type ItemProps = {
 
 export type Props = {
 	items?: Array<ItemProps>,
+	className?: string,
 	text: string,
 	href: string,
 	action?: Object,
@@ -42,8 +44,8 @@ const isCurrentParent = (props: Props) => {
 }
 
 const SidebarItem = (props: Props) => {
-	const { text, href, action, icon, isCurrent, items } = props
-	const parentClass = cx('sidebar-item', {
+	const { text, href, action, icon, isCurrent, items, className } = props
+	const parentClass = cx('sidebar-item', className, {
 		'sidebar-item--is-current': isCurrent,
 		'sidebar-item--is-current-parent': items && isCurrentParent({ items })
 	})
@@ -79,9 +81,13 @@ const SidebarItem = (props: Props) => {
 								{item.items && isCurrentParent({ items: item.items }) && (
 									<ul className="sidebar__sub-list">
 										{item.items.map((item, idx) => {
-											const subSubClass = cx('sidebar__sub-list-item', {
-												'sidebar-item--is-current': item.isCurrent
-											})
+											const subSubClass = cx(
+												'sidebar__sub-list-item',
+												item.className,
+												{
+													'sidebar-item--is-current': item.isCurrent
+												}
+											)
 											return (
 												<li key={idx} className={subSubClass}>
 													<div className="sidebar-item__inner">

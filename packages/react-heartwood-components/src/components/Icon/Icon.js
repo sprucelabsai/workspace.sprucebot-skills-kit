@@ -8,7 +8,7 @@ import * as icons from '../../icons.js'
 
 export type Props = {
 	/** The name of the icon to render. If not found, this will return null. */
-	icon: string,
+	icon?: string,
 
 	/** Set true to render an icon with a stroke, but no fill */
 	isLineIcon?: boolean,
@@ -32,7 +32,7 @@ const Icon = (props: Props) => {
 
 	return (
 		<Handler
-			className={cx(className, {
+			className={cx(className, 'icon', {
 				'u-icon__no-fill': isLineIcon,
 				'u-icon__stroke': isLineIcon
 			})}
