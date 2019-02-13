@@ -9,13 +9,17 @@ module.exports = {
 	context: {
 		headline: 'Headline',
 		subheadline: 'Subheadline',
-		icon:
-			'<path fill="none" fill-rule="evenodd" clip-rule="evenodd" d="M6 7C7.51878 7 8.75 5.76878 8.75 4.25C8.75 2.73122 7.51878 1.5 6 1.5C4.48122 1.5 3.25 2.73122 3.25 4.25C3.25 5.76878 4.48122 7 6 7Z" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M1.5 12.5001C1.50011 10.7267 2.54175 9.11875 4.16015 8.39369C5.77855 7.66863 7.67188 7.96169 8.99533 9.14212" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M8.5 14.5L10.5 16.5L12.5 14.5" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M10.5 16.5V10.5" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M12.5 12.5L14.5 10.5L16.5 12.5" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M14.5 10.5V16.5" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+		icon: {
+			src:
+				'<path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.70996C16.1421 1.70996 19.5 5.06783 19.5 9.20996C19.5 12.757 14 21.591 12.421 24.06C12.3291 24.2034 12.1704 24.2902 12 24.2902C11.8296 24.2902 11.6709 24.2034 11.579 24.06C10 21.592 4.5 12.757 4.5 9.20996C4.5 5.06783 7.85786 1.70996 12 1.70996Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 12.21C13.6569 12.21 15 10.8668 15 9.20996C15 7.55311 13.6569 6.20996 12 6.20996C10.3431 6.20996 9 7.55311 9 9.20996C9 10.8668 10.3431 12.21 12 12.21Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
+		},
 		action: {
 			className: 'btn-simple',
 			text: 'Go back',
-			icon:
-				'<path fill-rule="evenodd" clip-rule="evenodd" d="M16.6663 9.16665H6.52467L11.183 4.50831L9.99967 3.33331L3.33301 9.99998L9.99967 16.6666L11.1747 15.4916L6.52467 10.8333H16.6663V9.16665V9.16665Z"/>'
+			icon: {
+				src:
+					'<path fill-rule="evenodd" clip-rule="evenodd" d="M16.6663 9.16665H6.52467L11.183 4.50831L9.99967 3.33331L3.33301 9.99998L9.99967 16.6666L11.1747 15.4916L6.52467 10.8333H16.6663V9.16665V9.16665Z"/>'
+			}
 		}
 	},
 	variants: [

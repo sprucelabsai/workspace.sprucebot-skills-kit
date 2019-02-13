@@ -1,10 +1,10 @@
 <div class="empty-state">
-    {{> @icon icon=icon}}
-    <h3 class="empty-state__headline">Headline</h3>
-    {{#if subheadline}}
-    <div class="empty-state__subheadline">Subheadline</div>
-    {{/if}}
-    {{#if action}}
-    {{> @button className=action.className text=action.text icon=action.icon }}
-    {{/if}}
+	<span class="empty-state__icon">{{> @icon icon=icon.src class=icon.className}}</span>
+	<h3 class="empty-state__headline">Headline</h3>
+	{{#if subheadline}}
+	<div class="empty-state__subheadline">Subheadline</div>
+	{{/if}}
+	{{#if action}}
+	{{> @button className=action.className text=action.text icon=action.icon.src }}
+	{{/if}}
 </div>
