@@ -33,6 +33,7 @@
 		"graphql-redis-subscriptions": "^2.0.0",
 		"graphql-subscriptions": "^1.0.0",
 		"graphql-tag": "2.10.1",
+		"ioredis": "^4.6.2",
 		"jsonwebtoken": "^8.1.0",
 		"koa": "^2.4.1",
 		"koa-body": "^4.0.6",
