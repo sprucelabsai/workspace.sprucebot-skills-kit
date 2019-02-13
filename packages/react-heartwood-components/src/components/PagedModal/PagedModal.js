@@ -1,10 +1,8 @@
 // @flow
 import * as React from 'react'
-import ReactModal from 'react-modal'
 import cx from 'classnames'
 import Modal from '../Modal/Modal'
 
-import type { Props as ModalHeaderProps } from '../Modal/components/ModalHeader/ModalHeader'
 import type { Props as ModalProps } from '../Modal/Modal'
 import type { Props as ButtonProps } from '../Button/Button'
 
@@ -41,23 +39,10 @@ type Props = {
 	pages: Array<ModalPageProps>
 }
 
-type State = {
-	currentPageIndex: number
-}
-
-const getCurrentPageIndex = (pages: Array<ModalPageProps>) => {
-	const activeTabIndex = pages.findIndex(tab => tab.isCurrent)
-	return activeTabIndex
-}
-
-export default class PagedModal extends React.PureComponent<Props, State> {
+export default class PagedModal extends React.PureComponent<Props> {
 	static defaultProps = {
 		size: 'medium',
 		canGoBack: true
-	}
-
-	state = {
-		currentPageIndex: getCurrentPageIndex(this.props.pages)
 	}
 
 	render() {
@@ -69,7 +54,6 @@ export default class PagedModal extends React.PureComponent<Props, State> {
 			canGoBack,
 			onClickBack
 		} = this.props
-		const { currentPageIndex } = this.state
 
 		const currentPage = pages.find(page => page.isCurrent)
 
@@ -82,6 +66,7 @@ export default class PagedModal extends React.PureComponent<Props, State> {
 				/>
 				{pages.map((page, idx) => (
 					<Modal.Body
+						key={`${idx}`}
 						className={cx('paged-modal__page', {
 							'paged-modal__page--is-current': page.isCurrent
 						})}

@@ -1,16 +1,9 @@
 // @flow
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, object } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import PagedModal from './PagedModal'
-import Button from '../Button/Button'
-import {
-	Checkbox,
-	TextInput,
-	TextArea,
-	FormLayout,
-	FormLayoutItem
-} from '../Forms'
+import { TextInput, FormLayout, FormLayoutItem } from '../Forms'
 
 type Props = {}
 
@@ -24,7 +17,6 @@ class PageModalExample extends Component<Props, State> {
 	}
 
 	handleBack = () => {
-		console.log('here')
 		this.setState(prevState => ({
 			currentPageIndex:
 				prevState.currentPageIndex > 0 ? prevState.currentPageIndex - 1 : 0
