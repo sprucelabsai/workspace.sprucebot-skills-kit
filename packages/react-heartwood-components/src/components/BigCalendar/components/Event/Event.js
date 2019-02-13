@@ -1,25 +1,19 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import moment from 'moment-timezone'
 
 import EventBlock from '../EventBlock/EventBlock'
 
-import type { Event as EventType, EventBlock as BlockType } from '../../types'
+import type { Event as EventType, EventSelection } from '../../types'
 
 type Props = {
 	event: EventType,
 	className?: string,
 	timezone: string,
 	timeFormat: string,
-	onMouseDown?: (
-		e: MouseEvent,
-		payload: { event: EventType, block: BlockType, blockIdx: number }
-	) => void | boolean,
-	onTouchStart?: (
-		e: MouseEvent,
-		payload: { event: EventType, block: BlockType, blockIdx: number }
-	) => void | boolean
+	onMouseDown?: (e: MouseEvent, payload: EventSelection) => void | boolean,
+	onTouchStart?: (e: MouseEvent, payload: EventSelection) => void | boolean
 }
 
 const Event = (props: Props) => {
