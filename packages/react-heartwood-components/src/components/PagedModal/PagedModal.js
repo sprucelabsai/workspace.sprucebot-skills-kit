@@ -29,7 +29,7 @@ type Props = {
 	/** Callback to close the modal */
 	onRequestClose: Function,
 
-	/** Whether back button is active */
+	/** Whether the back button should be displayed */
 	canGoBack: boolean,
 
 	/** Function to handle navigating backwards in the modal */
@@ -41,8 +41,7 @@ type Props = {
 
 export default class PagedModal extends React.PureComponent<Props> {
 	static defaultProps = {
-		size: 'medium',
-		canGoBack: true
+		size: 'medium'
 	}
 
 	render() {
@@ -69,6 +68,7 @@ export default class PagedModal extends React.PureComponent<Props> {
 					title={(currentPage && currentPage.title) || ''}
 					onRequestClose={onRequestClose}
 					onClickBack={canGoBack && onClickBack}
+					isPaginated
 				/>
 				{pages.map((page, idx) => (
 					<Modal.Body

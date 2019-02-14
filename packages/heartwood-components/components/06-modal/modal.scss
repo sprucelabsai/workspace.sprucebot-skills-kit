@@ -13,6 +13,19 @@
 	justify-content: space-between;
 	padding: spacing('base');
 	border-bottom: 1px solid $c-border;
+
+	&--is-paginated {
+		.modal-header__title-wrapper {
+			flex: 1;
+		}
+		.modal-header__title {
+			text-align: center;
+			width: 100%;
+		}
+		.modal-header__back-btn--is-hidden {
+			visibility: hidden;
+		}
+	}
 }
 
 .modal-header .btn__icon {
@@ -21,14 +34,11 @@
 
 .modal-header__title-wrapper {
 	display: inline-flex;
-	flex: 1;
 }
 
 .modal-header__title {
 	@include typescale('heading-lg');
 	margin-top: rem(2);
-	width: 100%;
-	text-align: center;
 }
 
 .modal-footer {

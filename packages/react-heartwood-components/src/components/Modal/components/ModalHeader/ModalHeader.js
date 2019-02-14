@@ -1,5 +1,6 @@
 // @flow
 import React from 'react'
+import cx from 'classnames'
 import Button from '../../../Button/Button'
 import ArrowBack from '../../../../../static/assets/icons/ic_arrow_back.svg'
 import CloseIcon from '../../../../../static/assets/icons/ic_close.svg'
@@ -7,6 +8,9 @@ import CloseIcon from '../../../../../static/assets/icons/ic_close.svg'
 export type Props = {
 	/** Title text */
 	title: string,
+
+	/** Whether this is a paged modal. Title will center on pages */
+	isPaginated: boolean,
 
 	/** Callback to close the modal */
 	onRequestClose: Function,
@@ -16,14 +20,23 @@ export type Props = {
 }
 
 const ModalHeader = (props: Props) => {
-	const { title, onRequestClose, onClickBack } = props
+	const { title, onRequestClose, isPaginated, onClickBack } = props
+
 	return (
-		<div className="modal-header">
+		<div
+			className={cx('modal-header', {
+				'modal-header--is-paginated': isPaginated
+			})}
+		>
 			<div className="modal-header__title-wrapper">
-				{onClickBack && (
+				{isPaginated && (
 					<Button
 						isSmall
+						className={cx('modal-header__back-btn', {
+							'modal-header__back-btn--is-hidden': !onClickBack
+						})}
 						icon={{ customIcon: ArrowBack }}
+						disabled={!onClickBack}
 						onClick={onClickBack}
 					/>
 				)}
@@ -36,6 +49,10 @@ const ModalHeader = (props: Props) => {
 			/>
 		</div>
 	)
+}
+
+ModalHeader.defaultProps = {
+	isPaginated: false
 }
 
 export default ModalHeader
