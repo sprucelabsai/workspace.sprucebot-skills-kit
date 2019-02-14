@@ -48,6 +48,7 @@ export default class PagedModal extends React.PureComponent<Props> {
 	render() {
 		const {
 			isOpen,
+			isFullHeight,
 			size,
 			pages,
 			onRequestClose,
@@ -58,7 +59,12 @@ export default class PagedModal extends React.PureComponent<Props> {
 		const currentPage = pages.find(page => page.isCurrent)
 
 		return (
-			<Modal isOpen={isOpen} size={size} className="paged-modal">
+			<Modal
+				isOpen={isOpen}
+				size={size}
+				isFullHeight={isFullHeight}
+				className="paged-modal"
+			>
 				<Modal.Header
 					title={(currentPage && currentPage.title) || ''}
 					onRequestClose={onRequestClose}
