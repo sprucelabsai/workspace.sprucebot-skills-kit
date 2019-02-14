@@ -42,7 +42,7 @@ const EmptyState = (props: Props) => {
 		<div className="empty-state">
 			{icon && (
 				<span className="empty-state__icon">
-					<Icon icon={icon} isLineIcon={isLineIcon || true} />
+					<Icon icon={icon} isLineIcon={isLineIcon} />
 				</span>
 			)}
 			<h3 className="empty-state__headline">{headline}</h3>
@@ -56,7 +56,7 @@ const EmptyState = (props: Props) => {
 							? { name: primaryActionButtonIcon, className: `btn__line-icon` }
 							: null
 					}
-					kind={primaryActionButtonKind || `simple`}
+					kind={primaryActionButtonKind}
 					{...primaryAction}
 				/>
 			)}
@@ -65,7 +65,9 @@ const EmptyState = (props: Props) => {
 }
 
 EmptyState.defaultProps = {
-	headline: 'Data not available'
+	headline: `Data not available`,
+	isLineIcon: true,
+	primaryActionButtonKind: `simple`
 }
 
 export default EmptyState
