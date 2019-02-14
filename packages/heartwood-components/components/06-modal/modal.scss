@@ -21,11 +21,14 @@
 
 .modal-header__title-wrapper {
 	display: inline-flex;
+	flex: 1;
 }
 
 .modal-header__title {
 	@include typescale('heading-lg');
 	margin-top: rem(2);
+	width: 100%;
+	text-align: center;
 }
 
 .modal-footer {
