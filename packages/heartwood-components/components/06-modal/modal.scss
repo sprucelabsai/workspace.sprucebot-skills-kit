@@ -38,6 +38,8 @@
 
 .modal-header__title {
 	@include typescale('heading-lg');
+	font-family: $font-family-primary;
+	font-weight: $font-weight-bold;
 	margin-top: rem(2);
 }
 
