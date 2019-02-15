@@ -57,7 +57,7 @@ export { default as Subheading } from './components/Subheading/Subheading'
 export {
 	default as TextContainer
 } from './components/TextContainer/TextContainer'
-export { default as Text } from './components/Text/Text'
+export { default as Text, Span } from './components/Text/Text'
 export { default as TextStyle } from './components/TextStyle/TextStyle'
 export { default as Image } from './components/Image/Image'
 export { default as ImageCropper } from './components/ImageCropper/ImageCropper'
@@ -71,6 +71,7 @@ export {
 } from './components/List'
 export { default as Loader } from './components/Loader/Loader'
 export { default as Modal } from './components/Modal/Modal'
+export { default as PagedModal } from './components/PagedModal/PagedModal'
 export { default as Pagination } from './components/Pagination/Pagination'
 export { default as Tabs, Tab } from './components/Tabs'
 export {
@@ -85,6 +86,9 @@ export { default as RecordTable } from './components/RecordTable/RecordTable'
 export {
 	default as RecordSelectionList
 } from './components/RecordSelectionList/RecordSelectionList'
+export {
+	default as RecordSelectionListItem
+} from './components/RecordSelectionList/RecordSelectionListItem'
 
 // Types
 export type { CardBuilderProps } from './components/Card'
