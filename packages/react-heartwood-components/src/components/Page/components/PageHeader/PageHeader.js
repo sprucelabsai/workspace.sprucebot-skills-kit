@@ -34,7 +34,10 @@ export type PageHeaderProps = {
 	tabs?: TabsProps,
 
 	/** Set true to add a border to the page header */
-	hasBottomBorder?: boolean
+	hasBottomBorder?: boolean,
+
+	/** Adds an element to expand the right sidebar */
+	sidebarExpander: ButtonProps
 }
 
 const PageHeader = (props: PageHeaderProps) => {
@@ -46,7 +49,8 @@ const PageHeader = (props: PageHeaderProps) => {
 		linkProps,
 		primaryAction,
 		tabs,
-		hasBottomBorder
+		hasBottomBorder,
+		sidebarExpander
 	} = props
 
 	const backLinkClass = 'page__header-back-link'
@@ -103,7 +107,16 @@ const PageHeader = (props: PageHeaderProps) => {
 			<div className="page__header-inner">
 				{anchor && anchor}
 				<div className="page__header-main">
-					<h1>{title}</h1>
+					<div className="page__header-title-wrapper">
+						<h1>{title}</h1>
+						{sidebarExpander && (
+							<Button
+								{...sidebarExpander}
+								isSmall
+								className="page__header-sidebar-btn"
+							/>
+						)}
+					</div>
 					{primaryAction && <Button {...primaryAction} />}
 				</div>
 			</div>

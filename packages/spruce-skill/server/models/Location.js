@@ -1,10 +1,10 @@
 // 🌲🤖 This is a core model, available if DB_ENABLED=true
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
-const config = require('config')
-const moment = require('moment')
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
+// const config = require('config')
+// const moment = require('moment')
+// const Sequelize = require('sequelize')
+// const Op = Sequelize.Op
 
 const modelName = 'Location'
 
@@ -42,6 +42,9 @@ module.exports = (sequelize, DataTypes) => {
 		isPublic: {
 			type: DataTypes.STRING
 		},
+		storeNum: {
+			type: DataTypes.STRING
+		},
 		geo: {
 			type: 'POINT',
 			get() {
@@ -64,6 +67,24 @@ module.exports = (sequelize, DataTypes) => {
 		Location.belongsTo(models.Organization, {
 			constraints: false
 		})
+	}
+
+	Location.scopes = {
+		public: {
+			attributes: [
+				'id',
+				'name',
+				'addressLine1',
+				'addressLine2',
+				'addressCity',
+				'addressState',
+				'addressZip',
+				'addressCountry',
+				'timezone',
+				'isPublic',
+				'geo'
+			]
+		}
 	}
 
 	return Location

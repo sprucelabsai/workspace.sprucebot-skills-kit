@@ -1,13 +1,7 @@
 // @flow
 import React, { Fragment, Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import {
-	withKnobs,
-	text,
-	boolean,
-	number,
-	object
-} from '@storybook/addon-knobs/react'
+import { withKnobs, text, boolean, object } from '@storybook/addon-knobs/react'
 import Modal from './Modal'
 import Button from '../Button/Button'
 import {
@@ -71,7 +65,7 @@ class ModalExample extends Component<Props, State> {
 						<Modal.Body>
 							<FormLayout>
 								<FormLayoutItem>
-									<TextInput label="Category Name" placeholder="i.e. Barber" />
+									<TextInput label="Category Name" placeholder="e.g. Barber" />
 								</FormLayoutItem>
 								<FormLayoutItem>
 									<TextInput
@@ -151,7 +145,7 @@ stories
 				<Modal.Body>
 					<FormLayout>
 						<FormLayoutItem>
-							<TextInput label="Category Name" placeholder="i.e. Barber" />
+							<TextInput label="Category Name" placeholder="e.g. Barber" />
 						</FormLayoutItem>
 						<FormLayoutItem>
 							<TextInput

@@ -13,29 +13,44 @@ export const ListWrapper = (props: { children: Node }) => (
 
 export type Props = {
 	/** List Header */
-	header?: ?ListHeaderProps,
+	header?: ListHeaderProps,
 
 	/** List items */
-	items: Array<ListItemProps>,
+	items?: Array<ListItemProps>,
 
 	/** Class for the list */
 	className?: string,
 
 	/** Set true to make the list smaller */
-	isSmall?: boolean
+	isSmall?: boolean,
+
+	/** any passthrough to render in the body of the list */
+	children?: any,
+
+	/** Set to true to show separators between list items */
+	areSeparatorsVisible: boolean
 }
 
 const List = (props: Props) => {
-	const { header, items, className, isSmall } = props
-	const parentClass = cx('list', className, { 'list-small': isSmall })
+	const {
+		header,
+		items,
+		className,
+		isSmall,
+		areSeparatorsVisible,
+		children
+	} = props
+	const parentClass = cx('list', className, {
+		'list-small': isSmall,
+		'list--separators-hidden': !areSeparatorsVisible
+	})
 
 	return (
 		<Fragment>
 			{header && <ListHeader isSmall={isSmall} {...header} />}
 			<ul className={parentClass}>
-				{items.map((item, idx) => (
-					<ListItem key={idx} {...item} />
-				))}
+				{items && items.map((item, idx) => <ListItem key={idx} {...item} />)}
+				{children && children}
 			</ul>
 		</Fragment>
 	)
@@ -44,7 +59,8 @@ const List = (props: Props) => {
 List.defaultProps = {
 	header: null,
 	className: '',
-	isSmall: false
+	isSmall: false,
+	areSeparatorsVisible: true
 }
 
 export default List

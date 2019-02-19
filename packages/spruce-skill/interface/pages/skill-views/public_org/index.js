@@ -2,8 +2,10 @@ import React from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
 	Page,
-	PageHeader,
-	PageContent
+	PageContent,
+	Layout,
+	LayoutSection,
+	Text
 } from '@sprucelabs/react-heartwood-components'
 
 class PublicOrganizationPage extends React.Component {
@@ -13,14 +15,18 @@ class PublicOrganizationPage extends React.Component {
 
 	render() {
 		return (
-			<Page className="public-organization-page">
-				<PageHeader
-					title="Public Organization Page"
-					onClickBack={() => Router.back()}
-					backLinkText="Previous Page"
-				/>
+			<Page
+				className="public-organization-page"
+				header={{
+					title: 'Public Organization Page'
+				}}
+			>
 				<PageContent>
-					<p>Welcome to the Example public organization view!</p>
+					<Layout>
+						<LayoutSection>
+							<Text>{`Welcome to the Example public organization view!`}</Text>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)

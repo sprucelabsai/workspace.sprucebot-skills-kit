@@ -6,6 +6,7 @@ import cx from 'classnames'
 import { Checkbox } from '../Forms'
 import Pagination from '../Pagination/Pagination'
 import Icon from '../Icon/Icon'
+import EmptyState from '../EmptyState/EmptyState'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import type { Props as ButtonProps } from '../Button/Button'
 import type { Props as PaginationProps } from '../Pagination/Pagination'
@@ -13,6 +14,9 @@ import type { Props as PaginationProps } from '../Pagination/Pagination'
 type Props = {
 	/** Table data */
 	data: Array<Object>,
+
+	/** The total number of rows which this table can access */
+	totalRows: number,
 
 	/** Columns of the table */
 	columns: Array<Object>,
@@ -22,6 +26,9 @@ type Props = {
 
 	/** Set true if the table rows can be selected */
 	isSelectable?: boolean,
+
+	/** any Id's that are selected by default when the page loads */
+	initialSelectedIds?: Array<string | number>,
 
 	/** The kind of data this table displays. This will affect the text shown when at least one row is selected. */
 	kind?: string,
@@ -42,29 +49,56 @@ type Props = {
 	onClickRow?: (e: MouseEvent, meta: { idx: number, item: Object }) => void,
 
 	/** Callback when selection changes */
-	onSelection?: ({ selectedIds: Array<string | number> }) => void
+	onSelection?: ({ selectedIds: Array<string | number> }) => void,
+
+	/** No data available */
+	noDataIcon?: string,
+	noDataHeadline?: string,
+	noDataSubheadline?: string,
+	noDataPrimaryAction?: PrimaryAction,
+	noDataPrimaryActionButtonKind?: string,
+	noDataPrimaryActionButtonIcon?: string
+}
+
+type PrimaryAction = {
+	text: string,
+	onClick: (e: MouseEvent) => void,
+	type: string
 }
 
 type State = {
-	selectedIds: Array<string>,
+	selectedIds: Array<string | number>,
 	allRowsSelected: boolean
 }
 
 export default class Table extends Component<Props, State> {
 	table: any
 
-	state = {
-		selectedIds: [],
-		allRowsSelected: false
-	}
 	static defaultProps = {
 		className: '',
 		paginationProps: {},
-		isSelectable: false
+		isSelectable: false,
+		noDataIcon: 'caution',
+		noDataHeadline: 'Data not available',
+		noDataPrimaryAction: {
+			text: 'Try Again',
+			onClick: () => window.location.reload(),
+			type: 'submit'
+		},
+		noDataPrimaryActionButtonKind: 'simple',
+		noDataPrimaryActionButtonIcon: 'rotate_left'
 	}
 
-	handleChange = ({ id, pageSize }: any) => {
-		const { onSelection } = this.props
+	constructor(props: Props) {
+		super(props)
+		this.state = {
+			selectedIds: props.initialSelectedIds || [],
+			allRowsSelected: false
+		}
+	}
+
+	handleChange = ({ id }: any) => {
+		const { onSelection, totalRows } = this.props
 		this.setState(
 			prevState => {
 				const idx = prevState.selectedIds.indexOf(id)
@@ -80,7 +114,7 @@ export default class Table extends Component<Props, State> {
 				}
 				return {
 					selectedIds: newIds,
-					allRowsSelected: newIds.length === pageSize
+					allRowsSelected: newIds.length === totalRows
 				}
 			},
 			() => {
@@ -98,12 +132,14 @@ export default class Table extends Component<Props, State> {
 		const currentRows = allRows
 			.slice(startIdx, startIdx + pageSize)
 			.map(item => item._original)
-		const selectedIds = currentRows.map(row => row.id)
+		const visibleIds = currentRows.map(row => row.id)
 
 		this.setState(
 			prevState => ({
-				allRowsSelected: !prevState.allRowsSelected,
-				selectedIds: prevState.allRowsSelected ? [] : selectedIds
+				selectedIds:
+					prevState.selectedIds.length > 0
+						? []
+						: [...prevState.selectedIds, ...visibleIds]
 			}),
 			() => {
 				onSelection && onSelection({ selectedIds: this.state.selectedIds })
@@ -129,6 +165,7 @@ export default class Table extends Component<Props, State> {
 	render() {
 		const {
 			data,
+			totalRows,
 			columns,
 			className,
 			paginationProps,
@@ -137,11 +174,18 @@ export default class Table extends Component<Props, State> {
 			pluralKind,
 			bulkActions,
 			sortable,
+			noDataIcon,
+			noDataHeadline,
+			noDataSubheadline,
+			noDataPrimaryAction,
+			noDataPrimaryActionButtonKind,
+			noDataPrimaryActionButtonIcon,
 			...rest
 		} = this.props
-		const { selectedIds, allRowsSelected } = this.state
+		const { selectedIds } = this.state
 
 		let columnsToRender = [...columns]
+
 		if (isSelectable) {
 			columnsToRender.unshift({
 				id: 'checkbox',
@@ -150,11 +194,10 @@ export default class Table extends Component<Props, State> {
 					<Checkbox
 						id=""
 						isIndeterminate={
-							!allRowsSelected &&
-							(selectedIds.length > 0 && selectedIds.length < data.length)
+							selectedIds.length > 0 && selectedIds.length < totalRows
 						}
 						// NOTE: Using state here because this Header can't access page size on its own
-						checked={allRowsSelected}
+						checked={selectedIds.length > 0}
 						onChange={() => this.handleSelectAll()}
 					/>
 				),
@@ -197,7 +240,7 @@ export default class Table extends Component<Props, State> {
 				} else if (idx === 1) {
 					return {
 						...col,
-						Header: (
+						Header: () => (
 							<Fragment>
 								<p className="table-selected-text">{selectedText}</p>
 								{bulkActions && bulkActions.length > 0 && (
@@ -237,7 +280,7 @@ export default class Table extends Component<Props, State> {
 							isSelectable && selectedIds.length > 0
 					})
 				})}
-				getTheadThProps={(state, rowInfo, column, instance) => ({
+				getTheadThProps={(state, rowInfo, column) => ({
 					className: cx('table-header-cell', {
 						'table-checkbox-cell': column.id === 'checkbox'
 					}),
@@ -247,7 +290,7 @@ export default class Table extends Component<Props, State> {
 					className: 'table-row',
 					onClick: this.handleClickRow
 				})}
-				getTdProps={(state, rowInfo, column, instance) => ({
+				getTdProps={(state, rowInfo, column) => ({
 					className: cx('table-cell', {
 						'table-checkbox-cell': column.id === 'checkbox'
 					}),
@@ -263,6 +306,15 @@ export default class Table extends Component<Props, State> {
 							: 'table-loader'
 					}
 				}}
+				getNoDataProps={() => ({
+					icon: noDataIcon,
+					headline: noDataHeadline,
+					subheadline: noDataSubheadline,
+					primaryAction: noDataPrimaryAction,
+					primaryActionButtonKind: noDataPrimaryActionButtonKind,
+					primaryActionButtonIcon: noDataPrimaryActionButtonIcon
+				})}
+				NoDataComponent={EmptyState}
 				ThComponent={tableProps => {
 					const { toggleSort, className, ...rest } = tableProps
 					const isSortable =
@@ -298,11 +350,14 @@ export default class Table extends Component<Props, State> {
 						</div>
 					)
 				}}
-				PaginationComponent={tableProps => (
-					<div className="table-pagination__wrapper">
-						<Pagination {...paginationProps} {...tableProps} />
-					</div>
-				)}
+				PaginationComponent={tableProps =>
+					tableProps.page === 0 &&
+					tableProps.data.length <= tableProps.pageSize ? null : (
+						<div className="table-pagination__wrapper">
+							<Pagination {...paginationProps} {...tableProps} />
+						</div>
+					)
+				}
 				{...rest}
 			/>
 		)

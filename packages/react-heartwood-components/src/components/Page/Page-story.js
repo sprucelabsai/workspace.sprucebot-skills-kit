@@ -2,7 +2,9 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, select } from '@storybook/addon-knobs/react'
-import Page, { PageHeader, PageContent } from './index'
+import Page, { PageContent } from './index'
+
+import { manyTabs } from '../../../.storybook/data/tabs'
 
 const buttonKinds = {
 	Primary: 'primary',
@@ -17,7 +19,7 @@ stories.addDecorator(withKnobs)
 stories
 	.add('Page', () => (
 		<Page
-			pageHeader={{
+			header={{
 				title: text('title', '') || 'Page Title'
 			}}
 		>
@@ -28,7 +30,7 @@ stories
 	))
 	.add('With Back Link', () => (
 		<Page
-			pageHeader={{
+			header={{
 				title: text('title', 'Page Title'),
 				backLinkHref: '#',
 				backLinkText: text('backLinkText', 'Back'),
@@ -42,7 +44,7 @@ stories
 	))
 	.add('With Primary Action', () => (
 		<Page
-			pageHeader={{
+			header={{
 				title: text('title', 'Page Title'),
 				primaryAction: {
 					text: boolean('text', 'Do something'),
@@ -60,7 +62,7 @@ stories
 	))
 	.add('With Back Link & Primary Action', () => (
 		<Page
-			pageHeader={{
+			header={{
 				title: text('title', 'Page Title'),
 				backLinkHref: '#',
 				backLinkText: text('backLinkText', 'Back'),
@@ -75,6 +77,20 @@ stories
 		>
 			<PageContent>
 				<p>Page Content</p>
+			</PageContent>
+		</Page>
+	))
+	.add('With many tabs', () => (
+		<Page
+			header={{
+				title: text('title', 'Page Title'),
+				backLinkHref: '#',
+				backLinkText: text('backLinkText', 'Back'),
+				tabs: manyTabs
+			}}
+		>
+			<PageContent>
+				<p>Hello I ama PageContent</p>
 			</PageContent>
 		</Page>
 	))

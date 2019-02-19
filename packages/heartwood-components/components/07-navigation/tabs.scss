@@ -3,7 +3,7 @@
 	display: inline-flex;
 	flex-flow: column;
 	align-items: center;
-	flex: 0 1 auto;
+	flex: 0 0 auto;
 
 	+ .tab {
 		padding-left: spacing('base');
@@ -55,8 +55,7 @@
 
 	&.tab-group--spacing-even {
 		.tab {
-			flex: 1 1 auto;
-			padding: 0;
+			flex: 1 0 auto;
 		}
 	}
 }

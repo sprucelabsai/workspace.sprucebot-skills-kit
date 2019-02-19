@@ -13,6 +13,19 @@
 	justify-content: space-between;
 	padding: spacing('base');
 	border-bottom: 1px solid $c-border;
+
+	&--is-paginated {
+		.modal-header__title-wrapper {
+			flex: 1;
+		}
+		.modal-header__title {
+			text-align: center;
+			width: 100%;
+		}
+		.modal-header__back-btn--is-hidden {
+			visibility: hidden;
+		}
+	}
 }
 
 .modal-header .btn__icon {
@@ -25,6 +38,8 @@
 
 .modal-header__title {
 	@include typescale('heading-lg');
+	font-family: $font-family-primary;
+	font-weight: $font-weight-bold;
 	margin-top: rem(2);
 }
 
@@ -52,6 +67,11 @@
 .modal-body {
 	padding: spacing('base');
 	overflow-y: auto;
+
+	> img {
+		height: auto;
+		width: 100%;
+	}
 }
 
 .modal-overlay {
@@ -79,6 +99,16 @@
 			transform: translate(-50%, 0);
 		}
 
+		&.modal-medium {
+			max-width: rem(640);
+			left: 50%;
+			transform: translate(-50%, 0);
+		}
+
+		&.modal-fullHeight {
+			height: 100%;
+		}
+
 		@include gt('small') {
 			top: spacing('base');
 			left: spacing('base');
@@ -104,6 +134,16 @@
 		display: flex;
 		flex-flow: column;
 		height: 100%;
+	}
+
+	.modal.paged-modal {
+		.paged-modal__page {
+			display: none;
+
+			&--is-current {
+				display: block;
+			}
+		}
 	}
 }
 

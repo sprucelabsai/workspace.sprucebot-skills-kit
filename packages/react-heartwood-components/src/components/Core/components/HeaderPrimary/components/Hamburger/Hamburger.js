@@ -1,6 +1,5 @@
 // @flow
 import React from 'react'
-import Button from '../../../../../Button/Button'
 import MenuIcon from '../../../../../../../static/assets/icons/ic_menu.svg'
 import CloseIcon from '../../../../../../../static/assets/icons/ic_close.svg'
 

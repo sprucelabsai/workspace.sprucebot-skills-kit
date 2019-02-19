@@ -1,15 +1,17 @@
 // @flow
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { default as ReactAutosuggest } from 'react-autosuggest'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
 import { InputPre, InputHelper } from '../../FormPartials'
-import type { InputPreProps, InputHelperProps } from '../../FormPartials'
 import ClearIcon from '../../../../../static/assets/icons/ic_cancel.svg'
 
-type Props = {
+export type Props = {
+	/** Unique identifier */
+	id: string,
+
 	/** Teach Autosuggest how to calculate suggestions for any given input value. */
-	getSuggestions: Function,
+	getSuggestions: (value: string) => Promise<Array<Object>> | null,
 
 	/** Implement it to teach Autosuggest what should be the input value when suggestion is clicked. */
 	getSuggestionValue: Function,
@@ -26,17 +28,35 @@ type Props = {
 	/** Placeholder for the input */
 	placeholder?: string,
 
-	/** Optional input props */
-	inputPre?: InputPreProps,
+	/** optionally pass a default value for this input */
+	defaultValue?: string,
 
-	/** Optional input props */
-	inputHelper?: InputHelperProps,
+	/** optional label */
+	label?: string,
+
+	/** Text after label */
+	postLabel?: string | Node,
+
+	/** Error text */
+	error?: string,
+
+	/** Helper text */
+	helper?: string | Node,
 
 	/** Set true to make the input less tall */
 	isSmall?: boolean,
 
 	/** Adds a class to the Autosuggest's wrapper */
-	wrapperClassName?: string
+	wrapperClassName?: string,
+
+	/** passed through to react autosuggest */
+	inputProps?: Object,
+
+	/** optional class name for wrapper */
+	className?: string,
+
+	/** disable this input */
+	disabled?: boolean
 }
 
 type State = {
@@ -64,10 +84,15 @@ export default class Autosuggest extends Component<Props, State> {
 	static defaultProps = {
 		defaultSuggestions: []
 	}
-	state = {
-		value: '',
-		suggestions: this.props.defaultSuggestions || [],
-		showClearButton: false
+
+	constructor(props: Props) {
+		super(props)
+
+		this.state = {
+			value: props.defaultValue || '',
+			suggestions: this.props.defaultSuggestions || [],
+			showClearButton: false
+		}
 	}
 
 	onChange = (event: any, { newValue }: any) => {
@@ -76,20 +101,20 @@ export default class Autosuggest extends Component<Props, State> {
 		})
 	}
 
-	onBlur = (event: any) => {
+	onBlur = () => {
 		this.setState(prevState => ({
 			showClearButton:
 				prevState.value && prevState.value.length > 0 ? true : false
 		}))
 	}
 
-	onSuggestionsFetchRequested = ({ value }: any) => {
+	onSuggestionsFetchRequested = async ({ value }: any) => {
 		// Do some stuff to get suggestions
 		// May be async/passed by parent
 		const { getSuggestions } = this.props
-		const suggestions = getSuggestions(value)
+		const suggestions = await getSuggestions(value)
 		this.setState({
-			suggestions
+			suggestions: suggestions || []
 		})
 	}
 
@@ -114,22 +139,36 @@ export default class Autosuggest extends Component<Props, State> {
 			renderSuggestion,
 			onSuggestionSelected,
 			placeholder,
-			inputPre,
-			inputHelper,
+			label,
+			error,
+			helper,
 			isSmall,
+			id,
+			postLabel,
 			wrapperClassName,
+			inputProps: originalInputProps = {},
+			className,
+			disabled,
 			...rest
 		} = this.props
+
 		const inputProps = {
-			placeholder: placeholder || '',
-			value,
-			onChange: this.onChange,
-			onBlur: this.onBlur
+			...originalInputProps,
+			placeholder: originalInputProps.placeholder || placeholder || '',
+			value: originalInputProps.value || value,
+			onChange: originalInputProps.onChange || this.onChange,
+			onBlur: originalInputProps.onBlur || this.onBlur,
+			disabled
 		}
 
+		const parentClass = cx('text-input', {
+			className,
+			'text-input--has-error': error
+		})
+
 		return (
-			<Fragment>
-				{inputPre && <InputPre {...inputPre} />}
+			<div className={parentClass}>
+				{label && <InputPre label={label} id={id} postLabel={postLabel} />}
 				<div className={cx('autosuggest__wrapper', wrapperClassName)}>
 					<ReactAutosuggest
 						suggestions={suggestions}
@@ -153,8 +192,8 @@ export default class Autosuggest extends Component<Props, State> {
 						/>
 					)}
 				</div>
-				{inputHelper && <InputHelper {...inputHelper} />}
-			</Fragment>
+				{(helper || error) && <InputHelper helper={helper} error={error} />}
+			</div>
 		)
 	}
 }

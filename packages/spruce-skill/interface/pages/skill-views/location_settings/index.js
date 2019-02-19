@@ -2,8 +2,10 @@ import React from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
 	Page,
-	PageHeader,
-	PageContent
+	PageContent,
+	Layout,
+	LayoutSection,
+	Text
 } from '@sprucelabs/react-heartwood-components'
 
 class LocationSettingsPage extends React.Component {
@@ -13,14 +15,18 @@ class LocationSettingsPage extends React.Component {
 
 	render() {
 		return (
-			<Page className="location-settings-page">
-				<PageHeader
-					title="Location Settings Page"
-					onClickBack={() => Router.back()}
-					backLinkText="Previous Page"
-				/>
+			<Page
+				className="location-settings-page"
+				header={{
+					title: 'Location Settings Page'
+				}}
+			>
 				<PageContent>
-					<p>Welcome to the Example location settings view!</p>
+					<Layout>
+						<LayoutSection>
+							<Text>{`Welcome to the Example location settings view!`}</Text>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)

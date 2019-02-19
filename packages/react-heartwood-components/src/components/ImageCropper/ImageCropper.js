@@ -23,24 +23,34 @@ type Props = {
 	dropzoneProps: DropzoneProps,
 
 	/** Set true for ciruclar image */
-	isCircular?: boolean
+	isCircular?: boolean,
+
+	/** Callback when save button is clicked */
+	onSubmit?: Function,
+
+	/** Callback when upload new button is clicked */
+	onUploadNewImage?: Function
 }
 type State = {
 	scale: number,
-	rotate: number
+	rotate: number,
+	isSubmitting: boolean
 }
 
 export default class ImageCropper extends Component<Props, State> {
 	state = {
 		scale: 1,
-		rotate: 0
+		sliderValue: 0,
+		rotate: 0,
+		isSubmitting: false
 	}
 
 	handleScale = (e: any) => {
 		const newVal = e.currentTarget.value
 
 		this.setState({
-			scale: newVal / 100
+			scale: newVal / 100 + 1,
+			sliderValue: newVal
 		})
 	}
 
@@ -54,6 +64,16 @@ export default class ImageCropper extends Component<Props, State> {
 		})
 	}
 
+	handleSubmit = async () => {
+		const canvasImg = this.avatarEditor.getImageScaledToCanvas()
+
+		if (this.props.onSubmit) {
+			this.setState({ isSubmitting: true })
+			await this.props.onSubmit(canvasImg)
+			this.setState({ isSubmitting: false })
+		}
+	}
+
 	render() {
 		const {
 			image,
@@ -61,9 +81,10 @@ export default class ImageCropper extends Component<Props, State> {
 			height,
 			isCircular,
 			dropzoneProps,
+			onUploadNewImage,
 			...rest
 		} = this.props
-		const { scale, rotate } = this.state
+		const { scale, rotate, isSubmitting, sliderValue } = this.state
 		return (
 			<div className="image-cropper">
 				<div className="image-cropper__dropzone-wrapper">
@@ -78,6 +99,9 @@ export default class ImageCropper extends Component<Props, State> {
 							borderRadius={isCircular ? 100 : 0}
 							color={[255, 255, 255, 1]}
 							{...rest}
+							ref={editor => {
+								this.avatarEditor = editor
+							}}
 						/>
 					) : (
 						<Dropzone {...dropzoneProps} />
@@ -92,7 +116,7 @@ export default class ImageCropper extends Component<Props, State> {
 							customIcon: RotateLeftIcon,
 							isLineIcon: true
 						}}
-						disabled={!image}
+						disabled={!image || isSubmitting}
 						onClick={() => this.handleRotate('left')}
 					/>
 					<Button
@@ -103,7 +127,7 @@ export default class ImageCropper extends Component<Props, State> {
 							customIcon: RotateRightIcon,
 							isLineIcon: true
 						}}
-						disabled={!image}
+						disabled={!image || isSubmitting}
 						onClick={() => this.handleRotate('right')}
 					/>
 				</div>
@@ -111,20 +135,30 @@ export default class ImageCropper extends Component<Props, State> {
 					<Slider
 						label="Scale"
 						id="scale"
-						min="100"
-						max="200"
-						value={100}
+						min={0}
+						max={100}
+						value={sliderValue}
 						postLabel={`${Math.round(scale * 100)}%`}
-						disabled={!image}
+						disabled={!image || isSubmitting}
 						onChange={this.handleScale}
 					/>
 				</div>
 				<div className="image-cropper__controls-row">
+					{image && (
+						<Button
+							kind="simple"
+							text="Upload another image"
+							disabled={isSubmitting}
+							onClick={onUploadNewImage}
+						/>
+					)}
 					<Button
 						kind="primary"
-						isFullWidth
+						isFullWidth={image ? false : true}
 						text="Save Image"
-						disabled={!image}
+						disabled={!image || isSubmitting}
+						isLoading={isSubmitting}
+						onClick={() => this.handleSubmit()}
 					/>
 				</div>
 			</div>

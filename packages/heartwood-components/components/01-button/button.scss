@@ -33,6 +33,7 @@ Button Variation mixins
 	$is-simple: false
 ) {
 	color: $color;
+	min-width: rem(60);
 
 	@if $is-solid == true {
 		background-color: $bg;
@@ -133,6 +134,7 @@ Baseline styling for all buttons
 
 	&.btn-icon-only {
 		width: $tap-height;
+		min-width: 0;
 
 		&.btn-small {
 			width: $tap-height-small;

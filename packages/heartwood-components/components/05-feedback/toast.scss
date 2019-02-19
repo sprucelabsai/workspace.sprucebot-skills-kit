@@ -2,20 +2,19 @@
 	@include type-style-body-sm;
 	display: inline-block;
 	min-width: rem(288);
+	max-width: rem(400);
 	padding: spacing('tight');
-	border: 1px solid $c-border;
 	border-radius: 2px;
-	background-color: $c-white;
+	background-color: $c-text;
+	color: $c-white;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
 	&.toast-negative {
-		background-color: $c-ui-critical-light;
-		border-color: $c-ui-critical;
+		background-color: $c-ui-critical-dark;
 	}
 
 	&.toast-positive {
-		background-color: $c-ui-online-lighter;
-		border-color: $c-ui-online;
+		background-color: $c-ui-online-dark;
 	}
 
 	.btn {
@@ -23,11 +22,14 @@
 		width: auto;
 		padding-left: 0;
 		height: rem(32);
-		color: $c-primary;
 
 		.btn__inner {
 			align-items: flex-end;
 		}
+	}
+
+	@include gt('small') {
+		margin-right: spacing('tight');
 	}
 }
 
@@ -42,18 +44,29 @@
 		padding: 0;
 		min-width: 0;
 		height: rem(20);
-		color: $c-primary;
 
 		.btn__inner {
 			align-items: flex-start;
 		}
 	}
+
+	.btn__icon {
+		width: rem(16);
+		height: rem(16);
+		fill: rgba($c-white, 0.8);
+	}
 }
 
 .toasts-wrapper {
-	position: absolute;
-	bottom: spacing('base');
-	left: spacing('base');
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 10;
+
+	@include gt('small') {
+		bottom: spacing('base');
+		left: spacing('base');
+	}
 }
 
 .toast-wrapper + .toast-wrapper {

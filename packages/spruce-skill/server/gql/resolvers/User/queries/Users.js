@@ -1,7 +1,6 @@
 // @flow
 const config = require('config')
 const { GraphQLList, GraphQLString } = require('graphql')
-const { Op } = require('sequelize')
 const { resolver, defaultListArgs } = require('graphql-sequelize')
 
 module.exports = ctx => {
@@ -23,7 +22,7 @@ module.exports = ctx => {
 			resolve: resolver(ctx.db.models.User, {
 				before: (findOptions, args, context, info) => {
 					ctx.gql.helpers.defaultBefore(findOptions, args, context, info)
-					if (!context.auth.User) {
+					if (!context.auth || !context.auth.User) {
 						throw new Error('USER_NOT_LOGGED_IN')
 					}
 					if (!context.scopes) {

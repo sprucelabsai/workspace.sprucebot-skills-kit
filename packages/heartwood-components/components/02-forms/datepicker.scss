@@ -66,11 +66,67 @@
 	background: transparent;
 	color: $c-white;
 	border: none;
+	&.CalendarDay__today:before {
+		background-color: $c-white;
+	}
+}
+
+.CalendarDay__selected_start {
+	&:before {
+		background-color: rgba($c-primary, 0.5);
+		content: '';
+		display: block;
+		position: absolute;
+		height: 2rem;
+		width: 50%;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: -1;
+	}
+}
+.CalendarDay__selected_end {
+	&:before {
+		background-color: rgba($c-primary, 0.5);
+		content: '';
+		display: block;
+		position: absolute;
+		height: 2rem;
+		width: 50%;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: -1;
+	}
 }
 
 .CalendarDay__selected:after {
 	background-color: $c-primary;
 	border-radius: 100%;
+	height: 2rem;
+	width: 2rem;
+}
+
+.CalendarDay__hovered_span,
+.CalendarDay__selected_span {
+	background-color: transparent;
+	color: $c-white;
+}
+
+.CalendarDay__hovered_span:after,
+.CalendarDay__selected_span:after {
+	background-color: rgba($c-primary, 0.5);
+	width: 100%;
+	left: 0;
+	transform: translateY(-50%);
+}
+
+.CalendarDay__hovered_span:hover {
+	color: $c-white;
+}
+
+.CalendarDay__default.CalendarDay__selected_span:hover:after {
+	background-color: rgba($c-primary, 0.7);
 }
 
 .CalendarDay__blocked_out_of_range,

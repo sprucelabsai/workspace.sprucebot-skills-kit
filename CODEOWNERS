@@ -1,0 +1,13 @@
+# Root file owners
+/.circleci @kengoldfarb
+
+# Package owners
+/packages/heartwood-components @brandonminch @jtini
+/packages/react-heartwood-components @brandonminch @jtini
+/packages/eslint-config-spruce @kengoldfarb @gcpantazis
+/packages/eslint-plugin-spruce @kengoldfarb @gcpantazis
+/packages/spruce-next-helpers @kengoldfarb @gcpantazis
+/packages/spruce-node @kengoldfarb @gcpantazis
+/packages/spruce-skill @kengoldfarb @gcpantazis
+/packages/spruce-skill-server @kengoldfarb @gcpantazis
+/packages/spruce-utils @kengoldfarb @gcpantazis
