@@ -136,10 +136,31 @@ module.exports = (koa, gqlOptions, server) => {
 					context
 				}) => {
 					const ms = log.timerEnd(context.startTime)
+
+					context.warnings = _.uniq(context.warnings)
+					context.attributeWarnings = _.uniq(context.attributeWarnings)
+					context.scopeInfo = _.uniq(context.scopeInfo)
+
+					if (context.warnings.length > 0) {
+						context.warnings.forEach(warning => {
+							log.warn(warning)
+						})
+					}
+					if (context.attributeWarnings.length > 0) {
+						context.attributeWarnings.forEach(warning => {
+							log.warn(warning)
+						})
+					}
+					if (context.scopeInfo.length > 0) {
+						context.scopeInfo.forEach(info => {
+							log.debug(info)
+						})
+					}
+
 					return {
 						requestMS: ms,
 						queryCost: context.queryCost,
-						warnings: context.warnings ? _.uniq(context.warnings) : []
+						warnings: context.warnings || []
 					}
 				}
 			}

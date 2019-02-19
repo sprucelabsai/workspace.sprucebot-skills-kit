@@ -13,8 +13,8 @@ module.exports = ctx => {
 				id: {
 					description: 'id of the organization',
 					type: new GraphQLNonNull(GraphQLString)
-				},
-				...ctx.gql.helpers.defaultArgs()
+				}
+				// ...ctx.gql.helpers.defaultArgs()
 			},
 			resolve: resolver(ctx.db.models.Organization, {
 				before: async (findOptions, args, context /* , info */) => {

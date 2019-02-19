@@ -67,6 +67,12 @@ module.exports = (sequelize, DataTypes) => {
 		Location.belongsTo(models.Organization, {
 			constraints: false
 		})
+		Location.hasMany(models.UserLocation, {
+			constraints: false
+		})
+		Location.belongsToMany(models.User, {
+			through: models.UserLocation
+		})
 	}
 
 	Location.scopes = {
@@ -82,7 +88,9 @@ module.exports = (sequelize, DataTypes) => {
 				'addressCountry',
 				'timezone',
 				'isPublic',
-				'geo'
+				'geo',
+				'Users',
+				'UserLocations'
 			]
 		}
 	}

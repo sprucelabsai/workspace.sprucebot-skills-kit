@@ -9,6 +9,9 @@ module.exports = class Schema {
 				helpers: helpers(ctx),
 				types: {}
 			}
+			const coreTypePaths = globby.sync([
+				`${__dirname}/types/**/!(index|types|_helpers).js`
+			])
 			const typePaths = globby.sync([
 				`${gqlDir}/types/**/!(index|types|_helpers).js`
 			])
@@ -19,6 +22,20 @@ module.exports = class Schema {
 			let mutations = {}
 			let subscriptions = {}
 			// Load GQL types first and assign to ctx.gql.types[<type name>]
+			coreTypePaths.forEach(path => {
+				try {
+					log.info(`Importing GQL file: ${path}`)
+					// $FlowIgnore
+					const type = require(path)(ctx) // eslint-disable-line
+					let name = path.replace(/^(.*[\\\/])/, '')
+					name = name.replace('.js', '')
+					if (type) {
+						ctx.gql.types[name] = type
+					}
+				} catch (e) {
+					log.warn(`Unable to import GraphQL fields from ${path}`, e)
+				}
+			})
 			typePaths.forEach(path => {
 				try {
 					log.info(`Importing GQL file: ${path}`)

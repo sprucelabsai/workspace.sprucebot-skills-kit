@@ -76,14 +76,12 @@ module.exports = ctx => {
 		}
 
 		if (!has(scopes, pathScope)) {
-			// TODO: add to warnings for full model
-			const msg = `${modelName} does not contain the scope ${modelScope} from ${pathScope}`
-			log.warn(msg)
+			const msg = `${rootPath} does not contain a scope for ${pathScope}. If this should be allowed, check the config/scopes.js file.`
 			context.warnings.push(msg)
 			return null
 		}
 
-		log.debug(
+		context.scopeInfo.push(
 			`Scoping ${modelName} through ${parentPathScope} using ${pathScope} with scope of ${modelScope}`
 		)
 
@@ -96,7 +94,9 @@ module.exports = ctx => {
 			const willSkipField = ['warnings', 'totalCount'].includes(field)
 
 			if (!allowedField && requestedField && !willSkipField) {
-				log.warn(`${field} unauthorized on ${modelName} via ${pathScope}`)
+				context.attributeWarnings.push(
+					`${modelName} scope of "${modelScope}" does not include the field "${field}". If this should be allowed, check the scopes in models/${modelName}.js`
+				)
 				model.setDataValue(field, null)
 				model[field] = null
 
@@ -141,6 +141,12 @@ module.exports = ctx => {
 				if (!context.warnings) {
 					context.warnings = []
 				}
+				if (!context.scopeInfo) {
+					context.scopeInfo = []
+				}
+				if (!context.attributeWarnings) {
+					context.attributeWarnings = []
+				}
 				if (!context.scopes) {
 					context.scopes = {}
 				}
@@ -151,7 +157,7 @@ module.exports = ctx => {
 					finalFindOptions = before(findOptions, args, context, info)
 				}
 
-				return finalFindOptions
+				return finalFindOptions || {}
 			},
 			after: (result, args, context, info) => {
 				let cleanedResult = result
@@ -215,12 +221,13 @@ module.exports = ctx => {
 		let name = `${model.name}`
 		let target = model
 
-		// const modelName = model.associations[associationName].target.modelName
 		let modelName = model.name || model.target.name
 
 		if (model.associations[associationName]) {
 			modelName = model.associations[associationName].target.name
-			name = `${model.name}${associationName}`
+			name = `${model.name}${
+				model.associations[associationName].associationType
+			}${associationName}`
 			target = model.associations[associationName]
 		}
 
@@ -245,11 +252,18 @@ module.exports = ctx => {
 				totalCount: {
 					type: GraphQLInt,
 					resolve(connection, args, { logging }) {
-						const { source } = connection
-						const connectionWhere = connection.where
-						const countMethodName = `count${associationName}`
+						let { source } = connection
+						const countFindOptions = {
+							...argsToFindOptions.default(connection.args, [])
+						}
+						let countMethodName = `count${associationName}`
+						if (!checkIsAssociation(target)) {
+							countMethodName = 'count'
+							source = target
+						}
+
 						return source[countMethodName]({
-							where: connectionWhere,
+							where: countFindOptions.where,
 							logging
 						})
 					}
@@ -263,6 +277,12 @@ module.exports = ctx => {
 				if (!context.warnings) {
 					context.warnings = []
 				}
+				if (!context.scopeInfo) {
+					context.scopeInfo = []
+				}
+				if (!context.attributeWarnings) {
+					context.attributeWarnings = []
+				}
 				if (!context.scopes) {
 					context.scopes = {}
 				}
@@ -273,7 +293,8 @@ module.exports = ctx => {
 				if (args || info.variableValues) {
 					// updatedOptions.where = JSON.stringify(args.where)
 					updatedOptions = {
-						...argsToFindOptions.default(args),
+						...updatedOptions,
+						...argsToFindOptions.default(args, []),
 						...argsToFindOptions.default(info.variableValues, [])
 					}
 				}
@@ -289,7 +310,7 @@ module.exports = ctx => {
 				if (before) {
 					updatedOptions = before(updatedOptions, args, context, info)
 				}
-				return updatedOptions
+				return updatedOptions || {}
 			},
 			after: (result, args, context, info) => {
 				let cleanedResult = result
@@ -298,21 +319,22 @@ module.exports = ctx => {
 				}
 
 				// clean connections
-				// log.debug('Connections Array')
-				cleanedResult.edges.forEach(edge => {
-					let node = edge.node
-					node = cleanModelByScope({
-						model: edge.node,
-						modelName,
-						context,
-						info
-					})
+				if (cleanedResult && cleanedResult.edges) {
+					for (let i = 0; i < cleanedResult.edges.length; i += 1) {
+						const edge = cleanedResult.edges[i]
 
-					return {
-						...edge,
-						node
+						const cleanResult = cleanModelByScope({
+							model: edge.node,
+							modelName,
+							context,
+							info
+						})
+
+						if (cleanResult === null) {
+							return null
+						}
 					}
-				})
+				}
 
 				return cleanedResult
 			}
