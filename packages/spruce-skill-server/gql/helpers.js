@@ -150,6 +150,7 @@ module.exports = ctx => {
 				if (!context.scopes) {
 					context.scopes = {}
 				}
+
 				if (!findOptions.where) {
 					findOptions.where = {}
 				}
@@ -251,11 +252,28 @@ module.exports = ctx => {
 			connectionFields: () => ({
 				totalCount: {
 					type: GraphQLInt,
-					resolve(connection, args, { logging }) {
+					resolve(connection, args, context, info) {
+						const pathScope = pathToScope(info.path).replace(
+							/\.totalCount$/,
+							''
+						)
+						const rootPath = pathScope.replace(/\..*$/, '')
 						let { source } = connection
 						const countFindOptions = {
 							...argsToFindOptions.default(connection.args, [])
 						}
+
+						if (
+							context.findOptions &&
+							context.findOptions[rootPath] &&
+							context.findOptions[rootPath][pathScope]
+						) {
+							countFindOptions.where = {
+								...countFindOptions.where,
+								...context.findOptions[rootPath][pathScope]
+							}
+						}
+
 						let countMethodName = `count${associationName}`
 						if (!checkIsAssociation(target)) {
 							countMethodName = 'count'
@@ -264,7 +282,7 @@ module.exports = ctx => {
 
 						return source[countMethodName]({
 							where: countFindOptions.where,
-							logging
+							logging: info.logging
 						})
 					}
 				},
@@ -272,16 +290,19 @@ module.exports = ctx => {
 			}),
 			edgeFields,
 			orderBy,
-			before: (beforeOptions, args, context, info) => {
+			before: async (beforeOptions, args, context, info) => {
+				const pathScope = pathToScope(info.path)
+				const rootPath = pathScope.replace(/\..*$/, '')
+
 				let updatedOptions = beforeOptions
 				if (!context.warnings) {
 					context.warnings = []
 				}
-				if (!context.scopeInfo) {
-					context.scopeInfo = []
-				}
 				if (!context.attributeWarnings) {
 					context.attributeWarnings = []
+				}
+				if (!context.scopeInfo) {
+					context.scopeInfo = []
 				}
 				if (!context.scopes) {
 					context.scopes = {}
@@ -290,8 +311,18 @@ module.exports = ctx => {
 					updatedOptions.where = {}
 				}
 
+				if (
+					context.findOptions &&
+					context.findOptions[rootPath] &&
+					context.findOptions[rootPath][pathScope]
+				) {
+					updatedOptions.where = {
+						...updatedOptions.where,
+						...context.findOptions[rootPath][pathScope]
+					}
+				}
+
 				if (args || info.variableValues) {
-					// updatedOptions.where = JSON.stringify(args.where)
 					updatedOptions = {
 						...updatedOptions,
 						...argsToFindOptions.default(args, []),
@@ -301,16 +332,17 @@ module.exports = ctx => {
 
 				if (
 					!updatedOptions.limit ||
-					+updatedOptions.limit > 0 ||
-					+updatedOptions.limit <= 50
+					+updatedOptions.limit < 0 ||
+					+updatedOptions.limit >= 50
 				) {
 					updatedOptions.limit = 50
 				}
 
+				let finalOptions = updatedOptions
 				if (before) {
-					updatedOptions = before(updatedOptions, args, context, info)
+					finalOptions = await before(updatedOptions, args, context, info)
 				}
-				return updatedOptions || {}
+				return finalOptions
 			},
 			after: (result, args, context, info) => {
 				let cleanedResult = result
@@ -402,7 +434,7 @@ module.exports = ctx => {
 		return attrs
 	}
 	return {
-		resolver,
+		enhancedResolver,
 		attributes,
 		attributeFields,
 		defaultArgs,

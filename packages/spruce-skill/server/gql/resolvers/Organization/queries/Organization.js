@@ -1,7 +1,6 @@
 // @flow
 const config = require('config')
 const { GraphQLString, GraphQLNonNull } = require('graphql')
-const { resolver } = require('graphql-sequelize')
 
 module.exports = ctx => {
 	const queries = {
@@ -16,7 +15,7 @@ module.exports = ctx => {
 				}
 				// ...ctx.gql.helpers.defaultArgs()
 			},
-			resolve: resolver(ctx.db.models.Organization, {
+			resolve: ctx.gql.helpers.enhancedResolver(ctx.db.models.Organization, {
 				before: async (findOptions, args, context /* , info */) => {
 					if (!context.scopes) {
 						context.scopes = {}
