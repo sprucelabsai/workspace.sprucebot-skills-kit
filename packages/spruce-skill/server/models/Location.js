@@ -88,9 +88,7 @@ module.exports = (sequelize, DataTypes) => {
 				'addressCountry',
 				'timezone',
 				'isPublic',
-				'geo',
-				'Users',
-				'UserLocations'
+				'geo'
 			]
 		}
 	}
