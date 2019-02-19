@@ -312,7 +312,7 @@ export default class Table extends Component<Props, State> {
 					subheadline: noDataSubheadline,
 					primaryAction: noDataPrimaryAction,
 					primaryActionButtonKind: noDataPrimaryActionButtonKind,
-					noDataPrimaryActionButtonIcon: noDataPrimaryActionButtonIcon
+					primaryActionButtonIcon: noDataPrimaryActionButtonIcon
 				})}
 				NoDataComponent={EmptyState}
 				ThComponent={tableProps => {
