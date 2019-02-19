@@ -86,7 +86,7 @@ export default class Table extends Component<Props, State> {
 			type: 'submit'
 		},
 		noDataPrimaryActionButtonKind: 'simple',
-		noDataPrimaryActionButtonIcon: 'rotate_left'
+		noDataPrimaryActionButtonIcon: null
 	}
 
 	constructor(props: Props) {
