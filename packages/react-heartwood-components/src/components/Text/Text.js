@@ -2,6 +2,8 @@
 import React from 'react'
 import cx from 'classnames'
 
+import type { Node } from 'react'
+
 export type TextProps = {
 	/** Contents of the component. */
 	children: Node,
@@ -10,6 +12,7 @@ export type TextProps = {
 	className?: string,
 
 	/** The element to render. Defaults to p for Text and span for Span */
+	// eslint-disable-next-line flowtype/space-after-type-colon
 	element?:
 		| 'a'
 		| 'abbr'

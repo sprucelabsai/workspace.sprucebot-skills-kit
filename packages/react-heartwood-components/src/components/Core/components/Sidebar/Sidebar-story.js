@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
+import { withKnobs } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../../../.storybook/StylesProvider'
 import Sidebar from './Sidebar'
 import HomeIcon from '../../../../../static/assets/icons/Interface-Essential/Home/house-1--16w.svg'
@@ -36,10 +36,9 @@ const personalItems = [
 	}
 ]
 
-type Props = {}
-
-type State = {
-	showSidebar: boolean
+const backLink = {
+	text: 'Organization Dashboard',
+	href: '#'
 }
 
 class Example extends Component {
@@ -59,6 +58,7 @@ class Example extends Component {
 		return (
 			<Sidebar
 				items={personalItems}
+				backLink={backLink}
 				isExpanded={showSidebar}
 				toggleExpanded={this.handleToggleSidebar}
 				forceCloseSidebar={() => null}

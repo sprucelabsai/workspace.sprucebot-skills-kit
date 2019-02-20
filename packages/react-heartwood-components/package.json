@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.10.1",
+	"version": "8.11.0",
 	"main": "lib/index.js",
 	"description": "React components for your Sprucebot Skill 💪🏼",
 	"keywords": [
@@ -54,6 +54,7 @@
 		"@babel/preset-flow": "^7.0.0",
 		"@babel/preset-react": "^7.0.0",
 		"@babel/runtime": "^7.0.0",
+		"@sprucelabs/eslint-config-spruce": "^8.11.0",
 		"@storybook/addon-actions": "^4.0.0-alpha.21",
 		"@storybook/addon-info": "^4.0.0",
 		"@storybook/addon-knobs": "^4.0.0-alpha.21",
@@ -71,9 +72,6 @@
 		"enzyme-adapter-react-16": "^1.1.1",
 		"enzyme-to-json": "^3.3.1",
 		"eslint": "^4.10.0",
-		"eslint-config-prettier": "^2.9.0",
-		"eslint-plugin-prettier": "^2.3.1",
-		"eslint-plugin-react": "^7.4.0",
 		"extract-text-webpack-plugin": "^3.0.2",
 		"faker": "^4.1.0",
 		"husky": "^0.14.3",
@@ -85,7 +83,7 @@
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
-		"@sprucelabs/heartwood-components": "^8.10.1",
+		"@sprucelabs/heartwood-components": "^8.11.0",
 		"axios": "^0.18.0",
 		"blueimp-canvas-to-blob": "^3.14.0",
 		"classnames": "^2.2.5",
@@ -130,6 +128,7 @@
 		"react-table": "^6.8.6",
 		"react-textarea-autosize": "^6.0.0",
 		"react-transition-group": "^2.5.2",
+		"react-virtualized": "^9.21.0",
 		"redux": "^3.7.2",
 		"redux-form": "^7.3.0",
 		"screenfull": "^3.3.3",

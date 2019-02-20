@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { range, findIndex } from 'lodash'
 import memoize from 'memoize-one'
 
@@ -21,6 +21,9 @@ type Props = {
 	/** Default value (in minutes)  */
 	defaultValue?: number,
 
+	/** placeholder to be formatted nicely (expects minutes) */
+	placeholder?: string,
+
 	/** title rendered when no results are found */
 	noResultsTitle?: string,
 
@@ -28,11 +31,18 @@ type Props = {
 	noResultsSubtitle?: string,
 
 	/** pass an error message to the input, this is show only after a valid duration is selected */
-	error?: string
+	error?: string,
+
+	/** is this field required? */
+	required?: boolean,
+
+	/** a slighly different onChange */
+	onChange?: (durationInMinutes: number | null, e: KeyboardEvent) => {}
 } & AutoSuggestProps
 
 type State = {
-	value: string,
+	value: ?string,
+	prevPropsValue: ?string,
 	validationError: ?string
 }
 
@@ -45,12 +55,41 @@ export default class DurationInput extends Component<Props, State> {
 		noResultsSubtitle: 'Please adjust your search and try again.'
 	}
 
-	_searchCache: { [key: string]: Array<string> } = {}
+	static getDerivedStateFromProps(props, state) {
+		if (props.value !== state.prevPropsValue) {
+			return {
+				prevPropsValue: props.value,
+				value: DurationInput.minutesToStr(props.value)
+			}
+		}
+		return null
+	}
+
+	static minutesToStr = (num: number): string => {
+		let hours = Math.floor(num / 60)
+		let minutes = num % 60
+
+		let value = ''
+
+		if (hours > 0) {
+			value += `${hours}hr`
+		}
+
+		if (minutes > 0) {
+			value += `${minutes}min`
+		}
+
+		return value.trim()
+	}
 
 	constructor(props: Props) {
 		super(props)
 		this.state = {
-			value: props.defaultValue ? this.minutesToStr(props.defaultValue) : '',
+			value:
+				props.defaultValue || props.value
+					? DurationInput.minutesToStr(props.defaultValue || props.value)
+					: '',
+			prevPropsValue: props.value,
 			validationError: null
 		}
 	}
@@ -78,7 +117,7 @@ export default class DurationInput extends Component<Props, State> {
 
 	generateSuggestions = memoize((min, max, skip) => {
 		return range(min, max + skip, skip).map(minutes => {
-			const duration = this.minutesToStr(minutes)
+			const duration = DurationInput.minutesToStr(minutes)
 			return {
 				text: duration,
 				search: duration.replace(/[^0-9hm]/g, ''),
@@ -86,23 +125,6 @@ export default class DurationInput extends Component<Props, State> {
 			}
 		})
 	})
-
-	minutesToStr = (num: number): string => {
-		let hours = Math.floor(num / 60)
-		let minutes = num % 60
-
-		let value = ''
-
-		if (hours > 0) {
-			value += `${hours}hr`
-		}
-
-		if (minutes > 0) {
-			value += `${minutes}min`
-		}
-
-		return value.trim()
-	}
 
 	strToMinutes = (str: string): number => {
 		const { minMinutes, maxMinutes, skipMinutes } = this.props
@@ -123,20 +145,40 @@ export default class DurationInput extends Component<Props, State> {
 	}
 
 	handleBlur = e => {
-		const { onBlur } = this.props
-		const { onChange } = this.props
+		const { onBlur, onChange, required } = this.props
+
+		if (!required && (!value || value.length === 0)) {
+			this.setState({ value: '', validationError: null })
+			onChange && onChange(null, e)
+		}
 
 		const value = e.target.value
 		const matches = this.searchSuggestions(value)
+
 		if (value.length > 0 && matches.length > 0) {
 			this.setState({ value: matches[0].text, validationError: null })
 			// only fire on change if the new value is valid
 			onChange && onChange(this.strToMinutes(matches[0].text), e)
-		} else if (value.length > 0) {
+		} else if (required && value.length > 0) {
 			this.setState({ validationError: 'You must select a valid duration.' })
 		}
 
 		onBlur && onBlur(e)
+	}
+
+	handleSelectSuggestion = (e: KeyboardEvent, suggestion: Object) => {
+		const { onChange } = this.props
+
+		const value = suggestion.suggestionValue
+
+		this.setState({ value })
+		const matches = this.searchSuggestions(value)
+
+		if (value.length > 0 && matches.length > 0) {
+			this.setState({ value: matches[0].text, validationError: null })
+			// only fire on change if the new value is valid
+			onChange && onChange(this.strToMinutes(matches[0].text), e)
+		}
 	}
 
 	handleGetSuggestions = value => {
@@ -179,18 +221,13 @@ export default class DurationInput extends Component<Props, State> {
 		}
 	)
 
-	handleSelectSuggestion = (e, suggestion) => {
-		this.setState({ value: suggestion.suggestionValue })
-	}
-
 	render() {
 		const {
 			minMinutes,
 			maxMinutes,
 			skipMinutes,
-			defaultValue,
 			error,
-			helper,
+			placeholder,
 			...props
 		} = this.props
 
@@ -216,6 +253,11 @@ export default class DurationInput extends Component<Props, State> {
 				getSuggestionValue={value => value.text}
 				getSuggestions={this.handleGetSuggestions}
 				onSuggestionSelected={this.handleSelectSuggestion}
+				placeholder={
+					placeholder && typeof placeholder === 'number'
+						? DurationInput.minutesToStr(placeholder)
+						: placeholder
+				}
 				{...props}
 			/>
 		)

@@ -1,13 +1,7 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import {
-	withKnobs,
-	text,
-	boolean,
-	number,
-	object
-} from '@storybook/addon-knobs/react'
+import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../../../.storybook/StylesProvider'
 import SaveBar from './SaveBar'
 
@@ -17,11 +11,6 @@ const stories = storiesOf('Save Bar', module)
 
 stories.addDecorator(ProvideStyles)
 stories.addDecorator(withKnobs)
-
-const location = {
-	name: 'Chimera Hair Salon',
-	address: '7678 N High St, Denver, CO'
-}
 
 stories
 	.add('Default', () => (
@@ -45,7 +34,6 @@ stories
 			isDiscardDisabled={boolean('isDiscardDisabled', false)}
 			onDiscard={() => console.log('DISCARD')}
 			onSave={() => console.log('SAVE')}
-			isSaving={true}
 			STORYBOOKdoNotWrap
 		/>
 	))
@@ -58,7 +46,6 @@ stories
 			isDiscardDisabled={boolean('isDiscardDisabled', false)}
 			onDiscard={() => console.log('DISCARD')}
 			onSave={() => console.log('SAVE')}
-			isDiscarding={true}
 			STORYBOOKdoNotWrap
 		/>
 	))

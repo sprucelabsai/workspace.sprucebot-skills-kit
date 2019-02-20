@@ -1,12 +1,11 @@
 // @flow
 import React, { Fragment } from 'react'
-import type { Element, Node } from 'react'
 
 import cx from 'classnames'
 
 import Message from '../Message'
 
-import type { MessageProps } from '../Message'
+import type {} from '../Message'
 import type { Props as ButtonProps } from '../../Button/Button'
 
 // COMPONENTS THAT CAN GO INTO THIS COMPONENT, KEEP MINIMAL
@@ -15,12 +14,23 @@ import TextStyle from '../../TextStyle/TextStyle'
 import Button from '../../Button/Button'
 import Image from '../../Image/Image'
 
-export type MessageBuilderProps = {
-	/** Name of message sender */
-	fromName?: string,
+type FromProps = {
+	/** Unique id of the sender */
+	id: string,
 
-	/** Image for message sender */
-	fromImage?: string,
+	/** Image associated with message sender */
+	image?: string,
+
+	/** Name associated with message sender */
+	name?: string,
+
+	/** Alt description with message sender */
+	alt?: string
+}
+
+export type MessageBuilderProps = {
+	/** Information about the sender */
+	from: FromProps,
 
 	/** Message body */
 	dateSent?: Date,
@@ -38,7 +48,10 @@ export type MessageBuilderProps = {
 	replies?: Array,
 
 	/** Attachment content associated to the message */
-	attachments?: Array
+	attachments?: Array,
+
+	/** Set true if the message is from Sprucebot */
+	isFromSprucebot?: boolean
 }
 
 const MessageBuilderKey = {
@@ -74,15 +87,13 @@ const renderAttachmentChild = child => {
 	)
 }
 
-const TemplateEngine = (text, context) => {
-	var re = /{{([^}}]+)?}}/g,
+const TemplateEngine = (text = '', context = {}) => {
+	let re = /{{([^}}]+)?}}/g,
 		children = [],
 		cursor = 0,
-		text = text || '',
-		context = context || {},
 		match
 
-	var add = function(line, js) {
+	let add = function(line, js) {
 		if (line !== '') {
 			children.push({
 				props: { element: 'span', children: line.replace(/"/g, '\\"') }
@@ -103,20 +114,20 @@ const TemplateEngine = (text, context) => {
 
 const MessageBuilder = (props: MessageBuilderProps) => {
 	const {
-		fromName,
-		fromImage,
+		from,
 		dateSent,
 		message,
 		detail,
 		primaryAction,
 		replies,
-		attachments
+		attachments,
+		isFromSprucebot
 	} = props
 
 	const { text: messageText, context: messageContext } = message || {}
 
-	var messageReplies = []
-	var messageAttachments = []
+	let messageReplies = []
+	let messageAttachments = []
 
 	if (replies) {
 		messageReplies = replies.map(reply => {
@@ -133,19 +144,18 @@ const MessageBuilder = (props: MessageBuilderProps) => {
 
 	return (
 		<Message
-			fromName={fromName}
-			fromImage={fromImage}
+			from={from}
 			dateSent={dateSent}
-			children={
-				messageText &&
-				messageContext &&
-				TemplateEngine(messageText, messageContext)
-			}
 			detail={detail}
 			primaryAction={primaryAction}
 			replies={messageReplies}
 			attachments={messageAttachments}
-		/>
+			isFromSprucebot={isFromSprucebot}
+		>
+			{messageText &&
+				messageContext &&
+				TemplateEngine(messageText, messageContext)}
+		</Message>
 	)
 }
 

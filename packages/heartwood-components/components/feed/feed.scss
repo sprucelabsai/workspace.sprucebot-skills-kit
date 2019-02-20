@@ -1,0 +1,25 @@
+.message-feed__wrapper {
+	display: flex;
+}
+
+.message-feed {
+	flex: 1 1 auto;
+	height: 100vh;
+}
+
+.header-primary + .main-content .message-feed {
+	height: calc(100vh - #{rem(48)});
+}
+
+.message-feed__day-header {
+	width: calc(100% - #{rem(32)});
+	margin: spacing('base');
+	padding: spacing('tight') 0;
+	border-bottom: 1px solid $c-border;
+}
+
+.message-feed__empty-text {
+	@include type-style-h3;
+	padding: spacing('base');
+	color: $c-text-light;
+}

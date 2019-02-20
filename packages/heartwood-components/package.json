@@ -1,6 +1,6 @@
 {
 	"name": "@sprucelabs/heartwood-components",
-	"version": "8.10.1",
+	"version": "8.11.0",
 	"dependencies": {
 		"@frctl/fractal": "^1.1.5",
 		"@frctl/handlebars": "^1.1.5",
@@ -25,7 +25,8 @@
 	},
 	"scripts": {
 		"deploy": "gh-pages -d build",
-		"build": "gulp styles && gulp styles-minify && gulp js && gulp svg && fractal build"
+		"build": "gulp styles && gulp styles-minify && gulp js && gulp svg && fractal build",
+		"watch": "gulp watch"
 	},
 	"description": "This is a seed project, using [Fractal](https://github.com/frctl/fractal) alongside Sass and Gulp to provide editable component-based CSS",
 	"main": "heartwood-components.js",

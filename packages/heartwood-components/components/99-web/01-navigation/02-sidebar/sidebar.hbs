@@ -1,6 +1,8 @@
 <aside class="sidebar">
 	<div class="sidebar-collapse">
-		{{> @button className="btn-small sidebar__collapse-btn" icon='<path fill-rule="evenodd" clip-rule="evenodd" d="M12.842 13.825L9.02533 10L12.842 6.175L11.667 5L6.66699 10L11.667 15L12.842 13.825Z" />' width="20" height="20"}}
+		{{> @button className="btn-small sidebar__collapse-btn" icon='
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M12.842 13.825L9.02533 10L12.842 6.175L11.667 5L6.66699 10L11.667 15L12.842 13.825Z" />'
+		width="20" height="20"}}
 	</div>
 	{{!-- Add search to be accessible on mobile --}}
 	{{#if user}}
@@ -10,19 +12,30 @@
 	{{/if}}
 	<ul class="sidebar__inner">
 		{{#each items}}
-			{{> @sidebar-item text=text}}
+		{{> @sidebar-item text=text}}
 		{{/each}}
+		{{#if backItem}}
+		{{> @sidebar-item backItem}}
+		{{/if}}
 	</ul>
 	<div class="sidebar__footer">
 		<div class="sidebar-item">
 			<div class="sidebar-item__inner">
 				<a class="sidebar-item__link" href="#">
-					{{> @icon icon='<path fill="none" d="M7 6.99999C7.00019 5.98295 7.76364 5.128 8.77418 5.01317C9.78472 4.89833 10.7205 5.56018 10.9489 6.55125C11.1773 7.54232 10.6255 8.54698 9.66667 8.88599C9.26694 9.02732 8.99978 9.40535 9 9.82933V9.99999" stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M9 12C8.86193 12 8.75 12.1119 8.75 12.25C8.75 12.3881 8.86193 12.5 9 12.5C9.13807 12.5 9.25 12.3881 9.25 12.25C9.25 12.1119 9.13807 12 9 12V12" stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" fill-rule="evenodd" clip-rule="evenodd" d="M1.5 3C1.5 2.17157 2.17157 1.5 3 1.5H15C15.8284 1.5 16.5 2.17157 16.5 3V15C16.5 15.8284 15.8284 16.5 15 16.5H3C2.17157 16.5 1.5 15.8284 1.5 15V3Z" stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' class="sidebar-item__icon" width="18" height="18"}}
+					{{> @icon icon='
+					<path fill="none" d="M7 6.99999C7.00019 5.98295 7.76364 5.128 8.77418 5.01317C9.78472 4.89833 10.7205 5.56018 10.9489 6.55125C11.1773 7.54232 10.6255 8.54698 9.66667 8.88599C9.26694 9.02732 8.99978 9.40535 9 9.82933V9.99999"
+					 stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+					<path fill="none" d="M9 12C8.86193 12 8.75 12.1119 8.75 12.25C8.75 12.3881 8.86193 12.5 9 12.5C9.13807 12.5 9.25 12.3881 9.25 12.25C9.25 12.1119 9.13807 12 9 12V12"
+					 stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+					<path fill="none" fill-rule="evenodd" clip-rule="evenodd" d="M1.5 3C1.5 2.17157 2.17157 1.5 3 1.5H15C15.8284 1.5 16.5 2.17157 16.5 3V15C16.5 15.8284 15.8284 16.5 15 16.5H3C2.17157 16.5 1.5 15.8284 1.5 15V3Z"
+					 stroke="#737780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />' class="sidebar-item__icon"
+					width="18" height="18"}}
 					<span class="sidebar-item__text">Help</span>
 				</a>
 			</div>
 		</div>
-		<p class="sidebar__footer-text"><a href="#" class="sidebar__footer-link">Terms of Service</a><a href="#" class="sidebar__footer-link">Privacy Policy</a></p>
+		<p class="sidebar__footer-text"><a href="#" class="sidebar__footer-link">Terms of Service</a><a href="#" class="sidebar__footer-link">Privacy
+				Policy</a></p>
 		<p class="sidebar__footer-text">© Spruce Labs 2018</p>
 	</div>
 </aside>

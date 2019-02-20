@@ -8,7 +8,7 @@ import * as icons from '../../icons.js'
 
 export type Props = {
 	/** The name of the icon to render. If not found, this will return null. */
-	icon: string,
+	icon?: string,
 
 	/** Set true to render an icon with a stroke, but no fill */
 	isLineIcon?: boolean,
@@ -21,15 +21,18 @@ export type Props = {
 const Icon = (props: Props) => {
 	const { icon, customIcon, isLineIcon, className, ...rest } = props
 
-	if (!customIcon && (!icon || !icons[icon.toLowerCase()])) {
-		console.warn(`<Icon /> could not find an icon with key ${icon}.`)
+	if (
+		!customIcon &&
+		(!icon || !icon.toLowerCase || !icons[icon.toLowerCase()])
+	) {
+		console.warn(`<Icon /> could not find an icon with key `, icon)
 		return null
 	}
 	const Handler = customIcon || icons[icon.toLowerCase()]
 
 	return (
 		<Handler
-			className={cx(className, {
+			className={cx(className, 'icon', {
 				'u-icon__no-fill': isLineIcon,
 				'u-icon__stroke': isLineIcon
 			})}

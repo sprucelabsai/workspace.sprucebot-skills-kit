@@ -31,6 +31,7 @@ import {
 	FormLayoutItem
 } from './index'
 import countries from '../../../.storybook/data/countries'
+import { stringify } from 'querystring'
 
 const spacingOptions = {
 	Base: null,
@@ -66,9 +67,7 @@ stories.addDecorator(withKnobs)
 stories
 	.add('Autosuggest', () => (
 		<Autosuggest
-			inputPre={object('inputPre', {
-				label: 'Country'
-			})}
+			label={stringify('label', 'Country')}
 			inputHelper={object('inputHelper', {
 				helper: 'We use this information to improve your shopping experience.'
 			})}
@@ -99,9 +98,7 @@ stories
 	))
 	.add('Duration Input', () => (
 		<DurationInput
-			inputPre={object('inputPre', {
-				label: 'Duration'
-			})}
+			label={stringify('label', 'Duration')}
 			placeholder={text('placeholder', 'How long is this going to take?')}
 			minMinutes={number('minMinutes', 5)}
 			maxMinutes={number('maxMinutes', 60 * 4)}

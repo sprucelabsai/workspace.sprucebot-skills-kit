@@ -19,8 +19,9 @@
 		"logs": "yarn run log",
 		"stop": "pm2 stop ecosystem.config.js",
 		"lint": "lerna run lint",
+		"flow": "flow",
 		"build": "lerna run build",
-		"watch": "lerna run watch --stream",
+		"watch": "lerna run watch --no-sort --stream",
 		"start": "pm2 start ecosystem.config.js --no-daemon",
 		"docs": "docsify serve -p 3100 ./",
 		"test": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node",
@@ -37,7 +38,8 @@
 		"s3-sync-heartwood-prod": "aws s3 sync ./packages/heartwood-components/build/ s3://heartwood.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE --exclude=.gitkeep",
 		"s3-sync-storybook-prod": "aws s3 sync ./packages/react-heartwood-components/storybook-static/ s3://storybook.sprucelabs.ai/ --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE --exclude=.gitkeep",
 		"s3-sync-stylesheets-pre": "aws s3 sync ./packages/heartwood-components/public/stylesheets/ \"s3://cdn.spruce.ai/stylesheets/$(node -p \"require('./packages/heartwood-components/package.json').version\")/\" --acl=public-read --cache-control max-age=604800,public --metadata-directive REPLACE --exclude=.gitkeep",
-		"s3-sync-stylesheets-latest": "aws s3 sync ./packages/heartwood-components/public/stylesheets/ \"s3://cdn.spruce.ai/stylesheets/$(node -p \"require('./packages/heartwood-components/package.json').version\")/\" --acl=public-read --cache-control max-age=604800,public --metadata-directive REPLACE --exclude=.gitkeep && aws s3 sync ./packages/heartwood-components/public/stylesheets/ \"s3://cdn.spruce.ai/stylesheets/latest/\" --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE --exclude=.gitkeep"
+		"s3-sync-stylesheets-latest": "aws s3 sync ./packages/heartwood-components/public/stylesheets/ \"s3://cdn.spruce.ai/stylesheets/$(node -p \"require('./packages/heartwood-components/package.json').version\")/\" --acl=public-read --cache-control max-age=604800,public --metadata-directive REPLACE --exclude=.gitkeep && aws s3 sync ./packages/heartwood-components/public/stylesheets/ \"s3://cdn.spruce.ai/stylesheets/latest/\" --acl=public-read --cache-control max-age=300,public --metadata-directive REPLACE --exclude=.gitkeep",
+		"heroku-postbuild": "yarn build"
 	},
 	"dependencies": {
 		"pm2": "^2.10.1"
@@ -46,6 +48,7 @@
 		"commitizen": "^2.9.6",
 		"conventional-changelog-sprucelabs": "^1.1.0",
 		"docsify": "^4.8.6",
+		"flow-bin": "^0.92.1",
 		"husky": "^0.14.3",
 		"lerna": "^3.2.1",
 		"npm-utils": "^2.0.3"

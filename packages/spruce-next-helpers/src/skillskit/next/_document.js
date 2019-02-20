@@ -1,6 +1,9 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
+import getConfig from 'next/config'
+
 const debug = require('debug')('@sprucelabs/spruce-next-helpers')
+const { publicRuntimeConfig } = getConfig()
 
 export default class MyDocument extends Document {
 	static async getInitialProps({ renderPage, query, store }) {
@@ -34,17 +37,17 @@ export default class MyDocument extends Document {
 
 	render() {
 		let bodyClassName =
-			this.props.config && this.props.config.SLUG
-				? ` skill-${this.props.config.SLUG}`
+			publicRuntimeConfig && publicRuntimeConfig.SLUG
+				? `skill-${publicRuntimeConfig.SLUG}`
 				: ''
 
 		return (
-			<html className={`skill${bodyClassName}`}>
+			<html className={`skill ${bodyClassName}`}>
 				<Head>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
-					{this.props.config && this.props.config.SKILL_STYLESHEET && (
+					{publicRuntimeConfig && publicRuntimeConfig.SKILL_STYLESHEET && (
 						<link
-							href={this.props.config.SKILL_STYLESHEET}
+							href={publicRuntimeConfig.SKILL_STYLESHEET}
 							rel="stylesheet"
 							type="text/css"
 							charSet="UTF-8"

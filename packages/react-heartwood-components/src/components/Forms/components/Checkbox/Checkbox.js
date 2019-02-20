@@ -55,20 +55,14 @@ export default class Checkbox extends Component<Props, State> {
 
 	render() {
 		const { isIndeterminateState } = this.state
-		const {
-			id,
-			label,
-			postText,
-			className,
-			isIndeterminate,
-			...rest
-		} = this.props
+		const { id, label, postText, className, ...rest } = this.props
 		const parentClass = cx('checkbox-item', className)
 
 		return (
 			<div className={parentClass}>
 				<div className="checkbox-item__inner">
 					<input
+						autoComplete={'off'}
 						className="checkbox-item__input"
 						type="checkbox"
 						id={id}
