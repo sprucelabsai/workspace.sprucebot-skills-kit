@@ -297,7 +297,7 @@ export default class Table extends Component<Props, State> {
 					width: 'auto'
 				})}
 				getPaginationProps={() => ({
-					className: 'table__paginationq'
+					className: 'table__pagination'
 				})}
 				getLoadingProps={state => {
 					return {
@@ -351,8 +351,9 @@ export default class Table extends Component<Props, State> {
 					)
 				}}
 				PaginationComponent={tableProps =>
+					totalRows &&
 					tableProps.page === 0 &&
-					tableProps.data.length <= tableProps.pageSize ? null : (
+					totalRows <= tableProps.pageSize ? null : (
 						<div className="table-pagination__wrapper">
 							<Pagination {...paginationProps} {...tableProps} />
 						</div>
