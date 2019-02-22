@@ -10,7 +10,8 @@ module.exports = {
 		'<rootDir>/server/',
 		'<rootDir>/.vscode/',
 		'<rootDir>/.circleci/',
-		'<rootDir>/coverage/'
+		'<rootDir>/coverage/',
+		'<rootDir>/build/'
 	],
 	// coverageDirectory: './coverage/',
 	collectCoverage: true,
@@ -25,7 +26,8 @@ module.exports = {
 		'<rootDir>/server/',
 		'<rootDir>/.vscode/',
 		'<rootDir>/.circleci/',
-		'<rootDir>/coverage/'
+		'<rootDir>/coverage/',
+		'<rootDir>/build/'
 	],
 	testURL: 'http://localhost/',
 	testEnvironment: 'node',
