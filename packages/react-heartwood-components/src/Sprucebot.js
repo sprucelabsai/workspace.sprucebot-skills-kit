@@ -76,6 +76,7 @@ const Sprucebot = {
 	ContextMenu,
 	DomainInput,
 	Dropzone,
+	EmptyState,
 	FontLoader,
 	FooterPrimary,
 	...FormPartials,
