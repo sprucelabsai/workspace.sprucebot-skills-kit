@@ -6,6 +6,7 @@ import cx from 'classnames'
 import { Checkbox } from '../Forms'
 import Pagination from '../Pagination/Pagination'
 import Icon from '../Icon/Icon'
+import EmptyState from '../EmptyState/EmptyState'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import type { Props as ButtonProps } from '../Button/Button'
 import type { Props as PaginationProps } from '../Pagination/Pagination'
@@ -48,7 +49,21 @@ type Props = {
 	onClickRow?: (e: MouseEvent, meta: { idx: number, item: Object }) => void,
 
 	/** Callback when selection changes */
-	onSelection?: ({ selectedIds: Array<string | number> }) => void
+	onSelection?: ({ selectedIds: Array<string | number> }) => void,
+
+	/** No data available */
+	noDataIcon?: string,
+	noDataHeadline?: string,
+	noDataSubheadline?: string,
+	noDataPrimaryAction?: PrimaryAction,
+	noDataPrimaryActionButtonKind?: string,
+	noDataPrimaryActionButtonIcon?: string
+}
+
+type PrimaryAction = {
+	text: string,
+	onClick: (e: MouseEvent) => void,
+	type: string
 }
 
 type State = {
@@ -62,7 +77,16 @@ export default class Table extends Component<Props, State> {
 	static defaultProps = {
 		className: '',
 		paginationProps: {},
-		isSelectable: false
+		isSelectable: false,
+		noDataIcon: 'caution',
+		noDataHeadline: 'Data not available',
+		noDataPrimaryAction: {
+			text: 'Try Again',
+			onClick: () => window.location.reload(),
+			type: 'submit'
+		},
+		noDataPrimaryActionButtonKind: 'simple',
+		noDataPrimaryActionButtonIcon: null
 	}
 
 	constructor(props: Props) {
@@ -150,6 +174,12 @@ export default class Table extends Component<Props, State> {
 			pluralKind,
 			bulkActions,
 			sortable,
+			noDataIcon,
+			noDataHeadline,
+			noDataSubheadline,
+			noDataPrimaryAction,
+			noDataPrimaryActionButtonKind,
+			noDataPrimaryActionButtonIcon,
 			...rest
 		} = this.props
 		const { selectedIds } = this.state
@@ -267,7 +297,7 @@ export default class Table extends Component<Props, State> {
 					width: 'auto'
 				})}
 				getPaginationProps={() => ({
-					className: 'table__paginationq'
+					className: 'table__pagination'
 				})}
 				getLoadingProps={state => {
 					return {
@@ -276,7 +306,15 @@ export default class Table extends Component<Props, State> {
 							: 'table-loader'
 					}
 				}}
-				getNoDataProps={() => ({ className: 'table__no-results-message ' })}
+				getNoDataProps={() => ({
+					icon: noDataIcon,
+					headline: noDataHeadline,
+					subheadline: noDataSubheadline,
+					primaryAction: noDataPrimaryAction,
+					primaryActionButtonKind: noDataPrimaryActionButtonKind,
+					primaryActionButtonIcon: noDataPrimaryActionButtonIcon
+				})}
+				NoDataComponent={EmptyState}
 				ThComponent={tableProps => {
 					const { toggleSort, className, ...rest } = tableProps
 					const isSortable =
@@ -313,8 +351,9 @@ export default class Table extends Component<Props, State> {
 					)
 				}}
 				PaginationComponent={tableProps =>
+					totalRows &&
 					tableProps.page === 0 &&
-					tableProps.data.length <= tableProps.pageSize ? null : (
+					totalRows <= tableProps.pageSize ? null : (
 						<div className="table-pagination__wrapper">
 							<Pagination {...paginationProps} {...tableProps} />
 						</div>

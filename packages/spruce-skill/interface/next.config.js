@@ -4,6 +4,8 @@ const config = require('config')
 const withSass = require('@zeit/next-sass')
 const withCSS = require('@zeit/next-css')
 
+const clientConfig = config.sanitizeClientConfig({ ...config })
+
 function server(webpack) {
 	return webpack
 }
@@ -11,7 +13,6 @@ function server(webpack) {
 function client(webpack) {
 	const jsonPath = path.resolve(__dirname, './client.json')
 	// Remove sensitive keys
-	const clientConfig = config.sanitizeClientConfig({ ...config })
 	// Export our whitelisted config for the client bundle
 	fs.writeFileSync(jsonPath, JSON.stringify(clientConfig))
 	webpack.plugins = webpack.plugins.filter(plugin => {
@@ -57,6 +58,7 @@ module.exports = withCSS(
 			} else {
 				return client(webpack, options)
 			}
-		}
+		},
+		publicRuntimeConfig: { ...clientConfig }
 	})
 )

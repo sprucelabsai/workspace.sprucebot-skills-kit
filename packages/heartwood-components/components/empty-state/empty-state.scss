@@ -1,0 +1,20 @@
+.empty-state {
+	color: $c-text-light;
+	padding: spacing('base');
+	text-align: center;
+
+	&__headline {
+		font-weight: $font-weight-bold;
+	}
+
+	&__icon {
+		display: inline-block;
+
+		.icon {
+			fill: none;
+			height: 56px;
+			stroke: $c-text-icon;
+			width: 56px;
+		}
+	}
+}
