@@ -65,9 +65,10 @@ const EmptyState = (props: Props) => {
 }
 
 EmptyState.defaultProps = {
-	headline: `Data not available`,
+	icon: 'empty_box',
+	headline: 'Nothing to see here',
 	isLineIcon: true,
-	primaryActionButtonKind: `simple`
+	primaryActionButtonKind: 'simple'
 }
 
 export default EmptyState
