@@ -1,6 +1,6 @@
 // @flow
 
-import type { Event as EventType, EventBlock as EventBlockType } from '../types'
+import type { Event as EventType } from '../types'
 
 export default {
 	durationSec(event: EventType): number {
@@ -13,10 +13,13 @@ export default {
 		return durationSec
 	},
 	clientXY(e: MouseEvent | TouchEvent): { clientX: number, clientY: number } {
-		if (e.touches instanceof Array && e.touches[0]) {
+		// $FlowFixMe
+		if (e.touches && e.touches[0]) {
 			return {
-				clientX: e.touches[0].pageX,
-				clientY: e.touches[0].pageY
+				// $FlowFixMe
+				clientX: e.touches[0].clientX,
+				// $FlowFixMe
+				clientY: e.touches[0].clientY
 			}
 		}
 

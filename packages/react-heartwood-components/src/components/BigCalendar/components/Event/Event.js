@@ -13,7 +13,7 @@ type Props = {
 	timezone: string,
 	timeFormat: string,
 	onMouseDown?: (e: MouseEvent, payload: EventSelection) => void | boolean,
-	onTouchStart?: (e: MouseEvent, payload: EventSelection) => void | boolean
+	onTouchStart?: (e: TouchEvent, payload: EventSelection) => void | boolean
 }
 
 const Event = (props: Props) => {

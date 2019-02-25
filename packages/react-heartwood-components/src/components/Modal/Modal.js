@@ -14,7 +14,7 @@ type Props = {
 	isOpen: boolean,
 
 	/** Should the modal stretch to its maximum height whatever the content? */
-	isFullHeight: boolean,
+	isFullHeight?: boolean,
 
 	/** Size of the modal */
 	size: 'small' | 'medium' | 'full-width'

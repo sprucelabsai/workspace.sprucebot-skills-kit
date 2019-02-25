@@ -9,9 +9,12 @@ import {
 	number,
 	boolean
 } from '@storybook/addon-knobs/react'
+
 import BigCalendar from './BigCalendar'
 import cloneDeep from 'lodash/cloneDeep'
 import moment from 'moment'
+
+import type { User, Event } from './types'
 
 // Mock data
 import storyUsers from './storyUsers'
@@ -30,17 +33,31 @@ const CATEGORIES = {
 	schedules: 'Schedules'
 }
 
-class BigCalendarExample extends Component {
+type Props = {}
+type State = {
+	users: Array<User>,
+	events: Array<Event>,
+	userMode: string
+}
+
+class BigCalendarExample extends Component<Props, State> {
 	state = {
 		users: storyUsers,
 		events: storyEvents,
 		userMode: 'everyone'
 	}
 
+	bigCalRef: { current: any }
+
 	constructor(props) {
 		super(props)
 		this.bigCalRef = React.createRef()
-		this
+	}
+
+	componentDidMount = () => {
+		document.body && (document.body.style.overflow = 'hidden')
+		document.body &&
+			(document.body.querySelector('.page__content').style.padding = '0px')
 	}
 
 	handleDropEvent = ({ event, newStartAt, newUser, blockUpdates }) => {
@@ -69,8 +86,8 @@ class BigCalendarExample extends Component {
 		}
 
 		if (blockUpdates) {
-			blockUpdates.forEach((update, blockIdx) => {
-				eventCopy.blocks[blockIdx].durationSec = update.newDurationSec
+			blockUpdates.forEach(update => {
+				eventCopy.blocks[update.blockIdx].durationSec = update.newDurationSec
 			})
 		}
 
@@ -183,19 +200,19 @@ class BigCalendarExample extends Component {
 					{
 						'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff': {
 							[today.format('YYYY-MM-DD')]: {
-								startTime: '10:00',
+								startTime: '10:15',
 								endTime: '18:00'
 							}
 						},
 						'909beac7-42f7-443f-bd86-c762705c0c18': {
 							[today.format('YYYY-MM-DD')]: {
-								startTime: '08:00',
+								startTime: '08:45',
 								endTime: '16:00'
 							}
 						},
 						'ce914128-c77c-40fa-b5ef-d6faa3ed26a1': {
 							[today.format('YYYY-MM-DD')]: {
-								startTime: '11:00',
+								startTime: '11:30',
 								endTime: '19:00'
 							}
 						}

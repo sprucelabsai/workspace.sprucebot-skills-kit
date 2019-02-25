@@ -1,52 +1,41 @@
 // @flow
 import React, { PureComponent } from 'react'
 import UserAvatar from '../../../Avatar/UserAvatar'
-import eventUtil from '../../utils/event'
 
 import type { ElementRef } from 'react'
-
-type DoubleClickParams = {
-	clientX: number,
-	clientY: number,
-	e: Event
-}
 
 type Props = {
 	users: Array<Object>,
 	doubleClickTime: number,
 	onScroll: Function,
-	onDoubleClick?: (params: DoubleClickParams) => void,
-	onClick?: (e: Event) => void
+	onDoubleClick?: (e: MouseEvent | TouchEvent) => void,
+	onClick?: (e: MouseEvent | TouchEvent) => void
 }
 
 class TeammateHeader extends PureComponent<Props> {
 	domNodeRef: { current: null | ElementRef<'div'> }
-	_lastClickTime: Date
+
+	/** last time a click was done, tracking for double click */
+	_lastClickTime: ?Date
 
 	constructor(props: Props) {
 		super(props)
 		this.domNodeRef = React.createRef()
 	}
 
-	handleClick = (e: Event) => {
-		const {
-			doubleClickTime,
-			onDoubleClick = (/* params: DoubleClickParams */) => {},
-			onClick = () => {}
-		} = this.props
+	handleClick = (e: MouseEvent | TouchEvent) => {
+		const { doubleClickTime, onDoubleClick, onClick } = this.props
 
 		if (
-			this.domNodeRef.current &&
 			this._lastClickTime &&
 			new Date() - this._lastClickTime < doubleClickTime
 		) {
-			let { clientX, clientY } = eventUtil.clientXY(e)
-			clientX = clientX + this.domNodeRef.current.scrollLeft
-
-			onDoubleClick({ clientX, clientY, e })
+			this._lastClickTime = null
+			onDoubleClick && onDoubleClick(e)
 		} else {
-			onClick(e)
+			onClick && onClick(e)
 		}
+
 		this._lastClickTime = new Date()
 
 		// keep it from highlighting text
@@ -62,6 +51,9 @@ class TeammateHeader extends PureComponent<Props> {
 
 	render() {
 		const { users, onScroll, ...props } = this.props
+
+		delete props.doubleClickTime
+		delete props.onDoubleClick
 
 		return (
 			<div

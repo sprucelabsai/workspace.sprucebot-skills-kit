@@ -9,12 +9,10 @@ import Header from './components/Header/Header'
 import VIEWS from './components/Views'
 import sizeUtil from './utils/size'
 
-autoPlay(true)
+// types
+import type { User } from './types'
 
-export type User = {
-	id: string,
-	name: string
-}
+autoPlay(true)
 
 type ViewProps = {
 	[name: string]: any
@@ -388,6 +386,8 @@ class BigCalendar extends Component<Props, State> {
 		// remove uneeded vars
 		delete props.viewProps
 		delete props.defaultView
+		delete props.onChangeUserMode
+		delete props.defaultStartDate
 
 		const {
 			selectedView,

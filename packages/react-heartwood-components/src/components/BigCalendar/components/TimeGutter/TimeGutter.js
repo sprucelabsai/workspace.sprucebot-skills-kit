@@ -5,7 +5,7 @@ import cx from 'classnames'
 type Props = {
 	hours: Array<Object>,
 	className?: string,
-	calendarBodyHeight: Number
+	calendarBodyHeight: number
 }
 
 class TimeGutter extends PureComponent<Props> {
