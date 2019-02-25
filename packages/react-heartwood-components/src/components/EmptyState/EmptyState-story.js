@@ -6,7 +6,6 @@ import {
 	withKnobs,
 	withKnobsOptions,
 	text,
-	boolean,
 	select,
 	object
 } from '@storybook/addon-knobs/react'
