@@ -89,6 +89,7 @@ export {
 export {
 	default as RecordSelectionListItem
 } from './components/RecordSelectionList/RecordSelectionListItem'
+export { default as EmptyState } from './components/EmptyState/EmptyState'
 
 // Types
 export type { CardBuilderProps } from './components/Card'

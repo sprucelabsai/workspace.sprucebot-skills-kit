@@ -78,19 +78,16 @@ export default class Table extends Component<Props, State> {
 		className: '',
 		paginationProps: {},
 		isSelectable: false,
-		noDataIcon: 'caution',
-		noDataHeadline: 'Data not available',
-		noDataPrimaryAction: {
-			text: 'Try Again',
-			onClick: () => window.location.reload(),
-			type: 'submit'
-		},
+		noDataIcon: 'empty_box',
+		noDataHeadline: 'Nothing to see here',
+		noDataPrimaryAction: null,
 		noDataPrimaryActionButtonKind: 'simple',
 		noDataPrimaryActionButtonIcon: null
 	}
 
 	constructor(props: Props) {
 		super(props)
+
 		this.state = {
 			selectedIds: props.initialSelectedIds || [],
 			allRowsSelected: false
@@ -182,6 +179,7 @@ export default class Table extends Component<Props, State> {
 			noDataPrimaryActionButtonIcon,
 			...rest
 		} = this.props
+
 		const { selectedIds } = this.state
 
 		let columnsToRender = [...columns]
