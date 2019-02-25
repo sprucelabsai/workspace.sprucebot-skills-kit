@@ -6,7 +6,6 @@ import {
 	withKnobs,
 	withKnobsOptions,
 	text,
-	boolean,
 	select,
 	object
 } from '@storybook/addon-knobs/react'
@@ -28,22 +27,15 @@ stories.addDecorator(
 )
 stories.addDecorator(withKnobs)
 
-stories.add('Simple', () => (
-	<EmptyState
-		headline={text('headline', 'Data not available')}
-		subheadline={text('subheadline', 'Please try again later')}
-	/>
-))
+stories.add('Default', () => <EmptyState />)
 
-stories.add('Full', () => (
+stories.add('No matches', () => (
 	<EmptyState
-		icon={select('icon', options, 'location')}
-		isLineIcon={boolean('isLineIcon', true)}
-		headline={text('headline', 'Data not available')}
-		subheadline={text('subheadline', 'Please try again later')}
+		icon={select('icon', options, 'no_matches')}
+		headline={text('headline', 'No matches found')}
 		primaryAction={object('primary button action', {
-			text: 'Try Again',
-			onClick: () => console.log('Next'),
+			text: 'Show all',
+			onClick: () => {},
 			type: 'submit'
 		})}
 		primaryActionButtonKind={select(
@@ -51,10 +43,25 @@ stories.add('Full', () => (
 			['primary', 'secondary', 'simple', 'caution'],
 			'simple'
 		)}
-		primaryActionButtonIcon={select(
-			'primary button icon',
-			options,
-			'rotate_left'
+		primaryActionButtonIcon={select('primary button icon', options, null)}
+	/>
+))
+
+stories.add('API Failure', () => (
+	<EmptyState
+		icon={select('icon', options, 'caution')}
+		headline={text('headline', 'Data not available')}
+		subheadline={text('subheadline', 'It looks like something went wrong.')}
+		primaryAction={object('primary button action', {
+			text: 'Try Again',
+			onClick: () => {},
+			type: 'submit'
+		})}
+		primaryActionButtonKind={select(
+			'primary button kind',
+			['primary', 'secondary', 'simple', 'caution'],
+			'simple'
 		)}
+		primaryActionButtonIcon={select('primary button icon', options, null)}
 	/>
 ))

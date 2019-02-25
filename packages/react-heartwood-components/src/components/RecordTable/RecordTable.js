@@ -292,6 +292,18 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		this.props.onSelection && this.props.onSelection(e, suggestion)
 	}
 
+	updateFilter = (filter: string) => {
+		this.setState(
+			{
+				currentPage: 0,
+				currentFilter: filter
+			},
+			() => {
+				this.refresh()
+			}
+		)
+	}
+
 	render() {
 		const {
 			// eslint-disable-next-line no-unused-vars
@@ -303,9 +315,14 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			enableSearch,
 			enableFilter,
 			searchPlaceholder,
+			noDataIcon,
+			noDataHeadline,
+			noDataSubheadline,
+			noDataPrimaryAction,
 			tableSearchProps = {},
 			...props
 		} = this.props
+
 		const {
 			currentPage,
 			sortColumn,
@@ -316,6 +333,8 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			totalRows,
 			currentFilter
 		} = this.state
+
+		const isFiltered = currentFilter.length > 0 && enableFilter
 
 		// setup default props types
 		tableSearchProps.getSuggestionValue =
@@ -361,15 +380,7 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 								value={currentFilter}
 								placeholder={searchPlaceholder}
 								onChange={e => {
-									this.setState(
-										{
-											currentPage: 0,
-											currentFilter: e.target.value
-										},
-										() => {
-											this.refresh()
-										}
-									)
+									this.updateFilter(e.target.value)
 								}}
 								isSmall
 							/>
@@ -380,15 +391,7 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 									name: 'close'
 								}}
 								onClick={() => {
-									this.setState(
-										{
-											currentPage: 0,
-											currentFilter: ''
-										},
-										() => {
-											this.refresh()
-										}
-									)
+									this.updateFilter('')
 								}}
 							/>
 						</div>
@@ -426,6 +429,20 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 					onSortedChange={this.handleSortChanged}
 					onClickRow={handleClickRow}
 					key="id"
+					noDataIcon={isFiltered ? 'no_matches' : noDataIcon}
+					noDataHeadline={isFiltered ? 'No matches found' : noDataHeadline}
+					noDataSubheadline={isFiltered ? null : noDataSubheadline}
+					noDataPrimaryAction={
+						isFiltered
+							? {
+									text: 'Show all',
+									onClick: () => {
+										this.updateFilter('')
+									},
+									type: 'submit'
+							  }
+							: noDataPrimaryAction
+					}
 					{...props}
 				/>
 			</Fragment>
