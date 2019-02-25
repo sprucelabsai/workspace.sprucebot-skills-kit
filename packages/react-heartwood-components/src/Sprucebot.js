@@ -28,6 +28,7 @@ import {
 import Icon from './components/Icon/Icon'
 import { H1, H2, H3, H4, Text, Span } from './components/Text/Text'
 import Image from './components/Image/Image'
+import EmptyState from './components/EmptyState/EmptyState'
 import List, { ListHeader, ListItem, SortableList } from './components/List'
 import Loader from './components/Loader/Loader'
 import Modal from './components/Modal/Modal'
