@@ -1,8 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import ReactPhoneInput, {
-	formatPhoneNumberIntl
-} from 'react-phone-number-input'
+import ReactPhoneInput from 'react-phone-number-input'
 import cx from 'classnames'
 import { InputPre, InputHelper } from '../../FormPartials'
 
