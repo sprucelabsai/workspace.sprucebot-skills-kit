@@ -3,6 +3,9 @@ const config = require('config')
 const { GraphQLString } = require('graphql')
 
 module.exports = ctx => {
+	// TODO: Change this file to suit the needs for your skill (or remove it). This is meant only as an example and could introduce security concerns.
+	log.warn('TODO: Update gql/Location/queries/Location.js for this skill')
+
 	const connection = ctx.gql.helpers.buildConnection({
 		model: ctx.db.models.Location,
 		associationName: 'Location',

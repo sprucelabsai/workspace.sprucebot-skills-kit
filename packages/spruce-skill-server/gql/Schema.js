@@ -1,4 +1,5 @@
 const globby = require('globby')
+const debug = require('debug')('spruce-skill-server')
 const { GraphQLObjectType, GraphQLSchema } = require('graphql')
 const helpers = require('./helpers')
 
@@ -24,7 +25,7 @@ module.exports = class Schema {
 			// Load GQL types first and assign to ctx.gql.types[<type name>]
 			coreTypePaths.forEach(path => {
 				try {
-					log.info(`Importing GQL file: ${path}`)
+					debug(`Importing GQL file: ${path}`)
 					// $FlowIgnore
 					const type = require(path)(ctx) // eslint-disable-line
 					let name = path.replace(/^(.*[\\\/])/, '')
@@ -38,7 +39,7 @@ module.exports = class Schema {
 			})
 			typePaths.forEach(path => {
 				try {
-					log.info(`Importing GQL file: ${path}`)
+					debug(`Importing GQL file: ${path}`)
 					// $FlowIgnore
 					const type = require(path)(ctx) // eslint-disable-line
 					let name = path.replace(/^(.*[\\\/])/, '')
@@ -53,7 +54,7 @@ module.exports = class Schema {
 			// Load resolvers which could be queries, mutations, or subscriptions
 			resolverPaths.forEach(path => {
 				try {
-					log.info(`Importing GQL file: ${path}`)
+					debug(`Importing GQL file: ${path}`)
 					// $FlowIgnore
 					const def = require(path)(ctx) // eslint-disable-line
 					// Resolvers may contain queries and/or mutations
@@ -86,6 +87,8 @@ module.exports = class Schema {
 			}
 
 			const schema = new GraphQLSchema(resolvers)
+
+			log.info('Finished importing GQL files and creating schema')
 
 			return schema
 		} catch (e) {

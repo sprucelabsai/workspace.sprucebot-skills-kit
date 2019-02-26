@@ -73,6 +73,8 @@ module.exports = async ({
 	if (!isApiOnly) {
 		app = next(nextConfig)
 		handle = app.getRequestHandler()
+	} else {
+		console.warn('⚠️  The frontend UI is disabled because API_ONLY=true')
 	}
 
 	// Kick off sync with platform

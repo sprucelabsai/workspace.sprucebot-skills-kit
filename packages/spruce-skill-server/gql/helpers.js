@@ -1,4 +1,5 @@
 const parseFields = require('graphql-parse-fields')
+const debug = require('debug')('spruce-skill-server')
 const { GraphQLString, GraphQLInt } = require('graphql')
 const {
 	resolver,
@@ -22,7 +23,7 @@ module.exports = ctx => {
 
 	connectionPaths.forEach(path => {
 		try {
-			log.info(`Importing custom connection options from file: ${path}`)
+			debug(`Importing custom connection options from file: ${path}`)
 			// $FlowIgnore
 			const connectionOptions = require(path)(ctx) // eslint-disable-line
 			let name = path.replace(/^(.*[\\\/])/, '')
