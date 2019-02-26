@@ -1,4 +1,3 @@
-// @flow
 const parseFields = require('graphql-parse-fields')
 const { GraphQLString, GraphQLInt } = require('graphql')
 const {
@@ -31,7 +30,7 @@ module.exports = ctx => {
 		}
 	}
 
-	function pathToScope(path: Object, prevPath?: string) {
+	function pathToScope(path, prevPath) {
 		let scope = ''
 		if (prevPath && typeof path.key === 'string') {
 			scope += `${path.key}.${prevPath}`
@@ -43,16 +42,12 @@ module.exports = ctx => {
 		if (path.prev) {
 			return pathToScope(path.prev, scope)
 		}
-		return scope.replace('edges.node.', '')
+		return scope.replace(/edges\.node\./g, '')
 	}
 
-	function cleanModelByScope(options: {
-		model: Object,
-		modelName: string,
-		context: Object,
-		info: Object
-	}) {
-		const { model, modelName, context, info } = options
+	function cleanModelByScope(options) {
+		const { model, context, info } = options
+		const modelName = model.constructor.name
 
 		// skip the process if we have already done the work
 		if (model.cleanedScope) {
@@ -73,10 +68,12 @@ module.exports = ctx => {
 
 		if (has(scopes, pathScope)) {
 			modelScope = scopes[pathScope]
-		}
-
-		if (!has(scopes, pathScope)) {
-			const msg = `${rootPath} does not contain a scope for ${pathScope}. If this should be allowed, check the config/scopes.js file.`
+		} else if (has(scopes, `${pathScope}.${model.name}`)) {
+			modelScope = scopes[`${pathScope}.${model.name}`]
+		} else {
+			const msg = `${
+				model.name
+			} does not contain the scope "${modelScope}" from ${pathScope}. If this should be allowed, check the config/scopes.js file.`
 			context.warnings.push(msg)
 			return null
 		}
@@ -119,11 +116,13 @@ module.exports = ctx => {
 		return model
 	}
 
-	function enhancedResolver(
-		model: any,
-		options: Object = {},
-		scope: string = 'public'
-	) {
+	function enhancedResolver(model, options, scope) {
+		if (!options) {
+			options = {}
+		}
+		if (!scope) {
+			scope = 'public'
+		}
 		const {
 			// list,
 			// handleConnection,
@@ -136,8 +135,8 @@ module.exports = ctx => {
 
 		return resolver(model, {
 			...options,
-			before: (findOptions, args, context, info) => {
-				let finalFindOptions = findOptions
+			before: async (beforeOptions, args, context, info) => {
+				let updatedOptions = beforeOptions
 				if (!context.warnings) {
 					context.warnings = []
 				}
@@ -150,15 +149,25 @@ module.exports = ctx => {
 				if (!context.scopes) {
 					context.scopes = {}
 				}
-
-				if (!findOptions.where) {
-					findOptions.where = {}
+				if (!context.findOptions) {
+					context.findOptions = {}
 				}
+				if (!updatedOptions.where) {
+					updatedOptions.where = {}
+				}
+
+				if (args) {
+					updatedOptions = {
+						...updatedOptions,
+						...argsToFindOptions.default(args, [])
+					}
+				}
+
+				let finalOptions = updatedOptions
 				if (before) {
-					finalFindOptions = before(findOptions, args, context, info)
+					finalOptions = await before(updatedOptions, args, context, info)
 				}
-
-				return finalFindOptions || {}
+				return finalOptions
 			},
 			after: (result, args, context, info) => {
 				let cleanedResult = result
@@ -168,9 +177,8 @@ module.exports = ctx => {
 
 				// clean for GraphQLObject
 				if (cleanedResult && !Array.isArray(cleanedResult)) {
-					return cleanModelByScope({
+					cleanedResult = cleanModelByScope({
 						model: cleanedResult,
-						modelName,
 						context,
 						info
 					})
@@ -178,15 +186,18 @@ module.exports = ctx => {
 
 				// clean graphqllist
 				if (cleanedResult && Array.isArray(cleanedResult)) {
-					// log.debug('GraphQLList')
-					cleanedResult.forEach(r =>
-						cleanModelByScope({
+					for (let i = 0; i < cleanedResult.length; i += 1) {
+						const r = cleanedResult[i]
+						const cleanResult = cleanModelByScope({
 							model: r,
-							modelName,
 							context,
 							info
 						})
-					)
+
+						if (cleanResult === null) {
+							return null
+						}
+					}
 				}
 
 				return cleanedResult
@@ -194,7 +205,10 @@ module.exports = ctx => {
 		})
 	}
 
-	function enhancedAttributeFields(model: any, options?: Object = {}) {
+	function enhancedAttributeFields(model, options) {
+		if (!options) {
+			options = {}
+		}
 		const attrFields = attributeFields(model, {
 			allowNull: true,
 			commentToDescription: true,
@@ -211,15 +225,10 @@ module.exports = ctx => {
 		return attrFields
 	}
 
-	function buildConnection(options: {
-		model: Object,
-		associationName: string,
-		type: any,
-		connectionOptions: Object
-	}) {
+	function buildConnection(options) {
 		const { model, type, associationName } = options
 		let connectionOptions = options.connectionOptions
-		let name = `${model.name}`
+		let name = options.name || model.name
 		let target = model
 
 		let modelName = model.name || model.target.name
@@ -253,37 +262,8 @@ module.exports = ctx => {
 				totalCount: {
 					type: GraphQLInt,
 					resolve(connection, args, context, info) {
-						const pathScope = pathToScope(info.path).replace(
-							/\.totalCount$/,
-							''
-						)
-						const rootPath = pathScope.replace(/\..*$/, '')
-						let { source } = connection
-						const countFindOptions = {
-							...argsToFindOptions.default(connection.args, [])
-						}
-
-						if (
-							context.findOptions &&
-							context.findOptions[rootPath] &&
-							context.findOptions[rootPath][pathScope]
-						) {
-							countFindOptions.where = {
-								...countFindOptions.where,
-								...context.findOptions[rootPath][pathScope]
-							}
-						}
-
-						let countMethodName = `count${associationName}`
-						if (!checkIsAssociation(target)) {
-							countMethodName = 'count'
-							source = target
-						}
-
-						return source[countMethodName]({
-							where: countFindOptions.where,
-							logging: info.logging
-						})
+						const fullCount = connection.fullCount || null
+						return fullCount
 					}
 				},
 				...connectionFields
@@ -307,6 +287,9 @@ module.exports = ctx => {
 				if (!context.scopes) {
 					context.scopes = {}
 				}
+				if (!context.findOptions) {
+					context.findOptions = {}
+				}
 				if (!updatedOptions.where) {
 					updatedOptions.where = {}
 				}
@@ -322,11 +305,10 @@ module.exports = ctx => {
 					}
 				}
 
-				if (args || info.variableValues) {
+				if (args) {
 					updatedOptions = {
 						...updatedOptions,
-						...argsToFindOptions.default(args, []),
-						...argsToFindOptions.default(info.variableValues, [])
+						...argsToFindOptions.default(args, [])
 					}
 				}
 
@@ -373,11 +355,12 @@ module.exports = ctx => {
 		}
 
 		const connection = createConnection(createConnectionOptions)
+		const args = defaultListArgs()
 
 		const opts = {
 			type: connection.connectionType,
 			args: {
-				...defaultListArgs(),
+				...args,
 				...connection.connectionArgs
 			},
 			resolve: connection.resolve
@@ -386,7 +369,10 @@ module.exports = ctx => {
 		return opts
 	}
 
-	function attributes(model: any, options?: Object = {}) {
+	function attributes(model, options) {
+		if (!options) {
+			options = {}
+		}
 		const attrs = {
 			...enhancedAttributeFields(model, options)
 		}
@@ -399,12 +385,7 @@ module.exports = ctx => {
 		Object.keys(model.associations).forEach(associationName => {
 			const modelAssociation = model.associations[associationName]
 			const type = ctx.gql.types[modelAssociation.target.name]
-			log.debug(
-				'modelAssociation',
-				associationName,
-				modelAssociation.associationType,
-				model.name
-			)
+
 			if (!type) {
 				throw new Error(
 					`No GraphQL type exists for ${
