@@ -366,13 +366,7 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			enableSearch,
 			enableFilter,
 			searchPlaceholder,
-			noDataIcon,
-			noDataHeadline,
-			noDataSubheadline,
-			noDataPrimaryAction,
-			fetchError,
-			tableSearchProps = {},
-			...props
+			tableSearchProps = {}
 		} = this.props
 
 		const {
@@ -483,7 +477,6 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 					noDataHeadline={this.getNoDataHeadline()}
 					noDataSubheadline={this.getNoDataSubheadline()}
 					noDataPrimaryAction={this.getNoDataPrimaryAction()}
-					{...props}
 				/>
 			</Fragment>
 		)
