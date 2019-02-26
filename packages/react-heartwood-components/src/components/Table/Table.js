@@ -78,19 +78,16 @@ export default class Table extends Component<Props, State> {
 		className: '',
 		paginationProps: {},
 		isSelectable: false,
-		noDataIcon: 'caution',
-		noDataHeadline: 'Data not available',
-		noDataPrimaryAction: {
-			text: 'Try Again',
-			onClick: () => window.location.reload(),
-			type: 'submit'
-		},
+		noDataIcon: 'empty_box',
+		noDataHeadline: 'Nothing to see here',
+		noDataPrimaryAction: null,
 		noDataPrimaryActionButtonKind: 'simple',
-		noDataPrimaryActionButtonIcon: 'rotate_left'
+		noDataPrimaryActionButtonIcon: null
 	}
 
 	constructor(props: Props) {
 		super(props)
+
 		this.state = {
 			selectedIds: props.initialSelectedIds || [],
 			allRowsSelected: false
@@ -182,6 +179,7 @@ export default class Table extends Component<Props, State> {
 			noDataPrimaryActionButtonIcon,
 			...rest
 		} = this.props
+
 		const { selectedIds } = this.state
 
 		let columnsToRender = [...columns]
@@ -297,7 +295,7 @@ export default class Table extends Component<Props, State> {
 					width: 'auto'
 				})}
 				getPaginationProps={() => ({
-					className: 'table__paginationq'
+					className: 'table__pagination'
 				})}
 				getLoadingProps={state => {
 					return {
@@ -351,8 +349,9 @@ export default class Table extends Component<Props, State> {
 					)
 				}}
 				PaginationComponent={tableProps =>
+					totalRows &&
 					tableProps.page === 0 &&
-					tableProps.data.length <= tableProps.pageSize ? null : (
+					totalRows <= tableProps.pageSize ? null : (
 						<div className="table-pagination__wrapper">
 							<Pagination {...paginationProps} {...tableProps} />
 						</div>
