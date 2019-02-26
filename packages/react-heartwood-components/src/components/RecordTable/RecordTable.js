@@ -304,6 +304,57 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		)
 	}
 
+	isFiltered = () => {
+		const { enableFilter } = this.props
+		const { currentFilter } = this.state
+		return currentFilter.length > 0 && enableFilter
+	}
+
+	getNoDataIcon = () => {
+		const { noDataIcon, fetchError } = this.props
+		return fetchError
+			? 'caution'
+			: this.isFiltered()
+			? 'no_matches'
+			: noDataIcon
+	}
+
+	getNoDataHeadline = () => {
+		const { noDataHeadline, fetchError } = this.props
+		return fetchError
+			? 'Data not available'
+			: this.isFiltered()
+			? 'No matches found'
+			: noDataHeadline
+	}
+
+	getNoDataSubheadline = () => {
+		const { noDataSubheadline, fetchError } = this.props
+		return fetchError
+			? 'It looks like something went wrong.'
+			: this.isFiltered()
+			? null
+			: noDataSubheadline
+	}
+
+	getNoDataPrimaryAction = () => {
+		const { noDataPrimaryAction, fetchError } = this.props
+		return fetchError
+			? {
+					text: 'Try again',
+					onClick: () => window.location.reload()
+			  }
+			: this.isFiltered()
+			? {
+					text: 'Show all',
+					onClick: () => {
+						this.updateFilter('')
+					},
+					type: 'submit'
+			  }
+			: noDataPrimaryAction
+	}
+
 	render() {
 		const {
 			// eslint-disable-next-line no-unused-vars
@@ -319,6 +370,7 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			noDataHeadline,
 			noDataSubheadline,
 			noDataPrimaryAction,
+			fetchError,
 			tableSearchProps = {},
 			...props
 		} = this.props
@@ -333,8 +385,6 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			totalRows,
 			currentFilter
 		} = this.state
-
-		const isFiltered = currentFilter.length > 0 && enableFilter
 
 		// setup default props types
 		tableSearchProps.getSuggestionValue =
@@ -429,20 +479,10 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 					onSortedChange={this.handleSortChanged}
 					onClickRow={handleClickRow}
 					key="id"
-					noDataIcon={isFiltered ? 'no_matches' : noDataIcon}
-					noDataHeadline={isFiltered ? 'No matches found' : noDataHeadline}
-					noDataSubheadline={isFiltered ? null : noDataSubheadline}
-					noDataPrimaryAction={
-						isFiltered
-							? {
-									text: 'Show all',
-									onClick: () => {
-										this.updateFilter('')
-									},
-									type: 'submit'
-							  }
-							: noDataPrimaryAction
-					}
+					noDataIcon={this.getNoDataIcon()}
+					noDataHeadline={this.getNoDataHeadline()}
+					noDataSubheadline={this.getNoDataSubheadline()}
+					noDataPrimaryAction={this.getNoDataPrimaryAction()}
 					{...props}
 				/>
 			</Fragment>
