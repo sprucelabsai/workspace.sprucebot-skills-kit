@@ -1,11 +1,17 @@
 // @flow
 import React, { Component } from 'react'
-import ReactPhoneInput from 'react-phone-number-input'
+import ReactPhoneInput, {
+	formatPhoneNumberIntl
+} from 'react-phone-number-input'
 import cx from 'classnames'
 import { InputPre, InputHelper } from '../../FormPartials'
 
 // for validating and formatting
-export { formatPhoneNumber, isValidPhoneNumber } from 'react-phone-number-input'
+export {
+	formatPhoneNumber,
+	formatPhoneNumberIntl,
+	isValidPhoneNumber
+} from 'react-phone-number-input'
 
 type Props = {
 	/** Label text */
