@@ -8,10 +8,31 @@ const {
 	defaultArgs,
 	argsToFindOptions
 } = require('graphql-sequelize')
+const globby = require('globby')
+const config = require('config')
 
 const { has } = require('lodash')
 
 module.exports = ctx => {
+	// Get any custom connectionOptions and save for later when we're building connections
+	const connectionPaths = globby.sync([
+		`${config.gqlOptions.gqlDir}/connections/**/!(index|types|_helpers).js`
+	])
+	const connections = {}
+
+	connectionPaths.forEach(path => {
+		try {
+			log.info(`Importing custom connection options from file: ${path}`)
+			// $FlowIgnore
+			const connectionOptions = require(path)(ctx) // eslint-disable-line
+			let name = path.replace(/^(.*[\\\/])/, '')
+			name = name.replace('.js', '')
+			connections[name] = connectionOptions
+		} catch (e) {
+			log.warn(`Unable to import GraphQL connectionOptions from ${path}`, e)
+		}
+	})
+
 	function checkIsModel(target) {
 		return !!target.getTableName
 	}
@@ -68,12 +89,10 @@ module.exports = ctx => {
 
 		if (has(scopes, pathScope)) {
 			modelScope = scopes[pathScope]
-		} else if (has(scopes, `${pathScope}.${model.name}`)) {
-			modelScope = scopes[`${pathScope}.${model.name}`]
+		} else if (has(scopes, `${pathScope}.${modelName}`)) {
+			modelScope = scopes[`${pathScope}.${modelName}`]
 		} else {
-			const msg = `${
-				model.name
-			} does not contain the scope "${modelScope}" from ${pathScope}. If this should be allowed, check the config/scopes.js file.`
+			const msg = `${modelName} does not contain the scope "${modelScope}" from ${pathScope}. If this should be allowed, check the config/scopes.js file.`
 			context.warnings.push(msg)
 			return null
 		}
@@ -244,6 +263,14 @@ module.exports = ctx => {
 		if (!connectionOptions) {
 			connectionOptions = {}
 		}
+
+		const customConnectionOptions = connections[name] || {}
+
+		connectionOptions = {
+			...connectionOptions,
+			...customConnectionOptions
+		}
+
 		const {
 			before,
 			after,
@@ -402,12 +429,16 @@ module.exports = ctx => {
 					resolve: enhancedResolver(modelAssociation)
 				}
 			} else {
+				// const customConnectionOptions = connections[associationName] || {}
 				// build the relay connection for all other types
 				attrs[associationName] = buildConnection({
 					model,
 					type,
 					associationName,
-					connectionOptions: options
+					connectionOptions: {
+						...options
+						// ...customConnectionOptions
+					}
 				})
 			}
 		})
