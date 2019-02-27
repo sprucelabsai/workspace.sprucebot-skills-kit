@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.12.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.11.0...v8.12.0) (2019-02-27)
+
+
+### Features
+
+* **Icons:** added Empty Box and No Matches icons ([8868ca0](https://github.com/sprucelabsai/sprucebot-heartwood/commit/8868ca0))
+
+
+
+
+
 # [8.11.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.10.1...v8.11.0) (2019-02-19)
 
 
