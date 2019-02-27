@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.11.0",
+	"version": "8.12.0",
 	"main": "lib/index.js",
 	"description": "Spruce Next.js helpers and utitlies",
 	"keywords": [
@@ -70,8 +70,8 @@
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
-		"@sprucelabs/heartwood-components": "^8.11.0",
-		"@sprucelabs/react-heartwood-components": "^8.11.0",
+		"@sprucelabs/heartwood-components": "^8.12.0",
+		"@sprucelabs/react-heartwood-components": "^8.12.0",
 		"axios": "^0.18.0",
 		"classnames": "^2.2.5",
 		"cookies": "^0.7.3",
