@@ -16,17 +16,21 @@ module.exports = ctx => {
 				// CUSTOM: { value: [function(source, args, context, info) {}, 'ASC'] } // build and return custom order for sequelize orderBy option
 			}
 		}),
-		before: async (findOptions, args, context, info) => {
+		// before: async (findOptions, args, context, info) => {
+		before: async findOptions => {
 			return findOptions
 		},
-		after: async (obj, args, context, info) => {
+		// after: async (obj, args, context, info) => {
+		after: async obj => {
 			return obj
 		},
 		connectionFields: {
 			customConnectionField: {
 				type: GraphQLString,
-				resolve: (options, unused, context, info) => {
-					const { args, edges, pageInfo, where } = options
+				// resolve: (options, unused, context, info) => {
+				resolve: () => {
+					// Example of getting additional details off options
+					// const { args, edges, pageInfo, where } = options
 					return 'Custom connection field'
 				}
 			}
@@ -34,7 +38,8 @@ module.exports = ctx => {
 		edgeFields: {
 			customEdgeField: {
 				type: GraphQLString,
-				resolve: (edge, args, context, info) => {
+				// resolve: (edge, args, context, info) => {
+				resolve: edge => {
 					return `Custom Edge Field. Here is the node id: ${edge.node.id}`
 				}
 			}

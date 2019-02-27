@@ -15,7 +15,7 @@ module.exports = {
 		'no-undef': 'error',
 		'no-var': 'error',
 		'no-unreachable': 'error',
-		'no-unused-vars': 'warn',
+		'no-unused-vars': 'error',
 		'react/prop-types': 'off',
 		'prettier/prettier': [
 			'error',

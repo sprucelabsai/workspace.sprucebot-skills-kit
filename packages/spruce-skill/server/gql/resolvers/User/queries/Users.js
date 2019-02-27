@@ -11,7 +11,7 @@ module.exports = ctx => {
 		associationName: 'User',
 		type: ctx.gql.types.User,
 		connectionOptions: {
-			before: async (findOptions, args, context, info) => {
+			before: async (findOptions, args, context) => {
 				if (!context.auth || !context.auth.User) {
 					throw new Error('USER_NOT_LOGGED_IN')
 				}
