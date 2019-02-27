@@ -470,6 +470,7 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 					manual
 					loading={loading}
 					data={visibleRows || []}
+					totalRows={totalRows}
 					onSortedChange={this.handleSortChanged}
 					onClickRow={handleClickRow}
 					key="id"
