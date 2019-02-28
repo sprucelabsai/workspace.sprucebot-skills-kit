@@ -27,7 +27,7 @@
 		"interface": "next ./interface -p 3080",
 		"lint": "eslint --ext .js .",
 		"test": "yarn run build && jest",
-		"test:server": "PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DISABLE_MIGRATIONS=true mocha -r flow-remove-types/register --exit 'server/tests/**/*Tests.js'",
+		"test:server": "rm tmp/testing.db | true && PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DISABLE_MIGRATIONS=true mocha -r flow-remove-types/register --exit 'server/tests/**/*Tests.js'",
 		"test:server:single": "PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DISABLE_MIGRATIONS=true mocha -r flow-remove-types/register --exit",
 		"icon": "svgo icon/icon.svg",
 		"heroku-postbuild": "npm run build",
