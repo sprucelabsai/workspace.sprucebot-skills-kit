@@ -117,14 +117,14 @@ module.exports = (sequelize, DataTypes) => {
 			constraints: false
 		})
 		User.belongsToMany(models.Organization, {
-			through: 'UserOrganization',
+			through: models.UserOrganization,
 			constraints: false
 		})
 		User.hasMany(models.UserOrganization, {
 			constraints: false
 		})
 		User.belongsToMany(models.Group, {
-			through: 'UserGroup',
+			through: models.UserGroup,
 			constraints: false
 		})
 		User.hasMany(models.UserGroup, {

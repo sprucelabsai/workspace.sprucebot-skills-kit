@@ -44,11 +44,11 @@ module.exports = (sequelize, DataTypes) => {
 		})
 		Group.belongsToMany(models.Location, {
 			constraints: false,
-			through: 'LocationGroup'
+			through: models.LocationGroup
 		})
 		Group.belongsToMany(models.User, {
 			constraints: false,
-			through: 'UserGroup'
+			through: models.UserGroup
 		})
 	}
 

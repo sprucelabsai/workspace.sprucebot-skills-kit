@@ -46,19 +46,19 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		storeNum: {
 			type: DataTypes.STRING
-		},
-		geo: {
-			type: config.TESTING ? 'JSON' : 'POINT',
-			get() {
-				const geoPoint = this.getDataValue('geo')
-				return geoPoint === null
-					? null
-					: {
-							lat: geoPoint.y,
-							lng: geoPoint.x
-					  }
-			}
 		}
+		// geo: {
+		// 	type: config.TESTING ? 'JSON' : 'POINT',
+		// 	get() {
+		// 		const geoPoint = this.getDataValue('geo')
+		// 		return geoPoint === null
+		// 			? null
+		// 			: {
+		// 					lat: geoPoint.y,
+		// 					lng: geoPoint.x
+		// 			  }
+		// 	}
+		// }
 	}
 	const options = {
 		timestamps: true

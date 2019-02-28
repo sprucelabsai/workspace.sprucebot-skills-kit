@@ -29,9 +29,13 @@ class ExampleTests extends Base {
 	async getUsers() {
 		const query = `{
 			Users {
-				id
-				firstName
-				lastName
+				edges {
+					node {
+						id
+						firstName
+						lastName
+					}
+				}
 			}
 		}`
 		const { body } = await this.request
@@ -42,6 +46,7 @@ class ExampleTests extends Base {
 			})
 
 		log.debug(body)
+		assert.isNotNull(body.data.Users)
 	}
 }
 
