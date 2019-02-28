@@ -35,8 +35,7 @@ const auth = async (ctx, next) => {
 		const locationId = decoded.locationId || null
 		const organizationId = decoded.organizationId || null
 		const query = config.auth({ userId, locationId, organizationId })
-		let result
-		result = await ctx.sb.query(query)
+		const result = await ctx.sb.query(query)
 
 		ctx.auth = { ...result.data, jwt: token }
 	} catch (e) {

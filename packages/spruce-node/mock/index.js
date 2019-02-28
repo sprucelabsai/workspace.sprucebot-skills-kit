@@ -23,8 +23,6 @@ module.exports = class MockHttps {
 		this.id = id
 		this.version = version
 		this.allowSelfSignedCerts = allowSelfSignedCerts
-
-		// this.createServer({ customMocks })
 	}
 
 	async mockApiGQLServerInit({ customMocks }) {
