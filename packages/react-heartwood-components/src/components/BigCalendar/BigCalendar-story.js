@@ -1,6 +1,8 @@
 // @flow
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
+import { cloneDeep, remove } from 'lodash'
+import moment from 'moment'
 import {
 	withKnobs,
 	date,
@@ -10,8 +12,7 @@ import {
 	boolean
 } from '@storybook/addon-knobs/react'
 import BigCalendar from './BigCalendar'
-import cloneDeep from 'lodash/cloneDeep'
-import moment from 'moment'
+import ToastWrapper from '../Toast/components/ToastWrapper/ToastWrapper'
 
 // Mock data
 import storyUsers from './storyUsers'
@@ -29,12 +30,20 @@ const CATEGORIES = {
 	interactions: 'Interactions',
 	schedules: 'Schedules'
 }
+type Props = {}
+type State = {
+	users: Array<Object>,
+	events: Array<Object>,
+	userMode: string,
+	toasts: Array<Object>
+}
 
-class BigCalendarExample extends Component {
+class BigCalendarExample extends Component<Props, State> {
 	state = {
 		users: storyUsers,
 		events: storyEvents,
-		userMode: 'everyone'
+		userMode: 'everyone',
+		toasts: []
 	}
 
 	constructor(props) {
@@ -43,13 +52,36 @@ class BigCalendarExample extends Component {
 		this
 	}
 
-	handleDropEvent = ({
-		event,
-		dragEvent,
-		newStartAt,
-		newUser,
-		blockUpdates
-	}) => {
+	addToast = ({ headline, text, kind, id, showFollowup, timeout }) => {
+		this.setState(prevState => {
+			const newToasts = [...prevState.toasts]
+			newToasts.push({
+				headline: headline,
+				text: text,
+				kind,
+				id: id,
+				followupAction: showFollowup ? () => console.log('Undo') : null,
+				timeout: timeout
+			})
+			return {
+				toasts: newToasts
+			}
+		})
+	}
+
+	removeToast = id => {
+		this.setState(prevState => {
+			const toasts = [...prevState.toasts]
+			remove(toasts, item => {
+				return item.id === id
+			})
+			return {
+				toasts
+			}
+		})
+	}
+
+	handleDropEvent = ({ event, newStartAt, newUser, blockUpdates }) => {
 		if (!event) {
 			alert(
 				`you created a new event at ${newStartAt.format(
@@ -106,157 +138,176 @@ class BigCalendarExample extends Component {
 	}
 
 	handleDoubleClickView = ({ time, user }) => {
-		if (!time) {
-			alert(`double clicked header for ${user.name}`)
-		} else {
-			alert(`double click at ${time.format('h:mm')} with ${user.name}`)
-		}
+		this.addToast({
+			headline: `Double Click`,
+			text: time
+				? `${time.format('h:mm')} with ${user.name}`
+				: `Header for ${user.name}`,
+			kind: 'positive',
+			id: Math.random(),
+			showFollowup: false,
+			timeout: 2000
+		})
 	}
 
 	handleClickView = ({ time, user }) => {
-		alert(`single click at ${time.format('h:mm')} with ${user.name}`)
+		this.addToast({
+			headline: `Single Click`,
+			text: `${time.format('h:mm')} with ${user.name}`,
+			kind: 'positive',
+			id: Math.random(),
+			showFollowup: false,
+			timeout: 2000
+		})
 	}
 
 	render() {
-		const { users, events, userMode } = this.state
+		const { users, events, userMode, toasts } = this.state
 
 		return (
-			<BigCalendar
-				// users={object('users', users, CATEGORIES.data)}
-				// allEvents={object('allEvents', events, CATEGORIES.data)}
-				users={users}
-				allEvents={events}
-				defaultStartDate={date(
-					'defaultStartDate',
-					today.toDate(),
-					CATEGORIES.ranges
-				)}
-				slotsPerHour={number(
-					'slotsPerHour',
-					4,
-					{ range: true, min: 1, max: 12 },
-					CATEGORIES.ranges
-				)}
-				timezone={text('timezone', 'America/Denver', CATEGORIES.ranges)}
-				defaultMinTime={text('defaultMinTime', '07:00', CATEGORIES.ranges)}
-				defaultMaxTime={text('defaultMaxTime', '20:00', CATEGORIES.ranges)}
-				defaultStartTime={text('defaultStartTime', '09:00', CATEGORIES.ranges)}
-				defaultEndTime={text('defaultEndTime', '18:00', CATEGORIES.ranges)}
-				userModeOptions={object(
-					'userModeOptions',
-					{
-						everyone: 'Everyone',
-						working: 'Working',
-						me: 'Me'
-					},
-					CATEGORIES.modes
-				)}
-				userMode={text('userMode', userMode, CATEGORIES.modes)}
-				headerDateFormat={text(
-					'headerDateFormat',
-					'MMMM YYYY',
-					CATEGORIES.formatting
-				)}
-				mobileHeaderDateFormat={text(
-					'mobileHeaderDateFormat',
-					'MMMM Do, YYYY',
-					CATEGORIES.formatting
-				)}
-				eventTimeFormat={text(
-					'eventTimeFormat',
-					'h:mma',
-					CATEGORIES.formatting
-				)}
-				longPressDelay={number(
-					'longPressDelay',
-					500,
-					{},
-					CATEGORIES.interactions
-				)}
-				doubleClickToCreate={boolean(
-					'doubleClickToCreate',
-					false,
-					CATEGORIES.interactions
-				)}
-				doubleClickTime={number(
-					'doubleClickTime',
-					250,
-					{},
-					CATEGORIES.interactions
-				)}
-				userSchedules={object(
-					'userSchedules',
-					{
-						'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff': {
-							[today.format('YYYY-MM-DD')]: {
-								startTime: '10:00',
-								endTime: '18:00'
+			<div>
+				<BigCalendar
+					// users={object('users', users, CATEGORIES.data)}
+					// allEvents={object('allEvents', events, CATEGORIES.data)}
+					users={users}
+					allEvents={events}
+					defaultStartDate={date(
+						'defaultStartDate',
+						today.toDate(),
+						CATEGORIES.ranges
+					)}
+					slotsPerHour={number(
+						'slotsPerHour',
+						4,
+						{ range: true, min: 1, max: 12 },
+						CATEGORIES.ranges
+					)}
+					timezone={text('timezone', 'America/Denver', CATEGORIES.ranges)}
+					defaultMinTime={text('defaultMinTime', '07:00', CATEGORIES.ranges)}
+					defaultMaxTime={text('defaultMaxTime', '20:00', CATEGORIES.ranges)}
+					defaultStartTime={text(
+						'defaultStartTime',
+						'09:00',
+						CATEGORIES.ranges
+					)}
+					defaultEndTime={text('defaultEndTime', '18:00', CATEGORIES.ranges)}
+					userModeOptions={object(
+						'userModeOptions',
+						{
+							everyone: 'Everyone',
+							working: 'Working',
+							me: 'Me'
+						},
+						CATEGORIES.modes
+					)}
+					userMode={text('userMode', userMode, CATEGORIES.modes)}
+					headerDateFormat={text(
+						'headerDateFormat',
+						'MMMM YYYY',
+						CATEGORIES.formatting
+					)}
+					mobileHeaderDateFormat={text(
+						'mobileHeaderDateFormat',
+						'MMMM Do, YYYY',
+						CATEGORIES.formatting
+					)}
+					eventTimeFormat={text(
+						'eventTimeFormat',
+						'h:mma',
+						CATEGORIES.formatting
+					)}
+					longPressDelay={number(
+						'longPressDelay',
+						500,
+						{},
+						CATEGORIES.interactions
+					)}
+					doubleClickToCreate={boolean(
+						'doubleClickToCreate',
+						false,
+						CATEGORIES.interactions
+					)}
+					doubleClickTime={number(
+						'doubleClickTime',
+						250,
+						{},
+						CATEGORIES.interactions
+					)}
+					userSchedules={object(
+						'userSchedules',
+						{
+							'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff': {
+								[today.format('YYYY-MM-DD')]: {
+									startTime: '10:00',
+									endTime: '18:00'
+								}
+							},
+							'909beac7-42f7-443f-bd86-c762705c0c18': {
+								[today.format('YYYY-MM-DD')]: {
+									startTime: '08:00',
+									endTime: '16:00'
+								}
+							},
+							'ce914128-c77c-40fa-b5ef-d6faa3ed26a1': {
+								[today.format('YYYY-MM-DD')]: {
+									startTime: '11:00',
+									endTime: '19:00'
+								}
 							}
 						},
-						'909beac7-42f7-443f-bd86-c762705c0c18': {
-							[today.format('YYYY-MM-DD')]: {
-								startTime: '08:00',
-								endTime: '16:00'
-							}
-						},
-						'ce914128-c77c-40fa-b5ef-d6faa3ed26a1': {
-							[today.format('YYYY-MM-DD')]: {
-								startTime: '11:00',
-								endTime: '19:00'
-							}
+						CATEGORIES.schedules
+					)}
+					viewProps={{
+						day: {
+							newEventDefaultDuractionSec: number(
+								'viewProps.day.newEventDefaultDuractionSec',
+								900 * 4,
+								{},
+								CATEGORIES.dayView
+							),
+							allowResizeToZeroDurationBlocks: boolean(
+								'viewProps.day.allowResizeToZeroDurationBlocks',
+								true,
+								CATEGORIES.dayView
+							),
+							allowResizeFirstBlockToZeroDuration: boolean(
+								'viewProps.day.allowResizeFirstBlockToZeroDuration',
+								false,
+								CATEGORIES.dayView
+							),
+							dragThreshold: number(
+								'viewProps.day.dragThreshold',
+								10,
+								{},
+								CATEGORIES.dayView
+							),
+							dragScrollSpeed: number(
+								'viewProps.day.dragScrollSpeed',
+								5,
+								{},
+								CATEGORIES.dayView
+							),
+							timeGutterFormat: text(
+								'viewProps.day.timeGutterFormat',
+								'ha',
+								CATEGORIES.dayView
+							),
+							scrollDuringDragMargin: number(
+								'viewProps.day.scrollDuringDragMargin',
+								50,
+								{},
+								CATEGORIES.dayView
+							)
 						}
-					},
-					CATEGORIES.schedules
-				)}
-				viewProps={{
-					day: {
-						newEventDefaultDuractionSec: number(
-							'viewProps.day.newEventDefaultDuractionSec',
-							900 * 4,
-							{},
-							CATEGORIES.dayView
-						),
-						allowResizeToZeroDurationBlocks: boolean(
-							'viewProps.day.allowResizeToZeroDurationBlocks',
-							true,
-							CATEGORIES.dayView
-						),
-						allowResizeFirstBlockToZeroDuration: boolean(
-							'viewProps.day.allowResizeFirstBlockToZeroDuration',
-							false,
-							CATEGORIES.dayView
-						),
-						dragThreshold: number(
-							'viewProps.day.dragThreshold',
-							10,
-							{},
-							CATEGORIES.dayView
-						),
-						dragScrollSpeed: number(
-							'viewProps.day.dragScrollSpeed',
-							5,
-							{},
-							CATEGORIES.dayView
-						),
-						timeGutterFormat: text(
-							'viewProps.day.timeGutterFormat',
-							'ha',
-							CATEGORIES.dayView
-						),
-						scrollDuringDragMargin: number(
-							'viewProps.day.scrollDuringDragMargin',
-							50,
-							{},
-							CATEGORIES.dayView
-						)
-					}
-				}}
-				onDoubleClickView={this.handleDoubleClickView}
-				onClickView={this.handleClickView}
-				onChangeUserMode={this.handleUserModeChange}
-				ref={this.bigCalRef}
-				onDropEvent={this.handleDropEvent}
-			/>
+					}}
+					onDoubleClickView={this.handleDoubleClickView}
+					onClickView={this.handleClickView}
+					onChangeUserMode={this.handleUserModeChange}
+					ref={this.bigCalRef}
+					onDropEvent={this.handleDropEvent}
+				/>
+				<ToastWrapper toasts={toasts} handleRemove={this.removeToast} />
+			</div>
 		)
 	}
 }

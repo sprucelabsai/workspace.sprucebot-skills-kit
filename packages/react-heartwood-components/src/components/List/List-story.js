@@ -6,7 +6,6 @@ import {
 	withKnobsOptions,
 	text,
 	boolean,
-	number,
 	object
 } from '@storybook/addon-knobs/react'
 import {
@@ -20,15 +19,11 @@ import ListItem from './components/ListItem/ListItem'
 import Icon from '../Icon/Icon'
 import Tabs from '../Tabs/Tabs'
 import SortableList from './components/SortableList/SortableList'
-import EditIcon from '../../../static/assets/icons/Interface-Essential/Edit/pencil-write.svg'
 import DateIcon from '../../../static/assets/icons/Interface-Essential/Date/Calendar/calendar-date.svg'
 import CalendarIcon from '../../../static/assets/icons/Interface-Essential/Date/Calendar/calendar-3.svg'
 import ArrowForward from '../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../static/assets/icons/ic_arrow_back.svg'
-import {
-	singleAction,
-	threeTextActions
-} from '../../../.storybook/data/actions'
+import { threeTextActions } from '../../../.storybook/data/actions'
 
 const stories = storiesOf('List', module)
 
@@ -38,8 +33,6 @@ type TabbedState = {
 	tabs: Array<Object>,
 	activeTabIndex: number
 }
-
-const TestPanel = () => <div>Test Panel</div>
 
 class TabbedList extends Component<TabbedProps, TabbedState> {
 	state = {
@@ -68,7 +61,7 @@ class TabbedList extends Component<TabbedProps, TabbedState> {
 	}
 
 	render() {
-		const { users, tabs, activeTabIndex } = this.state
+		const { tabs, activeTabIndex } = this.state
 
 		return (
 			<ListWrapper>

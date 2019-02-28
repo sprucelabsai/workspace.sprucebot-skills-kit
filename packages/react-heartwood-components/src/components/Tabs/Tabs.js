@@ -6,7 +6,6 @@ import cx from 'classnames'
 import Tab from './components/Tab/Tab'
 import type { Props as TabProps } from './components/Tab/Tab'
 import ContextMenu from '../ContextMenu/ContextMenu'
-import Button from '../Button/Button'
 
 export type Props = {
 	/** The tabs for this group */
@@ -19,7 +18,7 @@ export type Props = {
 	isTruncatable?: boolean,
 
 	/** Optional class to add to the tab group */
-	className?: String
+	className?: string
 }
 
 //TODO properly define State type
@@ -99,6 +98,7 @@ export default class Tabs extends Component<Props> {
 	}
 
 	handleMeasurement = () => {
+		// TODO: Make this fire when sidebars change
 		const wrapper = this.tabGroup
 		const wrapperWidth = wrapper.offsetWidth
 		const contextTabWidth = this.contextTab.offsetWidth

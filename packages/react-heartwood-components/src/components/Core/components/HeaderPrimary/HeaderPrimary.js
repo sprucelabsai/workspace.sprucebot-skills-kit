@@ -6,10 +6,7 @@ import Hamburger from './components/Hamburger/Hamburger'
 import DefaultLockup from './components/DefaultLockup/DefaultLockup'
 import UserMenu from './components/UserMenu/UserMenu'
 import LocationMenu from './components/LocationMenu/LocationMenu'
-import { Autosuggest } from '../../../Forms'
 import Button from '../../../Button/Button'
-import Card from '../../../Card'
-import List from '../../../List'
 import cx from 'classnames'
 
 type State = {
@@ -33,23 +30,14 @@ type Props = {
 	/** Set true to show the sidebar (small screens only) */
 	isSidebarVisible: boolean,
 
-	/** Passthrough function to calculate search suggestions */
-	getSearchSuggestions?: Function,
-
-	/** Passthrough function to show search suggestion value */
-	getSearchSuggestionValue?: Function,
-
-	/** Passthrough function to render search suggestions */
-	renderSearchSuggestion?: Function,
-
-	/** Passthrough called every time suggestion is selected */
-	onSearchSuggestionSelected?: Function,
-
 	/** Whether or not we will need to handle hamburger functionality */
 	enableHamburgerMenu: boolean,
 
 	/** Placeholder text for the search field */
 	searchPlaceholder?: string,
+
+	/** Handle search click */
+	onClickSearch?: Function,
 
 	/** Set true to show location management shortcut */
 	isLocationManagmentButtonVisible?: boolean,
@@ -102,6 +90,10 @@ export default class HeaderPrimary extends Component<Props, State> {
 				() => this.manageListeners()
 			)
 		}
+	}
+
+	handleSearchClick = () => {
+		this.props.onClickSearch && this.props.onClickSearch()
 	}
 
 	toggleUserMenuVisibility = () => {
@@ -157,7 +149,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 					<div className="header-primary__organization">
 						{organization.image && (
 							<div
-								class="header-primary__organization-image"
+								className="header-primary__organization-image"
 								style={{ backgroundImage: `url(${organization.image})` }}
 							/>
 						)}
@@ -171,11 +163,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 	}
 
 	render() {
-		const {
-			isMenuExpanded,
-			isUserMenuVisible,
-			isLocationMenuVisible
-		} = this.state
+		const { isUserMenuVisible, isLocationMenuVisible } = this.state
 
 		const {
 			user,
@@ -183,10 +171,6 @@ export default class HeaderPrimary extends Component<Props, State> {
 			location,
 			toggleSidebarVisibility,
 			isSidebarVisible,
-			getSearchSuggestions,
-			getSearchSuggestionValue,
-			onSearchSuggestionSelected,
-			renderSearchSuggestion,
 			enableHamburgerMenu,
 			searchPlaceholder,
 			isLocationManagmentButtonVisible,
@@ -235,18 +219,12 @@ export default class HeaderPrimary extends Component<Props, State> {
 									/>
 								</div>
 							)}
-							{getSearchSuggestionValue && renderSearchSuggestion && (
-								<Autosuggest
-									className="text-input-small"
-									placeholder={searchPlaceholder}
-									isSmall
-									wrapperClassName="header-primary__autosuggest"
-									getSuggestions={getSearchSuggestions}
-									getSuggestionValue={getSearchSuggestionValue}
-									renderSuggestion={renderSearchSuggestion}
-									onSuggestionSelected={onSearchSuggestionSelected}
-								/>
-							)}
+							<Button
+								text={searchPlaceholder}
+								icon={{ name: 'search' }}
+								className="header-primary__search-btn"
+								onClick={this.handleSearchClick}
+							/>
 							<UserMenu
 								menuIsVisible={isUserMenuVisible}
 								toggleMenu={this.toggleUserMenuVisibility}

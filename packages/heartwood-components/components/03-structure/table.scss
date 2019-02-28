@@ -55,8 +55,9 @@
 
 	&.table-header-row--has-selections {
 		display: flex;
-		.table-header-cell:nth-child(n + 3) {
-			display: none;
+
+		.table-header-cell {
+			white-space: nowrap;
 		}
 	}
 }
@@ -128,6 +129,14 @@
 	padding-left: spacing('base');
 }
 
-.table-loader {
+.table-loader,
+.table-loader--is-visible {
 	display: none;
+}
+
+.table__no-results-message {
+	@include type-style-body-sm;
+	padding-top: spacing('base');
+	padding-right: spacing('base');
+	padding-left: spacing('base');
 }

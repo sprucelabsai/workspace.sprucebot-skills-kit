@@ -2,9 +2,7 @@
 import React from 'react'
 import StarIcon from '../../../../../static/assets/icons/Social-Medias-Rewards-Rating/Rating/rating-star-1.svg'
 
-type Props = {}
-
-const Stars = (props: Props) => {
+const Stars = () => {
 	return (
 		<div className="stars">
 			<label className="star-input__wrapper">

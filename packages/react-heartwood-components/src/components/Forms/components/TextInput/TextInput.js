@@ -20,7 +20,7 @@ type Props = {
 	kind?: string,
 
 	/** Optional icon to show in the input */
-	iconBefore?: any,
+	iconBefore?: string,
 
 	/** Optional icon to show at the end of the input */
 	iconAfter?: any,

@@ -1,6 +1,5 @@
 // @flow
-import React from 'react'
-import type { Node } from 'react'
+import React, { Fragment } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button from '../../../Button/Button'
@@ -18,6 +17,9 @@ export type Props = {
 	/** Optional subtitle text */
 	subtitle?: string,
 
+	/** Optional note text */
+	note?: string,
+
 	/** URL to show a user avatar */
 	avatar?: string,
 
@@ -27,11 +29,20 @@ export type Props = {
 	/** Inline svg icon */
 	icon?: Object,
 
+	/** Set true to add left spacing. useful in aligning with other list items that have icons or images */
+	isLeftIndented?: boolean,
+
 	/** Set true when the list can be reordered */
 	isDraggable?: boolean,
 
+	/** Set true when the list can be reordered */
+	isDisabled?: boolean,
+
 	/** Makes the list item a setting */
 	toggleId?: string,
+
+	/** A primary action that turns the entire list item into a clickable button */
+	primaryAction?: ButtonProps,
 
 	/** Actions associated with the list item */
 	actions?: Array<ButtonProps>,
@@ -40,30 +51,44 @@ export type Props = {
 	contextMenu?: ContextMenuProps,
 
 	/** Props passed to the toggle when it is used */
-	toggleProps?: Object
+	toggleProps?: Object,
+
+	/** Set to true to show separator for this list item if followed by another list item. */
+	isSeparatorVisible: boolean,
+
+	/** Optional class name for list item */
+	className?: string
 }
 
 const ListItem = (props: Props) => {
 	const {
 		title,
 		subtitle,
+		note,
 		avatar,
 		image,
 		icon,
 		isDraggable,
+		isDisabled,
 		toggleId,
+		primaryAction,
 		actions,
 		contextMenu,
-		toggleProps
+		toggleProps,
+		isSeparatorVisible,
+		className
 	} = props
 
-	const parentClass = cx('list-item', {
+	const parentClass = cx('list-item', className, {
 		'list-item-title-only': !subtitle,
-		'list-item--is-draggable': isDraggable
+		'list-item--is-draggable': isDraggable,
+		'list-item--is-disabled': isDisabled,
+		'list-item--primary-action': primaryAction,
+		'list-item--separator-hidden': !isSeparatorVisible
 	})
 
-	return (
-		<li className={parentClass}>
+	const ListItemInner = () => (
+		<Fragment>
 			{(image || icon || avatar) && !isDraggable && (
 				<div className="list-item__image-wrapper">
 					{icon && (
@@ -101,6 +126,12 @@ const ListItem = (props: Props) => {
 						dangerouslySetInnerHTML={{ __html: subtitle }}
 					/>
 				)}
+				{note && (
+					<p
+						className="list-item__note"
+						dangerouslySetInnerHTML={{ __html: note }}
+					/>
+				)}
 			</div>
 			{!isDraggable && ((actions && actions.length > 0) || contextMenu) && (
 				<div className="list-item__actions-wrapper">
@@ -120,6 +151,18 @@ const ListItem = (props: Props) => {
 				</div>
 			)}
 			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
+		</Fragment>
+	)
+
+	return (
+		<li className={parentClass}>
+			{primaryAction ? (
+				<Button {...primaryAction}>
+					<ListItemInner />
+				</Button>
+			) : (
+				<ListItemInner />
+			)}
 		</li>
 	)
 }
@@ -132,6 +175,7 @@ ListItem.defaultProps = {
 	isDraggable: false,
 	toggleId: '',
 	actions: [],
+	isSeparatorVisible: true,
 	toggleProps: {}
 }
 

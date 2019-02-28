@@ -9,6 +9,7 @@ module.exports = {
 	plugins: ['react', 'flowtype', 'prettier'],
 	rules: {
 		curly: 'error',
+		'flowtype/generic-spacing': 'off',
 		'react/jsx-no-undef': 'error',
 		'no-console': 'off',
 		'no-undef': 'error',

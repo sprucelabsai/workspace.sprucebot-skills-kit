@@ -44,6 +44,9 @@ module.exports = (sequelize, DataTypes) => {
 		isPublic: {
 			type: DataTypes.STRING
 		},
+		storeNum: {
+			type: DataTypes.STRING
+		},
 		geo: {
 			type: config.TESTING ? 'JSON' : 'POINT',
 			get() {

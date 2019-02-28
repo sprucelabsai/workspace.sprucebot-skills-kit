@@ -22,7 +22,7 @@ export type Props = {
 	status?: 'online' | 'offline',
 
 	/** Name of this person. */
-	name?: string,
+	name?: string | Node,
 
 	/** Optional additinal text to show below name. */
 	text?: string,

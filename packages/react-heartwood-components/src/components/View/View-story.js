@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../.storybook/StylesProvider'
 import user01image from '../../../static/assets/users/user-01--96w.png'
 import { Sidebar, SidebarSection } from '../Core'
@@ -10,20 +10,14 @@ import Button from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import Page from '../Page/Page'
-import PageHeader from '../Page/components/PageHeader/PageHeader'
-import PageContent from '../Page/components/PageContent/PageContent'
-import Layout, { LayoutSection } from '../../components/Layout'
-import TextContainer from '../TextContainer/TextContainer'
-import Text from '../Text/Text'
 import TextStyle from '../TextStyle/TextStyle'
 import Heading from '../Heading/Heading'
-import Subheading from '../Subheading/Subheading'
-import Icon from '../Icon/Icon'
 import Avatar from '../Avatar/Avatar'
 import SaveBar from '../Core/components/SaveBar/SaveBar'
+import FeedBuilder from '../Core/components/FeedBuilder/FeedBuilder'
+import { generateMessages } from '../../../.storybook/data/feed'
 
 import View from './View.js'
-import simple from 'graphql-query-complexity/dist/estimators/simple'
 
 const ProvideStyles = storyFn => <StylesProvider>{storyFn()}</StylesProvider>
 
@@ -114,9 +108,10 @@ const user = {
 	tel: '(605) 230-5253'
 }
 
-const business = {
+const organization = {
 	name: 'Chimera Hair Salon',
-	address: '7678 N High St, Denver, CO'
+	image:
+		'https://www.logoground.com/uploads/2018130762018-04-113965123chimera%20logo%20chimera%20logo.jpg'
 }
 
 const skillViewTabs = [
@@ -129,13 +124,13 @@ const skillViewTabs = [
 	}
 ]
 
-type Props = {}
-type State = {
+type SkillViewProps = {}
+type SkillViewState = {
 	sidebarsExpanded: Object,
 	sidebarsMobileExpanded: Object
 }
 
-class SkillViewExample extends Component<Props, State> {
+class SkillViewExample extends Component<SkillViewProps, SkillViewState> {
 	state = {
 		sidebarsExpanded: {
 			right: true,
@@ -218,7 +213,7 @@ class SkillViewExample extends Component<Props, State> {
 				STORYBOOKdoNotWrap
 				sidebarItems={orgItems}
 				user={user}
-				business={business}
+				organization={organization}
 				isSidebarExpanded={sidebarsExpanded.left}
 				isSidebarMobileExpanded={sidebarsMobileExpanded.left}
 				toggleSidebarExpanded={() => this.handleSidebarToggle('left')}
@@ -304,7 +299,7 @@ stories
 			STORYBOOKdoNotWrap
 			sidebarItems={personalItems}
 			user={user}
-			business={business}
+			organization={organization}
 			isSidebarExpanded
 		>
 			<Page
@@ -319,7 +314,7 @@ stories
 			STORYBOOKdoNotWrap
 			sidebarItems={personalItems}
 			user={user}
-			business={business}
+			organization={organization}
 			isSidebarExpanded
 		>
 			<Page
@@ -331,62 +326,70 @@ stories
 		</View>
 	))
 	.add('Skill View', () => <SkillViewExample STORYBOOKdoNotWrap />)
-	.add('Guest Profile', () => (
-		<View
-			STORYBOOKdoNotWrap
-			sidebarItems={bizItems}
-			user={user}
-			business={business}
-			isSidebarExpanded
-		>
-			<Page hasSidebar>
-				<Sidebar isLarge isCollapsible={false} side="right">
-					<SidebarSection
-						isCentered
-						verticalSpacing="loose"
-						horizontalSpacing="loose"
-					>
-						<Avatar
-							isLarge
+	.add('Guest Profile', () => {
+		let messages = generateMessages({ count: 50, interval: 31 })
+		return (
+			<View
+				STORYBOOKdoNotWrap
+				sidebarItems={bizItems}
+				user={user}
+				business={organization}
+				isSidebarExpanded
+			>
+				<Page hasSidebar>
+					<FeedBuilder
+						messages={messages}
+						messageCount={50}
+						onRowsRequested={() => null}
+					/>
+					<Sidebar isLarge isCollapsible={false} side="right">
+						<SidebarSection
 							isCentered
-							image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
-						/>
-						<Heading>
-							<TextStyle type="strong">Dorian Feeney</TextStyle>
-						</Heading>
-					</SidebarSection>
-					<SidebarSection horizontalSpacing="loose" className="u-flex-row">
-						<Button
-							isSmall
-							kind="secondary"
-							className="u-flex-child-grow"
-							text="Call Dorian"
-							icon={{
-								name: 'phone',
-								isLineIcon: true
-							}}
-						/>
-						<ContextMenu
-							isSmall
-							className="u-ml-tight"
-							actions={[
-								{
-									text: 'One action'
-								},
-								{
-									text: 'two action'
-								},
-								{
-									text: 'red action'
-								},
-								{
-									text: 'blue action'
-								}
-							]}
-							isSimple
-						/>
-					</SidebarSection>
-				</Sidebar>
-			</Page>
-		</View>
-	))
+							verticalSpacing="loose"
+							horizontalSpacing="loose"
+						>
+							<Avatar
+								isLarge
+								isCentered
+								image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
+							/>
+							<Heading>
+								<TextStyle type="strong">Dorian Feeney</TextStyle>
+							</Heading>
+						</SidebarSection>
+						<SidebarSection horizontalSpacing="loose" className="u-flex-row">
+							<Button
+								isSmall
+								kind="secondary"
+								className="u-flex-child-grow"
+								text="Call Dorian"
+								icon={{
+									name: 'phone',
+									isLineIcon: true
+								}}
+							/>
+							<ContextMenu
+								isSmall
+								className="u-ml-tight"
+								actions={[
+									{
+										text: 'One action'
+									},
+									{
+										text: 'two action'
+									},
+									{
+										text: 'red action'
+									},
+									{
+										text: 'blue action'
+									}
+								]}
+								isSimple
+							/>
+						</SidebarSection>
+					</Sidebar>
+				</Page>
+			</View>
+		)
+	})

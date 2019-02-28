@@ -2,6 +2,8 @@
 import React from 'react'
 import cx from 'classnames'
 
+import type { Node } from 'react'
+
 export type TextContainerProps = {
 	/** Contents of the component. */
 	children: Node,

@@ -1,88 +1,40 @@
-# workspace.sprucebot-skills-kit
-Lerna workspace for managing skills kit dependencies
+# Spruce Skills Kit
 
-```
-├── node_modules/
-├── packages
-│   ├── sprucebot-skills-kit
-│   ├── sprucebot-skills-kit-server
-│   ├── sprucebot-node
-│   └── react-sprucebot
-├── CHANGELOG.md
-├── README.md
-├── lerna.json
-├── package.json
-└── yarn.lock
-```
+Hey Skill Developer 👋.
 
-## Setup
-1. `git clone` this repo
-1. `cd workspace.sprucebot-skills-kit`
-1. `git clone` the repos defined in `package.json.workspaces[**]` *TODO - sprucebot-cli could do this for us and setup upstream branches etc*
-1. `yarn install` to install all the dependencies defined in all the cloned workspaces
-1. `cd packages/sprucebot-skills-kit && sprucebot skill register`
-1. `cd ../../`
-1. `yarn local` to start the skills kit using pm2
+# TLDR;
 
-## Workspace Scripts Available
-* `yarn local` - Start the pm2 ecosystem that starts the skills kit
-* `yarn log` - Tail the pm2 ecosystem log
-* `yarn stop` - Stop the skills kit server from `yarn local`
+A Skill is a "micro-app". That is, a bit of functionality hyper focused on a single use-case. It consists of a `server` and an `interface`. Together, with `events` and `messages`, Skills can connect people in whole new ways.
 
-## Contributing
-We use the [Angular Git Commit Guidelines](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines) to manage our semantic releases and changelog.
-* Open Pull Requests to the `dev` branch
-* Commits are automatically linted using `commitlint` with a husky git hook.
-* [Commitizen](https://www.npmjs.com/package/commitizen) can easily configured to format commit message
+# Sprucebot skills manifesto
 
-## Semantic Releases
-* We automatically release from `master` branch using [semantic-release](https://github.com/semantic-release/semantic-release) and [semantic-release-monorepo](https://github.com/Updater/semantic-release-monorepo)
-* Changes to each `package/` are automatically detected and we only release packages with changes
-* The angular commit messages used to determine if the changes are `patch`, `minor`, or `marjor`
+Skills are programs with a purpose: [human-to-human connection](https://vimeo.com/204933933).
 
-| Commit message                                                                                                                                                                                   | Release type               |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
-| `fix(ticket): fix bug to create patch`                                                                                                                             | Patch Release              |
-| `feat(ticket): add new feature is a minor release`                                                                                                                                                       | ~~Minor~~ Feature Release  |
-| `perf(ticket): remove graphiteWidth option`<br><br>`BREAKING CHANGE: This block will trigger major release` | ~~Major~~ Breaking Release |
+They accomplish this in one of two ways:
 
-#### Default rules matching
+1. Automation - tech runs the show, people enable
+2. Augmentation - people run the show, tech enables
 
-If a commit doesn't match any rule in `releaseRules` it will be evaluated against the.
+## Automation
 
-With the previous example:
-- Commits with a breaking change will be associated with a `Major` release.
-- Commits with `type` 'feat' will be associated with a `minor` release.
-- Commits with `type` 'fix' will be associated with a `patch` release.
-- Commits with `type` 'perf' will be associated with a `patch` release.
+Lets say there is a lady named Becca. She nerds the f\*\*k out over fashion. So, she decided to open a menswear boutique. She loves it. But, do you know what she didn't expect? That she'd be spending all her time doing boring admin work. There are so many aspects of running a business that need to be automated, it literally warranted this document being created.
 
-#### No rules matching
+## Augmentation
 
-If a commit doesn't match any rules in `releaseRules` then no release type will be associated with the commit.
+Good augmentation is much harder to achieve than good automation. Automation comes natural. You think, "What processes can I get rid of?" Augmentation is the opposite. The question becomes, "What processes can I enhance?" When considering augmentation, it helps to think about the things a human brain can't do well (e.g. remembering names or personal details of 100 people a day) and what it can do well (e.g. solve complex social issues in real time).
 
-With the previous example:
-- Commits with `type` 'style' will not be associated with a release type.
-- Commits with `type` 'test' will not be associated with a release type.
-- Commits with `type` 'chore' will not be associated with a release type.
+## Making small business successful
 
-#### Multiple commits
+This two pronged approach is the crux of our small business strategy. We want Becca to be able to focus on fashion, not all that other stuff. But, Becca's boutique needs more than good automation to succeed. She needs to be:
 
-If there is multiple commits that match one or more rules, the one with the highest release type will determine the global release type.
+## Un-Amazon'able
 
-Considering the following commits:
-- `docs(SB-xxx): Add more details to the API docs`
-- `feat(SB-xxx): Add a new method to the public API`
+Amazon rocks, doesn't it? Pretty much everything you need, basement prices, delivered right to your door. If Becca tried to compete with Amazon, she'd get smoked. She's gotta focus on the things that make brick-and-mortar unique. This means she needs to be building human-to-human relationships.
 
-With the previous example the release type determine by the plugin will be `minor`.
+You've never logged into Amazon, had it say, "Welcome back \${firstName}" and thought to yourself, "Wow, that was nice!" But, when you walk into your favorite boutique, coffee shop, outdoor shop, barbershop, or salon and are welcomed by name, everything changes.
 
-### Manual Release Process
-The idea here is we need to rebase the changes in `dev` onto the `master` branch. Since we rely on commit messages in our `semantic-release`, we can't apply a merge commit.
-The recommended flow is as follows assuming `master` is in synch with `dev`.
+## Promote human-to-human connection
 
-1. Developer opens a `feat|fix` PR
-1. When the PR is approved, we can either `rebase` or `squash and merge` into `dev`
-    1. Notice a new canary was released via `npm view sprucebot-skills-kit@prerelease`
-1. Once dev is ready, we open a new PR from `dev` into `master`
-1. Rebase `dev` into master, preserving commit messages
-    1. Notice a new release was triggered `npm view sprucebot-skills-kit@latest`
-1. Once `master` has released, rebase `master` back into `dev`
+Not only does your skill need to connect people, it needs to know when to back out. Relationships, true relationships, are built without a middleman.
+
+_"Remember that a person's name is, to that person, the sweetest and most important sound in any language."_ - Dale Carnegie

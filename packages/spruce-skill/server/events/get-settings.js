@@ -8,7 +8,10 @@ module.exports = async (ctx, next) => {
 			throw new Error('INVALID_PAYLOAD')
 		}
 
-		const userId = ctx.event.payload.userId
+		const { auth } = ctx
+		const userId = auth.User && auth.User.id
+		const organizationId = auth.Organization && auth.Organization.id
+		const locationId = auth.Location && auth.Location.id
 
 		/*
 			ctx.utilities.settings.getSettings() is a helper method that will:
@@ -19,6 +22,8 @@ module.exports = async (ctx, next) => {
 			page: ctx.event.payload.page,
 			settings: config.settings, // Define your settings in config/settings.js
 			userId,
+			organizationId,
+			locationId,
 			overrides: [
 				// Override certain settings values here. A use case here is localization.
 				{

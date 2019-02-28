@@ -3,6 +3,61 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.11.0...v8.12.0) (2019-02-27)
+
+
+### Features
+
+* docsify ([b70a8ac](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b70a8ac))
+
+
+
+
+
+# [8.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.1...v8.11.0) (2019-02-19)
+
+
+### Bug Fixes
+
+* **eslint:** Comment out lint issues that are probably there for illustrative purposes ([881a263](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/881a263))
+* **eslint:** Take first pass at spruce-skill linting issues ([bf94fe8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bf94fe8))
+* Add .editorconfigs targetting all files ([dd2bfa3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dd2bfa3))
+* await next() in auth middleware ([244c7ea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/244c7ea))
+* path to component after merge ([19ba425](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/19ba425))
+* use proper directory (build/) when running in non-local environment ([21117ff](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/21117ff))
+* **skill-view:** Get _document config from next/config rather than props ([27fef76](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/27fef76))
+* **skills:** GQL, set token in constructor for subscriptions ([781a4c6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/781a4c6))
+
+
+### Features
+
+* attach locationId, organizationId, and jwt to authV2 ([ebc50ef](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ebc50ef))
+* FileItem core model ([3ae03b0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3ae03b0))
+* Implement upload service for images along with example upload controller and Dropzone integration ([1b396f3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1b396f3))
+* integrate gql client ([4cb714f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4cb714f))
+* organization and location gql ([e18d641](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e18d641))
+* **eslint:** Add spruce eslint to spruce-skill ([2e93254](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2e93254))
+* settings helper to make fetch easy ([3b87bcb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3b87bcb))
+* **spruce-skill:** Add example of requesting that Core show a toast ([995b5e1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/995b5e1))
+* pass ctx to sequelize models ([e298ae6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e298ae6))
+* register w/ skill view version ([cbf281a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cbf281a))
+* setToken for gql so auth does not need to be passed with each request ([f33be7b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f33be7b))
+* Streamline builds and testing ([ea635b7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ea635b7))
+* subscriptions from skill to external graphql server ([7524b32](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7524b32))
+* validate skill settings ([230082f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/230082f))
+* view version ([1a758ef](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1a758ef))
+* **spruce-skill:** Support Skill View Dialogs in Core ([8516ad0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8516ad0))
+
+
+### Refactoring
+
+* remove change to package.json ([287265c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/287265c))
+* Use a button group in the example ([a4e5631](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a4e5631))
+
+
+
+
+
 ## [8.10.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.0...v8.10.1) (2019-01-04)
 
 **Note:** Version bump only for package @sprucelabs/spruce-skill

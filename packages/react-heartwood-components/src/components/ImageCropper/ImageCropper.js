@@ -39,8 +39,8 @@ type State = {
 
 export default class ImageCropper extends Component<Props, State> {
 	state = {
-		scale: 0.5,
-		sliderValue: 50,
+		scale: 1,
+		sliderValue: 0,
 		rotate: 0,
 		isSubmitting: false
 	}
@@ -49,7 +49,7 @@ export default class ImageCropper extends Component<Props, State> {
 		const newVal = e.currentTarget.value
 
 		this.setState({
-			scale: newVal / 100,
+			scale: newVal / 100 + 1,
 			sliderValue: newVal
 		})
 	}
@@ -93,7 +93,7 @@ export default class ImageCropper extends Component<Props, State> {
 							image={image}
 							width={width}
 							height={height}
-							scale={scale + 1}
+							scale={scale}
 							rotate={rotate}
 							border={0}
 							borderRadius={isCircular ? 100 : 0}

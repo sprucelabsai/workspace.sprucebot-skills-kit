@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.11.0...v8.12.0) (2019-02-27)
+
+**Note:** Version bump only for package @sprucelabs/spruce-next-helpers
+
+
+
+
+
+# [8.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.1...v8.11.0) (2019-02-19)
+
+
+### Bug Fixes
+
+* Add .editorconfigs targetting all files ([dd2bfa3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dd2bfa3))
+* **skill-view:** Get _document config from next/config rather than props ([27fef76](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/27fef76))
+
+
+### Features
+
+* add FontLoader to PageWrapper ([cc7b7cd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc7b7cd))
+* Implement upload service for images along with example upload controller and Dropzone integration ([1b396f3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1b396f3))
+* integrate gql client ([4cb714f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4cb714f))
+* remove spread operators ([e1abb79](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e1abb79))
+* settings helper to make fetch easy ([3b87bcb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3b87bcb))
+* Streamline builds and testing ([ea635b7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ea635b7))
+
+
+
+
+
 ## [8.10.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.0...v8.10.1) (2019-01-04)
 
 **Note:** Version bump only for package @sprucelabs/spruce-next-helpers

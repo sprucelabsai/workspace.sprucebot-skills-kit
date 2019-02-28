@@ -3,7 +3,8 @@ const path = require('path')
 const { pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
-const cards = require('./cards')
+const settings = require('./settings')
+
 const packageJSON = require('../package.json')
 const HEARTWOOD_VERSION = encodeURIComponent(
 	require('@sprucelabs/heartwood-components').version
@@ -23,7 +24,6 @@ const baseDirectory =
 		: `${__dirname}/../build`
 
 module.exports = {
-	cards: cards,
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
 	EVENT_VERSION: process.env.EVENT_VERSION ? +process.env.EVENT_VERSION : 1,
@@ -80,6 +80,7 @@ module.exports = {
 	TESTING: process.env.TESTING === 'true',
 	scopes: require('./scopes'),
 	auth: require('./auth'),
+	settings,
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
 		requests: {

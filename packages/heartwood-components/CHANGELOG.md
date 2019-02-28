@@ -3,6 +3,81 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.12.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.11.0...v8.12.0) (2019-02-27)
+
+
+### Features
+
+* **Icons:** added Empty Box and No Matches icons ([8868ca0](https://github.com/sprucelabsai/sprucebot-heartwood/commit/8868ca0))
+
+
+
+
+
+# [8.11.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.10.1...v8.11.0) (2019-02-19)
+
+
+### Bug Fixes
+
+* **dev:** Correct yarn watches for heartwood ([296e7bb](https://github.com/sprucelabsai/sprucebot-heartwood/commit/296e7bb))
+* **tables:** Basic style for no records label, hide "loading" loader state ([5a8f237](https://github.com/sprucelabsai/sprucebot-heartwood/commit/5a8f237))
+
+
+### Features
+
+* add component ([6f369b3](https://github.com/sprucelabsai/sprucebot-heartwood/commit/6f369b3))
+* add date headers ([8df0bd8](https://github.com/sprucelabsai/sprucebot-heartwood/commit/8df0bd8))
+* add date range select to DatePicker ([3877c8d](https://github.com/sprucelabsai/sprucebot-heartwood/commit/3877c8d))
+* add example of the feed builder ([192ced9](https://github.com/sprucelabsai/sprucebot-heartwood/commit/192ced9))
+* add icon for more vertical ([0ad6f38](https://github.com/sprucelabsai/sprucebot-heartwood/commit/0ad6f38))
+* add media query to hide ([1258500](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1258500))
+* add more props ([31928c5](https://github.com/sprucelabsai/sprucebot-heartwood/commit/31928c5))
+* add section component for sidebar layouts with cards ([9d630b4](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9d630b4))
+* add z-index ([6bc1993](https://github.com/sprucelabsai/sprucebot-heartwood/commit/6bc1993))
+* adjust width rules and layout ([24d4cfc](https://github.com/sprucelabsai/sprucebot-heartwood/commit/24d4cfc))
+* convert FeedBuilder to component ([4bed986](https://github.com/sprucelabsai/sprucebot-heartwood/commit/4bed986))
+* fix color of undo ([75d7e20](https://github.com/sprucelabsai/sprucebot-heartwood/commit/75d7e20))
+* fix image removal with new from strategy ([59701d7](https://github.com/sprucelabsai/sprucebot-heartwood/commit/59701d7))
+* fix onboarding card tabs ([7b37a84](https://github.com/sprucelabsai/sprucebot-heartwood/commit/7b37a84))
+* fix tabs styling ([e95ff34](https://github.com/sprucelabsai/sprucebot-heartwood/commit/e95ff34))
+* format empty text ([8f74852](https://github.com/sprucelabsai/sprucebot-heartwood/commit/8f74852))
+* get reverse scroll, add count and callback to load more messages ([44c508e](https://github.com/sprucelabsai/sprucebot-heartwood/commit/44c508e))
+* hide sidebar children ([fd7cc84](https://github.com/sprucelabsai/sprucebot-heartwood/commit/fd7cc84))
+* improve spacing props ([1eeb40f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1eeb40f))
+* latest iteration that simulates loading in of new messages ([b8a9a95](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b8a9a95))
+* merge and resolve conflicts ([e01dea6](https://github.com/sprucelabsai/sprucebot-heartwood/commit/e01dea6))
+* reinstall with yarn ([919561f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/919561f))
+* remove bottom border from last list item ([a97b259](https://github.com/sprucelabsai/sprucebot-heartwood/commit/a97b259))
+* remove breakpoint ([a2d750a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/a2d750a))
+* remove comment ([83ca6de](https://github.com/sprucelabsai/sprucebot-heartwood/commit/83ca6de))
+* remove comment ([12b87b8](https://github.com/sprucelabsai/sprucebot-heartwood/commit/12b87b8))
+* resolve conflict ([f9e13c1](https://github.com/sprucelabsai/sprucebot-heartwood/commit/f9e13c1))
+* responsiveness to show/hide right sidebar ([2884954](https://github.com/sprucelabsai/sprucebot-heartwood/commit/2884954))
+* reverse message order and jump to bottom, update page styling when primary header is present ([de042d4](https://github.com/sprucelabsai/sprucebot-heartwood/commit/de042d4))
+* set position and dimensions for scrolling ([646c64e](https://github.com/sprucelabsai/sprucebot-heartwood/commit/646c64e))
+* start checking for date headers ([026730b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/026730b))
+* start styling ([c58ebd7](https://github.com/sprucelabsai/sprucebot-heartwood/commit/c58ebd7))
+* step back styling ([f551854](https://github.com/sprucelabsai/sprucebot-heartwood/commit/f551854))
+* Streamline builds and testing ([ea635b7](https://github.com/sprucelabsai/sprucebot-heartwood/commit/ea635b7))
+* styling ([3b7a179](https://github.com/sprucelabsai/sprucebot-heartwood/commit/3b7a179))
+* update components to support design for profile pages ([95d9999](https://github.com/sprucelabsai/sprucebot-heartwood/commit/95d9999))
+* update page header to work well with right sidebar ([b76628a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b76628a))
+* update styles and start hooking up new props ([9e357a5](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9e357a5))
+* **EmptyState:** base Empty State component [[SBL-1977](https://sprucelabsai.atlassian.net/browse/SBL-1977)] ([ebee0a4](https://github.com/sprucelabsai/sprucebot-heartwood/commit/ebee0a4))
+* **RecordSelectionList:** Allow for "unselectable" records ([1c8de7b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1c8de7b))
+* **spruce-skill:** Support Skill View Dialogs in Core ([8516ad0](https://github.com/sprucelabsai/sprucebot-heartwood/commit/8516ad0))
+* updatte colors ([3277193](https://github.com/sprucelabsai/sprucebot-heartwood/commit/3277193))
+
+
+### Refactoring
+
+* **pagedModal:** fix styling so title is centered only on paged modals ([9bef17a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9bef17a))
+* **pagedModal:** use source sans pro semi-bold ([b989866](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b989866))
+
+
+
+
+
 ## [8.10.1](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.10.0...v8.10.1) (2019-01-04)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components
