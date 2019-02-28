@@ -1,5 +1,9 @@
 - [Spruce Skill](/docs/spruce-skill/)
 
+  - [Upgrade Skill](/docs/spruce-skill/upgrade.md)
+
+    - [Upgrade to v8](/docs/spruce-skill/upgradeV8.md)
+
   - [Skills](/docs/spruce-skill/skills.md)
 
   - [Server](/docs/spruce-skill/server.md)

@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.11.0...v8.12.0) (2019-02-27)
+
+
+### Bug Fixes
+
+* **EmptyState:** exports Empty State component ([ae7fd4f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ae7fd4f))
+* **Table:** Correct busted logic that was breaking pagination ([4a249b0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4a249b0)), closes [#379](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/379)
+
+
+### Features
+
+* **EmptyState:** Adds new default for Empty State [[SBL-1996](https://sprucelabsai.atlassian.net/browse/SBL-1996)], new Empty State for filtered Record Tables [[SBL-2093](https://sprucelabsai.atlassian.net/browse/SBL-2093)], new Storybook stories for Empty State ([5f9e5f2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5f9e5f2))
+* **RecordSelectionList:** Support arbitrary data with getRecordId ([51d475d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51d475d))
+
+
+### Refactoring
+
+* **BigCalendar-story:** Uses the Toast component instead of alert ([1f3ec14](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1f3ec14))
+* **Table:** Sane default for the Empty State primary action button icon instead of the refresh icon ([a611052](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a611052))
+
+
+
+
+
 # [8.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.1...v8.11.0) (2019-02-19)
 
 
