@@ -1,15 +1,10 @@
 .card {
 	width: 100%;
-	padding-bottom: spacing('base');
 	background-color: $c-bg-light;
 	box-shadow: $dimension-floating;
 
 	&--centered {
 		text-align: center;
-	}
-
-	@include gt('small') {
-		padding-bottom: spacing('loose');
 	}
 
 	> img + * {
@@ -85,6 +80,7 @@
 }
 
 .card__body {
+	padding-bottom: spacing('base');
 	.text:not(a) {
 		color: $c-text-light;
 		line-height: $line-height-loose;
@@ -92,7 +88,7 @@
 	&:first-child {
 		padding-top: spacing('base');
 		@include gt('small') {
-			padding-top: spacing('loose');
+			padding: spacing('loose') 0 spacing('loose');
 		}
 	}
 }
