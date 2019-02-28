@@ -31,7 +31,6 @@ class Sprucebot {
 		eventContract = suggested('eventContract'),
 		version = 'unknown',
 		skillsKitVersion = 'unknown',
-		cards = suggested('cards'),
 		acl = suggested('acl'),
 		viewVersion = suggested('viewVersion')
 	}) {
@@ -44,7 +43,6 @@ class Sprucebot {
 		this.icon = svgIcon || required('svgIcon')
 		this.webhookUrl = (serverUrl || required('serverUrl')) + '/hook.json'
 		this.iframeUrl = interfaceUrl || required('interfaceUrl')
-		this.cards = cards || {}
 		this.acl = acl || {}
 		this.viewVersion = viewVersion || 1
 		this.marketingUrl =
@@ -94,7 +92,6 @@ class Sprucebot {
 			eventContract: this.eventContract,
 			version: this.version,
 			skillsKitVersion: this.skillsKitVersion,
-			cards: this.cards,
 			acl: this.acl,
 			viewVersion: this.viewVersion
 		}

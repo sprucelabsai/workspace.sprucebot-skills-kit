@@ -51,6 +51,7 @@ a.text {
 	color: $c-primary;
 	display: inline-flex;
 	align-items: center;
+	font-weight: inherit;
 	.icon {
 		&:not(.u-icon__no-fill) {
 			fill: $c-primary;

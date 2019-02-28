@@ -256,6 +256,7 @@ stories
 		<Fragment>
 			<Select
 				label={text('label', 'Country')}
+				placeholder={text('placeholder', 'Select something...')}
 				id={text('id', 'country')}
 				options={object('options', {
 					us: 'United States',

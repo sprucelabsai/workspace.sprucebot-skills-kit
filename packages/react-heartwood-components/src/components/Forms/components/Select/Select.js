@@ -20,6 +20,9 @@ type Props = {
 	/** Label text */
 	label?: string,
 
+	/** Optional text to be displayed as disabled placeholder option */
+	placeholder?: string,
+
 	/** Text after label */
 	postLabel?: string,
 
@@ -37,6 +40,7 @@ const Select = (props: Props) => {
 		isSimple,
 		className,
 		label,
+		placeholder,
 		postLabel,
 		error,
 		helper,
@@ -52,6 +56,11 @@ const Select = (props: Props) => {
 			{label && <InputPre id={id} label={label} postLabel={postLabel} />}
 			<div className={parentClass}>
 				<select {...rest}>
+					{placeholder && (
+						<option key="placeholder" disabled selected>
+							{placeholder}
+						</option>
+					)}
 					{Object.keys(options).map(key => (
 						<option value={key} key={`${key}`}>
 							{options[key]}

@@ -48,6 +48,7 @@ export {
 	FormLayoutGroup,
 	FormLayoutItem,
 	formatPhoneNumber,
+	formatPhoneNumberIntl,
 	isValidPhoneNumber,
 	DatePicker
 } from './components/Forms'
