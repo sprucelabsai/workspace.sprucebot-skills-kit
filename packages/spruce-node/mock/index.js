@@ -38,67 +38,11 @@ module.exports = class MockHttps {
 	async query(query) {
 		const result = await this.mockServer.query(query)
 		return result
-		// return new Promise((resolve, reject) => {
-		// const path = '/graphql'
-		// // API Key must go with each request
-		// const headers = {
-		// 	'x-skill-id': this.id,
-		// 	'x-skill-api-key': this.apiKey,
-		// 	'Content-Type': 'application/json'
-		// }
-
-		// const request = https.request(
-		// 	{
-		// 		method: 'POST',
-		// 		host: this.host,
-		// 		headers,
-		// 		rejectUnauthorized: !this.allowSelfSignedCerts,
-		// 		path
-		// 	},
-		// 	response => {
-		// 		this.handleResponse(request, response, resolve, reject)
-		// 	}
-		// )
-
-		// request.end(
-		// 	JSON.stringify({
-		// 		query
-		// 	})
-		// )
-		// })
 	}
 
 	async mutation(query) {
 		const result = await this.mockServer.query(query)
 		return result
-		// return new Promise((resolve, reject) => {
-		// 	const path = '/graphql'
-		// 	// API Key must go with each request
-		// 	const headers = {
-		// 		'x-skill-id': this.id,
-		// 		'x-skill-api-key': this.apiKey,
-		// 		'Content-Type': 'application/json'
-		// 	}
-
-		// 	const request = https.request(
-		// 		{
-		// 			method: 'POST',
-		// 			host: this.host,
-		// 			headers,
-		// 			rejectUnauthorized: !this.allowSelfSignedCerts,
-		// 			path
-		// 		},
-		// 		response => {
-		// 			this.handleResponse(request, response, resolve, reject)
-		// 		}
-		// 	)
-
-		// 	request.end(
-		// 		JSON.stringify({
-		// 			mutation: query
-		// 		})
-		// 	)
-		// })
 	}
 
 	/**
@@ -109,33 +53,7 @@ module.exports = class MockHttps {
 	 * @returns {Promise}
 	 */
 	async get(path, query) {
-		// everything is a promise
-		return new Promise((resolve, reject) => {
-			return resolve({})
-			// API Key must go with each request
-			// const headers = {
-			// 	'x-skill-api-key': this.apiKey
-			// }
-
-			// const request = https.request(
-			// 	{
-			// 		host: this.host,
-			// 		path: url.build(path, query, this.version, this.id),
-			// 		rejectUnauthorized: !this.allowSelfSignedCerts,
-			// 		headers
-			// 	},
-			// 	response => {
-			// 		this.handleResponse(request, response, resolve, reject)
-			// 	}
-			// )
-
-			// // handle error with request
-			// request.on('error', err => {
-			// 	reject(err)
-			// })
-
-			// request.end()
-		})
+		return Promise.resolve({})
 	}
 
 	/**
@@ -148,29 +66,7 @@ module.exports = class MockHttps {
 	 * @returns {Promise}
 	 */
 	async post(path, data, query, method = 'POST') {
-		return new Promise((resolve, reject) => {
-			return resolve({})
-			// API Key must go with each request
-			// const headers = {
-			// 	'x-skill-api-key': this.apiKey,
-			// 	'Content-Type': 'application/json'
-			// }
-
-			// const request = https.request(
-			// 	{
-			// 		method: method,
-			// 		host: this.host,
-			// 		headers,
-			// 		rejectUnauthorized: !this.allowSelfSignedCerts,
-			// 		path: url.build(path, query, this.version, this.id)
-			// 	},
-			// 	response => {
-			// 		this.handleResponse(request, response, resolve, reject)
-			// 	}
-			// )
-
-			// request.end(JSON.stringify(data))
-		})
+		return Promise.resolve({})
 	}
 
 	/**
@@ -182,7 +78,8 @@ module.exports = class MockHttps {
 	 * @returns {Promise}
 	 */
 	async patch(path, data, query) {
-		return this.post(path, data, query, 'PATCH')
+		// return this.post(path, data, query, 'PATCH')
+		return Promise.resolve({})
 	}
 
 	/**
@@ -192,26 +89,7 @@ module.exports = class MockHttps {
 	 * @returns {Promise}
 	 */
 	async delete(path, query) {
-		return new Promise((resolve, reject) => {
-			const headers = {
-				'x-skill-api-key': this.apiKey
-			}
-			const request = https.request(
-				{
-					method: 'DELETE',
-					host: this.host,
-					headers,
-					rejectUnauthorized: !this.allowSelfSignedCerts,
-					path: url.build(path, query, this.version, this.id)
-				},
-				response => {
-					this.handleResponse(request, response, resolve, reject)
-				}
-			)
-
-			request.write('')
-			request.end()
-		})
+		return Promise.resolve({})
 	}
 
 	/**

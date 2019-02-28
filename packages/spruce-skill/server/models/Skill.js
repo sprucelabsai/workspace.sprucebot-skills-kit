@@ -1,10 +1,6 @@
 // 🌲🤖 This is a core model, available if DB_ENABLED=true
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
-const config = require('config')
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
-
 const modelName = 'Skill'
 
 module.exports = (sequelize, DataTypes) => {
@@ -41,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	const Skill = sequelize.define(modelName, attributes, options)
 
-	Skill.associate = function(models) {}
+	// Skill.associate = function(models) {}
 
 	Skill.scopes = {
 		public: {

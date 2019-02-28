@@ -1,7 +1,6 @@
 // @flow
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 const globby = require('globby')
-const faker = require('faker')
 const supertest = require('supertest')
 
 // The base test model that all others will extend
@@ -11,8 +10,8 @@ module.exports = class Base {
 
 	constructor() {
 		this.mocks = {}
-		before(() => this.before())
-		after(() => this.after())
+		// before(() => this.before())
+		// after(() => this.after())
 		this.setup()
 	}
 

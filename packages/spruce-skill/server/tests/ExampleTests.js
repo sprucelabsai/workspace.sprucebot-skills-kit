@@ -1,7 +1,7 @@
 // @flow
 const { assert } = require('chai')
-const faker = require('faker')
-const { Op } = require('sequelize')
+// const faker = require('faker')
+// const { Op } = require('sequelize')
 const Base = require('./Base')
 
 class ExampleTests extends Base {

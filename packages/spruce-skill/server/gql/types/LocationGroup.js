@@ -1,6 +1,5 @@
 // @flow
 const { GraphQLObjectType } = require('graphql')
-const GraphQLJSON = require('graphql-type-json')
 
 module.exports = ctx =>
 	new GraphQLObjectType({
