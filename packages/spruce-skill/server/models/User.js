@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
 			}
 		},
 		profileImages: {
-			type: DataTypes.VIRTUAL,
+			type: DataTypes.VIRTUAL(DataTypes.JSON),
 			get() {
 				if (this.profileImageUUID) {
 					const profileImages = {}
@@ -88,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
 			}
 		},
 		defaultProfileImages: {
-			type: DataTypes.VIRTUAL,
+			type: DataTypes.VIRTUAL(DataTypes.JSON),
 			get() {
 				const profileImages = {}
 				const sizes = ['60', '60@2x', '150', '150@2x']
