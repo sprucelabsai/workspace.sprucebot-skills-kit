@@ -2,16 +2,21 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 const globby = require('globby')
 const supertest = require('supertest')
+const faker = require('faker')
 
 // The base test model that all others will extend
 module.exports = class Base {
 	request: any
 	mocks: Object
+	koa: any
+	server: any
 
 	constructor() {
 		this.mocks = {}
-		// before(() => this.before())
-		// after(() => this.after())
+		// eslint-disable-next-line
+		before(() => this.before())
+		// eslint-disable-next-line
+		after(() => this.after())
 		this.setup()
 	}
 
@@ -84,10 +89,8 @@ module.exports = class Base {
 		}
 	}
 
-	// createPhone() {
-	// 	const phone = faker.phone.phoneNumberFormat(0);
-	// 	const parser = new PhoneNumberParser();
-	// 	const phoneNumber = parser.getFormattedPhoneNumber(`555${phone.substr(3)}`);
-	// 	return phoneNumber;
-	// }
+	createPhone() {
+		const phone = faker.phone.phoneNumberFormat(0)
+		return `555${phone.substr(3)}`
+	}
 }
