@@ -106,11 +106,10 @@
 }
 
 .card__footer {
-	padding: spacing('base') spacing('base') 0 spacing('base');
+	padding: 0 spacing('base') spacing('base') spacing('base');
 
 	@include gt('small') {
-		padding-left: spacing('loose');
-		padding-right: spacing('loose');
+		padding: 0 spacing('loose') spacing('loose') spacing('loose');
 	}
 }
 
