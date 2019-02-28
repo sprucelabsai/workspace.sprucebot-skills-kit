@@ -23,6 +23,7 @@
 	"dependencies": {
 		"debug": "^3.1.0",
 		"graphql": "^14.1.1",
+		"graphql-tools": "^4.0.4",
 		"superagent": "^4.1.0"
 	},
 	"devDependencies": {
@@ -30,7 +31,6 @@
 		"eslint": "^4.10.0",
 		"eslint-config-prettier": "^2.9.0",
 		"eslint-plugin-prettier": "^2.3.1",
-		"graphql-tools": "^4.0.4",
 		"jest": "^22.0.5",
 		"nock": "^9.1.6",
 		"prettier": "^1.13",
