@@ -27,6 +27,10 @@ export default class Modal extends React.PureComponent<Props, State> {
 		isFullHeight: false
 	}
 
+	static setAppElement = (selector: string) => {
+		ReactModal.setAppElement(selector)
+	}
+
 	static Header = ModalHeader
 	static Body = ModalBody
 	static Footer = ModalFooter

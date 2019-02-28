@@ -111,8 +111,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	User.associate = function(models) {
 		User.belongsToMany(models.Location, {
-			through: 'UserLocation',
-			constraints: false
+			through: models.UserLocation
 		})
 		User.hasMany(models.UserLocation, {
 			constraints: false

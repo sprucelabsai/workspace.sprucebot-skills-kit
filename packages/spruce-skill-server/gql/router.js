@@ -137,10 +137,27 @@ module.exports = (koa, gqlOptions, server) => {
 					context
 				}) => {
 					const ms = log.timerEnd(context.startTime)
+
+					context.warnings = _.uniq(context.warnings)
+					context.attributeWarnings = _.uniq(context.attributeWarnings)
+					context.scopeInfo = _.uniq(context.scopeInfo)
+
+					context.warnings.forEach(warning => {
+						log.warn(warning)
+					})
+
+					context.attributeWarnings.forEach(warning => {
+						log.warn(warning)
+					})
+
+					context.scopeInfo.forEach(info => {
+						log.debug(info)
+					})
+
 					return {
 						requestMS: ms,
 						queryCost: context.queryCost,
-						warnings: context.warnings ? _.uniq(context.warnings) : []
+						warnings: context.warnings || []
 					}
 				}
 			}
