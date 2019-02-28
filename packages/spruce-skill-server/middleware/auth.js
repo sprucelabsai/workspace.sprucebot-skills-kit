@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const debug = require('debug')('spruce-skills-kit-server')
+const debug = require('debug')('spruce-skill-server')
 const config = require('config')
 
 module.exports = (router, options) => {

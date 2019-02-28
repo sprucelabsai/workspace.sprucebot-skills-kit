@@ -11,27 +11,39 @@ module.exports = ({ userId, locationId, organizationId }) => `
 		firstName
 		lastName
 		UserLocations {
-			role
-			LocationId
-			Job {
-				name
-				isDefault
-				role
+			edges {
+				node {
+					role
+					LocationId
+					Job {
+						name
+						isDefault
+						role
+					}
+				}
 			}
 		}
 		UserGroups {
-			Group {
-				name
-			}
-			Job {
-				name
-				isDefault
-				role
+			edges {
+				node {
+					Group {
+						name
+					}
+					Job {
+						name
+						isDefault
+						role
+					}
+				}
 			}
 		}
 		UserOrganizations {
-			role
-			OrganizationId
+			edges {
+				node {
+					role
+					OrganizationId
+				}
+			}
 		}
 	}`
 			: ``
@@ -49,7 +61,7 @@ module.exports = ({ userId, locationId, organizationId }) => `
 	`
 			: ``
 	}
-	
+
 	${
 		locationId
 			? `

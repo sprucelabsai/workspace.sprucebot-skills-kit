@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.11.0...v8.12.0) (2019-02-27)
+
+
+### Features
+
+* docsify ([b70a8ac](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b70a8ac))
+
+
+
+
+
 # [8.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.1...v8.11.0) (2019-02-19)
 
 

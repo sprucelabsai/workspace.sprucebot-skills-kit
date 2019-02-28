@@ -23,6 +23,11 @@ type RecordSelectionListProps = {|
 	/** Required method to render a record into a node */
 	renderRecord: any => Node,
 
+	/** Get a unique ID for a record; given that data may be shaped in an unpredictable manner,
+	 * you must implement this at each usage.
+	 */
+	getRecordId: Record => string,
+
 	/** Load records for the offset/limit provided */
 	loadRecords: ({|
 		offset: number,
@@ -85,6 +90,12 @@ export default class RecordSelectionList extends Component<
 	constructor(props: RecordSelectionListProps) {
 		super(props)
 
+		if (!props.getRecordId) {
+			throw new Error(
+				"RecordSelectionList: `getRecordId` must be provided to determine a record's unique identifier. (record => string)"
+			)
+		}
+
 		this.state = { loadedRecords: [], isLoading: false, search: '' }
 	}
 
@@ -131,6 +142,7 @@ export default class RecordSelectionList extends Component<
 			selectedIds,
 			unselectableIds,
 			renderRecord,
+			getRecordId,
 			canSelect,
 			canRemove,
 			onSelect,
@@ -158,12 +170,15 @@ export default class RecordSelectionList extends Component<
 							<SelectionComponent
 								className="record-selection__record-select"
 								onChange={() => {
-									onSelect(record.id, record)
+									onSelect(getRecordId(record), record)
 								}}
 								disabled={
-									unselectableIds && unselectableIds.indexOf(record.id) >= 0
+									unselectableIds &&
+									unselectableIds.indexOf(getRecordId(record)) >= 0
 								}
-								checked={selectedIds && selectedIds.indexOf(record.id) >= 0}
+								checked={
+									selectedIds && selectedIds.indexOf(getRecordId(record)) >= 0
+								}
 							/>
 						)}
 
@@ -180,11 +195,12 @@ export default class RecordSelectionList extends Component<
 								onClick={() => {
 									this.setState({
 										loadedRecords: loadedRecords.filter(
-											loadedRecord => loadedRecord.id !== record.id
+											loadedRecord =>
+												getRecordId(loadedRecord) !== getRecordId(record)
 										)
 									})
 
-									onRemove(record.id, record)
+									onRemove(getRecordId(record), record)
 								}}
 							/>
 						)}

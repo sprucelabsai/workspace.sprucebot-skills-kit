@@ -1,4 +1,8 @@
 // @flow
+
+// Remove the ".example" extension from this file to see an example of making a subscription to the Core API GQL subscription server.
+// You could follow the same pattern for a subscription to some other GQL subscription server
+
 const config = require('config')
 const gql = require('graphql-tag')
 
