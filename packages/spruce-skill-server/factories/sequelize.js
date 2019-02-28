@@ -8,7 +8,8 @@ const config = require('config')
 const defaultModelsDir = path.resolve(__dirname, '../models')
 
 function filterFile(file) {
-	const didFilter = file.indexOf('.') !== 0 && file !== 'index.js'
+	const didFilter =
+		file.indexOf('.') !== 0 && file !== 'index.js' && /\.js$/.test(file)
 	if (!didFilter) {
 		console.warn(`Filtered file from sequelize import() model %s`, file)
 	}
