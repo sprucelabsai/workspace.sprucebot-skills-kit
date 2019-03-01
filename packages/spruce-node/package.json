@@ -17,10 +17,14 @@
 	},
 	"scripts": {
 		"lint": "eslint '**/**/*{.js}'",
-		"#test": "jest"
+		"#test": "jest",
+		"syncApiSchema:local": "API_HOST=https://local-api.sprucebot.com/graphql node ./mock/fetchApiSchema.js"
 	},
 	"dependencies": {
-		"debug": "^3.1.0"
+		"debug": "^3.1.0",
+		"graphql": "^14.1.1",
+		"graphql-tools": "^4.0.4",
+		"superagent": "^4.1.0"
 	},
 	"devDependencies": {
 		"add": "^2.0.6",

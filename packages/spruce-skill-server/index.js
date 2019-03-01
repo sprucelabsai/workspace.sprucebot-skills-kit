@@ -200,6 +200,14 @@ module.exports = async ({
 		// Add sb to the app context
 		koa.context.sb = sprucebot
 
+		if (process.env.TESTING === 'true') {
+			const customMocks = require('./tests/apiMocks')(koa.context)
+			koa.context.sb.setOptions({
+				useMockApi: true
+			})
+			koa.context.sb.adapter.mockApiGQLServerInit({ customMocks })
+		}
+
 		debug('Utilities and services can now reference each other')
 
 		// orm if enabled

@@ -25,6 +25,8 @@
 			"request": "launch",
 			"runtimeArgs": [
 				"${workspaceRoot}/node_modules/.bin/mocha",
+				"-r",
+				"flow-remove-types/register",
 				"--exit",
 				"--inspect-brk",
 				"${relativeFile}"
@@ -34,11 +36,14 @@
 			"port": 9229,
 			"cwd": "${workspaceRoot}",
 			"env": {
+				// "DEBUG": "config spruce-skill-server",
 				"PORT": "8010",
 				"BLUEBIRD_W_FORGOTTEN_RETURN": "0",
 				"ALLOW_NON_SSL": "true",
-				"ORM_LOGGING": "false",
-				"TESTING": "true"
+				"ORM_LOGGING": "true",
+				"API_ONLY": "true",
+				"TESTING": "true",
+				"DISABLE_MIGRATIONS": "true"
 			}
 		}
 	]

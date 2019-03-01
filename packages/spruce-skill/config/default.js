@@ -11,7 +11,8 @@ const HEARTWOOD_VERSION = encodeURIComponent(
 )
 // Check for .env
 try {
-	require('dotenv').config()
+	const path = `${__dirname}/../.env`
+	require('dotenv').config({ path })
 } catch (e) {
 	console.error('Missing .env file for this project')
 }
@@ -49,6 +50,8 @@ module.exports = {
 		process.env.SKILL_STYLESHEET ||
 		`https://cdn.spruce.ai/stylesheets/${HEARTWOOD_VERSION ||
 			'latest'}/heartwood-components.min.css`,
+	DATABASE_URL_TESTING:
+		process.env.DATABASE_URL_TESTING || `sqlite:${__dirname}/../tmp/testing.db`,
 	ID: process.env.ID,
 	NAME: process.env.NAME,
 	SLUG: process.env.SLUG,
@@ -74,6 +77,7 @@ module.exports = {
 	DB_ENABLED: process.env.DB_ENABLED === 'true',
 	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
+	TESTING: process.env.TESTING === 'true',
 	scopes: require('./scopes'),
 	auth: require('./auth'),
 	settings,
