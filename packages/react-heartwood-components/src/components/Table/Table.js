@@ -349,9 +349,7 @@ export default class Table extends Component<Props, State> {
 					)
 				}}
 				PaginationComponent={tableProps =>
-					totalRows &&
-					tableProps.page === 0 &&
-					totalRows <= tableProps.pageSize ? null : (
+					tableProps.page === 0 && totalRows <= tableProps.pageSize ? null : (
 						<div className="table-pagination__wrapper">
 							<Pagination {...paginationProps} {...tableProps} />
 						</div>

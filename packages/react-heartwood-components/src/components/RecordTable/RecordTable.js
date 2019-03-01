@@ -93,12 +93,29 @@ type RecordTableProps = {|
 	/** should I fetch all my data on mount? */
 	fetchOnMount?: boolean,
 
+	/** Flag for error on fetching data */
+	fetchError?: boolean,
+
 	/** passthrough to Table component */
 	handleClickRow?: Function,
 
 	/** called when search suggestion is selected */
-	onSelection?: Function
+	onSelection?: Function,
+
+	/** No data available */
+	noDataIcon?: string,
+	noDataHeadline?: string,
+	noDataSubheadline?: string,
+	noDataPrimaryAction?: PrimaryAction,
+	noDataPrimaryActionButtonKind?: string,
+	noDataPrimaryActionButtonIcon?: string
 |}
+
+type PrimaryAction = {
+	text: string,
+	onClick: (e: MouseEvent) => void,
+	type: string
+}
 
 type RecordTableState = {
 	selectedTab?: string,
@@ -366,6 +383,8 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			enableSearch,
 			enableFilter,
 			searchPlaceholder,
+			noDataPrimaryActionButtonKind,
+			noDataPrimaryActionButtonIcon,
 			tableSearchProps = {}
 		} = this.props
 
@@ -478,6 +497,8 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 					noDataHeadline={this.getNoDataHeadline()}
 					noDataSubheadline={this.getNoDataSubheadline()}
 					noDataPrimaryAction={this.getNoDataPrimaryAction()}
+					noDataPrimaryActionButtonKind={noDataPrimaryActionButtonKind}
+					noDataPrimaryActionButtonIcon={noDataPrimaryActionButtonIcon}
 				/>
 			</Fragment>
 		)
