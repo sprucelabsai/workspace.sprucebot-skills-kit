@@ -57,6 +57,9 @@ type RecordSelectionListProps = {|
 	/** Optionally provide a placeholder to the search input */
 	searchPlaceholder?: string,
 
+	/** Set to false to hide "# selected" text - defaults to true */
+	showSelectedCount?: boolean,
+
 	/** Callback for selection of a record */
 	onSelect?: (RecordId, Record) => void,
 
@@ -275,7 +278,8 @@ export default class RecordSelectionList extends Component<
 			selectedIds = [],
 			totalRecordCount,
 			canSearch,
-			searchPlaceholder
+			searchPlaceholder,
+			showSelectedCount
 		} = this.props
 		const { loadedRecords, search } = this.state
 		const totalSelected = selectedIds.length
@@ -292,9 +296,11 @@ export default class RecordSelectionList extends Component<
 
 		return (
 			<div className="record-selection__list">
-				<TextContainer>
-					<Text>{`${totalSelected} selected`}</Text>
-				</TextContainer>
+				{showSelectedCount && (
+					<TextContainer>
+						<Text>{`${totalSelected} selected`}</Text>
+					</TextContainer>
+				)}
 
 				{canSearch && (
 					<TextInput
@@ -344,4 +350,8 @@ export default class RecordSelectionList extends Component<
 			</div>
 		)
 	}
+}
+
+RecordSelectionList.defaultProps = {
+	showSelectedCount: true
 }
