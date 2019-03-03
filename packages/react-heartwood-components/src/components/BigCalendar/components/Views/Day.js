@@ -512,12 +512,13 @@ class Day extends PureComponent<Props, State> {
 			const parentNode = target.parentNode
 			if (parentNode instanceof HTMLElement) {
 				return (
-					target.classList.contains('timeslot') || // clicked a timeslot
+					!target.classList.contains('resize-handle') &&
+					(target.classList.contains('timeslot') || // clicked a timeslot
 					target.classList.contains('hour-block') || // clicked on hour block
 					target.classList.contains('scroll-inner') || // clicked anywhere inside the drag scroll area
 					target.classList.contains('bigcalendar__drag-grid') || // clicked on the drag view specifically
-					(parentNode.classList.contains('bigcalendar__event-block') &&
-						parentNode.classList.contains('available')) // they clicked on an available block (markAsBusy === false)
+						(parentNode.classList.contains('bigcalendar__event-block') &&
+							parentNode.classList.contains('available'))) // they clicked on an available block (markAsBusy === false)
 				)
 			}
 		}
@@ -1063,22 +1064,26 @@ class Day extends PureComponent<Props, State> {
 				y
 			})[0]
 
-			//first lets make sure it's not because a hit test failed
+			//first lets make sure it's not because a hit test failed (can happen when pointer-events is none)
+			//only check that it's overlapping the content-wapper though, since the last available block
+			//makes room for the resize-handle and we want to be able to click that
 			if (
 				this._lastHoverEvent &&
 				!hoverEvent &&
-				sizeUtil.doesIntersect({ x, y, node: this._lastHoverEvent.blockNode })
+				sizeUtil.doesIntersect({
+					x,
+					y,
+					node: this._lastHoverEvent.blockNode.querySelector('.content-wrapper')
+				})
 			) {
 				hoverEvent = this._lastHoverEvent
 			} else {
-				if (this._lastHoverEvent) {
+				if (hoverEvent && !hoverEvent.block.markAsBusy && !hoverEvent.resize) {
+					hoverEvent.eventNode.classList.toggle('hover-available', true)
+				} else {
 					domNode.querySelectorAll('.hover-available').forEach(eventNode => {
 						eventNode.classList.toggle('hover-available', false)
 					})
-				}
-
-				if (hoverEvent && !hoverEvent.block.markAsBusy) {
-					hoverEvent.eventNode.classList.toggle('hover-available', true)
 				}
 			}
 

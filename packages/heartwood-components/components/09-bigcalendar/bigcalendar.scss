@@ -346,7 +346,8 @@ body.sb-show-main {
 
 	.bigcalendar__event {
 		&.is-active-highlight {
-			.busy {
+			.bigcalendar__event-block.busy,
+			.bigcalendar__event-block.available:last-child {
 				overflow: visible;
 				.resize-handle {
 					height: auto;
@@ -375,6 +376,22 @@ body.sb-show-main {
 						bottom: -20px;
 						padding-right: 40px;
 					}
+				}
+			}
+
+			.bigcalendar__event-block.available:last-child {
+				display: block;
+
+				.content-wrapper {
+					flex: none;
+					height: 100%;
+				}
+
+				.resize-handle.resize-s {
+					position: absolute;
+					height: auto;
+					left: auto;
+					right: 0px;
 				}
 			}
 		}
@@ -527,6 +544,21 @@ body.sb-show-main {
 			.resize-highlight-handle {
 				display: none;
 			}
+		}
+	}
+
+	&.available:last-child {
+		display: flex;
+		flex-direction: column;
+
+		.content-wrapper {
+			flex: 1;
+			height: auto;
+		}
+
+		.resize-handle.resize-s {
+			position: static;
+			height: 10px;
 		}
 	}
 

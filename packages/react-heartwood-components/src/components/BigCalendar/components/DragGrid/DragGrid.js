@@ -519,7 +519,6 @@ class DragGrid extends PureComponent<Props, State> {
 
 		// lets see if we tapped on an event (passive=false on touch start on view means touchStartOnEvent is never triggered)
 		const events = this.getEventsAtLocation({ x: clientX, y: clientY })
-		console.log(events)
 
 		if (events[0]) {
 			const { event, block, blockIdx } = events[0]
@@ -699,8 +698,6 @@ class DragGrid extends PureComponent<Props, State> {
 				}
 			})
 
-		console.log('MATCHES', matches, blockNodes, resizes)
-
 		const events: Array<
 			EventSelection & {
 				resize: {
@@ -755,9 +752,14 @@ class DragGrid extends PureComponent<Props, State> {
 		const { block } = selection
 
 		const results = onMouseDownOnEvent(e, selection)
+		const target: HTMLElement = (e.target: any)
 
 		// if they clicked on an available block (not busy) and the parent view has not returned false
-		if (results && !block.markAsBusy) {
+		if (
+			!target.classList.contains('resize-handle') &&
+			results &&
+			!block.markAsBusy
+		) {
 			this.handleMouseDownOnView(e)
 			return false
 		} else if (results) {

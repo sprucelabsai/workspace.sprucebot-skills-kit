@@ -728,16 +728,16 @@ export default [
 				rightIcons: [],
 				className: '',
 				markAsBusy: false
-			},
-			{
-				title: 'Finishing Time',
-				subtitle: '',
-				durationSec: 15 * 60,
-				leftIcons: [],
-				rightIcons: [],
-				className: '',
-				markAsBusy: true
 			}
+			// {
+			// 	title: 'Finishing Time',
+			// 	subtitle: '',
+			// 	durationSec: 15 * 60,
+			// 	leftIcons: [],
+			// 	rightIcons: [],
+			// 	className: '',
+			// 	markAsBusy: true
+			// }
 		]
 	},
 	{
@@ -2208,16 +2208,16 @@ export default [
 				rightIcons: [],
 				className: '',
 				markAsBusy: false
-			},
-			{
-				title: 'Finishing Time',
-				subtitle: '',
-				durationSec: 15 * 60,
-				leftIcons: [],
-				rightIcons: [],
-				className: '',
-				markAsBusy: true
 			}
+			// {
+			// 	title: 'Finishing Time',
+			// 	subtitle: '',
+			// 	durationSec: 15 * 60,
+			// 	leftIcons: [],
+			// 	rightIcons: [],
+			// 	className: '',
+			// 	markAsBusy: true
+			// }
 		]
 	},
 	{

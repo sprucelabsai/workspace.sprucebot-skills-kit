@@ -207,7 +207,7 @@ class ResizeGrid extends PureComponent<ResizeGridProps, ResizeGridState> {
 				)
 			}
 			//we are dragging top of first block up, so we can go up as far as we are from the top
-			//and if we are grading top of frist block down, go to min height
+			//and if we are dragging top of frist block down, go to min height
 			else if (direction === 'n') {
 				distance = Math.max(distance, originalTop * -1)
 				distance = Math.min(
