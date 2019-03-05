@@ -8,7 +8,8 @@ import {
 	ListItem,
 	Layout,
 	LayoutSection,
-	Text
+	Text,
+	Button
 } from '@sprucelabs/react-heartwood-components'
 import request from 'superagent'
 import { gqlClient, settings } from '@sprucelabs/spruce-next-helpers'
@@ -24,6 +25,8 @@ const EXAMPLE_SUBSCRIPTION = gql`
 	}
 `
 class DashboardLocationPage extends React.Component {
+	_modal = this.props.skill.modal()
+
 	static async getInitialProps(props) {
 		try {
 			settings.configure(props.auth && props.auth.jwt)
@@ -64,6 +67,19 @@ class DashboardLocationPage extends React.Component {
 		} catch (e) {
 			log.error(e)
 		}
+	}
+
+	handleShowModal = () => {
+		console.log('here')
+		this._modal.onClickFooterPrimaryAction(() => {
+			console.log('CLICK PRIMARY')
+		})
+		this._modal.open({
+			title: 'Modal at your service!',
+			src: `${window.location.protocol}//${window.location.hostname}/modal`,
+			footerPrimaryActionText: 'Submit',
+			footerSecondaryActionText: 'Cancel'
+		})
 	}
 
 	onDrop = async (acceptedFiles, rejectedFiles) => {
@@ -118,6 +134,7 @@ class DashboardLocationPage extends React.Component {
 							)}
 							<Text>{"Here's an example of uploading files"}</Text>
 							<Dropzone onDrop={this.onDrop} />
+							<Button onClick={this.handleShowModal} text="Gimme my modal" />
 						</LayoutSection>
 					</Layout>
 				</PageContent>
