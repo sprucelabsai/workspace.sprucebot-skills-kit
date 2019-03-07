@@ -9,6 +9,7 @@ import {
 	number,
 	select
 } from '@storybook/addon-knobs/react'
+import moment from 'moment'
 import Button from '../Button/Button'
 import {
 	Autosuggest,
@@ -281,6 +282,7 @@ stories
 			onSelectDateRange={({ startDate, endDate }) =>
 				console.log(startDate, endDate)
 			}
+			isDayBlocked={day => day.isBefore(moment().startOf('day'))}
 		/>
 	))
 	.add('Stars', () => <Stars />)
