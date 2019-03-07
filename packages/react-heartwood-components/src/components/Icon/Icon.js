@@ -28,13 +28,22 @@ const Icon = (props: Props) => {
 		console.warn(`<Icon /> could not find an icon with key `, icon)
 		return null
 	}
+
+	let isSolidIcon =
+		!customIcon &&
+		icon &&
+		icon.toLowerCase &&
+		icon.toLowerCase().includes('solid')
+
 	const Handler = customIcon || icons[icon.toLowerCase()]
 
 	return (
 		<Handler
 			className={cx(className, 'icon', {
-				'u-icon__no-fill': isLineIcon,
-				'u-icon__stroke': isLineIcon
+				'u-icon__no-fill':
+					typeof isLineIcon !== 'undefined' ? isLineIcon : !isSolidIcon,
+				'u-icon__stroke':
+					typeof isLineIcon !== 'undefined' ? isLineIcon : !isSolidIcon
 			})}
 			{...rest}
 		/>

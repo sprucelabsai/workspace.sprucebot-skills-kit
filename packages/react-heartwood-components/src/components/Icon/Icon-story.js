@@ -19,18 +19,16 @@ const stories = storiesOf('Icon', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('Icon', () => (
-	<Icon
-		icon={select('icon', options, 'edit')}
-		isLineIcon={boolean('isLineIcon', true)}
-	/>
-))
+stories
+	.add('Icon', () => <Icon icon={select('icon', options, 'edit')} />)
+	.add('Line Icon', () => <Icon icon={'edit'} />)
+	.add('Solid Icon', () => <Icon icon={'cancel_solid'} />)
 
 stories.add('All Icons', () => (
 	<div className="Storybook-IconGrid">
 		{map(keys(icons), icon => (
 			<div className="Storybook-IconGridItem" key={`icon-${icon}`}>
-				<Icon icon={icon} isLineIcon={boolean('isLineIcon', true)} />
+				<Icon icon={icon} />
 				<div>{icon}</div>
 			</div>
 		))}
