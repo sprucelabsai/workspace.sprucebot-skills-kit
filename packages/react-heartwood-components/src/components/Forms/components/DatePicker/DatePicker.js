@@ -105,6 +105,7 @@ export default class DatePicker extends Component<Props, State> {
 				onFocusChange={this.toggleFocus}
 				navNext={<ArrowNext />}
 				navPrev={<ArrowBack />}
+				hideKeyboardShortcutsPanel={true}
 				{...rest}
 			/>
 		) : (
@@ -116,6 +117,7 @@ export default class DatePicker extends Component<Props, State> {
 				endDate={endDate}
 				navNext={<ArrowNext />}
 				navPrev={<ArrowBack />}
+				hideKeyboardShortcutsPanel={true}
 				{...rest}
 			/>
 		)
