@@ -1,15 +1,33 @@
+const typescriptEslintRecommended = require('@typescript-eslint/eslint-plugin/dist/configs/recommended.json')
+const typescriptEslintPrettier = require('eslint-config-prettier/@typescript-eslint')
+const importRules = require('eslint-plugin-import/config/errors')
+
 module.exports = {
-	parser: 'babel-eslint',
+	overrides: [
+		{
+			files: ['*.ts', '*.tsx'],
+			parser: '@typescript-eslint/parser',
+			plugins: ['@typescript-eslint'],
+			rules: Object.assign(
+				typescriptEslintRecommended.rules,
+				typescriptEslintPrettier.rules
+			)
+		},
+		{
+			files: ['*.js'],
+			plugins: ['@typescript-eslint'],
+			rules: Object.assign(importRules.rules)
+		}
+	],
 	extends: [
-		'eslint:recommended',
 		'plugin:flowtype/recommended',
 		'plugin:react/recommended',
+		'eslint:recommended',
 		'prettier'
 	],
-	plugins: ['react', 'flowtype', 'prettier'],
+	plugins: ['@sprucelabs/spruce', 'import', 'react', 'flowtype', 'prettier'],
 	rules: {
 		curly: 'error',
-		'flowtype/generic-spacing': 'off',
 		'react/jsx-no-undef': 'error',
 		'no-console': 'off',
 		'no-undef': 'error',
@@ -24,14 +42,16 @@ module.exports = {
 				useTabs: true,
 				semi: false
 			}
-		]
+		],
+		'import/no-deprecated': 2
 	},
 	parserOptions: {
 		sourceType: 'module',
-		ecmaVersion: 10,
+		ecmaVersion: 2018,
 		ecmaFeatures: {
 			jsx: true
-		}
+		},
+		project: './tsconfig.json'
 	},
 	env: {
 		jest: true,
