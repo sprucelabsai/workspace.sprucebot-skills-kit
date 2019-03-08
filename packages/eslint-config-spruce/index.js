@@ -8,10 +8,47 @@ module.exports = {
 			files: ['*.ts', '*.tsx'],
 			parser: '@typescript-eslint/parser',
 			plugins: ['@typescript-eslint'],
-			rules: Object.assign(
-				typescriptEslintRecommended.rules,
-				typescriptEslintPrettier.rules
-			)
+			rules: {
+				...typescriptEslintRecommended.rules,
+				...typescriptEslintPrettier.rules,
+				'@typescript-eslint/no-empty-interface': 0,
+				'@typescript-eslint/interface-name-prefix': [2, 'always'],
+				'@typescript-eslint/no-explicit-any': 0,
+				'@typescript-eslint/member-delimiter-style': [
+					'error',
+					{
+						multiline: {
+							delimiter: 'none',
+							requireLast: false
+						},
+						singleline: {
+							delimiter: 'comma',
+							requireLast: false
+						}
+					}
+				]
+				'@typescript-eslint/member-ordering': [
+					'error',
+					{
+						order: [
+							'public-static-field',
+							'protected-static-field',
+							'private-static-field',
+							'public-instance-field',
+							'protected-instance-field',
+							'private-instance-field',
+							'constructor',
+							'public-static-method',
+							'protected-static-method',
+							'private-static-method',
+							'public-instance-method',
+							'protected-instance-method',
+							'private-instance-method'
+						],
+						alphabetize: true
+					}
+				]
+			}
 		},
 		{
 			files: ['*.js'],
