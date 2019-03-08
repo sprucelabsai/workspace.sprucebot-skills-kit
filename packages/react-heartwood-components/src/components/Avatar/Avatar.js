@@ -1,41 +1,40 @@
+// @flow
 import React from 'react'
 import cx from 'classnames'
 
-interface IProps {
+export type Props = {
 	/** Avatar image url. */
-	image: string
+	image: string,
 
 	/** Alt text. */
-	alt: string
+	alt: string,
 
 	/** Set this true to use a large variation */
-	isLarge?: boolean
+	isLarge?: boolean,
 
 	/** Set true to center align with name and text. */
-	isVertical?: boolean
+	isVertical?: boolean,
 
 	/** Set true to show a status indicator. */
-	showIndicator?: boolean
+	showIndicator?: boolean,
 
 	/** Status (online or offline) of this person */
-	status?: 'online' | 'offline'
+	status?: 'online' | 'offline',
 
 	/** Name of this person. */
-	name?: string | Node
+	name?: string | Node,
 
-	/** Optional additional text to show below name. */
-	text?: string
+	/** Optional additinal text to show below name. */
+	text?: string,
 
 	/** Manual width override. */
-	width?: number | null | void
+	width?: ?number,
 
 	/** Manual height override. */
-	height?: number | null | void
-
-	/** Provided HTML classNames. */
-	className?: string
+	height?: ?number
 }
-const Avatar = (props: IProps): React.ReactNode => {
+
+const Avatar = (props: Props) => {
 	const {
 		image,
 		alt,
@@ -50,7 +49,6 @@ const Avatar = (props: IProps): React.ReactNode => {
 		className,
 		...rest
 	} = props
-
 	const wrapperClass = cx('avatar-wrapper', className, {
 		'avatar-wrapper-large': isLarge,
 		'avatar-wrapper-has-text': text,
@@ -71,7 +69,6 @@ const Avatar = (props: IProps): React.ReactNode => {
 	if (height) {
 		imgHeight = height
 	}
-
 	return (
 		<div className={wrapperClass}>
 			<div className="avatar__image-wrapper">
