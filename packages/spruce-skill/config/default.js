@@ -134,6 +134,10 @@ module.exports = {
 			'get-cards': {
 				description: 'Core asks this skill to provide cards',
 				subscribe: true
+			},
+			'get-calendars': {
+				description: 'Core asks this skill to provide calendars',
+				subscribe: true
 			}
 			// Other events we could subscribe to
 			// 'was-installed': {
