@@ -1,6 +1,7 @@
 // @flow
 import React from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
+import Iframes from '@sprucelabs/spruce-utils/iframes'
 import {
 	Page,
 	PageContent,
@@ -70,13 +71,11 @@ class DashboardLocationPage extends React.Component {
 	}
 
 	handleShowModal = () => {
-		console.log('here')
-		this._modal.onClickFooterPrimaryAction(() => {
-			console.log('CLICK PRIMARY')
-		})
 		this._modal.open({
 			title: 'Modal at your service!',
-			src: `${window.location.protocol}//${window.location.hostname}/modal`,
+			src: `${window.location.protocol}//${
+				window.location.hostname
+			}/example_modal`,
 			footerPrimaryActionText: 'Submit',
 			footerSecondaryActionText: 'Cancel'
 		})
@@ -134,7 +133,13 @@ class DashboardLocationPage extends React.Component {
 							)}
 							<Text>{"Here's an example of uploading files"}</Text>
 							<Dropzone onDrop={this.onDrop} />
-							<Button onClick={this.handleShowModal} text="Gimme my modal" />
+						</LayoutSection>
+						<LayoutSection>
+							<Button
+								kind="primary"
+								onClick={this.handleShowModal}
+								text="Show a modal"
+							/>
 						</LayoutSection>
 					</Layout>
 				</PageContent>
