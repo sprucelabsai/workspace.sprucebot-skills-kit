@@ -26,7 +26,7 @@ module.exports = {
 							requireLast: false
 						}
 					}
-				]
+				],
 				'@typescript-eslint/member-ordering': [
 					'error',
 					{
