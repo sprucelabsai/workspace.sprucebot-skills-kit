@@ -29,16 +29,6 @@ class DeveloperPage extends React.Component {
 		)
 	}
 
-	handleShowModal = () => {
-		console.log('here')
-		this._modal.open({
-			title: 'Modal at your service!',
-			src: `${window.location.protocol}//${window.location.hostname}/modal`,
-			footerPrimaryActionText: 'Submit',
-			footerSecondaryActionText: 'Cancel'
-		})
-	}
-
 	render() {
 		const props = this.props
 		return (
@@ -89,9 +79,11 @@ class DeveloperPage extends React.Component {
 									kind=""
 									actions={[
 										{
-											text: 'Gimme a modal!',
+											text: 'Take me to the docs!',
 											kind: 'primary',
-											onClick: this.handleShowModal
+											target: '_blank',
+											href:
+												'https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/tree/dev/packages/spruce-skill/docs#-sprucebot-skills-kit-'
 										},
 										{
 											text: 'Take me to the style guide!',
