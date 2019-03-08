@@ -27,7 +27,7 @@ class SkillModal extends React.Component {
 	render() {
 		return (
 			<Fragment>
-				<Subheading>Hey there! I'm a skill modal!</Subheading>
+				<Subheading>{"Hey there! I'm a skill modal!"}</Subheading>
 			</Fragment>
 		)
 	}
