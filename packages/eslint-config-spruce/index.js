@@ -1,7 +1,3 @@
-const typescriptEslintRecommended = require('@typescript-eslint/eslint-plugin/dist/configs/recommended.json')
-const typescriptEslintPrettier = require('eslint-config-prettier/@typescript-eslint')
-const importRules = require('eslint-plugin-import/config/errors')
-
 module.exports = {
 	extends: ['plugin:react/recommended', 'plugin:flowtype/recommended', './base.js'],
 	plugins: ['react', 'flowtype'],
