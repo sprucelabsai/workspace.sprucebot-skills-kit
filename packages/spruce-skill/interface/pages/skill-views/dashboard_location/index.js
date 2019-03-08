@@ -75,7 +75,7 @@ class DashboardLocationPage extends React.Component {
 			title: 'Modal at your service!',
 			src: `${window.location.protocol}//${
 				window.location.hostname
-			}/example_modal`,
+			}/skill-views/example_skill_view_dialog`,
 			footerPrimaryActionText: 'Submit',
 			footerSecondaryActionText: 'Cancel'
 		})

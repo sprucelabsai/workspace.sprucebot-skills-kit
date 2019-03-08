@@ -18,6 +18,8 @@ type Props = {
 }
 
 class TestSkillView extends React.Component<Props> {
+	_modal = this.props.skill.modal()
+
 	static async getInitialProps(props: WrappedInitialProps) {
 		if (props.auth && props.auth.User) {
 			console.log('a user is logged in!')
@@ -27,6 +29,22 @@ class TestSkillView extends React.Component<Props> {
 
 	async componentDidMount() {
 		this.props.skill.ready() // Show the skill
+
+		this._modal.onClickFooterPrimaryAction(() => {
+			this.setModalProps(true)
+
+			setTimeout(() => {
+				this.setModalProps(false)
+			}, 1000)
+		})
+
+		this._modal.onClickFooterSecondaryAction(() => this._modal.close())
+	}
+
+	setModalProps = (isSubmitting: boolean) => {
+		this._modal.setFooterSecondaryActionIsDisabled(isSubmitting)
+		this._modal.setFooterPrimaryActionIsDisabled(isSubmitting)
+		this._modal.setFooterPrimaryActionIsLoading(isSubmitting)
 	}
 
 	render() {
@@ -41,12 +59,7 @@ class TestSkillView extends React.Component<Props> {
 								kind="primary"
 								disabled={false}
 								icon={{ name: 'remove', isLineIcon: true }}
-								onClick={() => {
-									Iframes.sendMessage({
-										to: window.parent,
-										eventName: 'SkillViewDialog:Close'
-									})
-								}}
+								onClick={this._modal.close}
 							/>
 						</LayoutSection>
 					</Layout>
