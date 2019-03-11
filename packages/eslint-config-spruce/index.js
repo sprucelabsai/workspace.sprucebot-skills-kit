@@ -104,6 +104,11 @@ module.exports = {
 		react: {
 			version: '16.6',
 			flowVersion: '0.87'
+		},
+		'import/resolver': {
+			node: {
+				extensions: ['.js', '.jsx', '.ts', '.tsx']
+			}
 		}
 	}
 }
