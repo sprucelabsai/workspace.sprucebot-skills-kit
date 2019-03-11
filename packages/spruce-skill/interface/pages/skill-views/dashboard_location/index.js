@@ -1,7 +1,6 @@
 // @flow
 import React from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
-import Iframes from '@sprucelabs/spruce-utils/iframes'
 import {
 	Page,
 	PageContent,
