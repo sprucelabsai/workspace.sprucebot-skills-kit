@@ -1,6 +1,8 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 import getConfig from 'next/config'
+import cx from 'classnames'
+import { get } from 'lodash'
 
 const debug = require('debug')('@sprucelabs/spruce-next-helpers')
 const { publicRuntimeConfig } = getConfig()
@@ -41,6 +43,12 @@ export default class MyDocument extends Document {
 				? `skill-${publicRuntimeConfig.SLUG}`
 				: ''
 
+		const renderLocation = get(
+			this.props.__NEXT_DATA__,
+			'props.pageProps.initialProps.renderLocation',
+			null
+		)
+
 		return (
 			<html className={`skill ${bodyClassName}`}>
 				<Head>
@@ -70,7 +78,11 @@ export default class MyDocument extends Document {
 						/>
 					)}
 				</Head>
-				<body className={bodyClassName}>
+				<body
+					className={cx(bodyClassName, {
+						[`render-location-${renderLocation}`]: renderLocation !== null
+					})}
+				>
 					<Main />
 					<NextScript />
 				</body>
