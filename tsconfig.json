@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"target": "es6",
 		"jsx": "react",
-		"module": "commonjs",
+		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true
 	},
 	"exclude": ["node_modules"]

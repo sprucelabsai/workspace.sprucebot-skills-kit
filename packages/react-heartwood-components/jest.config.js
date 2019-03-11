@@ -3,6 +3,11 @@ module.exports = {
 	setupTestFrameworkScriptFile: '<rootDir>/jest/enzymeSetup.js',
 	coverageDirectory: './coverage/',
 	collectCoverage: true,
+	transform: {
+		'^.+\\.js?$': 'babel-jest',
+		'^.+\\.tsx?$': 'ts-jest'
+	},
+	moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node'],
 	snapshotSerializers: ['enzyme-to-json/serializer'],
 	testPathIgnorePatterns: [
 		'node_modules',

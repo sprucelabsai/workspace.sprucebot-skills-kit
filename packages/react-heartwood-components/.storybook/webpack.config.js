@@ -23,6 +23,14 @@ module.exports = {
 		rules: [
 			// add your custom rules.
 			{
+				test: /\.(ts|tsx)$/,
+				use: [
+					{
+						loader: require.resolve('awesome-typescript-loader')
+					}
+				]
+			},
+			{
 				test: /\.s(a|c)ss$/,
 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
 			},
