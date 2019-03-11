@@ -1,10 +1,4 @@
 export default {
-	bodyWidth() {
-		return document.body.clientWidth
-	},
-	bodyHeight() {
-		return document.body.clientHeight
-	},
 	getLocalTop(node) {
 		return node.offsetTop
 	},
