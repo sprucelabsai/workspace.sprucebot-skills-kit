@@ -4,13 +4,21 @@ import cx from 'classnames'
 
 type Props = {
 	/* set to true if loader is on a dark background */
-	isLight: boolean
+	isLight: boolean,
+
+	/* set to true if loader should be centered within parent */
+	isCentered: boolean
 }
 
 const Loader = (props: Props) => {
-	const { isLight } = props
+	const { isLight, isCentered } = props
 	return (
-		<span className={cx('loader', { 'loader--light': isLight })}>
+		<span
+			className={cx('loader', {
+				'loader--light': isLight,
+				'loader--centered': isCentered
+			})}
+		>
 			<span className="loader__dot" />
 			<span className="loader__dot" />
 			<span className="loader__dot" />

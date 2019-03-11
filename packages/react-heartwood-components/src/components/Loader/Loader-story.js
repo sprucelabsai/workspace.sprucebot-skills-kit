@@ -13,10 +13,13 @@ stories.add('Loader', () => {
 		<div
 			style={{
 				backgroundColor: isLight ? 'black' : 'transparent',
-				padding: '2rem'
+				padding: '2rem',
+				width: '100%',
+				height: '100%',
+				position: 'absolute'
 			}}
 		>
-			<Loader isLight={isLight} />
+			<Loader isLight={isLight} isCentered={boolean('isCentered', false)} />
 		</div>
 	)
 })
