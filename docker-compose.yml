@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  heartwood:
+    build:
+      context: packages/heartwood-components
+      dockerfile: Dockerfile
+    command: yarn watch
+    volumes:
+      - ./packages/heartwood-components:/home
+      - node_modules:/home/node_modules
+  all:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/home
+      - node_modules:/home/node_modules
+volumes:
+  node_modules:
