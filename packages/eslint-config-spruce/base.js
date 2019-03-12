@@ -47,7 +47,8 @@ module.exports = {
 						],
 						alphabetize: true
 					}
-				]
+				],
+				'no-dupe-class-members': 'off'
 			}
 		},
 		{
