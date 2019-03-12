@@ -77,21 +77,6 @@ module.exports = async ({
 		console.warn('⚠️  The frontend UI is disabled because API_ONLY=true')
 	}
 
-	// Kick off sync with platform
-	debug('Starting sync with core')
-	let syncResponse
-	try {
-		syncResponse = await sprucebot.sync()
-	} catch (e) {
-		console.error(
-			`Failed to sync your skill's settings with ${sprucebot.https.host}`
-		)
-		console.error(e) // Server can't really start without sync settings
-		process.exit(1)
-	}
-
-	debug('Sync complete. Response: ', syncResponse)
-
 	// Next app ready
 	if (!isApiOnly) {
 		await app.prepare()
@@ -116,6 +101,30 @@ module.exports = async ({
 		metricsEnabled
 	})
 	global.log = log
+
+	// Kick off sync with platform
+	debug('Starting sync with core')
+
+	if (process.env.TESTING === 'true') {
+		const customMocks = require('./tests/apiMocks')(koa.context)
+		sprucebot.setOptions({
+			useMockApi: true
+		})
+		sprucebot.adapter.mockApiGQLServerInit({ customMocks })
+	}
+
+	let syncResponse
+	try {
+		syncResponse = await sprucebot.sync()
+	} catch (e) {
+		console.error(
+			`Failed to sync your skill's settings with ${sprucebot.https.host}`
+		)
+		console.error(e) // Server can't really start without sync settings
+		process.exit(1)
+	}
+
+	debug('Sync complete. Response: ', syncResponse)
 
 	if (metricsEnabled) {
 		log.info('Metrics: enabled')
@@ -199,14 +208,6 @@ module.exports = async ({
 
 		// Add sb to the app context
 		koa.context.sb = sprucebot
-
-		if (process.env.TESTING === 'true') {
-			const customMocks = require('./tests/apiMocks')(koa.context)
-			koa.context.sb.setOptions({
-				useMockApi: true
-			})
-			koa.context.sb.adapter.mockApiGQLServerInit({ customMocks })
-		}
 
 		debug('Utilities and services can now reference each other')
 
