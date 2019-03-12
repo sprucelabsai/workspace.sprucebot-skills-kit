@@ -20,7 +20,9 @@ module.exports = (router, options) => {
 			ctx.cookies.get('jwt') ||
 			ctx.request.headers['x-skill-jwt']
 		if (token) {
-			ctx.cookies.set('jwt', token, { secure: true })
+			ctx.cookies.set('jwt', token, {
+				secure: process.env.TESTING !== 'true'
+			})
 			debug(`middleware/auth found token checking`)
 			try {
 				const decoded = jwt.verify(
@@ -99,7 +101,9 @@ module.exports = (router, options) => {
 			ctx.cookies.get('jwtV2') ||
 			ctx.request.headers['x-skill-jwt-v2']
 		if (token) {
-			ctx.cookies.set('jwtV2', token, { secure: true })
+			ctx.cookies.set('jwtV2', token, {
+				secure: process.env.TESTING !== 'true'
+			})
 			debug(`middleware/auth found token checking`)
 			try {
 				const { auth, decoded } = await decodeV2(ctx, token)
