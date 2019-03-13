@@ -6,7 +6,9 @@ module.exports.generateSkillJWT = function generateSkillJWT({
 	user,
 	location,
 	organization,
-	expiresIn
+	expiresIn,
+	payload,
+	eventType
 }) {
 	let exp = 86400
 	if (expiresIn && parseInt(expiresIn, 10) > 0) {
@@ -14,7 +16,14 @@ module.exports.generateSkillJWT = function generateSkillJWT({
 	}
 
 	const data = {
-		userId: user.id
+		firstSentAt: new Date(),
+		deliveryTry: 1,
+		eventType,
+		payload
+	}
+
+	if (user) {
+		data.userId = user.id
 	}
 
 	if (location) {
