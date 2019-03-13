@@ -9,7 +9,11 @@ const { publicRuntimeConfig } = getConfig()
 
 export default class MyDocument extends Document {
 	static async getInitialProps({ renderPage, query, store }) {
-		const page = renderPage(App => props => <App {...props} />)
+		let initialPageProps: Object
+		const page = renderPage(App => props => {
+			initialPageProps = props.initialProps
+			return <App {...props} />
+		})
 		// Store is undefined when hmr is the first
 		// request the server sees after boot
 		// Ideally store is always defined.
@@ -34,7 +38,14 @@ export default class MyDocument extends Document {
 			orgWhitelabel = auth.Location.Organization.whiteLabellingStylesheetUrl
 		}
 
-		return { ...page, whitelabel, auth, config, orgWhitelabel }
+		return {
+			...page,
+			...initialPageProps,
+			whitelabel,
+			auth,
+			config,
+			orgWhitelabel
+		}
 	}
 
 	render() {
@@ -43,11 +54,7 @@ export default class MyDocument extends Document {
 				? `skill-${publicRuntimeConfig.SLUG}`
 				: ''
 
-		const renderLocation = get(
-			this.props.__NEXT_DATA__,
-			'props.pageProps.initialProps.renderLocation',
-			null
-		)
+		const { renderLocation } = this.props
 
 		return (
 			<html className={`skill ${bodyClassName}`}>
@@ -83,6 +90,7 @@ export default class MyDocument extends Document {
 						[`render-location-${renderLocation}`]: renderLocation !== null
 					})}
 				>
+					{JSON.stringify(this.props)}
 					<Main />
 					<NextScript />
 				</body>
