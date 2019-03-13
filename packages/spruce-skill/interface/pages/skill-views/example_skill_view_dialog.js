@@ -17,7 +17,7 @@ type Props = {
 }
 
 class TestSkillView extends React.Component<Props> {
-	_modal = this.props.skill.modal()
+	modal = this.props.skill.modal()
 
 	static async getInitialProps(props: WrappedInitialProps) {
 		if (props.auth && props.auth.User) {
@@ -31,7 +31,7 @@ class TestSkillView extends React.Component<Props> {
 	async componentDidMount() {
 		this.props.skill.ready() // Show the skill
 
-		this._modal.onClickFooterPrimaryAction(() => {
+		this.modal.onClickFooterPrimaryAction(() => {
 			this.setModalProps(true)
 
 			setTimeout(() => {
@@ -39,13 +39,13 @@ class TestSkillView extends React.Component<Props> {
 			}, 1000)
 		})
 
-		this._modal.onClickFooterSecondaryAction(() => this._modal.close())
+		this.modal.onClickFooterSecondaryAction(() => this.modal.close())
 	}
 
 	setModalProps = (isSubmitting: boolean) => {
-		this._modal.setFooterSecondaryActionIsDisabled(isSubmitting)
-		this._modal.setFooterPrimaryActionIsDisabled(isSubmitting)
-		this._modal.setFooterPrimaryActionIsLoading(isSubmitting)
+		this.modal.setFooterSecondaryActionIsDisabled(isSubmitting)
+		this.modal.setFooterPrimaryActionIsDisabled(isSubmitting)
+		this.modal.setFooterPrimaryActionIsLoading(isSubmitting)
 	}
 
 	render() {
@@ -60,7 +60,7 @@ class TestSkillView extends React.Component<Props> {
 								kind="primary"
 								disabled={false}
 								icon={{ name: 'remove', isLineIcon: true }}
-								onClick={this._modal.close}
+								onClick={this.modal.close}
 							/>
 						</LayoutSection>
 					</Layout>
