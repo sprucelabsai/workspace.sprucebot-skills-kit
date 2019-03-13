@@ -1382,9 +1382,6 @@ class Day extends PureComponent<Props, State> {
 						dragScrollSpeed={dragScrollSpeed}
 						enableAutoScrollX={enableAutoScrollX}
 						enableAutoScrollY={enableAutoScrollY}
-						style={{
-							height: calendarBodyHeight
-						}}
 					>
 						<div className="scroll-inner" ref={this.scrollInnerRef}>
 							{users.map((user, idx) => (
