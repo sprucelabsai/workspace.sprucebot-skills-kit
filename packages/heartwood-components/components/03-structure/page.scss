@@ -1,7 +1,8 @@
 // Page
 
 .page {
-	min-height: 100vh;
+	display: flex;
+	width: 100%;
 
 	&--no-header {
 		margin-top: 4rem;
@@ -23,16 +24,6 @@
 
 	@include gt('medium') {
 		padding-top: 1.5rem;
-	}
-}
-
-.page--has-sidebar {
-	@include gt('990px') {
-		padding-right: rem(360);
-
-		&.page--sidebar-is-collapsed {
-			padding-right: rem(40);
-		}
 	}
 }
 
@@ -137,6 +128,12 @@
 	@include gt('medium') {
 		padding: 0 spacing('extra-loose');
 	}
+}
+
+.page__content-container {
+	flex: 1;
+	height: calc(100vh - #{rem(48)});
+	overflow-y: scroll;
 }
 
 .page__content {

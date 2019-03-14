@@ -1,17 +1,17 @@
+.main-wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
 .main-content {
-	padding-top: rem(48);
+	display: flex;
+	flex: 1;
+}
 
-	@include gt('medium') {
-		padding-left: rem(240);
-	}
-
-	.sidebar--is-collapsed & {
-		@include gt('medium') {
-			padding-left: rem(40);
-		}
-	}
-
-	.sidebar--is-missing & {
-		padding-left: 0;
-	}
+.main-content-outer {
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+	height: calc(100vh - #{rem(48)});
+	overflow: hidden;
 }
