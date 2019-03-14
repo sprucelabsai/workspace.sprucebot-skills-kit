@@ -1,14 +1,6 @@
 version: '3'
 
 services:
-  heartwood:
-    build:
-      context: packages/heartwood-components
-      dockerfile: Dockerfile
-    command: yarn watch
-    volumes:
-      - ./packages/heartwood-components:/home
-      - node_modules:/home/node_modules
   all:
     build:
       context: .
@@ -16,5 +8,22 @@ services:
     volumes:
       - .:/home
       - node_modules:/home/node_modules
+  heartwood:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./packages/heartwood-components:/home
+      - heartwood-components:/home/node_modules
+  react-heartwood:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./packages/react-heartwood-components:/home
+      - react-heartwood-components:/home/node_modules
+
 volumes:
+  react-heartwood-components:
+  heartwood-components:
   node_modules:

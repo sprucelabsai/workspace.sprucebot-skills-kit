@@ -70,4 +70,4 @@ api-docs.json
 .env.local
 
 # Docker
-/myuser
+myuser
