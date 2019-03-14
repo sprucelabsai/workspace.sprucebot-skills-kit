@@ -288,7 +288,7 @@ class SkillViewExample extends Component<SkillViewProps, SkillViewState> {
 						</Sidebar>
 					}
 				>
-					<div style={{ flex: 1 }}>hey</div>
+					<div>Lorem ispum, page contents here.</div>
 				</Page>
 			</View>
 		)
