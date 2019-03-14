@@ -1,17 +1,19 @@
 .main-wrapper {
 	display: flex;
 	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
 }
 
 .main-content {
 	display: flex;
 	flex: 1;
+	overflow: hidden;
 }
 
 .main-content-outer {
 	display: flex;
 	flex-direction: row;
 	flex: 1;
-	height: calc(100vh - #{rem(48)});
 	overflow: hidden;
 }
