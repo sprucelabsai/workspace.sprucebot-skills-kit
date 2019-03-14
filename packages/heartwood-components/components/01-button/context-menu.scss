@@ -53,6 +53,12 @@
 
 	.button-group {
 		width: 100%;
+		max-height: rem(224);
+		overflow-y: auto;
+
+		.btn {
+			border-radius: 0;
+		}
 	}
 }
 
