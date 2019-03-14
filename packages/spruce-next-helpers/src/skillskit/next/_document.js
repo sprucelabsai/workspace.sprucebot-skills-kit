@@ -90,7 +90,6 @@ export default class MyDocument extends Document {
 						[`render-location-${renderLocation}`]: renderLocation !== null
 					})}
 				>
-					{JSON.stringify(this.props)}
 					<Main />
 					<NextScript />
 				</body>
