@@ -2,7 +2,6 @@
 	z-index: 1;
 	display: flex;
 	flex-direction: column;
-	height: calc(100vh - #{rem(48)});
 	width: rem(240);
 	background-color: $c-grey-00;
 
@@ -23,6 +22,8 @@ html.skill .sidebar {
 	// NOTE: This classname may change
 	&.sidebar--is-mobile-expanded {
 		position: fixed;
+		top: rem(48);
+		bottom: 0;
 		left: 0;
 		display: flex;
 	}
@@ -44,6 +45,8 @@ html.skill .sidebar {
 	// NOTE: This classname may change
 	&.sidebar--is-mobile-expanded {
 		position: fixed;
+		top: rem(48);
+		bottom: 0;
 		right: 0;
 		display: flex;
 	}
