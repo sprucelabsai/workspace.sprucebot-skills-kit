@@ -9,6 +9,7 @@
 	display: flex;
 	flex: 1;
 	overflow: hidden;
+	z-index: 1;
 }
 
 .main-content-outer {
@@ -16,4 +17,9 @@
 	flex-direction: row;
 	flex: 1;
 	overflow: hidden;
+}
+
+.main-content__sidebar {
+	display: flex;
+	z-index: 2;
 }

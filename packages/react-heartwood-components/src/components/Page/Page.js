@@ -48,7 +48,7 @@ export const Page = (props: PageProps) => {
 				{header && <PageHeader {...header} />}
 				{children}
 			</div>
-			{sidebar}
+			{sidebar && <div className={'page__sidebar'}>{sidebar}</div>}
 		</div>
 	)
 }
