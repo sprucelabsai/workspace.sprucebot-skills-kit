@@ -19,22 +19,19 @@ html.skill .sidebar {
 	display: none;
 	border-right: 1px solid $c-border-light;
 
-	// NOTE: This classname may change
-	&.sidebar--is-mobile-expanded {
-		position: fixed;
-		top: rem(48);
-		bottom: 0;
-		left: 0;
-		display: flex;
+	@include lte('medium') {
+		// NOTE: This classname may change
+		&.sidebar--is-mobile-expanded {
+			position: fixed;
+			top: rem(48);
+			bottom: 0;
+			left: 0;
+			display: flex;
+		}
 	}
 
 	@include gt('medium') {
 		display: flex;
-
-		// NOTE: This classname may change
-		&.sidebar--is-mobile-expanded {
-			display: flex;
-		}
 	}
 }
 
@@ -42,22 +39,19 @@ html.skill .sidebar {
 	display: none;
 	border-left: 1px solid $c-border-light;
 
-	// NOTE: This classname may change
-	&.sidebar--is-mobile-expanded {
-		position: fixed;
-		top: rem(48);
-		bottom: 0;
-		right: 0;
-		display: flex;
+	@include lte('990px') {
+		// NOTE: This classname may change
+		&.sidebar--is-mobile-expanded {
+			position: fixed;
+			top: rem(48);
+			bottom: 0;
+			right: 0;
+			display: flex;
+		}
 	}
 
 	@include gt('990px') {
 		display: flex;
-
-		// NOTE: This classname may change
-		&.sidebar--is-mobile-expanded {
-			display: flex;
-		}
 	}
 }
 

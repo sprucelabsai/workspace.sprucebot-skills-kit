@@ -17,6 +17,18 @@ $breakpoints-map: (
 	}
 }
 
+@mixin lte($size) {
+	@if map-has-key($breakpoints-map, $size) {
+		@media screen and (max-width: map-get($breakpoints-map, $size)) {
+			@content;
+		}
+	} @else {
+		@media screen and (max-width: $size) {
+			@content;
+		}
+	}
+}
+
 /**
 Spacing
 */
