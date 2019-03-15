@@ -39,7 +39,7 @@ html.skill .sidebar {
 	display: none;
 	border-left: 1px solid $c-border-light;
 
-	@include lte('990px') {
+	@include lte(990px) {
 		// NOTE: This classname may change
 		&.sidebar--is-mobile-expanded {
 			position: fixed;
@@ -50,7 +50,7 @@ html.skill .sidebar {
 		}
 	}
 
-	@include gt('990px') {
+	@include gt(990px) {
 		display: flex;
 	}
 }
@@ -61,7 +61,7 @@ html.skill .sidebar {
 	padding-top: spacing('tight');
 
 	&.sidebar-header--mobile {
-		@include gt('990px') {
+		@include gt(990px) {
 			display: none;
 		}
 	}
