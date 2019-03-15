@@ -63,7 +63,7 @@ const View = (props: Props) => {
 
 			<div className="main-content-outer">
 				{sidebarItems && sidebarItems.length > 0 && (
-					<div class="main-content__sidebar">
+					<div className="main-content__sidebar">
 						<Sidebar
 							style={{ zIndex: 1 }}
 							items={sidebarItems}
