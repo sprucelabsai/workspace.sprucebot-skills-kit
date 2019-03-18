@@ -25,7 +25,7 @@ const EXAMPLE_SUBSCRIPTION = gql`
 	}
 `
 class DashboardLocationPage extends React.Component {
-	_modal = this.props.skill.modal()
+	modal = this.props.skill.modal()
 
 	static async getInitialProps(props) {
 		try {
@@ -71,10 +71,10 @@ class DashboardLocationPage extends React.Component {
 
 	handleShowModal = () => {
 		console.log('here')
-		this._modal.onClickFooterPrimaryAction(() => {
+		this.modal.onClickFooterPrimaryAction(() => {
 			console.log('CLICK PRIMARY')
 		})
-		this._modal.open({
+		this.modal.open({
 			title: 'Modal at your service!',
 			src: `${window.location.protocol}//${window.location.hostname}/modal`,
 			footerPrimaryActionText: 'Submit',
