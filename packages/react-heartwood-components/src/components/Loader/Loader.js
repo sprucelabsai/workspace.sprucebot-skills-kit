@@ -11,13 +11,14 @@ type Props = {
 }
 
 const Loader = (props: Props) => {
-	const { isLight, isCentered } = props
+	const { isLight, isCentered, ...rest } = props
 	return (
 		<span
 			className={cx('loader', {
 				'loader--light': isLight,
 				'loader--centered': isCentered
 			})}
+			{...rest}
 		>
 			<span className="loader__dot" />
 			<span className="loader__dot" />
