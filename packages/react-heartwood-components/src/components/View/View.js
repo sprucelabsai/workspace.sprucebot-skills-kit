@@ -48,19 +48,6 @@ const View = (props: Props) => {
 				'sidebar--is-missing': !sidebarItems || sidebarItems.length === 0
 			})}
 		>
-			{sidebarItems && sidebarItems.length > 0 && (
-				<Sidebar
-					items={sidebarItems}
-					backLink={sidebarBackLink}
-					footer={<SidebarFooter />}
-					isSidebarVisible={isSidebarVisible}
-					isExpanded={isSidebarExpanded}
-					isMobileExpanded={isSidebarMobileExpanded}
-					toggleExpanded={toggleSidebarExpanded}
-					forceCloseSidebar={forceCloseSidebar}
-					side="left"
-				/>
-			)}
 			<HeaderPrimary
 				user={user}
 				organization={organization}
@@ -74,7 +61,26 @@ const View = (props: Props) => {
 				onClickSearch={onClickSearch}
 			/>
 
-			<main className="main-content">{children}</main>
+			<div className="main-content-outer">
+				{sidebarItems && sidebarItems.length > 0 && (
+					<div className="main-content__sidebar">
+						<Sidebar
+							style={{ zIndex: 1 }}
+							items={sidebarItems}
+							backLink={sidebarBackLink}
+							footer={<SidebarFooter />}
+							isSidebarVisible={isSidebarVisible}
+							isExpanded={isSidebarExpanded}
+							isMobileExpanded={isSidebarMobileExpanded}
+							toggleExpanded={toggleSidebarExpanded}
+							forceCloseSidebar={forceCloseSidebar}
+							side="left"
+						/>
+					</div>
+				)}
+
+				<main className="main-content">{children}</main>
+			</div>
 		</div>
 	)
 }
