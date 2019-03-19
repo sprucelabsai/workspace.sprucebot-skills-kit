@@ -310,9 +310,11 @@ function (_Component) {
         }, _callee, this, [[6, 22]]);
       }));
 
-      return function onSave() {
+      function onSave() {
         return _onSave.apply(this, arguments);
-      };
+      }
+
+      return onSave;
     }()
   }, {
     key: "cancel",
