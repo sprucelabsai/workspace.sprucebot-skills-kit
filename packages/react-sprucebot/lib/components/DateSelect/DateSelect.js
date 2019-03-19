@@ -104,17 +104,28 @@ function (_Component) {
       return false;
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDateChange", function (date) {
-      var _this$props$onDateSel = _this.props.onDateSelect,
+      var _this$props = _this.props,
+          _this$props$onDateSel = _this$props.onDateSelect,
           onDateSelect = _this$props$onDateSel === void 0 ? function () {
         console.log({
           date: date
         });
-      } : _this$props$onDateSel;
-      onDateSelect(date);
+      } : _this$props$onDateSel,
+          canDeselectDate = _this$props.canDeselectDate;
 
-      _this.setState({
-        date: date
-      });
+      if (date && _this.state.date && canDeselectDate && date.isSame(_this.state.date, 'day')) {
+        onDateSelect(null);
+
+        _this.setState({
+          date: null
+        });
+      } else {
+        onDateSelect(date);
+
+        _this.setState({
+          date: date
+        });
+      }
     });
     (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "setDefaultDate", function () {
       var defaultDate = _this.props.defaultDate;
@@ -133,11 +144,11 @@ function (_Component) {
       var _this2 = this;
 
       var date = this.state.date;
-      var _this$props = this.props,
-          initialVisibleMonth = _this$props.initialVisibleMonth,
-          _onPrevMonthClick = _this$props.onPrevMonthClick,
-          _onNextMonthClick = _this$props.onNextMonthClick,
-          loading = _this$props.loading;
+      var _this$props2 = this.props,
+          initialVisibleMonth = _this$props2.initialVisibleMonth,
+          _onPrevMonthClick = _this$props2.onPrevMonthClick,
+          _onNextMonthClick = _this$props2.onNextMonthClick,
+          loading = _this$props2.loading;
       return _react.default.createElement("div", {
         className: "date_picker date_select__wrapper ".concat(loading ? 'loading' : '')
       }, _react.default.createElement("div", {
@@ -194,9 +205,11 @@ DateSelect.propTypes = {
   onNextMonthClick: _propTypes.default.func,
   onPrevMonthClick: _propTypes.default.func,
   loading: _propTypes.default.bool,
-  highlightDates: _propTypes.default.array
+  highlightDates: _propTypes.default.array,
+  canDeselectDate: _propTypes.default.bool
 };
 DateSelect.defaultProps = {
   allowPastDates: false,
-  loading: false
+  loading: false,
+  canDeselectDate: true
 };
