@@ -244,28 +244,27 @@ export default class ImageCropper extends Component {
 			<div className="image_cropper">
 				{errorMessage && <BotText>{errorMessage}</BotText>}
 				{loading && <Loader />}
-				{!errorMessage &&
-					cropSrc && (
-						<div className={wrapperClassNames}>
-							<ReactCrop
-								ref={cropper => (this.cropper = cropper)}
-								keepSelection={true}
-								onImageLoaded={this.onImageLoadedFromCropper.bind(this)}
-								src={cropSrc}
-								crop={crop}
-								onChange={this.onCropChange.bind(this)}
-							/>
-							{tapToCrop && (
-								<div className="block">
-									{!loading && (
-										<Button onClick={this.hideBlock.bind(this)}>
-											{tapToCropButtonText}
-										</Button>
-									)}
-								</div>
-							)}
-						</div>
-					)}
+				{!errorMessage && cropSrc && (
+					<div className={wrapperClassNames}>
+						<ReactCrop
+							ref={cropper => (this.cropper = cropper)}
+							keepSelection={true}
+							onImageLoaded={this.onImageLoadedFromCropper.bind(this)}
+							src={cropSrc}
+							crop={crop}
+							onChange={this.onCropChange.bind(this)}
+						/>
+						{tapToCrop && (
+							<div className="block">
+								{!loading && (
+									<Button onClick={this.hideBlock.bind(this)}>
+										{tapToCropButtonText}
+									</Button>
+								)}
+							</div>
+						)}
+					</div>
+				)}
 				<input
 					style={{ display: 'none' }}
 					type="file"
@@ -277,28 +276,21 @@ export default class ImageCropper extends Component {
 				/>
 				{!loading && (
 					<SubmitWrapper>
-						{changed &&
-							!errorMessage && (
-								<Button
-									busy={uploading}
-									onClick={this.onSave.bind(this)}
-									primary
-								>
-									{saveButtonText}
-								</Button>
-							)}
+						{changed && !errorMessage && (
+							<Button busy={uploading} onClick={this.onSave.bind(this)} primary>
+								{saveButtonText}
+							</Button>
+						)}
 
-						{changed &&
-							!newFile &&
-							!errorMessage && (
-								<Button
-									busy={uploading}
-									onClick={this.cancel.bind(this)}
-									secondary
-								>
-									{cancelButtonText}
-								</Button>
-							)}
+						{changed && !newFile && !errorMessage && (
+							<Button
+								busy={uploading}
+								onClick={this.cancel.bind(this)}
+								secondary
+							>
+								{cancelButtonText}
+							</Button>
+						)}
 
 						<Button
 							busy={uploading}

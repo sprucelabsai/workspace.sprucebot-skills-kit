@@ -16,18 +16,17 @@ export default function Field({
 }) {
 	return (
 		<div className={classnames('InputField', 'input__wrapper')}>
-			{label &&
-				value && (
-					<span
-						className={classnames(
-							'FieldLabel',
-							'input__mini__label',
-							'js-show-label'
-						)}
-					>
-						{label}
-					</span>
-				)}
+			{label && value && (
+				<span
+					className={classnames(
+						'FieldLabel',
+						'input__mini__label',
+						'js-show-label'
+					)}
+				>
+					{label}
+				</span>
+			)}
 			{React.cloneElement(children, {
 				className: classnames({ with_label: !!label }),
 				name,
@@ -36,18 +35,17 @@ export default function Field({
 				type,
 				placeholder
 			})}
-			{touched &&
-				error && (
-					<span
-						className={classnames(
-							'FieldError',
-							'input__error',
-							'error-is-visible'
-						)}
-					>
-						{error}
-					</span>
-				)}
+			{touched && error && (
+				<span
+					className={classnames(
+						'FieldError',
+						'input__error',
+						'error-is-visible'
+					)}
+				>
+					{error}
+				</span>
+			)}
 			{finePrint && <P fine>{finePrint}</P>}
 		</div>
 	)

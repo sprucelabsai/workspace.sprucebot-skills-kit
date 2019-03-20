@@ -398,10 +398,12 @@ export default class BigCalendar extends Component {
 	timeRange = () => {
 		const { selectedDate, storeSchedule, events } = this.state
 
-		const adjustedEvents = events.filter(event => !event.allDay).map(event => ({
-			startTime: moment(event.start).format('HH:mm:ss'),
-			endTime: moment(event.end).format('HH:mm:ss')
-		}))
+		const adjustedEvents = events
+			.filter(event => !event.allDay)
+			.map(event => ({
+				startTime: moment(event.start).format('HH:mm:ss'),
+				endTime: moment(event.end).format('HH:mm:ss')
+			}))
 
 		const day = selectedDate.format('YYYY-MM-DD')
 		const combinedTimes = [
@@ -937,16 +939,14 @@ export default class BigCalendar extends Component {
 							</Button>
 						</div>
 					)}
-					{mode === 'team' &&
-						view === 'day' &&
-						teamSchedule && (
-							<Button
-								className="toggle-mode toggle-show-working"
-								onClick={this.handleToggleShowWorking}
-							>
-								{showOnlyWorking ? 'show everyone' : 'show only working'}
-							</Button>
-						)}
+					{mode === 'team' && view === 'day' && teamSchedule && (
+						<Button
+							className="toggle-mode toggle-show-working"
+							onClick={this.handleToggleShowWorking}
+						>
+							{showOnlyWorking ? 'show everyone' : 'show only working'}
+						</Button>
+					)}
 				</div>
 				<div
 					className={`calendars__wrapper ${isFetching ? 'fetching' : ''}`}
@@ -1043,22 +1043,20 @@ export default class BigCalendar extends Component {
 										/>
 									)}
 
-									{isFetching &&
-										!isLoaderOutside && (
-											<div className="loader__underlay">
-												<Loader />
-											</div>
-										)}
+									{isFetching && !isLoaderOutside && (
+										<div className="loader__underlay">
+											<Loader />
+										</div>
+									)}
 								</div>
 							)
 						})}
 					</div>
-					{isFetching &&
-						isLoaderOutside && (
-							<div className="loader__underlay">
-								<Loader />
-							</div>
-						)}
+					{isFetching && isLoaderOutside && (
+						<div className="loader__underlay">
+							<Loader />
+						</div>
+					)}
 				</div>
 			</div>
 		)

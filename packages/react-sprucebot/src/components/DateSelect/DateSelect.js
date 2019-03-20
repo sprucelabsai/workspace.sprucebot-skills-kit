@@ -68,11 +68,22 @@ class DateSelect extends Component {
 		const {
 			onDateSelect = () => {
 				console.log({ date })
-			}
+			},
+			canDeselectDate
 		} = this.props
 
-		onDateSelect(date)
-		this.setState({ date })
+		if (
+			date &&
+			this.state.date &&
+			canDeselectDate &&
+			date.isSame(this.state.date, 'day')
+		) {
+			onDateSelect(null)
+			this.setState({ date: null })
+		} else {
+			onDateSelect(date)
+			this.setState({ date })
+		}
 	}
 
 	setDefaultDate = () => {
@@ -150,10 +161,12 @@ DateSelect.propTypes = {
 	onNextMonthClick: PropTypes.func,
 	onPrevMonthClick: PropTypes.func,
 	loading: PropTypes.bool,
-	highlightDates: PropTypes.array
+	highlightDates: PropTypes.array,
+	canDeselectDate: PropTypes.bool
 }
 
 DateSelect.defaultProps = {
 	allowPastDates: false,
-	loading: false
+	loading: false,
+	canDeselectDate: true
 }
