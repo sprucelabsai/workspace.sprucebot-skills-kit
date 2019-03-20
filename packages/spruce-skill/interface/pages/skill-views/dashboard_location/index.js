@@ -69,15 +69,8 @@ class DashboardLocationPage extends React.Component {
 		}
 	}
 
-	handleShowModal = () => {
-		this.modal.open({
-			title: 'Modal at your service!',
-			src: `${window.location.protocol}//${
-				window.location.hostname
-			}/skill-views/example_skill_view_dialog`,
-			footerPrimaryActionText: 'Submit',
-			footerSecondaryActionText: 'Cancel'
-		})
+	handleShowModal = data => {
+		this.modal.open(data)
 	}
 
 	onDrop = async (acceptedFiles, rejectedFiles) => {
@@ -136,8 +129,32 @@ class DashboardLocationPage extends React.Component {
 						<LayoutSection>
 							<Button
 								kind="primary"
-								onClick={this.handleShowModal}
+								onClick={() =>
+									this.handleShowModal({
+										title: 'Modal at your service!',
+										src: `${window.location.protocol}//${
+											window.location.hostname
+										}/skill-views/example_skill_view_dialog`,
+										footerPrimaryActionText: 'Submit',
+										footerSecondaryActionText: 'Cancel'
+									})
+								}
 								text="Show a modal"
+							/>{' '}
+							<Button
+								kind="primary"
+								onClick={() =>
+									this.handleShowModal({
+										title: 'Modal at your service!',
+										src: `${window.location.protocol}//${
+											window.location.hostname
+										}/skill-views/example_skill_view_dialog?isPaged=true`,
+										footerPrimaryActionText: 'Submit',
+										footerSecondaryActionText: 'Cancel',
+										isPaged: true
+									})
+								}
+								text="Show a paged modal"
 							/>
 						</LayoutSection>
 					</Layout>

@@ -16,8 +16,21 @@ type Props = {
 	skill: Object
 }
 
-class TestSkillView extends React.Component<Props> {
+type State = {
+	currentPageIndex: number
+}
+
+class TestSkillView extends React.Component<Props, State> {
 	modal = this.props.skill.modal()
+
+	pages = [<div>Page 1!</div>, <div>Page 2!</div>, <div>Page 3!</div>]
+
+	constructor(props) {
+		super(props)
+		this.state = {
+			currentPageIndex: 0
+		}
+	}
 
 	static async getInitialProps(props: WrappedInitialProps) {
 		if (props.auth && props.auth.User) {
@@ -31,37 +44,64 @@ class TestSkillView extends React.Component<Props> {
 	async componentDidMount() {
 		this.props.skill.ready() // Show the skill
 
-		this.modal.onClickFooterPrimaryAction(() => {
-			this.setModalProps(true)
-
-			setTimeout(() => {
-				this.setModalProps(false)
-			}, 1000)
-		})
+		this.modal.onClickFooterPrimaryAction(
+			this.handleClickModalFooterPrimaryAction
+		)
 
 		this.modal.onClickFooterSecondaryAction(() => this.modal.close())
+
+		if (this.props.query.isPaged) {
+			this.modal.onGoBack(this.handleModalGoBack)
+		}
 	}
 
-	setModalProps = (isSubmitting: boolean) => {
+	handleModalGoBack = () => {
+		this.setState(
+			prevState => ({
+				currentPageIndex:
+					prevState.currentPageIndex > 0 ? prevState.currentPageIndex - 1 : 0
+			}),
+			() => {
+				this.modal.setBackButtonIsVisible(this.state.currentPageIndex > 0)
+			}
+		)
+	}
+
+	handleClickModalFooterPrimaryAction = () => {
+		if (
+			this.props.query.isPaged &&
+			this.state.currentPageIndex < this.pages.length - 1
+		) {
+			this.setState(prevState => ({
+				currentPageIndex: prevState.currentPageIndex + 1
+			}))
+			this.modal.setBackButtonIsVisible(this.state.currentPageIndex > 0)
+		} else {
+			this.setModalIsSubmitting(true)
+
+			setTimeout(() => {
+				this.setModalIsSubmitting(false)
+			}, 1000)
+		}
+	}
+
+	setModalIsSubmitting = (isSubmitting: boolean) => {
 		this.modal.setFooterSecondaryActionIsDisabled(isSubmitting)
 		this.modal.setFooterPrimaryActionIsDisabled(isSubmitting)
 		this.modal.setFooterPrimaryActionIsLoading(isSubmitting)
 	}
 
 	render() {
+		const { currentPageIndex } = this.state
 		return (
 			<Page className="example pages">
 				<PageContent>
 					<Layout>
 						<LayoutSection>
-							<div>Hooray from inside your skill!</div>
-							<Button
-								text="I'm done please close this modal!"
-								kind="primary"
-								disabled={false}
-								icon={{ name: 'remove', isLineIcon: true }}
-								onClick={this.modal.close}
-							/>
+							{!this.props.query.isPaged && (
+								<div>Hooray from inside your skill!</div>
+							)}
+							{this.props.query.isPaged && this.pages[currentPageIndex]}
 						</LayoutSection>
 					</Layout>
 				</PageContent>

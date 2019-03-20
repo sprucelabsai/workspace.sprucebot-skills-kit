@@ -136,6 +136,15 @@ const skill = {
 					eventName: 'SkillViewDialog:Close'
 				})
 			},
+			onGoBack: (callback: Function) => {
+				if (this._onGoBackListener) {
+					this._onGoBackListener.destroy()
+				}
+				this._onGoBackListener = Iframes.onMessage(
+					'SkillViewDialog:GoBack',
+					callback
+				)
+			},
 			onClickFooterPrimaryAction: (callback: Function) => {
 				if (this._onClickFooterPrimaryActionListener) {
 					this._onClickFooterPrimaryActionListener.destroy()
@@ -180,6 +189,13 @@ const skill = {
 					to: window.parent,
 					eventName: 'SkillViewDialog:SetFooterSecondaryActionIsDisabled',
 					data: { value: isDisabled }
+				})
+			},
+			setBackButtonIsVisible: (isVisible: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetBackButtonIsVisible',
+					data: { value: isVisible }
 				})
 			}
 		}
