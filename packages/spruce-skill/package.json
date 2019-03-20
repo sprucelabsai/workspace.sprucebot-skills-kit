@@ -4,7 +4,7 @@
 		"access": "public"
 	},
 	"description": "The base template that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "8.12.0",
+	"version": "8.13.0",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
@@ -35,13 +35,13 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
-		"@sprucelabs/heartwood-components": "^8.12.0",
+		"@sprucelabs/heartwood-components": "^8.13.0",
 		"@sprucelabs/log": "^1.6.2",
-		"@sprucelabs/react-heartwood-components": "^8.12.0",
-		"@sprucelabs/spruce-next-helpers": "^8.12.0",
-		"@sprucelabs/spruce-node": "^8.12.0",
-		"@sprucelabs/spruce-skill-server": "^8.12.0",
-		"@sprucelabs/spruce-utils": "^8.12.0",
+		"@sprucelabs/react-heartwood-components": "^8.13.0",
+		"@sprucelabs/spruce-next-helpers": "^8.13.0",
+		"@sprucelabs/spruce-node": "^8.13.0",
+		"@sprucelabs/spruce-skill-server": "^8.13.0",
+		"@sprucelabs/spruce-utils": "^8.13.0",
 		"@zeit/next-css": "^1.0.1",
 		"@zeit/next-sass": "^1.0.1",
 		"apollo-link-ws": "^1.0.12",
@@ -82,7 +82,7 @@
 	"devDependencies": {
 		"@semantic-release/changelog": "^3.0.0",
 		"@semantic-release/git": "^7.0.1",
-		"@sprucelabs/eslint-config-spruce": "^8.12.0",
+		"@sprucelabs/eslint-config-spruce": "^8.13.0",
 		"@sprucelabs/semantic-release": "^1.0.1",
 		"babel-jest": "^23.6.0",
 		"chai": "^4.2.0",
