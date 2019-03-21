@@ -55,8 +55,13 @@ gulp.task('svg', function() {
 						projectPath
 					)
 
+					const isFillIcon = projectPath.includes('ic_fill')
+
 					if (matches) {
-						all[matches[1]] = projectPath
+						all[matches[1]] = {
+							path: projectPath,
+							isLineIcon: !isFillIcon
+						}
 					}
 
 					cb()

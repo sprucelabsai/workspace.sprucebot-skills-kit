@@ -21,29 +21,24 @@ export type Props = {
 const Icon = (props: Props) => {
 	const { icon, customIcon, isLineIcon, className, ...rest } = props
 
-	if (
-		!customIcon &&
-		(!icon || !icon.toLowerCase || !icons[icon.toLowerCase()])
-	) {
+	const iconKey = icon && icon.toLowerCase && icon.toLowerCase()
+
+	if (!customIcon && (!icon || !icons[iconKey])) {
 		console.warn(`<Icon /> could not find an icon with key `, icon)
 		return null
 	}
 
-	let isSolidIcon =
-		!customIcon &&
-		icon &&
-		icon.toLowerCase &&
-		icon.toLowerCase().includes('solid')
+	let isFillIcon = !customIcon && icons[iconKey] && !icons[iconKey].isLineIcon
 
-	const Handler = customIcon || icons[icon.toLowerCase()]
+	const Handler = customIcon || icons[iconKey].path
 
 	return (
 		<Handler
 			className={cx(className, 'icon', {
 				'u-icon__no-fill':
-					typeof isLineIcon !== 'undefined' ? isLineIcon : !isSolidIcon,
+					typeof isLineIcon !== 'undefined' ? isLineIcon : !isFillIcon,
 				'u-icon__stroke':
-					typeof isLineIcon !== 'undefined' ? isLineIcon : !isSolidIcon
+					typeof isLineIcon !== 'undefined' ? isLineIcon : !isFillIcon
 			})}
 			{...rest}
 		/>
