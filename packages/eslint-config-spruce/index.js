@@ -79,8 +79,7 @@ module.exports = {
 				useTabs: true,
 				semi: false
 			}
-		],
-		'import/no-deprecated': 2
+		]
 	},
 	parserOptions: {
 		sourceType: 'module',
