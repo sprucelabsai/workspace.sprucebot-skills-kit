@@ -236,57 +236,59 @@ class SkillViewExample extends Component<SkillViewProps, SkillViewState> {
 						},
 						tabs: skillViewTabs
 					}}
-					hasSidebar="large"
 					sidebarIsCollapsed={!sidebarsExpanded.right}
-				>
-					<Sidebar
-						side="right"
-						isCollapsible={false}
-						isLarge
-						isExpanded={sidebarsExpanded.right}
-						isMobileExpanded={sidebarsMobileExpanded.right}
-						toggleExpanded={() => this.handleSidebarToggle('right')}
-						mobileHeader={{
-							title: 'Chimera Salon at the Point',
-							action: {
-								icon: { name: 'close' },
-								isSmall: true,
-								onClick: () => this.handleMobileSidebarToggle('right')
-							}
-						}}
-					>
-						<SidebarSection>
-							<Card isSmall>
-								<CardHeader
-									labelText="Location Status"
-									labelIcon={{ name: 'hide', isLineIcon: true }}
-									title="This location is hidden"
-								/>
-								<CardBody>
-									<p>
-										This location is currently hidden from guests, but is
-										visible to you and your teammates.
-									</p>
-								</CardBody>
-								<CardFooter>
-									<ButtonGroup
-										actions={[
-											{
-												text: 'Preview as guest',
-												kind: 'simple',
-												isSmall: true
-											},
-											{
-												text: 'Make location live',
-												kind: 'primary',
-												isSmall: true
-											}
-										]}
+					sidebar={
+						<Sidebar
+							side="right"
+							isCollapsible={false}
+							isLarge
+							isExpanded={sidebarsExpanded.right}
+							isMobileExpanded={sidebarsMobileExpanded.right}
+							toggleExpanded={() => this.handleSidebarToggle('right')}
+							mobileHeader={{
+								title: 'Chimera Salon at the Point',
+								action: {
+									icon: { name: 'close' },
+									isSmall: true,
+									onClick: () => this.handleMobileSidebarToggle('right')
+								}
+							}}
+						>
+							<SidebarSection>
+								<Card isSmall>
+									<CardHeader
+										labelText="Location Status"
+										labelIcon={{ name: 'hide', isLineIcon: true }}
+										title="This location is hidden"
 									/>
-								</CardFooter>
-							</Card>
-						</SidebarSection>
-					</Sidebar>
+									<CardBody>
+										<p>
+											This location is currently hidden from guests, but is
+											visible to you and your teammates.
+										</p>
+									</CardBody>
+									<CardFooter>
+										<ButtonGroup
+											actions={[
+												{
+													text: 'Preview as guest',
+													kind: 'simple',
+													isSmall: true
+												},
+												{
+													text: 'Make location live',
+													kind: 'primary',
+													isSmall: true
+												}
+											]}
+										/>
+									</CardFooter>
+								</Card>
+							</SidebarSection>
+						</Sidebar>
+					}
+				>
+					<div>Lorem ispum, page contents here.</div>
 				</Page>
 			</View>
 		)
@@ -336,59 +338,62 @@ stories
 				business={organization}
 				isSidebarExpanded
 			>
-				<Page hasSidebar>
+				<Page
+					sidebar={
+						<Sidebar isLarge isCollapsible={false} side="right">
+							<SidebarSection
+								isCentered
+								verticalSpacing="loose"
+								horizontalSpacing="loose"
+							>
+								<Avatar
+									isLarge
+									isCentered
+									image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
+								/>
+								<Heading>
+									<TextStyle type="strong">Dorian Feeney</TextStyle>
+								</Heading>
+							</SidebarSection>
+							<SidebarSection horizontalSpacing="loose" className="u-flex-row">
+								<Button
+									isSmall
+									kind="secondary"
+									className="u-flex-child-grow"
+									text="Call Dorian"
+									icon={{
+										name: 'phone',
+										isLineIcon: true
+									}}
+								/>
+								<ContextMenu
+									isSmall
+									className="u-ml-tight"
+									actions={[
+										{
+											text: 'One action'
+										},
+										{
+											text: 'two action'
+										},
+										{
+											text: 'red action'
+										},
+										{
+											text: 'blue action'
+										}
+									]}
+									isSimple
+								/>
+							</SidebarSection>
+						</Sidebar>
+					}
+				>
 					<FeedBuilder
 						messages={messages}
 						messageCount={50}
 						onRowsRequested={() => null}
 					/>
-					<Sidebar isLarge isCollapsible={false} side="right">
-						<SidebarSection
-							isCentered
-							verticalSpacing="loose"
-							horizontalSpacing="loose"
-						>
-							<Avatar
-								isLarge
-								isCentered
-								image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
-							/>
-							<Heading>
-								<TextStyle type="strong">Dorian Feeney</TextStyle>
-							</Heading>
-						</SidebarSection>
-						<SidebarSection horizontalSpacing="loose" className="u-flex-row">
-							<Button
-								isSmall
-								kind="secondary"
-								className="u-flex-child-grow"
-								text="Call Dorian"
-								icon={{
-									name: 'phone',
-									isLineIcon: true
-								}}
-							/>
-							<ContextMenu
-								isSmall
-								className="u-ml-tight"
-								actions={[
-									{
-										text: 'One action'
-									},
-									{
-										text: 'two action'
-									},
-									{
-										text: 'red action'
-									},
-									{
-										text: 'blue action'
-									}
-								]}
-								isSimple
-							/>
-						</SidebarSection>
-					</Sidebar>
 				</Page>
 			</View>
 		)
