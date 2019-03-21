@@ -1,17 +1,25 @@
+.main-wrapper {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+}
+
 .main-content {
-	padding-top: rem(48);
+	display: flex;
+	flex: 1;
+	overflow: hidden;
+	z-index: 1;
+}
 
-	@include gt('medium') {
-		padding-left: rem(240);
-	}
+.main-content-outer {
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+	overflow: hidden;
+}
 
-	.sidebar--is-collapsed & {
-		@include gt('medium') {
-			padding-left: rem(40);
-		}
-	}
-
-	.sidebar--is-missing & {
-		padding-left: 0;
-	}
+.main-content__sidebar {
+	display: flex;
+	z-index: 2;
 }
