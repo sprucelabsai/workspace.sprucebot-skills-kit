@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.10.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.3...v7.10.0) (2019-03-21)
+
+
+### Bug Fixes
+
+* manually bump package versions to fix ci build ([f219879](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f219879))
+
+
+
+
+
 ## [7.8.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.2...v7.8.3) (2018-11-09)
 
 **Note:** Version bump only for package @sprucelabs/sprucebot-skills-kit
