@@ -19,6 +19,9 @@ module.exports = {
 			}
 		})
 	],
+	resolve: {
+		extensions: ['.js', '.jsx', '.ts', '.tsx']
+	},
 	module: {
 		rules: [
 			// add your custom rules.

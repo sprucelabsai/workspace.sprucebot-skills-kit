@@ -5,7 +5,7 @@ module.exports = {
 	collectCoverage: true,
 	transform: {
 		'^.+\\.js?$': 'babel-jest',
-		'^.+\\.tsx?$': 'ts-jest'
+		'^.+\\.tsx?$': 'babel-jest'
 	},
 	moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node'],
 	snapshotSerializers: ['enzyme-to-json/serializer'],
