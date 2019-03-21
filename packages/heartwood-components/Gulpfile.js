@@ -51,7 +51,7 @@ gulp.task('svg', function() {
 			(function() {
 				return through.obj(function(file, enc, cb) {
 					const projectPath = file.path.split(cwd)[1]
-					const matches = /^\/public\/icons\/ic_([^\n\r]*).svg$/gi.exec(
+					const matches = /^\/public\/icons\/(?:ic_fill|ic)_([^\n\r]*)([^\n\r]*).svg$/gi.exec(
 						projectPath
 					)
 
