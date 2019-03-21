@@ -30,14 +30,14 @@ const Icon = (props: Props) => {
 
 	let isFillIcon = !customIcon && icons[iconKey] && !icons[iconKey].isLineIcon
 
-	const Handler = customIcon || icons[iconKey].path
+	const Handler = customIcon || icons[iconKey].icon
 
 	return (
 		<Handler
 			className={cx(className, 'icon', {
-				'u-icon__no-fill':
+				'icon--no-fill':
 					typeof isLineIcon !== 'undefined' ? isLineIcon : !isFillIcon,
-				'u-icon__stroke':
+				'icon--stroke':
 					typeof isLineIcon !== 'undefined' ? isLineIcon : !isFillIcon
 			})}
 			{...rest}
