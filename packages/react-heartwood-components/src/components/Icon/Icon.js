@@ -1,3 +1,6 @@
+// TODO(george): Figure out why icons busts this rule.
+/* eslint import/namespace: off */
+
 // @flow
 // NOTE: This component should only include a few of the most commonly
 // used icons for developer convenience

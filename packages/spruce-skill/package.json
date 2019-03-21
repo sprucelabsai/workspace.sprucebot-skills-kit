@@ -87,7 +87,7 @@
 		"babel-jest": "^23.6.0",
 		"chai": "^4.2.0",
 		"conventional-changelog-sprucelabs": "^1.1.0",
-		"eslint": "^4.9.0",
+		"eslint": "^5",
 		"faker": "^4.1.0",
 		"flow-remove-types": "^1.2.3",
 		"globby": "^8.0.1",
