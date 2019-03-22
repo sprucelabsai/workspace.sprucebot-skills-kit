@@ -1,5 +1,5 @@
 {
-	"name": "@sprucelabs/eslint-plugin-spruce",
+	"name": "eslint-plugin-spruce",
 	"publishConfig": {
 		"access": "public"
 	},
