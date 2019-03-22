@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.12.0...v8.13.0) (2019-03-20)
+
+
+### Bug Fixes
+
+* linting and unnecessary code ([24a0b82](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/24a0b82))
+* set mock server before running skill sync ([5e320a9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5e320a9))
+
+
+### Features
+
+* better error logging / debugging messages; cleanup unused / old code ([5d66f51](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5d66f51))
+* implement GQL Relay ([6119e04](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6119e04))
+* override gql connections ([bde8149](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bde8149))
+
+
+
+
+
 # [8.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.11.0...v8.12.0) (2019-02-27)
 
 **Note:** Version bump only for package @sprucelabs/spruce-skill-server

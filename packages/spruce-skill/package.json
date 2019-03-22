@@ -4,7 +4,7 @@
 		"access": "public"
 	},
 	"description": "The base template that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "8.12.0",
+	"version": "8.13.0",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
@@ -82,12 +82,12 @@
 	"devDependencies": {
 		"@semantic-release/changelog": "^3.0.0",
 		"@semantic-release/git": "^7.0.1",
-		"@sprucelabs/eslint-config-spruce": "^8.12.0",
+		"@sprucelabs/eslint-config-spruce": "^8.13.0",
 		"@sprucelabs/semantic-release": "^1.0.1",
 		"babel-jest": "^23.6.0",
 		"chai": "^4.2.0",
 		"conventional-changelog-sprucelabs": "^1.1.0",
-		"eslint": "^4.9.0",
+		"eslint": "^5",
 		"faker": "^4.1.0",
 		"flow-remove-types": "^1.2.3",
 		"globby": "^8.0.1",
