@@ -191,6 +191,27 @@ const skill = {
 					data: { value: isDisabled }
 				})
 			},
+			setFooterPrimaryActionText: (text: string) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetFooterPrimaryActionText',
+					data: { value: text }
+				})
+			},
+			setFooterSecondaryActionText: (text: string) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetFooterSecondaryActionText',
+					data: { value: text }
+				})
+			},
+			setTitle: (text: string) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetTitle',
+					data: { value: text }
+				})
+			},
 			setBackButtonIsVisible: (isVisible: boolean) => {
 				Iframes.sendMessage({
 					to: window.parent,

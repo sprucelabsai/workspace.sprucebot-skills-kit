@@ -1,12 +1,14 @@
 // @flow
-import React from 'react'
+import React, { Fragment } from 'react'
 import PageWrapper from '../../containers/PageWrapper'
 import {
 	Page,
 	PageContent,
 	Layout,
 	LayoutSection,
-	Button
+	Button,
+	Heading,
+	Text
 } from '@sprucelabs/react-heartwood-components'
 
 import type { WrappedInitialProps } from '../../containers/PageWrapper'
@@ -23,7 +25,11 @@ type State = {
 class TestSkillView extends React.Component<Props, State> {
 	modal = this.props.skill.modal()
 
-	pages = [<div>Page 1!</div>, <div>Page 2!</div>, <div>Page 3!</div>]
+	pages = [
+		<Heading>{'Knock knock...'}</Heading>,
+		<Heading>{"Who's there?"}</Heading>,
+		<Heading>{'Nobody... I guess it was just the wind.'}</Heading>
+	]
 
 	constructor(props) {
 		super(props)
@@ -55,27 +61,27 @@ class TestSkillView extends React.Component<Props, State> {
 		}
 	}
 
-	handleModalGoBack = () => {
-		this.setState(
-			prevState => ({
-				currentPageIndex:
-					prevState.currentPageIndex > 0 ? prevState.currentPageIndex - 1 : 0
-			}),
-			() => {
-				this.modal.setBackButtonIsVisible(this.state.currentPageIndex > 0)
-			}
-		)
+	handleModalGoBack = async () => {
+		await this.setState(prevState => ({
+			currentPageIndex:
+				prevState.currentPageIndex > 0 ? prevState.currentPageIndex - 1 : 0
+		}))
+		this.modal.setBackButtonIsVisible(this.state.currentPageIndex > 0)
+		this.setModalFooterPrimaryActionText(this.state.currentPageIndex)
 	}
 
-	handleClickModalFooterPrimaryAction = () => {
+	handleClickModalFooterPrimaryAction = async () => {
 		if (
 			this.props.query.isPaged &&
 			this.state.currentPageIndex < this.pages.length - 1
 		) {
-			this.setState(prevState => ({
+			await this.setState(prevState => ({
 				currentPageIndex: prevState.currentPageIndex + 1
 			}))
-			this.modal.setBackButtonIsVisible(this.state.currentPageIndex > 0)
+			const { currentPageIndex } = this.state
+			this.modal.setBackButtonIsVisible(currentPageIndex > 0)
+			this.modal.setTitle(`Page ${currentPageIndex + 1} Heading`)
+			this.setModalFooterPrimaryActionText(currentPageIndex)
 		} else {
 			this.setModalIsSubmitting(true)
 
@@ -83,6 +89,14 @@ class TestSkillView extends React.Component<Props, State> {
 				this.setModalIsSubmitting(false)
 			}, 1000)
 		}
+	}
+
+	setModalFooterPrimaryActionText = currentPageIndex => {
+		this.modal.setFooterPrimaryActionText(
+			currentPageIndex < this.pages.length - 1
+				? `Go to Page ${currentPageIndex + 2}`
+				: 'Do Something'
+		)
 	}
 
 	setModalIsSubmitting = (isSubmitting: boolean) => {
@@ -99,7 +113,7 @@ class TestSkillView extends React.Component<Props, State> {
 					<Layout>
 						<LayoutSection>
 							{!this.props.query.isPaged && (
-								<div>Hooray from inside your skill!</div>
+								<Heading>Hooray from inside your skill!</Heading>
 							)}
 							{this.props.query.isPaged && this.pages[currentPageIndex]}
 						</LayoutSection>

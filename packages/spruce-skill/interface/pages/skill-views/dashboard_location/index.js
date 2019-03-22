@@ -69,10 +69,6 @@ class DashboardLocationPage extends React.Component {
 		}
 	}
 
-	handleShowModal = data => {
-		this.modal.open(data)
-	}
-
 	onDrop = async (acceptedFiles, rejectedFiles) => {
 		log.debug('onDrop!')
 		log.debug({ acceptedFiles, rejectedFiles })
@@ -83,6 +79,29 @@ class DashboardLocationPage extends React.Component {
 		})
 		const res = await req
 		log.debug({ ...res.body })
+	}
+
+	handleOpenModal = (isPaged: boolean) => {
+		if (isPaged) {
+			this.modal.open({
+				title: 'Page 1 Heading',
+				src: `${window.location.protocol}//${
+					window.location.hostname
+				}/skill-views/example_skill_view_dialog?isPaged=true`,
+				footerPrimaryActionText: 'Go to Page 2',
+				footerSecondaryActionText: 'Cancel',
+				isPaged: true
+			})
+		} else {
+			this.modal.open({
+				title: 'Modal at your service!',
+				src: `${window.location.protocol}//${
+					window.location.hostname
+				}/skill-views/example_skill_view_dialog`,
+				footerPrimaryActionText: 'Submit',
+				footerSecondaryActionText: 'Cancel'
+			})
+		}
 	}
 
 	render() {
@@ -129,31 +148,12 @@ class DashboardLocationPage extends React.Component {
 						<LayoutSection>
 							<Button
 								kind="primary"
-								onClick={() =>
-									this.handleShowModal({
-										title: 'Modal at your service!',
-										src: `${window.location.protocol}//${
-											window.location.hostname
-										}/skill-views/example_skill_view_dialog`,
-										footerPrimaryActionText: 'Submit',
-										footerSecondaryActionText: 'Cancel'
-									})
-								}
+								onClick={() => this.handleOpenModal(false)}
 								text="Show a modal"
 							/>{' '}
 							<Button
 								kind="primary"
-								onClick={() =>
-									this.handleShowModal({
-										title: 'Modal at your service!',
-										src: `${window.location.protocol}//${
-											window.location.hostname
-										}/skill-views/example_skill_view_dialog?isPaged=true`,
-										footerPrimaryActionText: 'Submit',
-										footerSecondaryActionText: 'Cancel',
-										isPaged: true
-									})
-								}
+								onClick={() => this.handleOpenModal(true)}
 								text="Show a paged modal"
 							/>
 						</LayoutSection>
