@@ -18,8 +18,7 @@
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
 	"dependencies": {
-		"@typescript-eslint/eslint-plugin": "1.4.2",
-		"@typescript-eslint/parser": "1.4.2",
+		"@typescript-eslint/eslint-plugin": "~1.4.2",
 		"babel-eslint": "^10.0.1",
 		"eslint-plugin-spruce": "^8.13.0",
 		"eslint-config-prettier": "^4",
