@@ -17,7 +17,7 @@
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
-	"devDependencies": {
+	"dependencies": {
 		"@sprucelabs/eslint-plugin-spruce": "^8.13.0",
 		"@typescript-eslint/eslint-plugin": "1.4.2",
 		"@typescript-eslint/parser": "1.4.2",
