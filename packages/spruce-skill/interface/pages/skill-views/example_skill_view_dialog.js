@@ -1,14 +1,12 @@
 // @flow
-import React, { Fragment } from 'react'
+import React from 'react'
 import PageWrapper from '../../containers/PageWrapper'
 import {
 	Page,
 	PageContent,
 	Layout,
 	LayoutSection,
-	Button,
-	Heading,
-	Text
+	Heading
 } from '@sprucelabs/react-heartwood-components'
 
 import type { WrappedInitialProps } from '../../containers/PageWrapper'
@@ -26,9 +24,9 @@ class TestSkillView extends React.Component<Props, State> {
 	modal = this.props.skill.modal()
 
 	pages = [
-		<Heading>{'Knock knock...'}</Heading>,
-		<Heading>{"Who's there?"}</Heading>,
-		<Heading>{'Nobody... I guess it was just the wind.'}</Heading>
+		<Heading key="page-1">{'Knock knock...'}</Heading>,
+		<Heading key="page-2">{"Who's there?"}</Heading>,
+		<Heading key="page-3">{'Nobody... I guess it was just the wind.'}</Heading>
 	]
 
 	constructor(props) {
