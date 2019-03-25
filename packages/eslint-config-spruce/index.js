@@ -1,15 +1,70 @@
+const typescriptEslintRecommended = require('@typescript-eslint/eslint-plugin/dist/configs/recommended.json')
+const typescriptEslintPrettier = require('eslint-config-prettier/@typescript-eslint')
+const importRules = require('eslint-plugin-import/config/errors')
+
 module.exports = {
-	parser: 'babel-eslint',
+	overrides: [
+		{
+			files: ['*.ts', '*.tsx'],
+			parser: '@typescript-eslint/parser',
+			plugins: ['@typescript-eslint'],
+			rules: {
+				...typescriptEslintRecommended.rules,
+				...typescriptEslintPrettier.rules,
+				'@typescript-eslint/no-empty-interface': 0,
+				'@typescript-eslint/interface-name-prefix': [2, 'always'],
+				'@typescript-eslint/no-explicit-any': 0,
+				'@typescript-eslint/member-delimiter-style': [
+					'error',
+					{
+						multiline: {
+							delimiter: 'none',
+							requireLast: false
+						},
+						singleline: {
+							delimiter: 'comma',
+							requireLast: false
+						}
+					}
+				],
+				'@typescript-eslint/member-ordering': [
+					'error',
+					{
+						order: [
+							'public-static-field',
+							'protected-static-field',
+							'private-static-field',
+							'public-instance-field',
+							'protected-instance-field',
+							'private-instance-field',
+							'constructor',
+							'public-static-method',
+							'protected-static-method',
+							'private-static-method',
+							'public-instance-method',
+							'protected-instance-method',
+							'private-instance-method'
+						],
+						alphabetize: true
+					}
+				]
+			}
+		},
+		{
+			files: ['*.js'],
+			plugins: ['@typescript-eslint'],
+			rules: Object.assign(importRules.rules)
+		}
+	],
 	extends: [
-		'eslint:recommended',
 		'plugin:flowtype/recommended',
 		'plugin:react/recommended',
+		'eslint:recommended',
 		'prettier'
 	],
-	plugins: ['react', 'flowtype', 'prettier'],
+	plugins: ['@sprucelabs/spruce', 'import', 'react', 'flowtype', 'prettier'],
 	rules: {
 		curly: 'error',
-		'flowtype/generic-spacing': 'off',
 		'react/jsx-no-undef': 'error',
 		'no-console': 'off',
 		'no-undef': 'error',
@@ -28,10 +83,11 @@ module.exports = {
 	},
 	parserOptions: {
 		sourceType: 'module',
-		ecmaVersion: 10,
+		ecmaVersion: 2018,
 		ecmaFeatures: {
 			jsx: true
-		}
+		},
+		project: './tsconfig.json'
 	},
 	env: {
 		jest: true,
@@ -47,6 +103,11 @@ module.exports = {
 		react: {
 			version: '16.6',
 			flowVersion: '0.87'
+		},
+		'import/resolver': {
+			node: {
+				extensions: ['.js', '.jsx', '.ts', '.tsx']
+			}
 		}
 	}
 }
