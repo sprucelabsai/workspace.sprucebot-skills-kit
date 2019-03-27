@@ -63,17 +63,20 @@ const View = (props: Props) => {
 
 			<div className="main-content-outer">
 				{sidebarItems && sidebarItems.length > 0 && (
-					<Sidebar
-						items={sidebarItems}
-						backLink={sidebarBackLink}
-						footer={<SidebarFooter />}
-						isSidebarVisible={isSidebarVisible}
-						isExpanded={isSidebarExpanded}
-						isMobileExpanded={isSidebarMobileExpanded}
-						toggleExpanded={toggleSidebarExpanded}
-						forceCloseSidebar={forceCloseSidebar}
-						side="left"
-					/>
+					<div className="main-content__sidebar">
+						<Sidebar
+							style={{ zIndex: 1 }}
+							items={sidebarItems}
+							backLink={sidebarBackLink}
+							footer={<SidebarFooter />}
+							isSidebarVisible={isSidebarVisible}
+							isExpanded={isSidebarExpanded}
+							isMobileExpanded={isSidebarMobileExpanded}
+							toggleExpanded={toggleSidebarExpanded}
+							forceCloseSidebar={forceCloseSidebar}
+							side="left"
+						/>
+					</div>
 				)}
 
 				<main className="main-content">{children}</main>

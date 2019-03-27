@@ -133,6 +133,7 @@
 
 .page__content {
 	padding: spacing('extra-loose') 0;
+	z-index: 1;
 
 	> .text-container {
 		padding: 0 spacing('base');
@@ -143,4 +144,9 @@
 			padding: 0;
 		}
 	}
+}
+
+.page__sidebar {
+	display: flex;
+	z-index: 2;
 }

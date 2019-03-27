@@ -19,22 +19,19 @@ html.skill .sidebar {
 	display: none;
 	border-right: 1px solid $c-border-light;
 
-	// NOTE: This classname may change
-	&.sidebar--is-mobile-expanded {
-		position: fixed;
-		top: rem(48);
-		bottom: 0;
-		left: 0;
-		display: flex;
+	@include lte('medium') {
+		// NOTE: This classname may change
+		&.sidebar--is-mobile-expanded {
+			position: fixed;
+			top: rem(48);
+			bottom: 0;
+			left: 0;
+			display: flex;
+		}
 	}
 
 	@include gt('medium') {
 		display: flex;
-
-		// NOTE: This classname may change
-		&.sidebar--is-mobile-expanded {
-			display: flex;
-		}
 	}
 }
 
@@ -42,22 +39,19 @@ html.skill .sidebar {
 	display: none;
 	border-left: 1px solid $c-border-light;
 
-	// NOTE: This classname may change
-	&.sidebar--is-mobile-expanded {
-		position: fixed;
-		top: rem(48);
-		bottom: 0;
-		right: 0;
-		display: flex;
-	}
-
-	@include gt('990px') {
-		display: flex;
-
+	@include lte(990px) {
 		// NOTE: This classname may change
 		&.sidebar--is-mobile-expanded {
+			position: fixed;
+			top: rem(48);
+			bottom: 0;
+			right: 0;
 			display: flex;
 		}
+	}
+
+	@include gt(990px) {
+		display: flex;
 	}
 }
 
@@ -67,7 +61,7 @@ html.skill .sidebar {
 	padding-top: spacing('tight');
 
 	&.sidebar-header--mobile {
-		@include gt('990px') {
+		@include gt(990px) {
 			display: none;
 		}
 	}
@@ -309,6 +303,14 @@ html.skill .sidebar {
 
 .sidebar-section {
 	padding: spacing('tight') spacing('tight') 0;
+
+	&.sidebar-section--show-only-on-mobile {
+		display: block;
+
+		@include gt('medium') {
+			display: none;
+		}
+	}
 
 	&.sidebar-section--centered {
 		text-align: center;
