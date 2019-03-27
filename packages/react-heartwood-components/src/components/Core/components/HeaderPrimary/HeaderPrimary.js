@@ -49,7 +49,10 @@ type Props = {
 	skillsHref?: string,
 
 	/** Destination for the location management link */
-	locationManagementHref?: string
+	locationManagementHref?: string,
+
+	/** Menu children (<ListItem> or <li>) */
+	userMenuItems: ReactNode
 }
 
 export default class HeaderPrimary extends Component<Props, State> {
@@ -175,6 +178,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 			searchPlaceholder,
 			isLocationManagmentButtonVisible,
 			isSkillManagementButtonVisible,
+			userMenuItems,
 			skillsHref,
 			locationManagementHref
 		} = this.props
@@ -228,6 +232,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 							<UserMenu
 								menuIsVisible={isUserMenuVisible}
 								toggleMenu={this.toggleUserMenuVisibility}
+								userMenuItems={userMenuItems}
 								{...user}
 							/>
 						</Fragment>
