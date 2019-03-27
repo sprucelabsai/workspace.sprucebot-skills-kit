@@ -131,6 +131,12 @@
 	overflow: scroll;
 }
 
+body.render-location-modal {
+	.page__content-container {
+		overflow: visible;
+	}
+}
+
 .page__content {
 	padding: spacing('extra-loose') 0;
 	z-index: 1;
