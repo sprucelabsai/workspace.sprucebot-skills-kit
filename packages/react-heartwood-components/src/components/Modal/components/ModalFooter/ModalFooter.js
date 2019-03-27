@@ -5,10 +5,10 @@ import type { Props as ButtonProps } from '../../../Button/Button'
 
 export type Props = {
 	/** The primary action in the footer */
-	primaryAction: { ...ButtonProps },
+	primaryAction: ButtonProps,
 
 	/** Optional secondary action */
-	secondaryAction?: { ...ButtonProps }
+	secondaryAction?: ButtonProps
 }
 
 const ModalFooter = (props: Props) => {
