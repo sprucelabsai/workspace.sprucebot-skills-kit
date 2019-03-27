@@ -1,5 +1,5 @@
 {
-	"extends": "@sprucelabs/spruce",
+	"extends": "spruce",
 	"rules": {
 		"no-unused-vars": ["error", { "argsIgnorePattern": "(^ctx$)" }]
 	}

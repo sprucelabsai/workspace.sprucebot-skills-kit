@@ -72,7 +72,8 @@ type Props = {
 	asPath: string,
 	store: Object,
 	res?: Object,
-	req?: Object
+	req?: Object,
+	renderLocation?: 'page' | 'modal' | 'right-rail'
 }
 
 type State = {
@@ -109,9 +110,15 @@ const PageWrapper = Wrapped => {
 			asPath,
 			store,
 			res,
-			req
+			req,
+			renderLocation
 		}: Props) {
-			let props = { pathname, query, asPath }
+			let props = {
+				pathname,
+				query,
+				asPath,
+				renderLocation: renderLocation || 'page'
+			}
 
 			const jwt = query.jwt || getCookie('jwt', req, res)
 
