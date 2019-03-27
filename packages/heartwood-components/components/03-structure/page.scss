@@ -9,12 +9,6 @@
 	}
 }
 
-.header-primary + .main-content {
-	.page {
-		min-height: calc(100vh - #{rem(48)});
-	}
-}
-
 .page__header {
 	padding-top: spacing('base');
 
@@ -131,13 +125,15 @@
 }
 
 .page__content-container {
+	display: flex;
+	flex-direction: column;
 	flex: 1;
-	height: calc(100vh - #{rem(48)});
-	overflow-y: scroll;
+	overflow: scroll;
 }
 
 .page__content {
 	padding: spacing('extra-loose') 0;
+	z-index: 1;
 
 	> .text-container {
 		padding: 0 spacing('base');
@@ -148,4 +144,9 @@
 			padding: 0;
 		}
 	}
+}
+
+.page__sidebar {
+	display: flex;
+	z-index: 2;
 }

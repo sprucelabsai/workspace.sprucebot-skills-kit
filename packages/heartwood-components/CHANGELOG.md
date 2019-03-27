@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.13.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.12.0...v8.13.0) (2019-03-20)
+
+
+### Bug Fixes
+
+* padding on card footer ([6dd6501](https://github.com/sprucelabsai/sprucebot-heartwood/commit/6dd6501))
+* pagination padding ([6cdc598](https://github.com/sprucelabsai/sprucebot-heartwood/commit/6cdc598))
+* **BigCalendar:** Prep for usage in core web ([11505db](https://github.com/sprucelabsai/sprucebot-heartwood/commit/11505db))
+* **BigCalendar:** Remove BC styles from heartwood-components ([c8ea8b4](https://github.com/sprucelabsai/sprucebot-heartwood/commit/c8ea8b4))
+* **view:** Remove more non-flex references ([84dbd42](https://github.com/sprucelabsai/sprucebot-heartwood/commit/84dbd42))
+* **view/page:** Properly scope zIndex for page panels ([723c64e](https://github.com/sprucelabsai/sprucebot-heartwood/commit/723c64e))
+
+
+### Features
+
+* add large guest and team icons ([45cce95](https://github.com/sprucelabsai/sprucebot-heartwood/commit/45cce95))
+* **responsive:** Don't let mobile styles for sidebars leak to desktop ([fef94b5](https://github.com/sprucelabsai/sprucebot-heartwood/commit/fef94b5))
+* **sidebar:** Add mobile-only prop for sidebar sections ([6e5dd07](https://github.com/sprucelabsai/sprucebot-heartwood/commit/6e5dd07))
+* **view:** Switch to a flexbox-based layout ([fa37d1c](https://github.com/sprucelabsai/sprucebot-heartwood/commit/fa37d1c))
+
+
+### Refactoring
+
+* **datePicker:** style updates ([9538319](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9538319))
+* **loader:** add isCentered prop to center loader in parent [[SBL-2236](https://sprucelabsai.atlassian.net/browse/SBL-2236)] ([682b509](https://github.com/sprucelabsai/sprucebot-heartwood/commit/682b509))
+* **loader:** add isLight prop [[SBL-2236](https://sprucelabsai.atlassian.net/browse/SBL-2236)] ([211064a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/211064a))
+* gt => +1 to the breakpoint ([3d7ec81](https://github.com/sprucelabsai/sprucebot-heartwood/commit/3d7ec81))
+* style updates ([0f948d9](https://github.com/sprucelabsai/sprucebot-heartwood/commit/0f948d9))
+
+
+
+
+
 # [8.12.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.11.0...v8.12.0) (2019-02-27)
 
 
