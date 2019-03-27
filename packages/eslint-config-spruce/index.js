@@ -62,7 +62,7 @@ module.exports = {
 		'eslint:recommended',
 		'prettier'
 	],
-	plugins: ['@sprucelabs/spruce', 'import', 'react', 'flowtype', 'prettier'],
+	plugins: ['spruce', 'import', 'react', 'flowtype', 'prettier'],
 	rules: {
 		curly: 'error',
 		'react/jsx-no-undef': 'error',
