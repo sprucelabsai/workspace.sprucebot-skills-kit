@@ -42,16 +42,19 @@
 		"heroku-postbuild": "yarn build"
 	},
 	"dependencies": {
-		"pm2": "^2.10.1"
+		"eslint": "^5.0.0",
+		"pm2": "^2.10.1",
+		"prettier": "^1.16.4",
+		"sqlite3": "^4.0.4",
+		"typescript": "^3.3.3333"
 	},
 	"devDependencies": {
-		"commitizen": "^2.9.6",
+		"commitizen": "^3.0.7",
 		"conventional-changelog-sprucelabs": "^1.1.0",
 		"docsify": "^4.8.6",
 		"flow-bin": "^0.92.1",
 		"husky": "^0.14.3",
-		"lerna": "^3.2.1",
-		"npm-utils": "^2.0.3"
+		"lerna": "^3.2.1"
 	},
 	"config": {
 		"commitizen": {
