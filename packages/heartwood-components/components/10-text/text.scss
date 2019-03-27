@@ -53,10 +53,10 @@ a.text {
 	align-items: center;
 	font-weight: inherit;
 	.icon {
-		&:not(.u-icon__no-fill) {
+		&:not(.icon--no-fill) {
 			fill: $c-primary;
 		}
-		&.u-icon__stroke {
+		&.icon--stroke {
 			stroke: $c-primary;
 		}
 	}

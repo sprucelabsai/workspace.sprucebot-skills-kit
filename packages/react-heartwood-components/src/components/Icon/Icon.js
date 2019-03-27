@@ -24,20 +24,24 @@ export type Props = {
 const Icon = (props: Props) => {
 	const { icon, customIcon, isLineIcon, className, ...rest } = props
 
-	if (
-		!customIcon &&
-		(!icon || !icon.toLowerCase || !icons[icon.toLowerCase()])
-	) {
+	const iconKey = icon && icon.toLowerCase()
+
+	if (!customIcon && (!icon || !icons[iconKey])) {
 		console.warn(`<Icon /> could not find an icon with key `, icon)
 		return null
 	}
-	const Handler = customIcon || icons[icon.toLowerCase()]
+
+	let isFillIcon = !customIcon && icons[iconKey] && !icons[iconKey].isLineIcon
+
+	const Handler = customIcon || icons[iconKey].icon
 
 	return (
 		<Handler
 			className={cx(className, 'icon', {
-				'u-icon__no-fill': isLineIcon,
-				'u-icon__stroke': isLineIcon
+				'icon--no-fill':
+					typeof isLineIcon !== 'undefined' ? isLineIcon : !isFillIcon,
+				'icon--stroke':
+					typeof isLineIcon !== 'undefined' ? isLineIcon : !isFillIcon
 			})}
 			{...rest}
 		/>
