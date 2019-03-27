@@ -11,6 +11,15 @@ module.exports = {
 					CallExpression(node) {
 						rules.forEach(rule => {
 							if (node.callee.name === rule.method) {
+								if (node.arguments[0].type !== 'ObjectExpression') {
+									return context.report(
+										node,
+										`The first argument to \`${
+											rule.method
+										}\` must be an object of options.`
+									)
+								}
+
 								const QueryOption = node.arguments[0].properties.find(
 									o => o.key.name === rule.option
 								)
