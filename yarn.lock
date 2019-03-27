@@ -17915,7 +17915,7 @@ react-virtualized@^9.21.0:
     prop-types "^15.6.0"
     react-lifecycles-compat "^3.0.4"
 
-react-with-direction@^1.3.0:
+react-with-direction@^1.1.0, react-with-direction@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/react-with-direction/-/react-with-direction-1.3.0.tgz#9885f5941aa986be753db95a41e8f3d8f8de97ff"
   integrity sha512-2TflEebNckTNUybw3Rzqjg4BwM/H380ZL5lsbZ5f4UTY2JyE5uQdQZK5T2w+BDJSAMcqoA2RDJYa4e7Cl6C2Kg==

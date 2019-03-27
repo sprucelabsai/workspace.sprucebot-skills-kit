@@ -133,6 +133,7 @@
 		"react-textarea-autosize": "^6.0.0",
 		"react-transition-group": "^2.5.2",
 		"react-virtualized": "^9.21.0",
+		"react-with-direction": "^1.1.0",
 		"redux": "^3.7.2",
 		"redux-form": "^7.3.0",
 		"screenfull": "^3.3.3",
