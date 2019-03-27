@@ -24,7 +24,7 @@ export type Props = {
 const Icon = (props: Props) => {
 	const { icon, customIcon, isLineIcon, className, ...rest } = props
 
-	const iconKey = icon && icon.toLowerCase && icon.toLowerCase()
+	const iconKey = icon && icon.toLowerCase()
 
 	if (!customIcon && (!icon || !icons[iconKey])) {
 		console.warn(`<Icon /> could not find an icon with key `, icon)
