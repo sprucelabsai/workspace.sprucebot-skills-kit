@@ -131,29 +131,42 @@ export default class Autosuggest extends Component<Props, State> {
 	}
 
 	scrollParentIfNeeded = () => {
+		const autosuggestRef = this.autosuggestRef && this.autosuggestRef.current
 		const suggestionsContainer =
-			this.autosuggestRef &&
-			this.autosuggestRef.current &&
-			this.autosuggestRef.current.suggestionsContainer
+			autosuggestRef && autosuggestRef.suggestionsContainer
 
-		if (suggestionsContainer && this.domNodeRef && this.domNodeRef.current) {
-			const overflowParent = this.findOverflowParent(this.domNodeRef.current)
+		const autosuggestInput =
+			autosuggestRef &&
+			autosuggestRef.autowhatever &&
+			autosuggestRef.autowhatever.input
 
-			if (overflowParent) {
-				const overflowBox = overflowParent.getBoundingClientRect()
-				const overflowBoxBottom = overflowBox.top + overflowBox.height
-				const suggestionsBox = suggestionsContainer.getBoundingClientRect()
-				const suggestionsBottom = suggestionsBox.top + suggestionsBox.height
+		if (
+			suggestionsContainer &&
+			autosuggestInput &&
+			this.domNodeRef &&
+			this.domNodeRef.current
+		) {
+			const overflowParent =
+				this.findOverflowParent(this.domNodeRef.current) || document.body
+			const overflowBox = overflowParent.getBoundingClientRect()
+			const overflowBoxBottom = overflowBox.top + overflowBox.height
+			const suggestionsBox = suggestionsContainer.getBoundingClientRect()
+			const suggestionsBottom = suggestionsBox.top + suggestionsBox.height
 
-				if (suggestionsBottom > overflowBoxBottom) {
-					if (overflowParent.scrollTo) {
-						overflowParent.scrollTo({
-							top: suggestionsBox.top,
-							behavior: 'smooth'
-						})
-					} else {
-						overflowParent.scrollTop(suggestionsBox.top)
-					}
+			let isSmoothScrollSupported =
+				'scrollBehavior' in document.documentElement.style
+
+			if (suggestionsBottom > overflowBoxBottom) {
+				const inputTop = autosuggestInput.getBoundingClientRect().top
+				const scrollNode =
+					overflowParent === document.body ? window : overflowParent
+				if (isSmoothScrollSupported) {
+					scrollNode.scrollTo({
+						top: inputTop,
+						behavior: 'smooth'
+					})
+				} else {
+					scrollNode.scrollTo(0, inputTop)
 				}
 			}
 		}
