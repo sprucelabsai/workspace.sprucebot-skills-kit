@@ -43,7 +43,7 @@
 				"ORM_LOGGING": "true",
 				"API_ONLY": "true",
 				"TESTING": "true",
-				"DISABLE_MIGRATIONS": "true"
+				"DB_MIGRATIONS": "false"
 			}
 		}
 	]
