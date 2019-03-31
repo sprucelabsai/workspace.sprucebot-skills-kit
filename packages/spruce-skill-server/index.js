@@ -240,7 +240,7 @@ module.exports = async ({
 			debug('Utilities and services can now reference the orm')
 		}
 	} catch (err) {
-		console.error('Leading services & utilities failed.')
+		console.error('Loading services & utilities failed.')
 		console.error(err)
 		throw err
 	}
