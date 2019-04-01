@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import { generateLocations } from '../../../.storybook/data/tableData'
@@ -44,6 +44,37 @@ const columns = [
 		maxWidth: 500
 	}
 ]
+
+const renderSubComponentForRow = (row: Object) => {
+	const schedule = locations[row.index] && locations[row.index].schedule
+	return schedule ? (
+		<Fragment>
+			<CardHeader title={'Store Schedule'} />
+			<Table
+				className="services-table"
+				data={schedule}
+				columns={[
+					{
+						Header: 'Day',
+						accessor: 'day',
+						minWidth: 100,
+						maxWidth: 300
+					},
+					{
+						Header: 'Hours',
+						accessor: 'hours',
+						minWidth: 100,
+						maxWidth: 500
+					}
+				]}
+				loading={false}
+				pageSize={schedule.length}
+				showPagination={false}
+				keyField="id"
+			/>
+		</Fragment>
+	) : null
+}
 
 stories
 	.add('Table', () => {
@@ -97,6 +128,38 @@ stories
 								totalPages: Math.ceil(locations.length / 50),
 								currentPage: 0
 							}}
+							keyField="id"
+						/>
+					</Card>
+				</LayoutSection>
+			</Layout>
+		)
+	})
+	.add('Expandable Table', () => {
+		return (
+			<Layout width="full-width">
+				<LayoutSection>
+					<Card>
+						<Table
+							className="services-table"
+							data={locations}
+							columns={columns}
+							sortable={true}
+							defaultPageSize={50}
+							defaultSorted={[
+								{
+									id: 'publicName',
+									desc: false
+								}
+							]}
+							loading={false}
+							paginationProps={{
+								showPages: true,
+								onPageButtonClick: () => console.log('onPageButtonClick'),
+								totalPages: Math.ceil(locations.length / 50),
+								currentPage: 0
+							}}
+							subComponentForRow={renderSubComponentForRow}
 							keyField="id"
 						/>
 					</Card>

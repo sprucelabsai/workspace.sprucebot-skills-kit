@@ -4,6 +4,7 @@ import React, { Component, Fragment } from 'react'
 import ReactTable from 'react-table'
 import cx from 'classnames'
 import { Checkbox } from '../Forms'
+import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination'
 import Icon from '../Icon/Icon'
 import EmptyState from '../EmptyState/EmptyState'
@@ -57,7 +58,11 @@ type Props = {
 	noDataSubheadline?: string,
 	noDataPrimaryAction?: PrimaryAction,
 	noDataPrimaryActionButtonKind?: string,
-	noDataPrimaryActionButtonIcon?: string
+	noDataPrimaryActionButtonIcon?: string,
+
+	/** Return a nested sub-component to be added as an expansion level for designated row. */
+
+	subComponentForRow?: (row: Object) => any
 }
 
 type PrimaryAction = {
@@ -177,6 +182,7 @@ export default class Table extends Component<Props, State> {
 			noDataPrimaryAction,
 			noDataPrimaryActionButtonKind,
 			noDataPrimaryActionButtonIcon,
+			subComponentForRow,
 			...rest
 		} = this.props
 
@@ -284,10 +290,13 @@ export default class Table extends Component<Props, State> {
 					}),
 					width: 'auto'
 				})}
-				getTrProps={() => ({
-					className: 'table-row',
-					onClick: this.handleClickRow
-				})}
+				getTrProps={(state, rowInfo) => {
+					const expanded = state.expanded[rowInfo.viewIndex]
+					return {
+						className: expanded ? 'table-row table-row--expanded' : 'table-row',
+						onClick: this.handleClickRow
+					}
+				}}
 				getTdProps={(state, rowInfo, column) => ({
 					className: cx('table-cell', {
 						'table-checkbox-cell': column.id === 'checkbox'
@@ -312,6 +321,15 @@ export default class Table extends Component<Props, State> {
 					primaryActionButtonKind: noDataPrimaryActionButtonKind,
 					primaryActionButtonIcon: noDataPrimaryActionButtonIcon
 				})}
+				SubComponent={
+					subComponentForRow
+						? row => (
+								<div className={'table-subcomponent'}>
+								<Card>{subComponentForRow(row)}</Card>
+								</div>
+						  )
+						: null
+				}
 				NoDataComponent={EmptyState}
 				ThComponent={tableProps => {
 					const { toggleSort, className, ...rest } = tableProps

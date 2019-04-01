@@ -37,6 +37,16 @@
 	border-bottom: 1px solid $c-border-light;
 }
 
+.table-row.table-row--expanded {
+	background-color: rgba($c-primary-light, 0.05);
+	border-bottom: none;
+}
+
+.table-subcomponent {
+	background-color: rgba($c-primary-light, 0.05);
+	padding: 0 spacing('loose') spacing('loose');
+}
+
 .table-cell,
 .table-header-cell {
 	width: 100%;
