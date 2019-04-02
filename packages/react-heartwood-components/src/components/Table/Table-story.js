@@ -53,7 +53,7 @@ const renderSubComponentForRow = (row: Object) => {
 			<CardHeader title={'Store Schedule'} />
 			<Table
 				isSelectable
-				className="services-table"
+				className="store-schedule-table"
 				data={schedule}
 				columns={[
 					{
@@ -150,7 +150,7 @@ stories
 				<LayoutSection>
 					<Card>
 						<Table
-							className="services-table"
+							className="store-locations-table"
 							data={locations}
 							columns={columns}
 							sortable={true}

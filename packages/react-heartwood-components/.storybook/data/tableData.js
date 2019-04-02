@@ -10,7 +10,6 @@ export const generateLocations = ({ amount }) => {
 			publicName: faker.company.companyName(),
 			storeNumber: faker.random.number(amount),
 			status: Math.floor(Math.random() * 2) == 0 ? 'Open' : 'Hidden',
-			bla: 'foo', 
 			schedule: [
 				{ day: 'Monday', hours: '8am-5pm' },
 				{ day: 'Tuesday', hours: '8am-5pm' },
