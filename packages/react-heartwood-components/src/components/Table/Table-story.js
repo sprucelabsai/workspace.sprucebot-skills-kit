@@ -5,7 +5,8 @@ import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import { generateLocations } from '../../../.storybook/data/tableData'
 import Table, { TableSearch, TableFilters } from './index'
 import Layout, { LayoutSection } from '../Layout'
-import Card, { CardHeader } from '../Card'
+import Card, { CardHeader, CardBody } from '../Card'
+import Text from '../Text/Text'
 import Tabs from '../Tabs'
 
 const stories = storiesOf('Table', module)
@@ -70,6 +71,13 @@ const renderSubComponentForRow = (row: Object) => {
 				loading={false}
 				pageSize={schedule.length}
 				showPagination={false}
+				subComponentForRow={row => {
+					return (
+						<CardBody>
+							<Text>{`${row.original.day} is the best day of the week.`}</Text>
+						</CardBody>
+					)
+				}}
 				keyField="id"
 			/>
 		</Fragment>
