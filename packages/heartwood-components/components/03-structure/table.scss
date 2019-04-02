@@ -37,9 +37,17 @@
 	border-bottom: 1px solid $c-border-light;
 }
 
+.table-row-expander {
+	transition: transform 0.2s cubic-bezier(0.6, 0.6, 0.7, 1.4);
+}
+
 .table-row.table-row--expanded {
 	background-color: rgba($c-primary-light, 0.05);
 	border-bottom: none;
+
+	.table-row-expander {
+		transform: rotate(90deg);
+	}
 }
 
 .table-subcomponent {

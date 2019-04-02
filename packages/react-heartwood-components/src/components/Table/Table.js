@@ -4,9 +4,9 @@ import React, { Component, Fragment } from 'react'
 import ReactTable from 'react-table'
 import cx from 'classnames'
 import { Checkbox } from '../Forms'
+import Icon from '../Icon/Icon'
 import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination'
-import Icon from '../Icon/Icon'
 import EmptyState from '../EmptyState/EmptyState'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import type { Props as ButtonProps } from '../Button/Button'
@@ -325,12 +325,13 @@ export default class Table extends Component<Props, State> {
 					subComponentForRow
 						? row => (
 								<div className={'table-subcomponent'}>
-								<Card>{subComponentForRow(row)}</Card>
+									<Card>{subComponentForRow(row)}</Card>
 								</div>
 						  )
 						: null
 				}
 				NoDataComponent={EmptyState}
+				ExpanderComponent={<Icon icon={'keyboard_arrow_right'} className={'table-row-expander'}/>}
 				ThComponent={tableProps => {
 					const { toggleSort, className, ...rest } = tableProps
 					const isSortable =
