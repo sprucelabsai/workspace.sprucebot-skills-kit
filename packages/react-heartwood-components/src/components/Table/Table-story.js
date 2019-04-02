@@ -1,7 +1,6 @@
 // @flow
 import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
-import { keyBy } from 'lodash/keyBy'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import { generateLocations } from '../../../.storybook/data/tableData'
 import Table, { TableSearch, TableFilters } from './index'
@@ -62,7 +61,7 @@ class ExpandableEditableTable extends React.Component<Props, State> {
 		}
 	}
 
-	handleChangeHours = async (e, location, dayId) => {
+	handleChangeHours = (e, location, dayId) => {
 		const { locations } = this.state
 
 		locations.forEach(l => {
@@ -81,7 +80,7 @@ class ExpandableEditableTable extends React.Component<Props, State> {
 			}
 		})
 
-		await this.setState({ locations })
+		this.setState({ locations })
 	}
 
 	renderStoreScheduleForRow = (row: Object) => {
@@ -217,7 +216,7 @@ stories
 							paginationProps={{
 								showPages: true,
 								onPageButtonClick: () => console.log('onPageButtonClick'),
-								totalPages: Math.ceil(locations.length / 50),
+								totalPages: Math.ceil(staticLocations.length / 50),
 								currentPage: 0
 							}}
 							keyField="id"
