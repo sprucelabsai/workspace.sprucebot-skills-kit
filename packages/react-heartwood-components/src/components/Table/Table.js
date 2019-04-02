@@ -273,6 +273,12 @@ export default class Table extends Component<Props, State> {
 				columns={columnsToRender}
 				className={cx('table', className)}
 				sortable={isSelectable && selectedIds.length > 0 ? false : sortable}
+				expanderDefaults={{
+					sortable: false,
+					resizable: false,
+					filterable: false,
+					width: 40
+				}}
 				getTableProps={() => ({
 					className: 'table__inner'
 				})}
