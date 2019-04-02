@@ -294,7 +294,9 @@ export default class Table extends Component<Props, State> {
 				getTrGroupProps={(state, rowInfo) => {
 					const expanded = state.expanded[rowInfo.viewIndex]
 					return {
-						className: expanded ? 'table-row-group table-row-group--expanded' : 'table-row-group'
+						className: expanded
+							? 'table-row-group table-row-group--expanded'
+							: 'table-row-group'
 					}
 				}}
 				getTrProps={(state, rowInfo) => {
@@ -331,15 +333,15 @@ export default class Table extends Component<Props, State> {
 				SubComponent={
 					subComponentForRow
 						? row => (
-							<CSSTransition
-								in={true}
-								appear={true}
-								classNames="table-subcomponent"
-								timeout={100}
-							>
-								<div className={'table-subcomponent'}>
-									<Card>{subComponentForRow(row)}</Card>
-								</div>
+								<CSSTransition
+									in={true}
+									appear={true}
+									classNames="table-subcomponent"
+									timeout={100}
+								>
+									<div className={'table-subcomponent'}>
+										<Card>{subComponentForRow(row)}</Card>
+									</div>
 								</CSSTransition>
 						  )
 						: null
