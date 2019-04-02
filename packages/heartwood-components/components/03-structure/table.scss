@@ -61,7 +61,15 @@
 		opacity: 1;
 		transform: translate(0, 0);
 	}
+
+	+ .table-row-group:not(.table-row-group--expanded) {
+		> .table-row {
+			border-top: 1px solid $c-border-light;
+		}
+	}
 }
+
+
 
 .table-subcomponent {
 	padding: 0 spacing('loose') spacing('loose');
