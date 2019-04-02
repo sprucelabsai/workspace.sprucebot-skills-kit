@@ -1,6 +1,7 @@
 // @flow
 import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
+import { keyBy } from 'lodash/keyBy'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import { generateLocations } from '../../../.storybook/data/tableData'
 import Table, { TableSearch, TableFilters } from './index'
@@ -8,12 +9,13 @@ import Layout, { LayoutSection } from '../Layout'
 import Card, { CardHeader, CardBody } from '../Card'
 import Text from '../Text/Text'
 import Tabs from '../Tabs'
+import { TextInput } from '../Forms'
 
 const stories = storiesOf('Table', module)
 
 stories.addDecorator(withKnobs)
 
-const locations = generateLocations({ amount: 149 })
+const staticLocations = generateLocations({ amount: 149 })
 
 const columns = [
 	{
@@ -46,43 +48,124 @@ const columns = [
 	}
 ]
 
-const renderSubComponentForRow = (row: Object) => {
-	const schedule = locations[row.index] && locations[row.index].schedule
-	return schedule ? (
-		<Fragment>
-			<CardHeader title={'Store Schedule'} />
+type State = {
+	locations: Array<Object>
+}
+
+type Props = {}
+
+class ExpandableEditableTable extends React.Component<Props, State> {
+	constructor(props) {
+		super(props)
+		this.state = {
+			locations: generateLocations({ amount: 149 })
+		}
+	}
+
+	handleChangeHours = async (e, location, dayId) => {
+		const { locations } = this.state
+
+		locations.forEach(l => {
+			if (l.id === location.id) {
+				const updatedSchedule = l.schedule.map(day => {
+					const updatedDay = day
+					if (day.id === dayId) {
+						l.isDirty = true
+						updatedDay.hours = e.target.value
+						updatedDay.isDirty = true
+					}
+					return updatedDay
+				})
+
+				l.schedule = updatedSchedule
+			}
+		})
+
+		await this.setState({ locations })
+	}
+
+	renderStoreScheduleForRow = (row: Object) => {
+		const location = this.state.locations[row.index]
+		const schedule = location && location.schedule
+		return schedule ? (
+			<Fragment>
+				<CardHeader title={'Store Schedule'} />
+				<Table
+					isSelectable
+					className="store-schedule-table"
+					data={schedule}
+					columns={[
+						{
+							Header: 'Day',
+							accessor: 'day',
+							minWidth: 100,
+							maxWidth: 300
+						},
+						{
+							Header: 'Hours',
+							accessor: 'hours',
+							minWidth: 100,
+							maxWidth: 500
+						}
+					]}
+					collapseOnDataChange={false}
+					loading={false}
+					pageSize={schedule.length}
+					showPagination={false}
+					subComponentForRow={row => {
+						return (
+							<CardBody>
+								<TextInput
+									label={`${row.original.day} Store Hours`}
+									onChange={e =>
+										this.handleChangeHours(e, location, row.original.id)
+									}
+									value={row.original.hours}
+								/>
+							</CardBody>
+						)
+					}}
+					rowIsDirty={row => {
+						return row.original.isDirty
+					}}
+					keyField="id"
+				/>
+			</Fragment>
+		) : null
+	}
+
+	render() {
+		const { locations } = this.state
+
+		return (
 			<Table
-				isSelectable
-				className="store-schedule-table"
-				data={schedule}
-				columns={[
+				className="store-locations-table"
+				data={locations}
+				columns={columns}
+				sortable={true}
+				defaultPageSize={50}
+				defaultSorted={[
 					{
-						Header: 'Day',
-						accessor: 'day',
-						minWidth: 100,
-						maxWidth: 300
-					},
-					{
-						Header: 'Hours',
-						accessor: 'hours',
-						minWidth: 100,
-						maxWidth: 500
+						id: 'publicName',
+						desc: false
 					}
 				]}
 				loading={false}
-				pageSize={schedule.length}
-				showPagination={false}
-				subComponentForRow={row => {
-					return (
-						<CardBody>
-							<Text>{`${row.original.day} is the best day of the week.`}</Text>
-						</CardBody>
-					)
+				collapseOnDataChange={false}
+				paginationProps={{
+					showPages: true,
+					onPageButtonClick: () => console.log('onPageButtonClick'),
+					totalPages: Math.ceil(locations.length / 50),
+					currentPage: 0
 				}}
+				rowIsDirty={row => {
+					return row.original.isDirty
+				}}
+				subComponentForRow={this.renderStoreScheduleForRow}
 				keyField="id"
 			/>
-		</Fragment>
-	) : null
+		)
+	}
 }
 
 stories
@@ -120,7 +203,7 @@ stories
 						)}
 						<Table
 							className="services-table"
-							data={locations}
+							data={staticLocations}
 							columns={columns}
 							sortable={true}
 							defaultPageSize={50}
@@ -149,28 +232,7 @@ stories
 			<Layout width="full-width">
 				<LayoutSection>
 					<Card>
-						<Table
-							className="store-locations-table"
-							data={locations}
-							columns={columns}
-							sortable={true}
-							defaultPageSize={50}
-							defaultSorted={[
-								{
-									id: 'publicName',
-									desc: false
-								}
-							]}
-							loading={false}
-							paginationProps={{
-								showPages: true,
-								onPageButtonClick: () => console.log('onPageButtonClick'),
-								totalPages: Math.ceil(locations.length / 50),
-								currentPage: 0
-							}}
-							subComponentForRow={renderSubComponentForRow}
-							keyField="id"
-						/>
+						<ExpandableEditableTable />
 					</Card>
 				</LayoutSection>
 			</Layout>
@@ -209,7 +271,7 @@ stories
 					)}
 					<Table
 						className="services-table-selectable"
-						data={locations}
+						data={staticLocations}
 						columns={columns}
 						sortable={true}
 						defaultPageSize={50}
@@ -223,7 +285,7 @@ stories
 						paginationProps={{
 							showPages: true,
 							onPageButtonClick: () => console.log('onPageButtonClick'),
-							totalPages: Math.ceil(locations.length / 50),
+							totalPages: Math.ceil(staticLocations.length / 50),
 							currentPage: 0
 						}}
 						isSelectable

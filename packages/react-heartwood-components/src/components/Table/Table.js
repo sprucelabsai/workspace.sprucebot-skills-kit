@@ -63,7 +63,10 @@ type Props = {
 
 	/** Return a nested sub-component to be added as an expansion level for designated row. */
 
-	subComponentForRow?: (row: Object) => any
+	subComponentForRow?: (row: Object) => any,
+
+	/** Called any time row props are updated. Return true if the given row should appear dirty. */
+	rowIsDirty?: (row: Object) => boolean
 }
 
 type PrimaryAction = {
@@ -184,6 +187,7 @@ export default class Table extends Component<Props, State> {
 			noDataPrimaryActionButtonKind,
 			noDataPrimaryActionButtonIcon,
 			subComponentForRow,
+			rowIsDirty,
 			...rest
 		} = this.props
 
@@ -300,15 +304,20 @@ export default class Table extends Component<Props, State> {
 				getTrGroupProps={(state, rowInfo) => {
 					const expanded = state.expanded[rowInfo.viewIndex]
 					return {
-						className: expanded
-							? 'table-row-group table-row-group--expanded'
-							: 'table-row-group'
+						className: cx('table-row-group', {
+							'table-row-group--expanded': expanded,
+							'table-row-group--is-dirty': rowInfo.original.isDirty
+						})
 					}
 				}}
 				getTrProps={(state, rowInfo) => {
 					const expanded = state.expanded[rowInfo.viewIndex]
+					rowIsDirty && rowIsDirty(rowInfo)
 					return {
-						className: expanded ? 'table-row table-row--expanded' : 'table-row',
+						className: cx('table-row', {
+							'table-row--expanded': expanded,
+							'table-row--is-dirty': rowInfo.original.isDirty
+						}),
 						onClick: this.handleClickRow
 					}
 				}}

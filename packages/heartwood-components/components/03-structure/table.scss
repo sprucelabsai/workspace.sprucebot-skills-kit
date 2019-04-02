@@ -1,3 +1,6 @@
+
+$easeOutBounce: cubic-bezier(0.6, 0.6, 0.7, 1.4);
+
 .table {
 	.context-menu {
 		@include type-style-body-sm;
@@ -38,12 +41,17 @@
 }
 
 .table-row-expander {
-	transition: transform 0.2s cubic-bezier(0.6, 0.6, 0.7, 1.4);
+	transition: transform 0.2s $easeOutBounce;
 }
 
 .table-row-group {
 	background-color: $c-white;
-	transition: background-color 0.2s ease-out;
+	border-left-color: transparent;
+	transition: background-color 0.2s ease-out, border-left-width 0.1s ease-out, border-left-color 0.2s $easeOutBounce 0.1s;
+}
+
+.table-row-group.table-row-group--is-dirty {
+	border-left: 2px solid rgba($c-primary, 0.5);
 }
 
 .table-row-group.table-row-group--expanded {
@@ -77,7 +85,7 @@
 	.card {
 		opacity: 0;
 		transform: translate(0, 0.5rem);
-		transition: opacity 0.2s ease-out 0.05s, transform 0.2s cubic-bezier(0.6, 0.6, 0.7, 1.4);;
+		transition: opacity 0.2s ease-out 0.05s, transform 0.2s $easeOutBounce;;
 	}
 }
 
