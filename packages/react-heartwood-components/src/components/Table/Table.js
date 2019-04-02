@@ -2,6 +2,7 @@
 // Uses React Table. See https://react-table.js.org/#/story/readme details.
 import React, { Component, Fragment } from 'react'
 import ReactTable from 'react-table'
+import { CSSTransition } from 'react-transition-group'
 import cx from 'classnames'
 import { Checkbox } from '../Forms'
 import Icon from '../Icon/Icon'
@@ -290,6 +291,12 @@ export default class Table extends Component<Props, State> {
 					}),
 					width: 'auto'
 				})}
+				getTrGroupProps={(state, rowInfo) => {
+					const expanded = state.expanded[rowInfo.viewIndex]
+					return {
+						className: expanded ? 'table-row-group table-row-group--expanded' : 'table-row-group'
+					}
+				}}
 				getTrProps={(state, rowInfo) => {
 					const expanded = state.expanded[rowInfo.viewIndex]
 					return {
@@ -324,14 +331,26 @@ export default class Table extends Component<Props, State> {
 				SubComponent={
 					subComponentForRow
 						? row => (
+							<CSSTransition
+								in={true}
+								appear={true}
+								classNames="table-subcomponent"
+								timeout={100}
+							>
 								<div className={'table-subcomponent'}>
 									<Card>{subComponentForRow(row)}</Card>
 								</div>
+								</CSSTransition>
 						  )
 						: null
 				}
 				NoDataComponent={EmptyState}
-				ExpanderComponent={<Icon icon={'keyboard_arrow_right'} className={'table-row-expander'}/>}
+				ExpanderComponent={
+					<Icon
+						icon={'keyboard_arrow_right'}
+						className={'table-row-expander'}
+					/>
+				}
 				ThComponent={tableProps => {
 					const { toggleSort, className, ...rest } = tableProps
 					const isSortable =

@@ -41,22 +41,41 @@
 	transition: transform 0.2s cubic-bezier(0.6, 0.6, 0.7, 1.4);
 }
 
-.table-row.table-row--expanded {
-	background-color: rgba($c-primary-light, 0.05);
-	border-bottom: none;
+.table-row-group {
+	background-color: $c-white;
+	transition: background-color 0.2s ease-out;
+}
 
-	.table-row-expander {
+.table-row-group.table-row-group--expanded {
+	background-color: rgba($c-primary-light, 0.05);
+	
+	> .table-row {
+		border-bottom: none;
+	}
+
+	> .table-row > .table-cell > .table-row-expander {
 		transform: rotate(90deg);
+	}
+
+	> .table-subcomponent-enter-done > .card {
+		opacity: 1;
+		transform: translate(0, 0);
 	}
 }
 
 .table-subcomponent {
-	background-color: rgba($c-primary-light, 0.05);
 	padding: 0 spacing('loose') spacing('loose');
+
+	.card {
+		opacity: 0;
+		transform: translate(0, 0.5rem);
+		transition: opacity 0.2s ease-out 0.05s, transform 0.2s cubic-bezier(0.6, 0.6, 0.7, 1.4);;
+	}
 }
 
 .table-cell,
 .table-header-cell {
+	display: flex;
 	width: 100%;
 
 	&:first-child {
