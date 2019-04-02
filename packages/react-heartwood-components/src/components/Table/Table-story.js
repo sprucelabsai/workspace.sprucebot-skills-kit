@@ -52,6 +52,7 @@ const renderSubComponentForRow = (row: Object) => {
 		<Fragment>
 			<CardHeader title={'Store Schedule'} />
 			<Table
+				isSelectable
 				className="services-table"
 				data={schedule}
 				columns={[
