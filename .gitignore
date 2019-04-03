@@ -68,3 +68,6 @@ scratchpad.js
 api-docs.json
 
 .env.local
+
+# Docz
+.docz/
