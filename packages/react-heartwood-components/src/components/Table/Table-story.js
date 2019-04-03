@@ -3,6 +3,7 @@ import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import { generateLocations } from '../../../.storybook/data/tableData'
+import { Formik } from 'formik'
 import Table, { TableSearch, TableFilters } from './index'
 import Layout, { LayoutSection } from '../Layout'
 import Card, { CardHeader, CardBody } from '../Card'
@@ -83,6 +84,29 @@ class ExpandableEditableTable extends React.Component<Props, State> {
 		this.setState({ locations })
 	}
 
+	handleValidation = async (
+		location: Object,
+		dayId,
+		string,
+		values: Object
+	) => {
+		let errors = {}
+
+		const { locations } = this.state
+
+		const updatedLocation = locations.find(l => l.id === location.id)
+		const updatedScheduleDay =
+			updatedLocation && updatedLocation.schedule.find(day => day.id === dayId)
+
+		if (updatedLocation && updatedScheduleDay && !updatedScheduleDay.isDirty) {
+			updatedLocation.isDirty = true
+			updatedScheduleDay.isDirty = true
+			this.setState({ locations })
+		}
+
+		return errors
+	}
+
 	renderStoreScheduleForRow = (row: Object) => {
 		const location = this.state.locations[row.index]
 		const schedule = location && location.schedule
@@ -114,12 +138,31 @@ class ExpandableEditableTable extends React.Component<Props, State> {
 					subComponentForRow={row => {
 						return (
 							<CardBody>
-								<TextInput
-									label={`${row.original.day} Store Hours`}
-									onChange={e =>
-										this.handleChangeHours(e, location, row.original.id)
+								<Formik
+									initialValues={row.original}
+									validate={values =>
+										this.handleValidation(location, row.original.id, values)
 									}
-									value={row.original.hours}
+									render={(formikProps: FormikProps) => {
+										const {
+											handleChange,
+											touched,
+											values,
+											errors,
+											dirty
+										} = formikProps
+
+										return (
+											<form onSubmit={formikProps.handleSubmit}>
+												<TextInput
+													label={`${row.original.day} Store Hours`}
+													onChange={handleChange}
+													name="hours"
+													value={values.hours || ''}
+												/>
+											</form>
+										)
+									}}
 								/>
 							</CardBody>
 						)
