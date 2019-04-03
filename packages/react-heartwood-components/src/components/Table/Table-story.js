@@ -7,7 +7,6 @@ import { Formik } from 'formik'
 import Table, { TableSearch, TableFilters } from './index'
 import Layout, { LayoutSection } from '../Layout'
 import Card, { CardHeader, CardBody } from '../Card'
-import Text from '../Text/Text'
 import Tabs from '../Tabs'
 import { TextInput } from '../Forms'
 
@@ -84,12 +83,7 @@ class ExpandableEditableTable extends React.Component<Props, State> {
 		this.setState({ locations })
 	}
 
-	handleValidation = async (
-		location: Object,
-		dayId,
-		string,
-		values: Object
-	) => {
+	handleValidation = async (location: Object, dayId) => {
 		let errors = {}
 
 		const { locations } = this.state
@@ -143,14 +137,8 @@ class ExpandableEditableTable extends React.Component<Props, State> {
 									validate={values =>
 										this.handleValidation(location, row.original.id, values)
 									}
-									render={(formikProps: FormikProps) => {
-										const {
-											handleChange,
-											touched,
-											values,
-											errors,
-											dirty
-										} = formikProps
+									render={(formikProps: Object) => {
+										const { handleChange, values } = formikProps
 
 										return (
 											<form onSubmit={formikProps.handleSubmit}>
