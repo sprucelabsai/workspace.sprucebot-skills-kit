@@ -7,8 +7,14 @@ import { Formik } from 'formik'
 import Table, { TableSearch, TableFilters } from './index'
 import Layout, { LayoutSection } from '../Layout'
 import Card, { CardHeader, CardBody } from '../Card'
+import Button from '../Button/Button'
 import Tabs from '../Tabs'
-import { TextInput } from '../Forms'
+import {
+	TextInput,
+	FormLayout,
+	FormLayoutGroup,
+	FormLayoutItem
+} from '../Forms'
 
 const stories = storiesOf('Table', module)
 
@@ -101,6 +107,21 @@ class ExpandableEditableTable extends React.Component<Props, State> {
 		return errors
 	}
 
+	handleSaveHours = async (location: Object, dayId, values) => {
+		const { locations } = this.state
+
+		const updatedLocation = locations.find(l => l.id === location.id)
+		const updatedScheduleDay =
+			updatedLocation && updatedLocation.schedule.find(day => day.id === dayId)
+
+		if (updatedLocation && updatedScheduleDay) {
+			updatedScheduleDay.hours = values.hours || ''
+			updatedLocation.isDirty = false
+			updatedScheduleDay.isDirty = false
+			this.setState({ locations })
+		}
+	}
+
 	renderStoreScheduleForRow = (row: Object) => {
 		const location = this.state.locations[row.index]
 		const schedule = location && location.schedule
@@ -142,12 +163,32 @@ class ExpandableEditableTable extends React.Component<Props, State> {
 
 										return (
 											<form onSubmit={formikProps.handleSubmit}>
-												<TextInput
-													label={`${row.original.day} Store Hours`}
-													onChange={handleChange}
-													name="hours"
-													value={values.hours || ''}
-												/>
+												<FormLayout>
+													<FormLayoutGroup>
+														<FormLayoutItem>
+															<TextInput
+																label={`${row.original.day} Store Hours`}
+																onChange={handleChange}
+																name="hours"
+																value={values.hours || ''}
+															/>
+														</FormLayoutItem>
+														<FormLayoutItem spacerTop={true}>
+															<Button
+																kind="primary"
+																onClick={() =>
+																	this.handleSaveHours(
+																		location,
+																		row.original.id,
+																		values
+																	)
+																}
+																disabled={!row.original.isDirty}
+																text="Save"
+															/>
+														</FormLayoutItem>
+													</FormLayoutGroup>
+												</FormLayout>
 											</form>
 										)
 									}}
