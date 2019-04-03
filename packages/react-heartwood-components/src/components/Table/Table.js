@@ -323,7 +323,8 @@ export default class Table extends Component<Props, State> {
 				}}
 				getTdProps={(state, rowInfo, column) => ({
 					className: cx('table-cell', {
-						'table-checkbox-cell': column.id === 'checkbox'
+						'table-checkbox-cell': column.id === 'checkbox',
+						'table-expander-cell': column.expander
 					}),
 					width: 'auto'
 				})}
@@ -365,7 +366,7 @@ export default class Table extends Component<Props, State> {
 				ExpanderComponent={
 					<Icon
 						icon={'keyboard_arrow_right'}
-						className={'table-row-expander'}
+						className={'table-expander-row'}
 					/>
 				}
 				ThComponent={tableProps => {

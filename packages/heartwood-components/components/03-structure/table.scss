@@ -40,7 +40,11 @@ $easeOutBounce: cubic-bezier(0.6, 0.6, 0.7, 1.4);
 	border-bottom: 1px solid $c-border-light;
 }
 
-.table-row-expander {
+.table-expander-cell {
+	cursor: pointer;
+}
+
+.table-expander-row {
 	transition: transform 0.2s $easeOutBounce;
 }
 
@@ -61,7 +65,7 @@ $easeOutBounce: cubic-bezier(0.6, 0.6, 0.7, 1.4);
 		border-bottom: none;
 	}
 
-	> .table-row > .table-cell > .table-row-expander {
+	> .table-row > .table-cell > .table-expander-row {
 		transform: rotate(90deg);
 	}
 
