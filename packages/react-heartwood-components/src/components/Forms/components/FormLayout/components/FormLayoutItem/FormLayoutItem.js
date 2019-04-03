@@ -17,9 +17,12 @@ const FormLayoutItem = (props: FormLayoutItemProps) => {
 	const { children, className, spacerTop, ...rest } = props
 
 	return (
-		<div className={cx('form-layout__item', className, {
-			'form-layout__item--spacer-top': spacerTop
-		})} {...rest}>
+		<div
+			className={cx('form-layout__item', className, {
+				'form-layout__item--spacer-top': spacerTop
+			})}
+			{...rest}
+		>
 			{children}
 		</div>
 	)
