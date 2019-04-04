@@ -26,7 +26,7 @@ $condensed-basis: (layout-width('base') - (spacing('base') * 3)) / 4;
 	min-width: $primary-basis;
 
 	&--spacer-top {
-		margin: calc(#{spacing('extra-loose')} + #{rem(17)}) 0 0 spacing('base');
+		margin: #{spacing('extra-loose') + rem(17)} 0 0 spacing('base');
 	}
 
 	.form-layout__group--condensed & {
@@ -36,7 +36,7 @@ $condensed-basis: (layout-width('base') - (spacing('base') * 3)) / 4;
 	.form-layout--spacing-tight & {
 		margin: spacing('base') 0 0 spacing('base');
 		&--spacer-top {
-			margin: calc(#{spacing('base')} + #{rem(17)}) 0 0 spacing('base');
+			margin: #{spacing('base') + rem(17)} 0 0 spacing('base');
 		}
 	}
 }

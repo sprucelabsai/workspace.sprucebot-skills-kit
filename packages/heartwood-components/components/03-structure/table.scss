@@ -1,5 +1,6 @@
 
 $easeOutBounce: cubic-bezier(0.6, 0.6, 0.7, 1.4);
+$expandDuration: 0.2s;
 
 .table {
 	.context-menu {
@@ -45,13 +46,13 @@ $easeOutBounce: cubic-bezier(0.6, 0.6, 0.7, 1.4);
 }
 
 .table-expander-row {
-	transition: transform 0.2s $easeOutBounce;
+	transition: transform $expandDuration $easeOutBounce;
 }
 
 .table-row-group {
 	background-color: $c-white;
 	border-left-color: transparent;
-	transition: background-color 0.2s ease-out, border-left-width 0.1s ease-out, border-left-color 0.2s $easeOutBounce 0.1s;
+	transition: background-color $expandDuration ease-out, border-left-width 0.1s ease-out, border-left-color $expandDuration $easeOutBounce 0.1s;
 }
 
 .table-row-group.table-row-group--is-dirty {
@@ -89,7 +90,7 @@ $easeOutBounce: cubic-bezier(0.6, 0.6, 0.7, 1.4);
 	.card {
 		opacity: 0;
 		transform: translate(0, 0.5rem);
-		transition: opacity 0.2s ease-out 0.05s, transform 0.2s $easeOutBounce;;
+		transition: opacity $expandDuration ease-out 0.05s, transform $expandDuration $easeOutBounce;;
 	}
 }
 

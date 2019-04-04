@@ -62,7 +62,6 @@ type Props = {
 	noDataPrimaryActionButtonIcon?: string,
 
 	/** Return a nested sub-component to be added as an expansion level for designated row. */
-
 	subComponentForRow?: (row: Object) => any,
 
 	/** Called any time row props are updated. Return true if the given row should appear dirty. */
