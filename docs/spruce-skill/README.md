@@ -1,6 +1,6 @@
 # 🌲 Sprucebot Skills Kit 🌲
 
-- [Skills](skills.md) <- Start here after reading below
+- [Skills](skills.md) <- Start here after reading below!
 - [Server](server.md)
 - [Interface](interface.md)
 - [Core API](api.md)
