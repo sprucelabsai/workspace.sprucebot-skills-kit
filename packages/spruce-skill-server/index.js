@@ -111,6 +111,8 @@ module.exports = async ({
 			useMockApi: true
 		})
 		sprucebot.adapter.mockApiGQLServerInit({ customMocks })
+		const v1APIMocks = require('./tests/v1APIMocks')(koa.context)
+		sprucebot.adapter.mockApiInit(v1APIMocks)
 	}
 
 	let syncResponse

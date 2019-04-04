@@ -2,8 +2,8 @@
 /.circleci @kengoldfarb
 
 # Package owners
-/packages/heartwood-components @brandonminch @jtini
-/packages/react-heartwood-components @brandonminch @jtini
+/packages/heartwood-components @brandonminch @jtini @gcpantazis
+/packages/react-heartwood-components @brandonminch @jtini @gcpantazis
 /packages/eslint-config-spruce @kengoldfarb @gcpantazis
 /packages/eslint-plugin-spruce @kengoldfarb @gcpantazis
 /packages/spruce-next-helpers @kengoldfarb @gcpantazis
