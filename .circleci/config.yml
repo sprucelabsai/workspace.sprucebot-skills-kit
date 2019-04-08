@@ -10,8 +10,8 @@ jobs:
       - checkout
       - run: node -v && npm -v
       - run: yarn install --frozen-lockfile
-      - run: yarn lint
       - run: yarn build
+      - run: yarn lint
       - run: yarn test
   pre_release:
     docker:

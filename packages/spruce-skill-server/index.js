@@ -111,6 +111,8 @@ module.exports = async ({
 			useMockApi: true
 		})
 		sprucebot.adapter.mockApiGQLServerInit({ customMocks })
+		const v1APIMocks = require('./tests/v1APIMocks')(koa.context)
+		sprucebot.adapter.mockApiInit(v1APIMocks)
 	}
 
 	let syncResponse
@@ -240,7 +242,7 @@ module.exports = async ({
 			debug('Utilities and services can now reference the orm')
 		}
 	} catch (err) {
-		console.error('Leading services & utilities failed.')
+		console.error('Loading services & utilities failed.')
 		console.error(err)
 		throw err
 	}

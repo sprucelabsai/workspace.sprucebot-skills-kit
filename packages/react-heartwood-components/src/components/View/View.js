@@ -3,7 +3,6 @@ import React from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
 import { Sidebar, SidebarFooter } from '../Core'
-import type { Node } from 'react'
 
 type Props = {
 	sidebarItems?: Array<Object>,
@@ -19,7 +18,10 @@ type Props = {
 	isSidebarExpanded?: boolean,
 	isSidebarMobileExpanded?: boolean,
 	onClickSearch?: Function,
-	searchPlaceholder?: string
+	searchPlaceholder?: string,
+
+	/** Menu children (<ListItem> or <li>) */
+	userMenuItems: ReactNode
 }
 
 const View = (props: Props) => {
@@ -37,6 +39,7 @@ const View = (props: Props) => {
 		forceCloseSidebar,
 		onClickSearch,
 		searchPlaceholder,
+		userMenuItems,
 		children
 	} = props
 
@@ -59,6 +62,7 @@ const View = (props: Props) => {
 				isSidebarVisible={isSidebarMobileExpanded}
 				searchPlaceholder={searchPlaceholder}
 				onClickSearch={onClickSearch}
+				userMenuItems={userMenuItems}
 			/>
 
 			<div className="main-content-outer">

@@ -33,6 +33,10 @@ module.exports = class MockHttps {
 		this.mockServer = mockServer(schema, customMocks)
 	}
 
+	async mockApiInit(mockApi) {
+		this.mockApi = mockApi
+	}
+
 	async query(query) {
 		const result = await this.mockServer.query(query)
 		return result
@@ -50,8 +54,8 @@ module.exports = class MockHttps {
 	 * @param {Object} query Vanilla object that is converted into a query string
 	 * @returns {Promise}
 	 */
-	async get(path, query) {
-		return Promise.resolve({})
+	get(path, query) {
+		return this.mockApi.get(path, query)
 	}
 
 	/**
@@ -63,8 +67,8 @@ module.exports = class MockHttps {
 	 * @param {String} method
 	 * @returns {Promise}
 	 */
-	async post(path, data, query, method = 'POST') {
-		return Promise.resolve({})
+	post(path, data, query, method = 'POST') {
+		return this.mockApi.post(path, data, query, method)
 	}
 
 	/**
@@ -75,9 +79,8 @@ module.exports = class MockHttps {
 	 * @param {Object} query
 	 * @returns {Promise}
 	 */
-	async patch(path, data, query) {
-		// return this.post(path, data, query, 'PATCH')
-		return Promise.resolve({})
+	patch(path, data, query) {
+		return this.mockApi.patch(path, data, query)
 	}
 
 	/**
@@ -87,7 +90,7 @@ module.exports = class MockHttps {
 	 * @returns {Promise}
 	 */
 	async delete(path, query) {
-		return Promise.resolve({})
+		return this.mockApi.delete(path, query)
 	}
 
 	/**

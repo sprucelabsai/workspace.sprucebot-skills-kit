@@ -121,6 +121,109 @@ const skill = {
 		return saveBar
 	},
 
+	modal: function() {
+		const modal = {
+			open: (data: Object) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:Open',
+					data
+				})
+			},
+			close: () => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:Close'
+				})
+			},
+			onGoBack: (callback: Function) => {
+				if (this._onGoBackListener) {
+					this._onGoBackListener.destroy()
+				}
+				this._onGoBackListener = Iframes.onMessage(
+					'SkillViewDialog:GoBack',
+					callback
+				)
+			},
+			onClickFooterPrimaryAction: (callback: Function) => {
+				if (this._onClickFooterPrimaryActionListener) {
+					this._onClickFooterPrimaryActionListener.destroy()
+				}
+				this._onClickFooterPrimaryActionListener = Iframes.onMessage(
+					'SkillViewDialog:ClickFooterPrimaryAction',
+					callback
+				)
+			},
+			onClickFooterSecondaryAction: (callback: Function) => {
+				if (this._onClickFooterSecondaryActionListener) {
+					this._onClickFooterSecondaryActionListener.destroy()
+				}
+				this._onClickFooterSecondaryActionListener = Iframes.onMessage(
+					'SkillViewDialog:ClickFooterSecondaryAction',
+					callback
+				)
+			},
+			setFooterPrimaryActionIsLoading: (isLoading: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetFooterPrimaryActionIsLoading',
+					data: { value: isLoading }
+				})
+			},
+			setFooterSecondaryActionIsLoading: (isLoading: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetFooterSecondaryActionIsLoading',
+					data: { value: isLoading }
+				})
+			},
+			setFooterPrimaryActionIsDisabled: (isDisabled: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetFooterPrimaryActionIsDisabled',
+					data: { value: isDisabled }
+				})
+			},
+			setFooterSecondaryActionIsDisabled: (isDisabled: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetFooterSecondaryActionIsDisabled',
+					data: { value: isDisabled }
+				})
+			},
+			setFooterPrimaryActionText: (text: string) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetFooterPrimaryActionText',
+					data: { value: text }
+				})
+			},
+			setFooterSecondaryActionText: (text: string) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetFooterSecondaryActionText',
+					data: { value: text }
+				})
+			},
+			setTitle: (text: string) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetTitle',
+					data: { value: text }
+				})
+			},
+			setBackButtonIsVisible: (isVisible: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetBackButtonIsVisible',
+					data: { value: isVisible }
+				})
+			}
+		}
+
+		return modal
+	},
+
 	notifyOfRouteChangeStart() {
 		Iframes.sendMessage({
 			to: window.parent,
