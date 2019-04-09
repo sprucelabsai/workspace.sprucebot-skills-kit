@@ -9,7 +9,7 @@ yarn add sprucebot-cli -g
 sprucebot skill create
 ```
 
-# Starting your skill
+## Starting your skill
 After you've finished creating your skill, you'll need to make sure dependencies are installed.
 
 ```bash
@@ -23,7 +23,7 @@ yarn run local
 
 If you want to skip all the extremely **important** sh** below and get to playing around, try the [`simulator`](simulator.md).
 
-## Env
+### Env
 Below is a description of every setting in your `.env` and a description of what each setting does.`
 
 * `DEV_MODE` - (Bool) Show's `DevControls` so you can switch roles easily for testing. Keep true when running locally, but never in production!
@@ -38,7 +38,7 @@ Below is a description of every setting in your `.env` and a description of what
 * `INTERFACE_HOST` - (String) How do we reach your `Interface`? Usually the same as above.
 * `INTERFACE_SSL_ALLOW_SELF_SIGNED` - (Bool) Leave `false` unless you are hosting using a self-signed cert. Always leave `false` in production.
 
-## Tunneling
+### Tunneling
 In order to work inside of Sprucebot, you will need a tunnel (such as [ngrok](ngrok.io)). Here is how we would set ourselves up.
 
 First we would start ngrok and point it to port `3006`.
@@ -61,10 +61,10 @@ Next, we would drop our ngrok url into our `.env.`. Notice the `PORT` should mat
 
 Now you can visit `API_HOST` (https://hello.sprucebot.com) directly and navigate to your `Location` and enable your skill.
 
-## Debugging
+### Debugging
 This kit comes with a `.vscode` folder with a `launch.json` configured for debugging with [Visual Studio Code](https://code.visualstudio.com). Simply open this project in VS Code and start launch the debugger.
 
-## File Structure
+### File Structure
  * `.vscode` - Settings for `Visual Studio Code`, our preferred IDE
  * `config` - Per environment settings, managed via [config](https://github.com/lorenwest/node-config)
  * `coverage` - Testing courtesy [Jest](https://facebook.github.io/jest/). No need to touch anything here.
@@ -103,5 +103,5 @@ This kit comes with a `.vscode` folder with a `launch.json` configured for debug
 * `package.json` - Dependencies n' such.
 * `README.md` - Readme about your skill.
 
-# What's next?
+## What's next?
 Now that you're up and running, dive into the [`server`](server.md) guide to get yourself familiar with the backend.
