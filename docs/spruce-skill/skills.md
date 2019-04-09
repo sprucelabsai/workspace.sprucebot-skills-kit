@@ -1,4 +1,4 @@
-![Architecture](../_images/architecture.gif?raw=true 'Architecture')
+![Architecture](../_images/Architecture.png?raw=true 'Architecture')
 
 # Building your first skill
 This is handled by our [sprucebot-cli](https://github.com/sprucelabsai/sprucebot-cli).
