@@ -8,7 +8,7 @@ yarn add sprucebot-cli -g
 sprucebot skill create
 ```
 
-# Starting your skill
+## Starting your skill
 After you've finished creating your skill, you'll need to make sure dependencies are installed.
 
 ```bash
