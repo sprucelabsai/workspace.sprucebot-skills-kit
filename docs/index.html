@@ -10,6 +10,23 @@
 			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
 		/>
 		<link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css" />
+		<style>
+			section.cover .cover-main>p:last-child a {
+				margin-left: 8px;
+				margin-right: 8px;
+				border-radius: 4px;
+				font-size: 1rem;
+				letter-spacing: 0;
+			}
+
+			.ready section.cover .cover-main>p:last-child a:hover {
+				color: var(--theme-color,#42b983);
+			}
+
+			.ready section.cover .cover-main>p:last-child a:last-child:hover {
+				color: #fff
+			}
+		</style>
 	</head>
 	<body>
 		<div id="app"></div>
