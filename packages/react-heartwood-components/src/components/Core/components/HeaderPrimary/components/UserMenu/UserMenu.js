@@ -2,10 +2,6 @@
 import React from 'react'
 import { VelocityTransitionGroup } from 'velocity-react'
 import Avatar from '../../../../../Avatar/Avatar'
-import Button from '../../../../../Button/Button'
-import ListItem from '../../../../../List/components/ListItem/ListItem'
-import SwitchIcon from '../../../../../../../static/assets/icons/Users/Geometric-Close-Up-Single-User-Actions-Neutral/single-neutral-actions-up-down.svg'
-import LogoutIcon from '../../../../../../../static/assets/icons/Interface-Essential/Login/Logout/logout.svg'
 
 type Props = {
 	/** User image to show in the avatar */
@@ -20,12 +16,12 @@ type Props = {
 	/** Handler to toggle menu visibility */
 	toggleMenu: Function,
 
-	/** User telephone number */
-	tel: string
+	/** Menu children (<ListItem> or <li>) */
+	userMenuItems: ReactNode
 }
 
 const UserMenu = (props: Props) => {
-	const { image, name, tel, menuIsVisible, toggleMenu } = props
+	const { image, name, menuIsVisible, toggleMenu, userMenuItems } = props
 
 	return (
 		<div className="user-menu">
@@ -45,31 +41,7 @@ const UserMenu = (props: Props) => {
 				}}
 			>
 				{menuIsVisible && (
-					<ul className="user-menu__menu card">
-						<ListItem avatar={image} title={name} subtitle={tel} />
-						<li className="list-item">
-							<Button
-								kind="simple"
-								text="Switch Accounts"
-								icon={{
-									customIcon: SwitchIcon,
-									isLineIcon: true
-								}}
-								isFullWidth
-							/>
-						</li>
-						<li className="list-item">
-							<Button
-								kind="simple"
-								text="Log Out"
-								icon={{
-									customIcon: LogoutIcon,
-									isLineIcon: true
-								}}
-								isFullWidth
-							/>
-						</li>
-					</ul>
+					<ul className="user-menu__menu list card">{userMenuItems}</ul>
 				)}
 			</VelocityTransitionGroup>
 		</div>

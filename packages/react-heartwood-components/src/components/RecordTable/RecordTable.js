@@ -93,12 +93,29 @@ type RecordTableProps = {|
 	/** should I fetch all my data on mount? */
 	fetchOnMount?: boolean,
 
+	/** Flag for error on fetching data */
+	fetchError?: boolean,
+
 	/** passthrough to Table component */
 	handleClickRow?: Function,
 
 	/** called when search suggestion is selected */
-	onSelection?: Function
+	onSelection?: Function,
+
+	/** No data available */
+	noDataIcon?: string,
+	noDataHeadline?: string,
+	noDataSubheadline?: string,
+	noDataPrimaryAction?: PrimaryAction,
+	noDataPrimaryActionButtonKind?: string,
+	noDataPrimaryActionButtonIcon?: string
 |}
+
+type PrimaryAction = {
+	text: string,
+	onClick: (e: MouseEvent) => void,
+	type: string
+}
 
 type RecordTableState = {
 	selectedTab?: string,
@@ -304,6 +321,57 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		)
 	}
 
+	isFiltered = () => {
+		const { enableFilter } = this.props
+		const { currentFilter } = this.state
+		return currentFilter.length > 0 && enableFilter
+	}
+
+	getNoDataIcon = () => {
+		const { noDataIcon, fetchError } = this.props
+		return fetchError
+			? 'caution'
+			: this.isFiltered()
+			? 'no_matches'
+			: noDataIcon
+	}
+
+	getNoDataHeadline = () => {
+		const { noDataHeadline, fetchError } = this.props
+		return fetchError
+			? 'Data not available'
+			: this.isFiltered()
+			? 'No matches found'
+			: noDataHeadline
+	}
+
+	getNoDataSubheadline = () => {
+		const { noDataSubheadline, fetchError } = this.props
+		return fetchError
+			? 'It looks like something went wrong.'
+			: this.isFiltered()
+			? null
+			: noDataSubheadline
+	}
+
+	getNoDataPrimaryAction = () => {
+		const { noDataPrimaryAction, fetchError } = this.props
+		return fetchError
+			? {
+					text: 'Try again',
+					onClick: () => window.location.reload()
+			  }
+			: this.isFiltered()
+			? {
+					text: 'Show all',
+					onClick: () => {
+						this.updateFilter('')
+					},
+					type: 'submit'
+			  }
+			: noDataPrimaryAction
+	}
+
 	render() {
 		const {
 			// eslint-disable-next-line no-unused-vars
@@ -315,12 +383,9 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			enableSearch,
 			enableFilter,
 			searchPlaceholder,
-			noDataIcon,
-			noDataHeadline,
-			noDataSubheadline,
-			noDataPrimaryAction,
-			tableSearchProps = {},
-			...props
+			noDataPrimaryActionButtonKind,
+			noDataPrimaryActionButtonIcon,
+			tableSearchProps = {}
 		} = this.props
 
 		const {
@@ -333,8 +398,6 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			totalRows,
 			currentFilter
 		} = this.state
-
-		const isFiltered = currentFilter.length > 0 && enableFilter
 
 		// setup default props types
 		tableSearchProps.getSuggestionValue =
@@ -426,24 +489,16 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 					manual
 					loading={loading}
 					data={visibleRows || []}
+					totalRows={totalRows}
 					onSortedChange={this.handleSortChanged}
 					onClickRow={handleClickRow}
 					key="id"
-					noDataIcon={isFiltered ? 'no_matches' : noDataIcon}
-					noDataHeadline={isFiltered ? 'No matches found' : noDataHeadline}
-					noDataSubheadline={isFiltered ? null : noDataSubheadline}
-					noDataPrimaryAction={
-						isFiltered
-							? {
-									text: 'Show all',
-									onClick: () => {
-										this.updateFilter('')
-									},
-									type: 'submit'
-							  }
-							: noDataPrimaryAction
-					}
-					{...props}
+					noDataIcon={this.getNoDataIcon()}
+					noDataHeadline={this.getNoDataHeadline()}
+					noDataSubheadline={this.getNoDataSubheadline()}
+					noDataPrimaryAction={this.getNoDataPrimaryAction()}
+					noDataPrimaryActionButtonKind={noDataPrimaryActionButtonKind}
+					noDataPrimaryActionButtonIcon={noDataPrimaryActionButtonIcon}
 				/>
 			</Fragment>
 		)

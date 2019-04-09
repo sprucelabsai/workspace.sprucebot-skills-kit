@@ -3,6 +3,86 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.12.0...v8.13.0) (2019-03-20)
+
+
+### Bug Fixes
+
+* linting and unnecessary code ([24a0b82](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/24a0b82))
+* padding on card footer ([6dd6501](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6dd6501))
+* pagination padding ([6cdc598](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6cdc598))
+* **RecordTable:** Paginators should only be displayed when 2 or more pages of data are available [[SBL-2111](https://sprucelabsai.atlassian.net/browse/SBL-2111)] ([4a20cc5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4a20cc5))
+* remove unnecessary import ([41f8479](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/41f8479))
+* set mock server before running skill sync ([5e320a9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5e320a9))
+* **BigCalendar:** Prep for usage in core web ([11505db](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/11505db))
+* **BigCalendar:** Remove BC styles from heartwood-components ([c8ea8b4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c8ea8b4))
+* **RecordTable:** Paginators should only be displayed when 2 or more pages of data are available [[SBL-2111](https://sprucelabsai.atlassian.net/browse/SBL-2111)] ([eca550a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/eca550a))
+* **view:** Remove more non-flex references ([84dbd42](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/84dbd42))
+* **view/page:** Properly scope zIndex for page panels ([723c64e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/723c64e))
+* set User virtual attributes for profile image types to json ([b198d8a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b198d8a))
+
+
+### Features
+
+* **modals:** Add passthrough method for setAppElement ([1a08498](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1a08498))
+* **RecordTable:** RecordTable now supports an EmptyState instance for failed API fetches [[SBL-2094](https://sprucelabsai.atlassian.net/browse/SBL-2094)] ([d2aa0a1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d2aa0a1))
+* **RecordTable:** Support for custom button kinds and icons ([25bc1d9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/25bc1d9))
+* add large guest and team icons ([45cce95](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/45cce95))
+* better error logging / debugging messages; cleanup unused / old code ([5d66f51](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5d66f51))
+* implement GQL Relay ([6119e04](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6119e04))
+* override gql connections ([bde8149](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bde8149))
+* **responsive:** Don't let mobile styles for sidebars leak to desktop ([fef94b5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fef94b5))
+* **sidebar:** Add mobile-only prop for sidebar sections ([6e5dd07](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6e5dd07))
+* **view:** Switch to a flexbox-based layout ([fa37d1c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fa37d1c))
+
+
+### Refactoring
+
+* **datePicker:** hide keyboard shortcuts panel ([5c9190c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5c9190c))
+* **datePicker:** style updates ([9538319](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9538319))
+* **loader:** add isCentered prop to center loader in parent [[SBL-2236](https://sprucelabsai.atlassian.net/browse/SBL-2236)] ([682b509](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/682b509))
+* **loader:** add isLight prop [[SBL-2236](https://sprucelabsai.atlassian.net/browse/SBL-2236)] ([211064a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/211064a))
+* **phoneInput:** update package and export formatPhoneNumberIntl ([64494d8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/64494d8))
+* **select:** add optional placeholder for Select components ([42cf11c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/42cf11c))
+* fix lint error ([71a33e8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/71a33e8))
+* gt => +1 to the breakpoint ([3d7ec81](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3d7ec81))
+* style updates ([0f948d9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0f948d9))
+
+
+
+
+
+# [8.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.11.0...v8.12.0) (2019-02-27)
+
+
+### Bug Fixes
+
+* **EmptyState:** exports Empty State component ([ae7fd4f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ae7fd4f))
+* **Table:** Correct busted logic that was breaking pagination ([4a249b0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4a249b0)), closes [#379](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/379)
+
+
+### Documentation
+
+* start upgrade docs ([14ddb10](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/14ddb10))
+
+
+### Features
+
+* docsify ([b70a8ac](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b70a8ac))
+* **EmptyState:** Adds new default for Empty State [[SBL-1996](https://sprucelabsai.atlassian.net/browse/SBL-1996)], new Empty State for filtered Record Tables [[SBL-2093](https://sprucelabsai.atlassian.net/browse/SBL-2093)], new Storybook stories for Empty State ([5f9e5f2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5f9e5f2))
+* **Icons:** added Empty Box and No Matches icons ([8868ca0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8868ca0))
+* **RecordSelectionList:** Support arbitrary data with getRecordId ([51d475d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51d475d))
+
+
+### Refactoring
+
+* **BigCalendar-story:** Uses the Toast component instead of alert ([1f3ec14](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1f3ec14))
+* **Table:** Sane default for the Empty State primary action button icon instead of the refresh icon ([a611052](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a611052))
+
+
+
+
+
 # [8.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.1...v8.11.0) (2019-02-19)
 
 

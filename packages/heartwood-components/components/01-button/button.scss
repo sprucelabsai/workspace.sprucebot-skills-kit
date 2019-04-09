@@ -123,6 +123,7 @@ Button Variation mixins
 Baseline styling for all buttons
 */
 .btn {
+	@include btn($color: $c-text, $is-simple: true, $is-solid: false);
 	@extend %reset-button;
 	position: relative;
 	display: inline-block;

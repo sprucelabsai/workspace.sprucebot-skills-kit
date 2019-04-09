@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.12.0...v8.13.0) (2019-03-20)
+
+
+### Bug Fixes
+
+* linting and unnecessary code ([24a0b82](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/24a0b82))
+* set mock server before running skill sync ([5e320a9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5e320a9))
+* set User virtual attributes for profile image types to json ([b198d8a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b198d8a))
+
+
+### Features
+
+* better error logging / debugging messages; cleanup unused / old code ([5d66f51](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5d66f51))
+* implement GQL Relay ([6119e04](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6119e04))
+
+
+
+
+
+# [8.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.11.0...v8.12.0) (2019-02-27)
+
+
+### Features
+
+* docsify ([b70a8ac](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b70a8ac))
+
+
+
+
+
 # [8.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.1...v8.11.0) (2019-02-19)
 
 

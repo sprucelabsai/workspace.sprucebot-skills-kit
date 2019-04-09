@@ -34,9 +34,9 @@ const auth = async (ctx, next) => {
 		const userId = decoded.userId
 		const locationId = decoded.locationId || null
 		const organizationId = decoded.organizationId || null
-		const result = await ctx.sb.query(
-			config.auth({ userId, locationId, organizationId })
-		)
+		const query = config.auth({ userId, locationId, organizationId })
+		const result = await ctx.sb.query(query)
+
 		ctx.auth = { ...result.data, jwt: token }
 	} catch (e) {
 		log.debug(e)
@@ -136,10 +136,27 @@ module.exports = (koa, gqlOptions, server) => {
 					context
 				}) => {
 					const ms = log.timerEnd(context.startTime)
+
+					context.warnings = _.uniq(context.warnings)
+					context.attributeWarnings = _.uniq(context.attributeWarnings)
+					context.scopeInfo = _.uniq(context.scopeInfo)
+
+					context.warnings.forEach(warning => {
+						log.warn(warning)
+					})
+
+					context.attributeWarnings.forEach(warning => {
+						log.warn(warning)
+					})
+
+					context.scopeInfo.forEach(info => {
+						log.debug(info)
+					})
+
 					return {
 						requestMS: ms,
 						queryCost: context.queryCost,
-						warnings: context.warnings ? _.uniq(context.warnings) : []
+						warnings: context.warnings || []
 					}
 				}
 			}

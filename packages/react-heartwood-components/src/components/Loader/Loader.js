@@ -1,12 +1,33 @@
 // @flow
 import React from 'react'
+import cx from 'classnames'
 
-const Loader = () => (
-	<span className="loader">
-		<span className="loader__dot" />
-		<span className="loader__dot" />
-		<span className="loader__dot" />
-	</span>
-)
+type Props = {
+	/* set to true if loader is on a dark background */
+	isLight: boolean,
+
+	/* set to true if loader should be centered within parent */
+	isCentered: boolean
+}
+
+const Loader = (props: Props) => {
+	const { isLight, isCentered } = props
+	return (
+		<span
+			className={cx('loader', {
+				'loader--light': isLight,
+				'loader--centered': isCentered
+			})}
+		>
+			<span className="loader__dot" />
+			<span className="loader__dot" />
+			<span className="loader__dot" />
+		</span>
+	)
+}
+
+Loader.defaultProps = {
+	isLight: false
+}
 
 export default Loader

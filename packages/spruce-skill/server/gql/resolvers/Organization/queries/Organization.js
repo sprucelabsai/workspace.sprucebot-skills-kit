@@ -1,9 +1,13 @@
 // @flow
 const config = require('config')
 const { GraphQLString, GraphQLNonNull } = require('graphql')
-const { resolver } = require('graphql-sequelize')
 
 module.exports = ctx => {
+	// TODO: Change this file to suit the needs for your skill (or remove it). This is meant only as an example and could introduce security concerns.
+	log.warn(
+		'TODO: Update gql/Organization/queries/Organization.js for this skill'
+	)
+
 	const queries = {
 		Organization: {
 			description:
@@ -13,10 +17,9 @@ module.exports = ctx => {
 				id: {
 					description: 'id of the organization',
 					type: new GraphQLNonNull(GraphQLString)
-				},
-				...ctx.gql.helpers.defaultArgs()
+				}
 			},
-			resolve: resolver(ctx.db.models.Organization, {
+			resolve: ctx.gql.helpers.enhancedResolver(ctx.db.models.Organization, {
 				before: async (findOptions, args, context /* , info */) => {
 					if (!context.scopes) {
 						context.scopes = {}
@@ -25,12 +28,6 @@ module.exports = ctx => {
 					if (!context.where) {
 						context.where = {}
 					}
-
-					// const org = await ctx.db.models.Organization.findOne({
-					// 	where: {
-					// 		id: args.id
-					// 	}
-					// })
 
 					findOptions.where.id = args.id
 

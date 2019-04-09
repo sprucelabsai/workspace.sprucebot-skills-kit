@@ -1,9 +1,7 @@
 .header-primary {
-	position: fixed;
 	z-index: 2;
 	display: flex;
 	justify-content: space-between;
-	flex: 1 0 100%;
 	width: 100%;
 	height: rem(48);
 	background-color: $c-grey-09;
@@ -253,10 +251,6 @@
 	.avatar__image-wrapper {
 		width: rem(40);
 		height: rem(40);
-	}
-
-	.list-item:first-child {
-		margin: 0 spacing('base');
 	}
 
 	.list-item:not(:first-child):after {

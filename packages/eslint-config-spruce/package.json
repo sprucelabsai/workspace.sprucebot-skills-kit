@@ -1,9 +1,9 @@
 {
-	"name": "@sprucelabs/eslint-config-spruce",
+	"name": "eslint-config-spruce",
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.11.0",
+	"version": "8.13.0",
 	"description": "ESLint configuration for Spruce Javascript projects",
 	"author": "George Pantazis <gcpantazis@gmail.com>",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit#readme",
@@ -18,14 +18,19 @@
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
 	"dependencies": {
-		"babel-eslint": "^10.0.1",
-		"eslint-config-prettier": "^3.3.0",
-		"eslint-plugin-flowtype": "^3.2.0",
-		"eslint-plugin-jsx-a11y": "^6.1.2",
-		"eslint-plugin-prettier": "^3.0.0",
-		"eslint-plugin-react": "^7.11.1"
+		"@typescript-eslint/eslint-plugin": "1.5.0",
+		"babel-eslint": "10.0.1",
+		"eslint-config-prettier": "4.1.0",
+		"eslint-plugin-flowtype": "3.4.2",
+		"eslint-plugin-import": "2.16.0",
+		"eslint-plugin-jsx-a11y": "6.1.2",
+		"eslint-plugin-prettier": "3.0.1",
+		"eslint-plugin-react": "7.12.4",
+		"eslint-plugin-spruce": "^8.13.0"
 	},
 	"peerDependencies": {
-		"eslint": ">= 3"
+		"eslint": "^3.0.0 || ^4.0.0 || ^5.0.0",
+		"prettier": "^1.16.4",
+		"typescript": "^3.3.3333"
 	}
 }

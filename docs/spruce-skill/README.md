@@ -1,19 +1,19 @@
 # 🌲 Sprucebot Skills Kit 🌲
 
-- [Skills](skills.md) <- Start here after reading below!
-- [Server](server.md)
-- [Interface](interface.md)
-- [Core API](api.md)
-- [User](user.md)
-- [Meta](meta.md)
-- [Events](events.md)
-- [Lang](lang.md)
-- [Messages](messages.md)
-- [Errors](errors.md)
-- [Training](training.md)
-- [Uploading Files](uploads.md)
-- [Caching](cache.md)
-- [Audit Logs](audit.md)
+- [Skills](spruce-skill/skills.md) <- Start here after reading below
+- [Server](spruce-skill/server.md)
+- [Interface](spruce-skill/interface.md)
+- [Core API](spruce-skill/api.md)
+- [User](spruce-skill/user.md)
+- [Meta](spruce-skill/meta.md)
+- [Events](spruce-skill/events.md)
+- [Lang](spruce-skill/lang.md)
+- [Messages](spruce-skill/messages.md)
+- [Errors](spruce-skill/errors.md)
+- [Training](spruce-skill/training.md)
+- [Uploading Files](spruce-skill/uploads.md)
+- [Caching](spruce-skill/cache.md)
+- [Audit Logs](spruce-skill/audit.md)
 
 # WTF?
 

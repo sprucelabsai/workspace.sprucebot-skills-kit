@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.11.0",
+	"version": "8.13.0",
 	"description": "Jam with the Sprucebot API in your favorite scripting language. 🤓",
 	"keywords": [
 		"node",
@@ -17,17 +17,21 @@
 	},
 	"scripts": {
 		"lint": "eslint '**/**/*{.js}'",
-		"#test": "jest"
+		"#test": "jest",
+		"syncApiSchema:local": "API_HOST=https://local-api.sprucebot.com/graphql node ./mock/fetchApiSchema.js"
 	},
 	"dependencies": {
-		"debug": "^3.1.0"
+		"debug": "^3.1.0",
+		"graphql": "^14.1.1",
+		"graphql-tools": "^4.0.4",
+		"superagent": "^4.1.0"
 	},
 	"devDependencies": {
 		"add": "^2.0.6",
 		"eslint": "^4.10.0",
 		"eslint-config-prettier": "^2.9.0",
 		"eslint-plugin-prettier": "^2.3.1",
-		"jest": "^22.0.5",
+		"jest": "^24.5.0",
 		"nock": "^9.1.6",
 		"prettier": "^1.13",
 		"yarn": "^1.2.1"

@@ -30,6 +30,12 @@ module.exports = {
 		reason: 'Authentication failed.',
 		friendlyReason: "Sorry, you can't be here right now."
 	},
+	USER_NOT_LOGGED_IN: {
+		code: 403,
+		status: 'failure',
+		reason: 'The user is not logged in',
+		friendlyReason: 'Please log in and try again.'
+	},
 	NOT_AUTHORIZED: {
 		code: 403,
 		status: 'failure',

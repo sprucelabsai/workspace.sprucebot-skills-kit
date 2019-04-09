@@ -27,7 +27,6 @@ export {
 } from './components/Core'
 export { default as Dropzone } from './components/Dropzone/Dropzone'
 export { default as FontLoader } from './components/FontLoader/FontLoader'
-export { default as FormPartials } from './components/Forms/FormPartials'
 export {
 	Autosuggest,
 	Checkbox,
@@ -48,6 +47,7 @@ export {
 	FormLayoutGroup,
 	FormLayoutItem,
 	formatPhoneNumber,
+	formatPhoneNumberIntl,
 	isValidPhoneNumber,
 	DatePicker
 } from './components/Forms'
@@ -92,7 +92,6 @@ export {
 export { default as EmptyState } from './components/EmptyState/EmptyState'
 
 // Types
-export type { CardBuilderProps } from './components/Card'
 export type { Props as TabsProps } from './components/Tabs/Tabs'
 export type { Props as TabProps } from './components/Tabs/components/Tab/Tab'
 export type { Props as ButtonProps } from './components/Button/Button'

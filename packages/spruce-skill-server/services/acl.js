@@ -55,21 +55,40 @@ module.exports = {
 	},
 	async userIsAuthorizedForAcls(options) {
 		const { userId, permissions, locationId, organizationId } = options
-		const query = `
-		{
-			Acls (
-				userId: "${userId}"
-				locationId: "${locationId}"
-				organizationId: "${organizationId}"
-				permissions: ${stringify(permissions)}
-			) {
-				slug
-				permissions {
-					name
-					value
+		let query
+
+		if (locationId) {
+			query = `
+			{
+				Acls (
+					userId: "${userId}"
+					locationId: "${locationId}"
+					organizationId: "${organizationId}"
+					permissions: ${stringify(permissions)}
+				) {
+					slug
+					permissions {
+						name
+						value
+					}
 				}
-			}
-		}`
+			}`
+		} else {
+			query = `
+			{
+				Acls (
+					userId: "${userId}"
+					organizationId: "${organizationId}"
+					permissions: ${stringify(permissions)}
+				) {
+					slug
+					permissions {
+						name
+						value
+					}
+				}
+			}`
+		}
 		const result = await this.sb.query(query)
 
 		if (result.data && result.data.Acls) {
