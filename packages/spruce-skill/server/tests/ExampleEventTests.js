@@ -1,9 +1,8 @@
 // @flow
 const { assert } = require('chai')
-const Base = require('./Base')
-const { generateSkillJWT } = require('./lib/jwt')
+const { SpruceTest } = require('@sprucelabs/spruce-skill-server')
 
-class ExampleEventTests extends Base {
+class ExampleEventTests extends SpruceTest(`${__dirname}/../../`) {
 	organization: any
 	location: any
 	skill: any
@@ -12,32 +11,19 @@ class ExampleEventTests extends Base {
 		it('Can respond to "get-views" event', () => this.getViews())
 	}
 
-	async before() {
-		await this.beforeBase()
-		this.organization = this.mocks.sandbox.organization
-		const locationId = Object.keys(this.mocks.sandbox.locations)[0]
-		this.location = this.mocks.sandbox.locations[locationId]
-		this.skill = this.mocks.sandbox.skill
-	}
-
 	async getViews() {
-		const eventType = `get-views`
-		const token = generateSkillJWT({
-			skill: this.skill,
-			location: this.location,
-			organization: this.organization,
-			user: this.location.owner[0],
+		const result = await this.triggerEvent({
+			eventName: 'get-views',
 			payload: {
 				page: 'dashboard_location',
 				locationId: this.location.id,
 				organizationId: this.organization.id
 			},
-			eventType
+			skill: this.skill,
+			location: this.location,
+			organization: this.organization,
+			user: this.location.owner[0]
 		})
-
-		const result = await this.request
-			.post('/hook.json')
-			.send({ data: token, event: eventType })
 		const { body } = result
 		assert.isArray(body)
 		assert.equal(body.length, 1)
