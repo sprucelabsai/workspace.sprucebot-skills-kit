@@ -3,6 +3,7 @@
     - [Upgrade to v8](/spruce-skill/upgradeV8.md)
   - [Skills](/spruce-skill/skills.md)
   - [Server](/spruce-skill/server.md)
+  - [Testing Your Server](/spruce-skill/server-testing/)
   - [Interface](/spruce-skill/interface.md)
   - [Core API](/spruce-skill/api.md)
   - [User](/spruce-skill/user.md)

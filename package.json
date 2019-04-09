@@ -23,7 +23,7 @@
 		"build": "lerna run build",
 		"watch": "lerna run watch --no-sort --stream",
 		"start": "pm2 start ecosystem.config.js --no-daemon",
-		"docs": "docsify serve -p 3100 ./",
+		"docs": "docsify serve -p 3100 ./docs",
 		"test": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node",
 		"test:update": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node -- -u",
 		"publish": "lerna publish --log-level=silly",
