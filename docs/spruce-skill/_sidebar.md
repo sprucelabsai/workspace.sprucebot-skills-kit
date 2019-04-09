@@ -15,3 +15,4 @@
   - [Uploading Files](/spruce-skill/uploads.md)
   - [Caching](/spruce-skill/cache.md)
   - [Audit Logs](/spruce-skill/audit.md)
+  - [UI Components](/spruce-skill/ui-components.md)
