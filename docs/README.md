@@ -37,4 +37,6 @@ You've never logged into Amazon, had it say, "Welcome back \${firstName}" and th
 
 Not only does your skill need to connect people, it needs to know when to back out. Relationships, true relationships, are built without a middleman.
 
-_"Remember that a person's name is, to that person, the sweetest and most important sound in any language."_ - Dale Carnegie
+> _"Remember that a person's name is, to that person, the sweetest and most important sound in any language."_
+>
+> — Dale Carnegie
