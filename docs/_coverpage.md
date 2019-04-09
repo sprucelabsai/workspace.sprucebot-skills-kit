@@ -4,3 +4,5 @@
 
 [Github](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit)
 [Get Started](/spruce-skill/skills)
+
+![color](#f9fafc)
