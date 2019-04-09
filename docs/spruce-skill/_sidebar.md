@@ -1,3 +1,4 @@
+[![Spruce Skills Kit](../_images/lockup.png 'Spruce Skills Kit')](/)
 - [Spruce Skill](/spruce-skill/)
   - [Upgrade Skill](/spruce-skill/upgrade.md)
     - [Upgrade to v8](/spruce-skill/upgradeV8.md)

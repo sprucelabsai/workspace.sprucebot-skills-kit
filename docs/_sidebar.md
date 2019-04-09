@@ -1,3 +1,4 @@
+[![Spruce Skills Kit](_images/lockup.png 'Spruce Skills Kit')](/)
 - [Getting started](/)
 - [Spruce Skill](spruce-skill/)
 - [Workspace](workspace.md)
