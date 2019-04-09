@@ -1,33 +1,33 @@
-- [Spruce Skill](/docs/spruce-skill/)
+- [Spruce Skill](/spruce-skill/)
 
-  - [Upgrade Skill](/docs/spruce-skill/upgrade.md)
+  - [Upgrade Skill](/spruce-skill/upgrade.md)
 
-    - [Upgrade to v8](/docs/spruce-skill/upgradeV8.md)
+    - [Upgrade to v8](/spruce-skill/upgradeV8.md)
 
-  - [Skills](/docs/spruce-skill/skills.md)
+  - [Skills](/spruce-skill/skills.md)
 
-  - [Server](/docs/spruce-skill/server.md)
+  - [Server](/spruce-skill/server.md)
 
-  - [Interface](/docs/spruce-skill/interface.md)
+  - [Interface](/spruce-skill/interface.md)
 
-  - [Core API](/docs/spruce-skill/api.md)
+  - [Core API](/spruce-skill/api.md)
 
-  - [User](/docs/spruce-skill/user.md)
+  - [User](/spruce-skill/user.md)
 
-  - [Meta](/docs/spruce-skill/meta.md)
+  - [Meta](/spruce-skill/meta.md)
 
-  - [Events](/docs/spruce-skill/events.md)
+  - [Events](/spruce-skill/events.md)
 
-  - [Lang](/docs/spruce-skill/lang.md)
+  - [Lang](/spruce-skill/lang.md)
 
-  - [Messages](/docs/spruce-skill/messages.md)
+  - [Messages](/spruce-skill/messages.md)
 
-  - [Errors](/docs/spruce-skill/errors.md)
+  - [Errors](/spruce-skill/errors.md)
 
-  - [Training](/docs/spruce-skill/training.md)
+  - [Training](/spruce-skill/training.md)
 
-  - [Uploading Files](/docs/spruce-skill/uploads.md)
+  - [Uploading Files](/spruce-skill/uploads.md)
 
-  - [Caching](/docs/spruce-skill/cache.md)
+  - [Caching](/spruce-skill/cache.md)
 
-  - [Audit Logs](/docs/spruce-skill/audit.md)
+  - [Audit Logs](/spruce-skill/audit.md)
