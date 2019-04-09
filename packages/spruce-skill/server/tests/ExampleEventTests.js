@@ -2,6 +2,7 @@
 const { assert } = require('chai')
 const { SpruceTest } = require('@sprucelabs/spruce-skill-server')
 
+// SpruceTest take a single parameter, pointing to the base skill directory
 class ExampleEventTests extends SpruceTest(`${__dirname}/../../`) {
 	organization: any
 	location: any
