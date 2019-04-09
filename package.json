@@ -53,9 +53,7 @@
 	"devDependencies": {
 		"commitizen": "^3.0.7",
 		"conventional-changelog-sprucelabs": "^1.1.0",
-		"docsify": "^4.8.6",
-		"docz": "^1.0.0-rc.7",
-		"docz-theme-default": "^1.0.0-rc.7",
+		"docsify": "^4.9.1",
 		"flow-bin": "^0.92.1",
 		"husky": "^0.14.3",
 		"lerna": "^3.2.1"
