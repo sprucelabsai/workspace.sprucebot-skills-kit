@@ -57,6 +57,10 @@ module.exports = (router, options) => {
 				ctx.event = {}
 			}
 
+			if (body.organizationId) {
+				ctx.event.organizationId = body.organizationId
+			}
+
 			if (ctx.event && body && body.payload) {
 				ctx.event.payload = body.payload
 			}
