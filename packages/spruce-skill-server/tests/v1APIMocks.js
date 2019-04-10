@@ -25,7 +25,22 @@ module.exports = ctx => ({
 		return Promise.resolve({})
 	},
 	async post(path, data, query, method) {
-		return Promise.resolve({})
+		const response = {}
+
+		// `locations/${locationId}/emit`
+		// `organizations/${organizationId}/emit`
+		const isEmit = /\/emit$/.test(path)
+		if (isEmit) {
+			if (!global.testEmitResponse[data.eventName]) {
+				throw new Error(
+					'You must set global.testEmitResponse[eventName] as the response data when using emits in tests. Bulk emits NOT allowed.'
+				)
+			}
+
+			return global.testEmitResponse[data.eventName]
+		}
+
+		return response
 	},
 	async patch(path, data, query) {
 		return Promise.resolve({})
