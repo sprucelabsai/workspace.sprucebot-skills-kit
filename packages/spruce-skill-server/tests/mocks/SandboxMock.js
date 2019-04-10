@@ -1,4 +1,4 @@
-// @flow
+//
 const _ = require('lodash')
 const { generateSkillJWT } = require('../lib/jwt')
 const faker = require('faker')
@@ -8,17 +8,6 @@ const config = require('config')
 const { Op } = require('sequelize')
 
 module.exports = class SandboxMock {
-	key: string
-	app: any
-	sandbox: Object
-	sandboxOther: Object
-	organization: Object
-	locations: Object
-	users: Object
-	otherOrganization: Object
-	otherLocations: Object
-	otherUsers: Object
-
 	constructor(app) {
 		this.ctx = app.context
 		this.key = 'sandbox'
@@ -30,16 +19,7 @@ module.exports = class SandboxMock {
 		this.otherLocations = {}
 	}
 
-	async setup(options: {
-		numLocations?: number,
-		numOwners?: number,
-		numGroupManagers?: number,
-		numManagers?: number,
-		numTeammates?: number,
-		numGuests?: number,
-		skillSlugs?: Array<string>,
-		skill?: Object
-	}) {
+	async setup(options) {
 		if (!options) {
 			options = {} // eslint-disable-line
 		}
@@ -76,21 +56,8 @@ module.exports = class SandboxMock {
 		return skill
 	}
 
-	async createSandbox(options: {
-		numLocations?: number,
-		numOwners?: number,
-		numGroupManagers?: number,
-		numManagers?: number,
-		numTeammates?: number,
-		numGuests?: number
-	}) {
-		const sandbox: {
-			organization?: any,
-			category?: any,
-			locations?: any,
-			users?: any,
-			skillMappings?: any
-		} = {}
+	async createSandbox(options) {
+		const sandbox = {}
 
 		this.skill = await this.createSkill()
 
@@ -164,7 +131,7 @@ module.exports = class SandboxMock {
 		}
 	}
 
-	async createDefaultGroup(options: { organizationId: string }) {
+	async createDefaultGroup(options) {
 		const group = await this.ctx.db.models.Group.create({
 			isDefault: true,
 			name: 'All Locations',
@@ -204,11 +171,7 @@ module.exports = class SandboxMock {
 		return result
 	}
 
-	async createLocations(options: {
-		organizationId: any,
-		group: any,
-		numLocations: number
-	}) {
+	async createLocations(options) {
 		try {
 			// Get default group
 			const group = options.group
@@ -258,15 +221,7 @@ module.exports = class SandboxMock {
 		}
 	}
 
-	async createUsers(options: {
-		numOwners: number,
-		numGroupManagers: number,
-		numManagers: number,
-		numTeammates: number,
-		numGuests: number,
-		locationId: string,
-		organizationId: string
-	}) {
+	async createUsers(options) {
 		try {
 			// Get jobs
 			const jobs = await this.ctx.db.models.Job.findAll({
@@ -406,12 +361,7 @@ module.exports = class SandboxMock {
 		}
 	}
 
-	parseUsers(options: {
-		data: Object,
-		users: Object,
-		locations: Object,
-		organization: Object
-	}) {
+	parseUsers(options) {
 		const users = options.users
 		const locations = {}
 		options.locations.forEach(location => {
@@ -480,14 +430,7 @@ module.exports = class SandboxMock {
 		return { locations, organization }
 	}
 
-	createUserData(options: {
-		type?: string,
-		jobs: any,
-		group: any,
-		role: string,
-		locationId: string,
-		organizationId?: string
-	}) {
+	createUserData(options) {
 		const job = options.jobs
 			? options.jobs.find(j => j.role === options.role)
 			: null

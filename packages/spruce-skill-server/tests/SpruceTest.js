@@ -77,7 +77,7 @@ module.exports = basePath => {
 			}
 		}
 
-		async beforeBase(options?: Object) {
+		async beforeBase(options) {
 			try {
 				const { koa, server } = await require(`${basePath}/server/server`)
 				this.server = server
