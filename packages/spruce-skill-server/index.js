@@ -119,9 +119,7 @@ module.exports = async ({
 	try {
 		syncResponse = await sprucebot.sync()
 	} catch (e) {
-		console.error(
-			`Failed to sync your skill's settings with ${sprucebot.https.host}`
-		)
+		console.error(`Failed to sync your skill's settings`)
 		console.error(e) // Server can't really start without sync settings
 		process.exit(1)
 	}
@@ -440,3 +438,5 @@ module.exports = async ({
 
 	return { koa, server }
 }
+
+module.exports.SpruceTest = require('./tests/SpruceTest')

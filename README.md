@@ -2,39 +2,82 @@
 
 Hey Skill Developer 👋.
 
-# TLDR;
+If you're looking for information on building skills you should check out the [Developer Documentation](https://developer.spruce.ai/).
 
-A Skill is a "micro-app". That is, a bit of functionality hyper focused on a single use-case. It consists of a `server` and an `interface`. Together, with `events` and `messages`, Skills can connect people in whole new ways.
+This repo contains the underlying packages used to build a skill and isn't needed directly if you're just doing skill development. But, if you need to get really close to the metal read on.
 
-# Sprucebot skills manifesto
+## Overview
 
-Skills are programs with a purpose: [human-to-human connection](https://vimeo.com/204933933).
+This [lerna](https://github.com/lerna/lerna) monorepo contains several packages:
 
-They accomplish this in one of two ways:
+* `eslint-config-spruce`: Shared eslint configuration enforcing best practices and code style
 
-1. Automation - tech runs the show, people enable
-2. Augmentation - people run the show, tech enables
+* `eslint-plugin-spruce`: Shared eslint configuration enforcing best practices and code style
 
-## Automation
+* `heartwood-components`: Our UI component library
 
-Lets say there is a lady named Becca. She nerds the f\*\*k out over fashion. So, she decided to open a menswear boutique. She loves it. But, do you know what she didn't expect? That she'd be spending all her time doing boring admin work. There are so many aspects of running a business that need to be automated, it literally warranted this document being created.
+* `react-heartwood-components`: React implementation of our UI components
 
-## Augmentation
+* `spruce-next-helpers`: Shared / common utilities used for the Frontend (interface) side of a skill
 
-Good augmentation is much harder to achieve than good automation. Automation comes natural. You think, "What processes can I get rid of?" Augmentation is the opposite. The question becomes, "What processes can I enhance?" When considering augmentation, it helps to think about the things a human brain can't do well (e.g. remembering names or personal details of 100 people a day) and what it can do well (e.g. solve complex social issues in real time).
+* `spruce-node`: Wrapper around API calls and utility methods used from the Backend (server) side of a skill. The underlying package that powers `ctx.sb.<method>` calls
 
-## Making small business successful
+* `spruce-skill`: The base template for a skill. Based on [next.js](https://nextjs.org/)
 
-This two pronged approach is the crux of our small business strategy. We want Becca to be able to focus on fashion, not all that other stuff. But, Becca's boutique needs more than good automation to succeed. She needs to be:
+* `spruce-skill-server`: Under the hood package that powers a skill. Built on [Koa](https://koajs.com/)
 
-## Un-Amazon'able
+* `spruce-utils`: Various utilities used behind the scenes.
 
-Amazon rocks, doesn't it? Pretty much everything you need, basement prices, delivered right to your door. If Becca tried to compete with Amazon, she'd get smoked. She's gotta focus on the things that make brick-and-mortar unique. This means she needs to be building human-to-human relationships.
+## Prerequisites
 
-You've never logged into Amazon, had it say, "Welcome back \${firstName}" and thought to yourself, "Wow, that was nice!" But, when you walk into your favorite boutique, coffee shop, outdoor shop, barbershop, or salon and are welcomed by name, everything changes.
+You'll need nodejs installed. [NVM (node version manager) is recommended](https://github.com/creationix/nvm).
 
-## Promote human-to-human connection
+You should also install the latest sprucebot CLI:
 
-Not only does your skill need to connect people, it needs to know when to back out. Relationships, true relationships, are built without a middleman.
+`npm i -g @sprucelabs/sprucebot-cli` or `yarn global add @sprucelabs/sprucebot-cli`
 
-_"Remember that a person's name is, to that person, the sweetest and most important sound in any language."_ - Dale Carnegie
+_Note: Some issues have been observed w/ certain versions of yarn where the cli will show errors when running "sprucebot". If you encounter this we recommend installing via npm instead_
+
+## Setup
+
+To work on Skills Kit you'll need to clone this repo and then:
+
+*Set your nodejs version*
+
+`nvm use`
+
+*Install packages*
+
+From the root of this project, install the packages:
+
+`yarn`
+
+*Build packages*
+
+From the root of this project, build the packages:
+
+`yarn build`
+
+*Set up your .env*
+
+`cd packages/spruce-skill`
+
+`cp .env.example .env`
+
+At this point you'll either need to manually edit the `.env` if you've previously registered the skill or use the cli to register your skill: `sprucebot skill register` and follow the prompts
+
+*Run your skill*
+
+`yarn local`
+
+If everything went according to plan you've now got the base skill running linked to the other packages in this repo allowing you to make changes to the underlying packages used by Skills Kit!
+
+## Troubleshooting
+
+*I made a change in one of the linked packages but I don't see it updated in the browser?*
+
+Oftentimes changes made in the linked packages will require a restart of the skill. Kill and re-run `yarn local`
+
+## Additional links / info
+
+We use [yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/) to link all these packages together during development on Skills Kit.

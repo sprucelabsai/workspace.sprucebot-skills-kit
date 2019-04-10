@@ -1,6 +1,16 @@
 const rules = [
-	{ method: 'query', option: 'query', suffix: 'QueryString' },
-	{ method: 'mutate', option: 'mutation', suffix: 'MutationString' }
+	{
+		method: 'query',
+		option: 'query',
+		suffix: 'QueryString',
+		allowedParents: ['gqlClient']
+	},
+	{
+		method: 'mutate',
+		option: 'mutation',
+		suffix: 'MutationString',
+		allowedParents: ['gqlClient']
+	}
 ]
 
 module.exports = {
@@ -10,7 +20,13 @@ module.exports = {
 				return {
 					CallExpression(node) {
 						rules.forEach(rule => {
-							if (node.callee.name === rule.method) {
+							if (
+								node.callee.name === rule.method ||
+								(node.callee.property &&
+									node.callee.property.name === rule.method &&
+									node.callee.object &&
+									rule.allowedParents.indexOf(node.callee.object.name) >= 0)
+							) {
 								if (node.arguments[0].type !== 'ObjectExpression') {
 									return context.report(
 										node,
