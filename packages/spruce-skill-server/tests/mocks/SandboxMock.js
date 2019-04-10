@@ -121,6 +121,7 @@ module.exports = class SandboxMock {
 		try {
 			const orgName = uuid.v4()
 			const organization = await this.ctx.db.models.Organization.create({
+				id: uuid.v4(),
 				name: orgName
 			})
 
