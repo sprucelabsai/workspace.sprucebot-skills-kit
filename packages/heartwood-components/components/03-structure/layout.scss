@@ -10,8 +10,8 @@ $layout-section-secondary-basis: (
 .layout {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: flex-start;
-	justify-content: center;
+	align-items: stretch;
+	justify-content: flex-start;
 	margin: -#{$layout-section-spacing} 0 0 -#{$layout-section-spacing};
 	max-width: $layout-max-width;
 
@@ -53,6 +53,8 @@ $layout-section-secondary-basis: (
 	min-width: 51%;
 
 	&--secondary {
+		display: flex;
+
 		@include gt('small') {
 			flex: 1 1 $layout-section-secondary-basis;
 			min-width: 0;

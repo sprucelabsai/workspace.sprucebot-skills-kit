@@ -56,11 +56,13 @@ class DashboardLocationPage extends React.Component {
 
 		try {
 			const result = await gqlClient.query({
-				query: `{
-					Users {
-						id
+				query: gql`
+					{
+						Users {
+							id
+						}
 					}
-				}`
+				`
 			})
 
 			log.debug({ result })

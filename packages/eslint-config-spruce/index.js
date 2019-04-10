@@ -65,6 +65,7 @@ module.exports = {
 	plugins: ['spruce', 'import', 'react', 'flowtype', 'prettier'],
 	rules: {
 		curly: 'error',
+		'spruce/utils-graphql': 'error',
 		'react/jsx-no-undef': 'error',
 		'no-console': 'off',
 		'no-undef': 'error',
