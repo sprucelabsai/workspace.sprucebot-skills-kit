@@ -1,8 +1,3 @@
-
-<p align="center">
-<img src="images/architecture.gif?raw=true" />
-</p>
-
 # Building your first skill
 This is handled by our [sprucebot-cli](https://github.com/sprucelabsai/sprucebot-cli).
 
@@ -11,7 +6,7 @@ yarn add sprucebot-cli -g
 sprucebot skill create
 ```
 
-# Starting your skill
+## Starting your skill
 After you've finished creating your skill, you'll need to make sure dependencies are installed.
 
 ```bash
@@ -104,6 +99,9 @@ This kit comes with a `.vscode` folder with a `launch.json` configured for debug
 * `.travis.yml` - Continuous integration with [Travis CI](https://travis-ci.org).
 * `package.json` - Dependencies n' such.
 * `README.md` - Readme about your skill.
+
+## System Architecture
+![Architecture](../_images/Architecture.png?raw=true 'Architecture')
 
 # What's next?
 Now that you're up and running, dive into the [`server`](server.md) guide to get yourself familiar with the backend.
