@@ -116,19 +116,18 @@ module.exports = basePath => {
 			organization,
 			user
 		}) {
-			const eventType = `get-views`
 			const token = generateSkillJWT({
 				skill,
 				location,
 				organization,
 				user,
 				payload,
-				eventType
+				eventType: eventName
 			})
 
 			const result = await this.request
 				.post('/hook.json')
-				.send({ data: token, event: eventType })
+				.send({ data: token, event: eventName })
 
 			return result
 		}
