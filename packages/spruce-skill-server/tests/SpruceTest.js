@@ -45,9 +45,13 @@ module.exports = basePath => {
 					`${__dirname}/mocks/**/*Mock.js`,
 					`${basePath}/server/tests/mocks/**/*Mock.js`
 				])
+				let sandbox
 				for (let i = 0; i < mocks.length; i += 1) {
 					const Mock = require(mocks[i])
 					const mock = new Mock(this.koa)
+					if (mock.key === 'sandbox') {
+						sandbox = mock
+					}
 					if (this.mocks[mock.key]) {
 						throw new Error(
 							`A mock with the key "${
@@ -56,7 +60,10 @@ module.exports = basePath => {
 						)
 					}
 					this.mocks[mock.key] = mock
-					await mock.setup(options)
+					await mock.setup({
+						...options,
+						sandbox
+					})
 				}
 			} catch (e) {
 				throw e
