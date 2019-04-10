@@ -10,6 +10,7 @@ class ExampleTests extends SpruceTest(`${__dirname}/../../`) {
 	setup() {
 		it('Can do a trivial assert', () => this.trivialAssert())
 		it('Can get users', () => this.getUsers())
+		it('Can use custom mock data', () => this.customMock())
 	}
 
 	async before() {
@@ -45,6 +46,16 @@ class ExampleTests extends SpruceTest(`${__dirname}/../../`) {
 
 		log.debug(body)
 		assert.isNotNull(body.data.Users)
+	}
+
+	async customMock() {
+		// Verify "someData" is set properly by mocks/ExampleMock.js
+		assert.equal(
+			this.mocks.example.someData,
+			`Example Mock Test org/location: ${this.organization.id} / ${
+				this.location.id
+			}`
+		)
 	}
 }
 
