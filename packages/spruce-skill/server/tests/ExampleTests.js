@@ -1,10 +1,9 @@
 // @flow
 const { assert } = require('chai')
-// const faker = require('faker')
-// const { Op } = require('sequelize')
-const Base = require('./Base')
+const { SpruceTest } = require('@sprucelabs/spruce-skill-server')
 
-class ExampleTests extends Base {
+// SpruceTest take a single parameter, pointing to the base skill directory
+class ExampleTests extends SpruceTest(`${__dirname}/../../`) {
 	organization: any
 	location: any
 
