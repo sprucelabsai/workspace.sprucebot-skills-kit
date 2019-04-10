@@ -61,7 +61,7 @@ module.exports = basePath => {
 					}
 					this.mocks[mock.key] = mock
 					await mock.setup({
-						options,
+						...options,
 						sandbox
 					})
 				}
