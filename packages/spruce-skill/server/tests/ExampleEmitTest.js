@@ -59,9 +59,8 @@ class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
         
         result.forEach((data, index) => {
             const payload = data.payload
-            const error = data.payload
-
             const testData = global.testEmitResponse[eventName][index]
+            
             assert.equal(payload.model.id,  testData.payload.model.id)
         })
 
@@ -95,9 +94,8 @@ class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
         
         result.forEach((data, index) => {
             const payload = data.payload
-            const error = data.payload
-
             const testData = global.testEmitResponse[eventName][index]
+
             assert.equal(payload.model.id,  testData.payload.model.id)
         })
 
