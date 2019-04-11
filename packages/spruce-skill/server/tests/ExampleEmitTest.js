@@ -12,21 +12,7 @@ class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
 		it('Can emitOrganization to "example:get-model" event', () =>
 			this.emitOrganization())
 		it('Can emit to "example:get-model" event', () => this.emit())
-	}
-
-	async before() {
-		await this.beforeBase()
-		this.organization = this.mocks.sandbox.organization
-		const locationId = Object.keys(this.mocks.sandbox.locations)[0]
-		this.location = this.mocks.sandbox.locations[locationId]
-		global.testEmitResponse = {}
-	}
-
-	async after() {
-		await this.afterBase()
-
-		// clean up for next tests
-		delete global.testEmitResponse
+		it('Can trigger callback from emit', () => this.emitCallback())
 	}
 
 	async emitOrganization() {
@@ -98,8 +84,49 @@ class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
 
 			assert.equal(payload.model.id, testData.payload.model.id)
 		})
+	}
 
-		delete global.testEmitResponse[eventName]
+	async emitCallback() {
+		const payload = {
+			id: 'uniqueId4'
+		}
+
+		const eventName = 'example:get-model'
+
+		let didFire = false
+		global.testEmitResponse[eventName] = {
+			callback: async ({ data, query }) => {
+				assert.isUndefined(query)
+				assert.isDefined(data)
+				didFire = true
+			},
+			data: [
+				{
+					error: null,
+					payload: {
+						model: {
+							id: 'uniqueId4'
+						}
+					}
+				}
+			]
+		}
+
+		const result = await this.koa.context.sb.emit(
+			this.organization.id,
+			eventName,
+			payload
+		)
+		assert.isTrue(didFire)
+		assert.isArray(result)
+		assert.equal(result.length, 1)
+
+		result.forEach((data, index) => {
+			const payload = data.payload
+			const testData = global.testEmitResponse[eventName].data[index]
+
+			assert.equal(payload.model.id, testData.payload.model.id)
+		})
 	}
 }
 

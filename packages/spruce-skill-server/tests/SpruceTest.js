@@ -1,4 +1,3 @@
-// @flow
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 const globby = require('globby')
 const supertest = require('supertest')
@@ -15,10 +14,10 @@ module.exports = basePath => {
 	return class Base {
 		constructor() {
 			this.mocks = {}
-			// eslint-disable-next-line
 			before(() => this.before())
-			// eslint-disable-next-line
 			after(() => this.after())
+			beforeEach(() => this.beforeEach())
+			afterEach(() => this.afterEach())
 			this.setup()
 		}
 
@@ -69,6 +68,13 @@ module.exports = basePath => {
 				throw e
 			}
 		}
+
+		async beforeEach() {
+			// Reset the emit response handler
+			global.testEmitResponse = {}
+		}
+
+		async afterEach() {}
 
 		async before() {
 			await this.beforeBase()
