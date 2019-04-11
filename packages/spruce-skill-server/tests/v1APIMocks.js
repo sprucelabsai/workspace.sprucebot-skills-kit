@@ -2,7 +2,7 @@ const config = require('config')
 
 module.exports = ctx => ({
 	async get(path, query) {
-		const matches = path.match(/\/locations\/([^/]+)\/users\/([^/]+)/)
+		let matches = path.match(/\/locations\/([^/]+)\/users\/([^/]+)/)
 		if (matches && matches[1] && matches[2]) {
 			// ctx.sb.user() has been called. Fetch the data from the DB. Used for v1 authentication
 			const locationId = matches[1]
@@ -22,6 +22,20 @@ module.exports = ctx => ({
 			})
 			return userLocation
 		}
+
+		matches = path.match(/\/locations\/([^/]+)/)
+		if (matches && matches[1]) {
+			// ctx.sb.location() has been called
+			const locationId = matches[1]
+			const location = await ctx.db.models.Location.findOne({
+				where: {
+					id: locationId
+				}
+			})
+
+			return location
+		}
+
 		return Promise.resolve({})
 	},
 	async post(path, data, query, method) {
