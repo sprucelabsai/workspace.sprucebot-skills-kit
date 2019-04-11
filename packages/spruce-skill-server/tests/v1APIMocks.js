@@ -45,13 +45,25 @@ module.exports = ctx => ({
 		// `organizations/${organizationId}/emit`
 		const isEmit = /\/emit$/.test(path)
 		if (isEmit) {
-			if (!global.testEmitResponse[data.eventName]) {
-				throw new Error(
-					'You must set global.testEmitResponse[eventName] as the response data when using emits in tests. Bulk emits NOT allowed.'
-				)
-			}
+			if (global.testEmitResponse && global.testEmitResponse[data.eventName]) {
+				if (global.testEmitResponse[data.eventName].callback) {
+					await global.testEmitResponse[data.eventName].callback({
+						data,
+						query
+					})
+				}
 
-			return global.testEmitResponse[data.eventName]
+				if (global.testEmitResponse[data.eventName].data) {
+					return global.testEmitResponse[data.eventName].data
+				} else if (
+					!global.testEmitResponse[data.eventName].data &&
+					!global.testEmitResponse[data.eventName].callback
+				) {
+					return global.testEmitResponse[data.eventName]
+				}
+			} else {
+				log.trace(`EVENT EMIT NOT TESTED: ${data.eventName}`)
+			}
 		}
 
 		return response

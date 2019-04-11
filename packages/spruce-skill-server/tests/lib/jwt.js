@@ -28,6 +28,7 @@ module.exports.generateSkillJWT = function generateSkillJWT({
 
 	if (location) {
 		data.locationId = location.id
+		data.organizationId = location.OrganizationId
 	}
 
 	if (organization) {
