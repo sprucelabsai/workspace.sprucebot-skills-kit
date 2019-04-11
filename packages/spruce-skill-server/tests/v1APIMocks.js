@@ -62,7 +62,7 @@ module.exports = ctx => ({
 					return global.testEmitResponse[data.eventName]
 				}
 			} else {
-				log.warn(`EVENT EMIT NOT TESTED: ${data.eventName}`)
+				log.trace(`EVENT EMIT NOT TESTED: ${data.eventName}`)
 			}
 		}
 
