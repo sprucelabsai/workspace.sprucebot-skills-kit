@@ -76,8 +76,8 @@ module.exports = basePath => {
 
 		async afterEach() {}
 
-		async before() {
-			await this.beforeBase()
+		async before(options) {
+			await this.beforeBase(options)
 			if (this.mocks.sandbox) {
 				this.organization = this.mocks.sandbox.organization
 				const locationId = Object.keys(this.mocks.sandbox.locations)[0]
