@@ -1,3 +1,4 @@
+const debug = require('debug')('spruce-skill-server')
 const config = require('config')
 
 module.exports = ctx => ({

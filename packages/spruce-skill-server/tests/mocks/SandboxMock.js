@@ -1,4 +1,4 @@
-//
+const debug = require('debug')('spruce-skill-server')
 const _ = require('lodash')
 const { generateSkillJWT } = require('../lib/jwt')
 const faker = require('faker')
@@ -37,7 +37,7 @@ module.exports = class SandboxMock {
 
 		this.locations = locations
 		this.organization = organization
-		log.debug('Sandbox mock created')
+		debug('Sandbox mock created')
 	}
 
 	async createSkill() {
@@ -427,7 +427,7 @@ module.exports = class SandboxMock {
 			})
 		}
 
-		log.debug('done parsing users')
+		debug('done parsing users')
 		return { locations, organization }
 	}
 
