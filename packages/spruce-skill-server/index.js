@@ -439,4 +439,8 @@ module.exports = async ({
 	return { koa, server }
 }
 
-module.exports.SpruceTest = require('./tests/SpruceTest')
+try {
+	module.exports.SpruceTest = require('./tests/SpruceTest')
+} catch (e) {
+	debug('"SpruceTest" is not loaded. Install devDependencies to enable.')
+}

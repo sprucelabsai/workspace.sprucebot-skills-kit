@@ -1,4 +1,3 @@
-// @flow
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 const globby = require('globby')
 const supertest = require('supertest')
@@ -15,10 +14,10 @@ module.exports = basePath => {
 	return class Base {
 		constructor() {
 			this.mocks = {}
-			// eslint-disable-next-line
 			before(() => this.before())
-			// eslint-disable-next-line
 			after(() => this.after())
+			beforeEach(() => this.beforeEach())
+			afterEach(() => this.afterEach())
 			this.setup()
 		}
 
@@ -45,9 +44,13 @@ module.exports = basePath => {
 					`${__dirname}/mocks/**/*Mock.js`,
 					`${basePath}/server/tests/mocks/**/*Mock.js`
 				])
+				let sandbox
 				for (let i = 0; i < mocks.length; i += 1) {
 					const Mock = require(mocks[i])
 					const mock = new Mock(this.koa)
+					if (mock.key === 'sandbox') {
+						sandbox = mock
+					}
 					if (this.mocks[mock.key]) {
 						throw new Error(
 							`A mock with the key "${
@@ -56,15 +59,25 @@ module.exports = basePath => {
 						)
 					}
 					this.mocks[mock.key] = mock
-					await mock.setup(options)
+					await mock.setup({
+						...options,
+						sandbox
+					})
 				}
 			} catch (e) {
 				throw e
 			}
 		}
 
-		async before() {
-			await this.beforeBase()
+		async beforeEach() {
+			// Reset the emit response handler
+			global.testEmitResponse = {}
+		}
+
+		async afterEach() {}
+
+		async before(options) {
+			await this.beforeBase(options)
 			if (this.mocks.sandbox) {
 				this.organization = this.mocks.sandbox.organization
 				const locationId = Object.keys(this.mocks.sandbox.locations)[0]
