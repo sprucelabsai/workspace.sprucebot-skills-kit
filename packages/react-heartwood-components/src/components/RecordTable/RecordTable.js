@@ -474,7 +474,6 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 				)}
 
 				<Table
-					{...rest}
 					className="results-table"
 					isSelectable={isSelectable}
 					columns={columns}
@@ -518,6 +517,7 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 					noDataPrimaryAction={this.getNoDataPrimaryAction()}
 					noDataPrimaryActionButtonKind={noDataPrimaryActionButtonKind}
 					noDataPrimaryActionButtonIcon={noDataPrimaryActionButtonIcon}
+					{...rest}
 				/>
 			</Fragment>
 		)
