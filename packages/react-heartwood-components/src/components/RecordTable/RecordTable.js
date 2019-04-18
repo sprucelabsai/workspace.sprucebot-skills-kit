@@ -182,10 +182,16 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		search,
 		page
 	}: { search?: string, page: number } = {}) => {
+		const { onNavigateToPage } = this.props
+
 		try {
 			const { visibleRows, totalRows } = await this.fetchRecords({
 				search,
 				page
+			})
+
+			onNavigateToPage({
+				currentPage: page
 			})
 
 			this.setState({
