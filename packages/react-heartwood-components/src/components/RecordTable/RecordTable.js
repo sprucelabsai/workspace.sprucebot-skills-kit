@@ -385,7 +385,8 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			searchPlaceholder,
 			noDataPrimaryActionButtonKind,
 			noDataPrimaryActionButtonIcon,
-			tableSearchProps = {}
+			tableSearchProps = {},
+			...rest
 		} = this.props
 
 		const {
@@ -462,6 +463,7 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 				)}
 
 				<Table
+					{...rest}
 					className="results-table"
 					isSelectable={isSelectable}
 					columns={columns}
