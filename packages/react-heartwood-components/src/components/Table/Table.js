@@ -302,20 +302,27 @@ export default class Table extends Component<Props, State> {
 				})}
 				getTrGroupProps={(state, rowInfo) => {
 					const expanded = state.expanded[rowInfo.viewIndex]
+					const isDirty =
+						(typeof rowIsDirty === 'function' && !!rowIsDirty(rowInfo)) ||
+						rowInfo.original.isDirty
+
 					return {
 						className: cx('table-row-group', {
 							'table-row-group--expanded': expanded,
-							'table-row-group--is-dirty': rowInfo.original.isDirty
+							'table-row-group--is-dirty': isDirty
 						})
 					}
 				}}
 				getTrProps={(state, rowInfo) => {
 					const expanded = state.expanded[rowInfo.viewIndex]
-					rowIsDirty && rowIsDirty(rowInfo)
+					const isDirty =
+						(typeof rowIsDirty === 'function' && !!rowIsDirty(rowInfo)) ||
+						rowInfo.original.isDirty
+
 					return {
 						className: cx('table-row', {
 							'table-row--expanded': expanded,
-							'table-row--is-dirty': rowInfo.original.isDirty
+							'table-row--is-dirty': isDirty
 						}),
 						onClick: this.handleClickRow
 					}
