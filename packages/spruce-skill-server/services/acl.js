@@ -67,7 +67,7 @@ module.exports = {
 		}
 
 		if (!permissions) {
-			throw new Error('Missing required parameter "permission" for ACL check')
+			throw new Error('Missing required parameter "permissions" for ACL check')
 		}
 
 		if (locationId) {
