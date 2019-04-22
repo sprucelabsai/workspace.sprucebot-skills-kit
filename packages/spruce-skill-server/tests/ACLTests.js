@@ -244,5 +244,6 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 }
 
 describe('ACLTests', function Tests() {
+	this.timeout(30000)
 	new ACLTests()
 })
