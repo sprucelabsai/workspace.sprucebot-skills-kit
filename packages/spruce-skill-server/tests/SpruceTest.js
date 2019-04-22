@@ -95,6 +95,7 @@ module.exports = basePath => {
 				const { koa, server } = await require(`${basePath}/server/server`)
 				this.server = server
 				this.koa = koa
+				this.ctx = this.koa.context
 				this.request = supertest(this.server)
 
 				if (!options || !options.disableMocks) {
