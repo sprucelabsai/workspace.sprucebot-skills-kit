@@ -163,6 +163,15 @@ const skill = {
 					callback
 				)
 			},
+			onClosed: (callback: Function) => {
+				if (this._onClosedListener) {
+					this._onClosedListener.destroy()
+				}
+				this._onClosedListener = Iframes.onMessage(
+					'SkillViewDialog:Closed',
+					callback
+				)
+			},
 			setFooterPrimaryActionIsLoading: (isLoading: boolean) => {
 				Iframes.sendMessage({
 					to: window.parent,
