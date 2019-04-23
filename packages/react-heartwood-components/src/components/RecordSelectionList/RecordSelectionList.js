@@ -130,6 +130,23 @@ export default class RecordSelectionList extends Component<
 		}
 	}
 
+	async reset() {
+		const { loadRecords } = this.props
+
+		const initialRecords = await loadRecords({
+			offset: 0,
+			limit: 10
+		})
+
+		this.setState({
+			loadedRecords: initialRecords
+		})
+
+		this.cache.clearAll()
+		this.list.recomputeRowHeights(0)
+		this.list.forceUpdateGrid()
+	}
+
 	renderRow = ({
 		index,
 		key,
