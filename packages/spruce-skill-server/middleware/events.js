@@ -14,6 +14,18 @@ module.exports = (router, options) => {
 		let body = ctx.request.body
 		const eventName = body && body.event
 		// setup if we are listening to this event
+		if (!config.eventContract || !config.eventContract.events) {
+			debug('No event contract found in config')
+		}
+
+		if (
+			config.eventContract &&
+			config.eventContract.events &&
+			!config.eventContract.events[eventName]
+		) {
+			debug(`No eventContract specified for: ${eventName}`)
+		}
+
 		if (
 			ctx.path === '/hook.json' &&
 			body &&
