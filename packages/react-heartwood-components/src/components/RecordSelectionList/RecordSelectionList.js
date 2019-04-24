@@ -103,11 +103,11 @@ export default class RecordSelectionList extends Component<
 	}
 
 	async componentDidMount() {
-		const { loadRecords } = this.props
+		const { loadRecords, recordsPerRequest } = this.props
 
 		const initialRecords = await loadRecords({
 			offset: 0,
-			limit: 10
+			limit: recordsPerRequest
 		})
 
 		this.setState({
@@ -128,6 +128,23 @@ export default class RecordSelectionList extends Component<
 			this.list.recomputeRowHeights(0)
 			this.list.forceUpdateGrid()
 		}
+	}
+
+	async reset() {
+		const { loadRecords, recordsPerRequest } = this.props
+
+		const initialRecords = await loadRecords({
+			offset: 0,
+			limit: recordsPerRequest
+		})
+
+		this.setState({
+			loadedRecords: initialRecords
+		})
+
+		this.cache.clearAll()
+		this.list.recomputeRowHeights(0)
+		this.list.forceUpdateGrid()
 	}
 
 	renderRow = ({
@@ -214,7 +231,7 @@ export default class RecordSelectionList extends Component<
 	}
 
 	handleInfiniteLoad = async () => {
-		const { loadRecords } = this.props
+		const { loadRecords, recordsPerRequest } = this.props
 		const { loadedRecords, isLoading, search } = this.state
 
 		if (isLoading) {
@@ -225,7 +242,7 @@ export default class RecordSelectionList extends Component<
 
 		const newRows = await loadRecords({
 			offset: loadedRecords.length,
-			limit: 10,
+			limit: recordsPerRequest,
 			search
 		})
 
@@ -240,7 +257,7 @@ export default class RecordSelectionList extends Component<
 	}
 
 	handleSearchUpdate = async (e: SyntheticInputEvent<HTMLInputElement>) => {
-		const { loadRecords } = this.props
+		const { loadRecords, recordsPerRequest } = this.props
 
 		// Search will rapid-fire, but we only want to use the last result.
 		// If this value doesn't change by the time the API responds, we'll use
@@ -256,7 +273,7 @@ export default class RecordSelectionList extends Component<
 		// When we search, we'll want to reset the list, so back to offset 0!
 		const newRows = await loadRecords({
 			offset: 0,
-			limit: 10,
+			limit: recordsPerRequest,
 			search: e.target.value
 		})
 
@@ -353,5 +370,6 @@ export default class RecordSelectionList extends Component<
 }
 
 RecordSelectionList.defaultProps = {
-	showSelectedCount: true
+	showSelectedCount: false,
+	recordsPerRequest: 10
 }
