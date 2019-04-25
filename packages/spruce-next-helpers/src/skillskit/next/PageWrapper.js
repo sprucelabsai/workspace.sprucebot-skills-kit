@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 
 import * as actions from '../store/actions'
 import ServerCookies from 'cookies'
-import ClientCookies from 'js-cookies'
 import skill from '../index'
 import { Loader, FontLoader } from '@sprucelabs/react-heartwood-components'
 import qs from 'qs'
@@ -21,8 +20,6 @@ const setCookie = (named, value, req, res) => {
 			httpOnly: false
 		})
 		return cookies.set(named, value)
-	} else {
-		return ClientCookies.setItem(named, value)
 	}
 }
 
