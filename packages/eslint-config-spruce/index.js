@@ -27,6 +27,12 @@ module.exports = {
 						}
 					}
 				],
+				'@typescript-eslint/explicit-function-return-type': [
+					'error',
+					{
+						allowExpressions: true
+					}
+				],
 				'@typescript-eslint/member-ordering': [
 					'error',
 					{
