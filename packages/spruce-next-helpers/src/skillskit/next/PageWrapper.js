@@ -30,8 +30,6 @@ const getCookie = (named, req, res) => {
 			httpOnly: false
 		})
 		return cookies.get(named)
-	} else {
-		return ClientCookies.getItem(named)
 	}
 }
 
@@ -117,40 +115,43 @@ const PageWrapper = Wrapped => {
 				renderLocation: renderLocation || 'page'
 			}
 
-			const jwt = query.jwt || getCookie('jwt', req, res)
-
-			// authv1
-			if (jwt) {
-				try {
-					await store.dispatch(actions.auth.go(jwt))
-					setCookie('jwt', jwt, req, res)
-				} catch (err) {
-					debug(err)
-					debug('Error fetching user from jwt')
-				}
-			}
-			// authv2
-			else {
-				try {
-					await store.dispatch(
-						actions.authV2.go(query.jwtV2 || getCookie('jwtV2', req, res))
-					)
-					if (query.jwtV2) {
-						setCookie('jwtV2', query.jwtV2, req, res)
-					}
-				} catch (err) {
-					debug(err)
-					debug('Error fetching user from jwtV2')
-				}
-			}
-
 			const state = store.getState()
 
-			// v1 Legacy authentication logic
-			if (state.auth && !state.auth.error && state.auth.version === 1) {
-				state.auth.role =
-					(state.config.DEV_MODE && getCookie('devRole', req, res)) ||
-					state.auth.role
+			// TODO: Client side token refreshing / updating
+			if (req) {
+				const jwt = query.jwt || getCookie('jwt', req, res)
+
+				// authv1
+				if (jwt) {
+					try {
+						await store.dispatch(actions.auth.go(jwt))
+						setCookie('jwt', jwt, req, res)
+					} catch (err) {
+						debug(err)
+						debug('Error fetching user from jwt')
+					}
+				}
+				// authv2
+				else {
+					try {
+						await store.dispatch(
+							actions.authV2.go(query.jwtV2 || getCookie('jwtV2', req, res))
+						)
+						if (query.jwtV2) {
+							setCookie('jwtV2', query.jwtV2, req, res)
+						}
+					} catch (err) {
+						debug(err)
+						debug('Error fetching user from jwtV2')
+					}
+				}
+
+				// v1 Legacy authentication logic
+				if (state.auth && !state.auth.error && state.auth.version === 1) {
+					state.auth.role =
+						(state.config.DEV_MODE && getCookie('devRole', req, res)) ||
+						state.auth.role
+				}
 			}
 
 			if (ConnectedWrapped.getInitialProps) {
