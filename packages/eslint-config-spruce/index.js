@@ -22,9 +22,15 @@ module.exports = {
 							requireLast: false
 						},
 						singleline: {
-							delimiter: 'comma',
+							delimiter: 'semi',
 							requireLast: false
 						}
+					}
+				],
+				'@typescript-eslint/explicit-function-return-type': [
+					'error',
+					{
+						allowExpressions: true
 					}
 				],
 				'@typescript-eslint/member-ordering': [
