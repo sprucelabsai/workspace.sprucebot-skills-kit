@@ -1,8 +1,9 @@
 // @flow
 
-import React, {Fragment} from 'react'
+import React from 'react'
 
-type Props = { src: string,
+type Props = {
+	src: string,
 	alt: string,
 	className: string,
 	width: string,
@@ -28,7 +29,7 @@ const ImageSSR = (props: Props) => {
 				`
 			}}
 		/>
-	);
+	)
 }
 
 export default ImageSSR
