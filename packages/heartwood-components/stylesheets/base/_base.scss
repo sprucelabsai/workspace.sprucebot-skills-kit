@@ -30,6 +30,10 @@ strong {
 	visibility: hidden;
 }
 
+img.error {
+	display: none;
+}
+
 // Handle FOIT if desired
 @if global-variable-exists(foit) == false or $foit == true {
 	.fonts-loading {

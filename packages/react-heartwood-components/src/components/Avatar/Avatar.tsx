@@ -1,6 +1,8 @@
 import React from 'react'
 import cx from 'classnames'
 
+import ImageSSR from '../../components/ImageSSR/ImageSSR'
+
 interface IProps {
 	/** Avatar image url. */
 	image: string
@@ -35,6 +37,8 @@ interface IProps {
 	/** Provided HTML classNames. */
 	className?: string
 }
+
+
 const Avatar = (props: IProps): React.ReactNode => {
 	const {
 		image,
@@ -75,7 +79,7 @@ const Avatar = (props: IProps): React.ReactNode => {
 	return (
 		<div className={wrapperClass}>
 			<div className="avatar__image-wrapper">
-				<img
+				<ImageSSR
 					className="avatar"
 					src={image}
 					alt={alt}
