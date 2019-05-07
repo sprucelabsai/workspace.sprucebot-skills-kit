@@ -215,7 +215,7 @@ export default class ContextMenu extends Component<Props, State> {
 								actions={actions.map(action => {
 									const btnAction = { ...action }
 									const oldOnclick = btnAction.onClick
-									btnAction.onClick = e => {
+									btnAction.onClick = () => {
 										this.handleClickAction(btnAction.payload, oldOnclick)
 									}
 									btnAction.className = 'context-menu__item-btn'
