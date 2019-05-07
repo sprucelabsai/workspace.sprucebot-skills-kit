@@ -60,6 +60,7 @@ export {
 export { default as Text, Span } from './components/Text/Text'
 export { default as TextStyle } from './components/TextStyle/TextStyle'
 export { default as Image } from './components/Image/Image'
+export { default as ImageSSR } from './components/ImageSSR/ImageSSR'
 export { default as ImageCropper } from './components/ImageCropper/ImageCropper'
 export { default as Layout, LayoutSection } from './components/Layout'
 export {
