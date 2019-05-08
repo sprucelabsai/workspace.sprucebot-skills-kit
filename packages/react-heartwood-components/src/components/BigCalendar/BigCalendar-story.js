@@ -165,12 +165,7 @@ class BigCalendarExample extends Component<Props, State> {
 		const { users, events, userMode, toasts } = this.state
 
 		return (
-			<div
-				style={{
-					width: '100vw',
-					height: '50vh'
-				}}
-			>
+			<div>
 				<BigCalendar
 					// users={object('users', users, CATEGORIES.data)}
 					// allEvents={object('allEvents', events, CATEGORIES.data)}
