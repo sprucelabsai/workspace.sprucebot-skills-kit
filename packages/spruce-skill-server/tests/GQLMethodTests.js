@@ -8,7 +8,7 @@ class GQLMethodTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		it('Can call query', () => this.doQuery())
 		it('Can not call query as mutation', () => this.doQueryAsMutate())
 		it('Can call mutation', () => this.doMutate())
-		it('Can call mutation as query', () => this.doMutateAsQuery())
+		it('Can not call mutation as query', () => this.doMutateAsQuery())
 	}
 
 	async doQuery() {
