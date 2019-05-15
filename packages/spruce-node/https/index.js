@@ -47,37 +47,6 @@ module.exports = class Https {
 		})
 	}
 
-	async mutation(query) {
-		return new Promise((resolve, reject) => {
-			const path = '/graphql'
-			// API Key must go with each request
-			const headers = {
-				'x-skill-id': this.id,
-				'x-skill-api-key': this.apiKey,
-				'Content-Type': 'application/json'
-			}
-
-			const request = https.request(
-				{
-					method: 'POST',
-					host: this.host,
-					headers,
-					rejectUnauthorized: !this.allowSelfSignedCerts,
-					path
-				},
-				response => {
-					this.handleResponse(request, response, resolve, reject)
-				}
-			)
-
-			request.end(
-				JSON.stringify({
-					mutation: query
-				})
-			)
-		})
-	}
-
 	/**
 	 * GET an endpoint.
 	 *
