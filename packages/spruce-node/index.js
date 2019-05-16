@@ -124,7 +124,7 @@ class Sprucebot {
 	}
 
 	async mutation(query) {
-		return this.adapter.mutation(query)
+		return this.adapter.query(`mutation ${query}`)
 	}
 
 	/**
