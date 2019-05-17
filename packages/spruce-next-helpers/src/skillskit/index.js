@@ -5,6 +5,8 @@ function postMessage(message) {
 	return window.parent.postMessage(JSON.stringify(message), '*')
 }
 
+let skillStatusCheckListener = null
+
 const skill = {
 	editUserProfile: function({
 		userId,
@@ -32,6 +34,20 @@ const skill = {
 				showHeader
 			}
 		})
+
+		// This is a simple callback that Core can use to see if a skill is
+		// running inside the iframe. Necessary since we don't necessarily want
+		// to allow direct cross-domain access for security reasons.
+		if (!skillStatusCheckListener) {
+			skillStatusCheckListener = Iframes.onMessage(
+				'Skill:StatusCheck',
+				(data, responder) => {
+					responder({
+						eventName: 'Skill:IsAlive'
+					})
+				}
+			)
+		}
 	},
 
 	//TODO move to iframes?
