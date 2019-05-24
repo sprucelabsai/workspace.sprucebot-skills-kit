@@ -51,13 +51,26 @@ const Select = (props: Props) => {
 		'select--has-error': error
 	})
 
+	let defaultSelectProps = {}
+	let defaultOptionProps = {}
+
+	// For uncontrolled Select, we'll create a default value for the placeholder.
+	// For controlled Select, we'll require that the value be defaulted to
+	//   empty-string in order to set the placeholder.
+	if (!props.value) {
+		defaultSelectProps = { defaultValue: '__DEFAULT' }
+		defaultOptionProps = { value: '__DEFAULT' }
+	} else {
+		defaultOptionProps = { value: '' }
+	}
+
 	return (
 		<div className="select-wrapper">
 			{label && <InputPre id={id} label={label} postLabel={postLabel} />}
 			<div className={parentClass}>
-				<select {...rest}>
+				<select {...defaultSelectProps} {...rest}>
 					{placeholder && (
-						<option key="placeholder" disabled selected>
+						<option {...defaultOptionProps} key="placeholder" disabled>
 							{placeholder}
 						</option>
 					)}
