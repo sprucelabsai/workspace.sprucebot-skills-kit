@@ -58,6 +58,11 @@ export default class Checkbox extends Component<Props, State> {
 		const { id, label, postText, className, ...rest } = this.props
 		const parentClass = cx('checkbox-item', className)
 
+		// TODO: We probably need to create explicit whitelists of what we want to
+		// allow to be spread onto native DOM elements, since applying non-standard
+		// attributes throws a warning.
+		delete rest.isIndeterminate
+
 		return (
 			<div className={parentClass}>
 				<div className="checkbox-item__inner">

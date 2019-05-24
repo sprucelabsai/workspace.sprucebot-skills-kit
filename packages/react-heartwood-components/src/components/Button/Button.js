@@ -120,8 +120,19 @@ const Button = (props: Props) => {
 		</span>
 	)
 
+	// TODO: We probably need to create explicit whitelists of what we want to
+	// allow to be spread onto native DOM elements, since applying non-standard
+	// attributes throws a warning.
+	const sanitizedButtonRest = { ...rest }
+	delete sanitizedButtonRest.linkProps
+
 	const button = (
-		<button className={btnClass} type={type} onClick={handleClick} {...rest}>
+		<button
+			className={btnClass}
+			type={type}
+			onClick={handleClick}
+			{...sanitizedButtonRest}
+		>
 			<Inner />
 		</button>
 	)
