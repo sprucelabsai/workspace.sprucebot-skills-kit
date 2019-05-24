@@ -693,7 +693,7 @@ class DragGrid extends PureComponent<Props, State> {
 		}
 
 		if (this.state.dragEvent && !moved) {
-			this.handleDropEvent()
+			this.handleDropEvent({ overrideValid: null })
 		}
 		if (
 			!moved &&
