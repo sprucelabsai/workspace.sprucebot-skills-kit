@@ -40,7 +40,15 @@ module.exports = ctx => ({
 		return Promise.resolve({})
 	},
 	async post(path, data, query, method) {
-		const response = {}
+		const response = {
+			// Pass back the request options so it can be validated in tests
+			requestOptions: {
+				path,
+				data,
+				query,
+				method
+			}
+		}
 
 		// `locations/${locationId}/emit`
 		// `organizations/${organizationId}/emit`

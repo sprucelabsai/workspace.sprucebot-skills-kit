@@ -124,7 +124,7 @@ class Sprucebot {
 	}
 
 	async mutation(query) {
-		return this.adapter.mutation(query)
+		return this.adapter.query(`mutation ${query}`)
 	}
 
 	/**
@@ -253,10 +253,10 @@ class Sprucebot {
 		locationId,
 		userId,
 		message,
-		{ linksToWebView, webViewQueryData, payload, sendAtTimestamp } = {},
+		{ linksToWebView, webViewQueryData, payload, sendAtTimestamp, type } = {},
 		query = {}
 	) {
-		const data = Array.from(arguments)[3] || {}
+		const data = Array.from(arguments)[3] || { type: 'promotional' }
 		data.userId = userId
 		data.message = message
 		if (data.webViewQueryData) {
@@ -305,8 +305,8 @@ class Sprucebot {
 	 * @param {String} userId
 	 * @param {String} message
 	 */
-	async globalMessage(userId, message) {
-		return this.adapter.post('/messages', { userId, message })
+	async globalMessage(userId, message, type = 'promotional') {
+		return this.adapter.post('/messages', { userId, message, type })
 	}
 
 	/**
