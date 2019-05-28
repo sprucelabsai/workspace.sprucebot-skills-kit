@@ -255,6 +255,11 @@ stories
 	))
 	.add('Select', () => (
 		<Fragment>
+			<p>
+				For controlled usage, default `value` to an empty-string in order to
+				display the placeholder.
+			</p>
+
 			<Select
 				label={text('label', 'Country')}
 				placeholder={text('placeholder', 'Select something...')}
