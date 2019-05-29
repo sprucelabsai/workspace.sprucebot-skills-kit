@@ -33,10 +33,29 @@ module.exports = class SandboxMock {
 			numGuests: options.numGuests || 4
 		})
 
+		const sandboxOther = await this.createSandbox({
+			numLocations: options.numLocations || 1,
+			numOwners: options.numOwners || 3,
+			numGroupManagers: options.numGroupManagers || 3,
+			numManagers: options.numManagers || 2,
+			numTeammates: options.numTeammates || 3,
+			numGuests: options.numGuests || 4
+		})
+
 		const { locations, organization } = this.parseUsers(sandbox)
+		const {
+			locations: otherLocations,
+			organization: otherOrganization
+		} = this.parseUsers(sandboxOther)
 
 		this.locations = locations
 		this.organization = organization
+		this.skill = sandbox.skill
+
+		this.otherLocations = otherLocations
+		this.otherOrganization = otherOrganization
+		this.otherSkill = sandboxOther.skill
+
 		debug('Sandbox mock created')
 	}
 
@@ -59,7 +78,7 @@ module.exports = class SandboxMock {
 	async createSandbox(options) {
 		const sandbox = {}
 
-		this.skill = await this.createSkill()
+		sandbox.skill = await this.createSkill()
 
 		const numLocations = options.numLocations
 		const numOwners = options.numOwners
@@ -119,7 +138,7 @@ module.exports = class SandboxMock {
 
 	async createOrganization() {
 		try {
-			const orgName = uuid.v4()
+			const orgName = faker.company.companyName()
 			const organization = await this.ctx.db.models.Organization.create({
 				id: uuid.v4(),
 				name: orgName
@@ -370,11 +389,12 @@ module.exports = class SandboxMock {
 		})
 		const location = options.locations[0]
 		const organization = options.organization
+		const skill = options.skill
 
 		if (users && users.users) {
 			users.users.forEach(user => {
 				const jwt = generateSkillJWT({
-					skill: this.skill,
+					skill,
 					user,
 					location,
 					organization

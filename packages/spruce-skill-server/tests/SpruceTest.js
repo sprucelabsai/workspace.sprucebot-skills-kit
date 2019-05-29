@@ -83,6 +83,13 @@ module.exports = basePath => {
 				const locationId = Object.keys(this.mocks.sandbox.locations)[0]
 				this.location = this.mocks.sandbox.locations[locationId]
 				this.skill = this.mocks.sandbox.skill
+
+				this.otherOrganization = this.mocks.sandbox.otherOrganization
+				const otherLocationId = Object.keys(
+					this.mocks.sandbox.otherLocations
+				)[0]
+				this.otherLocation = this.mocks.sandbox.otherLocations[otherLocationId]
+				this.otherSkill = this.mocks.sandbox.otherSkill
 			} else {
 				throw new Error(
 					'@sprucelabs/spruce-skill-server: SandboxMock has not been initialized. If this is deliberate you should override the before() method in your test'
