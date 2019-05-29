@@ -33,10 +33,27 @@ module.exports = class SandboxMock {
 			numGuests: options.numGuests || 4
 		})
 
+		const sandboxOther = await this.createSandbox({
+			numLocations: options.numLocations || 1,
+			numOwners: options.numOwners || 3,
+			numGroupManagers: options.numGroupManagers || 3,
+			numManagers: options.numManagers || 2,
+			numTeammates: options.numTeammates || 3,
+			numGuests: options.numGuests || 4
+		})
+
 		const { locations, organization } = this.parseUsers(sandbox)
+		const {
+			locations: otherLocations,
+			organization: otherOrganization
+		} = this.parseUsers(sandboxOther)
 
 		this.locations = locations
 		this.organization = organization
+
+		this.otherLocations = otherLocations
+		this.otherOrganization = otherOrganization
+
 		debug('Sandbox mock created')
 	}
 
@@ -119,7 +136,7 @@ module.exports = class SandboxMock {
 
 	async createOrganization() {
 		try {
-			const orgName = uuid.v4()
+			const orgName = faker.company.companyName()
 			const organization = await this.ctx.db.models.Organization.create({
 				id: uuid.v4(),
 				name: orgName
