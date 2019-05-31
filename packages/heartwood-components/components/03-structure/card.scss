@@ -91,6 +91,12 @@
 			padding: spacing('loose') 0 spacing('loose');
 		}
 	}
+	&--section-separators-visible {
+		.card__section + .card__section {
+			padding-top: 1rem;
+			border-top: 1px solid $c-border;
+		}
+	}
 }
 
 .card__section {
