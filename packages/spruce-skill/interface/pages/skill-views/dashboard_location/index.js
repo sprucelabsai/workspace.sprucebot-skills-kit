@@ -11,7 +11,6 @@ import {
 	Text,
 	Button
 } from '@sprucelabs/react-heartwood-components'
-import Iframes from '@sprucelabs/spruce-utils/iframes'
 import request from 'superagent'
 import { gqlClient, settings } from '@sprucelabs/spruce-next-helpers'
 import { Subscription } from 'react-apollo'
