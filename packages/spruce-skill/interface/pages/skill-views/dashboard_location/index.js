@@ -113,7 +113,7 @@ class DashboardLocationPage extends React.Component {
 			{
 				title: 'Are you sure?',
 				text: "Are you sure you want to do that thing you're trying to do?",
-				isDestructive: true,
+				isDestructive: false,
 				id: Math.random()
 			},
 			eventData => {
@@ -132,7 +132,6 @@ class DashboardLocationPage extends React.Component {
 				text:
 					'Are you sure you want to do that thing? Please type "Beep Boop" (case-sensitive) to confirm.',
 				kind: 'confirmInput',
-				isDestructive: true,
 				confirmInputValidString: 'Beep Boop',
 				confirmInputIgnoreCase: false,
 				confirmInputLabel: 'Name of Thing',
