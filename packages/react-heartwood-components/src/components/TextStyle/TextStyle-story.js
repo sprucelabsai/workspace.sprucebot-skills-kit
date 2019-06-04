@@ -14,3 +14,6 @@ stories
 	.add('Text Style - Emphasis', () => (
 		<TextStyle type="emphasis">{text('children', 'Hello, world')}</TextStyle>
 	))
+	.add('Text Style - Subdued', () => (
+		<TextStyle type="subdued">{text('children', 'Hello, world')}</TextStyle>
+	))

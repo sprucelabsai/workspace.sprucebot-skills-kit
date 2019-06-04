@@ -10,7 +10,7 @@ export type TextStyleProps = {
 	className?: string,
 
 	/** Style type */
-	type?: 'strong' | 'emphasis'
+	type?: 'strong' | 'emphasis' | 'subdued'
 }
 
 const TextStyle = (props: TextStyleProps) => {
@@ -18,7 +18,8 @@ const TextStyle = (props: TextStyleProps) => {
 	const Element = type === 'strong' ? 'strong' : 'span'
 	const classes = cx(className, {
 		'text__style--strong': type === 'strong',
-		'text__style--emphasis': type === 'emphasis'
+		'text__style--emphasis': type === 'emphasis',
+		'text__style--subdued': type === 'subdued'
 	})
 	if (typeof children === 'string') {
 		return (
