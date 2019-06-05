@@ -69,4 +69,7 @@ a.text {
 	&--emphasis {
 		font-style: italic;
 	}
+	&--subdued {
+		opacity: 0.5;
+	}
 }
