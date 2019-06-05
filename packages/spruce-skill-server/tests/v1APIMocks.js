@@ -40,7 +40,7 @@ module.exports = ctx => ({
 		return Promise.resolve({})
 	},
 	async post(path, data, query, method) {
-		const response = {
+		let response = {
 			// Pass back the request options so it can be validated in tests
 			requestOptions: {
 				path,
@@ -54,11 +54,15 @@ module.exports = ctx => ({
 		// `organizations/${organizationId}/emit`
 		const isEmit = /\/emit$/.test(path)
 		if (isEmit) {
+			// If it's an emit, the default response is an empty array. The request options can be checked via callback
+			response = []
 			if (global.testEmitResponse && global.testEmitResponse[data.eventName]) {
 				if (global.testEmitResponse[data.eventName].callback) {
 					await global.testEmitResponse[data.eventName].callback({
+						path,
 						data,
-						query
+						query,
+						method
 					})
 				}
 
