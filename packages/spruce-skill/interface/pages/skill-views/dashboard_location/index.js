@@ -26,6 +26,7 @@ const EXAMPLE_SUBSCRIPTION = gql`
 `
 class DashboardLocationPage extends React.Component {
 	modal = this.props.skill.modal()
+	confirm = this.props.skill.confirm()
 
 	static async getInitialProps(props) {
 		try {
@@ -106,6 +107,45 @@ class DashboardLocationPage extends React.Component {
 		}
 	}
 
+	handleShowConfirmationModal = () => {
+		this.confirm.show(
+			{
+				title: 'Are you sure?',
+				text: "Are you sure you want to do that thing you're trying to do?",
+				isDestructive: false,
+				id: Math.random()
+			},
+			eventData => {
+				console.log('Confirmed!', eventData)
+			},
+			eventData => {
+				console.log('Cancelled!', eventData)
+			}
+		)
+	}
+
+	handleShowConfirmationWithInputModal = () => {
+		this.confirm.show(
+			{
+				title: 'Are you sure?',
+				text:
+					'Are you sure you want to do that thing? Please type "Beep Boop" (case-sensitive) to confirm.',
+				kind: 'confirmInput',
+				confirmInputValidString: 'Beep Boop',
+				confirmInputIgnoreCase: false,
+				confirmInputLabel: 'Name of Thing',
+				confirmButtonText: 'Yes, Do the Thing!',
+				id: Math.random()
+			},
+			eventData => {
+				console.log('Confirmed!', eventData)
+			},
+			eventData => {
+				console.log('Cancelled!', eventData)
+			}
+		)
+	}
+
 	render() {
 		return (
 			<Page>
@@ -157,6 +197,18 @@ class DashboardLocationPage extends React.Component {
 								kind="primary"
 								onClick={() => this.handleOpenModal(true)}
 								text="Show a paged modal"
+							/>
+						</LayoutSection>
+						<LayoutSection>
+							<Button
+								kind="primary"
+								onClick={() => this.handleShowConfirmationModal()}
+								text="Show a confirm modal"
+							/>{' '}
+							<Button
+								kind="primary"
+								onClick={() => this.handleShowConfirmationWithInputModal()}
+								text="Show an input confirm modal"
 							/>
 						</LayoutSection>
 					</Layout>

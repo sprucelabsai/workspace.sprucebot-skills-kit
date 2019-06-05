@@ -249,6 +249,35 @@ const skill = {
 		return modal
 	},
 
+	confirm: function() {
+		const confirm = {
+			show: (data: Object, onConfirm?: Function, onCancel?: Function) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:Show',
+					data
+				})
+				if (onConfirm) {
+					if (this._onConfirmListener) {
+						this._onConfirmListener.destroy()
+					}
+					this._onConfirmListener = Iframes.onMessage(
+						'Confirm:Confirm',
+						onConfirm
+					)
+				}
+				if (onCancel) {
+					if (this._onCancelListener) {
+						this._onCancelListener.destroy()
+					}
+					this._onCancelListener = Iframes.onMessage('Confirm:Cancel', onCancel)
+				}
+			}
+		}
+
+		return confirm
+	},
+
 	notifyOfRouteChangeStart() {
 		Iframes.sendMessage({
 			to: window.parent,
