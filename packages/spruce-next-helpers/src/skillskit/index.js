@@ -146,10 +146,11 @@ const skill = {
 					data
 				})
 			},
-			close: () => {
+			close: (data: Object) => {
 				Iframes.sendMessage({
 					to: window.parent,
-					eventName: 'SkillViewDialog:Close'
+					eventName: 'SkillViewDialog:Close',
+					data
 				})
 			},
 			onGoBack: (callback: Function) => {
