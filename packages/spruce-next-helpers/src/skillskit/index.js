@@ -31,7 +31,7 @@ const skill = {
 			eventName: 'Router:Push',
 			data: {
 				route,
-				paramas
+				params
 			}
 		})
 	},

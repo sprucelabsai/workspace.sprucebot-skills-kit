@@ -149,6 +149,17 @@ class DashboardLocationPage extends React.Component {
 		)
 	}
 
+	jumpToLocationDashboard = () => {
+		const { locationId, organizationId } = this.props.query
+		this.props.skill.redirect({
+			route: 'dashboard_location',
+			params: {
+				locationId,
+				organizationId
+			}
+		})
+	}
+
 	render() {
 		return (
 			<Page>
@@ -212,6 +223,13 @@ class DashboardLocationPage extends React.Component {
 								kind="primary"
 								onClick={() => this.handleShowConfirmationWithInputModal()}
 								text="Show an input confirm modal"
+							/>
+						</LayoutSection>
+						<LayoutSection>
+							<Button
+								kind="secondary"
+								onClick={() => this.jumpToLocationDashboard()}
+								text="Return to dashboard"
 							/>
 						</LayoutSection>
 					</Layout>
