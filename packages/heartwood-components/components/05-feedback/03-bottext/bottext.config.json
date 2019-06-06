@@ -1,7 +1,7 @@
 {
 	"title": "Bot Text",
 	"context": {
-	  "text": "Hey there from Sprucebot 🌲🤖"
+		"text": "Hey there from Sprucebot 🌲🤖"
 	},
 	"variants": [
 		{
@@ -11,4 +11,4 @@
 			}
 		}
 	]
-  }
+}

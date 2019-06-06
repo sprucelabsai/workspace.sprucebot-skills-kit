@@ -46,6 +46,7 @@ const PageHeader = (props: PageHeaderProps) => {
 		backLinkHref,
 		onClickBack,
 		backLinkText,
+		backLinkComponent: RelativeBackLinkComponent = Link,
 		linkProps,
 		primaryAction,
 		tabs,
@@ -82,12 +83,12 @@ const PageHeader = (props: PageHeaderProps) => {
 			}
 			// Only return a Next link if the href is relative
 			anchor = linkIsRelative ? (
-				<Link href={backLinkHref} {...linkProps}>
+				<RelativeBackLinkComponent href={backLinkHref} {...linkProps}>
 					<a className={backLinkClass}>
 						{backIcon}
 						{backLinkText}
 					</a>
-				</Link>
+				</RelativeBackLinkComponent>
 			) : (
 				<a href={backLinkHref} className={backLinkClass}>
 					{backIcon}

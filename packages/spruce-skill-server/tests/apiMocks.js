@@ -1,8 +1,10 @@
+const debug = require('debug')('spruce-skill-server')
 const config = require('config')
 
 module.exports = ctx => ({
 	// Mock version of acls. Can't do real checks so we'll just check defaults in the config file and return true if any of them are valid.  This should be accurate enough for automated tests
 	Acl: async (source, args, context, info) => {
+		debug('Doing ACL check using Mock server')
 		if (args.userId && args.permissions) {
 			const user = await ctx.db.models.User.findOne({
 				where: {
@@ -62,17 +64,22 @@ module.exports = ctx => ({
 
 				for (let j = 0; j < permissions.length; j += 1) {
 					const permission = permissions[j]
-
-					if (
-						config.acl.publishes[permission] &&
-						config.acl.publishes[permission].defaults
-					) {
-						slugResponse.permissions.push({
-							name: permission,
-							value:
-								userRole === 'owner' ||
-								config.acl.publishes[permission].defaults[userRole] === true
-						})
+					if (slug === config.SLUG) {
+						if (
+							config.acl.publishes[permission] &&
+							config.acl.publishes[permission].defaults
+						) {
+							slugResponse.permissions.push({
+								name: permission,
+								value:
+									userRole === 'owner' ||
+									config.acl.publishes[permission].defaults[userRole] === true
+							})
+						}
+					} else {
+						debug(
+							'Checking for permissions from a different skill in tests is not currently supported'
+						)
 					}
 				}
 

@@ -111,15 +111,15 @@ module.exports = async ({
 			useMockApi: true
 		})
 		sprucebot.adapter.mockApiGQLServerInit({ customMocks })
+		const v1APIMocks = require('./tests/v1APIMocks')(koa.context)
+		sprucebot.adapter.mockApiInit(v1APIMocks)
 	}
 
 	let syncResponse
 	try {
 		syncResponse = await sprucebot.sync()
 	} catch (e) {
-		console.error(
-			`Failed to sync your skill's settings with ${sprucebot.https.host}`
-		)
+		console.error(`Failed to sync your skill's settings`)
 		console.error(e) // Server can't really start without sync settings
 		process.exit(1)
 	}
@@ -240,7 +240,7 @@ module.exports = async ({
 			debug('Utilities and services can now reference the orm')
 		}
 	} catch (err) {
-		console.error('Leading services & utilities failed.')
+		console.error('Loading services & utilities failed.')
 		console.error(err)
 		throw err
 	}
@@ -437,4 +437,10 @@ module.exports = async ({
 	})
 
 	return { koa, server }
+}
+
+try {
+	module.exports.SpruceTest = require('./tests/SpruceTest')
+} catch (e) {
+	debug('"SpruceTest" is not loaded. Install devDependencies to enable.')
 }

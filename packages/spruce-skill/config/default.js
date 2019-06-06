@@ -105,6 +105,12 @@ module.exports = {
 					groupManager: true
 				}
 			},
+			can_do_example_location_owner_only: {
+				label:
+					'If the user can do this example thing for a location. Org owner only',
+				type: 'location',
+				defaults: {}
+			},
 			can_do_example_organization: {
 				label: 'If the user can do this example thing for an organization.',
 				type: 'organization',

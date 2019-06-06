@@ -1,8 +1,12 @@
 module.exports = {
 	title: 'Tabs',
 	collated: true,
-	collator: function (markup, item) {
-		return `<!-- Start: @${item.handle} -->\n<div margin: 0 1rem 1rem 0;">${markup}</div>\n<!-- End: @${item.handle} -->\n`
+	collator: function(markup, item) {
+		return `<!-- Start: @${
+			item.handle
+		} -->\n<div margin: 0 1rem 1rem 0;">${markup}</div>\n<!-- End: @${
+			item.handle
+		} -->\n`
 	},
 	context: {
 		tabs: [
@@ -10,10 +14,12 @@ module.exports = {
 				text: 'Team',
 				isCurrent: true,
 				href: '#'
-			}, {
+			},
+			{
 				text: 'Guests',
 				href: '#'
-			}, {
+			},
+			{
 				text: 'Everyone',
 				href: '#'
 			}
@@ -31,9 +37,11 @@ module.exports = {
 					},
 					{
 						text: 'Current'
-					}, {
+					},
+					{
 						text: 'Previous'
-					}, {
+					},
+					{
 						text: 'Cancelled'
 					}
 				]

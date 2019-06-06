@@ -16,7 +16,7 @@
 	],
 	"scripts": {
 		"lint": "eslint '**/**/*{.js}'",
-		"test": "jest"
+		"test": "cd ../spruce-skill/ && rm tmp/testing.db | true && mkdir -p tmp/ | true && PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r flow-remove-types/register --exit '../spruce-skill-server/tests/**/*Tests.js'"
 	},
 	"dependencies": {
 		"@koa/cors": "2",
@@ -51,29 +51,18 @@
 		"umzug": "^2.1.0"
 	},
 	"peerDependencies": {
-		"sqlite3": "^4.0.4"
+		"sqlite3": "^4.0.4",
+		"graphql": "^14.2.0"
 	},
 	"devDependencies": {
 		"add": "^2.0.6",
 		"aws-sdk": "^2.153.0",
+		"chai": "^4.2.0",
 		"eslint": "^4.10.0",
 		"eslint-config-prettier": "^2.9.0",
 		"eslint-plugin-prettier": "^2.3.1",
-		"jest": "^22.0.5",
+		"mocha": "^5.2.0",
 		"prettier": "^1.13",
 		"yarn": "^1.2.1"
-	},
-	"jest": {
-		"clearMocks": true,
-		"testPathIgnorePatterns": [
-			"/config/"
-		],
-		"collectCoverageFrom": [
-			"**/*.js",
-			"!**/node_modules/**",
-			"!**/__TEST__/**"
-		],
-		"coverageDirectory": "./coverage/",
-		"collectCoverage": true
 	}
 }

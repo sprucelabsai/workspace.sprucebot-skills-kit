@@ -34,10 +34,12 @@ export const Page = (props: PageProps) => {
 		className,
 		header,
 		sidebarIsCollapsed,
-		sidebar
+		sidebar,
+		...rest
 	} = props
 	return (
 		<div
+			{...rest}
 			className={cx('page', className, {
 				'page--centered': isCentered,
 				'page--no-header': !hasHeader,
