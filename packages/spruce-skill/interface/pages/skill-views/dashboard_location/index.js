@@ -104,6 +104,9 @@ class DashboardLocationPage extends React.Component {
 				footerPrimaryActionText: 'Submit',
 				footerSecondaryActionText: 'Cancel'
 			})
+			this.modal.onClosed(data => {
+				console.log('MODAL CLOSED', data)
+			})
 		}
 	}
 

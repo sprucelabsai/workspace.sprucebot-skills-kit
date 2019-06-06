@@ -52,7 +52,9 @@ class TestSkillView extends React.Component<Props, State> {
 			this.handleClickModalFooterPrimaryAction
 		)
 
-		this.modal.onClickFooterSecondaryAction(() => this.modal.close())
+		this.modal.onClickFooterSecondaryAction(() =>
+			this.modal.close({ something: 'here is some data!' })
+		)
 
 		if (this.props.query.isPaged) {
 			this.modal.onGoBack(this.handleModalGoBack)
