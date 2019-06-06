@@ -25,6 +25,17 @@ const skill = {
 		})
 	},
 
+	redirect: function({ route, params = {} }) {
+		Iframes.sendMessage({
+			to: window.parent,
+			eventName: 'Router:Push',
+			data: {
+				route,
+				params
+			}
+		})
+	},
+
 	ready: function({ showHeader = true }: { showHeader: boolean } = {}) {
 		Iframes.sendMessage({
 			to: window.parent,
