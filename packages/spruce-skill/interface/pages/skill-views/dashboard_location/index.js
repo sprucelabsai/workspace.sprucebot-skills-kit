@@ -141,7 +141,7 @@ class DashboardLocationPage extends React.Component {
 				closeOnConfirm: false,
 				id: Math.random()
 			},
-			onConfirm: eventData => {
+			onConfirm: () => {
 				this.confirm.setIsConfirming(true)
 			},
 			onCancel: eventData => {
