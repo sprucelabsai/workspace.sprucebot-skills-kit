@@ -98,6 +98,7 @@ const Text = (props: TextProps) => {
 	const { children, className, element, context, ...rest } = props
 	let Element = 'p'
 	let text = children
+
 	if (element) {
 		Element = element
 	}
@@ -117,7 +118,11 @@ export const Span = (props: TextProps) => {
 	const { children, className, element, ...rest } = props
 
 	return (
-		<Text element={'span'} className={cx('text', className)} {...rest}>
+		<Text
+			element={element || 'span'}
+			className={cx('text', className)}
+			{...rest}
+		>
 			{children}
 		</Text>
 	)
