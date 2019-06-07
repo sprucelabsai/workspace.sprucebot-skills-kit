@@ -263,7 +263,15 @@ const skill = {
 
 	confirm: function() {
 		const confirm = {
-			show: (data: Object, onConfirm?: Function, onCancel?: Function) => {
+			show: ({
+				data,
+				onConfirm,
+				onCancel
+			}: {
+				data: Object,
+				onConfirm?: Function,
+				onCancel?: Function
+			}) => {
 				Iframes.sendMessage({
 					to: window.parent,
 					eventName: 'Confirm:Show',
@@ -284,6 +292,48 @@ const skill = {
 					}
 					this._onCancelListener = Iframes.onMessage('Confirm:Cancel', onCancel)
 				}
+			},
+			setIsConfirming: (isConfirming: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:SetIsConfirming',
+					data: { value: isConfirming }
+				})
+			},
+			setIsCanceling: (isCanceling: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:setIsCanceling',
+					data: { value: isCanceling }
+				})
+			},
+			setConfirmButtonIsLoading: (isLoading: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:SetConfirmButtonIsLoading',
+					data: { value: isLoading }
+				})
+			},
+			setCancelButtonIsLoading: (isLoading: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:SetCancelButtonIsLoading',
+					data: { value: isLoading }
+				})
+			},
+			setConfirmButtonIsDisabled: (isDisabled: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:SetConfirmButtonIsDisabled',
+					data: { value: isDisabled }
+				})
+			},
+			setCancelButtonIsDisabled: (isDisabled: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:SetCancelButtonIsDisabled',
+					data: { value: isDisabled }
+				})
 			}
 		}
 
