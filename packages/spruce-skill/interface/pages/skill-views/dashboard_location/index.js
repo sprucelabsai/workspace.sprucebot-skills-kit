@@ -27,6 +27,7 @@ const EXAMPLE_SUBSCRIPTION = gql`
 class DashboardLocationPage extends React.Component {
 	modal = this.props.skill.modal()
 	confirm = this.props.skill.confirm()
+	supportingMessage = this.props.skill.supportingMessage()
 
 	static async getInitialProps(props) {
 		try {
@@ -161,8 +162,8 @@ class DashboardLocationPage extends React.Component {
 	}
 
 	showAlert = () => {
-		this.props.skill.alert({
-			headline: 'A toast from my skill',
+		this.supportingMessage.add({
+			headline: 'A supporting message from my skill',
 			text: 'Lorem ipsum body copy',
 			kind: 'negative',
 			followupText: 'Undo',

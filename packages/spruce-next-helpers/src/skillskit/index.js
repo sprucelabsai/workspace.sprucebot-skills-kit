@@ -290,28 +290,56 @@ const skill = {
 		return confirm
 	},
 
-	alert: function({
-		headline,
-		text,
-		followupText,
-		timeout,
-		kind = 'positive',
-		callback
-	}) {
-		Iframes.sendMessage({
-			to: window.parent,
-			eventName: 'Alert:Add',
-			data: {
+	supportingMessage: function() {
+		const message = {
+			add: function({
 				headline,
 				text,
 				followupText,
 				timeout,
-				kind
+				kind = 'positive',
+				callback
+			}) {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Toast:Add',
+					data: {
+						headline,
+						text,
+						followupText,
+						timeout,
+						kind
+					},
+					onResponse: () => {
+						callback && callback()
+					}
+				})
 			},
-			onResponse: () => {
-				callback && callback()
+			remove: function() {
+				alert('Not yet implemented...')
 			}
-		})
+		}
+
+		return message
+	},
+	blockingMessage: function() {
+		const message = {
+			add: function({
+				headline,
+				text,
+				followupText,
+				timeout,
+				kind = 'positive',
+				callback
+			}) {
+				window.alert(headline)
+			},
+			remove: function() {
+				alert('Not yet implemented...')
+			}
+		}
+
+		return message
 	},
 
 	notifyOfRouteChangeStart() {
