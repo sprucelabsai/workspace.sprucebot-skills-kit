@@ -290,6 +290,30 @@ const skill = {
 		return confirm
 	},
 
+	alert: function({
+		headline,
+		text,
+		followupText,
+		timeout,
+		kind = 'positive',
+		callback
+	}) {
+		Iframes.sendMessage({
+			to: window.parent,
+			eventName: 'Alert:Add',
+			data: {
+				headline,
+				text,
+				followupText,
+				timeout,
+				kind
+			},
+			onResponse: () => {
+				callback && callback()
+			}
+		})
+	},
+
 	notifyOfRouteChangeStart() {
 		Iframes.sendMessage({
 			to: window.parent,

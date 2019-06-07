@@ -60,18 +60,14 @@ class TestSkillView extends React.Component<Props> {
 										kind: 'primary',
 										icon: { name: 'new_tab' },
 										onClick: () => {
-											Iframes.sendMessage({
-												to: window.parent,
-												eventName: 'Toast:Add',
-												data: {
-													headline: 'A toast from my skill',
-													text: 'Lorem ipsum body copy',
-													kind: 'neutral',
-													followupText: 'Undo',
-													id: Math.random(),
-													timeout: 4000
-												},
-												onResponse: () => {
+											this.props.skill.alert({
+												headline: 'A toast from my skill',
+												text: 'Lorem ipsum body copy',
+												kind: 'neutral',
+												followupText: 'Undo',
+												id: Math.random(),
+												timeout: 4000,
+												callback: () => {
 													window.alert(
 														'From the skill view: undo in toast was clicked!'
 													)

@@ -160,6 +160,19 @@ class DashboardLocationPage extends React.Component {
 		})
 	}
 
+	showAlert = () => {
+		this.props.skill.alert({
+			headline: 'A toast from my skill',
+			text: 'Lorem ipsum body copy',
+			kind: 'negative',
+			followupText: 'Undo',
+			timeout: 4000,
+			callback: () => {
+				alert('you clicked the follow up text')
+			}
+		})
+	}
+
 	render() {
 		return (
 			<Page>
@@ -230,6 +243,11 @@ class DashboardLocationPage extends React.Component {
 								kind="secondary"
 								onClick={() => this.jumpToLocationDashboard()}
 								text="Return to dashboard"
+							/>
+							<Button
+								kind="secondary"
+								onClick={() => this.showAlert()}
+								text="Alert"
 							/>
 						</LayoutSection>
 					</Layout>
