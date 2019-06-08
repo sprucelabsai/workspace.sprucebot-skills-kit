@@ -19,30 +19,35 @@ const TextComponentKey = {
 const TemplateEngine = (text = '', context = {}) => {
 	let re = /{{([^}}]+)?}}/g,
 		children = [],
-		cursor = 0,
-		match
+		cursor = 0
 
-	let add = function(line, js) {
+	let add = function(line, templateVar) {
 		if (line !== '') {
 			children.push({
 				props: { element: 'span', children: line.replace(/"/g, '\\"') }
 			})
 		}
-		if (context[js]) {
-			children.push(context[js])
+		if (context[templateVar]) {
+			children.push(context[templateVar])
 		}
 	}
-	while ((match = re.exec(text))) {
-		add(text.slice(cursor, match.index), match[1])
-		cursor = match.index + match[0].length
+
+	const matches = text.match(re)
+
+	if (matches) {
+		matches.forEach(() => {
+			const matched = re.exec(text)
+			add(text.slice(cursor, matched.index), matched[1])
+			cursor = matched.index + matched[0].length
+		})
 	}
+
 	add(text.substr(cursor, text.length - cursor))
 
 	return children.map(renderText)
 }
 
 const renderText = child => {
-	console.log('CHILD', child)
 	const { children, ...rest } = child.props
 	const handlerProps = { children: child.text || children, ...rest }
 	const Handler =
