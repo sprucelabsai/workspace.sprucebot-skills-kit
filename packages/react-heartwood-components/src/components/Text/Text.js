@@ -100,21 +100,27 @@ export type TextProps = {
 }
 
 const Text = (props: TextProps) => {
-	const { children, className, element, context, ...rest } = props
+	const {
+		children: originalChildren,
+		className,
+		element,
+		context,
+		...rest
+	} = props
 	let Element = 'p'
-	let text = children
+	let children = originalChildren
 
 	if (element) {
 		Element = element
 	}
 
 	if (context && typeof children === 'string') {
-		text = TemplateEngine(children, context)
+		children = TemplateEngine(children, context)
 	}
 
 	return (
 		<Element className={cx('text', className)} {...rest}>
-			{text}
+			{children}
 		</Element>
 	)
 }
