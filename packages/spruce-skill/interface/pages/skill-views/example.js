@@ -18,6 +18,9 @@ type Props = {
 }
 
 class TestSkillView extends React.Component<Props> {
+	supportingMessage = this.props.skill.supportingMessage()
+	modal = this.props.skill.modal()
+
 	static async getInitialProps(props: WrappedInitialProps) {
 		if (props.auth && props.auth.User) {
 			console.log('a user is logged in!')
@@ -43,15 +46,11 @@ class TestSkillView extends React.Component<Props> {
 										kind: 'primary',
 										icon: { name: 'new_tab' },
 										onClick: () => {
-											Iframes.sendMessage({
-												to: window.parent,
-												eventName: 'SkillViewDialog:Open',
-												data: {
-													title: 'A Cool Skill View Dialog',
-													src: `${window.location.protocol}//${
-														window.location.hostname
-													}/skill-views/example_skill_view_dialog`
-												}
+											this.model.apen({
+												title: 'A Cool Skill View Dialog',
+												src: `${window.location.protocol}//${
+													window.location.hostname
+												}/skill-views/example_skill_view_dialog`
 											})
 										}
 									},
@@ -60,7 +59,7 @@ class TestSkillView extends React.Component<Props> {
 										kind: 'primary',
 										icon: { name: 'new_tab' },
 										onClick: () => {
-											this.props.skill.alert({
+											this.supportingMessage.add({
 												headline: 'A toast from my skill',
 												text: 'Lorem ipsum body copy',
 												kind: 'neutral',

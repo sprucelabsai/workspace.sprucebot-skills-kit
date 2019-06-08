@@ -161,7 +161,7 @@ class DashboardLocationPage extends React.Component {
 		})
 	}
 
-	showAlert = () => {
+	showSupportingMessage = () => {
 		this.supportingMessage.add({
 			headline: 'A supporting message from my skill',
 			text: 'Lorem ipsum body copy',
