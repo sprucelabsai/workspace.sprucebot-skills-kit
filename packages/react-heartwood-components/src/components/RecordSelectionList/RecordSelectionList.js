@@ -358,7 +358,9 @@ export default class RecordSelectionList extends Component<
 								{node.onSelect && node.canSelect && (
 									<SelectionComponent
 										className="record-selection__record-select"
-										onChange={() => console.log('onChange')}
+										onChange={() => {
+											onSelect(getRecordId(record), record)
+										}}
 										disabled={
 											unselectableIds &&
 											unselectableIds.indexOf(getRecordId(record)) >= 0
