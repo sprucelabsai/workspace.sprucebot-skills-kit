@@ -7,7 +7,7 @@ import Icon from '../../../Icon/Icon'
 import type { Props as ButtonProps } from '../../../Button/Button'
 import ContextMenu from '../../../ContextMenu/ContextMenu'
 import type { Props as ContextMenuProps } from '../../../ContextMenu/ContextMenu'
-import { Toggle } from '../../../Forms'
+import { Toggle, Checkbox, Radio } from '../../../Forms'
 import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
 
 export type Props = {
@@ -101,7 +101,7 @@ const ListItem = (props: Props) => {
 
 	const ListItemInner = () => (
 		<Fragment>
-			{(image || icon || avatar) && !isDraggable && (
+			{(image || icon || avatar || checkboxId) && !isDraggable && (
 				<div className="list-item__image-wrapper">
 					{icon && (
 						<Icon
@@ -121,13 +121,26 @@ const ListItem = (props: Props) => {
 						/>
 					)}
 					{avatar && <Avatar image={avatar} alt={title} />}
+					{checkboxId && (
+						<Fragment>
+							{selectableType === 'checkbox' && (
+								<Checkbox id={checkboxId} {...checkboxProps} />
+							)}
+							{selectableType === 'radio' && (
+								<Radio id={checkboxId} {...checkboxProps} />
+							)}
+						</Fragment>
+					)}
 				</div>
 			)}
 			{isDraggable && <DragHandle className="drag-handle" />}
 			<div className="list-item__text-wrapper">
 				{toggleId || checkboxId ? (
 					<p>
-						<label className="list-item__title" htmlFor={toggleId}>
+						<label
+							className="list-item__title"
+							htmlFor={toggleId || checkboxId}
+						>
 							{title}
 						</label>
 					</p>
@@ -138,7 +151,10 @@ const ListItem = (props: Props) => {
 					<Fragment>
 						{toggleId || checkboxId ? (
 							<p>
-								<label className="list-item__subtitle" htmlFor={toggleId}>
+								<label
+									className="list-item__subtitle"
+									htmlFor={toggleId || checkboxId}
+								>
 									{subtitle}
 								</label>
 							</p>
