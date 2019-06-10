@@ -219,6 +219,16 @@
 }
 
 .record-selection__list {
+	display: flex;
+	flex-flow: column;
+	height: 100%;
+	overflow: hidden;
+
+	&:not(.record-selection__list--is-short) {
+		// Min Height is only needed for long lists
+		min-height: 28rem;
+	}
+
 	.text-container {
 		align-items: flex-start;
 		display: flex;
@@ -228,8 +238,8 @@
 	}
 
 	.record-selection__list-wrapper {
-		position: relative;
-		min-height: 28rem;
+		// position: relative;
+		flex: 1;
 	}
 
 	.record-selection__record-wrapper {
