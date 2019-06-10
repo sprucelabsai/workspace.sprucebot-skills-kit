@@ -18,7 +18,8 @@ stories.addDecorator(withKnobs)
 type Props = {
 	canSelect?: 'many' | 'one',
 	canRemove: boolean,
-	locations: Array<Object>
+	locations: Array<Object>,
+	totalRecordCount: number
 }
 
 type State = {
@@ -50,7 +51,7 @@ class BasicExample extends Component<Props, State> {
 	}
 
 	render() {
-		const { canSelect, canRemove } = this.props
+		const { canSelect, canRemove, totalRecordCount } = this.props
 		const { selectedIds, locations, unselectableIds } = this.state
 
 		return (
@@ -125,20 +126,33 @@ class BasicExample extends Component<Props, State> {
 						locations: locations.filter(location => location.id !== id)
 					})
 				}}
+				totalRecordCount={totalRecordCount}
 			/>
 		)
 	}
 }
 
-stories.add('Default', () => (
-	<BasicExample
-		canSelect={select('Can Select', [null, 'many', 'one'], null)}
-		canRemove={select('Can Remove', [true, false], false)}
-		locations={map(generateLocations({ amount: 100 }), o => ({
-			node: { ...o }
-		}))}
-	/>
-))
+stories
+	.add('Default', () => (
+		<BasicExample
+			canSelect={select('Can Select', [null, 'many', 'one'], null)}
+			canRemove={select('Can Remove', [true, false], false)}
+			locations={map(generateLocations({ amount: 100 }), o => ({
+				node: { ...o }
+			}))}
+			totalRecordCount={100}
+		/>
+	))
+	.add('Few Entries', () => (
+		<BasicExample
+			canSelect={select('Can Select', [null, 'many', 'one'], null)}
+			canRemove={select('Can Remove', [true, false], false)}
+			locations={map(generateLocations({ amount: 2 }), o => ({
+				node: { ...o }
+			}))}
+			totalRecordCount={2}
+		/>
+	))
 
 // class WithModalExample extends Component<Props, State> {
 // 	state = {

@@ -8,6 +8,7 @@ import {
 	CellMeasurerCache,
 	InfiniteLoader
 } from 'react-virtualized'
+import cx from 'classnames'
 
 import { TextInput, Checkbox, Radio } from '../Forms'
 import Button from '../Button/Button'
@@ -86,6 +87,7 @@ export default class RecordSelectionList extends Component<
 	RecordSelectionListState
 > {
 	list: any
+	infiniteLoader: any
 	cache = new CellMeasurerCache({
 		fixedWidth: true
 	})
@@ -296,7 +298,11 @@ export default class RecordSelectionList extends Component<
 			totalRecordCount,
 			canSearch,
 			searchPlaceholder,
-			showSelectedCount
+			showSelectedCount,
+			onSelect,
+			unselectableIds,
+			getRecordId,
+			renderRecord
 		} = this.props
 		const { loadedRecords, search } = this.state
 		const totalSelected = selectedIds.length
@@ -310,60 +316,98 @@ export default class RecordSelectionList extends Component<
 				this.list.forceUpdateGrid()
 			}
 		}
+		const isListShort =
+			totalRecordCount &&
+			loadedRecords &&
+			loadedRecords.length === totalRecordCount
 
 		return (
-			<div className="record-selection__list">
+			<div
+				className={cx('record-selection__list', {
+					'record-selection__list--is-short': isListShort
+				})}
+			>
 				{showSelectedCount && (
 					<TextContainer>
 						<Text>{`${totalSelected} selected`}</Text>
 					</TextContainer>
 				)}
 
-				{canSearch && (
-					<TextInput
-						type="text"
-						placeholder={searchPlaceholder || 'Search...'}
-						value={search}
-						onChange={this.handleSearchUpdate}
-					/>
-				)}
+				{!isListShort &&
+					canSearch &&
+					loadedRecords &&
+					loadedRecords.length > 0 && (
+						<TextInput
+							type="text"
+							placeholder={searchPlaceholder || 'Search...'}
+							value={search}
+							onChange={this.handleSearchUpdate}
+						/>
+					)}
 
-				<div className="record-selection__list-wrapper">
-					<AutoSizer onResize={onResize}>
-						{({ height, width }) => (
-							<InfiniteLoader
-								isRowLoaded={isRowLoaded}
-								loadMoreRows={() => {
-									this.handleInfiniteLoad()
-								}} // If we can know the total record count, we can stop the loader
-								// from attempting to load more when nothing's there. Passing
-								// Infinity just tells it to keep trying.
-								// TODO: We could fix the record count in state if `handleInfiniteLoad`
-								// ever returns 0 results, but that might get complex with
-								// filtering, or other states this form could hit.
-								rowCount={totalRecordCount || Infinity}
-							>
-								{({ onRowsRendered, registerChild }) => (
-									<List
-										ref={ref => {
-											this.list = ref
-											registerChild(ref)
-										}}
-										className="record-selection__virtual-list"
-										deferredMeasurementCache={this.cache}
-										height={height}
-										width={width}
-										rowCount={loadedRecords.length}
-										rowHeight={this.cache.rowHeight}
-										rowRenderer={this.renderRow}
-										onRowsRendered={onRowsRendered}
-										selectedIds={JSON.stringify(selectedIds)}
+				{isListShort ? (
+					loadedRecords.map((rec, idx) => {
+						const { node } = rec
+						const { id } = node
+						const record = loadedRecords[idx]
+
+						const SelectionComponent =
+							node.canSelect === 'one' ? Radio : Checkbox
+						return (
+							<div className="record-selection__record-wrapper" key={id}>
+								{node.onSelect && node.canSelect && (
+									<SelectionComponent
+										className="record-selection__record-select"
+										onChange={() => console.log('onChange')}
+										disabled={
+											unselectableIds &&
+											unselectableIds.indexOf(getRecordId(record)) >= 0
+										}
+										checked={
+											selectedIds &&
+											selectedIds.indexOf(getRecordId(record)) >= 0
+										}
 									/>
 								)}
-							</InfiniteLoader>
-						)}
-					</AutoSizer>
-				</div>
+
+								<div className="record-selection__record-content">
+									{renderRecord(rec)}
+								</div>
+							</div>
+						)
+					})
+				) : (
+					<div className="record-selection__list-wrapper">
+						<InfiniteLoader
+							ref={ref => (this.infiniteLoader = ref)}
+							isRowLoaded={isRowLoaded}
+							loadMoreRows={() => this.handleInfiniteLoad()}
+							rowCount={totalRecordCount || Infinity}
+							threshold={1}
+						>
+							{({ onRowsRendered, registerChild }) => (
+								<AutoSizer onResize={onResize}>
+									{({ height, width }) => (
+										<div ref={registerChild}>
+											<List
+												ref={ref => (this.list = ref)}
+												className="record-selection__virtual-list"
+												deferredMeasurementCache={this.cache}
+												height={height}
+												width={width}
+												rowCount={loadedRecords.length}
+												rowHeight={this.cache.rowHeight}
+												rowRenderer={this.renderRow}
+												onRowsRendered={onRowsRendered}
+												selectedIds={JSON.stringify(selectedIds)}
+											/>
+										</div>
+									)}
+								</AutoSizer>
+							)}
+						</InfiniteLoader>
+					</div>
+				)}
 			</div>
 		)
 	}
