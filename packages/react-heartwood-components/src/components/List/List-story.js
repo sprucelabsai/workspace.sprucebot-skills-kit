@@ -286,15 +286,18 @@ stories
 			items={object('selectable items', [
 				{
 					title: 'Clean Up',
-					subtitle: '$20 | 15min'
+					subtitle: '$20 | 15min',
+					checkboxId: 'cleanUp'
 				},
 				{
 					title: 'Shampoo',
-					subtitle: '$7 | 45min'
+					subtitle: '$7 | 45min',
+					checkboxId: 'shampoo'
 				},
 				{
 					title: 'Young Spruce',
-					subtitle: '$23 | 50min'
+					subtitle: '$23 | 50min',
+					checkboxId: 'youngSpruce'
 				}
 			])}
 		/>

@@ -57,7 +57,16 @@ export type Props = {
 	isSeparatorVisible: boolean,
 
 	/** Optional class name for list item */
-	className?: string
+	className?: string,
+
+	/** Optional id prop for selectable list items */
+	checkboxId?: string,
+
+	/** Optional props for selectable list items */
+	checkboxProps?: Object,
+
+	/** Optional: set whether to use checkbox or radio for selectable list items */
+	selectableType?: 'checkbox' | 'radio'
 }
 
 const ListItem = (props: Props) => {
@@ -76,7 +85,10 @@ const ListItem = (props: Props) => {
 		contextMenu,
 		toggleProps,
 		isSeparatorVisible,
-		className
+		className,
+		checkboxId,
+		checkboxProps,
+		selectableType
 	} = props
 
 	const parentClass = cx('list-item', className, {
@@ -113,18 +125,30 @@ const ListItem = (props: Props) => {
 			)}
 			{isDraggable && <DragHandle className="drag-handle" />}
 			<div className="list-item__text-wrapper">
-				{toggleId ? (
-					<label className="list-item__title" htmlFor={toggleId}>
-						{title}
-					</label>
+				{toggleId || checkboxId ? (
+					<p>
+						<label className="list-item__title" htmlFor={toggleId}>
+							{title}
+						</label>
+					</p>
 				) : (
 					<p className="list-item__title">{title}</p>
 				)}
 				{subtitle && (
-					<p
-						className="list-item__subtitle"
-						dangerouslySetInnerHTML={{ __html: subtitle }}
-					/>
+					<Fragment>
+						{toggleId || checkboxId ? (
+							<p>
+								<label className="list-item__subtitle" htmlFor={toggleId}>
+									{subtitle}
+								</label>
+							</p>
+						) : (
+							<p
+								className="list-item__subtitle"
+								dangerouslySetInnerHTML={{ __html: subtitle }}
+							/>
+						)}
+					</Fragment>
 				)}
 				{note && (
 					<p
