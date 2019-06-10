@@ -281,3 +281,21 @@ stories
 		/>
 	))
 	.add('People Tabbed', () => <TabbedList />)
+	.add('Selectable Items', () => (
+		<List
+			items={object('selectable items', [
+				{
+					title: 'Clean Up',
+					subtitle: '$20 | 15min'
+				},
+				{
+					title: 'Shampoo',
+					subtitle: '$7 | 45min'
+				},
+				{
+					title: 'Young Spruce',
+					subtitle: '$23 | 50min'
+				}
+			])}
+		/>
+	))
