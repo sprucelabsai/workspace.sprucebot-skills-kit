@@ -70,7 +70,9 @@ const Wrapper = props => {
 				{meta}
 			</Helmet>
 			<FontLoader fonts={fonts} />
-			<Page>{props.children}</Page>
+			<Page>
+				<PageContent>{props.children}</PageContent>
+			</Page>
 		</div>
 	)
 }
