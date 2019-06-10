@@ -27,6 +27,7 @@ const EXAMPLE_SUBSCRIPTION = gql`
 class DashboardLocationPage extends React.Component {
 	modal = this.props.skill.modal()
 	confirm = this.props.skill.confirm()
+	supportingMessage = this.props.skill.supportingMessage()
 
 	static async getInitialProps(props) {
 		try {
@@ -157,6 +158,19 @@ class DashboardLocationPage extends React.Component {
 		})
 	}
 
+	showSupportingMessage = () => {
+		this.supportingMessage.add({
+			headline: 'A supporting message from my skill',
+			text: 'Lorem ipsum body copy',
+			kind: 'negative',
+			followupText: 'Undo',
+			timeout: 4000,
+			callback: () => {
+				alert('you clicked the follow up text')
+			}
+		})
+	}
+
 	render() {
 		return (
 			<Page>
@@ -227,6 +241,11 @@ class DashboardLocationPage extends React.Component {
 								kind="secondary"
 								onClick={() => this.jumpToLocationDashboard()}
 								text="Return to dashboard"
+							/>
+							<Button
+								kind="secondary"
+								onClick={() => this.showAlert()}
+								text="Alert"
 							/>
 						</LayoutSection>
 					</Layout>
