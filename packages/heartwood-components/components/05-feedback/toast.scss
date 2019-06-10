@@ -20,6 +20,8 @@
 
 	.btn {
 		@include type-style-body-sm-em;
+		position: relative;
+		left: rem(-4);
 		width: auto;
 		padding-left: 0;
 		height: rem(32);
@@ -39,7 +41,6 @@
 	@include type-style-body-sm-em;
 	display: flex;
 	justify-content: space-between;
-	padding-bottom: spacing('extra-tight');
 
 	.btn {
 		@include type-style-body-sm-em;
