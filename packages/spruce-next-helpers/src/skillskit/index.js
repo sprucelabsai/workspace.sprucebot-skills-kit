@@ -263,20 +263,15 @@ const skill = {
 
 	confirm: function() {
 		const confirm = {
-			show: ({
-				data,
-				onConfirm,
-				onCancel
-			}: {
-				data: Object,
-				onConfirm?: Function,
-				onCancel?: Function
-			}) => {
+			show: data => {
+				const { onConfirm, onCancel, ...rest } = data
+
 				Iframes.sendMessage({
 					to: window.parent,
 					eventName: 'Confirm:Show',
-					data
+					data: { ...rest }
 				})
+
 				if (onConfirm) {
 					if (this._onConfirmListener) {
 						this._onConfirmListener.destroy()

@@ -112,12 +112,10 @@ class DashboardLocationPage extends React.Component {
 
 	handleShowConfirmationModal = () => {
 		this.confirm.show({
-			data: {
-				title: 'Are you sure?',
-				text: "Are you sure you want to do that thing you're trying to do?",
-				isDestructive: false,
-				id: Math.random()
-			},
+			title: 'Are you sure?',
+			text: "Are you sure you want to do that thing you're trying to do?",
+			isDestructive: false,
+			id: Math.random(),
 			onConfirm: eventData => {
 				console.log('Confirmed!', eventData)
 			},
@@ -129,18 +127,16 @@ class DashboardLocationPage extends React.Component {
 
 	handleShowConfirmationWithInputModal = () => {
 		this.confirm.show({
-			data: {
-				title: 'Are you sure?',
-				text:
-					'Are you sure you want to do that thing? Please type "Beep Boop" (case-sensitive) to confirm.',
-				kind: 'confirmInput',
-				confirmInputValidString: 'Beep Boop',
-				confirmInputIgnoreCase: false,
-				confirmInputLabel: 'Name of Thing',
-				confirmButtonText: 'Yes, Do the Thing!',
-				closeOnConfirm: false,
-				id: Math.random()
-			},
+			title: 'Are you sure?',
+			text:
+				'Are you sure you want to do that thing? Please type "Beep Boop" (case-sensitive) to confirm.',
+			kind: 'confirmInput',
+			confirmInputValidString: 'Beep Boop',
+			confirmInputIgnoreCase: false,
+			confirmInputLabel: 'Name of Thing',
+			confirmButtonText: 'Yes, Do the Thing!',
+			closeOnConfirm: false,
+			id: Math.random(),
 			onConfirm: () => {
 				this.confirm.setIsConfirming(true)
 			},
