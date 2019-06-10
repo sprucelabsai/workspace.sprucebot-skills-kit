@@ -112,42 +112,39 @@ class DashboardLocationPage extends React.Component {
 	}
 
 	handleShowConfirmationModal = () => {
-		this.confirm.show(
-			{
-				title: 'Are you sure?',
-				text: "Are you sure you want to do that thing you're trying to do?",
-				isDestructive: false,
-				id: Math.random()
-			},
-			eventData => {
+		this.confirm.show({
+			title: 'Are you sure?',
+			text: "Are you sure you want to do that thing you're trying to do?",
+			isDestructive: false,
+			id: Math.random(),
+			onConfirm: eventData => {
 				console.log('Confirmed!', eventData)
 			},
-			eventData => {
+			onCancel: eventData => {
 				console.log('Cancelled!', eventData)
 			}
-		)
+		})
 	}
 
 	handleShowConfirmationWithInputModal = () => {
-		this.confirm.show(
-			{
-				title: 'Are you sure?',
-				text:
-					'Are you sure you want to do that thing? Please type "Beep Boop" (case-sensitive) to confirm.',
-				kind: 'confirmInput',
-				confirmInputValidString: 'Beep Boop',
-				confirmInputIgnoreCase: false,
-				confirmInputLabel: 'Name of Thing',
-				confirmButtonText: 'Yes, Do the Thing!',
-				id: Math.random()
+		this.confirm.show({
+			title: 'Are you sure?',
+			text:
+				'Are you sure you want to do that thing? Please type "Beep Boop" (case-sensitive) to confirm.',
+			kind: 'confirmInput',
+			confirmInputValidString: 'Beep Boop',
+			confirmInputIgnoreCase: false,
+			confirmInputLabel: 'Name of Thing',
+			confirmButtonText: 'Yes, Do the Thing!',
+			closeOnConfirm: false,
+			id: Math.random(),
+			onConfirm: () => {
+				this.confirm.setIsConfirming(true)
 			},
-			eventData => {
-				console.log('Confirmed!', eventData)
-			},
-			eventData => {
+			onCancel: eventData => {
 				console.log('Cancelled!', eventData)
 			}
-		)
+		})
 	}
 
 	jumpToLocationDashboard = () => {
