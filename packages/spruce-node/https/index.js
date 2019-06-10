@@ -172,13 +172,13 @@ module.exports = class Https {
 		response.on('data', d => (body += d))
 
 		request.on('error', err => {
-			debug(`REQUEST ERROR: ${request.method} ${request.path}`, err)
+			log.warn(`REQUEST ERROR: ${request.method} ${request.path}`, err)
 			reject(err)
 		})
 
 		// Handle errors
 		response.on('error', err => {
-			debug(`RESPONSE ERROR: ${request.method} ${request.path}`, err)
+			log.warn(`RESPONSE ERROR: ${request.method} ${request.path}`, err)
 			reject(err)
 		})
 
@@ -199,7 +199,7 @@ module.exports = class Https {
 					resolve(parsed)
 				}
 			} catch (err) {
-				debug(`RESPONSE ERROR: ${request.method} ${request.path}`, err)
+				log.warn(`RESPONSE ERROR: ${request.method} ${request.path}`, err)
 				reject(err)
 			}
 		})

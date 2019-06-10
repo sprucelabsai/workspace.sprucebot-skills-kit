@@ -30,6 +30,13 @@ class DeveloperPage extends React.Component {
 	}
 
 	render() {
+		log.debug('testing debug')
+		log.debug({ testing: 'object for log.debug' })
+		log.warn('testing warn')
+		log.warn({ testing: 'object for log.warn' })
+		log.crit('testing crit')
+		log.crit({ testing: 'object for log.crit' })
+		log.warn(new Error('this is an error'))
 		const props = this.props
 		return (
 			<Page>

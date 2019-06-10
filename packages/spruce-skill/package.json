@@ -76,7 +76,8 @@
 		"subscriptions-transport-ws": "^0.9.15",
 		"superagent": "^4.1.0",
 		"swagger-jsdoc": "^3.0.2",
-		"universal-cookie": "^2.1.0"
+		"universal-cookie": "^2.1.0",
+		"winston": "^3.2.1"
 	},
 	"devDependencies": {
 		"@semantic-release/changelog": "^3.0.0",
