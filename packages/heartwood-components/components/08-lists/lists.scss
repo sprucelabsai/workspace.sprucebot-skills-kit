@@ -239,7 +239,9 @@
 	.record-selection__record-wrapper {
 		display: flex;
 		align-items: center;
-		border-bottom: 1px solid $c-border;
+		+ .record-selection__record-wrapper {
+			border-top: 1px solid $c-border;
+		}
 	}
 
 	.record-selection__record-select {
