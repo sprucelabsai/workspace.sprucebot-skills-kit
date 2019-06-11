@@ -321,6 +321,7 @@ export default class RecordSelectionList extends Component<
 			selectedIds = [],
 			totalRecordCount,
 			canSearch,
+			getRecordId,
 			searchPlaceholder,
 			showSelectedCount,
 			virtualHeight
@@ -367,8 +368,7 @@ export default class RecordSelectionList extends Component<
 
 				{isListShort ? (
 					loadedRecords.map((rec, idx) => {
-						const { node } = rec
-						const { id } = node
+						const id = getRecordId(rec)
 						return this.renderInnerRow({ index: idx, key: id, style: {} })
 					})
 				) : (
