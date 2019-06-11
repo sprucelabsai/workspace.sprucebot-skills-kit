@@ -44,6 +44,11 @@ module.exports = async ({
 	slug = required('slug'),
 	logLevel = 'info',
 	logUseColors = true,
+	logUseTrace = false,
+	logUseSourcemaps = false,
+	logAsJSON = false,
+	logFormatters,
+	logTransports,
 	env = 'default',
 	packageName,
 	packageVersion,
@@ -88,10 +93,15 @@ module.exports = async ({
 	// Set up global logger
 	global.logger = logger
 	const log = logger.log
+
 	log.setOptions({
+		formatters: logFormatters,
+		transports: logTransports,
 		level: logLevel,
-		useSourcemaps: false,
+		useTrace: logUseTrace,
+		useSourcemaps: logUseSourcemaps,
 		useColors: logUseColors,
+		asJSON: logAsJSON,
 		appName: slug,
 		appKey: metricsAppKey,
 		appEnv: env,
