@@ -173,7 +173,6 @@ export default class RecordSelectionList extends Component<
 		const { loadedRecords } = this.state
 
 		const record = loadedRecords[index]
-		const SelectionComponent = canSelect === 'one' ? Radio : Checkbox
 
 		return (
 			record && (
@@ -184,50 +183,81 @@ export default class RecordSelectionList extends Component<
 					parent={parent}
 					rowIndex={index}
 				>
-					<div
-						className="record-selection__record-wrapper"
-						style={{ ...style }}
-					>
-						{onSelect && canSelect && (
-							<SelectionComponent
-								className="record-selection__record-select"
-								onChange={() => {
-									onSelect(getRecordId(record), record)
-								}}
-								disabled={
-									unselectableIds &&
-									unselectableIds.indexOf(getRecordId(record)) >= 0
-								}
-								checked={
-									selectedIds && selectedIds.indexOf(getRecordId(record)) >= 0
-								}
-							/>
-						)}
-
-						<div className="record-selection__record-content" key={key}>
-							{renderRecord(record)}
-						</div>
-
-						{onRemove && canRemove && (
-							<Button
-								kind="simple"
-								disabled={false}
-								isSmall
-								icon={{ name: 'remove_circle', className: 'btn__line-icon' }}
-								onClick={() => {
-									this.setState({
-										loadedRecords: loadedRecords.filter(
-											loadedRecord =>
-												getRecordId(loadedRecord) !== getRecordId(record)
-										)
-									})
-
-									onRemove(getRecordId(record), record)
-								}}
-							/>
-						)}
-					</div>
+					{this.renderInnerRow({ index, key, style })}
 				</CellMeasurer>
+			)
+		)
+	}
+
+	renderInnerRow = ({
+		index,
+		key,
+		style
+	}: {
+		index: number,
+		key: string,
+		style: Object
+	}) => {
+		const {
+			selectedIds,
+			unselectableIds,
+			renderRecord,
+			getRecordId,
+			canSelect,
+			canRemove,
+			onSelect,
+			onRemove
+		} = this.props
+		const { loadedRecords } = this.state
+		const record = loadedRecords[index]
+		const SelectionComponent = canSelect === 'one' ? Radio : Checkbox
+
+		return (
+			record && (
+				<div
+					className="record-selection__record-wrapper"
+					key={key}
+					style={{ ...style }}
+				>
+					{onSelect && canSelect && (
+						<SelectionComponent
+							className="record-selection__record-select"
+							onChange={() => {
+								onSelect(getRecordId(record), record)
+							}}
+							disabled={
+								unselectableIds &&
+								unselectableIds.indexOf(getRecordId(record)) >= 0
+							}
+							checked={
+								selectedIds && selectedIds.indexOf(getRecordId(record)) >= 0
+							}
+						/>
+					)}
+
+					<div className="record-selection__record-content" key={key}>
+						{renderRecord(record)}
+					</div>
+
+					{onRemove && canRemove && (
+						<Button
+							kind="simple"
+							disabled={false}
+							isSmall
+							icon={{ name: 'remove_circle', className: 'btn__line-icon' }}
+							onClick={() => {
+								this.setState({
+									loadedRecords: loadedRecords.filter(
+										loadedRecord =>
+											getRecordId(loadedRecord) !== getRecordId(record)
+									)
+								})
+
+								onRemove(getRecordId(record), record)
+							}}
+						/>
+					)}
+				</div>
 			)
 		)
 	}
@@ -349,34 +379,7 @@ export default class RecordSelectionList extends Component<
 					loadedRecords.map((rec, idx) => {
 						const { node } = rec
 						const { id } = node
-						const record = loadedRecords[idx]
-
-						const SelectionComponent =
-							node.canSelect === 'one' ? Radio : Checkbox
-						return (
-							<div className="record-selection__record-wrapper" key={id}>
-								{node.onSelect && node.canSelect && (
-									<SelectionComponent
-										className="record-selection__record-select"
-										onChange={() => {
-											onSelect(getRecordId(record), record)
-										}}
-										disabled={
-											unselectableIds &&
-											unselectableIds.indexOf(getRecordId(record)) >= 0
-										}
-										checked={
-											selectedIds &&
-											selectedIds.indexOf(getRecordId(record)) >= 0
-										}
-									/>
-								)}
-
-								<div className="record-selection__record-content">
-									{renderRecord(rec)}
-								</div>
-							</div>
-						)
+						return this.renderInnerRow({ index: idx, key: id, style: {} })
 					})
 				) : (
 					<div className="record-selection__list-wrapper">
