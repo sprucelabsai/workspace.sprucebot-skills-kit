@@ -160,16 +160,6 @@ export default class RecordSelectionList extends Component<
 		parent: any,
 		style: Object
 	}) => {
-		const {
-			selectedIds,
-			unselectableIds,
-			renderRecord,
-			getRecordId,
-			canSelect,
-			canRemove,
-			onSelect,
-			onRemove
-		} = this.props
 		const { loadedRecords } = this.state
 
 		const record = loadedRecords[index]
@@ -328,11 +318,7 @@ export default class RecordSelectionList extends Component<
 			totalRecordCount,
 			canSearch,
 			searchPlaceholder,
-			showSelectedCount,
-			onSelect,
-			unselectableIds,
-			getRecordId,
-			renderRecord
+			showSelectedCount
 		} = this.props
 		const { loadedRecords, search } = this.state
 		const totalSelected = selectedIds.length
