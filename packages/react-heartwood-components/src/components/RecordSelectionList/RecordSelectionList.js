@@ -90,7 +90,7 @@ export default class RecordSelectionList extends Component<
 	RecordSelectionListState
 > {
 	listContainer: any
-	list: any
+	virtualizedList: any
 	infiniteLoader: any
 	cache = new CellMeasurerCache({
 		fixedWidth: true
@@ -127,12 +127,13 @@ export default class RecordSelectionList extends Component<
 		const { canRemove, canSelect } = this.props
 
 		if (
-			prevProps.canRemove !== canRemove ||
-			prevProps.canSelect !== canSelect
+			this.virtualizedList &&
+			this.cache &&
+			(prevProps.canRemove !== canRemove || prevProps.canSelect !== canSelect)
 		) {
 			this.cache.clearAll()
-			this.list.recomputeRowHeights(0)
-			this.list.forceUpdateGrid()
+			this.virtualizedList.recomputeRowHeights(0)
+			this.virtualizedList.forceUpdateGrid()
 		}
 	}
 
@@ -148,9 +149,11 @@ export default class RecordSelectionList extends Component<
 			loadedRecords: initialRecords
 		})
 
-		this.cache.clearAll()
-		this.list.recomputeRowHeights(0)
-		this.list.forceUpdateGrid()
+		if (this.virtualizedList && this.cache) {
+			this.cache.clearAll()
+			this.virtualizedList.recomputeRowHeights(0)
+			this.virtualizedList.forceUpdateGrid()
+		}
 	}
 
 	renderRow = ({
@@ -306,9 +309,11 @@ export default class RecordSelectionList extends Component<
 		if (uniqueId === this.state.loadingId) {
 			// We reset the list with the zero offset, so clear everything out.
 			// This will scroll the user back to the top automatically.
-			this.cache.clearAll()
-			this.list.recomputeRowHeights(0)
-			this.list.forceUpdateGrid()
+			if (this.virtualizedList && this.cache) {
+				this.cache.clearAll()
+				this.virtualizedList.recomputeRowHeights(0)
+				this.virtualizedList.forceUpdateGrid()
+			}
 
 			this.setState({ isLoading: false, loadedRecords: newRows })
 		}
@@ -332,10 +337,10 @@ export default class RecordSelectionList extends Component<
 			return !!loadedRecords[index]
 		}
 		const onResize = () => {
-			if (this.list && this.cache) {
+			if (this.virtualizedList && this.cache) {
 				this.cache.clearAll()
-				this.list.recomputeRowHeights(0)
-				this.list.forceUpdateGrid()
+				this.virtualizedList.recomputeRowHeights(0)
+				this.virtualizedList.forceUpdateGrid()
 			}
 		}
 		const isListShort = !virtualHeight
@@ -383,20 +388,21 @@ export default class RecordSelectionList extends Component<
 							{({ onRowsRendered, registerChild }) => (
 								<AutoSizer onResize={onResize}>
 									{({ height, width }) => (
-										<div ref={registerChild}>
-											<List
-												ref={ref => (this.list = ref)}
-												className="record-selection__virtual-list"
-												deferredMeasurementCache={this.cache}
-												height={height}
-												width={width}
-												rowCount={loadedRecords.length}
-												rowHeight={this.cache.rowHeight}
-												rowRenderer={this.renderRow}
-												onRowsRendered={onRowsRendered}
-												selectedIds={JSON.stringify(selectedIds)}
-											/>
-										</div>
+										<List
+											ref={ref => {
+												registerChild(ref)
+												this.virtualizedList = ref
+											}}
+											className="record-selection__virtual-list"
+											deferredMeasurementCache={this.cache}
+											height={height}
+											width={width}
+											rowCount={loadedRecords.length}
+											rowHeight={this.cache.rowHeight}
+											rowRenderer={this.renderRow}
+											onRowsRendered={onRowsRendered}
+											selectedIds={JSON.stringify(selectedIds)}
+										/>
 									)}
 								</AutoSizer>
 							)}
