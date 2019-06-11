@@ -42,6 +42,13 @@ $layout-section-secondary-basis: (
 		padding: 0;
 	}
 
+	&--section-separators-visible {
+		.layout__section + .layout__section {
+			padding-top: 1rem;
+			border-top: 1px solid $c-border;
+		}
+	}
+
 	+ .layout {
 		margin-top: spacing('base');
 	}

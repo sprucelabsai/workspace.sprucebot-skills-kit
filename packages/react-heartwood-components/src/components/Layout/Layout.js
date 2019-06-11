@@ -12,17 +12,28 @@ export type LayoutProps = {
 	/** Set true to remove horizontal padding from layout. */
 	isFullBleed?: boolean,
 
+	/** Set true to display line separators between LayoutSection components */
+	areSectionSeparatorsVisible: boolean,
+
 	/** Sets the width of the layout */
 	width?: 'base' | 'tight' | 'wide' | 'full-width'
 }
 
 const Layout = (props: LayoutProps) => {
-	const { children, isCentered, isFullBleed, width, className } = props
+	const {
+		children,
+		isCentered,
+		isFullBleed,
+		areSectionSeparatorsVisible,
+		width,
+		className
+	} = props
 
 	return (
 		<div
 			className={cx('layout', className, {
 				'layout--centered': isCentered,
+				'layout--section-separators-visible': areSectionSeparatorsVisible,
 				'layout--wide': width === 'wide',
 				'layout--tight': width === 'tight',
 				'layout--full-width': width === 'full-width',
@@ -35,6 +46,7 @@ const Layout = (props: LayoutProps) => {
 }
 
 Layout.defaultProps = {
+	areSectionSeparatorsVisible: false,
 	isCentered: false,
 	width: 'base',
 	isFullBleed: false
