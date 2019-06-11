@@ -256,4 +256,8 @@
 	.record-selection__record-content {
 		flex: 1;
 	}
+
+	&:focus {
+		outline: none;
+	}
 }
