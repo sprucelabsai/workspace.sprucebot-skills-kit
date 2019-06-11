@@ -250,3 +250,7 @@
 		flex: 1;
 	}
 }
+
+.record-selection__virtual-list:focus {
+	outline: none;
+}
