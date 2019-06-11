@@ -322,6 +322,7 @@ export default class RecordSelectionList extends Component<
 				{canSearch && (
 					<TextInput
 						type="text"
+						iconBefore="search"
 						placeholder={searchPlaceholder || 'Search...'}
 						value={search}
 						onChange={this.handleSearchUpdate}

@@ -109,6 +109,11 @@
 	+ .card__section {
 		margin-top: 1rem;
 	}
+
+	&--full-bleed {
+		padding-left: 0;
+		padding-right: 0;
+	}
 }
 
 .card__footer {
