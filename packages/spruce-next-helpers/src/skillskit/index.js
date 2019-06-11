@@ -25,6 +25,17 @@ const skill = {
 		})
 	},
 
+	redirect: function({ route, params = {} }) {
+		Iframes.sendMessage({
+			to: window.parent,
+			eventName: 'Router:Push',
+			data: {
+				route,
+				params
+			}
+		})
+	},
+
 	ready: function({ showHeader = true }: { showHeader: boolean } = {}) {
 		Iframes.sendMessage({
 			to: window.parent,
@@ -252,12 +263,15 @@ const skill = {
 
 	confirm: function() {
 		const confirm = {
-			show: (data: Object, onConfirm?: Function, onCancel?: Function) => {
+			show: data => {
+				const { onConfirm, onCancel, ...rest } = data
+
 				Iframes.sendMessage({
 					to: window.parent,
 					eventName: 'Confirm:Show',
-					data
+					data: { ...rest }
 				})
+
 				if (onConfirm) {
 					if (this._onConfirmListener) {
 						this._onConfirmListener.destroy()
@@ -273,10 +287,104 @@ const skill = {
 					}
 					this._onCancelListener = Iframes.onMessage('Confirm:Cancel', onCancel)
 				}
+			},
+			setIsConfirming: (isConfirming: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:SetIsConfirming',
+					data: { value: isConfirming }
+				})
+			},
+			setIsCanceling: (isCanceling: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:setIsCanceling',
+					data: { value: isCanceling }
+				})
+			},
+			setConfirmButtonIsLoading: (isLoading: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:SetConfirmButtonIsLoading',
+					data: { value: isLoading }
+				})
+			},
+			setCancelButtonIsLoading: (isLoading: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:SetCancelButtonIsLoading',
+					data: { value: isLoading }
+				})
+			},
+			setConfirmButtonIsDisabled: (isDisabled: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:SetConfirmButtonIsDisabled',
+					data: { value: isDisabled }
+				})
+			},
+			setCancelButtonIsDisabled: (isDisabled: boolean) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Confirm:SetCancelButtonIsDisabled',
+					data: { value: isDisabled }
+				})
 			}
 		}
 
 		return confirm
+	},
+
+	supportingMessage: function() {
+		const message = {
+			add: function({
+				headline,
+				text,
+				followupText,
+				timeout,
+				kind = 'positive',
+				callback
+			}) {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Toast:Add',
+					data: {
+						headline,
+						text,
+						followupText,
+						timeout,
+						kind
+					},
+					onResponse: () => {
+						callback && callback()
+					}
+				})
+			},
+			remove: function() {
+				alert('Not yet implemented...')
+			}
+		}
+
+		return message
+	},
+	blockingMessage: function() {
+		const message = {
+			add: function({
+				headline,
+				text,
+				followupText,
+				timeout,
+				kind = 'positive',
+				callback
+			}) {
+				window.alert(headline)
+			},
+			remove: function() {
+				alert('Not yet implemented...')
+			}
+		}
+
+		return message
 	},
 
 	notifyOfRouteChangeStart() {
