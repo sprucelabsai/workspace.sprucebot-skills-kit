@@ -486,9 +486,10 @@ class Sprucebot {
 	 * @param {String} name
 	 * @param {Object} payload
 	 */
-	async emit(locationId, eventName, payload = {}, options) {
+	async emit(locationId, eventName, payload = {}, options, eventId) {
 		return this.adapter.post(`locations/${locationId}/emit`, {
 			eventName,
+			eventId,
 			payload,
 			options
 		})
@@ -500,9 +501,16 @@ class Sprucebot {
 	 * @param {String} name
 	 * @param {Object} payload
 	 */
-	async emitOrganization(organizationId, eventName, payload = {}, options) {
+	async emitOrganization(
+		organizationId,
+		eventName,
+		payload = {},
+		options,
+		eventId
+	) {
 		return this.adapter.post(`organizations/${organizationId}/emit`, {
 			eventName,
+			eventId,
 			payload,
 			options
 		})
