@@ -293,24 +293,24 @@ stories
 				{
 					title: 'Clean Up',
 					subtitle: '$20 | 15min',
-					checkboxId: 'cleanUp',
-					checkboxProps: {
+					selectableId: 'cleanUp',
+					selectableProps: {
 						name: 'radio'
 					}
 				},
 				{
 					title: 'Shampoo',
 					subtitle: '$7 | 45min',
-					checkboxId: 'shampoo',
-					checkboxProps: {
+					selectableId: 'shampoo',
+					selectableProps: {
 						name: 'radio'
 					}
 				},
 				{
 					title: 'Young Spruce',
 					subtitle: '$23 | 50min',
-					checkboxId: 'youngSpruce',
-					checkboxProps: {
+					selectableId: 'youngSpruce',
+					selectableProps: {
 						name: 'radio'
 					}
 				}

@@ -60,10 +60,10 @@ export type Props = {
 	className?: string,
 
 	/** Optional id prop for selectable list items */
-	checkboxId?: string,
+	selectableId?: string,
 
 	/** Optional props for selectable list items */
-	checkboxProps?: Object,
+	selectableProps?: Object,
 
 	/** Optional: set whether to use checkbox or radio for selectable list items */
 	selectableType?: 'checkbox' | 'radio'
@@ -86,8 +86,8 @@ const ListItem = (props: Props) => {
 		toggleProps,
 		isSeparatorVisible,
 		className,
-		checkboxId,
-		checkboxProps,
+		selectableId,
+		selectableProps,
 		selectableType
 	} = props
 
@@ -101,7 +101,7 @@ const ListItem = (props: Props) => {
 
 	const ListItemInner = () => (
 		<Fragment>
-			{(image || icon || avatar || checkboxId) && !isDraggable && (
+			{(image || icon || avatar || selectableId) && !isDraggable && (
 				<div className="list-item__image-wrapper">
 					{icon && (
 						<Icon
@@ -121,13 +121,13 @@ const ListItem = (props: Props) => {
 						/>
 					)}
 					{avatar && <Avatar image={avatar} alt={title} />}
-					{checkboxId && (
+					{selectableId && (
 						<Fragment>
 							{selectableType === 'checkbox' && (
-								<Checkbox id={checkboxId} {...checkboxProps} />
+								<Checkbox id={selectableId} {...selectableProps} />
 							)}
 							{selectableType === 'radio' && (
-								<Radio id={checkboxId} {...checkboxProps} />
+								<Radio id={selectableId} {...selectableProps} />
 							)}
 						</Fragment>
 					)}
@@ -135,11 +135,11 @@ const ListItem = (props: Props) => {
 			)}
 			{isDraggable && <DragHandle className="drag-handle" />}
 			<div className="list-item__text-wrapper">
-				{toggleId || checkboxId ? (
+				{toggleId || selectableId ? (
 					<p>
 						<label
 							className="list-item__title"
-							htmlFor={toggleId || checkboxId}
+							htmlFor={toggleId || selectableId}
 						>
 							{title}
 						</label>
@@ -149,11 +149,11 @@ const ListItem = (props: Props) => {
 				)}
 				{subtitle && (
 					<Fragment>
-						{toggleId || checkboxId ? (
+						{toggleId || selectableId ? (
 							<p>
 								<label
 									className="list-item__subtitle"
-									htmlFor={toggleId || checkboxId}
+									htmlFor={toggleId || selectableId}
 								>
 									{subtitle}
 								</label>
