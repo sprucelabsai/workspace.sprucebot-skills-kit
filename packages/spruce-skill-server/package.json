@@ -20,7 +20,7 @@
 	},
 	"dependencies": {
 		"@koa/cors": "2",
-		"@sprucelabs/log": "^1.7.0",
+		"@sprucelabs/log": "^2",
 		"apollo-link": "1.2.6",
 		"apollo-link-ws": "1.0.12",
 		"config": "^1.28.0",
