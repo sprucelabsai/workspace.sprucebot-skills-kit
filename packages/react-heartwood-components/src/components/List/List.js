@@ -28,7 +28,10 @@ export type Props = {
 	children?: any,
 
 	/** Set to true to show separators between list items */
-	areSeparatorsVisible: boolean
+	areSeparatorsVisible: boolean,
+
+	/** Optional: set whether to use checkbox or radio for selectable list items */
+	selectableType?: 'checkbox' | 'radio'
 }
 
 const List = (props: Props) => {
@@ -38,7 +41,8 @@ const List = (props: Props) => {
 		className,
 		isSmall,
 		areSeparatorsVisible,
-		children
+		children,
+		selectableType
 	} = props
 	const parentClass = cx('list', className, {
 		'list-small': isSmall,
@@ -49,7 +53,10 @@ const List = (props: Props) => {
 		<Fragment>
 			{header && <ListHeader isSmall={isSmall} {...header} />}
 			<ul className={parentClass}>
-				{items && items.map((item, idx) => <ListItem key={idx} {...item} />)}
+				{items &&
+					items.map((item, idx) => (
+						<ListItem key={idx} selectableType={selectableType} {...item} />
+					))}
 				{children && children}
 			</ul>
 		</Fragment>
