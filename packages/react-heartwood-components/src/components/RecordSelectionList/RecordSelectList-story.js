@@ -8,7 +8,7 @@ import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 import RecordSelectionListItem from '../RecordSelectionList/RecordSelectionListItem'
 import Modal from '../Modal/Modal'
-// import Button from '../Button/Button'
+import Button from '../Button/Button'
 import Card, { CardHeader, CardBody, CardFooter } from '../Card'
 import { select } from '@storybook/addon-knobs'
 
@@ -136,19 +136,19 @@ class BasicExample extends Component<Props, State> {
 }
 
 stories
-	.add('Default', () => (
+	.add('In a Card', () => (
 		<Card>
 			<CardHeader title="Card Title" />
 			<CardBody>
 				<BasicExample
 					canSelect={select('Can Select', [null, 'many', 'one'], null)}
 					canRemove={select('Can Remove', [true, false], false)}
-					locations={map(generateLocations({ amount: 100 }), o => ({
+					locations={map(generateLocations({ amount: 5 }), o => ({
 						node: { ...o }
 					}))}
-					totalRecordCount={100}
-					virtualHeight={text('virutalHeight', '500px')}
+					totalRecordCount={5}
 				/>
+				<Button text="Show me all the things" kind="simple" />
 			</CardBody>
 		</Card>
 	))
@@ -167,16 +167,6 @@ stories
 				/>
 			</Modal.Body>
 		</Modal>
-	))
-	.add('Few Entries', () => (
-		<BasicExample
-			canSelect={select('Can Select', [null, 'many', 'one'], null)}
-			canRemove={select('Can Remove', [true, false], false)}
-			locations={map(generateLocations({ amount: 2 }), o => ({
-				node: { ...o }
-			}))}
-			totalRecordCount={2}
-		/>
 	))
 
 // class WithModalExample extends Component<Props, State> {
