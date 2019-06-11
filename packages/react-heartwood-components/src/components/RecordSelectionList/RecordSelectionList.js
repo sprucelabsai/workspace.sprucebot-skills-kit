@@ -89,6 +89,7 @@ export default class RecordSelectionList extends Component<
 	RecordSelectionListProps,
 	RecordSelectionListState
 > {
+	listContainer: any
 	list: any
 	infiniteLoader: any
 	cache = new CellMeasurerCache({
@@ -343,6 +344,7 @@ export default class RecordSelectionList extends Component<
 					'record-selection__list--is-short': isListShort
 				})}
 				style={{ height: virtualHeight || 'auto' }}
+				ref={ref => (this.listContainer = ref)}
 			>
 				{showSelectedCount && (
 					<TextContainer>

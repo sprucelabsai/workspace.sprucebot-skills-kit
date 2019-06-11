@@ -7,7 +7,7 @@ import { withKnobs, text } from '@storybook/addon-knobs/react'
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 import RecordSelectionListItem from '../RecordSelectionList/RecordSelectionListItem'
-// import Modal from '../Modal/Modal'
+import Modal from '../Modal/Modal'
 // import Button from '../Button/Button'
 import Card, { CardHeader, CardBody, CardFooter } from '../Card'
 import { select } from '@storybook/addon-knobs'
@@ -151,6 +151,22 @@ stories
 				/>
 			</CardBody>
 		</Card>
+	))
+	.add('In a Modal', () => (
+		<Modal isOpen onAfterOpen={() => null} onRequestClose={() => null}>
+			<Modal.Header title="Modal title" onRequestClose={() => null} />
+			<Modal.Body>
+				<BasicExample
+					canSelect={select('Can Select', [null, 'many', 'one'], null)}
+					canRemove={select('Can Remove', [true, false], false)}
+					locations={map(generateLocations({ amount: 100 }), o => ({
+						node: { ...o }
+					}))}
+					totalRecordCount={100}
+					virtualHeight={text('virutalHeight', '500px')}
+				/>
+			</Modal.Body>
+		</Modal>
 	))
 	.add('Few Entries', () => (
 		<BasicExample
