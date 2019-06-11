@@ -32,6 +32,7 @@ module.exports = {
 	VIEW_VERSION: process.env.VIEW_VERSION || 1,
 	LOG_LEVEL: process.env.LOG_LEVEL || 'warn',
 	LOG_USE_COLORS: process.env.LOG_USE_COLORS !== 'false',
+	LOG_EVENTS: process.env.LOG_EVENTS !== 'false',
 	METRICS_APP_KEY: process.env.METRICS_APP_KEY,
 	METRICS_URL: process.env.METRICS_URL,
 	METRICS_ENABLED: process.env.METRICS_ENABLED === 'true',
