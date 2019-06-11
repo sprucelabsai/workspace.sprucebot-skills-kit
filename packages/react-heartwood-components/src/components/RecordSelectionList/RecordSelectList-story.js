@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { map, sampleSize } from 'lodash'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text } from '@storybook/addon-knobs/react'
+import { withKnobs, text, boolean, select } from '@storybook/addon-knobs/react'
 
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
@@ -10,7 +10,6 @@ import RecordSelectionListItem from '../RecordSelectionList/RecordSelectionListI
 import Modal from '../Modal/Modal'
 import Button from '../Button/Button'
 import Card, { CardHeader, CardBody, CardFooter } from '../Card'
-import { select } from '@storybook/addon-knobs'
 
 const stories = storiesOf('RecordSelectionList', module)
 
@@ -93,7 +92,6 @@ class BasicExample extends Component<Props, State> {
 						id={record.node.id}
 						title={record.node.publicName}
 						subtitle={record.node.address}
-						icon={{ name: 'location', isLineIcon: true }}
 						isDisabled={unselectableIds.indexOf(record.node.id) >= 0}
 						note={
 							unselectableIds.indexOf(record.node.id) >= 0 &&
@@ -137,20 +135,22 @@ class BasicExample extends Component<Props, State> {
 
 stories
 	.add('In a Card', () => (
-		<Card>
-			<CardHeader title="Card Title" />
-			<CardBody>
-				<BasicExample
-					canSelect={select('Can Select', [null, 'many', 'one'], null)}
-					canRemove={select('Can Remove', [true, false], false)}
-					locations={map(generateLocations({ amount: 5 }), o => ({
-						node: { ...o }
-					}))}
-					totalRecordCount={5}
-				/>
-				<Button text="Show me all the things" kind="simple" />
-			</CardBody>
-		</Card>
+		<div style={{ width: '320px', padding: '8px' }}>
+			<Card>
+				<CardHeader title="Card Title" />
+				<CardBody>
+					<BasicExample
+						canSelect={select('Can Select', [null, 'many', 'one'], null)}
+						canRemove={boolean('Can Remove', false)}
+						locations={map(generateLocations({ amount: 5 }), o => ({
+							node: { ...o }
+						}))}
+						totalRecordCount={5}
+					/>
+					<Button text="Show me all the things" kind="simple" />
+				</CardBody>
+			</Card>
+		</div>
 	))
 	.add('In a Modal', () => (
 		<Modal isOpen onAfterOpen={() => null} onRequestClose={() => null}>
@@ -158,7 +158,7 @@ stories
 			<Modal.Body>
 				<BasicExample
 					canSelect={select('Can Select', [null, 'many', 'one'], null)}
-					canRemove={select('Can Remove', [true, false], false)}
+					canRemove={boolean('Can Remove', true)}
 					locations={map(generateLocations({ amount: 100 }), o => ({
 						node: { ...o }
 					}))}
