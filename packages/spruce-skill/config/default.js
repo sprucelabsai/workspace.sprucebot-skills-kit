@@ -33,6 +33,7 @@ module.exports = {
 	LOG_LEVEL: process.env.LOG_LEVEL || 'warn',
 	LOG_USE_COLORS: process.env.LOG_USE_COLORS !== 'false',
 	LOG_USE_TRACE: process.env.LOG_USE_TRACE === 'true',
+	LOG_USE_SOURCEMAPS: process.env.LOG_USE_SOURCEMAPS === 'true',
 	LOG_AS_JSON: process.env.LOG_AS_JSON === 'true',
 	CAPTURE_FE_LOGS: process.env.CAPTURE_FE_LOGS === 'true',
 	METRICS_APP_KEY: process.env.METRICS_APP_KEY,

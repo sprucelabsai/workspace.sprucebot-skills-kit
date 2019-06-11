@@ -3,19 +3,7 @@ module.exports = (router, options) => {
 		try {
 			if (Array.isArray(ctx.request.body)) {
 				ctx.request.body.forEach(logItem => {
-					// console.log(
-					// 	`[FRONTEND ${logItem.level}] [${logItem.userAgent}] [${
-					// 		logItem.path
-					// 	}] ${logItem.about}`,
-					// 	logItem.item
-					// )
 					try {
-						// log[logItem.level](
-						// 	`[FRONTEND ${logItem.level}] [${logItem.userAgent}] [${
-						// 		logItem.path
-						// 	}] ${logItem.about}`,
-						// 	logItem.item
-						// )
 						const { item, level, ...rest } = logItem
 						log[level]({ source: 'frontend', ...rest }, item)
 					} catch (e) {
