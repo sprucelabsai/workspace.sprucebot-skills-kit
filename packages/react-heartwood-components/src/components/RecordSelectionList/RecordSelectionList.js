@@ -358,6 +358,7 @@ export default class RecordSelectionList extends Component<
 					loadedRecords.length > 0 && (
 						<TextInput
 							type="text"
+							iconBefore="search"
 							placeholder={searchPlaceholder || 'Search...'}
 							value={search}
 							onChange={this.handleSearchUpdate}
