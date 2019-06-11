@@ -16,10 +16,6 @@ body {
 	background-color: $c-bg;
 	font-family: $font-family-primary;
 	height: 100%;
-
-	&.render-location-modal {
-		background-color: $c-white;
-	}
 }
 
 strong {
