@@ -47,3 +47,8 @@ img.error {
 		}
 	}
 }
+
+// Always hide focus on iframes
+iframe:focus {
+	outline: none;
+}

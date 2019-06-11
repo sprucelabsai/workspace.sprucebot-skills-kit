@@ -6,7 +6,8 @@ import {
 	withKnobsOptions,
 	text,
 	boolean,
-	object
+	object,
+	select
 } from '@storybook/addon-knobs/react'
 import {
 	userList,
@@ -281,3 +282,39 @@ stories
 		/>
 	))
 	.add('People Tabbed', () => <TabbedList />)
+	.add('Selectable Items', () => (
+		<List
+			selectableType={select(
+				'selectableType',
+				['checkbox', 'radio'],
+				'checkbox'
+			)}
+			items={object('selectable items', [
+				{
+					title: 'Clean Up',
+					subtitle: '$20 | 15min',
+					selectableId: 'cleanUp',
+					selectableProps: {
+						name: 'radio'
+					}
+				},
+				{
+					title: 'Shampoo',
+					subtitle: '$7 | 45min',
+					selectableId: 'shampoo',
+					selectableProps: {
+						name: 'radio'
+					}
+				},
+				{
+					title: 'Young Spruce',
+					subtitle: '$23 | 50min',
+					selectableId: 'youngSpruce',
+					selectableProps: {
+						name: 'radio'
+					}
+				}
+			])}
+			isSmall={boolean('isSmall', false)}
+		/>
+	))
