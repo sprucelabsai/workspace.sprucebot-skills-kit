@@ -2,13 +2,14 @@
 import React, { Component } from 'react'
 import { map, sampleSize } from 'lodash'
 import { storiesOf } from '@storybook/react'
-import { withKnobs } from '@storybook/addon-knobs/react'
+import { withKnobs, text } from '@storybook/addon-knobs/react'
 
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 import RecordSelectionListItem from '../RecordSelectionList/RecordSelectionListItem'
 // import Modal from '../Modal/Modal'
 // import Button from '../Button/Button'
+import Card, { CardHeader, CardBody, CardFooter } from '../Card'
 import { select } from '@storybook/addon-knobs'
 
 const stories = storiesOf('RecordSelectionList', module)
@@ -19,7 +20,8 @@ type Props = {
 	canSelect?: 'many' | 'one',
 	canRemove: boolean,
 	locations: Array<Object>,
-	totalRecordCount: number
+	totalRecordCount: number,
+	virtualHeight?: string
 }
 
 type State = {
@@ -51,7 +53,7 @@ class BasicExample extends Component<Props, State> {
 	}
 
 	render() {
-		const { canSelect, canRemove, totalRecordCount } = this.props
+		const { canSelect, canRemove, totalRecordCount, virtualHeight } = this.props
 		const { selectedIds, locations, unselectableIds } = this.state
 
 		return (
@@ -127,6 +129,7 @@ class BasicExample extends Component<Props, State> {
 					})
 				}}
 				totalRecordCount={totalRecordCount}
+				virtualHeight={virtualHeight}
 			/>
 		)
 	}
@@ -134,14 +137,20 @@ class BasicExample extends Component<Props, State> {
 
 stories
 	.add('Default', () => (
-		<BasicExample
-			canSelect={select('Can Select', [null, 'many', 'one'], null)}
-			canRemove={select('Can Remove', [true, false], false)}
-			locations={map(generateLocations({ amount: 100 }), o => ({
-				node: { ...o }
-			}))}
-			totalRecordCount={100}
-		/>
+		<Card>
+			<CardHeader title="Card Title" />
+			<CardBody>
+				<BasicExample
+					canSelect={select('Can Select', [null, 'many', 'one'], null)}
+					canRemove={select('Can Remove', [true, false], false)}
+					locations={map(generateLocations({ amount: 100 }), o => ({
+						node: { ...o }
+					}))}
+					totalRecordCount={100}
+					virtualHeight={text('virutalHeight', '500px')}
+				/>
+			</CardBody>
+		</Card>
 	))
 	.add('Few Entries', () => (
 		<BasicExample

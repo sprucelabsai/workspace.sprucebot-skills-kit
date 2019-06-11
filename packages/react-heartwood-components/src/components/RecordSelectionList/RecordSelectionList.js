@@ -65,7 +65,10 @@ type RecordSelectionListProps = {|
 	onSelect?: (RecordId, Record) => void,
 
 	/** Callback for when user requests to remove a record from the list. */
-	onRemove?: (RecordId, Record) => void
+	onRemove?: (RecordId, Record) => void,
+
+	/** Optional height override to be used for virtual lists */
+	virtualHeight?: string
 |}
 
 type RecordSelectionListState = {|
@@ -318,7 +321,8 @@ export default class RecordSelectionList extends Component<
 			totalRecordCount,
 			canSearch,
 			searchPlaceholder,
-			showSelectedCount
+			showSelectedCount,
+			virtualHeight
 		} = this.props
 		const { loadedRecords, search } = this.state
 		const totalSelected = selectedIds.length
@@ -332,16 +336,13 @@ export default class RecordSelectionList extends Component<
 				this.list.forceUpdateGrid()
 			}
 		}
-		const isListShort =
-			totalRecordCount &&
-			loadedRecords &&
-			loadedRecords.length === totalRecordCount
-
+		const isListShort = !virtualHeight
 		return (
 			<div
 				className={cx('record-selection__list', {
 					'record-selection__list--is-short': isListShort
 				})}
+				style={{ height: virtualHeight || 'auto' }}
 			>
 				{showSelectedCount && (
 					<TextContainer>
