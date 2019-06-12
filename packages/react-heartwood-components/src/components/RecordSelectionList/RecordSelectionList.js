@@ -348,13 +348,16 @@ export default class RecordSelectionList extends Component<
 			}
 		}
 
-		const isSearchable =
-			isInfiniteScroll && canSearch && loadedRecords && loadedRecords.length > 0
+		// TODO: add ability to make regular list until infinite scroll is required
+		// This would require calculating the height of rows and setting a max number
+		// of rows before the virtualized list takes over, taking into consideration whether
+		// or not the list should fill the container or grow to a set height (infiniteScrollHeight)
+
 		return (
 			<div
 				className={cx('record-selection__list', {
 					'record-selection__list--is-infinite': isInfiniteScroll,
-					'record-selection__list--is-searchable': isSearchable,
+					'record-selection__list--is-searchable': canSearch,
 					'record-selection__list--is-showing-selected-count': showSelectedCount
 				})}
 				ref={ref => (this.listContainer = ref)}
@@ -368,7 +371,7 @@ export default class RecordSelectionList extends Component<
 					</TextContainer>
 				)}
 
-				{isSearchable && (
+				{canSearch && (
 					<TextInput
 						type="text"
 						iconBefore="search"
