@@ -94,15 +94,24 @@
 }
 
 .card__body {
-	padding-bottom: spacing('base');
+	&:not(.card__body--no-bottom-padding) {
+		padding-bottom: spacing('base');
+	}
 	.text:not(a) {
 		color: $c-text-light;
 		line-height: $line-height-loose;
 	}
 	&:first-child {
-		padding-top: spacing('base');
+		&:not(.card__body--no-top-padding) {
+			padding-top: spacing('base');
+		}
 		@include gt('small') {
-			padding: spacing('loose') 0 spacing('loose');
+			&:not(.card__body--no-top-padding) {
+				padding-top: spacing('loose');
+			}
+			&:not(.card__body--no-bottom-padding) {
+				padding-bottom: spacing('loose');
+			}
 		}
 	}
 	&--section-separators-visible {

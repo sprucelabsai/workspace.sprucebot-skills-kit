@@ -14,13 +14,27 @@ export type CardBodyProps = {
 	isSectioned?: boolean,
 
 	/** Set true to display line separators between CardSection components */
-	areSectionSeparatorsVisible: boolean
+	areSectionSeparatorsVisible: boolean,
+
+	/** Does card include top padding */
+	hasTopPadding: boolean,
+
+	/** Does card include bottom padding */
+	hasBottomPadding: boolean
 }
 
 const CardBody = (props: CardBodyProps) => {
-	const { children, isSectioned, areSectionSeparatorsVisible } = props
+	const {
+		children,
+		isSectioned,
+		hasTopPadding,
+		hasBottomPadding,
+		areSectionSeparatorsVisible
+	} = props
 	const className = cx('card__body', {
-		'card__body--section-separators-visible': areSectionSeparatorsVisible
+		'card__body--section-separators-visible': areSectionSeparatorsVisible,
+		'card__body--no-top-padding': !hasTopPadding,
+		'card__body--no-bottom-padding': !hasBottomPadding
 	})
 	return (
 		<div className={className}>
@@ -31,7 +45,9 @@ const CardBody = (props: CardBodyProps) => {
 
 CardBody.defaultProps = {
 	isSectioned: true,
-	areSectionSeparatorsVisible: false
+	areSectionSeparatorsVisible: false,
+	hasTopPadding: true,
+	hasBottomPadding: true
 }
 
 export default CardBody
