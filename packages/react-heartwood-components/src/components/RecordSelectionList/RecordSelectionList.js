@@ -67,8 +67,11 @@ type RecordSelectionListProps = {|
 	/** Callback for when user requests to remove a record from the list. */
 	onRemove?: (RecordId, Record) => void,
 
-	/** Optional height override to be used for virtual lists */
-	virtualHeight?: string
+	/** Is the list infinitely scrollable? */
+	isInfiniteScroll: boolean,
+
+	/** The height of the infinite scroll list. If not set, list will fill parent height. */
+	infiniteScrollHeight?: string
 |}
 
 type RecordSelectionListState = {|
@@ -329,7 +332,8 @@ export default class RecordSelectionList extends Component<
 			getRecordId,
 			searchPlaceholder,
 			showSelectedCount,
-			virtualHeight
+			isInfiniteScroll,
+			infiniteScrollHeight
 		} = this.props
 		const { loadedRecords, search } = this.state
 		const totalSelected = selectedIds.length
@@ -343,14 +347,20 @@ export default class RecordSelectionList extends Component<
 				this.virtualizedList.forceUpdateGrid()
 			}
 		}
-		const isListShort = !virtualHeight
+
+		const isSearchable =
+			isInfiniteScroll && canSearch && loadedRecords && loadedRecords.length > 0
 		return (
 			<div
 				className={cx('record-selection__list', {
-					'record-selection__list--is-short': isListShort
+					'record-selection__list--is-infinite': isInfiniteScroll,
+					'record-selection__list--is-searchable': isSearchable,
+					'record-selection__list--is-showing-selected-count': showSelectedCount
 				})}
-				style={{ height: virtualHeight || 'auto' }}
 				ref={ref => (this.listContainer = ref)}
+				{...(isInfiniteScroll && infiniteScrollHeight
+					? { style: { height: infiniteScrollHeight } }
+					: {})}
 			>
 				{showSelectedCount && (
 					<TextContainer>
@@ -358,20 +368,17 @@ export default class RecordSelectionList extends Component<
 					</TextContainer>
 				)}
 
-				{!isListShort &&
-					canSearch &&
-					loadedRecords &&
-					loadedRecords.length > 0 && (
-						<TextInput
-							type="text"
-							iconBefore="search"
-							placeholder={searchPlaceholder || 'Search...'}
-							value={search}
-							onChange={this.handleSearchUpdate}
-						/>
-					)}
+				{isSearchable && (
+					<TextInput
+						type="text"
+						iconBefore="search"
+						placeholder={searchPlaceholder || 'Search...'}
+						value={search}
+						onChange={this.handleSearchUpdate}
+					/>
+				)}
 
-				{isListShort ? (
+				{!isInfiniteScroll ? (
 					loadedRecords.map((rec, idx) => {
 						const id = getRecordId(rec)
 						return this.renderInnerRow({ index: idx, key: id, style: {} })
@@ -416,5 +423,6 @@ export default class RecordSelectionList extends Component<
 
 RecordSelectionList.defaultProps = {
 	showSelectedCount: false,
-	recordsPerRequest: 10
+	recordsPerRequest: 10,
+	isInfiniteScroll: false
 }

@@ -222,7 +222,6 @@
 	display: flex;
 	flex-flow: column;
 	height: 100%;
-	overflow: hidden;
 
 	.text-container {
 		align-items: flex-start;
@@ -233,7 +232,9 @@
 	}
 
 	.record-selection__list-wrapper {
-		flex: 1;
+		height: 100%;
+		overflow-x: hidden;
+		overflow-y: auto;
 	}
 
 	.record-selection__record-wrapper {

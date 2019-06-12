@@ -7,6 +7,20 @@
 		text-align: center;
 	}
 
+	&--full-size {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		.card__body,
+		.card__section {
+			height: 100%;
+		}
+	}
+
 	> img + * {
 		margin-top: spacing('base');
 	}
@@ -93,14 +107,14 @@
 	}
 	&--section-separators-visible {
 		.card__section + .card__section {
-			padding-top: 1rem;
+			padding-top: spacing('base');
 			border-top: 1px solid $c-border;
 		}
 	}
 }
 
 .card__section {
-	padding: 0 spacing('base') spacing('base');
+	padding: 0 spacing('base');
 
 	@include gt('small') {
 		padding: 0 spacing('loose');
