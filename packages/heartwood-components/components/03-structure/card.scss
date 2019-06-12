@@ -96,6 +96,9 @@
 .card__body {
 	&:not(.card__body--no-bottom-padding) {
 		padding-bottom: spacing('base');
+		@include gt('small') {
+			padding-bottom: spacing('loose');
+		}
 	}
 	.text:not(a) {
 		color: $c-text-light;
