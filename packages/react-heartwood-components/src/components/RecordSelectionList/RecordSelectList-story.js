@@ -20,7 +20,8 @@ type Props = {
 	canRemove: boolean,
 	locations: Array<Object>,
 	totalRecordCount: number,
-	virtualHeight?: string
+	virtualHeight?: string,
+	maxRowsVisible?: number | 'auto'
 }
 
 type State = {

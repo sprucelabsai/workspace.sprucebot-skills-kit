@@ -72,6 +72,7 @@ type RecordSelectionListProps = {|
 	/** When set, list will become infinitely scrollable
 	/*  A number value will set the max height of the list to the number of rows specified
 	/*  A value of 'auto' will allow the list to fill the height of the parent container */
+
 	maxRowsVisible?: number | 'auto'
 |}
 
@@ -152,6 +153,7 @@ export default class RecordSelectionList extends Component<
 			this.cache.clearAll()
 			this.virtualizedList.recomputeRowHeights(0)
 			this.virtualizedList.forceUpdateGrid()
+			this.setState({ listHeight: this.getVisibleRecordHeight() })
 		}
 	}
 
@@ -171,10 +173,17 @@ export default class RecordSelectionList extends Component<
 			this.cache.clearAll()
 			this.virtualizedList.recomputeRowHeights(0)
 			this.virtualizedList.forceUpdateGrid()
+			this.setState({ listHeight: this.getVisibleRecordHeight() })
 		}
 	}
 
 	getVisibleRecordHeight = () => {
+		const { loadedRecords } = this.state
+
+		if (loadedRecords.length < this.visibleRecordHeights.length) {
+			this.visibleRecordHeights.length = loadedRecords.length
+		}
+
 		const height = this.visibleRecordHeights.reduce(
 			(height, current) => (height += current),
 			0
@@ -288,6 +297,8 @@ export default class RecordSelectionList extends Component<
 										loadedRecord =>
 											getRecordId(loadedRecord) !== getRecordId(record)
 									)
+								}, () => {
+									this.setState({ listHeight: this.getVisibleRecordHeight() })
 								})
 
 								onRemove(getRecordId(record), record)
@@ -353,6 +364,7 @@ export default class RecordSelectionList extends Component<
 				this.cache.clearAll()
 				this.virtualizedList.recomputeRowHeights(0)
 				this.virtualizedList.forceUpdateGrid()
+				this.setState({ listHeight: this.getVisibleRecordHeight() })
 			}
 
 			this.setState({ isLoading: false, loadedRecords: newRows })
@@ -373,7 +385,7 @@ export default class RecordSelectionList extends Component<
 		} = this.props
 		const { loadedRecords, search, listHeight } = this.state
 		const totalSelected = selectedIds.length
-		console.log('RENDERING')
+
 		const isRowLoaded = ({ index }) => {
 			return !!loadedRecords[index]
 		}
@@ -382,6 +394,7 @@ export default class RecordSelectionList extends Component<
 				this.cache.clearAll()
 				this.virtualizedList.recomputeRowHeights(0)
 				this.virtualizedList.forceUpdateGrid()
+				this.setState({ listHeight: this.getVisibleRecordHeight() })
 			}
 		}
 
@@ -447,7 +460,6 @@ export default class RecordSelectionList extends Component<
 												rowCount={loadedRecords.length}
 												rowRenderer={this.renderRow}
 												onRowsRendered={args => {
-													console.log('ROWS RENDERED', args)
 													onRowsRendered(args)
 												}}
 												selectedIds={JSON.stringify(selectedIds)}
