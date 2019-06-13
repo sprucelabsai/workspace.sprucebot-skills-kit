@@ -180,6 +180,17 @@
 	}
 }
 
+.list-item .checkbox-item {
+	position: relative;
+	.checkbox-item__label {
+		margin: 0;
+	}
+
+	.list-small & {
+		top: -2px;
+	}
+}
+
 .drag-handle {
 	width: rem(20);
 	height: rem(20);
@@ -255,6 +266,10 @@
 
 	.record-selection__record-remove-btn .btn__icon {
 		fill: $c-text-icon;
+	}
+
+	&:focus {
+		outline: none;
 	}
 }
 
