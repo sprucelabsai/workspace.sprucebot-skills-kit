@@ -136,7 +136,7 @@ class BasicExample extends Component<Props, State> {
 				virtualHeight={virtualHeight}
 				maxRowsVisible={
 					maxRowsVisible && maxRowsVisible !== 'auto'
-						? parseInt(maxRowsVisible)
+						? parseInt(maxRowsVisible, 10)
 						: maxRowsVisible
 				}
 			/>
