@@ -10,8 +10,6 @@ import {
 } from 'react-virtualized'
 import cx from 'classnames'
 
-import clone from 'lodash/clone'
-
 import { TextInput, Checkbox, Radio } from '../Forms'
 import Button from '../Button/Button'
 import TextContainer from '../TextContainer/TextContainer'

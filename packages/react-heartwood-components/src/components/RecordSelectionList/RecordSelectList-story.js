@@ -2,14 +2,14 @@
 import React, { Component } from 'react'
 import { map, sampleSize } from 'lodash'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, select } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 import RecordSelectionListItem from '../RecordSelectionList/RecordSelectionListItem'
 import Modal from '../Modal/Modal'
 import Button from '../Button/Button'
-import Card, { CardHeader, CardBody, CardFooter } from '../Card'
+import Card, { CardHeader, CardBody } from '../Card'
 
 const stories = storiesOf('RecordSelectionList', module)
 
