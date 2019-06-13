@@ -52,9 +52,14 @@ class BasicExample extends Component<Props, State> {
 	}
 
 	render() {
-		const { canSelect, canRemove, totalRecordCount, virtualHeight } = this.props
+		const {
+			canSelect,
+			canRemove,
+			totalRecordCount,
+			virtualHeight,
+			maxRowsVisible
+		} = this.props
 		const { selectedIds, locations, unselectableIds } = this.state
-
 		return (
 			<RecordSelectionList
 				canSearch
@@ -128,6 +133,11 @@ class BasicExample extends Component<Props, State> {
 				}}
 				totalRecordCount={totalRecordCount}
 				virtualHeight={virtualHeight}
+				maxRowsVisible={
+					maxRowsVisible && maxRowsVisible !== 'auto'
+						? parseInt(maxRowsVisible)
+						: maxRowsVisible
+				}
 			/>
 		)
 	}
@@ -146,6 +156,7 @@ stories
 							node: { ...o }
 						}))}
 						totalRecordCount={5}
+						maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'])}
 					/>
 					<Button text="Show me all the things" kind="simple" />
 				</CardBody>
@@ -163,7 +174,7 @@ stories
 						node: { ...o }
 					}))}
 					totalRecordCount={100}
-					virtualHeight={text('virutalHeight', '500px')}
+					maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'])}
 				/>
 			</Modal.Body>
 		</Modal>

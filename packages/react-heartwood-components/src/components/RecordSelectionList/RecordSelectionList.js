@@ -10,6 +10,8 @@ import {
 } from 'react-virtualized'
 import cx from 'classnames'
 
+import clone from 'lodash/clone'
+
 import { TextInput, Checkbox, Radio } from '../Forms'
 import Button from '../Button/Button'
 import TextContainer from '../TextContainer/TextContainer'
@@ -67,11 +69,10 @@ type RecordSelectionListProps = {|
 	/** Callback for when user requests to remove a record from the list. */
 	onRemove?: (RecordId, Record) => void,
 
-	/** Is the list infinitely scrollable? */
-	isInfiniteScroll: boolean,
-
-	/** The height of the infinite scroll list. If not set, list will fill parent height. */
-	infiniteScrollHeight?: string
+	/** When set, list will become infinitely scrollable
+	/*  A number value will set the max height of the list to the number of rows specified
+	/*  A value of 'auto' will allow the list to fill the height of the parent container */
+	maxRowsVisible?: number | 'auto'
 |}
 
 type RecordSelectionListState = {|
@@ -85,7 +86,9 @@ type RecordSelectionListState = {|
 	search: string,
 
 	/** ID to manage the last request to loadRecords */
-	loadingId?: string
+	loadingId?: string,
+
+	listHeight: number
 |}
 
 export default class RecordSelectionList extends Component<
@@ -98,6 +101,7 @@ export default class RecordSelectionList extends Component<
 	cache = new CellMeasurerCache({
 		fixedWidth: true
 	})
+	visibleRecordHeights = []
 
 	constructor(props: RecordSelectionListProps) {
 		super(props)
@@ -108,7 +112,12 @@ export default class RecordSelectionList extends Component<
 			)
 		}
 
-		this.state = { loadedRecords: [], isLoading: false, search: '' }
+		this.state = {
+			loadedRecords: [],
+			isLoading: false,
+			search: '',
+			listHeight: 1
+		}
 	}
 
 	async componentDidMount() {
@@ -119,9 +128,15 @@ export default class RecordSelectionList extends Component<
 			limit: recordsPerRequest
 		})
 
-		this.setState({
+		await this.setState({
 			loadedRecords: initialRecords
 		})
+
+		const newListHeight = this.getVisibleRecordHeight()
+
+		if (this.state.listHeight !== newListHeight) {
+			this.setState({ listHeight: newListHeight })
+		}
 	}
 
 	// Lifecycle required since we need to manually tell virtualized to update if these props
@@ -159,6 +174,15 @@ export default class RecordSelectionList extends Component<
 		}
 	}
 
+	getVisibleRecordHeight = () => {
+		const height = this.visibleRecordHeights.reduce(
+			(height, current) => (height += current),
+			0
+		)
+
+		return height > 0 ? height : 1
+	}
+
 	renderRow = ({
 		index,
 		key,
@@ -170,9 +194,22 @@ export default class RecordSelectionList extends Component<
 		parent: any,
 		style: Object
 	}) => {
+		const { maxRowsVisible } = this.props
 		const { loadedRecords } = this.state
 
 		const record = loadedRecords[index]
+
+		const updateListHeight =
+			maxRowsVisible &&
+			(typeof maxRowsVisible === 'number' ? index < maxRowsVisible : true)
+
+		if (typeof style.height === 'number' && updateListHeight) {
+			if (this.visibleRecordHeights.length < index + 1) {
+				this.visibleRecordHeights.push(style.height)
+			} else {
+				this.visibleRecordHeights[index] = style.height
+			}
+		}
 
 		return (
 			record && (
@@ -332,11 +369,11 @@ export default class RecordSelectionList extends Component<
 			getRecordId,
 			searchPlaceholder,
 			showSelectedCount,
-			isInfiniteScroll,
-			infiniteScrollHeight
+			maxRowsVisible
 		} = this.props
-		const { loadedRecords, search } = this.state
+		const { loadedRecords, search, listHeight } = this.state
 		const totalSelected = selectedIds.length
+		console.log('RENDERING')
 		const isRowLoaded = ({ index }) => {
 			return !!loadedRecords[index]
 		}
@@ -348,22 +385,14 @@ export default class RecordSelectionList extends Component<
 			}
 		}
 
-		// TODO: add ability to make regular list until infinite scroll is required
-		// This would require calculating the height of rows and setting a max number
-		// of rows before the virtualized list takes over, taking into consideration whether
-		// or not the list should fill the container or grow to a set height (infiniteScrollHeight)
-
 		return (
 			<div
 				className={cx('record-selection__list', {
-					'record-selection__list--is-infinite': isInfiniteScroll,
+					'record-selection__list--is-infinite': maxRowsVisible,
 					'record-selection__list--is-searchable': canSearch,
 					'record-selection__list--is-showing-selected-count': showSelectedCount
 				})}
 				ref={ref => (this.listContainer = ref)}
-				{...(isInfiniteScroll && infiniteScrollHeight
-					? { style: { height: infiniteScrollHeight } }
-					: {})}
 			>
 				{showSelectedCount && (
 					<TextContainer>
@@ -381,13 +410,19 @@ export default class RecordSelectionList extends Component<
 					/>
 				)}
 
-				{!isInfiniteScroll ? (
+				{!maxRowsVisible ? (
 					loadedRecords.map((rec, idx) => {
 						const id = getRecordId(rec)
 						return this.renderInnerRow({ index: idx, key: id, style: {} })
 					})
 				) : (
-					<div className="record-selection__list-wrapper">
+					<div
+						className="record-selection__list-wrapper"
+						// Only set listHeight if maxRowsVisible is not undefined or 'auto'
+						{...(typeof maxRowsVisible === 'number'
+							? { style: { height: `${listHeight}px` } }
+							: {})}
+					>
 						<InfiniteLoader
 							ref={ref => (this.infiniteLoader = ref)}
 							isRowLoaded={isRowLoaded}
@@ -397,23 +432,28 @@ export default class RecordSelectionList extends Component<
 						>
 							{({ onRowsRendered, registerChild }) => (
 								<AutoSizer onResize={onResize}>
-									{({ height, width }) => (
-										<List
-											ref={ref => {
-												registerChild(ref)
-												this.virtualizedList = ref
-											}}
-											className="record-selection__virtual-list"
-											deferredMeasurementCache={this.cache}
-											height={height}
-											width={width}
-											rowCount={loadedRecords.length}
-											rowHeight={this.cache.rowHeight}
-											rowRenderer={this.renderRow}
-											onRowsRendered={onRowsRendered}
-											selectedIds={JSON.stringify(selectedIds)}
-										/>
-									)}
+									{({ height, width }) => {
+										return (
+											<List
+												ref={ref => {
+													registerChild(ref)
+													this.virtualizedList = ref
+												}}
+												className="record-selection__virtual-list"
+												deferredMeasurementCache={this.cache}
+												height={height}
+												width={width}
+												rowHeight={this.cache.rowHeight}
+												rowCount={loadedRecords.length}
+												rowRenderer={this.renderRow}
+												onRowsRendered={args => {
+													console.log('ROWS RENDERED', args)
+													onRowsRendered(args)
+												}}
+												selectedIds={JSON.stringify(selectedIds)}
+											/>
+										)
+									}}
 								</AutoSizer>
 							)}
 						</InfiniteLoader>
@@ -426,6 +466,5 @@ export default class RecordSelectionList extends Component<
 
 RecordSelectionList.defaultProps = {
 	showSelectedCount: false,
-	recordsPerRequest: 10,
-	isInfiniteScroll: false
+	recordsPerRequest: 10
 }
