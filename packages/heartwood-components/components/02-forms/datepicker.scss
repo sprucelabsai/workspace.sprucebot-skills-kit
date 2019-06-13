@@ -71,37 +71,38 @@
 	background: transparent;
 	color: $c-white;
 	border: none;
+
 	&.CalendarDay__today:before {
 		background-color: $c-white;
 	}
-}
 
-.CalendarDay__selected_start {
-	&:before {
-		background-color: rgba($c-primary, 0.5);
-		content: '';
-		display: block;
-		position: absolute;
-		height: 2rem;
-		width: 50%;
-		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: -1;
+	&.CalendarDay__selected_start {
+		&:before {
+			background-color: rgba($c-primary, 0.5);
+			content: '';
+			display: block;
+			position: absolute;
+			height: 2rem;
+			width: 50%;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			z-index: -1;
+		}
 	}
-}
-.CalendarDay__selected_end {
-	&:before {
-		background-color: rgba($c-primary, 0.5);
-		content: '';
-		display: block;
-		position: absolute;
-		height: 2rem;
-		width: 50%;
-		left: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: -1;
+	&.CalendarDay__selected_end {
+		&:before {
+			background-color: rgba($c-primary, 0.5);
+			content: '';
+			display: block;
+			position: absolute;
+			height: 2rem;
+			width: 50%;
+			left: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			z-index: -1;
+		}
 	}
 }
 
