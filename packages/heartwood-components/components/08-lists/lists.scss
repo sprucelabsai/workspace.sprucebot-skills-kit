@@ -252,6 +252,10 @@
 	.record-selection__record-content {
 		flex: 1;
 	}
+
+	.record-selection__record-remove-btn .btn__icon {
+		fill: $c-text-icon;
+	}
 }
 
 .record-selection__virtual-list:focus {

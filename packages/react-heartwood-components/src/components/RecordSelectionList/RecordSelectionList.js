@@ -288,18 +288,22 @@ export default class RecordSelectionList extends Component<
 					{onRemove && canRemove && (
 						<Button
 							kind="simple"
+							className="record-selection__record-remove-btn"
 							disabled={false}
 							isSmall
-							icon={{ name: 'remove_circle', className: 'btn__line-icon' }}
+							icon={{ name: 'cancel_solid', className: 'btn__line-icon' }}
 							onClick={() => {
-								this.setState({
-									loadedRecords: loadedRecords.filter(
-										loadedRecord =>
-											getRecordId(loadedRecord) !== getRecordId(record)
-									)
-								}, () => {
-									this.setState({ listHeight: this.getVisibleRecordHeight() })
-								})
+								this.setState(
+									{
+										loadedRecords: loadedRecords.filter(
+											loadedRecord =>
+												getRecordId(loadedRecord) !== getRecordId(record)
+										)
+									},
+									() => {
+										this.setState({ listHeight: this.getVisibleRecordHeight() })
+									}
+								)
 
 								onRemove(getRecordId(record), record)
 							}}
