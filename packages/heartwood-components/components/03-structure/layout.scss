@@ -16,10 +16,10 @@ $layout-section-secondary-basis: (
 	max-width: $layout-max-width;
 
 	@include gt('small') {
-		padding: spacing('loose') spacing('loose') 0;
+		padding: spacing('base') spacing('loose');
 	}
 	@include gt('medium') {
-		padding: 0 spacing('extra-loose');
+		padding: spacing('base') spacing('extra-loose');
 	}
 
 	&--centered {
