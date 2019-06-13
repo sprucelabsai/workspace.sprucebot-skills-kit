@@ -147,6 +147,9 @@ module.exports = (router, options) => {
 							event: ctx.event
 						})
 					}
+
+					await listenersByEventName[eventName](ctx, next)
+					return
 				} catch (err) {
 					debug('(EVENT_VERSION=2) MIDDLEWARE/AUTH INVALID EVENT TOKEN', err)
 					if (config.LOG_EVENTS) {
