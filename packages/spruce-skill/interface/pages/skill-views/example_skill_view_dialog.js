@@ -1,12 +1,13 @@
 // @flow
-import React from 'react'
+import React, { Fragment } from 'react'
 import PageWrapper from '../../containers/PageWrapper'
 import {
 	Page,
 	PageContent,
 	Layout,
 	LayoutSection,
-	Heading
+	Heading,
+	Button
 } from '@sprucelabs/react-heartwood-components'
 
 import type { WrappedInitialProps } from '../../containers/PageWrapper'
@@ -17,7 +18,8 @@ type Props = {
 }
 
 type State = {
-	currentPageIndex: number
+	currentPageIndex: number,
+	currentModalHeight: ?string
 }
 
 class TestSkillView extends React.Component<Props, State> {
@@ -32,7 +34,8 @@ class TestSkillView extends React.Component<Props, State> {
 	constructor(props) {
 		super(props)
 		this.state = {
-			currentPageIndex: 0
+			currentPageIndex: 0,
+			currentModalHeight: null
 		}
 	}
 
@@ -105,6 +108,13 @@ class TestSkillView extends React.Component<Props, State> {
 		this.modal.setFooterPrimaryActionIsLoading(isSubmitting)
 	}
 
+	setModalHeight = () => {
+		const { currentModalHeight } = this.state
+		const updatedModalHeight = currentModalHeight ? null : '50rem'
+		this.setState({ currentModalHeight: updatedModalHeight })
+		this.modal.setContentHeight(updatedModalHeight)
+	}
+
 	render() {
 		const { currentPageIndex } = this.state
 		return (
@@ -113,7 +123,14 @@ class TestSkillView extends React.Component<Props, State> {
 					<Layout>
 						<LayoutSection>
 							{!this.props.query.isPaged && (
-								<Heading>Hooray from inside your skill!</Heading>
+								<Fragment>
+									<Heading>Hooray from inside your skill!</Heading>
+									<Button
+										text="Change Content Height"
+										kind="primary"
+										onClick={this.setModalHeight}
+									/>
+								</Fragment>
 							)}
 							{this.props.query.isPaged && this.pages[currentPageIndex]}
 						</LayoutSection>

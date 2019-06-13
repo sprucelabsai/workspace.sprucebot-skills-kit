@@ -103,7 +103,9 @@ class DashboardLocationPage extends React.Component {
 					window.location.hostname
 				}/skill-views/example_skill_view_dialog`,
 				footerPrimaryActionText: 'Submit',
-				footerSecondaryActionText: 'Cancel'
+				footerSecondaryActionText: 'Cancel',
+				contentHeight: '25rem',
+				size: 'medium'
 			})
 			this.modal.onClosed(data => {
 				console.log('MODAL CLOSED', data)
