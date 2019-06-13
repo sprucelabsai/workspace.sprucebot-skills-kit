@@ -200,6 +200,13 @@ const skill = {
 					callback
 				)
 			},
+			setContentHeight: (height: string) => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'SkillViewDialog:SetContentHeight',
+					data: { value: height }
+				})
+			},
 			setFooterPrimaryActionIsLoading: (isLoading: boolean) => {
 				Iframes.sendMessage({
 					to: window.parent,
