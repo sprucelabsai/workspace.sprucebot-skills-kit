@@ -16,10 +16,10 @@ export type Props = {
 	/** DEPRECATED Set true to left align the menu */
 	isLeftAligned?: boolean,
 
-	/** Set true to right align the menu */
+	/** DEPRECATED Set true to right align the menu */
 	isRightAligned?: boolean,
 
-	/** Set true to align menu above button */
+	/** DEPRECATED Set true to align menu above button */
 	isBottomAligned?: boolean,
 
 	/** Set the width of the menu. Helpful for longer text in buttons */
