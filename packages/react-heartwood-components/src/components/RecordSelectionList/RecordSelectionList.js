@@ -10,8 +10,7 @@ import {
 } from 'react-virtualized'
 import cx from 'classnames'
 
-import { TextInput, Checkbox, Radio } from '../Forms'
-import Button from '../Button/Button'
+import { TextInput } from '../Forms'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
 import ListItem from '../List/components/ListItem/ListItem'
