@@ -86,8 +86,8 @@ const cardJSON2 = {
 	}
 }
 const cardJSON3 = {
-	title: 'Setup your first skill!',
 	onboarding: {
+		title: 'Setup your first skill!',
 		steps: [
 			{
 				id: '1',
@@ -120,29 +120,29 @@ const cardJSON4 = {
 	body: {
 		children: [
 			{
+				key: 'list_example',
 				type: 'list',
-				props: {
-					header: {
-						title: 'This is a list!'
+				heading: {
+					title: 'This is a list!'
+				},
+				items: [
+					{
+						key: 'number_one',
+						title: 'This is so cool!',
+						subtitle: 'For sure!',
+						icon: { name: 'complete', isLineIcon: true }
 					},
-					items: [
-						{
-							title: 'This is so cool!',
-							subtitle: 'For sure!',
-							icon: { name: 'complete', isLineIcon: true }
-						},
-						{
-							title: 'Takes all the props a List can take!',
-							icon: { name: 'complete', isLineIcon: true }
-						}
-					]
-				}
+					{
+						key: 'number_two',
+						title: 'Takes all the props a List can take!',
+						icon: { name: 'complete', isLineIcon: true }
+					}
+				]
 			},
 			{
+				key: 'text_example',
 				type: 'text',
-				props: {
-					children: 'Following up with text component!'
-				}
+				text: 'Following up with text component!'
 			}
 		]
 	},

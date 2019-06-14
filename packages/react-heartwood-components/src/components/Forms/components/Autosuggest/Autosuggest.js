@@ -81,6 +81,9 @@ const theme = (props: ThemeProps) => ({
 })
 
 export default class Autosuggest extends Component<Props, State> {
+	domNodeRef = React.createRef()
+	autosuggestRef = React.createRef()
+
 	static defaultProps = {
 		defaultSuggestions: []
 	}
@@ -113,9 +116,11 @@ export default class Autosuggest extends Component<Props, State> {
 		// May be async/passed by parent
 		const { getSuggestions } = this.props
 		const suggestions = await getSuggestions(value)
-		this.setState({
+		await this.setState({
 			suggestions: suggestions || []
 		})
+
+		this.scrollParentIfNeeded()
 	}
 
 	onSuggestionsClearRequested = () => {
@@ -123,6 +128,62 @@ export default class Autosuggest extends Component<Props, State> {
 		this.setState({
 			suggestions: defaultSuggestions
 		})
+	}
+
+	scrollParentIfNeeded = () => {
+		const autosuggestRef = this.autosuggestRef && this.autosuggestRef.current
+		const suggestionsContainer =
+			autosuggestRef && autosuggestRef.suggestionsContainer
+
+		const autosuggestInput =
+			autosuggestRef &&
+			autosuggestRef.autowhatever &&
+			autosuggestRef.autowhatever.input
+
+		if (
+			suggestionsContainer &&
+			autosuggestInput &&
+			this.domNodeRef &&
+			this.domNodeRef.current
+		) {
+			const overflowParent =
+				this.findOverflowParent(this.domNodeRef.current) || document.body
+			const overflowBox = overflowParent.getBoundingClientRect()
+			const overflowBoxBottom = overflowBox.top + overflowBox.height
+			const suggestionsBox = suggestionsContainer.getBoundingClientRect()
+			const suggestionsBottom = suggestionsBox.top + suggestionsBox.height
+
+			let isSmoothScrollSupported =
+				'scrollBehavior' in document.documentElement.style
+
+			if (suggestionsBottom > overflowBoxBottom) {
+				const inputTop = autosuggestInput.getBoundingClientRect().top
+				const scrollNode =
+					overflowParent === document.body ? window : overflowParent
+				if (isSmoothScrollSupported) {
+					scrollNode.scrollTo({
+						top: inputTop,
+						behavior: 'smooth'
+					})
+				} else {
+					scrollNode.scrollTo(0, inputTop)
+				}
+			}
+		}
+	}
+
+	findOverflowParent = node => {
+		if (node == null || typeof node === 'undefined' || node.nodeType !== 1) {
+			return null
+		}
+
+		const computedStyle = window.getComputedStyle(node)
+
+		if (computedStyle.overflow !== 'visible') {
+			return node
+		} else {
+			return this.findOverflowParent(node.parentNode)
+		}
 	}
 
 	handleClearInput = () => {
@@ -167,10 +228,11 @@ export default class Autosuggest extends Component<Props, State> {
 		})
 
 		return (
-			<div className={parentClass}>
+			<div className={parentClass} ref={this.domNodeRef}>
 				{label && <InputPre label={label} id={id} postLabel={postLabel} />}
 				<div className={cx('autosuggest__wrapper', wrapperClassName)}>
 					<ReactAutosuggest
+						ref={this.autosuggestRef}
 						suggestions={suggestions}
 						onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
 						onSuggestionsClearRequested={this.onSuggestionsClearRequested}

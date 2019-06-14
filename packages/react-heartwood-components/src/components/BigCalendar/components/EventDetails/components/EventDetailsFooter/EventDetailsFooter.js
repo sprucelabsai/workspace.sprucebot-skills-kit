@@ -4,15 +4,19 @@ import Button from '../../../../../Button/Button'
 import type { Props as ButtonProps } from '../../../../../Button/Button'
 
 export type Props = {
-	primaryCTA: ButtonProps
+	primaryCTA: ButtonProps,
+	secondaryCTA: ButtonProps
 }
 
 const EventDetailsFooter = (props: Props) => {
-	const { primaryCTA } = props
+	const { primaryCTA, secondaryCTA } = props
 
 	return (
 		<div className="event-details-footer">
-			<Button kind="primary" isFullWidth {...primaryCTA} />
+			{primaryCTA && <Button kind="primary" isFullWidth {...primaryCTA} />}
+			{secondaryCTA && (
+				<Button kind="secondary" isFullWidth {...secondaryCTA} />
+			)}
 		</div>
 	)
 }

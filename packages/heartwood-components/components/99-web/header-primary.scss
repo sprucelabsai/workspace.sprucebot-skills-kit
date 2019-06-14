@@ -253,10 +253,6 @@
 		height: rem(40);
 	}
 
-	.list-item:first-child {
-		margin: 0 spacing('base');
-	}
-
 	.list-item:not(:first-child):after {
 		display: none;
 	}

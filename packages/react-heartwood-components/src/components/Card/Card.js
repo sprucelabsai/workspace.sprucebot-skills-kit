@@ -18,18 +18,29 @@ type CardProps = {
 	/** Set true to render a smaller card variation */
 	isSmall?: boolean,
 
+	/** Set true to fill space of parent */
+	isFullSize?: boolean,
+
 	/** Optional classname */
 	className?: string
 }
 
 export const Card = (props: CardProps) => {
-	const { children, isCentered, isCritical, isSmall, className } = props
+	const {
+		children,
+		isCentered,
+		isCritical,
+		isSmall,
+		isFullSize,
+		className
+	} = props
 	return (
 		<div
 			className={cx('card', className, {
 				'card--centered': isCentered,
 				'card--critical': isCritical,
-				'card--small': isSmall
+				'card--small': isSmall,
+				'card--full-size': isFullSize
 			})}
 		>
 			{children}

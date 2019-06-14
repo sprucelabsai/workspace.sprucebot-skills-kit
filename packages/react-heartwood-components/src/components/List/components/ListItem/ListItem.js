@@ -7,7 +7,7 @@ import Icon from '../../../Icon/Icon'
 import type { Props as ButtonProps } from '../../../Button/Button'
 import ContextMenu from '../../../ContextMenu/ContextMenu'
 import type { Props as ContextMenuProps } from '../../../ContextMenu/ContextMenu'
-import { Toggle } from '../../../Forms'
+import { Toggle, Checkbox, Radio } from '../../../Forms'
 import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
 
 export type Props = {
@@ -57,7 +57,16 @@ export type Props = {
 	isSeparatorVisible: boolean,
 
 	/** Optional class name for list item */
-	className?: string
+	className?: string,
+
+	/** Optional id prop for selectable list items */
+	selectableId?: string,
+
+	/** Optional props for selectable list items */
+	selectableProps?: Object,
+
+	/** Optional: set whether to use checkbox or radio for selectable list items */
+	selectableType?: 'checkbox' | 'radio'
 }
 
 const ListItem = (props: Props) => {
@@ -76,7 +85,10 @@ const ListItem = (props: Props) => {
 		contextMenu,
 		toggleProps,
 		isSeparatorVisible,
-		className
+		className,
+		selectableId,
+		selectableProps,
+		selectableType
 	} = props
 
 	const parentClass = cx('list-item', className, {
@@ -89,7 +101,7 @@ const ListItem = (props: Props) => {
 
 	const ListItemInner = () => (
 		<Fragment>
-			{(image || icon || avatar) && !isDraggable && (
+			{(image || icon || avatar || selectableId) && !isDraggable && (
 				<div className="list-item__image-wrapper">
 					{icon && (
 						<Icon
@@ -109,22 +121,50 @@ const ListItem = (props: Props) => {
 						/>
 					)}
 					{avatar && <Avatar image={avatar} alt={title} />}
+					{selectableId && (
+						<Fragment>
+							{selectableType === 'checkbox' && (
+								<Checkbox id={selectableId} {...selectableProps} />
+							)}
+							{selectableType === 'radio' && (
+								<Radio id={selectableId} {...selectableProps} />
+							)}
+						</Fragment>
+					)}
 				</div>
 			)}
 			{isDraggable && <DragHandle className="drag-handle" />}
 			<div className="list-item__text-wrapper">
-				{toggleId ? (
-					<label className="list-item__title" htmlFor={toggleId}>
-						{title}
-					</label>
+				{toggleId || selectableId ? (
+					<p>
+						<label
+							className="list-item__title"
+							htmlFor={toggleId || selectableId}
+						>
+							{title}
+						</label>
+					</p>
 				) : (
 					<p className="list-item__title">{title}</p>
 				)}
 				{subtitle && (
-					<p
-						className="list-item__subtitle"
-						dangerouslySetInnerHTML={{ __html: subtitle }}
-					/>
+					<Fragment>
+						{toggleId || selectableId ? (
+							<p>
+								<label
+									className="list-item__subtitle"
+									htmlFor={toggleId || selectableId}
+								>
+									{subtitle}
+								</label>
+							</p>
+						) : (
+							<p
+								className="list-item__subtitle"
+								dangerouslySetInnerHTML={{ __html: subtitle }}
+							/>
+						)}
+					</Fragment>
 				)}
 				{note && (
 					<p

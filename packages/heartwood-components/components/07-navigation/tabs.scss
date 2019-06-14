@@ -46,6 +46,10 @@
 
 .tab .tab__inner {
 	height: auto;
+
+	&.btn:hover {
+		background-color: transparent;
+	}
 }
 
 .tab-group {

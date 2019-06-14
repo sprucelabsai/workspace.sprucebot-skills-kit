@@ -32,6 +32,11 @@ module.exports = {
 	VIEW_VERSION: process.env.VIEW_VERSION || 1,
 	LOG_LEVEL: process.env.LOG_LEVEL || 'warn',
 	LOG_USE_COLORS: process.env.LOG_USE_COLORS !== 'false',
+	LOG_EVENTS: process.env.LOG_EVENTS !== 'false',
+	LOG_USE_TRACE: process.env.LOG_USE_TRACE === 'true',
+	LOG_USE_SOURCEMAPS: process.env.LOG_USE_SOURCEMAPS === 'true',
+	LOG_AS_JSON: process.env.LOG_AS_JSON === 'true',
+	CAPTURE_FE_LOGS: process.env.CAPTURE_FE_LOGS === 'true',
 	METRICS_APP_KEY: process.env.METRICS_APP_KEY,
 	METRICS_URL: process.env.METRICS_URL,
 	METRICS_ENABLED: process.env.METRICS_ENABLED === 'true',
@@ -104,6 +109,12 @@ module.exports = {
 					manager: true,
 					groupManager: true
 				}
+			},
+			can_do_example_location_owner_only: {
+				label:
+					'If the user can do this example thing for a location. Org owner only',
+				type: 'location',
+				defaults: {}
 			},
 			can_do_example_organization: {
 				label: 'If the user can do this example thing for an organization.',
@@ -243,6 +254,8 @@ module.exports = {
 			'PACKAGE_NAME',
 			'PACKAGE_VERSION',
 			'LOG_LEVEL',
+			'LOG_USE_TRACE',
+			'CAPTURE_FE_LOGS',
 			'ENV',
 			'METRICS_URL',
 			'METRICS_ENABLED',

@@ -8,11 +8,19 @@ type Props = {
 	children: Node,
 
 	/** Optional class name */
-	className?: string
+	className?: string,
+
+	/** Optional height of body */
+	height?: string
 }
 
 const ModalBody = (props: Props) => (
-	<div className={cx('modal-body', props.className)}>{props.children}</div>
+	<div
+		className={cx('modal-body', props.className)}
+		style={{ ...(props.height ? { height: props.height } : {}) }}
+	>
+		{props.children}
+	</div>
 )
 
 export default ModalBody
