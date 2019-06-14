@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, object, boolean, text } from '@storybook/addon-knobs/react'
 import ContextMenu from './ContextMenu'
