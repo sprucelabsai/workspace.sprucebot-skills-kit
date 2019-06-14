@@ -24,9 +24,7 @@
 
 .context-menu__menu {
 	position: absolute;
-	// top: 100%;
-	// right: 0;
-	// z-index: 2;
+	z-index: 2;
 	width: rem(160);
 
 	&.context-menu__menu-large {
@@ -34,29 +32,16 @@
 	}
 
 	&.context-menu__menu-left {
-		// right: auto;
-		// left: 0;
 		transform: translate(-100%, 0);
 	}
 
 	&.context-menu__menu-top {
-		// top: auto;
-		// bottom: 100%;
 		transform: translate(0, calc(-100% - 8px));
 	}
 
 	&.context-menu__menu-left.context-menu__menu-top {
 		transform: translate(-100%, calc(-100% - 8px));
 	}
-
-	// .context-menu--is-hidden & {
-	// 	transform: translate(0, 4px);
-	// 	opacity: 0;
-	// 	visibility: hidden;
-	// 	transition: opacity 300ms ease, transform 300ms ease,
-	// 		visibility 0s linear 300ms;
-	// }
-
 	.button-group {
 		width: 100%;
 		max-height: rem(224);

@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { createPortal } from 'react-dom'
 import cx from 'classnames'
+import { debounce } from 'lodash'
 import Button from '../Button/Button'
 import type { Props as ButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
@@ -57,16 +58,14 @@ type State = {
 	menuPosition: Object,
 
 	overflowBottom: boolean,
-	overflowLeft: boolean,
-	isRightAligned: boolean,
-	isLeftAligned: boolean,
-	isBottomAligned: boolean
+	overflowLeft: boolean
 }
 
 export default class ContextMenu extends Component<Props, State> {
 	ref = React.createRef()
 	menuRef = React.createRef()
 	portalEl = React.createRef()
+	debouncedWindowResize = debounce(() => this.handleWindowResize(), 200)
 	state = {
 		isVisible: false,
 		overflowBottom: false,
@@ -74,10 +73,7 @@ export default class ContextMenu extends Component<Props, State> {
 		menuPosition: {
 			top: null,
 			left: null
-		},
-		isRightAligned: false,
-		isLeftAligned: false,
-		isBottomAligned: false
+		}
 	}
 
 	static defaultProps = {
@@ -96,11 +92,24 @@ export default class ContextMenu extends Component<Props, State> {
 
 	componentDidMount = () => {
 		this.getMenuPlacement()
+		if (typeof window !== 'undefined') {
+			window.addEventListener('resize', this.debouncedWindowResize, false)
+		}
 	}
 
 	componentWillUnmount = () => {
 		document.removeEventListener('click', this.handleClickOutside, false)
 		document.removeEventListener('keyup', this.handleEscape, false)
+		if (typeof window !== 'undefined') {
+			window.removeEventListener('resize', this.debouncedWindowResize, false)
+		}
+	}
+
+	handleWindowResize = () => {
+		const { isVisible } = this.state
+		if (isVisible) {
+			this.updateMenuPlacement()
+		}
 	}
 
 	getTriggerPlacement = () => {
@@ -150,16 +159,27 @@ export default class ContextMenu extends Component<Props, State> {
 		let newLeft = null
 
 		if (menuBox && portalBox && triggerPosition) {
-			if (menuBox.x + menuBox.width > portalBox.width) {
+			if (
+				triggerPosition.x + triggerPosition.width + menuBox.width >
+				portalBox.width
+			) {
 				newLeft = triggerPosition.x + triggerPosition.width
 				overflowLeft = true
+			} else {
+				newLeft = triggerPosition.x
 			}
+
 			if (
-				scrollTop + menuBox.y + menuBox.height >
+				scrollTop +
+					triggerPosition.y +
+					triggerPosition.height +
+					menuBox.height >
 				scrollTop + portalBox.height
 			) {
 				newTop = scrollTop + triggerPosition.y
 				overflowBottom = true
+			} else {
+				newTop = scrollTop + triggerPosition.y + triggerPosition.height
 			}
 		}
 
@@ -205,7 +225,9 @@ export default class ContextMenu extends Component<Props, State> {
 					this.props.onToggleContextMenuVisible(this.state.isVisible)
 				}
 
-				this.updateMenuPlacement()
+				if (this.state.isVisible) {
+					this.updateMenuPlacement()
+				}
 			}
 		)
 	}
