@@ -56,6 +56,7 @@ type State = {
 export default class ContextMenu extends Component<Props, State> {
 	ref = React.createRef()
 	menuRef = React.createRef()
+	portalEl = React.createRef()
 	state = {
 		isVisible: false,
 		overflowBottom: false,
@@ -74,6 +75,12 @@ export default class ContextMenu extends Component<Props, State> {
 		className: ''
 	}
 
+	constructor(props: Props) {
+		super(props)
+
+		this.portalEl = document.body
+	}
+
 	componentDidMount = () => {
 		this.getMenuPlacement()
 	}
@@ -88,10 +95,6 @@ export default class ContextMenu extends Component<Props, State> {
 		const triggerPosition =
 			this.ref.current && this.ref.current.getBoundingClientRect()
 
-		// if (typeof document !== 'undefined' && document.body) {
-		// 	console.log(document.body.getBoundingClientRect())
-		// }
-
 		if (!triggerPosition) {
 			return
 		}
@@ -103,8 +106,6 @@ export default class ContextMenu extends Component<Props, State> {
 				? triggerPosition.x + triggerPosition.width
 				: triggerPosition.x
 		}
-
-		// Decide where to place it
 
 		this.setState({
 			menuPosition
@@ -239,33 +240,6 @@ export default class ContextMenu extends Component<Props, State> {
 					text={text}
 					isSmall={isSmall}
 				/>
-				{/* <VelocityTransitionGroup
-					enter={{
-						animation: { opacity: 1, translateY: '4px' },
-						duration: 200
-					}}
-					leave={{
-						animation: { opacity: 0, translateY: '12px' },
-						duration: 200
-					}}
-				>
-					{isVisible && (
-						<div className={menuClass} ref={this.menuRef}>
-							<ButtonGroup
-								kind="floating"
-								actions={actions.map(action => {
-									const btnAction = { ...action }
-									const oldOnclick = btnAction.onClick
-									btnAction.onClick = () => {
-										this.handleClickAction(btnAction.payload, oldOnclick)
-									}
-									btnAction.className = 'context-menu__item-btn'
-									return btnAction
-								})}
-							/>
-						</div>
-					)}
-				</VelocityTransitionGroup> */}
 				{isVisible &&
 					createPortal(
 						<div
@@ -290,7 +264,7 @@ export default class ContextMenu extends Component<Props, State> {
 								})}
 							/>
 						</div>,
-						document.body
+						this.portalEl
 					)}
 			</div>
 		)

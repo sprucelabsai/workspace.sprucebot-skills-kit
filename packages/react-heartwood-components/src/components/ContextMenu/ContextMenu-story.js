@@ -17,9 +17,10 @@ stories.add('Example', () => (
 			])}
 			isRightAligned={boolean('isRightAligned', false)}
 			isBottomAligned={boolean('isBottomAligned', false)}
-			size={text('size', '')}
+			size={text('size', 'large')}
 			isSimple={boolean('isSimple', false)}
+			isSmall={boolean('isSmall', false)}
 		/>
-		<p style={{ height: '200px' }}>Here is some more content</p>
+		<p style={{ height: '2000px' }}>Here is some more content</p>
 	</Fragment>
 ))

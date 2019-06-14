@@ -42,11 +42,11 @@
 	&.context-menu__menu-top {
 		// top: auto;
 		// bottom: 100%;
-		transform: translate(0, -100%);
+		transform: translate(0, calc(-100% - 8px));
 	}
 
-	&.context-menu__menu-left.context-menu__menu-left {
-		transform: translate(-100%, -100%);
+	&.context-menu__menu-left.context-menu__menu-top {
+		transform: translate(-100%, calc(-100% - 8px));
 	}
 
 	// .context-menu--is-hidden & {
