@@ -103,10 +103,20 @@ export default class ContextMenu extends Component<Props, State> {
 		document.removeEventListener('keyup', this.handleEscape, false)
 	}
 
-	getMenuPlacement = () => {
-		const { isRightAligned, isBottomAligned } = this.props
+	getTriggerPlacement = () => {
 		const triggerPosition =
 			this.ref.current && this.ref.current.getBoundingClientRect()
+
+		if (triggerPosition) {
+			return triggerPosition
+		}
+
+		return null
+	}
+
+	getMenuPlacement = () => {
+		const { isRightAligned, isBottomAligned } = this.props
+		const triggerPosition = this.getTriggerPlacement()
 
 		if (!triggerPosition) {
 			return
@@ -123,6 +133,44 @@ export default class ContextMenu extends Component<Props, State> {
 		this.setState({
 			menuPosition
 		})
+	}
+
+	updateMenuPlacement = () => {
+		const scrollTop =
+			document && document.documentElement && document.documentElement.scrollTop
+		const triggerPosition = this.getTriggerPlacement()
+		const menuBox =
+			this.menuRef &&
+			this.menuRef.current &&
+			this.menuRef.current.getBoundingClientRect()
+		const portalBox = this.portalEl && this.portalEl.getBoundingClientRect()
+		let overflowLeft = false
+		let overflowBottom = false
+		let newTop = null
+		let newLeft = null
+
+		if (menuBox && portalBox && triggerPosition) {
+			if (menuBox.x + menuBox.width > portalBox.width) {
+				newLeft = triggerPosition.x + triggerPosition.width
+				overflowLeft = true
+			}
+			if (
+				scrollTop + menuBox.y + menuBox.height >
+				scrollTop + portalBox.height
+			) {
+				newTop = scrollTop + triggerPosition.y
+				overflowBottom = true
+			}
+		}
+
+		this.setState(prevState => ({
+			overflowLeft,
+			overflowBottom,
+			menuPosition: {
+				top: newTop || prevState.menuPosition.top,
+				left: newLeft || prevState.menuPosition.left
+			}
+		}))
 	}
 
 	handleClickOutside = () => {
@@ -157,46 +205,9 @@ export default class ContextMenu extends Component<Props, State> {
 					this.props.onToggleContextMenuVisible(this.state.isVisible)
 				}
 
-				let overflowLeft = false
-				let overflowBottom = false
-
-				if (this.menuRef && this.menuRef.current) {
-					const overflowParent = this.findOverflowParent(this.menuRef.current)
-
-					if (overflowParent) {
-						const overflowBox = overflowParent.getBoundingClientRect()
-						const overflowBoxBottom = overflowBox.top + overflowBox.height
-						const menuBox = this.menuRef.current.getBoundingClientRect()
-						const menuBottom = menuBox.top + menuBox.height
-
-						if (menuBottom > overflowBoxBottom) {
-							overflowBottom = true
-						} else if (menuBox.left < overflowBox.left) {
-							overflowLeft = true
-						}
-					}
-				}
-
-				this.setState(prevState => ({
-					overflowLeft: !prevState.isRightAligned && overflowLeft,
-					overflowBottom: !prevState.isBottomAligned && overflowBottom
-				}))
+				this.updateMenuPlacement()
 			}
 		)
-	}
-
-	findOverflowParent = node => {
-		if (node == null || typeof node === 'undefined' || node.nodeType !== 1) {
-			return null
-		}
-
-		const computedStyle = window.getComputedStyle(node)
-
-		if (computedStyle.overflow !== 'visible') {
-			return node
-		} else {
-			return this.findOverflowParent(node.parentNode)
-		}
 	}
 
 	manageListeners = () => {
