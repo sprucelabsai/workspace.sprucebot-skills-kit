@@ -3,6 +3,68 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.14.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.13.0...v8.14.0) (2019-06-14)
+
+
+### Bug Fixes
+
+* [SDEV3-1032] fix broken icon styles on buttons ([9cfc2f3](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9cfc2f3))
+* add spacerTop prop to form layout items to compensate for alignment of inline items with or without labels ([d298c84](https://github.com/sprucelabsai/sprucebot-heartwood/commit/d298c84))
+* allow modal content to scroll to autosuggest when loaded from skill view ([e2cde1d](https://github.com/sprucelabsai/sprucebot-heartwood/commit/e2cde1d))
+* calling virtualized methods that don't exist ([5bf2960](https://github.com/sprucelabsai/sprucebot-heartwood/commit/5bf2960))
+* create new ImageSSR component to handle image load errors ([8b89a50](https://github.com/sprucelabsai/sprucebot-heartwood/commit/8b89a50))
+* fix and update component styles for modals ([6926679](https://github.com/sprucelabsai/sprucebot-heartwood/commit/6926679))
+* If clipped, scroll overflow parent to display autosuggest options. ([5f3d5ca](https://github.com/sprucelabsai/sprucebot-heartwood/commit/5f3d5ca))
+* remove duplicate icons ([8fd8462](https://github.com/sprucelabsai/sprucebot-heartwood/commit/8fd8462))
+* remove white background for custom modal styling ([e0fc116](https://github.com/sprucelabsai/sprucebot-heartwood/commit/e0fc116))
+* undo unnecessary layout separators ([e1b1fa2](https://github.com/sprucelabsai/sprucebot-heartwood/commit/e1b1fa2))
+* update remove icon ([90a7a9a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/90a7a9a))
+
+
+### Features
+
+* add cursor pointer to table expander ([05dcc8e](https://github.com/sprucelabsai/sprucebot-heartwood/commit/05dcc8e))
+* **TextStyle:** Add subdued text style ([65ff167](https://github.com/sprucelabsai/sprucebot-heartwood/commit/65ff167))
+* add disabled styling ([ce8577b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/ce8577b))
+* add icon to expandable row ([2ae5c18](https://github.com/sprucelabsai/sprucebot-heartwood/commit/2ae5c18))
+* add some transitions ([9401e6d](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9401e6d))
+* add styles for default button ([f3b9a34](https://github.com/sprucelabsai/sprucebot-heartwood/commit/f3b9a34))
+* add virtualHeight and update short list check ([272dd0b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/272dd0b))
+* conditionally render record selection list to allow it to have a dynamic height ([1e4c700](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1e4c700))
+* fine tune styling ([a138935](https://github.com/sprucelabsai/sprucebot-heartwood/commit/a138935))
+* fix button styling ([a5e6996](https://github.com/sprucelabsai/sprucebot-heartwood/commit/a5e6996))
+* fix tail on today in date range ([edda636](https://github.com/sprucelabsai/sprucebot-heartwood/commit/edda636))
+* hide focus on iframes ([c0c648e](https://github.com/sprucelabsai/sprucebot-heartwood/commit/c0c648e))
+* layout adjust ([f66011b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/f66011b))
+* make followup text visible ([af2b334](https://github.com/sprucelabsai/sprucebot-heartwood/commit/af2b334))
+* **Card:** Add section separators ([9a8abd3](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9a8abd3))
+* min-height for toasts ([6582d30](https://github.com/sprucelabsai/sprucebot-heartwood/commit/6582d30))
+* remove comment ([3cf7cad](https://github.com/sprucelabsai/sprucebot-heartwood/commit/3cf7cad))
+* remove focus ring ([7b8ac8d](https://github.com/sprucelabsai/sprucebot-heartwood/commit/7b8ac8d))
+* remove unneeded rules ([72e9ee4](https://github.com/sprucelabsai/sprucebot-heartwood/commit/72e9ee4))
+* update border styling on expandable table rows ([cb89118](https://github.com/sprucelabsai/sprucebot-heartwood/commit/cb89118))
+* **dirtyTableRows:** initial implementation of dirty rows in the Table component ([2a85f63](https://github.com/sprucelabsai/sprucebot-heartwood/commit/2a85f63))
+* **icons:** Add duplicate icon ([7453e8e](https://github.com/sprucelabsai/sprucebot-heartwood/commit/7453e8e))
+* **layout:** Stretch heights to match on secondary layouts ([23761f6](https://github.com/sprucelabsai/sprucebot-heartwood/commit/23761f6))
+* **lint:** Standardize lint for heartwood-components ([79f95f1](https://github.com/sprucelabsai/sprucebot-heartwood/commit/79f95f1))
+* **nestedTables:** initial implementation of nested tables ([02144a1](https://github.com/sprucelabsai/sprucebot-heartwood/commit/02144a1))
+* **Text:** Adds basic text templating for formatting and rich interactions within text component ([19e076c](https://github.com/sprucelabsai/sprucebot-heartwood/commit/19e076c))
+
+
+### Refactoring
+
+* **contextMenu:** add max height and remove button rounded corners ([af270f6](https://github.com/sprucelabsai/sprucebot-heartwood/commit/af270f6))
+* **icon:** infer isLineIcon from icon name. adding additional icons from heartwood. ([e3e9836](https://github.com/sprucelabsai/sprucebot-heartwood/commit/e3e9836))
+* add props to remove top/bottom padding from card body ([18aa0a8](https://github.com/sprucelabsai/sprucebot-heartwood/commit/18aa0a8))
+* add renderLocation prop to dynamically style document ([e3baf9b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/e3baf9b))
+* card and layout style updates ([aa6795b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/aa6795b))
+* changes to make modals, cards, and record selection list compatible with heartwood design ([5811ce0](https://github.com/sprucelabsai/sprucebot-heartwood/commit/5811ce0))
+* code cleanup ([8387edc](https://github.com/sprucelabsai/sprucebot-heartwood/commit/8387edc))
+
+
+
+
+
 # [8.13.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.12.0...v8.13.0) (2019-03-20)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.14.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.13.0...v8.14.0) (2019-06-14)
+
+
+### Bug Fixes
+
+* **graphql:** Use peer dependencies for graphql ([51e58fc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51e58fc))
+
+
+
+
+
 # [8.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.12.0...v8.13.0) (2019-03-20)
 
 **Note:** Version bump only for package @sprucelabs/spruce-utils

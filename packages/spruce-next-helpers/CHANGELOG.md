@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.14.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.13.0...v8.14.0) (2019-06-14)
+
+
+### Bug Fixes
+
+* remove json output from document ([88cbced](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/88cbced))
+* **Auth:** Remove client-side cookie setting for JWT token ([13d077a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/13d077a))
+
+
+### Features
+
+* adding modal footer methods to next helpers ([4f306ba](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4f306ba))
+* **ConfirmDialog:** Add convenience methods for modifying button properties. ([6999dd0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6999dd0))
+* **ConfirmDialog:** Add example confirm modal ([a223c92](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a223c92))
+* **corePagedModal:** add api and example of core paged modal ([4476fbd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4476fbd))
+* **modal:** Handle onClosed event broadcast by core ([fc75da1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fc75da1))
+* **Modal:** Allow data to be passed back to parent iframe with modal close method ([c6fd8f7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c6fd8f7))
+* **pagedModal:** Add ability to update footer actions and title text from skill view ([7152d53](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7152d53))
+* **SpruceSkill:** Add status check listener for core to ping ([b4af53a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b4af53a))
+
+
+### Refactoring
+
+* add renderLocation prop to dynamically style document ([e3baf9b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e3baf9b))
+* **document:** cleaner way of getting initial page props in document ([0077f27](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0077f27))
+* **NPM:** Update deps for audit prep, peer deps ([f3d0e29](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f3d0e29))
+* changes to make modals, cards, and record selection list compatible with heartwood design ([5811ce0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5811ce0))
+* pass callback methods with the rest of the data ([09b8596](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/09b8596))
+
+
+
+
+
 # [8.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.12.0...v8.13.0) (2019-03-20)
 
 **Note:** Version bump only for package @sprucelabs/spruce-next-helpers
