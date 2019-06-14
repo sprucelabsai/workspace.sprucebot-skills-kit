@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 import { createPortal } from 'react-dom'
 import cx from 'classnames'
-import { VelocityTransitionGroup } from 'velocity-react'
 import Button from '../Button/Button'
 import type { Props as ButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
@@ -13,7 +12,10 @@ export type Props = {
 	/** The actions to be shown on tap/click */
 	actions: Array<ButtonProps>,
 
-	/** Set true to left align the menu */
+	/** DEPRECATED Set true to left align the menu */
+	isLeftAligned?: boolean,
+
+	/** Set true to right align the menu */
 	isRightAligned?: boolean,
 
 	/** Set true to align menu above button */
@@ -42,7 +44,9 @@ export type Props = {
 	isTextOnly: boolean,
 
 	/** Optional classname that applies to the button */
-	className?: string
+	className?: string,
+
+	onToggleContextMenuVisible?: Function
 }
 
 type State = {
@@ -50,7 +54,13 @@ type State = {
 	isVisible: boolean,
 
 	/** Where the menu should be positioned when visible */
-	menuPosition: Object
+	menuPosition: Object,
+
+	overflowBottom: boolean,
+	overflowLeft: boolean,
+	isRightAligned: boolean,
+	isLeftAligned: boolean,
+	isBottomAligned: boolean
 }
 
 export default class ContextMenu extends Component<Props, State> {
@@ -64,7 +74,10 @@ export default class ContextMenu extends Component<Props, State> {
 		menuPosition: {
 			top: null,
 			left: null
-		}
+		},
+		isRightAligned: false,
+		isLeftAligned: false,
+		isBottomAligned: false
 	}
 
 	static defaultProps = {
