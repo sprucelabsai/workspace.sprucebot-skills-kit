@@ -316,7 +316,38 @@ stories
 			</FormLayoutGroup>
 			<FormLayoutGroup isCondensed>
 				<FormLayoutItem>
-					<TextInput type="text" label="Price" />
+					{/* <TextInput type="text" label="Price" /> */}
+					<Autosuggest
+						alwaysRenderSuggestions={false}
+						label={text('label', 'Price')}
+						inputHelper={object('inputHelper', {
+							helper:
+								'We use this information to improve your shopping experience.'
+						})}
+						placeholder={text('placeholder', 'How much does it cost?')}
+						defaultSuggestions={object('defaultSuggestions', countries)}
+						shouldRenderSuggestions={() => true}
+						renderSuggestion={renderSuggestion}
+						getSuggestionValue={value => value.text}
+						getSuggestions={value => {
+							const results = countries.filter(
+								suggestion =>
+									suggestion.text.toLowerCase().slice(0, value.length) ===
+									value.toLowerCase()
+							)
+							// Here you could add click events to buttons or whatever else they need
+							// No Results Message
+							if (results.length === 0) {
+								return [
+									{
+										text: 'NO RESULTS',
+										isEmptyMessage: true
+									}
+								]
+							}
+							return results
+						}}
+					/>
 				</FormLayoutItem>
 				<FormLayoutItem>
 					<TextInput type="text" label="Duration" />
