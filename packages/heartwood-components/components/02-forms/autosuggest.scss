@@ -26,6 +26,7 @@
 	}
 }
 
+.autosuggest__list li[aria-selected='true'],
 .autosuggest__list-item-inner:hover {
 	background-color: $c-bg;
 }
