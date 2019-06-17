@@ -91,6 +91,7 @@ class BasicExample extends Component<Props, State> {
 
 					return results
 				}}
+				renderRecord={() => null}
 				getRecordId={record => record.node.id}
 				recordKeys={{
 					id: 'id',

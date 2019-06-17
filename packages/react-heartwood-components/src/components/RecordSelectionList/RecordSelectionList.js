@@ -264,9 +264,9 @@ export default class RecordSelectionList extends Component<
 					className="record-selection__record-wrapper"
 					key={key}
 					style={{ ...style }}
-					id={record.node[recordKeys.id]}
-					title={record.node[recordKeys.title]}
-					subtitle={record.node[recordKeys.subtitle]}
+					id={record.node[recordKeys.id] || recordKeys.id}
+					title={record.node[recordKeys.title] || recordKeys.title}
+					subtitle={record.node[recordKeys.subtitle] || recordKeys.subtitle}
 					note={
 						unselectableIds && unselectableIds.indexOf(getRecordId(record)) >= 0
 							? record.node[recordKeys.note]
