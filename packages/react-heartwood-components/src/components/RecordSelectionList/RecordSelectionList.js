@@ -11,9 +11,9 @@ import {
 import cx from 'classnames'
 
 import { TextInput, Checkbox, Radio } from '../Forms'
-import Button from '../Button/Button'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
+import Button from '../Button/Button'
 
 import type { Node } from 'react'
 
@@ -245,12 +245,12 @@ export default class RecordSelectionList extends Component<
 		const {
 			selectedIds,
 			unselectableIds,
-			renderRecord,
 			getRecordId,
 			canSelect,
 			canRemove,
 			onSelect,
-			onRemove
+			onRemove,
+			renderRecord
 		} = this.props
 		const { loadedRecords } = this.state
 		const record = loadedRecords[index]

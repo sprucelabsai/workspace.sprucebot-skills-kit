@@ -169,7 +169,7 @@ stories
 			<Modal.Header title="Modal title" onRequestClose={() => null} />
 			<Modal.Body>
 				<BasicExample
-					canSelect={select('Can Select', [null, 'many', 'one'], null)}
+					canSelect={select('Can Select', [null, 'many', 'one'], 'many')}
 					canRemove={boolean('Can Remove', true)}
 					locations={map(generateLocations({ amount: 100 }), o => ({
 						node: { ...o }
