@@ -68,6 +68,7 @@ stories.addDecorator(withKnobs)
 stories
 	.add('Autosuggest', () => (
 		<Autosuggest
+			alwaysRenderSuggestions={false}
 			label={stringify('label', 'Country')}
 			inputHelper={object('inputHelper', {
 				helper: 'We use this information to improve your shopping experience.'
