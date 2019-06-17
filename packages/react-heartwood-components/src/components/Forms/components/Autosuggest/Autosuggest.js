@@ -8,8 +8,6 @@ import Button from '../../../Button/Button'
 import { InputPre, InputHelper } from '../../FormPartials'
 import ClearIcon from '../../../../../static/assets/icons/ic_cancel.svg'
 
-// TODO: Figure out max height setting. Should be based on results length or manual? Both?
-
 export type Props = {
 	/** Unique identifier */
 	id: string,
