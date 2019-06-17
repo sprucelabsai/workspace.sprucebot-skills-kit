@@ -250,7 +250,6 @@
 
 	.record-selection__record-wrapper {
 		display: flex;
-		align-items: center;
 		+ .record-selection__record-wrapper {
 			border-top: 1px solid $c-border;
 		}
