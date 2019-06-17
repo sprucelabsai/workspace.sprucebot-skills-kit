@@ -10,10 +10,10 @@ import {
 } from 'react-virtualized'
 import cx from 'classnames'
 
-import { TextInput } from '../Forms'
+import { TextInput, Checkbox, Radio } from '../Forms'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
-import ListItem from '../List/components/ListItem/ListItem'
+import Button from '../Button/Button'
 
 import type { Node } from 'react'
 
@@ -21,11 +21,8 @@ type Record = any
 type RecordId = string
 
 type RecordSelectionListProps = {|
-	/** DEPRECATED Required method to render a record into a node */
+	/** Required method to render a record into a node */
 	renderRecord: any => Node,
-
-	/** Required to describe how data passed maps to the component */
-	recordKeys: Object,
 
 	/** Get a unique ID for a record; given that data may be shaped in an unpredictable manner,
 	 * you must implement this at each usage.
@@ -253,73 +250,64 @@ export default class RecordSelectionList extends Component<
 			canRemove,
 			onSelect,
 			onRemove,
-			recordKeys
+			renderRecord
 		} = this.props
 		const { loadedRecords } = this.state
 		const record = loadedRecords[index]
+		const SelectionComponent = canSelect === 'one' ? Radio : Checkbox
 
 		return (
 			record && (
-				<ListItem
+				<div
 					className="record-selection__record-wrapper"
 					key={key}
 					style={{ ...style }}
-					id={record.node[recordKeys.id] || recordKeys.id}
-					title={record.node[recordKeys.title] || recordKeys.title}
-					subtitle={record.node[recordKeys.subtitle] || recordKeys.subtitle}
-					note={
-						unselectableIds && unselectableIds.indexOf(getRecordId(record)) >= 0
-							? record.node[recordKeys.note]
-							: ''
-					}
-					isDisabled={
-						unselectableIds && unselectableIds.indexOf(getRecordId(record)) >= 0
-					}
-					selectableId={onSelect && canSelect && record.node[recordKeys.id]}
-					selectableProps={{
-						onChange: onSelect
-							? () => {
-									onSelect(getRecordId(record), record)
-							  }
-							: () => null,
-						checked:
-							selectedIds && selectedIds.indexOf(getRecordId(record)) >= 0
-					}}
-					selectableType={canSelect === 'one' ? 'radio' : 'checkbox'}
-					actions={
-						onRemove && canRemove
-							? [
-									{
-										kind: 'simple',
-										className: 'record-selection__record-remove-btn',
-										disabled: false,
-										isSmall: true,
-										icon: {
-											name: 'cancel_solid',
-											className: 'btn__line-icon'
-										},
-										onClick: () => {
-											this.setState(
-												{
-													loadedRecords: loadedRecords.filter(
-														loadedRecord =>
-															getRecordId(loadedRecord) !== getRecordId(record)
-													)
-												},
-												() => {
-													this.setState({
-														listHeight: this.getVisibleRecordHeight()
-													})
-												}
-											)
+				>
+					{onSelect && canSelect && (
+						<SelectionComponent
+							className="record-selection__record-select"
+							onChange={() => {
+								onSelect(getRecordId(record), record)
+							}}
+							disabled={
+								unselectableIds &&
+								unselectableIds.indexOf(getRecordId(record)) >= 0
+							}
+							checked={
+								selectedIds && selectedIds.indexOf(getRecordId(record)) >= 0
+							}
+						/>
+					)}
 
-											onRemove(getRecordId(record), record)
-										}
+					<div className="record-selection__record-content" key={key}>
+						{renderRecord(record)}
+					</div>
+
+					{onRemove && canRemove && (
+						<Button
+							kind="simple"
+							className="record-selection__record-remove-btn"
+							disabled={false}
+							isSmall
+							icon={{ name: 'cancel_solid', className: 'btn__line-icon' }}
+							onClick={() => {
+								this.setState(
+									{
+										loadedRecords: loadedRecords.filter(
+											loadedRecord =>
+												getRecordId(loadedRecord) !== getRecordId(record)
+										)
+									},
+									() => {
+										this.setState({ listHeight: this.getVisibleRecordHeight() })
 									}
-							  ]
-							: []
-					}
-				/>
+								)
+
+								onRemove(getRecordId(record), record)
+							}}
+						/>
+					)}
+				</div>
 			)
 		)
 	}

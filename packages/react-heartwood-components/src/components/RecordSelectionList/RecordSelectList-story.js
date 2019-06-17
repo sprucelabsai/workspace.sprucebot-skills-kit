@@ -6,6 +6,7 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
+import RecordSelectionListItem from '../RecordSelectionList/RecordSelectionListItem'
 import Modal from '../Modal/Modal'
 import Button from '../Button/Button'
 import Card, { CardHeader, CardBody } from '../Card'
@@ -91,14 +92,19 @@ class BasicExample extends Component<Props, State> {
 
 					return results
 				}}
-				renderRecord={() => null}
 				getRecordId={record => record.node.id}
-				recordKeys={{
-					id: 'id',
-					title: 'publicName',
-					subtitle: 'address',
-					note: 'Location already in group!'
-				}}
+				renderRecord={record => (
+					<RecordSelectionListItem
+						id={record.node.id}
+						title={record.node.publicName}
+						subtitle={record.node.address}
+						isDisabled={unselectableIds.indexOf(record.node.id) >= 0}
+						note={
+							unselectableIds.indexOf(record.node.id) >= 0 &&
+							'Location already in group!'
+						}
+					/>
+				)}
 				canSelect={canSelect}
 				canRemove={canRemove}
 				onSelect={id => {
