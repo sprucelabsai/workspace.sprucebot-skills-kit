@@ -463,7 +463,9 @@ class Day extends PureComponent<Props, State> {
 		const newUser = this.xToUser(newX)
 
 		const { onDropEvent, timezone } = this.props
-		const matches = document.querySelectorAll(".bigcalendar__event.hover-available")
+		const matches = document.querySelectorAll(
+			'.bigcalendar__event.hover-available'
+		)
 		matches.forEach(match => match.classList.toggle('hover-available', false))
 
 		if (
