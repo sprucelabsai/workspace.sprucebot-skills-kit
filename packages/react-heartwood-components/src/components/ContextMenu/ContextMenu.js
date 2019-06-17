@@ -87,7 +87,7 @@ export default class ContextMenu extends Component<Props, State> {
 	constructor(props: Props) {
 		super(props)
 
-		this.portalEl = document.body
+		this.portalEl = typeof document !== 'undefined' && document && document.body
 	}
 
 	componentDidMount = () => {
@@ -98,8 +98,10 @@ export default class ContextMenu extends Component<Props, State> {
 	}
 
 	componentWillUnmount = () => {
-		document.removeEventListener('click', this.handleClickOutside, false)
-		document.removeEventListener('keyup', this.handleEscape, false)
+		if (typeof document !== 'undefined') {
+			document.removeEventListener('click', this.handleClickOutside, false)
+			document.removeEventListener('keyup', this.handleEscape, false)
+		}
 		if (typeof window !== 'undefined') {
 			window.removeEventListener('resize', this.debouncedWindowResize, false)
 		}
@@ -146,7 +148,12 @@ export default class ContextMenu extends Component<Props, State> {
 
 	updateMenuPlacement = () => {
 		const scrollTop =
-			document && document.documentElement && document.documentElement.scrollTop
+			typeof document !== 'undefined' &&
+			document &&
+			document.documentElement &&
+			document.documentElement.scrollTop
+				? document.documentElement.scrollTop
+				: 0
 		const triggerPosition = this.getTriggerPlacement()
 		const menuBox =
 			this.menuRef &&
@@ -287,6 +294,7 @@ export default class ContextMenu extends Component<Props, State> {
 					isSmall={isSmall}
 				/>
 				{isVisible &&
+					this.portalEl &&
 					createPortal(
 						<div
 							className={menuClass}
