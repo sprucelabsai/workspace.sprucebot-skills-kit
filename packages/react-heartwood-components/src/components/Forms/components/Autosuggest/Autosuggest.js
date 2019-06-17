@@ -8,6 +8,8 @@ import Button from '../../../Button/Button'
 import { InputPre, InputHelper } from '../../FormPartials'
 import ClearIcon from '../../../../../static/assets/icons/ic_cancel.svg'
 
+// TODO: Figure out max height setting. Should be based on results length or manual? Both?
+
 export type Props = {
 	/** Unique identifier */
 	id: string,
@@ -114,7 +116,6 @@ export default class Autosuggest extends Component<Props, State> {
 
 	componentDidMount = () => {
 		this.getContainerPlacement()
-		// TODO: Make sure that this strategy works when the container is down the page
 		if (typeof window !== 'undefined') {
 			window.addEventListener('resize', this.debouncedResize, false)
 		}
