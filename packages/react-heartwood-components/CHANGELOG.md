@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.15.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.14.0...v8.15.0) (2019-06-18)
+
+
+### Features
+
+* add max-height and cleanup ([5d03cef](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5d03cef))
+* add resize handler and clean up comments ([2831e8c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2831e8c))
+* add selectd style ([0eb9f9b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0eb9f9b))
+* add some notes ([d877c8d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d877c8d))
+* add to story in form context ([66cb800](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/66cb800))
+* clean up annotations ([dd680c7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dd680c7))
+* clean up imports ([288e14e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/288e14e))
+* cleanup unused var ([12a4ee8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/12a4ee8))
+* correct styles ([88656d7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/88656d7))
+* fix undefined document ([30c35a1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/30c35a1))
+* redo positioning ([58ffd49](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/58ffd49))
+* remove comment ([0f98684](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0f98684))
+* remove fragment ([b8474e7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b8474e7))
+* render key as text if it doesn't exist in the record ([63b6620](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/63b6620))
+* reverse breaking changes ([b8cb94e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b8cb94e))
+* update story ([531b972](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/531b972))
+* Use portal to show results from Autosuggest ([825d40b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/825d40b))
+
+
+
+
+
 # [8.14.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.13.0...v8.14.0) (2019-06-14)
 
 

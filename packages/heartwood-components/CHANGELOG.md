@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.15.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.14.0...v8.15.0) (2019-06-18)
+
+
+### Features
+
+* add max-height and cleanup ([5d03cef](https://github.com/sprucelabsai/sprucebot-heartwood/commit/5d03cef))
+* add resize handler and clean up comments ([2831e8c](https://github.com/sprucelabsai/sprucebot-heartwood/commit/2831e8c))
+* add selectd style ([0eb9f9b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/0eb9f9b))
+* correct styles ([88656d7](https://github.com/sprucelabsai/sprucebot-heartwood/commit/88656d7))
+* reverse breaking changes ([b8cb94e](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b8cb94e))
+* update styles ([4de2966](https://github.com/sprucelabsai/sprucebot-heartwood/commit/4de2966))
+* Use portal to show results from Autosuggest ([825d40b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/825d40b))
+
+
+
+
+
 # [8.14.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.13.0...v8.14.0) (2019-06-14)
 
 
