@@ -131,6 +131,23 @@ export default class Autosuggest extends Component<Props, State> {
 			this.autosuggestRef.current &&
 			this.autosuggestRef.current.input
 
+		if (!document) {
+			return
+		}
+
+		// For scrollX and scrollY cross-browser compatibility
+		let docEl = document.documentElement || document.body.parentNode
+
+		const scrollX = (typeof docEl.scrollLeft === 'number'
+			? docEl
+			: document.body
+		).scrollLeft
+
+		const scrollY = (typeof docEl.scrollTop === 'number'
+			? docEl
+			: document.body
+		).scrollTop
+
 		if (!input) {
 			return
 		}
@@ -139,8 +156,8 @@ export default class Autosuggest extends Component<Props, State> {
 
 		this.setState({
 			containerPlacement: {
-				top: inputPosition.y + inputPosition.height,
-				left: inputPosition.x,
+				top: inputPosition.y + inputPosition.height + scrollY,
+				left: inputPosition.x + scrollX,
 				width: inputPosition.width
 			}
 		})
@@ -172,6 +189,7 @@ export default class Autosuggest extends Component<Props, State> {
 			suggestions: suggestions || []
 		})
 
+		this.getContainerPlacement()
 		this.scrollParentIfNeeded()
 	}
 
