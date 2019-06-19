@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.15.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.14.0...v8.15.0) (2019-06-18)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.14.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.13.0...v8.14.0) (2019-06-14)
+
+
+### Bug Fixes
+
+* **graphql:** Use peer dependencies for graphql ([51e58fc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51e58fc))
+* ctx.sb.mutation was not properly calling api; add tests for ctx.sb.mutation and ctx.sb.query methods ([a914be3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a914be3))
+
+
+### Features
+
+* emit events w/ custom eventId and log incoming events ([ac5074d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ac5074d))
+* integrate new logger functionality ([e1c1e0c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e1c1e0c))
+* pass message type when creating messages and add tests ([cbed801](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cbed801))
+* support v1 authentication for tests ([b1e3358](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b1e3358))
+
+
+### Refactoring
+
+* **NPM:** Update deps for audit prep, peer deps ([f3d0e29](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f3d0e29))
+
+
+
+
+
 # [8.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.12.0...v8.13.0) (2019-03-20)
 
 
