@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
+
+
+### Bug Fixes
+
+* **PageHeader:** Allow setting of additional classnames ([5e06422](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5e06422))
+* use scrollingElement to fix autosuggest positioning in safari ([d07ab72](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d07ab72))
+
+
+
+
+
 ## [8.15.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.0...v8.15.1) (2019-06-19)
 
 
