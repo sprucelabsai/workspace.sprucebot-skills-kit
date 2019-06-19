@@ -24,7 +24,7 @@
 
 .context-menu__menu {
 	position: absolute;
-	z-index: 2;
+	z-index: 10;
 	width: rem(160);
 
 	&.context-menu__menu-large {
