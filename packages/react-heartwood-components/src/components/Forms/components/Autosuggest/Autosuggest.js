@@ -136,7 +136,10 @@ export default class Autosuggest extends Component<Props, State> {
 		}
 
 		// For scrollX and scrollY cross-browser compatibility
-		let docEl = document.documentElement || document.body.parentNode
+		let docEl =
+			document.scrollingElement ||
+			document.documentElement ||
+			document.body.parentNode
 
 		const scrollX = (typeof docEl.scrollLeft === 'number'
 			? docEl
