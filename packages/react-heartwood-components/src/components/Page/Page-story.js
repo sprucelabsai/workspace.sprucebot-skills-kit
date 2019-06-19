@@ -20,6 +20,7 @@ stories
 	.add('Page', () => (
 		<Page
 			header={{
+				className: 'custom-classname',
 				title: text('title', '') || 'Page Title'
 			}}
 		>

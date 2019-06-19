@@ -42,16 +42,17 @@ export type PageHeaderProps = {
 
 const PageHeader = (props: PageHeaderProps) => {
 	const {
-		title,
-		backLinkHref,
-		onClickBack,
-		backLinkText,
 		backLinkComponent: RelativeBackLinkComponent = Link,
-		linkProps,
-		primaryAction,
-		tabs,
+		backLinkHref,
+		backLinkText,
+		className,
 		hasBottomBorder,
-		sidebarExpander
+		linkProps,
+		onClickBack,
+		primaryAction,
+		sidebarExpander,
+		tabs,
+		title
 	} = props
 
 	const backLinkClass = 'page__header-back-link'
@@ -100,10 +101,14 @@ const PageHeader = (props: PageHeaderProps) => {
 
 	return (
 		<header
-			className={cx('page__header', {
-				'page__header--has-bottom-border': hasBottomBorder,
-				'page__header--has-tabs': tabs && tabs.length > 0
-			})}
+			className={cx(
+				'page__header',
+				{
+					'page__header--has-bottom-border': hasBottomBorder,
+					'page__header--has-tabs': tabs && tabs.length > 0
+				},
+				className
+			)}
 		>
 			<div className="page__header-inner">
 				{anchor && anchor}
