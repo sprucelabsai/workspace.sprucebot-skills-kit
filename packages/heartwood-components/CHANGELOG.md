@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.15.1](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.15.0...v8.15.1) (2019-06-19)
+
+
+### Bug Fixes
+
+* context and auto suggests z-index ([9911a4c](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9911a4c))
+
+
+
+
+
 # [8.15.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.14.0...v8.15.0) (2019-06-18)
 
 

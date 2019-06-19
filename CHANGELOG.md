@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.15.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.0...v8.15.1) (2019-06-19)
+
+
+### Bug Fixes
+
+* account for page scroll in autosuggest positioning ([849df01](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/849df01))
+* context and auto suggests z-index ([9911a4c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9911a4c))
+* EVENT_VERSION=1 eventId and retryId not passed through on ctx.event ([bf1a058](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bf1a058))
+
+
+
+
+
 # [8.15.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.14.0...v8.15.0) (2019-06-18)
 
 
