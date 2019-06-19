@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.15.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.14.0...v8.15.0) (2019-06-18)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+# [8.14.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.13.0...v8.14.0) (2019-06-14)
+
+
+### Bug Fixes
+
+* **graphql:** Use peer dependencies for graphql ([51e58fc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51e58fc))
+* ctx.sb.mutation was not properly calling api; add tests for ctx.sb.mutation and ctx.sb.query methods ([a914be3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a914be3))
+* debug not defined ([4ebde4a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4ebde4a))
+* default response for emits should be an empty array ([79e1293](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/79e1293))
+* event handler not getting called for v2 events ([26a59de](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/26a59de))
+* handle SpruceTest unable to be loaded and do not crash ([36b141f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/36b141f))
+* pass before options into beforeBase ([959e3a7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/959e3a7))
+* v1 mock should fetch location ([71a94f6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/71a94f6))
+
+
+### Features
+
+* ability to test event emit callbacks ([dc34519](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dc34519))
+* emit events w/ custom eventId and log incoming events ([ac5074d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ac5074d))
+* integrate new logger functionality ([e1c1e0c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e1c1e0c))
+* Make testing easier by moving sandbox and helpers into spruce-skill-server ([ee3d716](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ee3d716))
+* pass message type when creating messages and add tests ([cbed801](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cbed801))
+* pass sandbox into custom mocks ([1d55c6a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1d55c6a))
+* Run tests from spruce-skill-server ([835bb2a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/835bb2a))
+* support v1 authentication for tests ([b1e3358](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b1e3358))
+* The SDK is now exposing multiple orgs on the sandbox data for tests.  This will allow for more diverse tests during skills development and testing. ([c54af2b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c54af2b))
+
+
+### Refactoring
+
+* **NPM:** Update deps for audit prep, peer deps ([f3d0e29](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f3d0e29))
+
+
+
+
+
 # [8.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.12.0...v8.13.0) (2019-03-20)
 
 
