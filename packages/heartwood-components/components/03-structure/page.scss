@@ -12,8 +12,9 @@
 .page__header {
 	padding-top: spacing('base');
 	overflow: hidden;
-	flex: 1;
-	transition: 350ms 350ms flex, 350ms 350ms padding;
+	max-height: 200px;
+	opacity: 1;
+	transition: 350ms 350ms max-height, 350ms 350ms opacity, 350ms 350ms padding;
 
 	@include gt('small') {
 		padding-top: 1.5rem;
@@ -24,8 +25,9 @@
 	}
 
 	&--is-collapsed {
-		flex: 0;
+		max-height: 0;
 		padding: 0;
+		opacity: 0;
 	}
 }
 
