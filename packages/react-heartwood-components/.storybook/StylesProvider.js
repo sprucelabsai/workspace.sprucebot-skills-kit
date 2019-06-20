@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import Helmet from 'react-helmet'
 import FontLoader from '../src/components/FontLoader/FontLoader'
-import '../src/stylesheets/global.sass'
+
 import '../../heartwood-components/stylesheets/heartwood-components.scss'
 
 const fonts = [
