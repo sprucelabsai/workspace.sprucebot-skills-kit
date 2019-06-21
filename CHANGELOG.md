@@ -9,7 +9,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 * **PageHeader:** Allow setting of additional classnames ([5e06422](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5e06422))
-* use scrollingElement to fix autosuggest positioning in safari ([d07ab72](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d07ab72))
+* use scrollingElement to fix autosuggest positioning in safari ([d07ab72](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d07ab72)) (d07ab72)
 
 
 
