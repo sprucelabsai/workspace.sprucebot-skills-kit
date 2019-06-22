@@ -2,13 +2,81 @@
 name: Button
 ---
 
-import { Playground, PropsTable } from 'docz'
+import { Playground, Props } from 'docz'
 import Button from './Button'
 
 # Button
 
+### Buttons enable users to take action and navigate.
+
 <Playground>
-	<Button kind="primary" text="Click it or lose it" />
+	<Button kind="primary" text="Click me" />
 </Playground>
 
-<PropsTable of={Button} />
+## When to use
+
+Buttons should be used to trigger actions and navigation outside of text blocks.
+
+## When not to use
+
+Don’t use a button inside a body of text. Instead, use a Span component.
+
+## Props
+
+<Props of={Button} />
+
+## Related components:
+
+- ButtonGroup
+- ContextMenu
+- SplitButton
+
+### Composed by:
+
+- Loader
+- Icon
+- Anchor
+
+### Consumed by:
+
+- EventDetailsFooter
+- EventDetailsHeader
+- Header
+- HeaderControls
+- [ButtonGroup](/src-components-button-group-button-group)
+- CardBuilder
+- CardHeader
+- OnboardingCard
+- ContextMenu
+- Hamburger
+- LocationMenu
+- UserMenu
+- HeaderPrimary
+- ProfileSummary
+- SaveBar
+- SidebarExpander
+- SidebarItem
+- Sidebar
+- Dropzone
+- EmptyState
+- Autosuggest
+- DurationInput
+- FormInner
+- FormBuilder
+- Tag
+- InputPre
+- ImageCropper
+- ListHeader
+- ListItem
+- Messsage
+- ModalFooter
+- ModalHeader
+- PageHeader
+- Pagination
+- RecordSelectionList
+- RecordTable
+- Table
+- Tab
+- Toast
+- Text
+- SplitButton
