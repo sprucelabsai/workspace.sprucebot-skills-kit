@@ -1,4 +1,5 @@
 const Https = require('./https')
+const MockHttps = require('./mock')
 
 /**
  * Politely tell someone they didn't define an arg
@@ -31,7 +32,6 @@ class Sprucebot {
 		eventContract = suggested('eventContract'),
 		version = 'unknown',
 		skillsKitVersion = 'unknown',
-		cards = suggested('cards'),
 		acl = suggested('acl'),
 		viewVersion = suggested('viewVersion')
 	}) {
@@ -44,7 +44,6 @@ class Sprucebot {
 		this.icon = svgIcon || required('svgIcon')
 		this.webhookUrl = (serverUrl || required('serverUrl')) + '/hook.json'
 		this.iframeUrl = interfaceUrl || required('interfaceUrl')
-		this.cards = cards || {}
 		this.acl = acl || {}
 		this.viewVersion = viewVersion || 1
 		this.marketingUrl =
@@ -59,13 +58,16 @@ class Sprucebot {
 		this.apiVersion = '1.0' // maybe pull from package.json?
 
 		// Setup http(s) class with everything it needs to talk to api
-		this.https = new Https({
+		const adapterOptions = {
 			host: cleanedHost,
 			apiKey,
 			id,
 			version: this.apiVersion,
 			allowSelfSignedCerts
-		})
+		}
+
+		this.adapterOptions = adapterOptions
+		this.adapter = new Https(adapterOptions)
 
 		console.log(
 			`🌲 Sprucebot🌲 Skills Kit API ${
@@ -75,6 +77,13 @@ class Sprucebot {
 				'*'
 			)} \nname : ${name}\n---------------------------------`
 		)
+	}
+
+	setOptions(options) {
+		if (options.useMockApi) {
+			const customMocks = options.customMocks || {}
+			this.adapter = new MockHttps({ ...this.adapterOptions, customMocks })
+		}
 	}
 
 	/**
@@ -94,11 +103,10 @@ class Sprucebot {
 			eventContract: this.eventContract,
 			version: this.version,
 			skillsKitVersion: this.skillsKitVersion,
-			cards: this.cards,
 			acl: this.acl,
 			viewVersion: this.viewVersion
 		}
-		const results = await this.https.patch('/', data)
+		const results = await this.adapter.patch('/', data)
 		let database = null
 		if (this.dbEnabled) {
 			database = await this.provisionDatabase()
@@ -108,15 +116,15 @@ class Sprucebot {
 	}
 
 	async provisionDatabase() {
-		return this.https.get('/database/provision')
+		return this.adapter.get('/database/provision')
 	}
 
 	async query(query) {
-		return this.https.query(query)
+		return this.adapter.query(query)
 	}
 
 	async mutation(query) {
-		return this.https.mutation(query)
+		return this.adapter.query(`mutation ${query}`)
 	}
 
 	/**
@@ -128,7 +136,7 @@ class Sprucebot {
 	 * @returns {Promise}
 	 */
 	async user(locationId, userId, query) {
-		return this.https.get(`/locations/${locationId}/users/${userId}`, query)
+		return this.adapter.get(`/locations/${locationId}/users/${userId}`, query)
 	}
 
 	/**
@@ -138,7 +146,7 @@ class Sprucebot {
 	 * @param {Object} Optional query string to be added to the request
 	 */
 	async globalUser(userId, query) {
-		return this.https.get(`/ge/users/${userId}`, query)
+		return this.adapter.get(`/ge/users/${userId}`, query)
 	}
 
 	/**
@@ -147,7 +155,7 @@ class Sprucebot {
 	 * @param {Object} Optional query string to be added to the request
 	 */
 	async globalLocations(query) {
-		return this.https.get(`/ge/locations`, query)
+		return this.adapter.get(`/ge/locations`, query)
 	}
 
 	/**
@@ -157,7 +165,7 @@ class Sprucebot {
 	 * @returns {Promise}
 	 */
 	async createUser(values) {
-		return this.https.post('/ge/users', values)
+		return this.adapter.post('/ge/users', values)
 	}
 
 	/**
@@ -169,7 +177,7 @@ class Sprucebot {
 	 * @returns {Promise}
 	 */
 	async updateRole(locationId, userId, role) {
-		return this.https.patch(
+		return this.adapter.patch(
 			`/ge/locations/${locationId}/users/${userId}/${role}`
 		)
 	}
@@ -182,7 +190,7 @@ class Sprucebot {
 	 * @returns {Promise}
 	 */
 	async users(locationId, { role, status, page, limit, q } = {}) {
-		return this.https.get(
+		return this.adapter.get(
 			`/locations/${locationId}/users/`,
 			Array.from(arguments)[1]
 		)
@@ -195,7 +203,7 @@ class Sprucebot {
 	 * @returns {Promise}
 	 */
 	async orgUsers(organizationId, { role, status, page, limit, q } = {}) {
-		return this.https.get(
+		return this.adapter.get(
 			`/organizations/${organizationId}/users/`,
 			Array.from(arguments)[1]
 		)
@@ -209,7 +217,7 @@ class Sprucebot {
 	 * @returns {Promise}
 	 */
 	async updateUser(id, values) {
-		return this.https.patch('/users/' + id, values)
+		return this.adapter.patch('/users/' + id, values)
 	}
 
 	/**
@@ -220,7 +228,7 @@ class Sprucebot {
 	 * @returns {Promise}
 	 */
 	async location(locationId, query) {
-		return this.https.get(`/locations/${locationId}`, query)
+		return this.adapter.get(`/locations/${locationId}`, query)
 	}
 
 	/**
@@ -230,7 +238,7 @@ class Sprucebot {
 	 * @returns {Promise}
 	 */
 	async locations({ page, limit } = {}) {
-		return this.https.get('/locations', Array.from(arguments)[0])
+		return this.adapter.get('/locations', Array.from(arguments)[0])
 	}
 
 	/**
@@ -245,16 +253,16 @@ class Sprucebot {
 		locationId,
 		userId,
 		message,
-		{ linksToWebView, webViewQueryData, payload, sendAtTimestamp } = {},
+		{ linksToWebView, webViewQueryData, payload, sendAtTimestamp, type } = {},
 		query = {}
 	) {
-		const data = Array.from(arguments)[3] || {}
+		const data = Array.from(arguments)[3] || { type: 'promotional' }
 		data.userId = userId
 		data.message = message
 		if (data.webViewQueryData) {
 			data.webViewQueryData = JSON.stringify(data.webViewQueryData)
 		}
-		return this.https.post(`/locations/${locationId}/messages`, data, query)
+		return this.adapter.post(`/locations/${locationId}/messages`, data, query)
 	}
 
 	/**
@@ -264,7 +272,7 @@ class Sprucebot {
 	 * @param {String} messageId
 	 */
 	async deleteMessage(locationId, messageId) {
-		return this.https.delete(`/locations/${locationId}/messages/${messageId}`)
+		return this.adapter.delete(`/locations/${locationId}/messages/${messageId}`)
 	}
 
 	/**
@@ -275,7 +283,7 @@ class Sprucebot {
 	 * @param {String} message
 	 */
 	async queueMessages(messages) {
-		return this.https.post('/ge/messages', { messages })
+		return this.adapter.post('/ge/messages', { messages })
 	}
 
 	/**
@@ -286,7 +294,7 @@ class Sprucebot {
 	 * @param {String} message
 	 */
 	async deleteMessages(messageIds) {
-		return this.https.post('/ge/deleteMessages', { messageIds })
+		return this.adapter.post('/ge/deleteMessages', { messageIds })
 	}
 
 	/**
@@ -297,8 +305,8 @@ class Sprucebot {
 	 * @param {String} userId
 	 * @param {String} message
 	 */
-	async globalMessage(userId, message) {
-		return this.https.post('/messages', { userId, message })
+	async globalMessage(userId, message, type = 'promotional') {
+		return this.adapter.post('/messages', { userId, message, type })
 	}
 
 	/**
@@ -343,7 +351,7 @@ class Sprucebot {
 		if (query.roles) {
 			query.roles = JSON.stringify(query.roles)
 		}
-		return this.https.get('/data', query)
+		return this.adapter.get('/data', query)
 	}
 
 	/**
@@ -372,7 +380,7 @@ class Sprucebot {
 	 * @param {String} id
 	 */
 	async metaById(id, { locationId, userId } = {}) {
-		return this.https.get(`/data/${id}`, Array.from(arguments)[1])
+		return this.adapter.get(`/data/${id}`, Array.from(arguments)[1])
 	}
 
 	/**
@@ -389,7 +397,7 @@ class Sprucebot {
 			value
 		}
 
-		const meta = await this.https.post('/data', data)
+		const meta = await this.adapter.post('/data', data)
 		return meta
 	}
 
@@ -404,7 +412,7 @@ class Sprucebot {
 			...(Array.from(arguments)[1] || {})
 		}
 
-		const meta = await this.https.patch(`/data/${id}`, data)
+		const meta = await this.adapter.patch(`/data/${id}`, data)
 		return meta
 	}
 
@@ -469,7 +477,7 @@ class Sprucebot {
 	 * @param {String} id
 	 */
 	async deleteMeta(id) {
-		return this.https.delete(`/data/${id}`)
+		return this.adapter.delete(`/data/${id}`)
 	}
 
 	/**
@@ -478,9 +486,10 @@ class Sprucebot {
 	 * @param {String} name
 	 * @param {Object} payload
 	 */
-	async emit(locationId, eventName, payload = {}, options) {
-		return this.https.post(`locations/${locationId}/emit`, {
+	async emit(locationId, eventName, payload = {}, options, eventId) {
+		return this.adapter.post(`locations/${locationId}/emit`, {
 			eventName,
+			eventId,
 			payload,
 			options
 		})
@@ -492,9 +501,16 @@ class Sprucebot {
 	 * @param {String} name
 	 * @param {Object} payload
 	 */
-	async emitOrganization(organizationId, eventName, payload = {}, options) {
-		return this.https.post(`organizations/${organizationId}/emit`, {
+	async emitOrganization(
+		organizationId,
+		eventName,
+		payload = {},
+		options,
+		eventId
+	) {
+		return this.adapter.post(`organizations/${organizationId}/emit`, {
 			eventName,
+			eventId,
 			payload,
 			options
 		})
@@ -506,7 +522,7 @@ class Sprucebot {
 	 * @param {Object} query
 	 */
 	async getMetadata(query) {
-		const meta = await this.https.get('/metadata', query)
+		const meta = await this.adapter.get('/metadata', query)
 		return meta
 	}
 
@@ -530,7 +546,7 @@ class Sprucebot {
 			}
 		]
 
-		const meta = await this.https.patch('/metadata', data)
+		const meta = await this.adapter.patch('/metadata', data)
 		return meta
 	}
 
@@ -550,7 +566,7 @@ class Sprucebot {
 					refId
 				}
 			})
-			await this.https.delete('/metadata', data)
+			await this.adapter.delete('/metadata', data)
 		}
 		return
 	}
@@ -562,7 +578,7 @@ class Sprucebot {
 	 * @param {Array} locations
 	 */
 	async eCreateLocations({ organizationId, locations }) {
-		const result = await this.https.post(
+		const result = await this.adapter.post(
 			`/e/organizations/${organizationId}/locations`,
 			{ locations }
 		)
@@ -575,7 +591,7 @@ class Sprucebot {
 	 * @param {Array} locations
 	 */
 	async gCreateLocations({ locations }) {
-		const result = await this.https.post('/g/locations', { locations })
+		const result = await this.adapter.post('/g/locations', { locations })
 		return result
 	}
 
@@ -585,7 +601,7 @@ class Sprucebot {
 	 * @param {Object} response
 	 */
 	async eEmitEvent({ userId, locationId, eventName, payload }) {
-		const result = await this.https.post(
+		const result = await this.adapter.post(
 			`/e/locations/${locationId}/users/${userId}/emit`,
 			{
 				eventName,
@@ -678,7 +694,7 @@ class Sprucebot {
 			auditLogs = [auditLogs]
 		}
 		// Don't wait for the result
-		this.https
+		this.adapter
 			.post(`/audit`, auditLogs)
 			.then(() => {})
 			.catch(e => log.warn(e))

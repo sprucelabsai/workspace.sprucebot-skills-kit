@@ -93,12 +93,29 @@ type RecordTableProps = {|
 	/** should I fetch all my data on mount? */
 	fetchOnMount?: boolean,
 
+	/** Flag for error on fetching data */
+	fetchError?: boolean,
+
 	/** passthrough to Table component */
 	handleClickRow?: Function,
 
 	/** called when search suggestion is selected */
-	onSelection?: Function
+	onSelection?: Function,
+
+	/** No data available */
+	noDataIcon?: string,
+	noDataHeadline?: string,
+	noDataSubheadline?: string,
+	noDataPrimaryAction?: PrimaryAction,
+	noDataPrimaryActionButtonKind?: string,
+	noDataPrimaryActionButtonIcon?: string
 |}
+
+type PrimaryAction = {
+	text: string,
+	onClick: (e: MouseEvent) => void,
+	type: string
+}
 
 type RecordTableState = {
 	selectedTab?: string,
@@ -149,7 +166,10 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		}
 
 		if (!cancel) {
-			this.setState({ currentPage: 0, selectedTab: tab.key }, this.refresh)
+			this.setState(
+				{ currentPage: 0, selectedTab: tab.key, expandedRows: {} },
+				this.refresh
+			)
 		}
 	}
 
@@ -165,16 +185,23 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		search,
 		page
 	}: { search?: string, page: number } = {}) => {
+		const { onNavigateToPage = () => {} } = this.props
+
 		try {
 			const { visibleRows, totalRows } = await this.fetchRecords({
 				search,
 				page
 			})
 
+			onNavigateToPage({
+				currentPage: page
+			})
+
 			this.setState({
 				currentPage: page,
 				visibleRows,
-				totalRows
+				totalRows,
+				expandedRows: {}
 			})
 		} catch (e) {
 			// Nothing
@@ -292,6 +319,69 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		this.props.onSelection && this.props.onSelection(e, suggestion)
 	}
 
+	updateFilter = (filter: string) => {
+		this.setState(
+			{
+				currentPage: 0,
+				currentFilter: filter
+			},
+			() => {
+				this.refresh()
+			}
+		)
+	}
+
+	isFiltered = () => {
+		const { enableFilter } = this.props
+		const { currentFilter } = this.state
+		return currentFilter.length > 0 && enableFilter
+	}
+
+	getNoDataIcon = () => {
+		const { noDataIcon, fetchError } = this.props
+		return fetchError
+			? 'caution'
+			: this.isFiltered()
+			? 'no_matches'
+			: noDataIcon
+	}
+
+	getNoDataHeadline = () => {
+		const { noDataHeadline, fetchError } = this.props
+		return fetchError
+			? 'Data not available'
+			: this.isFiltered()
+			? 'No matches found'
+			: noDataHeadline
+	}
+
+	getNoDataSubheadline = () => {
+		const { noDataSubheadline, fetchError } = this.props
+		return fetchError
+			? 'It looks like something went wrong.'
+			: this.isFiltered()
+			? null
+			: noDataSubheadline
+	}
+
+	getNoDataPrimaryAction = () => {
+		const { noDataPrimaryAction, fetchError } = this.props
+		return fetchError
+			? {
+					text: 'Try again',
+					onClick: () => window.location.reload()
+			  }
+			: this.isFiltered()
+			? {
+					text: 'Show all',
+					onClick: () => {
+						this.updateFilter('')
+					},
+					type: 'submit'
+			  }
+			: noDataPrimaryAction
+	}
+
 	render() {
 		const {
 			// eslint-disable-next-line no-unused-vars
@@ -303,9 +393,12 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			enableSearch,
 			enableFilter,
 			searchPlaceholder,
+			noDataPrimaryActionButtonKind,
+			noDataPrimaryActionButtonIcon,
 			tableSearchProps = {},
-			...props
+			...rest
 		} = this.props
+
 		const {
 			currentPage,
 			sortColumn,
@@ -314,7 +407,8 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			selectedTab,
 			visibleRows,
 			totalRows,
-			currentFilter
+			currentFilter,
+			expandedRows
 		} = this.state
 
 		// setup default props types
@@ -361,15 +455,7 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 								value={currentFilter}
 								placeholder={searchPlaceholder}
 								onChange={e => {
-									this.setState(
-										{
-											currentPage: 0,
-											currentFilter: e.target.value
-										},
-										() => {
-											this.refresh()
-										}
-									)
+									this.updateFilter(e.target.value)
 								}}
 								isSmall
 							/>
@@ -380,15 +466,7 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 									name: 'close'
 								}}
 								onClick={() => {
-									this.setState(
-										{
-											currentPage: 0,
-											currentFilter: ''
-										},
-										() => {
-											this.refresh()
-										}
-									)
+									this.updateFilter('')
 								}}
 							/>
 						</div>
@@ -405,6 +483,12 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 							desc: false
 						}
 					]}
+					expanded={expandedRows}
+					onExpandedChange={newExpanded => {
+						this.setState({
+							expandedRows: newExpanded
+						})
+					}}
 					pageSize={Math.min(visibleRows.length, limit)}
 					paginationProps={{
 						currentPage,
@@ -423,10 +507,17 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 					manual
 					loading={loading}
 					data={visibleRows || []}
+					totalRows={totalRows}
 					onSortedChange={this.handleSortChanged}
 					onClickRow={handleClickRow}
 					key="id"
-					{...props}
+					noDataIcon={this.getNoDataIcon()}
+					noDataHeadline={this.getNoDataHeadline()}
+					noDataSubheadline={this.getNoDataSubheadline()}
+					noDataPrimaryAction={this.getNoDataPrimaryAction()}
+					noDataPrimaryActionButtonKind={noDataPrimaryActionButtonKind}
+					noDataPrimaryActionButtonIcon={noDataPrimaryActionButtonIcon}
+					{...rest}
 				/>
 			</Fragment>
 		)

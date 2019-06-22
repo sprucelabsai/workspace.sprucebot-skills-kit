@@ -45,17 +45,29 @@
 		position: relative;
 		bottom: -0.1em;
 	}
+	.btn {
+		padding: 0;
+		&:hover,
+		&:active,
+		&:not(:disabled):not(:active):focus {
+			background-color: transparent;
+			color: $c-primary-light;
+			text-decoration: underline;
+		}
+	}
 }
 
+.text a,
 a.text {
 	color: $c-primary;
 	display: inline-flex;
 	align-items: center;
+	font-weight: inherit;
 	.icon {
-		&:not(.u-icon__no-fill) {
+		&:not(.icon--no-fill) {
 			fill: $c-primary;
 		}
-		&.u-icon__stroke {
+		&.icon--stroke {
 			stroke: $c-primary;
 		}
 	}
@@ -67,5 +79,8 @@ a.text {
 	}
 	&--emphasis {
 		font-style: italic;
+	}
+	&--subdued {
+		opacity: 0.5;
 	}
 }

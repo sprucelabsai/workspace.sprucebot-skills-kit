@@ -3,6 +3,349 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
+
+
+### Bug Fixes
+
+* **PageHeader:** Allow setting of additional classnames ([5e06422](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5e06422))
+* use scrollingElement to fix autosuggest positioning in safari ([d07ab72](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d07ab72))
+
+
+
+
+
+## [8.15.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.0...v8.15.1) (2019-06-19)
+
+
+### Bug Fixes
+
+* account for page scroll in autosuggest positioning ([849df01](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/849df01))
+
+
+
+
+
+# [8.15.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.14.0...v8.15.0) (2019-06-18)
+
+
+### Features
+
+* add max-height and cleanup ([5d03cef](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5d03cef))
+* add resize handler and clean up comments ([2831e8c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2831e8c))
+* add selectd style ([0eb9f9b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0eb9f9b))
+* add some notes ([d877c8d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d877c8d))
+* add to story in form context ([66cb800](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/66cb800))
+* clean up annotations ([dd680c7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dd680c7))
+* clean up imports ([288e14e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/288e14e))
+* cleanup unused var ([12a4ee8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/12a4ee8))
+* correct styles ([88656d7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/88656d7))
+* fix undefined document ([30c35a1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/30c35a1))
+* redo positioning ([58ffd49](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/58ffd49))
+* remove comment ([0f98684](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0f98684))
+* remove fragment ([b8474e7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b8474e7))
+* render key as text if it doesn't exist in the record ([63b6620](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/63b6620))
+* reverse breaking changes ([b8cb94e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b8cb94e))
+* update story ([531b972](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/531b972))
+* Use portal to show results from Autosuggest ([825d40b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/825d40b))
+
+
+
+
+
+# [8.14.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.13.0...v8.14.0) (2019-06-14)
+
+
+### Bug Fixes
+
+* [SDEV3-1321] pass correct payload back to button action callback ([260e7ff](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/260e7ff))
+* [SDEV3-1330] fixes error on drop event on mobile ([d7c1e4b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d7c1e4b))
+* add eslintignore rule for generated icons.js ([aa83580](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/aa83580))
+* add radix to parseInt ([61d4fae](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/61d4fae))
+* add spacerTop prop to form layout items to compensate for alignment of inline items with or without labels ([d298c84](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d298c84))
+* allow modal content to scroll to autosuggest when loaded from skill view ([e2cde1d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e2cde1d))
+* calling virtualized methods that don't exist ([5bf2960](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5bf2960))
+* Clean two spreads against native DOM elements ([c3a5e65](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c3a5e65))
+* create new ImageSSR component to handle image load errors ([8b89a50](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8b89a50))
+* don't remove search when loaded records changes ([03df6fa](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/03df6fa))
+* fix and update component styles for modals ([6926679](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6926679))
+* formatting ([387ce16](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/387ce16))
+* get record id via method instead of node ([b73814f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b73814f))
+* If clipped, scroll overflow parent to display autosuggest options. ([5f3d5ca](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5f3d5ca))
+* linter errors ([325df38](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/325df38))
+* linter errors ([420334c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/420334c))
+* linter formatting issues ([74a22f7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/74a22f7))
+* linter issue ([13366cb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/13366cb))
+* linter issues ([ddcf1d3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ddcf1d3))
+* **Page:** Page should accept a spread of remaining props ([b5bc98f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b5bc98f))
+* remove unused var ([2128f5c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2128f5c))
+* undo unnecessary layout separators ([e1b1fa2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e1b1fa2))
+* **Auth:** Remove client-side cookie setting for JWT token ([13d077a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/13d077a))
+* **lint:** Update dependencies for shared lint config ([89b255f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/89b255f))
+* **RecordTable:** props-spread should come after other props... ([000c411](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/000c411))
+* **Select:** Create defaults around placeholder option ([d6dabca](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d6dabca))
+* **Table:** Call `rowIsDirty` method for determining row dirtiness ([6284991](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6284991))
+* update list height on add/remove records ([1f78c5e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1f78c5e))
+* update remove icon ([90a7a9a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/90a7a9a))
+
+
+### Documentation
+
+* add modal story ([adb0a6d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/adb0a6d))
+* rename stories ([6f078d1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6f078d1))
+* update stories ([de33c6e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/de33c6e))
+
+
+### Features
+
+* **Card:** Add section separators ([9a8abd3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9a8abd3))
+* **dirtyTableRows:** initial implementation of dirty rows in the Table component ([2a85f63](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2a85f63))
+* **layout:** Stretch heights to match on secondary layouts ([23761f6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/23761f6))
+* **lint:** Get linter standardized w/ ai-spruce-web rules ([7e1b58a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7e1b58a))
+* **nestedTables:** initial implementation of nested tables ([02144a1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/02144a1))
+* **PageHeader:** Allow passing of backlink component ([caaf1ef](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/caaf1ef))
+* add "secondaryCTA" option to BigCalendar EventDetails footer ([d397f25](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d397f25))
+* add ability to render as radio or checkbox ([fd17b2f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fd17b2f))
+* add cursor pointer to table expander ([05dcc8e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/05dcc8e))
+* **RecordTable:** Add callback for navigating to a page w/ pagination ([bed9440](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bed9440))
+* add disabled styling ([ce8577b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ce8577b))
+* add icon to expandable row ([2ae5c18](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2ae5c18))
+* add isSelectable to nested table example ([901ec52](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/901ec52))
+* add multi-layered nesting example. complete table design updates necessary for [SDEV3-584] ([131b3fc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/131b3fc))
+* add some transitions ([9401e6d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9401e6d))
+* add story for selectable item lists ([18b69ae](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/18b69ae))
+* add styles for default button ([f3b9a34](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f3b9a34))
+* add virtualHeight and update short list check ([272dd0b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/272dd0b))
+* condense render logic ([5299d2a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5299d2a))
+* match change handlers ([e58efc4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e58efc4))
+* match renders ([ee89f83](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ee89f83))
+* remove unused vars ([8a6b2bb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8a6b2bb))
+* undo accidental change ([9ff8e6a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9ff8e6a))
+* update expander column size ([272dd9a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/272dd9a))
+* update prop names ([c329a6a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c329a6a))
+* use labels when necessary ([864e418](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/864e418))
+* **RecordSelectionList:** Add reset method ([42173cf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/42173cf))
+* **RecordSelectionList:** Make load count customizable ([dc72940](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dc72940))
+* **RecordTable:** Control subcomponent expansion in local state ([290ee84](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/290ee84))
+* **storybook:** Support TSX sources ([9b291bd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9b291bd))
+* **Text:** Adds basic text templating for formatting and rich interactions within text component ([19e076c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/19e076c))
+* **TextStyle:** Add subdued text style ([65ff167](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/65ff167))
+
+
+### Refactoring
+
+* add props to remove top/bottom padding from card body ([18aa0a8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/18aa0a8))
+* addressing PR feedback ([181c122](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/181c122))
+* Addressing PR feedback ([fe8f001](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fe8f001))
+* automatically determine isLineIcon from icon key ([09eea7d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/09eea7d))
+* changes to make modals, cards, and record selection list compatible with heartwood design ([5811ce0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5811ce0))
+* cleanup code ([f033e3b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f033e3b))
+* code cleanup ([8387edc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8387edc))
+* finalize record select sizing ([e2dcaf1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e2dcaf1))
+* Integrate rules from Ken ([422c5c3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/422c5c3))
+* minor fixes ([f902915](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f902915))
+* update dirty table example to manage state more efficiently ([9901e6d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9901e6d))
+* **icon:** infer isLineIcon from icon name. adding additional icons from heartwood. ([e3e9836](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e3e9836))
+* **NPM:** Update deps for audit prep, peer deps ([f3d0e29](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f3d0e29))
+
+
+
+
+
+# [8.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.12.0...v8.13.0) (2019-03-20)
+
+
+### Bug Fixes
+
+* remove unnecessary import ([41f8479](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/41f8479))
+* **BigCalendar:** Prep for usage in core web ([11505db](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/11505db))
+* **RecordTable:** Paginators should only be displayed when 2 or more pages of data are available [[SBL-2111](https://sprucelabsai.atlassian.net/browse/SBL-2111)] ([4a20cc5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4a20cc5))
+* **RecordTable:** Paginators should only be displayed when 2 or more pages of data are available [[SBL-2111](https://sprucelabsai.atlassian.net/browse/SBL-2111)] ([eca550a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/eca550a))
+* **view/page:** Properly scope zIndex for page panels ([723c64e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/723c64e))
+
+
+### Features
+
+* **modals:** Add passthrough method for setAppElement ([1a08498](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1a08498))
+* **RecordTable:** RecordTable now supports an EmptyState instance for failed API fetches [[SBL-2094](https://sprucelabsai.atlassian.net/browse/SBL-2094)] ([d2aa0a1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d2aa0a1))
+* **RecordTable:** Support for custom button kinds and icons ([25bc1d9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/25bc1d9))
+* **sidebar:** Add mobile-only prop for sidebar sections ([6e5dd07](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6e5dd07))
+* **view:** Switch to a flexbox-based layout ([fa37d1c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fa37d1c))
+
+
+### Refactoring
+
+* **datePicker:** hide keyboard shortcuts panel ([5c9190c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5c9190c))
+* **datePicker:** style updates ([9538319](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9538319))
+* **loader:** add isCentered prop to center loader in parent [[SBL-2236](https://sprucelabsai.atlassian.net/browse/SBL-2236)] ([682b509](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/682b509))
+* **loader:** add isLight prop [[SBL-2236](https://sprucelabsai.atlassian.net/browse/SBL-2236)] ([211064a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/211064a))
+* **phoneInput:** update package and export formatPhoneNumberIntl ([64494d8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/64494d8))
+* **select:** add optional placeholder for Select components ([42cf11c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/42cf11c))
+* fix lint error ([71a33e8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/71a33e8))
+
+
+
+
+
+# [8.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.11.0...v8.12.0) (2019-02-27)
+
+
+### Bug Fixes
+
+* **EmptyState:** exports Empty State component ([ae7fd4f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ae7fd4f))
+* **Table:** Correct busted logic that was breaking pagination ([4a249b0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4a249b0)), closes [#379](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues/379)
+
+
+### Features
+
+* **EmptyState:** Adds new default for Empty State [[SBL-1996](https://sprucelabsai.atlassian.net/browse/SBL-1996)], new Empty State for filtered Record Tables [[SBL-2093](https://sprucelabsai.atlassian.net/browse/SBL-2093)], new Storybook stories for Empty State ([5f9e5f2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5f9e5f2))
+* **RecordSelectionList:** Support arbitrary data with getRecordId ([51d475d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51d475d))
+
+
+### Refactoring
+
+* **BigCalendar-story:** Uses the Toast component instead of alert ([1f3ec14](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1f3ec14))
+* **Table:** Sane default for the Empty State primary action button icon instead of the refresh icon ([a611052](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a611052))
+
+
+
+
+
+# [8.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.1...v8.11.0) (2019-02-19)
+
+
+### Bug Fixes
+
+* Add .editorconfigs targetting all files ([dd2bfa3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dd2bfa3))
+* Address stack overflows on larger lists ([aa5a814](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/aa5a814))
+* Checkbox component not passing event through ([1e34cb2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1e34cb2))
+* Only include style prop into DragGrid root div ([329e51a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/329e51a))
+* **flow:** React Heartwood, correct corrected flow config ([355efa1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/355efa1))
+* **fontloader:** Repair deps, remove reference to storybook in component ([d61ba10](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d61ba10))
+* **tables:** Basic style for no records label, hide "loading" loader state ([5a8f237](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5a8f237))
+* **tables:** Disable autocomplete by default on checkboxes ([a3758c5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a3758c5))
+
+
+### Features
+
+* access toasts from state so that they are unique ([4ef2421](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4ef2421))
+* add ability to include settings list ([e2b3aac](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e2b3aac))
+* add component ([6f369b3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6f369b3))
+* add component and story ([245b177](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/245b177))
+* add date headers ([8df0bd8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8df0bd8))
+* add date range select to DatePicker ([3877c8d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3877c8d))
+* add example fields in page context ([28c52a3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/28c52a3))
+* add example of full card ([b95bc31](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b95bc31))
+* add example of the feed builder ([192ced9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/192ced9))
+* add example with validation ([0beeec3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0beeec3))
+* add FormBuilder component ([19b8128](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/19b8128))
+* add Formik ([f5fa714](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f5fa714))
+* add isSmall prop to ContextMenu ([f689ac9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f689ac9))
+* add modal option ([a47d54c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a47d54c))
+* add more props ([31928c5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/31928c5))
+* add props ([fd987f5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fd987f5))
+* add random message generator ([b560245](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b560245))
+* add react-virtualized ([0a34c2a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0a34c2a))
+* add savebar when kind is page ([58ffe54](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/58ffe54))
+* add section component for sidebar layouts with cards ([9d630b4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9d630b4))
+* add sections for form as page ([0255659](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0255659))
+* add sidebar header ([6540966](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6540966))
+* add todo note ([691f3d9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/691f3d9))
+* add type annotations ([05a8d80](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/05a8d80))
+* add unique id from sender ([1d98958](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1d98958))
+* add validation examples to page example ([cac0552](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cac0552))
+* adjust width rules and layout ([24d4cfc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/24d4cfc))
+* allow to pass toggle props through list item ([2e91f4f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2e91f4f))
+* annotate props ([e1ed31c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e1ed31c))
+* better rendering of toasts when one is removed ([cc07b81](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc07b81))
+* better timeout cleanup ([b863938](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b863938))
+* chaange pageHeader to header in PageHeader ([0cee055](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0cee055))
+* change onUndo to followupAction ([84bb28b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/84bb28b))
+* **EmptyState:** Empty State React component [[SBL-1982](https://sprucelabsai.atlassian.net/browse/SBL-1982)] ([ff05492](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ff05492))
+* **flow:** Fix react-heartwood-components ([a58b36b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a58b36b))
+* **flow:** Fix react-heartwood-components ([14c0f59](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/14c0f59))
+* **record-selection-list:** static vs async record provision ([49da796](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/49da796))
+* **RecordSelection:** Support checkboxes, radios & removal of records ([b4adc33](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b4adc33))
+* **RecordSelectionList:** Allow for "unselectable" records ([1c8de7b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1c8de7b))
+* **RecordSelectList:** Add async search capability ([51fa5dd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51fa5dd))
+* make toast timeouts work ([2b5562d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2b5562d))
+* **RecordTable:** Empty State defaults for RecordTable [[SBL-1996](https://sprucelabsai.atlassian.net/browse/SBL-1996)] ([a02ee51](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a02ee51))
+* convert ToastWrapper to a component ([75a6ea1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/75a6ea1))
+* correct images ([2152d63](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2152d63))
+* correct keying for dynamic components ([3caf0a2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3caf0a2))
+* default sidebar to expanded ([3598957](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3598957))
+* ensure that list stops loading when it should ([72faf78](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/72faf78))
+* export FontLoader correctly ([8f260f7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8f260f7))
+* **tables:** Add reusable RecordTable to react-heartwood ([cfcc647](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cfcc647))
+* fix image removal with new from strategy ([59701d7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/59701d7))
+* fix lint errors ([1b37b43](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1b37b43))
+* fix stories ([e682407](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e682407))
+* fix tabs styling ([e95ff34](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e95ff34))
+* format empty text ([8f74852](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8f74852))
+* handle visibility toggles on mobile ([c4102fa](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c4102fa))
+* hide sidebar children ([fd7cc84](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fd7cc84))
+* hook up modal ([18435a8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/18435a8))
+* hook up reset form on discard changes ([2da90e0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2da90e0))
+* Implement upload service for images along with example upload controller and Dropzone integration ([1b396f3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1b396f3))
+* import flow types for form layouts ([d01451e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d01451e))
+* improve date header formatting ([012f1f4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/012f1f4))
+* improve row loading performance ([02555da](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/02555da))
+* improve spacing props ([1eeb40f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1eeb40f))
+* latest iteration that simulates loading in of new messages ([b8a9a95](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b8a9a95))
+* make fields required ([794f60d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/794f60d))
+* make follow up text configurable ([c584bb1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c584bb1))
+* make savebar set form submitting to true ([b804b83](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b804b83))
+* make submit work on enter ([204d39f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/204d39f))
+* make view responsible for hiding sidebars on resize ([7d22a2f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7d22a2f))
+* merge and resolve conflicts ([e01dea6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e01dea6))
+* minor fixes ([6438138](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6438138))
+* pull out FormInner into own component ([620a0f2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/620a0f2))
+* put sidebar items in a sidebar section ([1c0c0a9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1c0c0a9))
+* remove all references to messageCount ([2fa8b8a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2fa8b8a))
+* remove done to avoid lint error ([75f08db](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/75f08db))
+* remove log ([04e0774](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/04e0774))
+* remove log ([6025363](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6025363))
+* remove log ([1a81b3e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1a81b3e))
+* remove log ([c9a1dd6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c9a1dd6))
+* remove spread operators ([e1abb79](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e1abb79))
+* **spruce-skill:** Add example of requesting that Core show a toast ([995b5e1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/995b5e1))
+* **spruce-skill:** Support Skill View Dialogs in Core ([8516ad0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8516ad0))
+* update on resize ([f2578c6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f2578c6))
+* **tables:** Add concept of totalRows ([2d37253](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2d37253))
+* remove unneeded initialvalues ([1e1d3d6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1e1d3d6))
+* rename cards back to sections for clarity ([6266862](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6266862))
+* rename sections to cards ([e29288f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e29288f))
+* resolve conflict ([f9e13c1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f9e13c1))
+* set position and dimensions for scrolling ([646c64e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/646c64e))
+* start adding a settings page example ([3cb13e5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3cb13e5))
+* start checking for date headers ([026730b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/026730b))
+* start looping ([0d23e2c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0d23e2c))
+* start styling ([c58ebd7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c58ebd7))
+* Streamline builds and testing ([ea635b7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ea635b7))
+* styling ([3b7a179](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3b7a179))
+* temp hide scroll jack ([147ed40](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/147ed40))
+* update addons order ([01e210a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/01e210a))
+* update basic example ([cc77e43](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc77e43))
+* update components to support design for profile pages ([95d9999](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/95d9999))
+* update example layout ([64e5386](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/64e5386))
+* update story ([73412ee](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/73412ee))
+* update styles and start hooking up new props ([9e357a5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9e357a5))
+* use rowCount to trigger loading ([7a43f9d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7a43f9d))
+* use spread to pass id through to LayoutSection for deep linking ([1856883](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1856883))
+
+
+### Refactoring
+
+* **pagedModal:** clean up code ([ebb6a55](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ebb6a55))
+* fix type of toast ID ([923c4e7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/923c4e7))
+* **pagedModal:** fix styling so title is centered only on paged modals ([9bef17a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9bef17a))
+* **pagedModal:** pass required isFullHeight prop to PagedModal ([a9b3f83](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a9b3f83))
+* **recordSelectionList:** pass back selected record ([619dc66](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/619dc66))
+
+
+
+
+
 ## [8.10.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.0...v8.10.1) (2019-01-04)
 
 **Note:** Version bump only for package @sprucelabs/react-heartwood-components

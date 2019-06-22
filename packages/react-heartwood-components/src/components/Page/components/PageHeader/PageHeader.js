@@ -27,6 +27,9 @@ export type PageHeaderProps = {
 	/** Props for Next router link: https://nextjs.org/docs/#routing. */
 	linkProps?: LinkProps,
 
+	/** Is the header collapsed? */
+	collapsed?: boolean,
+
 	/** Adds a button to the page header for its primary action. */
 	primaryAction?: ButtonProps,
 
@@ -42,15 +45,18 @@ export type PageHeaderProps = {
 
 const PageHeader = (props: PageHeaderProps) => {
 	const {
-		title,
+		backLinkComponent: RelativeBackLinkComponent = Link,
 		backLinkHref,
-		onClickBack,
 		backLinkText,
-		linkProps,
-		primaryAction,
-		tabs,
+		className,
+		collapsed = false,
 		hasBottomBorder,
-		sidebarExpander
+		linkProps,
+		onClickBack,
+		primaryAction,
+		sidebarExpander,
+		tabs,
+		title
 	} = props
 
 	const backLinkClass = 'page__header-back-link'
@@ -82,12 +88,12 @@ const PageHeader = (props: PageHeaderProps) => {
 			}
 			// Only return a Next link if the href is relative
 			anchor = linkIsRelative ? (
-				<Link href={backLinkHref} {...linkProps}>
+				<RelativeBackLinkComponent href={backLinkHref} {...linkProps}>
 					<a className={backLinkClass}>
 						{backIcon}
 						{backLinkText}
 					</a>
-				</Link>
+				</RelativeBackLinkComponent>
 			) : (
 				<a href={backLinkHref} className={backLinkClass}>
 					{backIcon}
@@ -99,14 +105,21 @@ const PageHeader = (props: PageHeaderProps) => {
 
 	return (
 		<header
-			className={cx('page__header', {
-				'page__header--has-bottom-border': hasBottomBorder,
-				'page__header--has-tabs': tabs && tabs.length > 0
-			})}
+			className={cx(
+				'page__header',
+				{
+					'page__header--is-collapsed': collapsed
+				},
+				className
+			)}
 		>
 			<div className="page__header-inner">
 				{anchor && anchor}
-				<div className="page__header-main">
+				<div
+					className={cx('page__header-main', {
+						'page__header-main--has-bottom-border': hasBottomBorder
+					})}
+				>
 					<div className="page__header-title-wrapper">
 						<h1>{title}</h1>
 						{sidebarExpander && (

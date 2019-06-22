@@ -10,107 +10,97 @@ module.exports = async (ctx: Object, next: Function) => {
 			throw new Error('INVALID_PAYLOAD')
 		}
 
-		// example destructering event and auth
-		// const {
-		// 	auth: { User, Location, Organization },
-		// 	event: {
-		// 		payload: { page, skillSlug /* , pageUserId, locationId */ }
-		// 	}
-		// }: {
-		// 	auth: { User?: Object, Location?: Object, Organization?: Object },
-		// 	event: {
-		// 		payload: {
-		// 			page: string,
-		// 			skillSlug?: string,
-		// 			pageUserId?: string,
-		// 			locationId?: string
-		// 		}
-		// 	}
-		// } = ctx
+		const {
+			/* auth: { User, Location, Organization }, */
+			event: {
+				payload: { page, skillSlug /* , pageUserId, locationId */ }
+			}
+		}: {
+			auth: { User?: Object, Location?: Object, Organization?: Object },
+			event: {
+				payload: {
+					page: string,
+					skillSlug?: string,
+					pageUserId?: string,
+					locationId?: string
+				}
+			}
+		} = ctx
 
 		const views = []
 		const host = `${config.INTERFACE_HOST}`
 
-		views.push({
-			id: 'uniqueId6',
-			title: 'Example Skill View',
-			host,
-			path: '/skill-views/example' // QUESTION: any reason to append the location here?
-		})
+		switch (page) {
+			case 'skill_settings_org':
+				if (skillSlug === config.SLUG) {
+					views.push({
+						id: 'uniqueId',
+						title: 'Example Skill Setting',
+						host,
+						path: '/skill-views/skill_settings_org'
+					})
+				}
 
-		// EXAMPLE HANDLING PAGE & PERMISSIONS
-		// switch (page) {
-		// 	case 'skill_settings_location':
-		// 	case 'skill_settings_org':
-		// 		if (skillSlug === config.SLUG) {
-		// 			views.push({
-		// 				id: 'uniqueId',
-		// 				title: 'Example Skill Setting',
-		// 				host,
-		// 				path: '/skill-views/skill_settings_org'
-		// 			})
-		// 		}
+				break
 
-		// 		break
+			case 'profile_user':
+				// TODO: guest and teammate profiles will differ
+				// what's the best way to handle this? In the view? or profile_{role}
 
-		// 	case 'profile_user':
-		// 		// TODO: guest and teammate profiles will differ
-		// 		// what's the best way to handle this? In the view? or profile_{role}
+				views.push({
+					id: 'uniqueId2',
+					title: 'Example User Profile',
+					host,
+					path: '/user/profile/'
+				})
+				break
+			case 'dashboard_user':
+				// TODO: guest and teammate dashboards will differ
+				// what's the best way to handle this? In the view? or dashboard_{role}
 
-		// 		views.push({
-		// 			id: 'uniqueId2',
-		// 			title: 'Example User Profile',
-		// 			host,
-		// 			path: '/skill-views/profile_user'
-		// 		})
-		// 		break
-		// 	case 'dashboard_user':
-		// 		// TODO: guest and teammate dashboards will differ
-		// 		// what's the best way to handle this? In the view? or dashboard_{role}
+				views.push({
+					id: 'uniqueId3',
+					title: 'Example User Dashboard',
+					host,
+					path: '/user/dashboard/'
+				})
+				break
+			case 'dashboard_location':
+				if (
+					!ctx.event.payload.locationId ||
+					!ctx.event.payload.organizationId
+				) {
+					throw new Error('MISSING_PARAMETERS')
+				}
+				views.push({
+					id: 'uniqueId4',
+					title: 'Example Location Dashboard',
+					host,
+					path: '/skill-views/dashboard_location'
+				})
+				break
 
-		// 		views.push({
-		// 			id: 'uniqueId3',
-		// 			title: 'Example User Dashboard',
-		// 			host,
-		// 			path: '/skill-views/dashboard_user'
-		// 		})
-		// 		break
-		// 	case 'dashboard_location':
-		// 		if (
-		// 			!ctx.event.payload.locationId ||
-		// 			!ctx.event.payload.organizationId
-		// 		) {
-		// 			throw new Error('MISSING_PARAMETERS')
-		// 		}
-		// 		views.push({
-		// 			id: 'uniqueId4',
-		// 			title: 'Example Location Dashboard',
-		// 			host,
-		// 			path: '/skill-views/dashboard_location'
-		// 		})
-		// 		break
+			case 'public_org':
+				// QUESTION: anything we need to change for public pages?
 
-		// 	case 'public_org':
-		// 		// QUESTION: anything we need to change for public pages?
+				views.push({
+					id: 'uniqueId5',
+					title: 'Example Public Org',
+					host,
+					path: '/o/' // QUESTION: any reason to append the org here?
+				})
+				break
+			case 'public_location':
+				// QUESTION: anything we need to change for public pages?
 
-		// 		views.push({
-		// 			id: 'uniqueId5',
-		// 			title: 'Example Public Org',
-		// 			host,
-		// 			path: '/skill-views/public_org'
-		// 		})
-		// 		break
-		// 	case 'public_location':
-		// 		// QUESTION: anything we need to change for public pages?
-
-		// 		views.push({
-		// 			id: 'uniqueId6',
-		// 			title: 'Example Public Location',
-		// 			host,
-		// 			path: '/skill-views/public_location'
-		// 		})
-		// 		break
-		// }
+				views.push({
+					id: 'uniqueId6',
+					title: 'Example Public Location',
+					host,
+					path: '/l/' // QUESTION: any reason to append the location here?
+				})
+				break
+		}
 
 		ctx.body = views
 

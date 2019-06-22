@@ -9,6 +9,7 @@ import {
 	number,
 	select
 } from '@storybook/addon-knobs/react'
+import moment from 'moment'
 import Button from '../Button/Button'
 import {
 	Autosuggest,
@@ -67,7 +68,8 @@ stories.addDecorator(withKnobs)
 stories
 	.add('Autosuggest', () => (
 		<Autosuggest
-			label={stringify('label', 'Country')}
+			alwaysRenderSuggestions={false}
+			label={text('label', 'Country')}
 			inputHelper={object('inputHelper', {
 				helper: 'We use this information to improve your shopping experience.'
 			})}
@@ -199,19 +201,22 @@ stories
 				id="option-one"
 				name="optionOne"
 				label={text('label: option one', 'Option One')}
-				postText={text('postText: option one', '')}
+				postText={text('postText: option one', 'Post text one')}
+				disabled={boolean('disabled: option one', false)}
 			/>
 			<Checkbox
 				id="option-two"
 				name="optionTwo"
 				label={text('label: option two', 'Option Two')}
-				postText={text('postText: option two', '')}
+				postText={text('postText: option two', 'Post text two')}
+				disabled={boolean('disabled: option two', false)}
 			/>
 			<Checkbox
 				id="option-three"
 				name="optionThree"
 				label={text('label: option three', 'Option Three')}
-				postText={text('postText: option three', '')}
+				postText={text('postText: option three', 'Post text three')}
+				disabled={boolean('disabled: option three', false)}
 				isIndeterminate
 			/>
 		</Fragment>
@@ -254,8 +259,14 @@ stories
 	))
 	.add('Select', () => (
 		<Fragment>
+			<p>
+				For controlled usage, default `value` to an empty-string in order to
+				display the placeholder.
+			</p>
+
 			<Select
 				label={text('label', 'Country')}
+				placeholder={text('placeholder', 'Select something...')}
 				id={text('id', 'country')}
 				options={object('options', {
 					us: 'United States',
@@ -280,6 +291,7 @@ stories
 			onSelectDateRange={({ startDate, endDate }) =>
 				console.log(startDate, endDate)
 			}
+			isDayBlocked={day => day.isBefore(moment().startOf('day'))}
 		/>
 	))
 	.add('Stars', () => <Stars />)

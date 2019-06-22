@@ -7,6 +7,8 @@
 
 .CalendarMonth_caption {
 	@include typescale('body');
+	font-family: $font-family-primary;
+	color: $c-text;
 	text-align: left;
 }
 
@@ -17,6 +19,9 @@
 
 .CalendarDay {
 	z-index: 1;
+	font-family: $font-family-primary;
+	font-weight: $font-weight-bold;
+	@include typescale('legal');
 
 	&:focus {
 		outline: none;
@@ -66,37 +71,38 @@
 	background: transparent;
 	color: $c-white;
 	border: none;
+
 	&.CalendarDay__today:before {
 		background-color: $c-white;
 	}
-}
 
-.CalendarDay__selected_start {
-	&:before {
-		background-color: rgba($c-primary, 0.5);
-		content: '';
-		display: block;
-		position: absolute;
-		height: 2rem;
-		width: 50%;
-		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: -1;
+	&.CalendarDay__selected_start {
+		&:before {
+			background-color: rgba($c-primary, 0.5);
+			content: '';
+			display: block;
+			position: absolute;
+			height: 2rem;
+			width: 50%;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			z-index: -1;
+		}
 	}
-}
-.CalendarDay__selected_end {
-	&:before {
-		background-color: rgba($c-primary, 0.5);
-		content: '';
-		display: block;
-		position: absolute;
-		height: 2rem;
-		width: 50%;
-		left: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		z-index: -1;
+	&.CalendarDay__selected_end {
+		&:before {
+			background-color: rgba($c-primary, 0.5);
+			content: '';
+			display: block;
+			position: absolute;
+			height: 2rem;
+			width: 50%;
+			left: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			z-index: -1;
+		}
 	}
 }
 
@@ -129,7 +135,11 @@
 	background-color: rgba($c-primary, 0.7);
 }
 
+.CalendarDay__blocked_calendar,
+.CalendarDay__blocked_calendar:active,
+.CalendarDay__blocked_calendar:hover,
 .CalendarDay__blocked_out_of_range,
+.CalendarDay__blocked_out_of_range:active,
 .CalendarDay__blocked_out_of_range:hover {
 	color: lighten($c-text-light, 20%);
 	background-color: $c-bg;
@@ -160,6 +170,8 @@
 	height: rem(36);
 	svg {
 		fill: $c-primary;
+		width: 1rem;
+		height: 1rem;
 	}
 
 	&:focus {

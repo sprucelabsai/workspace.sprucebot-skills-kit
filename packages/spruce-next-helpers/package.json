@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.10.1",
+	"version": "8.15.2",
 	"main": "lib/index.js",
 	"description": "Spruce Next.js helpers and utitlies",
 	"keywords": [
@@ -50,7 +50,7 @@
 		"@babel/preset-flow": "^7.0.0",
 		"@babel/preset-react": "^7.0.0",
 		"@babel/runtime": "^7.0.0",
-		"babel-core": "^7.0.0-bridge.0",
+		"babel-core": "7.0.0-bridge.0",
 		"babel-eslint": "8",
 		"babel-loader": "^8.0.0",
 		"babel-plugin-inline-react-svg": "^0.5.4",
@@ -63,15 +63,15 @@
 		"eslint-config-prettier": "^2.9.0",
 		"eslint-plugin-prettier": "^2.3.1",
 		"eslint-plugin-react": "^7.4.0",
-		"jest": "^22.0.5",
+		"jest": "^24.5.0",
 		"prettier": "^1.13",
 		"react-test-renderer": "^16.0.0"
 	},
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
-		"@sprucelabs/heartwood-components": "^8.10.1",
-		"@sprucelabs/react-heartwood-components": "^8.10.1",
+		"@sprucelabs/heartwood-components": "^8.15.2",
+		"@sprucelabs/react-heartwood-components": "^8.15.2",
 		"axios": "^0.18.0",
 		"classnames": "^2.2.5",
 		"cookies": "^0.7.3",

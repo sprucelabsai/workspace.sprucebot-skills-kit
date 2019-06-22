@@ -19,7 +19,7 @@ $event-indent-width: rem(50);
 		.icons svg {
 			fill: $iconColor;
 
-			&.u-icon__no-fill.u-icon__stroke {
+			&.icon--no-fill.icon--stroke {
 				stroke: $iconColor;
 				fill: none;
 			}

@@ -1,4 +1,4 @@
-const slider = document.getElementsByClassName('slider');
+const slider = document.getElementsByClassName('slider')
 
 for (let i = 0; i < slider.length; i++) {
 	slider[i].parentNode.classList.add('slider--split-color')

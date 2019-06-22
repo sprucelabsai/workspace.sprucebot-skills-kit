@@ -4,28 +4,34 @@
 	}
 
 	.tab {
+		flex: auto;
 		width: 100%;
 
 		&.tab--is-complete .btn__icon {
 			fill: $c-ui-success;
 
-			&.u-icon__no-fill.u-icon__stroke {
+			&.icon--no-fill.icon--stroke {
 				fill: none;
 				stroke: $c-ui-success;
 			}
 		}
 	}
 
+	.tab + .tab {
+		padding-left: 0;
+	}
+
 	.tab__inner.btn {
 		display: inline-block;
 		height: 100%;
-		padding: spacing('tight') spacing('base');
+		padding: spacing('tight') 0;
 		width: 100%;
 	}
 
 	.tab__inner .btn__text {
 		display: none;
 		margin: 0;
+		padding: 0 spacing('base');
 
 		@include gt('small') {
 			display: block;

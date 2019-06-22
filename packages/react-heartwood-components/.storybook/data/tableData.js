@@ -10,6 +10,15 @@ export const generateLocations = ({ amount }) => {
 			publicName: faker.company.companyName(),
 			storeNumber: faker.random.number(amount),
 			status: Math.floor(Math.random() * 2) == 0 ? 'Open' : 'Hidden',
+			schedule: [
+				{ id: uuidv1(), day: 'Monday', hours: '8am-5pm' },
+				{ id: uuidv1(), day: 'Tuesday', hours: '8am-5pm' },
+				{ id: uuidv1(), day: 'Wednesday', hours: 'Closed' },
+				{ id: uuidv1(), day: 'Thursday', hours: '8am-5pm' },
+				{ id: uuidv1(), day: 'Friday', hours: '8am-9pm' },
+				{ id: uuidv1(), day: 'Saturday', hours: '8am-9pm' },
+				{ id: uuidv1(), day: 'Sunday', hours: '8am-1pm' }
+			],
 			address:
 				faker.address.streetAddress() +
 				', ' +

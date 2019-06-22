@@ -26,7 +26,7 @@
 		"test": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node",
 		"test:update": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node -- -u",
 		"publish": "lerna publish --log-level=silly",
-		"clean": "rm -rf node_modules/ && rm -rf packages/react-sprucebot/node_modules/ && rm -rf packages/sprucebot-node/node_modules/ && rm -rf packages/sprucebot-skills-kit/node_modules/ && rm -rf packages/sprucebot-skills-kit-server/node_modules/",
+		"clean": "rm -rf node_modules/ && rm -rf packages/heartwood-components/node_modules/ && rm -rf packages/react-heartwood-components/node_modules/ && rm -rf packages/spruce-next-helpers/node_modules/ && rm -rf packages/spruce-node/node_modules/ && rm -rf packages/spruce-skill/node_modules/ && rm -rf packages/spruce-skill-server/node_modules/ && rm -rf packages/spruce-utils/node_modules/",
 		"build-statics": "npm run build-storybook",
 		"build-storybook": "cd packages/react-heartwood-components && npm run build-storybook",
 		"build-heartwood": "cd packages/heartwood-components && npm run build",
@@ -41,15 +41,19 @@
 		"heroku-postbuild": "yarn build"
 	},
 	"dependencies": {
-		"pm2": "^2.10.1"
+		"eslint": "^5.0.0",
+		"pm2": "^2.10.1",
+		"prettier": "^1.16.4",
+		"sqlite3": "^4.0.4",
+		"typescript": "^3.3.3333",
+		"graphql": "^14.2.0"
 	},
 	"devDependencies": {
-		"commitizen": "^2.9.6",
+		"commitizen": "^3.0.7",
 		"conventional-changelog-sprucelabs": "^1.1.0",
 		"flow-bin": "^0.92.1",
 		"husky": "^0.14.3",
-		"lerna": "^3.2.1",
-		"npm-utils": "^2.0.3"
+		"lerna": "^3.2.1"
 	},
 	"config": {
 		"commitizen": {

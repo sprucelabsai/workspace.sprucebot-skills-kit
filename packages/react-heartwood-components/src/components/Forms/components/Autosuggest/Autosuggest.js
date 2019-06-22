@@ -1,5 +1,7 @@
 // @flow
 import React, { Component } from 'react'
+import { createPortal } from 'react-dom'
+import debounce from 'lodash/debounce'
 import { default as ReactAutosuggest } from 'react-autosuggest'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
@@ -35,7 +37,7 @@ export type Props = {
 	label?: string,
 
 	/** Text after label */
-	postLabel?: string,
+	postLabel?: string | Node,
 
 	/** Error text */
 	error?: string,
@@ -62,7 +64,12 @@ export type Props = {
 type State = {
 	value: string,
 	suggestions: Array<any>,
-	showClearButton: boolean
+	showClearButton: boolean,
+	containerPlacement: {
+		top: number,
+		left: number,
+		width: number
+	}
 }
 
 type ThemeProps = {
@@ -81,9 +88,14 @@ const theme = (props: ThemeProps) => ({
 })
 
 export default class Autosuggest extends Component<Props, State> {
+	domNodeRef = React.createRef()
+	autosuggestRef = React.createRef()
+
 	static defaultProps = {
 		defaultSuggestions: []
 	}
+
+	debouncedResize = debounce(() => this.handleWindowResize(), 500)
 
 	constructor(props: Props) {
 		super(props)
@@ -91,8 +103,71 @@ export default class Autosuggest extends Component<Props, State> {
 		this.state = {
 			value: props.defaultValue || '',
 			suggestions: this.props.defaultSuggestions || [],
-			showClearButton: false
+			showClearButton: false,
+			containerPlacement: {
+				top: 0,
+				left: 0,
+				width: 0
+			}
 		}
+	}
+
+	componentDidMount = () => {
+		this.getContainerPlacement()
+		if (typeof window !== 'undefined') {
+			window.addEventListener('resize', this.debouncedResize, false)
+		}
+	}
+
+	componentWillUnmount = () => {
+		if (typeof window !== 'undefined') {
+			window.removeEventListener('resize', this.debouncedResize, false)
+		}
+	}
+
+	getContainerPlacement = () => {
+		const input =
+			this.autosuggestRef &&
+			this.autosuggestRef.current &&
+			this.autosuggestRef.current.input
+
+		if (!document) {
+			return
+		}
+
+		// For scrollX and scrollY cross-browser compatibility
+		let docEl =
+			document.scrollingElement ||
+			document.documentElement ||
+			document.body.parentNode
+
+		const scrollX = (typeof docEl.scrollLeft === 'number'
+			? docEl
+			: document.body
+		).scrollLeft
+
+		const scrollY = (typeof docEl.scrollTop === 'number'
+			? docEl
+			: document.body
+		).scrollTop
+
+		if (!input) {
+			return
+		}
+
+		const inputPosition = input.getBoundingClientRect()
+
+		this.setState({
+			containerPlacement: {
+				top: inputPosition.y + inputPosition.height + scrollY,
+				left: inputPosition.x + scrollX,
+				width: inputPosition.width
+			}
+		})
+	}
+
+	handleWindowResize = () => {
+		this.getContainerPlacement()
 	}
 
 	onChange = (event: any, { newValue }: any) => {
@@ -113,9 +188,12 @@ export default class Autosuggest extends Component<Props, State> {
 		// May be async/passed by parent
 		const { getSuggestions } = this.props
 		const suggestions = await getSuggestions(value)
-		this.setState({
+		await this.setState({
 			suggestions: suggestions || []
 		})
+
+		this.getContainerPlacement()
+		this.scrollParentIfNeeded()
 	}
 
 	onSuggestionsClearRequested = () => {
@@ -123,6 +201,62 @@ export default class Autosuggest extends Component<Props, State> {
 		this.setState({
 			suggestions: defaultSuggestions
 		})
+	}
+
+	scrollParentIfNeeded = () => {
+		const autosuggestRef = this.autosuggestRef && this.autosuggestRef.current
+		const suggestionsContainer =
+			autosuggestRef && autosuggestRef.suggestionsContainer
+
+		const autosuggestInput =
+			autosuggestRef &&
+			autosuggestRef.autowhatever &&
+			autosuggestRef.autowhatever.input
+
+		if (
+			suggestionsContainer &&
+			autosuggestInput &&
+			this.domNodeRef &&
+			this.domNodeRef.current
+		) {
+			const overflowParent =
+				this.findOverflowParent(this.domNodeRef.current) || document.body
+			const overflowBox = overflowParent.getBoundingClientRect()
+			const overflowBoxBottom = overflowBox.top + overflowBox.height
+			const suggestionsBox = suggestionsContainer.getBoundingClientRect()
+			const suggestionsBottom = suggestionsBox.top + suggestionsBox.height
+
+			let isSmoothScrollSupported =
+				'scrollBehavior' in document.documentElement.style
+
+			if (suggestionsBottom > overflowBoxBottom) {
+				const inputTop = autosuggestInput.getBoundingClientRect().top
+				const scrollNode =
+					overflowParent === document.body ? window : overflowParent
+				if (isSmoothScrollSupported) {
+					scrollNode.scrollTo({
+						top: inputTop,
+						behavior: 'smooth'
+					})
+				} else {
+					scrollNode.scrollTo(0, inputTop)
+				}
+			}
+		}
+	}
+
+	findOverflowParent = node => {
+		if (node == null || typeof node === 'undefined' || node.nodeType !== 1) {
+			return null
+		}
+
+		const computedStyle = window.getComputedStyle(node)
+
+		if (computedStyle.overflow !== 'visible') {
+			return node
+		} else {
+			return this.findOverflowParent(node.parentNode)
+		}
 	}
 
 	handleClearInput = () => {
@@ -133,7 +267,12 @@ export default class Autosuggest extends Component<Props, State> {
 	}
 
 	render() {
-		const { value, suggestions, showClearButton } = this.state
+		const {
+			value,
+			suggestions,
+			showClearButton,
+			containerPlacement
+		} = this.state
 		const {
 			getSuggestionValue,
 			renderSuggestion,
@@ -167,15 +306,31 @@ export default class Autosuggest extends Component<Props, State> {
 		})
 
 		return (
-			<div className={parentClass}>
+			<div className={parentClass} ref={this.domNodeRef}>
 				{label && <InputPre label={label} id={id} postLabel={postLabel} />}
 				<div className={cx('autosuggest__wrapper', wrapperClassName)}>
 					<ReactAutosuggest
+						ref={this.autosuggestRef}
 						suggestions={suggestions}
 						onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
 						onSuggestionsClearRequested={this.onSuggestionsClearRequested}
 						getSuggestionValue={getSuggestionValue}
 						renderSuggestion={renderSuggestion}
+						renderSuggestionsContainer={({ containerProps, children }) => {
+							return createPortal(
+								<div
+									style={{
+										top: `${containerPlacement.top + 8}px`,
+										left: `${containerPlacement.left}px`,
+										width: `${containerPlacement.width}px`
+									}}
+									{...containerProps}
+								>
+									{children}
+								</div>,
+								document.body
+							)
+						}}
 						onSuggestionSelected={onSuggestionSelected}
 						inputProps={inputProps}
 						theme={theme({ isSmall })}

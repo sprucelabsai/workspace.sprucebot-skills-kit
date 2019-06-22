@@ -3,6 +3,125 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+## [8.15.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.0...v8.15.1) (2019-06-19)
+
+
+### Bug Fixes
+
+* EVENT_VERSION=1 eventId and retryId not passed through on ctx.event ([bf1a058](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bf1a058))
+
+
+
+
+
+# [8.15.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.14.0...v8.15.0) (2019-06-18)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+# [8.14.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.13.0...v8.14.0) (2019-06-14)
+
+
+### Bug Fixes
+
+* **graphql:** Use peer dependencies for graphql ([51e58fc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51e58fc))
+* ctx.sb.mutation was not properly calling api; add tests for ctx.sb.mutation and ctx.sb.query methods ([a914be3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a914be3))
+* debug not defined ([4ebde4a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4ebde4a))
+* default response for emits should be an empty array ([79e1293](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/79e1293))
+* event handler not getting called for v2 events ([26a59de](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/26a59de))
+* handle SpruceTest unable to be loaded and do not crash ([36b141f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/36b141f))
+* pass before options into beforeBase ([959e3a7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/959e3a7))
+* v1 mock should fetch location ([71a94f6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/71a94f6))
+
+
+### Features
+
+* ability to test event emit callbacks ([dc34519](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dc34519))
+* emit events w/ custom eventId and log incoming events ([ac5074d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ac5074d))
+* integrate new logger functionality ([e1c1e0c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e1c1e0c))
+* Make testing easier by moving sandbox and helpers into spruce-skill-server ([ee3d716](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ee3d716))
+* pass message type when creating messages and add tests ([cbed801](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cbed801))
+* pass sandbox into custom mocks ([1d55c6a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1d55c6a))
+* Run tests from spruce-skill-server ([835bb2a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/835bb2a))
+* support v1 authentication for tests ([b1e3358](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b1e3358))
+* The SDK is now exposing multiple orgs on the sandbox data for tests.  This will allow for more diverse tests during skills development and testing. ([c54af2b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c54af2b))
+
+
+### Refactoring
+
+* **NPM:** Update deps for audit prep, peer deps ([f3d0e29](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f3d0e29))
+
+
+
+
+
+# [8.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.12.0...v8.13.0) (2019-03-20)
+
+
+### Bug Fixes
+
+* linting and unnecessary code ([24a0b82](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/24a0b82))
+* set mock server before running skill sync ([5e320a9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5e320a9))
+
+
+### Features
+
+* better error logging / debugging messages; cleanup unused / old code ([5d66f51](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5d66f51))
+* implement GQL Relay ([6119e04](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6119e04))
+* override gql connections ([bde8149](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bde8149))
+
+
+
+
+
+# [8.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.11.0...v8.12.0) (2019-02-27)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill-server
+
+
+
+
+
+# [8.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.1...v8.11.0) (2019-02-19)
+
+
+### Bug Fixes
+
+* add missing ioredis package to spruce-skill-server; fix reference to redis in gql subscription server ([bcefde3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bcefde3))
+* await next() in auth middleware ([244c7ea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/244c7ea))
+
+
+### Features
+
+* add koa.context to GraphQLSubscriptionServer subscription context ([5f7ac4d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5f7ac4d))
+* attach locationId, organizationId, and jwt to authV2 ([ebc50ef](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ebc50ef))
+* Implement upload service for images along with example upload controller and Dropzone integration ([1b396f3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1b396f3))
+* integrate gql client ([4cb714f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4cb714f))
+* organization and location gql ([e18d641](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e18d641))
+* pass ctx to sequelize models ([e298ae6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e298ae6))
+* redis pubsub ([ba552f4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ba552f4))
+* setToken for gql so auth does not need to be passed with each request ([f33be7b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f33be7b))
+* Streamline builds and testing ([ea635b7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ea635b7))
+* subscriptions from skill to external graphql server ([7524b32](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7524b32))
+* uploads service method to delete file items ([5aa25ca](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5aa25ca))
+* validate skill settings ([230082f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/230082f))
+* view version ([1a758ef](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1a758ef))
+
+
+
+
+
 ## [8.10.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.0...v8.10.1) (2019-01-04)
 
 **Note:** Version bump only for package @sprucelabs/spruce-skill-server

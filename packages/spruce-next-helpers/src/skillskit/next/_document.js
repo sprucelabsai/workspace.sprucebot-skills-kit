@@ -1,10 +1,19 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
+import getConfig from 'next/config'
+import cx from 'classnames'
+import { get } from 'lodash'
+
 const debug = require('debug')('@sprucelabs/spruce-next-helpers')
+const { publicRuntimeConfig } = getConfig()
 
 export default class MyDocument extends Document {
 	static async getInitialProps({ renderPage, query, store }) {
-		const page = renderPage(App => props => <App {...props} />)
+		let initialPageProps: Object
+		const page = renderPage(App => props => {
+			initialPageProps = props.initialProps
+			return <App {...props} />
+		})
 		// Store is undefined when hmr is the first
 		// request the server sees after boot
 		// Ideally store is always defined.
@@ -29,22 +38,31 @@ export default class MyDocument extends Document {
 			orgWhitelabel = auth.Location.Organization.whiteLabellingStylesheetUrl
 		}
 
-		return { ...page, whitelabel, auth, config, orgWhitelabel }
+		return {
+			...page,
+			...initialPageProps,
+			whitelabel,
+			auth,
+			config,
+			orgWhitelabel
+		}
 	}
 
 	render() {
 		let bodyClassName =
-			this.props.config && this.props.config.SLUG
-				? `skill-${this.props.config.SLUG}`
+			publicRuntimeConfig && publicRuntimeConfig.SLUG
+				? `skill-${publicRuntimeConfig.SLUG}`
 				: ''
+
+		const { renderLocation } = this.props
 
 		return (
 			<html className={`skill ${bodyClassName}`}>
 				<Head>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
-					{this.props.config && this.props.config.SKILL_STYLESHEET && (
+					{publicRuntimeConfig && publicRuntimeConfig.SKILL_STYLESHEET && (
 						<link
-							href={this.props.config.SKILL_STYLESHEET}
+							href={publicRuntimeConfig.SKILL_STYLESHEET}
 							rel="stylesheet"
 							type="text/css"
 							charSet="UTF-8"
@@ -67,7 +85,11 @@ export default class MyDocument extends Document {
 						/>
 					)}
 				</Head>
-				<body className={bodyClassName}>
+				<body
+					className={cx(bodyClassName, {
+						[`render-location-${renderLocation}`]: renderLocation !== null
+					})}
+				>
 					<Main />
 					<NextScript />
 				</body>

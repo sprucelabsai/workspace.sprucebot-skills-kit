@@ -2,10 +2,13 @@
 // Uses React Table. See https://react-table.js.org/#/story/readme details.
 import React, { Component, Fragment } from 'react'
 import ReactTable from 'react-table'
+import { CSSTransition } from 'react-transition-group'
 import cx from 'classnames'
 import { Checkbox } from '../Forms'
-import Pagination from '../Pagination/Pagination'
 import Icon from '../Icon/Icon'
+import Card from '../Card/Card'
+import Pagination from '../Pagination/Pagination'
+import EmptyState from '../EmptyState/EmptyState'
 import ContextMenu from '../ContextMenu/ContextMenu'
 import type { Props as ButtonProps } from '../Button/Button'
 import type { Props as PaginationProps } from '../Pagination/Pagination'
@@ -48,7 +51,27 @@ type Props = {
 	onClickRow?: (e: MouseEvent, meta: { idx: number, item: Object }) => void,
 
 	/** Callback when selection changes */
-	onSelection?: ({ selectedIds: Array<string | number> }) => void
+	onSelection?: ({ selectedIds: Array<string | number> }) => void,
+
+	/** No data available */
+	noDataIcon?: string,
+	noDataHeadline?: string,
+	noDataSubheadline?: string,
+	noDataPrimaryAction?: PrimaryAction,
+	noDataPrimaryActionButtonKind?: string,
+	noDataPrimaryActionButtonIcon?: string,
+
+	/** Return a nested sub-component to be added as an expansion level for designated row. */
+	subComponentForRow?: (row: Object) => any,
+
+	/** Called any time row props are updated. Return true if the given row should appear dirty. */
+	rowIsDirty?: (row: Object) => boolean
+}
+
+type PrimaryAction = {
+	text: string,
+	onClick: (e: MouseEvent) => void,
+	type: string
 }
 
 type State = {
@@ -62,11 +85,17 @@ export default class Table extends Component<Props, State> {
 	static defaultProps = {
 		className: '',
 		paginationProps: {},
-		isSelectable: false
+		isSelectable: false,
+		noDataIcon: 'empty_box',
+		noDataHeadline: 'Nothing to see here',
+		noDataPrimaryAction: null,
+		noDataPrimaryActionButtonKind: 'simple',
+		noDataPrimaryActionButtonIcon: null
 	}
 
 	constructor(props: Props) {
 		super(props)
+
 		this.state = {
 			selectedIds: props.initialSelectedIds || [],
 			allRowsSelected: false
@@ -150,8 +179,17 @@ export default class Table extends Component<Props, State> {
 			pluralKind,
 			bulkActions,
 			sortable,
+			noDataIcon,
+			noDataHeadline,
+			noDataSubheadline,
+			noDataPrimaryAction,
+			noDataPrimaryActionButtonKind,
+			noDataPrimaryActionButtonIcon,
+			subComponentForRow,
+			rowIsDirty,
 			...rest
 		} = this.props
+
 		const { selectedIds } = this.state
 
 		let columnsToRender = [...columns]
@@ -238,6 +276,12 @@ export default class Table extends Component<Props, State> {
 				columns={columnsToRender}
 				className={cx('table', className)}
 				sortable={isSelectable && selectedIds.length > 0 ? false : sortable}
+				expanderDefaults={{
+					sortable: false,
+					resizable: false,
+					filterable: false,
+					width: 40
+				}}
 				getTableProps={() => ({
 					className: 'table__inner'
 				})}
@@ -256,18 +300,42 @@ export default class Table extends Component<Props, State> {
 					}),
 					width: 'auto'
 				})}
-				getTrProps={() => ({
-					className: 'table-row',
-					onClick: this.handleClickRow
-				})}
+				getTrGroupProps={(state, rowInfo) => {
+					const expanded = state.expanded[rowInfo.viewIndex]
+					const isDirty =
+						(typeof rowIsDirty === 'function' && !!rowIsDirty(rowInfo)) ||
+						rowInfo.original.isDirty
+
+					return {
+						className: cx('table-row-group', {
+							'table-row-group--expanded': expanded,
+							'table-row-group--is-dirty': isDirty
+						})
+					}
+				}}
+				getTrProps={(state, rowInfo) => {
+					const expanded = state.expanded[rowInfo.viewIndex]
+					const isDirty =
+						(typeof rowIsDirty === 'function' && !!rowIsDirty(rowInfo)) ||
+						rowInfo.original.isDirty
+
+					return {
+						className: cx('table-row', {
+							'table-row--expanded': expanded,
+							'table-row--is-dirty': isDirty
+						}),
+						onClick: this.handleClickRow
+					}
+				}}
 				getTdProps={(state, rowInfo, column) => ({
 					className: cx('table-cell', {
-						'table-checkbox-cell': column.id === 'checkbox'
+						'table-checkbox-cell': column.id === 'checkbox',
+						'table-expander-cell': column.expander
 					}),
 					width: 'auto'
 				})}
 				getPaginationProps={() => ({
-					className: 'table__paginationq'
+					className: 'table__pagination'
 				})}
 				getLoadingProps={state => {
 					return {
@@ -276,7 +344,37 @@ export default class Table extends Component<Props, State> {
 							: 'table-loader'
 					}
 				}}
-				getNoDataProps={() => ({ className: 'table__no-results-message ' })}
+				getNoDataProps={() => ({
+					icon: noDataIcon,
+					headline: noDataHeadline,
+					subheadline: noDataSubheadline,
+					primaryAction: noDataPrimaryAction,
+					primaryActionButtonKind: noDataPrimaryActionButtonKind,
+					primaryActionButtonIcon: noDataPrimaryActionButtonIcon
+				})}
+				SubComponent={
+					subComponentForRow
+						? row => (
+								<CSSTransition
+									in={true}
+									appear={true}
+									classNames="table-subcomponent"
+									timeout={100}
+								>
+									<div className={'table-subcomponent'}>
+										<Card>{subComponentForRow(row)}</Card>
+									</div>
+								</CSSTransition>
+						  )
+						: null
+				}
+				NoDataComponent={EmptyState}
+				ExpanderComponent={
+					<Icon
+						icon={'keyboard_arrow_right'}
+						className={'table-expander-row'}
+					/>
+				}
 				ThComponent={tableProps => {
 					const { toggleSort, className, ...rest } = tableProps
 					const isSortable =
@@ -313,8 +411,7 @@ export default class Table extends Component<Props, State> {
 					)
 				}}
 				PaginationComponent={tableProps =>
-					tableProps.page === 0 &&
-					tableProps.data.length <= tableProps.pageSize ? null : (
+					tableProps.page === 0 && totalRows <= tableProps.pageSize ? null : (
 						<div className="table-pagination__wrapper">
 							<Pagination {...paginationProps} {...tableProps} />
 						</div>

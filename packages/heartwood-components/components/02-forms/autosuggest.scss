@@ -4,13 +4,8 @@
 
 .autosuggest {
 	display: none;
-	// display: block;
 	position: absolute;
-	top: 100%;
-	left: 0;
-	width: 100%;
-	max-height: rem(200);
-	z-index: 1;
+	z-index: 10;
 	overflow: scroll;
 	background-color: $c-bg-light;
 	border: 1px solid $c-border;
@@ -19,6 +14,7 @@
 
 	&.autosuggest--show-suggestions {
 		display: block;
+		max-height: rem(200);
 	}
 }
 
@@ -30,6 +26,7 @@
 	}
 }
 
+.autosuggest__list li[aria-selected='true'],
 .autosuggest__list-item-inner:hover {
 	background-color: $c-bg;
 }

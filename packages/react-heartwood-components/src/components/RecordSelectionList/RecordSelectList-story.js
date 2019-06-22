@@ -1,15 +1,15 @@
 // @flow
 import React, { Component } from 'react'
-import { sampleSize } from 'lodash'
+import { map, sampleSize } from 'lodash'
 import { storiesOf } from '@storybook/react'
-import { withKnobs } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 import RecordSelectionListItem from '../RecordSelectionList/RecordSelectionListItem'
-// import Modal from '../Modal/Modal'
-// import Button from '../Button/Button'
-import { select } from '@storybook/addon-knobs'
+import Modal from '../Modal/Modal'
+import Button from '../Button/Button'
+import Card, { CardHeader, CardBody } from '../Card'
 
 const stories = storiesOf('RecordSelectionList', module)
 
@@ -18,7 +18,10 @@ stories.addDecorator(withKnobs)
 type Props = {
 	canSelect?: 'many' | 'one',
 	canRemove: boolean,
-	locations: Array<Object>
+	locations: Array<Object>,
+	totalRecordCount: number,
+	virtualHeight?: string,
+	maxRowsVisible?: number | 'auto'
 }
 
 type State = {
@@ -50,11 +53,17 @@ class BasicExample extends Component<Props, State> {
 	}
 
 	render() {
-		const { canSelect, canRemove } = this.props
+		const {
+			canSelect,
+			canRemove,
+			totalRecordCount,
+			virtualHeight,
+			maxRowsVisible
+		} = this.props
 		const { selectedIds, locations, unselectableIds } = this.state
-
 		return (
 			<RecordSelectionList
+				canSearch
 				selectedIds={selectedIds}
 				unselectableIds={unselectableIds}
 				loadRecords={async ({ limit, offset, search }) => {
@@ -69,7 +78,7 @@ class BasicExample extends Component<Props, State> {
 
 					if (search) {
 						const filteredLocations = locations.filter(location => {
-							return location.publicName.match(new RegExp(search, 'ig'))
+							return location.node.publicName.match(new RegExp(search, 'ig'))
 						})
 
 						results = filteredLocations.slice(offset, offset + limit)
@@ -83,15 +92,15 @@ class BasicExample extends Component<Props, State> {
 
 					return results
 				}}
+				getRecordId={record => record.node.id}
 				renderRecord={record => (
 					<RecordSelectionListItem
-						id={record.id}
-						title={record.publicName}
-						subtitle={record.address}
-						icon={{ name: 'location', isLineIcon: true }}
-						isDisabled={unselectableIds.indexOf(record.id) >= 0}
+						id={record.node.id}
+						title={record.node.publicName}
+						subtitle={record.node.address}
+						isDisabled={unselectableIds.indexOf(record.node.id) >= 0}
 						note={
-							unselectableIds.indexOf(record.id) >= 0 &&
+							unselectableIds.indexOf(record.node.id) >= 0 &&
 							'Location already in group!'
 						}
 					/>
@@ -123,18 +132,54 @@ class BasicExample extends Component<Props, State> {
 						locations: locations.filter(location => location.id !== id)
 					})
 				}}
+				totalRecordCount={totalRecordCount}
+				virtualHeight={virtualHeight}
+				maxRowsVisible={
+					maxRowsVisible && maxRowsVisible !== 'auto'
+						? parseInt(maxRowsVisible, 10)
+						: maxRowsVisible
+				}
 			/>
 		)
 	}
 }
 
-stories.add('Default', () => (
-	<BasicExample
-		canSelect={select('Can Select', [null, 'many', 'one'], null)}
-		canRemove={select('Can Remove', [true, false], false)}
-		locations={generateLocations({ amount: 100 })}
-	/>
-))
+stories
+	.add('In a Card', () => (
+		<div style={{ width: '320px', padding: '8px' }}>
+			<Card>
+				<CardHeader title="Card Title" />
+				<CardBody>
+					<BasicExample
+						canSelect={select('Can Select', [null, 'many', 'one'], null)}
+						canRemove={boolean('Can Remove', false)}
+						locations={map(generateLocations({ amount: 5 }), o => ({
+							node: { ...o }
+						}))}
+						totalRecordCount={5}
+						maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'])}
+					/>
+					<Button text="Show me all the things" kind="simple" />
+				</CardBody>
+			</Card>
+		</div>
+	))
+	.add('In a Modal', () => (
+		<Modal isOpen onAfterOpen={() => null} onRequestClose={() => null}>
+			<Modal.Header title="Modal title" onRequestClose={() => null} />
+			<Modal.Body>
+				<BasicExample
+					canSelect={select('Can Select', [null, 'many', 'one'], 'many')}
+					canRemove={boolean('Can Remove', true)}
+					locations={map(generateLocations({ amount: 100 }), o => ({
+						node: { ...o }
+					}))}
+					totalRecordCount={100}
+					maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'])}
+				/>
+			</Modal.Body>
+		</Modal>
+	))
 
 // class WithModalExample extends Component<Props, State> {
 // 	state = {

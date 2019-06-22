@@ -1,3 +1,7 @@
+
+$easeOutBounce: cubic-bezier(0.6, 0.6, 0.7, 1.4);
+$expandDuration: 0.2s;
+
 .table {
 	.context-menu {
 		@include type-style-body-sm;
@@ -37,8 +41,62 @@
 	border-bottom: 1px solid $c-border-light;
 }
 
+.table-expander-cell {
+	cursor: pointer;
+}
+
+.table-expander-row {
+	transition: transform $expandDuration $easeOutBounce;
+}
+
+.table-row-group {
+	background-color: $c-white;
+	border-left-color: transparent;
+	transition: background-color $expandDuration ease-out, border-left-width 0.1s ease-out, border-left-color $expandDuration $easeOutBounce 0.1s;
+}
+
+.table-row-group.table-row-group--is-dirty {
+	border-left: 2px solid rgba($c-primary, 0.5);
+}
+
+.table-row-group.table-row-group--expanded {
+	background-color: rgba($c-primary-light, 0.05);
+	
+	> .table-row {
+		border-bottom: none;
+	}
+
+	> .table-row > .table-cell > .table-expander-row {
+		transform: rotate(90deg);
+	}
+
+	> .table-subcomponent-enter-done > .card {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+
+	+ .table-row-group:not(.table-row-group--expanded) {
+		> .table-row {
+			border-top: 1px solid $c-border-light;
+		}
+	}
+}
+
+
+
+.table-subcomponent {
+	padding: 0 spacing('loose') spacing('loose');
+
+	.card {
+		opacity: 0;
+		transform: translate(0, 0.5rem);
+		transition: opacity $expandDuration ease-out 0.05s, transform $expandDuration $easeOutBounce;;
+	}
+}
+
 .table-cell,
 .table-header-cell {
+	display: flex;
 	width: 100%;
 
 	&:first-child {
@@ -124,9 +182,7 @@
 }
 
 .table-pagination__wrapper {
-	padding-top: spacing('base');
-	padding-right: spacing('base');
-	padding-left: spacing('base');
+	padding: spacing('base');
 }
 
 .table-loader,
@@ -136,7 +192,5 @@
 
 .table__no-results-message {
 	@include type-style-body-sm;
-	padding-top: spacing('base');
-	padding-right: spacing('base');
-	padding-left: spacing('base');
+	padding: spacing('base');
 }
