@@ -9,14 +9,14 @@ import {
 } from '@storybook/addon-knobs/react'
 import Wrapper from './Wrapper'
 
-import { setOptions } from '@storybook/addon-options'
-import { withInfo } from '@storybook/addon-info'
+// import { setOptions } from '@storybook/addon-options'
+// import { withInfo } from '@storybook/addon-info'
 
-setOptions({
-	name: 'Heartwood React Components',
-	url:
-		'https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/tree/dev/packages/react-sprucebot'
-})
+// setOptions({
+// 	name: 'Heartwood React Components',
+// 	url:
+// 		'https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/tree/dev/packages/react-sprucebot'
+// })
 
 addDecorator(story => {
 	if (
@@ -33,11 +33,11 @@ addDecorator(story => {
 	)
 })
 
-addDecorator(
-	withInfo({
-		inline: false
-	})
-)
+// addDecorator(
+// 	withInfo({
+// 		inline: false
+// 	})
+// )
 
 function loadStories() {
 	const req = require.context('../src/components', true, /\-story\.js$/)

@@ -89,11 +89,11 @@ const messageJSON = {
 
 const stories = storiesOf('Message', module)
 
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 
 stories.addDecorator(story => (
 	<Page>

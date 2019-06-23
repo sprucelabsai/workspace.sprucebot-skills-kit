@@ -161,11 +161,11 @@ const cardJSON4 = {
 
 const stories = storiesOf('Card', module)
 
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 
 stories.addDecorator(story => (
 	<Page>

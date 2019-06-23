@@ -9,69 +9,139 @@
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-module.exports = {
-	plugins: [
-		// your custom plugins
-		new MiniCssExtractPlugin('style.css'),
-		new webpack.DefinePlugin({
-			'process.env': {
-				STYLESHEETS: JSON.stringify(process.env.STYLESHEETS)
-			}
-		})
-	],
-	resolve: {
-		extensions: ['.js', '.jsx', '.ts', '.tsx']
-	},
-	module: {
-		rules: [
-			// add your custom rules.
-			{
-				test: /\.(ts|tsx)$/,
-				use: [
-					{
-						loader: require.resolve('awesome-typescript-loader')
-					}
-				]
-			},
-			{
-				test: /\.s(a|c)ss$/,
-				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-			},
-			{
-				test: /\.css$/,
-				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-			},
-			{
-				test: /.*\.(gif|png|jpe?g)$/i,
-				use: [
-					{
-						loader: 'file-loader',
-						options: {
-							hash: 'sha512',
-							digest: 'hex',
-							name: '[hash].[ext]'
+module.exports = ({ config, mode }) => {
+	return {
+		...config,
+		plugins: [
+			...config.plugins,
+			new MiniCssExtractPlugin('style.css'),
+			new webpack.DefinePlugin({
+				'process.env': {
+					STYLESHEETS: JSON.stringify(process.env.STYLESHEETS)
+				}
+			})
+		],
+		resolve: {
+			extensions: [...config.resolve.extensions, '.js', '.jsx', '.ts', '.tsx']
+		},
+		module: {
+			rules: [
+				...config.module.rules,
+				{
+					test: /\.(ts|tsx)$/,
+					use: [
+						{
+							loader: require.resolve('awesome-typescript-loader')
 						}
-					},
-					{
-						loader: 'image-webpack-loader',
-						query: {
-							pngquant: {
-								quality: '65-90',
-								speed: 4
-							},
-							mozjpeg: {
-								quality: 65
-							},
-							gifsicle: {
-								interlaced: false
-							},
-							optipng: {
-								optimizationLevel: 4
+					]
+				},
+				{
+					test: /\.s(a|c)ss$/,
+					use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+				},
+				{
+					test: /\.css$/,
+					use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+				},
+				{
+					test: /.*\.(gif|png|jpe?g)$/i,
+					use: [
+						{
+							loader: 'file-loader',
+							options: {
+								hash: 'sha512',
+								digest: 'hex',
+								name: '[hash].[ext]'
+							}
+						},
+						{
+							loader: 'image-webpack-loader',
+							query: {
+								pngquant: {
+									quality: '65-90',
+									speed: 4
+								},
+								mozjpeg: {
+									quality: 65
+								},
+								gifsicle: {
+									interlaced: false
+								},
+								optipng: {
+									optimizationLevel: 4
+								}
 							}
 						}
-					}
-				]
-			}
-		]
+					]
+				}
+			]
+		}
 	}
 }
+
+// module.exports = {
+// 	plugins: [
+// 		// your custom plugins
+// 		new MiniCssExtractPlugin('style.css'),
+// 		new webpack.DefinePlugin({
+// 			'process.env': {
+// 				STYLESHEETS: JSON.stringify(process.env.STYLESHEETS)
+// 			}
+// 		})
+// 	],
+// 	resolve: {
+// 		extensions: ['.js', '.jsx', '.ts', '.tsx']
+// 	},
+// 	module: {
+// 		rules: [
+// 			// add your custom rules.
+// 			{
+// 				test: /\.(ts|tsx)$/,
+// 				use: [
+// 					{
+// 						loader: require.resolve('awesome-typescript-loader')
+// 					}
+// 				]
+// 			},
+// 			{
+// 				test: /\.s(a|c)ss$/,
+// 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+// 			},
+// 			{
+// 				test: /\.css$/,
+// 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+// 			},
+// 			{
+// 				test: /.*\.(gif|png|jpe?g)$/i,
+// 				use: [
+// 					{
+// 						loader: 'file-loader',
+// 						options: {
+// 							hash: 'sha512',
+// 							digest: 'hex',
+// 							name: '[hash].[ext]'
+// 						}
+// 					},
+// 					{
+// 						loader: 'image-webpack-loader',
+// 						query: {
+// 							pngquant: {
+// 								quality: '65-90',
+// 								speed: 4
+// 							},
+// 							mozjpeg: {
+// 								quality: 65
+// 							},
+// 							gifsicle: {
+// 								interlaced: false
+// 							},
+// 							optipng: {
+// 								optimizationLevel: 4
+// 							}
+// 						}
+// 					}
+// 				]
+// 			}
+// 		]
+// 	}
+// }

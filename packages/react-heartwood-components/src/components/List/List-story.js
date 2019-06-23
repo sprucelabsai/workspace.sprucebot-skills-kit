@@ -79,11 +79,11 @@ class TabbedList extends Component<TabbedProps, TabbedState> {
 	}
 }
 
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 
 stories.addDecorator(withKnobs)
 
