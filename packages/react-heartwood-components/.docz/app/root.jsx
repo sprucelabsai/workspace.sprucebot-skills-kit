@@ -5,7 +5,7 @@ import Theme from 'docz-theme-default'
 
 import { imports } from './imports'
 import database from './db.json'
-import Wrapper from 'DoczWrapper'
+import Wrapper from 'docz/DoczWrapper'
 
 const Root = () => {
   useDataServer('ws://127.0.0.1:60505')

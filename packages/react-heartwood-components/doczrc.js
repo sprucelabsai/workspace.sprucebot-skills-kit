@@ -1,5 +1,11 @@
 export default {
-	wrapper: 'DoczWrapper',
+	wrapper: 'docz/DoczWrapper',
+	// theme: 'docz/theme',
+	themeConfig: {
+		colors: {
+			primary: '#1953cb'
+		}
+	},
 	menu: [
 		{
 			name: 'Buttons',

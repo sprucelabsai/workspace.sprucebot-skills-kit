@@ -16,11 +16,27 @@
     "repository": null,
     "native": false,
     "codeSandbox": true,
-    "themeConfig": {},
+    "themeConfig": {
+      "colors": {
+        "blue": "#1953cb",
+        "primary": "#1953cb"
+      }
+    },
     "separator": "-",
-    "wrapper": "DoczWrapper"
+    "wrapper": "docz/DoczWrapper"
   },
   "props": [
+    {
+      "key": "docz/DoczWrapper.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "DoczWrapper",
+          "methods": [],
+          "actualName": "DoczWrapper"
+        }
+      ]
+    },
     {
       "key": "src/components/Avatar/UserAvatar.js",
       "value": [
@@ -6896,6 +6912,17 @@
       ]
     },
     {
+      "key": "src/components/BigCalendar/components/TimeLine/TimeLine.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TimeLine",
+          "methods": [],
+          "actualName": "TimeLine"
+        }
+      ]
+    },
+    {
       "key": "src/components/BigCalendar/components/Views/Day.js",
       "value": [
         {
@@ -7755,17 +7782,6 @@
       ]
     },
     {
-      "key": "src/components/Core/components/FooterPrimary/FooterPrimary.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FooterPrimary",
-          "methods": [],
-          "actualName": "FooterPrimary"
-        }
-      ]
-    },
-    {
       "key": "src/components/Core/components/FeedBuilder/FeedBuilder.js",
       "value": [
         {
@@ -7873,6 +7889,17 @@
               }
             }
           }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/FooterPrimary/FooterPrimary.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FooterPrimary",
+          "methods": [],
+          "actualName": "FooterPrimary"
         }
       ]
     },
@@ -8386,79 +8413,6 @@
       ]
     },
     {
-      "key": "src/components/Forms/components/Checkbox/Checkbox.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Checkbox",
-          "methods": [
-            {
-              "name": "handleChange",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "e",
-                  "type": null
-                }
-              ],
-              "returns": null
-            }
-          ],
-          "actualName": "Checkbox",
-          "props": {
-            "id": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Unique identifier"
-            },
-            "label": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Input label and text after checkbox icon"
-            },
-            "postText": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional text to show below the label"
-            },
-            "className": {
-              "required": true,
-              "flowType": {
-                "name": "string",
-                "nullable": true
-              },
-              "description": "Class for the checkbox wrapper"
-            },
-            "isIndeterminate": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true if the checkbox is indeterminate",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "onChange": {
-              "required": false,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Optional onChange callback"
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Forms/components/Autosuggest/Autosuggest.js",
       "value": [
         {
@@ -8754,6 +8708,79 @@
                 "name": "boolean"
               },
               "description": "disable this input"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/components/Checkbox/Checkbox.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Checkbox",
+          "methods": [
+            {
+              "name": "handleChange",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "Checkbox",
+          "props": {
+            "id": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Unique identifier"
+            },
+            "label": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Input label and text after checkbox icon"
+            },
+            "postText": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional text to show below the label"
+            },
+            "className": {
+              "required": true,
+              "flowType": {
+                "name": "string",
+                "nullable": true
+              },
+              "description": "Class for the checkbox wrapper"
+            },
+            "isIndeterminate": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true if the checkbox is indeterminate",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "onChange": {
+              "required": false,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Optional onChange callback"
             }
           }
         }
@@ -9476,17 +9503,6 @@
       ]
     },
     {
-      "key": "src/components/BigCalendar/components/TimeLine/TimeLine.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TimeLine",
-          "methods": [],
-          "actualName": "TimeLine"
-        }
-      ]
-    },
-    {
       "key": "src/components/Forms/components/Search/Search.js",
       "value": [
         {
@@ -9934,6 +9950,40 @@
       ]
     },
     {
+      "key": "src/components/Forms/components/Toggle/Toggle.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Toggle",
+          "methods": [],
+          "actualName": "Toggle",
+          "props": {
+            "id": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Unique identifier"
+            },
+            "className": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional class"
+            },
+            "postText": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Text after the toggle"
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Layout/components/LayoutSection/LayoutSection.js",
       "value": [
         {
@@ -9966,40 +10016,6 @@
                 "value": "false",
                 "computed": false
               }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Forms/components/Toggle/Toggle.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Toggle",
-          "methods": [],
-          "actualName": "Toggle",
-          "props": {
-            "id": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Unique identifier"
-            },
-            "className": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional class"
-            },
-            "postText": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Text after the toggle"
             }
           }
         }
@@ -10331,6 +10347,112 @@
       ]
     },
     {
+      "key": "src/components/Modal/components/ModalBody/ModalBody.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalBody",
+          "methods": [],
+          "actualName": "ModalBody",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Modal children"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional class name"
+            },
+            "height": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional height of body"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Modal/components/ModalFooter/ModalFooter.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalFooter",
+          "methods": [],
+          "actualName": "ModalFooter",
+          "props": {
+            "primaryAction": {
+              "required": true,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": "The primary action in the footer"
+            },
+            "secondaryAction": {
+              "required": false,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": "Optional secondary action"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Modal/components/ModalHeader/ModalHeader.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalHeader",
+          "methods": [],
+          "actualName": "ModalHeader",
+          "props": {
+            "title": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Title text"
+            },
+            "isPaginated": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Whether this is a paged modal. Title will center on pages",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "onRequestClose": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Callback to close the modal"
+            },
+            "onClickBack": {
+              "required": false,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Function to handle navigating backwards in a modal"
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Page/components/PageContent/PageContent.js",
       "value": [
         {
@@ -10458,108 +10580,42 @@
       ]
     },
     {
-      "key": "src/components/Modal/components/ModalBody/ModalBody.js",
+      "key": "src/components/Table/components/TableFilters/TableFilters.js",
       "value": [
         {
           "description": "",
-          "displayName": "ModalBody",
+          "displayName": "TableFilters",
           "methods": [],
-          "actualName": "ModalBody",
+          "actualName": "TableFilters",
           "props": {
-            "children": {
+            "filters": {
               "required": true,
               "flowType": {
-                "name": "Node"
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "Object"
+                  }
+                ],
+                "raw": "Array<Object>"
               },
-              "description": "Modal children"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional class name"
-            },
-            "height": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional height of body"
+              "description": "Filters applied to the table"
             }
           }
         }
       ]
     },
     {
-      "key": "src/components/Modal/components/ModalFooter/ModalFooter.js",
+      "key": "src/components/Table/components/TableSearch/TableSearch.js",
       "value": [
         {
           "description": "",
-          "displayName": "ModalFooter",
+          "displayName": "TableSearch",
           "methods": [],
-          "actualName": "ModalFooter",
-          "props": {
-            "primaryAction": {
-              "required": true,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": "The primary action in the footer"
-            },
-            "secondaryAction": {
-              "required": false,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": "Optional secondary action"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Modal/components/ModalHeader/ModalHeader.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ModalHeader",
-          "methods": [],
-          "actualName": "ModalHeader",
-          "props": {
-            "title": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Title text"
-            },
-            "isPaginated": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Whether this is a paged modal. Title will center on pages",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "onRequestClose": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Callback to close the modal"
-            },
-            "onClickBack": {
-              "required": false,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Function to handle navigating backwards in a modal"
-            }
-          }
+          "actualName": "TableSearch",
+          "composes": [
+            "AutosuggestProps"
+          ]
         }
       ]
     },
@@ -10631,46 +10687,6 @@
       ]
     },
     {
-      "key": "src/components/Table/components/TableFilters/TableFilters.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TableFilters",
-          "methods": [],
-          "actualName": "TableFilters",
-          "props": {
-            "filters": {
-              "required": true,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "Object"
-                  }
-                ],
-                "raw": "Array<Object>"
-              },
-              "description": "Filters applied to the table"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Table/components/TableSearch/TableSearch.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TableSearch",
-          "methods": [],
-          "actualName": "TableSearch",
-          "composes": [
-            "AutosuggestProps"
-          ]
-        }
-      ]
-    },
-    {
       "key": "src/components/Toast/components/ToastWrapper/ToastWrapper.js",
       "value": [
         {
@@ -10719,33 +10735,6 @@
       ]
     },
     {
-      "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsFooter/EventDetailsFooter.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "EventDetailsFooter",
-          "methods": [],
-          "actualName": "EventDetailsFooter",
-          "props": {
-            "primaryCTA": {
-              "required": true,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": ""
-            },
-            "secondaryCTA": {
-              "required": true,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsHeader/EventDetailsHeader.js",
       "value": [
         {
@@ -10786,6 +10775,33 @@
               "required": false,
               "flowType": {
                 "name": "ContextMenuProps"
+              },
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsFooter/EventDetailsFooter.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "EventDetailsFooter",
+          "methods": [],
+          "actualName": "EventDetailsFooter",
+          "props": {
+            "primaryCTA": {
+              "required": true,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": ""
+            },
+            "secondaryCTA": {
+              "required": true,
+              "flowType": {
+                "name": "ButtonProps"
               },
               "description": ""
             }
@@ -10893,54 +10909,6 @@
       ]
     },
     {
-      "key": "src/components/Core/components/HeaderPrimary/components/UserMenu/UserMenu.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "UserMenu",
-          "methods": [],
-          "actualName": "UserMenu",
-          "props": {
-            "image": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "User image to show in the avatar"
-            },
-            "name": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "User name"
-            },
-            "menuIsVisible": {
-              "required": true,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to show the menu"
-            },
-            "toggleMenu": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Handler to toggle menu visibility"
-            },
-            "userMenuItems": {
-              "required": true,
-              "flowType": {
-                "name": "ReactNode"
-              },
-              "description": "Menu children (<ListItem> or <li>)"
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Core/components/HeaderPrimary/components/LocationMenu/LocationMenu.js",
       "value": [
         {
@@ -11005,6 +10973,54 @@
                 "name": "string"
               },
               "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/HeaderPrimary/components/UserMenu/UserMenu.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "UserMenu",
+          "methods": [],
+          "actualName": "UserMenu",
+          "props": {
+            "image": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "User image to show in the avatar"
+            },
+            "name": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "User name"
+            },
+            "menuIsVisible": {
+              "required": true,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to show the menu"
+            },
+            "toggleMenu": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handler to toggle menu visibility"
+            },
+            "userMenuItems": {
+              "required": true,
+              "flowType": {
+                "name": "ReactNode"
+              },
+              "description": "Menu children (<ListItem> or <li>)"
             }
           }
         }
