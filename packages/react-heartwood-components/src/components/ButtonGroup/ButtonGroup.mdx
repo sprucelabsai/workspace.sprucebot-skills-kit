@@ -8,7 +8,7 @@ import ButtonGroup from './ButtonGroup'
 
 # ButtonGroup
 
-### ButtonGroups arrange related buttons in close proximity to each other.
+> ButtonGroups arrange related buttons in close proximity to each other.
 
 <Playground>
 	<ButtonGroup
@@ -26,6 +26,45 @@ Use a ButtonGroup when there are multiple related actions that a user may want t
 ## When not to use
 
 When actions are not related to each other, they should not be placed in a ButtonGroup.
+
+## Kinds
+
+### Default
+
+<Playground>
+	<ButtonGroup
+		actions={[
+			{ kind: 'secondary', text: 'Cancel' },
+			{ kind: 'primary', text: 'Confirm' }
+		]}
+	/>
+</Playground>
+
+### Segmented
+
+<Playground>
+	<ButtonGroup
+		kind="segmented"
+		actions={[
+			{ text: 'Option one' },
+			{ text: 'Option two' },
+			{ text: 'Option three' }
+		]}
+	/>
+</Playground>
+
+### Floating
+
+<Playground>
+	<ButtonGroup
+		kind="floating"
+		actions={[
+			{ text: 'Action one' },
+			{ text: 'Action two' },
+			{ text: 'Action three' }
+		]}
+	/>
+</Playground>
 
 ## Props
 

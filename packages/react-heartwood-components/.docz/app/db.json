@@ -19,7 +19,21 @@
     "codeSandbox": true,
     "themeConfig": {
       "colors": {
-        "primary": "#1953cb"
+        "primary": "#1953cb",
+        "blockquoteBg": "#fff",
+        "blockquoteBorder": "#fff",
+        "blockquoteColor": "#525966"
+      },
+      "styles": {
+        "h2": [
+          "\n\t\t\t\tmargin: 30px 0 20px;\n\t\t\t\tline-height: 1.4em;\n\t\t\t\tfont-weight: 600;\n\t\t\t\tfont-size: 28px;\n\t\t\t\tletter-spacing: -0.02em;\n\t\t\t"
+        ],
+        "h3": [
+          "\n\t\t\t\tmargin: 25px 0 10px;\n\t\t\t\tfont-size: 20px;\n\t\t\t\tfont-weight: 600;\n\t\t\t"
+        ],
+        "blockquote": [
+          "\n\t\t\t\tmargin: 25px 0;\n\t\t\t\tfont-size: 32px;\n\t\t\t"
+        ]
       }
     },
     "separator": "-",
@@ -1541,32 +1555,6 @@
       ]
     },
     {
-      "key": "src/components/FontLoader/FontLoader.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FontLoader",
-          "methods": [],
-          "actualName": "FontLoader",
-          "props": {
-            "fonts": {
-              "required": true,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "string"
-                  }
-                ],
-                "raw": "Array<string>"
-              },
-              "description": "Fonts that need to be loaded"
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/EmptyState/EmptyState.js",
       "value": [
         {
@@ -1644,6 +1632,52 @@
                 "name": "string"
               },
               "description": "Primary action in the footer (optional)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Heading/Heading.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Heading",
+          "methods": [],
+          "actualName": "Heading",
+          "props": {
+            "element": {
+              "defaultValue": {
+                "value": "'h2'",
+                "computed": false
+              },
+              "required": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/FontLoader/FontLoader.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FontLoader",
+          "methods": [],
+          "actualName": "FontLoader",
+          "props": {
+            "fonts": {
+              "required": true,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "string"
+                  }
+                ],
+                "raw": "Array<string>"
+              },
+              "description": "Fonts that need to be loaded"
             }
           }
         }
@@ -1750,37 +1784,6 @@
       ]
     },
     {
-      "key": "src/components/Heading/Heading.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Heading",
-          "methods": [],
-          "actualName": "Heading",
-          "props": {
-            "element": {
-              "defaultValue": {
-                "value": "'h2'",
-                "computed": false
-              },
-              "required": false
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Image/Image.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Image",
-          "methods": [],
-          "actualName": "Image"
-        }
-      ]
-    },
-    {
       "key": "src/components/Icon/Icon.js",
       "value": [
         {
@@ -1818,6 +1821,17 @@
               "description": ""
             }
           }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Image/Image.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Image",
+          "methods": [],
+          "actualName": "Image"
         }
       ]
     },
@@ -2163,6 +2177,37 @@
       ]
     },
     {
+      "key": "src/components/Loader/Loader.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Loader",
+          "methods": [],
+          "actualName": "Loader",
+          "props": {
+            "isLight": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isCentered": {
+              "required": true,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Message/Message.js",
       "value": [
         {
@@ -2271,37 +2316,6 @@
                 "value": "false",
                 "computed": false
               }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Loader/Loader.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Loader",
-          "methods": [],
-          "actualName": "Loader",
-          "props": {
-            "isLight": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isCentered": {
-              "required": true,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": ""
             }
           }
         }
@@ -4262,87 +4276,6 @@
       ]
     },
     {
-      "key": "src/components/Tabs/Tabs.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Tabs",
-          "methods": [
-            {
-              "name": "handleWindowResize",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "handleInitialMeasurement",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "handleMeasurement",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            }
-          ],
-          "actualName": "Tabs",
-          "props": {
-            "tabs": {
-              "required": true,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "TabProps"
-                  }
-                ],
-                "raw": "Array<TabProps>"
-              },
-              "description": "The tabs for this group"
-            },
-            "isPadded": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Adds horizontal Padding",
-              "defaultValue": {
-                "value": "true",
-                "computed": false
-              }
-            },
-            "isTruncatable": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set false to prevent truncation behavior",
-              "defaultValue": {
-                "value": "true",
-                "computed": false
-              }
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional class to add to the tab group",
-              "defaultValue": {
-                "value": "''",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Text/Text.js",
       "value": [
         {
@@ -4626,6 +4559,87 @@
       ]
     },
     {
+      "key": "src/components/Tabs/Tabs.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Tabs",
+          "methods": [
+            {
+              "name": "handleWindowResize",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleInitialMeasurement",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleMeasurement",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "Tabs",
+          "props": {
+            "tabs": {
+              "required": true,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "TabProps"
+                  }
+                ],
+                "raw": "Array<TabProps>"
+              },
+              "description": "The tabs for this group"
+            },
+            "isPadded": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Adds horizontal Padding",
+              "defaultValue": {
+                "value": "true",
+                "computed": false
+              }
+            },
+            "isTruncatable": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set false to prevent truncation behavior",
+              "defaultValue": {
+                "value": "true",
+                "computed": false
+              }
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional class to add to the tab group",
+              "defaultValue": {
+                "value": "''",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/TextContainer/TextContainer.js",
       "value": [
         {
@@ -4829,6 +4843,17 @@
       ]
     },
     {
+      "key": "src/components/_utilities/Anchor.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "BasicAnchor",
+          "methods": [],
+          "actualName": "BasicAnchor"
+        }
+      ]
+    },
+    {
       "key": "src/components/View/View.js",
       "value": [
         {
@@ -4949,17 +4974,6 @@
               "description": "Menu children (<ListItem> or <li>)"
             }
           }
-        }
-      ]
-    },
-    {
-      "key": "src/components/_utilities/Anchor.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "BasicAnchor",
-          "methods": [],
-          "actualName": "BasicAnchor"
         }
       ]
     },
@@ -5119,6 +5133,33 @@
       ]
     },
     {
+      "key": "src/components/Card/components/CardSection.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CardSection",
+          "methods": [],
+          "actualName": "CardSection",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Children to show in the Card"
+            },
+            "isFullBleed": {
+              "required": true,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set to true to remove horizontal padding"
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Card/components/CardHeader.js",
       "value": [
         {
@@ -5167,33 +5208,6 @@
                 "name": "ContextMenuProps"
               },
               "description": "Renders a Context Menu in the Card Header"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Card/components/CardSection.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "CardSection",
-          "methods": [],
-          "actualName": "CardSection",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Children to show in the Card"
-            },
-            "isFullBleed": {
-              "required": true,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set to true to remove horizontal padding"
             }
           }
         }
@@ -6173,68 +6187,6 @@
       ]
     },
     {
-      "key": "src/components/BigCalendar/components/EventBlock/EventBlock.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "EventBlock",
-          "methods": [],
-          "actualName": "EventBlock",
-          "props": {
-            "block": {
-              "required": true,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": ""
-            },
-            "text": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
-            },
-            "children": {
-              "required": false,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": ""
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
-            },
-            "startAt": {
-              "required": true,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": ""
-            },
-            "resizable": {
-              "required": true,
-              "flowType": {
-                "name": "Boolean"
-              },
-              "description": ""
-            },
-            "timeFormat": {
-              "required": true,
-              "flowType": {
-                "name": "String"
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/BigCalendar/components/Event/Event.js",
       "value": [
         {
@@ -6316,6 +6268,68 @@
                 "value": "'default'",
                 "computed": false
               }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/BigCalendar/components/EventBlock/EventBlock.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "EventBlock",
+          "methods": [],
+          "actualName": "EventBlock",
+          "props": {
+            "block": {
+              "required": true,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": ""
+            },
+            "text": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
+            },
+            "children": {
+              "required": false,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": ""
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
+            },
+            "startAt": {
+              "required": true,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": ""
+            },
+            "resizable": {
+              "required": true,
+              "flowType": {
+                "name": "Boolean"
+              },
+              "description": ""
+            },
+            "timeFormat": {
+              "required": true,
+              "flowType": {
+                "name": "String"
+              },
+              "description": ""
             }
           }
         }
@@ -8990,6 +9004,167 @@
       ]
     },
     {
+      "key": "src/components/Forms/components/FormBuilder/FormBuilder.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FormBuilder",
+          "methods": [],
+          "actualName": "FormBuilder",
+          "props": {
+            "kind": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'default' | 'page' | 'modal'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'default'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'page'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'modal'"
+                  }
+                ]
+              },
+              "description": "Determines how the form should be build. Default builds a simple form",
+              "defaultValue": {
+                "value": "'default'",
+                "computed": false
+              }
+            },
+            "initialValues": {
+              "required": true,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "Initial values to be passed into the form"
+            },
+            "onSubmit": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Submit handler"
+            },
+            "sections": {
+              "required": true,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "signature",
+                    "type": "object",
+                    "raw": "{\n\t/** Unique id for the section */\n\tid: string,\n\n\t/** Optional title to show at the top of the card */\n\ttitle?: string,\n\n\t/** Fields for this card */\n\tfields: Array<FormInnerFieldProps & { currentValue: any }>\n}",
+                    "signature": {
+                      "properties": [
+                        {
+                          "key": "id",
+                          "value": {
+                            "name": "string",
+                            "required": true
+                          }
+                        },
+                        {
+                          "key": "title",
+                          "value": {
+                            "name": "string",
+                            "required": false
+                          }
+                        },
+                        {
+                          "key": "fields",
+                          "value": {
+                            "name": "Array",
+                            "elements": [
+                              {
+                                "name": "intersection",
+                                "raw": "FormInnerFieldProps & { currentValue: any }",
+                                "elements": [
+                                  {
+                                    "name": "FormInnerFieldProps"
+                                  },
+                                  {
+                                    "name": "signature",
+                                    "type": "object",
+                                    "raw": "{ currentValue: any }",
+                                    "signature": {
+                                      "properties": [
+                                        {
+                                          "key": "currentValue",
+                                          "value": {
+                                            "name": "any",
+                                            "required": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            "raw": "Array<FormInnerFieldProps & { currentValue: any }>",
+                            "required": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "raw": "Array<SectionProps>"
+              },
+              "description": "Use sections when the form to be built is a full page"
+            },
+            "formLayout": {
+              "required": true,
+              "flowType": {
+                "name": "FormLayoutProps"
+              },
+              "description": "Form layout props"
+            },
+            "validate": {
+              "required": false,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Validation handler. This isn't needed when the form is made of toggles only.",
+              "defaultValue": {
+                "value": "() => null",
+                "computed": false
+              }
+            },
+            "primaryCTA": {
+              "required": false,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": "Optional when rendering a primary cta in the form",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "secondaryCTA": {
+              "required": false,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": "Optional when using a secondary cta in the form",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Forms/components/DurationInput/DurationInput.js",
       "value": [
         {
@@ -9239,167 +9414,6 @@
       ]
     },
     {
-      "key": "src/components/Forms/components/FormBuilder/FormBuilder.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FormBuilder",
-          "methods": [],
-          "actualName": "FormBuilder",
-          "props": {
-            "kind": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'default' | 'page' | 'modal'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'default'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'page'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'modal'"
-                  }
-                ]
-              },
-              "description": "Determines how the form should be build. Default builds a simple form",
-              "defaultValue": {
-                "value": "'default'",
-                "computed": false
-              }
-            },
-            "initialValues": {
-              "required": true,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "Initial values to be passed into the form"
-            },
-            "onSubmit": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Submit handler"
-            },
-            "sections": {
-              "required": true,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "signature",
-                    "type": "object",
-                    "raw": "{\n\t/** Unique id for the section */\n\tid: string,\n\n\t/** Optional title to show at the top of the card */\n\ttitle?: string,\n\n\t/** Fields for this card */\n\tfields: Array<FormInnerFieldProps & { currentValue: any }>\n}",
-                    "signature": {
-                      "properties": [
-                        {
-                          "key": "id",
-                          "value": {
-                            "name": "string",
-                            "required": true
-                          }
-                        },
-                        {
-                          "key": "title",
-                          "value": {
-                            "name": "string",
-                            "required": false
-                          }
-                        },
-                        {
-                          "key": "fields",
-                          "value": {
-                            "name": "Array",
-                            "elements": [
-                              {
-                                "name": "intersection",
-                                "raw": "FormInnerFieldProps & { currentValue: any }",
-                                "elements": [
-                                  {
-                                    "name": "FormInnerFieldProps"
-                                  },
-                                  {
-                                    "name": "signature",
-                                    "type": "object",
-                                    "raw": "{ currentValue: any }",
-                                    "signature": {
-                                      "properties": [
-                                        {
-                                          "key": "currentValue",
-                                          "value": {
-                                            "name": "any",
-                                            "required": true
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            ],
-                            "raw": "Array<FormInnerFieldProps & { currentValue: any }>",
-                            "required": true
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ],
-                "raw": "Array<SectionProps>"
-              },
-              "description": "Use sections when the form to be built is a full page"
-            },
-            "formLayout": {
-              "required": true,
-              "flowType": {
-                "name": "FormLayoutProps"
-              },
-              "description": "Form layout props"
-            },
-            "validate": {
-              "required": false,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Validation handler. This isn't needed when the form is made of toggles only.",
-              "defaultValue": {
-                "value": "() => null",
-                "computed": false
-              }
-            },
-            "primaryCTA": {
-              "required": false,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": "Optional when rendering a primary cta in the form",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "secondaryCTA": {
-              "required": false,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": "Optional when using a secondary cta in the form",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Forms/components/FormLayout/FormLayout.js",
       "value": [
         {
@@ -9541,6 +9555,82 @@
                 "nullable": true
               },
               "description": "Parent class"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/components/Select/Select.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Select",
+          "methods": [],
+          "actualName": "Select",
+          "props": {
+            "id": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Unique identifier"
+            },
+            "options": {
+              "required": true,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "Options for the select"
+            },
+            "isSimple": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to use the simple variation"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Parent class"
+            },
+            "label": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Label text"
+            },
+            "placeholder": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional text to be displayed as disabled placeholder option"
+            },
+            "postLabel": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Text after label"
+            },
+            "error": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Error text"
+            },
+            "helper": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Helper text"
             }
           }
         }
@@ -9689,82 +9779,6 @@
           "displayName": "Stars",
           "methods": [],
           "actualName": "Stars"
-        }
-      ]
-    },
-    {
-      "key": "src/components/Forms/components/Select/Select.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Select",
-          "methods": [],
-          "actualName": "Select",
-          "props": {
-            "id": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Unique identifier"
-            },
-            "options": {
-              "required": true,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "Options for the select"
-            },
-            "isSimple": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to use the simple variation"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Parent class"
-            },
-            "label": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Label text"
-            },
-            "placeholder": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional text to be displayed as disabled placeholder option"
-            },
-            "postLabel": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Text after label"
-            },
-            "error": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Error text"
-            },
-            "helper": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Helper text"
-            }
-          }
         }
       ]
     },
@@ -10324,6 +10338,40 @@
       ]
     },
     {
+      "key": "src/components/Modal/components/ModalBody/ModalBody.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalBody",
+          "methods": [],
+          "actualName": "ModalBody",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Modal children"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional class name"
+            },
+            "height": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional height of body"
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/List/components/SortableList/SortableList.js",
       "value": [
         {
@@ -10418,40 +10466,6 @@
       ]
     },
     {
-      "key": "src/components/Modal/components/ModalBody/ModalBody.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ModalBody",
-          "methods": [],
-          "actualName": "ModalBody",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Modal children"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional class name"
-            },
-            "height": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional height of body"
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Page/components/PageContent/PageContent.js",
       "value": [
         {
@@ -10511,32 +10525,6 @@
                 "name": "Function"
               },
               "description": "Function to handle navigating backwards in a modal"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Table/components/TableFilters/TableFilters.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TableFilters",
-          "methods": [],
-          "actualName": "TableFilters",
-          "props": {
-            "filters": {
-              "required": true,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "Object"
-                  }
-                ],
-                "raw": "Array<Object>"
-              },
-              "description": "Filters applied to the table"
             }
           }
         }
@@ -10644,6 +10632,32 @@
                 "name": "ButtonProps"
               },
               "description": "Adds an element to expand the right sidebar"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Table/components/TableFilters/TableFilters.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TableFilters",
+          "methods": [],
+          "actualName": "TableFilters",
+          "props": {
+            "filters": {
+              "required": true,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "Object"
+                  }
+                ],
+                "raw": "Array<Object>"
+              },
+              "description": "Filters applied to the table"
             }
           }
         }
@@ -10779,6 +10793,33 @@
       ]
     },
     {
+      "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsFooter/EventDetailsFooter.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "EventDetailsFooter",
+          "methods": [],
+          "actualName": "EventDetailsFooter",
+          "props": {
+            "primaryCTA": {
+              "required": true,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": ""
+            },
+            "secondaryCTA": {
+              "required": true,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsHeader/EventDetailsHeader.js",
       "value": [
         {
@@ -10819,33 +10860,6 @@
               "required": false,
               "flowType": {
                 "name": "ContextMenuProps"
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsFooter/EventDetailsFooter.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "EventDetailsFooter",
-          "methods": [],
-          "actualName": "EventDetailsFooter",
-          "props": {
-            "primaryCTA": {
-              "required": true,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": ""
-            },
-            "secondaryCTA": {
-              "required": true,
-              "flowType": {
-                "name": "ButtonProps"
               },
               "description": ""
             }
@@ -11630,60 +11644,6 @@
       }
     },
     {
-      "key": "src/components/ButtonGroup/ButtonGroup.mdx",
-      "value": {
-        "name": "ButtonGroup",
-        "menu": "Buttons",
-        "id": "831bc1c0524d50c6d81c0bc058e1ced3",
-        "filepath": "src/components/ButtonGroup/ButtonGroup.mdx",
-        "link": "",
-        "slug": "src-components-button-group-button-group",
-        "route": "/src-components-button-group-button-group",
-        "headings": [
-          {
-            "slug": "buttongroup",
-            "depth": 1,
-            "value": "ButtonGroup"
-          },
-          {
-            "slug": "buttongroups-arrange-related-buttons-in-close-proximity-to-each-other",
-            "depth": 3,
-            "value": "ButtonGroups arrange related buttons in close proximity to each other."
-          },
-          {
-            "slug": "when-to-use",
-            "depth": 2,
-            "value": "When to use"
-          },
-          {
-            "slug": "when-not-to-use",
-            "depth": 2,
-            "value": "When not to use"
-          },
-          {
-            "slug": "props",
-            "depth": 2,
-            "value": "Props"
-          },
-          {
-            "slug": "related-components",
-            "depth": 2,
-            "value": "Related components:"
-          },
-          {
-            "slug": "composed-by",
-            "depth": 3,
-            "value": "Composed by:"
-          },
-          {
-            "slug": "consumed-by",
-            "depth": 3,
-            "value": "Consumed by:"
-          }
-        ]
-      }
-    },
-    {
       "key": "src/components/Button/Button.mdx",
       "value": {
         "name": "Button",
@@ -11698,11 +11658,6 @@
             "slug": "button",
             "depth": 1,
             "value": "Button"
-          },
-          {
-            "slug": "buttons-enable-users-to-take-action-and-navigate",
-            "depth": 3,
-            "value": "Buttons enable users to take action and navigate."
           },
           {
             "slug": "when-to-use",
@@ -11763,6 +11718,75 @@
       }
     },
     {
+      "key": "src/components/ButtonGroup/ButtonGroup.mdx",
+      "value": {
+        "name": "ButtonGroup",
+        "menu": "Buttons",
+        "id": "831bc1c0524d50c6d81c0bc058e1ced3",
+        "filepath": "src/components/ButtonGroup/ButtonGroup.mdx",
+        "link": "",
+        "slug": "src-components-button-group-button-group",
+        "route": "/src-components-button-group-button-group",
+        "headings": [
+          {
+            "slug": "buttongroup",
+            "depth": 1,
+            "value": "ButtonGroup"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "kinds",
+            "depth": 2,
+            "value": "Kinds"
+          },
+          {
+            "slug": "default",
+            "depth": 3,
+            "value": "Default"
+          },
+          {
+            "slug": "segmented",
+            "depth": 3,
+            "value": "Segmented"
+          },
+          {
+            "slug": "floating",
+            "depth": 3,
+            "value": "Floating"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          },
+          {
+            "slug": "related-components",
+            "depth": 2,
+            "value": "Related components:"
+          },
+          {
+            "slug": "composed-by",
+            "depth": 3,
+            "value": "Composed by:"
+          },
+          {
+            "slug": "consumed-by",
+            "depth": 3,
+            "value": "Consumed by:"
+          }
+        ]
+      }
+    },
+    {
       "key": "src/components/ContextMenu/ContextMenu.mdx",
       "value": {
         "name": "ContextMenu",
@@ -11777,11 +11801,6 @@
             "slug": "contextmenu",
             "depth": 1,
             "value": "ContextMenu"
-          },
-          {
-            "slug": "contextmenus-bundle-related-actions-that-arent-part-of-a-users-primary-journey",
-            "depth": 3,
-            "value": "ContextMenus bundle related actions that aren’t part of a user’s primary journey."
           },
           {
             "slug": "when-to-use",
