@@ -28,10 +28,5 @@ node_modules
 *.sublime-*
 .idea/
 *.DS_Store
-<<<<<<< HEAD:packages/react-sprucebot/.gitignore
-../.DS_Store
-../../.DS_Store
-=======
 
 lib/
->>>>>>> canary:packages/spruce-next-helpers/.gitignore
