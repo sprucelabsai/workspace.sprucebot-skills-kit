@@ -3,6 +3,7 @@
     "title": "React Heartwood Components",
     "description": "React components for your Sprucebot Skill 💪🏼",
     "menu": [
+      "React Heartwood Components",
       {
         "name": "Buttons",
         "menu": [
@@ -18,7 +19,6 @@
     "codeSandbox": true,
     "themeConfig": {
       "colors": {
-        "blue": "#1953cb",
         "primary": "#1953cb"
       }
     },
@@ -8946,167 +8946,6 @@
       ]
     },
     {
-      "key": "src/components/Forms/components/FormBuilder/FormBuilder.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FormBuilder",
-          "methods": [],
-          "actualName": "FormBuilder",
-          "props": {
-            "kind": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'default' | 'page' | 'modal'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'default'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'page'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'modal'"
-                  }
-                ]
-              },
-              "description": "Determines how the form should be build. Default builds a simple form",
-              "defaultValue": {
-                "value": "'default'",
-                "computed": false
-              }
-            },
-            "initialValues": {
-              "required": true,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "Initial values to be passed into the form"
-            },
-            "onSubmit": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Submit handler"
-            },
-            "sections": {
-              "required": true,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "signature",
-                    "type": "object",
-                    "raw": "{\n\t/** Unique id for the section */\n\tid: string,\n\n\t/** Optional title to show at the top of the card */\n\ttitle?: string,\n\n\t/** Fields for this card */\n\tfields: Array<FormInnerFieldProps & { currentValue: any }>\n}",
-                    "signature": {
-                      "properties": [
-                        {
-                          "key": "id",
-                          "value": {
-                            "name": "string",
-                            "required": true
-                          }
-                        },
-                        {
-                          "key": "title",
-                          "value": {
-                            "name": "string",
-                            "required": false
-                          }
-                        },
-                        {
-                          "key": "fields",
-                          "value": {
-                            "name": "Array",
-                            "elements": [
-                              {
-                                "name": "intersection",
-                                "raw": "FormInnerFieldProps & { currentValue: any }",
-                                "elements": [
-                                  {
-                                    "name": "FormInnerFieldProps"
-                                  },
-                                  {
-                                    "name": "signature",
-                                    "type": "object",
-                                    "raw": "{ currentValue: any }",
-                                    "signature": {
-                                      "properties": [
-                                        {
-                                          "key": "currentValue",
-                                          "value": {
-                                            "name": "any",
-                                            "required": true
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              }
-                            ],
-                            "raw": "Array<FormInnerFieldProps & { currentValue: any }>",
-                            "required": true
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ],
-                "raw": "Array<SectionProps>"
-              },
-              "description": "Use sections when the form to be built is a full page"
-            },
-            "formLayout": {
-              "required": true,
-              "flowType": {
-                "name": "FormLayoutProps"
-              },
-              "description": "Form layout props"
-            },
-            "validate": {
-              "required": false,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Validation handler. This isn't needed when the form is made of toggles only.",
-              "defaultValue": {
-                "value": "() => null",
-                "computed": false
-              }
-            },
-            "primaryCTA": {
-              "required": false,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": "Optional when rendering a primary cta in the form",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "secondaryCTA": {
-              "required": false,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": "Optional when using a secondary cta in the form",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Forms/components/DurationInput/DurationInput.js",
       "value": [
         {
@@ -9350,6 +9189,167 @@
                 }
               },
               "description": "a slighly different onChange"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/components/FormBuilder/FormBuilder.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FormBuilder",
+          "methods": [],
+          "actualName": "FormBuilder",
+          "props": {
+            "kind": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'default' | 'page' | 'modal'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'default'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'page'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'modal'"
+                  }
+                ]
+              },
+              "description": "Determines how the form should be build. Default builds a simple form",
+              "defaultValue": {
+                "value": "'default'",
+                "computed": false
+              }
+            },
+            "initialValues": {
+              "required": true,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "Initial values to be passed into the form"
+            },
+            "onSubmit": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Submit handler"
+            },
+            "sections": {
+              "required": true,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "signature",
+                    "type": "object",
+                    "raw": "{\n\t/** Unique id for the section */\n\tid: string,\n\n\t/** Optional title to show at the top of the card */\n\ttitle?: string,\n\n\t/** Fields for this card */\n\tfields: Array<FormInnerFieldProps & { currentValue: any }>\n}",
+                    "signature": {
+                      "properties": [
+                        {
+                          "key": "id",
+                          "value": {
+                            "name": "string",
+                            "required": true
+                          }
+                        },
+                        {
+                          "key": "title",
+                          "value": {
+                            "name": "string",
+                            "required": false
+                          }
+                        },
+                        {
+                          "key": "fields",
+                          "value": {
+                            "name": "Array",
+                            "elements": [
+                              {
+                                "name": "intersection",
+                                "raw": "FormInnerFieldProps & { currentValue: any }",
+                                "elements": [
+                                  {
+                                    "name": "FormInnerFieldProps"
+                                  },
+                                  {
+                                    "name": "signature",
+                                    "type": "object",
+                                    "raw": "{ currentValue: any }",
+                                    "signature": {
+                                      "properties": [
+                                        {
+                                          "key": "currentValue",
+                                          "value": {
+                                            "name": "any",
+                                            "required": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            "raw": "Array<FormInnerFieldProps & { currentValue: any }>",
+                            "required": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "raw": "Array<SectionProps>"
+              },
+              "description": "Use sections when the form to be built is a full page"
+            },
+            "formLayout": {
+              "required": true,
+              "flowType": {
+                "name": "FormLayoutProps"
+              },
+              "description": "Form layout props"
+            },
+            "validate": {
+              "required": false,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Validation handler. This isn't needed when the form is made of toggles only.",
+              "defaultValue": {
+                "value": "() => null",
+                "computed": false
+              }
+            },
+            "primaryCTA": {
+              "required": false,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": "Optional when rendering a primary cta in the form",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "secondaryCTA": {
+              "required": false,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": "Optional when using a secondary cta in the form",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
             }
           }
         }
@@ -10735,6 +10735,33 @@
       ]
     },
     {
+      "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsFooter/EventDetailsFooter.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "EventDetailsFooter",
+          "methods": [],
+          "actualName": "EventDetailsFooter",
+          "props": {
+            "primaryCTA": {
+              "required": true,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": ""
+            },
+            "secondaryCTA": {
+              "required": true,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsHeader/EventDetailsHeader.js",
       "value": [
         {
@@ -10775,33 +10802,6 @@
               "required": false,
               "flowType": {
                 "name": "ContextMenuProps"
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsFooter/EventDetailsFooter.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "EventDetailsFooter",
-          "methods": [],
-          "actualName": "EventDetailsFooter",
-          "props": {
-            "primaryCTA": {
-              "required": true,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": ""
-            },
-            "secondaryCTA": {
-              "required": true,
-              "flowType": {
-                "name": "ButtonProps"
               },
               "description": ""
             }
@@ -10871,17 +10871,6 @@
       ]
     },
     {
-      "key": "src/components/Core/components/HeaderPrimary/components/DefaultLockup/DefaultLockup.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "DefaultLockup",
-          "methods": [],
-          "actualName": "DefaultLockup"
-        }
-      ]
-    },
-    {
       "key": "src/components/Core/components/HeaderPrimary/components/Hamburger/Hamburger.js",
       "value": [
         {
@@ -10905,6 +10894,17 @@
               "description": "Click handler to toggle sidebar visibility"
             }
           }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/HeaderPrimary/components/DefaultLockup/DefaultLockup.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "DefaultLockup",
+          "methods": [],
+          "actualName": "DefaultLockup"
         }
       ]
     },
@@ -11567,6 +11567,79 @@
   ],
   "entries": [
     {
+      "key": "docz/index.mdx",
+      "value": {
+        "name": "React Heartwood Components",
+        "route": "/",
+        "id": "5c71d50ac38b5354bfb07ce1891c8e2b",
+        "filepath": "docz/index.mdx",
+        "link": "",
+        "slug": "docz-index",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "hello-human",
+            "depth": 1,
+            "value": "Hello Human!"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/ButtonGroup/ButtonGroup.mdx",
+      "value": {
+        "name": "ButtonGroup",
+        "menu": "Buttons",
+        "id": "831bc1c0524d50c6d81c0bc058e1ced3",
+        "filepath": "src/components/ButtonGroup/ButtonGroup.mdx",
+        "link": "",
+        "slug": "src-components-button-group-button-group",
+        "route": "/src-components-button-group-button-group",
+        "headings": [
+          {
+            "slug": "buttongroup",
+            "depth": 1,
+            "value": "ButtonGroup"
+          },
+          {
+            "slug": "buttongroups-arrange-related-buttons-in-close-proximity-to-each-other",
+            "depth": 3,
+            "value": "ButtonGroups arrange related buttons in close proximity to each other."
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          },
+          {
+            "slug": "related-components",
+            "depth": 2,
+            "value": "Related components:"
+          },
+          {
+            "slug": "composed-by",
+            "depth": 3,
+            "value": "Composed by:"
+          },
+          {
+            "slug": "consumed-by",
+            "depth": 3,
+            "value": "Consumed by:"
+          }
+        ]
+      }
+    },
+    {
       "key": "src/components/Button/Button.mdx",
       "value": {
         "name": "Button",
@@ -11621,60 +11694,6 @@
             "slug": "destructive",
             "depth": 3,
             "value": "Destructive"
-          },
-          {
-            "slug": "props",
-            "depth": 2,
-            "value": "Props"
-          },
-          {
-            "slug": "related-components",
-            "depth": 2,
-            "value": "Related components:"
-          },
-          {
-            "slug": "composed-by",
-            "depth": 3,
-            "value": "Composed by:"
-          },
-          {
-            "slug": "consumed-by",
-            "depth": 3,
-            "value": "Consumed by:"
-          }
-        ]
-      }
-    },
-    {
-      "key": "src/components/ButtonGroup/ButtonGroup.mdx",
-      "value": {
-        "name": "ButtonGroup",
-        "menu": "Buttons",
-        "id": "831bc1c0524d50c6d81c0bc058e1ced3",
-        "filepath": "src/components/ButtonGroup/ButtonGroup.mdx",
-        "link": "",
-        "slug": "src-components-button-group-button-group",
-        "route": "/src-components-button-group-button-group",
-        "headings": [
-          {
-            "slug": "buttongroup",
-            "depth": 1,
-            "value": "ButtonGroup"
-          },
-          {
-            "slug": "buttongroups-arrange-related-buttons-in-close-proximity-to-each-other",
-            "depth": 3,
-            "value": "ButtonGroups arrange related buttons in close proximity to each other."
-          },
-          {
-            "slug": "when-to-use",
-            "depth": 2,
-            "value": "When to use"
-          },
-          {
-            "slug": "when-not-to-use",
-            "depth": 2,
-            "value": "When not to use"
           },
           {
             "slug": "props",

@@ -7,6 +7,7 @@ export default {
 		}
 	},
 	menu: [
+		'React Heartwood Components',
 		{
 			name: 'Buttons',
 			menu: ['Button', 'ButtonGroup', 'ContextMenu']
