@@ -1,0 +1,40 @@
+---
+name: ContextMenu
+menu: Buttons
+---
+
+import { Playground, Props } from 'docz'
+import ContextMenu from './ContextMenu'
+
+# ContextMenu
+
+### ContextMenus bundle related actions that aren’t part of a user’s primary journey.
+
+<Playground>
+	<ContextMenu
+		actions={[
+			{
+				text: 'Go to my dashboard'
+			},
+			{
+				text: 'Notify my teammates'
+			},
+			{
+				text: 'Log me out'
+			}
+		]}
+		size="large"
+	/>
+</Playground>
+
+## When to use
+
+Only use a ContextMenu when there are multiple potential paths for a user that fall outside of their primary workflow.
+
+## When not to use
+
+Don’t hide primary or secondary actions in a ContextMenu. Instead, use a Button. If there is a clear primary action with closely related actions, use a SplitButton.
+
+## Props
+
+<Props of={ContextMenu} />

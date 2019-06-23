@@ -1,3 +1,9 @@
 export default {
-	wrapper: 'DoczWrapper'
+	wrapper: 'DoczWrapper',
+	menu: [
+		{
+			name: 'Buttons',
+			menu: ['Button', 'ButtonGroup', 'ContextMenu']
+		}
+	]
 }

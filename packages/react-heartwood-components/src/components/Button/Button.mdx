@@ -1,5 +1,6 @@
 ---
 name: Button
+menu: Buttons
 ---
 
 import { Playground, Props } from 'docz'
@@ -20,6 +21,40 @@ Buttons should be used to trigger actions and navigation outside of text blocks.
 ## When not to use
 
 Don’t use a button inside a body of text. Instead, use a Span component.
+
+## Kinds
+
+### Primary
+
+Use a primary button for the main user-triggered action.
+
+<Playground>
+	<Button kind="primary" text="Click me" />
+</Playground>
+
+### Secondary
+
+Secondary buttons should be used for actions that are tangential or contrary to the current workflow.
+
+<Playground>
+	<Button kind="secondary" text="Click me" />
+</Playground>
+
+### Simple
+
+Simple buttons should be used for less important actions.
+
+<Playground>
+	<Button kind="simple" text="Click me" />
+</Playground>
+
+### Destructive
+
+Destructive buttons should only be used for actions that delete things.
+
+<Playground>
+	<Button kind="caution" text="Click me" />
+</Playground>
 
 ## Props
 
