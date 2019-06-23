@@ -1,0 +1,271 @@
+%reset-button {
+	border: none;
+	margin: 0;
+	padding: 0;
+	width: auto;
+	overflow: visible;
+
+	background: transparent;
+
+	/* inherit font & color from ancestor */
+	color: inherit;
+	font: inherit;
+
+	/* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+	line-height: normal;
+
+	/* Corrects font smoothing for webkit */
+	-webkit-font-smoothing: inherit;
+	-moz-osx-font-smoothing: inherit;
+
+	/* Corrects inability to style clickable `input` types in iOS */
+	-webkit-appearance: none;
+}
+
+/**
+Button Variation mixins
+*/
+@mixin btn(
+	$color: $c-white,
+	$bg: $c-primary,
+	$is-solid: true,
+	$is-outline: false,
+	$is-simple: false
+) {
+	color: $color;
+	min-width: rem(60);
+
+	@if $is-solid == true {
+		background-color: $bg;
+	}
+
+	@if $is-outline == true {
+		border: 1px solid $color;
+	}
+
+	.loader__dot {
+		background-color: $color;
+	}
+
+	.btn__icon {
+		fill: $color;
+	}
+
+	.icon--stroke {
+		stroke: $color;
+	}
+
+	.icon--no-fill {
+		fill: none;
+	}
+
+	// Button States
+	&:disabled {
+		@if $is-solid == true {
+			background-color: rgba($bg, 0.5);
+			color: rgba($color, 0.8);
+
+			.btn__icon {
+				fill: rgba($color, 0.8);
+			}
+
+			.icon--no-fill {
+				fill: none;
+			}
+
+			.icon--stroke {
+				stroke: rgba($color, 0.8);
+			}
+		} @else {
+			color: rgba($color, 0.5);
+
+			.btn__icon {
+				fill: rgba($color, 0.5);
+
+				.icon--stroke {
+					stroke: rgba($color, 0.5);
+				}
+
+				.icon--no-fill {
+					fill: none;
+				}
+			}
+		}
+
+		@if $is-outline == true {
+			border-color: rgba($color, 0.5);
+		}
+	}
+
+	&:not(:disabled) {
+		&:hover {
+			@if $is-solid == true {
+				background-color: lighten($bg, 5%);
+			} @else {
+				background-color: rgba($color, 0.05);
+			}
+		}
+
+		&:active {
+			box-shadow: inset 0 1px 4px 0 rgba($bg, 0.2);
+
+			@if $is-solid == true {
+				&:hover {
+					background-color: $bg;
+				}
+			} @else {
+				background-color: rgba($color, 0.05);
+			}
+		}
+
+		&:not(:active):focus {
+			@if $is-simple == false {
+				box-shadow: 0 0 0 3px rgba($bg, 0.4);
+			}
+
+			@if $is-simple == true {
+				background-color: rgba($bg, 0.05);
+			}
+
+			@if $is-outline == true {
+				background-color: rgba($color, 0.02);
+			}
+
+			@if $is-solid == true {
+				background-color: $bg;
+			}
+		}
+	}
+}
+
+/**
+Baseline styling for all buttons
+*/
+.btn {
+	@include btn($color: $c-text, $is-simple: true, $is-solid: false);
+	@extend %reset-button;
+	position: relative;
+	display: inline-block;
+	height: $tap-height;
+	padding: 0 spacing('base');
+	border-radius: $border-radius-button;
+	text-decoration: none;
+	cursor: pointer;
+
+	&.btn-icon-only {
+		width: $tap-height;
+		min-width: 0;
+
+		&.btn-small {
+			width: $tap-height-small;
+		}
+		.btn__text {
+			left: -999rem;
+			position: absolute;
+			width: 0;
+		}
+	}
+
+	.icon--stroke {
+		stroke: $c-text-icon;
+	}
+
+	&.btn-small {
+		height: $tap-height-small;
+		padding: 0 spacing('tight');
+	}
+
+	&.btn-full-width {
+		width: 100%;
+		+ .btn-full-width {
+			margin-top: spacing('tight');
+		}
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	.loader {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+
+// Establish a valid flex context inside the button
+// This lets us set height however we want
+.btn__inner {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+.btn__icon,
+.btn__text {
+	vertical-align: middle;
+}
+
+.btn__icon {
+	position: relative;
+	top: -1px;
+	width: rem(16);
+	height: auto;
+	opacity: 0.7;
+
+	.btn-icon-only & {
+		top: 0;
+		width: rem(20);
+		opacity: 1;
+	}
+
+	.btn:not(:disabled):hover & {
+		opacity: 1;
+	}
+
+	.btn:disabled & {
+		opacity: 0.4;
+	}
+}
+
+.btn__icon-wrapper ~ .btn__text {
+	margin-left: spacing('extra-tight');
+}
+
+.btn-icon-only {
+	line-height: 0;
+}
+
+/** 
+Classes for button variations
+*/
+.btn-primary {
+	@include btn;
+}
+
+.btn-secondary {
+	@include btn($color: $c-primary, $is-outline: true, $is-solid: false);
+}
+
+.btn-caution {
+	@include btn($bg: $c-ui-critical);
+}
+
+.btn-simple {
+	@include btn($color: $c-primary, $is-simple: true, $is-solid: false);
+}
+
+.btn__text,
+.btn__icon {
+	.btn--loading & {
+		opacity: 0;
+		visibility: hidden;
+	}
+}

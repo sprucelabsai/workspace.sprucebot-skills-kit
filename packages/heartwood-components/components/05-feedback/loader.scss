@@ -1,0 +1,47 @@
+@keyframes a-loading {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.loader {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&--centered {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		top: 0;
+	}
+
+	&--light {
+		.loader__dot {
+			background-color: $c-white;
+		}
+	}
+}
+
+.loader__dot {
+	display: inline-block;
+	width: rem(8);
+	height: rem(8);
+	background-color: $c-primary;
+	border-radius: 100%;
+	animation: a-loading 600ms ease-in-out infinite alternate;
+
+	+ .loader__dot {
+		margin-left: spacing('extra-tight');
+	}
+
+	@for $i from 1 through 3 {
+		&:nth-child(#{$i}) {
+			animation-delay: #{$i * 80}ms;
+		}
+	}
+}

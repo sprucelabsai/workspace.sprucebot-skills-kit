@@ -1,0 +1,278 @@
+.list-header,
+.list-header__actions {
+	display: flex;
+}
+
+.list-header {
+	flex-shrink: 0;
+	justify-content: space-between;
+	width: 100%;
+	padding-left: spacing('base');
+}
+
+.list-header__text {
+	@include type-style-h3;
+	padding: rem(12) 0;
+
+	.list-header-small & {
+		padding: spacing('extra-tight') 0;
+	}
+}
+
+.list-header__actions {
+	padding: spacing('extra-tight') 0;
+}
+
+.list-header__title {
+	font-weight: $font-weight-bold;
+
+	.list-header-small & {
+		@include type-style-label;
+	}
+}
+
+.list-header__subtitle {
+	color: $c-text-light;
+}
+
+.list-header__action-secondary {
+	color: $c-text-light;
+}
+
+.list {
+	padding: 0 spacing('base');
+}
+
+.list + * {
+	margin-top: spacing('base');
+}
+
+.list-item {
+	@include typescale('body');
+	display: flex;
+	position: relative;
+
+	.list:not(.list--separators-hidden)
+		&:not(:last-child):not(.list-item--separator-hidden):after {
+		content: '';
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		background-color: $c-border;
+	}
+
+	.list-small & {
+		@include typescale('ui');
+	}
+
+	.sortable-list & {
+		user-select: none;
+	}
+
+	* {
+		// background-color: rgba(0,0,100,0.1);
+	}
+
+	> .btn {
+		border-radius: 0;
+		height: auto;
+		margin: 0 -#{spacing('base')};
+		padding: 0 spacing('base');
+		width: calc(100% + #{spacing('base') * 2});
+		> .btn__inner {
+			text-align: left;
+		}
+	}
+}
+
+.list-item--is-draggable {
+	cursor: move;
+}
+
+.list-item--is-disabled {
+	color: $c-grey-04;
+}
+
+.list-item__text-wrapper {
+	flex: 1 1 auto;
+	padding: rem(12) spacing('tight') rem(12) 0;
+
+	.list-small & {
+		padding: spacing('tight') spacing('tight') spacing('tight') 0;
+	}
+
+	.list-item-title-only & {
+		display: inline-flex;
+		align-items: center;
+	}
+}
+
+.list-item__title {
+	font-weight: $font-weight-bold;
+
+	.list-item-title-only & {
+		font-weight: $font-weight-normal;
+	}
+}
+
+.list-item__subtitle {
+	color: $c-text-light;
+
+	.list-item--is-disabled & {
+		color: $c-grey-04;
+	}
+}
+
+.list-item__note {
+	color: $c-text-light;
+
+	.list-item--is-disabled & {
+		color: $c-grey-04;
+	}
+}
+
+.list-item__image-wrapper,
+.list-item__actions-wrapper,
+.list-item .toggle__wrapper {
+	flex: 0 0 auto;
+}
+
+.list-item__image-wrapper {
+	padding: rem(12) 0;
+	line-height: 0;
+
+	+ * {
+		margin-left: spacing('tight');
+	}
+
+	.list-small & {
+		padding: spacing('tight') 0;
+	}
+}
+.list-item__actions-wrapper {
+	padding-top: spacing('tight');
+
+	.list-small & {
+		padding-top: spacing('extra-tight');
+	}
+}
+
+.list-item__icon {
+	position: relative;
+	// top: 3px;
+	width: rem(20);
+	height: rem(20);
+
+	// .list-small & {
+	// 	top: 1px;
+	// }
+}
+
+.list-item .toggle__wrapper {
+	align-items: flex-start;
+	padding-top: rem(10);
+
+	.list-small & {
+		padding-top: spacing('extra-tight');
+	}
+}
+
+.list-item .checkbox-item {
+	position: relative;
+	.checkbox-item__label {
+		margin: 0;
+	}
+
+	.list-small & {
+		top: -2px;
+	}
+}
+
+.drag-handle {
+	width: rem(20);
+	height: rem(20);
+	margin: rem(14) spacing('tight') 0 0;
+	fill: $c-text-icon;
+}
+
+.list-item-title-only {
+	// Exception for People List only shows name
+	&.people-list {
+		.list-item__actions-wrapper,
+		.list-item__text-wrapper {
+			display: inline-flex;
+			align-items: center;
+		}
+	}
+
+	// Handle icon layout
+	// .btn__inner {
+	// 	align-items: flex-start;
+	// }
+
+	// .list-item__image-wrapper,
+	.list-item__actions-wrapper {
+		padding-top: rem(2);
+	}
+}
+
+// List wrapper helper class
+.list-wrapper {
+	padding: 0 spacing('base');
+
+	.list-header,
+	.list {
+		padding: 0;
+	}
+}
+
+.record-selection__list {
+	display: flex;
+	flex-flow: column;
+	height: 100%;
+
+	.text-container {
+		align-items: flex-start;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: spacing('base') 0;
+	}
+
+	.record-selection__list-wrapper {
+		height: 100%;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+
+	.record-selection__record-wrapper {
+		display: flex;
+		align-items: center;
+		+ .record-selection__record-wrapper {
+			border-top: 1px solid $c-border;
+		}
+	}
+
+	.record-selection__record-select {
+		margin-right: spacing('tight');
+	}
+
+	.record-selection__record-content {
+		flex: 1;
+	}
+
+	.record-selection__record-remove-btn .btn__icon {
+		fill: $c-text-icon;
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.record-selection__virtual-list:focus {
+	outline: none;
+}

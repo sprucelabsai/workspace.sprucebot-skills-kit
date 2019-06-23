@@ -1,0 +1,63 @@
+$layout-padding: spacing('extra-loose');
+$layout-section-spacing: spacing('base');
+$layout-max-width: layout-width('base') + $layout-padding * 2;
+$layout-tight: layout-width('tight') + $layout-padding * 2;
+$layout-max-width-wide: layout-width('wide') + $layout-padding * 2;
+$layout-section-secondary-basis: (
+		layout-width('base') - ($layout-padding * 2) - ($layout-section-spacing * 3)
+	) / 3;
+
+.layout {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+	justify-content: flex-start;
+	margin: -#{$layout-section-spacing} 0 0 -#{$layout-section-spacing};
+	max-width: $layout-max-width;
+
+	@include gt('small') {
+		padding: spacing('base') spacing('loose');
+	}
+	@include gt('medium') {
+		padding: spacing('base') spacing('extra-loose');
+	}
+
+	&--centered {
+		margin: -#{$layout-section-spacing} auto 0 auto;
+	}
+
+	&--tight {
+		max-width: $layout-tight;
+	}
+
+	&--wide {
+		max-width: $layout-max-width-wide;
+	}
+
+	&--full-width {
+		max-width: none;
+	}
+
+	&--full-bleed {
+		padding: 0;
+	}
+
+	+ .layout {
+		margin-top: spacing('base');
+	}
+}
+
+.layout__section {
+	flex: 1 1;
+	margin: $layout-section-spacing 0 0 $layout-section-spacing;
+	min-width: 51%;
+
+	&--secondary {
+		display: flex;
+
+		@include gt('small') {
+			flex: 1 1 $layout-section-secondary-basis;
+			min-width: 0;
+		}
+	}
+}

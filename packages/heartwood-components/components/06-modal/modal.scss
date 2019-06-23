@@ -1,0 +1,153 @@
+.modal {
+	border-radius: 2px;
+	background-color: $c-bg-light;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.05);
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	padding: spacing('base');
+	border-bottom: 1px solid $c-border;
+
+	&--is-paginated {
+		.modal-header__title-wrapper {
+			flex: 1;
+		}
+		.modal-header__title {
+			text-align: center;
+			width: 100%;
+		}
+		.modal-header__back-btn--is-hidden {
+			visibility: hidden;
+		}
+	}
+}
+
+.modal-header .btn__icon {
+	fill: $c-text-icon;
+}
+
+.modal-header__title-wrapper {
+	display: inline-flex;
+}
+
+.modal-header__title {
+	@include typescale('heading-lg');
+	font-family: $font-family-primary;
+	font-weight: $font-weight-bold;
+	margin-top: rem(2);
+}
+
+.modal-footer {
+	display: flex;
+	flex-flow: column;
+	flex: 1 0 auto;
+	padding: spacing('base');
+	border-top: 1px solid $c-border;
+
+	.btn + .btn {
+		margin-top: spacing('tight');
+	}
+
+	@include gt('small') {
+		flex-flow: row-reverse;
+		justify-content: space-between;
+
+		.btn + .btn {
+			margin-top: 0;
+		}
+	}
+}
+
+.modal-body {
+	padding: spacing('base');
+	overflow-y: auto;
+
+	> img {
+		height: auto;
+		width: 100%;
+	}
+}
+
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9;
+	background-color: rgba(0, 0, 0, 0.8);
+
+	.modal {
+		display: flex;
+		flex-flow: column;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		max-height: 100%;
+		overflow-y: auto;
+
+		&.modal-small {
+			max-width: rem(480);
+			left: 50%;
+			transform: translate(-50%, 0);
+		}
+
+		&.modal-medium {
+			max-width: rem(640);
+			left: 50%;
+			transform: translate(-50%, 0);
+		}
+
+		&.modal-full-height {
+			height: 100%;
+		}
+
+		@include gt('small') {
+			top: spacing('base');
+			left: spacing('base');
+			width: calc(100% - #{rem(32)});
+			max-height: calc(100% - #{rem(32)});
+		}
+
+		@include gt('medium') {
+			top: spacing('extra-loose');
+			left: spacing('extra-loose');
+			width: calc(100% - #{rem(64)});
+			max-height: calc(100% - #{rem(64)});
+		}
+	}
+
+	.modal-header {
+		flex: 0 0 auto;
+	}
+
+	// NOTE: Because there may be a form that contains both the modal body and
+	//  the modal footer
+	.modal > *:not(.modal-header):not(.modal-footer) {
+		display: flex;
+		flex-flow: column;
+		height: 100%;
+	}
+
+	.modal.paged-modal {
+		.paged-modal__page {
+			display: none;
+
+			&--is-current {
+				display: block;
+			}
+		}
+	}
+}
+
+// Override so that bot text works in modals
+.modal .bot-text {
+	background-color: $c-bg;
+}

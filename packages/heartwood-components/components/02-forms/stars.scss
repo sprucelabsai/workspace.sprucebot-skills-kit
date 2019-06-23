@@ -1,0 +1,63 @@
+.star {
+	stroke: $c-primary;
+	fill: none;
+	opacity: 0;
+}
+
+.star--filled {
+	fill: $c-primary;
+}
+
+.stars {
+	position: relative;
+	height: rem(24);
+
+	&:not(:hover) .star-input__wrapper .star-input:checked ~ .star,
+	&:hover .star-input__wrapper:hover .star-input ~ .star {
+		opacity: 1;
+		fill: $c-primary;
+	}
+}
+
+.star-input__wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	cursor: pointer;
+
+	.star:last-of-type {
+		opacity: 1;
+	}
+}
+
+.star-input__wrapper:nth-child(1) {
+	z-index: 5;
+}
+
+.star-input__wrapper:nth-child(2) {
+	z-index: 4;
+}
+
+.star-input__wrapper:nth-child(3) {
+	z-index: 3;
+}
+
+.star-input__wrapper:nth-child(4) {
+	z-index: 2;
+}
+
+.star-input__wrapper:nth-child(5) {
+	z-index: 1;
+}
+
+.star-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+}
+
+.star-output-wrapper {
+	position: static;
+}

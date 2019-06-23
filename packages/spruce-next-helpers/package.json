@@ -1,0 +1,100 @@
+{
+	"name": "@sprucelabs/spruce-next-helpers",
+	"publishConfig": {
+		"access": "public"
+	},
+	"version": "8.15.2",
+	"main": "lib/index.js",
+	"description": "Spruce Next.js helpers and utitlies",
+	"keywords": [
+		"react",
+		"node",
+		"components",
+		"sprucebot",
+		"sprucelabs"
+	],
+	"license": "SEE LICENCE in LICENCE",
+	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit",
+	"bugs": {
+		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
+	},
+	"scripts": {
+		"build": "babel ./src --out-dir ./lib",
+		"clean": "rm -rf lib/*",
+		"lint": "eslint src",
+		"#test": "jest",
+		"watch": "chokidar 'src/**/*.js' -c 'npm run build'"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.0.0",
+		"@babel/core": "^7.0.0",
+		"@babel/plugin-proposal-class-properties": "^7.0.0",
+		"@babel/plugin-proposal-decorators": "^7.0.0",
+		"@babel/plugin-proposal-do-expressions": "^7.0.0",
+		"@babel/plugin-proposal-export-default-from": "^7.0.0",
+		"@babel/plugin-proposal-export-namespace-from": "^7.0.0",
+		"@babel/plugin-proposal-function-bind": "^7.0.0",
+		"@babel/plugin-proposal-function-sent": "^7.0.0",
+		"@babel/plugin-proposal-json-strings": "^7.0.0",
+		"@babel/plugin-proposal-logical-assignment-operators": "^7.0.0",
+		"@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",
+		"@babel/plugin-proposal-numeric-separator": "^7.0.0",
+		"@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+		"@babel/plugin-proposal-optional-chaining": "^7.0.0",
+		"@babel/plugin-proposal-pipeline-operator": "^7.0.0",
+		"@babel/plugin-proposal-throw-expressions": "^7.0.0",
+		"@babel/plugin-syntax-dynamic-import": "^7.0.0",
+		"@babel/plugin-syntax-import-meta": "^7.0.0",
+		"@babel/plugin-transform-runtime": "^7.0.0",
+		"@babel/preset-env": "^7.0.0",
+		"@babel/preset-flow": "^7.0.0",
+		"@babel/preset-react": "^7.0.0",
+		"@babel/runtime": "^7.0.0",
+		"babel-core": "7.0.0-bridge.0",
+		"babel-eslint": "8",
+		"babel-loader": "^8.0.0",
+		"babel-plugin-inline-react-svg": "^0.5.4",
+		"babel-runtime": "^6.26.0",
+		"chokidar-cli": "^1.2.0",
+		"enzyme": "^3.3.0",
+		"enzyme-adapter-react-16": "^1.1.1",
+		"enzyme-to-json": "^3.3.1",
+		"eslint": "^4.10.0",
+		"eslint-config-prettier": "^2.9.0",
+		"eslint-plugin-prettier": "^2.3.1",
+		"eslint-plugin-react": "^7.4.0",
+		"jest": "^24.5.0",
+		"prettier": "^1.13",
+		"react-test-renderer": "^16.0.0"
+	},
+	"dependencies": {
+		"@babel/polyfill": "^7.0.0",
+		"@babel/register": "^7.0.0",
+		"@sprucelabs/heartwood-components": "^8.15.2",
+		"@sprucelabs/react-heartwood-components": "^8.15.2",
+		"axios": "^0.18.0",
+		"classnames": "^2.2.5",
+		"cookies": "^0.7.3",
+		"debug": "^3.1.0",
+		"is_js": "^0.9.0",
+		"js-cookies": "^1.0.4",
+		"next": "^7.0.0",
+		"next-redux-wrapper": "^1.0.0",
+		"prop-types": "^15.6.0",
+		"qs": "^6.5.1",
+		"react": "^16.3.2",
+		"redux": "^3.7.2",
+		"redux-form": "^7.3.0"
+	},
+	"jest": {
+		"roots": [
+			"<rootDir>/src/"
+		],
+		"coverageDirectory": "./coverage/",
+		"collectCoverage": true,
+		"coveragePathIgnorePatterns": [
+			"<rootDir>/lib/",
+			"<rootDir>/node_modules/"
+		]
+	}
+}

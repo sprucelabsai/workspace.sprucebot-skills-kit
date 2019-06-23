@@ -1,0 +1,29 @@
+h1 {
+	@include typescale('heading-xl');
+	line-height: $line-height-tight;
+}
+
+h2 {
+	@include typescale('heading-lg');
+}
+
+h3 {
+	@include typescale('heading-md');
+	font-weight: $font-weight-bold;
+}
+
+h4,
+h5,
+h6 {
+	@include typescale('body');
+}
+
+h1,
+h4 {
+	font-weight: $font-weight-bold;
+}
+
+a {
+	color: $c-primary;
+	text-decoration: none;
+}

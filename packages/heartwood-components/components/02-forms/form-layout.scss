@@ -1,0 +1,42 @@
+$primary-basis: (layout-width('base') - (spacing('base') * 2)) / 3;
+$condensed-basis: (layout-width('base') - (spacing('base') * 3)) / 4;
+
+* + .form-layout {
+	margin-top: 1rem;
+}
+
+.form-layout {
+	margin: -#{spacing('extra-loose')} 0 0 -#{spacing('base')};
+
+	&--spacing-tight {
+		margin: -#{spacing('base')} 0 0 -#{spacing('base')};
+	}
+}
+
+.form-layout__group {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.form-layout__item {
+	flex: 1 1 $primary-basis;
+	margin: spacing('extra-loose') 0 0 spacing('base');
+	min-width: $primary-basis;
+
+	&--spacer-top {
+		margin: #{spacing('extra-loose') + rem(17)} 0 0 spacing('base');
+	}
+
+	.form-layout__group--condensed & {
+		flex-basis: $condensed-basis;
+		min-width: $condensed-basis;
+	}
+	.form-layout--spacing-tight & {
+		margin: spacing('base') 0 0 spacing('base');
+		&--spacer-top {
+			margin: #{spacing('base') + rem(17)} 0 0 spacing('base');
+		}
+	}
+}

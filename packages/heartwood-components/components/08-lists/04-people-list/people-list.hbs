@@ -1,0 +1,10 @@
+<div class="list-wrapper">
+	{{#if listHeaderTitle }}{{> @list-header }}{{/if}}
+	{{#if bottext}}
+	{{> @bottext text=bottext}}
+	{{/if}}
+	{{#if tabs}}
+	{{> @tabs}}
+	{{/if}}
+	{{> @list }}
+</div>

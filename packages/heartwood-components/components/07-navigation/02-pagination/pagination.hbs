@@ -1,0 +1,25 @@
+<div class="pagination-wrapper{{#unless pages}} pagination-wrapper-minimal{{/unless}}">
+	{{> @button disabled=disableBack className="btn-secondary btn-small pagination__btn" icon='<path fill-rule="evenodd" clip-rule="evenodd" d="M16.6666 9.16683H6.52492L11.1833 4.5085L9.99992 3.3335L3.33325 10.0002L9.99992 16.6668L11.1749 15.4918L6.52492 10.8335H16.6666V9.16683V9.16683Z"/>' width="20" height="20"}}
+	{{#each pages}}
+		{{#if text}}
+			{{#if isCurrent}}
+				{{> @button className="btn-small pagination__page-btn pagination__page-btn--is-current" text=text}}	
+			{{else}}
+				{{> @button className="btn-small pagination__page-btn" text=text}}
+			{{/if}}
+		{{else}}
+			<span class="pagination__page-ellipse">
+				<p>…</p>
+			</span>
+		{{/if}}
+	{{/each}}
+	{{> @button className="btn-secondary btn-small pagination__btn" icon='<path fill-rule="evenodd" clip-rule="evenodd" d="M9.99992 3.3335L8.82492 4.5085L13.4749 9.16683H3.33325V10.8335H13.4749L8.82492 15.4918L9.99992 16.6668L16.6666 10.0002L9.99992 3.3335Z"/>' width="20" height="20"}}
+	{{#if showJump}}
+	<div class="pagination__jump-wrapper">
+		<span class="pagination__jump-text">Jump:&nbsp;</span>
+		{{> @input-inner value="25"}}
+	</div>
+	{{/if}}
+</div>
+
+{{!-- TODO: Add the Jump variation --}}

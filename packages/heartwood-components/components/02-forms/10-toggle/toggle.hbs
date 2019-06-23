@@ -1,0 +1,7 @@
+<div class="toggle__wrapper">
+	<div class="toggle">
+		<input class="toggle__input" type="checkbox" id="{{ id }}" {{#if on}}checked{{/if}}/>
+		<label class="toggle__label" for="{{ id }}" />
+	</div>
+	{{#if postText}}<label class="toggle__text" for="{{ id }}">{{postText}}</label>{{/if}}
+</div>

@@ -2,15 +2,16 @@
 	"lerna": "2.9.0",
 	"npmClient": "yarn",
 	"useWorkspaces": true,
-	"version": "6.68.0",
+	"version": "8.15.2",
 	"command": {
 		"publish": {
 			"allowBranch": [
 				"dev",
-				"master",
-				"barbershop"
+				"canary",
+				"prerelease/*"
 			],
-			"conventionalCommits": true
+			"conventionalCommits": true,
+			"changelogPreset": "sprucelabs"
 		}
 	}
 }

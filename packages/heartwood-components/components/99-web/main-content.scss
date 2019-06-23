@@ -1,0 +1,25 @@
+.main-wrapper {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+}
+
+.main-content {
+	display: flex;
+	flex: 1;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.main-content-outer {
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+	overflow: hidden;
+}
+
+.main-content__sidebar {
+	display: flex;
+	z-index: 2;
+}

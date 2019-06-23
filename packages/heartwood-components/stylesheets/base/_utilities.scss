@@ -1,0 +1,46 @@
+// Color
+.u-color-secondary {
+	color: $c-secondary;
+}
+
+.u-color-body-light {
+	color: $c-text-light;
+}
+
+// Typography
+.u-td-strikethrough {
+	text-decoration: line-through;
+}
+
+.u-ff-proportional-oldstyle {
+	font-feature-settings: 'onum', 'pnum';
+	font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+.u-lh-loose {
+	line-height: 1.5;
+}
+
+// Display
+.u-display-ib {
+	display: inline-block;
+}
+
+// Margin
+.u-ml-tight {
+	margin-left: spacing('tight');
+}
+
+// Flex
+.u-flex-row {
+	display: flex;
+	flex-flow: row;
+}
+
+.u-flex-child-grow {
+	flex: 1 0 auto;
+}
+
+.u-flex-child-shrink {
+	flex: 0 1 auto;
+}

@@ -1,0 +1,208 @@
+.card {
+	width: 100%;
+	background-color: $c-bg-light;
+	box-shadow: $dimension-floating;
+
+	&--centered {
+		text-align: center;
+	}
+
+	&--full-size {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		.card__body,
+		.card__section {
+			height: 100%;
+		}
+	}
+
+	> img + * {
+		margin-top: spacing('base');
+	}
+}
+
+.card__header {
+	display: flex;
+	justify-content: space-between;
+	padding: spacing('base') spacing('base') spacing('tight') spacing('base');
+
+	.card--centered & {
+		flex-flow: column-reverse;
+		align-items: flex-end;
+	}
+	.card--critical & {
+		border-top: 4px solid $c-ui-critical;
+	}
+
+	@include gt('small') {
+		padding: spacing('loose') spacing('loose') spacing('tight') spacing('loose');
+	}
+}
+
+.card__header-label {
+	@include type-style-label;
+	display: inline-flex;
+	align-items: center;
+
+	.card--critical & {
+		color: $c-ui-critical;
+	}
+}
+
+.card__header-label-icon {
+	width: rem(16);
+	height: rem(16);
+	stroke-width: 1px;
+	+ .card__header-label-text {
+		margin-left: spacing('extra-tight');
+	}
+
+	.card--critical & {
+		fill: $c-ui-critical;
+	}
+}
+
+.card__header-actions {
+	flex: 0 0 auto;
+	margin-top: -#{spacing('tight')};
+	margin-left: spacing('tight');
+
+	.context-menu .context-menu__button {
+		width: spacing('extra-loose');
+		height: spacing('extra-loose');
+	}
+
+	@include gt('small') {
+		margin-top: -#{spacing('extra-tight')};
+	}
+}
+
+.card__header-title {
+	@include typescale('body');
+	flex: 1 1 auto;
+	width: 100%;
+	font-weight: $font-weight-bold;
+
+	@include gt('small') {
+		@include typescale('heading-md');
+	}
+}
+
+.card__body {
+	&:not(.card__body--no-bottom-padding) {
+		padding-bottom: spacing('base');
+		@include gt('small') {
+			padding-bottom: spacing('loose');
+		}
+	}
+	.text:not(a) {
+		color: $c-text-light;
+		line-height: $line-height-loose;
+	}
+	&:first-child {
+		&:not(.card__body--no-top-padding) {
+			padding-top: spacing('base');
+		}
+		@include gt('small') {
+			&:not(.card__body--no-top-padding) {
+				padding-top: spacing('loose');
+			}
+			&:not(.card__body--no-bottom-padding) {
+				padding-bottom: spacing('loose');
+			}
+		}
+	}
+	&--section-separators-visible {
+		.card__section + .card__section {
+			padding-top: spacing('base');
+			border-top: 1px solid $c-border;
+		}
+	}
+}
+
+.card__section {
+	padding: 0 spacing('base');
+
+	@include gt('small') {
+		padding: 0 spacing('loose');
+	}
+
+	+ .card__section {
+		margin-top: 1rem;
+	}
+
+	&--full-bleed {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+.card__footer {
+	padding: 0 spacing('base') spacing('base') spacing('base');
+
+	@include gt('small') {
+		padding: 0 spacing('loose') spacing('loose') spacing('loose');
+	}
+}
+
+.card--small {
+	.card__title {
+		@include typescale('body');
+	}
+	.card__body {
+		@include typescale('ui');
+	}
+}
+
+// Spacing
+
+.card + .card {
+	margin-top: spacing('base');
+}
+
+// Styles for Score Cards
+
+.card__scores {
+	display: flex;
+	flex-flow: column;
+	justify-content: stretch;
+	margin-top: spacing('base');
+
+	@include gt('medium') {
+		flex-flow: row;
+	}
+}
+
+.card__score {
+	flex: 1 0 auto;
+	padding: spacing('base');
+	text-align: center;
+	color: $c-text-light;
+	border-top: 1px solid $c-border;
+
+	@include gt('medium') {
+		border-right: 1px solid $c-border;
+
+		&:last-of-type {
+			border-right: none;
+		}
+	}
+}
+
+.card__score-label {
+	@include type-style-label;
+}
+
+.card__score-value {
+	@include typescale('display-sm');
+}
+
+.card > img {
+	width: 100%;
+	height: auto;
+}

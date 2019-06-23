@@ -1,0 +1,95 @@
+/**
+Theme
+Use these variables to change the theme
+*/
+
+/**
+Text Colors
+*/
+// $c-text: $c-grey-09;
+// $c-text-light: $c-grey-07;
+// $c-text-placeholder: $c-grey-05;
+// $c-text-icon: $c-grey-05;
+
+/**
+Background Colors
+*/
+// $c-bg: $c-off-white;
+// $c-bg-light: $c-white;
+
+/**
+Border Colors
+*/
+// $c-border: $c-grey-02;
+// $c-border-light: $c-grey-01;
+
+/**
+Primaries
+*/
+// $c-primary: #0076D6;
+// $c-primary-light: #0099FF;
+// $c-primary-dark: #005499;
+
+/**
+Secondaries
+*/
+// $c-secondary: #5a5ae6;
+// $c-secondary-light: #8388f0;
+// $c-secondary-dark: #4136ba;
+
+/**
+UI Colors
+*/
+// $c-ui-input-autofill: #e0edf8;
+// $c-ui-online: #00b2a4;
+// $c-ui-online-lighter: #defffd;
+// $c-ui-offline: $c-grey-03;
+$c-ui-success: #00b2a4;
+// $c-ui-success-light: $c-primary-light;
+// $c-ui-success-dark: $c-primary-dark;
+// $c-ui-warn: #ffa600;
+// $c-ui-warn-light: #ffedcc;
+// $c-ui-warn-dark: #bf5b00;
+// $c-ui-critical: #e51b3d;
+// $c-ui-critical-light: #ffdad3;
+// $c-ui-critical-dark: #bf060c;
+
+/**
+Dimension
+*/
+// $border-radius-button: 4px;
+// $border-radius-input: 4px;
+// $tap-height: rem(48);
+// $tap-height-small: rem(36);
+
+/**
+Browser Context
+This value will have a cascading affect on typography and layout.
+Avoid changing it unless absolutely necessary.
+*/
+// $browser-context: 16;
+
+/**
+Font Famillies
+*/
+// $font-family-primary: 'Source Sans Pro', 'Roboto', 'Helvetica Neue';
+// $font-family-label: 'Source Code Pro', Courier, monospace;
+
+/**
+Set the base font size
+*/
+// $font-size-base: #{$browser-context}px;
+
+/**
+Font Weights
+*/
+// $font-weight-normal: 400;
+// $font-weight-medium: 500;
+// $font-weight-bold: 600;
+
+/**
+Line Heights
+*/
+// $line-height: 1.25;
+// $line-height-tight: 1.25;
+// $line-height-loose: 1.5;

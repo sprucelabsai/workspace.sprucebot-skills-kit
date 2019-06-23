@@ -1,0 +1,8 @@
+<div class="form-layout{{#if modifierClass}} {{modifierClass}}{{/if}}">
+    {{#each formLayoutGroups}}
+    {{> @form-layout-group this }}
+    {{/each}}
+    {{#each formLayoutItems}}
+    {{> @form-layout-item this }}
+    {{/each}}
+</div>

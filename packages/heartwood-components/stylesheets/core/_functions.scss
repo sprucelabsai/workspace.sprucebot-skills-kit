@@ -1,0 +1,14 @@
+/**
+Browser Context
+This value will have a cascading affect on typography and layout.
+Avoid changing it unless absolutely necessary.
+*/
+$browser-context: 16 !default;
+
+@function em($pixels, $context: $browser-context) {
+	@return #{$pixels/$context}em;
+}
+
+@function rem($px) {
+	@return $px / $browser-context * 1rem;
+}

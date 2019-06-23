@@ -1,0 +1,35 @@
+<li class="sidebar-item{{#if isCurrent}} sidebar-item--is-current{{/if}}{{#if isCurrentParent}} sidebar-item--is-current-parent{{/if}}{{#if class}} {{class}}{{/if}}">
+	<div class="sidebar-item__inner">
+		<a class="sidebar-item__link" href="#">
+			{{#if icon}}{{> @icon icon=icon class="sidebar-item__icon"}}{{/if}}
+			<span class="sidebar-item__text">{{text}}</span>
+		</a>
+		{{#if action}}{{> @simple-button text=action.text className=action.class href="#"}}{{/if}}
+	</div>
+	{{#if items}}
+	{{#if isCurrentParent}}
+	<ul class="sidebar__sub-list">
+		{{#each items}}
+		<li class="sidebar__sub-list-item{{#if isCurrent}} sidebar-item--is-current{{/if}}{{#if isCurrentParent}} sidebar-item--is-current-parent{{/if}}{{#if class}} {{class}}{{/if}}">
+			<div class="sidebar-item__inner">
+				<a class="sidebar-item__link" href="#">{{text}}</a>
+			</div>
+			{{#if items}}
+			{{#if isCurrentParent}}
+			<ul class="sidebar__sub-list">
+				{{#each items}}
+				<li class="sidebar__sub-list-item{{#if isCurrent}} sidebar-item--is-current{{/if}}{{#if class}} {{class}}{{/if}}">
+					<div class="sidebar-item__inner">
+						<a class="sidebar-item__link" href="#">{{text}}</a>
+					</div>
+				</li>
+				{{/each}}
+			</ul>
+			{{/if}}
+			{{/if}}
+		</li>
+		{{/each}}
+	</ul>
+	{{/if}}
+	{{/if}}
+</li>

@@ -1,0 +1,36 @@
+.hamburger {
+	display: inline-block;
+	position: relative;
+	width: rem(48);
+	height: rem(48);
+	border-radius: 0;
+	background-color: $c-grey-09;
+
+	&:focus {
+		background-color: $c-grey-09;
+	}
+}
+
+.hamburger__icon {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	fill: $c-white;
+}
+
+.hamburger__close {
+	display: none;
+
+	.hamburger--is-open & {
+		display: block;
+	}
+}
+
+.hamburger__open {
+	display: block;
+
+	.hamburger--is-open & {
+		display: none;
+	}
+}

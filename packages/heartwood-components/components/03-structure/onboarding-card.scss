@@ -1,0 +1,64 @@
+.onboarding-card {
+	.tab-group {
+		align-items: stretch;
+	}
+
+	.tab {
+		flex: auto;
+		width: 100%;
+
+		&.tab--is-complete .btn__icon {
+			fill: $c-ui-success;
+
+			&.icon--no-fill.icon--stroke {
+				fill: none;
+				stroke: $c-ui-success;
+			}
+		}
+	}
+
+	.tab + .tab {
+		padding-left: 0;
+	}
+
+	.tab__inner.btn {
+		display: inline-block;
+		height: 100%;
+		padding: spacing('tight') 0;
+		width: 100%;
+	}
+
+	.tab__inner .btn__text {
+		display: none;
+		margin: 0;
+		padding: 0 spacing('base');
+
+		@include gt('small') {
+			display: block;
+		}
+	}
+
+	.tab__inner:after {
+		height: rem(4);
+	}
+
+	.btn__inner {
+		justify-content: center;
+		flex-flow: column;
+		height: 100%;
+	}
+
+	.btn__icon {
+		opacity: 1;
+	}
+}
+
+.onboarding-card__header {
+	background-color: $c-bg;
+}
+
+.onboarding-card__title {
+	padding: spacing('base');
+	font-weight: $font-weight-bold;
+	border-bottom: 1px solid $c-border;
+}

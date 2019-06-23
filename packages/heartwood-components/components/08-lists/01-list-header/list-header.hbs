@@ -1,0 +1,17 @@
+<div class="list-header{{#if isSmall}} list-header-small{{/if}}">
+	<div class="list-header__text">
+		<h3 class="list-header__title">{{listHeaderTitle}}</h3>
+		{{#if listHeaderSubtitle}}
+		<p class="list-header__subtitle">{{listHeaderSubtitle}}</p>
+		{{/if}}
+	</div>
+	{{#if actions}}
+	<ul class="list-header__actions">
+		{{#each actions}}
+			<li class="list-header__action-wrapper">
+				{{> @button text=text className=class }}
+			</li>
+		{{/each}}
+	</ul>
+	{{/if}}
+</div>

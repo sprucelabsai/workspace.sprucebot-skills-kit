@@ -1,0 +1,27 @@
+# Project dependencies
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+.cache
+node_modules
+yarn-error.log
+.env.development
+.env.production
+.DS_Store
+*/.DS_Store
+
+# Not necessary for node module
+docs/
+theme-overrides/
+*.hbs
+*.js
+*.md
+*.svg
+*.png
+*.xml
+*.icons
+*.webmanifest
+
+# Build directory
+public/icons/
+public/images/
+public/js/
+build/

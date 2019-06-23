@@ -1,0 +1,33 @@
+.tag {
+	display: inline-flex;
+	align-items: center;
+	height: $tap-height;
+	padding-left: spacing('base');
+	border-radius: $border-radius-button;
+
+	&.tag-small {
+		height: $tap-height-small;
+	}
+
+	+ .tag {
+		margin-left: spacing('base');
+	}
+}
+
+.tag-primary {
+	background-color: $c-primary;
+	color: $c-white;
+
+	.btn__icon {
+		fill: $c-white;
+	}
+}
+
+.tag-secondary {
+	border: 1px solid $c-primary;
+	color: $c-primary;
+
+	.btn__icon {
+		fill: $c-primary;
+	}
+}

@@ -1,0 +1,58 @@
+.context-menu {
+	position: relative;
+	display: inline-block;
+}
+
+.context-menu__button .btn__icon {
+	stroke: $c-text-icon;
+}
+
+.context-menu__button.btn-simple .btn__icon {
+	fill: $c-primary;
+
+	&.btn__line-icon {
+		fill: none;
+		stroke: $c-primary;
+	}
+}
+
+.context-menu--is-visible {
+	.context-menu__button {
+		background-color: $c-grey-00;
+	}
+}
+
+.context-menu__menu {
+	position: absolute;
+	z-index: 10;
+	width: rem(160);
+
+	&.context-menu__menu-large {
+		width: rem(240);
+	}
+
+	&.context-menu__menu-left {
+		transform: translate(-100%, 0);
+	}
+
+	&.context-menu__menu-top {
+		transform: translate(0, calc(-100% - 8px));
+	}
+
+	&.context-menu__menu-left.context-menu__menu-top {
+		transform: translate(-100%, calc(-100% - 8px));
+	}
+	.button-group {
+		width: 100%;
+		max-height: rem(224);
+		overflow-y: auto;
+
+		.btn {
+			border-radius: 0;
+		}
+	}
+}
+
+.context-menu__item-btn {
+	text-align: left;
+}

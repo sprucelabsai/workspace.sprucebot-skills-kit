@@ -1,0 +1,60 @@
+.toggle__wrapper {
+	display: flex;
+	align-items: center;
+}
+.toggle {
+	position: relative;
+	width: rem(48);
+	height: rem(26);
+}
+
+.toggle__input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: none;
+	background-color: transparent;
+	-webkit-appearance: none;
+	appearance: none;
+
+	&:focus {
+		outline: none;
+	}
+
+	&:checked {
+		~ .toggle__label {
+			background-color: $c-primary;
+
+			&:after {
+				transform: translate(24px, 4px);
+			}
+		}
+	}
+}
+
+.toggle__label {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	border-radius: 9999px;
+	background-color: $c-text-light;
+	cursor: pointer;
+
+	&:after {
+		content: '';
+		display: block;
+		width: rem(18);
+		height: rem(18);
+		transform: translate(4px, 4px);
+		transition: transform 200ms ease-out;
+		border-radius: 9999px;
+		background-color: $c-bg-light;
+	}
+}
+
+.toggle__text {
+	margin-left: spacing('tight');
+}

@@ -1,0 +1,12 @@
+{
+	"search.exclude": {
+		"**/.next": true,
+		"**/bower_components": true,
+		"**/node_modules": true,
+		"lib": true
+	},
+	"git.ignoreLimitWarning": true,
+	"cSpell.words": ["callout", "stringify'able", "uploader"],
+	"editor.formatOnSave": true,
+	"prettier.eslintIntegration": true
+}

@@ -1,0 +1,58 @@
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: $font-size-base;
+	color: $c-text;
+	height: 100%;
+}
+
+body {
+	@include type-kerning;
+	@include type-style-body;
+	background-color: $c-bg;
+	font-family: $font-family-primary;
+	height: 100%;
+}
+
+#__next {
+	height: 100%;
+}
+
+strong {
+	font-weight: $font-weight-bold;
+}
+
+.visually-hidden {
+	visibility: hidden;
+}
+
+img.error {
+	display: none;
+}
+
+// Handle FOIT if desired
+@if global-variable-exists(foit) == false or $foit == true {
+	.fonts-loading {
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		p,
+		span,
+		label {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+}
+
+// Always hide focus on iframes
+iframe:focus {
+	outline: none;
+}

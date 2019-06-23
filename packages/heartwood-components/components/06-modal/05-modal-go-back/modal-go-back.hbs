@@ -1,0 +1,50 @@
+<div class="modal-overlay">
+	<div class="modal modal-small">
+		<form>
+			{{> @modal-header canGoBack=true title="Override Service Settings"}}
+			<div class="modal-body">
+				<div class="form-row">
+					{{>
+						@text-input
+						id="primary-time"
+						label="Primary Time"
+						value="1 hr"
+					}}
+				</div>
+				<div class="form-row">
+					{{>
+						@text-input
+						id="processing-time"
+						label="Processing Time"
+						value="30 min"
+					}}
+				</div>
+				<div class="form-row">
+					{{>
+						@text-input
+						id="finishing-time"
+						label="Finishing Time"
+						value="30 min"
+					}}
+				</div>
+				<div class="form-row">
+					{{>
+						@text-input
+						id="price-override"
+						label="Price Override"
+						value="$30"
+					}}
+				</div>
+				<div class="form-row">
+					{{>
+						@text-input
+						id="commission-override"
+						label="Commission Override"
+						value="13%"
+					}}
+				</div>
+			</div>
+			{{> @modal-footer primaryAction="Save Settings" secondaryAction="Cancel and go back"}}
+		</form>
+	</div>
+</div>

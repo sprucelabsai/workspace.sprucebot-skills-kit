@@ -1,0 +1,7 @@
+<ul class="button-group{{#if isSegmented}} button-group-segmented{{/if}}{{#if isFloating}} button-group-floating{{/if}}">
+	{{#each actions}}
+		<li class="button-group__item">
+			{{> @button }}
+		</li>
+	{{/each}}
+</ul>

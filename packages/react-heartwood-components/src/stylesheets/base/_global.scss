@@ -1,0 +1,23 @@
+/* stylelint-disable */
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	@include font-smoothing;
+	font-size: 100%;
+	line-height: 1.25;
+	color: $body;
+}
+
+body {
+	@extend %native-font-stack;
+	height: 100%;
+}
+
+:global .ReactModal__Body--open {
+	overflow: hidden;
+}

@@ -1,0 +1,87 @@
+// TODO: Investigate if there is a better approach to do
+// a split-color approach
+
+$thumb-d: rem(24);
+
+@mixin range-thumb {
+	-webkit-appearance: none;
+	width: $thumb-d;
+	height: $thumb-d;
+	transform: translate(0, calc(-50% + #{rem(2)}));
+	border-radius: 9999px;
+	border: 1px solid $c-border;
+	background-color: $c-bg;
+}
+
+@mixin range-track($fill: 0) {
+	height: rem(4);
+	border-radius: 9999px;
+	background-color: $c-text-placeholder;
+	cursor: pointer;
+
+	@if $fill == 1 {
+		.slider--split-color & {
+			background: linear-gradient($c-primary, $c-primary)
+				0 /
+				var(--sx)
+				100%
+				no-repeat
+				$c-text-placeholder;
+		}
+	}
+}
+
+.slider-wrapper {
+	width: 100%;
+}
+
+.slider {
+	--range: calc(var(--max) - var(--min));
+	--ratio: calc((var(--val) - var(--min)) / var(--range));
+	--sx: calc(0.5 *#{$thumb-d} + var(--ratio) * (100% - #{$thumb-d}));
+	width: 100%;
+	margin: rem(10) 0;
+	background: transparent;
+	-webkit-appearance: none;
+
+	&:focus {
+		outline: none;
+	}
+
+	// NOTE: It is necessary to repeat these instead of comma-separating them
+	// Otherwise, the browser will drop these styles
+	&::-webkit-slider-thumb {
+		@include range-thumb;
+	}
+	&::-moz-range-thumb {
+		@include range-thumb;
+	}
+	&::-ms-thumb {
+		@include range-thumb;
+	}
+	&::-webkit-slider-runnable-track {
+		@include range-track(1);
+	}
+	&::-moz-range-track {
+		@include range-track;
+	}
+	&::-ms-track {
+		@include range-track;
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+
+		&::-webkit-slider-runnable-track {
+			cursor: not-allowed;
+		}
+
+		&::-moz-range-track {
+			cursor: not-allowed;
+		}
+
+		&::-ms-track {
+			cursor: not-allowed;
+		}
+	}
+}

@@ -1,0 +1,168 @@
+// Page
+
+.page {
+	display: flex;
+	width: 100%;
+
+	&--no-header {
+		margin-top: 4rem;
+	}
+}
+
+.page__header {
+	padding-top: spacing('base');
+	overflow: hidden;
+	max-height: 200px;
+	opacity: 1;
+	transition: 350ms 350ms max-height, 350ms 350ms opacity, 350ms 350ms padding;
+
+	@include gt('small') {
+		padding-top: 1.5rem;
+	}
+
+	@include gt('medium') {
+		padding-top: 1.5rem;
+	}
+
+	&--is-collapsed {
+		max-height: 0;
+		padding: 0;
+		opacity: 0;
+	}
+}
+
+.page__header-back-link {
+	display: inline-flex;
+	align-items: center;
+	height: rem(36);
+	margin-left: spacing('base');
+	color: $c-text-light;
+	padding: spacing('none');
+	text-decoration: none;
+
+	&:hover {
+		color: $c-text;
+	}
+
+	&:hover .page__header-back-link-icon {
+		fill: $c-text;
+	}
+
+	@include gt('small') {
+		margin-left: 1.5rem;
+	}
+
+	@include gt('medium') {
+		margin-left: spacing('extra-loose');
+	}
+}
+
+.page__header-back-link-icon {
+	fill: $c-text-light;
+	height: rem(24);
+	margin-left: rem(-8);
+}
+
+.page__header-main {
+	display: flex;
+	flex-flow: column;
+	align-items: flex-start;
+	padding: 0 spacing('base') 00;
+
+	> .btn {
+		flex: 0 0 auto;
+		margin-top: spacing('tight');
+
+		&.btn-simple {
+			margin-left: -1 * spacing('tight');
+
+			@include gt('small') {
+				margin-left: 0;
+			}
+		}
+	}
+
+	@include gt('small') {
+		padding: 0 1.5rem;
+	}
+
+	@include gt('medium') {
+		padding: 0 spacing('extra-loose');
+	}
+
+	@include gt('990px') {
+		flex-flow: row;
+		justify-content: space-between;
+
+		.btn {
+			margin-top: 0;
+		}
+	}
+
+	&--has-bottom-border {
+		padding-bottom: spacing('base');
+		border-bottom: 1px solid $c-border-light;
+
+		@include gt('small') {
+			padding-bottom: 1.5rem;
+		}
+	}
+}
+
+.page__header-title-wrapper {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.page__header-sidebar-btn {
+	@include gt('990px') {
+		display: none;
+	}
+}
+
+.page__header-tabs {
+	padding: 0 spacing('base');
+
+	@include gt('small') {
+		margin-top: spacing('tight');
+		padding: 0 1.5rem;
+	}
+
+	@include gt('medium') {
+		padding: 0 spacing('extra-loose');
+	}
+}
+
+.page__content-container {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	overflow: scroll;
+}
+
+body.render-location-modal {
+	.page__content-container {
+		overflow: visible;
+	}
+}
+
+.page__content {
+	padding: spacing('base') 0;
+	z-index: 1;
+
+	> .text-container {
+		padding: 0 spacing('base');
+		@include gt('small') {
+			padding: 0 spacing('loose');
+		}
+		@include gt('medium') {
+			padding: 0;
+		}
+	}
+}
+
+.page__sidebar {
+	display: flex;
+	z-index: 2;
+}

@@ -1,0 +1,11 @@
+{
+	"search.exclude": {
+		"**/.next": true,
+		"**/bower_components": true,
+		"**/node_modules": true,
+		"lib": true
+	},
+	"git.ignoreLimitWarning": true,
+	"editor.formatOnSave": true,
+	"prettier.eslintIntegration": true
+}

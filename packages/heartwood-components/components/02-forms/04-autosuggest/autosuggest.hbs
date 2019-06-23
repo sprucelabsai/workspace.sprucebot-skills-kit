@@ -1,0 +1,25 @@
+<div class="text-input {{class}}">
+	{{#if label}}
+		{{> @input-pre }}
+	{{/if}}
+	<div class="autosuggest__wrapper">
+		{{> @input-inner }}
+		<div class="autosuggest">
+			{{#if options}}
+			<ul class="autosuggest__list">
+				{{#each options}}
+					<li class="autosuggest__list-item">
+						{{> @button className="btn-small autosuggest__list-item-inner"}}
+					</li>
+				{{/each}}
+			</ul>
+			{{else}}
+				<div class="autosuggest__no-results">
+					<p class="autosuggest__no-results-title">No matching countries found.</p>
+					<p class="autosuggest__no-results-subtitle">Please adjust your search and try again.</p>
+				</div>
+			{{/if}}
+		</div>
+	</div>
+	{{> @input-helper}}
+</div>

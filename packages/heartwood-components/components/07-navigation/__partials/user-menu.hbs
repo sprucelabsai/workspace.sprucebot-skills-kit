@@ -1,0 +1,16 @@
+<div class="user-menu">
+	<button class="btn header-primary__user-btn">
+		<span class="btn__inner">
+			{{> @avatar image=user.image width="32" height="32"}}
+		</span>
+	</button>
+	<ul class="user-menu__menu card">
+		{{> @list-item image=user.image title=user.name subtitle=user.phoneNumber imageIsAvatar=true}}
+		<li class="list-item">
+			{{> @button className="btn-simple btn-full-width" text="Switch Accounts" icon='<path fill="none" fill-rule="evenodd" clip-rule="evenodd" d="M6 7C7.51878 7 8.75 5.76878 8.75 4.25C8.75 2.73122 7.51878 1.5 6 1.5C4.48122 1.5 3.25 2.73122 3.25 4.25C3.25 5.76878 4.48122 7 6 7Z" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M1.5 12.5001C1.50011 10.7267 2.54175 9.11875 4.16015 8.39369C5.77855 7.66863 7.67188 7.96169 8.99533 9.14212" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M8.5 14.5L10.5 16.5L12.5 14.5" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M10.5 16.5V10.5" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M12.5 12.5L14.5 10.5L16.5 12.5" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M14.5 10.5V16.5" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' width="18" height="18"}}
+		</li>
+		<li class="list-item">
+			{{> @button className="btn-simple btn-full-width" text="Log Out" icon='<path fill="none" d="M1.5 8.00269H12" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M9.5 10.5027L12 8.00269L9.5 5.50269" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path fill="none" d="M3.2041 11.0665C4.62034 13.9759 7.84616 15.5355 11.006 14.8384C14.1659 14.1413 16.4361 11.3693 16.4968 8.13407C16.5575 4.89881 14.3928 2.0436 11.2613 1.2285C8.12983 0.413403 4.84779 1.85088 3.32343 4.70516" stroke="#0099FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' width="18" height="16"}}
+		</li>
+	</ul>
+</div>

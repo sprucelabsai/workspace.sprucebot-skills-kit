@@ -2,57 +2,107 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:8
+      - image: circleci/python:3-node
     steps:
       - add_ssh_keys:
           fingerprints:
             - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
       - checkout
-      - run: yarn install
+      - run: node -v && npm -v
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn lint
       - run: yarn test
   pre_release:
     docker:
-      - image: circleci/node:8
+      - image: circleci/python:3-node
     steps:
       - add_ssh_keys:
           fingerprints:
             - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
+      - run: pip install awscli --upgrade --user
+      - run: echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
+      - run: node -v && npm -v && aws --version
       - checkout
-      - run: yarn install
-      - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: yarn run publish --yes --canary --preid pre --message "%s [skip ci]"
-  dev_release:
-    docker:
-      - image: circleci/node:8
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
-      - checkout
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
       - run: git config --global user.name "$GIT_AUTHOR_NAME"
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: yarn run publish --yes --force-publish --npm-tag beta --message "%s [skip ci]"
-  prod_release:
+      - run: export SHA=$(git rev-parse --short HEAD) && npm run publish -- prerelease --exact --yes --preid pre-$SHA --message "%s [skip ci]" --npm-client npm --no-push --npm-tag prerelease
+      - run: yarn build-statics
+      - run: yarn s3-sync-stylesheets-pre
+  canary:
     docker:
-      - image: circleci/node:8
+      - image: circleci/python:3-node
     steps:
       - add_ssh_keys:
           fingerprints:
             - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
+      - run: pip install awscli --upgrade --user
+      - run: echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
+      - run: node -v && npm -v && aws --version
       - checkout
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
+      - run: git config --global user.name "$GIT_AUTHOR_NAME"
+      - run: git pull --tags
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - run: npm run publish -- --exact --yes --canary --preid canary --force-publish --npm-tag canary --message "%s [skip ci]" --npm-client npm --no-push --no-git-reset
+      - run: yarn build-statics
+      - run: yarn s3-sync-heartwood-canary
+      - run: yarn s3-sync-storybook-canary
+      - run: yarn s3-sync-stylesheets-pre
+  dev_release:
+    docker:
+      - image: circleci/python:3-node
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
+      - run: pip install awscli --upgrade --user
+      - run: echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
+      - run: node -v && npm -v && aws --version
+      - checkout
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
+      - run: git config --global user.name "$GIT_AUTHOR_NAME"
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - run: npm run publish -- --yes --force-publish --npm-tag beta --message "%s [skip ci]" --npm-client npm
+      - run: yarn build-statics
+      - run: yarn s3-sync-heartwood-dev
+      - run: yarn s3-sync-storybook-dev
+      - run: yarn s3-sync-stylesheets-latest
+  prod_release:
+    docker:
+      - image: circleci/python:3-node
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
+      - run: pip install awscli --upgrade --user
+      - run: echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
+      - run: node -v && npm -v && aws --version
+      - checkout
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
       - run: git config --global user.name "$GIT_AUTHOR_NAME"
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - run: npx lerna exec --no-bail --no-private --no-sort --stream -- '[ -n "$(npm v . dist-tags.beta)" ] && npm dist-tag add ${LERNA_PACKAGE_NAME}@$(npm v . dist-tags.beta) latest'
+      - run: yarn build-statics
+      - run: yarn s3-sync-heartwood-prod
+      - run: yarn s3-sync-storybook-prod
 workflows:
   version: 2
   do_build:
@@ -69,6 +119,13 @@ workflows:
             branches:
               only:
                 - /prerelease\/.*/
+      - canary:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - canary
       - dev_release:
           requires:
             - test
