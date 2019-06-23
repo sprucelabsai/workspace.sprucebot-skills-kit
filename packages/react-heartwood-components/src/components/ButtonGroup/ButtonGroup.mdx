@@ -1,0 +1,45 @@
+---
+name: ButtonGroup
+menu: Buttons
+---
+
+import { Playground, Props } from 'docz'
+import ButtonGroup from './ButtonGroup'
+
+# ButtonGroup
+
+### ButtonGroups arrange related buttons in close proximity to each other.
+
+<Playground>
+	<ButtonGroup
+		actions={[
+			{ kind: 'secondary', text: 'Cancel' },
+			{ kind: 'primary', text: 'Confirm' }
+		]}
+	/>
+</Playground>
+
+## When to use
+
+Use a ButtonGroup when there are multiple related actions that a user may want to take.
+
+## When not to use
+
+When actions are not related to each other, they should not be placed in a ButtonGroup.
+
+## Props
+
+<Props of={ButtonGroup} />
+
+## Related components:
+
+- ContextMenu
+
+### Composed by:
+
+- Button
+
+### Consumed by:
+
+- CardBuilder
+- ContextMenu

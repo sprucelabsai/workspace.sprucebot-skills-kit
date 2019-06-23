@@ -4,7 +4,7 @@
 		"access": "public"
 	},
 	"description": "The base template that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "8.13.0",
+	"version": "8.15.2",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit",
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
@@ -27,21 +27,21 @@
 		"interface": "next ./interface -p 3080",
 		"lint": "eslint --ext .js .",
 		"test": "yarn run build && jest",
-		"test:server": "rm tmp/testing.db | true && PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r flow-remove-types/register --exit 'server/tests/**/*Tests.js'",
-		"test:server:single": "PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r flow-remove-types/register --exit",
+		"test:server": "rm tmp/testing.db | true && mkdir -p tmp/ | true && PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r flow-remove-types/register --exit 'server/tests/**/*Tests.js'",
+		"test:server:single": "rm tmp/testing.db | true && mkdir -p tmp/ | true && PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r flow-remove-types/register --exit",
 		"icon": "svgo icon/icon.svg",
 		"heroku-postbuild": "npm run build",
 		"release": "semantic-release"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
-		"@sprucelabs/heartwood-components": "^8.13.0",
-		"@sprucelabs/log": "^1.6.2",
-		"@sprucelabs/react-heartwood-components": "^8.13.0",
-		"@sprucelabs/spruce-next-helpers": "^8.13.0",
-		"@sprucelabs/spruce-node": "^8.13.0",
-		"@sprucelabs/spruce-skill-server": "^8.13.0",
-		"@sprucelabs/spruce-utils": "^8.13.0",
+		"@sprucelabs/heartwood-components": "^8.15.2",
+		"@sprucelabs/log": "^2",
+		"@sprucelabs/react-heartwood-components": "^8.15.2",
+		"@sprucelabs/spruce-next-helpers": "^8.15.2",
+		"@sprucelabs/spruce-node": "^8.15.2",
+		"@sprucelabs/spruce-skill-server": "^8.15.2",
+		"@sprucelabs/spruce-utils": "^8.15.2",
 		"@zeit/next-css": "^1.0.1",
 		"@zeit/next-sass": "^1.0.1",
 		"apollo-link-ws": "^1.0.12",
@@ -54,7 +54,6 @@
 		"enzyme-to-json": "^3.3.1",
 		"flow-node": "^1.2.3",
 		"globby": "^8.0.1",
-		"graphql": "^14.0.2",
 		"graphql-parse-fields": "^1.2.0",
 		"graphql-relay": "^0.5.5",
 		"graphql-sequelize": "^9.2.0",
@@ -87,7 +86,7 @@
 		"chai": "^4.2.0",
 		"conventional-changelog-sprucelabs": "^1.1.0",
 		"eslint": "^5",
-		"eslint-config-spruce": "^8.13.0",
+		"eslint-config-spruce": "^8.15.2",
 		"faker": "^4.1.0",
 		"flow-remove-types": "^1.2.3",
 		"globby": "^8.0.1",
@@ -104,6 +103,9 @@
 		"sqlite3": "^4.0.4",
 		"supertest": "^3.3.0",
 		"svgo": "^1.0.3"
+	},
+	"peerDependencies": {
+		"graphql": "^14.2.0"
 	},
 	"gitHead": "eac8d4ea6df58218b78c9c866b22c761df1e6447"
 }

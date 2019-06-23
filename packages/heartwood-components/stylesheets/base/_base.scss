@@ -16,10 +16,10 @@ body {
 	background-color: $c-bg;
 	font-family: $font-family-primary;
 	height: 100%;
+}
 
-	&.render-location-modal {
-		background-color: $c-white;
-	}
+#__next {
+	height: 100%;
 }
 
 strong {
@@ -28,6 +28,10 @@ strong {
 
 .visually-hidden {
 	visibility: hidden;
+}
+
+img.error {
+	display: none;
 }
 
 // Handle FOIT if desired
@@ -46,4 +50,9 @@ strong {
 			visibility: hidden;
 		}
 	}
+}
+
+// Always hide focus on iframes
+iframe:focus {
+	outline: none;
 }

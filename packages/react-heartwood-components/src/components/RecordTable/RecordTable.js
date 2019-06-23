@@ -166,7 +166,10 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		}
 
 		if (!cancel) {
-			this.setState({ currentPage: 0, selectedTab: tab.key }, this.refresh)
+			this.setState(
+				{ currentPage: 0, selectedTab: tab.key, expandedRows: {} },
+				this.refresh
+			)
 		}
 	}
 
@@ -182,16 +185,23 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		search,
 		page
 	}: { search?: string, page: number } = {}) => {
+		const { onNavigateToPage = () => {} } = this.props
+
 		try {
 			const { visibleRows, totalRows } = await this.fetchRecords({
 				search,
 				page
 			})
 
+			onNavigateToPage({
+				currentPage: page
+			})
+
 			this.setState({
 				currentPage: page,
 				visibleRows,
-				totalRows
+				totalRows,
+				expandedRows: {}
 			})
 		} catch (e) {
 			// Nothing
@@ -385,7 +395,8 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			searchPlaceholder,
 			noDataPrimaryActionButtonKind,
 			noDataPrimaryActionButtonIcon,
-			tableSearchProps = {}
+			tableSearchProps = {},
+			...rest
 		} = this.props
 
 		const {
@@ -396,7 +407,8 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			selectedTab,
 			visibleRows,
 			totalRows,
-			currentFilter
+			currentFilter,
+			expandedRows
 		} = this.state
 
 		// setup default props types
@@ -471,6 +483,12 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 							desc: false
 						}
 					]}
+					expanded={expandedRows}
+					onExpandedChange={newExpanded => {
+						this.setState({
+							expandedRows: newExpanded
+						})
+					}}
 					pageSize={Math.min(visibleRows.length, limit)}
 					paginationProps={{
 						currentPage,
@@ -499,6 +517,7 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 					noDataPrimaryAction={this.getNoDataPrimaryAction()}
 					noDataPrimaryActionButtonKind={noDataPrimaryActionButtonKind}
 					noDataPrimaryActionButtonIcon={noDataPrimaryActionButtonIcon}
+					{...rest}
 				/>
 			</Fragment>
 		)

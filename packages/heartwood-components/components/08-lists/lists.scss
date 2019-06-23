@@ -180,6 +180,17 @@
 	}
 }
 
+.list-item .checkbox-item {
+	position: relative;
+	.checkbox-item__label {
+		margin: 0;
+	}
+
+	.list-small & {
+		top: -2px;
+	}
+}
+
 .drag-handle {
 	width: rem(20);
 	height: rem(20);
@@ -219,6 +230,10 @@
 }
 
 .record-selection__list {
+	display: flex;
+	flex-flow: column;
+	height: 100%;
+
 	.text-container {
 		align-items: flex-start;
 		display: flex;
@@ -228,14 +243,17 @@
 	}
 
 	.record-selection__list-wrapper {
-		position: relative;
-		min-height: 28rem;
+		height: 100%;
+		overflow-x: hidden;
+		overflow-y: auto;
 	}
 
 	.record-selection__record-wrapper {
 		display: flex;
 		align-items: center;
-		border-bottom: 1px solid $c-grey-03;
+		+ .record-selection__record-wrapper {
+			border-top: 1px solid $c-border;
+		}
 	}
 
 	.record-selection__record-select {
@@ -245,4 +263,16 @@
 	.record-selection__record-content {
 		flex: 1;
 	}
+
+	.record-selection__record-remove-btn .btn__icon {
+		fill: $c-text-icon;
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.record-selection__virtual-list:focus {
+	outline: none;
 }

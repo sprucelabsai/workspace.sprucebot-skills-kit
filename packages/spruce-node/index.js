@@ -124,7 +124,7 @@ class Sprucebot {
 	}
 
 	async mutation(query) {
-		return this.adapter.mutation(query)
+		return this.adapter.query(`mutation ${query}`)
 	}
 
 	/**
@@ -253,10 +253,10 @@ class Sprucebot {
 		locationId,
 		userId,
 		message,
-		{ linksToWebView, webViewQueryData, payload, sendAtTimestamp } = {},
+		{ linksToWebView, webViewQueryData, payload, sendAtTimestamp, type } = {},
 		query = {}
 	) {
-		const data = Array.from(arguments)[3] || {}
+		const data = Array.from(arguments)[3] || { type: 'promotional' }
 		data.userId = userId
 		data.message = message
 		if (data.webViewQueryData) {
@@ -305,8 +305,8 @@ class Sprucebot {
 	 * @param {String} userId
 	 * @param {String} message
 	 */
-	async globalMessage(userId, message) {
-		return this.adapter.post('/messages', { userId, message })
+	async globalMessage(userId, message, type = 'promotional') {
+		return this.adapter.post('/messages', { userId, message, type })
 	}
 
 	/**
@@ -486,9 +486,10 @@ class Sprucebot {
 	 * @param {String} name
 	 * @param {Object} payload
 	 */
-	async emit(locationId, eventName, payload = {}, options) {
+	async emit(locationId, eventName, payload = {}, options, eventId) {
 		return this.adapter.post(`locations/${locationId}/emit`, {
 			eventName,
+			eventId,
 			payload,
 			options
 		})
@@ -500,9 +501,16 @@ class Sprucebot {
 	 * @param {String} name
 	 * @param {Object} payload
 	 */
-	async emitOrganization(organizationId, eventName, payload = {}, options) {
+	async emitOrganization(
+		organizationId,
+		eventName,
+		payload = {},
+		options,
+		eventId
+	) {
 		return this.adapter.post(`organizations/${organizationId}/emit`, {
 			eventName,
+			eventId,
 			payload,
 			options
 		})

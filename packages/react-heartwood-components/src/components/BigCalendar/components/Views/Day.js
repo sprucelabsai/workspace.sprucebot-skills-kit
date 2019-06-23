@@ -463,6 +463,10 @@ class Day extends PureComponent<Props, State> {
 		const newUser = this.xToUser(newX)
 
 		const { onDropEvent, timezone } = this.props
+		const matches = document.querySelectorAll(
+			'.bigcalendar__event.hover-available'
+		)
+		matches.forEach(match => match.classList.toggle('hover-available', false))
 
 		if (
 			newStartAt &&
@@ -1382,6 +1386,9 @@ class Day extends PureComponent<Props, State> {
 						dragScrollSpeed={dragScrollSpeed}
 						enableAutoScrollX={enableAutoScrollX}
 						enableAutoScrollY={enableAutoScrollY}
+						style={{
+							height: calendarBodyHeight
+						}}
 					>
 						<div className="scroll-inner" ref={this.scrollInnerRef}>
 							{users.map((user, idx) => (

@@ -1,5 +1,7 @@
 // @flow
 import React, { Component } from 'react'
+import { createPortal } from 'react-dom'
+import debounce from 'lodash/debounce'
 import { default as ReactAutosuggest } from 'react-autosuggest'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
@@ -62,7 +64,12 @@ export type Props = {
 type State = {
 	value: string,
 	suggestions: Array<any>,
-	showClearButton: boolean
+	showClearButton: boolean,
+	containerPlacement: {
+		top: number,
+		left: number,
+		width: number
+	}
 }
 
 type ThemeProps = {
@@ -88,14 +95,79 @@ export default class Autosuggest extends Component<Props, State> {
 		defaultSuggestions: []
 	}
 
+	debouncedResize = debounce(() => this.handleWindowResize(), 500)
+
 	constructor(props: Props) {
 		super(props)
 
 		this.state = {
 			value: props.defaultValue || '',
 			suggestions: this.props.defaultSuggestions || [],
-			showClearButton: false
+			showClearButton: false,
+			containerPlacement: {
+				top: 0,
+				left: 0,
+				width: 0
+			}
 		}
+	}
+
+	componentDidMount = () => {
+		this.getContainerPlacement()
+		if (typeof window !== 'undefined') {
+			window.addEventListener('resize', this.debouncedResize, false)
+		}
+	}
+
+	componentWillUnmount = () => {
+		if (typeof window !== 'undefined') {
+			window.removeEventListener('resize', this.debouncedResize, false)
+		}
+	}
+
+	getContainerPlacement = () => {
+		const input =
+			this.autosuggestRef &&
+			this.autosuggestRef.current &&
+			this.autosuggestRef.current.input
+
+		if (!document) {
+			return
+		}
+
+		// For scrollX and scrollY cross-browser compatibility
+		let docEl =
+			document.scrollingElement ||
+			document.documentElement ||
+			document.body.parentNode
+
+		const scrollX = (typeof docEl.scrollLeft === 'number'
+			? docEl
+			: document.body
+		).scrollLeft
+
+		const scrollY = (typeof docEl.scrollTop === 'number'
+			? docEl
+			: document.body
+		).scrollTop
+
+		if (!input) {
+			return
+		}
+
+		const inputPosition = input.getBoundingClientRect()
+
+		this.setState({
+			containerPlacement: {
+				top: inputPosition.y + inputPosition.height + scrollY,
+				left: inputPosition.x + scrollX,
+				width: inputPosition.width
+			}
+		})
+	}
+
+	handleWindowResize = () => {
+		this.getContainerPlacement()
 	}
 
 	onChange = (event: any, { newValue }: any) => {
@@ -120,6 +192,7 @@ export default class Autosuggest extends Component<Props, State> {
 			suggestions: suggestions || []
 		})
 
+		this.getContainerPlacement()
 		this.scrollParentIfNeeded()
 	}
 
@@ -194,7 +267,12 @@ export default class Autosuggest extends Component<Props, State> {
 	}
 
 	render() {
-		const { value, suggestions, showClearButton } = this.state
+		const {
+			value,
+			suggestions,
+			showClearButton,
+			containerPlacement
+		} = this.state
 		const {
 			getSuggestionValue,
 			renderSuggestion,
@@ -238,6 +316,21 @@ export default class Autosuggest extends Component<Props, State> {
 						onSuggestionsClearRequested={this.onSuggestionsClearRequested}
 						getSuggestionValue={getSuggestionValue}
 						renderSuggestion={renderSuggestion}
+						renderSuggestionsContainer={({ containerProps, children }) => {
+							return createPortal(
+								<div
+									style={{
+										top: `${containerPlacement.top + 8}px`,
+										left: `${containerPlacement.left}px`,
+										width: `${containerPlacement.width}px`
+									}}
+									{...containerProps}
+								>
+									{children}
+								</div>,
+								document.body
+							)
+						}}
 						onSuggestionSelected={onSuggestionSelected}
 						inputProps={inputProps}
 						theme={theme({ isSmall })}

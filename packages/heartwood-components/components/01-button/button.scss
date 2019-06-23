@@ -51,9 +51,12 @@ Button Variation mixins
 		fill: $color;
 	}
 
-	.btn__line-icon {
-		fill: none;
+	.icon--stroke {
 		stroke: $color;
+	}
+
+	.icon--no-fill {
+		fill: none;
 	}
 
 	// Button States
@@ -66,8 +69,11 @@ Button Variation mixins
 				fill: rgba($color, 0.8);
 			}
 
-			.btn__line-icon {
+			.icon--no-fill {
 				fill: none;
+			}
+
+			.icon--stroke {
 				stroke: rgba($color, 0.8);
 			}
 		} @else {
@@ -76,9 +82,12 @@ Button Variation mixins
 			.btn__icon {
 				fill: rgba($color, 0.5);
 
-				.btn__line-icon {
-					fill: none;
+				.icon--stroke {
 					stroke: rgba($color, 0.5);
+				}
+
+				.icon--no-fill {
+					fill: none;
 				}
 			}
 		}
@@ -98,22 +107,32 @@ Button Variation mixins
 		}
 
 		&:active {
+			box-shadow: inset 0 1px 4px 0 rgba($bg, 0.2);
+
 			@if $is-solid == true {
-				box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1),
-					inset 0 0 8px 0 rgba(0, 0, 0, 0.1);
 				&:hover {
 					background-color: $bg;
 				}
 			} @else {
-				background-color: rgba($color, 0.1);
+				background-color: rgba($color, 0.05);
 			}
 		}
 
 		&:not(:active):focus {
 			@if $is-simple == false {
 				box-shadow: 0 0 0 3px rgba($bg, 0.4);
-			} @else {
-				background-color: rgba($color, 0.05);
+			}
+
+			@if $is-simple == true {
+				background-color: rgba($bg, 0.05);
+			}
+
+			@if $is-outline == true {
+				background-color: rgba($color, 0.02);
+			}
+
+			@if $is-solid == true {
+				background-color: $bg;
 			}
 		}
 	}
@@ -147,8 +166,7 @@ Baseline styling for all buttons
 		}
 	}
 
-	.btn__line-icon {
-		fill: none;
+	.icon--stroke {
 		stroke: $c-text-icon;
 	}
 

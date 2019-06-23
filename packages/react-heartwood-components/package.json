@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.13.0",
+	"version": "8.15.2",
 	"main": "lib/index.js",
 	"description": "React components for your Sprucebot Skill 💪🏼",
 	"keywords": [
@@ -27,7 +27,9 @@
 		"test": "jest",
 		"watch": "npm run build && chokidar 'src/**/*.js' -c 'npm run compile_javascript'",
 		"storybook": "npm run icons && start-storybook -p 6006",
-		"build-storybook": "npm run icons && build-storybook"
+		"build-storybook": "npm run icons && build-storybook",
+		"docz:dev": "docz dev",
+		"docz:build": "docz build"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.0.0",
@@ -70,16 +72,22 @@
 		"babel-plugin-inline-react-svg": "^0.5.4",
 		"babel-runtime": "^6.26.0",
 		"chokidar-cli": "^1.2.0",
+		"css-loader": "^3.0.0",
+		"docz": "^1.2.0",
+		"docz-theme-default": "^1.2.0",
 		"enzyme": "^3.3.0",
 		"enzyme-adapter-react-16": "^1.1.1",
 		"enzyme-to-json": "^3.3.1",
 		"eslint": "^5.9.0",
-		"eslint-config-spruce": "^8.13.0",
+		"eslint-config-spruce": "^8.15.2",
 		"faker": "^4.1.0",
 		"husky": "^0.14.3",
 		"jest": "^24.5.0",
+		"node-sass": "^4.12.0",
 		"prettier": "1.16.4",
 		"react-test-renderer": "^16.0.0",
+		"sass-loader": "^7.1.0",
+		"style-loader": "^0.23.1",
 		"typescript": "^3.3.3333",
 		"uuid": "^3.3.2",
 		"webpack": "^4.29.6"
@@ -87,7 +95,7 @@
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
-		"@sprucelabs/heartwood-components": "^8.13.0",
+		"@sprucelabs/heartwood-components": "^8.15.2",
 		"@types/react-dom": "^16.8.2",
 		"axios": "^0.18.0",
 		"classnames": "^2.2.5",
@@ -120,7 +128,7 @@
 		"react-dnd": "2.6.0",
 		"react-dnd-html5-backend": "2.6.0",
 		"react-dnd-touch-backend": "^0.4.0",
-		"react-dom": "^16.3.2",
+		"react-dom": "16.8",
 		"react-dropzone": "^6.0.2",
 		"react-helmet": "^5.2.0",
 		"react-image-crop": "3.0.11",

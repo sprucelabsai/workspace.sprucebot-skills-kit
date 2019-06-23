@@ -3,6 +3,78 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.15.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.0...v8.15.1) (2019-06-19)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+# [8.15.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.14.0...v8.15.0) (2019-06-18)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+# [8.14.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.13.0...v8.14.0) (2019-06-14)
+
+
+### Bug Fixes
+
+* escape heading string in modal ([bb1f9ea](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bb1f9ea))
+* **graphql:** Use peer dependencies for graphql ([51e58fc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51e58fc))
+* **lint:** Update dependencies for shared lint config ([89b255f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/89b255f))
+* linter error ([fc6d8c0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fc6d8c0))
+* linter errors ([942a61c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/942a61c))
+* linter errors ([682af72](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/682af72))
+* remove modal test code ([e67850e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e67850e))
+* unused vars ([12f858c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/12f858c))
+
+
+### Features
+
+* **ConfirmDialog:** Add convenience methods for modifying button properties. ([6999dd0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6999dd0))
+* **ConfirmDialog:** Add example confirm modal ([a223c92](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a223c92))
+* **corePagedModal:** add api and example of core paged modal ([4476fbd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4476fbd))
+* **lint:** Enforce GQL linting in skills ([b9d9b00](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b9d9b00))
+* Run tests from spruce-skill-server ([835bb2a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/835bb2a))
+* **lint:** Get linter standardized w/ ai-spruce-web rules ([7e1b58a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7e1b58a))
+* **Modal:** Allow data to be passed back to parent iframe with modal close method ([c6fd8f7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c6fd8f7))
+* **pagedModal:** Add ability to update footer actions and title text from skill view ([7152d53](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7152d53))
+* ability to test event emit callbacks ([dc34519](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dc34519))
+* emit events w/ custom eventId and log incoming events ([ac5074d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ac5074d))
+* integrate new logger functionality ([e1c1e0c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e1c1e0c))
+* Make testing easier by moving sandbox and helpers into spruce-skill-server ([ee3d716](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ee3d716))
+* upgrade to [@sprucelabs](https://github.com/sprucelabs)/log@^2 ([7100b50](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7100b50))
+
+
+### Refactoring
+
+* add renderLocation prop to dynamically style document ([e3baf9b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e3baf9b))
+* **NPM:** Update deps for audit prep, peer deps ([f3d0e29](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f3d0e29))
+* changes to make modals, cards, and record selection list compatible with heartwood design ([5811ce0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5811ce0))
+* move example modal page to existing example modal view ([6062ca7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6062ca7))
+* pass callback methods with the rest of the data ([09b8596](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/09b8596))
+* remove underscore from private modal property ([d6ddd40](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d6ddd40))
+* test to see if generated JSON passes lint ([2a6a1d8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2a6a1d8))
+* update confirm modal example ([40552f3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/40552f3))
+* update example skill modal ([2fdc35d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2fdc35d))
+
+
+
+
+
 # [8.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.12.0...v8.13.0) (2019-03-20)
 
 

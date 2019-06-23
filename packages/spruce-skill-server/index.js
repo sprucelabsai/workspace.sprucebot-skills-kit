@@ -44,6 +44,11 @@ module.exports = async ({
 	slug = required('slug'),
 	logLevel = 'info',
 	logUseColors = true,
+	logUseTrace = false,
+	logUseSourcemaps = false,
+	logAsJSON = false,
+	logFormatters,
+	logTransports,
 	env = 'default',
 	packageName,
 	packageVersion,
@@ -88,10 +93,15 @@ module.exports = async ({
 	// Set up global logger
 	global.logger = logger
 	const log = logger.log
+
 	log.setOptions({
+		formatters: logFormatters,
+		transports: logTransports,
 		level: logLevel,
-		useSourcemaps: false,
+		useTrace: logUseTrace,
+		useSourcemaps: logUseSourcemaps,
 		useColors: logUseColors,
+		asJSON: logAsJSON,
 		appName: slug,
 		appKey: metricsAppKey,
 		appEnv: env,
@@ -119,9 +129,7 @@ module.exports = async ({
 	try {
 		syncResponse = await sprucebot.sync()
 	} catch (e) {
-		console.error(
-			`Failed to sync your skill's settings with ${sprucebot.https.host}`
-		)
+		console.error(`Failed to sync your skill's settings`)
 		console.error(e) // Server can't really start without sync settings
 		process.exit(1)
 	}
@@ -242,7 +250,7 @@ module.exports = async ({
 			debug('Utilities and services can now reference the orm')
 		}
 	} catch (err) {
-		console.error('Leading services & utilities failed.')
+		console.error('Loading services & utilities failed.')
 		console.error(err)
 		throw err
 	}
@@ -439,4 +447,10 @@ module.exports = async ({
 	})
 
 	return { koa, server }
+}
+
+try {
+	module.exports.SpruceTest = require('./tests/SpruceTest')
+} catch (e) {
+	debug('"SpruceTest" is not loaded. Install devDependencies to enable.')
 }

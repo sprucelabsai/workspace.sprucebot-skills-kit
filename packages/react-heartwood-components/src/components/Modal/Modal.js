@@ -35,7 +35,7 @@ export default class Modal extends React.PureComponent<Props, State> {
 	static Body = ModalBody
 	static Footer = ModalFooter
 	static defaultProps = {
-		size: 'medium',
+		size: 'small',
 		isOpen: false
 	}
 
@@ -44,7 +44,7 @@ export default class Modal extends React.PureComponent<Props, State> {
 		const modalClassName = cx('modal', className, {
 			'modal-small': size === 'small',
 			'modal-medium': size === 'medium',
-			'modal-fullHeight': isFullHeight
+			'modal-full-height': isFullHeight
 		})
 		return (
 			<ReactModal

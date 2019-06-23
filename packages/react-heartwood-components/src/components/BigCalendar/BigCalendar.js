@@ -7,6 +7,8 @@ import React, { Component } from 'react'
 // sub components
 import Header from './components/Header/Header'
 import VIEWS from './components/Views'
+import sizeUtil from './utils/size'
+
 autoPlay(true)
 
 export type User = {
@@ -52,6 +54,9 @@ type Props = {
 type State = {
 	selectedView: 'day' | 'week' | 'month',
 	startDate?: moment,
+	bodyHeight: number,
+	bodyWidth: number,
+	calendarBodyHeight: number,
 	currentHorizontalPage: number,
 	totalHorizontalPages: number
 }
@@ -78,6 +83,9 @@ class BigCalendar extends Component<Props, State> {
 
 	state = {
 		selectedView: this.props.defaultView,
+		bodyWidth: -1,
+		bodyHeight: -1,
+		calendarBodyHeight: 0,
 		startDate: null,
 		currentHorizontalPage: 0,
 		totalHorizontalPages: 0
@@ -117,6 +125,17 @@ class BigCalendar extends Component<Props, State> {
 		}
 	}
 
+	componentDidMount = () => {
+		window.addEventListener('resize', this.handleSizing)
+		this.handleSizing()
+		//TODO better way to detect everything is rendered and sized correctly
+		setTimeout(this.handleSizing, 1000)
+	}
+
+	componentWillUnmount = () => {
+		window.removeEventListener('resize', this.handleSizing)
+	}
+
 	getDefaultStartDate = (): moment => {
 		// TODO use cookies that can work both client and server side
 		return moment.tz(
@@ -138,6 +157,30 @@ class BigCalendar extends Component<Props, State> {
 				.add(duration, unit)
 				.endOf('day')
 		}
+	}
+
+	handleSizing = () => {
+		// can sometimes fire too early (before the ref is set)
+		if (!this.domNodeRef.current) {
+			return
+		}
+
+		//get node for scroll wrapper
+		const scrollNode = this.domNodeRef.current.querySelectorAll(
+			'.bigcalendar__drag-grid'
+		)[0]
+
+		// calc positions
+		const scrollTop = sizeUtil.getTop(scrollNode)
+		const width = sizeUtil.bodyWidth()
+		const height = sizeUtil.bodyHeight()
+		const calendarBodyHeight = height - scrollTop
+
+		this.setState({
+			bodyWidth: width,
+			bodyHeight: height,
+			calendarBodyHeight
+		})
 	}
 
 	handleChangeView = () => {
@@ -295,6 +338,9 @@ class BigCalendar extends Component<Props, State> {
 		const {
 			selectedView,
 			startDate,
+			bodyWidth,
+			bodyHeight,
+			calendarBodyHeight,
 			currentHorizontalPage,
 			totalHorizontalPages
 		} = this.state
@@ -306,7 +352,15 @@ class BigCalendar extends Component<Props, State> {
 		const viewProps = this.getViewProps()
 
 		return (
-			<div className={parentClass} ref={this.domNodeRef} {...props}>
+			<div
+				className={parentClass}
+				ref={this.domNodeRef}
+				style={{
+					width: bodyWidth,
+					height: bodyHeight
+				}}
+				{...props}
+			>
 				<Header
 					userModeOptions={userModeOptions}
 					onChangeUserMode={this.handleChangeUserMode}
@@ -344,6 +398,7 @@ class BigCalendar extends Component<Props, State> {
 						startDate={startDate}
 						events={allEvents}
 						slotsPerHour={slotsPerHour}
+						calendarBodyHeight={calendarBodyHeight}
 						users={users}
 						minTime={defaultMinTime}
 						maxTime={defaultMaxTime}

@@ -26,6 +26,8 @@ const EXAMPLE_SUBSCRIPTION = gql`
 `
 class DashboardLocationPage extends React.Component {
 	modal = this.props.skill.modal()
+	confirm = this.props.skill.confirm()
+	supportingMessage = this.props.skill.supportingMessage()
 
 	static async getInitialProps(props) {
 		try {
@@ -56,11 +58,13 @@ class DashboardLocationPage extends React.Component {
 
 		try {
 			const result = await gqlClient.query({
-				query: `{
-					Users {
-						id
+				query: gql`
+					{
+						Users {
+							id
+						}
 					}
-				}`
+				`
 			})
 
 			log.debug({ result })
@@ -99,9 +103,74 @@ class DashboardLocationPage extends React.Component {
 					window.location.hostname
 				}/skill-views/example_skill_view_dialog`,
 				footerPrimaryActionText: 'Submit',
-				footerSecondaryActionText: 'Cancel'
+				footerSecondaryActionText: 'Cancel',
+				contentHeight: '25rem',
+				size: 'medium'
+			})
+			this.modal.onClosed(data => {
+				console.log('MODAL CLOSED', data)
 			})
 		}
+	}
+
+	handleShowConfirmationModal = () => {
+		this.confirm.show({
+			title: 'Are you sure?',
+			text: "Are you sure you want to do that thing you're trying to do?",
+			isDestructive: false,
+			id: Math.random(),
+			onConfirm: eventData => {
+				console.log('Confirmed!', eventData)
+			},
+			onCancel: eventData => {
+				console.log('Cancelled!', eventData)
+			}
+		})
+	}
+
+	handleShowConfirmationWithInputModal = () => {
+		this.confirm.show({
+			title: 'Are you sure?',
+			text:
+				'Are you sure you want to do that thing? Please type "Beep Boop" (case-sensitive) to confirm.',
+			kind: 'confirmInput',
+			confirmInputValidString: 'Beep Boop',
+			confirmInputIgnoreCase: false,
+			confirmInputLabel: 'Name of Thing',
+			confirmButtonText: 'Yes, Do the Thing!',
+			closeOnConfirm: false,
+			id: Math.random(),
+			onConfirm: () => {
+				this.confirm.setIsConfirming(true)
+			},
+			onCancel: eventData => {
+				console.log('Cancelled!', eventData)
+			}
+		})
+	}
+
+	jumpToLocationDashboard = () => {
+		const { locationId, organizationId } = this.props.query
+		this.props.skill.redirect({
+			route: 'dashboard_location',
+			params: {
+				locationId,
+				organizationId
+			}
+		})
+	}
+
+	showSupportingMessage = () => {
+		this.supportingMessage.add({
+			headline: 'A supporting message from my skill',
+			text: 'Lorem ipsum body copy',
+			kind: 'negative',
+			followupText: 'Undo',
+			timeout: 4000,
+			callback: () => {
+				alert('you clicked the follow up text')
+			}
+		})
 	}
 
 	render() {
@@ -155,6 +224,30 @@ class DashboardLocationPage extends React.Component {
 								kind="primary"
 								onClick={() => this.handleOpenModal(true)}
 								text="Show a paged modal"
+							/>
+						</LayoutSection>
+						<LayoutSection>
+							<Button
+								kind="primary"
+								onClick={() => this.handleShowConfirmationModal()}
+								text="Show a confirm modal"
+							/>{' '}
+							<Button
+								kind="primary"
+								onClick={() => this.handleShowConfirmationWithInputModal()}
+								text="Show an input confirm modal"
+							/>
+						</LayoutSection>
+						<LayoutSection>
+							<Button
+								kind="secondary"
+								onClick={() => this.jumpToLocationDashboard()}
+								text="Return to dashboard"
+							/>
+							<Button
+								kind="secondary"
+								onClick={() => this.showAlert()}
+								text="Alert"
 							/>
 						</LayoutSection>
 					</Layout>

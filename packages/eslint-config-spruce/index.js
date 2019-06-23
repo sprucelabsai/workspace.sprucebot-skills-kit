@@ -22,9 +22,15 @@ module.exports = {
 							requireLast: false
 						},
 						singleline: {
-							delimiter: 'comma',
+							delimiter: 'semi',
 							requireLast: false
 						}
+					}
+				],
+				'@typescript-eslint/explicit-function-return-type': [
+					'error',
+					{
+						allowExpressions: true
 					}
 				],
 				'@typescript-eslint/member-ordering': [
@@ -65,6 +71,7 @@ module.exports = {
 	plugins: ['spruce', 'import', 'react', 'flowtype', 'prettier'],
 	rules: {
 		curly: 'error',
+		'spruce/utils-graphql': 'error',
 		'react/jsx-no-undef': 'error',
 		'no-console': 'off',
 		'no-undef': 'error',

@@ -1,6 +1,6 @@
 {
 	"name": "@sprucelabs/heartwood-components",
-	"version": "8.13.0",
+	"version": "8.15.2",
 	"dependencies": {
 		"@frctl/fractal": "^1.1.5",
 		"@frctl/handlebars": "^1.1.5",
@@ -12,7 +12,7 @@
 		"autoprefixer": "^9.3.1",
 		"cssnano": "^4.1.7",
 		"eslint": "^5.9.0",
-		"eslint-config-spruce": "^8.13.0",
+		"eslint-config-spruce": "^8.15.2",
 		"fs-extra": "^7.0.1",
 		"gh-pages": "^1.2.0",
 		"gulp": "^3.9.1",
