@@ -5,11 +5,183 @@
     "menu": [
       "React Heartwood Components",
       {
+        "name": "Avatars",
+        "menu": [
+          "Avatar",
+          "UserAvatar"
+        ]
+      },
+      {
         "name": "Buttons",
         "menu": [
           "Button",
           "ButtonGroup",
           "ContextMenu"
+        ]
+      },
+      {
+        "name": "Cards",
+        "menu": [
+          "Card",
+          "CardHeader",
+          "CardBody",
+          "CardFooter",
+          "CardSection",
+          "CardBuilder",
+          "OnboardingCard",
+          "Scores"
+        ]
+      },
+      {
+        "name": "Communication",
+        "menu": [
+          "Message",
+          "MessageBuilder"
+        ]
+      },
+      {
+        "name": "Core",
+        "menu": [
+          "HeaderPrimary",
+          "DefaultLockup",
+          "Hamburger",
+          "LocationMenu",
+          "UserMenu",
+          "SaveBar",
+          "Sidebar",
+          "SidebarSection",
+          "SidebarItem",
+          "SidebarFooter",
+          "SidebarExpander",
+          "HelpButton",
+          "Legal",
+          "Breadcrumbs",
+          "Breadcrumb",
+          "FooterPrimary",
+          "ProfileSummary",
+          "FeedBuilder"
+        ]
+      },
+      {
+        "name": "Feedback",
+        "menu": [
+          "BotText",
+          "CircleLoader",
+          "EmptyState",
+          "Loader",
+          "Toast",
+          "ToastHeader",
+          "ToastWrapper"
+        ]
+      },
+      {
+        "name": "Forms",
+        "menu": [
+          "Autosuggest",
+          "Checkbox",
+          "DatePicker",
+          "DomainInput",
+          "Dropzone",
+          "DurationInput",
+          "FormBuilder",
+          "FormInner",
+          "FormLayout",
+          "FormLayoutGroup",
+          "FormLayoutItem",
+          "ImageCropper",
+          "InputHelper",
+          "InputInner",
+          "InputPre",
+          "PhoneInput",
+          "Radio",
+          "Search",
+          "Select",
+          "Slider",
+          "Stars",
+          "Tag",
+          "TextArea",
+          "TextInput",
+          "Toggle"
+        ]
+      },
+      {
+        "name": "Icons",
+        "menu": [
+          "Icon"
+        ]
+      },
+      {
+        "name": "Images",
+        "menu": [
+          "Image",
+          "ImageSSR"
+        ]
+      },
+      {
+        "name": "Lists",
+        "menu": [
+          "List",
+          "ListHeader",
+          "ListItem",
+          "RecordSelectionList",
+          "RecordSelectionListItem",
+          "SortableList"
+        ]
+      },
+      {
+        "name": "Modals",
+        "menu": [
+          "Modal",
+          "ModalHeader",
+          "ModalBody",
+          "ModalFooter",
+          "PagedModal"
+        ]
+      },
+      {
+        "name": "Navigation",
+        "menu": [
+          "Pagination",
+          "Tabs",
+          "Tab"
+        ]
+      },
+      {
+        "name": "Structure",
+        "menu": [
+          "Layout",
+          "LayoutSection",
+          "Page",
+          "PageContent",
+          "PageHeader",
+          "View"
+        ]
+      },
+      {
+        "name": "Tables",
+        "menu": [
+          "Table",
+          "TableFilters",
+          "TableSearch",
+          "RecordTable"
+        ]
+      },
+      {
+        "name": "Text",
+        "menu": [
+          "Heading",
+          "Subheading",
+          "Text",
+          "Span",
+          "TextContainer",
+          "TextStyle"
+        ]
+      },
+      {
+        "name": "Utilities",
+        "menu": [
+          "Anchor",
+          "FontLoader"
         ]
       }
     ],
@@ -40,6 +212,17 @@
     ]
   },
   "props": [
+    {
+      "key": "docz/DoczWrapper.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "DoczWrapper",
+          "methods": [],
+          "actualName": "DoczWrapper"
+        }
+      ]
+    },
     {
       "key": "docz/components/H1.js",
       "value": [
@@ -111,6 +294,550 @@
           "composes": [
             "AvatarProps"
           ]
+        }
+      ]
+    },
+    {
+      "key": "src/components/BotText/BotText.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "BotText",
+          "methods": [],
+          "actualName": "BotText",
+          "props": {
+            "text": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Use for simple text."
+            },
+            "children": {
+              "required": false,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "May be used instead of text, i.e. if the Bot Text needs to include a link."
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional class to add."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Button/Button.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Button",
+          "methods": [],
+          "actualName": "Button",
+          "props": {
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional class to add to the button.",
+              "defaultValue": {
+                "value": "''",
+                "computed": false
+              }
+            },
+            "children": {
+              "required": false,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Optional children passed into button"
+            },
+            "kind": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Sets the visual appearance of the button. May be primary, secondary, simple, or caution.",
+              "defaultValue": {
+                "value": "''",
+                "computed": false
+              }
+            },
+            "isSmall": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to make the button less tall.",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isFullWidth": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to make the button fill its parent's width.",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isLoading": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to hide any text or icon in the button and show a loader instead.",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isIconOnly": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to hide any text in the button. Text should still be provided for accessibility.",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "text": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Text for the button.",
+              "defaultValue": {
+                "value": "''",
+                "computed": false
+              }
+            },
+            "href": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Will render a link. May be relative or absolute.",
+              "defaultValue": {
+                "value": "''",
+                "computed": false
+              }
+            },
+            "icon": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "Node | IconProps",
+                "elements": [
+                  {
+                    "name": "Node"
+                  },
+                  {
+                    "name": "IconProps"
+                  }
+                ]
+              },
+              "description": "Icon for the button.",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "type": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Type attribute for HTML button element. Defaults to 'button'.",
+              "defaultValue": {
+                "value": "'button'",
+                "computed": false
+              }
+            },
+            "onClick": {
+              "required": false,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Click handler.",
+              "defaultValue": {
+                "value": "() => null",
+                "computed": false
+              }
+            },
+            "payload": {
+              "required": false,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "Will be passed back with the on click."
+            },
+            "AnchorComponent": {
+              "required": false,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Component used to render anchor"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/ButtonGroup/ButtonGroup.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ButtonGroup",
+          "methods": [],
+          "actualName": "ButtonGroup",
+          "props": {
+            "actions": {
+              "required": true,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "ButtonProps"
+                  }
+                ],
+                "raw": "Array<ButtonProps>"
+              },
+              "description": "Array of actions to render the group's buttons."
+            },
+            "kind": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'default' | 'segmented' | 'floating'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'default'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'segmented'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'floating'"
+                  }
+                ]
+              },
+              "description": "Visual appearance of the group.",
+              "defaultValue": {
+                "value": "'default'",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Card/Card.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Card",
+          "methods": [],
+          "actualName": "Card",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Should be Card Header, Card Body, and Card Footer, unless using the card background for styling only."
+            },
+            "isCentered": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to make all content center aligned.",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isCritical": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true if this card is mission-critical for the person who sees it."
+            },
+            "isSmall": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to render a smaller card variation"
+            },
+            "isFullSize": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to fill space of parent"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional classname"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/ContextMenu/ContextMenu.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ContextMenu",
+          "methods": [
+            {
+              "name": "componentDidMount",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "componentWillUnmount",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleWindowResize",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "getTriggerPlacement",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "getMenuPlacement",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "updateMenuPlacement",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleClickOutside",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleEscape",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": {
+                    "name": "any"
+                  }
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleToggle",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "manageListeners",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleClickAction",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "payload",
+                  "type": null
+                },
+                {
+                  "name": "callback",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "ContextMenu",
+          "props": {
+            "actions": {
+              "required": true,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "ButtonProps"
+                  }
+                ],
+                "raw": "Array<ButtonProps>"
+              },
+              "description": "The actions to be shown on tap/click"
+            },
+            "isLeftAligned": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "DEPRECATED Set true to left align the menu"
+            },
+            "isRightAligned": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "DEPRECATED Set true to right align the menu",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isBottomAligned": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "DEPRECATED Set true to align menu above button",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "size": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'medium' | 'large'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'medium'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'large'"
+                  }
+                ]
+              },
+              "description": "Set the width of the menu. Helpful for longer text in buttons"
+            },
+            "text": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Adds text to the collapsed menu"
+            },
+            "icon": {
+              "required": false,
+              "flowType": {
+                "name": "any"
+              },
+              "description": "Overrides the default icon"
+            },
+            "isSimple": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to make the button blue"
+            },
+            "isSmall": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to make the button smaller",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "closeOnSelectAction": {
+              "required": true,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set tot true makes the menu close when any action is selected"
+            },
+            "isTextOnly": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Hide the icon entirely",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional classname that applies to the button",
+              "defaultValue": {
+                "value": "''",
+                "computed": false
+              }
+            },
+            "onToggleContextMenuVisible": {
+              "required": false,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": ""
+            }
+          }
         }
       ]
     },
@@ -756,550 +1483,6 @@
       ]
     },
     {
-      "key": "src/components/Button/Button.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Button",
-          "methods": [],
-          "actualName": "Button",
-          "props": {
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional class to add to the button.",
-              "defaultValue": {
-                "value": "''",
-                "computed": false
-              }
-            },
-            "children": {
-              "required": false,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Optional children passed into button"
-            },
-            "kind": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Sets the visual appearance of the button. May be primary, secondary, simple, or caution.",
-              "defaultValue": {
-                "value": "''",
-                "computed": false
-              }
-            },
-            "isSmall": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to make the button less tall.",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isFullWidth": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to make the button fill its parent's width.",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isLoading": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to hide any text or icon in the button and show a loader instead.",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isIconOnly": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to hide any text in the button. Text should still be provided for accessibility.",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "text": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Text for the button.",
-              "defaultValue": {
-                "value": "''",
-                "computed": false
-              }
-            },
-            "href": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Will render a link. May be relative or absolute.",
-              "defaultValue": {
-                "value": "''",
-                "computed": false
-              }
-            },
-            "icon": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "Node | IconProps",
-                "elements": [
-                  {
-                    "name": "Node"
-                  },
-                  {
-                    "name": "IconProps"
-                  }
-                ]
-              },
-              "description": "Icon for the button.",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "type": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Type attribute for HTML button element. Defaults to 'button'.",
-              "defaultValue": {
-                "value": "'button'",
-                "computed": false
-              }
-            },
-            "onClick": {
-              "required": false,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Click handler.",
-              "defaultValue": {
-                "value": "() => null",
-                "computed": false
-              }
-            },
-            "payload": {
-              "required": false,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "Will be passed back with the on click."
-            },
-            "AnchorComponent": {
-              "required": false,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Component used to render anchor"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/BotText/BotText.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "BotText",
-          "methods": [],
-          "actualName": "BotText",
-          "props": {
-            "text": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Use for simple text."
-            },
-            "children": {
-              "required": false,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "May be used instead of text, i.e. if the Bot Text needs to include a link."
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional class to add."
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/ButtonGroup/ButtonGroup.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ButtonGroup",
-          "methods": [],
-          "actualName": "ButtonGroup",
-          "props": {
-            "actions": {
-              "required": true,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "ButtonProps"
-                  }
-                ],
-                "raw": "Array<ButtonProps>"
-              },
-              "description": "Array of actions to render the group's buttons."
-            },
-            "kind": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'default' | 'segmented' | 'floating'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'default'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'segmented'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'floating'"
-                  }
-                ]
-              },
-              "description": "Visual appearance of the group.",
-              "defaultValue": {
-                "value": "'default'",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Card/Card.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Card",
-          "methods": [],
-          "actualName": "Card",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Should be Card Header, Card Body, and Card Footer, unless using the card background for styling only."
-            },
-            "isCentered": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to make all content center aligned.",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isCritical": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true if this card is mission-critical for the person who sees it."
-            },
-            "isSmall": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to render a smaller card variation"
-            },
-            "isFullSize": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to fill space of parent"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional classname"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/ContextMenu/ContextMenu.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ContextMenu",
-          "methods": [
-            {
-              "name": "componentDidMount",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "componentWillUnmount",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "handleWindowResize",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "getTriggerPlacement",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "getMenuPlacement",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "updateMenuPlacement",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "handleClickOutside",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "handleEscape",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "e",
-                  "type": {
-                    "name": "any"
-                  }
-                }
-              ],
-              "returns": null
-            },
-            {
-              "name": "handleToggle",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "manageListeners",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "handleClickAction",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "payload",
-                  "type": null
-                },
-                {
-                  "name": "callback",
-                  "type": null
-                }
-              ],
-              "returns": null
-            }
-          ],
-          "actualName": "ContextMenu",
-          "props": {
-            "actions": {
-              "required": true,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "ButtonProps"
-                  }
-                ],
-                "raw": "Array<ButtonProps>"
-              },
-              "description": "The actions to be shown on tap/click"
-            },
-            "isLeftAligned": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "DEPRECATED Set true to left align the menu"
-            },
-            "isRightAligned": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "DEPRECATED Set true to right align the menu",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isBottomAligned": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "DEPRECATED Set true to align menu above button",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "size": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'medium' | 'large'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'medium'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'large'"
-                  }
-                ]
-              },
-              "description": "Set the width of the menu. Helpful for longer text in buttons"
-            },
-            "text": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Adds text to the collapsed menu"
-            },
-            "icon": {
-              "required": false,
-              "flowType": {
-                "name": "any"
-              },
-              "description": "Overrides the default icon"
-            },
-            "isSimple": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to make the button blue"
-            },
-            "isSmall": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to make the button smaller",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "closeOnSelectAction": {
-              "required": true,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set tot true makes the menu close when any action is selected"
-            },
-            "isTextOnly": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Hide the icon entirely",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional classname that applies to the button",
-              "defaultValue": {
-                "value": "''",
-                "computed": false
-              }
-            },
-            "onToggleContextMenuVisible": {
-              "required": false,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Dropzone/Dropzone.js",
       "value": [
         {
@@ -1773,6 +1956,17 @@
       ]
     },
     {
+      "key": "src/components/Image/Image.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Image",
+          "methods": [],
+          "actualName": "Image"
+        }
+      ]
+    },
+    {
       "key": "src/components/Icon/Icon.js",
       "value": [
         {
@@ -1810,17 +2004,6 @@
               "description": ""
             }
           }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Image/Image.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Image",
-          "methods": [],
-          "actualName": "Image"
         }
       ]
     },
@@ -2056,37 +2239,6 @@
       ]
     },
     {
-      "key": "src/components/Loader/Loader.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Loader",
-          "methods": [],
-          "actualName": "Loader",
-          "props": {
-            "isLight": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isCentered": {
-              "required": true,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/List/List.js",
       "value": [
         {
@@ -2191,6 +2343,37 @@
                 ]
               },
               "description": "Optional: set whether to use checkbox or radio for selectable list items"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Loader/Loader.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Loader",
+          "methods": [],
+          "actualName": "Loader",
+          "props": {
+            "isLight": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isCentered": {
+              "required": true,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": ""
             }
           }
         }
@@ -2311,77 +2494,6 @@
       ]
     },
     {
-      "key": "src/components/Page/Page.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Page",
-          "methods": [],
-          "actualName": "Page",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Should be Card Header, Card Body, and Card Footer, unless using the card background for styling only."
-            },
-            "isCentered": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to make page content center aligned.",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "hasHeader": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set false to add extra spacing to top of page when there is no PageHeader.",
-              "defaultValue": {
-                "value": "true",
-                "computed": false
-              }
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional classname"
-            },
-            "header": {
-              "required": false,
-              "flowType": {
-                "name": "PageHeaderProps"
-              },
-              "description": "Page header props",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "sidebarIsCollapsed": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true if the page has a sidebar that is collapsed. Defaults to false.",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Modal/Modal.js",
       "value": [
         {
@@ -2453,6 +2565,77 @@
                 "name": "string"
               },
               "description": "Optional class name"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Page/Page.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Page",
+          "methods": [],
+          "actualName": "Page",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Should be Card Header, Card Body, and Card Footer, unless using the card background for styling only."
+            },
+            "isCentered": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to make page content center aligned.",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "hasHeader": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set false to add extra spacing to top of page when there is no PageHeader.",
+              "defaultValue": {
+                "value": "true",
+                "computed": false
+              }
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional classname"
+            },
+            "header": {
+              "required": false,
+              "flowType": {
+                "name": "PageHeaderProps"
+              },
+              "description": "Page header props",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "sidebarIsCollapsed": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true if the page has a sidebar that is collapsed. Defaults to false.",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
             }
           }
         }
@@ -2554,6 +2737,480 @@
           "composes": [
             "ModalProps"
           ]
+        }
+      ]
+    },
+    {
+      "key": "src/components/RecordSelectionList/RecordSelectionList.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "RecordSelectionList",
+          "methods": [
+            {
+              "name": "reset",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "getVisibleRecordHeight",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "renderRow",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "{\n    index,\n    key,\n    parent,\n    style\n}: {\n    index: number,\n    key: string,\n    parent: any,\n    style: Object\n}",
+                  "type": {
+                    "name": "signature",
+                    "type": "object",
+                    "raw": "{\n    index: number,\n    key: string,\n    parent: any,\n    style: Object\n}",
+                    "signature": {
+                      "properties": [
+                        {
+                          "key": "index",
+                          "value": {
+                            "name": "number",
+                            "required": true
+                          }
+                        },
+                        {
+                          "key": "key",
+                          "value": {
+                            "name": "string",
+                            "required": true
+                          }
+                        },
+                        {
+                          "key": "parent",
+                          "value": {
+                            "name": "any",
+                            "required": true
+                          }
+                        },
+                        {
+                          "key": "style",
+                          "value": {
+                            "name": "Object",
+                            "required": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "renderInnerRow",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "{\n    index,\n    key,\n    style\n}: {\n    index: number,\n    key: string,\n    style: Object\n}",
+                  "type": {
+                    "name": "signature",
+                    "type": "object",
+                    "raw": "{\n    index: number,\n    key: string,\n    style: Object\n}",
+                    "signature": {
+                      "properties": [
+                        {
+                          "key": "index",
+                          "value": {
+                            "name": "number",
+                            "required": true
+                          }
+                        },
+                        {
+                          "key": "key",
+                          "value": {
+                            "name": "string",
+                            "required": true
+                          }
+                        },
+                        {
+                          "key": "style",
+                          "value": {
+                            "name": "Object",
+                            "required": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleInfiniteLoad",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "handleSearchUpdate",
+              "docblock": null,
+              "modifiers": [
+                "async"
+              ],
+              "params": [
+                {
+                  "name": "e",
+                  "type": {
+                    "name": "SyntheticInputEvent",
+                    "elements": [
+                      {
+                        "name": "HTMLInputElement"
+                      }
+                    ],
+                    "raw": "SyntheticInputEvent<HTMLInputElement>",
+                    "alias": "SyntheticInputEvent"
+                  }
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleRemoveSelection",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            }
+          ],
+          "actualName": "RecordSelectionList",
+          "props": {
+            "renderRecord": {
+              "required": true,
+              "flowType": {
+                "name": "signature",
+                "type": "function",
+                "raw": "any => Node",
+                "signature": {
+                  "arguments": [
+                    {
+                      "name": "",
+                      "type": {
+                        "name": "any"
+                      }
+                    }
+                  ],
+                  "return": {
+                    "name": "Node"
+                  }
+                }
+              },
+              "description": "Required method to render a record into a node"
+            },
+            "getRecordId": {
+              "required": true,
+              "flowType": {
+                "name": "signature",
+                "type": "function",
+                "raw": "Record => string",
+                "signature": {
+                  "arguments": [
+                    {
+                      "name": "",
+                      "type": {
+                        "name": "any"
+                      }
+                    }
+                  ],
+                  "return": {
+                    "name": "string"
+                  }
+                }
+              },
+              "description": "Get a unique ID for a record; given that data may be shaped in an unpredictable manner,\nyou must implement this at each usage."
+            },
+            "loadRecords": {
+              "required": true,
+              "flowType": {
+                "name": "signature",
+                "type": "function",
+                "raw": "({|\n    offset: number,\n    limit: number,\n    search?: string\n|}) => Promise<Array<Record>>",
+                "signature": {
+                  "arguments": [
+                    {
+                      "name": "",
+                      "type": {
+                        "name": "signature",
+                        "type": "object",
+                        "raw": "{|\n    offset: number,\n    limit: number,\n    search?: string\n|}",
+                        "signature": {
+                          "properties": [
+                            {
+                              "key": "offset",
+                              "value": {
+                                "name": "number",
+                                "required": true
+                              }
+                            },
+                            {
+                              "key": "limit",
+                              "value": {
+                                "name": "number",
+                                "required": true
+                              }
+                            },
+                            {
+                              "key": "search",
+                              "value": {
+                                "name": "string",
+                                "required": false
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "return": {
+                    "name": "Promise",
+                    "elements": [
+                      {
+                        "name": "Array",
+                        "elements": [
+                          {
+                            "name": "any"
+                          }
+                        ],
+                        "raw": "Array<Record>"
+                      }
+                    ],
+                    "raw": "Promise<Array<Record>>"
+                  }
+                }
+              },
+              "description": "Load records for the offset/limit provided"
+            },
+            "totalRecordCount": {
+              "required": false,
+              "flowType": {
+                "name": "number"
+              },
+              "description": "Total number of records that could be in this list.\nOptional, but optimizes infinite load and adds supplementary UI"
+            },
+            "selectedIds": {
+              "required": false,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "string"
+                  }
+                ],
+                "raw": "Array<RecordId>"
+              },
+              "description": "Array of IDs in this collection of records that should be marked as selected"
+            },
+            "canSearch": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Can the search the records in the list?"
+            },
+            "unselectableIds": {
+              "required": false,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "string"
+                  }
+                ],
+                "raw": "Array<RecordId>"
+              },
+              "description": "Array of IDs that should not be selectable"
+            },
+            "canSelect": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'many' | 'one'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'many'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'one'"
+                  }
+                ]
+              },
+              "description": "Can the user select many or one records in this list?"
+            },
+            "canRemove": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Can the user remove records from this list?"
+            },
+            "searchPlaceholder": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optionally provide a placeholder to the search input"
+            },
+            "showSelectedCount": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set to false to hide \"# selected\" text - defaults to true",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "onSelect": {
+              "required": false,
+              "flowType": {
+                "name": "signature",
+                "type": "function",
+                "raw": "(RecordId, Record) => void",
+                "signature": {
+                  "arguments": [
+                    {
+                      "name": "",
+                      "type": {
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "name": "",
+                      "type": {
+                        "name": "any"
+                      }
+                    }
+                  ],
+                  "return": {
+                    "name": "void"
+                  }
+                }
+              },
+              "description": "Callback for selection of a record"
+            },
+            "onRemove": {
+              "required": false,
+              "flowType": {
+                "name": "signature",
+                "type": "function",
+                "raw": "(RecordId, Record) => void",
+                "signature": {
+                  "arguments": [
+                    {
+                      "name": "",
+                      "type": {
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "name": "",
+                      "type": {
+                        "name": "any"
+                      }
+                    }
+                  ],
+                  "return": {
+                    "name": "void"
+                  }
+                }
+              },
+              "description": "Callback for when user requests to remove a record from the list."
+            },
+            "maxRowsVisible": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "number | 'auto'",
+                "elements": [
+                  {
+                    "name": "number"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'auto'"
+                  }
+                ]
+              },
+              "description": "When set, list will become infinitely scrollable\n    /*  A number value will set the max height of the list to the number of rows specified\n    /*  A value of 'auto' will allow the list to fill the height of the parent container"
+            },
+            "recordsPerRequest": {
+              "defaultValue": {
+                "value": "10",
+                "computed": false
+              },
+              "required": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/RecordSelectionList/RecordSelectionListItem.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "RecordSelectionListItem",
+          "methods": [],
+          "actualName": "RecordSelectionListItem",
+          "props": {
+            "title": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Title text"
+            },
+            "subtitle": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional subtitle text"
+            },
+            "avatar": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "URL to show a user avatar"
+            },
+            "icon": {
+              "required": false,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "Inline svg icon"
+            },
+            "id": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
+            }
+          }
         }
       ]
     },
@@ -3349,474 +4006,20 @@
       ]
     },
     {
-      "key": "src/components/RecordSelectionList/RecordSelectionList.js",
+      "key": "src/components/Subheading/Subheading.js",
       "value": [
         {
           "description": "",
-          "displayName": "RecordSelectionList",
-          "methods": [
-            {
-              "name": "reset",
-              "docblock": null,
-              "modifiers": [
-                "async"
-              ],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "getVisibleRecordHeight",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "renderRow",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "{\n    index,\n    key,\n    parent,\n    style\n}: {\n    index: number,\n    key: string,\n    parent: any,\n    style: Object\n}",
-                  "type": {
-                    "name": "signature",
-                    "type": "object",
-                    "raw": "{\n    index: number,\n    key: string,\n    parent: any,\n    style: Object\n}",
-                    "signature": {
-                      "properties": [
-                        {
-                          "key": "index",
-                          "value": {
-                            "name": "number",
-                            "required": true
-                          }
-                        },
-                        {
-                          "key": "key",
-                          "value": {
-                            "name": "string",
-                            "required": true
-                          }
-                        },
-                        {
-                          "key": "parent",
-                          "value": {
-                            "name": "any",
-                            "required": true
-                          }
-                        },
-                        {
-                          "key": "style",
-                          "value": {
-                            "name": "Object",
-                            "required": true
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              ],
-              "returns": null
-            },
-            {
-              "name": "renderInnerRow",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "{\n    index,\n    key,\n    style\n}: {\n    index: number,\n    key: string,\n    style: Object\n}",
-                  "type": {
-                    "name": "signature",
-                    "type": "object",
-                    "raw": "{\n    index: number,\n    key: string,\n    style: Object\n}",
-                    "signature": {
-                      "properties": [
-                        {
-                          "key": "index",
-                          "value": {
-                            "name": "number",
-                            "required": true
-                          }
-                        },
-                        {
-                          "key": "key",
-                          "value": {
-                            "name": "string",
-                            "required": true
-                          }
-                        },
-                        {
-                          "key": "style",
-                          "value": {
-                            "name": "Object",
-                            "required": true
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              ],
-              "returns": null
-            },
-            {
-              "name": "handleInfiniteLoad",
-              "docblock": null,
-              "modifiers": [
-                "async"
-              ],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "handleSearchUpdate",
-              "docblock": null,
-              "modifiers": [
-                "async"
-              ],
-              "params": [
-                {
-                  "name": "e",
-                  "type": {
-                    "name": "SyntheticInputEvent",
-                    "elements": [
-                      {
-                        "name": "HTMLInputElement"
-                      }
-                    ],
-                    "raw": "SyntheticInputEvent<HTMLInputElement>",
-                    "alias": "SyntheticInputEvent"
-                  }
-                }
-              ],
-              "returns": null
-            },
-            {
-              "name": "handleRemoveSelection",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            }
-          ],
-          "actualName": "RecordSelectionList",
+          "displayName": "Subheading",
+          "methods": [],
+          "actualName": "Subheading",
           "props": {
-            "renderRecord": {
-              "required": true,
-              "flowType": {
-                "name": "signature",
-                "type": "function",
-                "raw": "any => Node",
-                "signature": {
-                  "arguments": [
-                    {
-                      "name": "",
-                      "type": {
-                        "name": "any"
-                      }
-                    }
-                  ],
-                  "return": {
-                    "name": "Node"
-                  }
-                }
-              },
-              "description": "Required method to render a record into a node"
-            },
-            "getRecordId": {
-              "required": true,
-              "flowType": {
-                "name": "signature",
-                "type": "function",
-                "raw": "Record => string",
-                "signature": {
-                  "arguments": [
-                    {
-                      "name": "",
-                      "type": {
-                        "name": "any"
-                      }
-                    }
-                  ],
-                  "return": {
-                    "name": "string"
-                  }
-                }
-              },
-              "description": "Get a unique ID for a record; given that data may be shaped in an unpredictable manner,\nyou must implement this at each usage."
-            },
-            "loadRecords": {
-              "required": true,
-              "flowType": {
-                "name": "signature",
-                "type": "function",
-                "raw": "({|\n    offset: number,\n    limit: number,\n    search?: string\n|}) => Promise<Array<Record>>",
-                "signature": {
-                  "arguments": [
-                    {
-                      "name": "",
-                      "type": {
-                        "name": "signature",
-                        "type": "object",
-                        "raw": "{|\n    offset: number,\n    limit: number,\n    search?: string\n|}",
-                        "signature": {
-                          "properties": [
-                            {
-                              "key": "offset",
-                              "value": {
-                                "name": "number",
-                                "required": true
-                              }
-                            },
-                            {
-                              "key": "limit",
-                              "value": {
-                                "name": "number",
-                                "required": true
-                              }
-                            },
-                            {
-                              "key": "search",
-                              "value": {
-                                "name": "string",
-                                "required": false
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  ],
-                  "return": {
-                    "name": "Promise",
-                    "elements": [
-                      {
-                        "name": "Array",
-                        "elements": [
-                          {
-                            "name": "any"
-                          }
-                        ],
-                        "raw": "Array<Record>"
-                      }
-                    ],
-                    "raw": "Promise<Array<Record>>"
-                  }
-                }
-              },
-              "description": "Load records for the offset/limit provided"
-            },
-            "totalRecordCount": {
-              "required": false,
-              "flowType": {
-                "name": "number"
-              },
-              "description": "Total number of records that could be in this list.\nOptional, but optimizes infinite load and adds supplementary UI"
-            },
-            "selectedIds": {
-              "required": false,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "string"
-                  }
-                ],
-                "raw": "Array<RecordId>"
-              },
-              "description": "Array of IDs in this collection of records that should be marked as selected"
-            },
-            "canSearch": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Can the search the records in the list?"
-            },
-            "unselectableIds": {
-              "required": false,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "string"
-                  }
-                ],
-                "raw": "Array<RecordId>"
-              },
-              "description": "Array of IDs that should not be selectable"
-            },
-            "canSelect": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'many' | 'one'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'many'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'one'"
-                  }
-                ]
-              },
-              "description": "Can the user select many or one records in this list?"
-            },
-            "canRemove": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Can the user remove records from this list?"
-            },
-            "searchPlaceholder": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optionally provide a placeholder to the search input"
-            },
-            "showSelectedCount": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set to false to hide \"# selected\" text - defaults to true",
+            "element": {
               "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "onSelect": {
-              "required": false,
-              "flowType": {
-                "name": "signature",
-                "type": "function",
-                "raw": "(RecordId, Record) => void",
-                "signature": {
-                  "arguments": [
-                    {
-                      "name": "",
-                      "type": {
-                        "name": "string"
-                      }
-                    },
-                    {
-                      "name": "",
-                      "type": {
-                        "name": "any"
-                      }
-                    }
-                  ],
-                  "return": {
-                    "name": "void"
-                  }
-                }
-              },
-              "description": "Callback for selection of a record"
-            },
-            "onRemove": {
-              "required": false,
-              "flowType": {
-                "name": "signature",
-                "type": "function",
-                "raw": "(RecordId, Record) => void",
-                "signature": {
-                  "arguments": [
-                    {
-                      "name": "",
-                      "type": {
-                        "name": "string"
-                      }
-                    },
-                    {
-                      "name": "",
-                      "type": {
-                        "name": "any"
-                      }
-                    }
-                  ],
-                  "return": {
-                    "name": "void"
-                  }
-                }
-              },
-              "description": "Callback for when user requests to remove a record from the list."
-            },
-            "maxRowsVisible": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "number | 'auto'",
-                "elements": [
-                  {
-                    "name": "number"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'auto'"
-                  }
-                ]
-              },
-              "description": "When set, list will become infinitely scrollable\n    /*  A number value will set the max height of the list to the number of rows specified\n    /*  A value of 'auto' will allow the list to fill the height of the parent container"
-            },
-            "recordsPerRequest": {
-              "defaultValue": {
-                "value": "10",
+                "value": "'h2'",
                 "computed": false
               },
               "required": false
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/RecordSelectionList/RecordSelectionListItem.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "RecordSelectionListItem",
-          "methods": [],
-          "actualName": "RecordSelectionListItem",
-          "props": {
-            "title": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Title text"
-            },
-            "subtitle": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional subtitle text"
-            },
-            "avatar": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "URL to show a user avatar"
-            },
-            "icon": {
-              "required": false,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "Inline svg icon"
-            },
-            "id": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
             }
           }
         }
@@ -4245,26 +4448,6 @@
       ]
     },
     {
-      "key": "src/components/Subheading/Subheading.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Subheading",
-          "methods": [],
-          "actualName": "Subheading",
-          "props": {
-            "element": {
-              "defaultValue": {
-                "value": "'h2'",
-                "computed": false
-              },
-              "required": false
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Tabs/Tabs.js",
       "value": [
         {
@@ -4338,6 +4521,62 @@
               "description": "Optional class to add to the tab group",
               "defaultValue": {
                 "value": "''",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/TextContainer/TextContainer.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TextContainer",
+          "methods": [],
+          "actualName": "TextContainer",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Contents of the component."
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Class name for the component"
+            },
+            "spacing": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'tight' | 'loose'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'tight'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'loose'"
+                  }
+                ]
+              },
+              "description": "Vertical spacing of the child components"
+            },
+            "isCentered": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Whether the children of the text container are centered",
+              "defaultValue": {
+                "value": "false",
                 "computed": false
               }
             }
@@ -4629,62 +4868,6 @@
       ]
     },
     {
-      "key": "src/components/TextContainer/TextContainer.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TextContainer",
-          "methods": [],
-          "actualName": "TextContainer",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Contents of the component."
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Class name for the component"
-            },
-            "spacing": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'tight' | 'loose'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'tight'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'loose'"
-                  }
-                ]
-              },
-              "description": "Vertical spacing of the child components"
-            },
-            "isCentered": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Whether the children of the text container are centered",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/TextStyle/TextStyle.js",
       "value": [
         {
@@ -4728,104 +4911,6 @@
                 ]
               },
               "description": "Style type"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Toast/Toast.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Toast",
-          "methods": [],
-          "actualName": "Toast",
-          "props": {
-            "id": {
-              "required": true,
-              "flowType": {
-                "name": "union",
-                "raw": "string | number",
-                "elements": [
-                  {
-                    "name": "string"
-                  },
-                  {
-                    "name": "number"
-                  }
-                ]
-              },
-              "description": "Unique ID for the toast"
-            },
-            "headline": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Headline text"
-            },
-            "text": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Text after the headline"
-            },
-            "onRemove": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Handle toast removal"
-            },
-            "kind": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'neutral' | 'positive' | 'negative'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'neutral'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'positive'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'negative'"
-                  }
-                ]
-              },
-              "description": "Sets the variation of toast",
-              "defaultValue": {
-                "value": "'neutral'",
-                "computed": false
-              }
-            },
-            "followupAction": {
-              "required": false,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Handle a followup action",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "followupText": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Text for the followup action",
-              "defaultValue": {
-                "value": "'Undo'",
-                "computed": false
-              }
             }
           }
         }
@@ -4950,6 +5035,104 @@
                 "name": "ReactNode"
               },
               "description": "Menu children (<ListItem> or <li>)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Toast/Toast.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Toast",
+          "methods": [],
+          "actualName": "Toast",
+          "props": {
+            "id": {
+              "required": true,
+              "flowType": {
+                "name": "union",
+                "raw": "string | number",
+                "elements": [
+                  {
+                    "name": "string"
+                  },
+                  {
+                    "name": "number"
+                  }
+                ]
+              },
+              "description": "Unique ID for the toast"
+            },
+            "headline": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Headline text"
+            },
+            "text": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Text after the headline"
+            },
+            "onRemove": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handle toast removal"
+            },
+            "kind": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'neutral' | 'positive' | 'negative'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'neutral'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'positive'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'negative'"
+                  }
+                ]
+              },
+              "description": "Sets the variation of toast",
+              "defaultValue": {
+                "value": "'neutral'",
+                "computed": false
+              }
+            },
+            "followupAction": {
+              "required": false,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handle a followup action",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "followupText": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Text for the followup action",
+              "defaultValue": {
+                "value": "'Undo'",
+                "computed": false
+              }
             }
           }
         }
@@ -5203,59 +5386,6 @@
       ]
     },
     {
-      "key": "src/components/Card/components/Scores.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Scores",
-          "methods": [],
-          "actualName": "Scores",
-          "props": {
-            "scores": {
-              "required": true,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "signature",
-                    "type": "object",
-                    "raw": "{\n\t/** Unique id for looping. */\n\tid: string,\n\n\t/** Description of the corresponding value. */\n\tlabel: string,\n\n\t/** The value to display. */\n\tvalue: string\n}",
-                    "signature": {
-                      "properties": [
-                        {
-                          "key": "id",
-                          "value": {
-                            "name": "string",
-                            "required": true
-                          }
-                        },
-                        {
-                          "key": "label",
-                          "value": {
-                            "name": "string",
-                            "required": true
-                          }
-                        },
-                        {
-                          "key": "value",
-                          "value": {
-                            "name": "string",
-                            "required": true
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ],
-                "raw": "Array<PanelProps>"
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Card/components/OnboardingCard.js",
       "value": [
         {
@@ -5346,6 +5476,59 @@
                 "name": "string"
               },
               "description": "Optional class to add"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Card/components/Scores.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Scores",
+          "methods": [],
+          "actualName": "Scores",
+          "props": {
+            "scores": {
+              "required": true,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "signature",
+                    "type": "object",
+                    "raw": "{\n\t/** Unique id for looping. */\n\tid: string,\n\n\t/** Description of the corresponding value. */\n\tlabel: string,\n\n\t/** The value to display. */\n\tvalue: string\n}",
+                    "signature": {
+                      "properties": [
+                        {
+                          "key": "id",
+                          "value": {
+                            "name": "string",
+                            "required": true
+                          }
+                        },
+                        {
+                          "key": "label",
+                          "value": {
+                            "name": "string",
+                            "required": true
+                          }
+                        },
+                        {
+                          "key": "value",
+                          "value": {
+                            "name": "string",
+                            "required": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "raw": "Array<PanelProps>"
+              },
+              "description": ""
             }
           }
         }
@@ -5449,6 +5632,637 @@
                 "name": "boolean"
               },
               "description": "Set true if the message is from Sprucebot"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/FeedBuilder/FeedBuilder.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FeedBuilder",
+          "methods": [
+            {
+              "name": "onResize",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "isRowLoaded",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "{ index }",
+                  "type": null
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "loadMoreRows",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "renderRow",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "{ index, key, parent, style, isScrolling }",
+                  "type": null
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "FeedBuilder",
+          "props": {
+            "messages": {
+              "required": false,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "signature",
+                    "type": "object",
+                    "raw": "{\n\t/** Unique id for the message */\n\tid: string,\n\t...MessageBuilderProps\n}",
+                    "signature": {
+                      "properties": [
+                        {
+                          "key": "id",
+                          "value": {
+                            "name": "string",
+                            "required": true
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "raw": "Array<MessageProps>"
+              },
+              "description": "Messages for the feed",
+              "defaultValue": {
+                "value": "[]",
+                "computed": false
+              }
+            },
+            "emptyText": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Text for the empty state of this feed",
+              "defaultValue": {
+                "value": "'No messages'",
+                "computed": false
+              }
+            },
+            "onRowsRequested": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Callback to load rows"
+            },
+            "pageSize": {
+              "required": false,
+              "flowType": {
+                "name": "number"
+              },
+              "description": "Number of messages to load at a time",
+              "defaultValue": {
+                "value": "50",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/FooterPrimary/FooterPrimary.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FooterPrimary",
+          "methods": [],
+          "actualName": "FooterPrimary"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/HeaderPrimary/HeaderPrimary.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "HeaderPrimary",
+          "methods": [
+            {
+              "name": "hideUserMenu",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": {
+                    "name": "Event",
+                    "alias": "Event"
+                  }
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "hideLocationMenu",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": {
+                    "name": "Event",
+                    "alias": "Event"
+                  }
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "handleSearchClick",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "toggleUserMenuVisibility",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "toggleLocationMenuVisibility",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "manageListeners",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "renderHeader",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "organization",
+                  "type": {
+                    "name": "Object",
+                    "alias": "Object"
+                  }
+                },
+                {
+                  "name": "location",
+                  "type": {
+                    "name": "Object",
+                    "alias": "Object"
+                  }
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "HeaderPrimary",
+          "props": {
+            "user": {
+              "required": false,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "The logged-in user"
+            },
+            "organization": {
+              "required": false,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "The current organization"
+            },
+            "location": {
+              "required": false,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "The current location"
+            },
+            "toggleSidebarVisibility": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handler to set sidebar visibility to true or false"
+            },
+            "isSidebarVisible": {
+              "required": true,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to show the sidebar (small screens only)"
+            },
+            "enableHamburgerMenu": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Whether or not we will need to handle hamburger functionality",
+              "defaultValue": {
+                "value": "true",
+                "computed": false
+              }
+            },
+            "searchPlaceholder": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Placeholder text for the search field",
+              "defaultValue": {
+                "value": "'Search…'",
+                "computed": false
+              }
+            },
+            "onClickSearch": {
+              "required": false,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handle search click"
+            },
+            "isLocationManagmentButtonVisible": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to show location management shortcut",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isSkillManagementButtonVisible": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to show skill management shortcut",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "skillsHref": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Destination for the skills link",
+              "defaultValue": {
+                "value": "''",
+                "computed": false
+              }
+            },
+            "locationManagementHref": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Destination for the location management link",
+              "defaultValue": {
+                "value": "''",
+                "computed": false
+              }
+            },
+            "userMenuItems": {
+              "required": true,
+              "flowType": {
+                "name": "ReactNode"
+              },
+              "description": "Menu children (<ListItem> or <li>)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/ProfileSummary/ProfileSummary.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ProfileSummary",
+          "methods": [],
+          "actualName": "ProfileSummary",
+          "props": {
+            "image": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "User profile image"
+            },
+            "name": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Use name"
+            },
+            "onButtonClick": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Function for the button"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/SaveBar/SaveBar.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SaveBar",
+          "methods": [],
+          "actualName": "SaveBar",
+          "props": {
+            "location": {
+              "required": false,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "The current location"
+            },
+            "message": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "The message to display in the Save Bar",
+              "defaultValue": {
+                "value": "'Unsaved changes'",
+                "computed": false
+              }
+            },
+            "isVisible": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set to true to show the save bar",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isDiscardDisabled": {
+              "required": false,
+              "flowType": {
+                "name": "Boolean"
+              },
+              "description": "Set to true to disable the discard button",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isSaveDisabled": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set to true to disable the save button",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isDiscarding": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set to true while the discard action is being executed",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isSaving": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set to true while the save action is being executed",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "onDiscard": {
+              "required": false,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "The function to execute when user selects discard"
+            },
+            "onSave": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "The function to execute when user selects save"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/Sidebar/Sidebar.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Sidebar",
+          "methods": [],
+          "actualName": "Sidebar",
+          "props": {
+            "mobileHeader": {
+              "required": false,
+              "flowType": {
+                "name": "signature",
+                "type": "object",
+                "raw": "{\n\ttitle: string,\n\taction: ButtonProps\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "action",
+                      "value": {
+                        "name": "ButtonProps",
+                        "required": true
+                      }
+                    }
+                  ]
+                }
+              },
+              "description": "Optional header that will only appear on mobile",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "items": {
+              "required": false,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "ItemProps"
+                  }
+                ],
+                "raw": "Array<ItemProps>"
+              },
+              "description": "Items to display in the sidebar",
+              "defaultValue": {
+                "value": "[]",
+                "computed": false
+              }
+            },
+            "backLink": {
+              "required": false,
+              "flowType": {
+                "name": "ItemProps"
+              },
+              "description": "Back link item to handle navigation back to previous location"
+            },
+            "children": {
+              "required": false,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Children to add to the sidebar",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "footer": {
+              "required": false,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Include a footer in the sidebar",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "side": {
+              "required": true,
+              "flowType": {
+                "name": "union",
+                "raw": "'left' | 'right'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'left'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'right'"
+                  }
+                ]
+              },
+              "description": "Set which side the sidebar is on. Must be either 'left' or 'right"
+            },
+            "isLarge": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to make the sidebar larger. Defaults to false.",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isCollapsible": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Enables the user to collapse the sidebar on desktop. Defaults to true.",
+              "defaultValue": {
+                "value": "true",
+                "computed": false
+              }
+            },
+            "isExpanded": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to expand the sidebar (large screens only)",
+              "defaultValue": {
+                "value": "true",
+                "computed": false
+              }
+            },
+            "isMobileExpanded": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to expand the sidebar on small screens",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "forceCloseSidebar": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handler to force the sidebar to collapse"
+            },
+            "toggleExpanded": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handler to toggle the visibility of the sidebar"
             }
           }
         }
@@ -6906,6 +7720,17 @@
       ]
     },
     {
+      "key": "src/components/BigCalendar/components/TimeLine/TimeLine.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TimeLine",
+          "methods": [],
+          "actualName": "TimeLine"
+        }
+      ]
+    },
+    {
       "key": "src/components/BigCalendar/components/TimeGutter/TimeGutter.js",
       "value": [
         {
@@ -6955,17 +7780,6 @@
               "description": ""
             }
           }
-        }
-      ]
-    },
-    {
-      "key": "src/components/BigCalendar/components/TimeLine/TimeLine.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TimeLine",
-          "methods": [],
-          "actualName": "TimeLine"
         }
       ]
     },
@@ -7825,637 +8639,6 @@
           "displayName": "WeekRow",
           "methods": [],
           "actualName": "WeekRow"
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/FeedBuilder/FeedBuilder.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FeedBuilder",
-          "methods": [
-            {
-              "name": "onResize",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "isRowLoaded",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "{ index }",
-                  "type": null
-                }
-              ],
-              "returns": null
-            },
-            {
-              "name": "loadMoreRows",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "renderRow",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "{ index, key, parent, style, isScrolling }",
-                  "type": null
-                }
-              ],
-              "returns": null
-            }
-          ],
-          "actualName": "FeedBuilder",
-          "props": {
-            "messages": {
-              "required": false,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "signature",
-                    "type": "object",
-                    "raw": "{\n\t/** Unique id for the message */\n\tid: string,\n\t...MessageBuilderProps\n}",
-                    "signature": {
-                      "properties": [
-                        {
-                          "key": "id",
-                          "value": {
-                            "name": "string",
-                            "required": true
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ],
-                "raw": "Array<MessageProps>"
-              },
-              "description": "Messages for the feed",
-              "defaultValue": {
-                "value": "[]",
-                "computed": false
-              }
-            },
-            "emptyText": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Text for the empty state of this feed",
-              "defaultValue": {
-                "value": "'No messages'",
-                "computed": false
-              }
-            },
-            "onRowsRequested": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Callback to load rows"
-            },
-            "pageSize": {
-              "required": false,
-              "flowType": {
-                "name": "number"
-              },
-              "description": "Number of messages to load at a time",
-              "defaultValue": {
-                "value": "50",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/FooterPrimary/FooterPrimary.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FooterPrimary",
-          "methods": [],
-          "actualName": "FooterPrimary"
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/HeaderPrimary/HeaderPrimary.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "HeaderPrimary",
-          "methods": [
-            {
-              "name": "hideUserMenu",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "e",
-                  "type": {
-                    "name": "Event",
-                    "alias": "Event"
-                  }
-                }
-              ],
-              "returns": null
-            },
-            {
-              "name": "hideLocationMenu",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "e",
-                  "type": {
-                    "name": "Event",
-                    "alias": "Event"
-                  }
-                }
-              ],
-              "returns": null
-            },
-            {
-              "name": "handleSearchClick",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "toggleUserMenuVisibility",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "toggleLocationMenuVisibility",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "manageListeners",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "renderHeader",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "organization",
-                  "type": {
-                    "name": "Object",
-                    "alias": "Object"
-                  }
-                },
-                {
-                  "name": "location",
-                  "type": {
-                    "name": "Object",
-                    "alias": "Object"
-                  }
-                }
-              ],
-              "returns": null
-            }
-          ],
-          "actualName": "HeaderPrimary",
-          "props": {
-            "user": {
-              "required": false,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "The logged-in user"
-            },
-            "organization": {
-              "required": false,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "The current organization"
-            },
-            "location": {
-              "required": false,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "The current location"
-            },
-            "toggleSidebarVisibility": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Handler to set sidebar visibility to true or false"
-            },
-            "isSidebarVisible": {
-              "required": true,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to show the sidebar (small screens only)"
-            },
-            "enableHamburgerMenu": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Whether or not we will need to handle hamburger functionality",
-              "defaultValue": {
-                "value": "true",
-                "computed": false
-              }
-            },
-            "searchPlaceholder": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Placeholder text for the search field",
-              "defaultValue": {
-                "value": "'Search…'",
-                "computed": false
-              }
-            },
-            "onClickSearch": {
-              "required": false,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Handle search click"
-            },
-            "isLocationManagmentButtonVisible": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to show location management shortcut",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isSkillManagementButtonVisible": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to show skill management shortcut",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "skillsHref": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Destination for the skills link",
-              "defaultValue": {
-                "value": "''",
-                "computed": false
-              }
-            },
-            "locationManagementHref": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Destination for the location management link",
-              "defaultValue": {
-                "value": "''",
-                "computed": false
-              }
-            },
-            "userMenuItems": {
-              "required": true,
-              "flowType": {
-                "name": "ReactNode"
-              },
-              "description": "Menu children (<ListItem> or <li>)"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/ProfileSummary/ProfileSummary.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ProfileSummary",
-          "methods": [],
-          "actualName": "ProfileSummary",
-          "props": {
-            "image": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "User profile image"
-            },
-            "name": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Use name"
-            },
-            "onButtonClick": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Function for the button"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/SaveBar/SaveBar.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "SaveBar",
-          "methods": [],
-          "actualName": "SaveBar",
-          "props": {
-            "location": {
-              "required": false,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "The current location"
-            },
-            "message": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "The message to display in the Save Bar",
-              "defaultValue": {
-                "value": "'Unsaved changes'",
-                "computed": false
-              }
-            },
-            "isVisible": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set to true to show the save bar",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isDiscardDisabled": {
-              "required": false,
-              "flowType": {
-                "name": "Boolean"
-              },
-              "description": "Set to true to disable the discard button",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isSaveDisabled": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set to true to disable the save button",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isDiscarding": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set to true while the discard action is being executed",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isSaving": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set to true while the save action is being executed",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "onDiscard": {
-              "required": false,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "The function to execute when user selects discard"
-            },
-            "onSave": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "The function to execute when user selects save"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/Sidebar/Sidebar.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Sidebar",
-          "methods": [],
-          "actualName": "Sidebar",
-          "props": {
-            "mobileHeader": {
-              "required": false,
-              "flowType": {
-                "name": "signature",
-                "type": "object",
-                "raw": "{\n\ttitle: string,\n\taction: ButtonProps\n}",
-                "signature": {
-                  "properties": [
-                    {
-                      "key": "title",
-                      "value": {
-                        "name": "string",
-                        "required": true
-                      }
-                    },
-                    {
-                      "key": "action",
-                      "value": {
-                        "name": "ButtonProps",
-                        "required": true
-                      }
-                    }
-                  ]
-                }
-              },
-              "description": "Optional header that will only appear on mobile",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "items": {
-              "required": false,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "ItemProps"
-                  }
-                ],
-                "raw": "Array<ItemProps>"
-              },
-              "description": "Items to display in the sidebar",
-              "defaultValue": {
-                "value": "[]",
-                "computed": false
-              }
-            },
-            "backLink": {
-              "required": false,
-              "flowType": {
-                "name": "ItemProps"
-              },
-              "description": "Back link item to handle navigation back to previous location"
-            },
-            "children": {
-              "required": false,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Children to add to the sidebar",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "footer": {
-              "required": false,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Include a footer in the sidebar",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "side": {
-              "required": true,
-              "flowType": {
-                "name": "union",
-                "raw": "'left' | 'right'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'left'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'right'"
-                  }
-                ]
-              },
-              "description": "Set which side the sidebar is on. Must be either 'left' or 'right"
-            },
-            "isLarge": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to make the sidebar larger. Defaults to false.",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isCollapsible": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Enables the user to collapse the sidebar on desktop. Defaults to true.",
-              "defaultValue": {
-                "value": "true",
-                "computed": false
-              }
-            },
-            "isExpanded": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to expand the sidebar (large screens only)",
-              "defaultValue": {
-                "value": "true",
-                "computed": false
-              }
-            },
-            "isMobileExpanded": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to expand the sidebar on small screens",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "forceCloseSidebar": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Handler to force the sidebar to collapse"
-            },
-            "toggleExpanded": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Handler to toggle the visibility of the sidebar"
-            }
-          }
         }
       ]
     },
@@ -9508,6 +9691,48 @@
       ]
     },
     {
+      "key": "src/components/Forms/components/Radio/Radio.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Radio",
+          "methods": [],
+          "actualName": "Radio",
+          "props": {
+            "id": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Unique identifier"
+            },
+            "label": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Label and text for the radio"
+            },
+            "postText": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional text to show after the label"
+            },
+            "className": {
+              "required": true,
+              "flowType": {
+                "name": "string",
+                "nullable": true
+              },
+              "description": "Parent class"
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Forms/components/Search/Search.js",
       "value": [
         {
@@ -9559,48 +9784,6 @@
                 "name": "boolean"
               },
               "description": "Set true to make the input less tall"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Forms/components/Radio/Radio.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Radio",
-          "methods": [],
-          "actualName": "Radio",
-          "props": {
-            "id": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Unique identifier"
-            },
-            "label": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Label and text for the radio"
-            },
-            "postText": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional text to show after the label"
-            },
-            "className": {
-              "required": true,
-              "flowType": {
-                "name": "string",
-                "nullable": true
-              },
-              "description": "Parent class"
             }
           }
         }
@@ -9683,17 +9866,6 @@
       ]
     },
     {
-      "key": "src/components/Forms/components/Stars/Stars.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Stars",
-          "methods": [],
-          "actualName": "Stars"
-        }
-      ]
-    },
-    {
       "key": "src/components/Forms/components/Slider/Slider.js",
       "value": [
         {
@@ -9768,6 +9940,17 @@
               "description": "Callback after the slider updates its own value.\nUsing this property will place the slider in controlled mode."
             }
           }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/components/Stars/Stars.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Stars",
+          "methods": [],
+          "actualName": "Stars"
         }
       ]
     },
@@ -9997,6 +10180,40 @@
       ]
     },
     {
+      "key": "src/components/Forms/components/Toggle/Toggle.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Toggle",
+          "methods": [],
+          "actualName": "Toggle",
+          "props": {
+            "id": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Unique identifier"
+            },
+            "className": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional class"
+            },
+            "postText": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Text after the toggle"
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Layout/components/LayoutSection/LayoutSection.js",
       "value": [
         {
@@ -10029,40 +10246,6 @@
                 "value": "false",
                 "computed": false
               }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Forms/components/Toggle/Toggle.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Toggle",
-          "methods": [],
-          "actualName": "Toggle",
-          "props": {
-            "id": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Unique identifier"
-            },
-            "className": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional class"
-            },
-            "postText": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Text after the toggle"
             }
           }
         }
@@ -10124,6 +10307,73 @@
               }
             }
           }
+        }
+      ]
+    },
+    {
+      "key": "src/components/List/components/SortableList/SortableList.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SortableComponent",
+          "methods": [
+            {
+              "name": "toggleSorting",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "onCancel",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "onConfirm",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "onSortStart",
+              "docblock": null,
+              "modifiers": [],
+              "params": [],
+              "returns": null
+            },
+            {
+              "name": "onSortEnd",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "{ oldIndex, newIndex }: Object",
+                  "type": {
+                    "name": "Object",
+                    "alias": "Object"
+                  }
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "SortableComponent",
+          "props": {
+            "onConfirm": {
+              "required": false,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "onConfirm callback"
+            }
+          },
+          "composes": [
+            "ListProps"
+          ]
         }
       ]
     },
@@ -10327,69 +10577,108 @@
       ]
     },
     {
-      "key": "src/components/List/components/SortableList/SortableList.js",
+      "key": "src/components/Modal/components/ModalBody/ModalBody.js",
       "value": [
         {
           "description": "",
-          "displayName": "SortableComponent",
-          "methods": [
-            {
-              "name": "toggleSorting",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "onCancel",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "onConfirm",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "onSortStart",
-              "docblock": null,
-              "modifiers": [],
-              "params": [],
-              "returns": null
-            },
-            {
-              "name": "onSortEnd",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "{ oldIndex, newIndex }: Object",
-                  "type": {
-                    "name": "Object",
-                    "alias": "Object"
-                  }
-                }
-              ],
-              "returns": null
-            }
-          ],
-          "actualName": "SortableComponent",
+          "displayName": "ModalBody",
+          "methods": [],
+          "actualName": "ModalBody",
           "props": {
-            "onConfirm": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Modal children"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional class name"
+            },
+            "height": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional height of body"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Modal/components/ModalFooter/ModalFooter.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalFooter",
+          "methods": [],
+          "actualName": "ModalFooter",
+          "props": {
+            "primaryAction": {
+              "required": true,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": "The primary action in the footer"
+            },
+            "secondaryAction": {
+              "required": false,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": "Optional secondary action"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Modal/components/ModalHeader/ModalHeader.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalHeader",
+          "methods": [],
+          "actualName": "ModalHeader",
+          "props": {
+            "title": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Title text"
+            },
+            "isPaginated": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Whether this is a paged modal. Title will center on pages",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "onRequestClose": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Callback to close the modal"
+            },
+            "onClickBack": {
               "required": false,
               "flowType": {
                 "name": "Function"
               },
-              "description": "onConfirm callback"
+              "description": "Function to handle navigating backwards in a modal"
             }
-          },
-          "composes": [
-            "ListProps"
-          ]
+          }
         }
       ]
     },
@@ -10521,108 +10810,16 @@
       ]
     },
     {
-      "key": "src/components/Modal/components/ModalBody/ModalBody.js",
+      "key": "src/components/Table/components/TableSearch/TableSearch.js",
       "value": [
         {
           "description": "",
-          "displayName": "ModalBody",
+          "displayName": "TableSearch",
           "methods": [],
-          "actualName": "ModalBody",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Modal children"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional class name"
-            },
-            "height": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional height of body"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Modal/components/ModalFooter/ModalFooter.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ModalFooter",
-          "methods": [],
-          "actualName": "ModalFooter",
-          "props": {
-            "primaryAction": {
-              "required": true,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": "The primary action in the footer"
-            },
-            "secondaryAction": {
-              "required": false,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": "Optional secondary action"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Modal/components/ModalHeader/ModalHeader.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ModalHeader",
-          "methods": [],
-          "actualName": "ModalHeader",
-          "props": {
-            "title": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Title text"
-            },
-            "isPaginated": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Whether this is a paged modal. Title will center on pages",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "onRequestClose": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Callback to close the modal"
-            },
-            "onClickBack": {
-              "required": false,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Function to handle navigating backwards in a modal"
-            }
-          }
+          "actualName": "TableSearch",
+          "composes": [
+            "AutosuggestProps"
+          ]
         }
       ]
     },
@@ -10720,20 +10917,6 @@
       ]
     },
     {
-      "key": "src/components/Table/components/TableSearch/TableSearch.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TableSearch",
-          "methods": [],
-          "actualName": "TableSearch",
-          "composes": [
-            "AutosuggestProps"
-          ]
-        }
-      ]
-    },
-    {
       "key": "src/components/Toast/components/ToastWrapper/ToastWrapper.js",
       "value": [
         {
@@ -10782,81 +10965,6 @@
       ]
     },
     {
-      "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsFooter/EventDetailsFooter.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "EventDetailsFooter",
-          "methods": [],
-          "actualName": "EventDetailsFooter",
-          "props": {
-            "primaryCTA": {
-              "required": true,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": ""
-            },
-            "secondaryCTA": {
-              "required": true,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsHeader/EventDetailsHeader.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "EventDetailsHeader",
-          "methods": [],
-          "actualName": "EventDetailsHeader",
-          "props": {
-            "label": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
-            },
-            "title": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
-            },
-            "onClickBack": {
-              "required": false,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": ""
-            },
-            "onClickClose": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": ""
-            },
-            "contextMenu": {
-              "required": false,
-              "flowType": {
-                "name": "ContextMenuProps"
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Core/components/FooterPrimary/components/HelpButton/HelpButton.js",
       "value": [
         {
@@ -10891,6 +10999,17 @@
       ]
     },
     {
+      "key": "src/components/Core/components/HeaderPrimary/components/DefaultLockup/DefaultLockup.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "DefaultLockup",
+          "methods": [],
+          "actualName": "DefaultLockup"
+        }
+      ]
+    },
+    {
       "key": "src/components/Core/components/FooterPrimary/components/Legal/Legal.js",
       "value": [
         {
@@ -10914,17 +11033,6 @@
               "description": "Class for links"
             }
           }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/HeaderPrimary/components/DefaultLockup/DefaultLockup.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "DefaultLockup",
-          "methods": [],
-          "actualName": "DefaultLockup"
         }
       ]
     },
@@ -11074,6 +11182,17 @@
       ]
     },
     {
+      "key": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SidebarFooter",
+          "methods": [],
+          "actualName": "SidebarFooter"
+        }
+      ]
+    },
+    {
       "key": "src/components/Core/components/Sidebar/components/SidebarExpander/SidebarExpander.js",
       "value": [
         {
@@ -11104,17 +11223,6 @@
               "description": "Handler to force the sidebar closed"
             }
           }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "SidebarFooter",
-          "methods": [],
-          "actualName": "SidebarFooter"
         }
       ]
     },
@@ -11343,6 +11451,81 @@
                 "computed": false
               },
               "required": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsFooter/EventDetailsFooter.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "EventDetailsFooter",
+          "methods": [],
+          "actualName": "EventDetailsFooter",
+          "props": {
+            "primaryCTA": {
+              "required": true,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": ""
+            },
+            "secondaryCTA": {
+              "required": true,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/BigCalendar/components/EventDetails/components/EventDetailsHeader/EventDetailsHeader.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "EventDetailsHeader",
+          "methods": [],
+          "actualName": "EventDetailsHeader",
+          "props": {
+            "label": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
+            },
+            "title": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
+            },
+            "onClickBack": {
+              "required": false,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": ""
+            },
+            "onClickClose": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": ""
+            },
+            "contextMenu": {
+              "required": false,
+              "flowType": {
+                "name": "ContextMenuProps"
+              },
+              "description": ""
             }
           }
         }
@@ -11608,17 +11791,6 @@
               "description": "Set to true to add spacer to top if this item doesn't have a label but will be inline with other items that do."
             }
           }
-        }
-      ]
-    },
-    {
-      "key": "docz/DoczWrapper.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "DoczWrapper",
-          "methods": [],
-          "actualName": "DoczWrapper"
         }
       ]
     }

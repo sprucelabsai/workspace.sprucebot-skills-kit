@@ -38,7 +38,6 @@ interface IProps {
 	className?: string
 }
 
-
 const Avatar = (props: IProps): React.ReactNode => {
 	const {
 		image,
