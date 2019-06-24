@@ -11808,9 +11808,9 @@
         "menu": "",
         "headings": [
           {
-            "slug": "heartwood-design-system",
+            "slug": "heartwood",
             "depth": 1,
-            "value": "Heartwood Design System"
+            "value": "Heartwood"
           },
           {
             "slug": "components",
