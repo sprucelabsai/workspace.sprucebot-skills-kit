@@ -213,17 +213,6 @@
   },
   "props": [
     {
-      "key": "docz/DoczWrapper.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "DoczWrapper",
-          "methods": [],
-          "actualName": "DoczWrapper"
-        }
-      ]
-    },
-    {
       "key": "docz/components/H1.js",
       "value": [
         {
@@ -11791,6 +11780,17 @@
               "description": "Set to true to add spacer to top if this item doesn't have a label but will be inline with other items that do."
             }
           }
+        }
+      ]
+    },
+    {
+      "key": "docz/DoczWrapper.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "DoczWrapper",
+          "methods": [],
+          "actualName": "DoczWrapper"
         }
       ]
     }

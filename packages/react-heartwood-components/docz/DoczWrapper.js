@@ -1,5 +1,5 @@
 import React from 'react'
-import '@sprucelabs/heartwood-components/stylesheets/heartwood-components.scss'
+import './stylesheets/style.scss'
 
 const DoczWrapper = ({ children }) => {
 	return <div>{children}</div>
