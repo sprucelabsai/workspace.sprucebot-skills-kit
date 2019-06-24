@@ -11793,6 +11793,17 @@
           "actualName": "DoczWrapper"
         }
       ]
+    },
+    {
+      "key": "docz/components/Label.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Label",
+          "methods": [],
+          "actualName": "Label"
+        }
+      ]
     }
   ],
   "entries": [
@@ -11864,75 +11875,6 @@
       }
     },
     {
-      "key": "src/components/ButtonGroup/ButtonGroup.mdx",
-      "value": {
-        "name": "ButtonGroup",
-        "menu": "Buttons",
-        "id": "831bc1c0524d50c6d81c0bc058e1ced3",
-        "filepath": "src/components/ButtonGroup/ButtonGroup.mdx",
-        "link": "",
-        "slug": "src-components-button-group-button-group",
-        "route": "/src-components-button-group-button-group",
-        "headings": [
-          {
-            "slug": "buttongroup",
-            "depth": 1,
-            "value": "ButtonGroup"
-          },
-          {
-            "slug": "when-to-use",
-            "depth": 2,
-            "value": "When to use"
-          },
-          {
-            "slug": "when-not-to-use",
-            "depth": 2,
-            "value": "When not to use"
-          },
-          {
-            "slug": "kinds",
-            "depth": 2,
-            "value": "Kinds"
-          },
-          {
-            "slug": "default",
-            "depth": 3,
-            "value": "Default"
-          },
-          {
-            "slug": "segmented",
-            "depth": 3,
-            "value": "Segmented"
-          },
-          {
-            "slug": "floating",
-            "depth": 3,
-            "value": "Floating"
-          },
-          {
-            "slug": "props",
-            "depth": 2,
-            "value": "Props"
-          },
-          {
-            "slug": "related-components",
-            "depth": 2,
-            "value": "Related components:"
-          },
-          {
-            "slug": "composed-by",
-            "depth": 3,
-            "value": "Composed by:"
-          },
-          {
-            "slug": "consumed-by",
-            "depth": 3,
-            "value": "Consumed by:"
-          }
-        ]
-      }
-    },
-    {
       "key": "src/components/Button/Button.mdx",
       "value": {
         "name": "Button",
@@ -11982,6 +11924,75 @@
             "slug": "destructive",
             "depth": 3,
             "value": "Destructive"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          },
+          {
+            "slug": "related-components",
+            "depth": 2,
+            "value": "Related components:"
+          },
+          {
+            "slug": "composed-by",
+            "depth": 3,
+            "value": "Composed by:"
+          },
+          {
+            "slug": "consumed-by",
+            "depth": 3,
+            "value": "Consumed by:"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/ButtonGroup/ButtonGroup.mdx",
+      "value": {
+        "name": "ButtonGroup",
+        "menu": "Buttons",
+        "id": "831bc1c0524d50c6d81c0bc058e1ced3",
+        "filepath": "src/components/ButtonGroup/ButtonGroup.mdx",
+        "link": "",
+        "slug": "src-components-button-group-button-group",
+        "route": "/src-components-button-group-button-group",
+        "headings": [
+          {
+            "slug": "buttongroup",
+            "depth": 1,
+            "value": "ButtonGroup"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "kinds",
+            "depth": 2,
+            "value": "Kinds"
+          },
+          {
+            "slug": "default",
+            "depth": 3,
+            "value": "Default"
+          },
+          {
+            "slug": "segmented",
+            "depth": 3,
+            "value": "Segmented"
+          },
+          {
+            "slug": "floating",
+            "depth": 3,
+            "value": "Floating"
           },
           {
             "slug": "props",
