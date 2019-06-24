@@ -11826,75 +11826,39 @@
       }
     },
     {
-      "key": "src/components/Button/Button.mdx",
+      "key": "src/components/Avatar/Avatar.mdx",
       "value": {
-        "name": "Button",
-        "menu": "Buttons",
-        "id": "2b773349a016959194c905ce6ad9d2d4",
-        "filepath": "src/components/Button/Button.mdx",
+        "name": "Avatar",
+        "menu": "Avatars",
+        "id": "9a79e9d26da01020ba207ec130a4a832",
+        "filepath": "src/components/Avatar/Avatar.mdx",
         "link": "",
-        "slug": "src-components-button-button",
-        "route": "/src-components-button-button",
+        "slug": "src-components-avatar-avatar",
+        "route": "/src-components-avatar-avatar",
         "headings": [
           {
-            "slug": "button",
+            "slug": "avatar",
             "depth": 1,
-            "value": "Button"
-          },
+            "value": "Avatar"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Avatar/UserAvatar.mdx",
+      "value": {
+        "name": "UserAvatar",
+        "menu": "Avatars",
+        "id": "b6c2381a3d214448b8f996ee93378d18",
+        "filepath": "src/components/Avatar/UserAvatar.mdx",
+        "link": "",
+        "slug": "src-components-avatar-user-avatar",
+        "route": "/src-components-avatar-user-avatar",
+        "headings": [
           {
-            "slug": "when-to-use",
-            "depth": 2,
-            "value": "When to use"
-          },
-          {
-            "slug": "when-not-to-use",
-            "depth": 2,
-            "value": "When not to use"
-          },
-          {
-            "slug": "kinds",
-            "depth": 2,
-            "value": "Kinds"
-          },
-          {
-            "slug": "primary",
-            "depth": 3,
-            "value": "Primary"
-          },
-          {
-            "slug": "secondary",
-            "depth": 3,
-            "value": "Secondary"
-          },
-          {
-            "slug": "simple",
-            "depth": 3,
-            "value": "Simple"
-          },
-          {
-            "slug": "destructive",
-            "depth": 3,
-            "value": "Destructive"
-          },
-          {
-            "slug": "props",
-            "depth": 2,
-            "value": "Props"
-          },
-          {
-            "slug": "related-components",
-            "depth": 2,
-            "value": "Related components:"
-          },
-          {
-            "slug": "composed-by",
-            "depth": 3,
-            "value": "Composed by:"
-          },
-          {
-            "slug": "consumed-by",
-            "depth": 3,
-            "value": "Consumed by:"
+            "slug": "useravatar",
+            "depth": 1,
+            "value": "UserAvatar"
           }
         ]
       }
@@ -11944,6 +11908,80 @@
             "slug": "floating",
             "depth": 3,
             "value": "Floating"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          },
+          {
+            "slug": "related-components",
+            "depth": 2,
+            "value": "Related components:"
+          },
+          {
+            "slug": "composed-by",
+            "depth": 3,
+            "value": "Composed by:"
+          },
+          {
+            "slug": "consumed-by",
+            "depth": 3,
+            "value": "Consumed by:"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Button/Button.mdx",
+      "value": {
+        "name": "Button",
+        "menu": "Buttons",
+        "id": "2b773349a016959194c905ce6ad9d2d4",
+        "filepath": "src/components/Button/Button.mdx",
+        "link": "",
+        "slug": "src-components-button-button",
+        "route": "/src-components-button-button",
+        "headings": [
+          {
+            "slug": "button",
+            "depth": 1,
+            "value": "Button"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "kinds",
+            "depth": 2,
+            "value": "Kinds"
+          },
+          {
+            "slug": "primary",
+            "depth": 3,
+            "value": "Primary"
+          },
+          {
+            "slug": "secondary",
+            "depth": 3,
+            "value": "Secondary"
+          },
+          {
+            "slug": "simple",
+            "depth": 3,
+            "value": "Simple"
+          },
+          {
+            "slug": "destructive",
+            "depth": 3,
+            "value": "Destructive"
           },
           {
             "slug": "props",
