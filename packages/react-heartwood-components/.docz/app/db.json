@@ -12018,6 +12018,40 @@
       }
     },
     {
+      "key": "src/components/Card/Card.mdx",
+      "value": {
+        "name": "Card",
+        "menu": "Cards",
+        "id": "04a69f849d589538eb24bdaff375b127",
+        "filepath": "src/components/Card/Card.mdx",
+        "link": "",
+        "slug": "src-components-card-card",
+        "route": "/src-components-card-card",
+        "headings": [
+          {
+            "slug": "card",
+            "depth": 1,
+            "value": "Card"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
       "key": "src/components/ContextMenu/ContextMenu.mdx",
       "value": {
         "name": "ContextMenu",

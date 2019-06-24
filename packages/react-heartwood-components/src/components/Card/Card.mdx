@@ -1,0 +1,42 @@
+---
+name: Card
+menu: Cards
+---
+
+import { Playground, Props } from 'docz'
+import Card from './Card'
+import CardHeader from './components/CardHeader'
+import CardBody from './components/CardBody'
+import CardFooter from './components/CardFooter'
+import Button from '../Button/Button'
+
+# Card
+
+> Cards group related content and actions to provide an intuitive experience.
+
+<Playground>
+	<Card>
+		<CardHeader title="Get the most out of Sprucebot!" />
+		<CardBody>
+			<p>
+				Two roads diverged in a wood, and I took the one less traveled by, And
+				that has made all the difference.
+			</p>
+		</CardBody>
+		<CardFooter>
+			<Button text="Get some skills" kind="secondary" />
+		</CardFooter>
+	</Card>
+</Playground>
+
+## When to use
+
+Use a Card to guide users through an experience and provide relevant information.
+
+## When not to use
+
+Cards shouldn’t attempt to deliver full-fledged, complex experiences. Rather, they should be used to guide a user to those experiences.
+
+## Props
+
+<Props of={Card} />
