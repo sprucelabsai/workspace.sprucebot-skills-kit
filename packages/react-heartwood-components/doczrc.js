@@ -1,6 +1,19 @@
 import { css } from 'styled-components'
+import { css as cssPlugin } from 'docz-plugin-css'
+
+const path = require('path')
+
 export default {
 	wrapper: 'docz/DoczWrapper',
+	plugins: [
+		cssPlugin({
+			preprocessor: 'sass',
+			cssmodules: false,
+			loaderOpts: {
+				includePaths: [path.resolve(__dirname, 'src')]
+			}
+		})
+	],
 	// theme: 'docz/theme',
 	themeConfig: {
 		colors: {
