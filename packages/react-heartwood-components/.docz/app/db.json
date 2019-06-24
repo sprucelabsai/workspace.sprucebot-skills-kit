@@ -11808,9 +11808,19 @@
         "menu": "",
         "headings": [
           {
-            "slug": "hello-human",
+            "slug": "heartwood-design-system",
             "depth": 1,
-            "value": "Hello Human!"
+            "value": "Heartwood Design System"
+          },
+          {
+            "slug": "components",
+            "depth": 2,
+            "value": "Components"
+          },
+          {
+            "slug": "resources",
+            "depth": 2,
+            "value": "Resources"
           }
         ]
       }
