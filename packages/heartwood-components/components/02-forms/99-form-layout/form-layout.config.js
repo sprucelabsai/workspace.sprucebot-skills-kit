@@ -3,9 +3,7 @@ module.exports = {
 	status: 'wip',
 	collated: true,
 	collator: function(markup, item) {
-		return `<!-- Start: @${item.handle} -->\n<h2 style="margin: 3rem 0;">${
-			item.label
-		}</h2><div>${markup}</div>\n<!-- End: @${item.handle} -->\n`
+		return `<!-- Start: @${item.handle} -->\n<h2 style="margin: 3rem 0;">${item.label}</h2><div>${markup}</div>\n<!-- End: @${item.handle} -->\n`
 	},
 	context: {
 		formLayoutItems: [

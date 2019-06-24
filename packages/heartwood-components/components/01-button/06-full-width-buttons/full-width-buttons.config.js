@@ -3,9 +3,7 @@ module.exports = {
 	status: 'wip',
 	collated: true,
 	collator: function(markup, item) {
-		return `<!-- Start: @${item.handle} -->\n${markup}\n<!-- End: @${
-			item.handle
-		} -->\n`
+		return `<!-- Start: @${item.handle} -->\n${markup}\n<!-- End: @${item.handle} -->\n`
 	},
 	context: {
 		text: 'Full Width Buttons',

@@ -2,9 +2,7 @@ module.exports = {
 	title: 'Message',
 	collated: true,
 	collator: function(markup, item) {
-		return `<!-- Start: @${item.handle} -->\n<div>${markup}</div>\n<!-- End: @${
-			item.handle
-		} -->\n`
+		return `<!-- Start: @${item.handle} -->\n<div>${markup}</div>\n<!-- End: @${item.handle} -->\n`
 	},
 	context: {
 		from: {

@@ -2,11 +2,7 @@ module.exports = {
 	title: 'Toast',
 	collated: true,
 	collator: function(markup, item) {
-		return `<!-- Start: @${
-			item.handle
-		} -->\n<div style="margin-top: 1rem;">${markup}</div>\n<!-- End: @${
-			item.handle
-		} -->\n`
+		return `<!-- Start: @${item.handle} -->\n<div style="margin-top: 1rem;">${markup}</div>\n<!-- End: @${item.handle} -->\n`
 	},
 	context: {
 		headline: 'Hooray!',

@@ -3,11 +3,7 @@ module.exports = {
 	status: 'wip',
 	collated: true,
 	collator: function(markup, item) {
-		return `<!-- Start: @${
-			item.handle
-		} -->\n<span style="display: inline-block; margin: 0 1rem 1rem 0;">${markup}</span>\n<!-- End: @${
-			item.handle
-		} -->\n`
+		return `<!-- Start: @${item.handle} -->\n<span style="display: inline-block; margin: 0 1rem 1rem 0;">${markup}</span>\n<!-- End: @${item.handle} -->\n`
 	},
 	context: {
 		text: 'Delete Team',

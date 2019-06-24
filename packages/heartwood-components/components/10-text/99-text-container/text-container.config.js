@@ -3,11 +3,7 @@ module.exports = {
 	status: 'wip',
 	collated: true,
 	collator: function(markup, item) {
-		return `<!-- Start: @${
-			item.handle
-		} -->\n<div style="margin: 3rem 0 0.5rem;">${markup}</div>\n<!-- End: @${
-			item.handle
-		} -->\n`
+		return `<!-- Start: @${item.handle} -->\n<div style="margin: 3rem 0 0.5rem;">${markup}</div>\n<!-- End: @${item.handle} -->\n`
 	},
 	preview: '@main-preview',
 	variants: [
