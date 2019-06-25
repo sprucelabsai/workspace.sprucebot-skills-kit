@@ -25,7 +25,10 @@ const IndexComponents = () => {
 							key={key}
 							to={categories[key].route}
 						>
-							<IndexCard name={categories[key].name} />
+							<IndexCard
+								name={categories[key].name}
+								icon={categories[key].name}
+							/>
 						</Link>
 					)
 				}

@@ -11804,6 +11804,17 @@
       ]
     },
     {
+      "key": "docz/components/IndexComponents.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "IndexComponents",
+          "methods": [],
+          "actualName": "IndexComponents"
+        }
+      ]
+    },
+    {
       "key": "docz/components/IndexCard.js",
       "value": [
         {
@@ -11820,17 +11831,6 @@
               "required": false
             }
           }
-        }
-      ]
-    },
-    {
-      "key": "docz/components/IndexComponents.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "IndexComponents",
-          "methods": [],
-          "actualName": "IndexComponents"
         }
       ]
     }
@@ -12728,20 +12728,20 @@
       }
     },
     {
-      "key": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx",
+      "key": "src/components/Core/components/Sidebar/components/SidebarItem/SidebarItem.mdx",
       "value": {
-        "name": "SidebarFooter",
+        "name": "SidebarItem",
         "menu": "Core",
-        "id": "f6688b34795a4ff46f5118619e12cd43",
-        "filepath": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx",
+        "id": "4f594f416ce3245b7d17c3e5b3b0c4b5",
+        "filepath": "src/components/Core/components/Sidebar/components/SidebarItem/SidebarItem.mdx",
         "link": "",
-        "slug": "src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer",
-        "route": "/src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer",
+        "slug": "src-components-core-components-sidebar-components-sidebar-item-sidebar-item",
+        "route": "/src-components-core-components-sidebar-components-sidebar-item-sidebar-item",
         "headings": [
           {
-            "slug": "sidebarfooter",
+            "slug": "sidebaritem",
             "depth": 1,
-            "value": "SidebarFooter"
+            "value": "SidebarItem"
           },
           {
             "slug": "when-to-use",
@@ -12762,20 +12762,20 @@
       }
     },
     {
-      "key": "src/components/Core/components/Sidebar/components/SidebarItem/SidebarItem.mdx",
+      "key": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx",
       "value": {
-        "name": "SidebarItem",
+        "name": "SidebarFooter",
         "menu": "Core",
-        "id": "4f594f416ce3245b7d17c3e5b3b0c4b5",
-        "filepath": "src/components/Core/components/Sidebar/components/SidebarItem/SidebarItem.mdx",
+        "id": "f6688b34795a4ff46f5118619e12cd43",
+        "filepath": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx",
         "link": "",
-        "slug": "src-components-core-components-sidebar-components-sidebar-item-sidebar-item",
-        "route": "/src-components-core-components-sidebar-components-sidebar-item-sidebar-item",
+        "slug": "src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer",
+        "route": "/src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer",
         "headings": [
           {
-            "slug": "sidebaritem",
+            "slug": "sidebarfooter",
             "depth": 1,
-            "value": "SidebarItem"
+            "value": "SidebarFooter"
           },
           {
             "slug": "when-to-use",
