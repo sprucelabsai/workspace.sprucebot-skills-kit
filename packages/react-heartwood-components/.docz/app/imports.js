@@ -111,13 +111,13 @@ export const imports = {
     import(
       /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-header-primary-components-user-menu-user-menu" */ 'src/components/Core/components/HeaderPrimary/components/UserMenu/UserMenu.mdx'
     ),
-  'src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx': () =>
-    import(
-      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer" */ 'src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx'
-    ),
   'src/components/Core/components/Sidebar/components/SidebarExpander/SidebarExpander.mdx': () =>
     import(
       /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-sidebar-components-sidebar-expander-sidebar-expander" */ 'src/components/Core/components/Sidebar/components/SidebarExpander/SidebarExpander.mdx'
+    ),
+  'src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer" */ 'src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx'
     ),
   'src/components/Core/components/Sidebar/components/SidebarItem/SidebarItem.mdx': () =>
     import(

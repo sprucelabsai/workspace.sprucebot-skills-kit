@@ -37,7 +37,7 @@ export default {
 		}
 	},
 	menu: [
-		'React Heartwood Components',
+		'Heartwood',
 		{
 			name: 'Avatars',
 			menu: ['Avatar', 'UserAvatar']

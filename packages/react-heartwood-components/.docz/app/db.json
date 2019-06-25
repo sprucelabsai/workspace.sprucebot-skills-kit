@@ -3,7 +3,7 @@
     "title": "React Heartwood Components",
     "description": "React components for your Sprucebot Skill 💪🏼",
     "menu": [
-      "React Heartwood Components",
+      "Heartwood",
       {
         "name": "Avatars",
         "menu": [
@@ -56,8 +56,6 @@
           "HelpButton",
           "Legal",
           "FooterPrimary",
-          "ProfileSummary",
-          "FeedBuilder",
           "ProfileSummary",
           "FeedBuilder"
         ]
@@ -2828,54 +2826,6 @@
       ]
     },
     {
-      "key": "src/components/RecordSelectionList/RecordSelectionListItem.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "RecordSelectionListItem",
-          "methods": [],
-          "actualName": "RecordSelectionListItem",
-          "props": {
-            "title": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Title text"
-            },
-            "subtitle": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional subtitle text"
-            },
-            "avatar": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "URL to show a user avatar"
-            },
-            "icon": {
-              "required": false,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "Inline svg icon"
-            },
-            "id": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/RecordSelectionList/RecordSelectionList.js",
       "value": [
         {
@@ -3296,6 +3246,54 @@
                 "computed": false
               },
               "required": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/RecordSelectionList/RecordSelectionListItem.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "RecordSelectionListItem",
+          "methods": [],
+          "actualName": "RecordSelectionListItem",
+          "props": {
+            "title": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Title text"
+            },
+            "subtitle": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional subtitle text"
+            },
+            "avatar": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "URL to show a user avatar"
+            },
+            "icon": {
+              "required": false,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "Inline svg icon"
+            },
+            "id": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
             }
           }
         }
@@ -6800,6 +6798,147 @@
       ]
     },
     {
+      "key": "src/components/BigCalendar/components/TeammateHeader/TeammateHeader.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TeammateHeader",
+          "methods": [
+            {
+              "name": "handleClick",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "e",
+                  "type": {
+                    "name": "Event",
+                    "alias": "Event"
+                  }
+                }
+              ],
+              "returns": null
+            },
+            {
+              "name": "setScrollLeft",
+              "docblock": null,
+              "modifiers": [],
+              "params": [
+                {
+                  "name": "left",
+                  "type": {
+                    "name": "number"
+                  }
+                }
+              ],
+              "returns": null
+            }
+          ],
+          "actualName": "TeammateHeader",
+          "props": {
+            "users": {
+              "required": true,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "Object"
+                  }
+                ],
+                "raw": "Array<Object>"
+              },
+              "description": ""
+            },
+            "doubleClickTime": {
+              "required": true,
+              "flowType": {
+                "name": "number"
+              },
+              "description": ""
+            },
+            "onScroll": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": ""
+            },
+            "onDoubleClick": {
+              "required": false,
+              "flowType": {
+                "name": "signature",
+                "type": "function",
+                "raw": "(params: DoubleClickParams) => void",
+                "signature": {
+                  "arguments": [
+                    {
+                      "name": "params",
+                      "type": {
+                        "name": "signature",
+                        "type": "object",
+                        "raw": "{\n\tclientX: number,\n\tclientY: number,\n\te: Event\n}",
+                        "signature": {
+                          "properties": [
+                            {
+                              "key": "clientX",
+                              "value": {
+                                "name": "number",
+                                "required": true
+                              }
+                            },
+                            {
+                              "key": "clientY",
+                              "value": {
+                                "name": "number",
+                                "required": true
+                              }
+                            },
+                            {
+                              "key": "e",
+                              "value": {
+                                "name": "Event",
+                                "required": true
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "return": {
+                    "name": "void"
+                  }
+                }
+              },
+              "description": ""
+            },
+            "onClick": {
+              "required": false,
+              "flowType": {
+                "name": "signature",
+                "type": "function",
+                "raw": "(e: Event) => void",
+                "signature": {
+                  "arguments": [
+                    {
+                      "name": "e",
+                      "type": {
+                        "name": "Event"
+                      }
+                    }
+                  ],
+                  "return": {
+                    "name": "void"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/BigCalendar/components/HeaderControls/HeaderControls.js",
       "value": [
         {
@@ -6959,147 +7098,6 @@
       ]
     },
     {
-      "key": "src/components/BigCalendar/components/TeammateHeader/TeammateHeader.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TeammateHeader",
-          "methods": [
-            {
-              "name": "handleClick",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "e",
-                  "type": {
-                    "name": "Event",
-                    "alias": "Event"
-                  }
-                }
-              ],
-              "returns": null
-            },
-            {
-              "name": "setScrollLeft",
-              "docblock": null,
-              "modifiers": [],
-              "params": [
-                {
-                  "name": "left",
-                  "type": {
-                    "name": "number"
-                  }
-                }
-              ],
-              "returns": null
-            }
-          ],
-          "actualName": "TeammateHeader",
-          "props": {
-            "users": {
-              "required": true,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "Object"
-                  }
-                ],
-                "raw": "Array<Object>"
-              },
-              "description": ""
-            },
-            "doubleClickTime": {
-              "required": true,
-              "flowType": {
-                "name": "number"
-              },
-              "description": ""
-            },
-            "onScroll": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": ""
-            },
-            "onDoubleClick": {
-              "required": false,
-              "flowType": {
-                "name": "signature",
-                "type": "function",
-                "raw": "(params: DoubleClickParams) => void",
-                "signature": {
-                  "arguments": [
-                    {
-                      "name": "params",
-                      "type": {
-                        "name": "signature",
-                        "type": "object",
-                        "raw": "{\n\tclientX: number,\n\tclientY: number,\n\te: Event\n}",
-                        "signature": {
-                          "properties": [
-                            {
-                              "key": "clientX",
-                              "value": {
-                                "name": "number",
-                                "required": true
-                              }
-                            },
-                            {
-                              "key": "clientY",
-                              "value": {
-                                "name": "number",
-                                "required": true
-                              }
-                            },
-                            {
-                              "key": "e",
-                              "value": {
-                                "name": "Event",
-                                "required": true
-                              }
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  ],
-                  "return": {
-                    "name": "void"
-                  }
-                }
-              },
-              "description": ""
-            },
-            "onClick": {
-              "required": false,
-              "flowType": {
-                "name": "signature",
-                "type": "function",
-                "raw": "(e: Event) => void",
-                "signature": {
-                  "arguments": [
-                    {
-                      "name": "e",
-                      "type": {
-                        "name": "Event"
-                      }
-                    }
-                  ],
-                  "return": {
-                    "name": "void"
-                  }
-                }
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/BigCalendar/components/TimeGutter/TimeGutter.js",
       "value": [
         {
@@ -7149,6 +7147,17 @@
               "description": ""
             }
           }
+        }
+      ]
+    },
+    {
+      "key": "src/components/BigCalendar/components/TimeLine/TimeLine.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TimeLine",
+          "methods": [],
+          "actualName": "TimeLine"
         }
       ]
     },
@@ -7979,17 +7988,6 @@
       ]
     },
     {
-      "key": "src/components/BigCalendar/components/Views/Week.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Week",
-          "methods": [],
-          "actualName": "Week"
-        }
-      ]
-    },
-    {
       "key": "src/components/BigCalendar/components/Views/Month.js",
       "value": [
         {
@@ -8001,6 +7999,17 @@
       ]
     },
     {
+      "key": "src/components/BigCalendar/components/Views/Week.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Week",
+          "methods": [],
+          "actualName": "Week"
+        }
+      ]
+    },
+    {
       "key": "src/components/BigCalendar/components/Views/WeekRow.js",
       "value": [
         {
@@ -8008,17 +8017,6 @@
           "displayName": "WeekRow",
           "methods": [],
           "actualName": "WeekRow"
-        }
-      ]
-    },
-    {
-      "key": "src/components/BigCalendar/components/TimeLine/TimeLine.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TimeLine",
-          "methods": [],
-          "actualName": "TimeLine"
         }
       ]
     },
@@ -8488,6 +8486,172 @@
       ]
     },
     {
+      "key": "src/components/Core/components/Sidebar/Sidebar.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Sidebar",
+          "methods": [],
+          "actualName": "Sidebar",
+          "props": {
+            "mobileHeader": {
+              "required": false,
+              "flowType": {
+                "name": "signature",
+                "type": "object",
+                "raw": "{\n\ttitle: string,\n\taction: ButtonProps\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "action",
+                      "value": {
+                        "name": "ButtonProps",
+                        "required": true
+                      }
+                    }
+                  ]
+                }
+              },
+              "description": "Optional header that will only appear on mobile",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "items": {
+              "required": false,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "ItemProps"
+                  }
+                ],
+                "raw": "Array<ItemProps>"
+              },
+              "description": "Items to display in the sidebar",
+              "defaultValue": {
+                "value": "[]",
+                "computed": false
+              }
+            },
+            "backLink": {
+              "required": false,
+              "flowType": {
+                "name": "ItemProps"
+              },
+              "description": "Back link item to handle navigation back to previous location"
+            },
+            "children": {
+              "required": false,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Children to add to the sidebar",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "footer": {
+              "required": false,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Include a footer in the sidebar",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "side": {
+              "required": true,
+              "flowType": {
+                "name": "union",
+                "raw": "'left' | 'right'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'left'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'right'"
+                  }
+                ]
+              },
+              "description": "Set which side the sidebar is on. Must be either 'left' or 'right"
+            },
+            "isLarge": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to make the sidebar larger. Defaults to false.",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isCollapsible": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Enables the user to collapse the sidebar on desktop. Defaults to true.",
+              "defaultValue": {
+                "value": "true",
+                "computed": false
+              }
+            },
+            "isExpanded": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to expand the sidebar (large screens only)",
+              "defaultValue": {
+                "value": "true",
+                "computed": false
+              }
+            },
+            "isMobileExpanded": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to expand the sidebar on small screens",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "forceCloseSidebar": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handler to force the sidebar to collapse"
+            },
+            "toggleExpanded": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handler to toggle the visibility of the sidebar"
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Forms/components/Autosuggest/Autosuggest.js",
       "value": [
         {
@@ -8783,172 +8947,6 @@
                 "name": "boolean"
               },
               "description": "disable this input"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/Sidebar/Sidebar.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Sidebar",
-          "methods": [],
-          "actualName": "Sidebar",
-          "props": {
-            "mobileHeader": {
-              "required": false,
-              "flowType": {
-                "name": "signature",
-                "type": "object",
-                "raw": "{\n\ttitle: string,\n\taction: ButtonProps\n}",
-                "signature": {
-                  "properties": [
-                    {
-                      "key": "title",
-                      "value": {
-                        "name": "string",
-                        "required": true
-                      }
-                    },
-                    {
-                      "key": "action",
-                      "value": {
-                        "name": "ButtonProps",
-                        "required": true
-                      }
-                    }
-                  ]
-                }
-              },
-              "description": "Optional header that will only appear on mobile",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "items": {
-              "required": false,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "ItemProps"
-                  }
-                ],
-                "raw": "Array<ItemProps>"
-              },
-              "description": "Items to display in the sidebar",
-              "defaultValue": {
-                "value": "[]",
-                "computed": false
-              }
-            },
-            "backLink": {
-              "required": false,
-              "flowType": {
-                "name": "ItemProps"
-              },
-              "description": "Back link item to handle navigation back to previous location"
-            },
-            "children": {
-              "required": false,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Children to add to the sidebar",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "footer": {
-              "required": false,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Include a footer in the sidebar",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "side": {
-              "required": true,
-              "flowType": {
-                "name": "union",
-                "raw": "'left' | 'right'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'left'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'right'"
-                  }
-                ]
-              },
-              "description": "Set which side the sidebar is on. Must be either 'left' or 'right"
-            },
-            "isLarge": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to make the sidebar larger. Defaults to false.",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isCollapsible": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Enables the user to collapse the sidebar on desktop. Defaults to true.",
-              "defaultValue": {
-                "value": "true",
-                "computed": false
-              }
-            },
-            "isExpanded": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to expand the sidebar (large screens only)",
-              "defaultValue": {
-                "value": "true",
-                "computed": false
-              }
-            },
-            "isMobileExpanded": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to expand the sidebar on small screens",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "forceCloseSidebar": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Handler to force the sidebar to collapse"
-            },
-            "toggleExpanded": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Handler to toggle the visibility of the sidebar"
             }
           }
         }
@@ -9436,55 +9434,6 @@
       ]
     },
     {
-      "key": "src/components/Forms/components/FormLayout/FormLayout.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FormLayout",
-          "methods": [],
-          "actualName": "FormLayout",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Contents of the Form Layout. Should be FormLayoutItem or FormLayoutGroup components"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Class name for the layout"
-            },
-            "spacing": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'base' | 'tight'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'base'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'tight'"
-                  }
-                ]
-              },
-              "description": "Vertical spacing of the FormLayoutItem components",
-              "defaultValue": {
-                "value": "'base'",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Forms/components/FormBuilder/FormBuilder.js",
       "value": [
         {
@@ -9638,6 +9587,55 @@
               "description": "Optional when using a secondary cta in the form",
               "defaultValue": {
                 "value": "null",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/components/FormLayout/FormLayout.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FormLayout",
+          "methods": [],
+          "actualName": "FormLayout",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Contents of the Form Layout. Should be FormLayoutItem or FormLayoutGroup components"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Class name for the layout"
+            },
+            "spacing": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'base' | 'tight'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'base'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'tight'"
+                  }
+                ]
+              },
+              "description": "Vertical spacing of the FormLayoutItem components",
+              "defaultValue": {
+                "value": "'base'",
                 "computed": false
               }
             }
@@ -9801,82 +9799,6 @@
       ]
     },
     {
-      "key": "src/components/Forms/components/Select/Select.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Select",
-          "methods": [],
-          "actualName": "Select",
-          "props": {
-            "id": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Unique identifier"
-            },
-            "options": {
-              "required": true,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "Options for the select"
-            },
-            "isSimple": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to use the simple variation"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Parent class"
-            },
-            "label": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Label text"
-            },
-            "placeholder": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional text to be displayed as disabled placeholder option"
-            },
-            "postLabel": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Text after label"
-            },
-            "error": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Error text"
-            },
-            "helper": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Helper text"
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Forms/components/Slider/Slider.js",
       "value": [
         {
@@ -9955,6 +9877,82 @@
       ]
     },
     {
+      "key": "src/components/Forms/components/Select/Select.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Select",
+          "methods": [],
+          "actualName": "Select",
+          "props": {
+            "id": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Unique identifier"
+            },
+            "options": {
+              "required": true,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "Options for the select"
+            },
+            "isSimple": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to use the simple variation"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Parent class"
+            },
+            "label": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Label text"
+            },
+            "placeholder": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional text to be displayed as disabled placeholder option"
+            },
+            "postLabel": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Text after label"
+            },
+            "error": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Error text"
+            },
+            "helper": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Helper text"
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Forms/components/Stars/Stars.js",
       "value": [
         {
@@ -9962,66 +9960,6 @@
           "displayName": "Stars",
           "methods": [],
           "actualName": "Stars"
-        }
-      ]
-    },
-    {
-      "key": "src/components/Forms/components/Tag/Tag.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Tag",
-          "methods": [],
-          "actualName": "Tag",
-          "props": {
-            "text": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Tag text"
-            },
-            "className": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Additional parent class"
-            },
-            "kind": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'primary' | 'secondary'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'primary'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'secondary'"
-                  }
-                ]
-              },
-              "description": "Sets the tag variation",
-              "defaultValue": {
-                "value": "'primary'",
-                "computed": false
-              }
-            },
-            "isSmall": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to make the tag smaller",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            }
-          }
         }
       ]
     },
@@ -10082,6 +10020,66 @@
                 "name": "boolean"
               },
               "description": "Set true to make the text area resizeable",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/components/Tag/Tag.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Tag",
+          "methods": [],
+          "actualName": "Tag",
+          "props": {
+            "text": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Tag text"
+            },
+            "className": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Additional parent class"
+            },
+            "kind": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'primary' | 'secondary'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'primary'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'secondary'"
+                  }
+                ]
+              },
+              "description": "Sets the tag variation",
+              "defaultValue": {
+                "value": "'primary'",
+                "computed": false
+              }
+            },
+            "isSmall": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to make the tag smaller",
               "defaultValue": {
                 "value": "false",
                 "computed": false
@@ -11051,6 +11049,33 @@
       ]
     },
     {
+      "key": "src/components/Core/components/FooterPrimary/components/Legal/Legal.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Legal",
+          "methods": [],
+          "actualName": "Legal",
+          "props": {
+            "className": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Class for the text"
+            },
+            "linkClassName": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Class for links"
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Core/components/FooterPrimary/components/HelpButton/HelpButton.js",
       "value": [
         {
@@ -11079,71 +11104,6 @@
                 "name": "string"
               },
               "description": "Class for the text"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/FooterPrimary/components/Legal/Legal.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Legal",
-          "methods": [],
-          "actualName": "Legal",
-          "props": {
-            "className": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Class for the text"
-            },
-            "linkClassName": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Class for links"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/HeaderPrimary/components/DefaultLockup/DefaultLockup.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "DefaultLockup",
-          "methods": [],
-          "actualName": "DefaultLockup"
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/HeaderPrimary/components/Hamburger/Hamburger.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Hamburger",
-          "methods": [],
-          "actualName": "Hamburger",
-          "props": {
-            "isSidebarVisible": {
-              "required": true,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true when the sidebar is visible"
-            },
-            "onClick": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Click handler to toggle sidebar visibility"
             }
           }
         }
@@ -11220,48 +11180,38 @@
       ]
     },
     {
-      "key": "src/components/Core/components/HeaderPrimary/components/UserMenu/UserMenu.js",
+      "key": "src/components/Core/components/HeaderPrimary/components/DefaultLockup/DefaultLockup.js",
       "value": [
         {
           "description": "",
-          "displayName": "UserMenu",
+          "displayName": "DefaultLockup",
           "methods": [],
-          "actualName": "UserMenu",
+          "actualName": "DefaultLockup"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/HeaderPrimary/components/Hamburger/Hamburger.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Hamburger",
+          "methods": [],
+          "actualName": "Hamburger",
           "props": {
-            "image": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "User image to show in the avatar"
-            },
-            "name": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "User name"
-            },
-            "menuIsVisible": {
+            "isSidebarVisible": {
               "required": true,
               "flowType": {
                 "name": "boolean"
               },
-              "description": "Set true to show the menu"
+              "description": "Set true when the sidebar is visible"
             },
-            "toggleMenu": {
+            "onClick": {
               "required": true,
               "flowType": {
                 "name": "Function"
               },
-              "description": "Handler to toggle menu visibility"
-            },
-            "userMenuItems": {
-              "required": true,
-              "flowType": {
-                "name": "ReactNode"
-              },
-              "description": "Menu children (<ListItem> or <li>)"
+              "description": "Click handler to toggle sidebar visibility"
             }
           }
         }
@@ -11309,6 +11259,54 @@
           "displayName": "SidebarFooter",
           "methods": [],
           "actualName": "SidebarFooter"
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/HeaderPrimary/components/UserMenu/UserMenu.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "UserMenu",
+          "methods": [],
+          "actualName": "UserMenu",
+          "props": {
+            "image": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "User image to show in the avatar"
+            },
+            "name": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "User name"
+            },
+            "menuIsVisible": {
+              "required": true,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to show the menu"
+            },
+            "toggleMenu": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handler to toggle menu visibility"
+            },
+            "userMenuItems": {
+              "required": true,
+              "flowType": {
+                "name": "ReactNode"
+              },
+              "description": "Menu children (<ListItem> or <li>)"
+            }
+          }
         }
       ]
     },
@@ -11448,163 +11446,6 @@
                 "name": "boolean"
               },
               "description": "",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Core/components/Sidebar/components/SidebarSection/SidebarSection.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "SidebarSection",
-          "methods": [],
-          "actualName": "SidebarSection",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Children to show in the sidebar section"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional classname to add to the section",
-              "defaultValue": {
-                "value": "''",
-                "computed": false
-              }
-            },
-            "isCentered": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to center align horizontally",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "horizontalSpacing": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'base' | 'loose'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'base'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'loose'"
-                  }
-                ]
-              },
-              "description": "Horizontal Spacing options"
-            },
-            "verticalSpacing": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'base' | 'loose'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'base'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'loose'"
-                  }
-                ]
-              },
-              "description": "Vertical Spacing options"
-            },
-            "spacing": {
-              "defaultValue": {
-                "value": "'base'",
-                "computed": false
-              },
-              "required": false
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Forms/components/FormLayout/components/FormLayoutItem/FormLayoutItem.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FormLayoutItem",
-          "methods": [],
-          "actualName": "FormLayoutItem",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Contents of the Form Layout Item"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Class name for the item"
-            },
-            "spacerTop": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set to true to add spacer to top if this item doesn't have a label but will be inline with other items that do."
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Forms/components/FormLayout/components/FormLayoutGroup/FormLayoutGroup.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FormLayoutGroup",
-          "methods": [],
-          "actualName": "FormLayoutGroup",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Contents of the FormLayoutGroup. Should be FormLayoutItem components"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Class name for the group"
-            },
-            "isCondensed": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Whether the group item widths can be condensed to fit more items in a row",
               "defaultValue": {
                 "value": "false",
                 "computed": false
@@ -11804,13 +11645,201 @@
           }
         }
       ]
+    },
+    {
+      "key": "src/components/Core/components/Sidebar/components/SidebarSection/SidebarSection.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SidebarSection",
+          "methods": [],
+          "actualName": "SidebarSection",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Children to show in the sidebar section"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional classname to add to the section",
+              "defaultValue": {
+                "value": "''",
+                "computed": false
+              }
+            },
+            "isCentered": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to center align horizontally",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "horizontalSpacing": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'base' | 'loose'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'base'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'loose'"
+                  }
+                ]
+              },
+              "description": "Horizontal Spacing options"
+            },
+            "verticalSpacing": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'base' | 'loose'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'base'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'loose'"
+                  }
+                ]
+              },
+              "description": "Vertical Spacing options"
+            },
+            "spacing": {
+              "defaultValue": {
+                "value": "'base'",
+                "computed": false
+              },
+              "required": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/components/FormLayout/components/FormLayoutGroup/FormLayoutGroup.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FormLayoutGroup",
+          "methods": [],
+          "actualName": "FormLayoutGroup",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Contents of the FormLayoutGroup. Should be FormLayoutItem components"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Class name for the group"
+            },
+            "isCondensed": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Whether the group item widths can be condensed to fit more items in a row",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/components/FormLayout/components/FormLayoutItem/FormLayoutItem.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FormLayoutItem",
+          "methods": [],
+          "actualName": "FormLayoutItem",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Contents of the Form Layout Item"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Class name for the item"
+            },
+            "spacerTop": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set to true to add spacer to top if this item doesn't have a label but will be inline with other items that do."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "docz/components/IndexCard.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "IndexCard",
+          "methods": [],
+          "actualName": "IndexCard",
+          "props": {
+            "iconBg": {
+              "defaultValue": {
+                "value": "'#8388f0'",
+                "computed": false
+              },
+              "required": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "docz/components/IndexComponents.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "IndexComponents",
+          "methods": [],
+          "actualName": "IndexComponents"
+        }
+      ]
     }
   ],
   "entries": [
     {
       "key": "docz/index.mdx",
       "value": {
-        "name": "React Heartwood Components",
+        "name": "Heartwood",
         "route": "/",
         "id": "5c71d50ac38b5354bfb07ce1891c8e2b",
         "filepath": "docz/index.mdx",
@@ -12665,20 +12694,20 @@
       }
     },
     {
-      "key": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx",
+      "key": "src/components/Core/components/Sidebar/components/SidebarExpander/SidebarExpander.mdx",
       "value": {
-        "name": "SidebarFooter",
+        "name": "SidebarExpander",
         "menu": "Core",
-        "id": "f6688b34795a4ff46f5118619e12cd43",
-        "filepath": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx",
+        "id": "571dc6c396aacbf3a70f7498311d00c9",
+        "filepath": "src/components/Core/components/Sidebar/components/SidebarExpander/SidebarExpander.mdx",
         "link": "",
-        "slug": "src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer",
-        "route": "/src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer",
+        "slug": "src-components-core-components-sidebar-components-sidebar-expander-sidebar-expander",
+        "route": "/src-components-core-components-sidebar-components-sidebar-expander-sidebar-expander",
         "headings": [
           {
-            "slug": "sidebarfooter",
+            "slug": "sidebarexpander",
             "depth": 1,
-            "value": "SidebarFooter"
+            "value": "SidebarExpander"
           },
           {
             "slug": "when-to-use",
@@ -12699,20 +12728,20 @@
       }
     },
     {
-      "key": "src/components/Core/components/Sidebar/components/SidebarExpander/SidebarExpander.mdx",
+      "key": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx",
       "value": {
-        "name": "SidebarExpander",
+        "name": "SidebarFooter",
         "menu": "Core",
-        "id": "571dc6c396aacbf3a70f7498311d00c9",
-        "filepath": "src/components/Core/components/Sidebar/components/SidebarExpander/SidebarExpander.mdx",
+        "id": "f6688b34795a4ff46f5118619e12cd43",
+        "filepath": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx",
         "link": "",
-        "slug": "src-components-core-components-sidebar-components-sidebar-expander-sidebar-expander",
-        "route": "/src-components-core-components-sidebar-components-sidebar-expander-sidebar-expander",
+        "slug": "src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer",
+        "route": "/src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer",
         "headings": [
           {
-            "slug": "sidebarexpander",
+            "slug": "sidebarfooter",
             "depth": 1,
-            "value": "SidebarExpander"
+            "value": "SidebarFooter"
           },
           {
             "slug": "when-to-use",

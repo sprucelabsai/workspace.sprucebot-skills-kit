@@ -1,5 +1,9 @@
 @import '~@sprucelabs/heartwood-components/stylesheets/heartwood-components.scss';
 
+#root {
+	background-color: $c-bg;
+}
+
 .docz__label {
 	display: inline-block;
 	padding: 0.75rem 1rem;
@@ -9,4 +13,63 @@
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	background-color: $c-ui-warn-dark;
+}
+
+.docz__index-cards {
+	display: flex;
+	flex-flow: column;
+
+	@media screen and (min-width: 700px) {
+		flex-flow: row wrap;
+	}
+}
+
+.docz__index-card-link {
+	flex: 0 0 auto;
+	width: 100%;
+	margin-bottom: 1rem;
+	transition: transform 200ms ease-in-out;
+
+	&:hover {
+		box-shadow: 0 2px 16px rgba($c-text, 0.05);
+		transform: translate(0, -1px);
+	}
+
+	@media screen and (min-width: 700px) {
+		width: calc(50% - 1.5rem);
+		margin-bottom: 1.5rem;
+
+		&:nth-child(even) {
+			margin-left: 0.75rem;
+		}
+
+		&:nth-child(odd) {
+			margin-right: 0.75rem;
+		}
+	}
+
+	@media screen and (min-width: 1200px) {
+		width: calc(33.33% - 3rem);
+
+		margin-left: 0.75rem;
+		margin-right: 0.75rem;
+
+		&:first-child,
+		&:nth-child(3n + 1) {
+			margin-left: 0;
+		}
+
+		&:nth-child(3n) {
+			margin-right: 0;
+		}
+	}
+}
+
+.docz__index-card {
+	padding: 1rem;
+}
+
+.docz__index-card-title {
+	font-weight: 600;
+	color: $c-text;
 }
