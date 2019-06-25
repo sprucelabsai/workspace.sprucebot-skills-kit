@@ -1,0 +1,43 @@
+---
+name: SidebarSection
+menu: Core
+---
+
+import { Playground, Props } from 'docz'
+import SidebarSection from './SidebarSection'
+import SidebarItem from '../SidebarItem/SidebarItem'
+
+# SidebarSection
+
+> A SidebarSection groups related content in a distinct section of a Sidebar.
+
+<Playground>
+	<div className="sidebar">
+		<SidebarSection>
+			<ul className="sidebar__items">
+				<SidebarItem text="Section 1 item 1" href="#" />
+				<SidebarItem text="Section 1 item 2" href="#" />
+				<SidebarItem text="Section 1 item 3" href="#" />
+			</ul>
+		</SidebarSection>
+		<SidebarSection>
+			<ul className="sidebar__items">
+				<SidebarItem text="Section 2 item 1" href="#" />
+				<SidebarItem text="Section 2 item 2" href="#" />
+				<SidebarItem text="Section 2 item 3" href="#" />
+			</ul>
+		</SidebarSection>
+	</div>
+</Playground>
+
+## When to use
+
+SidebarSections can only appear in the Sidebar.
+
+## When not to use
+
+Don’t use a SidebarSection outside of a Sidebar.
+
+## Props
+
+<Props of={SidebarSection} />

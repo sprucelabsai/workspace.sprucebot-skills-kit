@@ -27,13 +27,17 @@ export const imports = {
     import(
       /* webpackPrefetch: true, webpackChunkName: "src-components-context-menu-context-menu" */ 'src/components/ContextMenu/ContextMenu.mdx'
     ),
-  'src/components/Card/components/CardBuilder.mdx': () =>
+  'src/components/Message/Message.mdx': () =>
     import(
-      /* webpackPrefetch: true, webpackChunkName: "src-components-card-components-card-builder" */ 'src/components/Card/components/CardBuilder.mdx'
+      /* webpackPrefetch: true, webpackChunkName: "src-components-message-message" */ 'src/components/Message/Message.mdx'
     ),
   'src/components/Card/components/CardBody.mdx': () =>
     import(
       /* webpackPrefetch: true, webpackChunkName: "src-components-card-components-card-body" */ 'src/components/Card/components/CardBody.mdx'
+    ),
+  'src/components/Card/components/CardBuilder.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-card-components-card-builder" */ 'src/components/Card/components/CardBuilder.mdx'
     ),
   'src/components/Card/components/CardFooter.mdx': () =>
     import(
@@ -54,5 +58,73 @@ export const imports = {
   'src/components/Card/components/Scores.mdx': () =>
     import(
       /* webpackPrefetch: true, webpackChunkName: "src-components-card-components-scores" */ 'src/components/Card/components/Scores.mdx'
+    ),
+  'src/components/Message/components/MessageBuilder.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-message-components-message-builder" */ 'src/components/Message/components/MessageBuilder.mdx'
+    ),
+  'src/components/Core/components/FeedBuilder/FeedBuilder.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-feed-builder-feed-builder" */ 'src/components/Core/components/FeedBuilder/FeedBuilder.mdx'
+    ),
+  'src/components/Core/components/FooterPrimary/FooterPrimary.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-footer-primary-footer-primary" */ 'src/components/Core/components/FooterPrimary/FooterPrimary.mdx'
+    ),
+  'src/components/Core/components/HeaderPrimary/HeaderPrimary.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-header-primary-header-primary" */ 'src/components/Core/components/HeaderPrimary/HeaderPrimary.mdx'
+    ),
+  'src/components/Core/components/ProfileSummary/ProfileSummary.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-profile-summary-profile-summary" */ 'src/components/Core/components/ProfileSummary/ProfileSummary.mdx'
+    ),
+  'src/components/Core/components/SaveBar/SaveBar.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-save-bar-save-bar" */ 'src/components/Core/components/SaveBar/SaveBar.mdx'
+    ),
+  'src/components/Core/components/Sidebar/Sidebar.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-sidebar-sidebar" */ 'src/components/Core/components/Sidebar/Sidebar.mdx'
+    ),
+  'src/components/Core/components/FooterPrimary/components/HelpButton/HelpButton.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-footer-primary-components-help-button-help-button" */ 'src/components/Core/components/FooterPrimary/components/HelpButton/HelpButton.mdx'
+    ),
+  'src/components/Core/components/FooterPrimary/components/Legal/Legal.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-footer-primary-components-legal-legal" */ 'src/components/Core/components/FooterPrimary/components/Legal/Legal.mdx'
+    ),
+  'src/components/Core/components/HeaderPrimary/components/DefaultLockup/DefaultLockup.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-header-primary-components-default-lockup-default-lockup" */ 'src/components/Core/components/HeaderPrimary/components/DefaultLockup/DefaultLockup.mdx'
+    ),
+  'src/components/Core/components/HeaderPrimary/components/Hamburger/Hamburger.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-header-primary-components-hamburger-hamburger" */ 'src/components/Core/components/HeaderPrimary/components/Hamburger/Hamburger.mdx'
+    ),
+  'src/components/Core/components/HeaderPrimary/components/LocationMenu/LocationMenu.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-header-primary-components-location-menu-location-menu" */ 'src/components/Core/components/HeaderPrimary/components/LocationMenu/LocationMenu.mdx'
+    ),
+  'src/components/Core/components/HeaderPrimary/components/UserMenu/UserMenu.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-header-primary-components-user-menu-user-menu" */ 'src/components/Core/components/HeaderPrimary/components/UserMenu/UserMenu.mdx'
+    ),
+  'src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer" */ 'src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx'
+    ),
+  'src/components/Core/components/Sidebar/components/SidebarExpander/SidebarExpander.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-sidebar-components-sidebar-expander-sidebar-expander" */ 'src/components/Core/components/Sidebar/components/SidebarExpander/SidebarExpander.mdx'
+    ),
+  'src/components/Core/components/Sidebar/components/SidebarItem/SidebarItem.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-sidebar-components-sidebar-item-sidebar-item" */ 'src/components/Core/components/Sidebar/components/SidebarItem/SidebarItem.mdx'
+    ),
+  'src/components/Core/components/Sidebar/components/SidebarSection/SidebarSection.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-core-components-sidebar-components-sidebar-section-sidebar-section" */ 'src/components/Core/components/Sidebar/components/SidebarSection/SidebarSection.mdx'
     ),
 }

@@ -55,9 +55,9 @@
           "SidebarExpander",
           "HelpButton",
           "Legal",
-          "Breadcrumbs",
-          "Breadcrumb",
           "FooterPrimary",
+          "ProfileSummary",
+          "FeedBuilder",
           "ProfileSummary",
           "FeedBuilder"
         ]
@@ -2019,54 +2019,6 @@
       ]
     },
     {
-      "key": "src/components/ImageSSR/ImageSSR.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ImageSSR",
-          "methods": [],
-          "actualName": "ImageSSR",
-          "props": {
-            "src": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
-            },
-            "alt": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
-            },
-            "className": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
-            },
-            "width": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
-            },
-            "height": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/ImageCropper/ImageCropper.js",
       "value": [
         {
@@ -2178,6 +2130,54 @@
       ]
     },
     {
+      "key": "src/components/ImageSSR/ImageSSR.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ImageSSR",
+          "methods": [],
+          "actualName": "ImageSSR",
+          "props": {
+            "src": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
+            },
+            "alt": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
+            },
+            "className": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
+            },
+            "width": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
+            },
+            "height": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Layout/Layout.js",
       "value": [
         {
@@ -2244,37 +2244,6 @@
                 "value": "'base'",
                 "computed": false
               }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Loader/Loader.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Loader",
-          "methods": [],
-          "actualName": "Loader",
-          "props": {
-            "isLight": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isCentered": {
-              "required": true,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": ""
             }
           }
         }
@@ -2385,6 +2354,37 @@
                 ]
               },
               "description": "Optional: set whether to use checkbox or radio for selectable list items"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Loader/Loader.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Loader",
+          "methods": [],
+          "actualName": "Loader",
+          "props": {
+            "isLight": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isCentered": {
+              "required": true,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": ""
             }
           }
         }
@@ -2828,6 +2828,54 @@
       ]
     },
     {
+      "key": "src/components/RecordSelectionList/RecordSelectionListItem.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "RecordSelectionListItem",
+          "methods": [],
+          "actualName": "RecordSelectionListItem",
+          "props": {
+            "title": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Title text"
+            },
+            "subtitle": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional subtitle text"
+            },
+            "avatar": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "URL to show a user avatar"
+            },
+            "icon": {
+              "required": false,
+              "flowType": {
+                "name": "Object"
+              },
+              "description": "Inline svg icon"
+            },
+            "id": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/RecordSelectionList/RecordSelectionList.js",
       "value": [
         {
@@ -3248,54 +3296,6 @@
                 "computed": false
               },
               "required": false
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/RecordSelectionList/RecordSelectionListItem.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "RecordSelectionListItem",
-          "methods": [],
-          "actualName": "RecordSelectionListItem",
-          "props": {
-            "title": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Title text"
-            },
-            "subtitle": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional subtitle text"
-            },
-            "avatar": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "URL to show a user avatar"
-            },
-            "icon": {
-              "required": false,
-              "flowType": {
-                "name": "Object"
-              },
-              "description": "Inline svg icon"
-            },
-            "id": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": ""
             }
           }
         }
@@ -6519,6 +6519,86 @@
       ]
     },
     {
+      "key": "src/components/BigCalendar/components/EventDetails/EventDetails.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "EventDetails",
+          "methods": [],
+          "actualName": "EventDetails",
+          "props": {
+            "header": {
+              "required": true,
+              "flowType": {
+                "name": "HeaderProps"
+              },
+              "description": ""
+            },
+            "kind": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "| 'default'\n| 'tentative'\n| 'active'\n| 'unavailable'\n| 'blocked'\n| 'past'\n| 'warn'\n| 'critical'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'default'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'tentative'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'active'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'unavailable'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'blocked'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'past'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'warn'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'critical'"
+                  }
+                ]
+              },
+              "description": "",
+              "defaultValue": {
+                "value": "'default'",
+                "computed": false
+              }
+            },
+            "list": {
+              "required": true,
+              "flowType": {
+                "name": "ListProps"
+              },
+              "description": ""
+            },
+            "footer": {
+              "required": true,
+              "flowType": {
+                "name": "FooterProps"
+              },
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/BigCalendar/components/Header/Header.js",
       "value": [
         {
@@ -6714,86 +6794,6 @@
                 "value": "'D'",
                 "computed": false
               }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/BigCalendar/components/EventDetails/EventDetails.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "EventDetails",
-          "methods": [],
-          "actualName": "EventDetails",
-          "props": {
-            "header": {
-              "required": true,
-              "flowType": {
-                "name": "HeaderProps"
-              },
-              "description": ""
-            },
-            "kind": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "| 'default'\n| 'tentative'\n| 'active'\n| 'unavailable'\n| 'blocked'\n| 'past'\n| 'warn'\n| 'critical'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'default'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'tentative'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'active'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'unavailable'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'blocked'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'past'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'warn'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'critical'"
-                  }
-                ]
-              },
-              "description": "",
-              "defaultValue": {
-                "value": "'default'",
-                "computed": false
-              }
-            },
-            "list": {
-              "required": true,
-              "flowType": {
-                "name": "ListProps"
-              },
-              "description": ""
-            },
-            "footer": {
-              "required": true,
-              "flowType": {
-                "name": "FooterProps"
-              },
-              "description": ""
             }
           }
         }
@@ -7149,17 +7149,6 @@
               "description": ""
             }
           }
-        }
-      ]
-    },
-    {
-      "key": "src/components/BigCalendar/components/TimeLine/TimeLine.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TimeLine",
-          "methods": [],
-          "actualName": "TimeLine"
         }
       ]
     },
@@ -7900,17 +7889,6 @@
       ]
     },
     {
-      "key": "src/components/BigCalendar/components/Views/Month.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Month",
-          "methods": [],
-          "actualName": "Month"
-        }
-      ]
-    },
-    {
       "key": "src/components/BigCalendar/components/Views/DayCol.js",
       "value": [
         {
@@ -8012,6 +7990,17 @@
       ]
     },
     {
+      "key": "src/components/BigCalendar/components/Views/Month.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Month",
+          "methods": [],
+          "actualName": "Month"
+        }
+      ]
+    },
+    {
       "key": "src/components/BigCalendar/components/Views/WeekRow.js",
       "value": [
         {
@@ -8019,6 +8008,17 @@
           "displayName": "WeekRow",
           "methods": [],
           "actualName": "WeekRow"
+        }
+      ]
+    },
+    {
+      "key": "src/components/BigCalendar/components/TimeLine/TimeLine.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TimeLine",
+          "methods": [],
+          "actualName": "TimeLine"
         }
       ]
     },
@@ -8488,172 +8488,6 @@
       ]
     },
     {
-      "key": "src/components/Core/components/Sidebar/Sidebar.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Sidebar",
-          "methods": [],
-          "actualName": "Sidebar",
-          "props": {
-            "mobileHeader": {
-              "required": false,
-              "flowType": {
-                "name": "signature",
-                "type": "object",
-                "raw": "{\n\ttitle: string,\n\taction: ButtonProps\n}",
-                "signature": {
-                  "properties": [
-                    {
-                      "key": "title",
-                      "value": {
-                        "name": "string",
-                        "required": true
-                      }
-                    },
-                    {
-                      "key": "action",
-                      "value": {
-                        "name": "ButtonProps",
-                        "required": true
-                      }
-                    }
-                  ]
-                }
-              },
-              "description": "Optional header that will only appear on mobile",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "items": {
-              "required": false,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "ItemProps"
-                  }
-                ],
-                "raw": "Array<ItemProps>"
-              },
-              "description": "Items to display in the sidebar",
-              "defaultValue": {
-                "value": "[]",
-                "computed": false
-              }
-            },
-            "backLink": {
-              "required": false,
-              "flowType": {
-                "name": "ItemProps"
-              },
-              "description": "Back link item to handle navigation back to previous location"
-            },
-            "children": {
-              "required": false,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Children to add to the sidebar",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "footer": {
-              "required": false,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Include a footer in the sidebar",
-              "defaultValue": {
-                "value": "null",
-                "computed": false
-              }
-            },
-            "side": {
-              "required": true,
-              "flowType": {
-                "name": "union",
-                "raw": "'left' | 'right'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'left'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'right'"
-                  }
-                ]
-              },
-              "description": "Set which side the sidebar is on. Must be either 'left' or 'right"
-            },
-            "isLarge": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to make the sidebar larger. Defaults to false.",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "isCollapsible": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Enables the user to collapse the sidebar on desktop. Defaults to true.",
-              "defaultValue": {
-                "value": "true",
-                "computed": false
-              }
-            },
-            "isExpanded": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to expand the sidebar (large screens only)",
-              "defaultValue": {
-                "value": "true",
-                "computed": false
-              }
-            },
-            "isMobileExpanded": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true to expand the sidebar on small screens",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "forceCloseSidebar": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Handler to force the sidebar to collapse"
-            },
-            "toggleExpanded": {
-              "required": true,
-              "flowType": {
-                "name": "Function"
-              },
-              "description": "Handler to toggle the visibility of the sidebar"
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/Forms/components/Autosuggest/Autosuggest.js",
       "value": [
         {
@@ -8949,6 +8783,172 @@
                 "name": "boolean"
               },
               "description": "disable this input"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Core/components/Sidebar/Sidebar.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Sidebar",
+          "methods": [],
+          "actualName": "Sidebar",
+          "props": {
+            "mobileHeader": {
+              "required": false,
+              "flowType": {
+                "name": "signature",
+                "type": "object",
+                "raw": "{\n\ttitle: string,\n\taction: ButtonProps\n}",
+                "signature": {
+                  "properties": [
+                    {
+                      "key": "title",
+                      "value": {
+                        "name": "string",
+                        "required": true
+                      }
+                    },
+                    {
+                      "key": "action",
+                      "value": {
+                        "name": "ButtonProps",
+                        "required": true
+                      }
+                    }
+                  ]
+                }
+              },
+              "description": "Optional header that will only appear on mobile",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "items": {
+              "required": false,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "ItemProps"
+                  }
+                ],
+                "raw": "Array<ItemProps>"
+              },
+              "description": "Items to display in the sidebar",
+              "defaultValue": {
+                "value": "[]",
+                "computed": false
+              }
+            },
+            "backLink": {
+              "required": false,
+              "flowType": {
+                "name": "ItemProps"
+              },
+              "description": "Back link item to handle navigation back to previous location"
+            },
+            "children": {
+              "required": false,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Children to add to the sidebar",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "footer": {
+              "required": false,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Include a footer in the sidebar",
+              "defaultValue": {
+                "value": "null",
+                "computed": false
+              }
+            },
+            "side": {
+              "required": true,
+              "flowType": {
+                "name": "union",
+                "raw": "'left' | 'right'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'left'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'right'"
+                  }
+                ]
+              },
+              "description": "Set which side the sidebar is on. Must be either 'left' or 'right"
+            },
+            "isLarge": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to make the sidebar larger. Defaults to false.",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "isCollapsible": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Enables the user to collapse the sidebar on desktop. Defaults to true.",
+              "defaultValue": {
+                "value": "true",
+                "computed": false
+              }
+            },
+            "isExpanded": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to expand the sidebar (large screens only)",
+              "defaultValue": {
+                "value": "true",
+                "computed": false
+              }
+            },
+            "isMobileExpanded": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true to expand the sidebar on small screens",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "forceCloseSidebar": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handler to force the sidebar to collapse"
+            },
+            "toggleExpanded": {
+              "required": true,
+              "flowType": {
+                "name": "Function"
+              },
+              "description": "Handler to toggle the visibility of the sidebar"
             }
           }
         }
@@ -9436,6 +9436,55 @@
       ]
     },
     {
+      "key": "src/components/Forms/components/FormLayout/FormLayout.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FormLayout",
+          "methods": [],
+          "actualName": "FormLayout",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Contents of the Form Layout. Should be FormLayoutItem or FormLayoutGroup components"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Class name for the layout"
+            },
+            "spacing": {
+              "required": false,
+              "flowType": {
+                "name": "union",
+                "raw": "'base' | 'tight'",
+                "elements": [
+                  {
+                    "name": "literal",
+                    "value": "'base'"
+                  },
+                  {
+                    "name": "literal",
+                    "value": "'tight'"
+                  }
+                ]
+              },
+              "description": "Vertical spacing of the FormLayoutItem components",
+              "defaultValue": {
+                "value": "'base'",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Forms/components/FormBuilder/FormBuilder.js",
       "value": [
         {
@@ -9589,55 +9638,6 @@
               "description": "Optional when using a secondary cta in the form",
               "defaultValue": {
                 "value": "null",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Forms/components/FormLayout/FormLayout.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FormLayout",
-          "methods": [],
-          "actualName": "FormLayout",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Contents of the Form Layout. Should be FormLayoutItem or FormLayoutGroup components"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Class name for the layout"
-            },
-            "spacing": {
-              "required": false,
-              "flowType": {
-                "name": "union",
-                "raw": "'base' | 'tight'",
-                "elements": [
-                  {
-                    "name": "literal",
-                    "value": "'base'"
-                  },
-                  {
-                    "name": "literal",
-                    "value": "'tight'"
-                  }
-                ]
-              },
-              "description": "Vertical spacing of the FormLayoutItem components",
-              "defaultValue": {
-                "value": "'base'",
                 "computed": false
               }
             }
@@ -10263,6 +10263,65 @@
       ]
     },
     {
+      "key": "src/components/List/components/ListHeader/ListHeader.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ListHeader",
+          "methods": [],
+          "actualName": "ListHeader",
+          "props": {
+            "title": {
+              "required": true,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Title text"
+            },
+            "subtitle": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Optional subtitle text",
+              "defaultValue": {
+                "value": "''",
+                "computed": false
+              }
+            },
+            "isSmall": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set true for small lists",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            },
+            "actions": {
+              "required": false,
+              "flowType": {
+                "name": "Array",
+                "elements": [
+                  {
+                    "name": "ButtonProps"
+                  }
+                ],
+                "raw": "Array<ButtonProps>"
+              },
+              "description": "Actions to associate with the list header",
+              "defaultValue": {
+                "value": "[]",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/List/components/ListItem/ListItem.js",
       "value": [
         {
@@ -10462,65 +10521,6 @@
       ]
     },
     {
-      "key": "src/components/List/components/ListHeader/ListHeader.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ListHeader",
-          "methods": [],
-          "actualName": "ListHeader",
-          "props": {
-            "title": {
-              "required": true,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Title text"
-            },
-            "subtitle": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Optional subtitle text",
-              "defaultValue": {
-                "value": "''",
-                "computed": false
-              }
-            },
-            "isSmall": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set true for small lists",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            },
-            "actions": {
-              "required": false,
-              "flowType": {
-                "name": "Array",
-                "elements": [
-                  {
-                    "name": "ButtonProps"
-                  }
-                ],
-                "raw": "Array<ButtonProps>"
-              },
-              "description": "Actions to associate with the list header",
-              "defaultValue": {
-                "value": "[]",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
       "key": "src/components/List/components/SortableList/SortableList.js",
       "value": [
         {
@@ -10622,6 +10622,33 @@
       ]
     },
     {
+      "key": "src/components/Modal/components/ModalFooter/ModalFooter.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ModalFooter",
+          "methods": [],
+          "actualName": "ModalFooter",
+          "props": {
+            "primaryAction": {
+              "required": true,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": "The primary action in the footer"
+            },
+            "secondaryAction": {
+              "required": false,
+              "flowType": {
+                "name": "ButtonProps"
+              },
+              "description": "Optional secondary action"
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Modal/components/ModalHeader/ModalHeader.js",
       "value": [
         {
@@ -10681,33 +10708,6 @@
                 "name": "Node"
               },
               "description": "Contents of the Page"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Modal/components/ModalFooter/ModalFooter.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ModalFooter",
-          "methods": [],
-          "actualName": "ModalFooter",
-          "props": {
-            "primaryAction": {
-              "required": true,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": "The primary action in the footer"
-            },
-            "secondaryAction": {
-              "required": false,
-              "flowType": {
-                "name": "ButtonProps"
-              },
-              "description": "Optional secondary action"
             }
           }
         }
@@ -11543,6 +11543,78 @@
       ]
     },
     {
+      "key": "src/components/Forms/components/FormLayout/components/FormLayoutItem/FormLayoutItem.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FormLayoutItem",
+          "methods": [],
+          "actualName": "FormLayoutItem",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Contents of the Form Layout Item"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Class name for the item"
+            },
+            "spacerTop": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Set to true to add spacer to top if this item doesn't have a label but will be inline with other items that do."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "src/components/Forms/components/FormLayout/components/FormLayoutGroup/FormLayoutGroup.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "FormLayoutGroup",
+          "methods": [],
+          "actualName": "FormLayoutGroup",
+          "props": {
+            "children": {
+              "required": true,
+              "flowType": {
+                "name": "Node"
+              },
+              "description": "Contents of the FormLayoutGroup. Should be FormLayoutItem components"
+            },
+            "className": {
+              "required": false,
+              "flowType": {
+                "name": "string"
+              },
+              "description": "Class name for the group"
+            },
+            "isCondensed": {
+              "required": false,
+              "flowType": {
+                "name": "boolean"
+              },
+              "description": "Whether the group item widths can be condensed to fit more items in a row",
+              "defaultValue": {
+                "value": "false",
+                "computed": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "key": "src/components/Forms/components/FormBuilder/components/FormInner/FormInner.js",
       "value": [
         {
@@ -11728,78 +11800,6 @@
                 "name": "Function"
               },
               "description": "handle some on change"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Forms/components/FormLayout/components/FormLayoutGroup/FormLayoutGroup.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FormLayoutGroup",
-          "methods": [],
-          "actualName": "FormLayoutGroup",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Contents of the FormLayoutGroup. Should be FormLayoutItem components"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Class name for the group"
-            },
-            "isCondensed": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Whether the group item widths can be condensed to fit more items in a row",
-              "defaultValue": {
-                "value": "false",
-                "computed": false
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "src/components/Forms/components/FormLayout/components/FormLayoutItem/FormLayoutItem.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "FormLayoutItem",
-          "methods": [],
-          "actualName": "FormLayoutItem",
-          "props": {
-            "children": {
-              "required": true,
-              "flowType": {
-                "name": "Node"
-              },
-              "description": "Contents of the Form Layout Item"
-            },
-            "className": {
-              "required": false,
-              "flowType": {
-                "name": "string"
-              },
-              "description": "Class name for the item"
-            },
-            "spacerTop": {
-              "required": false,
-              "flowType": {
-                "name": "boolean"
-              },
-              "description": "Set to true to add spacer to top if this item doesn't have a label but will be inline with other items that do."
             }
           }
         }
@@ -12086,20 +12086,35 @@
       }
     },
     {
-      "key": "src/components/Card/components/CardBuilder.mdx",
+      "key": "src/components/Message/Message.mdx",
       "value": {
-        "name": "CardBuilder",
-        "menu": "Cards",
-        "id": "235103a784fe5e4895b625eb35d9dd99",
-        "filepath": "src/components/Card/components/CardBuilder.mdx",
+        "name": "Message",
+        "menu": "Communication",
+        "id": "974b58a371d11a3955224fc7810dae39",
+        "filepath": "src/components/Message/Message.mdx",
         "link": "",
-        "slug": "src-components-card-components-card-builder",
-        "route": "/src-components-card-components-card-builder",
+        "slug": "src-components-message-message",
+        "route": "/src-components-message-message",
         "headings": [
           {
-            "slug": "cardbuilder",
+            "slug": "message",
             "depth": 1,
-            "value": "CardBuilder"
+            "value": "Message"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
           }
         ]
       }
@@ -12134,6 +12149,25 @@
             "slug": "props",
             "depth": 2,
             "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Card/components/CardBuilder.mdx",
+      "value": {
+        "name": "CardBuilder",
+        "menu": "Cards",
+        "id": "235103a784fe5e4895b625eb35d9dd99",
+        "filepath": "src/components/Card/components/CardBuilder.mdx",
+        "link": "",
+        "slug": "src-components-card-components-card-builder",
+        "route": "/src-components-card-components-card-builder",
+        "headings": [
+          {
+            "slug": "cardbuilder",
+            "depth": 1,
+            "value": "CardBuilder"
           }
         ]
       }
@@ -12289,6 +12323,464 @@
             "slug": "scores",
             "depth": 1,
             "value": "Scores"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Message/components/MessageBuilder.mdx",
+      "value": {
+        "name": "MessageBuilder",
+        "menu": "Communication",
+        "id": "b2117392e70a2c3c9dbbd90ac9014f56",
+        "filepath": "src/components/Message/components/MessageBuilder.mdx",
+        "link": "",
+        "slug": "src-components-message-components-message-builder",
+        "route": "/src-components-message-components-message-builder",
+        "headings": [
+          {
+            "slug": "messagebuilder",
+            "depth": 1,
+            "value": "MessageBuilder"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/FeedBuilder/FeedBuilder.mdx",
+      "value": {
+        "name": "FeedBuilder",
+        "menu": "Core",
+        "id": "23fa21e579bf6088166e44f71fac3d96",
+        "filepath": "src/components/Core/components/FeedBuilder/FeedBuilder.mdx",
+        "link": "",
+        "slug": "src-components-core-components-feed-builder-feed-builder",
+        "route": "/src-components-core-components-feed-builder-feed-builder",
+        "headings": [
+          {
+            "slug": "feedbuilder",
+            "depth": 1,
+            "value": "FeedBuilder"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/FooterPrimary/FooterPrimary.mdx",
+      "value": {
+        "name": "FooterPrimary",
+        "menu": "Core",
+        "id": "1bc4b1c75c617eca974ba090c515e610",
+        "filepath": "src/components/Core/components/FooterPrimary/FooterPrimary.mdx",
+        "link": "",
+        "slug": "src-components-core-components-footer-primary-footer-primary",
+        "route": "/src-components-core-components-footer-primary-footer-primary",
+        "headings": [
+          {
+            "slug": "footerprimary",
+            "depth": 1,
+            "value": "FooterPrimary"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/HeaderPrimary/HeaderPrimary.mdx",
+      "value": {
+        "name": "HeaderPrimary",
+        "menu": "Core",
+        "id": "43d9c856b5615a9fd83fe4787717db0c",
+        "filepath": "src/components/Core/components/HeaderPrimary/HeaderPrimary.mdx",
+        "link": "",
+        "slug": "src-components-core-components-header-primary-header-primary",
+        "route": "/src-components-core-components-header-primary-header-primary",
+        "headings": [
+          {
+            "slug": "headerprimary",
+            "depth": 1,
+            "value": "HeaderPrimary"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/ProfileSummary/ProfileSummary.mdx",
+      "value": {
+        "name": "ProfileSummary",
+        "menu": "Core",
+        "id": "fae09812b6fd13e09f8582717b576bd4",
+        "filepath": "src/components/Core/components/ProfileSummary/ProfileSummary.mdx",
+        "link": "",
+        "slug": "src-components-core-components-profile-summary-profile-summary",
+        "route": "/src-components-core-components-profile-summary-profile-summary",
+        "headings": [
+          {
+            "slug": "profilesummary",
+            "depth": 1,
+            "value": "ProfileSummary"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/SaveBar/SaveBar.mdx",
+      "value": {
+        "name": "SaveBar",
+        "menu": "Core",
+        "id": "ab8954548204f06b03ccd303b3fac3f3",
+        "filepath": "src/components/Core/components/SaveBar/SaveBar.mdx",
+        "link": "",
+        "slug": "src-components-core-components-save-bar-save-bar",
+        "route": "/src-components-core-components-save-bar-save-bar",
+        "headings": [
+          {
+            "slug": "savebar",
+            "depth": 1,
+            "value": "SaveBar"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/Sidebar/Sidebar.mdx",
+      "value": {
+        "name": "Sidebar",
+        "menu": "Core",
+        "id": "de14c25044b1fad3bbb764e7b05cebed",
+        "filepath": "src/components/Core/components/Sidebar/Sidebar.mdx",
+        "link": "",
+        "slug": "src-components-core-components-sidebar-sidebar",
+        "route": "/src-components-core-components-sidebar-sidebar",
+        "headings": [
+          {
+            "slug": "sidebar",
+            "depth": 1,
+            "value": "Sidebar"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/FooterPrimary/components/HelpButton/HelpButton.mdx",
+      "value": {
+        "name": "HelpButton",
+        "menu": "Core",
+        "id": "26f7c18e20d5c70cb96943afee9244d1",
+        "filepath": "src/components/Core/components/FooterPrimary/components/HelpButton/HelpButton.mdx",
+        "link": "",
+        "slug": "src-components-core-components-footer-primary-components-help-button-help-button",
+        "route": "/src-components-core-components-footer-primary-components-help-button-help-button",
+        "headings": [
+          {
+            "slug": "helpbutton",
+            "depth": 1,
+            "value": "HelpButton"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/FooterPrimary/components/Legal/Legal.mdx",
+      "value": {
+        "name": "Legal",
+        "menu": "Core",
+        "id": "9a966aa45c3651eb60dca569a4cbfeed",
+        "filepath": "src/components/Core/components/FooterPrimary/components/Legal/Legal.mdx",
+        "link": "",
+        "slug": "src-components-core-components-footer-primary-components-legal-legal",
+        "route": "/src-components-core-components-footer-primary-components-legal-legal",
+        "headings": [
+          {
+            "slug": "legal",
+            "depth": 1,
+            "value": "Legal"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/HeaderPrimary/components/DefaultLockup/DefaultLockup.mdx",
+      "value": {
+        "name": "DefaultLockup",
+        "menu": "Core",
+        "id": "c0b29b6bdcb2c1e98050c99b0a9f7b2b",
+        "filepath": "src/components/Core/components/HeaderPrimary/components/DefaultLockup/DefaultLockup.mdx",
+        "link": "",
+        "slug": "src-components-core-components-header-primary-components-default-lockup-default-lockup",
+        "route": "/src-components-core-components-header-primary-components-default-lockup-default-lockup",
+        "headings": [
+          {
+            "slug": "defaultlockup",
+            "depth": 1,
+            "value": "DefaultLockup"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/HeaderPrimary/components/Hamburger/Hamburger.mdx",
+      "value": {
+        "name": "Hamburger",
+        "menu": "Core",
+        "id": "5ae95845d1c8520361ba61ee04761d1f",
+        "filepath": "src/components/Core/components/HeaderPrimary/components/Hamburger/Hamburger.mdx",
+        "link": "",
+        "slug": "src-components-core-components-header-primary-components-hamburger-hamburger",
+        "route": "/src-components-core-components-header-primary-components-hamburger-hamburger",
+        "headings": [
+          {
+            "slug": "hamburger",
+            "depth": 1,
+            "value": "Hamburger"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/HeaderPrimary/components/LocationMenu/LocationMenu.mdx",
+      "value": {
+        "name": "LocationMenu",
+        "menu": "Core",
+        "id": "211d4f7d74020256ba0106d466129880",
+        "filepath": "src/components/Core/components/HeaderPrimary/components/LocationMenu/LocationMenu.mdx",
+        "link": "",
+        "slug": "src-components-core-components-header-primary-components-location-menu-location-menu",
+        "route": "/src-components-core-components-header-primary-components-location-menu-location-menu",
+        "headings": [
+          {
+            "slug": "locationmenu",
+            "depth": 1,
+            "value": "LocationMenu"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/HeaderPrimary/components/UserMenu/UserMenu.mdx",
+      "value": {
+        "name": "UserMenu",
+        "menu": "Core",
+        "id": "27872559b75e32725211802558245fdc",
+        "filepath": "src/components/Core/components/HeaderPrimary/components/UserMenu/UserMenu.mdx",
+        "link": "",
+        "slug": "src-components-core-components-header-primary-components-user-menu-user-menu",
+        "route": "/src-components-core-components-header-primary-components-user-menu-user-menu",
+        "headings": [
+          {
+            "slug": "usermenu",
+            "depth": 1,
+            "value": "UserMenu"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx",
+      "value": {
+        "name": "SidebarFooter",
+        "menu": "Core",
+        "id": "f6688b34795a4ff46f5118619e12cd43",
+        "filepath": "src/components/Core/components/Sidebar/components/SidebarFooter/SidebarFooter.mdx",
+        "link": "",
+        "slug": "src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer",
+        "route": "/src-components-core-components-sidebar-components-sidebar-footer-sidebar-footer",
+        "headings": [
+          {
+            "slug": "sidebarfooter",
+            "depth": 1,
+            "value": "SidebarFooter"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/Sidebar/components/SidebarExpander/SidebarExpander.mdx",
+      "value": {
+        "name": "SidebarExpander",
+        "menu": "Core",
+        "id": "571dc6c396aacbf3a70f7498311d00c9",
+        "filepath": "src/components/Core/components/Sidebar/components/SidebarExpander/SidebarExpander.mdx",
+        "link": "",
+        "slug": "src-components-core-components-sidebar-components-sidebar-expander-sidebar-expander",
+        "route": "/src-components-core-components-sidebar-components-sidebar-expander-sidebar-expander",
+        "headings": [
+          {
+            "slug": "sidebarexpander",
+            "depth": 1,
+            "value": "SidebarExpander"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/Sidebar/components/SidebarItem/SidebarItem.mdx",
+      "value": {
+        "name": "SidebarItem",
+        "menu": "Core",
+        "id": "4f594f416ce3245b7d17c3e5b3b0c4b5",
+        "filepath": "src/components/Core/components/Sidebar/components/SidebarItem/SidebarItem.mdx",
+        "link": "",
+        "slug": "src-components-core-components-sidebar-components-sidebar-item-sidebar-item",
+        "route": "/src-components-core-components-sidebar-components-sidebar-item-sidebar-item",
+        "headings": [
+          {
+            "slug": "sidebaritem",
+            "depth": 1,
+            "value": "SidebarItem"
+          },
+          {
+            "slug": "when-to-use",
+            "depth": 2,
+            "value": "When to use"
+          },
+          {
+            "slug": "when-not-to-use",
+            "depth": 2,
+            "value": "When not to use"
+          },
+          {
+            "slug": "props",
+            "depth": 2,
+            "value": "Props"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/components/Core/components/Sidebar/components/SidebarSection/SidebarSection.mdx",
+      "value": {
+        "name": "SidebarSection",
+        "menu": "Core",
+        "id": "cb45feda9f63f1c01f6a7d7e66f8663b",
+        "filepath": "src/components/Core/components/Sidebar/components/SidebarSection/SidebarSection.mdx",
+        "link": "",
+        "slug": "src-components-core-components-sidebar-components-sidebar-section-sidebar-section",
+        "route": "/src-components-core-components-sidebar-components-sidebar-section-sidebar-section",
+        "headings": [
+          {
+            "slug": "sidebarsection",
+            "depth": 1,
+            "value": "SidebarSection"
           },
           {
             "slug": "when-to-use",

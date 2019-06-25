@@ -1,0 +1,39 @@
+---
+name: Sidebar
+menu: Core
+---
+
+import { Props, Playground } from 'docz'
+import Sidebar from './Sidebar'
+
+# Sidebar
+
+> Sidebars provide either navigation between views, or secondary content. A Sidebar can be on the left or right side of the View.
+
+<Playground>
+	<Sidebar
+		items={[
+			{ text: 'My dashboard', isCurrent: true, href: '#' },
+			{
+				text: 'Personal profile',
+				href: '#'
+			},
+			{
+				text: 'Preferences',
+				href: '#'
+			}
+		]}
+	/>
+</Playground>
+
+## When to use
+
+Any view can have up to two Sidebars when there is a need to provide top-level navigation or additional information.
+
+## When not to use
+
+Don’t use Sidebars arbitrarily to provide unrelated information to the main View.
+
+## Props
+
+<Props of={Sidebar} />

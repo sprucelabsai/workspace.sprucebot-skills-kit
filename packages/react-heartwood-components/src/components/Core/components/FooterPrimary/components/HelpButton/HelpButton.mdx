@@ -1,0 +1,33 @@
+---
+name: HelpButton
+menu: Core
+---
+
+import { Playground, Props } from 'docz'
+import HelpButton from './HelpButton'
+
+# HelpButton
+
+> The HelpButton gives users a way to find help and communicate with Spruce support.
+
+<Playground>
+	<div className="sidebar">
+		<HelpButton
+			className="sidebar-item__link"
+			iconClassName="sidebar-item__icon sidebar-item__line-icon"
+			textClassName="sidebar-item__text"
+		/>
+	</div>
+</Playground>
+
+## When to use
+
+A HelpButton may appear in a Sidebar or the FooterPrimary.
+
+## When not to use
+
+HelpButtons shouldn’t appear outside of Sidebars or the FooterPrimary.
+
+## Props
+
+<Props of={HelpButton} />

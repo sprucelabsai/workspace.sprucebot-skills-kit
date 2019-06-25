@@ -5,6 +5,8 @@ const path = require('path')
 
 export default {
 	wrapper: 'docz/DoczWrapper',
+	// NOTE: Setting typescript to true breaks all non-ts prop tables
+	// typescript: true,
 	plugins: [
 		cssPlugin({
 			preprocessor: 'sass',
@@ -77,8 +79,8 @@ export default {
 				'SidebarExpander',
 				'HelpButton',
 				'Legal',
-				'Breadcrumbs',
-				'Breadcrumb',
+				// 'Breadcrumbs',
+				// 'Breadcrumb',
 				'FooterPrimary',
 				'ProfileSummary',
 				'FeedBuilder'

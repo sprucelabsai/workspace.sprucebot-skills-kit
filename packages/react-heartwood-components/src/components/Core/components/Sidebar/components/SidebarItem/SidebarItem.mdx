@@ -1,0 +1,33 @@
+---
+name: SidebarItem
+menu: Core
+---
+
+import { Playground, Props } from 'docz'
+import SidebarItem from './SidebarItem'
+
+# SidebarItem
+
+> A SidebarItem helps a user navigate from the Sidebar.
+
+<Playground>
+	<div className="sidebar">
+		<ul className="sidebar__items">
+			<SidebarItem text="My dashboard" href="#" />
+			<SidebarItem text="Personal profile" href="#" />
+			<SidebarItem text="Preferences" href="#" />
+		</ul>
+	</div>
+</Playground>
+
+## When to use
+
+SidebarItems can only appear in the Sidebar.
+
+## When not to use
+
+Don’t use a SidebarItem outside of a Sidebar.
+
+## Props
+
+<Props of={SidebarItem} />

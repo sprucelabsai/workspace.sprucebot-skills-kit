@@ -1,0 +1,32 @@
+---
+name: SidebarExpander
+menu: Core
+---
+
+import { Playground, Props } from 'docz'
+import SidebarExpander from './SidebarExpander'
+
+# SidebarExpander
+
+> The SidebarExpander controls whether the Sidebar is expanded or collapsed.
+
+<Playground>
+	<div className="sidebar">
+		<SidebarExpander
+			toggleExpanded={() => null}
+			forceCloseSidebar={() => null}
+		/>
+	</div>
+</Playground>
+
+## When to use
+
+There should only be one SidebarExpander per Sidebar.
+
+## When not to use
+
+Don’t use a SidebarExpander outside of a Sidebar.
+
+## Props
+
+<Props of={SidebarExpander} />

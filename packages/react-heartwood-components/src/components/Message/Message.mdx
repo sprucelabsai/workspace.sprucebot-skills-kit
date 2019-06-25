@@ -1,0 +1,30 @@
+---
+name: Message
+menu: Communication
+---
+
+import { Playground, Props } from 'docz'
+import moment from 'moment'
+import Message from './Message'
+
+# Message
+
+> Messages give users a way to communicate with each other and Sprucebot, and give Sprucebot a way to chime in when they can help.
+
+<Playground>
+	<Message from={{ name: '', image: '', alt: '', id: '' }} dateSent={moment()}>
+		{`It's lonely over here`}
+	</Message>
+</Playground>
+
+## When to use
+
+Use a Message for communication between users and Sprucebot.
+
+## When not to use
+
+Don’t use a Message to show information that isn’t coming from a user or Sprucebot.
+
+## Props
+
+<Props of={Message} />
