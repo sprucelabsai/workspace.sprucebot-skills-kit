@@ -1,0 +1,57 @@
+---
+name: Scores
+menu: Cards
+---
+
+import { Props, Playground } from 'docz'
+import Card from '../Card'
+import CardHeader from './CardHeader'
+import CardBody from './CardBody'
+import Scores from './Scores'
+
+# Scores
+
+> Scores provide users with a quick heads-up on what’s happening.
+
+<Playground>
+	<Card>
+		<CardHeader title="Value of future appointments" />
+		<CardBody>
+			<p>
+				Two roads diverged in a wood, and I took the one less traveled by, And
+				that has made allthe difference.
+			</p>
+			<Scores
+				scores={[
+					{
+						id: 1,
+						label: 'Today',
+						value: '$1,848'
+					},
+					{
+						id: 2,
+						label: 'This Week',
+						value: '$5,778'
+					},
+					{
+						id: 3,
+						label: 'This Month',
+						value: '$25,068'
+					}
+				]}
+			/>
+		</CardBody>
+	</Card>
+</Playground>
+
+## When to use
+
+Use Scores inside of a Card to give a user a brief report on how things are going.
+
+## When not to use
+
+Don’t use Scores to display evergreen information or anything that a user can’t influence. Scores should never be used outside of a Card.
+
+## Props
+
+<Props of={Scores} />

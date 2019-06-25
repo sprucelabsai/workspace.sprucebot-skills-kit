@@ -1,0 +1,65 @@
+---
+name: OnboardingCard
+menu: Cards
+---
+
+import { Playground, Props } from 'docz'
+import OnboardingCard from './OnboardingCard'
+
+# OnboardingCard
+
+> OnboardingCards help new users navigate the Spruce interface by providing useful information and next steps.
+
+<Playground>
+	<OnboardingCard
+		title="Get the most out of Sprucebot"
+		steps={[
+			{
+				id: '1',
+				isComplete: true,
+				tabTitle: 'Add your first location',
+				tabIcon: { name: 'check_circle' },
+				panelTitle: 'Add your first location',
+				panelCopy:
+					'Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it. –Johann Wolfgang von Goethe',
+				panelCTA: {
+					text: 'Add your location'
+				}
+			},
+			{
+				id: '2',
+				tabTitle: 'Set up your team',
+				tabIcon: { name: 'location', isLineIcon: true },
+				panelTitle: 'Add your teammates and their info',
+				panelCopy:
+					'Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it. –Johann Wolfgang von Goethe',
+				panelCTA: {
+					text: 'Add teammates'
+				}
+			},
+			{
+				id: '3',
+				tabIcon: { name: 'launch', isLineIcon: true },
+				tabTitle: 'Go live',
+				panelTitle: 'Go live and start welcoming guests',
+				panelCopy:
+					'Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it. –Johann Wolfgang von Goethe',
+				panelCTA: {
+					text: 'Go live'
+				}
+			}
+		]}
+	/>
+</Playground>
+
+## When to use
+
+OnboardingCards can be used for new users, users interacting with a skill for the first time, and to introduce new features to existing users.
+
+## When not to use
+
+Don’t use an OnboardingCard if it doesn’t provide new and mission-critical information to a user who sees it.
+
+## Props
+
+<Props of={OnboardingCard} />

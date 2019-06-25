@@ -27,4 +27,32 @@ export const imports = {
     import(
       /* webpackPrefetch: true, webpackChunkName: "src-components-context-menu-context-menu" */ 'src/components/ContextMenu/ContextMenu.mdx'
     ),
+  'src/components/Card/components/CardBuilder.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-card-components-card-builder" */ 'src/components/Card/components/CardBuilder.mdx'
+    ),
+  'src/components/Card/components/CardBody.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-card-components-card-body" */ 'src/components/Card/components/CardBody.mdx'
+    ),
+  'src/components/Card/components/CardFooter.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-card-components-card-footer" */ 'src/components/Card/components/CardFooter.mdx'
+    ),
+  'src/components/Card/components/CardHeader.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-card-components-card-header" */ 'src/components/Card/components/CardHeader.mdx'
+    ),
+  'src/components/Card/components/CardSection.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-card-components-card-section" */ 'src/components/Card/components/CardSection.mdx'
+    ),
+  'src/components/Card/components/OnboardingCard.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-card-components-onboarding-card" */ 'src/components/Card/components/OnboardingCard.mdx'
+    ),
+  'src/components/Card/components/Scores.mdx': () =>
+    import(
+      /* webpackPrefetch: true, webpackChunkName: "src-components-card-components-scores" */ 'src/components/Card/components/Scores.mdx'
+    ),
 }
