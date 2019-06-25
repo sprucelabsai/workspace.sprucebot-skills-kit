@@ -22,6 +22,11 @@
 	@media screen and (min-width: 700px) {
 		flex-flow: row wrap;
 	}
+
+	.docz__index-card-text {
+		margin-top: 0;
+		margin-left: 0.5rem;
+	}
 }
 
 .docz__index-card-link {
@@ -48,21 +53,21 @@
 		}
 	}
 
-	@media screen and (min-width: 1200px) {
-		width: calc(33.33% - 3rem);
+	// @media screen and (min-width: 1200px) {
+	// 	width: calc(33.33% - 3rem);
 
-		margin-left: 0.75rem;
-		margin-right: 0.75rem;
+	// 	margin-left: 0.75rem;
+	// 	margin-right: 0.75rem;
 
-		&:first-child,
-		&:nth-child(3n + 1) {
-			margin-left: 0;
-		}
+	// 	&:first-child,
+	// 	&:nth-child(3n + 1) {
+	// 		margin-left: 0;
+	// 	}
 
-		&:nth-child(3n) {
-			margin-right: 0;
-		}
-	}
+	// 	&:nth-child(3n) {
+	// 		margin-right: 0;
+	// 	}
+	// }
 }
 
 .docz__index-card {
@@ -70,6 +75,10 @@
 	align-items: center;
 	padding: 1rem;
 	font-size: 18px;
+
+	&.docz__index-card--is-small {
+		font-size: 16px;
+	}
 }
 
 .docz__index-card-icon-wrapper {
@@ -94,11 +103,18 @@
 	}
 }
 
-.docz__index-card-text {
-	margin-left: 0.5rem;
-}
-
 .docz__index-card-title {
 	font-weight: 600;
 	color: $c-text;
+}
+.docz__index-card-description {
+	font-size: 14px;
+	color: $c-text-light;
+}
+
+.card > img.docz__index-card-icon-image {
+	flex: 0 0 24px;
+	width: 1.5rem;
+	max-width: 100%;
+	height: auto;
 }

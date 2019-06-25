@@ -18,6 +18,9 @@ import TablesIcon from '../images/tables-icon.svg'
 import TextIcon from '../images/text-icon.svg'
 import UtilitiesIcon from '../images/utilities-icon.svg'
 
+import figmaIcon from '../images/Figma.png'
+import githubIcon from '../images/Github.png'
+
 const iconsMap = {
 	Avatars: AvatarIcon,
 	Buttons: ButtonsIcon,
@@ -37,6 +40,11 @@ const iconsMap = {
 	Utilities: UtilitiesIcon
 }
 
+const vendorIcons = {
+	figma: figmaIcon,
+	github: githubIcon
+}
+
 const IndexCard = ({
 	name,
 	description,
@@ -45,6 +53,7 @@ const IndexCard = ({
 	isSmall
 }) => {
 	const IconHandler = iconsMap[icon]
+	const iconImgSrc = vendorIcons[icon]
 	return (
 		<Card
 			isSmall
@@ -63,6 +72,14 @@ const IndexCard = ({
 						})}
 					/>
 				</div>
+			)}
+			{iconImgSrc && (
+				<img
+					className="docz__index-card-icon-image"
+					src={iconImgSrc}
+					width="24"
+					height="24"
+				/>
 			)}
 			<div className="docz__index-card-text">
 				<p className="docz__index-card-title">{name}</p>
