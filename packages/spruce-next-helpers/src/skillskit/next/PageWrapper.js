@@ -98,7 +98,7 @@ const PageWrapper = Wrapped => {
 		constructor(props: Props) {
 			super(props)
 			this.state = {
-				// attemptingReAuth: !!props.attemptingReAuth,
+				attemptingReAuth: !!props.attemptingReAuth,
 				isIframed: true
 			}
 		}
@@ -212,12 +212,12 @@ const PageWrapper = Wrapped => {
 
 			// if we are /unauthorized, don't have a cookie, but have NOT done cookie check
 			// TODO Remove re-auth after proving it works as expected in legacy skill
-			// if (
-			// 	props.pathname === '/unauthorized' &&
-			// 	(!state.auth || !state.auth.role)
-			// ) {
-			// 	props.attemptingReAuth = true
-			// }
+			if (
+				props.pathname === '/unauthorized' &&
+				(!state.auth || !state.auth.role)
+			) {
+				props.attemptingReAuth = true
+			}
 
 			// v2 authentication
 			if (state.auth && state.auth.User) {
@@ -235,23 +235,23 @@ const PageWrapper = Wrapped => {
 
 		handleIframeMessage = e => {
 			// we are not going to try and authenticate again (cookie setting)
-			// if (e.data === 'Skill:NotReAuthing') {
-			// 	this.setState({
-			// 		attemptingReAuth: false
-			// 	})
-			// 	return
-			// }
+			if (e.data === 'Skill:NotReAuthing') {
+				this.setState({
+					attemptingReAuth: false
+				})
+				return
+			}
 		}
 		async componentDidMount() {
 			if (window.self === window.top || window.__SBTEAMMATE__) {
 				// make sure we are being loaded inside sb
 				console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL')
 				this.setState({
-					// attemptingReAuth: false,
+					attemptingReAuth: false,
 					isIframed: !!window.__SBTEAMMATE__
 				})
-				// } else if (this.props.attemptingReAuth) {
-				// skill.forceAuth()
+			} else if (this.props.attemptingReAuth) {
+				skill.forceAuth()
 			}
 
 			// NOTE: Need to do this require here so that we can be sure the global window is defined
@@ -331,9 +331,10 @@ const PageWrapper = Wrapped => {
 		}
 
 		render() {
-			// if (this.state.attemptingReAuth) {
-			// return <Loader />
-			// }
+			if (this.state.attemptingReAuth) {
+				return <Loader />
+			}
+
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
