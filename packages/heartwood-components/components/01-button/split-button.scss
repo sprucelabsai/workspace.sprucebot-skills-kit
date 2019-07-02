@@ -1,0 +1,21 @@
+.split-button {
+	display: flex;
+}
+
+.split-button__default {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+
+	&.btn-primary {
+		border-right: 1px solid $c-white;
+	}
+
+	&.btn-secondary {
+		border-right: none;
+	}
+}
+
+.split-button__actions {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
