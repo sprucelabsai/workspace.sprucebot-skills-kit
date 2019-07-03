@@ -20,21 +20,6 @@ import ListItem from '../List/components/ListItem/ListItem'
 import type { Node } from 'react'
 import type { Props as ListItemProps } from '../List/components/ListItem'
 
-const DEPRECATED_PROPS = {
-	renderRecord: {
-		details:
-			'Use loadRecordListItems to manage loading and rendering of record list item.'
-	},
-	getRecordId: {
-		details:
-			'Use loadRecordListItems to manage loading and rendering of record list item.'
-	},
-	loadRecords: {
-		details:
-			'Use loadRecordListItems to manage loading and rendering of record list item.'
-	}
-}
-
 type Record = any
 type RecordId = string
 type RecordListItem = {
@@ -143,7 +128,20 @@ export default class RecordSelectionList extends Component<
 		checkDeprecatedProps({
 			componentName: 'RecordSelectionList',
 			props,
-			deprecatedProps: DEPRECATED_PROPS
+			deprecatedProps: {
+				renderRecord: {
+					details:
+						'Use loadRecordListItems to manage loading and rendering of record list item.'
+				},
+				getRecordId: {
+					details:
+						'Use loadRecordListItems to manage loading and rendering of record list item.'
+				},
+				loadRecords: {
+					details:
+						'Use loadRecordListItems to manage loading and rendering of record list item.'
+				}
+			}
 		})
 
 		this.state = {
