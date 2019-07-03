@@ -120,27 +120,36 @@ const PageWrapper = Wrapped => {
 				renderLocation: renderLocation || 'page'
 			}
 
-			const jwt = query.jwt || getCookie('jwt', req, res)
-
-			// authv1
-			if (jwt) {
-				try {
-					await store.dispatch(actions.auth.go(jwt))
-					setCookie('jwt', jwt, req, res)
-				} catch (err) {
-					debug(err)
-					debug('Error fetching user from jwt')
-				}
+			// First get and set the jwt and jwtV2 tokens, preferring the query string version over what's saved in cookies
+			let jwt
+			if (query.jwt) {
+				jwt = query.jwt
+				setCookie('jwt', jwt, req, res)
+			} else {
+				jwt = getCookie('jwt', req, res)
 			}
-			// authv2
-			else {
+
+			let jwtV2
+			if (query.jwtV2) {
+				jwtV2 = query.jwtV2
+				setCookie('jwtV2', jwtV2, req, res)
+			} else {
+				jwtV2 = getCookie('jwtV2', req, res)
+			}
+
+			// Do authentication, preferring V2 if the jwtV2 is set
+			if (jwtV2) {
 				try {
 					await store.dispatch(
 						actions.authV2.go(query.jwtV2 || getCookie('jwtV2', req, res))
 					)
-					if (query.jwtV2) {
-						setCookie('jwtV2', query.jwtV2, req, res)
-					}
+				} catch (e) {
+					debug(err)
+					debug('Error fetching user from jwt')
+				}
+			} else if (jwt) {
+				try {
+					await store.dispatch(actions.auth.go(jwt))
 				} catch (err) {
 					debug(err)
 					debug('Error fetching user from jwtV2')
