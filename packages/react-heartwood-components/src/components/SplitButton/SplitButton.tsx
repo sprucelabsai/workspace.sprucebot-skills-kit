@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { createPortal } from 'react-dom'
+import cx from 'classnames'
 import Button from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
@@ -202,14 +203,21 @@ export default class SplitButton extends Component<
 		const { defaultAction, actions, kind, isFullWidth, isSmall } = this.props
 		const { isVisible, menuPosition } = this.state
 		return (
-			<div className="split-button" ref={this.ref}>
+			<div
+				className={cx('split-button', {
+					'split-button--is-full-width': isFullWidth
+				})}
+				ref={this.ref}
+			>
 				<Button
 					kind={kind}
+					isSmall={isSmall}
 					className="split-button__default"
 					{...defaultAction}
 				/>
 				<Button
 					kind={kind}
+					isSmall={isSmall}
 					className="split-button__actions"
 					icon={{ name: 'keyboard_arrow_down' }}
 					onClick={this.toggleActionsVisibility}

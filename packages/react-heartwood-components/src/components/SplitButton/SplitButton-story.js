@@ -11,10 +11,26 @@ storiesOf('SplitButton', module)
 			kind="primary"
 		/>
 	))
-	.add('Secondary', () => (
+	.add('Primary Small', () => (
 		<SplitButton
 			defaultAction={{ text: 'Do the default action' }}
 			actions={[{ text: 'Thing two' }]}
 			kind="primary"
+			isSmall
+		/>
+	))
+	.add('Secondary', () => (
+		<SplitButton
+			defaultAction={{ text: 'Do the default action' }}
+			actions={[{ text: 'Thing two' }]}
+			kind="secondary"
+		/>
+	))
+	.add('Secondary Small', () => (
+		<SplitButton
+			defaultAction={{ text: 'Do the default action' }}
+			actions={[{ text: 'Thing two' }]}
+			kind="secondary"
+			isSmall
 		/>
 	))

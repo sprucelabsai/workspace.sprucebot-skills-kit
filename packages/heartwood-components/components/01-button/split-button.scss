@@ -2,7 +2,12 @@
 	display: inline-flex;
 }
 
+.split-button--is-full-width {
+	width: 100%;
+}
+
 .split-button__default {
+	flex-grow: 1;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 
