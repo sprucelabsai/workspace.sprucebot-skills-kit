@@ -171,6 +171,7 @@ const PageWrapper = Wrapped => {
 				query.back &&
 				(query.jwt || query.jwtV2) &&
 				(query.back.search('sprucebot.com') > 0 ||
+					query.back.search('spruce.ai') > 0 ||
 					query.back.search('bshop.io') > 0)
 			) {
 				// if there is a jwt, we are being authed
