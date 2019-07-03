@@ -169,7 +169,7 @@ const PageWrapper = Wrapped => {
 
 			if (
 				query.back &&
-				query.jwt &&
+				(query.jwt || query.jwtV2) &&
 				(query.back.search('sprucebot.com') > 0 ||
 					query.back.search('bshop.io') > 0)
 			) {
