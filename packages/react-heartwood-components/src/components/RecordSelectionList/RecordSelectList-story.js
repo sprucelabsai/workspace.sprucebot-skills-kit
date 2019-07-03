@@ -154,7 +154,6 @@ stories
 						totalRecordCount={5}
 						maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'])}
 					/>
-					<Button text="Show me all the things" kind="simple" />
 				</CardBody>
 			</Card>
 		</div>
