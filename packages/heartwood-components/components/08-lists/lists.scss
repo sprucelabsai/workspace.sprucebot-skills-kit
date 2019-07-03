@@ -254,6 +254,9 @@
 		+ .record-selection__record-wrapper {
 			border-top: 1px solid $c-border;
 		}
+		.list-item {
+			flex: 1;
+		}
 	}
 
 	.record-selection__record-select {

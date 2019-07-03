@@ -9,32 +9,48 @@ import {
 	InfiniteLoader
 } from 'react-virtualized'
 import cx from 'classnames'
+import { checkDeprecatedProps } from '../../utilities'
 
-import { TextInput, Checkbox, Radio } from '../Forms'
+import { TextInput, Radio, Checkbox } from '../Forms'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
 import Button from '../Button/Button'
+import ListItem from '../List/components/ListItem/ListItem'
 
 import type { Node } from 'react'
+import type { Props as ListItemProps } from '../List/components/ListItem'
+
+const DEPRECATED_PROPS = ['renderRecord', 'getRecordId', 'loadRecords']
 
 type Record = any
 type RecordId = string
+type RecordListItem = {
+	id: string,
+	...ListItemProps
+}
 
 type RecordSelectionListProps = {|
-	/** Required method to render a record into a node */
-	renderRecord: any => Node,
+	/** DEPRECATED Required method to render a record into a node */
+	renderRecord?: any => Node,
 
-	/** Get a unique ID for a record; given that data may be shaped in an unpredictable manner,
-	 * you must implement this at each usage.
+	/** DEPRECATED Get a unique ID for a record; given that data may be shaped in an unpredictable manner,
+	 * you must implement this at each usage if using loadRecords method.
 	 */
-	getRecordId: Record => string,
+	getRecordId?: Record => string,
 
-	/** Load records for the offset/limit provided */
-	loadRecords: ({|
+	/** DEPRECATED Load custom records data for the offset/limit provided */
+	loadRecords?: ({|
 		offset: number,
 		limit: number,
 		search?: string
 	|}) => Promise<Array<Record>>,
+
+	/** Load records as list items for the offset/limit provided */
+	loadRecordListItems?: ({|
+		offset: number,
+		limit: number,
+		search?: string
+	|}) => Promise<Array<RecordListItem>>,
 
 	/** Total number of records that could be in this list.
 	 * Optional, but optimizes infinite load and adds supplementary UI */
@@ -105,11 +121,17 @@ export default class RecordSelectionList extends Component<
 	constructor(props: RecordSelectionListProps) {
 		super(props)
 
-		if (!props.getRecordId) {
+		if (props.loadRecords && !props.getRecordId) {
 			throw new Error(
 				"RecordSelectionList: `getRecordId` must be provided to determine a record's unique identifier. (record => string)"
 			)
 		}
+
+		checkDeprecatedProps({
+			componentName: 'RecordSelectionList',
+			props,
+			deprecatedProps: DEPRECATED_PROPS
+		})
 
 		this.state = {
 			loadedRecords: [],
@@ -120,11 +142,8 @@ export default class RecordSelectionList extends Component<
 	}
 
 	async componentDidMount() {
-		const { loadRecords, recordsPerRequest } = this.props
-
-		const initialRecords = await loadRecords({
-			offset: 0,
-			limit: recordsPerRequest
+		const initialRecords = await this.loadRecordsRequest({
+			offset: 0
 		})
 
 		await this.setState({
@@ -156,11 +175,8 @@ export default class RecordSelectionList extends Component<
 	}
 
 	async reset() {
-		const { loadRecords, recordsPerRequest } = this.props
-
-		const initialRecords = await loadRecords({
-			offset: 0,
-			limit: recordsPerRequest
+		const initialRecords = await this.loadRecordsRequest({
+			offset: 0
 		})
 
 		this.setState({
@@ -188,6 +204,20 @@ export default class RecordSelectionList extends Component<
 		)
 
 		return height > 0 ? height : 1
+	}
+
+	loadRecordsRequest = async (options: { offset: number, search?: string }) => {
+		const { loadRecords, loadRecordListItems, recordsPerRequest } = this.props
+		const requestArgs = {
+			limit: recordsPerRequest,
+			...options
+		}
+
+		if (loadRecords) {
+			return await loadRecords(requestArgs)
+		} else if (loadRecordListItems) {
+			return await loadRecordListItems(requestArgs)
+		}
 	}
 
 	renderRow = ({
@@ -227,21 +257,15 @@ export default class RecordSelectionList extends Component<
 					parent={parent}
 					rowIndex={index}
 				>
-					{this.renderInnerRow({ index, key, style })}
+					{this.renderInnerRow({ record, style })}
 				</CellMeasurer>
 			)
 		)
 	}
 
-	renderInnerRow = ({
-		index,
-		key,
-		style
-	}: {
-		index: number,
-		key: string,
-		style: Object
-	}) => {
+	renderInnerRow = ({ record, style }: { record: any, style: Object }) => {
+		const { loadedRecords } = this.state
+
 		const {
 			selectedIds,
 			unselectableIds,
@@ -250,36 +274,93 @@ export default class RecordSelectionList extends Component<
 			canRemove,
 			onSelect,
 			onRemove,
-			renderRecord
+			renderRecord,
+			loadRecords,
+			loadRecordListItems
 		} = this.props
-		const { loadedRecords } = this.state
-		const record = loadedRecords[index]
-		const SelectionComponent = canSelect === 'one' ? Radio : Checkbox
 
-		return (
-			record && (
+		if (loadRecordListItems && record.id) {
+			const { id: recordId } = record
+			return (
 				<div
 					className="record-selection__record-wrapper"
-					key={key}
+					key={recordId}
+					style={{ ...style }}
+				>
+					<ListItem
+						{...record}
+						key={recordId}
+						selectableId={onSelect && canSelect && recordId}
+						selectableProps={{
+							onChange: onSelect
+								? () => {
+										onSelect(recordId, record)
+								  }
+								: () => null,
+							checked: selectedIds && selectedIds.indexOf(recordId) >= 0
+						}}
+						selectableType={canSelect === 'one' ? 'radio' : 'checkbox'}
+						actions={
+							onRemove && canRemove
+								? [
+										{
+											kind: 'simple',
+											className: 'record-selection__record-remove-btn',
+											disabled: false,
+											isSmall: true,
+											icon: {
+												name: 'cancel_solid',
+												className: 'btn__line-icon'
+											},
+											onClick: () => {
+												this.setState(
+													{
+														loadedRecords: loadedRecords.filter(
+															loadedRecord => loadedRecord.id !== recordId
+														)
+													},
+													() => {
+														this.setState({
+															listHeight: this.getVisibleRecordHeight()
+														})
+													}
+												)
+
+												onRemove(recordId, record)
+											}
+										}
+								  ]
+								: []
+						}
+					/>
+				</div>
+			)
+		} else if (loadRecords && renderRecord && getRecordId) {
+			// DEPRECATED RENDER METHOD
+
+			const SelectionComponent = canSelect === 'one' ? Radio : Checkbox
+			const recordId = getRecordId(record)
+
+			return (
+				<div
+					className="record-selection__record-wrapper"
+					key={recordId}
 					style={{ ...style }}
 				>
 					{onSelect && canSelect && (
 						<SelectionComponent
 							className="record-selection__record-select"
 							onChange={() => {
-								onSelect(getRecordId(record), record)
+								onSelect(recordId, record)
 							}}
 							disabled={
-								unselectableIds &&
-								unselectableIds.indexOf(getRecordId(record)) >= 0
+								unselectableIds && unselectableIds.indexOf(recordId) >= 0
 							}
-							checked={
-								selectedIds && selectedIds.indexOf(getRecordId(record)) >= 0
-							}
+							checked={selectedIds && selectedIds.indexOf(recordId) >= 0}
 						/>
 					)}
 
-					<div className="record-selection__record-content" key={key}>
+					<div className="record-selection__record-content" key={recordId}>
 						{renderRecord(record)}
 					</div>
 
@@ -294,8 +375,7 @@ export default class RecordSelectionList extends Component<
 								this.setState(
 									{
 										loadedRecords: loadedRecords.filter(
-											loadedRecord =>
-												getRecordId(loadedRecord) !== getRecordId(record)
+											loadedRecord => getRecordId(loadedRecord) !== recordId
 										)
 									},
 									() => {
@@ -303,17 +383,18 @@ export default class RecordSelectionList extends Component<
 									}
 								)
 
-								onRemove(getRecordId(record), record)
+								onRemove(recordId, record)
 							}}
 						/>
 					)}
 				</div>
 			)
-		)
+		} else {
+			return null
+		}
 	}
 
 	handleInfiniteLoad = async () => {
-		const { loadRecords, recordsPerRequest } = this.props
 		const { loadedRecords, isLoading, search } = this.state
 
 		if (isLoading) {
@@ -322,9 +403,8 @@ export default class RecordSelectionList extends Component<
 
 		this.setState({ isLoading: true })
 
-		const newRows = await loadRecords({
+		const newRows = await this.loadRecordsRequest({
 			offset: loadedRecords.length,
-			limit: recordsPerRequest,
 			search
 		})
 
@@ -339,8 +419,6 @@ export default class RecordSelectionList extends Component<
 	}
 
 	handleSearchUpdate = async (e: SyntheticInputEvent<HTMLInputElement>) => {
-		const { loadRecords, recordsPerRequest } = this.props
-
 		// Search will rapid-fire, but we only want to use the last result.
 		// If this value doesn't change by the time the API responds, we'll use
 		// that data to update the list!
@@ -353,9 +431,8 @@ export default class RecordSelectionList extends Component<
 		})
 
 		// When we search, we'll want to reset the list, so back to offset 0!
-		const newRows = await loadRecords({
+		const newRows = await this.loadRecordsRequest({
 			offset: 0,
-			limit: recordsPerRequest,
 			search: e.target.value
 		})
 
@@ -426,9 +503,11 @@ export default class RecordSelectionList extends Component<
 				)}
 
 				{!maxRowsVisible ? (
-					loadedRecords.map((rec, idx) => {
-						const id = getRecordId(rec)
-						return this.renderInnerRow({ index: idx, key: id, style: {} })
+					loadedRecords.map(record => {
+						return this.renderInnerRow({
+							record,
+							style: {}
+						})
 					})
 				) : (
 					<div
