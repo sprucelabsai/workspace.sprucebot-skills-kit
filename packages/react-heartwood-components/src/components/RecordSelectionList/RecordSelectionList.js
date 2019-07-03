@@ -20,7 +20,20 @@ import ListItem from '../List/components/ListItem/ListItem'
 import type { Node } from 'react'
 import type { Props as ListItemProps } from '../List/components/ListItem'
 
-const DEPRECATED_PROPS = ['renderRecord', 'getRecordId', 'loadRecords']
+const DEPRECATED_PROPS = {
+	renderRecord: {
+		details:
+			'Use loadRecordListItems to manage loading and rendering of record list item.'
+	},
+	getRecordId: {
+		details:
+			'Use loadRecordListItems to manage loading and rendering of record list item.'
+	},
+	loadRecords: {
+		details:
+			'Use loadRecordListItems to manage loading and rendering of record list item.'
+	}
+}
 
 type Record = any
 type RecordId = string

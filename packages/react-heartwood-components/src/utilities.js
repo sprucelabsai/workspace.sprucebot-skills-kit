@@ -5,12 +5,18 @@ export const checkDeprecatedProps = ({
 }: {
 	componentName: string,
 	props: Object,
-	deprecatedProps: Array<string>
+	deprecatedProps: Object
 }) => {
 	const propKeys = Object.keys(props)
+	const deprecatedPropKeys = Object.keys(deprecatedProps)
 	propKeys.forEach(key => {
-		if (deprecatedProps.includes(key)) {
-			console.warn(`${componentName}: ${key} is deprecated.`)
+		const deprecatedProp = deprecatedProps[key]
+		if (deprecatedProp) {
+			console.warn(
+				`${componentName}: ${key} is deprecated.${
+					deprecatedProp.details ? ` ${deprecatedProp.details}` : ''
+				}`
+			)
 		}
 	})
 }

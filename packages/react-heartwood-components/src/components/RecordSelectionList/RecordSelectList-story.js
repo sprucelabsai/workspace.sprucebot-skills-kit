@@ -65,6 +65,7 @@ class RecordListItemsExample extends Component<
 		return (
 			<RecordSelectionList
 				canSearch
+				getRecordId={record => record.id}
 				selectedIds={selectedIds}
 				unselectableIds={unselectableIds}
 				loadRecordListItems={async ({ limit, offset, search }) => {
