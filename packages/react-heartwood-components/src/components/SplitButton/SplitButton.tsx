@@ -144,6 +144,7 @@ export default class SplitButton extends Component<
 		isSmall: false
 	}
 	public ref = React.createRef<HTMLDivElement>()
+	public menuRef = React.createRef<HTMLDivElement>()
 
 	public state = {
 		isVisible: false,
@@ -161,13 +162,18 @@ export default class SplitButton extends Component<
 		}
 	}
 
-	public handleClickOutside = () => {
-		this.setState(
-			{
-				isVisible: false
-			},
-			() => this.manageListeners()
-		)
+	public handleClickOutside = (e: any) => {
+		if (
+			!this.ref.current.contains(e.target) &&
+			!this.menuRef.current.contains(e.target)
+		) {
+			this.setState(
+				{
+					isVisible: false
+				},
+				() => this.manageListeners()
+			)
+		}
 	}
 
 	public handleEscape = (e: any) => {
@@ -265,6 +271,7 @@ export default class SplitButton extends Component<
 					isVisible &&
 					createPortal(
 						<div
+							ref={this.menuRef}
 							style={{
 								position: 'absolute',
 								top: `${menuPosition.top}px`,
