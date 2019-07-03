@@ -15,6 +15,6 @@ storiesOf('SplitButton', module)
 		<SplitButton
 			defaultAction={{ text: 'Do the default action' }}
 			actions={[{ text: 'Thing two' }]}
-			kind="secondary"
+			kind="primary"
 		/>
 	))

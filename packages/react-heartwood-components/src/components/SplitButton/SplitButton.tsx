@@ -125,6 +125,13 @@ export interface ISplitButtonProps {
 interface ISplitButtonState {
 	/** Controls whether the actions are visible */
 	isVisible: boolean
+
+	/** Where the menu should be positioned */
+	menuPosition: {
+		top: number
+		left: number
+		width: number
+	}
 }
 
 export default class SplitButton extends Component<
@@ -138,12 +145,50 @@ export default class SplitButton extends Component<
 	public ref = React.createRef<HTMLDivElement>()
 
 	public state = {
-		isVisible: false
+		isVisible: false,
+		menuPosition: {
+			top: 0,
+			left: 0,
+			width: 0
+		}
+	}
+
+	public getButtonPosition = () => {
+		const buttonPosition =
+			this.ref.current && this.ref.current.getBoundingClientRect()
+
+		if (buttonPosition) {
+			return buttonPosition
+		}
+
+		return null
 	}
 
 	public getMenuPosition = () => {
 		// Figure out where the menu goes based on its parent's position
 		console.log(this.ref)
+		const buttonPosition = this.getButtonPosition()
+		const scrollTop =
+			typeof document !== 'undefined' &&
+			document &&
+			document.documentElement &&
+			document.documentElement.scrollTop
+				? document.documentElement.scrollTop
+				: 0
+
+		if (!buttonPosition) {
+			return
+		}
+		const menuPosition = {
+			left: buttonPosition.left,
+			top: buttonPosition.bottom + scrollTop + 2,
+			width: buttonPosition.width
+		}
+
+		this.setState({
+			menuPosition
+		})
+		console.log({ menuPosition })
 	}
 
 	public toggleActionsVisibility = () => {
@@ -155,7 +200,7 @@ export default class SplitButton extends Component<
 
 	public render(): React.ReactNode {
 		const { defaultAction, actions, kind, isFullWidth, isSmall } = this.props
-		const { isVisible } = this.state
+		const { isVisible, menuPosition } = this.state
 		return (
 			<div className="split-button" ref={this.ref}>
 				<Button
@@ -174,7 +219,16 @@ export default class SplitButton extends Component<
 					document.body &&
 					isVisible &&
 					createPortal(
-						<ButtonGroup kind="floating" actions={actions} />,
+						<div
+							style={{
+								position: 'absolute',
+								top: `${menuPosition.top}px`,
+								left: `${menuPosition.left}px`,
+								width: `${menuPosition.width}px`
+							}}
+						>
+							<ButtonGroup kind="floating" isFullWidth actions={actions} />
+						</div>,
 						document.body
 					)}
 			</div>

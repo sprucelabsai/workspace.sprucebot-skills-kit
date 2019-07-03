@@ -9,14 +9,18 @@ type Props = {
 	actions: Array<ButtonProps>,
 
 	/** Visual appearance of the group. */
-	kind?: 'default' | 'segmented' | 'floating'
+	kind?: 'default' | 'segmented' | 'floating',
+
+	/** Set true to fill parent width */
+	isFullWidth?: boolean
 }
 
 const ButtonGroup = (props: Props) => {
-	const { actions, kind } = props
+	const { actions, kind, isFullWidth } = props
 	const parentClass = cx('button-group', {
 		'button-group-segmented': kind === 'segmented',
-		'button-group-floating': kind === 'floating'
+		'button-group-floating': kind === 'floating',
+		'button-group--is-full-width': isFullWidth
 	})
 	return (
 		<ul className={parentClass}>
@@ -42,7 +46,8 @@ const ButtonGroup = (props: Props) => {
 }
 
 ButtonGroup.defaultProps = {
-	kind: 'default'
+	kind: 'default',
+	isFullWidth: false
 }
 
 export default ButtonGroup
