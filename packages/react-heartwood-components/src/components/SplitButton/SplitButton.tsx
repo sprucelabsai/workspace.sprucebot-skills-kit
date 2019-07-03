@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { createPortal } from 'react-dom'
 import Button from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
+
+// TODO: Convert Button to tsx
+// TODO: Convert ButtonGroup to tsx
+// TODO: Convert Icon to tsx
+// TODO: All above: import types instead of defining them here
 
 interface IIconProps {
 	/** The name of the icon to render. If not found, this will return null. */
@@ -116,27 +122,62 @@ export interface ISplitButtonProps {
 	isSmall?: boolean
 }
 
-const SplitButton = (props: ISplitButtonProps): React.ReactNode => {
-	const { defaultAction, actions, kind, isFullWidth, isSmall } = props
-	return (
-		<div className="split-button">
-			<Button
-				kind={kind}
-				className="split-button__default"
-				{...defaultAction}
-			/>
-			<Button
-				kind={kind}
-				className="split-button__actions"
-				icon={{ name: 'keyboard_arrow_down' }}
-			/>
-		</div>
-	)
+interface ISplitButtonState {
+	/** Controls whether the actions are visible */
+	isVisible: boolean
 }
 
-SplitButton.defaultProps = {
-	isFullWidth: false,
-	isSmall: false
-}
+export default class SplitButton extends Component<
+	ISplitButtonProps,
+	ISplitButtonState
+> {
+	private static defaultProps = {
+		isFullWidth: false,
+		isSmall: false
+	}
+	public ref = React.createRef<HTMLDivElement>()
 
-export default SplitButton
+	public state = {
+		isVisible: false
+	}
+
+	public getMenuPosition = () => {
+		// Figure out where the menu goes based on its parent's position
+		console.log(this.ref)
+	}
+
+	public toggleActionsVisibility = () => {
+		this.getMenuPosition()
+		this.setState(prevState => ({
+			isVisible: !prevState.isVisible
+		}))
+	}
+
+	public render(): React.ReactNode {
+		const { defaultAction, actions, kind, isFullWidth, isSmall } = this.props
+		const { isVisible } = this.state
+		return (
+			<div className="split-button" ref={this.ref}>
+				<Button
+					kind={kind}
+					className="split-button__default"
+					{...defaultAction}
+				/>
+				<Button
+					kind={kind}
+					className="split-button__actions"
+					icon={{ name: 'keyboard_arrow_down' }}
+					onClick={this.toggleActionsVisibility}
+				/>
+				{typeof document !== 'undefined' &&
+					document &&
+					document.body &&
+					isVisible &&
+					createPortal(
+						<ButtonGroup kind="floating" actions={actions} />,
+						document.body
+					)}
+			</div>
+		)
+	}
+}
