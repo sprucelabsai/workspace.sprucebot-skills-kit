@@ -154,6 +154,45 @@ export default class SplitButton extends Component<
 		}
 	}
 
+	public componentWillUnmount = () => {
+		if (typeof document !== 'undefined') {
+			document.removeEventListener('click', this.handleClickOutside, false)
+			document.removeEventListener('keyup', this.handleEscape, false)
+		}
+	}
+
+	public handleClickOutside = () => {
+		this.setState(
+			{
+				isVisible: false
+			},
+			() => this.manageListeners()
+		)
+	}
+
+	public handleEscape = (e: any) => {
+		if (e.key === 'Escape') {
+			this.setState(
+				{
+					isVisible: false
+				},
+				() => this.manageListeners()
+			)
+		}
+	}
+
+	public manageListeners = () => {
+		if (typeof document !== 'undefined') {
+			if (this.state.isVisible) {
+				document.addEventListener('click', this.handleClickOutside, false)
+				document.addEventListener('keyup', this.handleEscape, false)
+			} else {
+				document.removeEventListener('click', this.handleClickOutside, false)
+				document.removeEventListener('keyup', this.handleEscape, false)
+			}
+		}
+	}
+
 	public getButtonPosition = () => {
 		const buttonPosition =
 			this.ref.current && this.ref.current.getBoundingClientRect()
@@ -166,8 +205,6 @@ export default class SplitButton extends Component<
 	}
 
 	public getMenuPosition = () => {
-		// Figure out where the menu goes based on its parent's position
-		console.log(this.ref)
 		const buttonPosition = this.getButtonPosition()
 		const scrollTop =
 			typeof document !== 'undefined' &&
@@ -189,14 +226,14 @@ export default class SplitButton extends Component<
 		this.setState({
 			menuPosition
 		})
-		console.log({ menuPosition })
 	}
 
 	public toggleActionsVisibility = () => {
 		this.getMenuPosition()
-		this.setState(prevState => ({
-			isVisible: !prevState.isVisible
-		}))
+		this.setState(
+			prevState => ({ isVisible: !prevState.isVisible }),
+			() => this.manageListeners()
+		)
 	}
 
 	public render(): React.ReactNode {
