@@ -2,7 +2,7 @@
 import React, { Fragment, Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateLocations } from '../../../.storybook/data/tableData'
-import { map, sampleSize } from 'lodash'
+import { map, sampleSize, cloneDeep } from 'lodash'
 import {
 	withKnobs,
 	withKnobsOptions,
@@ -37,7 +37,7 @@ type TruncatedListExampleProps = {
 	recordSelectionListItems: Array<Object>,
 	maxItemsVisible: number,
 	noItemsText?: string,
-	truncatedActionText?: string
+	truncatedActionItemType?: string
 }
 
 type TruncatedListExampleState = {
@@ -71,7 +71,7 @@ class TruncatedListExample extends Component<
 
 		this.state = {
 			selectedIds,
-			loadedRecordSelectionListItems: props.recordSelectionListItems,
+			loadedRecordSelectionListItems: cloneDeep(props.recordSelectionListItems),
 			unselectableIds
 		}
 	}
@@ -83,13 +83,14 @@ class TruncatedListExample extends Component<
 			canRemove,
 			maxItemsVisible,
 			noItemsText,
-			truncatedActionText
+			truncatedActionItemType
 		} = this.props
 		const {
 			selectedIds,
 			loadedRecordSelectionListItems,
 			unselectableIds
 		} = this.state
+
 		return (
 			<TruncatedList
 				header={header}
@@ -127,7 +128,9 @@ class TruncatedListExample extends Component<
 						)
 					})
 				}}
-				truncatedActionText={truncatedActionText}
+				truncatedActionText={`See all${
+					truncatedActionItemType ? ` XX ${truncatedActionItemType}` : ''
+				}`}
 			/>
 		)
 	}
@@ -143,10 +146,7 @@ stories.add('Truncated List', () => {
 						<TruncatedListExample
 							header={text('header', 'Locations')}
 							noItemsText={text('noItemsText', 'No locations selected')}
-							truncatedActionText={text(
-								'truncatedActionText',
-								`See all XX locations`
-							)}
+							truncatedActionItemType={'locations'}
 							canSelect={select('Can Select', [null, 'many', 'one'], null)}
 							canRemove={boolean('Can Remove', true)}
 							recordSelectionListItems={map(
@@ -164,10 +164,7 @@ stories.add('Truncated List', () => {
 						<TruncatedListExample
 							header={text('header', 'Managers')}
 							noItemsText={text('noItemsText', 'No managers selected')}
-							truncatedActionText={text(
-								'truncatedActionText',
-								'See all XX managers'
-							)}
+							truncatedActionItemType={'managers'}
 							canSelect={select('Can Select', [null, 'many', 'one'], null)}
 							canRemove={boolean('Can Remove', true)}
 							recordSelectionListItems={map(

@@ -20,7 +20,7 @@ type TruncatedListItemProps = {
 type Props = {
 	className?: string,
 	header?: string,
-	maxItemsVisible?: boolean,
+	maxItemsVisible?: number,
 	truncatedActionText?: string,
 	onClickTruncatedAction?: Function,
 	recordSelectionListItems: Array<RecordSelectionListItemProps>,
@@ -44,6 +44,12 @@ export default class TruncatedList extends Component<Props, State> {
 		maxItemsVisible: 5,
 		recordSelectionListItems: [],
 		noItemsText: 'Nothing to see here.'
+	}
+
+	constructor(props: Props) {
+		super(props)
+
+		this.recordSelectionListRef = React.createRef()
 	}
 
 	handleClickFooterCTA = () => {
@@ -79,16 +85,23 @@ export default class TruncatedList extends Component<Props, State> {
 					<Fragment>
 						{header && <h3 className="truncated-list__header">{header}</h3>}
 						<RecordSelectionList
-							loadRecordListItems={() =>
-								recordSelectionListItems.slice(0, maxItemsVisible)
-							}
+							ref={this.recordSelectionListRef}
+							loadRecordListItems={async () => {
+								console.log('LOAD RECORDS', recordSelectionListItems)
+								return await recordSelectionListItems.slice(0, maxItemsVisible)
+							}}
 							selectedIds={selectedIds}
 							unselectableIds={unselectableIds}
 							canSelect={canSelect}
 							canRemove={canRemove}
 							showSelectedCount={showSelectedCount}
 							onSelect={onSelect}
-							onRemove={onRemove}
+							onRemove={async id => {
+								if (onRemove) {
+									await onRemove(id)
+									this.recordSelectionListRef.current.reset()
+								}
+							}}
 						/>
 						{maxItemsVisible &&
 						recordSelectionListItems.length >= maxItemsVisible ? (
