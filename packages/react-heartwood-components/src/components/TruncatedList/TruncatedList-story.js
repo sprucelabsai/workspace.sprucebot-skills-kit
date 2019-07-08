@@ -16,6 +16,8 @@ import {
 	userList02,
 	userList03
 } from '../../../.storybook/data/people'
+
+import Card, { CardHeader, CardBody, CardSection } from '../Card'
 import TruncatedList from './TruncatedList'
 
 const stories = storiesOf('TruncatedList', module)
@@ -32,16 +34,16 @@ type TruncatedListExampleProps = {
 	header?: string,
 	canSelect?: 'many' | 'one',
 	canRemove: boolean,
-	locations: Array<Object>,
-	totalRecordCount: number,
+	recordSelectionListItems: Array<Object>,
 	maxItemsVisible: number,
-	noItemsText?: string
+	noItemsText?: string,
+	truncatedActionText?: string
 }
 
 type TruncatedListExampleState = {
 	selectedIds: Array<string>,
 	unselectableIds: Array<string>,
-	locationRecordListItems: Array<Object>
+	loadedRecordSelectionListItems: Array<Object>
 }
 
 class TruncatedListExample extends Component<
@@ -51,7 +53,7 @@ class TruncatedListExample extends Component<
 	constructor(props) {
 		super(props)
 
-		let selectedIds = props.locations.map(loc => loc.node.id)
+		let selectedIds = props.recordSelectionListItems.map(loc => loc.id)
 
 		if (props.canSelect === 'one') {
 			selectedIds = sampleSize(selectedIds, 1)
@@ -59,28 +61,17 @@ class TruncatedListExample extends Component<
 			selectedIds = sampleSize(selectedIds, Math.floor(selectedIds.length / 2))
 		}
 
-		const unselectedIds = props.locations
-			.map(loc => loc.node.id)
+		const unselectedIds = props.recordSelectionListItems
+			.map(loc => loc.id)
 			.filter(locationId => selectedIds.indexOf(locationId) === -1)
 
 		const unselectableIds = props.canSelect
 			? sampleSize(unselectedIds, unselectedIds.length / 2)
 			: []
 
-		const locationRecordListItems = props.locations.map(result => {
-			return {
-				id: result.node.id,
-				title: result.node.publicName,
-				subtitle: result.node.address,
-				note:
-					unselectableIds.indexOf(result.node.id) >= 0 &&
-					'Location already in group!'
-			}
-		})
-
 		this.state = {
 			selectedIds,
-			locationRecordListItems,
+			loadedRecordSelectionListItems: props.recordSelectionListItems,
 			unselectableIds
 		}
 	}
@@ -90,18 +81,22 @@ class TruncatedListExample extends Component<
 			header,
 			canSelect,
 			canRemove,
-			totalRecordCount,
 			maxItemsVisible,
-			noItemsText
+			noItemsText,
+			truncatedActionText
 		} = this.props
-		const { selectedIds, locationRecordListItems, unselectableIds } = this.state
+		const {
+			selectedIds,
+			loadedRecordSelectionListItems,
+			unselectableIds
+		} = this.state
 		return (
 			<TruncatedList
 				header={header}
 				noItemsText={noItemsText}
 				selectedIds={selectedIds}
 				unselectableIds={unselectableIds}
-				recordSelectionListItems={locationRecordListItems}
+				recordSelectionListItems={loadedRecordSelectionListItems}
 				maxItemsVisible={maxItemsVisible}
 				canSelect={canSelect}
 				canRemove={canRemove}
@@ -127,27 +122,68 @@ class TruncatedListExample extends Component<
 					// you should be sure to clear out the selection at the same time.
 					this.setState({
 						selectedIds: selectedIds.filter(selectedId => selectedId !== id),
-						locationRecordListItems: locationRecordListItems.filter(
+						loadedRecordSelectionListItems: loadedRecordSelectionListItems.filter(
 							locationItem => locationItem.id !== id
 						)
 					})
 				}}
-				totalRecordCount={totalRecordCount}
+				truncatedActionText={truncatedActionText}
 			/>
 		)
 	}
 }
 
-stories.add('Truncated List', () => (
-	<TruncatedListExample
-		header={text('header', 'Locations')}
-		noItemsText={text('no items', 'No locations selected')}
-		canSelect={select('Can Select', [null, 'many', 'one'], null)}
-		canRemove={boolean('Can Remove', true)}
-		locations={map(generateLocations({ amount: 5 }), o => ({
-			node: { ...o }
-		}))}
-		maxItemsVisible={5}
-		totalRecordCount={20}
-	/>
-))
+stories.add('Truncated List', () => {
+	return (
+		<div style={{ width: '320px', padding: '8px' }}>
+			<Card>
+				<CardHeader title="Card Title" />
+				<CardBody isSectioned={false} areSectionSeparatorsVisible={true}>
+					<CardSection>
+						<TruncatedListExample
+							header={text('header', 'Locations')}
+							noItemsText={text('noItemsText', 'No locations selected')}
+							truncatedActionText={text(
+								'truncatedActionText',
+								`See all XX locations`
+							)}
+							canSelect={select('Can Select', [null, 'many', 'one'], null)}
+							canRemove={boolean('Can Remove', true)}
+							recordSelectionListItems={map(
+								generateLocations({ amount: 10 }),
+								location => ({
+									id: location.id,
+									title: location.publicName,
+									subtitle: location.address
+								})
+							)}
+							maxItemsVisible={5}
+						/>
+					</CardSection>
+					<CardSection>
+						<TruncatedListExample
+							header={text('header', 'Managers')}
+							noItemsText={text('noItemsText', 'No managers selected')}
+							truncatedActionText={text(
+								'truncatedActionText',
+								'See all XX managers'
+							)}
+							canSelect={select('Can Select', [null, 'many', 'one'], null)}
+							canRemove={boolean('Can Remove', true)}
+							recordSelectionListItems={map(
+								[...userList, ...userList02],
+								user => ({
+									id: user.id,
+									avatar: user.avatar,
+									title: user.title,
+									subtitle: 'Manager'
+								})
+							)}
+							maxItemsVisible={5}
+						/>
+					</CardSection>
+				</CardBody>
+			</Card>
+		</div>
+	)
+})

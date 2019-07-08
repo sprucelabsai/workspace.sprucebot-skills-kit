@@ -24,7 +24,6 @@ type Props = {
 	truncatedActionText?: string,
 	onClickTruncatedAction?: Function,
 	recordSelectionListItems: Array<RecordSelectionListItemProps>,
-	totalRecordCount?: number,
 	selectedIds?: Array<string>,
 	unselectableIds?: Array<string>,
 	canSelect?: 'many' | 'one',
@@ -62,7 +61,6 @@ export default class TruncatedList extends Component<Props, State> {
 			truncatedActionText,
 			onClickTruncatedAction,
 			recordSelectionListItems,
-			totalRecordCount,
 			selectedIds,
 			unselectableIds,
 			canSelect,
@@ -72,9 +70,9 @@ export default class TruncatedList extends Component<Props, State> {
 			onRemove,
 			noItemsText
 		} = this.props
-		const parentClass = cx('list truncated-list', className)
+		const parentClass = cx('truncated-list', className)
 		return (
-			<Fragment>
+			<div className={parentClass}>
 				{!recordSelectionListItems || recordSelectionListItems.length === 0 ? (
 					<EmptyState headline="" subheadline={noItemsText} />
 				) : (
@@ -84,7 +82,6 @@ export default class TruncatedList extends Component<Props, State> {
 							loadRecordListItems={() =>
 								recordSelectionListItems.slice(0, maxItemsVisible)
 							}
-							totalRecordCount={totalRecordCount}
 							selectedIds={selectedIds}
 							unselectableIds={unselectableIds}
 							canSelect={canSelect}
@@ -95,15 +92,19 @@ export default class TruncatedList extends Component<Props, State> {
 						/>
 						{maxItemsVisible &&
 						recordSelectionListItems.length >= maxItemsVisible ? (
-							<Button
-								kind="simple"
-								text={truncatedActionText || 'See all'}
-								onClick={onClickTruncatedAction}
-							/>
+							<div className="truncated-list__action-btn-wrapper">
+								<Button
+									kind="simple"
+									className="truncated-list__action-btn"
+									isSmall={true}
+									text={truncatedActionText || 'See all'}
+									onClick={onClickTruncatedAction}
+								/>
+							</div>
 						) : null}
 					</Fragment>
 				)}
-			</Fragment>
+			</div>
 		)
 	}
 }
