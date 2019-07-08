@@ -7,7 +7,6 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 import Modal from '../Modal/Modal'
-import Button from '../Button/Button'
 import Card, { CardHeader, CardBody } from '../Card'
 
 const stories = storiesOf('RecordSelectionList', module)

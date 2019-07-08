@@ -18,7 +18,7 @@ import Button from '../Button/Button'
 import ListItem from '../List/components/ListItem/ListItem'
 
 import type { Node } from 'react'
-import type { Props as ListItemProps } from '../List/components/ListItem'
+import type { Props as ListItemProps } from '../List/components/ListItem/ListItem'
 
 type Record = any
 type RecordId = string
@@ -468,7 +468,6 @@ export default class RecordSelectionList extends Component<
 			selectedIds = [],
 			totalRecordCount,
 			canSearch,
-			getRecordId,
 			searchPlaceholder,
 			showSelectedCount,
 			maxRowsVisible
