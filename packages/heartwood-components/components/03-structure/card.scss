@@ -151,6 +151,11 @@
 }
 
 .card--small {
+	.card__header {
+		.btn {
+			@include typescale('ui');
+		}
+	}
 	.card__title {
 		@include typescale('body');
 	}

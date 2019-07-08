@@ -139,13 +139,21 @@ class TruncatedListExample extends Component<
 	}
 }
 
-stories.add('Truncated List', () => {
-	return (
-		<div style={{ width: '320px', padding: '8px' }}>
-			<Card>
-				<CardHeader title="Card Title" />
-				<CardBody isSectioned={false} areSectionSeparatorsVisible={true}>
-					<CardSection>
+stories
+	.add('Truncated List - Single', () => {
+		return (
+			<div style={{ width: '320px', padding: '8px' }}>
+				<Card isSmall>
+					<CardHeader
+						title="Locations"
+						actions={object('actions', [
+							{
+								text: 'Add a location',
+								kind: 'simple'
+							}
+						])}
+					/>
+					<CardBody>
 						<TruncatedListExample
 							header={text('header', 'Locations')}
 							noItemsText={text('noItemsText', 'No locations selected')}
@@ -161,27 +169,63 @@ stories.add('Truncated List', () => {
 								})
 							)}
 						/>
-					</CardSection>
-					<CardSection>
-						<TruncatedListExample
-							header={text('header', 'Managers')}
-							noItemsText={text('noItemsText', 'No managers selected')}
-							truncatedActionItemType={'managers'}
-							canSelect={select('Can Select', [null, 'many', 'one'], null)}
-							canRemove={boolean('Can Remove', true)}
-							recordSelectionListItems={map(
-								[...userList, ...userList02],
-								user => ({
-									id: user.id,
-									avatar: user.avatar,
-									title: user.title,
-									subtitle: 'Manager'
-								})
-							)}
-						/>
-					</CardSection>
-				</CardBody>
-			</Card>
-		</div>
-	)
-})
+					</CardBody>
+				</Card>
+			</div>
+		)
+	})
+	.add('Truncated List - Multiple', () => {
+		return (
+			<div style={{ width: '320px', padding: '8px' }}>
+				<Card isSmall>
+					<CardHeader
+						title="Manager Access"
+						actions={object('actions', [
+							{
+								text: 'Add managers',
+								kind: 'simple'
+							}
+						])}
+					/>
+					<CardBody isSectioned={false} areSectionSeparatorsVisible={true}>
+						<CardSection>
+							<TruncatedListExample
+								header={text('header', 'Managers')}
+								noItemsText={text('noItemsText', 'No managers selected')}
+								truncatedActionItemType={'managers'}
+								canSelect={select('Can Select', [null, 'many', 'one'], null)}
+								canRemove={boolean('Can Remove', true)}
+								recordSelectionListItems={map(
+									[...userList, ...userList02],
+									user => ({
+										id: user.id,
+										avatar: user.avatar,
+										title: user.title,
+										subtitle: 'Manager'
+									})
+								)}
+							/>
+						</CardSection>
+						<CardSection>
+							<TruncatedListExample
+								header={text('header', 'Group Managers')}
+								noItemsText={text('noItemsText', 'No managers selected')}
+								truncatedActionItemType={'group managers'}
+								canSelect={select('Can Select', [null, 'many', 'one'], null)}
+								canRemove={boolean('Can Remove', true)}
+								recordSelectionListItems={map(
+									[...userList, ...userList02],
+									user => ({
+										id: user.id,
+										avatar: user.avatar,
+										title: user.title,
+										subtitle: 'Group Manager'
+									})
+								)}
+							/>
+						</CardSection>
+					</CardBody>
+				</Card>
+			</div>
+		)
+	})
