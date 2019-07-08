@@ -151,10 +151,9 @@
 }
 
 .card--small {
-	.card__header {
-		.btn {
-			@include typescale('ui');
-		}
+	.card__header-actions {
+		@include typescale('ui');
+		margin-top: -#{spacing('tight')};
 	}
 	.card__title {
 		@include typescale('body');
