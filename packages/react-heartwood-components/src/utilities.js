@@ -1,3 +1,5 @@
+// @flow
+
 export const checkDeprecatedProps = ({
 	componentName,
 	props,
@@ -8,7 +10,6 @@ export const checkDeprecatedProps = ({
 	deprecatedProps: Object
 }) => {
 	const propKeys = Object.keys(props)
-	const deprecatedPropKeys = Object.keys(deprecatedProps)
 	propKeys.forEach(key => {
 		const deprecatedProp = deprecatedProps[key]
 		if (deprecatedProp) {
