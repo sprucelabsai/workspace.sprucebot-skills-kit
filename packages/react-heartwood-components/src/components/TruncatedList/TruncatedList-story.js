@@ -81,7 +81,6 @@ class TruncatedListExample extends Component<
 			header,
 			canSelect,
 			canRemove,
-			maxItemsVisible,
 			noItemsText,
 			truncatedActionItemType
 		} = this.props
@@ -97,8 +96,8 @@ class TruncatedListExample extends Component<
 				noItemsText={noItemsText}
 				selectedIds={selectedIds}
 				unselectableIds={unselectableIds}
-				recordSelectionListItems={loadedRecordSelectionListItems}
-				maxItemsVisible={maxItemsVisible}
+				recordSelectionListItems={loadedRecordSelectionListItems.slice(0, 5)}
+				isTruncated={loadedRecordSelectionListItems.length > 5}
 				canSelect={canSelect}
 				canRemove={canRemove}
 				onSelect={id => {
@@ -129,7 +128,11 @@ class TruncatedListExample extends Component<
 					})
 				}}
 				truncatedActionText={`See all${
-					truncatedActionItemType ? ` XX ${truncatedActionItemType}` : ''
+					truncatedActionItemType
+						? ` ${
+								loadedRecordSelectionListItems.length
+						  } ${truncatedActionItemType}`
+						: ''
 				}`}
 			/>
 		)
@@ -157,7 +160,6 @@ stories.add('Truncated List', () => {
 									subtitle: location.address
 								})
 							)}
-							maxItemsVisible={5}
 						/>
 					</CardSection>
 					<CardSection>
@@ -176,7 +178,6 @@ stories.add('Truncated List', () => {
 									subtitle: 'Manager'
 								})
 							)}
-							maxItemsVisible={5}
 						/>
 					</CardSection>
 				</CardBody>

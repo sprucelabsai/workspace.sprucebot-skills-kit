@@ -20,7 +20,7 @@ type TruncatedListItemProps = {
 type Props = {
 	className?: string,
 	header?: string,
-	maxItemsVisible?: number,
+	isTruncated: boolean,
 	truncatedActionText?: string,
 	onClickTruncatedAction?: Function,
 	recordSelectionListItems: Array<RecordSelectionListItemProps>,
@@ -40,8 +40,8 @@ type State = {
 
 export default class TruncatedList extends Component<Props, State> {
 	static defaultProps = {
+		isTruncated: false,
 		canRemove: false,
-		maxItemsVisible: 5,
 		recordSelectionListItems: [],
 		noItemsText: 'Nothing to see here.'
 	}
@@ -63,7 +63,7 @@ export default class TruncatedList extends Component<Props, State> {
 		const {
 			className,
 			header,
-			maxItemsVisible,
+			isTruncated,
 			truncatedActionText,
 			onClickTruncatedAction,
 			recordSelectionListItems,
@@ -87,8 +87,7 @@ export default class TruncatedList extends Component<Props, State> {
 						<RecordSelectionList
 							ref={this.recordSelectionListRef}
 							loadRecordListItems={async () => {
-								console.log('LOAD RECORDS', recordSelectionListItems)
-								return await recordSelectionListItems.slice(0, maxItemsVisible)
+								return await recordSelectionListItems
 							}}
 							selectedIds={selectedIds}
 							unselectableIds={unselectableIds}
@@ -103,8 +102,7 @@ export default class TruncatedList extends Component<Props, State> {
 								}
 							}}
 						/>
-						{maxItemsVisible &&
-						recordSelectionListItems.length >= maxItemsVisible ? (
+						{isTruncated ? (
 							<div className="truncated-list__action-btn-wrapper">
 								<Button
 									kind="simple"
