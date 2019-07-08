@@ -311,6 +311,9 @@ export default class RecordSelectionList extends Component<
 							checked: selectedIds && selectedIds.indexOf(recordId) >= 0
 						}}
 						selectableType={canSelect === 'one' ? 'radio' : 'checkbox'}
+						isDisabled={
+							unselectableIds && unselectableIds.indexOf(recordId) >= 0
+						}
 						actions={
 							onRemove && canRemove
 								? [

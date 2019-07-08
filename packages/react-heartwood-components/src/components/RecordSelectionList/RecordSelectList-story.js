@@ -35,7 +35,7 @@ class RecordListItemsExample extends Component<
 	constructor(props) {
 		super(props)
 
-		let selectedIds = props.locations.map(loc => loc.id)
+		let selectedIds = props.locations.map(loc => loc.node.id)
 
 		if (props.canSelect === 'one') {
 			selectedIds = sampleSize(selectedIds, 1)
@@ -44,7 +44,7 @@ class RecordListItemsExample extends Component<
 		}
 
 		const unselectedIds = props.locations
-			.map(loc => loc.id)
+			.map(loc => loc.node.id)
 			.filter(locationId => selectedIds.indexOf(locationId) === -1)
 
 		const unselectableIds = sampleSize(unselectedIds, unselectedIds.length / 2)
