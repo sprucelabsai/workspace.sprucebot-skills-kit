@@ -6,79 +6,102 @@ import Button from '../Button/Button'
 import EmptyState from '../EmptyState/EmptyState'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 
+import type {
+	RecordSelectionListProps,
+	RecordSelectionListItemProps
+} from '../RecordSelectionList/RecordSelectionList'
+
 import type { Props as ListItemProps } from '../List/List'
 
 type TruncatedListItemProps = {
-	id: string,
-	...ListItemProps
+	id: string
 }
 
 type Props = {
 	className?: string,
-	items: Array<ListItemProps>,
+	header?: string,
+	maxItemsVisible?: boolean,
+	truncatedActionText?: string,
+	onClickTruncatedAction?: Function,
+	recordSelectionListItems: Array<RecordSelectionListItemProps>,
+	totalRecordCount?: number,
+	selectedIds?: Array<string>,
+	unselectableIds?: Array<string>,
 	canSelect?: 'many' | 'one',
-	canRemove: boolean,
-	maxItemsVisible: number,
-	footerActionText?: string,
-	onClickFooterAction?: () => void,
-
-	/** Callback for selection of a list item */
-	onSelect?: any => void,
-
-	/** Callback for when user requests to remove an item from the list. */
-	onRemove?: any => void
+	canRemove?: boolean,
+	showSelectedCount?: boolean,
+	onSelect?: Function,
+	onRemove?: Function,
+	noItemsText?: string
 }
 
-type State = {}
+type State = {
+	recordListItems: Array<RecordSelectionListItemProps>
+}
 
 export default class TruncatedList extends Component<Props, State> {
 	static defaultProps = {
-		items: [],
 		canRemove: false,
-		maxItemsVisible: 5
+		maxItemsVisible: 5,
+		recordSelectionListItems: [],
+		noItemsText: 'Nothing to see here.'
 	}
 
 	handleClickFooterCTA = () => {
-		const { onClickFooterAction } = this.props
-		if (onClickFooterAction) {
-			onClickFooterAction()
+		const { onClickTruncatedAction } = this.props
+		if (onClickTruncatedAction) {
+			onClickTruncatedAction()
 		}
 	}
 
 	render() {
 		const {
 			className,
-			items,
+			header,
+			maxItemsVisible,
+			truncatedActionText,
+			onClickTruncatedAction,
+			recordSelectionListItems,
+			totalRecordCount,
+			selectedIds,
+			unselectableIds,
 			canSelect,
 			canRemove,
-			maxItemsVisible,
-			onRemove,
+			showSelectedCount,
 			onSelect,
-			footerActionText,
-			onClickFooterAction
+			onRemove,
+			noItemsText
 		} = this.props
 		const parentClass = cx('list truncated-list', className)
 		return (
 			<Fragment>
-				{items.length === 0 ? (
-					<EmptyState
-						headline="EMPTY STATE TEXT"
-						primaryAction={{
-							text: 'EMPTY STATE CTA TEXT',
-							onClick: () => {
-								console.log('EMPTY STATE CTA CLICKED')
-							}
-						}}
-					/>
+				{!recordSelectionListItems || recordSelectionListItems.length === 0 ? (
+					<EmptyState headline="" subheadline={noItemsText} />
 				) : (
-					<div>RECORD SELECTION LIST GOES HERE</div>
-				)}
-				{items.length >= maxItemsVisible && (
-					<Button
-						kind="simple"
-						text={footerActionText || 'See all'}
-						onClick={onClickFooterAction}
-					/>
+					<Fragment>
+						{header && <h3 className="truncated-list__header">{header}</h3>}
+						<RecordSelectionList
+							loadRecordListItems={() =>
+								recordSelectionListItems.slice(0, maxItemsVisible)
+							}
+							totalRecordCount={totalRecordCount}
+							selectedIds={selectedIds}
+							unselectableIds={unselectableIds}
+							canSelect={canSelect}
+							canRemove={canRemove}
+							showSelectedCount={showSelectedCount}
+							onSelect={onSelect}
+							onRemove={onRemove}
+						/>
+						{maxItemsVisible &&
+						recordSelectionListItems.length >= maxItemsVisible ? (
+							<Button
+								kind="simple"
+								text={truncatedActionText || 'See all'}
+								onClick={onClickTruncatedAction}
+							/>
+						) : null}
+					</Fragment>
 				)}
 			</Fragment>
 		)

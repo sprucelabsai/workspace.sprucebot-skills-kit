@@ -22,12 +22,13 @@ import type { Props as ListItemProps } from '../List/components/ListItem/ListIte
 
 type Record = any
 type RecordId = string
-type RecordListItem = {
+
+export type RecordSelectionListItemProps = {
 	id: string,
 	...ListItemProps
 }
 
-type RecordSelectionListProps = {|
+export type RecordSelectionListProps = {|
 	/** DEPRECATED Required method to render a record into a node */
 	renderRecord?: any => Node,
 
@@ -48,7 +49,7 @@ type RecordSelectionListProps = {|
 		offset: number,
 		limit: number,
 		search?: string
-	|}) => Promise<Array<RecordListItem>>,
+	|}) => Promise<Array<RecordSelectionListItemProps>>,
 
 	/** Total number of records that could be in this list.
 	 * Optional, but optimizes infinite load and adds supplementary UI */

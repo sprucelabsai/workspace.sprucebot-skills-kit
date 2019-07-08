@@ -279,3 +279,7 @@
 .record-selection__virtual-list:focus {
 	outline: none;
 }
+
+.truncated-list__header {
+	@include type-style-label;
+}
