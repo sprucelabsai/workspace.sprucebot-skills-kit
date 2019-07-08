@@ -145,14 +145,14 @@ const PageWrapper = Wrapped => {
 					)
 				} catch (e) {
 					debug(err)
-					debug('Error fetching user from jwt')
+					debug('Error fetching user from jwtV2')
 				}
 			} else if (jwt) {
 				try {
 					await store.dispatch(actions.auth.go(jwt))
 				} catch (err) {
 					debug(err)
-					debug('Error fetching user from jwtV2')
+					debug('Error fetching user from jwt')
 				}
 			}
 
