@@ -279,3 +279,16 @@
 .record-selection__virtual-list:focus {
 	outline: none;
 }
+
+.truncated-list__header {
+	@include type-style-label;
+}
+
+.truncated-list__action-btn-wrapper {
+	border-top: 1px solid $c-border;
+	padding-top: spacing('tight');
+}
+
+.truncated-list__action-btn {
+	margin-left: -1 * spacing('tight');
+}
