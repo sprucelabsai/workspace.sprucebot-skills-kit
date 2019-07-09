@@ -87,6 +87,9 @@ export { default as RecordTable } from './components/RecordTable/RecordTable'
 export {
 	default as RecordSelectionList
 } from './components/RecordSelectionList/RecordSelectionList'
+export {
+	default as RecordSelectionListItem
+} from './components/RecordSelectionList/RecordSelectionListItem'
 export { default as EmptyState } from './components/EmptyState/EmptyState'
 
 // Types
