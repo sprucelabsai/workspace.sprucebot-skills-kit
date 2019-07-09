@@ -1,4 +1,3 @@
-// @flow
 import React, { Component, Fragment } from 'react'
 
 import Table, { TableSearch } from '../Table'
@@ -6,138 +5,134 @@ import Tabs from '../Tabs'
 import { TextInput } from '../Forms'
 import Button from '../Button/Button'
 
-import type { Props as TabProps } from '../Tabs/Tabs'
-
 const RECORD_TABLE_INITIAL_LIMIT = 10
 
-export type RecordTableFetchOptions = {
-	sortColumn: string,
-	sortDirection: string,
-	offset: number,
-	limit: number,
-	search?: string,
+export interface IRecordTableFetchOptions {
+	sortColumn: string
+	sortDirection: string
+	offset: number
+	limit: number
+	search?: string
 	selectedTab?: string
 }
 
-export type RecordTableFetchResults = {|
-	visibleRows: Array<Object>,
+export interface IRecordTableFetchResults {
+	visibleRows: Record<string, any>[]
 	totalRows: number
-|}
-
-export type Tab = {
-	...TabProps,
-	key: string,
-	payload?: Object
 }
 
-type RecordTableProps = {|
+export interface IRecordTableProps {
 	/** Singular noun describing the contents of this table */
-	kind?: string,
+	kind?: string
 
 	/** Plural noun describing the contents of this table */
-	pluralKind?: string,
+	pluralKind?: string
 
 	/** for handling when a tab is selected, return false to stop tab form being set */
 	onClickTab?: (
 		e: MouseEvent,
-		{ idx: number, key: string, payload?: Object }
-	) => boolean,
+		data: { idx?: number; key: string; payload?: Record<string, any> }
+	) => boolean
 
 	/** the tabs to render, passed to Tabs component. onClick is ignored */
-	tabs?: Array<Tab>,
+	tabs?: any[]
 
 	/** Should rows be selectable? */
-	isSelectable?: boolean,
+	isSelectable?: boolean
 
 	/** which tab to select at first */
-	initialSelectedTab?: string,
+	initialSelectedTab?: string
 
 	/** how to sort to start */
-	initialSortColumn: string,
+	initialSortColumn: string
 
 	/** direction to start (defaults to desc) */
-	initialSortDirection?: string,
+	initialSortDirection?: string
 
 	/** starting limit, defaults to RECORD_TABLE_INITIAL_LIMIT  */
-	initialLimit?: number,
+	initialLimit?: number
 
 	/** The rows that should be visible when the table mounts */
-	initialVisibleRows: Array<Object>,
+	initialVisibleRows: Record<string, any>[]
 
 	/** The total possible number of rows this table may contain */
-	totalRows: number,
+	totalRows: number
 
 	/** should we enable searching? */
-	enableSearch?: boolean,
+	enableSearch?: boolean
 
 	/** should we enable filtering? */
-	enableFilter?: boolean,
+	enableFilter?: boolean
 
 	/** placeholder to show for search */
-	searchPlaceholder?: string,
+	searchPlaceholder?: string
 
 	/** props to pass through to the table search component */
-	tableSearchProps?: Object,
+	tableSearchProps?: Record<string, any>
 
 	/** when rendering search results, this is how i'll know what to output */
-	searchSuggestionAccessor?: (suggestion: Object) => any,
+	searchSuggestionAccessor?: (suggestion: Record<string, any>) => any
 
 	/** called anytime records need to be fetched */
 	fetchRecords: (
-		options: RecordTableFetchOptions
-	) => Promise<RecordTableFetchResults>,
+		options: IRecordTableFetchOptions
+	) => Promise<IRecordTableFetchResults>
 
 	/** table columns to be rendered TODO(TR) import Column interfaces  */
-	columns: Array<Object>,
+	columns: Record<string, any>[]
 
 	/** should I fetch all my data on mount? */
-	fetchOnMount?: boolean,
+	fetchOnMount?: boolean
 
 	/** Flag for error on fetching data */
-	fetchError?: boolean,
+	fetchError?: boolean
 
 	/** passthrough to Table component */
-	handleClickRow?: Function,
+	handleClickRow?: Function
 
 	/** called when search suggestion is selected */
-	onSelection?: Function,
+	onSelection?: Function
+
+	/** called when navigating to page */
+	onNavigateToPage?: Function
 
 	/** No data available */
-	noDataIcon?: string,
-	noDataHeadline?: string,
-	noDataSubheadline?: string,
-	noDataPrimaryAction?: PrimaryAction,
-	noDataPrimaryActionButtonKind?: string,
+	noDataIcon?: string
+	noDataHeadline?: string
+	noDataSubheadline?: string
+	noDataPrimaryAction?: IPrimaryAction
+	noDataPrimaryActionButtonKind?: string
 	noDataPrimaryActionButtonIcon?: string
-|}
+}
 
-type PrimaryAction = {
-	text: string,
-	onClick: (e: MouseEvent) => void,
+interface IPrimaryAction {
+	text: string
+	onClick: (e: MouseEvent) => void
 	type: string
 }
 
-type RecordTableState = {
-	selectedTab?: string,
-	currentPage: number,
-	limit: number,
-	sortColumn: string,
-	sortDirection: string,
-	visibleRows: Array<Object>,
-	totalRows: number,
-	loading: boolean,
+interface IRecordTableState {
+	selectedTab?: string
+	currentPage: number
+	limit: number
+	sortColumn: string
+	sortDirection: string
+	visibleRows: Record<string, any>[]
+	totalRows: number
+	loading: boolean
 	currentFilter?: string
+	expandedRows: Record<string, boolean>
 }
 
-class RecordTable extends Component<RecordTableProps, RecordTableState> {
-	static defaultProps = {
+class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
+	public static defaultProps = {
 		enableSearch: false,
 		enableFilter: false,
 		searchPlaceholder: 'Filter table...',
 		initialLimit: RECORD_TABLE_INITIAL_LIMIT
 	}
 
-	constructor(props: RecordTableProps) {
+	public constructor(props: IRecordTableProps) {
 		super(props)
 
 		this.state = {
@@ -149,31 +144,12 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 			sortDirection: props.initialSortDirection || 'desc',
 			visibleRows: props.initialVisibleRows,
 			totalRows: props.totalRows,
-			currentFilter: ''
+			currentFilter: '',
+			expandedRows: {}
 		}
 	}
 
-	handleClickTab = (e: MouseEvent, tab: Tab) => {
-		const { onClickTab } = this.props
-		let cancel = false
-
-		if (onClickTab) {
-			cancel =
-				onClickTab(e, {
-					payload: tab.payload,
-					key: tab.key
-				}) === false
-		}
-
-		if (!cancel) {
-			this.setState(
-				{ currentPage: 0, selectedTab: tab.key, expandedRows: {} },
-				this.refresh
-			)
-		}
-	}
-
-	refresh = async () => {
+	public refresh = async () => {
 		this.setState({ loading: true })
 		const { visibleRows, totalRows } = await this.fetchRecords({
 			page: this.state.currentPage
@@ -181,10 +157,10 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		this.setState({ loading: false, visibleRows, totalRows })
 	}
 
-	navigateToPage = async ({
+	public navigateToPage = async ({
 		search,
 		page
-	}: { search?: string, page: number } = {}) => {
+	}: { search?: string; page?: number } = {}) => {
 		const { onNavigateToPage = () => {} } = this.props
 
 		try {
@@ -208,118 +184,7 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		}
 	}
 
-	fetchRecords = async ({
-		search,
-		page
-	}: {|
-		search?: string,
-		page: number
-	|}) => {
-		const {
-			sortDirection,
-			sortColumn,
-			limit,
-			selectedTab,
-			currentFilter
-		} = this.state
-
-		const offset = limit * page
-
-		const data = await this.props.fetchRecords({
-			sortColumn,
-			sortDirection,
-			limit,
-			offset,
-			selectedTab,
-			search: search || currentFilter
-		})
-
-		return data
-	}
-
-	handleSortChanged = (sorted: Array<{ id: string, desc: boolean }>) => {
-		const sort = {
-			sortColumn: sorted[0].id,
-			sortDirection: sorted[0].desc ? 'desc' : 'asc'
-		}
-
-		this.setState(sort, this.refresh)
-	}
-
-	handleSearchSuggestions = async (value: string) => {
-		const { currentPage } = this.state
-		const { visibleRows } = await this.fetchRecords({
-			page: currentPage,
-			search: value
-		})
-
-		const suggestions =
-			visibleRows.length > 0
-				? visibleRows.map<Object>((record: Object) => {
-						return {
-							text: record.name,
-							record
-						}
-				  })
-				: [
-						{
-							text: 'NO RESULTS',
-							isEmptyMessage: true,
-							value
-						}
-				  ]
-
-		return suggestions
-	}
-
-	renderSuggestion = (suggestion: any) => {
-		const {
-			// eslint-disable-next-line no-unused-vars
-			searchSuggestionAccessor = record => (
-				<Button
-					isSmall
-					className="autosuggest__list-item-inner"
-					text={suggestion.text}
-				/>
-			)
-		} = this.props
-
-		if (suggestion.isEmptyMessage && suggestion.value) {
-			return (
-				<div className="autosuggest__no-results">
-					<p className="autosuggest__no-results-title">No matches found.</p>
-					<p className="autosuggest__no-results-subtitle">
-						Please adjust your search and try again.
-					</p>
-				</div>
-			)
-		}
-
-		if (suggestion.isEmptyMessage && !suggestion.value) {
-			return (
-				<div className="autosuggest__no-results">
-					<p className="autosuggest__no-results-title">Type to search.</p>
-					<p className="autosuggest__no-results-subtitle">
-						{`I'll find whataver I can as fast as I can.`}
-					</p>
-				</div>
-			)
-		}
-
-		return searchSuggestionAccessor(suggestion.record)
-	}
-
-	componentDidMount = () => {
-		if (this.props.fetchOnMount) {
-			this.refresh()
-		}
-	}
-
-	handleSuggestionSelected = async (e: MouseEvent, suggestion: any) => {
-		this.props.onSelection && this.props.onSelection(e, suggestion)
-	}
-
-	updateFilter = (filter: string) => {
+	public updateFilter = (filter: string) => {
 		this.setState(
 			{
 				currentPage: 0,
@@ -331,61 +196,14 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 		)
 	}
 
-	isFiltered = () => {
-		const { enableFilter } = this.props
-		const { currentFilter } = this.state
-		return currentFilter.length > 0 && enableFilter
+	public componentDidMount = () => {
+		if (this.props.fetchOnMount) {
+			this.refresh()
+		}
 	}
 
-	getNoDataIcon = () => {
-		const { noDataIcon, fetchError } = this.props
-		return fetchError
-			? 'caution'
-			: this.isFiltered()
-			? 'no_matches'
-			: noDataIcon
-	}
-
-	getNoDataHeadline = () => {
-		const { noDataHeadline, fetchError } = this.props
-		return fetchError
-			? 'Data not available'
-			: this.isFiltered()
-			? 'No matches found'
-			: noDataHeadline
-	}
-
-	getNoDataSubheadline = () => {
-		const { noDataSubheadline, fetchError } = this.props
-		return fetchError
-			? 'It looks like something went wrong.'
-			: this.isFiltered()
-			? null
-			: noDataSubheadline
-	}
-
-	getNoDataPrimaryAction = () => {
-		const { noDataPrimaryAction, fetchError } = this.props
-		return fetchError
-			? {
-					text: 'Try again',
-					onClick: () => window.location.reload()
-			  }
-			: this.isFiltered()
-			? {
-					text: 'Show all',
-					onClick: () => {
-						this.updateFilter('')
-					},
-					type: 'submit'
-			  }
-			: noDataPrimaryAction
-	}
-
-	render() {
+	public render(): React.ReactNode {
 		const {
-			// eslint-disable-next-line no-unused-vars
-			onClickTab,
 			tabs,
 			columns,
 			isSelectable,
@@ -521,6 +339,181 @@ class RecordTable extends Component<RecordTableProps, RecordTableState> {
 				/>
 			</Fragment>
 		)
+	}
+
+	private handleClickTab = (e: MouseEvent, tab: any) => {
+		const { onClickTab } = this.props
+		let cancel = false
+
+		if (onClickTab) {
+			cancel =
+				onClickTab(e, {
+					payload: tab.payload,
+					key: tab.key
+				}) === false
+		}
+
+		if (!cancel) {
+			this.setState(
+				{ currentPage: 0, selectedTab: tab.key, expandedRows: {} },
+				this.refresh
+			)
+		}
+	}
+
+	private fetchRecords = async ({
+		search,
+		page
+	}: {
+		search?: string
+		page: number
+	}) => {
+		const {
+			sortDirection,
+			sortColumn,
+			limit,
+			selectedTab,
+			currentFilter
+		} = this.state
+
+		const offset = limit * page
+
+		const data = await this.props.fetchRecords({
+			sortColumn,
+			sortDirection,
+			limit,
+			offset,
+			selectedTab,
+			search: search || currentFilter
+		})
+
+		return data
+	}
+
+	private handleSortChanged = (sorted: [{ id: string; desc: boolean }]) => {
+		const sort = {
+			sortColumn: sorted[0].id,
+			sortDirection: sorted[0].desc ? 'desc' : 'asc'
+		}
+
+		this.setState(sort, this.refresh)
+	}
+
+	private handleSearchSuggestions = async (value: string) => {
+		const { currentPage } = this.state
+		const { visibleRows } = await this.fetchRecords({
+			page: currentPage,
+			search: value
+		})
+
+		const suggestions =
+			visibleRows.length > 0
+				? visibleRows.map((record: Record<string, any>) => {
+						return {
+							text: record.name,
+							record
+						}
+				  })
+				: [
+						{
+							text: 'NO RESULTS',
+							isEmptyMessage: true,
+							value
+						}
+				  ]
+
+		return suggestions
+	}
+
+	private renderSuggestion = (suggestion: any) => {
+		const {
+			searchSuggestionAccessor = (/* record */) => (
+				<Button
+					isSmall
+					className="autosuggest__list-item-inner"
+					text={suggestion.text}
+				/>
+			)
+		} = this.props
+
+		if (suggestion.isEmptyMessage && suggestion.value) {
+			return (
+				<div className="autosuggest__no-results">
+					<p className="autosuggest__no-results-title">No matches found.</p>
+					<p className="autosuggest__no-results-subtitle">
+						Please adjust your search and try again.
+					</p>
+				</div>
+			)
+		}
+
+		if (suggestion.isEmptyMessage && !suggestion.value) {
+			return (
+				<div className="autosuggest__no-results">
+					<p className="autosuggest__no-results-title">Type to search.</p>
+					<p className="autosuggest__no-results-subtitle">
+						{`I'll find whataver I can as fast as I can.`}
+					</p>
+				</div>
+			)
+		}
+
+		return searchSuggestionAccessor(suggestion.record)
+	}
+
+	private handleSuggestionSelected = async (e: MouseEvent, suggestion: any) => {
+		this.props.onSelection && this.props.onSelection(e, suggestion)
+	}
+
+	private isFiltered = () => {
+		const { enableFilter } = this.props
+		const { currentFilter } = this.state
+		return currentFilter.length > 0 && enableFilter
+	}
+
+	private getNoDataIcon = () => {
+		const { noDataIcon, fetchError } = this.props
+		return fetchError
+			? 'caution'
+			: this.isFiltered()
+			? 'no_matches'
+			: noDataIcon
+	}
+
+	private getNoDataHeadline = () => {
+		const { noDataHeadline, fetchError } = this.props
+		return fetchError
+			? 'Data not available'
+			: this.isFiltered()
+			? 'No matches found'
+			: noDataHeadline
+	}
+
+	private getNoDataSubheadline = () => {
+		const { noDataSubheadline, fetchError } = this.props
+		return fetchError
+			? 'It looks like something went wrong.'
+			: this.isFiltered()
+			? null
+			: noDataSubheadline
+	}
+
+	private getNoDataPrimaryAction = () => {
+		const { noDataPrimaryAction, fetchError } = this.props
+		return fetchError
+			? {
+					text: 'Try again',
+					onClick: () => window.location.reload()
+			  }
+			: this.isFiltered()
+			? {
+					text: 'Show all',
+					onClick: () => {
+						this.updateFilter('')
+					},
+					type: 'submit'
+			  }
+			: noDataPrimaryAction
 	}
 }
 
