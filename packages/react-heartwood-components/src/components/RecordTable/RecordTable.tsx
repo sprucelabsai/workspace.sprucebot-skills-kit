@@ -329,12 +329,14 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 					onSortedChange={this.handleSortChanged}
 					onClickRow={handleClickRow}
 					key="id"
-					noDataIcon={this.getNoDataIcon()}
-					noDataHeadline={this.getNoDataHeadline()}
-					noDataSubheadline={this.getNoDataSubheadline()}
-					noDataPrimaryAction={this.getNoDataPrimaryAction()}
-					noDataPrimaryActionButtonKind={noDataPrimaryActionButtonKind}
-					noDataPrimaryActionButtonIcon={noDataPrimaryActionButtonIcon}
+					getNoDataProps={() => ({
+						icon: this.getNoDataIcon(),
+						headline: this.getNoDataHeadline(),
+						subheadline: this.getNoDataSubheadline(),
+						primaryAction: this.getNoDataPrimaryAction(),
+						primaryActionButtonKind: noDataPrimaryActionButtonKind,
+						primaryActionButtonIcon: noDataPrimaryActionButtonIcon
+					})}
 					{...rest}
 				/>
 			</Fragment>
@@ -468,11 +470,13 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 	private isFiltered = () => {
 		const { enableFilter } = this.props
 		const { currentFilter } = this.state
+
 		return currentFilter.length > 0 && enableFilter
 	}
 
 	private getNoDataIcon = () => {
 		const { noDataIcon, fetchError } = this.props
+
 		return fetchError
 			? 'caution'
 			: this.isFiltered()
@@ -482,6 +486,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 
 	private getNoDataHeadline = () => {
 		const { noDataHeadline, fetchError } = this.props
+
 		return fetchError
 			? 'Data not available'
 			: this.isFiltered()
