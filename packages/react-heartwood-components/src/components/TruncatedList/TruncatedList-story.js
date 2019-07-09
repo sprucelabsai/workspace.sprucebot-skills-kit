@@ -154,7 +154,6 @@ stories
 					/>
 					<CardBody>
 						<TruncatedListExample
-							header={text('header', 'Locations')}
 							noItemsText={text('noItemsText', 'No locations selected')}
 							truncatedActionItemType={'locations'}
 							canSelect={select('Can Select', [null, 'many', 'one'], null)}
