@@ -134,6 +134,9 @@ class TruncatedListExample extends Component<
 						  } ${truncatedActionItemType}`
 						: ''
 				}`}
+				onClickTruncatedAction={() =>
+					console.log('Clicked truncated list action!')
+				}
 			/>
 		)
 	}

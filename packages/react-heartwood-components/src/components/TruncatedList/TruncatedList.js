@@ -52,13 +52,6 @@ export default class TruncatedList extends Component<Props, State> {
 		this.recordSelectionListRef = React.createRef()
 	}
 
-	handleClickFooterCTA = () => {
-		const { onClickTruncatedAction } = this.props
-		if (onClickTruncatedAction) {
-			onClickTruncatedAction()
-		}
-	}
-
 	render() {
 		const {
 			className,
