@@ -4,6 +4,7 @@ import cx from 'classnames'
 import Button from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
+// TODO: Hook up arrow keys to navigate when actions are visible
 // TODO: Convert Button to tsx
 // TODO: Convert ButtonGroup to tsx
 // TODO: Convert Icon to tsx
@@ -133,6 +134,9 @@ interface ISplitButtonState {
 		left: number
 		width: number
 	}
+
+	/** Which suggestion is highlighted by arrow key navigation */
+	highlightedActionIndex: number
 }
 
 export default class SplitButton extends Component<
@@ -152,13 +156,14 @@ export default class SplitButton extends Component<
 			top: 0,
 			left: 0,
 			width: 0
-		}
+		},
+		highlightedActionIndex: -1
 	}
 
 	public componentWillUnmount = () => {
 		if (typeof document !== 'undefined') {
 			document.removeEventListener('click', this.handleClickOutside, false)
-			document.removeEventListener('keyup', this.handleEscape, false)
+			document.removeEventListener('keyup', this.onKeyUp, false)
 		}
 	}
 
@@ -176,7 +181,31 @@ export default class SplitButton extends Component<
 		}
 	}
 
-	public handleEscape = (e: any) => {
+	public onKeyUp = (e: any) => {
+		const { actions } = this.props
+		// Down arrow
+		if (e.keyCode === 40) {
+			// Update the highlighted suggestion
+			this.setState(prevState => ({
+				highlightedActionIndex:
+					prevState.highlightedActionIndex === actions.length - 1
+						? 0
+						: prevState.highlightedActionIndex + 1
+			}))
+		}
+
+		// Up arrow
+		if (e.keyCode === 38) {
+			// Update the highlighted suggestion
+			this.setState(prevState => ({
+				highlightedActionIndex:
+					prevState.highlightedActionIndex <= 0
+						? actions.length - 1
+						: prevState.highlightedActionIndex - 1
+			}))
+		}
+
+		// Escape
 		if (e.key === 'Escape') {
 			this.setState(
 				{
@@ -191,10 +220,10 @@ export default class SplitButton extends Component<
 		if (typeof document !== 'undefined') {
 			if (this.state.isVisible) {
 				document.addEventListener('click', this.handleClickOutside, false)
-				document.addEventListener('keyup', this.handleEscape, false)
+				document.addEventListener('keyup', this.onKeyUp, false)
 			} else {
 				document.removeEventListener('click', this.handleClickOutside, false)
-				document.removeEventListener('keyup', this.handleEscape, false)
+				document.removeEventListener('keyup', this.onKeyUp, false)
 			}
 		}
 	}
