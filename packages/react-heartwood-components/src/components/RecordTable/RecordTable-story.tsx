@@ -1,4 +1,5 @@
 import React from 'react'
+import { filter, orderBy } from 'lodash'
 import { storiesOf } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs/react'
 
@@ -17,21 +18,41 @@ interface IDummyRecordTableRecord {
 }
 
 stories.add('RecordTable', () => {
-	async function fetchRecords(
+	const records: IDummyRecordTableRecord[] = [...Array(1000)].map(() => ({
+		name: `${Math.floor(Math.random() * 1000)}-Dummy`,
+		count: Math.floor(Math.random() * 1000)
+	}))
+
+	function syncFetchRecords(
 		options: IRecordTableFetchOptions
-	): Promise<IRecordTableFetchResults> {
-		console.log(options)
+	): IRecordTableFetchResults {
+		const filteredRecords = filter(
+			orderBy(records, [options.sortColumn], [options.sortDirection]),
+			(o: IDummyRecordTableRecord) => {
+				return o.name.match(new RegExp(options.search, 'gi'))
+			}
+		)
 
 		return {
-			visibleRows: [],
-			totalRows: 0
+			visibleRows: filteredRecords.slice(
+				options.offset,
+				options.offset + options.limit
+			),
+			totalRows: filteredRecords.length
 		}
 	}
+
+	const initialRecords = syncFetchRecords({
+		offset: 0,
+		limit: 10,
+		sortColumn: 'name',
+		sortDirection: 'ASC'
+	})
 
 	return (
 		<div>
 			<RecordTable
-				fetchRecords={fetchRecords}
+				fetchRecords={async options => syncFetchRecords(options)}
 				enableFilter={true}
 				searchPlaceholder={'Search groups...'}
 				fetchError={false}
@@ -39,8 +60,8 @@ stories.add('RecordTable', () => {
 				initialSortColumn={'name'}
 				initialSortDirection={'ASC'}
 				initialSelectedTab={'all'}
-				initialVisibleRows={[]}
-				totalRows={0}
+				initialVisibleRows={initialRecords.visibleRows}
+				totalRows={records.length}
 				tabs={[
 					{
 						key: 'all',
