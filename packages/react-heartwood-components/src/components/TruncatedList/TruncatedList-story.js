@@ -1,5 +1,5 @@
 // @flow
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateLocations } from '../../../.storybook/data/tableData'
 import { map, sampleSize, cloneDeep } from 'lodash'
@@ -11,11 +11,7 @@ import {
 	object,
 	select
 } from '@storybook/addon-knobs/react'
-import {
-	userList,
-	userList02,
-	userList03
-} from '../../../.storybook/data/people'
+import { userList, userList02 } from '../../../.storybook/data/people'
 
 import Card, { CardHeader, CardBody, CardSection } from '../Card'
 import TruncatedList from './TruncatedList'

@@ -6,16 +6,7 @@ import Button from '../Button/Button'
 import EmptyState from '../EmptyState/EmptyState'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 
-import type {
-	RecordSelectionListProps,
-	RecordSelectionListItemProps
-} from '../RecordSelectionList/RecordSelectionList'
-
-import type { Props as ListItemProps } from '../List/List'
-
-type TruncatedListItemProps = {
-	id: string
-}
+import type { RecordSelectionListItemProps } from '../RecordSelectionList/RecordSelectionList'
 
 type Props = {
 	className?: string,
