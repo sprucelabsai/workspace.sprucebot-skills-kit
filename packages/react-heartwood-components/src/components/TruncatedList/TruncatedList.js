@@ -9,19 +9,46 @@ import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 import type { RecordSelectionListItemProps } from '../RecordSelectionList/RecordSelectionList'
 
 type Props = {
+	/** Optional class name for the component */
 	className?: string,
+
+	/** Optional text header for the list */
 	header?: string,
+
+	/** When true, will display the truncated action button */
 	isTruncated: boolean,
+
+	/** Optional truncated action button text - defaults to 'See All' */
 	truncatedActionText?: string,
+
+	/** Method called when truncated action is clicked */
 	onClickTruncatedAction?: Function,
+
+	/** RecordSelectionListItems to be displayed in the list */
 	recordSelectionListItems: Array<RecordSelectionListItemProps>,
+
+	/** Optional selectedIds passed to RecordSelectionList */
 	selectedIds?: Array<string>,
+
+	/** Optional unselectableIds passed to RecordSelectionList */
 	unselectableIds?: Array<string>,
+
+	/** Can the user select many or one records in this list? */
 	canSelect?: 'many' | 'one',
+
+	/** Can the user remove records from this list? */
 	canRemove?: boolean,
+
+	/** Set to false to hide "# selected" text - defaults to true */
 	showSelectedCount?: boolean,
+
+	/** Callback for selection of a record */
 	onSelect?: Function,
+
+	/** Callback for when user requests to remove a record from the list. */
 	onRemove?: Function,
+
+	/** Text displayed when the list is empty */
 	noItemsText?: string
 }
 
