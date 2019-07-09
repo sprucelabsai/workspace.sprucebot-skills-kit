@@ -21,7 +21,8 @@ stories
 		<Page
 			header={{
 				className: 'custom-classname',
-				title: text('title', '') || 'Page Title'
+				title: text('title', '') || 'Page Title',
+				collapsed: boolean('isCollapsed', false)
 			}}
 		>
 			<PageContent>
@@ -35,7 +36,8 @@ stories
 				title: text('title', 'Page Title'),
 				backLinkHref: '#',
 				backLinkText: text('backLinkText', 'Back'),
-				hasBottomBorder: boolean('hasBottomBorder', false)
+				hasBottomBorder: boolean('hasBottomBorder', false),
+				collapsed: boolean('isCollapsed', false)
 			}}
 		>
 			<PageContent>
@@ -53,7 +55,8 @@ stories
 					icon: text('icon', ''),
 					isSmall: boolean('isSmall', true)
 				},
-				hasBottomBorder: boolean('hasBottomBorder', false)
+				hasBottomBorder: boolean('hasBottomBorder', false),
+				collapsed: boolean('isCollapsed', false)
 			}}
 		>
 			<PageContent>
@@ -73,7 +76,8 @@ stories
 					icon: text('icon', ''),
 					isSmall: boolean('isSmall', true)
 				},
-				hasBottomBorder: boolean('hasBottomBorder', false)
+				hasBottomBorder: boolean('hasBottomBorder', false),
+				collapsed: boolean('isCollapsed', false)
 			}}
 		>
 			<PageContent>
@@ -87,7 +91,8 @@ stories
 				title: text('title', 'Page Title'),
 				backLinkHref: '#',
 				backLinkText: text('backLinkText', 'Back'),
-				tabs: manyTabs
+				tabs: manyTabs,
+				collapsed: boolean('isCollapsed', false)
 			}}
 		>
 			<PageContent>

@@ -124,10 +124,18 @@ const ListItem = (props: Props) => {
 					{selectableId && (
 						<Fragment>
 							{selectableType === 'checkbox' && (
-								<Checkbox id={selectableId} {...selectableProps} />
+								<Checkbox
+									id={selectableId}
+									{...(isDisabled ? { disabled: 'disabled' } : {})}
+									{...selectableProps}
+								/>
 							)}
 							{selectableType === 'radio' && (
-								<Radio id={selectableId} {...selectableProps} />
+								<Radio
+									id={selectableId}
+									{...(isDisabled ? { disabled: 'disabled' } : {})}
+									{...selectableProps}
+								/>
 							)}
 						</Fragment>
 					)}

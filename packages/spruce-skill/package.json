@@ -80,8 +80,8 @@
 	},
 	"devDependencies": {
 		"@semantic-release/changelog": "^3.0.0",
-		"@semantic-release/git": "^7.0.1",
-		"@sprucelabs/semantic-release": "^1.0.1",
+		"@semantic-release/git": "7.1.0-beta.3",
+		"@sprucelabs/semantic-release": "^2.0.8",
 		"babel-jest": "^24.5.0",
 		"chai": "^4.2.0",
 		"conventional-changelog-sprucelabs": "^1.1.0",
@@ -99,7 +99,7 @@
 		"nodemon": "^1.18.7",
 		"prettier": "^1.13",
 		"raf": "^3.4.0",
-		"semantic-release": "^15.10.6",
+		"semantic-release": "16.0.0-beta.22",
 		"sqlite3": "^4.0.4",
 		"supertest": "^3.3.0",
 		"svgo": "^1.0.3"
