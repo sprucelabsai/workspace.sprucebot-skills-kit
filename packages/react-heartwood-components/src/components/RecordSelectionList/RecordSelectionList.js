@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import {
 	List,
@@ -12,6 +12,7 @@ import cx from 'classnames'
 import { checkDeprecatedProps } from '../../utilities'
 
 import { TextInput, Radio, Checkbox } from '../Forms'
+import { InputPre } from '../Forms/FormPartials'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
 import Button from '../Button/Button'
@@ -69,6 +70,9 @@ export type RecordSelectionListProps = {|
 
 	/** Can the user remove records from this list? */
 	canRemove?: boolean,
+
+	/** Optionally provide a label fopr the search input */
+	searchLabel?: string,
 
 	/** Optionally provide a placeholder to the search input */
 	searchPlaceholder?: string,
@@ -472,10 +476,12 @@ export default class RecordSelectionList extends Component<
 			selectedIds = [],
 			totalRecordCount,
 			canSearch,
+			searchLabel,
 			searchPlaceholder,
 			showSelectedCount,
 			maxRowsVisible
 		} = this.props
+
 		const { loadedRecords, search, listHeight } = this.state
 		const totalSelected = selectedIds.length
 
@@ -507,13 +513,16 @@ export default class RecordSelectionList extends Component<
 				)}
 
 				{canSearch && (
-					<TextInput
-						type="text"
-						iconBefore="search"
-						placeholder={searchPlaceholder || 'Search...'}
-						value={search}
-						onChange={this.handleSearchUpdate}
-					/>
+					<Fragment>
+						{searchLabel && <InputPre label={searchLabel} />}
+						<TextInput
+							type="text"
+							iconBefore="search"
+							placeholder={searchPlaceholder || 'Search...'}
+							value={search}
+							onChange={this.handleSearchUpdate}
+						/>
+					</Fragment>
 				)}
 
 				{!maxRowsVisible ? (

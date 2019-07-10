@@ -63,6 +63,7 @@ class RecordListItemsExample extends Component<
 		return (
 			<RecordSelectionList
 				canSearch
+				searchLabel={'Search Label'}
 				selectedIds={selectedIds}
 				unselectableIds={unselectableIds}
 				loadRecordListItems={async ({ limit, offset, search }) => {
