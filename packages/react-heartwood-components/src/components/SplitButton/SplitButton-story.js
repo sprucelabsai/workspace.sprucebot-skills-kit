@@ -6,7 +6,8 @@ import SplitButton from './SplitButton'
 
 const actions = [
 	{
-		text: 'Another action'
+		text: 'Another action',
+		onClick: () => console.log('CLICK')
 	},
 	{
 		text: 'Third action'

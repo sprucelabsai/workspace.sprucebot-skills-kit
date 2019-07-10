@@ -4,7 +4,6 @@ import cx from 'classnames'
 import Button from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
-// TODO: Hook up arrow keys to navigate when actions are visible
 // TODO: Convert Button to tsx
 // TODO: Convert ButtonGroup to tsx
 // TODO: Convert Icon to tsx
@@ -177,7 +176,8 @@ export default class SplitButton extends Component<
 		) {
 			this.setState(
 				{
-					isVisible: false
+					isVisible: false,
+					highlightedActionIndex: -1
 				},
 				() => this.manageListeners()
 			)
@@ -186,6 +186,7 @@ export default class SplitButton extends Component<
 
 	public onKeyUp = (e: any) => {
 		const { actions } = this.props
+		const { highlightedActionIndex } = this.state
 		// Down arrow
 		if (e.keyCode === 40) {
 			// Update the highlighted suggestion
@@ -212,10 +213,23 @@ export default class SplitButton extends Component<
 		if (e.key === 'Escape') {
 			this.setState(
 				{
-					isVisible: false
+					isVisible: false,
+					highlightedActionIndex: -1
 				},
 				() => this.manageListeners()
 			)
+		}
+
+		// Enter
+		if (e.keyCode === 13) {
+			// Check if an action is highlighted
+			if (highlightedActionIndex > -1) {
+				// Trigger it if so
+				if (actions[highlightedActionIndex].onClick) {
+					actions[highlightedActionIndex].onClick()
+				}
+				this.toggleActionsVisibility()
+			}
 		}
 	}
 
@@ -269,7 +283,12 @@ export default class SplitButton extends Component<
 	public toggleActionsVisibility = () => {
 		this.getMenuPosition()
 		this.setState(
-			prevState => ({ isVisible: !prevState.isVisible }),
+			prevState => ({
+				isVisible: !prevState.isVisible,
+				highlightedActionIndex: prevState.isVisible
+					? -1
+					: prevState.highlightedActionIndex
+			}),
 			() => this.manageListeners()
 		)
 	}
