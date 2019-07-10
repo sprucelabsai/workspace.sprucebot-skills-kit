@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.10.0...v7.10.1) (2019-07-10)
+
+
+### Bug Fixes
+
+* [SDEV3-1847] allow scrolling in legacy views when rendered in heartwood web ([c63a00a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c63a00a))
+
+
+### Refactoring
+
+* add position relative to heartwood legacy page views ([3f06ca6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3f06ca6))
+
+
+
+
+
 # [7.10.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.8.3...v7.10.0) (2019-03-21)
 
 
