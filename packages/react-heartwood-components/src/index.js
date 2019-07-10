@@ -91,7 +91,9 @@ export {
 	default as RecordSelectionListItem
 } from './components/RecordSelectionList/RecordSelectionListItem'
 export { default as EmptyState } from './components/EmptyState/EmptyState'
-
+export {
+	default as TruncatedList
+} from './components/TruncatedList/TruncatedList'
 // Types
 export type { Props as TabsProps } from './components/Tabs/Tabs'
 export type { Props as TabProps } from './components/Tabs/components/Tab/Tab'
