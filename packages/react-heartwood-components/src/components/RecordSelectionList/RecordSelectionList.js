@@ -71,7 +71,7 @@ export type RecordSelectionListProps = {|
 	/** Can the user remove records from this list? */
 	canRemove?: boolean,
 
-	/** Optionally provide a label fopr the search input */
+	/** Optionally provide a label for the search input */
 	searchLabel?: string,
 
 	/** Optionally provide a placeholder to the search input */
