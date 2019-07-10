@@ -17,12 +17,15 @@ interface IDummyRecordTableRecord {
 	count: number
 }
 
-stories.add('RecordTable', () => {
+stories.add('Basic RecordTable', () => {
 	const records: IDummyRecordTableRecord[] = [...Array(1000)].map(() => ({
 		name: `${Math.floor(Math.random() * 1000)}-Dummy`,
 		count: Math.floor(Math.random() * 1000)
 	}))
 
+	// Faked API, made syncronous to populate initial state of the table.
+	// In the real world you'd just make a `fetchRecords` async method and call it
+	// in `getInitialProps` to populate your server-rendered state.
 	function syncFetchRecords(
 		options: IRecordTableFetchOptions
 	): IRecordTableFetchResults {
@@ -80,7 +83,60 @@ stories.add('RecordTable', () => {
 					},
 					{
 						Header: 'Count',
-						sortable: false,
+						id: 'count',
+						accessor: function renderCountColumn(
+							record: IDummyRecordTableRecord
+						) {
+							return <div>{record.count}</div>
+						}
+					}
+				]}
+				noDataIcon="trip_pin_multiple_light_large"
+				noDataHeadline={'No data!'}
+				noDataPrimaryAction={{
+					text: 'Try Again',
+					onClick: () => {},
+					type: 'submit'
+				}}
+			/>
+		</div>
+	)
+})
+
+stories.add('Empty RecordTable', () => {
+	const records = []
+
+	return (
+		<div>
+			<RecordTable
+				fetchRecords={async () => ({ visibleRows: [], totalRows: 0 })}
+				enableFilter={true}
+				searchPlaceholder={'Search groups...'}
+				fetchError={false}
+				initialLimit={10}
+				initialSortColumn={'name'}
+				initialSortDirection={'ASC'}
+				initialSelectedTab={'all'}
+				initialVisibleRows={records}
+				totalRows={records.length}
+				tabs={[
+					{
+						key: 'all',
+						text: 'All things'
+					}
+				]}
+				columns={[
+					{
+						Header: 'Name',
+						id: 'name',
+						accessor: function renderNameColumn(
+							record: IDummyRecordTableRecord
+						) {
+							return <div>{record.name}</div>
+						}
+					},
+					{
+						Header: 'Count',
 						id: 'count',
 						accessor: function renderCountColumn(
 							record: IDummyRecordTableRecord
