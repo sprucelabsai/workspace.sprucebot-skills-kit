@@ -40,7 +40,8 @@ const Page = Wrapped => {
 			super(props)
 			this.state = {
 				attemptingReAuth: !!props.attemptingReAuth,
-				isIframed: true
+				isIframed: true,
+				isHeartwoodView: false
 			}
 		}
 
@@ -49,6 +50,9 @@ const Page = Wrapped => {
 			let props = { pathname, query, asPath, skill }
 
 			const jwt = query.jwt || getCookie('jwt', req, res)
+
+			// Determines if the view is being displayed in heartwood skill view or legacy
+			props.isHeartwoodView = query.isHeartwoodView
 
 			if (jwt) {
 				try {
@@ -204,6 +208,21 @@ const Page = Wrapped => {
 				bodyClassNames.push('is_ios')
 			}
 
+			let isHeartwoodView = false
+
+			if (this.props.isHeartwoodView) {
+				// If query param indicates page is displayed in heartwood skill view,
+				// save item to sessionStorage so subsequent client-side page loads via next router
+				// will have access to the value
+				window.sessionStorage.setItem('isHeartwoodView', 'true')
+			}
+
+			this.setState({
+				isHeartwoodView:
+					this.props.isHeartwoodView ||
+					window.sessionStorage.getItem('isHeartwoodView')
+			})
+
 			document.body.classList.add(...bodyClassNames)
 		}
 
@@ -261,12 +280,15 @@ const Page = Wrapped => {
 				return (
 					<Container>
 						{this.state.isIframed ? (
-							<style jsx global>{`
-								html,
-								body {
-									overflow: hidden;
-								}
-							`}</style>
+							<style jsx global>
+								{this.state.isHeartwoodView
+									? `body { position: relative }`
+									: `
+										html,
+										body {
+											overflow: hidden;
+										}`}
+							</style>
 						) : null}
 						<DevControls auth={this.props.auth} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
@@ -275,13 +297,16 @@ const Page = Wrapped => {
 			}
 			return (
 				<Container>
-					{this.state.isIframed ? (
-						<style jsx global>{`
-							html,
-							body {
-								overflow: hidden;
-							}
-						`}</style>
+					{this.state.isIframed && !this.props.isHeartwoodView ? (
+						<style jsx global>
+							{this.state.isHeartwoodView
+								? `body { position: relative }`
+								: `
+									html,
+									body {
+										overflow: hidden;
+									}`}
+						</style>
 					) : null}
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 				</Container>
