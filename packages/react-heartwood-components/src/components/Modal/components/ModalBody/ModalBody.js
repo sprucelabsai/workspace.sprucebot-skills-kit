@@ -22,7 +22,7 @@ const ModalBody = (props: Props) => (
 		className={cx(
 			'modal-body',
 			{
-				'modal-body__full-bleed': props.fullBleed
+				'modal-body--full-bleed': props.fullBleed
 			},
 			props.className
 		)}
