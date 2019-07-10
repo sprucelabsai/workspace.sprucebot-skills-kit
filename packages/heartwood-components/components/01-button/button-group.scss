@@ -49,3 +49,7 @@
 .button-group--is-full-width {
 	width: 100%;
 }
+
+.button-group__item--is-highlighted:not(:hover) {
+	background-color: rgba($c-primary, 0.05);
+}
