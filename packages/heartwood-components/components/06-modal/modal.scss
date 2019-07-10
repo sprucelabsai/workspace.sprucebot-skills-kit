@@ -68,6 +68,10 @@
 	padding: spacing('base');
 	overflow-y: auto;
 
+	&__full-bleed {
+		padding: 0;
+	}
+
 	> img {
 		height: auto;
 		width: 100%;
