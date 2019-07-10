@@ -273,20 +273,22 @@ const Page = Wrapped => {
 		}
 
 		render() {
-			console.log('IS HEARTWOOD????', this.state.isHeartwoodView)
 			if (this.state.attemptingReAuth) {
 				return <Loader />
 			}
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
-						{this.state.isIframed && !this.state.isHeartwoodView ? (
-							<style jsx global>{`
-								html,
-								body {
-									overflow: hidden;
-								}
-							`}</style>
+						{this.state.isIframed ? (
+							<style jsx global>
+								{this.state.isHeartwoodView
+									? `body { position: relative }`
+									: `
+										html,
+										body {
+											overflow: hidden;
+										}`}
+							</style>
 						) : null}
 						<DevControls auth={this.props.auth} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
@@ -296,12 +298,15 @@ const Page = Wrapped => {
 			return (
 				<Container>
 					{this.state.isIframed && !this.props.isHeartwoodView ? (
-						<style jsx global>{`
-							html,
-							body {
-								overflow: hidden;
-							}
-						`}</style>
+						<style jsx global>
+							{this.state.isHeartwoodView
+								? `body { position: relative }`
+								: `
+									html,
+									body {
+										overflow: hidden;
+									}`}
+						</style>
 					) : null}
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 				</Container>
