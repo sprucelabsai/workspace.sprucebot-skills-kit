@@ -105,6 +105,9 @@ interface IButtonGroupProps {
 	className?: string
 
 	onToggleContextMenuVisible?: Function
+
+	/** Optional: Index of the button that is currently highlighted, e.g. by arrow keys */
+	highlightedIndex?: number
 }
 
 export interface ISplitButtonProps {
@@ -273,7 +276,7 @@ export default class SplitButton extends Component<
 
 	public render(): React.ReactNode {
 		const { defaultAction, actions, kind, isFullWidth, isSmall } = this.props
-		const { isVisible, menuPosition } = this.state
+		const { isVisible, menuPosition, highlightedActionIndex } = this.state
 		return (
 			<div
 				className={cx('split-button', {
@@ -308,7 +311,12 @@ export default class SplitButton extends Component<
 								width: `${menuPosition.width}px`
 							}}
 						>
-							<ButtonGroup kind="floating" isFullWidth actions={actions} />
+							<ButtonGroup
+								kind="floating"
+								isFullWidth
+								actions={actions}
+								highlightedIndex={highlightedActionIndex}
+							/>
 						</div>,
 						document.body
 					)}

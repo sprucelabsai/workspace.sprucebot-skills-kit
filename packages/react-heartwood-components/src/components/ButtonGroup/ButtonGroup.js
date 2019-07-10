@@ -12,11 +12,14 @@ type Props = {
 	kind?: 'default' | 'segmented' | 'floating',
 
 	/** Set true to fill parent width */
-	isFullWidth?: boolean
+	isFullWidth?: boolean,
+
+	/** Optional: Index of the button that is currently highlighted, e.g. by arrow keys */
+	highlightedIndex?: number
 }
 
 const ButtonGroup = (props: Props) => {
-	const { actions, kind, isFullWidth } = props
+	const { actions, kind, isFullWidth, highlightedIndex } = props
 	const parentClass = cx('button-group', {
 		'button-group-segmented': kind === 'segmented',
 		'button-group-floating': kind === 'floating',
@@ -24,9 +27,14 @@ const ButtonGroup = (props: Props) => {
 	})
 	return (
 		<ul className={parentClass}>
-			{actions.map(action => {
+			{actions.map((action, idx) => {
 				return (
-					<li key={action.text} className="button-group__item">
+					<li
+						key={action.text}
+						className={cx('button-group__item', {
+							'button-group__item--is-highlighted': highlightedIndex === idx
+						})}
+					>
 						<Button
 							isFullWidth={kind === 'floating'}
 							{...action}
@@ -47,7 +55,8 @@ const ButtonGroup = (props: Props) => {
 
 ButtonGroup.defaultProps = {
 	kind: 'default',
-	isFullWidth: false
+	isFullWidth: false,
+	highlightedIndex: -1
 }
 
 export default ButtonGroup
