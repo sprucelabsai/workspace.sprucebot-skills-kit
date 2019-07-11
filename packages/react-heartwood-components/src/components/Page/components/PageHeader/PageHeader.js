@@ -122,16 +122,16 @@ const PageHeader = (props: PageHeaderProps) => {
 				>
 					<div className="page__header-title-wrapper">
 						<h1>{title}</h1>
-						{sidebarExpander && (
-							<div>
+						<div>
+							{sidebarExpander && (
 								<Button
 									{...sidebarExpander}
 									isSmall
 									className="page__header-sidebar-btn"
 								/>
-								{primaryAction && <Button {...primaryAction} />}
-							</div>
-						)}
+							)}
+							{primaryAction && <Button {...primaryAction} />}
+						</div>
 					</div>
 				</div>
 			</div>
