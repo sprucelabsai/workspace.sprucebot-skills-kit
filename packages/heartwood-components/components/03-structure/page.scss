@@ -12,7 +12,7 @@
 .page__header {
 	padding-top: spacing('base');
 	overflow: hidden;
-	max-height: 200px;
+	max-height: 100vh;
 	opacity: 1;
 	transition: 350ms 350ms max-height, 350ms 350ms opacity, 350ms 350ms padding;
 
@@ -110,10 +110,29 @@
 }
 
 .page__header-title-wrapper {
-	align-items: center;
-	display: flex;
-	justify-content: space-between;
 	width: 100%;
+	margin-bottom: -1 * spacing('tight');
+
+	@include gt('small') {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 0;
+	}
+
+	> * {
+		display: inline-block;
+		margin-right: spacing('tight');
+		margin-bottom: spacing('tight');
+
+		@include gt('small') {
+			margin-bottom: 0;
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
 }
 
 .page__header-sidebar-btn {
