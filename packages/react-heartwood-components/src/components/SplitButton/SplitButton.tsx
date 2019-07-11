@@ -296,6 +296,19 @@ export default class SplitButton extends Component<
 	public render(): React.ReactNode {
 		const { defaultAction, actions, kind, isFullWidth, isSmall } = this.props
 		const { isVisible, menuPosition, highlightedActionIndex } = this.state
+
+		if (!actions || (actions && actions.length === 0)) {
+			// TODO: Warn dev if not in production environment; they might wanna use a different component
+			return (
+				<Button
+					kind={kind}
+					isFullWidth={isFullWidth}
+					isSmall={isSmall}
+					{...defaultAction}
+				/>
+			)
+		}
+
 		return (
 			<div
 				className={cx('split-button', {
