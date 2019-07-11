@@ -30,6 +30,12 @@ module.exports = {
 		reason: 'Authentication failed.',
 		friendlyReason: "Sorry, you can't be here right now."
 	},
+	USER_NOT_LOGGED_IN: {
+		code: 403,
+		status: 'failure',
+		reason: 'The user is not logged in',
+		friendlyReason: 'Please log in and try again.'
+	},
 	NOT_AUTHORIZED: {
 		code: 403,
 		status: 'failure',
@@ -54,5 +60,18 @@ module.exports = {
 		status: 'failure',
 		reason: 'The event payload was invalid',
 		friendlyReason: 'Sorry, something went wrong'
+	},
+	NOT_IMPLEMENTED: {
+		code: 510,
+		status: 'failure',
+		reason: 'The handler for this action has not been implemented.',
+		friendlyReason: 'Sorry, something went wrong'
+	},
+	// Upload
+	INVALID_FILE_FORMAT: {
+		code: 400,
+		status: 'failure',
+		reason: 'The file format is invalid.',
+		friendlyReason: "Sorry, I wasn't able to process your file(s)"
 	}
 }

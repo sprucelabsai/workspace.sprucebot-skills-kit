@@ -1,11 +1,11 @@
+// @flow
 import React, { Component } from 'react'
 
 import * as actions from '../store/actions'
 import ServerCookies from 'cookies'
 import ClientCookies from 'js-cookies'
 import skill from '../index'
-import DevControls from './DevControls'
-import { Loader } from '@sprucelabs/react-heartwood-components'
+import { Loader, FontLoader } from '@sprucelabs/react-heartwood-components'
 import qs from 'qs'
 import lang from '../helpers/lang'
 import Router, { withRouter } from 'next/router'
@@ -16,7 +16,10 @@ const debug = require('debug')('@sprucelabs/spruce-next-helpers')
 
 const setCookie = (named, value, req, res) => {
 	if (req && req.headers) {
-		const cookies = new ServerCookies(req, res, { secure: true })
+		const cookies = new ServerCookies(req, res, {
+			secure: true,
+			httpOnly: false
+		})
 		return cookies.set(named, value)
 	} else {
 		return ClientCookies.setItem(named, value)
@@ -25,18 +28,74 @@ const setCookie = (named, value, req, res) => {
 
 const getCookie = (named, req, res) => {
 	if (req && req.headers) {
-		const cookies = new ServerCookies(req, res, { secure: true })
+		const cookies = new ServerCookies(req, res, {
+			secure: true,
+			httpOnly: false
+		})
 		return cookies.get(named)
 	} else {
 		return ClientCookies.getItem(named)
 	}
 }
 
+// This is only temporary until theming is set up
+const fonts = [
+	{
+		name: 'Source Sans Pro',
+		weight: 400,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro',
+			rel: 'stylesheet'
+		}
+	},
+	{
+		name: 'Source Sans Pro',
+		weight: 600,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:600',
+			rel: 'stylesheet'
+		}
+	},
+	{
+		name: 'Source Code Pro',
+		weight: 500,
+		link: {
+			href: 'https://fonts.googleapis.com/css?family=Source+Code+Pro:500',
+			rel: 'stylesheet'
+		}
+	}
+]
+
+type Props = {
+	pathname: string,
+	query: Object,
+	asPath: string,
+	store: Object,
+	res?: Object,
+	req?: Object,
+	renderLocation?: 'page' | 'modal' | 'right-rail'
+}
+
+type State = {
+	isIframed: boolean
+}
+
+export type WrappedInitialProps = {
+	...Props,
+	auth?: {
+		authing: boolean,
+		User?: Object,
+		Location?: Object,
+		Organization?: Object,
+		error?: Object
+	}
+}
+
 const PageWrapper = Wrapped => {
 	const ConnectedWrapped = withRouter(Wrapped)
 
-	return class extends Component {
-		constructor(props) {
+	return class extends Component<Props, State> {
+		constructor(props: Props) {
 			super(props)
 			this.state = {
 				attemptingReAuth: !!props.attemptingReAuth,
@@ -45,33 +104,62 @@ const PageWrapper = Wrapped => {
 		}
 
 		// Everything here is run server side
-		static async getInitialProps({ pathname, query, asPath, store, res, req }) {
-			let props = { pathname, query, asPath, skill }
+		static async getInitialProps({
+			pathname,
+			query,
+			asPath,
+			store,
+			res,
+			req,
+			renderLocation
+		}: Props) {
+			let props = {
+				pathname,
+				query,
+				asPath,
+				renderLocation: renderLocation || 'page'
+			}
 
-			const jwt = query.jwt || getCookie('jwt', req, res)
+			// First get and set the jwt and jwtV2 tokens, preferring the query string version over what's saved in cookies
+			let jwt
+			if (query.jwt) {
+				jwt = query.jwt
+				setCookie('jwt', jwt, req, res)
+			} else {
+				jwt = getCookie('jwt', req, res)
+			}
 
-			if (jwt) {
+			let jwtV2
+			if (query.jwtV2) {
+				jwtV2 = query.jwtV2
+				setCookie('jwtV2', jwtV2, req, res)
+			} else {
+				jwtV2 = getCookie('jwtV2', req, res)
+			}
+
+			// Do authentication, preferring V2 if the jwtV2 is set
+			if (jwtV2) {
+				try {
+					await store.dispatch(
+						actions.authV2.go(query.jwtV2 || getCookie('jwtV2', req, res))
+					)
+				} catch (e) {
+					debug(err)
+					debug('Error fetching user from jwtV2')
+				}
+			} else if (jwt) {
 				try {
 					await store.dispatch(actions.auth.go(jwt))
-					await store.dispatch(actions.onboarding.didOnboarding())
-
-					// only save cookie if a new one has been passed
-					if (query.jwt) {
-						setCookie('jwt', query.jwt, req, res)
-					}
 				} catch (err) {
 					debug(err)
 					debug('Error fetching user from jwt')
 				}
-			} else {
-				debug(
-					'This looks pretty bad. You are missing a jwt and will probably be unauthorized'
-				)
 			}
 
 			const state = store.getState()
 
-			if (state.auth && !state.auth.error) {
+			// v1 Legacy authentication logic
+			if (state.auth && !state.auth.error && state.auth.version === 1) {
 				state.auth.role =
 					(state.config.DEV_MODE && getCookie('devRole', req, res)) ||
 					state.auth.role
@@ -90,8 +178,9 @@ const PageWrapper = Wrapped => {
 
 			if (
 				query.back &&
-				query.jwt &&
+				(query.jwt || query.jwtV2) &&
 				(query.back.search('sprucebot.com') > 0 ||
+					query.back.search('spruce.ai') > 0 ||
 					query.back.search('bshop.io') > 0)
 			) {
 				// if there is a jwt, we are being authed
@@ -99,7 +188,9 @@ const PageWrapper = Wrapped => {
 			} else if (
 				!redirect &&
 				!props.public &&
-				(!state.auth || !state.auth.role || state.auth.error)
+				(!state.auth ||
+					(state.auth.version === 1 && !state.auth.role) ||
+					state.auth.error)
 			) {
 				// no redirect is set, we're not public, but auth failed
 				redirect = '/unauthorized'
@@ -130,11 +221,21 @@ const PageWrapper = Wrapped => {
 			}
 
 			// if we are /unauthorized, don't have a cookie, but have NOT done cookie check
+			// TODO Remove re-auth after proving it works as expected in legacy skill
 			if (
 				props.pathname === '/unauthorized' &&
 				(!state.auth || !state.auth.role)
 			) {
 				props.attemptingReAuth = true
+			}
+
+			// v2 authentication
+			if (state.auth && state.auth.User) {
+				debug(
+					`AuthLogged in user: ${state.auth.User.id} / ${
+						state.auth.User.firstName
+					} ${state.auth.User.lastName}`
+				)
 			}
 
 			// We can only return a plain object here because it is passed to the browser
@@ -186,12 +287,6 @@ const PageWrapper = Wrapped => {
 			// window listeners for reauth communication
 			window.addEventListener('message', this.handleIframeMessage)
 
-			// setup event listeners
-			skill.addEventListener(
-				'did-update-user',
-				this.props.actions.events.didUpdateUser
-			)
-
 			const bodyClassNames = [
 				`${
 					is.mobile() ? 'is_mobile' : is.tablet() ? 'is_tablet' : 'is_desktop'
@@ -208,12 +303,6 @@ const PageWrapper = Wrapped => {
 		componentWillUnmount() {
 			// remove all listeners
 			window.removeEventListener('message', this.handleIframeMessage)
-
-			// no more user updates
-			skill.removeEventListener(
-				'did-update-user',
-				this.props.actions.events.didUpdateUser
-			)
 
 			// remove route changes
 			Router &&
@@ -255,32 +344,18 @@ const PageWrapper = Wrapped => {
 			if (this.state.attemptingReAuth) {
 				return <Loader />
 			}
+
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
-						{this.state.isIframed ? (
-							<style jsx global>{`
-								html,
-								body {
-									overflow: hidden;
-								}
-							`}</style>
-						) : null}
-						<DevControls auth={this.props.auth} />
+						<FontLoader fonts={fonts} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 					</Container>
 				)
 			}
 			return (
 				<Container>
-					{this.state.isIframed ? (
-						<style jsx global>{`
-							html,
-							body {
-								overflow: hidden;
-							}
-						`}</style>
-					) : null}
+					<FontLoader fonts={fonts} />
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 				</Container>
 			)

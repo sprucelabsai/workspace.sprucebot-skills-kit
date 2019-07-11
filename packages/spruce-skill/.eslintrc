@@ -1,22 +1,6 @@
 {
-	"plugins": ["react", "prettier", "plugin:flowtype/recommended"],
+	"extends": "spruce",
 	"rules": {
-		"prettier/prettier": [
-			"error",
-			{
-				"singleQuote": true,
-				"useTabs": true,
-				"semi": false
-			}
-		]
-	},
-	"parserOptions": {
-		"sourceType": "module",
-		"ecmaVersion": 8,
-		"ecmaFeatures": {
-			"experimentalObjectRestSpread": true,
-			"jsx": true
-		}
-	},
-	"extends": ["prettier"]
+		"no-unused-vars": ["error", { "argsIgnorePattern": "(^ctx$)" }]
+	}
 }

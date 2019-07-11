@@ -1,10 +1,11 @@
 // @flow
 // NOTE: Cards should be built in a way that they can be created with JSON
 import React, { Fragment } from 'react'
-import type { Element, Node } from 'react'
 import cx from 'classnames'
 import Button from '../../Button/Button'
 import Icon from '../../Icon/Icon'
+import ContextMenu from '../../ContextMenu/ContextMenu'
+
 import type { Props as ButtonProps } from '../../Button/Button'
 import type { Props as ContextMenuProps } from '../../ContextMenu/ContextMenu'
 
@@ -23,7 +24,7 @@ export type CardHeaderProps = {
 	actions?: Array<ButtonProps>,
 
 	/** Renders a Context Menu in the Card Header */
-	contextMenu?: Node
+	contextMenu?: ContextMenuProps
 }
 
 const CardHeader = (props: CardHeaderProps) => {
@@ -58,7 +59,7 @@ const CardHeader = (props: CardHeaderProps) => {
 							actions.map(action => (
 								<Button key={action.text} kind="simple" isSmall {...action} />
 							))}
-						{contextMenu}
+						{contextMenu && <ContextMenu {...contextMenu} />}
 					</Fragment>
 				</div>
 			)}

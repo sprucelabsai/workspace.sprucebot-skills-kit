@@ -1,4 +1,5 @@
 const globby = require('globby')
+const debug = require('debug')('spruce-skill-server')
 const { GraphQLObjectType, GraphQLSchema } = require('graphql')
 const helpers = require('./helpers')
 
@@ -9,6 +10,9 @@ module.exports = class Schema {
 				helpers: helpers(ctx),
 				types: {}
 			}
+			const coreTypePaths = globby.sync([
+				`${__dirname}/types/**/!(index|types|_helpers).js`
+			])
 			const typePaths = globby.sync([
 				`${gqlDir}/types/**/!(index|types|_helpers).js`
 			])
@@ -17,10 +21,25 @@ module.exports = class Schema {
 			])
 			let queries = {}
 			let mutations = {}
+			let subscriptions = {}
 			// Load GQL types first and assign to ctx.gql.types[<type name>]
+			coreTypePaths.forEach(path => {
+				try {
+					debug(`Importing GQL file: ${path}`)
+					// $FlowIgnore
+					const type = require(path)(ctx) // eslint-disable-line
+					let name = path.replace(/^(.*[\\\/])/, '')
+					name = name.replace('.js', '')
+					if (type) {
+						ctx.gql.types[name] = type
+					}
+				} catch (e) {
+					log.warn(`Unable to import GraphQL fields from ${path}`, e)
+				}
+			})
 			typePaths.forEach(path => {
 				try {
-					log.info(`Importing GQL file: ${path}`)
+					debug(`Importing GQL file: ${path}`)
 					// $FlowIgnore
 					const type = require(path)(ctx) // eslint-disable-line
 					let name = path.replace(/^(.*[\\\/])/, '')
@@ -35,12 +54,13 @@ module.exports = class Schema {
 			// Load resolvers which could be queries, mutations, or subscriptions
 			resolverPaths.forEach(path => {
 				try {
-					log.info(`Importing GQL file: ${path}`)
+					debug(`Importing GQL file: ${path}`)
 					// $FlowIgnore
 					const def = require(path)(ctx) // eslint-disable-line
 					// Resolvers may contain queries and/or mutations
 					queries = Object.assign(queries, def.queries || {})
 					mutations = Object.assign(mutations, def.mutations || {})
+					subscriptions = Object.assign(subscriptions, def.subscriptions || {})
 				} catch (e) {
 					log.warn(`Unable to import GraphQL fields from ${path}`, e)
 				}
@@ -59,8 +79,16 @@ module.exports = class Schema {
 					fields: mutations
 				})
 			}
+			if (subscriptions && Object.keys(subscriptions).length > 0) {
+				resolvers.subscription = new GraphQLObjectType({
+					name: 'Subscription',
+					fields: subscriptions
+				})
+			}
 
 			const schema = new GraphQLSchema(resolvers)
+
+			log.info('Finished importing GQL files and creating schema')
 
 			return schema
 		} catch (e) {

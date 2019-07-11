@@ -107,7 +107,7 @@ export default class SortableComponent extends Component<Props, State> {
 
 	render() {
 		const { isSorting } = this.state
-		const { header, items, className, isSmall } = this.props
+		const { header, className, isSmall } = this.props
 		const parentClass = cx('list sortable-list', className, {
 			'list-small': isSmall
 		})

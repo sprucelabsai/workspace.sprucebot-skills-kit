@@ -27,6 +27,11 @@ select:-webkit-autofill:focus {
 
 .text-input__post-label {
 	color: $c-text-light;
+
+	a.text {
+		cursor: pointer;
+		font-size: 0.75rem;
+	}
 }
 
 .text-input__helper {

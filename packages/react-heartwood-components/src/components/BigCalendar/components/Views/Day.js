@@ -355,7 +355,7 @@ class Day extends PureComponent<Props, State> {
 		return this.props.users[nearest]
 	}
 
-	getDragNode = ({ event, block, blockIdx, dragEventNode, dragBlockNode }) => {
+	getDragNode = ({ blockIdx, dragEventNode, dragBlockNode }) => {
 		return blockIdx === 0 ? dragEventNode : dragBlockNode
 	}
 
@@ -463,6 +463,10 @@ class Day extends PureComponent<Props, State> {
 		const newUser = this.xToUser(newX)
 
 		const { onDropEvent, timezone } = this.props
+		const matches = document.querySelectorAll(
+			'.bigcalendar__event.hover-available'
+		)
+		matches.forEach(match => match.classList.toggle('hover-available', false))
 
 		if (
 			newStartAt &&
@@ -665,7 +669,7 @@ class Day extends PureComponent<Props, State> {
 		window.getSelection().removeAllRanges()
 	}
 
-	handleSelectEvent = async ({ event, block, blockIdx }) => {
+	handleSelectEvent = async ({ event }) => {
 		if (event.details) {
 			this.deselectAllTextSelections()
 
@@ -748,7 +752,7 @@ class Day extends PureComponent<Props, State> {
 		})
 	}
 
-	handleHighlightEvent = async ({ event, block, blockIdx }) => {
+	handleHighlightEvent = async ({ event }) => {
 		this.setState({ highlightedEvent: event })
 	}
 
@@ -1299,9 +1303,7 @@ class Day extends PureComponent<Props, State> {
 			dragThreshold,
 			dragScrollSpeed,
 			scrollDuringDragMargin,
-			timeGutterFormat,
-			headerCellDowFormat,
-			headerCellDayFormat
+			timeGutterFormat
 		} = this.props
 
 		const {

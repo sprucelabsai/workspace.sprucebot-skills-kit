@@ -23,6 +23,9 @@ const ToastHeader = (props: HeaderProps) => {
 }
 
 export type Props = {
+	/** Unique ID for the toast */
+	id: string | number,
+
 	/** Headline text */
 	headline: string,
 
@@ -35,12 +38,15 @@ export type Props = {
 	/** Sets the variation of toast */
 	kind?: 'neutral' | 'positive' | 'negative',
 
-	/** Handle undoing the action that triggered the toast */
-	onUndo?: Function
+	/** Handle a followup action */
+	followupAction?: Function,
+
+	/** Text for the followup action */
+	followupText?: string
 }
 
 const Toast = (props: Props) => {
-	const { headline, kind, text, onUndo, onRemove } = props
+	const { headline, kind, text, followupAction, followupText, onRemove } = props
 	const toastClass = cx('toast', {
 		'toast-positive': kind === 'positive',
 		'toast-negative': kind === 'negative'
@@ -51,14 +57,17 @@ const Toast = (props: Props) => {
 			<div className="toast__body">
 				<p>{text}</p>
 			</div>
-			{onUndo && <Button text="Undo" onClick={onUndo} />}
+			{followupAction && (
+				<Button text={followupText} onClick={followupAction} />
+			)}
 		</div>
 	)
 }
 
 Toast.defaultProps = {
 	kind: 'neutral',
-	onUndo: null
+	followupAction: null,
+	followupText: 'Undo'
 }
 
 export default Toast

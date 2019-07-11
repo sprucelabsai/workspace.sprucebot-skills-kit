@@ -4,7 +4,11 @@ import is from 'is_js'
 import cx from 'classnames'
 import Link from 'next/link'
 import type { Props as LinkProps } from 'next/link'
+import type { Props as ButtonProps } from '../../../Button/Button'
+import type { Props as TabsProps } from '../../../Tabs/Tabs'
 import Icon from '../../../Icon/Icon'
+import Button from '../../../Button/Button'
+import Tabs from '../../../Tabs/Tabs'
 import BackIcon from '../../../../../static/assets/icons/ic_keyboard_arrow_left.svg'
 
 export type PageHeaderProps = {
@@ -21,11 +25,39 @@ export type PageHeaderProps = {
 	backLinkText?: string,
 
 	/** Props for Next router link: https://nextjs.org/docs/#routing. */
-	linkProps?: LinkProps
+	linkProps?: LinkProps,
+
+	/** Is the header collapsed? */
+	collapsed?: boolean,
+
+	/** Adds a button to the page header for its primary action. */
+	primaryAction?: ButtonProps,
+
+	/** Adds tabbed navigation for subviews */
+	tabs?: TabsProps,
+
+	/** Set true to add a border to the page header */
+	hasBottomBorder?: boolean,
+
+	/** Adds an element to expand the right sidebar */
+	sidebarExpander: ButtonProps
 }
 
 const PageHeader = (props: PageHeaderProps) => {
-	const { title, backLinkHref, onClickBack, backLinkText, linkProps } = props
+	const {
+		backLinkComponent: RelativeBackLinkComponent = Link,
+		backLinkHref,
+		backLinkText,
+		className,
+		collapsed = false,
+		hasBottomBorder,
+		linkProps,
+		onClickBack,
+		primaryAction,
+		sidebarExpander,
+		tabs,
+		title
+	} = props
 
 	const backLinkClass = 'page__header-back-link'
 	let anchor
@@ -56,12 +88,12 @@ const PageHeader = (props: PageHeaderProps) => {
 			}
 			// Only return a Next link if the href is relative
 			anchor = linkIsRelative ? (
-				<Link href={backLinkHref} {...linkProps}>
+				<RelativeBackLinkComponent href={backLinkHref} {...linkProps}>
 					<a className={backLinkClass}>
 						{backIcon}
 						{backLinkText}
 					</a>
-				</Link>
+				</RelativeBackLinkComponent>
 			) : (
 				<a href={backLinkHref} className={backLinkClass}>
 					{backIcon}
@@ -72,15 +104,38 @@ const PageHeader = (props: PageHeaderProps) => {
 	}
 
 	return (
-		<header class="page__header">
-			{anchor && anchor}
-			{/* <a class="page__header-back-link" href="#">
-            <?xml version="1.0" encoding="utf-8"?>
-        <svg class="page__header-back-link-icon" version=" 1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns: xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-    
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.842 13.825L9.02533 10L12.842 6.175L11.667 5L6.66699 10L11.667 15L12.842 13.825Z" />
-        </svg>Previous Page</a> */}
-			<h1>{title}</h1>
+		<header
+			className={cx(
+				'page__header',
+				{
+					'page__header--is-collapsed': collapsed
+				},
+				className
+			)}
+		>
+			<div className="page__header-inner">
+				{anchor && anchor}
+				<div
+					className={cx('page__header-main', {
+						'page__header-main--has-bottom-border': hasBottomBorder
+					})}
+				>
+					<div className="page__header-title-wrapper">
+						<h1>{title}</h1>
+						{sidebarExpander && (
+							<Button
+								{...sidebarExpander}
+								isSmall
+								className="page__header-sidebar-btn"
+							/>
+						)}
+					</div>
+					{primaryAction && <Button {...primaryAction} />}
+				</div>
+			</div>
+			{tabs && tabs.length > 0 && (
+				<Tabs isPadded={false} className="page__header-tabs" tabs={tabs} />
+			)}
 		</header>
 	)
 }
@@ -88,7 +143,10 @@ const PageHeader = (props: PageHeaderProps) => {
 PageHeader.defaultProps = {
 	title: '',
 	backLinkText: 'Back',
-	backLinkHref: ''
+	backLinkHref: '',
+	primaryAction: null,
+	hasBottomBorder: false,
+	tabs: []
 }
 
 export default PageHeader

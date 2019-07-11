@@ -1,6 +1,5 @@
 // @flow
 import React, { PureComponent } from 'react'
-import cx from 'classnames'
 import UserAvatar from '../../../Avatar/UserAvatar'
 import eventUtil from '../../utils/event'
 
@@ -32,8 +31,8 @@ class TeammateHeader extends PureComponent<Props> {
 	handleClick = (e: Event) => {
 		const {
 			doubleClickTime,
-			onDoubleClick = (params: DoubleClickParams) => {},
-			onClick = (e: Event) => {}
+			onDoubleClick = (/* params: DoubleClickParams */) => {},
+			onClick = () => {}
 		} = this.props
 
 		if (
@@ -62,14 +61,7 @@ class TeammateHeader extends PureComponent<Props> {
 	}
 
 	render() {
-		const {
-			users,
-			onScroll,
-			onDoubleClick,
-			doubleClickTime,
-			onClick,
-			...props
-		} = this.props
+		const { users, onScroll, ...props } = this.props
 
 		return (
 			<div

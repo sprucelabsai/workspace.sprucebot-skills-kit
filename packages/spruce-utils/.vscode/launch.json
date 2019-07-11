@@ -1,0 +1,14 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Debug",
+			"protocol": "inspector",
+			"runtimeExecutable": "yarn",
+			"runtimeArgs": ["local"],
+			"port": 4000
+		}
+	]
+}

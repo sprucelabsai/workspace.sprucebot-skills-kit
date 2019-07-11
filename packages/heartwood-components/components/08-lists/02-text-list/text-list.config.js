@@ -64,6 +64,19 @@ module.exports = {
 			}
 		},
 		{
+			name: 'Notes',
+			context: {
+				listHeaderTitle: 'Holidays',
+				items: [
+					{
+						title: 'Wed, Nov 28, 2018',
+						subtitle: 'Closed',
+						note: 'This location is closed for Independence Day'
+					}
+				]
+			}
+		},
+		{
 			name: 'Actions',
 			context: {
 				listHeaderTitle: 'Actions',
@@ -125,6 +138,27 @@ module.exports = {
 						title: 'Wed, Nov 28, 2018',
 						subtitle: 'Closed',
 						actions: threeActions
+					}
+				]
+			}
+		},
+		{
+			name: 'Disabled',
+			context: {
+				listHeaderTitle: 'One of these is disabled',
+				items: [
+					{
+						title: 'Wed, Nov 28, 2018',
+						subtitle: 'Closed'
+					},
+					{
+						title: 'Wed, Nov 28, 2018',
+						subtitle: 'Closed',
+						isDisabled: true
+					},
+					{
+						title: 'Wed, Nov 28, 2018',
+						subtitle: 'Closed'
 					}
 				]
 			}

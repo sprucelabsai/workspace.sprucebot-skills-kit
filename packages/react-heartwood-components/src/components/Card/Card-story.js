@@ -19,11 +19,12 @@ import Card, {
 } from './index'
 import List from '../List/List'
 import TextContainer from '../TextContainer/TextContainer'
+import Page, { PageContent } from '../Page'
+import Layout, { LayoutSection } from '../Layout'
 import Text from '../Text/Text'
 import Subheading from '../Subheading/Subheading'
 import Image from '../Image/Image'
 import { Scores } from './index'
-import ContextMenu from '../ContextMenu/ContextMenu'
 import Button from '../Button/Button'
 import Avatar from '../Avatar/Avatar'
 import userImageLg from '../../../static/assets/users/user-01--96w.png'
@@ -61,6 +62,103 @@ const cardJSON = {
 	}
 }
 
+const cardJSON2 = {
+	header: {
+		title: 'Your sales for today!'
+	},
+	body: {
+		children: [
+			{
+				type: 'text',
+				props: { children: 'This is your typical score card' }
+			},
+			{
+				type: 'scores',
+				props: {
+					scores: [
+						{ id: 1, label: 'Today', value: '$1,848' },
+						{ id: 2, label: 'This Week', value: '$5,778' },
+						{ id: 3, label: 'This Month', value: '$25,068' }
+					]
+				}
+			}
+		]
+	}
+}
+const cardJSON3 = {
+	onboarding: {
+		title: 'Setup your first skill!',
+		steps: [
+			{
+				id: '1',
+				isComplete: true,
+				tabTitle: 'Add your first location',
+				panelTitle: 'It is time to add your location.',
+				panelCopy: "It's going to be so great, you know it!"
+			},
+			{
+				id: '2',
+				tabTitle: 'Set up your team',
+				tabIcon: { name: 'location', isLineIcon: true },
+				panelTitle: 'Team setup is the best',
+				panelCopy: 'Teammwork makes the dream work!'
+			},
+			{
+				id: '3',
+				tabIcon: { name: 'launch', isLineIcon: true },
+				tabTitle: 'Go live',
+				panelTitle: "You're ready to go live!",
+				panelCopy: 'Do it! Do it!'
+			}
+		]
+	}
+}
+const cardJSON4 = {
+	header: {
+		labelText: 'The last example!'
+	},
+	body: {
+		children: [
+			{
+				key: 'list_example',
+				type: 'list',
+				heading: {
+					title: 'This is a list!'
+				},
+				items: [
+					{
+						key: 'number_one',
+						title: 'This is so cool!',
+						subtitle: 'For sure!',
+						icon: { name: 'complete', isLineIcon: true }
+					},
+					{
+						key: 'number_two',
+						title: 'Takes all the props a List can take!',
+						icon: { name: 'complete', isLineIcon: true }
+					}
+				]
+			},
+			{
+				key: 'text_example',
+				type: 'text',
+				text: 'Following up with text component!'
+			}
+		]
+	},
+	footer: {
+		actions: [
+			{
+				type: 'button',
+				text: 'Do things',
+				kind: 'secondary',
+				icon: '',
+				isSmall: true
+			}
+		]
+	}
+}
+
 const stories = storiesOf('Card', module)
 
 stories.addDecorator(
@@ -68,6 +166,16 @@ stories.addDecorator(
 		escapeHTML: false
 	})
 )
+
+stories.addDecorator(story => (
+	<Page>
+		<PageContent>
+			<Layout>
+				<LayoutSection>{story()}</LayoutSection>
+			</Layout>
+		</PageContent>
+	</Page>
+))
 
 stories.addDecorator(withKnobs)
 
@@ -152,7 +260,7 @@ stories
 				<Avatar isLarge image={userImageLg} alt="Rosamund Mueleer" />
 				<TextContainer spacing="tight">
 					<Subheading className="card-header__title" element="h3">
-						Say "Happy Birthday"
+						{`Say "Happy Birthday"`}
 					</Subheading>
 					<Text>
 						It’s Rosamond Mueller’s birthday today. Don’t forget to say happy
@@ -218,13 +326,9 @@ stories
 						}
 					]
 				}
-				contextMenu={
-					boolean('Header Context Menu', false) && (
-						<ContextMenu
-							actions={[{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]}
-						/>
-					)
-				}
+				contextMenu={object('contextMenu', {
+					actions: [{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]
+				})}
 			/>
 			<CardBody>
 				<Text>
@@ -240,4 +344,9 @@ stories
 		</Card>
 	))
 	.add('Onboarding Card', () => <OnboardingCard {...onboarding} />)
-	.add('CardBuilder', () => <CardBuilder {...object('json', cardJSON)} />)
+	.add('CardBuilder', () => [
+		<CardBuilder key="foo-0" {...object('json', cardJSON)} />,
+		<CardBuilder key="foo-1" {...object('json2', cardJSON2)} />,
+		<CardBuilder key="foo-2" {...object('json3', cardJSON3)} />,
+		<CardBuilder key="foo-3" {...object('json4', cardJSON4)} />
+	])

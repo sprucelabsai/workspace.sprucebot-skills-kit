@@ -2,7 +2,13 @@ export Autosuggest from './components/Autosuggest/Autosuggest'
 export Checkbox from './components/Checkbox/Checkbox'
 export DatePicker from './components/DatePicker/DatePicker'
 export DomainInput from './components/DomainInput/DomainInput'
-export PhoneInput from './components/PhoneInput/PhoneInput'
+export FormBuilder from './components/FormBuilder/FormBuilder'
+export DurationInput from './components/DurationInput/DurationInput'
+export PhoneInput, {
+	formatPhoneNumber,
+	formatPhoneNumberIntl,
+	isValidPhoneNumber
+} from './components/PhoneInput/PhoneInput'
 export Radio from './components/Radio/Radio'
 export Search from './components/Search/Search'
 export Select from './components/Select/Select'

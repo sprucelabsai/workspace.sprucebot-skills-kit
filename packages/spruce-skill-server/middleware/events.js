@@ -3,12 +3,29 @@ const jwt = require('jsonwebtoken')
 const config = require('config')
 
 module.exports = (router, options) => {
+	// LEGACY EVENT MANAGER, CHECK ./auth.js FOR > V1
+	if (config.EVENT_VERSION !== 1) {
+		return
+	}
+
 	const listenersByEventName = options.listenersByEventName
 
 	router.use(async (ctx, next) => {
 		let body = ctx.request.body
 		const eventName = body && body.event
 		// setup if we are listening to this event
+		if (!config.eventContract || !config.eventContract.events) {
+			debug('No event contract found in config')
+		}
+
+		if (
+			config.eventContract &&
+			config.eventContract.events &&
+			!config.eventContract.events[eventName]
+		) {
+			debug(`No eventContract specified for: ${eventName}`)
+		}
+
 		if (
 			ctx.path === '/hook.json' &&
 			body &&
@@ -52,18 +69,33 @@ module.exports = (router, options) => {
 				ctx.event = {}
 			}
 
-			if (ctx.event && body && body.payload) {
-				ctx.event.payload = body.payload
-			}
-
-			if (body && body.firstSentAt) {
-				ctx.event.firstSentAt = body.firstSentAt
-			}
-			if (body && body.deliveryTry) {
-				ctx.event.deliveryTry = body.deliveryTry
+			if (body.organizationId) {
+				ctx.event.organizationId = body.organizationId
 			}
 
 			if (ctx.event) {
+				if (body) {
+					if (body.payload) {
+						ctx.event.payload = body.payload
+					}
+
+					if (body.firstSentAt) {
+						ctx.event.firstSentAt = body.firstSentAt
+					}
+
+					if (body.deliveryTry) {
+						ctx.event.deliveryTry = body.deliveryTry
+					}
+
+					if (body.eventId) {
+						ctx.event.eventId = body.eventId
+					}
+
+					if (body.retryId) {
+						ctx.event.retryId = body.retryId
+					}
+				}
+
 				ctx.event.name = eventName // pass through event name
 			}
 		} else if (ctx.path === '/hook.json' && eventName) {

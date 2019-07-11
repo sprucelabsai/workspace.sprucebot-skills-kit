@@ -70,7 +70,6 @@ class Header extends PureComponent<Props, State> {
 			onHorizontalPageBack,
 			currentHorizontalPage,
 			totalHorizontalPages,
-			selectedView,
 			cellDowFormat,
 			cellDayFormat,
 			...props

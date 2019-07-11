@@ -183,7 +183,7 @@ class BigCalendar extends Component<Props, State> {
 		})
 	}
 
-	handleChangeView = (view: string) => {
+	handleChangeView = () => {
 		console.log('change view!')
 	}
 
@@ -202,14 +202,14 @@ class BigCalendar extends Component<Props, State> {
 	}
 
 	_setStartDate = async (date: moment) => {
-		const { onChangeStartDate = (date: moment) => {} } = this.props
+		const { onChangeStartDate = () => {} } = this.props
 		await this.setState({ startDate: date })
 		onChangeStartDate(date)
 	}
 
 	handleDateToToday = async () => {
 		const date = moment()
-		const { onChangeStartDate = (date: moment) => {} } = this.props
+		const { onChangeStartDate = () => {} } = this.props
 		await this.setState({ startDate: date })
 		onChangeStartDate(date)
 	}
@@ -303,7 +303,7 @@ class BigCalendar extends Component<Props, State> {
 	}
 
 	handleChangeUserMode = (mode: 'day' | 'week' | 'month') => {
-		const { onChangeUserMode = (mode: string) => {} } = this.props
+		const { onChangeUserMode = () => {} } = this.props
 		onChangeUserMode(mode)
 	}
 
@@ -321,19 +321,14 @@ class BigCalendar extends Component<Props, State> {
 			defaultMaxTime,
 			defaultStartTime,
 			defaultEndTime,
-			defaultView,
-			viewProps: _,
 			userModeOptions,
-			onChangeUserMode,
 			userMode,
 			userSchedules,
 			users,
-			onChangeStartDate,
 			doubleClickTime,
 			onDoubleClickView,
 			onClickView,
 			doubleClickToCreate,
-			defaultStartDate,
 			eventTimeFormat,
 			headerCellDowFormat,
 			headerCellDayFormat,

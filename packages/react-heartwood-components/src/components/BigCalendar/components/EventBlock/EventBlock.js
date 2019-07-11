@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import Icon from '../../../Icon/Icon'
 
@@ -66,7 +66,7 @@ const EventBlock = (props: Props) => {
 			{block.rightIcons && block.rightIcons.length > 0 && (
 				<div className="icons right-icons">
 					{block.rightIcons.map((icon, idx) => (
-						<span title={icon.title} key={`${icon.title}-idx`}>
+						<span title={icon.title} key={`${icon.title}-${idx}`}>
 							<Icon {...icon} />
 						</span>
 					))}

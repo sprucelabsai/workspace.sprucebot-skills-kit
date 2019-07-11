@@ -18,7 +18,7 @@
 }
 
 .u-lh-loose {
-	line-height: 1.5
+	line-height: 1.5;
 }
 
 // Display
@@ -26,11 +26,21 @@
 	display: inline-block;
 }
 
-// Icons
-.u-icon__no-fill {
-	fill: none;
+// Margin
+.u-ml-tight {
+	margin-left: spacing('tight');
 }
 
-.u-icon__stroke {
-	stroke: $c-text-icon;
+// Flex
+.u-flex-row {
+	display: flex;
+	flex-flow: row;
+}
+
+.u-flex-child-grow {
+	flex: 1 0 auto;
+}
+
+.u-flex-child-shrink {
+	flex: 0 1 auto;
 }

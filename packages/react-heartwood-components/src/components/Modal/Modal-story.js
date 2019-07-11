@@ -1,15 +1,10 @@
 // @flow
 import React, { Fragment, Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import {
-	withKnobs,
-	text,
-	boolean,
-	number,
-	object
-} from '@storybook/addon-knobs/react'
+import { withKnobs, text, boolean, object } from '@storybook/addon-knobs/react'
 import Modal from './Modal'
 import Button from '../Button/Button'
+import Autosuggest from '../Forms/components/Autosuggest/Autosuggest'
 import {
 	Checkbox,
 	TextInput,
@@ -17,6 +12,30 @@ import {
 	FormLayout,
 	FormLayoutItem
 } from '../Forms'
+
+import countries from '../../../.storybook/data/countries'
+
+const renderSuggestion = (suggestion: any) => {
+	if (suggestion.isEmptyMessage) {
+		return (
+			<div className="autosuggest__no-results">
+				<p className="autosuggest__no-results-title">
+					No matching countries found.
+				</p>
+				<p className="autosuggest__no-results-subtitle">
+					Please adjust your search and try again.
+				</p>
+			</div>
+		)
+	}
+	return (
+		<Button
+			isSmall
+			className="autosuggest__list-item-inner"
+			text={suggestion.text}
+		/>
+	)
+}
 
 type Props = {
 	title: string,
@@ -71,7 +90,7 @@ class ModalExample extends Component<Props, State> {
 						<Modal.Body>
 							<FormLayout>
 								<FormLayoutItem>
-									<TextInput label="Category Name" placeholder="i.e. Barber" />
+									<TextInput label="Category Name" placeholder="e.g. Barber" />
 								</FormLayoutItem>
 								<FormLayoutItem>
 									<TextInput
@@ -151,7 +170,7 @@ stories
 				<Modal.Body>
 					<FormLayout>
 						<FormLayoutItem>
-							<TextInput label="Category Name" placeholder="i.e. Barber" />
+							<TextInput label="Category Name" placeholder="e.g. Barber" />
 						</FormLayoutItem>
 						<FormLayoutItem>
 							<TextInput
@@ -167,6 +186,34 @@ stories
 								placeholder="Optional category description…"
 								helper="Add a short teaser for your guests to see when they browse your services."
 								rows={3}
+							/>
+						</FormLayoutItem>
+						<FormLayoutItem>
+							<Autosuggest
+								label={'Country'}
+								placeholder={'Select a country...'}
+								defaultSuggestions={object('defaultSuggestions', countries)}
+								shouldRenderSuggestions={() => true}
+								renderSuggestion={renderSuggestion}
+								getSuggestionValue={value => value.text}
+								getSuggestions={value => {
+									const results = countries.filter(
+										suggestion =>
+											suggestion.text.toLowerCase().slice(0, value.length) ===
+											value.toLowerCase()
+									)
+									// Here you could add click events to buttons or whatever else they need
+									// No Results Message
+									if (results.length === 0) {
+										return [
+											{
+												text: 'NO RESULTS',
+												isEmptyMessage: true
+											}
+										]
+									}
+									return results
+								}}
 							/>
 						</FormLayoutItem>
 						<FormLayoutItem>

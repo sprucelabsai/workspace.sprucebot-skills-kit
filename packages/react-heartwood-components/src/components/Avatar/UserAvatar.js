@@ -25,6 +25,11 @@ const UserAvatar = (props: Props) => {
 				'default-avatar': !profileImages || !profileImages.profile150
 			})}
 			{...rest}
+			onError={e => {
+				if (defaultProfileImages.profile150) {
+					e.target.src = defaultProfileImages.profile150
+				}
+			}}
 		/>
 	)
 }

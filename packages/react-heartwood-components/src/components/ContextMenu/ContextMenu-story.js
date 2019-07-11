@@ -9,9 +9,15 @@ stories.addDecorator(withKnobs)
 
 stories.add('Example', () => (
 	<ContextMenu
-		actions={object('actions', [{ text: 'one' }])}
-		isLeftAligned={boolean('isLeftAligned', true)}
-		size={text('size', '')}
+		actions={object('actions', [
+			{ text: 'Rebook' },
+			{ text: 'Cancel appointment' },
+			{ text: 'Ask for feedback' }
+		])}
+		isRightAligned={boolean('isRightAligned', false)}
+		isBottomAligned={boolean('isBottomAligned', false)}
+		size={text('size', 'large')}
 		isSimple={boolean('isSimple', false)}
+		isSmall={boolean('isSmall', false)}
 	/>
 ))

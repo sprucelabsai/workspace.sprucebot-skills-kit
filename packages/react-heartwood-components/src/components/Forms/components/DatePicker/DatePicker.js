@@ -1,24 +1,50 @@
 // @flow
 import React, { Component } from 'react'
 import 'react-dates/initialize'
-import { DayPickerSingleDateController } from 'react-dates'
+import {
+	DayPickerSingleDateController,
+	DayPickerRangeController
+} from 'react-dates'
 import moment from 'moment'
 import ArrowNext from '../../../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../../../static/assets/icons/ic_arrow_back.svg'
 
-export type Props = { onSelectDate: Function, date?: Object }
+export type Props = {
+	kind: 'singleDate' | 'dateRange',
+	onSelectDate?: Function,
+	onSelectDateRange?: Function,
+	date?: Object,
+	initialStartDate?: Object,
+	initialEndDate?: Object,
+	daySize?: number
+}
 
 type State = {
 	date: Object,
-	isFocused: boolean
+	startDate: Object,
+	endDate: Object,
+	isFocused: boolean,
+	focusedInput: string
 }
 
 export default class DatePicker extends Component<Props, State> {
+	datePickerRef: any
+
+	static defaultProps = {
+		kind: 'singleDate',
+		initialStartDate: null,
+		initialEndDate: null,
+		daySize: 40
+	}
+
 	constructor(props) {
 		super(props)
 		this.state = {
 			isFocused: true,
-			date: this.props.date || moment()
+			date: this.props.date || moment(),
+			startDate: this.props.initialStartDate,
+			endDate: this.props.initialEndDate,
+			focusedInput: 'startDate'
 		}
 
 		this.datePickerRef = React.createRef()
@@ -36,6 +62,13 @@ export default class DatePicker extends Component<Props, State> {
 		}))
 	}
 
+	handleFocusChange = focusedInput => {
+		this.setState({
+			// Force the focusedInput to always be truthy so that dates are always selectable
+			focusedInput: !focusedInput ? 'startDate' : focusedInput
+		})
+	}
+
 	handleDateChange = async (date: any) => {
 		this.datePickerRef.current.setState({ currentMonth: date })
 
@@ -47,10 +80,22 @@ export default class DatePicker extends Component<Props, State> {
 		}
 	}
 
+	handleDatesChange = async ({ startDate, endDate }) => {
+		this.setState({
+			startDate,
+			endDate
+		})
+
+		if (this.props.onSelectDateRange) {
+			this.props.onSelectDateRange({ startDate, endDate })
+		}
+	}
+
 	render() {
-		const { isFocused, date } = this.state
-		const { onSelectDate, ...rest } = this.props
-		return (
+		const { isFocused, focusedInput, date, startDate, endDate } = this.state
+		const { kind, ...rest } = this.props
+
+		return kind === 'singleDate' ? (
 			<DayPickerSingleDateController
 				ref={this.datePickerRef}
 				date={date}
@@ -60,6 +105,19 @@ export default class DatePicker extends Component<Props, State> {
 				onFocusChange={this.toggleFocus}
 				navNext={<ArrowNext />}
 				navPrev={<ArrowBack />}
+				hideKeyboardShortcutsPanel={true}
+				{...rest}
+			/>
+		) : (
+			<DayPickerRangeController
+				onDatesChange={this.handleDatesChange}
+				onFocusChange={this.handleFocusChange}
+				focusedInput={focusedInput}
+				startDate={startDate}
+				endDate={endDate}
+				navNext={<ArrowNext />}
+				navPrev={<ArrowBack />}
+				hideKeyboardShortcutsPanel={true}
 				{...rest}
 			/>
 		)

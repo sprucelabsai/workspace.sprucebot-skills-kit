@@ -5,6 +5,7 @@ Buttons communicate to a user which action they are about to take. They should b
 ## Variations
 
 There are four main types of button:
+
 - [Primary](/components/detail/button--default)<br />`<button class="btn btn-primary">`
 - [Secondary](/components/detail/button--secondary)<br />`<button class="btn btn-secondary">`
 - [Simple](/components/detail/button--simple)<br />`<button class="btn btn-simple">`

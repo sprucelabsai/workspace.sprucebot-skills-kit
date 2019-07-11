@@ -7,6 +7,12 @@ export type Props = {
 	/** Tab text */
 	text: string,
 
+	/** Tab icon */
+	icon?: string,
+
+	/** Method used to render anchor, if isAnchor is true */
+	AnchorComponent?: Node,
+
 	/** Set true if this is the current tab */
 	isCurrent?: boolean,
 
@@ -17,15 +23,23 @@ export type Props = {
 	className?: string
 }
 
-const Tab = (props: Props) => {
-	const { text, isCurrent, className, ...rest } = props
+const Tab = ({
+	AnchorComponent,
+	text,
+	icon,
+	isCurrent,
+	className,
+	...rest
+}: Props) => {
 	return (
 		<li className={cx('tab', className)}>
 			<Button
+				AnchorComponent={AnchorComponent}
 				className={cx('tab__inner', {
-					'tab--is-current': props.isCurrent
+					'tab--is-current': isCurrent
 				})}
-				text={props.text}
+				text={text}
+				icon={icon}
 				{...rest}
 			/>
 		</li>
@@ -34,7 +48,8 @@ const Tab = (props: Props) => {
 
 Tab.defaultProps = {
 	isCurrent: false,
-	panel: null
+	panel: null,
+	icon: ''
 }
 
 export default Tab

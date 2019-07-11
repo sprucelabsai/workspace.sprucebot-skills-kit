@@ -1,7 +1,9 @@
 # Card
+
 Cards bundle together content, and related links and actions.
 
 ## Guidelines:
+
 - Every card should solve a problem for the user
 - Cards should communicate their own level of priority
 - Card states must be persistent

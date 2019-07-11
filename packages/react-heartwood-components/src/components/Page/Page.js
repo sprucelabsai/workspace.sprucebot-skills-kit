@@ -1,7 +1,9 @@
 // @flow
-import React, { Fragment } from 'react'
-import type { Element, Node } from 'react'
+import React from 'react'
+import type { Node } from 'react'
 import cx from 'classnames'
+import PageHeader from './components/PageHeader/PageHeader'
+import type { PageHeaderProps } from './components/PageHeader/PageHeader'
 
 // Card
 type PageProps = {
@@ -15,26 +17,49 @@ type PageProps = {
 	hasHeader?: boolean,
 
 	/** Optional classname */
-	className?: string
+	className?: string,
+
+	/** Page header props */
+	header?: PageHeaderProps,
+
+	/** Set true if the page has a sidebar that is collapsed. Defaults to false. */
+	sidebarIsCollapsed?: boolean
 }
 
 export const Page = (props: PageProps) => {
-	const { children, isCentered, hasHeader, className } = props
+	const {
+		children,
+		isCentered,
+		hasHeader,
+		className,
+		header,
+		sidebarIsCollapsed,
+		sidebar,
+		...rest
+	} = props
 	return (
 		<div
+			{...rest}
 			className={cx('page', className, {
 				'page--centered': isCentered,
-				'page--no-header': !hasHeader
+				'page--no-header': !hasHeader,
+				'page--sidebar-is-collapsed': sidebarIsCollapsed
 			})}
 		>
-			{children}
+			<div className={'page__content-container'}>
+				{header && <PageHeader {...header} />}
+				{children}
+			</div>
+			{sidebar && <div className={'page__sidebar'}>{sidebar}</div>}
 		</div>
 	)
 }
 
 Page.defaultProps = {
 	isCentered: false,
-	hasHeader: true
+	hasHeader: true,
+	header: null,
+	sidebarIsCollapsed: false
 }
 
 export default Page

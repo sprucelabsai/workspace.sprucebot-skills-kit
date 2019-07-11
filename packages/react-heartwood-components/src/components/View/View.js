@@ -1,89 +1,92 @@
 // @flow
-import React, { Component } from 'react'
-import type { Node } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
-import Sidebar from '../Core/components/Sidebar/Sidebar'
+import { Sidebar, SidebarFooter } from '../Core'
 
 type Props = {
 	sidebarItems?: Array<Object>,
+	sidebarBackLink?: Object,
 	user: Object,
-	business: Object,
-	getSearchSuggestionValue?: Function,
-	renderSearchSuggestion?: Function,
-	children: Node
+	organization: Object,
+	location: Object,
+	children: Node,
+	toggleSidebarVisibility: Function,
+	toggleSidebarExpanded: Function,
+	forceCloseSidebar: Function,
+	isSidebarVisible?: boolean,
+	isSidebarExpanded?: boolean,
+	isSidebarMobileExpanded?: boolean,
+	onClickSearch?: Function,
+	searchPlaceholder?: string,
+
+	/** Menu children (<ListItem> or <li>) */
+	userMenuItems: ReactNode
 }
-type State = {
-	sidebarIsVisible: boolean,
-	sidebarIsExpanded: boolean
-}
 
-export default class View extends Component<Props, State> {
-	state = {
-		sidebarIsVisible: false,
-		sidebarIsExpanded: true
-	}
+const View = (props: Props) => {
+	const {
+		sidebarItems,
+		sidebarBackLink,
+		user,
+		organization,
+		location,
+		isSidebarVisible,
+		isSidebarExpanded,
+		isSidebarMobileExpanded,
+		toggleSidebarExpanded,
+		toggleSidebarVisibility,
+		forceCloseSidebar,
+		onClickSearch,
+		searchPlaceholder,
+		userMenuItems,
+		children
+	} = props
 
-	toggleSidebarVisibility = () => {
-		this.setState(prevState => ({
-			sidebarIsVisible: !prevState.sidebarIsVisible,
-			sidebarIsExpanded: true
-		}))
-	}
+	return (
+		<div
+			className={cx('main-wrapper', {
+				'menu--is-visible': isSidebarVisible,
+				'sidebar--is-collapsed': !isSidebarExpanded,
+				'sidebar--is-missing': !sidebarItems || sidebarItems.length === 0
+			})}
+		>
+			<HeaderPrimary
+				user={user}
+				organization={organization}
+				location={location}
+				enableHamburgerMenu={
+					sidebarItems && sidebarItems.length > 0 ? true : false
+				}
+				toggleSidebarVisibility={toggleSidebarVisibility}
+				isSidebarVisible={isSidebarMobileExpanded}
+				searchPlaceholder={searchPlaceholder}
+				onClickSearch={onClickSearch}
+				userMenuItems={userMenuItems}
+			/>
 
-	toggleSidebarExpanded = () => {
-		this.setState(prevState => ({
-			sidebarIsExpanded: !prevState.sidebarIsExpanded
-		}))
-	}
-
-	forceCloseSidebar = () => {
-		this.setState({
-			sidebarIsVisible: false
-		})
-	}
-
-	render() {
-		const { sidebarIsVisible, sidebarIsExpanded } = this.state
-		const {
-			sidebarItems,
-			user,
-			business,
-			getSearchSuggestionValue,
-			renderSearchSuggestion,
-			children
-		} = this.props
-
-		return (
-			<div
-				className={cx('main-wrapper', {
-					'menu--is-visible': sidebarIsVisible,
-					'sidebar--is-collapsed': !sidebarIsExpanded,
-					'sidebar--is-missing': !sidebarItems || sidebarItems.length === 0
-				})}
-			>
+			<div className="main-content-outer">
 				{sidebarItems && sidebarItems.length > 0 && (
-					<Sidebar
-						items={sidebarItems}
-						sidebarIsVisible={sidebarIsVisible}
-						isExpanded={sidebarIsExpanded}
-						toggleExpanded={this.toggleSidebarExpanded}
-						forceCloseSidebar={this.forceCloseSidebar}
-					/>
+					<div className="main-content__sidebar">
+						<Sidebar
+							style={{ zIndex: 1 }}
+							items={sidebarItems}
+							backLink={sidebarBackLink}
+							footer={<SidebarFooter />}
+							isSidebarVisible={isSidebarVisible}
+							isExpanded={isSidebarExpanded}
+							isMobileExpanded={isSidebarMobileExpanded}
+							toggleExpanded={toggleSidebarExpanded}
+							forceCloseSidebar={forceCloseSidebar}
+							side="left"
+						/>
+					</div>
 				)}
-				<HeaderPrimary
-					user={user}
-					business={business}
-					enableHamburgerMenu={
-						sidebarItems && sidebarItems.length > 0 ? true : false
-					}
-					toggleSidebarVisibility={this.toggleSidebarVisibility}
-					sidebarIsVisible={sidebarIsVisible}
-					getSearchSuggestionValue={getSearchSuggestionValue}
-					renderSearchSuggestion={renderSearchSuggestion}
-				/>
+
 				<main className="main-content">{children}</main>
 			</div>
-		)
-	}
+		</div>
+	)
 }
+
+export default View

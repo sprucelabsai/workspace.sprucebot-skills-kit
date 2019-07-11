@@ -1,6 +1,5 @@
 // @flow
 import React from 'react'
-import Button from '../../../../../Button/Button'
 import HelpIcon from '../../../../../../../static/assets/icons/Interface-Essential/Help/question-help-square--16w.svg'
 
 type Props = {

@@ -1,8 +1,7 @@
 // @flow
 import React from 'react'
 import Button from '../../../../../Button/Button'
-import ExpandIcon2 from '../../../../../../../static/assets/icons/ic_keyboard_arrow_right.svg'
-import CollapseIcon2 from '../../../../../../../static/assets/icons/ic_keyboard_arrow_left.svg'
+import ToggleCollapseIcon from '../../../../../../../static/assets/icons/ic_keyboard_arrow_right.svg'
 
 type Props = {
 	/** Set true to expand the sidebar */
@@ -16,12 +15,12 @@ type Props = {
 }
 
 const SidebarExpander = (props: Props) => {
-	const { isExpanded, toggleExpanded, forceCloseSidebar } = props
+	const { toggleExpanded, forceCloseSidebar } = props
 	return (
 		<div className="sidebar-collapse">
 			<Button
 				icon={{
-					customIcon: isExpanded ? CollapseIcon2 : ExpandIcon2
+					customIcon: ToggleCollapseIcon
 				}}
 				onClick={() => {
 					toggleExpanded()

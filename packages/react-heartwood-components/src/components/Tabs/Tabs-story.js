@@ -1,13 +1,8 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import {
-	withKnobs,
-	text,
-	boolean,
-	number,
-	object
-} from '@storybook/addon-knobs/react'
+import { withKnobs, object } from '@storybook/addon-knobs/react'
+import { manyTabs } from '../../../.storybook/data/tabs'
 import Tabs from './Tabs'
 
 const stories = storiesOf('Tabs', module)
@@ -24,13 +19,4 @@ stories
 			])}
 		/>
 	))
-	.add('With Disclosure', () => (
-		<Tabs
-			tabs={object('tabs', [
-				{ text: 'Active', isCurrent: true },
-				{ text: 'Current' },
-				{ text: 'Previous' },
-				{ text: 'Cancelled' }
-			])}
-		/>
-	))
+	.add('Many Tabs', () => <Tabs tabs={object('tabs', manyTabs)} />)

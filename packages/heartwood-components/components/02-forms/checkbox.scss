@@ -69,6 +69,13 @@
 			display: none;
 		}
 	}
+
+	&:disabled {
+		~ .checkbox-item__label,
+		~ .checkbox-item__icons {
+			opacity: 0.5;
+		}
+	}
 }
 
 .checkbox-item__post-text {

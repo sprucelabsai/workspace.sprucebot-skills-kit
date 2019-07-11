@@ -1,15 +1,14 @@
 // @flow
-import React, { Component } from 'react'
-import cx from 'classnames'
+import React from 'react'
 
-type Props = {
-	text?: string,
-	children?: Node,
-	className?: string
-}
+// type Props = {
+// 	text?: string,
+// 	children?: Node,
+// 	className?: string
+// }
 
-const Week = (props: Props) => {
-	return <div>I'm the week view</div>
+const Week = (/* props: Props */) => {
+	return <div>I am the week view</div>
 }
 
 export default Week

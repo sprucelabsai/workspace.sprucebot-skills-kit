@@ -13,6 +13,27 @@ function scopeWithBase({ base, scope }) {
 }
 
 module.exports = {
+	Locations: {
+		public: base =>
+			scopeWithBase({
+				scope: {
+					Locations: 'public',
+					'Locations.Users': 'public',
+					'Locations.UserLocations': 'public'
+				},
+				base
+			})
+	},
+	Organization: {
+		public: base =>
+			scopeWithBase({
+				scope: {
+					Organization: 'public',
+					'Organization.Locations': 'public'
+				},
+				base
+			})
+	},
 	Users: {
 		public: base =>
 			scopeWithBase({

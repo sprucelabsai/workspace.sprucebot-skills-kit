@@ -6,7 +6,7 @@ module.exports = async (ctx, next) => {
 			'Please implement a will-send-training event on your skill!'
 		)
 
-		await next()
+		// await next()
 	} catch (e) {
 		eventError({
 			ctx,

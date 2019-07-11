@@ -7,7 +7,7 @@ import { InputInner } from '../Forms/FormPartials'
 import ArrowNext from '../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../static/assets/icons/ic_arrow_back.svg'
 
-type Props = {
+export type Props = {
 	/** The current page */
 	currentPage: number,
 

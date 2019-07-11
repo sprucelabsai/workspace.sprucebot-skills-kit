@@ -4,7 +4,7 @@ const next = require('next')
 const Router = require('koa-router')
 const cron = require('node-cron')
 const _ = require('lodash')
-const bodyParser = require('koa-bodyparser')
+const koaBody = require('koa-body')
 const logger = require('@sprucelabs/log')
 const { version } = require('./package.json')
 const defaultErrors = require('./support/errors')
@@ -19,6 +19,7 @@ const listenersFactory = require('./factories/listeners')
 const sequelizeFactory = require('./factories/sequelize')
 const lang = require('./helpers/lang')
 const gqlRouter = require('./gql/router')
+const gqlListeners = require('./gql/listeners')
 
 const required = key => {
 	throw new Error(`SkillKit server needs ${key}`)
@@ -43,6 +44,11 @@ module.exports = async ({
 	slug = required('slug'),
 	logLevel = 'info',
 	logUseColors = true,
+	logUseTrace = false,
+	logUseSourcemaps = false,
+	logAsJSON = false,
+	logFormatters,
+	logTransports,
 	env = 'default',
 	packageName,
 	packageVersion,
@@ -58,38 +64,44 @@ module.exports = async ({
 	// you can override error messages
 	const allErrors = { ...defaultErrors, ...errors }
 
-	// Setup NextJS App
-	debug('Setting up Nextjs with', nextConfig)
-	const app = next(nextConfig)
-	const handle = app.getRequestHandler()
+	const isApiOnly = process.env.API_ONLY === 'true'
 
-	// Kick off sync with platform
-	debug('Starting sync with core')
-	let syncResponse
-	try {
-		syncResponse = await sprucebot.sync()
-	} catch (e) {
-		console.error(
-			`Failed to sync your skill's settings with ${sprucebot.https.host}`
-		)
-		console.error(e) // Server can't really start without sync settings
-		process.exit(1)
+	if (isApiOnly) {
+		debug('API_ONLY: Next.js frontend disabled')
 	}
 
-	debug('Sync complete. Response: ', syncResponse)
+	// Setup NextJS App
+	debug('Setting up Nextjs with', nextConfig)
+	let app
+	let handle
+
+	if (!isApiOnly) {
+		app = next(nextConfig)
+		handle = app.getRequestHandler()
+	} else {
+		console.warn('⚠️  The frontend UI is disabled because API_ONLY=true')
+	}
 
 	// Next app ready
-	await app.prepare()
+	if (!isApiOnly) {
+		await app.prepare()
+	}
 
 	const koa = new Koa()
+	koa.proxy = true
 
 	// Set up global logger
 	global.logger = logger
 	const log = logger.log
+
 	log.setOptions({
+		formatters: logFormatters,
+		transports: logTransports,
 		level: logLevel,
-		useSourcemaps: false,
+		useTrace: logUseTrace,
+		useSourcemaps: logUseSourcemaps,
 		useColors: logUseColors,
+		asJSON: logAsJSON,
 		appName: slug,
 		appKey: metricsAppKey,
 		appEnv: env,
@@ -99,6 +111,30 @@ module.exports = async ({
 		metricsEnabled
 	})
 	global.log = log
+
+	// Kick off sync with platform
+	debug('Starting sync with core')
+
+	if (process.env.TESTING === 'true') {
+		const customMocks = require('./tests/apiMocks')(koa.context)
+		sprucebot.setOptions({
+			useMockApi: true
+		})
+		sprucebot.adapter.mockApiGQLServerInit({ customMocks })
+		const v1APIMocks = require('./tests/v1APIMocks')(koa.context)
+		sprucebot.adapter.mockApiInit(v1APIMocks)
+	}
+
+	let syncResponse
+	try {
+		syncResponse = await sprucebot.sync()
+	} catch (e) {
+		console.error(`Failed to sync your skill's settings`)
+		console.error(e) // Server can't really start without sync settings
+		process.exit(1)
+	}
+
+	debug('Sync complete. Response: ', syncResponse)
 
 	if (metricsEnabled) {
 		log.info('Metrics: enabled')
@@ -124,7 +160,12 @@ module.exports = async ({
         =             	BASICS   	            =
         =======================================*/
 	koa.use(cors())
-	koa.use(bodyParser(bodyParserOptions))
+	koa.use(
+		koaBody({
+			multipart: true,
+			...bodyParserOptions
+		})
+	)
 	staticDir && koa.use(staticServe(staticDir))
 
 	const router = new Router()
@@ -209,7 +250,7 @@ module.exports = async ({
 			debug('Utilities and services can now reference the orm')
 		}
 	} catch (err) {
-		console.error('Leading services & utilities failed.')
+		console.error('Loading services & utilities failed.')
 		console.error(err)
 		throw err
 	}
@@ -336,57 +377,57 @@ module.exports = async ({
 		throw err
 	}
 
-	gqlRouter(koa, gqlOptions)
-
 	/*======================================
         =          Client Side Routes          =
         ======================================*/
 
 	// The logic before handle() is to suppress nextjs from responding and letting koa finish the request
 	// This allows our middleware to fire even after
-	router.get('*', async ctx => {
-		// if a controller already responded or we are making an API call, don't let next run at all
-		if (ctx.body || ctx.path.search('/api') === 0) {
-			debug('api call found, letting controllers handle it', ctx)
+	if (!isApiOnly) {
+		router.get('*', async ctx => {
+			// if a controller already responded or we are making an API call, don't let next run at all
+			if (ctx.body || ctx.path.search('/api') === 0) {
+				debug('api call found, letting controllers handle it', ctx)
+				return
+			}
+			debug('handing off to next and backing off', ctx.path, ctx)
+			await handle(ctx.req, ctx.res)
+			ctx.respond = false
 			return
-		}
-		debug('handing off to next and backing off', ctx.path, ctx)
-		await handle(ctx.req, ctx.res)
-		ctx.respond = false
-		return
 
-		// this does not work as desired
-		ctx.body = await new Promise(resolve => {
-			const _end = ctx.res.end
-			ctx.res._end = _end
+			// this does not work as desired
+			ctx.body = await new Promise(resolve => {
+				const _end = ctx.res.end
+				ctx.res._end = _end
 
-			// Hijack stream to set ctx.body
-			const pipe = stream => {
-				ctx.res.end = _end
-				stream.unpipe(ctx.res)
-				resolve(stream)
-			}
-			ctx.res.once('pipe', pipe)
-
-			// Monkey patch res.end to set ctx.body
-			ctx.res.end = body => {
-				debug('Next has finished for', ctx.path)
-				ctx.res.end = _end
-				ctx.res.removeListener('pipe', pipe)
-				if (ctx.res.redirect) {
-					debug('Next wants us to redirect to', ctx.res.redirect)
-					body = `Redirecting to ${ctx.res.redirect}`
-					ctx.redirect(ctx.res.redirect)
-					ctx.res.end(body)
-					// return
+				// Hijack stream to set ctx.body
+				const pipe = stream => {
+					ctx.res.end = _end
+					stream.unpipe(ctx.res)
+					resolve(stream)
 				}
-				resolve(body)
-			}
+				ctx.res.once('pipe', pipe)
 
-			debug('Handing control off to nextjs ', ctx.path, '🤞🏼')
-			handle(ctx.req, ctx.res)
+				// Monkey patch res.end to set ctx.body
+				ctx.res.end = body => {
+					debug('Next has finished for', ctx.path)
+					ctx.res.end = _end
+					ctx.res.removeListener('pipe', pipe)
+					if (ctx.res.redirect) {
+						debug('Next wants us to redirect to', ctx.res.redirect)
+						body = `Redirecting to ${ctx.res.redirect}`
+						ctx.redirect(ctx.res.redirect)
+						ctx.res.end(body)
+						// return
+					}
+					resolve(body)
+				}
+
+				debug('Handing control off to nextjs ', ctx.path, '🤞🏼')
+				handle(ctx.req, ctx.res)
+			})
 		})
-	})
+	}
 
 	// tell Koa to use the router
 	koa.use(router.routes())
@@ -396,6 +437,9 @@ module.exports = async ({
         ======================================*/
 	// TODO better handling hosting only server or interface
 	const server = koa.listen(port, err => {
+		gqlRouter(koa, gqlOptions, server)
+		gqlListeners(koa, gqlOptions, server)
+
 		if (err) throw err
 		console.log(
 			` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`
@@ -403,4 +447,10 @@ module.exports = async ({
 	})
 
 	return { koa, server }
+}
+
+try {
+	module.exports.SpruceTest = require('./tests/SpruceTest')
+} catch (e) {
+	debug('"SpruceTest" is not loaded. Install devDependencies to enable.')
 }

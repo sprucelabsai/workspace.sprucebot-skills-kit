@@ -1,16 +1,17 @@
-import React from 'react'
-import config from 'config'
-import { render } from 'enzyme'
-import { testUtils } from '@sprucelabs/react-heartwood-components'
+// import React from 'react'
+// import config from 'config'
+// import { render } from 'enzyme'
+// import { testUtils } from '@sprucelabs/react-heartwood-components'
+//
+// import { JWT, auth, guests, teammates } from '../../__mocks__/users'
+// import { didOnboarding } from '../../__mocks__/onboarding'
+//
+// import Owner from '../../pages/owner'
+//
+// let props = {}
 
-import { JWT, auth, guests, teammates } from '../../__mocks__/users'
-import { didOnboarding } from '../../__mocks__/onboarding'
-
-import Owner from '../../pages/owner'
-
-let props = {}
 beforeEach(async () => {
-/*
+	/*
 	auth()
 	guests()
 	teammates()
@@ -25,7 +26,7 @@ beforeEach(async () => {
 })
 
 test('renders owner page snapshot', () => {
-/*
+	/*
 	const tree = render(<Owner {...props} />)
 
 	expect(tree).toMatchSnapshot()

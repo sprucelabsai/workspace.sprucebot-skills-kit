@@ -1,5 +1,6 @@
 // @flow
 import React, { Fragment } from 'react'
+import moment from 'moment'
 
 type Props = {
 	/** Class for the text */
@@ -20,7 +21,7 @@ const Legal = (props: Props) => {
 					rel="noopener noreferrer"
 					className={linkClassName}
 				>
-					Terms of Service
+					{`Terms of Service`}
 				</a>
 				<a
 					href="#"
@@ -28,10 +29,10 @@ const Legal = (props: Props) => {
 					rel="noopener noreferrer"
 					className={linkClassName}
 				>
-					Privacy Policy
+					{`Privacy Policy`}
 				</a>
 			</p>
-			<p className={className}>© Spruce Labs 2018</p>
+			<p className={className}>{`© Spruce Labs ${moment().format('YYYY')}`}</p>
 		</Fragment>
 	)
 }

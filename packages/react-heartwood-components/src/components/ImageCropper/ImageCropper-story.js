@@ -36,7 +36,6 @@ class ImageCropperExample extends Component<Props, State> {
 	}
 
 	render() {
-		const { image } = this.state
 		const { isCircular, width, height } = this.props
 
 		return (

@@ -3,7 +3,7 @@ const path = require('path')
 const serve = require('@sprucelabs/spruce-skill-server')
 const Sprucebot = require('@sprucelabs/spruce-node')
 const generateSwaggerDocs = require('./swagger/swagger')
-const _ = require('lodash')
+const { customFormatters, customTransports } = require('../config/logging')
 
 const {
 	API_KEY,
@@ -16,8 +16,6 @@ const {
 	SERVER_HOST,
 	INTERFACE_HOST,
 	API_SSL_ALLOW_SELF_SIGNED,
-	REDIS_URL,
-	ENABLE_SWAGGER_DOCS,
 	nextConfig,
 	errors,
 	bodyParserOptions,
@@ -26,6 +24,9 @@ const {
 	SLUG,
 	LOG_LEVEL,
 	LOG_USE_COLORS,
+	LOG_USE_TRACE,
+	LOG_USE_SOURCEMAPS,
+	LOG_AS_JSON,
 	ENV,
 	PACKAGE_NAME,
 	PACKAGE_VERSION,
@@ -37,7 +38,8 @@ const {
 	METRICS_SEQUELIZE_DISABLED,
 	cards,
 	gqlOptions,
-	acl
+	acl,
+	VIEW_VERSION
 } = require('config')
 
 // Construct a new Sprucebot
@@ -56,12 +58,12 @@ const sprucebot = new Sprucebot({
 	version: skillPackage.version,
 	skillsKitVersion: skillPackage['sprucebot-skills-kit-version'],
 	cards,
-	acl
+	acl,
+	viewVersion: VIEW_VERSION
 })
 
 let server
 let ready = false
-let timeout
 let readyChecks = 0
 
 // serve the skill, wait 2 seconds for debugger to connect
@@ -85,6 +87,11 @@ setTimeout(async () => {
 		slug: SLUG,
 		logLevel: LOG_LEVEL,
 		logUseColors: LOG_USE_COLORS,
+		logUseTrace: LOG_USE_TRACE,
+		logUseSourcemaps: LOG_USE_SOURCEMAPS,
+		logAsJSON: LOG_AS_JSON,
+		logFormatters: customFormatters(),
+		logTransports: customTransports(),
 		env: ENV,
 		packageName: PACKAGE_NAME,
 		packageVersion: PACKAGE_VERSION,

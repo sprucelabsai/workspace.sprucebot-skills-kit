@@ -1,8 +1,3 @@
-// https://github.com/lorenwest/node-config/wiki/Configuration-Files
-const path = require('path')
-const { omit, pick } = require('lodash')
-const fs = require('fs')
-const errors = require('./errors')
 // Check for .env
 try {
 	require('dotenv').config()

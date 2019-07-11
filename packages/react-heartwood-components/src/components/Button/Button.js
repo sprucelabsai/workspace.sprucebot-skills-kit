@@ -1,20 +1,19 @@
 // @flow
-// TODO: Incorporate Next.js router link
-import React from 'react'
+import React, { Fragment } from 'react'
 import cx from 'classnames'
-import is from 'is_js'
-import SingletonRouter from 'next/router'
-import Link from 'next/link'
 import Loader from '../Loader/Loader'
 import Icon from '../Icon/Icon'
+import BasicAnchor from '../_utilities/Anchor'
 
-import type { Node, Element } from 'react'
-import type { Props as LinkProps } from 'next/link'
+import type { Node } from 'react'
 import type { Props as IconProps } from '../Icon/Icon'
 
 export type Props = {
 	/** Optional class to add to the button. */
 	className?: string,
+
+	/** Optional children passed into button */
+	children?: Node,
 
 	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
 	kind?: string,
@@ -46,11 +45,11 @@ export type Props = {
 	/** Click handler. */
 	onClick?: Function,
 
-	/** Props for Next router link: https://nextjs.org/docs/#routing. */
-	linkProps?: LinkProps,
-
 	/** Will be passed back with the on click. */
-	payload?: Object
+	payload?: Object,
+
+	/** Component used to render anchor */
+	AnchorComponent?: Node
 }
 
 const Button = (props: Props) => {
@@ -66,8 +65,8 @@ const Button = (props: Props) => {
 		icon,
 		type,
 		onClick,
-		linkProps,
-		payload,
+		AnchorComponent = BasicAnchor,
+		children,
 		...rest
 	} = props
 	const btnClass = cx(className, {
@@ -79,68 +78,72 @@ const Button = (props: Props) => {
 		'btn-full-width': isFullWidth,
 		'btn--loading': isLoading,
 		'btn-small': isSmall,
-		'btn-icon-only': !text || isIconOnly
+		'btn-icon-only': (!children && !text) || isIconOnly
 	})
 	const textClass = cx('btn__text', {
 		'visually-hidden': isIconOnly
 	})
 
-	// Check if the link is relative (client-side) or absolute
-	let linkIsRelative = true
-	if (href && is.url(href)) {
-		linkIsRelative = false
-	}
-
 	const handleClick = (e: any) => {
 		e.currentTarget.blur()
 		if (onClick) {
-			onClick(props.payload)
+			onClick(e, props.payload)
 		}
 	}
 
 	const Inner = () => (
 		<span className="btn__inner">
-			{icon && (icon.customIcon || icon.name) && (
-				<span className="btn__icon-wrapper">
-					<Icon
-						customIcon={icon.customIcon}
-						icon={icon.name}
-						isLineIcon={icon.isLineIcon}
-						className={cx(
-							{
-								btn__icon: true,
-								'btn__line-icon': icon.isLineIcon
-							},
-							icon.className
-						)}
-					/>
-				</span>
+			{children ? (
+				children
+			) : (
+				<Fragment>
+					{icon && (icon.customIcon || icon.name) && (
+						<span className="btn__icon-wrapper">
+							<Icon
+								customIcon={icon.customIcon}
+								icon={icon.name}
+								isLineIcon={icon.isLineIcon}
+								className={cx(
+									{
+										btn__icon: true,
+										'btn__line-icon': icon.isLineIcon
+									},
+									icon.className
+								)}
+							/>
+						</span>
+					)}
+					{text && <span className={textClass}>{text}</span>}
+					{isLoading && <Loader />}
+				</Fragment>
 			)}
-			{text && <span className={textClass}>{text}</span>}
-			{isLoading && <Loader />}
 		</span>
 	)
 
+	// TODO: We probably need to create explicit whitelists of what we want to
+	// allow to be spread onto native DOM elements, since applying non-standard
+	// attributes throws a warning.
+	const sanitizedButtonRest = { ...rest }
+	delete sanitizedButtonRest.linkProps
+
 	const button = (
-		<button className={btnClass} type={type} onClick={handleClick} {...rest}>
+		<button
+			className={btnClass}
+			type={type}
+			onClick={handleClick}
+			{...sanitizedButtonRest}
+		>
 			<Inner />
 		</button>
 	)
 
-	// Only return a Next link if the href is relative
-	const anchor = linkIsRelative ? (
-		<Link href={href} {...linkProps}>
-			<a className={btnClass} {...rest}>
-				<Inner />
-			</a>
-		</Link>
-	) : (
-		<a href={href} className={btnClass} {...rest}>
+	const anchor = (
+		<AnchorComponent href={href} className={btnClass} {...rest}>
 			<Inner />
-		</a>
+		</AnchorComponent>
 	)
 
-	if (!text && !icon) {
+	if (!children && !text && !icon) {
 		// TODO: Handle Logging
 		// console.error(
 		// 	'<Button /> must have text, icon, or both. Please check the props your passing.'

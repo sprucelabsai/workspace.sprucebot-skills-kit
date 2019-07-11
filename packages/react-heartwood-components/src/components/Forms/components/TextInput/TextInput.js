@@ -20,7 +20,7 @@ type Props = {
 	kind?: string,
 
 	/** Optional icon to show in the input */
-	iconBefore?: any,
+	iconBefore?: string,
 
 	/** Optional icon to show at the end of the input */
 	iconAfter?: any,
@@ -32,7 +32,7 @@ type Props = {
 	error?: string,
 
 	/** Helper text */
-	helper?: string,
+	helper?: string | Node,
 
 	/** Set true to make the input less tall */
 	isSmall?: boolean

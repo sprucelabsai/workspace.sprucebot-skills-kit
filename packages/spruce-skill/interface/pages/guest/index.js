@@ -3,8 +3,10 @@ import PageWrapper from '../../containers/PageWrapper'
 import Router from 'next/router'
 import {
 	Page,
-	PageHeader,
-	PageContent
+	PageContent,
+	Layout,
+	LayoutSection,
+	Text
 } from '@sprucelabs/react-heartwood-components'
 
 class GuestPage extends React.Component {
@@ -14,14 +16,20 @@ class GuestPage extends React.Component {
 
 	render() {
 		return (
-			<Page className="guest-page">
-				<PageHeader
-					title="Guest Page"
-					onClickBack={() => Router.back()}
-					backLinkText="Previous Page"
-				/>
+			<Page
+				className="guest-page"
+				header={{
+					title: 'Guest Page',
+					onClickBack: () => Router.back(),
+					backLinkText: 'Previous Page'
+				}}
+			>
 				<PageContent>
-					<p>Hello, Guest</p>
+					<Layout>
+						<LayoutSection>
+							<Text>{`Hello, Guest`}</Text>
+						</LayoutSection>
+					</Layout>
 				</PageContent>
 			</Page>
 		)

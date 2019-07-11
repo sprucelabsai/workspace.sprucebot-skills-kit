@@ -3,6 +3,196 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.15.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.0...v8.15.1) (2019-06-19)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.15.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.14.0...v8.15.0) (2019-06-18)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.14.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.13.0...v8.14.0) (2019-06-14)
+
+
+### Bug Fixes
+
+* **graphql:** Use peer dependencies for graphql ([51e58fc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51e58fc))
+* ctx.sb.mutation was not properly calling api; add tests for ctx.sb.mutation and ctx.sb.query methods ([a914be3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a914be3))
+
+
+### Features
+
+* emit events w/ custom eventId and log incoming events ([ac5074d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ac5074d))
+* integrate new logger functionality ([e1c1e0c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e1c1e0c))
+* pass message type when creating messages and add tests ([cbed801](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cbed801))
+* support v1 authentication for tests ([b1e3358](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b1e3358))
+
+
+### Refactoring
+
+* **NPM:** Update deps for audit prep, peer deps ([f3d0e29](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f3d0e29))
+
+
+
+
+
+# [8.13.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.12.0...v8.13.0) (2019-03-20)
+
+
+### Features
+
+* better error logging / debugging messages; cleanup unused / old code ([5d66f51](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5d66f51))
+
+
+
+
+
+# [8.12.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.11.0...v8.12.0) (2019-02-27)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.11.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.1...v8.11.0) (2019-02-19)
+
+
+### Bug Fixes
+
+* Add .editorconfigs targetting all files ([dd2bfa3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dd2bfa3))
+
+
+### Features
+
+* register w/ skill view version ([cbf281a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cbf281a))
+* Streamline builds and testing ([ea635b7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ea635b7))
+* view version ([1a758ef](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1a758ef))
+
+
+
+
+
+## [8.10.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.10.0...v8.10.1) (2019-01-04)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.10.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.9.1...v8.10.0) (2019-01-03)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.9.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.9.0...v8.9.1) (2018-12-28)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.9.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.8.0...v8.9.0) (2018-12-28)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.8.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.7.0...v8.8.0) (2018-12-28)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.7.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.3...v8.7.0) (2018-12-28)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.6.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.2...v8.6.3) (2018-12-26)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.6.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.1...v8.6.2) (2018-12-26)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.6.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.6.0...v8.6.1) (2018-12-21)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.6.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.4...v8.6.0) (2018-12-21)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.5.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.3...v8.5.4) (2018-12-21)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.5.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.2...v8.5.3) (2018-12-20)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.5.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.1...v8.5.2) (2018-12-20)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
 ## [8.5.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.5.0...v8.5.1) (2018-12-19)
 
 **Note:** Version bump only for package @sprucelabs/spruce-node

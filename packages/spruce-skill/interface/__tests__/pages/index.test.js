@@ -1,12 +1,11 @@
-import React from 'react'
-import { render } from 'enzyme'
+// import React from 'react'
+// import { render } from 'enzyme'
+//
+// import Index from '../../pages/index'
 
-import Index from '../../pages/index'
 test('renders page with styleguide', () => {
-/*
-	const tree = render(<Index />)
+	// const tree = render(<Index />)
+	// expect(tree).toMatchSnapshot()
 
-	expect(tree).toMatchSnapshot()
-*/
 	expect(true).toBe(true)
 })
