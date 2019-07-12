@@ -293,7 +293,7 @@ export default class SplitButton extends Component<
 		)
 	}
 
-	public render(): React.ReactNode {
+	public render(): React.ReactElement {
 		const { defaultAction, actions, kind, isFullWidth, isSmall } = this.props
 		const { isVisible, menuPosition, highlightedActionIndex } = this.state
 
