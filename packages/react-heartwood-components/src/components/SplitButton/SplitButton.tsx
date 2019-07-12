@@ -4,53 +4,6 @@ import cx from 'classnames'
 import Button, { IButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
-// TODO: Convert ButtonGroup to tsx
-// TODO: All above: import types instead of defining them here
-
-interface IButtonGroupProps {
-	/** The actions to be shown on tap/click */
-	actions: IButtonProps[]
-
-	/** DEPRECATED Set true to left align the menu */
-	isLeftAligned?: boolean
-
-	/** DEPRECATED Set true to right align the menu */
-	isRightAligned?: boolean
-
-	/** DEPRECATED Set true to align menu above button */
-	isBottomAligned?: boolean
-
-	/** Set the width of the menu. Helpful for longer text in buttons */
-	size?: 'medium' | 'large'
-
-	/** Adds text to the collapsed menu */
-	// NOTE: This should be required for accessibility
-	text?: string
-
-	/** Overrides the default icon */
-	icon?: any
-
-	/** Set true to make the button blue */
-	isSimple?: boolean
-
-	/** Set true to make the button smaller */
-	isSmall?: boolean
-
-	/** Set tot true makes the menu close when any action is selected */
-	closeOnSelectAction: boolean
-
-	/** Hide the icon entirely */
-	isTextOnly: boolean
-
-	/** Optional classname that applies to the button */
-	className?: string
-
-	onToggleContextMenuVisible?: Function
-
-	/** Optional: Index of the button that is currently highlighted, e.g. by arrow keys */
-	highlightedIndex?: number
-}
-
 export interface ISplitButtonProps {
 	/** The main action readily surfaced to the user */
 	defaultAction: IButtonProps
