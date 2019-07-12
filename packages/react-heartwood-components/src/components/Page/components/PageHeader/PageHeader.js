@@ -113,7 +113,11 @@ const PageHeader = (props: PageHeaderProps) => {
 				className
 			)}
 		>
-			<div className="page__header-inner">
+			<div
+				className={cx('page__header-inner', {
+					'page__header-inner--is-collapsed': collapsed
+				})}
+			>
 				{anchor && anchor}
 				<div
 					className={cx('page__header-main', {
@@ -122,15 +126,17 @@ const PageHeader = (props: PageHeaderProps) => {
 				>
 					<div className="page__header-title-wrapper">
 						<h1>{title}</h1>
-						{sidebarExpander && (
-							<Button
-								{...sidebarExpander}
-								isSmall
-								className="page__header-sidebar-btn"
-							/>
-						)}
+						<div>
+							{sidebarExpander && (
+								<Button
+									{...sidebarExpander}
+									isSmall
+									className="page__header-sidebar-btn"
+								/>
+							)}
+							{primaryAction && <Button {...primaryAction} />}
+						</div>
 					</div>
-					{primaryAction && <Button {...primaryAction} />}
 				</div>
 			</div>
 			{tabs && tabs.length > 0 && (
