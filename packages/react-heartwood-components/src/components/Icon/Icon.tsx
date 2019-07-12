@@ -15,8 +15,10 @@ export interface IIconProps {
 	/** Set true to render an icon with a stroke, but no fill */
 	isLineIcon?: boolean
 
+	/** Pass a custom icon to use one that isn't keyed to a name */
 	customIcon?: any
 
+	/** Optional classname for the icon */
 	className?: string
 }
 
