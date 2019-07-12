@@ -1,4 +1,5 @@
 import { singleAction } from './actions'
+import uuidv1 from 'uuid/v4'
 
 import user01image from '../../static/assets/users/user-01--96w.png'
 import user02image from '../../static/assets/users/user-02--96w.png'
@@ -12,18 +13,21 @@ import user09image from '../../static/assets/users/user-09--96w.png'
 
 export const userList = [
 	{
+		id: uuidv1(),
 		avatar: user01image,
 		title: 'Vicenta Maggio',
 		subtitle: '7am–5pm, Break: 2–3:25pm',
 		actions: singleAction
 	},
 	{
+		id: uuidv1(),
 		avatar: user02image,
 		title: 'Madaline Gibson',
 		subtitle: '9am–6pm, Break: 12–1pm',
 		actions: singleAction
 	},
 	{
+		id: uuidv1(),
 		avatar: user03image,
 		title: 'Katlynn Pouros',
 		subtitle: '9am–5pm',
@@ -33,18 +37,21 @@ export const userList = [
 
 export const userList02 = [
 	{
+		id: uuidv1(),
 		avatar: user04image,
 		title: 'Lacey Morissette',
 		subtitle: 'No Notes',
 		actions: singleAction
 	},
 	{
+		id: uuidv1(),
 		avatar: user05image,
 		title: 'Jade Mohr',
 		subtitle: 'No Notes',
 		actions: singleAction
 	},
 	{
+		id: uuidv1(),
 		avatar: user06image,
 		title: 'Gianni Block',
 		subtitle: 'No Notes',
@@ -53,18 +60,21 @@ export const userList02 = [
 ]
 export const userList03 = [
 	{
+		id: uuidv1(),
 		avatar: user07image,
 		title: 'Camila Hintz',
 		subtitle: 'No Notes',
 		actions: singleAction
 	},
 	{
+		id: uuidv1(),
 		avatar: user08image,
 		title: 'Ara Dare',
 		subtitle: 'No Notes',
 		actions: singleAction
 	},
 	{
+		id: uuidv1(),
 		avatar: user09image,
 		title: 'Alexanne Stanton',
 		subtitle: 'No Notes',

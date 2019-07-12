@@ -36,6 +36,14 @@ const skill = {
 		})
 	},
 
+	forceAuth: () => {
+		Iframes.sendMessage({
+			to: window.parent,
+			eventName: 'Skill:ForceAuth',
+			data: {}
+		})
+	},
+
 	ready: function({ showHeader = true }: { showHeader: boolean } = {}) {
 		Iframes.sendMessage({
 			to: window.parent,
