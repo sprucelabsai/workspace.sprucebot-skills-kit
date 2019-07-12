@@ -1,24 +1,22 @@
-// @flow
 import React from 'react'
 import cx from 'classnames'
-import Button from '../Button/Button'
-import type { Props as ButtonProps } from '../Button/Button'
+import Button, { IButtonProps } from '../Button/Button'
 
-type Props = {
+export interface IButtonGroupProps {
 	/** Array of actions to render the group's buttons. */
-	actions: Array<ButtonProps>,
+	actions: IButtonProps[]
 
 	/** Visual appearance of the group. */
-	kind?: 'default' | 'segmented' | 'floating',
+	kind?: 'default' | 'segmented' | 'floating'
 
 	/** Set true to fill parent width */
-	isFullWidth?: boolean,
+	isFullWidth?: boolean
 
 	/** Optional: Index of the button that is currently highlighted, e.g. by arrow keys */
 	highlightedIndex?: number
 }
 
-const ButtonGroup = (props: Props) => {
+const ButtonGroup = (props: IButtonGroupProps): React.ReactElement => {
 	const { actions, kind, isFullWidth, highlightedIndex } = props
 	const parentClass = cx('button-group', {
 		'button-group-segmented': kind === 'segmented',
