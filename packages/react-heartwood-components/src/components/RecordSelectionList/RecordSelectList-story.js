@@ -157,7 +157,7 @@ stories
 							node: { ...o }
 						}))}
 						totalRecordCount={5}
-						maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'])}
+						maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
 					/>
 					<Button text="Show me all the things" kind="simple" />
 				</CardBody>
@@ -175,7 +175,7 @@ stories
 						node: { ...o }
 					}))}
 					totalRecordCount={100}
-					maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'])}
+					maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
 				/>
 			</Modal.Body>
 		</Modal>
