@@ -113,7 +113,11 @@ const PageHeader = (props: PageHeaderProps) => {
 				className
 			)}
 		>
-			<div className="page__header-inner">
+			<div
+				className={cx('page__header-inner', {
+					'page__header-inner--is-collapsed': collapsed
+				})}
+			>
 				{anchor && anchor}
 				<div
 					className={cx('page__header-main', {
