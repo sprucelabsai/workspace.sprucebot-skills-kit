@@ -1,7 +1,6 @@
 // TODO(george): Figure out why icons busts this rule.
 /* eslint import/namespace: off */
 
-// @flow
 // NOTE: This component should only include a few of the most commonly
 // used icons for developer convenience
 import React from 'react'
@@ -9,19 +8,19 @@ import cx from 'classnames'
 
 import * as icons from '../../icons.js'
 
-export type Props = {
+export interface IIconProps {
 	/** The name of the icon to render. If not found, this will return null. */
-	icon?: string,
+	icon?: string
 
 	/** Set true to render an icon with a stroke, but no fill */
-	isLineIcon?: boolean,
+	isLineIcon?: boolean
 
-	customIcon?: any,
+	customIcon?: any
 
 	className?: string
 }
 
-const Icon = (props: Props) => {
+const Icon = (props: IIconProps): React.ReactElement => {
 	const { icon, customIcon, isLineIcon, className, ...rest } = props
 
 	const iconKey = icon && icon.toLowerCase()
