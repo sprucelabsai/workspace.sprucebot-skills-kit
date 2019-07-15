@@ -78,7 +78,6 @@ export {
 } from './components/Toast/components/ToastWrapper/ToastWrapper'
 export { default as Toast } from './components/Toast/Toast'
 export { default as View } from './components/View/View'
-export { default as BigCalendar } from './components/BigCalendar/BigCalendar'
 export { default as Page, PageHeader, PageContent } from './components/Page'
 export { default as Table, TableSearch, TableFilters } from './components/Table'
 export {
