@@ -6,6 +6,7 @@ import EventDetails from './EventDetails'
 
 import {
 	appointment,
+	warningAppointment,
 	pastAppointment,
 	lunchBreak,
 	ptoBlock
@@ -17,6 +18,11 @@ stories
 	.add('Booking: Appointment', () => (
 		<Sidebar side="right" isCollapsible={false} isLarge>
 			<EventDetails {...appointment} />
+		</Sidebar>
+	))
+	.add('Booking: Appointment has warning', () => (
+		<Sidebar side="right" isCollapsible={false} isLarge>
+			<EventDetails {...warningAppointment} />
 		</Sidebar>
 	))
 	.add('Booking: Past Appointment', () => (

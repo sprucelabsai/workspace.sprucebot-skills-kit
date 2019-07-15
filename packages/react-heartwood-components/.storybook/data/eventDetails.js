@@ -163,6 +163,203 @@ export const appointment = {
 	]
 }
 
+export const warningAppointment = {
+	items: [
+		{
+			id: 'guestInfo',
+			component: 'list',
+			componentProps: {
+				items: [
+					{
+						avatar,
+						title: 'Alejandra Pollich',
+						subtitle: '(605) 230-5253',
+						contextMenu: {
+							icon: { name: 'edit', isLineIcon: true },
+							isSimple: true,
+							isSmall: true,
+							size: 'large',
+							actions: [
+								{
+									text: 'Edit guest'
+								},
+								{
+									text: 'Book for someone else'
+								}
+							]
+						}
+					},
+					{
+						icon: { name: 'note', isLineIcon: true },
+						title: 'Prefers products that aren’t tested on animals.',
+						subtitle: 'Caleigh Jerde, 4 months ago'
+					}
+				],
+				primaryAction: 'test'
+			}
+		},
+		{
+			// NOTE: This won't work yet and requires updates to card builder
+			id: 'dateAndTime',
+			component: 'card',
+			componentProps: {
+				body: {
+					children: [
+						{
+							id: 'dateAndTime',
+							component: 'list',
+							componentProps: {
+								items: [
+									{
+										icon: { name: 'calendar', isLineIcon: true },
+										title: 'Web, Nov 28, 2018',
+										subtitle: '11am–12:15pm',
+										actions: [
+											{
+												icon: { name: 'edit' },
+												kind: 'simple'
+											}
+										]
+									}
+								]
+							}
+						},
+						{
+							id: 'toastWarning',
+							component: 'toast',
+							componentProps: {
+								title: 'Uh-oh',
+								subtitle: 'Vicenta Maggio will be double-booked at this time'
+							}
+						},
+						{
+							id: 'actions',
+							component: 'buttonGroup',
+							componentProps: {
+								actions: [
+									{
+										text: 'Dismiss',
+										kind: 'simple'
+									},
+									{
+										text: 'Find a different time',
+										kind: 'secondary'
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			id: 'services',
+			component: 'list',
+			componentProps: {
+				items: [
+					{
+						icon: { name: 'unordered_list', isLineIcon: true },
+						title: 'Accent Highlight',
+						subtitle: '$65 | 1hr',
+						note: 'Vicenta Maggio',
+						contextMenu: {
+							icon: { name: 'edit', isLineIcon: true },
+							isSimple: true,
+							isSmall: true,
+							size: 'large',
+							actions: [
+								{
+									text: 'Change teammate'
+								},
+								{
+									text: 'Remove from appointment'
+								}
+							]
+						}
+					},
+					{
+						icon: { name: 'unordered_list', isLineIcon: true },
+						title: 'Haircut',
+						subtitle: '$40 | 1hr',
+						note: 'Vicenta Maggio',
+						contextMenu: {
+							icon: { name: 'edit', isLineIcon: true, isVisible: false },
+							isSimple: true,
+							isSmall: true,
+							size: 'large',
+							actions: [
+								{
+									text: 'Change teammate'
+								},
+								{
+									text: 'Remove from appointment'
+								}
+							]
+						}
+					}
+				],
+				action: {
+					icon: { name: 'add' },
+					text: 'Add services'
+				}
+			}
+		},
+		{
+			id: 'status',
+			component: 'list',
+			componentProps: {
+				items: [
+					{
+						icon: { name: 'status' },
+						title: 'Status',
+						subtitle: 'Confirmed',
+						// TODO: Make list item expandable to make this work
+						isExpandable: true
+					}
+				]
+			}
+		},
+		{
+			id: 'subtotalAndDuration',
+			component: 'text',
+			componentProps: {
+				// NOTE: This would work with a markdown rendering component
+				// Question: Can we deliver MD from the API?
+				children: '**Subtotal: ** $65\n**Duration: ** 2hr'
+			}
+		},
+		{
+			// NOTE: This won't work until SplitButton is available
+			id: 'primaryCTA',
+			component: 'splitButton',
+			componentProps: {
+				defaultAction: {
+					text: 'Check guest in',
+					kind: 'primary',
+					isFullWidth: true
+				},
+				actions: [
+					{
+						text: 'Unconfirm appointment'
+					},
+					{
+						text: 'Mark guest as late'
+					},
+					{
+						text: 'Mark as no show'
+					},
+					{
+						text: 'Book again'
+					},
+					{
+						text: 'Cancel appointment'
+					}
+				]
+			}
+		}
+	]
+}
+
 export const pastAppointment = {
 	items: [
 		{
