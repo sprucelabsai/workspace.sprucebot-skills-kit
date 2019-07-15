@@ -69,6 +69,10 @@ stories.add('Basic RecordTable', () => {
 					{
 						key: 'all',
 						text: 'All things'
+					},
+					{
+						key: 'empty',
+						text: 'No things'
 					}
 				]}
 				columns={[
