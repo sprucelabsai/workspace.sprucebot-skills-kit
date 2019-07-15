@@ -203,33 +203,3 @@ stories
 			</Card>
 		</div>
 	))
-	.add('Empty State, API Failure', () => (
-		<div style={{ width: '320px', padding: '8px' }}>
-			<Card>
-				<CardHeader title="Card Title" />
-				<CardBody isSectioned={false} hasBottomPadding={false}>
-					<RecordSelectionList
-						canSearch={false}
-						selectedIds={[]}
-						unselectableIds={[]}
-						loadRecordListItems={async () => []}
-						emptyState={{
-							headline: text('emptyState:headline', 'Nothing to see here'),
-							subheadline: text(
-								'emptyState:subheadline',
-								'There is none of that here'
-							),
-							icon: text('emptyState:icon', 'team'),
-							isLineIcon: true,
-							primaryAction: {
-								text: text(
-									'emptyState:primaryAction text',
-									'Do something about it'
-								)
-							}
-						}}
-					/>
-				</CardBody>
-			</Card>
-		</div>
-	))

@@ -16,7 +16,7 @@ import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
 import Button from '../Button/Button'
 import ListItem, { IListItemProps } from '../List/components/ListItem/ListItem'
-import EmptyState from '../EmptyState/EmptyState'
+import EmptyState, { IEmptyStateProps } from '../EmptyState/EmptyState'
 
 export interface IRecordSelectionListItemProps extends IListItemProps {
 	id: string
@@ -89,8 +89,7 @@ export interface IRecordSelectionListProps {
 	maxRowsVisible?: number | 'auto'
 
 	/** Props for the empty state */
-	// TODO: Convert EmptyState to tsx and import its interface
-	emptyState?: any
+	emptyState?: IEmptyStateProps
 }
 
 interface IRecordSelectionListState {
