@@ -89,6 +89,7 @@ export interface IRecordSelectionListProps {
 	maxRowsVisible?: number | 'auto'
 
 	/** Props for the empty state */
+	// TODO: Convert EmptyState to tsx and import its interface
 	emptyState?: any
 }
 
