@@ -163,6 +163,108 @@ export const appointment = {
 	]
 }
 
+export const pastAppointment = {
+	items: [
+		{
+			id: 'guestInfo',
+			component: 'list',
+			componentProps: {
+				items: [
+					{
+						avatar,
+						title: 'Alejandra Pollich',
+						subtitle: '(605) 230-5253',
+						actions: [
+							{
+								icon: { name: 'edit' },
+								kind: 'simple'
+							}
+						]
+					},
+					{
+						icon: { name: 'note', isLineIcon: true },
+						title: 'Prefers products that aren’t tested on animals.',
+						subtitle: 'Caleigh Jerde, 4 months ago'
+					}
+				],
+				primaryAction: 'test'
+			}
+		},
+		{
+			id: 'dateAndTime',
+			component: 'list',
+			componentProps: {
+				items: [
+					{
+						icon: { name: 'calendar', isLineIcon: true },
+						title: 'Web, Nov 28, 2018',
+						subtitle: '11am–12:15pm'
+					}
+				]
+			}
+		},
+		{
+			id: 'services',
+			component: 'list',
+			componentProps: {
+				items: [
+					{
+						icon: { name: 'unordered_list', isLineIcon: true },
+						title: 'Accent Highlight',
+						subtitle: '$65 | 1hr',
+						note: 'Vicenta Maggio'
+					},
+					{
+						icon: { name: 'unordered_list', isLineIcon: true },
+						title: 'Haircut',
+						subtitle: '$40 | 1hr',
+						note: 'Vicenta Maggio'
+					}
+				]
+			}
+		},
+		{
+			id: 'status',
+			component: 'list',
+			componentProps: {
+				items: [
+					{
+						icon: { name: 'status' },
+						title: 'Status',
+						subtitle: 'Confirmed'
+					}
+				]
+			}
+		},
+		{
+			id: 'subtotalAndDuration',
+			component: 'text',
+			componentProps: {
+				// NOTE: This would work with a markdown rendering component
+				// Question: Can we deliver MD from the API?
+				children: '**Subtotal: ** $65\n**Duration: ** 2hr'
+			}
+		},
+		{
+			// NOTE: This won't work until SplitButton is available
+			id: 'primaryCTA',
+			component: 'splitButton',
+			componentProps: {
+				defaultAction: {
+					text: 'Book again',
+					kind: 'primary',
+					isFullWidth: true
+				},
+				actions: [
+					{
+						text: 'Edit past appointment'
+					}
+				]
+			}
+		}
+	]
+}
+
 export const lunchBreak = {
 	items: [
 		{

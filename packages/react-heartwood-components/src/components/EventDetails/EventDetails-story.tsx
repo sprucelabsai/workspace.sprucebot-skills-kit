@@ -6,6 +6,7 @@ import EventDetails from './EventDetails'
 
 import {
 	appointment,
+	pastAppointment,
 	lunchBreak,
 	ptoBlock
 } from '../../../.storybook/data/eventDetails'
@@ -16,6 +17,11 @@ stories
 	.add('Booking: Appointment', () => (
 		<Sidebar side="right" isCollapsible={false} isLarge>
 			<EventDetails {...appointment} />
+		</Sidebar>
+	))
+	.add('Booking: Past Appointment', () => (
+		<Sidebar side="right" isCollapsible={false} isLarge>
+			<EventDetails {...pastAppointment} />
 		</Sidebar>
 	))
 	.add('Scheduling: Lunch Break', () => (
