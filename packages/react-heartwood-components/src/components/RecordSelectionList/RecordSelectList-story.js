@@ -60,7 +60,7 @@ class RecordListItemsExample extends Component<
 			totalRecordCount,
 			maxRowsVisible
 		} = this.props
-		const { selectedIds, locations, unselectableIds } = this.state
+		const { selectedIds, locations, unselectableIds, emptyState } = this.state
 		return (
 			<RecordSelectionList
 				canSearch
@@ -83,6 +83,18 @@ class RecordListItemsExample extends Component<
 						})
 
 						results = filteredLocations.slice(offset, offset + limit)
+
+						if (results.length === 0) {
+							this.setState({
+								emptyState: {
+									headline: 'No matches found',
+									icon: 'search',
+									primaryAction: {
+										text: 'Show all'
+									}
+								}
+							})
+						}
 					} else {
 						results = locations.slice(offset, offset + limit)
 					}
@@ -134,6 +146,7 @@ class RecordListItemsExample extends Component<
 						? parseInt(maxRowsVisible, 10)
 						: maxRowsVisible
 				}
+				emptyState={emptyState}
 			/>
 		)
 	}
