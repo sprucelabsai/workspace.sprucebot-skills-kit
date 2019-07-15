@@ -177,7 +177,7 @@ stories
 		<div style={{ width: '320px', padding: '8px' }}>
 			<Card>
 				<CardHeader title="Card Title" />
-				<CardBody>
+				<CardBody isSectioned={false} hasBottomPadding={false}>
 					<RecordSelectionList
 						canSearch={false}
 						selectedIds={[]}
@@ -189,7 +189,7 @@ stories
 								'emptyState:subheadline',
 								'There is none of that here'
 							),
-							icon: 'team',
+							icon: text('emptyState:icon', 'team'),
 							isLineIcon: true,
 							primaryAction: {
 								text: text(

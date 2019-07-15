@@ -333,11 +333,7 @@ export default class RecordSelectionList extends Component<
 					</div>
 				)}
 				{!isLoading && loadedRecords.length === 0 && (
-					<EmptyState
-						headline="No records"
-						subheadline="There are none of those to show"
-						{...emptyState}
-					/>
+					<EmptyState headline="No records" {...emptyState} />
 				)}
 			</div>
 		)
