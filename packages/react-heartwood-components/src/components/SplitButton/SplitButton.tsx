@@ -155,7 +155,6 @@ export default class SplitButton extends Component<
 		const buttonPosition = this.getButtonPosition()
 		const scrollTop =
 			typeof document !== 'undefined' &&
-			document &&
 			document.documentElement &&
 			document.documentElement.scrollTop
 				? document.documentElement.scrollTop
