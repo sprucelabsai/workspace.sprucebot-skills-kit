@@ -62,6 +62,9 @@ export interface IButtonProps {
 
 	/** Component used to render anchor */
 	AnchorComponent?: any
+
+	/** Set true to disable the button */
+	disabled?: boolean
 }
 
 const Button = (props: IButtonProps): React.ReactElement => {
