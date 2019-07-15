@@ -39,7 +39,11 @@ export interface IRecordSelectionListProps {
 	}) => Promise<any[]>
 
 	/** Load records as list items for the offset/limit provided */
-	loadRecordListItems?: (options: {
+	loadRecordListItems?: ({
+		offset,
+		limit,
+		search
+	}: {
 		offset: number
 		limit: number
 		search?: string
