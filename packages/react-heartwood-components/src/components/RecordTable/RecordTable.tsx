@@ -350,6 +350,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 		let cancel = false
 
 		if (onClickTab) {
+			console.log({ tab })
 			cancel =
 				onClickTab(e, {
 					payload: tab.payload,

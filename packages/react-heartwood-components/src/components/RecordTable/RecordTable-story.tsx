@@ -36,6 +36,12 @@ stories.add('Basic RecordTable', () => {
 			}
 		)
 
+		if (options.selectedTab === 'empty') {
+			return {
+				visibleRows: [],
+				totalRows: 0
+			}
+		}
 		return {
 			visibleRows: filteredRecords.slice(
 				options.offset,
