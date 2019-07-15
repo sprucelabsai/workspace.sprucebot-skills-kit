@@ -21,7 +21,9 @@ export default class EventDetails extends Component<
 		return (
 			<div className="event-details">
 				{items.map(item => (
-					<EventDetailsItem key={item.id} {...item} />
+					<div key={item.id} className="event-details__section">
+						<EventDetailsItem {...item} />
+					</div>
 				))}
 			</div>
 		)

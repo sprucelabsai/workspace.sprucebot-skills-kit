@@ -3,6 +3,8 @@ import { storiesOf } from '@storybook/react'
 
 import { Sidebar } from '../Core'
 import EventDetails from './EventDetails'
+import Text from '../Text/Text'
+import TextStyle from '../TextStyle/TextStyle'
 
 const stories = storiesOf('EventDetails', module)
 
@@ -60,6 +62,93 @@ stories.add('Hello World', () => (
 								]
 							}
 						]
+					}
+				},
+				{
+					id: 'services',
+					component: 'list',
+					componentProps: {
+						items: [
+							{
+								icon: { name: 'unordered_list', isLineIcon: true },
+								title: 'Accent Highlight',
+								subtitle: '$65 | 1hr',
+								note: 'Vicenta Maggio',
+								contextMenu: {
+									icon: { name: 'edit', isLineIcon: true },
+									isSimple: true,
+									size: 'large',
+									actions: [
+										{
+											text: 'Change teammate'
+										},
+										{
+											text: 'Remove from appointment'
+										}
+									]
+								}
+							},
+							{
+								icon: { name: 'unordered_list', isLineIcon: true },
+								title: 'Haircut',
+								subtitle: '$40 | 1hr',
+								note: 'Vicenta Maggio',
+								contextMenu: {
+									icon: { name: 'edit', isLineIcon: true },
+									isSimple: true,
+									size: 'large',
+									actions: [
+										{
+											text: 'Change teammate'
+										},
+										{
+											text: 'Remove from appointment'
+										}
+									]
+								}
+							}
+						],
+						action: {
+							icon: { name: 'add' },
+							text: 'Add services'
+						}
+					}
+				},
+				{
+					id: 'status',
+					component: 'list',
+					componentProps: {
+						items: [
+							{
+								icon: { name: 'status' },
+								title: 'Status',
+								subtitle: 'Confirmed',
+								isExpandable: true
+							}
+						]
+					}
+				},
+				{
+					id: 'subtotal',
+					component: 'list',
+					componentProps: {
+						items: [
+							{
+								title: 'Subtotal: $105'
+							},
+							{
+								title: 'Duration: 2hr'
+							}
+						]
+					}
+				},
+				{
+					id: 'primaryCTA',
+					component: 'button',
+					componentProps: {
+						text: 'Check guest in',
+						kind: 'primary',
+						isFullWidth: true
 					}
 				}
 			]}
