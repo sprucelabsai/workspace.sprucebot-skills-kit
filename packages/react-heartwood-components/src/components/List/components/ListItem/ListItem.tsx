@@ -71,6 +71,13 @@ export interface IListItemProps {
 
 	/** Optional: set whether to use checkbox or radio for selectable list items */
 	selectableType?: 'checkbox' | 'radio'
+
+	/** Highlight title, subtitle, note with warning colors */
+	warnings?: {
+		title: boolean
+		subtitle: boolean
+		note: boolean
+	}
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
@@ -92,7 +99,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		className,
 		selectableId,
 		selectableProps,
-		selectableType
+		selectableType,
+		warnings
 	} = props
 
 	const parentClass = cx('list-item', className, {
@@ -150,21 +158,31 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				{toggleId || selectableId ? (
 					<p>
 						<label
-							className="list-item__title"
+							className={cx('list-item__title', {
+								'u-color-warning-dark': warnings.title
+							})}
 							htmlFor={toggleId || selectableId}
 						>
 							{title}
 						</label>
 					</p>
 				) : (
-					<p className="list-item__title">{title}</p>
+					<p
+						className={cx('list-item__title', {
+							'u-color-warning-dark': warnings.title
+						})}
+					>
+						{title}
+					</p>
 				)}
 				{subtitle && (
 					<Fragment>
 						{toggleId || selectableId ? (
 							<p>
 								<label
-									className="list-item__subtitle"
+									className={cx('list-item__subtitle', {
+										'u-color-warning-dark': warnings.subtitle
+									})}
 									htmlFor={toggleId || selectableId}
 								>
 									{subtitle}
@@ -172,7 +190,9 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							</p>
 						) : (
 							<p
-								className="list-item__subtitle"
+								className={cx('list-item__subtitle', {
+									'u-color-warning-dark': warnings.subtitle
+								})}
 								dangerouslySetInnerHTML={{ __html: subtitle }}
 							/>
 						)}
@@ -180,7 +200,9 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				)}
 				{note && (
 					<p
-						className="list-item__note"
+						className={cx('list-item__note', {
+							'u-color-warning-dark': warnings.note
+						})}
 						dangerouslySetInnerHTML={{ __html: note }}
 					/>
 				)}
@@ -228,7 +250,12 @@ ListItem.defaultProps = {
 	toggleId: '',
 	actions: [],
 	isSeparatorVisible: true,
-	toggleProps: {}
+	toggleProps: {},
+	warnings: {
+		title: false,
+		subtitle: false,
+		note: false
+	}
 }
 
 export default ListItem

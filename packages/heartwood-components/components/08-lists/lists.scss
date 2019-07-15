@@ -124,6 +124,10 @@
 	.list-item--is-disabled & {
 		color: $c-grey-04;
 	}
+
+	&.u-color-warning-dark {
+		color: $c-ui-warn-dark;
+	}
 }
 
 .list-item__note {
@@ -131,6 +135,10 @@
 
 	.list-item--is-disabled & {
 		color: $c-grey-04;
+	}
+
+	&.u-color-warning-dark {
+		color: $c-ui-warn-dark;
 	}
 }
 
