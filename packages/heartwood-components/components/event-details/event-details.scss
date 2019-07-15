@@ -1,0 +1,7 @@
+.event-details__section {
+	border-bottom: 1px solid $c-border-light;
+
+	.list-item {
+		@include typescale('ui');
+	}
+}

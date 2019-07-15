@@ -25,6 +25,7 @@ stories.add('Hello World', () => (
 								contextMenu: {
 									icon: { name: 'edit', isLineIcon: true },
 									isSimple: true,
+									isSmall: true,
 									size: 'large',
 									actions: [
 										{
@@ -77,6 +78,7 @@ stories.add('Hello World', () => (
 								contextMenu: {
 									icon: { name: 'edit', isLineIcon: true },
 									isSimple: true,
+									isSmall: true,
 									size: 'large',
 									actions: [
 										{
@@ -96,6 +98,7 @@ stories.add('Hello World', () => (
 								contextMenu: {
 									icon: { name: 'edit', isLineIcon: true },
 									isSimple: true,
+									isSmall: true,
 									size: 'large',
 									actions: [
 										{
