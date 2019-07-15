@@ -25,7 +25,8 @@ type RSLExampleState = {
 	isModalOpen?: boolean,
 	selectedIds: Array<string>,
 	unselectableIds: Array<string>,
-	locations: Array<Object>
+	locations: Array<Object>,
+	emptyState: any
 }
 
 class RecordListItemsExample extends Component<
