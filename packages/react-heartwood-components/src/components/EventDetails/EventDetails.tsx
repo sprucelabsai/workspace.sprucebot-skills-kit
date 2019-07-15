@@ -18,6 +18,12 @@ export default class EventDetails extends Component<
 
 	public render(): React.ReactElement {
 		const { items } = this.props
-		return <p>Details</p>
+		return (
+			<div className="event-details">
+				{items.map(item => (
+					<EventDetailsItem key={item.id} {...item} />
+				))}
+			</div>
+		)
 	}
 }
