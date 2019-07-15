@@ -1,6 +1,8 @@
 .empty-state {
+	padding: rem(40) rem(16);
 	color: $c-text-light;
-	padding: spacing('base');
+	// TODO: Add background color once layout works correctly
+	background-color: $c-bg;
 	text-align: center;
 
 	&__headline {
@@ -15,6 +17,14 @@
 			height: 56px;
 			stroke: $c-text-icon;
 			width: 56px;
+
+			path {
+				stroke-width: 1px;
+			}
 		}
+	}
+
+	> * {
+		margin-bottom: rem(8);
 	}
 }
