@@ -93,3 +93,4 @@ export {
 	default as RecordSelectionListItem
 } from './components/RecordSelectionList/RecordSelectionListItem'
 export { default as EmptyState } from './components/EmptyState/EmptyState'
+export { default as EventDetails } from './components/EventDetails/EventDetails'
