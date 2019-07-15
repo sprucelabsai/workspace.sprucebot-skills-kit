@@ -224,7 +224,6 @@ export default class SplitButton extends Component<
 					onClick={this.toggleActionsVisibility}
 				/>
 				{typeof document !== 'undefined' &&
-					document &&
 					document.body &&
 					isVisible &&
 					createPortal(
