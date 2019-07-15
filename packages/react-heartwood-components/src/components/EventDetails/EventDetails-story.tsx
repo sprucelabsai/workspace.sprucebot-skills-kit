@@ -3,8 +3,6 @@ import { storiesOf } from '@storybook/react'
 
 import { Sidebar } from '../Core'
 import EventDetails from './EventDetails'
-import Text from '../Text/Text'
-import TextStyle from '../TextStyle/TextStyle'
 
 const stories = storiesOf('EventDetails', module)
 
@@ -96,7 +94,7 @@ stories.add('Hello World', () => (
 								subtitle: '$40 | 1hr',
 								note: 'Vicenta Maggio',
 								contextMenu: {
-									icon: { name: 'edit', isLineIcon: true },
+									icon: { name: 'edit', isLineIcon: true, isVisible: false },
 									isSimple: true,
 									isSmall: true,
 									size: 'large',
@@ -126,23 +124,19 @@ stories.add('Hello World', () => (
 								icon: { name: 'status' },
 								title: 'Status',
 								subtitle: 'Confirmed',
+								// TODO: Make list item expandable to make this work
 								isExpandable: true
 							}
 						]
 					}
 				},
 				{
-					id: 'subtotal',
-					component: 'list',
+					id: 'subtotalAndDuration',
+					component: 'text',
 					componentProps: {
-						items: [
-							{
-								title: 'Subtotal: $105'
-							},
-							{
-								title: 'Duration: 2hr'
-							}
-						]
+						// NOTE: This would work with a markdown rendering component
+						// Question: Can we deliver MD from the API?
+						children: '**Subtotal: ** $65\n**Duration: ** 2hr'
 					}
 				},
 				{

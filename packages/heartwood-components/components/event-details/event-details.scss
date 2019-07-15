@@ -1,7 +1,12 @@
 .event-details__section {
 	border-bottom: 1px solid $c-border-light;
 
+	> .text,
 	.list-item {
 		@include typescale('ui');
+	}
+
+	> .text {
+		padding: spacing('base');
 	}
 }
