@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { map, sampleSize } from 'lodash'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select, text } from '@storybook/addon-knobs/react'
 
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
@@ -172,4 +172,34 @@ stories
 				/>
 			</Modal.Body>
 		</Modal>
+	))
+	.add('Empty State', () => (
+		<div style={{ width: '320px', padding: '8px' }}>
+			<Card>
+				<CardHeader title="Card Title" />
+				<CardBody>
+					<RecordSelectionList
+						canSearch={false}
+						selectedIds={[]}
+						unselectableIds={[]}
+						loadRecordListItems={async () => []}
+						emptyState={{
+							headline: text('emptyState:headline', 'Nothing to see here'),
+							subheadline: text(
+								'emptyState:subheadline',
+								'There is none of that here'
+							),
+							icon: 'team',
+							isLineIcon: true,
+							primaryAction: {
+								text: text(
+									'emptyState:primaryAction text',
+									'Do something about it'
+								)
+							}
+						}}
+					/>
+				</CardBody>
+			</Card>
+		</div>
 	))

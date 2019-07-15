@@ -16,6 +16,7 @@ import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
 import Button from '../Button/Button'
 import ListItem, { IListItemProps } from '../List/components/ListItem/ListItem'
+import EmptyState from '../EmptyState/EmptyState'
 
 export interface IRecordSelectionListItemProps extends IListItemProps {
 	id: string
@@ -86,6 +87,9 @@ export interface IRecordSelectionListProps {
 	/*  A value of 'auto' will allow the list to fill the height of the parent container */
 
 	maxRowsVisible?: number | 'auto'
+
+	/** Props for the empty state */
+	emptyState?: any
 }
 
 interface IRecordSelectionListState {
@@ -151,7 +155,7 @@ export default class RecordSelectionList extends Component<
 
 		this.state = {
 			loadedRecords: [],
-			isLoading: false,
+			isLoading: true,
 			search: '',
 			listHeight: 1
 		}
@@ -163,7 +167,8 @@ export default class RecordSelectionList extends Component<
 		})
 
 		await this.setState({
-			loadedRecords: initialRecords
+			loadedRecords: initialRecords,
+			isLoading: false
 		})
 
 		const newListHeight = this.getVisibleRecordHeight()
@@ -230,10 +235,11 @@ export default class RecordSelectionList extends Component<
 			searchLabel,
 			searchPlaceholder,
 			showSelectedCount,
-			maxRowsVisible
+			maxRowsVisible,
+			emptyState
 		} = this.props
 
-		const { loadedRecords, search, listHeight } = this.state
+		const { loadedRecords, search, listHeight, isLoading } = this.state
 		const totalSelected = selectedIds.length
 
 		const isRowLoaded = ({ index }): boolean => {
@@ -325,6 +331,13 @@ export default class RecordSelectionList extends Component<
 							)}
 						</InfiniteLoader>
 					</div>
+				)}
+				{!isLoading && loadedRecords.length === 0 && (
+					<EmptyState
+						headline="No records"
+						subheadline="There are none of those to show"
+						{...emptyState}
+					/>
 				)}
 			</div>
 		)
