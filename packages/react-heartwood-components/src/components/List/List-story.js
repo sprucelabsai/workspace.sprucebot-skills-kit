@@ -94,7 +94,6 @@ stories
 			subtitle={text('subtitle', '9am–4pm')}
 			avatar={text('avatar', '')}
 			image={text('image', '')}
-			note="TEST"
 			icon={
 				text('icon', '') && (
 					<Icon
