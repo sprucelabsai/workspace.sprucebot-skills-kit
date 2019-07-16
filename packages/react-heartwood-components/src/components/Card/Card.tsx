@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import cx from 'classnames'
 
 export interface ICardProps {
@@ -21,31 +21,36 @@ export interface ICardProps {
 	className?: string
 }
 
-export const Card = (props: ICardProps): React.ReactElement => {
-	const {
-		children,
-		isCentered,
-		isCritical,
-		isSmall,
-		isFullSize,
-		className
-	} = props
-	return (
-		<div
-			className={cx('card', className, {
-				'card--centered': isCentered,
-				'card--critical': isCritical,
-				'card--small': isSmall,
-				'card--full-size': isFullSize
-			})}
-		>
-			{children}
-		</div>
-	)
+interface ICardState {
+	/** Is the card expanded? */
+	isExpanded: boolean
 }
 
-Card.defaultProps = {
-	isCentered: false
-}
+export default class Card extends Component<ICardProps, ICardState> {
+	public static defaultProps = {
+		isCentered: false
+	}
 
-export default Card
+	public render(): React.ReactElement {
+		const {
+			children,
+			isCentered,
+			isCritical,
+			isSmall,
+			isFullSize,
+			className
+		} = this.props
+		return (
+			<div
+				className={cx('card', className, {
+					'card--centered': isCentered,
+					'card--critical': isCritical,
+					'card--small': isSmall,
+					'card--full-size': isFullSize
+				})}
+			>
+				{children}
+			</div>
+		)
+	}
+}
