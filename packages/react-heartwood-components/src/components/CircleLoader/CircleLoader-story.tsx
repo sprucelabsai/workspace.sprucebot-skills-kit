@@ -1,8 +1,13 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 
 import CircleLoader from './CircleLoader'
 
 const stories = storiesOf('CircleLoader', module)
 
-stories.add('CircleLoader', () => <CircleLoader />)
+stories.addDecorator(withKnobs)
+
+stories.add('CircleLoader', () => (
+	<CircleLoader light={boolean('light', false)} />
+))
