@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
+import { CardHeader, CardBody, CardSection, CardFooter } from './index'
 
 export interface ICardProps {
 	/** Should be Card Header, Card Body, and Card Footer, unless using the card background for styling only. */
@@ -27,6 +28,10 @@ interface ICardState {
 }
 
 export default class Card extends Component<ICardProps, ICardState> {
+	public static Header = CardHeader
+	public static Body = CardBody
+	public static Section = CardSection
+	public static Footer = CardFooter
 	public static defaultProps = {
 		isCentered: false
 	}
