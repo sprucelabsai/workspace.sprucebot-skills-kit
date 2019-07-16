@@ -26,6 +26,60 @@
 	display: inline-block;
 }
 
+// Layouts
+@each $label, $value in $spacing-map {
+	@if $label != 'none' {
+		.u-wrapper__#{$label} {
+			padding-top: $value;
+			padding-right: $value;
+			padding-bottom: $value;
+			padding-left: $value;
+		}
+		.u-wrapper__#{$label}--horizontal {
+			padding-top: 0;
+			padding-right: $value;
+			padding-bottom: 0;
+			padding-left: $value;
+		}
+		.u-wrapper__#{$label}--vertical {
+			padding-top: $value;
+			padding-right: 0;
+			padding-bottom: $value;
+			padding-left: 0;
+		}
+
+		.u-margin__#{$label} {
+			margin-top: $value;
+			margin-right: $value;
+			margin-bottom: $value;
+			margin-left: $value;
+		}
+		.u-margin-top__#{$label} {
+			margin-top: $value;
+		}
+
+		.u-margin-right__#{$label} {
+			margin-right: $value;
+		}
+
+		.u-margin-bottom__#{$label} {
+			margin-bottom: $value;
+		}
+
+		.u-margin-left__#{$label} {
+			margin-left: $value;
+		}
+	}
+}
+
+@each $label, $value in $layout-width-map {
+	.u-container__#{$label} {
+		max-width: $value;
+		margin-right: auto;
+		margin-left: auto;
+	}
+}
+
 // Margin
 .u-ml-tight {
 	margin-left: spacing('tight');
