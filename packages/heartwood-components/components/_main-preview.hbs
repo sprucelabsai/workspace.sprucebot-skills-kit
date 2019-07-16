@@ -10,20 +10,14 @@
 
 <body>
 	{{#if renderInPage }}
-	<div class="page">
-		<div class="page__content">
-			<div class="layout">
-				{{#if isSectioned }}
-				<div class="layout__section">
-					{{/if}}
-					{{#>@partial-block}}
-					{{{ yield }}}
-					{{/@partial-block}}
-					{{#if isSectioned }}
-				</div>
-				{{/if}}
-			</div>
-		</div>
+	<div class="u-wrapper__base">
+		{{#if isSectioned }}
+		{{/if}}
+		{{#>@partial-block}}
+		{{{ yield }}}
+		{{/@partial-block}}
+		{{#if isSectioned }}
+		{{/if}}
 	</div>
 	{{else}}
 	{{#>@partial-block}}
