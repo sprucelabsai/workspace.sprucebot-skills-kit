@@ -375,7 +375,6 @@ stories
 		<CardBuilder key="foo-4" {...object('json5', cardJSON5)} />
 	])
 	.add('Expandable Card', () => {
-		console.log({ Card })
 		return (
 			<Card expandable headerProps={{ title: 'Hello' }} defaultExpanded={false}>
 				<Card.Body>
