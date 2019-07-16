@@ -79,7 +79,8 @@ export default class Card extends Component<ICardProps, ICardState> {
 					'card--centered': isCentered,
 					'card--critical': isCritical,
 					'card--small': isSmall,
-					'card--full-size': isFullSize
+					'card--full-size': isFullSize,
+					'card--is-collapsed': expandable && !isExpanded
 				})}
 			>
 				{expandable && (
