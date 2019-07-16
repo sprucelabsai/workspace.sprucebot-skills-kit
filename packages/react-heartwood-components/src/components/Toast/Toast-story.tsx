@@ -6,42 +6,52 @@ import Toast from './Toast'
 import ToastWrapper from './components/ToastWrapper/ToastWrapper'
 const stories = storiesOf('Toast', module)
 
-interface IToastExampleProps {
+interface IToasterProps {
 	showFollowup: boolean
 	headline: string
 	text: string
 }
 
-interface IToastExampleState {
+interface IToasterState {
 	toasts: any[]
 }
 
-class ToastExample extends Component<IToastExampleProps, IToastExampleState> {
+class Toaster extends Component<IToasterProps, IToasterState> {
 	public state = {
 		toasts: []
 	}
 
-	public addToast = (kind: 'neutral' | 'positive' | 'negative') => {
+	public addToast = (
+		kind: 'neutral' | 'positive' | 'negative' | 'warn' | 'info'
+	) => {
 		const { showFollowup } = this.props
 		const ids = {
 			neutral: '1',
 			positive: '2',
-			negative: '3'
+			negative: '3',
+			warn: '4',
+			info: '5'
 		}
 		const headlines = {
 			neutral: 'Neat',
 			positive: 'Great!',
-			negative: 'Oh No!'
+			negative: 'Oh No!',
+			warn: 'Uh-oh',
+			info: 'Did you know?'
 		}
 		const texts = {
 			neutral: 'Something just happened and it was fine.',
 			positive: 'You did something amazing. Congrats!',
-			negative: 'Run away! This is awful.'
+			negative: 'Run away! This is awful.',
+			warn: 'Something is not quite right',
+			info: 'Penguins cannot fly'
 		}
 		const timeouts = {
 			neutral: 'never',
 			positive: 10000,
-			negative: 3000
+			negative: 3000,
+			warn: 'never',
+			info: 2000
 		}
 		this.setState(prevState => {
 			const newToasts = [...prevState.toasts]
@@ -89,6 +99,16 @@ class ToastExample extends Component<IToastExampleProps, IToastExampleState> {
 							kind: 'secondary',
 							text: 'Add Sad Toast',
 							onClick: () => this.addToast('negative')
+						},
+						{
+							kind: 'secondary',
+							text: 'Add Warning Toast',
+							onClick: () => this.addToast('warn')
+						},
+						{
+							kind: 'secondary',
+							text: 'Add Info Toast',
+							onClick: () => this.addToast('info')
 						}
 					]}
 				/>
@@ -97,6 +117,8 @@ class ToastExample extends Component<IToastExampleProps, IToastExampleState> {
 		)
 	}
 }
+
+const toastKinds = ['neutral', 'positive', 'negative', 'warn', 'info']
 
 stories.addDecorator(withKnobs)
 
@@ -116,8 +138,25 @@ stories
 			followupText={boolean('followupAction', false) && 'Undo'}
 		/>
 	))
+	.add('All Kinds', () => (
+		<div style={{ padding: '1rem' }}>
+			{toastKinds.map(kind => (
+				<div key={kind} style={{ padding: '1rem' }}>
+					<Toast
+						id="toast"
+						kind={kind.toString()}
+						headline={text('headline', 'Neat') + ' ' + kind + ' toast'}
+						text={text('text', 'Something just happened and it was fine.')}
+						onRemove={() => null}
+						followupAction={() => null}
+						followupText={boolean('followupAction', false) && 'Undo'}
+					/>
+				</div>
+			))}
+		</div>
+	))
 	.add('Toaster', () => (
-		<ToastExample
+		<Toaster
 			headline={text('headline', 'Neat')}
 			text={text('text', 'Something just happened and it was fine.')}
 			showFollowup={boolean('showFollowup', false)}

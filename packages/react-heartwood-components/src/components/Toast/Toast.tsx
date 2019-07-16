@@ -34,7 +34,7 @@ export interface IToastProps {
 	onRemove: Function
 
 	/** Sets the variation of toast */
-	kind?: 'neutral' | 'positive' | 'negative' | 'warn' | 'info'
+	kind?: string
 
 	/** Handle a followup action */
 	followupAction?: Function
