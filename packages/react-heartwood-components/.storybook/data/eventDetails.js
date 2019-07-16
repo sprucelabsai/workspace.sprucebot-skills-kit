@@ -132,13 +132,13 @@ export const appointment = {
 			}
 		},
 		{
-			// NOTE: This won't work until SplitButton is available
 			id: 'primaryCTA',
 			component: 'splitButton',
 			componentProps: {
+				kind: 'primary',
+				isFullWidth: true,
 				defaultAction: {
 					text: 'Check guest in',
-					kind: 'primary',
 					isFullWidth: true
 				},
 				actions: [
@@ -329,13 +329,13 @@ export const warningAppointment = {
 			}
 		},
 		{
-			// NOTE: This won't work until SplitButton is available
 			id: 'primaryCTA',
 			component: 'splitButton',
 			componentProps: {
+				kind: 'primary',
+				isFullWidth: true,
 				defaultAction: {
 					text: 'Check guest in',
-					kind: 'primary',
 					isFullWidth: true
 				},
 				actions: [
@@ -443,13 +443,13 @@ export const pastAppointment = {
 			}
 		},
 		{
-			// NOTE: This won't work until SplitButton is available
 			id: 'primaryCTA',
 			component: 'splitButton',
 			componentProps: {
+				kind: 'primary',
+				isFullWidth: true,
 				defaultAction: {
 					text: 'Book again',
-					kind: 'primary',
 					isFullWidth: true
 				},
 				actions: [

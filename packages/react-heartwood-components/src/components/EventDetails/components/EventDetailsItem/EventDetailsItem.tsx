@@ -2,6 +2,7 @@ import React from 'react'
 import List from '../../../List/List'
 import Button from '../../../Button/Button'
 import { CardBuilder } from '../../../Card'
+import SplitButton from '../../../SplitButton/SplitButton'
 import Toast from '../../../Toast/Toast'
 import Text from '../../../Text/Text'
 
@@ -10,7 +11,7 @@ export interface IEventDetailsItemProps {
 	id: string
 
 	/** Component key to decide what to render */
-	component: 'list' | 'button' | 'card' | 'toast' | 'text'
+	component: 'list' | 'button' | 'splitButton' | 'card' | 'toast' | 'text'
 
 	/** Props to pass into the rendered component */
 	// TODO: This should be tied to only the components that can be rendered after TSX conversion
@@ -21,6 +22,7 @@ const components = {
 	list: List,
 	button: Button,
 	card: CardBuilder,
+	splitButton: SplitButton,
 	toast: Toast,
 	text: Text
 }
