@@ -13,7 +13,7 @@ export interface IEventDetailsItemProps {
 	component: 'list' | 'button' | 'card' | 'toast' | 'text'
 
 	/** Props to pass into the rendered component */
-	// TODO: This should be tied to only the components that can be rendered
+	// TODO: This should be tied to only the components that can be rendered after TSX conversion
 	componentProps: any
 }
 
@@ -31,7 +31,10 @@ const EventDetailsItem = (
 	const { component, componentProps } = props
 
 	if (!component || !components[component]) {
-		// TODO: Warn dev that they passed in the wrong key
+		// TODO: Use logger library for warning
+		console.warn(
+			`No component found for key: ${component}. Please double-check properties passed into <EventDetailsItem> from <EventDetails>.`
+		)
 		return null
 	}
 
