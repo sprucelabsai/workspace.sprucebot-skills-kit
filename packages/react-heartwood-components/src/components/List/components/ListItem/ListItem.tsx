@@ -27,6 +27,9 @@ export interface IListItemProps {
 	/** Inline svg icon */
 	icon?: Record<string, any>
 
+	/** Optional; visually hides the icon without removing it */
+	iconIsHidden?: boolean
+
 	/** Set true to add left spacing. useful in aligning with other list items that have icons or images */
 	isLeftIndented?: boolean
 
@@ -88,6 +91,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		avatar,
 		image,
 		icon,
+		iconIsHidden,
 		isDraggable,
 		isDisabled,
 		toggleId,
@@ -120,7 +124,9 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							customIcon={icon.customIcon}
 							icon={icon.name}
 							isLineIcon={icon.isLineIcon}
-							className={cx('list-item__icon', icon.className, {})}
+							className={cx('list-item__icon', icon.className, {
+								'list-item__icon--hidden': iconIsHidden
+							})}
 						/>
 					)}
 					{image && (
@@ -246,6 +252,7 @@ ListItem.defaultProps = {
 	avatar: '',
 	image: '',
 	icon: null,
+	iconIsHidden: false,
 	isDraggable: false,
 	toggleId: '',
 	actions: [],

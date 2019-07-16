@@ -177,6 +177,11 @@
 	// .list-small & {
 	// 	top: 1px;
 	// }
+
+	&.list-item__icon--hidden {
+		opacity: 0;
+		visibility: hidden;
+	}
 }
 
 .list-item .toggle__wrapper {
