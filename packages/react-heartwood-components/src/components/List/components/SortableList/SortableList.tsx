@@ -1,4 +1,3 @@
-// @flow
 import React, { Component, Fragment } from 'react'
 import cx from 'classnames'
 import {
@@ -6,42 +5,57 @@ import {
 	SortableElement,
 	arrayMove
 } from 'react-sortable-hoc'
+import { IListProps } from '../../List'
 import ListHeader from '../ListHeader/ListHeader'
-import ListItem from '../ListItem/ListItem'
-import type { Props as ListItemProps } from '../ListItem/ListItem'
-import type { Props as ListProps } from '../../List'
+import ListItem, { IListItemProps } from '../ListItem/ListItem'
 
-type Props = {
+export interface ISortableListProps extends IListProps {
 	/** onConfirm callback */
-	onConfirm?: Function,
-	...ListProps
+	onConfirm?: Function
+
+	/** Optional classname for the parent */
+	parentClass?: string
+
+	/** Optional; disables sorting */
+	disabled?: boolean
+
+	/** Callback when sorting starts */
+	onSortStart: Function
+
+	/** Callabck when sorting ends */
+	onSortEnd: Function
 }
-type State = {
-	items: Array<ListItemProps>,
+
+interface ISortableListState {
+	items: IListItemProps[]
 	isSorting: boolean
 }
-const SortableItem = SortableElement(({ item }) => <ListItem {...item} />)
-const SortableList = SortableContainer(({ items, parentClass, disabled }) => {
-	return (
-		<ul className={parentClass}>
-			{items.map((item, index) => (
-				<SortableItem
-					key={`item-${index}`}
-					disabled={disabled}
-					index={index}
-					item={item}
-				/>
-			))}
-		</ul>
-	)
-})
+const SortableItem = SortableElement(
+	({ item }: any): React.ReactElement => <ListItem {...item} />
+)
+const SortableList = SortableContainer(
+	({ items, parentClass, disabled }: any): React.ReactElement => {
+		return (
+			<ul className={parentClass}>
+				{items.map((item, index) => (
+					<SortableItem
+						key={`item-${index}`}
+						disabled={disabled}
+						index={index}
+						item={item}
+					/>
+				))}
+			</ul>
+		)
+	}
+)
 
 const headerActions = ({
 	isSorting,
 	onClickToggle,
 	onClickCancel,
 	onClickConfirm
-}) => {
+}): any => {
 	if (isSorting) {
 		return [
 			{
@@ -65,26 +79,29 @@ const headerActions = ({
 	]
 }
 
-export default class SortableComponent extends Component<Props, State> {
-	state = {
+export default class SortableComponent extends Component<
+	ISortableListProps,
+	ISortableListState
+> {
+	public state = {
 		items: this.props.items || [],
 		isSorting: false
 	}
 
-	toggleSorting = () => {
+	public toggleSorting = () => {
 		this.setState(prevState => ({
 			isSorting: !prevState.isSorting
 		}))
 	}
 
-	onCancel = () => {
+	public onCancel = () => {
 		this.setState({
 			items: this.props.items,
 			isSorting: false
 		})
 	}
 
-	onConfirm = () => {
+	public onConfirm = () => {
 		const { onConfirm } = this.props
 		this.setState({
 			isSorting: false
@@ -95,17 +112,17 @@ export default class SortableComponent extends Component<Props, State> {
 		}
 	}
 
-	onSortStart = () => {
+	public onSortStart = () => {
 		//
 	}
 
-	onSortEnd = ({ oldIndex, newIndex }: Object) => {
+	public onSortEnd = ({ oldIndex, newIndex }: any) => {
 		this.setState({
 			items: arrayMove(this.state.items, oldIndex, newIndex)
 		})
 	}
 
-	render() {
+	public render(): React.ReactElement {
 		const { isSorting } = this.state
 		const { header, className, isSmall } = this.props
 		const parentClass = cx('list sortable-list', className, {
