@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
+import { withKnobs, text, boolean, select } from '@storybook/addon-knobs/react'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
+import Toast from './Toast'
 import ToastWrapper from './components/ToastWrapper/ToastWrapper'
 const stories = storiesOf('Toast', module)
 
@@ -99,10 +100,26 @@ class ToastExample extends Component<IToastExampleProps, IToastExampleState> {
 
 stories.addDecorator(withKnobs)
 
-stories.add('Toast', () => (
-	<ToastExample
-		headline={text('headline', 'Neat')}
-		text={text('text', 'Something just happened and it was fine.')}
-		showFollowup={boolean('showFollowup', false)}
-	/>
-))
+stories
+	.add('Toast', () => (
+		<Toast
+			id="toast"
+			kind={select(
+				'kind',
+				['neutral', 'positive', 'negative', 'warn', 'info'],
+				'neutral'
+			)}
+			headline={text('headline', 'Neat')}
+			text={text('text', 'Something just happened and it was fine.')}
+			onRemove={() => null}
+			followupAction={() => null}
+			followupText={boolean('followupAction', false) && 'Undo'}
+		/>
+	))
+	.add('Toaster', () => (
+		<ToastExample
+			headline={text('headline', 'Neat')}
+			text={text('text', 'Something just happened and it was fine.')}
+			showFollowup={boolean('showFollowup', false)}
+		/>
+	))

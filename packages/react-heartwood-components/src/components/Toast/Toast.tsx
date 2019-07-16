@@ -27,14 +27,14 @@ export interface IToastProps {
 	/** Headline text */
 	headline: string
 
-	/** Text after the headline */
-	text: string
+	/** Optional; Text after the headline */
+	text?: string
 
 	/** Handle toast removal */
 	onRemove: Function
 
 	/** Sets the variation of toast */
-	kind?: 'neutral' | 'positive' | 'negative'
+	kind?: 'neutral' | 'positive' | 'negative' | 'warn' | 'info'
 
 	/** Handle a followup action */
 	followupAction?: Function
@@ -47,14 +47,18 @@ const Toast = (props: IToastProps): React.ReactElement => {
 	const { headline, kind, text, followupAction, followupText, onRemove } = props
 	const toastClass = cx('toast', {
 		'toast-positive': kind === 'positive',
-		'toast-negative': kind === 'negative'
+		'toast-negative': kind === 'negative',
+		'toast-warn': kind === 'warn',
+		'toast-info': kind === 'info'
 	})
 	return (
 		<div className={toastClass}>
 			<ToastHeader headline={headline} onRemove={onRemove} />
-			<div className="toast__body">
-				<p>{text}</p>
-			</div>
+			{text && (
+				<div className="toast__body">
+					<p>{text}</p>
+				</div>
+			)}
 			{followupAction && (
 				<Button text={followupText} onClick={followupAction} />
 			)}
@@ -65,7 +69,8 @@ const Toast = (props: IToastProps): React.ReactElement => {
 Toast.defaultProps = {
 	kind: 'neutral',
 	followupAction: null,
-	followupText: 'Undo'
+	followupText: 'Undo',
+	text: ''
 }
 
 export default Toast
