@@ -11,7 +11,7 @@ import ListItem, { IListItemProps } from '../ListItem/ListItem'
 
 export interface ISortableListProps extends IListProps {
 	/** onConfirm callback */
-	onConfirm?: Function
+	onConfirm?: () => void
 
 	/** Optional classname for the parent */
 	parentClass?: string
@@ -20,10 +20,10 @@ export interface ISortableListProps extends IListProps {
 	disabled?: boolean
 
 	/** Callback when sorting starts */
-	onSortStart: Function
+	onSortStart: (item: IListItemProps) => void
 
 	/** Callabck when sorting ends */
-	onSortEnd: Function
+	onSortEnd: (props: any) => void
 }
 
 interface ISortableListState {
@@ -31,7 +31,7 @@ interface ISortableListState {
 	isSorting: boolean
 }
 const SortableItem = SortableElement(
-	({ item }: any): React.ReactElement => <ListItem {...item} />
+	(item: any): React.ReactElement => <ListItem {...item} />
 )
 const SortableList = SortableContainer(
 	({ items, parentClass, disabled }: any): React.ReactElement => {
