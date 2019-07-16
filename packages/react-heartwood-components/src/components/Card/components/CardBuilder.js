@@ -163,9 +163,12 @@ const CardBuilder = (props: CardBuilderProps) => {
 					{Array.isArray(children) ? children.map(renderChild) : children}
 				</CardBody>
 			)}
-			{footer && footer.actions && (
+			{footer && (
 				<CardFooter>
-					<ButtonGroup {...footer} />
+					{footer.actions && <ButtonGroup {...footer} />}
+					{footer.helper && (
+						<div className={'card__footer__helper'}>{footer.helper}</div>
+					)}
 				</CardFooter>
 			)}
 		</Card>

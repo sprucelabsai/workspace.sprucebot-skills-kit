@@ -159,6 +159,28 @@ const cardJSON4 = {
 	}
 }
 
+const cardJSON5 = {
+	header: {
+		title: 'Danger Zone'
+	},
+	footer: {
+		actions: [
+			{
+				type: 'button',
+				text: 'Delete this thing forever',
+				icon: {
+					name: 'remove'
+				},
+				kind: 'caution',
+				isSmall: true,
+				onClick: () => {}
+			}
+		],
+		helper:
+			'This is a permanant thing you are doing, be sure you want to do the thing'
+	}
+}
+
 const stories = storiesOf('Card', module)
 
 stories.addDecorator(
@@ -348,5 +370,6 @@ stories
 		<CardBuilder key="foo-0" {...object('json', cardJSON)} />,
 		<CardBuilder key="foo-1" {...object('json2', cardJSON2)} />,
 		<CardBuilder key="foo-2" {...object('json3', cardJSON3)} />,
-		<CardBuilder key="foo-3" {...object('json4', cardJSON4)} />
+		<CardBuilder key="foo-3" {...object('json4', cardJSON4)} />,
+		<CardBuilder key="foo-4" {...object('json5', cardJSON5)} />
 	])
