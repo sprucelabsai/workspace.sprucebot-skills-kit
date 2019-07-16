@@ -170,13 +170,8 @@
 
 .list-item__icon {
 	position: relative;
-	// top: 3px;
 	width: rem(20);
 	height: rem(20);
-
-	// .list-small & {
-	// 	top: 1px;
-	// }
 
 	&.list-item__icon--hidden {
 		opacity: 0;
