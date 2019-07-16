@@ -26,7 +26,7 @@
 	display: inline-block;
 }
 
-// Layouts
+// Layout
 @each $label, $value in $spacing-map {
 	@if $label != 'none' {
 		.u-wrapper__#{$label} {
@@ -69,6 +69,28 @@
 		.u-margin-left__#{$label} {
 			margin-left: $value;
 		}
+
+		.u-padding__#{$label} {
+			padding-top: $value;
+			padding-right: $value;
+			padding-bottom: $value;
+			padding-left: $value;
+		}
+		.u-padding-top__#{$label} {
+			padding-top: $value;
+		}
+
+		.u-padding-right__#{$label} {
+			padding-right: $value;
+		}
+
+		.u-padding-bottom__#{$label} {
+			padding-bottom: $value;
+		}
+
+		.u-padding-left__#{$label} {
+			padding-left: $value;
+		}
 	}
 }
 
@@ -80,9 +102,12 @@
 	}
 }
 
-// Margin
-.u-ml-tight {
-	margin-left: spacing('tight');
+.u-padding__none {
+	padding: 0;
+}
+
+.u-margin__none {
+	margin: 0;
 }
 
 // Flex
