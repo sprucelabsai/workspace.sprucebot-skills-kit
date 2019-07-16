@@ -190,7 +190,8 @@ Baseline styling for all buttons
 		outline: none;
 	}
 
-	.loader {
+	.loader,
+	.circle-loader {
 		position: absolute;
 		top: 50%;
 		left: 50%;
