@@ -10,7 +10,8 @@ import {
 } from '@storybook/addon-knobs/react'
 import { onboarding } from '../../../.storybook/data/onboarding'
 import { userList } from '../../../.storybook/data/people'
-import Card, {
+import {
+	Card,
 	CardHeader,
 	CardBody,
 	CardFooter,
@@ -207,7 +208,7 @@ stories
 			<CardHeader
 				title={text('title', 'Please update your credit card')}
 				labelText={text('labelText', 'Billing failure')}
-				labelIcon={{ customIcon: AlertIcon3 }}
+				labelIcon={{ customIcon: AlertIcon3, isLineIcon: false }}
 			/>
 			<CardBody>
 				<Text>
