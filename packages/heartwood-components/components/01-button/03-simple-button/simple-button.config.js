@@ -5,7 +5,7 @@ module.exports = {
 	collator: function(markup, item) {
 		return `<!-- Start: @${
 			item.handle
-		} -->\n<span class="u-wrapper__tight u-display-ib">${markup}</span>\n<!-- End: @${
+		} -->\n<span class="pl-tight py-tight u-display-ib">${markup}</span>\n<!-- End: @${
 			item.handle
 		} -->\n`
 	},

@@ -29,67 +29,72 @@
 // Layout
 @each $label, $value in $spacing-map {
 	@if $label != 'none' {
-		.u-wrapper__#{$label} {
+		.p-#{$label} {
 			padding-top: $value;
 			padding-right: $value;
 			padding-bottom: $value;
 			padding-left: $value;
 		}
-		.u-wrapper__#{$label}--horizontal {
+		.px-#{$label} {
 			padding-top: 0;
 			padding-right: $value;
 			padding-bottom: 0;
 			padding-left: $value;
 		}
-		.u-wrapper__#{$label}--vertical {
+		.py-#{$label} {
 			padding-top: $value;
 			padding-right: 0;
 			padding-bottom: $value;
 			padding-left: 0;
 		}
+		.pt-#{$label} {
+			padding-top: $value;
+		}
 
-		.u-margin__#{$label} {
+		.pr-#{$label} {
+			padding-right: $value;
+		}
+
+		.pb-#{$label} {
+			padding-bottom: $value;
+		}
+
+		.pl-#{$label} {
+			padding-left: $value;
+		}
+
+		.m-#{$label} {
 			margin-top: $value;
 			margin-right: $value;
 			margin-bottom: $value;
 			margin-left: $value;
 		}
-		.u-margin-top__#{$label} {
+		.mx-#{$label} {
+			margin-top: 0;
+			margin-left: $value;
+			margin-bottom: 0;
+			margin-right: $value;
+		}
+		.my-#{$label} {
+			margin-top: $value;
+			margin-left: 0;
+			margin-bottom: $value;
+			margin-right: 0;
+		}
+		.mt-#{$label} {
 			margin-top: $value;
 		}
 
-		.u-margin-right__#{$label} {
+		.mr-#{$label} {
 			margin-right: $value;
 		}
 
-		.u-margin-bottom__#{$label} {
+		.mb-#{$label} {
 			margin-bottom: $value;
 		}
 
-		.u-margin-left__#{$label} {
+		.ml-#{$label} {
 			margin-left: $value;
-		}
-
-		.u-padding__#{$label} {
-			padding-top: $value;
-			padding-right: $value;
-			padding-bottom: $value;
-			padding-left: $value;
-		}
-		.u-padding-top__#{$label} {
-			padding-top: $value;
-		}
-
-		.u-padding-right__#{$label} {
-			padding-right: $value;
-		}
-
-		.u-padding-bottom__#{$label} {
-			padding-bottom: $value;
-		}
-
-		.u-padding-left__#{$label} {
-			padding-left: $value;
 		}
 	}
 }
