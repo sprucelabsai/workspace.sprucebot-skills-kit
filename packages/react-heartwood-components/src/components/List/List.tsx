@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
-import ListHeader from './components/ListHeader/ListHeader'
-import ListItem from './components/ListItem/ListItem'
+import ListHeader, {
+	IListHeaderProps
+} from './components/ListHeader/ListHeader'
+import ListItem, { IListItemProps } from './components/ListItem/ListItem'
 
 export const ListWrapper = (props: {
 	children: React.ReactElement
@@ -9,10 +11,10 @@ export const ListWrapper = (props: {
 
 export interface IListProps {
 	/** List Header */
-	header?: any
+	header?: IListHeaderProps
 
 	/** List items */
-	items?: any[]
+	items?: IListItemProps[]
 
 	/** Class for the list */
 	className?: string

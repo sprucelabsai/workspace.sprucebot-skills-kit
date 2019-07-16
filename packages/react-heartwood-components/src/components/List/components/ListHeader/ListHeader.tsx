@@ -13,6 +13,7 @@ export interface IListHeaderProps {
 	isSmall?: boolean
 
 	/** Actions to associate with the list header */
+	// TODO Import Button interface
 	actions?: any[]
 }
 
