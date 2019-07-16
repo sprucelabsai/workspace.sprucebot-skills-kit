@@ -94,3 +94,4 @@ export {
 } from './components/RecordSelectionList/RecordSelectionListItem'
 export { default as EmptyState } from './components/EmptyState/EmptyState'
 export { default as EventDetails } from './components/EventDetails/EventDetails'
+export { default as SplitButton } from './components/SplitButton/SplitButton'
