@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react'
 import Card from '../Card'
 import CardHeader from './CardHeader'
@@ -6,41 +5,47 @@ import CardBody from './CardBody'
 import CardFooter from './CardFooter'
 import Button from '../../Button/Button'
 import Tabs from '../../Tabs/Tabs'
-import type { Props as ButtonProps } from '../../Button/Button'
+import { IButtonProps } from '../../Button/Button'
 
-export type Step = {
+export interface IStep {
 	/** Unique identifier */
-	id: string,
+	id: string
 
 	/** Title that shows in the tab */
-	tabTitle: string,
+	tabTitle: string
+
+	/** Icon for the tab */
+	tabIcon: any
 
 	/** Title that shows in the panel */
-	panelTitle: string,
+	panelTitle: string
 
 	/** Copy describing the step in the card's body */
-	panelCopy: string,
+	panelCopy: string
 
 	/** Primary CTA of this step */
-	panelCTA: ButtonProps
+	panelCTA: IButtonProps
+
+	/** Is this step complete? */
+	isComplete?: boolean
 }
 
-export type Props = {
+export interface IOnboardingCardProps {
 	/** Title of the entire card */
-	title: string,
+	title: string
 
 	/** Steps for onboarding */
-	steps: Array<Step>,
+	steps: IStep[]
 
 	/** Optional class to add */
 	className?: string
 }
 
-type State = {
+interface IOnboardingCardState {
 	currentStep: number
 }
 
-const getCurrentStep = (steps: Array<Step>) => {
+const getCurrentStep = (steps: IStep[]): number => {
 	// Find the first step that is not complete
 	if (steps && steps.length > 0) {
 		for (let i = 0; i < steps.length; i++) {
@@ -52,18 +57,21 @@ const getCurrentStep = (steps: Array<Step>) => {
 	return 0
 }
 
-export default class OnboardingCard extends Component<Props, State> {
-	state = {
+export default class OnboardingCard extends Component<
+	IOnboardingCardProps,
+	IOnboardingCardState
+> {
+	public state = {
 		currentStep: getCurrentStep(this.props.steps)
 	}
 
-	handleClick = (idx: number) => {
+	public handleClick = (idx: number) => {
 		this.setState({
 			currentStep: idx
 		})
 	}
 
-	render() {
+	public render(): React.ReactElement {
 		const { currentStep } = this.state
 		const { title, steps } = this.props
 		const tabs = steps.map((step, idx) => ({
@@ -81,7 +89,9 @@ export default class OnboardingCard extends Component<Props, State> {
 					{tabs && <Tabs tabs={tabs} isPadded={false} isTruncatable={false} />}
 				</div>
 				<CardHeader title={steps[currentStep].panelTitle} />
-				<CardBody isSectioned>{steps[currentStep].panelCopy}</CardBody>
+				<CardBody isSectioned isFullBleed={false}>
+					{steps[currentStep].panelCopy}
+				</CardBody>
 				<CardFooter>
 					<Button kind="primary" {...steps[currentStep].panelCTA} />
 				</CardFooter>

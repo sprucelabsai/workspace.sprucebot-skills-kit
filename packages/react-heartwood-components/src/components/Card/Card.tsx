@@ -1,31 +1,27 @@
-// @flow
-// NOTE: Cards should be built in a way that they can be created with JSON
 import React from 'react'
-import type { Node } from 'react'
 import cx from 'classnames'
 
-// Card
-type CardProps = {
+export interface ICardProps {
 	/** Should be Card Header, Card Body, and Card Footer, unless using the card background for styling only. */
-	children: Node,
+	children: React.ReactNode
 
 	/** Set true to make all content center aligned. */
-	isCentered?: boolean,
+	isCentered?: boolean
 
 	/** Set true if this card is mission-critical for the person who sees it. */
-	isCritical?: boolean,
+	isCritical?: boolean
 
 	/** Set true to render a smaller card variation */
-	isSmall?: boolean,
+	isSmall?: boolean
 
 	/** Set true to fill space of parent */
-	isFullSize?: boolean,
+	isFullSize?: boolean
 
 	/** Optional classname */
 	className?: string
 }
 
-export const Card = (props: CardProps) => {
+export const Card = (props: ICardProps): React.ReactElement => {
 	const {
 		children,
 		isCentered,
