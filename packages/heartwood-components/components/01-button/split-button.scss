@@ -1,0 +1,26 @@
+.split-button {
+	display: inline-flex;
+}
+
+.split-button--is-full-width {
+	width: 100%;
+}
+
+.split-button__default {
+	flex-grow: 1;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+
+	&.btn-primary {
+		border-right: 1px solid $c-white;
+	}
+
+	&.btn-secondary {
+		border-right: none;
+	}
+}
+
+.split-button__actions {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
