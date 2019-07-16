@@ -23,7 +23,7 @@ export interface IListProps {
 	isSmall?: boolean
 
 	/** any passthrough to render in the body of the list */
-	children?: any
+	children?: React.ReactNode
 
 	/** Set to true to show separators between list items */
 	areSeparatorsVisible: boolean
