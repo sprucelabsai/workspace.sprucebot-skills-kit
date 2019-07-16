@@ -1,29 +1,26 @@
-// @flow
 import React, { Component } from 'react'
-import type { Node } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import ToastWrapper from './components/ToastWrapper/ToastWrapper'
 const stories = storiesOf('Toast', module)
 
-type Props = {
-	children: Node,
-	showFollowup: boolean,
-	headline: string,
+interface IToastExampleProps {
+	showFollowup: boolean
+	headline: string
 	text: string
 }
 
-type State = {
-	toasts: Array<Object>
+interface IToastExampleState {
+	toasts: any[]
 }
 
-class ToastExample extends Component<Props, State> {
-	state = {
+class ToastExample extends Component<IToastExampleProps, IToastExampleState> {
+	public state = {
 		toasts: []
 	}
 
-	addToast = (kind: 'neutral' | 'positive' | 'negative') => {
+	public addToast = (kind: 'neutral' | 'positive' | 'negative') => {
 		const { showFollowup } = this.props
 		const ids = {
 			neutral: '1',
@@ -62,7 +59,7 @@ class ToastExample extends Component<Props, State> {
 	}
 
 	// TODO: Hook up this functionality
-	removeToast = () => {
+	public removeToast = () => {
 		this.setState(prevState => {
 			const toasts = [...prevState.toasts]
 			return {
@@ -71,7 +68,7 @@ class ToastExample extends Component<Props, State> {
 		})
 	}
 
-	render() {
+	public render(): React.ReactElement {
 		const { toasts } = this.state
 		return (
 			<div>
