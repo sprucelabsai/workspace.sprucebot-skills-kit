@@ -1,5 +1,8 @@
 export { default as Card } from './Card'
-export { default as CardHeader } from './components/CardHeader'
+export {
+	default as CardHeader,
+	ICardHeaderProps
+} from './components/CardHeader'
 export { default as CardBody } from './components/CardBody'
 export { default as CardSection } from './components/CardSection'
 export { default as CardFooter } from './components/CardFooter'

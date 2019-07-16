@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
-import { CardHeader, CardBody, CardSection, CardFooter } from './index'
+import CardHeader, { ICardHeaderProps } from './components/CardHeader'
+import CardBody from './components/CardBody'
+import CardSection from './components/CardSection'
+import CardFooter from './components/CardFooter'
 
 export interface ICardProps {
 	/** Should be Card Header, Card Body, and Card Footer, unless using the card background for styling only. */
@@ -20,6 +23,15 @@ export interface ICardProps {
 
 	/** Optional classname */
 	className?: string
+
+	/** Optional; makes the card expandable */
+	expandable?: boolean
+
+	/** Optional; for expandable cards, sets the default expanded state */
+	defaultExpanded?: boolean
+
+	/** Optional; render the card header */
+	headerProps?: ICardHeaderProps
 }
 
 interface ICardState {
@@ -33,7 +45,19 @@ export default class Card extends Component<ICardProps, ICardState> {
 	public static Section = CardSection
 	public static Footer = CardFooter
 	public static defaultProps = {
-		isCentered: false
+		isCentered: false,
+		expandable: false,
+		defaultExpanded: true
+	}
+
+	public state = {
+		isExpanded: this.props.defaultExpanded
+	}
+
+	public toggleExpanded = () => {
+		this.setState(prevState => ({
+			isExpanded: !prevState.isExpanded
+		}))
 	}
 
 	public render(): React.ReactElement {
@@ -43,8 +67,12 @@ export default class Card extends Component<ICardProps, ICardState> {
 			isCritical,
 			isSmall,
 			isFullSize,
-			className
+			className,
+			expandable,
+			headerProps
 		} = this.props
+
+		const { isExpanded } = this.state
 		return (
 			<div
 				className={cx('card', className, {
@@ -54,7 +82,22 @@ export default class Card extends Component<ICardProps, ICardState> {
 					'card--full-size': isFullSize
 				})}
 			>
-				{children}
+				{expandable && (
+					<CardHeader
+						{...headerProps}
+						actions={[
+							{
+								icon: {
+									name: isExpanded
+										? 'keyboard_arrow_down'
+										: 'keyboard_arrow_right'
+								},
+								onClick: () => this.toggleExpanded()
+							}
+						]}
+					/>
+				)}
+				{isExpanded && children}
 			</div>
 		)
 	}
