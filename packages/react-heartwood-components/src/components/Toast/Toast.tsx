@@ -8,14 +8,19 @@ interface IToastHeaderProps {
 
 	/** Function to remove the toast */
 	onRemove: Function
+
+	/** Optional; controls whether the toast can be removed. Defaults to true */
+	canRemove?: boolean
 }
 
 const ToastHeader = (props: IToastHeaderProps): React.ReactElement => {
-	const { headline, onRemove } = props
+	const { headline, onRemove, canRemove } = props
 	return (
 		<div className="toast__header">
 			<p>{headline}</p>
-			<Button icon={{ name: 'close' }} onClick={onRemove} />
+			{canRemove && onRemove && (
+				<Button icon={{ name: 'close' }} onClick={onRemove} />
+			)}
 		</div>
 	)
 }
@@ -33,6 +38,9 @@ export interface IToastProps {
 	/** Handle toast removal */
 	onRemove: Function
 
+	/** Optional; controls whether the toast can be removed. Defaults to true */
+	canRemove?: boolean
+
 	/** Sets the variation of toast */
 	kind?: string
 
@@ -44,6 +52,7 @@ export interface IToastProps {
 }
 
 const Toast = (props: IToastProps): React.ReactElement => {
+	console.log('Toast props: ', props)
 	const { headline, kind, text, followupAction, followupText, onRemove } = props
 	const toastClass = cx('toast', {
 		'toast-positive': kind === 'positive',
@@ -70,7 +79,8 @@ Toast.defaultProps = {
 	kind: 'neutral',
 	followupAction: null,
 	followupText: 'Undo',
-	text: ''
+	text: '',
+	canRemove: true
 }
 
 export default Toast

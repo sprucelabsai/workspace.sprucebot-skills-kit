@@ -207,46 +207,46 @@ export const warningAppointment = {
 					children: [
 						{
 							id: 'dateAndTime',
-							component: 'list',
-							componentProps: {
-								items: [
-									{
-										icon: { name: 'calendar', isLineIcon: true },
-										title: 'Web, Nov 28, 2018',
-										subtitle: '11am–12:15pm',
-										actions: [
-											{
-												icon: { name: 'edit' },
-												kind: 'simple'
-											}
-										]
-									}
-								]
-							}
+							key: 'list',
+							type: 'list',
+							items: [
+								{
+									key: '1',
+									icon: { name: 'calendar', isLineIcon: true },
+									title: 'Web, Nov 28, 2018',
+									subtitle: '11am–12:15pm',
+									actions: [
+										{
+											icon: { name: 'edit' },
+											kind: 'simple'
+										}
+									]
+								}
+							]
 						},
 						{
 							id: 'toastWarning',
-							component: 'toast',
-							componentProps: {
-								title: 'Uh-oh',
-								subtitle: 'Vicenta Maggio will be double-booked at this time'
+							type: 'toast',
+							props: {
+								headline: 'Uh-oh',
+								text: 'Vicenta Maggio will be double-booked at this time',
+								kind: 'warn',
+								canRemove: false
 							}
+						}
+					]
+				},
+				footer: {
+					actions: [
+						{
+							text: 'Dismiss',
+							kind: 'simple',
+							isSmall: true
 						},
 						{
-							id: 'actions',
-							component: 'buttonGroup',
-							componentProps: {
-								actions: [
-									{
-										text: 'Dismiss',
-										kind: 'simple'
-									},
-									{
-										text: 'Find a different time',
-										kind: 'secondary'
-									}
-								]
-							}
+							text: 'Find a different time',
+							kind: 'secondary',
+							isSmall: true
 						}
 					]
 				}

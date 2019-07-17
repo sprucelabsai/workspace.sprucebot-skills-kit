@@ -9,4 +9,31 @@
 	> .text {
 		padding: spacing('base');
 	}
+
+	.card__section .toast {
+		margin-top: 0;
+		margin-right: rem(16);
+		margin-bottom: rem(16);
+		margin-left: rem(16);
+		width: calc(100% - #{rem(32)});
+	}
+
+	.button-group {
+		width: 100%;
+		justify-content: space-between;
+	}
+
+	// TODO: Remove this workaround once CardBuilder doesn't need it
+	.card__body,
+	.card__body:first-child:not(.card__body--no-bottom-padding),
+	.card__section {
+		padding-top: 0;
+		padding-right: 0;
+		padding-bottom: 0;
+		padding-left: 0;
+	}
+
+	.list-item__actions-wrapper {
+		padding-top: 0.25rem;
+	}
 }

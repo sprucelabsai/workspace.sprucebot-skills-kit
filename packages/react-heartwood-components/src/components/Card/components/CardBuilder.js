@@ -17,6 +17,7 @@ import List from '../../List/List'
 import Scores from './Scores'
 import OnboardingCard from './OnboardingCard'
 import ButtonGroup from '../../ButtonGroup/ButtonGroup'
+import Toast from '../../Toast/Toast'
 
 import type { Props as ButtonProps } from '../../Button/Button'
 import type { CardHeaderProps } from './CardHeader'
@@ -51,12 +52,14 @@ const renderChild = child => {
 		CardBodyText: any,
 		CardBodyList: any,
 		CardBodyScores: any,
+		CardBodyToast: any,
 		button: any,
 		image: any,
 		heading: any,
 		text: any,
 		list: any,
-		scores: any
+		scores: any,
+		toast: any
 	} = {
 		CardBodyButton: {
 			component: Button,
@@ -114,12 +117,23 @@ const renderChild = child => {
 				...child.props
 			})
 		},
+		CardBodyToast: {
+			component: Toast,
+			mapProps: child => {
+				console.log({ child })
+				return {
+					...pick(child, ['key', 'headline', 'text', 'kind']),
+					...child.props
+				}
+			}
+		},
 		button: null,
 		image: null,
 		heading: null,
 		text: null,
 		list: null,
-		scores: null
+		scores: null,
+		toast: null
 	}
 
 	// map to simple type names for imperative usage
@@ -129,6 +143,7 @@ const renderChild = child => {
 	CardBuilderKey.text = CardBuilderKey.CardBodyText
 	CardBuilderKey.list = CardBuilderKey.CardBodyList
 	CardBuilderKey.scores = CardBuilderKey.CardBodyScores
+	CardBuilderKey.toast = CardBuilderKey.CardBodyToast
 
 	const Type = (child &&
 		(child.__typename || child.type) &&
@@ -140,8 +155,10 @@ const renderChild = child => {
 	const { component, mapProps } = Type
 	const Handler = component
 	const props = mapProps(child)
+	console.log({ component, props, Handler })
 
-	return !Handler.prototype.render ? (
+	return typeof Handler.prototype === 'undefined' ||
+		!Handler.prototype.render ? (
 		Handler({ ...props })
 	) : (
 		<Handler {...props} />
