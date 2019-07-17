@@ -124,6 +124,10 @@
 	.list-item--is-disabled & {
 		color: $c-grey-04;
 	}
+
+	&.u-color-warning-dark {
+		color: $c-ui-warn-dark;
+	}
 }
 
 .list-item__note {
@@ -131,6 +135,10 @@
 
 	.list-item--is-disabled & {
 		color: $c-grey-04;
+	}
+
+	&.u-color-warning-dark {
+		color: $c-ui-warn-dark;
 	}
 }
 
@@ -162,13 +170,13 @@
 
 .list-item__icon {
 	position: relative;
-	// top: 3px;
 	width: rem(20);
 	height: rem(20);
 
-	// .list-small & {
-	// 	top: 1px;
-	// }
+	&.list-item__icon--hidden {
+		opacity: 0;
+		visibility: hidden;
+	}
 }
 
 .list-item .toggle__wrapper {
