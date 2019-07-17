@@ -220,7 +220,10 @@ export const warningAppointment = {
 											icon: { name: 'edit' },
 											kind: 'simple'
 										}
-									]
+									],
+									warnings: {
+										subtitle: true
+									}
 								}
 							]
 						},
