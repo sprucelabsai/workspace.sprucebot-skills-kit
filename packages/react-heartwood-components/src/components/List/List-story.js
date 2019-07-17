@@ -414,3 +414,28 @@ stories
 			isSmall={boolean('isSmall', false)}
 		/>
 	))
+	.add('Expandable List Item', () => (
+		<List
+			items={[
+				{
+					isExpandable: true,
+					title: 'Parent item one',
+					subtitle: 'The parent item',
+					collapsedIcon: 'edit',
+					expandedIcon: 'close',
+					list: {
+						items: [
+							{
+								title: 'Item one',
+								subtitle: 'The first item'
+							},
+							{
+								title: 'Item two',
+								subtitle: 'The second item'
+							}
+						]
+					}
+				}
+			]}
+		/>
+	))
