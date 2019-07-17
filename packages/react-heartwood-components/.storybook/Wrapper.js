@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import Helmet from 'react-helmet'
 import Page, { PageContent } from '../src/components/Page'
+import { default as HeartwoodWrapper } from '../src/components/Wrapper/Wrapper'
 import FontLoader from '../src/components/FontLoader/FontLoader'
 
 import '@sprucelabs/heartwood-components/stylesheets/heartwood-components.scss'
@@ -44,7 +45,7 @@ const Wrapper = props => {
 
 	if (!props.STORYBOOKwrap) {
 		return (
-			<div className="main-wrapper">
+			<HeartwoodWrapper>
 				<Helmet>
 					{stylesheets &&
 						stylesheets.length > 0 &&
@@ -55,12 +56,12 @@ const Wrapper = props => {
 				</Helmet>
 				<FontLoader fonts={fonts} />
 				{props.children}
-			</div>
+			</HeartwoodWrapper>
 		)
 	}
 
 	return (
-		<div className="main-wrapper">
+		<HeartwoodWrapper>
 			<Helmet>
 				{stylesheets &&
 					stylesheets.length > 0 &&
@@ -70,10 +71,8 @@ const Wrapper = props => {
 				{meta}
 			</Helmet>
 			<FontLoader fonts={fonts} />
-			<Page>
-				<PageContent>{props.children}</PageContent>
-			</Page>
-		</div>
+			{props.children}
+		</HeartwoodWrapper>
 	)
 }
 

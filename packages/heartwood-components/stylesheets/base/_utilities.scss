@@ -39,6 +39,17 @@
 			padding-bottom: $value;
 			padding-left: $value;
 		}
+
+		.m-#{$label} {
+			margin-top: $value;
+			margin-right: $value;
+			margin-bottom: $value;
+			margin-left: $value;
+		}
+	}
+}
+@each $label, $value in $spacing-map {
+	@if $label != 'none' {
 		.px-#{$label} {
 			padding-top: 0;
 			padding-right: $value;
@@ -51,6 +62,24 @@
 			padding-bottom: $value;
 			padding-left: 0;
 		}
+
+		.mx-#{$label} {
+			margin-top: 0;
+			margin-left: $value;
+			margin-bottom: 0;
+			margin-right: $value;
+		}
+		.my-#{$label} {
+			margin-top: $value;
+			margin-left: 0;
+			margin-bottom: $value;
+			margin-right: 0;
+		}
+	}
+}
+
+@each $label, $value in $spacing-map {
+	@if $label != 'none' {
 		.pt-#{$label} {
 			padding-top: $value;
 		}
@@ -67,24 +96,6 @@
 			padding-left: $value;
 		}
 
-		.m-#{$label} {
-			margin-top: $value;
-			margin-right: $value;
-			margin-bottom: $value;
-			margin-left: $value;
-		}
-		.mx-#{$label} {
-			margin-top: 0;
-			margin-left: $value;
-			margin-bottom: 0;
-			margin-right: $value;
-		}
-		.my-#{$label} {
-			margin-top: $value;
-			margin-left: 0;
-			margin-bottom: $value;
-			margin-right: 0;
-		}
 		.mt-#{$label} {
 			margin-top: $value;
 		}
@@ -114,9 +125,33 @@
 .p-0 {
 	padding: 0;
 }
+.pt-0 {
+	padding-top: 0;
+}
+.pr-0 {
+	padding-right: 0;
+}
+.pb-0 {
+	padding-bottom: 0;
+}
+.pl-0 {
+	padding-left: 0;
+}
 
 .m-0 {
 	margin: 0;
+}
+.mt-0 {
+	margin-top: 0;
+}
+.mr-0 {
+	margin-right: 0;
+}
+.mb-0 {
+	margin-bottom: 0;
+}
+.ml-0 {
+	margin-left: 0;
 }
 
 // Flex
@@ -131,4 +166,9 @@
 
 .u-flex-child-shrink {
 	flex: 0 1 auto;
+}
+
+.debug,
+.debug * {
+	background-color: rgba(255, 0, 0, 0.05);
 }
