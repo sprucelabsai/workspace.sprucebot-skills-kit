@@ -1,75 +1,89 @@
-// @flow
 import React, { Fragment } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button from '../../../Button/Button'
 import Icon from '../../../Icon/Icon'
-import type { Props as ButtonProps } from '../../../Button/Button'
-import ContextMenu from '../../../ContextMenu/ContextMenu'
-import type { Props as ContextMenuProps } from '../../../ContextMenu/ContextMenu'
-import { Toggle, Checkbox, Radio } from '../../../Forms'
-import DragHandle from '../../../../../static/assets/icons/ic_drag_handle.svg'
 
-export type Props = {
+import ContextMenu from '../../../ContextMenu/ContextMenu'
+
+import { Toggle, Checkbox, Radio } from '../../../Forms'
+
+export interface IListItemProps {
 	/** Title text */
-	title: string,
+	title: string
 
 	/** Optional subtitle text */
-	subtitle?: string,
+	subtitle?: string
 
 	/** Optional note text */
-	note?: string,
+	note?: string
 
 	/** URL to show a user avatar */
-	avatar?: string,
+	avatar?: string
 
 	/** URL to show an image */
-	image?: string,
+	image?: string
 
 	/** Inline svg icon */
-	icon?: Object,
+	icon?: Record<string, any>
+
+	/** Optional; visually hides the icon without removing it */
+	iconIsHidden?: boolean
 
 	/** Set true to add left spacing. useful in aligning with other list items that have icons or images */
-	isLeftIndented?: boolean,
+	isLeftIndented?: boolean
 
 	/** Set true when the list can be reordered */
-	isDraggable?: boolean,
+	isDraggable?: boolean
 
 	/** Set true when the list can be reordered */
-	isDisabled?: boolean,
+	isDisabled?: boolean
 
 	/** Makes the list item a setting */
-	toggleId?: string,
+	toggleId?: string
 
-	/** A primary action that turns the entire list item into a clickable button */
-	primaryAction?: ButtonProps,
+	/** A primary action that turns the entire list item into a clickable button
+	 *  TODO: implement ButtonProps
+	 */
+	primaryAction?: any
 
-	/** Actions associated with the list item */
-	actions?: Array<ButtonProps>,
+	/** Actions associated with the list item
+	 *  TODO: implement ButtonProps
+	 */
+	actions?: any[]
 
-	/** Context Menu associated with the list item */
-	contextMenu?: ContextMenuProps,
+	/** Context Menu associated with the list item
+	 *  TODO: implement ContextMenuProps
+	 */
+	contextMenu?: any
 
 	/** Props passed to the toggle when it is used */
-	toggleProps?: Object,
+	toggleProps?: Record<string, any>
 
 	/** Set to true to show separator for this list item if followed by another list item. */
-	isSeparatorVisible: boolean,
+	isSeparatorVisible: boolean
 
 	/** Optional class name for list item */
-	className?: string,
+	className?: string
 
 	/** Optional id prop for selectable list items */
-	selectableId?: string,
+	selectableId?: string
 
 	/** Optional props for selectable list items */
-	selectableProps?: Object,
+	selectableProps?: Record<string, any>
 
 	/** Optional: set whether to use checkbox or radio for selectable list items */
 	selectableType?: 'checkbox' | 'radio'
+
+	/** Highlight title, subtitle, note with warning colors */
+	warnings?: {
+		title: boolean
+		subtitle: boolean
+		note: boolean
+	}
 }
 
-const ListItem = (props: Props) => {
+const ListItem = (props: IListItemProps): React.ReactElement => {
 	const {
 		title,
 		subtitle,
@@ -77,6 +91,7 @@ const ListItem = (props: Props) => {
 		avatar,
 		image,
 		icon,
+		iconIsHidden,
 		isDraggable,
 		isDisabled,
 		toggleId,
@@ -88,7 +103,8 @@ const ListItem = (props: Props) => {
 		className,
 		selectableId,
 		selectableProps,
-		selectableType
+		selectableType,
+		warnings
 	} = props
 
 	const parentClass = cx('list-item', className, {
@@ -99,7 +115,7 @@ const ListItem = (props: Props) => {
 		'list-item--separator-hidden': !isSeparatorVisible
 	})
 
-	const ListItemInner = () => (
+	const ListItemInner = (): React.ReactElement => (
 		<Fragment>
 			{(image || icon || avatar || selectableId) && !isDraggable && (
 				<div className="list-item__image-wrapper">
@@ -108,7 +124,9 @@ const ListItem = (props: Props) => {
 							customIcon={icon.customIcon}
 							icon={icon.name}
 							isLineIcon={icon.isLineIcon}
-							className={cx('list-item__icon', icon.className, {})}
+							className={cx('list-item__icon', icon.className, {
+								'list-item__icon--hidden': iconIsHidden
+							})}
 						/>
 					)}
 					{image && (
@@ -141,26 +159,36 @@ const ListItem = (props: Props) => {
 					)}
 				</div>
 			)}
-			{isDraggable && <DragHandle className="drag-handle" />}
+
 			<div className="list-item__text-wrapper">
 				{toggleId || selectableId ? (
 					<p>
 						<label
-							className="list-item__title"
+							className={cx('list-item__title', {
+								'u-color-warning-dark': warnings.title
+							})}
 							htmlFor={toggleId || selectableId}
 						>
 							{title}
 						</label>
 					</p>
 				) : (
-					<p className="list-item__title">{title}</p>
+					<p
+						className={cx('list-item__title', {
+							'u-color-warning-dark': warnings.title
+						})}
+					>
+						{title}
+					</p>
 				)}
 				{subtitle && (
 					<Fragment>
 						{toggleId || selectableId ? (
 							<p>
 								<label
-									className="list-item__subtitle"
+									className={cx('list-item__subtitle', {
+										'u-color-warning-dark': warnings.subtitle
+									})}
 									htmlFor={toggleId || selectableId}
 								>
 									{subtitle}
@@ -168,7 +196,9 @@ const ListItem = (props: Props) => {
 							</p>
 						) : (
 							<p
-								className="list-item__subtitle"
+								className={cx('list-item__subtitle', {
+									'u-color-warning-dark': warnings.subtitle
+								})}
 								dangerouslySetInnerHTML={{ __html: subtitle }}
 							/>
 						)}
@@ -176,7 +206,9 @@ const ListItem = (props: Props) => {
 				)}
 				{note && (
 					<p
-						className="list-item__note"
+						className={cx('list-item__note', {
+							'u-color-warning-dark': warnings.note
+						})}
 						dangerouslySetInnerHTML={{ __html: note }}
 					/>
 				)}
@@ -220,11 +252,17 @@ ListItem.defaultProps = {
 	avatar: '',
 	image: '',
 	icon: null,
+	iconIsHidden: false,
 	isDraggable: false,
 	toggleId: '',
 	actions: [],
 	isSeparatorVisible: true,
-	toggleProps: {}
+	toggleProps: {},
+	warnings: {
+		title: false,
+		subtitle: false,
+		note: false
+	}
 }
 
 export default ListItem

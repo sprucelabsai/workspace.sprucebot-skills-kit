@@ -148,6 +148,11 @@
 	@include gt('small') {
 		padding: 0 spacing('loose') spacing('loose') spacing('loose');
 	}
+
+	&__helper {
+		margin-top: spacing('base');
+		color: $c-text-light;
+	}
 }
 
 .card--small {
