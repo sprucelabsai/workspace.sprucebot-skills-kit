@@ -19,8 +19,8 @@
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
 	"scripts": {
-		"build": "npm run icons && npm run compile_javascript",
-		"compile_javascript": "babel --extensions \".js\",\".tsx\" ./src --out-dir ./lib",
+		"build": "npm run clean && npm run icons && npm run compile_javascript",
+		"compile_javascript": "babel --extensions \".js\",\".tsx\" ./src --out-dir ./lib && tsc --declaration --outDir lib/ --emitDeclarationOnly --declarationMap",
 		"icons": "node ./scripts/generateIcons.js",
 		"clean": "rm -rf lib/*",
 		"lint": "eslint src",

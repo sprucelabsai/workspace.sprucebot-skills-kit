@@ -1,58 +1,73 @@
-// @flow
 import React, { Fragment } from 'react'
 import cx from 'classnames'
-import Loader from '../Loader/Loader'
 import Icon from '../Icon/Icon'
 import BasicAnchor from '../_utilities/Anchor'
+import CircleLoader from '../CircleLoader/CircleLoader'
 
-import type { Node } from 'react'
-import type { Props as IconProps } from '../Icon/Icon'
+export interface IButtonIconProps {
+	/** The name of the icon to render. If not found, this will return null. */
+	icon?: string
 
-export type Props = {
-	/** Optional class to add to the button. */
-	className?: string,
+	/** Set true to render an icon with a stroke, but no fill */
+	isLineIcon?: boolean
 
-	/** Optional children passed into button */
-	children?: Node,
+	/** Pass a custom icon to use one that isn't keyed to a name */
+	customIcon?: any
 
-	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
-	kind?: string,
-
-	/** Set true to make the button less tall. */
-	isSmall?: boolean,
-
-	/** Set true to make the button fill its parent's width. */
-	isFullWidth?: boolean,
-
-	/** Set true to hide any text or icon in the button and show a loader instead. */
-	isLoading?: boolean,
-
-	/** Set true to hide any text in the button. Text should still be provided for accessibility. */
-	isIconOnly?: boolean,
-
-	/** Text for the button. */
-	text?: string,
-
-	/** Will render a link. May be relative or absolute. */
-	href?: string,
-
-	/** Icon for the button. */
-	icon?: Node | IconProps,
-
-	/** Type attribute for HTML button element. Defaults to 'button'. */
-	type?: string,
-
-	/** Click handler. */
-	onClick?: Function,
-
-	/** Will be passed back with the on click. */
-	payload?: Object,
-
-	/** Component used to render anchor */
-	AnchorComponent?: Node
+	/** Optional classname for the icon */
+	className?: string
+	/** The name of the icon used to look it up by key */
+	name: string
 }
 
-const Button = (props: Props) => {
+export interface IButtonProps {
+	/** Optional class to add to the button. */
+	className?: string
+
+	/** Optional children passed into button */
+	children?: Node
+
+	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
+	kind?: 'primary' | 'secondary' | 'simple' | 'caution'
+
+	/** Set true to make the button less tall. */
+	isSmall?: boolean
+
+	/** Set true to make the button fill its parent's width. */
+	isFullWidth?: boolean
+
+	/** Set true to hide any text or icon in the button and show a loader instead. */
+	isLoading?: boolean
+
+	/** Set true to hide any text in the button. Text should still be provided for accessibility. */
+	isIconOnly?: boolean
+
+	/** Text for the button. */
+	text?: string
+
+	/** Will render a link. May be relative or absolute. */
+	href?: string
+
+	/** Icon for the button. */
+	icon?: IButtonIconProps
+
+	/** Type attribute for HTML button element. Defaults to 'button'. */
+	type?: 'button' | 'submit' | 'reset'
+
+	/** Click handler. */
+	onClick?: Function
+
+	/** Will be passed back with the on click. */
+	payload?: Record<string, any>
+
+	/** Component used to render anchor */
+	AnchorComponent?: any
+
+	/** Set true to disable the button */
+	disabled?: boolean
+}
+
+const Button = (props: IButtonProps): React.ReactElement => {
 	const {
 		className,
 		kind,
@@ -84,14 +99,14 @@ const Button = (props: Props) => {
 		'visually-hidden': isIconOnly
 	})
 
-	const handleClick = (e: any) => {
+	const handleClick = (e: any): any => {
 		e.currentTarget.blur()
 		if (onClick) {
 			onClick(e, props.payload)
 		}
 	}
 
-	const Inner = () => (
+	const Inner = (): React.ReactElement => (
 		<span className="btn__inner">
 			{children ? (
 				children
@@ -114,7 +129,9 @@ const Button = (props: Props) => {
 						</span>
 					)}
 					{text && <span className={textClass}>{text}</span>}
-					{isLoading && <Loader />}
+					{isLoading && (
+						<CircleLoader light={kind === 'primary' || kind === 'caution'} />
+					)}
 				</Fragment>
 			)}
 		</span>
@@ -124,6 +141,7 @@ const Button = (props: Props) => {
 	// allow to be spread onto native DOM elements, since applying non-standard
 	// attributes throws a warning.
 	const sanitizedButtonRest = { ...rest }
+	// @ts-ignore
 	delete sanitizedButtonRest.linkProps
 
 	const button = (

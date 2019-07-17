@@ -34,6 +34,7 @@ $event-indent-width: rem(50);
 	background-color: #fff;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none; /* Disable selection/copy in UIWebView */
+	user-select: none;
 
 	* {
 		box-sizing: border-box;
@@ -280,7 +281,8 @@ body.sb-show-main {
 		.timeslot {
 			flex: 1;
 			border-bottom: 1px solid lighten($c-border, 10%);
-			display: none;
+			display: flex;
+			opacity: 0;
 			cursor: pointer;
 
 			&:hover {
@@ -289,12 +291,13 @@ body.sb-show-main {
 		}
 
 		&:hover .timeslot {
-			display: flex;
+			opacity: 1;
 		}
 
-		&.inactive,
 		.timeslot.inactive {
 			background-color: lighten($c-border, 15%);
+			border-color: rgba(0, 0, 0, 0);
+			opacity: 1;
 		}
 
 		.timeslot:last-of-type {
@@ -348,7 +351,7 @@ body.sb-show-main {
 				.resize-handle {
 					height: auto;
 					width: auto;
-					padding: 8px;
+					padding: 15px;
 
 					.resize-highlight-handle {
 						height: 10px;
@@ -362,13 +365,15 @@ body.sb-show-main {
 					&.resize-n {
 						right: 0px;
 						left: auto;
-						top: -12px;
+						top: -20px;
+						padding-left: 40px;
 					}
 
 					&.resize-s {
 						right: auto;
 						left: 0;
-						bottom: -12px;
+						bottom: -20px;
+						padding-right: 40px;
 					}
 				}
 			}
@@ -511,12 +516,12 @@ body.sb-show-main {
 			&.resize-n {
 				display: none;
 				top: 0px;
-				cursor: s-resize;
+				cursor: n-resize;
 			}
 
 			&.resize-s {
 				bottom: 0px;
-				cursor: n-resize;
+				cursor: s-resize;
 			}
 
 			.resize-highlight-handle {

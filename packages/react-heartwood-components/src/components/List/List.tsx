@@ -1,40 +1,38 @@
-// @flow
 import React, { Fragment } from 'react'
-import type { Node } from 'react'
 import cx from 'classnames'
-import ListHeader from './components/ListHeader/ListHeader'
-import ListItem from './components/ListItem/ListItem'
-import type { Props as ListHeaderProps } from './components/ListHeader/ListHeader'
-import type { Props as ListItemProps } from './components/ListItem/ListItem'
+import ListHeader, {
+	IListHeaderProps
+} from './components/ListHeader/ListHeader'
+import ListItem, { IListItemProps } from './components/ListItem/ListItem'
 
-export const ListWrapper = (props: { children: Node }) => (
-	<div className="list-wrapper">{props.children}</div>
-)
+export const ListWrapper = (props: {
+	children: React.ReactElement
+}): React.ReactElement => <div className="list-wrapper">{props.children}</div>
 
-export type Props = {
+export interface IListProps {
 	/** List Header */
-	header?: ListHeaderProps,
+	header?: IListHeaderProps
 
 	/** List items */
-	items?: Array<ListItemProps>,
+	items?: IListItemProps[]
 
 	/** Class for the list */
-	className?: string,
+	className?: string
 
 	/** Set true to make the list smaller */
-	isSmall?: boolean,
+	isSmall?: boolean
 
 	/** any passthrough to render in the body of the list */
-	children?: any,
+	children?: React.ReactNode
 
 	/** Set to true to show separators between list items */
-	areSeparatorsVisible: boolean,
+	areSeparatorsVisible: boolean
 
 	/** Optional: set whether to use checkbox or radio for selectable list items */
 	selectableType?: 'checkbox' | 'radio'
 }
 
-const List = (props: Props) => {
+const List = (props: IListProps): React.ReactElement => {
 	const {
 		header,
 		items,

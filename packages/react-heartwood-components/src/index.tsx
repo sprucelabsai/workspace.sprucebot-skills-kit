@@ -1,5 +1,3 @@
-// @flow
-
 export { default as Avatar } from './components/Avatar/Avatar'
 export { default as UserAvatar } from './components/Avatar/UserAvatar'
 export { default as BotText } from './components/BotText/BotText'
@@ -83,7 +81,12 @@ export { default as View } from './components/View/View'
 export { default as BigCalendar } from './components/BigCalendar/BigCalendar'
 export { default as Page, PageHeader, PageContent } from './components/Page'
 export { default as Table, TableSearch, TableFilters } from './components/Table'
-export { default as RecordTable } from './components/RecordTable/RecordTable'
+export {
+	default as RecordTable,
+	IRecordTableFetchOptions,
+	IRecordTableFetchResults,
+	IRecordTableProps
+} from './components/RecordTable/RecordTable'
 export {
 	default as RecordSelectionList
 } from './components/RecordSelectionList/RecordSelectionList'
@@ -91,14 +94,5 @@ export {
 	default as RecordSelectionListItem
 } from './components/RecordSelectionList/RecordSelectionListItem'
 export { default as EmptyState } from './components/EmptyState/EmptyState'
-
-// Types
-export type { Props as TabsProps } from './components/Tabs/Tabs'
-export type { Props as TabProps } from './components/Tabs/components/Tab/Tab'
-export type { Props as ButtonProps } from './components/Button/Button'
-export type {
-	RecordTableFetchOptions
-} from './components/RecordTable/RecordTable'
-export type {
-	Props as SaveBarProps
-} from './components/Core/components/SaveBar/SaveBar'
+export { default as CircleLoader } from './components/CircleLoader/CircleLoader'
+export { default as SplitButton } from './components/SplitButton/SplitButton'

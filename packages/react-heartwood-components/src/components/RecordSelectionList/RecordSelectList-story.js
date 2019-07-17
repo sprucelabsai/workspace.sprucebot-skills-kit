@@ -2,40 +2,41 @@
 import React, { Component } from 'react'
 import { map, sampleSize } from 'lodash'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select, text } from '@storybook/addon-knobs/react'
 
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
-import RecordSelectionListItem from '../RecordSelectionList/RecordSelectionListItem'
 import Modal from '../Modal/Modal'
-import Button from '../Button/Button'
 import Card, { CardHeader, CardBody } from '../Card'
 
 const stories = storiesOf('RecordSelectionList', module)
 
 stories.addDecorator(withKnobs)
 
-type Props = {
+type RSLExampleProps = {
 	canSelect?: 'many' | 'one',
 	canRemove: boolean,
 	locations: Array<Object>,
 	totalRecordCount: number,
-	virtualHeight?: string,
 	maxRowsVisible?: number | 'auto'
 }
 
-type State = {
+type RSLExampleState = {
 	isModalOpen?: boolean,
 	selectedIds: Array<string>,
 	unselectableIds: Array<string>,
-	locations: Array<Object>
+	locations: Array<Object>,
+	emptyState: any
 }
 
-class BasicExample extends Component<Props, State> {
+class RecordListItemsExample extends Component<
+	RSLExampleProps,
+	RSLExampleState
+> {
 	constructor(props) {
 		super(props)
 
-		let selectedIds = props.locations.map(loc => loc.id)
+		let selectedIds = props.locations.map(loc => loc.node.id)
 
 		if (props.canSelect === 'one') {
 			selectedIds = sampleSize(selectedIds, 1)
@@ -44,7 +45,7 @@ class BasicExample extends Component<Props, State> {
 		}
 
 		const unselectedIds = props.locations
-			.map(loc => loc.id)
+			.map(loc => loc.node.id)
 			.filter(locationId => selectedIds.indexOf(locationId) === -1)
 
 		const unselectableIds = sampleSize(unselectedIds, unselectedIds.length / 2)
@@ -57,16 +58,16 @@ class BasicExample extends Component<Props, State> {
 			canSelect,
 			canRemove,
 			totalRecordCount,
-			virtualHeight,
 			maxRowsVisible
 		} = this.props
-		const { selectedIds, locations, unselectableIds } = this.state
+		const { selectedIds, locations, unselectableIds, emptyState } = this.state
 		return (
 			<RecordSelectionList
 				canSearch
+				searchLabel={'Search Label'}
 				selectedIds={selectedIds}
 				unselectableIds={unselectableIds}
-				loadRecords={async ({ limit, offset, search }) => {
+				loadRecordListItems={async ({ limit, offset, search }) => {
 					// Artificial API wait time
 					await new Promise(resolve =>
 						setTimeout(() => {
@@ -82,29 +83,36 @@ class BasicExample extends Component<Props, State> {
 						})
 
 						results = filteredLocations.slice(offset, offset + limit)
+
+						if (results.length === 0) {
+							this.setState({
+								emptyState: {
+									headline: 'No matches found',
+									icon: 'search',
+									primaryAction: {
+										text: 'Show all'
+									}
+								}
+							})
+						}
 					} else {
 						results = locations.slice(offset, offset + limit)
 					}
 
-					console.log('Simulated response')
-					console.log('==================')
-					console.log(results)
-
-					return results
-				}}
-				getRecordId={record => record.node.id}
-				renderRecord={record => (
-					<RecordSelectionListItem
-						id={record.node.id}
-						title={record.node.publicName}
-						subtitle={record.node.address}
-						isDisabled={unselectableIds.indexOf(record.node.id) >= 0}
-						note={
-							unselectableIds.indexOf(record.node.id) >= 0 &&
-							'Location already in group!'
+					const recordListItems = results.map(result => {
+						return {
+							id: result.node.id,
+							title: result.node.publicName,
+							subtitle: result.node.address,
+							isDisabled: unselectableIds.indexOf(result.node.id) >= 0,
+							note:
+								unselectableIds.indexOf(result.node.id) >= 0 &&
+								'Location already in group!'
 						}
-					/>
-				)}
+					})
+
+					return recordListItems
+				}}
 				canSelect={canSelect}
 				canRemove={canRemove}
 				onSelect={id => {
@@ -133,12 +141,12 @@ class BasicExample extends Component<Props, State> {
 					})
 				}}
 				totalRecordCount={totalRecordCount}
-				virtualHeight={virtualHeight}
 				maxRowsVisible={
 					maxRowsVisible && maxRowsVisible !== 'auto'
 						? parseInt(maxRowsVisible, 10)
 						: maxRowsVisible
 				}
+				emptyState={emptyState}
 			/>
 		)
 	}
@@ -150,16 +158,15 @@ stories
 			<Card>
 				<CardHeader title="Card Title" />
 				<CardBody>
-					<BasicExample
+					<RecordListItemsExample
 						canSelect={select('Can Select', [null, 'many', 'one'], null)}
 						canRemove={boolean('Can Remove', false)}
 						locations={map(generateLocations({ amount: 5 }), o => ({
 							node: { ...o }
 						}))}
 						totalRecordCount={5}
-						maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'])}
+						maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
 					/>
-					<Button text="Show me all the things" kind="simple" />
 				</CardBody>
 			</Card>
 		</div>
@@ -168,69 +175,45 @@ stories
 		<Modal isOpen onAfterOpen={() => null} onRequestClose={() => null}>
 			<Modal.Header title="Modal title" onRequestClose={() => null} />
 			<Modal.Body>
-				<BasicExample
+				<RecordListItemsExample
 					canSelect={select('Can Select', [null, 'many', 'one'], 'many')}
 					canRemove={boolean('Can Remove', true)}
 					locations={map(generateLocations({ amount: 100 }), o => ({
 						node: { ...o }
 					}))}
 					totalRecordCount={100}
-					maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'])}
+					maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
 				/>
 			</Modal.Body>
 		</Modal>
 	))
-
-// class WithModalExample extends Component<Props, State> {
-// 	state = {
-// 		isModalOpen: false
-// 	}
-
-// 	toggleModal = () => {
-// 		this.setState({ isModalOpen: !this.state.isModalOpen })
-// 	}
-
-// 	render() {
-// 		const locations = generateLocations({
-// 			amount: 1000
-// 		})
-
-// 		return (
-// 			<Fragment>
-// 				<Button
-// 					text={`Show me the list`}
-// 					onClick={() => this.toggleModal()}
-// 					kind="secondary"
-// 				/>
-// 				<Modal
-// 					isOpen={this.state.isModalOpen}
-// 					onRequestClose={this.toggleModal}
-// 				>
-// 					<RecordSelectionList
-// 						selectedIds={locations.map(loc => loc.id)}
-// 						loadRecords={async ({ limit, offset }) => {
-// 							// Artificial API wait time
-// 							await new Promise(resolve =>
-// 								setTimeout(() => {
-// 									resolve()
-// 								}, Math.random() * 1000)
-// 							)
-
-// 							return locations.slice(offset, offset + limit)
-// 						}}
-// 						renderRecord={record => (
-// 							<RecordSelectionListItem
-// 								id={record.id}
-// 								title={record.publicName}
-// 								subtitle={record.address}
-// 								icon={{ name: 'location', isLineIcon: true }}
-// 							/>
-// 						)}
-// 					/>
-// 				</Modal>
-// 			</Fragment>
-// 		)
-// 	}
-// }
-
-// stories.add('In modal', () => <WithModalExample />)
+	.add('Empty State', () => (
+		<div style={{ width: '320px', padding: '8px' }}>
+			<Card>
+				<CardHeader title="Card Title" />
+				<CardBody isSectioned={false} hasBottomPadding={false}>
+					<RecordSelectionList
+						canSearch={false}
+						selectedIds={[]}
+						unselectableIds={[]}
+						loadRecordListItems={async () => []}
+						emptyState={{
+							headline: text('emptyState:headline', 'Nothing to see here'),
+							subheadline: text(
+								'emptyState:subheadline',
+								'There is none of that here'
+							),
+							icon: text('emptyState:icon', 'team'),
+							isLineIcon: true,
+							primaryAction: {
+								text: text(
+									'emptyState:primaryAction text',
+									'Do something about it'
+								)
+							}
+						}}
+					/>
+				</CardBody>
+			</Card>
+		</div>
+	))
