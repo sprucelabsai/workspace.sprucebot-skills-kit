@@ -206,6 +206,45 @@ stories
 			/>
 		</Fragment>
 	))
+	.add('Nested List', () => (
+		<List
+			isSmall
+			items={[
+				{
+					title: 'This is an item',
+					subtitle: 'It has a nested list',
+					list: {
+						items: [
+							{
+								title: 'Nested one',
+								subtitle: 'First nested item'
+							},
+							{
+								title: 'Nested two',
+								subtitle: 'Second nested item',
+								list: {
+									items: [
+										{
+											title: 'Double-nested one',
+											subtitle: 'First double-nested item'
+										},
+										{
+											title: 'Double-nested two',
+											subtitle: 'Second double-nested item'
+										}
+									]
+								}
+							},
+							{
+								title: 'Nested three',
+								subtitle: 'Third nested item'
+							}
+						]
+					}
+				}
+			]}
+		/>
+	))
 	.add('Icons: some hidden', () => (
 		<List
 			header={object('header: dates list', { title: 'Important Dates' })}

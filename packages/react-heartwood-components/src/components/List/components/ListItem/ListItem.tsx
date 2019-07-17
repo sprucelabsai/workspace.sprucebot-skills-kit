@@ -3,9 +3,8 @@ import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button, { IButtonProps } from '../../../Button/Button'
 import Icon from '../../../Icon/Icon'
-
 import ContextMenu from '../../../ContextMenu/ContextMenu'
-
+import List, { IListProps } from '../../List'
 import { Toggle, Checkbox, Radio } from '../../../Forms'
 
 export interface IListItemProps {
@@ -77,6 +76,9 @@ export interface IListItemProps {
 		subtitle: boolean
 		note: boolean
 	}
+
+	/** Optional; adds a nested list */
+	list?: IListProps
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
@@ -100,7 +102,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		selectableId,
 		selectableProps,
 		selectableType,
-		warnings
+		warnings,
+		list
 	} = props
 
 	const parentClass = cx('list-item', className, {
@@ -227,6 +230,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				</div>
 			)}
 			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
+
+			{list && <List {...list} />}
 		</Fragment>
 	)
 
