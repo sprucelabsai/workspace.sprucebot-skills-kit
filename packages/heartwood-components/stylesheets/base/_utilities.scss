@@ -33,6 +33,7 @@
 // Layout
 @each $label, $value in $spacing-map {
 	@if $label != 'none' {
+		%p-#{$label},
 		.p-#{$label} {
 			padding-top: $value;
 			padding-right: $value;
@@ -40,6 +41,7 @@
 			padding-left: $value;
 		}
 
+		%m-#{$label},
 		.m-#{$label} {
 			margin-top: $value;
 			margin-right: $value;
@@ -50,12 +52,14 @@
 }
 @each $label, $value in $spacing-map {
 	@if $label != 'none' {
+		%px-#{$label},
 		.px-#{$label} {
 			padding-top: 0;
 			padding-right: $value;
 			padding-bottom: 0;
 			padding-left: $value;
 		}
+		%py-#{$label},
 		.py-#{$label} {
 			padding-top: $value;
 			padding-right: 0;
@@ -63,12 +67,15 @@
 			padding-left: 0;
 		}
 
+		%mx-#{$label},
 		.mx-#{$label} {
 			margin-top: 0;
 			margin-left: $value;
 			margin-bottom: 0;
 			margin-right: $value;
 		}
+
+		%my-#{$label},
 		.my-#{$label} {
 			margin-top: $value;
 			margin-left: 0;
@@ -80,34 +87,42 @@
 
 @each $label, $value in $spacing-map {
 	@if $label != 'none' {
+		%pt-#{$label},
 		.pt-#{$label} {
 			padding-top: $value;
 		}
 
+		%pr-#{$label},
 		.pr-#{$label} {
 			padding-right: $value;
 		}
 
+		%pb-#{$label},
 		.pb-#{$label} {
 			padding-bottom: $value;
 		}
 
+		%pl-#{$label},
 		.pl-#{$label} {
 			padding-left: $value;
 		}
 
+		%mt-#{$label},
 		.mt-#{$label} {
 			margin-top: $value;
 		}
 
+		%mr-#{$label},
 		.mr-#{$label} {
 			margin-right: $value;
 		}
 
+		%mb-#{$label},
 		.mb-#{$label} {
 			margin-bottom: $value;
 		}
 
+		%ml-#{$label},
 		.ml-#{$label} {
 			margin-left: $value;
 		}
@@ -115,6 +130,7 @@
 }
 
 @each $label, $value in $layout-width-map {
+	%u-container__#{$label},
 	.u-container__#{$label} {
 		max-width: $value;
 		margin-right: auto;
@@ -122,34 +138,44 @@
 	}
 }
 
+%p-0,
 .p-0 {
 	padding: 0;
 }
+%pt-0,
 .pt-0 {
 	padding-top: 0;
 }
+%pr-0,
 .pr-0 {
 	padding-right: 0;
 }
+%pb-0,
 .pb-0 {
 	padding-bottom: 0;
 }
+%pl-0,
 .pl-0 {
 	padding-left: 0;
 }
 
+%m-0,
 .m-0 {
 	margin: 0;
 }
+%mt-0,
 .mt-0 {
 	margin-top: 0;
 }
+%mr-0,
 .mr-0 {
 	margin-right: 0;
 }
+%mb-0,
 .mb-0 {
 	margin-bottom: 0;
 }
+%ml-0,
 .ml-0 {
 	margin-left: 0;
 }
