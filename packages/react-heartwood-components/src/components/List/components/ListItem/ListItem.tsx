@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
-import Button from '../../../Button/Button'
+import Button, { IButtonProps } from '../../../Button/Button'
 import Icon from '../../../Icon/Icon'
 
 import ContextMenu from '../../../ContextMenu/ContextMenu'
@@ -42,15 +42,11 @@ export interface IListItemProps {
 	/** Makes the list item a setting */
 	toggleId?: string
 
-	/** A primary action that turns the entire list item into a clickable button
-	 *  TODO: implement ButtonProps
-	 */
-	primaryAction?: any
+	/** A primary action that turns the entire list item into a clickable button */
+	primaryAction?: IButtonProps
 
-	/** Actions associated with the list item
-	 *  TODO: implement ButtonProps
-	 */
-	actions?: any[]
+	/** Actions associated with the list item */
+	actions?: IButtonProps[]
 
 	/** Context Menu associated with the list item
 	 *  TODO: implement ContextMenuProps
