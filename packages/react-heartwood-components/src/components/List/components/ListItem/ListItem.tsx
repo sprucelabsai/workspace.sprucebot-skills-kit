@@ -227,7 +227,11 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							))}
 						</div>
 					)}
-					{contextMenu && <ContextMenu {...contextMenu} />}
+					{contextMenu && (
+						<div className="list-item__actions-wrapper">
+							<ContextMenu {...contextMenu} />
+						</div>
+					)}
 				</Fragment>
 			)}
 			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
