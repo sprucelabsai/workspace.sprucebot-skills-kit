@@ -1,32 +1,37 @@
-// @flow
 import React, { Component } from 'react'
 import { VelocityTransitionGroup } from 'velocity-react'
 import uniqBy from 'lodash/uniqBy'
 import Toast from '../../Toast'
-import type { Props as ToastProps } from '../../Toast'
+import { IToastProps } from '../../Toast'
 
-type Props = {
+export interface IToastWrapperProps {
 	/** The toasts */
-	toasts: Array<ToastProps>,
+	toasts: IToastProps[]
 
 	/** Handle toast removal */
 	handleRemove: Function
 }
 
-type State = {
-	toasts: Array<ToastProps>,
-	timeouts: Object
+interface IToastWrapperState {
+	toasts: IToastProps[]
+	timeouts: any
 }
 
 const defaultTimeout = 3000
 
-export default class ToastWrapper extends Component<Props, State> {
-	state = {
+export default class ToastWrapper extends Component<
+	IToastWrapperProps,
+	IToastWrapperState
+> {
+	public state = {
 		toasts: [],
 		timeouts: {}
 	}
-	timeouts = {}
-	static getDerivedStateFromProps(props: Props, state: State) {
+	public timeouts = {}
+	public static getDerivedStateFromProps(
+		props: IToastWrapperProps,
+		state: IToastWrapperState
+	): { toasts: IToastProps[]; timeouts: any[] } {
 		const uniqToasts = uniqBy(props.toasts, 'id')
 		let timeouts = { ...state.timeouts }
 		uniqToasts.forEach(toast => {
@@ -42,7 +47,7 @@ export default class ToastWrapper extends Component<Props, State> {
 		return { toasts: uniqToasts, timeouts }
 	}
 
-	onRemoveClick = (id: string) => {
+	public onRemoveClick = (id: string) => {
 		const { timeouts } = this.state
 		const { handleRemove } = this.props
 		if (timeouts[id]) {
@@ -51,7 +56,7 @@ export default class ToastWrapper extends Component<Props, State> {
 		handleRemove(id)
 	}
 
-	render() {
+	public render(): React.ReactElement {
 		const { toasts } = this.state
 
 		return (

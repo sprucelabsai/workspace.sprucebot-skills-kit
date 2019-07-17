@@ -1,24 +1,23 @@
-// @flow
 import React from 'react'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
-import type { Props as ButtonProps } from '../../../Button/Button'
 
-export type Props = {
+export interface IListHeaderProps {
 	/** Title text */
-	title: string,
+	title: string
 
 	/** Optional subtitle text */
-	subtitle?: string,
+	subtitle?: string
 
 	/** Set true for small lists */
-	isSmall?: boolean,
+	isSmall?: boolean
 
 	/** Actions to associate with the list header */
-	actions?: Array<ButtonProps>
+	// TODO Import Button interface
+	actions?: any[]
 }
 
-const ListHeader = (props: Props) => {
+const ListHeader = (props: IListHeaderProps): React.ReactElement => {
 	const { title, subtitle, isSmall, actions } = props
 	const parentClass = cx('list-header', { 'list-header-small': isSmall })
 

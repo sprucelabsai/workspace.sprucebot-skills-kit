@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { map, sampleSize } from 'lodash'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean, select } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select, text } from '@storybook/addon-knobs/react'
 
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
@@ -25,7 +25,8 @@ type RSLExampleState = {
 	isModalOpen?: boolean,
 	selectedIds: Array<string>,
 	unselectableIds: Array<string>,
-	locations: Array<Object>
+	locations: Array<Object>,
+	emptyState: any
 }
 
 class RecordListItemsExample extends Component<
@@ -59,7 +60,7 @@ class RecordListItemsExample extends Component<
 			totalRecordCount,
 			maxRowsVisible
 		} = this.props
-		const { selectedIds, locations, unselectableIds } = this.state
+		const { selectedIds, locations, unselectableIds, emptyState } = this.state
 		return (
 			<RecordSelectionList
 				canSearch
@@ -82,6 +83,18 @@ class RecordListItemsExample extends Component<
 						})
 
 						results = filteredLocations.slice(offset, offset + limit)
+
+						if (results.length === 0) {
+							this.setState({
+								emptyState: {
+									headline: 'No matches found',
+									icon: 'search',
+									primaryAction: {
+										text: 'Show all'
+									}
+								}
+							})
+						}
 					} else {
 						results = locations.slice(offset, offset + limit)
 					}
@@ -133,6 +146,7 @@ class RecordListItemsExample extends Component<
 						? parseInt(maxRowsVisible, 10)
 						: maxRowsVisible
 				}
+				emptyState={emptyState}
 			/>
 		)
 	}
@@ -151,7 +165,7 @@ stories
 							node: { ...o }
 						}))}
 						totalRecordCount={5}
-						maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'])}
+						maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
 					/>
 				</CardBody>
 			</Card>
@@ -168,8 +182,38 @@ stories
 						node: { ...o }
 					}))}
 					totalRecordCount={100}
-					maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'])}
+					maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
 				/>
 			</Modal.Body>
 		</Modal>
+	))
+	.add('Empty State', () => (
+		<div style={{ width: '320px', padding: '8px' }}>
+			<Card>
+				<CardHeader title="Card Title" />
+				<CardBody isSectioned={false} hasBottomPadding={false}>
+					<RecordSelectionList
+						canSearch={false}
+						selectedIds={[]}
+						unselectableIds={[]}
+						loadRecordListItems={async () => []}
+						emptyState={{
+							headline: text('emptyState:headline', 'Nothing to see here'),
+							subheadline: text(
+								'emptyState:subheadline',
+								'There is none of that here'
+							),
+							icon: text('emptyState:icon', 'team'),
+							isLineIcon: true,
+							primaryAction: {
+								text: text(
+									'emptyState:primaryAction text',
+									'Do something about it'
+								)
+							}
+						}}
+					/>
+				</CardBody>
+			</Card>
+		</div>
 	))
