@@ -1,25 +1,25 @@
-// @flow
-
 import React from 'react'
 import ListItem from '../List/components/ListItem/ListItem'
 
-type RecordSelectionListItemProps = {
+export interface IRecordSelectionListItemProps {
 	/** Title text */
-	title: string,
+	title: string
 
 	/** Optional subtitle text */
-	subtitle?: string,
+	subtitle?: string
 
 	/** URL to show a user avatar */
-	avatar?: string,
+	avatar?: string
 
 	/** Inline svg icon */
-	icon?: Object,
+	icon?: Record<string, any>
 
 	id: string
 }
 
-const RecordSelectionListItem = (props: RecordSelectionListItemProps) => {
+const RecordSelectionListItem = (
+	props: IRecordSelectionListItemProps
+): React.ReactElement => {
 	return <ListItem {...props} />
 }
 

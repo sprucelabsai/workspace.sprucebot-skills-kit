@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import { each, keys } from 'lodash'
 import { storiesOf } from '@storybook/react'

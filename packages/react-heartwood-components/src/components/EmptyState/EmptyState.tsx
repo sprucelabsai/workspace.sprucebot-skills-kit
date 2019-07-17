@@ -1,33 +1,31 @@
-// @flow
 import React from 'react'
 import Icon from '../Icon/Icon'
 import Button from '../Button/Button'
-import type { Props as ButtonProps } from '../Button/Button'
 
-export type Props = {
+export interface IEmptyStateProps {
 	/** Headline text to be displayed */
-	headline: string,
+	headline: string
 
 	/** Subheadline text to be displayed (optional) */
-	subheadline?: string,
-
+	subheadline?: string
 	/** Primary icon to be displayed above the headline (optional) */
-	icon?: string,
+	icon?: string
 
 	/** Primary icon as line art (optional) */
-	isLineIcon?: boolean,
+	isLineIcon?: boolean
 
 	/** Primary action in the footer (optional) */
-	primaryAction?: { ...ButtonProps },
+	// TODO: Import button props once it's converted to tsx
+	primaryAction?: any
 
 	/** Primary action in the footer (optional) */
-	primaryActionButtonKind?: string,
+	primaryActionButtonKind?: string
 
 	/** Primary action in the footer (optional) */
 	primaryActionButtonIcon?: string
 }
 
-const EmptyState = (props: Props) => {
+const EmptyState = (props: IEmptyStateProps): React.ReactElement => {
 	const {
 		headline,
 		subheadline,

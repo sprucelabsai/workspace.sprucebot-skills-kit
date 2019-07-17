@@ -324,6 +324,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 					}}
 					manual
 					loading={loading}
+					showPagination={visibleRows.length > 0}
 					data={visibleRows || []}
 					totalRows={totalRows}
 					onSortedChange={this.handleSortChanged}
@@ -343,6 +344,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 		)
 	}
 
+	// TODO: Update the table based on the tab that was clicked
 	private handleClickTab = (e: MouseEvent, tab: any) => {
 		const { onClickTab } = this.props
 		let cancel = false
