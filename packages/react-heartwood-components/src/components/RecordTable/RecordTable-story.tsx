@@ -155,7 +155,58 @@ stories.add('Empty RecordTable', () => {
 						}
 					}
 				]}
-				noDataIcon="trip_pin_multiple_light_large"
+			/>
+		</div>
+	)
+})
+
+stories.add('Empty RecordTable w/ Customized Empty States', () => {
+	const records = []
+
+	return (
+		<div>
+			<RecordTable
+				fetchRecords={async () => ({ visibleRows: [], totalRows: 0 })}
+				enableFilter={true}
+				searchPlaceholder={'Search groups...'}
+				fetchError={false}
+				initialLimit={10}
+				initialSortColumn={'name'}
+				initialSortDirection={'ASC'}
+				initialSelectedTab={'all'}
+				initialVisibleRows={records}
+				totalRows={records.length}
+				tabs={[
+					{
+						key: 'all',
+						text: 'All things'
+					}
+				]}
+				columns={[
+					{
+						Header: 'Name',
+						id: 'name',
+						accessor: function renderNameColumn(
+							record: IDummyRecordTableRecord
+						) {
+							return <div>{record.name}</div>
+						}
+					},
+					{
+						Header: 'Count',
+						id: 'count',
+						accessor: function renderCountColumn(
+							record: IDummyRecordTableRecord
+						) {
+							return <div>{record.count}</div>
+						}
+					}
+				]}
+				noFilteredMatchesIcon="vip"
+				noFilteredMatchesHeadline="Couldn't find that stuff!!!"
+				noFilteredMatchesSubheadline="KLJkjlasfk laksjf"
+				noFilteredMatchesPrimaryActionText="wakka"
+				noDataIcon="guests"
 				noDataHeadline={'No data!'}
 				noDataPrimaryAction={{
 					text: 'Try Again',

@@ -96,12 +96,26 @@ export interface IRecordTableProps {
 	/** called when navigating to page */
 	onNavigateToPage?: Function
 
-	/** No data available */
+	/** Icon to show if no results match the current filter */
+	noFilteredMatchesIcon?: string
+	/** Headline to show if no results match the current filter */
+	noFilteredMatchesHeadline?: string
+	/** Subhead to show if no results match the current filter */
+	noFilteredMatchesSubheadline?: string
+	/** CTA Text to show if no results match the current filter */
+	noFilteredMatchesPrimaryActionText?: string
+
+	/** Icon to show if no data is available to be loaded into the table */
 	noDataIcon?: string
+	/** Headline to show if no data is available to be loaded into the table */
 	noDataHeadline?: string
+	/** Subhead to show if no data is available to be loaded into the table */
 	noDataSubheadline?: string
+	/** CTA Text to show if no data is available to be loaded into the table */
 	noDataPrimaryAction?: IPrimaryAction
+	/** CTA Button kind to display if no data is available to be loaded into the table */
 	noDataPrimaryActionButtonKind?: string
+	/** CTA Button Icon to display if no data is available to be loaded into the table */
 	noDataPrimaryActionButtonIcon?: string
 }
 
@@ -125,11 +139,15 @@ interface IRecordTableState {
 }
 
 class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
-	public static defaultProps = {
-		enableSearch: false,
+	public static defaultProps: Partial<IRecordTableProps> = {
 		enableFilter: false,
-		searchPlaceholder: 'Filter table...',
-		initialLimit: RECORD_TABLE_INITIAL_LIMIT
+		enableSearch: false,
+		initialLimit: RECORD_TABLE_INITIAL_LIMIT,
+		noFilteredMatchesHeadline: 'No matches found',
+		noFilteredMatchesIcon: 'no_matches',
+		noFilteredMatchesPrimaryActionText: 'Show All',
+		noFilteredMatchesSubheadline: null,
+		searchPlaceholder: 'Filter table...'
 	}
 
 	public constructor(props: IRecordTableProps) {
@@ -213,6 +231,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 			searchPlaceholder,
 			noDataPrimaryActionButtonKind,
 			noDataPrimaryActionButtonIcon,
+
 			tableSearchProps = {},
 			...rest
 		} = this.props
@@ -477,36 +496,44 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 	}
 
 	private getNoDataIcon = () => {
-		const { noDataIcon, fetchError } = this.props
+		const { noDataIcon, noFilteredMatchesIcon, fetchError } = this.props
 
 		return fetchError
 			? 'caution'
 			: this.isFiltered()
-			? 'no_matches'
+			? noFilteredMatchesIcon
 			: noDataIcon
 	}
 
 	private getNoDataHeadline = () => {
-		const { noDataHeadline, fetchError } = this.props
+		const { noDataHeadline, noFilteredMatchesHeadline, fetchError } = this.props
 
 		return fetchError
 			? 'Data not available'
 			: this.isFiltered()
-			? 'No matches found'
+			? noFilteredMatchesHeadline
 			: noDataHeadline
 	}
 
 	private getNoDataSubheadline = () => {
-		const { noDataSubheadline, fetchError } = this.props
+		const {
+			noDataSubheadline,
+			noFilteredMatchesSubheadline,
+			fetchError
+		} = this.props
 		return fetchError
 			? 'It looks like something went wrong.'
 			: this.isFiltered()
-			? null
+			? noFilteredMatchesSubheadline
 			: noDataSubheadline
 	}
 
 	private getNoDataPrimaryAction = () => {
-		const { noDataPrimaryAction, fetchError } = this.props
+		const {
+			noDataPrimaryAction,
+			noFilteredMatchesPrimaryActionText,
+			fetchError
+		} = this.props
 		return fetchError
 			? {
 					text: 'Try again',
@@ -514,7 +541,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 			  }
 			: this.isFiltered()
 			? {
-					text: 'Show all',
+					text: noFilteredMatchesPrimaryActionText,
 					onClick: () => {
 						this.updateFilter('')
 					},
