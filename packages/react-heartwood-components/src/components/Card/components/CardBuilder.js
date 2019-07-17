@@ -120,7 +120,6 @@ const renderChild = child => {
 		CardBodyToast: {
 			component: Toast,
 			mapProps: child => {
-				console.log({ child })
 				return {
 					...pick(child, ['key', 'headline', 'text', 'kind']),
 					...child.props
@@ -155,7 +154,6 @@ const renderChild = child => {
 	const { component, mapProps } = Type
 	const Handler = component
 	const props = mapProps(child)
-	console.log({ component, props, Handler })
 
 	return typeof Handler.prototype === 'undefined' ||
 		!Handler.prototype.render ? (

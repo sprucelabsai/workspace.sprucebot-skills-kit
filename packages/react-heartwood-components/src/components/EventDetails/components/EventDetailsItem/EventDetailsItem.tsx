@@ -5,18 +5,32 @@ import { CardBuilder } from '../../../Card'
 import SplitButton from '../../../SplitButton/SplitButton'
 import Toast from '../../../Toast/Toast'
 import Text from '../../../Text/Text'
+import MarkdownText from '../../../MarkdownText/MarkdownText'
 
 export interface IEventDetailsItemProps {
 	/** Unique identifier for the item */
 	id: string
 
 	/** Component key to decide what to render */
-	component: 'list' | 'button' | 'splitButton' | 'card' | 'toast' | 'text'
+	component:
+		| 'list'
+		| 'button'
+		| 'splitButton'
+		| 'card'
+		| 'toast'
+		| 'text'
+		| 'markdown'
 
 	/** Props to pass into the rendered component */
 	// TODO: This should be tied to only the components that can be rendered after TSX conversion
 	componentProps: any
 }
+
+const MDTextContainer = (props: { source: string }): React.ReactElement => (
+	<div className="event-details__markdown">
+		<MarkdownText source={props.source} />
+	</div>
+)
 
 const components = {
 	list: List,
@@ -24,7 +38,8 @@ const components = {
 	card: CardBuilder,
 	splitButton: SplitButton,
 	toast: Toast,
-	text: Text
+	text: Text,
+	markdown: MDTextContainer
 }
 
 const EventDetailsItem = (

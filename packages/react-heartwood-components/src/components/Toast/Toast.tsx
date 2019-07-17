@@ -52,7 +52,6 @@ export interface IToastProps {
 }
 
 const Toast = (props: IToastProps): React.ReactElement => {
-	console.log('Toast props: ', props)
 	const { headline, kind, text, followupAction, followupText, onRemove } = props
 	const toastClass = cx('toast', {
 		'toast-positive': kind === 'positive',

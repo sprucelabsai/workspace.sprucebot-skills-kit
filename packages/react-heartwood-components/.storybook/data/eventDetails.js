@@ -124,11 +124,11 @@ export const appointment = {
 		},
 		{
 			id: 'subtotalAndDuration',
-			component: 'text',
+			component: 'markdown',
 			componentProps: {
 				// NOTE: This would work with a markdown rendering component
 				// Question: Can we deliver MD from the API?
-				children: '**Subtotal: ** $65\n**Duration: ** 2hr'
+				source: '**Subtotal: ** $65\n\n**Duration: ** 2hr'
 			}
 		},
 		{
@@ -324,11 +324,11 @@ export const warningAppointment = {
 		},
 		{
 			id: 'subtotalAndDuration',
-			component: 'text',
+			component: 'markdown',
 			componentProps: {
 				// NOTE: This would work with a markdown rendering component
 				// Question: Can we deliver MD from the API?
-				children: '**Subtotal: ** $65\n**Duration: ** 2hr'
+				source: '**Subtotal: ** $65\n\n**Duration: ** 2hr'
 			}
 		},
 		{
@@ -438,11 +438,11 @@ export const pastAppointment = {
 		},
 		{
 			id: 'subtotalAndDuration',
-			component: 'text',
+			component: 'markdown',
 			componentProps: {
 				// NOTE: This would work with a markdown rendering component
 				// Question: Can we deliver MD from the API?
-				children: '**Subtotal: ** $65\n**Duration: ** 2hr'
+				source: '**Subtotal: ** $65\n\n**Duration: ** 2hr'
 			}
 		},
 		{
