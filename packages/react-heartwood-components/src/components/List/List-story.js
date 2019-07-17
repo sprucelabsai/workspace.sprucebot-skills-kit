@@ -206,6 +206,40 @@ stories
 			/>
 		</Fragment>
 	))
+	.add('Icons: some hidden', () => (
+		<List
+			header={object('header: dates list', { title: 'Important Dates' })}
+			isSmall={boolean('isSmall', false)}
+			items={object('items: dates list', [
+				{
+					icon: {
+						customIcon: DateIcon,
+						isLineIcon: true
+					},
+					title: 'Wed, Nov 28, 2018',
+					subtitle: 'Closed'
+				},
+				{
+					icon: {
+						customIcon: DateIcon,
+						isLineIcon: true
+					},
+					title: 'Thu, Nov 29, 2018',
+					subtitle: 'Closed',
+					iconIsHidden: true
+				},
+				{
+					icon: {
+						customIcon: DateIcon,
+						isLineIcon: true
+					},
+					title: 'Wed, Dec 25, 2018',
+					subtitle: 'Closed',
+					iconIsHidden: true
+				}
+			])}
+		/>
+	))
 	.add('Settings List', () => (
 		<Fragment>
 			<List
