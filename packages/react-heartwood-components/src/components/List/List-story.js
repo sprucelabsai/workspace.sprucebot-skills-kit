@@ -245,6 +245,29 @@ stories
 			]}
 		/>
 	))
+	.add('List with an action', () => (
+		<List
+			items={[
+				{
+					title: 'Item one',
+					subtitle: 'The first item'
+				},
+				{
+					title: 'Item two',
+					subtitle: 'The second item'
+				},
+				{
+					title: 'Add something',
+					icon: { name: 'add' },
+					primaryAction: {
+						text: 'Add someting',
+						icon: { name: 'add' },
+						kind: 'simple'
+					}
+				}
+			]}
+		/>
+	))
 	.add('Icons: some hidden', () => (
 		<List
 			header={object('header: dates list', { title: 'Important Dates' })}
