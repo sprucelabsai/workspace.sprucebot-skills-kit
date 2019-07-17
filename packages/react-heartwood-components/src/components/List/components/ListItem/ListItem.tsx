@@ -214,7 +214,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				)}
 			</div>
 			{!isDraggable && ((actions && actions.length > 0) || contextMenu) && (
-				<div className="list-item__actions-wrapper">
+				<Fragment>
 					{actions && actions.length > 0 && (
 						<div className="list-item__actions-wrapper">
 							{actions.map((action, idx) => (
@@ -228,7 +228,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 						</div>
 					)}
 					{contextMenu && <ContextMenu {...contextMenu} />}
-				</div>
+				</Fragment>
 			)}
 			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
 		</Fragment>
