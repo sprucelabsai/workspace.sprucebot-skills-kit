@@ -82,6 +82,7 @@ export const appointment = {
 					},
 					{
 						icon: { name: 'unordered_list', isLineIcon: true },
+						iconIsHidden: true,
 						title: 'Haircut',
 						subtitle: '$40 | 1hr',
 						note: 'Vicenta Maggio',
@@ -282,6 +283,7 @@ export const warningAppointment = {
 					},
 					{
 						icon: { name: 'unordered_list', isLineIcon: true },
+						iconIsHidden: true,
 						title: 'Haircut',
 						subtitle: '$40 | 1hr',
 						note: 'Vicenta Maggio',
@@ -416,6 +418,7 @@ export const pastAppointment = {
 					},
 					{
 						icon: { name: 'unordered_list', isLineIcon: true },
+						iconIsHidden: true,
 						title: 'Haircut',
 						subtitle: '$40 | 1hr',
 						note: 'Vicenta Maggio'
