@@ -32,7 +32,7 @@ export interface IListProps {
 	children?: React.ReactNode
 
 	/** Set to true to show separators between list items */
-	areSeparatorsVisible: boolean
+	areSeparatorsVisible?: boolean
 
 	/** Optional: set whether to use checkbox or radio for selectable list items */
 	selectableType?: 'checkbox' | 'radio'
@@ -63,7 +63,12 @@ const List = (props: IListProps): React.ReactElement => {
 							return <ExpandableListItem key={idx} item={item} {...item} />
 						}
 						return (
-							<ListItem key={idx} selectableType={selectableType} {...item} />
+							<ListItem
+								key={idx}
+								selectableType={selectableType}
+								isSeparatorVisible={areSeparatorsVisible}
+								{...item}
+							/>
 						)
 					})}
 				{children && children}

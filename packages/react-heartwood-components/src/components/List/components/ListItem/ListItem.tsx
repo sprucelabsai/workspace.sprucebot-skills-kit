@@ -79,6 +79,9 @@ export interface IListItemProps {
 
 	/** Optional; adds a nested list */
 	list?: IListProps
+
+	/** Optional; adds multiple lists nested at the same level */
+	lists?: IListProps[]
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
@@ -103,7 +106,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		selectableProps,
 		selectableType,
 		warnings,
-		list
+		list,
+		lists
 	} = props
 
 	const parentClass = cx('list-item', className, {
@@ -236,6 +240,9 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
 
 			{list && <List {...list} />}
+			{lists &&
+				lists.length > 0 &&
+				lists.map((list, idx) => <List key={idx} {...list} />)}
 		</Fragment>
 	)
 

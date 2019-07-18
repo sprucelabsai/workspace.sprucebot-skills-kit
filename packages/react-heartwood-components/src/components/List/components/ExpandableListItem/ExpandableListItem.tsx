@@ -9,6 +9,9 @@ export interface IExpandableListItemProps {
 	/** Optional; adds a nested list */
 	list?: IListProps
 
+	/** Optional; adds multiple lists nested at the same level */
+	lists?: IListProps[]
+
 	/** Optional icon for collapsed state */
 	collapsedIcon?: string
 
@@ -35,12 +38,13 @@ export default class ExpandableListItem extends Component<
 	}
 
 	public render(): React.ReactElement {
-		const { item, list, collapsedIcon, expandedIcon } = this.props
+		const { item, list, lists, collapsedIcon, expandedIcon } = this.props
 		const { isExpanded } = this.state
 		return (
 			<ListItem
 				{...item}
 				list={isExpanded && list}
+				lists={isExpanded && lists}
 				actions={[
 					{
 						icon: {

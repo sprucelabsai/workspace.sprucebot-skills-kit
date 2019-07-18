@@ -91,7 +91,15 @@
 	.list {
 		flex: 1 0 100%;
 		padding-right: 0;
-		padding-bottom: 1rem;
+		margin-top: 0;
+
+		&:not(:last-of-type) {
+			border-bottom: 1px solid $c-border-light;
+		}
+
+		&:last-of-type {
+			padding-bottom: 1rem;
+		}
 	}
 }
 

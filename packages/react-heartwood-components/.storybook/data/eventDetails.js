@@ -1,6 +1,71 @@
 const avatar =
 	'https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&auto=format&fit=crop&w=96&h=96&q=80'
 
+const inclusiveStatuses = [
+	{
+		title: 'Confirmed',
+		selectableId: 'confirmed',
+		selectableProps: {
+			name: 'checkbox'
+		}
+	},
+	{
+		title: 'Checked in',
+		selectableId: 'checkedIn',
+		selectableProps: {
+			name: 'checkbox'
+		}
+	}
+]
+const exclusiveStatuses = [
+	{
+		title: 'On time',
+		selectableId: 'onTime',
+		selectableProps: {
+			name: 'radio'
+		}
+	},
+	{
+		title: 'Late',
+		selectableId: 'late',
+		selectableProps: {
+			name: 'radio'
+		}
+	},
+	{
+		title: 'Ghosted 👻',
+		selectableId: 'noShow',
+		selectableProps: {
+			name: 'radio'
+		}
+	}
+]
+
+const paidStatuses = [
+	{
+		title: 'Unpaid',
+		icon: { name: 'edit' },
+		iconIsHidden: true
+	}
+]
+
+const statusLists = [
+	{
+		selectableType: 'checkbox',
+		items: inclusiveStatuses,
+		areSeparatorsVisible: false
+	},
+	{
+		selectableType: 'radio',
+		items: exclusiveStatuses,
+		areSeparatorsVisible: false
+	},
+	{
+		items: paidStatuses,
+		areSeparatorsVisible: false
+	}
+]
+
 export const appointment = {
 	items: [
 		{
@@ -118,7 +183,10 @@ export const appointment = {
 						title: 'Status',
 						subtitle: 'Confirmed',
 						// TODO: Make list item expandable to make this work
-						isExpandable: true
+						isExpandable: true,
+						collapsedIcon: 'edit',
+						expandedIcon: 'close',
+						lists: statusLists
 					}
 				]
 			}
@@ -316,7 +384,10 @@ export const warningAppointment = {
 						title: 'Status',
 						subtitle: 'Confirmed',
 						// TODO: Make list item expandable to make this work
-						isExpandable: true
+						isExpandable: true,
+						collapsedIcon: 'edit',
+						expandedIcon: 'close',
+						lists: statusLists
 					}
 				]
 			}
@@ -429,9 +500,9 @@ export const pastAppointment = {
 			componentProps: {
 				items: [
 					{
-						icon: { name: 'status' },
+						icon: { name: 'payment_success_solid' },
 						title: 'Status',
-						subtitle: 'Confirmed'
+						subtitle: 'Paid'
 					}
 				]
 			}
