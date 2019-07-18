@@ -29,8 +29,6 @@ import ListItem from './components/ListItem/ListItem'
 import Icon from '../Icon/Icon'
 import Tabs from '../Tabs/Tabs'
 import SortableList from './components/SortableList/SortableList'
-import ArrowForward from '../../../static/assets/icons/ic_arrow_forward.svg'
-import ArrowBack from '../../../static/assets/icons/ic_arrow_back.svg'
 
 const stories = storiesOf('List', module)
 
@@ -173,13 +171,13 @@ stories
 					},
 					{
 						icon: {
-							customIcon: ArrowBack
+							name: 'arrow_back'
 						},
 						kind: 'simple'
 					},
 					{
 						icon: {
-							customIcon: ArrowForward
+							customIcon: 'arrow_forward'
 						},
 						kind: 'simple'
 					}
