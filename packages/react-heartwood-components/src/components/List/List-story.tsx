@@ -1,4 +1,3 @@
-// @flow
 import React, { Fragment, Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import {
@@ -35,15 +34,15 @@ import ArrowBack from '../../../static/assets/icons/ic_arrow_back.svg'
 
 const stories = storiesOf('List', module)
 
-type TabbedProps = {}
-type TabbedState = {
-	users: Array<Object>,
-	tabs: Array<Object>,
+interface ITabbedProps {}
+interface ITabbedState {
+	users: any[]
+	tabs: any[]
 	activeTabIndex: number
 }
 
-class TabbedList extends Component<TabbedProps, TabbedState> {
-	state = {
+class TabbedList extends Component<ITabbedProps, ITabbedState> {
+	public state = {
 		users: userList02,
 		tabs: [
 			{
@@ -62,25 +61,27 @@ class TabbedList extends Component<TabbedProps, TabbedState> {
 		activeTabIndex: 0
 	}
 
-	handleTabClick = (idx: number) => {
+	public handleTabClick = (idx: number) => {
 		this.setState({
 			activeTabIndex: idx
 		})
 	}
 
-	render() {
+	public render(): React.ReactElement {
 		const { tabs, activeTabIndex } = this.state
 
 		return (
 			<ListWrapper>
-				<ListHeader title="Notes" />
-				<Tabs
-					tabs={tabs.map((tab, idx) => ({
-						isCurrent: idx === activeTabIndex,
-						onClick: () => this.handleTabClick(idx),
-						...tab
-					}))}
-				/>
+				<Fragment>
+					<ListHeader title="Notes" />
+					<Tabs
+						tabs={tabs.map((tab, idx) => ({
+							isCurrent: idx === activeTabIndex,
+							onClick: () => this.handleTabClick(idx),
+							...tab
+						}))}
+					/>
+				</Fragment>
 			</ListWrapper>
 		)
 	}
@@ -127,6 +128,9 @@ stories
 				isSmall={boolean('isSmall', false)}
 				onConfirm={() => console.log('Confirmed!')}
 				items={object('items: sortable list', serviceList)}
+				onSortStart={() => null}
+				onSortEnd={() => null}
+				areSeparatorsVisible
 			/>
 			<List
 				header={object('header: dates list', { title: 'Important Dates' })}
