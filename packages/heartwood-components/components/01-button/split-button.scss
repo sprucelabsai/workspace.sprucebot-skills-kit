@@ -1,5 +1,10 @@
 .split-button {
 	display: inline-flex;
+	flex-flow: column;
+}
+
+.split-button__button {
+	display: inline-flex;
 }
 
 .split-button--is-full-width {
