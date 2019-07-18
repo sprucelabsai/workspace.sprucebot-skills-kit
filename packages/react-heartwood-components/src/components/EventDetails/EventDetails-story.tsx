@@ -16,6 +16,7 @@ import {
 
 const stories = storiesOf('EventDetails', module)
 
+// TODO: Turn off this decorator for specs. It obfuscates prop tables.
 stories.addDecorator(storyFn => (
 	<Page STORYBOOKwrap={false} sidebar={storyFn()} />
 ))
