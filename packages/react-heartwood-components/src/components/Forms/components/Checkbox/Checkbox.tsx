@@ -25,9 +25,7 @@ interface ICheckboxProps {
 	onChange?: Function
 }
 
-interface ICheckboxState {
-	isIndeterminateState: boolean
-}
+interface ICheckboxState {}
 
 export default class Checkbox extends Component<
 	ICheckboxProps,
