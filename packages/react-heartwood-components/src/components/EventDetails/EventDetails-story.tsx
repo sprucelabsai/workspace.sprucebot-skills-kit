@@ -1,8 +1,10 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import { Sidebar } from '../Core'
 import EventDetails from './EventDetails'
+
+import { Sidebar } from '../Core'
+import Page from '../Page'
 
 import {
 	appointment,
@@ -13,6 +15,10 @@ import {
 } from '../../../.storybook/data/eventDetails'
 
 const stories = storiesOf('EventDetails', module)
+
+stories.addDecorator(storyFn => (
+	<Page STORYBOOKwrap={false} sidebar={storyFn()} />
+))
 
 stories
 	.add('Booking: Appointment', () => (
