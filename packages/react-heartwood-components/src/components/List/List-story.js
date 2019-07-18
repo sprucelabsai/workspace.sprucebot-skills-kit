@@ -14,17 +14,24 @@ import {
 	userList02,
 	userList03
 } from '../../../.storybook/data/people'
+import {
+	dateList,
+	serviceList,
+	listHiddenIcons,
+	nestedList,
+	listWithAction,
+	settingsList,
+	selectableList,
+	expandableList
+} from '../../../.storybook/data/lists'
 import List, { ListWrapper } from './List'
 import ListHeader from './components/ListHeader/ListHeader'
 import ListItem from './components/ListItem/ListItem'
 import Icon from '../Icon/Icon'
 import Tabs from '../Tabs/Tabs'
 import SortableList from './components/SortableList/SortableList'
-import DateIcon from '../../../static/assets/icons/Interface-Essential/Date/Calendar/calendar-date.svg'
-import CalendarIcon from '../../../static/assets/icons/Interface-Essential/Date/Calendar/calendar-3.svg'
 import ArrowForward from '../../../static/assets/icons/ic_arrow_forward.svg'
 import ArrowBack from '../../../static/assets/icons/ic_arrow_back.svg'
-import { threeTextActions } from '../../../.storybook/data/actions'
 
 const stories = storiesOf('List', module)
 
@@ -113,234 +120,35 @@ stories
 			<List
 				header={object('header: text list', { title: 'Holidays' })}
 				isSmall={boolean('isSmall', false)}
-				items={object('items: text list', [
-					{
-						title: 'Wed, Nov 28, 2018',
-						subtitle: 'Closed'
-					},
-					{
-						title: 'Thu, Nov 29, 2018',
-						subtitle: 'Closed'
-					},
-					{
-						title: 'Wed, Dec 25, 2018',
-						subtitle: 'Closed'
-					}
-				])}
+				items={object('items: text list', dateList)}
 			/>
 			<SortableList
 				header={object('header: sortable list', { title: 'Services' })}
 				isSmall={boolean('isSmall', false)}
 				onConfirm={() => console.log('Confirmed!')}
-				items={object('items: sortable list', [
-					{
-						title: 'Clean Up',
-						subtitle: '$20 | 15min',
-						contextMenu: {
-							icon: {
-								name: 'edit',
-								isLineIcon: true
-							},
-							size: 'large',
-							isSimple: true,
-							actions: threeTextActions
-						}
-					},
-					{
-						title: 'Shampoo',
-						subtitle: '$7 | 45min',
-						contextMenu: {
-							icon: {
-								name: 'edit',
-								isLineIcon: true
-							},
-							size: 'large',
-							isSimple: true,
-							actions: threeTextActions
-						}
-					},
-					{
-						title: 'Young Spruce',
-						subtitle: '$23 | 50min',
-						contextMenu: {
-							icon: {
-								name: 'edit',
-								isLineIcon: true
-							},
-							size: 'large',
-							isSimple: true,
-							actions: threeTextActions
-						}
-					}
-				])}
+				items={object('items: sortable list', serviceList)}
 			/>
 			<List
 				header={object('header: dates list', { title: 'Important Dates' })}
 				isSmall={boolean('isSmall', false)}
-				items={object('items: dates list', [
-					{
-						icon: {
-							customIcon: DateIcon,
-							isLineIcon: true
-						},
-						title: 'Wed, Nov 28, 2018',
-						subtitle: 'Closed'
-					},
-					{
-						icon: {
-							customIcon: DateIcon,
-							isLineIcon: true
-						},
-						title: 'Thu, Nov 29, 2018',
-						subtitle: 'Closed'
-					},
-					{
-						icon: {
-							customIcon: DateIcon,
-							isLineIcon: true
-						},
-						title: 'Wed, Dec 25, 2018',
-						subtitle: 'Closed'
-					}
-				])}
+				items={object('items: dates list', dateList)}
 			/>
 		</Fragment>
 	))
-	.add('Nested List', () => (
-		<List
-			isSmall
-			items={[
-				{
-					title: 'This is an item',
-					subtitle: 'It has a nested list',
-					list: {
-						items: [
-							{
-								title: 'Nested one',
-								subtitle: 'First nested item'
-							},
-							{
-								title: 'Nested two',
-								subtitle: 'Second nested item',
-								list: {
-									items: [
-										{
-											title: 'Double-nested one',
-											subtitle: 'First double-nested item'
-										},
-										{
-											title: 'Double-nested two',
-											subtitle: 'Second double-nested item'
-										}
-									]
-								}
-							},
-							{
-								title: 'Nested three',
-								subtitle: 'Third nested item'
-							}
-						]
-					}
-				}
-			]}
-		/>
-	))
-	.add('List with an action', () => (
-		<List
-			items={[
-				{
-					title: 'Item one',
-					subtitle: 'The first item'
-				},
-				{
-					title: 'Item two',
-					subtitle: 'The second item'
-				},
-				{
-					title: 'Add something',
-					icon: { name: 'add' },
-					primaryAction: {
-						text: 'Add someting',
-						icon: { name: 'add' },
-						kind: 'simple'
-					}
-				}
-			]}
-		/>
-	))
+	.add('Nested List', () => <List isSmall items={nestedList} />)
+	.add('List with an action', () => <List items={listWithAction} />)
 	.add('Icons: some hidden', () => (
 		<List
 			header={object('header: dates list', { title: 'Important Dates' })}
 			isSmall={boolean('isSmall', false)}
-			items={object('items: dates list', [
-				{
-					icon: {
-						customIcon: DateIcon,
-						isLineIcon: true
-					},
-					title: 'Wed, Nov 28, 2018',
-					subtitle: 'Closed'
-				},
-				{
-					icon: {
-						customIcon: DateIcon,
-						isLineIcon: true
-					},
-					title: 'Thu, Nov 29, 2018',
-					subtitle: 'Closed',
-					iconIsHidden: true
-				},
-				{
-					icon: {
-						customIcon: DateIcon,
-						isLineIcon: true
-					},
-					title: 'Wed, Dec 25, 2018',
-					subtitle: 'Closed',
-					iconIsHidden: true
-				}
-			])}
+			items={object('items: dates list', listHiddenIcons)}
 		/>
 	))
 	.add('Settings List', () => (
-		<Fragment>
-			<List
-				header={object('header', { title: 'Settings' })}
-				items={object('items', [
-					{
-						title: 'Barber',
-						toggleId: 'barber'
-					},
-					{
-						title: 'Brow & Wax',
-						toggleId: 'brow-and-wax'
-					},
-					{
-						title: 'Featured',
-						toggleId: 'featured'
-					},
-					{
-						title: 'Gucci & Fire',
-						toggleId: 'gucci-and-fire'
-					},
-					{
-						title: 'Style Consulting',
-						toggleId: 'style-consulting'
-					}
-				])}
-			/>
-			<List
-				header={object('header', { title: 'Settings' })}
-				isSmall={boolean('isSmall', false)}
-				items={object('items: two', [
-					{
-						title: 'Hide this category',
-						subtitle: 'Guests cannot book hidden services',
-						toggleId: 'hide-category'
-					}
-				])}
-			/>
-		</Fragment>
+		<List
+			header={object('header', { title: 'Settings' })}
+			items={object('items', settingsList)}
+		/>
 	))
 	.add('People List', () => (
 		<List
@@ -354,7 +162,7 @@ stories
 					},
 					{
 						icon: {
-							customIcon: CalendarIcon,
+							name: 'calendar',
 							isLineIcon: true
 						},
 						kind: 'simple'
@@ -385,57 +193,8 @@ stories
 				['checkbox', 'radio'],
 				'checkbox'
 			)}
-			items={object('selectable items', [
-				{
-					title: 'Clean Up',
-					subtitle: '$20 | 15min',
-					selectableId: 'cleanUp',
-					selectableProps: {
-						name: 'radio'
-					}
-				},
-				{
-					title: 'Shampoo',
-					subtitle: '$7 | 45min',
-					selectableId: 'shampoo',
-					selectableProps: {
-						name: 'radio'
-					}
-				},
-				{
-					title: 'Young Spruce',
-					subtitle: '$23 | 50min',
-					selectableId: 'youngSpruce',
-					selectableProps: {
-						name: 'radio'
-					}
-				}
-			])}
+			items={object('selectable items', selectableList)}
 			isSmall={boolean('isSmall', false)}
 		/>
 	))
-	.add('Expandable List Item', () => (
-		<List
-			items={[
-				{
-					isExpandable: true,
-					title: 'Parent item one',
-					subtitle: 'The parent item',
-					collapsedIcon: 'edit',
-					expandedIcon: 'close',
-					list: {
-						items: [
-							{
-								title: 'Item one',
-								subtitle: 'The first item'
-							},
-							{
-								title: 'Item two',
-								subtitle: 'The second item'
-							}
-						]
-					}
-				}
-			]}
-		/>
-	))
+	.add('Expandable List Item', () => <List items={expandableList} />)
