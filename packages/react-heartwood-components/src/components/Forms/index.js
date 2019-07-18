@@ -1,23 +1,29 @@
-export Autosuggest from './components/Autosuggest/Autosuggest'
-export Checkbox from './components/Checkbox/Checkbox'
-export DatePicker from './components/DatePicker/DatePicker'
-export DomainInput from './components/DomainInput/DomainInput'
-export FormBuilder from './components/FormBuilder/FormBuilder'
-export DurationInput from './components/DurationInput/DurationInput'
-export PhoneInput, {
+export {
+	default as Autosuggest,
+	IAutosuggestInterfaceProps
+} from './components/Autosuggest/Autosuggest'
+export { default as Checkbox } from './components/Checkbox/Checkbox'
+export { default as DatePicker } from './components/DatePicker/DatePicker'
+export { default as DomainInput } from './components/DomainInput/DomainInput'
+export { default as FormBuilder } from './components/FormBuilder/FormBuilder'
+export {
+	default as DurationInput
+} from './components/DurationInput/DurationInput'
+export {
+	default as PhoneInput,
 	formatPhoneNumber,
 	formatPhoneNumberIntl,
 	isValidPhoneNumber
 } from './components/PhoneInput/PhoneInput'
-export Radio from './components/Radio/Radio'
-export Search from './components/Search/Search'
-export Select from './components/Select/Select'
-export Slider from './components/Slider/Slider'
-export Stars from './components/Stars/Stars'
-export Tag from './components/Tag/Tag'
-export TextArea from './components/TextArea/TextArea'
-export TextInput from './components/TextInput/TextInput'
-export Toggle from './components/Toggle/Toggle'
+export { default as Radio } from './components/Radio/Radio'
+export { default as Search } from './components/Search/Search'
+export { default as Select } from './components/Select/Select'
+export { default as Slider } from './components/Slider/Slider'
+export { default as Stars } from './components/Stars/Stars'
+export { default as Tag } from './components/Tag/Tag'
+export { default as TextArea } from './components/TextArea/TextArea'
+export { default as TextInput } from './components/TextInput/TextInput'
+export { default as Toggle } from './components/Toggle/Toggle'
 export {
 	default as FormLayout,
 	FormLayoutGroup,

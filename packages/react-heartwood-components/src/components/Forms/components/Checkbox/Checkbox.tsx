@@ -1,60 +1,63 @@
-// @flow
-import React, { Component } from 'react'
+import React, { Component, ChangeEvent } from 'react'
 import cx from 'classnames'
 import CheckIconYes from '../../../../../static/assets/icons/ic_check_box.svg'
 import CheckIconNo from '../../../../../static/assets/icons/ic_check_box_outline_blank.svg'
 import CheckIconMaybe from '../../../../../static/assets/icons/ic_indeterminate_check_box.svg'
 
-type Props = {
+interface ICheckboxProps {
 	/** Unique identifier */
-	id: string,
+	id: string
 
 	/** Input label and text after checkbox icon */
-	label: string,
+	label: string
 
 	/** Optional text to show below the label */
-	postText: string,
+	postText: string
 
 	/** Class for the checkbox wrapper */
-	className: ?string,
+	className?: string
 
 	/** Set true if the checkbox is indeterminate */
-	isIndeterminate?: boolean,
+	isIndeterminate?: boolean
 
 	/** Optional onChange callback */
 	onChange?: Function
 }
 
-type State = {
+interface ICheckboxState {
 	isIndeterminateState: boolean
 }
 
-export default class Checkbox extends Component<Props, State> {
-	static defaultProps = {
-		isIndeterminate: false
+export default class Checkbox extends Component<
+	ICheckboxProps,
+	ICheckboxState
+> {
+	private checkboxRef: React.RefObject<HTMLInputElement>
+
+	public constructor(props: ICheckboxProps) {
+		super(props)
+		this.checkboxRef = React.createRef()
 	}
 
-	state = {
-		isIndeterminateState: this.props.isIndeterminate
+	public componentDidMount = () => {
+		if (this.checkboxRef.current) {
+			this.checkboxRef.current.indeterminate = !!this.props.isIndeterminate
+		}
 	}
 
-	handleChange = e => {
+	public handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { onChange } = this.props
-		this.setState(prevState => {
-			if (prevState.isIndeterminateState) {
-				return {
-					isIndeterminateState: false
-				}
-			}
-		})
+
+		if (this.checkboxRef.current) {
+			this.checkboxRef.current.indeterminate = false
+		}
 
 		if (onChange) {
 			onChange(e)
 		}
 	}
 
-	render() {
-		const { isIndeterminateState } = this.state
+	public render(): React.ReactElement {
 		const { id, label, postText, className, ...rest } = this.props
 		const parentClass = cx('checkbox-item', className)
 
@@ -67,11 +70,11 @@ export default class Checkbox extends Component<Props, State> {
 			<div className={parentClass}>
 				<div className="checkbox-item__inner">
 					<input
+						ref={this.checkboxRef}
 						autoComplete={'off'}
 						className="checkbox-item__input"
 						type="checkbox"
 						id={id}
-						indeterminate={isIndeterminateState ? 'true' : null}
 						{...rest}
 						// Always use internal change handler
 						onChange={this.handleChange}
