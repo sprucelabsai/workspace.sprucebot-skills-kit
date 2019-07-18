@@ -31,7 +31,9 @@ interface ISortableListState {
 	isSorting: boolean
 }
 const SortableItem = SortableElement(
-	(item: any): React.ReactElement => <ListItem {...item} />
+	(itemProps: any): React.ReactElement => {
+		return <ListItem {...itemProps.item} />
+	}
 )
 const SortableList = SortableContainer(
 	({ items, parentClass, disabled }: any): React.ReactElement => {

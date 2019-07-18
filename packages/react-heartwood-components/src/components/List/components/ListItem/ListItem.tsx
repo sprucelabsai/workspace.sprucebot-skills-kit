@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
-import Button from '../../../Button/Button'
+import Button, { IButtonProps } from '../../../Button/Button'
 import Icon from '../../../Icon/Icon'
-
 import ContextMenu from '../../../ContextMenu/ContextMenu'
-
+import List, { IListProps } from '../../List'
 import { Toggle, Checkbox, Radio } from '../../../Forms'
 
 export interface IListItemProps {
@@ -42,15 +41,11 @@ export interface IListItemProps {
 	/** Makes the list item a setting */
 	toggleId?: string
 
-	/** A primary action that turns the entire list item into a clickable button
-	 *  TODO: implement ButtonProps
-	 */
-	primaryAction?: any
+	/** A primary action that turns the entire list item into a clickable button */
+	primaryAction?: IButtonProps
 
-	/** Actions associated with the list item
-	 *  TODO: implement ButtonProps
-	 */
-	actions?: any[]
+	/** Actions associated with the list item */
+	actions?: IButtonProps[]
 
 	/** Context Menu associated with the list item
 	 *  TODO: implement ContextMenuProps
@@ -81,6 +76,9 @@ export interface IListItemProps {
 		subtitle: boolean
 		note: boolean
 	}
+
+	/** Optional; adds a nested list */
+	list?: IListProps
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
@@ -104,7 +102,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		selectableId,
 		selectableProps,
 		selectableType,
-		warnings
+		warnings,
+		list
 	} = props
 
 	const parentClass = cx('list-item', className, {
@@ -235,6 +234,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				</Fragment>
 			)}
 			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
+
+			{list && <List {...list} />}
 		</Fragment>
 	)
 
