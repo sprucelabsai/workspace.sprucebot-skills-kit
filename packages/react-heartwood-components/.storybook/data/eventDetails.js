@@ -127,8 +127,6 @@ export const appointment = {
 			id: 'subtotalAndDuration',
 			component: 'markdown',
 			componentProps: {
-				// NOTE: This would work with a markdown rendering component
-				// Question: Can we deliver MD from the API?
 				source: '**Subtotal: ** $65\n\n**Duration: ** 2hr'
 			}
 		},
@@ -200,7 +198,6 @@ export const warningAppointment = {
 			}
 		},
 		{
-			// NOTE: This won't work yet and requires updates to card builder
 			id: 'dateAndTime',
 			component: 'card',
 			componentProps: {
