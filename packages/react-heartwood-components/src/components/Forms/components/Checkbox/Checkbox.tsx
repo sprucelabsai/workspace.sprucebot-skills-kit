@@ -1,5 +1,6 @@
 import React, { Component, ChangeEvent } from 'react'
 import cx from 'classnames'
+
 import CheckIconYes from '../../../../../static/assets/icons/ic_check_box.svg'
 import CheckIconNo from '../../../../../static/assets/icons/ic_check_box_outline_blank.svg'
 import CheckIconMaybe from '../../../../../static/assets/icons/ic_indeterminate_check_box.svg'
