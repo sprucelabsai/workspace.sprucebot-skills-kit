@@ -60,7 +60,7 @@ class RecordListItemsExample extends Component<
 			totalRecordCount,
 			maxRowsVisible
 		} = this.props
-		const { selectedIds, locations, unselectableIds, emptyState } = this.state
+		const { selectedIds, locations, unselectableIds } = this.state
 		return (
 			<RecordSelectionList
 				canSearch
@@ -83,18 +83,6 @@ class RecordListItemsExample extends Component<
 						})
 
 						results = filteredLocations.slice(offset, offset + limit)
-
-						if (results.length === 0) {
-							this.setState({
-								emptyState: {
-									headline: 'No matches found',
-									icon: 'search',
-									primaryAction: {
-										text: 'Show all'
-									}
-								}
-							})
-						}
 					} else {
 						results = locations.slice(offset, offset + limit)
 					}
@@ -146,7 +134,13 @@ class RecordListItemsExample extends Component<
 						? parseInt(maxRowsVisible, 10)
 						: maxRowsVisible
 				}
-				emptyState={emptyState}
+				noSearchResultsEmptyState={{
+					headline: "Nothin' here...",
+					icon: 'no_matches',
+					primaryAction: {
+						text: "Show all, y'all!"
+					}
+				}}
 			/>
 		)
 	}
@@ -161,10 +155,10 @@ stories
 					<RecordListItemsExample
 						canSelect={select('Can Select', [null, 'many', 'one'], null)}
 						canRemove={boolean('Can Remove', false)}
-						locations={map(generateLocations({ amount: 5 }), o => ({
+						locations={map(generateLocations({ amount: 50 }), o => ({
 							node: { ...o }
 						}))}
-						totalRecordCount={5}
+						totalRecordCount={50}
 						maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
 					/>
 				</CardBody>
@@ -197,7 +191,7 @@ stories
 						selectedIds={[]}
 						unselectableIds={[]}
 						loadRecordListItems={async () => []}
-						emptyState={{
+						noDataEmptyState={{
 							headline: text('emptyState:headline', 'Nothing to see here'),
 							subheadline: text(
 								'emptyState:subheadline',
