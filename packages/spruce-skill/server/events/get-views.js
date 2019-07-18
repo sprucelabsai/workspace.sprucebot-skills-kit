@@ -87,7 +87,7 @@ module.exports = async (ctx: Object, next: Function) => {
 					id: 'uniqueId5',
 					title: 'Example Public Org',
 					host,
-					path: '/o/' // QUESTION: any reason to append the org here?
+					path: '/o/' // TODO: any reason to append the org here?
 				})
 				break
 			case 'public_location':
@@ -97,7 +97,15 @@ module.exports = async (ctx: Object, next: Function) => {
 					id: 'uniqueId6',
 					title: 'Example Public Location',
 					host,
-					path: '/l/' // QUESTION: any reason to append the location here?
+					path: '/l/' // TODO: any reason to append the location here?
+				})
+				break
+			default:
+				views.push({
+					id: 'uniqueId7',
+					title: 'Example Page',
+					host,
+					path: '/skill-views/example'
 				})
 				break
 		}
