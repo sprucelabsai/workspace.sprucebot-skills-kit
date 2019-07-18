@@ -11,7 +11,7 @@ export const ListWrapper = (props: {
 }): React.ReactElement => <div className="list-wrapper">{props.children}</div>
 
 export interface IWrappedItemProps extends IListItemProps {
-	/** Optionsal; Set true to render an expandable item */
+	/** Optional; Set true to render an expandable item */
 	isExpandable?: boolean
 }
 
