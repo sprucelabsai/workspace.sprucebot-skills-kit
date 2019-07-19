@@ -5,24 +5,21 @@ import CheckIconYes from '../../../../../static/assets/icons/ic_check_box.svg'
 import CheckIconNo from '../../../../../static/assets/icons/ic_check_box_outline_blank.svg'
 import CheckIconMaybe from '../../../../../static/assets/icons/ic_indeterminate_check_box.svg'
 
-interface ICheckboxProps {
+interface ICheckboxProps extends React.HTMLProps<HTMLInputElement> {
 	/** Unique identifier */
 	id: string
 
 	/** Input label and text after checkbox icon */
-	label: string
+	label?: string
 
 	/** Optional text to show below the label */
-	postText: string
+	postText?: string
 
 	/** Class for the checkbox wrapper */
 	className?: string
 
 	/** Set true if the checkbox is indeterminate */
 	isIndeterminate?: boolean
-
-	/** Optional onChange callback */
-	onChange?: Function
 }
 
 interface ICheckboxState {}
