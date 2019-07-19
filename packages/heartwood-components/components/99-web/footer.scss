@@ -11,8 +11,12 @@
 	color: $c-text-light;
 	justify-content: space-between;
 
-	a {
+	.footer-link {
 		color: inherit;
 		text-decoration: underline;
+
+		+ .footer-link {
+			margin-left: spacing('base');
+		}
 	}
 }
