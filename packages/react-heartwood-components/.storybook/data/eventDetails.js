@@ -55,11 +55,7 @@ const services = {
 					kind: 'simple'
 				}
 			}
-		],
-		action: {
-			icon: { name: 'add' },
-			text: 'Add services'
-		}
+		]
 	}
 }
 
@@ -165,8 +161,7 @@ export const appointment = {
 							}
 						]
 					}
-				],
-				primaryAction: 'test'
+				]
 			}
 		},
 		{
