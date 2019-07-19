@@ -62,9 +62,10 @@ export { default as ImageSSR } from './components/ImageSSR/ImageSSR'
 export { default as ImageCropper } from './components/ImageCropper/ImageCropper'
 export { default as Layout, LayoutSection } from './components/Layout'
 export {
-	default as List,
+	List,
 	ListHeader,
 	ListItem,
+	ExpandableListItem,
 	SortableList,
 	ListWrapper
 } from './components/List'

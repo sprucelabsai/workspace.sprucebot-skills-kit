@@ -25,7 +25,7 @@ export interface IButtonProps {
 	className?: string
 
 	/** Optional children passed into button */
-	children?: Node
+	children?: React.ReactNode
 
 	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
 	kind?: 'primary' | 'secondary' | 'simple' | 'caution'

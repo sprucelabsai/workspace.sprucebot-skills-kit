@@ -1,7 +1,6 @@
-// @flow
 // Uses React Table. See https://react-table.js.org/#/story/readme details.
-import React, { Component, Fragment } from 'react'
-import ReactTable from 'react-table'
+import React, { Component, Fragment, ReactElement } from 'react'
+import ReactTable, { TableProps } from 'react-table'
 import { CSSTransition } from 'react-transition-group'
 import cx from 'classnames'
 import { Checkbox } from '../Forms'
@@ -10,79 +9,74 @@ import Card from '../Card/Card'
 import Pagination from '../Pagination/Pagination'
 import EmptyState from '../EmptyState/EmptyState'
 import ContextMenu from '../ContextMenu/ContextMenu'
-import type { Props as ButtonProps } from '../Button/Button'
-import type { Props as PaginationProps } from '../Pagination/Pagination'
+import { IButtonProps } from '../Button/Button'
 
-type Props = {
+export interface ITableProps extends Partial<TableProps> {
 	/** Table data */
-	data: Array<Object>,
+	data: Record<string, any>[]
 
 	/** The total number of rows which this table can access */
-	totalRows: number,
+	totalRows: number
 
 	/** Columns of the table */
-	columns: Array<Object>,
-
-	/** Optional classname to add to the table. Useful for grid styling */
-	className?: string,
+	columns: Record<string, any>[]
 
 	/** Set true if the table rows can be selected */
-	isSelectable?: boolean,
+	isSelectable?: boolean
 
 	/** any Id's that are selected by default when the page loads */
-	initialSelectedIds?: Array<string | number>,
+	initialSelectedIds?: (string | number)[]
 
 	/** The kind of data this table displays. This will affect the text shown when at least one row is selected. */
-	kind?: string,
+	kind?: string
 
 	/** Optional text for pluralization when multiple rows are selected */
-	pluralKind?: string,
+	pluralKind?: string
 
+	// TODO: IMPLEMENT PAGINATION PROPS
 	/** Pagination component props */
-	paginationProps?: PaginationProps,
+	paginationProps?: any
 
 	/** Enable bulk actions for selectable tables */
-	bulkActions: Array<ButtonProps>,
-
-	/** Makes the table sortable */
-	sortable?: boolean,
+	bulkActions?: IButtonProps[]
 
 	/** Handle clicking on a row */
-	onClickRow?: (e: MouseEvent, meta: { idx: number, item: Object }) => void,
+	onClickRow?: (
+		e: MouseEvent,
+		meta: { idx: number; item: Record<string, any> }
+	) => void
 
 	/** Callback when selection changes */
-	onSelection?: ({ selectedIds: Array<string | number> }) => void,
+	onSelection?: (options: { selectedIds: (string | number)[] }) => void
 
 	/** No data available */
-	noDataIcon?: string,
-	noDataHeadline?: string,
-	noDataSubheadline?: string,
-	noDataPrimaryAction?: PrimaryAction,
-	noDataPrimaryActionButtonKind?: string,
-	noDataPrimaryActionButtonIcon?: string,
+	noDataIcon?: string
+	noDataHeadline?: string
+	noDataSubheadline?: string
+	noDataPrimaryAction?: IPrimaryAction
+	noDataPrimaryActionButtonKind?: string
+	noDataPrimaryActionButtonIcon?: string
 
 	/** Return a nested sub-component to be added as an expansion level for designated row. */
-	subComponentForRow?: (row: Object) => any,
+	subComponentForRow?: (row: Record<string, any>) => any
 
 	/** Called any time row props are updated. Return true if the given row should appear dirty. */
-	rowIsDirty?: (row: Object) => boolean
+	rowIsDirty?: (row: Record<string, any>) => boolean
 }
 
-type PrimaryAction = {
-	text: string,
-	onClick: (e: MouseEvent) => void,
+interface IPrimaryAction {
+	text: string
+	onClick: (e: MouseEvent) => void
 	type: string
 }
 
-type State = {
-	selectedIds: Array<string | number>,
+interface ITableState {
+	selectedIds: (string | number)[]
 	allRowsSelected: boolean
 }
 
-export default class Table extends Component<Props, State> {
-	table: any
-
-	static defaultProps = {
+export default class Table extends Component<ITableProps, ITableState> {
+	private static defaultProps = {
 		className: '',
 		paginationProps: {},
 		isSelectable: false,
@@ -93,7 +87,9 @@ export default class Table extends Component<Props, State> {
 		noDataPrimaryActionButtonIcon: null
 	}
 
-	constructor(props: Props) {
+	private table: any
+
+	public constructor(props: ITableProps) {
 		super(props)
 
 		this.state = {
@@ -102,72 +98,7 @@ export default class Table extends Component<Props, State> {
 		}
 	}
 
-	handleChange = ({ id }: any) => {
-		const { onSelection, totalRows } = this.props
-		this.setState(
-			prevState => {
-				const idx = prevState.selectedIds.indexOf(id)
-				let newIds = [...prevState.selectedIds]
-				if (idx > -1) {
-					newIds.splice(idx, 1)
-				} else {
-					if (prevState.selectedIds.length === 0) {
-						newIds = [id]
-					} else {
-						newIds.push(id)
-					}
-				}
-				return {
-					selectedIds: newIds,
-					allRowsSelected: newIds.length === totalRows
-				}
-			},
-			() => {
-				onSelection && onSelection({ selectedIds: this.state.selectedIds })
-			}
-		)
-	}
-
-	handleSelectAll = () => {
-		const { onSelection } = this.props
-		const currentPage = this.table.state.page
-		const pageSize = this.table.state.pageSize
-		const allRows = this.table.getResolvedState().sortedData
-		const startIdx = currentPage * pageSize
-		const currentRows = allRows
-			.slice(startIdx, startIdx + pageSize)
-			.map(item => item._original)
-		const visibleIds = currentRows.map(row => row.id)
-
-		this.setState(
-			prevState => ({
-				selectedIds:
-					prevState.selectedIds.length > 0
-						? []
-						: [...prevState.selectedIds, ...visibleIds]
-			}),
-			() => {
-				onSelection && onSelection({ selectedIds: this.state.selectedIds })
-			}
-		)
-	}
-
-	handleClickRow = (e: MouseEvent, handleOriginal) => {
-		const { onClickRow = () => {} } = this.props
-
-		// determine which row we clicked
-		const children = [...e.currentTarget.parentNode.parentNode.children]
-		const idx = children.indexOf(e.currentTarget.parentNode)
-
-		onClickRow(e, {
-			idx,
-			item: this.props.data[idx]
-		})
-
-		handleOriginal && handleOriginal(e)
-	}
-
-	render() {
+	public render(): ReactElement {
 		const {
 			data,
 			totalRows,
@@ -369,6 +300,7 @@ export default class Table extends Component<Props, State> {
 						: null
 				}
 				NoDataComponent={EmptyState}
+				// @ts-ignore-next-line
 				ExpanderComponent={
 					<Icon
 						icon={'keyboard_arrow_right'}
@@ -420,5 +352,70 @@ export default class Table extends Component<Props, State> {
 				{...rest}
 			/>
 		)
+	}
+
+	private handleChange = ({ id }: any) => {
+		const { onSelection, totalRows } = this.props
+		this.setState(
+			prevState => {
+				const idx = prevState.selectedIds.indexOf(id)
+				let newIds = [...prevState.selectedIds]
+				if (idx > -1) {
+					newIds.splice(idx, 1)
+				} else {
+					if (prevState.selectedIds.length === 0) {
+						newIds = [id]
+					} else {
+						newIds.push(id)
+					}
+				}
+				return {
+					selectedIds: newIds,
+					allRowsSelected: newIds.length === totalRows
+				}
+			},
+			() => {
+				onSelection && onSelection({ selectedIds: this.state.selectedIds })
+			}
+		)
+	}
+
+	private handleSelectAll = () => {
+		const { onSelection } = this.props
+		const currentPage = this.table.state.page
+		const pageSize = this.table.state.pageSize
+		const allRows = this.table.getResolvedState().sortedData
+		const startIdx = currentPage * pageSize
+		const currentRows = allRows
+			.slice(startIdx, startIdx + pageSize)
+			.map(item => item._original)
+		const visibleIds = currentRows.map(row => row.id)
+
+		this.setState(
+			prevState => ({
+				selectedIds:
+					prevState.selectedIds.length > 0
+						? []
+						: [...prevState.selectedIds, ...visibleIds]
+			}),
+			() => {
+				onSelection && onSelection({ selectedIds: this.state.selectedIds })
+			}
+		)
+	}
+
+	private handleClickRow = (e, handleOriginal) => {
+		const { onClickRow = () => {} } = this.props
+
+		// determine which row we clicked
+		const children = [...e.currentTarget.parentNode.parentNode.children]
+		const idx = children.indexOf(e.currentTarget.parentNode)
+
+		onClickRow(e, {
+			idx,
+			item: this.props.data[idx]
+		})
+
+		handleOriginal && handleOriginal(e)
 	}
 }
