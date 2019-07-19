@@ -1,6 +1,68 @@
 const avatar =
 	'https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&auto=format&fit=crop&w=96&h=96&q=80'
 
+const services = {
+	id: 'services',
+	component: 'list',
+	componentProps: {
+		items: [
+			{
+				icon: { name: 'unordered_list', isLineIcon: true },
+				title: 'Accent Highlight',
+				subtitle: '$65 | 1hr',
+				note: 'Vicenta Maggio',
+				contextMenu: {
+					icon: { name: 'edit', isLineIcon: true },
+					isSimple: true,
+					isSmall: true,
+					size: 'large',
+					actions: [
+						{
+							text: 'Change teammate'
+						},
+						{
+							text: 'Remove from appointment'
+						}
+					]
+				}
+			},
+			{
+				icon: { name: 'unordered_list', isLineIcon: true },
+				iconIsHidden: true,
+				title: 'Haircut',
+				subtitle: '$40 | 1hr',
+				note: 'Vicenta Maggio',
+				contextMenu: {
+					icon: { name: 'edit', isLineIcon: true, isVisible: false },
+					isSimple: true,
+					isSmall: true,
+					size: 'large',
+					actions: [
+						{
+							text: 'Change teammate'
+						},
+						{
+							text: 'Remove from appointment'
+						}
+					]
+				}
+			},
+			{
+				title: 'Add service',
+				icon: { name: 'add' },
+				primaryAction: {
+					icon: { name: 'add' },
+					kind: 'simple'
+				}
+			}
+		],
+		action: {
+			icon: { name: 'add' },
+			text: 'Add services'
+		}
+	}
+}
+
 const inclusiveStatuses = [
 	{
 		title: 'Confirmed',
@@ -95,7 +157,13 @@ export const appointment = {
 					{
 						icon: { name: 'note', isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
-						subtitle: 'Caleigh Jerde, 4 months ago'
+						subtitle: 'Caleigh Jerde, 4 months ago',
+						actions: [
+							{
+								icon: { name: 'edit' },
+								kind: 'simple'
+							}
+						]
 					}
 				],
 				primaryAction: 'test'
@@ -120,59 +188,7 @@ export const appointment = {
 				]
 			}
 		},
-		{
-			id: 'services',
-			component: 'list',
-			componentProps: {
-				items: [
-					{
-						icon: { name: 'unordered_list', isLineIcon: true },
-						title: 'Accent Highlight',
-						subtitle: '$65 | 1hr',
-						note: 'Vicenta Maggio',
-						contextMenu: {
-							icon: { name: 'edit', isLineIcon: true },
-							isSimple: true,
-							isSmall: true,
-							size: 'large',
-							actions: [
-								{
-									text: 'Change teammate'
-								},
-								{
-									text: 'Remove from appointment'
-								}
-							]
-						}
-					},
-					{
-						icon: { name: 'unordered_list', isLineIcon: true },
-						iconIsHidden: true,
-						title: 'Haircut',
-						subtitle: '$40 | 1hr',
-						note: 'Vicenta Maggio',
-						contextMenu: {
-							icon: { name: 'edit', isLineIcon: true, isVisible: false },
-							isSimple: true,
-							isSmall: true,
-							size: 'large',
-							actions: [
-								{
-									text: 'Change teammate'
-								},
-								{
-									text: 'Remove from appointment'
-								}
-							]
-						}
-					}
-				],
-				action: {
-					icon: { name: 'add' },
-					text: 'Add services'
-				}
-			}
-		},
+		{ ...services },
 		{
 			id: 'status',
 			component: 'list',
@@ -182,7 +198,6 @@ export const appointment = {
 						icon: { name: 'status' },
 						title: 'Status',
 						subtitle: 'Confirmed',
-						// TODO: Make list item expandable to make this work
 						isExpandable: true,
 						collapsedIcon: 'edit',
 						expandedIcon: 'close',
@@ -259,7 +274,13 @@ export const warningAppointment = {
 					{
 						icon: { name: 'note', isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
-						subtitle: 'Caleigh Jerde, 4 months ago'
+						subtitle: 'Caleigh Jerde, 4 months ago',
+						actions: [
+							{
+								icon: { name: 'edit' },
+								kind: 'simple'
+							}
+						]
 					}
 				],
 				primaryAction: 'test'
@@ -321,59 +342,7 @@ export const warningAppointment = {
 				}
 			}
 		},
-		{
-			id: 'services',
-			component: 'list',
-			componentProps: {
-				items: [
-					{
-						icon: { name: 'unordered_list', isLineIcon: true },
-						title: 'Accent Highlight',
-						subtitle: '$65 | 1hr',
-						note: 'Vicenta Maggio',
-						contextMenu: {
-							icon: { name: 'edit', isLineIcon: true },
-							isSimple: true,
-							isSmall: true,
-							size: 'large',
-							actions: [
-								{
-									text: 'Change teammate'
-								},
-								{
-									text: 'Remove from appointment'
-								}
-							]
-						}
-					},
-					{
-						icon: { name: 'unordered_list', isLineIcon: true },
-						iconIsHidden: true,
-						title: 'Haircut',
-						subtitle: '$40 | 1hr',
-						note: 'Vicenta Maggio',
-						contextMenu: {
-							icon: { name: 'edit', isLineIcon: true, isVisible: false },
-							isSimple: true,
-							isSmall: true,
-							size: 'large',
-							actions: [
-								{
-									text: 'Change teammate'
-								},
-								{
-									text: 'Remove from appointment'
-								}
-							]
-						}
-					}
-				],
-				action: {
-					icon: { name: 'add' },
-					text: 'Add services'
-				}
-			}
-		},
+		{ ...services },
 		{
 			id: 'status',
 			component: 'list',
@@ -454,7 +423,13 @@ export const pastAppointment = {
 					{
 						icon: { name: 'note', isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
-						subtitle: 'Caleigh Jerde, 4 months ago'
+						subtitle: 'Caleigh Jerde, 4 months ago',
+						actions: [
+							{
+								icon: { name: 'edit' },
+								kind: 'simple'
+							}
+						]
 					}
 				],
 				primaryAction: 'test'

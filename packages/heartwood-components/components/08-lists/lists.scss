@@ -163,6 +163,10 @@
 	flex: 0 0 auto;
 }
 
+.list-item__text-wrapper {
+	flex: 1 0;
+}
+
 .list-item__image-wrapper {
 	padding: rem(12) 0;
 	line-height: 0;
