@@ -10,7 +10,7 @@ import {
 import Wrapper from './Wrapper'
 
 import { setOptions } from '@storybook/addon-options'
-import { withInfo } from '@storybook/addon-info'
+import { withInfo, setDefaults } from '@storybook/addon-info'
 
 setOptions({
 	name: 'Heartwood React Components',
@@ -31,6 +31,10 @@ addDecorator(story => {
 	return (
 		<Wrapper STORYBOOKwrap={boolean('STORYBOOKwrap', true)}>{story()}</Wrapper>
 	)
+})
+
+setDefaults({
+	propTablesExclude: [Wrapper]
 })
 
 addDecorator(

@@ -79,6 +79,7 @@
 		"husky": "^0.14.3",
 		"jest": "^24.5.0",
 		"prettier": "1.16.4",
+		"react-docgen-typescript-loader": "^3.1.0",
 		"react-test-renderer": "^16.0.0",
 		"typescript": "^3.3.3333",
 		"uuid": "^3.3.2",
