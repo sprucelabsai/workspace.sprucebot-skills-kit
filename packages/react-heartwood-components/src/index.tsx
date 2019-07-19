@@ -65,6 +65,7 @@ export {
 	default as List,
 	ListHeader,
 	ListItem,
+	ExpandableListItem,
 	SortableList,
 	ListWrapper
 } from './components/List'
