@@ -3,6 +3,7 @@ import React from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
 import { Sidebar, SidebarFooter } from '../Core'
+import moment from 'moment'
 
 type Props = {
 	sidebarItems?: Array<Object>,
@@ -98,7 +99,9 @@ const View = (props: Props) => {
 							Privacy Policy
 						</a>
 					</p>
-					<p className="footer-text">&copy; Spruce Labs 2018</p>
+					<p className="footer-text">
+						{`© Spruce Labs ${moment().format('YYYY')}`}
+					</p>
 				</footer>
 			)}
 		</div>
