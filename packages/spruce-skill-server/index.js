@@ -134,6 +134,10 @@ module.exports = async ({
 		process.exit(1)
 	}
 
+	if (syncResponse.s3Bucket) {
+		process.env.S3_BUCKET = syncResponse.s3Bucket
+	}
+
 	debug('Sync complete. Response: ', syncResponse)
 
 	if (metricsEnabled) {
@@ -222,11 +226,14 @@ module.exports = async ({
 		debug('Utilities and services can now reference each other')
 
 		// orm if enabled
-		if (syncResponse.database) {
+		if (syncResponse.databaseUrl) {
 			sequelizeFactory(
 				{
 					...sequelizeOptions,
-					database: syncResponse.database,
+					database: {
+						dialect: 'postgres', // todo move this somewhere
+						url: syncResponse.databaseUrl
+					},
 					metricsEnabled,
 					metricsSequelizeDisabled
 				},
