@@ -181,6 +181,10 @@ export default class Autosuggest extends Component<
 						getSuggestionValue={getSuggestionValue}
 						renderSuggestion={renderSuggestion}
 						renderSuggestionsContainer={({ containerProps, children }) => {
+							if (typeof document === 'undefined') {
+								return
+							}
+
 							return createPortal(
 								<div
 									style={{
@@ -223,7 +227,7 @@ export default class Autosuggest extends Component<
 			this.autosuggestRef.current &&
 			this.autosuggestRef.current.input
 
-		if (!document) {
+		if (typeof document === 'undefined') {
 			return
 		}
 
