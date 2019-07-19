@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react'
-
-import Table, { TableSearch } from '../Table'
+import { default as Table, ITableProps } from '../Table/Table'
+import {
+	default as TableSearch,
+	ITableSearchProps
+} from '../Table/components/TableSearch/TableSearch'
 import Tabs from '../Tabs'
 import { TextInput } from '../Forms'
 import Button from '../Button/Button'
@@ -21,7 +24,7 @@ export interface IRecordTableFetchResults {
 	totalRows: number
 }
 
-export interface IRecordTableProps {
+export interface IRecordTableProps extends ITableProps {
 	/** Singular noun describing the contents of this table */
 	kind?: string
 
@@ -68,7 +71,7 @@ export interface IRecordTableProps {
 	searchPlaceholder?: string
 
 	/** props to pass through to the table search component */
-	tableSearchProps?: Record<string, any>
+	tableSearchProps?: ITableSearchProps
 
 	/** when rendering search results, this is how i'll know what to output */
 	searchSuggestionAccessor?: (suggestion: Record<string, any>) => any
@@ -88,10 +91,13 @@ export interface IRecordTableProps {
 	fetchError?: boolean
 
 	/** passthrough to Table component */
-	handleClickRow?: Function
+	handleClickRow?: (
+		e: MouseEvent,
+		meta: { idx: number; item: Record<string, any> }
+	) => void
 
 	/** called when search suggestion is selected */
-	onSelection?: Function
+	onSelection?: (options: { selectedIds: (string | number)[] }) => void
 
 	/** called when navigating to page */
 	onNavigateToPage?: Function
@@ -232,7 +238,13 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 			noDataPrimaryActionButtonKind,
 			noDataPrimaryActionButtonIcon,
 
-			tableSearchProps = {},
+			tableSearchProps = {
+				getSuggestionValue: null,
+				getSuggestions: null,
+				renderSuggestion: null,
+				onSuggestionSelected: null,
+				id: null
+			},
 			...rest
 		} = this.props
 
@@ -277,21 +289,19 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 						isPadded
 					/>
 				)}
+
 				{enableSearch && (
-					<TableSearch
-						placeholder={searchPlaceholder}
-						onSuggestionSelected={this.handleSuggestionSelected}
-						{...tableSearchProps}
-					/>
+					<TableSearch placeholder={searchPlaceholder} {...tableSearchProps} />
 				)}
 
 				{enableFilter && (
 					<div className="table-search__wrapper">
 						<div className="autosuggest__wrapper">
 							<TextInput
+								id="record-table-filter"
 								value={currentFilter}
 								placeholder={searchPlaceholder}
-								onChange={e => {
+								onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 									this.updateFilter(e.target.value)
 								}}
 								isSmall
@@ -482,10 +492,6 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 		}
 
 		return searchSuggestionAccessor(suggestion.record)
-	}
-
-	private handleSuggestionSelected = async (e: MouseEvent, suggestion: any) => {
-		this.props.onSelection && this.props.onSelection(e, suggestion)
 	}
 
 	private isFiltered = () => {

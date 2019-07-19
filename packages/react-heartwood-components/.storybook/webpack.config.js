@@ -24,7 +24,6 @@ module.exports = {
 	},
 	module: {
 		rules: [
-			// add your custom rules.
 			{
 				test: /\.(ts|tsx)$/,
 				use: [
@@ -32,8 +31,12 @@ module.exports = {
 						loader: require.resolve('awesome-typescript-loader')
 					},
 					{
-						loader: require.resolve('react-docgen-typescript-loader')
-					}
+						loader: require.resolve('babel-loader'),
+						options: {
+							presets: [require.resolve('babel-preset-react-app')]
+						}
+					},
+					require.resolve('react-docgen-typescript-loader')
 				]
 			},
 			{

@@ -147,14 +147,14 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							{selectableType === 'checkbox' && (
 								<Checkbox
 									id={selectableId}
-									{...(isDisabled ? { disabled: 'disabled' } : {})}
+									{...(isDisabled ? { disabled: true } : {})}
 									{...selectableProps}
 								/>
 							)}
 							{selectableType === 'radio' && (
 								<Radio
 									id={selectableId}
-									{...(isDisabled ? { disabled: 'disabled' } : {})}
+									{...(isDisabled ? { disabled: true } : {})}
 									{...selectableProps}
 								/>
 							)}
