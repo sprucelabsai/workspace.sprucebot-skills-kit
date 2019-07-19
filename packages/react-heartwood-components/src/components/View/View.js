@@ -17,6 +17,7 @@ type Props = {
 	isSidebarVisible?: boolean,
 	isSidebarExpanded?: boolean,
 	isSidebarMobileExpanded?: boolean,
+	isFooterVisible: boolean,
 	onClickSearch?: Function,
 	searchPlaceholder?: string,
 
@@ -34,6 +35,7 @@ const View = (props: Props) => {
 		isSidebarVisible,
 		isSidebarExpanded,
 		isSidebarMobileExpanded,
+		isFooterVisible,
 		toggleSidebarExpanded,
 		toggleSidebarVisibility,
 		forceCloseSidebar,
@@ -85,6 +87,20 @@ const View = (props: Props) => {
 
 				<main className="main-content">{children}</main>
 			</div>
+
+			{isFooterVisible && (
+				<footer className="footer">
+					<p className="footer-text">
+						<a href="#" className="footer-link">
+							Terms of Service
+						</a>
+						<a href="#" className="footer-link">
+							Privacy Policy
+						</a>
+					</p>
+					<p className="footer-text">&copy; Spruce Labs 2018</p>
+				</footer>
+			)}
 		</div>
 	)
 }
