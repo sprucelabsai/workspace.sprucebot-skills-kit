@@ -1,44 +1,43 @@
-// @flow
 import React from 'react'
 import cx from 'classnames'
 import { InputPre, InputInner, InputHelper } from '../../FormPartials'
 
-type Props = {
+interface ITextInputProps extends React.HTMLProps<HTMLInputElement> {
 	/** Unique identifier */
-	id: string,
+	id: string
 
 	/** Optional class */
-	className?: string,
+	className?: string
 
 	/** Label text */
-	label?: string,
+	label?: string
 
 	/** Text after label */
-	postLabel?: string,
+	postLabel?: string
 
 	/** Useful for credit cards */
-	kind?: string,
+	kind?: string
 
 	/** Optional icon to show in the input */
-	iconBefore?: string,
+	iconBefore?: string
 
 	/** Optional icon to show at the end of the input */
-	iconAfter?: any,
+	iconAfter?: any
 
 	/** Optional; helpful for subdomains */
-	appendix?: string,
+	appendix?: string
 
 	/** Error text */
-	error?: string,
+	error?: string
 
 	/** Helper text */
-	helper?: string | Node,
+	helper?: string | Node
 
 	/** Set true to make the input less tall */
 	isSmall?: boolean
 }
 
-const TextInput = (props: Props) => {
+const TextInput = (props: ITextInputProps): React.ReactElement => {
 	const {
 		id,
 		className,

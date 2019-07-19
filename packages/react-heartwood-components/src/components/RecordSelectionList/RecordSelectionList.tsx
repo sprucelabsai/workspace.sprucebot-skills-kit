@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, ChangeEvent } from 'react'
 import { get } from 'lodash'
 
 import {
@@ -282,11 +282,12 @@ export default class RecordSelectionList extends Component<
 					<Fragment>
 						{searchLabel && <InputPre label={searchLabel} />}
 						<TextInput
+							id={'record-selection-list-filter'}
 							type="text"
 							iconBefore="search"
 							placeholder={searchPlaceholder || 'Search...'}
 							value={search}
-							onChange={e => {
+							onChange={(e: ChangeEvent<HTMLInputElement>) => {
 								this.updateSearchValue(e.target.value)
 							}}
 						/>
