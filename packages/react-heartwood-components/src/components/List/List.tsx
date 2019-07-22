@@ -6,9 +6,9 @@ import ListHeader, {
 import ListItem, { IListItemProps } from './components/ListItem/ListItem'
 import ExpandableListItem from './components/ExpandableListItem/ExpandableListItem'
 
-export const ListWrapper = (props: {
-	children: React.ReactElement
-}): React.ReactElement => <div className="list-wrapper">{props.children}</div>
+export const ListWrapper = (props): React.ReactElement => (
+	<div className="list-wrapper">{props.children}</div>
+)
 
 export interface IWrappedItemProps extends IListItemProps {
 	/** Optional; Set true to render an expandable item */
