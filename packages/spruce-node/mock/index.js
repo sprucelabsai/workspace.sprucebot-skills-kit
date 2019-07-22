@@ -36,7 +36,7 @@ module.exports = class MockHttps {
 		)
 		try {
 			const schema = buildClientSchema(introspectionSchemaResult.data)
-			// TODO: This doesn't seem to be replacing mutations on the schema with the custom resolvers in apiMocks.js. Instead, it's returning default mock data
+			// TODO: This doesn't seem to be replacing mutations on the schema with the custom resolvers in apiMocks.js. Instead, it's returning default mock data. SDEV3-2131
 			addResolveFunctionsToSchema({
 				schema,
 				resolvers: mockResolvers

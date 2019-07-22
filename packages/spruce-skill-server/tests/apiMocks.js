@@ -5,7 +5,7 @@ module.exports = ctx => ({
 	mockResolvers: {
 		Query: {},
 		Mutation: {
-			// TODO: The mock server is still returning default data and ignoring this. If we custom mock mutation responses in the future this will need to be fixed
+			// TODO: The mock server is still returning default data and ignoring this. If we custom mock mutation responses in the future this will need to be fixed. SDEV3-2131
 			syncSkill: async (source, args, context, info) => {
 				return {
 					s3Bucket: '1234',
