@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import cx from 'classnames'
 import { InputPre, InputInner, InputHelper } from '../../FormPartials'
 
@@ -31,7 +31,7 @@ interface ITextInputProps extends React.HTMLProps<HTMLInputElement> {
 	error?: string
 
 	/** Helper text */
-	helper?: string | Node
+	helper?: string | ReactNode
 
 	/** Set true to make the input less tall */
 	isSmall?: boolean
