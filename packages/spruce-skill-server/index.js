@@ -233,7 +233,7 @@ module.exports = async ({
 				{
 					...sequelizeOptions,
 					database: {
-						dialect: 'postgres', // todo move this somewhere
+						dialect: 'postgres',
 						url: syncResponse.databaseUrl
 					},
 					metricsEnabled,
