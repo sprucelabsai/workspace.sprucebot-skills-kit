@@ -238,8 +238,12 @@ export default class HeaderPrimary extends Component<Props, State> {
 						</Fragment>
 					) : (
 						<Fragment>
-							<Button kind="primary" isSmall text="Log In" />
-							<Button isSmall text="Sign Up" />
+							<Button
+								kind="primary"
+								isSmall
+								text="Log In / Sign Up"
+								href="/login"
+							/>
 						</Fragment>
 					)}
 				</div>
