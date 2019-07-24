@@ -17,7 +17,7 @@ import SaveBar from '../Core/components/SaveBar/SaveBar'
 import FeedBuilder from '../Core/components/FeedBuilder/FeedBuilder'
 import { generateMessages } from '../../../.storybook/data/feed'
 
-import View from './View.js'
+import View from './View'
 
 const ProvideStyles = storyFn => <StylesProvider>{storyFn()}</StylesProvider>
 
