@@ -96,7 +96,8 @@ export {
 	IRecordTableProps
 } from './components/RecordTable/RecordTable'
 export {
-	default as RecordSelectionList
+	default as RecordSelectionList,
+	IRecordSelectionListItemProps
 } from './components/RecordSelectionList/RecordSelectionList'
 export {
 	default as RecordSelectionListItem
