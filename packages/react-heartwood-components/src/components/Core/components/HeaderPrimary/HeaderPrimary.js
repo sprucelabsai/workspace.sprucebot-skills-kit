@@ -188,7 +188,9 @@ export default class HeaderPrimary extends Component<Props, State> {
 			isSkillManagementButtonVisible,
 			userMenuItems,
 			skillsHref,
-			locationManagementHref
+			locationManagementHref,
+			loginHref,
+			loginCTA
 		} = this.props
 
 		return (
@@ -246,12 +248,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 						</Fragment>
 					) : (
 						<Fragment>
-							<Button
-								kind="primary"
-								isSmall
-								text={this.props.loginCTA}
-								href={this.props.loginHref}
-							/>
+							<Button kind="primary" isSmall text={loginCTA} href={loginHref} />
 						</Fragment>
 					)}
 				</div>
