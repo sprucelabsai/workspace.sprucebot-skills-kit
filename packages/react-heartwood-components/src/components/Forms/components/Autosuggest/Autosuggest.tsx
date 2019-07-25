@@ -210,7 +210,7 @@ export default class Autosuggest extends Component<
 						}}
 						onSuggestionSelected={onSuggestionSelected}
 						inputProps={inputProps}
-						theme={theme({ isSmall, hasIcon: icon })}
+						theme={theme({ isSmall, hasIcon: icon ? true : false })}
 						{...rest}
 					/>
 					{showClearButton && (
