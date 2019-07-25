@@ -1,7 +1,11 @@
 export { default as Avatar } from './components/Avatar/Avatar'
 export { default as UserAvatar } from './components/Avatar/UserAvatar'
 export { default as BotText } from './components/BotText/BotText'
-export { default as Button } from './components/Button/Button'
+export {
+	default as Button,
+	IButtonIconProps,
+	IButtonProps
+} from './components/Button/Button'
 export { default as ButtonGroup } from './components/ButtonGroup/ButtonGroup'
 export {
 	default as Card,
@@ -62,12 +66,15 @@ export { default as ImageSSR } from './components/ImageSSR/ImageSSR'
 export { default as ImageCropper } from './components/ImageCropper/ImageCropper'
 export { default as Layout, LayoutSection } from './components/Layout'
 export {
+	ExpandableListItem,
+	IListItemProps,
+	IListProps,
+	IWrappedItemProps,
 	List,
 	ListHeader,
 	ListItem,
-	ExpandableListItem,
-	SortableList,
-	ListWrapper
+	ListWrapper,
+	SortableList
 } from './components/List'
 export { default as Loader } from './components/Loader/Loader'
 export { default as Modal } from './components/Modal/Modal'
@@ -89,7 +96,8 @@ export {
 	IRecordTableProps
 } from './components/RecordTable/RecordTable'
 export {
-	default as RecordSelectionList
+	default as RecordSelectionList,
+	IRecordSelectionListItemProps
 } from './components/RecordSelectionList/RecordSelectionList'
 export {
 	default as RecordSelectionListItem
