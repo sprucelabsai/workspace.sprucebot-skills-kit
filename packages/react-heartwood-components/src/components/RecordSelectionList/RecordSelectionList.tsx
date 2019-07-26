@@ -100,8 +100,13 @@ export interface IRecordSelectionListProps {
 	/** When set, list will become infinitely scrollable
 	/*  A number value will set the max height of the list to the number of rows specified
 	/*  A value of 'auto' will allow the list to fill the height of the parent container */
-
 	maxRowsVisible?: number | 'auto'
+
+	/** Should the no-data empty state be hidden? */
+	hideDataEmptyState?: boolean
+
+	/** Should the no-result empty state be hidden? */
+	hideSearchResultsEmptyState?: boolean
 
 	/** Props for the no-result empty state */
 	noSearchResultsEmptyState?: IEmptyStateProps
@@ -132,6 +137,8 @@ export default class RecordSelectionList extends Component<
 > {
 	public static defaultProps: IRecordSelectionListProps = {
 		showSelectedCount: false,
+		hideSearchResultsEmptyState: false,
+		hideDataEmptyState: false,
 		recordsPerRequest: 10
 	}
 
@@ -294,6 +301,8 @@ export default class RecordSelectionList extends Component<
 		const {
 			canSearch,
 			maxRowsVisible,
+			hideDataEmptyState,
+			hideSearchResultsEmptyState,
 			noDataEmptyState,
 			noSearchResultsEmptyState,
 			searchLabel,
@@ -404,25 +413,26 @@ export default class RecordSelectionList extends Component<
 					</Fragment>
 				) : (
 					<Fragment>
-						{search ? (
-							<EmptyState
-								icon="no_matches"
-								headline="No search results"
-								{...noSearchResultsEmptyState}
-								primaryAction={{
-									text: 'Show all',
-									type: 'submit',
-									...get(noSearchResultsEmptyState, 'primaryAction', {}),
-									onClick: () => {
-										this.updateSearchValue('')
-									}
-								}}
-							/>
-						) : (
-							!isLoading && (
-								<EmptyState headline="No records" {...noDataEmptyState} />
-							)
-						)}
+						{search
+							? !hideSearchResultsEmptyState && (
+									<EmptyState
+										icon="no_matches"
+										headline="No search results"
+										{...noSearchResultsEmptyState}
+										primaryAction={{
+											text: 'Show all',
+											type: 'submit',
+											...get(noSearchResultsEmptyState, 'primaryAction', {}),
+											onClick: () => {
+												this.updateSearchValue('')
+											}
+										}}
+									/>
+							  )
+							: !isLoading &&
+							  !hideDataEmptyState && (
+									<EmptyState headline="No records" {...noDataEmptyState} />
+							  )}
 					</Fragment>
 				)}
 			</div>
