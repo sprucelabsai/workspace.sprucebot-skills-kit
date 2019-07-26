@@ -1,5 +1,5 @@
 import React, { Component, Fragment, ChangeEvent } from 'react'
-import { get } from 'lodash'
+import { debounce, get } from 'lodash'
 
 import {
 	List,
@@ -62,6 +62,16 @@ export interface IRecordSelectionListProps {
 
 	/** Can the search the records in the list? */
 	canSearch?: boolean
+
+	/** If provided, controls the value of the search string */
+	searchValue?: string
+
+	/** Respond to changes to the search value */
+	onSearchChange?: (value: string) => any
+
+	/** delays invoking search until after a certain ms have elapsed since the last time the
+	 * search was invoked */
+	searchDelayMs?: number
 
 	/** Array of IDs that should not be selectable */
 	unselectableIds?: string[]
@@ -133,6 +143,47 @@ export default class RecordSelectionList extends Component<
 	})
 	private visibleRecordHeights = []
 
+	private updateSearchValue = debounce(async (value: string) => {
+		const { onSearchChange } = this.props
+
+		// Search will rapid-fire, but we only want to use the last result.
+		// If this value doesn't change by the time the API responds, we'll use
+		// that data to update the list!
+		const uniqueId = `${Math.random()}`
+
+		this.setState(
+			{
+				search: value,
+				isLoading: true,
+				loadingId: uniqueId
+			},
+			() => {
+				if (onSearchChange) {
+					onSearchChange(value)
+				}
+			}
+		)
+
+		// When we search, we'll want to reset the list, so back to offset 0!
+		const newRows = await this.loadRecordsRequest({
+			offset: 0,
+			search: value
+		})
+
+		if (uniqueId === this.state.loadingId) {
+			// We reset the list with the zero offset, so clear everything out.
+			// This will scroll the user back to the top automatically.
+			if (this.virtualizedList && this.cache) {
+				this.cache.clearAll()
+				this.virtualizedList.recomputeRowHeights(0)
+				this.virtualizedList.forceUpdateGrid()
+				this.setState({ listHeight: this.getVisibleRecordHeight() })
+			}
+
+			this.setState({ isLoading: false, loadedRecords: newRows })
+		}
+	}, this.props.searchDelayMs || 200)
+
 	public constructor(props: IRecordSelectionListProps) {
 		super(props)
 
@@ -164,7 +215,7 @@ export default class RecordSelectionList extends Component<
 		this.state = {
 			loadedRecords: [],
 			isLoading: true,
-			search: '',
+			search: props.searchValue,
 			listHeight: 1
 		}
 	}
@@ -189,7 +240,11 @@ export default class RecordSelectionList extends Component<
 	// Lifecycle required since we need to manually tell virtualized to update if these props
 	// change. This is mostly for storybook but it may be nice to support later in product.
 	public componentDidUpdate(prevProps: IRecordSelectionListProps): void {
-		const { canRemove, canSelect } = this.props
+		const { canRemove, canSelect, searchValue } = this.props
+
+		if (searchValue !== prevProps.searchValue) {
+			this.updateSearchValue(searchValue)
+		}
 
 		if (
 			this.virtualizedList &&
@@ -598,38 +653,6 @@ export default class RecordSelectionList extends Component<
 		}
 
 		return true
-	}
-
-	private updateSearchValue = async (value: string) => {
-		// Search will rapid-fire, but we only want to use the last result.
-		// If this value doesn't change by the time the API responds, we'll use
-		// that data to update the list!
-		const uniqueId = `${Math.random()}`
-
-		this.setState({
-			search: value,
-			isLoading: true,
-			loadingId: uniqueId
-		})
-
-		// When we search, we'll want to reset the list, so back to offset 0!
-		const newRows = await this.loadRecordsRequest({
-			offset: 0,
-			search: value
-		})
-
-		if (uniqueId === this.state.loadingId) {
-			// We reset the list with the zero offset, so clear everything out.
-			// This will scroll the user back to the top automatically.
-			if (this.virtualizedList && this.cache) {
-				this.cache.clearAll()
-				this.virtualizedList.recomputeRowHeights(0)
-				this.virtualizedList.forceUpdateGrid()
-				this.setState({ listHeight: this.getVisibleRecordHeight() })
-			}
-
-			this.setState({ isLoading: false, loadedRecords: newRows })
-		}
 	}
 
 	private handleRemoveSelection = () => {}
