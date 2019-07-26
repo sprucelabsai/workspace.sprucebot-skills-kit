@@ -55,15 +55,22 @@ class RecordListItemsExample extends Component<
 
 	render() {
 		const {
+			canSearch = true,
 			canSelect,
 			canRemove,
 			totalRecordCount,
-			maxRowsVisible
+			onSearchChange,
+			maxRowsVisible,
+			searchValue
 		} = this.props
+
 		const { selectedIds, locations, unselectableIds } = this.state
+
 		return (
 			<RecordSelectionList
-				canSearch
+				searchValue={searchValue}
+				onSearchChange={onSearchChange}
+				canSearch={canSearch}
 				searchLabel={'Search Label'}
 				selectedIds={selectedIds}
 				unselectableIds={unselectableIds}
@@ -146,68 +153,119 @@ class RecordListItemsExample extends Component<
 	}
 }
 
-stories
-	.add('In a Card', () => (
-		<div style={{ width: '320px', padding: '8px' }}>
-			<Card>
-				<CardHeader title="Card Title" />
-				<CardBody>
-					<RecordListItemsExample
-						canSelect={select('Can Select', [null, 'many', 'one'], null)}
-						canRemove={boolean('Can Remove', false)}
-						locations={map(generateLocations({ amount: 50 }), o => ({
-							node: { ...o }
-						}))}
-						totalRecordCount={50}
-						maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
-					/>
-				</CardBody>
-			</Card>
-		</div>
-	))
-	.add('In a Modal', () => (
-		<Modal isOpen onAfterOpen={() => null} onRequestClose={() => null}>
-			<Modal.Header title="Modal title" onRequestClose={() => null} />
-			<Modal.Body>
+stories.add('In a Card', () => (
+	<div style={{ width: '320px', padding: '8px' }}>
+		<Card>
+			<CardHeader title="Card Title" />
+			<CardBody>
 				<RecordListItemsExample
-					canSelect={select('Can Select', [null, 'many', 'one'], 'many')}
-					canRemove={boolean('Can Remove', true)}
-					locations={map(generateLocations({ amount: 100 }), o => ({
+					canSelect={select('Can Select', [null, 'many', 'one'], null)}
+					canRemove={boolean('Can Remove', false)}
+					locations={map(generateLocations({ amount: 50 }), o => ({
 						node: { ...o }
 					}))}
-					totalRecordCount={100}
+					totalRecordCount={50}
 					maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
 				/>
-			</Modal.Body>
-		</Modal>
-	))
-	.add('Empty State', () => (
-		<div style={{ width: '320px', padding: '8px' }}>
-			<Card>
-				<CardHeader title="Card Title" />
-				<CardBody isSectioned={false} hasBottomPadding={false}>
-					<RecordSelectionList
-						canSearch={false}
-						selectedIds={[]}
-						unselectableIds={[]}
-						loadRecordListItems={async () => []}
-						noDataEmptyState={{
-							headline: text('emptyState:headline', 'Nothing to see here'),
-							subheadline: text(
-								'emptyState:subheadline',
-								'There is none of that here'
-							),
-							icon: text('emptyState:icon', 'team'),
-							isLineIcon: true,
-							primaryAction: {
-								text: text(
-									'emptyState:primaryAction text',
-									'Do something about it'
-								)
-							}
-						}}
-					/>
-				</CardBody>
-			</Card>
-		</div>
-	))
+			</CardBody>
+		</Card>
+	</div>
+))
+
+class ExternalStateExample extends React.Component {
+	state = { searchValue: '' }
+
+	render() {
+		const { searchValue } = this.state
+
+		return (
+			<div style={{ width: '320px', padding: '8px' }}>
+				<p>
+					This input will control the search of the following
+					RecordSelectionList
+				</p>
+				<input
+					type="text"
+					value={searchValue}
+					onChange={e => {
+						this.setState({ searchValue: e.target.value })
+					}}
+				/>
+				<br />
+				<br />
+
+				<Card>
+					<CardHeader title="Card Title" />
+					<CardBody>
+						<RecordListItemsExample
+							canSearch={false}
+							searchValue={searchValue}
+							onSearchChange={newSearchValue => {
+								this.setState({ searchValue: newSearchValue })
+							}}
+							canSelect={select('Can Select', [null, 'many', 'one'], null)}
+							canRemove={boolean('Can Remove', false)}
+							locations={map(generateLocations({ amount: 50 }), o => ({
+								node: { ...o }
+							}))}
+							totalRecordCount={50}
+							maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
+						/>
+					</CardBody>
+				</Card>
+			</div>
+		)
+	}
+}
+
+stories.add('Search Controlled by External State', () => {
+	return <ExternalStateExample />
+})
+
+stories.add('In a Modal', () => (
+	<Modal isOpen onAfterOpen={() => null} onRequestClose={() => null}>
+		<Modal.Header title="Modal title" onRequestClose={() => null} />
+		<Modal.Body>
+			<RecordListItemsExample
+				canSelect={select('Can Select', [null, 'many', 'one'], 'many')}
+				canRemove={boolean('Can Remove', true)}
+				locations={map(generateLocations({ amount: 100 }), o => ({
+					node: { ...o }
+				}))}
+				totalRecordCount={100}
+				maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
+			/>
+		</Modal.Body>
+	</Modal>
+))
+
+stories.add('Empty State', () => (
+	<div style={{ width: '320px', padding: '8px' }}>
+		<Card>
+			<CardHeader title="Card Title" />
+			<CardBody isSectioned={false} hasBottomPadding={false}>
+				<RecordSelectionList
+					canSearch={false}
+					selectedIds={[]}
+					unselectableIds={[]}
+					loadRecordListItems={async () => []}
+					noDataEmptyState={{
+						headline: text('emptyState:headline', 'Nothing to see here'),
+						subheadline: text(
+							'emptyState:subheadline',
+							'There is none of that here'
+						),
+						icon: text('emptyState:icon', 'team'),
+						isLineIcon: true,
+						primaryAction: {
+							text: text(
+								'emptyState:primaryAction text',
+								'Do something about it'
+							)
+						}
+					}}
+				/>
+			</CardBody>
+		</Card>
+	</div>
+))
