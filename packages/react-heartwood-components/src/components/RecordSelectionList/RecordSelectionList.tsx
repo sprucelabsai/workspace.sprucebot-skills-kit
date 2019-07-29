@@ -164,31 +164,31 @@ export default class RecordSelectionList extends Component<
 				isLoading: true,
 				loadingId: uniqueId
 			},
-			() => {
+			async () => {
 				if (onSearchChange) {
 					onSearchChange(value)
 				}
+
+				// When we search, we'll want to reset the list, so back to offset 0!
+				const newRows = await this.loadRecordsRequest({
+					offset: 0,
+					search: value
+				})
+
+				if (uniqueId === this.state.loadingId) {
+					this.setState({ isLoading: false, loadedRecords: newRows }, () => {
+						// We reset the list with the zero offset, so clear everything out.
+						// This will scroll the user back to the top automatically.
+						if (this.virtualizedList && this.cache) {
+							this.cache.clearAll()
+							this.virtualizedList.recomputeRowHeights(0)
+							this.virtualizedList.forceUpdateGrid()
+							this.setState({ listHeight: this.getVisibleRecordHeight() })
+						}
+					})
+				}
 			}
 		)
-
-		// When we search, we'll want to reset the list, so back to offset 0!
-		const newRows = await this.loadRecordsRequest({
-			offset: 0,
-			search: value
-		})
-
-		if (uniqueId === this.state.loadingId) {
-			// We reset the list with the zero offset, so clear everything out.
-			// This will scroll the user back to the top automatically.
-			if (this.virtualizedList && this.cache) {
-				this.cache.clearAll()
-				this.virtualizedList.recomputeRowHeights(0)
-				this.virtualizedList.forceUpdateGrid()
-				this.setState({ listHeight: this.getVisibleRecordHeight() })
-			}
-
-			this.setState({ isLoading: false, loadedRecords: newRows })
-		}
 	}, this.props.searchDelayMs || 200)
 
 	public constructor(props: IRecordSelectionListProps) {
@@ -244,8 +244,6 @@ export default class RecordSelectionList extends Component<
 		}
 	}
 
-	// Lifecycle required since we need to manually tell virtualized to update if these props
-	// change. This is mostly for storybook but it may be nice to support later in product.
 	public componentDidUpdate(prevProps: IRecordSelectionListProps): void {
 		const { canRemove, canSelect, searchValue } = this.props
 
@@ -253,6 +251,8 @@ export default class RecordSelectionList extends Component<
 			this.updateSearchValue(searchValue)
 		}
 
+		// We need to manually tell virtualized to update if these props
+		// change. This is mostly for storybook but it may be nice to support later in product.
 		if (
 			this.virtualizedList &&
 			this.cache &&
