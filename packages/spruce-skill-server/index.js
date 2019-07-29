@@ -47,8 +47,6 @@ module.exports = async ({
 	logUseTrace = false,
 	logUseSourcemaps = false,
 	logAsJSON = false,
-	logFormatters,
-	logTransports,
 	env = 'default',
 	packageName,
 	packageVersion,
@@ -95,8 +93,6 @@ module.exports = async ({
 	const log = logger.log
 
 	log.setOptions({
-		formatters: logFormatters,
-		transports: logTransports,
 		level: logLevel,
 		useTrace: logUseTrace,
 		useSourcemaps: logUseSourcemaps,
