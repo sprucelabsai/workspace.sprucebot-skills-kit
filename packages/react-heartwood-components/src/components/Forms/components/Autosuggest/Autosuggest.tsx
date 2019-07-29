@@ -4,6 +4,7 @@ import debounce from 'lodash/debounce'
 import { default as ReactAutosuggest } from 'react-autosuggest'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
+import Icon, { IIconProps } from '../../../Icon/Icon'
 import { InputPre, InputHelper } from '../../FormPartials'
 import ClearIcon from '../../../../../static/assets/icons/ic_cancel.svg'
 
@@ -58,6 +59,9 @@ export interface IAutosuggestInterfaceProps {
 
 	/** disable this input */
 	disabled?: boolean
+
+	/** Optional; adds an icon to the beginning of the text input */
+	icon?: IIconProps
 }
 
 interface IAutosuggestInterfaceState {
@@ -73,13 +77,16 @@ interface IAutosuggestInterfaceState {
 
 interface IThemeProps {
 	isSmall?: boolean
+	hasIcon?: boolean
 }
 
 const theme = (props: IThemeProps): any => ({
 	container: cx('text-input', {
 		'text-input-small': props.isSmall
 	}),
-	input: 'text-input__inner text-input__input',
+	input: cx('text-input__inner text-input__input', {
+		'text-input__inner--has-icon': props.hasIcon
+	}),
 	suggestionsContainer: 'autosuggest',
 	suggestionsContainerOpen: 'autosuggest--show-suggestions',
 	suggestionsList: 'autosuggest__list',
@@ -137,6 +144,7 @@ export default class Autosuggest extends Component<
 			showClearButton,
 			containerPlacement
 		} = this.state
+
 		const {
 			getSuggestionValue,
 			renderSuggestion,
@@ -152,6 +160,7 @@ export default class Autosuggest extends Component<
 			inputProps: originalInputProps = {},
 			className,
 			disabled,
+			icon,
 			...rest
 		} = this.props
 
@@ -201,7 +210,7 @@ export default class Autosuggest extends Component<
 						}}
 						onSuggestionSelected={onSuggestionSelected}
 						inputProps={inputProps}
-						theme={theme({ isSmall })}
+						theme={theme({ isSmall, hasIcon: icon ? true : false })}
 						{...rest}
 					/>
 					{showClearButton && (
@@ -215,6 +224,7 @@ export default class Autosuggest extends Component<
 							onClick={this.handleClearInput}
 						/>
 					)}
+					{icon && <Icon {...icon} className="text-input__icon-pre" />}
 				</div>
 				{(helper || error) && <InputHelper helper={helper} error={error} />}
 			</div>

@@ -83,6 +83,7 @@ module.exports = {
 	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
 	TESTING: process.env.TESTING === 'true',
+	S3_BUCKET: process.env.S3_BUCKET || '',
 	scopes: require('./scopes'),
 	auth: require('./auth'),
 	settings,
