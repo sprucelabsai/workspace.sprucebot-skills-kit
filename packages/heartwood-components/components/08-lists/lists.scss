@@ -149,9 +149,19 @@
 	}
 }
 
+.list-item--has-avatar {
+	.list-item__image-wrapper {
+		align-items: center;
+	}
+	* + .avatar-wrapper {
+		margin-left: spacing('tight');
+	}
+}
+
 .list-item__image-wrapper,
 .list-item__actions-wrapper,
 .list-item .toggle__wrapper {
+	display: inline-flex;
 	flex: 0 0 auto;
 }
 
