@@ -20,8 +20,8 @@ interface IViewProps {
 	isFooterVisible: boolean
 	onClickSearch?: Function
 	searchPlaceholder?: string
-	privacyLink
-	termsLink
+	privacyLink?: string
+	termsLink?: string
 
 	/** Menu children (<ListItem> or <li>) */
 	userMenuItems: React.ReactNode
