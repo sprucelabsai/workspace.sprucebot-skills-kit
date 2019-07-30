@@ -98,6 +98,37 @@ stories
 			}}
 		/>
 	))
+	.add('Autosuggest Search', () => (
+		<Autosuggest
+			alwaysRenderSuggestions={false}
+			placeholder={text('placeholder', 'Search countries…')}
+			defaultSuggestions={object('defaultSuggestions', countries)}
+			shouldRenderSuggestions={() => true}
+			renderSuggestion={renderSuggestion}
+			getSuggestionValue={value => value.text}
+			getSuggestions={value => {
+				const results = countries.filter(
+					suggestion =>
+						suggestion.text.toLowerCase().slice(0, value.length) ===
+						value.toLowerCase()
+				)
+				// Here you could add click events to buttons or whatever else they need
+				// No Results Message
+				if (results.length === 0) {
+					return [
+						{
+							text: 'NO RESULTS',
+							isEmptyMessage: true
+						}
+					]
+				}
+				return results
+			}}
+			icon={{
+				icon: 'search'
+			}}
+		/>
+	))
 	.add('Duration Input', () => (
 		<DurationInput
 			label={stringify('label', 'Duration')}

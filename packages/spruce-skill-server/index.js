@@ -47,8 +47,6 @@ module.exports = async ({
 	logUseTrace = false,
 	logUseSourcemaps = false,
 	logAsJSON = false,
-	logFormatters,
-	logTransports,
 	env = 'default',
 	packageName,
 	packageVersion,
@@ -95,8 +93,6 @@ module.exports = async ({
 	const log = logger.log
 
 	log.setOptions({
-		formatters: logFormatters,
-		transports: logTransports,
 		level: logLevel,
 		useTrace: logUseTrace,
 		useSourcemaps: logUseSourcemaps,
@@ -116,11 +112,13 @@ module.exports = async ({
 	debug('Starting sync with core')
 
 	if (process.env.TESTING === 'true') {
-		const customMocks = require('./tests/apiMocks')(koa.context)
+		const { mockResolvers, mockModels } = require('./tests/apiMocks')(
+			koa.context
+		)
 		sprucebot.setOptions({
 			useMockApi: true
 		})
-		sprucebot.adapter.mockApiGQLServerInit({ customMocks })
+		sprucebot.adapter.mockApiGQLServerInit({ mockResolvers, mockModels })
 		const v1APIMocks = require('./tests/v1APIMocks')(koa.context)
 		sprucebot.adapter.mockApiInit(v1APIMocks)
 	}
@@ -132,6 +130,10 @@ module.exports = async ({
 		console.error(`Failed to sync your skill's settings`)
 		console.error(e) // Server can't really start without sync settings
 		process.exit(1)
+	}
+
+	if (syncResponse.s3Bucket) {
+		process.env.S3_BUCKET = syncResponse.s3Bucket
 	}
 
 	debug('Sync complete. Response: ', syncResponse)
@@ -222,11 +224,14 @@ module.exports = async ({
 		debug('Utilities and services can now reference each other')
 
 		// orm if enabled
-		if (syncResponse.database) {
+		if (syncResponse.databaseUrl) {
 			sequelizeFactory(
 				{
 					...sequelizeOptions,
-					database: syncResponse.database,
+					database: {
+						dialect: 'postgres',
+						url: syncResponse.databaseUrl
+					},
 					metricsEnabled,
 					metricsSequelizeDisabled
 				},

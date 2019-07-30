@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean, object } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, object, text } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../../../.storybook/StylesProvider'
 import HeaderPrimary from './HeaderPrimary'
 import user01image from '../../../../../static/assets/users/user-01--96w.png'
@@ -35,6 +35,8 @@ stories
 			STORYBOOKdoNotWrap
 			isSidebarVisible={boolean('isSidebarVisible', false)}
 			toggleSidebarVisibility={() => null}
+			loginCTA={text('loginCTA', 'Log In')}
+			loginHref={text('loginHref', '/')}
 		/>
 	))
 	.add('Logged In', () => (

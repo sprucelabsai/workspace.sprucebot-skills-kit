@@ -50,6 +50,7 @@
 .list-item {
 	@include typescale('body');
 	display: flex;
+	flex-flow: row wrap;
 	position: relative;
 
 	.list:not(.list--separators-hidden)
@@ -85,6 +86,12 @@
 		> .btn__inner {
 			text-align: left;
 		}
+	}
+
+	.list {
+		flex: 1 0 100%;
+		padding-right: 0;
+		padding-bottom: 1rem;
 	}
 }
 
@@ -142,9 +149,19 @@
 	}
 }
 
+.list-item--has-avatar {
+	.list-item__image-wrapper {
+		align-items: center;
+	}
+	* + .avatar-wrapper {
+		margin-left: spacing('tight');
+	}
+}
+
 .list-item__image-wrapper,
 .list-item__actions-wrapper,
 .list-item .toggle__wrapper {
+	display: inline-flex;
 	flex: 0 0 auto;
 }
 

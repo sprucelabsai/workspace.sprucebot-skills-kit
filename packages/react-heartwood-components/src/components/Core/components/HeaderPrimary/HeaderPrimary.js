@@ -48,6 +48,12 @@ type Props = {
 	/** Destination for the skills link */
 	skillsHref?: string,
 
+	/** Destination for the login link */
+	loginHref?: string,
+
+	/** CTA Copy for the login link */
+	loginCTA?: string,
+
 	/** Destination for the location management link */
 	locationManagementHref?: string,
 
@@ -62,6 +68,8 @@ export default class HeaderPrimary extends Component<Props, State> {
 		isLocationManagmentButtonVisible: false,
 		isSkillManagementButtonVisible: false,
 		skillsHref: '',
+		loginHref: '/',
+		loginCTA: 'Log In / Signup',
 		locationManagementHref: ''
 	}
 
@@ -180,7 +188,9 @@ export default class HeaderPrimary extends Component<Props, State> {
 			isSkillManagementButtonVisible,
 			userMenuItems,
 			skillsHref,
-			locationManagementHref
+			locationManagementHref,
+			loginHref,
+			loginCTA
 		} = this.props
 
 		return (
@@ -238,8 +248,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 						</Fragment>
 					) : (
 						<Fragment>
-							<Button kind="primary" isSmall text="Log In" />
-							<Button isSmall text="Sign Up" />
+							<Button kind="primary" isSmall text={loginCTA} href={loginHref} />
 						</Fragment>
 					)}
 				</div>
