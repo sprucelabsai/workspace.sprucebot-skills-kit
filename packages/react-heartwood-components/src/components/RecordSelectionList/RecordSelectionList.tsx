@@ -203,7 +203,10 @@ export default class RecordSelectionList extends Component<
 	}
 
 	public async componentDidMount(): Promise<void> {
+		const { search } = this.state
+
 		const initialRecords = await this.loadRecordsRequest({
+			search,
 			offset: 0
 		})
 
