@@ -111,7 +111,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		'list-item--is-draggable': isDraggable,
 		'list-item--is-disabled': isDisabled,
 		'list-item--primary-action': primaryAction,
-		'list-item--separator-hidden': !isSeparatorVisible
+		'list-item--separator-hidden': !isSeparatorVisible,
+		'list-item--has-avatar': !!avatar
 	})
 
 	const ListItemInner = (): React.ReactElement => (
@@ -137,7 +138,6 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							height="40"
 						/>
 					)}
-					{avatar && <Avatar image={avatar} alt={title} />}
 					{selectableId && (
 						<Fragment>
 							{selectableType === 'checkbox' && (
@@ -156,6 +156,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							)}
 						</Fragment>
 					)}
+					{avatar && <Avatar image={avatar} alt={title} />}
 				</div>
 			)}
 
