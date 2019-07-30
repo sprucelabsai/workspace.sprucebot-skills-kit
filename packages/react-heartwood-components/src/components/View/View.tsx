@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactNode, ReactElement } from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
 import { Sidebar, SidebarFooter } from '../Core'
@@ -7,13 +7,13 @@ import moment from 'moment'
 interface IViewProps {
 	sidebarItems?: Record<string, any>[]
 	sidebarBackLink?: Record<string, any>
-	user: Record<string, any>
-	organization: Record<string, any>
-	location: Record<string, any>
-	children: Node
-	toggleSidebarVisibility: Function
-	toggleSidebarExpanded: Function
-	forceCloseSidebar: Function
+	user?: Record<string, any>
+	organization?: Record<string, any>
+	location?: Record<string, any>
+	children: ReactNode
+	toggleSidebarVisibility?: Function
+	toggleSidebarExpanded?: Function
+	forceCloseSidebar?: Function
 	isSidebarVisible?: boolean
 	isSidebarExpanded?: boolean
 	isSidebarMobileExpanded?: boolean
@@ -24,12 +24,10 @@ interface IViewProps {
 	termsLink?: string
 
 	/** Menu children (<ListItem> or <li>) */
-	userMenuItems: React.ReactNode
+	userMenuItems: ReactNode
 }
 
-const View: React.StatelessComponent = (
-	props: IViewProps
-): React.ReactElement => {
+const View = (props: IViewProps): ReactElement => {
 	const {
 		sidebarItems,
 		sidebarBackLink,
