@@ -148,7 +148,6 @@ export default class RecordSelectionList extends Component<
 	private cache = new CellMeasurerCache({
 		fixedWidth: true
 	})
-	private visibleRecordHeights = []
 
 	private loadSearchResults = debounce(
 		async ({ value, uniqueId }: { value: string; uniqueId: string }) => {
@@ -160,14 +159,7 @@ export default class RecordSelectionList extends Component<
 
 			if (uniqueId === this.state.loadingId) {
 				this.setState({ isLoading: false, loadedRecords: newRows }, () => {
-					// We reset the list with the zero offset, so clear everything out.
-					// This will scroll the user back to the top automatically.
-					if (this.virtualizedList && this.cache) {
-						this.cache.clearAll()
-						this.virtualizedList.recomputeRowHeights()
-						this.virtualizedList.forceUpdateGrid()
-						this.setState({ listHeight: this.getVisibleRecordHeight() })
-					}
+					this.resetVirtualizedList()
 				})
 			}
 		},
@@ -237,14 +229,10 @@ export default class RecordSelectionList extends Component<
 		// We need to manually tell virtualized to update if these props
 		// change. This is mostly for storybook but it may be nice to support later in product.
 		if (
-			this.virtualizedList &&
-			this.cache &&
-			(prevProps.canRemove !== canRemove || prevProps.canSelect !== canSelect)
+			prevProps.canRemove !== canRemove ||
+			prevProps.canSelect !== canSelect
 		) {
-			this.cache.clearAll()
-			this.virtualizedList.recomputeRowHeights()
-			this.virtualizedList.forceUpdateGrid()
-			this.setState({ listHeight: this.getVisibleRecordHeight() })
+			this.resetVirtualizedList()
 		}
 	}
 
@@ -257,27 +245,25 @@ export default class RecordSelectionList extends Component<
 			loadedRecords: initialRecords
 		})
 
-		if (this.virtualizedList && this.cache) {
-			this.cache.clearAll()
-			this.virtualizedList.recomputeRowHeights()
-			this.virtualizedList.forceUpdateGrid()
-			this.setState({ listHeight: this.getVisibleRecordHeight() })
-		}
+		this.resetVirtualizedList()
 	}
 
-	public getVisibleRecordHeight = () => {
-		const { loadedRecords } = this.state
+	public getVisibleRecordHeight = (): number => {
+		const { maxRowsVisible } = this.props
 
-		if (loadedRecords.length < this.visibleRecordHeights.length) {
-			this.visibleRecordHeights.length = loadedRecords.length
+		let visibleRecordHeight = 0
+
+		if (typeof maxRowsVisible === 'number') {
+			for (let i = 0; i < Math.min(maxRowsVisible); i += 1) {
+				if (i < this.cache._rowCount) {
+					visibleRecordHeight += this.cache.rowHeight({ index: i })
+				} else {
+					visibleRecordHeight += 1
+				}
+			}
 		}
 
-		const height = this.visibleRecordHeights.reduce(
-			(height, current) => (height += current),
-			0
-		)
-
-		return height > 0 ? height : 1
+		return visibleRecordHeight
 	}
 
 	public render(): React.ReactElement {
@@ -302,12 +288,7 @@ export default class RecordSelectionList extends Component<
 			return !!loadedRecords[index]
 		}
 		const onResize = (): void => {
-			if (this.virtualizedList && this.cache) {
-				this.cache.clearAll()
-				this.virtualizedList.recomputeRowHeights()
-				this.virtualizedList.forceUpdateGrid()
-				this.setState({ listHeight: this.getVisibleRecordHeight() })
-			}
+			this.resetVirtualizedList()
 		}
 
 		return (
@@ -395,7 +376,8 @@ export default class RecordSelectionList extends Component<
 						)}
 					</Fragment>
 				) : (
-					(!isLoading || loadedRecords.length === 0) && (
+					!isLoading &&
+					loadedRecords.length === 0 && (
 						<Fragment>
 							{search
 								? !hideSearchResultsEmptyState && (
@@ -450,6 +432,17 @@ export default class RecordSelectionList extends Component<
 		)
 	}
 
+	private resetVirtualizedList = () => {
+		if (this.virtualizedList && this.cache) {
+			this.cache.clearAll()
+			this.virtualizedList.recomputeRowHeights()
+			this.virtualizedList.forceUpdateGrid()
+			setTimeout(() => {
+				this.setState({ listHeight: this.getVisibleRecordHeight() })
+			}, 0)
+		}
+	}
+
 	private loadRecordsRequest = async (options: {
 		offset: number
 		search?: string
@@ -480,22 +473,9 @@ export default class RecordSelectionList extends Component<
 			height: number
 		}
 	}) => {
-		const { maxRowsVisible } = this.props
 		const { loadedRecords } = this.state
 
 		const record = loadedRecords[index]
-
-		const updateListHeight =
-			maxRowsVisible &&
-			(typeof maxRowsVisible === 'number' ? index < maxRowsVisible : true)
-
-		if (typeof style.height === 'number' && updateListHeight) {
-			if (this.visibleRecordHeights.length < index + 1) {
-				this.visibleRecordHeights.push(style.height)
-			} else {
-				this.visibleRecordHeights[index] = style.height
-			}
-		}
 
 		return (
 			record && (
@@ -506,7 +486,7 @@ export default class RecordSelectionList extends Component<
 					parent={parent}
 					rowIndex={index}
 				>
-					{this.renderInnerRow({ record, style })}
+					{() => this.renderInnerRow({ record, style })}
 				</CellMeasurer>
 			)
 		)
