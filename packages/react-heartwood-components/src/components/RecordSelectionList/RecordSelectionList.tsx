@@ -166,6 +166,47 @@ export default class RecordSelectionList extends Component<
 		this.props.searchDelayMs || 200
 	)
 
+	private updateSearchValue = debounce(async (value: string) => {
+		const { onSearchChange } = this.props
+
+		// Search will rapid-fire, but we only want to use the last result.
+		// If this value doesn't change by the time the API responds, we'll use
+		// that data to update the list!
+		const uniqueId = `${Math.random()}`
+
+		this.setState(
+			{
+				search: value,
+				isLoading: true,
+				loadingId: uniqueId
+			},
+			async () => {
+				if (onSearchChange) {
+					onSearchChange(value)
+				}
+
+				// When we search, we'll want to reset the list, so back to offset 0!
+				const newRows = await this.loadRecordsRequest({
+					offset: 0,
+					search: value
+				})
+
+				if (uniqueId === this.state.loadingId) {
+					this.setState({ isLoading: false, loadedRecords: newRows }, () => {
+						// We reset the list with the zero offset, so clear everything out.
+						// This will scroll the user back to the top automatically.
+						if (this.virtualizedList && this.cache) {
+							this.cache.clearAll()
+							this.virtualizedList.recomputeRowHeights(0)
+							this.virtualizedList.forceUpdateGrid()
+							this.setState({ listHeight: this.getVisibleRecordHeight() })
+						}
+					})
+				}
+			}
+		)
+	}, this.props.searchDelayMs || 200)
+
 	public constructor(props: IRecordSelectionListProps) {
 		super(props)
 
