@@ -150,46 +150,29 @@ export default class RecordSelectionList extends Component<
 	})
 	private visibleRecordHeights = []
 
-	private updateSearchValue = debounce(async (value: string) => {
-		const { onSearchChange } = this.props
+	private loadSearchResults = debounce(
+		async ({ value, uniqueId }: { value: string; uniqueId: string }) => {
+			// When we search, we'll want to reset the list, so back to offset 0!
+			const newRows = await this.loadRecordsRequest({
+				offset: 0,
+				search: value
+			})
 
-		// Search will rapid-fire, but we only want to use the last result.
-		// If this value doesn't change by the time the API responds, we'll use
-		// that data to update the list!
-		const uniqueId = `${Math.random()}`
-
-		this.setState(
-			{
-				search: value,
-				isLoading: true,
-				loadingId: uniqueId
-			},
-			async () => {
-				if (onSearchChange) {
-					onSearchChange(value)
-				}
-
-				// When we search, we'll want to reset the list, so back to offset 0!
-				const newRows = await this.loadRecordsRequest({
-					offset: 0,
-					search: value
+			if (uniqueId === this.state.loadingId) {
+				this.setState({ isLoading: false, loadedRecords: newRows }, () => {
+					// We reset the list with the zero offset, so clear everything out.
+					// This will scroll the user back to the top automatically.
+					if (this.virtualizedList && this.cache) {
+						this.cache.clearAll()
+						this.virtualizedList.recomputeRowHeights()
+						this.virtualizedList.forceUpdateGrid()
+						this.setState({ listHeight: this.getVisibleRecordHeight() })
+					}
 				})
-
-				if (uniqueId === this.state.loadingId) {
-					this.setState({ isLoading: false, loadedRecords: newRows }, () => {
-						// We reset the list with the zero offset, so clear everything out.
-						// This will scroll the user back to the top automatically.
-						if (this.virtualizedList && this.cache) {
-							this.cache.clearAll()
-							this.virtualizedList.recomputeRowHeights(0)
-							this.virtualizedList.forceUpdateGrid()
-							this.setState({ listHeight: this.getVisibleRecordHeight() })
-						}
-					})
-				}
 			}
-		)
-	}, this.props.searchDelayMs || 200)
+		},
+		this.props.searchDelayMs || 200
+	)
 
 	public constructor(props: IRecordSelectionListProps) {
 		super(props)
@@ -259,7 +242,7 @@ export default class RecordSelectionList extends Component<
 			(prevProps.canRemove !== canRemove || prevProps.canSelect !== canSelect)
 		) {
 			this.cache.clearAll()
-			this.virtualizedList.recomputeRowHeights(0)
+			this.virtualizedList.recomputeRowHeights()
 			this.virtualizedList.forceUpdateGrid()
 			this.setState({ listHeight: this.getVisibleRecordHeight() })
 		}
@@ -276,7 +259,7 @@ export default class RecordSelectionList extends Component<
 
 		if (this.virtualizedList && this.cache) {
 			this.cache.clearAll()
-			this.virtualizedList.recomputeRowHeights(0)
+			this.virtualizedList.recomputeRowHeights()
 			this.virtualizedList.forceUpdateGrid()
 			this.setState({ listHeight: this.getVisibleRecordHeight() })
 		}
@@ -321,7 +304,7 @@ export default class RecordSelectionList extends Component<
 		const onResize = (): void => {
 			if (this.virtualizedList && this.cache) {
 				this.cache.clearAll()
-				this.virtualizedList.recomputeRowHeights(0)
+				this.virtualizedList.recomputeRowHeights()
 				this.virtualizedList.forceUpdateGrid()
 				this.setState({ listHeight: this.getVisibleRecordHeight() })
 			}
@@ -380,7 +363,7 @@ export default class RecordSelectionList extends Component<
 									isRowLoaded={isRowLoaded}
 									loadMoreRows={() => this.handleInfiniteLoad()}
 									rowCount={totalRecordCount || Infinity}
-									threshold={1}
+									threshold={maxRowsVisible || 5}
 								>
 									{({ onRowsRendered, registerChild }) => (
 										<AutoSizer onResize={onResize}>
@@ -412,30 +395,58 @@ export default class RecordSelectionList extends Component<
 						)}
 					</Fragment>
 				) : (
-					<Fragment>
-						{search
-							? !hideSearchResultsEmptyState && (
-									<EmptyState
-										icon="no_matches"
-										headline="No search results"
-										{...noSearchResultsEmptyState}
-										primaryAction={{
-											text: 'Show all',
-											type: 'submit',
-											...get(noSearchResultsEmptyState, 'primaryAction', {}),
-											onClick: () => {
-												this.updateSearchValue('')
-											}
-										}}
-									/>
-							  )
-							: !isLoading &&
-							  !hideDataEmptyState && (
-									<EmptyState headline="No records" {...noDataEmptyState} />
-							  )}
-					</Fragment>
+					(!isLoading || loadedRecords.length === 0) && (
+						<Fragment>
+							{search
+								? !hideSearchResultsEmptyState && (
+										<EmptyState
+											icon="no_matches"
+											headline="No search results"
+											{...noSearchResultsEmptyState}
+											primaryAction={{
+												text: 'Show all',
+												type: 'submit',
+												...get(noSearchResultsEmptyState, 'primaryAction', {}),
+												onClick: () => {
+													this.updateSearchValue('')
+												}
+											}}
+										/>
+								  )
+								: !hideDataEmptyState && (
+										<EmptyState headline="No records" {...noDataEmptyState} />
+								  )}
+						</Fragment>
+					)
 				)}
 			</div>
+		)
+	}
+
+	private updateSearchValue = async (value: string) => {
+		const { onSearchChange } = this.props
+
+		// Search will rapid-fire, but we only want to use the last result.
+		// If this value doesn't change by the time the API responds, we'll use
+		// that data to update the list!
+		const uniqueId = `${Math.random()}`
+
+		this.setState(
+			{
+				search: value,
+				isLoading: true,
+				loadingId: uniqueId
+			},
+			async () => {
+				if (onSearchChange) {
+					onSearchChange(value)
+				}
+
+				this.loadSearchResults({
+					value,
+					uniqueId
+				})
+			}
 		)
 	}
 

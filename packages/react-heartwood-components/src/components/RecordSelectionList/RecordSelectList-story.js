@@ -269,3 +269,81 @@ stories.add('Empty State', () => (
 		</Card>
 	</div>
 ))
+
+interface RecordSelectionListSearchExampleProps {
+	locations: Array<Object>;
+}
+interface RecordSelectionListSearchExampleState {}
+
+class RecordSelectionListSearchExample extends Component<
+	RecordSelectionListSearchExampleProps,
+	RecordSelectionListSearchExampleState
+> {
+	render() {
+		const { locations } = this.props
+
+		return (
+			<RecordSelectionList
+				searchLabel={'Search Label'}
+				loadRecordListItems={async ({ limit, offset, search }) => {
+					if (!search) {
+						return []
+					}
+
+					// Artificial API wait time
+					await new Promise(resolve =>
+						setTimeout(() => {
+							resolve()
+						}, Math.random() * 1000)
+					)
+
+					let results = []
+
+					if (search) {
+						const filteredLocations = locations.filter(location => {
+							return location.node.publicName.match(new RegExp(search, 'ig'))
+						})
+
+						results = filteredLocations.slice(offset, offset + limit)
+					} else {
+						results = locations.slice(offset, offset + limit)
+					}
+
+					const recordListItems = results.map(result => {
+						return {
+							id: result.node.id,
+							title: result.node.publicName,
+							subtitle: result.node.address
+						}
+					})
+
+					return recordListItems
+				}}
+				canSearch
+				maxRowsVisible={5}
+				noSearchResultsEmptyState={{
+					headline: "Nothin' here...",
+					icon: 'no_matches',
+					primaryAction: {
+						text: "Show all, y'all!"
+					}
+				}}
+			/>
+		)
+	}
+}
+
+stories.add('Only Showing Records When Searching', () => (
+	<div style={{ width: '320px', padding: '8px' }}>
+		<Card>
+			<CardHeader title="Card Title" />
+			<CardBody>
+				<RecordSelectionListSearchExample
+					locations={map(generateLocations({ amount: 50 }), o => ({
+						node: { ...o }
+					}))}
+				/>
+			</CardBody>
+		</Card>
+	</div>
+))
