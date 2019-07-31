@@ -7,9 +7,12 @@ import { InputPre, InputHelper } from '../../FormPartials'
 // for validating and formatting
 export {
 	formatPhoneNumber,
-	formatPhoneNumberIntl,
-	isValidPhoneNumber
+	formatPhoneNumberIntl
 } from 'react-phone-number-input'
+
+export const isValidPhoneNumber = phoneNumber => {
+	return !!phoneNumber.replace(/[^a-z0-9+]/gi, '').match(/^\+1[\d]{10}$/)
+}
 
 type Props = {
 	/** Label text */
