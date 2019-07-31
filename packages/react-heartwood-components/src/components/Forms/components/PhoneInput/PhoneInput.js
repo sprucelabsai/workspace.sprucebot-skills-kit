@@ -10,6 +10,8 @@ export {
 	formatPhoneNumberIntl
 } from 'react-phone-number-input'
 
+// This is a barebones copy of react-phone-number-input's method API:
+// https://github.com/catamphetamine/react-phone-number-input#validation
 export const isValidPhoneNumber = phoneNumber => {
 	return !!phoneNumber.replace(/[^a-z0-9+]/gi, '').match(/^\+1[\d]{10}$/)
 }
