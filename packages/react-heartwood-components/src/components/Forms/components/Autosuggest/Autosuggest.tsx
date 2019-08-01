@@ -37,13 +37,13 @@ export interface IAutosuggestInterfaceProps {
 	label?: string
 
 	/** Text after label */
-	postLabel?: string
+	postLabel?: string | React.ReactNode
 
 	/** Error text */
 	error?: string
 
 	/** Helper text */
-	helper?: string | Node
+	helper?: string | React.ReactNode
 
 	/** Set true to make the input less tall */
 	isSmall?: boolean
