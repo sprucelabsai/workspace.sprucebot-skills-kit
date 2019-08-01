@@ -29,6 +29,15 @@ export interface IBigSearchResult {
 	};
 }
 
+export type BIG_SEARCH_TYPE = 'any' | 'user' | 'location' | 'group'
+
+export const BIG_SEARCH_TYPES = {
+	ANY: 'any',
+	USER: 'user',
+	LOCATION: 'location',
+	GROUP: 'group'
+}
+
 export interface IBigSearchCtx {
 	auth: { Organization: Object, Location?: Object };
 	event: {
@@ -40,7 +49,9 @@ export interface IBigSearchCtx {
 			/** Search string entered by the human doing the search */
 			search: string,
 			/** If we're in testing mode */
-			testing: boolean
+			testing: boolean,
+			/** The things we're searching for */
+			types: BIG_SEARCH_TYPE[]
 		}
 	};
 }

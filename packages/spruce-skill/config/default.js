@@ -197,7 +197,7 @@ module.exports = {
 			// },
 			'big-search': {
 				description: 'Provide your own search results in the platform',
-				subscibe: true
+				subscribe: true
 			},
 			'import-from-big-search': {
 				description:

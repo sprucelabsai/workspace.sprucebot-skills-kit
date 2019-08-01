@@ -4,7 +4,8 @@ const { eventError } = require('../lib/errorHandler')
 const {
 	IBigSearchCtx,
 	IBigSearchSection,
-	IBigSearchResult
+	IBigSearchResult,
+	BIG_SEARCH_TYPE
 } = require('../types')
 
 module.exports = async (ctx: IBigSearchCtx, next) => {
@@ -14,7 +15,7 @@ module.exports = async (ctx: IBigSearchCtx, next) => {
 		const {
 			auth: { Organization: organization, Location: location },
 			event: {
-				payload: { limit, offset, search, testing }
+				payload: { limit, offset, search, testing, types }
 			}
 		} = ctx
 
@@ -24,44 +25,49 @@ module.exports = async (ctx: IBigSearchCtx, next) => {
 		// do whatever you want with these
 		console.log('ignoring', search, testing)
 
-		// Here is how you could search the core using any rules
-		const { count, rows } = await ctx.db.models.User.findAndCountAll({
-			// where: {
-			// 	firstName: 'Foo',
-			// 	lastName: 'Bar'
-			// }
-			limit,
-			offset
-		})
+		// Here is how you could search the core using any rules if types was any or user
+		if (
+			types.indexOf(BIG_SEARCH_TYPE.ANY) > -1 ||
+			types.indexOf(BIG_SEARCH_TYPE.USER) > -1
+		) {
+			const { count, rows } = await ctx.db.models.User.findAndCountAll({
+				// where: {
+				// 	firstName: 'Foo',
+				// 	lastName: 'Bar'
+				// }
+				limit,
+				offset
+			})
 
-		const section1: IBigSearchSection = {
-			title: 'Core Search Results Example',
-			section: 'internal',
-			totalCount: count,
-			results: rows.map(
-				(user: Object): IBigSearchResult => ({
-					id: user.id,
-					title: `${user.firstName} ${user.lastName}`,
-					subtitle: ``,
-					action: {
-						type: 'coreRedirect',
-						page: location ? 'profile_user_location' : 'profile_user_org',
-						routeParams: {
-							userId: user.id,
-							organizationId: organization.id,
-							locationId: location && location.id
+			const section1: IBigSearchSection = {
+				title: 'Core Search Results Example',
+				section: 'internal',
+				totalCount: count,
+				results: rows.map(
+					(user: Object): IBigSearchResult => ({
+						id: user.id,
+						title: `${user.firstName} ${user.lastName}`,
+						subtitle: ``,
+						action: {
+							type: 'coreRedirect',
+							page: location ? 'profile_user_location' : 'profile_user_org',
+							routeParams: {
+								userId: user.id,
+								organizationId: organization.id,
+								locationId: location && location.id
+							}
 						}
-					}
-				})
-			)
-		}
+					})
+				)
+			}
 
-		sections.push(section1)
+			sections.push(section1)
+		}
 
 		// or you can search any source you want and mark them as needing to be imported
 		const dummyResults: IBigSearchResult[] = []
 
-		for (let c = 0; c < 5; c++) {
+		for (let c = 0; c < 100; c++) {
 			dummyResults.push({
 				id: c,
 				title: `Dummy User ${c}`,
@@ -75,8 +81,8 @@ module.exports = async (ctx: IBigSearchCtx, next) => {
 		const section2: IBigSearchSection = {
 			title: 'Results to import',
 			section: 'external',
-			totalCount: 5,
-			results: dummyResults
+			totalCount: dummyResults.length,
+			results: dummyResults.slice(offset, limit)
 		}
 
 		sections.push(section2)
