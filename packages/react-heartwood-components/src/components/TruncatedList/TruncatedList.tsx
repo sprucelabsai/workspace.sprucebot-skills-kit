@@ -1,4 +1,3 @@
-// @flow
 import React, { Component, Fragment } from 'react'
 import cx from 'classnames'
 
@@ -6,57 +5,62 @@ import Button from '../Button/Button'
 import EmptyState from '../EmptyState/EmptyState'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 
-import type { RecordSelectionListItemProps } from '../RecordSelectionList/RecordSelectionList'
+import { IRecordSelectionListItemProps } from '../RecordSelectionList/RecordSelectionList'
 
-type Props = {
+interface ITruncatedListProps {
 	/** Optional class name for the component */
-	className?: string,
+	className?: string
 
 	/** Optional text header for the list */
-	header?: string,
+	header?: string
 
 	/** When true, will display the truncated action button */
-	isTruncated: boolean,
+	isTruncated: boolean
 
 	/** Optional truncated action button text - defaults to 'See All' */
-	truncatedActionText?: string,
+	truncatedActionText?: string
 
 	/** Method called when truncated action is clicked */
-	onClickTruncatedAction?: Function,
+	onClickTruncatedAction?: Function
 
 	/** RecordSelectionListItems to be displayed in the list */
-	recordSelectionListItems: Array<RecordSelectionListItemProps>,
+	recordSelectionListItems: IRecordSelectionListItemProps[]
 
 	/** Optional selectedIds passed to RecordSelectionList */
-	selectedIds?: Array<string>,
+	selectedIds?: string[]
 
 	/** Optional unselectableIds passed to RecordSelectionList */
-	unselectableIds?: Array<string>,
+	unselectableIds?: string[]
 
 	/** Can the user select many or one records in this list? */
-	canSelect?: 'many' | 'one',
+	canSelect?: 'many' | 'one'
 
 	/** Can the user remove records from this list? */
-	canRemove?: boolean,
+	canRemove?: boolean
 
 	/** Set to false to hide "# selected" text - defaults to true */
-	showSelectedCount?: boolean,
+	showSelectedCount?: boolean
 
 	/** Callback for selection of a record */
-	onSelect?: Function,
+	onSelect?: (RecordId: any, Record: any) => void
 
 	/** Callback for when user requests to remove a record from the list. */
-	onRemove?: Function,
+	onRemove?: Function
 
 	/** Text displayed when the list is empty */
 	noItemsText?: string
 }
 
-type State = {
-	recordListItems: Array<RecordSelectionListItemProps>
+interface ITruncatedListState {
+	recordListItems: IRecordSelectionListItemProps[]
 }
 
-export default class TruncatedList extends Component<Props, State> {
+export default class TruncatedList extends Component<
+	ITruncatedListProps,
+	ITruncatedListState
+> {
+	recordSelectionListRef: any
+
 	static defaultProps = {
 		isTruncated: false,
 		canRemove: false,
@@ -64,10 +68,16 @@ export default class TruncatedList extends Component<Props, State> {
 		noItemsText: 'Nothing to see here.'
 	}
 
-	constructor(props: Props) {
+	constructor(props: ITruncatedListProps) {
 		super(props)
 
 		this.recordSelectionListRef = React.createRef()
+	}
+
+	reset = async (): Promise<void> => {
+		if (this.recordSelectionListRef.current) {
+			this.recordSelectionListRef.current.reset()
+		}
 	}
 
 	render() {
