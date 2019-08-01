@@ -61,26 +61,26 @@ export default class TruncatedList extends Component<
 > {
 	recordSelectionListRef: any
 
-	static defaultProps = {
+	public static defaultProps = {
 		isTruncated: false,
 		canRemove: false,
 		recordSelectionListItems: [],
 		noItemsText: 'Nothing to see here.'
 	}
 
-	constructor(props: ITruncatedListProps) {
+	public constructor(props: ITruncatedListProps) {
 		super(props)
 
 		this.recordSelectionListRef = React.createRef()
 	}
 
-	reset = async (): Promise<void> => {
+	public reset = async (): Promise<void> => {
 		if (this.recordSelectionListRef.current) {
 			this.recordSelectionListRef.current.reset()
 		}
 	}
 
-	render() {
+	public render() {
 		const {
 			className,
 			header,
