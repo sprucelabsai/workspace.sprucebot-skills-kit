@@ -4,9 +4,15 @@ const { eventError } = require('../lib/errorHandler')
 const {
 	IBigSearchCtx,
 	IBigSearchSection,
-	IBigSearchResult,
-	BIG_SEARCH_TYPE
+	IBigSearchResult
 } = require('../types')
+
+const BIG_SEARCH_TYPES = {
+	ANY: 'any',
+	USER: 'user',
+	LOCATION: 'location',
+	GROUP: 'group'
+}
 
 module.exports = async (ctx: IBigSearchCtx, next) => {
 	try {
@@ -27,8 +33,8 @@ module.exports = async (ctx: IBigSearchCtx, next) => {
 
 		// Here is how you could search the core using any rules if types was any or user
 		if (
-			types.indexOf(BIG_SEARCH_TYPE.ANY) > -1 ||
-			types.indexOf(BIG_SEARCH_TYPE.USER) > -1
+			types.indexOf(BIG_SEARCH_TYPES.ANY) > -1 ||
+			types.indexOf(BIG_SEARCH_TYPES.USER) > -1
 		) {
 			const { count, rows } = await ctx.db.models.User.findAndCountAll({
 				// where: {

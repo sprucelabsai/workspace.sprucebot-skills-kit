@@ -31,13 +31,6 @@ export interface IBigSearchResult {
 
 export type BIG_SEARCH_TYPE = 'any' | 'user' | 'location' | 'group'
 
-export const BIG_SEARCH_TYPES = {
-	ANY: 'any',
-	USER: 'user',
-	LOCATION: 'location',
-	GROUP: 'group'
-}
-
 export interface IBigSearchCtx {
 	auth: { Organization: Object, Location?: Object };
 	event: {
