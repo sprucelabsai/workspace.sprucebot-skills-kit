@@ -42,7 +42,7 @@ interface ITruncatedListProps {
 	showSelectedCount?: boolean
 
 	/** Callback for selection of a record */
-	onSelect?: (RecordId: any, Record: any) => void
+	onSelect?: (RecordId: string, Record: Record<string, any>) => void
 
 	/** Callback for when user requests to remove a record from the list. */
 	onRemove?: Function
@@ -59,7 +59,7 @@ export default class TruncatedList extends Component<
 	ITruncatedListProps,
 	ITruncatedListState
 > {
-	recordSelectionListRef: any
+	recordSelectionListRef: React.RefObject<RecordSelectionList>
 
 	public static defaultProps = {
 		isTruncated: false,
