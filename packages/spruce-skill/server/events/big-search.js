@@ -60,7 +60,7 @@ module.exports = async (ctx: IBigSearchCtx, next) => {
 							routeParams: {
 								userId: user.id,
 								organizationId: organization.id,
-								locationId: location && location.id
+								locationId: location && location.Id
 							}
 						}
 					})
