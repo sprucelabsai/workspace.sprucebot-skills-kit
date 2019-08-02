@@ -149,7 +149,7 @@ module.exports = {
 			'get-cards': {
 				description: 'Core asks this skill to provide cards',
 				subscribe: true
-			},
+			}
 			// Other events we could subscribe to
 			// 'was-installed': {
 			// 	description: 'When the skill is installed to a location',
@@ -195,15 +195,15 @@ module.exports = {
 			// 		'Sprucebot has made the decision that now is the perfect time to send training material',
 			//  subscribe: true
 			// },
-			'big-search': {
-				description: 'Provide your own search results in the platform',
-				subscribe: true
-			},
-			'import-from-big-search': {
-				description:
-					'Give people the power import your search results into the platform',
-				subscribe: true
-			}
+			// 'big-search': {
+			// 	description: 'Provide your own search results in the platform',
+			// 	subscribe: true
+			// },
+			// 'import-from-big-search': {
+			// 	description:
+			// 		'Give people the power import your search results into the platform',
+			// 	subscribe: true
+			// }
 		}
 	},
 	gqlOptions: {
