@@ -391,10 +391,10 @@ export default class RecordSelectionList extends Component<
 											primaryAction={{
 												text: 'Show all',
 												type: 'submit',
-												...get(noSearchResultsEmptyState, 'primaryAction', {}),
 												onClick: () => {
 													this.updateSearchValue('')
-												}
+												},
+												...get(noSearchResultsEmptyState, 'primaryAction', {}),
 											}}
 										/>
 								  )
