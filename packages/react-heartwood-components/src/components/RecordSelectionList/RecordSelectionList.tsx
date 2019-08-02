@@ -239,16 +239,16 @@ export default class RecordSelectionList extends Component<
 		}
 	}
 
-	public async reset(): Promise<void> {
-		const initialRecords = await this.loadRecordsRequest({
-			offset: 0
-		})
-
-		this.setState({
-			loadedRecords: initialRecords
-		})
-
-		this.resetVirtualizedList()
+	public async reset({
+		persistSearch = false
+	}: {
+		/** Persist the value of the search when resetting. Defaults `false`. */
+		persistSearch?: boolean
+	} = {}): Promise<void> {
+		// TODO: This just "works" but ideally I'd be resetting more holistically.
+		// Come back to this and clean up the API a bit. Make sure that resetting
+		// doesn't cause infiniteLoad to fail.
+		this.updateSearchValue(persistSearch ? this.state.search : '')
 	}
 
 	public getVisibleRecordHeight = (): number => {
@@ -436,10 +436,12 @@ export default class RecordSelectionList extends Component<
 	}
 
 	private resetVirtualizedList = () => {
-		if (this.virtualizedList && this.cache) {
+		if (this.virtualizedList && this.cache && this.infiniteLoader) {
 			this.cache.clearAll()
 			this.virtualizedList.recomputeRowHeights()
 			this.virtualizedList.forceUpdateGrid()
+			this.infiniteLoader.resetLoadMoreRowsCache(true)
+
 			setTimeout(() => {
 				this.setState({ listHeight: this.getVisibleRecordHeight() })
 			}, 0)
