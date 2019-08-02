@@ -17,7 +17,6 @@ interface IViewProps {
 	isSidebarVisible?: boolean
 	isSidebarExpanded?: boolean
 	isSidebarMobileExpanded?: boolean
-	isFooterVisible: boolean
 	onClickSearch?: Function
 	searchPlaceholder?: string
 	privacyLink?: string
@@ -37,7 +36,6 @@ const View = (props: IViewProps): ReactElement => {
 		isSidebarVisible,
 		isSidebarExpanded,
 		isSidebarMobileExpanded,
-		isFooterVisible,
 		toggleSidebarExpanded,
 		toggleSidebarVisibility,
 		forceCloseSidebar,
@@ -92,7 +90,7 @@ const View = (props: IViewProps): ReactElement => {
 				<main className="main-content">{children}</main>
 			</div>
 
-			{isFooterVisible && (
+			{(!sidebarItems || sidebarItems.length === 0) && (
 				<footer className="footer">
 					<p className="footer-text">
 						{termsLink && (
