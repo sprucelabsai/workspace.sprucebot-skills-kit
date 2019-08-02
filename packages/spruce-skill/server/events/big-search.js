@@ -88,7 +88,7 @@ module.exports = async (ctx: IBigSearchCtx, next) => {
 			title: 'Results to import',
 			section: 'external',
 			totalCount: dummyResults.length,
-			results: dummyResults.slice(offset, limit)
+			results: dummyResults.slice(offset, offset + limit)
 		}
 
 		sections.push(section2)
