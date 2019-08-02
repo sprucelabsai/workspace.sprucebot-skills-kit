@@ -394,7 +394,7 @@ export default class RecordSelectionList extends Component<
 												onClick: () => {
 													this.updateSearchValue('')
 												},
-												...get(noSearchResultsEmptyState, 'primaryAction', {}),
+												...get(noSearchResultsEmptyState, 'primaryAction', {})
 											}}
 										/>
 								  )
