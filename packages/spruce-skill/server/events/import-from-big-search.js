@@ -63,7 +63,7 @@ module.exports = async (ctx: IImportFromBigSearchCtx, next) => {
 			}
 		} else {
 			// Step 2.1. If they did not pass a match id, lets make sure this user doesn't already exist (searching by phone is the most reliable way)
-			// you can search by anything you want and
+			// you can search by anything you want and read more at https://developer.spruce.ai
 			const matches = await ctx.db.models.User.findAll({
 				where: {
 					phoneNumber: selectedRecord.phoneNumber
