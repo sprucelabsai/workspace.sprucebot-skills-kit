@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import ReactPhoneInput from 'react-phone-number-input'
+import ReactPhoneInput, {
+	PhoneInputProps,
+	InputComponentProps
+} from 'react-phone-number-input'
 import cx from 'classnames'
 import { InputPre, InputHelper } from '../../FormPartials'
 
@@ -30,6 +33,10 @@ interface IPhoneInputProps {
 
 	/** Default value for the input */
 	defaultValue?: string
+
+	autoFocus?: boolean
+
+	value?: string
 }
 
 interface IPhoneInputState {
@@ -38,7 +45,7 @@ interface IPhoneInputState {
 }
 
 export default class PhoneInput extends Component<
-	IPhoneInputProps,
+	Partial<PhoneInputProps & InputComponentProps> & IPhoneInputProps,
 	IPhoneInputState
 > {
 	public constructor(props) {
