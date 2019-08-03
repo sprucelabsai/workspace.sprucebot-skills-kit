@@ -83,6 +83,7 @@ module.exports = {
 	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
 	TESTING: process.env.TESTING === 'true',
+	S3_BUCKET: process.env.S3_BUCKET || '',
 	scopes: require('./scopes'),
 	auth: require('./auth'),
 	settings,
@@ -134,13 +135,16 @@ module.exports = {
 	eventContract: {
 		events: {
 			'get-settings': {
-				description: 'Core asks for settings to display on a page'
+				description: 'Core asks for settings to display on a page',
+				subscribe: true
 			},
 			'validate-settings': {
-				description: 'Core asks for settings validation'
+				description: 'Core asks for settings validation',
+				subscribe: true
 			},
 			'get-views': {
-				description: 'Core asks for views to display on a page'
+				description: 'Core asks for views to display on a page',
+				subscribe: true
 			},
 			'get-cards': {
 				description: 'Core asks this skill to provide cards',
@@ -148,48 +152,57 @@ module.exports = {
 			}
 			// Other events we could subscribe to
 			// 'was-installed': {
-			// 	name: 'was-installed',
-			// 	description: 'When the skill is installed to a location'
+			// 	description: 'When the skill is installed to a location',
+			// 	subscribe: true
 			// },
 			// 'did-signup': {
-			// 	name: 'did-signup',
-			// 	description: 'When a guest joins wifi at a location for the first time'
+			// 	description: 'When a guest joins wifi at a location for the first time',
+			//  subscribe: true
 			// },
 			// 'did-enter': {
-			// 	name: 'did-enter',
-			// 	description: 'When a guest returns and their phone hits the wifi'
+			// 	description: 'When a guest returns and their phone hits the wifi',
+			//  subscribe: true
 			// },
 			// 'did-leave': {
-			// 	name: 'did-leave',
-			// 	description: 'Triggered an hour after a guest leaves'
+			// 	description: 'Triggered an hour after a guest leaves',
+			//  subscribe: true
 			// },
 			// 'did-message': {
-			// 	name: 'did-message',
-			// 	description: 'A guest has sent a text to Sprucebot'
+			// 	description: 'A guest has sent a text to Sprucebot',
+			//  subscribe: true
 			// },
 			// 'did-add-device': {
-			// 	name: 'did-add-device',
 			// 	description:
-			// 		'When a guest adds a new device to a location. Like adding their laptop'
+			// 		'When a guest adds a new device to a location. Like adding their laptop',
+			//  subscribe: true
 			// },
 			// 'did-update-profile': {
-			// 	name: 'did-update-profile',
 			// 	description: 'When any user updates their first or last name'
+			//  subscribe: true
 			// },
 			// 'did-opt-out': {
-			// 	name: 'did-opt-out',
 			// 	description:
-			// 		'When any guest opts out of a location. By now you have already lost access to their meta data.'
+			// 		'When any guest opts out of a location. By now you have already lost access to their meta data.',
+			//  subscribe: true
 			// },
 			// 'did-remote-rejoin': {
-			// 	name: 'did-remote-rejoin',
 			// 	description:
-			// 		'They had, at one time, opted out. But, now they have remotely opted back in'
+			// 		'They had, at one time, opted out. But, now they have remotely opted back in',
+			//  subscribe: true
 			// },
 			// 'will-send-training': {
-			// 	name: 'will-send-training',
 			// 	description:
-			// 		'Sprucebot has made the decision that now is the perfect time to send training material'
+			// 		'Sprucebot has made the decision that now is the perfect time to send training material',
+			//  subscribe: true
+			// },
+			// 'big-search': {
+			// 	description: 'Provide your own search results in the platform',
+			// 	subscribe: true
+			// },
+			// 'import-from-big-search': {
+			// 	description:
+			// 		'Give people the power import your search results into the platform',
+			// 	subscribe: true
 			// }
 		}
 	},
