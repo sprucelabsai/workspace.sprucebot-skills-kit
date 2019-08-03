@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.16.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.2...v8.16.0) (2019-08-03)
+
+
+### Bug Fixes
+
+* make "graphql" a dependency in spruce-skill ([89a6800](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/89a6800))
+
+
+### Features
+
+* switch skill sync to v2 gql endpoint and get back the s3 bucket ([fdff653](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fdff653))
+* upgrade [@sprucelabs](https://github.com/sprucelabs)/log to latest version ([bbf256d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bbf256d))
+* Upgrade semantic release to use prerelease tags and bump full versions on merge to master ([a5c7578](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a5c7578))
+
+
+
+
+
 ## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
 
 **Note:** Version bump only for package @sprucelabs/spruce-skill
