@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.16.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.2...v8.16.0) (2019-08-03)
+
+
+### Bug Fixes
+
+* Prioritize JWTs in the query string and prefer "jwtV2" over "jwt" for authentication ([ce8f91c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ce8f91c))
+
+
+### Features
+
+* **Skillskit:** Restore the concept of forced auth for the safari case [SDEV3-1945] ([09a5c5a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/09a5c5a))
+
+
+
+
+
 ## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
 
 **Note:** Version bump only for package @sprucelabs/spruce-next-helpers
