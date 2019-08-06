@@ -1,48 +1,74 @@
-// @flow
 import React, { Component } from 'react'
-import ReactPhoneInput from 'react-phone-number-input'
+import ReactPhoneInput, {
+	PhoneInputProps,
+	InputComponentProps
+} from 'react-phone-number-input'
 import cx from 'classnames'
 import { InputPre, InputHelper } from '../../FormPartials'
 
 // for validating and formatting
 export {
 	formatPhoneNumber,
-	formatPhoneNumberIntl,
-	isValidPhoneNumber
+	formatPhoneNumberIntl
 } from 'react-phone-number-input'
 
-type Props = {
+// This is a barebones copy of react-phone-number-input's method API:
+// https://github.com/catamphetamine/react-phone-number-input#validation
+export const isValidPhoneNumber = (phoneNumber: string): boolean => {
+	return !!phoneNumber.replace(/[^a-z0-9+]/gi, '').match(/^\+1[\d]{10}$/)
+}
+
+interface IPhoneInputProps {
 	/** Label text */
-	label: string,
+	label: string
 
 	/** Set true to make the input less tall */
-	isSmall?: boolean,
+	isSmall?: boolean
 
 	/** Helper text */
-	helper?: string,
+	helper?: string
 
 	/** Any error message to be rendered */
 	error?: string
+
+	/** Default value for the input */
+	defaultValue?: string
+
+	autoFocus?: boolean
+
+	value?: string
 }
 
-type State = {
-	phone: string,
+interface IPhoneInputState {
+	phone: string
 	error: string
 }
 
-export default class PhoneInput extends Component<Props, State> {
-	state = {
-		phone: '',
-		error: ''
+export default class PhoneInput extends Component<
+	Partial<PhoneInputProps & InputComponentProps> & IPhoneInputProps,
+	IPhoneInputState
+> {
+	public constructor(props) {
+		super(props)
+
+		this.state = {
+			phone: props.defaultValue || '',
+			error: ''
+		}
 	}
-	handleChange = (phoneNumber: string) => {
+
+	public handleChange = (phoneNumber: string) => {
 		this.setState({
 			phone: phoneNumber
 		})
 	}
-	render() {
+
+	public render(): React.ReactElement {
 		const { phone } = this.state
 		const { label, error, isSmall, helper, ...rest } = this.props
+
+		delete rest.defaultValue
+
 		return (
 			<div
 				className={cx('text-input', {
@@ -51,6 +77,7 @@ export default class PhoneInput extends Component<Props, State> {
 				})}
 			>
 				<InputPre label={label} />
+
 				<ReactPhoneInput
 					inputClassName="text-input__input"
 					value={phone}
@@ -61,6 +88,7 @@ export default class PhoneInput extends Component<Props, State> {
 					international={false}
 					{...rest}
 				/>
+
 				{(helper || error) && <InputHelper helper={helper} error={error} />}
 			</div>
 		)

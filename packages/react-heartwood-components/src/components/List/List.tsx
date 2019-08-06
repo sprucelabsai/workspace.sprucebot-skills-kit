@@ -1,40 +1,44 @@
-// @flow
 import React, { Fragment } from 'react'
-import type { Node } from 'react'
 import cx from 'classnames'
-import ListHeader from './components/ListHeader/ListHeader'
-import ListItem from './components/ListItem/ListItem'
-import type { Props as ListHeaderProps } from './components/ListHeader/ListHeader'
-import type { Props as ListItemProps } from './components/ListItem/ListItem'
+import ListHeader, {
+	IListHeaderProps
+} from './components/ListHeader/ListHeader'
+import ListItem, { IListItemProps } from './components/ListItem/ListItem'
+import ExpandableListItem from './components/ExpandableListItem/ExpandableListItem'
 
-export const ListWrapper = (props: { children: Node }) => (
+export const ListWrapper = (props): React.ReactElement => (
 	<div className="list-wrapper">{props.children}</div>
 )
 
-export type Props = {
+export interface IWrappedItemProps extends IListItemProps {
+	/** Optional; Set true to render an expandable item */
+	isExpandable?: boolean
+}
+
+export interface IListProps {
 	/** List Header */
-	header?: ListHeaderProps,
+	header?: IListHeaderProps
 
 	/** List items */
-	items?: Array<ListItemProps>,
+	items?: IWrappedItemProps[]
 
 	/** Class for the list */
-	className?: string,
+	className?: string
 
 	/** Set true to make the list smaller */
-	isSmall?: boolean,
+	isSmall?: boolean
 
 	/** any passthrough to render in the body of the list */
-	children?: any,
+	children?: React.ReactNode
 
 	/** Set to true to show separators between list items */
-	areSeparatorsVisible: boolean,
+	areSeparatorsVisible: boolean
 
 	/** Optional: set whether to use checkbox or radio for selectable list items */
 	selectableType?: 'checkbox' | 'radio'
 }
 
-const List = (props: Props) => {
+const List = (props: IListProps): React.ReactElement => {
 	const {
 		header,
 		items,
@@ -54,9 +58,14 @@ const List = (props: Props) => {
 			{header && <ListHeader isSmall={isSmall} {...header} />}
 			<ul className={parentClass}>
 				{items &&
-					items.map((item, idx) => (
-						<ListItem key={idx} selectableType={selectableType} {...item} />
-					))}
+					items.map((item, idx) => {
+						if (item.isExpandable) {
+							return <ExpandableListItem key={idx} item={item} {...item} />
+						}
+						return (
+							<ListItem key={idx} selectableType={selectableType} {...item} />
+						)
+					})}
 				{children && children}
 			</ul>
 		</Fragment>

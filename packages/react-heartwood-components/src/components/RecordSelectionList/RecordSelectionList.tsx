@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, ChangeEvent } from 'react'
+import { debounce, get } from 'lodash'
 
 import {
 	List,
@@ -16,6 +17,7 @@ import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
 import Button from '../Button/Button'
 import ListItem, { IListItemProps } from '../List/components/ListItem/ListItem'
+import EmptyState, { IEmptyStateProps } from '../EmptyState/EmptyState'
 
 export interface IRecordSelectionListItemProps extends IListItemProps {
 	id: string
@@ -38,7 +40,11 @@ export interface IRecordSelectionListProps {
 	}) => Promise<any[]>
 
 	/** Load records as list items for the offset/limit provided */
-	loadRecordListItems?: (options: {
+	loadRecordListItems?: ({
+		offset,
+		limit,
+		search
+	}: {
 		offset: number
 		limit: number
 		search?: string
@@ -56,6 +62,16 @@ export interface IRecordSelectionListProps {
 
 	/** Can the search the records in the list? */
 	canSearch?: boolean
+
+	/** If provided, controls the value of the search string */
+	searchValue?: string
+
+	/** Respond to changes to the search value */
+	onSearchChange?: (value: string) => any
+
+	/** delays invoking search until after a certain ms have elapsed since the last time the
+	 * search was invoked */
+	searchDelayMs?: number
 
 	/** Array of IDs that should not be selectable */
 	unselectableIds?: string[]
@@ -84,8 +100,19 @@ export interface IRecordSelectionListProps {
 	/** When set, list will become infinitely scrollable
 	/*  A number value will set the max height of the list to the number of rows specified
 	/*  A value of 'auto' will allow the list to fill the height of the parent container */
-
 	maxRowsVisible?: number | 'auto'
+
+	/** Should the no-data empty state be hidden? */
+	hideDataEmptyState?: boolean
+
+	/** Should the no-result empty state be hidden? */
+	hideSearchResultsEmptyState?: boolean
+
+	/** Props for the no-result empty state */
+	noSearchResultsEmptyState?: IEmptyStateProps
+
+	/** Props for the no-data empty state */
+	noDataEmptyState?: IEmptyStateProps
 }
 
 interface IRecordSelectionListState {
@@ -110,6 +137,8 @@ export default class RecordSelectionList extends Component<
 > {
 	public static defaultProps: IRecordSelectionListProps = {
 		showSelectedCount: false,
+		hideSearchResultsEmptyState: false,
+		hideDataEmptyState: false,
 		recordsPerRequest: 10
 	}
 
@@ -119,7 +148,23 @@ export default class RecordSelectionList extends Component<
 	private cache = new CellMeasurerCache({
 		fixedWidth: true
 	})
-	private visibleRecordHeights = []
+
+	private loadSearchResults = debounce(
+		async ({ value, uniqueId }: { value: string; uniqueId: string }) => {
+			// When we search, we'll want to reset the list, so back to offset 0!
+			const newRows = await this.loadRecordsRequest({
+				offset: 0,
+				search: value
+			})
+
+			if (uniqueId === this.state.loadingId) {
+				this.setState({ isLoading: false, loadedRecords: newRows }, () => {
+					this.resetVirtualizedList()
+				})
+			}
+		},
+		this.props.searchDelayMs || 200
+	)
 
 	public constructor(props: IRecordSelectionListProps) {
 		super(props)
@@ -151,19 +196,23 @@ export default class RecordSelectionList extends Component<
 
 		this.state = {
 			loadedRecords: [],
-			isLoading: false,
-			search: '',
+			isLoading: true,
+			search: props.searchValue,
 			listHeight: 1
 		}
 	}
 
 	public async componentDidMount(): Promise<void> {
+		const { search } = this.state
+
 		const initialRecords = await this.loadRecordsRequest({
+			search,
 			offset: 0
 		})
 
 		await this.setState({
-			loadedRecords: initialRecords
+			loadedRecords: initialRecords,
+			isLoading: false
 		})
 
 		const newListHeight = this.getVisibleRecordHeight()
@@ -173,79 +222,76 @@ export default class RecordSelectionList extends Component<
 		}
 	}
 
-	// Lifecycle required since we need to manually tell virtualized to update if these props
-	// change. This is mostly for storybook but it may be nice to support later in product.
 	public componentDidUpdate(prevProps: IRecordSelectionListProps): void {
-		const { canRemove, canSelect } = this.props
+		const { canRemove, canSelect, searchValue } = this.props
 
+		if (searchValue !== prevProps.searchValue) {
+			this.updateSearchValue(searchValue)
+		}
+
+		// We need to manually tell virtualized to update if these props
+		// change. This is mostly for storybook but it may be nice to support later in product.
 		if (
-			this.virtualizedList &&
-			this.cache &&
-			(prevProps.canRemove !== canRemove || prevProps.canSelect !== canSelect)
+			prevProps.canRemove !== canRemove ||
+			prevProps.canSelect !== canSelect
 		) {
-			this.cache.clearAll()
-			this.virtualizedList.recomputeRowHeights(0)
-			this.virtualizedList.forceUpdateGrid()
-			this.setState({ listHeight: this.getVisibleRecordHeight() })
+			this.resetVirtualizedList()
 		}
 	}
 
-	public async reset(): Promise<void> {
-		const initialRecords = await this.loadRecordsRequest({
-			offset: 0
-		})
-
-		this.setState({
-			loadedRecords: initialRecords
-		})
-
-		if (this.virtualizedList && this.cache) {
-			this.cache.clearAll()
-			this.virtualizedList.recomputeRowHeights(0)
-			this.virtualizedList.forceUpdateGrid()
-			this.setState({ listHeight: this.getVisibleRecordHeight() })
-		}
+	public async reset({
+		persistSearch = false
+	}: {
+		/** Persist the value of the search when resetting. Defaults `false`. */
+		persistSearch?: boolean
+	} = {}): Promise<void> {
+		// TODO: This just "works" but ideally I'd be resetting more holistically.
+		// Come back to this and clean up the API a bit. Make sure that resetting
+		// doesn't cause infiniteLoad to fail.
+		this.updateSearchValue(persistSearch ? this.state.search : '')
 	}
 
-	public getVisibleRecordHeight = () => {
-		const { loadedRecords } = this.state
+	public getVisibleRecordHeight = (): number => {
+		const { maxRowsVisible } = this.props
 
-		if (loadedRecords.length < this.visibleRecordHeights.length) {
-			this.visibleRecordHeights.length = loadedRecords.length
+		let visibleRecordHeight = 0
+
+		if (typeof maxRowsVisible === 'number') {
+			for (let i = 0; i < Math.min(maxRowsVisible); i += 1) {
+				if (i < this.cache._rowCount) {
+					visibleRecordHeight += this.cache.rowHeight({ index: i })
+				} else {
+					visibleRecordHeight += 1
+				}
+			}
 		}
 
-		const height = this.visibleRecordHeights.reduce(
-			(height, current) => (height += current),
-			0
-		)
-
-		return height > 0 ? height : 1
+		return visibleRecordHeight
 	}
 
 	public render(): React.ReactElement {
 		const {
-			selectedIds = [],
-			totalRecordCount,
 			canSearch,
+			maxRowsVisible,
+			hideDataEmptyState,
+			hideSearchResultsEmptyState,
+			noDataEmptyState,
+			noSearchResultsEmptyState,
 			searchLabel,
 			searchPlaceholder,
+			selectedIds = [],
 			showSelectedCount,
-			maxRowsVisible
+			totalRecordCount
 		} = this.props
 
-		const { loadedRecords, search, listHeight } = this.state
+		const { loadedRecords, search, listHeight, isLoading } = this.state
 		const totalSelected = selectedIds.length
 
 		const isRowLoaded = ({ index }): boolean => {
 			return !!loadedRecords[index]
 		}
 		const onResize = (): void => {
-			if (this.virtualizedList && this.cache) {
-				this.cache.clearAll()
-				this.virtualizedList.recomputeRowHeights(0)
-				this.virtualizedList.forceUpdateGrid()
-				this.setState({ listHeight: this.getVisibleRecordHeight() })
-			}
+			this.resetVirtualizedList()
 		}
 
 		return (
@@ -267,67 +313,139 @@ export default class RecordSelectionList extends Component<
 					<Fragment>
 						{searchLabel && <InputPre label={searchLabel} />}
 						<TextInput
+							id={'record-selection-list-filter'}
 							type="text"
 							iconBefore="search"
 							placeholder={searchPlaceholder || 'Search...'}
 							value={search}
-							onChange={this.handleSearchUpdate}
+							onChange={(e: ChangeEvent<HTMLInputElement>) => {
+								this.updateSearchValue(e.target.value)
+							}}
 						/>
 					</Fragment>
 				)}
 
-				{!maxRowsVisible ? (
-					loadedRecords.map(record => {
-						return this.renderInnerRow({
-							record,
-							style: {}
-						})
-					})
+				{loadedRecords.length > 0 ? (
+					<Fragment>
+						{!maxRowsVisible ? (
+							loadedRecords.map(record => {
+								return this.renderInnerRow({
+									record,
+									style: {}
+								})
+							})
+						) : (
+							<div
+								className="record-selection__list-wrapper"
+								// Only set listHeight if maxRowsVisible is not undefined or 'auto'
+								{...(typeof maxRowsVisible === 'number'
+									? { style: { height: `${listHeight}px` } }
+									: {})}
+							>
+								<InfiniteLoader
+									ref={ref => (this.infiniteLoader = ref)}
+									isRowLoaded={isRowLoaded}
+									loadMoreRows={() => this.handleInfiniteLoad()}
+									rowCount={totalRecordCount || Infinity}
+									threshold={maxRowsVisible || 5}
+								>
+									{({ onRowsRendered, registerChild }) => (
+										<AutoSizer onResize={onResize}>
+											{({ height, width }) => {
+												return (
+													<List
+														ref={ref => {
+															registerChild(ref)
+															this.virtualizedList = ref
+														}}
+														className="record-selection__virtual-list"
+														deferredMeasurementCache={this.cache}
+														height={height}
+														width={width}
+														rowHeight={this.cache.rowHeight}
+														rowCount={loadedRecords.length}
+														rowRenderer={this.renderRow}
+														onRowsRendered={args => {
+															onRowsRendered(args)
+														}}
+														selectedIds={JSON.stringify(selectedIds)}
+													/>
+												)
+											}}
+										</AutoSizer>
+									)}
+								</InfiniteLoader>
+							</div>
+						)}
+					</Fragment>
 				) : (
-					<div
-						className="record-selection__list-wrapper"
-						// Only set listHeight if maxRowsVisible is not undefined or 'auto'
-						{...(typeof maxRowsVisible === 'number'
-							? { style: { height: `${listHeight}px` } }
-							: {})}
-					>
-						<InfiniteLoader
-							ref={ref => (this.infiniteLoader = ref)}
-							isRowLoaded={isRowLoaded}
-							loadMoreRows={() => this.handleInfiniteLoad()}
-							rowCount={totalRecordCount || Infinity}
-							threshold={1}
-						>
-							{({ onRowsRendered, registerChild }) => (
-								<AutoSizer onResize={onResize}>
-									{({ height, width }) => {
-										return (
-											<List
-												ref={ref => {
-													registerChild(ref)
-													this.virtualizedList = ref
-												}}
-												className="record-selection__virtual-list"
-												deferredMeasurementCache={this.cache}
-												height={height}
-												width={width}
-												rowHeight={this.cache.rowHeight}
-												rowCount={loadedRecords.length}
-												rowRenderer={this.renderRow}
-												onRowsRendered={args => {
-													onRowsRendered(args)
-												}}
-												selectedIds={JSON.stringify(selectedIds)}
-											/>
-										)
-									}}
-								</AutoSizer>
-							)}
-						</InfiniteLoader>
-					</div>
+					!isLoading &&
+					loadedRecords.length === 0 && (
+						<Fragment>
+							{search
+								? !hideSearchResultsEmptyState && (
+										<EmptyState
+											icon="no_matches"
+											headline="No search results"
+											{...noSearchResultsEmptyState}
+											primaryAction={{
+												text: 'Show all',
+												type: 'submit',
+												onClick: () => {
+													this.updateSearchValue('')
+												},
+												...get(noSearchResultsEmptyState, 'primaryAction', {})
+											}}
+										/>
+								  )
+								: !hideDataEmptyState && (
+										<EmptyState headline="No records" {...noDataEmptyState} />
+								  )}
+						</Fragment>
+					)
 				)}
 			</div>
 		)
+	}
+
+	private updateSearchValue = async (value: string) => {
+		const { onSearchChange } = this.props
+
+		// Search will rapid-fire, but we only want to use the last result.
+		// If this value doesn't change by the time the API responds, we'll use
+		// that data to update the list!
+		const uniqueId = `${Math.random()}`
+
+		this.setState(
+			{
+				search: value,
+				isLoading: true,
+				loadingId: uniqueId
+			},
+			async () => {
+				if (onSearchChange) {
+					onSearchChange(value)
+				}
+
+				this.loadSearchResults({
+					value,
+					uniqueId
+				})
+			}
+		)
+	}
+
+	private resetVirtualizedList = () => {
+		if (this.virtualizedList && this.cache && this.infiniteLoader) {
+			this.cache.clearAll()
+			this.virtualizedList.recomputeRowHeights()
+			this.virtualizedList.forceUpdateGrid()
+			this.infiniteLoader.resetLoadMoreRowsCache(true)
+
+			setTimeout(() => {
+				this.setState({ listHeight: this.getVisibleRecordHeight() })
+			}, 0)
+		}
 	}
 
 	private loadRecordsRequest = async (options: {
@@ -360,22 +478,9 @@ export default class RecordSelectionList extends Component<
 			height: number
 		}
 	}) => {
-		const { maxRowsVisible } = this.props
 		const { loadedRecords } = this.state
 
 		const record = loadedRecords[index]
-
-		const updateListHeight =
-			maxRowsVisible &&
-			(typeof maxRowsVisible === 'number' ? index < maxRowsVisible : true)
-
-		if (typeof style.height === 'number' && updateListHeight) {
-			if (this.visibleRecordHeights.length < index + 1) {
-				this.visibleRecordHeights.push(style.height)
-			} else {
-				this.visibleRecordHeights[index] = style.height
-			}
-		}
 
 		return (
 			record && (
@@ -386,7 +491,7 @@ export default class RecordSelectionList extends Component<
 					parent={parent}
 					rowIndex={index}
 				>
-					{this.renderInnerRow({ record, style })}
+					{() => this.renderInnerRow({ record, style })}
 				</CellMeasurer>
 			)
 		)
@@ -554,38 +659,6 @@ export default class RecordSelectionList extends Component<
 		}
 
 		return true
-	}
-
-	private handleSearchUpdate = async e => {
-		// Search will rapid-fire, but we only want to use the last result.
-		// If this value doesn't change by the time the API responds, we'll use
-		// that data to update the list!
-		const uniqueId = `${Math.random()}`
-
-		this.setState({
-			search: e.target.value,
-			isLoading: true,
-			loadingId: uniqueId
-		})
-
-		// When we search, we'll want to reset the list, so back to offset 0!
-		const newRows = await this.loadRecordsRequest({
-			offset: 0,
-			search: e.target.value
-		})
-
-		if (uniqueId === this.state.loadingId) {
-			// We reset the list with the zero offset, so clear everything out.
-			// This will scroll the user back to the top automatically.
-			if (this.virtualizedList && this.cache) {
-				this.cache.clearAll()
-				this.virtualizedList.recomputeRowHeights(0)
-				this.virtualizedList.forceUpdateGrid()
-				this.setState({ listHeight: this.getVisibleRecordHeight() })
-			}
-
-			this.setState({ isLoading: false, loadedRecords: newRows })
-		}
 	}
 
 	private handleRemoveSelection = () => {}

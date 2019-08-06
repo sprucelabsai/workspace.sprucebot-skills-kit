@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
-import Button from '../../../Button/Button'
+import Button, { IButtonProps } from '../../../Button/Button'
 import Icon from '../../../Icon/Icon'
-
 import ContextMenu from '../../../ContextMenu/ContextMenu'
-
+import List, { IListProps } from '../../List'
 import { Toggle, Checkbox, Radio } from '../../../Forms'
 
 export interface IListItemProps {
@@ -27,6 +26,9 @@ export interface IListItemProps {
 	/** Inline svg icon */
 	icon?: Record<string, any>
 
+	/** Optional; visually hides the icon without removing it */
+	iconIsHidden?: boolean
+
 	/** Set true to add left spacing. useful in aligning with other list items that have icons or images */
 	isLeftIndented?: boolean
 
@@ -39,15 +41,11 @@ export interface IListItemProps {
 	/** Makes the list item a setting */
 	toggleId?: string
 
-	/** A primary action that turns the entire list item into a clickable button
-	 *  TODO: implement ButtonProps
-	 */
-	primaryAction?: any
+	/** A primary action that turns the entire list item into a clickable button */
+	primaryAction?: IButtonProps
 
-	/** Actions associated with the list item
-	 *  TODO: implement ButtonProps
-	 */
-	actions?: any[]
+	/** Actions associated with the list item */
+	actions?: IButtonProps[]
 
 	/** Context Menu associated with the list item
 	 *  TODO: implement ContextMenuProps
@@ -71,6 +69,16 @@ export interface IListItemProps {
 
 	/** Optional: set whether to use checkbox or radio for selectable list items */
 	selectableType?: 'checkbox' | 'radio'
+
+	/** Highlight title, subtitle, note with warning colors */
+	warnings?: {
+		title: boolean
+		subtitle: boolean
+		note: boolean
+	}
+
+	/** Optional; adds a nested list */
+	list?: IListProps
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
@@ -81,6 +89,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		avatar,
 		image,
 		icon,
+		iconIsHidden,
 		isDraggable,
 		isDisabled,
 		toggleId,
@@ -92,7 +101,9 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		className,
 		selectableId,
 		selectableProps,
-		selectableType
+		selectableType,
+		warnings,
+		list
 	} = props
 
 	const parentClass = cx('list-item', className, {
@@ -100,7 +111,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		'list-item--is-draggable': isDraggable,
 		'list-item--is-disabled': isDisabled,
 		'list-item--primary-action': primaryAction,
-		'list-item--separator-hidden': !isSeparatorVisible
+		'list-item--separator-hidden': !isSeparatorVisible,
+		'list-item--has-avatar': !!avatar
 	})
 
 	const ListItemInner = (): React.ReactElement => (
@@ -112,7 +124,9 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							customIcon={icon.customIcon}
 							icon={icon.name}
 							isLineIcon={icon.isLineIcon}
-							className={cx('list-item__icon', icon.className, {})}
+							className={cx('list-item__icon', icon.className, {
+								'list-item__icon--hidden': iconIsHidden
+							})}
 						/>
 					)}
 					{image && (
@@ -124,25 +138,25 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							height="40"
 						/>
 					)}
-					{avatar && <Avatar image={avatar} alt={title} />}
 					{selectableId && (
 						<Fragment>
 							{selectableType === 'checkbox' && (
 								<Checkbox
 									id={selectableId}
-									{...(isDisabled ? { disabled: 'disabled' } : {})}
+									{...(isDisabled ? { disabled: true } : {})}
 									{...selectableProps}
 								/>
 							)}
 							{selectableType === 'radio' && (
 								<Radio
 									id={selectableId}
-									{...(isDisabled ? { disabled: 'disabled' } : {})}
+									{...(isDisabled ? { disabled: true } : {})}
 									{...selectableProps}
 								/>
 							)}
 						</Fragment>
 					)}
+					{avatar && <Avatar image={avatar} alt={title} />}
 				</div>
 			)}
 
@@ -150,21 +164,31 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				{toggleId || selectableId ? (
 					<p>
 						<label
-							className="list-item__title"
+							className={cx('list-item__title', {
+								'u-color-warning-dark': warnings.title
+							})}
 							htmlFor={toggleId || selectableId}
 						>
 							{title}
 						</label>
 					</p>
 				) : (
-					<p className="list-item__title">{title}</p>
+					<p
+						className={cx('list-item__title', {
+							'u-color-warning-dark': warnings.title
+						})}
+					>
+						{title}
+					</p>
 				)}
 				{subtitle && (
 					<Fragment>
 						{toggleId || selectableId ? (
 							<p>
 								<label
-									className="list-item__subtitle"
+									className={cx('list-item__subtitle', {
+										'u-color-warning-dark': warnings.subtitle
+									})}
 									htmlFor={toggleId || selectableId}
 								>
 									{subtitle}
@@ -172,7 +196,9 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							</p>
 						) : (
 							<p
-								className="list-item__subtitle"
+								className={cx('list-item__subtitle', {
+									'u-color-warning-dark': warnings.subtitle
+								})}
 								dangerouslySetInnerHTML={{ __html: subtitle }}
 							/>
 						)}
@@ -180,7 +206,9 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				)}
 				{note && (
 					<p
-						className="list-item__note"
+						className={cx('list-item__note', {
+							'u-color-warning-dark': warnings.note
+						})}
 						dangerouslySetInnerHTML={{ __html: note }}
 					/>
 				)}
@@ -203,6 +231,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				</div>
 			)}
 			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
+
+			{list && <List {...list} />}
 		</Fragment>
 	)
 
@@ -224,11 +254,17 @@ ListItem.defaultProps = {
 	avatar: '',
 	image: '',
 	icon: null,
+	iconIsHidden: false,
 	isDraggable: false,
 	toggleId: '',
 	actions: [],
 	isSeparatorVisible: true,
-	toggleProps: {}
+	toggleProps: {},
+	warnings: {
+		title: false,
+		subtitle: false,
+		note: false
+	}
 }
 
 export default ListItem

@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
-import Loader from '../Loader/Loader'
 import Icon from '../Icon/Icon'
 import BasicAnchor from '../_utilities/Anchor'
+import CircleLoader from '../CircleLoader/CircleLoader'
 
 export interface IButtonIconProps {
 	/** The name of the icon to render. If not found, this will return null. */
@@ -28,7 +28,7 @@ export interface IButtonProps {
 	children?: React.ReactNode
 
 	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
-	kind?: string
+	kind?: 'primary' | 'secondary' | 'simple' | 'caution'
 
 	/** Set true to make the button less tall. */
 	isSmall?: boolean
@@ -129,7 +129,9 @@ const Button = (props: IButtonProps): React.ReactElement => {
 						</span>
 					)}
 					{text && <span className={textClass}>{text}</span>}
-					{isLoading && <Loader />}
+					{isLoading && (
+						<CircleLoader light={kind === 'primary' || kind === 'caution'} />
+					)}
 				</Fragment>
 			)}
 		</span>

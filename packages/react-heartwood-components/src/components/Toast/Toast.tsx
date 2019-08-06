@@ -1,62 +1,64 @@
-// @flow
 import React from 'react'
 import cx from 'classnames'
 import Button from '../Button/Button'
-import CloseIcon from '../../../static/assets/icons/ic_close.svg'
 
-type HeaderProps = {
+interface IToastHeaderProps {
 	/** Headline text */
-	headline: string,
+	headline: string
 
 	/** Function to remove the toast */
 	onRemove: Function
 }
 
-const ToastHeader = (props: HeaderProps) => {
+const ToastHeader = (props: IToastHeaderProps): React.ReactElement => {
 	const { headline, onRemove } = props
 	return (
 		<div className="toast__header">
 			<p>{headline}</p>
-			<Button icon={{ customIcon: CloseIcon }} onClick={onRemove} />
+			<Button icon={{ name: 'close' }} onClick={onRemove} />
 		</div>
 	)
 }
 
-export type Props = {
+export interface IToastProps {
 	/** Unique ID for the toast */
-	id: string | number,
+	id: string | number
 
 	/** Headline text */
-	headline: string,
+	headline: string
 
-	/** Text after the headline */
-	text: string,
+	/** Optional; Text after the headline */
+	text?: string
 
 	/** Handle toast removal */
-	onRemove: Function,
+	onRemove: Function
 
 	/** Sets the variation of toast */
-	kind?: 'neutral' | 'positive' | 'negative',
+	kind?: string
 
 	/** Handle a followup action */
-	followupAction?: Function,
+	followupAction?: Function
 
 	/** Text for the followup action */
 	followupText?: string
 }
 
-const Toast = (props: Props) => {
+const Toast = (props: IToastProps): React.ReactElement => {
 	const { headline, kind, text, followupAction, followupText, onRemove } = props
 	const toastClass = cx('toast', {
 		'toast-positive': kind === 'positive',
-		'toast-negative': kind === 'negative'
+		'toast-negative': kind === 'negative',
+		'toast-warn': kind === 'warn',
+		'toast-info': kind === 'info'
 	})
 	return (
 		<div className={toastClass}>
 			<ToastHeader headline={headline} onRemove={onRemove} />
-			<div className="toast__body">
-				<p>{text}</p>
-			</div>
+			{text && (
+				<div className="toast__body">
+					<p>{text}</p>
+				</div>
+			)}
 			{followupAction && (
 				<Button text={followupText} onClick={followupAction} />
 			)}
@@ -67,7 +69,8 @@ const Toast = (props: Props) => {
 Toast.defaultProps = {
 	kind: 'neutral',
 	followupAction: null,
-	followupText: 'Undo'
+	followupText: 'Undo',
+	text: ''
 }
 
 export default Toast

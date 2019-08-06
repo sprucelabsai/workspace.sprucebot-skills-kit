@@ -3,6 +3,178 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.16.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.1...v8.16.2) (2019-08-06)
+
+
+### Bug Fixes
+
+* workspace should return valid card date ([18c85b7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/18c85b7))
+* **TruncatedList:** check if recordSelectionListRef exists before reset ([3191506](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3191506))
+
+
+
+
+
+## [8.16.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.0...v8.16.1) (2019-08-03)
+
+
+### Bug Fixes
+
+* **PhoneInput:** TSX Types, Extend Base Lib ([633f81c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/633f81c))
+
+
+
+
+
+# [8.16.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.2...v8.16.0) (2019-08-03)
+
+
+### Bug Fixes
+
+* [SOS-141](https://sprucelabsai.atlassian.net/browse/SOS-141) Employee's schedules on the quarter and half hours display as starting on the next whole hour ([51eb30b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/51eb30b))
+* add ts types to View privacyLink and termsLink ([67e399c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/67e399c))
+* bring back deprecated component export for backwards compatibility ([c5a746f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c5a746f))
+* correctly set default rows in RSL story ([0e6b918](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0e6b918))
+* correctly style selectable people list with avatar ([9237181](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9237181))
+* disabled state for selectables in record selection list items ([c9912de](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c9912de))
+* enable Autosuggest to show an icon in the input, and update TableSearch to use search icon in input ([9a5a094](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9a5a094))
+* export TruncatedList ([fa02a43](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fa02a43))
+* linter error ([a2ffb43](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a2ffb43))
+* **Autosuggest:** Fix busted document references for SSR ([dbe63d7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dbe63d7))
+* linter issues ([f0feb8a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f0feb8a))
+* linter issues ([7965f91](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7965f91))
+* make "graphql" a dependency in spruce-skill ([89a6800](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/89a6800))
+* Prioritize JWTs in the query string and prefer "jwtV2" over "jwt" for authentication ([ce8f91c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ce8f91c))
+* remove redundant header from truncated list story ([09221d8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/09221d8))
+* round to floor ([f953d0a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f953d0a))
+* **AutoSuggest:** Allow helper/postLabel to both accept a node or a string ([7d438ff](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7d438ff))
+* **Babel:** Generate sourcemaps ([3307d04](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3307d04))
+* **Babel:** Generate sourcemaps ([bef44f6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bef44f6))
+* **build:** Run clean before build ([2d96176](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2d96176))
+* **CI:** Cache yarn packages ([d751b93](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d751b93))
+* **CircleCI:** Pull tags before canary publish ([ed66c8d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ed66c8d))
+* **Heading:** Use bolder font [SDEV3-1814] ([b1b3e0b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b1b3e0b))
+* **PageHeader:** Fix collapsible header when page is in flexible layout ([f46aca8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f46aca8))
+* **PageHeader:** Fix element alignment of primaryAction CTA ([9c489eb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9c489eb))
+* **PhoneInput:** Add simple phone validator ([9d57b53](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9d57b53))
+* **PhoneInput:** Allow defaultValue w/ internal state ([71f3110](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/71f3110))
+* **RecordTable:** Correct usage of getNoDataProps [SDEV3-2018] ([87f0bf1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/87f0bf1))
+* **RSL:** Fix reset method to address additional rows not loading ([2c04b46](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2c04b46))
+* **RSList:** Handle filtered EmptyState separately [SDEV3-2110] ([f5e39b8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f5e39b8))
+* **Tabs:** Correct styles for buttons in tabs ([245ba51](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/245ba51))
+* **TextInput:** Correct type for helper ([ba1e1ce](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ba1e1ce))
+* **TS:** Export types for List, Button ([a7baf29](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a7baf29))
+* **TS:** Export types for Record Selection List ([9b4ad97](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9b4ad97))
+* **Typescript:** Table, Autosuggest, Checkbox, TextInput ([2e260ac](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2e260ac))
+* **View:** Add TS optional types, remove stateless type ([ac983b6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ac983b6))
+* **View:** Address regression in main content scrolling ([1f670dc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1f670dc))
+
+
+### Features
+
+* **Cards:** Add concept of a footer action helper [SDEV3-1921] ([b7e9637](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b7e9637))
+* **Footer:** Add optional footer to view ([7a491a3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7a491a3))
+* **ModalBody:** Allow full bleed modal contents [SDEV3-1814] ([07ab884](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/07ab884))
+* update searchable results to have an empty state ([ae05049](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ae05049))
+* **PageHeader:** Add collapsibility for PageHeader ([4c571e4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4c571e4))
+* revert story ([02e0e98](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/02e0e98))
+* **RecordSelectionList:** Add controlled search props ([6492edd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6492edd))
+* **RecordSelectionList:** Add controlled search props ([998702e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/998702e))
+* add ability to hide icons ([3317998](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3317998))
+* add CircleLoader component ([4f57662](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4f57662))
+* add click and escape handlers ([ec12823](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ec12823))
+* add empty state to RecordSelectionList ([88c7e0c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/88c7e0c))
+* add empty tab example ([edb0668](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/edb0668))
+* add export ([5d6c84a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5d6c84a))
+* add full width variant ([8c2f13f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8c2f13f))
+* add info and warn toast kinds and update some colors ([ef8c758](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ef8c758))
+* add portal and start controlling visibility ([0800d6b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0800d6b))
+* Add Split Button component ([16c6406](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/16c6406))
+* add story for list that ends with an action ([82d450a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/82d450a))
+* card style updates ([5278bcf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5278bcf))
+* card styling updates ([69ecc19](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/69ecc19))
+* change import to name instead ([586888a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/586888a))
+* clean up stories ([d0564e7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d0564e7))
+* clean up story ([c3a4444](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c3a4444))
+* cleanup comments ([3595c8e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3595c8e))
+* convert to tsx ([20fd29c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/20fd29c))
+* convert Toast to tsx ([5ab0cdb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5ab0cdb))
+* convert ToastWrapper to tsx ([cfe33d9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cfe33d9))
+* DX - exclude build directories from vscode search/spotlight ([f21e273](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f21e273))
+* fill out split button ([ffd3854](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ffd3854))
+* fix button to work well in tsx ([92e3e2c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/92e3e2c))
+* fix linting error ([50f6986](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/50f6986))
+* fix sortable lists ([f0787c2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f0787c2))
+* fix styling ([53850af](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/53850af))
+* fix ts error ([c1063ab](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c1063ab))
+* fix typo ([9fe8068](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9fe8068))
+* hide pagination when search shows no results ([8746d71](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8746d71))
+* hook up enter key to work with highlighted action ([d95e28c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d95e28c))
+* hook up knobs and add more actions ([0138f8d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0138f8d))
+* hook up state for using arrow keys ([8fff98d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8fff98d))
+* hookup knobs ([089c686](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/089c686))
+* implement CircleLoader in Button ([56a208f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/56a208f))
+* improve click handler ([35779dd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/35779dd))
+* initial truncated list ([581919c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/581919c))
+* make lists nestable ([c19d424](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c19d424))
+* pass the highlighted index through to button group ([b705a91](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b705a91))
+* pull data out of stories" ([6cad076](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6cad076))
+* remove old code and add truncated list action method to story ([31d85fc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/31d85fc))
+* remove stray log ([bed0dd6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bed0dd6))
+* remove unnecessary check ([35c0948](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/35c0948))
+* remove unnecessary check ([e378e73](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e378e73))
+* remove unnecessary comment ([a2b2dfd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a2b2dfd))
+* rename prop ([013842d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/013842d))
+* return a regular button if no actions are provided ([c56861b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c56861b))
+* style CircleLoader ([c792f72](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c792f72))
+* switch skill sync to v2 gql endpoint and get back the s3 bucket ([fdff653](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fdff653))
+* take out help button and update links to legal ([9e9a5b4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9e9a5b4))
+* tsx conversion ([3c30251](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3c30251))
+* update buttongroup to support full width and set position of actions ([92d3ea2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/92d3ea2))
+* update children prop ([8a85da1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8a85da1))
+* update function types ([c60ac7c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c60ac7c))
+* update ListItem reference and Button children prop ([ecfb4bd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ecfb4bd))
+* update return type ([148d6dc](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/148d6dc))
+* Update SplitButton to not define interfaces defined elsewhere ([e9dc97e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e9dc97e))
+* update story ([1452881](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1452881))
+* update story and defaults ([404752f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/404752f))
+* update storybook stories ([e4eec49](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e4eec49))
+* update Toast-story to tsx ([bd51267](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bd51267))
+* upgrade [@sprucelabs](https://github.com/sprucelabs)/log to latest version ([bbf256d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bbf256d))
+* Upgrade semantic release to use prerelease tags and bump full versions on merge to master ([a5c7578](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a5c7578))
+* use index to highlight suggestion ([63e11df](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/63e11df))
+* wire up list items to render warnings ([1b9025e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1b9025e))
+* **RecordTable:** Add basic story with generated data ([0d4901e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0d4901e))
+* **RecordTable:** Allow for customization of filtered empty state [SDEV3-1820] ([9014cb2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9014cb2))
+* **RecordTable:** Convert to Typescript [SDEV3-2018] ([1488580](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1488580))
+* **RSL:** Add label to search field [SDEV3-1814] ([f4ac2a6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f4ac2a6))
+* **Skillskit:** Restore the concept of forced auth for the safari case [SDEV3-1945] ([09a5c5a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/09a5c5a))
+* **TruncatedList:** fleshing out truncated list functionality ([445914d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/445914d))
+* **TruncatedList:** handle onRemove updates ([4b82364](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4b82364))
+* **TruncatedList:** truncated list card example layout ([d4465a1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d4465a1))
+* **TruncatedList:** update logic to set isTruncated declaratively ([1ac878c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1ac878c))
+* **TypeScript:** Export typescript definitions [SDEV3-2018] ([03f2da7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/03f2da7))
+
+
+### Refactoring
+
+* remove button from RSL card ([6347b22](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6347b22))
+* **RecordSelectionList:** Updating RSL to use ListItem while remaining backwards compatible ([36ed1d4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/36ed1d4))
+* add accessors to TruncatedList methods ([dd77112](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/dd77112))
+* add link props and convert to typescript ([020998c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/020998c))
+* add prop descriptions to TruncatedList ([ef55172](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ef55172))
+* convert TruncatedList to TS and add reset method ([7c9aa6e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7c9aa6e))
+* dynamic copyright date ([1351149](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1351149))
+* improve deprecated props loging ([416e758](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/416e758))
+* remove deprecated examples from RSL story ([cd8b8a3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cd8b8a3))
+* remove deprecated prop from RSL story ([f4ffee7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f4ffee7))
+* remove useless constant ([f8b794d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f8b794d))
+* update TS types ([20836a0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/20836a0))
+
+
+
+
+
 ## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
 
 

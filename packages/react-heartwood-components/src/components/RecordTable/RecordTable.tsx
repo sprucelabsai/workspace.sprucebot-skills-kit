@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react'
-
-import Table, { TableSearch } from '../Table'
+import { default as Table, ITableProps } from '../Table/Table'
+import {
+	default as TableSearch,
+	ITableSearchProps
+} from '../Table/components/TableSearch/TableSearch'
 import Tabs from '../Tabs'
 import { TextInput } from '../Forms'
 import Button from '../Button/Button'
@@ -21,7 +24,7 @@ export interface IRecordTableFetchResults {
 	totalRows: number
 }
 
-export interface IRecordTableProps {
+export interface IRecordTableProps extends ITableProps {
 	/** Singular noun describing the contents of this table */
 	kind?: string
 
@@ -68,7 +71,7 @@ export interface IRecordTableProps {
 	searchPlaceholder?: string
 
 	/** props to pass through to the table search component */
-	tableSearchProps?: Record<string, any>
+	tableSearchProps?: ITableSearchProps
 
 	/** when rendering search results, this is how i'll know what to output */
 	searchSuggestionAccessor?: (suggestion: Record<string, any>) => any
@@ -88,20 +91,37 @@ export interface IRecordTableProps {
 	fetchError?: boolean
 
 	/** passthrough to Table component */
-	handleClickRow?: Function
+	handleClickRow?: (
+		e: MouseEvent,
+		meta: { idx: number; item: Record<string, any> }
+	) => void
 
 	/** called when search suggestion is selected */
-	onSelection?: Function
+	onSelection?: (options: { selectedIds: (string | number)[] }) => void
 
 	/** called when navigating to page */
 	onNavigateToPage?: Function
 
-	/** No data available */
+	/** Icon to show if no results match the current filter */
+	noFilteredMatchesIcon?: string
+	/** Headline to show if no results match the current filter */
+	noFilteredMatchesHeadline?: string
+	/** Subhead to show if no results match the current filter */
+	noFilteredMatchesSubheadline?: string
+	/** CTA Text to show if no results match the current filter */
+	noFilteredMatchesPrimaryActionText?: string
+
+	/** Icon to show if no data is available to be loaded into the table */
 	noDataIcon?: string
+	/** Headline to show if no data is available to be loaded into the table */
 	noDataHeadline?: string
+	/** Subhead to show if no data is available to be loaded into the table */
 	noDataSubheadline?: string
+	/** CTA Text to show if no data is available to be loaded into the table */
 	noDataPrimaryAction?: IPrimaryAction
+	/** CTA Button kind to display if no data is available to be loaded into the table */
 	noDataPrimaryActionButtonKind?: string
+	/** CTA Button Icon to display if no data is available to be loaded into the table */
 	noDataPrimaryActionButtonIcon?: string
 }
 
@@ -125,11 +145,15 @@ interface IRecordTableState {
 }
 
 class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
-	public static defaultProps = {
-		enableSearch: false,
+	public static defaultProps: Partial<IRecordTableProps> = {
 		enableFilter: false,
-		searchPlaceholder: 'Filter table...',
-		initialLimit: RECORD_TABLE_INITIAL_LIMIT
+		enableSearch: false,
+		initialLimit: RECORD_TABLE_INITIAL_LIMIT,
+		noFilteredMatchesHeadline: 'No matches found',
+		noFilteredMatchesIcon: 'no_matches',
+		noFilteredMatchesPrimaryActionText: 'Show All',
+		noFilteredMatchesSubheadline: null,
+		searchPlaceholder: 'Filter table...'
 	}
 
 	public constructor(props: IRecordTableProps) {
@@ -213,7 +237,14 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 			searchPlaceholder,
 			noDataPrimaryActionButtonKind,
 			noDataPrimaryActionButtonIcon,
-			tableSearchProps = {},
+
+			tableSearchProps = {
+				getSuggestionValue: null,
+				getSuggestions: null,
+				renderSuggestion: null,
+				onSuggestionSelected: null,
+				id: null
+			},
 			...rest
 		} = this.props
 
@@ -258,21 +289,19 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 						isPadded
 					/>
 				)}
+
 				{enableSearch && (
-					<TableSearch
-						placeholder={searchPlaceholder}
-						onSuggestionSelected={this.handleSuggestionSelected}
-						{...tableSearchProps}
-					/>
+					<TableSearch placeholder={searchPlaceholder} {...tableSearchProps} />
 				)}
 
 				{enableFilter && (
 					<div className="table-search__wrapper">
 						<div className="autosuggest__wrapper">
 							<TextInput
+								id="record-table-filter"
 								value={currentFilter}
 								placeholder={searchPlaceholder}
-								onChange={e => {
+								onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 									this.updateFilter(e.target.value)
 								}}
 								isSmall
@@ -324,6 +353,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 					}}
 					manual
 					loading={loading}
+					showPagination={visibleRows.length > 0}
 					data={visibleRows || []}
 					totalRows={totalRows}
 					onSortedChange={this.handleSortChanged}
@@ -343,6 +373,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 		)
 	}
 
+	// TODO: Update the table based on the tab that was clicked
 	private handleClickTab = (e: MouseEvent, tab: any) => {
 		const { onClickTab } = this.props
 		let cancel = false
@@ -463,10 +494,6 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 		return searchSuggestionAccessor(suggestion.record)
 	}
 
-	private handleSuggestionSelected = async (e: MouseEvent, suggestion: any) => {
-		this.props.onSelection && this.props.onSelection(e, suggestion)
-	}
-
 	private isFiltered = () => {
 		const { enableFilter } = this.props
 		const { currentFilter } = this.state
@@ -475,36 +502,44 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 	}
 
 	private getNoDataIcon = () => {
-		const { noDataIcon, fetchError } = this.props
+		const { noDataIcon, noFilteredMatchesIcon, fetchError } = this.props
 
 		return fetchError
 			? 'caution'
 			: this.isFiltered()
-			? 'no_matches'
+			? noFilteredMatchesIcon
 			: noDataIcon
 	}
 
 	private getNoDataHeadline = () => {
-		const { noDataHeadline, fetchError } = this.props
+		const { noDataHeadline, noFilteredMatchesHeadline, fetchError } = this.props
 
 		return fetchError
 			? 'Data not available'
 			: this.isFiltered()
-			? 'No matches found'
+			? noFilteredMatchesHeadline
 			: noDataHeadline
 	}
 
 	private getNoDataSubheadline = () => {
-		const { noDataSubheadline, fetchError } = this.props
+		const {
+			noDataSubheadline,
+			noFilteredMatchesSubheadline,
+			fetchError
+		} = this.props
 		return fetchError
 			? 'It looks like something went wrong.'
 			: this.isFiltered()
-			? null
+			? noFilteredMatchesSubheadline
 			: noDataSubheadline
 	}
 
 	private getNoDataPrimaryAction = () => {
-		const { noDataPrimaryAction, fetchError } = this.props
+		const {
+			noDataPrimaryAction,
+			noFilteredMatchesPrimaryActionText,
+			fetchError
+		} = this.props
 		return fetchError
 			? {
 					text: 'Try again',
@@ -512,7 +547,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 			  }
 			: this.isFiltered()
 			? {
-					text: 'Show all',
+					text: noFilteredMatchesPrimaryActionText,
 					onClick: () => {
 						this.updateFilter('')
 					},

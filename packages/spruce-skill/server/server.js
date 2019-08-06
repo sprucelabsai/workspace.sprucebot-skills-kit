@@ -3,7 +3,6 @@ const path = require('path')
 const serve = require('@sprucelabs/spruce-skill-server')
 const Sprucebot = require('@sprucelabs/spruce-node')
 const generateSwaggerDocs = require('./swagger/swagger')
-const { customFormatters, customTransports } = require('../config/logging')
 
 const {
 	API_KEY,
@@ -90,8 +89,6 @@ setTimeout(async () => {
 		logUseTrace: LOG_USE_TRACE,
 		logUseSourcemaps: LOG_USE_SOURCEMAPS,
 		logAsJSON: LOG_AS_JSON,
-		logFormatters: customFormatters(),
-		logTransports: customTransports(),
 		env: ENV,
 		packageName: PACKAGE_NAME,
 		packageVersion: PACKAGE_VERSION,
