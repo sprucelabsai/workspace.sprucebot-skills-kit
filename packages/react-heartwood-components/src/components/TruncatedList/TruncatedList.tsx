@@ -119,7 +119,9 @@ export default class TruncatedList extends Component<
 							onRemove={async id => {
 								if (onRemove) {
 									await onRemove(id)
-									this.recordSelectionListRef.current.reset()
+									if (this.recordSelectionListRef.current) {
+										this.recordSelectionListRef.current.reset()
+									}
 								}
 							}}
 						/>
