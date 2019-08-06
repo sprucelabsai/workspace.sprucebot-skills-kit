@@ -7,6 +7,8 @@ import {
 import Tabs from '../Tabs'
 import { TextInput } from '../Forms'
 import Button from '../Button/Button'
+import EmptyState from '../EmptyState/EmptyState'
+import Loader from '../Loader/Loader'
 
 const RECORD_TABLE_INITIAL_LIMIT = 10
 
@@ -359,6 +361,15 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 					onSortedChange={this.handleSortChanged}
 					onClickRow={handleClickRow}
 					key="id"
+					NoDataComponent={
+						loading && !currentFilter
+							? () => (
+									<div className="table__inner__loader">
+										<Loader />
+									</div>
+							  )
+							: EmptyState
+					}
 					getNoDataProps={() => ({
 						icon: this.getNoDataIcon(),
 						headline: this.getNoDataHeadline(),
