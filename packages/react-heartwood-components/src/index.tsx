@@ -8,7 +8,7 @@ export {
 } from './components/Button/Button'
 export { default as ButtonGroup } from './components/ButtonGroup/ButtonGroup'
 export {
-	default as Card,
+	Card,
 	CardHeader,
 	CardBody,
 	CardSection,

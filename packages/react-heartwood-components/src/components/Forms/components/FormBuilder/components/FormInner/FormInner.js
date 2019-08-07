@@ -10,7 +10,7 @@ import {
 	DurationInput
 } from '../../../../index'
 
-import List from '../../../../../List'
+import { List } from '../../../../../List'
 
 import Button from '../../../../../Button/Button'
 
