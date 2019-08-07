@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react'
 import { Formik, Form } from 'formik'
 import FormInner from './components/FormInner/FormInner'
-import Card, { CardBody, CardHeader } from '../../../Card'
+import { Card, CardBody, CardHeader } from '../../../Card'
 import Layout, { LayoutSection } from '../../../Layout'
 import { SaveBar } from '../../../Core'
 import Button from '../../../Button/Button'
