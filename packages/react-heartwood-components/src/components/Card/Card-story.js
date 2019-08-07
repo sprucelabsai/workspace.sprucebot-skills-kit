@@ -10,7 +10,8 @@ import {
 } from '@storybook/addon-knobs/react'
 import { onboarding } from '../../../.storybook/data/onboarding'
 import { userList } from '../../../.storybook/data/people'
-import Card, {
+import {
+	Card,
 	CardHeader,
 	CardBody,
 	CardFooter,
@@ -207,7 +208,7 @@ stories
 			<CardHeader
 				title={text('title', 'Please update your credit card')}
 				labelText={text('labelText', 'Billing failure')}
-				labelIcon={{ customIcon: AlertIcon3 }}
+				labelIcon={{ customIcon: AlertIcon3, isLineIcon: false }}
 			/>
 			<CardBody>
 				<Text>
@@ -373,3 +374,12 @@ stories
 		<CardBuilder key="foo-3" {...object('json4', cardJSON4)} />,
 		<CardBuilder key="foo-4" {...object('json5', cardJSON5)} />
 	])
+	.add('Expandable Card', () => {
+		return (
+			<Card expandable headerProps={{ title: 'Hello' }} defaultExpanded={false}>
+				<Card.Body>
+					<p>Hello I am card content</p>
+				</Card.Body>
+			</Card>
+		)
+	})

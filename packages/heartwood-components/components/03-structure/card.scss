@@ -39,6 +39,10 @@
 		border-top: 4px solid $c-ui-critical;
 	}
 
+	.card--is-collapsed & {
+		padding-bottom: spacing('base');
+	}
+
 	@include gt('small') {
 		padding: spacing('loose') spacing('loose') spacing('tight') spacing('loose');
 	}

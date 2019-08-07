@@ -1,20 +1,17 @@
-// @flow
-
 import React from 'react'
-import type { Node } from 'react'
 
 import cx from 'classnames'
 
 // Card Section
-export type CardSectionProps = {
+export interface ICardSectionProps {
 	/** Children to show in the Card */
-	children: Node,
+	children: React.ReactNode
 
 	/** Set to true to remove horizontal padding */
 	isFullBleed: boolean
 }
 
-const CardSection = (props: CardSectionProps) => {
+const CardSection = (props: ICardSectionProps): React.ReactElement => {
 	const { children, isFullBleed } = props
 	const className = cx('card__section', {
 		'card__section--full-bleed': isFullBleed
