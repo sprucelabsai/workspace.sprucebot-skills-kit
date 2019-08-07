@@ -1,33 +1,31 @@
-// @flow
-// NOTE: Cards should be built in a way that they can be created with JSON
 import React, { Fragment } from 'react'
 import cx from 'classnames'
 import Button from '../../Button/Button'
 import Icon from '../../Icon/Icon'
 import ContextMenu from '../../ContextMenu/ContextMenu'
 
-import type { Props as ButtonProps } from '../../Button/Button'
-import type { Props as ContextMenuProps } from '../../ContextMenu/ContextMenu'
+import { IButtonProps } from '../../Button/Button'
 
 // Card Header
-export type CardHeaderProps = {
+export interface ICardHeaderProps {
 	/** Title for the card */
-	title?: string,
+	title?: string
 
 	/** Optional label to show above title */
-	labelText?: string,
+	labelText?: string
 
 	/** Optional icon to show above the title and before the label */
-	labelIcon?: any,
+	labelIcon?: any
 
 	/** Render buttons in the Card Header */
-	actions?: Array<ButtonProps>,
+	actions?: IButtonProps[]
 
 	/** Renders a Context Menu in the Card Header */
-	contextMenu?: ContextMenuProps
+	// TODO: Import context menu props once it's converted to tsx
+	contextMenu?: any
 }
 
-const CardHeader = (props: CardHeaderProps) => {
+const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 	const { title, labelText, labelIcon, actions, contextMenu } = props
 	return (
 		<div className="card__header">

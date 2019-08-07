@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.17.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.2...v8.17.0) (2019-08-07)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.16.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.1...v8.16.2) (2019-08-06)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.16.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.0...v8.16.1) (2019-08-03)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.16.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.2...v8.16.0) (2019-08-03)
+
+
+### Features
+
+* switch skill sync to v2 gql endpoint and get back the s3 bucket ([fdff653](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fdff653))
+
+
+
+
+
 ## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
 
 **Note:** Version bump only for package @sprucelabs/spruce-node

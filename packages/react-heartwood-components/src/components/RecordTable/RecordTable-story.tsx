@@ -1,7 +1,7 @@
 import React from 'react'
 import { filter, orderBy } from 'lodash'
 import { storiesOf } from '@storybook/react'
-import { withKnobs } from '@storybook/addon-knobs/react'
+import { withKnobs, number } from '@storybook/addon-knobs/react'
 
 import RecordTable, {
 	IRecordTableFetchOptions,
@@ -58,10 +58,18 @@ stories.add('Basic RecordTable', () => {
 		sortDirection: 'ASC'
 	})
 
+	const timeout = number('API Simulated Timeout (MS)', 50)
+
 	return (
 		<div>
 			<RecordTable
-				fetchRecords={async options => syncFetchRecords(options)}
+				fetchRecords={async options => {
+					await new Promise(resolve => {
+						setTimeout(resolve, timeout)
+					})
+
+					return syncFetchRecords(options)
+				}}
 				enableFilter={true}
 				searchPlaceholder={'Search groups...'}
 				fetchError={false}

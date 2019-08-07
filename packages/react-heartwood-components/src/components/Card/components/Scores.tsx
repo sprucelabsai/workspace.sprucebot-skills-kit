@@ -1,18 +1,17 @@
-// @flow
 import React from 'react'
 
-type PanelProps = {
+interface IPanelProps {
 	/** Unique id for looping. */
-	id: string,
+	id: string
 
 	/** Description of the corresponding value. */
-	label: string,
+	label: string
 
 	/** The value to display. */
 	value: string
 }
 
-const ScorePanel = (props: PanelProps) => {
+const ScorePanel = (props: IPanelProps): React.ReactElement => {
 	const { label, value } = props
 	return (
 		<div className="card__score">
@@ -22,11 +21,11 @@ const ScorePanel = (props: PanelProps) => {
 	)
 }
 
-type Props = {
-	scores: Array<PanelProps>
+interface IScoresProps {
+	scores: IPanelProps[]
 }
 
-const Scores = (props: Props) => {
+const Scores = (props: IScoresProps): React.ReactElement => {
 	const { scores } = props
 	return (
 		<div className="card__scores">
