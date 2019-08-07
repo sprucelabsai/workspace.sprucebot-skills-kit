@@ -1,4 +1,4 @@
-// @flow
+s // @flow
 import React, { Component } from 'react'
 import ReactPhoneInput from 'react-phone-number-input'
 import cx from 'classnames'
