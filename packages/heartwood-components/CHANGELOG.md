@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.17.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.16.2...v8.17.0) (2019-08-07)
+
+
+### Bug Fixes
+
+* **RecordTable:** Add loader when loading w/ no records [SDEV3-2215] ([933af31](https://github.com/sprucelabsai/sprucebot-heartwood/commit/933af31))
+
+
+### Features
+
+* styling ([a4706da](https://github.com/sprucelabsai/sprucebot-heartwood/commit/a4706da))
+
+
+
+
+
 ## [8.16.2](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.16.1...v8.16.2) (2019-08-06)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components
