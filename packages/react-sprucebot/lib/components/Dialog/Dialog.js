@@ -227,7 +227,17 @@ function (_Component) {
   }, {
     key: "requestScroll",
     value: function requestScroll() {
-      // we are not in the sb iframe
+      if (window.scrollY > 0) {
+        // we are in new web, because the iframe now scrolls, we can use our own height
+        this.setState({
+          scrollTop: window.scrollY,
+          firstShow: false,
+          opacity: 1
+        });
+        return;
+      } // we are not in the sb iframe
+
+
       if (window.top === window.self) {
         this.setState({
           opacity: 1,
