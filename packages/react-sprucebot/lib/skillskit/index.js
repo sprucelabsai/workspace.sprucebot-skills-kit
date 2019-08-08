@@ -131,6 +131,12 @@ var skill = {
     this.resizedInterval = setInterval(this.resized.bind(this), 300);
   },
   scrollTo: function scrollTo(offset) {
+    // for new web, since scroll is in the iframe, we'll try and scroll locally too
+    window.scroll({
+      top: offset,
+      behavior: 'smooth'
+    }); // still pass through for old web
+
     postMessage({
       name: 'Skill:ScrollTo',
       offset: offset || 0
@@ -205,11 +211,9 @@ var skill = {
       }, _callee, this);
     }));
 
-    function showHelp(_x) {
+    return function showHelp(_x) {
       return _showHelp.apply(this, arguments);
-    }
-
-    return showHelp;
+    };
   }(),
   handleIframeMessage: function handleIframeMessage(e) {
     if (typeof e.data === 'string') {
@@ -326,11 +330,9 @@ var skill = {
       }, _callee2, this);
     }));
 
-    function confirm(_x2) {
+    return function confirm(_x2) {
       return _confirm.apply(this, arguments);
-    }
-
-    return confirm;
+    };
   }(),
 
   /**

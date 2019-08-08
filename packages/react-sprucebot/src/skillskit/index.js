@@ -116,6 +116,13 @@ const skill = {
 	},
 
 	scrollTo: function(offset) {
+		// for new web, since scroll is in the iframe, we'll try and scroll locally too
+		window.scroll({
+			top: offset,
+			behavior: 'smooth'
+		})
+
+		// still pass through for old web
 		postMessage({
 			name: 'Skill:ScrollTo',
 			offset: offset || 0
