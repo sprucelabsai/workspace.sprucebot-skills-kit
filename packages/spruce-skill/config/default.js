@@ -176,7 +176,7 @@ module.exports = {
 			// 		'When a guest adds a new device to a location. Like adding their laptop',
 			//  subscribe: true
 			// },
-			// 'did-update-profile': {
+			// 'did-update-user': {
 			// 	description: 'When any user updates their first or last name'
 			//  subscribe: true
 			// },
