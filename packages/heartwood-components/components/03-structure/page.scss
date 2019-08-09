@@ -168,7 +168,8 @@
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	overflow: scroll;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
 }
 
 body.render-location-modal {
