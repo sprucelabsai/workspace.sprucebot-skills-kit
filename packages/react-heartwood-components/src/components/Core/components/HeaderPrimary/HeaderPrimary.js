@@ -1,6 +1,4 @@
 // @flow
-// TODO: The Autosuggest used here will need to be updated to hook up to the API
-// and render userful results. This should probably be done as its own component
 import React, { Component, Fragment } from 'react'
 import Hamburger from './components/Hamburger/Hamburger'
 import DefaultLockup from './components/DefaultLockup/DefaultLockup'
