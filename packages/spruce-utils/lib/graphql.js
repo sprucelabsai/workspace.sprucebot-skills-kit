@@ -204,7 +204,11 @@ export class GraphQLClient {
 						'/'
 					)}). Reasons: [${errors.map(error => error.reason).join(', ')}]`,
 					{
-						friendlyReason: errors && errors[0] && errors[0].friendlyReason,
+						friendlyReasons:
+							errors &&
+							errors[0]
+								.filter(error => !!error.friendlyReason)
+								.map(error => error.friendlyReason),
 						originalError: e,
 						gqlDocumentBody,
 						variables: options.variables
