@@ -5,6 +5,7 @@ function SpruceWebError(message = '', data) {
 	this.message = `${this.name} :: ${message}`
 	this.data = data
 	this.stack = new Error().stack
+	this.friendlyReason = data && data.friendlyReason
 }
 
 SpruceWebError.prototype = new Error()
