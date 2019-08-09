@@ -197,7 +197,6 @@ export class GraphQLClient {
 			if (e.networkError || e.graphQLErrors) {
 				const graphQLErrors = get(e, 'graphQLErrors', [])
 				const networkErrors = get(e, 'networkError.result.errors', [])
-
 				const errors = networkErrors.concat(graphQLErrors)
 
 				throw new SpruceWebError(
@@ -205,6 +204,7 @@ export class GraphQLClient {
 						'/'
 					)}). Reasons: [${errors.map(error => error.reason).join(', ')}]`,
 					{
+						friendlyReason: errors && errors[0] && errors[0].friendlyReason,
 						originalError: e,
 						gqlDocumentBody,
 						variables: options.variables
