@@ -1,11 +1,11 @@
 // @flow
 const { eventError } = require('../lib/errorHandler')
 
-const {
+import type {
 	IBigSearchCtx,
 	IBigSearchSection,
 	IBigSearchResult
-} = require('../types')
+} from '../types'
 
 const BIG_SEARCH_TYPES = {
 	ANY: 'any',
@@ -14,7 +14,7 @@ const BIG_SEARCH_TYPES = {
 	GROUP: 'group'
 }
 
-module.exports = async (ctx: IBigSearchCtx, next) => {
+module.exports = async (ctx: IBigSearchCtx, next: Function) => {
 	try {
 		console.log('****big-search', ctx.auth.Organization.name)
 

@@ -1,6 +1,4 @@
 // @flow
-// TODO: The Autosuggest used here will need to be updated to hook up to the API
-// and render userful results. This should probably be done as its own component
 import React, { Component, Fragment } from 'react'
 import Hamburger from './components/Hamburger/Hamburger'
 import DefaultLockup from './components/DefaultLockup/DefaultLockup'
@@ -190,7 +188,8 @@ export default class HeaderPrimary extends Component<Props, State> {
 			skillsHref,
 			locationManagementHref,
 			loginHref,
-			loginCTA
+			loginCTA,
+			onClickSearch
 		} = this.props
 
 		return (
@@ -233,12 +232,14 @@ export default class HeaderPrimary extends Component<Props, State> {
 									/>
 								</div>
 							)}
-							<Button
-								text={searchPlaceholder}
-								icon={{ name: 'search' }}
-								className="header-primary__search-btn"
-								onClick={this.handleSearchClick}
-							/>
+							{onClickSearch && (
+								<Button
+									text={searchPlaceholder}
+									icon={{ name: 'search' }}
+									className="header-primary__search-btn"
+									onClick={this.handleSearchClick}
+								/>
+							)}
 							<UserMenu
 								menuIsVisible={isUserMenuVisible}
 								toggleMenu={this.toggleUserMenuVisibility}

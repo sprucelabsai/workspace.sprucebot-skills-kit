@@ -33,6 +33,10 @@ export type BIG_SEARCH_TYPE = 'any' | 'user' | 'location' | 'group'
 
 export interface IBigSearchCtx {
 	auth: { Organization: Object, Location?: Object };
+	services: any;
+	utilities: any;
+	db: any;
+	body: any;
 	event: {
 		payload: {
 			/** the max amount of results Big Search would like you to return */
@@ -53,6 +57,10 @@ export interface IBigSearchCtx {
 
 export interface IImportFromBigSearchCtx {
 	auth: { Organization: Object, Location?: Object };
+	services: any;
+	utilities: any;
+	db: any;
+	body: any;
 	event: {
 		payload: {
 			/** the id of the result the user clicked, it matches whatever you returned from big-search result */

@@ -1,9 +1,9 @@
 // @flow
 const { eventError } = require('../lib/errorHandler')
 
-const { IImportFromBigSearchCtx, IImportBigSearchResult } = require('../types')
+import type { IImportFromBigSearchCtx, IImportBigSearchResult } from '../types'
 
-module.exports = async (ctx: IImportFromBigSearchCtx, next) => {
+module.exports = async (ctx: IImportFromBigSearchCtx, next: Function) => {
 	try {
 		console.log('****import-from-big-search', ctx.auth.Organization.name)
 
@@ -21,8 +21,8 @@ module.exports = async (ctx: IImportFromBigSearchCtx, next) => {
 		)
 
 		const response: IImportBigSearchResult = {
-			successfulImport: null,
-			matchGroup: null
+			successfulImport: undefined,
+			matchGroup: undefined
 		}
 
 		// Step 1. Load the record from the Id that was clicked
