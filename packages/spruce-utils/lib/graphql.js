@@ -206,7 +206,7 @@ export class GraphQLClient {
 					{
 						friendlyReasons:
 							errors &&
-							errors[0]
+							errors
 								.filter(error => !!error.friendlyReason)
 								.map(error => error.friendlyReason),
 						originalError: e,
