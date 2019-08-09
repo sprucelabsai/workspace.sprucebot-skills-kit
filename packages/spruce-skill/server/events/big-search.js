@@ -71,27 +71,30 @@ module.exports = async (ctx: IBigSearchCtx, next: Function) => {
 		}
 
 		// or you can search any source you want and mark them as needing to be imported
-		const dummyResults: IBigSearchResult[] = []
+		// you can't import people unless there is a location, so make sure to check one is set
+		if (location) {
+			const dummyResults: IBigSearchResult[] = []
 
-		for (let c = 0; c < 100; c++) {
-			dummyResults.push({
-				id: c,
-				title: `Dummy User ${c}`,
-				subtitle: `I am #${c}`,
-				action: {
-					type: 'import'
-				}
-			})
+			for (let c = 0; c < 100; c++) {
+				dummyResults.push({
+					id: `${c}`,
+					title: `Dummy User ${c}`,
+					subtitle: `I am #${c}`,
+					action: {
+						type: 'import'
+					}
+				})
+			}
+
+			const section2: IBigSearchSection = {
+				title: 'Results to import',
+				section: 'external',
+				totalCount: dummyResults.length,
+				results: dummyResults.slice(offset, offset + limit)
+			}
+
+			sections.push(section2)
 		}
-
-		const section2: IBigSearchSection = {
-			title: 'Results to import',
-			section: 'external',
-			totalCount: dummyResults.length,
-			results: dummyResults.slice(offset, offset + limit)
-		}
-
-		sections.push(section2)
 
 		ctx.body = sections
 
