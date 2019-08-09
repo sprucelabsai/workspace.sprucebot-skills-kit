@@ -36,7 +36,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
 		"@sprucelabs/heartwood-components": "^8.17.3",
-		"@sprucelabs/log": "^2.1.0",
+		"@sprucelabs/log": "^2.1.1",
 		"@sprucelabs/react-heartwood-components": "^8.17.3",
 		"@sprucelabs/spruce-next-helpers": "^8.17.3",
 		"@sprucelabs/spruce-node": "^8.17.3",

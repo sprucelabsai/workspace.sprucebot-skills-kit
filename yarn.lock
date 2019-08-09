@@ -2560,10 +2560,10 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
   integrity sha512-ONhaKPIufzzrlNbqtWFFd+jlnemX6lJAgq9ZeiZtS7I1PIf/la7CW4m83rTXRnVnsMbW2k56pGYu7AUFJD9Pow==
 
-"@sprucelabs/log@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/log/-/log-2.1.0.tgz#769b0da59685485c517837e4e5cccbcf66cc8e64"
-  integrity sha512-qesx6OIQUjbT9nCNWQ7nBdT57UjJFVMFrjplsdSawDXQEW4qtvhyK9TF1V0J4xUJzwAaUMLXmj6yVU2nsVDWRg==
+"@sprucelabs/log@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@sprucelabs/log/-/log-2.1.1.tgz#6b63f2651b5d99df6faf39ed3bd69b955f0c21ce"
+  integrity sha512-PcT2btA25U7CFh4dWvrHX52qxlh8FZYzzkHVwRWfOB0fF9I3DjUkq4q/z+Soeq5k0JUYACFmpSYNIqsgqOUb/A==
   dependencies:
     "@babel/cli" "^7.0.0"
     debug "^4.1.1"
