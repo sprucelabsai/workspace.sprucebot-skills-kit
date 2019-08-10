@@ -3,7 +3,7 @@ import { each, keys } from 'lodash'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
-	withKnobsOptions,
+	// withKnobsOptions,
 	text,
 	select,
 	object
@@ -19,11 +19,11 @@ each(keys(icons), icon => {
 
 const stories = storiesOf('EmptyState', module)
 
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 stories.addDecorator(withKnobs)
 
 stories.add('Default', () => <EmptyState />)

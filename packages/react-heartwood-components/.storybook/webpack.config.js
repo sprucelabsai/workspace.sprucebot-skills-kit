@@ -9,7 +9,7 @@
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-module.exports = {
+const override = {
 	plugins: [
 		// your custom plugins
 		new MiniCssExtractPlugin('style.css'),
@@ -77,4 +77,14 @@ module.exports = {
 			}
 		]
 	}
+}
+
+module.exports = async ({ config, mode }) => {
+	config.plugins = [...config.plugins, ...override.plugins]
+	config.resolve.extensions = [
+		...config.resolve.extensions,
+		...override.resolve.extensions
+	]
+	config.module.rules = [...config.module.rules, ...override.module.rules]
+	return config
 }
