@@ -21,4 +21,5 @@ const ModalFooter = (props: Props) => {
 	)
 }
 
+ModalFooter.displayName = 'Modal.Footer'
 export default ModalFooter

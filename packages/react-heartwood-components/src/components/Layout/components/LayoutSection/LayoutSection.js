@@ -28,6 +28,7 @@ const LayoutSection = (props: LayoutSectionProps) => {
 	)
 }
 
+LayoutSection.displayName = 'Layout.Section'
 LayoutSection.defaultProps = {
 	isSecondary: false
 }

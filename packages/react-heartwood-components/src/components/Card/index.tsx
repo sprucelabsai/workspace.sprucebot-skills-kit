@@ -1,7 +1,7 @@
+export { default as Card, ICardProps } from './Card'
 import Card from './Card'
 export default Card
 
-export { ICardProps } from './Card'
 export {
 	default as CardHeader,
 	ICardHeaderProps

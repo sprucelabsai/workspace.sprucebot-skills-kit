@@ -1,43 +1,21 @@
 import React from 'react'
-import { configure, addDecorator } from '@storybook/react'
-import {
-	withKnobs,
-	withKnobsOptions,
-	text,
-	boolean,
-	number
-} from '@storybook/addon-knobs/react'
-import Wrapper from './Wrapper'
+import { configure, addDecorator, addParameters } from '@storybook/react'
+import { jsxDecorator } from 'storybook-addon-jsx'
+import { withPropsTable } from 'storybook-addon-react-docgen'
+import { addReadme } from 'storybook-readme'
+import { themes } from '@storybook/theming'
 
-import { setOptions } from '@storybook/addon-options'
-import { withInfo } from '@storybook/addon-info'
+import theme from './theme'
 
-setOptions({
-	name: 'Heartwood React Components',
-	url:
-		'https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/tree/dev/packages/react-sprucebot'
-})
-
-addDecorator(story => {
-	if (
-		(story().props && story().props.STORYBOOKdoNotWrap) ||
-		(story().props.children &&
-			story().props.children.props &&
-			story().props.children.props.STORYBOOKdoNotWrap)
-	) {
-		return story()
+addParameters({
+	options: {
+		theme
 	}
-
-	return (
-		<Wrapper STORYBOOKwrap={boolean('STORYBOOKwrap', true)}>{story()}</Wrapper>
-	)
 })
 
-addDecorator(
-	withInfo({
-		inline: false
-	})
-)
+addDecorator(jsxDecorator)
+addDecorator(withPropsTable)
+addDecorator(addReadme)
 
 function loadStories() {
 	const req = require.context('../src/components', true, /\-story\.js|ts|tsx$/)
