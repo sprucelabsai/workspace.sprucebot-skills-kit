@@ -10,7 +10,7 @@ import {
 } from '@storybook/addon-knobs/react'
 import { onboarding } from '../../../.storybook/data/onboarding'
 import { userList } from '../../../.storybook/data/people'
-import { Card, CardBuilder } from './index'
+import { Card, CardBuilder, OnboardingCard } from './index'
 import List from '../List/List'
 import TextContainer from '../TextContainer/TextContainer'
 import Page, { PageContent } from '../Page'
