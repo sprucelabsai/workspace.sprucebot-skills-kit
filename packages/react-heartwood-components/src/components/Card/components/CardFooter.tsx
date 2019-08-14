@@ -11,4 +11,5 @@ const CardFooter = (props: ICardFooterProps): React.ReactElement => {
 	return <div className="card__footer">{children}</div>
 }
 
+CardFooter.displayName = 'Card.Footer'
 export default CardFooter
