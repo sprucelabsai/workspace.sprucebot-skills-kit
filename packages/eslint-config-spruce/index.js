@@ -2,6 +2,26 @@ const typescriptEslintRecommended = require('@typescript-eslint/eslint-plugin/di
 const typescriptEslintPrettier = require('eslint-config-prettier/@typescript-eslint')
 const importRules = require('eslint-plugin-import/config/errors')
 
+const defaultFormattingRules = {
+	curly: 'error',
+	'spruce/utils-graphql': 'error',
+	'react/jsx-no-undef': 'error',
+	'no-console': 'off',
+	'no-undef': 'error',
+	'no-var': 'error',
+	'no-unreachable': 'error',
+	'no-unused-vars': 'error',
+	'react/prop-types': 'off',
+	'prettier/prettier': [
+		'error',
+		{
+			singleQuote: true,
+			useTabs: true,
+			semi: false
+		}
+	]
+}
+
 module.exports = {
 	overrides: [
 		{
@@ -53,7 +73,8 @@ module.exports = {
 						],
 						alphabetize: true
 					}
-				]
+				],
+				...defaultFormattingRules
 			}
 		},
 		{
@@ -70,23 +91,7 @@ module.exports = {
 	],
 	plugins: ['spruce', 'import', 'react', 'flowtype', 'prettier'],
 	rules: {
-		curly: 'error',
-		'spruce/utils-graphql': 'error',
-		'react/jsx-no-undef': 'error',
-		'no-console': 'off',
-		'no-undef': 'error',
-		'no-var': 'error',
-		'no-unreachable': 'error',
-		'no-unused-vars': 'error',
-		'react/prop-types': 'off',
-		'prettier/prettier': [
-			'error',
-			{
-				singleQuote: true,
-				useTabs: true,
-				semi: false
-			}
-		]
+		...defaultFormattingRules
 	},
 	parserOptions: {
 		sourceType: 'module',
@@ -98,12 +103,14 @@ module.exports = {
 	},
 	env: {
 		jest: true,
-		browser: true,
 		node: true,
 		es6: true
 	},
 	globals: {
-		log: true
+		log: true,
+		window: true,
+		document: true,
+		navigator: true
 	},
 	settings: {
 		flowtype: {},
