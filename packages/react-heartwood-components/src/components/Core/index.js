@@ -1,3 +1,4 @@
+export FeedBuilder from './components/FeedBuilder/FeedBuilder'
 export FooterPrimary from './components/FooterPrimary/FooterPrimary'
 export HeaderPrimary from './components/HeaderPrimary/HeaderPrimary'
 export Sidebar from './components/Sidebar/Sidebar'

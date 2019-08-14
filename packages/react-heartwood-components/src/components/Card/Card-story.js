@@ -3,20 +3,14 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
-	withKnobsOptions,
+	// withKnobsOptions,
 	text,
 	boolean,
 	object
 } from '@storybook/addon-knobs/react'
 import { onboarding } from '../../../.storybook/data/onboarding'
 import { userList } from '../../../.storybook/data/people'
-import Card, {
-	CardHeader,
-	CardBody,
-	CardFooter,
-	CardBuilder,
-	OnboardingCard
-} from './index'
+import { Card, CardBuilder, OnboardingCard } from './index'
 import List from '../List/List'
 import TextContainer from '../TextContainer/TextContainer'
 import Page, { PageContent } from '../Page'
@@ -86,8 +80,8 @@ const cardJSON2 = {
 	}
 }
 const cardJSON3 = {
-	title: 'Setup your first skill!',
 	onboarding: {
+		title: 'Setup your first skill!',
 		steps: [
 			{
 				id: '1',
@@ -120,29 +114,29 @@ const cardJSON4 = {
 	body: {
 		children: [
 			{
+				key: 'list_example',
 				type: 'list',
-				props: {
-					header: {
-						title: 'This is a list!'
+				heading: {
+					title: 'This is a list!'
+				},
+				items: [
+					{
+						key: 'number_one',
+						title: 'This is so cool!',
+						subtitle: 'For sure!',
+						icon: { name: 'complete', isLineIcon: true }
 					},
-					items: [
-						{
-							title: 'This is so cool!',
-							subtitle: 'For sure!',
-							icon: { name: 'complete', isLineIcon: true }
-						},
-						{
-							title: 'Takes all the props a List can take!',
-							icon: { name: 'complete', isLineIcon: true }
-						}
-					]
-				}
+					{
+						key: 'number_two',
+						title: 'Takes all the props a List can take!',
+						icon: { name: 'complete', isLineIcon: true }
+					}
+				]
 			},
 			{
+				key: 'text_example',
 				type: 'text',
-				props: {
-					children: 'Following up with text component!'
-				}
+				text: 'Following up with text component!'
 			}
 		]
 	},
@@ -159,13 +153,35 @@ const cardJSON4 = {
 	}
 }
 
+const cardJSON5 = {
+	header: {
+		title: 'Danger Zone'
+	},
+	footer: {
+		actions: [
+			{
+				type: 'button',
+				text: 'Delete this thing forever',
+				icon: {
+					name: 'remove'
+				},
+				kind: 'caution',
+				isSmall: true,
+				onClick: () => {}
+			}
+		],
+		helper:
+			'This is a permanant thing you are doing, be sure you want to do the thing'
+	}
+}
+
 const stories = storiesOf('Card', module)
 
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 
 stories.addDecorator(story => (
 	<Page>
@@ -182,25 +198,25 @@ stories.addDecorator(withKnobs)
 stories
 	.add('Critical Card', () => (
 		<Card isCritical>
-			<CardHeader
+			<Card.Header
 				title={text('title', 'Please update your credit card')}
 				labelText={text('labelText', 'Billing failure')}
-				labelIcon={{ customIcon: AlertIcon3 }}
+				labelIcon={{ customIcon: AlertIcon3, isLineIcon: false }}
 			/>
-			<CardBody>
+			<Card.Body>
 				<Text>
 					Two roads diverged in a wood, and I took the one less traveled by, And
 					that has made all the difference.
 				</Text>
-			</CardBody>
-			<CardFooter>
+			</Card.Body>
+			<Card.Footer>
 				<Button kind="secondary" text="Update credit card" />
-			</CardFooter>
+			</Card.Footer>
 		</Card>
 	))
 	.add('Score Card', () => (
 		<Card>
-			<CardHeader
+			<Card.Header
 				title={text('title', 'Value of future appointments')}
 				actions={object('actions', [
 					{
@@ -208,7 +224,7 @@ stories
 					}
 				])}
 			/>
-			<CardBody>
+			<Card.Body>
 				<Text>
 					Two roads diverged in a wood, and I took the one less traveled by, And
 					that has made all the difference.
@@ -232,12 +248,12 @@ stories
 						}
 					])}
 				/>
-			</CardBody>
+			</Card.Body>
 		</Card>
 	))
 	.add('People Card', () => (
 		<Card>
-			<CardHeader
+			<Card.Header
 				title={text('title', 'Your upcoming appointments')}
 				actions={object('actions', [
 					{
@@ -245,18 +261,18 @@ stories
 					}
 				])}
 			/>
-			<CardBody>
+			<Card.Body>
 				<List items={userList} />
 				<a href="#" style={{ display: 'block' }}>
 					+3 more today
 				</a>
-			</CardBody>
+			</Card.Body>
 		</Card>
 	))
 	.add('Person Card', () => (
 		<Card isCentered>
-			<CardHeader />
-			<CardBody>
+			<Card.Header />
+			<Card.Body>
 				<Avatar isLarge image={userImageLg} alt="Rosamund Mueleer" />
 				<TextContainer spacing="tight">
 					<Subheading className="card-header__title" element="h3">
@@ -267,10 +283,10 @@ stories
 						birthday!
 					</Text>
 				</TextContainer>
-			</CardBody>
-			<CardFooter>
+			</Card.Body>
+			<Card.Footer>
 				<Button kind="secondary" text="Send a birthday message" isSmall />
-			</CardFooter>
+			</Card.Footer>
 		</Card>
 	))
 	.add('Place Card', () => (
@@ -280,13 +296,13 @@ stories
 				width={720}
 				height={360}
 			/>
-			<CardBody>
+			<Card.Body>
 				<h3>Les Basics</h3>
 				<Text>101 Purdy Lakes, West Jordanmouth, NH 38827-6100</Text>
-			</CardBody>
-			<CardFooter>
+			</Card.Body>
+			<Card.Footer>
 				<Button kind="secondary" text="Book an appointment" />
-			</CardFooter>
+			</Card.Footer>
 		</Card>
 	))
 	.add('Celebration Card', () => (
@@ -297,18 +313,18 @@ stories
 				height={360}
 			/>
 
-			<CardBody>
+			<Card.Body>
 				<h3>Congrats on 10k guests!</h3>
 				<Text>
 					I’ve learned that people will forget what you said, people will forget
 					what you did, but people will never forget how you made them feel.
 				</Text>
-			</CardBody>
+			</Card.Body>
 		</Card>
 	))
 	.add('To Do', () => (
 		<Card>
-			<CardHeader
+			<Card.Header
 				labelText={text('Label Text', '')}
 				labelIcon={
 					boolean('Label Icon', false) && {
@@ -330,17 +346,17 @@ stories
 					actions: [{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]
 				})}
 			/>
-			<CardBody>
+			<Card.Body>
 				<Text>
 					{text(
 						'Body Copy',
 						'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.'
 					)}
 				</Text>
-			</CardBody>
-			<CardFooter>
+			</Card.Body>
+			<Card.Footer>
 				<Button kind="secondary" text="Get some skills" isSmall />
-			</CardFooter>
+			</Card.Footer>
 		</Card>
 	))
 	.add('Onboarding Card', () => <OnboardingCard {...onboarding} />)
@@ -348,5 +364,15 @@ stories
 		<CardBuilder key="foo-0" {...object('json', cardJSON)} />,
 		<CardBuilder key="foo-1" {...object('json2', cardJSON2)} />,
 		<CardBuilder key="foo-2" {...object('json3', cardJSON3)} />,
-		<CardBuilder key="foo-3" {...object('json4', cardJSON4)} />
+		<CardBuilder key="foo-3" {...object('json4', cardJSON4)} />,
+		<CardBuilder key="foo-4" {...object('json5', cardJSON5)} />
 	])
+	.add('Expandable Card', () => {
+		return (
+			<Card expandable headerProps={{ title: 'Hello' }} defaultExpanded={false}>
+				<Card.Body>
+					<p>Hello I am card content</p>
+				</Card.Body>
+			</Card>
+		)
+	})

@@ -28,6 +28,21 @@ const hbs = require('@frctl/handlebars')({
 		defaultVal: function(value, defaultVal) {
 			const out = value || defaultVal
 			return out
+		},
+		ifEquals: function(arg1, arg2, options) {
+			return arg1 == arg2 ? options.fn(this) : options.inverse(this)
+		},
+		ifCond: function(v1, v2, options) {
+			if (v1 === v2) {
+				return options.fn(this)
+			}
+			return options.inverse(this)
+		},
+		orCond: function(v1, v2, options) {
+			if (v1 || v2) {
+				return options.fn(this)
+			}
+			return options.inverse(this)
 		}
 	}
 	/* other configuration options here */

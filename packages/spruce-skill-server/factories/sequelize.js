@@ -3,11 +3,13 @@ const path = require('path')
 const debug = require('debug')('spruce-skill-server')
 const Sequelize = require('sequelize')
 const Umzug = require('umzug')
+const config = require('config')
 
 const defaultModelsDir = path.resolve(__dirname, '../models')
 
 function filterFile(file) {
-	const didFilter = file.indexOf('.') !== 0 && file !== 'index.js'
+	const didFilter =
+		file.indexOf('.') !== 0 && file !== 'index.js' && /\.js$/.test(file)
 	if (!didFilter) {
 		console.warn(`Filtered file from sequelize import() model %s`, file)
 	}
@@ -32,7 +34,11 @@ module.exports = (
 		operatorsAliases: false,
 		...{ ...options, dialect: database.dialect }
 	}
-	const sequelize = new Sequelize(database.url, sqlOptions)
+
+	const databaseUrl =
+		process.env.TESTING !== 'true' ? database.url : config.DATABASE_URL_TESTING
+
+	const sequelize = new Sequelize(databaseUrl, sqlOptions)
 
 	// Add sequelize logger
 	if (metricsEnabled && !metricsSequelizeDisabled) {

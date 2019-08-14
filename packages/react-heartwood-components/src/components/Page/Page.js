@@ -3,6 +3,7 @@ import React from 'react'
 import type { Node } from 'react'
 import cx from 'classnames'
 import PageHeader from './components/PageHeader/PageHeader'
+import PageContent from './components/PageContent/PageContent'
 import type { PageHeaderProps } from './components/PageHeader/PageHeader'
 
 // Card
@@ -22,9 +23,6 @@ type PageProps = {
 	/** Page header props */
 	header?: PageHeaderProps,
 
-	/** Set true if the page has a sidebar. Defaults to ''. */
-	hasSidebar?: boolean,
-
 	/** Set true if the page has a sidebar that is collapsed. Defaults to false. */
 	sidebarIsCollapsed?: boolean
 }
@@ -36,29 +34,35 @@ export const Page = (props: PageProps) => {
 		hasHeader,
 		className,
 		header,
-		hasSidebar,
-		sidebarIsCollapsed
+		sidebarIsCollapsed,
+		sidebar,
+		...rest
 	} = props
 	return (
 		<div
+			{...rest}
 			className={cx('page', className, {
 				'page--centered': isCentered,
 				'page--no-header': !hasHeader,
-				'page--has-sidebar': hasSidebar,
 				'page--sidebar-is-collapsed': sidebarIsCollapsed
 			})}
 		>
-			{header && <PageHeader {...header} />}
-			{children}
+			<div className={'page__content-container'}>
+				{header && <PageHeader {...header} />}
+				{children}
+			</div>
+			{sidebar && <div className={'page__sidebar'}>{sidebar}</div>}
 		</div>
 	)
 }
+
+Page.Header = PageHeader
+Page.Content = PageContent
 
 Page.defaultProps = {
 	isCentered: false,
 	hasHeader: true,
 	header: null,
-	hasSidebar: false,
 	sidebarIsCollapsed: false
 }
 

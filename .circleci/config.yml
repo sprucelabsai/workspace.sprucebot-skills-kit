@@ -9,10 +9,17 @@ jobs:
             - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
       - checkout
       - run: node -v && npm -v
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
       - run: yarn install --frozen-lockfile
-      - run: yarn lint
       - run: yarn build
+      - run: yarn lint
       - run: yarn test
+      - save_cache:
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
   pre_release:
     docker:
       - image: circleci/python:3-node
@@ -24,6 +31,9 @@ jobs:
       - run: echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
       - run: node -v && npm -v && aws --version
       - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
@@ -45,10 +55,14 @@ jobs:
       - run: echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
       - run: node -v && npm -v && aws --version
       - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
       - run: git config --global user.name "$GIT_AUTHOR_NAME"
+      - run: git pull --tags
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
@@ -68,6 +82,9 @@ jobs:
       - run: echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
       - run: node -v && npm -v && aws --version
       - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"
@@ -91,6 +108,9 @@ jobs:
       - run: echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
       - run: node -v && npm -v && aws --version
       - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: git config --global user.email "$GIT_AUTHOR_EMAIL"

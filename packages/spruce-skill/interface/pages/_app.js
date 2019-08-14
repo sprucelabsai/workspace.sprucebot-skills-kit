@@ -1,20 +1,27 @@
 import React from 'react'
 import App, { Container } from 'next/app'
 import config from 'config'
-global.log = require('@sprucelabs/log/client')
-
-// Set up log options
 const isClient = typeof window !== 'undefined'
-global.log.setOptions({
-	level: config.LOG_LEVEL,
-	appName: config.SLUG,
-	appEnv: config.ENV,
-	userAgent: isClient && navigator.userAgent ? navigator.userAgent : 'unknown',
-	packageVersion: config.PACKAGE_VERSION,
-	packageName: config.PACKAGE_NAME,
-	metricsUrl: config.METRICS_URL,
-	metricsEnabled: isClient && config.METRICS_ENABLED
-})
+if (isClient) {
+	global.log = require('@sprucelabs/log/client')
+
+	// Set up log options
+	global.log.setOptions({
+		level: config.LOG_LEVEL,
+		captureFELogs: config.CAPTURE_FE_LOGS,
+		logUrl: `${config.SERVER_HOST}/api/1.0/logs.json`,
+		useTrace: config.LOG_USE_TRACE,
+		useSourcemaps: config.LOG_USE_TRACE,
+		appName: config.SLUG,
+		appEnv: config.ENV,
+		userAgent:
+			isClient && navigator.userAgent ? navigator.userAgent : 'unknown',
+		packageVersion: config.PACKAGE_VERSION,
+		packageName: config.PACKAGE_NAME,
+		metricsUrl: config.METRICS_URL,
+		metricsEnabled: isClient && config.METRICS_ENABLED
+	})
+}
 
 export default class MyApp extends App {
 	static async getInitialProps({ Component, ctx }) {

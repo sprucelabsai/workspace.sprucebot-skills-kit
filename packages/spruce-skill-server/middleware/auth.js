@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const debug = require('debug')('spruce-skills-kit-server')
+const debug = require('debug')('spruce-skill-server')
 const config = require('config')
 
 module.exports = (router, options) => {
@@ -20,7 +20,9 @@ module.exports = (router, options) => {
 			ctx.cookies.get('jwt') ||
 			ctx.request.headers['x-skill-jwt']
 		if (token) {
-			ctx.cookies.set('jwt', token, { secure: true })
+			ctx.cookies.set('jwt', token, {
+				secure: process.env.TESTING !== 'true'
+			})
 			debug(`middleware/auth found token checking`)
 			try {
 				const decoded = jwt.verify(
@@ -99,7 +101,9 @@ module.exports = (router, options) => {
 			ctx.cookies.get('jwtV2') ||
 			ctx.request.headers['x-skill-jwt-v2']
 		if (token) {
-			ctx.cookies.set('jwtV2', token, { secure: true })
+			ctx.cookies.set('jwtV2', token, {
+				secure: process.env.TESTING !== 'true'
+			})
 			debug(`middleware/auth found token checking`)
 			try {
 				const { auth, decoded } = await decodeV2(ctx, token)
@@ -124,7 +128,7 @@ module.exports = (router, options) => {
 	router.use('/api/2.0/*', authV2)
 
 	if (config.EVENT_VERSION > 1) {
-		router.use('/hook.json', async (ctx, next) => {
+		router.post('/hook.json', async (ctx, next) => {
 			const listenersByEventName = options.listenersByEventName
 			const body = ctx.request.body
 			const eventName = body && body.event
@@ -137,11 +141,31 @@ module.exports = (router, options) => {
 						...decoded,
 						name: eventName
 					}
+
+					if (config.LOG_EVENTS) {
+						log.info(`(EVENT_VERSION=2) Received event '${eventName}'`, {
+							event: ctx.event
+						})
+					}
+
+					await listenersByEventName[eventName](ctx, next)
+					return
 				} catch (err) {
-					debug('MIDDLEWARE/AUTH INVALID EVENT TOKEN: ${token}', err)
+					debug('(EVENT_VERSION=2) MIDDLEWARE/AUTH INVALID EVENT TOKEN', err)
+					if (config.LOG_EVENTS) {
+						log.debug(
+							'(EVENT_VERSION=2) MIDDLEWARE/AUTH INVALID EVENT TOKEN',
+							err
+						)
+					}
 				}
 			} else {
-				debug('No listener found for ', eventName)
+				debug(`(EVENT_VERSION=2) No listener found for event: '${eventName}'`)
+				if (config.LOG_EVENTS) {
+					log.debug(
+						`(EVENT_VERSION=2) No listener found for event: '${eventName}'. Check that you have created the corresponding file in server/events/. If you don't need to respond to this event, remove it from your config.eventContract`
+					)
+				}
 			}
 
 			await next()

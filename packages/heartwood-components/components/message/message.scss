@@ -1,5 +1,6 @@
 .message {
 	display: flex;
+	flex: 0 0 auto;
 	padding: rem(6) rem(16) rem(6) 0;
 
 	&:hover {
@@ -12,8 +13,10 @@
 }
 
 .message__pre {
+	min-width: rem(56);
 	margin-right: rem(8);
 	line-height: 0;
+	text-align: right;
 
 	.message__original-timestamp {
 		position: relative;

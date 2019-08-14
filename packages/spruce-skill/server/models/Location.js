@@ -6,6 +6,8 @@
 // const Sequelize = require('sequelize')
 // const Op = Sequelize.Op
 
+const config = require('config')
+
 const modelName = 'Location'
 
 module.exports = (sequelize, DataTypes) => {
@@ -46,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING
 		},
 		geo: {
-			type: 'POINT',
+			type: config.TESTING ? 'JSON' : 'POINT',
 			get() {
 				const geoPoint = this.getDataValue('geo')
 				return geoPoint === null
@@ -66,6 +68,12 @@ module.exports = (sequelize, DataTypes) => {
 	Location.associate = function(models) {
 		Location.belongsTo(models.Organization, {
 			constraints: false
+		})
+		Location.hasMany(models.UserLocation, {
+			constraints: false
+		})
+		Location.belongsToMany(models.User, {
+			through: models.UserLocation
 		})
 	}
 

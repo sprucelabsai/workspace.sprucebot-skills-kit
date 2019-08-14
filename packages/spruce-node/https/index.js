@@ -47,37 +47,6 @@ module.exports = class Https {
 		})
 	}
 
-	async mutation(query) {
-		return new Promise((resolve, reject) => {
-			const path = '/graphql'
-			// API Key must go with each request
-			const headers = {
-				'x-skill-id': this.id,
-				'x-skill-api-key': this.apiKey,
-				'Content-Type': 'application/json'
-			}
-
-			const request = https.request(
-				{
-					method: 'POST',
-					host: this.host,
-					headers,
-					rejectUnauthorized: !this.allowSelfSignedCerts,
-					path
-				},
-				response => {
-					this.handleResponse(request, response, resolve, reject)
-				}
-			)
-
-			request.end(
-				JSON.stringify({
-					mutation: query
-				})
-			)
-		})
-	}
-
 	/**
 	 * GET an endpoint.
 	 *
@@ -203,13 +172,13 @@ module.exports = class Https {
 		response.on('data', d => (body += d))
 
 		request.on('error', err => {
-			debug(`REQUEST ERROR: ${request.method} ${request.path}`, err)
+			log.warn(`REQUEST ERROR: ${request.method} ${request.path}`, err)
 			reject(err)
 		})
 
 		// Handle errors
 		response.on('error', err => {
-			debug(`RESPONSE ERROR: ${request.method} ${request.path}`, err)
+			log.warn(`RESPONSE ERROR: ${request.method} ${request.path}`, err)
 			reject(err)
 		})
 
@@ -230,7 +199,7 @@ module.exports = class Https {
 					resolve(parsed)
 				}
 			} catch (err) {
-				debug(`RESPONSE ERROR: ${request.method} ${request.path}`, err)
+				log.warn(`RESPONSE ERROR: ${request.method} ${request.path}`, err)
 				reject(err)
 			}
 		})

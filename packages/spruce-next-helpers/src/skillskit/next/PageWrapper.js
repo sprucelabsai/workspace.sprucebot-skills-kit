@@ -72,7 +72,8 @@ type Props = {
 	asPath: string,
 	store: Object,
 	res?: Object,
-	req?: Object
+	req?: Object,
+	renderLocation?: 'page' | 'modal' | 'right-rail'
 }
 
 type State = {
@@ -97,7 +98,7 @@ const PageWrapper = Wrapped => {
 		constructor(props: Props) {
 			super(props)
 			this.state = {
-				// attemptingReAuth: !!props.attemptingReAuth,
+				attemptingReAuth: !!props.attemptingReAuth,
 				isIframed: true
 			}
 		}
@@ -109,34 +110,49 @@ const PageWrapper = Wrapped => {
 			asPath,
 			store,
 			res,
-			req
+			req,
+			renderLocation
 		}: Props) {
-			let props = { pathname, query, asPath }
-
-			const jwt = query.jwt || getCookie('jwt', req, res)
-
-			// authv1
-			if (jwt) {
-				try {
-					await store.dispatch(actions.auth.go(jwt))
-					setCookie('jwt', jwt, req, res)
-				} catch (err) {
-					debug(err)
-					debug('Error fetching user from jwt')
-				}
+			let props = {
+				pathname,
+				query,
+				asPath,
+				renderLocation: renderLocation || 'page'
 			}
-			// authv2
-			else {
+
+			// First get and set the jwt and jwtV2 tokens, preferring the query string version over what's saved in cookies
+			let jwt
+			if (query.jwt) {
+				jwt = query.jwt
+				setCookie('jwt', jwt, req, res)
+			} else {
+				jwt = getCookie('jwt', req, res)
+			}
+
+			let jwtV2
+			if (query.jwtV2) {
+				jwtV2 = query.jwtV2
+				setCookie('jwtV2', jwtV2, req, res)
+			} else {
+				jwtV2 = getCookie('jwtV2', req, res)
+			}
+
+			// Do authentication, preferring V2 if the jwtV2 is set
+			if (jwtV2) {
 				try {
 					await store.dispatch(
 						actions.authV2.go(query.jwtV2 || getCookie('jwtV2', req, res))
 					)
-					if (query.jwtV2) {
-						setCookie('jwtV2', query.jwtV2, req, res)
-					}
-				} catch (err) {
+				} catch (e) {
 					debug(err)
 					debug('Error fetching user from jwtV2')
+				}
+			} else if (jwt) {
+				try {
+					await store.dispatch(actions.auth.go(jwt))
+				} catch (err) {
+					debug(err)
+					debug('Error fetching user from jwt')
 				}
 			}
 
@@ -162,8 +178,9 @@ const PageWrapper = Wrapped => {
 
 			if (
 				query.back &&
-				query.jwt &&
+				(query.jwt || query.jwtV2) &&
 				(query.back.search('sprucebot.com') > 0 ||
+					query.back.search('spruce.ai') > 0 ||
 					query.back.search('bshop.io') > 0)
 			) {
 				// if there is a jwt, we are being authed
@@ -205,12 +222,12 @@ const PageWrapper = Wrapped => {
 
 			// if we are /unauthorized, don't have a cookie, but have NOT done cookie check
 			// TODO Remove re-auth after proving it works as expected in legacy skill
-			// if (
-			// 	props.pathname === '/unauthorized' &&
-			// 	(!state.auth || !state.auth.role)
-			// ) {
-			// 	props.attemptingReAuth = true
-			// }
+			if (
+				props.pathname === '/unauthorized' &&
+				(!state.auth || !state.auth.role)
+			) {
+				props.attemptingReAuth = true
+			}
 
 			// v2 authentication
 			if (state.auth && state.auth.User) {
@@ -228,23 +245,23 @@ const PageWrapper = Wrapped => {
 
 		handleIframeMessage = e => {
 			// we are not going to try and authenticate again (cookie setting)
-			// if (e.data === 'Skill:NotReAuthing') {
-			// 	this.setState({
-			// 		attemptingReAuth: false
-			// 	})
-			// 	return
-			// }
+			if (e.data === 'Skill:NotReAuthing') {
+				this.setState({
+					attemptingReAuth: false
+				})
+				return
+			}
 		}
 		async componentDidMount() {
 			if (window.self === window.top || window.__SBTEAMMATE__) {
 				// make sure we are being loaded inside sb
 				console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL')
 				this.setState({
-					// attemptingReAuth: false,
+					attemptingReAuth: false,
 					isIframed: !!window.__SBTEAMMATE__
 				})
-				// } else if (this.props.attemptingReAuth) {
-				// skill.forceAuth()
+			} else if (this.props.attemptingReAuth) {
+				skill.forceAuth()
 			}
 
 			// NOTE: Need to do this require here so that we can be sure the global window is defined
@@ -324,9 +341,10 @@ const PageWrapper = Wrapped => {
 		}
 
 		render() {
-			// if (this.state.attemptingReAuth) {
-			// return <Loader />
-			// }
+			if (this.state.attemptingReAuth) {
+				return <Loader />
+			}
+
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>

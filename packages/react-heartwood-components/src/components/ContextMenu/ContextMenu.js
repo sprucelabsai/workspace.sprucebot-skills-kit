@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react'
+import { createPortal } from 'react-dom'
 import cx from 'classnames'
-import { VelocityTransitionGroup } from 'velocity-react'
+import { debounce } from 'lodash'
 import Button from '../Button/Button'
 import type { Props as ButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
@@ -12,10 +13,13 @@ export type Props = {
 	/** The actions to be shown on tap/click */
 	actions: Array<ButtonProps>,
 
-	/** Set true to left align the menu */
+	/** DEPRECATED Set true to left align the menu */
 	isLeftAligned?: boolean,
 
-	/** Set true to align menu above button */
+	/** DEPRECATED Set true to right align the menu */
+	isRightAligned?: boolean,
+
+	/** DEPRECATED Set true to align menu above button */
 	isBottomAligned?: boolean,
 
 	/** Set the width of the menu. Helpful for longer text in buttons */
@@ -41,33 +45,159 @@ export type Props = {
 	isTextOnly: boolean,
 
 	/** Optional classname that applies to the button */
-	className?: string
+	className?: string,
+
+	onToggleContextMenuVisible?: Function
 }
 
 type State = {
-	isVisible: boolean
+	/** Show the menu */
+	isVisible: boolean,
+
+	/** Where the menu should be positioned when visible */
+	menuPosition: Object,
+
+	overflowBottom: boolean,
+	overflowLeft: boolean
 }
 
 export default class ContextMenu extends Component<Props, State> {
 	ref = React.createRef()
 	menuRef = React.createRef()
+	portalEl = React.createRef()
+	debouncedWindowResize = debounce(() => this.handleWindowResize(), 200)
 	state = {
 		isVisible: false,
 		overflowBottom: false,
-		overflowLeft: false
+		overflowLeft: false,
+		menuPosition: {
+			top: null,
+			left: null
+		}
 	}
 
 	static defaultProps = {
-		isLeftAligned: false,
+		isRightAligned: false,
 		isBottomAligned: false,
 		isTextOnly: false,
 		isSmall: false,
 		className: ''
 	}
 
+	constructor(props: Props) {
+		super(props)
+
+		this.portalEl = typeof document !== 'undefined' && document && document.body
+	}
+
+	componentDidMount = () => {
+		this.getMenuPlacement()
+		if (typeof window !== 'undefined') {
+			window.addEventListener('resize', this.debouncedWindowResize, false)
+		}
+	}
+
 	componentWillUnmount = () => {
-		document.removeEventListener('click', this.handleClickOutside, false)
-		document.removeEventListener('keyup', this.handleEscape, false)
+		if (typeof document !== 'undefined') {
+			document.removeEventListener('click', this.handleClickOutside, false)
+			document.removeEventListener('keyup', this.handleEscape, false)
+		}
+		if (typeof window !== 'undefined') {
+			window.removeEventListener('resize', this.debouncedWindowResize, false)
+		}
+	}
+
+	handleWindowResize = () => {
+		const { isVisible } = this.state
+		if (isVisible) {
+			this.updateMenuPlacement()
+		}
+	}
+
+	getTriggerPlacement = () => {
+		const triggerPosition =
+			this.ref.current && this.ref.current.getBoundingClientRect()
+
+		if (triggerPosition) {
+			return triggerPosition
+		}
+
+		return null
+	}
+
+	getMenuPlacement = () => {
+		const { isRightAligned, isBottomAligned } = this.props
+		const triggerPosition = this.getTriggerPlacement()
+
+		if (!triggerPosition) {
+			return
+		}
+		const menuPosition = {
+			top: isBottomAligned
+				? triggerPosition.y
+				: triggerPosition.y + triggerPosition.height,
+			left: isRightAligned
+				? triggerPosition.x + triggerPosition.width
+				: triggerPosition.x
+		}
+
+		this.setState({
+			menuPosition
+		})
+	}
+
+	updateMenuPlacement = () => {
+		const scrollTop =
+			typeof document !== 'undefined' &&
+			document &&
+			document.documentElement &&
+			document.documentElement.scrollTop
+				? document.documentElement.scrollTop
+				: 0
+		const triggerPosition = this.getTriggerPlacement()
+		const menuBox =
+			this.menuRef &&
+			this.menuRef.current &&
+			this.menuRef.current.getBoundingClientRect()
+		const portalBox = this.portalEl && this.portalEl.getBoundingClientRect()
+		let overflowLeft = false
+		let overflowBottom = false
+		let newTop = null
+		let newLeft = null
+
+		if (menuBox && portalBox && triggerPosition) {
+			if (
+				triggerPosition.x + triggerPosition.width + menuBox.width >
+				portalBox.width
+			) {
+				newLeft = triggerPosition.x + triggerPosition.width
+				overflowLeft = true
+			} else {
+				newLeft = triggerPosition.x
+			}
+
+			if (
+				scrollTop +
+					triggerPosition.y +
+					triggerPosition.height +
+					menuBox.height >
+				scrollTop + portalBox.height
+			) {
+				newTop = scrollTop + triggerPosition.y
+				overflowBottom = true
+			} else {
+				newTop = scrollTop + triggerPosition.y + triggerPosition.height
+			}
+		}
+
+		this.setState(prevState => ({
+			overflowLeft,
+			overflowBottom,
+			menuPosition: {
+				top: newTop || prevState.menuPosition.top,
+				left: newLeft || prevState.menuPosition.left
+			}
+		}))
 	}
 
 	handleClickOutside = () => {
@@ -102,46 +232,11 @@ export default class ContextMenu extends Component<Props, State> {
 					this.props.onToggleContextMenuVisible(this.state.isVisible)
 				}
 
-				let overflowLeft = false
-				let overflowBottom = false
-
-				if (this.menuRef && this.menuRef.current) {
-					const overflowParent = this.findOverflowParent(this.menuRef.current)
-
-					if (overflowParent) {
-						const overflowBox = overflowParent.getBoundingClientRect()
-						const overflowBoxBottom = overflowBox.top + overflowBox.height
-						const menuBox = this.menuRef.current.getBoundingClientRect()
-						const menuBottom = menuBox.top + menuBox.height
-
-						if (menuBottom > overflowBoxBottom) {
-							overflowBottom = true
-						} else if (menuBox.left < overflowBox.left) {
-							overflowLeft = true
-						}
-					}
+				if (this.state.isVisible) {
+					this.updateMenuPlacement()
 				}
-
-				this.setState(prevState => ({
-					overflowLeft: !prevState.isLeftAligned && overflowLeft,
-					overflowBottom: !prevState.isBottomAligned && overflowBottom
-				}))
 			}
 		)
-	}
-
-	findOverflowParent = node => {
-		if (node == null || typeof node === 'undefined' || node.nodeType !== 1) {
-			return null
-		}
-
-		const computedStyle = window.getComputedStyle(node)
-
-		if (computedStyle.overflow !== 'visible') {
-			return node
-		} else {
-			return this.findOverflowParent(node.parentNode)
-		}
 	}
 
 	manageListeners = () => {
@@ -164,10 +259,10 @@ export default class ContextMenu extends Component<Props, State> {
 	}
 
 	render() {
-		const { isVisible, overflowBottom, overflowLeft } = this.state
+		const { isVisible, overflowBottom, overflowLeft, menuPosition } = this.state
 		const {
 			actions,
-			isLeftAligned,
+			isRightAligned,
 			isBottomAligned,
 			isSimple,
 			isSmall,
@@ -181,7 +276,7 @@ export default class ContextMenu extends Component<Props, State> {
 			'context-menu--is-visible': isVisible
 		})
 		const menuClass = cx('context-menu__menu', {
-			'context-menu__menu-left': isLeftAligned || overflowLeft,
+			'context-menu__menu-left': isRightAligned || overflowLeft,
 			'context-menu__menu-large': size === 'large',
 			'context-menu__menu-top': isBottomAligned || overflowBottom
 		})
@@ -198,33 +293,33 @@ export default class ContextMenu extends Component<Props, State> {
 					text={text}
 					isSmall={isSmall}
 				/>
-				<VelocityTransitionGroup
-					enter={{
-						animation: { opacity: 1, translateY: '4px' },
-						duration: 200
-					}}
-					leave={{
-						animation: { opacity: 0, translateY: '12px' },
-						duration: 200
-					}}
-				>
-					{isVisible && (
-						<div className={menuClass} ref={this.menuRef}>
+				{isVisible &&
+					this.portalEl &&
+					createPortal(
+						<div
+							className={menuClass}
+							ref={this.menuRef}
+							style={{
+								position: 'absolute',
+								top: menuPosition.top ? `${menuPosition.top + 4}px` : 'auto',
+								left: menuPosition.left ? `${menuPosition.left + 4}px` : 'auto'
+							}}
+						>
 							<ButtonGroup
 								kind="floating"
 								actions={actions.map(action => {
 									const btnAction = { ...action }
 									const oldOnclick = btnAction.onClick
-									btnAction.onClick = payload => {
-										this.handleClickAction(payload, oldOnclick)
+									btnAction.onClick = () => {
+										this.handleClickAction(btnAction.payload, oldOnclick)
 									}
 									btnAction.className = 'context-menu__item-btn'
 									return btnAction
 								})}
 							/>
-						</div>
+						</div>,
+						this.portalEl
 					)}
-				</VelocityTransitionGroup>
 			</div>
 		)
 	}

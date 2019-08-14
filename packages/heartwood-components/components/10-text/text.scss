@@ -26,7 +26,7 @@
 
 .heading {
 	@include typescale('heading-lg');
-	font-weight: $font-weight-normal;
+	font-weight: $font-weight-bold;
 }
 .subheading {
 	@include typescale('heading-md');
@@ -38,6 +38,39 @@
 	font-weight: $font-weight-normal;
 	font-feature-settings: 'onum', 'pnum';
 	font-variant-numeric: oldstyle-nums proportional-nums;
+	.icon {
+		height: 0.85em;
+		width: 0.85em;
+		margin: 0 0.2rem;
+		position: relative;
+		bottom: -0.1em;
+	}
+	.btn {
+		padding: 0;
+		&:hover,
+		&:active,
+		&:not(:disabled):not(:active):focus {
+			background-color: transparent;
+			color: $c-primary-light;
+			text-decoration: underline;
+		}
+	}
+}
+
+.text a,
+a.text {
+	color: $c-primary;
+	display: inline-flex;
+	align-items: center;
+	font-weight: inherit;
+	.icon {
+		&:not(.icon--no-fill) {
+			fill: $c-primary;
+		}
+		&.icon--stroke {
+			stroke: $c-primary;
+		}
+	}
 }
 
 .text__style {
@@ -46,5 +79,8 @@
 	}
 	&--emphasis {
 		font-style: italic;
+	}
+	&--subdued {
+		opacity: 0.5;
 	}
 }

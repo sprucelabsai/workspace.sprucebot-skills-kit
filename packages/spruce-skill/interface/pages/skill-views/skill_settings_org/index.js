@@ -48,11 +48,13 @@ class TestSkillView extends React.Component<Props> {
 	async componentDidMount() {
 		try {
 			const result = await gqlClient.query({
-				query: `{
-                    Users {
-                        id
+				query: gql`
+					{
+						Users {
+							id
+						}
 					}
-				}`
+				`
 			})
 
 			log.debug({ result })

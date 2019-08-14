@@ -27,6 +27,11 @@ select:-webkit-autofill:focus {
 
 .text-input__post-label {
 	color: $c-text-light;
+
+	a.text {
+		cursor: pointer;
+		font-size: 0.75rem;
+	}
 }
 
 .text-input__helper {
@@ -59,7 +64,8 @@ select:-webkit-autofill:focus {
 	opacity: 0.7;
 }
 
-.text-input__icon-pre ~ .text-input__input {
+.text-input__icon-pre ~ .text-input__input,
+.text-input__input.text-input__inner--has-icon {
 	padding-left: spacing('extra-loose');
 }
 

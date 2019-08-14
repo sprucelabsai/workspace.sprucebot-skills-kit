@@ -1,6 +1,7 @@
 const config = require('config')
 const globby = require('globby')
 const GraphQLSubscription = require('../lib/GraphQLSubscription')
+const debug = require('debug')('spruce-skill-server')
 const helpers = require('./helpers')
 
 module.exports = (koa, gqlOptions) => {
@@ -26,7 +27,7 @@ module.exports = (koa, gqlOptions) => {
 
 	listenerPaths.forEach(path => {
 		try {
-			log.info(`Importing gql listener: ${path}`)
+			debug(`Importing gql listener: ${path}`)
 			// $FlowIgnore
 			require(path)(koa.context) // eslint-disable-line
 		} catch (e) {

@@ -60,13 +60,20 @@
 		}
 	}
 
-	&[indeterminate] {
+	&:indeterminate {
 		~ .checkbox-item__icons .checkbox-item__icon-maybe {
 			display: block;
 		}
 		~ .checkbox-item__icons .checkbox-item__icon-no,
 		~ .checkbox-item__icons .checkbox-item__icon-yes {
 			display: none;
+		}
+	}
+
+	&:disabled {
+		~ .checkbox-item__label,
+		~ .checkbox-item__icons {
+			opacity: 0.5;
 		}
 	}
 }

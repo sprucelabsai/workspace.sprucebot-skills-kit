@@ -1,12 +1,9 @@
 // @flow
-// TODO: The Autosuggest used here will need to be updated to hook up to the API
-// and render userful results. This should probably be done as its own component
 import React, { Component, Fragment } from 'react'
 import Hamburger from './components/Hamburger/Hamburger'
 import DefaultLockup from './components/DefaultLockup/DefaultLockup'
 import UserMenu from './components/UserMenu/UserMenu'
 import LocationMenu from './components/LocationMenu/LocationMenu'
-import { Autosuggest } from '../../../Forms'
 import Button from '../../../Button/Button'
 import cx from 'classnames'
 
@@ -31,23 +28,14 @@ type Props = {
 	/** Set true to show the sidebar (small screens only) */
 	isSidebarVisible: boolean,
 
-	/** Passthrough function to calculate search suggestions */
-	getSearchSuggestions?: Function,
-
-	/** Passthrough function to show search suggestion value */
-	getSearchSuggestionValue?: Function,
-
-	/** Passthrough function to render search suggestions */
-	renderSearchSuggestion?: Function,
-
-	/** Passthrough called every time suggestion is selected */
-	onSearchSuggestionSelected?: Function,
-
 	/** Whether or not we will need to handle hamburger functionality */
 	enableHamburgerMenu: boolean,
 
 	/** Placeholder text for the search field */
 	searchPlaceholder?: string,
+
+	/** Handle search click */
+	onClickSearch?: Function,
 
 	/** Set true to show location management shortcut */
 	isLocationManagmentButtonVisible?: boolean,
@@ -58,8 +46,17 @@ type Props = {
 	/** Destination for the skills link */
 	skillsHref?: string,
 
+	/** Destination for the login link */
+	loginHref?: string,
+
+	/** CTA Copy for the login link */
+	loginCTA?: string,
+
 	/** Destination for the location management link */
-	locationManagementHref?: string
+	locationManagementHref?: string,
+
+	/** Menu children (<ListItem> or <li>) */
+	userMenuItems: ReactNode
 }
 
 export default class HeaderPrimary extends Component<Props, State> {
@@ -69,6 +66,8 @@ export default class HeaderPrimary extends Component<Props, State> {
 		isLocationManagmentButtonVisible: false,
 		isSkillManagementButtonVisible: false,
 		skillsHref: '',
+		loginHref: '/',
+		loginCTA: 'Log In / Signup',
 		locationManagementHref: ''
 	}
 
@@ -100,6 +99,10 @@ export default class HeaderPrimary extends Component<Props, State> {
 				() => this.manageListeners()
 			)
 		}
+	}
+
+	handleSearchClick = () => {
+		this.props.onClickSearch && this.props.onClickSearch()
 	}
 
 	toggleUserMenuVisibility = () => {
@@ -177,16 +180,16 @@ export default class HeaderPrimary extends Component<Props, State> {
 			location,
 			toggleSidebarVisibility,
 			isSidebarVisible,
-			getSearchSuggestions,
-			getSearchSuggestionValue,
-			onSearchSuggestionSelected,
-			renderSearchSuggestion,
 			enableHamburgerMenu,
 			searchPlaceholder,
 			isLocationManagmentButtonVisible,
 			isSkillManagementButtonVisible,
+			userMenuItems,
 			skillsHref,
-			locationManagementHref
+			locationManagementHref,
+			loginHref,
+			loginCTA,
+			onClickSearch
 		} = this.props
 
 		return (
@@ -229,28 +232,24 @@ export default class HeaderPrimary extends Component<Props, State> {
 									/>
 								</div>
 							)}
-							{getSearchSuggestionValue && renderSearchSuggestion && (
-								<Autosuggest
-									className="text-input-small"
-									placeholder={searchPlaceholder}
-									isSmall
-									wrapperClassName="header-primary__autosuggest"
-									getSuggestions={getSearchSuggestions}
-									getSuggestionValue={getSearchSuggestionValue}
-									renderSuggestion={renderSearchSuggestion}
-									onSuggestionSelected={onSearchSuggestionSelected}
+							{onClickSearch && (
+								<Button
+									text={searchPlaceholder}
+									icon={{ name: 'search' }}
+									className="header-primary__search-btn"
+									onClick={this.handleSearchClick}
 								/>
 							)}
 							<UserMenu
 								menuIsVisible={isUserMenuVisible}
 								toggleMenu={this.toggleUserMenuVisibility}
+								userMenuItems={userMenuItems}
 								{...user}
 							/>
 						</Fragment>
 					) : (
 						<Fragment>
-							<Button kind="primary" isSmall text="Log In" />
-							<Button isSmall text="Sign Up" />
+							<Button kind="primary" isSmall text={loginCTA} href={loginHref} />
 						</Fragment>
 					)}
 				</div>

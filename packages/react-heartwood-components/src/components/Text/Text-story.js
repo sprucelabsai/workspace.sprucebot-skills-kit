@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, select } from '@storybook/addon-knobs/react'
+import { withKnobs, text, select, object } from '@storybook/addon-knobs/react'
 import Text, { Span } from './Text'
 const stories = storiesOf('Text', module)
 
@@ -37,12 +37,35 @@ const options = [
 
 stories
 	.add('Text', () => (
-		<Text element={select('Element', options, 'p')}>
-			{text('children', 'Hello, world')}
+		<Text
+			element={select('Element', options, 'p')}
+			context={object('Context', {
+				planet: {
+					text: 'World!',
+					type: 'style',
+					props: { type: 'strong' }
+				},
+				link: {
+					text: 'Click me!',
+					type: 'button',
+					props: { href: 'https://www.spruce.ai' }
+				}
+			})}
+		>
+			{text('children', 'Hello, {{planet}}! {{link}}')}
 		</Text>
 	))
 	.add('Span', () => (
-		<Span element={select('Element', options, 'span')}>
-			{text('children', 'Hello, world')}
+		<Span
+			element={select('Element', options, 'span')}
+			context={object('Context', {
+				planet: {
+					text: 'World!',
+					type: 'style',
+					props: { type: 'strong' }
+				}
+			})}
+		>
+			{text('children', 'Hello, {{planet}}!')}
 		</Span>
 	))

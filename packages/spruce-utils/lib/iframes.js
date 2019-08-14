@@ -14,23 +14,34 @@ export default class Iframes {
 		to: destinationWindow,
 		eventName,
 		data,
-		onResponse
+		onResponse,
+		legacy
 	}: IframeMessageOptions) {
 		const responseEventName = `${eventName}__${Math.random()}`
 
-		destinationWindow.postMessage(
-			{
-				eventName,
-				responseEventName: onResponse && responseEventName,
-				dataFromUser: data
-			},
-			'*'
-		)
+		if (legacy) {
+			destinationWindow.postMessage(
+				JSON.stringify({
+					name: eventName,
+					...data
+				}),
+				'*'
+			)
+		} else {
+			destinationWindow.postMessage(
+				{
+					eventName,
+					responseEventName: onResponse && responseEventName,
+					dataFromUser: data
+				},
+				'*'
+			)
+		}
 
 		if (onResponse) {
 			const responseHandler = event => {
 				if (event.data.eventName === responseEventName) {
-					onResponse(event.data.dataFromUser)
+					onResponse(event.data.dataFromUser, event)
 					window.removeEventListener('message', responseHandler)
 				}
 			}
@@ -81,7 +92,7 @@ export default class Iframes {
 				const data =
 					typeof event.data === 'string' ? eventData : event.data.dataFromUser
 
-				callback(data, responder)
+				callback(data, responder, event)
 			}
 			// }
 		}

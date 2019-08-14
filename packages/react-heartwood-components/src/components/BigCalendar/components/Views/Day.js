@@ -471,6 +471,10 @@ class Day extends PureComponent<Props, State> {
 		const newUser = this.xToUser(newX)
 
 		const { onDropEvent, timezone } = this.props
+		const matches = document.querySelectorAll(
+			'.bigcalendar__event.hover-available'
+		)
+		matches.forEach(match => match.classList.toggle('hover-available', false))
 
 		if (
 			newStartAt &&
@@ -1207,7 +1211,10 @@ class Day extends PureComponent<Props, State> {
 			time = null
 		} else {
 			time = this.yToTime(
-				this.snapEventToNearestValidY({ dragNodeTop: clientY })
+				this.snapEventToNearestValidY({
+					dragNodeTop: clientY,
+					round: Math.floor
+				})
 			)
 		}
 
@@ -1233,7 +1240,10 @@ class Day extends PureComponent<Props, State> {
 			time = null
 		} else {
 			time = this.yToTime(
-				this.snapEventToNearestValidY({ dragNodeTop: clientY })
+				this.snapEventToNearestValidY({
+					dragNodeTop: clientY,
+					round: Math.floor
+				})
 			)
 		}
 

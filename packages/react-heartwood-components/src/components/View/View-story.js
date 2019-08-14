@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react'
+import faker from 'faker'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../.storybook/StylesProvider'
@@ -12,10 +13,14 @@ import ContextMenu from '../ContextMenu/ContextMenu'
 import Page from '../Page/Page'
 import TextStyle from '../TextStyle/TextStyle'
 import Heading from '../Heading/Heading'
+import Text from '../Text/Text'
+import TextContainer from '../TextContainer/TextContainer'
 import Avatar from '../Avatar/Avatar'
 import SaveBar from '../Core/components/SaveBar/SaveBar'
+import FeedBuilder from '../Core/components/FeedBuilder/FeedBuilder'
+import { generateMessages } from '../../../.storybook/data/feed'
 
-import View from './View.js'
+import View from './View'
 
 const ProvideStyles = storyFn => <StylesProvider>{storyFn()}</StylesProvider>
 
@@ -106,9 +111,10 @@ const user = {
 	tel: '(605) 230-5253'
 }
 
-const business = {
+const organization = {
 	name: 'Chimera Hair Salon',
-	address: '7678 N High St, Denver, CO'
+	image:
+		'https://www.logoground.com/uploads/2018130762018-04-113965123chimera%20logo%20chimera%20logo.jpg'
 }
 
 const skillViewTabs = [
@@ -121,13 +127,21 @@ const skillViewTabs = [
 	}
 ]
 
-type Props = {}
-type State = {
+type SkillViewProps = {}
+type SkillViewState = {
 	sidebarsExpanded: Object,
 	sidebarsMobileExpanded: Object
 }
 
-class SkillViewExample extends Component<Props, State> {
+const generateTonsOfContent = () => (
+	<TextContainer>
+		{[...Array(100)].map((o, idx) => (
+			<Text key={idx}>{faker.lorem.paragraph()}</Text>
+		))}
+	</TextContainer>
+)
+
+class SkillViewExample extends Component<SkillViewProps, SkillViewState> {
 	state = {
 		sidebarsExpanded: {
 			right: true,
@@ -210,7 +224,7 @@ class SkillViewExample extends Component<Props, State> {
 				STORYBOOKdoNotWrap
 				sidebarItems={orgItems}
 				user={user}
-				business={business}
+				organization={organization}
 				isSidebarExpanded={sidebarsExpanded.left}
 				isSidebarMobileExpanded={sidebarsMobileExpanded.left}
 				toggleSidebarExpanded={() => this.handleSidebarToggle('left')}
@@ -233,57 +247,59 @@ class SkillViewExample extends Component<Props, State> {
 						},
 						tabs: skillViewTabs
 					}}
-					hasSidebar="large"
 					sidebarIsCollapsed={!sidebarsExpanded.right}
-				>
-					<Sidebar
-						side="right"
-						isCollapsible={false}
-						isLarge
-						isExpanded={sidebarsExpanded.right}
-						isMobileExpanded={sidebarsMobileExpanded.right}
-						toggleExpanded={() => this.handleSidebarToggle('right')}
-						mobileHeader={{
-							title: 'Chimera Salon at the Point',
-							action: {
-								icon: { name: 'close' },
-								isSmall: true,
-								onClick: () => this.handleMobileSidebarToggle('right')
-							}
-						}}
-					>
-						<SidebarSection>
-							<Card isSmall>
-								<CardHeader
-									labelText="Location Status"
-									labelIcon={{ name: 'hide', isLineIcon: true }}
-									title="This location is hidden"
-								/>
-								<CardBody>
-									<p>
-										This location is currently hidden from guests, but is
-										visible to you and your teammates.
-									</p>
-								</CardBody>
-								<CardFooter>
-									<ButtonGroup
-										actions={[
-											{
-												text: 'Preview as guest',
-												kind: 'simple',
-												isSmall: true
-											},
-											{
-												text: 'Make location live',
-												kind: 'primary',
-												isSmall: true
-											}
-										]}
+					sidebar={
+						<Sidebar
+							side="right"
+							isCollapsible={false}
+							isLarge
+							isExpanded={sidebarsExpanded.right}
+							isMobileExpanded={sidebarsMobileExpanded.right}
+							toggleExpanded={() => this.handleSidebarToggle('right')}
+							mobileHeader={{
+								title: 'Chimera Salon at the Point',
+								action: {
+									icon: { name: 'close' },
+									isSmall: true,
+									onClick: () => this.handleMobileSidebarToggle('right')
+								}
+							}}
+						>
+							<SidebarSection>
+								<Card isSmall>
+									<CardHeader
+										labelText="Location Status"
+										labelIcon={{ name: 'hide', isLineIcon: true }}
+										title="This location is hidden"
 									/>
-								</CardFooter>
-							</Card>
-						</SidebarSection>
-					</Sidebar>
+									<CardBody>
+										<p>
+											This location is currently hidden from guests, but is
+											visible to you and your teammates.
+										</p>
+									</CardBody>
+									<CardFooter>
+										<ButtonGroup
+											actions={[
+												{
+													text: 'Preview as guest',
+													kind: 'simple',
+													isSmall: true
+												},
+												{
+													text: 'Make location live',
+													kind: 'primary',
+													isSmall: true
+												}
+											]}
+										/>
+									</CardFooter>
+								</Card>
+							</SidebarSection>
+						</Sidebar>
+					}
+				>
+					{generateTonsOfContent()}
 				</Page>
 			</View>
 		)
@@ -292,93 +308,137 @@ class SkillViewExample extends Component<Props, State> {
 
 stories
 	.add('Default', () => (
-		<View
-			STORYBOOKdoNotWrap
-			sidebarItems={personalItems}
-			user={user}
-			business={business}
-			isSidebarExpanded
-		>
-			<Page
-				header={{
-					title: 'Hello Human'
-				}}
-			/>
-		</View>
+		<div STORYBOOKdoNotWrap style={{ height: '100vh' }}>
+			<View
+				STORYBOOKdoNotWrap
+				sidebarItems={personalItems}
+				user={user}
+				organization={organization}
+				isSidebarExpanded
+			>
+				<Page
+					header={{
+						title: 'Hello Human'
+					}}
+				>
+					{generateTonsOfContent()}
+				</Page>
+			</View>
+		</div>
 	))
 	.add('Save Bar', () => (
-		<View
-			STORYBOOKdoNotWrap
-			sidebarItems={personalItems}
-			user={user}
-			business={business}
-			isSidebarExpanded
-		>
-			<Page
-				header={{
-					title: 'Hello Human'
-				}}
-			/>
-			<SaveBar isVisible={boolean('isVisible', true)} />
-		</View>
+		<div STORYBOOKdoNotWrap style={{ height: '100vh' }}>
+			<View
+				STORYBOOKdoNotWrap
+				sidebarItems={personalItems}
+				user={user}
+				organization={organization}
+				isSidebarExpanded
+			>
+				<Page
+					header={{
+						title: 'Hello Human'
+					}}
+				>
+					{generateTonsOfContent()}
+				</Page>
+				<SaveBar isVisible={boolean('isVisible', true)} />
+			</View>
+		</div>
 	))
-	.add('Skill View', () => <SkillViewExample STORYBOOKdoNotWrap />)
-	.add('Guest Profile', () => (
-		<View
-			STORYBOOKdoNotWrap
-			sidebarItems={bizItems}
-			user={user}
-			business={business}
-			isSidebarExpanded
-		>
-			<Page hasSidebar>
-				<Sidebar isLarge isCollapsible={false} side="right">
-					<SidebarSection
-						isCentered
-						verticalSpacing="loose"
-						horizontalSpacing="loose"
+	.add('Skill View', () => (
+		<div STORYBOOKdoNotWrap style={{ height: '100vh' }}>
+			<SkillViewExample />
+		</div>
+	))
+	.add('Guest Profile', () => {
+		let messages = generateMessages({ count: 50, interval: 31 })
+		return (
+			<div STORYBOOKdoNotWrap style={{ height: '100vh' }}>
+				<View
+					STORYBOOKdoNotWrap
+					sidebarItems={bizItems}
+					user={user}
+					business={organization}
+					isSidebarExpanded
+				>
+					<Page
+						sidebar={
+							<Sidebar isLarge isCollapsible={false} side="right">
+								<SidebarSection
+									isCentered
+									verticalSpacing="loose"
+									horizontalSpacing="loose"
+								>
+									<Avatar
+										isLarge
+										isCentered
+										image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
+									/>
+									<Heading>
+										<TextStyle type="strong">Dorian Feeney</TextStyle>
+									</Heading>
+								</SidebarSection>
+								<SidebarSection
+									horizontalSpacing="loose"
+									className="u-flex-row"
+								>
+									<Button
+										isSmall
+										kind="secondary"
+										className="u-flex-child-grow"
+										text="Call Dorian"
+										icon={{
+											name: 'phone',
+											isLineIcon: true
+										}}
+									/>
+									<ContextMenu
+										isSmall
+										className="u-ml-tight"
+										actions={[
+											{
+												text: 'One action'
+											},
+											{
+												text: 'two action'
+											},
+											{
+												text: 'red action'
+											},
+											{
+												text: 'blue action'
+											}
+										]}
+										isSimple
+									/>
+								</SidebarSection>
+							</Sidebar>
+						}
 					>
-						<Avatar
-							isLarge
-							isCentered
-							image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
+						<FeedBuilder
+							messages={messages}
+							messageCount={50}
+							onRowsRequested={() => null}
 						/>
-						<Heading>
-							<TextStyle type="strong">Dorian Feeney</TextStyle>
-						</Heading>
-					</SidebarSection>
-					<SidebarSection horizontalSpacing="loose" className="u-flex-row">
-						<Button
-							isSmall
-							kind="secondary"
-							className="u-flex-child-grow"
-							text="Call Dorian"
-							icon={{
-								name: 'phone',
-								isLineIcon: true
-							}}
-						/>
-						<ContextMenu
-							isSmall
-							className="u-ml-tight"
-							actions={[
-								{
-									text: 'One action'
-								},
-								{
-									text: 'two action'
-								},
-								{
-									text: 'red action'
-								},
-								{
-									text: 'blue action'
-								}
-							]}
-							isSimple
-						/>
-					</SidebarSection>
-				</Sidebar>
-			</Page>
-		</View>
-	))
+					</Page>
+				</View>
+			</div>
+		)
+	})
+	.add('No Left Sidebar Items', () => {
+		return (
+			<div STORYBOOKdoNotWrap style={{ height: '100vh' }}>
+				<View
+					sidebarItems={[]}
+					user={user}
+					business={organization}
+					isSidebarExpanded
+					termsLink="#"
+					privacyLink="#"
+				>
+					<Page>{generateTonsOfContent()}</Page>
+				</View>
+			</div>
+		)
+	})

@@ -37,7 +37,7 @@ export type Props = {
 type State = {}
 
 export default class SaveBar extends React.PureComponent<Props, State> {
-	state = {}
+	_element = null
 
 	static defaultProps = {
 		message: 'Unsaved changes',
@@ -46,6 +46,11 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 		isSaving: false,
 		isDiscardDisabled: false,
 		isSaveDisabled: false
+	}
+
+	componentDidMount() {
+		this._element = document.body
+		this.forceUpdate()
 	}
 
 	render() {
@@ -61,7 +66,7 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 			onSave
 		} = this.props
 
-		if (typeof document === 'undefined') {
+		if (!this._element) {
 			return null
 		}
 
@@ -104,7 +109,7 @@ export default class SaveBar extends React.PureComponent<Props, State> {
 					</div>
 				</div>
 			</CSSTransition>,
-			document.body
+			this._element
 		)
 	}
 }

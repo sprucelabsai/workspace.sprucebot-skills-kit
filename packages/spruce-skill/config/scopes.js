@@ -17,7 +17,9 @@ module.exports = {
 		public: base =>
 			scopeWithBase({
 				scope: {
-					Locations: 'public'
+					Locations: 'public',
+					'Locations.Users': 'public',
+					'Locations.UserLocations': 'public'
 				},
 				base
 			})

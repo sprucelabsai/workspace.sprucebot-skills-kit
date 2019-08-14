@@ -6,7 +6,7 @@ import {
 	PageContent,
 	Layout,
 	LayoutSection,
-	CardBuilder
+	ButtonGroup
 } from '@sprucelabs/react-heartwood-components'
 
 import type { WrappedInitialProps } from '../../containers/PageWrapper'
@@ -17,6 +17,9 @@ type Props = {
 }
 
 class TestSkillView extends React.Component<Props> {
+	supportingMessage = this.props.skill.supportingMessage()
+	modal = this.props.skill.modal()
+
 	static async getInitialProps(props: WrappedInitialProps) {
 		if (props.auth && props.auth.User) {
 			console.log('a user is logged in!')
@@ -34,45 +37,43 @@ class TestSkillView extends React.Component<Props> {
 				<PageContent>
 					<Layout>
 						<LayoutSection>
-							<CardBuilder
-								header={{
-									title: 'An example view',
-									subtitle: 'With an example card',
-									contextMenu: {
-										actions: [
-											{
-												text: 'First option'
-											},
-											{
-												text: 'Second option'
-											}
-										]
-									}
-								}}
-								body={{
-									children: [
-										{
-											type: 'scores',
-											scores: [
-												{
-													id: 'one',
-													label: 'First Time',
-													value: '$130'
-												},
-												{
-													id: 'two',
-													label: 'Second Time',
-													value: '$160'
-												},
-												{
-													id: 'three',
-													label: 'Third Time',
-													value: '$190'
-												}
-											]
+							<ButtonGroup
+								kind=""
+								actions={[
+									{
+										text: 'Open a skill view dialog',
+										kind: 'primary',
+										icon: { name: 'new_tab' },
+										onClick: () => {
+											this.model.apen({
+												title: 'A Cool Skill View Dialog',
+												src: `${window.location.protocol}//${
+													window.location.hostname
+												}/skill-views/example_skill_view_dialog`
+											})
 										}
-									]
-								}}
+									},
+									{
+										text: 'Add a toast',
+										kind: 'primary',
+										icon: { name: 'new_tab' },
+										onClick: () => {
+											this.supportingMessage.add({
+												headline: 'A toast from my skill',
+												text: 'Lorem ipsum body copy',
+												kind: 'neutral',
+												followupText: 'Undo',
+												id: Math.random(),
+												timeout: 4000,
+												callback: () => {
+													window.alert(
+														'From the skill view: undo in toast was clicked!'
+													)
+												}
+											})
+										}
+									}
+								]}
 							/>
 						</LayoutSection>
 					</Layout>

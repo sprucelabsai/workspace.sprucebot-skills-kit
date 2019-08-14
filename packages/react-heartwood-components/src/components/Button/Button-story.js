@@ -3,7 +3,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
-	withKnobsOptions,
+	// withKnobsOptions,
 	text,
 	boolean,
 	object
@@ -14,11 +14,11 @@ const btnText = text('text', 'Hello World')
 const isFullWidth = boolean('isFullWidth', false)
 
 const stories = storiesOf('Button', module)
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 stories.addDecorator(withKnobs)
 
 stories
@@ -64,6 +64,24 @@ stories
 			isFullWidth={isFullWidth}
 			text={btnText}
 			kind={text('kind', '') || 'simple'}
+			disabled={boolean('disabled', false)}
+			isLoading={boolean('isLoading', false)}
+			isSmall={boolean('isSmall', false)}
+			icon={{
+				name: text('icon', null),
+				className: text('iconClassName', 'btn__line-icon')
+			}}
+			href={text('href', '')}
+			target={text('target', '')}
+			onClick={text('onClick', '() => console.log("you clicked")')}
+			linkProps={object('linkProps', {})}
+		/>
+	))
+	.add('Default', () => (
+		<Button
+			isFullWidth={isFullWidth}
+			text={btnText}
+			kind={text('kind', '') || ''}
 			disabled={boolean('disabled', false)}
 			isLoading={boolean('isLoading', false)}
 			isSmall={boolean('isSmall', false)}

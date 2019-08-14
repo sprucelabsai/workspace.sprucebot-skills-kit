@@ -50,26 +50,32 @@ export default class DayCol extends Component<Props> {
 						.format('X')
 			  )
 			: false
+
 		let isActive
 		let now
 
+		// duration in seconds
+		const slotDuration = (60 / slotsPerHour) * 60
+
 		const hourElements = hours.map(hour => {
 			now = hour.timestamp
-			isActive = start && end && now >= start && now < end
-
 			const slots = []
 			for (let c = 0; c < slotsPerHour; c++) {
-				slots.push(<div key={`${hour.hour}-${c}`} className={'timeslot'} />)
+				isActive = start && end && now >= start && now < end
+				slots.push(
+					<div
+						key={`${hour.hour}-${c}`}
+						className={cx('timeslot', {
+							active: isActive,
+							inactive: !isActive
+						})}
+					/>
+				)
+				now += slotDuration
 			}
 
 			return (
-				<div
-					key={`${hour.timestamp}-daycol`}
-					className={cx('hour-block', {
-						active: isActive,
-						inactive: !isActive
-					})}
-				>
+				<div key={`${hour.timestamp}-daycol`} className={cx('hour-block', {})}>
 					{slots}
 				</div>
 			)
