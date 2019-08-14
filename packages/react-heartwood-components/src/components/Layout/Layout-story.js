@@ -5,15 +5,17 @@ import { withKnobs } from '@storybook/addon-knobs/react'
 import faker from 'faker'
 
 import Layout, { LayoutSection } from './index'
-import Card, { CardHeader, CardBody } from '../Card'
+import Card from '../Card/Card'
 const stories = storiesOf('Layout', module)
 
 stories.addDecorator(withKnobs)
 
 const generateCard = () => (
 	<Card>
-		<CardHeader title={faker.lorem.words(3)} />
-		<CardBody>{faker.lorem.words(Math.floor(Math.random() * 25 + 5))}</CardBody>
+		<Card.Header title={faker.lorem.words(3)} />
+		<Card.Body>
+			{faker.lorem.words(Math.floor(Math.random() * 25 + 5))}
+		</Card.Body>
 	</Card>
 )
 

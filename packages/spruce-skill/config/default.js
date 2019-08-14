@@ -134,23 +134,22 @@ module.exports = {
 	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
 	eventContract: {
 		events: {
-			'get-settings': {
-				description: 'Core asks for settings to display on a page',
-				subscribe: true
-			},
-			'validate-settings': {
-				description: 'Core asks for settings validation',
-				subscribe: true
-			},
-			'get-views': {
-				description: 'Core asks for views to display on a page',
-				subscribe: true
-			},
-			'get-cards': {
-				description: 'Core asks this skill to provide cards',
-				subscribe: true
-			}
-			// Other events we could subscribe to
+			// 'get-settings': {
+			// 	description: 'Core asks for settings to display on a page',
+			// 	subscribe: true
+			// },
+			// 'validate-settings': {
+			// 	description: 'Core asks for settings validation',
+			// 	subscribe: true
+			// },
+			// 'get-views': {
+			// 	description: 'Core asks for views to display on a page',
+			// 	subscribe: true
+			// },
+			// 'get-cards': {
+			// 	description: 'Core asks this skill to provide cards',
+			// 	subscribe: true
+			// }
 			// 'was-installed': {
 			// 	description: 'When the skill is installed to a location',
 			// 	subscribe: true
