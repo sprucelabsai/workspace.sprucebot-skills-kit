@@ -110,7 +110,8 @@ module.exports = {
 		log: true,
 		window: true,
 		document: true,
-		navigator: true
+		navigator: true,
+		FileReader: true
 	},
 	settings: {
 		flowtype: {},
