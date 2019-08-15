@@ -61,7 +61,7 @@
 	}
 
 	&:indeterminate:not(.radio) {
-		s ~ .checkbox-item__icons .checkbox-item__icon-maybe {
+		~ .checkbox-item__icons .checkbox-item__icon-maybe {
 			display: block;
 		}
 		~ .checkbox-item__icons .checkbox-item__icon-no,
