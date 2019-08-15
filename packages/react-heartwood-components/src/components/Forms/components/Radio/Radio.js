@@ -25,7 +25,7 @@ const Radio = (props: Props) => {
 		<div className={parentClass}>
 			<div className="checkbox-item__inner">
 				<input
-					className="checkbox-item__input"
+					className="checkbox-item__input radio"
 					type="radio"
 					id={id}
 					{...rest}

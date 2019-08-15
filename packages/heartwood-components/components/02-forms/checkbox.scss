@@ -60,8 +60,8 @@
 		}
 	}
 
-	&:indeterminate {
-		~ .checkbox-item__icons .checkbox-item__icon-maybe {
+	&:indeterminate:not(.radio) {
+		s ~ .checkbox-item__icons .checkbox-item__icon-maybe {
 			display: block;
 		}
 		~ .checkbox-item__icons .checkbox-item__icon-no,
