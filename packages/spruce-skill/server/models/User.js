@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
 			}
 		},
 		profileImages: {
-			type: DataTypes.VIRTUAL,
+			type: DataTypes.VIRTUAL(DataTypes.JSON),
 			get() {
 				if (this.profileImageUUID) {
 					const profileImages = {}
@@ -88,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
 			}
 		},
 		defaultProfileImages: {
-			type: DataTypes.VIRTUAL,
+			type: DataTypes.VIRTUAL(DataTypes.JSON),
 			get() {
 				const profileImages = {}
 				const sizes = ['60', '60@2x', '150', '150@2x']
@@ -111,10 +111,23 @@ module.exports = (sequelize, DataTypes) => {
 
 	User.associate = function(models) {
 		User.belongsToMany(models.Location, {
-			through: 'UserLocation',
-			constraints: false
+			through: models.UserLocation
 		})
 		User.hasMany(models.UserLocation, {
+			constraints: false
+		})
+		User.belongsToMany(models.Organization, {
+			through: models.UserOrganization,
+			constraints: false
+		})
+		User.hasMany(models.UserOrganization, {
+			constraints: false
+		})
+		User.belongsToMany(models.Group, {
+			through: models.UserGroup,
+			constraints: false
+		})
+		User.hasMany(models.UserGroup, {
 			constraints: false
 		})
 	}

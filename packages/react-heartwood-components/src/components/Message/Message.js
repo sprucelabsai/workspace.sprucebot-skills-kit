@@ -7,7 +7,7 @@ import Avatar from '../Avatar/Avatar'
 import Button from '../Button/Button'
 import Icon from '../Icon/Icon'
 
-import type { Props as ButtonProps } from '../../Button/Button'
+import type { Props as ButtonProps } from '../Button/Button'
 
 type FromProps = {
 	/** Unique id of the sender */

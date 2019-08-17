@@ -1,88 +1,83 @@
-# workspace.sprucebot-skills-kit
-Lerna workspace for managing skills kit dependencies
+# Spruce Skills Kit
 
-```
-├── node_modules/
-├── packages
-│   ├── sprucebot-skills-kit
-│   ├── sprucebot-skills-kit-server
-│   ├── sprucebot-node
-│   └── react-sprucebot
-├── CHANGELOG.md
-├── README.md
-├── lerna.json
-├── package.json
-└── yarn.lock
-```
+Hey Skill Developer 👋.
+
+If you're looking for information on building skills you should check out the [Developer Documentation](https://developer.spruce.ai/).
+
+This repo contains the underlying packages used to build a skill and isn't needed directly if you're just doing skill development. But, if you need to get really close to the metal read on.
+
+## Overview
+
+This [lerna](https://github.com/lerna/lerna) monorepo contains several packages:
+
+* `eslint-config-spruce`: Shared eslint configuration enforcing best practices and code style
+
+* `eslint-plugin-spruce`: Shared eslint configuration enforcing best practices and code style
+
+* `heartwood-components`: Our UI component library
+
+* `react-heartwood-components`: React implementation of our UI components
+
+* `spruce-next-helpers`: Shared / common utilities used for the Frontend (interface) side of a skill
+
+* `spruce-node`: Wrapper around API calls and utility methods used from the Backend (server) side of a skill. The underlying package that powers `ctx.sb.<method>` calls
+
+* `spruce-skill`: The base template for a skill. Based on [next.js](https://nextjs.org/)
+
+* `spruce-skill-server`: Under the hood package that powers a skill. Built on [Koa](https://koajs.com/)
+
+* `spruce-utils`: Various utilities used behind the scenes.
+
+## Prerequisites
+
+You'll need nodejs installed. [NVM (node version manager) is recommended](https://github.com/creationix/nvm).
+
+You should also install the latest sprucebot CLI:
+
+`npm i -g @sprucelabs/sprucebot-cli` or `yarn global add @sprucelabs/sprucebot-cli`
+
+_Note: Some issues have been observed w/ certain versions of yarn where the cli will show errors when running "sprucebot". If you encounter this we recommend installing via npm instead_
 
 ## Setup
-1. `git clone` this repo
-1. `cd workspace.sprucebot-skills-kit`
-1. `git clone` the repos defined in `package.json.workspaces[**]` *TODO - sprucebot-cli could do this for us and setup upstream branches etc*
-1. `yarn install` to install all the dependencies defined in all the cloned workspaces
-1. `cd packages/sprucebot-skills-kit && sprucebot skill register`
-1. `cd ../../`
-1. `yarn local` to start the skills kit using pm2
 
-## Workspace Scripts Available
-* `yarn local` - Start the pm2 ecosystem that starts the skills kit
-* `yarn log` - Tail the pm2 ecosystem log
-* `yarn stop` - Stop the skills kit server from `yarn local`
+To work on Skills Kit you'll need to clone this repo and then:
 
-## Contributing
-We use the [Angular Git Commit Guidelines](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines) to manage our semantic releases and changelog.
-* Open Pull Requests to the `dev` branch
-* Commits are automatically linted using `commitlint` with a husky git hook.
-* [Commitizen](https://www.npmjs.com/package/commitizen) can easily configured to format commit message
+*Set your nodejs version*
 
-## Semantic Releases
-* We automatically release from `master` branch using [semantic-release](https://github.com/semantic-release/semantic-release) and [semantic-release-monorepo](https://github.com/Updater/semantic-release-monorepo)
-* Changes to each `package/` are automatically detected and we only release packages with changes
-* The angular commit messages used to determine if the changes are `patch`, `minor`, or `marjor`
+`nvm use`
 
-| Commit message                                                                                                                                                                                   | Release type               |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
-| `fix(ticket): fix bug to create patch`                                                                                                                             | Patch Release              |
-| `feat(ticket): add new feature is a minor release`                                                                                                                                                       | ~~Minor~~ Feature Release  |
-| `perf(ticket): remove graphiteWidth option`<br><br>`BREAKING CHANGE: This block will trigger major release` | ~~Major~~ Breaking Release |
+*Install packages*
 
-#### Default rules matching
+From the root of this project, install the packages:
 
-If a commit doesn't match any rule in `releaseRules` it will be evaluated against the.
+`yarn`
 
-With the previous example:
-- Commits with a breaking change will be associated with a `Major` release.
-- Commits with `type` 'feat' will be associated with a `minor` release.
-- Commits with `type` 'fix' will be associated with a `patch` release.
-- Commits with `type` 'perf' will be associated with a `patch` release.
+*Build packages*
 
-#### No rules matching
+From the root of this project, build the packages:
 
-If a commit doesn't match any rules in `releaseRules` then no release type will be associated with the commit.
+`yarn build`
 
-With the previous example:
-- Commits with `type` 'style' will not be associated with a release type.
-- Commits with `type` 'test' will not be associated with a release type.
-- Commits with `type` 'chore' will not be associated with a release type.
+*Set up your .env*
 
-#### Multiple commits
+`cd packages/spruce-skill`
 
-If there is multiple commits that match one or more rules, the one with the highest release type will determine the global release type.
+`cp .env.example .env`
 
-Considering the following commits:
-- `docs(SB-xxx): Add more details to the API docs`
-- `feat(SB-xxx): Add a new method to the public API`
+At this point you'll either need to manually edit the `.env` if you've previously registered the skill or use the cli to register your skill: `sprucebot skill register` and follow the prompts
 
-With the previous example the release type determine by the plugin will be `minor`.
+*Run your skill*
 
-### Manual Release Process
-The idea here is we need to rebase the changes in `dev` onto the `master` branch. Since we rely on commit messages in our `semantic-release`, we can't apply a merge commit.
-The recommended flow is as follows assuming `master` is in synch with `dev`.
+`yarn local`
 
-1. Developer opens a `feat|fix` PR
-1. When the PR is approved, we can either `rebase` or `squash and merge` into `dev`
-    1. Notice a new canary was released via `npm view sprucebot-skills-kit@prerelease`
-1. Once dev is ready, we open a new PR from `dev` into `master`
-1. Rebase `dev` into master, preserving commit messages
-    1. Notice a new release was triggered `npm view sprucebot-skills-kit@latest`
-1. Once `master` has released, rebase `master` back into `dev`
+If everything went according to plan you've now got the base skill running linked to the other packages in this repo allowing you to make changes to the underlying packages used by Skills Kit!
+
+## Troubleshooting
+
+*I made a change in one of the linked packages but I don't see it updated in the browser?*
+
+Oftentimes changes made in the linked packages will require a restart of the skill. Kill and re-run `yarn local`
+
+## Additional links / info
+
+We use [yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/) to link all these packages together during development on Skills Kit.

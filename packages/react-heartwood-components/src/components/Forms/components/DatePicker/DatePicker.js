@@ -15,7 +15,8 @@ export type Props = {
 	onSelectDateRange?: Function,
 	date?: Object,
 	initialStartDate?: Object,
-	initialEndDate?: Object
+	initialEndDate?: Object,
+	daySize?: number
 }
 
 type State = {
@@ -27,10 +28,13 @@ type State = {
 }
 
 export default class DatePicker extends Component<Props, State> {
+	datePickerRef: any
+
 	static defaultProps = {
 		kind: 'singleDate',
 		initialStartDate: null,
-		initialEndDate: null
+		initialEndDate: null,
+		daySize: 40
 	}
 
 	constructor(props) {
@@ -101,6 +105,7 @@ export default class DatePicker extends Component<Props, State> {
 				onFocusChange={this.toggleFocus}
 				navNext={<ArrowNext />}
 				navPrev={<ArrowBack />}
+				hideKeyboardShortcutsPanel={true}
 				{...rest}
 			/>
 		) : (
@@ -112,6 +117,7 @@ export default class DatePicker extends Component<Props, State> {
 				endDate={endDate}
 				navNext={<ArrowNext />}
 				navPrev={<ArrowBack />}
+				hideKeyboardShortcutsPanel={true}
 				{...rest}
 			/>
 		)

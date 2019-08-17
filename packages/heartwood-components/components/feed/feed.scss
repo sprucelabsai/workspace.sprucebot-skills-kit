@@ -1,14 +1,11 @@
 .message-feed__wrapper {
 	display: flex;
+	height: 100%;
+	overflow: hidden;
 }
 
 .message-feed {
-	flex: 1 1 auto;
-	height: 100vh;
-}
-
-.header-primary + .main-content .message-feed {
-	height: calc(100vh - #{rem(48)});
+	flex: 1;
 }
 
 .message-feed__day-header {

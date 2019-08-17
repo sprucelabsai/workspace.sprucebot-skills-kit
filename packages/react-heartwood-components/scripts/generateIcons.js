@@ -4,9 +4,16 @@ const { each } = require('lodash')
 
 const lines = []
 
-each(icons, (iconPath, iconName) => {
+each(icons, (icon, iconName) => {
 	lines.push(
-		`export ${iconName} from '@sprucelabs/heartwood-components${iconPath}'`
+		`import ${iconName}_icon from '@sprucelabs/heartwood-components${
+			icon.path
+		}'`
+	)
+	lines.push(
+		`export const ${iconName} = { icon: ${iconName}_icon, isLineIcon: ${
+			icon.isLineIcon
+		}}`
 	)
 })
 

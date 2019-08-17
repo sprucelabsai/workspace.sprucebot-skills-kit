@@ -18,12 +18,20 @@ body {
 	height: 100%;
 }
 
+#__next {
+	height: 100%;
+}
+
 strong {
 	font-weight: $font-weight-bold;
 }
 
 .visually-hidden {
 	visibility: hidden;
+}
+
+img.error {
+	display: none;
 }
 
 // Handle FOIT if desired
@@ -42,4 +50,9 @@ strong {
 			visibility: hidden;
 		}
 	}
+}
+
+// Always hide focus on iframes
+iframe:focus {
+	outline: none;
 }

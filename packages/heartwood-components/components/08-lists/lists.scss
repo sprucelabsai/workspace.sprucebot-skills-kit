@@ -50,6 +50,7 @@
 .list-item {
 	@include typescale('body');
 	display: flex;
+	flex-flow: row wrap;
 	position: relative;
 
 	.list:not(.list--separators-hidden)
@@ -85,6 +86,12 @@
 		> .btn__inner {
 			text-align: left;
 		}
+	}
+
+	.list {
+		flex: 1 0 100%;
+		padding-right: 0;
+		padding-bottom: 1rem;
 	}
 }
 
@@ -124,6 +131,10 @@
 	.list-item--is-disabled & {
 		color: $c-grey-04;
 	}
+
+	&.u-color-warning-dark {
+		color: $c-ui-warn-dark;
+	}
 }
 
 .list-item__note {
@@ -132,11 +143,25 @@
 	.list-item--is-disabled & {
 		color: $c-grey-04;
 	}
+
+	&.u-color-warning-dark {
+		color: $c-ui-warn-dark;
+	}
+}
+
+.list-item--has-avatar {
+	.list-item__image-wrapper {
+		align-items: center;
+	}
+	* + .avatar-wrapper {
+		margin-left: spacing('tight');
+	}
 }
 
 .list-item__image-wrapper,
 .list-item__actions-wrapper,
 .list-item .toggle__wrapper {
+	display: inline-flex;
 	flex: 0 0 auto;
 }
 
@@ -162,13 +187,13 @@
 
 .list-item__icon {
 	position: relative;
-	// top: 3px;
 	width: rem(20);
 	height: rem(20);
 
-	// .list-small & {
-	// 	top: 1px;
-	// }
+	&.list-item__icon--hidden {
+		opacity: 0;
+		visibility: hidden;
+	}
 }
 
 .list-item .toggle__wrapper {
@@ -177,6 +202,17 @@
 
 	.list-small & {
 		padding-top: spacing('extra-tight');
+	}
+}
+
+.list-item .checkbox-item {
+	position: relative;
+	.checkbox-item__label {
+		margin: 0;
+	}
+
+	.list-small & {
+		top: -2px;
 	}
 }
 
@@ -219,6 +255,10 @@
 }
 
 .record-selection__list {
+	display: flex;
+	flex-flow: column;
+	height: 100%;
+
 	.text-container {
 		align-items: flex-start;
 		display: flex;
@@ -228,14 +268,20 @@
 	}
 
 	.record-selection__list-wrapper {
-		position: relative;
-		min-height: 28rem;
+		height: 100%;
+		overflow-x: hidden;
+		overflow-y: auto;
 	}
 
 	.record-selection__record-wrapper {
 		display: flex;
 		align-items: center;
-		border-bottom: 1px solid $c-grey-03;
+		+ .record-selection__record-wrapper {
+			border-top: 1px solid $c-border;
+		}
+		.list-item {
+			flex: 1;
+		}
 	}
 
 	.record-selection__record-select {
@@ -245,4 +291,29 @@
 	.record-selection__record-content {
 		flex: 1;
 	}
+
+	.record-selection__record-remove-btn .btn__icon {
+		fill: $c-text-icon;
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.record-selection__virtual-list:focus {
+	outline: none;
+}
+
+.truncated-list__header {
+	@include type-style-label;
+}
+
+.truncated-list__action-btn-wrapper {
+	border-top: 1px solid $c-border;
+	padding-top: spacing('tight');
+}
+
+.truncated-list__action-btn {
+	margin-left: -1 * spacing('tight');
 }

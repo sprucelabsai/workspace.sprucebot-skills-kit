@@ -4,7 +4,6 @@ const { pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
 const settings = require('./settings')
-const calendars = require('./calendars')
 
 const packageJSON = require('../package.json')
 const HEARTWOOD_VERSION = encodeURIComponent(
@@ -12,7 +11,8 @@ const HEARTWOOD_VERSION = encodeURIComponent(
 )
 // Check for .env
 try {
-	require('dotenv').config()
+	const path = `${__dirname}/../.env`
+	require('dotenv').config({ path })
 } catch (e) {
 	console.error('Missing .env file for this project')
 }
@@ -32,6 +32,11 @@ module.exports = {
 	VIEW_VERSION: process.env.VIEW_VERSION || 1,
 	LOG_LEVEL: process.env.LOG_LEVEL || 'warn',
 	LOG_USE_COLORS: process.env.LOG_USE_COLORS !== 'false',
+	LOG_EVENTS: process.env.LOG_EVENTS !== 'false',
+	LOG_USE_TRACE: process.env.LOG_USE_TRACE === 'true',
+	LOG_USE_SOURCEMAPS: process.env.LOG_USE_SOURCEMAPS === 'true',
+	LOG_AS_JSON: process.env.LOG_AS_JSON === 'true',
+	CAPTURE_FE_LOGS: process.env.CAPTURE_FE_LOGS === 'true',
 	METRICS_APP_KEY: process.env.METRICS_APP_KEY,
 	METRICS_URL: process.env.METRICS_URL,
 	METRICS_ENABLED: process.env.METRICS_ENABLED === 'true',
@@ -50,6 +55,8 @@ module.exports = {
 		process.env.SKILL_STYLESHEET ||
 		`https://cdn.spruce.ai/stylesheets/${HEARTWOOD_VERSION ||
 			'latest'}/heartwood-components.min.css`,
+	DATABASE_URL_TESTING:
+		process.env.DATABASE_URL_TESTING || `sqlite:${__dirname}/../tmp/testing.db`,
 	ID: process.env.ID,
 	NAME: process.env.NAME,
 	SLUG: process.env.SLUG,
@@ -75,10 +82,11 @@ module.exports = {
 	DB_ENABLED: process.env.DB_ENABLED === 'true',
 	GRAPHQL_ENABLED: process.env.GRAPHQL_ENABLED !== 'false',
 	GRAPHIQL_ENABLED: process.env.GRAPHIQL_ENABLED === 'true',
+	TESTING: process.env.TESTING === 'true',
+	S3_BUCKET: process.env.S3_BUCKET || '',
 	scopes: require('./scopes'),
 	auth: require('./auth'),
 	settings,
-	calendars,
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
 		requests: {
@@ -103,6 +111,12 @@ module.exports = {
 					groupManager: true
 				}
 			},
+			can_do_example_location_owner_only: {
+				label:
+					'If the user can do this example thing for a location. Org owner only',
+				type: 'location',
+				defaults: {}
+			},
 			can_do_example_organization: {
 				label: 'If the user can do this example thing for an organization.',
 				type: 'organization',
@@ -120,71 +134,74 @@ module.exports = {
 	// For example, if you uncomment the "did-enter" event below, then the code in server/events/did-enter.js will be triggered when someone connects to the access point
 	eventContract: {
 		events: {
-			'get-settings': {
-				description: 'Core asks for settings to display on a page'
-			},
-			'validate-settings': {
-				description: 'Core asks for settings validation'
-			},
-			'get-views': {
-				description: 'Core asks for views to display on a page'
-			},
-			'get-cards': {
-				description: 'Core asks this skill to provide cards',
-				subscribe: true
-			},
-			'get-calendar': {
-				description: 'Core asks this skill to provide a specific calendar',
-				subscribe: true
-			},
-			'get-calendars': {
-				description: 'Core asks this skill to provide calendars',
-				subscribe: true
-			}
-			// Other events we could subscribe to
+			// 'get-settings': {
+			// 	description: 'Core asks for settings to display on a page',
+			// 	subscribe: true
+			// },
+			// 'validate-settings': {
+			// 	description: 'Core asks for settings validation',
+			// 	subscribe: true
+			// },
+			// 'get-views': {
+			// 	description: 'Core asks for views to display on a page',
+			// 	subscribe: true
+			// },
+			// 'get-cards': {
+			// 	description: 'Core asks this skill to provide cards',
+			// 	subscribe: true
+			// }
 			// 'was-installed': {
-			// 	name: 'was-installed',
-			// 	description: 'When the skill is installed to a location'
+			// 	description: 'When the skill is installed to a location',
+			// 	subscribe: true
 			// },
 			// 'did-signup': {
-			// 	name: 'did-signup',
-			// 	description: 'When a guest joins wifi at a location for the first time'
+			// 	description: 'When a guest joins wifi at a location for the first time',
+			//  subscribe: true
 			// },
 			// 'did-enter': {
-			// 	name: 'did-enter',
-			// 	description: 'When a guest returns and their phone hits the wifi'
+			// 	description: 'When a guest returns and their phone hits the wifi',
+			//  subscribe: true
 			// },
 			// 'did-leave': {
-			// 	name: 'did-leave',
-			// 	description: 'Triggered an hour after a guest leaves'
+			// 	description: 'Triggered an hour after a guest leaves',
+			//  subscribe: true
 			// },
 			// 'did-message': {
-			// 	name: 'did-message',
-			// 	description: 'A guest has sent a text to Sprucebot'
+			// 	description: 'A guest has sent a text to Sprucebot',
+			//  subscribe: true
 			// },
 			// 'did-add-device': {
-			// 	name: 'did-add-device',
 			// 	description:
-			// 		'When a guest adds a new device to a location. Like adding their laptop'
+			// 		'When a guest adds a new device to a location. Like adding their laptop',
+			//  subscribe: true
 			// },
-			// 'did-update-profile': {
-			// 	name: 'did-update-profile',
+			// 'did-update-user': {
 			// 	description: 'When any user updates their first or last name'
+			//  subscribe: true
 			// },
 			// 'did-opt-out': {
-			// 	name: 'did-opt-out',
 			// 	description:
-			// 		'When any guest opts out of a location. By now you have already lost access to their meta data.'
+			// 		'When any guest opts out of a location. By now you have already lost access to their meta data.',
+			//  subscribe: true
 			// },
 			// 'did-remote-rejoin': {
-			// 	name: 'did-remote-rejoin',
 			// 	description:
-			// 		'They had, at one time, opted out. But, now they have remotely opted back in'
+			// 		'They had, at one time, opted out. But, now they have remotely opted back in',
+			//  subscribe: true
 			// },
 			// 'will-send-training': {
-			// 	name: 'will-send-training',
 			// 	description:
-			// 		'Sprucebot has made the decision that now is the perfect time to send training material'
+			// 		'Sprucebot has made the decision that now is the perfect time to send training material',
+			//  subscribe: true
+			// },
+			// 'big-search': {
+			// 	description: 'Provide your own search results in the platform',
+			// 	subscribe: true
+			// },
+			// 'import-from-big-search': {
+			// 	description:
+			// 		'Give people the power import your search results into the platform',
+			// 	subscribe: true
 			// }
 		}
 	},
@@ -249,6 +266,8 @@ module.exports = {
 			'PACKAGE_NAME',
 			'PACKAGE_VERSION',
 			'LOG_LEVEL',
+			'LOG_USE_TRACE',
+			'CAPTURE_FE_LOGS',
 			'ENV',
 			'METRICS_URL',
 			'METRICS_ENABLED',

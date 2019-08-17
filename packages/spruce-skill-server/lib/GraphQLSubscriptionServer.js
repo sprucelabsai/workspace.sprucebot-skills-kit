@@ -4,6 +4,7 @@ const { PubSub } = require('graphql-subscriptions')
 const { RedisPubSub } = require('graphql-redis-subscriptions')
 const config = require('config')
 const jwt = require('jsonwebtoken')
+const IORedis = require('ioredis')
 
 module.exports = class GQLSubscriptionServer {
 	constructor(options) {
@@ -17,8 +18,8 @@ module.exports = class GQLSubscriptionServer {
 		if (process.env.REDIS_URL) {
 			// Prefer using redis subscriptions so multiple servers can be run
 			this.pubsub = new RedisPubSub({
-				publisher: new Redis(process.env.REDIS_URL),
-				subscriber: new Redis(process.env.REDIS_URL)
+				publisher: new IORedis(process.env.REDIS_URL),
+				subscriber: new IORedis(process.env.REDIS_URL)
 			})
 		} else {
 			// Fall back to regular pubsub which will only work properly if a single instance is running

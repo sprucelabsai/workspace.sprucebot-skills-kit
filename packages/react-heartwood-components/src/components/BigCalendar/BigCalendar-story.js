@@ -1,6 +1,8 @@
 // @flow
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
+import { cloneDeep, remove } from 'lodash'
+import moment from 'moment'
 import {
 	withKnobs,
 	date,
@@ -11,8 +13,7 @@ import {
 } from '@storybook/addon-knobs/react'
 
 import BigCalendar from './BigCalendar'
-import cloneDeep from 'lodash/cloneDeep'
-import moment from 'moment'
+import ToastWrapper from '../Toast/components/ToastWrapper/ToastWrapper'
 
 import type { User, Event } from './types'
 
@@ -32,19 +33,20 @@ const CATEGORIES = {
 	interactions: 'Interactions',
 	schedules: 'Schedules'
 }
-
 type Props = {}
 type State = {
-	users: Array<User>,
-	events: Array<Event>,
-	userMode: string
+	users: Array<Object>,
+	events: Array<Object>,
+	userMode: string,
+	toasts: Array<Object>
 }
 
 class BigCalendarExample extends Component<Props, State> {
 	state = {
 		users: storyUsers,
 		events: storyEvents,
-		userMode: 'everyone'
+		userMode: 'everyone',
+		toasts: []
 	}
 
 	bigCalRef: { current: any }
@@ -58,6 +60,35 @@ class BigCalendarExample extends Component<Props, State> {
 		document.body && (document.body.style.overflow = 'hidden')
 		document.body &&
 			(document.body.querySelector('.page__content').style.padding = '0px')
+	}
+
+	addToast = ({ headline, text, kind, id, showFollowup, timeout }) => {
+		this.setState(prevState => {
+			const newToasts = [...prevState.toasts]
+			newToasts.push({
+				headline: headline,
+				text: text,
+				kind,
+				id: id,
+				followupAction: showFollowup ? () => console.log('Undo') : null,
+				timeout: timeout
+			})
+			return {
+				toasts: newToasts
+			}
+		})
+	}
+
+	removeToast = id => {
+		this.setState(prevState => {
+			const toasts = [...prevState.toasts]
+			remove(toasts, item => {
+				return item.id === id
+			})
+			return {
+				toasts
+			}
+		})
 	}
 
 	handleDropEvent = ({ event, newStartAt, newUser, blockUpdates }) => {
@@ -117,19 +148,31 @@ class BigCalendarExample extends Component<Props, State> {
 	}
 
 	handleDoubleClickView = ({ time, user }) => {
-		if (!time) {
-			alert(`double clicked header for ${user.name}`)
-		} else {
-			alert(`double click at ${time.format('h:mm')} with ${user.name}`)
-		}
+		this.addToast({
+			headline: `Double Click`,
+			text: time
+				? `${time.format('h:mm')} with ${user.name}`
+				: `Header for ${user.name}`,
+			kind: 'positive',
+			id: Math.random(),
+			showFollowup: false,
+			timeout: 2000
+		})
 	}
 
 	handleClickView = ({ time, user }) => {
-		alert(`single click at ${time.format('h:mm')} with ${user.name}`)
+		this.addToast({
+			headline: `Single Click`,
+			text: `${time.format('h:mm')} with ${user.name}`,
+			kind: 'positive',
+			id: Math.random(),
+			showFollowup: false,
+			timeout: 2000
+		})
 	}
 
 	render() {
-		const { users, events, userMode } = this.state
+		const { users, events, userMode, toasts } = this.state
 
 		return (
 			<BigCalendar
@@ -216,58 +259,15 @@ class BigCalendarExample extends Component<Props, State> {
 								endTime: '19:00'
 							}
 						}
-					},
-					CATEGORIES.schedules
-				)}
-				viewProps={{
-					day: {
-						newEventDefaultDuractionSec: number(
-							'viewProps.day.newEventDefaultDuractionSec',
-							900 * 4,
-							{},
-							CATEGORIES.dayView
-						),
-						allowResizeToZeroDurationBlocks: boolean(
-							'viewProps.day.allowResizeToZeroDurationBlocks',
-							true,
-							CATEGORIES.dayView
-						),
-						allowResizeFirstBlockToZeroDuration: boolean(
-							'viewProps.day.allowResizeFirstBlockToZeroDuration',
-							false,
-							CATEGORIES.dayView
-						),
-						dragThreshold: number(
-							'viewProps.day.dragThreshold',
-							10,
-							{},
-							CATEGORIES.dayView
-						),
-						dragScrollSpeed: number(
-							'viewProps.day.dragScrollSpeed',
-							5,
-							{},
-							CATEGORIES.dayView
-						),
-						timeGutterFormat: text(
-							'viewProps.day.timeGutterFormat',
-							'ha',
-							CATEGORIES.dayView
-						),
-						scrollDuringDragMargin: number(
-							'viewProps.day.scrollDuringDragMargin',
-							50,
-							{},
-							CATEGORIES.dayView
-						)
-					}
-				}}
-				onDoubleClickView={this.handleDoubleClickView}
-				onClickView={this.handleClickView}
-				onChangeUserMode={this.handleUserModeChange}
-				ref={this.bigCalRef}
-				onDropEvent={this.handleDropEvent}
-			/>
+					}}
+					onDoubleClickView={this.handleDoubleClickView}
+					onClickView={this.handleClickView}
+					onChangeUserMode={this.handleUserModeChange}
+					ref={this.bigCalRef}
+					onDropEvent={this.handleDropEvent}
+				/>
+				<ToastWrapper toasts={toasts} handleRemove={this.removeToast} />
+			</div>
 		)
 	}
 }

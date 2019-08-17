@@ -1,38 +1,42 @@
 // @flow
 import React, { Component } from 'react'
-import { sampleSize } from 'lodash'
+import { map, sampleSize } from 'lodash'
 import { storiesOf } from '@storybook/react'
-import { withKnobs } from '@storybook/addon-knobs/react'
+import { withKnobs, boolean, select, text } from '@storybook/addon-knobs/react'
 
 import { generateLocations } from '../../../.storybook/data/tableData'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
-import RecordSelectionListItem from '../RecordSelectionList/RecordSelectionListItem'
-// import Modal from '../Modal/Modal'
-// import Button from '../Button/Button'
-import { select } from '@storybook/addon-knobs'
+import Modal from '../Modal/Modal'
+import Card, { CardHeader, CardBody } from '../Card'
 
 const stories = storiesOf('RecordSelectionList', module)
 
 stories.addDecorator(withKnobs)
 
-type Props = {
+type RSLExampleProps = {
 	canSelect?: 'many' | 'one',
 	canRemove: boolean,
-	locations: Array<Object>
+	locations: Array<Object>,
+	totalRecordCount: number,
+	maxRowsVisible?: number | 'auto'
 }
 
-type State = {
+type RSLExampleState = {
 	isModalOpen?: boolean,
 	selectedIds: Array<string>,
 	unselectableIds: Array<string>,
-	locations: Array<Object>
+	locations: Array<Object>,
+	emptyState: any
 }
 
-class BasicExample extends Component<Props, State> {
+class RecordListItemsExample extends Component<
+	RSLExampleProps,
+	RSLExampleState
+> {
 	constructor(props) {
 		super(props)
 
-		let selectedIds = props.locations.map(loc => loc.id)
+		let selectedIds = props.locations.map(loc => loc.node.id)
 
 		if (props.canSelect === 'one') {
 			selectedIds = sampleSize(selectedIds, 1)
@@ -41,7 +45,7 @@ class BasicExample extends Component<Props, State> {
 		}
 
 		const unselectedIds = props.locations
-			.map(loc => loc.id)
+			.map(loc => loc.node.id)
 			.filter(locationId => selectedIds.indexOf(locationId) === -1)
 
 		const unselectableIds = sampleSize(unselectedIds, unselectedIds.length / 2)
@@ -50,15 +54,27 @@ class BasicExample extends Component<Props, State> {
 	}
 
 	render() {
-		const { canSelect, canRemove } = this.props
+		const {
+			canSearch = true,
+			canSelect,
+			canRemove,
+			totalRecordCount,
+			onSearchChange,
+			maxRowsVisible,
+			searchValue
+		} = this.props
+
 		const { selectedIds, locations, unselectableIds } = this.state
 
 		return (
 			<RecordSelectionList
-				canSearch
+				searchValue={searchValue}
+				onSearchChange={onSearchChange}
+				canSearch={canSearch}
+				searchLabel={'Search Label'}
 				selectedIds={selectedIds}
 				unselectableIds={unselectableIds}
-				loadRecords={async ({ limit, offset, search }) => {
+				loadRecordListItems={async ({ limit, offset, search }) => {
 					// Artificial API wait time
 					await new Promise(resolve =>
 						setTimeout(() => {
@@ -70,7 +86,7 @@ class BasicExample extends Component<Props, State> {
 
 					if (search) {
 						const filteredLocations = locations.filter(location => {
-							return location.publicName.match(new RegExp(search, 'ig'))
+							return location.node.publicName.match(new RegExp(search, 'ig'))
 						})
 
 						results = filteredLocations.slice(offset, offset + limit)
@@ -78,25 +94,20 @@ class BasicExample extends Component<Props, State> {
 						results = locations.slice(offset, offset + limit)
 					}
 
-					console.log('Simulated response')
-					console.log('==================')
-					console.log(results)
-
-					return results
-				}}
-				renderRecord={record => (
-					<RecordSelectionListItem
-						id={record.id}
-						title={record.publicName}
-						subtitle={record.address}
-						icon={{ name: 'location', isLineIcon: true }}
-						isDisabled={unselectableIds.indexOf(record.id) >= 0}
-						note={
-							unselectableIds.indexOf(record.id) >= 0 &&
-							'Location already in group!'
+					const recordListItems = results.map(result => {
+						return {
+							id: result.node.id,
+							title: result.node.publicName,
+							subtitle: result.node.address,
+							isDisabled: unselectableIds.indexOf(result.node.id) >= 0,
+							note:
+								unselectableIds.indexOf(result.node.id) >= 0 &&
+								'Location already in group!'
 						}
-					/>
-				)}
+					})
+
+					return recordListItems
+				}}
 				canSelect={canSelect}
 				canRemove={canRemove}
 				onSelect={id => {
@@ -124,69 +135,215 @@ class BasicExample extends Component<Props, State> {
 						locations: locations.filter(location => location.id !== id)
 					})
 				}}
+				totalRecordCount={totalRecordCount}
+				maxRowsVisible={
+					maxRowsVisible && maxRowsVisible !== 'auto'
+						? parseInt(maxRowsVisible, 10)
+						: maxRowsVisible
+				}
+				noSearchResultsEmptyState={{
+					headline: "Nothin' here...",
+					icon: 'no_matches',
+					primaryAction: {
+						text: "Show all, y'all!"
+					}
+				}}
 			/>
 		)
 	}
 }
 
-stories.add('Default', () => (
-	<BasicExample
-		canSelect={select('Can Select', [null, 'many', 'one'], null)}
-		canRemove={select('Can Remove', [true, false], false)}
-		locations={generateLocations({ amount: 100 })}
-	/>
+stories.add('In a Card', () => (
+	<div style={{ width: '320px', padding: '8px' }}>
+		<Card>
+			<CardHeader title="Card Title" />
+			<CardBody>
+				<RecordListItemsExample
+					canSelect={select('Can Select', [null, 'many', 'one'], null)}
+					canRemove={boolean('Can Remove', false)}
+					locations={map(generateLocations({ amount: 50 }), o => ({
+						node: { ...o }
+					}))}
+					totalRecordCount={50}
+					maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
+				/>
+			</CardBody>
+		</Card>
+	</div>
 ))
 
-// class WithModalExample extends Component<Props, State> {
-// 	state = {
-// 		isModalOpen: false
-// 	}
+class ExternalStateExample extends React.Component {
+	state = { searchValue: '' }
 
-// 	toggleModal = () => {
-// 		this.setState({ isModalOpen: !this.state.isModalOpen })
-// 	}
+	render() {
+		const { searchValue } = this.state
 
-// 	render() {
-// 		const locations = generateLocations({
-// 			amount: 1000
-// 		})
+		return (
+			<div style={{ width: '320px', padding: '8px' }}>
+				<p>
+					This input will control the search of the following
+					RecordSelectionList
+				</p>
+				<input
+					type="text"
+					value={searchValue}
+					onChange={e => {
+						this.setState({ searchValue: e.target.value })
+					}}
+				/>
+				<br />
+				<br />
 
-// 		return (
-// 			<Fragment>
-// 				<Button
-// 					text={`Show me the list`}
-// 					onClick={() => this.toggleModal()}
-// 					kind="secondary"
-// 				/>
-// 				<Modal
-// 					isOpen={this.state.isModalOpen}
-// 					onRequestClose={this.toggleModal}
-// 				>
-// 					<RecordSelectionList
-// 						selectedIds={locations.map(loc => loc.id)}
-// 						loadRecords={async ({ limit, offset }) => {
-// 							// Artificial API wait time
-// 							await new Promise(resolve =>
-// 								setTimeout(() => {
-// 									resolve()
-// 								}, Math.random() * 1000)
-// 							)
+				<Card>
+					<CardHeader title="Card Title" />
+					<CardBody>
+						<RecordListItemsExample
+							canSearch={false}
+							searchValue={searchValue}
+							onSearchChange={newSearchValue => {
+								this.setState({ searchValue: newSearchValue })
+							}}
+							canSelect={select('Can Select', [null, 'many', 'one'], null)}
+							canRemove={boolean('Can Remove', false)}
+							locations={map(generateLocations({ amount: 50 }), o => ({
+								node: { ...o }
+							}))}
+							totalRecordCount={50}
+							maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
+						/>
+					</CardBody>
+				</Card>
+			</div>
+		)
+	}
+}
 
-// 							return locations.slice(offset, offset + limit)
-// 						}}
-// 						renderRecord={record => (
-// 							<RecordSelectionListItem
-// 								id={record.id}
-// 								title={record.publicName}
-// 								subtitle={record.address}
-// 								icon={{ name: 'location', isLineIcon: true }}
-// 							/>
-// 						)}
-// 					/>
-// 				</Modal>
-// 			</Fragment>
-// 		)
-// 	}
-// }
+stories.add('Search Controlled by External State', () => {
+	return <ExternalStateExample />
+})
 
-// stories.add('In modal', () => <WithModalExample />)
+stories.add('In a Modal', () => (
+	<Modal isOpen onAfterOpen={() => null} onRequestClose={() => null}>
+		<Modal.Header title="Modal title" onRequestClose={() => null} />
+		<Modal.Body>
+			<RecordListItemsExample
+				canSelect={select('Can Select', [null, 'many', 'one'], 'many')}
+				canRemove={boolean('Can Remove', true)}
+				locations={map(generateLocations({ amount: 100 }), o => ({
+					node: { ...o }
+				}))}
+				totalRecordCount={100}
+				maxRowsVisible={select('Max Rows Visible', [null, 3, 'auto'], 3)}
+			/>
+		</Modal.Body>
+	</Modal>
+))
+
+stories.add('Empty State', () => (
+	<div style={{ width: '320px', padding: '8px' }}>
+		<Card>
+			<CardHeader title="Card Title" />
+			<CardBody isSectioned={false} hasBottomPadding={false}>
+				<RecordSelectionList
+					canSearch={false}
+					selectedIds={[]}
+					unselectableIds={[]}
+					loadRecordListItems={async () => []}
+					noDataEmptyState={{
+						headline: text('emptyState:headline', 'Nothing to see here'),
+						subheadline: text(
+							'emptyState:subheadline',
+							'There is none of that here'
+						),
+						icon: text('emptyState:icon', 'team'),
+						isLineIcon: true,
+						primaryAction: {
+							text: text(
+								'emptyState:primaryAction text',
+								'Do something about it'
+							)
+						}
+					}}
+				/>
+			</CardBody>
+		</Card>
+	</div>
+))
+
+interface RecordSelectionListSearchExampleProps {
+	locations: Array<Object>;
+}
+interface RecordSelectionListSearchExampleState {}
+
+class RecordSelectionListSearchExample extends Component<
+	RecordSelectionListSearchExampleProps,
+	RecordSelectionListSearchExampleState
+> {
+	render() {
+		const { locations } = this.props
+
+		return (
+			<RecordSelectionList
+				searchLabel={'Search Label'}
+				loadRecordListItems={async ({ limit, offset, search }) => {
+					if (!search) {
+						return []
+					}
+
+					// Artificial API wait time
+					await new Promise(resolve =>
+						setTimeout(() => {
+							resolve()
+						}, Math.random() * 1000)
+					)
+
+					let results = []
+
+					if (search) {
+						const filteredLocations = locations.filter(location => {
+							return location.node.publicName.match(new RegExp(search, 'ig'))
+						})
+
+						results = filteredLocations.slice(offset, offset + limit)
+					} else {
+						results = locations.slice(offset, offset + limit)
+					}
+
+					const recordListItems = results.map(result => {
+						return {
+							id: result.node.id,
+							title: result.node.publicName,
+							subtitle: result.node.address
+						}
+					})
+
+					return recordListItems
+				}}
+				canSearch
+				maxRowsVisible={5}
+				noSearchResultsEmptyState={{
+					headline: "Nothin' here...",
+					icon: 'no_matches',
+					primaryAction: {
+						text: "Show all, y'all!"
+					}
+				}}
+			/>
+		)
+	}
+}
+
+stories.add('Only Showing Records When Searching', () => (
+	<div style={{ width: '320px', padding: '8px' }}>
+		<Card>
+			<CardHeader title="Card Title" />
+			<CardBody>
+				<RecordSelectionListSearchExample
+					locations={map(generateLocations({ amount: 50 }), o => ({
+						node: { ...o }
+					}))}
+				/>
+			</CardBody>
+		</Card>
+	</div>
+))

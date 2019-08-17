@@ -7,6 +7,10 @@
 	color: $c-text-light;
 }
 
+.u-color-warning-dark {
+	color: $c-ui-warn-dark;
+}
+
 // Typography
 .u-td-strikethrough {
 	text-decoration: line-through;
@@ -29,15 +33,6 @@
 // Margin
 .u-ml-tight {
 	margin-left: spacing('tight');
-}
-
-// Icons
-.u-icon__no-fill {
-	fill: none;
-}
-
-.u-icon__stroke {
-	stroke: $c-text-icon;
 }
 
 // Flex

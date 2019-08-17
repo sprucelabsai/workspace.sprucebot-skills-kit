@@ -3,32 +3,30 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
-	withKnobsOptions,
+	// withKnobsOptions,
 	text,
 	boolean,
 	number
 } from '@storybook/addon-knobs/react'
 import Avatar from './Avatar'
 
-import defaultImage from '../../../static/assets/users/user-placeholder.png'
-import defaultImageLg from '../../../static/assets/users/user-placeholder--96w.png'
-
 const stories = storiesOf('Avatar', module)
 
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 stories.addDecorator(withKnobs)
 
 stories.add('Avatar', () => (
 	<Avatar
-		image={
+		image={text(
+			'image',
 			boolean('isLarge', false)
-				? text('image', '') || defaultImageLg
-				: text('image', '') || defaultImage
-		}
+				? '/assets/users/user-placeholder.png'
+				: '/assets/users/user-placeholder--96w.png'
+		)}
 		alt={text('alt', 'Name')}
 		isLarge={boolean('isLarge', false)}
 		isVertical={boolean('isVertical', false)}

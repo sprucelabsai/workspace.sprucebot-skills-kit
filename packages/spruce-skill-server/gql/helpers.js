@@ -1,341 +1,456 @@
 const parseFields = require('graphql-parse-fields')
-// Sequelize uses the inflection library for it's naming
-const inflection = require('inflection')
-const {
-	GraphQLString,
-	GraphQLNonNull,
-	GraphQLList,
-	GraphQLObjectType
-} = require('graphql')
-
+const debug = require('debug')('spruce-skill-server')
+const { GraphQLString, GraphQLInt } = require('graphql')
 const {
 	resolver,
 	attributeFields,
+	createConnection,
 	defaultListArgs,
-	defaultArgs
+	defaultArgs,
+	argsToFindOptions
 } = require('graphql-sequelize')
+const globby = require('globby')
+const config = require('config')
 
-function pathToScope(path, prevPath) {
-	let scope = ''
-	if (prevPath && typeof path.key === 'string') {
-		scope += `${path.key}.${prevPath}`
-	} else if (typeof path.key === 'string') {
-		scope = path.key
-	} else if (prevPath) {
-		scope = prevPath
-	}
-	if (path.prev) {
-		return pathToScope(path.prev, scope)
-	}
-	return scope
-}
-
-function enhancedAttributeFields(model, options) {
-	if (!options) {
-		options = {}
-	}
-	const attrFields = attributeFields(model, {
-		allowNull: true,
-		commentToDescription: true,
-		...options
-	})
-
-	Object.keys(attrFields).forEach(field => {
-		attrFields[field].resolve = (obj, args, context, info) => {
-			if (!context.warnings) {
-				context.warnings = []
-			}
-			const fullPathScope = pathToScope(info.path)
-			const pathScope = fullPathScope.replace(/\.[^.]+$/, '')
-			const rootPath = fullPathScope.replace(/\..*$/, '')
-			const scopes = context.scopes[rootPath]
-			let scope = 'public'
-
-			const pluralModelName = inflection.pluralize(model.name)
-			if (scopes && scopes[model.name]) {
-				scope = scopes[model.name]
-			} else if (scopes && scopes[pluralModelName]) {
-				scope = scopes[pluralModelName]
-			} else if (scopes && scopes[pathScope]) {
-				scope = scopes[pathScope]
-			}
-			if (model.scopeObj[scope] && model.scopeObj[scope][field]) {
-				return obj[field]
-			}
-
-			context.warnings.push(`Field Not Authorized: ${model.name}.${field}`)
-			if (context.unauthorizedValue) {
-				return context.unauthorizedValue
-			}
-			return null
-		}
-	})
-
-	return attrFields
-}
+const { has } = require('lodash')
 
 module.exports = ctx => {
-	const methods = {
-		defaultArgs: function defaultArgs() {
-			return {
-				unauthorizedValue: {
-					description:
-						'The (string) value to use for fields that are not allowed. Default=null',
-					type: GraphQLString
-				}
+	// Get any custom connectionOptions and save for later when we're building connections
+	const connectionPaths = globby.sync([
+		`${config.gqlOptions.gqlDir}/connections/**/!(index|types|_helpers).js`
+	])
+	const connections = {}
+
+	connectionPaths.forEach(path => {
+		try {
+			debug(`Importing custom connection options from file: ${path}`)
+			// $FlowIgnore
+			const connectionOptions = require(path)(ctx) // eslint-disable-line
+			let name = path.replace(/^(.*[\\\/])/, '')
+			name = name.replace('.js', '')
+			connections[name] = connectionOptions
+		} catch (e) {
+			log.warn(`Unable to import GraphQL connectionOptions from ${path}`, e)
+		}
+	})
+
+	function checkIsModel(target) {
+		return !!target.getTableName
+	}
+
+	function checkIsAssociation(target) {
+		return !!target.associationType
+	}
+
+	function enhancedDefaultArgs() {
+		return {
+			unauthorizedValue: {
+				description:
+					'The (string) value to use for fields that are not allowed. Default=null',
+				type: GraphQLString
 			}
-		},
-		defaultBefore: function defaultBefore(findOptions, args, context, info) {
-			context.warnings = []
-			if (args.unauthorizedValue) {
-				context.unauthorizedValue = args.unauthorizedValue
-			}
-		},
-		association: function association({ model, type, complexity }) {
-			if (!model) {
-				log.warn('No model supplied')
-				return
-			}
-			const modelName = model.as
-			return {
-				complexity: complexity || 100,
-				type,
-				args: defaultArgs(model),
-				resolve: async (obj, args, context, info) => {
-					if (!context.warnings) {
-						context.warnings = []
-					}
-
-					const pathScope = pathToScope(info.path)
-					const rootPath = pathScope.replace(/\..*$/, '')
-					const scopes = context.scopes[rootPath]
-					const parentPathScope = pathScope.replace(/\.[^.]+$/, '')
-					let parentScope = 'public'
-					const parentModelName = obj.constructor.name
-					const pluralParentModelName = inflection.pluralize(parentModelName)
-					if (scopes && scopes[parentPathScope]) {
-						parentScope = scopes[parentPathScope]
-					}
-
-					if (
-						!ctx.db.models[parentModelName].scopeObj ||
-						!ctx.db.models[parentModelName].scopeObj[parentScope] ||
-						!ctx.db.models[parentModelName].scopeObj[parentScope][modelName]
-					) {
-						context.warnings.push(
-							`Association for ${parentModelName} with scope '${parentScope}' does not include '${modelName}'`
-						)
-						return null
-					}
-
-					const requestedFields = parseFields(info)
-					let scope = 'public'
-					if (scopes && scopes[pathScope]) {
-						scope = scopes[pathScope]
-					} else {
-						context.warnings.push(`Model Not Authorized: ${pathScope}`)
-						return null
-					}
-
-					const result = await resolver(model, {
-						before: async (findOptions, args, context, info) => {
-							if (!findOptions.where) {
-								findOptions.where = {}
-							}
-							if (
-								context.findOptions &&
-								context.findOptions[rootPath] &&
-								context.findOptions[rootPath][pathScope]
-							) {
-								findOptions.where = {
-									...findOptions.where,
-									...context.findOptions[rootPath][pathScope]
-								}
-							}
-							return findOptions
-						}
-					})(obj, args, context, info, pathScope)
-					if (result && result.dataValues) {
-						const modelName = result.constructor.name
-						Object.keys(result.dataValues).forEach(field => {
-							if (
-								!ctx.db.models[modelName].scopeObj[scope] ||
-								!ctx.db.models[modelName].scopeObj[scope][field]
-							) {
-								if (requestedFields[field]) {
-									context.warnings.push(
-										`Field Not Authorized: ${modelName}.${field}`
-									)
-								}
-								if (context.unauthorizedValue) {
-									result.setDataValue(field, context.unauthorizedValue)
-								} else {
-									result.setDataValue(field, null)
-								}
-							}
-						})
-					}
-
-					return result
-				}
-			}
-		},
-
-		associationList: function associationList({ model, type, complexity }) {
-			const modelName = model.target.name
-			return {
-				complexity: complexity || 100,
-				type: new GraphQLList(type),
-				args: defaultListArgs(model),
-				resolve: async (obj, args, context, info) => {
-					if (!context.warnings) {
-						context.warnings = []
-					}
-
-					const pluralModelName = inflection.pluralize(modelName)
-					const pathScope = pathToScope(info.path)
-
-					let parentScope = 'public'
-
-					const parentModelName = obj.constructor.name
-					const pluralParentModelName = inflection.pluralize(parentModelName)
-
-					const rootPath = pathScope.replace(/\..*$/, '')
-					const scopes = context.scopes[rootPath]
-					const parentPathScope = pathScope.replace(/\.[^.]+$/, '')
-					if (scopes && scopes[parentPathScope]) {
-						parentScope = scopes[parentPathScope]
-					}
-
-					if (
-						!ctx.db.models[parentModelName] ||
-						!ctx.db.models[parentModelName].scopeObj ||
-						!ctx.db.models[parentModelName].scopeObj[parentScope] ||
-						!ctx.db.models[parentModelName].scopeObj[parentScope][
-							pluralModelName
-						]
-					) {
-						context.warnings.push(
-							`Association for ${parentModelName} with scope '${parentScope}' does not include '${pluralModelName}'`
-						)
-						return null
-					}
-
-					const requestedFields = parseFields(info)
-					let scope = 'public'
-					if (scopes && scopes[pathScope]) {
-						scope = scopes[pathScope]
-					} else {
-						context.warnings.push(`Model Not Authorized: ${pathScope}`)
-						return null
-					}
-
-					const result = await resolver(model, {
-						before: async (findOptions, args, context, info) => {
-							if (!findOptions.where) {
-								findOptions.where = {}
-							}
-							if (
-								context.findOptions &&
-								context.findOptions[rootPath] &&
-								context.findOptions[rootPath][pathScope]
-							) {
-								findOptions.where = {
-									...findOptions.where,
-									...context.findOptions[rootPath][pathScope]
-								}
-							}
-							return findOptions
-						}
-					})(obj, args, context, info)
-					if (result && Array.isArray(result)) {
-						result.forEach(r => {
-							const modelName = r.constructor.name
-							Object.keys(r.dataValues).forEach(field => {
-								const s = ctx.db.models[modelName].scopeObj[scope]
-								if (
-									!ctx.db.models[modelName].scopeObj[scope] ||
-									!ctx.db.models[modelName].scopeObj[scope][field]
-								) {
-									if (requestedFields[field]) {
-										context.warnings.push(
-											`Field Not Authorized: ${modelName}.${field}`
-										)
-									}
-									if (context.unauthorizedValue) {
-										r.setDataValue(field, context.unauthorizedValue)
-									} else {
-										r.setDataValue(field, null)
-									}
-								}
-							})
-						})
-					}
-					return result
-				}
-			}
-		},
-
-		attributes: function attributes(model, options) {
-			const attrs = {
-				...enhancedAttributeFields(model, options)
-			}
-
-			Object.keys(model.associations).forEach(associationName => {
-				const modelAssociation = model.associations[associationName]
-				const associationFunc =
-					modelAssociation.associationType === 'BelongsTo'
-						? methods.association
-						: methods.associationList
-				if (ctx.gql.types[modelAssociation.target.name]) {
-					attrs[modelAssociation.as] = associationFunc({
-						model: modelAssociation,
-						type: ctx.gql.types[modelAssociation.target.name]
-					})
-				} else {
-					log.warn(
-						`Unable to create GQL association for ${model.name} -> ${
-							modelAssociation.target.name
-						}. Check that a GQL type is defined for ${
-							modelAssociation.target.name
-						}`
-					)
-				}
-			})
-
-			return attrs
-		},
-		withCount: async function withCount(options) {
-			const { model, findOptions, context } = options
-
-			const where = findOptions.where || {}
-			const count = await model.count({
-				where
-			})
-			context.totalCount = count
-		},
-		resolver: function enhancedResolver(model, options) {
-			const before = options.before
-			return resolver(model, {
-				...options,
-				before: async (findOptions, args, context, info) => {
-					let finalFindOptions = findOptions
-					if (before) {
-						finalFindOptions = await before(findOptions, args, context, info)
-					}
-					if (args.withCount === true) {
-						await this.withCount({
-							model,
-							findOptions: finalFindOptions,
-							context
-						})
-					}
-
-					return finalFindOptions
-				}
-			})
 		}
 	}
 
-	return methods
+	function pathToScope(path, prevPath) {
+		let scope = ''
+		if (prevPath && typeof path.key === 'string') {
+			scope += `${path.key}.${prevPath}`
+		} else if (typeof path.key === 'string') {
+			scope = path.key
+		} else if (prevPath) {
+			scope = prevPath
+		}
+		if (path.prev) {
+			return pathToScope(path.prev, scope)
+		}
+		return scope.replace(/edges\.node\./g, '')
+	}
+
+	function cleanModelByScope(options) {
+		const { model, context, info } = options
+		const modelName = model.constructor.name
+
+		// skip the process if we have already done the work
+		if (model.cleanedScope) {
+			return model
+		}
+
+		let requestedFields = parseFields(info)
+
+		if (requestedFields && requestedFields.edges) {
+			requestedFields = requestedFields.edges.node
+		}
+
+		const pathScope = pathToScope(info.path)
+		const rootPath = pathScope.replace(/\..*$/, '')
+		const scopes = context.scopes[rootPath]
+		const parentPathScope = pathScope.replace(/\.[^.]+$/, '')
+		let modelScope = 'public'
+
+		if (has(scopes, pathScope)) {
+			modelScope = scopes[pathScope]
+		} else if (has(scopes, `${pathScope}.${modelName}`)) {
+			modelScope = scopes[`${pathScope}.${modelName}`]
+		} else {
+			const msg = `${modelName} does not contain the scope "${modelScope}" from ${pathScope}. If this should be allowed, check the config/scopes.js file.`
+			context.warnings.push(msg)
+			return null
+		}
+
+		context.scopeInfo.push(
+			`Scoping ${modelName} through ${parentPathScope} using ${pathScope} with scope of ${modelScope}`
+		)
+
+		const scopeObj = ctx.db.models[modelName].scopeObj
+		const allowedAttributes = scopeObj[modelScope]
+
+		Object.keys(model.dataValues).forEach(field => {
+			const allowedField = has(allowedAttributes, field)
+			const requestedField = requestedFields[field]
+			const willSkipField = ['warnings', 'totalCount'].includes(field)
+
+			if (!allowedField && requestedField && !willSkipField) {
+				context.attributeWarnings.push(
+					`${modelName} scope of "${modelScope}" does not include the field "${field}". If this should be allowed, check the scopes in models/${modelName}.js`
+				)
+				model.setDataValue(field, null)
+				model[field] = null
+
+				let warnings = model.getDataValue('warnings')
+				if (!warnings) {
+					model.setDataValue('warnings', { scopes: [] })
+				}
+				warnings = model.getDataValue('warnings')
+
+				warnings.scopes.push({ field })
+				model.setDataValue('warnings', warnings)
+				model.warnings = warnings
+			}
+		})
+
+		if (!model.cleanedScope) {
+			model.cleanedScope = true
+		}
+
+		return model
+	}
+
+	function enhancedResolver(model, options, scope) {
+		if (!options) {
+			options = {}
+		}
+		if (!scope) {
+			scope = 'public'
+		}
+		const {
+			// list,
+			// handleConnection,
+			before,
+			after
+			// contextToOptions
+		} = options
+
+		const modelName = model.name || model.target.name
+
+		return resolver(model, {
+			...options,
+			before: async (beforeOptions, args, context, info) => {
+				let updatedOptions = beforeOptions
+				if (!context.warnings) {
+					context.warnings = []
+				}
+				if (!context.scopeInfo) {
+					context.scopeInfo = []
+				}
+				if (!context.attributeWarnings) {
+					context.attributeWarnings = []
+				}
+				if (!context.scopes) {
+					context.scopes = {}
+				}
+				if (!context.findOptions) {
+					context.findOptions = {}
+				}
+				if (!updatedOptions.where) {
+					updatedOptions.where = {}
+				}
+
+				if (args) {
+					updatedOptions = {
+						...updatedOptions,
+						...argsToFindOptions.default(args, [])
+					}
+				}
+
+				let finalOptions = updatedOptions
+				if (before) {
+					finalOptions = await before(updatedOptions, args, context, info)
+				}
+				return finalOptions
+			},
+			after: (result, args, context, info) => {
+				let cleanedResult = result
+				if (after) {
+					cleanedResult = after(result, args, context, info)
+				}
+
+				// clean for GraphQLObject
+				if (cleanedResult && !Array.isArray(cleanedResult)) {
+					cleanedResult = cleanModelByScope({
+						model: cleanedResult,
+						context,
+						info
+					})
+				}
+
+				// clean graphqllist
+				if (cleanedResult && Array.isArray(cleanedResult)) {
+					for (let i = 0; i < cleanedResult.length; i += 1) {
+						const r = cleanedResult[i]
+						const cleanResult = cleanModelByScope({
+							model: r,
+							context,
+							info
+						})
+
+						if (cleanResult === null) {
+							return null
+						}
+					}
+				}
+
+				return cleanedResult
+			}
+		})
+	}
+
+	function enhancedAttributeFields(model, options) {
+		if (!options) {
+			options = {}
+		}
+		const attrFields = attributeFields(model, {
+			allowNull: true,
+			commentToDescription: true,
+			...options
+		})
+
+		// append the gql warnings when requesting values not in scope
+		attrFields.warnings = {
+			description:
+				'Optionally include warnings for values not authorized in this scope',
+			type: ctx.gql.types.Warning
+		}
+
+		return attrFields
+	}
+
+	function buildConnection(options) {
+		const { model, type, associationName } = options
+		let connectionOptions = options.connectionOptions
+		let name = options.name || model.name
+		let target = model
+
+		let modelName = model.name || model.target.name
+
+		if (model.associations[associationName]) {
+			modelName = model.associations[associationName].target.name
+			name = `${model.name}${
+				model.associations[associationName].associationType
+			}${associationName}`
+			target = model.associations[associationName]
+		}
+
+		if (!connectionOptions) {
+			connectionOptions = {}
+		}
+
+		const customConnectionOptions = connections[name] || {}
+
+		connectionOptions = {
+			...connectionOptions,
+			...customConnectionOptions
+		}
+
+		const {
+			before,
+			after,
+			where,
+			connectionFields,
+			edgeFields,
+			orderBy
+		} = connectionOptions
+
+		const createConnectionOptions = {
+			name,
+			nodeType: type,
+			target,
+			where,
+			connectionFields: () => ({
+				totalCount: {
+					type: GraphQLInt,
+					resolve(connection, args, context, info) {
+						const fullCount = connection.fullCount || null
+						return fullCount
+					}
+				},
+				...connectionFields
+			}),
+			edgeFields,
+			orderBy,
+			before: async (beforeOptions, args, context, info) => {
+				const pathScope = pathToScope(info.path)
+				const rootPath = pathScope.replace(/\..*$/, '')
+
+				let updatedOptions = beforeOptions
+				if (!context.warnings) {
+					context.warnings = []
+				}
+				if (!context.attributeWarnings) {
+					context.attributeWarnings = []
+				}
+				if (!context.scopeInfo) {
+					context.scopeInfo = []
+				}
+				if (!context.scopes) {
+					context.scopes = {}
+				}
+				if (!context.findOptions) {
+					context.findOptions = {}
+				}
+				if (!updatedOptions.where) {
+					updatedOptions.where = {}
+				}
+
+				if (
+					context.findOptions &&
+					context.findOptions[rootPath] &&
+					context.findOptions[rootPath][pathScope]
+				) {
+					updatedOptions.where = {
+						...updatedOptions.where,
+						...context.findOptions[rootPath][pathScope]
+					}
+				}
+
+				if (args) {
+					updatedOptions = {
+						...updatedOptions,
+						...argsToFindOptions.default(args, [])
+					}
+				}
+
+				if (
+					!updatedOptions.limit ||
+					+updatedOptions.limit < 0 ||
+					+updatedOptions.limit >= 50
+				) {
+					updatedOptions.limit = 50
+				}
+
+				let finalOptions = updatedOptions
+				if (before) {
+					finalOptions = await before(updatedOptions, args, context, info)
+				}
+				return finalOptions
+			},
+			after: (result, args, context, info) => {
+				let cleanedResult = result
+				if (after) {
+					cleanedResult = after(result, args, context, info)
+				}
+
+				// clean connections
+				if (cleanedResult && cleanedResult.edges) {
+					for (let i = 0; i < cleanedResult.edges.length; i += 1) {
+						const edge = cleanedResult.edges[i]
+
+						const cleanResult = cleanModelByScope({
+							model: edge.node,
+							modelName,
+							context,
+							info
+						})
+
+						if (cleanResult === null) {
+							return null
+						}
+					}
+				}
+
+				return cleanedResult
+			}
+		}
+
+		const connection = createConnection(createConnectionOptions)
+		const args = defaultListArgs()
+
+		const opts = {
+			type: connection.connectionType,
+			args: {
+				...args,
+				...connection.connectionArgs
+			},
+			resolve: connection.resolve
+		}
+
+		return opts
+	}
+
+	function attributes(model, options) {
+		if (!options) {
+			options = {}
+		}
+		const attrs = {
+			...enhancedAttributeFields(model, options)
+		}
+
+		if (process.env.ENABLE_GRAPHQL_LOGGING) {
+			options.logging = true
+		}
+
+		// loop over associations and create connections for each model
+		Object.keys(model.associations).forEach(associationName => {
+			const modelAssociation = model.associations[associationName]
+			const type = ctx.gql.types[modelAssociation.target.name]
+
+			if (!type) {
+				throw new Error(
+					`No GraphQL type exists for ${
+						modelAssociation.target.name
+					}. Please create one.`
+				)
+			}
+
+			// create a 1to1 relationship with BelongsTo
+			if (modelAssociation.associationType === 'BelongsTo') {
+				attrs[associationName] = {
+					type,
+					args: defaultArgs(modelAssociation),
+					resolve: enhancedResolver(modelAssociation)
+				}
+			} else {
+				// const customConnectionOptions = connections[associationName] || {}
+				// build the relay connection for all other types
+				attrs[associationName] = buildConnection({
+					model,
+					type,
+					associationName,
+					connectionOptions: {
+						...options
+						// ...customConnectionOptions
+					}
+				})
+			}
+		})
+
+		return attrs
+	}
+	return {
+		enhancedResolver,
+		attributes,
+		attributeFields,
+		defaultArgs,
+		buildConnection
+	}
 }

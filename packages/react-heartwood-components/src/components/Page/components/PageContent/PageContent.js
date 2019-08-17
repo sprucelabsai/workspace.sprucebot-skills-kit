@@ -12,4 +12,5 @@ const PageContent = (props: Props) => {
 	return <div className="page__content">{children}</div>
 }
 
+PageContent.displayName = 'Page.Content'
 export default PageContent

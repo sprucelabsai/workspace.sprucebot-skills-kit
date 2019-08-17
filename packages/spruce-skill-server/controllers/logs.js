@@ -3,19 +3,19 @@ module.exports = (router, options) => {
 		try {
 			if (Array.isArray(ctx.request.body)) {
 				ctx.request.body.forEach(logItem => {
-					console.log(
-						`[FRONTEND ${logItem.level}] [${logItem.userAgent}] [${
-							logItem.path
-						}] ${logItem.about}`,
-						logItem.item
-					)
+					try {
+						const { item, level, ...rest } = logItem
+						log[level]({ source: 'frontend', ...rest }, item)
+					} catch (e) {
+						log.warn('Unable to log from frontend', err)
+					}
 				})
 			}
 			ctx.body = {
 				status: 'success'
 			}
 		} catch (err) {
-			console.log('(WARN | Log capture error)', err)
+			log.warn('Log capture error', err)
 		}
 	})
 }
