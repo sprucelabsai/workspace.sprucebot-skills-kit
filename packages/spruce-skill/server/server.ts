@@ -1,6 +1,6 @@
 const skillPackage = require('../package.json')
 const path = require('path')
-const serve = require('@sprucelabs/spruce-skill-server')
+import serve from '@sprucelabs/spruce-skill-server'
 const Sprucebot = require('@sprucelabs/spruce-node')
 const generateSwaggerDocs = require('./swagger/swagger')
 

@@ -1,31 +1,31 @@
-const debug = require('debug')('spruce-skill-server')
-const Koa = require('koa')
-const next = require('next')
-const Router = require('koa-router')
-const cron = require('node-cron')
-const _ = require('lodash')
-const koaBody = require('koa-body')
-const logger = require('@sprucelabs/log')
-const { version } = require('./package.json')
-const defaultErrors = require('./support/errors')
-const glob = require('glob')
-const path = require('path')
-const cors = require('@koa/cors')
-const staticServe = require('koa-static')
-const contextFactory = require('./factories/context')
-const routesFactory = require('./factories/routes')
-const waresFactory = require('./factories/wares')
-const listenersFactory = require('./factories/listeners')
-const sequelizeFactory = require('./factories/sequelize')
-const lang = require('./helpers/lang')
-const gqlRouter = require('./gql/router')
-const gqlListeners = require('./gql/listeners')
+import Debug from 'debug'
+const debug = Debug('spruce-skill-server')
+import Koa from 'koa'
+import next from 'next'
+import Router from 'koa-router'
+import cron from 'node-cron'
+import _ from 'lodash'
+import koaBody from 'koa-body'
+import logger from '@sprucelabs/log'
+import defaultErrors from './support/errors'
+import glob from 'glob'
+import path from 'path'
+import cors from '@koa/cors'
+import staticServe from 'koa-static'
+import contextFactory from './factories/context'
+import routesFactory from './factories/routes'
+import waresFactory from './factories/wares'
+import listenersFactory from './factories/listeners'
+import sequelizeFactory from './factories/sequelize'
+import lang from './helpers/lang'
+import gqlRouter from './gql/router'
+import gqlListeners from './gql/listeners'
 
 const required = key => {
 	throw new Error(`SkillKit server needs ${key}`)
 }
 
-module.exports = async ({
+export default async ({
 	sprucebot = required('sprucebot'),
 	port = required('port'),
 	serverHost = required('serverHost'),

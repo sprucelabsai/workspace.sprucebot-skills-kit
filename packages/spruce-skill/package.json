@@ -23,7 +23,7 @@
 		"clean": "rm -rf build/",
 		"start": "node ./build/server/server.js",
 		"##local": "nodemon ./server/server.js --exec \"npm run kill-inspect && flow-node --inspect=4080\" --watch server --watch config --verbose --ignore server/swagger --ignore server/static",
-		"local": "npm run kill-inspect && tsnd --project tsconfig.server.json --inspect=4080 --respawn --transpileOnly server/server.js",
+		"local": "npm run kill-inspect && tsnd --project tsconfig.server.json --inspect=4080 --respawn --transpileOnly server/server.ts",
 		"kill-inspect": "kill-port 4080",
 		"interface": "next ./interface -p 3080",
 		"lint": "eslint --ext .js .",
