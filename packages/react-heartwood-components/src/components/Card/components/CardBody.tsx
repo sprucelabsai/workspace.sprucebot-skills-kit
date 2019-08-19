@@ -48,6 +48,7 @@ const CardBody = (props: ICardBodyProps): React.ReactElement => {
 	)
 }
 
+CardBody.displayName = 'Card.Body'
 CardBody.defaultProps = {
 	isSectioned: true,
 	areSectionSeparatorsVisible: false,

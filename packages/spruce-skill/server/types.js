@@ -8,7 +8,7 @@ export interface IBigSearchSection {
 	/** how many results are there in total (not including paging/limiting) */
 	totalCount: number;
 	/** Search results for this section */
-	results: BigSearchResult[];
+	results: IBigSearchResult[];
 }
 
 export interface IBigSearchResult {
@@ -25,7 +25,7 @@ export interface IBigSearchResult {
 		/**  if type is 'coreRedirect', this is where we forward them. not needed if type is import */
 		page?: string,
 		/** An object that is used to populate the route template for the page */
-		routeParams?: Record<string, string>
+		routeParams?: { [key: string]: any }
 	};
 }
 
@@ -47,8 +47,6 @@ export interface IBigSearchCtx {
 			search: string,
 			/** If we're in testing mode */
 			testing: boolean,
-			/** searching is always assumed to be against an org, but the location Id is sent if the user is viewing a location (use it to set result.action.page) */
-			locationId?: string,
 			/** The things we're searching for */
 			types: BIG_SEARCH_TYPE[]
 		}
@@ -68,8 +66,6 @@ export interface IImportFromBigSearchCtx {
 			/** if the user is asking to merge with another result */
 			matchId?: string,
 			/** is the user viewing a location while importing */
-			locationId?: string,
-			/** the section of the result (matches whatever you return from big-search) */
 			section: string,
 			/** is the API in test mode? */
 			testing: boolean

@@ -3,6 +3,7 @@ import React from 'react'
 import type { Node } from 'react'
 import cx from 'classnames'
 import PageHeader from './components/PageHeader/PageHeader'
+import PageContent from './components/PageContent/PageContent'
 import type { PageHeaderProps } from './components/PageHeader/PageHeader'
 
 // Card
@@ -54,6 +55,9 @@ export const Page = (props: PageProps) => {
 		</div>
 	)
 }
+
+Page.Header = PageHeader
+Page.Content = PageContent
 
 Page.defaultProps = {
 	isCentered: false,

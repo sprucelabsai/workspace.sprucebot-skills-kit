@@ -3,6 +3,71 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
+## [8.17.6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.5...v8.17.6) (2019-08-16)
+
+
+### Bug Fixes
+
+* radio buttons hidden by default ([10fcded](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/10fcded))
+
+
+
+
+
+## [8.17.5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.4...v8.17.5) (2019-08-16)
+
+
+### Bug Fixes
+
+* table cell alignment ([5863fe3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5863fe3))
+
+
+
+
+
+## [8.17.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.3...v8.17.4) (2019-08-09)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
+## [8.17.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.2...v8.17.3) (2019-08-09)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
+## [8.17.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.1...v8.17.2) (2019-08-09)
+
+**Note:** Version bump only for package workspace.sprucebot-skills-kit
+
+
+
+
+
+## [8.17.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.0...v8.17.1) (2019-08-07)
+
+
+### Bug Fixes
+
+* update indexes ([67cc42f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/67cc42f))
+
+
+
+
+
 # [8.17.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.2...v8.17.0) (2019-08-07)
 
 

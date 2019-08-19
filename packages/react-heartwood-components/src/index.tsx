@@ -53,7 +53,7 @@ export {
 	isValidPhoneNumber,
 	DatePicker
 } from './components/Forms'
-export { default as Icon } from './components/Icon/Icon'
+export { default as Icon, IIconProps } from './components/Icon/Icon'
 export { default as Heading } from './components/Heading/Heading'
 export { default as Subheading } from './components/Subheading/Subheading'
 export {

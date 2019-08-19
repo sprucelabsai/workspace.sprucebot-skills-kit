@@ -5,7 +5,7 @@ import { generateLocations } from '../../../.storybook/data/tableData'
 import { map, sampleSize, cloneDeep } from 'lodash'
 import {
 	withKnobs,
-	withKnobsOptions,
+	// withKnobsOptions,
 	text,
 	boolean,
 	object,
@@ -18,11 +18,11 @@ import TruncatedList from './TruncatedList'
 
 const stories = storiesOf('TruncatedList', module)
 
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 
 stories.addDecorator(withKnobs)
 
