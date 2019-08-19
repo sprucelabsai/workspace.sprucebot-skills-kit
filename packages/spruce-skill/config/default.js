@@ -17,11 +17,8 @@ try {
 	console.error('Missing .env file for this project')
 }
 
-// When running locally we use 'flow-node' so it can handle flowtypes. When in a non-local environment we need to use the build/ directory where flowtypes have been stripped
-const baseDirectory =
-	process.env.ENV === 'local'
-		? `${__dirname}/../server`
-		: `${__dirname}/../build`
+// Previously needed to be set based on whether we were using flow. With the introduction of TS, this no longer needs to change based on local/production environment
+const baseDirectory = `${__dirname}/../server`
 
 module.exports = {
 	DEV_MODE: process.env.DEV_MODE === 'true',
@@ -142,10 +139,10 @@ module.exports = {
 			// 	description: 'Core asks for settings validation',
 			// 	subscribe: true
 			// },
-			// 'get-views': {
-			// 	description: 'Core asks for views to display on a page',
-			// 	subscribe: true
-			// },
+			'get-views': {
+				description: 'Core asks for views to display on a page',
+				subscribe: true
+			}
 			// 'get-cards': {
 			// 	description: 'Core asks this skill to provide cards',
 			// 	subscribe: true
