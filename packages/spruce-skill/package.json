@@ -20,9 +20,11 @@
 	},
 	"scripts": {
 		"build": "npm run build:strip-flow && next build interface",
-		"build:strip-flow": "rm -rf build/ && flow-remove-types server/ --out-dir build/",
-		"start": "node ./build/server.js",
-		"local": "nodemon ./server/server.js --exec \"npm run kill-inspect && flow-node --inspect=4080\" --watch server --watch config --verbose --ignore server/swagger --ignore server/static",
+		"build:strip-flow": "rm -rf build-flow/ && flow-remove-types server/ --out-dir build-flow/",
+		"##build:strip-flow": "rm -rf build/ && flow-remove-types server/ --out-dir build/",
+		"start": "node ./build/server/server.js",
+		"##local": "nodemon ./server/server.js --exec \"npm run kill-inspect && flow-node --inspect=4080\" --watch server --watch config --verbose --ignore server/swagger --ignore server/static",
+		"local": "npm run kill-inspect && NODE_ENV=local tsnd --inspect=4080 --respawn --transpileOnly server/server.js",
 		"kill-inspect": "kill-port 4080",
 		"interface": "next ./interface -p 3080",
 		"lint": "eslint --ext .js .",
@@ -44,6 +46,7 @@
 		"@sprucelabs/spruce-utils": "^8.17.7",
 		"@zeit/next-css": "^1.0.1",
 		"@zeit/next-sass": "^1.0.1",
+		"@zeit/next-typescript": "^1.1.1",
 		"apollo-link-ws": "^1.0.12",
 		"babel-core": "7.0.0-bridge.0",
 		"babel-plugin-transform-flow-strip-types": "^6.22.0",
@@ -77,6 +80,7 @@
 		"subscriptions-transport-ws": "^0.9.15",
 		"superagent": "^4.1.0",
 		"swagger-jsdoc": "^3.0.2",
+		"typescript": "^3.4.5",
 		"universal-cookie": "^2.1.0"
 	},
 	"devDependencies": {
@@ -103,7 +107,9 @@
 		"semantic-release": "16.0.0-beta.22",
 		"sqlite3": "^4.0.4",
 		"supertest": "^3.3.0",
-		"svgo": "^1.0.3"
+		"svgo": "^1.0.3",
+		"ts-node": "^8.0.2",
+		"ts-node-dev": "^1.0.0-pre.32"
 	},
 	"gitHead": "eac8d4ea6df58218b78c9c866b22c761df1e6447"
 }

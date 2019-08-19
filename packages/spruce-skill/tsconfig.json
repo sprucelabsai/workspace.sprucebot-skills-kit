@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"allowJs": true,
+		"noImplicitAny": true,
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitReturns": true,
+		"strict": true,
+		"resolveJsonModule": true,
+		"target": "es6",
+		"jsx": "react",
+		"module": "commonjs",
+		"sourceMap": true,
+		"outDir": "build",
+		"baseUrl": ".",
+		"paths": {
+			"*": ["node_modules/*", "server/*", "config/*", "interface/*"]
+		}
+	},
+	"include": ["server/**/*", "config/*", "interface/*"],
+	"exclude": ["node_modules"]
+}

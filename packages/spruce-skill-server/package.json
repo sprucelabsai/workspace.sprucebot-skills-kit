@@ -52,7 +52,8 @@
 	},
 	"peerDependencies": {
 		"graphql": "^14.2.0",
-		"sqlite3": "^4.0.4"
+		"sqlite3": "^4.0.4",
+		"typescript": "^3.4.5"
 	},
 	"devDependencies": {
 		"add": "^2.0.6",
