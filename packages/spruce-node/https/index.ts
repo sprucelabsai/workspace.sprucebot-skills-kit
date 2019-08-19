@@ -1,9 +1,19 @@
-const url = require('../utilities/url')
-const https = require('https')
-var debug = require('debug')('@sprucelabs/spruce-node')
+import { AbstractSprucebotAdapter } from '../index';
 
-module.exports = class Https {
-	constructor({ host, apiKey, id, version, allowSelfSignedCerts = false }) {
+import url from '../utilities/url'
+import https from 'https'
+import Debug from 'debug'
+const debug = Debug('@sprucelabs/spruce-node')
+
+export default class Https implements AbstractSprucebotAdapter {
+	private host: string
+	private apiKey: string
+	private id: string
+	private version: string
+	private allowSelfSignedCerts: boolean
+
+	constructor(options: { host: string, apiKey: string, id: string, version: string, allowSelfSignedCerts?: boolean }) {
+		const { host, apiKey, id, version, allowSelfSignedCerts = false } = options
 		if (!host || !apiKey || !id || !version) {
 			throw new Error(
 				'You gotta pass host, apiKey, id, and version to the Http constructor.'
@@ -16,7 +26,7 @@ module.exports = class Https {
 		this.allowSelfSignedCerts = allowSelfSignedCerts
 	}
 
-	async query(query) {
+	async query(query: string): Promise<any> {
 		return new Promise((resolve, reject) => {
 			const path = '/graphql'
 			// API Key must go with each request

@@ -1,8 +1,8 @@
-const skillPackage = require('../package.json')
-const path = require('path')
+import skillPackage from '../package.json'
+import path from 'path'
 import serve from '@sprucelabs/spruce-skill-server'
-const Sprucebot = require('@sprucelabs/spruce-node')
-const generateSwaggerDocs = require('./swagger/swagger')
+import Sprucebot from '@sprucelabs/spruce-node'
+import generateSwaggerDocs from './swagger/swagger'
 
 const {
 	API_KEY,

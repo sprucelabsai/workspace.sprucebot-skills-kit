@@ -1,53 +1,107 @@
-const Https = require('./https')
-const MockHttps = require('./mock')
+import Https from './https'
+import MockHttps from './mock'
 
-/**
- * Politely tell someone they didn't define an arg
- * @param {string} name
- */
-function required(name) {
-	throw new Error(
-		`You are missing some params! Make sure you set ${name} properly (maybe .env) 🤷🏼‍`
-	)
+export abstract class AbstractSprucebotAdapter {
+	public abstract query(queryParams: string): Promise<any>
+	public abstract get(path: string, queryParams?: Record<string, any>): Promise<any>
+	public abstract post(path: string, data?: Record<string, any>, queryParams?: Record<string, any>, method?: string): Promise<any>
+	public abstract patch(path: string, data?: Record<string, any>, queryParams?: Record<string, any>): Promise<any>
+	public abstract delete(path: string, queryParams?: Record<string, any>): Promise<any>
 }
 
-function suggested(name) {
-	console.log(
-		`⚠️  Missing key in Sprucebot() constructor. Check your server.js and environment variables: ${name}`
-	)
+export interface IAuditLog {
+	type: string,
+	action: string,
+	description: string,
+	userId?: string,
+	locationId?: string,
+	organizationId?: string,
+	meta: Record<string, any>
 }
 
-class Sprucebot {
-	constructor({
-		apiKey = required('apiKey'),
-		id = required('id'),
-		host = required('host'),
-		name = required('name'),
-		description = required('description'),
-		interfaceUrl = required('interfaceUrl'),
-		serverUrl = required('serverUrl'),
-		svgIcon = required('svgIcon'),
-		allowSelfSignedCerts = false,
-		dbEnabled = false,
-		eventContract = suggested('eventContract'),
-		version = 'unknown',
-		skillsKitVersion = 'unknown',
-		acl = suggested('acl'),
-		viewVersion = suggested('viewVersion')
+export default class Sprucebot {
+	private name: string
+	private description: string
+	private icon: string
+	private webhookUrl: string
+	private iframeUrl: string
+	private acl: Record<string, any>
+	private viewVersion: number
+	private marketingUrl: string
+	private dbEnabled: boolean
+	private eventContract: Record<string, any>
+	private version: string
+	private skillsKitVersion: string
+	private apiVersion: string
+	private adapterOptions: Record<string, any>
+	private adapter: AbstractSprucebotAdapter
+	private _mutexes: Record<string, any>
+	private requiredParams = [
+		'apiKey',
+		'id',
+		'host',
+		'name',
+		'description',
+		'interfaceUrl',
+		'serverUrl',
+		'svgIcon',
+	]
+	private suggestedParams = [
+		'eventContract',
+		'acl',
+		'viewVersion',
+	]
+
+	public constructor(options: {
+		apiKey: string
+		id: string
+		host: string
+		name: string
+		description: string
+		interfaceUrl: string
+		serverUrl: string
+		svgIcon: string
+		allowSelfSignedCerts?: boolean
+		dbEnabled?: boolean
+		eventContract?: Record<string, any> // TODO: Define event contract more specifically
+		version?: string
+		skillsKitVersion?: string
+		acl?: Record<string, any> // TODO: Define acls type
+		viewVersion?: number
 	}) {
-		const hostMatches = host.match(/^(https?\:\/\/|)([^\/:?#]+)(?:[\/:?#]|$)/i)
-		const cleanedHost =
-			hostMatches && hostMatches[2] ? hostMatches[2] : required('host')
+		this.validateConstructorParams(options)
+		const {
+			apiKey,
+			id,
+			host,
+			name,
+			description,
+			interfaceUrl,
+			serverUrl,
+			svgIcon,
+			allowSelfSignedCerts = false,
+			dbEnabled = false,
+			eventContract,
+			version = 'unknown',
+			skillsKitVersion = 'unknown',
+			acl,
+			viewVersion
+		} = options
 
-		this.name = name || required('name')
-		this.description = description || required('description')
-		this.icon = svgIcon || required('svgIcon')
-		this.webhookUrl = (serverUrl || required('serverUrl')) + '/hook.json'
-		this.iframeUrl = interfaceUrl || required('interfaceUrl')
+		const hostMatches = host.match(/^(https?\:\/\/|)([^\/:?#]+)(?:[\/:?#]|$)/i)
+		if (!hostMatches || !hostMatches[2]) {
+			throw new Error('Invalid "host" passed to Sprucebot constructor')
+		}
+		const cleanedHost = hostMatches[2]
+
+		this.name = name
+		this.description = description
+		this.icon = svgIcon
+		this.webhookUrl = serverUrl  + '/hook.json'
+		this.iframeUrl = interfaceUrl
 		this.acl = acl || {}
 		this.viewVersion = viewVersion || 1
-		this.marketingUrl =
-			(interfaceUrl || required('interfaceUrl')) + '/marketing'
+		this.marketingUrl = interfaceUrl  + '/marketing'
 
 		this.dbEnabled = dbEnabled
 		this.eventContract = eventContract || { events: {} }
@@ -126,15 +180,27 @@ class Sprucebot {
 		return this.adapter.get('/database/provision')
 	}
 
-	async query(query) {
+	/**
+	 * Make a GQL query against the API. See https://developer.spruce.ai
+	 *
+	 * @param query The GQL query to send to the API
+	 */
+	async query(query: string): Promise<any> {
 		return this.adapter.query(query)
 	}
 
-	async mutation(query) {
+	/**
+	 * Make a GQL mutation against the API. See https://developer.spruce.ai
+	 *
+	 * @param query The GQL mutation to send to the API
+	 */
+	async mutation(query: string): Promise<any> {
 		return this.adapter.query(`mutation ${query}`)
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Fetch a user based on their id and location
 	 *
 	 * @param {String} userId
@@ -147,6 +213,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Get a user without a location. GLOBAL SKILLS ONLY
 	 *
 	 * @param {String} userId
@@ -157,6 +225,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Get all locations. GLOBAL SKILLS ONLY
 	 *
 	 * @param {Object} Optional query string to be added to the request
@@ -166,6 +236,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Create a user
 	 *
 	 * @param {Object} values
@@ -176,6 +248,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Update a users role
 	 *
 	 * @param {String} locationId
@@ -190,6 +264,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Search for users who have been to this location
 	 *
 	 * @param {String} locationId
@@ -203,6 +279,8 @@ class Sprucebot {
 		)
 	}
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Search for users who have been to this organization
 	 *
 	 * @param {String} locationId
@@ -217,6 +295,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Update for user who have been to this location
 	 *
 	 * @param {String} id
@@ -228,6 +308,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Get a location by id
 	 *
 	 * @param {String} locationId
@@ -239,6 +321,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Fetch all locations where this skill is installed
 	 *
 	 * @param {Object} query
@@ -362,6 +446,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated in favor of new metadata implementation. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Get one meta object back.
 	 *
 	 * @param {String} key
@@ -382,6 +468,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated in favor of new metadata implementation. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Get skill meta data by id
 	 *
 	 * @param {String} id
@@ -391,6 +479,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated in favor of new metadata implementation. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Create a meta data record.
 	 *
 	 * @param {String} key
@@ -409,6 +499,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated in favor of new metadata implementation. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Update some meta data by id
 	 *
 	 * @param {String} id
@@ -424,6 +516,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated in favor of new metadata implementation. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Fetch some meta. Create it if it does not exist
 	 *
 	 * @param {String} key
@@ -450,6 +544,8 @@ class Sprucebot {
 		return meta
 	}
 	/**
+	 * @deprecated in favor of new metadata implementation. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Creates a meta if it does not exist, updates it if it does
 	 * @param {String} key
 	 * @param {*} value
@@ -479,6 +575,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated in favor of new metadata implementation. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Delete meta data by id
 	 *
 	 * @param {String} id
@@ -579,6 +677,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Create location (Enterprise Skills only)
 	 *
 	 * @param {String} organizationId
@@ -593,6 +693,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Create location (Global Skills only)
 	 *
 	 * @param {Array} locations
@@ -603,6 +705,8 @@ class Sprucebot {
 	}
 
 	/**
+	 * @deprecated since v2 of the Sprucebot API. Use emit() or emitOrganization() instead. Check out the docs at https://developer.spruce.ai
+	 *
 	 * Emit any event as an Enterprise skill.
 	 *
 	 * @param {Object} response
@@ -624,7 +728,7 @@ class Sprucebot {
 	 *
 	 * @param {String} key
 	 */
-	async wait(key) {
+	async wait(key: string): Promise<void> {
 		if (!this._mutexes[key]) {
 			this._mutexes[key] = {
 				promises: [],
@@ -656,7 +760,7 @@ class Sprucebot {
 	 *
 	 * @param {String} key
 	 */
-	async go(key) {
+	async go(key: string): Promise<void> {
 		if (this._mutexes[key]) {
 			//remove this promise
 			this._mutexes[key].promises.shift()
@@ -674,15 +778,15 @@ class Sprucebot {
 	}
 
 	/**
-	 * Are we currently pending a long operation?
+	 * Are we currently pending a long operation? Checks the provided key
 	 *
-	 * @param {Boolean} key
+	 * @param {String} key
 	 */
-	async isWaiting(key) {
+	async isWaiting(key: string): Promise<boolean> {
 		return !!this._mutexes[key]
 	}
 
-	validateEventContract(eventContract) {
+	validateEventContract(eventContract: Record<string, any>) {
 		if (!eventContract || !eventContract.events) {
 			console.warn(
 				'⚠️  The event contract is invalid.  Check your config/default.js file.  The "eventContracts" key must be of the form:'
@@ -692,11 +796,23 @@ class Sprucebot {
 	}
 
 	/**
-	 * Audit log or logs to send
+	 * Create audit logs when data in your skill is changed so we can keep track of who/what changed it.
 	 *
-	 * @param auditLogs
+	 * You can pass this method a single object or an array of objects
+	 *
+	 * {
+	 * 	type: 'createAppointment', // Unique key for the audit type
+	 * 	action: 'created an appointment', // Short description of the action taken
+	 * 	description: 'Mr. Bot created an appointment for Ms. Spruce at 10am on Thursday',
+	 * 	userId: '6cdf0a33-6cb6-4742-946d-9ac30e614405', // (optional) UUID of the user performing the action
+	 * 	locationId?: '9efa8aea-1ccd-4d8c-b3e7-616cadaa3ddf', // (optional) UUID of the location where this happened
+	 * 	organizationId?: '9a43d7f0-393e-4202-a067-ddd99b114914', // (optional) UUID of the organization where this happened
+	 * 	meta: {
+	 *   appointmentId: '1234abc'
+	 *  } // (optional) Any additional metadata
+	 * }
 	 */
-	audit(auditLogs) {
+	audit(auditLogs: IAuditLog | IAuditLog[]): void {
 		if (!Array.isArray(auditLogs)) {
 			auditLogs = [auditLogs]
 		}
@@ -706,6 +822,21 @@ class Sprucebot {
 			.then(() => {})
 			.catch(e => log.warn(e))
 	}
-}
 
-module.exports = Sprucebot
+	private validateConstructorParams(params: Record<string, any>): void {
+		this.requiredParams.forEach(requiredParam => {
+			if (typeof params[requiredParam] === 'undefined') {
+				throw new Error(
+					`You are missing some params! Make sure you set ${requiredParam} properly (maybe .env) 🤷🏼‍`
+				)
+			}
+		})
+		this.suggestedParams.forEach(suggestedParam => {
+			if (typeof params[suggestedParam] === 'undefined') {
+				console.log(
+					`⚠️  Missing key in Sprucebot() constructor. Check your server.js and environment variables: ${suggestedParam}`
+				)
+			}
+		})
+	}
+}
