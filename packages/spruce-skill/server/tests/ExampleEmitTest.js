@@ -1,13 +1,9 @@
-// @flow
+//
 const { assert } = require('chai')
 const { SpruceTest } = require('@sprucelabs/spruce-skill-server')
 
 // SpruceTest take a single parameter, pointing to the base skill directory
 class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
-	organization: any
-	location: any
-	skill: any
-
 	setup() {
 		it('Can emitOrganization to "example:get-model" event', () =>
 			this.emitOrganization())

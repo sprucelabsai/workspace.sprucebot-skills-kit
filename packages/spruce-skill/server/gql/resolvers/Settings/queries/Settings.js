@@ -1,4 +1,4 @@
-// @flow
+//
 const config = require('config')
 const { GraphQLList, GraphQLString, GraphQLObjectType } = require('graphql')
 const GraphQLJSON = require('graphql-type-json')
@@ -26,9 +26,9 @@ module.exports = ctx => {
 				}
 			},
 			async resolve(
-				source: Object,
-				args: Object,
-				context: Object
+				source,
+				args,
+				context
 				// info: Object
 			) {
 				if (!context.auth || !context.auth.User) {

@@ -1,4 +1,4 @@
-// @flow
+//
 import React from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
@@ -85,7 +85,7 @@ class DashboardLocationPage extends React.Component {
 		log.debug({ ...res.body })
 	}
 
-	handleOpenModal = (isPaged: boolean) => {
+	handleOpenModal = isPaged => {
 		if (isPaged) {
 			this.modal.open({
 				title: 'Page 1 Heading',

@@ -1,9 +1,7 @@
-// @flow
+//
 const { eventError } = require('../lib/errorHandler')
 
-import type { IImportFromBigSearchCtx, IImportBigSearchResult } from '../types'
-
-module.exports = async (ctx: IImportFromBigSearchCtx, next: Function) => {
+module.exports = async (ctx, next) => {
 	try {
 		console.log('****import-from-big-search', ctx.auth.Organization.name)
 
@@ -20,7 +18,7 @@ module.exports = async (ctx: IImportFromBigSearchCtx, next: Function) => {
 			testing
 		)
 
-		const response: IImportBigSearchResult = {
+		const response = {
 			successfulImport: undefined,
 			matchGroup: undefined
 		}

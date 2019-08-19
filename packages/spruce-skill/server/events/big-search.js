@@ -1,11 +1,5 @@
-// @flow
+//
 const { eventError } = require('../lib/errorHandler')
-
-import type {
-	IBigSearchCtx,
-	IBigSearchSection,
-	IBigSearchResult
-} from '../types'
 
 const BIG_SEARCH_TYPES = {
 	ANY: 'any',
@@ -14,7 +8,7 @@ const BIG_SEARCH_TYPES = {
 	GROUP: 'group'
 }
 
-module.exports = async (ctx: IBigSearchCtx, next: Function) => {
+module.exports = async (ctx, next) => {
 	try {
 		console.log('****big-search', ctx.auth.Organization.name)
 
@@ -26,7 +20,7 @@ module.exports = async (ctx: IBigSearchCtx, next: Function) => {
 		} = ctx
 
 		// each section
-		const sections: IBigSearchSection[] = []
+		const sections = []
 
 		// do whatever you want with these
 		console.log('ignoring', search, testing)
@@ -45,26 +39,24 @@ module.exports = async (ctx: IBigSearchCtx, next: Function) => {
 				offset
 			})
 
-			const section1: IBigSearchSection = {
+			const section1 = {
 				title: 'Core Search Results Example',
 				section: 'internal',
 				totalCount: count,
-				results: rows.map(
-					(user: Object): IBigSearchResult => ({
-						id: user.id,
-						title: `${user.firstName} ${user.lastName}`,
-						subtitle: ``,
-						action: {
-							type: 'coreRedirect',
-							page: location ? 'profile_user_location' : 'profile_user_org',
-							routeParams: {
-								userId: user.id,
-								organizationId: organization.id,
-								locationId: location && location.Id
-							}
+				results: rows.map(user => ({
+					id: user.id,
+					title: `${user.firstName} ${user.lastName}`,
+					subtitle: ``,
+					action: {
+						type: 'coreRedirect',
+						page: location ? 'profile_user_location' : 'profile_user_org',
+						routeParams: {
+							userId: user.id,
+							organizationId: organization.id,
+							locationId: location && location.Id
 						}
-					})
-				)
+					}
+				}))
 			}
 
 			sections.push(section1)
@@ -73,7 +65,7 @@ module.exports = async (ctx: IBigSearchCtx, next: Function) => {
 		// or you can search any source you want and mark them as needing to be imported
 		// you can't import people unless there is a location, so make sure to check one is set
 		if (location) {
-			const dummyResults: IBigSearchResult[] = []
+			const dummyResults = []
 
 			for (let c = 0; c < 100; c++) {
 				dummyResults.push({
@@ -86,7 +78,7 @@ module.exports = async (ctx: IBigSearchCtx, next: Function) => {
 				})
 			}
 
-			const section2: IBigSearchSection = {
+			const section2 = {
 				title: 'Results to import',
 				section: 'external',
 				totalCount: dummyResults.length,

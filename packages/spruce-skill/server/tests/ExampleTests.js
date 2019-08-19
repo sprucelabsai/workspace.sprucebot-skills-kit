@@ -1,12 +1,9 @@
-// @flow
+//
 const { assert } = require('chai')
 const { SpruceTest } = require('@sprucelabs/spruce-skill-server')
 
 // SpruceTest take a single parameter, pointing to the base skill directory
 class ExampleTests extends SpruceTest(`${__dirname}/../../`) {
-	organization: any
-	location: any
-
 	setup() {
 		it('Can do a trivial assert', () => this.trivialAssert())
 		it('Can get users', () => this.getUsers())

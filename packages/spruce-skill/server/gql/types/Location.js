@@ -1,4 +1,4 @@
-// @flow
+//
 const { GraphQLObjectType } = require('graphql')
 const GraphQLJSON = require('graphql-type-json')
 
@@ -13,7 +13,7 @@ module.exports = ctx =>
 			geo: {
 				type: GraphQLJSON,
 				// Just return geo...this is public information
-				resolve: async (obj: Object) => obj.geo
+				resolve: async obj => obj.geo
 			}
 		})
 	})
