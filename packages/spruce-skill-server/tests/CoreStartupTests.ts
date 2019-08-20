@@ -1,13 +1,12 @@
-const assert = require('chai').assert
-const SpruceTest = require('./SpruceTest')
-const config = require('config')
+import { assert } from 'chai'
+import SpruceTest from './SpruceTest'
 
-class CoreStartupTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
-	setup() {
+class CoreStartupTests extends SpruceTest(`${__dirname}/../../spruce-skill`) {
+	public setup(): void {
 		it('Loads services', () => this.loadsServices())
 	}
 
-	async loadsServices() {
+	public async loadsServices(): Promise<void> {
 		assert.isOk(this.ctx.services)
 		assert.isOk(this.ctx.services.acl)
 		assert.isOk(this.ctx.services.cache)
@@ -20,6 +19,5 @@ class CoreStartupTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 }
 
 describe('CoreStartupTests', function Tests() {
-	this.timeout(30000)
-	new CoreStartupTests()
+	new CoreStartupTests(this)
 })

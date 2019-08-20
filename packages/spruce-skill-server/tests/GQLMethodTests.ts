@@ -1,5 +1,5 @@
-const assert = require('chai').assert
-const SpruceTest = require('./SpruceTest')
+import { assert } from 'chai'
+import SpruceTest from './SpruceTest'
 const config = require('config')
 const faker = require('faker')
 
@@ -71,6 +71,5 @@ class GQLMethodTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 }
 
 describe('GQLMethodTests', function Tests() {
-	this.timeout(30000)
-	new GQLMethodTests()
+	new GQLMethodTests(this)
 })

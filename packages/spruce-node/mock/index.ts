@@ -1,15 +1,18 @@
-const url = require('../utilities/url')
-var debug = require('debug')('@sprucelabs/spruce-node')
-const { buildClientSchema } = require('graphql')
-const fs = require('fs')
-const {
+import url from '../utilities/url'
+import Debug from 'debug'
+import { buildClientSchema } from 'graphql'
+import fs from 'fs'
+import {
 	mockServer,
 	addMockFunctionsToSchema,
 	makeExecutableSchema,
 	addResolveFunctionsToSchema
-} = require('graphql-tools')
+} from 'graphql-tools'
+import introspectionSchemaResult from './apiSchema.json'
 
-module.exports = class MockHttps {
+const debug = Debug('@sprucelabs/spruce-node')
+
+export default class MockHttps {
 	constructor({
 		host,
 		apiKey,
@@ -31,9 +34,9 @@ module.exports = class MockHttps {
 	}
 
 	async mockApiGQLServerInit({ mockResolvers, mockModels }) {
-		const introspectionSchemaResult = JSON.parse(
-			fs.readFileSync(`${__dirname}/apiSchema.json`)
-		)
+		// const introspectionSchemaResult = JSON.parse(
+		// 	fs.readFileSync(`${__dirname}/apiSchema.json`)
+		// )
 		try {
 			const schema = buildClientSchema(introspectionSchemaResult.data)
 			// TODO: This doesn't seem to be replacing mutations on the schema with the custom resolvers in apiMocks.js. Instead, it's returning default mock data. SDEV3-2131

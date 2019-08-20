@@ -1,5 +1,5 @@
-const assert = require('chai').assert
-const SpruceTest = require('./SpruceTest')
+import { assert } from 'chai'
+import SpruceTest from './SpruceTest'
 const config = require('config')
 
 class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
@@ -244,6 +244,5 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 }
 
 describe('ACLTests', function Tests() {
-	this.timeout(30000)
-	new ACLTests()
+	new ACLTests(this)
 })

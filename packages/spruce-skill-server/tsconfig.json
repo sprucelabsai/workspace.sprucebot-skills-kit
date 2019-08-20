@@ -31,7 +31,8 @@
 		"services/**/*",
 		"support/**/*",
 		"tests/**/*",
-		"utilities/**/*"
+		"utilities/**/*",
+		"../spruce-skill/server/**/*"
 	],
 	"exclude": ["**/node_modules/*"]
 }

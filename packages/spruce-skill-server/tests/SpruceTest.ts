@@ -1,18 +1,26 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-const globby = require('globby')
-const supertest = require('supertest')
-const faker = require('faker')
-const { generateSkillJWT } = require('./lib/jwt')
+import globby from 'globby'
+import supertest from 'supertest'
+import faker from 'faker'
+import { generateSkillJWT } from './lib/jwt'
+import { Suite } from 'mocha'
+import Koa from 'koa'
 
 // The base test model that all others will extend
-module.exports = basePath => {
+export default (basePath: string) => {
 	if (!basePath) {
 		throw new Error(
 			'Invalid "basePath" passed to SpruceTest. It should be used like: class ExampleTests extends SpruceTest(`${__dirname}/../../`) {...}'
 		)
 	}
 	return class Base {
-		constructor() {
+		public koa!: Koa<any>
+		public ctx!: Koa.BaseContext
+		public mocks: Record<string, any>
+
+		public constructor(mocha: Suite) {
+			mocha.timeout(30000)
+			mocha.retries(0)
 			this.mocks = {}
 			before(() => this.before())
 			after(() => this.after())

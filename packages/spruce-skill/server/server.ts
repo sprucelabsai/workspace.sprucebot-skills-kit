@@ -1,4 +1,5 @@
-import skillPackage from '../package.json'
+import * as skillPackage from '../package.json'
+import skillPackage2 from '../package.json'
 import path from 'path'
 import serve from '@sprucelabs/spruce-skill-server'
 import Sprucebot from '@sprucelabs/spruce-node'
@@ -40,6 +41,10 @@ const {
 	acl,
 	VIEW_VERSION
 } = require('config')
+
+console.log('*********************************')
+console.log('*********************************')
+console.log({ skillPackage, skillPackage2, dir: __dirname })
 
 // Construct a new Sprucebot
 const sprucebot = new Sprucebot({
