@@ -42,8 +42,8 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - run: export SHA=$(git rev-parse --short HEAD) && npm run publish -- prerelease --exact --yes --preid pre-$SHA --message "%s [skip ci]" --npm-client npm --no-push --npm-tag prerelease
-      - run: yarn build-statics
-      - run: yarn s3-sync-stylesheets-pre
+      # - run: yarn build-statics
+      # - run: yarn s3-sync-stylesheets-pre
   canary:
     docker:
       - image: circleci/python:3-node
