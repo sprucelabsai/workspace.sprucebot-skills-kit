@@ -126,7 +126,14 @@ workflows:
   version: 2
   do_build:
     jobs:
+      - test:
+          filters:
+            branches:
+              only:
+                - master
       - pre_release:
+          # requires:
+          #   - test
           filters:
             branches:
               only:
