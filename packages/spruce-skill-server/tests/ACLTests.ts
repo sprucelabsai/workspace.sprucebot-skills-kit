@@ -1,9 +1,9 @@
 import { assert } from 'chai'
 import SpruceTest from './SpruceTest'
-const config = require('config')
+import config from 'config'
 
 class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
-	setup() {
+	public setup(): void {
 		it('Checks location acls as owner', () => this.checkLocationAcls('owner'))
 		it('Checks location acls as groupManager', () =>
 			this.checkLocationAcls('groupManager'))
@@ -43,7 +43,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 			this.missingParametersPermissions())
 	}
 
-	async checkLocationAcls(as) {
+	public async checkLocationAcls(as: string): Promise<void> {
 		let expected
 		let userId
 
@@ -85,7 +85,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		assert.equal(isAuthorized, expected)
 	}
 
-	async checkOrganizationAcls(as) {
+	public async checkOrganizationAcls(as: string): Promise<void> {
 		let expected
 		let userId
 
@@ -126,7 +126,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		assert.equal(isAuthorized, expected)
 	}
 
-	async checkMultipleAcls(as) {
+	public async checkMultipleAcls(as: string): Promise<void> {
 		let expected
 		let userId
 
@@ -170,7 +170,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		assert.equal(isAuthorized, expected)
 	}
 
-	async aclUndefined() {
+	public async aclUndefined(): Promise<void> {
 		const isAuthorized = await this.ctx.services.acl.userIsAuthorizedForAcls({
 			userId: this.organization.owner[0].id,
 			permissions: {
@@ -183,7 +183,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		assert.isFalse(isAuthorized)
 	}
 
-	async invalidSlug() {
+	public async invalidSlug(): Promise<void> {
 		const isAuthorized = await this.ctx.services.acl.userIsAuthorizedForAcls({
 			userId: this.organization.owner[0].id,
 			permissions: {
@@ -196,7 +196,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		assert.isFalse(isAuthorized)
 	}
 
-	async missingParametersUserId() {
+	public async missingParametersUserId(): Promise<void> {
 		let didThrow = false
 		try {
 			await this.ctx.services.acl.userIsAuthorizedForAcls({
@@ -212,7 +212,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		assert.isTrue(didThrow)
 	}
 
-	async missingParametersOrganizationId() {
+	public async missingParametersOrganizationId(): Promise<void> {
 		let didThrow = false
 		try {
 			await this.ctx.services.acl.userIsAuthorizedForAcls({
@@ -228,7 +228,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		assert.isTrue(didThrow)
 	}
 
-	async missingParametersPermissions() {
+	public async missingParametersPermissions(): Promise<void> {
 		let didThrow = false
 		try {
 			await this.ctx.services.acl.userIsAuthorizedForAcls({

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 import globby from 'globby'
 import supertest from 'supertest'
@@ -14,13 +15,16 @@ export default (basePath: string) => {
 		)
 	}
 	return class Base {
-		public koa!: Koa<any>
-		public ctx!: Koa.BaseContext
-		public mocks: Record<string, any>
+		protected koa!: Koa<any>
+		protected ctx!: Koa.BaseContext
+		protected mocks: Record<string, any>
+		protected request!: supertest.SuperTest<supertest.Test>
 
 		public constructor(mocha: Suite) {
-			mocha.timeout(30000)
-			mocha.retries(0)
+			if (mocha) {
+				mocha.timeout(30000)
+				mocha.retries(0)
+			}
 			this.mocks = {}
 			before(() => this.before())
 			after(() => this.after())
@@ -29,24 +33,9 @@ export default (basePath: string) => {
 			this.setup()
 		}
 
-		setup() {}
+		protected async setup(): Promise<void> {}
 
-		mockCtx({ location, payload }) {
-			const ctx = {
-				event: {
-					Location: location,
-					payload
-				},
-				db: {
-					models: this.koa.context.db.models
-				},
-				body: {}
-			}
-
-			return ctx
-		}
-
-		async setupMocks(options) {
+		protected async setupMocks(options?: Record<string, any>): Promise<void> {
 			try {
 				const mocks = await globby([
 					`${__dirname}/mocks/**/*Mock.js`,
@@ -54,6 +43,7 @@ export default (basePath: string) => {
 				])
 				let sandbox
 				for (let i = 0; i < mocks.length; i += 1) {
+					// @ts-ignore
 					const Mock = require(mocks[i])
 					const mock = new Mock(this.koa)
 					if (mock.key === 'sandbox') {
@@ -77,14 +67,14 @@ export default (basePath: string) => {
 			}
 		}
 
-		async beforeEach() {
+		protected async beforeEach(): Promise<void> {
 			// Reset the emit response handler
 			global.testEmitResponse = {}
 		}
 
-		async afterEach() {}
+		protected async afterEach(): Promise<void> {}
 
-		async before(options) {
+		protected async before(options?: Record<string, any>): Promise<void> {
 			await this.beforeBase(options)
 			if (this.mocks.sandbox) {
 				this.organization = this.mocks.sandbox.organization
@@ -105,7 +95,7 @@ export default (basePath: string) => {
 			}
 		}
 
-		async beforeBase(options) {
+		protected async beforeBase(options): Promise<void> {
 			try {
 				const { koa, server } = await require(`${basePath}/server/server`)
 				this.server = server
@@ -121,11 +111,11 @@ export default (basePath: string) => {
 			}
 		}
 
-		async after() {
+		protected async after(): Promise<void> {
 			await this.afterBase()
 		}
 
-		async afterBase() {
+		protected async afterBase(): Promise<void> {
 			try {
 				const promises = []
 				for (let k in this.mocks) {
@@ -137,14 +127,22 @@ export default (basePath: string) => {
 			}
 		}
 
-		async triggerEvent({
-			eventName,
-			payload,
-			skill,
-			location,
-			organization,
-			user
-		}) {
+		protected async triggerEvent(options: {
+			eventName: string
+			payload: string
+			skill: string
+			location: string
+			organization: string
+			user: string
+		}): Promise<any> {
+			const {
+				eventName,
+				payload,
+				skill,
+				location,
+				organization,
+				user
+			} = options
 			const token = generateSkillJWT({
 				skill,
 				location,
@@ -161,7 +159,7 @@ export default (basePath: string) => {
 			return result
 		}
 
-		createPhone() {
+		protected createPhone(): string {
 			const phone = faker.phone.phoneNumberFormat(0)
 			return `555${phone.substr(3)}`
 		}

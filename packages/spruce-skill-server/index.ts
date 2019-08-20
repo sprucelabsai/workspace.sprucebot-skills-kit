@@ -20,6 +20,7 @@ import sequelizeFactory from './factories/sequelize'
 import lang from './helpers/lang'
 import gqlRouter from './gql/router'
 import gqlListeners from './gql/listeners'
+// import SpruceTest from './tests/SpruceTest'
 
 const required = key => {
 	throw new Error(`SkillKit server needs ${key}`)
@@ -445,7 +446,9 @@ export default async ({
 		gqlRouter(koa, gqlOptions, server)
 		gqlListeners(koa, gqlOptions, server)
 
-		if (err) throw err
+		if (err) {
+			throw err
+		}
 		console.log(
 			` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`
 		)
@@ -454,8 +457,9 @@ export default async ({
 	return { koa, server }
 }
 
-try {
-	module.exports.SpruceTest = require('./tests/SpruceTest')
-} catch (e) {
-	debug('"SpruceTest" is not loaded. Install devDependencies to enable.')
-}
+export { default as SpruceTest } from './tests/SpruceTest'
+// try {
+// 	// module.exports.SpruceTest = require('./tests/SpruceTest')
+// } catch (e) {
+// 	debug('"SpruceTest" is not loaded. Install devDependencies to enable.')
+// }

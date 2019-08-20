@@ -20,7 +20,8 @@
 		"build": "npm run clean && tsc | true",
 		"watch": "tsc -w",
 		"clean": "rm -rf build/",
-		"lint": "eslint '**/**/*{.js}'",
+		"##lint": "eslint '**/**/*{.js}'",
+		"#lint": "eslint '**/*.ts'",
 		"test": "cd ../spruce-skill/ && rm tmp/testing.db | true && mkdir -p tmp/ | true && TS_NODE_PROJECT=../spruce-skill-server/tsconfig.json PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit '../spruce-skill-server/tests/**/*Tests.ts'",
 		"##test": "cd ../spruce-skill/ && PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit '../spruce-skill-server/tests/**/*Tests.ts'"
 	},
@@ -34,6 +35,7 @@
 		"dataloader-sequelize": "^1.7.6",
 		"debug": "^3.1.0",
 		"glob": "^7.1.2",
+		"globby": "^10.0.1",
 		"graphql-depth-limit": "^1.1.0",
 		"graphql-query-complexity": "^0.2.2",
 		"graphql-redis-subscriptions": "^2.0.0",
@@ -62,8 +64,13 @@
 		"typescript": "~3.4.5"
 	},
 	"devDependencies": {
+		"@types/chai": "^4.2.0",
+		"@types/config": "^0.0.34",
+		"@types/faker": "^4.1.5",
+		"@types/globby": "^9.1.0",
 		"@types/koa": "^2.0.49",
 		"@types/mocha": "^5.2.7",
+		"@types/supertest": "^2.0.8",
 		"add": "^2.0.6",
 		"aws-sdk": "^2.153.0",
 		"chai": "^4.2.0",
