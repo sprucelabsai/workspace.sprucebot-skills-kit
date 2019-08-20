@@ -3,6 +3,9 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"files": [
+		"build"
+	],
 	"description": "The engine that drives your Sprucebot Skill! ⚙️🌲🤖",
 	"version": "8.17.7",
 	"main": "./build/index.js",

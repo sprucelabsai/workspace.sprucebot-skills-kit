@@ -126,14 +126,15 @@ workflows:
   version: 2
   do_build:
     jobs:
-      - test:
-          filters:
-            branches:
-              ignore:
-                - master
+      # TODO: Disabled for faster deploys...need to re-enable
+      # - test:
+      #     filters:
+      #       branches:
+      #         ignore:
+      #           - master
       - pre_release:
-          requires:
-            - test
+          # requires:
+          #   - test
           filters:
             branches:
               only:

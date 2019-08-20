@@ -3,6 +3,9 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"files": [
+		"build"
+	],
 	"version": "8.17.7",
 	"main": "./build/index.js",
 	"types": "./build/index.d.ts",
