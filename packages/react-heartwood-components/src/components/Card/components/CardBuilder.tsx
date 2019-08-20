@@ -1,5 +1,3 @@
-// @flow
-// NOTE: Cards should be built in a way that they can be created with JSON
 import React from 'react'
 import { pick } from 'lodash'
 
@@ -19,46 +17,49 @@ import OnboardingCard from './OnboardingCard'
 import ButtonGroup from '../../ButtonGroup/ButtonGroup'
 import Toast from '../../Toast/Toast'
 
-import type { Props as ButtonProps } from '../../Button/Button'
-import type { CardHeaderProps } from './CardHeader'
-import type { CardBodyProps } from './CardBody'
-import type { Props as OnboardingProps } from './OnboardingCard'
+import { IButtonProps } from '../../Button/Button'
+import { ICardHeaderProps } from './CardHeader'
+import { ICardBodyProps } from './CardBody'
+import { IOnboardingCardProps } from './OnboardingCard'
 
-export type CardBuilderProps = {
+export interface ICardBuilderProps {
 	/** Card Header props */
-	header?: CardHeaderProps,
+	header?: ICardHeaderProps
 
 	/** optionally pass props to an image tag to be rendered in the header */
-	headerImage?: Object,
+	headerImage?: any
 
 	/** all onboarding props */
-	onboarding?: OnboardingProps,
+	onboarding?: IOnboardingCardProps
 
 	/** Card Body props */
-	body?: CardBodyProps,
+	body?: ICardBodyProps
 
 	/** Card Footer props */
 	footer?: {
 		/** Render buttons in the Card Footer */
-		actions: Array<ButtonProps>
+		actions: IButtonProps[]
+
+		/** Helper for the footer */
+		helper: any
 	}
 }
 
-const renderChild = child => {
+const renderChild = (child): React.ReactElement => {
 	const CardBuilderKey: {
-		CardBodyButton: any,
-		CardBodyImage: any,
-		CardBodyHeading: any,
-		CardBodyText: any,
-		CardBodyList: any,
-		CardBodyScores: any,
-		CardBodyToast: any,
-		button: any,
-		image: any,
-		heading: any,
-		text: any,
-		list: any,
-		scores: any,
+		CardBodyButton: any
+		CardBodyImage: any
+		CardBodyHeading: any
+		CardBodyText: any
+		CardBodyList: any
+		CardBodyScores: any
+		CardBodyToast: any
+		button: any
+		image: any
+		heading: any
+		text: any
+		list: any
+		scores: any
 		toast: any
 	} = {
 		CardBodyButton: {
@@ -163,18 +164,25 @@ const renderChild = child => {
 	)
 }
 
-const CardBuilder = (props: CardBuilderProps) => {
+const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 	const { header, headerImage, body, footer, onboarding } = props
 	if (onboarding) {
 		return <OnboardingCard {...onboarding} />
 	}
-	const { children, isSectioned = true } = body || {}
+
+	// NOTE: Destructuring stopped working after tsx conversion
+	const bodyOrDefault = body || {
+		children: null,
+		isSectioned: false,
+		isFullBleed: false
+	}
+	const { children, isSectioned = true, isFullBleed = false } = bodyOrDefault
 	return (
 		<Card>
 			{header && <CardHeader {...header} />}
 			{headerImage && <Image {...headerImage} />}
 			{children && (
-				<CardBody isSectioned={isSectioned}>
+				<CardBody isSectioned={isSectioned} isFullBleed={isFullBleed}>
 					{Array.isArray(children) ? children.map(renderChild) : children}
 				</CardBody>
 			)}

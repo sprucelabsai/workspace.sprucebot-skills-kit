@@ -5,7 +5,7 @@ import { withKnobs, object } from '@storybook/addon-knobs/react'
 import FormBuilder from './FormBuilder'
 import Modal from '../../../Modal/Modal'
 import Page, { PageContent } from '../../../Page'
-import Card, { CardBody } from '../../../Card'
+import { Card, CardBody } from '../../../Card'
 import Layout, { LayoutSection } from '../../../Layout'
 
 const stories = storiesOf('FormBuilder', module)
@@ -22,8 +22,8 @@ stories
 						<Card>
 							<CardBody>
 								<FormBuilder
-									kind="page"
-									validate={console.log}
+									// kind="page"
+									// validate={console.log}
 									sections={object('sections', [
 										{
 											title: 'Appointment Settings',
@@ -48,6 +48,9 @@ stories
 											]
 										}
 									])}
+									// initialValues={{}}
+									// formLayout={{ spacing: 'base' }}
+									// onSubmit={values => console.log('Submit', { values })}
 								/>
 							</CardBody>
 						</Card>

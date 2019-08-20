@@ -3,6 +3,107 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.5...v8.17.6) (2019-08-16)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.4...v8.17.5) (2019-08-16)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.3...v8.17.4) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.2...v8.17.3) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.1...v8.17.2) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.0...v8.17.1) (2019-08-07)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+# [8.17.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.2...v8.17.0) (2019-08-07)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.16.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.1...v8.16.2) (2019-08-06)
+
+
+### Bug Fixes
+
+* workspace should return valid card date ([18c85b7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/18c85b7))
+
+
+
+
+
+## [8.16.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.0...v8.16.1) (2019-08-03)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+# [8.16.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.2...v8.16.0) (2019-08-03)
+
+
+### Bug Fixes
+
+* make "graphql" a dependency in spruce-skill ([89a6800](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/89a6800))
+
+
+### Features
+
+* switch skill sync to v2 gql endpoint and get back the s3 bucket ([fdff653](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fdff653))
+* upgrade [@sprucelabs](https://github.com/sprucelabs)/log to latest version ([bbf256d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bbf256d))
+* Upgrade semantic release to use prerelease tags and bump full versions on merge to master ([a5c7578](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a5c7578))
+
+
+
+
+
 ## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
 
 **Note:** Version bump only for package @sprucelabs/spruce-skill

@@ -1,0 +1,22 @@
+.footer {
+	@include type-style-body-sm;
+	background-color: $c-grey-00;
+	border-top: 1px solid $c-border-light;
+	color: $c-text-light;
+	display: flex;
+	flex: none;
+	width: 100%;
+	padding: spacing('loose') spacing('base');
+	font-weight: $font-weight-normal;
+	color: $c-text-light;
+	justify-content: space-between;
+
+	.footer-link {
+		color: inherit;
+		text-decoration: underline;
+
+		+ .footer-link {
+			margin-left: spacing('base');
+		}
+	}
+}

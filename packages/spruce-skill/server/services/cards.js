@@ -1,4 +1,4 @@
-const dashboardUserCards = require('./dashboardUserCards')
+const dashboardUserCards = require('./cards/dashboardUserCards')
 
 const pages = {
 	dashboard_user: dashboardUserCards,

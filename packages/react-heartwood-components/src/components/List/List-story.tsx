@@ -2,7 +2,7 @@ import React, { Fragment, Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
-	withKnobsOptions,
+	// withKnobsOptions,
 	text,
 	boolean,
 	object,
@@ -85,11 +85,11 @@ class TabbedList extends Component<ITabbedProps, ITabbedState> {
 	}
 }
 
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 
 stories.addDecorator(withKnobs)
 

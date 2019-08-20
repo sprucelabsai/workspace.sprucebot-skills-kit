@@ -146,6 +146,7 @@ const PageHeader = (props: PageHeaderProps) => {
 	)
 }
 
+PageHeader.displayName = 'Page.Header'
 PageHeader.defaultProps = {
 	title: '',
 	backLinkText: 'Back',

@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react'
+import faker from 'faker'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean } from '@storybook/addon-knobs/react'
 import StylesProvider from '../../../.storybook/StylesProvider'
@@ -12,12 +13,14 @@ import ContextMenu from '../ContextMenu/ContextMenu'
 import Page from '../Page/Page'
 import TextStyle from '../TextStyle/TextStyle'
 import Heading from '../Heading/Heading'
+import Text from '../Text/Text'
+import TextContainer from '../TextContainer/TextContainer'
 import Avatar from '../Avatar/Avatar'
 import SaveBar from '../Core/components/SaveBar/SaveBar'
 import FeedBuilder from '../Core/components/FeedBuilder/FeedBuilder'
 import { generateMessages } from '../../../.storybook/data/feed'
 
-import View from './View.js'
+import View from './View'
 
 const ProvideStyles = storyFn => <StylesProvider>{storyFn()}</StylesProvider>
 
@@ -129,6 +132,14 @@ type SkillViewState = {
 	sidebarsExpanded: Object,
 	sidebarsMobileExpanded: Object
 }
+
+const generateTonsOfContent = () => (
+	<TextContainer>
+		{[...Array(100)].map((o, idx) => (
+			<Text key={idx}>{faker.lorem.paragraph()}</Text>
+		))}
+	</TextContainer>
+)
 
 class SkillViewExample extends Component<SkillViewProps, SkillViewState> {
 	state = {
@@ -288,7 +299,7 @@ class SkillViewExample extends Component<SkillViewProps, SkillViewState> {
 						</Sidebar>
 					}
 				>
-					<div>Lorem ispum, page contents here.</div>
+					{generateTonsOfContent()}
 				</Page>
 			</View>
 		)
@@ -297,104 +308,137 @@ class SkillViewExample extends Component<SkillViewProps, SkillViewState> {
 
 stories
 	.add('Default', () => (
-		<View
-			STORYBOOKdoNotWrap
-			sidebarItems={personalItems}
-			user={user}
-			organization={organization}
-			isSidebarExpanded
-		>
-			<Page
-				header={{
-					title: 'Hello Human'
-				}}
-			/>
-		</View>
-	))
-	.add('Save Bar', () => (
-		<View
-			STORYBOOKdoNotWrap
-			sidebarItems={personalItems}
-			user={user}
-			organization={organization}
-			isSidebarExpanded
-		>
-			<Page
-				header={{
-					title: 'Hello Human'
-				}}
-			/>
-			<SaveBar isVisible={boolean('isVisible', true)} />
-		</View>
-	))
-	.add('Skill View', () => <SkillViewExample STORYBOOKdoNotWrap />)
-	.add('Guest Profile', () => {
-		let messages = generateMessages({ count: 50, interval: 31 })
-		return (
+		<div STORYBOOKdoNotWrap style={{ height: '100vh' }}>
 			<View
 				STORYBOOKdoNotWrap
-				sidebarItems={bizItems}
+				sidebarItems={personalItems}
 				user={user}
-				business={organization}
+				organization={organization}
 				isSidebarExpanded
 			>
 				<Page
-					sidebar={
-						<Sidebar isLarge isCollapsible={false} side="right">
-							<SidebarSection
-								isCentered
-								verticalSpacing="loose"
-								horizontalSpacing="loose"
-							>
-								<Avatar
-									isLarge
-									isCentered
-									image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
-								/>
-								<Heading>
-									<TextStyle type="strong">Dorian Feeney</TextStyle>
-								</Heading>
-							</SidebarSection>
-							<SidebarSection horizontalSpacing="loose" className="u-flex-row">
-								<Button
-									isSmall
-									kind="secondary"
-									className="u-flex-child-grow"
-									text="Call Dorian"
-									icon={{
-										name: 'phone',
-										isLineIcon: true
-									}}
-								/>
-								<ContextMenu
-									isSmall
-									className="u-ml-tight"
-									actions={[
-										{
-											text: 'One action'
-										},
-										{
-											text: 'two action'
-										},
-										{
-											text: 'red action'
-										},
-										{
-											text: 'blue action'
-										}
-									]}
-									isSimple
-								/>
-							</SidebarSection>
-						</Sidebar>
-					}
+					header={{
+						title: 'Hello Human'
+					}}
 				>
-					<FeedBuilder
-						messages={messages}
-						messageCount={50}
-						onRowsRequested={() => null}
-					/>
+					{generateTonsOfContent()}
 				</Page>
 			</View>
+		</div>
+	))
+	.add('Save Bar', () => (
+		<div STORYBOOKdoNotWrap style={{ height: '100vh' }}>
+			<View
+				STORYBOOKdoNotWrap
+				sidebarItems={personalItems}
+				user={user}
+				organization={organization}
+				isSidebarExpanded
+			>
+				<Page
+					header={{
+						title: 'Hello Human'
+					}}
+				>
+					{generateTonsOfContent()}
+				</Page>
+				<SaveBar isVisible={boolean('isVisible', true)} />
+			</View>
+		</div>
+	))
+	.add('Skill View', () => (
+		<div STORYBOOKdoNotWrap style={{ height: '100vh' }}>
+			<SkillViewExample />
+		</div>
+	))
+	.add('Guest Profile', () => {
+		let messages = generateMessages({ count: 50, interval: 31 })
+		return (
+			<div STORYBOOKdoNotWrap style={{ height: '100vh' }}>
+				<View
+					STORYBOOKdoNotWrap
+					sidebarItems={bizItems}
+					user={user}
+					business={organization}
+					isSidebarExpanded
+				>
+					<Page
+						sidebar={
+							<Sidebar isLarge isCollapsible={false} side="right">
+								<SidebarSection
+									isCentered
+									verticalSpacing="loose"
+									horizontalSpacing="loose"
+								>
+									<Avatar
+										isLarge
+										isCentered
+										image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&h=200&q=80"
+									/>
+									<Heading>
+										<TextStyle type="strong">Dorian Feeney</TextStyle>
+									</Heading>
+								</SidebarSection>
+								<SidebarSection
+									horizontalSpacing="loose"
+									className="u-flex-row"
+								>
+									<Button
+										isSmall
+										kind="secondary"
+										className="u-flex-child-grow"
+										text="Call Dorian"
+										icon={{
+											name: 'phone',
+											isLineIcon: true
+										}}
+									/>
+									<ContextMenu
+										isSmall
+										className="u-ml-tight"
+										actions={[
+											{
+												text: 'One action'
+											},
+											{
+												text: 'two action'
+											},
+											{
+												text: 'red action'
+											},
+											{
+												text: 'blue action'
+											}
+										]}
+										isSimple
+									/>
+								</SidebarSection>
+							</Sidebar>
+						}
+					>
+						<FeedBuilder
+							messages={messages}
+							messageCount={50}
+							onRowsRequested={() => null}
+						/>
+					</Page>
+				</View>
+			</div>
+		)
+	})
+	.add('No Left Sidebar Items', () => {
+		return (
+			<div STORYBOOKdoNotWrap style={{ height: '100vh' }}>
+				<View
+					sidebarItems={[]}
+					user={user}
+					business={organization}
+					isSidebarExpanded
+					termsLink="#"
+					privacyLink="#"
+				>
+					<Page>{generateTonsOfContent()}</Page>
+				</View>
+			</div>
 		)
 	})

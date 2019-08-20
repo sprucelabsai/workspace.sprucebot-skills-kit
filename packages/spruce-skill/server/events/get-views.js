@@ -11,9 +11,10 @@ module.exports = async (ctx: Object, next: Function) => {
 		}
 
 		const {
-			/* auth: { User, Location, Organization }, */
+			// uncomment to access the auth
+			/* auth: { User: user, Location: location, Organization: organization }, */
 			event: {
-				payload: { page, skillSlug /* , pageUserId, locationId */ }
+				payload: { page, skillSlug /* , pageUserId */ }
 			}
 		}: {
 			auth: { User?: Object, Location?: Object, Organization?: Object },

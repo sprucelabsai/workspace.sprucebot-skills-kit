@@ -1,30 +1,32 @@
-// @flow
-import React from 'react'
+import React, { ReactNode, ReactElement } from 'react'
 import cx from 'classnames'
 import HeaderPrimary from '../Core/components/HeaderPrimary/HeaderPrimary'
 import { Sidebar, SidebarFooter } from '../Core'
+import moment from 'moment'
 
-type Props = {
-	sidebarItems?: Array<Object>,
-	sidebarBackLink?: Object,
-	user: Object,
-	organization: Object,
-	location: Object,
-	children: Node,
-	toggleSidebarVisibility: Function,
-	toggleSidebarExpanded: Function,
-	forceCloseSidebar: Function,
-	isSidebarVisible?: boolean,
-	isSidebarExpanded?: boolean,
-	isSidebarMobileExpanded?: boolean,
-	onClickSearch?: Function,
-	searchPlaceholder?: string,
+interface IViewProps {
+	sidebarItems?: Record<string, any>[]
+	sidebarBackLink?: Record<string, any>
+	user?: Record<string, any>
+	organization?: Record<string, any>
+	location?: Record<string, any>
+	children: ReactNode
+	toggleSidebarVisibility?: Function
+	toggleSidebarExpanded?: Function
+	forceCloseSidebar?: Function
+	isSidebarVisible?: boolean
+	isSidebarExpanded?: boolean
+	isSidebarMobileExpanded?: boolean
+	onClickSearch?: Function
+	searchPlaceholder?: string
+	privacyLink?: string
+	termsLink?: string
 
 	/** Menu children (<ListItem> or <li>) */
 	userMenuItems: ReactNode
 }
 
-const View = (props: Props) => {
+const View = (props: IViewProps): ReactElement => {
 	const {
 		sidebarItems,
 		sidebarBackLink,
@@ -40,7 +42,9 @@ const View = (props: Props) => {
 		onClickSearch,
 		searchPlaceholder,
 		userMenuItems,
-		children
+		children,
+		privacyLink,
+		termsLink
 	} = props
 
 	return (
@@ -85,6 +89,26 @@ const View = (props: Props) => {
 
 				<main className="main-content">{children}</main>
 			</div>
+
+			{(!sidebarItems || sidebarItems.length === 0) && (
+				<footer className="footer">
+					<p className="footer-text">
+						{termsLink && (
+							<a href={termsLink} className="footer-link">
+								Terms of Service
+							</a>
+						)}
+						{privacyLink && (
+							<a href={privacyLink} className="footer-link">
+								Privacy Policy
+							</a>
+						)}
+					</p>
+					<p className="footer-text">
+						{`© Spruce Labs ${moment().format('YYYY')}`}
+					</p>
+				</footer>
+			)}
 		</div>
 	)
 }

@@ -32,4 +32,5 @@ const ModalBody = (props: Props) => (
 	</div>
 )
 
+ModalBody.displayName = 'Modal.Body'
 export default ModalBody

@@ -3,6 +3,94 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
+## [8.17.6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.5...v8.17.6) (2019-08-16)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
+## [8.17.5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.4...v8.17.5) (2019-08-16)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
+## [8.17.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.3...v8.17.4) (2019-08-09)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
+## [8.17.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.2...v8.17.3) (2019-08-09)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
+## [8.17.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.1...v8.17.2) (2019-08-09)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
+## [8.17.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.0...v8.17.1) (2019-08-07)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
+# [8.17.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.2...v8.17.0) (2019-08-07)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
+## [8.16.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.1...v8.16.2) (2019-08-06)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
+## [8.16.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.0...v8.16.1) (2019-08-03)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
+# [8.16.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.2...v8.16.0) (2019-08-03)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
 ## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
 
 **Note:** Version bump only for package eslint-config-spruce

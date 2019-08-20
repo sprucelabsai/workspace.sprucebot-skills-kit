@@ -1,6 +1,4 @@
 // @flow
-// TODO: The Autosuggest used here will need to be updated to hook up to the API
-// and render userful results. This should probably be done as its own component
 import React, { Component, Fragment } from 'react'
 import Hamburger from './components/Hamburger/Hamburger'
 import DefaultLockup from './components/DefaultLockup/DefaultLockup'
@@ -48,6 +46,12 @@ type Props = {
 	/** Destination for the skills link */
 	skillsHref?: string,
 
+	/** Destination for the login link */
+	loginHref?: string,
+
+	/** CTA Copy for the login link */
+	loginCTA?: string,
+
 	/** Destination for the location management link */
 	locationManagementHref?: string,
 
@@ -62,6 +66,8 @@ export default class HeaderPrimary extends Component<Props, State> {
 		isLocationManagmentButtonVisible: false,
 		isSkillManagementButtonVisible: false,
 		skillsHref: '',
+		loginHref: '/',
+		loginCTA: 'Log In / Signup',
 		locationManagementHref: ''
 	}
 
@@ -180,7 +186,10 @@ export default class HeaderPrimary extends Component<Props, State> {
 			isSkillManagementButtonVisible,
 			userMenuItems,
 			skillsHref,
-			locationManagementHref
+			locationManagementHref,
+			loginHref,
+			loginCTA,
+			onClickSearch
 		} = this.props
 
 		return (
@@ -223,12 +232,14 @@ export default class HeaderPrimary extends Component<Props, State> {
 									/>
 								</div>
 							)}
-							<Button
-								text={searchPlaceholder}
-								icon={{ name: 'search' }}
-								className="header-primary__search-btn"
-								onClick={this.handleSearchClick}
-							/>
+							{onClickSearch && (
+								<Button
+									text={searchPlaceholder}
+									icon={{ name: 'search' }}
+									className="header-primary__search-btn"
+									onClick={this.handleSearchClick}
+								/>
+							)}
 							<UserMenu
 								menuIsVisible={isUserMenuVisible}
 								toggleMenu={this.toggleUserMenuVisibility}
@@ -238,8 +249,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 						</Fragment>
 					) : (
 						<Fragment>
-							<Button kind="primary" isSmall text="Log In" />
-							<Button isSmall text="Sign Up" />
+							<Button kind="primary" isSmall text={loginCTA} href={loginHref} />
 						</Fragment>
 					)}
 				</div>

@@ -1,35 +1,36 @@
-// @flow
-// NOTE: Cards should be built in a way that they can be created with JSON
 import React from 'react'
-import type { Node } from 'react'
 import cx from 'classnames'
 import CardSection from './CardSection'
 
 // Card Body
-export type CardBodyProps = {
+export interface ICardBodyProps {
 	/** Children to show in the Card */
-	children: Node,
+	children?: React.ReactNode
 
 	/** Whether to wrap children in CardSection */
-	isSectioned?: boolean,
+	isSectioned?: boolean
 
 	/** Set true to display line separators between CardSection components */
-	areSectionSeparatorsVisible: boolean,
+	areSectionSeparatorsVisible?: boolean
 
 	/** Does card include top padding */
-	hasTopPadding: boolean,
+	hasTopPadding?: boolean
 
 	/** Does card include bottom padding */
-	hasBottomPadding: boolean
+	hasBottomPadding?: boolean
+
+	/** Set to true to remove horizontal padding */
+	isFullBleed?: boolean
 }
 
-const CardBody = (props: CardBodyProps) => {
+const CardBody = (props: ICardBodyProps): React.ReactElement => {
 	const {
 		children,
 		isSectioned,
 		hasTopPadding,
 		hasBottomPadding,
-		areSectionSeparatorsVisible
+		areSectionSeparatorsVisible,
+		isFullBleed
 	} = props
 	const className = cx('card__body', {
 		'card__body--section-separators-visible': areSectionSeparatorsVisible,
@@ -38,11 +39,16 @@ const CardBody = (props: CardBodyProps) => {
 	})
 	return (
 		<div className={className}>
-			{isSectioned ? <CardSection>{children}</CardSection> : children}
+			{isSectioned ? (
+				<CardSection isFullBleed={isFullBleed}>{children}</CardSection>
+			) : (
+				children
+			)}
 		</div>
 	)
 }
 
+CardBody.displayName = 'Card.Body'
 CardBody.defaultProps = {
 	isSectioned: true,
 	areSectionSeparatorsVisible: false,

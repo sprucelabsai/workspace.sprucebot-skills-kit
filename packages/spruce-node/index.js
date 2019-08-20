@@ -92,27 +92,34 @@ class Sprucebot {
 	async sync() {
 		this.validateEventContract(this.eventContract)
 
-		const data = {
-			name: this.name,
-			description: this.description,
-			icon: this.icon,
-			webhookUrl: this.webhookUrl,
-			iframeUrl: this.iframeUrl,
-			marketingUrl: this.marketingUrl,
-			publicUrl: this.publicUrl,
-			eventContract: this.eventContract,
-			version: this.version,
-			skillsKitVersion: this.skillsKitVersion,
-			acl: this.acl,
-			viewVersion: this.viewVersion
-		}
-		const results = await this.adapter.patch('/', data)
-		let database = null
-		if (this.dbEnabled) {
-			database = await this.provisionDatabase()
+		const result = await this.mutation(`{
+			syncSkill(input: {
+				name: "${this.name}"
+				description: "${this.description}"
+				icon: ${JSON.stringify(this.icon)}
+				webhookUrl: "${this.webhookUrl}"
+				iframeUrl: "${this.iframeUrl}"
+				marketingUrl: "${this.marketingUrl}"
+				eventContract: ${JSON.stringify(JSON.stringify(this.eventContract))}
+				version: "${this.version}"
+				skillsKitVersion: "${this.skillsKitVersion}"
+				acl: ${JSON.stringify(JSON.stringify(this.acl))}
+				viewVersion: ${this.viewVersion}
+				useDB: ${this.dbEnabled === true}
+			}) {
+				databaseUrl
+				s3Bucket
+			}
+		}`)
+
+		if (result.errors || !result.data || !result.data.syncSkill) {
+			log.fatal(result.errors)
+			throw new Error('Error syncing skill settings with API')
 		}
 
-		return { ...results, database }
+		return {
+			...result.data.syncSkill
+		}
 	}
 
 	async provisionDatabase() {

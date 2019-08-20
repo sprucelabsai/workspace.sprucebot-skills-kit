@@ -51,6 +51,7 @@ const ModalHeader = (props: Props) => {
 	)
 }
 
+ModalHeader.displayName = 'Modal.Header'
 ModalHeader.defaultProps = {
 	isPaginated: false
 }
