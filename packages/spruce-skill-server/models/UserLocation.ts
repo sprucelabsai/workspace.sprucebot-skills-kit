@@ -8,7 +8,8 @@ import { Job } from './Job'
 import { User } from './User'
 
 export class UserLocation extends SpruceCoreModel<UserLocation> {
-	public static readonly timestamps = true
+	// Prevents sequelize from trying to run sync against this model
+	public static readonly doNotSync = true
 	// Scopes
 	public static readonly scopes = {
 		public: {

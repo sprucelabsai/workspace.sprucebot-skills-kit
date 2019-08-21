@@ -9,7 +9,8 @@ import { User } from './User'
 import { Organization } from './Organization'
 
 export class UserGroup extends SpruceCoreModel<UserGroup> {
-	public static readonly timestamps = true
+	// Prevents sequelize from trying to run sync against this model
+	public static readonly doNotSync = true
 	// Scopes
 	public static readonly scopes = {
 		public: {

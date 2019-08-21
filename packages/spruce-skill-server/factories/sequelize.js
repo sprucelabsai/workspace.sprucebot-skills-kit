@@ -50,8 +50,6 @@ module.exports = (
 		log.info('Metrics: Sequelize hooks disabled')
 	}
 
-	console.log({ defaultModelsDir })
-
 	const coreModels = fs.existsSync(defaultModelsDir)
 		? fs
 				.readdirSync(defaultModelsDir)
@@ -68,15 +66,17 @@ module.exports = (
 	}
 
 	// All models available together <3
+	debug('Loading core and skill models', {
+		coreModels,
+		skillModels
+	})
 	const models = coreModels.concat(skillModels).reduce((models, file) => {
-		console.log({ file })
 		const modelToLoad = require(file)
-		console.log({ modelToLoad })
 		// Support both TS import and require style
 		const model = modelToLoad.default
 			? modelToLoad.default(sequelize, Sequelize, ctx)
 			: modelToLoad(sequelize, Sequelize, ctx)
-		console.log({ model })
+
 		models[model.name] = model
 
 		if (!model.scopes) {
@@ -110,11 +110,11 @@ module.exports = (
 	// Core handles it's own migrations
 	// So don't run migrations on any model relies on core db
 	async function sync() {
-		const coreModelNames = coreModels.map(file => path.basename(file, '.js')) // ['User', 'Location', 'UserLocation']
 		const filteredModels = []
 		Object.keys(models).forEach(key => {
 			const model = models[key]
-			if (!model.options.doNotSync) {
+
+			if (!model.options.doNotSync && !model.doNotSync) {
 				debug('Allowing this model to sync()', model.name)
 				filteredModels.push(model)
 			}
@@ -146,9 +146,16 @@ module.exports = (
 			)
 		}
 
-		// await sequelize.sync({ alter: false, logging: true })
+		// Run sync against models
+		for (let i = 0; i < filteredModels.length; i += 1) {
+			const modelToSync = filteredModels[i]
+			try {
+				await modelToSync.sync()
+			} catch (e) {
+				log.crit(`Unable to sync Model: ${modelToSync.name}`, e)
+			}
+		}
 	}
 
 	ctx[key] = { models, sequelize, sync }
-	console.log({ key: ctx[key] })
 }

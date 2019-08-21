@@ -67,8 +67,10 @@
 		"typescript": "~3.4.5"
 	},
 	"devDependencies": {
+		"@types/bluebird": "^3.5.27",
 		"@types/chai": "^4.2.0",
 		"@types/config": "^0.0.34",
+		"@types/debug": "^4.1.5",
 		"@types/faker": "^4.1.5",
 		"@types/globby": "^9.1.0",
 		"@types/koa": "^2.0.49",

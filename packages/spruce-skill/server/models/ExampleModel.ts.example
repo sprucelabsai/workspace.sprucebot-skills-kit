@@ -8,9 +8,8 @@ import { Organization } from './Organization'
 import { UserLocation } from './UserLocation'
 import { User } from './User'
 
-export class Location extends SpruceCoreModel<Location> {
-	// Prevents sequelize from trying to run sync against this model
-	public static readonly doNotSync = true
+export class ExampleModel extends SpruceCoreModel<ExampleModel> {
+	public static readonly timestamps = true
 	// Scopes
 	public static readonly scopes = {
 		public: {
@@ -43,18 +42,18 @@ export class Location extends SpruceCoreModel<Location> {
 	public geo!: string
 	public OrganizationId?: string | null
 	public Organization?: Organization | null
-	public UserLocations?: UserLocation[] | null
+	public UserExampleModels?: UserExampleModel[] | null
 	public Users?: User[] | null
 
 	public static associate(models: ISpruceCoreSkillModels): void {
 		this.belongsTo(models.Organization, {
 			constraints: false
 		})
-		this.hasMany(models.UserLocation, {
+		this.hasMany(models.UserExampleModel, {
 			constraints: false
 		})
 		this.belongsToMany(models.User, {
-			through: models.UserLocation
+			through: models.UserExampleModel
 		})
 	}
 }
@@ -67,50 +66,11 @@ const attributes = {
 	},
 	name: {
 		type: DataTypes.STRING
-	},
-	addressLine1: {
-		type: DataTypes.STRING
-	},
-	addressLine2: {
-		type: DataTypes.STRING
-	},
-	addressCity: {
-		type: DataTypes.STRING
-	},
-	addressState: {
-		type: DataTypes.STRING
-	},
-	addressZip: {
-		type: DataTypes.STRING
-	},
-	addressCountry: {
-		type: DataTypes.STRING
-	},
-	timezone: {
-		type: DataTypes.STRING
-	},
-	isPublic: {
-		type: DataTypes.STRING
-	},
-	storeNum: {
-		type: DataTypes.STRING
-	},
-	geo: {
-		type: config.TESTING ? 'JSON' : 'POINT',
-		get(this: Location) {
-			const geoPoint = this.getDataValue('geo')
-			return geoPoint === null
-				? null
-				: {
-						lat: geoPoint.y,
-						lng: geoPoint.x
-				  }
-		}
 	}
 }
 
 export default (sequelize: Sequelize) => {
-	const model = Location.init(attributes, {
+	const model = ExampleModel.init(attributes, {
 		sequelize
 	})
 

@@ -5,7 +5,8 @@ import { Sequelize, DataTypes } from 'sequelize'
 import { SpruceCoreModel } from '../types/models'
 
 export class Skill extends SpruceCoreModel<Skill> {
-	public static readonly timestamps = true
+	// Prevents sequelize from trying to run sync against this model
+	public static readonly doNotSync = true
 	// Scopes
 	public static readonly scopes = {
 		public: {

@@ -10,7 +10,8 @@ import { Location } from './Location'
 import { User } from './User'
 
 export class Group extends SpruceCoreModel<Group> {
-	public static readonly timestamps = true
+	// Prevents sequelize from trying to run sync against this model
+	public static readonly doNotSync = true
 	// Scopes
 	public static readonly scopes = {
 		public: {
