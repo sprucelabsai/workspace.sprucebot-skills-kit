@@ -79,6 +79,9 @@ export interface IListItemProps {
 
 	/** Optional; adds a nested list */
 	list?: IListProps
+
+	/** Optional; adds multiple lists nested at the same level */
+	lists?: IListProps[]
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
@@ -103,7 +106,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		selectableProps,
 		selectableType,
 		warnings,
-		list
+		list,
+		lists
 	} = props
 
 	const parentClass = cx('list-item', className, {
@@ -214,7 +218,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				)}
 			</div>
 			{!isDraggable && ((actions && actions.length > 0) || contextMenu) && (
-				<div className="list-item__actions-wrapper">
+				<Fragment>
 					{actions && actions.length > 0 && (
 						<div className="list-item__actions-wrapper">
 							{actions.map((action, idx) => (
@@ -227,12 +231,19 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							))}
 						</div>
 					)}
-					{contextMenu && <ContextMenu {...contextMenu} />}
-				</div>
+					{contextMenu && (
+						<div className="list-item__actions-wrapper">
+							<ContextMenu {...contextMenu} />
+						</div>
+					)}
+				</Fragment>
 			)}
 			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
 
 			{list && <List {...list} />}
+			{lists &&
+				lists.length > 0 &&
+				lists.map((list, idx) => <List key={idx} {...list} />)}
 		</Fragment>
 	)
 

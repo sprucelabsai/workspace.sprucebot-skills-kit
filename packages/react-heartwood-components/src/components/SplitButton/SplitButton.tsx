@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { createPortal } from 'react-dom'
 import cx from 'classnames'
 import Button, { IButtonProps } from '../Button/Button'
@@ -19,6 +19,9 @@ export interface ISplitButtonProps {
 
 	/* Sets the visual hierarchy of the button **/
 	isSmall?: boolean
+
+	/** Optional; use a portal to render the menu. By default, it renders below the button */
+	usePortal?: boolean
 }
 
 interface ISplitButtonState {
@@ -188,7 +191,14 @@ export default class SplitButton extends Component<
 	}
 
 	public render(): React.ReactElement {
-		const { defaultAction, actions, kind, isFullWidth, isSmall } = this.props
+		const {
+			defaultAction,
+			actions,
+			kind,
+			isFullWidth,
+			isSmall,
+			usePortal
+		} = this.props
 		const { isVisible, menuPosition, highlightedActionIndex } = this.state
 
 		if (!actions || (actions && actions.length === 0)) {
@@ -210,41 +220,64 @@ export default class SplitButton extends Component<
 				})}
 				ref={this.ref}
 			>
-				<Button
-					kind={kind}
-					isSmall={isSmall}
-					className="split-button__default"
-					{...defaultAction}
-				/>
-				<Button
-					kind={kind}
-					isSmall={isSmall}
-					className="split-button__actions"
-					icon={{ name: 'keyboard_arrow_down' }}
-					onClick={this.toggleActionsVisibility}
-				/>
-				{typeof document !== 'undefined' &&
-					document.body &&
-					isVisible &&
-					createPortal(
-						<div
-							ref={this.menuRef}
-							style={{
-								position: 'absolute',
-								top: `${menuPosition.top}px`,
-								left: `${menuPosition.left}px`,
-								width: `${menuPosition.width}px`
-							}}
-						>
-							<ButtonGroup
-								kind="floating"
-								isFullWidth
-								actions={actions}
-								highlightedIndex={highlightedActionIndex}
-							/>
-						</div>,
-						document.body
-					)}
+				<div className="split-button__button">
+					<Button
+						kind={kind}
+						isSmall={isSmall}
+						className="split-button__default"
+						{...defaultAction}
+						isFullWidth={false}
+					/>
+					<Button
+						kind={kind}
+						isSmall={isSmall}
+						className="split-button__actions"
+						icon={{ name: 'keyboard_arrow_down' }}
+						onClick={this.toggleActionsVisibility}
+					/>
+				</div>
+				{isVisible && (
+					<Fragment>
+						{typeof document !== 'undefined' && document.body && usePortal ? (
+							createPortal(
+								<div
+									ref={this.menuRef}
+									style={{
+										position: 'absolute',
+										top: `${menuPosition.top}px`,
+										left: `${menuPosition.left}px`,
+										width: `${menuPosition.width}px`
+									}}
+								>
+									<ButtonGroup
+										kind="floating"
+										isFullWidth
+										actions={actions}
+										highlightedIndex={highlightedActionIndex}
+									/>
+								</div>,
+								document.body
+							)
+						) : (
+							<div
+								ref={this.menuRef}
+								style={{
+									position: 'relative',
+									top: '2px',
+									left: '0',
+									width: `${menuPosition.width}px`
+								}}
+							>
+								<ButtonGroup
+									kind="floating"
+									isFullWidth
+									actions={actions}
+									highlightedIndex={highlightedActionIndex}
+								/>
+							</div>
+						)}
+					</Fragment>
+				)}
 			</div>
 		)
 	}
