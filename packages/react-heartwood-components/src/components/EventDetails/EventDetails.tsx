@@ -26,9 +26,9 @@ export default class EventDetails extends Component<
 						key={item.id}
 						className={cx('event-details__section', {
 							'event-details__button-wrapper':
-								item.component === 'button' || item.component === 'splitButton',
-							'event-details__markdown-wrapper': item.component === 'markdown',
-							'event-details__card-wrapper': item.component === 'card'
+								item.type === 'button' || item.type === 'splitButton',
+							'event-details__markdown-wrapper': item.type === 'markdown',
+							'event-details__card-wrapper': item.type === 'card'
 						})}
 					>
 						<EventDetailsItem {...item} />

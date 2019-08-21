@@ -12,7 +12,7 @@ export interface IEventDetailsItemProps {
 	id: string
 
 	/** Component key to decide what to render */
-	component:
+	type:
 		| 'list'
 		| 'button'
 		| 'splitButton'
@@ -23,7 +23,7 @@ export interface IEventDetailsItemProps {
 
 	/** Props to pass into the rendered component */
 	// TODO: This should be tied to only the components that can be rendered after TSX conversion
-	componentProps: any
+	viewModel: any
 }
 
 const MDTextContainer = (props: { source: string }): React.ReactElement => (
@@ -45,18 +45,18 @@ const components = {
 const EventDetailsItem = (
 	props: IEventDetailsItemProps
 ): React.ReactElement => {
-	const { component, componentProps } = props
+	const { type, viewModel } = props
 
-	if (!component || !components[component]) {
+	if (!type || !components[type]) {
 		// TODO: Use logger library for warning
 		console.warn(
-			`No component found for key: ${component}. Please double-check properties passed into <EventDetailsItem> from <EventDetails>.`
+			`No component found for key: ${type}. Please double-check properties passed into <EventDetailsItem> from <EventDetails>.`
 		)
 		return null
 	}
 
-	const Handler = components[component]
-	return <Handler {...componentProps} />
+	const Handler = components[type]
+	return <Handler {...viewModel} />
 }
 
 export default EventDetailsItem

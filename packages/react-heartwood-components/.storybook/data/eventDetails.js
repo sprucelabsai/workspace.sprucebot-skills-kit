@@ -3,8 +3,8 @@ const avatar =
 
 const services = {
 	id: 'services',
-	component: 'list',
-	componentProps: {
+	type: 'list',
+	viewModel: {
 		items: [
 			{
 				icon: { name: 'unordered_list', isLineIcon: true },
@@ -128,8 +128,8 @@ export const appointment = {
 	items: [
 		{
 			id: 'guestInfo',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						avatar,
@@ -166,8 +166,8 @@ export const appointment = {
 		},
 		{
 			id: 'dateAndTime',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						icon: { name: 'calendar', isLineIcon: true },
@@ -186,8 +186,8 @@ export const appointment = {
 		{ ...services },
 		{
 			id: 'status',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						icon: { name: 'status' },
@@ -203,15 +203,15 @@ export const appointment = {
 		},
 		{
 			id: 'subtotalAndDuration',
-			component: 'markdown',
-			componentProps: {
+			type: 'markdown',
+			viewModel: {
 				source: '**Subtotal: ** $65\n\n**Duration: ** 2hr'
 			}
 		},
 		{
 			id: 'primaryCTA',
-			component: 'splitButton',
-			componentProps: {
+			type: 'splitButton',
+			viewModel: {
 				kind: 'primary',
 				isFullWidth: true,
 				defaultAction: {
@@ -244,8 +244,8 @@ export const warningAppointment = {
 	items: [
 		{
 			id: 'guestInfo',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						avatar,
@@ -283,8 +283,8 @@ export const warningAppointment = {
 		},
 		{
 			id: 'dateAndTime',
-			component: 'card',
-			componentProps: {
+			type: 'card',
+			viewModel: {
 				body: {
 					children: [
 						{
@@ -340,8 +340,8 @@ export const warningAppointment = {
 		{ ...services },
 		{
 			id: 'status',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						icon: { name: 'status' },
@@ -358,8 +358,8 @@ export const warningAppointment = {
 		},
 		{
 			id: 'subtotalAndDuration',
-			component: 'markdown',
-			componentProps: {
+			type: 'markdown',
+			viewModel: {
 				// NOTE: This would work with a markdown rendering component
 				// Question: Can we deliver MD from the API?
 				source: '**Subtotal: ** $65\n\n**Duration: ** 2hr'
@@ -367,8 +367,8 @@ export const warningAppointment = {
 		},
 		{
 			id: 'primaryCTA',
-			component: 'splitButton',
-			componentProps: {
+			type: 'splitButton',
+			viewModel: {
 				kind: 'primary',
 				isFullWidth: true,
 				defaultAction: {
@@ -401,8 +401,8 @@ export const pastAppointment = {
 	items: [
 		{
 			id: 'guestInfo',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						avatar,
@@ -432,8 +432,8 @@ export const pastAppointment = {
 		},
 		{
 			id: 'dateAndTime',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						icon: { name: 'calendar', isLineIcon: true },
@@ -445,8 +445,8 @@ export const pastAppointment = {
 		},
 		{
 			id: 'services',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						icon: { name: 'unordered_list', isLineIcon: true },
@@ -466,8 +466,8 @@ export const pastAppointment = {
 		},
 		{
 			id: 'status',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						icon: { name: 'payment_success_solid' },
@@ -479,8 +479,8 @@ export const pastAppointment = {
 		},
 		{
 			id: 'subtotalAndDuration',
-			component: 'markdown',
-			componentProps: {
+			type: 'markdown',
+			viewModel: {
 				// NOTE: This would work with a markdown rendering component
 				// Question: Can we deliver MD from the API?
 				source: '**Subtotal: ** $65\n\n**Duration: ** 2hr'
@@ -488,8 +488,8 @@ export const pastAppointment = {
 		},
 		{
 			id: 'primaryCTA',
-			component: 'splitButton',
-			componentProps: {
+			type: 'splitButton',
+			viewModel: {
 				kind: 'primary',
 				isFullWidth: true,
 				defaultAction: {
@@ -510,8 +510,8 @@ export const lunchBreak = {
 	items: [
 		{
 			id: 'dateAndTime',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						icon: { name: 'calendar' },
@@ -524,8 +524,8 @@ export const lunchBreak = {
 		},
 		{
 			id: 'person',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						avatar,
@@ -537,8 +537,8 @@ export const lunchBreak = {
 		},
 		{
 			id: 'breakType',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						icon: { name: 'info' },
@@ -550,8 +550,8 @@ export const lunchBreak = {
 		},
 		{
 			id: 'actions',
-			component: 'button',
-			componentProps: {
+			type: 'button',
+			viewModel: {
 				text: 'Reschedule',
 				kind: 'secondary',
 				isFullWidth: true
@@ -564,8 +564,8 @@ export const ptoBlock = {
 	items: [
 		{
 			id: 'dateAndTime',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						icon: { name: 'calendar' },
@@ -578,8 +578,8 @@ export const ptoBlock = {
 		},
 		{
 			id: 'person',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						avatar,
@@ -591,8 +591,8 @@ export const ptoBlock = {
 		},
 		{
 			id: 'breakType',
-			component: 'list',
-			componentProps: {
+			type: 'list',
+			viewModel: {
 				items: [
 					{
 						icon: { name: 'info' },
@@ -604,8 +604,8 @@ export const ptoBlock = {
 		},
 		{
 			id: 'actions',
-			component: 'button',
-			componentProps: {
+			type: 'button',
+			viewModel: {
 				text: 'Edit PTO Block',
 				kind: 'secondary',
 				isFullWidth: true
