@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 export type FormLayoutProps = {
 	/** Contents of the Form Layout. Should be FormLayoutItem or FormLayoutGroup components */
-	children: Node,
+	children?: Node,
 
 	/** Class name for the layout */
 	className?: string,

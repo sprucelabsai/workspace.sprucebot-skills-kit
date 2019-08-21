@@ -40,7 +40,7 @@ export interface ICardBuilderProps {
 		actions: IButtonProps[]
 
 		/** Helper for the footer */
-		helper: any
+		helper?: any
 	}
 }
 
