@@ -83,7 +83,7 @@ class BigCalendarExample extends Component<Props, State> {
 
 	handleDropEvent = ({ event, newStartAt, newUser, blockUpdates }) => {
 		if (!event) {
-			alert(
+			window.alert(
 				`you created a new event at ${newStartAt.format(
 					'YYYY-MM-DD HH:mma'
 				)} for ${newUser.name}`

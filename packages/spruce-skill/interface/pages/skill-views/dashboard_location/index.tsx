@@ -173,7 +173,7 @@ class DashboardLocationPage extends React.Component {
 			followupText: 'Undo',
 			timeout: 4000,
 			callback: () => {
-				alert('you clicked the follow up text')
+				window.alert('you clicked the follow up text')
 			}
 		})
 	}
