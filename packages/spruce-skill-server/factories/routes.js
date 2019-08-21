@@ -10,6 +10,10 @@ module.exports = (dir, router, options) => {
 	console.log({ dir, matches })
 	matches.forEach(function(match) {
 		const controller = require(match)
-		controller(router, options)
+		if (controller.default) {
+			controller.default(router, options)
+		} else {
+			controller(router, options)
+		}
 	})
 }

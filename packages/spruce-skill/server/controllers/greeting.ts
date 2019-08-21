@@ -1,6 +1,6 @@
 import { ISpruceSkillRouter } from 'server/types/ctx'
 
-module.exports = (router: ISpruceSkillRouter) => {
+export default (router: ISpruceSkillRouter) => {
 	/**
 	 * @swagger
 	 * /api/1.0/greeting.json:
