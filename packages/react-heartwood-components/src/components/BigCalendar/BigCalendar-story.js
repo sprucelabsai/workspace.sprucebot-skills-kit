@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
 import { cloneDeep, remove } from 'lodash'
 import moment from 'moment'
@@ -175,72 +175,75 @@ class BigCalendarExample extends Component<Props, State> {
 		const { users, events, userMode, toasts } = this.state
 
 		return (
-			<BigCalendar
-				// users={object('users', users, CATEGORIES.data)}
-				// allEvents={object('allEvents', events, CATEGORIES.data)}
-				users={users}
-				allEvents={events}
-				defaultStartDate={date(
-					'defaultStartDate',
-					today.toDate(),
-					CATEGORIES.ranges
-				)}
-				slotsPerHour={number(
-					'slotsPerHour',
-					4,
-					{ range: true, min: 1, max: 12 },
-					CATEGORIES.ranges
-				)}
-				timezone={text('timezone', 'America/Denver', CATEGORIES.ranges)}
-				defaultMinTime={text('defaultMinTime', '07:00', CATEGORIES.ranges)}
-				defaultMaxTime={text('defaultMaxTime', '20:00', CATEGORIES.ranges)}
-				defaultStartTime={text('defaultStartTime', '09:00', CATEGORIES.ranges)}
-				defaultEndTime={text('defaultEndTime', '18:00', CATEGORIES.ranges)}
-				userModeOptions={object(
-					'userModeOptions',
-					{
-						everyone: 'Everyone',
-						working: 'Working',
-						me: 'Me'
-					},
-					CATEGORIES.modes
-				)}
-				userMode={text('userMode', userMode, CATEGORIES.modes)}
-				headerDateFormat={text(
-					'headerDateFormat',
-					'MMMM YYYY',
-					CATEGORIES.formatting
-				)}
-				mobileHeaderDateFormat={text(
-					'mobileHeaderDateFormat',
-					'MMMM Do, YYYY',
-					CATEGORIES.formatting
-				)}
-				eventTimeFormat={text(
-					'eventTimeFormat',
-					'h:mma',
-					CATEGORIES.formatting
-				)}
-				longPressDelay={number(
-					'longPressDelay',
-					500,
-					{},
-					CATEGORIES.interactions
-				)}
-				doubleClickToCreate={boolean(
-					'doubleClickToCreate',
-					false,
-					CATEGORIES.interactions
-				)}
-				doubleClickTime={number(
-					'doubleClickTime',
-					250,
-					{},
-					CATEGORIES.interactions
-				)}
-				userSchedules={object(
-					'userSchedules',
-					{
+			<Fragment>
+				<BigCalendar
+					// users={object('users', users, CATEGORIES.data)}
+					// allEvents={object('allEvents', events, CATEGORIES.data)}
+					users={users}
+					allEvents={events}
+					defaultStartDate={date(
+						'defaultStartDate',
+						today.toDate(),
+						CATEGORIES.ranges
+					)}
+					slotsPerHour={number(
+						'slotsPerHour',
+						4,
+						{ range: true, min: 1, max: 12 },
+						CATEGORIES.ranges
+					)}
+					timezone={text('timezone', 'America/Denver', CATEGORIES.ranges)}
+					defaultMinTime={text('defaultMinTime', '07:00', CATEGORIES.ranges)}
+					defaultMaxTime={text('defaultMaxTime', '20:00', CATEGORIES.ranges)}
+					defaultStartTime={text(
+						'defaultStartTime',
+						'09:00',
+						CATEGORIES.ranges
+					)}
+					defaultEndTime={text('defaultEndTime', '18:00', CATEGORIES.ranges)}
+					userModeOptions={object(
+						'userModeOptions',
+						{
+							everyone: 'Everyone',
+							working: 'Working',
+							me: 'Me'
+						},
+						CATEGORIES.modes
+					)}
+					userMode={text('userMode', userMode, CATEGORIES.modes)}
+					headerDateFormat={text(
+						'headerDateFormat',
+						'MMMM YYYY',
+						CATEGORIES.formatting
+					)}
+					mobileHeaderDateFormat={text(
+						'mobileHeaderDateFormat',
+						'MMMM Do, YYYY',
+						CATEGORIES.formatting
+					)}
+					eventTimeFormat={text(
+						'eventTimeFormat',
+						'h:mma',
+						CATEGORIES.formatting
+					)}
+					longPressDelay={number(
+						'longPressDelay',
+						500,
+						{},
+						CATEGORIES.interactions
+					)}
+					doubleClickToCreate={boolean(
+						'doubleClickToCreate',
+						false,
+						CATEGORIES.interactions
+					)}
+					doubleClickTime={number(
+						'doubleClickTime',
+						250,
+						{},
+						CATEGORIES.interactions
+					)}
+					userSchedules={object('userSchedules', {
 						'd9ce818a-0ef1-46ba-b44c-b293f5dbd0ff': {
 							[today.format('YYYY-MM-DD')]: {
 								startTime: '10:15',
@@ -259,7 +262,7 @@ class BigCalendarExample extends Component<Props, State> {
 								endTime: '19:00'
 							}
 						}
-					}}
+					})}
 					onDoubleClickView={this.handleDoubleClickView}
 					onClickView={this.handleClickView}
 					onChangeUserMode={this.handleUserModeChange}
@@ -267,7 +270,7 @@ class BigCalendarExample extends Component<Props, State> {
 					onDropEvent={this.handleDropEvent}
 				/>
 				<ToastWrapper toasts={toasts} handleRemove={this.removeToast} />
-			</div>
+			</Fragment>
 		)
 	}
 }

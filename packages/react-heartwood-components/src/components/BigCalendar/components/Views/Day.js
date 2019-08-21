@@ -867,7 +867,7 @@ class Day extends PureComponent<Props, State> {
 							columnMap[userId][slot][column] = {}
 						}
 
-						if (details.busy && columnMap[userId][slot][column].busy) {
+						if (details.busy && columnMap[userId][slot][column].isBusy) {
 							conflicts++
 						}
 					})
