@@ -86,7 +86,6 @@ export {
 } from './components/Toast/components/ToastWrapper/ToastWrapper'
 export { default as Toast } from './components/Toast/Toast'
 export { default as View } from './components/View/View'
-export { default as BigCalendar } from './components/BigCalendar/BigCalendar'
 export { default as Page, PageHeader, PageContent } from './components/Page'
 export { default as Table, TableSearch, TableFilters } from './components/Table'
 export {
@@ -103,6 +102,7 @@ export {
 	default as RecordSelectionListItem
 } from './components/RecordSelectionList/RecordSelectionListItem'
 export { default as EmptyState } from './components/EmptyState/EmptyState'
+export { default as EventDetails } from './components/EventDetails/EventDetails'
 export { default as CircleLoader } from './components/CircleLoader/CircleLoader'
 export { default as SplitButton } from './components/SplitButton/SplitButton'
 export {

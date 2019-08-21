@@ -3,7 +3,7 @@ import React from 'react'
 // Card Footer
 export interface ICardFooterProps {
 	/** Children to show in the Card Footer */
-	children: React.ReactNode
+	children?: React.ReactNode
 }
 
 const CardFooter = (props: ICardFooterProps): React.ReactElement => {
