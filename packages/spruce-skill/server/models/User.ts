@@ -2,18 +2,12 @@
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
 import config from 'config'
-// const Sequelize = require('sequelize')
-// const Op = Sequelize.Op
-
-import { Sequelize, Model, DataTypes, BuildOptions } from 'sequelize'
-import {
-	SpruceModel,
-	ISpruceModel,
-	ISpruceSkillModels
-} from 'server/types/models'
+import { Sequelize, DataTypes } from 'sequelize'
+import { SpruceModel, ISpruceSkillModels } from '../types/models'
 
 export class User extends SpruceModel<User> {
 	// Scopes
+	// public static readonly timestamps = true
 	public static readonly scopes = {
 		public: {
 			attributes: [

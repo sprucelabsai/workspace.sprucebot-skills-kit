@@ -1,10 +1,13 @@
-const glob = require('glob')
+const globby = require('globby')
 const path = require('path')
 
 module.exports = (dir, router, options) => {
-	const matches = glob.sync(path.join(dir, '/**/*.js'), {
+	console.log('*************************************')
+	console.log('*************************************')
+	const matches = globby.sync(path.join(dir, '/**/*.(js|ts)'), {
 		ignore: ['**/cron.js', '**/ignore/**', '**/*test*']
 	})
+	console.log({ dir, matches })
 	matches.forEach(function(match) {
 		const controller = require(match)
 		controller(router, options)
