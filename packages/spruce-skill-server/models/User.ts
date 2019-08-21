@@ -4,10 +4,16 @@
 import config from 'config'
 import { Sequelize, DataTypes } from 'sequelize'
 import { SpruceCoreModel, ISpruceCoreSkillModels } from '../types/models'
+import { Location } from './Location'
+import { UserLocation } from './UserLocation'
+import { Organization } from './Organization'
+import { UserOrganization } from './UserOrganization'
+import { Group } from './Group'
+import { UserGroup } from './UserGroup'
 
 export class User extends SpruceCoreModel<User> {
-	// Scopes
 	public static readonly timestamps = true
+	// Scopes
 	public static readonly scopes = {
 		public: {
 			attributes: [
@@ -54,6 +60,12 @@ export class User extends SpruceCoreModel<User> {
 	public casualName!: string
 	public profileImages?: Record<string, any> | null
 	public defaultProfileImages!: Record<string, any>
+	public Locations!: Location[] | null
+	public UserLocations!: UserLocation[] | null
+	public Organizations!: Organization[] | null
+	public UserOrganizations!: UserOrganization[] | null
+	public Groups!: Group[] | null
+	public UserGroups!: UserGroup[] | null
 	public readonly createdAt!: Date
 	public readonly updatedAt!: Date
 
