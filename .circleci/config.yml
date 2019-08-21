@@ -129,11 +129,11 @@ workflows:
       - test:
           filters:
             branches:
-              only:
+              ignore:
                 - master
       - pre_release:
-          # requires:
-          #   - test
+          requires:
+            - test
           filters:
             branches:
               only:
