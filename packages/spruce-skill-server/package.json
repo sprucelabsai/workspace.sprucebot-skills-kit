@@ -57,7 +57,7 @@
 		"pg": "^7.4.1",
 		"react": "^16.2.0",
 		"react-dom": "^16.0.0",
-		"sequelize": "^4.33.4",
+		"sequelize": "^5",
 		"subscriptions-transport-ws": "^0.9.15",
 		"umzug": "^2.1.0"
 	},
