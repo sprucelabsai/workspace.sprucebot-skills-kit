@@ -19,12 +19,7 @@ export default (router: ISpruceSkillRouter) => {
 	 *         description: server error
 	 */
 	router.get('/api/1.0/greeting.json', async (ctx, next) => {
-		const u = await ctx.db.models.User.findOne({
-			include: [ctx.db.models.Location]
-		})
-
 		ctx.body = {
-			u,
 			'🌲🤖': 'Hey there! 👋'
 		}
 		await next()

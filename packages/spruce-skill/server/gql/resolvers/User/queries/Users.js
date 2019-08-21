@@ -12,9 +12,9 @@ module.exports = ctx => {
 		type: ctx.gql.types.User,
 		connectionOptions: {
 			before: async (findOptions, args, context) => {
-				// if (!context.auth || !context.auth.User) {
-				// 	throw new Error('USER_NOT_LOGGED_IN')
-				// }
+				if (!context.auth || !context.auth.User) {
+					throw new Error('USER_NOT_LOGGED_IN')
+				}
 				if (!context.scopes) {
 					context.scopes = {}
 				}

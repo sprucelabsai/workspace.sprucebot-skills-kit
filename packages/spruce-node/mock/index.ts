@@ -34,9 +34,9 @@ export default class MockHttps {
 	}
 
 	async mockApiGQLServerInit({ mockResolvers, mockModels }) {
-		// const introspectionSchemaResult = JSON.parse(
-		// 	fs.readFileSync(`${__dirname}/apiSchema.json`)
-		// )
+		const introspectionSchemaResult = JSON.parse(
+			fs.readFileSync(`${__dirname}/apiSchema.json`)
+		)
 		try {
 			const schema = buildClientSchema(introspectionSchemaResult.data)
 			// TODO: This doesn't seem to be replacing mutations on the schema with the custom resolvers in apiMocks.js. Instead, it's returning default mock data. SDEV3-2131
