@@ -114,9 +114,11 @@ module.exports = (
 		Object.keys(models).forEach(key => {
 			const model = models[key]
 
-			if (!model.options.doNotSync && !model.doNotSync) {
+			if ((!model.options.doNotSync && !model.doNotSync) || config.TESTING) {
 				debug('Allowing this model to sync()', model.name)
 				filteredModels.push(model)
+			} else {
+				debug(`Model sync disabled for: ${model.name}`)
 			}
 		})
 
@@ -150,6 +152,7 @@ module.exports = (
 		for (let i = 0; i < filteredModels.length; i += 1) {
 			const modelToSync = filteredModels[i]
 			try {
+				debug(`Syncing model: ${modelToSync.name}`)
 				await modelToSync.sync()
 			} catch (e) {
 				log.crit(`Unable to sync Model: ${modelToSync.name}`, e)
