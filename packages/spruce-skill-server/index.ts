@@ -458,6 +458,7 @@ export default async ({
 }
 
 export { default as SpruceTest } from './tests/SpruceTest'
+export { ISpruceCoreSkillModels, SpruceCoreModel } from './types/models'
 // try {
 // 	// module.exports.SpruceTest = require('./tests/SpruceTest')
 // } catch (e) {

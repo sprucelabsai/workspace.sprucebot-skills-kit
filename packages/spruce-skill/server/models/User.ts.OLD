@@ -18,7 +18,8 @@ export class User extends SpruceModel<User> {
 				'profileImageUUID',
 				'profileImages',
 				'defaultProfileImages',
-				'casualName'
+				'casualName',
+				'Locations'
 			]
 		},
 		team: {
@@ -42,10 +43,11 @@ export class User extends SpruceModel<User> {
 	// Define model types
 	public id!: string
 	public firstName?: string | null
-	/*
-
-	*/
 	public lastName?: string | null
+	/**
+	 * Phone number of the user might not be available
+	 */
+	public phoneNumber?: string | null
 	public profileImageUUID?: string | null
 	public name!: string
 	public nameWithLastInitial!: string

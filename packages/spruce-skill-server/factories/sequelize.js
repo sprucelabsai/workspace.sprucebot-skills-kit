@@ -9,7 +9,10 @@ const defaultModelsDir = path.resolve(__dirname, '../models')
 
 function filterFile(file) {
 	const didFilter =
-		file.indexOf('.') !== 0 && file !== 'index.js' && /\.(js|ts)$/.test(file)
+		file.indexOf('.') !== 0 &&
+		file !== 'index.js' &&
+		/\.(js|ts)$/.test(file) &&
+		/\.d\.ts$/.test(file) === false
 	if (!didFilter) {
 		console.warn(`Filtered file from sequelize import() model %s`, file)
 	}
@@ -47,6 +50,8 @@ module.exports = (
 		log.info('Metrics: Sequelize hooks disabled')
 	}
 
+	console.log({ defaultModelsDir })
+
 	const coreModels = fs.existsSync(defaultModelsDir)
 		? fs
 				.readdirSync(defaultModelsDir)
@@ -64,8 +69,9 @@ module.exports = (
 
 	// All models available together <3
 	const models = coreModels.concat(skillModels).reduce((models, file) => {
+		console.log({ file })
 		const modelToLoad = require(file)
-		console.log({ file, modelToLoad })
+		console.log({ modelToLoad })
 		// Support both TS import and require style
 		const model = modelToLoad.default
 			? modelToLoad.default(sequelize, Sequelize, ctx)

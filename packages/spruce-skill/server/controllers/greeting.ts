@@ -1,6 +1,6 @@
-import { ISpruceSkillContext } from 'server/types/ctx'
+import { ISpruceSkillRouter } from 'server/types/ctx'
 
-module.exports = router => {
+module.exports = (router: ISpruceSkillRouter) => {
 	/**
 	 * @swagger
 	 * /api/1.0/greeting.json:
@@ -18,16 +18,15 @@ module.exports = router => {
 	 *       500:
 	 *         description: server error
 	 */
-	router.get(
-		'/api/1.0/greeting.json',
-		async (ctx: ISpruceSkillContext, next: Function) => {
-			const u = await ctx.db.models.User.findOne()
+	router.get('/api/1.0/greeting.json', async (ctx, next) => {
+		const u = await ctx.db.models.User.findOne({
+			include: [ctx.db.models.Location]
+		})
 
-			ctx.body = {
-				u,
-				'🌲🤖': 'Hey there! 👋'
-			}
-			await next()
+		ctx.body = {
+			u,
+			'🌲🤖': 'Hey there! 👋'
 		}
-	)
+		await next()
+	})
 }

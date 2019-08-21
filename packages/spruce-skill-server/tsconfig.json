@@ -23,6 +23,7 @@
 	"include": [
 		"index.ts",
 		"controllers/**/*",
+		"models/**/*",
 		"factories/**/*",
 		"gql/**/*",
 		"helpers/**/*",
