@@ -31,7 +31,8 @@
 		"test:server:single": "rm tmp/testing.db | true && mkdir -p tmp/ | true && PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r flow-remove-types/register --exit",
 		"icon": "svgo icon/icon.svg",
 		"heroku-postbuild": "npm run build",
-		"release": "semantic-release"
+		"release": "semantic-release",
+		"storybook": "start-storybook -p 6006"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
@@ -42,6 +43,12 @@
 		"@sprucelabs/spruce-node": "^8.17.7",
 		"@sprucelabs/spruce-skill-server": "^8.17.7",
 		"@sprucelabs/spruce-utils": "^8.17.7",
+		"@storybook/addon-actions": "^5.1.9",
+		"@storybook/addon-info": "^5.1.9",
+		"@storybook/addon-knobs": "^5.1.9",
+		"@storybook/addon-links": "^5.1.9",
+		"@storybook/addons": "^5.1.9",
+		"@storybook/react": "^5.1.9",
 		"@zeit/next-css": "^1.0.1",
 		"@zeit/next-sass": "^1.0.1",
 		"apollo-link-ws": "^1.0.12",
