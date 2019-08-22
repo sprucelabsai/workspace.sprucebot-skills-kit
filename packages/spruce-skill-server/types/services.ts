@@ -1,4 +1,4 @@
-import Acl from '../services/acl'
+import Acl from '../services/Acl'
 import Cache from '../services/Cache'
 
 /**
