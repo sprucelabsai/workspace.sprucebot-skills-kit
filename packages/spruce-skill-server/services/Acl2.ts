@@ -25,6 +25,9 @@ interface IAcl {
 export default class AclService extends SpruceSkillService<
 	ISpruceSkillContext
 > {
+	/**
+	 * Returns individual ACLs which can then be handled however you like
+	 */
 	public async getAcls(options: {
 		userId: string
 		organizationId: string
@@ -69,6 +72,10 @@ export default class AclService extends SpruceSkillService<
 
 		return acls
 	}
+
+	/**
+	 * Checks that all acls are true
+	 */
 	public async userIsAuthorizedForAcls(options: {
 		userId: string
 		organizationId: string

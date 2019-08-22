@@ -1,5 +1,11 @@
 export default class SpruceSkillService<SpruceSkillContext> {
-	public serviceVersion = 2
+	/**
+	 * Ignore this.
+	 *
+	 * This version is set in the base class SpruceSkillService and
+	 * is used behind the scenes in skills kit.
+	 */
+	public readonly serviceVersion = 2
 	protected ctx: SpruceSkillContext
 
 	public constructor(options: { ctx: SpruceSkillContext }) {

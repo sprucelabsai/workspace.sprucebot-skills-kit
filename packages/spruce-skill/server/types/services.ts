@@ -1,4 +1,5 @@
 import { ISpruceCoreSkillServices } from '@sprucelabs/spruce-skill-server'
+import Example from 'server/services/Example'
 
 /**
  * All services available in the app should be defined here.
@@ -10,4 +11,5 @@ export interface ISpruceSkillServices extends ISpruceCoreSkillServices {
 	// CUSTOM Services
 	// When you create a new service place the definition here
 	//////////////////////////////////////////////////////////////////////
+	Example: Example
 }

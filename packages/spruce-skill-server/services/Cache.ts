@@ -66,6 +66,13 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 		})
 	}
 
+	/**
+	 * Save to the cache
+	 *
+	 * @param key The key you want to cache against
+	 * @param value The value to cache
+	 * @param ttl The time-to-live in seconds
+	 */
 	public set(key: string, value: any, ttl?: number): void {
 		this.setAsync(key, value, ttl)
 			.then(() => {})
@@ -74,6 +81,13 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 			})
 	}
 
+	/**
+	 * Save to the cache with the ability to wait for the operation to complete
+	 *
+	 * @param key The key you want to cache against
+	 * @param value The value to cache
+	 * @param ttl The time-to-live in seconds
+	 */
 	public async setAsync(key: string, value: any, ttl?: number): Promise<void> {
 		if (!this.cache || !this.isEnabled) {
 			this.debugLog(`Cache Set Skipped: ${key}`)
@@ -84,6 +98,11 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 		this.debugLog(`Cache key set: ${key}`)
 	}
 
+	/**
+	 * Get an item from the cache
+	 *
+	 * @param key The cache key to fetch
+	 */
 	public async get(key: string): Promise<any> {
 		if (!this.cache || !this.isEnabled) {
 			this.debugLog(`Cache Get Skipped: ${key}`)
@@ -93,6 +112,11 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 		return this.cache.get(key)
 	}
 
+	/**
+	 * Delete an item from the cache
+	 *
+	 * @param key The key of the item to delete
+	 */
 	public del(key: string): void {
 		this.delAsync(key)
 			.then(() => {})
@@ -100,6 +124,12 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 				log.warn(`Error deleting cache key: ${key}`, { err: e })
 			})
 	}
+
+	/**
+	 * Delete an item from the cache with the ability to wait for the operation to complete
+	 *
+	 * @param key The key of the item to delete
+	 */
 	public async delAsync(key: string): Promise<any> {
 		if (!this.cache || !this.isEnabled) {
 			this.debugLog(`Cache Del Skipped: ${key}`)
@@ -109,6 +139,13 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 		return this.cache.del(key)
 	}
 
+	/**
+	 * Delete any items from the cache that match the key.
+	 * For example, to delete any key that starts with "mySkill" you'd
+	 * set key='mySkill*'
+	 *
+	 * @param key The key of the item to delete
+	 */
 	public async delWildcard(key: string): Promise<any> {
 		if (!this.cache || !this.isEnabled) {
 			this.debugLog(`Cache Delete Wildcard Skipped: ${key}`)
@@ -118,6 +155,14 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 		return this.cache.delWildcard(key)
 	}
 
+	/**
+	 * Delete any items from the cache that match the key. And wait for
+	 * the operation to complete.
+	 * For example, to delete any key that starts with "mySkill" you'd
+	 * set key='mySkill*'
+	 *
+	 * @param key The key of the item to delete
+	 */
 	public async delWildcardAsync(key: string): Promise<any> {
 		if (!this.cache || !this.isEnabled) {
 			this.debugLog(`Cache Delete Wildcard Skipped: ${key}`)
@@ -128,6 +173,9 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 		this.debugLog(`Wildcard cache key deleted: ${key}`)
 	}
 
+	/**
+	 * Whether the cache is connected
+	 */
 	public isConnected(): boolean {
 		if (!this.cache || !this.isEnabled) {
 			return false

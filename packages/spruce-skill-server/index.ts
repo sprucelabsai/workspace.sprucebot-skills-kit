@@ -466,3 +466,19 @@ export default async ({
 export { default as SpruceTest } from './tests/SpruceTest'
 export { ISpruceCoreSkillModels, SpruceCoreModel } from './types/models'
 export { ISpruceCoreSkillServices } from './types/services'
+export {
+	default as SpruceSkillService
+} from './services/base/SpruceSkillService'
+
+// Export Models
+export { FileItem } from './models/FileItem'
+export { Group } from './models/Group'
+export { Job } from './models/Job'
+export { Location } from './models/Location'
+export { LocationGroup } from './models/LocationGroup'
+export { Organization } from './models/Organization'
+export { Skill } from './models/Skill'
+export { User } from './models/User'
+export { UserGroup } from './models/UserGroup'
+export { UserLocation } from './models/UserLocation'
+export { UserOrganization } from './models/UserOrganization'
