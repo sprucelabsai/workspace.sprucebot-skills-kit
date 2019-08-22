@@ -1,10 +1,4 @@
-// @flow
-import React, {
-	Fragment,
-	ReactNode,
-	ReactElement,
-	ReactHTMLElement
-} from 'react'
+import React, { Fragment, ReactNode, ReactElement } from 'react'
 import cx from 'classnames'
 
 import Button from '../Button/Button'
@@ -17,14 +11,26 @@ const TextComponentKey = {
 	button: Button
 }
 
+const renderText = (child): ReactNode => {
+	const { children, ...rest } = child.props
+	const handlerProps = { children: child.text || children, ...rest }
+	const Handler =
+		(child && child.type && TextComponentKey[child.type]) || Fragment
+	return typeof Handler === 'function' ? (
+		Handler({ ...handlerProps })
+	) : (
+		<Handler {...handlerProps} />
+	)
+}
+
 // Allows basic templating functionality on text strings
 
-const TemplateEngine = (text = '', context = {}) => {
+const TemplateEngine = (text = '', context = {}): ReactNode[] => {
 	let re = /{{([^}}]+)?}}/g,
 		children = [],
 		cursor = 0
 
-	let add = function(line: string, templateVar?: string) {
+	let add = function(line: string, templateVar?: string): void {
 		if (line !== '') {
 			children.push({
 				props: { element: 'span', children: line.replace(/"/g, '\\"') }
@@ -48,18 +54,6 @@ const TemplateEngine = (text = '', context = {}) => {
 	add(text.substr(cursor, text.length - cursor))
 
 	return children.map(renderText)
-}
-
-const renderText = child => {
-	const { children, ...rest } = child.props
-	const handlerProps = { children: child.text || children, ...rest }
-	const Handler =
-		(child && child.type && TextComponentKey[child.type]) || Fragment
-	return typeof Handler === 'function' ? (
-		Handler({ ...handlerProps })
-	) : (
-		<Handler {...handlerProps} />
-	)
 }
 
 export interface ITextProps {
