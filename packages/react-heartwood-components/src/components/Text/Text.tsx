@@ -1,11 +1,14 @@
 // @flow
-import React, { Fragment } from 'react'
+import React, {
+	Fragment,
+	ReactNode,
+	ReactElement,
+	ReactHTMLElement
+} from 'react'
 import cx from 'classnames'
 
 import Button from '../Button/Button'
 import TextStyle from '../TextStyle/TextStyle'
-
-import type { Node } from 'react'
 
 // Components available for templating
 
@@ -21,13 +24,13 @@ const TemplateEngine = (text = '', context = {}) => {
 		children = [],
 		cursor = 0
 
-	let add = function(line, templateVar) {
+	let add = function(line: string, templateVar?: string) {
 		if (line !== '') {
 			children.push({
 				props: { element: 'span', children: line.replace(/"/g, '\\"') }
 			})
 		}
-		if (context[templateVar]) {
+		if (templateVar && context[templateVar]) {
 			children.push(context[templateVar])
 		}
 	}
@@ -59,15 +62,15 @@ const renderText = child => {
 	)
 }
 
-export type TextProps = {
+export interface ITextProps {
 	/** Contents of the component. */
-	children: Node,
+	children: ReactNode
 
 	/** Class name for the component */
-	className?: string,
+	className?: string
 
 	/** Context allows basic templatizing of text strings for formatting/rich interaction purposes */
-	context?: Object,
+	context?: Record<string, any>
 
 	/** The element to render. Defaults to p for Text and span for Span */
 	// eslint-disable-next-line flowtype/space-after-type-colon
@@ -99,7 +102,9 @@ export type TextProps = {
 		| 'ul'
 }
 
-const Text = (props: TextProps) => {
+const Text: React.StatelessComponent<ITextProps> = (
+	props: ITextProps
+): React.ReactElement => {
 	const {
 		children: originalChildren,
 		className,
@@ -107,7 +112,7 @@ const Text = (props: TextProps) => {
 		context,
 		...rest
 	} = props
-	let Element = 'p'
+	let Element: any = 'p'
 	let children = originalChildren
 
 	if (element) {
@@ -125,7 +130,9 @@ const Text = (props: TextProps) => {
 	)
 }
 
-export const Span = (props: TextProps) => {
+export const Span: React.StatelessComponent<ITextProps> = (
+	props: ITextProps
+): React.ReactElement => {
 	const { children, className, element, ...rest } = props
 
 	return (
