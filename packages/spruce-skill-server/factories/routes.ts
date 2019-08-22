@@ -7,7 +7,7 @@ const debug = Debug('spruce-skill-server')
 
 export default (dir: string, router: Router, options?: Record<string, any>) => {
 	const matches = globby.sync(path.join(dir, '/**/*.(js|ts)'), {
-		ignore: ['**/cron.js', '**/ignore/**', '**/*test*']
+		ignore: ['**/cron.js', '**/ignore/**', '**/*test*', '**/*.d.ts']
 	})
 	debug('Found controllers', matches)
 	matches.forEach(function(match) {
