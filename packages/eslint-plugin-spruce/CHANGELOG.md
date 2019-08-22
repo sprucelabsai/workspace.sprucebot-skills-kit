@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
+
+**Note:** Version bump only for package eslint-plugin-spruce
+
+
+
+
+
+## [8.17.6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.5...v8.17.6) (2019-08-16)
+
+**Note:** Version bump only for package eslint-plugin-spruce
+
+
+
+
+
+## [8.17.5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.4...v8.17.5) (2019-08-16)
+
+**Note:** Version bump only for package eslint-plugin-spruce
+
+
+
+
+
+## [8.17.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.3...v8.17.4) (2019-08-09)
+
+**Note:** Version bump only for package eslint-plugin-spruce
+
+
+
+
+
 ## [8.17.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.2...v8.17.3) (2019-08-09)
 
 **Note:** Version bump only for package eslint-plugin-spruce
