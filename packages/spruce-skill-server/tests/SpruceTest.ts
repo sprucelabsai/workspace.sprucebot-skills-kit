@@ -14,9 +14,9 @@ export default (basePath: string) => {
 			'Invalid "basePath" passed to SpruceTest. It should be used like: class ExampleTests extends SpruceTest(`${__dirname}/../../`) {...}'
 		)
 	}
-	return class Base {
+	return class Base<Context> {
 		protected koa!: Koa<any>
-		protected ctx!: Koa.BaseContext
+		protected ctx!: Context
 		protected mocks: Record<string, any>
 		protected request!: supertest.SuperTest<supertest.Test>
 
@@ -33,7 +33,7 @@ export default (basePath: string) => {
 			this.setup()
 		}
 
-		protected async setup(): Promise<void> {}
+		protected setup(): void {}
 
 		protected async setupMocks(options?: Record<string, any>): Promise<void> {
 			try {

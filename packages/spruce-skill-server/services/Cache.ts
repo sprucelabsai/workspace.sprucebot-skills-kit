@@ -17,6 +17,17 @@ export abstract class AbstractSpruceSkillCacheAdapter {
 	public abstract isConnected(): boolean
 }
 
+interface ICacheConfig {
+	adapter?: string
+	enable?: boolean
+	logDebug?: boolean
+	keyPrefix?: string
+	options?: {
+		url?: string
+		ttl?: number
+	}
+}
+
 export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 	private cache?: AbstractSpruceSkillCacheAdapter
 	private isEnabled = false
@@ -24,21 +35,17 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 
 	public constructor(options: {
 		ctx: ISpruceSkillContext
-		config?: {
-			adapter?: string
-			enable?: boolean
-			logDebug?: boolean
-			keyPrefix?: string
-			options?: {
-				url?: string
-				ttl?: number
-			}
-		}
+		config?: ICacheConfig
 	}) {
 		super(options)
-		const { config } = options
-		if (!config || !config.adapter || !config.options || !config.options.url) {
-			log.info('Cache: DISABLED. Configuration for cache is invalid')
+		this.init(options.config)
+	}
+
+	public init(config?: ICacheConfig): void {
+		if (!config || !config.adapter) {
+			log.info('Cache: DISABLED. Configuration for cache is invalid', {
+				options: config
+			})
 			return
 		}
 
@@ -47,24 +54,16 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 			return
 		}
 
+		this.isEnabled = true
+
 		this.logDebug = config.logDebug === true
 
 		this.setAdapter({
 			adapter: config.adapter,
 			keyPrefix: config.keyPrefix,
-			url: config.options.url,
-			ttl: config.options.ttl || 300
+			url: config.options && config.options.url,
+			ttl: (config.options && config.options.ttl) || 300
 		})
-	}
-
-	public init(options: { isEnabled: boolean; adapter: string }): void {
-		const { isEnabled, adapter } = options
-		this.isEnabled = isEnabled
-		if (!this.isEnabled) {
-			log.info('CACHE: DISABLED')
-			return
-		}
-		this.setAdapter(adapter)
 	}
 
 	public set(key: string, value: any, ttl?: number): void {
@@ -145,7 +144,7 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 	private setAdapter(options: {
 		adapter: string
 		keyPrefix?: string
-		url: string
+		url?: string
 		ttl: number
 	}): void {
 		const { adapter, url, ttl, keyPrefix } = options
@@ -164,61 +163,3 @@ export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
 		}
 	}
 }
-
-// import { ISpruceSkillContext } from '../types/ctx'
-// import SpruceSkillService from './base/SpruceSkillService'
-
-// export default class Cache extends SpruceSkillService {
-// 	private cache?: AbstractSpruceSkillCacheAdapter
-
-// 	public constructor(options: {
-// 		ctx: ISpruceSkillContext
-// 		config: Record<string, any>
-// 	}) {
-// 		super(options)
-// 		if ()
-// 	}
-
-// 	async init({ cache, options = {} } = {}) {
-// 		if (cache && !options.disable) {
-// 			this.cache = require(cache)
-// 			this.cache.init(options)
-// 		}
-// 	}
-
-// 	set(key, value, ttl) {
-// 		if (!this.cache) {
-// 			log.debug(`Cache Set Skipped: ${key}`)
-// 			return
-// 		}
-
-// 		return this.cache.set(key, value, ttl)
-// 	}
-
-// 	async get(key) {
-// 		if (!this.cache) {
-// 			log.debug(`Cache Get Skipped: ${key}`)
-// 			return null
-// 		}
-
-// 		return this.cache.get(key)
-// 	}
-
-// 	async del(key) {
-// 		if (!this.cache) {
-// 			log.debug(`Cache Del Skipped: ${key}`)
-// 			return null
-// 		}
-
-// 		return this.cache.del(key)
-// 	}
-
-// 	async delWildcard(key) {
-// 		if (!this.cache) {
-// 			log.debug(`Cache Delete Wildcard Skipped: ${key}`)
-// 			return null
-// 		}
-
-// 		return this.cache.delWildcard(key)
-// 	}
-// }

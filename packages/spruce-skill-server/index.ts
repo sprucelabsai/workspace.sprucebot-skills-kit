@@ -208,15 +208,21 @@ export default async ({
 
 		// make sure services and utilities can access each other
 		_.each(koa.context.services, service => {
-			service.services = koa.context.services
-			service.utilities = koa.context.utilities
-			service.sb = sprucebot
+			// Legacy support. New services that are class based don't need this
+			if (!service.serviceVersion) {
+				service.services = koa.context.services
+				service.utilities = koa.context.utilities
+				service.sb = sprucebot
+			}
 		})
 
 		_.each(koa.context.utilities, util => {
-			util.utilities = koa.context.utilities
-			util.services = koa.context.services
-			util.sb = sprucebot
+			// Legacy support. New utilities that are class based don't need this
+			if (!util.utilVersion) {
+				util.utilities = koa.context.utilities
+				util.services = koa.context.services
+				util.sb = sprucebot
+			}
 		})
 
 		// Add sb to the app context

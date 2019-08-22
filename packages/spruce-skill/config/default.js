@@ -227,11 +227,13 @@ module.exports = {
 		},
 		cache: {
 			adapter: 'redis',
-			enable: process.env.CACHE_ENABLE === 'true',
+			enable: process.env.CACHE_ENABLED === 'true',
 			logDebug: process.env.CACHE_DEBUG === 'true',
 			options: {
-				url: process.env.REDIS_URL || null,
-				ttl: process.env.DEFAULT_TTL_SEC ? +process.env.DEFAULT_TTL_SEC : 300
+				url: process.env.CACHE_URL || null,
+				ttl: process.env.CACHE_DEFAULT_TTL_SEC
+					? +process.env.CACHE_DEFAULT_TTL_SEC
+					: 300
 			}
 		}
 	}, // Settings for any services.

@@ -32,7 +32,8 @@
 		"services/**/*",
 		"support/**/*",
 		"tests/**/*",
-		"utilities/**/*"
+		"utilities/**/*",
+		"types/**/*"
 	],
 	"exclude": ["**/node_modules/*"]
 }

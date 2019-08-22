@@ -11,15 +11,24 @@ module.exports = (dir, key, ctx) => {
 		ignore: ['**/ignore/**', '**/*test*', '**/*.d.ts']
 	})
 	matches.forEach(match => {
-		const filename = path.basename(match, path.extname(match))
+		let filename = path.basename(match, path.extname(match))
 		try {
+			filename = `${filename.charAt(0).toLowerCase()}${filename.slice(1)}`
 			debug(`Loading ${key}: ${filename}`)
 			const m = require(match)
 			if (m.default) {
+				console.log({
+					match,
+					filename,
+					key,
+					config: config[key],
+					config2: config[key][filename]
+				})
 				const service = new m.default({
 					ctx,
 					config: config[key] && config[key][filename]
 				})
+				console.log(typeof service)
 				ctx[key][filename] = service
 			} else {
 				if (m.init) {
