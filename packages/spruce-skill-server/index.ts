@@ -482,3 +482,10 @@ export { User } from './models/User'
 export { UserGroup } from './models/UserGroup'
 export { UserLocation } from './models/UserLocation'
 export { UserOrganization } from './models/UserOrganization'
+
+// Mock data for tests
+export {
+	IMockUser,
+	IMockOrganization,
+	IMockSkill
+} from './tests/mocks/SandboxMock'
