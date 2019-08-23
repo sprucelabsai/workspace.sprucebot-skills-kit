@@ -1,8 +1,11 @@
 import { assert } from 'chai'
 import SpruceTest from './SpruceTest'
 import config from 'config'
+import { ISpruceSkillContext } from '../types/ctx'
 
-class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
+class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
+	ISpruceSkillContext
+> {
 	public setup(): void {
 		it('Checks location acls as owner', () => this.checkLocationAcls('owner'))
 		it('Checks location acls as groupManager', () =>

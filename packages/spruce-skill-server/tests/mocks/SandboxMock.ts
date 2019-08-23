@@ -1,25 +1,75 @@
-const debug = require('debug')('spruce-skill-server')
-const _ = require('lodash')
-const { generateSkillJWT } = require('../lib/jwt')
-const faker = require('faker')
-const uuid = require('uuid')
-const slug = require('slug')
-const config = require('config')
-const { Op } = require('sequelize')
+import Debug from 'debug'
+const debug = Debug('spruce-skill-server')
+import Koa from 'koa'
+import { ISpruceSkillContext } from '../../types/ctx'
+import _ from 'lodash'
+import { generateSkillJWT } from '../lib/jwt'
+import faker from 'faker'
+import uuid from 'uuid'
+import slug from 'slug'
+import config from 'config'
+import { Op } from 'sequelize'
+import { Organization } from '../../models/Organization'
+import { Location } from '../../models/Location'
+import { Job } from '../../models/Job'
+import { Group } from '../../models/Group'
+import { Skill } from '../../models/Skill'
+import { UserLocation } from '../../models/UserLocation'
+import { UserGroup } from '../../models/UserGroup'
+import { UserOrganization } from '../../models/UserOrganization'
+import { User } from '../../models/User'
 
-module.exports = class SandboxMock {
-	constructor(app) {
-		this.ctx = app.context
+export interface IMockUser extends User {
+	jwt: string
+}
+
+export interface IMockOrganization extends Organization {
+	owner: IMockUser[]
+	groupManager: IMockUser[]
+}
+
+export interface IMockLocation extends Location {
+	owner: IMockUser[]
+	teammate: IMockUser[]
+	guest: IMockUser[]
+}
+
+export interface IMockSkill extends Skill {
+	apiKey?: string
+}
+
+interface ISandbox {
+	organization: IMockOrganization
+	locations: IMockLocation[]
+	skill: IMockSkill
+	users: {
+		users: User[]
+		userLocations: UserLocation[]
+		userOrganizations: UserOrganization[]
+		userGroups: UserGroup[]
+	}
+}
+
+export default class SandboxMock {
+	public key: string
+	public organization!: IMockOrganization
+	public locations!: {
+		[locationId: string]: IMockLocation
+	}
+	public skill!: IMockSkill
+	public otherOrganization!: IMockOrganization
+	public otherLocations!: {
+		[locationId: string]: IMockLocation
+	}
+	public otherSkill!: IMockSkill
+	private ctx!: ISpruceSkillContext
+
+	public constructor(app: Koa<any>) {
+		this.ctx = app.context as ISpruceSkillContext
 		this.key = 'sandbox'
-		this.app = app
-		this.sandbox = {}
-		this.organization = {}
-		this.locations = {}
-		this.otherOrganization = {}
-		this.otherLocations = {}
 	}
 
-	async setup(options) {
+	public async setup(options: Record<string, any>): Promise<void> {
 		if (!options) {
 			options = {} // eslint-disable-line
 		}
@@ -59,10 +109,10 @@ module.exports = class SandboxMock {
 		debug('Sandbox mock created')
 	}
 
-	async createSkill() {
+	public async createSkill(): Promise<IMockSkill> {
 		const skillName = faker.lorem.words()
 		const skillSlug = slug(skillName, { lower: true })
-		const skill = await this.ctx.db.models.Skill.create({
+		const skill: IMockSkill = await this.ctx.db.models.Skill.create({
 			id: uuid.v4(),
 			name: skillName,
 			slug: skillSlug,
@@ -75,8 +125,15 @@ module.exports = class SandboxMock {
 		return skill
 	}
 
-	async createSandbox(options) {
-		const sandbox = {}
+	public async createSandbox(options: {
+		numLocations: number
+		numOwners: number
+		numTeammates: number
+		numGroupManagers: number
+		numManagers: number
+		numGuests: number
+	}): Promise<ISandbox> {
+		const sandbox: Record<string, any> = {}
 
 		sandbox.skill = await this.createSkill()
 
@@ -133,10 +190,10 @@ module.exports = class SandboxMock {
 			)
 		}
 
-		return sandbox
+		return sandbox as ISandbox
 	}
 
-	async createOrganization() {
+	public async createOrganization(): Promise<Organization> {
 		try {
 			const orgName = faker.company.companyName()
 			const organization = await this.ctx.db.models.Organization.create({
@@ -151,17 +208,20 @@ module.exports = class SandboxMock {
 		}
 	}
 
-	async createDefaultGroup(options) {
+	public async createDefaultGroup(options: {
+		organizationId: string
+	}): Promise<Group> {
+		const { organizationId } = options
 		const group = await this.ctx.db.models.Group.create({
 			isDefault: true,
 			name: 'All Locations',
-			OrganizationId: options.organizationId
+			OrganizationId: organizationId
 		})
 
 		return group
 	}
 
-	async createDefaultJobs(organization) {
+	public async createDefaultJobs(organization: Organization): Promise<Job[]> {
 		const jobData = [
 			{
 				id: uuid.v4(),
@@ -191,7 +251,11 @@ module.exports = class SandboxMock {
 		return result
 	}
 
-	async createLocations(options) {
+	public async createLocations(options: {
+		group: Group
+		numLocations: number
+		organizationId: string
+	}): Promise<Location[]> {
 		try {
 			// Get default group
 			const group = options.group
@@ -241,7 +305,20 @@ module.exports = class SandboxMock {
 		}
 	}
 
-	async createUsers(options) {
+	public async createUsers(options: {
+		locationId: string
+		organizationId: string
+		numOwners: number
+		numGroupManagers: number
+		numManagers: number
+		numTeammates: number
+		numGuests: number
+	}): Promise<{
+		users: User[]
+		userLocations: UserLocation[]
+		userOrganizations: UserOrganization[]
+		userGroups: UserGroup[]
+	}> {
 		try {
 			// Get jobs
 			const jobs = await this.ctx.db.models.Job.findAll({
@@ -258,10 +335,14 @@ module.exports = class SandboxMock {
 				}
 			})
 
-			const usersData = []
-			const userLocationsData = []
-			const userOrganizationsData = []
-			const userGroupsData = []
+			if (!group) {
+				throw new Error('Sandbox: Unable to get default group')
+			}
+
+			const usersData: Record<string, any>[] = []
+			const userLocationsData: Record<string, any>[] = []
+			const userOrganizationsData: Record<string, any>[] = []
+			const userGroupsData: Record<string, any>[] = []
 			for (let i = 0; i < options.numOwners; i += 1) {
 				const result = this.createUserData({
 					jobs,
@@ -271,6 +352,9 @@ module.exports = class SandboxMock {
 					group
 				})
 				usersData.push(result.user)
+				if (!result.userLocation || !result.userOrganization) {
+					throw new Error('Sandbox: Error creating records for owners')
+				}
 				userLocationsData.push(result.userLocation)
 				userOrganizationsData.push(result.userOrganization)
 			}
@@ -284,6 +368,9 @@ module.exports = class SandboxMock {
 					group
 				})
 				usersData.push(result.user)
+				if (!result.userLocation || !result.userGroup) {
+					throw new Error('Sandbox: Error creating records for groupManagers')
+				}
 				userLocationsData.push(result.userLocation)
 				userGroupsData.push(result.userGroup)
 			}
@@ -297,6 +384,9 @@ module.exports = class SandboxMock {
 					group
 				})
 				usersData.push(result.user)
+				if (!result.userLocation) {
+					throw new Error('Sandbox: Error creating records for managers')
+				}
 				userLocationsData.push(result.userLocation)
 			}
 
@@ -308,6 +398,9 @@ module.exports = class SandboxMock {
 					group
 				})
 				usersData.push(result.user)
+				if (!result.userLocation) {
+					throw new Error('Sandbox: Error creating records for teammates')
+				}
 				userLocationsData.push(result.userLocation)
 			}
 
@@ -319,6 +412,9 @@ module.exports = class SandboxMock {
 					group
 				})
 				usersData.push(result.user)
+				if (!result.userLocation) {
+					throw new Error('Sandbox: Error creating records for guests')
+				}
 				userLocationsData.push(result.userLocation)
 			}
 
@@ -339,7 +435,7 @@ module.exports = class SandboxMock {
 
 			const userIds = users.map(u => u.id)
 
-			const fullUsers = await this.ctx.db.models.User.findAll({
+			const userFindOptions: Record<string, any> = {
 				where: {
 					id: {
 						[Op.in]: userIds
@@ -367,7 +463,8 @@ module.exports = class SandboxMock {
 						]
 					}
 				]
-			})
+			}
+			const fullUsers = await this.ctx.db.models.User.findAll(userFindOptions)
 
 			return {
 				users: fullUsers,
@@ -381,11 +478,20 @@ module.exports = class SandboxMock {
 		}
 	}
 
-	parseUsers(options) {
+	private parseUsers(
+		options: ISandbox
+	): {
+		locations: {
+			[locationId: string]: IMockLocation
+		}
+		organization: IMockOrganization
+	} {
 		const users = options.users
-		const locations = {}
+		const locations: {
+			[locationId: string]: IMockLocation
+		} = {}
 		options.locations.forEach(location => {
-			locations[location.id] = location
+			locations[location.id] = location as IMockLocation
 		})
 		const location = options.locations[0]
 		const organization = options.organization
@@ -403,22 +509,27 @@ module.exports = class SandboxMock {
 				if (
 					user.UserLocations &&
 					user.UserLocations[0] &&
+					user.UserLocations[0].LocationId &&
 					(user.UserLocations[0].role === 'guest' ||
 						user.UserLocations[0].JobId)
 				) {
 					if (!locations[user.UserLocations[0].LocationId]) {
+						// @ts-ignore
 						locations[user.UserLocations[0].LocationId] = {}
 					}
 
 					if (
+						// @ts-ignore
 						!locations[user.UserLocations[0].LocationId][
 							user.UserLocations[0].role
 						]
 					) {
+						// @ts-ignore
 						locations[user.UserLocations[0].LocationId][
 							user.UserLocations[0].role
 						] = []
 					}
+					// @ts-ignore
 					locations[user.UserLocations[0].LocationId][
 						user.UserLocations[0].role
 					].push({
@@ -430,15 +541,19 @@ module.exports = class SandboxMock {
 					if (!organization.groupManager) {
 						organization.groupManager = []
 					}
+					// @ts-ignore
 					organization.groupManager.push({
 						...user.get(),
 						jwt
 					})
 				}
 				if (user.UserOrganizations && user.UserOrganizations[0]) {
+					// @ts-ignore
 					if (!organization[user.UserOrganizations[0].role]) {
+						// @ts-ignore
 						organization[user.UserOrganizations[0].role] = []
 					}
+					// @ts-ignore
 					organization[user.UserOrganizations[0].role].push({
 						...user.get(),
 						jwt
@@ -451,7 +566,19 @@ module.exports = class SandboxMock {
 		return { locations, organization }
 	}
 
-	createUserData(options) {
+	private createUserData(options: {
+		locationId: string
+		jobs: Job[]
+		role: string
+		group: Group
+		organizationId?: string
+		type?: string
+	}): {
+		user: Record<string, any>
+		userLocation: Record<string, any> | undefined
+		userOrganization: Record<string, any> | undefined
+		userGroup: Record<string, any> | undefined
+	} {
 		const job = options.jobs
 			? options.jobs.find(j => j.role === options.role)
 			: null
@@ -532,12 +659,8 @@ module.exports = class SandboxMock {
 		}
 	}
 
-	createPhone() {
+	private createPhone(): string {
 		const phone = faker.phone.phoneNumberFormat(0)
 		return `555${phone.substr(3)}`
-	}
-
-	async teardown() {
-		return
 	}
 }

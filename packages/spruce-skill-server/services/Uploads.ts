@@ -1,14 +1,77 @@
-const request = require('superagent')
-module.exports = {
-	uploader: null,
-	async init({ uploader, options = {} } = {}) {
-		if (uploader) {
-			this.uploader = require(uploader)
-			this.uploader.init(options)
-		}
-	},
+import request from 'superagent'
+import { ISpruceSkillContext } from '../types/ctx'
+import SpruceSkillService from './base/SpruceSkillService'
 
-	async deleteFileItems({ fileItemIds }) {
+export abstract class AbstractSpruceSkillUploadAdapter {
+	public abstract init(options: {
+		bucket: string
+		accessKeyId: string
+		secretAccessKey: string
+	}): void
+	public abstract async upload(
+		data: any,
+		options?: Record<string, any>
+	): Promise<string>
+}
+
+interface ICacheConfig {
+	adapter?: string
+	options?: {
+		bucket: string
+		accessKeyId: string
+		secretAccessKey: string
+	}
+}
+
+interface IFile {
+	path: string
+	name: string
+	type: string
+}
+
+export default class Uploads extends SpruceSkillService<ISpruceSkillContext> {
+	private uploader!: AbstractSpruceSkillUploadAdapter
+
+	public constructor(options: {
+		ctx: ISpruceSkillContext
+		config?: ICacheConfig
+	}) {
+		super(options)
+		this.init(options.config)
+	}
+
+	public init(config?: ICacheConfig): void {
+		if (!config || !config.adapter) {
+			log.info('Uploads: DISABLED. Configuration for uploads is invalid', {
+				options: config
+			})
+			return
+		}
+
+		if (
+			!config.options ||
+			!config.options.bucket ||
+			!config.options.accessKeyId ||
+			!config.options.secretAccessKey
+		) {
+			log.info('Uploads: DISABLED. Missing required config options.', {
+				options: config
+			})
+			return
+		}
+
+		this.setAdapter({
+			adapter: config.adapter,
+			bucket: config.options.bucket,
+			accessKeyId: config.options.accessKeyId,
+			secretAccessKey: config.options.secretAccessKey
+		})
+	}
+
+	public async deleteFileItems(options: {
+		fileItemIds: string[]
+	}): Promise<void> {
+		const { fileItemIds } = options
 		if (!fileItemIds) {
 			log.warn('Missing "fileItemIds"')
 			throw new Error('MISSING_PARAMETERS')
@@ -26,25 +89,37 @@ module.exports = {
 			}
 		}`
 
-		const result = await this.sb.query(query)
+		const result = await this.ctx.sb.query(query)
 
 		return result
-	},
+	}
 
-	async uploadImages({
-		files,
-		acl,
-		imageSizes,
-		refId,
-		organizationId,
-		locationId,
-		teammateId,
-		guestId
-	}) {
+	public async uploadImages(options: {
+		files: IFile[]
+		acl: string
+		imageSizes: string[]
+		refId?: string
+		organizationId?: string
+		locationId?: string
+		teammateId?: string
+		guestId?: string
+	}): Promise<void> {
 		try {
 			if (process.env.API_SSL_ALLOW_SELF_SIGNED === 'true') {
 				process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 			}
+
+			const {
+				files,
+				acl,
+				imageSizes,
+				refId,
+				organizationId,
+				locationId,
+				teammateId,
+				guestId
+			} = options
+
 			const strImageSizes = imageSizes ? imageSizes.join(',') : []
 			const req = request
 				.put(`${process.env.API_HOST}/api/2.0/skills/${process.env.ID}/files`)
@@ -87,9 +162,12 @@ module.exports = {
 			log.crit(e)
 			throw e
 		}
-	},
+	}
 
-	async upload(data, options = {}) {
+	public async upload(
+		data: any,
+		options: Record<string, any> = {}
+	): Promise<string> {
 		if (!this.uploader) {
 			throw new Error(
 				'No uploader configured. see https://github.com/sprucelabsai/sprucebot-skills-kit/blob/dev/docs/uploads.md instructions'
@@ -97,5 +175,27 @@ module.exports = {
 		}
 
 		return this.uploader.upload(data, options)
+	}
+
+	private setAdapter(options: {
+		adapter: string
+		bucket: string
+		accessKeyId: string
+		secretAccessKey: string
+	}): void {
+		const { adapter, bucket, accessKeyId, secretAccessKey } = options
+		if (adapter) {
+			const filename = `${adapter.charAt(0).toUpperCase()}${adapter.slice(1)}`
+			try {
+				const adapter = require(`./uploads/${filename}`).default
+				this.uploader = new adapter({
+					bucket,
+					accessKeyId,
+					secretAccessKey
+				})
+			} catch (e) {
+				log.crit(`UploadService: Unable to load adapter: ${filename}`)
+			}
+		}
 	}
 }

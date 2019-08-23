@@ -218,9 +218,9 @@ module.exports = {
 	utilities: {}, // Settings for any utilities.
 	services: {
 		'uploads.disabled': {
-			uploader: './uploads/s3',
+			adapter: 's3',
 			options: {
-				Bucket: 'some-bucket-name',
+				bucket: 'some-bucket-name',
 				accessKeyId: process.env.AWS_ACCESS_KEY_ID,
 				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 			}

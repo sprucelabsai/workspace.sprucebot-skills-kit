@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import Debug from 'debug'
 const debug = Debug('spruce-skill-server')
 import Koa from 'koa'
@@ -8,7 +9,6 @@ import _ from 'lodash'
 import koaBody from 'koa-body'
 import logger from '@sprucelabs/log'
 import defaultErrors from './support/errors'
-import glob from 'glob'
 import path from 'path'
 import cors from '@koa/cors'
 import staticServe from 'koa-static'
@@ -22,7 +22,7 @@ import gqlRouter from './gql/router'
 import gqlListeners from './gql/listeners'
 // import SpruceTest from './tests/SpruceTest'
 
-const required = key => {
+const required = (key: string): void => {
 	throw new Error(`SkillKit server needs ${key}`)
 }
 
@@ -408,36 +408,36 @@ export default async ({
 			return
 
 			// this does not work as desired
-			ctx.body = await new Promise(resolve => {
-				const _end = ctx.res.end
-				ctx.res._end = _end
+			// ctx.body = await new Promise(resolve => {
+			// 	const _end = ctx.res.end
+			// 	ctx.res._end = _end
 
-				// Hijack stream to set ctx.body
-				const pipe = stream => {
-					ctx.res.end = _end
-					stream.unpipe(ctx.res)
-					resolve(stream)
-				}
-				ctx.res.once('pipe', pipe)
+			// 	// Hijack stream to set ctx.body
+			// 	const pipe = stream => {
+			// 		ctx.res.end = _end
+			// 		stream.unpipe(ctx.res)
+			// 		resolve(stream)
+			// 	}
+			// 	ctx.res.once('pipe', pipe)
 
-				// Monkey patch res.end to set ctx.body
-				ctx.res.end = body => {
-					debug('Next has finished for', ctx.path)
-					ctx.res.end = _end
-					ctx.res.removeListener('pipe', pipe)
-					if (ctx.res.redirect) {
-						debug('Next wants us to redirect to', ctx.res.redirect)
-						body = `Redirecting to ${ctx.res.redirect}`
-						ctx.redirect(ctx.res.redirect)
-						ctx.res.end(body)
-						// return
-					}
-					resolve(body)
-				}
+			// 	// Monkey patch res.end to set ctx.body
+			// 	ctx.res.end = body => {
+			// 		debug('Next has finished for', ctx.path)
+			// 		ctx.res.end = _end
+			// 		ctx.res.removeListener('pipe', pipe)
+			// 		if (ctx.res.redirect) {
+			// 			debug('Next wants us to redirect to', ctx.res.redirect)
+			// 			body = `Redirecting to ${ctx.res.redirect}`
+			// 			ctx.redirect(ctx.res.redirect)
+			// 			ctx.res.end(body)
+			// 			// return
+			// 		}
+			// 		resolve(body)
+			// 	}
 
-				debug('Handing control off to nextjs ', ctx.path, '🤞🏼')
-				handle(ctx.req, ctx.res)
-			})
+			// 	debug('Handing control off to nextjs ', ctx.path, '🤞🏼')
+			// 	handle(ctx.req, ctx.res)
+			// })
 		})
 	}
 

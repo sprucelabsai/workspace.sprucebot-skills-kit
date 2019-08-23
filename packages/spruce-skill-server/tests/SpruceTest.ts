@@ -6,6 +6,10 @@ import faker from 'faker'
 import { generateSkillJWT } from './lib/jwt'
 import { Suite } from 'mocha'
 import Koa from 'koa'
+import { Organization } from '../models/Organization'
+import { Location } from '../models/Location'
+import { Skill } from '../models/Skill'
+import { User } from '../models/User'
 
 // The base test model that all others will extend
 export default (basePath: string) => {
@@ -19,6 +23,9 @@ export default (basePath: string) => {
 		protected ctx!: Context
 		protected mocks: Record<string, any>
 		protected request!: supertest.SuperTest<supertest.Test>
+		protected organization!: Organization
+		protected location!: Location
+		protected skill!: Skill
 
 		public constructor(mocha: Suite) {
 			if (mocha) {
@@ -45,7 +52,12 @@ export default (basePath: string) => {
 				for (let i = 0; i < mocks.length; i += 1) {
 					// @ts-ignore
 					const Mock = require(mocks[i])
-					const mock = new Mock(this.koa)
+					let mock
+					if (Mock.default) {
+						mock = new Mock.default(this.koa)
+					} else {
+						mock = new Mock(this.koa)
+					}
 					if (mock.key === 'sandbox') {
 						sandbox = mock
 					}
@@ -76,23 +88,21 @@ export default (basePath: string) => {
 
 		protected async before(options?: Record<string, any>): Promise<void> {
 			await this.beforeBase(options)
-			if (this.mocks.sandbox) {
-				this.organization = this.mocks.sandbox.organization
-				const locationId = Object.keys(this.mocks.sandbox.locations)[0]
-				this.location = this.mocks.sandbox.locations[locationId]
-				this.skill = this.mocks.sandbox.skill
-
-				this.otherOrganization = this.mocks.sandbox.otherOrganization
-				const otherLocationId = Object.keys(
-					this.mocks.sandbox.otherLocations
-				)[0]
-				this.otherLocation = this.mocks.sandbox.otherLocations[otherLocationId]
-				this.otherSkill = this.mocks.sandbox.otherSkill
-			} else {
+			if (!this.mocks.sandbox) {
 				throw new Error(
 					'@sprucelabs/spruce-skill-server: SandboxMock has not been initialized. If this is deliberate you should override the before() method in your test'
 				)
 			}
+
+			this.organization = this.mocks.sandbox.organization
+			const locationId = Object.keys(this.mocks.sandbox.locations)[0]
+			this.location = this.mocks.sandbox.locations[locationId]
+			this.skill = this.mocks.sandbox.skill
+
+			this.otherOrganization = this.mocks.sandbox.otherOrganization
+			const otherLocationId = Object.keys(this.mocks.sandbox.otherLocations)[0]
+			this.otherLocation = this.mocks.sandbox.otherLocations[otherLocationId]
+			this.otherSkill = this.mocks.sandbox.otherSkill
 		}
 
 		protected async beforeBase(options): Promise<void> {

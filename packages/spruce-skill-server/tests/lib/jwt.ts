@@ -1,14 +1,18 @@
 import jwt from 'jsonwebtoken'
 import uuid from 'uuid'
+import { User } from '../../models/User'
+import { Location } from '../../models/Location'
+import { Organization } from '../../models/Organization'
+import { IMockSkill } from '../mocks/SandboxMock'
 
 function generateSkillJWT(options: {
-	skill: any
-	user: any
-	location: any
-	organization: any
-	expiresIn: any
-	payload: any
-	eventType: any
+	skill: IMockSkill
+	user: User
+	location?: Location | null
+	organization?: Organization | null
+	expiresIn?: number
+	payload?: Record<string, any>
+	eventType?: string
 }): string {
 	const {
 		skill,
@@ -21,11 +25,11 @@ function generateSkillJWT(options: {
 	} = options
 
 	let exp = 86400
-	if (expiresIn && parseInt(expiresIn, 10) > 0) {
-		exp = parseInt(expiresIn, 10)
+	if (expiresIn && +expiresIn > 0) {
+		exp = +expiresIn
 	}
 
-	const data = {
+	const data: Record<string, any> = {
 		firstSentAt: new Date(),
 		deliveryTry: 1,
 		eventType,
@@ -43,6 +47,10 @@ function generateSkillJWT(options: {
 
 	if (organization) {
 		data.organizationId = organization.id
+	}
+
+	if (!skill.apiKey) {
+		throw new Error('Unable to sign jwt. Skill is missing apiKey')
 	}
 
 	const token = jwt.sign(data, skill.apiKey, {
