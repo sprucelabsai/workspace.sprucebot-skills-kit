@@ -1,6 +1,7 @@
 const assert = require('chai').assert
 const SpruceTest = require('./SpruceTest')
 const config = require('config')
+const get = require('lodash/get')
 
 class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 	setup() {
@@ -41,6 +42,10 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 			this.missingParametersOrganizationId())
 		it('Throws error on missing parameter permissions', () =>
 			this.missingParametersPermissions())
+
+		it('Can check individual acls for org', () => this.checkIndividualOrgAcls())
+		it('Can check individual acls for location', () =>
+			this.checkIndividualLocationAcls())
 	}
 
 	async checkLocationAcls(as) {
@@ -99,11 +104,11 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 				userId = this.organization.groupManager[0].id
 				break
 			case 'manager':
-				expected = true
+				expected = false
 				userId = this.location.owner[0].id
 				break
 			case 'teammate':
-				expected = true
+				expected = false
 				userId = this.location.teammate[0].id
 				break
 			case 'guest':
@@ -240,6 +245,49 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 			didThrow = true
 		}
 		assert.isTrue(didThrow)
+	}
+
+	async checkIndividualOrgAcls(userId) {
+		const acls = await this.ctx.services.acl.getAcls({
+			permissions: {
+				[config.SLUG]: [
+					'can_do_example_organization',
+					'can_do_example_organization_owner_only'
+				]
+			},
+			userId: this.organization.groupManager[0].id,
+			organizationId: this.organization.id
+		})
+
+		const {
+			can_do_example_organization,
+			can_do_example_organization_owner_only
+		} = get(acls, 'demoskill')
+
+		assert.isTrue(can_do_example_organization)
+		assert.isFalse(can_do_example_organization_owner_only)
+	}
+
+	async checkIndividualLocationAcls(userId) {
+		const acls = await this.ctx.services.acl.getAcls({
+			permissions: {
+				[config.SLUG]: [
+					'can_do_example_location',
+					'can_do_example_location_owner_only'
+				]
+			},
+			locationId: this.location.id,
+			userId: this.location.teammate[0].id,
+			organizationId: this.organization.id
+		})
+
+		const { can_do_example_location, can_do_example_location_owner_only } = get(
+			acls,
+			'demoskill'
+		)
+
+		assert.isTrue(can_do_example_location)
+		assert.isFalse(can_do_example_location_owner_only)
 	}
 }
 
