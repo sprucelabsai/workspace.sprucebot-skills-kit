@@ -10,7 +10,7 @@ import Button from '../Button/Button'
 import EmptyState from '../EmptyState/EmptyState'
 import Loader from '../Loader/Loader'
 
-const RECORD_TABLE_INITIAL_LIMIT = 10
+const RECORD_TABLE_INITIAL_LIMIT = 50
 
 export interface IRecordTableFetchOptions {
 	sortColumn: string
@@ -355,7 +355,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 					}}
 					manual
 					loading={loading}
-					showPagination={visibleRows.length > 0}
+					showPagination={visibleRows.length >= limit}
 					data={visibleRows || []}
 					totalRows={totalRows}
 					onSortedChange={this.handleSortChanged}
