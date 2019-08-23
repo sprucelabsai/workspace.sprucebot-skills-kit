@@ -43,12 +43,6 @@
 		"@sprucelabs/spruce-node": "^8.17.7",
 		"@sprucelabs/spruce-skill-server": "^8.17.7",
 		"@sprucelabs/spruce-utils": "^8.17.7",
-		"@storybook/addon-actions": "^5.1.9",
-		"@storybook/addon-info": "^5.1.9",
-		"@storybook/addon-knobs": "^5.1.9",
-		"@storybook/addon-links": "^5.1.9",
-		"@storybook/addons": "^5.1.9",
-		"@storybook/react": "^5.1.9",
 		"@zeit/next-css": "^1.0.1",
 		"@zeit/next-sass": "^1.0.1",
 		"apollo-link-ws": "^1.0.12",
@@ -90,6 +84,12 @@
 		"@semantic-release/changelog": "^3.0.0",
 		"@semantic-release/git": "7.1.0-beta.3",
 		"@sprucelabs/semantic-release": "^2.0.8",
+		"@storybook/addon-actions": "^5.1.10",
+		"@storybook/addon-info": "^5.1.10",
+		"@storybook/addon-knobs": "^5.1.10",
+		"@storybook/addon-links": "^5.1.10",
+		"@storybook/addons": "^5.1.10",
+		"@storybook/react": "^5.1.10",
 		"babel-jest": "^24.5.0",
 		"chai": "^4.2.0",
 		"conventional-changelog-sprucelabs": "^1.1.0",
@@ -110,7 +110,8 @@
 		"semantic-release": "16.0.0-beta.22",
 		"sqlite3": "^4.0.4",
 		"supertest": "^3.3.0",
-		"svgo": "^1.0.3"
+		"svgo": "^1.0.3",
+		"webpack": "^4.29.6"
 	},
 	"gitHead": "eac8d4ea6df58218b78c9c866b22c761df1e6447"
 }
