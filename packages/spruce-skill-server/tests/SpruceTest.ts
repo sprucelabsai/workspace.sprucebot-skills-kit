@@ -45,8 +45,8 @@ export default (basePath: string) => {
 		protected async setupMocks(options?: Record<string, any>): Promise<void> {
 			try {
 				const mocks = await globby([
-					`${__dirname}/mocks/**/*Mock.js`,
-					`${basePath}/server/tests/mocks/**/*Mock.js`
+					`${__dirname}/mocks/**/*Mock.(js|ts)`,
+					`${basePath}/server/tests/mocks/**/*Mock.(js|ts)`
 				])
 				let sandbox
 				for (let i = 0; i < mocks.length; i += 1) {
@@ -129,7 +129,9 @@ export default (basePath: string) => {
 			try {
 				const promises = []
 				for (let k in this.mocks) {
-					promises.push(this.mocks[k].teardown())
+					if (this.mocks[k].teardown) {
+						promises.push(this.mocks[k].teardown())
+					}
 				}
 				await Promise.all(promises)
 			} catch (e) {
