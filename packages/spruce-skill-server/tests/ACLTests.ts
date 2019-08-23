@@ -202,6 +202,8 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 	public async missingParametersUserId(): Promise<void> {
 		let didThrow = false
 		try {
+			// Ignore because we're testing for missing params
+			// @ts-ignore
 			await this.ctx.services.acl.userIsAuthorizedForAcls({
 				permissions: {
 					[config.SLUG]: ['can_do_example_location']
@@ -218,8 +220,10 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 	public async missingParametersOrganizationId(): Promise<void> {
 		let didThrow = false
 		try {
+			// Ignore because we're testing for missing params
+			// @ts-ignore
 			await this.ctx.services.acl.userIsAuthorizedForAcls({
-				userId,
+				userId: this.organization.owner[0].jwt,
 				permissions: {
 					[config.SLUG]: ['can_do_example_location']
 				},
@@ -234,8 +238,10 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 	public async missingParametersPermissions(): Promise<void> {
 		let didThrow = false
 		try {
+			// Ignore because we're testing for missing params
+			// @ts-ignore
 			await this.ctx.services.acl.userIsAuthorizedForAcls({
-				userId,
+				userId: this.organization.owner[0].jwt,
 				locationId: this.location.id,
 				organizationId: this.organization.id
 			})

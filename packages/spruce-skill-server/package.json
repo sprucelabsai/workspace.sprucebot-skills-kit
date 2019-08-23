@@ -23,7 +23,7 @@
 		"build": "npm run clean && tsc | true",
 		"watch": "tsc -w",
 		"clean": "rm -rf build/",
-		"#lint": "eslint '**/*.ts' '**/*.js'",
+		"lint": "eslint '**/*.ts' '**/*.js'",
 		"test": "cd ../spruce-skill/ && rm tmp/testing.db | true && mkdir -p tmp/ | true && TS_NODE_PROJECT=../spruce-skill-server/tsconfig.json PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit '../spruce-skill-server/tests/**/*Tests.ts'"
 	},
 	"dependencies": {

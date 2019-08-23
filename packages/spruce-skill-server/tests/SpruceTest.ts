@@ -6,10 +6,8 @@ import faker from 'faker'
 import { generateSkillJWT } from './lib/jwt'
 import { Suite } from 'mocha'
 import Koa from 'koa'
-import { Organization } from '../models/Organization'
-import { Location } from '../models/Location'
 import { Skill } from '../models/Skill'
-import { User } from '../models/User'
+import { IMockOrganization, IMockLocation } from './mocks/SandboxMock'
 
 // The base test model that all others will extend
 export default (basePath: string) => {
@@ -23,8 +21,8 @@ export default (basePath: string) => {
 		protected ctx!: Context
 		protected mocks: Record<string, any>
 		protected request!: supertest.SuperTest<supertest.Test>
-		protected organization!: Organization
-		protected location!: Location
+		protected organization!: IMockOrganization
+		protected location!: IMockLocation
 		protected skill!: Skill
 
 		public constructor(mocha: Suite) {
