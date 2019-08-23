@@ -262,7 +262,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		const {
 			can_do_example_organization,
 			can_do_example_organization_owner_only
-		} = get(acls, 'demoskill')
+		} = get(acls, config.SLUG)
 
 		assert.isTrue(can_do_example_organization)
 		assert.isFalse(can_do_example_organization_owner_only)
@@ -283,7 +283,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 
 		const { can_do_example_location, can_do_example_location_owner_only } = get(
 			acls,
-			'demoskill'
+			config.SLUG
 		)
 
 		assert.isTrue(can_do_example_location)
