@@ -13,7 +13,7 @@ import { UserOrganization } from '../models/UserOrganization'
 
 /************************************************************
  * Base Spruce core class that all models inherit from.
- * To extend, see server/types/models.d.ts
+ * To extend, see server/interfaces/models.d.ts
  ************************************************************/
 export class SpruceCoreModel<T> extends Model<T> {}
 

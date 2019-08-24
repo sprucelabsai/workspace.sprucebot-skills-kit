@@ -11,5 +11,5 @@ export interface ISpruceSkillServices extends ISpruceCoreSkillServices {
 	// CUSTOM Services
 	// When you create a new service place the definition here
 	//////////////////////////////////////////////////////////////////////
-	Example: Example
+	example: typeof Example
 }

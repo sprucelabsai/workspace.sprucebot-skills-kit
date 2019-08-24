@@ -1,6 +1,6 @@
 import Debug from 'debug'
 import SpruceSkillService from './base/SpruceSkillService'
-import { ISpruceSkillContext } from '../types/ctx'
+import { ISpruceSkillContext } from '../interfaces/ctx'
 const debug = Debug('spruce-skill-server')
 // This service can be accessed by ctx.services.acl from the controllers
 

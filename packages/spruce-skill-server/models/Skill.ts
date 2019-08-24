@@ -2,7 +2,7 @@
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
 import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel } from '../types/models'
+import { SpruceCoreModel } from '../interfaces/models'
 
 export class Skill extends SpruceCoreModel<Skill> {
 	// Prevents sequelize from trying to run sync against this model

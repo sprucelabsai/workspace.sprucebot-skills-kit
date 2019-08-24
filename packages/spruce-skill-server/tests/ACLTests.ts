@@ -1,7 +1,7 @@
 import { assert } from 'chai'
 import SpruceTest from './SpruceTest'
 import config from 'config'
-import { ISpruceSkillContext } from '../types/ctx'
+import { ISpruceSkillContext } from '../interfaces/ctx'
 
 class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 	ISpruceSkillContext

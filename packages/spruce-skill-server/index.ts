@@ -464,8 +464,8 @@ export default async ({
 }
 
 export { default as SpruceTest } from './tests/SpruceTest'
-export { ISpruceCoreSkillModels, SpruceCoreModel } from './types/models'
-export { ISpruceCoreSkillServices } from './types/services'
+export { ISpruceCoreSkillModels, SpruceCoreModel } from './interfaces/models'
+export { ISpruceCoreSkillServices } from './interfaces/services'
 export {
 	default as SpruceSkillService
 } from './services/base/SpruceSkillService'

@@ -1,5 +1,5 @@
 import SpruceSkillService from './base/SpruceSkillService'
-import { ISpruceSkillContext } from '../types/ctx'
+import { ISpruceSkillContext } from '../interfaces/ctx'
 import { User } from '../models/User'
 
 export default class Onboarding extends SpruceSkillService<

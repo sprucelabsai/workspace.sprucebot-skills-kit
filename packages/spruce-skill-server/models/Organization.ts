@@ -2,7 +2,7 @@
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
 import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel, ISpruceCoreSkillModels } from '../types/models'
+import { SpruceCoreModel, ISpruceCoreSkillModels } from '../interfaces/models'
 import { Location } from './Location'
 
 export class Organization extends SpruceCoreModel<Organization> {

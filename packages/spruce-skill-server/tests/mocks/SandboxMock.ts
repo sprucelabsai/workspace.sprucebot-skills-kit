@@ -1,7 +1,7 @@
 import Debug from 'debug'
 const debug = Debug('spruce-skill-server')
 import Koa from 'koa'
-import { ISpruceSkillContext } from '../../types/ctx'
+import { ISpruceSkillContext } from '../../interfaces/ctx'
 import _ from 'lodash'
 import { generateSkillJWT } from '../lib/jwt'
 import faker from 'faker'

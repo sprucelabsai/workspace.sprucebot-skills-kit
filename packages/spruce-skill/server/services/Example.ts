@@ -1,5 +1,5 @@
 import { SpruceSkillService, Location } from '@sprucelabs/spruce-skill-server'
-import { ISpruceSkillContext } from '../types/ctx'
+import { ISpruceSkillContext } from '../interfaces/ctx'
 
 export default class Example extends SpruceSkillService<ISpruceSkillContext> {
 	public async getRandomTeammateNameFromLocation(

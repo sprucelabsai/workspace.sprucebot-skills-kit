@@ -1,4 +1,4 @@
-import { ISpruceSkillRouter } from 'server/types/ctx'
+import { ISpruceSkillRouter } from 'server/interfaces/ctx'
 
 export default (router: ISpruceSkillRouter) => {
 	/**

@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { ISpruceSkillContext } from '../types/ctx'
+import { ISpruceSkillContext } from '../interfaces/ctx'
 import SpruceSkillService from './base/SpruceSkillService'
 
 export abstract class AbstractSpruceSkillUploadAdapter {

@@ -1,4 +1,4 @@
-import { ISpruceSkillContext } from '../types/ctx'
+import { ISpruceSkillContext } from '../interfaces/ctx'
 import SpruceSkillService from './base/SpruceSkillService'
 
 // We could have multiple cache options in the future as long as they all conform

@@ -2,7 +2,7 @@ import { assert } from 'chai'
 import faker from 'faker'
 import uuid from 'uuid'
 import SpruceTest from './SpruceTest'
-import { ISpruceSkillContext } from '../types/ctx'
+import { ISpruceSkillContext } from '../interfaces/ctx'
 
 class CacheTests extends SpruceTest(`${__dirname}/../../spruce-skill`)<
 	ISpruceSkillContext
