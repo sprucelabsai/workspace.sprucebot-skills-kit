@@ -83,6 +83,7 @@ export default class HttpsMock extends AbstractSprucebotAdapter {
 		query?: Record<string, any>,
 		method?: string
 	): Promise<any> {
+		debugger
 		let response: any = {
 			// Pass back the request options so it can be validated in tests
 			requestOptions: {

@@ -77,6 +77,7 @@ export default class Https implements AbstractSprucebotAdapter {
 	 * POST some data to the API. Override `method` to PATCH for patching.
 	 */
 	async post(path: string, data?:Record<string, any>, query?:Record<string, any>, method = 'POST'):Promise<any> {
+		debugger
 		return new Promise((resolve, reject) => {
 			// API Key must go with each request
 			const headers = {
