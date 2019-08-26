@@ -6,7 +6,7 @@ export default (router: any, options: any) => {
 					try {
 						const { item, level, ...rest } = logItem
 						log[level]({ source: 'frontend', ...rest }, item)
-					} catch (e) {
+					} catch (err) {
 						log.warn('Unable to log from frontend', err)
 					}
 				})
