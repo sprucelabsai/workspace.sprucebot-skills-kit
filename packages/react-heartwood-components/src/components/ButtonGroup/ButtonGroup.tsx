@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import Button, { IButtonProps } from '../Button/Button'
+import Button, { IButtonProps, ButtonKinds } from '../Button/Button'
 
 export interface IButtonGroupProps {
 	/** Array of actions to render the group's buttons. */
@@ -38,9 +38,9 @@ const ButtonGroup = (props: IButtonGroupProps): React.ReactElement => {
 							{...action}
 							kind={
 								kind === 'floating'
-									? 'simple'
+									? ButtonKinds.Simple
 									: kind === 'segmented'
-									? 'secondary'
+									? ButtonKinds.Secondary
 									: action.kind
 							}
 						/>

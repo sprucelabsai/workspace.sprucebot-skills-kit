@@ -3,7 +3,7 @@ import Card from '../Card'
 import CardHeader from './CardHeader'
 import CardBody from './CardBody'
 import CardFooter from './CardFooter'
-import Button from '../../Button/Button'
+import Button, { ButtonKinds } from '../../Button/Button'
 import Tabs from '../../Tabs/Tabs'
 import { IButtonProps } from '../../Button/Button'
 
@@ -93,7 +93,7 @@ export default class OnboardingCard extends Component<
 					{steps[currentStep].panelCopy}
 				</CardBody>
 				<CardFooter>
-					<Button kind="primary" {...steps[currentStep].panelCTA} />
+					<Button kind={ButtonKinds.Primary} {...steps[currentStep].panelCTA} />
 				</CardFooter>
 			</Card>
 		)
