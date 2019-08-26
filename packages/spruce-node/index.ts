@@ -1,5 +1,8 @@
 import Https from './https'
 import clone from 'lodash/clone'
+// TODO: Is there a better way we can include global definitions without the import?
+// @ts-ignore
+import global from './interfaces/global' // eslint-disable-line
 
 export interface IAbstractSprucebotAdapterOptions {
 	host: string

@@ -19,7 +19,7 @@ module.exports = (
 		passedId: string | ISpruceContext,
 		passedCtx: ISpruceContext | INext,
 		passedNext?: INext
-	) => {
+	): Promise<void> => {
 		debug('AUTH CHECK', passedNext, passedCtx, passedId)
 
 		const next: INext = passedNext ? passedNext : (passedCtx as INext)
@@ -60,11 +60,13 @@ module.exports = (
 							if (realRole === 'owner') {
 								auth.role = devRole
 							}
+							break
 
 						case 'guest':
 							if (realRole === 'owner' || realRole === 'teammate') {
 								auth.role = devRole
 							}
+							break
 
 						// By default just use the (real) assigned role
 						default:
@@ -73,6 +75,7 @@ module.exports = (
 				}
 				auth.jwt = token
 				auth.version = 1
+				// @ts-ignore
 				ctx.auth = auth
 				debug(`middleware/auth token valid`)
 			} catch (err) {
@@ -86,7 +89,14 @@ module.exports = (
 		await next()
 	}
 
-	const decodeV2 = async (ctx: ISpruceContext, token: string) => {
+	const decodeV2 = async (
+		ctx: ISpruceContext,
+		token: string
+	): Promise<{
+		auth: Record<string, any>
+		version: number
+		decoded: Record<string, any>
+	}> => {
 		const decoded: Record<string, any> = jwt.verify(
 			token,
 			config.get<string>('API_KEY').toLowerCase()
@@ -114,7 +124,7 @@ module.exports = (
 		passedId: string | ISpruceContext,
 		passedCtx: ISpruceContext | INext,
 		passedNext?: INext
-	) => {
+	): Promise<void> => {
 		debug('AUTH CHECK v2', passedNext, passedCtx, passedId)
 
 		const next: INext = passedNext ? passedNext : (passedCtx as INext)
@@ -136,6 +146,7 @@ module.exports = (
 			debug(`middleware/auth found token checking`)
 			try {
 				const { auth } = await decodeV2(ctx, token)
+				// @ts-ignore
 				ctx.auth = auth
 
 				debug(`middleware/auth token valid`)
@@ -165,6 +176,7 @@ module.exports = (
 			if (listenersByEventName[eventName]) {
 				try {
 					const { decoded, auth } = await decodeV2(ctx, body.data)
+					// @ts-ignore
 					ctx.auth = auth
 					ctx.event = {
 						...decoded,

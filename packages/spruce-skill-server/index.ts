@@ -189,7 +189,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 	}
 
 	// TODO: remove this when skills are updated to use the file upload service
-	if (syncResponse.s3Bucket) {
+	if (syncResponse && syncResponse.s3Bucket) {
 		process.env.S3_BUCKET = syncResponse.s3Bucket
 	}
 
@@ -294,7 +294,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 		debug('Utilities and services can now reference each other')
 
 		// orm if enabled
-		if (syncResponse.databaseUrl && sequelizeOptions) {
+		if (syncResponse && syncResponse.databaseUrl && sequelizeOptions) {
 			sequelizeFactory(
 				{
 					...sequelizeOptions,
