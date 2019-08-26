@@ -1,7 +1,7 @@
-module.exports = {
+export default {
 	lang: {},
 	overrides: {},
-	async configure(langDir) {
+	async configure(langDir: string) {
 		this.lang = require(`${langDir}/default.js`)
 		try {
 			this.overrides = require(`${langDir}/overrides.js`)
@@ -9,8 +9,8 @@ module.exports = {
 			console.info('No lang override specified.')
 		}
 	},
-	getText(key, context = {}) {
-		const translations = {
+	getText(key: string, context: Record<string, any> = {}) {
+		const translations: Record<string, any> = {
 			...this.lang,
 			...this.overrides,
 			...context

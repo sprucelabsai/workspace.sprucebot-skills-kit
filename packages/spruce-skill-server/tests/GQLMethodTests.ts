@@ -4,7 +4,7 @@ import { ISpruceContext } from '../interfaces/ctx'
 import faker from 'faker'
 
 class GQLMethodTests extends SpruceTest<ISpruceContext> {
-	public setup(): Promise<void> {
+	public setup(): void {
 		it('Can call query', () => this.doQuery())
 		it('Can not call query as mutation', () => this.doQueryAsMutate())
 		it('Can call mutation', () => this.doMutate())

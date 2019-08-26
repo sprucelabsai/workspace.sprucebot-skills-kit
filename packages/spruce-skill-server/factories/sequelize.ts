@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import fs from 'fs'
 import path from 'path'
 import Sequelize from 'sequelize'
@@ -8,7 +9,7 @@ const debug = Debug('spruce-skill-server')
 
 const defaultModelsDir = path.resolve(__dirname, '../models')
 
-function filterFile(file: string) {
+function filterFile(file: string): boolean {
 	const didFilter =
 		file.indexOf('.') !== 0 &&
 		file !== 'index.js' &&
@@ -55,11 +56,12 @@ export default (
 			? database.url
 			: config.get<string>('DATABASE_URL_TESTING')
 
+	// @ts-ignore
 	const sequelize = new Sequelize(databaseUrl, sqlOptions)
 
 	// Add sequelize logger
 	if (metricsEnabled && !metricsSequelizeDisabled) {
-		logger.sequelizeHooks(sequelize)
+		global.logger.sequelizeHooks(sequelize)
 	} else {
 		log.info('Metrics: Sequelize hooks disabled')
 	}
@@ -125,7 +127,7 @@ export default (
 	// We should only run sync() on the skill db.
 	// Core handles it's own migrations
 	// So don't run migrations on any model relies on core db
-	async function sync() {
+	async function sync(): Promise<void> {
 		const filteredModels: Record<string, any>[] = []
 		Object.keys(models).forEach(key => {
 			const model = models[key]

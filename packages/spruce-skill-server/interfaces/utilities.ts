@@ -17,5 +17,5 @@ export interface ISpruceUtilities {
 	 *
 	 * Pull copy from the './lang/default.json'.
 	 */
-	lang: lang
+	lang: typeof lang
 }

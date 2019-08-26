@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import globby from 'globby'
 import path from 'path'
 import config from 'config'

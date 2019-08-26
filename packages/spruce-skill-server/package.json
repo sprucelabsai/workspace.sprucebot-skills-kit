@@ -87,6 +87,7 @@
 		"@types/next": "^8.0.6",
 		"@types/slug": "^0.9.1",
 		"@types/supertest": "^2.0.8",
+		"@types/umzug": "^2.2.2",
 		"@types/uuid": "^3.4.5",
 		"@types/validator": "^10.11.3",
 		"@types/ws": "^6.0.3",

@@ -1,13 +1,22 @@
-import glob from 'glob'
+/* eslint-disable @typescript-eslint/no-var-requires */
+import globby from 'globby'
 import path from 'path'
 import * as Router from 'koa-router'
 
 export default (dir: string, router: Router, options: Record<string, any>) => {
-	const matches = glob.sync(path.join(dir, '/**/*.js'), {
-		ignore: ['**/ignore/**', '**/*test*']
+	const matches = globby.sync(path.join(dir, '/**/*.(js|ts)'), {
+		ignore: ['**/ignore/**', '**/*test*', '**/*.d.ts']
 	})
 	matches.forEach(match => {
-		const ware = require(match)
-		ware(router, options)
+		try {
+			const ware = require(match)
+			if (ware.default) {
+				ware.default(router, options)
+			} else {
+				ware(router, options)
+			}
+		} catch (e) {
+			log.crit(`Unable to import ware: ${match}`)
+		}
 	})
 }
