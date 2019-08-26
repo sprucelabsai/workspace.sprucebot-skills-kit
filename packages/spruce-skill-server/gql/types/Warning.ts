@@ -1,7 +1,7 @@
-// @flow
-const { GraphQLObjectType, GraphQLList } = require('graphql')
+import { GraphQLObjectType, GraphQLList } from 'graphql'
+import { ISpruceContext } from '../../interfaces/ctx'
 
-module.exports = ctx =>
+module.exports = (ctx: ISpruceContext) =>
 	new GraphQLObjectType({
 		name: 'Warning',
 		description: 'The scope warnings for a query',
