@@ -1,13 +1,14 @@
-const fs = require('fs')
-const path = require('path')
-const debug = require('debug')('spruce-skill-server')
-const Sequelize = require('sequelize')
-const Umzug = require('umzug')
-const config = require('config')
+import fs from 'fs'
+import path from 'path'
+import Sequelize from 'sequelize'
+import Umzug from 'umzug'
+import config from 'config'
+import Debug from 'debug'
+const debug = Debug('spruce-skill-server')
 
 const defaultModelsDir = path.resolve(__dirname, '../models')
 
-function filterFile(file) {
+function filterFile(file: string) {
 	const didFilter =
 		file.indexOf('.') !== 0 &&
 		file !== 'index.js' &&
@@ -19,8 +20,20 @@ function filterFile(file) {
 	return didFilter
 }
 
-module.exports = (
-	{
+export default (
+	passedOptions: {
+		runMigrations: boolean
+		modelsDir: string
+		migrationsDir: string
+		database: any
+		metricsEnabled: boolean
+		metricsSequelizeDisabled: boolean
+		options: Record<string, any>
+	},
+	key: string,
+	ctx: Record<string, any>
+) => {
+	const {
 		runMigrations,
 		modelsDir,
 		migrationsDir,
@@ -28,18 +41,19 @@ module.exports = (
 		metricsEnabled,
 		metricsSequelizeDisabled,
 		options
-	},
-	key,
-	ctx
-) => {
+	} = passedOptions
+
 	// read all models and import them into the ctx["key"] object
 	const sqlOptions = {
 		operatorsAliases: false,
 		...{ ...options, dialect: database.dialect }
 	}
 
+	// TODO move testing to a prop we check vs process.env
 	const databaseUrl =
-		process.env.TESTING !== 'true' ? database.url : config.DATABASE_URL_TESTING
+		process.env.TESTING !== 'true'
+			? database.url
+			: config.get<string>('DATABASE_URL_TESTING')
 
 	const sequelize = new Sequelize(databaseUrl, sqlOptions)
 
@@ -57,7 +71,7 @@ module.exports = (
 				.map(file => path.resolve(defaultModelsDir, file))
 		: []
 
-	let skillModels = []
+	let skillModels: string[] = []
 	if (fs.existsSync(modelsDir)) {
 		skillModels = fs
 			.readdirSync(modelsDir)
@@ -70,35 +84,37 @@ module.exports = (
 		coreModels,
 		skillModels
 	})
-	const models = coreModels.concat(skillModels).reduce((models, file) => {
-		const modelToLoad = require(file)
-		// Support both TS import and require style
-		const model = modelToLoad.default
-			? modelToLoad.default(sequelize, Sequelize, ctx)
-			: modelToLoad(sequelize, Sequelize, ctx)
+	const models: Record<string, any> = coreModels
+		.concat(skillModels)
+		.reduce((models: Record<string, any>, file) => {
+			const modelToLoad = require(file)
+			// Support both TS import and require style
+			const model = modelToLoad.default
+				? modelToLoad.default(sequelize, Sequelize, ctx)
+				: modelToLoad(sequelize, Sequelize, ctx)
 
-		models[model.name] = model
+			models[model.name] = model
 
-		if (!model.scopes) {
-			model.scopes = {
-				public: {
-					attributes: []
+			if (!model.scopes) {
+				model.scopes = {
+					public: {
+						attributes: []
+					}
 				}
 			}
-		}
-		model.scopeObj = {}
-		Object.keys(model.scopes).forEach(scope => {
-			model.scopeObj[scope] = {}
-			if (model.scopes[scope] && model.scopes[scope].attributes) {
-				model.scopes[scope].attributes.forEach(key => {
-					model.scopeObj[scope][key] = true
-				})
-			}
-		})
+			model.scopeObj = {}
+			Object.keys(model.scopes).forEach(scope => {
+				model.scopeObj[scope] = {}
+				if (model.scopes[scope] && model.scopes[scope].attributes) {
+					model.scopes[scope].attributes.forEach((key: string) => {
+						model.scopeObj[scope][key] = true
+					})
+				}
+			})
 
-		debug('Imported Skill Model: ', model.name)
-		return models
-	}, {})
+			debug('Imported Skill Model: ', model.name)
+			return models
+		}, {})
 
 	Object.keys(models).forEach(function(modelName) {
 		if (models[modelName].hasOwnProperty('associate')) {
@@ -110,11 +126,14 @@ module.exports = (
 	// Core handles it's own migrations
 	// So don't run migrations on any model relies on core db
 	async function sync() {
-		const filteredModels = []
+		const filteredModels: Record<string, any>[] = []
 		Object.keys(models).forEach(key => {
 			const model = models[key]
 
-			if ((!model.options.doNotSync && !model.doNotSync) || config.TESTING) {
+			if (
+				(!model.options.doNotSync && !model.doNotSync) ||
+				config.get('TESTING')
+			) {
 				debug('Allowing this model to sync()', model.name)
 				filteredModels.push(model)
 			} else {

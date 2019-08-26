@@ -1,7 +1,8 @@
-const glob = require('glob')
-const path = require('path')
+import glob from 'glob'
+import path from 'path'
+import * as Router from 'koa-router'
 
-module.exports = (dir, router, options) => {
+export default (dir: string, router: Router, options: Record<string, any>) => {
 	const matches = glob.sync(path.join(dir, '/**/*.js'), {
 		ignore: ['**/ignore/**', '**/*test*']
 	})

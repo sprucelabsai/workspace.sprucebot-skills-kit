@@ -1,4 +1,4 @@
-module.exports = (router: any, options: any) => {
+export default (router: any, options: any) => {
 	router.post('/api/1.0/logs.json', async (ctx: any, next: any) => {
 		try {
 			if (Array.isArray(ctx.request.body)) {

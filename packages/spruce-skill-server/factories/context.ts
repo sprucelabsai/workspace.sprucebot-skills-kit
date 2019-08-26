@@ -4,7 +4,7 @@ import config from 'config'
 import Debug from 'debug'
 const debug = Debug('spruce-skill-server')
 
-module.exports = (dir: string, key: string, ctx: any) => {
+export default (dir: string, key: string, ctx: any) => {
 	if (!ctx[key]) {
 		ctx[key] = {}
 	}

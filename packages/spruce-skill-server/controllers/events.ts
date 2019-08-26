@@ -3,7 +3,7 @@ import config from 'config'
 
 const debug = Debug('spruce-skill-server')
 
-module.exports = (router: any, options: any) => {
+export default (router: any, options: any) => {
 	const listenersByEventName = options.listenersByEventName
 
 	if (!config.get('EVENT_VERSION') || config.get('EVENT_VERSION') === 1) {
