@@ -19,21 +19,6 @@
 			"*": ["node_modules/*"]
 		}
 	},
-	"include": [
-		"index.ts",
-		"controllers/**/*",
-		"interfaces/**/*",
-		"models/**/*",
-		"factories/**/*",
-		"gql/**/*",
-		"helpers/**/*",
-		"lib/**/*",
-		"middleware/**/*",
-		"services/**/*",
-		"support/**/*",
-		"tests/**/*",
-		"utilities/**/*",
-		"types/**/*"
-	],
-	"exclude": ["**/node_modules/*"]
+	"include": ["./*.ts", "./**/*.ts"],
+	"exclude": ["**/node_modules/*", "build/*"]
 }

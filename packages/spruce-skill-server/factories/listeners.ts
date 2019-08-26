@@ -1,6 +1,6 @@
-const glob = require('glob')
-const path = require('path')
-const { camelCase } = require('lodash')
+import glob from 'glob'
+import path from 'path'
+import { camelCase } from 'lodash'
 
 module.exports = (dir, router) => {
 	const matches = glob.sync(path.join(dir, '/**/*.js'), {
