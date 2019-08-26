@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import get from 'lodash/get'
 import { assert } from 'chai'
 import SpruceTest from './lib/SpruceTest'
 import config from 'config'
@@ -251,10 +252,10 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 		assert.isTrue(didThrow)
 	}
 
-	async checkIndividualOrgAcls(userId) {
+	public async checkIndividualOrgAcls(): Promise<void> {
 		const acls = await this.ctx.services.acl.getAcls({
 			permissions: {
-				[config.SLUG]: [
+				[config.get<string>('SLUG')]: [
 					'can_do_example_organization',
 					'can_do_example_organization_owner_only'
 				]
@@ -266,16 +267,16 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 		const {
 			can_do_example_organization,
 			can_do_example_organization_owner_only
-		} = get(acls, config.SLUG)
+		} = get(acls, config.get<string>('SLUG'))
 
 		assert.isTrue(can_do_example_organization)
 		assert.isFalse(can_do_example_organization_owner_only)
 	}
 
-	async checkIndividualLocationAcls(userId) {
+	public async checkIndividualLocationAcls(): Promise<void> {
 		const acls = await this.ctx.services.acl.getAcls({
 			permissions: {
-				[config.SLUG]: [
+				[config.get<string>('SLUG')]: [
 					'can_do_example_location',
 					'can_do_example_location_owner_only'
 				]
@@ -287,7 +288,7 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 
 		const { can_do_example_location, can_do_example_location_owner_only } = get(
 			acls,
-			config.SLUG
+			config.get<string>('SLUG')
 		)
 
 		assert.isTrue(can_do_example_location)
