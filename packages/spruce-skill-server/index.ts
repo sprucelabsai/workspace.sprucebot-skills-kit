@@ -25,6 +25,9 @@ import { Server } from 'https'
 import Sprucebot from '@sprucelabs/spruce-node'
 import { ISpruceContext } from './interfaces/ctx'
 import HttpsMock from './tests/lib/HttpsMock'
+// TODO: Is there a better way we can declare globals without needing to import this?
+// @ts-ignore: Need to import this definitions file for globals
+import * as globalDefinitions from './interfaces/global' // eslint-disable-line
 
 const debug = Debug('spruce-skill-server')
 
@@ -144,7 +147,6 @@ async function serve<ISkillContext extends ISpruceContext>(
 	// Set up global logger
 	global.logger = logger
 	const log = logger.log
-
 	log.setOptions({
 		level: logLevel,
 		useTrace: logUseTrace,
@@ -518,14 +520,6 @@ async function serve<ISkillContext extends ISpruceContext>(
         =              	Serve            	   =
         ======================================*/
 	// TODO better handling hosting only server or interface
-	// const server = https.createServer(koa.callback()).listen(port, () => {
-	// 	gqlRouter(koa, gqlOptions, server)
-	// 	gqlListeners(koa, gqlOptions)
-
-	// 	console.log(
-	// 		` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`
-	// 	)
-	// })
 	const server = koa.listen(port, () => {
 		gqlRouter(koa, gqlOptions, server)
 		gqlListeners(koa, gqlOptions)
@@ -535,6 +529,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 		)
 	})
 
+	// @ts-ignore
 	return { koa, server }
 }
 

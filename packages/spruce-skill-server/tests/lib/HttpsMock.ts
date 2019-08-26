@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Debug from 'debug'
 import { ISpruceContext } from '../../interfaces/ctx'
 import { AbstractSprucebotAdapter } from '@sprucelabs/spruce-node'
@@ -8,6 +10,7 @@ import {
 	IMockServer
 } from 'graphql-tools'
 import introspectionSchemaResult from '../../support/apiSchema.json'
+import { IEmitResponseCallback } from '../../interfaces/global'
 
 const debug = Debug('spruce-skill-server')
 
@@ -100,7 +103,10 @@ export default class HttpsMock extends AbstractSprucebotAdapter {
 			// If it's an emit, the default response is an empty array. The request options can be checked via callback
 			response = []
 			if (global.testEmitResponse && global.testEmitResponse[data.eventName]) {
-				const cb = global.testEmitResponse[data.eventName].callback
+				// @ts-ignore
+				const cb = (global.testEmitResponse[
+					data.eventName
+				] as IEmitResponseCallback).callback
 				if (cb) {
 					await cb({
 						path,
@@ -110,11 +116,18 @@ export default class HttpsMock extends AbstractSprucebotAdapter {
 					})
 				}
 
-				if (global.testEmitResponse[data.eventName].data) {
-					return global.testEmitResponse[data.eventName].data
+				if (
+					(global.testEmitResponse[data.eventName] as IEmitResponseCallback)
+						.data
+				) {
+					return (global.testEmitResponse[
+						data.eventName
+					] as IEmitResponseCallback).data
 				} else if (
-					!global.testEmitResponse[data.eventName].data &&
-					!global.testEmitResponse[data.eventName].callback
+					!(global.testEmitResponse[data.eventName] as IEmitResponseCallback)
+						.data &&
+					!(global.testEmitResponse[data.eventName] as IEmitResponseCallback)
+						.callback
 				) {
 					return global.testEmitResponse[data.eventName]
 				}

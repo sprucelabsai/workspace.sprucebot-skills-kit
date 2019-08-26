@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
+/* eslint-disable @typescript-eslint/no-namespace */
 type timer = any
 
 // @ts-ignore
@@ -14,7 +15,7 @@ interface ISetOptionsType {
 	useSourcemaps?: boolean
 }
 
-interface IEmitResponseCallback {
+export interface IEmitResponseCallback {
 	callback?: (options: {
 		data: Record<string, any>
 		method: string
@@ -24,7 +25,7 @@ interface IEmitResponseCallback {
 	data?: Record<string, any>
 }
 
-interface IEmitResponse {
+export interface IEmitResponse {
 	skill: { name: string; slug: string }
 	error: any
 	payload: Record<string, any>
@@ -35,6 +36,7 @@ declare global {
 		// @ts-ignore
 		interface Global {
 			log: any
+			logger: any
 			testEmitResponse: {
 				[eventName: string]: IEmitResponseCallback | IEmitResponse[]
 			}
@@ -56,3 +58,5 @@ declare global {
 		const warn: (...any: any[]) => any
 	}
 }
+
+export {}
