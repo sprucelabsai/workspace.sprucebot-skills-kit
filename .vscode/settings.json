@@ -13,7 +13,6 @@
 		"**/build/**": true
 	},
 	"debug.node.autoAttach": "off",
-	"prettier.eslintIntegration": true,
 	"javascript.validate.enable": false,
 	"typescript.validate.enable": true,
 	"eslint.validate": [
@@ -26,5 +25,6 @@
 		"extensions": [".js", ".jsx", ".ts", ".tsx"]
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"editor.formatOnSave": true
+	"editor.formatOnSave": true,
+	"eslint.autoFixOnSave": true
 }
