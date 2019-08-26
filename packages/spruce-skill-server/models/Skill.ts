@@ -1,8 +1,8 @@
 // 🌲🤖 This is a core model, available if DB_ENABLED=true
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
-import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel } from '../interfaces/models'
+import { Sequelize, DataTypes, ModelAttributes } from 'sequelize'
+import SpruceCoreModel from '../lib/SpruceModel'
 
 export class Skill extends SpruceCoreModel<Skill> {
 	// Prevents sequelize from trying to run sync against this model
@@ -23,10 +23,10 @@ export class Skill extends SpruceCoreModel<Skill> {
 	public description!: string
 	public icon!: string
 
-	// public static associate(models: ISpruceCoreSkillModels): void {}
+	// public static associate(models: ISpruceModels): void {}
 }
 
-const attributes = {
+const attributes: ModelAttributes = {
 	id: {
 		type: DataTypes.UUID,
 		defaultValue: DataTypes.UUIDV4,

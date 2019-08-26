@@ -4,7 +4,6 @@ const { pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
 const settings = require('./settings')
-
 const packageJSON = require('../package.json')
 const HEARTWOOD_VERSION = encodeURIComponent(
 	require('@sprucelabs/heartwood-components').version

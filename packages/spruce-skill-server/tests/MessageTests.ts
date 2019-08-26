@@ -1,10 +1,12 @@
-import { assert } from 'chai'
-import SpruceTest from './SpruceTest'
-const faker = require('faker')
-const config = require('config')
+import faker from 'faker'
 
-class MessageTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
-	setup() {
+import { assert } from 'chai'
+import SpruceTest from './lib/SpruceTest'
+import { ISpruceContext } from '../interfaces/ctx'
+import { IMessageType } from '@sprucelabs/spruce-node'
+
+class MessageTests extends SpruceTest<ISpruceContext> {
+	public setup(): void {
 		it('Sends a message as promotional by default', () =>
 			this.sendMessageDefault())
 		it('Sends a message as promotional', () => this.sendMessagePromotional())
@@ -12,7 +14,7 @@ class MessageTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 			this.sendMessageTransactional())
 	}
 
-	async sendMessageDefault() {
+	public async sendMessageDefault(): Promise<void> {
 		const result = await this.ctx.sb.message(
 			this.location.id,
 			this.location.guest[0].id,
@@ -22,26 +24,26 @@ class MessageTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		assert.equal(result.requestOptions.data.type, 'promotional')
 	}
 
-	async sendMessagePromotional() {
+	public async sendMessagePromotional(): Promise<void> {
 		const result = await this.ctx.sb.message(
 			this.location.id,
 			this.location.guest[0].id,
 			faker.lorem.sentences(),
 			{
-				type: 'promotional'
+				type: IMessageType.PROMOTIONAL
 			}
 		)
 
 		assert.equal(result.requestOptions.data.type, 'promotional')
 	}
 
-	async sendMessageTransactional() {
+	public async sendMessageTransactional(): Promise<void> {
 		const result = await this.ctx.sb.message(
 			this.location.id,
 			this.location.guest[0].id,
 			faker.lorem.sentences(),
 			{
-				type: 'transactional'
+				type: IMessageType.PROMOTIONAL
 			}
 		)
 
@@ -50,5 +52,5 @@ class MessageTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 }
 
 describe('MessageTests', function Tests() {
-	new MessageTests(this)
+	new MessageTests(`${__dirname}/../../spruce-skill/`, this)
 })

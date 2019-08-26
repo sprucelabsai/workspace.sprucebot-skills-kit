@@ -2,11 +2,12 @@
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
 import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel, ISpruceCoreSkillModels } from '../interfaces/models'
+import { ISpruceModels } from '../interfaces/models'
 import { Group } from './Group'
 import { Job } from './Job'
 import { User } from './User'
 import { Organization } from './Organization'
+import SpruceCoreModel from '../lib/SpruceModel'
 
 export class UserGroup extends SpruceCoreModel<UserGroup> {
 	// Prevents sequelize from trying to run sync against this model
@@ -31,7 +32,7 @@ export class UserGroup extends SpruceCoreModel<UserGroup> {
 	public OrganizationId?: string | null
 	public Organization?: Organization | null
 
-	public static associate(models: ISpruceCoreSkillModels): void {
+	public static associate(models: ISpruceModels): void {
 		this.belongsTo(models.User, {
 			constraints: false
 		})

@@ -1,11 +1,19 @@
-// This is the query that will be run and attached to ctx.authV2 and props.authV2
-module.exports = ({ userId, locationId, organizationId }) => `
+/**
+ * This is the GQL that is executed when the proper headers are set during a request. Make sure
+ * any changes you make here are reflected in `./server/interfaces/auth.ts` so you get typechecking
+ * in your code!
+ */
+const gql = (options: {
+	userId?: string
+	locationId?: string
+	organizationId?: string
+}): string => `
 {
 	${
-		userId
+		options.userId
 			? `
 	User (
-		id: "${userId}"
+		id: "${options.userId}"
 	) {
 		id
 		firstName
@@ -49,10 +57,10 @@ module.exports = ({ userId, locationId, organizationId }) => `
 			: ``
 	}
 	${
-		organizationId
+		options.organizationId
 			? `
 	Organization(
-		id: "${organizationId}"
+		id: "${options.organizationId}"
 	) {
 		id
 		name
@@ -63,10 +71,10 @@ module.exports = ({ userId, locationId, organizationId }) => `
 	}
 
 	${
-		locationId
+		options.locationId
 			? `
 	Location(
-		id: "${locationId}"
+		id: "${options.locationId}"
 	) {
 		id
 		name
@@ -77,3 +85,5 @@ module.exports = ({ userId, locationId, organizationId }) => `
 	}
 }
 `
+
+export default gql

@@ -1,16 +1,12 @@
-//
-const { eventError } = require('../lib/errorHandler')
+import eventError from '../lib/errorHandler'
+import { ISpruceBigSearchCtx } from '@sprucelabs/spruce-skill-server'
+import { SpruceBigSearchType } from '@sprucelabs/spruce-skill-server/build/interfaces/bigSearch'
 
-const BIG_SEARCH_TYPES = {
-	ANY: 'any',
-	USER: 'user',
-	LOCATION: 'location',
-	GROUP: 'group'
-}
-
-module.exports = async (ctx, next) => {
+module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
 	try {
-		console.log('****big-search', ctx.auth.Organization.name)
+		if (!ctx.auth) {
+			return next()
+		}
 
 		const {
 			auth: { Organization: organization, Location: location },
@@ -18,6 +14,8 @@ module.exports = async (ctx, next) => {
 				payload: { limit, offset, search, testing, types }
 			}
 		} = ctx
+
+		console.log('****big-search', ctx.auth.Organization.name)
 
 		// each section
 		const sections = []
@@ -27,8 +25,8 @@ module.exports = async (ctx, next) => {
 
 		// Here is how you could search the core using any rules if types was any or user
 		if (
-			types.indexOf(BIG_SEARCH_TYPES.ANY) > -1 ||
-			types.indexOf(BIG_SEARCH_TYPES.USER) > -1
+			types.indexOf(SpruceBigSearchType.ANY) > -1 ||
+			types.indexOf(SpruceBigSearchType.USER) > -1
 		) {
 			const { count, rows } = await ctx.db.models.User.findAndCountAll({
 				// where: {
@@ -53,7 +51,7 @@ module.exports = async (ctx, next) => {
 						routeParams: {
 							userId: user.id,
 							organizationId: organization.id,
-							locationId: location && location.Id
+							locationId: location && location.id
 						}
 					}
 				}))

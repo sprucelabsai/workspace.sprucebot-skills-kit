@@ -1,3 +1,8 @@
+// import {
+// 	ISprucePageSettings,
+// 	SpruceSettingsFieldType
+// } from '@sprucelabs/spruce-skill-server'
+
 // These are the base settings for your skill which are returned from the 'get-settings' event
 
 /*
@@ -78,9 +83,9 @@ module.exports = [
 						name: 'example_boolean',
 						type: 'boolean',
 						// Only include this setting in get-settings event response if the user has these permissions:
-						acls_disabled: {
-							workspace: ['can_do_example_organization']
-						},
+						// acls: {
+						// 	workspace: ['can_do_example_organization']
+						// },
 						props: {
 							label: 'Example boolean',
 							helper: 'This is an example of a boolean.',
@@ -91,9 +96,9 @@ module.exports = [
 						name: 'example_select',
 						type: 'select',
 						// Only include this setting in get-settings event response if the user has these permissions:
-						acls_disabled: {
-							workspace: ['can_do_example_organization']
-						},
+						// acls: {
+						// 	workspace: ['can_do_example_organization']
+						// },
 						props: {
 							options: {
 								option1: 'Go Team',
@@ -116,9 +121,9 @@ module.exports = [
 					{
 						name: 'example_text',
 						type: 'text',
-						acls_disabled: {
-							workspace: ['can_do_example_organization']
-						},
+						// acls: {
+						// 	workspace: ['can_do_example_organization']
+						// },
 						props: {
 							label: 'Example text',
 							helper: 'This is an example of a text setting.'

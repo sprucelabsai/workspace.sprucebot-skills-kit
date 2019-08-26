@@ -1,12 +1,10 @@
 import { assert } from 'chai'
 import faker from 'faker'
 import uuid from 'uuid'
-import SpruceTest from './SpruceTest'
-import { ISpruceSkillContext } from '../interfaces/ctx'
+import SpruceTest from './lib/SpruceTest'
+import { ISpruceContext } from '../interfaces/ctx'
 
-class CacheTests extends SpruceTest(`${__dirname}/../../spruce-skill`)<
-	ISpruceSkillContext
-> {
+class CacheTests extends SpruceTest<ISpruceContext> {
 	public setup(): void {
 		it('Cache is connected', () => this.cacheIsConnected())
 		it('Can set and get a key', () => this.setGetKey())
@@ -92,5 +90,5 @@ class CacheTests extends SpruceTest(`${__dirname}/../../spruce-skill`)<
 }
 
 describe('CacheTests', function Tests() {
-	new CacheTests(this)
+	new CacheTests(`${__dirname}/../../spruce-skill`, this as any)
 })

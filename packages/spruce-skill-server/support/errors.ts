@@ -1,4 +1,13 @@
-module.exports = {
+export interface ISpruceErrorDefinitions {
+	[name: string]: {
+		code: number
+		status: string
+		reason: string
+		friendlyReason: string
+	}
+}
+
+const errorDefinitions: ISpruceErrorDefinitions = {
 	UNKNOWN: {
 		code: 500,
 		status: 'failure',
@@ -37,3 +46,5 @@ module.exports = {
 		friendlyReason: 'Permission denied.'
 	}
 }
+
+export default errorDefinitions

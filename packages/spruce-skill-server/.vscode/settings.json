@@ -1,5 +1,16 @@
 {
 	"git.ignoreLimitWarning": true,
-	"cSpell.words": ["uploader"],
-	"prettier.eslintIntegration": true
+	"prettier.eslintIntegration": true,
+	"typescript.validate.enable": true,
+	"eslint.validate": ["javascript", "typescript"],
+	"eslint.options": {
+		"extensions": [".js", ".ts"]
+	},
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"files.watcherExclude": {
+		"**/build/**": true
+	},
+	"search.exclude": {
+		"**/build": true
+	}
 }

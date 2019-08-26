@@ -1,13 +1,14 @@
 // 🌲🤖 This is a core model, available if DB_ENABLED=true
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
-import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel, ISpruceCoreSkillModels } from '../interfaces/models'
+import { Sequelize, DataTypes, ModelAttributes } from 'sequelize'
 import { Location } from './Location'
 import { Organization } from './Organization'
 import { User } from './User'
+import ISpruceModel from '../lib/SpruceModel'
+import { ISpruceModels } from '../interfaces/models'
 
-export class FileItem extends SpruceCoreModel<FileItem> {
+export class FileItem extends ISpruceModel<FileItem> {
 	// Prevents sequelize from trying to run sync against this model
 	public static readonly doNotSync = true
 	// Scopes
@@ -58,7 +59,7 @@ export class FileItem extends SpruceCoreModel<FileItem> {
 	public GuestId?: string | null
 	public Guest?: User | null
 
-	public static associate(models: ISpruceCoreSkillModels): void {
+	public static associate(models: ISpruceModels): void {
 		this.belongsTo(models.Location, {
 			constraints: false
 		})
@@ -76,7 +77,7 @@ export class FileItem extends SpruceCoreModel<FileItem> {
 	}
 }
 
-const attributes = {
+const attributes: ModelAttributes = {
 	id: {
 		type: DataTypes.UUID,
 		defaultValue: DataTypes.UUIDV4,

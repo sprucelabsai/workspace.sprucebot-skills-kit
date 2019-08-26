@@ -1,17 +1,18 @@
-//
-const { assert } = require('chai')
-const { SpruceTest } = require('@sprucelabs/spruce-skill-server')
+import { assert } from 'chai'
+import { SpruceTest } from '@sprucelabs/spruce-skill-server'
+import { ISkillContext } from 'server/interfaces/ctx'
+import { IEventResponse } from '@sprucelabs/spruce-node'
 
 // SpruceTest take a single parameter, pointing to the base skill directory
-class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
-	setup() {
+class ExampleEmitTests extends SpruceTest<ISkillContext> {
+	public setup(): void {
 		it('Can emitOrganization to "example:get-model" event', () =>
 			this.emitOrganization())
 		it('Can emit to "example:get-model" event', () => this.emit())
 		it('Can trigger callback from emit', () => this.emitCallback())
 	}
 
-	async emitOrganization() {
+	public async emitOrganization(): Promise<void> {
 		const payload = {
 			id: 'uniqueId4'
 		}
@@ -21,6 +22,7 @@ class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
 		global.testEmitResponse[eventName] = [
 			{
 				error: null,
+				skill: { name: 'test', slug: 'test' },
 				payload: {
 					model: {
 						id: 'uniqueId4'
@@ -48,7 +50,7 @@ class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
 		delete global.testEmitResponse[eventName]
 	}
 
-	async emit() {
+	public async emit(): Promise<any> {
 		const payload = {
 			id: 'uniqueId4'
 		}
@@ -58,6 +60,7 @@ class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
 		global.testEmitResponse[eventName] = [
 			{
 				error: null,
+				skill: { name: 'test', slug: 'test' },
 				payload: {
 					model: {
 						id: 'uniqueId4'
@@ -66,7 +69,7 @@ class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
 			}
 		]
 
-		const result = await this.koa.context.sb.emit(
+		const result: IEventResponse[] = await this.koa.context.sb.emit(
 			this.organization.id,
 			eventName,
 			payload
@@ -82,7 +85,7 @@ class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
 		})
 	}
 
-	async emitCallback() {
+	public async emitCallback(): Promise<void> {
 		const payload = {
 			id: 'uniqueId4'
 		}
@@ -128,5 +131,5 @@ class ExampleEmitTests extends SpruceTest(`${__dirname}/../../`) {
 
 describe('ExampleEmitTests', function Tests() {
 	this.timeout(30000)
-	new ExampleEmitTests() // eslint-disable-line
+	new ExampleEmitTests(`${__dirname}/../../`) // eslint-disable-line
 })

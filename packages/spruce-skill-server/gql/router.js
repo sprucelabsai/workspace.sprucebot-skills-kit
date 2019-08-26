@@ -45,11 +45,6 @@ const auth = async (ctx, next) => {
 }
 
 module.exports = (koa, gqlOptions, server) => {
-	if (!config.DB_ENABLED) {
-		log.info('GraphQL disabled because DB_ENABLED=false')
-		return
-	}
-
 	if (!config.GRAPHQL_ENABLED) {
 		log.info('GraphQL disabled because GRAPHQL_ENABLED=false')
 		return

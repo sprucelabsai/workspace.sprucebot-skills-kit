@@ -1,6 +1,6 @@
 import request from 'superagent'
-import { ISpruceSkillContext } from '../interfaces/ctx'
-import SpruceSkillService from './base/SpruceSkillService'
+import { ISpruceContext } from '../interfaces/ctx'
+import SpruceSkillService from '../lib/SpruceSkillService'
 
 export abstract class AbstractSpruceSkillUploadAdapter {
 	public abstract init(options: {
@@ -29,13 +29,10 @@ interface IFile {
 	type: string
 }
 
-export default class Uploads extends SpruceSkillService<ISpruceSkillContext> {
+export default class Uploads extends SpruceSkillService<ISpruceContext> {
 	private uploader!: AbstractSpruceSkillUploadAdapter
 
-	public constructor(options: {
-		ctx: ISpruceSkillContext
-		config?: ICacheConfig
-	}) {
+	public constructor(options: { ctx: ISpruceContext; config?: ICacheConfig }) {
 		super(options)
 		this.init(options.config)
 	}

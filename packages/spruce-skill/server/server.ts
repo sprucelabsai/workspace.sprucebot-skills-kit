@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-var-requires  */
+
 import skillPackage from '../package.json'
 import path from 'path'
-import serve from '@sprucelabs/spruce-skill-server'
+import serve, { ISpruceServeSkill } from '@sprucelabs/spruce-skill-server'
 import Sprucebot from '@sprucelabs/spruce-node'
 import generateSwaggerDocs from './swagger/swagger'
+import { ISkillContext } from './interfaces/ctx.js'
 
 const {
 	API_KEY,
@@ -35,11 +38,16 @@ const {
 	METRICS_REQUESTS_DISABLED,
 	METRICS_SERVER_STATS_DISABLED,
 	METRICS_SEQUELIZE_DISABLED,
-	cards,
 	gqlOptions,
 	acl,
-	VIEW_VERSION
+	VIEW_VERSION,
+	testing
 } = require('config')
+
+const skillsKitVersion = (skillPackage as Record<string, any>)[
+	'sprucebot-skills-kit-version'
+]
+/* eslint-disable @typescript-eslint/no-var-requires  */
 
 // Construct a new Sprucebot
 const sprucebot = new Sprucebot({
@@ -55,19 +63,18 @@ const sprucebot = new Sprucebot({
 	dbEnabled: sequelizeOptions && sequelizeOptions.enabled,
 	eventContract: eventContract,
 	version: skillPackage.version,
-	skillsKitVersion: skillPackage['sprucebot-skills-kit-version'],
-	cards,
+	skillsKitVersion,
 	acl,
-	viewVersion: VIEW_VERSION
+	viewVersion: parseInt(VIEW_VERSION, 10)
 })
 
-let server
+let server: ISpruceServeSkill<ISkillContext> | undefined
 let ready = false
 let readyChecks = 0
 
 // serve the skill, wait 2 seconds for debugger to connect
 setTimeout(async () => {
-	server = await serve({
+	server = await serve<ISkillContext>({
 		sprucebot,
 		port: PORT,
 		serverHost: SERVER_HOST,
@@ -98,8 +105,8 @@ setTimeout(async () => {
 		metricsRequestsDisabled: METRICS_REQUESTS_DISABLED,
 		metricsServerStatsDisabled: METRICS_SERVER_STATS_DISABLED,
 		metricsSequelizeDisabled: METRICS_SEQUELIZE_DISABLED,
-		cards,
-		gqlOptions
+		gqlOptions,
+		testing
 	})
 	if (process.env.ENABLE_SWAGGER_DOCS === 'true') {
 		generateSwaggerDocs()
@@ -114,8 +121,8 @@ setTimeout(async () => {
 	ready = true
 }, 2000)
 
-function handleReady(resolve) {
-	console.info(`ℹ️  Waiting for Server to boot.  Check #${readyChecks}`)
+function handleReady(resolve: (value: any) => void): void {
+	console.info(`ℹ️  Booting server... Check #${readyChecks}.`)
 	if (ready || readyChecks > 100) {
 		console.info(`ℹ️  Server Ready`)
 		return resolve(server)

@@ -1,12 +1,14 @@
 // 🌲🤖 This is a core model, available if DB_ENABLED=true
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
-import config from 'config'
 import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel, ISpruceCoreSkillModels } from '../interfaces/models'
-import { Organization } from './Organization'
-import { UserLocation } from './UserLocation'
-import { User } from './User'
+import {
+	SpruceCoreModel,
+	User,
+	Organization,
+	UserOrganization
+} from '@sprucelabs/spruce-skill-server'
+import { ISkillModels } from 'server/interfaces/models'
 
 export class ExampleModel extends SpruceCoreModel<ExampleModel> {
 	public static readonly timestamps = true
@@ -45,7 +47,7 @@ export class ExampleModel extends SpruceCoreModel<ExampleModel> {
 	public UserExampleModels?: UserExampleModel[] | null
 	public Users?: User[] | null
 
-	public static associate(models: ISpruceCoreSkillModels): void {
+	public static associate(models: ISkillModels): void {
 		this.belongsTo(models.Organization, {
 			constraints: false
 		})

@@ -1,26 +1,67 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-var-requires  */
+/* eslint-disable @typescript-eslint/interface-name-prefix  */
+/* eslint-disable @typescript-eslint/no-namespace  */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+
 import globby from 'globby'
 import supertest from 'supertest'
 import faker from 'faker'
-import { generateSkillJWT } from './lib/jwt'
+import { generateSkillJWT } from './jwt'
 import { Suite } from 'mocha'
 import Koa from 'koa'
-import { Organization } from '../models/Organization'
-import { Location } from '../models/Location'
-import { Skill } from '../models/Skill'
-import { User } from '../models/User'
+import { Organization } from '../../models/Organization'
+import { Location } from '../../models/Location'
+import { Skill } from '../../models/Skill'
+import { User } from '../../models/User'
+import {
+	IMockSkill,
+	IMockLocation,
+	IMockOrganization
+} from '../mocks/SandboxMock'
+import { Server } from 'http'
+
+interface IEmitResponseCallback {
+	callback?: (options: {
+		data: Record<string, any>
+		method: string
+		path: string
+		query?: Record<string, any>
+	}) => void
+	data?: Record<string, any>
+}
+
+interface IEmitResponseSkill {
+	skill: { name: string; slug: string }
+	error: any
+	payload: Record<string, any>
+}
+
+declare global {
+	namespace NodeJS {
+		// @ts-ignore
+		interface Global {
+			testEmitResponse: {
+				[eventName: string]: IEmitResponseCallback | IEmitResponseSkill[]
+			}
+		}
+	}
+}
 
 // The base test model that all others will extend
-export default class Base {
-	private basePath!: string
-	protected koa!: Koa<any>
+export default class Base<Context> {
+	protected koa!: Koa<Context>
 	protected ctx!: Context
 	protected mocks: Record<string, any>
 	protected request!: supertest.SuperTest<supertest.Test>
-	protected organization!: Organization
-	protected location!: Location
+	protected organization!: IMockOrganization
+	protected location!: IMockLocation
 	protected skill!: Skill
+	protected otherOrganization!: Organization
+	protected otherLocation!: Location
+	protected otherSkill!: Skill
+
+	private basePath!: string
+	private server!: Server
 
 	public constructor(basePath: string, mocha?: Suite) {
 		if (mocha) {
@@ -64,6 +105,7 @@ export default class Base {
 				if (mock.key === 'sandbox') {
 					sandbox = mock
 				}
+
 				if (this.mocks[mock.key]) {
 					throw new Error(
 						`A mock with the key "${
@@ -103,17 +145,20 @@ export default class Base {
 		this.skill = this.mocks.sandbox.skill
 
 		this.otherOrganization = this.mocks.sandbox.otherOrganization
+
 		const otherLocationId = Object.keys(this.mocks.sandbox.otherLocations)[0]
+
 		this.otherLocation = this.mocks.sandbox.otherLocations[otherLocationId]
 		this.otherSkill = this.mocks.sandbox.otherSkill
 	}
 
-	protected async beforeBase(options): Promise<void> {
+	protected async beforeBase(options?: Record<string, any>): Promise<void> {
 		try {
-			const { koa, server } = await require(`${basePath}/server/server`)
+			const { koa, server } = await require(`${this.basePath}/server/server`)
+
 			this.server = server
 			this.koa = koa
-			this.ctx = this.koa.context
+			this.ctx = this.koa.context as any
 			this.request = supertest(this.server)
 
 			if (!options || !options.disableMocks) {
@@ -144,11 +189,11 @@ export default class Base {
 
 	protected async triggerEvent(options: {
 		eventName: string
-		payload: string
-		skill: string
-		location: string
-		organization: string
-		user: string
+		payload: Record<string, any>
+		skill: IMockSkill
+		location: Location
+		organization: Organization
+		user: User
 	}): Promise<any> {
 		const { eventName, payload, skill, location, organization, user } = options
 		const token = generateSkillJWT({

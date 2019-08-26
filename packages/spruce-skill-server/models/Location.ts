@@ -2,11 +2,12 @@
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
 import config from 'config'
-import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel, ISpruceCoreSkillModels } from '../interfaces/models'
+import { Sequelize, DataTypes, ModelAttributes } from 'sequelize'
+import { ISpruceModels } from '../interfaces/models'
 import { Organization } from './Organization'
 import { UserLocation } from './UserLocation'
 import { User } from './User'
+import SpruceCoreModel from '../lib/SpruceModel'
 
 export class Location extends SpruceCoreModel<Location> {
 	// Prevents sequelize from trying to run sync against this model
@@ -46,7 +47,7 @@ export class Location extends SpruceCoreModel<Location> {
 	public UserLocations?: UserLocation[] | null
 	public Users?: User[] | null
 
-	public static associate(models: ISpruceCoreSkillModels): void {
+	public static associate(models: ISpruceModels): void {
 		this.belongsTo(models.Organization, {
 			constraints: false
 		})
@@ -59,7 +60,7 @@ export class Location extends SpruceCoreModel<Location> {
 	}
 }
 
-const attributes = {
+const attributes: ModelAttributes = {
 	id: {
 		type: DataTypes.UUID,
 		defaultValue: DataTypes.UUIDV4,
@@ -96,9 +97,11 @@ const attributes = {
 		type: DataTypes.STRING
 	},
 	geo: {
-		type: config.TESTING ? 'JSON' : 'POINT',
+		type: config.get('TESTING') ? DataTypes.JSON : DataTypes.GEOGRAPHY('POINT'),
 		get(this: Location) {
-			const geoPoint = this.getDataValue('geo')
+			const geoPoint: Record<string, number> | null = this.getDataValue(
+				'geo'
+			) as any | null
 			return geoPoint === null
 				? null
 				: {

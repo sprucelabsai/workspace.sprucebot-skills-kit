@@ -1,12 +1,23 @@
 import Https from './https'
-import MockHttps from './mock'
+import clone from 'lodash/clone'
+
+// export { default as MockHttps } from './mock'
+
+export interface IAbstractSprucebotAdapterOptions {
+    host: string
+    apiKey: string
+    id: string
+    version: string
+    allowSelfSignedCerts?: boolean
+    additional?: Record<string, any>
+}
 
 export abstract class AbstractSprucebotAdapter {
-	public abstract query(queryParams: string): Promise<any>
+	public abstract gql(gql: string, variables?: Record<string, any>): Promise<any>
 	public abstract get(path: string, queryParams?: Record<string, any>): Promise<any>
-	public abstract post(path: string, data?: Record<string, any>, queryParams?: Record<string, any>, method?: string): Promise<any>
+    public abstract post(path: string, data?: Record<string, any>, queryParams?: Record<string, any>, method?: string): Promise<any>
 	public abstract patch(path: string, data?: Record<string, any>, queryParams?: Record<string, any>): Promise<any>
-	public abstract delete(path: string, queryParams?: Record<string, any>): Promise<any>
+    public abstract delete(path: string, queryParams?: Record<string, any>): Promise<any>
 }
 
 export interface IAuditLog {
@@ -18,6 +29,35 @@ export interface IAuditLog {
 	organizationId?: string,
 	meta: Record<string, any>
 }
+
+export interface IEventResponse {
+    skill: { name: string; slug: string }
+    error: any
+    payload: Record<string, any>
+}
+
+export enum IMessageType {
+    PROMOTIONAL = 'promotional',
+    TRANSACTIONAL = 'transactional',
+    AUTH = 'auth'
+}
+
+
+interface IMessageOptions {
+    linksToWebView?: boolean
+    webViewQueryData?: Record<string, any>
+    payload?: Record<string, any>
+    sendAtTimestamp?: number,
+    type: IMessageType.PROMOTIONAL | IMessageType.TRANSACTIONAL | IMessageType.AUTH
+}
+
+
+
+interface IMessage {
+    (locationId: string, userId: string, message: string, options?: IMessageOptions, query?: Record<string, any>, webViewQueryData?: Record<string, any> ): Promise<any>
+}
+
+
 
 export default class Sprucebot {
 	private name: string
@@ -33,8 +73,6 @@ export default class Sprucebot {
 	private version: string
 	private skillsKitVersion: string
 	private apiVersion: string
-	private adapterOptions: Record<string, any>
-	private adapter: AbstractSprucebotAdapter
 	private _mutexes: Record<string, any>
 	private requiredParams = [
 		'apiKey',
@@ -50,7 +88,9 @@ export default class Sprucebot {
 		'eventContract',
 		'acl',
 		'viewVersion',
-	]
+    ]
+    
+    public adapter: AbstractSprucebotAdapter
 
 	public constructor(options: {
 		apiKey: string
@@ -120,7 +160,6 @@ export default class Sprucebot {
 			allowSelfSignedCerts
 		}
 
-		this.adapterOptions = adapterOptions
 		this.adapter = new Https(adapterOptions)
 
 		console.log(
@@ -132,47 +171,47 @@ export default class Sprucebot {
 			)} \nname : ${name}\n---------------------------------`
 		)
 	}
-
-	setOptions(options) {
-		if (options.useMockApi) {
-			const customMocks = options.customMocks || {}
-			this.adapter = new MockHttps({ ...this.adapterOptions, customMocks })
-		}
-	}
+    
+    setAdapter(adapter: AbstractSprucebotAdapter) {
+        this.adapter = adapter
+    }
 
 	/**
 	 * Sync the settings saved here with specified host (including name,)
 	 */
 	async sync() {
-		this.validateEventContract(this.eventContract)
+        this.validateEventContract(this.eventContract)
+        
+        const result = await this.mutation(`mutation($input: syncSkillInput!) {
+            syncSkill(input: $input) {
+                databaseUrl
+                s3Bucket
+            }
+        }`, {
+                input: {
+                    name: this.name,
+                    description: this.description,
+                    icon:this.icon,
+                    webhookUrl: this.webhookUrl,
+                    iframeUrl: this.iframeUrl,
+                    marketingUrl: this.marketingUrl,
+                    eventContract: this.eventContract,
+                    version: this.version,
+                    skillsKitVersion: this.skillsKitVersion,
+                    acl: this.acl,
+                    viewVersion: this.viewVersion,
+                    useDB: this.dbEnabled
+                }
+            }
+        )
 
-		const result = await this.mutation(`{
-			syncSkill(input: {
-				name: "${this.name}"
-				description: "${this.description}"
-				icon: ${JSON.stringify(this.icon)}
-				webhookUrl: "${this.webhookUrl}"
-				iframeUrl: "${this.iframeUrl}"
-				marketingUrl: "${this.marketingUrl}"
-				eventContract: ${JSON.stringify(JSON.stringify(this.eventContract))}
-				version: "${this.version}"
-				skillsKitVersion: "${this.skillsKitVersion}"
-				acl: ${JSON.stringify(JSON.stringify(this.acl))}
-				viewVersion: ${this.viewVersion}
-				useDB: ${this.dbEnabled === true}
-			}) {
-				databaseUrl
-				s3Bucket
-			}
-		}`)
-
-		if (result.errors || !result.data || !result.data.syncSkill) {
+		if (result.errors || !result.syncSkill) {
 			log.fatal(result.errors)
 			throw new Error('Error syncing skill settings with API')
 		}
 
 		return {
-			...result.data.syncSkill
+			...result.syncSkill
 		}
 	}
 
@@ -185,8 +224,8 @@ export default class Sprucebot {
 	 *
 	 * @param query The GQL query to send to the API
 	 */
-	async query(query: string): Promise<any> {
-		return this.adapter.query(query)
+	async query(query: string, variables?: Record<string, any>): Promise<any> {
+		return this.adapter.gql(query, variables)
 	}
 
 	/**
@@ -194,21 +233,17 @@ export default class Sprucebot {
 	 *
 	 * @param query The GQL mutation to send to the API
 	 */
-	async mutation(query: string): Promise<any> {
-		return this.adapter.query(`mutation ${query}`)
-	}
-
+    async mutation(query: string, variables?: Record<string, any>): Promise<any> {
+        const gql = query.search('mutation') === 0 ? query : `mutation ${query}`
+		return this.adapter.gql(gql, variables)
+    }
+    
 	/**
 	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
 	 *
 	 * Fetch a user based on their id and location
-	 *
-	 * @param {String} userId
-	 * @param {String} locationId
-	 * @param {Object} query Optional query string to be added onto request
-	 * @returns {Promise}
 	 */
-	async user(locationId, userId, query) {
+	async user(locationId:string, userId:string, query?: Record<string, any>) {
 		return this.adapter.get(`/locations/${locationId}/users/${userId}`, query)
 	}
 
@@ -220,7 +255,7 @@ export default class Sprucebot {
 	 * @param {String} userId
 	 * @param {Object} Optional query string to be added to the request
 	 */
-	async globalUser(userId, query) {
+	async globalUser(userId: string, query?: Record<string, any>) {
 		return this.adapter.get(`/ge/users/${userId}`, query)
 	}
 
@@ -231,7 +266,7 @@ export default class Sprucebot {
 	 *
 	 * @param {Object} Optional query string to be added to the request
 	 */
-	async globalLocations(query) {
+	async globalLocations(query?:Record<string, any>) {
 		return this.adapter.get(`/ge/locations`, query)
 	}
 
@@ -243,7 +278,7 @@ export default class Sprucebot {
 	 * @param {Object} values
 	 * @returns {Promise}
 	 */
-	async createUser(values) {
+	async createUser(values: Record<string, any>) {
 		return this.adapter.post('/ge/users', values)
 	}
 
@@ -257,7 +292,7 @@ export default class Sprucebot {
 	 * @param {String} role
 	 * @returns {Promise}
 	 */
-	async updateRole(locationId, userId, role) {
+	async updateRole(locationId:string, userId:string, role: string) {
 		return this.adapter.patch(
 			`/ge/locations/${locationId}/users/${userId}/${role}`
 		)
@@ -267,30 +302,22 @@ export default class Sprucebot {
 	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
 	 *
 	 * Search for users who have been to this location
-	 *
-	 * @param {String} locationId
-	 * @param {Object} query
-	 * @returns {Promise}
 	 */
-	async users(locationId, { role, status, page, limit, q } = {}) {
+	async users(locationId: string, options: { role?:string, status?:string, page?:number, limit?:number, q?:any } = {}) {
 		return this.adapter.get(
 			`/locations/${locationId}/users/`,
-			Array.from(arguments)[1]
+			options
 		)
 	}
 	/**
 	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
 	 *
 	 * Search for users who have been to this organization
-	 *
-	 * @param {String} locationId
-	 * @param {Object} query
-	 * @returns {Promise}
 	 */
-	async orgUsers(organizationId, { role, status, page, limit, q } = {}) {
+	async orgUsers(organizationId:string, options:{ role?:string, status?:string, page?:number, limit?:number, q?:Record<string, any> } = {}) {
 		return this.adapter.get(
 			`/organizations/${organizationId}/users/`,
-			Array.from(arguments)[1]
+			options
 		)
 	}
 
@@ -299,11 +326,8 @@ export default class Sprucebot {
 	 *
 	 * Update for user who have been to this location
 	 *
-	 * @param {String} id
-	 * @param {Object} values
-	 * @returns {Promise}
 	 */
-	async updateUser(id, values) {
+	async updateUser(id:string, values: Record<string, any>) {
 		return this.adapter.patch('/users/' + id, values)
 	}
 
@@ -311,12 +335,8 @@ export default class Sprucebot {
 	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
 	 *
 	 * Get a location by id
-	 *
-	 * @param {String} locationId
-	 * @param {Object} query
-	 * @returns {Promise}
 	 */
-	async location(locationId, query) {
+	async location(locationId: string, query?: Record<string, any>) {
 		return this.adapter.get(`/locations/${locationId}`, query)
 	}
 
@@ -325,55 +345,51 @@ export default class Sprucebot {
 	 *
 	 * Fetch all locations where this skill is installed
 	 *
-	 * @param {Object} query
-	 * @returns {Promise}
 	 */
-	async locations({ page, limit } = {}) {
-		return this.adapter.get('/locations', Array.from(arguments)[0])
+	async locations(options:{ page?:number, limit?:number } = {}) {
+		return this.adapter.get('/locations', options)
 	}
 
 	/**
 	 * Send a message to a user.
-	 *
-	 * @param {String} locationId
-	 * @param {String} userId
-	 * @param {String} message
-	 * @param {Object} data Additional data sent when POST'ing message
 	 */
-	async message(
+	message :IMessage = async (
 		locationId,
 		userId,
 		message,
-		{ linksToWebView, webViewQueryData, payload, sendAtTimestamp, type } = {},
-		query = {}
-	) {
-		const data = Array.from(arguments)[3] || { type: 'promotional' }
-		data.userId = userId
-		data.message = message
-		if (data.webViewQueryData) {
-			data.webViewQueryData = JSON.stringify(data.webViewQueryData)
-		}
+		options,
+		query
+    ) => {
+        
+        const data: Record<string, any> = {
+            userId,
+            message,
+            type: IMessageType.PROMOTIONAL
+        }
+        
+        if (options) {
+            const { type, webViewQueryData } = options
+            data.type = type
+            if (webViewQueryData) {
+                data.webViewQueryData = JSON.stringify(webViewQueryData)
+            }
+        }
+        
 		return this.adapter.post(`/locations/${locationId}/messages`, data, query)
 	}
 
 	/**
 	 * Deletes a message.
-	 *
-	 * @param {String} locationId
-	 * @param {String} messageId
 	 */
-	async deleteMessage(locationId, messageId) {
+	async deleteMessage(locationId:string, messageId:string) {
 		return this.adapter.delete(`/locations/${locationId}/messages/${messageId}`)
 	}
 
 	/**
 	 * ONLY APPLIES TO SKILLS THAT ARE ENTERPRISE OR GLOBAL.
 	 * Queues multiple messages to be sent
-	 *
-	 * @param {String} userId
-	 * @param {String} message
 	 */
-	async queueMessages(messages) {
+    async queueMessages(messages: { userId: string, message: string, sendAtTimestamp?: number, linksToWebView?: boolean, webViewQueryData?: Record<string, any>,type?: IMessageType.PROMOTIONAL | IMessageType.TRANSACTIONAL}[]) {
 		return this.adapter.post('/ge/messages', { messages })
 	}
 
@@ -381,10 +397,8 @@ export default class Sprucebot {
 	 * ONLY APPLIES TO SKILLS THAT ARE ENTERPRISE OR GLOBAL.
 	 * Queues multiple messages to be sent
 	 *
-	 * @param {String} userId
-	 * @param {String} message
 	 */
-	async deleteMessages(messageIds) {
+	async deleteMessages(messageIds: string[]) {
 		return this.adapter.post('/ge/deleteMessages', { messageIds })
 	}
 
@@ -392,11 +406,8 @@ export default class Sprucebot {
 	 * ONLY APPLIES TO SKILLS THAT ARE GLOBAL (are not attached to a location).
 	 * This allows Sprucebot to communicate to business owners without them
 	 * actually needing any skills enabled. Core usage only.
-	 *
-	 * @param {String} userId
-	 * @param {String} message
 	 */
-	async globalMessage(userId, message, type = 'promotional') {
+	async globalMessage(userId:string, message:string, type = IMessageType.PROMOTIONAL) {
 		return this.adapter.post('/messages', { userId, message, type })
 	}
 
@@ -407,21 +418,22 @@ export default class Sprucebot {
 	 * @param {Boolean} suppressErrors
 	 */
 	async metas(
-		{
-			key,
-			locationId,
-			userId,
-			createdAt,
-			updatedAt,
-			sortBy,
-			order,
-			limit,
-			value,
-			roles
-		} = {},
-		suppressParseErrors = true
-	) {
-		const query = { ...(Array.from(arguments)[0] || {}) }
+        options: {
+            key?: string,
+            locationId?:string,
+            userId?:string,
+            createdAt?: string,
+            updatedAt?: string,
+            sortBy?:string,
+            order?:string,
+            limit?:number,
+            value?:any,
+            roles?: string[]
+        } = {},
+    ) {
+
+        const query :Record<string, any>= clone(options)
+
 		if (query.value) {
 			query.value = JSON.stringify(query.value)
 		}
@@ -449,18 +461,12 @@ export default class Sprucebot {
 	 * @deprecated in favor of new metadata implementation. Check out the docs at https://developer.spruce.ai
 	 *
 	 * Get one meta object back.
-	 *
-	 * @param {String} key
-	 * @param {Object} query
-	 * @param {Boolean} suppressParseErrors
 	 */
 	async meta(
-		key,
-		{ locationId, userId, value, sortBy, order } = {},
-		suppressParseErrors = true
+		key: string,
+        options: { locationId?: string, userId?: string, value?: any, sortBy?: string, order?: string } = {}
 	) {
-		const args = Array.from(arguments)
-		const query = { ...(args[1] || {}) }
+        const query:Record<string, any> = clone(options)
 		query.key = key
 		query.limit = 1
 		const metas = await this.metas(query)
@@ -474,8 +480,8 @@ export default class Sprucebot {
 	 *
 	 * @param {String} id
 	 */
-	async metaById(id, { locationId, userId } = {}) {
-		return this.adapter.get(`/data/${id}`, Array.from(arguments)[1])
+	async metaById(id:string, options: { locationId?:string, userId?:string } = {}) {
+		return this.adapter.get(`/data/${id}`, options)
 	}
 
 	/**
@@ -483,13 +489,10 @@ export default class Sprucebot {
 	 *
 	 * Create a meta data record.
 	 *
-	 * @param {String} key
-	 * @param {*} value
-	 * @param {Object} data
 	 */
-	async createMeta(key, value, { locationId, userId } = {}) {
+	async createMeta(key:string, value:any, options: { locationId?:string, userId?:string } = {}) {
 		const data = {
-			...(Array.from(arguments)[2] || {}),
+			...options,
 			key,
 			value
 		}
@@ -506,9 +509,9 @@ export default class Sprucebot {
 	 * @param {String} id
 	 * @param {Object} data
 	 */
-	async updateMeta(id, { key, value, locationId, userId }) {
+	async updateMeta(id:string, options: { key?:string, value?:any, locationId?:string, userId?:string }) {
 		const data = {
-			...(Array.from(arguments)[1] || {})
+			...options
 		}
 
 		const meta = await this.adapter.patch(`/data/${id}`, data)
@@ -520,21 +523,15 @@ export default class Sprucebot {
 	 *
 	 * Fetch some meta. Create it if it does not exist
 	 *
-	 * @param {String} key
-	 * @param {*} value
-	 * @param {Object} query
-	 * @param {Boolean} suppressParseErrors
 	 */
 	async metaOrCreate(
-		key,
-		value,
-		{ locationId, userId } = {},
-		suppressParseErrors = true
+		key:string,
+		value:any,
+		options: { locationId?:string, userId?:string } = {},
 	) {
 		let meta = await this.meta(
 			key,
-			Array.from(arguments)[2],
-			suppressParseErrors
+			options,
 		)
 
 		// not found, create it
@@ -547,21 +544,15 @@ export default class Sprucebot {
 	 * @deprecated in favor of new metadata implementation. Check out the docs at https://developer.spruce.ai
 	 *
 	 * Creates a meta if it does not exist, updates it if it does
-	 * @param {String} key
-	 * @param {*} value
-	 * @param {Object} query
-	 * @param {Boolean} suppressParseErrors
 	 */
 	async upsertMeta(
-		key,
-		value,
-		{ locationId, userId } = {},
-		suppressParseErrors = true
+		key:string,
+		value: any,
+		options:{ locationId?:string, userId?:string } = {},
 	) {
 		let meta = await this.meta(
 			key,
-			Array.from(arguments)[2],
-			suppressParseErrors
+			options,
 		)
 
 		// not found, create it
@@ -579,19 +570,16 @@ export default class Sprucebot {
 	 *
 	 * Delete meta data by id
 	 *
-	 * @param {String} id
 	 */
-	async deleteMeta(id) {
+	async deleteMeta(id:string) {
 		return this.adapter.delete(`/data/${id}`)
 	}
 
 	/**
 	 * Emit a custom event. The response is the response from all skills
 	 *
-	 * @param {String} name
-	 * @param {Object} payload
 	 */
-	async emit(locationId, eventName, payload = {}, options, eventId) {
+    async emit(locationId: string, eventName: string, payload: Record<string, any> = {}, options?: Record<string, any>, eventId?: string): Promise<IEventResponse> {
 		return this.adapter.post(`locations/${locationId}/emit`, {
 			eventName,
 			eventId,
@@ -607,12 +595,12 @@ export default class Sprucebot {
 	 * @param {Object} payload
 	 */
 	async emitOrganization(
-		organizationId,
-		eventName,
-		payload = {},
-		options,
-		eventId
-	) {
+		organizationId:string,
+		eventName:string,
+		payload:Record<string, any> = {},
+		options?:Record<string, any>,
+		eventId?: string
+    ): Promise<IEventResponse[]>{
 		return this.adapter.post(`organizations/${organizationId}/emit`, {
 			eventName,
 			eventId,
@@ -626,7 +614,7 @@ export default class Sprucebot {
 	 *
 	 * @param {Object} query
 	 */
-	async getMetadata(query) {
+	async getMetadata(query?: Record<string, any>) {
 		const meta = await this.adapter.get('/metadata', query)
 		return meta
 	}
@@ -636,7 +624,9 @@ export default class Sprucebot {
 	 *
 	 * @param {Object} metadata
 	 */
-	async setMetadata({ locationId, organizationId, userId, refId, metadata }) {
+	async setMetadata(options:{ locationId?:string, organizationId?:string, userId?:string, refId?:string, metadata?:any }) {
+
+        const { locationId, organizationId, userId, refId, metadata } = options
 		if (!metadata || metadata.length < 1) {
 			throw new Error('INVALID_METADATA')
 		}
@@ -660,7 +650,9 @@ export default class Sprucebot {
 	 *
 	 * @param {Object} query
 	 */
-	async deleteMetadata({ keys, locationId, organizationId, userId, refId }) {
+	async deleteMetadata(options: { keys?:string[], locationId?:string, organizationId?:string, userId?:string, refId?:string }) {
+
+        const { keys, locationId, organizationId, userId, refId } = options
 		if (keys && keys.length > 0) {
 			const data = keys.map(k => {
 				return {
@@ -681,10 +673,9 @@ export default class Sprucebot {
 	 *
 	 * Create location (Enterprise Skills only)
 	 *
-	 * @param {String} organizationId
-	 * @param {Array} locations
 	 */
-	async eCreateLocations({ organizationId, locations }) {
+	async eCreateLocations(options:{ organizationId:string, locations:Record<string, any>[] }) {
+        const { organizationId, locations } = options
 		const result = await this.adapter.post(
 			`/e/organizations/${organizationId}/locations`,
 			{ locations }
@@ -697,10 +688,9 @@ export default class Sprucebot {
 	 *
 	 * Create location (Global Skills only)
 	 *
-	 * @param {Array} locations
 	 */
-	async gCreateLocations({ locations }) {
-		const result = await this.adapter.post('/g/locations', { locations })
+	async gCreateLocations(options:{ locations: Record<string, any>[] }) {
+        const result = await this.adapter.post('/g/locations', options)
 		return result
 	}
 
@@ -711,7 +701,9 @@ export default class Sprucebot {
 	 *
 	 * @param {Object} response
 	 */
-	async eEmitEvent({ userId, locationId, eventName, payload }) {
+	async eEmitEvent(options:{ userId:string, locationId:string, eventName:string, payload?:Record<string, any> }) {
+        const { locationId, userId, eventName, payload = {} } = options
+
 		const result = await this.adapter.post(
 			`/e/locations/${locationId}/users/${userId}/emit`,
 			{
@@ -745,7 +737,7 @@ export default class Sprucebot {
 			this._mutexes[key].promises.push(new Promise(resolve => resolve()))
 			this._mutexes[key].resolvers.push(() => {})
 		} else {
-			let resolver = resolve => {
+			let resolver = (resolve: any) => {
 				this._mutexes[key].resolvers.push(resolve)
 			}
 			let promise = new Promise(resolver)
@@ -821,7 +813,7 @@ export default class Sprucebot {
 			.post(`/audit`, auditLogs)
 			.then(() => {})
 			.catch(e => log.warn(e))
-	}
+    }
 
 	private validateConstructorParams(params: Record<string, any>): void {
 		this.requiredParams.forEach(requiredParam => {

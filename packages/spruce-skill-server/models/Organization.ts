@@ -1,9 +1,10 @@
 // 🌲🤖 This is a core model, available if DB_ENABLED=true
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
-import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel, ISpruceCoreSkillModels } from '../interfaces/models'
+import { Sequelize, DataTypes, ModelAttributes } from 'sequelize'
+import { ISpruceModels } from '../interfaces/models'
 import { Location } from './Location'
+import SpruceCoreModel from '../lib/SpruceModel'
 
 export class Organization extends SpruceCoreModel<Organization> {
 	// Prevents sequelize from trying to run sync against this model
@@ -19,12 +20,12 @@ export class Organization extends SpruceCoreModel<Organization> {
 	public name!: string
 	public Locations?: Location[] | null
 
-	public static associate(models: ISpruceCoreSkillModels): void {
+	public static associate(models: ISpruceModels): void {
 		this.hasMany(models.Location, { constraints: false })
 	}
 }
 
-const attributes = {
+const attributes: ModelAttributes = {
 	id: {
 		type: DataTypes.UUID,
 		defaultValue: DataTypes.UUIDV4,

@@ -1,12 +1,21 @@
-const debug = require('debug')('spruce-skill-server')
-const config = require('config')
+import { ISpruceContext } from '../../interfaces/ctx'
+import Debug from 'debug'
+import config from 'config'
+import { Source, GraphQLResolveInfo } from 'graphql'
+import { Request } from 'koa'
 
-module.exports = ctx => ({
+const debug = Debug('spruce-skill-server')
+module.exports = (ctx: ISpruceContext) => ({
 	mockResolvers: {
 		Query: {},
 		Mutation: {
 			// TODO: The mock server is still returning default data and ignoring this. If we custom mock mutation responses in the future this will need to be fixed. SDEV3-2131
-			syncSkill: async (source, args, context, info) => {
+			syncSkill: async (
+				source: Source,
+				args: any,
+				context: Request,
+				info: GraphQLResolveInfo
+			) => {
 				return {
 					s3Bucket: '1234',
 					databaseUrl: 'https://hacked.sprucebot.com/test/db/url'
@@ -16,7 +25,12 @@ module.exports = ctx => ({
 	},
 	mockModels: {
 		// Mock version of acls. Can't do real checks so we'll just check defaults in the config file and return true if any of them are valid.  This should be accurate enough for automated tests
-		Acl: async (source, args, context, info) => {
+		Acl: async (
+			source: Source,
+			args: any,
+			context: Request,
+			info: GraphQLResolveInfo
+		) => {
 			debug('Doing ACL check using Mock server')
 			if (args.userId && args.permissions) {
 				const user = await ctx.db.models.User.findOne({
@@ -30,7 +44,12 @@ module.exports = ctx => ({
 					]
 				})
 
-				if (!user) {
+				if (
+					!user ||
+					!user.UserLocations ||
+					!user.UserGroups ||
+					!user.UserOrganizations
+				) {
 					return null
 				}
 
@@ -70,23 +89,31 @@ module.exports = ctx => ({
 				for (let i = 0; i < permissionSlugs.length; i += 1) {
 					const slug = permissionSlugs[i]
 					const permissions = args.permissions[slug]
-					const slugResponse = {
+					const slugResponse: {
+						slug: string
+						permissions: {
+							name: string
+							value: boolean
+						}[]
+					} = {
 						slug,
 						permissions: []
 					}
 
 					for (let j = 0; j < permissions.length; j += 1) {
 						const permission = permissions[j]
-						if (slug === config.SLUG) {
+						if (slug === config.get('SLUG')) {
 							if (
-								config.acl.publishes[permission] &&
-								config.acl.publishes[permission].defaults
+								config.get<Record<string, any>>('acl').publishes[permission] &&
+								config.get<Record<string, any>>('acl').publishes[permission]
+									.defaults
 							) {
 								slugResponse.permissions.push({
 									name: permission,
 									value:
 										userRole === 'owner' ||
-										config.acl.publishes[permission].defaults[userRole] === true
+										config.get<Record<string, any>>('acl').publishes[permission]
+											.defaults[userRole] === true
 								})
 							}
 						} else {
@@ -114,32 +141,50 @@ module.exports = ctx => ({
 			}
 			return null
 		},
-		Acls: async (source, args, context, info) => {
+		Acls: async (source: Source) => {
 			return source
 		},
-		Organization: async (source, args, context, info) => {
+		Organization: async (
+			source: Source,
+			args: any,
+			context: Request,
+			info: GraphQLResolveInfo
+		) => {
 			if (args.id) {
 				const user = await ctx.db.models.Organization.findOne({
 					where: {
 						id: args.id
 					}
 				})
-				return user.get()
+
+				if (user) {
+					return user.get()
+				}
 			}
 			return {}
 		},
-		Location: async (source, args, context, info) => {
+		Location: async (
+			source: Source,
+			args: any,
+			context: Request,
+			info: GraphQLResolveInfo
+		) => {
 			if (args.id) {
 				const user = await ctx.db.models.Location.findOne({
 					where: {
 						id: args.id
 					}
 				})
-				return user.get()
+				return user && user.get()
 			}
 			return {}
 		},
-		User: async (source, args, context, info) => {
+		User: async (
+			source: Source,
+			args: any,
+			context: Request,
+			info: GraphQLResolveInfo
+		) => {
 			if (args.id) {
 				const user = await ctx.db.models.User.findOne({
 					where: {
@@ -151,6 +196,9 @@ module.exports = ctx => ({
 						ctx.db.models.UserOrganization
 					]
 				})
+				if (!user) {
+					return {}
+				}
 				return {
 					...user.get(),
 					UserGroups: () => {

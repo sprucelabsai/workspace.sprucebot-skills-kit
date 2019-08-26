@@ -1,14 +1,14 @@
-//
-const { assert } = require('chai')
-const { SpruceTest } = require('@sprucelabs/spruce-skill-server')
+import { assert } from 'chai'
+import { SpruceTest } from '@sprucelabs/spruce-skill-server'
+import { ISkillContext } from 'server/interfaces/ctx'
 
 // SpruceTest take a single parameter, pointing to the base skill directory
-class ExampleEventTests extends SpruceTest(`${__dirname}/../../`) {
-	setup() {
+class ExampleEventTests extends SpruceTest<ISkillContext> {
+	public setup(): void {
 		it('Can respond to "get-views" event', () => this.getViews())
 	}
 
-	async getViews() {
+	public async getViews(): Promise<void> {
 		const result = await this.triggerEvent({
 			eventName: 'get-views',
 			payload: {
@@ -32,5 +32,5 @@ class ExampleEventTests extends SpruceTest(`${__dirname}/../../`) {
 
 describe('ExampleEventTests', function Tests() {
 	this.timeout(30000)
-	new ExampleEventTests() // eslint-disable-line
+	new ExampleEventTests(`${__dirname}/../../`) // eslint-disable-line
 })

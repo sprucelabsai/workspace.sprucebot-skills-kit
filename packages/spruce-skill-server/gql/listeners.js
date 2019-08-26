@@ -2,7 +2,6 @@ const config = require('config')
 const globby = require('globby')
 const GraphQLSubscription = require('../lib/GraphQLSubscription')
 const debug = require('debug')('spruce-skill-server')
-const helpers = require('./helpers')
 
 module.exports = (koa, gqlOptions) => {
 	if (!config.GRAPHQL_LISTENERS_ENABLED) {
@@ -11,7 +10,6 @@ module.exports = (koa, gqlOptions) => {
 	}
 
 	const gqlDir = gqlOptions.gqlDir
-	const serverHost = config.API_HOST
 	const allowSelfSigned = config.API_SSL_ALLOW_SELF_SIGNED
 
 	// For wss:// self signed

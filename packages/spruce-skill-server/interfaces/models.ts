@@ -1,4 +1,3 @@
-import { Model } from 'sequelize'
 import { FileItem } from '../models/FileItem'
 import { Group } from '../models/Group'
 import { Job } from '../models/Job'
@@ -11,16 +10,10 @@ import { UserGroup } from '../models/UserGroup'
 import { UserLocation } from '../models/UserLocation'
 import { UserOrganization } from '../models/UserOrganization'
 
-/************************************************************
- * Base Spruce core class that all models inherit from.
- * To extend, see server/interfaces/models.d.ts
- ************************************************************/
-export class SpruceCoreModel<T> extends Model<T> {}
-
 /**
  * Defines the base Spruce core models available via FDW in skills kit
  */
-export interface ISpruceCoreSkillModels {
+export interface ISpruceModels {
 	/**
 	 * 🌲🤖 Core Spruce Model: FileItem
 	 *

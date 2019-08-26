@@ -1,28 +1,61 @@
-const _ = require('lodash')
+import includes from 'lodash/includes'
+import SpruceSkillUtility from '../lib/SpruceSkillUtility'
+import { ISpruceContext } from '../interfaces/ctx'
+import {
+	ISprucePageSettings,
+	ISpruceSettingsField
+} from '../interfaces/settings'
+import { IAclsResult } from '../services/Acl'
 
-module.exports = {
+interface IGetRequestedSettingsOptions {
+	settings: ISprucePageSettings[]
+	requestedSettings: string[]
+	userId: string
+	locationId?: string
+	organizationId: string
+}
+
+interface IGetSettingsOptions {
+	page: string
+	settings: ISprucePageSettings[]
+	userId: string
+	locationId?: string
+	organizationId: string
+	overrides: ISpruceSettingsField[]
+}
+
+interface IRemoveSettingsByAclsOptions {
+	settings: ISprucePageSettings[]
+	acls: IAclsResult
+}
+
+export default class Settings extends SpruceSkillUtility<ISpruceContext> {
 	// Gets current values of settings after checking to ensure the user has permission
-	async getRequestedSettings({
-		settings,
-		requestedSettings,
-		userId,
-		locationId,
-		organizationId
-	}) {
+	public getRequestedSettings = async (
+		options: IGetRequestedSettingsOptions
+	): Promise<ISprucePageSettings> => {
+		const {
+			settings,
+			requestedSettings,
+			userId,
+			locationId,
+			organizationId
+		} = options
+
 		// Find the requested settings
-		const aclsToGet = {}
-		const fields = []
+		const aclsToGet: Record<string, any> = {}
+		const fields: ISpruceSettingsField[] = []
 
 		settings.forEach(pageSetting => {
-			if (pageSetting.cards) {
-				for (let i = 0; i < pageSetting.cards.length; i += 1) {
-					const card = pageSetting.cards[i]
-					if (card.fields) {
-						for (let j = 0; j < card.fields.length; j += 1) {
-							const field = card.fields[j]
+			if (pageSetting.sections) {
+				for (let i = 0; i < pageSetting.sections.length; i += 1) {
+					const section = pageSetting.sections[i]
+					if (section.fields) {
+						for (let j = 0; j < section.fields.length; j += 1) {
+							const field = section.fields[j]
 							if (
-								!requestedSettings ||
-								_.includes(requestedSettings, field.name)
+								field &&
+								(!requestedSettings || includes(requestedSettings, field.name))
 							) {
 								// Get acls
 								fields.push(field)
@@ -33,7 +66,9 @@ module.exports = {
 											aclsToGet[slug] = []
 										}
 
-										aclsToGet[slug] = aclsToGet[slug].concat(field.acls[slug])
+										if (field.acls) {
+											aclsToGet[slug] = aclsToGet[slug].concat(field.acls[slug])
+										}
 									})
 								}
 							}
@@ -44,7 +79,7 @@ module.exports = {
 		})
 
 		// Get the necessary ACLs
-		const acls = await this.services.acl.getAcls({
+		const acls = await this.ctx.services.acl.getAcls({
 			userId,
 			locationId,
 			organizationId,
@@ -58,6 +93,9 @@ module.exports = {
 			if (field.acls) {
 				const slugs = Object.keys(field.acls)
 				slugs.forEach(slug => {
+					if (!field.acls) {
+						return
+					}
 					const perms = field.acls[slug]
 
 					for (let i = 0; i < perms.length; i += 1) {
@@ -89,28 +127,34 @@ module.exports = {
 				settings
 			}
 		}`
-		const result = await this.sb.query(query)
+		const result = await this.ctx.sb.query(query)
 
 		return result.data.GetSettings ? result.data.GetSettings.settings : {}
-	},
+	}
 	// Used in the get-settings event. Filter out the settings to only the page requested and only the settings the user has permission to via acls
-	async getSettings(options) {
-		const page = options.page
-		const settings = options.settings
-		const auth = options.auth
-		const overrides = options.overrides
-		const userId = options.userId
-		const locationId = options.locationId
-		const organizationId = options.organizationId
+	public async getSettings(
+		options: IGetSettingsOptions
+	): Promise<ISprucePageSettings[]> {
+		const {
+			page,
+			settings,
+			overrides,
+			userId,
+			locationId,
+			organizationId
+		} = options
 
 		const pageSettings = settings.filter(s => s.page === page)
 
 		// Do overrides and keep track of the acls we'll need to fetch
-		const aclsToGet = {}
+		const aclsToGet: {
+			[slug: string]: string[]
+		} = {}
+
 		pageSettings.forEach(pageSetting => {
-			if (pageSetting.cards) {
-				for (let i = 0; i < pageSetting.cards.length; i += 1) {
-					const card = pageSetting.cards[i]
+			if (pageSetting.sections) {
+				for (let i = 0; i < pageSetting.sections.length; i += 1) {
+					const card = pageSetting.sections[i]
 					if (card.fields) {
 						for (let j = 0; j < card.fields.length; j += 1) {
 							const field = card.fields[j]
@@ -131,7 +175,9 @@ module.exports = {
 										aclsToGet[slug] = []
 									}
 
-									aclsToGet[slug] = aclsToGet[slug].concat(field.acls[slug])
+									if (field.acls) {
+										aclsToGet[slug] = aclsToGet[slug].concat(field.acls[slug])
+									}
 								})
 							}
 						}
@@ -140,7 +186,7 @@ module.exports = {
 			}
 		})
 
-		const acls = await this.services.acl.getAcls({
+		const acls = await this.ctx.services.acl.getAcls({
 			userId,
 			locationId,
 			organizationId,
@@ -153,14 +199,17 @@ module.exports = {
 		})
 
 		return finalSettings
-	},
+	}
 
 	// Given settings and the acls, removes settings that the user does not have access to
-	removeSettingsByAcls({ settings, acls }) {
+	public removeSettingsByAcls(
+		options: IRemoveSettingsByAclsOptions
+	): ISprucePageSettings[] {
+		const { settings, acls } = options
 		settings.forEach(pageSetting => {
-			if (pageSetting.cards) {
-				for (let i = 0; i < pageSetting.cards.length; i += 1) {
-					const card = pageSetting.cards[i]
+			if (pageSetting.sections) {
+				for (let i = 0; i < pageSetting.sections.length; i += 1) {
+					const card = pageSetting.sections[i]
 					if (card.fields) {
 						for (let j = 0; j < card.fields.length; j += 1) {
 							const field = card.fields[j]
@@ -169,6 +218,9 @@ module.exports = {
 							if (field.acls) {
 								const slugs = Object.keys(field.acls)
 								slugs.forEach(slug => {
+									if (!field.acls) {
+										return
+									}
 									field.acls[slug].forEach(perm => {
 										if (!isRemoved && (!acls[slug] || !acls[slug][perm])) {
 											// Unset the field because the user does not have permission to view it
