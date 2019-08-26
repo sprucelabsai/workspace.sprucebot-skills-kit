@@ -6,12 +6,13 @@ import jwt from 'jsonwebtoken'
 import depthLimit from 'graphql-depth-limit'
 import QueryComplexity from 'graphql-query-complexity'
 import { createContext, EXPECTED_OPTIONS_KEY } from 'dataloader-sequelize'
-import { ISpruceContext } from 'interfaces/ctx'
+import { ISpruceContext } from '../interfaces/ctx'
 
 import config from 'config'
 import GraphQLSubscriptionServer from '../lib/GraphQLSubscriptionServer'
+import { ISpruceErrorDefinitions } from '../support/errors'
 
-const errors = config.get('errors')
+const errors = config.get<ISpruceErrorDefinitions>('errors')
 const queryComplexity = QueryComplexity.default
 const simpleEstimator = QueryComplexity.simpleEstimator
 const fieldConfigEstimator = QueryComplexity.fieldConfigEstimator
