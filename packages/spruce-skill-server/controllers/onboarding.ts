@@ -1,5 +1,5 @@
-module.exports = (router, options) => {
-	router.get('/api/1.0/guest/onboarding.json', async (ctx, next) => {
+module.exports = (router: any, options: any) => {
+	router.get('/api/1.0/guest/onboarding.json', async (ctx: any, next: any) => {
 		try {
 			const finishedOnboarding = await ctx.services.onboarding.didOnboarding(
 				ctx.auth
@@ -16,7 +16,7 @@ module.exports = (router, options) => {
 		}
 	})
 
-	router.post('/api/1.0/guest/onboarding.json', async (ctx, next) => {
+	router.post('/api/1.0/guest/onboarding.json', async (ctx: any, next: any) => {
 		const waitKey = `onboarding-${ctx.auth.LocationId}`
 		try {
 			await ctx.sb.wait(waitKey)

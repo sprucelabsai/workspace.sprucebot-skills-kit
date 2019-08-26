@@ -24,7 +24,7 @@ interface IEmitResponseCallback {
 	data?: Record<string, any>
 }
 
-interface IEmitResponseSkill {
+interface IEmitResponse {
 	skill: { name: string; slug: string }
 	error: any
 	payload: Record<string, any>
@@ -36,7 +36,7 @@ declare global {
 		interface Global {
 			log: any
 			testEmitResponse: {
-				[eventName: string]: IEmitResponseCallback | IEmitResponseSkill[]
+				[eventName: string]: IEmitResponseCallback | IEmitResponse[]
 			}
 		}
 	}

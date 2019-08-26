@@ -1,9 +1,10 @@
-const globby = require('globby')
-const path = require('path')
-const config = require('config')
-const debug = require('debug')('spruce-skill-server')
+import globby from 'globby'
+import path from 'path'
+import config from 'config'
+import Debug from 'debug'
+const debug = Debug('spruce-skill-server')
 
-module.exports = (dir, key, ctx) => {
+module.exports = (dir: string, key: string, ctx: any) => {
 	if (!ctx[key]) {
 		ctx[key] = {}
 	}
@@ -19,12 +20,12 @@ module.exports = (dir, key, ctx) => {
 			if (m.default) {
 				const service = new m.default({
 					ctx,
-					config: config[key] && config[key][filename]
+					config: config.get(`${key}.${filename}`)
 				})
 				ctx[key][filename] = service
 			} else {
 				if (m.init) {
-					m.init(config[key] && config[key][filename])
+					m.init(config.get(`${key}.${filename}`))
 				}
 				ctx[key][filename] = m
 			}
