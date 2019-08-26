@@ -14,6 +14,22 @@ interface ISetOptionsType {
 	useSourcemaps?: boolean
 }
 
+interface IEmitResponseCallback {
+	callback?: (options: {
+		data: Record<string, any>
+		method: string
+		path: string
+		query?: Record<string, any>
+	}) => void
+	data?: Record<string, any>
+}
+
+interface IEmitResponseSkill {
+	skill: { name: string; slug: string }
+	error: any
+	payload: Record<string, any>
+}
+
 declare global {
 	namespace NodeJS {
 		// @ts-ignore
