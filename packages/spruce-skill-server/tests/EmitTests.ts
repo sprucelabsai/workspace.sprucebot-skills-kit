@@ -18,7 +18,7 @@ class EmitTests extends SpruceTest<ISpruceContext> {
 		const eventName = `${config.get('SLUG')}:test-event`
 
 		global.testEmitResponse[eventName] = {
-			callback: ({ data, method, path, query }) => {
+			callback: ({ data, method, path }) => {
 				assert.equal(data.eventId, eventId)
 				assert.equal(data.eventName, eventName)
 				assert.equal(method, 'POST')

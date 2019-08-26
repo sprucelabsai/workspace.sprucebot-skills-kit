@@ -25,8 +25,6 @@ import { Server } from 'https'
 import Sprucebot from '@sprucelabs/spruce-node'
 import { ISpruceContext } from './interfaces/ctx'
 import HttpsMock from './tests/lib/HttpsMock'
-// @ts-ignore
-// import global from './interfaces/global'
 
 const debug = Debug('spruce-skill-server')
 

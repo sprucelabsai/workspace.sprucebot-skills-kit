@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
-export {}
 type timer = any
 
 // @ts-ignore
