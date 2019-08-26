@@ -1,8 +1,6 @@
 import Https from './https'
 import clone from 'lodash/clone'
 
-// export { default as MockHttps } from './mock'
-
 export interface IAbstractSprucebotAdapterOptions {
 	host: string
 	apiKey: string
