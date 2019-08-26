@@ -22,7 +22,7 @@ module.exports = {
 		{
 			Acls (
 				userId: "${userId}"
-				locationId: "${locationId}"
+				${locationId ? `locationId: "${locationId}"` : ''}
 				organizationId: "${organizationId}"
 				permissions: ${stringify(permissions)}
 			) {
