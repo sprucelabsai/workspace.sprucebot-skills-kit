@@ -14,7 +14,7 @@ const RECORD_TABLE_INITIAL_LIMIT = 50
 
 export interface IRecordTableFetchOptions {
 	sortColumn: string
-	sortDirection: string
+	sortDirection: 'asc' | 'desc'
 	offset: number
 	limit: number
 	search?: string
@@ -52,7 +52,7 @@ export interface IRecordTableProps extends ITableProps {
 	initialSortColumn: string
 
 	/** direction to start (defaults to desc) */
-	initialSortDirection?: string
+	initialSortDirection?: 'asc' | 'desc'
 
 	/** starting limit, defaults to RECORD_TABLE_INITIAL_LIMIT  */
 	initialLimit?: number
@@ -138,7 +138,7 @@ interface IRecordTableState {
 	currentPage: number
 	limit: number
 	sortColumn: string
-	sortDirection: string
+	sortDirection: 'asc' | 'desc'
 	visibleRows: Record<string, any>[]
 	totalRows: number
 	loading: boolean
@@ -435,7 +435,10 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 	}
 
 	private handleSortChanged = (sorted: [{ id: string; desc: boolean }]) => {
-		const sort = {
+		const sort: {
+			sortColumn: string
+			sortDirection: 'asc' | 'desc'
+		} = {
 			sortColumn: sorted[0].id,
 			sortDirection: sorted[0].desc ? 'desc' : 'asc'
 		}

@@ -16,8 +16,16 @@ export interface IButtonIconProps {
 
 	/** Optional classname for the icon */
 	className?: string
+
 	/** The name of the icon used to look it up by key */
-	name: string
+	name?: string
+}
+
+export enum ButtonKinds {
+	Primary = 'primary',
+	Secondary = 'secondary',
+	Simple = 'simple',
+	Caution = 'caution'
 }
 
 export interface IButtonProps {
@@ -28,7 +36,11 @@ export interface IButtonProps {
 	children?: React.ReactNode
 
 	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
-	kind?: 'primary' | 'secondary' | 'simple' | 'caution'
+	kind?:
+		| ButtonKinds.Primary
+		| ButtonKinds.Secondary
+		| ButtonKinds.Simple
+		| ButtonKinds.Caution
 
 	/** Set true to make the button less tall. */
 	isSmall?: boolean

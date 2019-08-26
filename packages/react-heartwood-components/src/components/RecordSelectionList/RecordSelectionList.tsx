@@ -15,7 +15,7 @@ import { TextInput, Radio, Checkbox } from '../Forms'
 import { InputPre } from '../Forms/FormPartials'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
-import Button from '../Button/Button'
+import Button, { ButtonKinds } from '../Button/Button'
 import ListItem, { IListItemProps } from '../List/components/ListItem/ListItem'
 import EmptyState, { IEmptyStateProps } from '../EmptyState/EmptyState'
 
@@ -609,7 +609,7 @@ export default class RecordSelectionList extends Component<
 
 					{onRemove && canRemove && (
 						<Button
-							kind="simple"
+							kind={ButtonKinds.Simple}
 							className="record-selection__record-remove-btn"
 							disabled={false}
 							isSmall
