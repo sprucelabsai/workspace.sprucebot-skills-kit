@@ -1,22 +1,25 @@
 import { ISpruceContext } from '../interfaces/ctx'
 
+// @ts-ignore: No definition available
 import parseFields from 'graphql-parse-fields'
 import Debug from 'debug'
 
-import { GraphQLString, GraphQLInt } from 'graphql'
+import { GraphQLInt, GraphQLResolveInfo } from 'graphql'
 import {
 	resolver,
 	attributeFields,
 	createConnection,
 	defaultListArgs,
 	defaultArgs,
-	argsToFindOptions
+	argsToFindOptions,
+	IResolverLikeFunction
 } from 'graphql-sequelize'
 
 import globby from 'globby'
 import config from 'config'
 
 import { has } from 'lodash'
+import SpruceCoreModel from '../lib/SpruceModel'
 
 const debug = Debug('spruce-skill-server')
 
@@ -34,7 +37,7 @@ export default (ctx: ISpruceContext) => {
 			debug(`Importing custom connection options from file: ${path}`)
 			// $FlowIgnore
 			const connectionOptions = require(path)(ctx) // eslint-disable-line
-			let name = path.replace(/^(.*[\\\/])/, '')
+			let name = path.replace(/^(.*[\\/])/, '')
 			name = name.replace('.js', '')
 			connections[name] = connectionOptions
 		} catch (e) {
@@ -57,11 +60,16 @@ export default (ctx: ISpruceContext) => {
 		return scope.replace(/edges\.node\./g, '')
 	}
 
-	function cleanModelByScope(options) {
+	function cleanModelByScope(options: {
+		model: SpruceCoreModel<any>
+		context: ISpruceContext
+		info: GraphQLResolveInfo
+	}): Record<string, any> | null {
 		const { model, context, info } = options
 		const modelName: string = model.constructor.name
 
 		// skip the process if we have already done the work
+		// @ts-ignore
 		if (model.cleanedScope) {
 			return model
 		}
@@ -92,9 +100,11 @@ export default (ctx: ISpruceContext) => {
 			`Scoping ${modelName} through ${parentPathScope} using ${pathScope} with scope of ${modelScope}`
 		)
 
+		// @ts-ignore
 		const scopeObj = ctx.db.models[modelName].scopeObj
 		const allowedAttributes = scopeObj[modelScope]
 
+		// @ts-ignore
 		Object.keys(model.dataValues).forEach(field => {
 			const allowedField = has(allowedAttributes, field)
 			const requestedField = requestedFields[field]
@@ -104,29 +114,43 @@ export default (ctx: ISpruceContext) => {
 				context.attributeWarnings.push(
 					`${modelName} scope of "${modelScope}" does not include the field "${field}". If this should be allowed, check the scopes in models/${modelName}.js`
 				)
+				// @ts-ignore
 				model.setDataValue(field, null)
+				// @ts-ignore
 				model[field] = null
 
+				// @ts-ignore
 				let warnings = model.getDataValue('warnings')
 				if (!warnings) {
+					// @ts-ignore
 					model.setDataValue('warnings', { scopes: [] })
 				}
+				// @ts-ignore
 				warnings = model.getDataValue('warnings')
 
+				// @ts-ignore
 				warnings.scopes.push({ field })
+				// @ts-ignore
 				model.setDataValue('warnings', warnings)
+				// @ts-ignore
 				model.warnings = warnings
 			}
 		})
 
+		// @ts-ignore
 		if (!model.cleanedScope) {
+			// @ts-ignore
 			model.cleanedScope = true
 		}
 
 		return model
 	}
 
-	function enhancedResolver(model, options, scope) {
+	function enhancedResolver(
+		model: SpruceCoreModel<any>,
+		options: Record<string, any>,
+		scope?: string
+	): IResolverLikeFunction<any, any> {
 		if (!options) {
 			options = {}
 		}
@@ -141,9 +165,14 @@ export default (ctx: ISpruceContext) => {
 			// contextToOptions
 		} = options
 
-		return resolver(model, {
+		return resolver<any, any>(model, {
 			...options,
-			before: async (beforeOptions, args, context, info) => {
+			before: async (
+				beforeOptions: Record<string, any>,
+				args: any,
+				context: ISpruceContext,
+				info: GraphQLResolveInfo
+			) => {
 				let updatedOptions = beforeOptions
 				if (!context.warnings) {
 					context.warnings = []
@@ -167,6 +196,7 @@ export default (ctx: ISpruceContext) => {
 				if (args) {
 					updatedOptions = {
 						...updatedOptions,
+						// @ts-ignore
 						...argsToFindOptions.default(args, [])
 					}
 				}
@@ -177,7 +207,12 @@ export default (ctx: ISpruceContext) => {
 				}
 				return finalOptions
 			},
-			after: (result, args, context, info) => {
+			after: (
+				result: any,
+				args: any,
+				context: ISpruceContext,
+				info: GraphQLResolveInfo
+			) => {
 				let cleanedResult = result
 				if (after) {
 					cleanedResult = after(result, args, context, info)
@@ -213,7 +248,10 @@ export default (ctx: ISpruceContext) => {
 		})
 	}
 
-	function enhancedAttributeFields(model, options) {
+	function enhancedAttributeFields(
+		model: SpruceCoreModel<any>,
+		options?: Record<string, any>
+	): any {
 		if (!options) {
 			options = {}
 		}
@@ -233,7 +271,7 @@ export default (ctx: ISpruceContext) => {
 		return attrFields
 	}
 
-	function buildConnection(options) {
+	function buildConnection(options: Record<string, any>): any {
 		const { model, type, associationName } = options
 		let connectionOptions = options.connectionOptions
 		let name = options.name || model.name
@@ -385,7 +423,7 @@ export default (ctx: ISpruceContext) => {
 		return opts
 	}
 
-	function attributes(model, options) {
+	function attributes(model, options): any {
 		if (!options) {
 			options = {}
 		}

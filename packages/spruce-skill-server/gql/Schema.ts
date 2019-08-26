@@ -1,10 +1,13 @@
-const globby = require('globby')
-const debug = require('debug')('spruce-skill-server')
-const { GraphQLObjectType, GraphQLSchema } = require('graphql')
-const helpers = require('./helpers')
+import globby from 'globby'
+import Debug from 'debug'
+import { GraphQLObjectType, GraphQLSchema } from 'graphql'
+import helpers from './helpers'
+import { ISpruceContext } from '../interfaces/ctx'
+const debug = Debug('spruce-skill-server')
 
-module.exports = class Schema {
-	constructor({ ctx, gqlDir }) {
+export default class Schema {
+	public constructor(options: { ctx: ISpruceContext; gqlDir: string }) {
+		const { ctx, gqlDir } = options
 		try {
 			ctx.gql = {
 				helpers: helpers(ctx),
@@ -66,7 +69,7 @@ module.exports = class Schema {
 				}
 			})
 
-			const resolvers = {}
+			const resolvers: Record<string, any> = {}
 			if (queries && Object.keys(queries).length > 0) {
 				resolvers.query = new GraphQLObjectType({
 					name: 'Query',

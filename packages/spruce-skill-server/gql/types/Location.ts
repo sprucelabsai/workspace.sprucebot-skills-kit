@@ -1,8 +1,8 @@
-//
-const { GraphQLObjectType } = require('graphql')
+import { ISpruceContext } from '../../interfaces/ctx'
+import { GraphQLObjectType } from 'graphql'
 const GraphQLJSON = require('graphql-type-json')
 
-module.exports = ctx =>
+export default (ctx: ISpruceContext) =>
 	new GraphQLObjectType({
 		name: 'Location',
 		description: 'A location',

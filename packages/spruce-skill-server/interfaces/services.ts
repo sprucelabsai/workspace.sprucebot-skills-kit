@@ -26,9 +26,9 @@ export interface ISpruceServices {
 	 */
 	uploads: Uploads
 	/**
-	 * 🌲🤖 Core Spruce Service: Cache
+	 * 🌲🤖 Core Spruce Service: Onboarding
 	 *
-	 * Cache things to speed up your skill. Fast!
+	 * Handle onboarding
 	 */
 	onboarding: Onboarding
 }

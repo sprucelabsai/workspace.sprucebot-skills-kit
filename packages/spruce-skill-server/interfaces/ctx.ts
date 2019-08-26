@@ -6,12 +6,17 @@ import { ISpruceServices } from './services'
 import { ISpruceUtilities } from './utilities'
 import { ISpruceAuth } from './auth'
 import { Sequelize } from 'sequelize/types'
+import SpruceCoreModel from '../lib/SpruceModel'
+import { ISpruceGQLTypes } from './gql'
+
+type SpruceCoreModelType = typeof SpruceCoreModel
 
 export interface ISpruceContext<
 	ISkillModels = ISpruceModels,
 	ISkillAuth = ISpruceAuth,
 	ISkillServices = ISpruceServices,
-	ISkillUtilities = ISpruceUtilities
+	ISkillUtilities = ISpruceUtilities,
+	ISkillGQLTypes = ISpruceGQLTypes
 > extends Context, Router.RouterContext {
 	sb: Sprucebot
 	db: {
@@ -21,4 +26,10 @@ export interface ISpruceContext<
 	auth?: ISkillAuth
 	services: ISkillServices
 	utilities: ISkillUtilities
+	gql: {
+		types: ISkillGQLTypes
+		helpers: {
+			attributes(model: SpruceCoreModelType): any
+		}
+	}
 }

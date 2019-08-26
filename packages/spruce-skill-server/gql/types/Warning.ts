@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLList } from 'graphql'
 import { ISpruceContext } from '../../interfaces/ctx'
 
-module.exports = (ctx: ISpruceContext) =>
+export default (ctx: ISpruceContext) =>
 	new GraphQLObjectType({
 		name: 'Warning',
 		description: 'The scope warnings for a query',

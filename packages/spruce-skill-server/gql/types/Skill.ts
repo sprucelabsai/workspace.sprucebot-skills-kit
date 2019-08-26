@@ -1,7 +1,7 @@
-//
-const { GraphQLObjectType } = require('graphql')
+import { ISpruceContext } from '../../interfaces/ctx'
+import { GraphQLObjectType } from 'graphql'
 
-module.exports = ctx =>
+export default (ctx: ISpruceContext) =>
 	new GraphQLObjectType({
 		name: 'Skill',
 		description: 'A skill',
