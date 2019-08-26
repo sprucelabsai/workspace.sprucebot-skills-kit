@@ -6,7 +6,7 @@
 		"**/build": true,
 		"**/node_modules": true
 	},
-    "prettier.eslintIntegration": true,
+	"prettier.eslintIntegration": true,
 	"files.watcherExclude": {
 		"**/build/**": true
 	},
