@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/camelcase */
 // https://github.com/lorenwest/node-config/wiki/Configuration-Files
-const path = require('path')
-const { pick } = require('lodash')
-const fs = require('fs')
-const errors = require('./errors')
-const settings = require('./settings')
+import path from 'path'
+import { pick } from 'lodash'
+import fs from 'fs'
+import errors from './errors'
+import settings from './settings'
+import packageJSON from '../package.json'
 
-const packageJSON = require('../package.json')
 const HEARTWOOD_VERSION = encodeURIComponent(
 	require('@sprucelabs/heartwood-components').version
 )
@@ -82,7 +83,7 @@ export default {
 	TESTING: process.env.TESTING === 'true',
 	S3_BUCKET: process.env.S3_BUCKET || '',
 	scopes: require('./scopes'),
-	auth: require('./auth'),
+	auth: require('./auth').default,
 	settings,
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
@@ -249,7 +250,7 @@ export default {
 	// Error responses
 	errors,
 	// Omit keys from client.json config
-	sanitizeClientConfig: config =>
+	sanitizeClientConfig: (config: Record<string, any>) =>
 		pick(config, [
 			'NAME',
 			'ICON',

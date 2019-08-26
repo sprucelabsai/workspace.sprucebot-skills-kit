@@ -1,3 +1,5 @@
+// import { ISpruceErrorDefinitions } from '@sprucelabs/spruce-skill-server'
+
 module.exports = {
 	UNKNOWN: {
 		code: 500,

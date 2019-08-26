@@ -4,7 +4,6 @@
 		"esModuleInterop": true,
 		"target": "ES2017",
 		"lib": ["es2017"],
-		"allowJs": true,
 		"declaration": true,
 		"noImplicitAny": true,
 		"forceConsistentCasingInFileNames": true,
@@ -20,20 +19,6 @@
 			"*": ["node_modules/*"]
 		}
 	},
-	"include": [
-		"index.ts",
-		"controllers/**/*",
-		"models/**/*",
-		"factories/**/*",
-		"gql/**/*",
-		"helpers/**/*",
-		"lib/**/*",
-		"middleware/**/*",
-		"services/**/*",
-		"support/**/*",
-		"tests/**/*",
-		"utilities/**/*",
-		"types/**/*"
-	],
-	"exclude": ["**/node_modules/*"]
+	"include": ["./*.ts", "./**/*.ts"],
+	"exclude": ["**/node_modules/*", "build/*"]
 }

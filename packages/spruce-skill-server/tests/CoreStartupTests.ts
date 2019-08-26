@@ -1,7 +1,8 @@
 import { assert } from 'chai'
-import SpruceTest from './SpruceTest'
+import SpruceTest from './lib/SpruceTest'
+import { ISpruceContext } from '../interfaces/ctx'
 
-class CoreStartupTests extends SpruceTest(`${__dirname}/../../spruce-skill`) {
+class CoreStartupTests extends SpruceTest<ISpruceContext> {
 	public setup(): void {
 		it('Loads services', () => this.loadsServices())
 	}
@@ -10,14 +11,11 @@ class CoreStartupTests extends SpruceTest(`${__dirname}/../../spruce-skill`) {
 		assert.isOk(this.ctx.services)
 		assert.isOk(this.ctx.services.acl)
 		assert.isOk(this.ctx.services.cache)
-		assert.isOk(this.ctx.services.cards)
-		assert.isOk(this.ctx.services.mock)
 		assert.isOk(this.ctx.services.onboarding)
-		assert.isOk(this.ctx.services.sample)
 		assert.isOk(this.ctx.services.uploads)
 	}
 }
 
 describe('CoreStartupTests', function Tests() {
-	new CoreStartupTests(this)
+	new CoreStartupTests(`${__dirname}/../../spruce-skill`, this)
 })

@@ -1,7 +1,7 @@
 import Debug from 'debug'
 const debug = Debug('spruce-skill-server')
 import Koa from 'koa'
-import { ISpruceSkillContext } from '../../types/ctx'
+import { ISpruceContext } from '../../interfaces/ctx'
 import _ from 'lodash'
 import { generateSkillJWT } from '../lib/jwt'
 import faker from 'faker'
@@ -50,6 +50,7 @@ interface ISandbox {
 	}
 }
 
+// TODO create an AbstractSandboxMox that all Sandboxes will implement
 export default class SandboxMock {
 	public key: string
 	public organization!: IMockOrganization
@@ -62,10 +63,10 @@ export default class SandboxMock {
 		[locationId: string]: IMockLocation
 	}
 	public otherSkill!: IMockSkill
-	private ctx!: ISpruceSkillContext
+	private ctx!: ISpruceContext
 
 	public constructor(app: Koa<any>) {
-		this.ctx = app.context as ISpruceSkillContext
+		this.ctx = app.context as ISpruceContext
 		this.key = 'sandbox'
 	}
 
@@ -120,7 +121,7 @@ export default class SandboxMock {
 			icon: ''
 		})
 
-		skill.apiKey = config.API_KEY
+		skill.apiKey = config.get('API_KEY')
 
 		return skill
 	}

@@ -3,17 +3,25 @@
 	"files.watcherExclude": {
 		"**/.git/objects/**": true,
 		"**/.git/subtree-cache/**": true,
+		"**/build/**": true,
 		"**/node_modules/**": true
 	},
 	"search.exclude": {
-		"**/node_modules": true,
+		"**/.next": true,
 		"**/bower_components": true,
-		"**/.next": true
+		"**/build": true,
+		"**/node_modules": true
 	},
 	"git.ignoreLimitWarning": true,
 	"editor.formatOnSave": true,
 	"prettier.eslintIntegration": true,
+	"typescript.validate.enable": true,
 	"editor.formatOnSaveTimeout": 750,
+	"eslint.validate": ["javascript", "typescript"],
+	"eslint.options": {
+		"extensions": [".js", ".ts"]
+	},
+	"typescript.tsdk": "node_modules/typescript/lib",
 	"workbench.editor.swipeToNavigate": true,
-	"flow.useNPMPackagedFlow": true
+    "flow.useNPMPackagedFlow": true
 }

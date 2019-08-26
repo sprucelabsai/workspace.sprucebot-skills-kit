@@ -1,33 +1,31 @@
-import SpruceSkillService from './base/SpruceSkillService'
-import { ISpruceSkillContext } from '../types/ctx'
-import { User } from '../models/User'
+import SpruceSkillService from '../lib/SpruceSkillService'
+import { ISpruceContext } from '../interfaces/ctx'
+import { UserLocation } from '../models/UserLocation'
 
-export default class Onboarding extends SpruceSkillService<
-	ISpruceSkillContext
-> {
-	public async didOnboarding(user: User): Record<string, any> {
+export default class Onboarding extends SpruceSkillService<ISpruceContext> {
+	public async didOnboarding(userLocation: UserLocation): Promise<boolean> {
 		const meta = await this.ctx.sb.meta('onboarding', {
-			locationId: user.LocationId,
-			userId: user.UserId
+			locationId: userLocation.LocationId,
+			userId: userLocation.id
 		})
 
 		if (!meta) {
 			return false
 		}
 
-		return { ...meta.value }
+		return !!meta.value.onboardingComplete
 	}
 
-	public async finishOnboarding(user: User): Record<string, any> {
-		const meta = await this.ctx.sb.upsertMeta(
+	public async finishOnboarding(userLocation: UserLocation): Promise<boolean> {
+		await this.ctx.sb.upsertMeta(
 			'onboarding',
 			{ onboardingComplete: true },
 			{
-				locationId: user.LocationId,
-				userId: user.UserId
+				locationId: userLocation.LocationId,
+				userId: userLocation.UserId
 			}
 		)
 
-		return { ...meta.value }
+		return true
 	}
 }

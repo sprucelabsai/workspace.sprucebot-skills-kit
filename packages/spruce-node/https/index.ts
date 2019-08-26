@@ -1,9 +1,10 @@
-import { AbstractSprucebotAdapter } from '../index';
+import { AbstractSprucebotAdapter } from '../index'
+import https from 'https'
+import { ClientRequest, IncomingMessage } from 'http'
+import { GraphQLClient } from 'graphql-request'
 
 import url from '../utilities/url'
-import https from 'https'
-import Debug from 'debug'
-const debug = Debug('@sprucelabs/spruce-node')
+import HttpsError from './HttpsError'
 
 export default class Https implements AbstractSprucebotAdapter {
 	private host: string
@@ -11,8 +12,15 @@ export default class Https implements AbstractSprucebotAdapter {
 	private id: string
 	private version: string
 	private allowSelfSignedCerts: boolean
+	private gqlClient: GraphQLClient
 
-	constructor(options: { host: string, apiKey: string, id: string, version: string, allowSelfSignedCerts?: boolean }) {
+	public constructor(options: {
+		host: string
+		apiKey: string
+		id: string
+		version: string
+		allowSelfSignedCerts?: boolean
+	}) {
 		const { host, apiKey, id, version, allowSelfSignedCerts = false } = options
 		if (!host || !apiKey || !id || !version) {
 			throw new Error(
@@ -24,47 +32,32 @@ export default class Https implements AbstractSprucebotAdapter {
 		this.id = id
 		this.version = version
 		this.allowSelfSignedCerts = allowSelfSignedCerts
+
+		// setup gql
+		const hostwithProtocol =
+			this.host.search('http') === -1 ? `https://${this.host}` : this.host
+		this.gqlClient = new GraphQLClient(`${hostwithProtocol}/graphql`, {
+			headers: {
+				'x-skill-id': this.id,
+				'x-skill-api-key': this.apiKey
+			}
+		})
 	}
 
-	async query(query: string): Promise<any> {
-		return new Promise((resolve, reject) => {
-			const path = '/graphql'
-			// API Key must go with each request
-			const headers = {
-				'x-skill-id': this.id,
-				'x-skill-api-key': this.apiKey,
-				'Content-Type': 'application/json'
-			}
-
-			const request = https.request(
-				{
-					method: 'POST',
-					host: this.host,
-					headers,
-					rejectUnauthorized: !this.allowSelfSignedCerts,
-					path
-				},
-				response => {
-					this.handleResponse(request, response, resolve, reject)
-				}
-			)
-
-			request.end(
-				JSON.stringify({
-					query
-				})
-			)
-		})
+	public async gql(
+		query: string,
+		variables?: Record<string, any>
+	): Promise<any> {
+		return this.gqlClient.rawRequest(query, variables)
 	}
 
 	/**
 	 * GET an endpoint.
-	 *
-	 * @param {String} url Path to the endpoint you want to hit. Do NOT include /api/${version}/skills/${id}
-	 * @param {Object} query Vanilla object that is converted into a query string
-	 * @returns {Promise}
 	 */
-	async get(path, query) {
+	public async get(
+		path: string,
+		query?: Record<string, any>
+	): Promise<Record<string, any>> {
 		// everything is a promise
 		return new Promise((resolve, reject) => {
 			// API Key must go with each request
@@ -80,7 +73,7 @@ export default class Https implements AbstractSprucebotAdapter {
 					headers
 				},
 				response => {
-					this.handleResponse(request, response, resolve, reject)
+					this.handleResponse(request, response, resolve, reject, 'GET')
 				}
 			)
 
@@ -95,14 +88,13 @@ export default class Https implements AbstractSprucebotAdapter {
 
 	/**
 	 * POST some data to the API. Override `method` to PATCH for patching.
-	 *
-	 * @param {String} path
-	 * @param {Object} data
-	 * @param {Object} query
-	 * @param {String} method
-	 * @returns {Promise}
 	 */
-	async post(path, data, query, method = 'POST') {
+	public async post(
+		path: string,
+		data?: Record<string, any>,
+		query?: Record<string, any>,
+		method = 'POST'
+	): Promise<any> {
 		return new Promise((resolve, reject) => {
 			// API Key must go with each request
 			const headers = {
@@ -119,7 +111,7 @@ export default class Https implements AbstractSprucebotAdapter {
 					path: url.build(path, query, this.version, this.id)
 				},
 				response => {
-					this.handleResponse(request, response, resolve, reject)
+					this.handleResponse(request, response, resolve, reject, method)
 				}
 			)
 
@@ -135,17 +127,21 @@ export default class Https implements AbstractSprucebotAdapter {
 	 * @param {Object} query
 	 * @returns {Promise}
 	 */
-	async patch(path, data, query) {
+	public async patch(
+		path: string,
+		data?: Record<string, any>,
+		query?: Record<string, any>
+	): Promise<Record<string, any>> {
 		return this.post(path, data, query, 'PATCH')
 	}
 
 	/**
 	 * Delete something from the API
-	 * @param {String} path
-	 * @param {Object} query
-	 * @returns {Promise}
 	 */
-	async delete(path, query) {
+	public async delete(
+		path: string,
+		query: Record<string, any>
+	): Promise<Record<string, any>> {
 		return new Promise((resolve, reject) => {
 			const headers = {
 				'x-skill-api-key': this.apiKey
@@ -159,7 +155,7 @@ export default class Https implements AbstractSprucebotAdapter {
 					path: url.build(path, query, this.version, this.id)
 				},
 				response => {
-					this.handleResponse(request, response, resolve, reject)
+					this.handleResponse(request, response, resolve, reject, 'DELETE')
 				}
 			)
 
@@ -170,34 +166,35 @@ export default class Https implements AbstractSprucebotAdapter {
 
 	/**
 	 * Univeral handling of all responses from the API
-	 *
-	 * @param {Request} request
-	 * @param {Response} response
-	 * @param {Function} resolve
-	 * @param {Function} reject
 	 */
-	handleResponse(request, response, resolve, reject) {
+	public handleResponse(
+		request: ClientRequest,
+		response: IncomingMessage,
+		resolve: (value?: any | PromiseLike<any>) => void,
+		reject: (reason?: unknown) => void,
+		method: string
+	): void {
 		// Build response as data comes in
 		let body = ''
 		response.on('data', d => (body += d))
 
 		request.on('error', err => {
-			log.warn(`REQUEST ERROR: ${request.method} ${request.path}`, err)
+			log.warn(`REQUEST ERROR: ${method} ${request.path}`, err)
 			reject(err)
 		})
 
 		// Handle errors
 		response.on('error', err => {
-			log.warn(`RESPONSE ERROR: ${request.method} ${request.path}`, err)
+			log.warn(`RESPONSE ERROR: ${method} ${request.path}`, err)
 			reject(err)
 		})
 
 		// Handle completion
 		response.on('end', () => {
 			try {
-				var parsed = JSON.parse(body)
+				const parsed = JSON.parse(body)
 				if (response.statusCode !== 200) {
-					const error = new Error(
+					const error = new HttpsError(
 						parsed.friendlyReason || parsed.reason || JSON.stringify(parsed)
 					)
 					error.request = request
@@ -209,7 +206,7 @@ export default class Https implements AbstractSprucebotAdapter {
 					resolve(parsed)
 				}
 			} catch (err) {
-				log.warn(`RESPONSE ERROR: ${request.method} ${request.path}`, err)
+				log.warn(`RESPONSE ERROR: ${method} ${request.path}`, err)
 				reject(err)
 			}
 		})

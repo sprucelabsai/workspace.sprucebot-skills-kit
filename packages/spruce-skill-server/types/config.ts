@@ -3,10 +3,10 @@
 // @ts-ignore
 import config from 'config'
 /* eslint-enable */
-import defaultConfig from '../../spruce-skill/config/default'
+// import defaultConfig from '../../spruce-skill/config/default'
 
-type defaultConfigType = typeof defaultConfig
+// type defaultConfigType = typeof defaultConfig
 
-declare module 'config' {
-	export interface IConfig extends defaultConfigType {}
-}
+// declare module 'config' {
+// 	export interface IConfig extends defaultConfigType {}
+// }
