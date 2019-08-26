@@ -120,7 +120,7 @@ const Button = (props: IButtonProps): React.ReactElement => {
 								isLineIcon={icon.isLineIcon}
 								className={cx(
 									{
-										btn__icon: true,
+										['btn__icon']: true,
 										'btn__line-icon': icon.isLineIcon
 									},
 									icon.className

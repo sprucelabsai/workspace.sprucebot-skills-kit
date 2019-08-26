@@ -1,6 +1,6 @@
 import React from 'react'
 import SidebarSection from '../SidebarSection/SidebarSection'
-import Button, { IButtonProps } from '../../../../../Button/Button'
+import Button from '../../../../../Button/Button'
 import Text from '../../../../../Text/Text'
 
 interface ISidebarHeaderProps {

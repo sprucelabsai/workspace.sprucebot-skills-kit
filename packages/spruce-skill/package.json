@@ -25,13 +25,14 @@
 		"local": "nodemon ./server/server.js --exec \"npm run kill-inspect && flow-node --inspect=4080\" --watch server --watch config --verbose --ignore server/swagger --ignore server/static",
 		"kill-inspect": "kill-port 4080",
 		"interface": "next ./interface -p 3080",
-		"lint": "eslint --ext .js .",
+		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx . && tsc -p . --noEmit",
 		"test": "yarn run build && jest",
 		"test:server": "rm tmp/testing.db | true && mkdir -p tmp/ | true && PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r flow-remove-types/register --exit 'server/tests/**/*Tests.js'",
 		"test:server:single": "rm tmp/testing.db | true && mkdir -p tmp/ | true && PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r flow-remove-types/register --exit",
 		"icon": "svgo icon/icon.svg",
 		"heroku-postbuild": "npm run build",
-		"release": "semantic-release"
+		"release": "semantic-release",
+		"storybook": "start-storybook -p 6006"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
@@ -83,6 +84,12 @@
 		"@semantic-release/changelog": "^3.0.0",
 		"@semantic-release/git": "7.1.0-beta.3",
 		"@sprucelabs/semantic-release": "^2.0.8",
+		"@storybook/addon-actions": "^5.1.10",
+		"@storybook/addon-info": "^5.1.10",
+		"@storybook/addon-knobs": "^5.1.10",
+		"@storybook/addon-links": "^5.1.10",
+		"@storybook/addons": "^5.1.10",
+		"@storybook/react": "^5.1.10",
 		"babel-jest": "^24.5.0",
 		"chai": "^4.2.0",
 		"conventional-changelog-sprucelabs": "^1.1.0",
@@ -103,7 +110,8 @@
 		"semantic-release": "16.0.0-beta.22",
 		"sqlite3": "^4.0.4",
 		"supertest": "^3.3.0",
-		"svgo": "^1.0.3"
+		"svgo": "^1.0.3",
+		"webpack": "^4.29.6"
 	},
 	"gitHead": "eac8d4ea6df58218b78c9c866b22c761df1e6447"
 }
