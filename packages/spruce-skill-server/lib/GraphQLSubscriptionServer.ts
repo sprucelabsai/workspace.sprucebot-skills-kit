@@ -1,13 +1,20 @@
-const { execute, subscribe } = require('graphql')
-const { SubscriptionServer } = require('subscriptions-transport-ws')
-const { PubSub } = require('graphql-subscriptions')
-const { RedisPubSub } = require('graphql-redis-subscriptions')
-const config = require('config')
-const jwt = require('jsonwebtoken')
-const IORedis = require('ioredis')
+import { execute, subscribe } from 'graphql'
+import { SubscriptionServer } from 'subscriptions-transport-ws'
+import { PubSub } from 'graphql-subscriptions'
+import { RedisPubSub } from 'graphql-redis-subscriptions'
+import config from 'config'
+import jwt from 'jsonwebtoken'
+import IORedis from 'ioredis'
+import { ISpruceContext } from '../interfaces/ctx'
 
-module.exports = class GQLSubscriptionServer {
-	constructor(options) {
+export default class GQLSubscriptionServer {
+	private ctx: ISpruceContext
+	// @ts-ignore
+	private pubsub: PubSub | RedisPubSub
+	// @ts-ignore
+	private subServer?: SubscriptionServer
+
+	public constructor(options: Record<string, any>) {
 		if (!options.server) {
 			throw new Error('No server to attach to')
 		}
@@ -46,8 +53,14 @@ module.exports = class GQLSubscriptionServer {
 		}
 	}
 
-	async onConnect(params, socket) {
-		let subscriptionContext = {}
+	private async onConnect(
+		params: {
+			Authorization?: string
+			authorization?: string
+		}
+		/* socket: any */
+	): Promise<Record<string, any>> {
+		let subscriptionContext: Record<string, any> = {}
 		log.debug('GQL Subscription Socket Connected', { params })
 
 		let authHeader
@@ -75,14 +88,30 @@ module.exports = class GQLSubscriptionServer {
 		return subscriptionContext
 	}
 
-	async onDisconnect(params, socket) {
+	private async onDisconnect(/*params, socket*/): Promise<void> {
 		log.debug('GQL Subscription client disconnected')
 	}
 
-	authenticate(authorizationHeader) {
+	private authenticate(
+		authorizationHeader: string
+	): {
+		userId?: string
+		locationId?: string
+		organizationId?: string
+	} {
 		const token = authorizationHeader.replace('JWT ', '')
-		const decoded = jwt.verify(token, config.API_KEY.toString().toLowerCase())
+		const decoded = jwt.verify(
+			token,
+			config
+				.get('API_KEY')
+				.toString()
+				.toLowerCase()
+		)
 
-		return decoded
+		return decoded as {
+			userId?: string
+			locationId?: string
+			organizationId?: string
+		}
 	}
 }

@@ -3,11 +3,13 @@ import { ISkillModels } from './models'
 import { ISkillAuth } from './auth'
 import { ISkillServices } from './services'
 import { ISkillUtilities } from './utilities'
+import { ISkillGQLTypes } from './gql'
 
 export interface ISkillContext
 	extends ISpruceContext<
 		ISkillModels,
 		ISkillAuth,
 		ISkillServices,
-		ISkillUtilities
+		ISkillUtilities,
+		ISkillGQLTypes
 	> {}

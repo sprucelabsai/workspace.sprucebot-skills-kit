@@ -15,18 +15,20 @@ import Warning from '../gql/types/Warning'
 /**
  * Defines base GQL types for Spruce models and helper types
  */
+
+
 export interface ISpruceGQLTypes {
-	FileItem: typeof FileItem
-	Group: typeof Group
-	Job: typeof Job
-	Location: typeof Location
-	LocationGroup: typeof LocationGroup
-	Organization: typeof Organization
-	ScopeWarning: typeof ScopeWarning
-	Skill: typeof Skill
-	User: typeof User
-	UserGroup: typeof UserGroup
-	UserLocation: typeof UserLocation
-	UserOrganization: typeof UserOrganization
-	Warning: typeof Warning
+	FileItem: ReturnType<typeof FileItem>
+	Group: ReturnType<typeof Group>
+	Job: ReturnType<typeof Job>
+	Location: ReturnType<typeof Location>
+	LocationGroup: ReturnType<typeof LocationGroup>
+	Organization: ReturnType<typeof Organization>
+	ScopeWarning: ReturnType<typeof ScopeWarning>
+	Skill: ReturnType<typeof Skill>
+	User: ReturnType<typeof User>
+	UserGroup: ReturnType<typeof UserGroup>
+	UserLocation: ReturnType<typeof UserLocation>
+	UserOrganization: ReturnType<typeof UserOrganization>
+	Warning: ReturnType<typeof Warning>
 }

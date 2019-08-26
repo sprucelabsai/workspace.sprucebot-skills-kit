@@ -10,10 +10,5 @@ export default () =>
 				description:
 					'The field not allowed in this query using the requested scope'
 			}
-			// friendlyResponse: {
-			// 	type: GraphQLString,
-			// 	description:
-			// 		'The field not allowed in this query using the requested scope'
-			// }
 		})
 	})

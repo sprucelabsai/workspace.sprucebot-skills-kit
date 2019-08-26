@@ -53,7 +53,7 @@ declare global {
 		const setOptions: (options: ISetOptionsType) => any
 		const superInfo: (...any: any[]) => any
 		const timerEnd: (timer: timer) => number
-		const timerStart: (key: string) => timer
+		const timerStart: (key?: string) => timer
 		const trace: (...any: any[]) => any
 		const warn: (...any: any[]) => any
 	}

@@ -1,6 +1,7 @@
 import { ISpruceContext } from '../../interfaces/ctx'
 import { GraphQLObjectType } from 'graphql'
-const GraphQLJSON = require('graphql-type-json')
+// @ts-ignore
+import GraphQLJSON from 'graphql-type-json'
 
 export default (ctx: ISpruceContext) =>
 	new GraphQLObjectType({

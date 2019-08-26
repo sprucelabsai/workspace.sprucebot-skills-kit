@@ -1,4 +1,5 @@
 import { ISpruceModels } from '@sprucelabs/spruce-skill-server'
+import { Example } from 'server/models/Example'
 
 /**
  * All models available in the app should be defined here.
@@ -10,4 +11,5 @@ export interface ISkillModels extends ISpruceModels {
 	// CUSTOM MODELS
 	// When you create a new model place the definition here
 	//////////////////////////////////////////////////////////////////////
+	Example: typeof Example
 }

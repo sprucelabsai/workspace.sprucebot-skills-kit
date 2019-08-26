@@ -1,23 +1,26 @@
+import Koa from 'koa'
 import Router from 'koa-router'
 import graphqlHTTP from 'koa-graphql'
 import Schema from './Schema'
 import _ from 'lodash'
 import jwt from 'jsonwebtoken'
 import depthLimit from 'graphql-depth-limit'
-import QueryComplexity from 'graphql-query-complexity'
+import queryComplexity from 'graphql-query-complexity'
+// @ts-ignore
 import { createContext, EXPECTED_OPTIONS_KEY } from 'dataloader-sequelize'
 import { ISpruceContext } from '../interfaces/ctx'
 
 import config from 'config'
 import GraphQLSubscriptionServer from '../lib/GraphQLSubscriptionServer'
 import { ISpruceErrorDefinitions } from '../support/errors'
+import { Server } from 'https'
 
 const errors = config.get<ISpruceErrorDefinitions>('errors')
-const queryComplexity = QueryComplexity.default
-const simpleEstimator = QueryComplexity.simpleEstimator
-const fieldConfigEstimator = QueryComplexity.fieldConfigEstimator
 
-const auth = async (ctx: ISpruceContext, next: () => Promise<any>) => {
+const auth = async (
+	ctx: ISpruceContext,
+	next: () => Promise<any>
+): Promise<void> => {
 	try {
 		let token =
 			ctx.cookies.get('jwt') ||
@@ -40,6 +43,7 @@ const auth = async (ctx: ISpruceContext, next: () => Promise<any>) => {
 		const userId = decoded.userId
 		const locationId = decoded.locationId || null
 		const organizationId = decoded.organizationId || null
+		// @ts-ignore
 		const query = config.auth({ userId, locationId, organizationId })
 		const result = await ctx.sb.query(query)
 
@@ -50,8 +54,12 @@ const auth = async (ctx: ISpruceContext, next: () => Promise<any>) => {
 	await next()
 }
 
-module.exports = (koa, gqlOptions, server) => {
-	if (!config.GRAPHQL_ENABLED) {
+export default (
+	koa: Koa<{}, ISpruceContext>,
+	gqlOptions: Record<string, any>,
+	server: Server
+) => {
+	if (!config.get<boolean>('GRAPHQL_ENABLED')) {
 		log.info('GraphQL disabled because GRAPHQL_ENABLED=false')
 		return
 	}
@@ -69,6 +77,7 @@ module.exports = (koa, gqlOptions, server) => {
 
 	const router = new Router()
 
+	// @ts-ignore
 	router.use(auth)
 	router.all(
 		'/graphql',
@@ -76,16 +85,18 @@ module.exports = (koa, gqlOptions, server) => {
 			context.startTime = log.timerStart()
 			await next()
 		},
-		graphqlHTTP(async (request, response, ctx) => {
+		// @ts-ignore
+		graphqlHTTP(async (request: any, response: any, ctx: ISpruceContext) => {
 			const dataloaderContext = createContext(koa.context.db.sequelize)
+			// @ts-ignore
 			request[EXPECTED_OPTIONS_KEY] = dataloaderContext
 
 			return {
 				schema,
-				graphiql: config.GRAPHIQL_ENABLED,
-				formatError: e => {
+				graphiql: config.get('GRAPHIQL_ENABLED'),
+				formatError: (e: Error) => {
 					const code = e.message
-					let formattedError = {}
+					let formattedError: Record<string, any> = {}
 
 					if (errors[code]) {
 						formattedError = {
@@ -104,22 +115,24 @@ module.exports = (koa, gqlOptions, server) => {
 						}
 					}
 
-					if (config.ENABLE_DEBUG_ROUTES) {
-						formattedError.stack = e.stack.split('\n')
+					if (config.get('ENABLE_DEBUG_ROUTES')) {
+						formattedError.stack = e.stack && e.stack.split('\n')
 					}
 
 					return formattedError
 				},
 				validationRules: [
 					// Limits the depth of queries
-					depthLimit(config.GRAPHQL_MAX_DEPTH),
+					depthLimit(config.get('GRAPHQL_MAX_DEPTH')),
 					// Can limit based on query cost analysis
 					queryComplexity({
 						estimators: [
-							fieldConfigEstimator(),
-							simpleEstimator({ defaultComplexity: 1 })
+							// @ts-ignore
+							queryComplexity.fieldConfigEstimator(),
+							// @ts-ignore
+							queryComplexity.simpleEstimator({ defaultComplexity: 1 })
 						],
-						maximumComplexity: config.GRAPHQL_MAX_COMPLEXITY,
+						maximumComplexity: config.get('GRAPHQL_MAX_COMPLEXITY'),
 						variables:
 							request.body && request.body.variables
 								? request.body.variables
@@ -129,28 +142,23 @@ module.exports = (koa, gqlOptions, server) => {
 						}
 					})
 				],
-				extensions: ({
-					document,
-					variables,
-					operationName,
-					result,
-					context
-				}) => {
+				extensions: (options: { context: ISpruceContext }) => {
+					const { context } = options
 					const ms = log.timerEnd(context.startTime)
 
 					context.warnings = _.uniq(context.warnings)
 					context.attributeWarnings = _.uniq(context.attributeWarnings)
 					context.scopeInfo = _.uniq(context.scopeInfo)
 
-					context.warnings.forEach(warning => {
+					context.warnings.forEach((warning: string) => {
 						log.warn(warning)
 					})
 
-					context.attributeWarnings.forEach(warning => {
+					context.attributeWarnings.forEach((warning: string) => {
 						log.warn(warning)
 					})
 
-					context.scopeInfo.forEach(info => {
+					context.scopeInfo.forEach((info: string) => {
 						log.debug(info)
 					})
 

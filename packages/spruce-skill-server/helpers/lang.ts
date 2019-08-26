@@ -1,7 +1,6 @@
 export default {
 	lang: {},
 	overrides: {},
-	utilityVersion: false,
 	async configure(langDir: string) {
 		this.lang = require(`${langDir}/default.js`)
 		try {

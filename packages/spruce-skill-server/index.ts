@@ -277,6 +277,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 
 		_.each(koa.context.utilities, util => {
 			// Legacy support. New utilities that are class based don't need this
+			// @ts-ignore
 			if (util.utilityVersion) {
 				// @ts-ignore: legacy monky patch utilities
 				util.utilities = koa.context.utilities
@@ -315,6 +316,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 
 			// Services and utils can access the orm (LEGACY, everything is accessed through this.ctx in utils/services now)
 			_.each(koa.context.utilities, util => {
+				// @ts-ignore
 				if (!util.utilityVersion) {
 					// @ts-ignore: legacy monky patch db onto utilities
 					util.db = koa.context.db
@@ -521,6 +523,7 @@ async function serve<ISkillContext extends ISpruceContext>(
         ======================================*/
 	// TODO better handling hosting only server or interface
 	const server = koa.listen(port, () => {
+		// @ts-ignore
 		gqlRouter(koa, gqlOptions, server)
 		gqlListeners(koa as any, gqlOptions)
 
@@ -602,3 +605,5 @@ export {
 	IMockSkill,
 	IMockLocation
 } from './tests/mocks/SandboxMock'
+
+export { ISpruceGQLTypes } from './interfaces/gql'

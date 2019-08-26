@@ -29,7 +29,7 @@ export interface ISpruceContext<
 	gql: {
 		types: ISkillGQLTypes
 		helpers: {
-			attributes(model: SpruceCoreModelType): any
+			attributes(model: SpruceCoreModelType, options?: Record<string, any>): any
 		}
 	}
 }

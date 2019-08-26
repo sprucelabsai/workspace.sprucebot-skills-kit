@@ -17,16 +17,23 @@ export default (dir: string, key: string, ctx: any) => {
 		try {
 			filename = `${filename.charAt(0).toLowerCase()}${filename.slice(1)}`
 			debug(`Loading ${key}: ${filename}`)
+
+			const configKey = `${key}.${filename}`
+
+			const serviceConfig = config.has(configKey) ? config.get(configKey) : {}
+
 			const m = require(match)
 			if (m.default) {
 				const service = new m.default({
 					ctx,
-					config: config.get(`${key}.${filename}`)
+					// @ts-ignore
+					config: serviceConfig
 				})
 				ctx[key][filename] = service
 			} else {
 				if (m.init) {
-					m.init(config.get(`${key}.${filename}`))
+					// @ts-ignore
+					m.init(serviceConfig)
 				}
 				ctx[key][filename] = m
 			}

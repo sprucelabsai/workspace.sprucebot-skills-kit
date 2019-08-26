@@ -148,7 +148,7 @@ export default (ctx: ISpruceContext) => {
 
 	function enhancedResolver(
 		model: SpruceCoreModel<any>,
-		options: Record<string, any>,
+		options?: Record<string, any>,
 		scope?: string
 	): IResolverLikeFunction<any, any> {
 		if (!options) {
@@ -277,10 +277,7 @@ export default (ctx: ISpruceContext) => {
 		let name = options.name || model.name
 		let target = model
 
-		let modelName = model.name || model.target.name
-
 		if (model.associations[associationName]) {
-			modelName = model.associations[associationName].target.name
 			name = `${model.name}${
 				model.associations[associationName].associationType
 			}${associationName}`
@@ -315,7 +312,7 @@ export default (ctx: ISpruceContext) => {
 			connectionFields: () => ({
 				totalCount: {
 					type: GraphQLInt,
-					resolve(connection, args, context, info) {
+					resolve(connection: any) {
 						const fullCount = connection.fullCount || null
 						return fullCount
 					}
@@ -324,7 +321,12 @@ export default (ctx: ISpruceContext) => {
 			}),
 			edgeFields,
 			orderBy,
-			before: async (beforeOptions, args, context, info) => {
+			before: async (
+				beforeOptions: any,
+				args: any,
+				context: any,
+				info: any
+			) => {
 				const pathScope = pathToScope(info.path)
 				const rootPath = pathScope.replace(/\..*$/, '')
 
@@ -362,6 +364,7 @@ export default (ctx: ISpruceContext) => {
 				if (args) {
 					updatedOptions = {
 						...updatedOptions,
+						// @ts-ignore
 						...argsToFindOptions.default(args, [])
 					}
 				}
@@ -380,7 +383,7 @@ export default (ctx: ISpruceContext) => {
 				}
 				return finalOptions
 			},
-			after: (result, args, context, info) => {
+			after: (result: any, args: any, context: any, info: any) => {
 				let cleanedResult = result
 				if (after) {
 					cleanedResult = after(result, args, context, info)
@@ -393,7 +396,6 @@ export default (ctx: ISpruceContext) => {
 
 						const cleanResult = cleanModelByScope({
 							model: edge.node,
-							modelName,
 							context,
 							info
 						})
@@ -423,7 +425,7 @@ export default (ctx: ISpruceContext) => {
 		return opts
 	}
 
-	function attributes(model, options): any {
+	function attributes(model: any, options: Record<string, any>): any {
 		if (!options) {
 			options = {}
 		}
@@ -438,6 +440,7 @@ export default (ctx: ISpruceContext) => {
 		// loop over associations and create connections for each model
 		Object.keys(model.associations).forEach(associationName => {
 			const modelAssociation = model.associations[associationName]
+			// @ts-ignore
 			const type = ctx.gql.types[modelAssociation.target.name]
 
 			if (!type) {

@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import globby from 'globby'
 import Debug from 'debug'
-import { GraphQLObjectType, GraphQLSchema } from 'graphql'
+import { GraphQLObjectType, GraphQLSchema, GraphQLSchemaConfig } from 'graphql'
 import helpers from './helpers'
 import { ISpruceContext } from '../interfaces/ctx'
 const debug = Debug('spruce-skill-server')
@@ -11,6 +12,7 @@ export default class Schema {
 		try {
 			ctx.gql = {
 				helpers: helpers(ctx),
+				// @ts-ignore
 				types: {}
 			}
 			const coreTypePaths = globby.sync([
@@ -29,11 +31,14 @@ export default class Schema {
 			coreTypePaths.forEach(path => {
 				try {
 					debug(`Importing GQL file: ${path}`)
-					// $FlowIgnore
-					const type = require(path)(ctx) // eslint-disable-line
-					let name = path.replace(/^(.*[\\\/])/, '')
+					const requiredType = require(path)
+					const type = requiredType.default
+						? requiredType.default(ctx)
+						: requiredType(ctx)
+					let name = path.replace(/^(.*[\\/])/, '')
 					name = name.replace('.js', '')
 					if (type) {
+						// @ts-ignore
 						ctx.gql.types[name] = type
 					}
 				} catch (e) {
@@ -43,11 +48,14 @@ export default class Schema {
 			typePaths.forEach(path => {
 				try {
 					debug(`Importing GQL file: ${path}`)
-					// $FlowIgnore
-					const type = require(path)(ctx) // eslint-disable-line
-					let name = path.replace(/^(.*[\\\/])/, '')
+					const requiredType = require(path)
+					const type = requiredType.default
+						? requiredType.default(ctx)
+						: requiredType(ctx)
+					let name = path.replace(/^(.*[\\/])/, '')
 					name = name.replace('.js', '')
 					if (type) {
+						// @ts-ignore
 						ctx.gql.types[name] = type
 					}
 				} catch (e) {
@@ -58,8 +66,10 @@ export default class Schema {
 			resolverPaths.forEach(path => {
 				try {
 					debug(`Importing GQL file: ${path}`)
-					// $FlowIgnore
-					const def = require(path)(ctx) // eslint-disable-line
+					const requiredType = require(path)
+					const def = requiredType.default
+						? requiredType.default(ctx)
+						: requiredType(ctx)
 					// Resolvers may contain queries and/or mutations
 					queries = Object.assign(queries, def.queries || {})
 					mutations = Object.assign(mutations, def.mutations || {})
@@ -69,7 +79,9 @@ export default class Schema {
 				}
 			})
 
-			const resolvers: Record<string, any> = {}
+			const resolvers: GraphQLSchemaConfig = {
+				query: null
+			}
 			if (queries && Object.keys(queries).length > 0) {
 				resolvers.query = new GraphQLObjectType({
 					name: 'Query',
