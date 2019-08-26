@@ -20,6 +20,7 @@ import sequelizeFactory from './factories/sequelize'
 import lang from './helpers/lang'
 import gqlRouter from './gql/router'
 import gqlListeners from './gql/listeners'
+import config from 'config'
 // import SpruceTest from './tests/SpruceTest'
 
 const required = (key: string): void => {
@@ -59,6 +60,16 @@ export default async ({
 	metricsSequelizeDisabled,
 	gqlOptions
 }) => {
+	console.log('***********************')
+	console.log('***********************')
+	console.log('***********************')
+	const baseConfig = config.util.loadFileConfigs(`./config`)
+	console.log({baseConfig})
+	config.util.setModuleDefaults('spruce-skill-server', baseConfig)
+	console.log('***********************')
+	console.log('***********************')
+	console.log('***********************')
+
 	debug('Starting server boot sequence with port', port)
 	// you can override error messages
 	const allErrors = { ...defaultErrors, ...errors }
@@ -482,6 +493,7 @@ export { User } from './models/User'
 export { UserGroup } from './models/UserGroup'
 export { UserLocation } from './models/UserLocation'
 export { UserOrganization } from './models/UserOrganization'
+export { default as baseSkillConfig } from './config/default'
 
 // Mock data for tests
 export {

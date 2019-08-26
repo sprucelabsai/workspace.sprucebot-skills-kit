@@ -2,6 +2,7 @@
 const path = require('path')
 const { pick } = require('lodash')
 const fs = require('fs')
+import { baseSkillConfig } from '@sprucelabs/spruce-skill-server'
 const errors = require('./errors')
 const settings = require('./settings')
 
@@ -20,7 +21,10 @@ try {
 // Previously needed to be set based on whether we were using flow. With the introduction of TS, this no longer needs to change based on local/production environment
 const baseDirectory = `${__dirname}/../server`
 
+console.log({ dir: __dirname, base: typeof baseSkillConfig, baseSkillConfig })
+
 export default {
+	// ...base
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
 	EVENT_VERSION: process.env.EVENT_VERSION ? +process.env.EVENT_VERSION : 1,
@@ -54,7 +58,7 @@ export default {
 			'latest'}/heartwood-components.min.css`,
 	DATABASE_URL_TESTING:
 		process.env.DATABASE_URL_TESTING || `sqlite:${__dirname}/../tmp/testing.db`,
-	ID: process.env.ID,
+	// ID: process.env.ID,
 	NAME: process.env.NAME,
 	SLUG: process.env.SLUG,
 	DESCRIPTION: process.env.DESCRIPTION,
@@ -67,7 +71,6 @@ export default {
 		process.env.INTERFACE_SSL_ALLOW_SELF_SIGNED === 'true',
 	API_SSL_ALLOW_SELF_SIGNED: process.env.API_SSL_ALLOW_SELF_SIGNED === 'true',
 	WHITELABEL: process.env.WHITELABEL,
-
 	RUN_CRONS: process.env.RUN_CRONS === 'true',
 	ENABLE_DEBUG_ROUTES: process.env.ENABLE_DEBUG_ROUTES === 'true',
 	GRAPHQL_MAX_DEPTH: process.env.GRAPHQL_MAX_DEPTH

@@ -3,7 +3,7 @@
 // @ts-ignore
 import config from 'config'
 /* eslint-enable */
-import defaultConfig from '../../spruce-skill/config/default'
+import defaultConfig from '../config/default'
 
 type defaultConfigType = typeof defaultConfig
 
