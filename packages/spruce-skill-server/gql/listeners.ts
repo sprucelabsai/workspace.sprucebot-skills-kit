@@ -1,16 +1,23 @@
-const config = require('config')
-const globby = require('globby')
-const GraphQLSubscription = require('../lib/GraphQLSubscription')
-const debug = require('debug')('spruce-skill-server')
+import config from 'config'
+import globby from 'globby'
+import GraphQLSubscription from '../lib/GraphQLSubscription'
+import Debug from 'debug'
+const debug = Debug('spruce-skill-server')
+import Koa from 'koa'
+import { ISpruceContext } from '../interfaces/ctx'
 
-module.exports = (koa, gqlOptions) => {
-	if (!config.GRAPHQL_LISTENERS_ENABLED) {
+export default (
+	koa: Koa<{}, ISpruceContext>,
+	gqlOptions: Record<string, any>
+) => {
+	// TODO move to an option or check higher level
+	if (!config.get('GRAPHQL_LISTENERS_ENABLED')) {
 		log.debug('GraphQL listeners disabled')
 		return
 	}
 
 	const gqlDir = gqlOptions.gqlDir
-	const allowSelfSigned = config.API_SSL_ALLOW_SELF_SIGNED
+	const allowSelfSigned = config.get('API_SSL_ALLOW_SELF_SIGNED')
 
 	// For wss:// self signed
 	if (allowSelfSigned) {

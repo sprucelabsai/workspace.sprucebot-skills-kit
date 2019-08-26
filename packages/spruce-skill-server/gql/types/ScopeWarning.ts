@@ -1,7 +1,6 @@
-// @flow
-const { GraphQLObjectType, GraphQLString } = require('graphql')
+import { GraphQLObjectType, GraphQLString } from 'graphql'
 
-module.exports = ctx =>
+export default () =>
 	new GraphQLObjectType({
 		name: 'ScopeWarning',
 		description: 'The scope warnings for a query',

@@ -1,20 +1,22 @@
-const Router = require('koa-router')
-const graphqlHTTP = require('koa-graphql')
-const Schema = require('./Schema')
-const _ = require('lodash')
-const jwt = require('jsonwebtoken')
-const depthLimit = require('graphql-depth-limit')
-const QueryComplexity = require('graphql-query-complexity')
-const { createContext, EXPECTED_OPTIONS_KEY } = require('dataloader-sequelize')
-const config = require('config')
-const GraphQLSubscriptionServer = require('../lib/GraphQLSubscriptionServer')
-const errors = config.errors
+import Router from 'koa-router'
+import graphqlHTTP from 'koa-graphql'
+import Schema from './Schema'
+import _ from 'lodash'
+import jwt from 'jsonwebtoken'
+import depthLimit from 'graphql-depth-limit'
+import QueryComplexity from 'graphql-query-complexity'
+import { createContext, EXPECTED_OPTIONS_KEY } from 'dataloader-sequelize'
+import { ISpruceContext } from 'interfaces/ctx'
 
+import config from 'config'
+import GraphQLSubscriptionServer from '../lib/GraphQLSubscriptionServer'
+
+const errors = config.get('errors')
 const queryComplexity = QueryComplexity.default
 const simpleEstimator = QueryComplexity.simpleEstimator
 const fieldConfigEstimator = QueryComplexity.fieldConfigEstimator
 
-const auth = async (ctx, next) => {
+const auth = async (ctx: ISpruceContext, next: () => Promise<any>) => {
 	try {
 		let token =
 			ctx.cookies.get('jwt') ||
@@ -30,7 +32,10 @@ const auth = async (ctx, next) => {
 			await next()
 			return
 		}
-		const decoded = jwt.verify(token, config.API_KEY.toString().toLowerCase())
+		const decoded: Record<string, any> = jwt.verify(
+			token,
+			config.get<string>('API_KEY').toLowerCase()
+		) as Record<string, any>
 		const userId = decoded.userId
 		const locationId = decoded.locationId || null
 		const organizationId = decoded.organizationId || null

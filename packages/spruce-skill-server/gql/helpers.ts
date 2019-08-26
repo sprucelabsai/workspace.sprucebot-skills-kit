@@ -1,25 +1,33 @@
-const parseFields = require('graphql-parse-fields')
-const debug = require('debug')('spruce-skill-server')
-const { GraphQLString, GraphQLInt } = require('graphql')
-const {
+import { ISpruceContext } from '../interfaces/ctx'
+
+import parseFields from 'graphql-parse-fields'
+import Debug from 'debug'
+
+import { GraphQLString, GraphQLInt } from 'graphql'
+import {
 	resolver,
 	attributeFields,
 	createConnection,
 	defaultListArgs,
 	defaultArgs,
 	argsToFindOptions
-} = require('graphql-sequelize')
-const globby = require('globby')
-const config = require('config')
+} from 'graphql-sequelize'
 
-const { has } = require('lodash')
+import globby from 'globby'
+import config from 'config'
 
-module.exports = ctx => {
+import { has } from 'lodash'
+
+const debug = Debug('spruce-skill-server')
+
+export default (ctx: ISpruceContext) => {
 	// Get any custom connectionOptions and save for later when we're building connections
 	const connectionPaths = globby.sync([
-		`${config.gqlOptions.gqlDir}/connections/**/!(index|types|_helpers).js`
+		`${
+			config.get<Record<string, any>>(`gqlOptions`).gqlDir
+		}/connections/**/!(index|types|_helpers).js`
 	])
-	const connections = {}
+	const connections: Record<string, any> = {}
 
 	connectionPaths.forEach(path => {
 		try {
@@ -34,25 +42,7 @@ module.exports = ctx => {
 		}
 	})
 
-	function checkIsModel(target) {
-		return !!target.getTableName
-	}
-
-	function checkIsAssociation(target) {
-		return !!target.associationType
-	}
-
-	function enhancedDefaultArgs() {
-		return {
-			unauthorizedValue: {
-				description:
-					'The (string) value to use for fields that are not allowed. Default=null',
-				type: GraphQLString
-			}
-		}
-	}
-
-	function pathToScope(path, prevPath) {
+	function pathToScope(path: Record<string, any>, prevPath?: string): string {
 		let scope = ''
 		if (prevPath && typeof path.key === 'string') {
 			scope += `${path.key}.${prevPath}`
@@ -69,7 +59,7 @@ module.exports = ctx => {
 
 	function cleanModelByScope(options) {
 		const { model, context, info } = options
-		const modelName = model.constructor.name
+		const modelName: string = model.constructor.name
 
 		// skip the process if we have already done the work
 		if (model.cleanedScope) {
@@ -150,8 +140,6 @@ module.exports = ctx => {
 			after
 			// contextToOptions
 		} = options
-
-		const modelName = model.name || model.target.name
 
 		return resolver(model, {
 			...options,
