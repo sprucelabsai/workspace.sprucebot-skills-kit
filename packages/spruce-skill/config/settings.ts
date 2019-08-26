@@ -1,7 +1,4 @@
-// import {
-// 	ISprucePageSettings,
-// 	SpruceSettingsFieldType
-// } from '@sprucelabs/spruce-skill-server'
+import { ISprucePageSettings } from '@sprucelabs/spruce-skill-server'
 
 // These are the base settings for your skill which are returned from the 'get-settings' event
 
@@ -14,7 +11,14 @@ skill_settings_org
 skill_settings_location
 */
 
-module.exports = [
+enum SpruceSettingsFieldType {
+	TEXT = 'text',
+	BOOLEAN = 'boolean',
+	SELECT = 'select',
+	DURATION = 'duration'
+}
+
+const settings: ISprucePageSettings[] = [
 	// User settings page
 	{
 		title: 'General', // This is the name of the tab on the settings page
@@ -28,7 +32,7 @@ module.exports = [
 					// Array of individual settings that are configurable
 					{
 						name: 'receive_notifications', // Each setting MUST HAVE A UNIQUE "name"
-						type: 'boolean', // The type of setting
+						type: SpruceSettingsFieldType.BOOLEAN, // The type of setting
 						props: {
 							// These props are passed directly to the component. Use it to customize the look and feel.
 							label: 'Receive notifications',
@@ -46,7 +50,7 @@ module.exports = [
 					},
 					{
 						name: 'receive_notifications_or_something',
-						type: 'select',
+						type: SpruceSettingsFieldType.SELECT,
 						props: {
 							options: {
 								foo: 'bar',
@@ -81,7 +85,7 @@ module.exports = [
 				fields: [
 					{
 						name: 'example_boolean',
-						type: 'boolean',
+						type: SpruceSettingsFieldType.BOOLEAN,
 						// Only include this setting in get-settings event response if the user has these permissions:
 						// acls: {
 						// 	workspace: ['can_do_example_organization']
@@ -94,7 +98,7 @@ module.exports = [
 					},
 					{
 						name: 'example_select',
-						type: 'select',
+						type: SpruceSettingsFieldType.SELECT,
 						// Only include this setting in get-settings event response if the user has these permissions:
 						// acls: {
 						// 	workspace: ['can_do_example_organization']
@@ -110,7 +114,7 @@ module.exports = [
 					},
 					{
 						name: 'example_duration',
-						type: 'duration',
+						type: SpruceSettingsFieldType.DURATION,
 						props: {
 							minMinutes: 5,
 							maxMinutes: 60 * 5,
@@ -120,7 +124,7 @@ module.exports = [
 					},
 					{
 						name: 'example_text',
-						type: 'text',
+						type: SpruceSettingsFieldType.TEXT,
 						// acls: {
 						// 	workspace: ['can_do_example_organization']
 						// },
@@ -144,7 +148,7 @@ module.exports = [
 				fields: [
 					{
 						name: 'location_example',
-						type: 'boolean',
+						type: SpruceSettingsFieldType.BOOLEAN,
 						// Only include this setting in get-settings event response if the user has these permissions:
 						acls: {
 							workspace: ['can_do_example_location']
@@ -163,3 +167,5 @@ module.exports = [
 		]
 	}
 ]
+
+export default settings

@@ -17,18 +17,10 @@ module.exports = (dir, key, ctx) => {
 			debug(`Loading ${key}: ${filename}`)
 			const m = require(match)
 			if (m.default) {
-				// console.log({
-				// 	match,
-				// 	filename,
-				// 	key,
-				// 	config: config[key],
-				// 	config2: config[key][filename]
-				// })
 				const service = new m.default({
 					ctx,
 					config: config[key] && config[key][filename]
 				})
-				// console.log(typeof service)
 				ctx[key][filename] = service
 			} else {
 				if (m.init) {

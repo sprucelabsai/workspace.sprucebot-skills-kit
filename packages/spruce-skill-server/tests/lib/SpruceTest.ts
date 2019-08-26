@@ -20,33 +20,6 @@ import {
 } from '../mocks/SandboxMock'
 import { Server } from 'http'
 
-interface IEmitResponseCallback {
-	callback?: (options: {
-		data: Record<string, any>
-		method: string
-		path: string
-		query?: Record<string, any>
-	}) => void
-	data?: Record<string, any>
-}
-
-interface IEmitResponseSkill {
-	skill: { name: string; slug: string }
-	error: any
-	payload: Record<string, any>
-}
-
-declare global {
-	namespace NodeJS {
-		// @ts-ignore
-		interface Global {
-			testEmitResponse: {
-				[eventName: string]: IEmitResponseCallback | IEmitResponseSkill[]
-			}
-		}
-	}
-}
-
 // The base test model that all others will extend
 export default class Base<Context> {
 	protected koa!: Koa<Context>

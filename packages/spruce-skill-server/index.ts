@@ -7,6 +7,7 @@ import Router from 'koa-router'
 import cron from 'node-cron'
 import _ from 'lodash'
 import koaBody from 'koa-body'
+// @ts-ignore
 import logger from '@sprucelabs/log'
 import defaultErrors from './support/errors'
 import path from 'path'
@@ -20,10 +21,12 @@ import sequelizeFactory from './factories/sequelize'
 import lang from './helpers/lang'
 import gqlRouter from './gql/router'
 import gqlListeners from './gql/listeners'
-import https, { Server } from 'https'
+import { Server } from 'https'
 import Sprucebot from '@sprucelabs/spruce-node'
 import { ISpruceContext } from './interfaces/ctx'
 import HttpsMock from './tests/lib/HttpsMock'
+// @ts-ignore
+// import global from './interfaces/global'
 
 const debug = Debug('spruce-skill-server')
 
@@ -517,15 +520,7 @@ async function serve<ISkillContext extends ISpruceContext>(
         =              	Serve            	   =
         ======================================*/
 	// TODO better handling hosting only server or interface
-	const server = https.createServer(koa.callback()).listen(port, () => {
-		gqlRouter(koa, gqlOptions, server)
-		gqlListeners(koa, gqlOptions)
-
-		console.log(
-			` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`
-		)
-	})
-	// const server = koa.listen(port, () => {
+	// const server = https.createServer(koa.callback()).listen(port, () => {
 	// 	gqlRouter(koa, gqlOptions, server)
 	// 	gqlListeners(koa, gqlOptions)
 
@@ -533,6 +528,14 @@ async function serve<ISkillContext extends ISpruceContext>(
 	// 		` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`
 	// 	)
 	// })
+	const server = koa.listen(port, () => {
+		gqlRouter(koa, gqlOptions, server)
+		gqlListeners(koa, gqlOptions)
+
+		console.log(
+			` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`
+		)
+	})
 
 	return { koa, server }
 }

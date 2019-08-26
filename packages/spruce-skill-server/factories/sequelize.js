@@ -14,7 +14,7 @@ function filterFile(file) {
 		/\.(js|ts)$/.test(file) &&
 		/\.d\.ts$/.test(file) === false
 	if (!didFilter) {
-		console.warn(`Filtered file from sequelize import() model %s`, file)
+		debug(`Filtered file from sequelize import() model %s`, file)
 	}
 	return didFilter
 }

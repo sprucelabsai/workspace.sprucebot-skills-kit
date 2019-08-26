@@ -38,7 +38,7 @@ export default class Https implements AbstractSprucebotAdapter {
 	}
 
 	async gql(query: string, variables?:Record<string, any>): Promise<any> {
-		return this.gqlClient.request(query, variables)
+		return this.gqlClient.rawRequest(query, variables)
 	}
 
 	/**
