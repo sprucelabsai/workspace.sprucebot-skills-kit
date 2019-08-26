@@ -36,7 +36,7 @@ export interface IButtonProps {
 	children?: React.ReactNode
 
 	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
-    kind?: ButtonKinds
+	kind?: ButtonKinds
 
 	/** Set true to make the button less tall. */
 	isSmall?: boolean
