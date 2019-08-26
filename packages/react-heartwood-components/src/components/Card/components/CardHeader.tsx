@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
-import Button from '../../Button/Button'
+import Button, { ButtonKinds } from '../../Button/Button'
 import Icon from '../../Icon/Icon'
 import ContextMenu from '../../ContextMenu/ContextMenu'
 
@@ -55,7 +55,12 @@ const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 						{actions &&
 							actions.length > 0 &&
 							actions.map(action => (
-								<Button key={action.text} kind="simple" isSmall {...action} />
+								<Button
+									key={action.text}
+									kind={ButtonKinds.Simple}
+									isSmall
+									{...action}
+								/>
 							))}
 						{contextMenu && <ContextMenu {...contextMenu} />}
 					</Fragment>

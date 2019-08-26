@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { IListProps } from '../../List'
 import ListItem, { IListItemProps } from '../ListItem/ListItem'
+import { ButtonKinds } from '../../../Button/Button'
 
 export interface IExpandableListItemProps {
 	/** Base list item props */
@@ -52,7 +53,7 @@ export default class ExpandableListItem extends Component<
 								? expandedIcon || 'keyboard_arrow_down'
 								: collapsedIcon || 'keyboard_arrow_right'
 						},
-						kind: isExpanded ? null : 'simple',
+						kind: isExpanded ? null : ButtonKinds.Simple,
 						onClick: this.toggleExpanded
 					}
 				]}

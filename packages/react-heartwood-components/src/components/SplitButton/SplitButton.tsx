@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { createPortal } from 'react-dom'
 import cx from 'classnames'
-import Button, { IButtonProps } from '../Button/Button'
+import Button, { IButtonProps, ButtonKinds } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
 export interface ISplitButtonProps {
@@ -12,7 +12,7 @@ export interface ISplitButtonProps {
 	actions: IButtonProps[]
 
 	/*Sets the visual hierarchy of the button **/
-	kind: 'primary' | 'secondary'
+	kind: ButtonKinds.Primary | ButtonKinds.Secondary
 
 	/* Set true to fill the parent’s width **/
 	isFullWidth?: boolean
