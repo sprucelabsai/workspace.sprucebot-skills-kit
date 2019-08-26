@@ -1,27 +1,38 @@
-const debug = require('debug')('spruce-skill-server')
-const jwt = require('jsonwebtoken')
-const config = require('config')
+import * as Router from 'koa-router'
+import Debug from 'debug'
 
-module.exports = (router, options) => {
+import jwt from 'jsonwebtoken'
+import config from 'config'
+import { ISpruceContext } from '../interfaces/ctx'
+
+const debug = Debug('spruce-skill-server')
+
+export default (
+	router: Router<{}, ISpruceContext>,
+	options: Record<string, any>
+) => {
 	// LEGACY EVENT MANAGER, CHECK ./auth.js FOR > V1
-	if (config.EVENT_VERSION !== 1) {
+	if (config.get<number>('EVENT_VERSION') !== 1) {
 		return
 	}
 
 	const listenersByEventName = options.listenersByEventName
 
-	router.use(async (ctx, next) => {
+	router.use(async (ctx: ISpruceContext, next: () => Promise<any>) => {
 		let body = ctx.request.body
 		const eventName = body && body.event
 		// setup if we are listening to this event
-		if (!config.eventContract || !config.eventContract.events) {
+		if (
+			!config.get<Record<string, any>>('eventContract') ||
+			!config.get<Record<string, any>>('eventContract').events
+		) {
 			debug('No event contract found in config')
 		}
 
 		if (
-			config.eventContract &&
-			config.eventContract.events &&
-			!config.eventContract.events[eventName]
+			config.get<Record<string, any>>('eventContract') &&
+			config.get<Record<string, any>>('eventContract').events &&
+			!config.get<Record<string, any>>('eventContract').events[eventName]
 		) {
 			debug(`No eventContract specified for: ${eventName}`)
 		}
@@ -34,7 +45,10 @@ module.exports = (router, options) => {
 		) {
 			// lets make sure the data is signed pro
 			try {
-				body = jwt.verify(body.data, config.API_KEY.toString().toLowerCase())
+				body = jwt.verify(
+					body.data,
+					config.get<string>('API_KEY').toLowerCase()
+				)
 			} catch (err) {
 				debug('IMPROPERLY SIGNED PAYLOAD FOR EVENT. IGNORING')
 				next()
