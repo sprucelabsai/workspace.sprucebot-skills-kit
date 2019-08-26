@@ -29,12 +29,12 @@ stories.add('Basic RecordTable', () => {
 	function syncFetchRecords(
 		options: IRecordTableFetchOptions
 	): IRecordTableFetchResults {
-		const filteredRecords = filter(
+		const filteredRecords: Record<string, any> = filter(
 			orderBy(records, [options.sortColumn], [options.sortDirection]),
 			(o: IDummyRecordTableRecord) => {
 				return o.name.match(new RegExp(options.search, 'gi'))
 			}
-		) as Record<string, any>
+		)
 
 		if (options.selectedTab === 'empty') {
 			return {
