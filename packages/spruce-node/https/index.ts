@@ -26,7 +26,7 @@ export default class Https implements AbstractSprucebotAdapter {
 		this.id = id
 		this.version = version
         this.allowSelfSignedCerts = allowSelfSignedCerts
-        
+
         // setup gql
         const hostwithProtocol = this.host.search('http') === -1 ? `https://${this.host}` : this.host
         this.gqlClient = new GraphQLClient(`${hostwithProtocol}/graphql`,{

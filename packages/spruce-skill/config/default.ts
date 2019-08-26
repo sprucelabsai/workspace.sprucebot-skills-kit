@@ -19,7 +19,7 @@ try {
 // Previously needed to be set based on whether we were using flow. With the introduction of TS, this no longer needs to change based on local/production environment
 const baseDirectory = `${__dirname}/../server`
 
-module.exports = {
+export default {
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
 	EVENT_VERSION: process.env.EVENT_VERSION ? +process.env.EVENT_VERSION : 1,

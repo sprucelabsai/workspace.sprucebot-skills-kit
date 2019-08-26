@@ -89,7 +89,7 @@ export default class Sprucebot {
 		'acl',
 		'viewVersion',
     ]
-    
+
     public adapter: AbstractSprucebotAdapter
 
 	public constructor(options: {
@@ -171,7 +171,7 @@ export default class Sprucebot {
 			)} \nname : ${name}\n---------------------------------`
 		)
 	}
-    
+
     setAdapter(adapter: AbstractSprucebotAdapter) {
         this.adapter = adapter
     }
@@ -181,7 +181,7 @@ export default class Sprucebot {
 	 */
 	async sync() {
         this.validateEventContract(this.eventContract)
-        
+
         const result = await this.mutation(`mutation($input: syncSkillInput!) {
             syncSkill(input: $input) {
                 databaseUrl
@@ -205,14 +205,12 @@ export default class Sprucebot {
             }
         )
 
-		if (result.errors || !result.syncSkill) {
+		if (result.errors || !result.data || !result.data.syncSkill) {
 			log.fatal(result.errors)
 			throw new Error('Error syncing skill settings with API')
 		}
 
-		return {
-			...result.syncSkill
-		}
+		return result.data.syncSkill
 	}
 
 	async provisionDatabase() {
@@ -237,7 +235,7 @@ export default class Sprucebot {
         const gql = query.search('mutation') === 0 ? query : `mutation ${query}`
 		return this.adapter.gql(gql, variables)
     }
-    
+
 	/**
 	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
 	 *
@@ -360,13 +358,13 @@ export default class Sprucebot {
 		options,
 		query
     ) => {
-        
+
         const data: Record<string, any> = {
             userId,
             message,
             type: IMessageType.PROMOTIONAL
         }
-        
+
         if (options) {
             const { type, webViewQueryData } = options
             data.type = type
@@ -374,7 +372,7 @@ export default class Sprucebot {
                 data.webViewQueryData = JSON.stringify(webViewQueryData)
             }
         }
-        
+
 		return this.adapter.post(`/locations/${locationId}/messages`, data, query)
 	}
 

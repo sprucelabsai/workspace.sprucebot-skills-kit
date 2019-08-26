@@ -41,7 +41,7 @@ const {
 	gqlOptions,
 	acl,
 	VIEW_VERSION,
-	testing
+	TESTING
 } = require('config')
 
 const skillsKitVersion = (skillPackage as Record<string, any>)[
@@ -106,7 +106,7 @@ setTimeout(async () => {
 		metricsServerStatsDisabled: METRICS_SERVER_STATS_DISABLED,
 		metricsSequelizeDisabled: METRICS_SEQUELIZE_DISABLED,
 		gqlOptions,
-		testing
+		testing: TESTING
 	})
 	if (process.env.ENABLE_SWAGGER_DOCS === 'true') {
 		generateSwaggerDocs()

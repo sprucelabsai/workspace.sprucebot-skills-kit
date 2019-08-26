@@ -89,7 +89,7 @@ export default class Base<Context> {
 
 		try {
 			const mocks = await globby([
-				`${__dirname}/mocks/**/*Mock.(js|ts)`,
+				`${__dirname}/../mocks/**/*Mock.(js|ts)`,
 				`${this.basePath}/server/tests/mocks/**/*Mock.(js|ts)`
 			])
 			let sandbox

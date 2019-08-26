@@ -20,6 +20,9 @@ declare global {
 		// @ts-ignore
 		interface Global {
 			log: any
+			testEmitResponse: {
+				[eventName: string]: IEmitResponseCallback | IEmitResponseSkill[]
+			}
 		}
 	}
 

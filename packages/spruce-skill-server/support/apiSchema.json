@@ -479,6 +479,20 @@
                   "defaultValue": null
                 },
                 {
+                  "name": "skillId",
+                  "description": "The id of the Skill who's Calendar Events we are looking for",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
                   "name": "organizationId",
                   "description": "The organization we want events for",
                   "type": {
@@ -517,21 +531,21 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "startAt",
-                  "description": "The starting date/time to fetch events for. Default's to start of today.",
+                  "name": "startDate",
+                  "description": "The starting date to fetch events for. Default is today.",
                   "type": {
                     "kind": "SCALAR",
-                    "name": "DateTime",
+                    "name": "GraphQLDate",
                     "ofType": null
                   },
                   "defaultValue": null
                 },
                 {
-                  "name": "endAt",
-                  "description": "The end date/time to fetch events for. Default`s to end of today.",
+                  "name": "endDate",
+                  "description": "The end date to fetch events for. Default is today.",
                   "type": {
                     "kind": "SCALAR",
-                    "name": "DateTime",
+                    "name": "GraphQLDate",
                     "ofType": null
                   },
                   "defaultValue": null
@@ -18135,8 +18149,8 @@
         },
         {
           "kind": "SCALAR",
-          "name": "DateTime",
-          "description": "A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.",
+          "name": "GraphQLDate",
+          "description": "A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -18234,7 +18248,7 @@
               "deprecationReason": null
             },
             {
-              "name": "collection",
+              "name": "eventGroupId",
               "description": "If events should be grouped together, give them the same group ID and they will both highlight on click.",
               "args": [],
               "type": {
@@ -18250,7 +18264,7 @@
               "deprecationReason": null
             },
             {
-              "name": "isResizable",
+              "name": "resizable",
               "description": "Can we resize this event?",
               "args": [],
               "type": {
@@ -18278,20 +18292,12 @@
               "description": "The end date/time of the event",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CalendarEventBlock",
-                      "ofType": null
-                    }
-                  }
+                  "kind": "OBJECT",
+                  "name": "CalendarEventBlock",
+                  "ofType": null
                 }
               },
               "isDeprecated": false,
@@ -18310,7 +18316,7 @@
               "deprecationReason": null
             },
             {
-              "name": "userId",
+              "name": "UserId",
               "description": "The user this event applies to",
               "args": [],
               "type": {
@@ -18328,6 +18334,16 @@
           ],
           "inputFields": null,
           "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "DateTime",
+          "description": "A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -18558,8 +18574,130 @@
           "description": "Details for a calendar event",
           "fields": [
             {
-              "name": "items",
+              "name": "header",
+              "description": "The unique identifier for a Calendar",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CardBodyHeader",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "kind",
+              "description": "The name of the calendar (i.e. appointments)",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "list",
               "description": "The skill the calendar belongs too",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "List",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "footer",
+              "description": "The skill the calendar belongs too",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CardBodyFooter",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CardBodyHeader",
+          "description": "The header for the event details ",
+          "fields": [
+            {
+              "name": "label",
+              "description": "The label rendered above the title in the header",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "The header's title",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "contextMenu",
+              "description": "The header subtitle",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ContextMenu",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ContextMenu",
+          "description": "A ContextMenu component from react-heartwood-components",
+          "fields": [
+            {
+              "name": "actions",
+              "description": "List of buttons/actions",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -18568,235 +18706,130 @@
                   "kind": "LIST",
                   "name": null,
                   "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CalendarEventDetailsItem",
-                      "ofType": null
-                    }
+                    "kind": "OBJECT",
+                    "name": "Button",
+                    "ofType": null
                   }
                 }
               },
               "isDeprecated": false,
               "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CalendarEventDetailsItem",
-          "description": "A single item that makes up the body of EventDetails. Can be several types.",
-          "fields": [
-            {
-              "name": "id",
-              "description": "An arbitrary unique id for the item. Can be anything you want, just make sure it's unique.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
             },
             {
-              "name": "type",
-              "description": null,
+              "name": "isLeftAligned",
+              "description": "Is menu left aligned",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "EventDetailsItemType",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "viewModel",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "UNION",
-                "name": "CalendarEventDetailsViewModel",
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "ENUM",
-          "name": "EventDetailsItemType",
-          "description": null,
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": [
+            },
             {
-              "name": "list",
-              "description": null,
+              "name": "isBottomAligned",
+              "description": "Is menu bottom aligned",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "button",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "splitButton",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "card",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "toast",
-              "description": null,
+              "name": "size",
+              "description": "Context menu size \"medium\" | \"large\"",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "text",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "markdown",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "possibleTypes": null
-        },
-        {
-          "kind": "UNION",
-          "name": "CalendarEventDetailsViewModel",
-          "description": null,
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": [
-            {
-              "kind": "OBJECT",
-              "name": "List",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
-              "name": "Action",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
-              "name": "CardBuilder",
-              "ofType": null
-            }
-          ]
-        },
-        {
-          "kind": "OBJECT",
-          "name": "List",
-          "description": "A list!",
-          "fields": [
-            {
-              "name": "header",
-              "description": "Heading that goes above the list",
+              "description": "Adds test to the collapsed menu",
               "args": [],
               "type": {
-                "kind": "OBJECT",
-                "name": "ListHeader",
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "items",
-              "description": "The list items",
+              "name": "icon",
+              "description": "Overrides the default icon",
               "args": [],
               "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "ListItem",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "Icon",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isSimple",
+              "description": "Make buttons blue",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isSmall",
+              "description": "make button small",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "closeOnSelectAction",
+              "description": "Set to true makes the menu close when any action is selected",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isTextOnly",
+              "description": "Hide the icon entirely",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "className",
-              "description": "A className to apply to the list",
+              "description": "Optional classname that applies to the button",
               "args": [],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "isSmall",
-              "description": "Is this a small list?",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "areSeparatorsVisible",
-              "description": "Set to true to show separators between list items",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "selectableType",
-              "description": "Set whether to use checkbox or radio for selectable list items",
-              "args": [],
-              "type": {
-                "kind": "ENUM",
-                "name": "ListSelectableType",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -18810,74 +18843,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "ListHeader",
-          "description": "A simple heading for the list",
-          "fields": [
-            {
-              "name": "title",
-              "description": "The header title",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "subtitle",
-              "description": "The header subtitle",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "isSmall",
-              "description": "Extra props for rendering on web",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "actions",
-              "description": "Actions to show in header",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Action",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "Action",
+          "name": "Button",
           "description": "The actions a user may take",
           "fields": [
             {
@@ -19064,6 +19030,140 @@
         },
         {
           "kind": "OBJECT",
+          "name": "List",
+          "description": "A list!",
+          "fields": [
+            {
+              "name": "header",
+              "description": "Heading that goes above the list",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ListHeader",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "items",
+              "description": "The list items",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ListItem",
+                    "ofType": null
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "className",
+              "description": "A className to apply to the list",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isSmall",
+              "description": "Is this a small list?",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ListHeader",
+          "description": "A simple heading for the list",
+          "fields": [
+            {
+              "name": "title",
+              "description": "The header title",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "subtitle",
+              "description": "The header subtitle",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isSmall",
+              "description": "Extra props for rendering on web",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "actions",
+              "description": "Actions to show in header",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Button",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "ListItem",
           "description": "A list items",
           "fields": [
@@ -19176,7 +19276,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Action",
+                  "name": "Button",
                   "ofType": null
                 }
               },
@@ -19194,30 +19294,6 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "isExpandable",
-              "description": "Is this item expandable/collapsable?",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "list",
-              "description": "Insert a nested list",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "List",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -19227,145 +19303,21 @@
         },
         {
           "kind": "OBJECT",
-          "name": "ContextMenu",
-          "description": "A ContextMenu component from react-heartwood-components",
+          "name": "CardBodyFooter",
+          "description": "A simple heading for a Card Body",
           "fields": [
             {
-              "name": "actions",
-              "description": "List of buttons/actions",
+              "name": "primaryCTA",
+              "description": "The single button rendered in footer",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Action",
-                    "ofType": null
-                  }
+                  "kind": "OBJECT",
+                  "name": "Button",
+                  "ofType": null
                 }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "isLeftAligned",
-              "description": "Is menu left aligned",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "isBottomAligned",
-              "description": "Is menu bottom aligned",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "size",
-              "description": "Context menu size \"medium\" | \"large\"",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "text",
-              "description": "Adds test to the collapsed menu",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "icon",
-              "description": "Overrides the default icon",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Icon",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "isSimple",
-              "description": "Make buttons blue",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "isSmall",
-              "description": "make button small",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "closeOnSelectAction",
-              "description": "Set to true makes the menu close when any action is selected",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "isTextOnly",
-              "description": "Hide the icon entirely",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "className",
-              "description": "Optional classname that applies to the button",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -19377,26 +19329,229 @@
           "possibleTypes": null
         },
         {
-          "kind": "ENUM",
-          "name": "ListSelectableType",
-          "description": null,
+          "kind": "INPUT_OBJECT",
+          "name": "CardDebugInputType",
+          "description": "For debugging",
           "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": [
+          "inputFields": [
             {
-              "name": "checkbox",
-              "description": null,
+              "name": "useMockData",
+              "description": "If set, will respond with mock data",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "mockDataUrl",
+              "description": "URL to a json file containing mock data. If omitted, the default mock data will be returned",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CardResponseType",
+          "description": "A standard card",
+          "fields": [
+            {
+              "name": "id",
+              "description": "The unique identifier (per skill) of the card",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "radio",
-              "description": null,
+              "name": "comment",
+              "description": "A comment meant for developers.  Not public facing",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "The title of the card that will display in the sidebar",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "skillSlug",
+              "description": "The unique identifier of the skill",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "page",
+              "description": "The unique page where the card can be shown in core.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "roles",
+              "description": "Array of roles that this card is available to. Valid options are: \"owner\", \"groupManager\", \"manager\", \"teammate\", \"guest\".",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "description",
+              "description": "The description of this card that will show in the sidebar",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "order",
+              "description": "The order the user has sorted the cards by.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isTemporary",
+              "description": "Denotes if this is a temporary card. Temporary cards do not display in the sidebar.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isCentered",
+              "description": "Denotes if this card is centered",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "canDismiss",
+              "description": "Denotes if the user may dismiss this card",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cardBuilder",
+              "description": "The card builder structure",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CardBuilder",
+                  "ofType": null
+                }
+              },
               "isDeprecated": false,
               "deprecationReason": null
             }
           ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -19520,7 +19675,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Action",
+                  "name": "Button",
                   "ofType": null
                 }
               },
@@ -19765,7 +19920,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Action",
+                  "name": "Button",
                   "ofType": null
                 }
               },
@@ -20196,7 +20351,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Action",
+                  "name": "Button",
                   "ofType": null
                 }
               },
@@ -20642,7 +20797,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Action",
+                  "name": "Button",
                   "ofType": null
                 }
               },
@@ -20703,233 +20858,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "Action",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "CardDebugInputType",
-          "description": "For debugging",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "useMockData",
-              "description": "If set, will respond with mock data",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "mockDataUrl",
-              "description": "URL to a json file containing mock data. If omitted, the default mock data will be returned",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CardResponseType",
-          "description": "A standard card",
-          "fields": [
-            {
-              "name": "id",
-              "description": "The unique identifier (per skill) of the card",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "comment",
-              "description": "A comment meant for developers.  Not public facing",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "title",
-              "description": "The title of the card that will display in the sidebar",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "skillSlug",
-              "description": "The unique identifier of the skill",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "page",
-              "description": "The unique page where the card can be shown in core.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "roles",
-              "description": "Array of roles that this card is available to. Valid options are: \"owner\", \"groupManager\", \"manager\", \"teammate\", \"guest\".",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "description",
-              "description": "The description of this card that will show in the sidebar",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "order",
-              "description": "The order the user has sorted the cards by.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "isTemporary",
-              "description": "Denotes if this is a temporary card. Temporary cards do not display in the sidebar.",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "isCentered",
-              "description": "Denotes if this card is centered",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "canDismiss",
-              "description": "Denotes if the user may dismiss this card",
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "cardBuilder",
-              "description": "The card builder structure",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "CardBuilder",
+                  "name": "Button",
                   "ofType": null
                 }
               },
@@ -24416,16 +24345,6 @@
           ],
           "inputFields": null,
           "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "SCALAR",
-          "name": "GraphQLDate",
-          "description": "A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -30803,7 +30722,7 @@
               "description": "The skill eventContract. This is an object that has been JSON.stringify-d",
               "type": {
                 "kind": "SCALAR",
-                "name": "String",
+                "name": "JSON",
                 "ofType": null
               },
               "defaultValue": null
@@ -30823,7 +30742,7 @@
               "description": "The skill acl. This is an object that has been JSON.stringify-d",
               "type": {
                 "kind": "SCALAR",
-                "name": "String",
+                "name": "JSON",
                 "ofType": null
               },
               "defaultValue": null
@@ -32676,7 +32595,7 @@
     }
   },
   "extensions": {
-    "requestMS": 94.974917,
+    "requestMS": 103.174153,
     "queryCost": 0,
     "warnings": []
   }

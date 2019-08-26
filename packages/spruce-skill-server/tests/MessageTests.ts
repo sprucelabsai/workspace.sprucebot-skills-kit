@@ -43,7 +43,7 @@ class MessageTests extends SpruceTest<ISpruceContext> {
 			this.location.guest[0].id,
 			faker.lorem.sentences(),
 			{
-				type: IMessageType.PROMOTIONAL
+				type: IMessageType.TRANSACTIONAL
 			}
 		)
 
