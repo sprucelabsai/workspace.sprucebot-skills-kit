@@ -135,8 +135,7 @@ module.exports = (
 			})
 			debug(`middleware/auth found token checking`)
 			try {
-				const { auth, decoded } = await decodeV2(ctx, token)
-
+				const { auth } = await decodeV2(ctx, token)
 				ctx.auth = auth
 
 				debug(`middleware/auth token valid`)

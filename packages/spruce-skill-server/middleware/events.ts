@@ -7,7 +7,10 @@ import { ISpruceContext } from '../interfaces/ctx'
 
 const debug = Debug('spruce-skill-server')
 
-export default (router: Router, options: Record<string, any>) => {
+export default (
+	router: Router<{}, ISpruceContext>,
+	options: Record<string, any>
+) => {
 	// LEGACY EVENT MANAGER, CHECK ./auth.js FOR > V1
 	if (config.get<number>('EVENT_VERSION') !== 1) {
 		return
