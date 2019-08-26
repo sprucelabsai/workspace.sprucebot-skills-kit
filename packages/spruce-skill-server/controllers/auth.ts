@@ -1,9 +1,9 @@
-const jwt = require('jsonwebtoken')
-const config = require('config')
-const Cookies = require('cookies')
+import config from 'config'
+import Cookies from 'cookies'
+import * as Router from 'koa-router'
 
-module.exports = router => {
-	router.get('/api/1.0/auth/:jwt.json', async (ctx, next) => {
+module.exports = (router: Router) => {
+	router.get('/api/1.0/auth/:jwt.json', async (ctx: any, next: any) => {
 		ctx.body = ctx.auth
 		await next()
 	})
@@ -17,7 +17,7 @@ module.exports = router => {
 	})
 
 	// if in dev mode, we'll allow role overrides
-	if (config.DEV_MODE) {
+	if (config.get<boolean>('DEV_MODE')) {
 		router.get('/dev/:role/redirect', async (ctx, next) => {
 			const role = ctx.params.role
 			const cookies = new Cookies(ctx.req, ctx.res)
