@@ -120,9 +120,19 @@ export default {
 				type: 'organization',
 				defaults: {
 					guest: false,
-					teammate: true,
-					manager: true,
+					teammate: false,
+					manager: false,
 					groupManager: true
+				}
+			},
+			can_do_example_organization_owner_only: {
+				label: 'If the user can do this example thing for an organization.',
+				type: 'organization',
+				defaults: {
+					guest: false,
+					teammate: false,
+					manager: false,
+					groupManager: false
 				}
 			}
 		}
