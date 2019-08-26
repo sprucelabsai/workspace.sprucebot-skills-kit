@@ -23,7 +23,7 @@
 		"compile_javascript": "babel --source-maps --extensions \".js\",\".tsx\" ./src --out-dir ./lib && tsc --declaration --outDir lib/ --emitDeclarationOnly --declarationMap",
 		"icons": "node ./scripts/generateIcons.js",
 		"clean": "rm -rf lib/*",
-		"lint": "eslint src",
+		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx src && tsc -p . --noEmit",
 		"test": "jest",
 		"watch": "npm run build && chokidar 'src/**/*.(js|jsx|ts|tsx)' -c 'npm run compile_javascript'",
 		"storybook": "npm run icons && start-storybook -p 6006 -s ./static",

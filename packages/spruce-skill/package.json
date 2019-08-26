@@ -25,7 +25,7 @@
 		"local": "nodemon ./server/server.js --exec \"npm run kill-inspect && flow-node --inspect=4080\" --watch server --watch config --verbose --ignore server/swagger --ignore server/static",
 		"kill-inspect": "kill-port 4080",
 		"interface": "next ./interface -p 3080",
-		"lint": "eslint --ext .js .",
+		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx . && tsc -p . --noEmit",
 		"test": "yarn run build && jest",
 		"test:server": "rm tmp/testing.db | true && mkdir -p tmp/ | true && PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r flow-remove-types/register --exit 'server/tests/**/*Tests.js'",
 		"test:server:single": "rm tmp/testing.db | true && mkdir -p tmp/ | true && PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r flow-remove-types/register --exit",
