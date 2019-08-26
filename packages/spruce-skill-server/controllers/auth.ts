@@ -2,7 +2,7 @@ import config from 'config'
 import Cookies from 'cookies'
 import * as Router from 'koa-router'
 
-module.exports = (router: Router) => {
+export default (router: Router) => {
 	router.get('/api/1.0/auth/:jwt.json', async (ctx: any, next: any) => {
 		ctx.body = ctx.auth
 		await next()

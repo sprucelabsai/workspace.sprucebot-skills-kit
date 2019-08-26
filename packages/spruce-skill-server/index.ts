@@ -63,10 +63,10 @@ interface IServeOptions {
 	packageVersion: string
 	metricsAppKey: string
 	metricsUrl: string
-	metricsEnabled: string
-	metricsRequestsDisabled: string
-	metricsServerStatsDisabled: string
-	metricsSequelizeDisabled: string
+	metricsEnabled: boolean
+	metricsRequestsDisabled: boolean
+	metricsServerStatsDisabled: boolean
+	metricsSequelizeDisabled: boolean
 	gqlOptions: Record<string, any>
 	testing?: boolean
 }

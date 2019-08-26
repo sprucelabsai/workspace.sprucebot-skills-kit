@@ -1,4 +1,4 @@
-module.exports = (router: any, options: any) => {
+export default (router: any, options: any) => {
 	router.post('/api/1.0/logs.json', async (ctx: any, next: any) => {
 		try {
 			if (Array.isArray(ctx.request.body)) {
@@ -6,7 +6,7 @@ module.exports = (router: any, options: any) => {
 					try {
 						const { item, level, ...rest } = logItem
 						log[level]({ source: 'frontend', ...rest }, item)
-					} catch (e) {
+					} catch (err) {
 						log.warn('Unable to log from frontend', err)
 					}
 				})

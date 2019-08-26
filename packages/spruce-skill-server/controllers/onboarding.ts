@@ -1,4 +1,4 @@
-module.exports = (router: any, options: any) => {
+export default (router: any, options: any) => {
 	router.get('/api/1.0/guest/onboarding.json', async (ctx: any, next: any) => {
 		try {
 			const finishedOnboarding = await ctx.services.onboarding.didOnboarding(

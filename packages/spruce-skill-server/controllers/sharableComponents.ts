@@ -1,7 +1,4 @@
-import Debug from 'debug'
-const debug = Debug('spruce-skill-server')
-
-module.exports = (router: any, options: any) => {
+export default (router: any, options: any) => {
 	router.post(
 		'/api/1.0/guest/sharable/emit.json',
 		async (ctx: any, next: any) => {
