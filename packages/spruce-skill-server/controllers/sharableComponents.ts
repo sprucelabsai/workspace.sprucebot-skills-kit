@@ -1,4 +1,6 @@
-export default (router: any, options: any) => {
+import { IEmitResponse } from '../interfaces/global'
+
+export default (router: any) => {
 	router.post(
 		'/api/1.0/guest/sharable/emit.json',
 		async (ctx: any, next: any) => {
