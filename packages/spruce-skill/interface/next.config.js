@@ -3,6 +3,7 @@ const fs = require('fs')
 const config = require('config')
 const withSass = require('@zeit/next-sass')
 const withCSS = require('@zeit/next-css')
+const withTypescript = require('@zeit/next-typescript')
 
 const clientConfig = config.sanitizeClientConfig({ ...config })
 
@@ -49,16 +50,18 @@ function shared(webpack) {
 	return webpack
 }
 
-module.exports = withCSS(
-	withSass({
-		webpack: (webpack, options) => {
-			webpack = shared(webpack, options)
-			if (options.isServer) {
-				return server(webpack, options)
-			} else {
-				return client(webpack, options)
-			}
-		},
-		publicRuntimeConfig: { ...clientConfig }
-	})
+module.exports = withTypescript(
+	withCSS(
+		withSass({
+			webpack: (webpack, options) => {
+				webpack = shared(webpack, options)
+				if (options.isServer) {
+					return server(webpack, options)
+				} else {
+					return client(webpack, options)
+				}
+			},
+			publicRuntimeConfig: { ...clientConfig }
+		})
+	)
 )
