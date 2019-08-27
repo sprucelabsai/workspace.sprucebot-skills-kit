@@ -2,11 +2,9 @@
 	"env": {
 		"development": {
 			"presets": ["next/babel", "@zeit/next-typescript/babel"]
-			// "plugins": ["transform-flow-strip-types"]
 		},
 		"production": {
 			"presets": ["next/babel", "@zeit/next-typescript/babel"]
-			// "plugins": ["transform-flow-strip-types"]
 		},
 		"test": {
 			"presets": [
