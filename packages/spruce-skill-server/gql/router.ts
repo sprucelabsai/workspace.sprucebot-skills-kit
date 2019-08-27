@@ -18,8 +18,6 @@ import GraphQLSubscriptionServer from '../lib/GraphQLSubscriptionServer'
 import { ISpruceErrorDefinitions } from '../support/errors'
 import { Server } from 'https'
 
-const errors = config.get<ISpruceErrorDefinitions>('errors')
-
 const auth = async (
 	ctx: ISpruceContext,
 	next: () => Promise<any>
@@ -68,6 +66,7 @@ export default (
 	}
 
 	// Get schema
+
 	const schema = new Schema({ ctx: koa.context, gqlDir: gqlOptions.gqlDir })
 
 	// Create the subscription server
@@ -100,7 +99,7 @@ export default (
 				formatError: (e: Error) => {
 					const code = e.message
 					let formattedError: Record<string, any> = {}
-
+					const errors = config.errors
 					if (errors[code]) {
 						formattedError = {
 							name: code,

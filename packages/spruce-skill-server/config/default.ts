@@ -8,14 +8,15 @@ export default function SpruceConfig<
 	settingsType,
 	errorsType,
 	eventContractType,
-	scopesType
+	scopesType,
+	authType
 >(baseDirectory: string) {
 	const HEARTWOOD_VERSION = encodeURIComponent(
 		require('@sprucelabs/heartwood-components').version
 	)
 	const packageJSON = require(`${baseDirectory}/../package.json`)
 	const icon = fs.readFileSync(`${baseDirectory}/../icon/icon.svg`).toString()
-	const auth = require(`${baseDirectory}/../config/auth`).default
+	const auth = require(`${baseDirectory}/../config/auth`).default as authType
 	const scopes = require(`${baseDirectory}/../config/scopes`)
 		.default as scopesType
 	const settings = require(`${baseDirectory}/../config/settings`)
@@ -25,6 +26,7 @@ export default function SpruceConfig<
 	const acl = require(`${baseDirectory}/../config/acl`).default as aclType
 	const eventContract = require(`${baseDirectory}/../config/eventContract`)
 		.default as eventContractType
+
 	return {
 		/**
 		 * 🌲🤖 Your Skill ID

@@ -1,6 +1,6 @@
 // First things first: load the .env file
 try {
-	const path = `${__dirname}/../.env`
+	const path = `${process.cwd()}/.env`
 	require('dotenv').config({ path })
 } catch (e) {
 	console.error('Missing .env file for this project')
@@ -77,6 +77,7 @@ import settings from './settings'
 import errors from './errors'
 import eventContract from './eventContract'
 import scopes from './scopes'
+import auth from './auth'
 
 type aclType = typeof acl
 type settingsType = typeof settings
@@ -84,10 +85,11 @@ type errorsType = typeof errors
 type eventContractType = typeof eventContract
 type scopesType = typeof scopes
 type configType = typeof SpruceConfig
+type authType = typeof auth
 
 // Path to the server directory. Used to load all the default config files
 const baseDirectory = `${__dirname}/../server`
-const baseConfig = require('@sprucelabs/spruce-skill-server/config/default')
+const baseConfig = require('@sprucelabs/spruce-skill-server/build/config/default')
 	.default as configType
 
 const fullConfig = {
@@ -96,9 +98,12 @@ const fullConfig = {
 		settingsType,
 		errorsType,
 		eventContractType,
-		scopesType
+		scopesType,
+		authType
 	>(baseDirectory),
 	...customConfig
 }
+
+console.log({ baseDirectory, fullConfig })
 
 export default fullConfig
