@@ -67,8 +67,6 @@ export default (
 		return
 	}
 
-	console.log({ queryComplexity })
-
 	// Get schema
 	const schema = new Schema({ ctx: koa.context, gqlDir: gqlOptions.gqlDir })
 
