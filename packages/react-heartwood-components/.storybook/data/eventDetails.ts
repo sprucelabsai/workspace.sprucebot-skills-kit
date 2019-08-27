@@ -1,7 +1,11 @@
+import { IEventDetailsItemProps } from '../../src/components/EventDetails/components/EventDetailsItem/EventDetailsItem'
+import { IEventDetailsProps } from '../../src/components/EventDetails/EventDetails'
+import { IListProps } from '../../src'
+
 const avatar =
 	'https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&auto=format&fit=crop&w=96&h=96&q=80'
 
-const services = {
+const services: IEventDetailsItemProps = {
 	id: 'services',
 	type: 'list',
 	viewModel: {
@@ -107,7 +111,7 @@ const paidStatuses = [
 	}
 ]
 
-const statusLists = [
+const statusLists: IListProps[] = [
 	{
 		selectableType: 'checkbox',
 		items: inclusiveStatuses,
@@ -124,7 +128,7 @@ const statusLists = [
 	}
 ]
 
-export const appointment = {
+export const appointment: { items: IEventDetailsItemProps[] } = {
 	items: [
 		{
 			id: 'guestInfo',
@@ -240,7 +244,7 @@ export const appointment = {
 	]
 }
 
-export const warningAppointment = {
+export const warningAppointment: IEventDetailsProps = {
 	items: [
 		{
 			id: 'guestInfo',
@@ -277,8 +281,7 @@ export const warningAppointment = {
 							}
 						]
 					}
-				],
-				primaryAction: 'test'
+				]
 			}
 		},
 		{
@@ -397,7 +400,7 @@ export const warningAppointment = {
 	]
 }
 
-export const pastAppointment = {
+export const pastAppointment: IEventDetailsProps = {
 	items: [
 		{
 			id: 'guestInfo',
@@ -426,8 +429,7 @@ export const pastAppointment = {
 							}
 						]
 					}
-				],
-				primaryAction: 'test'
+				]
 			}
 		},
 		{
@@ -506,7 +508,7 @@ export const pastAppointment = {
 	]
 }
 
-export const lunchBreak = {
+export const lunchBreak: IEventDetailsProps = {
 	items: [
 		{
 			id: 'dateAndTime',
@@ -560,7 +562,7 @@ export const lunchBreak = {
 	]
 }
 
-export const ptoBlock = {
+export const ptoBlock: IEventDetailsProps = {
 	items: [
 		{
 			id: 'dateAndTime',
