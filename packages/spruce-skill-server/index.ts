@@ -169,9 +169,10 @@ async function serve<ISkillContext extends ISpruceContext>(
 	debug('Starting sync with core')
 
 	if (testing) {
-		const { mockResolvers, mockModels } = require('./tests/mocks/apiMocks')(
-			koa.context
-		)
+		const {
+			mockResolvers,
+			mockModels
+		} = require('./tests/mocks/apiMocks').default(koa.context)
 		const adapter = new HttpsMock({
 			ctx: koa.context,
 			mockResolvers,
@@ -564,6 +565,7 @@ export {
 
 // Big Search
 export {
+	SpruceBigSearchType,
 	ISpruceBigSearchSection,
 	ISpruceBigSearchResult,
 	ISpruceBigSearchCtx,
