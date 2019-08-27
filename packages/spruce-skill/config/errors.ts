@@ -1,6 +1,6 @@
 // import { ISpruceErrorDefinitions } from '@sprucelabs/spruce-skill-server'
 
-module.exports = {
+export default {
 	UNKNOWN: {
 		code: 500,
 		status: 'failure',

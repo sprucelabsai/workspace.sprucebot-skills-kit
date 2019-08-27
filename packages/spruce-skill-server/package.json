@@ -35,7 +35,6 @@
 		"@types/node-cron": "^2.0.2",
 		"apollo-link": "1.2.6",
 		"apollo-link-ws": "1.0.12",
-		"config": "^1.28.0",
 		"cookies": "^0.7.3",
 		"dataloader-sequelize": "^1.7.6",
 		"debug": "^3.1.0",
@@ -65,6 +64,7 @@
 		"umzug": "^2.1.0"
 	},
 	"peerDependencies": {
+		"config": "^3",
 		"graphql": "^14.2.0",
 		"sqlite3": "^4.0.4",
 		"typescript": "~3.4.5"

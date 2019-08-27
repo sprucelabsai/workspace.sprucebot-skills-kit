@@ -2,13 +2,15 @@
 // @ts-ignore
 import config from 'config'
 import { SpruceConfig } from '@sprucelabs/spruce-skill-server'
+import acl from '../../config/acl'
 import defaultConfig from '../../config/default'
 
+type aclType = typeof acl
 type configType = typeof defaultConfig
-type baseConfigType = typeof SpruceConfig
+// interface s extends SpruceConfig<aclType> {}
+// type baseConfigType = typeof SpruceConfig
 
 declare module 'config' {
-	interface IConfig extends baseConfigType, configType {
-		blahblabhalbhalbhalbhalbhablh: boolean
-	}
+	// interface IConfig extends baseConfigType, configType {}
+	interface IConfig extends configType {}
 }

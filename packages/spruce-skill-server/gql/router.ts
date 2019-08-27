@@ -5,7 +5,10 @@ import Schema from './Schema'
 import _ from 'lodash'
 import jwt from 'jsonwebtoken'
 import depthLimit from 'graphql-depth-limit'
-import queryComplexity from 'graphql-query-complexity'
+import queryComplexity, {
+	fieldConfigEstimator,
+	simpleEstimator
+} from 'graphql-query-complexity'
 // @ts-ignore
 import { createContext, EXPECTED_OPTIONS_KEY } from 'dataloader-sequelize'
 import { ISpruceContext } from '../interfaces/ctx'
@@ -59,10 +62,12 @@ export default (
 	gqlOptions: Record<string, any>,
 	server: Server
 ) => {
-	if (!config.get<boolean>('GRAPHQL_ENABLED')) {
+	if (!config.GRAPHQL_ENABLED) {
 		log.info('GraphQL disabled because GRAPHQL_ENABLED=false')
 		return
 	}
+
+	console.log({ queryComplexity })
 
 	// Get schema
 	const schema = new Schema({ ctx: koa.context, gqlDir: gqlOptions.gqlDir })
@@ -128,9 +133,9 @@ export default (
 					queryComplexity({
 						estimators: [
 							// @ts-ignore
-							queryComplexity.fieldConfigEstimator(),
+							fieldConfigEstimator(),
 							// @ts-ignore
-							queryComplexity.simpleEstimator({ defaultComplexity: 1 })
+							simpleEstimator({ defaultComplexity: 1 })
 						],
 						maximumComplexity: config.get('GRAPHQL_MAX_COMPLEXITY'),
 						variables:

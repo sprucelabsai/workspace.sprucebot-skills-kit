@@ -1,6 +1,3 @@
-import config from 'config'
-// import { ISpruceSkillRouter } from '../interfaces/ctx'
-
 export default (router: any) => {
 	/**
 	 * @swagger
@@ -20,8 +17,6 @@ export default (router: any) => {
 	 *         description: server error
 	 */
 	router.get('/api/1.0/greeting.json', async (ctx, next) => {
-		config
-
 		ctx.body = {
 			'🌲🤖': 'Hey there! 👋'
 		}

@@ -597,7 +597,8 @@ export { User } from './models/User'
 export { UserGroup } from './models/UserGroup'
 export { UserLocation } from './models/UserLocation'
 export { UserOrganization } from './models/UserOrganization'
-export { default as SpruceConfig } from './config/default'
+import defaultConfig from './config/default'
+export { defaultConfig as SpruceConfig }
 
 // Mock data for tests
 export {

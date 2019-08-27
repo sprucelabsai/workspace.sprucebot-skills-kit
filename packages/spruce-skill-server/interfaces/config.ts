@@ -3,7 +3,7 @@
 import config from 'config'
 import defaultConfig from '../config/default'
 
-type configType = typeof defaultConfig
+type configType = ReturnType<typeof defaultConfig>
 
 declare module 'config' {
 	interface IConfig extends configType {}
