@@ -672,7 +672,7 @@ export default class Sprucebot {
 		payload: Record<string, any> = {},
 		options?: Record<string, any>,
 		eventId?: string
-	): Promise<IEventResponse> {
+	): Promise<IEventResponse[]> {
 		return this.adapter.post(`locations/${locationId}/emit`, {
 			eventName,
 			eventId,
