@@ -33,3 +33,5 @@ export interface ISpruceContext<
 		}
 	}
 }
+
+export interface ISpruceRouter extends Router<{}, ISpruceContext> {}

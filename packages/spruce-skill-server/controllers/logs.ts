@@ -1,7 +1,7 @@
-import { ISpruceContext } from '../interfaces/ctx'
+import { ISpruceRouter } from '../interfaces/ctx'
 
-export default (router: any) => {
-	router.post('/api/1.0/logs.json', async (ctx: ISpruceContext) => {
+export default (router: ISpruceRouter) => {
+	router.post('/api/1.0/logs.json', async ctx => {
 		try {
 			if (Array.isArray(ctx.request.body)) {
 				ctx.request.body.forEach((logItem: Record<string, any>) => {

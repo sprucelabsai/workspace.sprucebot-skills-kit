@@ -1,6 +1,6 @@
-import { ISpruceSkillRouter } from 'server/interfaces/ctx'
+import { ISkillRouter } from '../interfaces/ctx'
 
-export default (router: ISpruceSkillRouter) => {
+export default (router: ISkillRouter) => {
 	/**
 	 * @swagger
 	 * /api/1.0/greeting.json:

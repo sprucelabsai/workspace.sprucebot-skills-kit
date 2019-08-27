@@ -16,7 +16,6 @@ import Warning from '../gql/types/Warning'
  * Defines base GQL types for Spruce models and helper types
  */
 
-
 export interface ISpruceGQLTypes {
 	FileItem: ReturnType<typeof FileItem>
 	Group: ReturnType<typeof Group>

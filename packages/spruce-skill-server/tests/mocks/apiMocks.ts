@@ -1,21 +1,20 @@
 import { ISpruceContext } from '../../interfaces/ctx'
 import Debug from 'debug'
 import config from 'config'
-import { Source, GraphQLResolveInfo } from 'graphql'
-import { Request } from 'koa'
+import { Source } from 'graphql'
 
 const debug = Debug('spruce-skill-server')
-module.exports = (ctx: ISpruceContext) => ({
+export default (ctx: ISpruceContext) => ({
 	mockResolvers: {
 		Query: {},
 		Mutation: {
 			// TODO: The mock server is still returning default data and ignoring this. If we custom mock mutation responses in the future this will need to be fixed. SDEV3-2131
-			syncSkill: async (
+			syncSkill: async (/*
 				source: Source,
 				args: any,
 				context: Request,
 				info: GraphQLResolveInfo
-			) => {
+			*/) => {
 				return {
 					s3Bucket: '1234',
 					databaseUrl: 'https://hacked.sprucebot.com/test/db/url'
@@ -27,9 +26,11 @@ module.exports = (ctx: ISpruceContext) => ({
 		// Mock version of acls. Can't do real checks so we'll just check defaults in the config file and return true if any of them are valid.  This should be accurate enough for automated tests
 		Acl: async (
 			source: Source,
-			args: any,
+			args: any
+			/*
 			context: Request,
 			info: GraphQLResolveInfo
+			*/
 		) => {
 			debug('Doing ACL check using Mock server')
 			if (args.userId && args.permissions) {
@@ -144,12 +145,7 @@ module.exports = (ctx: ISpruceContext) => ({
 		Acls: async (source: Source) => {
 			return source
 		},
-		Organization: async (
-			source: Source,
-			args: any,
-			context: Request,
-			info: GraphQLResolveInfo
-		) => {
+		Organization: async (source: Source, args: any) => {
 			if (args.id) {
 				const user = await ctx.db.models.Organization.findOne({
 					where: {
@@ -163,12 +159,7 @@ module.exports = (ctx: ISpruceContext) => ({
 			}
 			return {}
 		},
-		Location: async (
-			source: Source,
-			args: any,
-			context: Request,
-			info: GraphQLResolveInfo
-		) => {
+		Location: async (source: Source, args: any) => {
 			if (args.id) {
 				const user = await ctx.db.models.Location.findOne({
 					where: {
@@ -179,12 +170,7 @@ module.exports = (ctx: ISpruceContext) => ({
 			}
 			return {}
 		},
-		User: async (
-			source: Source,
-			args: any,
-			context: Request,
-			info: GraphQLResolveInfo
-		) => {
+		User: async (source: Source, args: any) => {
 			if (args.id) {
 				const user = await ctx.db.models.User.findOne({
 					where: {

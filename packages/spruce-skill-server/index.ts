@@ -145,7 +145,9 @@ async function serve<ISkillContext extends ISpruceContext>(
 	koa.proxy = true
 
 	// Set up global logger
+	// @ts-ignore
 	global.logger = logger
+	// @ts-ignore
 	const log = logger.log
 	log.setOptions({
 		level: logLevel,
@@ -203,6 +205,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 
 	if (metricsEnabled && !metricsRequestsDisabled) {
 		// Log request stats
+		// @ts-ignore
 		koa.use(logger.middleware.requests())
 	} else {
 		log.info('Metrics: Request middleware disabled')
@@ -210,6 +213,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 
 	if (metricsEnabled && !metricsServerStatsDisabled) {
 		// Log OS stats
+		// @ts-ignore
 		logger.nodeMetrics()
 	} else {
 		log.info('Metrics: Server stats disabled')
