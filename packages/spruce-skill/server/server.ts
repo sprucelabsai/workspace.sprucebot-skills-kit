@@ -43,43 +43,6 @@ const {
 	TESTING
 } = require('config')
 
-// console.log({
-// 	API_KEY,
-// 	API_HOST,
-// 	ID,
-// 	NAME,
-// 	ICON,
-// 	DESCRIPTION,
-// 	PORT,
-// 	SERVER_HOST,
-// 	INTERFACE_HOST,
-// 	API_SSL_ALLOW_SELF_SIGNED,
-// 	nextConfig,
-// 	errors,
-// 	bodyParserOptions,
-// 	sequelizeOptions,
-// 	eventContract,
-// 	SLUG,
-// 	LOG_LEVEL,
-// 	LOG_USE_COLORS,
-// 	LOG_USE_TRACE,
-// 	LOG_USE_SOURCEMAPS,
-// 	LOG_AS_JSON,
-// 	ENV,
-// 	PACKAGE_NAME,
-// 	PACKAGE_VERSION,
-// 	METRICS_APP_KEY,
-// 	METRICS_URL,
-// 	METRICS_ENABLED,
-// 	METRICS_REQUESTS_DISABLED,
-// 	METRICS_SERVER_STATS_DISABLED,
-// 	METRICS_SEQUELIZE_DISABLED,
-// 	gqlOptions,
-// 	acl,
-// 	VIEW_VERSION,
-// 	TESTING
-// })
-
 const skillsKitVersion = (skillPackage as Record<string, any>)[
 	'sprucebot-skills-kit-version'
 ]
