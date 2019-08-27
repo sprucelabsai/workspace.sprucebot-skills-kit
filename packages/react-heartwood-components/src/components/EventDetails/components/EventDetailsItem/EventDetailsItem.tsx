@@ -25,42 +25,23 @@ const components = {
 	markdown: MDTextContainer
 }
 
+interface IGenerateEventDetailsItemConfiguration<type, props> {
+	/** Unique identifier for the item */
+	id: string
+	/** Component key to decide what to render */
+	type: type
+	/** Props to pass into the rendered component */
+	viewModel: props
+}
+
 export type IEventDetailsItemProps =
-	| {
-			id: string
-			type: 'list'
-			viewModel: IListProps
-	  }
-	| {
-			id: string
-			type: 'button'
-			viewModel: IButtonProps
-	  }
-	| {
-			id: string
-			type: 'splitButton'
-			viewModel: ISplitButtonProps
-	  }
-	| {
-			id: string
-			type: 'card'
-			viewModel: ICardBuilderProps
-	  }
-	| {
-			id: string
-			type: 'toast'
-			viewModel: IToastProps
-	  }
-	| {
-			id: string
-			type: 'text'
-			viewModel: any
-	  }
-	| {
-			id: string
-			type: 'markdown'
-			viewModel: IMarkdownText
-	  }
+	| IGenerateEventDetailsItemConfiguration<'list', IListProps>
+	| IGenerateEventDetailsItemConfiguration<'button', IButtonProps>
+	| IGenerateEventDetailsItemConfiguration<'splitButton', ISplitButtonProps>
+	| IGenerateEventDetailsItemConfiguration<'card', ICardBuilderProps>
+	| IGenerateEventDetailsItemConfiguration<'toast', IToastProps>
+	| IGenerateEventDetailsItemConfiguration<'text', any>
+	| IGenerateEventDetailsItemConfiguration<'markdown', IMarkdownText>
 
 const EventDetailsItem = (
 	props: IEventDetailsItemProps
