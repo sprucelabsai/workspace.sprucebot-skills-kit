@@ -10,7 +10,7 @@ import * as icons from '../../icons.js'
 
 export interface IIconProps {
 	/** The name of the icon to render. If not found, this will return null. */
-	icon?: string
+	name?: string
 
 	/** Set true to render an icon with a stroke, but no fill */
 	isLineIcon?: boolean
@@ -23,12 +23,12 @@ export interface IIconProps {
 }
 
 const Icon = (props: IIconProps): React.ReactElement => {
-	const { icon, customIcon, isLineIcon, className, ...rest } = props
+	const { name, customIcon, isLineIcon, className, ...rest } = props
 
-	const iconKey = icon && icon.toLowerCase()
+	const iconKey = name && name.toLowerCase()
 
-	if (!customIcon && (!icon || !icons[iconKey])) {
-		console.warn(`<Icon /> could not find an icon with key `, icon)
+	if (!customIcon && (!name || !icons[iconKey])) {
+		console.warn(`<Icon /> could not find an icon with key `, name)
 		return null
 	}
 

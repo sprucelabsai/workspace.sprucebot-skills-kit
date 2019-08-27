@@ -124,7 +124,7 @@ const Button = (props: IButtonProps): React.ReactElement => {
 						<span className="btn__icon-wrapper">
 							<Icon
 								customIcon={icon.customIcon}
-								icon={icon.name}
+								name={icon.name}
 								isLineIcon={icon.isLineIcon}
 								className={cx(
 									{

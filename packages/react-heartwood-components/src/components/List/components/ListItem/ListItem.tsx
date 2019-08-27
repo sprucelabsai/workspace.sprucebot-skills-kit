@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button, { IButtonProps } from '../../../Button/Button'
-import Icon from '../../../Icon/Icon'
+import Icon, { IIconProps } from '../../../Icon/Icon'
 import ContextMenu from '../../../ContextMenu/ContextMenu'
 import List, { IListProps } from '../../List'
 import { Toggle, Checkbox, Radio } from '../../../Forms'
@@ -24,7 +24,7 @@ export interface IListItemProps {
 	image?: string
 
 	/** Inline svg icon */
-	icon?: Record<string, any>
+	icon?: IIconProps
 
 	/** Optional; visually hides the icon without removing it */
 	iconIsHidden?: boolean
@@ -119,16 +119,23 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		'list-item--has-avatar': !!avatar
 	})
 
+	let iconProps: IIconProps | undefined
+	let iconClassName: string | undefined
+
+	if (icon) {
+		const { className: pulledClassName, ...pulledProps } = icon
+		iconProps = pulledProps
+		iconClassName = pulledClassName
+	}
+
 	const ListItemInner = (): React.ReactElement => (
 		<Fragment>
-			{(image || icon || avatar || selectableId) && !isDraggable && (
+			{(image || iconProps || avatar || selectableId) && !isDraggable && (
 				<div className="list-item__image-wrapper">
 					{icon && (
 						<Icon
-							customIcon={icon.customIcon}
-							icon={icon.name}
-							isLineIcon={icon.isLineIcon}
-							className={cx('list-item__icon', icon.className, {
+							{...iconProps}
+							className={cx('list-item__icon', iconClassName, {
 								'list-item__icon--hidden': iconIsHidden
 							})}
 						/>

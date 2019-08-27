@@ -36,7 +36,7 @@ const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 							{labelIcon && (
 								<Icon
 									customIcon={labelIcon.customIcon}
-									icon={labelIcon.name}
+									name={labelIcon.name}
 									isLineIcon={labelIcon.isLineIcon}
 									className={cx('card__header-label-icon', labelIcon.className)}
 								/>
