@@ -1,7 +1,6 @@
-// @flow
-import type { CardBuilder, CardResponse } from './card-flow-types'
+//
 
-const eventCard: CardBuilder = {
+const eventCard = {
 	header: {
 		title: 'I am an event card',
 		contextMenu: {
@@ -133,7 +132,7 @@ const eventCard: CardBuilder = {
 	}
 }
 
-const celebrateCard: CardBuilder = {
+const celebrateCard = {
 	headerImage: {
 		src: 'https://picsum.photos/720/360/?image=828',
 		width: 720,
@@ -168,7 +167,7 @@ const celebrateCard: CardBuilder = {
 	}
 }
 
-const bookAppointmentCard: CardBuilder = {
+const bookAppointmentCard = {
 	header: {
 		title: "Looks like it's time for your next appointment!"
 	},
@@ -225,7 +224,7 @@ const bookAppointmentCard: CardBuilder = {
 	}
 }
 
-const upcomingAppointmentCard: CardBuilder = {
+const upcomingAppointmentCard = {
 	header: {
 		actions: [
 			{
@@ -302,7 +301,7 @@ const upcomingAppointmentCard: CardBuilder = {
 	}
 }
 
-const basicCard: CardBuilder = {
+const basicCard = {
 	header: {
 		title: 'The is an example of a basic card.'
 	},
@@ -339,7 +338,7 @@ const basicCard: CardBuilder = {
 	}
 }
 
-const criticalCard: CardBuilder = {
+const criticalCard = {
 	header: {
 		title: 'Please update your calendar.',
 		icon: 'critical',
@@ -378,7 +377,7 @@ const criticalCard: CardBuilder = {
 	}
 }
 
-const scoreCard: CardBuilder = {
+const scoreCard = {
 	header: {
 		title: 'Value of future appointments'
 	},
@@ -431,7 +430,7 @@ const scoreCard: CardBuilder = {
 	}
 }
 
-const textBodyCard: CardBuilder = {
+const textBodyCard = {
 	header: {
 		title: 'Get the most out of Spruce'
 	},
@@ -468,7 +467,7 @@ const textBodyCard: CardBuilder = {
 	}
 }
 
-const headerActionCard: CardBuilder = {
+const headerActionCard = {
 	header: {
 		title: 'Add your teammates',
 		actions: [
@@ -507,7 +506,7 @@ const headerActionCard: CardBuilder = {
 	}
 }
 
-const congratsCard: CardBuilder = {
+const congratsCard = {
 	header: {
 		title: 'Congrats on 5 guests!'
 	},
@@ -531,7 +530,7 @@ const congratsCard: CardBuilder = {
 	}
 }
 
-const happyBirthdayCard: CardBuilder = {
+const happyBirthdayCard = {
 	header: {
 		title: 'Happy birthday!'
 	},
@@ -560,7 +559,7 @@ const happyBirthdayCard: CardBuilder = {
 	}
 }
 
-const appointmentCard: CardBuilder = {
+const appointmentCard = {
 	header: {
 		title: 'In store now',
 		contextMenu: {
@@ -672,7 +671,7 @@ const appointmentCard: CardBuilder = {
 	}
 }
 
-const vfaCard: CardBuilder = {
+const vfaCard = {
 	header: {
 		title: 'Value of future appointments',
 		actions: [
@@ -711,7 +710,7 @@ const vfaCard: CardBuilder = {
 	}
 }
 
-const onboardingCard: CardBuilder = {
+const onboardingCard = {
 	onboarding: {
 		title: 'Keep the ball rolling!',
 		steps: [
@@ -761,7 +760,7 @@ const onboardingCard: CardBuilder = {
 	}
 }
 
-const eventCardResponse: CardResponse = {
+const eventCardResponse = {
 	title: 'Hair care product event',
 	comment: 'This is a test comment for a developer',
 	id: 'ulta:eventCard001',
@@ -776,7 +775,7 @@ const eventCardResponse: CardResponse = {
 	cardBuilder: eventCard
 }
 
-const celebrateCardResponse: CardResponse = {
+const celebrateCardResponse = {
 	title: 'Very simple card with image in header only and no header title',
 	comment: 'This is a test comment for a developer',
 	id: 'example:celebrateCard',
@@ -791,7 +790,7 @@ const celebrateCardResponse: CardResponse = {
 	cardBuilder: celebrateCard
 }
 
-const bookAppointmentCardResponse: CardResponse = {
+const bookAppointmentCardResponse = {
 	title: 'Book an appointment today!',
 	comment: 'This is a simple appointment card.',
 	id: 'example:bookAppointmentCard',
@@ -805,7 +804,7 @@ const bookAppointmentCardResponse: CardResponse = {
 	cardBuilder: bookAppointmentCard
 }
 
-const appointmentCardResponse: CardResponse = {
+const appointmentCardResponse = {
 	title: "You're upcoming appointment!",
 	comment: 'This is an upcoming appointment card.',
 	id: 'example:appointmentCard',
@@ -819,7 +818,7 @@ const appointmentCardResponse: CardResponse = {
 	cardBuilder: appointmentCard
 }
 
-const basicCardResponse: CardResponse = {
+const basicCardResponse = {
 	title: 'This is a basic card layout!',
 	comment: 'This is an basic card.',
 	id: 'example:basicCard',
@@ -833,7 +832,7 @@ const basicCardResponse: CardResponse = {
 	cardBuilder: basicCard
 }
 
-const criticalCardResponse: CardResponse = {
+const criticalCardResponse = {
 	title: 'This is a basic card layout!',
 	comment: 'This is an basic card.',
 	id: 'example:criticalCard',
@@ -847,7 +846,7 @@ const criticalCardResponse: CardResponse = {
 	cardBuilder: criticalCard
 }
 
-const scoreCardResponse: CardResponse = {
+const scoreCardResponse = {
 	title: 'This is a score card layout!',
 	comment: 'This is an score card.',
 	id: 'example:scoreCard',
@@ -861,7 +860,7 @@ const scoreCardResponse: CardResponse = {
 	cardBuilder: scoreCard
 }
 
-const textBodyCardResponse: CardResponse = {
+const textBodyCardResponse = {
 	title: 'textBodyCard',
 	comment: 'Test Card',
 	id: 'example:testCard',
@@ -875,7 +874,7 @@ const textBodyCardResponse: CardResponse = {
 	cardBuilder: textBodyCard
 }
 
-const congratsCardResponse: CardResponse = {
+const congratsCardResponse = {
 	title: 'congratsCard',
 	comment: 'Congrats Card',
 	id: 'example:congratsCard',
@@ -889,7 +888,7 @@ const congratsCardResponse: CardResponse = {
 	cardBuilder: congratsCard
 }
 
-const headerActionCardResponse: CardResponse = {
+const headerActionCardResponse = {
 	title: 'headerActionCard',
 	comment: 'Test Card',
 	id: 'example:headerActionCard',
@@ -903,7 +902,7 @@ const headerActionCardResponse: CardResponse = {
 	cardBuilder: headerActionCard
 }
 
-const happyBirthdayCardResponse: CardResponse = {
+const happyBirthdayCardResponse = {
 	title: 'happyBirthdayCard',
 	comment: 'Test Card',
 	id: 'example:birthdayCard',
@@ -917,7 +916,7 @@ const happyBirthdayCardResponse: CardResponse = {
 	cardBuilder: happyBirthdayCard
 }
 
-const upcomingAppointmentCardResponse: CardResponse = {
+const upcomingAppointmentCardResponse = {
 	title: 'upcomingAppointmentCard',
 	comment: 'Test Card',
 	id: 'example:upcomingAppointmentCard',
@@ -931,7 +930,7 @@ const upcomingAppointmentCardResponse: CardResponse = {
 	cardBuilder: upcomingAppointmentCard
 }
 
-const vfaCardResponse: CardResponse = {
+const vfaCardResponse = {
 	title: 'vfaCard',
 	comment: 'Test Card',
 	id: 'example:vfaCard',
@@ -945,7 +944,7 @@ const vfaCardResponse: CardResponse = {
 	cardBuilder: vfaCard
 }
 
-const onboardingCardResponse: CardResponse = {
+const onboardingCardResponse = {
 	title: 'Onboarding',
 	comment: 'Test Card',
 	id: 'example:onboardingCard',
@@ -959,7 +958,7 @@ const onboardingCardResponse: CardResponse = {
 	cardBuilder: onboardingCard
 }
 
-const cardResponses: Array<CardResponse> = [
+const cardResponses = [
 	eventCardResponse,
 	celebrateCardResponse,
 	bookAppointmentCardResponse,

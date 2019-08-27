@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/camelcase */
 // https://github.com/lorenwest/node-config/wiki/Configuration-Files
 const path = require('path')
 const { pick } = require('lodash')
 const fs = require('fs')
 const errors = require('./errors')
 const settings = require('./settings')
-
 const packageJSON = require('../package.json')
+
 const HEARTWOOD_VERSION = encodeURIComponent(
 	require('@sprucelabs/heartwood-components').version
 )
@@ -17,11 +18,8 @@ try {
 	console.error('Missing .env file for this project')
 }
 
-// When running locally we use 'flow-node' so it can handle flowtypes. When in a non-local environment we need to use the build/ directory where flowtypes have been stripped
-const baseDirectory =
-	process.env.ENV === 'local'
-		? `${__dirname}/../server`
-		: `${__dirname}/../build`
+// Previously needed to be set based on whether we were using flow. With the introduction of TS, this no longer needs to change based on local/production environment
+const baseDirectory = `${__dirname}/../server`
 
 module.exports = {
 	DEV_MODE: process.env.DEV_MODE === 'true',
@@ -85,7 +83,7 @@ module.exports = {
 	TESTING: process.env.TESTING === 'true',
 	S3_BUCKET: process.env.S3_BUCKET || '',
 	scopes: require('./scopes'),
-	auth: require('./auth'),
+	auth: require('./auth').default,
 	settings,
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
@@ -152,10 +150,10 @@ module.exports = {
 			// 	description: 'Core asks for settings validation',
 			// 	subscribe: true
 			// },
-			// 'get-views': {
-			// 	description: 'Core asks for views to display on a page',
-			// 	subscribe: true
-			// },
+			'get-views': {
+				description: 'Core asks for views to display on a page',
+				subscribe: true
+			}
 			// 'get-cards': {
 			// 	description: 'Core asks this skill to provide cards',
 			// 	subscribe: true
@@ -231,19 +229,22 @@ module.exports = {
 	utilities: {}, // Settings for any utilities.
 	services: {
 		'uploads.disabled': {
-			uploader: './uploads/s3',
+			adapter: 's3',
 			options: {
-				Bucket: 'some-bucket-name',
+				bucket: 'some-bucket-name',
 				accessKeyId: process.env.AWS_ACCESS_KEY_ID,
 				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 			}
 		},
 		cache: {
-			cache: './cache/redis',
-			enable: process.env.CACHE_ENABLE === 'true',
+			adapter: 'redis',
+			enable: process.env.CACHE_ENABLED === 'true',
+			logDebug: process.env.CACHE_DEBUG === 'true',
 			options: {
-				url: process.env.REDIS_URL || null,
-				ttl: process.env.DEFAULT_TTL_SEC || 300
+				url: process.env.CACHE_URL || null,
+				ttl: process.env.CACHE_DEFAULT_TTL_SEC
+					? +process.env.CACHE_DEFAULT_TTL_SEC
+					: 300
 			}
 		}
 	}, // Settings for any services.
