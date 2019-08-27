@@ -3,13 +3,14 @@
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
 import config from 'config'
 import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel, ISpruceCoreSkillModels } from '../types/models'
+import { ISpruceModels } from '../interfaces/models'
 import { Location } from './Location'
 import { UserLocation } from './UserLocation'
 import { Organization } from './Organization'
 import { UserOrganization } from './UserOrganization'
 import { Group } from './Group'
 import { UserGroup } from './UserGroup'
+import SpruceCoreModel from '../lib/SpruceModel'
 
 export class User extends SpruceCoreModel<User> {
 	// Prevents sequelize from trying to run sync against this model
@@ -71,7 +72,7 @@ export class User extends SpruceCoreModel<User> {
 	public readonly updatedAt!: Date
 
 	// Set up associations
-	public static associate(models: ISpruceCoreSkillModels): void {
+	public static associate(models: ISpruceModels): void {
 		this.belongsToMany(models.Location, {
 			through: models.UserLocation
 		})
@@ -163,7 +164,7 @@ const attributes = {
 				sizes.forEach(size => {
 					profileImages['profile' + size] =
 						'https://s3.amazonaws.com/' +
-						config.S3_BUCKET +
+						config.get<string>('S3_BUCKET') +
 						'/userProfileImages/' +
 						this.profileImageUUID +
 						'--X' +
@@ -183,7 +184,7 @@ const attributes = {
 			sizes.forEach(size => {
 				profileImages['profile' + size] =
 					'https://s3.amazonaws.com/' +
-					config.S3_BUCKET +
+					config.get('S3_BUCKET') +
 					'/default-profile--X' +
 					size +
 					'.jpg'

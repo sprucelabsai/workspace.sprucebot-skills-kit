@@ -25,15 +25,15 @@
 		"local": "npm run kill-inspect && tsnd --ignore-watch interface/.next --ignore-watch node_modules --project tsconfig.server.json --inspect=4080 --respawn --transpileOnly server/server.ts",
 		"kill-inspect": "kill-port 4080",
 		"interface": "next ./interface -p 3080",
-		"lint": "eslint --ext .js .",
+		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx . && tsc -p . --noEmit",
 		"tsc": "tsc",
 		"test": "yarn run build && jest",
-		"test:server": "rm tmp/testing.db | true && mkdir -p tmp/ | true && TS_NODE_PROJECT=tsconfig.server.json PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit 'server/tests/**/*Tests*'",
+		"test:server": "rm tmp/testing.db | true && mkdir -p tmp/ | true && TS_NODE_PROJECT=tsconfig.server.json PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit 'server/tests/**/*Tests*' --inspect=4080",
 		"test:server:single": "rm tmp/testing.db | true && mkdir -p tmp/ | true && TS_NODE_PROJECT=tsconfig.server.json PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit",
 		"icon": "svgo icon/icon.svg",
 		"heroku-postbuild": "npm run build",
 		"release": "semantic-release",
-		"pretty": "prettier-eslint -l info --write \"**/*.js\""
+		"storybook": "start-storybook -p 6006"
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
@@ -88,6 +88,13 @@
 		"@semantic-release/changelog": "^3.0.0",
 		"@semantic-release/git": "7.1.0-beta.3",
 		"@sprucelabs/semantic-release": "^2.0.8",
+		"@types/mocha": "^5.2.7",
+		"@storybook/addon-actions": "^5.1.10",
+		"@storybook/addon-info": "^5.1.10",
+		"@storybook/addon-knobs": "^5.1.10",
+		"@storybook/addon-links": "^5.1.10",
+		"@storybook/addons": "^5.1.10",
+		"@storybook/react": "^5.1.10",
 		"babel-jest": "^24.5.0",
 		"chai": "^4.2.0",
 		"conventional-changelog-sprucelabs": "^1.1.0",
@@ -111,7 +118,8 @@
 		"supertest": "^3.3.0",
 		"svgo": "^1.0.3",
 		"ts-node": "^8.0.2",
-		"ts-node-dev": "^1.0.0-pre.32"
+		"ts-node-dev": "^1.0.0-pre.32",
+		"webpack": "^4.29.6"
 	},
 	"gitHead": "eac8d4ea6df58218b78c9c866b22c761df1e6447"
 }

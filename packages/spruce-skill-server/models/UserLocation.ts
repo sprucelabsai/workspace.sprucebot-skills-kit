@@ -2,10 +2,11 @@
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
 import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel, ISpruceCoreSkillModels } from '../types/models'
+import { ISpruceModels } from '../interfaces/models'
 import { Location } from './Location'
 import { Job } from './Job'
 import { User } from './User'
+import SpruceCoreModel from '../lib/SpruceModel'
 
 export class UserLocation extends SpruceCoreModel<UserLocation> {
 	// Prevents sequelize from trying to run sync against this model
@@ -34,14 +35,14 @@ export class UserLocation extends SpruceCoreModel<UserLocation> {
 	public status!: string
 	public visits!: number
 	public lastRecordedVisit!: Date
-	public UserId?: string | null
+	public UserId!: string
 	public User?: User | null
-	public LocationId?: string | null
+	public LocationId!: string
 	public Location?: Location | null
 	public JobId?: string | null
 	public Job?: Job | null
 
-	public static associate(models: ISpruceCoreSkillModels): void {
+	public static associate(models: ISpruceModels): void {
 		this.belongsTo(models.User, { constraints: false })
 		this.belongsTo(models.Location, { constraints: false })
 		this.belongsTo(models.Job, { constraints: false })

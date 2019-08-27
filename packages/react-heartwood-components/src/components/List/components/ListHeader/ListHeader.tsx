@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import Button from '../../../Button/Button'
+import Button, { IButtonProps } from '../../../Button/Button'
 
 export interface IListHeaderProps {
 	/** Title text */
@@ -14,7 +14,7 @@ export interface IListHeaderProps {
 
 	/** Actions to associate with the list header */
 	// TODO Import Button interface
-	actions?: any[]
+	actions?: IButtonProps[]
 }
 
 const ListHeader = (props: IListHeaderProps): React.ReactElement => {

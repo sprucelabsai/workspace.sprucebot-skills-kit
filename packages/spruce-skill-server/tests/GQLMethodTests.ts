@@ -1,17 +1,17 @@
 import { assert } from 'chai'
-import SpruceTest from './SpruceTest'
-const config = require('config')
-const faker = require('faker')
+import SpruceTest from './lib/SpruceTest'
+import { ISpruceContext } from '../interfaces/ctx'
+import faker from 'faker'
 
-class GQLMethodTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
-	setup() {
+class GQLMethodTests extends SpruceTest<ISpruceContext> {
+	public setup(): void {
 		it('Can call query', () => this.doQuery())
 		it('Can not call query as mutation', () => this.doQueryAsMutate())
 		it('Can call mutation', () => this.doMutate())
 		it('Can not call mutation as query', () => this.doMutateAsQuery())
 	}
 
-	async doQuery() {
+	public async doQuery(): Promise<void> {
 		const result = await this.ctx.sb.query(`
 		{
 				Location (
@@ -23,7 +23,7 @@ class GQLMethodTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		assert.isOk(result.data.Location.name)
 	}
 
-	async doQueryAsMutate() {
+	public async doQueryAsMutate(): Promise<void> {
 		const result = await this.ctx.sb.mutation(`
 		{
 				Location (
@@ -37,7 +37,7 @@ class GQLMethodTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		assert.isOk(result.errors[0])
 	}
 
-	async doMutate() {
+	public async doMutate(): Promise<void> {
 		const result = await this.ctx.sb.mutation(`
 		{
 			updateLocation (input: {
@@ -52,7 +52,7 @@ class GQLMethodTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		assert.isOk(result.data.updateLocation.Location.name)
 	}
 
-	async doMutateAsQuery() {
+	public async doMutateAsQuery(): Promise<void> {
 		const result = await this.ctx.sb.query(`
 		{
 			updateLocation (input: {
@@ -71,5 +71,5 @@ class GQLMethodTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 }
 
 describe('GQLMethodTests', function Tests() {
-	new GQLMethodTests(this)
+	new GQLMethodTests(`${__dirname}/../../spruce-skill/`, this)
 })

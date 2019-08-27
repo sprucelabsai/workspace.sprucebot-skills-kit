@@ -2,9 +2,10 @@
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
 import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel, ISpruceCoreSkillModels } from '../types/models'
+import { ISpruceModels } from '../interfaces/models'
 import { Organization } from './Organization'
 import { User } from './User'
+import SpruceCoreModel from '../lib/SpruceModel'
 
 export class UserOrganization extends SpruceCoreModel<UserOrganization> {
 	// Prevents sequelize from trying to run sync against this model
@@ -33,7 +34,7 @@ export class UserOrganization extends SpruceCoreModel<UserOrganization> {
 	public OrganizationId?: string | null
 	public Organization?: Organization | null
 
-	public static associate(models: ISpruceCoreSkillModels): void {
+	public static associate(models: ISpruceModels): void {
 		this.belongsTo(models.User, { constraints: false })
 		this.belongsTo(models.Organization, { constraints: false })
 	}

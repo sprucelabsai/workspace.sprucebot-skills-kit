@@ -49,6 +49,9 @@ export interface IToastProps {
 
 	/** Text for the followup action */
 	followupText?: string
+
+	/** override how long before the toast goes away, in milis */
+	timeout?: number | 'never'
 }
 
 const Toast = (props: IToastProps): React.ReactElement => {

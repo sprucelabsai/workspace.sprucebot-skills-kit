@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/camelcase */
 // https://github.com/lorenwest/node-config/wiki/Configuration-Files
-const path = require('path')
-const { pick } = require('lodash')
-const fs = require('fs')
-import { baseSkillConfig } from '@sprucelabs/spruce-skill-server'
-const errors = require('./errors')
-const settings = require('./settings')
+import path from 'path'
+import { pick, cloneDeep } from 'lodash'
+import fs from 'fs'
+import errors from './errors'
+import settings from './settings'
+import packageJSON from '../package.json'
+import { SpruceConfig } from '@sprucelabs/spruce-skill-server'
 
-const packageJSON = require('../package.json')
 const HEARTWOOD_VERSION = encodeURIComponent(
 	require('@sprucelabs/heartwood-components').version
 )
@@ -21,10 +22,11 @@ try {
 // Previously needed to be set based on whether we were using flow. With the introduction of TS, this no longer needs to change based on local/production environment
 const baseDirectory = `${__dirname}/../server`
 
-console.log({ dir: __dirname, base: typeof baseSkillConfig, baseSkillConfig })
+console.log({ SpruceConfig, ID: SpruceConfig.ID })
 
 export default {
-	// ...base
+	// ...cloneDeep(SpruceConfig),
+	ID: process.env.ID,
 	DEV_MODE: process.env.DEV_MODE === 'true',
 	ENV: process.env.ENV || 'default',
 	EVENT_VERSION: process.env.EVENT_VERSION ? +process.env.EVENT_VERSION : 1,
@@ -58,7 +60,6 @@ export default {
 			'latest'}/heartwood-components.min.css`,
 	DATABASE_URL_TESTING:
 		process.env.DATABASE_URL_TESTING || `sqlite:${__dirname}/../tmp/testing.db`,
-	// ID: process.env.ID,
 	NAME: process.env.NAME,
 	SLUG: process.env.SLUG,
 	DESCRIPTION: process.env.DESCRIPTION,
@@ -85,7 +86,7 @@ export default {
 	TESTING: process.env.TESTING === 'true',
 	S3_BUCKET: process.env.S3_BUCKET || '',
 	scopes: require('./scopes'),
-	auth: require('./auth'),
+	auth: require('./auth').default,
 	settings,
 	acl: {
 		// These are ACLs from other skills or core that we're requesting
@@ -122,9 +123,19 @@ export default {
 				type: 'organization',
 				defaults: {
 					guest: false,
-					teammate: true,
-					manager: true,
+					teammate: false,
+					manager: false,
 					groupManager: true
+				}
+			},
+			can_do_example_organization_owner_only: {
+				label: 'If the user can do this example thing for an organization.',
+				type: 'organization',
+				defaults: {
+					guest: false,
+					teammate: false,
+					manager: false,
+					groupManager: false
 				}
 			}
 		}
@@ -252,7 +263,7 @@ export default {
 	// Error responses
 	errors,
 	// Omit keys from client.json config
-	sanitizeClientConfig: config =>
+	sanitizeClientConfig: (config: Record<string, any>) =>
 		pick(config, [
 			'NAME',
 			'ICON',

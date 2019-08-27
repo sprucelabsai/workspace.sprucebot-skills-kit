@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable @typescript-eslint/no-var-requires */
 // https://github.com/lorenwest/node-config/wiki/Configuration-Files
-import path from 'path'
+// import path from 'path'
 
 export default {
-	ID: process.env.ID
+	ID: process.env.ID || 'something'
 }
 
 // export default (configDirectory: string) => {

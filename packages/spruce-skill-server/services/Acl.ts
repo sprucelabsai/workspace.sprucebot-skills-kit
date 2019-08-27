@@ -1,6 +1,6 @@
 import Debug from 'debug'
-import SpruceSkillService from './base/SpruceSkillService'
-import { ISpruceSkillContext } from '../types/ctx'
+import SpruceSkillService from '../lib/SpruceSkillService'
+import { ISpruceContext } from '../interfaces/ctx'
 const debug = Debug('spruce-skill-server')
 // This service can be accessed by ctx.services.acl from the controllers
 
@@ -8,7 +8,7 @@ interface IAclPermissions {
 	[skillSlugV2: string]: string[]
 }
 
-interface IAclsResult {
+export interface IAclsResult {
 	[skillSlugV2: string]: {
 		[permission: string]: boolean
 	}
@@ -22,9 +22,7 @@ interface IAcl {
 	}[]
 }
 
-export default class AclService extends SpruceSkillService<
-	ISpruceSkillContext
-> {
+export default class AclService extends SpruceSkillService<ISpruceContext> {
 	/**
 	 * Returns individual ACLs which can then be handled however you like
 	 */

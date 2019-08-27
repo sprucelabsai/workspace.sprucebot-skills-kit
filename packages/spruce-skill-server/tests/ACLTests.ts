@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/camelcase */
+import get from 'lodash/get'
 import { assert } from 'chai'
-import SpruceTest from './SpruceTest'
+import SpruceTest from './lib/SpruceTest'
 import config from 'config'
-import { ISpruceSkillContext } from '../types/ctx'
+import { ISpruceContext } from '../interfaces/ctx'
 
-class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
-	ISpruceSkillContext
-> {
+class ACLTests extends SpruceTest<ISpruceContext> {
 	public setup(): void {
 		it('Checks location acls as owner', () => this.checkLocationAcls('owner'))
 		it('Checks location acls as groupManager', () =>
@@ -44,6 +44,10 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 			this.missingParametersOrganizationId())
 		it('Throws error on missing parameter permissions', () =>
 			this.missingParametersPermissions())
+
+		it('Can check individual acls for org', () => this.checkIndividualOrgAcls())
+		it('Can check individual acls for location', () =>
+			this.checkIndividualLocationAcls())
 	}
 
 	public async checkLocationAcls(as: string): Promise<void> {
@@ -79,7 +83,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 		const isAuthorized = await this.ctx.services.acl.userIsAuthorizedForAcls({
 			userId,
 			permissions: {
-				[config.SLUG]: ['can_do_example_location']
+				[config.get<string>('SLUG')]: ['can_do_example_location']
 			},
 			locationId: this.location.id,
 			organizationId: this.organization.id
@@ -102,11 +106,11 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 				userId = this.organization.groupManager[0].id
 				break
 			case 'manager':
-				expected = true
+				expected = false
 				userId = this.location.owner[0].id
 				break
 			case 'teammate':
-				expected = true
+				expected = false
 				userId = this.location.teammate[0].id
 				break
 			case 'guest':
@@ -121,7 +125,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 		const isAuthorized = await this.ctx.services.acl.userIsAuthorizedForAcls({
 			userId,
 			permissions: {
-				[config.SLUG]: ['can_do_example_organization']
+				[config.get<string>('SLUG')]: ['can_do_example_organization']
 			},
 			organizationId: this.organization.id
 		})
@@ -162,7 +166,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 		const isAuthorized = await this.ctx.services.acl.userIsAuthorizedForAcls({
 			userId,
 			permissions: {
-				[config.SLUG]: [
+				[config.get<string>('SLUG')]: [
 					'can_do_example_organization',
 					'can_do_example_location_owner_only'
 				]
@@ -177,7 +181,7 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 		const isAuthorized = await this.ctx.services.acl.userIsAuthorizedForAcls({
 			userId: this.organization.owner[0].id,
 			permissions: {
-				[config.SLUG]: ['not_a_real_permission']
+				[config.get<string>('SLUG')]: ['not_a_real_permission']
 			},
 			locationId: this.location.id,
 			organizationId: this.organization.id
@@ -202,11 +206,10 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 	public async missingParametersUserId(): Promise<void> {
 		let didThrow = false
 		try {
-			// Ignore because we're testing for missing params
-			// @ts-ignore
+			// @ts-ignore: Missing parameter error
 			await this.ctx.services.acl.userIsAuthorizedForAcls({
 				permissions: {
-					[config.SLUG]: ['can_do_example_location']
+					[config.get<string>('SLUG')]: ['can_do_example_location']
 				},
 				locationId: this.location.id,
 				organizationId: this.organization.id
@@ -220,12 +223,11 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 	public async missingParametersOrganizationId(): Promise<void> {
 		let didThrow = false
 		try {
-			// Ignore because we're testing for missing params
-			// @ts-ignore
+			// @ts-ignore: missing parameter error
 			await this.ctx.services.acl.userIsAuthorizedForAcls({
-				userId: this.organization.owner[0].jwt,
+				userId: 'taco-bravo',
 				permissions: {
-					[config.SLUG]: ['can_do_example_location']
+					[config.get<string>('SLUG')]: ['can_do_example_location']
 				},
 				locationId: this.location.id
 			})
@@ -238,10 +240,9 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 	public async missingParametersPermissions(): Promise<void> {
 		let didThrow = false
 		try {
-			// Ignore because we're testing for missing params
-			// @ts-ignore
+			// @ts-ignore: missing parameter error
 			await this.ctx.services.acl.userIsAuthorizedForAcls({
-				userId: this.organization.owner[0].jwt,
+				userId: 'tacobravo',
 				locationId: this.location.id,
 				organizationId: this.organization.id
 			})
@@ -250,8 +251,51 @@ class ACLTests extends SpruceTest(`${__dirname}/../../spruce-skill/`)<
 		}
 		assert.isTrue(didThrow)
 	}
+
+	public async checkIndividualOrgAcls(): Promise<void> {
+		const acls = await this.ctx.services.acl.getAcls({
+			permissions: {
+				[config.get<string>('SLUG')]: [
+					'can_do_example_organization',
+					'can_do_example_organization_owner_only'
+				]
+			},
+			userId: this.organization.groupManager[0].id,
+			organizationId: this.organization.id
+		})
+
+		const {
+			can_do_example_organization,
+			can_do_example_organization_owner_only
+		} = get(acls, config.get<string>('SLUG'))
+
+		assert.isTrue(can_do_example_organization)
+		assert.isFalse(can_do_example_organization_owner_only)
+	}
+
+	public async checkIndividualLocationAcls(): Promise<void> {
+		const acls = await this.ctx.services.acl.getAcls({
+			permissions: {
+				[config.get<string>('SLUG')]: [
+					'can_do_example_location',
+					'can_do_example_location_owner_only'
+				]
+			},
+			locationId: this.location.id,
+			userId: this.location.teammate[0].id,
+			organizationId: this.organization.id
+		})
+
+		const { can_do_example_location, can_do_example_location_owner_only } = get(
+			acls,
+			config.get<string>('SLUG')
+		)
+
+		assert.isTrue(can_do_example_location)
+		assert.isFalse(can_do_example_location_owner_only)
+	}
 }
 
 describe('ACLTests', function Tests() {
-	new ACLTests(this)
+	new ACLTests(`${__dirname}/../../spruce-skill/`, this)
 })

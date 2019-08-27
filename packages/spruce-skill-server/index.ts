@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+
 import Debug from 'debug'
-const debug = Debug('spruce-skill-server')
 import Koa from 'koa'
 import next from 'next'
 import Router from 'koa-router'
 import cron from 'node-cron'
 import _ from 'lodash'
 import koaBody from 'koa-body'
+// @ts-ignore
 import logger from '@sprucelabs/log'
 import defaultErrors from './support/errors'
 import path from 'path'
@@ -20,55 +21,98 @@ import sequelizeFactory from './factories/sequelize'
 import lang from './helpers/lang'
 import gqlRouter from './gql/router'
 import gqlListeners from './gql/listeners'
-import config from 'config'
-// import SpruceTest from './tests/SpruceTest'
+import { Server } from 'https'
+import Sprucebot from '@sprucelabs/spruce-node'
+import { ISpruceContext } from './interfaces/ctx'
+import HttpsMock from './tests/lib/HttpsMock'
+// TODO: Is there a better way we can declare globals without needing to import this?
+// @ts-ignore: Need to import this definitions file for globals
+import * as globalDefinitions from './interfaces/global' // eslint-disable-line
 
-const required = (key: string): void => {
-	throw new Error(`SkillKit server needs ${key}`)
+const debug = Debug('spruce-skill-server')
+
+interface IServeOptions {
+	sprucebot: Sprucebot
+	port: number
+	serverHost: string
+	interfaceHost: string
+	nextConfig: next.ServerOptions
+	errors: Record<string, any>
+	servicesDir: string
+	utilitiesDir: string
+	controllersDir: string
+	middlewareDir: string
+	listenersDir: string
+	sequelizeOptions?: {
+		runMigrations: boolean
+		modelsDir: string
+		migrationsDir: string
+		options: Record<string, any>
+	}
+	langDir: string
+	staticDir?: string
+	bodyParserOptions?: koaBody.IKoaBodyOptions
+	slug: string
+	logLevel: string
+	logUseColors: boolean
+	logUseTrace: boolean
+	logUseSourcemaps: boolean
+	logAsJSON: boolean
+	env: string
+	packageName: string
+	packageVersion: string
+	metricsAppKey: string
+	metricsUrl: string
+	metricsEnabled: boolean
+	metricsRequestsDisabled: boolean
+	metricsServerStatsDisabled: boolean
+	metricsSequelizeDisabled: boolean
+	gqlOptions: Record<string, any>
+	testing?: boolean
 }
 
-export default async ({
-	sprucebot = required('sprucebot'),
-	port = required('port'),
-	serverHost = required('serverHost'),
-	interfaceHost = required('interfaceHost'),
-	nextConfig = required('nextConfig'),
-	errors = {},
-	servicesDir = required('servicesDir'),
-	utilitiesDir = required('utilitiesDir'),
-	controllersDir = required('controllersDir'),
-	middlewareDir = required('middlewareDir'),
-	listenersDir = required('listenersDir'),
-	sequelizeOptions,
-	langDir = required('langDir'),
-	staticDir = false,
-	bodyParserOptions = { jsonLimit: '1mb' },
-	slug = required('slug'),
-	logLevel = 'info',
-	logUseColors = true,
-	logUseTrace = false,
-	logUseSourcemaps = false,
-	logAsJSON = false,
-	env = 'default',
-	packageName,
-	packageVersion,
-	metricsAppKey,
-	metricsUrl,
-	metricsEnabled,
-	metricsRequestsDisabled,
-	metricsServerStatsDisabled,
-	metricsSequelizeDisabled,
-	gqlOptions
-}) => {
-	console.log('***********************')
-	console.log('***********************')
-	console.log('***********************')
-	const baseConfig = config.util.loadFileConfigs(`./config`)
-	console.log({baseConfig})
-	config.util.setModuleDefaults('spruce-skill-server', baseConfig)
-	console.log('***********************')
-	console.log('***********************')
-	console.log('***********************')
+export interface ISpruceServeSkill<ISkillContext> {
+	koa: Koa<{}, ISkillContext>
+	server: Server
+}
+
+async function serve<ISkillContext extends ISpruceContext>(
+	options: IServeOptions
+): Promise<ISpruceServeSkill<ISkillContext>> {
+	const {
+		sprucebot,
+		port,
+		serverHost,
+		interfaceHost,
+		nextConfig,
+		errors = {},
+		servicesDir,
+		utilitiesDir,
+		controllersDir,
+		middlewareDir,
+		listenersDir,
+		sequelizeOptions,
+		langDir,
+		staticDir,
+		bodyParserOptions = { jsonLimit: '1mb' },
+		slug,
+		logLevel = 'info',
+		logUseColors = true,
+		logUseTrace = false,
+		logUseSourcemaps = false,
+		logAsJSON = false,
+		env = 'default',
+		packageName,
+		packageVersion,
+		metricsAppKey,
+		metricsUrl,
+		metricsEnabled,
+		metricsRequestsDisabled,
+		metricsServerStatsDisabled,
+		metricsSequelizeDisabled,
+		gqlOptions,
+		testing = false
+	} = options
 
 	debug('Starting server boot sequence with port', port)
 	// you can override error messages
@@ -83,7 +127,7 @@ export default async ({
 	// Setup NextJS App
 	debug('Setting up Nextjs with', nextConfig)
 	let app
-	let handle
+	let handle: Function | undefined
 
 	if (!isApiOnly) {
 		app = next(nextConfig)
@@ -93,17 +137,16 @@ export default async ({
 	}
 
 	// Next app ready
-	if (!isApiOnly) {
+	if (app) {
 		await app.prepare()
 	}
 
-	const koa = new Koa()
+	const koa = new Koa<{}, ISkillContext>()
 	koa.proxy = true
 
 	// Set up global logger
 	global.logger = logger
 	const log = logger.log
-
 	log.setOptions({
 		level: logLevel,
 		useTrace: logUseTrace,
@@ -123,16 +166,17 @@ export default async ({
 	// Kick off sync with platform
 	debug('Starting sync with core')
 
-	if (process.env.TESTING === 'true') {
-		const { mockResolvers, mockModels } = require('./tests/apiMocks')(
+	if (testing) {
+		const { mockResolvers, mockModels } = require('./tests/mocks/apiMocks')(
 			koa.context
 		)
-		sprucebot.setOptions({
-			useMockApi: true
+		const adapter = new HttpsMock({
+			ctx: koa.context,
+			mockResolvers,
+			mockModels
 		})
-		sprucebot.adapter.mockApiGQLServerInit({ mockResolvers, mockModels })
-		const v1APIMocks = require('./tests/v1APIMocks')(koa.context)
-		sprucebot.adapter.mockApiInit(v1APIMocks)
+
+		sprucebot.setAdapter(adapter)
 	}
 
 	let syncResponse
@@ -144,7 +188,8 @@ export default async ({
 		process.exit(1)
 	}
 
-	if (syncResponse.s3Bucket) {
+	// TODO: remove this when skills are updated to use the file upload service
+	if (syncResponse && syncResponse.s3Bucket) {
 		process.env.S3_BUCKET = syncResponse.s3Bucket
 	}
 
@@ -188,17 +233,6 @@ export default async ({
         =        Utilities/Services/Lang        =
         =======================================*/
 	try {
-		// make lang available via utilities
-		if (langDir) {
-			debug('langDir detected at', langDir)
-			lang.configure(langDir)
-			koa.context.utilities = { lang }
-		} else {
-			debug(
-				'No landDir detected. ctx.utilities.lang.getText() will fail sever side'
-			)
-		}
-
 		// services for core
 		contextFactory(path.join(__dirname, 'services'), 'services', koa.context)
 
@@ -215,23 +249,41 @@ export default async ({
 		// utilities for skills-kit
 		contextFactory(utilitiesDir, 'utilities', koa.context)
 
+		// make lang available via utilities
+		if (langDir) {
+			debug('langDir detected at', langDir)
+			lang.configure(langDir)
+			koa.context.utilities.lang = lang
+		} else {
+			debug(
+				'No landDir detected. ctx.utilities.lang.getText() will fail sever side'
+			)
+		}
+
 		debug('Kit utilities loaded')
 
 		// make sure services and utilities can access each other
 		_.each(koa.context.services, service => {
 			// Legacy support. New services that are class based don't need this
 			if (!service.serviceVersion) {
+				// @ts-ignore: legacy monky patch services
 				service.services = koa.context.services
+				// @ts-ignore: legacy monky patch utilities
 				service.utilities = koa.context.utilities
+				// @ts-ignore: legacy monky patch sb
 				service.sb = sprucebot
 			}
 		})
 
 		_.each(koa.context.utilities, util => {
 			// Legacy support. New utilities that are class based don't need this
-			if (!util.utilVersion) {
+			// @ts-ignore
+			if (util.utilityVersion) {
+				// @ts-ignore: legacy monky patch utilities
 				util.utilities = koa.context.utilities
+				// @ts-ignore: legacy monky patch services
 				util.services = koa.context.services
+				// @ts-ignore: legacy monky patch sb
 				util.sb = sprucebot
 			}
 		})
@@ -242,7 +294,7 @@ export default async ({
 		debug('Utilities and services can now reference each other')
 
 		// orm if enabled
-		if (syncResponse.databaseUrl) {
+		if (syncResponse && syncResponse.databaseUrl && sequelizeOptions) {
 			sequelizeFactory(
 				{
 					...sequelizeOptions,
@@ -259,15 +311,23 @@ export default async ({
 			debug('Kit sequelize enabled')
 
 			// Connect and run migrations if enabled
+			// @ts-ignore: hidden method from interface so skills dev's don't call it by accident
 			await koa.context.db.sync()
 
-			// Services and utils can access the orm
+			// Services and utils can access the orm (LEGACY, everything is accessed through this.ctx in utils/services now)
 			_.each(koa.context.utilities, util => {
-				util.db = koa.context.db
+				// @ts-ignore
+				if (!util.utilityVersion) {
+					// @ts-ignore: legacy monky patch db onto utilities
+					util.db = koa.context.db
+				}
 			})
 
 			_.each(koa.context.services, service => {
-				service.db = koa.context.db
+				if (!service.serviceVersion) {
+					// @ts-ignore: legacy monky patch db onto services
+					service.db = koa.context.db
+				}
 			})
 
 			debug('Utilities and services can now reference the orm')
@@ -281,6 +341,7 @@ export default async ({
 	/*======================================
         =            	Cron	        	   =
         ======================================*/
+	// @ts-ignore: variable require for cron controller
 	const cronController = require(path.join(controllersDir, 'cron'))
 	cronController({ ...koa.context, sb: sprucebot }, cron)
 	debug('CronController running')
@@ -414,7 +475,9 @@ export default async ({
 				return
 			}
 			debug('handing off to next and backing off', ctx.path, ctx)
-			await handle(ctx.req, ctx.res)
+			if (handle) {
+				await handle(ctx.req, ctx.res)
+			}
 			ctx.respond = false
 			return
 
@@ -459,27 +522,68 @@ export default async ({
         =              	Serve            	   =
         ======================================*/
 	// TODO better handling hosting only server or interface
-	const server = koa.listen(port, err => {
+	const server = koa.listen(port, () => {
+		// @ts-ignore
 		gqlRouter(koa, gqlOptions, server)
-		gqlListeners(koa, gqlOptions, server)
+		gqlListeners(koa as any, gqlOptions)
 
-		if (err) {
-			throw err
-		}
 		console.log(
 			` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`
 		)
 	})
 
+	// @ts-ignore
 	return { koa, server }
 }
 
-export { default as SpruceTest } from './tests/SpruceTest'
-export { ISpruceCoreSkillModels, SpruceCoreModel } from './types/models'
-export { ISpruceCoreSkillServices } from './types/services'
+export default serve
+
+// global interfaces
+export { ISpruceModels } from './interfaces/models'
+export { ISpruceServices } from './interfaces/services'
+export { ISpruceUtilities } from './interfaces/utilities'
+export { ISpruceContext } from './interfaces/ctx'
+
+// errors
+export { ISpruceErrorDefinitions } from './support/errors'
+
+// Auth
 export {
-	default as SpruceSkillService
-} from './services/base/SpruceSkillService'
+	ISpruceAuth,
+	ISpruceAuthJob,
+	ISpruceAuthGroup,
+	ISpruceAuthUserLocation,
+	ISpruceAuthOrganization,
+	ISpruceAuthLocation,
+	ISpruceAuthUser
+} from './interfaces/auth'
+
+// Big Search
+export {
+	ISpruceBigSearchSection,
+	ISpruceBigSearchResult,
+	ISpruceBigSearchCtx,
+	ISpruceImportBigSearchMatch,
+	ISpruceImportBigSearchMatchGroup,
+	ISpruceImportBigSearchResult,
+	IImportFromBigSearchCtx
+} from './interfaces/bigSearch'
+
+// Settings
+export {
+	ISprucePageSettings,
+	SpruceSettingsFieldType,
+	ISpruceSettingsField,
+	ISpruceSettingsSection
+} from './interfaces/settings'
+
+export {}
+
+// Base classes
+export { default as SpruceSkillService } from './lib/SpruceSkillService'
+export { default as SpruceSkillUtility } from './lib/SpruceSkillUtility'
+export { default as SpruceCoreModel } from './lib/SpruceModel'
+export { default as SpruceTest } from './tests/lib/SpruceTest'
 
 // Export Models
 export { FileItem } from './models/FileItem'
@@ -493,11 +597,14 @@ export { User } from './models/User'
 export { UserGroup } from './models/UserGroup'
 export { UserLocation } from './models/UserLocation'
 export { UserOrganization } from './models/UserOrganization'
-export { default as baseSkillConfig } from './config/default'
+export { default as SpruceConfig } from './config/default'
 
 // Mock data for tests
 export {
 	IMockUser,
 	IMockOrganization,
-	IMockSkill
+	IMockSkill,
+	IMockLocation
 } from './tests/mocks/SandboxMock'
+
+export { ISpruceGQLTypes } from './interfaces/gql'

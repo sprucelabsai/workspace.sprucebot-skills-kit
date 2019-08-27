@@ -1,23 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { assert } from 'chai'
-import SpruceTest from './SpruceTest'
-const config = require('config')
-const faker = require('faker')
-const uuid = require('uuid')
+import SpruceTest from './lib/SpruceTest'
+import { ISpruceContext } from '../interfaces/ctx'
+import config from 'config'
+import uuid from 'uuid'
 
-class EmitTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
-	setup() {
+class EmitTests extends SpruceTest<ISpruceContext> {
+	public setup(): void {
 		it('Can emit to location with eventId', () =>
 			this.locationEmitWithEventId())
 		it('Can emit to organization with eventId', () =>
 			this.organizationEmitWithEventId())
 	}
 
-	async locationEmitWithEventId() {
+	public async locationEmitWithEventId(): Promise<void> {
 		const eventId = uuid.v4()
-		const eventName = `${config.SLUG}:test-event`
+		const eventName = `${config.get('SLUG')}:test-event`
 
 		global.testEmitResponse[eventName] = {
-			callback: ({ data, method, path, query }) => {
+			callback: ({ data, method, path }) => {
 				assert.equal(data.eventId, eventId)
 				assert.equal(data.eventName, eventName)
 				assert.equal(method, 'POST')
@@ -25,7 +26,7 @@ class EmitTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 			}
 		}
 
-		const result = await this.ctx.sb.emit(
+		await this.ctx.sb.emit(
 			this.location.id,
 			eventName,
 			{ my: 'payload' },
@@ -34,12 +35,12 @@ class EmitTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 		)
 	}
 
-	async organizationEmitWithEventId() {
+	public async organizationEmitWithEventId(): Promise<void> {
 		const eventId = uuid.v4()
-		const eventName = `${config.SLUG}:test-event`
+		const eventName = `${config.get('SLUG')}:test-event`
 
 		global.testEmitResponse[eventName] = {
-			callback: ({ data, method, path, query }) => {
+			callback: ({ data, method, path }) => {
 				assert.equal(data.eventId, eventId)
 				assert.equal(data.eventName, eventName)
 				assert.equal(method, 'POST')
@@ -47,7 +48,7 @@ class EmitTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 			}
 		}
 
-		const result = await this.ctx.sb.emitOrganization(
+		await this.ctx.sb.emitOrganization(
 			this.organization.id,
 			eventName,
 			{ my: 'payload' },
@@ -58,5 +59,5 @@ class EmitTests extends SpruceTest(`${__dirname}/../../spruce-skill/`) {
 }
 
 describe('EmitTests', function Tests() {
-	new EmitTests(this)
+	new EmitTests(`${__dirname}/../../spruce-skill/`, this)
 })

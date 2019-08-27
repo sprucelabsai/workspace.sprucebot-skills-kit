@@ -1,5 +1,5 @@
-import { ISpruceSkillContext } from '../types/ctx'
-import SpruceSkillService from './base/SpruceSkillService'
+import { ISpruceContext } from '../interfaces/ctx'
+import SpruceSkillService from '../lib/SpruceSkillService'
 
 // We could have multiple cache options in the future as long as they all conform
 // See ./cache/ for adapters
@@ -28,15 +28,12 @@ interface ICacheConfig {
 	}
 }
 
-export default class Cache extends SpruceSkillService<ISpruceSkillContext> {
+export default class Cache extends SpruceSkillService<ISpruceContext> {
 	private cache?: AbstractSpruceSkillCacheAdapter
 	private isEnabled = false
 	private logDebug = false
 
-	public constructor(options: {
-		ctx: ISpruceSkillContext
-		config?: ICacheConfig
-	}) {
+	public constructor(options: { ctx: ISpruceContext; config?: ICacheConfig }) {
 		super(options)
 		this.init(options.config)
 	}

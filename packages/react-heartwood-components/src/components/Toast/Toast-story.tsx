@@ -4,6 +4,7 @@ import { withKnobs, text, boolean, select } from '@storybook/addon-knobs/react'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import Toast from './Toast'
 import ToastWrapper from './components/ToastWrapper/ToastWrapper'
+import { ButtonKinds } from '../Button/Button'
 const stories = storiesOf('Toast', module)
 
 interface IToasterProps {
@@ -86,27 +87,27 @@ class Toaster extends Component<IToasterProps, IToasterState> {
 				<ButtonGroup
 					actions={[
 						{
-							kind: 'secondary',
+							kind: ButtonKinds.Secondary,
 							text: 'Add Toast',
 							onClick: () => this.addToast('neutral')
 						},
 						{
-							kind: 'secondary',
+							kind: ButtonKinds.Secondary,
 							text: 'Add Happy Toast',
 							onClick: () => this.addToast('positive')
 						},
 						{
-							kind: 'secondary',
+							kind: ButtonKinds.Secondary,
 							text: 'Add Sad Toast',
 							onClick: () => this.addToast('negative')
 						},
 						{
-							kind: 'secondary',
+							kind: ButtonKinds.Secondary,
 							text: 'Add Warning Toast',
 							onClick: () => this.addToast('warn')
 						},
 						{
-							kind: 'secondary',
+							kind: ButtonKinds.Secondary,
 							text: 'Add Info Toast',
 							onClick: () => this.addToast('info')
 						}
