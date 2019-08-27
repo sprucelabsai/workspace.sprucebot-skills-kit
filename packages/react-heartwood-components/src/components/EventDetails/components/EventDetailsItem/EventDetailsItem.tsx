@@ -25,7 +25,7 @@ const components = {
 	markdown: MDTextContainer
 }
 
-type AvailableConfigurationOptions =
+export type IEventDetailsItemProps =
 	| {
 			id: string
 			type: 'list'
@@ -61,17 +61,6 @@ type AvailableConfigurationOptions =
 			type: 'markdown'
 			viewModel: IMarkdownText
 	  }
-
-type ExtractAvailableConfigurations<A, T> = A extends { type: T } ? A : never
-
-export type IEventDetailsItemProps =
-	| ExtractAvailableConfigurations<AvailableConfigurationOptions, 'list'>
-	| ExtractAvailableConfigurations<AvailableConfigurationOptions, 'button'>
-	| ExtractAvailableConfigurations<AvailableConfigurationOptions, 'splitButton'>
-	| ExtractAvailableConfigurations<AvailableConfigurationOptions, 'card'>
-	| ExtractAvailableConfigurations<AvailableConfigurationOptions, 'toast'>
-	| ExtractAvailableConfigurations<AvailableConfigurationOptions, 'text'>
-	| ExtractAvailableConfigurations<AvailableConfigurationOptions, 'markdown'>
 
 const EventDetailsItem = (
 	props: IEventDetailsItemProps
