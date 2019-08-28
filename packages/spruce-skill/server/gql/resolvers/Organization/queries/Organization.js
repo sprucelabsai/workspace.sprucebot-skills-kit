@@ -1,4 +1,4 @@
-// @flow
+//
 const config = require('config')
 const { GraphQLString, GraphQLNonNull } = require('graphql')
 
