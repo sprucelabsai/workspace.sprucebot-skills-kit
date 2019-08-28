@@ -1,7 +1,7 @@
-import { IEventDetailsItemProps } from '../../src/components/EventDetails/components/EventDetailsItem/EventDetailsItem'
-import { IEventDetailsProps } from '../../src/components/EventDetails/EventDetails'
-import { IListProps } from '../../src'
-import Button, { ButtonKinds } from '../../src/components/Button/Button'
+import { IEventDetailsItemProps } from './components/EventDetailsItem/EventDetailsItem'
+import { IEventDetailsProps } from './EventDetails'
+import { IListProps } from '../List'
+import { ButtonKinds } from '../Button/Button'
 
 const avatar =
 	'https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&auto=format&fit=crop&w=96&h=96&q=80'
