@@ -1,4 +1,4 @@
-// @flow
+//
 const globby = require('globby')
 const fs = require('fs')
 

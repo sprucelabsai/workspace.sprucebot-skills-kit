@@ -1,4 +1,4 @@
-// @flow
+//
 import React from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
@@ -13,8 +13,6 @@ import { gqlClient } from '@sprucelabs/spruce-next-helpers'
 import { Subscription } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import type { WrappedInitialProps } from '../../../containers/PageWrapper'
-
 const EXAMPLE_SUBSCRIPTION = gql`
 	subscription ExampleStream {
 		ExampleStream {
@@ -24,13 +22,8 @@ const EXAMPLE_SUBSCRIPTION = gql`
 	}
 `
 
-type Props = {
-	auth: WrappedInitialProps.auth,
-	skill: Object
-}
-
-class TestSkillView extends React.Component<Props> {
-	static async getInitialProps(props: WrappedInitialProps) {
+class TestSkillView extends React.Component {
+	static async getInitialProps(props) {
 		if (props.auth && props.auth.User) {
 			console.log('a user is logged in!')
 		}

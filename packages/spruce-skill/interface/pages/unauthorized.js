@@ -1,4 +1,4 @@
-/// @flow
+///
 import React from 'react'
 import PageWrapper from '../containers/PageWrapper'
 import {
@@ -11,13 +11,7 @@ import {
 
 // import type { WrappedInitialProps } from '../containers/PageWrapper'
 
-type Props = {
-	skill: Object
-}
-
-type State = {}
-
-class UnauthorizedPage extends React.Component<Props, State> {
+class UnauthorizedPage extends React.Component {
 	static getInitialProps(/* props: WrappedInitialProps */) {
 		return {
 			public: true // does not require the user to be auth'ed

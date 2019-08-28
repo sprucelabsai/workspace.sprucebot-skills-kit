@@ -1,4 +1,4 @@
-// @flow
+//
 // const config = require('config')
 const { GraphQLString, GraphQLObjectType } = require('graphql')
 // const { defaultListArgs } = require('graphql-sequelize')
@@ -48,7 +48,7 @@ module.exports = ctx => {
 			type: responseType,
 			args: {},
 			async resolve(
-				payload: Object
+				payload
 				// args: Object,
 				// context: Object,
 				// info: Object

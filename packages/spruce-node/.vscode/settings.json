@@ -3,8 +3,17 @@
 	"files.autoSave": "onFocusChange",
 	"eslint.autoFixOnSave": true,
 	"search.exclude": {
+		"**/build": true,
 		"**/node_modules": true
 	},
-	"cSpell.words": ["POST'ing", "metas", "mutexes", "upsert", "webhook"],
-	"prettier.eslintIntegration": true
+	"prettier.eslintIntegration": true,
+	"files.watcherExclude": {
+		"**/build/**": true
+	},
+	"typescript.validate.enable": true,
+	"eslint.validate": ["javascript", "typescript"],
+	"eslint.options": {
+		"extensions": [".js", ".ts"]
+	},
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

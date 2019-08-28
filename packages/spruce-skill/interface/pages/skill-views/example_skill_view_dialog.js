@@ -1,4 +1,4 @@
-// @flow
+//
 import React, { Fragment } from 'react'
 import PageWrapper from '../../containers/PageWrapper'
 import {
@@ -10,19 +10,7 @@ import {
 	Button
 } from '@sprucelabs/react-heartwood-components'
 
-import type { WrappedInitialProps } from '../../containers/PageWrapper'
-
-type Props = {
-	auth: WrappedInitialProps.auth,
-	skill: Object
-}
-
-type State = {
-	currentPageIndex: number,
-	currentModalHeight: ?string
-}
-
-class TestSkillView extends React.Component<Props, State> {
+class TestSkillView extends React.Component {
 	modal = this.props.skill.modal()
 
 	pages = [
@@ -39,7 +27,7 @@ class TestSkillView extends React.Component<Props, State> {
 		}
 	}
 
-	static async getInitialProps(props: WrappedInitialProps) {
+	static async getInitialProps(props) {
 		if (props.auth && props.auth.User) {
 			console.log('a user is logged in!')
 		}
@@ -102,7 +90,7 @@ class TestSkillView extends React.Component<Props, State> {
 		)
 	}
 
-	setModalIsSubmitting = (isSubmitting: boolean) => {
+	setModalIsSubmitting = isSubmitting => {
 		this.modal.setFooterSecondaryActionIsDisabled(isSubmitting)
 		this.modal.setFooterPrimaryActionIsDisabled(isSubmitting)
 		this.modal.setFooterPrimaryActionIsLoading(isSubmitting)
