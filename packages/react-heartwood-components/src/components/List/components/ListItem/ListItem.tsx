@@ -2,10 +2,12 @@ import React, { Fragment } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button, { IButtonProps } from '../../../Button/Button'
-import Icon from '../../../Icon/Icon'
+import Icon, { IIconProps } from '../../../Icon/Icon'
 import ContextMenu from '../../../ContextMenu/ContextMenu'
 import List, { IListProps } from '../../List'
 import { Toggle, Checkbox, Radio } from '../../../Forms'
+import { ICheckboxProps } from '../../../Forms/components/Checkbox/Checkbox'
+import { IToggleProps } from '../../../Forms/components/Toggle/Toggle'
 
 export interface IListItemProps {
 	/** Title text */
@@ -24,7 +26,7 @@ export interface IListItemProps {
 	image?: string
 
 	/** Inline svg icon */
-	icon?: Record<string, any>
+	icon?: IIconProps
 
 	/** Optional; visually hides the icon without removing it */
 	iconIsHidden?: boolean
@@ -65,7 +67,7 @@ export interface IListItemProps {
 	selectableId?: string
 
 	/** Optional props for selectable list items */
-	selectableProps?: Record<string, any>
+	selectableProps?: ICheckboxProps | IToggleProps
 
 	/** Optional: set whether to use checkbox or radio for selectable list items */
 	selectableType?: 'checkbox' | 'radio'

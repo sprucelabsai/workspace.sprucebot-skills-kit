@@ -2,15 +2,15 @@
 import React from 'react'
 import cx from 'classnames'
 
-export type Props = {
+export interface IToggleProps {
 	/** Unique identifier */
-	id: string,
+	id: string;
 
 	/** Optional class */
-	className: string,
+	className: string;
 
 	/** Text after the toggle */
-	postText: string
+	postText: string;
 }
 
 const Toggle = (props: Props) => {

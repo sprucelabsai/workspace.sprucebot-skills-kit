@@ -5,7 +5,7 @@ import CheckIconYes from '../../../../../static/assets/icons/ic_check_box.svg'
 import CheckIconNo from '../../../../../static/assets/icons/ic_check_box_outline_blank.svg'
 import CheckIconMaybe from '../../../../../static/assets/icons/ic_indeterminate_check_box.svg'
 
-interface ICheckboxProps extends React.HTMLProps<HTMLInputElement> {
+export interface ICheckboxProps extends React.HTMLProps<HTMLInputElement> {
 	/** Unique identifier */
 	id: string
 

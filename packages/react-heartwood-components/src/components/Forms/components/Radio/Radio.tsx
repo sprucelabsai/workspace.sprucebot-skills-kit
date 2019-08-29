@@ -4,21 +4,24 @@ import cx from 'classnames'
 import RadioIconYes from '../../../../../static/assets/icons/ic_radio_button_checked.svg'
 import RadioIconNo from '../../../../../static/assets/icons/ic_radio_button_unchecked.svg'
 
-type Props = {
+export interface IProps {
 	/** Unique identifier */
-	id: string,
+	id: string
 
 	/** Label and text for the radio */
-	label: string,
+	label: string
 
 	/** Optional text to show after the label */
-	postText: string,
+	postText: string
 
 	/** Parent class */
-	className: ?string
+	className?: string
+
+	/** is this control disabled? */
+	disabled?: boolean
 }
 
-const Radio = (props: Props) => {
+const Radio = (props: IProps) => {
 	const { id, label, postText, className, ...rest } = props
 	const parentClass = cx('checkbox-item', className)
 	return (
