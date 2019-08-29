@@ -283,7 +283,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 		_.each(koa.context.utilities, util => {
 			// Legacy support. New utilities that are class based don't need this
 			// @ts-ignore
-			if (util.utilityVersion) {
+			if (!util.utilityVersion) {
 				// @ts-ignore: legacy monky patch utilities
 				util.utilities = koa.context.utilities
 				// @ts-ignore: legacy monky patch services

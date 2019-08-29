@@ -40,7 +40,7 @@ const EmptyState = (props: IEmptyStateProps): React.ReactElement => {
 		<div className="empty-state">
 			{icon && (
 				<span className="empty-state__icon">
-					<Icon icon={icon} isLineIcon={isLineIcon} />
+					<Icon name={icon} isLineIcon={isLineIcon} />
 				</span>
 			)}
 			<h3 className="empty-state__headline">{headline}</h3>

@@ -100,15 +100,17 @@ stories
 			title={text('title', 'Wed, Oct 28')}
 			subtitle={text('subtitle', '9am–4pm')}
 			avatar={text('avatar', '')}
-			image={text('image', '')}
-			icon={
-				text('icon', '') && (
-					<Icon
-						isLineIcon={boolean('isLineIcon', true)}
-						icon={text('icon', '')}
-					/>
-				)
-			}
+			icon={object('image', {
+				name: 'edit'
+			})}
+			// icon={
+			// 	text('icon', '') && (
+			// 		<Icon
+			// 			isLineIcon={boolean('isLineIcon', true)}
+			// 			name={text('icon', '')}
+			// 		/>
+			// 	)
+			// }
 			isDraggable={boolean('isDraggable', false)}
 			actions={object('actions', [])}
 			toggleId={text('toggleId', '')}

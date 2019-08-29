@@ -121,16 +121,23 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		'list-item--has-avatar': !!avatar
 	})
 
+	let iconProps: IIconProps | undefined
+	let iconClassName: string | undefined
+
+	if (icon) {
+		const { className: pulledClassName, ...pulledProps } = icon
+		iconProps = pulledProps
+		iconClassName = pulledClassName
+	}
+
 	const ListItemInner = (): React.ReactElement => (
 		<Fragment>
-			{(image || icon || avatar || selectableId) && !isDraggable && (
+			{(image || iconProps || avatar || selectableId) && !isDraggable && (
 				<div className="list-item__image-wrapper">
 					{icon && (
 						<Icon
-							customIcon={icon.customIcon}
-							icon={icon.name}
-							isLineIcon={icon.isLineIcon}
-							className={cx('list-item__icon', icon.className, {
+							{...iconProps}
+							className={cx('list-item__icon', iconClassName, {
 								'list-item__icon--hidden': iconIsHidden
 							})}
 						/>
