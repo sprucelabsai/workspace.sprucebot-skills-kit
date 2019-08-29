@@ -33,7 +33,8 @@
 		"icon": "svgo icon/icon.svg",
 		"heroku-postbuild": "npm run build",
 		"release": "semantic-release",
-		"storybook": "start-storybook -p 6006"
+		"storybook": "start-storybook -p 6006",
+		"gqlToTS": "graphql-codegen -r dotenv/config --config codegen.yml && prettier-eslint -l info --write \"server/interfaces/gql.ts\""
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
@@ -86,6 +87,9 @@
 		"universal-cookie": "^2.1.0"
 	},
 	"devDependencies": {
+		"@graphql-codegen/add": "^1.6.1",
+		"@graphql-codegen/cli": "^1.6.1",
+		"@graphql-codegen/typescript": "^1.6.1",
 		"@semantic-release/changelog": "^3.0.0",
 		"@semantic-release/git": "7.1.0-beta.3",
 		"@sprucelabs/semantic-release": "^2.0.8",
