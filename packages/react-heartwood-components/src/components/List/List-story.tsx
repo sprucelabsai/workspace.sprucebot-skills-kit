@@ -26,7 +26,6 @@ import {
 import List, { ListWrapper } from './List'
 import ListHeader from './components/ListHeader/ListHeader'
 import ListItem from './components/ListItem/ListItem'
-import Icon from '../Icon/Icon'
 import Tabs from '../Tabs/Tabs'
 import SortableList from './components/SortableList/SortableList'
 import { ButtonKinds } from '../Button/Button'

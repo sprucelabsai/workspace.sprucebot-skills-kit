@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import cx from 'classnames'
 import RadioIconYes from '../../../../../static/assets/icons/ic_radio_button_checked.svg'
@@ -6,10 +5,10 @@ import RadioIconNo from '../../../../../static/assets/icons/ic_radio_button_unch
 
 export interface IProps {
 	/** Unique identifier */
-	id: string
+	id?: string
 
 	/** Label and text for the radio */
-	label: string
+	label?: string
 
 	/** Optional text to show after the label */
 	postText?: string
@@ -21,7 +20,7 @@ export interface IProps {
 	disabled?: boolean
 }
 
-const Radio = (props: IProps) => {
+const Radio = (props: IProps): React.ReactElement => {
 	const { id, label, postText, className, ...rest } = props
 	const parentClass = cx('checkbox-item', className)
 	return (
@@ -33,9 +32,11 @@ const Radio = (props: IProps) => {
 					id={id}
 					{...rest}
 				/>
-				<label className="checkbox-item__label" htmlFor={id}>
-					{label}
-				</label>
+				{label && (
+					<label className="checkbox-item__label" htmlFor={id}>
+						{label}
+					</label>
+				)}
 				<div className="checkbox-item__icons">
 					<RadioIconYes className="checkbox-item__icon checkbox-item__icon-yes" />
 					<RadioIconNo className="checkbox-item__icon checkbox-item__icon-no" />

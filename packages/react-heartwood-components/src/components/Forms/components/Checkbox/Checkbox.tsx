@@ -7,7 +7,7 @@ import CheckIconMaybe from '../../../../../static/assets/icons/ic_indeterminate_
 
 export interface ICheckboxProps extends React.HTMLProps<HTMLInputElement> {
 	/** Unique identifier */
-	id: string
+	id?: string
 
 	/** Input label and text after checkbox icon */
 	label?: string
@@ -75,9 +75,11 @@ export default class Checkbox extends Component<
 						// Always use internal change handler
 						onChange={this.handleChange}
 					/>
-					<label className="checkbox-item__label" htmlFor={id}>
-						{label}
-					</label>
+					{label && (
+						<label className="checkbox-item__label" htmlFor={id}>
+							{label}
+						</label>
+					)}
 					<div className="checkbox-item__icons">
 						<CheckIconYes className="checkbox-item__icon checkbox-item__icon-yes" />
 						<CheckIconNo className="checkbox-item__icon checkbox-item__icon-no" />
