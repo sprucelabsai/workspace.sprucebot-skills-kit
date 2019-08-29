@@ -12,7 +12,7 @@ export interface IProps {
 	label: string
 
 	/** Optional text to show after the label */
-	postText: string
+	postText?: string
 
 	/** Parent class */
 	className?: string
