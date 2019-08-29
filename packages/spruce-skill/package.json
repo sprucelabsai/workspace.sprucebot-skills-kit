@@ -57,7 +57,7 @@
 		"enzyme-to-json": "^3.3.1",
 		"flow-node": "^1.2.3",
 		"globby": "^8.0.1",
-		"graphql": "^14.2.0",
+		"graphql": "^14.5.4",
 		"graphql-parse-fields": "^1.2.0",
 		"graphql-relay": "^0.5.5",
 		"graphql-sequelize": "^9.2.0",
