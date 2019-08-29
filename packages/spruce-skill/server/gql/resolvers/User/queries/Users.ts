@@ -35,7 +35,7 @@ export default (ctx: ISkillContext) => {
 					findOptions.limit = 50
 				}
 
-				// @ts-ignore
+				// @ts-ignore: Will be fixed w/ strong config types https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/pull/632
 				context.scopes.Users = config.scopes.Users.public()
 
 				return findOptions
