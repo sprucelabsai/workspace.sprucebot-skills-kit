@@ -5,9 +5,6 @@ import BasicAnchor from '../_utilities/Anchor'
 import CircleLoader from '../CircleLoader/CircleLoader'
 
 export interface IButtonIconProps {
-	/** The name of the icon to render. If not found, this will return null. */
-	icon?: string
-
 	/** Set true to render an icon with a stroke, but no fill */
 	isLineIcon?: boolean
 
