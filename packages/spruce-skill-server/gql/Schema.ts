@@ -16,13 +16,13 @@ export default class Schema {
 				types: {}
 			}
 			const coreTypePaths = globby.sync([
-				`${__dirname}/types/**/!(index|types|_helpers).js`
+				`${__dirname}/types/**/!(index|types|_helpers|*.d).(js|ts)`
 			])
 			const typePaths = globby.sync([
-				`${gqlDir}/types/**/!(index|types|_helpers).js`
+				`${gqlDir}/types/**/!(index|types|_helpers|*.d).(js|ts)`
 			])
 			const resolverPaths = globby.sync([
-				`${gqlDir}/resolvers/**/!(index|types|_helpers).js`
+				`${gqlDir}/resolvers/**/!(index|types|_helpers|*.d).(js|ts)`
 			])
 			let queries = {}
 			let mutations = {}
@@ -37,6 +37,7 @@ export default class Schema {
 						: requiredType(ctx)
 					let name = path.replace(/^(.*[\\/])/, '')
 					name = name.replace('.js', '')
+					name = name.replace('.ts', '')
 					if (type) {
 						// @ts-ignore
 						ctx.gql.types[name] = type
@@ -54,6 +55,7 @@ export default class Schema {
 						: requiredType(ctx)
 					let name = path.replace(/^(.*[\\/])/, '')
 					name = name.replace('.js', '')
+					name = name.replace('.ts', '')
 					if (type) {
 						// @ts-ignore
 						ctx.gql.types[name] = type

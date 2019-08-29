@@ -1,3 +1,4 @@
+import * as Router from 'koa-router'
 import { ISpruceContext } from '@sprucelabs/spruce-skill-server'
 import { ISkillModels } from './models'
 import { ISkillAuth } from './auth'
@@ -13,3 +14,5 @@ export interface ISkillContext
 		ISkillUtilities,
 		ISkillGQLTypes
 	> {}
+
+export interface ISkillRouter extends Router<{}, ISkillContext> {}

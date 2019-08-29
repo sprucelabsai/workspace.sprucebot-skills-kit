@@ -14,14 +14,19 @@ export default async function eventError(options: {
 	let body
 	let status = 500
 
+	// @ts-ignore
 	if (errors[code]) {
+		// @ts-ignore
 		status = errors[code].code
 		body = {
 			error: {
 				name: code,
 				status: 'failure',
+				// @ts-ignore
 				code: errors[code].code,
+				// @ts-ignore
 				reason: errors[code].reason,
+				// @ts-ignore
 				friendlyReason: errors[code].friendlyReason
 			}
 		}

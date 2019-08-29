@@ -1,6 +1,8 @@
 import eventError from '../lib/errorHandler'
-import { ISpruceBigSearchCtx } from '@sprucelabs/spruce-skill-server'
-import { SpruceBigSearchType } from '@sprucelabs/spruce-skill-server/build/interfaces/bigSearch'
+import {
+	ISpruceBigSearchCtx,
+	SpruceBigSearchType
+} from '@sprucelabs/spruce-skill-server'
 
 module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
 	try {

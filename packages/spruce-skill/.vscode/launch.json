@@ -54,7 +54,8 @@
 				"ORM_LOGGING": "true",
 				"API_ONLY": "true",
 				"TESTING": "true",
-				"DB_MIGRATIONS": "false"
+				"DB_MIGRATIONS": "false",
+				"TS_NODE_PROJECT": "tsconfig.server.json"
 			}
 		}
 	]

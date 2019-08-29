@@ -1,11 +1,8 @@
-// @flow
-import React, { Fragment } from 'react'
+import React, { Fragment, ReactNode, HTMLProps } from 'react'
 import cx from 'classnames'
 
 import Button from '../Button/Button'
 import TextStyle from '../TextStyle/TextStyle'
-
-import type { Node } from 'react'
 
 // Components available for templating
 
@@ -14,20 +11,32 @@ const TextComponentKey = {
 	button: Button
 }
 
+const renderText = (child): ReactNode => {
+	const { children, ...rest } = child.props
+	const handlerProps = { children: child.text || children, ...rest }
+	const Handler =
+		(child && child.type && TextComponentKey[child.type]) || Fragment
+	return typeof Handler === 'function' ? (
+		Handler({ ...handlerProps })
+	) : (
+		<Handler {...handlerProps} />
+	)
+}
+
 // Allows basic templating functionality on text strings
 
-const TemplateEngine = (text = '', context = {}) => {
+const TemplateEngine = (text = '', context = {}): ReactNode[] => {
 	let re = /{{([^}}]+)?}}/g,
 		children = [],
 		cursor = 0
 
-	let add = function(line, templateVar) {
+	let add = function(line: string, templateVar?: string): void {
 		if (line !== '') {
 			children.push({
 				props: { element: 'span', children: line.replace(/"/g, '\\"') }
 			})
 		}
-		if (context[templateVar]) {
+		if (templateVar && context[templateVar]) {
 			children.push(context[templateVar])
 		}
 	}
@@ -47,27 +56,15 @@ const TemplateEngine = (text = '', context = {}) => {
 	return children.map(renderText)
 }
 
-const renderText = child => {
-	const { children, ...rest } = child.props
-	const handlerProps = { children: child.text || children, ...rest }
-	const Handler =
-		(child && child.type && TextComponentKey[child.type]) || Fragment
-	return typeof Handler === 'function' ? (
-		Handler({ ...handlerProps })
-	) : (
-		<Handler {...handlerProps} />
-	)
-}
-
-export type TextProps = {
+export interface ITextProps extends HTMLProps<HTMLElement> {
 	/** Contents of the component. */
-	children: Node,
+	children: ReactNode
 
 	/** Class name for the component */
-	className?: string,
+	className?: string
 
 	/** Context allows basic templatizing of text strings for formatting/rich interaction purposes */
-	context?: Object,
+	context?: Record<string, any>
 
 	/** The element to render. Defaults to p for Text and span for Span */
 	// eslint-disable-next-line flowtype/space-after-type-colon
@@ -99,7 +96,9 @@ export type TextProps = {
 		| 'ul'
 }
 
-const Text = (props: TextProps) => {
+const Text: React.StatelessComponent<ITextProps> = (
+	props: ITextProps
+): React.ReactElement => {
 	const {
 		children: originalChildren,
 		className,
@@ -107,7 +106,7 @@ const Text = (props: TextProps) => {
 		context,
 		...rest
 	} = props
-	let Element = 'p'
+	let Element: any = 'p'
 	let children = originalChildren
 
 	if (element) {
@@ -125,7 +124,9 @@ const Text = (props: TextProps) => {
 	)
 }
 
-export const Span = (props: TextProps) => {
+export const Span: React.StatelessComponent<ITextProps> = (
+	props: ITextProps
+): React.ReactElement => {
 	const { children, className, element, ...rest } = props
 
 	return (

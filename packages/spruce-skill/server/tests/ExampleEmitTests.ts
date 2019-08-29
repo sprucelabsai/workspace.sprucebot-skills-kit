@@ -1,7 +1,7 @@
 import { assert } from 'chai'
 import { SpruceTest } from '@sprucelabs/spruce-skill-server'
 import { ISkillContext } from 'server/interfaces/ctx'
-import { IEventResponse } from '@sprucelabs/spruce-node'
+import { IEmitResponse, IEmitResponseCallback } from 'server/interfaces/global'
 
 // SpruceTest take a single parameter, pointing to the base skill directory
 class ExampleEmitTests extends SpruceTest<ISkillContext> {
@@ -31,7 +31,7 @@ class ExampleEmitTests extends SpruceTest<ISkillContext> {
 			}
 		]
 
-		const result = await this.koa.context.sb.emitOrganization(
+		const result = await this.ctx.sb.emitOrganization(
 			this.organization.id,
 			eventName,
 			payload
@@ -42,7 +42,9 @@ class ExampleEmitTests extends SpruceTest<ISkillContext> {
 
 		result.forEach((data, index) => {
 			const payload = data.payload
-			const testData = global.testEmitResponse[eventName][index]
+			const testData = (global.testEmitResponse[eventName] as IEmitResponse[])[
+				index
+			]
 
 			assert.equal(payload.model.id, testData.payload.model.id)
 		})
@@ -69,7 +71,7 @@ class ExampleEmitTests extends SpruceTest<ISkillContext> {
 			}
 		]
 
-		const result: IEventResponse[] = await this.koa.context.sb.emit(
+		const result = await this.ctx.sb.emit(
 			this.organization.id,
 			eventName,
 			payload
@@ -79,7 +81,9 @@ class ExampleEmitTests extends SpruceTest<ISkillContext> {
 
 		result.forEach((data, index) => {
 			const payload = data.payload
-			const testData = global.testEmitResponse[eventName][index]
+			const testData = (global.testEmitResponse[eventName] as IEmitResponse[])[
+				index
+			]
 
 			assert.equal(payload.model.id, testData.payload.model.id)
 		})
@@ -111,7 +115,7 @@ class ExampleEmitTests extends SpruceTest<ISkillContext> {
 			]
 		}
 
-		const result = await this.koa.context.sb.emit(
+		const result = await this.ctx.sb.emit(
 			this.organization.id,
 			eventName,
 			payload
@@ -122,7 +126,10 @@ class ExampleEmitTests extends SpruceTest<ISkillContext> {
 
 		result.forEach((data, index) => {
 			const payload = data.payload
-			const testData = global.testEmitResponse[eventName].data[index]
+			const emitResponse = global.testEmitResponse[
+				eventName
+			] as IEmitResponseCallback
+			const testData = emitResponse.data && emitResponse.data[index]
 
 			assert.equal(payload.model.id, testData.payload.model.id)
 		})

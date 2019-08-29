@@ -25,16 +25,12 @@ const EXAMPLE_SUBSCRIPTION = gql`
 	}
 `
 
-interface IDashboardLocationInitialProps {}
-
 class DashboardLocationPage extends React.Component {
 	modal = this.props.skill.modal()
 	confirm = this.props.skill.confirm()
 	supportingMessage = this.props.skill.supportingMessage()
 
-	public static async getInitialProps(
-		props: IDashboardLocationInitialProps
-	): Promise<any> {
+	static async getInitialProps(props) {
 		try {
 			settings.configure(props.auth && props.auth.jwt)
 

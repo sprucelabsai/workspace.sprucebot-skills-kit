@@ -1,4 +1,6 @@
-export default (router: any) => {
+import { ISkillRouter } from '../interfaces/ctx'
+
+export default (router: ISkillRouter) => {
 	/**
 	 * @swagger
 	 * /api/1.0/greeting.json:

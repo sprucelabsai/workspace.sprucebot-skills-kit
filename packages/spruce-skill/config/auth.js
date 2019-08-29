@@ -3,11 +3,7 @@
  * any changes you make here are reflected in `./server/interfaces/auth.ts` so you get typechecking
  * in your code!
  */
-const gql = (options: {
-	userId?: string
-	locationId?: string
-	organizationId?: string
-}): string => `
+const gql = options => `
 {
 	${
 		options.userId
@@ -86,4 +82,4 @@ const gql = (options: {
 }
 `
 
-export default gql
+module.exports = gql

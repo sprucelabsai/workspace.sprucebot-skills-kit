@@ -219,10 +219,10 @@ export default class Sprucebot {
 					webhookUrl: this.webhookUrl,
 					iframeUrl: this.iframeUrl,
 					marketingUrl: this.marketingUrl,
-					eventContract: this.eventContract,
+					eventContract: JSON.stringify(this.eventContract),
 					version: this.version,
 					skillsKitVersion: this.skillsKitVersion,
-					acl: this.acl,
+					acl: JSON.stringify(this.acl),
 					viewVersion: this.viewVersion,
 					useDB: this.dbEnabled
 				}
@@ -672,7 +672,7 @@ export default class Sprucebot {
 		payload: Record<string, any> = {},
 		options?: Record<string, any>,
 		eventId?: string
-	): Promise<IEventResponse> {
+	): Promise<IEventResponse[]> {
 		return this.adapter.post(`locations/${locationId}/emit`, {
 			eventName,
 			eventId,

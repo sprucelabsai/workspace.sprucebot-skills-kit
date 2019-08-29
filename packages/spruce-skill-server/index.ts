@@ -145,7 +145,9 @@ async function serve<ISkillContext extends ISpruceContext>(
 	koa.proxy = true
 
 	// Set up global logger
+	// @ts-ignore
 	global.logger = logger
+	// @ts-ignore
 	const log = logger.log
 	log.setOptions({
 		level: logLevel,
@@ -167,9 +169,10 @@ async function serve<ISkillContext extends ISpruceContext>(
 	debug('Starting sync with core')
 
 	if (testing) {
-		const { mockResolvers, mockModels } = require('./tests/mocks/apiMocks')(
-			koa.context
-		)
+		const {
+			mockResolvers,
+			mockModels
+		} = require('./tests/mocks/apiMocks').default(koa.context)
 		const adapter = new HttpsMock({
 			ctx: koa.context,
 			mockResolvers,
@@ -203,6 +206,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 
 	if (metricsEnabled && !metricsRequestsDisabled) {
 		// Log request stats
+		// @ts-ignore
 		koa.use(logger.middleware.requests())
 	} else {
 		log.info('Metrics: Request middleware disabled')
@@ -210,6 +214,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 
 	if (metricsEnabled && !metricsServerStatsDisabled) {
 		// Log OS stats
+		// @ts-ignore
 		logger.nodeMetrics()
 	} else {
 		log.info('Metrics: Server stats disabled')
@@ -278,7 +283,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 		_.each(koa.context.utilities, util => {
 			// Legacy support. New utilities that are class based don't need this
 			// @ts-ignore
-			if (util.utilityVersion) {
+			if (!util.utilityVersion) {
 				// @ts-ignore: legacy monky patch utilities
 				util.utilities = koa.context.utilities
 				// @ts-ignore: legacy monky patch services
@@ -560,6 +565,7 @@ export {
 
 // Big Search
 export {
+	SpruceBigSearchType,
 	ISpruceBigSearchSection,
 	ISpruceBigSearchResult,
 	ISpruceBigSearchCtx,
