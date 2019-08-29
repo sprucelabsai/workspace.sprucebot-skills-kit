@@ -1,8 +1,10 @@
-//
-const config = require('config')
-const { GraphQLString } = require('graphql')
+import config from 'config'
+import { GraphQLString } from 'graphql'
+import { FindOptions } from 'sequelize'
+import { ISkillContext } from 'server/interfaces/ctx'
+import { IGQLQueryUsersArgs } from 'server/interfaces/gql-generated'
 
-module.exports = ctx => {
+export default (ctx: ISkillContext) => {
 	// TODO: Change this file to suit the needs for your skill (or remove it). This is meant only as an example and could introduce security concerns.
 	log.warn('TODO: Update gql/User/queries/Users.js for this skill')
 
@@ -11,7 +13,11 @@ module.exports = ctx => {
 		associationName: 'User',
 		type: ctx.gql.types.User,
 		connectionOptions: {
-			before: async (findOptions, args, context) => {
+			before: async (
+				findOptions: FindOptions,
+				_args: IGQLQueryUsersArgs, // Underscore denotes that this is an unused parameter
+				context: ISkillContext
+			) => {
 				if (!context.auth || !context.auth.User) {
 					throw new Error('USER_NOT_LOGGED_IN')
 				}
@@ -29,6 +35,7 @@ module.exports = ctx => {
 					findOptions.limit = 50
 				}
 
+				// @ts-ignore
 				context.scopes.Users = config.scopes.Users.public()
 
 				return findOptions
