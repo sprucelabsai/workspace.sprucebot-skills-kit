@@ -1,13 +1,12 @@
-// @flow
-import React from 'react'
+import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, select, object } from '@storybook/addon-knobs/react'
-import Text, { Span } from './Text'
+import Text, { Span, ITextProps } from './Text'
 const stories = storiesOf('Text', module)
 
 stories.addDecorator(withKnobs)
 
-const options = [
+const options: ITextProps['element'][] = [
 	'a',
 	'abbr',
 	'blockquote',
@@ -20,7 +19,6 @@ const options = [
 	'dt',
 	'figcaption',
 	'figure',
-	'kbd',
 	'li',
 	'mark',
 	'ol',
@@ -38,7 +36,7 @@ const options = [
 stories
 	.add('Text', () => (
 		<Text
-			element={select('Element', options, 'p')}
+			element={select<ITextProps['element']>('Element', options, 'p')}
 			context={object('Context', {
 				planet: {
 					text: 'World!',
@@ -54,6 +52,13 @@ stories
 		>
 			{text('children', 'Hello, {{planet}}! {{link}}')}
 		</Text>
+	))
+	.add('Text - Specific Examples', () => (
+		<Fragment>
+			<Text element={'a'} href={'http://www.google.com'}>
+				Google
+			</Text>
+		</Fragment>
 	))
 	.add('Span', () => (
 		<Span
