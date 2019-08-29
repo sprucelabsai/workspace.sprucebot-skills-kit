@@ -10,6 +10,9 @@ import { ICheckboxProps } from '../../../Forms/components/Checkbox/Checkbox'
 import { IToggleProps } from '../../../Forms/components/Toggle/Toggle'
 
 export interface IListItemProps {
+	/** Optional; Set true to render an expandable item */
+	isExpandable?: boolean
+
 	/** Title text */
 	title: string
 
@@ -58,7 +61,7 @@ export interface IListItemProps {
 	toggleProps?: Record<string, any>
 
 	/** Set to true to show separator for this list item if followed by another list item. */
-	isSeparatorVisible: boolean
+	isSeparatorVisible?: boolean
 
 	/** Optional class name for list item */
 	className?: string

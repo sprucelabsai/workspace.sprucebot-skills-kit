@@ -1,7 +1,12 @@
+import { IEventDetailsItemProps } from './components/EventDetailsItem/EventDetailsItem'
+import { IEventDetailsProps } from './EventDetails'
+import { IListProps } from '../List'
+import { ButtonKinds } from '../Button/Button'
+
 const avatar =
 	'https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&auto=format&fit=crop&w=96&h=96&q=80'
 
-const services = {
+const services: IEventDetailsItemProps = {
 	id: 'services',
 	type: 'list',
 	viewModel: {
@@ -52,7 +57,7 @@ const services = {
 				icon: { name: 'add' },
 				primaryAction: {
 					icon: { name: 'add' },
-					kind: 'simple'
+					kind: ButtonKinds.Simple
 				}
 			}
 		]
@@ -107,7 +112,7 @@ const paidStatuses = [
 	}
 ]
 
-const statusLists = [
+const statusLists: IListProps[] = [
 	{
 		selectableType: 'checkbox',
 		items: inclusiveStatuses,
@@ -124,7 +129,7 @@ const statusLists = [
 	}
 ]
 
-export const appointment = {
+export const appointment: { items: IEventDetailsItemProps[] } = {
 	items: [
 		{
 			id: 'guestInfo',
@@ -157,7 +162,7 @@ export const appointment = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: 'simple'
+								kind: ButtonKinds.Simple
 							}
 						]
 					}
@@ -176,7 +181,7 @@ export const appointment = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: 'simple'
+								kind: ButtonKinds.Simple
 							}
 						]
 					}
@@ -212,7 +217,7 @@ export const appointment = {
 			id: 'primaryCTA',
 			type: 'splitButton',
 			viewModel: {
-				kind: 'primary',
+				kind: ButtonKinds.Primary,
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Check guest in',
@@ -240,7 +245,7 @@ export const appointment = {
 	]
 }
 
-export const warningAppointment = {
+export const warningAppointment: IEventDetailsProps = {
 	items: [
 		{
 			id: 'guestInfo',
@@ -273,12 +278,11 @@ export const warningAppointment = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: 'simple'
+								kind: ButtonKinds.Simple
 							}
 						]
 					}
-				],
-				primaryAction: 'test'
+				]
 			}
 		},
 		{
@@ -300,7 +304,7 @@ export const warningAppointment = {
 									actions: [
 										{
 											icon: { name: 'edit' },
-											kind: 'simple'
+											kind: ButtonKinds.Simple
 										}
 									],
 									warnings: {
@@ -325,12 +329,12 @@ export const warningAppointment = {
 					actions: [
 						{
 							text: 'Dismiss',
-							kind: 'simple',
+							kind: ButtonKinds.Simple,
 							isSmall: true
 						},
 						{
 							text: 'Find a different time',
-							kind: 'secondary',
+							kind: ButtonKinds.Secondary,
 							isSmall: true
 						}
 					]
@@ -369,7 +373,7 @@ export const warningAppointment = {
 			id: 'primaryCTA',
 			type: 'splitButton',
 			viewModel: {
-				kind: 'primary',
+				kind: ButtonKinds.Primary,
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Check guest in',
@@ -397,7 +401,7 @@ export const warningAppointment = {
 	]
 }
 
-export const pastAppointment = {
+export const pastAppointment: IEventDetailsProps = {
 	items: [
 		{
 			id: 'guestInfo',
@@ -411,7 +415,7 @@ export const pastAppointment = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: 'simple'
+								kind: ButtonKinds.Simple
 							}
 						]
 					},
@@ -422,12 +426,11 @@ export const pastAppointment = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: 'simple'
+								kind: ButtonKinds.Simple
 							}
 						]
 					}
-				],
-				primaryAction: 'test'
+				]
 			}
 		},
 		{
@@ -490,7 +493,7 @@ export const pastAppointment = {
 			id: 'primaryCTA',
 			type: 'splitButton',
 			viewModel: {
-				kind: 'primary',
+				kind: ButtonKinds.Primary,
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Book again',
@@ -506,7 +509,7 @@ export const pastAppointment = {
 	]
 }
 
-export const lunchBreak = {
+export const lunchBreak: IEventDetailsProps = {
 	items: [
 		{
 			id: 'dateAndTime',
@@ -553,14 +556,14 @@ export const lunchBreak = {
 			type: 'button',
 			viewModel: {
 				text: 'Reschedule',
-				kind: 'secondary',
+				kind: ButtonKinds.Secondary,
 				isFullWidth: true
 			}
 		}
 	]
 }
 
-export const ptoBlock = {
+export const ptoBlock: IEventDetailsProps = {
 	items: [
 		{
 			id: 'dateAndTime',
@@ -607,7 +610,7 @@ export const ptoBlock = {
 			type: 'button',
 			viewModel: {
 				text: 'Edit PTO Block',
-				kind: 'secondary',
+				kind: ButtonKinds.Secondary,
 				isFullWidth: true
 			}
 		}

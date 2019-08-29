@@ -1,20 +1,20 @@
-// @flow
 import React from 'react'
-import type { Node } from 'react'
 import cx from 'classnames'
 
-type Props = {
+interface IBotTextProps {
 	/** Use for simple text. */
-	text?: string,
+	text?: string
 
 	/** May be used instead of text, i.e. if the Bot Text needs to include a link. */
-	children?: Node,
+	children?: React.ReactNode
 
 	/** Optional class to add. */
 	className?: string
 }
 
-const BotText = (props: Props) => {
+const BotText: React.StatelessComponent<IBotTextProps> = (
+	props: IBotTextProps
+): React.ReactElement => {
 	const { text, children, className, ...rest } = props
 
 	if (!children && !text) {
