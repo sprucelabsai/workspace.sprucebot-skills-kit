@@ -42,7 +42,7 @@
 	},
 	"dependencies": {
 		"eslint": "^5.0.0",
-		"graphql": "^14.2.0",
+		"graphql": "^14.5.4",
 		"pm2": "^2.10.1",
 		"prettier": "^1.16.4",
 		"sqlite3": "^4.0.4",
