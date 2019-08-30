@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 // https://github.com/lorenwest/node-config/wiki/Configuration-Files
 import fs from 'fs'
+// import baseErrors from './errors'
 
 export default function SpruceConfig<
 	aclType,
@@ -268,7 +269,9 @@ export default function SpruceConfig<
 		 * 🌲🤖 Defines the error codes your Skill might throw
 		 * See config/errors.ts
 		 */
-		errors,
+		errors: {
+			errors
+		},
 		/**
 		 * 🌲🤖 Defines the ACLs your skill provides and needs
 		 * See config/acl.ts

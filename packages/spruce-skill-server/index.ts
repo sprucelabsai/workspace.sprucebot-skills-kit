@@ -9,7 +9,7 @@ import _ from 'lodash'
 import koaBody from 'koa-body'
 // @ts-ignore
 import logger from '@sprucelabs/log'
-import defaultErrors from './support/errors'
+import defaultErrors from './config/errors'
 import path from 'path'
 import cors from '@koa/cors'
 import staticServe from 'koa-static'
@@ -550,7 +550,8 @@ export { ISpruceUtilities } from './interfaces/utilities'
 export { ISpruceContext } from './interfaces/ctx'
 
 // errors
-export { ISpruceErrorDefinitions } from './support/errors'
+export { ISpruceErrors } from './interfaces/errors'
+export { default as SpruceErrors } from './config/errors'
 
 // Auth
 export {

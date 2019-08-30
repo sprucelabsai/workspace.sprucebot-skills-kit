@@ -1,4 +1,5 @@
 import { ISkillRouter } from '../interfaces/ctx'
+import config from 'config'
 
 export default (router: ISkillRouter) => {
 	/**
