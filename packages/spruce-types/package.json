@@ -22,10 +22,13 @@
 	},
 	"scripts": {
 		"generate:local": "NODE_TLS_REJECT_UNAUTHORIZED=0 HOST=https://local-api.spruce.ai graphql-codegen codegen.yml && prettier-eslint -l info --write \"src/generated/api-gql.ts\"",
+		"generate:dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 HOST=https://dev-api.spruce.ai graphql-codegen codegen.yml && prettier-eslint -l info --write \"src/generated/api-gql.ts\"",
+		"generate:qa": "NODE_TLS_REJECT_UNAUTHORIZED=0 HOST=https://qa-api.spruce.ai graphql-codegen codegen.yml && prettier-eslint -l info --write \"src/generated/api-gql.ts\"",
+		"generate:prod": "NODE_TLS_REJECT_UNAUTHORIZED=0 HOST=https://api.spruce.ai graphql-codegen codegen.yml && prettier-eslint -l info --write \"src/generated/api-gql.ts\"",
 		"build": "npm run clean && tsc | true",
 		"watch": "tsc -w",
 		"clean": "rm -rf build/",
-		"lint": "eslint ."
+		"lint": "eslint '**/*.ts' && tsc -p . --noEmit"
 	},
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
