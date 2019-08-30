@@ -79,27 +79,27 @@ import eventContract from './eventContract'
 import scopes from './scopes'
 import auth from './auth'
 
-type aclType = typeof acl
-type settingsType = typeof settings
-type errorsType = typeof errors
-type eventContractType = typeof eventContract
-type scopesType = typeof scopes
-type configType = typeof SpruceConfig
-type authType = typeof auth
+type AclType = typeof acl
+type SettingsType = typeof settings
+type ErrorsType = typeof errors
+type EventContractType = typeof eventContract
+type ScopesType = typeof scopes
+type ConfigType = typeof SpruceConfig
+type AuthType = typeof auth
 
 // Path to the server directory. Used to load all the default config files
 const baseDirectory = `${__dirname}/../server`
 const baseConfig = require('@sprucelabs/spruce-skill-server/build/config/default')
-	.default as configType
+	.default as ConfigType
 
 const fullConfig = {
 	...baseConfig<
-		aclType,
-		settingsType,
-		errorsType,
-		eventContractType,
-		scopesType,
-		authType
+		AclType,
+		SettingsType,
+		ErrorsType,
+		EventContractType,
+		ScopesType,
+		AuthType
 	>(baseDirectory),
 	...customConfig
 }
