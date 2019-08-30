@@ -1,7 +1,7 @@
 import { ISpruceContext } from '@sprucelabs/spruce-skill-server'
 import config from 'config'
 
-export default async function eventError(options: {
+async function eventError(options: {
 	ctx: ISpruceContext
 	next: () => Promise<any>
 	e: Error
@@ -44,7 +44,13 @@ export default async function eventError(options: {
 	}
 
 	ctx.status = status
-	ctx.body = body
+	ctx.body = {
+		status: body.error && body.error.status,
+		...body
+	}
 
 	await next()
 }
+
+export { eventError }
+export default eventError
