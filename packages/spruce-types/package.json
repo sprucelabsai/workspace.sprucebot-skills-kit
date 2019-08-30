@@ -1,0 +1,48 @@
+{
+	"name": "@sprucelabs/spruce-types",
+	"publishConfig": {
+		"access": "public"
+	},
+	"version": "8.17.7",
+	"description": "Shared Spruce Types",
+	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit#readme",
+	"license": "MIT",
+	"engines": {
+		"node": ">=10 <11",
+		"npm": ">=5"
+	},
+	"main": "./build/index.js",
+	"types": "./build/index.d.ts",
+	"files": [
+		"build"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sprucelabsai/workspace.sprucebot-skills-kit.git"
+	},
+	"scripts": {
+		"generate:local": "NODE_TLS_REJECT_UNAUTHORIZED=0 HOST=https://local-api.spruce.ai graphql-codegen codegen.yml && prettier-eslint -l info --write \"src/generated/api-gql.ts\"",
+		"build": "npm run clean && tsc | true",
+		"watch": "tsc -w",
+		"clean": "rm -rf build/",
+		"lint": "eslint ."
+	},
+	"bugs": {
+		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
+	},
+	"dependencies": {
+		"typescript": "~3.4.5"
+	},
+	"devDependencies": {
+		"@graphql-codegen/add": "^1.6.1",
+		"@graphql-codegen/cli": "^1.6.1",
+		"@graphql-codegen/typescript": "^1.6.1",
+		"eslint": "^5",
+		"eslint-config-spruce": "^8.17.7",
+		"prettier": "^1.13",
+		"prettier-eslint-cli": "^5.0.0"
+	},
+	"peerDependencies": {
+		"graphql": "^14.5.4"
+	}
+}
