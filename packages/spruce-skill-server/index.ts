@@ -9,7 +9,7 @@ import _ from 'lodash'
 import koaBody from 'koa-body'
 // @ts-ignore
 import logger from '@sprucelabs/log'
-import defaultErrors from './support/errors'
+import defaultErrors from './config/errors'
 import path from 'path'
 import cors from '@koa/cors'
 import staticServe from 'koa-static'
@@ -377,8 +377,10 @@ async function serve<ISkillContext extends ISpruceContext>(
 		try {
 			await next()
 		} catch (err) {
+			// @ts-ignore
 			const errKey = allErrors[err.message] ? err.message : 'UNKNOWN'
 			const errorResponse = {
+				// @ts-ignore
 				...allErrors[errKey],
 				name: errKey
 			}
@@ -550,7 +552,8 @@ export { ISpruceUtilities } from './interfaces/utilities'
 export { ISpruceContext } from './interfaces/ctx'
 
 // errors
-export { ISpruceErrorDefinitions } from './support/errors'
+export { ISpruceErrors } from './interfaces/errors'
+export { default as SpruceErrors } from './config/errors'
 
 // Auth
 export {
@@ -583,8 +586,6 @@ export {
 	ISpruceSettingsSection
 } from './interfaces/settings'
 
-export {}
-
 // Base classes
 export { default as SpruceSkillService } from './lib/SpruceSkillService'
 export { default as SpruceSkillUtility } from './lib/SpruceSkillUtility'
@@ -603,6 +604,8 @@ export { User } from './models/User'
 export { UserGroup } from './models/UserGroup'
 export { UserLocation } from './models/UserLocation'
 export { UserOrganization } from './models/UserOrganization'
+import defaultConfig from './config/default'
+export { defaultConfig as SpruceConfig }
 
 // Mock data for tests
 export {
@@ -613,3 +616,4 @@ export {
 } from './tests/mocks/SandboxMock'
 
 export { ISpruceGQLTypes } from './interfaces/gql'
+export { ISpruceAcls } from './interfaces/acls'

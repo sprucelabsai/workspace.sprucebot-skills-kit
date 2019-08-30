@@ -15,10 +15,7 @@ import { ISpruceContext } from '../interfaces/ctx'
 
 import config from 'config'
 import GraphQLSubscriptionServer from '../lib/GraphQLSubscriptionServer'
-import { ISpruceErrorDefinitions } from '../support/errors'
 import { Server } from 'https'
-
-const errors = config.get<ISpruceErrorDefinitions>('errors')
 
 const auth = async (
 	ctx: ISpruceContext,
@@ -62,12 +59,13 @@ export default (
 	gqlOptions: Record<string, any>,
 	server: Server
 ) => {
-	if (!config.get<boolean>('GRAPHQL_ENABLED')) {
+	if (!config.GRAPHQL_ENABLED) {
 		log.info('GraphQL disabled because GRAPHQL_ENABLED=false')
 		return
 	}
 
 	// Get schema
+
 	const schema = new Schema({ ctx: koa.context, gqlDir: gqlOptions.gqlDir })
 
 	// Create the subscription server
@@ -100,12 +98,16 @@ export default (
 				formatError: (e: Error) => {
 					const code = e.message
 					let formattedError: Record<string, any> = {}
-
+					const errors = config.errors
+					// @ts-ignore
 					if (errors[code]) {
 						formattedError = {
 							name: code,
+							// @ts-ignore
 							code: errors[code].code,
+							// @ts-ignore
 							reason: errors[code].reason,
+							// @ts-ignore
 							friendlyReason: errors[code].friendlyReason
 						}
 					} else {

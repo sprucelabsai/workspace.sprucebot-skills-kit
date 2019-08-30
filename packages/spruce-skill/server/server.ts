@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires  */
-
 import skillPackage from '../package.json'
 import path from 'path'
 import serve, { ISpruceServeSkill } from '@sprucelabs/spruce-skill-server'
 import Sprucebot from '@sprucelabs/spruce-node'
 import generateSwaggerDocs from './swagger/swagger'
 import { ISkillContext } from './interfaces/ctx.js'
+import config from 'config'
 
 const {
 	API_KEY,
@@ -42,12 +42,12 @@ const {
 	acl,
 	VIEW_VERSION,
 	TESTING
-} = require('config')
+	// @ts-ignore: when transpiled config.default needs to be used
+} = config.default ? config.default : config
 
 const skillsKitVersion = (skillPackage as Record<string, any>)[
 	'sprucebot-skills-kit-version'
 ]
-/* eslint-disable @typescript-eslint/no-var-requires  */
 
 // Construct a new Sprucebot
 const sprucebot = new Sprucebot({

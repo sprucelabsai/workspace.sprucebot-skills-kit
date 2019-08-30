@@ -97,7 +97,7 @@ const attributes: ModelAttributes = {
 		type: DataTypes.STRING
 	},
 	geo: {
-		type: config.get('TESTING') ? DataTypes.JSON : DataTypes.GEOGRAPHY('POINT'),
+		type: config.TESTING ? DataTypes.JSON : DataTypes.GEOGRAPHY('POINT'),
 		get(this: Location) {
 			const geoPoint: Record<string, number> | null = this.getDataValue(
 				'geo'

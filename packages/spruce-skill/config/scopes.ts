@@ -1,20 +1,24 @@
 // For mutations/queries that may need to add a base path to the scope.
 // For example, if you have a mutation called "updateAppointment" that returns an "Appointment", the base scope would be "updateAppointment"
-function scopeWithBase({ base, scope }) {
+function scopeWithBase(options: {
+	base?: string
+	scope: Record<string, any>
+}): Record<string, any> {
+	const { base, scope } = options
 	if (!base) {
 		return scope
 	}
 
-	const baseScope = {}
+	const baseScope: Record<string, any> = {}
 	Object.keys(scope).forEach(k => {
 		baseScope[`${base}.${k}`] = scope[k]
 	})
 	return baseScope
 }
 
-module.exports = {
+export default {
 	Locations: {
-		public: base =>
+		public: (base?: string) =>
 			scopeWithBase({
 				scope: {
 					Locations: 'public',
@@ -25,7 +29,7 @@ module.exports = {
 			})
 	},
 	Organization: {
-		public: base =>
+		public: (base?: string) =>
 			scopeWithBase({
 				scope: {
 					Organization: 'public',
@@ -35,14 +39,14 @@ module.exports = {
 			})
 	},
 	Users: {
-		public: base =>
+		public: (base?: string) =>
 			scopeWithBase({
 				scope: {
 					Users: 'public'
 				},
 				base
 			}),
-		team: base =>
+		team: (base?: string) =>
 			scopeWithBase({
 				scope: {
 					Users: 'team',
@@ -57,7 +61,7 @@ module.exports = {
 			})
 	},
 	UserLocations: {
-		team: base =>
+		team: (base?: string) =>
 			scopeWithBase({
 				scope: {
 					UserLocations: 'team',
