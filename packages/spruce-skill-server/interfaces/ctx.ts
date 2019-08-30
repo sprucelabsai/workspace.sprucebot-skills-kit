@@ -33,6 +33,9 @@ export interface ISpruceContext<
 		helpers: {
 			attributes(model: SpruceCoreModelType, options?: Record<string, any>): any
 			buildConnection(options: {
+				/** Name your connection. This must be unique */
+				name?: string
+				/** The model you're connecting. For example ctx.db.models.User */
 				model: SpruceCoreModelType
 				associationName: string
 				type: GraphQLObjectType
