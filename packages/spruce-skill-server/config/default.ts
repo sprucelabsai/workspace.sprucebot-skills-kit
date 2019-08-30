@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 // https://github.com/lorenwest/node-config/wiki/Configuration-Files
 import fs from 'fs'
-// import baseErrors from './errors'
+import baseErrors from './errors'
 
 export default function SpruceConfig<
 	aclType,
@@ -11,7 +12,7 @@ export default function SpruceConfig<
 	eventContractType,
 	scopesType,
 	authType
->(baseDirectory: string): Record<string, any> {
+>(baseDirectory: string) {
 	const HEARTWOOD_VERSION = encodeURIComponent(
 		require('@sprucelabs/heartwood-components').version
 	)
@@ -270,7 +271,8 @@ export default function SpruceConfig<
 		 * See config/errors.ts
 		 */
 		errors: {
-			errors
+			...baseErrors,
+			...errors
 		},
 		/**
 		 * 🌲🤖 Defines the ACLs your skill provides and needs

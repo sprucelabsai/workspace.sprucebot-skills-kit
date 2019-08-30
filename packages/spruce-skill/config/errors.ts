@@ -1,6 +1,4 @@
-import { ISpruceErrors } from '@sprucelabs/spruce-skill-server'
-
-const errors: ISpruceErrors = {
+const errors = {
 	MY_CUSTOM_ERROR: {
 		code: 500,
 		status: 'failure',

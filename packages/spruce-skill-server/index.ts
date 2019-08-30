@@ -617,3 +617,4 @@ export {
 
 export { ISpruceGQLTypes } from './interfaces/gql'
 export { ISpruceAcls } from './interfaces/acls'
+export { typedLiteral } from './interfaces/typedLiteral'
