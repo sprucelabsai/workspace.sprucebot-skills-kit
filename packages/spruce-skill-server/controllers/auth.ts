@@ -17,7 +17,7 @@ export default (router: Router) => {
 	})
 
 	// if in dev mode, we'll allow role overrides
-	if (config.get<boolean>('DEV_MODE')) {
+	if (config.DEV_MODE) {
 		router.get('/dev/:role/redirect', async (ctx, next) => {
 			const role = ctx.params.role
 			const cookies = new Cookies(ctx.req, ctx.res)

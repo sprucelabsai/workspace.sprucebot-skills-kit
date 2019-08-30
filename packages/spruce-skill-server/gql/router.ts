@@ -15,7 +15,6 @@ import { ISpruceContext } from '../interfaces/ctx'
 
 import config from 'config'
 import GraphQLSubscriptionServer from '../lib/GraphQLSubscriptionServer'
-import { ISpruceErrorDefinitions } from '../support/errors'
 import { Server } from 'https'
 
 const auth = async (

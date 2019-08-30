@@ -5,6 +5,7 @@ import serve, { ISpruceServeSkill } from '@sprucelabs/spruce-skill-server'
 import Sprucebot from '@sprucelabs/spruce-node'
 import generateSwaggerDocs from './swagger/swagger'
 import { ISkillContext } from './interfaces/ctx.js'
+import config from 'config'
 
 const {
 	API_KEY,
@@ -41,52 +42,12 @@ const {
 	acl,
 	VIEW_VERSION,
 	TESTING
-} = require('config')
+	// @ts-ignore: when transpiled config.default needs to be used
+} = config.default ? config.default : config
 
 const skillsKitVersion = (skillPackage as Record<string, any>)[
 	'sprucebot-skills-kit-version'
 ]
-/* eslint-disable @typescript-eslint/no-var-requires  */
-
-console.log('***********************')
-console.log('***********************')
-console.log('***********************')
-console.log({
-	API_KEY,
-	API_HOST,
-	ID,
-	NAME,
-	ICON,
-	DESCRIPTION,
-	PORT,
-	SERVER_HOST,
-	INTERFACE_HOST,
-	API_SSL_ALLOW_SELF_SIGNED,
-	nextConfig,
-	errors,
-	bodyParserOptions,
-	sequelizeOptions,
-	eventContract,
-	SLUG,
-	LOG_LEVEL,
-	LOG_USE_COLORS,
-	LOG_USE_TRACE,
-	LOG_USE_SOURCEMAPS,
-	LOG_AS_JSON,
-	ENV,
-	PACKAGE_NAME,
-	PACKAGE_VERSION,
-	METRICS_APP_KEY,
-	METRICS_URL,
-	METRICS_ENABLED,
-	METRICS_REQUESTS_DISABLED,
-	METRICS_SERVER_STATS_DISABLED,
-	METRICS_SEQUELIZE_DISABLED,
-	gqlOptions,
-	acl,
-	VIEW_VERSION,
-	TESTING
-})
 
 // Construct a new Sprucebot
 const sprucebot = new Sprucebot({

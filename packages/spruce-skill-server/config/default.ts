@@ -10,7 +10,7 @@ export default function SpruceConfig<
 	eventContractType,
 	scopesType,
 	authType
->(baseDirectory: string) {
+>(baseDirectory: string): Record<string, any> {
 	const HEARTWOOD_VERSION = encodeURIComponent(
 		require('@sprucelabs/heartwood-components').version
 	)
@@ -131,7 +131,7 @@ export default function SpruceConfig<
 		 */
 		DATABASE_URL_TESTING:
 			process.env.DATABASE_URL_TESTING ||
-			`sqlite:${__dirname}/../tmp/testing.db`,
+			`sqlite:${baseDirectory}/../tmp/testing.db`,
 		/**
 		 * 🌲🤖 Your Skill's name
 		 */
@@ -243,7 +243,7 @@ export default function SpruceConfig<
 			jsonLimit: '5mb'
 		},
 		nextConfig: {
-			dir: `${baseDirectory}/../interface`,
+			dir: `${process.cwd()}/interface`,
 			dev: process.env.DEV_MODE === 'true', // next.js development mode
 			quiet: false
 		},

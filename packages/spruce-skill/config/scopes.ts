@@ -1,6 +1,9 @@
 // For mutations/queries that may need to add a base path to the scope.
 // For example, if you have a mutation called "updateAppointment" that returns an "Appointment", the base scope would be "updateAppointment"
-function scopeWithBase(options: { base?: string; scope: Record<string, any> }) {
+function scopeWithBase(options: {
+	base?: string
+	scope: Record<string, any>
+}): Record<string, any> {
 	const { base, scope } = options
 	if (!base) {
 		return scope

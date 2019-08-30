@@ -615,3 +615,4 @@ export {
 } from './tests/mocks/SandboxMock'
 
 export { ISpruceGQLTypes } from './interfaces/gql'
+export { ISpruceAcls } from './interfaces/acls'

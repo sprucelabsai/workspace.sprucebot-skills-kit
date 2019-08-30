@@ -19,9 +19,10 @@
 		"npm": "^6"
 	},
 	"scripts": {
-		"build": "npm run clean && npm run build:server && npm run config:build && npm run build:interface",
+		"build": "npm run clean && npm run build:server && npm run build:config && npm run build:interface",
 		"build:interface": "NODE_CONFIG_DIR=./build/config next build interface",
 		"build:server": "tsc --project tsconfig.server.json | true",
+		"build:config": "cp -r icon build && NODE_CONFIG_DIR=./build/config node ./bin/buildConfigs.js",
 		"clean": "rm -rf build/",
 		"start": "node ./build/server/server.js",
 		"local": "npm run kill-inspect && tsnd --ignore-watch interface/.next --ignore-watch node_modules --project tsconfig.server.json --inspect=4080 --respawn --transpileOnly server/server.ts",
@@ -36,8 +37,6 @@
 		"heroku-postbuild": "npm run build",
 		"release": "semantic-release",
 		"storybook": "start-storybook -p 6006",
-		"config:build": "cp -r icon build && NODE_CONFIG_DIR=./build/config node ./bin/buildConfigs.js",
-		"config:watch": "",
 		"gqlToTS": "graphql-codegen -r dotenv/config --config codegen.yml && prettier-eslint -l info --write \"server/interfaces/gql.ts\""
 	},
 	"dependencies": {

@@ -1,3 +1,4 @@
+import { pick } from 'lodash'
 // First things first: load the .env file
 try {
 	const path = `${process.cwd()}/.env`
@@ -71,7 +72,6 @@ const customConfig = {
 //////////////////////////////////////////////////////////////////////
 // https://github.com/lorenwest/node-config/wiki/Configuration-Files
 import { SpruceConfig } from '@sprucelabs/spruce-skill-server'
-import { pick } from 'lodash'
 import acl from './acl'
 import settings from './settings'
 import errors from './errors'
@@ -103,7 +103,5 @@ const fullConfig = {
 	>(baseDirectory),
 	...customConfig
 }
-
-console.log({ baseDirectory, fullConfig })
 
 export default fullConfig
