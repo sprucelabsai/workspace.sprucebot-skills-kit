@@ -8,6 +8,7 @@ import List, { IListProps } from '../../List'
 import { Toggle, Checkbox, Radio } from '../../../Forms'
 import { ICheckboxProps } from '../../../Forms/components/Checkbox/Checkbox'
 import { IToggleProps } from '../../../Forms/components/Toggle/Toggle'
+import { IRadioProps } from '../../../Forms/components/Radio/Radio'
 
 export interface IListItemProps {
 	/** Optional; Set true to render an expandable item */
@@ -32,7 +33,7 @@ export interface IListItemProps {
 	icon?: IIconProps
 
 	/** Optional; visually hides the icon without removing it */
-	iconIsHidden?: boolean
+	isIconHidden?: boolean
 
 	/** Set true to add left spacing. useful in aligning with other list items that have icons or images */
 	isLeftIndented?: boolean
@@ -58,7 +59,7 @@ export interface IListItemProps {
 	contextMenu?: any
 
 	/** Props passed to the toggle when it is used */
-	toggleProps?: Record<string, any>
+	toggleProps?: IToggleProps
 
 	/** Set to true to show separator for this list item if followed by another list item. */
 	isSeparatorVisible?: boolean
@@ -70,7 +71,7 @@ export interface IListItemProps {
 	selectableId?: string
 
 	/** Optional props for selectable list items */
-	selectableProps?: ICheckboxProps | IToggleProps
+	selectableProps?: ICheckboxProps | IRadioProps
 
 	/** Optional: set whether to use checkbox or radio for selectable list items */
 	selectableType?: 'checkbox' | 'radio'
@@ -97,7 +98,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		avatar,
 		image,
 		icon,
-		iconIsHidden,
+		isIconHidden: iconIsHidden,
 		isDraggable,
 		isDisabled,
 		toggleId,

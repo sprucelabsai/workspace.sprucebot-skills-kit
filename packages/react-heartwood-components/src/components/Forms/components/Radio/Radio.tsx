@@ -3,9 +3,12 @@ import cx from 'classnames'
 import RadioIconYes from '../../../../../static/assets/icons/ic_radio_button_checked.svg'
 import RadioIconNo from '../../../../../static/assets/icons/ic_radio_button_unchecked.svg'
 
-export interface IProps {
+export interface IRadioProps {
 	/** Unique identifier */
 	id?: string
+
+	/** optional name we set to this radio button */
+	name?: string
 
 	/** Label and text for the radio */
 	label?: string
@@ -20,7 +23,7 @@ export interface IProps {
 	disabled?: boolean
 }
 
-const Radio = (props: IProps): React.ReactElement => {
+const Radio = (props: IRadioProps): React.ReactElement => {
 	const { id, label, postText, className, ...rest } = props
 	const parentClass = cx('checkbox-item', className)
 	return (

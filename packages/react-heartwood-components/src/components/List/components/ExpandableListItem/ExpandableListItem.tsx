@@ -3,7 +3,7 @@ import { IListProps } from '../../List'
 import ListItem, { IListItemProps } from '../ListItem/ListItem'
 import { ButtonKinds } from '../../../Button/Button'
 
-export interface IExpandableListItemProps extends IListItemProps {
+export interface IExpandableListItemProps {
 	/** Base list item props */
 	item: IListItemProps
 
@@ -14,10 +14,13 @@ export interface IExpandableListItemProps extends IListItemProps {
 	lists?: IListProps[]
 
 	/** Optional icon for collapsed state */
-	collapsedIcon?: string
+	collapsedIconName?: string
 
 	/** Optional icon for expanded state */
-	expandedIcon?: string
+	expandedIconName?: string
+
+	/** defaults to true for this compoment */
+	isExpandable?: boolean
 }
 interface IExpandableListItemState {
 	/** Is the list item expanded */
@@ -39,7 +42,13 @@ export default class ExpandableListItem extends Component<
 	}
 
 	public render(): React.ReactElement {
-		const { item, list, lists, collapsedIcon, expandedIcon } = this.props
+		const {
+			item,
+			list,
+			lists,
+			collapsedIconName: collapsedIcon,
+			expandedIconName: expandedIcon
+		} = this.props
 		const { isExpanded } = this.state
 		return (
 			<ListItem

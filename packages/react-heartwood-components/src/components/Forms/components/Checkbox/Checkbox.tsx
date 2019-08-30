@@ -9,6 +9,9 @@ export interface ICheckboxProps extends React.HTMLProps<HTMLInputElement> {
 	/** Unique identifier */
 	id?: string
 
+	/** optional name we set to this checkbox */
+	name?: string
+
 	/** Input label and text after checkbox icon */
 	label?: string
 

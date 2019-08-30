@@ -38,7 +38,7 @@ export type IEventDetailsItemProps =
 	| IGenerateEventDetailsItemConfiguration<'list', IListProps>
 	| IGenerateEventDetailsItemConfiguration<'button', IButtonProps>
 	| IGenerateEventDetailsItemConfiguration<'splitButton', ISplitButtonProps>
-	| IGenerateEventDetailsItemConfiguration<'card', ICardBuilderProps>
+	| IGenerateEventDetailsItemConfiguration<'cardBuilder', ICardBuilderProps>
 	| IGenerateEventDetailsItemConfiguration<'toast', IToastProps>
 	| IGenerateEventDetailsItemConfiguration<'text', any>
 	| IGenerateEventDetailsItemConfiguration<'markdown', IMarkdownText>
