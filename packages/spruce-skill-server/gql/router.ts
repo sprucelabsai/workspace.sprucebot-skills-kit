@@ -99,11 +99,15 @@ export default (
 					const code = e.message
 					let formattedError: Record<string, any> = {}
 					const errors = config.errors
+					// @ts-ignore
 					if (errors[code]) {
 						formattedError = {
 							name: code,
+							// @ts-ignore
 							code: errors[code].code,
+							// @ts-ignore
 							reason: errors[code].reason,
+							// @ts-ignore
 							friendlyReason: errors[code].friendlyReason
 						}
 					} else {

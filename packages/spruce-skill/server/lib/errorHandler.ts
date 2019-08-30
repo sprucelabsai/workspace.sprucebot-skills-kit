@@ -1,5 +1,5 @@
-import errors from '../../config/errors'
 import { ISpruceContext } from '@sprucelabs/spruce-skill-server'
+import config from 'config'
 
 export default async function eventError(options: {
 	ctx: ISpruceContext
@@ -10,6 +10,7 @@ export default async function eventError(options: {
 
 	log.debug(e)
 
+	const errors = config.errors
 	const code = e.message
 	let body
 	let status = 500

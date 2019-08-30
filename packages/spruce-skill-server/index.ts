@@ -377,8 +377,10 @@ async function serve<ISkillContext extends ISpruceContext>(
 		try {
 			await next()
 		} catch (err) {
+			// @ts-ignore
 			const errKey = allErrors[err.message] ? err.message : 'UNKNOWN'
 			const errorResponse = {
+				// @ts-ignore
 				...allErrors[errKey],
 				name: errKey
 			}
@@ -584,8 +586,6 @@ export {
 	ISpruceSettingsSection
 } from './interfaces/settings'
 
-export {}
-
 // Base classes
 export { default as SpruceSkillService } from './lib/SpruceSkillService'
 export { default as SpruceSkillUtility } from './lib/SpruceSkillUtility'
@@ -617,4 +617,3 @@ export {
 
 export { ISpruceGQLTypes } from './interfaces/gql'
 export { ISpruceAcls } from './interfaces/acls'
-export { typedLiteral } from './interfaces/typedLiteral'
