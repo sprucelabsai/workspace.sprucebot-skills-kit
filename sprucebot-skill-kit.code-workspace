@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"path": "packages/spruce-types",
+			"name": "Shared Spruce Types"
+		},
+		{
 			"path": "packages/heartwood-components",
 			"name": "Heartwood Components and Styles"
 		},

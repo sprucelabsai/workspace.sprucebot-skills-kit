@@ -1,6 +1,7 @@
-// import { ISpruceErrorDefinitions } from '@sprucelabs/spruce-skill-server'
+// TODO: Change this object type to "ISpruceErrors" when TS supports exact types: https://github.com/Microsoft/TypeScript/issues/12936
+// import { ISpruceErrors } from '../interfaces/errors'
 
-module.exports = {
+const errors = {
 	UNKNOWN: {
 		code: 500,
 		status: 'failure',
@@ -77,3 +78,5 @@ module.exports = {
 		friendlyReason: "Sorry, I wasn't able to process your file(s)"
 	}
 }
+
+export default errors

@@ -8,7 +8,9 @@ import { ISpruceAuth } from './auth'
 import { Sequelize } from 'sequelize/types'
 import SpruceCoreModel from '../lib/SpruceModel'
 import { ISpruceGQLTypes } from './gql'
-import { IBuildShorthandResolver } from '../gql/helpers'
+import { IBuildSequelizeResolver } from '../gql/helpers'
+import { FindOptions } from 'sequelize'
+import { GraphQLObjectType } from 'graphql'
 
 type SpruceCoreModelType = typeof SpruceCoreModel
 
@@ -30,9 +32,27 @@ export interface ISpruceContext<
 	gql: {
 		types: ISkillGQLTypes
 		helpers: {
+			buildSequelizeResolver: IBuildSequelizeResolver
 			attributes(model: SpruceCoreModelType, options?: Record<string, any>): any
+			buildConnection(options: {
+				model: SpruceCoreModelType
+				associationName: string
+				type: GraphQLObjectType
+				connectionOptions: {
+					before?: (
+						findOptions: FindOptions,
+						args: Record<string, any>,
+						context: any
+					) => Promise<FindOptions>
+					// TODO: Define after
+					// after?: (
+					// 	findOptions: FindOptions,
+					// 	args: Record<string, any>,
+					// 	context: any
+					// ) => Promise<FindOptions>
+				}
+			}): any
 		}
-		buildShorthandResolver: IBuildShorthandResolver
 	}
 }
 

@@ -1,3 +1,6 @@
+import { GraphQLResolveInfo, GraphQLAbstractType } from 'graphql'
+import { Request } from 'express'
+
 import FileItem from '../gql/types/FileItem'
 import Group from '../gql/types/Group'
 import Job from '../gql/types/Job'
@@ -30,4 +33,33 @@ export interface ISpruceGQLTypes {
 	UserLocation: ReturnType<typeof UserLocation>
 	UserOrganization: ReturnType<typeof UserOrganization>
 	Warning: ReturnType<typeof Warning>
+}
+
+export interface IGQLResolver {
+	(
+		source: any,
+		args: Record<string, any>,
+		context: Request,
+		info: GraphQLResolveInfo
+	): any
+}
+
+export interface IGLQFieldResolver {
+	(
+		result: Record<string, any>,
+		context: Request,
+		info: GraphQLResolveInfo,
+		returnType: GraphQLAbstractType
+	): string
+}
+
+export interface IGQLResolvers {
+	gql?: string
+	resolvers?: {
+		[scope: string]: {
+			__resolveType?: IGLQFieldResolver
+		} & {
+			[resolverName: string]: IGQLResolver
+		}
+	}
 }

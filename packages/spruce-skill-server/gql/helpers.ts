@@ -4,7 +4,7 @@ import { ISpruceContext } from '../interfaces/ctx'
 import parseFields from 'graphql-parse-fields'
 import Debug from 'debug'
 
-import { GraphQLInt, GraphQLResolveInfo, GraphQLObjectType } from 'graphql'
+import { GraphQLInt, GraphQLResolveInfo } from 'graphql'
 import {
 	resolver,
 	attributeFields,
@@ -24,10 +24,12 @@ import { Model, FindOptions } from 'sequelize/types'
 
 const debug = Debug('spruce-skill-server')
 
-export interface IBuildShorthandResolver {
+export interface IBuildSequelizeResolver<ModelType = typeof Model> {
 	(options: {
 		modelName: string
-		associationName: string
+		associationName?: string
+		many?: boolean
+		options?: Record<string, any>
 		before?: (
 			options: FindOptions,
 			args: Record<string, any>,
@@ -35,12 +37,11 @@ export interface IBuildShorthandResolver {
 			info: GraphQLResolveInfo
 		) => FindOptions
 		after?: (
-			records: Model[],
+			records: ModelType[],
 			args: Record<string, any>,
 			context: Request,
 			info: GraphQLResolveInfo
-		) => Promise<Record<string, any>>
-		connectionOptions?: Record<string, any>
+		) => ModelType | null
 	}): (
 		args: Record<string, any>,
 		context: Request,
@@ -86,7 +87,6 @@ export default (ctx: ISpruceContext) => {
 	}
 
 	function cleanModelByScope(options: {
-		target: string
 		model: SpruceCoreModel<any>
 		context: ISpruceContext
 		info: GraphQLResolveInfo
@@ -451,41 +451,48 @@ export default (ctx: ISpruceContext) => {
 		return opts
 	}
 
-	const buildShorthandResolver: IBuildShorthandResolver = (options): any => {
-		// @ts-ignore
-		const type = ctx.gql.types[options.modelName] as GraphQLObjectType | null
+	const buildSequelizeResolver: IBuildSequelizeResolver = (options): any => {
+		const {
+			modelName,
+			many,
+			associationName,
+			options: connectionOptions
+		} = options
 
 		// @ts-ignore
-		const model = ctx.db.models[options.modelName] as Model | null
+		const model = ctx.db.models[modelName] as Model | null
 
-		if (!type || !model) {
+		if (!model) {
 			throw new Error(`No sequelize model named ${options.modelName} exists.`)
 		}
 
-		const connectionOptions = options.connectionOptions || {}
-
-		const buildOptions = {
-			model,
-			type,
-			connectionOptions: {
-				before: options.before,
-				after: options.after,
-				...{
-					connectionOptions
-				}
-			},
-			associationName: options.associationName || options.modelName
-		}
-
-		const connection = buildConnection(buildOptions)
-
-		return (
+		let resolver: (
+			source: Record<string, any>,
 			args: Record<string, any>,
 			context: Request,
 			info: GraphQLResolveInfo
-		) => {
-			return connection.resolve({}, args, context, info)
+		) => Promise<any> | undefined
+
+		if (many) {
+			const connection = buildConnection({
+				model,
+				associationName: associationName || modelName,
+				connectionOptions: {
+					...(connectionOptions || {}),
+					before,
+					after
+				}
+			})
+
+			resolver = connection.resolve.bind(connection)
+		} else {
+			resolver = enhancedResolver(model, {
+				before,
+				after
+			})
 		}
+
+		resolver
 	}
 
 	function attributes(model: any, options: Record<string, any>): any {
@@ -544,6 +551,6 @@ export default (ctx: ISpruceContext) => {
 		attributeFields,
 		defaultArgs,
 		buildConnection,
-		buildShorthandResolver
+		buildSequelizeResolver
 	}
 }

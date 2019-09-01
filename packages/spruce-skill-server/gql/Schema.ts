@@ -1,26 +1,21 @@
 import globby from 'globby'
-import Debug from 'debug'
 import {
 	GraphQLObjectType,
 	GraphQLSchema,
 	GraphQLSchemaConfig,
 	parse,
-	extendSchema,
-	GraphQLResolveInfo
+	extendSchema
 } from 'graphql'
+
+import { addResolveFunctionsToSchema } from 'graphql-tools/dist/generate'
+
+import fs from 'fs'
+
 import helpers from './helpers'
 import { ISpruceContext } from '../interfaces/ctx'
-const debug = Debug('spruce-skill-server')
-
-export interface IGqlShorthandResolver {
-	(args: any, context: Request, info: GraphQLResolveInfo): any
-}
 
 export default class Schema {
 	public readonly gqlSchema: GraphQLSchema
-	public readonly shorthandResolvers: {
-		[name: string]: IGqlShorthandResolver
-	}
 
 	public constructor(options: { ctx: ISpruceContext; gqlDir: string }) {
 		const { ctx, gqlDir } = options
@@ -30,10 +25,10 @@ export default class Schema {
 			types: {}
 		}
 		const coreTypePaths = globby.sync([
-			`${__dirname}/types/**/!(index|types|_helpers).(ts|js)`
+			`${__dirname}/types/**/!(index|types|_helpers).(ts|js|gql)`
 		])
 		const typePaths = globby.sync([
-			`${gqlDir}/types/**/!(index|types|_helpers).(ts|js)`
+			`${gqlDir}/types/**/!(index|types|_helpers).(ts|js|gql)`
 		])
 		const resolverPaths = globby.sync([
 			`${gqlDir}/resolvers/**/!(index|types|_helpers).(ts|js)`
@@ -42,42 +37,55 @@ export default class Schema {
 		let mutations = {}
 		let subscriptions = {}
 
-		let shorthandMarkup = ``
-		let shorthandResolvers = {}
+		let sdl = ``
+		let allResolvers = {
+			Query: {},
+			Mutation: {}
+		}
 
 		// Load GQL types first and assign to ctx.gql.types[<type name>]
 		const allTypePaths = [...coreTypePaths, ...typePaths]
 		allTypePaths.forEach(path => {
-			debug(`checking GQL type @ ${path}`)
+			log.debug(`checking GQL type @ ${path}`)
 			if (path.search('.d.ts') > -1) {
-				debug('Skipping GQL .d.ts file.')
+				log.debug('Skipping GQL .d.ts file.')
 				return true
 			}
 
 			try {
-				debug(`Importing GQL types file: ${path}`)
+				log.debug(`Importing GQL types file: ${path}`)
+
+				let type
+				if (path.search(/\.gql/) > -1) {
+					type = `${fs.readFileSync(path)}`
+				} else {
+					// eslint-disable-next-line @typescript-eslint/no-var-requires
+					const requiredType = require(path)
+					type = requiredType.default
+						? requiredType.default(ctx)
+						: requiredType(ctx)
+				}
+
 				// @ts-ignore dynamic require
-				const requiredType = require(path)
-				const type = requiredType.default
-					? requiredType.default(ctx)
-					: requiredType(ctx)
 				let name = path.replace(/^(.*[\\/])/, '')
 				name = name.replace('.js', '').replace('.ts', '')
 
 				if (typeof type === 'string') {
-					shorthandMarkup = `
-                            ${shorthandMarkup}
+					sdl = `
+                            ${sdl}
                             ${type}
                         `
 				} else if (type && type.kind === 'Document') {
-					// shorthand using `gql` tag
-					shorthandMarkup = `
-                            ${shorthandMarkup}
+					// sdl using `gql` tag
+					sdl = `
+                            ${sdl}
                             ${type.loc.source.body}
                         `
 				} else if (type) {
 					// @ts-ignore
 					ctx.gql.types[name] = type
+				} else {
+					log.debug(`Missing type in file: ${path}`)
 				}
 			} catch (e) {
 				log.warn(`Unable to import GraphQL fields from ${path}`, e)
@@ -89,8 +97,8 @@ export default class Schema {
 		// Load resolvers which could be queries, mutations, or subscriptions
 		resolverPaths.forEach(path => {
 			try {
-				debug(`Importing GQL resolver file: ${path}`)
-				// @ts-ignore dynamic require
+				log.debug(`Importing GQL resolver file: ${path}`)
+				// eslint-disable-next-line @typescript-eslint/no-var-requires
 				const requiredType = require(path)
 				const def = requiredType.default
 					? requiredType.default(ctx)
@@ -101,21 +109,29 @@ export default class Schema {
 				subscriptions = Object.assign(subscriptions, def.subscriptions || {})
 
 				// check for shorthand
-				if (def.shorthand && def.shorthand.gql) {
-					const resolvers = def.shorthand.resolvers || {}
+				if (def.gql) {
+					const body = def.gql.loc ? def.gql.loc.source.body : def.gql
 
-					shorthandMarkup = `
-                        ${shorthandMarkup}
-                        ${
-													typeof def.shorthand.gql === 'string'
-														? def.shorthand.gql
-														: def.shorthand.gql.loc.source.body
-												}
-                        `
+					sdl = `
+                            ${sdl}
+                            ${body}
+                            `
+				}
 
-					shorthandResolvers = {
-						...shorthandResolvers,
-						...resolvers
+				const resolvers = def.resolvers
+
+				if (resolvers) {
+					allResolvers = {
+						...allResolvers,
+						...resolvers,
+						Query: {
+							...allResolvers.Query,
+							...(resolvers.Query || {})
+						},
+						Mutation: {
+							...allResolvers.Mutation,
+							...(resolvers.Mutation || {})
+						}
 					}
 				}
 			} catch (e) {
@@ -147,15 +163,20 @@ export default class Schema {
 
 		const longhandSchema = new GraphQLSchema(resolvers)
 
-		debug(`Parsing GQL Schema language ${shorthandMarkup}`)
-		const documentNode = shorthandMarkup && parse(shorthandMarkup)
-		const schema = documentNode
+		log.debug(`Parsing Schema Definition Language ${sdl}`)
+		const documentNode = sdl && parse(sdl)
+		const extendedSchema = documentNode
 			? extendSchema(longhandSchema, documentNode)
 			: longhandSchema
+
+		// add in reslovers
+		const schema = addResolveFunctionsToSchema({
+			schema: extendedSchema,
+			resolvers: allResolvers
+		})
 
 		log.info('Finished importing GQL files and creating schema')
 
 		this.gqlSchema = schema
-		this.shorthandResolvers = shorthandResolvers
 	}
 }

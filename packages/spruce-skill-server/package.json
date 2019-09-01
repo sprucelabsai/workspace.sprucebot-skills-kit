@@ -35,7 +35,6 @@
 		"@types/node-cron": "^2.0.2",
 		"apollo-link": "1.2.6",
 		"apollo-link-ws": "1.0.12",
-		"config": "^1.28.0",
 		"cookies": "^0.7.3",
 		"dataloader-sequelize": "^1.7.6",
 		"debug": "^3.1.0",
@@ -65,7 +64,9 @@
 		"umzug": "^2.1.0"
 	},
 	"peerDependencies": {
-		"graphql": "^14.2.0",
+		"config": "^3",
+		"graphql": "^14.5.4",
+		"supertest": "^3.0.0",
 		"sqlite3": "^4.0.4",
 		"typescript": "~3.4.5"
 	},
@@ -76,7 +77,6 @@
 		"@types/debug": "^4.1.5",
 		"@types/faker": "^4.1.5",
 		"@types/globby": "^9.1.0",
-		"@types/graphql": "14.2.3",
 		"@types/graphql-depth-limit": "^1.1.2",
 		"@types/ioredis": "^4.0.15",
 		"@types/jsonwebtoken": "^8.3.3",

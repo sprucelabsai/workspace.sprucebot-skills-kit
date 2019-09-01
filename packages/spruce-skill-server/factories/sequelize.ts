@@ -52,9 +52,7 @@ export default (
 
 	// TODO move testing to a prop we check vs process.env
 	const databaseUrl =
-		process.env.TESTING !== 'true'
-			? database.url
-			: config.get<string>('DATABASE_URL_TESTING')
+		process.env.TESTING !== 'true' ? database.url : config.DATABASE_URL_TESTING
 
 	// @ts-ignore
 	const sequelize = new Sequelize(databaseUrl, sqlOptions)
@@ -131,11 +129,7 @@ export default (
 		const filteredModels: Record<string, any>[] = []
 		Object.keys(models).forEach(key => {
 			const model = models[key]
-
-			if (
-				(!model.options.doNotSync && !model.doNotSync) ||
-				config.get('TESTING')
-			) {
+			if ((!model.options.doNotSync && !model.doNotSync) || config.TESTING) {
 				debug('Allowing this model to sync()', model.name)
 				filteredModels.push(model)
 			} else {
