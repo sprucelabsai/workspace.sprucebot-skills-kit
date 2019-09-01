@@ -28,6 +28,7 @@ import HttpsMock from './tests/lib/HttpsMock'
 // TODO: Is there a better way we can declare globals without needing to import this?
 // @ts-ignore: Need to import this definitions file for globals
 import * as globalDefinitions from './interfaces/global' // eslint-disable-line
+import { IGqlShorthandResolver } from './gql/Schema'
 
 const debug = Debug('spruce-skill-server')
 
@@ -613,3 +614,13 @@ export {
 } from './tests/mocks/SandboxMock'
 
 export { ISpruceGQLTypes } from './interfaces/gql'
+
+// GQL
+export interface IGQLShorthand {
+	gql: string
+	resolvers: {
+		[name: string]: IGqlShorthandResolver
+	}
+}
+
+export { IBuildShorthandResolver } from './gql/helpers'

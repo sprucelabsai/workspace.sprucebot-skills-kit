@@ -73,7 +73,7 @@ export default (
 	// Create the subscription server
 	koa.context.gqlServer = new GraphQLSubscriptionServer({
 		server,
-		schema,
+		schema: schema.gqlSchema,
 		enabled: true,
 		ctx: koa.context
 	})
@@ -95,7 +95,8 @@ export default (
 			request[EXPECTED_OPTIONS_KEY] = dataloaderContext
 
 			return {
-				schema,
+				schema: schema.gqlSchema,
+				rootValue: schema.shorthandResolvers,
 				graphiql: config.get('GRAPHIQL_ENABLED'),
 				formatError: (e: Error) => {
 					const code = e.message
@@ -130,9 +131,7 @@ export default (
 					// Can limit based on query cost analysis
 					queryComplexity({
 						estimators: [
-							// @ts-ignore
 							fieldConfigEstimator(),
-							// @ts-ignore
 							simpleEstimator({ defaultComplexity: 1 })
 						],
 						maximumComplexity: config.get('GRAPHQL_MAX_COMPLEXITY'),

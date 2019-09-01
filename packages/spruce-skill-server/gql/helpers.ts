@@ -4,7 +4,7 @@ import { ISpruceContext } from '../interfaces/ctx'
 import parseFields from 'graphql-parse-fields'
 import Debug from 'debug'
 
-import { GraphQLInt, GraphQLResolveInfo } from 'graphql'
+import { GraphQLInt, GraphQLResolveInfo, GraphQLObjectType } from 'graphql'
 import {
 	resolver,
 	attributeFields,
@@ -20,8 +20,33 @@ import config from 'config'
 
 import { has } from 'lodash'
 import SpruceCoreModel from '../lib/SpruceModel'
+import { Model, FindOptions } from 'sequelize/types'
 
 const debug = Debug('spruce-skill-server')
+
+export interface IBuildShorthandResolver {
+	(options: {
+		modelName: string
+		associationName: string
+		before?: (
+			options: FindOptions,
+			args: Record<string, any>,
+			context: Request,
+			info: GraphQLResolveInfo
+		) => FindOptions
+		after?: (
+			records: Model[],
+			args: Record<string, any>,
+			context: Request,
+			info: GraphQLResolveInfo
+		) => Promise<Record<string, any>>
+		connectionOptions?: Record<string, any>
+	}): (
+		args: Record<string, any>,
+		context: Request,
+		info: GraphQLResolveInfo
+	) => Promise<any>
+}
 
 export default (ctx: ISpruceContext) => {
 	// Get any custom connectionOptions and save for later when we're building connections
@@ -61,6 +86,7 @@ export default (ctx: ISpruceContext) => {
 	}
 
 	function cleanModelByScope(options: {
+		target: string
 		model: SpruceCoreModel<any>
 		context: ISpruceContext
 		info: GraphQLResolveInfo
@@ -425,6 +451,43 @@ export default (ctx: ISpruceContext) => {
 		return opts
 	}
 
+	const buildShorthandResolver: IBuildShorthandResolver = (options): any => {
+		// @ts-ignore
+		const type = ctx.gql.types[options.modelName] as GraphQLObjectType | null
+
+		// @ts-ignore
+		const model = ctx.db.models[options.modelName] as Model | null
+
+		if (!type || !model) {
+			throw new Error(`No sequelize model named ${options.modelName} exists.`)
+		}
+
+		const connectionOptions = options.connectionOptions || {}
+
+		const buildOptions = {
+			model,
+			type,
+			connectionOptions: {
+				before: options.before,
+				after: options.after,
+				...{
+					connectionOptions
+				}
+			},
+			associationName: options.associationName || options.modelName
+		}
+
+		const connection = buildConnection(buildOptions)
+
+		return (
+			args: Record<string, any>,
+			context: Request,
+			info: GraphQLResolveInfo
+		) => {
+			return connection.resolve({}, args, context, info)
+		}
+	}
+
 	function attributes(model: any, options: Record<string, any>): any {
 		if (!options) {
 			options = {}
@@ -480,6 +543,7 @@ export default (ctx: ISpruceContext) => {
 		attributes,
 		attributeFields,
 		defaultArgs,
-		buildConnection
+		buildConnection,
+		buildShorthandResolver
 	}
 }

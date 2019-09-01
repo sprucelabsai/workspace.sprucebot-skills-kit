@@ -8,6 +8,7 @@ import { ISpruceAuth } from './auth'
 import { Sequelize } from 'sequelize/types'
 import SpruceCoreModel from '../lib/SpruceModel'
 import { ISpruceGQLTypes } from './gql'
+import { IBuildShorthandResolver } from '../gql/helpers'
 
 type SpruceCoreModelType = typeof SpruceCoreModel
 
@@ -31,6 +32,7 @@ export interface ISpruceContext<
 		helpers: {
 			attributes(model: SpruceCoreModelType, options?: Record<string, any>): any
 		}
+		buildShorthandResolver: IBuildShorthandResolver
 	}
 }
 

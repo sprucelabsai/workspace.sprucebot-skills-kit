@@ -66,5 +66,17 @@ module.exports = {
 				},
 				base
 			})
+	},
+	Mock: {
+		public: base =>
+			scopeWithBase(
+				{
+					scope: {
+						loadFirstLocations: 'public',
+						'oadFirstLocations.Organization': 'public'
+					}
+				},
+				base
+			)
 	}
 }
