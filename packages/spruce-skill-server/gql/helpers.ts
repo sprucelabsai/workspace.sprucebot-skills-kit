@@ -4,7 +4,7 @@ import { ISpruceContext } from '../interfaces/ctx'
 import parseFields from 'graphql-parse-fields'
 import Debug from 'debug'
 
-import { GraphQLInt, GraphQLResolveInfo } from 'graphql'
+import { GraphQLInt, GraphQLResolveInfo, GraphQLObjectType } from 'graphql'
 import {
 	resolver,
 	attributeFields,
@@ -20,8 +20,44 @@ import config from 'config'
 
 import { has } from 'lodash'
 import SpruceCoreModel from '../lib/SpruceModel'
+import { FindOptions } from 'sequelize'
 
 const debug = Debug('spruce-skill-server')
+
+type SpruceCoreModelType = typeof SpruceCoreModel
+
+export interface ISpruceGQLHelpers {
+	attributes(model: SpruceCoreModelType, options?: Record<string, any>): any
+
+	enhancedResolver(
+		/** The model. For example ctx.db.models.User */
+		model: SpruceCoreModel<any>,
+		options?: Record<string, any>,
+		scope?: string
+	): IResolverLikeFunction<any, any>
+
+	buildConnection(options: {
+		/** Name your connection. This must be unique */
+		name?: string
+		/** The model you're connecting. For example ctx.db.models.User */
+		model: SpruceCoreModelType
+		associationName: string
+		type: GraphQLObjectType
+		connectionOptions: {
+			before?: (
+				findOptions: FindOptions,
+				args: Record<string, any>,
+				context: any
+			) => Promise<FindOptions>
+			// TODO: Define after
+			// after?: (
+			// 	findOptions: FindOptions,
+			// 	args: Record<string, any>,
+			// 	context: any
+			// ) => Promise<FindOptions>
+		}
+	}): any
+}
 
 export default (ctx: ISpruceContext) => {
 	// Get any custom connectionOptions and save for later when we're building connections
