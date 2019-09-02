@@ -89,6 +89,7 @@ export default class Schema {
 				}
 			} catch (e) {
 				log.warn(`Unable to import GraphQL fields from ${path}`, e)
+				throw e
 			}
 
 			return true
@@ -109,8 +110,8 @@ export default class Schema {
 				subscriptions = Object.assign(subscriptions, def.subscriptions || {})
 
 				// check for shorthand
-				if (def.gql) {
-					const body = def.gql.loc ? def.gql.loc.source.body : def.gql
+				if (def.sdl) {
+					const body = def.sdl.loc ? def.sdl.loc.source.body : def.sdl
 
 					sdl = `
                             ${sdl}
@@ -136,6 +137,7 @@ export default class Schema {
 				}
 			} catch (e) {
 				log.warn(`Unable to import GraphQL fields from ${path}`, e)
+				throw e
 			}
 		})
 
@@ -147,13 +149,21 @@ export default class Schema {
 				name: 'Query',
 				fields: queries
 			})
+		} else {
+			//change first `extend type Query` to just `type Query` since no query type will exist yet
+			sdl = sdl.replace('extend type Query', 'type Query')
 		}
+
 		if (mutations && Object.keys(mutations).length > 0) {
 			resolvers.mutation = new GraphQLObjectType({
 				name: 'Mutation',
 				fields: mutations
 			})
+		} else {
+			//change first `extend type Mutation` to just `type Mutation` since no mutation type will exist yet
+			sdl = sdl.replace('extend type Mutation', 'type Mutation')
 		}
+
 		if (subscriptions && Object.keys(subscriptions).length > 0) {
 			resolvers.subscription = new GraphQLObjectType({
 				name: 'Subscription',

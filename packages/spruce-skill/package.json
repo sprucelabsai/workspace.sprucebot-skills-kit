@@ -103,6 +103,7 @@
 		"@storybook/addon-links": "^5.1.10",
 		"@storybook/addons": "^5.1.10",
 		"@storybook/react": "^5.1.10",
+		"@types/chai": "^4.2.0",
 		"@types/config": "^0.0.34",
 		"@types/mocha": "^5.2.7",
 		"@types/storybook__addon-knobs": "^5.0.3",

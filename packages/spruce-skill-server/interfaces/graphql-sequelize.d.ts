@@ -74,6 +74,7 @@ declare module 'graphql-sequelize' {
 
 	const argsToFindOptions: (options: any) => any
 	const createConnection: (options: any) => any
+	const createConnectionResolver: (options: any) => any
 
 	class NodeTypeMapper {
 		public map: any

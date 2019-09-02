@@ -2,13 +2,13 @@ import { ISpruceContext } from '../interfaces/ctx'
 
 // @ts-ignore: No definition available
 import parseFields from 'graphql-parse-fields'
-import Debug from 'debug'
 
-import { GraphQLInt, GraphQLResolveInfo } from 'graphql'
+import { GraphQLInt, GraphQLResolveInfo, GraphQLObjectType } from 'graphql'
 import {
 	resolver,
 	attributeFields,
 	createConnection,
+	createConnectionResolver,
 	defaultListArgs,
 	defaultArgs,
 	argsToFindOptions,
@@ -22,31 +22,74 @@ import { has } from 'lodash'
 import SpruceCoreModel from '../lib/SpruceModel'
 import { Model, FindOptions } from 'sequelize/types'
 
-const debug = Debug('spruce-skill-server')
+type SpruceCoreModelType = typeof SpruceCoreModel
 
-export interface IBuildSequelizeResolver<ModelType = typeof Model> {
+export interface IBuildSequelizeResolver {
 	(options: {
 		modelName: string
 		associationName?: string
 		many?: boolean
 		options?: Record<string, any>
 		before?: (
-			options: FindOptions,
+			options: Record<string, any>,
 			args: Record<string, any>,
-			context: Request,
+			context: ISpruceContext,
 			info: GraphQLResolveInfo
-		) => FindOptions
+		) => Record<string, any>
 		after?: (
-			records: ModelType[],
+			result: Record<string, any>,
 			args: Record<string, any>,
-			context: Request,
+			context: ISpruceContext,
 			info: GraphQLResolveInfo
-		) => ModelType | null
+		) => Record<string, any> | null
 	}): (
 		args: Record<string, any>,
-		context: Request,
+		context: ISpruceContext,
 		info: GraphQLResolveInfo
 	) => Promise<any>
+}
+
+export interface ISpruceGQLHelpers {
+	// Single resolver for all sequelize needs
+	buildSequelizeResolver: IBuildSequelizeResolver
+
+	// lock out fields based on scopes, keep private data private!
+	cleanModelByScope(options: {
+		model: SpruceCoreModel<any>
+		context: ISpruceContext
+		info: GraphQLResolveInfo
+	}): Record<string, any> | null
+
+	attributes(model: SpruceCoreModelType, options?: Record<string, any>): any
+
+	enhancedResolver(
+		/** The model. For example ctx.db.models.User */
+		model: SpruceCoreModel<any>,
+		options?: Record<string, any>,
+		scope?: string
+	): IResolverLikeFunction<any, any>
+
+	buildConnection(options: {
+		/** Name your connection. This must be unique */
+		name?: string
+		/** The model you're connecting. For example ctx.db.models.User */
+		model: SpruceCoreModelType
+		associationName: string
+		type: GraphQLObjectType
+		connectionOptions: {
+			before?: (
+				findOptions: FindOptions,
+				args: Record<string, any>,
+				context: any
+			) => Promise<FindOptions>
+			// TODO: Define after
+			// after?: (
+			// 	findOptions: FindOptions,
+			// 	args: Record<string, any>,
+			// 	context: any
+			// ) => Promise<FindOptions>
+		}
+	}): any
 }
 
 export default (ctx: ISpruceContext) => {
@@ -60,7 +103,7 @@ export default (ctx: ISpruceContext) => {
 
 	connectionPaths.forEach(path => {
 		try {
-			debug(`Importing custom connection options from file: ${path}`)
+			log.debug(`Importing custom connection options from file: ${path}`)
 			// $FlowIgnore
 			const connectionOptions = require(path)(ctx) // eslint-disable-line
 			let name = path.replace(/^(.*[\\/])/, '')
@@ -200,21 +243,7 @@ export default (ctx: ISpruceContext) => {
 				info: GraphQLResolveInfo
 			) => {
 				let updatedOptions = beforeOptions
-				if (!context.warnings) {
-					context.warnings = []
-				}
-				if (!context.scopeInfo) {
-					context.scopeInfo = []
-				}
-				if (!context.attributeWarnings) {
-					context.attributeWarnings = []
-				}
-				if (!context.scopes) {
-					context.scopes = {}
-				}
-				if (!context.findOptions) {
-					context.findOptions = {}
-				}
+
 				if (!updatedOptions.where) {
 					updatedOptions.where = {}
 				}
@@ -357,21 +386,7 @@ export default (ctx: ISpruceContext) => {
 				const rootPath = pathScope.replace(/\..*$/, '')
 
 				let updatedOptions = beforeOptions
-				if (!context.warnings) {
-					context.warnings = []
-				}
-				if (!context.attributeWarnings) {
-					context.attributeWarnings = []
-				}
-				if (!context.scopeInfo) {
-					context.scopeInfo = []
-				}
-				if (!context.scopes) {
-					context.scopes = {}
-				}
-				if (!context.findOptions) {
-					context.findOptions = {}
-				}
+
 				if (!updatedOptions.where) {
 					updatedOptions.where = {}
 				}
@@ -436,7 +451,10 @@ export default (ctx: ISpruceContext) => {
 			}
 		}
 
-		const connection = createConnection(createConnectionOptions)
+		const connection = type
+			? createConnection(createConnectionOptions)
+			: createConnectionResolver(createConnectionOptions)
+
 		const args = defaultListArgs()
 
 		const opts = {
@@ -445,7 +463,7 @@ export default (ctx: ISpruceContext) => {
 				...args,
 				...connection.connectionArgs
 			},
-			resolve: connection.resolve
+			resolve: type ? connection.resolve : connection.resolveConnection
 		}
 
 		return opts
@@ -456,11 +474,16 @@ export default (ctx: ISpruceContext) => {
 			modelName,
 			many,
 			associationName,
-			options: connectionOptions
+			options: connectionOptions,
+			before,
+			after
 		} = options
 
 		// @ts-ignore
 		const model = ctx.db.models[modelName] as Model | null
+
+		// @ts-ignore
+		const type = ctx.gql.types[modelName]
 
 		if (!model) {
 			throw new Error(`No sequelize model named ${options.modelName} exists.`)
@@ -476,6 +499,7 @@ export default (ctx: ISpruceContext) => {
 		if (many) {
 			const connection = buildConnection({
 				model,
+				type,
 				associationName: associationName || modelName,
 				connectionOptions: {
 					...(connectionOptions || {}),
@@ -492,7 +516,7 @@ export default (ctx: ISpruceContext) => {
 			})
 		}
 
-		resolver
+		return resolver
 	}
 
 	function attributes(model: any, options: Record<string, any>): any {
@@ -551,6 +575,7 @@ export default (ctx: ISpruceContext) => {
 		attributeFields,
 		defaultArgs,
 		buildConnection,
-		buildSequelizeResolver
+		buildSequelizeResolver,
+		cleanModelByScope
 	}
 }

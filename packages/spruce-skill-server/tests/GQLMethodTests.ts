@@ -3,6 +3,8 @@ import SpruceTest from './lib/SpruceTest'
 import { ISpruceContext } from '../interfaces/ctx'
 import faker from 'faker'
 import get from 'lodash/get'
+import gql from 'graphql-tag'
+import { IGQLTag } from '@sprucelabs/spruce-node'
 
 class GQLMethodTests extends SpruceTest<ISpruceContext> {
 	public setup(): void {
@@ -10,12 +12,14 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 		it('Can not call query as mutation', () => this.doQueryAsMutate())
 		it('Can call mutation', () => this.doMutate())
 		it('Can not call mutation as query', () => this.doMutateAsQuery())
-		it('can run simple query against shorthand defined schema', () =>
-			this.canRunSimpleQueryAgainstShorthand())
+		it('can run simple query against sdl defined schema', () =>
+			this.canRunSimpleQuery())
 		it('can get first user model against shorthand defined schema', () =>
 			this.canGetFirstUserModel())
 		it('can get run full relay/sequelize query against shorthand defined schema', () =>
-			this.canRunGqlSequelizeQueryAgainstShorthand())
+			this.canRunGqlSequelizeQuery())
+
+		it('can get the right type of union', () => this.canGetProperUnionType())
 	}
 
 	public async doQuery(): Promise<void> {
@@ -76,15 +80,17 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 		assert.isOk(result.errors[0])
 	}
 
-	public canRunSimpleQueryAgainstShorthand = async () => {
+	public canRunSimpleQuery = async () => {
 		const results = await this.gql(
-			`
-        query($id: ID!){
-            testSimpleQuery(id: $id) {
-                id
-                name
-            }
-        }`,
+			gql`
+				query($id: ID!) {
+					testSimpleQuery(id: $id) {
+						id
+						name
+						address
+					}
+				}
+			`,
 			{
 				id: 'howdy'
 			}
@@ -96,54 +102,66 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 
 		assert.isArray(testSimpleQuery)
 		assert.equal(testSimpleQuery.length, 2)
+		assert.equal(testSimpleQuery[0].address, 'hello world')
 	}
 
 	public canGetFirstUserModel = async () => {
-		const results = await this.gql(`
-        query {
-            getFirstUser {
-                id
-                name
-            }
-        }    
-        `)
+		const results = await this.gql(gql`
+			query {
+				getFirstUser {
+					id
+					firstName
+					lastName
+					# Locations {
+					# 	edges {
+					# 		node {
+					# 			id
+					# 			name
+					# 		}
+					# 	}
+					# }
+				}
+			}
+		`)
 
-		const {
-			data: { getFirstUser: user }
-		} = results
+		const user = get(results, 'data.getFirstUser')
 
 		assert.isObject(user)
 		assert.isString(user.id)
+		assert.isString(user.firstName)
+		assert.isString(user.lastName)
 	}
 
-	public gql = async (query: string, variables?: Record<string, any>) => {
+	public gql = async (
+		query: string | IGQLTag,
+		variables?: Record<string, any>
+	) => {
 		const result = await this.request.post('/graphql').send({
-			query,
+			query: typeof query === 'string' ? query : query.loc.source.body,
 			variables
 		})
 
 		return result.body
 	}
 
-	public canRunGqlSequelizeQueryAgainstShorthand = async () => {
-		const results = await this.gql(`
-             query {
-                loadFirstLocations(limit:10) {
-                    totalCount
-                    edges {
-                        node {
-                            id
-                            name
-                            Organization {
-                                id 
-                                name
-                            }
-                        }
-                    }
-                }
-                
-             }
-        `)
+	public canRunGqlSequelizeQuery = async () => {
+		const results = await this.gql(gql`
+			query {
+				loadFirstLocations(limit: 10) {
+					totalCount
+					edges {
+						node {
+							id
+							name
+							Organization {
+								id
+								name
+							}
+						}
+					}
+				}
+			}
+		`)
 
 		const locationNodes = get(results, 'data.loadFirstLocations.edges')
 		const count = get(results, 'data.loadFirstLocations.totalCount')
@@ -153,6 +171,47 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 
 		assert.isObject(locationNodes[0].node)
 		assert.isString(locationNodes[0].node.id)
+	}
+
+	public canGetProperUnionType = async () => {
+		const results = await this.gql(gql`
+			query {
+				loadUserOrLocation(type: "user") {
+					... on User {
+						id
+						firstName
+					}
+					... on Location {
+						name
+						timezone
+					}
+				}
+			}
+		`)
+
+		const user = get(results, 'data.loadUserOrLocation')
+		assert.isOk(user.id)
+		assert.isOk(user.firstName)
+
+		const results2 = await this.gql(gql`
+			query {
+				loadUserOrLocation(type: "location") {
+					... on User {
+						id
+						firstName
+					}
+					... on Location {
+						name
+						timezone
+					}
+				}
+			}
+		`)
+
+		const location = get(results2, 'data.loadUserOrLocation')
+
+		assert.isOk(location.timezone)
+		assert.isOk(location.name)
 	}
 }
 

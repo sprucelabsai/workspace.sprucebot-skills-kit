@@ -65,7 +65,6 @@ export default (
 	}
 
 	// Get schema
-
 	const schema = new Schema({ ctx: koa.context, gqlDir: gqlOptions.gqlDir })
 
 	// Create the subscription server
@@ -84,6 +83,20 @@ export default (
 		'/graphql',
 		async (context, next) => {
 			context.startTime = log.timerStart()
+			// copy all tools from the koa context to the request context so it is a valid ISpruceContext
+			// TODO do this in middleware Taylor/Ken
+			const tools = ['db', 'auth', 'services', 'utilities', 'gql']
+			tools.forEach(name => {
+				context[name] = koa.context[name]
+			})
+
+			// these are need for gql helpers to function
+			context.warnings = []
+			context.scopeInfo = []
+			context.attributeWarnings = []
+			context.scopes = {}
+			context.findOptions = {}
+
 			await next()
 		},
 		// @ts-ignore
@@ -94,6 +107,7 @@ export default (
 
 			return {
 				schema: schema.gqlSchema,
+				context: ctx,
 				graphiql: config.get('GRAPHIQL_ENABLED'),
 				formatError: (e: Error) => {
 					const code = e.message

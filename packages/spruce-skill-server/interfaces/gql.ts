@@ -54,12 +54,14 @@ export interface IGLQFieldResolver {
 }
 
 export interface IGQLResolvers {
-	gql?: string
+	sdl?: string
 	resolvers?: {
-		[scope: string]: {
-			__resolveType?: IGLQFieldResolver
-		} & {
-			[resolverName: string]: IGQLResolver
-		}
+		[scope: string]:
+			| {
+					__resolveType?: IGLQFieldResolver
+			  }
+			| {
+					[resolverName: string]: IGQLResolver
+			  }
 	}
 }

@@ -1,0 +1,10 @@
+type TestType {
+	# a simple id combining the passed id and i suffix like '-1'
+	id: String!
+
+	# is The First or The Second
+	name: String!
+
+	"This field is overridden by a resolver and should be 'hello world'"
+	address: String!
+}

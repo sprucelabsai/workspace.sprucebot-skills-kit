@@ -6,13 +6,8 @@ import { ISpruceServices } from './services'
 import { ISpruceUtilities } from './utilities'
 import { ISpruceAuth } from './auth'
 import { Sequelize } from 'sequelize/types'
-import SpruceCoreModel from '../lib/SpruceModel'
 import { ISpruceGQLTypes } from './gql'
-import { IBuildSequelizeResolver } from '../gql/helpers'
-import { FindOptions } from 'sequelize'
-import { GraphQLObjectType } from 'graphql'
-
-type SpruceCoreModelType = typeof SpruceCoreModel
+import { ISpruceGQLHelpers } from '../gql/helpers'
 
 export interface ISpruceContext<
 	ISkillModels = ISpruceModels,
@@ -21,38 +16,24 @@ export interface ISpruceContext<
 	ISkillUtilities = ISpruceUtilities,
 	ISkillGQLTypes = ISpruceGQLTypes
 > extends Context, Router.RouterContext {
+	// run operations against core
 	sb: Sprucebot
+	// get to data models
 	db: {
 		models: ISkillModels
 		sequelize: Sequelize
 	}
+	// if someone has been authenticated, you'll find details here
 	auth?: ISkillAuth
+	// perform operations with other systems (everything in your /server/services)
 	services: ISkillServices
+	// helpful utilities for things like mutating data or doing calculations
 	utilities: ISkillUtilities
+	// gql related libraries
 	gql: {
 		types: ISkillGQLTypes
-		helpers: {
-			buildSequelizeResolver: IBuildSequelizeResolver
-			attributes(model: SpruceCoreModelType, options?: Record<string, any>): any
-			buildConnection(options: {
-				model: SpruceCoreModelType
-				associationName: string
-				type: GraphQLObjectType
-				connectionOptions: {
-					before?: (
-						findOptions: FindOptions,
-						args: Record<string, any>,
-						context: any
-					) => Promise<FindOptions>
-					// TODO: Define after
-					// after?: (
-					// 	findOptions: FindOptions,
-					// 	args: Record<string, any>,
-					// 	context: any
-					// ) => Promise<FindOptions>
-				}
-			}): any
-		}
+		// a collection of tools to make building gql endpoints even faster!
+		helpers: ISpruceGQLHelpers
 	}
 }
 
