@@ -33,7 +33,7 @@ const services: IEventDetailsItemProps = {
 			},
 			{
 				icon: { name: 'unordered_list', isLineIcon: true },
-				isIconHidden: true,
+				iconIsHidden: true,
 				title: 'Haircut',
 				subtitle: '$40 | 1hr',
 				note: 'Vicenta Maggio',
@@ -199,8 +199,8 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 						title: 'Status',
 						subtitle: 'Confirmed',
 						isExpandable: true,
-						collapsedIconName: 'edit',
-						expandedIconName: 'close',
+						collapsedIcon: 'edit',
+						expandedIcon: 'close',
 						lists: statusLists
 					}
 				]
@@ -353,8 +353,8 @@ export const warningAppointment: IEventDetailsProps = {
 						subtitle: 'Confirmed',
 						// TODO: Make list item expandable to make this work
 						isExpandable: true,
-						collapsedIconName: 'edit',
-						expandedIconName: 'close',
+						collapsedIcon: 'edit',
+						expandedIcon: 'close',
 						lists: statusLists
 					}
 				]
@@ -459,7 +459,7 @@ export const pastAppointment: IEventDetailsProps = {
 					},
 					{
 						icon: { name: 'unordered_list', isLineIcon: true },
-						isIconHidden: true,
+						iconIsHidden: true,
 						title: 'Haircut',
 						subtitle: '$40 | 1hr',
 						note: 'Vicenta Maggio'

@@ -20,7 +20,7 @@
 	},
 	"scripts": {
 		"build": "npm run clean && npm run icons && npm run compile_javascript",
-		"compile_javascript": "babel --source-maps --extensions \".js\",\".tsx\" ./src --out-dir ./lib && tsc --declaration --outDir lib/ --emitDeclarationOnly --declarationMap",
+		"compile_javascript": "babel --source-maps --extensions \".js\",\".tsx\",\".ts\" ./src --out-dir ./lib && tsc --declaration --emitDeclarationOnly --declarationMap",
 		"icons": "node ./scripts/generateIcons.js",
 		"clean": "rm -rf lib/*",
 		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx src && tsc -p . --noEmit",
@@ -85,7 +85,7 @@
 		"storybook-addon-jsx": "^7.1.5",
 		"storybook-addon-react-docgen": "^1.2.4",
 		"storybook-readme": "^5.0.6",
-		"typescript": "^3.3.3333",
+		"typescript": "~3.4.5",
 		"uuid": "^3.3.2",
 		"webpack": "^4.29.6"
 	},
