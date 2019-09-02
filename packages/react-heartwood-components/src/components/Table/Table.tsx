@@ -303,7 +303,7 @@ export default class Table extends Component<ITableProps, ITableState> {
 				// @ts-ignore-next-line
 				ExpanderComponent={
 					<Icon
-						name={'keyboard_arrow_right'}
+						icon={'keyboard_arrow_right'}
 						className={'table-expander-row'}
 					/>
 				}
@@ -331,7 +331,7 @@ export default class Table extends Component<ITableProps, ITableState> {
 							{(isSortable || isSortedAsc || isSortedDesc) &&
 								selectedIds.length === 0 && (
 									<Icon
-										name="arrow_drop_down"
+										icon="arrow_drop_down"
 										className={cx('table-header-cell__icon', {
 											'table-header-cell__icon--is-visible':
 												isSortedAsc || isSortedDesc,

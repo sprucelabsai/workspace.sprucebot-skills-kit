@@ -4,15 +4,16 @@ import ListHeader, {
 	IListHeaderProps
 } from './components/ListHeader/ListHeader'
 import ListItem, { IListItemProps } from './components/ListItem/ListItem'
-import ExpandableListItem, {
-	IExpandableListItemProps
-} from './components/ExpandableListItem/ExpandableListItem'
+import ExpandableListItem from './components/ExpandableListItem/ExpandableListItem'
 
 export const ListWrapper = (props): React.ReactElement => (
 	<div className="list-wrapper">{props.children}</div>
 )
 
-export type IWrappedItemProps = IListItemProps | IExpandableListItemProps
+export interface IWrappedItemProps extends IListItemProps {
+	/** Optional; Set true to render an expandable item */
+	isExpandable?: boolean
+}
 
 export interface IListProps {
 	/** List Header */
@@ -59,17 +60,14 @@ const List = (props: IListProps): React.ReactElement => {
 				{items &&
 					items.map((item, idx) => {
 						if (item.isExpandable) {
-							const expndableItem = item as IExpandableListItemProps
-							return <ExpandableListItem key={idx} {...expndableItem} />
+							return <ExpandableListItem key={idx} item={item} {...item} />
 						}
-
-						const listItem = item as IListItemProps
 						return (
 							<ListItem
 								key={idx}
 								selectableType={selectableType}
 								isSeparatorVisible={areSeparatorsVisible}
-								{...listItem}
+								{...item}
 							/>
 						)
 					})}

@@ -26,6 +26,7 @@ import {
 import List, { ListWrapper } from './List'
 import ListHeader from './components/ListHeader/ListHeader'
 import ListItem from './components/ListItem/ListItem'
+import Icon from '../Icon/Icon'
 import Tabs from '../Tabs/Tabs'
 import SortableList from './components/SortableList/SortableList'
 import { ButtonKinds } from '../Button/Button'
@@ -99,17 +100,15 @@ stories
 			title={text('title', 'Wed, Oct 28')}
 			subtitle={text('subtitle', '9am–4pm')}
 			avatar={text('avatar', '')}
-			icon={object('image', {
-				name: 'edit'
-			})}
-			// icon={
-			// 	text('icon', '') && (
-			// 		<Icon
-			// 			isLineIcon={boolean('isLineIcon', true)}
-			// 			name={text('icon', '')}
-			// 		/>
-			// 	)
-			// }
+			image={text('image', '')}
+			icon={
+				text('icon', '') && (
+					<Icon
+						isLineIcon={boolean('isLineIcon', true)}
+						icon={text('icon', '')}
+					/>
+				)
+			}
 			isDraggable={boolean('isDraggable', false)}
 			actions={object('actions', [])}
 			toggleId={text('toggleId', '')}

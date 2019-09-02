@@ -1,13 +1,30 @@
 import React from 'react'
-import List, { IListProps } from '../../../List/List'
-import Button, { IButtonProps } from '../../../Button/Button'
-import { CardBuilder, ICardBuilderProps } from '../../../Card'
-import SplitButton, {
-	ISplitButtonProps
-} from '../../../SplitButton/SplitButton'
-import Toast, { IToastProps } from '../../../Toast/Toast'
+import List from '../../../List/List'
+import Button from '../../../Button/Button'
+import { CardBuilder } from '../../../Card'
+import SplitButton from '../../../SplitButton/SplitButton'
+import Toast from '../../../Toast/Toast'
 import Text from '../../../Text/Text'
-import MarkdownText, { IMarkdownText } from '../../../MarkdownText/MarkdownText'
+import MarkdownText from '../../../MarkdownText/MarkdownText'
+
+export interface IEventDetailsItemProps {
+	/** Unique identifier for the item */
+	id: string
+
+	/** Component key to decide what to render */
+	type:
+		| 'list'
+		| 'button'
+		| 'splitButton'
+		| 'card'
+		| 'toast'
+		| 'text'
+		| 'markdown'
+
+	/** Props to pass into the rendered component */
+	// TODO: This should be tied to only the components that can be rendered after TSX conversion
+	viewModel: any
+}
 
 const MDTextContainer = (props: { source: string }): React.ReactElement => (
 	<div className="event-details__markdown">
@@ -24,24 +41,6 @@ const components = {
 	text: Text,
 	markdown: MDTextContainer
 }
-
-interface IGenerateEventDetailsItemConfiguration<type, props> {
-	/** Unique identifier for the item */
-	id: string
-	/** Component key to decide what to render */
-	type: type
-	/** Props to pass into the rendered component */
-	viewModel: props
-}
-
-export type IEventDetailsItemProps =
-	| IGenerateEventDetailsItemConfiguration<'list', IListProps>
-	| IGenerateEventDetailsItemConfiguration<'button', IButtonProps>
-	| IGenerateEventDetailsItemConfiguration<'splitButton', ISplitButtonProps>
-	| IGenerateEventDetailsItemConfiguration<'cardBuilder', ICardBuilderProps>
-	| IGenerateEventDetailsItemConfiguration<'toast', IToastProps>
-	| IGenerateEventDetailsItemConfiguration<'text', any>
-	| IGenerateEventDetailsItemConfiguration<'markdown', IMarkdownText>
 
 const EventDetailsItem = (
 	props: IEventDetailsItemProps

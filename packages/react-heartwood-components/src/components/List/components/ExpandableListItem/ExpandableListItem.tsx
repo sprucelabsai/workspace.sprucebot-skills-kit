@@ -14,13 +14,10 @@ export interface IExpandableListItemProps {
 	lists?: IListProps[]
 
 	/** Optional icon for collapsed state */
-	collapsedIconName?: string
+	collapsedIcon?: string
 
 	/** Optional icon for expanded state */
-	expandedIconName?: string
-
-	/** defaults to true for this compoment */
-	isExpandable?: boolean
+	expandedIcon?: string
 }
 interface IExpandableListItemState {
 	/** Is the list item expanded */
@@ -42,13 +39,7 @@ export default class ExpandableListItem extends Component<
 	}
 
 	public render(): React.ReactElement {
-		const {
-			item,
-			list,
-			lists,
-			collapsedIconName: collapsedIcon,
-			expandedIconName: expandedIcon
-		} = this.props
+		const { item, list, lists, collapsedIcon, expandedIcon } = this.props
 		const { isExpanded } = this.state
 		return (
 			<ListItem

@@ -25,13 +25,6 @@ const ToastHeader = (props: IToastHeaderProps): React.ReactElement => {
 	)
 }
 
-export enum ToastKinds {
-	POSITIVE = 'positive',
-	NEGATIVE = 'negative',
-	WARN = 'warn',
-	INFO = 'info'
-}
-
 export interface IToastProps {
 	/** Unique ID for the toast */
 	id: string | number
@@ -49,7 +42,7 @@ export interface IToastProps {
 	canRemove?: boolean
 
 	/** Sets the variation of toast */
-	kind?: ToastKinds
+	kind?: string
 
 	/** Handle a followup action */
 	followupAction?: Function

@@ -2,18 +2,12 @@ import React, { Fragment } from 'react'
 import cx from 'classnames'
 import Avatar from '../../../Avatar/Avatar'
 import Button, { IButtonProps } from '../../../Button/Button'
-import Icon, { IIconProps } from '../../../Icon/Icon'
+import Icon from '../../../Icon/Icon'
 import ContextMenu from '../../../ContextMenu/ContextMenu'
 import List, { IListProps } from '../../List'
 import { Toggle, Checkbox, Radio } from '../../../Forms'
-import { ICheckboxProps } from '../../../Forms/components/Checkbox/Checkbox'
-import { IToggleProps } from '../../../Forms/components/Toggle/Toggle'
-import { IRadioProps } from '../../../Forms/components/Radio/Radio'
 
 export interface IListItemProps {
-	/** Optional; Set true to render an expandable item */
-	isExpandable?: boolean
-
 	/** Title text */
 	title: string
 
@@ -30,10 +24,10 @@ export interface IListItemProps {
 	image?: string
 
 	/** Inline svg icon */
-	icon?: IIconProps
+	icon?: Record<string, any>
 
 	/** Optional; visually hides the icon without removing it */
-	isIconHidden?: boolean
+	iconIsHidden?: boolean
 
 	/** Set true to add left spacing. useful in aligning with other list items that have icons or images */
 	isLeftIndented?: boolean
@@ -59,10 +53,10 @@ export interface IListItemProps {
 	contextMenu?: any
 
 	/** Props passed to the toggle when it is used */
-	toggleProps?: IToggleProps
+	toggleProps?: Record<string, any>
 
 	/** Set to true to show separator for this list item if followed by another list item. */
-	isSeparatorVisible?: boolean
+	isSeparatorVisible: boolean
 
 	/** Optional class name for list item */
 	className?: string
@@ -71,7 +65,7 @@ export interface IListItemProps {
 	selectableId?: string
 
 	/** Optional props for selectable list items */
-	selectableProps?: ICheckboxProps | IRadioProps
+	selectableProps?: Record<string, any>
 
 	/** Optional: set whether to use checkbox or radio for selectable list items */
 	selectableType?: 'checkbox' | 'radio'
@@ -98,7 +92,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		avatar,
 		image,
 		icon,
-		isIconHidden: iconIsHidden,
+		iconIsHidden,
 		isDraggable,
 		isDisabled,
 		toggleId,
@@ -125,23 +119,16 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		'list-item--has-avatar': !!avatar
 	})
 
-	let iconProps: IIconProps | undefined
-	let iconClassName: string | undefined
-
-	if (icon) {
-		const { className: pulledClassName, ...pulledProps } = icon
-		iconProps = pulledProps
-		iconClassName = pulledClassName
-	}
-
 	const ListItemInner = (): React.ReactElement => (
 		<Fragment>
-			{(image || iconProps || avatar || selectableId) && !isDraggable && (
+			{(image || icon || avatar || selectableId) && !isDraggable && (
 				<div className="list-item__image-wrapper">
 					{icon && (
 						<Icon
-							{...iconProps}
-							className={cx('list-item__icon', iconClassName, {
+							customIcon={icon.customIcon}
+							icon={icon.name}
+							isLineIcon={icon.isLineIcon}
+							className={cx('list-item__icon', icon.className, {
 								'list-item__icon--hidden': iconIsHidden
 							})}
 						/>
