@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, ReactElement } from 'react'
+import React, { Fragment, ReactNode, HTMLProps } from 'react'
 import cx from 'classnames'
 
 import Button from '../Button/Button'
@@ -56,7 +56,7 @@ const TemplateEngine = (text = '', context = {}): ReactNode[] => {
 	return children.map(renderText)
 }
 
-export interface ITextProps {
+export interface ITextProps extends HTMLProps<HTMLElement> {
 	/** Contents of the component. */
 	children: ReactNode
 
