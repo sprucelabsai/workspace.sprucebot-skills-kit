@@ -69,7 +69,11 @@ export default class Schema {
 
 				// @ts-ignore dynamic require
 				let name = path.replace(/^(.*[\\/])/, '')
-				name = name.replace('.js', '').replace('.ts', '')
+				name = name
+					.replace('.js', '')
+					.replace('.ts', '')
+					.replace('.gql', '')
+					.replace('.graphql', '')
 
 				// TODO find a way to do testing without coupling skills-kit-server and spruce-skill
 				if (!config.TESTING_SKILLS_KIT && name === 'TestType') {
