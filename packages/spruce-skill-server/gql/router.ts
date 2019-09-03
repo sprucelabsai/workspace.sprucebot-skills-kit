@@ -85,7 +85,7 @@ export default (
 			context.startTime = log.timerStart()
 			// copy all tools from the koa context to the request context so it is a valid ISpruceContext
 			// TODO do this in middleware Taylor/Ken
-			const tools = ['db', 'auth', 'services', 'utilities', 'gql']
+			const tools = ['db', 'services', 'utilities', 'gql']
 			tools.forEach(name => {
 				context[name] = koa.context[name]
 			})
