@@ -4,18 +4,21 @@ import { ISkillContext } from 'server/interfaces/ctx'
 import get from 'lodash/get'
 import gql from 'graphql-tag'
 import { IGQLTag } from '@sprucelabs/spruce-node'
+import config from 'config'
 
 class ExampleTests extends SpruceTest<ISkillContext> {
 	public setup(): void {
-		it('Can do a trivial assert', () => this.trivialAssert())
-		it('Can get users', () => this.getUsers())
-		it('Can use custom mock data', () => this.customMock())
-		it('can run simple query', () => this.canRunSimpleQuery())
-		it('can get first user model', () => this.canGetFirstUserModel())
-		it('can get run full relay/sequelize query', () =>
-			this.canRunGqlSequelizeQuery())
-		it('can get the right type of union', () => this.canGetProperUnionType())
-		it('can mutate user', () => this.canMutateUser())
+		if (config.TESTING_SKILLS_KIT) {
+			it('Can do a trivial assert', () => this.trivialAssert())
+			it('Can get users', () => this.getUsers())
+			it('Can use custom mock data', () => this.customMock())
+			it('can run simple query', () => this.canRunSimpleQuery())
+			it('can get first user model', () => this.canGetFirstUserModel())
+			it('can get run full relay/sequelize query', () =>
+				this.canRunGqlSequelizeQuery())
+			it('can get the right type of union', () => this.canGetProperUnionType())
+			it('can mutate user', () => this.canMutateUser())
+		}
 	}
 
 	public async before(): Promise<void> {
