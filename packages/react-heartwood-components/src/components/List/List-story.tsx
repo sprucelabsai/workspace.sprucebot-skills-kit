@@ -29,6 +29,7 @@ import ListItem from './components/ListItem/ListItem'
 import Icon from '../Icon/Icon'
 import Tabs from '../Tabs/Tabs'
 import SortableList from './components/SortableList/SortableList'
+import { ButtonKinds } from '../Button/Button'
 
 const stories = storiesOf('List', module)
 
@@ -160,26 +161,26 @@ stories
 				actions: [
 					{
 						text: 'Today',
-						kind: 'simple'
+						kind: ButtonKinds.Simple
 					},
 					{
 						icon: {
 							name: 'calendar',
 							isLineIcon: true
 						},
-						kind: 'simple'
+						kind: ButtonKinds.Simple
 					},
 					{
 						icon: {
 							name: 'arrow_back'
 						},
-						kind: 'simple'
+						kind: ButtonKinds.Simple
 					},
 					{
 						icon: {
 							customIcon: 'arrow_forward'
 						},
-						kind: 'simple'
+						kind: ButtonKinds.Simple
 					}
 				]
 			}}

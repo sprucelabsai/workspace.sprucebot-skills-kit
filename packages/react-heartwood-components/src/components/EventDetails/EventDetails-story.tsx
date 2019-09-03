@@ -12,7 +12,7 @@ import {
 	pastAppointment,
 	lunchBreak,
 	ptoBlock
-} from '../../../.storybook/data/eventDetails'
+} from './eventDetailsMock'
 
 const stories = storiesOf('EventDetails', module)
 

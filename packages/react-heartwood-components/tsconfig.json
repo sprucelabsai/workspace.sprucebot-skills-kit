@@ -3,7 +3,10 @@
 		"target": "es6",
 		"jsx": "react",
 		"moduleResolution": "node",
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
+		"rootDir": "./src",
+		"outDir": "./lib"
 	},
-	"exclude": ["node_modules", "lib"]
+	"include": ["src"],
+	"exclude": ["node_modules", "lib", ".storybook"]
 }

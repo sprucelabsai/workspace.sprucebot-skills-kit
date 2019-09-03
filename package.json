@@ -11,7 +11,8 @@
 		"packages/spruce-node",
 		"packages/spruce-skill",
 		"packages/spruce-skill-server",
-		"packages/spruce-utils"
+		"packages/spruce-utils",
+		"packages/spruce-types"
 	],
 	"scripts": {
 		"local": "pm2 start ecosystem.config.js && echo 'run `yarn run log` to tail the logs'",
@@ -26,7 +27,7 @@
 		"test": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node",
 		"test:update": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node -- -u",
 		"publish": "lerna publish --log-level=silly",
-		"clean": "rm -rf node_modules/ && rm -rf packages/heartwood-components/node_modules/ && rm -rf packages/react-heartwood-components/node_modules/ && rm -rf packages/spruce-next-helpers/node_modules/ && rm -rf packages/spruce-node/node_modules/ && rm -rf packages/spruce-skill/node_modules/ && rm -rf packages/spruce-skill-server/node_modules/ && rm -rf packages/spruce-utils/node_modules/",
+		"clean": "rm -rf node_modules/ && rm -rf packages/heartwood-components/node_modules/ && rm -rf packages/react-heartwood-components/node_modules/ && rm -rf packages/spruce-next-helpers/node_modules/ && rm -rf packages/spruce-node/node_modules/ packages/spruce-node/build/ && rm -rf packages/spruce-skill/node_modules/ packages/spruce-skill/build/ && rm -rf packages/spruce-skill-server/node_modules/ packages/spruce-skill-server/build/ && rm -rf packages/spruce-utils/node_modules/",
 		"build-statics": "npm run build-storybook",
 		"build-storybook": "cd packages/react-heartwood-components && npm run build-storybook",
 		"build-heartwood": "cd packages/heartwood-components && npm run build",
@@ -42,11 +43,11 @@
 	},
 	"dependencies": {
 		"eslint": "^5.0.0",
-		"graphql": "^14.2.0",
+		"graphql": "^14.5.4",
 		"pm2": "^2.10.1",
 		"prettier": "^1.16.4",
 		"sqlite3": "^4.0.4",
-		"typescript": "^3.3.3333"
+		"typescript": "~3.4.5"
 	},
 	"devDependencies": {
 		"commitizen": "^3.0.7",

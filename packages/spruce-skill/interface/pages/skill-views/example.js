@@ -1,4 +1,4 @@
-// @flow
+//
 import React from 'react'
 import PageWrapper from '../../containers/PageWrapper'
 import {
@@ -9,18 +9,11 @@ import {
 	ButtonGroup
 } from '@sprucelabs/react-heartwood-components'
 
-import type { WrappedInitialProps } from '../../containers/PageWrapper'
-
-type Props = {
-	auth: WrappedInitialProps.auth,
-	skill: Object
-}
-
-class TestSkillView extends React.Component<Props> {
+class TestSkillView extends React.Component {
 	supportingMessage = this.props.skill.supportingMessage()
 	modal = this.props.skill.modal()
 
-	static async getInitialProps(props: WrappedInitialProps) {
+	static async getInitialProps(props) {
 		if (props.auth && props.auth.User) {
 			console.log('a user is logged in!')
 		}

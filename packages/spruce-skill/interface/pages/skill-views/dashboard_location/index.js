@@ -1,4 +1,4 @@
-// @flow
+//
 import React from 'react'
 import PageWrapper from '../../../containers/PageWrapper'
 import {
@@ -24,6 +24,7 @@ const EXAMPLE_SUBSCRIPTION = gql`
 		}
 	}
 `
+
 class DashboardLocationPage extends React.Component {
 	modal = this.props.skill.modal()
 	confirm = this.props.skill.confirm()
@@ -85,7 +86,7 @@ class DashboardLocationPage extends React.Component {
 		log.debug({ ...res.body })
 	}
 
-	handleOpenModal = (isPaged: boolean) => {
+	handleOpenModal = isPaged => {
 		if (isPaged) {
 			this.modal.open({
 				title: 'Page 1 Heading',
