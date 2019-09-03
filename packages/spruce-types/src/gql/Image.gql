@@ -1,0 +1,11 @@
+"A basic image tag"
+type Image {
+	"For UI caching"
+	id: ID!
+
+	"Where to pull the image from"
+	src: String!
+
+	"Rendered as the alt tag for hovers"
+	alt: String
+}

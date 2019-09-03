@@ -1,0 +1,32 @@
+enum CalendarEventDetailsItemType {
+	list
+	button
+	splitButton
+	cardBuilder
+	toast
+	text
+	markdown
+}
+
+union CalendarEventDetailsItemViewModel =
+	  List
+	| Action
+	| CardBuilder
+	| Toast
+	| Text
+	| Markdown
+	| SplitButton
+
+"Control the rendering of the list item"
+type CalendarEventDetailsItem {
+	"How the view should be rendered"
+	type: CalendarEventDetailsItemType
+
+	"The data fed into the view to configure it"
+	viewModel: CalendarEventDetailsItemViewModel
+}
+
+"The additional details attached to an event. Rendered after someone taps on an event in the calendar"
+type CalendarEventDetails {
+	items: [CalendarEventDetailsItem!]!
+}

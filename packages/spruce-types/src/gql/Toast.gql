@@ -1,0 +1,20 @@
+"Call out information so it's impossible to miss!"
+type Toast {
+	"Unique id for UI caching"
+	id: ID!
+
+	"Headline text"
+	headline: String!
+
+	"Optional; Text after the headline"
+	text: String
+
+	"Optional; controls whether the toast can be removed. Defaults to true"
+	canRemove: Boolean
+
+	"Sets the variation of toast"
+	kind: String
+
+	"Text for the followup action"
+	followupText: String
+}
