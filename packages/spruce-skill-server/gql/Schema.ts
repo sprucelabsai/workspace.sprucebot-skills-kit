@@ -180,10 +180,22 @@ export default class Schema {
 			: longhandSchema
 
 		// add in reslovers
-		const schema = addResolveFunctionsToSchema({
-			schema: extendedSchema,
-			resolvers: allResolvers
-		})
+		let cleanedResolvers = { ...allResolvers }
+		if (Object.keys(cleanedResolvers.Query).length === 0) {
+			delete cleanedResolvers.Query
+		}
+
+		if (Object.keys(cleanedResolvers.Mutation).length === 0) {
+			delete cleanedResolvers.Mutation
+		}
+
+		const schema =
+			Object.keys(cleanedResolvers).length === 0
+				? extendedSchema
+				: addResolveFunctionsToSchema({
+						schema: extendedSchema,
+						resolvers: cleanedResolvers
+				  })
 
 		log.info('Finished importing GQL files and creating schema')
 
