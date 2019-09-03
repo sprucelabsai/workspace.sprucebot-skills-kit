@@ -12,7 +12,7 @@ import { GraphQLResolveInfo, GraphQLAbstractType } from 'graphql'
  */
 
 export default (ctx: ISkillContext) => {
-	if (!config.TESTING) {
+	if (!config.TESTING_SKILLS_KIT) {
 		return {}
 	}
 

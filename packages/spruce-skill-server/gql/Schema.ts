@@ -13,6 +13,7 @@ import fs from 'fs'
 
 import helpers from './helpers'
 import { ISpruceContext } from '../interfaces/ctx'
+import config from 'config'
 
 export default class Schema {
 	public readonly gqlSchema: GraphQLSchema
@@ -69,6 +70,11 @@ export default class Schema {
 				// @ts-ignore dynamic require
 				let name = path.replace(/^(.*[\\/])/, '')
 				name = name.replace('.js', '').replace('.ts', '')
+
+				// TODO find a way to do testing without coupling skills-kit-server and spruce-skill
+				if (!config.TESTING_SKILLS_KIT && name === 'TestType') {
+					return true
+				}
 
 				if (typeof type === 'string') {
 					sdl = `
