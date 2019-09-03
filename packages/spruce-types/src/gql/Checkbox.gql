@@ -1,0 +1,19 @@
+type Checkbox {
+	"Unique identifier"
+	id: ID!
+
+	"A name attached to this checkbox"
+	name: String
+
+	"Input label and text after checkbox icon"
+	label: String
+
+	"Optional text to show below the label"
+	postText: String
+
+	"Class for the checkbox wrapper"
+	className: String
+
+	"Set true if the checkbox is indeterminate"
+	isIndeterminate: Boolean
+}

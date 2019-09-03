@@ -1,0 +1,10 @@
+type Icon {
+	"Id for ui caching"
+	id: ID!
+
+	"The name of the icon to render. If not found, this will return null."
+	name: String
+
+	"Set true to render an icon with a stroke, but no fill"
+	isLineIcon: Boolean
+}
