@@ -18,7 +18,7 @@ module.exports = function(schemaString) {
 	scalar DateTime
 	`
 
-	// Loop through all the files and concat their definitions together to build the schma
+	// Loop through all the files and concat their definitions together to create a single schema
 	globby.sync(schemaString).forEach(path => {
 		const data = readFileSync(path, { encoding: 'utf-8' })
 		schema += `\n\n${data}`
