@@ -617,7 +617,7 @@ export {
 
 export {
 	ISpruceGQLTypes,
-	IGLQFieldResolver,
+	IGQLTypeResolver,
 	IGQLResolvers,
 	IGQLResolver
 } from './interfaces/gql'

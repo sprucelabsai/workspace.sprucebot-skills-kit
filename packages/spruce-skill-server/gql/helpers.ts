@@ -21,6 +21,7 @@ import config from 'config'
 import { has } from 'lodash'
 import SpruceCoreModel from '../lib/SpruceModel'
 import { Model, FindOptions } from 'sequelize/types'
+import { IGQLResolver } from '../interfaces/gql'
 
 type SpruceCoreModelType = typeof SpruceCoreModel
 
@@ -42,11 +43,7 @@ export interface IBuildSequelizeResolver {
 			context: ISpruceContext,
 			info: GraphQLResolveInfo
 		) => Record<string, any> | null
-	}): (
-		args: Record<string, any>,
-		context: ISpruceContext,
-		info: GraphQLResolveInfo
-	) => Promise<any>
+	}): IGQLResolver
 }
 
 export interface ISpruceGQLHelpers {

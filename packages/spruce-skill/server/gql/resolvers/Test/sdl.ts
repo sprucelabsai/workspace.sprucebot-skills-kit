@@ -1,7 +1,8 @@
 import { ISkillContext } from 'server/interfaces/ctx'
 import config from 'config'
 import gql from 'graphql-tag'
-import { IGQLResolvers } from '@sprucelabs/spruce-skill-server'
+import { IGQLResolvers, ISpruceContext } from '@sprucelabs/spruce-skill-server'
+import { GraphQLResolveInfo, GraphQLAbstractType } from 'graphql'
 
 /**
  * This is an example of how you can use Schema Definition Language to build your GQL API.
@@ -55,7 +56,12 @@ export default (ctx: ISkillContext) => {
 		resolvers: {
 			// how you resolve a type, such as ENUM OR UNIONS
 			Model: {
-				__resolveType: (result, context, info, returnType) => {
+				__resolveType: (
+					result: Record<string, any>,
+					context: ISpruceContext,
+					info: GraphQLResolveInfo,
+					returnType: GraphQLAbstractType
+				): string => {
 					console.log(
 						'resolving union Model',
 						result,
@@ -93,7 +99,8 @@ export default (ctx: ISkillContext) => {
 				},
 				getFirstUser: ctx.gql.helpers.buildSequelizeResolver({
 					modelName: 'User',
-					before: (findOptions, args, context, info) => {
+					before: (findOptions, args, context) => {
+						console.log('getFirstUser', findOptions, args, context)
 						context.scopes.getFirstUser = config.scopes.Mock.public()
 						return findOptions
 					},
@@ -106,6 +113,7 @@ export default (ctx: ISkillContext) => {
 					modelName: 'Location',
 					many: true,
 					before: async (findOptions, args, context) => {
+						console.log('loadFirstLocation', findOptions, args, context)
 						context.scopes.loadFirstLocations = config.scopes.Mock.public()
 						return findOptions
 					},
@@ -116,6 +124,8 @@ export default (ctx: ISkillContext) => {
 				loadUserOrLocation: async (source, args, context, info) => {
 					const { type } = args
 					let model
+
+					console.log('loadUserOrLocation', source)
 
 					if (type === 'user') {
 						model = await context.db.models.User.findOne()
@@ -142,6 +152,8 @@ export default (ctx: ISkillContext) => {
 				updateUserTest: ctx.gql.helpers.buildSequelizeResolver({
 					modelName: 'User',
 					before: async (findOptions, args, context) => {
+						console.log('updateUserTest', findOptions)
+
 						const { id, firstName } = args.input
 
 						const user = await ctx.db.models.User.findOne({
