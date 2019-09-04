@@ -22,7 +22,7 @@ stories
 						<Card>
 							<CardBody>
 								<FormBuilder
-									// kind="page"
+									kind="page"
 									// validate={console.log}
 									sections={object('sections', [
 										{
@@ -48,9 +48,9 @@ stories
 											]
 										}
 									])}
-									// initialValues={{}}
-									// formLayout={{ spacing: 'base' }}
-									// onSubmit={values => console.log('Submit', { values })}
+									initialValues={{}}
+									formLayout={{ spacing: 'base' }}
+									onSubmit={values => console.log('Submit', { values })}
 								/>
 							</CardBody>
 						</Card>
