@@ -1,7 +1,7 @@
 //
 const config = require('config')
 const { GraphQLList, GraphQLString, GraphQLObjectType } = require('graphql')
-const GraphQLJSON = require('graphql-type-json')
+const { GraphQLJSON } = require('graphql-type-json')
 
 const responseType = new GraphQLObjectType({
 	name: 'GetSettingsResponse',
