@@ -1,0 +1,20 @@
+"A button with a dropdown of actions on the right"
+type SplitButton {
+	"The main action readily surfaced to the user"
+	defaultAction: Action!
+
+	"All the secondary nested actions"
+	actions: [Action]!
+
+	"Sets the visual hierarchy of the button"
+	kind: String
+
+	"Set true to fill the parent’s width"
+	isFullWidth: Boolean
+
+	"Sets the visual hierarchy of the button"
+	isSmall: Boolean
+
+	"Optional; use a portal to render the menu. By default, it renders below the button"
+	usePortal: Boolean
+}

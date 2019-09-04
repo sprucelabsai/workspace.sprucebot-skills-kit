@@ -25,8 +25,9 @@
 		"generate:dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 HOST=https://dev-api.spruce.ai graphql-codegen codegen.yml && prettier-eslint -l info --write \"src/generated/api-gql.ts\"",
 		"generate:qa": "NODE_TLS_REJECT_UNAUTHORIZED=0 HOST=https://qa-api.spruce.ai graphql-codegen codegen.yml && prettier-eslint -l info --write \"src/generated/api-gql.ts\"",
 		"generate:prod": "NODE_TLS_REJECT_UNAUTHORIZED=0 HOST=https://api.spruce.ai graphql-codegen codegen.yml && prettier-eslint -l info --write \"src/generated/api-gql.ts\"",
-		"build": "npm run clean && tsc | true",
-		"watch": "tsc -w",
+		"build:types": "graphql-codegen -c codegen-types.yml",
+		"build": "npm run build:types && npm run clean && tsc | true && mkdir -p build/src/gql && cp -R src/gql/* build/src/gql",
+		"watch": "chokidar \"**/*.ts\" \"**/*.js\" \"**/*.gql\" -i \"build/**/*\" -i \"src/generated/**/*\" -c \"npm run build\"",
 		"clean": "rm -rf build/",
 		"lint": "eslint '**/*.ts' && tsc -p . --noEmit"
 	},
@@ -34,14 +35,19 @@
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
 	"dependencies": {
+		"graphql-iso-date": "^3.6.1",
+		"graphql-type-json": "^0.3.0",
 		"typescript": "~3.4.5"
 	},
 	"devDependencies": {
 		"@graphql-codegen/add": "^1.6.1",
 		"@graphql-codegen/cli": "^1.6.1",
 		"@graphql-codegen/typescript": "^1.6.1",
+		"chokidar-cli": "^2.0.0",
 		"eslint": "^5",
 		"eslint-config-spruce": "^8.17.7",
+		"globby": "^10.0.1",
+		"graphql-tools": "^4.0.5",
 		"prettier": "^1.13",
 		"prettier-eslint-cli": "^5.0.0"
 	},

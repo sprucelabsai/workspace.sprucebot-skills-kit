@@ -1,0 +1,23 @@
+"A block of time that comprises a calendar."
+type CalendarEventBlock {
+	"An optional identifier for this block"
+	id: ID
+
+	"Any title rendered on the event"
+	title: String
+
+	"Displayed right under the title"
+	subtitle: String
+
+	"How long this block is for, in seconds"
+	durationSec: Int!
+
+	"An array of icons show on the left of the calendar event"
+	leftIcons: [Icon]
+
+	"An array of icons shown on the right of the calendar event"
+	rightIcons: [Icon]
+
+	"Is the person tied to this event busy during this time?"
+	isBusy: Boolean
+}
