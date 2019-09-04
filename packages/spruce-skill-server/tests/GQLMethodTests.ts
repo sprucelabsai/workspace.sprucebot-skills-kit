@@ -4,7 +4,6 @@ import { ISpruceContext } from '../interfaces/ctx'
 import faker from 'faker'
 import get from 'lodash/get'
 import gql from 'graphql-tag'
-import { IGQLTag } from '@sprucelabs/spruce-node'
 
 class GQLMethodTests extends SpruceTest<ISpruceContext> {
 	public setup(): void {
@@ -91,6 +90,7 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 					}
 				}
 			`,
+			undefined,
 			{
 				id: 'howdy'
 			}
@@ -130,18 +130,6 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 		assert.isString(user.id)
 		assert.isString(user.firstName)
 		assert.isString(user.lastName)
-	}
-
-	public gql = async (
-		query: string | IGQLTag,
-		variables?: Record<string, any>
-	) => {
-		const result = await this.request.post('/graphql').send({
-			query: typeof query === 'string' ? query : query.loc.source.body,
-			variables
-		})
-
-		return result.body
 	}
 
 	public canRunGqlSequelizeQuery = async () => {
