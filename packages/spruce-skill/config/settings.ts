@@ -1,4 +1,9 @@
-const settings = [
+import {
+	ISprucePageSettings,
+	SpruceSettingsFieldType
+} from '@sprucelabs/spruce-skill-server'
+
+const settings: ISprucePageSettings[] = [
 	// User settings page
 	{
 		title: 'General', // This is the name of the tab on the settings page
@@ -12,8 +17,8 @@ const settings = [
 					// Array of individual settings that are configurable
 					{
 						name: 'receive_notifications', // Each setting MUST HAVE A UNIQUE "name"
-						type: 'boolean', // The type of setting
-						props: {
+						type: SpruceSettingsFieldType.BOOLEAN, // The type of setting
+						viewModel: {
 							// These props are passed directly to the component. Use it to customize the look and feel.
 							label: 'Receive notifications',
 							helper:
@@ -30,8 +35,8 @@ const settings = [
 					},
 					{
 						name: 'receive_notifications_or_something',
-						type: 'select',
-						props: {
+						type: SpruceSettingsFieldType.SELECT,
+						viewModel: {
 							options: {
 								foo: 'bar',
 								bar: 'foo'
@@ -65,12 +70,12 @@ const settings = [
 				fields: [
 					{
 						name: 'example_boolean',
-						type: 'boolean',
+						type: SpruceSettingsFieldType.BOOLEAN,
 						// Only include this setting in get-settings event response if the user has these permissions:
 						// acls: {
 						// 	workspace: ['can_do_example_organization']
 						// },
-						props: {
+						viewModel: {
 							label: 'Example boolean',
 							helper: 'This is an example of a boolean.',
 							defaultValue: true
@@ -78,12 +83,12 @@ const settings = [
 					},
 					{
 						name: 'example_select',
-						type: 'select',
+						type: SpruceSettingsFieldType.SELECT,
 						// Only include this setting in get-settings event response if the user has these permissions:
 						// acls: {
 						// 	workspace: ['can_do_example_organization']
 						// },
-						props: {
+						viewModel: {
 							options: {
 								option1: 'Go Team',
 								option2: 'No Go Team!'
@@ -94,8 +99,8 @@ const settings = [
 					},
 					{
 						name: 'example_duration',
-						type: 'duration',
-						props: {
+						type: SpruceSettingsFieldType.DURATION,
+						viewModel: {
 							minMinutes: 5,
 							maxMinutes: 60 * 5,
 							label: 'Example duration',
@@ -104,11 +109,11 @@ const settings = [
 					},
 					{
 						name: 'example_text',
-						type: 'text',
+						type: SpruceSettingsFieldType.TEXT,
 						// acls: {
 						// 	workspace: ['can_do_example_organization']
 						// },
-						props: {
+						viewModel: {
 							label: 'Example text',
 							helper: 'This is an example of a text setting.'
 						}
@@ -128,12 +133,12 @@ const settings = [
 				fields: [
 					{
 						name: 'location_example',
-						type: 'boolean',
+						type: SpruceSettingsFieldType.BOOLEAN,
 						// Only include this setting in get-settings event response if the user has these permissions:
 						acls: {
 							workspace: ['can_do_example_location']
 						},
-						props: {
+						viewModel: {
 							label: 'Example setting',
 							helper: 'This is an example of a setting.',
 							isSmall: true,
