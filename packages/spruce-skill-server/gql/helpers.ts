@@ -535,6 +535,7 @@ export default (ctx: ISpruceContext) => {
 			const type = ctx.gql.types[modelAssociation.target.name]
 
 			if (!type) {
+				// TODO find way to relate to models defined in SDL
 				log.warn(
 					`No GraphQL type exists for ${
 						modelAssociation.target.name
