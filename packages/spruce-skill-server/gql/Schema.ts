@@ -48,6 +48,8 @@ export default class Schema {
 		const allTypePaths = [...coreTypePaths, ...typePaths]
 		allTypePaths.forEach(path => {
 			log.debug(`checking GQL type @ ${path}`)
+
+			// TODO filter these out with globby above
 			if (path.search('.d.ts') > -1) {
 				log.debug('Skipping GQL .d.ts file.')
 				return true
