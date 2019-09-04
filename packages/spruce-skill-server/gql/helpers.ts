@@ -535,11 +535,12 @@ export default (ctx: ISpruceContext) => {
 			const type = ctx.gql.types[modelAssociation.target.name]
 
 			if (!type) {
-				throw new Error(
+				log.warn(
 					`No GraphQL type exists for ${
 						modelAssociation.target.name
 					}. Please create one.`
 				)
+				return true
 			}
 
 			// create a 1to1 relationship with BelongsTo
