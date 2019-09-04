@@ -163,8 +163,8 @@ export default class Base<Context> {
 
 	protected async gql(
 		query: string | IGQLTag,
-		jwt?: string,
-		variables?: Record<string, any>
+		variables?: Record<string, any>,
+		jwt?: string
 	): Promise<any> {
 		let request = this.request.post('/graphql')
 

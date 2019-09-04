@@ -90,7 +90,6 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 					}
 				}
 			`,
-			undefined,
 			{
 				id: 'howdy'
 			}

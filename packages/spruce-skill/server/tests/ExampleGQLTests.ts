@@ -3,7 +3,6 @@ import { SpruceTest } from '@sprucelabs/spruce-skill-server'
 import { ISkillContext } from 'server/interfaces/ctx'
 import get from 'lodash/get'
 import gql from 'graphql-tag'
-import { IGQLTag } from '@sprucelabs/spruce-node'
 import config from 'config'
 
 class ExampleTests extends SpruceTest<ISkillContext> {
@@ -116,18 +115,6 @@ class ExampleTests extends SpruceTest<ISkillContext> {
 		assert.isObject(user)
 		assert.isString(user.id)
 		assert.isNull(user.name)
-	}
-
-	public gql = async (
-		query: string | IGQLTag,
-		variables?: Record<string, any>
-	) => {
-		const result = await this.request.post('/graphql').send({
-			query: typeof query === 'string' ? query : query.loc.source.body,
-			variables
-		})
-
-		return result.body
 	}
 
 	public canRunGqlSequelizeQuery = async () => {

@@ -17,7 +17,7 @@ export default (ctx: ISkillContext) => {
 		`,
 		resolvers: {
 			Query: {
-				Settings: async (source, args, context) => {
+				Settings: async (_source, args, context) => {
 					const { auth } = context
 
 					if (!auth || !auth.User) {
@@ -26,6 +26,7 @@ export default (ctx: ISkillContext) => {
 
 					// Get settings specific to what's being requested
 					const response = await ctx.utilities.settings.getRequestedSettings({
+						//@ts-ignore settings can't be typed
 						settings: config.settings, // Your settings definition is in config/settings.js
 						requestedSettings: args.requestedSettings,
 						userId: auth.User.id,
