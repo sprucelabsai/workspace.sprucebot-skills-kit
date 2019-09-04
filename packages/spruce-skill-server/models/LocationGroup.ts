@@ -1,7 +1,7 @@
 // 🌲🤖 This is a core model, available if DB_ENABLED=true
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
-import { Sequelize, DataTypes, ModelAttributes } from 'sequelize'
+import { Sequelize, DataTypes } from 'sequelize'
 import { ISpruceModels } from '../interfaces/models'
 import { Group } from './Group'
 import { Location } from './Location'
@@ -20,7 +20,7 @@ export class LocationGroup extends SpruceCoreModel<LocationGroup> {
 		}
 	}
 
-	public static readonly attributes: ModelAttributes = {
+	public static readonly attributes = {
 		id: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,

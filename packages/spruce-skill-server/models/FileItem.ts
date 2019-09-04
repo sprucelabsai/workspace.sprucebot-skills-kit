@@ -1,7 +1,7 @@
 // 🌲🤖 This is a core model, available if DB_ENABLED=true
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
-import { Sequelize, DataTypes, ModelAttributes } from 'sequelize'
+import { Sequelize, DataTypes } from 'sequelize'
 import { Location } from './Location'
 import { Organization } from './Organization'
 import { User } from './User'
@@ -41,7 +41,7 @@ export class FileItem extends ISpruceModel<FileItem> {
 		}
 	}
 
-	public static readonly attributes: ModelAttributes = {
+	public static readonly attributes = {
 		id: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,

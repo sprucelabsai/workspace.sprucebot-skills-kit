@@ -2,7 +2,7 @@
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
 import config from 'config'
-import { Sequelize, DataTypes, ModelAttributes } from 'sequelize'
+import { Sequelize, DataTypes } from 'sequelize'
 import { ISpruceModels } from '../interfaces/models'
 import { Organization } from './Organization'
 import { UserLocation } from './UserLocation'
@@ -31,7 +31,7 @@ export class Location extends SpruceCoreModel<Location> {
 		}
 	}
 
-	public static readonly attributes: ModelAttributes = {
+	public static readonly attributes = {
 		id: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,

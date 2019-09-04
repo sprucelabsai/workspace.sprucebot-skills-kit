@@ -1,7 +1,7 @@
 // 🌲🤖 This is a core model, available if DB_ENABLED=true
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
-import { Sequelize, DataTypes, ModelAttributes } from 'sequelize'
+import { Sequelize, DataTypes } from 'sequelize'
 import { ISpruceModels } from '../interfaces/models'
 import { Location } from './Location'
 import SpruceCoreModel from '../lib/SpruceModel'
@@ -16,7 +16,7 @@ export class Organization extends SpruceCoreModel<Organization> {
 		}
 	}
 
-	public static readonly attributes: ModelAttributes = {
+	public static readonly attributes = {
 		id: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
