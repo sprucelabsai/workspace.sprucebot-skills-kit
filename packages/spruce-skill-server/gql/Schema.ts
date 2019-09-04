@@ -148,7 +148,7 @@ export default class Schema {
 					}
 				}
 			} catch (e) {
-				log.warn(`Unable to import GraphQL fields from ${path}`, e)
+				log.debug(`Unable to import GraphQL fields from ${path}`, e)
 				throw e
 			}
 		})

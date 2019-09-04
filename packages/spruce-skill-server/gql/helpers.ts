@@ -564,6 +564,8 @@ export default (ctx: ISpruceContext) => {
 					}
 				})
 			}
+
+			return true
 		})
 
 		return attrs

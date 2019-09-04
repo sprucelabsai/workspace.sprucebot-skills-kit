@@ -1,0 +1,151 @@
+"Header of a card"
+type CardHeader {
+	"Title for the card"
+	title: String
+
+	"Optional label to show above title"
+	labelText: String
+
+	"Optional icon to show above the title and before the label"
+	labelIcon: Icon
+
+	"Render buttons in the Card Header"
+	actions: [Action]
+
+	"Renders a Context Menu in the Card Header"
+	contextMenu: ContextMenu
+}
+
+"The footer of the card"
+type CardBuilderFooter {
+	"Render buttons in the Card Footer"
+	actions: [Action]
+
+	"Helper for the footer"
+	helper: String
+}
+
+"Panels make up the score card"
+type ScoreCardPanel {
+	"Unique id for React loops"
+	id: ID!
+
+	"The label for this score, e.g. Today's Sales"
+	label: String
+
+	"The score, e.g. $234.30"
+	value: String
+}
+
+"A score card!"
+type ScoreCard {
+	scores: [ScoreCardPanel]
+}
+
+union CardBuilderBodyItemViewModel =
+	  Action
+	| Image
+	| Heading
+	| Text
+	| ScoreCard
+	| Toast
+	| List
+
+enum CardBuilderBodyItemType {
+	action
+	image
+	heading
+	text
+	scoreCard
+	toast
+	list
+}
+
+type CardBuilderBodyItem {
+	"The type of ui component to use"
+	type: CardBuilderBodyItemType
+
+	"The view model that renders the UI"
+	viewModel: CardBuilderBodyItemViewModel
+}
+
+"The body of the card builder"
+type CardBuilderBody {
+	"Children to show in the Card"
+	items: [CardBuilderBodyItem!]!
+
+	"Whether to wrap children in CardSection"
+	isSectioned: Boolean
+
+	"Set true to display line separators between CardSection components"
+	areSectionSeparatorsVisible: Boolean
+
+	"Does card include top padding"
+	hasTopPadding: Boolean
+
+	"Does card include bottom padding"
+	hasBottomPadding: Boolean
+
+	"Set to true to remove horizontal padding"
+	isFullBleed: Boolean
+}
+
+"One step in the onboarding process"
+type OnboardingCardStep {
+	"Unique identifier"
+	id: ID!
+
+	"Title that shows in the tab"
+	tabTitle: String!
+
+	"Icon for the tab"
+	tabIcon: Icon
+
+	"Title that shows in the panel"
+	panelTitle: String!
+
+	"Copy describing the step in the card's body"
+	panelCopy: String!
+
+	"Primary CTA of this step"
+	panelCTA: Action
+
+	"Is this step complete?"
+	isComplete: Boolean
+}
+
+"An awesome card for onboarding people!"
+type OnboardingCard {
+	"Title of the entire card"
+	title: String
+
+	"Steps for onboarding"
+	steps: [OnboardingCardStep]
+}
+
+"The footer component of a card"
+type CardFooter {
+	"Actions to render in the footer"
+	actions: [Action]
+
+	"Any help text you'd like rendered in the footer"
+	helper: String
+}
+
+"The builder for all things cards"
+type CardBuilder {
+	"Card Header props"
+	header: CardHeader
+
+	"optionally pass props to an image tag to be rendered in the header"
+	headerImage: Image
+
+	"all onboarding props"
+	onboarding: OnboardingCard
+
+	"Card Body props"
+	body: CardBuilderBody
+
+	"The footer of the card"
+	footer: CardFooter
+}
