@@ -41,6 +41,52 @@ export class FileItem extends ISpruceModel<FileItem> {
 		}
 	}
 
+	public static readonly attributes: ModelAttributes = {
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true
+		},
+		name: {
+			type: DataTypes.STRING,
+			comment: 'The File name'
+		},
+		mimeType: {
+			type: DataTypes.STRING,
+			comment: 'The File type'
+		},
+		ext: {
+			type: DataTypes.STRING,
+			comment: 'The File extension'
+		},
+		type: {
+			type: DataTypes.STRING,
+			comment: '"image", "video", or "other"',
+			allowNull: false,
+			defaultValue: 'other'
+		},
+		meta: {
+			type: DataTypes.JSONB,
+			comment: 'Additional metadata',
+			allowNull: false,
+			defaultValue: {}
+		},
+		sizeBytes: {
+			type: DataTypes.BIGINT,
+			comment: 'The size of the file in bytes',
+			allowNull: false,
+			defaultValue: 0
+		},
+		width: {
+			type: DataTypes.INTEGER,
+			comment: 'The width of the file (if image or video)'
+		},
+		height: {
+			type: DataTypes.INTEGER,
+			comment: 'The height of the file (if image or video)'
+		}
+	}
+
 	public id!: string
 	public name!: string
 	public mimeType!: string
@@ -77,54 +123,8 @@ export class FileItem extends ISpruceModel<FileItem> {
 	}
 }
 
-const attributes: ModelAttributes = {
-	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
-		primaryKey: true
-	},
-	name: {
-		type: DataTypes.STRING,
-		comment: 'The File name'
-	},
-	mimeType: {
-		type: DataTypes.STRING,
-		comment: 'The File type'
-	},
-	ext: {
-		type: DataTypes.STRING,
-		comment: 'The File extension'
-	},
-	type: {
-		type: DataTypes.STRING,
-		comment: '"image", "video", or "other"',
-		allowNull: false,
-		defaultValue: 'other'
-	},
-	meta: {
-		type: DataTypes.JSONB,
-		comment: 'Additional metadata',
-		allowNull: false,
-		defaultValue: {}
-	},
-	sizeBytes: {
-		type: DataTypes.BIGINT,
-		comment: 'The size of the file in bytes',
-		allowNull: false,
-		defaultValue: 0
-	},
-	width: {
-		type: DataTypes.INTEGER,
-		comment: 'The width of the file (if image or video)'
-	},
-	height: {
-		type: DataTypes.INTEGER,
-		comment: 'The height of the file (if image or video)'
-	}
-}
-
 export default (sequelize: Sequelize) => {
-	const model = FileItem.init(attributes, {
+	const model = FileItem.init(FileItem.attributes, {
 		sequelize
 	})
 

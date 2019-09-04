@@ -22,6 +22,14 @@ export class UserGroup extends SpruceCoreModel<UserGroup> {
 		}
 	}
 
+	public static readonly attributes = {
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true
+		}
+	}
+
 	public id!: string
 	public UserId?: string | null
 	public User?: User | null
@@ -48,16 +56,8 @@ export class UserGroup extends SpruceCoreModel<UserGroup> {
 	}
 }
 
-const attributes = {
-	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
-		primaryKey: true
-	}
-}
-
 export default (sequelize: Sequelize) => {
-	const model = UserGroup.init(attributes, {
+	const model = UserGroup.init(UserGroup.attributes, {
 		sequelize
 	})
 

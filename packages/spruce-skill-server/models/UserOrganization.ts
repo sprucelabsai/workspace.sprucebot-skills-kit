@@ -27,6 +27,17 @@ export class UserOrganization extends SpruceCoreModel<UserOrganization> {
 		}
 	}
 
+	public static readonly attributes = {
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true
+		},
+		role: {
+			type: DataTypes.STRING
+		}
+	}
+
 	public id!: string
 	public role!: string
 	public UserId?: string | null
@@ -40,19 +51,8 @@ export class UserOrganization extends SpruceCoreModel<UserOrganization> {
 	}
 }
 
-const attributes = {
-	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
-		primaryKey: true
-	},
-	role: {
-		type: DataTypes.STRING
-	}
-}
-
 export default (sequelize: Sequelize) => {
-	const model = UserOrganization.init(attributes, {
+	const model = UserOrganization.init(UserOrganization.attributes, {
 		sequelize
 	})
 

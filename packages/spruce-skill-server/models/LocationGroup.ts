@@ -20,6 +20,14 @@ export class LocationGroup extends SpruceCoreModel<LocationGroup> {
 		}
 	}
 
+	public static readonly attributes: ModelAttributes = {
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true
+		}
+	}
+
 	public id!: string
 	public name!: string
 	public LocationId?: string | null
@@ -37,16 +45,8 @@ export class LocationGroup extends SpruceCoreModel<LocationGroup> {
 	}
 }
 
-const attributes: ModelAttributes = {
-	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
-		primaryKey: true
-	}
-}
-
 export default (sequelize: Sequelize) => {
-	const model = LocationGroup.init(attributes, {
+	const model = LocationGroup.init(LocationGroup.attributes, {
 		sequelize
 	})
 

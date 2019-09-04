@@ -23,6 +23,26 @@ export class Group extends SpruceCoreModel<Group> {
 		}
 	}
 
+	public static readonly attributes: ModelAttributes = {
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true
+		},
+		name: {
+			type: DataTypes.STRING,
+			comment: 'The group name',
+			allowNull: false
+		},
+		isDefault: {
+			type: DataTypes.BOOLEAN,
+			comment:
+				'Whether this is a default group. Default groups may not be deleted',
+			allowNull: false,
+			defaultValue: false
+		}
+	}
+
 	public id!: string
 	public name!: string
 	public isDefault!: boolean
@@ -56,28 +76,8 @@ export class Group extends SpruceCoreModel<Group> {
 	}
 }
 
-const attributes: ModelAttributes = {
-	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
-		primaryKey: true
-	},
-	name: {
-		type: DataTypes.STRING,
-		comment: 'The group name',
-		allowNull: false
-	},
-	isDefault: {
-		type: DataTypes.BOOLEAN,
-		comment:
-			'Whether this is a default group. Default groups may not be deleted',
-		allowNull: false,
-		defaultValue: false
-	}
-}
-
 export default (sequelize: Sequelize) => {
-	const model = Group.init(attributes, {
+	const model = Group.init(Group.attributes, {
 		sequelize
 	})
 
