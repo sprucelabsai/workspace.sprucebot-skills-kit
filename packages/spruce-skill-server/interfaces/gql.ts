@@ -61,7 +61,7 @@ export interface IGQLResolvers {
 					__resolveType: IGQLTypeResolver
 			  }
 			| {
-					[resolverName: string]: IGQLResolver
+					[resolverName: string]: IGQLResolver | string[]
 			  }
 	}
 }
