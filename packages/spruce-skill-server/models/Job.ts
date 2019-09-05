@@ -89,9 +89,7 @@ export class Job extends SpruceCoreModel<Job> {
 }
 
 export default (sequelize: Sequelize) => {
-	const model = Job.init(Job.attributes, {
-		sequelize
-	})
+	const model = Job.initialize(sequelize)
 
 	return model
 }

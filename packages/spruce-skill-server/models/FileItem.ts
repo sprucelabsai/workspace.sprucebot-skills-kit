@@ -124,9 +124,7 @@ export class FileItem extends ISpruceModel<FileItem> {
 }
 
 export default (sequelize: Sequelize) => {
-	const model = FileItem.init(FileItem.attributes, {
-		sequelize
-	})
+	const model = FileItem.initialize(sequelize)
 
 	return model
 }

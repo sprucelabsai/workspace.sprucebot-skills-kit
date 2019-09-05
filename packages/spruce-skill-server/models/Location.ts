@@ -113,9 +113,7 @@ export class Location extends SpruceCoreModel<Location> {
 }
 
 export default (sequelize: Sequelize) => {
-	const model = Location.init(Location.attributes, {
-		sequelize
-	})
+	const model = Location.initialize(sequelize)
 
 	return model
 }

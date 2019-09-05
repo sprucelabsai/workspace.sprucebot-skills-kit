@@ -194,9 +194,7 @@ export class User extends SpruceCoreModel<User> {
 }
 
 export default (sequelize: Sequelize) => {
-	const model = User.init(User.attributes, {
-		sequelize
-	})
+	const model = User.initialize(sequelize)
 
 	return model
 }

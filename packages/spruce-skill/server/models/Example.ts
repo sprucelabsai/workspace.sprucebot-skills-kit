@@ -34,9 +34,7 @@ export class Example extends SpruceCoreModel<Example> {
 }
 
 export default (sequelize: Sequelize) => {
-	const model = Example.init(Example.attributes, {
-		sequelize
-	})
+	const model = Example.initialize(sequelize)
 
 	return model
 }

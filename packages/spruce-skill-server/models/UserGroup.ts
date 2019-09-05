@@ -57,9 +57,7 @@ export class UserGroup extends SpruceCoreModel<UserGroup> {
 }
 
 export default (sequelize: Sequelize) => {
-	const model = UserGroup.init(UserGroup.attributes, {
-		sequelize
-	})
+	const model = UserGroup.initialize(sequelize)
 
 	return model
 }

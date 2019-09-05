@@ -77,9 +77,7 @@ export class Group extends SpruceCoreModel<Group> {
 }
 
 export default (sequelize: Sequelize) => {
-	const model = Group.init(Group.attributes, {
-		sequelize
-	})
+	const model = Group.initialize(sequelize)
 
 	return model
 }

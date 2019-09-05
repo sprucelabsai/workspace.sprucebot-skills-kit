@@ -46,9 +46,7 @@ export class LocationGroup extends SpruceCoreModel<LocationGroup> {
 }
 
 export default (sequelize: Sequelize) => {
-	const model = LocationGroup.init(LocationGroup.attributes, {
-		sequelize
-	})
+	const model = LocationGroup.initialize(sequelize)
 
 	return model
 }

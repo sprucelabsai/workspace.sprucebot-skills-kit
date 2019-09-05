@@ -37,9 +37,7 @@ export class Organization extends SpruceCoreModel<Organization> {
 }
 
 export default (sequelize: Sequelize) => {
-	const model = Organization.init(Organization.attributes, {
-		sequelize
-	})
+	const model = Organization.initialize(sequelize)
 
 	return model
 }

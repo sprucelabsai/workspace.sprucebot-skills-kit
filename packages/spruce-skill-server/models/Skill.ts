@@ -54,9 +54,7 @@ export class Skill extends SpruceCoreModel<Skill> {
 }
 
 export default (sequelize: Sequelize) => {
-	const model = Skill.init(Skill.attributes, {
-		sequelize
-	})
+	const model = Skill.initialize(sequelize)
 
 	return model
 }

@@ -52,9 +52,7 @@ export class UserOrganization extends SpruceCoreModel<UserOrganization> {
 }
 
 export default (sequelize: Sequelize) => {
-	const model = UserOrganization.init(UserOrganization.attributes, {
-		sequelize
-	})
+	const model = UserOrganization.initialize(sequelize)
 
 	return model
 }
