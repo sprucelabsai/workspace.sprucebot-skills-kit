@@ -30,6 +30,26 @@ export class UserLocation extends SpruceCoreModel<UserLocation> {
 		}
 	}
 
+	public static readonly attributes = {
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true
+		},
+		role: {
+			type: DataTypes.STRING
+		},
+		status: {
+			type: DataTypes.STRING
+		},
+		visits: {
+			type: DataTypes.INTEGER
+		},
+		lastRecordedVisit: {
+			type: DataTypes.DATE
+		}
+	}
+
 	public id!: string
 	public role!: string
 	public status!: string
@@ -49,30 +69,8 @@ export class UserLocation extends SpruceCoreModel<UserLocation> {
 	}
 }
 
-const attributes = {
-	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
-		primaryKey: true
-	},
-	role: {
-		type: DataTypes.STRING
-	},
-	status: {
-		type: DataTypes.STRING
-	},
-	visits: {
-		type: DataTypes.INTEGER
-	},
-	lastRecordedVisit: {
-		type: DataTypes.DATE
-	}
-}
-
 export default (sequelize: Sequelize) => {
-	const model = UserLocation.init(attributes, {
-		sequelize
-	})
+	const model = UserLocation.initialize(sequelize)
 
 	return model
 }
