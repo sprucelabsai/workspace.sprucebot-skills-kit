@@ -111,14 +111,14 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 					id
 					firstName
 					lastName
-					Locations {
-						edges {
-							node {
-								id
-								name
-							}
-						}
-					}
+					# Locations {
+					# 	edges {
+					# 		node {
+					# 			id
+					# 			name
+					# 		}
+					# 	}
+					# }
 				}
 			}
 		`)
