@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Model, Sequelize, DataTypes } from 'sequelize'
+import { Model, Sequelize, DataTypes, ModelAttributes } from 'sequelize'
 import { ISpruceModels } from '../interfaces/models'
 
 /************************************************************
@@ -9,14 +9,22 @@ import { ISpruceModels } from '../interfaces/models'
 export default class SpruceCoreModel<T> extends Model<T> {
 	public static readonly timestamps = true
 	public static readonly paranoid = true
-	public static readonly indexes = []
-	public static readonly attributes = {
+	public static readonly indexes: Record<string, any>[] = []
+	public static readonly attributes: ModelAttributes = {
 		id: {
 			type: DataTypes.UUID,
 			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true
 		}
 	}
+
+	/** Available as long as timestamps=true */
+	public readonly createdAt!: Date
+	/** Available as long as timestamps=true */
+	public readonly updatedAt!: Date
+	/** Available as long as paranoid=true */
+	public readonly deletedAt!: Date
+
 	/** 🌲🤖 This method is called to initialize your model */
 	public static initialize(
 		sequelize: Sequelize,
