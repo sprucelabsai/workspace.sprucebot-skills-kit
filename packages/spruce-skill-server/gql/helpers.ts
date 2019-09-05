@@ -20,7 +20,7 @@ import config from 'config'
 
 import { has } from 'lodash'
 import SpruceCoreModel from '../lib/SpruceModel'
-import { Model, FindOptions } from 'sequelize/types'
+import { FindOptions } from 'sequelize/types'
 import { IGQLResolver } from '../interfaces/gql'
 
 type SpruceCoreModelType = typeof SpruceCoreModel
@@ -61,7 +61,7 @@ export interface ISpruceGQLHelpers {
 
 	enhancedResolver(
 		/** The model. For example ctx.db.models.User */
-		model: SpruceCoreModel<any>,
+		model: SpruceCoreModelType,
 		options?: Record<string, any>,
 		scope?: string
 	): IResolverLikeFunction<any, any>
@@ -127,12 +127,13 @@ export default (ctx: ISpruceContext) => {
 	}
 
 	function cleanModelByScope(options: {
-		model: SpruceCoreModel<any>
+		model: SpruceCoreModel<any> | Record<string, any>
+		modelName?: string
 		context: ISpruceContext
 		info: GraphQLResolveInfo
 	}): Record<string, any> | null {
-		const { model, context, info } = options
-		const modelName: string = model.constructor.name
+		const { model, context, info, modelName: passedModelName } = options
+		const modelName: string = passedModelName || model.constructor.name
 
 		// skip the process if we have already done the work
 		// @ts-ignore
@@ -170,8 +171,12 @@ export default (ctx: ISpruceContext) => {
 		const scopeObj = ctx.db.models[modelName].scopeObj
 		const allowedAttributes = scopeObj[modelScope]
 
+		// could be a sequelize model or an plain object
 		// @ts-ignore
-		Object.keys(model.dataValues).forEach(field => {
+		const values = model.dataValues || model
+
+		// @ts-ignore
+		Object.keys(values).forEach(field => {
 			const allowedField = has(allowedAttributes, field)
 			const requestedField = requestedFields[field]
 			const willSkipField = ['warnings', 'totalCount'].includes(field)
@@ -180,26 +185,30 @@ export default (ctx: ISpruceContext) => {
 				context.attributeWarnings.push(
 					`${modelName} scope of "${modelScope}" does not include the field "${field}". If this should be allowed, check the scopes in models/${modelName}.js`
 				)
-				// @ts-ignore
-				model.setDataValue(field, null)
+
+				if (model.setDataValue) {
+					model.setDataValue(field, null)
+				}
 				// @ts-ignore
 				model[field] = null
 
 				// @ts-ignore
-				let warnings = model.getDataValue('warnings')
-				if (!warnings) {
+				if (model.getDataValue) {
+					let warnings = model.getDataValue('warnings')
+					if (!warnings) {
+						// @ts-ignore
+						model.setDataValue('warnings', { scopes: [] })
+					}
 					// @ts-ignore
-					model.setDataValue('warnings', { scopes: [] })
-				}
-				// @ts-ignore
-				warnings = model.getDataValue('warnings')
+					warnings = model.getDataValue('warnings')
 
-				// @ts-ignore
-				warnings.scopes.push({ field })
-				// @ts-ignore
-				model.setDataValue('warnings', warnings)
-				// @ts-ignore
-				model.warnings = warnings
+					// @ts-ignore
+					warnings.scopes.push({ field })
+					// @ts-ignore
+					model.setDataValue('warnings', warnings)
+					// @ts-ignore
+					model.warnings = warnings
+				}
 			}
 		})
 
@@ -213,7 +222,7 @@ export default (ctx: ISpruceContext) => {
 	}
 
 	function enhancedResolver(
-		model: SpruceCoreModel<any>,
+		model: SpruceCoreModelType,
 		options?: Record<string, any>,
 		scope?: string
 	): IResolverLikeFunction<any, any> {
@@ -230,6 +239,9 @@ export default (ctx: ISpruceContext) => {
 			after
 			// contextToOptions
 		} = options
+
+		//@ts-ignore TODO figure out why this property is set on Sequelize model classes but TS does not know
+		const name = model.name
 
 		return resolver<any, any>(model, {
 			...options,
@@ -273,6 +285,7 @@ export default (ctx: ISpruceContext) => {
 				// clean for GraphQLObject
 				if (cleanedResult && !Array.isArray(cleanedResult)) {
 					cleanedResult = cleanModelByScope({
+						modelName: name,
 						model: cleanedResult,
 						context,
 						info
@@ -284,6 +297,7 @@ export default (ctx: ISpruceContext) => {
 					for (let i = 0; i < cleanedResult.length; i += 1) {
 						const r = cleanedResult[i]
 						const cleanResult = cleanModelByScope({
+							modelName: name,
 							model: r,
 							context,
 							info
@@ -433,6 +447,7 @@ export default (ctx: ISpruceContext) => {
 						const edge = cleanedResult.edges[i]
 
 						const cleanResult = cleanModelByScope({
+							modelName: name,
 							model: edge.node,
 							context,
 							info
@@ -477,7 +492,7 @@ export default (ctx: ISpruceContext) => {
 		} = options
 
 		// @ts-ignore
-		const model = ctx.db.models[modelName] as Model | null
+		const model = ctx.db.models[modelName] as typeof SpruceCoreModel | null
 
 		// @ts-ignore
 		const type = ctx.gql.types[modelName]

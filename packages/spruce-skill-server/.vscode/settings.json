@@ -15,11 +15,5 @@
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"files.watcherExclude": {
 		"**/build/**": true
-	},
-	"search.exclude": {
-		"**/build": true
-    },
-    "files.exclude": {
-        "**/build": true
     }
 }
