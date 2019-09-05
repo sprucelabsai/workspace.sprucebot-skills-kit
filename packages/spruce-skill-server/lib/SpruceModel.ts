@@ -36,7 +36,7 @@ export default class SpruceCoreModel<T> extends Model<T> {
 			sequelize,
 			...overrideOptions
 		}
-		this.init(this.attributes, finalOptions)
+		return this.init(this.attributes, finalOptions)
 	}
 	public static associate(models: ISpruceModels): void {}
 }
