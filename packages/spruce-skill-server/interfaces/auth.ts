@@ -60,7 +60,7 @@ export interface ISpruceAuth<
 	IAuthOrganization = ISpruceAuthOrganization,
 	IAuthLocation = ISpruceAuthLocation
 > {
-	User: IAuthUser
-	Organization: IAuthOrganization
-	Location: IAuthLocation
+	User?: IAuthUser
+	Organization?: IAuthOrganization
+	Location?: IAuthLocation
 }
