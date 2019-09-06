@@ -1,7 +1,7 @@
 import { assert } from 'chai'
 import { SpruceTest } from '@sprucelabs/spruce-skill-server'
 import { ISkillContext } from 'server/interfaces/ctx'
-import get from 'lodash/get'
+import get from 'ts-get'
 import gql from 'graphql-tag'
 import config from 'config'
 
@@ -136,8 +136,8 @@ class ExampleTests extends SpruceTest<ISkillContext> {
 			}
 		`)
 
-		const locationNodes = get(results, 'data.loadFirstLocations.edges')
-		const count = get(results, 'data.loadFirstLocations.totalCount')
+		const locationNodes = get(results, r => r.data.loadFirstLocations.edges)
+		const count = get(results, r => r.data.loadFirstLocations.totalCount)
 
 		assert.isArray(locationNodes)
 		assert.isAbove(count, 0)
@@ -162,7 +162,7 @@ class ExampleTests extends SpruceTest<ISkillContext> {
 			}
 		`)
 
-		const user = get(results, 'data.loadUserOrLocation')
+		const user = get(results, r => r.data.loadUserOrLocation)
 		assert.isOk(user.id)
 		assert.isOk(user.phoneNumber)
 
@@ -181,7 +181,7 @@ class ExampleTests extends SpruceTest<ISkillContext> {
 			}
 		`)
 
-		const location = get(results2, 'data.loadUserOrLocation')
+		const location = get(results2, r => r.data.loadUserOrLocation)
 
 		assert.isOk(location.timezone)
 		assert.isOk(location.name)
@@ -208,7 +208,7 @@ class ExampleTests extends SpruceTest<ISkillContext> {
 			}
 		)
 
-		const mutationUser = get(results, 'data.updateUserTest')
+		const mutationUser = get(results, r => r.data.updateUserTest)
 		assert.isOk(mutationUser.id)
 		assert.isOk(mutationUser.firstName)
 		assert.isNull(mutationUser.phoneNumber) // scopes should block this

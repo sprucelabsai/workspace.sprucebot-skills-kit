@@ -2,7 +2,7 @@ import { assert } from 'chai'
 import SpruceTest from './lib/SpruceTest'
 import { ISpruceContext } from '../interfaces/ctx'
 import faker from 'faker'
-import get from 'lodash/get'
+import get from 'ts-get'
 import gql from 'graphql-tag'
 
 class GQLMethodTests extends SpruceTest<ISpruceContext> {
@@ -123,7 +123,7 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 			}
 		`)
 
-		const user = get(results, 'data.getFirstUser')
+		const user = get(results, r => r.data.getFirstUser)
 
 		assert.isObject(user)
 		assert.isString(user.id)
@@ -150,8 +150,8 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 			}
 		`)
 
-		const locationNodes = get(results, 'data.loadFirstLocations.edges')
-		const count = get(results, 'data.loadFirstLocations.totalCount')
+		const locationNodes = get(results, r => r.data.loadFirstLocations.edges)
+		const count = get(results, r => r.data.loadFirstLocations.totalCount)
 
 		assert.isArray(locationNodes)
 		assert.isAbove(count, 0)
@@ -176,7 +176,7 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 			}
 		`)
 
-		const user = get(results, 'data.loadUserOrLocation')
+		const user = get(results, r => r.data.loadUserOrLocation)
 		assert.isOk(user.id)
 		assert.isOk(user.firstName)
 
@@ -195,7 +195,7 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 			}
 		`)
 
-		const location = get(results2, 'data.loadUserOrLocation')
+		const location = get(results2, r => r.data.loadUserOrLocation)
 
 		assert.isOk(location.timezone)
 		assert.isOk(location.name)
