@@ -28,7 +28,11 @@ module.exports = (ctx: ISpruceContext) => {
 							context.where = {}
 						}
 
-						findOptions.where.id = args.id
+						const where = {
+							id: args.id
+						}
+
+						findOptions.where = { ...(findOptions.where || {}), ...where }
 
 						// Public info
 						context.scopes.Organization = config.scopes.Organization.public()
