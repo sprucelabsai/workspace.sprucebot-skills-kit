@@ -1,4 +1,4 @@
-export * from './src/hwGQL'
-export * from './src/apiGQL'
-export * from './src/combinedGQL'
+export * from './src/generated/hw-gql'
+export * from './src/generated/api-gql'
+export { Maybe, Scalars } from './src/combinedGQL'
 export * from './src/events'
