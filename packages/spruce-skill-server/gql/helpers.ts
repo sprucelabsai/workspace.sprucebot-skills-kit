@@ -341,6 +341,7 @@ export default (ctx: ISpruceContext) => {
 		const { model, type, associationName } = options
 		let connectionOptions = options.connectionOptions
 		let name = options.name || model.name
+		let modelName = name
 		let target = model
 
 		if (model.associations[associationName]) {
@@ -446,8 +447,14 @@ export default (ctx: ISpruceContext) => {
 					for (let i = 0; i < cleanedResult.edges.length; i += 1) {
 						const edge = cleanedResult.edges[i]
 
+						const constructorName =
+							edge.node.constructor && edge.node.constructor.name
+						const modelNameForCleaning = has(ctx.gql.types, constructorName)
+							? constructorName
+							: modelName
+
 						const cleanResult = cleanModelByScope({
-							modelName: name,
+							modelName: modelNameForCleaning,
 							model: edge.node,
 							context,
 							info
