@@ -37,6 +37,7 @@
 	"dependencies": {
 		"graphql-iso-date": "^3.6.1",
 		"graphql-type-json": "^0.3.0",
+		"lodash": "^4.17.15",
 		"typescript": "~3.4.5"
 	},
 	"devDependencies": {
