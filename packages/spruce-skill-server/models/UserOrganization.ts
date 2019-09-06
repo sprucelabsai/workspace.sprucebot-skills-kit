@@ -10,6 +10,7 @@ import SpruceCoreModel from '../lib/SpruceModel'
 export class UserOrganization extends SpruceCoreModel<UserOrganization> {
 	// Prevents sequelize from trying to run sync against this model
 	public static readonly doNotSync = true
+	public static readonly paranoid = false
 	// Scopes
 	public static readonly scopes = {
 		public: {
@@ -27,6 +28,17 @@ export class UserOrganization extends SpruceCoreModel<UserOrganization> {
 		}
 	}
 
+	public static readonly attributes = {
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true
+		},
+		role: {
+			type: DataTypes.STRING
+		}
+	}
+
 	public id!: string
 	public role!: string
 	public UserId?: string | null
@@ -40,21 +52,8 @@ export class UserOrganization extends SpruceCoreModel<UserOrganization> {
 	}
 }
 
-const attributes = {
-	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
-		primaryKey: true
-	},
-	role: {
-		type: DataTypes.STRING
-	}
-}
-
 export default (sequelize: Sequelize) => {
-	const model = UserOrganization.init(attributes, {
-		sequelize
-	})
+	const model = UserOrganization.initialize(sequelize)
 
 	return model
 }

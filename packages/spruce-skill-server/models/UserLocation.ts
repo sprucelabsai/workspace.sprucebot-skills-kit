@@ -11,6 +11,7 @@ import SpruceCoreModel from '../lib/SpruceModel'
 export class UserLocation extends SpruceCoreModel<UserLocation> {
 	// Prevents sequelize from trying to run sync against this model
 	public static readonly doNotSync = true
+	public static readonly paranoid = false
 	// Scopes
 	public static readonly scopes = {
 		public: {
@@ -27,6 +28,26 @@ export class UserLocation extends SpruceCoreModel<UserLocation> {
 				'Location',
 				'Job'
 			]
+		}
+	}
+
+	public static readonly attributes = {
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true
+		},
+		role: {
+			type: DataTypes.STRING
+		},
+		status: {
+			type: DataTypes.STRING
+		},
+		visits: {
+			type: DataTypes.INTEGER
+		},
+		lastRecordedVisit: {
+			type: DataTypes.DATE
 		}
 	}
 
@@ -49,30 +70,8 @@ export class UserLocation extends SpruceCoreModel<UserLocation> {
 	}
 }
 
-const attributes = {
-	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
-		primaryKey: true
-	},
-	role: {
-		type: DataTypes.STRING
-	},
-	status: {
-		type: DataTypes.STRING
-	},
-	visits: {
-		type: DataTypes.INTEGER
-	},
-	lastRecordedVisit: {
-		type: DataTypes.DATE
-	}
-}
-
 export default (sequelize: Sequelize) => {
-	const model = UserLocation.init(attributes, {
-		sequelize
-	})
+	const model = UserLocation.initialize(sequelize)
 
 	return model
 }
