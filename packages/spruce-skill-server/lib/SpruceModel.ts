@@ -7,8 +7,8 @@ import { ISpruceModels } from '../interfaces/models'
  * Base Spruce core class that all models inherit from.
  ************************************************************/
 export default class SpruceCoreModel<T> extends Model<T> {
-	public static readonly timestamps = true
-	public static readonly paranoid = true
+	public static readonly timestamps: boolean = true
+	public static readonly paranoid: boolean = true
 	public static readonly indexes: Record<string, any>[] = []
 	public static readonly attributes: ModelAttributes = {
 		id: {
