@@ -9,6 +9,7 @@ import SpruceCoreModel from '../lib/SpruceModel'
 export class Organization extends SpruceCoreModel<Organization> {
 	// Prevents sequelize from trying to run sync against this model
 	public static readonly doNotSync = true
+	public static readonly paranoid = false
 	// Scopes
 	public static readonly scopes = {
 		public: {
