@@ -23810,6 +23810,11 @@ trough@^1.0.0:
   dependencies:
     glob "^7.1.2"
 
+ts-get@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/ts-get/-/ts-get-1.0.5.tgz#86789d19fcde7927d59c093c39628059d6bdb0ec"
+  integrity sha512-XSAMqdnAE2u2OudAkJgokzegSZnmoYBOr0z7/ZSDJm9bxeK0jA6W8WmRwm8Rd5rrBOvwXjm/H3zZzsKBBlJPoA==
+
 ts-invariant@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/ts-invariant/-/ts-invariant-0.2.1.tgz#3d587f9d6e3bded97bf9ec17951dd9814d5a9d3f"

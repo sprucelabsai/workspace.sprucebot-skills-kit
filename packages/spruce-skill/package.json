@@ -87,6 +87,7 @@
 		"superagent": "^4.1.0",
 		"supertest": "^3.3.0",
 		"swagger-jsdoc": "^3.0.2",
+		"ts-get": "^1.0.5",
 		"typescript": "~3.4.5",
 		"universal-cookie": "^2.1.0"
 	},

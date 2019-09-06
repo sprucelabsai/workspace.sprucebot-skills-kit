@@ -21,6 +21,12 @@ const errors = {
 		reason: 'Location could not be found.',
 		friendlyReason: 'I could not find the location you are looking for.'
 	},
+	ORGANIZATION_NOT_FOUND: {
+		code: 404,
+		status: 'failure',
+		reason: 'Organization could not be found.',
+		friendlyReason: 'I could not find the organization you are looking for.'
+	},
 	USER_NOT_FOUND: {
 		code: 404,
 		status: 'failure',
