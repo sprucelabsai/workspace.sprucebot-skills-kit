@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import get from 'lodash/get'
+import get from 'ts-get'
 import { assert } from 'chai'
 import SpruceTest from './lib/SpruceTest'
 import config from 'config'
@@ -267,7 +267,10 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 		const {
 			can_do_example_organization,
 			can_do_example_organization_owner_only
-		} = get(acls, config.get<string>('SLUG'))
+		} = get(acls, acl => acl[config.get<string>('SLUG')], {
+			can_do_example_organization: false,
+			can_do_example_organization_owner_only: false
+		})
 
 		assert.isTrue(can_do_example_organization)
 		assert.isFalse(can_do_example_organization_owner_only)
@@ -288,7 +291,11 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 
 		const { can_do_example_location, can_do_example_location_owner_only } = get(
 			acls,
-			config.get<string>('SLUG')
+			acl => acl[config.get<string>('SLUG')],
+			{
+				can_do_example_location: false,
+				can_do_example_location_owner_only: false
+			}
 		)
 
 		assert.isTrue(can_do_example_location)

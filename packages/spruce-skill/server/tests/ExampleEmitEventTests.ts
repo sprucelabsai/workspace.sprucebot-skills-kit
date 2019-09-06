@@ -2,14 +2,17 @@ import { assert } from 'chai'
 import { SpruceTest } from '@sprucelabs/spruce-skill-server'
 import { ISkillContext } from 'server/interfaces/ctx'
 import { IEmitResponse, IEmitResponseCallback } from 'server/interfaces/global'
+import config from 'config'
 
 // SpruceTest take a single parameter, pointing to the base skill directory
 class ExampleEmitTests extends SpruceTest<ISkillContext> {
 	public setup(): void {
-		it('Can emitOrganization to "example:get-model" event', () =>
-			this.emitOrganization())
-		it('Can emit to "example:get-model" event', () => this.emit())
-		it('Can trigger callback from emit', () => this.emitCallback())
+		if (config.TESTING_SKILLS_KIT) {
+			it('Can emitOrganization to "example:get-model" event', () =>
+				this.emitOrganization())
+			it('Can emit to "example:get-model" event', () => this.emit())
+			it('Can trigger callback from emit', () => this.emitCallback())
+		}
 	}
 
 	public async emitOrganization(): Promise<void> {

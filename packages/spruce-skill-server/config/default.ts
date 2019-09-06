@@ -215,8 +215,15 @@ export default function SpruceConfig<
 		 * in a test environment.
 		 */
 		TESTING: process.env.TESTING === 'true',
+
+		/**
+		 * 🌲🤖 This is for kit testing at homebase. It lets us run the example tests to ensure everything is functioning 💯 when we ship a new version of the kit.
+		 */
+		TESTING_SKILLS_KIT: process.env.TESTING_SKILLS_KIT === 'true',
+
 		/**
 		 * 🌲🤖 The S3 bucket name for assets
+		 * TODO abstract S3_bucket out of here, utilize adapter based config
 		 */
 		S3_BUCKET: process.env.S3_BUCKET || '',
 		/**

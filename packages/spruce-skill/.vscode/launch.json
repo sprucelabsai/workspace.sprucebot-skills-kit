@@ -23,7 +23,7 @@
 		{
 			"type": "node",
 			"request": "launch",
-			"name": "Test (Server)",
+			"name": "Tests (Server)",
 			"protocol": "inspector",
 			"runtimeExecutable": "npm",
 			"runtimeArgs": ["run", "test:server"],
@@ -31,7 +31,7 @@
 			"port": 4080
 		},
 		{
-			"name": "Test (Current File)",
+			"name": "Tests (Current File)",
 			"type": "node",
 			"request": "launch",
 			"runtimeArgs": [

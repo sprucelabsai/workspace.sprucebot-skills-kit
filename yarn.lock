@@ -3797,6 +3797,13 @@
   dependencies:
     graphql "^14.5.3"
 
+"@types/graphql-type-json@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@types/graphql-type-json/-/graphql-type-json-0.3.2.tgz#1a7105e6546fc1630a5db4834bfbc0eb554986e4"
+  integrity sha512-c1cq4o8EhY0Z39ua8UXwG8uBs23xBYA/Uw0tXFl6SuTUpkVv/IJqf6pHQbfdC7nwFRhX2ifTOV/UIg0Q/IJsbg==
+  dependencies:
+    graphql "^14.5.3"
+
 "@types/http-assert@*":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@types/http-assert/-/http-assert-1.5.1.tgz#d775e93630c2469c2f980fc27e3143240335db3b"
@@ -12217,7 +12224,7 @@ graphql-tag-pluck@0.8.4:
     "@babel/types" "^7.4.4"
     source-map-support "^0.5.12"
 
-graphql-tag@2.10.1, graphql-tag@^2.10.0, graphql-tag@^2.4.2:
+graphql-tag@2.10.1, graphql-tag@^2.10.0, graphql-tag@^2.10.1, graphql-tag@^2.4.2:
   version "2.10.1"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.1.tgz#10aa41f1cd8fae5373eaf11f1f67260a3cad5e02"
   integrity sha512-jApXqWBzNXQ8jYa/HLkZJaVw9jgwNqZkywa2zfFn16Iv1Zb7ELNHkJaXHR7Quvd5SIGsy6Ny7SUKATgnu05uEg==
@@ -23802,6 +23809,11 @@ trough@^1.0.0:
   integrity sha512-m6s2OdQe5wgpFMC+pAJ+q9djG82O2jcHPOI6RNg1yy9rCYR+WD6Nbpl32fDpfC56nirdRy+opFa/Vk7HYhqaew==
   dependencies:
     glob "^7.1.2"
+
+ts-get@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/ts-get/-/ts-get-1.0.5.tgz#86789d19fcde7927d59c093c39628059d6bdb0ec"
+  integrity sha512-XSAMqdnAE2u2OudAkJgokzegSZnmoYBOr0z7/ZSDJm9bxeK0jA6W8WmRwm8Rd5rrBOvwXjm/H3zZzsKBBlJPoA==
 
 ts-invariant@^0.2.1:
   version "0.2.1"

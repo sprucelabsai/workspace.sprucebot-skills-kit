@@ -615,5 +615,12 @@ export {
 	IMockLocation
 } from './tests/mocks/SandboxMock'
 
-export { ISpruceGQLTypes } from './interfaces/gql'
+export {
+	ISpruceGQLTypes,
+	IGQLTypeResolver,
+	IGQLResolvers,
+	IGQLResolver
+} from './interfaces/gql'
+
+export { IBuildSequelizeResolver } from './gql/helpers'
 export { ISpruceAcls } from './interfaces/acls'

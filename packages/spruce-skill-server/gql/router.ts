@@ -65,13 +65,12 @@ export default (
 	}
 
 	// Get schema
-
 	const schema = new Schema({ ctx: koa.context, gqlDir: gqlOptions.gqlDir })
 
 	// Create the subscription server
 	koa.context.gqlServer = new GraphQLSubscriptionServer({
 		server,
-		schema,
+		schema: schema.gqlSchema,
 		enabled: true,
 		ctx: koa.context
 	})
@@ -84,6 +83,20 @@ export default (
 		'/graphql',
 		async (context, next) => {
 			context.startTime = log.timerStart()
+			// copy all tools from the koa context to the request context so it is a valid ISpruceContext
+			// TODO do this in middleware heigher up in the stack Taylor/Ken
+			const tools = ['db', 'services', 'utilities', 'gql']
+			tools.forEach(name => {
+				context[name] = koa.context[name]
+			})
+
+			// these are need for gql helpers to function
+			context.warnings = []
+			context.scopeInfo = []
+			context.attributeWarnings = []
+			context.scopes = {}
+			context.findOptions = {}
+
 			await next()
 		},
 		// @ts-ignore
@@ -93,7 +106,8 @@ export default (
 			request[EXPECTED_OPTIONS_KEY] = dataloaderContext
 
 			return {
-				schema,
+				schema: schema.gqlSchema,
+				context: ctx,
 				graphiql: config.get('GRAPHIQL_ENABLED'),
 				formatError: (e: Error) => {
 					const code = e.message
@@ -132,9 +146,7 @@ export default (
 					// Can limit based on query cost analysis
 					queryComplexity({
 						estimators: [
-							// @ts-ignore
 							fieldConfigEstimator(),
-							// @ts-ignore
 							simpleEstimator({ defaultComplexity: 1 })
 						],
 						maximumComplexity: config.get('GRAPHQL_MAX_COMPLEXITY'),

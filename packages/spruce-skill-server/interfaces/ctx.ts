@@ -16,16 +16,23 @@ export interface ISpruceContext<
 	ISkillUtilities = ISpruceUtilities,
 	ISkillGQLTypes = ISpruceGQLTypes
 > extends Context, Router.RouterContext {
+	/** run operations against core */
 	sb: Sprucebot
+	/** get to data models */
 	db: {
 		models: ISkillModels
 		sequelize: Sequelize
 	}
+	/** if someone has been authenticated, you'll find details here */
 	auth?: ISkillAuth
+	/** perform operations with other systems (everything in your /server/services) */
 	services: ISkillServices
+	/** helpful utilities for things like mutating data or doing calculations */
 	utilities: ISkillUtilities
+	/** gql related libraries */
 	gql: {
 		types: ISkillGQLTypes
+		/** a collection of tools to make building gql endpoints even faster! */
 		helpers: ISpruceGQLHelpers
 	}
 }

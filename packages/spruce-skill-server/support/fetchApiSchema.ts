@@ -2,10 +2,10 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 import request from 'superagent'
 import { introspectionQuery } from 'graphql'
 import fs from 'fs'
-import get from 'lodash/get'
+import get from 'ts-get'
 
 request
-	.post(get(process, 'env.API_HOST'))
+	.post(get(process, p => p.env.API_HOST, 'missing p.env.API_HOST'))
 	.send({
 		query: introspectionQuery
 	})

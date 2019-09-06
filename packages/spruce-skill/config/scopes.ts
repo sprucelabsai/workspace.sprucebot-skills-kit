@@ -70,5 +70,17 @@ export default {
 				},
 				base
 			})
+	},
+	Mock: {
+		public: (base?: string) =>
+			scopeWithBase({
+				scope: {
+					loadFirstLocations: 'public',
+					'loadFirstLocations.Organization': 'public',
+					getFirstUser: 'public',
+					loadUserOrLocation: 'public'
+				},
+				base
+			})
 	}
 }
