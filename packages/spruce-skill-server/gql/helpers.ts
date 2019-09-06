@@ -32,11 +32,11 @@ export interface IBuildSequelizeResolver {
 		many?: boolean
 		options?: Record<string, any>
 		before?: (
-			options: Record<string, any>,
+			findOptions: FindOptions,
 			args: Record<string, any>,
 			context: ISpruceContext,
 			info: GraphQLResolveInfo
-		) => Record<string, any>
+		) => FindOptions | Promise<FindOptions>
 		after?: (
 			result: Record<string, any>,
 			args: Record<string, any>,
