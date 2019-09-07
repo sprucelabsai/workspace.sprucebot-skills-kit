@@ -46,7 +46,6 @@
 		"graphql-subscriptions": "^1.0.0",
 		"graphql-tag": "2.10.1",
 		"graphql-tools": "^4.0.5",
-		"graphql-type-json": "^0.3.0",
 		"ioredis": "^4.6.2",
 		"jsonwebtoken": "^8.1.0",
 		"koa": "^2.4.1",
@@ -67,6 +66,7 @@
 	"peerDependencies": {
 		"config": "^3",
 		"graphql": "^14.5.4",
+		"graphql-type-json": "^0.3.0",
 		"sqlite3": "^4.0.4",
 		"supertest": "^3.0.0",
 		"typescript": "~3.4.5"
