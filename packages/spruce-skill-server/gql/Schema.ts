@@ -159,25 +159,16 @@ export default class Schema {
 		const resolvers: GraphQLSchemaConfig = {
 			query: null
 		}
-		if (queries && Object.keys(queries).length > 0) {
-			resolvers.query = new GraphQLObjectType({
-				name: 'Query',
-				fields: queries
-			})
-		} else {
-			//change first `extend type Query` to just `type Query` since no query type will exist yet
-			sdl = sdl.replace('extend type Query', 'type Query')
-		}
 
-		if (mutations && Object.keys(mutations).length > 0) {
-			resolvers.mutation = new GraphQLObjectType({
-				name: 'Mutation',
-				fields: mutations
-			})
-		} else {
-			//change first `extend type Mutation` to just `type Mutation` since no mutation type will exist yet
-			sdl = sdl.replace('extend type Mutation', 'type Mutation')
-		}
+		resolvers.query = new GraphQLObjectType({
+			name: 'Query',
+			fields: queries
+		})
+
+		resolvers.mutation = new GraphQLObjectType({
+			name: 'Mutation',
+			fields: mutations
+		})
 
 		if (subscriptions && Object.keys(subscriptions).length > 0) {
 			resolvers.subscription = new GraphQLObjectType({
