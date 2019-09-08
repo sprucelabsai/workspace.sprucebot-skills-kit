@@ -195,9 +195,12 @@ export default class Schema {
 			: longhandSchema
 
 		// make sure the skill types are the originals
-		Object.keys(ctx.gql.types).forEach(name => {
-			// @ts-ignore find way to better mutate typeMap
-			extendedSchema._typeMap[name] = ctx.gql.types[name]
+		const longHandTypes = longhandSchema.getTypeMap()
+		Object.keys(longHandTypes).forEach(name => {
+			if (name !== 'Query' && name !== 'Mutation' && name[0] !== '_') {
+				// @ts-ignore find way to better mutate typeMap
+				extendedSchema._typeMap[name] = longHandTypes[name]
+			}
 		})
 
 		// add in reslovers
