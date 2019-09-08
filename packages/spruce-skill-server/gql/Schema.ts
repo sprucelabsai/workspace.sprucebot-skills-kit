@@ -194,12 +194,10 @@ export default class Schema {
 			? extendSchema(longhandSchema, documentNode)
 			: longhandSchema
 
-		const longHandTypes = longhandSchema.getTypeMap()
-		Object.keys(longHandTypes).forEach(name => {
-			if (name !== 'Query' && name !== 'Mutation' && name[0] !== '_') {
-				// @ts-ignore find way to better mutate typeMap
-				extendedSchema._typeMap[name] = longHandTypes[name]
-			}
+		// make sure the skill types are the originals
+		Object.keys(ctx.gql.types).forEach(name => {
+			// @ts-ignore find way to better mutate typeMap
+			extendedSchema._typeMap[name] = ctx.gql.types[name]
 		})
 
 		// add in reslovers

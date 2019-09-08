@@ -33,7 +33,8 @@ export default class HttpsMock extends AbstractSprucebotAdapter {
 		const schema = buildClientSchema(introspectionSchemaResult.data)
 		addResolveFunctionsToSchema({
 			schema,
-			resolvers: mockResolvers
+			resolvers: mockResolvers,
+			resolverValidationOptions: { requireResolversForResolveType: false }
 		})
 
 		this.gqlServer = mockServer(schema, mockModels)
