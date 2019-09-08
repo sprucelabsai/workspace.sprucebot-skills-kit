@@ -194,15 +194,6 @@ export default class Schema {
 			? extendSchema(longhandSchema, documentNode)
 			: longhandSchema
 
-		// make sure the skill types are the originals
-		const longHandTypes = longhandSchema.getTypeMap()
-		Object.keys(longHandTypes).forEach(name => {
-			if (name !== 'Query' && name !== 'Mutation' && name[0] !== '_') {
-				// @ts-ignore find way to better mutate typeMap
-				extendedSchema._typeMap[name] = longHandTypes[name]
-			}
-		})
-
 		// add in reslovers
 		let cleanedResolvers = { ...allResolvers }
 		if (Object.keys(cleanedResolvers.Query).length === 0) {
@@ -220,6 +211,15 @@ export default class Schema {
 						schema: extendedSchema,
 						resolvers: cleanedResolvers
 				  })
+
+		// make sure the skill types are the originals
+		const longHandTypes = longhandSchema.getTypeMap()
+		Object.keys(longHandTypes).forEach(name => {
+			if (name !== 'Query' && name !== 'Mutation' && name[0] !== '_') {
+				// @ts-ignore find way to better mutate typeMap
+				schema._typeMap[name] = longHandTypes[name]
+			}
+		})
 
 		debug('Finished importing GQL files and creating schema')
 
