@@ -234,6 +234,10 @@ export default function SpruceConfig<
 		 * 🌲🤖 Your skills package.json version
 		 */
 		PACKAGE_VERSION: packageJSON.version,
+		/**
+		 * Special internal skills might set this to true. Most skills can ignore this setting.
+		 */
+		GLOBAL: process.env.GLOBAL === 'true',
 		gqlOptions: {
 			gqlDir: `${baseDirectory}/gql`
 		},

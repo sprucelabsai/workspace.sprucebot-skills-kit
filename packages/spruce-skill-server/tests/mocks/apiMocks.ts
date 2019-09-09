@@ -103,7 +103,7 @@ export default (ctx: ISpruceContext) => ({
 
 					for (let j = 0; j < permissions.length; j += 1) {
 						const permission = permissions[j]
-						if (slug === config.get('SLUG')) {
+						if (slug === config.SLUG) {
 							if (
 								config.get<Record<string, any>>('acl').publishes[permission] &&
 								config.get<Record<string, any>>('acl').publishes[permission]

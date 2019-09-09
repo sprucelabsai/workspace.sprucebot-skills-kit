@@ -50,7 +50,7 @@ module.exports = (
 				const realRole = auth.role
 
 				// Allow override of role if in dev mode
-				if (config.get('DEV_MODE')) {
+				if (config.DEV_MODE) {
 					const devRole =
 						ctx.cookies.get('devRole') || ctx.request.headers['x-dev-role']
 
@@ -183,7 +183,7 @@ module.exports = (
 						name: eventName
 					}
 
-					if (config.get('LOG_EVENTS')) {
+					if (config.LOG_EVENTS) {
 						log.info(`(EVENT_VERSION=2) Received event '${eventName}'`, {
 							event: ctx.event
 						})
@@ -193,7 +193,7 @@ module.exports = (
 					return
 				} catch (err) {
 					debug('(EVENT_VERSION=2) MIDDLEWARE/AUTH INVALID EVENT TOKEN', err)
-					if (config.get('LOG_EVENTS')) {
+					if (config.LOG_EVENTS) {
 						log.debug(
 							'(EVENT_VERSION=2) MIDDLEWARE/AUTH INVALID EVENT TOKEN',
 							err
@@ -202,9 +202,9 @@ module.exports = (
 				}
 			} else {
 				debug(`(EVENT_VERSION=2) No listener found for event: '${eventName}'`)
-				if (config.get('LOG_EVENTS')) {
+				if (config.LOG_EVENTS) {
 					log.debug(
-						`(EVENT_VERSION=2) No listener found for event: '${eventName}'. Check that you have created the corresponding file in server/events/. If you don't need to respond to this event, remove it from your config.get('eventContract')`
+						`(EVENT_VERSION=2) No listener found for event: '${eventName}'. Check that you have created the corresponding file in server/events/. If you don't need to respond to this event, remove it from your config.eventContract`
 					)
 				}
 			}

@@ -108,7 +108,7 @@ export default (
 			return {
 				schema: schema.gqlSchema,
 				context: ctx,
-				graphiql: config.get('GRAPHIQL_ENABLED'),
+				graphiql: config.GRAPHIQL_ENABLED,
 				formatError: (e: Error) => {
 					const code = e.message
 					let formattedError: Record<string, any> = {}
@@ -134,7 +134,7 @@ export default (
 						}
 					}
 
-					if (config.get('ENABLE_DEBUG_ROUTES')) {
+					if (config.ENABLE_DEBUG_ROUTES) {
 						formattedError.stack = e.stack && e.stack.split('\n')
 					}
 
@@ -142,14 +142,14 @@ export default (
 				},
 				validationRules: [
 					// Limits the depth of queries
-					depthLimit(config.get('GRAPHQL_MAX_DEPTH')),
+					depthLimit(config.GRAPHQL_MAX_DEPTH),
 					// Can limit based on query cost analysis
 					queryComplexity({
 						estimators: [
 							fieldConfigEstimator(),
 							simpleEstimator({ defaultComplexity: 1 })
 						],
-						maximumComplexity: config.get('GRAPHQL_MAX_COMPLEXITY'),
+						maximumComplexity: config.GRAPHQL_MAX_COMPLEXITY,
 						variables:
 							request.body && request.body.variables
 								? request.body.variables
