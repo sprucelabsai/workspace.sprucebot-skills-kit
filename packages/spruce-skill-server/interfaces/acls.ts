@@ -30,6 +30,7 @@ export interface ISpruceAcls {
 				teammate?: boolean
 				manager?: boolean
 				groupManager?: boolean
+				[key: string]: boolean | undefined
 			}
 		}
 	}

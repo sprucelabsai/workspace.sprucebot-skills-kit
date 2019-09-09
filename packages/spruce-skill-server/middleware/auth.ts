@@ -5,6 +5,7 @@ import Debug from 'debug'
 const debug = Debug('spruce-skill-server')
 import * as Router from 'koa-router'
 import { ISpruceContext } from '../interfaces/ctx'
+import { SpruceAuth } from '../config/default'
 
 interface INext {
 	(): Promise<any>
@@ -40,9 +41,14 @@ module.exports = (
 			})
 			debug(`middleware/auth found token checking`)
 			try {
+				if (!config.API_KEY) {
+					throw new Error(
+						'"API_KEY" is not defined. Check your .env and/or environment variables.'
+					)
+				}
 				const decoded: Record<string, any> = jwt.verify(
 					token,
-					config.get<string>('API_KEY').toLowerCase()
+					config.API_KEY.toLowerCase()
 				) as Record<string, any>
 
 				const auth = await ctx.sb.user(decoded.locationId, decoded.userId)
@@ -97,20 +103,26 @@ module.exports = (
 		version: number
 		decoded: Record<string, any>
 	}> => {
+		if (!config.API_KEY) {
+			throw new Error(
+				'"API_KEY" is not defined. Check your .env and/or environment variables.'
+			)
+		}
 		const decoded: Record<string, any> = jwt.verify(
 			token,
-			config.get<string>('API_KEY').toLowerCase()
+			config.API_KEY.toLowerCase()
 		) as Record<string, any>
 		const userId = decoded.userId
 		const locationId = decoded.locationId
 		const organizationId = decoded.organizationId
 
 		// Get the query from the config where the skills dev could customize it
-		const query = config.get<any>('auth')({
+		const configAuth = config.auth as SpruceAuth
+		const query = configAuth({
 			userId,
 			locationId,
 			organizationId
-		}) as string
+		})
 		const auth = await ctx.sb.query(query)
 
 		return {
@@ -167,7 +179,7 @@ module.exports = (
 	router.use('/api/1.0/*', auth)
 	router.use('/api/2.0/*', authV2)
 
-	if (config.get<number>('EVENT_VERSION') > 1) {
+	if (config.EVENT_VERSION > 1) {
 		router.post('/hook.json', async (ctx, next) => {
 			const listenersByEventName = options.listenersByEventName
 			const body = ctx.request.body

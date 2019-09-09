@@ -4,6 +4,7 @@ import Debug from 'debug'
 import jwt from 'jsonwebtoken'
 import config from 'config'
 import { ISpruceContext } from '../interfaces/ctx'
+import { ISpruceEventContract } from '../config/default'
 
 const debug = Debug('spruce-skill-server')
 
@@ -12,27 +13,30 @@ export default (
 	options: Record<string, any>
 ) => {
 	// LEGACY EVENT MANAGER, CHECK ./auth.js FOR > V1
-	if (config.get<number>('EVENT_VERSION') !== 1) {
+	if (config.EVENT_VERSION !== 1) {
 		return
 	}
 
 	const listenersByEventName = options.listenersByEventName
 
 	router.use(async (ctx: ISpruceContext, next: () => Promise<any>) => {
+		if (!config.API_KEY) {
+			throw new Error(
+				'"API_KEY" is not defined. Check your .env and/or environment variables.'
+			)
+		}
 		let body = ctx.request.body
 		const eventName = body && body.event
+		const eventContract = config.eventContract as ISpruceEventContract
 		// setup if we are listening to this event
-		if (
-			!config.get<Record<string, any>>('eventContract') ||
-			!config.get<Record<string, any>>('eventContract').events
-		) {
+		if (!eventContract || !eventContract.events) {
 			debug('No event contract found in config')
 		}
 
 		if (
-			config.get<Record<string, any>>('eventContract') &&
-			config.get<Record<string, any>>('eventContract').events &&
-			!config.get<Record<string, any>>('eventContract').events[eventName]
+			eventContract &&
+			eventContract.events &&
+			!eventContract.events[eventName]
 		) {
 			debug(`No eventContract specified for: ${eventName}`)
 		}
@@ -45,10 +49,7 @@ export default (
 		) {
 			// lets make sure the data is signed pro
 			try {
-				body = jwt.verify(
-					body.data,
-					config.get<string>('API_KEY').toLowerCase()
-				)
+				body = jwt.verify(body.data, config.API_KEY.toLowerCase())
 			} catch (err) {
 				debug('IMPROPERLY SIGNED PAYLOAD FOR EVENT. IGNORING')
 				next()

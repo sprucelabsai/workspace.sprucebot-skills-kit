@@ -5,13 +5,28 @@
 import fs from 'fs'
 import baseErrors from './errors'
 
+export type SpruceAuth = (options: {
+	userId?: string
+	organizationId?: string
+	locationId?: string
+}) => string
+
+export interface ISpruceEventContract {
+	events: {
+		[eventName: string]: {
+			description: string
+			subscribe: boolean
+		}
+	}
+}
+
 export default function SpruceConfig<
 	aclType,
 	settingsType,
 	errorsType,
 	eventContractType,
 	scopesType,
-	authType
+	authType = SpruceAuth
 >(baseDirectory: string) {
 	const HEARTWOOD_VERSION = encodeURIComponent(
 		require('@sprucelabs/heartwood-components').version
@@ -143,7 +158,7 @@ export default function SpruceConfig<
 		 * This can not be changed after you register your skill. Changing this value
 		 * will NOT update your slug
 		 */
-		SLUG: process.env.SLUG,
+		SLUG: process.env.SLUG || '',
 		/**
 		 * 🌲🤖 Your Skill's description
 		 */

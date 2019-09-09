@@ -2,6 +2,7 @@ import { ISpruceContext } from '../../interfaces/ctx'
 import Debug from 'debug'
 import config from 'config'
 import { Source } from 'graphql'
+import { ISpruceAcls } from '../../interfaces/acls'
 
 const debug = Debug('spruce-skill-server')
 export default (ctx: ISpruceContext) => ({
@@ -101,20 +102,20 @@ export default (ctx: ISpruceContext) => ({
 						permissions: []
 					}
 
+					const configAcls = config.acl as ISpruceAcls
+
 					for (let j = 0; j < permissions.length; j += 1) {
 						const permission = permissions[j]
 						if (slug === config.SLUG) {
 							if (
-								config.get<Record<string, any>>('acl').publishes[permission] &&
-								config.get<Record<string, any>>('acl').publishes[permission]
-									.defaults
+								configAcls.publishes[permission] &&
+								configAcls.publishes[permission].defaults
 							) {
 								slugResponse.permissions.push({
 									name: permission,
 									value:
 										userRole === 'owner' ||
-										config.get<Record<string, any>>('acl').publishes[permission]
-											.defaults[userRole] === true
+										configAcls.publishes[permission].defaults[userRole] === true
 								})
 							}
 						} else {

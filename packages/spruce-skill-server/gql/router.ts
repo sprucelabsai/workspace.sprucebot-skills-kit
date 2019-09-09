@@ -22,6 +22,11 @@ const auth = async (
 	next: () => Promise<any>
 ): Promise<void> => {
 	try {
+		if (!config.API_KEY) {
+			throw new Error(
+				'"API_KEY" is not defined. Check your .env and/or environment variables.'
+			)
+		}
 		let token =
 			ctx.cookies.get('jwt') ||
 			ctx.request.headers['x-skill-jwt'] ||
@@ -38,7 +43,7 @@ const auth = async (
 		}
 		const decoded: Record<string, any> = jwt.verify(
 			token,
-			config.get<string>('API_KEY').toLowerCase()
+			config.API_KEY.toLowerCase()
 		) as Record<string, any>
 		const userId = decoded.userId
 		const locationId = decoded.locationId || null
