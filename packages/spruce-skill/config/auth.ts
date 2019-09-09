@@ -77,8 +77,10 @@ const gql = (options: {
 		id: "${options.locationId}"
 	) {
 		id
-		name
-		slug
+        name
+        timezone
+        slug
+        OrganizationId
 	}
 	`
 			: ``
