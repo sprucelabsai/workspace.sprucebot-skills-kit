@@ -15,6 +15,9 @@ import helpers from './helpers'
 import { ISpruceContext } from '../interfaces/ctx'
 import config from 'config'
 
+import Debug from 'debug'
+const debug = Debug('spruce-skill-server')
+
 export default class Schema {
 	public readonly gqlSchema: GraphQLSchema
 
@@ -47,16 +50,16 @@ export default class Schema {
 		// Load GQL types first and assign to ctx.gql.types[<type name>]
 		const allTypePaths = [...coreTypePaths, ...typePaths]
 		allTypePaths.forEach(path => {
-			log.debug(`checking GQL type @ ${path}`)
+			debug(`checking GQL type @ ${path}`)
 
 			// TODO filter these out with globby above
 			if (path.search('.d.ts') > -1) {
-				log.debug('Skipping GQL .d.ts file.')
+				debug('Skipping GQL .d.ts file.')
 				return true
 			}
 
 			try {
-				log.debug(`Importing GQL types file: ${path}`)
+				debug(`Importing GQL types file: ${path}`)
 
 				let type
 				if (path.search(/\.gql/) > -1) {
@@ -97,10 +100,10 @@ export default class Schema {
 					// @ts-ignore
 					ctx.gql.types[name] = type
 				} else {
-					log.debug(`Missing type in file: ${path}`)
+					debug(`Missing type in file: ${path}`)
 				}
 			} catch (e) {
-				log.warn(`Unable to import GraphQL fields from ${path}`, e)
+				log.crit(`Unable to import GraphQL fields from ${path}`, e)
 				throw e
 			}
 
@@ -110,7 +113,7 @@ export default class Schema {
 		// Load resolvers which could be queries, mutations, or subscriptions
 		resolverPaths.forEach(path => {
 			try {
-				log.debug(`Importing GQL resolver file: ${path}`)
+				debug(`Importing GQL resolver file: ${path}`)
 				// eslint-disable-next-line @typescript-eslint/no-var-requires
 				const requiredType = require(path)
 				const def = requiredType.default
@@ -148,7 +151,7 @@ export default class Schema {
 					}
 				}
 			} catch (e) {
-				log.debug(`Unable to import GraphQL fields from ${path}`, e)
+				log.crit(`Unable to import GraphQL fields from ${path}`, e)
 				throw e
 			}
 		})
@@ -156,25 +159,16 @@ export default class Schema {
 		const resolvers: GraphQLSchemaConfig = {
 			query: null
 		}
-		if (queries && Object.keys(queries).length > 0) {
-			resolvers.query = new GraphQLObjectType({
-				name: 'Query',
-				fields: queries
-			})
-		} else {
-			//change first `extend type Query` to just `type Query` since no query type will exist yet
-			sdl = sdl.replace('extend type Query', 'type Query')
-		}
 
-		if (mutations && Object.keys(mutations).length > 0) {
-			resolvers.mutation = new GraphQLObjectType({
-				name: 'Mutation',
-				fields: mutations
-			})
-		} else {
-			//change first `extend type Mutation` to just `type Mutation` since no mutation type will exist yet
-			sdl = sdl.replace('extend type Mutation', 'type Mutation')
-		}
+		resolvers.query = new GraphQLObjectType({
+			name: 'Query',
+			fields: queries
+		})
+
+		resolvers.mutation = new GraphQLObjectType({
+			name: 'Mutation',
+			fields: mutations
+		})
 
 		if (subscriptions && Object.keys(subscriptions).length > 0) {
 			resolvers.subscription = new GraphQLObjectType({
@@ -185,7 +179,7 @@ export default class Schema {
 
 		const longhandSchema = new GraphQLSchema(resolvers)
 
-		log.debug(`Parsing Schema Definition Language ${sdl}`)
+		debug(`Parsing Schema Definition Language ${sdl}`)
 		const documentNode = sdl && parse(sdl)
 		const extendedSchema = documentNode
 			? extendSchema(longhandSchema, documentNode)
@@ -209,7 +203,7 @@ export default class Schema {
 						resolvers: cleanedResolvers
 				  })
 
-		log.info('Finished importing GQL files and creating schema')
+		debug('Finished importing GQL files and creating schema')
 
 		this.gqlSchema = schema
 	}
