@@ -20,7 +20,6 @@ export default (dir: string, key: string, ctx: any) => {
 
 			const configKey = `${key}.${filename}`
 
-			// @ts-ignore: IConfig index
 			const serviceConfig = config[configKey] || {}
 
 			const m = require(match)

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { default as config } from 'config'
+import config from 'config'
 import Debug from 'debug'
 
 const debug = Debug('spruce-skill-server')
