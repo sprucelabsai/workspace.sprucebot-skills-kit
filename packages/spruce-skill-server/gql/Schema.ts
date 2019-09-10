@@ -129,9 +129,9 @@ export default class Schema {
 					const body = def.sdl.loc ? def.sdl.loc.source.body : def.sdl
 
 					sdl = `
-                            ${sdl}
-                            ${body}
-                            `
+						${sdl}
+						${body}
+					`
 				}
 
 				const resolvers = def.resolvers
@@ -160,15 +160,28 @@ export default class Schema {
 			query: null
 		}
 
-		resolvers.query = new GraphQLObjectType({
-			name: 'Query',
-			fields: queries
-		})
+		if (sdl.length > 0 || Object.keys(queries).length > 0) {
+			resolvers.query = new GraphQLObjectType({
+				name: 'Query',
+				fields: queries
+			})
+		}
+		if (Object.keys(queries).length === 0) {
+			//change first `extend type Query` to just `type Query` since no query type will exist yet
+			sdl = sdl.replace('extend type Query', 'type Query')
+		}
 
-		resolvers.mutation = new GraphQLObjectType({
-			name: 'Mutation',
-			fields: mutations
-		})
+		if (sdl.length > 0 || Object.keys(mutations).length > 0) {
+			resolvers.mutation = new GraphQLObjectType({
+				name: 'Mutation',
+				fields: mutations
+			})
+		}
+
+		if (Object.keys(mutations).length === 0) {
+			//change first `extend type Mutation` to just `type Mutation` since no mutation type will exist yet
+			sdl = sdl.replace('extend type Mutation', 'type Mutation')
+		}
 
 		if (subscriptions && Object.keys(subscriptions).length > 0) {
 			resolvers.subscription = new GraphQLObjectType({
