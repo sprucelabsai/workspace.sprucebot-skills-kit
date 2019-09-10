@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import config from 'config'
+import { default as config } from 'config'
 import Debug from 'debug'
 
 const debug = Debug('spruce-skill-server')
@@ -11,7 +11,7 @@ interface INext {
 	(): Promise<any>
 }
 
-module.exports = (
+export default (
 	router: Router<{}, ISpruceContext>,
 	options: Record<string, any>
 ) => {
