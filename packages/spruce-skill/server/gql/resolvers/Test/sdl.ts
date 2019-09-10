@@ -16,7 +16,7 @@ export default (ctx: ISkillContext) => {
 		return {}
 	}
 
-	const test: IGQLResolvers = {
+	const test: IGQLResolvers<ISkillContext> = {
 		sdl: gql`
 			union Model = User | Location
 
