@@ -21,7 +21,7 @@
 	"scripts": {
 		"build": "npm run clean && npm run build:server && npm run build:config && npm run build:interface",
 		"build:interface": "NODE_CONFIG_DIR=./build/config next build interface",
-		"build:server": "tsc --project tsconfig.server.json | true",
+		"build:server": "tsc --project tsconfig.server.json | true && find ./server -name '*.gql' -o -name '*.graphql' | cpio -updm ./build/",
 		"build:config": "cp -r icon build && NODE_CONFIG_DIR=./build/config node ./bin/buildConfigs.js",
 		"clean": "rm -rf build/",
 		"start": "NODE_CONFIG_DIR=./build/config node ./build/server/server.js",
