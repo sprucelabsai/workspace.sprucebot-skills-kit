@@ -188,11 +188,6 @@ export default class Schema {
 			})
 		}
 
-		if (Object.keys(mutations).length === 0) {
-			//change first `extend type Mutation` to just `type Mutation` since no mutation type will exist yet
-			sdl = sdl.replace('extend type Mutation', 'type Mutation')
-		}
-
 		if (subscriptions && Object.keys(subscriptions).length > 0) {
 			resolvers.subscription = new GraphQLObjectType({
 				name: 'Subscription',
