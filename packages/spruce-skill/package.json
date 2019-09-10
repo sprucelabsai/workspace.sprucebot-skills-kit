@@ -21,8 +21,9 @@
 	"scripts": {
 		"build": "npm run clean && npm run build:server && npm run build:config && npm run build:interface",
 		"build:interface": "NODE_CONFIG_DIR=./build/config next build interface",
-		"build:server": "tsc --project tsconfig.server.json | true && find ./server -name '*.gql' -o -name '*.graphql' | cpio -updm ./build/",
+		"build:server": "tsc --project tsconfig.server.json | true && npm run build:copy-gql",
 		"build:config": "cp -r icon build && NODE_CONFIG_DIR=./build/config node ./bin/buildConfigs.js",
+		"build:copy-gql": "copyfiles -V ./server/**/*.gql ./server/**/*.graphql build/",
 		"clean": "rm -rf build/",
 		"start": "NODE_CONFIG_DIR=./build/config node ./build/server/server.js",
 		"local": "npm run kill-inspect && tsnd --ignore-watch interface/.next --ignore-watch node_modules --project tsconfig.server.json --inspect=4080 --respawn --transpileOnly server/server.ts",
@@ -55,6 +56,7 @@
 		"babel-core": "7.0.0-bridge.0",
 		"babel-plugin-transform-flow-strip-types": "^6.22.0",
 		"config": "sprucelabsai/node-config#f937717",
+		"copyfiles": "^2.1.1",
 		"dotenv": "^5.0.1",
 		"enzyme": "^3.3.0",
 		"enzyme-adapter-react-16": "^1.1.1",
