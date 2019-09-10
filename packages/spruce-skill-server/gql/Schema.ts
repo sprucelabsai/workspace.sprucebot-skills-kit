@@ -160,7 +160,17 @@ export default class Schema {
 			query: null
 		}
 
-		if (sdl.length > 0 || Object.keys(queries).length > 0) {
+		// add in reslovers
+		let cleanedResolvers = { ...allResolvers }
+		if (Object.keys(cleanedResolvers.Query).length === 0) {
+			delete cleanedResolvers.Query
+		}
+
+		if (Object.keys(cleanedResolvers.Mutation).length === 0) {
+			delete cleanedResolvers.Mutation
+		}
+
+		if (cleanedResolvers.Query || Object.keys(queries).length > 0) {
 			resolvers.query = new GraphQLObjectType({
 				name: 'Query',
 				fields: queries
@@ -171,7 +181,7 @@ export default class Schema {
 			sdl = sdl.replace('extend type Query', 'type Query')
 		}
 
-		if (sdl.length > 0 || Object.keys(mutations).length > 0) {
+		if (cleanedResolvers.Mutation || Object.keys(mutations).length > 0) {
 			resolvers.mutation = new GraphQLObjectType({
 				name: 'Mutation',
 				fields: mutations
@@ -197,16 +207,6 @@ export default class Schema {
 		const extendedSchema = documentNode
 			? extendSchema(longhandSchema, documentNode)
 			: longhandSchema
-
-		// add in reslovers
-		let cleanedResolvers = { ...allResolvers }
-		if (Object.keys(cleanedResolvers.Query).length === 0) {
-			delete cleanedResolvers.Query
-		}
-
-		if (Object.keys(cleanedResolvers.Mutation).length === 0) {
-			delete cleanedResolvers.Mutation
-		}
 
 		const schema =
 			Object.keys(cleanedResolvers).length === 0
