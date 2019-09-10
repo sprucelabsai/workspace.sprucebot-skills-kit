@@ -7823,10 +7823,9 @@ config-chain@^1.1.11, config-chain@^1.1.12, config-chain@~1.1.5:
     ini "^1.3.4"
     proto-list "~1.2.1"
 
-config@^3:
+config@sprucelabsai/node-config#f937717:
   version "3.2.2"
-  resolved "https://registry.yarnpkg.com/config/-/config-3.2.2.tgz#c7d31bb2a9d30013a905ff420101e3b1ba58eead"
-  integrity sha512-rOsfIOAcG82AWouK4/vBS/OKz3UPl2T/kP0irExmXJJOoWg2CmdfPLdx56bCoMUMFNh+7soQkQWCUC8DyemiwQ==
+  resolved "https://codeload.github.com/sprucelabsai/node-config/tar.gz/f937717300125b6c5cd41813bd1a7be1d54e6ce9"
   dependencies:
     json5 "^1.0.1"
 

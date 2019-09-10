@@ -20,7 +20,7 @@ export default (dir: string, key: string, ctx: any) => {
 
 			const configKey = `${key}.${filename}`
 
-			const serviceConfig = config.has(configKey) ? config.get(configKey) : {}
+			const serviceConfig = config[configKey] || {}
 
 			const m = require(match)
 			if (m.default) {
