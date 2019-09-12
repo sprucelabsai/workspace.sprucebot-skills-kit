@@ -25,6 +25,7 @@ export {
 	HeaderPrimary,
 	Sidebar,
 	SidebarSection,
+	SidebarHeader,
 	SaveBar,
 	ProfileSummary
 } from './components/Core'
