@@ -23,11 +23,13 @@ export default class ToastWrapper extends Component<
 	IToastWrapperProps,
 	IToastWrapperState
 > {
-	public state = {
+	public state: IToastWrapperState = {
 		toasts: [],
 		timeouts: {}
 	}
+
 	public timeouts = {}
+
 	public static getDerivedStateFromProps(
 		props: IToastWrapperProps,
 		state: IToastWrapperState
@@ -47,7 +49,7 @@ export default class ToastWrapper extends Component<
 		return { toasts: uniqToasts, timeouts }
 	}
 
-	public onRemoveClick = (id: string) => {
+	public onRemoveClick = (id: string | number) => {
 		const { timeouts } = this.state
 		const { handleRemove } = this.props
 		if (timeouts[id]) {
@@ -62,9 +64,18 @@ export default class ToastWrapper extends Component<
 		return (
 			<div className="toasts-wrapper">
 				<VelocityTransitionGroup
-					enter={{ animation: { opacity: 1, translateX: 0 }, duration: 300 }}
+					enter={{
+						animation: {
+							opacity: 1,
+							translateX: 0
+						},
+						duration: 300
+					}}
 					leave={{
-						animation: { opacity: 0, translateX: '-4px' },
+						animation: {
+							opacity: 0,
+							translateX: '-4px'
+						},
 						duration: 0
 					}}
 				>

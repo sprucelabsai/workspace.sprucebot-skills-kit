@@ -27,7 +27,7 @@ export interface ISortableListProps extends IListProps {
 }
 
 interface ISortableListState {
-	items: IListItemProps[]
+	items?: IListItemProps[]
 	isSorting: boolean
 }
 const SortableItem = SortableElement(

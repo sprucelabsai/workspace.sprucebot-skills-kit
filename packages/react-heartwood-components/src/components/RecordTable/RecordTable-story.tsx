@@ -32,7 +32,7 @@ stories.add('Basic RecordTable', () => {
 		const filteredRecords: Record<string, any> = filter(
 			orderBy(records, [options.sortColumn], [options.sortDirection]),
 			(o: IDummyRecordTableRecord) => {
-				return o.name.match(new RegExp(options.search, 'gi'))
+				return o.name.match(new RegExp(options.search || '', 'gi'))
 			}
 		)
 

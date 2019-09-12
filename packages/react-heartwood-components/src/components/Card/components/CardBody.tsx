@@ -30,7 +30,7 @@ const CardBody = (props: ICardBodyProps): React.ReactElement => {
 		hasTopPadding,
 		hasBottomPadding,
 		areSectionSeparatorsVisible,
-		isFullBleed
+		isFullBleed = false
 	} = props
 	const className = cx('card__body', {
 		'card__body--section-separators-visible': areSectionSeparatorsVisible,

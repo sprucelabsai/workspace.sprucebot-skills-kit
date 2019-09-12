@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react'
 import cx from 'classnames'
+import React, { Fragment } from 'react'
 import Avatar from '../../../Avatar/Avatar'
 import Button, { IButtonProps } from '../../../Button/Button'
-import Icon from '../../../Icon/Icon'
 import ContextMenu from '../../../ContextMenu/ContextMenu'
+import { Checkbox, Radio, Toggle } from '../../../Forms'
+import Icon from '../../../Icon/Icon'
 import List, { IListProps } from '../../List'
-import { Toggle, Checkbox, Radio } from '../../../Forms'
 
 export interface IListItemProps {
 	/** Optional; Set true to render an expandable item */
@@ -172,7 +172,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 					<p>
 						<label
 							className={cx('list-item__title', {
-								'u-color-warning-dark': warnings.title
+								'u-color-warning-dark': warnings && warnings.title
 							})}
 							htmlFor={toggleId || selectableId}
 						>
@@ -182,7 +182,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				) : (
 					<p
 						className={cx('list-item__title', {
-							'u-color-warning-dark': warnings.title
+							'u-color-warning-dark': warnings && warnings.title
 						})}
 					>
 						{title}
@@ -194,7 +194,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							<p>
 								<label
 									className={cx('list-item__subtitle', {
-										'u-color-warning-dark': warnings.subtitle
+										'u-color-warning-dark': warnings && warnings.subtitle
 									})}
 									htmlFor={toggleId || selectableId}
 								>
@@ -204,7 +204,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 						) : (
 							<p
 								className={cx('list-item__subtitle', {
-									'u-color-warning-dark': warnings.subtitle
+									'u-color-warning-dark': warnings && warnings.subtitle
 								})}
 								dangerouslySetInnerHTML={{ __html: subtitle }}
 							/>
@@ -214,7 +214,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				{note && (
 					<p
 						className={cx('list-item__note', {
-							'u-color-warning-dark': warnings.note
+							'u-color-warning-dark': warnings && warnings.note
 						})}
 						dangerouslySetInnerHTML={{ __html: note }}
 					/>
