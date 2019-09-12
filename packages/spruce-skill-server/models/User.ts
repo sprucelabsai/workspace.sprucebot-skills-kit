@@ -116,7 +116,7 @@ export class User extends SpruceCoreModel<User> {
 					sizes.forEach(size => {
 						profileImages['profile' + size] =
 							'https://s3.amazonaws.com/' +
-							config.get<string>('S3_BUCKET') +
+							config.S3_BUCKET +
 							'/userProfileImages/' +
 							this.profileImageUUID +
 							'--X' +
@@ -136,7 +136,7 @@ export class User extends SpruceCoreModel<User> {
 				sizes.forEach(size => {
 					profileImages['profile' + size] =
 						'https://s3.amazonaws.com/' +
-						config.get('S3_BUCKET') +
+						config.S3_BUCKET +
 						'/default-profile--X' +
 						size +
 						'.jpg'

@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import get from 'lodash/get'
+import get from 'ts-get'
 import { assert } from 'chai'
 import SpruceTest from './lib/SpruceTest'
 import config from 'config'
 import { ISpruceContext } from '../interfaces/ctx'
+import { IAclsResult } from '../services/Acl'
 
 class ACLTests extends SpruceTest<ISpruceContext> {
 	public setup(): void {
@@ -83,7 +84,7 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 		const isAuthorized = await this.ctx.services.acl.userIsAuthorizedForAcls({
 			userId,
 			permissions: {
-				[config.get<string>('SLUG')]: ['can_do_example_location']
+				[config.SLUG]: ['can_do_example_location']
 			},
 			locationId: this.location.id,
 			organizationId: this.organization.id
@@ -125,7 +126,7 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 		const isAuthorized = await this.ctx.services.acl.userIsAuthorizedForAcls({
 			userId,
 			permissions: {
-				[config.get<string>('SLUG')]: ['can_do_example_organization']
+				[config.SLUG]: ['can_do_example_organization']
 			},
 			organizationId: this.organization.id
 		})
@@ -166,7 +167,7 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 		const isAuthorized = await this.ctx.services.acl.userIsAuthorizedForAcls({
 			userId,
 			permissions: {
-				[config.get<string>('SLUG')]: [
+				[config.SLUG]: [
 					'can_do_example_organization',
 					'can_do_example_location_owner_only'
 				]
@@ -181,7 +182,7 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 		const isAuthorized = await this.ctx.services.acl.userIsAuthorizedForAcls({
 			userId: this.organization.owner[0].id,
 			permissions: {
-				[config.get<string>('SLUG')]: ['not_a_real_permission']
+				[config.SLUG]: ['not_a_real_permission']
 			},
 			locationId: this.location.id,
 			organizationId: this.organization.id
@@ -209,7 +210,7 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 			// @ts-ignore: Missing parameter error
 			await this.ctx.services.acl.userIsAuthorizedForAcls({
 				permissions: {
-					[config.get<string>('SLUG')]: ['can_do_example_location']
+					[config.SLUG]: ['can_do_example_location']
 				},
 				locationId: this.location.id,
 				organizationId: this.organization.id
@@ -227,7 +228,7 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 			await this.ctx.services.acl.userIsAuthorizedForAcls({
 				userId: 'taco-bravo',
 				permissions: {
-					[config.get<string>('SLUG')]: ['can_do_example_location']
+					[config.SLUG]: ['can_do_example_location']
 				},
 				locationId: this.location.id
 			})
@@ -255,7 +256,7 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 	public async checkIndividualOrgAcls(): Promise<void> {
 		const acls = await this.ctx.services.acl.getAcls({
 			permissions: {
-				[config.get<string>('SLUG')]: [
+				[config.SLUG]: [
 					'can_do_example_organization',
 					'can_do_example_organization_owner_only'
 				]
@@ -267,7 +268,10 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 		const {
 			can_do_example_organization,
 			can_do_example_organization_owner_only
-		} = get(acls, config.get<string>('SLUG'))
+		} = get(acls, (acl: IAclsResult) => acl[config.SLUG], {
+			can_do_example_organization: false,
+			can_do_example_organization_owner_only: false
+		})
 
 		assert.isTrue(can_do_example_organization)
 		assert.isFalse(can_do_example_organization_owner_only)
@@ -276,7 +280,7 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 	public async checkIndividualLocationAcls(): Promise<void> {
 		const acls = await this.ctx.services.acl.getAcls({
 			permissions: {
-				[config.get<string>('SLUG')]: [
+				[config.SLUG]: [
 					'can_do_example_location',
 					'can_do_example_location_owner_only'
 				]
@@ -288,7 +292,11 @@ class ACLTests extends SpruceTest<ISpruceContext> {
 
 		const { can_do_example_location, can_do_example_location_owner_only } = get(
 			acls,
-			config.get<string>('SLUG')
+			(acl: IAclsResult) => acl[config.SLUG],
+			{
+				can_do_example_location: false,
+				can_do_example_location_owner_only: false
+			}
 		)
 
 		assert.isTrue(can_do_example_location)

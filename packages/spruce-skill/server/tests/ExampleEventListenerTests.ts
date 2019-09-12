@@ -1,11 +1,14 @@
 import { assert } from 'chai'
 import { SpruceTest } from '@sprucelabs/spruce-skill-server'
 import { ISkillContext } from 'server/interfaces/ctx'
+import config from 'config'
 
 // SpruceTest take a single parameter, pointing to the base skill directory
 class ExampleEventTests extends SpruceTest<ISkillContext> {
 	public setup(): void {
-		it('Can respond to "get-views" event', () => this.getViews())
+		if (config.TESTING_SKILLS_KIT) {
+			it('Can respond to "get-views" event', () => this.getViews())
+		}
 	}
 
 	public async getViews(): Promise<void> {

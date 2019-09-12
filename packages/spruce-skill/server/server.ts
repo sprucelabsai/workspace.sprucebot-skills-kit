@@ -122,9 +122,8 @@ setTimeout(async () => {
 }, 2000)
 
 function handleReady(resolve: (value: any) => void): void {
-	console.info(`ℹ️  Booting server... Check #${readyChecks}.`)
 	if (ready || readyChecks > 100) {
-		console.info(`ℹ️  Server Ready`)
+		console.info(`Skill booted! 🙌🙌🙌`)
 		return resolve(server)
 	}
 
@@ -136,6 +135,6 @@ function handleReady(resolve: (value: any) => void): void {
 }
 
 module.exports = new Promise(resolve => {
-	console.info('ℹ️  Execute promise callback')
+	console.info('🌲🤖 Booting skill. This may take a sec...')
 	handleReady(resolve)
 })
