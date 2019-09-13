@@ -35,33 +35,40 @@ export interface ISpruceGQLTypes {
 	Warning: ReturnType<typeof Warning>
 }
 
-export interface IGQLResolver {
+export interface IGQLResolver<
+	IContext = ISpruceContext,
+	IArgs = any,
+	IResponse = any
+> {
 	(
 		source: any,
-		args: Record<string, any>,
-		context: ISpruceContext,
+		args: IArgs,
+		context: IContext,
 		info: GraphQLResolveInfo
-	): any
+	): IResponse
 }
 
-export interface IGQLTypeResolver {
+export interface IGQLTypeResolver<
+	IContext = ISpruceContext,
+	IResult = Record<string, any>
+> {
 	(
-		result: Record<string, any>,
-		context: ISpruceContext,
+		result: IResult,
+		context: IContext,
 		info: GraphQLResolveInfo,
 		returnType: GraphQLAbstractType
 	): string
 }
 
-export interface IGQLResolvers {
+export interface IGQLResolvers<IContext = ISpruceContext> {
 	sdl?: string
 	resolvers?: {
 		[scope: string]:
 			| {
-					__resolveType: IGQLTypeResolver
+					__resolveType: IGQLTypeResolver<IContext, Record<string, any>>
 			  }
 			| {
-					[resolverName: string]: IGQLResolver | string[]
+					[resolverName: string]: IGQLResolver<IContext> | string[]
 			  }
 	}
 }

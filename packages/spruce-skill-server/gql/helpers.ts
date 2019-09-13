@@ -92,9 +92,7 @@ export interface ISpruceGQLHelpers {
 export default (ctx: ISpruceContext) => {
 	// Get any custom connectionOptions and save for later when we're building connections
 	const connectionPaths = globby.sync([
-		`${
-			config.get<Record<string, any>>(`gqlOptions`).gqlDir
-		}/connections/**/!(index|types|_helpers).js`
+		`${config.gqlOptions.gqlDir}/connections/**/!(index|types|_helpers).js`
 	])
 	const connections: Record<string, any> = {}
 

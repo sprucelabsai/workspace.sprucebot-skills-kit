@@ -22,6 +22,11 @@ const auth = async (
 	next: () => Promise<any>
 ): Promise<void> => {
 	try {
+		if (!config.API_KEY) {
+			throw new Error(
+				'"API_KEY" is not defined. Check your .env and/or environment variables.'
+			)
+		}
 		let token =
 			ctx.cookies.get('jwt') ||
 			ctx.request.headers['x-skill-jwt'] ||
@@ -38,7 +43,7 @@ const auth = async (
 		}
 		const decoded: Record<string, any> = jwt.verify(
 			token,
-			config.get<string>('API_KEY').toLowerCase()
+			config.API_KEY.toLowerCase()
 		) as Record<string, any>
 		const userId = decoded.userId
 		const locationId = decoded.locationId || null
@@ -108,7 +113,7 @@ export default (
 			return {
 				schema: schema.gqlSchema,
 				context: ctx,
-				graphiql: config.get('GRAPHIQL_ENABLED'),
+				graphiql: config.GRAPHIQL_ENABLED,
 				formatError: (e: Error) => {
 					const code = e.message
 					let formattedError: Record<string, any> = {}
@@ -134,7 +139,7 @@ export default (
 						}
 					}
 
-					if (config.get('ENABLE_DEBUG_ROUTES')) {
+					if (config.ENABLE_DEBUG_ROUTES) {
 						formattedError.stack = e.stack && e.stack.split('\n')
 					}
 
@@ -142,14 +147,14 @@ export default (
 				},
 				validationRules: [
 					// Limits the depth of queries
-					depthLimit(config.get('GRAPHQL_MAX_DEPTH')),
+					depthLimit(config.GRAPHQL_MAX_DEPTH),
 					// Can limit based on query cost analysis
 					queryComplexity({
 						estimators: [
 							fieldConfigEstimator(),
 							simpleEstimator({ defaultComplexity: 1 })
 						],
-						maximumComplexity: config.get('GRAPHQL_MAX_COMPLEXITY'),
+						maximumComplexity: config.GRAPHQL_MAX_COMPLEXITY,
 						variables:
 							request.body && request.body.variables
 								? request.body.variables

@@ -66,8 +66,8 @@ export default class GraphQLSubscriptions {
 			{
 				reconnect: true,
 				connectionParams: {
-					'x-skill-id': config.get('ID'),
-					'x-skill-api-key': config.get('API_KEY')
+					'x-skill-id': config.ID,
+					'x-skill-api-key': config.API_KEY
 				}
 			},
 			ws

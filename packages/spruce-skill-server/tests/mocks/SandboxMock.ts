@@ -121,7 +121,7 @@ export default class SandboxMock {
 			icon: ''
 		})
 
-		skill.apiKey = config.get('API_KEY')
+		skill.apiKey = config.API_KEY
 
 		return skill
 	}

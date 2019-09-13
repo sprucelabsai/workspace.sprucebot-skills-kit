@@ -129,9 +129,9 @@ export default class Schema {
 					const body = def.sdl.loc ? def.sdl.loc.source.body : def.sdl
 
 					sdl = `
-                            ${sdl}
-                            ${body}
-                            `
+						${sdl}
+						${body}
+					`
 				}
 
 				const resolvers = def.resolvers
@@ -159,24 +159,33 @@ export default class Schema {
 		const resolvers: GraphQLSchemaConfig = {
 			query: null
 		}
-		if (queries && Object.keys(queries).length > 0) {
+
+		// add in reslovers
+		let cleanedResolvers = { ...allResolvers }
+		if (Object.keys(cleanedResolvers.Query).length === 0) {
+			delete cleanedResolvers.Query
+		}
+
+		if (Object.keys(cleanedResolvers.Mutation).length === 0) {
+			delete cleanedResolvers.Mutation
+		}
+
+		if (cleanedResolvers.Query || Object.keys(queries).length > 0) {
 			resolvers.query = new GraphQLObjectType({
 				name: 'Query',
 				fields: queries
 			})
-		} else {
+		}
+		if (Object.keys(queries).length === 0) {
 			//change first `extend type Query` to just `type Query` since no query type will exist yet
 			sdl = sdl.replace('extend type Query', 'type Query')
 		}
 
-		if (mutations && Object.keys(mutations).length > 0) {
+		if (cleanedResolvers.Mutation || Object.keys(mutations).length > 0) {
 			resolvers.mutation = new GraphQLObjectType({
 				name: 'Mutation',
 				fields: mutations
 			})
-		} else {
-			//change first `extend type Mutation` to just `type Mutation` since no mutation type will exist yet
-			sdl = sdl.replace('extend type Mutation', 'type Mutation')
 		}
 
 		if (subscriptions && Object.keys(subscriptions).length > 0) {
@@ -193,16 +202,6 @@ export default class Schema {
 		const extendedSchema = documentNode
 			? extendSchema(longhandSchema, documentNode)
 			: longhandSchema
-
-		// add in reslovers
-		let cleanedResolvers = { ...allResolvers }
-		if (Object.keys(cleanedResolvers.Query).length === 0) {
-			delete cleanedResolvers.Query
-		}
-
-		if (Object.keys(cleanedResolvers.Mutation).length === 0) {
-			delete cleanedResolvers.Mutation
-		}
 
 		const schema =
 			Object.keys(cleanedResolvers).length === 0

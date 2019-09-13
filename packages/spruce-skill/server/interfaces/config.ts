@@ -8,5 +8,7 @@ import defaultConfig from '../../config/default'
 type configType = typeof defaultConfig
 
 declare module 'config' {
-	interface IConfig extends configType {}
+	interface IConfig extends configType {
+		[key: string]: any
+	}
 }

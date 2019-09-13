@@ -30,8 +30,8 @@ export default class Base<Context> {
 	protected organization!: IMockOrganization
 	protected location!: IMockLocation
 	protected skill!: Skill
-	protected otherOrganization!: Organization
-	protected otherLocation!: Location
+	protected otherOrganization!: IMockOrganization
+	protected otherLocation!: IMockLocation
 	protected otherSkill!: Skill
 
 	private basePath!: string
