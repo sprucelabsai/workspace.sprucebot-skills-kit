@@ -41,7 +41,7 @@ if (global && global.log) {
 	log = global.log
 }
 
-export class GraphQLClient {
+export default class GraphQLClient {
 	client: any
 	token: ?string
 

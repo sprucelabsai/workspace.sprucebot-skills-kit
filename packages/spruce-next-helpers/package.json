@@ -5,6 +5,9 @@
 	},
 	"version": "8.17.7",
 	"main": "lib/index.js",
+	"files": [
+		"lib"
+	],
 	"description": "Spruce Next.js helpers and utitlies",
 	"keywords": [
 		"react",
@@ -19,11 +22,13 @@
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
 	"scripts": {
-		"build": "babel ./src --out-dir ./lib",
+		"#build": "babel ./src --out-dir ./lib",
+		"build": "babel --source-maps --extensions \".js\",\".tsx\",\".ts\" ./src --out-dir ./lib && tsc --declaration --emitDeclarationOnly --declarationMap",
 		"clean": "rm -rf lib/*",
-		"lint": "eslint src",
+		"#lint": "eslint src",
+		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx src && tsc -p . --noEmit",
 		"#test": "jest",
-		"watch": "chokidar 'src/**/*.js' -c 'npm run build'"
+		"watch": "chokidar 'src/**/*.(js|jsx|ts|tsx)' -c 'npm run build'"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.0.0",
@@ -49,9 +54,9 @@
 		"@babel/preset-env": "^7.0.0",
 		"@babel/preset-flow": "^7.0.0",
 		"@babel/preset-react": "^7.0.0",
+		"@babel/preset-typescript": "^7.6.0",
 		"@babel/runtime": "^7.0.0",
 		"babel-core": "7.0.0-bridge.0",
-		"babel-eslint": "8",
 		"babel-loader": "^8.0.0",
 		"babel-plugin-inline-react-svg": "^0.5.4",
 		"babel-runtime": "^6.26.0",
@@ -59,10 +64,8 @@
 		"enzyme": "^3.3.0",
 		"enzyme-adapter-react-16": "^1.1.1",
 		"enzyme-to-json": "^3.3.1",
-		"eslint": "^4.10.0",
-		"eslint-config-prettier": "^2.9.0",
-		"eslint-plugin-prettier": "^2.3.1",
-		"eslint-plugin-react": "^7.4.0",
+		"eslint": "^5.9.0",
+		"eslint-config-spruce": "^8.17.7",
 		"jest": "^24.5.0",
 		"prettier": "^1.13",
 		"react-test-renderer": "^16.0.0"

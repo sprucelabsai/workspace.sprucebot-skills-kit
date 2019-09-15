@@ -1,5 +1,5 @@
 //@flow
-import { GraphQLClient } from '@sprucelabs/spruce-utils/graphql'
+import { GraphQLClient } from '@sprucelabs/spruce-utils'
 import config from 'config'
 
 const serverHost = config.SERVER_HOST

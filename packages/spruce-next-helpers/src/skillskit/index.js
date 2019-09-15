@@ -1,5 +1,5 @@
 // @flow
-import Iframes from '@sprucelabs/spruce-utils/iframes'
+import Iframes from '@sprucelabs/spruce-utils'
 
 function postMessage(message) {
 	return window.parent.postMessage(JSON.stringify(message), '*')

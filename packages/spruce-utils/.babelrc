@@ -2,6 +2,7 @@
 	"sourceType": "unambiguous",
 	"presets": [
 		"@babel/flow",
+		"@babel/preset-typescript",
 		[
 			"next/babel",
 			{
