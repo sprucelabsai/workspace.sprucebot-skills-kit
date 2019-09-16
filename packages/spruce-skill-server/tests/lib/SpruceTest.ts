@@ -23,7 +23,7 @@ import { IGQLTag } from '@sprucelabs/spruce-node'
 
 // The base test model that all others will extend
 export default class Base<Context> {
-	protected koa!: Koa<Context>
+	protected koa!: Koa<{}, Context>
 	protected ctx!: Context
 	protected mocks: Record<string, any>
 	protected request!: supertest.SuperTest<supertest.Test>
