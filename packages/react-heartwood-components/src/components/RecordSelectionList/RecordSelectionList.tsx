@@ -51,7 +51,7 @@ export interface IRecordSelectionListProps {
 	}) => Promise<IRecordSelectionListItemProps[]>
 
 	/** How many records should be retrieved from the server at one time? */
-	recordsPerRequest?: number
+	recordsPerRequest: number
 
 	/** Total number of records that could be in this list.
 	 * Optional, but optimizes infinite load and adds supplementary UI */
@@ -123,7 +123,7 @@ interface IRecordSelectionListState {
 	isLoading: boolean
 
 	/** Search value */
-	search: string
+	search?: string
 
 	/** ID to manage the last request to loadRecords */
 	loadingId?: string
@@ -135,7 +135,7 @@ export default class RecordSelectionList extends Component<
 	IRecordSelectionListProps,
 	IRecordSelectionListState
 > {
-	public static defaultProps: IRecordSelectionListProps = {
+	public static defaultProps = {
 		showSelectedCount: false,
 		hideSearchResultsEmptyState: false,
 		hideDataEmptyState: false,
@@ -158,9 +158,12 @@ export default class RecordSelectionList extends Component<
 			})
 
 			if (uniqueId === this.state.loadingId) {
-				this.setState({ isLoading: false, loadedRecords: newRows }, () => {
-					this.resetVirtualizedList()
-				})
+				this.setState(
+					{ isLoading: false, loadedRecords: newRows || [] },
+					() => {
+						this.resetVirtualizedList()
+					}
+				)
 			}
 		},
 		this.props.searchDelayMs || 200
@@ -211,7 +214,7 @@ export default class RecordSelectionList extends Component<
 		})
 
 		await this.setState({
-			loadedRecords: initialRecords,
+			loadedRecords: initialRecords || [],
 			isLoading: false
 		})
 
@@ -225,7 +228,7 @@ export default class RecordSelectionList extends Component<
 	public componentDidUpdate(prevProps: IRecordSelectionListProps): void {
 		const { canRemove, canSelect, searchValue } = this.props
 
-		if (searchValue !== prevProps.searchValue) {
+		if (searchValue && searchValue !== prevProps.searchValue) {
 			this.updateSearchValue(searchValue)
 		}
 
@@ -248,7 +251,9 @@ export default class RecordSelectionList extends Component<
 		// TODO: This just "works" but ideally I'd be resetting more holistically.
 		// Come back to this and clean up the API a bit. Make sure that resetting
 		// doesn't cause infiniteLoad to fail.
-		this.updateSearchValue(persistSearch ? this.state.search : '')
+		this.updateSearchValue(
+			persistSearch && this.state.search ? this.state.search : ''
+		)
 	}
 
 	public getVisibleRecordHeight = (): number => {
@@ -651,9 +656,12 @@ export default class RecordSelectionList extends Component<
 			search
 		})
 
-		if (newRows.length > 0) {
+		this.setState({
+			isLoading: false
+		})
+
+		if (newRows && newRows.length > 0) {
 			this.setState({
-				isLoading: false,
 				loadedRecords: [...loadedRecords, ...newRows]
 			})
 		}

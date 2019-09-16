@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import cx from 'classnames'
 
 interface IBotTextProps {
@@ -20,7 +20,7 @@ const BotText: React.StatelessComponent<IBotTextProps> = (
 	if (!children && !text) {
 		// TODO: Handle logging
 		// console.error('Bot Text must either have children or text')
-		return null
+		return <Fragment />
 	}
 
 	if (text && !children) {
@@ -39,7 +39,8 @@ const BotText: React.StatelessComponent<IBotTextProps> = (
 			</p>
 		)
 	}
-	return null
+
+	return <Fragment />
 }
 
 export default BotText

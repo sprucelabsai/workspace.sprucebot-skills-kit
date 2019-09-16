@@ -42,7 +42,7 @@ stories.add('No matches', () => (
 			['primary', 'secondary', 'simple', 'caution'],
 			'simple'
 		)}
-		primaryActionButtonIcon={select('primary button icon', options, null)}
+		primaryActionButtonIcon={select('primary button icon', options, undefined)}
 	/>
 ))
 
@@ -61,6 +61,6 @@ stories.add('API Failure', () => (
 			['primary', 'secondary', 'simple', 'caution'],
 			'simple'
 		)}
-		primaryActionButtonIcon={select('primary button icon', options, null)}
+		primaryActionButtonIcon={select('primary button icon', options, undefined)}
 	/>
 ))

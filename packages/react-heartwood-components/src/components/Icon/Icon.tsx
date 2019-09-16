@@ -3,7 +3,7 @@
 
 // NOTE: This component should only include a few of the most commonly
 // used icons for developer convenience
-import React from 'react'
+import React, { Fragment } from 'react'
 import cx from 'classnames'
 
 import * as icons from '../../icons.js'
@@ -29,7 +29,7 @@ const Icon = (props: IIconProps): React.ReactElement => {
 
 	if (!customIcon && (!icon || !icons[iconKey])) {
 		console.warn(`<Icon /> could not find an icon with key `, icon)
-		return null
+		return <Fragment />
 	}
 
 	let isFillIcon = !customIcon && icons[iconKey] && !icons[iconKey].isLineIcon

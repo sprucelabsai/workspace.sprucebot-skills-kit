@@ -44,8 +44,8 @@ export default class ExpandableListItem extends Component<
 		return (
 			<ListItem
 				{...item}
-				list={isExpanded && list}
-				lists={isExpanded && lists}
+				list={isExpanded ? list : undefined}
+				lists={isExpanded ? lists : undefined}
 				actions={[
 					{
 						icon: {
@@ -53,7 +53,7 @@ export default class ExpandableListItem extends Component<
 								? expandedIcon || 'keyboard_arrow_down'
 								: collapsedIcon || 'keyboard_arrow_right'
 						},
-						kind: isExpanded ? null : ButtonKinds.Simple,
+						kind: isExpanded ? undefined : ButtonKinds.Simple,
 						onClick: this.toggleExpanded
 					}
 				]}

@@ -1,13 +1,13 @@
-import React from 'react'
-import List, { IListProps } from '../../../List/List'
+import React, { Fragment } from 'react'
 import Button, { IButtonProps } from '../../../Button/Button'
 import { CardBuilder, ICardBuilderProps } from '../../../Card'
+import List, { IListProps } from '../../../List/List'
+import MarkdownText, { IMarkdownText } from '../../../MarkdownText/MarkdownText'
 import SplitButton, {
 	ISplitButtonProps
 } from '../../../SplitButton/SplitButton'
-import Toast, { IToastProps } from '../../../Toast/Toast'
 import Text from '../../../Text/Text'
-import MarkdownText, { IMarkdownText } from '../../../MarkdownText/MarkdownText'
+import Toast, { IToastProps } from '../../../Toast/Toast'
 
 const MDTextContainer = (props: { source: string }): React.ReactElement => (
 	<div className="event-details__markdown">
@@ -53,7 +53,7 @@ const EventDetailsItem = (
 		console.warn(
 			`No component found for key: ${type}. Please double-check properties passed into <EventDetailsItem> from <EventDetails>.`
 		)
-		return null
+		return <Fragment />
 	}
 
 	const Handler = components[type]
