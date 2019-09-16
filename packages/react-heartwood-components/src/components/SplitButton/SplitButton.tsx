@@ -69,6 +69,8 @@ export default class SplitButton extends Component<
 
 	public handleClickOutside = (e: any) => {
 		if (
+			this.ref.current &&
+			this.menuRef.current &&
 			!this.ref.current.contains(e.target) &&
 			!this.menuRef.current.contains(e.target)
 		) {
@@ -122,9 +124,10 @@ export default class SplitButton extends Component<
 		if (e.keyCode === 13) {
 			// Check if an action is highlighted
 			if (highlightedActionIndex > -1) {
+				const handler = actions[highlightedActionIndex].onClick
 				// Trigger it if so
-				if (actions[highlightedActionIndex].onClick) {
-					actions[highlightedActionIndex].onClick()
+				if (handler) {
+					handler()
 				}
 				this.toggleActionsVisibility()
 			}

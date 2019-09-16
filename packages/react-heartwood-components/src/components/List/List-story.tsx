@@ -1,35 +1,34 @@
-import React, { Fragment, Component } from 'react'
-import { storiesOf } from '@storybook/react'
 import {
-	withKnobs,
-	// withKnobsOptions,
-	text,
 	boolean,
 	object,
-	select
+	select,
+	// withKnobsOptions,
+	text,
+	withKnobs
 } from '@storybook/addon-knobs/react'
+import { storiesOf } from '@storybook/react'
+import React, { Component, Fragment } from 'react'
+import {
+	dateList,
+	expandableList,
+	listHiddenIcons,
+	listWithAction,
+	nestedList,
+	selectableList,
+	serviceList,
+	settingsList
+} from '../../../.storybook/data/lists'
 import {
 	userList,
 	userList02,
 	userList03
 } from '../../../.storybook/data/people'
-import {
-	dateList,
-	serviceList,
-	listHiddenIcons,
-	nestedList,
-	listWithAction,
-	settingsList,
-	selectableList,
-	expandableList
-} from '../../../.storybook/data/lists'
-import List, { ListWrapper } from './List'
+import { ButtonKinds } from '../Button/Button'
+import Tabs from '../Tabs/Tabs'
 import ListHeader from './components/ListHeader/ListHeader'
 import ListItem from './components/ListItem/ListItem'
-import Icon from '../Icon/Icon'
-import Tabs from '../Tabs/Tabs'
 import SortableList from './components/SortableList/SortableList'
-import { ButtonKinds } from '../Button/Button'
+import List, { ListWrapper } from './List'
 
 const stories = storiesOf('List', module)
 
@@ -101,14 +100,7 @@ stories
 			subtitle={text('subtitle', '9am–4pm')}
 			avatar={text('avatar', '')}
 			image={text('image', '')}
-			icon={
-				text('icon', '') && (
-					<Icon
-						isLineIcon={boolean('isLineIcon', true)}
-						icon={text('icon', '')}
-					/>
-				)
-			}
+			icon={{ isLineIcon: boolean('isLineIcon', true), icon: text('icon', '') }}
 			isDraggable={boolean('isDraggable', false)}
 			actions={object('actions', [])}
 			toggleId={text('toggleId', '')}
@@ -191,7 +183,7 @@ stories
 	.add('People Tabbed', () => <TabbedList />)
 	.add('Selectable Items', () => (
 		<List
-			selectableType={select(
+			selectableType={select<'checkbox' | 'radio'>(
 				'selectableType',
 				['checkbox', 'radio'],
 				'checkbox'

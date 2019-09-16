@@ -227,7 +227,7 @@ export default class Table extends Component<ITableProps, ITableState> {
 				})}
 				getTheadThProps={(state, rowInfo, column) => ({
 					className: cx('table-header-cell', {
-						'table-checkbox-cell': column.id === 'checkbox'
+						'table-checkbox-cell': column && column.id === 'checkbox'
 					}),
 					width: 'auto'
 				})}
@@ -297,7 +297,7 @@ export default class Table extends Component<ITableProps, ITableState> {
 									</div>
 								</CSSTransition>
 						  )
-						: null
+						: undefined
 				}
 				NoDataComponent={EmptyState}
 				// @ts-ignore-next-line
