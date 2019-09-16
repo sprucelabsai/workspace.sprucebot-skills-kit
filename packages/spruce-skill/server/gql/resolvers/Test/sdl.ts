@@ -1,7 +1,7 @@
 import { ISkillContext } from 'server/interfaces/ctx'
 import config from 'config'
 import gql from 'graphql-tag'
-import { IGQLResolvers, ISpruceContext } from '@sprucelabs/spruce-skill-server'
+import { IGQLResolvers } from '@sprucelabs/spruce-skill-server'
 import { GraphQLResolveInfo, GraphQLAbstractType } from 'graphql'
 
 /**
@@ -58,7 +58,7 @@ export default (ctx: ISkillContext) => {
 			Model: {
 				__resolveType: (
 					result: Record<string, any>,
-					context: ISpruceContext,
+					context: ISkillContext,
 					info: GraphQLResolveInfo,
 					returnType: GraphQLAbstractType
 				): string => {
@@ -99,8 +99,8 @@ export default (ctx: ISkillContext) => {
 				},
 				getFirstUser: ctx.gql.helpers.buildSequelizeResolver({
 					modelName: 'User',
-					before: (findOptions, args, context) => {
-						console.log('getFirstUser', findOptions, args, context)
+					before: (findOptions, _args, context) => {
+						// console.log('getFirstUser', findOptions, args, context)
 						context.scopes.getFirstUser = config.scopes.Mock.public()
 						return findOptions
 					},

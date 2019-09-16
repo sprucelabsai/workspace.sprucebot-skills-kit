@@ -3,7 +3,7 @@ import { ISpruceContext } from '../interfaces/ctx'
 // @ts-ignore: No definition available
 import parseFields from 'graphql-parse-fields'
 
-import { GraphQLInt, GraphQLResolveInfo, GraphQLObjectType } from 'graphql'
+import { GraphQLResolveInfo, GraphQLObjectType, GraphQLInt } from 'graphql'
 import {
 	resolver,
 	attributeFields,
@@ -22,6 +22,9 @@ import { has } from 'lodash'
 import SpruceCoreModel from '../lib/SpruceModel'
 import { FindOptions } from 'sequelize/types'
 import { IGQLResolver } from '../interfaces/gql'
+
+import Debug from 'debug'
+const debug = Debug('spruce-skill-server')
 
 type SpruceCoreModelType = typeof SpruceCoreModel
 
@@ -98,7 +101,7 @@ export default (ctx: ISpruceContext) => {
 
 	connectionPaths.forEach(path => {
 		try {
-			log.debug(`Importing custom connection options from file: ${path}`)
+			debug(`Importing custom connection options from file: ${path}`)
 			// $FlowIgnore
 			const connectionOptions = require(path)(ctx) // eslint-disable-line
 			let name = path.replace(/^(.*[\\/])/, '')
@@ -462,6 +465,15 @@ export default (ctx: ISpruceContext) => {
 							return null
 						}
 					}
+				}
+
+				// using shorthand the connectionFields resolver is never hit
+				// TODO determine if we need to be mapping fields the library
+				// uses by default. May cause confusion since it's different
+				// than the documentation for the library. making copy so
+				// sequelize-relay documentation still applies
+				if ('fullCount' in cleanedResult) {
+					cleanedResult.totalCount = cleanedResult.fullCount
 				}
 
 				return cleanedResult

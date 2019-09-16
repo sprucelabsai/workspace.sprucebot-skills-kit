@@ -78,6 +78,7 @@ export default {
 					loadFirstLocations: 'public',
 					'loadFirstLocations.Organization': 'public',
 					getFirstUser: 'public',
+					'getFirstUser.Locations': 'public',
 					loadUserOrLocation: 'public'
 				},
 				base

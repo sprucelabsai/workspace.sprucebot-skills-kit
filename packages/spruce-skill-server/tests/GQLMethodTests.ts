@@ -8,9 +8,7 @@ import gql from 'graphql-tag'
 class GQLMethodTests extends SpruceTest<ISpruceContext> {
 	public setup(): void {
 		it('Can call query', () => this.doQuery())
-		it('Can not call query as mutation', () => this.doQueryAsMutate())
 		it('Can call mutation', () => this.doMutate())
-		it('Can not call mutation as query', () => this.doMutateAsQuery())
 		it('can run simple query against sdl defined schema', () =>
 			this.canRunSimpleQuery())
 		it('can get first user model against shorthand defined schema', () =>
@@ -33,50 +31,23 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 		assert.isOk(result.data.Location.name)
 	}
 
-	public async doQueryAsMutate(): Promise<void> {
-		const result = await this.ctx.sb.mutation(`
-		{
-				Location (
-				id: "${this.location.id}"
-			) {
-				name
-			}
-		}`)
-		assert.isUndefined(result.data)
-		assert.isOk(result.errors)
-		assert.isOk(result.errors[0])
-	}
-
 	public async doMutate(): Promise<void> {
-		const result = await this.ctx.sb.mutation(`
-		{
-			updateLocation (input: {
-				id: "${this.location.id}"
-				name: "${faker.lorem.words()}"
-			}) {
-				Location {
-					name
+		const result = await this.ctx.sb.query(
+			gql`
+				mutation UpdateLocation($id: ID!, $name: String!) {
+					updateLocation(input: { id: $id, name: $name }) {
+						Location {
+							name
+						}
+					}
 				}
+			`,
+			{
+				id: this.location.id,
+				name: faker.lorem.words()
 			}
-		}`)
+		)
 		assert.isOk(result.data.updateLocation.Location.name)
-	}
-
-	public async doMutateAsQuery(): Promise<void> {
-		const result = await this.ctx.sb.query(`
-		{
-			updateLocation (input: {
-				id: "${this.location.id}"
-				name: "${faker.lorem.words()}"
-			}) {
-				Location {
-					name
-				}
-			}
-		}`)
-		assert.isUndefined(result.data)
-		assert.isOk(result.errors)
-		assert.isOk(result.errors[0])
 	}
 
 	public canRunSimpleQuery = async () => {
