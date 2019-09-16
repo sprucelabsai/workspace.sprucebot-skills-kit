@@ -22,6 +22,7 @@ function client(webpack) {
 	})
 
 	webpack.resolve = {
+		...webpack.resolve,
 		alias: {
 			config: jsonPath
 			// Might be necessary to uncomment below if 'yarn link'-ing @sprucelabs/react-heartwood-components, @sprucelabs/spruce-skill-server or @sprucelabs/log
