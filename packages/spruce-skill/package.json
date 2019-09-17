@@ -106,6 +106,7 @@
 		"@storybook/addon-links": "^5.1.10",
 		"@storybook/addons": "^5.1.10",
 		"@storybook/react": "^5.1.10",
+		"@types/bluebird": "^3.5.27",
 		"@types/chai": "^4.2.0",
 		"@types/config": "^0.0.34",
 		"@types/lodash": "^4.14.138",
