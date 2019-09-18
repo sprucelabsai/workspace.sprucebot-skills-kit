@@ -295,7 +295,7 @@ export enum IHWContextMenuSize {
 
 
 
-/** An event that is rendered on the calendar. */
+/** An event error. */
 export type IHWEventError = {
   __typename?: 'EventError',
   /** An http code */
@@ -310,7 +310,7 @@ export type IHWEventError = {
   status: Scalars['String'],
 };
 
-/** An event that is rendered on the calendar. */
+/** An event warning. */
 export type IHWEventWarning = {
   __typename?: 'EventWarning',
   /** A name that can be used to identify this warning. INVALID_PARAMETERS for example */

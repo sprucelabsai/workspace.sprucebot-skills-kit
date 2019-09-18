@@ -1,4 +1,4 @@
-"An event that is rendered on the calendar."
+"An event warning."
 type EventWarning {
 	"A name that can be used to identify this warning. INVALID_PARAMETERS for example"
 	name: String!
