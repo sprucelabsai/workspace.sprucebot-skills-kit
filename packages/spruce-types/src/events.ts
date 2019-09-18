@@ -11,6 +11,8 @@ export interface ISpruceEvent<
 	Location?: ILocation | null
 	/** The User for this event */
 	User?: IUser | null
+	/** The event payload */
+	payload: Record<string, any>
 }
 
 export interface ISpruceEventError {
