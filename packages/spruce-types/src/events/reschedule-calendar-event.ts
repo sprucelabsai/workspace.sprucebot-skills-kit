@@ -28,11 +28,7 @@ export interface ICoreRescheduleCalendarEventPayload {
 }
 
 /** 🌲🤖 Core event "reschedule-calendar-event" EVENT_VERSION=2 */
-export interface ICoreRescheduleCalendarEventEventV2<
-	IAuthOrganization = ISpruceAuthOrganization,
-	IAuthLocation = ISpruceAuthLocation,
-	IAuthUser = ISpruceAuthUser
-> extends ISpruceEventV2<IAuthOrganization, IAuthLocation, IAuthUser> {
+export interface ICoreRescheduleCalendarEventEventV2 extends ISpruceEventV2 {
 	/** The event payload */
 	payload: ICoreRescheduleCalendarEventPayload
 }
