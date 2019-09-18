@@ -14,17 +14,21 @@ export interface ISpruceEvent<
 }
 
 export interface ISpruceEventError {
-	/** A code that can be used to identify this error. INVALID_PARAMETERS for example */
-	code: string
+	/** An http code */
+	code: number
+	/** A name that can be used to identify this error. INVALID_PARAMETERS for example */
+	name: string
 	/** A description of the error that will be useful to a developer */
 	reason: string
 	/** A description of the error that can be displayed to the user */
 	friendlyReason: string
+	/** The status */
+	status: 'failure'
 }
 
 export interface ISpruceEventWarning {
 	/** A code that can be used to identify this warning. INVALID_PARAMETERS for example */
-	code: string
+	name: string
 	/** A description of the warning that will be useful to a developer */
 	reason: string
 	/** A description of the warning that can be displayed to the user */

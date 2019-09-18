@@ -295,6 +295,32 @@ export enum IHWContextMenuSize {
 
 
 
+/** An event that is rendered on the calendar. */
+export type IHWEventError = {
+  __typename?: 'EventError',
+  /** An http code */
+  code: Scalars['Int'],
+  /** A name that can be used to identify this error. INVALID_PARAMETERS for example */
+  name: Scalars['String'],
+  /** A description of the error that will be useful to a developer */
+  reason: Scalars['String'],
+  /** A description of the error that can be displayed to the user */
+  friendlyReason: Scalars['String'],
+  /** The status */
+  status: Scalars['String'],
+};
+
+/** An event that is rendered on the calendar. */
+export type IHWEventWarning = {
+  __typename?: 'EventWarning',
+  /** A name that can be used to identify this warning. INVALID_PARAMETERS for example */
+  name: Scalars['String'],
+  /** A description of the warning that will be useful to a developer */
+  reason: Scalars['String'],
+  /** A description of the warning that can be displayed to the user */
+  friendlyReason: Scalars['String'],
+};
+
 /** Wraps a standard list or list item and makes it collapsable */
 export type IHWExpandableListItem = {
   __typename?: 'ExpandableListItem',

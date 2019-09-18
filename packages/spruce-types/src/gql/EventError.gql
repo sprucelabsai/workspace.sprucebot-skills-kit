@@ -1,0 +1,17 @@
+"An event that is rendered on the calendar."
+type EventError {
+	"An http code"
+	code: Int!
+
+	"A name that can be used to identify this error. INVALID_PARAMETERS for example"
+	name: String!
+
+	"A description of the error that will be useful to a developer"
+	reason: String!
+
+	"A description of the error that can be displayed to the user"
+	friendlyReason: String!
+
+	"The status"
+	status: String!
+}
