@@ -31,7 +31,7 @@ export interface ICoreRescheduleCalendarEventEvent<
 	payload: ICoreRescheduleCalendarEventPayload
 }
 
-export interface ICoreRescheduleCalendarEventBody {
+export interface ICoreRescheduleCalendarEventEventBody {
 	/** Whether the operation succeeded or failed */
 	status?: 'success' | 'failure'
 	/** The updated calendar event */
