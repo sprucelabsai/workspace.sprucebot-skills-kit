@@ -1,26 +1,4 @@
-import {
-	ISpruceAuthOrganization,
-	ISpruceAuthLocation,
-	ISpruceAuthUser,
-	Location,
-	User
-} from '@sprucelabs/spruce-skill-server'
-
-/** 🌲🤖 Optional auth data for Organization, Location, and User depending on the type of event  */
-export interface ISpruceEventAuth<
-	IAuthOrganization = ISpruceAuthOrganization,
-	IAuthLocation = ISpruceAuthLocation,
-	IAuthUser = ISpruceAuthUser
-> {
-	/** The Organization for this event */
-	Organization?: IAuthOrganization | null
-	/** The Location for this event */
-	Location?: IAuthLocation | null
-	/** The User for this event */
-	User?: IAuthUser | null
-	/** JWT containing the signed data that is parsed into ctx.event.payload */
-	jwt: string
-}
+import { Location, User } from '@sprucelabs/spruce-skill-server'
 
 interface ISpruceEventBase {
 	/** The delivery attempt number. On first attempt this will be 1 */
@@ -36,13 +14,16 @@ interface ISpruceEventBase {
 }
 
 /** 🌲🤖 Defines ctx.event for EVENT_VERSION=2 */
-export interface ISpruceEventV2 extends ISpruceEventBase {
+export interface ISpruceEventV2<IPayload> extends ISpruceEventBase {
 	/** The event payload */
-	payload: Record<string, any>
+	payload: IPayload
 }
 
+type LocationAttributes = typeof Location.attributes
+type UserAttributes = typeof User.attributes
+
 /** 🌲🤖 Defines ctx.event for EVENT_VERSION=1 */
-export interface ISpruceEventV1 extends ISpruceEventBase {
+export interface ISpruceEventV1<IPayload> extends ISpruceEventBase {
 	/** The acls for the user, based on your requestedAcls in config.acls.requests  */
 	acl: {
 		[skillSlug: string]: Record<string, boolean>
@@ -62,13 +43,13 @@ export interface ISpruceEventV1 extends ISpruceEventBase {
 	/** The Location id */
 	LocationId?: string | null
 	/** The Location */
-	Location?: Location | null
+	Location?: LocationAttributes | null
 	/** Whether the user wishes to receive reports about the Location */
 	optOutOfReports?: boolean
 	/** The Organization id */
 	organizationId?: string | null
 	/** The event payload */
-	payload: Record<string, any>
+	payload: IPayload
 	/** The user role at the location: "owner", "teammate", "guest". Note that group manager, organization owners, and location managers all have this set to "owner" */
 	role?: string
 	/** The current status of the user. "online" or "offline" */
@@ -76,7 +57,7 @@ export interface ISpruceEventV1 extends ISpruceEventBase {
 	/** The User id */
 	UserId?: string | null
 	/** The User making the request */
-	User?: User | null
+	User?: UserAttributes | null
 	/** The number of times the user has visited the Location */
 	visits?: number
 }

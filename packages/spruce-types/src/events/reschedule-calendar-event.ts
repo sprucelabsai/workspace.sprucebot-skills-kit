@@ -1,4 +1,4 @@
-import { ISpruceEventV1, ISpruceEventV2, ISpruceEventWarning } from '../events'
+import { ISpruceEventWarning } from '../events'
 import { ICoreGQLCalendarEvent } from '../generated/api-gql'
 
 export interface ICoreRescheduleCalendarEventPayloadBlock {
@@ -20,18 +20,6 @@ export interface ICoreRescheduleCalendarEventPayload {
 	newUserId?: string
 	/** The id of the user who is trying to reschedule the calendar event */
 	loggedInUserId?: string
-}
-
-/** 🌲🤖 Core event "reschedule-calendar-event" EVENT_VERSION=2 */
-export interface ICoreRescheduleCalendarEventEventV2 extends ISpruceEventV2 {
-	/** The event payload */
-	payload: ICoreRescheduleCalendarEventPayload
-}
-
-/** 🌲🤖 Core event "reschedule-calendar-event" EVENT_VERSION=1 */
-export interface ICoreRescheduleCalendarEventEventV1 extends ISpruceEventV1 {
-	/** The event payload */
-	payload: ICoreRescheduleCalendarEventPayload
 }
 
 /** 🌲🤖 Core event "reschedule-calendar-event" expected response on ctx.body */
