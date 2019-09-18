@@ -1,10 +1,5 @@
 import { ISpruceEventV1, ISpruceEventV2, ISpruceEventWarning } from '../events'
 import { ICoreGQLCalendarEvent } from '../generated/api-gql'
-import {
-	ISpruceAuthOrganization,
-	ISpruceAuthLocation,
-	ISpruceAuthUser
-} from '@sprucelabs/spruce-skill-server'
 
 export interface ICoreRescheduleCalendarEventPayloadBlock {
 	/** The block id */
