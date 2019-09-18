@@ -1,6 +1,10 @@
-import { ISpruceEvent, ISpruceEventWarning } from '../events'
+import { ISpruceEventV1, ISpruceEventV2, ISpruceEventWarning } from '../events'
 import { ICoreGQLCalendarEvent } from '../generated/api-gql'
-import { Organization, Location, User } from '@sprucelabs/spruce-skill-server'
+import {
+	ISpruceAuthOrganization,
+	ISpruceAuthLocation,
+	ISpruceAuthUser
+} from '@sprucelabs/spruce-skill-server'
 
 export interface ICoreRescheduleCalendarEventPayloadBlock {
 	/** The block id */
@@ -9,6 +13,7 @@ export interface ICoreRescheduleCalendarEventPayloadBlock {
 	durationSec: number
 }
 
+/** 🌲🤖 Core event "reschedule-calendar-event" payload */
 export interface ICoreRescheduleCalendarEventPayload {
 	/** The event id. This will be in the format <slug>:<eventId> */
 	id: string
@@ -22,15 +27,23 @@ export interface ICoreRescheduleCalendarEventPayload {
 	loggedInUserId?: string
 }
 
-export interface ICoreRescheduleCalendarEventEvent<
-	IOrganization = Organization,
-	ILocation = Location,
-	IUser = User
-> extends ISpruceEvent<IOrganization, ILocation, IUser> {
+/** 🌲🤖 Core event "reschedule-calendar-event" EVENT_VERSION=2 */
+export interface ICoreRescheduleCalendarEventEventV2<
+	IAuthOrganization = ISpruceAuthOrganization,
+	IAuthLocation = ISpruceAuthLocation,
+	IAuthUser = ISpruceAuthUser
+> extends ISpruceEventV2<IAuthOrganization, IAuthLocation, IAuthUser> {
 	/** The event payload */
 	payload: ICoreRescheduleCalendarEventPayload
 }
 
+/** 🌲🤖 Core event "reschedule-calendar-event" EVENT_VERSION=1 */
+export interface ICoreRescheduleCalendarEventEventV1 extends ISpruceEventV1 {
+	/** The event payload */
+	payload: ICoreRescheduleCalendarEventPayload
+}
+
+/** 🌲🤖 Core event "reschedule-calendar-event" expected response on ctx.body */
 export interface ICoreRescheduleCalendarEventEventBody {
 	/** Whether the operation succeeded or failed */
 	status?: 'success' | 'failure'
