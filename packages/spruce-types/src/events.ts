@@ -6,8 +6,8 @@ import {
 	User
 } from '@sprucelabs/spruce-skill-server'
 
-/** 🌲🤖 Defines ctx.event for EVENT_VERSION=2 */
-export interface ISpruceEventV2<
+/** 🌲🤖 Optional auth data for Organization, Location, and User depending on the type of event  */
+export interface ISpruceEventAuth<
 	IAuthOrganization = ISpruceAuthOrganization,
 	IAuthLocation = ISpruceAuthLocation,
 	IAuthUser = ISpruceAuthUser
@@ -18,20 +18,35 @@ export interface ISpruceEventV2<
 	Location?: IAuthLocation | null
 	/** The User for this event */
 	User?: IAuthUser | null
+	/** JWT containing the signed data that is parsed into ctx.event.payload */
+	jwt: string
+}
+
+interface ISpruceEventBase {
+	/** The delivery attempt number. On first attempt this will be 1 */
+	deliveryTry: number
+	/** A UUID that identifies this event. Will be the same for re-tried events */
+	eventId: string
+	/** A UUID that identifies this event retry. Only set for re-tried events */
+	retryId?: string
+	/** The name of the event, "did-enter" for example */
+	name: string
+	/** If there has been more than 1 attempt, this will be set to the first time the event was tried */
+	firstSentAt?: Date
+}
+
+/** 🌲🤖 Defines ctx.event for EVENT_VERSION=2 */
+export interface ISpruceEventV2 extends ISpruceEventBase {
 	/** The event payload */
 	payload: Record<string, any>
 }
 
 /** 🌲🤖 Defines ctx.event for EVENT_VERSION=1 */
-export interface ISpruceEventV1 {
+export interface ISpruceEventV1 extends ISpruceEventBase {
 	/** The acls for the user, based on your requestedAcls in config.acls.requests  */
 	acl: {
 		[skillSlug: string]: Record<string, boolean>
 	}
-	/** The delivery attempt number. On first attempt this will be 1 */
-	deliveryTry: number
-	/** A UUID that identifies this event. Will be the same for re-tried events */
-	eventId: string
 	/** The email address for the UserLocation */
 	email?: string | null
 	/** The UserLocation id */
@@ -48,8 +63,6 @@ export interface ISpruceEventV1 {
 	LocationId?: string | null
 	/** The Location */
 	Location?: Location | null
-	/** The event name */
-	name?: Location | null
 	/** Whether the user wishes to receive reports about the Location */
 	optOutOfReports?: boolean
 	/** The Organization id */
