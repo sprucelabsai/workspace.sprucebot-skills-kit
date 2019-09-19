@@ -1,6 +1,17 @@
-const { extend, pick } = require('lodash')
+import { extend, pick } from 'lodash'
 
-function SpruceWebError(message = '', data) {
+interface ISpruceWebErrorContext {
+	name: string
+	message: string
+	data: any
+	stack?: string
+}
+
+export function SpruceWebError(
+	this: ISpruceWebErrorContext,
+	message = '',
+	data: any
+): void {
 	this.name = 'SpruceWebError'
 	this.message = `${this.name} :: ${message}`
 	this.data = data
@@ -14,7 +25,7 @@ const options = {
 	logStyle: 'string'
 }
 
-function logData(data) {
+function logData(data): void {
 	const result = {
 		buildId: process.env.DEPLOYMENT_TAG,
 		platform: process.env.PLATFORM,
@@ -50,7 +61,9 @@ function logData(data) {
 	}
 }
 
-function serializeError(error) {
+function serializeError(
+	error
+): Pick<any, 'message' | 'arguments' | 'type' | 'name' | 'stack' | 'data'> {
 	const dataForSerialization = pick(error, [
 		'message',
 		'arguments',
@@ -68,17 +81,11 @@ function serializeError(error) {
 	return dataForSerialization
 }
 
-function trackError(errorObject, additionalData = {}) {
+export function trackError(errorObject, additionalData = {}): void {
 	return logData(extend({}, serializeError(errorObject), additionalData))
 }
 
-function configure({ logFunction, logStyle }) {
+export function configure({ logFunction, logStyle }): void {
 	options.logFunction = logFunction
 	options.logStyle = logStyle
-}
-
-module.exports = {
-	SpruceWebError,
-	trackError,
-	configure
 }
