@@ -59,17 +59,14 @@ const List = (props: IListProps): React.ReactElement => {
 				{items &&
 					items.map((item, idx) => {
 						if (item.isExpandable) {
-							const expndableItem = item as IExpandableListItemProps
-							return <ExpandableListItem key={idx} {...expndableItem} />
+							return <ExpandableListItem key={idx} item={item} {...item} />
 						}
-
-						const listItem = item as IListItemProps
 						return (
 							<ListItem
 								key={idx}
 								selectableType={selectableType}
 								isSeparatorVisible={areSeparatorsVisible}
-								{...listItem}
+								{...item}
 							/>
 						)
 					})}

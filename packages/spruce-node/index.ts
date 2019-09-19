@@ -13,6 +13,10 @@ export interface IAbstractSprucebotAdapterOptions {
 	additional?: Record<string, any>
 }
 
+export interface IGQLTag {
+	loc: { source: { body: string } }
+}
+
 export abstract class AbstractSprucebotAdapter {
 	public abstract gql(
 		gql: string,
@@ -205,12 +209,14 @@ export default class Sprucebot {
 		this.validateEventContract(this.eventContract)
 
 		const result = await this.mutation(
-			`mutation($input: syncSkillInput!) {
-            syncSkill(input: $input) {
-                databaseUrl
-                s3Bucket
-            }
-        }`,
+			`
+				mutation($input: syncSkillInput!) {
+					syncSkill(input: $input) {
+						databaseUrl
+						s3Bucket
+					}
+				}
+			`,
 			{
 				input: {
 					name: this.name,
@@ -219,10 +225,10 @@ export default class Sprucebot {
 					webhookUrl: this.webhookUrl,
 					iframeUrl: this.iframeUrl,
 					marketingUrl: this.marketingUrl,
-					eventContract: this.eventContract,
+					eventContract: JSON.stringify(this.eventContract),
 					version: this.version,
 					skillsKitVersion: this.skillsKitVersion,
-					acl: this.acl,
+					acl: JSON.stringify(this.acl),
 					viewVersion: this.viewVersion,
 					useDB: this.dbEnabled
 				}
@@ -247,10 +253,12 @@ export default class Sprucebot {
 	 * @param query The GQL query to send to the API
 	 */
 	public async query(
-		query: string,
+		query: string | IGQLTag,
 		variables?: Record<string, any>
 	): Promise<any> {
-		return this.adapter.gql(query, variables)
+		const queryString =
+			typeof query === 'string' ? query : query.loc.source.body
+		return this.adapter.gql(queryString, variables)
 	}
 
 	/**
@@ -259,15 +267,21 @@ export default class Sprucebot {
 	 * @param query The GQL mutation to send to the API
 	 */
 	public async mutation(
-		query: string,
+		query: string | IGQLTag,
 		variables?: Record<string, any>
 	): Promise<any> {
-		const gql = query.search('mutation') === 0 ? query : `mutation ${query}`
+		const queryString =
+			typeof query === 'string' ? query : query.loc.source.body
+
+		const gql =
+			queryString.search('mutation') === 0
+				? queryString
+				: `mutation ${queryString}`
 		return this.adapter.gql(gql, variables)
 	}
 
 	/**
-	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
+	 * @deprecated since v2 of the Sprucebot API. Use sequelize models to query for users. Check out the docs at https://developer.spruce.ai
 	 *
 	 * Fetch a user based on their id and location
 	 */
@@ -376,17 +390,27 @@ export default class Sprucebot {
 		return this.adapter.get(`/organizations/${organizationId}/users/`, options)
 	}
 
-	/**
-	 * @deprecated since v2 of the Sprucebot API. GQL is the preferred way of interacting with the API. Check out the docs at https://developer.spruce.ai
-	 *
-	 * Update for user who have been to this location
-	 *
-	 */
+	//Update for user who have been to this location
 	public async updateUser(
 		id: string,
 		values: Record<string, any>
 	): Promise<Record<string, any>> {
-		return this.adapter.patch('/users/' + id, values)
+		return this.mutation(
+			`
+				mutation($input: updateUserInput!) {
+					id
+					firstName
+					lastName
+					phoneNumber
+				}
+			`,
+			{
+				input: {
+					id,
+					...values
+				}
+			}
+		)
 	}
 
 	/**

@@ -136,7 +136,7 @@ stories
 			text={text('text', 'Something just happened and it was fine.')}
 			onRemove={() => null}
 			followupAction={() => null}
-			followupText={boolean('followupAction', false) && 'Undo'}
+			followupText={boolean('followupAction', false) ? 'Undo' : undefined}
 		/>
 	))
 	.add('All Kinds', () => (
@@ -150,7 +150,7 @@ stories
 						text={text('text', 'Something just happened and it was fine.')}
 						onRemove={() => null}
 						followupAction={() => null}
-						followupText={boolean('followupAction', false) && 'Undo'}
+						followupText={boolean('followupAction', false) ? 'Undo' : undefined}
 					/>
 				</div>
 			))}

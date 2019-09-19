@@ -6,13 +6,13 @@ const debug = Debug('spruce-skill-server')
 export default (router: any, options: any) => {
 	const listenersByEventName = options.listenersByEventName
 
-	if (!config.get('EVENT_VERSION') || config.get('EVENT_VERSION') === 1) {
+	if (!config.EVENT_VERSION || config.EVENT_VERSION === 1) {
 		router.post('/hook.json', async (ctx: any, next: any) => {
 			// only fire if we are listening to this event
 			if (ctx.event) {
 				const eventName = ctx.event.name
 				// debug('Event listener firing', ctx.event.name)
-				if (config.get('LOG_EVENTS')) {
+				if (config.LOG_EVENTS) {
 					log.info(`(EVENT_VERSION=1) Received event '${eventName}'`, {
 						event: ctx.event
 					})
@@ -24,9 +24,9 @@ export default (router: any, options: any) => {
 					debug(
 						`(EVENT_VERSION=1) No listeners found for eventName: '${eventName}'`
 					)
-					if (config.get('LOG_EVENTS')) {
+					if (config.LOG_EVENTS) {
 						log.debug(
-							`(EVENT_VERSION=1) No listener found for event: '${eventName}'. Check that you have created the corresponding file in server/events/. If you don't need to respond to this event, remove it from your config.get('eventContract')`
+							`(EVENT_VERSION=1) No listener found for event: '${eventName}'. Check that you have created the corresponding file in server/events/. If you don't need to respond to this event, remove it from your config.eventContract`
 						)
 					}
 				}

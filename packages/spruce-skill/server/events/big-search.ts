@@ -3,6 +3,7 @@ import {
 	ISpruceBigSearchCtx,
 	SpruceBigSearchType
 } from '@sprucelabs/spruce-skill-server'
+import get from 'ts-get'
 
 module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
 	try {
@@ -17,7 +18,7 @@ module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
 			}
 		} = ctx
 
-		console.log('****big-search', ctx.auth.Organization.name)
+		console.log('****big-search', get(organization, o => o.name, 'No org set'))
 
 		// each section
 		const sections = []
@@ -52,7 +53,7 @@ module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
 						page: location ? 'profile_user_location' : 'profile_user_org',
 						routeParams: {
 							userId: user.id,
-							organizationId: organization.id,
+							organizationId: organization && organization.id,
 							locationId: location && location.id
 						}
 					}

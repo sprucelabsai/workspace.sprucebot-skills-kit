@@ -31,6 +31,10 @@ module.exports = {
 			rules: {
 				...typescriptEslintRecommended.rules,
 				...typescriptEslintPrettier.rules,
+				'@typescript-eslint/camelcase': [
+					'error',
+					{ allow: ['^(can_|skill_can_)'] }
+				],
 				'@typescript-eslint/no-empty-interface': 0,
 				'@typescript-eslint/interface-name-prefix': [2, 'always'],
 				'@typescript-eslint/no-explicit-any': 0,

@@ -45,6 +45,7 @@
 				"ORM_LOGGING": "true",
 				"API_ONLY": "true",
 				"TESTING": "true",
+				"TESTING_SKILLS_KIT": "true",
 				"DISABLE_MIGRATIONS": "true"
 			}
 		}

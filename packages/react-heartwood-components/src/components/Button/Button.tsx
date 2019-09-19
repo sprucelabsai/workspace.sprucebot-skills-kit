@@ -1,10 +1,13 @@
-import React, { Fragment } from 'react'
 import cx from 'classnames'
+import React, { Fragment } from 'react'
+import CircleLoader from '../CircleLoader/CircleLoader'
 import Icon from '../Icon/Icon'
 import BasicAnchor from '../_utilities/Anchor'
-import CircleLoader from '../CircleLoader/CircleLoader'
 
 export interface IButtonIconProps {
+	/** The name of the icon to render. If not found, this will return null. */
+	icon?: string
+
 	/** Set true to render an icon with a stroke, but no fill */
 	isLineIcon?: boolean
 
@@ -121,7 +124,7 @@ const Button = (props: IButtonProps): React.ReactElement => {
 						<span className="btn__icon-wrapper">
 							<Icon
 								customIcon={icon.customIcon}
-								name={icon.name}
+								icon={icon.name}
 								isLineIcon={icon.isLineIcon}
 								className={cx(
 									{
@@ -171,7 +174,7 @@ const Button = (props: IButtonProps): React.ReactElement => {
 		// console.error(
 		// 	'<Button /> must have text, icon, or both. Please check the props your passing.'
 		// )
-		return null
+		return <Fragment />
 	}
 
 	return href ? anchor : button

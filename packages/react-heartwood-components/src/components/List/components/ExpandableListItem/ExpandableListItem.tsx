@@ -3,7 +3,7 @@ import { IListProps } from '../../List'
 import ListItem, { IListItemProps } from '../ListItem/ListItem'
 import { ButtonKinds } from '../../../Button/Button'
 
-export interface IExpandableListItemProps {
+export interface IExpandableListItemProps extends IListItemProps {
 	/** Base list item props */
 	item: IListItemProps
 
@@ -14,13 +14,10 @@ export interface IExpandableListItemProps {
 	lists?: IListProps[]
 
 	/** Optional icon for collapsed state */
-	collapsedIconName?: string
+	collapsedIcon?: string
 
 	/** Optional icon for expanded state */
-	expandedIconName?: string
-
-	/** defaults to true for this compoment */
-	isExpandable?: boolean
+	expandedIcon?: string
 }
 interface IExpandableListItemState {
 	/** Is the list item expanded */
@@ -42,19 +39,13 @@ export default class ExpandableListItem extends Component<
 	}
 
 	public render(): React.ReactElement {
-		const {
-			item,
-			list,
-			lists,
-			collapsedIconName: collapsedIcon,
-			expandedIconName: expandedIcon
-		} = this.props
+		const { item, list, lists, collapsedIcon, expandedIcon } = this.props
 		const { isExpanded } = this.state
 		return (
 			<ListItem
 				{...item}
-				list={isExpanded && list}
-				lists={isExpanded && lists}
+				list={isExpanded ? list : undefined}
+				lists={isExpanded ? lists : undefined}
 				actions={[
 					{
 						icon: {
@@ -62,7 +53,7 @@ export default class ExpandableListItem extends Component<
 								? expandedIcon || 'keyboard_arrow_down'
 								: collapsedIcon || 'keyboard_arrow_right'
 						},
-						kind: isExpanded ? null : ButtonKinds.Simple,
+						kind: isExpanded ? undefined : ButtonKinds.Simple,
 						onClick: this.toggleExpanded
 					}
 				]}

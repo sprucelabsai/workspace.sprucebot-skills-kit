@@ -9,6 +9,16 @@
 			"request": "attach",
 			"name": "Attach",
 			"port": 4080
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Test (Server)",
+			"protocol": "inspector",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "test"],
+			"console": "integratedTerminal",
+			"port": 4080
 		}
 	]
 }

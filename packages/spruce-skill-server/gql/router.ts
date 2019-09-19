@@ -15,16 +15,18 @@ import { ISpruceContext } from '../interfaces/ctx'
 
 import config from 'config'
 import GraphQLSubscriptionServer from '../lib/GraphQLSubscriptionServer'
-import { ISpruceErrorDefinitions } from '../support/errors'
 import { Server } from 'https'
-
-const errors = config.get<ISpruceErrorDefinitions>('errors')
 
 const auth = async (
 	ctx: ISpruceContext,
 	next: () => Promise<any>
 ): Promise<void> => {
 	try {
+		if (!config.API_KEY) {
+			throw new Error(
+				'"API_KEY" is not defined. Check your .env and/or environment variables.'
+			)
+		}
 		let token =
 			ctx.cookies.get('jwt') ||
 			ctx.request.headers['x-skill-jwt'] ||
@@ -41,7 +43,7 @@ const auth = async (
 		}
 		const decoded: Record<string, any> = jwt.verify(
 			token,
-			config.get<string>('API_KEY').toLowerCase()
+			config.API_KEY.toLowerCase()
 		) as Record<string, any>
 		const userId = decoded.userId
 		const locationId = decoded.locationId || null
@@ -62,7 +64,7 @@ export default (
 	gqlOptions: Record<string, any>,
 	server: Server
 ) => {
-	if (!config.get<boolean>('GRAPHQL_ENABLED')) {
+	if (!config.GRAPHQL_ENABLED) {
 		log.info('GraphQL disabled because GRAPHQL_ENABLED=false')
 		return
 	}
@@ -73,7 +75,7 @@ export default (
 	// Create the subscription server
 	koa.context.gqlServer = new GraphQLSubscriptionServer({
 		server,
-		schema,
+		schema: schema.gqlSchema,
 		enabled: true,
 		ctx: koa.context
 	})
@@ -86,6 +88,20 @@ export default (
 		'/graphql',
 		async (context, next) => {
 			context.startTime = log.timerStart()
+			// copy all tools from the koa context to the request context so it is a valid ISpruceContext
+			// TODO do this in middleware heigher up in the stack Taylor/Ken
+			const tools = ['db', 'services', 'utilities', 'gql']
+			tools.forEach(name => {
+				context[name] = koa.context[name]
+			})
+
+			// these are need for gql helpers to function
+			context.warnings = []
+			context.scopeInfo = []
+			context.attributeWarnings = []
+			context.scopes = {}
+			context.findOptions = {}
+
 			await next()
 		},
 		// @ts-ignore
@@ -95,17 +111,22 @@ export default (
 			request[EXPECTED_OPTIONS_KEY] = dataloaderContext
 
 			return {
-				schema,
-				graphiql: config.get('GRAPHIQL_ENABLED'),
+				schema: schema.gqlSchema,
+				context: ctx,
+				graphiql: config.GRAPHIQL_ENABLED,
 				formatError: (e: Error) => {
 					const code = e.message
 					let formattedError: Record<string, any> = {}
-
+					const errors = config.errors
+					// @ts-ignore
 					if (errors[code]) {
 						formattedError = {
 							name: code,
+							// @ts-ignore
 							code: errors[code].code,
+							// @ts-ignore
 							reason: errors[code].reason,
+							// @ts-ignore
 							friendlyReason: errors[code].friendlyReason
 						}
 					} else {
@@ -118,7 +139,7 @@ export default (
 						}
 					}
 
-					if (config.get('ENABLE_DEBUG_ROUTES')) {
+					if (config.ENABLE_DEBUG_ROUTES) {
 						formattedError.stack = e.stack && e.stack.split('\n')
 					}
 
@@ -126,16 +147,14 @@ export default (
 				},
 				validationRules: [
 					// Limits the depth of queries
-					depthLimit(config.get('GRAPHQL_MAX_DEPTH')),
+					depthLimit(config.GRAPHQL_MAX_DEPTH),
 					// Can limit based on query cost analysis
 					queryComplexity({
 						estimators: [
-							// @ts-ignore
 							fieldConfigEstimator(),
-							// @ts-ignore
 							simpleEstimator({ defaultComplexity: 1 })
 						],
-						maximumComplexity: config.get('GRAPHQL_MAX_COMPLEXITY'),
+						maximumComplexity: config.GRAPHQL_MAX_COMPLEXITY,
 						variables:
 							request.body && request.body.variables
 								? request.body.variables

@@ -19,18 +19,19 @@ import {
 	IMockOrganization
 } from '../mocks/SandboxMock'
 import { Server } from 'http'
+import { IGQLTag } from '@sprucelabs/spruce-node'
 
 // The base test model that all others will extend
 export default class Base<Context> {
-	protected koa!: Koa<Context>
+	protected koa!: Koa<{}, Context>
 	protected ctx!: Context
 	protected mocks: Record<string, any>
 	protected request!: supertest.SuperTest<supertest.Test>
 	protected organization!: IMockOrganization
 	protected location!: IMockLocation
 	protected skill!: Skill
-	protected otherOrganization!: Organization
-	protected otherLocation!: Location
+	protected otherOrganization!: IMockOrganization
+	protected otherLocation!: IMockLocation
 	protected otherSkill!: Skill
 
 	private basePath!: string
@@ -158,6 +159,24 @@ export default class Base<Context> {
 		} catch (e) {
 			throw e
 		}
+	}
+
+	protected async gql(
+		query: string | IGQLTag,
+		variables?: Record<string, any>,
+		jwt?: string
+	): Promise<any> {
+		let request = this.request.post('/graphql')
+
+		if (jwt) {
+			request = request.set('Authorization', `JWT ${jwt}`)
+		}
+		const response = await request.send({
+			query: typeof query === 'string' ? query : query.loc.source.body,
+			variables
+		})
+
+		return response && response.body
 	}
 
 	protected async triggerEvent(options: {

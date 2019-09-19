@@ -11,13 +11,13 @@ export default (
 	gqlOptions: Record<string, any>
 ) => {
 	// TODO move to an option or check higher level
-	if (!config.get('GRAPHQL_LISTENERS_ENABLED')) {
+	if (!config.GRAPHQL_LISTENERS_ENABLED) {
 		log.debug('GraphQL listeners disabled')
 		return
 	}
 
 	const gqlDir = gqlOptions.gqlDir
-	const allowSelfSigned = config.get('API_SSL_ALLOW_SELF_SIGNED')
+	const allowSelfSigned = config.API_SSL_ALLOW_SELF_SIGNED
 
 	// For wss:// self signed
 	if (allowSelfSigned) {

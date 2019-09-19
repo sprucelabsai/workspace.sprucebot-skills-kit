@@ -1,0 +1,5 @@
+"Render markdown beautifully"
+type Markdown {
+    "Markdown text to be rendered"
+    source: String!
+}

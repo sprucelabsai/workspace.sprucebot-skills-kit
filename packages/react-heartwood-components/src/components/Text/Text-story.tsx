@@ -6,32 +6,33 @@ const stories = storiesOf('Text', module)
 
 stories.addDecorator(withKnobs)
 
-const options: ITextProps['element'][] = [
-	'a',
-	'abbr',
-	'blockquote',
-	'br',
-	'cite',
-	'code',
-	'data',
-	'dd',
-	'dl',
-	'dt',
-	'figcaption',
-	'figure',
-	'li',
-	'mark',
-	'ol',
-	'p',
-	'pre',
-	'q',
-	's',
-	'span',
-	'sub',
-	'sup',
-	'time',
-	'ul'
-]
+const options: Record<string, ITextProps['element']> = {
+	a: 'a',
+	abbr: 'abbr',
+	blockquote: 'blockquote',
+	br: 'br',
+	cite: 'cite',
+	code: 'code',
+	data: 'data',
+	dd: 'dd',
+	dl: 'dl',
+	dt: 'dt',
+	figcaption: 'figcaption',
+	figure: 'figure',
+	kbd: 'kbd',
+	li: 'li',
+	mark: 'mark',
+	ol: 'ol',
+	p: 'p',
+	pre: 'pre',
+	q: 'q',
+	s: 's',
+	span: 'span',
+	sub: 'sub',
+	sup: 'sup',
+	time: 'time',
+	ul: 'ul'
+}
 
 stories
 	.add('Text', () => (

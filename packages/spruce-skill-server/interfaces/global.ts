@@ -14,7 +14,7 @@ export interface IEmitResponseCallback {
 
 export interface IEmitResponse {
 	skill: { name: string; slug: string }
-	error: any
+	error?: any
 	payload: Record<string, any>
 }
 

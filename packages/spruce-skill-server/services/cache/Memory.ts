@@ -20,7 +20,7 @@ export default class Memory implements AbstractSpruceSkillCacheAdapter {
 		keyPrefix?: string
 	}): void {
 		log.debug('Memory cache init', { options })
-		if (!config.get<boolean>('TESTING')) {
+		if (!config.TESTING) {
 			throw new Error('Memory cache should only be used for testing')
 		}
 	}

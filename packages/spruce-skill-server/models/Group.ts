@@ -1,7 +1,7 @@
 // 🌲🤖 This is a core model, available if DB_ENABLED=true
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
-import { Sequelize, DataTypes, ModelAttributes } from 'sequelize'
+import { Sequelize, DataTypes } from 'sequelize'
 import { ISpruceModels } from '../interfaces/models'
 import { Organization } from './Organization'
 import { LocationGroup } from './LocationGroup'
@@ -20,6 +20,26 @@ export class Group extends SpruceCoreModel<Group> {
 		},
 		team: {
 			attributes: []
+		}
+	}
+
+	public static readonly attributes = {
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true
+		},
+		name: {
+			type: DataTypes.STRING,
+			comment: 'The group name',
+			allowNull: false
+		},
+		isDefault: {
+			type: DataTypes.BOOLEAN,
+			comment:
+				'Whether this is a default group. Default groups may not be deleted',
+			allowNull: false,
+			defaultValue: false
 		}
 	}
 
@@ -56,30 +76,8 @@ export class Group extends SpruceCoreModel<Group> {
 	}
 }
 
-const attributes: ModelAttributes = {
-	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
-		primaryKey: true
-	},
-	name: {
-		type: DataTypes.STRING,
-		comment: 'The group name',
-		allowNull: false
-	},
-	isDefault: {
-		type: DataTypes.BOOLEAN,
-		comment:
-			'Whether this is a default group. Default groups may not be deleted',
-		allowNull: false,
-		defaultValue: false
-	}
-}
-
 export default (sequelize: Sequelize) => {
-	const model = Group.init(attributes, {
-		sequelize
-	})
+	const model = Group.initialize(sequelize)
 
 	return model
 }

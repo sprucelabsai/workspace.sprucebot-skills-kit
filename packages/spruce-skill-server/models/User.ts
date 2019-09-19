@@ -15,6 +15,7 @@ import SpruceCoreModel from '../lib/SpruceModel'
 export class User extends SpruceCoreModel<User> {
 	// Prevents sequelize from trying to run sync against this model
 	public static readonly doNotSync = true
+	public static readonly paranoid = false
 	// Scopes
 	public static readonly scopes = {
 		public: {
@@ -45,6 +46,103 @@ export class User extends SpruceCoreModel<User> {
 				'UserGroups',
 				'UserOrganizations'
 			]
+		}
+	}
+
+	public static readonly attributes = {
+		id: {
+			type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true
+		},
+		firstName: {
+			type: DataTypes.STRING
+		},
+		// lastName May not be available depending on skill permissions
+		lastName: {
+			type: DataTypes.STRING
+		},
+		// phoneNumber May not be available depending on skill permissions
+		// phoneNumber: {
+		// 	type: DataTypes.STRING
+		// },
+		profileImageUUID: {
+			type: DataTypes.STRING
+		},
+		name: {
+			type: DataTypes.VIRTUAL,
+			get(this: User) {
+				let name = 'Friend'
+				if (this.firstName) {
+					name = this.firstName
+
+					if (this.lastName && this.lastName.length > 0) {
+						name += ` ${this.lastName}`
+					}
+				}
+				return name
+			}
+		},
+		nameWithLastInitial: {
+			type: DataTypes.VIRTUAL,
+			get(this: User) {
+				let name = 'Friend'
+				if (this.firstName) {
+					name = this.firstName
+
+					if (this.lastName && this.lastName.length > 0) {
+						name += ` ${this.lastName.charAt(0)}.`
+					}
+				}
+				return name
+			}
+		},
+		casualName: {
+			type: DataTypes.VIRTUAL,
+			get(this: User) {
+				let name = 'Friend'
+				if (this.firstName) {
+					name = this.firstName
+				}
+				return name
+			}
+		},
+		profileImages: {
+			type: DataTypes.VIRTUAL(DataTypes.JSON),
+			get(this: User) {
+				if (this.profileImageUUID) {
+					const profileImages: Record<string, any> = {}
+					const sizes = ['60', '60@2x', '150', '150@2x']
+					sizes.forEach(size => {
+						profileImages['profile' + size] =
+							'https://s3.amazonaws.com/' +
+							config.S3_BUCKET +
+							'/userProfileImages/' +
+							this.profileImageUUID +
+							'--X' +
+							size +
+							'.png'
+					})
+					return profileImages
+				}
+				return null
+			}
+		},
+		defaultProfileImages: {
+			type: DataTypes.VIRTUAL(DataTypes.JSON),
+			get(this: User) {
+				const profileImages: Record<string, any> = {}
+				const sizes = ['60', '60@2x', '150', '150@2x']
+				sizes.forEach(size => {
+					profileImages['profile' + size] =
+						'https://s3.amazonaws.com/' +
+						config.S3_BUCKET +
+						'/default-profile--X' +
+						size +
+						'.jpg'
+				})
+				return profileImages
+			}
 		}
 	}
 
@@ -96,108 +194,8 @@ export class User extends SpruceCoreModel<User> {
 	}
 }
 
-// Attribute definitions
-const attributes = {
-	id: {
-		type: DataTypes.UUID,
-		defaultValue: DataTypes.UUIDV4,
-		primaryKey: true
-	},
-	firstName: {
-		type: DataTypes.STRING
-	},
-	// lastName May not be available depending on skill permissions
-	lastName: {
-		type: DataTypes.STRING
-	},
-	// phoneNumber May not be available depending on skill permissions
-	// phoneNumber: {
-	// 	type: DataTypes.STRING
-	// },
-	profileImageUUID: {
-		type: DataTypes.STRING
-	},
-	name: {
-		type: DataTypes.VIRTUAL,
-		get(this: User) {
-			let name = 'Friend'
-			if (this.firstName) {
-				name = this.firstName
-
-				if (this.lastName && this.lastName.length > 0) {
-					name += ` ${this.lastName}`
-				}
-			}
-			return name
-		}
-	},
-	nameWithLastInitial: {
-		type: DataTypes.VIRTUAL,
-		get(this: User) {
-			let name = 'Friend'
-			if (this.firstName) {
-				name = this.firstName
-
-				if (this.lastName && this.lastName.length > 0) {
-					name += ` ${this.lastName.charAt(0)}.`
-				}
-			}
-			return name
-		}
-	},
-	casualName: {
-		type: DataTypes.VIRTUAL,
-		get(this: User) {
-			let name = 'Friend'
-			if (this.firstName) {
-				name = this.firstName
-			}
-			return name
-		}
-	},
-	profileImages: {
-		type: DataTypes.VIRTUAL(DataTypes.JSON),
-		get(this: User) {
-			if (this.profileImageUUID) {
-				const profileImages: Record<string, any> = {}
-				const sizes = ['60', '60@2x', '150', '150@2x']
-				sizes.forEach(size => {
-					profileImages['profile' + size] =
-						'https://s3.amazonaws.com/' +
-						config.get<string>('S3_BUCKET') +
-						'/userProfileImages/' +
-						this.profileImageUUID +
-						'--X' +
-						size +
-						'.png'
-				})
-				return profileImages
-			}
-			return null
-		}
-	},
-	defaultProfileImages: {
-		type: DataTypes.VIRTUAL(DataTypes.JSON),
-		get(this: User) {
-			const profileImages: Record<string, any> = {}
-			const sizes = ['60', '60@2x', '150', '150@2x']
-			sizes.forEach(size => {
-				profileImages['profile' + size] =
-					'https://s3.amazonaws.com/' +
-					config.get('S3_BUCKET') +
-					'/default-profile--X' +
-					size +
-					'.jpg'
-			})
-			return profileImages
-		}
-	}
-}
-
 export default (sequelize: Sequelize) => {
-	const model = User.init(attributes, {
-		sequelize
-	})
+	const model = User.initialize(sequelize)
 
 	return model
 }

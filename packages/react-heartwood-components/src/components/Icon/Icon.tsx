@@ -3,14 +3,14 @@
 
 // NOTE: This component should only include a few of the most commonly
 // used icons for developer convenience
-import React from 'react'
+import React, { Fragment } from 'react'
 import cx from 'classnames'
 
 import * as icons from '../../icons.js'
 
 export interface IIconProps {
 	/** The name of the icon to render. If not found, this will return null. */
-	name?: string
+	icon?: string
 
 	/** Set true to render an icon with a stroke, but no fill */
 	isLineIcon?: boolean
@@ -23,13 +23,13 @@ export interface IIconProps {
 }
 
 const Icon = (props: IIconProps): React.ReactElement => {
-	const { name, customIcon, isLineIcon, className, ...rest } = props
+	const { icon, customIcon, isLineIcon, className, ...rest } = props
 
-	const iconKey = name && name.toLowerCase()
+	const iconKey = icon && icon.toLowerCase()
 
-	if (!customIcon && (!name || !icons[iconKey])) {
-		console.warn(`<Icon /> could not find an icon with key `, name)
-		return null
+	if (!customIcon && (!icon || !icons[iconKey])) {
+		console.warn(`<Icon /> could not find an icon with key `, icon)
+		return <Fragment />
 	}
 
 	let isFillIcon = !customIcon && icons[iconKey] && !icons[iconKey].isLineIcon

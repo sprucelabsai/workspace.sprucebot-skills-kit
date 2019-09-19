@@ -27,7 +27,7 @@ const renderText = (child): ReactNode => {
 
 const TemplateEngine = (text = '', context = {}): ReactNode[] => {
 	let re = /{{([^}}]+)?}}/g,
-		children = [],
+		children: Record<string, any>[] = [],
 		cursor = 0
 
 	let add = function(line: string, templateVar?: string): void {
@@ -46,8 +46,11 @@ const TemplateEngine = (text = '', context = {}): ReactNode[] => {
 	if (matches) {
 		matches.forEach(() => {
 			const matched = re.exec(text)
-			add(text.slice(cursor, matched.index), matched[1])
-			cursor = matched.index + matched[0].length
+
+			if (matched) {
+				add(text.slice(cursor, matched.index), matched[1])
+				cursor = matched.index + matched[0].length
+			}
 		})
 	}
 

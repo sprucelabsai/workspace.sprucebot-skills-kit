@@ -66,7 +66,7 @@ export interface IAutosuggestInterfaceProps {
 
 interface IAutosuggestInterfaceState {
 	value: string
-	suggestions: any[]
+	suggestions?: any[]
 	showClearButton: boolean
 	containerPlacement: {
 		top: number

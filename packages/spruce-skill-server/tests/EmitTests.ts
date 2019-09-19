@@ -15,7 +15,7 @@ class EmitTests extends SpruceTest<ISpruceContext> {
 
 	public async locationEmitWithEventId(): Promise<void> {
 		const eventId = uuid.v4()
-		const eventName = `${config.get('SLUG')}:test-event`
+		const eventName = `${config.SLUG}:test-event`
 
 		global.testEmitResponse[eventName] = {
 			callback: ({ data, method, path }) => {
@@ -37,7 +37,7 @@ class EmitTests extends SpruceTest<ISpruceContext> {
 
 	public async organizationEmitWithEventId(): Promise<void> {
 		const eventId = uuid.v4()
-		const eventName = `${config.get('SLUG')}:test-event`
+		const eventName = `${config.SLUG}:test-event`
 
 		global.testEmitResponse[eventName] = {
 			callback: ({ data, method, path }) => {
