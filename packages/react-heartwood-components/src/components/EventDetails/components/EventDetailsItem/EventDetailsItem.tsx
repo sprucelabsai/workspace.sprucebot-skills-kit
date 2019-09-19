@@ -1,13 +1,12 @@
 import React, { Fragment } from 'react'
-import Button, { IButtonProps } from '../../../Button/Button'
-import { CardBuilder, ICardBuilderProps } from '../../../Card'
-import List, { IListProps } from '../../../List/List'
-import MarkdownText, { IMarkdownText } from '../../../MarkdownText/MarkdownText'
-import SplitButton, {
-	ISplitButtonProps
-} from '../../../SplitButton/SplitButton'
+import Button from '../../../Button/Button'
+import { CardBuilder } from '../../../Card'
+import List from '../../../List/List'
+import MarkdownText from '../../../MarkdownText/MarkdownText'
+import SplitButton from '../../../SplitButton/SplitButton'
 import Text from '../../../Text/Text'
-import Toast, { IToastProps } from '../../../Toast/Toast'
+import Toast from '../../../Toast/Toast'
+import { IHWCalendarEventDetailsItem } from '@sprucelabs/spruce-types'
 
 const MDTextContainer = (props: { source: string }): React.ReactElement => (
 	<div className="event-details__markdown">
@@ -25,23 +24,7 @@ const components = {
 	markdown: MDTextContainer
 }
 
-interface IGenerateEventDetailsItemConfiguration<type, props> {
-	/** Unique identifier for the item */
-	id: string
-	/** Component key to decide what to render */
-	type: type
-	/** Props to pass into the rendered component */
-	viewModel: props
-}
-
-export type IEventDetailsItemProps =
-	| IGenerateEventDetailsItemConfiguration<'list', IListProps>
-	| IGenerateEventDetailsItemConfiguration<'button', IButtonProps>
-	| IGenerateEventDetailsItemConfiguration<'splitButton', ISplitButtonProps>
-	| IGenerateEventDetailsItemConfiguration<'card', ICardBuilderProps>
-	| IGenerateEventDetailsItemConfiguration<'toast', IToastProps>
-	| IGenerateEventDetailsItemConfiguration<'text', any>
-	| IGenerateEventDetailsItemConfiguration<'markdown', IMarkdownText>
+export interface IEventDetailsItemProps extends IHWCalendarEventDetailsItem {}
 
 const EventDetailsItem = (
 	props: IEventDetailsItemProps

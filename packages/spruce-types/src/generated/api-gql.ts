@@ -16,12 +16,6 @@ export type Scalars = {
 	/** A special custom Scalar type for Dates that converts to a ISO formatted string  */
 	Date: any
 	/**
-	 * A date string, such as 2007-12-03, compliant with the `full-date` format
-	 * outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for
-	 * representation of dates and times using the Gregorian calendar.
-	 **/
-	GraphQLDate: any
-	/**
 	 * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
 	 * `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
 	 * 8601 standard for representation of dates and times using the Gregorian calendar.
@@ -1070,6 +1064,32 @@ export type ICoreGQLEnableSkillsResponse = {
 	__typename?: 'enableSkillsResponse'
 	/** Will be "success" */
 	status?: Maybe<Scalars['String']>
+}
+
+/** An event error. */
+export type ICoreGQLEventError = {
+	__typename?: 'EventError'
+	/** An http code */
+	code: Scalars['Int']
+	/** A name that can be used to identify this error. INVALID_PARAMETERS for example */
+	name: Scalars['String']
+	/** A description of the error that will be useful to a developer */
+	reason: Scalars['String']
+	/** A description of the error that can be displayed to the user */
+	friendlyReason: Scalars['String']
+	/** The status */
+	status: Scalars['String']
+}
+
+/** An event warning. */
+export type ICoreGQLEventWarning = {
+	__typename?: 'EventWarning'
+	/** A name that can be used to identify this warning. INVALID_PARAMETERS for example */
+	name: Scalars['String']
+	/** A description of the warning that will be useful to a developer */
+	reason: Scalars['String']
+	/** A description of the warning that can be displayed to the user */
+	friendlyReason: Scalars['String']
 }
 
 /** An example item with randomly generated data */
@@ -2575,8 +2595,6 @@ export type ICoreGQLMutation = {
 	__typename?: 'Mutation'
 	/** Import a Big Search result from a skill or another location */
 	importBigSearchResult?: Maybe<ICoreGQLImportBigSearchResult>
-	/** Reschedules an event. */
-	rescheduleCalendarEvent?: Maybe<ICoreGQLRescheduleCalendarEventResponse>
 	/** Adds a dashboard card to a dashboard page */
 	addDashboardCard?: Maybe<ICoreGQLAddDashboardCardResponse>
 	/** Removes a dashboard card */
@@ -2661,14 +2679,12 @@ export type ICoreGQLMutation = {
 	registerDevice?: Maybe<ICoreGQLRegisterDeviceResponse>
 	/** Testing a user update */
 	updateUserTest?: Maybe<ICoreGQLUser>
+	/** Reschedule calendar event */
+	rescheduleCalendarEvent?: Maybe<ICoreGQLRescheduleCalendarEventResponse>
 }
 
 export type ICoreGQLMutationImportBigSearchResultArgs = {
 	input: ICoreGQLImportBigSearchResultInput
-}
-
-export type ICoreGQLMutationRescheduleCalendarEventArgs = {
-	input: ICoreGQLRescheduleCalendarEventInput
 }
 
 export type ICoreGQLMutationAddDashboardCardArgs = {
@@ -2837,6 +2853,10 @@ export type ICoreGQLMutationRegisterDeviceArgs = {
 
 export type ICoreGQLMutationUpdateUserTestArgs = {
 	input: ICoreGQLUpdateUserInput
+}
+
+export type ICoreGQLMutationRescheduleCalendarEventArgs = {
+	input: ICoreGQLRescheduleCalendarEventInput
 }
 
 /** An awesome card for onboarding people! */
@@ -3606,7 +3626,6 @@ export type ICoreGQLQueryBigSearchArgs = {
 
 export type ICoreGQLQueryCalendarArgs = {
 	id: Scalars['ID']
-	skillId: Scalars['ID']
 	organizationId: Scalars['ID']
 	locationId?: Maybe<Scalars['ID']>
 }
@@ -3885,7 +3904,7 @@ export type ICoreGQLQueryCalendarEventsArgs = {
 	calendarId: Scalars['ID']
 	organizationId: Scalars['ID']
 	locationId?: Maybe<Scalars['ID']>
-	userIds: Array<Scalars['ID']>
+	userIds?: Maybe<Array<Scalars['ID']>>
 	startAt: Scalars['DateTime']
 	endAt: Scalars['DateTime']
 	useMockData?: Maybe<Scalars['Boolean']>
@@ -4036,7 +4055,6 @@ export type ICoreGQLRequestLoginResponse = {
 	phoneNumber: Scalars['String']
 }
 
-/** A block within an event */
 export type ICoreGQLRescheduleCalendarEventEventBlockTypeInput = {
 	/** The event block id */
 	id: Scalars['String']
@@ -4044,9 +4062,8 @@ export type ICoreGQLRescheduleCalendarEventEventBlockTypeInput = {
 	durationSec: Scalars['Int']
 }
 
-/** Update a calendar event. Requires the "can_reschedule_calendar_event" permission */
 export type ICoreGQLRescheduleCalendarEventInput = {
-	/** The id of the event to reschedule. This will be in the form of "<skill_slug_v2>:1234" */
+	/** The id of the event to reschedule. This will be in the form of '<skill_slug_v2>:1234' */
 	id: Scalars['String']
 	/** The id of the organization where the event occurs */
 	organizationId: Scalars['ID']
@@ -4056,7 +4073,7 @@ export type ICoreGQLRescheduleCalendarEventInput = {
 	collection?: Maybe<Scalars['String']>
 	/** The new start for the event. This should be adjusted for timezone before it is sent to the API. */
 	newStartAt?: Maybe<Scalars['String']>
-	/** The user who "owns" the event. */
+	/** The user who 'owns' the event. */
 	newUserId?: Maybe<Scalars['String']>
 	/** Set new block durations for the event. */
 	blockUpdates?: Maybe<
@@ -4064,15 +4081,16 @@ export type ICoreGQLRescheduleCalendarEventInput = {
 	>
 }
 
-/** The reschedule event response */
 export type ICoreGQLRescheduleCalendarEventResponse = {
-	__typename?: 'rescheduleCalendarEventResponse'
-	/** Will be "success" or "failure" */
+	__typename?: 'RescheduleCalendarEventResponse'
+	/** Will be 'success' or 'failure' */
 	status: Scalars['String']
+	/** The updated calendar event */
+	calendarEvent?: Maybe<ICoreGQLCalendarEvent>
 	/** Details if an error occurs */
-	error?: Maybe<Scalars['JSON']>
+	error?: Maybe<ICoreGQLEventError>
 	/** Assuming the reschedule was successful but with warnings, this array will be populated with those warnings. */
-	warnings?: Maybe<Array<Maybe<Scalars['JSON']>>>
+	warnings?: Maybe<Array<Maybe<ICoreGQLEventWarning>>>
 }
 
 /** Inputs for resending an invite */
@@ -4824,123 +4842,26 @@ export type ICoreGQLTeammateSchedule = {
 	User: ICoreGQLUser
 }
 
-/** An availability segment */
-export type ICoreGQLTeammateScheduleAvailabilityType = {
-	__typename?: 'TeammateScheduleAvailabilityType'
-	/** The id for this availability entry */
-	id: Scalars['ID']
-	/** The id for the availability this segment is associated with */
-	AvailabilityId: Scalars['ID']
-	/** The start time of the shift segment. Local to the location timezone. */
-	startTime: Scalars['String']
-	/** The end time of the shift segment. Local to the location timezone. */
-	endTime: Scalars['String']
-	/** The day of the week this segment applies to */
-	day: Scalars['String']
-}
-
 /** A schedule for a single date */
 export type ICoreGQLTeammateScheduleScheduleType = {
 	__typename?: 'TeammateScheduleScheduleType'
-	/** The date */
-	day: Scalars['String']
-	/** Human readable version of the date */
-	friendlyDay: Scalars['String']
-	/** User availability */
-	availability?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleAvailabilityType>>>
-	/** The shifts for the user, taking into account time off and shift overrides. */
-	shifts?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleShiftType>>>
-	/** The original shift overrides for the day */
-	shiftOverride?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleShiftOverrideType>>>
-	/** The original shifts for the user as scheduled without any adjustments */
-	originalShifts?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleShiftType>>>
-	/** Blocked time for the user */
-	timeblocks?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleTimeblockType>>>
-	/** Time off blocks for the user */
-	timeoffs?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleTimeoffType>>>
+	/** The date YYYY-MM-DD */
+	scheduleDate: Scalars['String']
+	/** Combined shifts, breaks, and blocks */
+	segments?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleSegmentType>>>
 }
 
-/** A single shift override time segment */
-export type ICoreGQLTeammateScheduleShiftOverrideTimeType = {
-	__typename?: 'TeammateScheduleShiftOverrideTimeType'
-	/** The id for this shift override segment */
-	id: Scalars['ID']
-	/** The id for the shift override this segment is part of */
-	ShiftOverrideId: Scalars['ID']
+/** A single segment */
+export type ICoreGQLTeammateScheduleSegmentType = {
+	__typename?: 'TeammateScheduleSegmentType'
 	/** The start time of the shift segment. Local to the location timezone. */
 	startTime: Scalars['String']
 	/** The end time of the shift segment. Local to the location timezone. */
 	endTime: Scalars['String']
-	/** The type of shift segment. "shift", "break" */
+	/** The type of segment. "shift", "break", or "block" */
 	type: Scalars['String']
-}
-
-/** A shift override */
-export type ICoreGQLTeammateScheduleShiftOverrideType = {
-	__typename?: 'TeammateScheduleShiftOverrideType'
-	/** The id for this override */
-	id: Scalars['ID']
-	/** The date for the override. Format is YYYY-MM-DD */
-	date: Scalars['GraphQLDate']
-	OverrideTimes?: Maybe<
-		Array<Maybe<ICoreGQLTeammateScheduleShiftOverrideTimeType>>
-	>
-}
-
-/** A single shift */
-export type ICoreGQLTeammateScheduleShiftType = {
-	__typename?: 'TeammateScheduleShiftType'
-	/** The id for this shift segment */
-	id: Scalars['ID']
-	/** The id for the shift this segment is part of */
-	ShiftId: Scalars['ID']
-	/** The name of the day of the week. i.e. "thursday" */
-	day: Scalars['String']
-	/** The start time of the shift segment. Local to the location timezone. */
-	startTime: Scalars['String']
-	/** The end time of the shift segment. Local to the location timezone. */
-	endTime: Scalars['String']
-	/** The type of shift segment. "shift", "break" */
-	type: Scalars['String']
-}
-
-/** A timeblock */
-export type ICoreGQLTeammateScheduleTimeblockType = {
-	__typename?: 'TeammateScheduleTimeblockType'
-	/** The id for this timeblock */
-	id: Scalars['ID']
-	/** A description of why the time is blocked off */
-	description: Scalars['String']
-	/** Whether the user is busy during the timeblock */
-	isBusy: Scalars['Boolean']
-	/** The type of block. Currently will always be "default" */
-	type: Scalars['String']
-	/** The start datetime of the block. In UTC. */
-	startAt: Scalars['DateTime']
-	/** The end datetime of the block. In UTC. */
-	endAt: Scalars['DateTime']
-}
-
-/** A single time off request */
-export type ICoreGQLTeammateScheduleTimeoffType = {
-	__typename?: 'TeammateScheduleTimeoffType'
-	/** The id for the timeoff request */
-	id: Scalars['ID']
-	/** The id for the user who approved the timeoff request */
-	ApproverId: Scalars['ID']
-	/** A "plea to the boss" describing why the timeoff request was asked for */
-	plea: Scalars['String']
-	/** Whether the timeoff request is paid or unpaid time off.  */
-	reason: Scalars['String']
-	/**
-	 * The start datetime of the timeoff request. This could span multiple days and
-	 * could start before the date requested. In UTC.
-	 **/
-	startAt: Scalars['DateTime']
-	/** The end datetime of the timeoff request. This could span multiple days and could start before the date requested. In UTC. */
-	endAt: Scalars['DateTime']
-	/** The current status of the request. Could be "pending", "approved" or "rejected" */
-	status: Scalars['String']
+	/** The subtype of the segment */
+	subtype?: Maybe<Scalars['String']>
 }
 
 /** Used for testing only */

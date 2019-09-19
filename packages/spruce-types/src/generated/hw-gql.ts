@@ -128,9 +128,9 @@ export type IHWCalendarEventDetails = {
 export type IHWCalendarEventDetailsItem = {
   __typename?: 'CalendarEventDetailsItem',
   /** How the view should be rendered */
-  type?: Maybe<IHWCalendarEventDetailsItemType>,
-  /** The data fed into the view to configure it */
-  viewModel?: Maybe<IHWCalendarEventDetailsItemViewModel>,
+  type: IHWCalendarEventDetailsItemType,
+  /** The data fed into the view to configure it. */
+  viewModel: IHWCalendarEventDetailsItemViewModel,
 };
 
 export enum IHWCalendarEventDetailsItemType {
@@ -168,6 +168,8 @@ export enum IHWCalendarEventKind {
 /** The builder for all things cards */
 export type IHWCardBuilder = {
   __typename?: 'CardBuilder',
+  /** The id of the used for view caching */
+  id: Scalars['ID'],
   /** Card Header props */
   header?: Maybe<IHWCardHeader>,
   /** optionally pass props to an image tag to be rendered in the header */
@@ -471,6 +473,8 @@ export type IHWListItemWarningConfig = {
 /** Render markdown beautifully */
 export type IHWMarkdown = {
   __typename?: 'Markdown',
+  /** Unique ID for view caching. */
+  id: Scalars['ID'],
   /** Markdown text to be rendered */
   source: Scalars['String'],
 };
@@ -540,6 +544,8 @@ export type IHWScoreCardPanel = {
 /** A button with a dropdown of actions on the right */
 export type IHWSplitButton = {
   __typename?: 'SplitButton',
+  /** ID for view caching */
+  id: Scalars['ID'],
   /** The main action readily surfaced to the user */
   defaultAction: IHWAction,
   /** All the secondary nested actions */

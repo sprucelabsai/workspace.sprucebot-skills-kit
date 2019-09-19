@@ -134,6 +134,9 @@ type CardFooter {
 
 "The builder for all things cards"
 type CardBuilder {
+	"The id of the used for view caching"
+	id: ID!
+
 	"Card Header props"
 	header: CardHeader
 

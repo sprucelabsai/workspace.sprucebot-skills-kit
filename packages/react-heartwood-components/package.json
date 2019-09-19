@@ -93,6 +93,7 @@
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
 		"@sprucelabs/heartwood-components": "^8.17.7",
+		"@sprucelabs/spruce-types": "^8.17.8-pre-91dabded.0",
 		"@types/react-dom": "^16.8.2",
 		"@types/react-table": "^6.8.4",
 		"axios": "^0.18.0",

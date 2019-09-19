@@ -1,5 +1,8 @@
 "A button with a dropdown of actions on the right"
 type SplitButton {
+	"ID for view caching"
+	id: ID!
+
 	"The main action readily surfaced to the user"
 	defaultAction: Action!
 
