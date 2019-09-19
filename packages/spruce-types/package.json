@@ -35,6 +35,7 @@
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
 	"dependencies": {
+		"@sprucelabs/spruce-skill-server": "^8.15.2",
 		"graphql-iso-date": "^3.6.1",
 		"graphql-type-json": "^0.3.0",
 		"typescript": "~3.4.5"

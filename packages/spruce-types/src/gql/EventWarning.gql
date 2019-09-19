@@ -1,0 +1,11 @@
+"An event warning."
+type EventWarning {
+	"A name that can be used to identify this warning. INVALID_PARAMETERS for example"
+	name: String!
+
+	"A description of the warning that will be useful to a developer"
+	reason: String!
+
+	"A description of the warning that can be displayed to the user"
+	friendlyReason: String!
+}
