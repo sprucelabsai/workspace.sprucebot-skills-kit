@@ -1,27 +1,16 @@
 import React, { Component, Fragment } from 'react'
 import { createPortal } from 'react-dom'
 import cx from 'classnames'
-import Button, { IButtonProps, ButtonKinds } from '../Button/Button'
+import Button, { IButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
+import { IHWSplitButton } from '@sprucelabs/spruce-types'
 
-export interface ISplitButtonProps {
-	/** The main action readily surfaced to the user */
+export interface ISplitButtonProps
+	extends Omit<IHWSplitButton, 'actions' | 'defaultAction'> {
 	defaultAction: IButtonProps
 
 	/** All the secondary nested actions */
 	actions: IButtonProps[]
-
-	/*Sets the visual hierarchy of the button **/
-	kind: ButtonKinds.Primary | ButtonKinds.Secondary
-
-	/* Set true to fill the parent’s width **/
-	isFullWidth?: boolean
-
-	/* Sets the visual hierarchy of the button **/
-	isSmall?: boolean
-
-	/** Optional; use a portal to render the menu. By default, it renders below the button */
-	usePortal?: boolean
 }
 
 interface ISplitButtonState {

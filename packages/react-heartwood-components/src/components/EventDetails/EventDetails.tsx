@@ -3,12 +3,35 @@ import cx from 'classnames'
 
 import {
 	IHWCalendarEventDetails,
-	IHWCalendarEventDetailsItemType
+	IHWCalendarEventDetailsItemType,
+	IHWCalendarEventDetailsItem
 } from '@sprucelabs/spruce-types'
 
 import EventDetailsItem from './components/EventDetailsItem/EventDetailsItem'
+import { IButtonProps } from '../Button/Button'
+import { ICardBuilderProps } from '../Card'
+import { IToastProps } from '../Toast/Toast'
+import { ITextProps } from '../Text/Text'
+import { IMarkdownProps } from '../MarkdownText/MarkdownText'
+import { ISplitButtonProps } from '../SplitButton/SplitButton'
+import { IListProps } from '../List'
 
-export interface IEventDetailsProps extends IHWCalendarEventDetails {}
+export interface IEventDetailsItemProps
+	extends Omit<IHWCalendarEventDetailsItem, 'viewModel'> {
+	viewModel:
+		| IListProps
+		| IButtonProps
+		| ICardBuilderProps
+		| IToastProps
+		| ITextProps
+		| IMarkdownProps
+		| ISplitButtonProps
+}
+
+export interface IEventDetailsProps
+	extends Omit<IHWCalendarEventDetails, 'items'> {
+	items: IEventDetailsItemProps[]
+}
 
 interface IEventDetailsState {}
 

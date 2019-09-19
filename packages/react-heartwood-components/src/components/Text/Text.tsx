@@ -24,7 +24,6 @@ const renderText = (child): ReactNode => {
 }
 
 // Allows basic templating functionality on text strings
-
 const TemplateEngine = (text = '', context = {}): ReactNode[] => {
 	let re = /{{([^}}]+)?}}/g,
 		children: Record<string, any>[] = [],

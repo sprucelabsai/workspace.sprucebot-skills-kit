@@ -1,78 +1,28 @@
 import cx from 'classnames'
 import React, { Fragment } from 'react'
 import CircleLoader from '../CircleLoader/CircleLoader'
-import Icon from '../Icon/Icon'
+import Icon, { IIconProps } from '../Icon/Icon'
 import BasicAnchor from '../_utilities/Anchor'
+import { IHWAction, IHWActionKinds } from '@sprucelabs/spruce-types'
 
-export interface IButtonIconProps {
-	/** The name of the icon to render. If not found, this will return null. */
-	icon?: string
+export interface IButtonProps extends Omit<IHWAction, 'id' | 'icon'> {
+	/** Optional ID for view caching */
+	id?: string
 
-	/** Set true to render an icon with a stroke, but no fill */
-	isLineIcon?: boolean
-
-	/** Pass a custom icon to use one that isn't keyed to a name */
-	customIcon?: any
-
-	/** Optional classname for the icon */
-	className?: string
-
-	/** The name of the icon used to look it up by key */
-	name?: string
-}
-
-export enum ButtonKinds {
-	Primary = 'primary',
-	Secondary = 'secondary',
-	Simple = 'simple',
-	Caution = 'caution'
-}
-
-export interface IButtonProps {
 	/** Optional class to add to the button. */
 	className?: string
 
 	/** Optional children passed into button */
 	children?: React.ReactNode
 
-	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
-	kind?: ButtonKinds
-
-	/** Set true to make the button less tall. */
-	isSmall?: boolean
-
-	/** Set true to make the button fill its parent's width. */
-	isFullWidth?: boolean
-
-	/** Set true to hide any text or icon in the button and show a loader instead. */
-	isLoading?: boolean
-
-	/** Set true to hide any text in the button. Text should still be provided for accessibility. */
-	isIconOnly?: boolean
-
-	/** Text for the button. */
-	text?: string
-
-	/** Will render a link. May be relative or absolute. */
-	href?: string
-
 	/** Icon for the button. */
-	icon?: IButtonIconProps
-
-	/** Type attribute for HTML button element. Defaults to 'button'. */
-	type?: 'button' | 'submit' | 'reset'
+	icon?: IIconProps
 
 	/** Click handler. */
 	onClick?: Function
 
-	/** Will be passed back with the on click. */
-	payload?: Record<string, any>
-
 	/** Component used to render anchor */
 	AnchorComponent?: any
-
-	/** Set true to disable the button */
-	disabled?: boolean
 }
 
 const Button = (props: IButtonProps): React.ReactElement => {
@@ -92,12 +42,13 @@ const Button = (props: IButtonProps): React.ReactElement => {
 		children,
 		...rest
 	} = props
+
 	const btnClass = cx(className, {
 		btn: true,
-		'btn-primary': kind === 'primary',
-		'btn-secondary': kind === 'secondary',
-		'btn-caution': kind === 'caution',
-		'btn-simple': kind === 'simple',
+		'btn-primary': kind === IHWActionKinds.Primary,
+		'btn-secondary': kind === IHWActionKinds.Secondary,
+		'btn-caution': kind === IHWActionKinds.Caution,
+		'btn-simple': kind === IHWActionKinds.Simple,
 		'btn-full-width': isFullWidth,
 		'btn--loading': isLoading,
 		'btn-small': isSmall,
@@ -123,8 +74,9 @@ const Button = (props: IButtonProps): React.ReactElement => {
 					{icon && (icon.customIcon || icon.name) && (
 						<span className="btn__icon-wrapper">
 							<Icon
+								id={icon.id}
 								customIcon={icon.customIcon}
-								icon={icon.name}
+								name={icon.name}
 								isLineIcon={icon.isLineIcon}
 								className={cx(
 									{
@@ -138,7 +90,12 @@ const Button = (props: IButtonProps): React.ReactElement => {
 					)}
 					{text && <span className={textClass}>{text}</span>}
 					{isLoading && (
-						<CircleLoader light={kind === 'primary' || kind === 'caution'} />
+						<CircleLoader
+							light={
+								kind === IHWActionKinds.Primary ||
+								kind === IHWActionKinds.Caution
+							}
+						/>
 					)}
 				</Fragment>
 			)}
@@ -148,16 +105,14 @@ const Button = (props: IButtonProps): React.ReactElement => {
 	// TODO: We probably need to create explicit whitelists of what we want to
 	// allow to be spread onto native DOM elements, since applying non-standard
 	// attributes throws a warning.
-	const sanitizedButtonRest = { ...rest }
-	// @ts-ignore
-	delete sanitizedButtonRest.linkProps
+	const { disabled } = rest
 
 	const button = (
 		<button
 			className={btnClass}
-			type={type}
+			type={type || 'button'}
 			onClick={handleClick}
-			{...sanitizedButtonRest}
+			disabled={disabled || false}
 		>
 			<Inner />
 		</button>

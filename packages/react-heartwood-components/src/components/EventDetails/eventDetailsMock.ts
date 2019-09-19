@@ -1,22 +1,28 @@
 import { IEventDetailsItemProps } from './components/EventDetailsItem/EventDetailsItem'
 import { IEventDetailsProps } from './EventDetails'
 import { IListProps } from '../List'
-import { ButtonKinds } from '../Button/Button'
+import {
+	IHWCalendarEventDetailsItemType,
+	IHWActionKinds,
+	IHWListItemSelectableType
+} from '@sprucelabs/spruce-types'
 
 const avatar =
 	'https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&auto=format&fit=crop&w=96&h=96&q=80'
 
 const services: IEventDetailsItemProps = {
-	id: 'services',
-	type: 'list',
+	type: IHWCalendarEventDetailsItemType.List,
 	viewModel: {
+		id: 'services',
 		items: [
 			{
+				id: 'first',
 				icon: { name: 'unordered_list', isLineIcon: true },
 				title: 'Accent Highlight',
 				subtitle: '$65 | 1hr',
 				note: 'Vicenta Maggio',
 				contextMenu: {
+					id: 'menu',
 					icon: { name: 'edit', isLineIcon: true },
 					isSimple: true,
 					isSmall: true,
@@ -32,12 +38,14 @@ const services: IEventDetailsItemProps = {
 				}
 			},
 			{
+				id: 'second',
 				icon: { name: 'unordered_list', isLineIcon: true },
 				iconIsHidden: true,
 				title: 'Haircut',
 				subtitle: '$40 | 1hr',
 				note: 'Vicenta Maggio',
 				contextMenu: {
+					id: 'another-menu',
 					icon: { name: 'edit', isLineIcon: true, isVisible: false },
 					isSimple: true,
 					isSmall: true,
@@ -53,11 +61,12 @@ const services: IEventDetailsItemProps = {
 				}
 			},
 			{
+				id: 'last',
 				title: 'Add service',
 				icon: { name: 'add' },
 				primaryAction: {
 					icon: { name: 'add' },
-					kind: ButtonKinds.Simple
+					kind: IHWActionKinds.Simple
 				}
 			}
 		]
@@ -66,6 +75,7 @@ const services: IEventDetailsItemProps = {
 
 const inclusiveStatuses = [
 	{
+		id: 'status',
 		title: 'Confirmed',
 		selectableId: 'confirmed',
 		selectableProps: {
@@ -73,6 +83,7 @@ const inclusiveStatuses = [
 		}
 	},
 	{
+		id: 'checked-in',
 		title: 'Checked in',
 		selectableId: 'checkedIn',
 		selectableProps: {
@@ -82,6 +93,7 @@ const inclusiveStatuses = [
 ]
 const exclusiveStatuses = [
 	{
+		id: 'on-time',
 		title: 'On time',
 		selectableId: 'onTime',
 		selectableProps: {
@@ -89,6 +101,7 @@ const exclusiveStatuses = [
 		}
 	},
 	{
+		id: 'late',
 		title: 'Late',
 		selectableId: 'late',
 		selectableProps: {
@@ -96,6 +109,7 @@ const exclusiveStatuses = [
 		}
 	},
 	{
+		id: 'ghosted',
 		title: 'Ghosted 👻',
 		selectableId: 'noShow',
 		selectableProps: {
@@ -114,12 +128,12 @@ const paidStatuses = [
 
 const statusLists: IListProps[] = [
 	{
-		selectableType: 'checkbox',
+		selectableType: IHWListItemSelectableType.Checkbox,
 		items: inclusiveStatuses,
 		areSeparatorsVisible: false
 	},
 	{
-		selectableType: 'radio',
+		selectableType: IHWListItemSelectableType.Radio,
 		items: exclusiveStatuses,
 		areSeparatorsVisible: false
 	},
@@ -132,11 +146,12 @@ const statusLists: IListProps[] = [
 export const appointment: { items: IEventDetailsItemProps[] } = {
 	items: [
 		{
-			id: 'guestInfo',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'guestInfo',
 				items: [
 					{
+						id: 'first',
 						avatar,
 						title: 'Alejandra Pollich',
 						subtitle: '(605) 230-5253',
@@ -162,7 +177,7 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: ButtonKinds.Simple
+								kind: IHWActionKinds.Simple
 							}
 						]
 					}
@@ -170,18 +185,20 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 			}
 		},
 		{
-			id: 'dateAndTime',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'dateAndTime',
 				items: [
 					{
+						id: 'first',
 						icon: { name: 'calendar', isLineIcon: true },
 						title: 'Web, Nov 28, 2018',
 						subtitle: '11am–12:15pm',
 						actions: [
 							{
+								id: 'first',
 								icon: { name: 'edit' },
-								kind: ButtonKinds.Simple
+								kind: IHWActionKinds.Simple
 							}
 						]
 					}
@@ -190,17 +207,18 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 		},
 		{ ...services },
 		{
-			id: 'status',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'status',
 				items: [
 					{
+						id: 'first',
 						icon: { name: 'status' },
 						title: 'Status',
 						subtitle: 'Confirmed',
 						isExpandable: true,
-						collapsedIcon: 'edit',
-						expandedIcon: 'close',
+						collapsedIconName: 'edit',
+						expandedIconName: 'close',
 						lists: statusLists
 					}
 				]
@@ -208,16 +226,16 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 		},
 		{
 			id: 'subtotalAndDuration',
-			type: 'markdown',
+			type: IHWCalendarEventDetailsItemType.Markdown,
 			viewModel: {
 				source: '**Subtotal: ** $65\n\n**Duration: ** 2hr'
 			}
 		},
 		{
 			id: 'primaryCTA',
-			type: 'splitButton',
+			type: IHWCalendarEventDetailsItemType.SplitButton,
 			viewModel: {
-				kind: ButtonKinds.Primary,
+				kind: IHWActionKinds.Primary,
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Check guest in',
@@ -248,11 +266,12 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 export const warningAppointment: IEventDetailsProps = {
 	items: [
 		{
-			id: 'guestInfo',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'guestInfo',
 				items: [
 					{
+						id: 'first',
 						avatar,
 						title: 'Alejandra Pollich',
 						subtitle: '(605) 230-5253',
@@ -272,13 +291,14 @@ export const warningAppointment: IEventDetailsProps = {
 						}
 					},
 					{
+						id: 'second',
 						icon: { name: 'note', isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: ButtonKinds.Simple
+								kind: IHWActionKinds.Simple
 							}
 						]
 					}
@@ -286,15 +306,15 @@ export const warningAppointment: IEventDetailsProps = {
 			}
 		},
 		{
-			id: 'dateAndTime',
-			type: 'card',
+			type: IHWCalendarEventDetailsItemType.CardBuilder,
 			viewModel: {
+				id: 'dateAndTime',
 				body: {
 					children: [
 						{
 							id: 'dateAndTime',
 							key: 'list',
-							type: 'list',
+							type: IHWCalendarEventDetailsItemType.List,
 							items: [
 								{
 									key: '1',
@@ -304,7 +324,7 @@ export const warningAppointment: IEventDetailsProps = {
 									actions: [
 										{
 											icon: { name: 'edit' },
-											kind: ButtonKinds.Simple
+											kind: IHWActionKinds.Simple
 										}
 									],
 									warnings: {
@@ -329,12 +349,12 @@ export const warningAppointment: IEventDetailsProps = {
 					actions: [
 						{
 							text: 'Dismiss',
-							kind: ButtonKinds.Simple,
+							kind: IHWActionKinds.Simple,
 							isSmall: true
 						},
 						{
 							text: 'Find a different time',
-							kind: ButtonKinds.Secondary,
+							kind: IHWActionKinds.Secondary,
 							isSmall: true
 						}
 					]
@@ -343,37 +363,39 @@ export const warningAppointment: IEventDetailsProps = {
 		},
 		{ ...services },
 		{
-			id: 'status',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'status',
 				items: [
 					{
-						icon: { name: 'status' },
-						title: 'Status',
-						subtitle: 'Confirmed',
-						// TODO: Make list item expandable to make this work
-						isExpandable: true,
-						collapsedIcon: 'edit',
-						expandedIcon: 'close',
+						id: 'first',
+						item: {
+							id: 'first',
+							icon: { name: 'status' },
+							title: 'Status',
+							subtitle: 'Confirmed'
+						},
+						collapsedIconName: 'edit',
+						expandedIconName: 'close',
 						lists: statusLists
 					}
 				]
 			}
 		},
 		{
-			id: 'subtotalAndDuration',
-			type: 'markdown',
+			type: IHWCalendarEventDetailsItemType.Markdown,
 			viewModel: {
+				id: 'subtotalAndDuration',
 				// NOTE: This would work with a markdown rendering component
 				// Question: Can we deliver MD from the API?
 				source: '**Subtotal: ** $65\n\n**Duration: ** 2hr'
 			}
 		},
 		{
-			id: 'primaryCTA',
-			type: 'splitButton',
+			type: IHWCalendarEventDetailsItemType.SplitButton,
 			viewModel: {
-				kind: ButtonKinds.Primary,
+				id: 'primaryCTA',
+				kind: IHWActionKinds.Primary,
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Check guest in',
@@ -404,29 +426,31 @@ export const warningAppointment: IEventDetailsProps = {
 export const pastAppointment: IEventDetailsProps = {
 	items: [
 		{
-			id: 'guestInfo',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'guestInfo',
 				items: [
 					{
+						id: 'first',
 						avatar,
 						title: 'Alejandra Pollich',
 						subtitle: '(605) 230-5253',
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: ButtonKinds.Simple
+								kind: IHWActionKinds.Simple
 							}
 						]
 					},
 					{
+						id: 'second',
 						icon: { name: 'note', isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: ButtonKinds.Simple
+								kind: IHWActionKinds.Simple
 							}
 						]
 					}
@@ -434,11 +458,12 @@ export const pastAppointment: IEventDetailsProps = {
 			}
 		},
 		{
-			id: 'dateAndTime',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'dateAndTime',
 				items: [
 					{
+						id: 'first',
 						icon: { name: 'calendar', isLineIcon: true },
 						title: 'Web, Nov 28, 2018',
 						subtitle: '11am–12:15pm'
@@ -447,19 +472,21 @@ export const pastAppointment: IEventDetailsProps = {
 			}
 		},
 		{
-			id: 'services',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'services',
 				items: [
 					{
+						id: 'first',
 						icon: { name: 'unordered_list', isLineIcon: true },
 						title: 'Accent Highlight',
 						subtitle: '$65 | 1hr',
 						note: 'Vicenta Maggio'
 					},
 					{
+						id: 'second',
 						icon: { name: 'unordered_list', isLineIcon: true },
-						iconIsHidden: true,
+						isIconHidden: true,
 						title: 'Haircut',
 						subtitle: '$40 | 1hr',
 						note: 'Vicenta Maggio'
@@ -468,11 +495,12 @@ export const pastAppointment: IEventDetailsProps = {
 			}
 		},
 		{
-			id: 'status',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'status',
 				items: [
 					{
+						id: 'first',
 						icon: { name: 'payment_success_solid' },
 						title: 'Status',
 						subtitle: 'Paid'
@@ -481,19 +509,17 @@ export const pastAppointment: IEventDetailsProps = {
 			}
 		},
 		{
-			id: 'subtotalAndDuration',
-			type: 'markdown',
+			type: IHWCalendarEventDetailsItemType.Markdown,
 			viewModel: {
-				// NOTE: This would work with a markdown rendering component
-				// Question: Can we deliver MD from the API?
+				id: 'subtotalAndDuration',
 				source: '**Subtotal: ** $65\n\n**Duration: ** 2hr'
 			}
 		},
 		{
-			id: 'primaryCTA',
-			type: 'splitButton',
+			type: IHWCalendarEventDetailsItemType.SplitButton,
 			viewModel: {
-				kind: ButtonKinds.Primary,
+				id: 'primaryCTA',
+				kind: IHWActionKinds.Primary,
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Book again',
@@ -512,11 +538,12 @@ export const pastAppointment: IEventDetailsProps = {
 export const lunchBreak: IEventDetailsProps = {
 	items: [
 		{
-			id: 'dateAndTime',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'dateAndTime',
 				items: [
 					{
+						id: 'first',
 						icon: { name: 'calendar' },
 						title: 'Sat, Jul 6, 2019',
 						subtitle: '8am–8pm',
@@ -526,11 +553,12 @@ export const lunchBreak: IEventDetailsProps = {
 			}
 		},
 		{
-			id: 'person',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'person',
 				items: [
 					{
+						id: 'first',
 						avatar,
 						title: 'Vicenta Maggio',
 						subtitle: 'Stylist'
@@ -539,11 +567,12 @@ export const lunchBreak: IEventDetailsProps = {
 			}
 		},
 		{
-			id: 'breakType',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'breakType',
 				items: [
 					{
+						id: 'first',
 						icon: { name: 'info' },
 						title: 'Paid break',
 						subtitle: 'Teammates are paid during their lunch breaks'
@@ -552,11 +581,11 @@ export const lunchBreak: IEventDetailsProps = {
 			}
 		},
 		{
-			id: 'actions',
-			type: 'button',
+			type: IHWCalendarEventDetailsItemType.Button,
 			viewModel: {
+				id: 'actions',
 				text: 'Reschedule',
-				kind: ButtonKinds.Secondary,
+				kind: IHWActionKinds.Secondary,
 				isFullWidth: true
 			}
 		}
@@ -566,11 +595,12 @@ export const lunchBreak: IEventDetailsProps = {
 export const ptoBlock: IEventDetailsProps = {
 	items: [
 		{
-			id: 'dateAndTime',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'dateAndTime',
 				items: [
 					{
+						id: 'first',
 						icon: { name: 'calendar' },
 						title: 'Sat, Jul 6, 2019',
 						subtitle: '8am–8pm',
@@ -580,11 +610,12 @@ export const ptoBlock: IEventDetailsProps = {
 			}
 		},
 		{
-			id: 'person',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'person',
 				items: [
 					{
+						id: 'person',
 						avatar,
 						title: 'Vicenta Maggio',
 						subtitle: 'Stylist'
@@ -593,11 +624,12 @@ export const ptoBlock: IEventDetailsProps = {
 			}
 		},
 		{
-			id: 'breakType',
-			type: 'list',
+			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {
+				id: 'breakType',
 				items: [
 					{
+						id: 'breakType',
 						icon: { name: 'info' },
 						title: 'Paid time off',
 						subtitle: '32 hours of PTO'
@@ -606,11 +638,11 @@ export const ptoBlock: IEventDetailsProps = {
 			}
 		},
 		{
-			id: 'actions',
-			type: 'button',
+			type: IHWCalendarEventDetailsItemType.Button,
 			viewModel: {
+				id: 'actions',
 				text: 'Edit PTO Block',
-				kind: ButtonKinds.Secondary,
+				kind: IHWActionKinds.Secondary,
 				isFullWidth: true
 			}
 		}

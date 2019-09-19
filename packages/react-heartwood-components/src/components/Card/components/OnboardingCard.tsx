@@ -6,34 +6,17 @@ import CardFooter from './CardFooter'
 import Button, { ButtonKinds } from '../../Button/Button'
 import Tabs from '../../Tabs/Tabs'
 import { IButtonProps } from '../../Button/Button'
+import {
+	IHWOnboardingCard,
+	IHWOnboardingCardStep
+} from '@sprucelabs/spruce-types'
 
-export interface IStep {
-	/** Unique identifier */
-	id: string
-
-	/** Title that shows in the tab */
-	tabTitle: string
-
-	/** Icon for the tab */
-	tabIcon: any
-
-	/** Title that shows in the panel */
-	panelTitle: string
-
-	/** Copy describing the step in the card's body */
-	panelCopy: string
-
+export interface IStep extends Omit<IHWOnboardingCardStep, 'panelCTA'> {
 	/** Primary CTA of this step */
 	panelCTA: IButtonProps
-
-	/** Is this step complete? */
-	isComplete?: boolean
 }
 
-export interface IOnboardingCardProps {
-	/** Title of the entire card */
-	title: string
-
+export interface IOnboardingCardProps extends Omit<IHWOnboardingCard, 'steps'> {
 	/** Steps for onboarding */
 	steps: IStep[]
 

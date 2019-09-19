@@ -1,19 +1,9 @@
 import React from 'react'
 import cx from 'classnames'
 import Button, { IButtonProps } from '../../../Button/Button'
+import { IHWListHeader } from '@sprucelabs/spruce-types'
 
-export interface IListHeaderProps {
-	/** Title text */
-	title: string
-
-	/** Optional subtitle text */
-	subtitle?: string
-
-	/** Set true for small lists */
-	isSmall?: boolean
-
-	/** Actions to associate with the list header */
-	// TODO Import Button interface
+export interface IListHeaderProps extends Omit<IHWListHeader, 'actions'> {
 	actions?: IButtonProps[]
 }
 

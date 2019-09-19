@@ -10,7 +10,7 @@ type SplitButton {
 	actions: [Action]!
 
 	"Sets the visual hierarchy of the button"
-	kind: String
+	kind: ActionKinds
 
 	"Set true to fill the parent’s width"
 	isFullWidth: Boolean

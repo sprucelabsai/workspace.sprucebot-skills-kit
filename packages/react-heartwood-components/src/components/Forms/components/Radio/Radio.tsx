@@ -1,25 +1,19 @@
-// @flow
 import React from 'react'
 import cx from 'classnames'
 import RadioIconYes from '../../../../../static/assets/icons/ic_radio_button_checked.svg'
 import RadioIconNo from '../../../../../static/assets/icons/ic_radio_button_unchecked.svg'
+import { IHWRadio } from '@sprucelabs/spruce-types'
 
-type Props = {
-	/** Unique identifier */
-	id: string,
-
-	/** Label and text for the radio */
-	label: string,
-
-	/** Optional text to show after the label */
-	postText: string,
+export interface IRadioProps extends Omit<IHWRadio, 'id'> {
+	/** optional id for the radio */
+	id?: string
 
 	/** Parent class */
-	className: ?string
+	className?: string
 }
 
-const Radio = (props: Props) => {
-	const { id, label, postText, className, ...rest } = props
+const Radio = (props: IRadioProps): React.ReactElement => {
+	const { id, label, postText, className, name, disabled } = props
 	const parentClass = cx('checkbox-item', className)
 	return (
 		<div className={parentClass}>
@@ -28,7 +22,8 @@ const Radio = (props: Props) => {
 					className="checkbox-item__input"
 					type="radio"
 					id={id}
-					{...rest}
+					name={name}
+					disabled={disabled || false}
 				/>
 				<label className="checkbox-item__label" htmlFor={id}>
 					{label}

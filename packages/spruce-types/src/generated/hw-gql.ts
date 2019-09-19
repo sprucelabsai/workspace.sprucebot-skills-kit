@@ -257,13 +257,11 @@ export type IHWCheckbox = {
   /** Unique identifier */
   id: Scalars['ID'],
   /** A name attached to this checkbox */
-  name?: Maybe<Scalars['String']>,
+  name: Scalars['String'],
   /** Input label and text after checkbox icon */
   label?: Maybe<Scalars['String']>,
   /** Optional text to show below the label */
   postText?: Maybe<Scalars['String']>,
-  /** Class for the checkbox wrapper */
-  className?: Maybe<Scalars['String']>,
   /** Set true if the checkbox is indeterminate */
   isIndeterminate?: Maybe<Scalars['Boolean']>,
 };
@@ -282,12 +280,10 @@ export type IHWContextMenu = {
   isSimple?: Maybe<Scalars['Boolean']>,
   /** Set true to make the button smaller */
   isSmall?: Maybe<Scalars['Boolean']>,
-  /** Set tot true makes the menu close when any action is selected */
+  /** Set to true makes the menu close when any action is selected */
   closeOnSelectAction?: Maybe<Scalars['Boolean']>,
   /** Hide the icon entirely */
   isTextOnly?: Maybe<Scalars['Boolean']>,
-  /** Optional classname that applies to the button */
-  className?: Maybe<Scalars['String']>,
 };
 
 export enum IHWContextMenuSize {
@@ -439,8 +435,6 @@ export type IHWListItem = {
   isSeparatorVisible?: Maybe<Scalars['Boolean']>,
   /** Optional class name for list item */
   className?: Maybe<Scalars['String']>,
-  /** Optional id prop for selectable list items */
-  selectableId?: Maybe<Scalars['String']>,
   /** Optional: set whether to use checkbox or radio for selectable list items */
   selectableType?: Maybe<IHWListItemSelectableType>,
   /** Any props you want sent down to the selectable component being rendered */
@@ -513,13 +507,11 @@ export type IHWRadio = {
   /** Unique identifier */
   id: Scalars['ID'],
   /** A name attached to this radio button */
-  name?: Maybe<Scalars['String']>,
+  name: Scalars['String'],
   /** Label and text for the radio */
   label?: Maybe<Scalars['String']>,
   /** Optional text to show after the label */
   postText?: Maybe<Scalars['String']>,
-  /** Parent class */
-  className?: Maybe<Scalars['String']>,
   /** is this control disabled? */
   disabled?: Maybe<Scalars['Boolean']>,
 };
@@ -551,7 +543,7 @@ export type IHWSplitButton = {
   /** All the secondary nested actions */
   actions: Array<Maybe<IHWAction>>,
   /** Sets the visual hierarchy of the button */
-  kind?: Maybe<Scalars['String']>,
+  kind?: Maybe<IHWActionKinds>,
   /** Set true to fill the parent’s width */
   isFullWidth?: Maybe<Scalars['Boolean']>,
   /** Sets the visual hierarchy of the button */

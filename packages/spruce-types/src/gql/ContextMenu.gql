@@ -22,12 +22,9 @@ type ContextMenu {
 	"Set true to make the button smaller"
 	isSmall: Boolean
 
-	"Set tot true makes the menu close when any action is selected"
+	"Set to true makes the menu close when any action is selected"
 	closeOnSelectAction: Boolean
 
 	"Hide the icon entirely"
 	isTextOnly: Boolean
-
-	"Optional classname that applies to the button"
-	className: String
 }

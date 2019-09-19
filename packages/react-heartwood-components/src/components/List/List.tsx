@@ -7,6 +7,7 @@ import ListItem, { IListItemProps } from './components/ListItem/ListItem'
 import ExpandableListItem, {
 	IExpandableListItemProps
 } from './components/ExpandableListItem/ExpandableListItem'
+import { IHWList } from '@sprucelabs/spruce-types'
 
 export const ListWrapper = (props): React.ReactElement => (
 	<div className="list-wrapper">{props.children}</div>
@@ -14,7 +15,11 @@ export const ListWrapper = (props): React.ReactElement => (
 
 export type IWrappedItemProps = IListItemProps | IExpandableListItemProps
 
-export interface IListProps {
+export interface IListProps
+	extends Omit<IHWList, 'id' | 'actions' | 'header' | 'items'> {
+	/** optional id for view caching */
+	id?: string
+
 	/** List Header */
 	header?: IListHeaderProps
 
@@ -29,12 +34,6 @@ export interface IListProps {
 
 	/** any passthrough to render in the body of the list */
 	children?: React.ReactNode
-
-	/** Set to true to show separators between list items */
-	areSeparatorsVisible?: boolean
-
-	/** Optional: set whether to use checkbox or radio for selectable list items */
-	selectableType?: 'checkbox' | 'radio'
 }
 
 const List = (props: IListProps): React.ReactElement => {

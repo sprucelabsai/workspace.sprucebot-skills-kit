@@ -1,72 +1,69 @@
-// @flow
 import React, { Component } from 'react'
 import { createPortal } from 'react-dom'
 import cx from 'classnames'
 import { debounce } from 'lodash'
-import Button from '../Button/Button'
-import type { Props as ButtonProps } from '../Button/Button'
+import Button, { IButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
 import MoreIcon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
+import { IHWContextMenu, IHWActionKinds } from '@sprucelabs/spruce-types'
+import { IIconProps } from '../Icon/Icon'
 
-export type Props = {
+export interface IContextMenuProps
+	extends Omit<IHWContextMenu, 'actions' | 'icon'> {
 	/** The actions to be shown on tap/click */
-	actions: Array<ButtonProps>,
+	actions: IButtonProps[]
 
 	/** DEPRECATED Set true to left align the menu */
-	isLeftAligned?: boolean,
+	isLeftAligned?: boolean
 
 	/** DEPRECATED Set true to right align the menu */
-	isRightAligned?: boolean,
+	isRightAligned?: boolean
 
 	/** DEPRECATED Set true to align menu above button */
-	isBottomAligned?: boolean,
-
-	/** Set the width of the menu. Helpful for longer text in buttons */
-	size?: 'medium' | 'large',
-
-	/** Adds text to the collapsed menu */
-	// NOTE: This should be required for accessibility
-	text?: string,
+	isBottomAligned?: boolean
 
 	/** Overrides the default icon */
-	icon?: any,
-
-	/** Set true to make the button blue */
-	isSimple?: boolean,
-
-	/** Set true to make the button smaller */
-	isSmall?: boolean,
-
-	/** Set tot true makes the menu close when any action is selected */
-	closeOnSelectAction: boolean,
-
-	/** Hide the icon entirely */
-	isTextOnly: boolean,
+	icon?: IIconProps
 
 	/** Optional classname that applies to the button */
-	className?: string,
+	className?: string
 
 	onToggleContextMenuVisible?: Function
 }
 
-type State = {
+interface IContextMenuState {
 	/** Show the menu */
-	isVisible: boolean,
+	isVisible: boolean
 
 	/** Where the menu should be positioned when visible */
-	menuPosition: Object,
+	menuPosition: {
+		top: number | null
+		left: number | null
+	}
 
-	overflowBottom: boolean,
+	overflowBottom: boolean
 	overflowLeft: boolean
 }
 
-export default class ContextMenu extends Component<Props, State> {
-	ref = React.createRef()
-	menuRef = React.createRef()
-	portalEl = React.createRef()
-	debouncedWindowResize = debounce(() => this.handleWindowResize(), 200)
-	state = {
+export default class ContextMenu extends Component<
+	IContextMenuProps,
+	IContextMenuState
+> {
+	public static defaultProps = {
+		isRightAligned: false,
+		isBottomAligned: false,
+		isTextOnly: false,
+		isSmall: false,
+		className: ''
+	}
+
+	public ref: React.RefObject<HTMLDivElement> = React.createRef()
+	public menuRef: React.RefObject<HTMLDivElement> = React.createRef()
+	public portalEl?: HTMLElement
+
+	public debouncedWindowResize = debounce(() => this.handleWindowResize(), 200)
+	public state = {
 		isVisible: false,
 		overflowBottom: false,
 		overflowLeft: false,
@@ -76,28 +73,23 @@ export default class ContextMenu extends Component<Props, State> {
 		}
 	}
 
-	static defaultProps = {
-		isRightAligned: false,
-		isBottomAligned: false,
-		isTextOnly: false,
-		isSmall: false,
-		className: ''
-	}
-
-	constructor(props: Props) {
+	public constructor(props: IContextMenuProps) {
 		super(props)
 
-		this.portalEl = typeof document !== 'undefined' && document && document.body
+		this.portalEl =
+			typeof document !== 'undefined' && document && document.body
+				? document.body
+				: undefined
 	}
 
-	componentDidMount = () => {
+	public componentDidMount = () => {
 		this.getMenuPlacement()
 		if (typeof window !== 'undefined') {
 			window.addEventListener('resize', this.debouncedWindowResize, false)
 		}
 	}
 
-	componentWillUnmount = () => {
+	public componentWillUnmount = () => {
 		if (typeof document !== 'undefined') {
 			document.removeEventListener('click', this.handleClickOutside, false)
 			document.removeEventListener('keyup', this.handleEscape, false)
@@ -107,25 +99,25 @@ export default class ContextMenu extends Component<Props, State> {
 		}
 	}
 
-	handleWindowResize = () => {
+	public handleWindowResize = () => {
 		const { isVisible } = this.state
 		if (isVisible) {
 			this.updateMenuPlacement()
 		}
 	}
 
-	getTriggerPlacement = () => {
+	public getTriggerPlacement = (): DOMRect | null => {
 		const triggerPosition =
 			this.ref.current && this.ref.current.getBoundingClientRect()
 
-		if (triggerPosition) {
+		if (triggerPosition && 'x' in triggerPosition) {
 			return triggerPosition
 		}
 
 		return null
 	}
 
-	getMenuPlacement = () => {
+	public getMenuPlacement = () => {
 		const { isRightAligned, isBottomAligned } = this.props
 		const triggerPosition = this.getTriggerPlacement()
 
@@ -146,7 +138,7 @@ export default class ContextMenu extends Component<Props, State> {
 		})
 	}
 
-	updateMenuPlacement = () => {
+	public updateMenuPlacement = () => {
 		const scrollTop =
 			typeof document !== 'undefined' &&
 			document &&
@@ -162,8 +154,8 @@ export default class ContextMenu extends Component<Props, State> {
 		const portalBox = this.portalEl && this.portalEl.getBoundingClientRect()
 		let overflowLeft = false
 		let overflowBottom = false
-		let newTop = null
-		let newLeft = null
+		let newTop: number | null = null
+		let newLeft: number | null = null
 
 		if (menuBox && portalBox && triggerPosition) {
 			if (
@@ -200,7 +192,7 @@ export default class ContextMenu extends Component<Props, State> {
 		}))
 	}
 
-	handleClickOutside = () => {
+	public handleClickOutside = (): void => {
 		this.setState(
 			{
 				isVisible: false
@@ -209,7 +201,7 @@ export default class ContextMenu extends Component<Props, State> {
 		)
 	}
 
-	handleEscape = (e: any) => {
+	public handleEscape = (e: any): void => {
 		if (e.key === 'Escape') {
 			this.setState(
 				{
@@ -220,7 +212,7 @@ export default class ContextMenu extends Component<Props, State> {
 		}
 	}
 
-	handleToggle = () => {
+	public handleToggle = (): void => {
 		this.setState(
 			prevState => ({
 				isVisible: !prevState.isVisible
@@ -239,7 +231,7 @@ export default class ContextMenu extends Component<Props, State> {
 		)
 	}
 
-	manageListeners = () => {
+	public manageListeners = () => {
 		if (typeof document !== 'undefined') {
 			if (this.state.isVisible) {
 				document.addEventListener('click', this.handleClickOutside, false)
@@ -251,14 +243,14 @@ export default class ContextMenu extends Component<Props, State> {
 		}
 	}
 
-	handleClickAction = (payload, callback) => {
+	public handleClickAction = (payload, callback) => {
 		if (this.props.closeOnSelectAction) {
 			this.handleToggle()
 		}
 		callback && callback(payload)
 	}
 
-	render() {
+	public render(): React.ReactElement {
 		const { isVisible, overflowBottom, overflowLeft, menuPosition } = this.state
 		const {
 			actions,
@@ -284,11 +276,13 @@ export default class ContextMenu extends Component<Props, State> {
 		return (
 			<div className={buttonClass} ref={this.ref}>
 				<Button
-					kind={isSimple ? 'simple' : ''}
+					kind={isSimple ? IHWActionKinds.Simple : undefined}
 					className="context-menu__button"
 					onClick={this.handleToggle}
 					icon={
-						!isTextOnly && (icon || { customIcon: MoreIcon, isLineIcon: true })
+						(!isTextOnly &&
+							(icon || { customIcon: MoreIcon, isLineIcon: true })) ||
+						undefined
 					}
 					text={text}
 					isSmall={isSmall}
@@ -301,8 +295,14 @@ export default class ContextMenu extends Component<Props, State> {
 							ref={this.menuRef}
 							style={{
 								position: 'absolute',
-								top: menuPosition.top ? `${menuPosition.top + 4}px` : 'auto',
-								left: menuPosition.left ? `${menuPosition.left + 4}px` : 'auto'
+								top:
+									menuPosition && typeof menuPosition.top === 'number'
+										? `${menuPosition.top + 4}px`
+										: 'auto',
+								left:
+									menuPosition && menuPosition.left
+										? `${menuPosition.left + 4}px`
+										: 'auto'
 							}}
 						>
 							<ButtonGroup

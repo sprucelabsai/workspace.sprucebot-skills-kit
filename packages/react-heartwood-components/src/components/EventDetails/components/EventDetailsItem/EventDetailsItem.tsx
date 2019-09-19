@@ -1,16 +1,20 @@
 import React, { Fragment } from 'react'
-import Button from '../../../Button/Button'
-import { CardBuilder } from '../../../Card'
-import List from '../../../List/List'
-import MarkdownText from '../../../MarkdownText/MarkdownText'
-import SplitButton from '../../../SplitButton/SplitButton'
-import Text from '../../../Text/Text'
-import Toast from '../../../Toast/Toast'
+import Button, { IButtonProps } from '../../../Button/Button'
+import { CardBuilder, ICardBuilderProps } from '../../../Card'
+import List, { IListProps } from '../../../List/List'
+import MarkdownText, {
+	IMarkdownProps
+} from '../../../MarkdownText/MarkdownText'
+import SplitButton, {
+	ISplitButtonProps
+} from '../../../SplitButton/SplitButton'
+import Text, { ITextProps } from '../../../Text/Text'
+import Toast, { IToastProps } from '../../../Toast/Toast'
 import { IHWCalendarEventDetailsItem } from '@sprucelabs/spruce-types'
 
-const MDTextContainer = (props: { source: string }): React.ReactElement => (
+const MDTextContainer = (props: IMarkdownProps): React.ReactElement => (
 	<div className="event-details__markdown">
-		<MarkdownText source={props.source} />
+		<MarkdownText {...props} />
 	</div>
 )
 
@@ -24,7 +28,17 @@ const components = {
 	markdown: MDTextContainer
 }
 
-export interface IEventDetailsItemProps extends IHWCalendarEventDetailsItem {}
+export interface IEventDetailsItemProps
+	extends Omit<IHWCalendarEventDetailsItem, 'viewModel'> {
+	viewModel:
+		| IListProps
+		| IButtonProps
+		| ICardBuilderProps
+		| IToastProps
+		| ITextProps
+		| IMarkdownProps
+		| ISplitButtonProps
+}
 
 const EventDetailsItem = (
 	props: IEventDetailsItemProps

@@ -1,14 +1,12 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import { IHWMarkdown } from '@sprucelabs/spruce-types'
 
-export interface IMarkdownText {
-	/** Markdown text to be rendered */
-	source: string
-}
+export interface IMarkdownProps extends IHWMarkdown {}
 
-const MarkdownText = (props: IMarkdownText): React.ReactElement => {
-	const { source } = props
-	return <ReactMarkdown source={source} />
+const MarkdownText = (props: IMarkdownProps): React.ReactElement => {
+	const { source, id } = props
+	return <ReactMarkdown key={id} source={source} />
 }
 
 export default MarkdownText

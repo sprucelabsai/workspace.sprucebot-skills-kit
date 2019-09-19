@@ -2,47 +2,34 @@ import cx from 'classnames'
 import React, { Fragment } from 'react'
 import Avatar from '../../../Avatar/Avatar'
 import Button, { IButtonProps } from '../../../Button/Button'
-import ContextMenu from '../../../ContextMenu/ContextMenu'
+import ContextMenu, {
+	IContextMenuProps
+} from '../../../ContextMenu/ContextMenu'
 import { Checkbox, Radio, Toggle } from '../../../Forms'
-import Icon from '../../../Icon/Icon'
+import Icon, { IIconProps } from '../../../Icon/Icon'
 import List, { IListProps } from '../../List'
+import {
+	IHWListItem,
+	IHWListItemSelectableType
+} from '@sprucelabs/spruce-types'
+import { IToggleProps } from '../../../Forms/components/Toggle/Toggle'
+import { ICheckboxProps } from '../../../Forms/components/Checkbox/Checkbox'
+import { IRadioProps } from '../../../Forms/components/Radio/Radio'
 
-export interface IListItemProps {
-	/** Optional; Set true to render an expandable item */
-	isExpandable?: boolean
-
-	/** Title text */
-	title: string
-
-	/** Optional subtitle text */
-	subtitle?: string
-
-	/** Optional note text */
-	note?: string
-
-	/** URL to show a user avatar */
-	avatar?: string
-
-	/** URL to show an image */
-	image?: string
-
+export interface IListItemProps
+	extends Omit<
+		IHWListItem,
+		| 'icon'
+		| 'actions'
+		| 'primaryAction'
+		| 'contextMenu'
+		| 'toggleProps'
+		| 'selectableProps'
+		| 'list'
+		| 'lists'
+	> {
 	/** Inline svg icon */
-	icon?: Record<string, any>
-
-	/** Optional; visually hides the icon without removing it */
-	iconIsHidden?: boolean
-
-	/** Set true to add left spacing. useful in aligning with other list items that have icons or images */
-	isLeftIndented?: boolean
-
-	/** Set true when the list can be reordered */
-	isDraggable?: boolean
-
-	/** Set true when the list can be reordered */
-	isDisabled?: boolean
-
-	/** Makes the list item a setting */
-	toggleId?: string
+	icon?: IIconProps
 
 	/** A primary action that turns the entire list item into a clickable button */
 	primaryAction?: IButtonProps
@@ -50,16 +37,11 @@ export interface IListItemProps {
 	/** Actions associated with the list item */
 	actions?: IButtonProps[]
 
-	/** Context Menu associated with the list item
-	 *  TODO: implement ContextMenuProps
-	 */
-	contextMenu?: any
+	/** Context Menu associated with the list item */
+	contextMenu?: IContextMenuProps
 
 	/** Props passed to the toggle when it is used */
-	toggleProps?: Record<string, any>
-
-	/** Set to true to show separator for this list item if followed by another list item. */
-	isSeparatorVisible?: boolean
+	toggleProps?: IToggleProps
 
 	/** Optional class name for list item */
 	className?: string
@@ -68,17 +50,7 @@ export interface IListItemProps {
 	selectableId?: string
 
 	/** Optional props for selectable list items */
-	selectableProps?: Record<string, any>
-
-	/** Optional: set whether to use checkbox or radio for selectable list items */
-	selectableType?: 'checkbox' | 'radio'
-
-	/** Highlight title, subtitle, note with warning colors */
-	warnings?: {
-		title: boolean
-		subtitle: boolean
-		note: boolean
-	}
+	selectableProps?: ICheckboxProps | IRadioProps
 
 	/** Optional; adds a nested list */
 	list?: IListProps
@@ -95,7 +67,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		avatar,
 		image,
 		icon,
-		iconIsHidden,
+		isIconHidden,
 		isDraggable,
 		isDisabled,
 		toggleId,
@@ -129,10 +101,10 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 					{icon && (
 						<Icon
 							customIcon={icon.customIcon}
-							icon={icon.name}
+							name={icon.name}
 							isLineIcon={icon.isLineIcon}
 							className={cx('list-item__icon', icon.className, {
-								'list-item__icon--hidden': iconIsHidden
+								'list-item__icon--hidden': isIconHidden
 							})}
 						/>
 					)}
@@ -147,20 +119,22 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 					)}
 					{selectableId && (
 						<Fragment>
-							{selectableType === 'checkbox' && (
-								<Checkbox
-									id={selectableId}
-									{...(isDisabled ? { disabled: true } : {})}
-									{...selectableProps}
-								/>
-							)}
-							{selectableType === 'radio' && (
-								<Radio
-									id={selectableId}
-									{...(isDisabled ? { disabled: true } : {})}
-									{...selectableProps}
-								/>
-							)}
+							{selectableType === IHWListItemSelectableType.Checkbox &&
+								selectableProps && (
+									<Checkbox
+										id={selectableId}
+										{...(isDisabled ? { disabled: true } : {})}
+										{...selectableProps}
+									/>
+								)}
+							{selectableType === IHWListItemSelectableType.Radio &&
+								selectableProps && (
+									<Radio
+										id={selectableId}
+										{...(isDisabled ? { disabled: true } : {})}
+										{...selectableProps}
+									/>
+								)}
 						</Fragment>
 					)}
 					{avatar && <Avatar image={avatar} alt={title} />}
@@ -268,7 +242,7 @@ ListItem.defaultProps = {
 	avatar: '',
 	image: '',
 	icon: null,
-	iconIsHidden: false,
+	isIconHidden: false,
 	isDraggable: false,
 	toggleId: '',
 	actions: [],

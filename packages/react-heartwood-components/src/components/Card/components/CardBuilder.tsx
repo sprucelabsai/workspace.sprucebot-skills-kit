@@ -21,13 +21,20 @@ import { IButtonProps } from '../../Button/Button'
 import { ICardHeaderProps } from './CardHeader'
 import { ICardBodyProps } from './CardBody'
 import { IOnboardingCardProps } from './OnboardingCard'
+import { IHWCardBuilder } from '@sprucelabs/spruce-types'
+import { IHWCardFooter } from '@sprucelabs/spruce-types'
 
-export interface ICardBuilderProps {
+export interface ICardBuilderFooter extends Omit<IHWCardFooter, 'actions'> {
+	/** Render buttons in the Card Footer */
+	actions: IButtonProps[]
+}
+
+export interface ICardBuilderProps extends Omit<IHWCardBuilder, 'id'> {
+	/** optional id for view caching */
+	id?: string
+
 	/** Card Header props */
 	header?: ICardHeaderProps
-
-	/** optionally pass props to an image tag to be rendered in the header */
-	headerImage?: any
 
 	/** all onboarding props */
 	onboarding?: IOnboardingCardProps
@@ -36,13 +43,7 @@ export interface ICardBuilderProps {
 	body?: ICardBodyProps
 
 	/** Card Footer props */
-	footer?: {
-		/** Render buttons in the Card Footer */
-		actions: IButtonProps[]
-
-		/** Helper for the footer */
-		helper?: any
-	}
+	footer?: ICardBuilderFooter
 }
 
 const renderChild = (child): React.ReactElement => {
