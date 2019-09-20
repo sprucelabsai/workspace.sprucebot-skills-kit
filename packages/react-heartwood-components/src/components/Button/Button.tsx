@@ -23,6 +23,9 @@ export interface IButtonProps extends Omit<IHWAction, 'id' | 'icon'> {
 
 	/** Component used to render anchor */
 	AnchorComponent?: any
+
+	/** optional target, whatever an anchor tag takes */
+	target?: string
 }
 
 const Button = (props: IButtonProps): React.ReactElement => {

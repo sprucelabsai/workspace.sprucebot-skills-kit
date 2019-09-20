@@ -2,10 +2,9 @@ import {
 	boolean,
 	object,
 	select,
-	// withKnobsOptions,
 	text,
 	withKnobs
-} from '@storybook/addon-knobs/react'
+} from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import React, { Component, Fragment } from 'react'
 import {
@@ -23,12 +22,15 @@ import {
 	userList02,
 	userList03
 } from '../../../.storybook/data/people'
-import { ButtonKinds } from '../Button/Button'
 import Tabs from '../Tabs/Tabs'
 import ListHeader from './components/ListHeader/ListHeader'
 import ListItem from './components/ListItem/ListItem'
 import SortableList from './components/SortableList/SortableList'
 import List, { ListWrapper } from './List'
+import {
+	IHWListItemSelectableType,
+	IHWActionKinds
+} from '@sprucelabs/spruce-types'
 
 const stories = storiesOf('List', module)
 
@@ -96,11 +98,12 @@ stories.addDecorator(withKnobs)
 stories
 	.add('List Item', () => (
 		<ListItem
+			id="unique"
 			title={text('title', 'Wed, Oct 28')}
 			subtitle={text('subtitle', '9am–4pm')}
 			avatar={text('avatar', '')}
 			image={text('image', '')}
-			icon={{ isLineIcon: boolean('isLineIcon', true), icon: text('icon', '') }}
+			icon={{ isLineIcon: boolean('isLineIcon', true), name: text('name', '') }}
 			isDraggable={boolean('isDraggable', false)}
 			actions={object('actions', [])}
 			toggleId={text('toggleId', '')}
@@ -153,26 +156,26 @@ stories
 				actions: [
 					{
 						text: 'Today',
-						kind: ButtonKinds.Simple
+						kind: IHWActionKinds.Simple
 					},
 					{
 						icon: {
 							name: 'calendar',
 							isLineIcon: true
 						},
-						kind: ButtonKinds.Simple
+						kind: IHWActionKinds.Simple
 					},
 					{
 						icon: {
 							name: 'arrow_back'
 						},
-						kind: ButtonKinds.Simple
+						kind: IHWActionKinds.Simple
 					},
 					{
 						icon: {
 							customIcon: 'arrow_forward'
 						},
-						kind: ButtonKinds.Simple
+						kind: IHWActionKinds.Simple
 					}
 				]
 			}}
@@ -183,10 +186,12 @@ stories
 	.add('People Tabbed', () => <TabbedList />)
 	.add('Selectable Items', () => (
 		<List
-			selectableType={select<'checkbox' | 'radio'>(
+			selectableType={select<
+				IHWListItemSelectableType.Checkbox | IHWListItemSelectableType.Radio
+			>(
 				'selectableType',
-				['checkbox', 'radio'],
-				'checkbox'
+				[IHWListItemSelectableType.Checkbox, IHWListItemSelectableType.Radio],
+				IHWListItemSelectableType.Checkbox
 			)}
 			items={object('selectable items', selectableList)}
 			isSmall={boolean('isSmall', false)}

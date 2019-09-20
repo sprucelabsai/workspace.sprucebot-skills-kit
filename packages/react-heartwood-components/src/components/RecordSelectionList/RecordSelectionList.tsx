@@ -15,9 +15,10 @@ import { TextInput, Radio, Checkbox } from '../Forms'
 import { InputPre } from '../Forms/FormPartials'
 import TextContainer from '../TextContainer/TextContainer'
 import Text from '../Text/Text'
-import Button, { ButtonKinds } from '../Button/Button'
+import Button from '../Button/Button'
 import ListItem, { IListItemProps } from '../List/components/ListItem/ListItem'
 import EmptyState, { IEmptyStateProps } from '../EmptyState/EmptyState'
+import { IHWActionKinds } from '@sprucelabs/spruce-types'
 
 export interface IRecordSelectionListItemProps extends IListItemProps {
 	id: string
@@ -597,6 +598,8 @@ export default class RecordSelectionList extends Component<
 				>
 					{onSelect && canSelect && (
 						<SelectionComponent
+							id={recordId}
+							name={recordId}
 							className="record-selection__record-select"
 							onChange={() => {
 								onSelect(recordId, record)
@@ -614,7 +617,7 @@ export default class RecordSelectionList extends Component<
 
 					{onRemove && canRemove && (
 						<Button
-							kind={ButtonKinds.Simple}
+							kind={IHWActionKinds.Simple}
 							className="record-selection__record-remove-btn"
 							disabled={false}
 							isSmall

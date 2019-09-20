@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, select } from '@storybook/addon-knobs/react'
+import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import Toast from './Toast'
 import ToastWrapper from './components/ToastWrapper/ToastWrapper'
-import { ButtonKinds } from '../Button/Button'
+import { IHWActionKinds } from '@sprucelabs/spruce-types'
+
 const stories = storiesOf('Toast', module)
 
 interface IToasterProps {
@@ -87,27 +88,24 @@ class Toaster extends Component<IToasterProps, IToasterState> {
 				<ButtonGroup
 					actions={[
 						{
-							kind: ButtonKinds.Secondary,
 							text: 'Add Toast',
 							onClick: () => this.addToast('neutral')
 						},
 						{
-							kind: ButtonKinds.Secondary,
 							text: 'Add Happy Toast',
 							onClick: () => this.addToast('positive')
 						},
 						{
-							kind: ButtonKinds.Secondary,
 							text: 'Add Sad Toast',
 							onClick: () => this.addToast('negative')
 						},
 						{
-							kind: ButtonKinds.Secondary,
+							kind: IHWActionKinds.Secondary,
 							text: 'Add Warning Toast',
 							onClick: () => this.addToast('warn')
 						},
 						{
-							kind: ButtonKinds.Secondary,
+							kind: IHWActionKinds.Secondary,
 							text: 'Add Info Toast',
 							onClick: () => this.addToast('info')
 						}

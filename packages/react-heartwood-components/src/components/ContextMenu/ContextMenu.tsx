@@ -296,12 +296,12 @@ export default class ContextMenu extends Component<
 							style={{
 								position: 'absolute',
 								top:
-									menuPosition && typeof menuPosition.top === 'number'
-										? `${menuPosition.top + 4}px`
+									typeof menuPosition.top === 'number'
+										? `${(menuPosition.top || 0) + 4}px`
 										: 'auto',
 								left:
-									menuPosition && menuPosition.left
-										? `${menuPosition.left + 4}px`
+									typeof menuPosition.left === 'number'
+										? `${(menuPosition.left || 0) + 4}px`
 										: 'auto'
 							}}
 						>

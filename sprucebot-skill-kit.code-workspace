@@ -32,5 +32,6 @@
 			"path": ".",
 			"name": "Workspace"
 		}
-	]
+	],
+	"settings": {}
 }

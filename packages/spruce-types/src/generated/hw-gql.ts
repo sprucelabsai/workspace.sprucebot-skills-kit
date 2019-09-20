@@ -202,9 +202,9 @@ export type IHWCardBuilderBody = {
 export type IHWCardBuilderBodyItem = {
   __typename?: 'CardBuilderBodyItem',
   /** The type of ui component to use */
-  type?: Maybe<IHWCardBuilderBodyItemType>,
+  type: IHWCardBuilderBodyItemType,
   /** The view model that renders the UI */
-  viewModel?: Maybe<IHWCardBuilderBodyItemViewModel>,
+  viewModel: IHWCardBuilderBodyItemViewModel,
 };
 
 export enum IHWCardBuilderBodyItemType {
@@ -257,13 +257,15 @@ export type IHWCheckbox = {
   /** Unique identifier */
   id: Scalars['ID'],
   /** A name attached to this checkbox */
-  name: Scalars['String'],
+  name?: Maybe<Scalars['String']>,
   /** Input label and text after checkbox icon */
   label?: Maybe<Scalars['String']>,
   /** Optional text to show below the label */
   postText?: Maybe<Scalars['String']>,
   /** Set true if the checkbox is indeterminate */
   isIndeterminate?: Maybe<Scalars['Boolean']>,
+  /** is this checkbox checked? */
+  checked?: Maybe<Scalars['Boolean']>,
 };
 
 export type IHWContextMenu = {
@@ -338,9 +340,25 @@ export type IHWExpandableListItem = {
 
 export type IHWHeading = {
   __typename?: 'Heading',
+  /** Id for view caching */
   id: Scalars['String'],
-  text: Scalars['String'],
+  /** HTML rendered directly */
+  html?: Maybe<Scalars['String']>,
+  /** Text rendered in the header */
+  text?: Maybe<Scalars['String']>,
+  /** The weight of the heading, H1 and beyond */
+  weight?: Maybe<IHWHeadingWeight>,
 };
+
+export enum IHWHeadingWeight {
+  H1 = 'h1',
+  H2 = 'h2',
+  H3 = 'h3',
+  H4 = 'h4',
+  H5 = 'h5',
+  H6 = 'h6',
+  P = 'p'
+}
 
 export type IHWIcon = {
   __typename?: 'Icon',
@@ -507,7 +525,7 @@ export type IHWRadio = {
   /** Unique identifier */
   id: Scalars['ID'],
   /** A name attached to this radio button */
-  name: Scalars['String'],
+  name?: Maybe<Scalars['String']>,
   /** Label and text for the radio */
   label?: Maybe<Scalars['String']>,
   /** Optional text to show after the label */

@@ -63,10 +63,10 @@ enum CardBuilderBodyItemType {
 
 type CardBuilderBodyItem {
 	"The type of ui component to use"
-	type: CardBuilderBodyItemType
+	type: CardBuilderBodyItemType!
 
 	"The view model that renders the UI"
-	viewModel: CardBuilderBodyItemViewModel
+	viewModel: CardBuilderBodyItemViewModel!
 }
 
 "The body of the card builder"

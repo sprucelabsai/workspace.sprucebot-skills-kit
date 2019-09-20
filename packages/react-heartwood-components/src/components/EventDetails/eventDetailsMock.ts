@@ -4,7 +4,9 @@ import { IListProps } from '../List'
 import {
 	IHWCalendarEventDetailsItemType,
 	IHWActionKinds,
-	IHWListItemSelectableType
+	IHWListItemSelectableType,
+	IHWContextMenuSize,
+	IHWCardBuilderBodyItemType
 } from '@sprucelabs/spruce-types'
 
 const avatar =
@@ -22,11 +24,10 @@ const services: IEventDetailsItemProps = {
 				subtitle: '$65 | 1hr',
 				note: 'Vicenta Maggio',
 				contextMenu: {
-					id: 'menu',
 					icon: { name: 'edit', isLineIcon: true },
 					isSimple: true,
 					isSmall: true,
-					size: 'large',
+					size: IHWContextMenuSize.Large,
 					actions: [
 						{
 							text: 'Change teammate'
@@ -40,16 +41,15 @@ const services: IEventDetailsItemProps = {
 			{
 				id: 'second',
 				icon: { name: 'unordered_list', isLineIcon: true },
-				iconIsHidden: true,
+				isIconHidden: true,
 				title: 'Haircut',
 				subtitle: '$40 | 1hr',
 				note: 'Vicenta Maggio',
 				contextMenu: {
-					id: 'another-menu',
-					icon: { name: 'edit', isLineIcon: true, isVisible: false },
+					icon: { name: 'edit', isLineIcon: true },
 					isSimple: true,
 					isSmall: true,
-					size: 'large',
+					size: IHWContextMenuSize.Large,
 					actions: [
 						{
 							text: 'Change teammate'
@@ -120,6 +120,7 @@ const exclusiveStatuses = [
 
 const paidStatuses = [
 	{
+		id: 'unpaid',
 		title: 'Unpaid',
 		icon: { name: 'edit' },
 		iconIsHidden: true
@@ -159,7 +160,7 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 							icon: { name: 'edit', isLineIcon: true },
 							isSimple: true,
 							isSmall: true,
-							size: 'large',
+							size: IHWContextMenuSize.Large,
 							actions: [
 								{
 									text: 'Edit guest'
@@ -171,6 +172,7 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 						}
 					},
 					{
+						id: 'pinned-note',
 						icon: { name: 'note', isLineIcon: true },
 						title: 'Prefers products that aren’t tested on animals.',
 						subtitle: 'Caleigh Jerde, 4 months ago',
@@ -225,14 +227,12 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 			}
 		},
 		{
-			id: 'subtotalAndDuration',
 			type: IHWCalendarEventDetailsItemType.Markdown,
 			viewModel: {
 				source: '**Subtotal: ** $65\n\n**Duration: ** 2hr'
 			}
 		},
 		{
-			id: 'primaryCTA',
 			type: IHWCalendarEventDetailsItemType.SplitButton,
 			viewModel: {
 				kind: IHWActionKinds.Primary,
@@ -279,7 +279,7 @@ export const warningAppointment: IEventDetailsProps = {
 							icon: { name: 'edit', isLineIcon: true },
 							isSimple: true,
 							isSmall: true,
-							size: 'large',
+							size: IHWContextMenuSize.Large,
 							actions: [
 								{
 									text: 'Edit guest'
@@ -310,33 +310,34 @@ export const warningAppointment: IEventDetailsProps = {
 			viewModel: {
 				id: 'dateAndTime',
 				body: {
-					children: [
+					items: [
 						{
-							id: 'dateAndTime',
-							key: 'list',
-							type: IHWCalendarEventDetailsItemType.List,
-							items: [
-								{
-									key: '1',
-									icon: { name: 'calendar', isLineIcon: true },
-									title: 'Web, Nov 28, 2018',
-									subtitle: '11am–12:15pm',
-									actions: [
-										{
-											icon: { name: 'edit' },
-											kind: IHWActionKinds.Simple
+							type: IHWCardBuilderBodyItemType.List,
+							viewModel: {
+								id: 'list',
+								items: [
+									{
+										id: '1',
+										icon: { name: 'calendar', isLineIcon: true },
+										title: 'Web, Nov 28, 2018',
+										subtitle: '11am–12:15pm',
+										actions: [
+											{
+												icon: { name: 'edit' },
+												kind: IHWActionKinds.Simple
+											}
+										],
+										warnings: {
+											subtitle: true
 										}
-									],
-									warnings: {
-										subtitle: true
 									}
-								}
-							]
+								]
+							}
 						},
 						{
-							id: 'toastWarning',
-							type: 'toast',
-							props: {
+							type: IHWCardBuilderBodyItemType.Toast,
+							viewModel: {
+								id: 'toastWarning',
 								headline: 'Uh-oh',
 								text: 'Vicenta Maggio will be double-booked at this time',
 								kind: 'warn',

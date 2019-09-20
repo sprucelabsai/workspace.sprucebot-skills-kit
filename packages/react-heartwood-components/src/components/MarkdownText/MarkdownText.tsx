@@ -2,7 +2,9 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import { IHWMarkdown } from '@sprucelabs/spruce-types'
 
-export interface IMarkdownProps extends IHWMarkdown {}
+export interface IMarkdownProps extends Omit<IHWMarkdown, 'id'> {
+	id?: string
+}
 
 const MarkdownText = (props: IMarkdownProps): React.ReactElement => {
 	const { source, id } = props

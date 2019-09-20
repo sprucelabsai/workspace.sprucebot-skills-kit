@@ -4,7 +4,7 @@ type Radio {
 	id: ID!
 
 	"A name attached to this radio button"
-	name: String!
+	name: String
 
 	"Label and text for the radio"
 	label: String

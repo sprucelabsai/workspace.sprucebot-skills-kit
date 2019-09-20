@@ -1,13 +1,6 @@
-// @flow
-import React from 'react'
+import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
-import {
-	withKnobs,
-	// withKnobsOptions,
-	text,
-	boolean,
-	object
-} from '@storybook/addon-knobs/react'
+import { withKnobs, text, boolean, object } from '@storybook/addon-knobs'
 import { onboarding } from '../../../.storybook/data/onboarding'
 import { userList } from '../../../.storybook/data/people'
 import { Card, CardBuilder, OnboardingCard } from './index'
@@ -24,15 +17,20 @@ import Avatar from '../Avatar/Avatar'
 import userImageLg from '../../../static/assets/users/user-01--96w.png'
 import LockIcon2 from '../../../static/assets/icons/Interface-Essential/Lock/Unlock/lock-6--16w.svg'
 import AlertIcon3 from '../../../static/assets/icons/Interface-Essential/Alerts/alert-triangle--16w.svg'
+import { ICardBuilderProps } from './components/CardBuilder'
+import {
+	IHWActionButtonType,
+	IHWActionKinds,
+	IHWCardBuilderBodyItemType
+} from '@sprucelabs/spruce-types'
 
-const cardJSON = {
+const cardJSON: ICardBuilderProps = {
 	header: {
 		title: 'Introducing the Card Builder! (Note: WIP)',
 		labelText: '',
-		labelIcon: '',
 		actions: [
 			{
-				type: 'button',
+				type: IHWActionButtonType.Button,
 				text: 'More Info',
 				href: '#',
 				target: '_blank',
@@ -41,45 +39,52 @@ const cardJSON = {
 		]
 	},
 	body: {
-		children: `The Card Builder enables Skill devs to build cards using JSON. It should not be used for core cards.`
+		items: [
+			{
+				type: IHWCardBuilderBodyItemType.Text,
+				viewModel: {
+					id: 'first',
+					text: `The Card Builder enables Skill devs to build cards using JSON. It should not be used for core cards.`
+				}
+			}
+		]
 	},
 	footer: {
 		actions: [
 			{
-				type: 'button',
+				type: IHWActionButtonType.Button,
 				text: 'Do things',
-				kind: 'secondary',
-				icon: '',
+				kind: IHWActionKinds.Secondary,
 				isSmall: true
 			}
 		]
 	}
 }
 
-const cardJSON2 = {
+const cardJSON2: ICardBuilderProps = {
 	header: {
 		title: 'Your sales for today!'
 	},
 	body: {
-		children: [
+		items: [
 			{
-				type: 'text',
-				props: { children: 'This is your typical score card' }
+				type: IHWCardBuilderBodyItemType.Text,
+				viewModel: { id: 'first', text: 'This is your typical score card' }
 			},
 			{
-				type: 'scores',
-				props: {
+				type: IHWCardBuilderBodyItemType.ScoreCard,
+				viewModel: {
 					scores: [
-						{ id: 1, label: 'Today', value: '$1,848' },
-						{ id: 2, label: 'This Week', value: '$5,778' },
-						{ id: 3, label: 'This Month', value: '$25,068' }
+						{ id: '1', label: 'Today', value: '$1,848' },
+						{ id: '2', label: 'This Week', value: '$5,778' },
+						{ id: '3', label: 'This Month', value: '$25,068' }
 					]
 				}
 			}
 		]
 	}
 }
-const cardJSON3 = {
+const cardJSON3: ICardBuilderProps = {
 	onboarding: {
 		title: 'Setup your first skill!',
 		steps: [
@@ -107,65 +112,66 @@ const cardJSON3 = {
 		]
 	}
 }
-const cardJSON4 = {
+const cardJSON4: ICardBuilderProps = {
 	header: {
 		labelText: 'The last example!'
 	},
 	body: {
-		children: [
+		items: [
 			{
-				key: 'list_example',
-				type: 'list',
-				heading: {
-					title: 'This is a list!'
-				},
-				items: [
-					{
-						key: 'number_one',
-						title: 'This is so cool!',
-						subtitle: 'For sure!',
-						icon: { name: 'complete', isLineIcon: true }
+				type: IHWCardBuilderBodyItemType.List,
+				viewModel: {
+					header: {
+						title: 'This is a list!'
 					},
-					{
-						key: 'number_two',
-						title: 'Takes all the props a List can take!',
-						icon: { name: 'complete', isLineIcon: true }
-					}
-				]
+					items: [
+						{
+							id: 'number_one',
+							title: 'This is so cool!',
+							subtitle: 'For sure!',
+							icon: { name: 'complete', isLineIcon: true }
+						},
+						{
+							id: 'number_two',
+							title: 'Takes all the props a List can take!',
+							icon: { name: 'complete', isLineIcon: true }
+						}
+					]
+				}
 			},
 			{
-				key: 'text_example',
-				type: 'text',
-				text: 'Following up with text component!'
+				type: IHWCardBuilderBodyItemType.Text,
+				viewModel: {
+					text: 'Following up with text component!'
+				}
 			}
 		]
 	},
 	footer: {
 		actions: [
 			{
-				type: 'button',
+				type: IHWActionButtonType.Button,
 				text: 'Do things',
-				kind: 'secondary',
-				icon: '',
+				kind: IHWActionKinds.Secondary,
 				isSmall: true
 			}
 		]
 	}
 }
 
-const cardJSON5 = {
+const cardJSON5: ICardBuilderProps = {
 	header: {
 		title: 'Danger Zone'
 	},
 	footer: {
 		actions: [
 			{
-				type: 'button',
+				type: IHWActionButtonType.Button,
 				text: 'Delete this thing forever',
 				icon: {
 					name: 'remove'
 				},
-				kind: 'caution',
+				kind: IHWActionKinds.Caution,
 				isSmall: true,
 				onClick: () => {}
 			}
@@ -210,7 +216,7 @@ stories
 				</Text>
 			</Card.Body>
 			<Card.Footer>
-				<Button kind="secondary" text="Update credit card" />
+				<Button kind={IHWActionKinds.Secondary} text="Update credit card" />
 			</Card.Footer>
 		</Card>
 	))
@@ -227,22 +233,22 @@ stories
 			<Card.Body>
 				<Text>
 					Two roads diverged in a wood, and I took the one less traveled by, And
-					that has made all the difference.
+					that has made all the difference.
 				</Text>
 				<Scores
 					scores={object('scores', [
 						{
-							id: 1,
+							id: '1',
 							label: 'Today',
 							value: '$1,848'
 						},
 						{
-							id: 2,
+							id: '2',
 							label: 'This Week',
 							value: '$5,778'
 						},
 						{
-							id: 3,
+							id: '3',
 							label: 'This Month',
 							value: '$25,068'
 						}
@@ -273,7 +279,11 @@ stories
 		<Card isCentered>
 			<Card.Header />
 			<Card.Body>
-				<Avatar isLarge image={userImageLg} alt="Rosamund Mueleer" />
+				<Avatar
+					isLarge
+					image={text('Avatar Image', userImageLg)}
+					alt="Rosamund Mueleer"
+				/>
 				<TextContainer spacing="tight">
 					<Subheading className="card-header__title" element="h3">
 						{`Say "Happy Birthday"`}
@@ -285,13 +295,18 @@ stories
 				</TextContainer>
 			</Card.Body>
 			<Card.Footer>
-				<Button kind="secondary" text="Send a birthday message" isSmall />
+				<Button
+					kind={IHWActionKinds.Secondary}
+					text="Send a birthday message"
+					isSmall
+				/>
 			</Card.Footer>
 		</Card>
 	))
 	.add('Place Card', () => (
 		<Card>
 			<Image
+				id="header"
 				src="https://images.unsplash.com/photo-1535401991746-da3d9055713e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9fa1c73c0d29848a6e63595c588051ad&auto=format&fit=crop&w=720&h=360&q=80"
 				width={720}
 				height={360}
@@ -301,7 +316,7 @@ stories
 				<Text>101 Purdy Lakes, West Jordanmouth, NH 38827-6100</Text>
 			</Card.Body>
 			<Card.Footer>
-				<Button kind="secondary" text="Book an appointment" />
+				<Button kind={IHWActionKinds.Secondary} text="Book an appointment" />
 			</Card.Footer>
 		</Card>
 	))
@@ -327,20 +342,24 @@ stories
 			<Card.Header
 				labelText={text('Label Text', '')}
 				labelIcon={
-					boolean('Label Icon', false) && {
-						customIcon: LockIcon2,
-						isLineIcon: true
-					}
+					boolean('Label Icon', false)
+						? {
+								customIcon: LockIcon2,
+								isLineIcon: true
+						  }
+						: undefined
 				}
 				title={text('Title', 'Get the most out of Spruce')}
 				actions={
-					boolean('Header Action', false) && [
-						{
-							kind: 'simple',
-							text: 'Go to team',
-							isSmall: true
-						}
-					]
+					boolean('Header Action', false)
+						? [
+								{
+									kind: IHWActionKinds.Simple,
+									text: 'Go to team',
+									isSmall: true
+								}
+						  ]
+						: undefined
 				}
 				contextMenu={object('contextMenu', {
 					actions: [{ text: 'One' }, { text: 'Two' }, { text: 'Three' }]
@@ -355,18 +374,24 @@ stories
 				</Text>
 			</Card.Body>
 			<Card.Footer>
-				<Button kind="secondary" text="Get some skills" isSmall />
+				<Button
+					kind={IHWActionKinds.Secondary}
+					text="Get some skills"
+					isSmall
+				/>
 			</Card.Footer>
 		</Card>
 	))
 	.add('Onboarding Card', () => <OnboardingCard {...onboarding} />)
-	.add('CardBuilder', () => [
-		<CardBuilder key="foo-0" {...object('json', cardJSON)} />,
-		<CardBuilder key="foo-1" {...object('json2', cardJSON2)} />,
-		<CardBuilder key="foo-2" {...object('json3', cardJSON3)} />,
-		<CardBuilder key="foo-3" {...object('json4', cardJSON4)} />,
-		<CardBuilder key="foo-4" {...object('json5', cardJSON5)} />
-	])
+	.add('CardBuilder', () => (
+		<Fragment>
+			<CardBuilder key="foo-0" {...object('json', cardJSON)} />
+			<CardBuilder key="foo-1" {...object('json2', cardJSON2)} />
+			<CardBuilder key="foo-2" {...object('json3', cardJSON3)} />
+			<CardBuilder key="foo-3" {...object('json4', cardJSON4)} />
+			<CardBuilder key="foo-4" {...object('json5', cardJSON5)} />
+		</Fragment>
+	))
 	.add('Expandable Card', () => {
 		return (
 			<Card expandable headerProps={{ title: 'Hello' }} defaultExpanded={false}>

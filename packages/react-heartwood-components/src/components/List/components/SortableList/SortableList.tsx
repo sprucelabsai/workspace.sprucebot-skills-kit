@@ -24,6 +24,9 @@ export interface ISortableListProps extends IListProps {
 
 	/** Callabck when sorting ends */
 	onSortEnd: (props: any) => void
+
+	/** List items you want to be sortable */
+	items?: IListItemProps[]
 }
 
 interface ISortableListState {

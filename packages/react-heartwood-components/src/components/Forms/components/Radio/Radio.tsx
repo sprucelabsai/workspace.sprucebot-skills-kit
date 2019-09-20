@@ -22,7 +22,7 @@ const Radio = (props: IRadioProps): React.ReactElement => {
 					className="checkbox-item__input"
 					type="radio"
 					id={id}
-					name={name}
+					name={name || undefined}
 					disabled={disabled || false}
 				/>
 				<label className="checkbox-item__label" htmlFor={id}>

@@ -1,5 +1,6 @@
 import cx from 'classnames'
 import React, { Fragment } from 'react'
+import cloneDeep from 'lodash/cloneDeep'
 import Avatar from '../../../Avatar/Avatar'
 import Button, { IButtonProps } from '../../../Button/Button'
 import ContextMenu, {
@@ -38,7 +39,7 @@ export interface IListItemProps
 	actions?: IButtonProps[]
 
 	/** Context Menu associated with the list item */
-	contextMenu?: IContextMenuProps
+	contextMenu?: IContextMenuProps | null
 
 	/** Props passed to the toggle when it is used */
 	toggleProps?: IToggleProps
@@ -85,6 +86,20 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		lists
 	} = props
 
+	let checkboxProps: ICheckboxProps | undefined
+	let radioProps: IRadioProps | undefined
+
+	if (selectableProps) {
+		const restSelectableProps = cloneDeep(selectableProps)
+		delete restSelectableProps.__typename
+
+		if (selectableType === IHWListItemSelectableType.Checkbox) {
+			checkboxProps = restSelectableProps as ICheckboxProps
+		} else {
+			radioProps = restSelectableProps as IRadioProps
+		}
+	}
+
 	const parentClass = cx('list-item', className, {
 		'list-item-title-only': !subtitle,
 		'list-item--is-draggable': isDraggable,
@@ -124,7 +139,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 									<Checkbox
 										id={selectableId}
 										{...(isDisabled ? { disabled: true } : {})}
-										{...selectableProps}
+										{...checkboxProps}
 									/>
 								)}
 							{selectableType === IHWListItemSelectableType.Radio &&
@@ -132,7 +147,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 									<Radio
 										id={selectableId}
 										{...(isDisabled ? { disabled: true } : {})}
-										{...selectableProps}
+										{...radioProps}
 									/>
 								)}
 						</Fragment>

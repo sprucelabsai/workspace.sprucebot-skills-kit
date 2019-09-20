@@ -15,8 +15,7 @@ export const ListWrapper = (props): React.ReactElement => (
 
 export type IWrappedItemProps = IListItemProps | IExpandableListItemProps
 
-export interface IListProps
-	extends Omit<IHWList, 'id' | 'actions' | 'header' | 'items'> {
+export interface IListProps extends Omit<IHWList, 'id' | 'header' | 'items'> {
 	/** optional id for view caching */
 	id?: string
 
@@ -28,9 +27,6 @@ export interface IListProps
 
 	/** Class for the list */
 	className?: string
-
-	/** Set true to make the list smaller */
-	isSmall?: boolean
 
 	/** any passthrough to render in the body of the list */
 	children?: React.ReactNode
@@ -46,6 +42,7 @@ const List = (props: IListProps): React.ReactElement => {
 		children,
 		selectableType
 	} = props
+
 	const parentClass = cx('list', className, {
 		'list-small': isSmall,
 		'list--separators-hidden': !areSeparatorsVisible
@@ -57,17 +54,20 @@ const List = (props: IListProps): React.ReactElement => {
 			<ul className={parentClass}>
 				{items &&
 					items.map((item, idx) => {
-						if (item.isExpandable) {
-							return <ExpandableListItem key={idx} item={item} {...item} />
+						const listItem = item as IListItemProps
+						const expandablListItem = item as IExpandableListItemProps
+
+						if (listItem.title) {
+							return (
+								<ListItem
+									key={listItem.id}
+									selectableType={selectableType}
+									isSeparatorVisible={areSeparatorsVisible}
+									{...listItem}
+								/>
+							)
 						}
-						return (
-							<ListItem
-								key={idx}
-								selectableType={selectableType}
-								isSeparatorVisible={areSeparatorsVisible}
-								{...item}
-							/>
-						)
+						return <ExpandableListItem key={idx} {...expandablListItem} />
 					})}
 				{children && children}
 			</ul>

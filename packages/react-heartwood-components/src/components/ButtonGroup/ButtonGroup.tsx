@@ -1,6 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
-import Button, { IButtonProps, ButtonKinds } from '../Button/Button'
+import Button, { IButtonProps } from '../Button/Button'
+import { IHWActionKinds } from '@sprucelabs/spruce-types'
 
 export interface IButtonGroupProps {
 	/** Array of actions to render the group's buttons. */
@@ -28,7 +29,7 @@ const ButtonGroup = (props: IButtonGroupProps): React.ReactElement => {
 			{actions.map((action, idx) => {
 				return (
 					<li
-						key={action.text}
+						key={action.id}
 						className={cx('button-group__item', {
 							'button-group__item--is-highlighted': highlightedIndex === idx
 						})}
@@ -38,9 +39,9 @@ const ButtonGroup = (props: IButtonGroupProps): React.ReactElement => {
 							{...action}
 							kind={
 								kind === 'floating'
-									? ButtonKinds.Simple
+									? IHWActionKinds.Simple
 									: kind === 'segmented'
-									? ButtonKinds.Secondary
+									? IHWActionKinds.Secondary
 									: action.kind
 							}
 						/>
