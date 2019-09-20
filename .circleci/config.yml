@@ -12,6 +12,7 @@ jobs:
       - restore_cache:
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
+      - run: yarn clean
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: yarn lint
