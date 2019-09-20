@@ -3032,13 +3032,6 @@
   resolved "https://registry.yarnpkg.com/@sprucelabs/semantic-release/-/semantic-release-2.0.8.tgz#37fdc05bd447e69f60d5c26c0d51c629eef139d9"
   integrity sha512-E+l04vYuyeTKvNjY76jYdcj4gcTe1hVI/jIL332sPavZWaxa9K29i4yYTe7r0cSb8LiqmWarK9Tq6YZ6O3HPfw==
 
-"@sprucelabs/spruce-types@^8.17.8-pre-91dabded.0":
-  version "8.17.8-pre-91dabded.0"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/spruce-types/-/spruce-types-8.17.8-pre-91dabded.0.tgz#e651d9afe0831e6aa7392d4d2c04f60a589c6670"
-  integrity sha512-PPD48bElF+LlNHoRuErcys4en4B+fCOQnHP0ASFaw5dKdkhGz5A9MIn/QN5P6QQ2yktV9aVzxoy/x8KoeF2SEw==
-  dependencies:
-    typescript "~3.4.5"
-
 "@storybook/addon-actions@5.2.1", "@storybook/addon-actions@^5.2.1":
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-5.2.1.tgz#2096e7f938b289be48af6f0adfd620997e7a420c"
@@ -4067,15 +4060,7 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
 
-"@types/storybook__addon-knobs@^5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@types/storybook__addon-knobs/-/storybook__addon-knobs-5.0.3.tgz#a6366877d7b21f9fa2cc9eb23650304388393350"
-  integrity sha512-NnSOu4ajk4kL1e1eRe9zzyspIghgFu8B9ELyrAl1jF/nJE26YK2oDTi7qr+k/+X33rNaYFo6e7+lsEqeI3MLXg==
-  dependencies:
-    "@types/react" "*"
-    "@types/storybook__react" "*"
-
-"@types/storybook__react@*", "@types/storybook__react@^4.0.2":
+"@types/storybook__react@^4.0.2":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/storybook__react/-/storybook__react-4.0.2.tgz#f36fb399574c662e79c1a0cf6e429b6ff730da40"
   integrity sha512-U/+J5qccRdKFryvHkk1a0IeZaSIZLCmTwAQhTSDGeC3SPNIYPus+EtunBqP49r870l8czbfxtjeC3IL9P66ngQ==
