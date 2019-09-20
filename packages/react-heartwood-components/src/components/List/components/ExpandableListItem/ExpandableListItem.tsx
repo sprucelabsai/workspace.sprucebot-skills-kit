@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { IListProps } from '../../List'
 import ListItem, { IListItemProps } from '../ListItem/ListItem'
-import { IHWExpandableListItem, IHWActionKinds } from '@sprucelabs/spruce-types'
+import { IHWExpandableListItem } from '@sprucelabs/spruce-types'
+import { ButtonKinds } from '../../../Button/Button'
 
 export interface IExpandableListItemProps
 	extends Omit<IHWExpandableListItem, 'item' | 'list' | 'lists'> {
@@ -54,7 +55,7 @@ export default class ExpandableListItem extends Component<
 								? expandedIconName || 'keyboard_arrow_down'
 								: collapsedIconName || 'keyboard_arrow_right'
 						},
-						kind: isExpanded ? undefined : IHWActionKinds.Simple,
+						kind: isExpanded ? undefined : ButtonKinds.Simple,
 						onClick: this.toggleExpanded
 					}
 				]}

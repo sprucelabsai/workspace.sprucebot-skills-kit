@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
-import Button from '../../Button/Button'
+import Button, { ButtonKinds } from '../../Button/Button'
 import Icon, { IIconProps } from '../../Icon/Icon'
 import ContextMenu, { IContextMenuProps } from '../../ContextMenu/ContextMenu'
 
 import { IButtonProps } from '../../Button/Button'
-import { IHWCardHeader, IHWActionKinds } from '@sprucelabs/spruce-types'
+import { IHWCardHeader } from '@sprucelabs/spruce-types'
 
 // Card Header
 export interface ICardHeaderProps
@@ -52,7 +52,7 @@ const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 							actions.map(action => (
 								<Button
 									key={action.id}
-									kind={IHWActionKinds.Simple}
+									kind={ButtonKinds.Simple}
 									isSmall
 									{...action}
 								/>

@@ -1,7 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import Button, { IButtonProps } from '../Button/Button'
-import { IHWActionKinds } from '@sprucelabs/spruce-types'
+import Button, { IButtonProps, ButtonKinds } from '../Button/Button'
 
 export interface IButtonGroupProps {
 	/** Array of actions to render the group's buttons. */
@@ -39,9 +38,9 @@ const ButtonGroup = (props: IButtonGroupProps): React.ReactElement => {
 							{...action}
 							kind={
 								kind === 'floating'
-									? IHWActionKinds.Simple
+									? ButtonKinds.Simple
 									: kind === 'segmented'
-									? IHWActionKinds.Secondary
+									? ButtonKinds.Secondary
 									: action.kind
 							}
 						/>

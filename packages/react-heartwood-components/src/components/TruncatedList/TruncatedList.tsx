@@ -1,12 +1,11 @@
 import React, { Component, Fragment, ReactElement } from 'react'
 import cx from 'classnames'
 
-import Button from '../Button/Button'
+import Button, { ButtonKinds } from '../Button/Button'
 import EmptyState from '../EmptyState/EmptyState'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 
 import { IRecordSelectionListItemProps } from '../RecordSelectionList/RecordSelectionList'
-import { IHWActionKinds } from '@sprucelabs/spruce-types'
 
 interface ITruncatedListProps {
 	/** Optional class name for the component */
@@ -129,7 +128,7 @@ export default class TruncatedList extends Component<
 						{isTruncated ? (
 							<div className="truncated-list__action-btn-wrapper">
 								<Button
-									kind={IHWActionKinds.Simple}
+									kind={ButtonKinds.Simple}
 									className="truncated-list__action-btn"
 									isSmall={true}
 									text={truncatedActionText || 'See all'}

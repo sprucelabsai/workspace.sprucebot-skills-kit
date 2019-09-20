@@ -1,9 +1,11 @@
+import { IHWAction, IHWActionKinds } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
 import React, { Fragment } from 'react'
 import CircleLoader from '../CircleLoader/CircleLoader'
 import Icon, { IIconProps } from '../Icon/Icon'
 import BasicAnchor from '../_utilities/Anchor'
-import { IHWAction, IHWActionKinds } from '@sprucelabs/spruce-types'
+
+export { IHWActionKinds as ButtonKinds } from '@sprucelabs/spruce-types'
 
 export interface IButtonProps extends Omit<IHWAction, 'id' | 'icon'> {
 	/** Optional ID for view caching */

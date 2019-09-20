@@ -27,10 +27,8 @@ import ListHeader from './components/ListHeader/ListHeader'
 import ListItem from './components/ListItem/ListItem'
 import SortableList from './components/SortableList/SortableList'
 import List, { ListWrapper } from './List'
-import {
-	IHWListItemSelectableType,
-	IHWActionKinds
-} from '@sprucelabs/spruce-types'
+import { IHWListItemSelectableType } from '@sprucelabs/spruce-types'
+import { ButtonKinds } from '../Button/Button'
 
 const stories = storiesOf('List', module)
 
@@ -156,26 +154,26 @@ stories
 				actions: [
 					{
 						text: 'Today',
-						kind: IHWActionKinds.Simple
+						kind: ButtonKinds.Simple
 					},
 					{
 						icon: {
 							name: 'calendar',
 							isLineIcon: true
 						},
-						kind: IHWActionKinds.Simple
+						kind: ButtonKinds.Simple
 					},
 					{
 						icon: {
 							name: 'arrow_back'
 						},
-						kind: IHWActionKinds.Simple
+						kind: ButtonKinds.Simple
 					},
 					{
 						icon: {
 							customIcon: 'arrow_forward'
 						},
-						kind: IHWActionKinds.Simple
+						kind: ButtonKinds.Simple
 					}
 				]
 			}}

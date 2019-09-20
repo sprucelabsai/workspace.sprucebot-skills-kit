@@ -1,10 +1,5 @@
 import React, { Component } from 'react'
-import {
-	Card,
-	CardHeader,
-	CardBody
-	// Text
-} from '@sprucelabs/react-heartwood-components'
+import { Card } from '@sprucelabs/react-heartwood-components'
 
 interface IExampleCardProps {
 	title: string
@@ -17,11 +12,11 @@ export default class ExampleCard extends Component<IExampleCardProps> {
 		return (
 			<div style={{ margin: '2rem', width: '20rem' }}>
 				<Card>
-					<CardHeader title={title} />
-					<CardBody isFullBleed={false}>
+					<Card.Header title={title} />
+					<Card.Body isFullBleed={false}>
 						{/* TODO: JSX element type 'Text' does not have any construct or call signatures. */}
 						{/* <Text>{text}</Text> */}
-					</CardBody>
+					</Card.Body>
 				</Card>
 			</div>
 		)

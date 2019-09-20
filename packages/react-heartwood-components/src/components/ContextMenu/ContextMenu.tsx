@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { createPortal } from 'react-dom'
 import cx from 'classnames'
 import { debounce } from 'lodash'
-import Button, { IButtonProps } from '../Button/Button'
+import Button, { IButtonProps, ButtonKinds } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
 import MoreIcon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
-import { IHWContextMenu, IHWActionKinds } from '@sprucelabs/spruce-types'
+import { IHWContextMenu } from '@sprucelabs/spruce-types'
 import { IIconProps } from '../Icon/Icon'
 
 export interface IContextMenuProps
@@ -276,7 +276,7 @@ export default class ContextMenu extends Component<
 		return (
 			<div className={buttonClass} ref={this.ref}>
 				<Button
-					kind={isSimple ? IHWActionKinds.Simple : undefined}
+					kind={isSimple ? ButtonKinds.Simple : undefined}
 					className="context-menu__button"
 					onClick={this.handleToggle}
 					icon={

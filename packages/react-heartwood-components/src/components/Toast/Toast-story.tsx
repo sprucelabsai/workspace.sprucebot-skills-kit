@@ -4,7 +4,7 @@ import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import Toast from './Toast'
 import ToastWrapper from './components/ToastWrapper/ToastWrapper'
-import { IHWActionKinds } from '@sprucelabs/spruce-types'
+import { ButtonKinds } from '../Button/Button'
 
 const stories = storiesOf('Toast', module)
 
@@ -100,12 +100,12 @@ class Toaster extends Component<IToasterProps, IToasterState> {
 							onClick: () => this.addToast('negative')
 						},
 						{
-							kind: IHWActionKinds.Secondary,
+							kind: ButtonKinds.Secondary,
 							text: 'Add Warning Toast',
 							onClick: () => this.addToast('warn')
 						},
 						{
-							kind: IHWActionKinds.Secondary,
+							kind: ButtonKinds.Secondary,
 							text: 'Add Info Toast',
 							onClick: () => this.addToast('info')
 						}

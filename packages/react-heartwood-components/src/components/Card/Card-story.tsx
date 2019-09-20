@@ -12,7 +12,7 @@ import Text from '../Text/Text'
 import Subheading from '../Subheading/Subheading'
 import Image from '../Image/Image'
 import { Scores } from './index'
-import Button from '../Button/Button'
+import Button, { ButtonKinds } from '../Button/Button'
 import Avatar from '../Avatar/Avatar'
 import userImageLg from '../../../static/assets/users/user-01--96w.png'
 import LockIcon2 from '../../../static/assets/icons/Interface-Essential/Lock/Unlock/lock-6--16w.svg'
@@ -20,7 +20,6 @@ import AlertIcon3 from '../../../static/assets/icons/Interface-Essential/Alerts/
 import { ICardBuilderProps } from './components/CardBuilder'
 import {
 	IHWActionButtonType,
-	IHWActionKinds,
 	IHWCardBuilderBodyItemType
 } from '@sprucelabs/spruce-types'
 
@@ -54,7 +53,7 @@ const cardJSON: ICardBuilderProps = {
 			{
 				type: IHWActionButtonType.Button,
 				text: 'Do things',
-				kind: IHWActionKinds.Secondary,
+				kind: ButtonKinds.Secondary,
 				isSmall: true
 			}
 		]
@@ -152,7 +151,7 @@ const cardJSON4: ICardBuilderProps = {
 			{
 				type: IHWActionButtonType.Button,
 				text: 'Do things',
-				kind: IHWActionKinds.Secondary,
+				kind: ButtonKinds.Secondary,
 				isSmall: true
 			}
 		]
@@ -171,7 +170,7 @@ const cardJSON5: ICardBuilderProps = {
 				icon: {
 					name: 'remove'
 				},
-				kind: IHWActionKinds.Caution,
+				kind: ButtonKinds.Caution,
 				isSmall: true,
 				onClick: () => {}
 			}
@@ -216,7 +215,7 @@ stories
 				</Text>
 			</Card.Body>
 			<Card.Footer>
-				<Button kind={IHWActionKinds.Secondary} text="Update credit card" />
+				<Button kind={ButtonKinds.Secondary} text="Update credit card" />
 			</Card.Footer>
 		</Card>
 	))
@@ -296,7 +295,7 @@ stories
 			</Card.Body>
 			<Card.Footer>
 				<Button
-					kind={IHWActionKinds.Secondary}
+					kind={ButtonKinds.Secondary}
 					text="Send a birthday message"
 					isSmall
 				/>
@@ -316,7 +315,7 @@ stories
 				<Text>101 Purdy Lakes, West Jordanmouth, NH 38827-6100</Text>
 			</Card.Body>
 			<Card.Footer>
-				<Button kind={IHWActionKinds.Secondary} text="Book an appointment" />
+				<Button kind={ButtonKinds.Secondary} text="Book an appointment" />
 			</Card.Footer>
 		</Card>
 	))
@@ -354,7 +353,7 @@ stories
 					boolean('Header Action', false)
 						? [
 								{
-									kind: IHWActionKinds.Simple,
+									kind: ButtonKinds.Simple,
 									text: 'Go to team',
 									isSmall: true
 								}
@@ -374,11 +373,7 @@ stories
 				</Text>
 			</Card.Body>
 			<Card.Footer>
-				<Button
-					kind={IHWActionKinds.Secondary}
-					text="Get some skills"
-					isSmall
-				/>
+				<Button kind={ButtonKinds.Secondary} text="Get some skills" isSmall />
 			</Card.Footer>
 		</Card>
 	))

@@ -4,11 +4,10 @@ import CardHeader from './CardHeader'
 import CardBody from './CardBody'
 import CardFooter from './CardFooter'
 import Tabs from '../../Tabs/Tabs'
-import Button, { IButtonProps } from '../../Button/Button'
+import Button, { IButtonProps, ButtonKinds } from '../../Button/Button'
 import {
 	IHWOnboardingCard,
-	IHWOnboardingCardStep,
-	IHWActionKinds
+	IHWOnboardingCardStep
 } from '@sprucelabs/spruce-types'
 import { IIconProps } from '../../Icon/Icon'
 
@@ -80,10 +79,7 @@ export default class OnboardingCard extends Component<
 					{steps[currentStep].panelCopy}
 				</CardBody>
 				<CardFooter>
-					<Button
-						kind={IHWActionKinds.Primary}
-						{...steps[currentStep].panelCTA}
-					/>
+					<Button kind={ButtonKinds.Primary} {...steps[currentStep].panelCTA} />
 				</CardFooter>
 			</Card>
 		)

@@ -3,11 +3,11 @@ import { IEventDetailsProps } from './EventDetails'
 import { IListProps } from '../List'
 import {
 	IHWCalendarEventDetailsItemType,
-	IHWActionKinds,
 	IHWListItemSelectableType,
 	IHWContextMenuSize,
 	IHWCardBuilderBodyItemType
 } from '@sprucelabs/spruce-types'
+import { ButtonKinds } from '../Button/Button'
 
 const avatar =
 	'https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&auto=format&fit=crop&w=96&h=96&q=80'
@@ -66,7 +66,7 @@ const services: IEventDetailsItemProps = {
 				icon: { name: 'add' },
 				primaryAction: {
 					icon: { name: 'add' },
-					kind: IHWActionKinds.Simple
+					kind: ButtonKinds.Simple
 				}
 			}
 		]
@@ -179,7 +179,7 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: IHWActionKinds.Simple
+								kind: ButtonKinds.Simple
 							}
 						]
 					}
@@ -200,7 +200,7 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 							{
 								id: 'first',
 								icon: { name: 'edit' },
-								kind: IHWActionKinds.Simple
+								kind: ButtonKinds.Simple
 							}
 						]
 					}
@@ -235,7 +235,7 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 		{
 			type: IHWCalendarEventDetailsItemType.SplitButton,
 			viewModel: {
-				kind: IHWActionKinds.Primary,
+				kind: ButtonKinds.Primary,
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Check guest in',
@@ -298,7 +298,7 @@ export const warningAppointment: IEventDetailsProps = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: IHWActionKinds.Simple
+								kind: ButtonKinds.Simple
 							}
 						]
 					}
@@ -324,7 +324,7 @@ export const warningAppointment: IEventDetailsProps = {
 										actions: [
 											{
 												icon: { name: 'edit' },
-												kind: IHWActionKinds.Simple
+												kind: ButtonKinds.Simple
 											}
 										],
 										warnings: {
@@ -350,12 +350,12 @@ export const warningAppointment: IEventDetailsProps = {
 					actions: [
 						{
 							text: 'Dismiss',
-							kind: IHWActionKinds.Simple,
+							kind: ButtonKinds.Simple,
 							isSmall: true
 						},
 						{
 							text: 'Find a different time',
-							kind: IHWActionKinds.Secondary,
+							kind: ButtonKinds.Secondary,
 							isSmall: true
 						}
 					]
@@ -396,7 +396,7 @@ export const warningAppointment: IEventDetailsProps = {
 			type: IHWCalendarEventDetailsItemType.SplitButton,
 			viewModel: {
 				id: 'primaryCTA',
-				kind: IHWActionKinds.Primary,
+				kind: ButtonKinds.Primary,
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Check guest in',
@@ -439,7 +439,7 @@ export const pastAppointment: IEventDetailsProps = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: IHWActionKinds.Simple
+								kind: ButtonKinds.Simple
 							}
 						]
 					},
@@ -451,7 +451,7 @@ export const pastAppointment: IEventDetailsProps = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: IHWActionKinds.Simple
+								kind: ButtonKinds.Simple
 							}
 						]
 					}
@@ -520,7 +520,7 @@ export const pastAppointment: IEventDetailsProps = {
 			type: IHWCalendarEventDetailsItemType.SplitButton,
 			viewModel: {
 				id: 'primaryCTA',
-				kind: IHWActionKinds.Primary,
+				kind: ButtonKinds.Primary,
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Book again',
@@ -586,7 +586,7 @@ export const lunchBreak: IEventDetailsProps = {
 			viewModel: {
 				id: 'actions',
 				text: 'Reschedule',
-				kind: IHWActionKinds.Secondary,
+				kind: ButtonKinds.Secondary,
 				isFullWidth: true
 			}
 		}
@@ -643,7 +643,7 @@ export const ptoBlock: IEventDetailsProps = {
 			viewModel: {
 				id: 'actions',
 				text: 'Edit PTO Block',
-				kind: IHWActionKinds.Secondary,
+				kind: ButtonKinds.Secondary,
 				isFullWidth: true
 			}
 		}
