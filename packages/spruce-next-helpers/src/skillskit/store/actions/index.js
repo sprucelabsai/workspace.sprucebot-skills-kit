@@ -5,7 +5,7 @@ import * as sharable from './sharable'
 import * as calendar from './calendar'
 import * as events from './events'
 
-module.exports = {
+export default {
 	auth,
 	authV2,
 	onboarding,
