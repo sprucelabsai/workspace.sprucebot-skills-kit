@@ -4,7 +4,8 @@ export { default as BotText } from './components/BotText/BotText'
 export {
 	default as Button,
 	IButtonProps,
-	ButtonKinds
+	ButtonKinds,
+	ButtonTypes
 } from './components/Button/Button'
 export { default as ButtonGroup } from './components/ButtonGroup/ButtonGroup'
 export {

@@ -1,15 +1,28 @@
-import { IHWAction, IHWActionKinds } from '@sprucelabs/spruce-types'
+import {
+	IHWAction,
+	IHWActionKinds as ButtonKinds,
+	IHWActionButtonType as ButtonTypes
+} from '@sprucelabs/spruce-types'
 import cx from 'classnames'
 import React, { Fragment } from 'react'
 import CircleLoader from '../CircleLoader/CircleLoader'
 import Icon, { IIconProps } from '../Icon/Icon'
 import BasicAnchor from '../_utilities/Anchor'
 
-export { IHWActionKinds as ButtonKinds } from '@sprucelabs/spruce-types'
+export {
+	IHWActionKinds as ButtonKinds,
+	IHWActionButtonType as ButtonTypes
+} from '@sprucelabs/spruce-types'
 
 export interface IButtonProps extends Omit<IHWAction, 'id' | 'icon'> {
 	/** Optional ID for view caching */
 	id?: string
+
+	/** The kind of button, primary, secondary, etc. */
+	kind?: ButtonKinds | null
+
+	/** Submit/Button */
+	type?: ButtonTypes | null
 
 	/** Optional class to add to the button. */
 	className?: string
@@ -50,10 +63,10 @@ const Button = (props: IButtonProps): React.ReactElement => {
 
 	const btnClass = cx(className, {
 		btn: true,
-		'btn-primary': kind === IHWActionKinds.Primary,
-		'btn-secondary': kind === IHWActionKinds.Secondary,
-		'btn-caution': kind === IHWActionKinds.Caution,
-		'btn-simple': kind === IHWActionKinds.Simple,
+		'btn-primary': kind === ButtonKinds.Primary,
+		'btn-secondary': kind === ButtonKinds.Secondary,
+		'btn-caution': kind === ButtonKinds.Caution,
+		'btn-simple': kind === ButtonKinds.Simple,
 		'btn-full-width': isFullWidth,
 		'btn--loading': isLoading,
 		'btn-small': isSmall,
@@ -97,8 +110,7 @@ const Button = (props: IButtonProps): React.ReactElement => {
 					{isLoading && (
 						<CircleLoader
 							light={
-								kind === IHWActionKinds.Primary ||
-								kind === IHWActionKinds.Caution
+								kind === ButtonKinds.Primary || kind === ButtonKinds.Caution
 							}
 						/>
 					)}
