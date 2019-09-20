@@ -1,4 +1,5 @@
 import gqlClient from './gqlClient'
+import gql from 'graphql-tag'
 
 export default {
 	configure(token) {
@@ -7,19 +8,25 @@ export default {
 	// TODO: Cache settings?
 	async get(options) {
 		let requestedSettings = []
+
 		if (typeof options === 'string') {
 			requestedSettings = [options]
 		} else if (Array.isArray(options)) {
 			requestedSettings = options
 		}
-		const strRequestedSettings = requestedSettings.map(s => `"${s}"`)
+
 		const result = await gqlClient.query({
 			token: this.token,
-			query: `{
-				Settings (requestedSettings: [${strRequestedSettings.join(',')}]) {
-					settings
+			query: gql`
+				query GetSettings($requestedSettings: [String]) {
+					Settings(requestedSettings: $requestedSettings) {
+						settings
+					}
 				}
-			}`
+			`,
+			variables: {
+				requestedSettings: requestedSettings
+			}
 		})
 
 		return result &&
