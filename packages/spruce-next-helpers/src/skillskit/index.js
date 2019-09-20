@@ -376,7 +376,7 @@ const skill = {
 				})
 			},
 			remove: function() {
-				alert('Not yet implemented...')
+				window.alert('Not yet implemented...')
 			}
 		}
 
@@ -395,7 +395,7 @@ const skill = {
 				window.alert(headline)
 			},
 			remove: function() {
-				alert('Not yet implemented...')
+				window.alert('Not yet implemented...')
 			}
 		}
 
