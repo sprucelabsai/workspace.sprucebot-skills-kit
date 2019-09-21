@@ -5,10 +5,12 @@ import { IHWHeading, IHWHeadingWeight } from '@sprucelabs/spruce-types'
 
 export interface IHeadingProps extends IHWHeading {
 	className?: string
+
+	children?: React.ReactNode
 }
 
 const Heading = (props: IHeadingProps): React.ReactElement => {
-	const { text, className, weight } = props
+	const { text, className, weight, children } = props
 
 	const Element = weight || IHWHeadingWeight.H2
 
@@ -18,6 +20,7 @@ const Heading = (props: IHeadingProps): React.ReactElement => {
 			dangerouslySetInnerHTML={text ? { __html: text } : undefined}
 		>
 			{text}
+			{children}
 		</Element>
 	)
 }

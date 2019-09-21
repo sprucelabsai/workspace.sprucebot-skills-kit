@@ -122,7 +122,7 @@ const Text: React.StatelessComponent<ITextProps> = (
 		Element = element
 	}
 
-	const text = textProps || context
+	const text = children || textProps || context
 
 	if (typeof text === 'string') {
 		children = TemplateEngine(text, context)
