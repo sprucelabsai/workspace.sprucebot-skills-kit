@@ -43,13 +43,13 @@ type ScoreCard {
 }
 
 union CardBuilderBodyItemViewModel =
-	  Action
-	| Image
-	| Heading
-	| Text
-	| ScoreCard
-	| Toast
-	| List
+Action
+| Image
+| Heading
+| Text
+| ScoreCard
+| Toast
+| List
 
 enum CardBuilderBodyItemType {
 	action
@@ -125,8 +125,8 @@ type OnboardingCard {
 
 "The footer component of a card"
 type CardFooter {
-	"Actions to render in the footer"
-	actions: [Action]
+	"Button group that is can be rendered in the footer"
+	buttonGroup: ButtonGroup
 
 	"Any help text you'd like rendered in the footer"
 	helper: String

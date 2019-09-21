@@ -3,6 +3,7 @@ import cx from 'classnames'
 
 import Button from '../Button/Button'
 import TextStyle from '../TextStyle/TextStyle'
+import { IHWText } from '@sprucelabs/spruce-types'
 
 // Components available for templating
 
@@ -58,9 +59,11 @@ const TemplateEngine = (text = '', context = {}): ReactNode[] => {
 	return children.map(renderText)
 }
 
-export interface ITextProps extends HTMLProps<HTMLElement> {
+export interface ITextProps
+	extends HTMLProps<HTMLElement>,
+		Omit<IHWText, 'id'> {
 	/** Contents of the component. */
-	children: ReactNode
+	children?: ReactNode
 
 	/** Class name for the component */
 	className?: string
@@ -106,6 +109,7 @@ const Text: React.StatelessComponent<ITextProps> = (
 		className,
 		element,
 		context,
+		text: textProps,
 		...rest
 	} = props
 	let Element: any = 'p'
@@ -115,8 +119,10 @@ const Text: React.StatelessComponent<ITextProps> = (
 		Element = element
 	}
 
-	if (context && typeof children === 'string') {
-		children = TemplateEngine(children, context)
+	const text = textProps || context
+
+	if (typeof text === 'string') {
+		children = TemplateEngine(text, context)
 	}
 
 	return (

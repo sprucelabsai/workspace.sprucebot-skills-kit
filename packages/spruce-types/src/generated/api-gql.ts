@@ -444,6 +444,24 @@ export type ICoreGQLBigSearchSectionResultsPageInfo = {
 	endCursor?: Maybe<Scalars['String']>
 }
 
+export type ICoreGQLButtonGroup = {
+	__typename?: 'ButtonGroup'
+	/** Array of actions to render the group's buttons. */
+	actions?: Maybe<Array<ICoreGQLAction>>
+	/** Visual appearance of the group. */
+	kind?: Maybe<ICoreGQLButtonGroupKind>
+	/** Set true to fill parent width */
+	isFullWidth?: Maybe<Scalars['Boolean']>
+	/** Optional: Index of the button that is currently highlighted, e.g. by arrow keys */
+	highlightedIndex?: Maybe<Scalars['Int']>
+}
+
+export enum ICoreGQLButtonGroupKind {
+	Default = 'default',
+	Segmented = 'segmented',
+	Floating = 'floating'
+}
+
 /** A Calendar */
 export type ICoreGQLCalendar = {
 	__typename?: 'Calendar'
@@ -508,9 +526,9 @@ export type ICoreGQLCalendarEventDetails = {
 export type ICoreGQLCalendarEventDetailsItem = {
 	__typename?: 'CalendarEventDetailsItem'
 	/** How the view should be rendered */
-	type?: Maybe<ICoreGQLCalendarEventDetailsItemType>
-	/** The data fed into the view to configure it */
-	viewModel?: Maybe<ICoreGQLCalendarEventDetailsItemViewModel>
+	type: ICoreGQLCalendarEventDetailsItemType
+	/** The data fed into the view to configure it. */
+	viewModel: ICoreGQLCalendarEventDetailsItemViewModel
 }
 
 export enum ICoreGQLCalendarEventDetailsItemType {
@@ -555,6 +573,8 @@ export enum ICoreGQLCalendarEventKind {
 /** The builder for all things cards */
 export type ICoreGQLCardBuilder = {
 	__typename?: 'CardBuilder'
+	/** The id of the used for view caching */
+	id: Scalars['ID']
 	/** Card Header props */
 	header?: Maybe<ICoreGQLCardHeader>
 	/** optionally pass props to an image tag to be rendered in the header */
@@ -587,9 +607,9 @@ export type ICoreGQLCardBuilderBody = {
 export type ICoreGQLCardBuilderBodyItem = {
 	__typename?: 'CardBuilderBodyItem'
 	/** The type of ui component to use */
-	type?: Maybe<ICoreGQLCardBuilderBodyItemType>
+	type: ICoreGQLCardBuilderBodyItemType
 	/** The view model that renders the UI */
-	viewModel?: Maybe<ICoreGQLCardBuilderBodyItemViewModel>
+	viewModel: ICoreGQLCardBuilderBodyItemViewModel
 }
 
 export enum ICoreGQLCardBuilderBodyItemType {
@@ -623,8 +643,8 @@ export type ICoreGQLCardBuilderFooter = {
 /** The footer component of a card */
 export type ICoreGQLCardFooter = {
 	__typename?: 'CardFooter'
-	/** Actions to render in the footer */
-	actions?: Maybe<Array<Maybe<ICoreGQLAction>>>
+	/** Button group that is can be rendered in the footer */
+	buttonGroup?: Maybe<ICoreGQLButtonGroup>
 	/** Any help text you'd like rendered in the footer */
 	helper?: Maybe<Scalars['String']>
 }
@@ -716,10 +736,10 @@ export type ICoreGQLCheckbox = {
 	label?: Maybe<Scalars['String']>
 	/** Optional text to show below the label */
 	postText?: Maybe<Scalars['String']>
-	/** Class for the checkbox wrapper */
-	className?: Maybe<Scalars['String']>
 	/** Set true if the checkbox is indeterminate */
 	isIndeterminate?: Maybe<Scalars['Boolean']>
+	/** is this checkbox checked? */
+	checked?: Maybe<Scalars['Boolean']>
 }
 
 /** Returns "isAvailable" boolean to indicate if the slug is available */
@@ -757,12 +777,10 @@ export type ICoreGQLContextMenu = {
 	isSimple?: Maybe<Scalars['Boolean']>
 	/** Set true to make the button smaller */
 	isSmall?: Maybe<Scalars['Boolean']>
-	/** Set tot true makes the menu close when any action is selected */
+	/** Set to true makes the menu close when any action is selected */
 	closeOnSelectAction?: Maybe<Scalars['Boolean']>
 	/** Hide the icon entirely */
 	isTextOnly?: Maybe<Scalars['Boolean']>
-	/** Optional classname that applies to the button */
-	className?: Maybe<Scalars['String']>
 }
 
 export enum ICoreGQLContextMenuSize {
@@ -1480,8 +1498,24 @@ export type ICoreGQLGroupHasManyUserGroupsEdge = {
 
 export type ICoreGQLHeading = {
 	__typename?: 'Heading'
+	/** Id for view caching */
 	id: Scalars['String']
-	text: Scalars['String']
+	/** HTML rendered directly */
+	html?: Maybe<Scalars['String']>
+	/** Text rendered in the header */
+	text?: Maybe<Scalars['String']>
+	/** The weight of the heading, H1 and beyond */
+	weight?: Maybe<ICoreGQLHeadingWeight>
+}
+
+export enum ICoreGQLHeadingWeight {
+	H1 = 'h1',
+	H2 = 'h2',
+	H3 = 'h3',
+	H4 = 'h4',
+	H5 = 'h5',
+	H6 = 'h6',
+	P = 'p'
 }
 
 export type ICoreGQLIcon = {
@@ -1827,8 +1861,6 @@ export type ICoreGQLListItem = {
 	isSeparatorVisible?: Maybe<Scalars['Boolean']>
 	/** Optional class name for list item */
 	className?: Maybe<Scalars['String']>
-	/** Optional id prop for selectable list items */
-	selectableId?: Maybe<Scalars['String']>
 	/** Optional: set whether to use checkbox or radio for selectable list items */
 	selectableType?: Maybe<ICoreGQLListItemSelectableType>
 	/** Any props you want sent down to the selectable component being rendered */
@@ -2491,6 +2523,8 @@ export type ICoreGQLMagicLinkUnconfirmedUserArgs = {
 /** Render markdown beautifully */
 export type ICoreGQLMarkdown = {
 	__typename?: 'Markdown'
+	/** Unique ID for view caching. */
+	id: Scalars['ID']
 	/** Markdown text to be rendered */
 	source: Scalars['String']
 }
@@ -3960,8 +3994,6 @@ export type ICoreGQLRadio = {
 	label?: Maybe<Scalars['String']>
 	/** Optional text to show after the label */
 	postText?: Maybe<Scalars['String']>
-	/** Parent class */
-	className?: Maybe<Scalars['String']>
 	/** is this control disabled? */
 	disabled?: Maybe<Scalars['Boolean']>
 }
@@ -4757,12 +4789,14 @@ export type ICoreGQLSkillView = {
 /** A button with a dropdown of actions on the right */
 export type ICoreGQLSplitButton = {
 	__typename?: 'SplitButton'
+	/** ID for view caching */
+	id: Scalars['ID']
 	/** The main action readily surfaced to the user */
 	defaultAction: ICoreGQLAction
 	/** All the secondary nested actions */
 	actions: Array<Maybe<ICoreGQLAction>>
 	/** Sets the visual hierarchy of the button */
-	kind?: Maybe<Scalars['String']>
+	kind?: Maybe<ICoreGQLActionKinds>
 	/** Set true to fill the parent’s width */
 	isFullWidth?: Maybe<Scalars['Boolean']>
 	/** Sets the visual hierarchy of the button */
@@ -4905,8 +4939,6 @@ export type ICoreGQLToggle = {
 	__typename?: 'Toggle'
 	/** Unique id for UI caching */
 	id: Scalars['ID']
-	/** Optional class */
-	className?: Maybe<Scalars['String']>
 	/** Text after the toggle */
 	postText?: Maybe<Scalars['String']>
 }

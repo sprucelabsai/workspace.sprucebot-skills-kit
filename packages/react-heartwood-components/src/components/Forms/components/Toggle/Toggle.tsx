@@ -2,7 +2,10 @@ import React from 'react'
 import cx from 'classnames'
 import { IHWToggle } from '@sprucelabs/spruce-types'
 
-export interface IToggleProps extends IHWToggle {}
+export interface IToggleProps extends IHWToggle {
+	/** optional class name applied to the toggle */
+	className?: string
+}
 
 const Toggle = (props: IToggleProps): React.ReactElement => {
 	const { id, className, postText, ...rest } = props

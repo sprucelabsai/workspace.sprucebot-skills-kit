@@ -6,7 +6,7 @@ import Button, { IButtonProps, ButtonKinds } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
 import MoreIcon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
-import { IHWContextMenu } from '@sprucelabs/spruce-types'
+import { IHWContextMenu, IHWButtonGroupKind } from '@sprucelabs/spruce-types'
 import { IIconProps } from '../Icon/Icon'
 
 export interface IContextMenuProps
@@ -306,7 +306,7 @@ export default class ContextMenu extends Component<
 							}}
 						>
 							<ButtonGroup
-								kind="floating"
+								kind={IHWButtonGroupKind.Floating}
 								actions={actions.map(action => {
 									const btnAction = { ...action }
 									const oldOnclick = btnAction.onClick

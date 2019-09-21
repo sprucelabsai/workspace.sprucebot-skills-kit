@@ -13,7 +13,7 @@ import Image, { IImageProps } from '../../Image/Image'
 import List, { IListProps } from '../../List/List'
 import Scores from './Scores'
 import OnboardingCard from './OnboardingCard'
-import ButtonGroup from '../../ButtonGroup/ButtonGroup'
+import ButtonGroup, { IButtonGroupProps } from '../../ButtonGroup/ButtonGroup'
 import Toast, { IToastProps } from '../../Toast/Toast'
 
 import { IButtonProps } from '../../Button/Button'
@@ -28,21 +28,23 @@ import {
 } from '@sprucelabs/spruce-types'
 import { IHWCardFooter } from '@sprucelabs/spruce-types'
 
-export interface ICardBuilderFooter extends Omit<IHWCardFooter, 'actions'> {
+export interface ICardBuilderFooter extends Omit<IHWCardFooter, 'buttonGroup'> {
 	/** Render buttons in the Card Footer */
-	actions: IButtonProps[]
+	buttonGroup?: IButtonGroupProps
 }
+
+export type CardBuilderBodyItemViewModel =
+	| IButtonProps
+	| IImageProps
+	| IHWHeading
+	| ITextProps
+	| IHWScoreCard
+	| IToastProps
+	| IListProps
 
 export interface ICardBuilderBodyItem
 	extends Omit<IHWCardBuilderBodyItem, 'viewModel'> {
-	viewModel:
-		| IButtonProps
-		| IImageProps
-		| IHWHeading
-		| ITextProps
-		| IHWScoreCard
-		| IToastProps
-		| IListProps
+	viewModel: CardBuilderBodyItemViewModel
 }
 
 export interface ICardBuilderBodyProps
@@ -151,7 +153,7 @@ const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 			)}
 			{footer && (
 				<CardFooter>
-					{footer.actions && <ButtonGroup {...footer} />}
+					{footer.buttonGroup && <ButtonGroup {...footer.buttonGroup} />}
 					{footer.helper && (
 						<div className={'card__footer__helper'}>{footer.helper}</div>
 					)}

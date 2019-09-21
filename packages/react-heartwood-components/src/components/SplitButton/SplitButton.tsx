@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import cx from 'classnames'
 import Button, { IButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
-import { IHWSplitButton } from '@sprucelabs/spruce-types'
+import { IHWSplitButton, IHWButtonGroupKind } from '@sprucelabs/spruce-types'
 
 export interface ISplitButtonProps
 	extends Omit<IHWSplitButton, 'actions' | 'defaultAction'> {
@@ -242,7 +242,7 @@ export default class SplitButton extends Component<
 									}}
 								>
 									<ButtonGroup
-										kind="floating"
+										kind={IHWButtonGroupKind.Floating}
 										isFullWidth
 										actions={actions}
 										highlightedIndex={highlightedActionIndex}
@@ -261,7 +261,7 @@ export default class SplitButton extends Component<
 								}}
 							>
 								<ButtonGroup
-									kind="floating"
+									kind={IHWButtonGroupKind.Floating}
 									isFullWidth
 									actions={actions}
 									highlightedIndex={highlightedActionIndex}

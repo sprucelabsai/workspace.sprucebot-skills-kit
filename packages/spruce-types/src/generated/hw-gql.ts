@@ -75,6 +75,24 @@ export enum IHWActionKinds {
   Caution = 'caution'
 }
 
+export type IHWButtonGroup = {
+  __typename?: 'ButtonGroup',
+  /** Array of actions to render the group's buttons. */
+  actions?: Maybe<Array<IHWAction>>,
+  /** Visual appearance of the group. */
+  kind?: Maybe<IHWButtonGroupKind>,
+  /** Set true to fill parent width */
+  isFullWidth?: Maybe<Scalars['Boolean']>,
+  /** Optional: Index of the button that is currently highlighted, e.g. by arrow keys */
+  highlightedIndex?: Maybe<Scalars['Int']>,
+};
+
+export enum IHWButtonGroupKind {
+  Default = 'default',
+  Segmented = 'segmented',
+  Floating = 'floating'
+}
+
 /** An event that is rendered on the calendar. */
 export type IHWCalendarEvent = {
   __typename?: 'CalendarEvent',
@@ -231,8 +249,8 @@ export type IHWCardBuilderFooter = {
 /** The footer component of a card */
 export type IHWCardFooter = {
   __typename?: 'CardFooter',
-  /** Actions to render in the footer */
-  actions?: Maybe<Array<Maybe<IHWAction>>>,
+  /** Button group that is can be rendered in the footer */
+  buttonGroup?: Maybe<IHWButtonGroup>,
   /** Any help text you'd like rendered in the footer */
   helper?: Maybe<Scalars['String']>,
 };
@@ -612,8 +630,6 @@ export type IHWToggle = {
   __typename?: 'Toggle',
   /** Unique id for UI caching */
   id: Scalars['ID'],
-  /** Optional class */
-  className?: Maybe<Scalars['String']>,
   /** Text after the toggle */
   postText?: Maybe<Scalars['String']>,
 };

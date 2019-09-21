@@ -49,14 +49,16 @@ const cardJSON: ICardBuilderProps = {
 		]
 	},
 	footer: {
-		actions: [
-			{
-				type: IHWActionButtonType.Button,
-				text: 'Do things',
-				kind: ButtonKinds.Secondary,
-				isSmall: true
-			}
-		]
+		buttonGroup: {
+			actions: [
+				{
+					type: IHWActionButtonType.Button,
+					text: 'Do things',
+					kind: ButtonKinds.Secondary,
+					isSmall: true
+				}
+			]
+		}
 	}
 }
 
@@ -147,14 +149,16 @@ const cardJSON4: ICardBuilderProps = {
 		]
 	},
 	footer: {
-		actions: [
-			{
-				type: IHWActionButtonType.Button,
-				text: 'Do things',
-				kind: ButtonKinds.Secondary,
-				isSmall: true
-			}
-		]
+		buttonGroup: {
+			actions: [
+				{
+					type: IHWActionButtonType.Button,
+					text: 'Do things',
+					kind: ButtonKinds.Secondary,
+					isSmall: true
+				}
+			]
+		}
 	}
 }
 
@@ -163,18 +167,20 @@ const cardJSON5: ICardBuilderProps = {
 		title: 'Danger Zone'
 	},
 	footer: {
-		actions: [
-			{
-				type: IHWActionButtonType.Button,
-				text: 'Delete this thing forever',
-				icon: {
-					name: 'remove'
-				},
-				kind: ButtonKinds.Caution,
-				isSmall: true,
-				onClick: () => {}
-			}
-		],
+		buttonGroup: {
+			actions: [
+				{
+					type: IHWActionButtonType.Button,
+					text: 'Delete this thing forever',
+					icon: {
+						name: 'remove'
+					},
+					kind: ButtonKinds.Caution,
+					isSmall: true,
+					onClick: () => {}
+				}
+			]
+		},
 		helper:
 			'This is a permanant thing you are doing, be sure you want to do the thing'
 	}
