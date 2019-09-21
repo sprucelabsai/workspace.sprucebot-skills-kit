@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, HTMLProps } from 'react'
+import React, { Fragment, ReactNode /*, HTMLProps*/ } from 'react'
 import cx from 'classnames'
 
 import Button from '../Button/Button'
@@ -59,9 +59,9 @@ const TemplateEngine = (text = '', context = {}): ReactNode[] => {
 	return children.map(renderText)
 }
 
-export interface ITextProps
-	extends HTMLProps<HTMLElement>,
-		Omit<IHWText, 'id'> {
+export interface ITextProps extends Omit<IHWText, 'id'> {
+	id?: string
+
 	/** Contents of the component. */
 	children?: ReactNode
 
@@ -70,6 +70,9 @@ export interface ITextProps
 
 	/** Context allows basic templatizing of text strings for formatting/rich interaction purposes */
 	context?: Record<string, any>
+
+	/** if rendering as an anchor element, this is the link */
+	href?: string
 
 	/** The element to render. Defaults to p for Text and span for Span */
 	// eslint-disable-next-line flowtype/space-after-type-colon
