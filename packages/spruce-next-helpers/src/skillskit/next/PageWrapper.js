@@ -1,4 +1,6 @@
 // @flow
+// TODO: Remove this when migrated to TSX
+/* eslint-disable import/namespace */
 import React, { Component } from 'react'
 
 import * as actions from '../store/actions'
@@ -94,7 +96,7 @@ export type WrappedInitialProps = {
 const PageWrapper = Wrapped => {
 	const ConnectedWrapped = withRouter(Wrapped)
 
-	return class extends Component<Props, State> {
+	return class PageWrapper extends Component<Props, State> {
 		constructor(props: Props) {
 			super(props)
 			this.state = {
@@ -143,7 +145,7 @@ const PageWrapper = Wrapped => {
 					await store.dispatch(
 						actions.authV2.go(query.jwtV2 || getCookie('jwtV2', req, res))
 					)
-				} catch (e) {
+				} catch (err) {
 					debug(err)
 					debug('Error fetching user from jwtV2')
 				}

@@ -1,4 +1,3 @@
-// @flow
 export { default as skill } from './skillskit'
 export { default as _document } from './skillskit/next/_document'
 export { default as PageWrapper } from './skillskit/next/PageWrapper'

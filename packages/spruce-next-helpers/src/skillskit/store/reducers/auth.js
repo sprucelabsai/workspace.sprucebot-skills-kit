@@ -13,6 +13,9 @@ import {
 import { DID_UPDATE_USER } from '../actions/events'
 
 export default function reducer(state = null, action) {
+	let updatedUser
+	let user
+
 	switch (action.type) {
 		case GO_AUTH_REQUEST:
 		case GO_AUTH_REQUEST_V2:
@@ -35,8 +38,8 @@ export default function reducer(state = null, action) {
 				authing: false
 			}
 		case DID_UPDATE_USER:
-			const { user: updatedUser } = action.payload
-			let user = {}
+			updatedUser = action.payload.user
+			user = {}
 			if (updatedUser.UserId === state.UserId) {
 				user = updatedUser
 			}
