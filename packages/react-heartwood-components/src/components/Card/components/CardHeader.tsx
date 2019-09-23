@@ -66,7 +66,7 @@ const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 }
 
 CardHeader.displayName = 'Card.Header'
-CardHeader.defualtProps = {
+CardHeader.defaultProps = {
 	title: '',
 	labelText: '',
 	labelIcon: null,
