@@ -49,7 +49,11 @@ export interface ICardBuilderBodyItem
 
 export interface ICardBuilderBodyProps
 	extends Omit<IHWCardBuilderBody, 'items'> {
-	items: ICardBuilderBodyItem[]
+	/** array of items to be rendered */
+	items?: ICardBuilderBodyItem[]
+
+	/** optional child that will be rendered as the body */
+	children?: React.ReactNode
 }
 
 export interface ICardBuilderProps
@@ -122,8 +126,10 @@ const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 		isFullBleed = false,
 		areSectionSeparatorsVisible = false,
 		hasTopPadding = true,
-		hasBottomPadding = true
+		hasBottomPadding = true,
+		children
 	} = body || {
+		children: undefined,
 		items: undefined,
 		isSectioned: true,
 		isFullBleed: false,
@@ -136,7 +142,7 @@ const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 		<Card>
 			{header && <CardHeader {...header} />}
 			{headerImage && <Image {...headerImage} />}
-			{items && (
+			{(items || children) && (
 				<CardBody
 					hasBottomPadding={hasBottomPadding === null ? true : hasBottomPadding}
 					hasTopPadding={hasTopPadding === null ? true : hasTopPadding}
@@ -148,6 +154,7 @@ const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 					isSectioned={!!isSectioned}
 					isFullBleed={!!isFullBleed}
 				>
+					{children}
 					{Array.isArray(items) ? items.map(renderItem) : items}
 				</CardBody>
 			)}

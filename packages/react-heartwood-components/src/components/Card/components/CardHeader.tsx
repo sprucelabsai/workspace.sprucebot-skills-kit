@@ -11,13 +11,13 @@ import { IHWCardHeader } from '@sprucelabs/spruce-types'
 export interface ICardHeaderProps
 	extends Omit<IHWCardHeader, 'labelIcon' | 'actions' | 'contextMenu'> {
 	/** Optional icon to show above the title and before the label */
-	labelIcon?: IIconProps
+	labelIcon?: IIconProps | null
 
 	/** Render buttons in the Card Header */
-	actions?: IButtonProps[]
+	actions?: IButtonProps[] | null
 
 	/** Renders a Context Menu in the Card Header */
-	contextMenu?: IContextMenuProps
+	contextMenu?: IContextMenuProps | null
 }
 
 const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
