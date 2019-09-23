@@ -11,7 +11,7 @@ export interface ICheckboxProps extends IHWCheckbox {
 	className?: string
 
 	/** triggered on change */
-	onChange?: (e: React.ChangeEvent) => void
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 interface ICheckboxState {}
