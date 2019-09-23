@@ -2,35 +2,36 @@
 	"folders": [
 		{
 			"path": "packages/spruce-types",
-			"name": "Shared Spruce Types"
+			"name": "spruce-types"
 		},
 		{
 			"path": "packages/heartwood-components",
-			"name": "Heartwood Components and Styles"
+			"name": "heartwood-components"
 		},
 		{
 			"path": "packages/react-heartwood-components",
-			"name": "React Heartwood Implementation of Components"
+			"name": "react-heartwood-components"
 		},
 		{
 			"path": "packages/spruce-next-helpers",
-			"name": "Skill Next.js Helper Files / Utilities"
+			"name": "spruce-next-helpers"
 		},
 		{
 			"path": "packages/spruce-node",
-			"name": "Spruce Node (API) Wrapper"
+			"name": "spruce-node"
 		},
 		{
 			"path": "packages/spruce-skill",
-			"name": "Spruce Skill Template"
+			"name": "spruce-skill"
 		},
 		{
 			"path": "packages/spruce-skill-server",
-			"name": "Spruce Skill Server (Koa)"
+			"name": "spruce-skill-server"
 		},
 		{
 			"path": ".",
 			"name": "Workspace"
 		}
-	]
+	],
+	"settings": {}
 }

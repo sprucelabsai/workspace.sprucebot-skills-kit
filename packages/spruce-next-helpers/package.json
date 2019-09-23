@@ -46,6 +46,7 @@
 		"@babel/register": "^7.0.0",
 		"@sprucelabs/heartwood-components": "^8.17.7",
 		"@sprucelabs/react-heartwood-components": "^8.17.7",
+		"@sprucelabs/spruce-types": "^8.17.8-pre-91dabded.0",
 		"@zeit/next-typescript": "^1.1.1",
 		"axios": "^0.18.0",
 		"classnames": "^2.2.5",

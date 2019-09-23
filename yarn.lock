@@ -2999,6 +2999,13 @@
   resolved "https://registry.yarnpkg.com/@sprucelabs/semantic-release/-/semantic-release-2.0.8.tgz#37fdc05bd447e69f60d5c26c0d51c629eef139d9"
   integrity sha512-E+l04vYuyeTKvNjY76jYdcj4gcTe1hVI/jIL332sPavZWaxa9K29i4yYTe7r0cSb8LiqmWarK9Tq6YZ6O3HPfw==
 
+"@sprucelabs/spruce-types@^8.17.8-pre-91dabded.0":
+  version "8.17.8-pre-91dabded.0"
+  resolved "https://registry.yarnpkg.com/@sprucelabs/spruce-types/-/spruce-types-8.17.8-pre-91dabded.0.tgz#e651d9afe0831e6aa7392d4d2c04f60a589c6670"
+  integrity sha512-PPD48bElF+LlNHoRuErcys4en4B+fCOQnHP0ASFaw5dKdkhGz5A9MIn/QN5P6QQ2yktV9aVzxoy/x8KoeF2SEw==
+  dependencies:
+    typescript "~3.4.5"
+
 "@storybook/addon-actions@^5.1.10":
   version "5.1.11"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-5.1.11.tgz#ebc299b9dfe476b5c65eb5d148c4b064f682ca08"
