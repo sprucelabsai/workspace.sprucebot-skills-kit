@@ -1,22 +1,28 @@
-// @flow
 import { SpruceWebError } from './errors'
 
-export type IframeMessageOptions = {|
-	to: any,
-	eventName: string,
-	data: any,
+export interface IIFrameMessageOptions {
+	to: any
+	eventName: string
+	data: any
 	onResponse?: Function
-|}
+	legacy?: boolean
+}
+
+interface IResponseHandler {
+	destroy: () => void
+
+	(event: Record<string, any>): void
+}
 
 export default class Iframes {
 	// Method for sending a message to another window.
-	static sendMessage({
+	public static sendMessage({
 		to: destinationWindow,
 		eventName,
 		data,
 		onResponse,
 		legacy
-	}: IframeMessageOptions) {
+	}: IIFrameMessageOptions): void {
 		const responseEventName = `${eventName}__${Math.random()}`
 
 		if (legacy) {
@@ -39,7 +45,7 @@ export default class Iframes {
 		}
 
 		if (onResponse) {
-			const responseHandler = event => {
+			const responseHandler = (event): void => {
 				if (event.data.eventName === responseEventName) {
 					onResponse(event.data.dataFromUser, event)
 					window.removeEventListener('message', responseHandler)
@@ -50,8 +56,11 @@ export default class Iframes {
 		}
 	}
 
-	static onMessage(eventName: string, callback: Function) {
-		const responseHandler = (event: Object) => {
+	public static onMessage(
+		eventName: string,
+		callback: Function
+	): IResponseHandler {
+		const responseHandler: IResponseHandler = (event): void => {
 			// TODO George skills will be hosted on external domains, so we may need to pass
 			// the skill's domain
 			// const RootDomainRegex = new RegExp(/[\w\d-]+\.[\w\d-]+$/)
@@ -94,7 +103,6 @@ export default class Iframes {
 
 				callback(data, responder, event)
 			}
-			// }
 		}
 
 		responseHandler.destroy = () => {

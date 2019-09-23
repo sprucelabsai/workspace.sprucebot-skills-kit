@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"jsx": "react",
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"rootDir": "./lib",
+		"outDir": "./dist",
+		"strict": true,
+		"noImplicitAny": false
+	},
+	"include": ["lib"],
+	"exclude": ["node_modules", "dist"]
+}
