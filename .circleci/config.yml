@@ -1,8 +1,6 @@
 version: 2
 jobs:
   test:
-    environment:
-      - NODE_ENV: development
     docker:
       - image: circleci/python:3-node
     steps:
