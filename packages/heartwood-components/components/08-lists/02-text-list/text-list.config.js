@@ -34,7 +34,7 @@ const threeActions = [
 module.exports = {
 	title: 'Text List',
 	collated: true,
-	collator: function(markup, item) {
+	collator(markup, item) {
 		return `<!-- Start: @${
 			item.handle
 		} -->\n<div style="margin-top: 2rem;">${markup}</div>\n<!-- End: @${

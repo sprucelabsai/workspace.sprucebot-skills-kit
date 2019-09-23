@@ -9,7 +9,7 @@ module.exports = router => {
 			let params = {
 				page,
 				limit,
-				role: role
+				role
 			}
 
 			if (ctx.query.status) {
