@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, select, object } from '@storybook/addon-knobs'
 import Text, { Span, ITextProps } from './Text'
