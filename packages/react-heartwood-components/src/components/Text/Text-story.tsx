@@ -54,13 +54,6 @@ stories
 			{text('children', 'Hello, {{planet}}! {{link}}')}
 		</Text>
 	))
-	.add('Text - Specific Examples', () => (
-		<Fragment>
-			<Text element={'a'} href={'http://www.google.com'}>
-				Google
-			</Text>
-		</Fragment>
-	))
 	.add('Span', () => (
 		<Span
 			element={select('Element', options, 'span')}

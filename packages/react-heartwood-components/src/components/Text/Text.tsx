@@ -60,6 +60,7 @@ const TemplateEngine = (text = '', context = {}): ReactNode[] => {
 }
 
 export interface ITextProps extends Omit<IHWText, 'id'> {
+	/** id for visual caching */
 	id?: string
 
 	/** Contents of the component. */
@@ -71,37 +72,8 @@ export interface ITextProps extends Omit<IHWText, 'id'> {
 	/** Context allows basic templatizing of text strings for formatting/rich interaction purposes */
 	context?: Record<string, any>
 
-	/** if rendering as an anchor element, this is the link */
-	href?: string
-
-	/** The element to render. Defaults to p for Text and span for Span */
-	// eslint-disable-next-line flowtype/space-after-type-colon
-	element?:
-		| 'a'
-		| 'abbr'
-		| 'blockquote'
-		| 'br'
-		| 'cite'
-		| 'code'
-		| 'data'
-		| 'dd'
-		| 'dl'
-		| 'dt'
-		| 'figcaption'
-		| 'figure'
-		| 'kbd'
-		| 'li'
-		| 'mark'
-		| 'ol'
-		| 'p'
-		| 'pre'
-		| 'q'
-		| 's'
-		| 'span'
-		| 'sub'
-		| 'sup'
-		| 'time'
-		| 'ul'
+	/** Is this an inline text element? */
+	isInline?: boolean
 }
 
 const Text: React.StatelessComponent<ITextProps> = (
@@ -113,9 +85,10 @@ const Text: React.StatelessComponent<ITextProps> = (
 		element,
 		context,
 		text: textProps,
+		isInline,
 		...rest
 	} = props
-	let Element: any = 'p'
+	let Element: any = isInline ? 'span' : 'p'
 	let children = originalChildren
 
 	if (element) {

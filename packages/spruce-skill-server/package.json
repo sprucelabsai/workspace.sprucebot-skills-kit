@@ -24,7 +24,8 @@
 		"watch": "tsc -w -p ./tsconfig.json",
 		"clean": "rm -rf build/",
 		"lint": "eslint '**/*.ts' && tsc -p . --noEmit",
-		"test": "cd ../spruce-skill/ && rm tmp/testing.db | true && mkdir -p tmp/ | true && TS_NODE_PROJECT=../spruce-skill-server/tsconfig.json PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true TESTING_SKILLS_KIT=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit '../spruce-skill-server/tests/**/*Tests.ts' --inspect=4080",
+		"test": "cd ../spruce-skill/ && rm tmp/testing.db | true && mkdir -p tmp/ | true && TS_NODE_PROJECT=../spruce-skill-server/tsconfig.json PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true TESTING_SKILLS_KIT=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit '../spruce-skill-server/tests/**/*Tests.ts'",
+		"test:local": "NODE_ENV=local yarn run test --inspect=4080",
 		"syncApiSchema:local": "API_HOST=https://local-api.sprucebot.com/graphql node ./build/support/fetchApiSchema.js"
 	},
 	"dependencies": {
