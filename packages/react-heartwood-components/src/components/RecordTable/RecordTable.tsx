@@ -259,7 +259,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 		} = this.state
 
 		const defaultTableSearchProps: ITableSearchProps = {
-			getSuggestionValue: function(value) {
+			getSuggestionValue(value) {
 				return value.text
 			},
 			getSuggestions: this.handleSearchSuggestions,

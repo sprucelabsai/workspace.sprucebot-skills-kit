@@ -1,7 +1,7 @@
 module.exports = {
 	title: 'Message',
 	collated: true,
-	collator: function(markup, item) {
+	collator(markup, item) {
 		return `<!-- Start: @${item.handle} -->\n<div>${markup}</div>\n<!-- End: @${
 			item.handle
 		} -->\n`

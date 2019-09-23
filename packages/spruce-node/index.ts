@@ -673,7 +673,7 @@ export default class Sprucebot {
 			meta = await this.createMeta(key, value, Array.from(arguments)[2])
 		} else if (JSON.stringify(meta.value) !== JSON.stringify(value)) {
 			//found, but value has changed
-			meta = await this.updateMeta(meta.id, { value: value })
+			meta = await this.updateMeta(meta.id, { value })
 		}
 		return meta
 	}
