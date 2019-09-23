@@ -57,7 +57,7 @@ class ImageCropperExample extends Component<Props, State> {
 					onDropAccepted: this.handleDrop,
 					buttonText: 'Add Image',
 					isSmall: true,
-					isCircular: isCircular,
+					isCircular,
 					error: 'Upload an image',
 					defaultIcon: isCircular ? (
 						<AvatarIcon className="dropzone__icon" />

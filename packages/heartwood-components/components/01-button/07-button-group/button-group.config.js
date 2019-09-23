@@ -1,7 +1,7 @@
 module.exports = {
 	title: 'Action List',
 	collated: true,
-	collator: function(markup, item) {
+	collator(markup, item) {
 		return `<!-- Start: @${
 			item.handle
 		} -->\n<div style="padding: 2rem;">${markup}</div>\n<!-- End: @${

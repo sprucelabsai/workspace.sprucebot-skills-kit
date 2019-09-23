@@ -11,6 +11,7 @@ const defaultFormattingRules = {
 	'no-var': 'error',
 	'no-unreachable': 'error',
 	'no-unused-vars': 'error',
+	'object-shorthand': ['error', 'always'],
 	'react/prop-types': 'off',
 	'prettier/prettier': [
 		'error',

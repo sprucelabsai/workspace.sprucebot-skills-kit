@@ -2,7 +2,7 @@ module.exports = {
 	title: 'Caution Button',
 	status: 'wip',
 	collated: true,
-	collator: function(markup, item) {
+	collator(markup, item) {
 		return `<!-- Start: @${
 			item.handle
 		} -->\n<span style="display: inline-block; margin: 0 1rem 1rem 0;">${markup}</span>\n<!-- End: @${

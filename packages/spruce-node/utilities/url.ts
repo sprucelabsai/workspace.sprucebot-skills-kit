@@ -2,7 +2,7 @@ export default {
 	/**
 	 * Takes an object and turns it into a query string. Keys and values. No depth, can't handle arrays
 	 */
-	serialize: function(obj: Record<string, any>) {
+	serialize(obj: Record<string, any>) {
 		const str: string[] = []
 		for (let p in obj) {
 			if (obj.hasOwnProperty(p)) {
@@ -15,7 +15,7 @@ export default {
 	/**
 	 * Builds the path to the endpoint off all the crucial tidbits
 	 */
-	build: function(
+	build(
 		path: string,
 		query: Record<string, any> | undefined,
 		version: string,

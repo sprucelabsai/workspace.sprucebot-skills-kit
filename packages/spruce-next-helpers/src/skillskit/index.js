@@ -8,7 +8,7 @@ function postMessage(message) {
 let skillStatusCheckListener = null
 
 const skill = {
-	editUserProfile: function({
+	editUserProfile({
 		userId,
 		organizationId,
 		locationId
@@ -25,7 +25,7 @@ const skill = {
 		})
 	},
 
-	redirect: function({ route, params = {} }) {
+	redirect({ route, params = {} }) {
 		Iframes.sendMessage({
 			to: window.parent,
 			eventName: 'Router:Push',
@@ -44,7 +44,7 @@ const skill = {
 		})
 	},
 
-	ready: function({ showHeader = true }: { showHeader: boolean } = {}) {
+	ready({ showHeader = true }: { showHeader: boolean } = {}) {
 		Iframes.sendMessage({
 			to: window.parent,
 			eventName: 'Skill:Loaded',
@@ -82,7 +82,7 @@ const skill = {
 	// 	this._onSelecUserFormSearchCallback = onSelectUser
 	// },
 
-	saveBar: function() {
+	saveBar() {
 		const saveBar = {
 			show: () => {
 				Iframes.sendMessage({
@@ -156,7 +156,7 @@ const skill = {
 		return saveBar
 	},
 
-	modal: function() {
+	modal() {
 		const modal = {
 			open: (data: Object) => {
 				Iframes.sendMessage({
@@ -276,7 +276,7 @@ const skill = {
 		return modal
 	},
 
-	confirm: function() {
+	confirm() {
 		const confirm = {
 			show: data => {
 				const { onConfirm, onCancel, ...rest } = data
@@ -350,9 +350,9 @@ const skill = {
 		return confirm
 	},
 
-	supportingMessage: function() {
+	supportingMessage() {
 		const message = {
-			add: function({
+			add({
 				headline,
 				text,
 				followupText,
@@ -375,16 +375,16 @@ const skill = {
 					}
 				})
 			},
-			remove: function() {
+			remove() {
 				window.alert('Not yet implemented...')
 			}
 		}
 
 		return message
 	},
-	blockingMessage: function() {
+	blockingMessage() {
 		const message = {
-			add: function({
+			add({
 				headline,
 				text,
 				followupText,
@@ -394,7 +394,7 @@ const skill = {
 			}) {
 				window.alert(headline)
 			},
-			remove: function() {
+			remove() {
 				window.alert('Not yet implemented...')
 			}
 		}

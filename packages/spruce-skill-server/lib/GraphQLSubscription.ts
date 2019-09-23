@@ -117,6 +117,6 @@ export default class GraphQLSubscriptions {
 		})
 		const link = new WebSocketLink(client)
 		// @ts-ignore
-		return execute(link, { query: query, variables: variables })
+		return execute(link, { query, variables })
 	}
 }
