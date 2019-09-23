@@ -82,7 +82,6 @@ const Text: React.StatelessComponent<ITextProps> = (
 	const {
 		children: originalChildren,
 		className,
-		element,
 		context,
 		text: textProps,
 		isInline,
@@ -90,10 +89,6 @@ const Text: React.StatelessComponent<ITextProps> = (
 	} = props
 	let Element: any = isInline ? 'span' : 'p'
 	let children = originalChildren
-
-	if (element) {
-		Element = element
-	}
 
 	const text = children || textProps || context
 
@@ -111,14 +106,10 @@ const Text: React.StatelessComponent<ITextProps> = (
 export const Span: React.StatelessComponent<ITextProps> = (
 	props: ITextProps
 ): React.ReactElement => {
-	const { children, className, element, ...rest } = props
+	const { children, className, ...rest } = props
 
 	return (
-		<Text
-			element={element || 'span'}
-			className={cx('text', className)}
-			{...rest}
-		>
+		<Text isInline={true} className={cx('text', className)} {...rest}>
 			{children}
 		</Text>
 	)
