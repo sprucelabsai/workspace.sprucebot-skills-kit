@@ -8,7 +8,7 @@ const oneAction = [
 module.exports = {
 	title: 'Settings List',
 	collated: true,
-	collator: function(markup, item) {
+	collator(markup, item) {
 		return `<!-- Start: @${
 			item.handle
 		} -->\n<div style="margin-top: 1rem;">${markup}</div>\n<!-- End: @${

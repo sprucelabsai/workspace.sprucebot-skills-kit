@@ -25,7 +25,7 @@ export default {
 				}
 			`,
 			variables: {
-				requestedSettings: requestedSettings
+				requestedSettings
 			}
 		})
 

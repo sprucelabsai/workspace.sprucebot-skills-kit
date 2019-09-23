@@ -143,7 +143,7 @@ export default (
 			const umzug = new Umzug({
 				storage: 'sequelize',
 				storageOptions: {
-					sequelize: sequelize
+					sequelize
 				},
 				migrations: {
 					params: [sequelize.getQueryInterface(), sequelize.constructor],

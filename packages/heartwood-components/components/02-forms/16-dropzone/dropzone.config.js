@@ -1,7 +1,7 @@
 module.exports = {
 	title: 'Drop Zone',
 	collated: true,
-	collator: function(markup, item) {
+	collator(markup, item) {
 		return `<!-- Start: @${
 			item.handle
 		} -->\n<div style="margin-top: 1rem">${markup}</div>\n<!-- End: @${

@@ -104,7 +104,7 @@ export default class Https implements AbstractSprucebotAdapter {
 
 			const request = https.request(
 				{
-					method: method,
+					method,
 					host: this.host,
 					headers,
 					rejectUnauthorized: !this.allowSelfSignedCerts,
