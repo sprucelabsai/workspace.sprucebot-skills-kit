@@ -20,6 +20,7 @@ import { IRadioProps } from '../../../Forms/components/Radio/Radio'
 export interface IListItemProps
 	extends Omit<
 		IHWListItem,
+		| 'id'
 		| 'icon'
 		| 'actions'
 		| 'primaryAction'
@@ -29,6 +30,9 @@ export interface IListItemProps
 		| 'list'
 		| 'lists'
 	> {
+	/** unique id for view caching */
+	id?: string
+
 	/** Inline svg icon */
 	icon?: IIconProps
 
