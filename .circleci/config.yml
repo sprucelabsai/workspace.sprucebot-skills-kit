@@ -8,10 +8,11 @@ jobs:
           fingerprints:
             - 'ec:9f:2e:aa:1f:c9:ab:49:57:8f:c0:cd:2e:5b:f3:b0'
       - checkout
-      - run: node -v && npm -v
+      - run: node -v && npm -v && yarn -v
       - restore_cache:
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
+      - run: yarn clean
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: yarn lint
