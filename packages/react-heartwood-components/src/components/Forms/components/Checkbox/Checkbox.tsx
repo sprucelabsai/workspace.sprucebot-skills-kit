@@ -4,22 +4,14 @@ import cx from 'classnames'
 import CheckIconYes from '../../../../../static/assets/icons/ic_check_box.svg'
 import CheckIconNo from '../../../../../static/assets/icons/ic_check_box_outline_blank.svg'
 import CheckIconMaybe from '../../../../../static/assets/icons/ic_indeterminate_check_box.svg'
+import { IHWCheckbox } from '@sprucelabs/spruce-types'
 
-interface ICheckboxProps extends React.HTMLProps<HTMLInputElement> {
-	/** Unique identifier */
-	id: string
-
-	/** Input label and text after checkbox icon */
-	label?: string
-
-	/** Optional text to show below the label */
-	postText?: string
-
+export interface ICheckboxProps extends IHWCheckbox {
 	/** Class for the checkbox wrapper */
 	className?: string
 
-	/** Set true if the checkbox is indeterminate */
-	isIndeterminate?: boolean
+	/** triggered on change */
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 interface ICheckboxState {}
@@ -54,24 +46,19 @@ export default class Checkbox extends Component<
 	}
 
 	public render(): React.ReactElement {
-		const { id, label, postText, className, ...rest } = this.props
+		const { id, label, postText, className, name } = this.props
 		const parentClass = cx('checkbox-item', className)
-
-		// TODO: We probably need to create explicit whitelists of what we want to
-		// allow to be spread onto native DOM elements, since applying non-standard
-		// attributes throws a warning.
-		delete rest.isIndeterminate
 
 		return (
 			<div className={parentClass}>
 				<div className="checkbox-item__inner">
 					<input
+						name={name || undefined}
 						ref={this.checkboxRef}
 						autoComplete={'off'}
 						className="checkbox-item__input"
 						type="checkbox"
 						id={id}
-						{...rest}
 						// Always use internal change handler
 						onChange={this.handleChange}
 					/>

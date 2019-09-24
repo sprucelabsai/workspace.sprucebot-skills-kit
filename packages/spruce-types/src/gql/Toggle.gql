@@ -2,9 +2,6 @@ type Toggle {
 	"Unique id for UI caching"
 	id: ID!
 
-	"Optional class"
-	className: String
-
 	"Text after the toggle"
 	postText: String
 }

@@ -75,6 +75,24 @@ export enum IHWActionKinds {
   Caution = 'caution'
 }
 
+export type IHWButtonGroup = {
+  __typename?: 'ButtonGroup',
+  /** Array of actions to render the group's buttons. */
+  actions?: Maybe<Array<IHWAction>>,
+  /** Visual appearance of the group. */
+  kind?: Maybe<IHWButtonGroupKind>,
+  /** Set true to fill parent width */
+  isFullWidth?: Maybe<Scalars['Boolean']>,
+  /** Optional: Index of the button that is currently highlighted, e.g. by arrow keys */
+  highlightedIndex?: Maybe<Scalars['Int']>,
+};
+
+export enum IHWButtonGroupKind {
+  Default = 'default',
+  Segmented = 'segmented',
+  Floating = 'floating'
+}
+
 /** An event that is rendered on the calendar. */
 export type IHWCalendarEvent = {
   __typename?: 'CalendarEvent',
@@ -128,9 +146,9 @@ export type IHWCalendarEventDetails = {
 export type IHWCalendarEventDetailsItem = {
   __typename?: 'CalendarEventDetailsItem',
   /** How the view should be rendered */
-  type?: Maybe<IHWCalendarEventDetailsItemType>,
-  /** The data fed into the view to configure it */
-  viewModel?: Maybe<IHWCalendarEventDetailsItemViewModel>,
+  type: IHWCalendarEventDetailsItemType,
+  /** The data fed into the view to configure it. */
+  viewModel: IHWCalendarEventDetailsItemViewModel,
 };
 
 export enum IHWCalendarEventDetailsItemType {
@@ -168,6 +186,8 @@ export enum IHWCalendarEventKind {
 /** The builder for all things cards */
 export type IHWCardBuilder = {
   __typename?: 'CardBuilder',
+  /** The id of the used for view caching */
+  id: Scalars['ID'],
   /** Card Header props */
   header?: Maybe<IHWCardHeader>,
   /** optionally pass props to an image tag to be rendered in the header */
@@ -200,9 +220,9 @@ export type IHWCardBuilderBody = {
 export type IHWCardBuilderBodyItem = {
   __typename?: 'CardBuilderBodyItem',
   /** The type of ui component to use */
-  type?: Maybe<IHWCardBuilderBodyItemType>,
+  type: IHWCardBuilderBodyItemType,
   /** The view model that renders the UI */
-  viewModel?: Maybe<IHWCardBuilderBodyItemViewModel>,
+  viewModel: IHWCardBuilderBodyItemViewModel,
 };
 
 export enum IHWCardBuilderBodyItemType {
@@ -229,8 +249,8 @@ export type IHWCardBuilderFooter = {
 /** The footer component of a card */
 export type IHWCardFooter = {
   __typename?: 'CardFooter',
-  /** Actions to render in the footer */
-  actions?: Maybe<Array<Maybe<IHWAction>>>,
+  /** Button group that is can be rendered in the footer */
+  buttonGroup?: Maybe<IHWButtonGroup>,
   /** Any help text you'd like rendered in the footer */
   helper?: Maybe<Scalars['String']>,
 };
@@ -260,10 +280,10 @@ export type IHWCheckbox = {
   label?: Maybe<Scalars['String']>,
   /** Optional text to show below the label */
   postText?: Maybe<Scalars['String']>,
-  /** Class for the checkbox wrapper */
-  className?: Maybe<Scalars['String']>,
   /** Set true if the checkbox is indeterminate */
   isIndeterminate?: Maybe<Scalars['Boolean']>,
+  /** is this checkbox checked? */
+  checked?: Maybe<Scalars['Boolean']>,
 };
 
 export type IHWContextMenu = {
@@ -280,12 +300,10 @@ export type IHWContextMenu = {
   isSimple?: Maybe<Scalars['Boolean']>,
   /** Set true to make the button smaller */
   isSmall?: Maybe<Scalars['Boolean']>,
-  /** Set tot true makes the menu close when any action is selected */
+  /** Set to true makes the menu close when any action is selected */
   closeOnSelectAction?: Maybe<Scalars['Boolean']>,
   /** Hide the icon entirely */
   isTextOnly?: Maybe<Scalars['Boolean']>,
-  /** Optional classname that applies to the button */
-  className?: Maybe<Scalars['String']>,
 };
 
 export enum IHWContextMenuSize {
@@ -340,9 +358,25 @@ export type IHWExpandableListItem = {
 
 export type IHWHeading = {
   __typename?: 'Heading',
+  /** Id for view caching */
   id: Scalars['String'],
-  text: Scalars['String'],
+  /** HTML rendered directly */
+  html?: Maybe<Scalars['String']>,
+  /** Text rendered in the header */
+  text?: Maybe<Scalars['String']>,
+  /** The weight of the heading, H1 and beyond */
+  weight?: Maybe<IHWHeadingWeight>,
 };
+
+export enum IHWHeadingWeight {
+  H1 = 'h1',
+  H2 = 'h2',
+  H3 = 'h3',
+  H4 = 'h4',
+  H5 = 'h5',
+  H6 = 'h6',
+  P = 'p'
+}
 
 export type IHWIcon = {
   __typename?: 'Icon',
@@ -437,8 +471,6 @@ export type IHWListItem = {
   isSeparatorVisible?: Maybe<Scalars['Boolean']>,
   /** Optional class name for list item */
   className?: Maybe<Scalars['String']>,
-  /** Optional id prop for selectable list items */
-  selectableId?: Maybe<Scalars['String']>,
   /** Optional: set whether to use checkbox or radio for selectable list items */
   selectableType?: Maybe<IHWListItemSelectableType>,
   /** Any props you want sent down to the selectable component being rendered */
@@ -471,6 +503,8 @@ export type IHWListItemWarningConfig = {
 /** Render markdown beautifully */
 export type IHWMarkdown = {
   __typename?: 'Markdown',
+  /** Unique ID for view caching. */
+  id: Scalars['ID'],
   /** Markdown text to be rendered */
   source: Scalars['String'],
 };
@@ -514,8 +548,6 @@ export type IHWRadio = {
   label?: Maybe<Scalars['String']>,
   /** Optional text to show after the label */
   postText?: Maybe<Scalars['String']>,
-  /** Parent class */
-  className?: Maybe<Scalars['String']>,
   /** is this control disabled? */
   disabled?: Maybe<Scalars['Boolean']>,
 };
@@ -540,12 +572,14 @@ export type IHWScoreCardPanel = {
 /** A button with a dropdown of actions on the right */
 export type IHWSplitButton = {
   __typename?: 'SplitButton',
+  /** ID for view caching */
+  id: Scalars['ID'],
   /** The main action readily surfaced to the user */
   defaultAction: IHWAction,
   /** All the secondary nested actions */
   actions: Array<Maybe<IHWAction>>,
   /** Sets the visual hierarchy of the button */
-  kind?: Maybe<Scalars['String']>,
+  kind?: Maybe<IHWActionKinds>,
   /** Set true to fill the parent’s width */
   isFullWidth?: Maybe<Scalars['Boolean']>,
   /** Sets the visual hierarchy of the button */
@@ -596,8 +630,6 @@ export type IHWToggle = {
   __typename?: 'Toggle',
   /** Unique id for UI caching */
   id: Scalars['ID'],
-  /** Optional class */
-  className?: Maybe<Scalars['String']>,
   /** Text after the toggle */
   postText?: Maybe<Scalars['String']>,
 };

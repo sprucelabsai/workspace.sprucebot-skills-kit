@@ -1,43 +1,15 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, select, object } from '@storybook/addon-knobs/react'
-import Text, { Span, ITextProps } from './Text'
+import { withKnobs, text, boolean, object } from '@storybook/addon-knobs'
+import Text, { Span } from './Text'
 const stories = storiesOf('Text', module)
 
 stories.addDecorator(withKnobs)
 
-const options: Record<string, ITextProps['element']> = {
-	a: 'a',
-	abbr: 'abbr',
-	blockquote: 'blockquote',
-	br: 'br',
-	cite: 'cite',
-	code: 'code',
-	data: 'data',
-	dd: 'dd',
-	dl: 'dl',
-	dt: 'dt',
-	figcaption: 'figcaption',
-	figure: 'figure',
-	kbd: 'kbd',
-	li: 'li',
-	mark: 'mark',
-	ol: 'ol',
-	p: 'p',
-	pre: 'pre',
-	q: 'q',
-	s: 's',
-	span: 'span',
-	sub: 'sub',
-	sup: 'sup',
-	time: 'time',
-	ul: 'ul'
-}
-
 stories
 	.add('Text', () => (
 		<Text
-			element={select<ITextProps['element']>('Element', options, 'p')}
+			isInline={boolean('Is Inline', false)}
 			context={object('Context', {
 				planet: {
 					text: 'World!',
@@ -54,16 +26,9 @@ stories
 			{text('children', 'Hello, {{planet}}! {{link}}')}
 		</Text>
 	))
-	.add('Text - Specific Examples', () => (
-		<Fragment>
-			<Text element={'a'} href={'http://www.google.com'}>
-				Google
-			</Text>
-		</Fragment>
-	))
 	.add('Span', () => (
 		<Span
-			element={select('Element', options, 'span')}
+			isInline={boolean('is inline', true)}
 			context={object('Context', {
 				planet: {
 					text: 'World!',

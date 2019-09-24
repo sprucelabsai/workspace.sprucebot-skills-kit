@@ -7,6 +7,7 @@ import ListItem, { IListItemProps } from './components/ListItem/ListItem'
 import ExpandableListItem, {
 	IExpandableListItemProps
 } from './components/ExpandableListItem/ExpandableListItem'
+import { IHWList } from '@sprucelabs/spruce-types'
 
 export const ListWrapper = (props): React.ReactElement => (
 	<div className="list-wrapper">{props.children}</div>
@@ -14,7 +15,10 @@ export const ListWrapper = (props): React.ReactElement => (
 
 export type IWrappedItemProps = IListItemProps | IExpandableListItemProps
 
-export interface IListProps {
+export interface IListProps extends Omit<IHWList, 'id' | 'header' | 'items'> {
+	/** optional id for view caching */
+	id?: string
+
 	/** List Header */
 	header?: IListHeaderProps
 
@@ -24,17 +28,8 @@ export interface IListProps {
 	/** Class for the list */
 	className?: string
 
-	/** Set true to make the list smaller */
-	isSmall?: boolean
-
 	/** any passthrough to render in the body of the list */
 	children?: React.ReactNode
-
-	/** Set to true to show separators between list items */
-	areSeparatorsVisible?: boolean
-
-	/** Optional: set whether to use checkbox or radio for selectable list items */
-	selectableType?: 'checkbox' | 'radio'
 }
 
 const List = (props: IListProps): React.ReactElement => {
@@ -47,6 +42,7 @@ const List = (props: IListProps): React.ReactElement => {
 		children,
 		selectableType
 	} = props
+
 	const parentClass = cx('list', className, {
 		'list-small': isSmall,
 		'list--separators-hidden': !areSeparatorsVisible
@@ -58,17 +54,20 @@ const List = (props: IListProps): React.ReactElement => {
 			<ul className={parentClass}>
 				{items &&
 					items.map((item, idx) => {
-						if (item.isExpandable) {
-							return <ExpandableListItem key={idx} item={item} {...item} />
+						const listItem = item as IListItemProps
+						const expandablListItem = item as IExpandableListItemProps
+
+						if (listItem.title) {
+							return (
+								<ListItem
+									key={listItem.id}
+									selectableType={selectableType}
+									isSeparatorVisible={areSeparatorsVisible}
+									{...listItem}
+								/>
+							)
 						}
-						return (
-							<ListItem
-								key={idx}
-								selectableType={selectableType}
-								isSeparatorVisible={areSeparatorsVisible}
-								{...item}
-							/>
-						)
+						return <ExpandableListItem key={idx} {...expandablListItem} />
 					})}
 				{children && children}
 			</ul>

@@ -96,7 +96,7 @@ const Sidebar = (props: Props) => {
 								className="sidebar-item__back-link"
 								icon={
 									backLink.icon || {
-										icon: 'arrow_back',
+										name: 'arrow_back',
 										className: 'sidebar-item__icon--fill'
 									}
 								}

@@ -1,5 +1,8 @@
 import Iframes from '@sprucelabs/spruce-utils/iframes'
-import { ICoreCalendarEvent, ICoreUserLocation } from '@sprucelabs/spruce-types'
+import {
+	ICoreGQLCalendarEvent,
+	ICoreGQLUserLocation
+} from '@sprucelabs/spruce-types'
 
 function postMessage(message) {
 	return window.parent.postMessage(JSON.stringify(message), '*')
@@ -9,7 +12,7 @@ let skillStatusCheckListener = null
 
 export interface ISearchForUserLegacy {
 	onCancel?: () => void
-	onSelectUser?: (userLocation: ICoreUserLocation) => void
+	onSelectUser?: (userLocation: ICoreGQLUserLocation) => void
 	roles?: string[]
 	locationId?: string
 }
@@ -48,9 +51,9 @@ export interface ISaveBar {
 
 export interface ICalendar {
 	/** drop a calendar event onto the calendar */
-	createEvent(event: ICoreCalendarEvent): void
+	createEvent(event: ICoreGQLCalendarEvent): void
 	/** update an event on the calendar */
-	updateEvent(event: ICoreCalendarEvent): void
+	updateEvent(event: ICoreGQLCalendarEvent): void
 	/** removes a calendar event from the calendar */
 	deleteEvent(id: string): void
 }
@@ -221,7 +224,7 @@ const skill: ISkill = {
 		})
 	},
 
-	redirect: function({ route, params = {} }) {
+	redirect({ route, params = {} }) {
 		Iframes.sendMessage({
 			to: window.parent,
 			eventName: 'Router:Push',
@@ -300,7 +303,7 @@ const skill: ISkill = {
 		return bigSearch
 	},
 
-	saveBar: function() {
+	saveBar() {
 		const saveBar = {
 			show: () => {
 				Iframes.sendMessage({

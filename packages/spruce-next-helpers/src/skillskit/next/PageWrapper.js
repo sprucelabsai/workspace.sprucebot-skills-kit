@@ -13,8 +13,9 @@ import lang from '../helpers/lang'
 import Router, { withRouter } from 'next/router'
 import { Container } from 'next/app'
 import is from 'is_js'
+import Debug from 'debug'
 
-const debug = require('debug')('@sprucelabs/spruce-next-helpers')
+const debug = Debug('@sprucelabs/spruce-next-helpers')
 
 const setCookie = (named, value, req, res) => {
 	if (req && req.headers) {

@@ -7,7 +7,7 @@ import CardFooter from './components/CardFooter'
 
 export interface ICardProps {
 	/** Should be Card Header, Card Body, and Card Footer, unless using the card background for styling only. */
-	children: React.ReactNode
+	children?: React.ReactNode
 
 	/** Set true to make all content center aligned. */
 	isCentered?: boolean

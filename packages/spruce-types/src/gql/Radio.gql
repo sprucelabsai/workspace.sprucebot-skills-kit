@@ -12,9 +12,6 @@ type Radio {
 	"Optional text to show after the label"
 	postText: String
 
-	"Parent class"
-	className: String
-
 	"is this control disabled?"
 	disabled: Boolean
 }

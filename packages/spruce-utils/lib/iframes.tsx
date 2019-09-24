@@ -68,7 +68,7 @@ export default class Iframes {
 			// const sourceRootDomain = event.source.location.hostname.match(
 			// 	RootDomainRegex
 			// )
-			;``
+
 			//legacy support
 			const eventData =
 				typeof event.data === 'string' ? JSON.parse(event.data) : event.data

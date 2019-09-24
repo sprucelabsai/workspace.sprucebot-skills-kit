@@ -33,5 +33,7 @@
 			"name": "Workspace"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"typescript.tsdk": "Workspace/node_modules/typescript/lib"
+	}
 }

@@ -2,7 +2,7 @@ module.exports = {
 	title: 'Button Variations',
 	status: 'wip',
 	collated: true,
-	collator: function(markup, item) {
+	collator(markup, item) {
 		return `<!-- Start: @${item.handle} -->\n${markup}\n<!-- End: @${
 			item.handle
 		} -->\n`

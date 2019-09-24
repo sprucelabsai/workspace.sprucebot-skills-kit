@@ -1,4 +1,23 @@
+enum HeadingWeight {
+	h1
+	h2
+	h3
+	h4
+	h5
+	h6
+	p
+}
+
 type Heading {
+	"Id for view caching"
 	id: String!
-	text: String!
+
+	"HTML rendered directly"
+	html: String
+
+	"Text rendered in the header"
+	text: String
+
+	"The weight of the heading, H1 and beyond"
+	weight: HeadingWeight
 }

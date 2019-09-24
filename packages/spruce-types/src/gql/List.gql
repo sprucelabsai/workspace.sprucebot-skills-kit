@@ -85,9 +85,6 @@ type ListItem {
 	"Optional class name for list item"
 	className: String
 
-	"Optional id prop for selectable list items"
-	selectableId: String
-
 	"Optional: set whether to use checkbox or radio for selectable list items"
 	selectableType: ListItemSelectableType
 

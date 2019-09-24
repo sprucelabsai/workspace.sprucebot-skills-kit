@@ -1,28 +1,23 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
 import Button, { ButtonKinds } from '../../Button/Button'
-import Icon from '../../Icon/Icon'
-import ContextMenu from '../../ContextMenu/ContextMenu'
+import Icon, { IIconProps } from '../../Icon/Icon'
+import ContextMenu, { IContextMenuProps } from '../../ContextMenu/ContextMenu'
 
 import { IButtonProps } from '../../Button/Button'
+import { IHWCardHeader } from '@sprucelabs/spruce-types'
 
 // Card Header
-export interface ICardHeaderProps {
-	/** Title for the card */
-	title?: string
-
-	/** Optional label to show above title */
-	labelText?: string
-
+export interface ICardHeaderProps
+	extends Omit<IHWCardHeader, 'labelIcon' | 'actions' | 'contextMenu'> {
 	/** Optional icon to show above the title and before the label */
-	labelIcon?: any
+	labelIcon?: IIconProps | null
 
 	/** Render buttons in the Card Header */
-	actions?: IButtonProps[]
+	actions?: IButtonProps[] | null
 
 	/** Renders a Context Menu in the Card Header */
-	// TODO: Import context menu props once it's converted to tsx
-	contextMenu?: any
+	contextMenu?: IContextMenuProps | null
 }
 
 const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
@@ -36,7 +31,7 @@ const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 							{labelIcon && (
 								<Icon
 									customIcon={labelIcon.customIcon}
-									icon={labelIcon.name}
+									name={labelIcon.name}
 									isLineIcon={labelIcon.isLineIcon}
 									className={cx('card__header-label-icon', labelIcon.className)}
 								/>
@@ -56,7 +51,7 @@ const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 							actions.length > 0 &&
 							actions.map(action => (
 								<Button
-									key={action.text}
+									key={action.id}
 									kind={ButtonKinds.Simple}
 									isSmall
 									{...action}
@@ -71,7 +66,7 @@ const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 }
 
 CardHeader.displayName = 'Card.Header'
-CardHeader.defualtProps = {
+CardHeader.defaultProps = {
 	title: '',
 	labelText: '',
 	labelIcon: null,
