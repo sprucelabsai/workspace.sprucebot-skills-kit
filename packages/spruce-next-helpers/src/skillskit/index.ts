@@ -1,7 +1,7 @@
 import Iframes from '@sprucelabs/spruce-utils/iframes'
 import { ICoreUserLocation, ICoreCalendarEvent } from '@sprucelabs/spruce-types'
 
-function postMessage(message) {
+function postMessage(message: Record<string, any>): void {
 	return window.parent.postMessage(JSON.stringify(message), '*')
 }
 
@@ -184,7 +184,7 @@ export interface ISkill {
 	ready(options?: { showHeader?: boolean }): void
 
 	/** LEGACY BIG SEARCH; Deprecated, use bigsearch() */
-	searchForUser: any
+	searchForUser(options: Record<string, any>): void
 
 	/** Big search controls */
 	bigSearch(): IBigSearch
@@ -212,7 +212,7 @@ export interface ISkill {
 }
 
 const skill: ISkill = {
-	editUserProfile: function({ userId, organizationId, locationId }) {
+	editUserProfile({ userId, organizationId, locationId }) {
 		postMessage({
 			name: 'Skill:EditUserProfile',
 			userId,
@@ -232,7 +232,7 @@ const skill: ISkill = {
 		})
 	},
 
-	forceAuth: () => {
+	forceAuth() {
 		Iframes.sendMessage({
 			to: window.parent,
 			eventName: 'Skill:ForceAuth',
@@ -240,7 +240,7 @@ const skill: ISkill = {
 		})
 	},
 
-	ready: function(options = {}) {
+	ready(options = {}) {
 		Iframes.sendMessage({
 			to: window.parent,
 			eventName: 'Skill:Loaded',
@@ -266,7 +266,7 @@ const skill: ISkill = {
 	},
 
 	/** LEGACY BIG SEARCH */
-	searchForUser: function({
+	searchForUser({
 		onCancel = () => {},
 		onSelectUser = () => {},
 		roles = ['guest'],
@@ -279,7 +279,7 @@ const skill: ISkill = {
 	},
 
 	// TODO: Use Iframes built in callback functionality
-	bigSearch: function() {
+	bigSearch() {
 		const _this = this
 
 		const bigSearch: IBigSearch = {
@@ -374,23 +374,23 @@ const skill: ISkill = {
 		return saveBar
 	},
 
-	modal: function() {
+	modal() {
 		const modal: IModal = {
-			open: (data: Object) => {
+			open: (data: Record<string, any>) => {
 				Iframes.sendMessage({
 					to: window.parent,
 					eventName: 'SkillViewDialog:Open',
 					data
 				})
 			},
-			close: (data: Object) => {
+			close: (data: Record<string, any>) => {
 				Iframes.sendMessage({
 					to: window.parent,
 					eventName: 'SkillViewDialog:Close',
 					data
 				})
 			},
-			onGoBack: (callback: Function) => {
+			onGoBack: (callback: () => void) => {
 				if (this._onGoBackListener) {
 					this._onGoBackListener.destroy()
 				}
@@ -494,7 +494,7 @@ const skill: ISkill = {
 		return modal
 	},
 
-	calendar: () => {
+	calendar() {
 		const calendar: ICalendar = {
 			createEvent: event => {
 				Iframes.sendMessage({
@@ -522,7 +522,7 @@ const skill: ISkill = {
 		return calendar
 	},
 
-	confirm: function() {
+	confirm() {
 		const confirm: IConfirmationDialog = {
 			show: data => {
 				const { onConfirm, onCancel, ...rest } = data
@@ -596,9 +596,9 @@ const skill: ISkill = {
 		return confirm
 	},
 
-	supportingMessage: function() {
+	supportingMessage() {
 		const message: ISupportingMessage = {
-			add: function({
+			add({
 				headline,
 				text,
 				followupText,
@@ -625,15 +625,15 @@ const skill: ISkill = {
 
 		return message
 	},
-	blockingMessage: function() {
+	blockingMessage() {
 		const message: IBlockingMessage = {
-			add: function({
-				headline,
-				text,
-				followupText,
-				timeout,
-				kind = 'positive',
-				callback
+			add({
+				headline
+				// text,
+				// followupText,
+				// timeout,
+				// kind = 'positive',
+				// callback
 			}) {
 				window.alert(headline)
 			}
