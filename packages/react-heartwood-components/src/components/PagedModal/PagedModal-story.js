@@ -78,4 +78,8 @@ const stories = storiesOf('Paged Modal', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('Page Modal', () => <PageModalExample />)
+stories.add('Page Modal', () => <PageModalExample />, {
+	jsx: {
+		skip: 1
+	}
+})

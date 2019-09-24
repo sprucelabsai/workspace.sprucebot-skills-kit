@@ -1,19 +1,11 @@
 import React from 'react'
 import cx from 'classnames'
 import Button, { IButtonProps, ButtonKinds } from '../Button/Button'
+import { IHWButtonGroup } from '@sprucelabs/spruce-types'
 
-export interface IButtonGroupProps {
+export interface IButtonGroupProps extends Omit<IHWButtonGroup, 'actions'> {
 	/** Array of actions to render the group's buttons. */
 	actions: IButtonProps[]
-
-	/** Visual appearance of the group. */
-	kind?: 'default' | 'segmented' | 'floating'
-
-	/** Set true to fill parent width */
-	isFullWidth?: boolean
-
-	/** Optional: Index of the button that is currently highlighted, e.g. by arrow keys */
-	highlightedIndex?: number
 }
 
 const ButtonGroup = (props: IButtonGroupProps): React.ReactElement => {
@@ -28,7 +20,7 @@ const ButtonGroup = (props: IButtonGroupProps): React.ReactElement => {
 			{actions.map((action, idx) => {
 				return (
 					<li
-						key={action.text}
+						key={action.id}
 						className={cx('button-group__item', {
 							'button-group__item--is-highlighted': highlightedIndex === idx
 						})}

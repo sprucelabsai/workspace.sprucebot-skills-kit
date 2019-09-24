@@ -3,9 +3,9 @@ export { default as UserAvatar } from './components/Avatar/UserAvatar'
 export { default as BotText } from './components/BotText/BotText'
 export {
 	default as Button,
-	IButtonIconProps,
 	IButtonProps,
-	ButtonKinds
+	ButtonKinds,
+	ButtonTypes
 } from './components/Button/Button'
 export { default as ButtonGroup } from './components/ButtonGroup/ButtonGroup'
 export {
@@ -104,7 +104,11 @@ export {
 	default as RecordSelectionListItem
 } from './components/RecordSelectionList/RecordSelectionListItem'
 export { default as EmptyState } from './components/EmptyState/EmptyState'
-export { default as EventDetails } from './components/EventDetails/EventDetails'
+export {
+	default as EventDetails,
+	IEventDetailsProps,
+	IEventDetailsItemProps
+} from './components/EventDetails/EventDetails'
 export { default as CircleLoader } from './components/CircleLoader/CircleLoader'
 export { default as SplitButton } from './components/SplitButton/SplitButton'
 export {

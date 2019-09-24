@@ -1,16 +1,14 @@
 import React from 'react'
 import cx from 'classnames'
 import Button from '../Button/Button'
+import { IHWToast } from '@sprucelabs/spruce-types'
 
-interface IToastHeaderProps {
-	/** Headline text */
-	headline: string
+interface IToastHeaderProps extends Omit<IHWToast, 'id'> {
+	/**  Optional id for view caching */
+	id?: string
 
 	/** Function to remove the toast */
 	onRemove: Function
-
-	/** Optional; controls whether the toast can be removed. Defaults to true */
-	canRemove?: boolean
 }
 
 const ToastHeader = (props: IToastHeaderProps): React.ReactElement => {

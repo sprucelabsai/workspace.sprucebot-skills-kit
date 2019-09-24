@@ -2,16 +2,19 @@ import React, { Fragment } from 'react'
 import Button, { IButtonProps } from '../../../Button/Button'
 import { CardBuilder, ICardBuilderProps } from '../../../Card'
 import List, { IListProps } from '../../../List/List'
-import MarkdownText, { IMarkdownText } from '../../../MarkdownText/MarkdownText'
+import MarkdownText, {
+	IMarkdownProps
+} from '../../../MarkdownText/MarkdownText'
 import SplitButton, {
 	ISplitButtonProps
 } from '../../../SplitButton/SplitButton'
-import Text from '../../../Text/Text'
+import Text, { ITextProps } from '../../../Text/Text'
 import Toast, { IToastProps } from '../../../Toast/Toast'
+import { IHWCalendarEventDetailsItem } from '@sprucelabs/spruce-types'
 
-const MDTextContainer = (props: { source: string }): React.ReactElement => (
+const MDTextContainer = (props: IMarkdownProps): React.ReactElement => (
 	<div className="event-details__markdown">
-		<MarkdownText source={props.source} />
+		<MarkdownText {...props} />
 	</div>
 )
 
@@ -25,23 +28,17 @@ const components = {
 	markdown: MDTextContainer
 }
 
-interface IGenerateEventDetailsItemConfiguration<type, props> {
-	/** Unique identifier for the item */
-	id: string
-	/** Component key to decide what to render */
-	type: type
-	/** Props to pass into the rendered component */
-	viewModel: props
+export interface IEventDetailsItemProps
+	extends Omit<IHWCalendarEventDetailsItem, 'viewModel'> {
+	viewModel:
+		| IListProps
+		| IButtonProps
+		| ICardBuilderProps
+		| IToastProps
+		| ITextProps
+		| IMarkdownProps
+		| ISplitButtonProps
 }
-
-export type IEventDetailsItemProps =
-	| IGenerateEventDetailsItemConfiguration<'list', IListProps>
-	| IGenerateEventDetailsItemConfiguration<'button', IButtonProps>
-	| IGenerateEventDetailsItemConfiguration<'splitButton', ISplitButtonProps>
-	| IGenerateEventDetailsItemConfiguration<'card', ICardBuilderProps>
-	| IGenerateEventDetailsItemConfiguration<'toast', IToastProps>
-	| IGenerateEventDetailsItemConfiguration<'text', any>
-	| IGenerateEventDetailsItemConfiguration<'markdown', IMarkdownText>
 
 const EventDetailsItem = (
 	props: IEventDetailsItemProps

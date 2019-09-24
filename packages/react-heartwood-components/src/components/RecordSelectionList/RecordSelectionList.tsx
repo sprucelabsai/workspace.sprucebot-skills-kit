@@ -597,6 +597,8 @@ export default class RecordSelectionList extends Component<
 				>
 					{onSelect && canSelect && (
 						<SelectionComponent
+							id={recordId}
+							name={recordId}
 							className="record-selection__record-select"
 							onChange={() => {
 								onSelect(recordId, record)

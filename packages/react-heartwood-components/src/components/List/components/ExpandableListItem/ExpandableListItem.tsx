@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { IListProps } from '../../List'
 import ListItem, { IListItemProps } from '../ListItem/ListItem'
+import { IHWExpandableListItem } from '@sprucelabs/spruce-types'
 import { ButtonKinds } from '../../../Button/Button'
 
-export interface IExpandableListItemProps extends IListItemProps {
+export interface IExpandableListItemProps
+	extends Omit<IHWExpandableListItem, 'item' | 'list' | 'lists'> {
 	/** Base list item props */
 	item: IListItemProps
 
@@ -12,12 +14,6 @@ export interface IExpandableListItemProps extends IListItemProps {
 
 	/** Optional; adds multiple lists nested at the same level */
 	lists?: IListProps[]
-
-	/** Optional icon for collapsed state */
-	collapsedIcon?: string
-
-	/** Optional icon for expanded state */
-	expandedIcon?: string
 }
 interface IExpandableListItemState {
 	/** Is the list item expanded */
@@ -39,7 +35,13 @@ export default class ExpandableListItem extends Component<
 	}
 
 	public render(): React.ReactElement {
-		const { item, list, lists, collapsedIcon, expandedIcon } = this.props
+		const {
+			item,
+			list,
+			lists,
+			collapsedIconName,
+			expandedIconName
+		} = this.props
 		const { isExpanded } = this.state
 		return (
 			<ListItem
@@ -50,8 +52,8 @@ export default class ExpandableListItem extends Component<
 					{
 						icon: {
 							name: isExpanded
-								? expandedIcon || 'keyboard_arrow_down'
-								: collapsedIcon || 'keyboard_arrow_right'
+								? expandedIconName || 'keyboard_arrow_down'
+								: collapsedIconName || 'keyboard_arrow_right'
 						},
 						kind: isExpanded ? undefined : ButtonKinds.Simple,
 						onClick: this.toggleExpanded

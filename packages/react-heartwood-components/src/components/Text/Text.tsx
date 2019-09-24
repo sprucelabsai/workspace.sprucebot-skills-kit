@@ -1,8 +1,9 @@
-import React, { Fragment, ReactNode, HTMLProps } from 'react'
+import React, { Fragment, ReactNode /*, HTMLProps*/ } from 'react'
 import cx from 'classnames'
 
 import Button from '../Button/Button'
 import TextStyle from '../TextStyle/TextStyle'
+import { IHWText } from '@sprucelabs/spruce-types'
 
 // Components available for templating
 
@@ -24,7 +25,6 @@ const renderText = (child): ReactNode => {
 }
 
 // Allows basic templating functionality on text strings
-
 const TemplateEngine = (text = '', context = {}): ReactNode[] => {
 	let re = /{{([^}}]+)?}}/g,
 		children: Record<string, any>[] = [],
@@ -59,9 +59,12 @@ const TemplateEngine = (text = '', context = {}): ReactNode[] => {
 	return children.map(renderText)
 }
 
-export interface ITextProps extends HTMLProps<HTMLElement> {
+export interface ITextProps extends Omit<IHWText, 'id'> {
+	/** id for visual caching */
+	id?: string
+
 	/** Contents of the component. */
-	children: ReactNode
+	children?: ReactNode
 
 	/** Class name for the component */
 	className?: string
@@ -69,34 +72,8 @@ export interface ITextProps extends HTMLProps<HTMLElement> {
 	/** Context allows basic templatizing of text strings for formatting/rich interaction purposes */
 	context?: Record<string, any>
 
-	/** The element to render. Defaults to p for Text and span for Span */
-	// eslint-disable-next-line flowtype/space-after-type-colon
-	element?:
-		| 'a'
-		| 'abbr'
-		| 'blockquote'
-		| 'br'
-		| 'cite'
-		| 'code'
-		| 'data'
-		| 'dd'
-		| 'dl'
-		| 'dt'
-		| 'figcaption'
-		| 'figure'
-		| 'kbd'
-		| 'li'
-		| 'mark'
-		| 'ol'
-		| 'p'
-		| 'pre'
-		| 'q'
-		| 's'
-		| 'span'
-		| 'sub'
-		| 'sup'
-		| 'time'
-		| 'ul'
+	/** Is this an inline text element? */
+	isInline?: boolean
 }
 
 const Text: React.StatelessComponent<ITextProps> = (
@@ -105,19 +82,18 @@ const Text: React.StatelessComponent<ITextProps> = (
 	const {
 		children: originalChildren,
 		className,
-		element,
 		context,
+		text: textProps,
+		isInline,
 		...rest
 	} = props
-	let Element: any = 'p'
+	let Element: any = isInline ? 'span' : 'p'
 	let children = originalChildren
 
-	if (element) {
-		Element = element
-	}
+	const text = children || textProps || context
 
-	if (context && typeof children === 'string') {
-		children = TemplateEngine(children, context)
+	if (typeof text === 'string') {
+		children = TemplateEngine(text, context)
 	}
 
 	return (
@@ -130,14 +106,10 @@ const Text: React.StatelessComponent<ITextProps> = (
 export const Span: React.StatelessComponent<ITextProps> = (
 	props: ITextProps
 ): React.ReactElement => {
-	const { children, className, element, ...rest } = props
+	const { children, className, ...rest } = props
 
 	return (
-		<Text
-			element={element || 'span'}
-			className={cx('text', className)}
-			{...rest}
-		>
+		<Text isInline={true} className={cx('text', className)} {...rest}>
 			{children}
 		</Text>
 	)

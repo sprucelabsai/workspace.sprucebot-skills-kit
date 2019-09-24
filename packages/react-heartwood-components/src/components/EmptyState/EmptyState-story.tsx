@@ -7,7 +7,7 @@ import {
 	text,
 	select,
 	object
-} from '@storybook/addon-knobs/react'
+} from '@storybook/addon-knobs'
 import EmptyState from './EmptyState'
 import * as icons from '../../icons.js'
 

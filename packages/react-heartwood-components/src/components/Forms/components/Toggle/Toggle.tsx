@@ -1,19 +1,13 @@
-// @flow
 import React from 'react'
 import cx from 'classnames'
+import { IHWToggle } from '@sprucelabs/spruce-types'
 
-export type Props = {
-	/** Unique identifier */
-	id: string,
-
-	/** Optional class */
-	className: string,
-
-	/** Text after the toggle */
-	postText: string
+export interface IToggleProps extends IHWToggle {
+	/** optional class name applied to the toggle */
+	className?: string
 }
 
-const Toggle = (props: Props) => {
+const Toggle = (props: IToggleProps): React.ReactElement => {
 	const { id, className, postText, ...rest } = props
 	const parentClass = cx('toggle__wrapper', className)
 	return (

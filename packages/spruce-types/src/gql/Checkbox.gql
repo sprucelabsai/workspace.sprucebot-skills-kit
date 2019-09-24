@@ -11,9 +11,9 @@ type Checkbox {
 	"Optional text to show below the label"
 	postText: String
 
-	"Class for the checkbox wrapper"
-	className: String
-
 	"Set true if the checkbox is indeterminate"
 	isIndeterminate: Boolean
+
+	"is this checkbox checked?"
+	checked: Boolean
 }
