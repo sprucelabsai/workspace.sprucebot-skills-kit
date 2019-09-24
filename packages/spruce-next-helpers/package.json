@@ -23,7 +23,7 @@
 		"clean": "rm -rf lib/*",
 		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx src && tsc -p . --noEmit",
 		"#test": "jest",
-		"watch": "chokidar 'src/**/*.js' -c 'npm run build'"
+		"watch": "chokidar 'src/**/*.js' 'src/**/*.ts' 'src/**/*.tsx' -c 'npm run build'"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.1.6",
@@ -46,7 +46,7 @@
 		"@babel/register": "^7.0.0",
 		"@sprucelabs/heartwood-components": "^8.17.7",
 		"@sprucelabs/react-heartwood-components": "^8.17.7",
-		"@sprucelabs/spruce-types": "^8.17.8-pre-91dabded.0",
+		"@sprucelabs/spruce-types": "^8.17.1-canary.60",
 		"@zeit/next-typescript": "^1.1.1",
 		"axios": "^0.18.0",
 		"classnames": "^2.2.5",

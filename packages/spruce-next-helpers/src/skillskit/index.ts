@@ -1,8 +1,5 @@
 import Iframes from '@sprucelabs/spruce-utils/iframes'
-import {
-	ICoreGQLCalendarEvent,
-	ICoreGQLUserLocation
-} from '@sprucelabs/spruce-types'
+import { ICoreUserLocation, ICoreCalendarEvent } from '@sprucelabs/spruce-types'
 
 function postMessage(message) {
 	return window.parent.postMessage(JSON.stringify(message), '*')
@@ -12,7 +9,7 @@ let skillStatusCheckListener = null
 
 export interface ISearchForUserLegacy {
 	onCancel?: () => void
-	onSelectUser?: (userLocation: ICoreGQLUserLocation) => void
+	onSelectUser?: (userLocation: ICoreUserLocation) => void
 	roles?: string[]
 	locationId?: string
 }
@@ -51,9 +48,9 @@ export interface ISaveBar {
 
 export interface ICalendar {
 	/** drop a calendar event onto the calendar */
-	createEvent(event: ICoreGQLCalendarEvent): void
+	createEvent(event: ICoreCalendarEvent): void
 	/** update an event on the calendar */
-	updateEvent(event: ICoreGQLCalendarEvent): void
+	updateEvent(event: ICoreCalendarEvent): void
 	/** removes a calendar event from the calendar */
 	deleteEvent(id: string): void
 }
