@@ -18,8 +18,8 @@ describe('Pagination tests', () => {
 
 		props = {
 			isSimple: true,
-			onClickNext: onClickNext,
-			onClickBack: onClickBack,
+			onClickNext,
+			onClickBack,
 			currentPage: 0,
 			totalPages: 3
 		}
@@ -62,8 +62,8 @@ describe('When on the first page', () => {
 
 		props = {
 			isSimple: true,
-			onClickNext: onClickNext,
-			onClickBack: onClickBack,
+			onClickNext,
+			onClickBack,
 			currentPage: 0,
 			totalPages: 3
 		}
@@ -94,8 +94,8 @@ describe('When between the first and last page', () => {
 
 		props = {
 			isSimple: true,
-			onClickNext: onClickNext,
-			onClickBack: onClickBack,
+			onClickNext,
+			onClickBack,
 			currentPage: 1,
 			totalPages: 3
 		}
@@ -125,8 +125,8 @@ describe('When on the last page', () => {
 
 		props = {
 			isSimple: true,
-			onClickNext: onClickNext,
-			onClickBack: onClickBack,
+			onClickNext,
+			onClickBack,
 			currentPage: 3,
 			totalPages: 3
 		}

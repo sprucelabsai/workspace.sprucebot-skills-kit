@@ -172,7 +172,7 @@ export default (ctx: ISkillContext) => {
 						// let the resolver handle the loading of the model (along with relationships)
 						return {
 							where: {
-								id: id
+								id
 							}
 						}
 					}
