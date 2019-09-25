@@ -750,6 +750,8 @@ export type IHWRadio = IHWActionExecuter & {
   postText?: Maybe<Scalars['String']>,
   /** is this control disabled? */
   disabled?: Maybe<Scalars['Boolean']>,
+  /** Optional action to invoke when tapped */
+  action?: Maybe<IHWActionExecuter>,
 };
 
 /** A score card! */
