@@ -1,4 +1,5 @@
 import { Request, Response } from 'koa'
+import { ISkill } from './skillskit'
 
 export {
 	default as skill,
@@ -21,7 +22,7 @@ export { default as gqlClient } from './skillskit/helpers/gqlClient'
 export { default as settings } from './skillskit/helpers/settings'
 
 // TODO move to PageWrapper once it's moved to typescript
-export interface IInitialPropsContext<IAuth> {
+export interface IPageInitialPropsContext<IAuth> {
 	auth: IAuth & { jwt: string }
 	pathname: string
 	query: Record<string, any>
@@ -29,4 +30,9 @@ export interface IInitialPropsContext<IAuth> {
 	store: any
 	res: Response
 	req: Request
+}
+
+/** Initial props for a page */
+export interface IPageInitialProps {
+	skill: ISkill
 }

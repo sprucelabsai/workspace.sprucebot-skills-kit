@@ -3,7 +3,7 @@
 /* eslint-disable import/namespace */
 import React, { Component } from 'react'
 
-import * as actions from '../store/actions'
+const actions = require('../store/actions').default
 import ServerCookies from 'cookies'
 import ClientCookies from 'js-cookies'
 import skill from '../index'

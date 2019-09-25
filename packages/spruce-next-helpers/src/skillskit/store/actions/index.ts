@@ -5,11 +5,6 @@ import * as sharable from './sharable'
 import * as calendar from './calendar'
 import * as events from './events'
 
-export default {
-	auth,
-	authV2,
-	onboarding,
-	sharable,
-	calendar,
-	events
-}
+const actions = { auth, authV2, onboarding, sharable, calendar, events }
+
+export default actions
