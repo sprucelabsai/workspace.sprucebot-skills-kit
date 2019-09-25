@@ -246,10 +246,10 @@ export type IHWButton = IHWActionExecuter & {
   icon?: Maybe<IHWIcon>,
   /** Type attribute for HTML button element. Defaults to 'button'. */
   type?: Maybe<IHWButtonTypes>,
-  /** Will be passed back with the on click. */
-  payload?: Maybe<Scalars['JSON']>,
   /** Set true to disable the button */
   disabled?: Maybe<Scalars['Boolean']>,
+  /** Optional action to invoke when tapped */
+  action?: Maybe<IHWActionExecuter>,
 };
 
 export type IHWButtonGroup = {
@@ -476,6 +476,8 @@ export type IHWCheckbox = IHWActionExecuter & {
   isIndeterminate?: Maybe<Scalars['Boolean']>,
   /** is this checkbox checked? */
   checked?: Maybe<Scalars['Boolean']>,
+  /** Optional action to invoke when tapped */
+  action?: Maybe<IHWActionExecuter>,
 };
 
 export type IHWContextMenu = {
@@ -832,4 +834,6 @@ export type IHWToggle = IHWActionExecuter & {
   id: Scalars['ID'],
   /** Text after the toggle */
   postText?: Maybe<Scalars['String']>,
+  /** Optional action to invoke when tapped */
+  action?: Maybe<IHWActionExecuter>,
 };

@@ -4,4 +4,7 @@ type Toggle implements ActionExecuter {
 
 	"Text after the toggle"
 	postText: String
+
+	"Optional action to invoke when tapped"
+	action: ActionExecuter
 }

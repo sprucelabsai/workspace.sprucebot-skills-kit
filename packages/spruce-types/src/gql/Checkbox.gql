@@ -16,4 +16,7 @@ type Checkbox implements ActionExecuter {
 
 	"is this checkbox checked?"
 	checked: Boolean
+
+	"Optional action to invoke when tapped"
+	action: ActionExecuter
 }
