@@ -24,7 +24,6 @@ const Heading = (props: IHeadingProps): React.ReactElement => {
 			className={cx('heading', className)}
 			dangerouslySetInnerHTML={text ? { __html: text } : undefined}
 		>
-			{text}
 			{children}
 		</Element>
 	)

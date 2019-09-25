@@ -10,7 +10,7 @@ type CardHeader {
 	labelIcon: Icon
 
 	"Render buttons in the Card Header"
-	actions: [Action]
+	actions: [Button!]
 
 	"Renders a Context Menu in the Card Header"
 	contextMenu: ContextMenu
@@ -19,7 +19,7 @@ type CardHeader {
 "The footer of the card"
 type CardBuilderFooter {
 	"Render buttons in the Card Footer"
-	actions: [Action]
+	actions: [Button!]
 
 	"Helper for the footer"
 	helper: String
@@ -43,16 +43,16 @@ type ScoreCard {
 }
 
 union CardBuilderBodyItemViewModel =
-Action
-| Image
-| Heading
-| Text
-| ScoreCard
-| Toast
-| List
+	  Button
+	| Image
+	| Heading
+	| Text
+	| ScoreCard
+	| Toast
+	| List
 
 enum CardBuilderBodyItemType {
-	action
+	button
 	image
 	heading
 	text
@@ -108,7 +108,7 @@ type OnboardingCardStep {
 	panelCopy: String!
 
 	"Primary CTA of this step"
-	panelCTA: Action
+	panelCTA: Button
 
 	"Is this step complete?"
 	isComplete: Boolean

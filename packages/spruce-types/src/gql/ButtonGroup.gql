@@ -1,12 +1,12 @@
 enum ButtonGroupKind {
-	default, 
-	segmented, 
+	default
+	segmented
 	floating
 }
 
 type ButtonGroup {
 	"Array of actions to render the group's buttons."
-	actions: [Action!]
+	actions: [Button!]
 
 	"Visual appearance of the group."
 	kind: ButtonGroupKind

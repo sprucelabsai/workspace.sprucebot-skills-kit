@@ -32,12 +32,47 @@ export type Scalars = {
   DateTime: any,
 };
 
-export type IHWAction = {
-  __typename?: 'Action',
+export type IHWActionCoreRedirect = {
+  __typename?: 'ActionCoreRedirect',
+  type?: Maybe<IHWActionTypes>,
+  payload?: Maybe<IHWActionCoreRedirectPayload>,
+};
+
+export type IHWActionCoreRedirectPayload = {
+  __typename?: 'ActionCoreRedirectPayload',
+  route: Scalars['String'],
+  routeParams?: Maybe<Scalars['JSON']>,
+};
+
+export type IHWActionExecuter = {
+  action?: Maybe<IHWActions>,
+};
+
+export type IHWActions = IHWActionCoreRedirect | IHWActionSkillViewRedirect;
+
+export type IHWActionSkillViewRedirect = {
+  __typename?: 'ActionSkillViewRedirect',
+  type?: Maybe<IHWActionTypes>,
+  payload?: Maybe<IHWActionSkillViewRedirectPayload>,
+};
+
+export type IHWActionSkillViewRedirectPayload = {
+  __typename?: 'ActionSkillViewRedirectPayload',
+  host: Scalars['String'],
+  path?: Maybe<Scalars['String']>,
+};
+
+export enum IHWActionTypes {
+  CoreRedirect = 'CoreRedirect',
+  SkillViewRedirect = 'SkillViewRedirect'
+}
+
+export type IHWButton = IHWActionExecuter & {
+  __typename?: 'Button',
   /** Unique ID for rendering in lists */
   id: Scalars['ID'],
   /** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
-  kind?: Maybe<IHWActionKinds>,
+  kind?: Maybe<IHWButtonKinds>,
   /** Set true to make the button less tall. */
   isSmall?: Maybe<Scalars['Boolean']>,
   /** Set true to make the button fill its parent's width. */
@@ -53,32 +88,17 @@ export type IHWAction = {
   /** Icon for the button. */
   icon?: Maybe<IHWIcon>,
   /** Type attribute for HTML button element. Defaults to 'button'. */
-  type?: Maybe<IHWActionButtonType>,
+  type?: Maybe<IHWButtonTypes>,
   /** Will be passed back with the on click. */
   payload?: Maybe<Scalars['JSON']>,
   /** Set true to disable the button */
   disabled?: Maybe<Scalars['Boolean']>,
 };
 
-/** If this action is being rendered as a button, you can control it's type */
-export enum IHWActionButtonType {
-  Button = 'button',
-  Submit = 'submit',
-  Reset = 'reset'
-}
-
-/** How an action is rendered is impacted by the kind of action it is */
-export enum IHWActionKinds {
-  Primary = 'primary',
-  Secondary = 'secondary',
-  Simple = 'simple',
-  Caution = 'caution'
-}
-
 export type IHWButtonGroup = {
   __typename?: 'ButtonGroup',
   /** Array of actions to render the group's buttons. */
-  actions?: Maybe<Array<IHWAction>>,
+  actions?: Maybe<Array<IHWButton>>,
   /** Visual appearance of the group. */
   kind?: Maybe<IHWButtonGroupKind>,
   /** Set true to fill parent width */
@@ -91,6 +111,21 @@ export enum IHWButtonGroupKind {
   Default = 'default',
   Segmented = 'segmented',
   Floating = 'floating'
+}
+
+/** How an action is rendered is impacted by the kind of action it is */
+export enum IHWButtonKinds {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Simple = 'simple',
+  Caution = 'caution'
+}
+
+/** Type of button */
+export enum IHWButtonTypes {
+  Button = 'button',
+  Submit = 'submit',
+  Reset = 'reset'
 }
 
 /** An event that is rendered on the calendar. */
@@ -161,7 +196,7 @@ export enum IHWCalendarEventDetailsItemType {
   Markdown = 'markdown'
 }
 
-export type IHWCalendarEventDetailsItemViewModel = IHWList | IHWAction | IHWCardBuilder | IHWToast | IHWText | IHWMarkdown | IHWSplitButton;
+export type IHWCalendarEventDetailsItemViewModel = IHWList | IHWButton | IHWCardBuilder | IHWToast | IHWText | IHWMarkdown | IHWSplitButton;
 
 /** How an event will be rendered in the calendar. Each time represents a standard state of an event. */
 export enum IHWCalendarEventKind {
@@ -226,7 +261,7 @@ export type IHWCardBuilderBodyItem = {
 };
 
 export enum IHWCardBuilderBodyItemType {
-  Action = 'action',
+  Button = 'button',
   Image = 'image',
   Heading = 'heading',
   Text = 'text',
@@ -235,13 +270,13 @@ export enum IHWCardBuilderBodyItemType {
   List = 'list'
 }
 
-export type IHWCardBuilderBodyItemViewModel = IHWAction | IHWImage | IHWHeading | IHWText | IHWScoreCard | IHWToast | IHWList;
+export type IHWCardBuilderBodyItemViewModel = IHWButton | IHWImage | IHWHeading | IHWText | IHWScoreCard | IHWToast | IHWList;
 
 /** The footer of the card */
 export type IHWCardBuilderFooter = {
   __typename?: 'CardBuilderFooter',
   /** Render buttons in the Card Footer */
-  actions?: Maybe<Array<Maybe<IHWAction>>>,
+  actions?: Maybe<Array<IHWButton>>,
   /** Helper for the footer */
   helper?: Maybe<Scalars['String']>,
 };
@@ -265,12 +300,12 @@ export type IHWCardHeader = {
   /** Optional icon to show above the title and before the label */
   labelIcon?: Maybe<IHWIcon>,
   /** Render buttons in the Card Header */
-  actions?: Maybe<Array<Maybe<IHWAction>>>,
+  actions?: Maybe<Array<IHWButton>>,
   /** Renders a Context Menu in the Card Header */
   contextMenu?: Maybe<IHWContextMenu>,
 };
 
-export type IHWCheckbox = {
+export type IHWCheckbox = IHWActionExecuter & {
   __typename?: 'Checkbox',
   /** Unique identifier */
   id: Scalars['ID'],
@@ -289,7 +324,7 @@ export type IHWCheckbox = {
 export type IHWContextMenu = {
   __typename?: 'ContextMenu',
   /** The actions to be shown on tap/click */
-  actions: Array<IHWAction>,
+  actions: Array<IHWButton>,
   /** Set the width of the menu. Helpful for longer text in buttons */
   size?: Maybe<IHWContextMenuSize>,
   /** Adds text to the collapsed menu */
@@ -426,8 +461,8 @@ export type IHWListHeader = {
   subtitle?: Maybe<Scalars['String']>,
   /** Set true for small lists */
   isSmall?: Maybe<Scalars['Boolean']>,
-  /** Actions to associate with the list header */
-  actions?: Maybe<IHWAction>,
+  /** Buttons to associate with the list header */
+  actions?: Maybe<Array<IHWButton>>,
 };
 
 /** A List is made up of ListItems */
@@ -462,9 +497,9 @@ export type IHWListItem = {
   /** Props passed to the toggle if toggleId is set */
   toggleProps?: Maybe<IHWToggle>,
   /** A primary action that turns the entire list item into a clickable action */
-  primaryAction?: Maybe<IHWAction>,
+  primaryAction?: Maybe<IHWButton>,
   /** Actions associated with the list item */
-  actions?: Maybe<Array<Maybe<IHWAction>>>,
+  actions?: Maybe<Array<Maybe<IHWButton>>>,
   /** Context Menu associated with the list it */
   contextMenu?: Maybe<IHWContextMenu>,
   /** Set to true to show separator for this list item if followed by another list item. */
@@ -532,13 +567,13 @@ export type IHWOnboardingCardStep = {
   /** Copy describing the step in the card's body */
   panelCopy: Scalars['String'],
   /** Primary CTA of this step */
-  panelCTA?: Maybe<IHWAction>,
+  panelCTA?: Maybe<IHWButton>,
   /** Is this step complete? */
   isComplete?: Maybe<Scalars['Boolean']>,
 };
 
 /** A radio control. Give a bunch the same name to keep them as part of the same group */
-export type IHWRadio = {
+export type IHWRadio = IHWActionExecuter & {
   __typename?: 'Radio',
   /** Unique identifier */
   id: Scalars['ID'],
@@ -575,11 +610,11 @@ export type IHWSplitButton = {
   /** ID for view caching */
   id: Scalars['ID'],
   /** The main action readily surfaced to the user */
-  defaultAction: IHWAction,
+  defaultAction: IHWButton,
   /** All the secondary nested actions */
-  actions: Array<Maybe<IHWAction>>,
+  actions?: Maybe<Array<IHWButton>>,
   /** Sets the visual hierarchy of the button */
-  kind?: Maybe<IHWActionKinds>,
+  kind?: Maybe<IHWButtonKinds>,
   /** Set true to fill the parent’s width */
   isFullWidth?: Maybe<Scalars['Boolean']>,
   /** Sets the visual hierarchy of the button */
@@ -626,7 +661,7 @@ export type IHWToast = {
   followupText?: Maybe<Scalars['String']>,
 };
 
-export type IHWToggle = {
+export type IHWToggle = IHWActionExecuter & {
   __typename?: 'Toggle',
   /** Unique id for UI caching */
   id: Scalars['ID'],

@@ -5,7 +5,7 @@ enum ContextMenuSize {
 
 type ContextMenu {
 	"The actions to be shown on tap/click"
-	actions: [Action!]!
+	actions: [Button!]!
 
 	"Set the width of the menu. Helpful for longer text in buttons"
 	size: ContextMenuSize

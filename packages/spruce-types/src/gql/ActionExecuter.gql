@@ -1,0 +1,30 @@
+union Actions = ActionCoreRedirect | ActionSkillViewRedirect
+
+enum ActionTypes {
+	CoreRedirect
+	SkillViewRedirect
+}
+
+type ActionCoreRedirect {
+	type: ActionTypes!
+	payload: ActionCoreRedirectPayload!
+}
+
+type ActionCoreRedirectPayload {
+	route: String!
+	routeParams: JSON
+}
+
+type ActionSkillViewRedirect {
+	type: ActionTypes!
+	payload: ActionSkillViewRedirectPayload!
+}
+
+type ActionSkillViewRedirectPayload {
+	host: String!
+	path: String
+}
+
+interface ActionExecuter {
+	action: Actions
+}

@@ -1,7 +1,7 @@
 import {
-	IHWAction,
-	IHWActionKinds as ButtonKinds,
-	IHWActionButtonType as ButtonTypes
+	IHWButton,
+	IHWButtonTypes as ButtonTypes,
+	IHWButtonKinds as ButtonKinds
 } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
 import React, { Fragment } from 'react'
@@ -10,11 +10,11 @@ import Icon, { IIconProps } from '../Icon/Icon'
 import BasicAnchor from '../_utilities/Anchor'
 
 export {
-	IHWActionKinds as ButtonKinds,
-	IHWActionButtonType as ButtonTypes
+	IHWButtonKinds as ButtonKinds,
+	IHWButtonTypes as ButtonTypes
 } from '@sprucelabs/spruce-types'
 
-export interface IButtonProps extends Omit<IHWAction, 'id' | 'icon'> {
+export interface IButtonProps extends Omit<IHWButton, 'id' | 'icon'> {
 	/** Optional ID for view caching */
 	id?: string
 

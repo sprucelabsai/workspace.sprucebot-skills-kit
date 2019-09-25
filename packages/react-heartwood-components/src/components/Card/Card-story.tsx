@@ -19,7 +19,7 @@ import LockIcon2 from '../../../static/assets/icons/Interface-Essential/Lock/Unl
 import AlertIcon3 from '../../../static/assets/icons/Interface-Essential/Alerts/alert-triangle--16w.svg'
 import { ICardBuilderProps } from './components/CardBuilder'
 import {
-	IHWActionButtonType,
+	IHWButtonTypes,
 	IHWCardBuilderBodyItemType
 } from '@sprucelabs/spruce-types'
 
@@ -29,7 +29,7 @@ const cardJSON: ICardBuilderProps = {
 		labelText: '',
 		actions: [
 			{
-				type: IHWActionButtonType.Button,
+				type: IHWButtonTypes.Button,
 				text: 'More Info',
 				href: '#',
 				target: '_blank',
@@ -52,7 +52,7 @@ const cardJSON: ICardBuilderProps = {
 		buttonGroup: {
 			actions: [
 				{
-					type: IHWActionButtonType.Button,
+					type: IHWButtonTypes.Button,
 					text: 'Do things',
 					kind: ButtonKinds.Secondary,
 					isSmall: true
@@ -152,7 +152,7 @@ const cardJSON4: ICardBuilderProps = {
 		buttonGroup: {
 			actions: [
 				{
-					type: IHWActionButtonType.Button,
+					type: IHWButtonTypes.Button,
 					text: 'Do things',
 					kind: ButtonKinds.Secondary,
 					isSmall: true
@@ -170,7 +170,7 @@ const cardJSON5: ICardBuilderProps = {
 		buttonGroup: {
 			actions: [
 				{
-					type: IHWActionButtonType.Button,
+					type: IHWButtonTypes.Button,
 					text: 'Delete this thing forever',
 					icon: {
 						name: 'remove'

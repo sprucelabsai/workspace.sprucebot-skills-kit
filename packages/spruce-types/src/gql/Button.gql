@@ -1,24 +1,24 @@
 "How an action is rendered is impacted by the kind of action it is"
-enum ActionKinds {
+enum ButtonKinds {
 	primary
 	secondary
 	simple
 	caution
 }
 
-"If this action is being rendered as a button, you can control it's type"
-enum ActionButtonType {
+"Type of button"
+enum ButtonTypes {
 	button
 	submit
 	reset
 }
 
-type Action {
+type Button implements ActionExecuter {
 	"Unique ID for rendering in lists"
 	id: ID!
 
 	"Sets the visual appearance of the button. May be primary, secondary, simple, or caution."
-	kind: ActionKinds
+	kind: ButtonKinds
 
 	"Set true to make the button less tall."
 	isSmall: Boolean
@@ -42,7 +42,7 @@ type Action {
 	icon: Icon
 
 	"Type attribute for HTML button element. Defaults to 'button'."
-	type: ActionButtonType
+	type: ButtonTypes
 
 	"Will be passed back with the on click."
 	payload: JSON
