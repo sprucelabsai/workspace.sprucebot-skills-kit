@@ -35,6 +35,7 @@ export type Scalars = {
 /** Pop up big search */
 export type IHWActionBigSearch = {
   __typename?: 'ActionBigSearch',
+  type?: Maybe<IHWActionTypes>,
   payload: IHWActionBigSearchPayload,
 };
 
@@ -47,6 +48,7 @@ export type IHWActionBigSearchPayload = {
 /** Jump to a place on the calendar */
 export type IHWActionCalendarJumpTo = {
   __typename?: 'ActionCalendarJumpTo',
+  type?: Maybe<IHWActionTypes>,
   payload: IHWActionCalendarJumpToPayload,
 };
 
@@ -64,6 +66,7 @@ export type IHWActionCalendarJumpToPayload = {
 /** Pop up a confirmation */
 export type IHWActionConfirm = {
   __typename?: 'ActionConfirm',
+  type?: Maybe<IHWActionTypes>,
   payload: IHWActionConfirmPayload,
 };
 
@@ -95,6 +98,7 @@ export type IHWActionConfirmPayload = {
 /** Redirect a user in the main viewport (browser or native mobile) */
 export type IHWActionCoreRedirect = {
   __typename?: 'ActionCoreRedirect',
+  type?: Maybe<IHWActionTypes>,
   payload: IHWActionCoreRedirectPayload,
 };
 
@@ -110,6 +114,7 @@ export type IHWActionCoreRedirectPayload = {
 /** Dismiss/hide components on the page whose ID's match. */
 export type IHWActionDismissComponent = {
   __typename?: 'ActionDismissComponent',
+  type?: Maybe<IHWActionTypes>,
   payload: IHWActionDismissComponent,
 };
 
@@ -123,6 +128,7 @@ export type IHWActionDismissComponentPayload = {
 /** Emit an event to your skill */
 export type IHWActionEmitEvent = {
   __typename?: 'ActionEmitEvent',
+  type?: Maybe<IHWActionTypes>,
   payload: IHWActionEmitEventPayload,
 };
 
@@ -132,7 +138,7 @@ export type IHWActionEmitEventPayload = {
   /** Name of the event, like 'booking:update-appointment' */
   eventName?: Maybe<Scalars['String']>,
   /** Arbitrary payload sent with the event */
-  eventPayload?: Maybe<Scalars['JSON']>,
+  Payload?: Maybe<Scalars['JSON']>,
 };
 
 export type IHWActionExecuter = {
@@ -142,6 +148,7 @@ export type IHWActionExecuter = {
 /** Pop up dialog to edit the user */
 export type IHWActionQuickEditUser = {
   __typename?: 'ActionQuickEditUser',
+  type?: Maybe<IHWActionTypes>,
   payload: IHWActionQuickEditUserPayload,
 };
 
@@ -164,6 +171,7 @@ export type IHWActions = IHWActionCoreRedirect | IHWActionSkillViewRedirect | IH
 /** Load a skill view in a modal dialog */
 export type IHWActionShowModal = {
   __typename?: 'ActionShowModal',
+  type?: Maybe<IHWActionTypes>,
   payload: IHWActionShowModalPayload,
 };
 
@@ -191,6 +199,7 @@ export type IHWActionShowModalPayload = {
 /** Redirect inside of a skill view */
 export type IHWActionSkillViewRedirect = {
   __typename?: 'ActionSkillViewRedirect',
+  type?: Maybe<IHWActionTypes>,
   payload: IHWActionSkillViewRedirectPayload,
 };
 
@@ -202,6 +211,18 @@ export type IHWActionSkillViewRedirectPayload = {
   /** The path to the skill view including any query string */
   path?: Maybe<Scalars['String']>,
 };
+
+export enum IHWActionTypes {
+  CoreRedirect = 'CoreRedirect',
+  SkillViewRedirect = 'SkillViewRedirect',
+  Confirm = 'Confirm',
+  ShowModal = 'ShowModal',
+  EmitEvent = 'EmitEvent',
+  BigSearch = 'BigSearch',
+  QuickEditUserPayload = 'QuickEditUserPayload',
+  DismissComponent = 'DismissComponent',
+  CalendarJumpTo = 'CalendarJumpTo'
+}
 
 export type IHWButton = IHWActionExecuter & {
   __typename?: 'Button',

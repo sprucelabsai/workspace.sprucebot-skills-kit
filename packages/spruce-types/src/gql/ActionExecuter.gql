@@ -9,6 +9,18 @@ union Actions =
 	| ActionDismissComponent
 	| ActionCalendarJumpTo
 
+enum ActionTypes {
+	CoreRedirect
+	SkillViewRedirect
+	Confirm
+	ShowModal
+	EmitEvent
+	BigSearch
+	QuickEditUserPayload
+	DismissComponent
+	CalendarJumpTo
+}
+
 "payload used for core redirect"
 type ActionCoreRedirectPayload {
 	"the destination route"
@@ -20,6 +32,7 @@ type ActionCoreRedirectPayload {
 
 "Redirect a user in the main viewport (browser or native mobile)"
 type ActionCoreRedirect {
+	type: ActionTypes
 	payload: ActionCoreRedirectPayload!
 }
 
@@ -34,6 +47,7 @@ type ActionSkillViewRedirectPayload {
 
 "Redirect inside of a skill view"
 type ActionSkillViewRedirect {
+	type: ActionTypes
 	payload: ActionSkillViewRedirectPayload!
 }
 
@@ -72,6 +86,7 @@ type ActionConfirmPayload {
 
 "Pop up a confirmation"
 type ActionConfirm {
+	type: ActionTypes
 	payload: ActionConfirmPayload!
 }
 
@@ -110,6 +125,7 @@ type ActionShowModalPayload {
 
 "Load a skill view in a modal dialog"
 type ActionShowModal {
+	type: ActionTypes
 	payload: ActionShowModalPayload!
 }
 
@@ -119,11 +135,12 @@ type ActionEmitEventPayload {
 	eventName: String
 
 	"Arbitrary payload sent with the event"
-	eventPayload: JSON
+	Payload: JSON
 }
 
 "Emit an event to your skill"
 type ActionEmitEvent {
+	type: ActionTypes
 	payload: ActionEmitEventPayload!
 }
 
@@ -134,6 +151,7 @@ type ActionBigSearchPayload {
 
 "Pop up big search"
 type ActionBigSearch {
+	type: ActionTypes
 	payload: ActionBigSearchPayload!
 }
 
@@ -149,6 +167,7 @@ type ActionQuickEditUserPayload {
 
 "Pop up dialog to edit the user"
 type ActionQuickEditUser {
+	type: ActionTypes
 	payload: ActionQuickEditUserPayload!
 }
 
@@ -160,6 +179,7 @@ type ActionDismissComponentPayload {
 
 "Dismiss/hide components on the page whose ID's match."
 type ActionDismissComponent {
+	type: ActionTypes
 	payload: ActionDismissComponent!
 }
 
@@ -175,6 +195,7 @@ type ActionCalendarJumpToPayload {
 
 "Jump to a place on the calendar"
 type ActionCalendarJumpTo {
+	type: ActionTypes
 	payload: ActionCalendarJumpToPayload!
 }
 
