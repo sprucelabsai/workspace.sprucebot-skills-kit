@@ -14,4 +14,7 @@ type Radio implements ActionExecuter {
 
 	"is this control disabled?"
 	disabled: Boolean
+
+	"Optional action to invoke when tapped"
+	action: ActionExecuter
 }
