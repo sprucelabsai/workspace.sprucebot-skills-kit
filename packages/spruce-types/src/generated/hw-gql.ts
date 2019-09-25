@@ -32,6 +32,8 @@ export type Scalars = {
   DateTime: any,
 };
 
+export type IHWAction = IHWActionCoreRedirect | IHWActionSkillViewRedirect | IHWActionConfirm | IHWActionShowModal | IHWActionEmitEvent | IHWActionBigSearch | IHWActionQuickEditUserPayload | IHWActionDismissComponent | IHWActionCalendarJumpTo;
+
 /** Pop up big search */
 export type IHWActionBigSearch = {
   __typename?: 'ActionBigSearch',
@@ -142,7 +144,7 @@ export type IHWActionEmitEventPayload = {
 };
 
 export type IHWActionExecuter = {
-  action?: Maybe<IHWActions>,
+  action?: Maybe<IHWAction>,
 };
 
 /** Pop up dialog to edit the user */
@@ -165,8 +167,6 @@ export type IHWActionQuickEditUserPayload = {
   /** optional organizationId */
   organizationId?: Maybe<Scalars['String']>,
 };
-
-export type IHWActions = IHWActionCoreRedirect | IHWActionSkillViewRedirect | IHWActionConfirm | IHWActionShowModal | IHWActionEmitEvent | IHWActionBigSearch | IHWActionQuickEditUserPayload | IHWActionDismissComponent | IHWActionCalendarJumpTo;
 
 /** Load a skill view in a modal dialog */
 export type IHWActionShowModal = {
@@ -249,7 +249,7 @@ export type IHWButton = IHWActionExecuter & {
   /** Set true to disable the button */
   disabled?: Maybe<Scalars['Boolean']>,
   /** Optional action to invoke when tapped */
-  action?: Maybe<IHWActionExecuter>,
+  action?: Maybe<IHWAction>,
 };
 
 export type IHWButtonGroup = {
@@ -751,7 +751,7 @@ export type IHWRadio = IHWActionExecuter & {
   /** is this control disabled? */
   disabled?: Maybe<Scalars['Boolean']>,
   /** Optional action to invoke when tapped */
-  action?: Maybe<IHWActionExecuter>,
+  action?: Maybe<IHWAction>,
 };
 
 /** A score card! */
@@ -837,5 +837,5 @@ export type IHWToggle = IHWActionExecuter & {
   /** Text after the toggle */
   postText?: Maybe<Scalars['String']>,
   /** Optional action to invoke when tapped */
-  action?: Maybe<IHWActionExecuter>,
+  action?: Maybe<IHWAction>,
 };

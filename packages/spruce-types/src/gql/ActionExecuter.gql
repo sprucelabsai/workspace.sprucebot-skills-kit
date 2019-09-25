@@ -1,4 +1,4 @@
-union Actions =
+union Action =
 	  ActionCoreRedirect
 	| ActionSkillViewRedirect
 	| ActionConfirm
@@ -200,5 +200,5 @@ type ActionCalendarJumpTo {
 }
 
 interface ActionExecuter {
-	action: Actions
+	action: Action
 }
