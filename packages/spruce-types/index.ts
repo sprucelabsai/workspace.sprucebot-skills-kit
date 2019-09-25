@@ -5,6 +5,9 @@ export * from './src/events'
 export * from './src/events/reschedule-calendar-event'
 export * from './src/core'
 
+/**
+ * Action Executer Overrides
+ */
 import {
 	IHWActionCoreRedirect,
 	IHWActionSkillViewRedirect,
@@ -20,9 +23,3 @@ export interface IActionSkillViewRedirect extends IHWActionSkillViewRedirect {
 }
 
 export type IHWactions = IActionCoreRedirect | IActionSkillViewRedirect
-
-export function foo(action: IHWactions): void {
-	if (action.type === IHWActionTypes.SkillViewRedirect) {
-		console.log(action.payload && action.payload.host)
-	}
-}
