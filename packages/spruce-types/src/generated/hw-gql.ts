@@ -34,8 +34,8 @@ export type Scalars = {
 
 export type IHWActionCoreRedirect = {
   __typename?: 'ActionCoreRedirect',
-  type?: Maybe<IHWActionTypes>,
-  payload?: Maybe<IHWActionCoreRedirectPayload>,
+  type: IHWActionTypes,
+  payload: IHWActionCoreRedirectPayload,
 };
 
 export type IHWActionCoreRedirectPayload = {
@@ -52,8 +52,8 @@ export type IHWActions = IHWActionCoreRedirect | IHWActionSkillViewRedirect;
 
 export type IHWActionSkillViewRedirect = {
   __typename?: 'ActionSkillViewRedirect',
-  type?: Maybe<IHWActionTypes>,
-  payload?: Maybe<IHWActionSkillViewRedirectPayload>,
+  type: IHWActionTypes,
+  payload: IHWActionSkillViewRedirectPayload,
 };
 
 export type IHWActionSkillViewRedirectPayload = {
