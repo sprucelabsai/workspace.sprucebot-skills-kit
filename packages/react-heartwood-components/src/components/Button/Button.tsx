@@ -41,6 +41,9 @@ export interface IButtonProps extends Omit<IHWButton, 'id' | 'icon'> {
 
 	/** optional target, whatever an anchor tag takes */
 	target?: string
+
+	/** optional payload to be sent with onclick (different than the payload attached to action.) */
+	payload?: Record<string, any>
 }
 
 const Button = (props: IButtonProps): React.ReactElement => {
