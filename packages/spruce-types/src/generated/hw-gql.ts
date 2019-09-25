@@ -32,40 +32,176 @@ export type Scalars = {
   DateTime: any,
 };
 
+/** Pop up big search */
+export type IHWActionBigSearch = {
+  __typename?: 'ActionBigSearch',
+  payload: IHWActionBigSearchPayload,
+};
+
+/** Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner) */
+export type IHWActionBigSearchPayload = {
+  __typename?: 'ActionBigSearchPayload',
+  roles?: Maybe<Array<Scalars['String']>>,
+};
+
+/** Jump to a place on the calendar */
+export type IHWActionCalendarJumpTo = {
+  __typename?: 'ActionCalendarJumpTo',
+  payload: IHWActionCalendarJumpToPayload,
+};
+
+/** control the calendar if you are on a page with a calendar */
+export type IHWActionCalendarJumpToPayload = {
+  __typename?: 'ActionCalendarJumpToPayload',
+  /** Which day and time to focus */
+  dateTime: Scalars['Date'],
+  /** Make sure the right calendar is selected */
+  calendarId: Scalars['String'],
+  /** Show the selected user */
+  userId?: Maybe<Scalars['String']>,
+};
+
+/** Pop up a confirmation */
+export type IHWActionConfirm = {
+  __typename?: 'ActionConfirm',
+  payload: IHWActionConfirmPayload,
+};
+
+/** Payload used when showing the confirmation dialog */
+export type IHWActionConfirmPayload = {
+  __typename?: 'ActionConfirmPayload',
+  /** Title of the confirmation dialog */
+  title?: Maybe<Scalars['String']>,
+  /** Text shown in the dialog */
+  text?: Maybe<Scalars['String']>,
+  /** Context used to populate the text if the text contains {{handlebars}} */
+  context?: Maybe<Scalars['JSON']>,
+  /** Do we require the person to type confirmInputValidString to be able to confirm */
+  doesRequireConfirmation?: Maybe<Scalars['Boolean']>,
+  /** Label next to the confirmation input (if doesRequireConfirmation is true} */
+  confirmInputLabel?: Maybe<Scalars['String']>,
+  /** The words they have to type if doesRequireConfirmation is true */
+  confirmInputValidString?: Maybe<Scalars['String']>,
+  /** Does typing the confirmation message match case */
+  confirmInputIgnoreCase?: Maybe<Scalars['Boolean']>,
+  /** What is the text on the cancel button? Defaults to 'Cancel' */
+  cancelButtonText?: Maybe<Scalars['String']>,
+  /** What is the text on the confirm button? Defaults to 'Confirm' */
+  confirmButtonText?: Maybe<Scalars['String']>,
+  /** If true, the confirm button will be red */
+  isDestructive?: Maybe<Scalars['Boolean']>,
+};
+
+/** Redirect a user in the main viewport (browser or native mobile) */
 export type IHWActionCoreRedirect = {
   __typename?: 'ActionCoreRedirect',
-  type: IHWActionTypes,
   payload: IHWActionCoreRedirectPayload,
 };
 
+/** payload used for core redirect */
 export type IHWActionCoreRedirectPayload = {
   __typename?: 'ActionCoreRedirectPayload',
+  /** the destination route */
   route: Scalars['String'],
+  /** Params for the route, like organizationId or locationId */
   routeParams?: Maybe<Scalars['JSON']>,
+};
+
+/** Dismiss/hide components on the page whose ID's match. */
+export type IHWActionDismissComponent = {
+  __typename?: 'ActionDismissComponent',
+  payload: IHWActionDismissComponent,
+};
+
+/** Dismiss a component by it's ID */
+export type IHWActionDismissComponentPayload = {
+  __typename?: 'ActionDismissComponentPayload',
+  /** Ids of the components you want to hide */
+  componentIds: Array<Scalars['String']>,
+};
+
+/** Emit an event to your skill */
+export type IHWActionEmitEvent = {
+  __typename?: 'ActionEmitEvent',
+  payload: IHWActionEmitEventPayload,
+};
+
+/** Emit an event to your skill when this action is invoked */
+export type IHWActionEmitEventPayload = {
+  __typename?: 'ActionEmitEventPayload',
+  /** Name of the event, like 'booking:update-appointment' */
+  eventName?: Maybe<Scalars['String']>,
+  /** Arbitrary payload sent with the event */
+  eventPayload?: Maybe<Scalars['JSON']>,
 };
 
 export type IHWActionExecuter = {
   action?: Maybe<IHWActions>,
 };
 
-export type IHWActions = IHWActionCoreRedirect | IHWActionSkillViewRedirect;
+/** Pop up dialog to edit the user */
+export type IHWActionQuickEditUser = {
+  __typename?: 'ActionQuickEditUser',
+  payload: IHWActionQuickEditUserPayload,
+};
 
+/** 
+ * Pop up quick edit to update a user record. You have to have permission and
+ * should pass location and organization unelss you are editing yourself
+ **/
+export type IHWActionQuickEditUserPayload = {
+  __typename?: 'ActionQuickEditUserPayload',
+  /** The id of the user */
+  userId: Scalars['String'],
+  /** optional location id */
+  locationId?: Maybe<Scalars['String']>,
+  /** optional organizationId */
+  organizationId?: Maybe<Scalars['String']>,
+};
+
+export type IHWActions = IHWActionCoreRedirect | IHWActionSkillViewRedirect | IHWActionConfirm | IHWActionShowModal | IHWActionEmitEvent | IHWActionBigSearch | IHWActionQuickEditUserPayload | IHWActionDismissComponent | IHWActionCalendarJumpTo;
+
+/** Load a skill view in a modal dialog */
+export type IHWActionShowModal = {
+  __typename?: 'ActionShowModal',
+  payload: IHWActionShowModalPayload,
+};
+
+/** Props passed to a modal you want to pop up when invoking this action */
+export type IHWActionShowModalPayload = {
+  __typename?: 'ActionShowModalPayload',
+  /** Fully qualified url to destination */
+  src: Scalars['String'],
+  /** Title of the dialog */
+  title: Scalars['String'],
+  /** Drop a primary action button into the footer */
+  footerPrimaryActionText?: Maybe<Scalars['String']>,
+  /** Drop in a secondary action into the footer, only works if primary action is also set */
+  footerSecondaryActionText?: Maybe<Scalars['String']>,
+  /** Does the primary action button start off disabled? */
+  isDialogFooterPrimaryActionDisabled?: Maybe<Scalars['Boolean']>,
+  /** Does the secondary action button start off disabled? */
+  isDialogFooterSecondaryActionDisabled?: Maybe<Scalars['Boolean']>,
+  /** How does the dialog size itself width wise? */
+  size?: Maybe<IHWModalSize>,
+  /** Does the dialog fill the screen vertically? */
+  isFullHeight?: Maybe<Scalars['Boolean']>,
+};
+
+/** Redirect inside of a skill view */
 export type IHWActionSkillViewRedirect = {
   __typename?: 'ActionSkillViewRedirect',
-  type: IHWActionTypes,
   payload: IHWActionSkillViewRedirectPayload,
 };
 
+/** payload used when redirecting a skill view */
 export type IHWActionSkillViewRedirectPayload = {
   __typename?: 'ActionSkillViewRedirectPayload',
+  /** the host of your skill, usually config.HOST */
   host: Scalars['String'],
+  /** The path to the skill view including any query string */
   path?: Maybe<Scalars['String']>,
 };
-
-export enum IHWActionTypes {
-  CoreRedirect = 'CoreRedirect',
-  SkillViewRedirect = 'SkillViewRedirect'
-}
 
 export type IHWButton = IHWActionExecuter & {
   __typename?: 'Button',
@@ -544,6 +680,12 @@ export type IHWMarkdown = {
   source: Scalars['String'],
 };
 
+export enum IHWModalSize {
+  Small = 'small',
+  Medium = 'medium',
+  FullWidth = 'fullWidth'
+}
+
 /** An awesome card for onboarding people! */
 export type IHWOnboardingCard = {
   __typename?: 'OnboardingCard',
@@ -641,6 +783,8 @@ export type IHWText = {
   id: Scalars['String'],
   /** the text to render */
   text?: Maybe<Scalars['String']>,
+  /** Context used to populate text if it's a template {{handlebar_style}} */
+  context?: Maybe<Scalars['JSON']>,
 };
 
 

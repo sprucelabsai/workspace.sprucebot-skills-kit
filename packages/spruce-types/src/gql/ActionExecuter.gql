@@ -1,28 +1,181 @@
-union Actions = ActionCoreRedirect | ActionSkillViewRedirect
+union Actions =
+	  ActionCoreRedirect
+	| ActionSkillViewRedirect
+	| ActionConfirm
+	| ActionShowModal
+	| ActionEmitEvent
+	| ActionBigSearch
+	| ActionQuickEditUserPayload
+	| ActionDismissComponent
+	| ActionCalendarJumpTo
 
-enum ActionTypes {
-	CoreRedirect
-	SkillViewRedirect
-}
-
-type ActionCoreRedirect {
-	type: ActionTypes!
-	payload: ActionCoreRedirectPayload!
-}
-
+"payload used for core redirect"
 type ActionCoreRedirectPayload {
+	"the destination route"
 	route: String!
+
+	"Params for the route, like organizationId or locationId"
 	routeParams: JSON
 }
 
+"Redirect a user in the main viewport (browser or native mobile)"
+type ActionCoreRedirect {
+	payload: ActionCoreRedirectPayload!
+}
+
+"payload used when redirecting a skill view"
+type ActionSkillViewRedirectPayload {
+	"the host of your skill, usually config.HOST"
+	host: String!
+
+	"The path to the skill view including any query string"
+	path: String
+}
+
+"Redirect inside of a skill view"
 type ActionSkillViewRedirect {
-	type: ActionTypes!
 	payload: ActionSkillViewRedirectPayload!
 }
 
-type ActionSkillViewRedirectPayload {
-	host: String!
-	path: String
+"Payload used when showing the confirmation dialog"
+type ActionConfirmPayload {
+	"Title of the confirmation dialog"
+	title: String
+
+	"Text shown in the dialog"
+	text: String
+
+	"Context used to populate the text if the text contains {{handlebars}}"
+	context: JSON
+
+	"Do we require the person to type confirmInputValidString to be able to confirm"
+	doesRequireConfirmation: Boolean
+
+	"Label next to the confirmation input (if doesRequireConfirmation is true}"
+	confirmInputLabel: String
+
+	"The words they have to type if doesRequireConfirmation is true"
+	confirmInputValidString: String
+
+	"Does typing the confirmation message match case"
+	confirmInputIgnoreCase: Boolean
+
+	"What is the text on the cancel button? Defaults to 'Cancel'"
+	cancelButtonText: String
+
+	"What is the text on the confirm button? Defaults to 'Confirm'"
+	confirmButtonText: String
+
+	"If true, the confirm button will be red"
+	isDestructive: Boolean
+}
+
+"Pop up a confirmation"
+type ActionConfirm {
+	payload: ActionConfirmPayload!
+}
+
+enum ModalSize {
+	small
+	medium
+	fullWidth
+}
+
+"Props passed to a modal you want to pop up when invoking this action"
+type ActionShowModalPayload {
+	"Fully qualified url to destination"
+	src: String!
+
+	"Title of the dialog"
+	title: String!
+
+	"Drop a primary action button into the footer"
+	footerPrimaryActionText: String
+
+	"Drop in a secondary action into the footer, only works if primary action is also set"
+	footerSecondaryActionText: String
+
+	"Does the primary action button start off disabled?"
+	isDialogFooterPrimaryActionDisabled: Boolean
+
+	"Does the secondary action button start off disabled?"
+	isDialogFooterSecondaryActionDisabled: Boolean
+
+	"How does the dialog size itself width wise?"
+	size: ModalSize
+
+	"Does the dialog fill the screen vertically?"
+	isFullHeight: Boolean
+}
+
+"Load a skill view in a modal dialog"
+type ActionShowModal {
+	payload: ActionShowModalPayload!
+}
+
+"Emit an event to your skill when this action is invoked"
+type ActionEmitEventPayload {
+	"Name of the event, like 'booking:update-appointment'"
+	eventName: String
+
+	"Arbitrary payload sent with the event"
+	eventPayload: JSON
+}
+
+"Emit an event to your skill"
+type ActionEmitEvent {
+	payload: ActionEmitEventPayload!
+}
+
+"Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner)"
+type ActionBigSearchPayload {
+	roles: [String!]
+}
+
+"Pop up big search"
+type ActionBigSearch {
+	payload: ActionBigSearchPayload!
+}
+
+"Pop up quick edit to update a user record. You have to have permission and should pass location and organization unelss you are editing yourself"
+type ActionQuickEditUserPayload {
+	"The id of the user"
+	userId: String!
+	"optional location id"
+	locationId: String
+	"optional organizationId"
+	organizationId: String
+}
+
+"Pop up dialog to edit the user"
+type ActionQuickEditUser {
+	payload: ActionQuickEditUserPayload!
+}
+
+"Dismiss a component by it's ID"
+type ActionDismissComponentPayload {
+	"Ids of the components you want to hide"
+	componentIds: [String!]!
+}
+
+"Dismiss/hide components on the page whose ID's match."
+type ActionDismissComponent {
+	payload: ActionDismissComponent!
+}
+
+"control the calendar if you are on a page with a calendar"
+type ActionCalendarJumpToPayload {
+	"Which day and time to focus"
+	dateTime: Date!
+	"Make sure the right calendar is selected"
+	calendarId: String!
+	"Show the selected user"
+	userId: String
+}
+
+"Jump to a place on the calendar"
+type ActionCalendarJumpTo {
+	payload: ActionCalendarJumpToPayload!
 }
 
 interface ActionExecuter {
