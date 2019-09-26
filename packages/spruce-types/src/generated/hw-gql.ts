@@ -475,7 +475,7 @@ export type IHWCheckbox = IHWActionExecuter & {
   /** Set true if the checkbox is indeterminate */
   isIndeterminate?: Maybe<Scalars['Boolean']>,
   /** is this checkbox checked? */
-  checked?: Maybe<Scalars['Boolean']>,
+  isChecked: Scalars['Boolean'],
   /** Optional action to invoke when tapped */
   action?: Maybe<IHWAction>,
 };

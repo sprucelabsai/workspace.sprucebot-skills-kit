@@ -15,7 +15,7 @@ type Checkbox implements ActionExecuter {
 	isIndeterminate: Boolean
 
 	"is this checkbox checked?"
-	checked: Boolean
+	isChecked: Boolean!
 
 	"Optional action to invoke when tapped"
 	action: Action
