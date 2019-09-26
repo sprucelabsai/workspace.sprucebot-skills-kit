@@ -46,13 +46,14 @@ export default class Checkbox extends Component<
 	}
 
 	public render(): React.ReactElement {
-		const { id, label, postText, className, name } = this.props
+		const { id, label, postText, className, name, isChecked } = this.props
 		const parentClass = cx('checkbox-item', className)
 
 		return (
 			<div className={parentClass}>
 				<div className="checkbox-item__inner">
 					<input
+						checked={isChecked}
 						name={name || undefined}
 						ref={this.checkboxRef}
 						autoComplete={'off'}
