@@ -477,7 +477,7 @@ export type IHWCheckbox = IHWActionExecuter & {
   /** is this checkbox checked? */
   checked?: Maybe<Scalars['Boolean']>,
   /** Optional action to invoke when tapped */
-  action?: Maybe<IHWActionExecuter>,
+  action?: Maybe<IHWAction>,
 };
 
 export type IHWContextMenu = {
