@@ -51,43 +51,10 @@ type ActionSkillViewRedirect {
 	payload: ActionSkillViewRedirectPayload!
 }
 
-"Payload used when showing the confirmation dialog"
-type ActionConfirmPayload {
-	"Title of the confirmation dialog"
-	title: String
-
-	"Text shown in the dialog"
-	text: String
-
-	"Context used to populate the text if the text contains {{handlebars}}"
-	context: JSON
-
-	"Do we require the person to type confirmInputValidString to be able to confirm"
-	doesRequireConfirmation: Boolean
-
-	"Label next to the confirmation input (if doesRequireConfirmation is true}"
-	confirmInputLabel: String
-
-	"The words they have to type if doesRequireConfirmation is true"
-	confirmInputValidString: String
-
-	"Does typing the confirmation message match case"
-	confirmInputIgnoreCase: Boolean
-
-	"What is the text on the cancel button? Defaults to 'Cancel'"
-	cancelButtonText: String
-
-	"What is the text on the confirm button? Defaults to 'Confirm'"
-	confirmButtonText: String
-
-	"If true, the confirm button will be red"
-	isDestructive: Boolean
-}
-
 "Pop up a confirmation"
 type ActionConfirm {
 	type: ActionTypes
-	payload: ActionConfirmPayload!
+	payload: ConfirmModal!
 }
 
 enum ModalSize {

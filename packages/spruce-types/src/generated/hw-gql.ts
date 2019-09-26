@@ -69,32 +69,7 @@ export type IHWActionCalendarJumpToPayload = {
 export type IHWActionConfirm = {
   __typename?: 'ActionConfirm',
   type?: Maybe<IHWActionTypes>,
-  payload: IHWActionConfirmPayload,
-};
-
-/** Payload used when showing the confirmation dialog */
-export type IHWActionConfirmPayload = {
-  __typename?: 'ActionConfirmPayload',
-  /** Title of the confirmation dialog */
-  title?: Maybe<Scalars['String']>,
-  /** Text shown in the dialog */
-  text?: Maybe<Scalars['String']>,
-  /** Context used to populate the text if the text contains {{handlebars}} */
-  context?: Maybe<Scalars['JSON']>,
-  /** Do we require the person to type confirmInputValidString to be able to confirm */
-  doesRequireConfirmation?: Maybe<Scalars['Boolean']>,
-  /** Label next to the confirmation input (if doesRequireConfirmation is true} */
-  confirmInputLabel?: Maybe<Scalars['String']>,
-  /** The words they have to type if doesRequireConfirmation is true */
-  confirmInputValidString?: Maybe<Scalars['String']>,
-  /** Does typing the confirmation message match case */
-  confirmInputIgnoreCase?: Maybe<Scalars['Boolean']>,
-  /** What is the text on the cancel button? Defaults to 'Cancel' */
-  cancelButtonText?: Maybe<Scalars['String']>,
-  /** What is the text on the confirm button? Defaults to 'Confirm' */
-  confirmButtonText?: Maybe<Scalars['String']>,
-  /** If true, the confirm button will be red */
-  isDestructive?: Maybe<Scalars['Boolean']>,
+  payload: IHWConfirmModal,
 };
 
 /** Redirect a user in the main viewport (browser or native mobile) */
@@ -478,6 +453,30 @@ export type IHWCheckbox = IHWActionExecuter & {
   isChecked: Scalars['Boolean'],
   /** Optional action to invoke when tapped */
   action?: Maybe<IHWAction>,
+};
+
+/** a confirmation dialog */
+export type IHWConfirmModal = {
+  /** Title of the confirmation dialog */
+  title?: Maybe<Scalars['String']>,
+  /** Text shown in the dialog */
+  text?: Maybe<Scalars['String']>,
+  /** Context used to populate the text if the text contains {{handlebars}} */
+  context?: Maybe<Scalars['JSON']>,
+  /** Do we require the person to type confirmInputValidString to be able to confirm */
+  doesRequireConfirmation?: Maybe<Scalars['Boolean']>,
+  /** Label next to the confirmation input (if doesRequireConfirmation is true} */
+  confirmInputLabel?: Maybe<Scalars['String']>,
+  /** The words they have to type if doesRequireConfirmation is true */
+  confirmInputValidString?: Maybe<Scalars['String']>,
+  /** Does typing the confirmation message match case */
+  confirmInputIgnoreCase?: Maybe<Scalars['Boolean']>,
+  /** What is the text on the cancel button? Defaults to 'Cancel' */
+  cancelButtonText?: Maybe<Scalars['String']>,
+  /** What is the text on the confirm button? Defaults to 'Confirm' */
+  confirmButtonText?: Maybe<Scalars['String']>,
+  /** If true, the confirm button will be red */
+  isDestructive?: Maybe<Scalars['Boolean']>,
 };
 
 export type IHWContextMenu = {
