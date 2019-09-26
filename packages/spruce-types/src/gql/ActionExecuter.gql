@@ -16,7 +16,7 @@ enum ActionTypes {
 	ShowModal
 	EmitEvent
 	BigSearch
-	QuickEditUserPayload
+	QuickEditUser
 	DismissComponent
 	CalendarJumpTo
 }

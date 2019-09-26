@@ -194,7 +194,7 @@ export enum IHWActionTypes {
   ShowModal = 'ShowModal',
   EmitEvent = 'EmitEvent',
   BigSearch = 'BigSearch',
-  QuickEditUserPayload = 'QuickEditUserPayload',
+  QuickEditUser = 'QuickEditUser',
   DismissComponent = 'DismissComponent',
   CalendarJumpTo = 'CalendarJumpTo'
 }
