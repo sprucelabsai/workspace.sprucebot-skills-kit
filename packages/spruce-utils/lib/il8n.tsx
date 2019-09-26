@@ -1,6 +1,6 @@
 /** Returns a string of hours and minutes. Ex: "4hr 30 min" */
 export const friendlyDuration = (seconds: number, lang?: any): string => {
-	const minutes = (seconds / 60) | 0
+	const minutes = Math.floor(seconds / 60)
 	const hours = Math.floor(minutes / 60)
 	const hrString: string | undefined = lang && lang.getText('hr')
 	const minString: string | undefined = lang && lang.getText('min')
