@@ -347,20 +347,22 @@ export const warningAppointment: IEventDetailsProps = {
 					]
 				},
 				footer: {
-					actions: [
-						{
-							text: 'Dismiss',
-							kind: ButtonKinds.Simple,
-							isSmall: true,
-							id: 'foo'
-						},
-						{
-							text: 'Find a different time',
-							kind: ButtonKinds.Secondary,
-							isSmall: true,
-							id: 'bar'
-						}
-					]
+					buttonGroup: {
+						actions: [
+							{
+								text: 'Dismiss',
+								kind: ButtonKinds.Simple,
+								isSmall: true,
+								id: 'foo'
+							},
+							{
+								text: 'Find a different time',
+								kind: ButtonKinds.Secondary,
+								isSmall: true,
+								id: 'bar'
+							}
+						]
+					}
 				}
 			}
 		},

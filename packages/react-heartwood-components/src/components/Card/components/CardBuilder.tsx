@@ -22,7 +22,8 @@ import CardHeader, { ICardHeaderProps } from './CardHeader'
 import OnboardingCard, { IOnboardingCardProps } from './OnboardingCard'
 import Scores from './Scores'
 
-export interface ICardBuilderFooter extends IHWCardBuilderFooter {
+export interface ICardBuilderFooter
+	extends Omit<IHWCardBuilderFooter, 'buttonGroup'> {
 	/** Render buttons in the Card Footer */
 	buttonGroup?: IButtonGroupProps
 }
