@@ -37,6 +37,11 @@ module.exports = {
 					{ allow: ['^(can_|skill_can_)'] }
 				],
 				'@typescript-eslint/no-empty-interface': 0,
+				// TODO: Remove this if we can; it isn't a good rule to squash.
+				// Sometimes this is fine, but sometimes it masks a compile error.
+				'@typescript-eslint/ban-ts-ignore': 0,
+				'@typescript-eslint/no-empty-function': 0,
+				'@typescript-eslint/explicit-function-return-type': 0,
 				'@typescript-eslint/interface-name-prefix': [2, 'always'],
 				'@typescript-eslint/no-explicit-any': 0,
 				'@typescript-eslint/member-delimiter-style': [
@@ -50,12 +55,6 @@ module.exports = {
 							delimiter: 'semi',
 							requireLast: false
 						}
-					}
-				],
-				'@typescript-eslint/explicit-function-return-type': [
-					'error',
-					{
-						allowExpressions: true
 					}
 				],
 				'@typescript-eslint/member-ordering': [

@@ -26,11 +26,12 @@ const renderText = (child): ReactNode => {
 
 // Allows basic templating functionality on text strings
 const TemplateEngine = (text = '', context = {}): ReactNode[] => {
-	let re = /{{([^}}]+)?}}/g,
-		children: Record<string, any>[] = [],
-		cursor = 0
+	const re = /{{([^}}]+)?}}/g,
+		children: Record<string, any>[] = []
 
-	let add = function(line: string, templateVar?: string): void {
+	let cursor = 0
+
+	const add = function(line: string, templateVar?: string): void {
 		if (line !== '') {
 			children.push({
 				props: { element: 'span', children: line.replace(/"/g, '\\"') }
@@ -87,7 +88,7 @@ const Text: React.StatelessComponent<ITextProps> = (
 		isInline,
 		...rest
 	} = props
-	let Element: any = isInline ? 'span' : 'p'
+	const Element: any = isInline ? 'span' : 'p'
 	let children = originalChildren
 
 	const text = children || textProps || context

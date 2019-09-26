@@ -102,6 +102,9 @@ export default class GQLSubscriptionServer {
 		const token = authorizationHeader.replace('JWT ', '')
 		const decoded = jwt.verify(
 			token,
+			// TODO: config's type doesn't describe this API correctly...
+			// try to remove at a later date.
+			// @ts-ignore
 			config
 				.get('API_KEY')
 				.toString()

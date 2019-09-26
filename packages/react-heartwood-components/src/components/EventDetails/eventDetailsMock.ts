@@ -351,12 +351,14 @@ export const warningAppointment: IEventDetailsProps = {
 						{
 							text: 'Dismiss',
 							kind: ButtonKinds.Simple,
-							isSmall: true
+							isSmall: true,
+							id: 'foo'
 						},
 						{
 							text: 'Find a different time',
 							kind: ButtonKinds.Secondary,
-							isSmall: true
+							isSmall: true,
+							id: 'bar'
 						}
 					]
 				}

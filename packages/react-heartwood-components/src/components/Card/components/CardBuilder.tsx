@@ -1,34 +1,28 @@
-import React from 'react'
-
-import Card from '../Card'
-import CardHeader from './CardHeader'
-import CardBody from './CardBody'
-import CardFooter from './CardFooter'
-
-// COMPONENTS THAT CAN GO INTO THIS COMPONENT, KEEP MINIMAL
-import Button from '../../Button/Button'
-import Heading from '../../Heading/Heading'
-import Text, { ITextProps } from '../../Text/Text'
-import Image, { IImageProps } from '../../Image/Image'
-import List, { IListProps } from '../../List/List'
-import Scores from './Scores'
-import OnboardingCard from './OnboardingCard'
-import ButtonGroup, { IButtonGroupProps } from '../../ButtonGroup/ButtonGroup'
-import Toast, { IToastProps } from '../../Toast/Toast'
-
-import { IButtonProps } from '../../Button/Button'
-import { ICardHeaderProps } from './CardHeader'
-import { IOnboardingCardProps } from './OnboardingCard'
 import {
 	IHWCardBuilder,
 	IHWCardBuilderBody,
 	IHWCardBuilderBodyItem,
+	IHWCardBuilderFooter,
 	IHWHeading,
 	IHWScoreCard
 } from '@sprucelabs/spruce-types'
-import { IHWCardFooter } from '@sprucelabs/spruce-types'
+import React from 'react'
+// COMPONENTS THAT CAN GO INTO THIS COMPONENT, KEEP MINIMAL
+import Button, { IButtonProps } from '../../Button/Button'
+import ButtonGroup, { IButtonGroupProps } from '../../ButtonGroup/ButtonGroup'
+import Heading from '../../Heading/Heading'
+import Image, { IImageProps } from '../../Image/Image'
+import List, { IListProps } from '../../List/List'
+import Text, { ITextProps } from '../../Text/Text'
+import Toast, { IToastProps } from '../../Toast/Toast'
+import Card from '../Card'
+import CardBody from './CardBody'
+import CardFooter from './CardFooter'
+import CardHeader, { ICardHeaderProps } from './CardHeader'
+import OnboardingCard, { IOnboardingCardProps } from './OnboardingCard'
+import Scores from './Scores'
 
-export interface ICardBuilderFooter extends Omit<IHWCardFooter, 'buttonGroup'> {
+export interface ICardBuilderFooter extends IHWCardBuilderFooter {
 	/** Render buttons in the Card Footer */
 	buttonGroup?: IButtonGroupProps
 }

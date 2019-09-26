@@ -280,6 +280,8 @@ const skill: ISkill = {
 
 	// TODO: Use Iframes built in callback functionality
 	bigSearch() {
+		// TODO: Is this alias necessary?
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const _this = this
 
 		const bigSearch: IBigSearch = {
