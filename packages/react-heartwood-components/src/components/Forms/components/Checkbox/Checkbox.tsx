@@ -12,6 +12,12 @@ export interface ICheckboxProps extends IHWCheckbox {
 
 	/** triggered on change */
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+
+	/** Is the checkbox disabled? */
+	disabled?: boolean
+
+	/** Is the checkbox checked? Use for controlled components. */
+	checked?: boolean
 }
 
 interface ICheckboxState {}
@@ -46,21 +52,31 @@ export default class Checkbox extends Component<
 	}
 
 	public render(): React.ReactElement {
-		const { id, label, postText, className, name } = this.props
+		const {
+			checked,
+			className,
+			disabled,
+			id,
+			label,
+			name,
+			postText
+		} = this.props
 		const parentClass = cx('checkbox-item', className)
 
 		return (
 			<div className={parentClass}>
 				<div className="checkbox-item__inner">
 					<input
-						name={name || undefined}
-						ref={this.checkboxRef}
 						autoComplete={'off'}
+						checked={checked}
 						className="checkbox-item__input"
-						type="checkbox"
+						disabled={disabled}
 						id={id}
+						name={name || undefined}
 						// Always use internal change handler
 						onChange={this.handleChange}
+						ref={this.checkboxRef}
+						type="checkbox"
 					/>
 					<label className="checkbox-item__label" htmlFor={id}>
 						{label}
