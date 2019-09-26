@@ -387,7 +387,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 
 			// anything in the error thrown that matches these
 			// keys, lets set back to the error
-			for (let key of ['code', 'friendlyReason']) {
+			for (const key of ['code', 'friendlyReason']) {
 				if (err[key]) {
 					errorResponse[key] = err[key]
 				}

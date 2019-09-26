@@ -161,7 +161,7 @@ export default class Schema {
 		}
 
 		// add in reslovers
-		let cleanedResolvers = { ...allResolvers }
+		const cleanedResolvers = { ...allResolvers }
 		if (Object.keys(cleanedResolvers.Query).length === 0) {
 			delete cleanedResolvers.Query
 		}

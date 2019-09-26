@@ -8,7 +8,7 @@ interface IToastHeaderProps extends Omit<IHWToast, 'id'> {
 	id?: string
 
 	/** Function to remove the toast */
-	onRemove: Function
+	onRemove?: Function
 }
 
 const ToastHeader = (props: IToastHeaderProps): React.ReactElement => {
@@ -34,7 +34,7 @@ export interface IToastProps {
 	text?: string
 
 	/** Handle toast removal */
-	onRemove: Function
+	onRemove?: Function
 
 	/** Optional; controls whether the toast can be removed. Defaults to true */
 	canRemove?: boolean

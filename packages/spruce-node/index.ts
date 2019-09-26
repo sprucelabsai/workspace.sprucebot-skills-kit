@@ -652,7 +652,7 @@ export default class Sprucebot {
 
 		// not found, create it
 		if (!meta) {
-			meta = await this.createMeta(key, value, Array.from(arguments)[2])
+			meta = await this.createMeta(key, value, options)
 		}
 		return meta
 	}
@@ -670,7 +670,7 @@ export default class Sprucebot {
 
 		// not found, create it
 		if (!meta) {
-			meta = await this.createMeta(key, value, Array.from(arguments)[2])
+			meta = await this.createMeta(key, value, options)
 		} else if (JSON.stringify(meta.value) !== JSON.stringify(value)) {
 			//found, but value has changed
 			meta = await this.updateMeta(meta.id, { value })
@@ -875,10 +875,10 @@ export default class Sprucebot {
 			this._mutexes[key].promises.push(new Promise(resolve => resolve()))
 			this._mutexes[key].resolvers.push(() => {})
 		} else {
-			let resolver = (resolve: any): void => {
+			const resolver = (resolve: any): void => {
 				this._mutexes[key].resolvers.push(resolve)
 			}
-			let promise = new Promise(resolver)
+			const promise = new Promise(resolver)
 			this._mutexes[key].promises.push(promise)
 		}
 

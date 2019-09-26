@@ -19,7 +19,7 @@ type CardHeader {
 "The footer of the card"
 type CardBuilderFooter {
 	"Render buttons in the Card Footer"
-	actions: [Button!]
+	buttonGroup: ButtonGroup
 
 	"Helper for the footer"
 	helper: String

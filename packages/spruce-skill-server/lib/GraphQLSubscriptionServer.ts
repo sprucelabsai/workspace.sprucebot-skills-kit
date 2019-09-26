@@ -99,14 +99,12 @@ export default class GQLSubscriptionServer {
 		locationId?: string
 		organizationId?: string
 	} {
+		if (!config.API_KEY) {
+			throw new Error('GQLSubscriptionServer: API_KEY must be set in config.')
+		}
+
 		const token = authorizationHeader.replace('JWT ', '')
-		const decoded = jwt.verify(
-			token,
-			config
-				.get('API_KEY')
-				.toString()
-				.toLowerCase()
-		)
+		const decoded = jwt.verify(token, config.API_KEY)
 
 		return decoded as {
 			userId?: string

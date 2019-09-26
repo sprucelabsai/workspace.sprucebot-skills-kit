@@ -4,7 +4,7 @@ export default {
 	 */
 	serialize(obj: Record<string, any>) {
 		const str: string[] = []
-		for (let p in obj) {
+		for (const p in obj) {
 			if (obj.hasOwnProperty(p)) {
 				str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]))
 			}

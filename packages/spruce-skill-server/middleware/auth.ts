@@ -29,7 +29,7 @@ export default (
 			: (passedId as ISpruceContext)
 		const id: string | null = passedNext ? (passedId as string) : null
 
-		let token =
+		const token =
 			id ||
 			ctx.request.body.jwt ||
 			ctx.request.query.jwt ||
@@ -145,7 +145,7 @@ export default (
 			: (passedId as ISpruceContext)
 		const id: string | null = passedNext ? (passedId as string) : null
 
-		let token =
+		const token =
 			id ||
 			ctx.request.body.jwtV2 ||
 			ctx.request.query.jwtV2 ||
@@ -229,7 +229,7 @@ export default (
 	// router.use('/api/*/teammate/*', auth)
 	router.use('/api/1.0/teammate/*', async (ctx, next) => {
 		// @ts-ignore: legacy functionality
-		let role = ctx.auth && ctx.auth.role
+		const role = ctx.auth && ctx.auth.role
 		if (role !== 'teammate' && role !== 'owner') {
 			debug(`MIDDLEWARE/AUTH ACCESS DENIED: ${ctx.path} for role: '${role}' `)
 			ctx.throw('NOT_AUTHORIZED')
@@ -240,7 +240,7 @@ export default (
 	// router.use('/api/*/owner/*', auth)
 	router.use('/api/1.0/owner/*', async (ctx, next) => {
 		// @ts-ignore: legacy functionality
-		let role = ctx.auth && ctx.auth.role
+		const role = ctx.auth && ctx.auth.role
 		if (role !== 'owner') {
 			debug(`MIDDLEWARE/AUTH ACCESS DENIED: ${ctx.path} for role: '${role}' `)
 			ctx.throw('NOT_AUTHORIZED')
@@ -251,7 +251,7 @@ export default (
 	// router.use('/api/*/guest/*', auth)
 	router.use('/api/1.0/guest/*', async (ctx, next) => {
 		// @ts-ignore: legacy functionality
-		let role = ctx.auth && ctx.auth.role
+		const role = ctx.auth && ctx.auth.role
 		if (!role) {
 			debug(`MIDDLEWARE/AUTH ACCESS DENIED: ${ctx.path} for role: '${role}' `)
 			ctx.throw('NOT_AUTHORIZED')

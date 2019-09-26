@@ -173,7 +173,7 @@ export default class AclService extends SpruceSkillService<ISpruceContext> {
 		}
 		// Implements recursive object serialization according to JSON spec
 		// but without quotes around the keys.
-		let props = Object.keys(objFromJSON)
+		const props = Object.keys(objFromJSON)
 			.map(key => `${key}:${this.stringify(objFromJSON[key])}`)
 			.join(',')
 		return `{${props}}`

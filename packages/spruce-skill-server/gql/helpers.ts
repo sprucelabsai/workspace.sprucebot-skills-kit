@@ -339,7 +339,7 @@ export default (ctx: ISpruceContext) => {
 		const { model, type, associationName } = options
 		let connectionOptions = options.connectionOptions
 		let name = options.name || model.name
-		let modelName = name
+		const modelName = name
 		let target = model
 
 		if (model.associations[associationName]) {

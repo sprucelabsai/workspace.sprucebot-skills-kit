@@ -38,7 +38,7 @@
 		"@sprucelabs/spruce-skill-server": "^8.15.2",
 		"graphql-iso-date": "^3.6.1",
 		"graphql-type-json": "^0.3.0",
-		"typescript": "~3.4.5"
+		"typescript": "3.6.3"
 	},
 	"devDependencies": {
 		"@graphql-codegen/add": "^1.6.1",
