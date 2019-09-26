@@ -3,7 +3,7 @@
 
 # Package owners
 /packages/heartwood-components @jtini @gcpantazis
-/packages/react-heartwood-components @jtini @gcpantazis
+/packages/react-heartwood-components @gcpantazis
 /packages/eslint-config-spruce @kengoldfarb @gcpantazis
 /packages/eslint-plugin-spruce @kengoldfarb @gcpantazis
 /packages/spruce-next-helpers @kengoldfarb @gcpantazis
