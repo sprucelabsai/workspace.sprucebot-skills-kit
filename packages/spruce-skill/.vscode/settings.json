@@ -1,27 +1,39 @@
 {
+	"debug.node.autoAttach": "off",
+	"git.ignoreLimitWarning": true,
+	"typescript.validate.enable": true,
 	"javascript.validate.enable": false,
+	"editor.formatOnSave": true,
 	"files.watcherExclude": {
 		"**/.git/objects/**": true,
 		"**/.git/subtree-cache/**": true,
-		"**/build/**": true,
-		"**/node_modules/**": true
+		"**/node_modules/**": true,
+		"**/.next/**": true
 	},
 	"search.exclude": {
-		"**/.next": true,
-		"**/bower_components": true,
-		"**/build": true,
-		"**/node_modules": true
+		"**/node_modules/**": true,
+		"**/.next/**": true
 	},
-	"git.ignoreLimitWarning": true,
-	"editor.formatOnSave": true,
-	"prettier.eslintIntegration": true,
-	"typescript.validate.enable": true,
-	"editor.formatOnSaveTimeout": 750,
-	"eslint.validate": ["javascript", "typescript"],
+	"eslint.enable": true,
+	"eslint.autoFixOnSave": true,
+	"eslint.nodePath": "node_modules",
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		{
+			"language": "typescript",
+			"autoFix": true
+		},
+		{
+			"language": "typescriptreact",
+			"autoFix": true
+		}
+	],
 	"eslint.options": {
-		"extensions": [".js", ".ts"]
+		"extensions": [".js", ".jsx", ".ts", ".tsx"]
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"workbench.editor.swipeToNavigate": true,
-    "flow.useNPMPackagedFlow": true
+	"atlascode.jira.workingSite": {
+		"baseUrlSuffix": "atlassian.net"
+	}
 }
