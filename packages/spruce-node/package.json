@@ -45,7 +45,7 @@
 	},
 	"peerDependencies": {
 		"graphql": "^14.5.4",
-		"typescript": "~3.4.5"
+		"typescript": "3.6.3"
 	},
 	"jest": {
 		"coverageDirectory": "./coverage/",

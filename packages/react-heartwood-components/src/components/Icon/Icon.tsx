@@ -30,7 +30,7 @@ const Icon = (props: IIconProps): React.ReactElement => {
 		return <Fragment />
 	}
 
-	let isFillIcon = !customIcon && icons[iconKey] && !icons[iconKey].isLineIcon
+	const isFillIcon = !customIcon && icons[iconKey] && !icons[iconKey].isLineIcon
 
 	const Handler = customIcon || icons[iconKey].icon
 

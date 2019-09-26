@@ -150,7 +150,7 @@ export default class Base<Context> {
 	protected async afterBase(): Promise<void> {
 		try {
 			const promises = []
-			for (let k in this.mocks) {
+			for (const k in this.mocks) {
 				if (this.mocks[k].teardown) {
 					promises.push(this.mocks[k].teardown())
 				}

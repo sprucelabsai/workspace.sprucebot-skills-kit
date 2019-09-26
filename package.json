@@ -47,7 +47,7 @@
 		"pm2": "^2.10.1",
 		"prettier": "^1.16.4",
 		"sqlite3": "^4.0.4",
-		"typescript": "~3.4.5"
+		"typescript": "3.6.3"
 	},
 	"devDependencies": {
 		"commitizen": "^3.0.7",

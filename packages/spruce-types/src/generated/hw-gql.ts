@@ -408,7 +408,7 @@ export type IHWCardBuilderBodyItemViewModel = IHWButton | IHWImage | IHWHeading 
 export type IHWCardBuilderFooter = {
   __typename?: 'CardBuilderFooter',
   /** Render buttons in the Card Footer */
-  actions?: Maybe<Array<IHWButton>>,
+  buttonGroup?: Maybe<IHWButtonGroup>,
   /** Helper for the footer */
   helper?: Maybe<Scalars['String']>,
 };

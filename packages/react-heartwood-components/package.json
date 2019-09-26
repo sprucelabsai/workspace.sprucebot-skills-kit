@@ -85,7 +85,7 @@
 		"storybook-addon-jsx": "^7.1.6",
 		"storybook-addon-react-docgen": "^1.2.18",
 		"storybook-readme": "^5.0.8",
-		"typescript": "~3.4.5",
+		"typescript": "3.6.3",
 		"uuid": "^3.3.2",
 		"webpack": "^4.29.6"
 	},

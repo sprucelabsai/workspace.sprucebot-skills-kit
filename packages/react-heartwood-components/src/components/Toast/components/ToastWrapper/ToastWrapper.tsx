@@ -35,7 +35,7 @@ export default class ToastWrapper extends Component<
 		state: IToastWrapperState
 	): { toasts: IToastProps[]; timeouts: any[] } {
 		const uniqToasts = uniqBy(props.toasts, 'id')
-		let timeouts = { ...state.timeouts }
+		const timeouts = { ...state.timeouts }
 		uniqToasts.forEach(toast => {
 			if (toast.timeout !== 'never') {
 				timeouts[toast.id] = setTimeout(
