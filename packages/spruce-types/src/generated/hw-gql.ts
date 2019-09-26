@@ -32,7 +32,7 @@ export type Scalars = {
   DateTime: any,
 };
 
-export type IHWAction = IHWActionCoreRedirect | IHWActionSkillViewRedirect | IHWActionConfirm | IHWActionShowModal | IHWActionEmitEvent | IHWActionBigSearch | IHWActionQuickEditUserPayload | IHWActionDismissComponent | IHWActionCalendarJumpTo;
+export type IHWAction = IHWActionCoreRedirect | IHWActionSkillViewRedirect | IHWActionConfirm | IHWActionShowModal | IHWActionEmitEvent | IHWActionBigSearch | IHWActionQuickEditUser | IHWActionDismissComponent | IHWActionCalendarJumpTo;
 
 /** Pop up big search */
 export type IHWActionBigSearch = {
@@ -92,7 +92,7 @@ export type IHWActionCoreRedirectPayload = {
 export type IHWActionDismissComponent = {
   __typename?: 'ActionDismissComponent',
   type?: Maybe<IHWActionTypes>,
-  payload: IHWActionDismissComponent,
+  payload: IHWActionDismissComponentPayload,
 };
 
 /** Dismiss a component by it's ID */

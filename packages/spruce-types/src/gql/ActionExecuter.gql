@@ -5,7 +5,7 @@ union Action =
 	| ActionShowModal
 	| ActionEmitEvent
 	| ActionBigSearch
-	| ActionQuickEditUserPayload
+	| ActionQuickEditUser
 	| ActionDismissComponent
 	| ActionCalendarJumpTo
 
@@ -147,7 +147,7 @@ type ActionDismissComponentPayload {
 "Dismiss/hide components on the page whose ID's match."
 type ActionDismissComponent {
 	type: ActionTypes
-	payload: ActionDismissComponent!
+	payload: ActionDismissComponentPayload!
 }
 
 "control the calendar if you are on a page with a calendar"
