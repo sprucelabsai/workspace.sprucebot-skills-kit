@@ -603,7 +603,7 @@ export default class RecordSelectionList extends Component<
 							onChange={() => {
 								onSelect(recordId, record)
 							}}
-							disabled={
+							isDisabled={
 								unselectableIds && unselectableIds.indexOf(recordId) >= 0
 							}
 							isChecked={

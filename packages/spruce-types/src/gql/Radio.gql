@@ -13,7 +13,10 @@ type Radio implements ActionExecuter {
 	postText: String
 
 	"is this control disabled?"
-	disabled: Boolean
+	isDisabled: Boolean
+
+	"Is this control checked?"
+	isChecked: Boolean
 
 	"Optional action to invoke when tapped"
 	action: Action

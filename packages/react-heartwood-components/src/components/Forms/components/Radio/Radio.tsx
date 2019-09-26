@@ -1,8 +1,8 @@
-import React from 'react'
+import { IHWRadio } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
+import React from 'react'
 import RadioIconYes from '../../../../../static/assets/icons/ic_radio_button_checked.svg'
 import RadioIconNo from '../../../../../static/assets/icons/ic_radio_button_unchecked.svg'
-import { IHWRadio } from '@sprucelabs/spruce-types'
 
 export interface IRadioProps extends Omit<IHWRadio, 'id'> {
 	/** optional id for the radio */
@@ -10,20 +10,34 @@ export interface IRadioProps extends Omit<IHWRadio, 'id'> {
 
 	/** Parent class */
 	className?: string
+
+	/** Change handler */
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const Radio = (props: IRadioProps): React.ReactElement => {
-	const { id, label, postText, className, name, disabled } = props
+	const {
+		isChecked,
+		className,
+		isDisabled,
+		id,
+		label,
+		name,
+		onChange,
+		postText
+	} = props
 	const parentClass = cx('checkbox-item', className)
 	return (
 		<div className={parentClass}>
 			<div className="checkbox-item__inner">
 				<input
+					checked={isChecked || false}
 					className="checkbox-item__input"
-					type="radio"
+					disabled={isDisabled || false}
 					id={id}
 					name={name || undefined}
-					disabled={disabled || false}
+					onChange={onChange}
+					type="radio"
 				/>
 				<label className="checkbox-item__label" htmlFor={id}>
 					{label}

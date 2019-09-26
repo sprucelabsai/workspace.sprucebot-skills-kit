@@ -447,10 +447,12 @@ export type IHWCheckbox = IHWActionExecuter & {
   label?: Maybe<Scalars['String']>,
   /** Optional text to show below the label */
   postText?: Maybe<Scalars['String']>,
+  /** is this checkbox disabled */
+  isDisabled?: Maybe<Scalars['Boolean']>,
   /** Set true if the checkbox is indeterminate */
-  isIndeterminate?: Maybe<Scalars['Boolean']>,
+  isIndeterminate: Scalars['Boolean'],
   /** is this checkbox checked? */
-  isChecked: Scalars['Boolean'],
+  isChecked?: Maybe<Scalars['Boolean']>,
   /** Optional action to invoke when tapped */
   action?: Maybe<IHWAction>,
 };
@@ -748,7 +750,9 @@ export type IHWRadio = IHWActionExecuter & {
   /** Optional text to show after the label */
   postText?: Maybe<Scalars['String']>,
   /** is this control disabled? */
-  disabled?: Maybe<Scalars['Boolean']>,
+  isDisabled?: Maybe<Scalars['Boolean']>,
+  /** Is this control checked? */
+  isChecked?: Maybe<Scalars['Boolean']>,
   /** Optional action to invoke when tapped */
   action?: Maybe<IHWAction>,
 };
