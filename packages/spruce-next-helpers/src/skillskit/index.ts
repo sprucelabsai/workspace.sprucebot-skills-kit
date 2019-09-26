@@ -1,22 +1,218 @@
-// @flow
 import Iframes from '@sprucelabs/spruce-utils/iframes'
+import { ICoreUserLocation, ICoreCalendarEvent } from '@sprucelabs/spruce-types'
 
-function postMessage(message) {
+function postMessage(message: Record<string, any>): void {
 	return window.parent.postMessage(JSON.stringify(message), '*')
 }
 
 let skillStatusCheckListener = null
 
-const skill = {
-	editUserProfile({
-		userId,
-		organizationId,
-		locationId
-	}: {
-		userId: string,
-		organizationId: string,
+export interface ISearchForUserLegacy {
+	onCancel?: () => void
+	onSelectUser?: (userLocation: ICoreUserLocation) => void
+	roles?: string[]
+	locationId?: string
+}
+
+export interface IBigSearch {
+	/** Search for ANYTHING! */
+	search(options: { locationId?: string }): void
+	/** callback to be invoked when a selection is made */
+	onSelect(callback: (selection: Record<string, any>) => void): void
+	/** pass a callback to be triggered on cancel of search */
+	onCancel(callback: () => void): void
+}
+
+export interface ISaveBar {
+	/** show the save bar */
+	show(): void
+	/** hide the save bar */
+	hide(): void
+	/** callback invoked when save is clicked */
+	onSave(callback: () => void): void
+	/** callback invoked when discard is clicked */
+	onDiscard(callback: () => void): void
+	/** sets progress on save button */
+	setIsSaving(isSaving: boolean): void
+	/** sets progress on discard button */
+	setIsDiscarding(isDiscarding: boolean): void
+	/** enable the save button */
+	disableSave(): void
+	/** disable the save button */
+	enableSave(): void
+	/** enable discard button */
+	enableDiscard(): void
+	/** disable discard button */
+	disableDiscard(): void
+}
+
+export interface ICalendar {
+	/** drop a calendar event onto the calendar */
+	createEvent(event: ICoreCalendarEvent): void
+	/** update an event on the calendar */
+	updateEvent(event: ICoreCalendarEvent): void
+	/** removes a calendar event from the calendar */
+	deleteEvent(id: string): void
+}
+
+export interface IConfirmationDialog {
+	show(options: {
+		title?: string
+		text?: string
+		context?: Record<string, any>
+		kind: 'textOnly' | 'confirmInput'
+		id?: string
+		confirmInputLabel?: string
+		confirmInputValidString?: string
+		confirmInputIgnoreCase?: boolean
+		cancelButtonText?: string
+		confirmButtonText?: string
+		isConfirmButtonDisabled?: boolean
+		isConfirmButtonLoading?: boolean
+		isCancelButtonDisabled?: boolean
+		isCancelButtonLoading?: boolean
+		isDestructive?: boolean
+		closeOnConfirm?: boolean
+		onConfirm?: () => void
+		onCancel?: () => void
+	}): void
+	setIsConfirming(isConfirming: boolean): void
+	setIsCanceling(isCanceling: boolean): void
+	setConfirmButtonIsLoading(isLoading: boolean): void
+	setCancelButtonIsLoading(isLoading: boolean): void
+	setConfirmButtonIsDisabled(isDisabled: boolean): void
+	setCancelButtonIsDisabled(isDisabled: boolean): void
+}
+
+export interface IModal {
+	/** open a modal dialog */
+	open(options: {
+		title?: string
+		src?: string
+		footerPrimaryActionText?: string
+		footerSecondaryActionText?: string
+		isPaged?: boolean
+		isDialogFooterPrimaryActionDisabled?: boolean
+		isDialogFooterSecondaryActionDisabled?: boolean
+		size: 'small' | 'medium' | 'full-width'
+		contentHeight: string
+	}): void
+	/** close modal dialog , data is passed through to onClosed */
+	close(data?: Record<string, any>): void
+	/** invoked when the "back" error is clicked */
+	onGoBack(callback: () => void): void
+	/** invoked when the primary action is clicked/tapped */
+	onClickFooterPrimaryAction(callback: () => void): void
+	/** invoked when secondary action is clicked/tapped */
+	onClickFooterSecondaryAction(callback: () => void): void
+	/** invoked on close of dialog with any data passed from closer */
+	onClosed(callback: (data?: Record<string, any>) => void): void
+	/** pass anything truthy to make fullHeight TODO rename setIsFullHeight(boolean)  */
+	setContentHeight(height: string): void
+	/** Set whether the primary action show loading */
+	setFooterPrimaryActionIsLoading(isLoading: boolean): void
+	/** Set whether the secondary action show loading */
+	setFooterSecondaryActionIsLoading(isLoading: boolean): void
+	/** disable primary action */
+	setFooterPrimaryActionIsDisabled(isDisabled: boolean): void
+	/** disable secondary action */
+	setFooterSecondaryActionIsDisabled(isDisabled: boolean): void
+	/** set the text on the primary action */
+	setFooterPrimaryActionText(text: string): void
+	/** set the text on the secondary action */
+	setFooterSecondaryActionText(text: string): void
+	/** override title of the modal dialog */
+	setTitle(text: string): void
+	/** is the back button visible? */
+	setBackButtonIsVisible(isVisible: boolean): void
+}
+
+export interface ISupportingMessage {
+	add(options: {
+		headline?: string
+		text?: string
+		followupText?: string
+		timeout?: number
+		kind: 'positive' | 'negative' | 'neutral'
+		callback: () => void
+	}): void
+}
+
+export interface IBlockingMessage {
+	add(options: {
+		headline?: string
+		text?: string
+		followupText?: string
+		timeout?: number
+		kind: 'positive' | 'negative' | 'neutral'
+		callback: () => void
+	}): void
+}
+
+export interface ISkill {
+	/**
+	 * Local State
+	 */
+	_onCancelSearchCallback?: any
+	_onSelecUserFormSearchCallback?: any
+	_onSaveListener?: any
+	_onDiscardListener?: any
+	_onClosedListener?: any
+	_onGoBackListener?: any
+	_onClickFooterPrimaryActionListener?: any
+	_onClickFooterSecondaryActionListener?: any
+	_onConfirmListener?: any
+	_onCancelListener?: any
+
+	/**
+	 * Actions
+	 */
+	/** Pop up a dialog to let the user edit their profile */
+	editUserProfile(options: {
+		userId: string
+		organizationId: string
 		locationId: string
-	}) {
+	}): void
+
+	/** Redirect to a route with any params */
+	redirect(options: { route: string; params: Record<string, any> }): void
+
+	/** When cooking setting fails, this is invoked to do out of iframe redirect */
+	forceAuth(): void
+
+	/** put in your page's componentDidMount to hide loading overlay */
+	ready(options?: { showHeader?: boolean }): void
+
+	/** LEGACY BIG SEARCH; Deprecated, use bigsearch() */
+	searchForUser(options: Record<string, any>): void
+
+	/** Big search controls */
+	bigSearch(): IBigSearch
+
+	/** Control the save bar */
+	saveBar(): ISaveBar
+
+	/** Modal dialog controls */
+	modal(): IModal
+
+	/** all the calendar controls */
+	calendar(): ICalendar
+
+	/** show a confirmation dialog */
+	confirm(): IConfirmationDialog
+
+	/** Show a message or hint in a non blocking way */
+	supportingMessage(): ISupportingMessage
+
+	/** Show a message or hint in blocking way */
+	blockingMessage(): IBlockingMessage
+
+	/** invoked anytime a route change has started */
+	notifyOfRouteChangeStart(): void
+}
+
+const skill: ISkill = {
+	editUserProfile({ userId, organizationId, locationId }) {
 		postMessage({
 			name: 'Skill:EditUserProfile',
 			userId,
@@ -36,7 +232,7 @@ const skill = {
 		})
 	},
 
-	forceAuth: () => {
+	forceAuth() {
 		Iframes.sendMessage({
 			to: window.parent,
 			eventName: 'Skill:ForceAuth',
@@ -44,13 +240,13 @@ const skill = {
 		})
 	},
 
-	ready({ showHeader = true }: { showHeader: boolean } = {}) {
+	ready(options = {}) {
 		Iframes.sendMessage({
 			to: window.parent,
 			eventName: 'Skill:Loaded',
 			data: {
 				url: window.location.href,
-				showHeader
+				showHeader: options.showHeader
 			}
 		})
 
@@ -69,18 +265,40 @@ const skill = {
 		}
 	},
 
-	//TODO move to iframes?
-	// searchForUser: function({
-	// 	onCancel = () => {},
-	// 	onSelectUser = () => {},
-	// 	roles = ['guest'],
-	// 	locationId
-	// } = {}) {
-	// 	postMessage({ name: 'Skill:SearchForUser', roles, locationId })
+	/** LEGACY BIG SEARCH */
+	searchForUser({
+		onCancel = () => {},
+		onSelectUser = () => {},
+		roles = ['guest'],
+		locationId
+	}: ISearchForUserLegacy = {}) {
+		postMessage({ name: 'Skill:SearchForUser', roles, locationId })
 
-	// 	this._onCancelSearchCallback = onCancel
-	// 	this._onSelecUserFormSearchCallback = onSelectUser
-	// },
+		this._onCancelSearchCallback = onCancel
+		this._onSelecUserFormSearchCallback = onSelectUser
+	},
+
+	// TODO: Use Iframes built in callback functionality
+	bigSearch() {
+		const _this = this
+
+		const bigSearch: IBigSearch = {
+			search: options => {
+				postMessage({
+					name: 'Skill:SearchForUser',
+					locationId: options.locationId
+				})
+			},
+			onCancel: onCancel => {
+				_this._onCancelSearchCallback = onCancel
+			},
+			onSelect: onSelect => {
+				_this._onSelecUserFormSearchCallback = onSelect
+			}
+		}
+
+		return bigSearch
+	},
 
 	saveBar() {
 		const saveBar = {
@@ -157,22 +375,22 @@ const skill = {
 	},
 
 	modal() {
-		const modal = {
-			open: (data: Object) => {
+		const modal: IModal = {
+			open: (data: Record<string, any>) => {
 				Iframes.sendMessage({
 					to: window.parent,
 					eventName: 'SkillViewDialog:Open',
 					data
 				})
 			},
-			close: (data: Object) => {
+			close: (data: Record<string, any>) => {
 				Iframes.sendMessage({
 					to: window.parent,
 					eventName: 'SkillViewDialog:Close',
 					data
 				})
 			},
-			onGoBack: (callback: Function) => {
+			onGoBack: (callback: () => void) => {
 				if (this._onGoBackListener) {
 					this._onGoBackListener.destroy()
 				}
@@ -276,8 +494,36 @@ const skill = {
 		return modal
 	},
 
+	calendar() {
+		const calendar: ICalendar = {
+			createEvent: event => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Calendar:CreateEvent',
+					data: { event }
+				})
+			},
+			updateEvent: event => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Calendar:UpdateEvent',
+					data: { event }
+				})
+			},
+			deleteEvent: id => {
+				Iframes.sendMessage({
+					to: window.parent,
+					eventName: 'Calendar:DeleteEvent',
+					data: { event: { id } }
+				})
+			}
+		}
+
+		return calendar
+	},
+
 	confirm() {
-		const confirm = {
+		const confirm: IConfirmationDialog = {
 			show: data => {
 				const { onConfirm, onCancel, ...rest } = data
 
@@ -351,7 +597,7 @@ const skill = {
 	},
 
 	supportingMessage() {
-		const message = {
+		const message: ISupportingMessage = {
 			add({
 				headline,
 				text,
@@ -374,28 +620,22 @@ const skill = {
 						callback && callback()
 					}
 				})
-			},
-			remove() {
-				window.alert('Not yet implemented...')
 			}
 		}
 
 		return message
 	},
 	blockingMessage() {
-		const message = {
+		const message: IBlockingMessage = {
 			add({
-				headline,
-				text,
-				followupText,
-				timeout,
-				kind = 'positive',
-				callback
+				headline
+				// text,
+				// followupText,
+				// timeout,
+				// kind = 'positive',
+				// callback
 			}) {
 				window.alert(headline)
-			},
-			remove() {
-				window.alert('Not yet implemented...')
 			}
 		}
 
