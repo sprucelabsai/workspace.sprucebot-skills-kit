@@ -10,7 +10,7 @@ enum CalendarEventDetailsItemType {
 
 union CalendarEventDetailsItemViewModel =
 	  List
-	| Action
+	| Button
 	| CardBuilder
 	| Toast
 	| Text

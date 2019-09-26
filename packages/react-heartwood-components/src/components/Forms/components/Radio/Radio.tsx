@@ -13,16 +13,13 @@ export interface IRadioProps extends Omit<IHWRadio, 'id'> {
 
 	/** Change handler */
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-
-	/** Is the Radio checked? Use for controlled forms. */
-	checked?: boolean
 }
 
 const Radio = (props: IRadioProps): React.ReactElement => {
 	const {
-		checked,
+		isChecked,
 		className,
-		disabled,
+		isDisabled,
 		id,
 		label,
 		name,
@@ -34,9 +31,9 @@ const Radio = (props: IRadioProps): React.ReactElement => {
 		<div className={parentClass}>
 			<div className="checkbox-item__inner">
 				<input
-					checked={checked}
+					checked={isChecked || false}
 					className="checkbox-item__input"
-					disabled={disabled || false}
+					disabled={isDisabled || false}
 					id={id}
 					name={name || undefined}
 					onChange={onChange}

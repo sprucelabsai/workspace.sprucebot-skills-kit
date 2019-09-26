@@ -31,6 +31,9 @@
 		{
 			"path": ".",
 			"name": "Workspace"
+		},
+		{
+			"path": "packages/spruce-utils"
 		}
 	],
 	"settings": {

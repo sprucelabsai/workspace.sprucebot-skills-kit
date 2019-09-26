@@ -1,4 +1,4 @@
-type Checkbox {
+type Checkbox implements ActionExecuter {
 	"Unique identifier"
 	id: ID!
 
@@ -11,9 +11,15 @@ type Checkbox {
 	"Optional text to show below the label"
 	postText: String
 
+	"is this checkbox disabled"
+	isDisabled: Boolean
+
 	"Set true if the checkbox is indeterminate"
-	isIndeterminate: Boolean
+	isIndeterminate: Boolean!
 
 	"is this checkbox checked?"
-	checked: Boolean
+	isChecked: Boolean
+
+	"Optional action to invoke when tapped"
+	action: Action
 }

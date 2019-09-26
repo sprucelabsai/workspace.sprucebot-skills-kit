@@ -1,7 +1,10 @@
-type Toggle {
+type Toggle implements ActionExecuter {
 	"Unique id for UI caching"
 	id: ID!
 
 	"Text after the toggle"
 	postText: String
+
+	"Optional action to invoke when tapped"
+	action: Action
 }

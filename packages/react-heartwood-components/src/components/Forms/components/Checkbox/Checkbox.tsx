@@ -6,18 +6,15 @@ import CheckIconNo from '../../../../../static/assets/icons/ic_check_box_outline
 import CheckIconMaybe from '../../../../../static/assets/icons/ic_indeterminate_check_box.svg'
 import { IHWCheckbox } from '@sprucelabs/spruce-types'
 
-export interface ICheckboxProps extends IHWCheckbox {
+export interface ICheckboxProps extends Omit<IHWCheckbox, 'isIndeterminate'> {
 	/** Class for the checkbox wrapper */
 	className?: string
 
 	/** triggered on change */
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 
-	/** Is the checkbox disabled? */
-	disabled?: boolean
-
-	/** Is the checkbox checked? Use for controlled components. */
-	checked?: boolean
+	/** Is this 3 states, on, off, or half */
+	isIndeterminate?: boolean
 }
 
 interface ICheckboxState {}
@@ -53,13 +50,13 @@ export default class Checkbox extends Component<
 
 	public render(): React.ReactElement {
 		const {
-			checked,
-			className,
-			disabled,
 			id,
 			label,
+			postText,
+			className,
 			name,
-			postText
+			isChecked,
+			isDisabled
 		} = this.props
 		const parentClass = cx('checkbox-item', className)
 
@@ -67,15 +64,15 @@ export default class Checkbox extends Component<
 			<div className={parentClass}>
 				<div className="checkbox-item__inner">
 					<input
-						autoComplete={'off'}
-						checked={checked}
-						className="checkbox-item__input"
-						disabled={disabled}
-						id={id}
+						checked={isChecked || false}
 						name={name || undefined}
+						ref={this.checkboxRef}
+						autoComplete={'off'}
+						className="checkbox-item__input"
+						disabled={isDisabled || false}
+						id={id}
 						// Always use internal change handler
 						onChange={this.handleChange}
-						ref={this.checkboxRef}
 						type="checkbox"
 					/>
 					<label className="checkbox-item__label" htmlFor={id}>

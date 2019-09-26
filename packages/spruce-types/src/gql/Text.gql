@@ -5,4 +5,7 @@ type Text {
 
 	"the text to render"
 	text: String
+
+	"Context used to populate text if it's a template {{handlebar_style}}"
+	context: JSON
 }

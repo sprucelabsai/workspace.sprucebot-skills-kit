@@ -8,8 +8,8 @@ type ListHeader {
 	"Set true for small lists"
 	isSmall: Boolean
 
-	"Actions to associate with the list header"
-	actions: Action
+	"Buttons to associate with the list header"
+	actions: [Button!]
 }
 
 "Which parts should be highlighted in red"
@@ -71,10 +71,10 @@ type ListItem {
 	toggleProps: Toggle
 
 	"A primary action that turns the entire list item into a clickable action"
-	primaryAction: Action
+	primaryAction: Button
 
 	"Actions associated with the list item"
-	actions: [Action]
+	actions: [Button]
 
 	"Context Menu associated with the list it"
 	contextMenu: ContextMenu

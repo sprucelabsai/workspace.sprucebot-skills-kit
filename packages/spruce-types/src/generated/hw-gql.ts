@@ -32,12 +32,179 @@ export type Scalars = {
   DateTime: any,
 };
 
-export type IHWAction = {
-  __typename?: 'Action',
+export type IHWAction = IHWActionCoreRedirect | IHWActionSkillViewRedirect | IHWActionConfirm | IHWActionShowModal | IHWActionEmitEvent | IHWActionBigSearch | IHWActionQuickEditUser | IHWActionDismissComponent | IHWActionCalendarJumpTo;
+
+/** Pop up big search */
+export type IHWActionBigSearch = {
+  __typename?: 'ActionBigSearch',
+  type?: Maybe<IHWActionTypes>,
+  payload: IHWActionBigSearchPayload,
+};
+
+/** Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner) */
+export type IHWActionBigSearchPayload = {
+  __typename?: 'ActionBigSearchPayload',
+  roles?: Maybe<Array<Scalars['String']>>,
+};
+
+/** Jump to a place on the calendar */
+export type IHWActionCalendarJumpTo = {
+  __typename?: 'ActionCalendarJumpTo',
+  type?: Maybe<IHWActionTypes>,
+  payload: IHWActionCalendarJumpToPayload,
+};
+
+/** control the calendar if you are on a page with a calendar */
+export type IHWActionCalendarJumpToPayload = {
+  __typename?: 'ActionCalendarJumpToPayload',
+  /** Which day and time to focus */
+  dateTime: Scalars['Date'],
+  /** Make sure the right calendar is selected */
+  calendarId: Scalars['String'],
+  /** Show the selected user */
+  userId?: Maybe<Scalars['String']>,
+};
+
+/** Pop up a confirmation */
+export type IHWActionConfirm = {
+  __typename?: 'ActionConfirm',
+  type?: Maybe<IHWActionTypes>,
+  payload: IHWConfirmModal,
+};
+
+/** Redirect a user in the main viewport (browser or native mobile) */
+export type IHWActionCoreRedirect = {
+  __typename?: 'ActionCoreRedirect',
+  type?: Maybe<IHWActionTypes>,
+  payload: IHWActionCoreRedirectPayload,
+};
+
+/** payload used for core redirect */
+export type IHWActionCoreRedirectPayload = {
+  __typename?: 'ActionCoreRedirectPayload',
+  /** the destination route */
+  route: Scalars['String'],
+  /** Params for the route, like organizationId or locationId */
+  routeParams?: Maybe<Scalars['JSON']>,
+};
+
+/** Dismiss/hide components on the page whose ID's match. */
+export type IHWActionDismissComponent = {
+  __typename?: 'ActionDismissComponent',
+  type?: Maybe<IHWActionTypes>,
+  payload: IHWActionDismissComponentPayload,
+};
+
+/** Dismiss a component by it's ID */
+export type IHWActionDismissComponentPayload = {
+  __typename?: 'ActionDismissComponentPayload',
+  /** Ids of the components you want to hide */
+  componentIds: Array<Scalars['String']>,
+};
+
+/** Emit an event to your skill */
+export type IHWActionEmitEvent = {
+  __typename?: 'ActionEmitEvent',
+  type?: Maybe<IHWActionTypes>,
+  payload: IHWActionEmitEventPayload,
+};
+
+/** Emit an event to your skill when this action is invoked */
+export type IHWActionEmitEventPayload = {
+  __typename?: 'ActionEmitEventPayload',
+  /** Name of the event, like 'booking:update-appointment' */
+  eventName?: Maybe<Scalars['String']>,
+  /** Arbitrary payload sent with the event */
+  Payload?: Maybe<Scalars['JSON']>,
+};
+
+export type IHWActionExecuter = {
+  action?: Maybe<IHWAction>,
+};
+
+/** Pop up dialog to edit the user */
+export type IHWActionQuickEditUser = {
+  __typename?: 'ActionQuickEditUser',
+  type?: Maybe<IHWActionTypes>,
+  payload: IHWActionQuickEditUserPayload,
+};
+
+/** 
+ * Pop up quick edit to update a user record. You have to have permission and
+ * should pass location and organization unelss you are editing yourself
+ **/
+export type IHWActionQuickEditUserPayload = {
+  __typename?: 'ActionQuickEditUserPayload',
+  /** The id of the user */
+  userId: Scalars['String'],
+  /** optional location id */
+  locationId?: Maybe<Scalars['String']>,
+  /** optional organizationId */
+  organizationId?: Maybe<Scalars['String']>,
+};
+
+/** Load a skill view in a modal dialog */
+export type IHWActionShowModal = {
+  __typename?: 'ActionShowModal',
+  type?: Maybe<IHWActionTypes>,
+  payload: IHWActionShowModalPayload,
+};
+
+/** Props passed to a modal you want to pop up when invoking this action */
+export type IHWActionShowModalPayload = {
+  __typename?: 'ActionShowModalPayload',
+  /** Fully qualified url to destination */
+  src: Scalars['String'],
+  /** Title of the dialog */
+  title: Scalars['String'],
+  /** Drop a primary action button into the footer */
+  footerPrimaryActionText?: Maybe<Scalars['String']>,
+  /** Drop in a secondary action into the footer, only works if primary action is also set */
+  footerSecondaryActionText?: Maybe<Scalars['String']>,
+  /** Does the primary action button start off disabled? */
+  isDialogFooterPrimaryActionDisabled?: Maybe<Scalars['Boolean']>,
+  /** Does the secondary action button start off disabled? */
+  isDialogFooterSecondaryActionDisabled?: Maybe<Scalars['Boolean']>,
+  /** How does the dialog size itself width wise? */
+  size?: Maybe<IHWModalSize>,
+  /** Does the dialog fill the screen vertically? */
+  isFullHeight?: Maybe<Scalars['Boolean']>,
+};
+
+/** Redirect inside of a skill view */
+export type IHWActionSkillViewRedirect = {
+  __typename?: 'ActionSkillViewRedirect',
+  type?: Maybe<IHWActionTypes>,
+  payload: IHWActionSkillViewRedirectPayload,
+};
+
+/** payload used when redirecting a skill view */
+export type IHWActionSkillViewRedirectPayload = {
+  __typename?: 'ActionSkillViewRedirectPayload',
+  /** the host of your skill, usually config.HOST */
+  host: Scalars['String'],
+  /** The path to the skill view including any query string */
+  path?: Maybe<Scalars['String']>,
+};
+
+export enum IHWActionTypes {
+  CoreRedirect = 'CoreRedirect',
+  SkillViewRedirect = 'SkillViewRedirect',
+  Confirm = 'Confirm',
+  ShowModal = 'ShowModal',
+  EmitEvent = 'EmitEvent',
+  BigSearch = 'BigSearch',
+  QuickEditUser = 'QuickEditUser',
+  DismissComponent = 'DismissComponent',
+  CalendarJumpTo = 'CalendarJumpTo'
+}
+
+export type IHWButton = IHWActionExecuter & {
+  __typename?: 'Button',
   /** Unique ID for rendering in lists */
   id: Scalars['ID'],
   /** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
-  kind?: Maybe<IHWActionKinds>,
+  kind?: Maybe<IHWButtonKinds>,
   /** Set true to make the button less tall. */
   isSmall?: Maybe<Scalars['Boolean']>,
   /** Set true to make the button fill its parent's width. */
@@ -53,32 +220,17 @@ export type IHWAction = {
   /** Icon for the button. */
   icon?: Maybe<IHWIcon>,
   /** Type attribute for HTML button element. Defaults to 'button'. */
-  type?: Maybe<IHWActionButtonType>,
-  /** Will be passed back with the on click. */
-  payload?: Maybe<Scalars['JSON']>,
+  type?: Maybe<IHWButtonTypes>,
   /** Set true to disable the button */
   disabled?: Maybe<Scalars['Boolean']>,
+  /** Optional action to invoke when tapped */
+  action?: Maybe<IHWAction>,
 };
-
-/** If this action is being rendered as a button, you can control it's type */
-export enum IHWActionButtonType {
-  Button = 'button',
-  Submit = 'submit',
-  Reset = 'reset'
-}
-
-/** How an action is rendered is impacted by the kind of action it is */
-export enum IHWActionKinds {
-  Primary = 'primary',
-  Secondary = 'secondary',
-  Simple = 'simple',
-  Caution = 'caution'
-}
 
 export type IHWButtonGroup = {
   __typename?: 'ButtonGroup',
   /** Array of actions to render the group's buttons. */
-  actions?: Maybe<Array<IHWAction>>,
+  actions?: Maybe<Array<IHWButton>>,
   /** Visual appearance of the group. */
   kind?: Maybe<IHWButtonGroupKind>,
   /** Set true to fill parent width */
@@ -91,6 +243,21 @@ export enum IHWButtonGroupKind {
   Default = 'default',
   Segmented = 'segmented',
   Floating = 'floating'
+}
+
+/** How an action is rendered is impacted by the kind of action it is */
+export enum IHWButtonKinds {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Simple = 'simple',
+  Caution = 'caution'
+}
+
+/** Type of button */
+export enum IHWButtonTypes {
+  Button = 'button',
+  Submit = 'submit',
+  Reset = 'reset'
 }
 
 /** An event that is rendered on the calendar. */
@@ -161,7 +328,7 @@ export enum IHWCalendarEventDetailsItemType {
   Markdown = 'markdown'
 }
 
-export type IHWCalendarEventDetailsItemViewModel = IHWList | IHWAction | IHWCardBuilder | IHWToast | IHWText | IHWMarkdown | IHWSplitButton;
+export type IHWCalendarEventDetailsItemViewModel = IHWList | IHWButton | IHWCardBuilder | IHWToast | IHWText | IHWMarkdown | IHWSplitButton;
 
 /** How an event will be rendered in the calendar. Each time represents a standard state of an event. */
 export enum IHWCalendarEventKind {
@@ -226,7 +393,7 @@ export type IHWCardBuilderBodyItem = {
 };
 
 export enum IHWCardBuilderBodyItemType {
-  Action = 'action',
+  Button = 'button',
   Image = 'image',
   Heading = 'heading',
   Text = 'text',
@@ -235,13 +402,13 @@ export enum IHWCardBuilderBodyItemType {
   List = 'list'
 }
 
-export type IHWCardBuilderBodyItemViewModel = IHWAction | IHWImage | IHWHeading | IHWText | IHWScoreCard | IHWToast | IHWList;
+export type IHWCardBuilderBodyItemViewModel = IHWButton | IHWImage | IHWHeading | IHWText | IHWScoreCard | IHWToast | IHWList;
 
 /** The footer of the card */
 export type IHWCardBuilderFooter = {
   __typename?: 'CardBuilderFooter',
   /** Render buttons in the Card Footer */
-  actions?: Maybe<Array<Maybe<IHWAction>>>,
+  actions?: Maybe<Array<IHWButton>>,
   /** Helper for the footer */
   helper?: Maybe<Scalars['String']>,
 };
@@ -265,12 +432,12 @@ export type IHWCardHeader = {
   /** Optional icon to show above the title and before the label */
   labelIcon?: Maybe<IHWIcon>,
   /** Render buttons in the Card Header */
-  actions?: Maybe<Array<Maybe<IHWAction>>>,
+  actions?: Maybe<Array<IHWButton>>,
   /** Renders a Context Menu in the Card Header */
   contextMenu?: Maybe<IHWContextMenu>,
 };
 
-export type IHWCheckbox = {
+export type IHWCheckbox = IHWActionExecuter & {
   __typename?: 'Checkbox',
   /** Unique identifier */
   id: Scalars['ID'],
@@ -280,16 +447,44 @@ export type IHWCheckbox = {
   label?: Maybe<Scalars['String']>,
   /** Optional text to show below the label */
   postText?: Maybe<Scalars['String']>,
+  /** is this checkbox disabled */
+  isDisabled?: Maybe<Scalars['Boolean']>,
   /** Set true if the checkbox is indeterminate */
-  isIndeterminate?: Maybe<Scalars['Boolean']>,
+  isIndeterminate: Scalars['Boolean'],
   /** is this checkbox checked? */
-  checked?: Maybe<Scalars['Boolean']>,
+  isChecked?: Maybe<Scalars['Boolean']>,
+  /** Optional action to invoke when tapped */
+  action?: Maybe<IHWAction>,
+};
+
+/** a confirmation dialog */
+export type IHWConfirmModal = {
+  /** Title of the confirmation dialog */
+  title?: Maybe<Scalars['String']>,
+  /** Text shown in the dialog */
+  text?: Maybe<Scalars['String']>,
+  /** Context used to populate the text if the text contains {{handlebars}} */
+  context?: Maybe<Scalars['JSON']>,
+  /** Do we require the person to type confirmInputValidString to be able to confirm */
+  doesRequireConfirmation?: Maybe<Scalars['Boolean']>,
+  /** Label next to the confirmation input (if doesRequireConfirmation is true} */
+  confirmInputLabel?: Maybe<Scalars['String']>,
+  /** The words they have to type if doesRequireConfirmation is true */
+  confirmInputValidString?: Maybe<Scalars['String']>,
+  /** Does typing the confirmation message match case */
+  confirmInputIgnoreCase?: Maybe<Scalars['Boolean']>,
+  /** What is the text on the cancel button? Defaults to 'Cancel' */
+  cancelButtonText?: Maybe<Scalars['String']>,
+  /** What is the text on the confirm button? Defaults to 'Confirm' */
+  confirmButtonText?: Maybe<Scalars['String']>,
+  /** If true, the confirm button will be red */
+  isDestructive?: Maybe<Scalars['Boolean']>,
 };
 
 export type IHWContextMenu = {
   __typename?: 'ContextMenu',
   /** The actions to be shown on tap/click */
-  actions: Array<IHWAction>,
+  actions: Array<IHWButton>,
   /** Set the width of the menu. Helpful for longer text in buttons */
   size?: Maybe<IHWContextMenuSize>,
   /** Adds text to the collapsed menu */
@@ -426,8 +621,8 @@ export type IHWListHeader = {
   subtitle?: Maybe<Scalars['String']>,
   /** Set true for small lists */
   isSmall?: Maybe<Scalars['Boolean']>,
-  /** Actions to associate with the list header */
-  actions?: Maybe<IHWAction>,
+  /** Buttons to associate with the list header */
+  actions?: Maybe<Array<IHWButton>>,
 };
 
 /** A List is made up of ListItems */
@@ -462,9 +657,9 @@ export type IHWListItem = {
   /** Props passed to the toggle if toggleId is set */
   toggleProps?: Maybe<IHWToggle>,
   /** A primary action that turns the entire list item into a clickable action */
-  primaryAction?: Maybe<IHWAction>,
+  primaryAction?: Maybe<IHWButton>,
   /** Actions associated with the list item */
-  actions?: Maybe<Array<Maybe<IHWAction>>>,
+  actions?: Maybe<Array<Maybe<IHWButton>>>,
   /** Context Menu associated with the list it */
   contextMenu?: Maybe<IHWContextMenu>,
   /** Set to true to show separator for this list item if followed by another list item. */
@@ -509,6 +704,12 @@ export type IHWMarkdown = {
   source: Scalars['String'],
 };
 
+export enum IHWModalSize {
+  Small = 'small',
+  Medium = 'medium',
+  FullWidth = 'fullWidth'
+}
+
 /** An awesome card for onboarding people! */
 export type IHWOnboardingCard = {
   __typename?: 'OnboardingCard',
@@ -532,13 +733,13 @@ export type IHWOnboardingCardStep = {
   /** Copy describing the step in the card's body */
   panelCopy: Scalars['String'],
   /** Primary CTA of this step */
-  panelCTA?: Maybe<IHWAction>,
+  panelCTA?: Maybe<IHWButton>,
   /** Is this step complete? */
   isComplete?: Maybe<Scalars['Boolean']>,
 };
 
 /** A radio control. Give a bunch the same name to keep them as part of the same group */
-export type IHWRadio = {
+export type IHWRadio = IHWActionExecuter & {
   __typename?: 'Radio',
   /** Unique identifier */
   id: Scalars['ID'],
@@ -549,7 +750,11 @@ export type IHWRadio = {
   /** Optional text to show after the label */
   postText?: Maybe<Scalars['String']>,
   /** is this control disabled? */
-  disabled?: Maybe<Scalars['Boolean']>,
+  isDisabled?: Maybe<Scalars['Boolean']>,
+  /** Is this control checked? */
+  isChecked?: Maybe<Scalars['Boolean']>,
+  /** Optional action to invoke when tapped */
+  action?: Maybe<IHWAction>,
 };
 
 /** A score card! */
@@ -575,11 +780,11 @@ export type IHWSplitButton = {
   /** ID for view caching */
   id: Scalars['ID'],
   /** The main action readily surfaced to the user */
-  defaultAction: IHWAction,
+  defaultAction: IHWButton,
   /** All the secondary nested actions */
-  actions: Array<Maybe<IHWAction>>,
+  actions?: Maybe<Array<IHWButton>>,
   /** Sets the visual hierarchy of the button */
-  kind?: Maybe<IHWActionKinds>,
+  kind?: Maybe<IHWButtonKinds>,
   /** Set true to fill the parent’s width */
   isFullWidth?: Maybe<Scalars['Boolean']>,
   /** Sets the visual hierarchy of the button */
@@ -606,6 +811,8 @@ export type IHWText = {
   id: Scalars['String'],
   /** the text to render */
   text?: Maybe<Scalars['String']>,
+  /** Context used to populate text if it's a template {{handlebar_style}} */
+  context?: Maybe<Scalars['JSON']>,
 };
 
 
@@ -626,10 +833,12 @@ export type IHWToast = {
   followupText?: Maybe<Scalars['String']>,
 };
 
-export type IHWToggle = {
+export type IHWToggle = IHWActionExecuter & {
   __typename?: 'Toggle',
   /** Unique id for UI caching */
   id: Scalars['ID'],
   /** Text after the toggle */
   postText?: Maybe<Scalars['String']>,
+  /** Optional action to invoke when tapped */
+  action?: Maybe<IHWAction>,
 };

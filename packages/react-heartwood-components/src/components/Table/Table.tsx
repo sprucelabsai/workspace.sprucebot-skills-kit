@@ -136,7 +136,7 @@ export default class Table extends Component<ITableProps, ITableState> {
 							selectedIds.length > 0 && selectedIds.length < totalRows
 						}
 						// NOTE: Using state here because this Header can't access page size on its own
-						checked={selectedIds.length > 0}
+						isChecked={selectedIds.length > 0}
 						onChange={() => this.handleSelectAll()}
 					/>
 				),
@@ -146,7 +146,7 @@ export default class Table extends Component<ITableProps, ITableState> {
 					return (
 						<Checkbox
 							id={id}
-							checked={selectedIds.indexOf(id) > -1}
+							isChecked={selectedIds.indexOf(id) > -1}
 							onChange={() => this.handleChange({ id, pageSize })}
 						/>
 					)

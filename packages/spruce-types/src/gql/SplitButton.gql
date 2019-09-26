@@ -4,13 +4,13 @@ type SplitButton {
 	id: ID!
 
 	"The main action readily surfaced to the user"
-	defaultAction: Action!
+	defaultAction: Button!
 
 	"All the secondary nested actions"
-	actions: [Action]!
+	actions: [Button!]
 
 	"Sets the visual hierarchy of the button"
-	kind: ActionKinds
+	kind: ButtonKinds
 
 	"Set true to fill the parent’s width"
 	isFullWidth: Boolean
