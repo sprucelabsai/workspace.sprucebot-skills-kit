@@ -107,6 +107,7 @@ const renderItem = (item: ICardBuilderBodyItem): React.ReactElement => {
 
 	return typeof Handler.prototype === 'undefined' ||
 		!Handler.prototype.render ? (
+		// TODO figure out why these don't pass
 		// @ts-ignore
 		Handler({ ...viewModel })
 	) : (

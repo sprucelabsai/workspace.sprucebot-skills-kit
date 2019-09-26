@@ -94,6 +94,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 	let radioProps: IRadioProps | undefined
 
 	if (selectableProps) {
+		// TODO move this to a type that can be inferred
 		const restSelectableProps = cloneDeep(selectableProps)
 		delete restSelectableProps.__typename
 
@@ -139,7 +140,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 					{selectableId && (
 						<Fragment>
 							{selectableType === IHWListItemSelectableType.Checkbox &&
-								selectableProps && (
+								checkboxProps && (
 									<Checkbox
 										id={selectableId}
 										{...(isDisabled ? { disabled: true } : {})}
@@ -147,7 +148,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 									/>
 								)}
 							{selectableType === IHWListItemSelectableType.Radio &&
-								selectableProps && (
+								radioProps && (
 									<Radio
 										id={selectableId}
 										{...(isDisabled ? { disabled: true } : {})}

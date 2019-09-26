@@ -542,7 +542,7 @@ export default class RecordSelectionList extends Component<
 										onSelect(recordId, record)
 								  }
 								: () => null,
-							checked: selectedIds && selectedIds.indexOf(recordId) >= 0
+							isChecked: selectedIds && selectedIds.indexOf(recordId) >= 0
 						}}
 						selectableType={canSelect === 'one' ? 'radio' : 'checkbox'}
 						isDisabled={
@@ -606,7 +606,9 @@ export default class RecordSelectionList extends Component<
 							disabled={
 								unselectableIds && unselectableIds.indexOf(recordId) >= 0
 							}
-							checked={selectedIds && selectedIds.indexOf(recordId) >= 0}
+							isChecked={
+								selectedIds && selectedIds.indexOf(recordId) >= 0 ? true : false
+							}
 						/>
 					)}
 
