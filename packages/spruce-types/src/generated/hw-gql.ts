@@ -153,8 +153,10 @@ export type IHWActionShowModal = {
 /** Props passed to a modal you want to pop up when invoking this action */
 export type IHWActionShowModalPayload = {
   __typename?: 'ActionShowModalPayload',
-  /** Fully qualified url to destination */
-  src: Scalars['String'],
+  /** Host and protocol to destination (usually config.INTERFACE_HOST) */
+  host: Scalars['String'],
+  /** Path to your skill view */
+  path?: Maybe<Scalars['String']>,
   /** Title of the dialog */
   title: Scalars['String'],
   /** Drop a primary action button into the footer */
