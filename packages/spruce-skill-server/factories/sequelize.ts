@@ -175,5 +175,5 @@ export default (
 		}
 	}
 
-	ctx[key] = { models, sequelize, sync }
+	ctx[key] = { models, sequelize, sync, Sequelize }
 }

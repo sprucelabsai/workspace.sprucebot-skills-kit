@@ -22,6 +22,7 @@ export interface ISpruceContext<
 	db: {
 		models: ISkillModels
 		sequelize: Sequelize
+		Sequelize: typeof Sequelize
 	}
 	/** if someone has been authenticated, you'll find details here */
 	auth?: ISkillAuth
