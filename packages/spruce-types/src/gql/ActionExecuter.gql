@@ -65,8 +65,11 @@ enum ModalSize {
 
 "Props passed to a modal you want to pop up when invoking this action"
 type ActionShowModalPayload {
-	"Fully qualified url to destination"
-	src: String!
+	"Host and protocol to destination (usually config.INTERFACE_HOST)"
+	host: String!
+
+	"Path to your skill view"
+	path: String
 
 	"Title of the dialog"
 	title: String!
@@ -102,7 +105,7 @@ type ActionEmitEventPayload {
 	eventName: String
 
 	"Arbitrary payload sent with the event"
-	Payload: JSON
+	payload: JSON
 }
 
 "Emit an event to your skill"
