@@ -115,7 +115,7 @@ export type IHWActionEmitEventPayload = {
   /** Name of the event, like 'booking:update-appointment' */
   eventName?: Maybe<Scalars['String']>,
   /** Arbitrary payload sent with the event */
-  Payload?: Maybe<Scalars['JSON']>,
+  payload?: Maybe<Scalars['JSON']>,
 };
 
 export type IHWActionExecuter = {
