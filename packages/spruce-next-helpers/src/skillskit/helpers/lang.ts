@@ -1,10 +1,12 @@
 import * as moment from 'moment'
 import Dinero from 'dinero.js'
 
+import { ISpruceGQLTypes } from '../../../../spruce-skill-server/interfaces/gql'
+
 export default {
 	lang: {},
 	overrides: {},
-	configure(langDir) {
+	async configure(langDir: string) {
 		this.lang = require(`${langDir}/default.js`)
 		try {
 			this.overrides = require(`${langDir}/overrides.js`)
@@ -16,8 +18,8 @@ export default {
 		this.lang = lang
 		this.overrides = overrides
 	},
-	getText(key, context = {}) {
-		const translations = {
+	getText(key: string, context: Record<string, any> = {}) {
+		const translations: Record<string, any> = {
 			...this.lang,
 			...this.overrides,
 			...context
@@ -31,55 +33,60 @@ export default {
 		throw Error(`Translation missing key ${key}`)
 	},
 	/** Converts a numnber of cents into a formatted currency string. Ex: "$23.99" */
-	friendlyCurrency: cents => {
-		/*
-    TODO:
-    const { currency, locale } = this.ctx.location
-    */
+	friendlyCurrency(
+		cents: number,
+		location: ISpruceGQLTypes['Location']
+	): string {
+		/* TODO: Use these props once added to Location
+		const currency: string = location.currecy || 'USD'
+		const locale: string = location.locale || 'en-US'
+		const precision: number = location.currencyMinorUnits || 2
+		*/
 		const currency = 'USD'
 		const locale = 'en-US'
-		const friendlyCurrency = Dinero({ amount: cents, precision: 2, currency })
+		const precision = 2
+		const friendlyCurrency = Dinero({ amount: cents, precision, currency })
 			.setLocale(locale)
 			.toFormat('$0,0.00')
 			.replace('.00', '')
 		return friendlyCurrency
 	},
-
 	/** Returns a duration string of largest time increments from numer of seconds. Ex: `friendlyDuration(3452626, 2)` returns "1mo 8d" */
-	friendlyDuration(seconds, largest, showSeconds) {
-		const getDurationLabel = label => {
-			try {
-				return this.getText(label)
-			} catch {
-				return label
-			}
+	friendlyDuration(
+		seconds: number,
+		largest: number = 2,
+		showSeconds: boolean = false
+	): string {
+		interface IDuration {
+			value: number
+			label: string
 		}
 		const secondsDuration = moment.duration(seconds, 'seconds')
 		const years = {
 			value: secondsDuration.years(),
-			label: getDurationLabel('yr')
+			label: this.getDurationLabel('yr')
 		}
 		const months = {
 			value: secondsDuration.months(),
-			label: getDurationLabel('mo')
+			label: this.getDurationLabel('mo')
 		}
 		const days = {
 			value: secondsDuration.days(),
-			label: getDurationLabel('d')
+			label: this.getDurationLabel('d')
 		}
 		const hours = {
 			value: secondsDuration.hours(),
-			label: getDurationLabel('hr')
+			label: this.getDurationLabel('hr')
 		}
 		const minutes = {
 			value: secondsDuration.minutes(),
-			label: getDurationLabel('min')
+			label: this.getDurationLabel('min')
 		}
-		let allDurations = [years, months, days, hours, minutes]
+		let allDurations: IDuration[] = [years, months, days, hours, minutes]
 		if (showSeconds) {
 			allDurations.push({
 				value: secondsDuration.seconds(),
-				label: getDurationLabel('sec')
+				label: this.getDurationLabel('sec')
 			})
 		}
 		let durationCount = 0
@@ -93,10 +100,17 @@ export default {
 				duration.label
 			}`
 			durationCount++
-			if (durationCount === (largest || 2)) {
+			if (durationCount === largest) {
 				break
 			}
 		}
 		return friendlyDuration
+	},
+	getDurationLabel(label: string): string {
+		try {
+			return this.getText(label)
+		} catch {
+			return label
+		}
 	}
 }
