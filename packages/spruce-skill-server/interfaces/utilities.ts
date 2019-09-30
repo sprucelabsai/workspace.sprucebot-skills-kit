@@ -1,5 +1,5 @@
 import Settings from '../utilities/Settings'
-import lang from '../helpers/lang'
+import lang from '../utilities/lang'
 
 /**
  * Defines the base Spruce core utilities

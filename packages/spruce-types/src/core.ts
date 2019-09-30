@@ -1,4 +1,5 @@
 export {
 	ICoreGQLUserLocation as ICoreUserLocation,
-	ICoreGQLCalendarEvent as ICoreCalendarEvent
+	ICoreGQLCalendarEvent as ICoreCalendarEvent,
+	ICoreGQLLocation as ICoreLocation
 } from './generated/api-gql'

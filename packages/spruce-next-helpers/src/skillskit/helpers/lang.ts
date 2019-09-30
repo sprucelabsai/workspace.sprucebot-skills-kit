@@ -1,7 +1,7 @@
 import * as moment from 'moment'
 import Dinero from 'dinero.js'
 
-import { ISpruceGQLTypes } from '../../../../spruce-skill-server/interfaces/gql'
+import { ICoreLocation } from '@sprucelabs/spruce-types'
 
 export default {
 	lang: {},
@@ -33,15 +33,13 @@ export default {
 		throw Error(`Translation missing key ${key}`)
 	},
 	/** Converts a numnber of cents into a formatted currency string. Ex: "$23.99" */
-	friendlyCurrency(
-		cents: number,
-		location: ISpruceGQLTypes['Location']
-	): string {
+	friendlyCurrency(cents: number, location: ICoreLocation): string {
 		/* TODO: Use these props once added to Location
 		const currency: string = location.currecy || 'USD'
 		const locale: string = location.locale || 'en-US'
 		const precision: number = location.currencyMinorUnits || 2
 		*/
+		console.log('Location passed to friendlyCurrency: ', location.id)
 		const currency = 'USD'
 		const locale = 'en-US'
 		const precision = 2
@@ -52,15 +50,16 @@ export default {
 		return friendlyCurrency
 	},
 	/** Returns a duration string of largest time increments from numer of seconds. Ex: `friendlyDuration(3452626, 2)` returns "1mo 8d" */
-	friendlyDuration(
-		seconds: number,
-		largest: number = 2,
-		showSeconds: boolean = false
-	): string {
+	friendlyDuration(seconds: number, location: ICoreLocation): string {
 		interface IDuration {
 			value: number
 			label: string
 		}
+		console.log('Location passed to friendlyDuration: ', location.id)
+		// TODO: Pull these off of location
+		const largest = 2
+		const showSeconds = false
+		// ----
 		const secondsDuration = moment.duration(seconds, 'seconds')
 		const years = {
 			value: secondsDuration.years(),
@@ -82,7 +81,7 @@ export default {
 			value: secondsDuration.minutes(),
 			label: this.getDurationLabel('min')
 		}
-		let allDurations: IDuration[] = [years, months, days, hours, minutes]
+		const allDurations: IDuration[] = [years, months, days, hours, minutes]
 		if (showSeconds) {
 			allDurations.push({
 				value: secondsDuration.seconds(),

@@ -3,6 +3,7 @@ import globby from 'globby'
 import path from 'path'
 import config from 'config'
 import Debug from 'debug'
+import get from 'ts-get'
 const debug = Debug('spruce-skill-server')
 
 export default (dir: string, key: string, ctx: any) => {
@@ -18,9 +19,7 @@ export default (dir: string, key: string, ctx: any) => {
 			filename = `${filename.charAt(0).toLowerCase()}${filename.slice(1)}`
 			debug(`Loading ${key}: ${filename}`)
 
-			const configKey = `${key}.${filename}`
-
-			const serviceConfig = config[configKey] || {}
+			const serviceConfig = get(config, config => config[key][filename], {})
 
 			const m = require(match)
 			if (m.default) {

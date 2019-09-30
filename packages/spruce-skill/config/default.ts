@@ -12,7 +12,11 @@ try {
 //////////////////////////////////////////////////////////////////////
 const customConfig = {
 	// Define options for utilities
-	utilities: {},
+	utilities: {
+		lang: {
+			dir: process.env.LANG_DIR ? process.env.LANG_DIR : './interface/lang'
+		}
+	},
 	// Define options for services
 	services: {
 		'uploads.disabled': {
