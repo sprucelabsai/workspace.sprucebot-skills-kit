@@ -1,5 +1,5 @@
 import { ISpruceEventWarning } from '../events'
-import { ICoreGQLCalendarEvent } from '../generated/api-gql'
+import { IHWCalendarEvent } from '../generated/hw-gql'
 
 export interface ICoreRescheduleCalendarEventPayloadBlock {
 	/** The block id */
@@ -27,7 +27,7 @@ export interface ICoreRescheduleCalendarEventEventBody {
 	/** Whether the operation succeeded or failed */
 	status?: 'success' | 'failure'
 	/** The updated calendar event */
-	calendarEvent?: ICoreGQLCalendarEvent
+	calendarEvent?: IHWCalendarEvent
 	/** Warnings about the reschedule operation */
 	warnings?: ISpruceEventWarning[]
 }
