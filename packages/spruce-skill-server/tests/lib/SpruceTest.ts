@@ -20,6 +20,7 @@ import {
 } from '../mocks/SandboxMock'
 import { Server } from 'http'
 import { IGQLTag } from '@sprucelabs/spruce-node'
+import request from 'superagent'
 
 // The base test model that all others will extend
 export default class Base<Context> {
@@ -179,14 +180,14 @@ export default class Base<Context> {
 		return response && response.body
 	}
 
-	protected async triggerEvent(options: {
+	protected async triggerEvent<IEventResponseBody = any>(options: {
 		eventName: string
 		payload: Record<string, any>
 		skill: IMockSkill
 		location: Location
 		organization: Organization
 		user: User
-	}): Promise<any> {
+	}): Promise<request.Response & { body: IEventResponseBody }> {
 		const { eventName, payload, skill, location, organization, user } = options
 		const token = generateSkillJWT({
 			skill,
