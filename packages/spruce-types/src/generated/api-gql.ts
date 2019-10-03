@@ -263,7 +263,7 @@ export type ICoreGQLActionEmitEventPayload = {
 	payload?: Maybe<Scalars['JSON']>
 }
 
-export type ICoreGQLActionExecuter = {
+export type ICoreGQLActionExecutor = {
 	action?: Maybe<ICoreGQLAction>
 }
 
@@ -579,7 +579,7 @@ export type ICoreGQLBigSearchSectionResultsPageInfo = {
 	endCursor?: Maybe<Scalars['String']>
 }
 
-export type ICoreGQLButton = ICoreGQLActionExecuter & {
+export type ICoreGQLButton = ICoreGQLActionExecutor & {
 	__typename?: 'Button'
 	/** Unique ID for rendering in lists */
 	id: Scalars['ID']
@@ -909,7 +909,7 @@ export type ICoreGQLCategoryBelongsToManyOrganizationsEdge = {
 	cursor: Scalars['String']
 }
 
-export type ICoreGQLCheckbox = ICoreGQLActionExecuter & {
+export type ICoreGQLCheckbox = ICoreGQLActionExecutor & {
 	__typename?: 'Checkbox'
 	/** Unique identifier */
 	id: Scalars['ID']
@@ -4201,7 +4201,7 @@ export type ICoreGQLQuickAddUserResponse = {
 }
 
 /** A radio control. Give a bunch the same name to keep them as part of the same group */
-export type ICoreGQLRadio = ICoreGQLActionExecuter & {
+export type ICoreGQLRadio = ICoreGQLActionExecutor & {
 	__typename?: 'Radio'
 	/** Unique identifier */
 	id: Scalars['ID']
@@ -5168,7 +5168,7 @@ export type ICoreGQLToast = {
 	followupText?: Maybe<Scalars['String']>
 }
 
-export type ICoreGQLToggle = ICoreGQLActionExecuter & {
+export type ICoreGQLToggle = ICoreGQLActionExecutor & {
 	__typename?: 'Toggle'
 	/** Unique id for UI caching */
 	id: Scalars['ID']

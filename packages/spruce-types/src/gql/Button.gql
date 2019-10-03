@@ -13,7 +13,7 @@ enum ButtonTypes {
 	reset
 }
 
-type Button implements ActionExecuter {
+type Button implements ActionExecutor {
 	"Unique ID for rendering in lists"
 	id: ID!
 

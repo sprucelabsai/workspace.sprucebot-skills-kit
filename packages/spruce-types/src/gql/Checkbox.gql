@@ -1,4 +1,4 @@
-type Checkbox implements ActionExecuter {
+type Checkbox implements ActionExecutor {
 	"Unique identifier"
 	id: ID!
 
