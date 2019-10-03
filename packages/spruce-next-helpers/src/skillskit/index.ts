@@ -53,6 +53,16 @@ export interface ICalendar {
 	updateEvent(event: ICoreCalendarEvent): void
 	/** removes a calendar event from the calendar */
 	deleteEvent(id: string): void
+	/** set a callback for when an event is updated */
+	onCreateEvent(
+		callback: (options: { event: ICoreCalendarEvent }) => void
+	): void
+	/** a callback to invoke when a calendar event is updated */
+	onUpdateEvent(
+		callback: (options: { event: ICoreCalendarEvent }) => void
+	): void
+	/** a callback for when a calendar event is deleted */
+	onDeleteEvent(callback: (options: { id: string }) => void): void
 }
 
 export interface IConfirmationDialog {
@@ -518,6 +528,15 @@ const skill: ISkill = {
 					eventName: 'Calendar:DeleteEvent',
 					data: { event: { id } }
 				})
+			},
+			onCreateEvent: cb => {
+				Iframes.onMessage('Calendar:CreateEvent', cb)
+			},
+			onUpdateEvent: cb => {
+				Iframes.onMessage('Calendar:UpdateEvent', cb)
+			},
+			onDeleteEvent: cb => {
+				Iframes.onMessage('Calendar:DeleteEvent', cb)
 			}
 		}
 

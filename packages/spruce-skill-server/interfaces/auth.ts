@@ -24,6 +24,7 @@ export interface ISpruceAuthLocation {
 	id: string
 	name: string
 	slug: string
+	timezone: string
 }
 
 export interface ISpruceAuthUser<
