@@ -1,4 +1,4 @@
-type Toggle implements ActionExecuter {
+type Toggle implements ActionExecutor {
 	"Unique id for UI caching"
 	id: ID!
 

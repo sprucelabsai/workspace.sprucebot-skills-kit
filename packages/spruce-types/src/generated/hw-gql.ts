@@ -118,7 +118,7 @@ export type IHWActionEmitEventPayload = {
   payload?: Maybe<Scalars['JSON']>,
 };
 
-export type IHWActionExecuter = {
+export type IHWActionExecutor = {
   action?: Maybe<IHWAction>,
 };
 
@@ -201,7 +201,7 @@ export enum IHWActionTypes {
   CalendarJumpTo = 'CalendarJumpTo'
 }
 
-export type IHWButton = IHWActionExecuter & {
+export type IHWButton = IHWActionExecutor & {
   __typename?: 'Button',
   /** Unique ID for rendering in lists */
   id: Scalars['ID'],
@@ -439,7 +439,7 @@ export type IHWCardHeader = {
   contextMenu?: Maybe<IHWContextMenu>,
 };
 
-export type IHWCheckbox = IHWActionExecuter & {
+export type IHWCheckbox = IHWActionExecutor & {
   __typename?: 'Checkbox',
   /** Unique identifier */
   id: Scalars['ID'],
@@ -741,7 +741,7 @@ export type IHWOnboardingCardStep = {
 };
 
 /** A radio control. Give a bunch the same name to keep them as part of the same group */
-export type IHWRadio = IHWActionExecuter & {
+export type IHWRadio = IHWActionExecutor & {
   __typename?: 'Radio',
   /** Unique identifier */
   id: Scalars['ID'],
@@ -835,7 +835,7 @@ export type IHWToast = {
   followupText?: Maybe<Scalars['String']>,
 };
 
-export type IHWToggle = IHWActionExecuter & {
+export type IHWToggle = IHWActionExecutor & {
   __typename?: 'Toggle',
   /** Unique id for UI caching */
   id: Scalars['ID'],

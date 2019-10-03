@@ -169,6 +169,6 @@ type ActionCalendarJumpTo {
 	payload: ActionCalendarJumpToPayload!
 }
 
-interface ActionExecuter {
+interface ActionExecutor {
 	action: Action
 }

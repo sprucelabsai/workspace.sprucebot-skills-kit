@@ -1,5 +1,5 @@
 "A radio control. Give a bunch the same name to keep them as part of the same group"
-type Radio implements ActionExecuter {
+type Radio implements ActionExecutor {
 	"Unique identifier"
 	id: ID!
 
