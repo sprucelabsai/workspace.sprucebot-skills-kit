@@ -197,10 +197,10 @@ export default class SplitButton extends Component<
 			// TODO: Warn dev if not in production environment; they might wanna use a different component
 			return (
 				<Button
-					kind={kind}
 					isFullWidth={isFullWidth}
 					isSmall={isSmall}
 					{...defaultAction}
+					kind={defaultAction.kind || kind}
 				/>
 			)
 		}
@@ -214,17 +214,17 @@ export default class SplitButton extends Component<
 			>
 				<div className="split-button__button">
 					<Button
-						kind={kind}
 						isSmall={isSmall}
 						className="split-button__default"
 						{...defaultAction}
+						kind={defaultAction.kind || kind}
 						isFullWidth={false}
 					/>
 					<Button
-						kind={kind}
 						isSmall={isSmall}
 						className="split-button__actions"
 						icon={{ name: 'keyboard_arrow_down' }}
+						kind={kind}
 						onClick={this.toggleActionsVisibility}
 					/>
 				</div>

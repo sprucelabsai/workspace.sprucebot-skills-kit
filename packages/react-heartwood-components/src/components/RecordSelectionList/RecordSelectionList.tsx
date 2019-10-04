@@ -620,7 +620,7 @@ export default class RecordSelectionList extends Component<
 						<Button
 							kind={ButtonKinds.Simple}
 							className="record-selection__record-remove-btn"
-							disabled={false}
+							isDisabled={false}
 							isSmall
 							icon={{ name: 'cancel_solid', className: 'btn__line-icon' }}
 							onClick={() => {
