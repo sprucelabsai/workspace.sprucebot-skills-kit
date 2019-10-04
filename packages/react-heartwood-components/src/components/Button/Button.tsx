@@ -125,14 +125,14 @@ const Button = (props: IButtonProps): React.ReactElement => {
 	// TODO: We probably need to create explicit whitelists of what we want to
 	// allow to be spread onto native DOM elements, since applying non-standard
 	// attributes throws a warning.
-	const { disabled } = rest
+	const { isDisabled } = rest
 
 	const button = (
 		<button
 			className={btnClass}
 			type={type || 'button'}
 			onClick={handleClick}
-			disabled={disabled || false}
+			disabled={isDisabled || false}
 		>
 			<Inner />
 		</button>

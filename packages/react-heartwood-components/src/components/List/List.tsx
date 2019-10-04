@@ -38,10 +38,16 @@ const List = (props: IListProps): React.ReactElement => {
 		items,
 		className,
 		isSmall,
-		areSeparatorsVisible,
+		areSeparatorsVisible: areSeparatorsVisibleProps,
 		children,
 		selectableType
 	} = props
+
+	// seperators a true by default
+	const areSeparatorsVisible =
+		typeof areSeparatorsVisibleProps === 'boolean'
+			? areSeparatorsVisibleProps
+			: true
 
 	const parentClass = cx('list', className, {
 		'list-small': isSmall,
@@ -61,9 +67,17 @@ const List = (props: IListProps): React.ReactElement => {
 							return (
 								<ListItem
 									key={listItem.id}
-									selectableType={selectableType}
-									isSeparatorVisible={areSeparatorsVisible}
+									selectableType={
+										typeof listItem.selectableType === 'boolean'
+											? listItem.selectableType
+											: selectableType
+									}
 									{...listItem}
+									isSeparatorVisible={
+										typeof listItem.isSeparatorVisible === 'boolean'
+											? listItem.isSeparatorVisible
+											: areSeparatorsVisible
+									}
 								/>
 							)
 						}
