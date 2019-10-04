@@ -68,7 +68,7 @@ const List = (props: IListProps): React.ReactElement => {
 								<ListItem
 									key={listItem.id}
 									selectableType={
-										typeof listItem.selectableType === 'boolean'
+										typeof listItem.selectableType === 'string'
 											? listItem.selectableType
 											: selectableType
 									}

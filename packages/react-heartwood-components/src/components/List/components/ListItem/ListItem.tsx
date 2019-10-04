@@ -82,7 +82,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		toggleProps,
 		isSeparatorVisible,
 		className,
-		selectableId: selectableIdProps,
+		selectableId: selectableIdProp,
 		selectableProps,
 		selectableType,
 		warnings,
@@ -95,7 +95,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 	let selectableId
 
 	if (selectableProps) {
-		selectableId = selectableIdProps ? selectableIdProps : selectableProps.id
+		selectableId = selectableIdProp ? selectableIdProp : selectableProps.id
 
 		// TODO move this to a type that can be inferred
 		const restSelectableProps = cloneDeep(selectableProps)
