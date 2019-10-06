@@ -13,10 +13,10 @@ type CalendarEventBlock {
 	durationSec: Int!
 
 	"An array of icons show on the left of the calendar event"
-	leftIcons: [Icon]
+	leftIcons: [Icon!]
 
 	"An array of icons shown on the right of the calendar event"
-	rightIcons: [Icon]
+	rightIcons: [Icon!]
 
 	"Is the person tied to this event busy during this time?"
 	isBusy: Boolean

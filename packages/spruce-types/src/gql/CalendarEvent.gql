@@ -50,4 +50,7 @@ type CalendarEvent {
 
 	"The ID of the user this event will render under"
 	userId: ID!
+
+	"If this is a draft event (meaning it's not booked, but being setup)"
+	isDraft: Boolean
 }

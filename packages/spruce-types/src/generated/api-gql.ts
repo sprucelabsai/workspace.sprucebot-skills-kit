@@ -673,6 +673,8 @@ export type ICoreGQLCalendarEvent = {
 	details?: Maybe<ICoreGQLCalendarEventDetails>
 	/** The ID of the user this event will render under */
 	userId: Scalars['ID']
+	/** If this is a draft event (meaning it's not booked, but being setup) */
+	isDraft?: Maybe<Scalars['Boolean']>
 }
 
 /** A block of time that comprises a calendar. */
@@ -687,9 +689,9 @@ export type ICoreGQLCalendarEventBlock = {
 	/** How long this block is for, in seconds */
 	durationSec: Scalars['Int']
 	/** An array of icons show on the left of the calendar event */
-	leftIcons?: Maybe<Array<Maybe<ICoreGQLIcon>>>
+	leftIcons?: Maybe<Array<ICoreGQLIcon>>
 	/** An array of icons shown on the right of the calendar event */
-	rightIcons?: Maybe<Array<Maybe<ICoreGQLIcon>>>
+	rightIcons?: Maybe<Array<ICoreGQLIcon>>
 	/** Is the person tied to this event busy during this time? */
 	isBusy?: Maybe<Scalars['Boolean']>
 }
