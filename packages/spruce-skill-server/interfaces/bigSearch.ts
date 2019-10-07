@@ -30,10 +30,10 @@ export interface ISpruceBigSearchResult {
 }
 
 export enum SpruceBigSearchType {
-	ANY = 'any',
-	USER = 'user',
-	LOCATION = 'location',
-	GROUP = 'group'
+	Any = 'any',
+	User = 'user',
+	Location = 'location',
+	Group = 'group'
 }
 
 export interface ISpruceBigSearchCtx extends ISpruceContext {
@@ -49,10 +49,10 @@ export interface ISpruceBigSearchCtx extends ISpruceContext {
 			testing: boolean
 			/** The things we're searching for */
 			types:
-				| SpruceBigSearchType.ANY
-				| SpruceBigSearchType.GROUP
-				| SpruceBigSearchType.LOCATION
-				| SpruceBigSearchType.USER
+				| SpruceBigSearchType.Any
+				| SpruceBigSearchType.Group
+				| SpruceBigSearchType.Location
+				| SpruceBigSearchType.User
 		}
 	}
 }
