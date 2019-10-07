@@ -28,8 +28,8 @@ module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
 
 		// Here is how you could search the core using any rules if types was any or user
 		if (
-			types.indexOf(SpruceBigSearchType.ANY) > -1 ||
-			types.indexOf(SpruceBigSearchType.USER) > -1
+			types.indexOf(SpruceBigSearchType.Any) > -1 ||
+			types.indexOf(SpruceBigSearchType.User) > -1
 		) {
 			const { count, rows } = await ctx.db.models.User.findAndCountAll({
 				// where: {

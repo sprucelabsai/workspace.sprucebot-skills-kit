@@ -5,6 +5,7 @@ const importRules = require('eslint-plugin-import/config/errors')
 const defaultFormattingRules = {
 	curly: 'error',
 	'spruce/utils-graphql': 'error',
+	'spruce/prefer-pascal-case-enums': 'error',
 	'react/jsx-no-undef': 'error',
 	'no-console': 'off',
 	'no-undef': 'error',
