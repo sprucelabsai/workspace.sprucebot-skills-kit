@@ -15,8 +15,12 @@ const TextComponentKey = {
 const renderText = (child): ReactNode => {
 	const { children, ...rest } = child.props
 	const handlerProps = { children: child.text || children, ...rest }
-	const Handler =
-		(child && child.type && TextComponentKey[child.type]) || Fragment
+	const Handler = child && child.type && TextComponentKey[child.type]
+
+	if (!Handler) {
+		return <Fragment key={rest.key}>{children}</Fragment>
+	}
+
 	return typeof Handler === 'function' ? (
 		Handler({ ...handlerProps })
 	) : (

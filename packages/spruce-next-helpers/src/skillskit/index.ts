@@ -505,25 +505,31 @@ const skill: ISkill = {
 	calendar() {
 		const calendar: ICalendar = {
 			createEvent: event => {
-				Iframes.sendMessage({
-					to: window.parent,
-					eventName: 'Calendar:CreateEvent',
-					data: { event }
-				})
+				if (window.parent !== window) {
+					Iframes.sendMessage({
+						to: window.parent,
+						eventName: 'Calendar:CreateEvent',
+						data: { event }
+					})
+				}
 			},
 			updateEvent: event => {
-				Iframes.sendMessage({
-					to: window.parent,
-					eventName: 'Calendar:UpdateEvent',
-					data: { event }
-				})
+				if (window.parent !== window) {
+					Iframes.sendMessage({
+						to: window.parent,
+						eventName: 'Calendar:UpdateEvent',
+						data: { event }
+					})
+				}
 			},
 			deleteEvent: id => {
-				Iframes.sendMessage({
-					to: window.parent,
-					eventName: 'Calendar:DeleteEvent',
-					data: { event: { id } }
-				})
+				if (window.parent !== window) {
+					Iframes.sendMessage({
+						to: window.parent,
+						eventName: 'Calendar:DeleteEvent',
+						data: { event: { id } }
+					})
+				}
 			},
 			onCreateEvent: cb => {
 				Iframes.onMessage('Calendar:CreateEvent', cb)

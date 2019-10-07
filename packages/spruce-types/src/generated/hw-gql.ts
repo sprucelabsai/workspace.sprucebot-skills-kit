@@ -120,6 +120,7 @@ export type IHWActionEmitEventPayload = {
 
 export type IHWActionExecutor = {
   action?: Maybe<IHWAction>,
+  id: Scalars['ID'],
 };
 
 /** Pop up dialog to edit the user */
@@ -558,7 +559,7 @@ export type IHWExpandableListItem = {
 export type IHWHeading = {
   __typename?: 'Heading',
   /** Id for view caching */
-  id: Scalars['String'],
+  id: Scalars['ID'],
   /** HTML rendered directly */
   html?: Maybe<Scalars['String']>,
   /** Text rendered in the header */
