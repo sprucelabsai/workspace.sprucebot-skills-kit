@@ -54,15 +54,11 @@ export interface ICalendar {
 	/** removes a calendar event from the calendar */
 	deleteEvent(id: string): void
 	/** set a callback for when an event is updated */
-	onCreateEvent(
-		callback: (options: { event: ICoreCalendarEvent }) => void
-	): void
+	onCreateEvent(callback: (data: { event: ICoreCalendarEvent }) => void): void
 	/** a callback to invoke when a calendar event is updated */
-	onUpdateEvent(
-		callback: (options: { event: ICoreCalendarEvent }) => void
-	): void
+	onUpdateEvent(callback: (data: { event: ICoreCalendarEvent }) => void): void
 	/** a callback for when a calendar event is deleted */
-	onDeleteEvent(callback: (options: { id: string }) => void): void
+	onDeleteEvent(callback: (data: { id: string }) => void): void
 }
 
 export interface IConfirmationDialog {
@@ -509,25 +505,31 @@ const skill: ISkill = {
 	calendar() {
 		const calendar: ICalendar = {
 			createEvent: event => {
-				Iframes.sendMessage({
-					to: window.parent,
-					eventName: 'Calendar:CreateEvent',
-					data: { event }
-				})
+				if (window.parent !== window) {
+					Iframes.sendMessage({
+						to: window.parent,
+						eventName: 'Calendar:CreateEvent',
+						data: { event }
+					})
+				}
 			},
 			updateEvent: event => {
-				Iframes.sendMessage({
-					to: window.parent,
-					eventName: 'Calendar:UpdateEvent',
-					data: { event }
-				})
+				if (window.parent !== window) {
+					Iframes.sendMessage({
+						to: window.parent,
+						eventName: 'Calendar:UpdateEvent',
+						data: { event }
+					})
+				}
 			},
 			deleteEvent: id => {
-				Iframes.sendMessage({
-					to: window.parent,
-					eventName: 'Calendar:DeleteEvent',
-					data: { event: { id } }
-				})
+				if (window.parent !== window) {
+					Iframes.sendMessage({
+						to: window.parent,
+						eventName: 'Calendar:DeleteEvent',
+						data: { event: { id } }
+					})
+				}
 			},
 			onCreateEvent: cb => {
 				Iframes.onMessage('Calendar:CreateEvent', cb)

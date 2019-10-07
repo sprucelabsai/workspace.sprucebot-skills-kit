@@ -45,7 +45,7 @@ type Button implements ActionExecutor {
 	type: ButtonTypes
 
 	"Set true to disable the button"
-	disabled: Boolean
+	isDisabled: Boolean
 
 	"Optional action to invoke when tapped"
 	action: Action

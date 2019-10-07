@@ -263,7 +263,7 @@ export type ICoreGQLActionEmitEventPayload = {
 	payload?: Maybe<Scalars['JSON']>
 }
 
-export type ICoreGQLActionExecuter = {
+export type ICoreGQLActionExecutor = {
 	action?: Maybe<ICoreGQLAction>
 }
 
@@ -579,7 +579,7 @@ export type ICoreGQLBigSearchSectionResultsPageInfo = {
 	endCursor?: Maybe<Scalars['String']>
 }
 
-export type ICoreGQLButton = ICoreGQLActionExecuter & {
+export type ICoreGQLButton = ICoreGQLActionExecutor & {
 	__typename?: 'Button'
 	/** Unique ID for rendering in lists */
 	id: Scalars['ID']
@@ -602,7 +602,7 @@ export type ICoreGQLButton = ICoreGQLActionExecuter & {
 	/** Type attribute for HTML button element. Defaults to 'button'. */
 	type?: Maybe<ICoreGQLButtonTypes>
 	/** Set true to disable the button */
-	disabled?: Maybe<Scalars['Boolean']>
+	isDisabled?: Maybe<Scalars['Boolean']>
 	/** Optional action to invoke when tapped */
 	action?: Maybe<ICoreGQLAction>
 }
@@ -673,6 +673,8 @@ export type ICoreGQLCalendarEvent = {
 	details?: Maybe<ICoreGQLCalendarEventDetails>
 	/** The ID of the user this event will render under */
 	userId: Scalars['ID']
+	/** If this is a draft event (meaning it's not booked, but being setup) */
+	isDraft?: Maybe<Scalars['Boolean']>
 }
 
 /** A block of time that comprises a calendar. */
@@ -687,9 +689,9 @@ export type ICoreGQLCalendarEventBlock = {
 	/** How long this block is for, in seconds */
 	durationSec: Scalars['Int']
 	/** An array of icons show on the left of the calendar event */
-	leftIcons?: Maybe<Array<Maybe<ICoreGQLIcon>>>
+	leftIcons?: Maybe<Array<ICoreGQLIcon>>
 	/** An array of icons shown on the right of the calendar event */
-	rightIcons?: Maybe<Array<Maybe<ICoreGQLIcon>>>
+	rightIcons?: Maybe<Array<ICoreGQLIcon>>
 	/** Is the person tied to this event busy during this time? */
 	isBusy?: Maybe<Scalars['Boolean']>
 }
@@ -909,7 +911,7 @@ export type ICoreGQLCategoryBelongsToManyOrganizationsEdge = {
 	cursor: Scalars['String']
 }
 
-export type ICoreGQLCheckbox = ICoreGQLActionExecuter & {
+export type ICoreGQLCheckbox = ICoreGQLActionExecutor & {
 	__typename?: 'Checkbox'
 	/** Unique identifier */
 	id: Scalars['ID']
@@ -4201,7 +4203,7 @@ export type ICoreGQLQuickAddUserResponse = {
 }
 
 /** A radio control. Give a bunch the same name to keep them as part of the same group */
-export type ICoreGQLRadio = ICoreGQLActionExecuter & {
+export type ICoreGQLRadio = ICoreGQLActionExecutor & {
 	__typename?: 'Radio'
 	/** Unique identifier */
 	id: Scalars['ID']
@@ -5168,7 +5170,7 @@ export type ICoreGQLToast = {
 	followupText?: Maybe<Scalars['String']>
 }
 
-export type ICoreGQLToggle = ICoreGQLActionExecuter & {
+export type ICoreGQLToggle = ICoreGQLActionExecutor & {
 	__typename?: 'Toggle'
 	/** Unique id for UI caching */
 	id: Scalars['ID']

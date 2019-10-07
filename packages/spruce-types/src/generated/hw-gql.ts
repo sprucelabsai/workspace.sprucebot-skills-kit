@@ -120,6 +120,7 @@ export type IHWActionEmitEventPayload = {
 
 export type IHWActionExecutor = {
   action?: Maybe<IHWAction>,
+  id: Scalars['ID'],
 };
 
 /** Pop up dialog to edit the user */
@@ -224,7 +225,7 @@ export type IHWButton = IHWActionExecutor & {
   /** Type attribute for HTML button element. Defaults to 'button'. */
   type?: Maybe<IHWButtonTypes>,
   /** Set true to disable the button */
-  disabled?: Maybe<Scalars['Boolean']>,
+  isDisabled?: Maybe<Scalars['Boolean']>,
   /** Optional action to invoke when tapped */
   action?: Maybe<IHWAction>,
 };
@@ -284,6 +285,8 @@ export type IHWCalendarEvent = {
   details?: Maybe<IHWCalendarEventDetails>,
   /** The ID of the user this event will render under */
   userId: Scalars['ID'],
+  /** If this is a draft event (meaning it's not booked, but being setup) */
+  isDraft?: Maybe<Scalars['Boolean']>,
 };
 
 /** A block of time that comprises a calendar. */
@@ -298,9 +301,9 @@ export type IHWCalendarEventBlock = {
   /** How long this block is for, in seconds */
   durationSec: Scalars['Int'],
   /** An array of icons show on the left of the calendar event */
-  leftIcons?: Maybe<Array<Maybe<IHWIcon>>>,
+  leftIcons?: Maybe<Array<IHWIcon>>,
   /** An array of icons shown on the right of the calendar event */
-  rightIcons?: Maybe<Array<Maybe<IHWIcon>>>,
+  rightIcons?: Maybe<Array<IHWIcon>>,
   /** Is the person tied to this event busy during this time? */
   isBusy?: Maybe<Scalars['Boolean']>,
 };
@@ -556,7 +559,7 @@ export type IHWExpandableListItem = {
 export type IHWHeading = {
   __typename?: 'Heading',
   /** Id for view caching */
-  id: Scalars['String'],
+  id: Scalars['ID'],
   /** HTML rendered directly */
   html?: Maybe<Scalars['String']>,
   /** Text rendered in the header */

@@ -171,4 +171,5 @@ type ActionCalendarJumpTo {
 
 interface ActionExecutor {
 	action: Action
+	id: ID!
 }

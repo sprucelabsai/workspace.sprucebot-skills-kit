@@ -10,7 +10,7 @@ enum HeadingWeight {
 
 type Heading {
 	"Id for view caching"
-	id: String!
+	id: ID!
 
 	"HTML rendered directly"
 	html: String
