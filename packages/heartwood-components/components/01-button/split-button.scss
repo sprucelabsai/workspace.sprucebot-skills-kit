@@ -38,6 +38,7 @@
 		@extend %loading-placeholder-base;
 		float: none;
 		.btn {
+			opacity: 0;
 			background-color: transparent;
 		}
 	}
