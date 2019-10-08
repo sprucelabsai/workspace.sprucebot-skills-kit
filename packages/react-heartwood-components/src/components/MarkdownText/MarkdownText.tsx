@@ -8,7 +8,9 @@ export interface IMarkdownProps extends Omit<IHWMarkdown, 'id'> {
 
 const MarkdownText = (props: IMarkdownProps): React.ReactElement => {
 	const { source, id } = props
-	return <ReactMarkdown key={id} source={source} />
+	return (
+		<ReactMarkdown className={'markdown-wrapper'} key={id} source={source} />
+	)
 }
 
 export default MarkdownText

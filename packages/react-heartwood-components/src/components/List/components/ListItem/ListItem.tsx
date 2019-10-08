@@ -116,7 +116,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		'list-item--primary-action': primaryAction,
 		'list-item--separator-hidden': !isSeparatorVisible,
 		'list-item--has-avatar': !!avatar,
-		loading: isLoading
+		'loading-placeholder': isLoading
 	})
 
 	const ListItemInner = (): React.ReactElement => (

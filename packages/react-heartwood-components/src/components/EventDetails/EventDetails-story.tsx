@@ -13,6 +13,7 @@ import {
 	lunchBreak,
 	ptoBlock
 } from './eventDetailsMock'
+import { boolean, withKnobs } from '@storybook/addon-knobs'
 
 const stories = storiesOf('EventDetails', module)
 
@@ -21,35 +22,43 @@ const stories = storiesOf('EventDetails', module)
 // 	<Page STORYBOOKwrap={false} sidebar={storyFn()} />
 // ))
 
+stories.addDecorator(withKnobs)
+
 stories
 	.add('Booking: Appointment', () => (
 		<Sidebar side="right" isCollapsible={false} isLarge>
 			<SidebarHeader title="Appointment details" onClose={() => null} />
-			<EventDetails {...appointment} />
+			<EventDetails isLoading={boolean('isLoading', false)} {...appointment} />
 		</Sidebar>
 	))
 	.add('Booking: Appointment has warning', () => (
 		<Sidebar side="right" isCollapsible={false} isLarge>
 			<SidebarHeader title="Appointment details" onClose={() => null} />
-			<EventDetails {...warningAppointment} />
+			<EventDetails
+				isLoading={boolean('isLoading', false)}
+				{...warningAppointment}
+			/>
 		</Sidebar>
 	))
 	.add('Booking: Past Appointment', () => (
 		<Sidebar side="right" isCollapsible={false} isLarge>
 			<SidebarHeader title="Appointment details" onClose={() => null} />
-			<EventDetails {...pastAppointment} />
+			<EventDetails
+				isLoading={boolean('isLoading', false)}
+				{...pastAppointment}
+			/>
 		</Sidebar>
 	))
 	.add('Scheduling: Lunch Break', () => (
 		<Sidebar side="right" isCollapsible={false} isLarge>
 			<SidebarHeader title="Lunch break" onClose={() => null} />
-			<EventDetails {...lunchBreak} />
+			<EventDetails isLoading={boolean('isLoading', false)} {...lunchBreak} />
 		</Sidebar>
 	))
 
 	.add('Scheduling: PTO', () => (
 		<Sidebar side="right" isCollapsible={false} isLarge>
 			<SidebarHeader title="PTO" onClose={() => null} />
-			<EventDetails {...ptoBlock} />
+			<EventDetails isLoading={boolean('isLoading', false)} {...ptoBlock} />
 		</Sidebar>
 	))

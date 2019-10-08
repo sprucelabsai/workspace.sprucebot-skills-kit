@@ -40,9 +40,14 @@ export default class EventDetails extends Component<
 	IEventDetailsState
 > {
 	public render(): React.ReactElement {
-		const { items } = this.props
+		const { items, isLoading } = this.props
+
+		const className = cx('event-details', {
+			'loading-placeholder': isLoading
+		})
+
 		return (
-			<div className="event-details">
+			<div className={className}>
 				{items.map(item => (
 					<div
 						key={item.viewModel.id}

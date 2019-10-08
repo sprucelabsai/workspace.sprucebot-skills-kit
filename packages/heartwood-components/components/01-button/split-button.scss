@@ -29,3 +29,16 @@
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
+
+.loading-placeholder {
+	.split-button--is-full-width {
+		width: 100%;
+	}
+	.split-button {
+		@extend %loading-placeholder-base;
+		float: none;
+		.btn {
+			background-color: transparent;
+		}
+	}
+}

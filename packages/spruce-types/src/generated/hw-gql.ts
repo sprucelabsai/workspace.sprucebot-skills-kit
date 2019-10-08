@@ -311,6 +311,8 @@ export type IHWCalendarEventBlock = {
 /** The additional details attached to an event. Rendered after someone taps on an event in the calendar */
 export type IHWCalendarEventDetails = {
   __typename?: 'CalendarEventDetails',
+  /** In a loading state, loading placeholders will be dropped in */
+  isLoading?: Maybe<Scalars['Boolean']>,
   items: Array<IHWCalendarEventDetailsItem>,
 };
 
