@@ -28,7 +28,5 @@ type CalendarEventDetailsItem {
 
 "The additional details attached to an event. Rendered after someone taps on an event in the calendar"
 type CalendarEventDetails {
-	"In a loading state, loading placeholders will be dropped in"
-	isLoading: Boolean
 	items: [CalendarEventDetailsItem!]!
 }

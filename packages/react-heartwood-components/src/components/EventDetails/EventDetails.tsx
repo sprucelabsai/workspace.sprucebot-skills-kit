@@ -18,6 +18,9 @@ import { IListProps } from '../List'
 
 export interface IEventDetailsItemProps
 	extends Omit<IHWCalendarEventDetailsItem, 'viewModel'> {
+	/** In a loading state, loading placeholders will be dropped in */
+	isLoading: boolean
+
 	viewModel:
 		| IListProps
 		| IButtonProps

@@ -94,9 +94,6 @@ type ListItem {
 	"Highlight title, subtitle, note with warning colors"
 	warnings: ListItemWarningConfig
 
-	"Is this list item in a loading state?"
-	isLoading: Boolean
-
 	"Optional; adds a nested list"
 	list: List
 
@@ -146,7 +143,4 @@ type List {
 
 	"Optional: set whether to use checkbox or radio for selectable list items"
 	selectableType: ListItemSelectableType
-
-	"Is this whole list in a loading state? Sets all list items to loading only if true."
-	isLoading: Boolean
 }

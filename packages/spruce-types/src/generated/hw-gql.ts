@@ -311,8 +311,6 @@ export type IHWCalendarEventBlock = {
 /** The additional details attached to an event. Rendered after someone taps on an event in the calendar */
 export type IHWCalendarEventDetails = {
   __typename?: 'CalendarEventDetails',
-  /** In a loading state, loading placeholders will be dropped in */
-  isLoading?: Maybe<Scalars['Boolean']>,
   items: Array<IHWCalendarEventDetailsItem>,
 };
 
@@ -618,8 +616,6 @@ export type IHWList = {
   areSeparatorsVisible?: Maybe<Scalars['Boolean']>,
   /** Optional: set whether to use checkbox or radio for selectable list items */
   selectableType?: Maybe<IHWListItemSelectableType>,
-  /** Is this whole list in a loading state? Sets all list items to loading only if true. */
-  isLoading?: Maybe<Scalars['Boolean']>,
 };
 
 export type IHWListHeader = {
@@ -681,8 +677,6 @@ export type IHWListItem = {
   selectableProps?: Maybe<IHWListItemSelectablePropsType>,
   /** Highlight title, subtitle, note with warning colors */
   warnings?: Maybe<IHWListItemWarningConfig>,
-  /** Is this list item in a loading state? */
-  isLoading?: Maybe<Scalars['Boolean']>,
   /** Optional; adds a nested list */
   list?: Maybe<IHWList>,
   /** Optional; adds multiple lists nested at the same level */

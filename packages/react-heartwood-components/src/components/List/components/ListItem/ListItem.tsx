@@ -62,6 +62,9 @@ export interface IListItemProps
 
 	/** Optional; adds multiple lists nested at the same level */
 	lists?: IListProps[]
+
+	/** In a loading state, loading placeholders will be dropped in */
+	isLoading: boolean
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
