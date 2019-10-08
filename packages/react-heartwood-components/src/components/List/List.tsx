@@ -32,7 +32,7 @@ export interface IListProps extends Omit<IHWList, 'id' | 'header' | 'items'> {
 	children?: React.ReactNode
 
 	/** Is this whole list in a loading state? Sets all list items to loading only if true. */
-	isLoading: boolean
+	isLoading?: boolean
 }
 
 const List = (props: IListProps): React.ReactElement => {

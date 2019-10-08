@@ -64,7 +64,7 @@ export interface IListItemProps
 	lists?: IListProps[]
 
 	/** In a loading state, loading placeholders will be dropped in */
-	isLoading: boolean
+	isLoading?: boolean
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {

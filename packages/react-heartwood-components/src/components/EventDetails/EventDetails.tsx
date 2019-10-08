@@ -18,9 +18,6 @@ import { IListProps } from '../List'
 
 export interface IEventDetailsItemProps
 	extends Omit<IHWCalendarEventDetailsItem, 'viewModel'> {
-	/** In a loading state, loading placeholders will be dropped in */
-	isLoading: boolean
-
 	viewModel:
 		| IListProps
 		| IButtonProps
@@ -33,6 +30,10 @@ export interface IEventDetailsItemProps
 
 export interface IEventDetailsProps
 	extends Omit<IHWCalendarEventDetails, 'items'> {
+	/** In a loading state, loading placeholders will be dropped in */
+	isLoading?: boolean
+
+	/** all the items that make up this event details component */
 	items: IEventDetailsItemProps[]
 }
 
