@@ -1,17 +1,17 @@
 export enum SpruceSettingsFieldType {
-	TEXT = 'text',
-	BOOLEAN = 'boolean',
-	SELECT = 'select',
-	DURATION = 'duration'
+	Text = 'text',
+	Boolean = 'boolean',
+	Select = 'select',
+	Duration = 'duration'
 }
 
 export interface ISpruceSettingsField {
 	name: string
 	type:
-		| SpruceSettingsFieldType.TEXT
-		| SpruceSettingsFieldType.BOOLEAN
-		| SpruceSettingsFieldType.DURATION
-		| SpruceSettingsFieldType.SELECT
+		| SpruceSettingsFieldType.Text
+		| SpruceSettingsFieldType.Boolean
+		| SpruceSettingsFieldType.Duration
+		| SpruceSettingsFieldType.Select
 	acls?: {
 		[slug: string]: string[]
 	}

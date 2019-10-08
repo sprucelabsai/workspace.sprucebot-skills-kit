@@ -60,9 +60,9 @@ export interface IEventResponse {
 }
 
 export enum IMessageType {
-	PROMOTIONAL = 'promotional',
-	TRANSACTIONAL = 'transactional',
-	AUTH = 'auth'
+	Promotional = 'promotional',
+	Transactional = 'transactional',
+	Auth = 'auth'
 }
 
 interface IMessageOptions {
@@ -71,9 +71,9 @@ interface IMessageOptions {
 	payload?: Record<string, any>
 	sendAtTimestamp?: number
 	type:
-		| IMessageType.PROMOTIONAL
-		| IMessageType.TRANSACTIONAL
-		| IMessageType.AUTH
+		| IMessageType.Promotional
+		| IMessageType.Transactional
+		| IMessageType.Auth
 }
 
 interface IMessage {
@@ -450,7 +450,7 @@ export default class Sprucebot {
 		const data: Record<string, any> = {
 			userId,
 			message,
-			type: IMessageType.PROMOTIONAL
+			type: IMessageType.Promotional
 		}
 
 		if (options) {
@@ -485,7 +485,7 @@ export default class Sprucebot {
 			sendAtTimestamp?: number
 			linksToWebView?: boolean
 			webViewQueryData?: Record<string, any>
-			type?: IMessageType.PROMOTIONAL | IMessageType.TRANSACTIONAL
+			type?: IMessageType.Promotional | IMessageType.Transactional
 		}[]
 	): Promise<Record<string, any>> {
 		return this.adapter.post('/ge/messages', { messages })
@@ -510,7 +510,7 @@ export default class Sprucebot {
 	public async globalMessage(
 		userId: string,
 		message: string,
-		type = IMessageType.PROMOTIONAL
+		type = IMessageType.Promotional
 	): Promise<Record<string, any>> {
 		return this.adapter.post('/messages', { userId, message, type })
 	}
