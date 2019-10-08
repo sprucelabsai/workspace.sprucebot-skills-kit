@@ -106,6 +106,7 @@ stories
 			actions={object('actions', [])}
 			toggleId={text('toggleId', '')}
 			contextMenu={object('contextMenu', null)}
+			isLoading={boolean('isLoading', false)}
 		/>
 	))
 	.add('Text List', () => (
@@ -114,6 +115,7 @@ stories
 				header={object('header: text list', { title: 'Holidays' })}
 				isSmall={boolean('isSmall', false)}
 				items={object('items: text list', dateList)}
+				isLoading={boolean('isLoading', false)}
 			/>
 			<SortableList
 				header={object('header: sortable list', { title: 'Services' })}
@@ -123,11 +125,13 @@ stories
 				onSortStart={() => null}
 				onSortEnd={() => null}
 				areSeparatorsVisible
+				isLoading={boolean('isLoading', false)}
 			/>
 			<List
 				header={object('header: dates list', { title: 'Important Dates' })}
 				isSmall={boolean('isSmall', false)}
 				items={object('items: dates list', dateList)}
+				isLoading={boolean('isLoading', false)}
 			/>
 		</Fragment>
 	))

@@ -87,7 +87,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		selectableType,
 		warnings,
 		list,
-		lists
+		lists,
+		isLoading
 	} = props
 
 	let checkboxProps: ICheckboxProps | undefined
@@ -114,7 +115,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		'list-item--is-disabled': isDisabled,
 		'list-item--primary-action': primaryAction,
 		'list-item--separator-hidden': !isSeparatorVisible,
-		'list-item--has-avatar': !!avatar
+		'list-item--has-avatar': !!avatar,
+		loading: isLoading
 	})
 
 	const ListItemInner = (): React.ReactElement => (

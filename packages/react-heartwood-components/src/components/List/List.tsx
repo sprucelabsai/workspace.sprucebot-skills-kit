@@ -40,7 +40,8 @@ const List = (props: IListProps): React.ReactElement => {
 		isSmall,
 		areSeparatorsVisible: areSeparatorsVisibleProp,
 		children,
-		selectableType
+		selectableType,
+		isLoading
 	} = props
 
 	// seperators a true by default
@@ -51,7 +52,8 @@ const List = (props: IListProps): React.ReactElement => {
 
 	const parentClass = cx('list', className, {
 		'list-small': isSmall,
-		'list--separators-hidden': !areSeparatorsVisible
+		'list--separators-hidden': !areSeparatorsVisible,
+		loading: isLoading
 	})
 
 	return (
