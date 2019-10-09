@@ -2,7 +2,10 @@ import { compact, get } from 'lodash'
 import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import { createHttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import {
+	InMemoryCache,
+	IntrospectionFragmentMatcher
+} from 'apollo-cache-inmemory'
 import { split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
@@ -50,11 +53,13 @@ export class GraphQLClient {
 	constructor({
 		rejectUnauthorized,
 		uri,
-		wsUri
+		wsUri,
+		introspectionQueryResultData
 	}: {
 		rejectUnauthorized: boolean
 		uri: string
 		wsUri: string
+		introspectionQueryResultData: any
 	}) {
 		const agent = new https.Agent({
 			rejectUnauthorized
@@ -143,8 +148,16 @@ export class GraphQLClient {
 			})
 		}
 
+		let fragmentMatcher
+
+		if (introspectionQueryResultData) {
+			fragmentMatcher = new IntrospectionFragmentMatcher({
+				introspectionQueryResultData
+			})
+		}
+
 		this.client = new ApolloClient({
-			cache: new InMemoryCache(),
+			cache: new InMemoryCache({ fragmentMatcher }),
 			link,
 			defaultOptions: {
 				query: {
@@ -154,7 +167,7 @@ export class GraphQLClient {
 		})
 	}
 
-	setToken(token: string) {
+	setToken = (token: string) => {
 		this.token = token
 	}
 
