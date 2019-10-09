@@ -13,6 +13,7 @@ $foit: true;
 @import 'base/base';
 @import 'base/utilities';
 @import 'base/type';
+@import 'base/loading-placeholder';
 
 // Components
 // NOTE: Must be imported individually to work as a node module
@@ -50,6 +51,7 @@ $foit: true;
 @import '../components/07-navigation/tabs';
 @import '../components/08-lists/lists';
 @import '../components/10-text/text';
+@import '../components/10-text/markdown';
 @import '../components/99-web/main-content';
 @import '../components/99-web/header-primary';
 @import '../components/99-web/footer';

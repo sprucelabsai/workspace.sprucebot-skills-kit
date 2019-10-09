@@ -62,6 +62,9 @@ export interface IListItemProps
 
 	/** Optional; adds multiple lists nested at the same level */
 	lists?: IListProps[]
+
+	/** In a loading state, loading placeholders will be dropped in */
+	isLoading?: boolean
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
@@ -87,7 +90,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		selectableType,
 		warnings,
 		list,
-		lists
+		lists,
+		isLoading
 	} = props
 
 	let checkboxProps: ICheckboxProps | undefined
@@ -114,7 +118,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		'list-item--is-disabled': isDisabled,
 		'list-item--primary-action': primaryAction,
 		'list-item--separator-hidden': !isSeparatorVisible,
-		'list-item--has-avatar': !!avatar
+		'list-item--has-avatar': !!avatar,
+		'loading-placeholder': isLoading
 	})
 
 	const ListItemInner = (): React.ReactElement => (
