@@ -45,6 +45,7 @@
 		"editor.formatOnSave": false
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.preferences.importModuleSpecifier": "relative",
 	"atlascode.jira.workingSite": {
 		"baseUrlSuffix": "atlassian.net"
 	}
