@@ -1,9 +1,11 @@
-// @flow
 import { compact, get } from 'lodash'
 import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import { createHttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import {
+	InMemoryCache,
+	IntrospectionFragmentMatcher
+} from 'apollo-cache-inmemory'
 import { split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
@@ -19,11 +21,12 @@ disableFragmentWarnings()
 
 import { SpruceWebError } from './errors'
 
-type GraphQLOperationProps = {|
-	variables?: any,
-	query?: string,
+interface IGraphQLOperationProps {
+	token: string
+	variables?: any
+	query?: string
 	mutation?: string
-|}
+}
 
 // Stub logging so that it works if you don't have
 // sprucebot-log in the global namespace.
@@ -37,22 +40,26 @@ let log = {
 	}
 }
 
+// @ts-ignore
 if (global && global.log) {
+	// @ts-ignore
 	log = global.log
 }
 
 export class GraphQLClient {
 	client: any
-	token: ?string
+	token?: string
 
 	constructor({
 		rejectUnauthorized,
 		uri,
-		wsUri
+		wsUri,
+		introspectionQueryResultData
 	}: {
-		rejectUnauthorized: boolean,
-		uri: string,
+		rejectUnauthorized: boolean
+		uri: string
 		wsUri: string
+		introspectionQueryResultData: any
 	}) {
 		const agent = new https.Agent({
 			rejectUnauthorized
@@ -69,10 +76,14 @@ export class GraphQLClient {
 		let link
 
 		const addExtensionsLink = new ApolloLink((operation, forward) => {
-			return forward(operation).map(response => {
-				response.data.extensions = response.extensions
-				return response
-			})
+			return forward
+				? forward(operation).map(response => {
+						if (response && response.data) {
+							response.data.extensions = response.extensions
+						}
+						return response
+				  })
+				: null
 		})
 
 		if (typeof window !== 'undefined' && wsUri) {
@@ -91,21 +102,27 @@ export class GraphQLClient {
 				}
 			})
 
+			// @ts-ignore
 			wsLink.subscriptionClient.onConnected(() =>
 				log.debug('GraphQL Subscriptions websocket connected')
 			)
+			// @ts-ignore
 			wsLink.subscriptionClient.onReconnected(() =>
 				log.debug('GraphQL Subscriptions websocket reconnected')
 			)
+			// @ts-ignore
 			wsLink.subscriptionClient.onConnecting(() =>
 				log.debug('GraphQL Subscriptions websocket attempting to connect')
 			)
+			// @ts-ignore
 			wsLink.subscriptionClient.onReconnecting(() =>
 				log.debug('GraphQL Subscriptions websocket attempting to reconnect')
 			)
+			// @ts-ignore
 			wsLink.subscriptionClient.onDisconnected(() =>
 				log.debug('GraphQL Subscriptions websocket disconnected')
 			)
+			// @ts-ignore
 			wsLink.subscriptionClient.onError(e =>
 				log.warn('GraphQL Subscriptions websocket error', e)
 			)
@@ -113,8 +130,12 @@ export class GraphQLClient {
 			link = split(
 				// split based on operation type
 				({ query }) => {
-					const { kind, operation } = getMainDefinition(query)
-					return kind === 'OperationDefinition' && operation === 'subscription'
+					const operationDefinition = getMainDefinition(query)
+
+					return (
+						operationDefinition.kind === 'OperationDefinition' &&
+						operationDefinition.operation === 'subscription'
+					)
 				},
 				wsLink,
 				addExtensionsLink.concat(httpLink)
@@ -127,8 +148,16 @@ export class GraphQLClient {
 			})
 		}
 
+		let fragmentMatcher
+
+		if (introspectionQueryResultData) {
+			fragmentMatcher = new IntrospectionFragmentMatcher({
+				introspectionQueryResultData
+			})
+		}
+
 		this.client = new ApolloClient({
-			cache: new InMemoryCache(),
+			cache: new InMemoryCache({ fragmentMatcher }),
 			link,
 			defaultOptions: {
 				query: {
@@ -138,17 +167,17 @@ export class GraphQLClient {
 		})
 	}
 
-	setToken(token: string) {
+	setToken = (token: string) => {
 		this.token = token
 	}
 
 	operation = async (
-		{ token, ...options }: GraphQLOperationProps,
+		{ token, ...options }: IGraphQLOperationProps,
 		operationType: 'query' | 'mutation'
 	) => {
 		let response
 
-		let clientMethod = null
+		let clientMethod: null | string = null
 
 		if (operationType === 'query') {
 			clientMethod = 'query'
@@ -158,11 +187,12 @@ export class GraphQLClient {
 
 		if (!clientMethod) {
 			throw new SpruceWebError(
-				`GraphQL: No matching client method for operation of type "${operationType}"`
+				`GraphQL: No matching client method for operation of type "${operationType}"`,
+				{}
 			)
 		}
 
-		let jwtToken = token || this.token
+		const jwtToken = token || this.token
 
 		const gqlDocumentBody = get(options, `${operationType}.loc.source.body`, '')
 			.replace(/[ \t\n]+/gi, ' ')
@@ -226,11 +256,11 @@ export class GraphQLClient {
 		return response
 	}
 
-	query = (options: GraphQLOperationProps) => {
+	query = (options: IGraphQLOperationProps) => {
 		return this.operation(options, 'query')
 	}
 
-	mutate = (options: GraphQLOperationProps) => {
+	mutate = (options: IGraphQLOperationProps) => {
 		return this.operation(options, 'mutation')
 	}
 }
