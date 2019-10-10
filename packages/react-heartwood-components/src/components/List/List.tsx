@@ -30,6 +30,9 @@ export interface IListProps extends Omit<IHWList, 'id' | 'header' | 'items'> {
 
 	/** any passthrough to render in the body of the list */
 	children?: React.ReactNode
+
+	/** Is this whole list in a loading state? Sets all list items to loading only if true. */
+	isLoading?: boolean
 }
 
 const List = (props: IListProps): React.ReactElement => {
@@ -40,7 +43,8 @@ const List = (props: IListProps): React.ReactElement => {
 		isSmall,
 		areSeparatorsVisible: areSeparatorsVisibleProp,
 		children,
-		selectableType
+		selectableType,
+		isLoading
 	} = props
 
 	// seperators a true by default
@@ -51,7 +55,8 @@ const List = (props: IListProps): React.ReactElement => {
 
 	const parentClass = cx('list', className, {
 		'list-small': isSmall,
-		'list--separators-hidden': !areSeparatorsVisible
+		'list--separators-hidden': !areSeparatorsVisible,
+		'loading-placeholder': isLoading
 	})
 
 	return (

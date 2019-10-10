@@ -329,3 +329,26 @@
 .truncated-list__action-btn {
 	margin-left: -1 * spacing('tight');
 }
+
+// Loading state
+
+.loading-placeholder .list,
+.list.loading-placeholder,
+.list-item.loading-placeholder {
+	.list-item__image-wrapper,
+	.list-item__actions-wrapper {
+		display: none;
+	}
+
+	.list-item__text-wrapper {
+		margin-left: 0;
+	}
+
+	p label {
+		opacity: 0;
+	}
+
+	p {
+		@extend %loading-placeholder-base;
+	}
+}

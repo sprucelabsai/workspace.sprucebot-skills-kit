@@ -1,0 +1,38 @@
+@keyframes placeholderLoadingAnimation {
+	0% {
+		transform: translate(-30%, 0);
+	}
+	100% {
+		transform: translate(30%, 0);
+	}
+}
+
+%loading-placeholder-base {
+	color: rgba(0, 0, 0, 0);
+	position: relative;
+	overflow: hidden;
+	float: left;
+	clear: both;
+	width: auto;
+
+	&::before {
+		content: ' ';
+		position: absolute;
+		top: 2px;
+		right: 0;
+		bottom: 2px;
+		left: 50%;
+		z-index: 1;
+		width: 500%;
+		margin-left: -250%;
+		animation: placeholderLoadingAnimation 1.5s linear infinite;
+		background: linear-gradient(
+					to right,
+					rgba(#fff, 0) 46%,
+					rgba(#fff, 0.35) 50%,
+					rgba(#fff, 0) 54%
+				)
+				50% 50%,
+			$c-grey-01;
+	}
+}

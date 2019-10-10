@@ -7,10 +7,12 @@
 	"files.watcherExclude": {
 		"**/.git/objects/**": true,
 		"**/.git/subtree-cache/**": true,
+		"**/build/**": true,
 		"**/node_modules/**": true,
 		"**/.next/**": true
 	},
 	"search.exclude": {
+		"**/build/**": true,
 		"**/node_modules/**": true,
 		"**/.next/**": true
 	},
@@ -45,6 +47,7 @@
 		"editor.formatOnSave": false
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.preferences.importModuleSpecifier": "relative",
 	"atlascode.jira.workingSite": {
 		"baseUrlSuffix": "atlassian.net"
 	}
