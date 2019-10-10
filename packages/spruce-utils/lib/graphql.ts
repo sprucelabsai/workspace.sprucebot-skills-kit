@@ -165,16 +165,16 @@ export class GraphQLClient {
 			})
 		}
 
-		let fragmentMatcher
+		const cacheOptions: { fragmentMatcher?: IntrospectionFragmentMatcher } = {}
 
 		if (introspectionQueryResultData) {
-			fragmentMatcher = new IntrospectionFragmentMatcher({
+			cacheOptions.fragmentMatcher = new IntrospectionFragmentMatcher({
 				introspectionQueryResultData
 			})
 		}
 
 		this.client = new ApolloClient({
-			cache: new InMemoryCache({ fragmentMatcher }),
+			cache: new InMemoryCache(cacheOptions),
 			link,
 			defaultOptions: {
 				query: {
