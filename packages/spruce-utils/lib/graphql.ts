@@ -24,9 +24,26 @@ import { SpruceWebError } from './errors'
 interface IGraphQLOperationProps {
 	token: string
 	variables?: any
-	query?: string
-	mutation?: string
 }
+
+interface IGraphQLQueryProps extends IGraphQLOperationProps {
+	query: string
+	mutation: never
+}
+
+interface IGraphQLMutationProps extends IGraphQLOperationProps {
+	query: never
+	mutation: string
+}
+
+interface IGraphQLSubscriptionProps extends IGraphQLOperationProps {
+	subscription: string
+	onData: (data) => void
+}
+
+export type IGraphQLSubscription = (
+	options: IGraphQLSubscriptionProps
+) => { unsubscribe: () => void }
 
 // Stub logging so that it works if you don't have
 // sprucebot-log in the global namespace.
@@ -172,7 +189,7 @@ export class GraphQLClient {
 	}
 
 	operation = async (
-		{ token, ...options }: IGraphQLOperationProps,
+		{ token, ...options }: IGraphQLQueryProps | IGraphQLMutationProps,
 		operationType: 'query' | 'mutation'
 	) => {
 		let response
@@ -256,11 +273,26 @@ export class GraphQLClient {
 		return response
 	}
 
-	query = (options: IGraphQLOperationProps) => {
+	query = (options: IGraphQLQueryProps) => {
 		return this.operation(options, 'query')
 	}
 
-	mutate = (options: IGraphQLOperationProps) => {
+	mutate = (options: IGraphQLMutationProps) => {
 		return this.operation(options, 'mutation')
+	}
+
+	subscribe: IGraphQLSubscription = options => {
+		if (options.token) {
+			this.setToken(options.token)
+		}
+
+		return this.client
+			.subscribe({
+				query: options.subscription,
+				variables: options.variables
+			})
+			.subscribe({
+				next: options.onData
+			})
 	}
 }
