@@ -10,7 +10,10 @@ import SplitButton, {
 } from '../../../SplitButton/SplitButton'
 import Text, { ITextProps } from '../../../Text/Text'
 import Toast, { IToastProps } from '../../../Toast/Toast'
-import { IHWCalendarEventDetailsItem } from '@sprucelabs/spruce-types'
+import {
+	IHWCalendarEventDetailsItem,
+	IHWAction
+} from '@sprucelabs/spruce-types'
 
 const MDTextContainer = (props: IMarkdownProps): React.ReactElement => (
 	<div className="event-details__markdown">
@@ -38,12 +41,15 @@ export interface IEventDetailsItemProps
 		| ITextProps
 		| IMarkdownProps
 		| ISplitButtonProps
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 const EventDetailsItem = (
 	props: IEventDetailsItemProps
 ): React.ReactElement => {
-	const { type, viewModel } = props
+	const { type, viewModel, onAction } = props
 
 	if (!type || !components[type]) {
 		// TODO: Use logger library for warning
@@ -54,7 +60,7 @@ const EventDetailsItem = (
 	}
 
 	const Handler = components[type]
-	return <Handler {...viewModel} />
+	return <Handler {...viewModel} onAction={onAction} />
 }
 
 export default EventDetailsItem

@@ -1,7 +1,8 @@
 import {
 	IHWButton,
 	IHWButtonTypes as ButtonTypes,
-	IHWButtonKinds as ButtonKinds
+	IHWButtonKinds as ButtonKinds,
+	IHWAction
 } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
 import React, { Fragment } from 'react'
@@ -44,23 +45,28 @@ export interface IButtonProps extends Omit<IHWButton, 'id' | 'icon'> {
 
 	/** optional payload to be sent with onclick (different than the payload attached to action.) */
 	payload?: Record<string, any>
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 const Button = (props: IButtonProps): React.ReactElement => {
 	const {
-		className,
-		kind,
-		isSmall,
-		isFullWidth,
-		isLoading,
-		isIconOnly,
-		text,
-		href,
-		icon,
-		type,
-		onClick,
+		action,
 		AnchorComponent = BasicAnchor,
 		children,
+		className,
+		href,
+		icon,
+		isFullWidth,
+		isIconOnly,
+		isLoading,
+		isSmall,
+		kind,
+		onAction,
+		onClick,
+		text,
+		type,
 		...rest
 	} = props
 
@@ -81,6 +87,11 @@ const Button = (props: IButtonProps): React.ReactElement => {
 
 	const handleClick = (e: any): any => {
 		e.currentTarget.blur()
+
+		if (onAction && action) {
+			onAction(action)
+		}
+
 		if (onClick) {
 			onClick(e, props.payload)
 		}
