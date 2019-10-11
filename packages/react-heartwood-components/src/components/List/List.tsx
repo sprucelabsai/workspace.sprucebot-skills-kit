@@ -34,6 +34,10 @@ export interface IListProps extends Omit<IHWList, 'id' | 'header' | 'items'> {
 	onAction?: (action: IHWAction) => any
 }
 
+export const ListWrapper = (props): React.ReactElement => (
+	<div className="list-wrapper">{props.children}</div>
+)
+
 const List = (props: IListProps): React.ReactElement => {
 	const {
 		header,
