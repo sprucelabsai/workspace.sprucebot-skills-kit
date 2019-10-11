@@ -77,6 +77,8 @@ export type IHWActionCoreRedirect = {
   __typename?: 'ActionCoreRedirect',
   type?: Maybe<IHWActionTypes>,
   payload: IHWActionCoreRedirectPayload,
+  onComplete?: Maybe<IHWAction>,
+  onCancel?: Maybe<IHWAction>,
 };
 
 /** payload used for core redirect */

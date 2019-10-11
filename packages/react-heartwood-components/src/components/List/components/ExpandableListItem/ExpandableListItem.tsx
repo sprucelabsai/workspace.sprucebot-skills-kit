@@ -1,8 +1,8 @@
+import { IHWAction, IHWExpandableListItem } from '@sprucelabs/spruce-types'
 import React, { Component } from 'react'
+import { ButtonKinds } from '../../../Button/Button'
 import { IListProps } from '../../List'
 import ListItem, { IListItemProps } from '../ListItem/ListItem'
-import { IHWExpandableListItem } from '@sprucelabs/spruce-types'
-import { ButtonKinds } from '../../../Button/Button'
 
 export interface IExpandableListItemProps
 	extends Omit<IHWExpandableListItem, 'item' | 'list' | 'lists'> {
@@ -14,6 +14,9 @@ export interface IExpandableListItemProps
 
 	/** Optional; adds multiple lists nested at the same level */
 	lists?: IListProps[]
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 interface IExpandableListItemState {
 	/** Is the list item expanded */
@@ -40,7 +43,8 @@ export default class ExpandableListItem extends Component<
 			list,
 			lists,
 			collapsedIconName,
-			expandedIconName
+			expandedIconName,
+			onAction
 		} = this.props
 		const { isExpanded } = this.state
 		return (
@@ -59,6 +63,7 @@ export default class ExpandableListItem extends Component<
 						onClick: this.toggleExpanded
 					}
 				]}
+				onAction={onAction}
 			/>
 		)
 	}

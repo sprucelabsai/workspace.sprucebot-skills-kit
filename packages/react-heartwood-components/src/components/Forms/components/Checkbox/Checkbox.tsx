@@ -1,10 +1,9 @@
-import React, { Component, ChangeEvent } from 'react'
+import { IHWAction, IHWCheckbox } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
-
+import React, { ChangeEvent, Component } from 'react'
 import CheckIconYes from '../../../../../static/assets/icons/ic_check_box.svg'
 import CheckIconNo from '../../../../../static/assets/icons/ic_check_box_outline_blank.svg'
 import CheckIconMaybe from '../../../../../static/assets/icons/ic_indeterminate_check_box.svg'
-import { IHWCheckbox } from '@sprucelabs/spruce-types'
 
 export interface ICheckboxProps extends Omit<IHWCheckbox, 'isIndeterminate'> {
 	/** Class for the checkbox wrapper */
@@ -15,6 +14,9 @@ export interface ICheckboxProps extends Omit<IHWCheckbox, 'isIndeterminate'> {
 
 	/** Is this 3 states, on, off, or half */
 	isIndeterminate?: boolean
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 interface ICheckboxState {}
@@ -50,13 +52,15 @@ export default class Checkbox extends Component<
 
 	public render(): React.ReactElement {
 		const {
-			id,
-			label,
-			postText,
+			action,
 			className,
-			name,
+			id,
 			isChecked,
-			isDisabled
+			isDisabled,
+			label,
+			name,
+			onAction,
+			postText
 		} = this.props
 		const parentClass = cx('checkbox-item', className)
 
@@ -72,7 +76,13 @@ export default class Checkbox extends Component<
 						disabled={isDisabled || false}
 						id={id}
 						// Always use internal change handler
-						onChange={this.handleChange}
+						onChange={(...args) => {
+							this.handleChange(...args)
+
+							if (onAction && action) {
+								onAction(action)
+							}
+						}}
 						type="checkbox"
 					/>
 					<label className="checkbox-item__label" htmlFor={id}>

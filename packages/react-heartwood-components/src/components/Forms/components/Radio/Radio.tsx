@@ -1,4 +1,4 @@
-import { IHWRadio } from '@sprucelabs/spruce-types'
+import { IHWAction, IHWRadio } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
 import React from 'react'
 import RadioIconYes from '../../../../../static/assets/icons/ic_radio_button_checked.svg'
@@ -13,16 +13,21 @@ export interface IRadioProps extends Omit<IHWRadio, 'id'> {
 
 	/** Change handler */
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 const Radio = (props: IRadioProps): React.ReactElement => {
 	const {
-		isChecked,
+		action,
 		className,
-		isDisabled,
 		id,
+		isChecked,
+		isDisabled,
 		label,
 		name,
+		onAction,
 		onChange,
 		postText
 	} = props
@@ -36,7 +41,15 @@ const Radio = (props: IRadioProps): React.ReactElement => {
 					disabled={isDisabled || false}
 					id={id}
 					name={name || undefined}
-					onChange={onChange}
+					onChange={(...args) => {
+						if (onChange) {
+							onChange(...args)
+						}
+
+						if (onAction && action) {
+							onAction(action)
+						}
+					}}
 					type="radio"
 				/>
 				<label className="checkbox-item__label" htmlFor={id}>

@@ -1,9 +1,13 @@
+import {
+	IHWAction,
+	IHWButtonGroupKind,
+	IHWSplitButton
+} from '@sprucelabs/spruce-types'
+import cx from 'classnames'
 import React, { Component, Fragment } from 'react'
 import { createPortal } from 'react-dom'
-import cx from 'classnames'
 import Button, { IButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
-import { IHWSplitButton, IHWButtonGroupKind } from '@sprucelabs/spruce-types'
 
 export interface ISplitButtonProps
 	extends Omit<IHWSplitButton, 'actions' | 'defaultAction'> {
@@ -11,6 +15,9 @@ export interface ISplitButtonProps
 
 	/** All the secondary nested actions */
 	actions: IButtonProps[]
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 interface ISplitButtonState {
@@ -189,7 +196,8 @@ export default class SplitButton extends Component<
 			kind,
 			isFullWidth,
 			isSmall,
-			usePortal
+			usePortal,
+			onAction
 		} = this.props
 		const { isVisible, menuPosition, highlightedActionIndex } = this.state
 
@@ -201,6 +209,7 @@ export default class SplitButton extends Component<
 					isSmall={isSmall}
 					{...defaultAction}
 					kind={defaultAction.kind || kind}
+					onAction={onAction}
 				/>
 			)
 		}
@@ -219,6 +228,7 @@ export default class SplitButton extends Component<
 						{...defaultAction}
 						kind={defaultAction.kind || kind}
 						isFullWidth={false}
+						onAction={onAction}
 					/>
 					<Button
 						isSmall={isSmall}
@@ -226,6 +236,7 @@ export default class SplitButton extends Component<
 						icon={{ name: 'keyboard_arrow_down' }}
 						kind={kind}
 						onClick={this.toggleActionsVisibility}
+						onAction={onAction}
 					/>
 				</div>
 				{isVisible && (
@@ -246,6 +257,7 @@ export default class SplitButton extends Component<
 										isFullWidth
 										actions={actions}
 										highlightedIndex={highlightedActionIndex}
+										onAction={onAction}
 									/>
 								</div>,
 								document.body
@@ -265,6 +277,7 @@ export default class SplitButton extends Component<
 									isFullWidth
 									actions={actions}
 									highlightedIndex={highlightedActionIndex}
+									onAction={onAction}
 								/>
 							</div>
 						)}
