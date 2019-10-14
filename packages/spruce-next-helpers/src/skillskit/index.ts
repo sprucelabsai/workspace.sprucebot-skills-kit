@@ -50,7 +50,7 @@ export interface ICalendar {
 	/** drop a calendar event onto the calendar */
 	createEvent(event: ICoreCalendarEvent): void
 	/** update an event on the calendar */
-	updateEvent(event: ICoreCalendarEvent): void
+	updateEvent(id: string, changes: Partial<ICoreCalendarEvent>): void
 	/** removes a calendar event from the calendar */
 	deleteEvent(id: string): void
 	/** set a callback for when an event is updated */
@@ -140,7 +140,7 @@ export interface ISupportingMessage {
 		followupText?: string
 		timeout?: number
 		kind: 'positive' | 'negative' | 'neutral'
-		callback: () => void
+		callback?: () => void
 	}): void
 }
 
@@ -513,12 +513,12 @@ const skill: ISkill = {
 					})
 				}
 			},
-			updateEvent: event => {
+			updateEvent: (id, changes) => {
 				if (window.parent !== window) {
 					Iframes.sendMessage({
 						to: window.parent,
 						eventName: 'Calendar:UpdateEvent',
-						data: { event }
+						data: { id, changes }
 					})
 				}
 			},
@@ -527,7 +527,7 @@ const skill: ISkill = {
 					Iframes.sendMessage({
 						to: window.parent,
 						eventName: 'Calendar:DeleteEvent',
-						data: { event: { id } }
+						data: { id }
 					})
 				}
 			},
