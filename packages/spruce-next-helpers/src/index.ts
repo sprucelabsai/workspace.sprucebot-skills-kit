@@ -20,6 +20,7 @@ export { default as lang } from './skillskit/helpers/lang'
 export { default as sharable } from './skillskit/helpers/sharable'
 export { default as gqlClient } from './skillskit/helpers/gqlClient'
 export { default as settings } from './skillskit/helpers/settings'
+export { default as errors } from './skillskit/helpers/errors'
 
 // TODO move to PageWrapper once it's moved to typescript
 export interface IPageInitialPropsContext<IAuth> {
