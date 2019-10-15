@@ -1,5 +1,7 @@
 # Spruce Skills Kit
 
+[![CircleCI](https://circleci.com/gh/sprucelabsai/workspace.sprucebot-skills-kit/tree/canary.svg?style=svg)](https://circleci.com/gh/sprucelabsai/workspace.sprucebot-skills-kit/tree/canary)
+
 Hey Skill Developer 👋.
 
 If you're looking for information on building skills you should check out the [Developer Documentation](https://developer.spruce.ai/).
