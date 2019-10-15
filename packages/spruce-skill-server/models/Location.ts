@@ -19,6 +19,7 @@ export class Location extends SpruceCoreModel<Location> {
 			attributes: [
 				'id',
 				'name',
+				'slug',
 				'addressLine1',
 				'addressLine2',
 				'addressCity',
@@ -68,6 +69,9 @@ export class Location extends SpruceCoreModel<Location> {
 		storeNum: {
 			type: DataTypes.STRING
 		},
+		slug: {
+			type: DataTypes.STRING
+		},
 		geo: {
 			type: config.TESTING ? DataTypes.JSON : DataTypes.GEOGRAPHY('POINT'),
 			get(this: Location) {
@@ -94,6 +98,7 @@ export class Location extends SpruceCoreModel<Location> {
 	public addressCountry!: string
 	public timezone!: string
 	public isPublic!: string
+	public slug!: string
 	public geo!: string
 	public OrganizationId?: string | null
 	public Organization?: Organization | null
