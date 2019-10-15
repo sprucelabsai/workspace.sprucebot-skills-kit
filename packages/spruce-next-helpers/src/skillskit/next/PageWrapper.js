@@ -128,15 +128,18 @@ const PageWrapper = Wrapped => {
 			if (query.jwt) {
 				jwt = query.jwt
 				setCookie('jwt', jwt, req, res)
-			} else {
+				setCookie('jwtV2', false, req, res)
+			} else if (!query.jwtV2) {
 				jwt = getCookie('jwt', req, res)
 			}
 
 			let jwtV2
 			if (query.jwtV2) {
 				jwtV2 = query.jwtV2
+				jwt = false
 				setCookie('jwtV2', jwtV2, req, res)
-			} else {
+				setCookie('jwt', false, req, res)
+			} else if (!jwt) {
 				jwtV2 = getCookie('jwtV2', req, res)
 			}
 
