@@ -59,6 +59,10 @@ export interface ICalendar {
 	onUpdateEvent(callback: (data: { event: ICoreCalendarEvent }) => void): void
 	/** a callback for when a calendar event is deleted */
 	onDeleteEvent(callback: (data: { id: string }) => void): void
+	/** select an event in the calendar by id */
+	selectEvent(id: string): void
+	/** deselect an event */
+	deselectEvent(): void
 }
 
 export interface IConfirmationDialog {
@@ -539,6 +543,24 @@ const skill: ISkill = {
 			},
 			onDeleteEvent: cb => {
 				Iframes.onMessage('Calendar:DeleteEvent', cb)
+			},
+			selectEvent: id => {
+				if (window.parent !== window) {
+					Iframes.sendMessage({
+						to: window.parent,
+						eventName: 'Calendar:SelectEvent',
+						data: { id }
+					})
+				}
+			},
+			deselectEvent: () => {
+				if (window.parent !== window) {
+					Iframes.sendMessage({
+						to: window.parent,
+						eventName: 'Calendar:DeselectEvent',
+						data: {}
+					})
+				}
 			}
 		}
 
