@@ -7,7 +7,7 @@ export default {
 			err,
 			err => err.data.friendlyReasons,
 			[]
-		)
+		).filter(message => !!message)
 
 		if (errorMessages.length === 0 && fallback) {
 			errorMessages.push(fallback)
