@@ -13,7 +13,7 @@ export class Organization extends SpruceCoreModel<Organization> {
 	// Scopes
 	public static readonly scopes = {
 		public: {
-			attributes: ['id', 'name']
+			attributes: ['id', 'name', 'slug']
 		}
 	}
 
