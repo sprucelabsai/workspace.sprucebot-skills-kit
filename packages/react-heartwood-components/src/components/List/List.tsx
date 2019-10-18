@@ -1,17 +1,13 @@
-import React, { Fragment } from 'react'
+import { IHWAction, IHWList } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
+import React, { Fragment } from 'react'
+import ExpandableListItem, {
+	IExpandableListItemProps
+} from './components/ExpandableListItem/ExpandableListItem'
 import ListHeader, {
 	IListHeaderProps
 } from './components/ListHeader/ListHeader'
 import ListItem, { IListItemProps } from './components/ListItem/ListItem'
-import ExpandableListItem, {
-	IExpandableListItemProps
-} from './components/ExpandableListItem/ExpandableListItem'
-import { IHWList } from '@sprucelabs/spruce-types'
-
-export const ListWrapper = (props): React.ReactElement => (
-	<div className="list-wrapper">{props.children}</div>
-)
 
 export type IWrappedItemProps = IListItemProps | IExpandableListItemProps
 
@@ -33,7 +29,14 @@ export interface IListProps extends Omit<IHWList, 'id' | 'header' | 'items'> {
 
 	/** Is this whole list in a loading state? Sets all list items to loading only if true. */
 	isLoading?: boolean
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
+
+export const ListWrapper = (props): React.ReactElement => (
+	<div className="list-wrapper">{props.children}</div>
+)
 
 const List = (props: IListProps): React.ReactElement => {
 	const {
@@ -44,7 +47,8 @@ const List = (props: IListProps): React.ReactElement => {
 		areSeparatorsVisible: areSeparatorsVisibleProp,
 		children,
 		selectableType,
-		isLoading
+		isLoading,
+		onAction
 	} = props
 
 	// seperators a true by default
@@ -83,10 +87,17 @@ const List = (props: IListProps): React.ReactElement => {
 											? listItem.isSeparatorVisible
 											: areSeparatorsVisible
 									}
+									onAction={onAction}
 								/>
 							)
 						}
-						return <ExpandableListItem key={idx} {...expandablListItem} />
+						return (
+							<ExpandableListItem
+								key={idx}
+								{...expandablListItem}
+								onAction={onAction}
+							/>
+						)
 					})}
 				{children && children}
 			</ul>

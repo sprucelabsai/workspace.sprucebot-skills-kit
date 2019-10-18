@@ -4,7 +4,8 @@ import cx from 'classnames'
 import {
 	IHWCalendarEventDetails,
 	IHWCalendarEventDetailsItemType,
-	IHWCalendarEventDetailsItem
+	IHWCalendarEventDetailsItem,
+	IHWAction
 } from '@sprucelabs/spruce-types'
 
 import EventDetailsItem from './components/EventDetailsItem/EventDetailsItem'
@@ -35,6 +36,9 @@ export interface IEventDetailsProps
 
 	/** all the items that make up this event details component */
 	items: IEventDetailsItemProps[]
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 interface IEventDetailsState {}
@@ -44,7 +48,7 @@ export default class EventDetails extends Component<
 	IEventDetailsState
 > {
 	public render(): React.ReactElement {
-		const { items, isLoading } = this.props
+		const { items, isLoading, onAction } = this.props
 
 		const className = cx('event-details', {
 			'loading-placeholder': isLoading
@@ -65,7 +69,11 @@ export default class EventDetails extends Component<
 								item.type === IHWCalendarEventDetailsItemType.CardBuilder
 						})}
 					>
-						<EventDetailsItem type={item.type} viewModel={item.viewModel} />
+						<EventDetailsItem
+							type={item.type}
+							viewModel={item.viewModel}
+							onAction={onAction}
+						/>
 					</div>
 				))}
 			</div>

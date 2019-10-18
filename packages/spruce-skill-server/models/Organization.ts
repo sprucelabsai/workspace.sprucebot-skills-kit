@@ -13,7 +13,7 @@ export class Organization extends SpruceCoreModel<Organization> {
 	// Scopes
 	public static readonly scopes = {
 		public: {
-			attributes: ['id', 'name']
+			attributes: ['id', 'name', 'slug']
 		}
 	}
 
@@ -25,12 +25,16 @@ export class Organization extends SpruceCoreModel<Organization> {
 		},
 		name: {
 			type: DataTypes.STRING
+		},
+		slug: {
+			type: DataTypes.STRING
 		}
 	}
 
 	public id!: string
 	public name!: string
 	public Locations?: Location[] | null
+	public slug!: string
 
 	public static associate(models: ISpruceModels): void {
 		this.hasMany(models.Location, { constraints: false })

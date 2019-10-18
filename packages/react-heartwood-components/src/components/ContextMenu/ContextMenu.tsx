@@ -1,12 +1,15 @@
-import React, { Component } from 'react'
-import { createPortal } from 'react-dom'
+import {
+	IHWAction,
+	IHWButtonGroupKind,
+	IHWContextMenu
+} from '@sprucelabs/spruce-types'
 import cx from 'classnames'
 import { debounce } from 'lodash'
-import Button, { IButtonProps, ButtonKinds } from '../Button/Button'
-import ButtonGroup from '../ButtonGroup/ButtonGroup'
-
+import React, { Component } from 'react'
+import { createPortal } from 'react-dom'
 import MoreIcon from '../../../static/assets/icons/Interface-Essential/Menu/navigation-menu-horizontal.svg'
-import { IHWContextMenu, IHWButtonGroupKind } from '@sprucelabs/spruce-types'
+import Button, { ButtonKinds, IButtonProps } from '../Button/Button'
+import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import { IIconProps } from '../Icon/Icon'
 
 export interface IContextMenuProps
@@ -30,6 +33,9 @@ export interface IContextMenuProps
 	className?: string
 
 	onToggleContextMenuVisible?: Function
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 interface IContextMenuState {
@@ -254,15 +260,16 @@ export default class ContextMenu extends Component<
 		const { isVisible, overflowBottom, overflowLeft, menuPosition } = this.state
 		const {
 			actions,
-			isRightAligned,
+			className,
+			icon,
 			isBottomAligned,
+			isRightAligned,
 			isSimple,
 			isSmall,
-			size,
-			icon,
-			text,
 			isTextOnly,
-			className
+			onAction,
+			size,
+			text
 		} = this.props
 		const buttonClass = cx('context-menu', className, {
 			'context-menu--is-visible': isVisible
@@ -316,6 +323,7 @@ export default class ContextMenu extends Component<
 									btnAction.className = 'context-menu__item-btn'
 									return btnAction
 								})}
+								onAction={onAction}
 							/>
 						</div>,
 						this.portalEl

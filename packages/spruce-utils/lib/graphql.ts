@@ -24,9 +24,26 @@ import { SpruceWebError } from './errors'
 interface IGraphQLOperationProps {
 	token: string
 	variables?: any
-	query?: string
-	mutation?: string
 }
+
+interface IGraphQLQueryProps extends IGraphQLOperationProps {
+	query: string
+	mutation: never
+}
+
+interface IGraphQLMutationProps extends IGraphQLOperationProps {
+	query: never
+	mutation: string
+}
+
+interface IGraphQLSubscriptionProps extends IGraphQLOperationProps {
+	subscription: string
+	onData: (data) => void
+}
+
+export type IGraphQLSubscription = (
+	options: IGraphQLSubscriptionProps
+) => { unsubscribe: () => void }
 
 // Stub logging so that it works if you don't have
 // sprucebot-log in the global namespace.
@@ -148,16 +165,16 @@ export class GraphQLClient {
 			})
 		}
 
-		let fragmentMatcher
+		const cacheOptions: { fragmentMatcher?: IntrospectionFragmentMatcher } = {}
 
 		if (introspectionQueryResultData) {
-			fragmentMatcher = new IntrospectionFragmentMatcher({
+			cacheOptions.fragmentMatcher = new IntrospectionFragmentMatcher({
 				introspectionQueryResultData
 			})
 		}
 
 		this.client = new ApolloClient({
-			cache: new InMemoryCache({ fragmentMatcher }),
+			cache: new InMemoryCache(cacheOptions),
 			link,
 			defaultOptions: {
 				query: {
@@ -172,7 +189,7 @@ export class GraphQLClient {
 	}
 
 	operation = async (
-		{ token, ...options }: IGraphQLOperationProps,
+		{ token, ...options }: IGraphQLQueryProps | IGraphQLMutationProps,
 		operationType: 'query' | 'mutation'
 	) => {
 		let response
@@ -234,8 +251,10 @@ export class GraphQLClient {
 						'/'
 					)}). Reasons: [${errors.map(error => error.reason).join(', ')}]`,
 					{
-						reasons: errors.map(error => error.reasons),
-						friendlyReasons: errors.map(error => error.friendlyReason),
+						reasons: errors.map(error => error.reasons).filter(msg => !!msg),
+						friendlyReasons: errors
+							.map(error => error.friendlyReason)
+							.filter(msg => !!msg),
 						originalError: e,
 						gqlDocumentBody,
 						variables: options.variables
@@ -256,11 +275,26 @@ export class GraphQLClient {
 		return response
 	}
 
-	query = (options: IGraphQLOperationProps) => {
+	query = (options: IGraphQLQueryProps) => {
 		return this.operation(options, 'query')
 	}
 
-	mutate = (options: IGraphQLOperationProps) => {
+	mutate = (options: IGraphQLMutationProps) => {
 		return this.operation(options, 'mutation')
+	}
+
+	subscribe: IGraphQLSubscription = options => {
+		if (options.token) {
+			this.setToken(options.token)
+		}
+
+		return this.client
+			.subscribe({
+				query: options.subscription,
+				variables: options.variables
+			})
+			.subscribe({
+				next: options.onData
+			})
 	}
 }

@@ -1,21 +1,22 @@
+import {
+	IHWAction,
+	IHWListItem,
+	IHWListItemSelectableType
+} from '@sprucelabs/spruce-types'
 import cx from 'classnames'
-import React, { Fragment } from 'react'
 import cloneDeep from 'lodash/cloneDeep'
+import React, { Fragment } from 'react'
 import Avatar from '../../../Avatar/Avatar'
 import Button, { IButtonProps } from '../../../Button/Button'
 import ContextMenu, {
 	IContextMenuProps
 } from '../../../ContextMenu/ContextMenu'
 import { Checkbox, Radio, Toggle } from '../../../Forms'
-import Icon, { IIconProps } from '../../../Icon/Icon'
-import List, { IListProps } from '../../List'
-import {
-	IHWListItem,
-	IHWListItemSelectableType
-} from '@sprucelabs/spruce-types'
-import { IToggleProps } from '../../../Forms/components/Toggle/Toggle'
 import { ICheckboxProps } from '../../../Forms/components/Checkbox/Checkbox'
 import { IRadioProps } from '../../../Forms/components/Radio/Radio'
+import { IToggleProps } from '../../../Forms/components/Toggle/Toggle'
+import Icon, { IIconProps } from '../../../Icon/Icon'
+import List, { IListProps } from '../../List'
 
 export interface IListItemProps
 	extends Omit<
@@ -75,35 +76,39 @@ export interface IListItemProps
 
 	/** Optional alt property if image is passed */
 	imageAlt?: string
+
+	/** Optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
 	const {
-		title,
-		subtitle,
-		note,
+		actions,
 		avatar,
 		avatarAlt,
+		className,
+		contextMenu,
+		icon,
 		image,
 		imageAlt,
-		icon,
-		isIconHidden,
-		isDraggable,
 		isDisabled,
-		toggleId,
-		primaryAction,
-		actions,
-		contextMenu,
-		toggleProps,
+		isDraggable,
+		isIconHidden,
+		isLoading,
 		isSeparatorVisible,
-		className,
+		list,
+		lists,
+		note,
+		onAction,
+		primaryAction,
 		selectableId: selectableIdProp,
 		selectableProps,
 		selectableType,
-		warnings,
-		list,
-		lists,
-		isLoading
+		subtitle,
+		title,
+		toggleId,
+		toggleProps,
+		warnings
 	} = props
 
 	let checkboxProps: ICheckboxProps | undefined
@@ -165,6 +170,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 										id={selectableId}
 										{...(isDisabled ? { disabled: true } : {})}
 										{...checkboxProps}
+										onAction={onAction}
 									/>
 								)}
 							{selectableType === IHWListItemSelectableType.Radio &&
@@ -173,6 +179,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 										id={selectableId}
 										{...(isDisabled ? { disabled: true } : {})}
 										{...radioProps}
+										onAction={onAction}
 									/>
 								)}
 						</Fragment>
@@ -244,30 +251,33 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 									isSmall
 									className="list-item__action"
 									{...action}
+									onAction={onAction}
 								/>
 							))}
 						</div>
 					)}
 					{contextMenu && (
 						<div className="list-item__actions-wrapper">
-							<ContextMenu {...contextMenu} />
+							<ContextMenu {...contextMenu} onAction={onAction} />
 						</div>
 					)}
 				</Fragment>
 			)}
 			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
 
-			{list && <List {...list} />}
+			{list && <List {...list} onAction={onAction} />}
 			{lists &&
 				lists.length > 0 &&
-				lists.map((list, idx) => <List key={idx} {...list} />)}
+				lists.map((list, idx) => (
+					<List key={idx} {...list} onAction={onAction} />
+				))}
 		</Fragment>
 	)
 
 	return (
 		<li className={parentClass}>
 			{primaryAction ? (
-				<Button {...primaryAction}>
+				<Button {...primaryAction} onAction={onAction}>
 					<ListItemInner />
 				</Button>
 			) : (

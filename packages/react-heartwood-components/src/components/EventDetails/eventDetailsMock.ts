@@ -1,11 +1,12 @@
 import { IEventDetailsItemProps } from './components/EventDetailsItem/EventDetailsItem'
 import { IEventDetailsProps } from './EventDetails'
-import { IListProps } from '../List'
+import { IListProps, IWrappedItemProps } from '../List'
 import {
 	IHWCalendarEventDetailsItemType,
 	IHWListItemSelectableType,
 	IHWContextMenuSize,
-	IHWCardBuilderBodyItemType
+	IHWCardBuilderBodyItemType,
+	IHWActionTypes
 } from '@sprucelabs/spruce-types'
 import { ButtonKinds } from '../Button/Button'
 
@@ -30,10 +31,22 @@ const services: IEventDetailsItemProps = {
 					size: IHWContextMenuSize.Large,
 					actions: [
 						{
-							text: 'Change teammate'
+							text: 'Change teammate',
+							action: {
+								type: IHWActionTypes.EmitEvent,
+								payload: {
+									eventName: 'change-teammate'
+								}
+							}
 						},
 						{
-							text: 'Remove from appointment'
+							text: 'Remove from appointment',
+							action: {
+								type: IHWActionTypes.EmitEvent,
+								payload: {
+									eventName: 'remove-from-appointment'
+								}
+							}
 						}
 					]
 				}
@@ -52,10 +65,22 @@ const services: IEventDetailsItemProps = {
 					size: IHWContextMenuSize.Large,
 					actions: [
 						{
-							text: 'Change teammate'
+							text: 'Change teammate',
+							action: {
+								type: IHWActionTypes.EmitEvent,
+								payload: {
+									eventName: 'change-teammate'
+								}
+							}
 						},
 						{
-							text: 'Remove from appointment'
+							text: 'Remove from appointment',
+							action: {
+								type: IHWActionTypes.EmitEvent,
+								payload: {
+									eventName: 'remove-from-appointment'
+								}
+							}
 						}
 					]
 				}
@@ -66,20 +91,32 @@ const services: IEventDetailsItemProps = {
 				icon: { name: 'add' },
 				primaryAction: {
 					icon: { name: 'add' },
-					kind: ButtonKinds.Simple
+					kind: ButtonKinds.Simple,
+					action: {
+						type: IHWActionTypes.EmitEvent,
+						payload: {
+							eventName: 'add-service'
+						}
+					}
 				}
 			}
 		]
 	}
 }
 
-const inclusiveStatuses = [
+const inclusiveStatuses: IWrappedItemProps[] = [
 	{
 		id: 'status',
 		title: 'Confirmed',
 		selectableId: 'confirmed',
 		selectableProps: {
-			name: 'checkbox'
+			name: 'checkbox',
+			action: {
+				type: IHWActionTypes.EmitEvent,
+				payload: {
+					eventName: 'checkbox-checked'
+				}
+			}
 		}
 	},
 	{
@@ -87,17 +124,29 @@ const inclusiveStatuses = [
 		title: 'Checked in',
 		selectableId: 'checkedIn',
 		selectableProps: {
-			name: 'checkbox'
+			name: 'checkbox',
+			action: {
+				type: IHWActionTypes.EmitEvent,
+				payload: {
+					eventName: 'checkbox-checked'
+				}
+			}
 		}
 	}
 ]
-const exclusiveStatuses = [
+const exclusiveStatuses: IWrappedItemProps[] = [
 	{
 		id: 'on-time',
 		title: 'On time',
 		selectableId: 'onTime',
 		selectableProps: {
-			name: 'radio'
+			name: 'radio',
+			action: {
+				type: IHWActionTypes.EmitEvent,
+				payload: {
+					eventName: 'radio-checked'
+				}
+			}
 		}
 	},
 	{
@@ -105,7 +154,13 @@ const exclusiveStatuses = [
 		title: 'Late',
 		selectableId: 'late',
 		selectableProps: {
-			name: 'radio'
+			name: 'radio',
+			action: {
+				type: IHWActionTypes.EmitEvent,
+				payload: {
+					eventName: 'radio-checked'
+				}
+			}
 		}
 	},
 	{
@@ -113,7 +168,13 @@ const exclusiveStatuses = [
 		title: 'Ghosted 👻',
 		selectableId: 'noShow',
 		selectableProps: {
-			name: 'radio'
+			name: 'radio',
+			action: {
+				type: IHWActionTypes.EmitEvent,
+				payload: {
+					eventName: 'radio-checked'
+				}
+			}
 		}
 	}
 ]
@@ -163,10 +224,22 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 							size: IHWContextMenuSize.Large,
 							actions: [
 								{
-									text: 'Edit guest'
+									text: 'Edit guest',
+									action: {
+										type: IHWActionTypes.EmitEvent,
+										payload: {
+											eventName: 'edit-guest'
+										}
+									}
 								},
 								{
-									text: 'Book for someone else'
+									text: 'Book for someone else',
+									action: {
+										type: IHWActionTypes.EmitEvent,
+										payload: {
+											eventName: 'book-for-someone-else'
+										}
+									}
 								}
 							]
 						}
@@ -179,7 +252,13 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: ButtonKinds.Simple
+								kind: ButtonKinds.Simple,
+								action: {
+									type: IHWActionTypes.EmitEvent,
+									payload: {
+										eventName: 'edit-note'
+									}
+								}
 							}
 						]
 					}
@@ -200,7 +279,13 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 							{
 								id: 'first',
 								icon: { name: 'edit' },
-								kind: ButtonKinds.Simple
+								kind: ButtonKinds.Simple,
+								action: {
+									type: IHWActionTypes.EmitEvent,
+									payload: {
+										eventName: 'edit-date'
+									}
+								}
 							}
 						]
 					}
@@ -239,23 +324,59 @@ export const appointment: { items: IEventDetailsItemProps[] } = {
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Check guest in',
-					isFullWidth: true
+					isFullWidth: true,
+					action: {
+						type: IHWActionTypes.EmitEvent,
+						payload: {
+							eventName: 'guest-check-in'
+						}
+					}
 				},
 				actions: [
 					{
-						text: 'Unconfirm appointment'
+						text: 'Unconfirm appointment',
+						action: {
+							type: IHWActionTypes.EmitEvent,
+							payload: {
+								eventName: 'unconfirm'
+							}
+						}
 					},
 					{
-						text: 'Mark guest as late'
+						text: 'Mark guest as late',
+						action: {
+							type: IHWActionTypes.EmitEvent,
+							payload: {
+								eventName: 'mark-late'
+							}
+						}
 					},
 					{
-						text: 'Mark as no show'
+						text: 'Mark as no show',
+						action: {
+							type: IHWActionTypes.EmitEvent,
+							payload: {
+								eventName: 'mark-no-show'
+							}
+						}
 					},
 					{
-						text: 'Book again'
+						text: 'Book again',
+						action: {
+							type: IHWActionTypes.EmitEvent,
+							payload: {
+								eventName: 'book-again'
+							}
+						}
 					},
 					{
-						text: 'Cancel appointment'
+						text: 'Cancel appointment',
+						action: {
+							type: IHWActionTypes.EmitEvent,
+							payload: {
+								eventName: 'cancel-appointment'
+							}
+						}
 					}
 				]
 			}
@@ -282,10 +403,22 @@ export const warningAppointment: IEventDetailsProps = {
 							size: IHWContextMenuSize.Large,
 							actions: [
 								{
-									text: 'Edit guest'
+									text: 'Edit guest',
+									action: {
+										type: IHWActionTypes.EmitEvent,
+										payload: {
+											eventName: 'edit-guest'
+										}
+									}
 								},
 								{
-									text: 'Book for someone else'
+									text: 'Book for someone else',
+									action: {
+										type: IHWActionTypes.EmitEvent,
+										payload: {
+											eventName: 'book-for-someone-else'
+										}
+									}
 								}
 							]
 						}
@@ -298,7 +431,13 @@ export const warningAppointment: IEventDetailsProps = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: ButtonKinds.Simple
+								kind: ButtonKinds.Simple,
+								action: {
+									type: IHWActionTypes.EmitEvent,
+									payload: {
+										eventName: 'edit-note'
+									}
+								}
 							}
 						]
 					}
@@ -324,7 +463,13 @@ export const warningAppointment: IEventDetailsProps = {
 										actions: [
 											{
 												icon: { name: 'edit' },
-												kind: ButtonKinds.Simple
+												kind: ButtonKinds.Simple,
+												action: {
+													type: IHWActionTypes.EmitEvent,
+													payload: {
+														eventName: 'edit-date'
+													}
+												}
 											}
 										],
 										warnings: {
@@ -353,13 +498,25 @@ export const warningAppointment: IEventDetailsProps = {
 								text: 'Dismiss',
 								kind: ButtonKinds.Simple,
 								isSmall: true,
-								id: 'foo'
+								id: 'foo',
+								action: {
+									type: IHWActionTypes.EmitEvent,
+									payload: {
+										eventName: 'dismiss'
+									}
+								}
 							},
 							{
 								text: 'Find a different time',
 								kind: ButtonKinds.Secondary,
 								isSmall: true,
-								id: 'bar'
+								id: 'bar',
+								action: {
+									type: IHWActionTypes.EmitEvent,
+									payload: {
+										eventName: 'find-different-time'
+									}
+								}
 							}
 						]
 					}
@@ -404,23 +561,59 @@ export const warningAppointment: IEventDetailsProps = {
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Check guest in',
-					isFullWidth: true
+					isFullWidth: true,
+					action: {
+						type: IHWActionTypes.EmitEvent,
+						payload: {
+							eventName: 'check-in'
+						}
+					}
 				},
 				actions: [
 					{
-						text: 'Unconfirm appointment'
+						text: 'Unconfirm appointment',
+						action: {
+							type: IHWActionTypes.EmitEvent,
+							payload: {
+								eventName: 'unconfirm'
+							}
+						}
 					},
 					{
-						text: 'Mark guest as late'
+						text: 'Mark guest as late',
+						action: {
+							type: IHWActionTypes.EmitEvent,
+							payload: {
+								eventName: 'mark-late'
+							}
+						}
 					},
 					{
-						text: 'Mark as no show'
+						text: 'Mark as no show',
+						action: {
+							type: IHWActionTypes.EmitEvent,
+							payload: {
+								eventName: 'mark-no-show'
+							}
+						}
 					},
 					{
-						text: 'Book again'
+						text: 'Book again',
+						action: {
+							type: IHWActionTypes.EmitEvent,
+							payload: {
+								eventName: 'book-again'
+							}
+						}
 					},
 					{
-						text: 'Cancel appointment'
+						text: 'Cancel appointment',
+						action: {
+							type: IHWActionTypes.EmitEvent,
+							payload: {
+								eventName: 'cancel-appointment'
+							}
+						}
 					}
 				]
 			}
@@ -443,7 +636,13 @@ export const pastAppointment: IEventDetailsProps = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: ButtonKinds.Simple
+								kind: ButtonKinds.Simple,
+								action: {
+									type: IHWActionTypes.EmitEvent,
+									payload: {
+										eventName: 'edit-guest'
+									}
+								}
 							}
 						]
 					},
@@ -455,7 +654,13 @@ export const pastAppointment: IEventDetailsProps = {
 						actions: [
 							{
 								icon: { name: 'edit' },
-								kind: ButtonKinds.Simple
+								kind: ButtonKinds.Simple,
+								action: {
+									type: IHWActionTypes.EmitEvent,
+									payload: {
+										eventName: 'edit-note'
+									}
+								}
 							}
 						]
 					}
@@ -528,11 +733,23 @@ export const pastAppointment: IEventDetailsProps = {
 				isFullWidth: true,
 				defaultAction: {
 					text: 'Book again',
-					isFullWidth: true
+					isFullWidth: true,
+					action: {
+						type: IHWActionTypes.EmitEvent,
+						payload: {
+							eventName: 'book-again'
+						}
+					}
 				},
 				actions: [
 					{
-						text: 'Edit past appointment'
+						text: 'Edit past appointment',
+						action: {
+							type: IHWActionTypes.EmitEvent,
+							payload: {
+								eventName: 'edit-past-appointment'
+							}
+						}
 					}
 				]
 			}
@@ -591,7 +808,13 @@ export const lunchBreak: IEventDetailsProps = {
 				id: 'actions',
 				text: 'Reschedule',
 				kind: ButtonKinds.Secondary,
-				isFullWidth: true
+				isFullWidth: true,
+				action: {
+					type: IHWActionTypes.EmitEvent,
+					payload: {
+						eventName: 'reschedule'
+					}
+				}
 			}
 		}
 	]
@@ -648,7 +871,13 @@ export const ptoBlock: IEventDetailsProps = {
 				id: 'actions',
 				text: 'Edit PTO Block',
 				kind: ButtonKinds.Secondary,
-				isFullWidth: true
+				isFullWidth: true,
+				action: {
+					type: IHWActionTypes.EmitEvent,
+					payload: {
+						eventName: 'edit-pto-block'
+					}
+				}
 			}
 		}
 	]

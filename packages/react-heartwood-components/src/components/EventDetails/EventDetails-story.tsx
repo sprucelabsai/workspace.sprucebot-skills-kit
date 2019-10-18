@@ -28,7 +28,13 @@ stories
 	.add('Booking: Appointment', () => (
 		<Sidebar side="right" isCollapsible={false} isLarge>
 			<SidebarHeader title="Appointment details" onClose={() => null} />
-			<EventDetails isLoading={boolean('isLoading', false)} {...appointment} />
+			<EventDetails
+				isLoading={boolean('isLoading', false)}
+				{...appointment}
+				onAction={action => {
+					console.log(JSON.stringify(action.payload))
+				}}
+			/>
 		</Sidebar>
 	))
 	.add('Booking: Appointment has warning', () => (
@@ -37,6 +43,9 @@ stories
 			<EventDetails
 				isLoading={boolean('isLoading', false)}
 				{...warningAppointment}
+				onAction={action => {
+					console.log(JSON.stringify(action.payload))
+				}}
 			/>
 		</Sidebar>
 	))
@@ -46,19 +55,34 @@ stories
 			<EventDetails
 				isLoading={boolean('isLoading', false)}
 				{...pastAppointment}
+				onAction={action => {
+					console.log(JSON.stringify(action.payload))
+				}}
 			/>
 		</Sidebar>
 	))
 	.add('Scheduling: Lunch Break', () => (
 		<Sidebar side="right" isCollapsible={false} isLarge>
 			<SidebarHeader title="Lunch break" onClose={() => null} />
-			<EventDetails isLoading={boolean('isLoading', false)} {...lunchBreak} />
+			<EventDetails
+				isLoading={boolean('isLoading', false)}
+				{...lunchBreak}
+				onAction={action => {
+					console.log(JSON.stringify(action.payload))
+				}}
+			/>
 		</Sidebar>
 	))
 
 	.add('Scheduling: PTO', () => (
 		<Sidebar side="right" isCollapsible={false} isLarge>
 			<SidebarHeader title="PTO" onClose={() => null} />
-			<EventDetails isLoading={boolean('isLoading', false)} {...ptoBlock} />
+			<EventDetails
+				isLoading={boolean('isLoading', false)}
+				{...ptoBlock}
+				onAction={action => {
+					console.log(JSON.stringify(action.payload))
+				}}
+			/>
 		</Sidebar>
 	))
