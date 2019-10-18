@@ -69,6 +69,12 @@ export interface IListItemProps
 
 	/** Title text  */
 	title: string | React.ReactElement
+
+	/** Optional alt property if avatar is passed */
+	avatarAlt?: string
+
+	/** Optional alt property if image is passed */
+	imageAlt?: string
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
@@ -77,7 +83,9 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		subtitle,
 		note,
 		avatar,
+		avatarAlt,
 		image,
+		imageAlt,
 		icon,
 		isIconHidden,
 		isDraggable,
@@ -144,7 +152,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 						<img
 							src={image}
 							className="list-item__image"
-							alt={title}
+							alt={imageAlt || image}
 							width="40"
 							height="40"
 						/>
@@ -169,7 +177,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 								)}
 						</Fragment>
 					)}
-					{avatar && <Avatar image={avatar} alt={title} />}
+					{avatar && <Avatar image={avatar} alt={avatarAlt || avatar} />}
 				</div>
 			)}
 
@@ -272,7 +280,9 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 ListItem.defaultProps = {
 	subtitle: '',
 	avatar: '',
+	avatarAlt: '',
 	image: '',
+	imageAlt: '',
 	icon: null,
 	isIconHidden: false,
 	isDraggable: false,
