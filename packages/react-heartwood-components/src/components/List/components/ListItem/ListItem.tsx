@@ -29,6 +29,7 @@ export interface IListItemProps
 		| 'selectableProps'
 		| 'list'
 		| 'lists'
+		| 'title'
 	> {
 	/** unique id for view caching */
 	id?: string
@@ -65,6 +66,9 @@ export interface IListItemProps
 
 	/** In a loading state, loading placeholders will be dropped in */
 	isLoading?: boolean
+
+	/** Title text  */
+	title: string | React.ReactElement
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
