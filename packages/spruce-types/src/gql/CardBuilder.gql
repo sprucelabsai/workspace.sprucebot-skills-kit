@@ -39,7 +39,7 @@ type ScoreCardPanel {
 
 "A score card!"
 type ScoreCard {
-	scores: [ScoreCardPanel]
+	scores: [ScoreCardPanel!]
 }
 
 union CardBuilderBodyItemViewModel =
@@ -120,7 +120,7 @@ type OnboardingCard {
 	title: String
 
 	"Steps for onboarding"
-	steps: [OnboardingCardStep]
+	steps: [OnboardingCardStep!]!
 }
 
 "The footer component of a card"

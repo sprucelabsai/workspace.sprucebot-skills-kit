@@ -1,14 +1,20 @@
 import React from 'react'
 import cx from 'classnames'
 import Button from '../Button/Button'
-import { IHWToast } from '@sprucelabs/spruce-types'
+import { IHWToast, IHWAction } from '@sprucelabs/spruce-types'
 
-interface IToastHeaderProps extends Omit<IHWToast, 'id'> {
+interface IToastHeaderProps {
 	/**  Optional id for view caching */
 	id?: string
 
 	/** Function to remove the toast */
 	onRemove?: Function
+
+	/** headline */
+	headline?: string
+
+	/** is this toast removable */
+	canRemove?: boolean
 }
 
 const ToastHeader = (props: IToastHeaderProps): React.ReactElement => {
@@ -23,37 +29,30 @@ const ToastHeader = (props: IToastHeaderProps): React.ReactElement => {
 	)
 }
 
-export interface IToastProps {
+export interface IToastProps extends Omit<IHWToast, 'id'> {
 	/** Unique ID for the toast */
 	id: string | number
-
-	/** Headline text */
-	headline: string
-
-	/** Optional; Text after the headline */
-	text?: string
 
 	/** Handle toast removal */
 	onRemove?: Function
 
-	/** Optional; controls whether the toast can be removed. Defaults to true */
-	canRemove?: boolean
-
-	/** Sets the variation of toast */
-	kind?: string
-
-	/** Handle a followup action */
-	followupAction?: Function
-
-	/** Text for the followup action */
-	followupText?: string
-
 	/** override how long before the toast goes away, in milis */
 	timeout?: number | 'never'
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
-const Toast = (props: IToastProps): React.ReactElement => {
-	const { headline, kind, text, followupAction, followupText, onRemove } = props
+const Toast = (props: IToastProps | IHWToast): React.ReactElement => {
+	const {
+		headline,
+		kind,
+		text,
+		followupAction,
+		followupText,
+		onAction,
+		onRemove
+	} = props as IToastProps
 	const toastClass = cx('toast', {
 		'toast-positive': kind === 'positive',
 		'toast-negative': kind === 'negative',
@@ -68,8 +67,8 @@ const Toast = (props: IToastProps): React.ReactElement => {
 					<p>{text}</p>
 				</div>
 			)}
-			{followupAction && (
-				<Button text={followupText} onClick={followupAction} />
+			{followupAction && onAction && (
+				<Button text={followupText} onAction={() => onAction(followupAction)} />
 			)}
 		</div>
 	)

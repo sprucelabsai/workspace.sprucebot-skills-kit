@@ -114,3 +114,9 @@ export { default as SplitButton } from './components/SplitButton/SplitButton'
 export {
 	default as TruncatedList
 } from './components/TruncatedList/TruncatedList'
+
+export type ArrayElem<A> = A extends Array<infer Elem> ? Elem : never
+
+export function unionArray<T>(array: T): Array<ArrayElem<T>> {
+	return array as any
+}

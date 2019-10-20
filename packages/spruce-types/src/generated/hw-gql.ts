@@ -551,7 +551,7 @@ export type IHWExpandableListItem = {
   /** Optional; adds a nested list */
   list?: Maybe<IHWList>,
   /** Optional; adds multiple lists nested at the same level */
-  lists?: Maybe<Array<Maybe<IHWList>>>,
+  lists?: Maybe<Array<IHWList>>,
   /** Optional icon for collapsed state */
   collapsedIconName?: Maybe<Scalars['String']>,
   /** Optional icon for expanded state */
@@ -611,7 +611,7 @@ export type IHWList = {
   /** List Header */
   header?: Maybe<IHWListHeader>,
   /** List items */
-  items?: Maybe<Array<Maybe<IHWListItemTypes>>>,
+  items?: Maybe<Array<IHWListItemTypes>>,
   /** Set true to make the list smaller */
   isSmall?: Maybe<Scalars['Boolean']>,
   /** Set to true to show separators between list items */
@@ -682,7 +682,7 @@ export type IHWListItem = {
   /** Optional; adds a nested list */
   list?: Maybe<IHWList>,
   /** Optional; adds multiple lists nested at the same level */
-  lists?: Maybe<Array<Maybe<IHWList>>>,
+  lists?: Maybe<Array<IHWList>>,
 };
 
 export type IHWListItemSelectablePropsType = IHWCheckbox | IHWRadio;
@@ -723,7 +723,7 @@ export type IHWOnboardingCard = {
   /** Title of the entire card */
   title?: Maybe<Scalars['String']>,
   /** Steps for onboarding */
-  steps?: Maybe<Array<Maybe<IHWOnboardingCardStep>>>,
+  steps: Array<IHWOnboardingCardStep>,
 };
 
 /** One step in the onboarding process */
@@ -767,7 +767,7 @@ export type IHWRadio = IHWActionExecutor & {
 /** A score card! */
 export type IHWScoreCard = {
   __typename?: 'ScoreCard',
-  scores?: Maybe<Array<Maybe<IHWScoreCardPanel>>>,
+  scores?: Maybe<Array<IHWScoreCardPanel>>,
 };
 
 /** Panels make up the score card */
@@ -838,6 +838,8 @@ export type IHWToast = {
   kind?: Maybe<Scalars['String']>,
   /** Text for the followup action */
   followupText?: Maybe<Scalars['String']>,
+  /** Action to be invoked when hitting the followup CTA */
+  followupAction?: Maybe<IHWAction>,
 };
 
 export type IHWToggle = IHWActionExecutor & {

@@ -12,7 +12,8 @@ import Text, { ITextProps } from '../../../Text/Text'
 import Toast, { IToastProps } from '../../../Toast/Toast'
 import {
 	IHWCalendarEventDetailsItem,
-	IHWAction
+	IHWAction,
+	IHWCalendarEventDetailsItemViewModel
 } from '@sprucelabs/spruce-types'
 
 const MDTextContainer = (props: IMarkdownProps): React.ReactElement => (
@@ -31,16 +32,19 @@ const components = {
 	markdown: MDTextContainer
 }
 
+type ViewModel =
+	| IListProps
+	| IButtonProps
+	| ICardBuilderProps
+	| IToastProps
+	| ITextProps
+	| IMarkdownProps
+	| ISplitButtonProps
+	| IHWCalendarEventDetailsItemViewModel
+
 export interface IEventDetailsItemProps
 	extends Omit<IHWCalendarEventDetailsItem, 'viewModel'> {
-	viewModel:
-		| IListProps
-		| IButtonProps
-		| ICardBuilderProps
-		| IToastProps
-		| ITextProps
-		| IMarkdownProps
-		| ISplitButtonProps
+	viewModel: ViewModel
 
 	/** optional, provide a handler for Actions */
 	onAction?: (action: IHWAction) => any

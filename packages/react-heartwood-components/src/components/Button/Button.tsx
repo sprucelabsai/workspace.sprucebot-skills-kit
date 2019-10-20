@@ -50,7 +50,9 @@ export interface IButtonProps extends Omit<IHWButton, 'id' | 'icon'> {
 	onAction?: (action: IHWAction) => any
 }
 
-const Button = (props: IButtonProps): React.ReactElement => {
+export type Action = IButtonProps | IHWButton
+
+const Button = (props: IButtonProps | IHWButton): React.ReactElement => {
 	const {
 		action,
 		AnchorComponent = BasicAnchor,
@@ -67,8 +69,9 @@ const Button = (props: IButtonProps): React.ReactElement => {
 		onClick,
 		text,
 		type,
+		payload,
 		...rest
-	} = props
+	} = props as IButtonProps
 
 	const btnClass = cx(className, {
 		btn: true,
@@ -93,7 +96,7 @@ const Button = (props: IButtonProps): React.ReactElement => {
 		}
 
 		if (onClick) {
-			onClick(e, props.payload)
+			onClick(e, payload)
 		}
 	}
 
