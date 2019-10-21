@@ -12,7 +12,7 @@ export default (ctx: ISpruceContext) => {
 		resolvers: {
 			Query: {
 				getUiEnhancements: (source, args, context, info) => {
-					console.log('in')
+					console.log('in', ctx, source, args, context, info)
 				}
 			}
 		}

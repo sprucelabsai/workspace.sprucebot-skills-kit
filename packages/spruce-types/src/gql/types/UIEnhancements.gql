@@ -1,0 +1,6 @@
+type UIEnhancementSection {
+	"The ID of the section that is acting as a placeholder for ui enhancements"
+	sectionId: String!
+	"Arbitrary payload sent to ui-enhancements event so skills have some context"
+	payload: JSON
+}
