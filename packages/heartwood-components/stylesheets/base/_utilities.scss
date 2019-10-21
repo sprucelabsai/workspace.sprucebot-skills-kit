@@ -118,6 +118,11 @@ Layout
 	flex-flow: row;
 }
 
+.u-flex-column {
+	display: flex;
+	flex-flow: column;
+}
+
 .u-flex-child-grow {
 	flex: 1 0 auto;
 }
