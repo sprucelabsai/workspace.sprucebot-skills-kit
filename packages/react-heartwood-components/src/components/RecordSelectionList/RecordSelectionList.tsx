@@ -314,7 +314,7 @@ export default class RecordSelectionList extends Component<
 					</TextContainer>
 				)}
 
-				{canSearch && (
+				{canSearch && loadedRecords.length > 0 && (
 					<Fragment>
 						{searchLabel && <InputPre label={searchLabel} />}
 						<TextInput
