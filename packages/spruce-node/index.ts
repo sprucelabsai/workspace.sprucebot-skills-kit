@@ -3,9 +3,6 @@ import clone from 'lodash/clone'
 // TODO: Is there a better way we can include global definitions without the import?
 // @ts-ignore
 import global from './interfaces/global' // eslint-disable-line
-import Debug from 'debug'
-
-const debug = Debug('@sprucelabs/spruce-node')
 
 export interface IAbstractSprucebotAdapterOptions {
 	host: string
@@ -25,7 +22,7 @@ export interface IEmitEventOptions {
 	timeout?: number
 	/** if a skill responds with a non 200 type, should I try again? */
 	retry?: boolean
-	/** If a human is logged in and invoking this event, setting loggedInUser lets other skills do permission checks against them */
+	/** If a human is logged in and invoking this event, setting loggedInUser to the person's UUID lets other skills do permission checks against them */
 	loggedInUserId?: string
 	/** You can name your event anything you want and skills will pass this on. This is helpful when logging errors */
 	eventId?: string
@@ -756,7 +753,7 @@ export default class Sprucebot {
 		}
 
 		if (eventId) {
-			debug(
+			log.warn(
 				'Deprecation Warning: Please pass eventId as an option going forward'
 			)
 		}
@@ -788,7 +785,7 @@ export default class Sprucebot {
 		}
 
 		if (eventId) {
-			debug(
+			log.warn(
 				'Deprecation Warning: Please pass eventId as an option going forward'
 			)
 		}
