@@ -5,30 +5,13 @@ import {
 	IHWCalendarEventDetails,
 	IHWCalendarEventDetailsItemType,
 	IHWCalendarEventDetailsItem,
-	IHWAction,
-	IHWCalendarEventDetailsItemViewModel
+	IHWAction
 } from '@sprucelabs/spruce-types'
 
-import EventDetailsItem from './components/EventDetailsItem/EventDetailsItem'
-import { IButtonProps } from '../Button/Button'
-import { ICardBuilderProps } from '../Card'
-import { ITextProps } from '../Text/Text'
-import { IMarkdownProps } from '../MarkdownText/MarkdownText'
-import { ISplitButtonProps } from '../SplitButton/SplitButton'
-import { IListProps } from '../List'
+import EventDetailsItem, {
+	IEventDetailsItemProps
+} from './components/EventDetailsItem/EventDetailsItem'
 import { unionArray } from '../..'
-
-export interface IEventDetailsItemProps
-	extends Omit<IHWCalendarEventDetailsItem, 'viewModel'> {
-	viewModel:
-		| IListProps
-		| IButtonProps
-		| ICardBuilderProps
-		| ITextProps
-		| IMarkdownProps
-		| ISplitButtonProps
-		| IHWCalendarEventDetailsItemViewModel
-}
 
 export interface IEventDetailsProps
 	extends Omit<IHWCalendarEventDetails, 'items'> {

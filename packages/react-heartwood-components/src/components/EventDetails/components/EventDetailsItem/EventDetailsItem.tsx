@@ -9,6 +9,8 @@ import SplitButton, {
 	ISplitButtonProps
 } from '../../../SplitButton/SplitButton'
 import Text, { ITextProps } from '../../../Text/Text'
+// TODO: fix toast types to be able to be used here
+// import Toast, { IToastProps } from '../../../Toast/Toast'
 import {
 	IHWCalendarEventDetailsItem,
 	IHWAction,
@@ -27,6 +29,7 @@ const components = {
 	cardBuilder: CardBuilder,
 	splitButton: SplitButton,
 	text: Text,
+	// toast: Toast,
 	markdown: MDTextContainer
 }
 
@@ -35,6 +38,7 @@ type ViewModel =
 	| IButtonProps
 	| ICardBuilderProps
 	| ITextProps
+	// | IToastProps
 	| IMarkdownProps
 	| ISplitButtonProps
 	| IHWCalendarEventDetailsItemViewModel
@@ -61,7 +65,7 @@ const EventDetailsItem = (
 	}
 
 	const Handler = components[type]
-	return <Handler {...viewModel} onAction={onAction} />
+	return <Handler {...viewModel as ViewModel} onAction={onAction} />
 }
 
 export default EventDetailsItem
