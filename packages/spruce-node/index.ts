@@ -24,7 +24,7 @@ export interface IEmitEventOptions {
 	retry?: boolean
 	/** If a human is logged in and invoking this event, setting loggedInUser to the person's UUID lets other skills do permission checks against them */
 	loggedInUserId?: string
-	/** You can name your event anything you want and skills will pass this on. This is helpful when logging errors */
+	/** Give your event a UUID and I'll pass it onto skills. This is helpful when logging errors */
 	eventId?: string
 }
 
