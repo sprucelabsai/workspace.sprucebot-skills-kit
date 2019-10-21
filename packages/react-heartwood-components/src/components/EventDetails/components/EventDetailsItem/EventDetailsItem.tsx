@@ -10,14 +10,17 @@ import SplitButton, {
 } from '../../../SplitButton/SplitButton'
 import Text, { ITextProps } from '../../../Text/Text'
 // TODO: fix toast types to be able to be used here
-// import Toast, { IToastProps } from '../../../Toast/Toast'
+import Toast, { IToastProps } from '../../../Toast/Toast'
 import {
 	IHWCalendarEventDetailsItem,
 	IHWAction,
-	IHWCalendarEventDetailsItemViewModel
+	IHWCalendarEventDetailsItemViewModel,
+	IHWMarkdown
 } from '@sprucelabs/spruce-types'
 
-const MDTextContainer = (props: IMarkdownProps): React.ReactElement => (
+const MDTextContainer = (
+	props: IMarkdownProps | IHWMarkdown
+): React.ReactElement => (
 	<div className="event-details__markdown">
 		<MarkdownText {...props} />
 	</div>
@@ -29,7 +32,7 @@ const components = {
 	cardBuilder: CardBuilder,
 	splitButton: SplitButton,
 	text: Text,
-	// toast: Toast,
+	toast: Toast,
 	markdown: MDTextContainer
 }
 
@@ -38,14 +41,13 @@ type ViewModel =
 	| IButtonProps
 	| ICardBuilderProps
 	| ITextProps
-	// | IToastProps
+	| IToastProps
 	| IMarkdownProps
 	| ISplitButtonProps
-	| IHWCalendarEventDetailsItemViewModel
 
 export interface IEventDetailsItemProps
 	extends Omit<IHWCalendarEventDetailsItem, 'viewModel'> {
-	viewModel: ViewModel
+	viewModel: ViewModel | IHWCalendarEventDetailsItemViewModel
 
 	/** optional, provide a handler for Actions */
 	onAction?: (action: IHWAction) => any
@@ -64,8 +66,46 @@ const EventDetailsItem = (
 		return <Fragment />
 	}
 
-	const Handler = components[type]
-	return <Handler {...viewModel as ViewModel} onAction={onAction} />
+	let Handler
+	let viewModelProps: ViewModel | undefined
+
+	switch (type) {
+		case 'list':
+			Handler = components[type]
+			viewModelProps = viewModel as IListProps
+			break
+		case 'button':
+			Handler = components[type]
+			viewModelProps = viewModel as IButtonProps
+			break
+		case 'cardBuilder':
+			Handler = components[type]
+			viewModelProps = viewModel as ICardBuilderProps
+			break
+		case 'splitButton':
+			Handler = components[type]
+			viewModelProps = viewModel as ISplitButtonProps
+			break
+		case 'text':
+			Handler = components[type]
+			viewModelProps = viewModel as ITextProps
+			break
+		case 'toast':
+			Handler = components[type]
+			viewModelProps = viewModel as IToastProps
+			break
+		case 'markdown':
+			Handler = components[type]
+			viewModelProps = viewModel as IMarkdownProps
+			break
+		default:
+			console.warn(
+				`No component found for key: ${type}. Please double-check properties passed into <EventDetailsItem> from <EventDetails>.`
+			)
+			return <Fragment />
+	}
+
+	return <Handler {...viewModelProps} onAction={onAction} />
 }
 
 export default EventDetailsItem
