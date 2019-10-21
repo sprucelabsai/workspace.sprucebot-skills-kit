@@ -9,7 +9,6 @@ import SplitButton, {
 	ISplitButtonProps
 } from '../../../SplitButton/SplitButton'
 import Text, { ITextProps } from '../../../Text/Text'
-import Toast, { IToastProps } from '../../../Toast/Toast'
 import {
 	IHWCalendarEventDetailsItem,
 	IHWAction
@@ -24,9 +23,8 @@ const MDTextContainer = (props: IMarkdownProps): React.ReactElement => (
 const components = {
 	list: List,
 	button: Button,
-	card: CardBuilder,
+	cardBuilder: CardBuilder,
 	splitButton: SplitButton,
-	toast: Toast,
 	text: Text,
 	markdown: MDTextContainer
 }
@@ -37,7 +35,6 @@ export interface IEventDetailsItemProps
 		| IListProps
 		| IButtonProps
 		| ICardBuilderProps
-		| IToastProps
 		| ITextProps
 		| IMarkdownProps
 		| ISplitButtonProps

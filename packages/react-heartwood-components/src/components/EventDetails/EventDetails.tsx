@@ -11,7 +11,6 @@ import {
 import EventDetailsItem from './components/EventDetailsItem/EventDetailsItem'
 import { IButtonProps } from '../Button/Button'
 import { ICardBuilderProps } from '../Card'
-import { IToastProps } from '../Toast/Toast'
 import { ITextProps } from '../Text/Text'
 import { IMarkdownProps } from '../MarkdownText/MarkdownText'
 import { ISplitButtonProps } from '../SplitButton/SplitButton'
@@ -23,7 +22,6 @@ export interface IEventDetailsItemProps
 		| IListProps
 		| IButtonProps
 		| ICardBuilderProps
-		| IToastProps
 		| ITextProps
 		| IMarkdownProps
 		| ISplitButtonProps
