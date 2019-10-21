@@ -1,18 +1,26 @@
 import { IHWAction, IHWButtonGroup } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
 import React from 'react'
-import Button, { ButtonKinds, IButtonProps } from '../Button/Button'
+import Button, { ButtonKinds, Action } from '../Button/Button'
+import { unionArray } from '../..'
 
 export interface IButtonGroupProps extends Omit<IHWButtonGroup, 'actions'> {
 	/** Array of actions to render the group's buttons. */
-	actions: IButtonProps[]
+	actions: Action[]
 
 	/** optional, provide a handler for Actions */
 	onAction?: (action: IHWAction) => any
 }
 
-const ButtonGroup = (props: IButtonGroupProps): React.ReactElement => {
-	const { actions, kind, isFullWidth, highlightedIndex, onAction } = props
+const ButtonGroup = (
+	props: IButtonGroupProps | IHWButtonGroup
+): React.ReactElement => {
+	const reactHeartwoodProps = props as IButtonGroupProps
+	const commonProps = props as IHWButtonGroup
+
+	const { actions, kind, isFullWidth, highlightedIndex } = commonProps
+	const { onAction } = reactHeartwoodProps
+
 	const parentClass = cx('button-group', {
 		'button-group-segmented': kind === 'segmented',
 		'button-group-floating': kind === 'floating',
@@ -20,7 +28,7 @@ const ButtonGroup = (props: IButtonGroupProps): React.ReactElement => {
 	})
 	return (
 		<ul className={parentClass}>
-			{actions.map((action, idx) => {
+			{unionArray(actions).map((action, idx) => {
 				return (
 					<li
 						key={action.id}

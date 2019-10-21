@@ -10,13 +10,14 @@ import {
 	IHWOnboardingCardStep
 } from '@sprucelabs/spruce-types'
 import { IIconProps } from '../../Icon/Icon'
+import { unionArray } from '../../..'
 
 export interface IStep
 	extends Omit<IHWOnboardingCardStep, 'panelCTA' | 'tabIcon'> {
 	/** Primary CTA of this step */
-	panelCTA?: IButtonProps
+	panelCTA?: IButtonProps | null
 
-	tabIcon?: IIconProps
+	tabIcon?: IIconProps | null
 }
 
 export interface IOnboardingCardProps extends Omit<IHWOnboardingCard, 'steps'> {
@@ -31,7 +32,7 @@ interface IOnboardingCardState {
 	currentStep: number
 }
 
-const getCurrentStep = (steps: IStep[]): number => {
+const getCurrentStep = (steps: IStep[] | IHWOnboardingCardStep[]): number => {
 	// Find the first step that is not complete
 	if (steps && steps.length > 0) {
 		for (let i = 0; i < steps.length; i++) {
@@ -44,7 +45,7 @@ const getCurrentStep = (steps: IStep[]): number => {
 }
 
 export default class OnboardingCard extends Component<
-	IOnboardingCardProps,
+	IOnboardingCardProps | IHWOnboardingCard,
 	IOnboardingCardState
 > {
 	public state = {
@@ -60,7 +61,7 @@ export default class OnboardingCard extends Component<
 	public render(): React.ReactElement {
 		const { currentStep } = this.state
 		const { title, steps } = this.props
-		const tabs = steps.map((step, idx) => ({
+		const tabs = unionArray(steps).map((step, idx) => ({
 			text: step.tabTitle,
 			icon: step.tabIcon,
 			isCurrent: idx === currentStep,
@@ -78,9 +79,14 @@ export default class OnboardingCard extends Component<
 				<CardBody isSectioned isFullBleed={false}>
 					{steps[currentStep].panelCopy}
 				</CardBody>
-				<CardFooter>
-					<Button kind={ButtonKinds.Primary} {...steps[currentStep].panelCTA} />
-				</CardFooter>
+				{steps[currentStep].panelCTA && (
+					<CardFooter>
+						<Button
+							kind={ButtonKinds.Primary}
+							{...steps[currentStep].panelCTA}
+						/>
+					</CardFooter>
+				)}
 			</Card>
 		)
 	}

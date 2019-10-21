@@ -1,4 +1,9 @@
-import { IHWAction, IHWList } from '@sprucelabs/spruce-types'
+import {
+	IHWAction,
+	IHWList,
+	IHWListHeader,
+	IHWListItemTypes
+} from '@sprucelabs/spruce-types'
 import cx from 'classnames'
 import React, { Fragment } from 'react'
 import ExpandableListItem, {
@@ -16,10 +21,10 @@ export interface IListProps extends Omit<IHWList, 'id' | 'header' | 'items'> {
 	id?: string
 
 	/** List Header */
-	header?: IListHeaderProps
+	header?: IListHeaderProps | IHWListHeader | null
 
 	/** List items */
-	items?: IWrappedItemProps[]
+	items?: Array<IWrappedItemProps | IHWListItemTypes> | null
 
 	/** Class for the list */
 	className?: string
