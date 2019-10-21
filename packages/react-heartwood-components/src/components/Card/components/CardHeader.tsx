@@ -20,8 +20,15 @@ export interface ICardHeaderProps
 	contextMenu?: IContextMenuProps | null
 }
 
-const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
-	const { title, labelText, labelIcon, actions, contextMenu } = props
+const CardHeader = (
+	props: ICardHeaderProps | IHWCardHeader
+): React.ReactElement => {
+	const reactHeartwoodProps = props as ICardHeaderProps
+	const commonProps = props as IHWCardHeader
+
+	const { title, labelText, actions, contextMenu } = commonProps
+	const { labelIcon } = reactHeartwoodProps
+
 	return (
 		<div className="card__header">
 			{(title || labelText || labelIcon) && (
@@ -30,7 +37,9 @@ const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 						<div className="card__header-label">
 							{labelIcon && (
 								<Icon
-									customIcon={labelIcon.customIcon}
+									customIcon={
+										labelIcon.customIcon ? labelIcon.customIcon : undefined
+									}
 									name={labelIcon.name}
 									isLineIcon={labelIcon.isLineIcon}
 									className={cx('card__header-label-icon', labelIcon.className)}

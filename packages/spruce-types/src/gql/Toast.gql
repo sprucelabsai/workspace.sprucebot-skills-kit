@@ -17,4 +17,7 @@ type Toast {
 
 	"Text for the followup action"
 	followupText: String
+
+	"Action to be invoked when hitting the followup CTA"
+	followupAction: Action
 }
