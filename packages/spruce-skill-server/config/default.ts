@@ -132,6 +132,11 @@ export default function SpruceConfig<
 		 */
 		API_GRAPHQL_SUBSCRIPTIONS_URI: process.env.API_GRAPHQL_SUBSCRIPTIONS_URI,
 		/**
+		 * 🌲🤖 Enable the UIEnhancement GQL endpoint for your skill.
+		 * Requires GRAPHQL_ENABLED to be true
+		 */
+		UI_ENHANCEMENTS_ENABLED: process.env.UI_ENHANCEMENTS_ENABLED === 'true',
+		/**
 		 * 🌲🤖 Your Skill's API key.
 		 * This should be kept secret at all times
 		 */
