@@ -30,6 +30,7 @@ export interface IListItemProps
 		| 'selectableProps'
 		| 'list'
 		| 'lists'
+		| 'title'
 	> {
 	/** unique id for view caching */
 	id?: string
@@ -67,7 +68,16 @@ export interface IListItemProps
 	/** In a loading state, loading placeholders will be dropped in */
 	isLoading?: boolean
 
-	/** optional, provide a handler for Actions */
+	/** Title text  */
+	title: string | React.ReactElement
+
+	/** Optional alt property if avatar is passed */
+	avatarAlt?: string
+
+	/** Optional alt property if image is passed */
+	imageAlt?: string
+
+	/** Optional, provide a handler for Actions */
 	onAction?: (action: IHWAction) => any
 }
 
@@ -75,10 +85,12 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 	const {
 		actions,
 		avatar,
+		avatarAlt,
 		className,
 		contextMenu,
 		icon,
 		image,
+		imageAlt,
 		isDisabled,
 		isDraggable,
 		isIconHidden,
@@ -145,7 +157,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 						<img
 							src={image}
 							className="list-item__image"
-							alt={title}
+							alt={imageAlt || image}
 							width="40"
 							height="40"
 						/>
@@ -172,7 +184,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 								)}
 						</Fragment>
 					)}
-					{avatar && <Avatar image={avatar} alt={title} />}
+					{avatar && <Avatar image={avatar} alt={avatarAlt || avatar} />}
 				</div>
 			)}
 
@@ -278,7 +290,9 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 ListItem.defaultProps = {
 	subtitle: '',
 	avatar: '',
+	avatarAlt: '',
 	image: '',
+	imageAlt: '',
 	icon: null,
 	isIconHidden: false,
 	isDraggable: false,

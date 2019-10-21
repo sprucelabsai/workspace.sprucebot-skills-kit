@@ -34,8 +34,10 @@ interface IPhoneInputProps {
 	/** Default value for the input */
 	defaultValue?: string
 
+	/** Should input autoFocus? */
 	autoFocus?: boolean
 
+	/** Optional input value */
 	value?: string
 }
 
