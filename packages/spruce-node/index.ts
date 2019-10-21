@@ -3,6 +3,9 @@ import clone from 'lodash/clone'
 // TODO: Is there a better way we can include global definitions without the import?
 // @ts-ignore
 import global from './interfaces/global' // eslint-disable-line
+import Debug from 'debug'
+
+const debug = Debug('@sprucelabs/spruce-node')
 
 export interface IAbstractSprucebotAdapterOptions {
 	host: string
@@ -15,6 +18,23 @@ export interface IAbstractSprucebotAdapterOptions {
 
 export interface IGQLTag {
 	loc: { source: { body: string } }
+}
+/** the options you can pass when emitting an event to a location */
+export interface IEmitEventOptions {
+	/** how long should each skill have to respond in milliseconds? defaults to 5000 */
+	timeout?: number
+	/** if a skill responds with a non 200 type, should I try again? */
+	retry?: boolean
+	/** If a human is logged in and invoking this event, setting loggedInUser lets other skills do permission checks against them */
+	loggedInUserId?: string
+	/** You can name your event anything you want and skills will pass this on. This is helpful when logging errors */
+	eventId?: string
+}
+
+/** the options you can pass when emitting an event to an org */
+export interface IEmitOrganizationEventOptions extends IEmitEventOptions {
+	/** By default, an org event emits once to every skill at the org. setting this to true will emit the event to every location individually (meaning a 1k location chain will hit each skill 1k times): WARNING, use sparingly */
+	emitToAllLocations?: boolean
 }
 
 export abstract class AbstractSprucebotAdapter {
@@ -169,7 +189,9 @@ export default class Sprucebot {
 		this.marketingUrl = interfaceUrl + '/marketing'
 
 		this.dbEnabled = dbEnabled
-		this.eventContract = eventContract || { events: {} }
+		this.eventContract = eventContract || {
+			events: {}
+		}
 		this._mutexes = {}
 
 		this.version = version // skill version
@@ -432,7 +454,10 @@ export default class Sprucebot {
 	 *
 	 */
 	public async locations(
-		options: { page?: number; limit?: number } = {}
+		options: {
+			page?: number
+			limit?: number
+		} = {}
 	): Promise<Record<string, any>> {
 		return this.adapter.get('/locations', options)
 	}
@@ -488,7 +513,9 @@ export default class Sprucebot {
 			type?: IMessageType.Promotional | IMessageType.Transactional
 		}[]
 	): Promise<Record<string, any>> {
-		return this.adapter.post('/ge/messages', { messages })
+		return this.adapter.post('/ge/messages', {
+			messages
+		})
 	}
 
 	/**
@@ -512,7 +539,11 @@ export default class Sprucebot {
 		message: string,
 		type = IMessageType.Promotional
 	): Promise<Record<string, any>> {
-		return this.adapter.post('/messages', { userId, message, type })
+		return this.adapter.post('/messages', {
+			userId,
+			message,
+			type
+		})
 	}
 
 	/**
@@ -591,7 +622,10 @@ export default class Sprucebot {
 	 */
 	public async metaById(
 		id: string,
-		options: { locationId?: string; userId?: string } = {}
+		options: {
+			locationId?: string
+			userId?: string
+		} = {}
 	): Promise<Record<string, any>> {
 		return this.adapter.get(`/data/${id}`, options)
 	}
@@ -605,7 +639,10 @@ export default class Sprucebot {
 	public async createMeta(
 		key: string,
 		value: any,
-		options: { locationId?: string; userId?: string } = {}
+		options: {
+			locationId?: string
+			userId?: string
+		} = {}
 	): Promise<Record<string, any>> {
 		const data = {
 			...options,
@@ -627,7 +664,12 @@ export default class Sprucebot {
 	 */
 	public async updateMeta(
 		id: string,
-		options: { key?: string; value?: any; locationId?: string; userId?: string }
+		options: {
+			key?: string
+			value?: any
+			locationId?: string
+			userId?: string
+		}
 	): Promise<Record<string, any>> {
 		const data = {
 			...options
@@ -646,7 +688,10 @@ export default class Sprucebot {
 	public async metaOrCreate(
 		key: string,
 		value: any,
-		options: { locationId?: string; userId?: string } = {}
+		options: {
+			locationId?: string
+			userId?: string
+		} = {}
 	): Promise<Record<string, any>> {
 		let meta = await this.meta(key, options)
 
@@ -664,7 +709,10 @@ export default class Sprucebot {
 	public async upsertMeta(
 		key: string,
 		value: any,
-		options: { locationId?: string; userId?: string } = {}
+		options: {
+			locationId?: string
+			userId?: string
+		} = {}
 	): Promise<Record<string, any>> {
 		let meta = await this.meta(key, options)
 
@@ -673,7 +721,9 @@ export default class Sprucebot {
 			meta = await this.createMeta(key, value, options)
 		} else if (JSON.stringify(meta.value) !== JSON.stringify(value)) {
 			//found, but value has changed
-			meta = await this.updateMeta(meta.id, { value })
+			meta = await this.updateMeta(meta.id, {
+				value
+			})
 		}
 		return meta
 	}
@@ -687,40 +737,65 @@ export default class Sprucebot {
 		return this.adapter.delete(`/data/${id}`)
 	}
 
-	/**
-	 * Emit a custom event. The response is the response from all skills
-	 */
+	/** Emit a custom event. The response is the response from all skills */
 	public async emit(
+		/** the location that will receive this event */
 		locationId: string,
+		/** the name of the event */
 		eventName: string,
+		/** any data you want passed with the event */
 		payload: Record<string, any> = {},
-		options?: Record<string, any>,
+		/** options to control how the event behaves */
+		options?: IEmitEventOptions,
+		/** DEPRECATED, please pass options.eventId */
 		eventId?: string
 	): Promise<IEventResponse[]> {
+		let actualEventId = eventId
+		if (options && options.eventId) {
+			actualEventId = options.eventId
+		}
+
+		if (eventId) {
+			debug(
+				'Deprecation Warning: Please pass eventId as an option going forward'
+			)
+		}
+
 		return this.adapter.post(`locations/${locationId}/emit`, {
 			eventName,
-			eventId,
+			eventId: actualEventId,
 			payload,
 			options
 		})
 	}
 
-	/**
-	 * Emit a custom event to all locations under an organization. The response is the response from all skills
-	 *
-	 * @param {String} name
-	 * @param {Object} payload
-	 */
+	/** Emit a custom event to all locations under an organization. The response is the response from all skills */
 	public async emitOrganization(
+		/** id of the org we're emitting to */
 		organizationId: string,
+		/** the name of the event you want to emit */
 		eventName: string,
+		/** any data you want to pass with the event */
 		payload: Record<string, any> = {},
-		options?: Record<string, any>,
+		/** options to configure how the event behaves */
+		options?: IEmitOrganizationEventOptions,
+		/** Deprecated, pass options.eventId */
 		eventId?: string
 	): Promise<IEventResponse[]> {
+		let actualEventId = eventId
+		if (options && options.eventId) {
+			actualEventId = options.eventId
+		}
+
+		if (eventId) {
+			debug(
+				'Deprecation Warning: Please pass eventId as an option going forward'
+			)
+		}
+
 		return this.adapter.post(`organizations/${organizationId}/emit`, {
 			eventName,
-			eventId,
+			eventId: actualEventId,
 			payload,
 			options
 		})
