@@ -21,11 +21,12 @@ import CardFooter from './CardFooter'
 import CardHeader, { ICardHeaderProps } from './CardHeader'
 import OnboardingCard, { IOnboardingCardProps } from './OnboardingCard'
 import Scores from './Scores'
+import { unionArray } from '../../..'
 
 export interface ICardBuilderFooter
 	extends Omit<IHWCardBuilderFooter, 'buttonGroup'> {
 	/** Render buttons in the Card Footer */
-	buttonGroup?: IButtonGroupProps
+	buttonGroup?: IButtonGroupProps | null
 }
 
 export type CardBuilderBodyItemViewModel =
@@ -60,22 +61,27 @@ export interface ICardBuilderProps
 	id?: string
 
 	/** Card Header props */
-	header?: ICardHeaderProps
+	header?: ICardHeaderProps | null
 
 	/** Image rendered as header */
-	headerImage?: IImageProps
+	headerImage?: IImageProps | null
 
 	/** all onboarding props */
-	onboarding?: IOnboardingCardProps
+	onboarding?: IOnboardingCardProps | null
 
 	/** Card Body props */
-	body?: ICardBuilderBodyProps
+	body?: ICardBuilderBodyProps | null
 
 	/** Card Footer props */
-	footer?: ICardBuilderFooter
+	footer?: ICardBuilderFooter | null
+
+	/** so we can use directly and set our own children */
+	children?: any
 }
 
-const renderItem = (item: ICardBuilderBodyItem): React.ReactElement => {
+const renderItem = (
+	item: ICardBuilderBodyItem | IHWCardBuilderBodyItem
+): React.ReactElement => {
 	const CardBuilderKey = {
 		CardBodyButton: Button,
 		CardBodyImage: Image,
@@ -111,7 +117,9 @@ const renderItem = (item: ICardBuilderBodyItem): React.ReactElement => {
 	)
 }
 
-const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
+const CardBuilder = (
+	props: ICardBuilderProps | IHWCardBuilder
+): React.ReactElement => {
 	const { header, headerImage, body, footer, onboarding } = props
 	if (onboarding) {
 		return <OnboardingCard {...onboarding} />
@@ -124,10 +132,8 @@ const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 		isFullBleed = false,
 		areSectionSeparatorsVisible = false,
 		hasTopPadding = true,
-		hasBottomPadding = true,
-		children
+		hasBottomPadding = true
 	} = body || {
-		children: undefined,
 		items: undefined,
 		isSectioned: true,
 		isFullBleed: false,
@@ -135,6 +141,8 @@ const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 		hasTopPadding: true,
 		hasBottomPadding: true
 	}
+
+	const { children } = (body as ICardBuilderProps) || { children: undefined }
 
 	return (
 		<Card>
@@ -153,7 +161,7 @@ const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 					isFullBleed={!!isFullBleed}
 				>
 					{children}
-					{Array.isArray(items) ? items.map(renderItem) : items}
+					{Array.isArray(items) ? unionArray(items).map(renderItem) : items}
 				</CardBody>
 			)}
 			{footer && (

@@ -27,7 +27,7 @@ export interface IContextMenuProps
 	isBottomAligned?: boolean
 
 	/** Overrides the default icon */
-	icon?: IIconProps
+	icon?: IIconProps | null
 
 	/** Optional classname that applies to the button */
 	className?: string
@@ -53,7 +53,7 @@ interface IContextMenuState {
 }
 
 export default class ContextMenu extends Component<
-	IContextMenuProps,
+	IContextMenuProps | IHWContextMenu,
 	IContextMenuState
 > {
 	public static defaultProps = {
@@ -124,7 +124,9 @@ export default class ContextMenu extends Component<
 	}
 
 	public getMenuPlacement = () => {
-		const { isRightAligned, isBottomAligned } = this.props
+		const reactHeartwoodProps = this.props as IContextMenuProps
+		const { isRightAligned, isBottomAligned } = reactHeartwoodProps
+
 		const triggerPosition = this.getTriggerPlacement()
 
 		if (!triggerPosition) {
@@ -219,6 +221,8 @@ export default class ContextMenu extends Component<
 	}
 
 	public handleToggle = (): void => {
+		const { onToggleContextMenuVisible } = this.props as IContextMenuProps
+
 		this.setState(
 			prevState => ({
 				isVisible: !prevState.isVisible
@@ -226,8 +230,8 @@ export default class ContextMenu extends Component<
 			() => {
 				this.manageListeners()
 
-				if (this.props.onToggleContextMenuVisible) {
-					this.props.onToggleContextMenuVisible(this.state.isVisible)
+				if (onToggleContextMenuVisible) {
+					onToggleContextMenuVisible(this.state.isVisible)
 				}
 
 				if (this.state.isVisible) {
@@ -257,20 +261,20 @@ export default class ContextMenu extends Component<
 	}
 
 	public render(): React.ReactElement {
+		const reactHeartwoodProps = this.props as IContextMenuProps
+		const commonProps = this.props as IHWContextMenu
+
 		const { isVisible, overflowBottom, overflowLeft, menuPosition } = this.state
+		const { icon, isSimple, isSmall, isTextOnly, size, text } = commonProps
+
 		const {
 			actions,
 			className,
-			icon,
 			isBottomAligned,
 			isRightAligned,
-			isSimple,
-			isSmall,
-			isTextOnly,
-			onAction,
-			size,
-			text
-		} = this.props
+			onAction
+		} = reactHeartwoodProps
+
 		const buttonClass = cx('context-menu', className, {
 			'context-menu--is-visible': isVisible
 		})

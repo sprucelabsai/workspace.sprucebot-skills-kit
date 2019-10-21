@@ -11,7 +11,8 @@ import SplitButton, {
 import Text, { ITextProps } from '../../../Text/Text'
 import {
 	IHWCalendarEventDetailsItem,
-	IHWAction
+	IHWAction,
+	IHWCalendarEventDetailsItemViewModel
 } from '@sprucelabs/spruce-types'
 
 const MDTextContainer = (props: IMarkdownProps): React.ReactElement => (
@@ -29,15 +30,18 @@ const components = {
 	markdown: MDTextContainer
 }
 
+type ViewModel =
+	| IListProps
+	| IButtonProps
+	| ICardBuilderProps
+	| ITextProps
+	| IMarkdownProps
+	| ISplitButtonProps
+	| IHWCalendarEventDetailsItemViewModel
+
 export interface IEventDetailsItemProps
 	extends Omit<IHWCalendarEventDetailsItem, 'viewModel'> {
-	viewModel:
-		| IListProps
-		| IButtonProps
-		| ICardBuilderProps
-		| ITextProps
-		| IMarkdownProps
-		| ISplitButtonProps
+	viewModel: ViewModel
 
 	/** optional, provide a handler for Actions */
 	onAction?: (action: IHWAction) => any

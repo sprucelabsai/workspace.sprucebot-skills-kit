@@ -222,6 +222,8 @@ export type ICoreGQLActionCoreRedirect = {
 	__typename?: 'ActionCoreRedirect'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionCoreRedirectPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** payload used for core redirect */
@@ -265,6 +267,7 @@ export type ICoreGQLActionEmitEventPayload = {
 
 export type ICoreGQLActionExecutor = {
 	action?: Maybe<ICoreGQLAction>
+	id: Scalars['ID']
 }
 
 /** Pop up dialog to edit the user */
@@ -752,7 +755,14 @@ export enum ICoreGQLCalendarEventKind {
 
 export type ICoreGQLCalendarEventStreamResponse = {
 	__typename?: 'CalendarEventStreamResponse'
+	type?: Maybe<ICoreGQLCalendarEventStreamType>
 	CalendarEvent?: Maybe<ICoreGQLCalendarEvent>
+}
+
+export enum ICoreGQLCalendarEventStreamType {
+	Create = 'Create',
+	Update = 'Update',
+	Delete = 'Delete'
 }
 
 /** The builder for all things cards */
@@ -1342,7 +1352,7 @@ export type ICoreGQLExpandableListItem = {
 	/** Optional; adds a nested list */
 	list?: Maybe<ICoreGQLList>
 	/** Optional; adds multiple lists nested at the same level */
-	lists?: Maybe<Array<Maybe<ICoreGQLList>>>
+	lists?: Maybe<Array<ICoreGQLList>>
 	/** Optional icon for collapsed state */
 	collapsedIconName?: Maybe<Scalars['String']>
 	/** Optional icon for expanded state */
@@ -1712,7 +1722,7 @@ export type ICoreGQLGroupHasManyUserGroupsEdge = {
 export type ICoreGQLHeading = {
 	__typename?: 'Heading'
 	/** Id for view caching */
-	id: Scalars['String']
+	id: Scalars['ID']
 	/** HTML rendered directly */
 	html?: Maybe<Scalars['String']>
 	/** Text rendered in the header */
@@ -2012,7 +2022,7 @@ export type ICoreGQLList = {
 	/** List Header */
 	header?: Maybe<ICoreGQLListHeader>
 	/** List items */
-	items?: Maybe<Array<Maybe<ICoreGQLListItemTypes>>>
+	items?: Maybe<Array<ICoreGQLListItemTypes>>
 	/** Set true to make the list smaller */
 	isSmall?: Maybe<Scalars['Boolean']>
 	/** Set to true to show separators between list items */
@@ -2083,7 +2093,7 @@ export type ICoreGQLListItem = {
 	/** Optional; adds a nested list */
 	list?: Maybe<ICoreGQLList>
 	/** Optional; adds multiple lists nested at the same level */
-	lists?: Maybe<Array<Maybe<ICoreGQLList>>>
+	lists?: Maybe<Array<ICoreGQLList>>
 }
 
 export type ICoreGQLListItemSelectablePropsType =
@@ -2571,6 +2581,25 @@ export type ICoreGQLLocationScheduleDetailsTimes = {
 	startTime: Scalars['String']
 	/** The end of the open time for a location schedule */
 	endTime: Scalars['String']
+}
+
+/** A connection to a list of items. */
+export type ICoreGQLLocationsForUserLocationConnectionConnection = {
+	__typename?: 'LocationsForUserLocationConnectionConnection'
+	/** Information to aid in pagination. */
+	pageInfo: ICoreGQLPageInfo
+	/** A list of edges. */
+	edges?: Maybe<Array<Maybe<ICoreGQLLocationsForUserLocationConnectionEdge>>>
+	totalCount?: Maybe<Scalars['Int']>
+}
+
+/** An edge in a connection. */
+export type ICoreGQLLocationsForUserLocationConnectionEdge = {
+	__typename?: 'LocationsForUserLocationConnectionEdge'
+	/** The item at the end of the edge */
+	node?: Maybe<ICoreGQLLocation>
+	/** A cursor for use in pagination */
+	cursor: Scalars['String']
 }
 
 /** A location skill mapping */
@@ -3768,6 +3797,8 @@ export type ICoreGQLQuery = {
 	Location?: Maybe<ICoreGQLLocation>
 	/** Get public information about locations. Max/default limit 50. */
 	Locations?: Maybe<ICoreGQLLocationConnection>
+	/** Get Locations the current user is connected to as a teammate (or above). Max/default limit 50. */
+	LocationsForUser?: Maybe<ICoreGQLLocationsForUserLocationConnectionConnection>
 	/** Check if a location slug is available. */
 	checkLocationSlug?: Maybe<ICoreGQLCheckSlugResponse>
 	/** Check if a store num is available. */
@@ -3968,6 +3999,19 @@ export type ICoreGQLQueryLocationArgs = {
 
 export type ICoreGQLQueryLocationsArgs = {
 	organizationId: Scalars['ID']
+	notInGroupIds?: Maybe<Array<Maybe<Scalars['ID']>>>
+	search?: Maybe<Scalars['String']>
+	limit?: Maybe<Scalars['Int']>
+	order?: Maybe<Scalars['String']>
+	where?: Maybe<Scalars['SequelizeJSON']>
+	offset?: Maybe<Scalars['Int']>
+	after?: Maybe<Scalars['String']>
+	first?: Maybe<Scalars['Int']>
+	before?: Maybe<Scalars['String']>
+	last?: Maybe<Scalars['Int']>
+}
+
+export type ICoreGQLQueryLocationsForUserArgs = {
 	notInGroupIds?: Maybe<Array<Maybe<Scalars['ID']>>>
 	search?: Maybe<Scalars['String']>
 	limit?: Maybe<Scalars['Int']>

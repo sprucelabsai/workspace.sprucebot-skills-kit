@@ -5,7 +5,8 @@ import {
 	IHWCalendarEventDetails,
 	IHWCalendarEventDetailsItemType,
 	IHWCalendarEventDetailsItem,
-	IHWAction
+	IHWAction,
+	IHWCalendarEventDetailsItemViewModel
 } from '@sprucelabs/spruce-types'
 
 import EventDetailsItem from './components/EventDetailsItem/EventDetailsItem'
@@ -15,6 +16,7 @@ import { ITextProps } from '../Text/Text'
 import { IMarkdownProps } from '../MarkdownText/MarkdownText'
 import { ISplitButtonProps } from '../SplitButton/SplitButton'
 import { IListProps } from '../List'
+import { unionArray } from '../..'
 
 export interface IEventDetailsItemProps
 	extends Omit<IHWCalendarEventDetailsItem, 'viewModel'> {
@@ -25,6 +27,7 @@ export interface IEventDetailsItemProps
 		| ITextProps
 		| IMarkdownProps
 		| ISplitButtonProps
+		| IHWCalendarEventDetailsItemViewModel
 }
 
 export interface IEventDetailsProps
@@ -33,7 +36,7 @@ export interface IEventDetailsProps
 	isLoading?: boolean
 
 	/** all the items that make up this event details component */
-	items: IEventDetailsItemProps[]
+	items: (IEventDetailsItemProps | IHWCalendarEventDetailsItem)[]
 
 	/** optional, provide a handler for Actions */
 	onAction?: (action: IHWAction) => any
@@ -42,11 +45,15 @@ export interface IEventDetailsProps
 interface IEventDetailsState {}
 
 export default class EventDetails extends Component<
-	IEventDetailsProps,
+	IEventDetailsProps | IHWCalendarEventDetails,
 	IEventDetailsState
 > {
 	public render(): React.ReactElement {
-		const { items, isLoading, onAction } = this.props
+		const reactHeartwoodProps = this.props as IEventDetailsProps
+		const commonProps = this.props as IHWCalendarEventDetails
+
+		const { items } = commonProps
+		const { isLoading, onAction } = reactHeartwoodProps
 
 		const className = cx('event-details', {
 			'loading-placeholder': isLoading
@@ -54,7 +61,7 @@ export default class EventDetails extends Component<
 
 		return (
 			<div className={className}>
-				{items.map(item => (
+				{unionArray(items).map(item => (
 					<div
 						key={item.viewModel.id}
 						className={cx('event-details__section', {

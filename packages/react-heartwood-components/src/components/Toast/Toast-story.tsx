@@ -133,7 +133,7 @@ stories
 			headline={text('headline', 'Neat')}
 			text={text('text', 'Something just happened and it was fine.')}
 			onRemove={() => null}
-			followupAction={() => null}
+			onAction={() => null}
 			followupText={boolean('followupAction', false) ? 'Undo' : undefined}
 		/>
 	))
@@ -147,7 +147,7 @@ stories
 						headline={text('headline', 'Neat') + ' ' + kind + ' toast'}
 						text={text('text', 'Something just happened and it was fine.')}
 						onRemove={() => null}
-						followupAction={() => null}
+						onAction={() => null}
 						followupText={boolean('followupAction', false) ? 'Undo' : undefined}
 					/>
 				</div>

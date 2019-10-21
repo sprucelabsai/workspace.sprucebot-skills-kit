@@ -20,17 +20,18 @@ const services: IEventDetailsItemProps = {
 		items: [
 			{
 				id: 'first',
-				icon: { name: 'unordered_list', isLineIcon: true },
+				icon: { name: 'unordered_list', isLineIcon: true, id: 'unordered' },
 				title: 'Accent Highlight',
 				subtitle: '$65 | 1hr',
 				note: 'Vicenta Maggio',
 				contextMenu: {
-					icon: { name: 'edit', isLineIcon: true },
+					icon: { id: 'edit', name: 'edit', isLineIcon: true },
 					isSimple: true,
 					isSmall: true,
 					size: IHWContextMenuSize.Large,
 					actions: [
 						{
+							id: 'save-teammate',
 							text: 'Change teammate',
 							action: {
 								type: IHWActionTypes.EmitEvent,
@@ -40,6 +41,7 @@ const services: IEventDetailsItemProps = {
 							}
 						},
 						{
+							id: 'remove-appointment',
 							text: 'Remove from appointment',
 							action: {
 								type: IHWActionTypes.EmitEvent,
@@ -53,18 +55,19 @@ const services: IEventDetailsItemProps = {
 			},
 			{
 				id: 'second',
-				icon: { name: 'unordered_list', isLineIcon: true },
+				icon: { id: 'second-icon', name: 'unordered_list', isLineIcon: true },
 				isIconHidden: true,
 				title: 'Haircut',
 				subtitle: '$40 | 1hr',
 				note: 'Vicenta Maggio',
 				contextMenu: {
-					icon: { name: 'edit', isLineIcon: true },
+					icon: { id: 'edit', name: 'edit', isLineIcon: true },
 					isSimple: true,
 					isSmall: true,
 					size: IHWContextMenuSize.Large,
 					actions: [
 						{
+							id: 'change-teammate',
 							text: 'Change teammate',
 							action: {
 								type: IHWActionTypes.EmitEvent,
@@ -74,6 +77,7 @@ const services: IEventDetailsItemProps = {
 							}
 						},
 						{
+							id: 'remove',
 							text: 'Remove from appointment',
 							action: {
 								type: IHWActionTypes.EmitEvent,
@@ -88,9 +92,10 @@ const services: IEventDetailsItemProps = {
 			{
 				id: 'last',
 				title: 'Add service',
-				icon: { name: 'add' },
+				icon: { id: 'add', name: 'add' },
 				primaryAction: {
-					icon: { name: 'add' },
+					id: 'add',
+					icon: { id: 'add', name: 'add' },
 					kind: ButtonKinds.Simple,
 					action: {
 						type: IHWActionTypes.EmitEvent,
@@ -523,7 +528,7 @@ export const warningAppointment: IEventDetailsProps = {
 				}
 			}
 		},
-		{ ...services },
+		services,
 		{
 			type: IHWCalendarEventDetailsItemType.List,
 			viewModel: {

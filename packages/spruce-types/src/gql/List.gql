@@ -98,7 +98,7 @@ type ListItem {
 	list: List
 
 	"Optional; adds multiple lists nested at the same level"
-	lists: [List]
+	lists: [List!]
 }
 
 "Wraps a standard list or list item and makes it collapsable"
@@ -113,7 +113,7 @@ type ExpandableListItem {
 	list: List
 
 	"Optional; adds multiple lists nested at the same level"
-	lists: [List]
+	lists: [List!]
 
 	"Optional icon for collapsed state"
 	collapsedIconName: String
@@ -133,7 +133,7 @@ type List {
 	header: ListHeader
 
 	"List items"
-	items: [ListItemTypes]
+	items: [ListItemTypes!]
 
 	"Set true to make the list smaller"
 	isSmall: Boolean
