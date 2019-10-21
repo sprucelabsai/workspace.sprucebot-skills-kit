@@ -51,7 +51,11 @@ export default class EventDetails extends Component<
 	IEventDetailsState
 > {
 	public render(): React.ReactElement {
-		const { items, isLoading, onAction } = this.props as IEventDetailsProps
+		const reactHeartwoodProps = this.props as IEventDetailsProps
+		const commonProps = this.props as IHWCalendarEventDetails
+
+		const { items } = commonProps
+		const { isLoading, onAction } = reactHeartwoodProps
 
 		const className = cx('event-details', {
 			'loading-placeholder': isLoading

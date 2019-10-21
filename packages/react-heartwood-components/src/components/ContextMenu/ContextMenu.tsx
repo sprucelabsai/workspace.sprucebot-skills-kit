@@ -124,7 +124,9 @@ export default class ContextMenu extends Component<
 	}
 
 	public getMenuPlacement = () => {
-		const { isRightAligned, isBottomAligned } = this.props as IContextMenuProps
+		const reactHeartwoodProps = this.props as IContextMenuProps
+		const { isRightAligned, isBottomAligned } = reactHeartwoodProps
+
 		const triggerPosition = this.getTriggerPlacement()
 
 		if (!triggerPosition) {
@@ -259,20 +261,19 @@ export default class ContextMenu extends Component<
 	}
 
 	public render(): React.ReactElement {
+		const reactHeartwoodProps = this.props as IContextMenuProps
+		const commonProps = this.props as IHWContextMenu
+
 		const { isVisible, overflowBottom, overflowLeft, menuPosition } = this.state
+		const { icon, isSimple, isSmall, isTextOnly, size, text } = commonProps
+
 		const {
 			actions,
-			icon,
-			isSimple,
-			isSmall,
-			isTextOnly,
-			size,
-			text,
 			className,
 			isBottomAligned,
 			isRightAligned,
 			onAction
-		} = this.props as IContextMenuProps
+		} = reactHeartwoodProps
 
 		const buttonClass = cx('context-menu', className, {
 			'context-menu--is-visible': isVisible

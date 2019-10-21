@@ -23,11 +23,11 @@ export interface ICardHeaderProps
 const CardHeader = (
 	props: ICardHeaderProps | IHWCardHeader
 ): React.ReactElement => {
-	const propsComp = props as ICardHeaderProps
-	const propsGql = props as IHWCardHeader
+	const reactHeartwoodProps = props as ICardHeaderProps
+	const commonProps = props as IHWCardHeader
 
-	const { title, labelText, actions, contextMenu } = propsGql
-	const { labelIcon } = propsComp
+	const { title, labelText, actions, contextMenu } = commonProps
+	const { labelIcon } = reactHeartwoodProps
 
 	return (
 		<div className="card__header">

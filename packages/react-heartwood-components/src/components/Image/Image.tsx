@@ -12,7 +12,11 @@ export interface IImageProps extends Omit<IHWImage, 'id'> {
 }
 
 const Image = (props: IImageProps | IHWImage): React.ReactElement => {
-	const { id, alt, width, height, src } = props as IImageProps
+	const reactHeartwoodProps = props as IImageProps
+	const commonProps = props as IHWImage
+
+	const { id, alt, src } = commonProps
+	const { width, height } = reactHeartwoodProps
 
 	const imageProps = {
 		id: id || undefined,

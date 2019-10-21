@@ -15,8 +15,11 @@ export interface IButtonGroupProps extends Omit<IHWButtonGroup, 'actions'> {
 const ButtonGroup = (
 	props: IButtonGroupProps | IHWButtonGroup
 ): React.ReactElement => {
-	const { actions, kind, isFullWidth, highlightedIndex } = props
-	const { onAction } = props as IButtonGroupProps
+	const reactHeartwoodProps = props as IButtonGroupProps
+	const commonProps = props as IHWButtonGroup
+
+	const { actions, kind, isFullWidth, highlightedIndex } = commonProps
+	const { onAction } = reactHeartwoodProps
 
 	const parentClass = cx('button-group', {
 		'button-group-segmented': kind === 'segmented',

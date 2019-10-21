@@ -44,15 +44,12 @@ export interface IToastProps extends Omit<IHWToast, 'id'> {
 }
 
 const Toast = (props: IToastProps | IHWToast): React.ReactElement => {
-	const {
-		headline,
-		kind,
-		text,
-		followupAction,
-		followupText,
-		onAction,
-		onRemove
-	} = props as IToastProps
+	const commonProps = props as IHWToast
+	const reactHeartwoodProps = props as IToastProps
+
+	const { headline, kind, text, followupAction, followupText } = commonProps
+	const { onAction, onRemove } = reactHeartwoodProps
+
 	const toastClass = cx('toast', {
 		'toast-positive': kind === 'positive',
 		'toast-negative': kind === 'negative',
