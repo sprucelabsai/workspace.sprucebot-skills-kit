@@ -856,7 +856,7 @@ export type IHWToggle = IHWActionExecutor & {
 export type IHWUiEnhancementSection = {
   __typename?: 'UIEnhancementSection',
   /** The ID of the section that is acting as a placeholder for ui enhancements */
-  sectionId: Scalars['String'],
+  id: Scalars['String'],
   /** Arbitrary payload sent to ui-enhancements event so skills have some context */
   payload?: Maybe<Scalars['JSON']>,
 };
