@@ -256,6 +256,22 @@ export type ICoreGQLActionEmitEvent = {
 	payload: ICoreGQLActionEmitEventPayload
 }
 
+export type ICoreGQLActionEmitEventInput = {
+	type: Scalars['String']
+	payload: ICoreGQLActionEmitEventInputPayload
+}
+
+export type ICoreGQLActionEmitEventInputPayload = {
+	/** Name of the event, like 'booking:update-appointment' */
+	eventName: Scalars['String']
+	/** optional location id */
+	locationId?: Maybe<Scalars['String']>
+	/** optional organizationId */
+	organizationId?: Maybe<Scalars['String']>
+	/** Arbitrary payload sent with the event */
+	payload?: Maybe<Scalars['JSON']>
+}
+
 /** Emit an event to your skill when this action is invoked */
 export type ICoreGQLActionEmitEventPayload = {
 	__typename?: 'ActionEmitEventPayload'
@@ -1342,6 +1358,25 @@ export type ICoreGQLExampleStreamItem = {
 	sentAt?: Maybe<Scalars['String']>
 }
 
+export type ICoreGQLExecuteActionEmitInput = {
+	/** The action to emit. This can be passed straight through from the FE. */
+	action: ICoreGQLActionEmitEventInput
+}
+
+export type ICoreGQLExecuteActionEmitResponse = {
+	__typename?: 'ExecuteActionEmitResponse'
+	/** The skill that responded to this event */
+	Skill: ICoreGQLSkill
+	/** [PLACEHOLDER - NOT IMPLEMENTED] The updated cards after this event */
+	cardBuilder?: Maybe<ICoreGQLCardBuilder>
+	/** The updated calendar events after this event */
+	calendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
+	/** Details if an error occurs */
+	error?: Maybe<ICoreGQLEventError>
+	/** Assuming the action was successful but with warnings, this array will be populated with those warnings. */
+	warnings?: Maybe<Array<Maybe<ICoreGQLEventWarning>>>
+}
+
 /** Wraps a standard list or list item and makes it collapsable */
 export type ICoreGQLExpandableListItem = {
 	__typename?: 'ExpandableListItem'
@@ -1551,6 +1586,11 @@ export type ICoreGQLGetSettingsResponse = {
 	__typename?: 'GetSettingsResponse'
 	/** The settings */
 	settings?: Maybe<Scalars['JSON']>
+}
+
+export type ICoreGQLGetSkillTokenResponse = {
+	__typename?: 'GetSkillTokenResponse'
+	token: Scalars['String']
 }
 
 /** A group */
@@ -2961,6 +3001,8 @@ export type ICoreGQLMutation = {
 	registerDevice?: Maybe<ICoreGQLRegisterDeviceResponse>
 	/** Testing a user update */
 	updateUserTest?: Maybe<ICoreGQLUser>
+	/** Execute the emit action */
+	executeActionEmit?: Maybe<ICoreGQLExecuteActionEmitResponse>
 	/** Reschedule calendar event */
 	rescheduleCalendarEvent?: Maybe<ICoreGQLRescheduleCalendarEventResponse>
 }
@@ -3137,6 +3179,10 @@ export type ICoreGQLMutationUpdateUserTestArgs = {
 	input: ICoreGQLUpdateUserInput
 }
 
+export type ICoreGQLMutationExecuteActionEmitArgs = {
+	input: ICoreGQLExecuteActionEmitInput
+}
+
 export type ICoreGQLMutationRescheduleCalendarEventArgs = {
 	input: ICoreGQLRescheduleCalendarEventInput
 }
@@ -3147,7 +3193,7 @@ export type ICoreGQLOnboardingCard = {
 	/** Title of the entire card */
 	title?: Maybe<Scalars['String']>
 	/** Steps for onboarding */
-	steps?: Maybe<Array<Maybe<ICoreGQLOnboardingCardStep>>>
+	steps: Array<ICoreGQLOnboardingCardStep>
 }
 
 /** One step in the onboarding process */
@@ -3865,6 +3911,8 @@ export type ICoreGQLQuery = {
 	loadFirstLocations?: Maybe<ICoreGQLLocationConnection>
 	/** Test of union resolution */
 	loadUserOrLocation?: Maybe<ICoreGQLModel>
+	/** Get a skill token for the currently logged in user */
+	getSkillToken?: Maybe<ICoreGQLGetSkillTokenResponse>
 	/** Get all the calendar events for a specific calendar */
 	CalendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
 	/** Pull cards for a particular view */
@@ -4197,6 +4245,13 @@ export type ICoreGQLQueryLoadUserOrLocationArgs = {
 	type: Scalars['String']
 }
 
+export type ICoreGQLQueryGetSkillTokenArgs = {
+	organizationId?: Maybe<Scalars['ID']>
+	locationId?: Maybe<Scalars['ID']>
+	skillId: Scalars['ID']
+	expiresIn?: Maybe<Scalars['Int']>
+}
+
 export type ICoreGQLQueryCalendarEventsArgs = {
 	calendarId: Scalars['ID']
 	organizationId: Scalars['ID']
@@ -4504,7 +4559,7 @@ export type ICoreGQLScopeWarning = {
 /** A score card! */
 export type ICoreGQLScoreCard = {
 	__typename?: 'ScoreCard'
-	scores?: Maybe<Array<Maybe<ICoreGQLScoreCardPanel>>>
+	scores?: Maybe<Array<ICoreGQLScoreCardPanel>>
 }
 
 /** Panels make up the score card */
@@ -4600,6 +4655,8 @@ export type ICoreGQLSkill = {
 	icon?: Maybe<Scalars['String']>
 	/** Describes both the events that the skill subscribes to and the events that is publishes */
 	eventContract?: Maybe<Scalars['SequelizeJSON']>
+	/** Describes both the events that the skill subscribes to and the events that is publishes */
+	uiEnhancementContract?: Maybe<Scalars['SequelizeJSON']>
 	/** Describes the ACLs that this skill provides. */
 	acl?: Maybe<Scalars['SequelizeJSON']>
 	/** The email for the skill developer. This may be used to send reporting information. */
@@ -5119,6 +5176,8 @@ export type ICoreGQLSyncSkillInput = {
 	icon?: Maybe<Scalars['String']>
 	/** The skill eventContract. This is an object that has been JSON.stringify-d */
 	eventContract?: Maybe<Scalars['String']>
+	/** The skill uiEnhancementContract. This is an object that has been JSON.stringify-d */
+	uiEnhancementContract?: Maybe<Scalars['String']>
 	/** The skill viewVersion */
 	viewVersion?: Maybe<Scalars['Int']>
 	/** The skill acl. This is an object that has been JSON.stringify-d */
@@ -5212,6 +5271,8 @@ export type ICoreGQLToast = {
 	kind?: Maybe<Scalars['String']>
 	/** Text for the followup action */
 	followupText?: Maybe<Scalars['String']>
+	/** Action to be invoked when hitting the followup CTA */
+	followupAction?: Maybe<ICoreGQLAction>
 }
 
 export type ICoreGQLToggle = ICoreGQLActionExecutor & {
