@@ -16,11 +16,16 @@ export interface ISearchForUserLegacy {
 
 export interface IBigSearch {
 	/** Search for ANYTHING! */
-	search(options: { locationId?: string }): void
-	/** callback to be invoked when a selection is made */
-	onSelect(callback: (selection: Record<string, any>) => void): void
-	/** pass a callback to be triggered on cancel of search */
-	onCancel(callback: () => void): void
+	search(options: {
+		/** Id you are searching against */
+		locationId?: string
+		/** what happens when a selection is made */
+		onSelect?: (selection: Record<string, any>) => void
+		/** called when search is cancelled */
+		onCancel?: () => void
+		/** if you only want certain sections to render, pass them here */
+		sections?: string[]
+	}): void
 }
 
 export interface ISaveBar {
@@ -164,7 +169,7 @@ export interface ISkill {
 	 * Local State
 	 */
 	_onCancelSearchCallback?: any
-	_onSelecUserFormSearchCallback?: any
+	_onSelectUserFormSearchCallback?: any
 	_onSaveListener?: any
 	_onDiscardListener?: any
 	_onClosedListener?: any
@@ -173,6 +178,8 @@ export interface ISkill {
 	_onClickFooterSecondaryActionListener?: any
 	_onConfirmListener?: any
 	_onCancelListener?: any
+	_onCancelBigSearchCallback?: any
+	_onSelectFromBigSearchCallback?: any
 
 	/**
 	 * Actions
@@ -285,27 +292,36 @@ const skill: ISkill = {
 		postMessage({ name: 'Skill:SearchForUser', roles, locationId })
 
 		this._onCancelSearchCallback = onCancel
-		this._onSelecUserFormSearchCallback = onSelectUser
+		this._onSelectUserFormSearchCallback = onSelectUser
 	},
 
 	// TODO: Use Iframes built in callback functionality
 	bigSearch() {
-		// TODO: Is this alias necessary?
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
-		const _this = this
-
 		const bigSearch: IBigSearch = {
 			search: options => {
+				const { locationId, onCancel, onSelect } = options
+
 				postMessage({
-					name: 'Skill:SearchForUser',
-					locationId: options.locationId
+					name: 'Skill:BigSearch',
+					locationId
 				})
-			},
-			onCancel: onCancel => {
-				_this._onCancelSearchCallback = onCancel
-			},
-			onSelect: onSelect => {
-				_this._onSelecUserFormSearchCallback = onSelect
+
+				if (this._onCancelBigSearchCallback) {
+					this._onCancelBigSearchCallback.destroy()
+				}
+
+				if (this._onSelectFromBigSearchCallback) {
+					this._onSelectFromBigSearchCallback.destroy()
+				}
+
+				this._onCancelBigSearchCallback = Iframes.onMessage(
+					'BigSearch:Cancel',
+					onCancel
+				)
+				this._onSelectFromBigSearchCallback = Iframes.onMessage(
+					'BigSearch:SelectResult',
+					onSelect
+				)
 			}
 		}
 
