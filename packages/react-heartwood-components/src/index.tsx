@@ -106,9 +106,11 @@ export {
 export { default as EmptyState } from './components/EmptyState/EmptyState'
 export {
 	default as EventDetails,
-	IEventDetailsProps,
-	IEventDetailsItemProps
+	IEventDetailsProps
 } from './components/EventDetails/EventDetails'
+export {
+	IEventDetailsItemProps
+} from './components/EventDetails/components/EventDetailsItem/EventDetailsItem'
 export { default as CircleLoader } from './components/CircleLoader/CircleLoader'
 export { default as SplitButton } from './components/SplitButton/SplitButton'
 export {
