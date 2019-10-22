@@ -1,5 +1,6 @@
 import config from 'config'
-import { IGQLResolvers, ISpruceContext } from '@sprucelabs/spruce-skill-server'
+import { IGQLResolvers } from '../../../../interfaces/gql'
+import { ISpruceContext } from '../../../../interfaces/ctx'
 
 export default (ctx: ISpruceContext) => {
 	if (!config.UI_ENHANCEMENTS_ENABLED) {
