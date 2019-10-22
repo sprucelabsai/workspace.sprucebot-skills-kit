@@ -116,6 +116,10 @@ export type IHWActionEmitEventPayload = {
   __typename?: 'ActionEmitEventPayload',
   /** Name of the event, like 'booking:update-appointment' */
   eventName?: Maybe<Scalars['String']>,
+  /** optional location id */
+  locationId?: Maybe<Scalars['String']>,
+  /** optional organizationId */
+  organizationId?: Maybe<Scalars['String']>,
   /** Arbitrary payload sent with the event */
   payload?: Maybe<Scalars['JSON']>,
 };
