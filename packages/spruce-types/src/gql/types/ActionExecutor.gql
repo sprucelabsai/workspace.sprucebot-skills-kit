@@ -23,9 +23,6 @@ enum ActionTypes {
 
 "payload used for core redirect"
 type ActionCoreRedirectPayload {
-	"the skill slug to redirect to"
-	slug: String!
-
 	"the destination route"
 	route: String!
 
@@ -43,11 +40,14 @@ type ActionCoreRedirect {
 
 "payload used when redirecting a skill view"
 type ActionSkillViewRedirectPayload {
-	"the host of your skill, usually config.HOST"
-	host: String!
+	"the skill slug to redirect to"
+	slug: String!
 
-	"The path to the skill view including any query string"
-	path: String
+	"the destination route"
+	route: String!
+
+	"Params for the route, like organizationId or locationId"
+	routeParams: JSON
 }
 
 "Redirect inside of a skill view"

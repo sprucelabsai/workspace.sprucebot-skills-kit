@@ -84,8 +84,6 @@ export type IHWActionCoreRedirect = {
 /** payload used for core redirect */
 export type IHWActionCoreRedirectPayload = {
   __typename?: 'ActionCoreRedirectPayload',
-  /** the skill slug to redirect to */
-  slug: Scalars['String'],
   /** the destination route */
   route: Scalars['String'],
   /** Params for the route, like organizationId or locationId */
@@ -192,10 +190,12 @@ export type IHWActionSkillViewRedirect = {
 /** payload used when redirecting a skill view */
 export type IHWActionSkillViewRedirectPayload = {
   __typename?: 'ActionSkillViewRedirectPayload',
-  /** the host of your skill, usually config.HOST */
-  host: Scalars['String'],
-  /** The path to the skill view including any query string */
-  path?: Maybe<Scalars['String']>,
+  /** the skill slug to redirect to */
+  slug: Scalars['String'],
+  /** the destination route */
+  route: Scalars['String'],
+  /** Params for the route, like organizationId or locationId */
+  routeParams?: Maybe<Scalars['JSON']>,
 };
 
 export enum IHWActionTypes {
