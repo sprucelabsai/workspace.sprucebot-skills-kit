@@ -19,13 +19,13 @@ const stories = storiesOf('Icon', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('Icon', () => <Icon icon={select('icon', options, 'edit')} />)
+stories.add('Icon', () => <Icon name={select('icon', options, 'edit')} />)
 
 stories.add('All Icons', () => (
 	<div className="Storybook-IconGrid">
 		{map(keys(icons), icon => (
 			<div className="Storybook-IconGridItem" key={`icon-${icon}`}>
-				<Icon icon={icon} />
+				<Icon name={icon} />
 				<div>{icon}</div>
 			</div>
 		))}

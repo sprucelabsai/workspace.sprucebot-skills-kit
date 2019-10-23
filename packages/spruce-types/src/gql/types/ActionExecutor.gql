@@ -109,6 +109,12 @@ type ActionEmitEventPayload {
 	"Name of the event, like 'booking:update-appointment'"
 	eventName: String
 
+	"optional location id"
+	locationId: String
+
+	"optional organizationId"
+	organizationId: String
+
 	"Arbitrary payload sent with the event"
 	payload: JSON
 }
@@ -134,8 +140,10 @@ type ActionBigSearch {
 type ActionQuickEditUserPayload {
 	"The id of the user"
 	userId: String!
+
 	"optional location id"
 	locationId: String
+
 	"optional organizationId"
 	organizationId: String
 }
@@ -162,8 +170,10 @@ type ActionDismissComponent {
 type ActionCalendarJumpToPayload {
 	"Which day and time to focus"
 	dateTime: Date!
+
 	"Make sure the right calendar is selected"
 	calendarId: String!
+
 	"Show the selected user"
 	userId: String
 }

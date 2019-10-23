@@ -118,6 +118,10 @@ export type IHWActionEmitEventPayload = {
   __typename?: 'ActionEmitEventPayload',
   /** Name of the event, like 'booking:update-appointment' */
   eventName?: Maybe<Scalars['String']>,
+  /** optional location id */
+  locationId?: Maybe<Scalars['String']>,
+  /** optional organizationId */
+  organizationId?: Maybe<Scalars['String']>,
   /** Arbitrary payload sent with the event */
   payload?: Maybe<Scalars['JSON']>,
 };
@@ -291,6 +295,8 @@ export type IHWCalendarEvent = {
   userId: Scalars['ID'],
   /** If this is a draft event (meaning it's not booked, but being setup) */
   isDraft?: Maybe<Scalars['Boolean']>,
+  /** Should I render a border for this event? */
+  hasBorder?: Maybe<Scalars['Boolean']>,
 };
 
 /** A block of time that comprises a calendar. */
@@ -351,6 +357,8 @@ export enum IHWCalendarEventKind {
   Unavailable = 'unavailable',
   /** If the event represents a time where the user us unavailable (break or block) */
   Blocked = 'blocked',
+  /** The event is ready to go, everyone has confirmed, it just hasn't happened yet */
+  Upcoming = 'upcoming',
   /** If the event is in the past */
   Past = 'past',
   /** The user should pay attention to this event (maybe the event is unconfirmed and starting in 30 minutes!) */

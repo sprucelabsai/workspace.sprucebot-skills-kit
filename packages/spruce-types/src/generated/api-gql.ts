@@ -678,6 +678,8 @@ export type ICoreGQLCalendarEvent = {
 	userId: Scalars['ID']
 	/** If this is a draft event (meaning it's not booked, but being setup) */
 	isDraft?: Maybe<Scalars['Boolean']>
+	/** Should I render a border for this event? */
+	hasBorder?: Maybe<Scalars['Boolean']>
 }
 
 /** A block of time that comprises a calendar. */
@@ -745,6 +747,8 @@ export enum ICoreGQLCalendarEventKind {
 	Unavailable = 'unavailable',
 	/** If the event represents a time where the user us unavailable (break or block) */
 	Blocked = 'blocked',
+	/** The event is ready to go, everyone has confirmed, it just hasn't happened yet */
+	Upcoming = 'upcoming',
 	/** If the event is in the past */
 	Past = 'past',
 	/** The user should pay attention to this event (maybe the event is unconfirmed and starting in 30 minutes!) */
@@ -1551,6 +1555,11 @@ export type ICoreGQLGetSettingsResponse = {
 	__typename?: 'GetSettingsResponse'
 	/** The settings */
 	settings?: Maybe<Scalars['JSON']>
+}
+
+export type ICoreGQLGetSkillTokenResponse = {
+	__typename?: 'GetSkillTokenResponse'
+	token: Scalars['String']
 }
 
 /** A group */
@@ -3147,7 +3156,7 @@ export type ICoreGQLOnboardingCard = {
 	/** Title of the entire card */
 	title?: Maybe<Scalars['String']>
 	/** Steps for onboarding */
-	steps?: Maybe<Array<Maybe<ICoreGQLOnboardingCardStep>>>
+	steps: Array<ICoreGQLOnboardingCardStep>
 }
 
 /** One step in the onboarding process */
@@ -3857,6 +3866,8 @@ export type ICoreGQLQuery = {
 	UserOrganizations?: Maybe<ICoreGQLUserOrganizationConnection>
 	/** Gets information about a user's visits */
 	Visits?: Maybe<ICoreGQLVisitConnection>
+	/** Get a skill token for the currently logged in user */
+	getSkillToken?: Maybe<ICoreGQLGetSkillTokenResponse>
 	/** Test a simple query */
 	testSimpleQuery: Array<Maybe<ICoreGQLTestType>>
 	/** Test returning a single Sequelize User Model */
@@ -4176,6 +4187,13 @@ export type ICoreGQLQueryVisitsArgs = {
 	organizationId: Scalars['ID']
 	locationId?: Maybe<Scalars['ID']>
 	userId?: Maybe<Scalars['ID']>
+}
+
+export type ICoreGQLQueryGetSkillTokenArgs = {
+	organizationId?: Maybe<Scalars['ID']>
+	locationId?: Maybe<Scalars['ID']>
+	skillId: Scalars['ID']
+	expiresIn?: Maybe<Scalars['Int']>
 }
 
 export type ICoreGQLQueryTestSimpleQueryArgs = {
@@ -4504,7 +4522,7 @@ export type ICoreGQLScopeWarning = {
 /** A score card! */
 export type ICoreGQLScoreCard = {
 	__typename?: 'ScoreCard'
-	scores?: Maybe<Array<Maybe<ICoreGQLScoreCardPanel>>>
+	scores?: Maybe<Array<ICoreGQLScoreCardPanel>>
 }
 
 /** Panels make up the score card */
@@ -4600,6 +4618,8 @@ export type ICoreGQLSkill = {
 	icon?: Maybe<Scalars['String']>
 	/** Describes both the events that the skill subscribes to and the events that is publishes */
 	eventContract?: Maybe<Scalars['SequelizeJSON']>
+	/** Describes both the events that the skill subscribes to and the events that is publishes */
+	uiEnhancementContract?: Maybe<Scalars['SequelizeJSON']>
 	/** Describes the ACLs that this skill provides. */
 	acl?: Maybe<Scalars['SequelizeJSON']>
 	/** The email for the skill developer. This may be used to send reporting information. */
@@ -5119,6 +5139,8 @@ export type ICoreGQLSyncSkillInput = {
 	icon?: Maybe<Scalars['String']>
 	/** The skill eventContract. This is an object that has been JSON.stringify-d */
 	eventContract?: Maybe<Scalars['String']>
+	/** The skill uiEnhancementContract. This is an object that has been JSON.stringify-d */
+	uiEnhancementContract?: Maybe<Scalars['String']>
 	/** The skill viewVersion */
 	viewVersion?: Maybe<Scalars['Int']>
 	/** The skill acl. This is an object that has been JSON.stringify-d */
@@ -5212,6 +5234,8 @@ export type ICoreGQLToast = {
 	kind?: Maybe<Scalars['String']>
 	/** Text for the followup action */
 	followupText?: Maybe<Scalars['String']>
+	/** Action to be invoked when hitting the followup CTA */
+	followupAction?: Maybe<ICoreGQLAction>
 }
 
 export type ICoreGQLToggle = ICoreGQLActionExecutor & {

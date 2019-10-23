@@ -15,6 +15,9 @@ enum CalendarEventKind {
 	"If the event represents a time where the user us unavailable (break or block)"
 	blocked
 
+	"The event is ready to go, everyone has confirmed, it just hasn't happened yet"
+	upcoming
+
 	"If the event is in the past"
 	past
 
@@ -53,4 +56,7 @@ type CalendarEvent {
 
 	"If this is a draft event (meaning it's not booked, but being setup)"
 	isDraft: Boolean
+
+	"Should I render a border for this event?"
+	hasBorder: Boolean
 }
