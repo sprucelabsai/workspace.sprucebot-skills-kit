@@ -256,22 +256,6 @@ export type ICoreGQLActionEmitEvent = {
 	payload: ICoreGQLActionEmitEventPayload
 }
 
-export type ICoreGQLActionEmitEventInput = {
-	type: Scalars['String']
-	payload: ICoreGQLActionEmitEventInputPayload
-}
-
-export type ICoreGQLActionEmitEventInputPayload = {
-	/** Name of the event, like 'booking:update-appointment' */
-	eventName: Scalars['String']
-	/** optional location id */
-	locationId?: Maybe<Scalars['String']>
-	/** optional organizationId */
-	organizationId?: Maybe<Scalars['String']>
-	/** Arbitrary payload sent with the event */
-	payload?: Maybe<Scalars['JSON']>
-}
-
 /** Emit an event to your skill when this action is invoked */
 export type ICoreGQLActionEmitEventPayload = {
 	__typename?: 'ActionEmitEventPayload'
@@ -1360,25 +1344,6 @@ export type ICoreGQLExampleStreamItem = {
 	message?: Maybe<Scalars['String']>
 	/** A timestamp for when this message is generated */
 	sentAt?: Maybe<Scalars['String']>
-}
-
-export type ICoreGQLExecuteActionEmitInput = {
-	/** The action to emit. This can be passed straight through from the FE. */
-	action: ICoreGQLActionEmitEventInput
-}
-
-export type ICoreGQLExecuteActionEmitResponse = {
-	__typename?: 'ExecuteActionEmitResponse'
-	/** The skill that responded to this event */
-	Skill: ICoreGQLSkill
-	/** [PLACEHOLDER - NOT IMPLEMENTED] The updated cards after this event */
-	cardBuilder?: Maybe<ICoreGQLCardBuilder>
-	/** The updated calendar events after this event */
-	calendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
-	/** Details if an error occurs */
-	error?: Maybe<ICoreGQLEventError>
-	/** Assuming the action was successful but with warnings, this array will be populated with those warnings. */
-	warnings?: Maybe<Array<Maybe<ICoreGQLEventWarning>>>
 }
 
 /** Wraps a standard list or list item and makes it collapsable */
@@ -3005,8 +2970,6 @@ export type ICoreGQLMutation = {
 	registerDevice?: Maybe<ICoreGQLRegisterDeviceResponse>
 	/** Testing a user update */
 	updateUserTest?: Maybe<ICoreGQLUser>
-	/** Execute the emit action */
-	executeActionEmit?: Maybe<ICoreGQLExecuteActionEmitResponse>
 	/** Reschedule calendar event */
 	rescheduleCalendarEvent?: Maybe<ICoreGQLRescheduleCalendarEventResponse>
 }
@@ -3181,10 +3144,6 @@ export type ICoreGQLMutationRegisterDeviceArgs = {
 
 export type ICoreGQLMutationUpdateUserTestArgs = {
 	input: ICoreGQLUpdateUserInput
-}
-
-export type ICoreGQLMutationExecuteActionEmitArgs = {
-	input: ICoreGQLExecuteActionEmitInput
 }
 
 export type ICoreGQLMutationRescheduleCalendarEventArgs = {
@@ -3917,8 +3876,6 @@ export type ICoreGQLQuery = {
 	loadFirstLocations?: Maybe<ICoreGQLLocationConnection>
 	/** Test of union resolution */
 	loadUserOrLocation?: Maybe<ICoreGQLModel>
-	/** Get a skill token for the currently logged in user */
-	getSkillToken?: Maybe<ICoreGQLGetSkillTokenResponse>
 	/** Get all the calendar events for a specific calendar */
 	CalendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
 	/** Pull cards for a particular view */
@@ -4256,13 +4213,6 @@ export type ICoreGQLQueryLoadFirstLocationsArgs = {
 
 export type ICoreGQLQueryLoadUserOrLocationArgs = {
 	type: Scalars['String']
-}
-
-export type ICoreGQLQueryGetSkillTokenArgs = {
-	organizationId?: Maybe<Scalars['ID']>
-	locationId?: Maybe<Scalars['ID']>
-	skillId: Scalars['ID']
-	expiresIn?: Maybe<Scalars['Int']>
 }
 
 export type ICoreGQLQueryCalendarEventsArgs = {
