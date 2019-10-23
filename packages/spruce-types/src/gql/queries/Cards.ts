@@ -298,8 +298,9 @@ export default gql`
 		... on ActionSkillViewRedirect {
 			type
 			payload {
-				host
-				path
+				slug
+				route
+				routeParams
 			}
 		}
 
