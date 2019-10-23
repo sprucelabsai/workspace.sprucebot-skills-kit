@@ -23,6 +23,9 @@ enum ActionTypes {
 
 "payload used for core redirect"
 type ActionCoreRedirectPayload {
+	"the skill slug to redirect to"
+	slug: String!
+
 	"the destination route"
 	route: String!
 

@@ -84,6 +84,8 @@ export type IHWActionCoreRedirect = {
 /** payload used for core redirect */
 export type IHWActionCoreRedirectPayload = {
   __typename?: 'ActionCoreRedirectPayload',
+  /** the skill slug to redirect to */
+  slug: Scalars['String'],
   /** the destination route */
   route: Scalars['String'],
   /** Params for the route, like organizationId or locationId */
