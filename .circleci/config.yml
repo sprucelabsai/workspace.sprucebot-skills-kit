@@ -133,6 +133,7 @@ workflows:
             branches:
               ignore:
                 - master
+                - canary
       - pre_release:
           requires:
             - test
@@ -141,8 +142,6 @@ workflows:
               only:
                 - /prerelease\/.*/
       - canary:
-          requires:
-            - test
           filters:
             branches:
               only:
