@@ -132,7 +132,12 @@ export default class Sprucebot {
 		'serverUrl',
 		'svgIcon'
 	]
-	private suggestedParams = ['eventContract', 'acl', 'viewVersion']
+	private suggestedParams = [
+		'uiEnhancementContract',
+		'eventContract',
+		'acl',
+		'viewVersion'
+	]
 
 	public constructor(options: {
 		apiKey: string
@@ -146,7 +151,7 @@ export default class Sprucebot {
 		allowSelfSignedCerts?: boolean
 		dbEnabled?: boolean
 		eventContract?: Record<string, any> // TODO: Define event contract more specifically
-		uiEnahncementContract?: Record<string, any> // TODO: Define event contract more specifically
+		uiEnhancementContract?: Record<string, any> // TODO: Define event contract more specifically
 		version?: string
 		skillsKitVersion?: string
 		acl?: Record<string, any> // TODO: Define acls type
@@ -165,6 +170,7 @@ export default class Sprucebot {
 			allowSelfSignedCerts = false,
 			dbEnabled = false,
 			eventContract,
+			uiEnhancementContract,
 			version = 'unknown',
 			skillsKitVersion = 'unknown',
 			acl,
