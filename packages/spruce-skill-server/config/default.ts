@@ -25,6 +25,7 @@ export default function SpruceConfig<
 	settingsType,
 	errorsType,
 	eventContractType,
+	UIEnhancementContractType,
 	scopesType,
 	authType = SpruceAuth
 >(baseDirectory: string) {
@@ -43,6 +44,8 @@ export default function SpruceConfig<
 	const acl = require(`${baseDirectory}/../config/acl`).default as aclType
 	const eventContract = require(`${baseDirectory}/../config/eventContract`)
 		.default as eventContractType
+	const uiEnhancementContract = require(`${baseDirectory}/../config/uiEnhancementContract`)
+		.default as UIEnhancementContractType
 
 	return {
 		/**
@@ -307,8 +310,15 @@ export default function SpruceConfig<
 		acl,
 		/**
 		 * 🌲🤖 Defines the events your Skill responds to
+		 * See config/eventContract.ts
 		 * https://developer.spruce.ai/#/events?id=step-1-event-contracts
 		 */
-		eventContract
+		eventContract,
+		/**
+		 * 🌲🤖 Defines UI enhancements that your skill provides and other areas it enhances
+		 * See config/uiEnhancementContract.ts
+		 * https://developer.spruce.ai/
+		 */
+		uiEnhancementContract
 	}
 }

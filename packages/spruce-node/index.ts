@@ -117,6 +117,7 @@ export default class Sprucebot {
 	private marketingUrl: string
 	private dbEnabled: boolean
 	private eventContract: Record<string, any>
+	private uiEnhancementContract: Record<string, any>
 	private version: string
 	private skillsKitVersion: string
 	private apiVersion: string
@@ -145,6 +146,7 @@ export default class Sprucebot {
 		allowSelfSignedCerts?: boolean
 		dbEnabled?: boolean
 		eventContract?: Record<string, any> // TODO: Define event contract more specifically
+		uiEnahncementContract?: Record<string, any> // TODO: Define event contract more specifically
 		version?: string
 		skillsKitVersion?: string
 		acl?: Record<string, any> // TODO: Define acls type
@@ -188,6 +190,10 @@ export default class Sprucebot {
 		this.dbEnabled = dbEnabled
 		this.eventContract = eventContract || {
 			events: {}
+		}
+		this.uiEnhancementContract = uiEnhancementContract || {
+			provides: {},
+			enhances: {}
 		}
 		this._mutexes = {}
 
@@ -245,6 +251,7 @@ export default class Sprucebot {
 					iframeUrl: this.iframeUrl,
 					marketingUrl: this.marketingUrl,
 					eventContract: JSON.stringify(this.eventContract),
+					uiEnhancementContract: JSON.stringify(this.uiEnhancementContract),
 					version: this.version,
 					skillsKitVersion: this.skillsKitVersion,
 					acl: JSON.stringify(this.acl),
