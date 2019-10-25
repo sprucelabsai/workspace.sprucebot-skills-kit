@@ -184,6 +184,8 @@ export type ICoreGQLActionBigSearch = {
 	__typename?: 'ActionBigSearch'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionBigSearchPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner) */
@@ -197,6 +199,8 @@ export type ICoreGQLActionCalendarJumpTo = {
 	__typename?: 'ActionCalendarJumpTo'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionCalendarJumpToPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** control the calendar if you are on a page with a calendar */
@@ -215,6 +219,8 @@ export type ICoreGQLActionConfirm = {
 	__typename?: 'ActionConfirm'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLConfirmModal
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Redirect a user in the main viewport (browser or native mobile) */
@@ -240,6 +246,8 @@ export type ICoreGQLActionDismissComponent = {
 	__typename?: 'ActionDismissComponent'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionDismissComponentPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Dismiss a component by it's ID */
@@ -254,6 +262,8 @@ export type ICoreGQLActionEmitEvent = {
 	__typename?: 'ActionEmitEvent'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionEmitEventPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 export type ICoreGQLActionEmitEventInput = {
@@ -295,6 +305,8 @@ export type ICoreGQLActionQuickEditUser = {
 	__typename?: 'ActionQuickEditUser'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionQuickEditUserPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /**
@@ -316,15 +328,19 @@ export type ICoreGQLActionShowModal = {
 	__typename?: 'ActionShowModal'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionShowModalPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Props passed to a modal you want to pop up when invoking this action */
 export type ICoreGQLActionShowModalPayload = {
 	__typename?: 'ActionShowModalPayload'
-	/** Host and protocol to destination (usually config.INTERFACE_HOST) */
-	host: Scalars['String']
-	/** Path to your skill view */
-	path?: Maybe<Scalars['String']>
+	/** the skill that owns the skill view loading in the skill view */
+	slug: Scalars['String']
+	/** the destination route */
+	route: Scalars['String']
+	/** Params for the route, like organizationId or locationId */
+	routeParams?: Maybe<Scalars['JSON']>
 	/** Title of the dialog */
 	title: Scalars['String']
 	/** Drop a primary action button into the footer */
@@ -346,6 +362,8 @@ export type ICoreGQLActionSkillViewRedirect = {
 	__typename?: 'ActionSkillViewRedirect'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionSkillViewRedirectPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** payload used when redirecting a skill view */
@@ -739,13 +757,14 @@ export type ICoreGQLCalendarEventDetailsItem = {
 }
 
 export enum ICoreGQLCalendarEventDetailsItemType {
-	List = 'list',
-	Button = 'button',
-	SplitButton = 'splitButton',
-	CardBuilder = 'cardBuilder',
-	Toast = 'toast',
-	Text = 'text',
-	Markdown = 'markdown'
+	List = 'List',
+	Button = 'Button',
+	SplitButton = 'SplitButton',
+	CardBuilder = 'CardBuilder',
+	Toast = 'Toast',
+	Text = 'Text',
+	Markdown = 'Markdown',
+	UiEnhancementSection = 'UIEnhancementSection'
 }
 
 export type ICoreGQLCalendarEventDetailsItemViewModel =
@@ -756,6 +775,7 @@ export type ICoreGQLCalendarEventDetailsItemViewModel =
 	| ICoreGQLText
 	| ICoreGQLMarkdown
 	| ICoreGQLSplitButton
+	| ICoreGQLUiEnhancementSection
 
 /** How an event will be rendered in the calendar. Each time represents a standard state of an event. */
 export enum ICoreGQLCalendarEventKind {
@@ -1608,6 +1628,7 @@ export type ICoreGQLGetSkillConnectionSettingsResponse = {
 
 export type ICoreGQLGetUiEnhancementsResponse = {
 	__typename?: 'GetUIEnhancementsResponse'
+	/** The UI enhancements by section */
 	sections?: Maybe<Array<ICoreGQLUiEnhancementSection>>
 }
 
@@ -5318,8 +5339,11 @@ export type ICoreGQLToggle = ICoreGQLActionExecutor & {
 
 export type ICoreGQLUiEnhancementSection = {
 	__typename?: 'UIEnhancementSection'
+	/** The ID of the section that is acting as a placeholder for ui enhancements */
 	id: Scalars['ID']
+	/** Items to add as enhancements */
 	eventDetailsItems?: Maybe<Array<ICoreGQLCalendarEventDetailsItem>>
+	/** Items to add as actions in the section context menu */
 	actions?: Maybe<Array<ICoreGQLAction>>
 }
 

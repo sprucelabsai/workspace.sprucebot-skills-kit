@@ -587,6 +587,12 @@ export type IHWExpandableListItem = {
   expandedIconName?: Maybe<Scalars['String']>,
 };
 
+export type IHWGetUiEnhancementsResponse = {
+  __typename?: 'GetUIEnhancementsResponse',
+  /** The UI enhancements by section */
+  sections?: Maybe<Array<IHWUiEnhancementSection>>,
+};
+
 export type IHWHeading = {
   __typename?: 'Heading',
   /** Id for view caching */
@@ -884,7 +890,9 @@ export type IHWToggle = IHWActionExecutor & {
 export type IHWUiEnhancementSection = {
   __typename?: 'UIEnhancementSection',
   /** The ID of the section that is acting as a placeholder for ui enhancements */
-  id: Scalars['String'],
-  /** Arbitrary payload sent to ui-enhancements event so skills have some context */
-  payload?: Maybe<Scalars['JSON']>,
+  id: Scalars['ID'],
+  /** Items to add as enhancements */
+  eventDetailsItems?: Maybe<Array<IHWCalendarEventDetailsItem>>,
+  /** Items to add as actions in the section context menu */
+  actions?: Maybe<Array<IHWAction>>,
 };

@@ -1,6 +1,15 @@
 type UIEnhancementSection {
 	"The ID of the section that is acting as a placeholder for ui enhancements"
-	id: String!
-	"Arbitrary payload sent to ui-enhancements event so skills have some context"
-	payload: JSON
+	id: ID!
+
+	"Items to add as enhancements"
+	eventDetailsItems: [CalendarEventDetailsItem!]
+
+	"Items to add as actions in the section context menu"
+	actions: [Action!]
+}
+
+type GetUIEnhancementsResponse {
+	"The UI enhancements by section"
+	sections: [UIEnhancementSection!]
 }
