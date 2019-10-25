@@ -41,7 +41,6 @@ export type IHWActionBigSearch = {
   payload: IHWActionBigSearchPayload,
   onComplete?: Maybe<IHWAction>,
   onCancel?: Maybe<IHWAction>,
-  onFail?: Maybe<IHWAction>,
 };
 
 /** Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner) */
@@ -57,7 +56,6 @@ export type IHWActionCalendarJumpTo = {
   payload: IHWActionCalendarJumpToPayload,
   onComplete?: Maybe<IHWAction>,
   onCancel?: Maybe<IHWAction>,
-  onFail?: Maybe<IHWAction>,
 };
 
 /** control the calendar if you are on a page with a calendar */
@@ -78,7 +76,6 @@ export type IHWActionConfirm = {
   payload: IHWConfirmModal,
   onComplete?: Maybe<IHWAction>,
   onCancel?: Maybe<IHWAction>,
-  onFail?: Maybe<IHWAction>,
 };
 
 /** Redirect a user in the main viewport (browser or native mobile) */
@@ -88,7 +85,6 @@ export type IHWActionCoreRedirect = {
   payload: IHWActionCoreRedirectPayload,
   onComplete?: Maybe<IHWAction>,
   onCancel?: Maybe<IHWAction>,
-  onFail?: Maybe<IHWAction>,
 };
 
 /** payload used for core redirect */
@@ -107,7 +103,6 @@ export type IHWActionDismissComponent = {
   payload: IHWActionDismissComponentPayload,
   onComplete?: Maybe<IHWAction>,
   onCancel?: Maybe<IHWAction>,
-  onFail?: Maybe<IHWAction>,
 };
 
 /** Dismiss a component by it's ID */
@@ -124,7 +119,6 @@ export type IHWActionEmitEvent = {
   payload: IHWActionEmitEventPayload,
   onComplete?: Maybe<IHWAction>,
   onCancel?: Maybe<IHWAction>,
-  onFail?: Maybe<IHWAction>,
 };
 
 /** Emit an event to your skill when this action is invoked */
@@ -152,7 +146,6 @@ export type IHWActionQuickEditUser = {
   payload: IHWActionQuickEditUserPayload,
   onComplete?: Maybe<IHWAction>,
   onCancel?: Maybe<IHWAction>,
-  onFail?: Maybe<IHWAction>,
 };
 
 /** 
@@ -176,12 +169,13 @@ export type IHWActionShowModal = {
   payload: IHWActionShowModalPayload,
   onComplete?: Maybe<IHWAction>,
   onCancel?: Maybe<IHWAction>,
-  onFail?: Maybe<IHWAction>,
 };
 
 /** Props passed to a modal you want to pop up when invoking this action */
 export type IHWActionShowModalPayload = {
   __typename?: 'ActionShowModalPayload',
+  /** the skill that owns the skill view loading in the skill view */
+  slug: Scalars['String'],
   /** the destination route */
   route: Scalars['String'],
   /** Params for the route, like organizationId or locationId */
@@ -209,7 +203,6 @@ export type IHWActionSkillViewRedirect = {
   payload: IHWActionSkillViewRedirectPayload,
   onComplete?: Maybe<IHWAction>,
   onCancel?: Maybe<IHWAction>,
-  onFail?: Maybe<IHWAction>,
 };
 
 /** payload used when redirecting a skill view */

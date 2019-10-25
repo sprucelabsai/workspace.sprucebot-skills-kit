@@ -388,8 +388,9 @@ export default gql`
 		... on ActionShowModal {
 			type
 			payload {
-				host
-				path
+				slug
+				route
+				routeParams
 				modalTitle: title
 				footerPrimaryActionText
 				footerSecondaryActionText
