@@ -184,6 +184,8 @@ export type ICoreGQLActionBigSearch = {
 	__typename?: 'ActionBigSearch'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionBigSearchPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner) */
@@ -197,6 +199,8 @@ export type ICoreGQLActionCalendarJumpTo = {
 	__typename?: 'ActionCalendarJumpTo'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionCalendarJumpToPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** control the calendar if you are on a page with a calendar */
@@ -215,6 +219,8 @@ export type ICoreGQLActionConfirm = {
 	__typename?: 'ActionConfirm'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLConfirmModal
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Redirect a user in the main viewport (browser or native mobile) */
@@ -240,6 +246,8 @@ export type ICoreGQLActionDismissComponent = {
 	__typename?: 'ActionDismissComponent'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionDismissComponentPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Dismiss a component by it's ID */
@@ -254,6 +262,24 @@ export type ICoreGQLActionEmitEvent = {
 	__typename?: 'ActionEmitEvent'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionEmitEventPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
+}
+
+export type ICoreGQLActionEmitEventInput = {
+	type: Scalars['String']
+	payload: ICoreGQLActionEmitEventInputPayload
+}
+
+export type ICoreGQLActionEmitEventInputPayload = {
+	/** Name of the event, like 'booking:update-appointment' */
+	eventName: Scalars['String']
+	/** optional location id */
+	locationId?: Maybe<Scalars['String']>
+	/** optional organizationId */
+	organizationId?: Maybe<Scalars['String']>
+	/** Arbitrary payload sent with the event */
+	payload?: Maybe<Scalars['JSON']>
 }
 
 /** Emit an event to your skill when this action is invoked */
@@ -261,6 +287,10 @@ export type ICoreGQLActionEmitEventPayload = {
 	__typename?: 'ActionEmitEventPayload'
 	/** Name of the event, like 'booking:update-appointment' */
 	eventName?: Maybe<Scalars['String']>
+	/** optional location id */
+	locationId?: Maybe<Scalars['String']>
+	/** optional organizationId */
+	organizationId?: Maybe<Scalars['String']>
 	/** Arbitrary payload sent with the event */
 	payload?: Maybe<Scalars['JSON']>
 }
@@ -275,6 +305,8 @@ export type ICoreGQLActionQuickEditUser = {
 	__typename?: 'ActionQuickEditUser'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionQuickEditUserPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /**
@@ -296,15 +328,17 @@ export type ICoreGQLActionShowModal = {
 	__typename?: 'ActionShowModal'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionShowModalPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Props passed to a modal you want to pop up when invoking this action */
 export type ICoreGQLActionShowModalPayload = {
 	__typename?: 'ActionShowModalPayload'
-	/** Host and protocol to destination (usually config.INTERFACE_HOST) */
-	host: Scalars['String']
-	/** Path to your skill view */
-	path?: Maybe<Scalars['String']>
+	/** the destination route */
+	route: Scalars['String']
+	/** Params for the route, like organizationId or locationId */
+	routeParams?: Maybe<Scalars['JSON']>
 	/** Title of the dialog */
 	title: Scalars['String']
 	/** Drop a primary action button into the footer */
@@ -326,15 +360,19 @@ export type ICoreGQLActionSkillViewRedirect = {
 	__typename?: 'ActionSkillViewRedirect'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionSkillViewRedirectPayload
+	onComplete?: Maybe<ICoreGQLAction>
+	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** payload used when redirecting a skill view */
 export type ICoreGQLActionSkillViewRedirectPayload = {
 	__typename?: 'ActionSkillViewRedirectPayload'
-	/** the host of your skill, usually config.HOST */
-	host: Scalars['String']
-	/** The path to the skill view including any query string */
-	path?: Maybe<Scalars['String']>
+	/** the skill slug to redirect to */
+	slug: Scalars['String']
+	/** the destination route */
+	route: Scalars['String']
+	/** Params for the route, like organizationId or locationId */
+	routeParams?: Maybe<Scalars['JSON']>
 }
 
 export enum ICoreGQLActionTypes {
@@ -1346,6 +1384,25 @@ export type ICoreGQLExampleStreamItem = {
 	sentAt?: Maybe<Scalars['String']>
 }
 
+export type ICoreGQLExecuteActionEmitInput = {
+	/** The action to emit. This can be passed straight through from the FE. */
+	action: ICoreGQLActionEmitEventInput
+}
+
+export type ICoreGQLExecuteActionEmitResponse = {
+	__typename?: 'ExecuteActionEmitResponse'
+	/** The skill that responded to this event */
+	Skill: ICoreGQLSkill
+	/** [PLACEHOLDER - NOT IMPLEMENTED] The updated cards after this event */
+	cardBuilder?: Maybe<ICoreGQLCardBuilder>
+	/** The updated calendar events after this event */
+	calendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
+	/** Details if an error occurs */
+	error?: Maybe<ICoreGQLEventError>
+	/** Assuming the action was successful but with warnings, this array will be populated with those warnings. */
+	warnings?: Maybe<Array<Maybe<ICoreGQLEventWarning>>>
+}
+
 /** Wraps a standard list or list item and makes it collapsable */
 export type ICoreGQLExpandableListItem = {
 	__typename?: 'ExpandableListItem'
@@ -1557,9 +1614,12 @@ export type ICoreGQLGetSettingsResponse = {
 	settings?: Maybe<Scalars['JSON']>
 }
 
-export type ICoreGQLGetSkillTokenResponse = {
-	__typename?: 'GetSkillTokenResponse'
+export type ICoreGQLGetSkillConnectionSettingsResponse = {
+	__typename?: 'GetSkillConnectionSettingsResponse'
+	/** A JWT token that can be used to load a skill for the user */
 	token: Scalars['String']
+	/** The base url for the skill. Use this to build the URL with the 'route' and 'routeParams' */
+	host: Scalars['String']
 }
 
 /** A group */
@@ -2970,6 +3030,8 @@ export type ICoreGQLMutation = {
 	registerDevice?: Maybe<ICoreGQLRegisterDeviceResponse>
 	/** Testing a user update */
 	updateUserTest?: Maybe<ICoreGQLUser>
+	/** Execute the emit action */
+	executeActionEmit?: Maybe<ICoreGQLExecuteActionEmitResponse>
 	/** Reschedule calendar event */
 	rescheduleCalendarEvent?: Maybe<ICoreGQLRescheduleCalendarEventResponse>
 }
@@ -3144,6 +3206,10 @@ export type ICoreGQLMutationRegisterDeviceArgs = {
 
 export type ICoreGQLMutationUpdateUserTestArgs = {
 	input: ICoreGQLUpdateUserInput
+}
+
+export type ICoreGQLMutationExecuteActionEmitArgs = {
+	input: ICoreGQLExecuteActionEmitInput
 }
 
 export type ICoreGQLMutationRescheduleCalendarEventArgs = {
@@ -3866,8 +3932,6 @@ export type ICoreGQLQuery = {
 	UserOrganizations?: Maybe<ICoreGQLUserOrganizationConnection>
 	/** Gets information about a user's visits */
 	Visits?: Maybe<ICoreGQLVisitConnection>
-	/** Get a skill token for the currently logged in user */
-	getSkillToken?: Maybe<ICoreGQLGetSkillTokenResponse>
 	/** Test a simple query */
 	testSimpleQuery: Array<Maybe<ICoreGQLTestType>>
 	/** Test returning a single Sequelize User Model */
@@ -3876,6 +3940,11 @@ export type ICoreGQLQuery = {
 	loadFirstLocations?: Maybe<ICoreGQLLocationConnection>
 	/** Test of union resolution */
 	loadUserOrLocation?: Maybe<ICoreGQLModel>
+	/**
+	 * Get a skill token and other info for the currently logged in user. This info
+	 * can be used to load a skill view or redirect the user.
+	 **/
+	getSkillConnectionSettings?: Maybe<ICoreGQLGetSkillConnectionSettingsResponse>
 	/** Get all the calendar events for a specific calendar */
 	CalendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
 	/** Pull cards for a particular view */
@@ -4189,13 +4258,6 @@ export type ICoreGQLQueryVisitsArgs = {
 	userId?: Maybe<Scalars['ID']>
 }
 
-export type ICoreGQLQueryGetSkillTokenArgs = {
-	organizationId?: Maybe<Scalars['ID']>
-	locationId?: Maybe<Scalars['ID']>
-	skillId: Scalars['ID']
-	expiresIn?: Maybe<Scalars['Int']>
-}
-
 export type ICoreGQLQueryTestSimpleQueryArgs = {
 	id: Scalars['ID']
 }
@@ -4213,6 +4275,14 @@ export type ICoreGQLQueryLoadFirstLocationsArgs = {
 
 export type ICoreGQLQueryLoadUserOrLocationArgs = {
 	type: Scalars['String']
+}
+
+export type ICoreGQLQueryGetSkillConnectionSettingsArgs = {
+	organizationId?: Maybe<Scalars['ID']>
+	locationId?: Maybe<Scalars['ID']>
+	skillId?: Maybe<Scalars['ID']>
+	slug?: Maybe<Scalars['String']>
+	expiresIn?: Maybe<Scalars['Int']>
 }
 
 export type ICoreGQLQueryCalendarEventsArgs = {

@@ -54,12 +54,16 @@ type ActionSkillViewRedirectPayload {
 type ActionSkillViewRedirect {
 	type: ActionTypes
 	payload: ActionSkillViewRedirectPayload!
+	onComplete: Action
+	onCancel: Action
 }
 
 "Pop up a confirmation"
 type ActionConfirm {
 	type: ActionTypes
 	payload: ConfirmModal!
+	onComplete: Action
+	onCancel: Action
 }
 
 enum ModalSize {
@@ -70,11 +74,14 @@ enum ModalSize {
 
 "Props passed to a modal you want to pop up when invoking this action"
 type ActionShowModalPayload {
-	"Host and protocol to destination (usually config.INTERFACE_HOST)"
-	host: String!
+	"the skill that owns the skill view loading in the skill view"
+	slug: String!
 
-	"Path to your skill view"
-	path: String
+	"the destination route"
+	route: String!
+
+	"Params for the route, like organizationId or locationId"
+	routeParams: JSON
 
 	"Title of the dialog"
 	title: String!
@@ -102,6 +109,8 @@ type ActionShowModalPayload {
 type ActionShowModal {
 	type: ActionTypes
 	payload: ActionShowModalPayload!
+	onComplete: Action
+	onCancel: Action
 }
 
 "Emit an event to your skill when this action is invoked"
@@ -123,6 +132,8 @@ type ActionEmitEventPayload {
 type ActionEmitEvent {
 	type: ActionTypes
 	payload: ActionEmitEventPayload!
+	onComplete: Action
+	onCancel: Action
 }
 
 "Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner)"
@@ -134,6 +145,8 @@ type ActionBigSearchPayload {
 type ActionBigSearch {
 	type: ActionTypes
 	payload: ActionBigSearchPayload!
+	onComplete: Action
+	onCancel: Action
 }
 
 "Pop up quick edit to update a user record. You have to have permission and should pass location and organization unelss you are editing yourself"
@@ -152,6 +165,8 @@ type ActionQuickEditUserPayload {
 type ActionQuickEditUser {
 	type: ActionTypes
 	payload: ActionQuickEditUserPayload!
+	onComplete: Action
+	onCancel: Action
 }
 
 "Dismiss a component by it's ID"
@@ -164,6 +179,8 @@ type ActionDismissComponentPayload {
 type ActionDismissComponent {
 	type: ActionTypes
 	payload: ActionDismissComponentPayload!
+	onComplete: Action
+	onCancel: Action
 }
 
 "control the calendar if you are on a page with a calendar"
@@ -182,6 +199,8 @@ type ActionCalendarJumpToPayload {
 type ActionCalendarJumpTo {
 	type: ActionTypes
 	payload: ActionCalendarJumpToPayload!
+	onComplete: Action
+	onCancel: Action
 }
 
 interface ActionExecutor {
