@@ -174,6 +174,8 @@ export type IHWActionShowModal = {
 /** Props passed to a modal you want to pop up when invoking this action */
 export type IHWActionShowModalPayload = {
   __typename?: 'ActionShowModalPayload',
+  /** the skill that owns the skill view loading in the skill view */
+  slug: Scalars['String'],
   /** the destination route */
   route: Scalars['String'],
   /** Params for the route, like organizationId or locationId */

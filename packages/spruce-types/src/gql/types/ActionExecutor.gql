@@ -74,6 +74,9 @@ enum ModalSize {
 
 "Props passed to a modal you want to pop up when invoking this action"
 type ActionShowModalPayload {
+	"the skill that owns the skill view loading in the skill view"
+	slug: String!
+
 	"the destination route"
 	route: String!
 
