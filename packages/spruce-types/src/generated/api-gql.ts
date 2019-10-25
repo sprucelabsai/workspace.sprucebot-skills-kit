@@ -184,8 +184,6 @@ export type ICoreGQLActionBigSearch = {
 	__typename?: 'ActionBigSearch'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionBigSearchPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner) */
@@ -199,8 +197,6 @@ export type ICoreGQLActionCalendarJumpTo = {
 	__typename?: 'ActionCalendarJumpTo'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionCalendarJumpToPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** control the calendar if you are on a page with a calendar */
@@ -219,8 +215,6 @@ export type ICoreGQLActionConfirm = {
 	__typename?: 'ActionConfirm'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLConfirmModal
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Redirect a user in the main viewport (browser or native mobile) */
@@ -246,8 +240,6 @@ export type ICoreGQLActionDismissComponent = {
 	__typename?: 'ActionDismissComponent'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionDismissComponentPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Dismiss a component by it's ID */
@@ -262,8 +254,6 @@ export type ICoreGQLActionEmitEvent = {
 	__typename?: 'ActionEmitEvent'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionEmitEventPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
 }
 
 export type ICoreGQLActionEmitEventInput = {
@@ -305,8 +295,6 @@ export type ICoreGQLActionQuickEditUser = {
 	__typename?: 'ActionQuickEditUser'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionQuickEditUserPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /**
@@ -328,17 +316,15 @@ export type ICoreGQLActionShowModal = {
 	__typename?: 'ActionShowModal'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionShowModalPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** Props passed to a modal you want to pop up when invoking this action */
 export type ICoreGQLActionShowModalPayload = {
 	__typename?: 'ActionShowModalPayload'
-	/** the destination route */
-	route: Scalars['String']
-	/** Params for the route, like organizationId or locationId */
-	routeParams?: Maybe<Scalars['JSON']>
+	/** Host and protocol to destination (usually config.INTERFACE_HOST) */
+	host: Scalars['String']
+	/** Path to your skill view */
+	path?: Maybe<Scalars['String']>
 	/** Title of the dialog */
 	title: Scalars['String']
 	/** Drop a primary action button into the footer */
@@ -360,8 +346,6 @@ export type ICoreGQLActionSkillViewRedirect = {
 	__typename?: 'ActionSkillViewRedirect'
 	type?: Maybe<ICoreGQLActionTypes>
 	payload: ICoreGQLActionSkillViewRedirectPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
 }
 
 /** payload used when redirecting a skill view */
@@ -1620,6 +1604,11 @@ export type ICoreGQLGetSkillConnectionSettingsResponse = {
 	token: Scalars['String']
 	/** The base url for the skill. Use this to build the URL with the 'route' and 'routeParams' */
 	host: Scalars['String']
+}
+
+export type ICoreGQLGetUiEnhancementsResponse = {
+	__typename?: 'GetUIEnhancementsResponse'
+	sections?: Maybe<Array<ICoreGQLUiEnhancementSection>>
 }
 
 /** A group */
@@ -3949,6 +3938,8 @@ export type ICoreGQLQuery = {
 	CalendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
 	/** Pull cards for a particular view */
 	Cards?: Maybe<Array<Maybe<ICoreGQLCardResponse>>>
+	/** Get UI enhancements for a section */
+	getUIEnhancements?: Maybe<ICoreGQLGetUiEnhancementsResponse>
 }
 
 export type ICoreGQLQueryAccessPointArgs = {
@@ -4302,6 +4293,13 @@ export type ICoreGQLQueryCardsArgs = {
 	locationId?: Maybe<Scalars['ID']>
 	organizationId: Scalars['ID']
 	useMockData?: Maybe<Scalars['Boolean']>
+}
+
+export type ICoreGQLQueryGetUiEnhancementsArgs = {
+	view: Scalars['String']
+	organizationId?: Maybe<Scalars['ID']>
+	locationId?: Maybe<Scalars['ID']>
+	payload?: Maybe<Scalars['JSON']>
 }
 
 /** The results to a search based on phone */
@@ -5316,6 +5314,13 @@ export type ICoreGQLToggle = ICoreGQLActionExecutor & {
 	postText?: Maybe<Scalars['String']>
 	/** Optional action to invoke when tapped */
 	action?: Maybe<ICoreGQLAction>
+}
+
+export type ICoreGQLUiEnhancementSection = {
+	__typename?: 'UIEnhancementSection'
+	id: Scalars['ID']
+	eventDetailsItems?: Maybe<Array<ICoreGQLCalendarEventDetailsItem>>
+	actions?: Maybe<Array<ICoreGQLAction>>
 }
 
 /** An unconfirmed user */
