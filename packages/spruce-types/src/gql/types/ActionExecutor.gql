@@ -29,7 +29,7 @@ type ActionCoreRedirectPayload {
 	"Params for the route, like organizationId or locationId"
 	routeParams: JSON
 
-	"If this action is set as the onComplete of another action, this will hold the response from the first action"
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
 	actionResponse: JSON
 }
 
@@ -52,7 +52,7 @@ type ActionSkillViewRedirectPayload {
 	"Params for the route, like organizationId or locationId"
 	routeParams: JSON
 
-	"If this action is set as the onComplete of another action, this will hold the response from the first action"
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
 	actionResponse: JSON
 }
 
@@ -110,7 +110,7 @@ type ActionShowModalPayload {
 	"Does the dialog fill the screen vertically?"
 	isFullHeight: Boolean
 
-	"If this action is set as the onComplete of another action, this will hold the response from the first action"
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
 	actionResponse: JSON
 }
 
@@ -136,7 +136,7 @@ type ActionEmitEventPayload {
 	"Arbitrary payload sent with the event"
 	payload: JSON
 
-	"If this action is set as the onComplete of another action, this will hold the response from the first action"
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
 	actionResponse: JSON
 }
 
@@ -172,7 +172,7 @@ type ActionQuickEditUserPayload {
 	"optional organizationId"
 	organizationId: String
 
-	"If this action is set as the onComplete of another action, this will hold the response from the first action"
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
 	actionResponse: JSON
 }
 
@@ -189,7 +189,7 @@ type ActionDismissComponentPayload {
 	"Ids of the components you want to hide"
 	componentIds: [String!]!
 
-	"If this action is set as the onComplete of another action, this will hold the response from the first action"
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
 	actionResponse: JSON
 }
 
@@ -212,7 +212,7 @@ type ActionCalendarJumpToPayload {
 	"Show the selected user"
 	userId: String
 
-	"If this action is set as the onComplete of another action, this will hold the response from the first action"
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
 	actionResponse: JSON
 }
 

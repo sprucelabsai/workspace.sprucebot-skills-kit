@@ -67,7 +67,7 @@ export type IHWActionCalendarJumpToPayload = {
   calendarId: Scalars['String'],
   /** Show the selected user */
   userId?: Maybe<Scalars['String']>,
-  /** If this action is set as the onComplete of another action, this will hold the response from the first action */
+  /** If this action is set as the onComplete of another action, this will hold the response from the previous action */
   actionResponse?: Maybe<Scalars['JSON']>,
 };
 
@@ -96,7 +96,7 @@ export type IHWActionCoreRedirectPayload = {
   route: Scalars['String'],
   /** Params for the route, like organizationId or locationId */
   routeParams?: Maybe<Scalars['JSON']>,
-  /** If this action is set as the onComplete of another action, this will hold the response from the first action */
+  /** If this action is set as the onComplete of another action, this will hold the response from the previous action */
   actionResponse?: Maybe<Scalars['JSON']>,
 };
 
@@ -114,7 +114,7 @@ export type IHWActionDismissComponentPayload = {
   __typename?: 'ActionDismissComponentPayload',
   /** Ids of the components you want to hide */
   componentIds: Array<Scalars['String']>,
-  /** If this action is set as the onComplete of another action, this will hold the response from the first action */
+  /** If this action is set as the onComplete of another action, this will hold the response from the previous action */
   actionResponse?: Maybe<Scalars['JSON']>,
 };
 
@@ -138,7 +138,7 @@ export type IHWActionEmitEventPayload = {
   organizationId?: Maybe<Scalars['String']>,
   /** Arbitrary payload sent with the event */
   payload?: Maybe<Scalars['JSON']>,
-  /** If this action is set as the onComplete of another action, this will hold the response from the first action */
+  /** If this action is set as the onComplete of another action, this will hold the response from the previous action */
   actionResponse?: Maybe<Scalars['JSON']>,
 };
 
@@ -168,7 +168,7 @@ export type IHWActionQuickEditUserPayload = {
   locationId?: Maybe<Scalars['String']>,
   /** optional organizationId */
   organizationId?: Maybe<Scalars['String']>,
-  /** If this action is set as the onComplete of another action, this will hold the response from the first action */
+  /** If this action is set as the onComplete of another action, this will hold the response from the previous action */
   actionResponse?: Maybe<Scalars['JSON']>,
 };
 
@@ -204,7 +204,7 @@ export type IHWActionShowModalPayload = {
   size?: Maybe<IHWModalSize>,
   /** Does the dialog fill the screen vertically? */
   isFullHeight?: Maybe<Scalars['Boolean']>,
-  /** If this action is set as the onComplete of another action, this will hold the response from the first action */
+  /** If this action is set as the onComplete of another action, this will hold the response from the previous action */
   actionResponse?: Maybe<Scalars['JSON']>,
 };
 
@@ -226,7 +226,7 @@ export type IHWActionSkillViewRedirectPayload = {
   route: Scalars['String'],
   /** Params for the route, like organizationId or locationId */
   routeParams?: Maybe<Scalars['JSON']>,
-  /** If this action is set as the onComplete of another action, this will hold the response from the first action */
+  /** If this action is set as the onComplete of another action, this will hold the response from the previous action */
   actionResponse?: Maybe<Scalars['JSON']>,
 };
 
