@@ -36,7 +36,6 @@ type ActionCoreRedirect {
 	payload: ActionCoreRedirectPayload!
 	onComplete: Action
 	onCancel: Action
-	onFail: Action
 }
 
 "payload used when redirecting a skill view"
@@ -57,7 +56,6 @@ type ActionSkillViewRedirect {
 	payload: ActionSkillViewRedirectPayload!
 	onComplete: Action
 	onCancel: Action
-	onFail: Action
 }
 
 "Pop up a confirmation"
@@ -66,7 +64,6 @@ type ActionConfirm {
 	payload: ConfirmModal!
 	onComplete: Action
 	onCancel: Action
-	onFail: Action
 }
 
 enum ModalSize {
@@ -111,7 +108,6 @@ type ActionShowModal {
 	payload: ActionShowModalPayload!
 	onComplete: Action
 	onCancel: Action
-	onFail: Action
 }
 
 "Emit an event to your skill when this action is invoked"
@@ -135,7 +131,6 @@ type ActionEmitEvent {
 	payload: ActionEmitEventPayload!
 	onComplete: Action
 	onCancel: Action
-	onFail: Action
 }
 
 "Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner)"
@@ -149,7 +144,6 @@ type ActionBigSearch {
 	payload: ActionBigSearchPayload!
 	onComplete: Action
 	onCancel: Action
-	onFail: Action
 }
 
 "Pop up quick edit to update a user record. You have to have permission and should pass location and organization unelss you are editing yourself"
@@ -170,7 +164,6 @@ type ActionQuickEditUser {
 	payload: ActionQuickEditUserPayload!
 	onComplete: Action
 	onCancel: Action
-	onFail: Action
 }
 
 "Dismiss a component by it's ID"
@@ -185,7 +178,6 @@ type ActionDismissComponent {
 	payload: ActionDismissComponentPayload!
 	onComplete: Action
 	onCancel: Action
-	onFail: Action
 }
 
 "control the calendar if you are on a page with a calendar"
@@ -206,7 +198,6 @@ type ActionCalendarJumpTo {
 	payload: ActionCalendarJumpToPayload!
 	onComplete: Action
 	onCancel: Action
-	onFail: Action
 }
 
 interface ActionExecutor {
