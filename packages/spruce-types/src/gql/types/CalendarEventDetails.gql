@@ -1,11 +1,12 @@
 enum CalendarEventDetailsItemType {
-	list
-	button
-	splitButton
-	cardBuilder
-	toast
-	text
-	markdown
+	List
+	Button
+	SplitButton
+	CardBuilder
+	Toast
+	Text
+	Markdown
+	UIEnhancementSection
 }
 
 union CalendarEventDetailsItemViewModel =
@@ -16,6 +17,7 @@ union CalendarEventDetailsItemViewModel =
 	| Text
 	| Markdown
 	| SplitButton
+	| UIEnhancementSection
 
 "Control the rendering of the list item"
 type CalendarEventDetailsItem {

@@ -352,16 +352,17 @@ export type IHWCalendarEventDetailsItem = {
 };
 
 export enum IHWCalendarEventDetailsItemType {
-  List = 'list',
-  Button = 'button',
-  SplitButton = 'splitButton',
-  CardBuilder = 'cardBuilder',
-  Toast = 'toast',
-  Text = 'text',
-  Markdown = 'markdown'
+  List = 'List',
+  Button = 'Button',
+  SplitButton = 'SplitButton',
+  CardBuilder = 'CardBuilder',
+  Toast = 'Toast',
+  Text = 'Text',
+  Markdown = 'Markdown',
+  UiEnhancementSection = 'UIEnhancementSection'
 }
 
-export type IHWCalendarEventDetailsItemViewModel = IHWList | IHWButton | IHWCardBuilder | IHWToast | IHWText | IHWMarkdown | IHWSplitButton;
+export type IHWCalendarEventDetailsItemViewModel = IHWList | IHWButton | IHWCardBuilder | IHWToast | IHWText | IHWMarkdown | IHWSplitButton | IHWUiEnhancementSection;
 
 /** How an event will be rendered in the calendar. Each time represents a standard state of an event. */
 export enum IHWCalendarEventKind {
@@ -878,4 +879,12 @@ export type IHWToggle = IHWActionExecutor & {
   postText?: Maybe<Scalars['String']>,
   /** Optional action to invoke when tapped */
   action?: Maybe<IHWAction>,
+};
+
+export type IHWUiEnhancementSection = {
+  __typename?: 'UIEnhancementSection',
+  /** The ID of the section that is acting as a placeholder for ui enhancements */
+  id: Scalars['String'],
+  /** Arbitrary payload sent to ui-enhancements event so skills have some context */
+  payload?: Maybe<Scalars['JSON']>,
 };
