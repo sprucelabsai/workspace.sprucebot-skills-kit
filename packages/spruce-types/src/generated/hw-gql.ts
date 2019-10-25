@@ -39,6 +39,9 @@ export type IHWActionBigSearch = {
   __typename?: 'ActionBigSearch',
   type?: Maybe<IHWActionTypes>,
   payload: IHWActionBigSearchPayload,
+  onComplete?: Maybe<IHWAction>,
+  onCancel?: Maybe<IHWAction>,
+  onFail?: Maybe<IHWAction>,
 };
 
 /** Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner) */
@@ -52,6 +55,9 @@ export type IHWActionCalendarJumpTo = {
   __typename?: 'ActionCalendarJumpTo',
   type?: Maybe<IHWActionTypes>,
   payload: IHWActionCalendarJumpToPayload,
+  onComplete?: Maybe<IHWAction>,
+  onCancel?: Maybe<IHWAction>,
+  onFail?: Maybe<IHWAction>,
 };
 
 /** control the calendar if you are on a page with a calendar */
@@ -70,6 +76,9 @@ export type IHWActionConfirm = {
   __typename?: 'ActionConfirm',
   type?: Maybe<IHWActionTypes>,
   payload: IHWConfirmModal,
+  onComplete?: Maybe<IHWAction>,
+  onCancel?: Maybe<IHWAction>,
+  onFail?: Maybe<IHWAction>,
 };
 
 /** Redirect a user in the main viewport (browser or native mobile) */
@@ -79,6 +88,7 @@ export type IHWActionCoreRedirect = {
   payload: IHWActionCoreRedirectPayload,
   onComplete?: Maybe<IHWAction>,
   onCancel?: Maybe<IHWAction>,
+  onFail?: Maybe<IHWAction>,
 };
 
 /** payload used for core redirect */
@@ -95,6 +105,9 @@ export type IHWActionDismissComponent = {
   __typename?: 'ActionDismissComponent',
   type?: Maybe<IHWActionTypes>,
   payload: IHWActionDismissComponentPayload,
+  onComplete?: Maybe<IHWAction>,
+  onCancel?: Maybe<IHWAction>,
+  onFail?: Maybe<IHWAction>,
 };
 
 /** Dismiss a component by it's ID */
@@ -109,6 +122,9 @@ export type IHWActionEmitEvent = {
   __typename?: 'ActionEmitEvent',
   type?: Maybe<IHWActionTypes>,
   payload: IHWActionEmitEventPayload,
+  onComplete?: Maybe<IHWAction>,
+  onCancel?: Maybe<IHWAction>,
+  onFail?: Maybe<IHWAction>,
 };
 
 /** Emit an event to your skill when this action is invoked */
@@ -134,6 +150,9 @@ export type IHWActionQuickEditUser = {
   __typename?: 'ActionQuickEditUser',
   type?: Maybe<IHWActionTypes>,
   payload: IHWActionQuickEditUserPayload,
+  onComplete?: Maybe<IHWAction>,
+  onCancel?: Maybe<IHWAction>,
+  onFail?: Maybe<IHWAction>,
 };
 
 /** 
@@ -155,15 +174,18 @@ export type IHWActionShowModal = {
   __typename?: 'ActionShowModal',
   type?: Maybe<IHWActionTypes>,
   payload: IHWActionShowModalPayload,
+  onComplete?: Maybe<IHWAction>,
+  onCancel?: Maybe<IHWAction>,
+  onFail?: Maybe<IHWAction>,
 };
 
 /** Props passed to a modal you want to pop up when invoking this action */
 export type IHWActionShowModalPayload = {
   __typename?: 'ActionShowModalPayload',
-  /** Host and protocol to destination (usually config.INTERFACE_HOST) */
-  host: Scalars['String'],
-  /** Path to your skill view */
-  path?: Maybe<Scalars['String']>,
+  /** the destination route */
+  route: Scalars['String'],
+  /** Params for the route, like organizationId or locationId */
+  routeParams?: Maybe<Scalars['JSON']>,
   /** Title of the dialog */
   title: Scalars['String'],
   /** Drop a primary action button into the footer */
@@ -185,6 +207,9 @@ export type IHWActionSkillViewRedirect = {
   __typename?: 'ActionSkillViewRedirect',
   type?: Maybe<IHWActionTypes>,
   payload: IHWActionSkillViewRedirectPayload,
+  onComplete?: Maybe<IHWAction>,
+  onCancel?: Maybe<IHWAction>,
+  onFail?: Maybe<IHWAction>,
 };
 
 /** payload used when redirecting a skill view */
