@@ -1,7 +1,9 @@
 import { pick } from 'lodash'
 // First things first: load the .env file
 try {
-	const path = `${process.cwd()}/.env`
+	const path = process.env.ENV_PATH
+		? `${process.env.ENV_PATH}/.env`
+		: `${process.cwd()}/.env`
 	require('dotenv').config({ path })
 } catch (e) {
 	console.error('Missing .env file for this project')
