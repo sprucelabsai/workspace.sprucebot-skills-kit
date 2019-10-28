@@ -213,13 +213,13 @@ export default function SpruceConfig<
 		 */
 		GRAPHQL_MAX_DEPTH: process.env.GRAPHQL_MAX_DEPTH
 			? +process.env.GRAPHQL_MAX_DEPTH
-			: 10,
+			: 20,
 		/**
 		 * 🌲🤖 The maximum complexity to allow for GQL queries. Default 1500
 		 */
 		GRAPHQL_MAX_COMPLEXITY: process.env.GRAPHQL_MAX_COMPLEXITY
 			? +process.env.GRAPHQL_MAX_COMPLEXITY
-			: 1500,
+			: 2500,
 		/**
 		 * 🌲🤖 Enable Skills database
 		 * More info: https://developer.spruce.ai/#/orm

@@ -5,6 +5,7 @@ import { ISpruceContext } from '../../../../interfaces/ctx'
 import { Source } from 'graphql'
 import { Organization } from '../../../../models/Organization'
 import { Location } from '../../../../models/Location'
+import { IHWButtonKinds } from '@sprucelabs/spruce-types'
 
 export default (ctx: ISpruceContext) => {
 	if (!config.UI_ENHANCEMENTS_ENABLED) {
@@ -25,6 +26,58 @@ export default (ctx: ISpruceContext) => {
 			}
 		`,
 		resolvers: {
+			CalendarEventDetailsItemViewModel: {
+				__resolveType: (result: any) => {
+					// determine type of field
+
+					// a list or card builder
+					if (result.items) {
+						//things unique to cardbuilder
+						if (result.headerImage || result.onboarding || result.body) {
+							return 'CardBuilder'
+						}
+
+						return 'List'
+					}
+
+					// split button
+					if (result.defaultAction) {
+						return 'SplitButton'
+					}
+
+					// an action
+					if (
+						(result.kind &&
+							Object.values(IHWButtonKinds).includes(result.kind)) ||
+						result.icon
+					) {
+						return 'Button'
+					}
+
+					// toast
+					if (result.headline) {
+						return 'Toast'
+					}
+
+					// text
+					if (result.text) {
+						return 'Text'
+					}
+
+					// markdown
+					if (result.source) {
+						return 'Markdown'
+					}
+
+					// card builder
+					if (result.body) {
+						return 'CardBuilder'
+					}
+
+					// not sure what to do if we can't find a match
+					return 'Text'
+				}
+			},
 			Query: {
 				getUIEnhancements: async (
 					source: Source,
@@ -36,13 +89,13 @@ export default (ctx: ISpruceContext) => {
 					},
 					context: ISpruceContext
 				) => {
-					if (!context.user) {
+					if (!context.auth || !context.auth.User) {
 						throw new Error('USER_NOT_LOGGED_IN')
 					}
 
 					const { view, locationId, organizationId, payload } = args
 
-					let sections = []
+					let sections: Record<string, any>[] = []
 
 					if (!locationId || !organizationId) {
 						throw new Error('MISSING_PARAMETERS')
@@ -82,6 +135,9 @@ export default (ctx: ISpruceContext) => {
 						{
 							view,
 							...payload
+						},
+						{
+							loggedInUserId: context.auth.User.id
 						}
 					)
 
