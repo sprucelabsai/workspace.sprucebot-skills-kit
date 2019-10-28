@@ -15,7 +15,7 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 			this.canRunSimpleQuery())
 		it('can get first user model against shorthand defined schema', () =>
 			this.canGetFirstUserModel())
-		it.only('can get run full relay/sequelize query against shorthand defined schema', () =>
+		it('can get run full relay/sequelize query against shorthand defined schema', () =>
 			this.canRunGqlSequelizeQuery())
 
 		it('can get the right type of union', () => this.canGetProperUnionType())

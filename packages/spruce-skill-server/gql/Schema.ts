@@ -80,7 +80,7 @@ export default class Schema {
 		}
 
 		// Load GQL types first and assign to ctx.gql.types[<type name>]
-		const allTypePaths = [...coreTypePaths, ...spruceTypes, ...typePaths]
+		const allTypePaths = [...spruceTypes, ...coreTypePaths, ...typePaths]
 		allTypePaths.forEach(path => {
 			debug(`checking GQL type @ ${path}`)
 
@@ -242,25 +242,16 @@ export default class Schema {
 			scalar JSONObject
 		`)
 
-		// Combines schema and merges duplicates which prevents errors about duplicate names
-		const combinedSchema = mergeSchemas({
-			schemas: [longhandSchema, scalerSchema],
-			resolvers: scalerResolvers
-		})
-
 		debug(`Parsing Schema Definition Language ${sdl}`)
 		const documentNode = sdl && parse(sdl)
-		const extendedSchema = documentNode
-			? extendSchema(combinedSchema, documentNode)
-			: longhandSchema
 
-		const schema =
-			Object.keys(cleanedResolvers).length === 0
-				? extendedSchema
-				: addResolveFunctionsToSchema({
-						schema: extendedSchema,
-						resolvers: cleanedResolvers
-				  })
+		const schema = mergeSchemas({
+			schemas: [scalerSchema, longhandSchema, documentNode],
+			resolvers: {
+				...scalerResolvers,
+				...cleanedResolvers
+			}
+		})
 
 		debug('Finished importing GQL files and creating schema')
 
