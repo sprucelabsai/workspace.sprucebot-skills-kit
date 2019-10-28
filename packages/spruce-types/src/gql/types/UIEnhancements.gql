@@ -2,8 +2,11 @@ type UIEnhancementSection {
 	"The ID of the section that is acting as a placeholder for ui enhancements"
 	id: ID!
 
-	"Items to add as enhancements"
-	eventDetailsItems: [CalendarEventDetailsItem!]
+	"Calendar items to add as enhancements"
+	calendarEventDetailsItems: [CalendarEventDetailsItem!]
+
+	"[PLACEHOLDER] Card builder items to add as enhancements"
+	cardBuilderBodyItems: [CardBuilderBodyItem!]
 
 	"Items to add as actions in the section context menu"
 	actions: [Action!]

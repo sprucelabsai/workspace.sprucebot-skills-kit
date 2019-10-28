@@ -891,8 +891,10 @@ export type IHWUiEnhancementSection = {
   __typename?: 'UIEnhancementSection',
   /** The ID of the section that is acting as a placeholder for ui enhancements */
   id: Scalars['ID'],
-  /** Items to add as enhancements */
-  eventDetailsItems?: Maybe<Array<IHWCalendarEventDetailsItem>>,
+  /** Calendar items to add as enhancements */
+  calendarEventDetailsItems?: Maybe<Array<IHWCalendarEventDetailsItem>>,
+  /** [PLACEHOLDER] Card builder items to add as enhancements */
+  cardBuilderBodyItems?: Maybe<Array<IHWCardBuilderBodyItem>>,
   /** Items to add as actions in the section context menu */
   actions?: Maybe<Array<IHWAction>>,
 };
