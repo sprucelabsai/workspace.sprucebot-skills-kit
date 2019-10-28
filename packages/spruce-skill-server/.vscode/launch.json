@@ -16,7 +16,7 @@
 			"name": "Test (Server)",
 			"protocol": "inspector",
 			"runtimeExecutable": "npm",
-			"runtimeArgs": ["run", "test:local"],
+			"runtimeArgs": ["run", "test"],
 			"console": "integratedTerminal",
 			"port": 4080
 		}
