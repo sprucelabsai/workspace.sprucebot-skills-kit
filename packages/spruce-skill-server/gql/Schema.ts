@@ -16,6 +16,7 @@ import helpers from './helpers'
 import { ISpruceContext } from '../interfaces/ctx'
 import config from 'config'
 import path from 'path'
+import GraphQLJSON, { GraphQLJSONObject } from 'graphql-type-json'
 import { GraphQLDateTime, GraphQLDate } from 'graphql-iso-date'
 
 import Debug from 'debug'
@@ -38,14 +39,11 @@ export default class Schema {
 		const spruceTypes = globby.sync(
 			[
 				`${spruceTypesDirectory}/build/src/gql/types/**/!(index|types|_helpers).(js|gql)`
-				// `${spruceTypesDirectory}/build/src/generated/**/!(index|types|_helpers).js`
 			],
 			{
 				ignore: ['**/*.d.ts']
 			}
 		)
-
-		console.log({ spruceTypes })
 
 		const coreTypePaths = globby.sync(
 			[`${__dirname}/types/**/!(index|types|_helpers).(ts|js|gql)`],
@@ -142,8 +140,6 @@ export default class Schema {
 			return true
 		})
 
-		console.log({ types: ctx.gql.types })
-
 		// Load resolvers which could be queries, mutations, or subscriptions
 		const allResolverPaths = [...coreResolverPaths, ...resolverPaths]
 		allResolverPaths.forEach(path => {
@@ -191,19 +187,6 @@ export default class Schema {
 			}
 		})
 
-		// Add scaler types
-		allResolvers = {
-			Date: GraphQLDate,
-			DateTime: GraphQLDateTime,
-			...allResolvers
-		}
-		sdl += `
-			scalar Date
-			scalar DateTime
-		`
-
-		console.log({ allResolvers })
-
 		const resolvers: GraphQLSchemaConfig = {
 			query: null
 		}
@@ -245,10 +228,30 @@ export default class Schema {
 
 		const longhandSchema = new GraphQLSchema(resolvers)
 
+		// Add scaler types
+		const scalerResolvers = {
+			Date: GraphQLDate,
+			DateTime: GraphQLDateTime,
+			JSON: GraphQLJSON,
+			JSONObject: GraphQLJSONObject
+		}
+		const scalerSchema = parse(`
+			scalar Date
+			scalar DateTime
+			scalar JSON
+			scalar JSONObject
+		`)
+
+		// Combines schema and merges duplicates which prevents errors about duplicate names
+		const combinedSchema = mergeSchemas({
+			schemas: [longhandSchema, scalerSchema],
+			resolvers: scalerResolvers
+		})
+
 		debug(`Parsing Schema Definition Language ${sdl}`)
 		const documentNode = sdl && parse(sdl)
 		const extendedSchema = documentNode
-			? extendSchema(longhandSchema, documentNode)
+			? extendSchema(combinedSchema, documentNode)
 			: longhandSchema
 
 		const schema =
