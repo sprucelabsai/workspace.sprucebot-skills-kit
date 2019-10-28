@@ -3,12 +3,10 @@ import {
 	GraphQLObjectType,
 	GraphQLSchema,
 	GraphQLSchemaConfig,
-	parse,
-	extendSchema
+	parse
 } from 'graphql'
 
 import { mergeSchemas } from 'graphql-tools'
-import { addResolveFunctionsToSchema } from 'graphql-tools/dist/generate'
 
 import fs from 'fs'
 
@@ -17,6 +15,7 @@ import { ISpruceContext } from '../interfaces/ctx'
 import config from 'config'
 import path from 'path'
 import GraphQLJSON, { GraphQLJSONObject } from 'graphql-type-json'
+// @ts-ignore
 import { GraphQLDateTime, GraphQLDate } from 'graphql-iso-date'
 
 import Debug from 'debug'
