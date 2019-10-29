@@ -56,20 +56,22 @@ export default class MyDocument extends Document {
 				? `skill-${publicRuntimeConfig.SLUG}`
 				: ''
 
-		const { renderLocation } = this.props
+		const { renderLocation, legacyStylesheet } = this.props
 
 		return (
 			<html className={`skill ${bodyClassName}`}>
 				<Head>
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
-					{publicRuntimeConfig && publicRuntimeConfig.SKILL_STYLESHEET && (
-						<link
-							href={publicRuntimeConfig.SKILL_STYLESHEET}
-							rel="stylesheet"
-							type="text/css"
-							charSet="UTF-8"
-						/>
-					)}
+					{legacyStylesheet &&
+						publicRuntimeConfig &&
+						publicRuntimeConfig.SKILL_STYLESHEET && (
+							<link
+								href={publicRuntimeConfig.SKILL_STYLESHEET}
+								rel="stylesheet"
+								type="text/css"
+								charSet="UTF-8"
+							/>
+						)}
 					{this.props.whitelabel && (
 						<link
 							href={this.props.whitelabel}

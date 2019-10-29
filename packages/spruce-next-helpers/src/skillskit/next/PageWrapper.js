@@ -76,7 +76,8 @@ type Props = {
 	store: Object,
 	res?: Object,
 	req?: Object,
-	renderLocation?: 'page' | 'modal' | 'right-rail'
+	renderLocation?: 'page' | 'modal' | 'right-rail',
+	legacyStylesheet?: boolean
 }
 
 type State = {
@@ -114,7 +115,8 @@ const PageWrapper = Wrapped => {
 			store,
 			res,
 			req,
-			renderLocation
+			renderLocation,
+			legacyStylesheet
 		}: Props) {
 			let props = {
 				pathname,
