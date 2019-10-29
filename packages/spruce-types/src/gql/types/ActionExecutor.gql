@@ -28,6 +28,9 @@ type ActionCoreRedirectPayload {
 
 	"Params for the route, like organizationId or locationId"
 	routeParams: JSON
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
 }
 
 "Redirect a user in the main viewport (browser or native mobile)"
@@ -48,6 +51,9 @@ type ActionSkillViewRedirectPayload {
 
 	"Params for the route, like organizationId or locationId"
 	routeParams: JSON
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
 }
 
 "Redirect inside of a skill view"
@@ -103,6 +109,9 @@ type ActionShowModalPayload {
 
 	"Does the dialog fill the screen vertically?"
 	isFullHeight: Boolean
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
 }
 
 "Load a skill view in a modal dialog"
@@ -126,6 +135,9 @@ type ActionEmitEventPayload {
 
 	"Arbitrary payload sent with the event"
 	payload: JSON
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
 }
 
 "Emit an event to your skill"
@@ -159,6 +171,9 @@ type ActionQuickEditUserPayload {
 
 	"optional organizationId"
 	organizationId: String
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
 }
 
 "Pop up dialog to edit the user"
@@ -173,6 +188,9 @@ type ActionQuickEditUser {
 type ActionDismissComponentPayload {
 	"Ids of the components you want to hide"
 	componentIds: [String!]!
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
 }
 
 "Dismiss/hide components on the page whose ID's match."
@@ -193,6 +211,9 @@ type ActionCalendarJumpToPayload {
 
 	"Show the selected user"
 	userId: String
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
 }
 
 "Jump to a place on the calendar"
