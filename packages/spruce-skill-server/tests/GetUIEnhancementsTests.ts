@@ -39,8 +39,6 @@ class GetUIEnhancementsTests extends SpruceTest<ISpruceContext> {
 			]
 		}
 
-		console.log(uiEnhancementsGQL)
-
 		const { body } = await this.request
 			.post('/graphql')
 			.set('Authorization', `JWT ${this.organization.owner[0].jwt}`)
