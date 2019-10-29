@@ -2,6 +2,7 @@
 import { assert } from 'chai'
 import SpruceTest from './lib/SpruceTest'
 import { ISpruceContext } from '../interfaces/ctx'
+import { uiEnhancementsGQL } from '@sprucelabs/spruce-types'
 
 class GetUIEnhancementsTests extends SpruceTest<ISpruceContext> {
 	public setup(): void {
@@ -38,28 +39,41 @@ class GetUIEnhancementsTests extends SpruceTest<ISpruceContext> {
 			]
 		}
 
-		const query = `
-			{
-				getUIEnhancements(
-					view: "calendar-event-details"
-					organizationId: "${this.organization.id}"
-					locationId: "${this.location.id}"
-				) {
-					sections {
-						id
-					}
-				}
-			}
-		`
+		console.log(uiEnhancementsGQL)
+
 		const { body } = await this.request
 			.post('/graphql')
 			.set('Authorization', `JWT ${this.organization.owner[0].jwt}`)
 			.send({
-				query
+				query: uiEnhancementsGQL.loc.source.body,
+				variables: {
+					sections: ['guest'],
+					view: 'calendar-event-details',
+					organizationId: this.organization.id,
+					locationId: this.location.id
+				}
 			})
 
 		assert.equal(body.data.getUIEnhancements.sections.length, 1)
 		assert.equal(body.data.getUIEnhancements.sections[0].id, 'guest')
+		assert.equal(
+			body.data.getUIEnhancements.sections[0].calendarEventDetailsItems.length,
+			1
+		)
+		assert.equal(
+			body.data.getUIEnhancements.sections[0].calendarEventDetailsItems[0].type,
+			'Text'
+		)
+		assert.equal(
+			body.data.getUIEnhancements.sections[0].calendarEventDetailsItems[0]
+				.viewModel.text,
+			'Someone - Testing User on Oct 23rd @ 5:31 pm'
+		)
+		assert.equal(
+			body.data.getUIEnhancements.sections[0].calendarEventDetailsItems[0]
+				.viewModel.textId,
+			'e2375801-d893-4c98-bdf7-bab8f2ca76ec'
+		)
 		assert.isTrue(didFire)
 	}
 }

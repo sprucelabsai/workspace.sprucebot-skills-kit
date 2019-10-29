@@ -18,6 +18,7 @@ export default (ctx: ISpruceContext) => {
 			extend type Query {
 				"Get UI enhancements for a section"
 				getUIEnhancements(
+					sections: [String!]
 					view: String!
 					organizationId: ID
 					locationId: ID
@@ -82,6 +83,7 @@ export default (ctx: ISpruceContext) => {
 				getUIEnhancements: async (
 					source: Source,
 					args: {
+						sections: string[]
 						view: string
 						organizationId?: string | null
 						locationId?: string | null
@@ -93,7 +95,13 @@ export default (ctx: ISpruceContext) => {
 						throw new Error('USER_NOT_LOGGED_IN')
 					}
 
-					const { view, locationId, organizationId, payload } = args
+					const {
+						view,
+						locationId,
+						organizationId,
+						payload,
+						sections: requestedSections
+					} = args
 
 					let sections: Record<string, any>[] = []
 
@@ -134,6 +142,7 @@ export default (ctx: ISpruceContext) => {
 						'get-ui-enhancements',
 						{
 							view,
+							sections: requestedSections,
 							...payload
 						},
 						{
