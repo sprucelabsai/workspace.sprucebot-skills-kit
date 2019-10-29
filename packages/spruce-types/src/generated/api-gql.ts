@@ -5341,8 +5341,10 @@ export type ICoreGQLUiEnhancementSection = {
 	__typename?: 'UIEnhancementSection'
 	/** The ID of the section that is acting as a placeholder for ui enhancements */
 	id: Scalars['ID']
-	/** Items to add as enhancements */
-	eventDetailsItems?: Maybe<Array<ICoreGQLCalendarEventDetailsItem>>
+	/** Calendar items to add as enhancements */
+	calendarEventDetailsItems?: Maybe<Array<ICoreGQLCalendarEventDetailsItem>>
+	/** [PLACEHOLDER] Card builder items to add as enhancements */
+	cardBuilderBodyItems?: Maybe<Array<ICoreGQLCardBuilderBodyItem>>
 	/** Items to add as actions in the section context menu */
 	actions?: Maybe<Array<ICoreGQLAction>>
 }

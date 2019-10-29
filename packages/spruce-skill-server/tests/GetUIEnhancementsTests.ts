@@ -2,7 +2,6 @@
 import { assert } from 'chai'
 import SpruceTest from './lib/SpruceTest'
 import { ISpruceContext } from '../interfaces/ctx'
-import gql from 'graphql-tag'
 
 class GetUIEnhancementsTests extends SpruceTest<ISpruceContext> {
 	public setup(): void {
@@ -39,7 +38,7 @@ class GetUIEnhancementsTests extends SpruceTest<ISpruceContext> {
 			]
 		}
 
-		const query = gql`
+		const query = `
 			{
 				getUIEnhancements(
 					view: "calendar-event-details"
@@ -56,11 +55,11 @@ class GetUIEnhancementsTests extends SpruceTest<ISpruceContext> {
 			.post('/graphql')
 			.set('Authorization', `JWT ${this.organization.owner[0].jwt}`)
 			.send({
-				query: query.loc.source.body
+				query
 			})
 
-		console.log(body)
-
+		assert.equal(body.data.getUIEnhancements.sections.length, 1)
+		assert.equal(body.data.getUIEnhancements.sections[0].id, 'guest')
 		assert.isTrue(didFire)
 	}
 }

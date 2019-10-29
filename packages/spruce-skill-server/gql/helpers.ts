@@ -375,14 +375,14 @@ export default (ctx: ISpruceContext) => {
 			target,
 			where,
 			connectionFields: () => ({
+				...connectionFields,
 				totalCount: {
 					type: GraphQLInt,
 					resolve(connection: any) {
 						const fullCount = connection.fullCount || null
 						return fullCount
 					}
-				},
-				...connectionFields
+				}
 			}),
 			edgeFields,
 			orderBy,
@@ -464,7 +464,10 @@ export default (ctx: ISpruceContext) => {
 					}
 				}
 
-				return cleanedResult
+				return {
+					...cleanedResult,
+					totalCount: cleanedResult.fullCount
+				}
 			}
 		}
 
