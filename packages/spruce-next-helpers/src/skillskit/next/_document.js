@@ -56,7 +56,7 @@ export default class MyDocument extends Document {
 				? `skill-${publicRuntimeConfig.SLUG}`
 				: ''
 
-		const { renderLocation, legacyStylesheet } = this.props
+		const { renderLocation } = this.props
 
 		return (
 			<html className={`skill ${bodyClassName}`}>
