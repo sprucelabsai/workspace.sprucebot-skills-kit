@@ -61,17 +61,11 @@ export default class MyDocument extends Document {
 		return (
 			<html className={`skill ${bodyClassName}`}>
 				<Head>
-					<meta name="viewport" content="width=device-width, initial-scale=1" />
-					{legacyStylesheet &&
-						publicRuntimeConfig &&
-						publicRuntimeConfig.SKILL_STYLESHEET && (
-							<link
-								href={publicRuntimeConfig.SKILL_STYLESHEET}
-								rel="stylesheet"
-								type="text/css"
-								charSet="UTF-8"
-							/>
-						)}
+					<meta
+						name="viewport"
+						content="width=device-width, initial-scale=1"
+						key="viewport"
+					/>
 					{this.props.whitelabel && (
 						<link
 							href={this.props.whitelabel}
