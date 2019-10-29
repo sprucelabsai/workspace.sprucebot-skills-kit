@@ -28,6 +28,7 @@
 		"test:update": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node -- -u",
 		"publish": "lerna publish --log-level=silly",
 		"clean": "lerna run clean && rm -rf node_modules; for d in packages/*/node_modules; do echo $d; rm -rf $d; done",
+		"checkIfGitIsClean": "git diff --stat && [[ -z $(git status -s) ]]",
 		"build-statics": "npm run build-storybook",
 		"build-storybook": "cd packages/react-heartwood-components && npm run build-storybook",
 		"build-heartwood": "cd packages/heartwood-components && npm run build",
