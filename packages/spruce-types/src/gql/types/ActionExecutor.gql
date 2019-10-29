@@ -151,6 +151,9 @@ type ActionEmitEvent {
 "Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner)"
 type ActionBigSearchPayload {
 	roles: [String!]
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
 }
 
 "Pop up big search"
