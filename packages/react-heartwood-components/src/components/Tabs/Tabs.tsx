@@ -22,10 +22,11 @@ export interface ITabsProps {
 
 export interface ITabsState {
 	activeTabIndex: number
-	hiddenTabIndices: number[]
-	tabWidths: number[]
+	contextTabWidth: number | null
 	disclosureTabWidth: number[]
+	hiddenTabIndices: number[]
 	isContextTabVisible: boolean
+	tabWidths: number[]
 }
 
 //TODO properly define State type
@@ -35,19 +36,20 @@ const getActiveTabIndex = (tabs: Array<ITabProps>) => {
 	return activeTabIndex
 }
 
-export default class Tabs extends Component<ITabsProps> {
+export default class Tabs extends Component<ITabsProps, ITabsState> {
 	static defaultProps = {
 		isPadded: true,
 		isTruncatable: true,
 		className: ''
 	}
 
-	state = {
+	state: ITabsState = {
 		activeTabIndex: getActiveTabIndex(this.props.tabs),
-		hiddenTabIndices: [],
-		tabWidths: [],
+		contextTabWidth: null,
 		disclosureTabWidth: [],
-		isContextTabVisible: true
+		hiddenTabIndices: [],
+		isContextTabVisible: true,
+		tabWidths: []
 	}
 
 	tabGroup: any
