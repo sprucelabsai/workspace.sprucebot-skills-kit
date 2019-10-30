@@ -29,8 +29,6 @@ export interface ITabsState {
 	tabWidths: number[]
 }
 
-//TODO properly define State type
-
 const getActiveTabIndex = (tabs: Array<ITabProps>) => {
 	const activeTabIndex = tabs.findIndex(tab => tab.isCurrent)
 	return activeTabIndex
