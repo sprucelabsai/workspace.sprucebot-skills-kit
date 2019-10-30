@@ -37,3 +37,8 @@ export interface IPageInitialPropsContext<IAuth> {
 export interface IPageInitialProps {
 	skill: ISkill
 }
+
+export interface IPageInitialPropsError {
+	statusCode: number
+	errorMessage?: string
+}
