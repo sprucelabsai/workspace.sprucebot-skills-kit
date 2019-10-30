@@ -29,4 +29,7 @@ interface ConfirmModal {
 
 	"If true, the confirm button will be red"
 	isDestructive: Boolean
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
 }
