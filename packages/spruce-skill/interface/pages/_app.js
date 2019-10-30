@@ -60,11 +60,6 @@ export default class MyApp extends App {
 			<Container>
 				{pageProps.initialProps.legacyStylesheet && (
 					<Head>
-						<meta
-							name="viewport"
-							content="width=device-width, initial-scale=1"
-							key="viewport"
-						/>
 						<link
 							href={publicRuntimeConfig.SKILL_STYLESHEET}
 							rel="stylesheet"
