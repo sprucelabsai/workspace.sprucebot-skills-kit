@@ -66,7 +66,7 @@ export default class OnboardingCard extends Component<
 			icon: step.tabIcon,
 			isCurrent: idx === currentStep,
 			onClick: () => this.handleClick(idx),
-			className: step.isComplete && 'tab--is-complete'
+			className: step.isComplete ? 'tab--is-complete' : ''
 		}))
 
 		return (
