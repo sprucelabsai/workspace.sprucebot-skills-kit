@@ -1,4 +1,5 @@
 import get from 'ts-get'
+import uniq from 'lodash/uniq'
 
 export default {
 	/** pass an error from a try/catch after an api call (gql) and I'll pull out the good error messages */
@@ -13,6 +14,6 @@ export default {
 			errorMessages.push(fallback)
 		}
 
-		return errorMessages.filter(message => !!message)
+		return uniq(errorMessages.filter(message => !!message))
 	}
 }
