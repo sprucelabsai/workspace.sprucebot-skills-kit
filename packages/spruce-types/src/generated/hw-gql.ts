@@ -47,6 +47,8 @@ export type IHWActionBigSearch = {
 export type IHWActionBigSearchPayload = {
   __typename?: 'ActionBigSearchPayload',
   roles?: Maybe<Array<Scalars['String']>>,
+  /** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+  actionResponse?: Maybe<Scalars['JSON']>,
 };
 
 /** Jump to a place on the calendar */
