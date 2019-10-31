@@ -1,5 +1,6 @@
 import { Request, Response } from 'koa'
 import { ISkill } from './skillskit'
+import { IButtonProps } from '@sprucelabs/react-heartwood-components'
 
 export {
 	default as skill,
@@ -36,4 +37,10 @@ export interface IPageInitialPropsContext<IAuth> {
 /** Initial props for a page */
 export interface IPageInitialProps {
 	skill: ISkill
+}
+
+export interface IPageInitialPropsError {
+	statusCode: number
+	errorMessage?: any
+	errorCTA?: IButtonProps
 }
