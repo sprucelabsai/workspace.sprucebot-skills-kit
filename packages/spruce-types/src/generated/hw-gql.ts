@@ -530,6 +530,8 @@ export type IHWConfirmModal = {
   confirmButtonText?: Maybe<Scalars['String']>,
   /** If true, the confirm button will be red */
   isDestructive?: Maybe<Scalars['Boolean']>,
+  /** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+  actionResponse?: Maybe<Scalars['JSON']>,
 };
 
 export type IHWContextMenu = {
