@@ -4,7 +4,7 @@ import {
 	default as TableSearch,
 	ITableSearchProps
 } from '../Table/components/TableSearch/TableSearch'
-import Tabs from '../Tabs'
+import Tabs from '../Tabs/Tabs'
 import { TextInput } from '../Forms'
 import Button from '../Button/Button'
 import EmptyState from '../EmptyState/EmptyState'

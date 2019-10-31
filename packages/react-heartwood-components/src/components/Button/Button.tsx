@@ -32,7 +32,7 @@ export interface IButtonProps extends Omit<IHWButton, 'id' | 'icon'> {
 	children?: React.ReactNode
 
 	/** Icon for the button. */
-	icon?: IIconProps
+	icon?: IIconProps | null
 
 	/** Click handler. */
 	onClick?: Function
