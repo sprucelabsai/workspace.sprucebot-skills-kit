@@ -1,5 +1,6 @@
 import { Request, Response } from 'koa'
 import { ISkill } from './skillskit'
+import { IHWAction } from '@sprucelabs/spruce-types'
 
 export {
 	default as skill,
@@ -40,5 +41,6 @@ export interface IPageInitialProps {
 
 export interface IPageInitialPropsError {
 	statusCode: number
-	errorMessage?: string
+	errorMessage?: any
+	errorCTA: IHWAction
 }
