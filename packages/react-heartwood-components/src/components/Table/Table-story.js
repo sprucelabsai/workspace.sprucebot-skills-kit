@@ -8,7 +8,7 @@ import Table, { TableSearch, TableFilters } from './index'
 import Layout, { LayoutSection } from '../Layout'
 import Card, { CardHeader, CardBody } from '../Card'
 import Button from '../Button/Button'
-import Tabs from '../Tabs'
+import Tabs from '../Tabs/Tabs'
 import {
 	TextInput,
 	FormLayout,
