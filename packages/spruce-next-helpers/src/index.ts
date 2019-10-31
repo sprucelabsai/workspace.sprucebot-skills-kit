@@ -42,5 +42,5 @@ export interface IPageInitialProps {
 export interface IPageInitialPropsError {
 	statusCode: number
 	errorMessage?: any
-	errorCTA: IHWAction
+	errorCTA?: IHWAction
 }
