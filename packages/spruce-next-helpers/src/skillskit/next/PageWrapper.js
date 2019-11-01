@@ -174,7 +174,7 @@ const PageWrapper = Wrapped => {
 
 			if (ConnectedWrapped.getInitialProps) {
 				const args = Array.from(arguments)
-				args[0] = { ...args[0], ...state }
+				args[0] = { ...args[0], ...state, isServer: !!req }
 				props = {
 					...props,
 					...(await ConnectedWrapped.getInitialProps.apply(this, args))
@@ -354,10 +354,16 @@ const PageWrapper = Wrapped => {
 		}
 
 		render() {
-			const { statusCode, errorMessage } = this.props
+			const { statusCode, errorMessage, errorCTA } = this.props
 
 			if (statusCode) {
-				return <ErrorPage statusCode={statusCode} errorMessage={errorMessage} />
+				return (
+					<ErrorPage
+						statusCode={statusCode}
+						errorMessage={errorMessage}
+						errorCTA={errorCTA}
+					/>
+				)
 			}
 
 			if (this.state.attemptingReAuth) {

@@ -32,6 +32,7 @@ export interface IPageInitialPropsContext<IAuth> {
 	store: any
 	res: Response
 	req: Request
+	isServer: boolean
 }
 
 /** Initial props for a page */
@@ -43,4 +44,12 @@ export interface IPageInitialPropsError {
 	statusCode: number
 	errorMessage?: any
 	errorCTA?: IButtonProps
+}
+
+export interface IPageInitialPropsRedirect {
+	redirect: string
+}
+
+export interface IPageInitialPropsPublicPage {
+	public: boolean
 }
