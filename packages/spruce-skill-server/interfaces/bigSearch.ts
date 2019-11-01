@@ -1,5 +1,3 @@
-import { ISpruceContext } from './ctx'
-
 export interface ISpruceBigSearchSection {
 	/** The title of this section. Rendered as a tab. */
 	title: string
@@ -10,6 +8,8 @@ export interface ISpruceBigSearchSection {
 	/** Search results for this section */
 	results: ISpruceBigSearchResult[]
 }
+
+export type ISpruceBigSearchBody = ISpruceBigSearchSection[]
 
 export interface ISpruceBigSearchResult {
 	/** Your id for the result (is passed back with this id to the import event) */
@@ -36,40 +36,28 @@ export enum SpruceBigSearchType {
 	Group = 'group'
 }
 
-export interface ISpruceBigSearchCtx extends ISpruceContext {
-	event: {
-		payload: {
-			/** the max amount of results Big Search would like you to return */
-			limit: number
-			/** how many results to skip */
-			offset: number
-			/** Search string entered by the human doing the search */
-			search: string
-			/** If we're in testing mode */
-			testing: boolean
-			/** The things we're searching for */
-			types:
-				| SpruceBigSearchType.Any
-				| SpruceBigSearchType.Group
-				| SpruceBigSearchType.Location
-				| SpruceBigSearchType.User
-		}
-	}
+export interface ISpruceBigSearchPayload {
+	/** the max amount of results Big Search would like you to return */
+	limit: number
+	/** how many results to skip */
+	offset: number
+	/** Search string entered by the human doing the search */
+	search: string
+	/** If we're in testing mode */
+	testing: boolean
+	/** The things we're searching for */
+	types: SpruceBigSearchType[]
 }
 
-export interface IImportFromBigSearchCtx extends ISpruceContext {
-	event: {
-		payload: {
-			/** the id of the result the user clicked, it matches whatever you returned from big-search result */
-			id: string
-			/** if the user is asking to merge with another result */
-			matchId?: string
-			/** is the user viewing a location while importing */
-			section: string
-			/** is the API in test mode? */
-			testing: boolean
-		}
-	}
+export interface ISpruceImportFromBigSearchPayload {
+	/** the id of the result the user clicked, it matches whatever you returned from big-search result */
+	id: string
+	/** if the user is asking to merge with another result */
+	matchId?: string
+	/** is the user viewing a location while importing */
+	section: string
+	/** is the API in test mode? */
+	testing: boolean
 }
 
 export interface ISpruceImportBigSearchResult {

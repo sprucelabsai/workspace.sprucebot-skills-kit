@@ -624,3 +624,5 @@ export {
 
 export { IBuildSequelizeResolver } from './gql/helpers'
 export { ISpruceAcls } from './interfaces/acls'
+
+export * from './interfaces/bigSearch'
