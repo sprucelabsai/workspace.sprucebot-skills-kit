@@ -20,13 +20,10 @@ export default (router: Router) => {
 	if (config.DEV_MODE) {
 		router.get('/dev/:role/redirect', async (ctx, next) => {
 			const role = ctx.params.role
-			const cookies = new Cookies(ctx.req, ctx.res, {
-				// This is a mismatch in cookies vs. types/cookies.
-				// TODO: Remove when @types/cookies 0.8.0 is available.
-				// @ts-ignore
+			const cookies = new Cookies(ctx.req, ctx.res)
+			cookies.set('devRole', role, {
 				sameSite: 'none'
 			})
-			cookies.set('devRole', role)
 			ctx.redirect(`/${role}`)
 			await next()
 		})
