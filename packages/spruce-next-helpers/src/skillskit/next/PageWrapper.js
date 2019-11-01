@@ -22,7 +22,8 @@ const setCookie = (named, value, req, res) => {
 	if (req && req.headers) {
 		const cookies = new ServerCookies(req, res, {
 			secure: true,
-			httpOnly: false
+			httpOnly: false,
+			sameSite: 'None'
 		})
 		return cookies.set(named, value)
 	} else {
@@ -34,7 +35,8 @@ const getCookie = (named, req, res) => {
 	if (req && req.headers) {
 		const cookies = new ServerCookies(req, res, {
 			secure: true,
-			httpOnly: false
+			httpOnly: false,
+			sameSite: 'None'
 		})
 		return cookies.get(named)
 	} else {
