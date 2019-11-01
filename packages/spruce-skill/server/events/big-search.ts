@@ -7,6 +7,7 @@ import {
 } from '@sprucelabs/spruce-skill-server'
 import get from 'ts-get'
 import { ISkillEventContextV2 } from '../interfaces/ctx'
+import { ICoreGQLBigSearchResultsRecordActionType } from '@sprucelabs/spruce-types'
 
 module.exports = async (
 	ctx: ISkillEventContextV2<ISpruceBigSearchPayload, ISpruceBigSearchBody>,
@@ -46,7 +47,7 @@ module.exports = async (
 				offset
 			})
 
-			const section1 = {
+			const section1: ISpruceBigSearchSection = {
 				title: 'Core Search Results Example',
 				section: 'internal',
 				totalCount: count,
@@ -55,7 +56,7 @@ module.exports = async (
 					title: `${user.firstName} ${user.lastName}`,
 					subtitle: ``,
 					action: {
-						type: 'coreRedirect',
+						type: ICoreGQLBigSearchResultsRecordActionType.CoreRedirect,
 						page: location ? 'profile_user_location' : 'profile_user_org',
 						routeParams: {
 							userId: user.id,
@@ -80,7 +81,7 @@ module.exports = async (
 					title: `Dummy User ${c}`,
 					subtitle: `I am #${c}`,
 					action: {
-						type: 'import'
+						type: ICoreGQLBigSearchResultsRecordActionType.Import
 					}
 				})
 			}
