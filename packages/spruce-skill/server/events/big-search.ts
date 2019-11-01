@@ -1,10 +1,10 @@
 import eventError from '../lib/errorHandler'
 import {
-	SpruceBigSearchType,
 	ISpruceBigSearchPayload,
 	ISpruceBigSearchBody,
 	ISpruceBigSearchSection
 } from '@sprucelabs/spruce-skill-server'
+import { SpruceBigSearchType } from '@sprucelabs/spruce-skill-server'
 import get from 'ts-get'
 import { ISkillEventContextV2 } from '../interfaces/ctx'
 import { ICoreGQLBigSearchResultsRecordActionType } from '@sprucelabs/spruce-types'

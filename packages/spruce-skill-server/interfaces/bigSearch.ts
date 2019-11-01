@@ -22,11 +22,12 @@ export type ISpruceBigSearchBody = ISpruceBigSearchSection[]
 export interface ISpruceBigSearchResult
 	extends Omit<ICoreGQLBigSearchResultsRecord, '__typename'> {}
 
-export {
-	ICoreGQLBigSearchObjectType as SpruceBigSearchType
-} from '@sprucelabs/spruce-types'
-
-type SpruceBigSearchType = ICoreGQLBigSearchObjectType
+export declare enum SpruceBigSearchType {
+	Any = 'any',
+	User = 'user',
+	Location = 'location',
+	Group = 'group'
+}
 
 export interface ISpruceBigSearchPayload {
 	/** the max amount of results Big Search would like you to return */
