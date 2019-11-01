@@ -108,14 +108,19 @@ class Day extends PureComponent<Props, State> {
 		this._timeLineInterval = setInterval(this.placeTimeLine, 10000)
 
 		//TODO better way to detect everything is rendered and sized correctly
-		setTimeout(this.updateHorizontalPagerDetails, 1000)
-		setTimeout(this.placeAndSize, 1000)
-		setTimeout(this.placeTimeLine, 1000)
+		this._updateHorizontalPagerDetails = setTimeout(this.updateHorizontalPagerDetails, 1000)
+		this._placeAndSize = setTimeout(this.placeAndSize, 1000)
+		this._placeTimeLine = setTimeout(this.placeTimeLine, 1000)
 	}
 
 	componentWillUnmount = () => {
+		clearTimeout(this._placeTimeLine)
+		clearTimeout(this._placeAndSize)
+		clearTimeout(this._updateHorizontalPagerDetails)
+
 		clearInterval(this._timeLineInterval)
-		window.removeEventListener('resize', this.updateHorizontalPagerDetails)
+
+		window.removeEventListener('resize', this.handleResize)
 	}
 
 	componentDidUpdate(prevProps) {
