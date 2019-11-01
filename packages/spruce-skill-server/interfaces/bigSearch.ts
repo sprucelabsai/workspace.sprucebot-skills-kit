@@ -1,6 +1,5 @@
 import {
 	ICoreGQLBigSearchResultsRecord,
-	ICoreGQLBigSearchObjectType,
 	ICoreGQLImportBigSearchResult,
 	ICoreGQLImportBigSearchMatchGroup,
 	ICoreGQLImportBigSearchMatch
