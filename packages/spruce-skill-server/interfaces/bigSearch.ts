@@ -1,4 +1,9 @@
-import { ISpruceContext } from './ctx'
+import {
+	ICoreGQLBigSearchResultsRecord,
+	ICoreGQLImportBigSearchResult,
+	ICoreGQLImportBigSearchMatchGroup,
+	ICoreGQLImportBigSearchMatch
+} from '@sprucelabs/spruce-types'
 
 export interface ISpruceBigSearchSection {
 	/** The title of this section. Rendered as a tab. */
@@ -11,95 +16,48 @@ export interface ISpruceBigSearchSection {
 	results: ISpruceBigSearchResult[]
 }
 
-export interface ISpruceBigSearchResult {
-	/** Your id for the result (is passed back with this id to the import event) */
-	id: string
-	/** What is rendered in the title of the search result list item */
-	title: string
-	/** The optional subtitle of the search result */
-	subtitle?: string
-	/** Tells Big Search how to handle selecting your result */
-	action: {
-		/** Should we redirect OR import */
-		type: 'coreRedirect' | 'import'
-		/**  if type is 'coreRedirect', this is where we forward them. not needed if type is import */
-		page?: string
-		/** An object that is used to populate the route template for the page */
-		routeParams?: { [key: string]: any }
-	}
-}
+export type ISpruceBigSearchBody = ISpruceBigSearchSection[]
 
-export enum SpruceBigSearchType {
+export interface ISpruceBigSearchResult
+	extends Omit<ICoreGQLBigSearchResultsRecord, '__typename'> {}
+
+export declare enum SpruceBigSearchType {
 	Any = 'any',
 	User = 'user',
 	Location = 'location',
 	Group = 'group'
 }
 
-export interface ISpruceBigSearchCtx extends ISpruceContext {
-	event: {
-		payload: {
-			/** the max amount of results Big Search would like you to return */
-			limit: number
-			/** how many results to skip */
-			offset: number
-			/** Search string entered by the human doing the search */
-			search: string
-			/** If we're in testing mode */
-			testing: boolean
-			/** The things we're searching for */
-			types:
-				| SpruceBigSearchType.Any
-				| SpruceBigSearchType.Group
-				| SpruceBigSearchType.Location
-				| SpruceBigSearchType.User
-		}
-	}
+export interface ISpruceBigSearchPayload {
+	/** the max amount of results Big Search would like you to return */
+	limit: number
+	/** how many results to skip */
+	offset: number
+	/** Search string entered by the human doing the search */
+	search: string
+	/** If we're in testing mode */
+	testing: boolean
+	/** The things we're searching for */
+	types: SpruceBigSearchType[]
 }
 
-export interface IImportFromBigSearchCtx extends ISpruceContext {
-	event: {
-		payload: {
-			/** the id of the result the user clicked, it matches whatever you returned from big-search result */
-			id: string
-			/** if the user is asking to merge with another result */
-			matchId?: string
-			/** is the user viewing a location while importing */
-			section: string
-			/** is the API in test mode? */
-			testing: boolean
-		}
-	}
+export interface ISpruceImportFromBigSearchPayload {
+	/** the id of the result the user clicked, it matches whatever you returned from big-search result */
+	id: string
+	/** if the user is asking to merge with another result */
+	matchId?: string
+	/** is the user viewing a location while importing */
+	section: string
+	/** is the API in test mode? */
+	testing: boolean
 }
 
-export interface ISpruceImportBigSearchResult {
-	/** If the import was successful, this is where the resulting record will be */
-	successfulImport?: ISpruceBigSearchResult
-	/** If the import resulted in a possible match (that requires human intervention), it'll show here. */
-	matchGroup?: ISpruceImportBigSearchMatchGroup
-}
+export interface ISpruceImportBigSearchResult
+	extends Omit<ICoreGQLImportBigSearchResult, '__typename'> {}
 
-export interface ISpruceImportBigSearchMatchGroup {
-	/** The title to show at the top of merge component. Make sure it describes the action the human is about to take. Something like, "Merge users?" */
-	matchGroupTitle: string
-	/** Your chance to give the human handling the merge a little more details about what is happening. */
-	matchGroupDescription?: string
-	/** The label shown above the matches you found in the platform. Could be "Existing User". */
-	matchingRecordLabel: string
-	/** The label show above the record the user selected from search that is now being considered for import. Example: "Imported User" */
-	importingRecordLabel: string
-	/** A list of possible matches the user can choose to merge to */
-	matches: ISpruceImportBigSearchMatch[]
-}
+export interface ISpruceImportBigSearchMatchGroup
+	extends Omit<ICoreGQLImportBigSearchMatchGroup, '__typename'> {}
 
 /** List of possible matches found in core */
-export interface ISpruceImportBigSearchMatch {
-	/** The UUID of the match */
-	id: string
-	/** Text to render in the title of the list item */
-	title: string
-	/** Text to render as the subtitle of the list item */
-	subtitle?: string
-	/** Url to the image to show for this record */
-	image?: string
-}
+export interface ISpruceImportBigSearchMatch
+	extends Omit<ICoreGQLImportBigSearchMatch, '__typename'> {}
