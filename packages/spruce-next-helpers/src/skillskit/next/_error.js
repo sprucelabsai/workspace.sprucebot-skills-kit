@@ -39,7 +39,7 @@ export default class Error extends React.Component {
 					<Layout>
 						<LayoutSection>
 							<Card>
-								<Card.Header>{"Oh dang! I'm so sorry!"}</Card.Header>
+								<Card.Header title={"Oh dang! I'm so sorry!"} />
 								<Card.Body>{message}</Card.Body>
 								{errorCTA && (
 									<Card.Footer>
