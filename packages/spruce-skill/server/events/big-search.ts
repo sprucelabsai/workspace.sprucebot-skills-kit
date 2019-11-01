@@ -1,11 +1,17 @@
 import eventError from '../lib/errorHandler'
 import {
-	ISpruceBigSearchCtx,
-	SpruceBigSearchType
+	SpruceBigSearchType,
+	ISpruceBigSearchPayload,
+	ISpruceBigSearchBody,
+	ISpruceBigSearchSection
 } from '@sprucelabs/spruce-skill-server'
 import get from 'ts-get'
+import { ISkillEventContextV2 } from '../interfaces/ctx'
 
-module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
+module.exports = async (
+	ctx: ISkillEventContextV2<ISpruceBigSearchPayload, ISpruceBigSearchBody>,
+	next: () => Promise<any>
+) => {
 	try {
 		if (!ctx.auth) {
 			return next()
@@ -21,7 +27,7 @@ module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
 		console.log('****big-search', get(organization, o => o.name, 'No org set'))
 
 		// each section
-		const sections = []
+		const sections: ISpruceBigSearchSection[] = []
 
 		// do whatever you want with these
 		console.log('ignoring', search, testing)
