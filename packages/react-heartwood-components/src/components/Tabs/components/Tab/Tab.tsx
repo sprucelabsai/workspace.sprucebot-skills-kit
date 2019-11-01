@@ -1,23 +1,23 @@
-// @flow
 import React from 'react'
 import cx from 'classnames'
 import Button from '../../../Button/Button'
+import { IIconProps } from '../../../Icon/Icon'
 
-export type Props = {
+export interface ITabProps {
 	/** Tab text */
-	text: string,
+	text: string
 
 	/** Tab icon */
-	icon?: string,
+	icon?: IIconProps | null
 
 	/** Method used to render anchor, if isAnchor is true */
-	AnchorComponent?: Node,
+	AnchorComponent?: Node
 
 	/** Set true if this is the current tab */
-	isCurrent?: boolean,
+	isCurrent?: boolean
 
 	/** Panel to show when this tab is current */
-	panel?: Object,
+	panel?: Record<string, any>
 
 	/** Optional class */
 	className?: string
@@ -30,7 +30,7 @@ const Tab = ({
 	isCurrent,
 	className,
 	...rest
-}: Props) => {
+}: ITabProps) => {
 	return (
 		<li className={cx('tab', className)}>
 			<Button

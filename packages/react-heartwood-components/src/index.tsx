@@ -82,7 +82,8 @@ export { default as Loader } from './components/Loader/Loader'
 export { default as Modal } from './components/Modal/Modal'
 export { default as PagedModal } from './components/PagedModal/PagedModal'
 export { default as Pagination } from './components/Pagination/Pagination'
-export { default as Tabs, Tab } from './components/Tabs'
+export { default as Tabs } from './components/Tabs/Tabs'
+export { default as Tab } from './components/Tabs/components/Tab/Tab'
 export {
 	default as ToastWrapper
 } from './components/Toast/components/ToastWrapper/ToastWrapper'
