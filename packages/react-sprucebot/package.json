@@ -77,7 +77,7 @@
 		"axios": "^0.18.0",
 		"blueimp-canvas-to-blob": "^3.14.0",
 		"classnames": "^2.2.5",
-		"cookies": "^0.7.1",
+		"cookies": "^0.8.0",
 		"debug": "^3.1.0",
 		"es6-tween": "^5.3.0",
 		"exenv": "^1.2.2",

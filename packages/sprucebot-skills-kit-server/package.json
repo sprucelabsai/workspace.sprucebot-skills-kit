@@ -24,7 +24,7 @@
 		"@koa/cors": "2",
 		"@sprucelabs/log": "^1.7.0",
 		"config": "^1.28.0",
-		"cookies": "^0.7.1",
+		"cookies": "^0.8.0",
 		"debug": "^3.1.0",
 		"glob": "^7.1.2",
 		"jsonwebtoken": "^8.1.0",

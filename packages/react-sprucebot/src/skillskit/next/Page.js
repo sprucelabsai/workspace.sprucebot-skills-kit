@@ -16,7 +16,10 @@ const debug = require('debug')('@sprucelabs/react-sprucebot')
 
 const setCookie = (named, value, req, res) => {
 	if (req && req.headers) {
-		const cookies = new ServerCookies(req, res, { secure: true })
+		const cookies = new ServerCookies(req, res, {
+			secure: true,
+			sameSite: 'None'
+		})
 		return cookies.set(named, value)
 	} else {
 		return ClientCookies.setItem(named, value)
@@ -25,7 +28,10 @@ const setCookie = (named, value, req, res) => {
 
 const getCookie = (named, req, res) => {
 	if (req && req.headers) {
-		const cookies = new ServerCookies(req, res, { secure: true })
+		const cookies = new ServerCookies(req, res, {
+			secure: true,
+			sameSite: 'None'
+		})
 		return cookies.get(named)
 	} else {
 		return ClientCookies.getItem(named)
