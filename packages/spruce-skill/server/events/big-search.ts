@@ -1,11 +1,18 @@
 import eventError from '../lib/errorHandler'
 import {
-	ISpruceBigSearchCtx,
-	SpruceBigSearchType
+	ISpruceBigSearchPayload,
+	ISpruceBigSearchBody,
+	ISpruceBigSearchSection
 } from '@sprucelabs/spruce-skill-server'
+import { SpruceBigSearchType } from '@sprucelabs/spruce-skill-server'
 import get from 'ts-get'
+import { ISkillEventContextV2 } from '../interfaces/ctx'
+import { ICoreGQLBigSearchResultsRecordActionType } from '@sprucelabs/spruce-types'
 
-module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
+module.exports = async (
+	ctx: ISkillEventContextV2<ISpruceBigSearchPayload, ISpruceBigSearchBody>,
+	next: () => Promise<any>
+) => {
 	try {
 		if (!ctx.auth) {
 			return next()
@@ -21,7 +28,7 @@ module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
 		console.log('****big-search', get(organization, o => o.name, 'No org set'))
 
 		// each section
-		const sections = []
+		const sections: ISpruceBigSearchSection[] = []
 
 		// do whatever you want with these
 		console.log('ignoring', search, testing)
@@ -40,7 +47,7 @@ module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
 				offset
 			})
 
-			const section1 = {
+			const section1: ISpruceBigSearchSection = {
 				title: 'Core Search Results Example',
 				section: 'internal',
 				totalCount: count,
@@ -49,7 +56,7 @@ module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
 					title: `${user.firstName} ${user.lastName}`,
 					subtitle: ``,
 					action: {
-						type: 'coreRedirect',
+						type: ICoreGQLBigSearchResultsRecordActionType.CoreRedirect,
 						page: location ? 'profile_user_location' : 'profile_user_org',
 						routeParams: {
 							userId: user.id,
@@ -74,7 +81,7 @@ module.exports = async (ctx: ISpruceBigSearchCtx, next: () => Promise<any>) => {
 					title: `Dummy User ${c}`,
 					subtitle: `I am #${c}`,
 					action: {
-						type: 'import'
+						type: ICoreGQLBigSearchResultsRecordActionType.Import
 					}
 				})
 			}
