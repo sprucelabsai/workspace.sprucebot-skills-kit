@@ -22,12 +22,11 @@ const setCookie = (named, value, req, res) => {
 	if (req && req.headers) {
 		const cookies = new ServerCookies(req, res, {
 			secure: true,
-			httpOnly: false,
-			sameSite: 'None'
+			httpOnly: false
 		})
-		return cookies.set(named, value)
+		return cookies.set(named, value, { sameSite: 'None' })
 	} else {
-		return ClientCookies.setItem(named, value)
+		return ClientCookies.setItem(named, value, { sameSite: 'None' })
 	}
 }
 
@@ -35,8 +34,7 @@ const getCookie = (named, req, res) => {
 	if (req && req.headers) {
 		const cookies = new ServerCookies(req, res, {
 			secure: true,
-			httpOnly: false,
-			sameSite: 'None'
+			httpOnly: false
 		})
 		return cookies.get(named)
 	} else {
