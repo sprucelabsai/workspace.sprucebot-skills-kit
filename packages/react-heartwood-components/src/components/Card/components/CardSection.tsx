@@ -5,7 +5,7 @@ import cx from 'classnames'
 // Card Section
 export interface ICardSectionProps {
 	/** Children to show in the Card */
-	children?: React.ReactNode
+	children?: any
 
 	/** Set to true to remove horizontal padding */
 	isFullBleed?: boolean
