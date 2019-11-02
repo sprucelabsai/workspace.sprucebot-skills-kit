@@ -155,7 +155,12 @@ const Button = (props: IButtonProps | IHWButton): React.ReactElement => {
 	)
 
 	const anchor = (
-		<AnchorComponent href={href} className={btnClass} {...rest}>
+		<AnchorComponent
+			href={href}
+			className={btnClass}
+			onClick={handleClick}
+			{...rest}
+		>
 			<Inner />
 		</AnchorComponent>
 	)
