@@ -567,16 +567,7 @@ export {
 } from './interfaces/auth'
 
 // Big Search
-export {
-	SpruceBigSearchType,
-	ISpruceBigSearchSection,
-	ISpruceBigSearchResult,
-	ISpruceBigSearchCtx,
-	ISpruceImportBigSearchMatch,
-	ISpruceImportBigSearchMatchGroup,
-	ISpruceImportBigSearchResult,
-	IImportFromBigSearchCtx
-} from './interfaces/bigSearch'
+export * from './interfaces/bigSearch'
 
 // Settings
 export {
