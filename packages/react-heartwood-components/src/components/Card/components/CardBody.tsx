@@ -5,7 +5,7 @@ import CardSection from './CardSection'
 // Card Body
 export interface ICardBodyProps {
 	/** Children to show in the Card */
-	children?: any
+	children?: React.ReactNode
 
 	/** Whether to wrap children in CardSection */
 	isSectioned?: boolean
