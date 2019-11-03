@@ -352,7 +352,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 					}}
 					manual
 					loading={loading}
-					showPagination={visibleRows.length >= limit}
+					showPagination={totalRows >= limit}
 					data={visibleRows || []}
 					totalRows={totalRows}
 					onSortedChange={this.handleSortChanged}
