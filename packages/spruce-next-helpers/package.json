@@ -57,7 +57,7 @@
 		"lodash": "^4.17.15",
 		"next": "^7.0.0",
 		"next-redux-wrapper": "^1.0.0",
-		"prop-types": "^15.6.0",
+		"prop-types": "^15.7.2",
 		"qs": "^6.5.1",
 		"react": "^16.3.2",
 		"redux": "^3.7.2",
