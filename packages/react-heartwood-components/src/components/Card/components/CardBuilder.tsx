@@ -84,7 +84,8 @@ export interface ICardBuilderProps
 }
 
 const renderItem = (
-	item: ICardBuilderBodyItem | IHWCardBuilderBodyItem
+	item: ICardBuilderBodyItem | IHWCardBuilderBodyItem,
+	onAction?: (action: IHWAction) => any
 ): React.ReactElement => {
 	const CardBuilderKey = {
 		CardBodyButton: Button,
@@ -117,7 +118,7 @@ const renderItem = (
 		Handler({ ...viewModel })
 	) : (
 		// @ts-ignore
-		<Handler {...viewModel} />
+		<Handler {...viewModel} onAction={onAction} />
 	)
 }
 
@@ -163,7 +164,9 @@ const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 					isFullBleed={!!isFullBleed}
 				>
 					{children}
-					{Array.isArray(items) ? unionArray(items).map(renderItem) : items}
+					{Array.isArray(items)
+						? unionArray(items).map(item => renderItem(item, onAction))
+						: items}
 				</CardBody>
 			)}
 			{footer && (
