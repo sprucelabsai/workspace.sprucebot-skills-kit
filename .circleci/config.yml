@@ -115,8 +115,6 @@ workflows:
               only:
                 - /prerelease\/.*/
       - canary:
-          requires:
-            - test
           filters:
             branches:
               only:
