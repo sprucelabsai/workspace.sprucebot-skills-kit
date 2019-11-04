@@ -3,6 +3,127 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Breaking Changes
+
+* Typescript support for skills kit ([d8b6152](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d8b6152))
+
+
+### Bug Fixes
+
+* component to type, componentProps to viewModel. standardization of UI configuration. ([98abc02](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/98abc02))
+* copy .gql and .graphql files to build directory ([c7d1cd2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c7d1cd2))
+* don't show pagination when filtered result visibleRows is less than record limit. Also increase initial limit to 50 ([82a2d60](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/82a2d60))
+* form and card builder validate with stricter type checks ([09951ab](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/09951ab))
+* make graphql-type-json a peerDependency in spruce-skill-server; move [@types](https://github.com/types) to "devDependencies" ([5592cd9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5592cd9))
+* make supertest a dependency ([99c39d9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/99c39d9))
+* next.config should extend "resolve" instead of overriding it to fix .tsx imports ([8a09b2b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8a09b2b))
+* prevent double save formatters ([37f4aa4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/37f4aa4))
+* prevent duplicate "Maybe" and "Scalar" exports from generated gql types ([f8680c1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f8680c1))
+* send eventContract and acl as stringified json ([c33e5e5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c33e5e5))
+* set default formatter to prettier ([c5bdfa1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c5bdfa1))
+* set NODE_CONFIG_DIR on start ([c0df64b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c0df64b))
+* strict validation progress ([7e4c194](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7e4c194))
+* types for otherOrg and otherLocation set to mocks on SpruceTest base test class ([938ecf4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/938ecf4))
+* un-double-wrap list actions ([3febc9f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3febc9f))
+* **ActionConfirm:** Add type to ConfirmModal model [SDEV3-2638] ([a94aa64](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a94aa64))
+* **ActionsGQL:** Add actionResponse to BigSearch payload ([fbbb21d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fbbb21d))
+* **Build:** Enforce rootDir for react-heartwood ([4d1ba2f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4d1ba2f))
+* **Builds:** Fix a npm ref to TS that allowed TS beyond 3.4.x ([42e5778](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/42e5778))
+* **Cookies:** options on set, not constructor ([817113a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/817113a))
+* **eslint:** Remove `browser` env from eslint config. ([26dbccb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/26dbccb))
+* **EventDetails:** Use types correctly for event detail viewModels ([1224f57](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1224f57))
+* **GQL:** Convert client to TS ([9322585](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9322585))
+* **graphql:** proper options handling for fragment introspection ([677af7f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/677af7f))
+* **GraphQL:** Add ability to pass fragment introspect data [SDEV3-509] ([5495e9e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5495e9e))
+* **Input/Radio:** Add props that were lost when we ditched the spread ([1e3810f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1e3810f))
+* **lint:** Enforce object-shorthand rule ([cc5b0a7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc5b0a7))
+* **lint:** Get TS(X) in workspace linted correctly ([629d8e5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/629d8e5))
+* **npm-Cookies:** Update to version supporting sameSite [SDEV3-2622] ([2105317](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2105317))
+* **Sidebar:** Export SidebarHeader [SDEV3-522] ([f0a4195](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f0a4195))
+* **SpruceNextHelpers:** Correct build, lint, prep for tsx ([62e68c3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/62e68c3))
+* update params in shared query ([7e03fc5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7e03fc5))
+* vscode should exclude build/ directory from watch ([f20c388](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f20c388))
+* was passing undefined as location id if no location id was passed ([ade9de4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ade9de4))
+* **SpruceSkill:** Add missing types, fix includes, fix lint command ([b8ea58b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b8ea58b))
+* **Text:** Update types to allow arbitrary HTML props ([cfb87d3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cfb87d3))
+* **TS:** Fix types to be strict-compliant ([d6909c2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d6909c2))
+* **vscode:** Sync shared settings, remove old settings. ([38c9a1b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/38c9a1b))
+* **VSCode:** Fix format on save configuration ([4f2cf49](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4f2cf49))
+
+
+### Documentation
+
+* add layout stories ([52da063](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/52da063))
+
+
+### Features
+
+* add "slug" to ActionCoreRedirectPayload ([64d05b7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/64d05b7))
+* add event details components ([b88167e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b88167e))
+* add example story of card with a warning ([ce54952](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ce54952))
+* add gql typescript generator ([f94f22f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f94f22f))
+* Add layout base styles ([b2fef7f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b2fef7f))
+* add MarkdownText component ([7183b98](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7183b98))
+* add more storybook stories ([83d692b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/83d692b))
+* add react-markdown ([c804fbd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c804fbd))
+* add sensible examples ([c8c6998](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c8c6998))
+* add sidebar headers to stories ([064c563](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/064c563))
+* add SidebarHeader component ([e173e8c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e173e8c))
+* Add SpruceDataTypes enum ([1e0a598](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1e0a598))
+* Add storybook to spruce-skill ([31eb565](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/31eb565))
+* add todo ([770a6d8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/770a6d8))
+* allow non-camel case for permissions ([6d3d1a2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6d3d1a2))
+* better story setup and string matching ([f5cc709](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f5cc709))
+* clean up comments ([c8ddee4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c8ddee4))
+* delete calendar tests ([bcc05f7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bcc05f7))
+* enforce PascalCase for enums ([cc3856e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc3856e))
+* fit and finish styling, remove logs ([1ea8312](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1ea8312))
+* fix context menu position with list item ([0b32cd5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0b32cd5))
+* fix list items with action and add correct services list to examples ([f45f37a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f45f37a))
+* fix storybook webpack config ([c0fcd08](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c0fcd08))
+* flesh out storybook example ([ab1a6ad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ab1a6ad))
+* get Card to work with toasts in event details ([4ce2244](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4ce2244))
+* get storybook to work with tsx prop tables ([594cb41](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/594cb41))
+* hide icons ([2f1988e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2f1988e))
+* make auth location better match location model ([268521b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/268521b))
+* make SplitButton portal use optional so that it works in the event details sidebar ([e508d7a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e508d7a))
+* move from lodash/get to ts-get for type checking ([f0a6d99](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f0a6d99))
+* move model attributes to model definition for easier extendability ([db84395](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/db84395))
+* new tests for individual acl checks ([4e9aa67](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4e9aa67))
+* only run build on canary branch ([27ff696](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/27ff696))
+* remove Big Calendar ([05ca2c8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/05ca2c8))
+* **EventDetails:** Add action executor arch to components [SDEV3-2355] ([7466f90](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7466f90))
+* **GraphQL:** Add `subscription` helper to the gql client [SDEV3-509] ([993117a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/993117a))
+* update todos and add a console warning ([2285f9e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2285f9e))
+* **lint:** Add script to see if git tree is clean ([6a95e60](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6a95e60))
+* remove bigcalendar styles and improve storybook story ([048fbc2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/048fbc2))
+* shared gql types and definitions ([9c577b3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9c577b3))
+* shared types repo "[@sprucelabs](https://github.com/sprucelabs)/spruce-types" ([c0b5c58](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c0b5c58))
+* skills no longer run skills kit tests ([7babb34](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7babb34))
+* strongly typed config ([8ba6b82](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8ba6b82))
+* styling adjustments ([1df575a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1df575a))
+* styling and storybook updates ([9d02852](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9d02852))
+* ts-getter and org/location optional on auth ([018a5bf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/018a5bf))
+* update eslint-plugin to support newer version of typescript ([9790230](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9790230))
+* update json ([057353c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/057353c))
+* update logo in storybook ([27276df](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/27276df))
+* update story to show warning text ([8c14c15](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8c14c15))
+* update to work with split button ([e537d09](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e537d09))
+* update types for action executor emit ([6147a7d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6147a7d))
+* updates to List components to work well in event details ([9027400](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9027400))
+* upgrade graphql version ([bee5ea5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bee5ea5))
+* use relative imports ([2978b12](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2978b12))
+* wrap all EventDetails stories in Page for presentation ([ba5592a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ba5592a))
+* **Typescript:** Upgrade to 3.6.3 ([68f7bf8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/68f7bf8))
+* **Utils:** Implement Typescript for Error, Iframe tools ([a43a62a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a43a62a))
+
+
+
+
+
 ## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
 
 **Note:** Version bump only for package workspace.sprucebot-skills-kit

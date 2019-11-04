@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Breaking Changes
+
+* Typescript support for skills kit ([d8b6152](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d8b6152))
+
+
+### Bug Fixes
+
+* send eventContract and acl as stringified json ([c33e5e5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c33e5e5))
+* strict validation progress ([7e4c194](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7e4c194))
+* **lint:** Enforce object-shorthand rule ([cc5b0a7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc5b0a7))
+* **vscode:** Sync shared settings, remove old settings. ([38c9a1b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/38c9a1b))
+
+
+### Features
+
+* **Typescript:** Upgrade to 3.6.3 ([68f7bf8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/68f7bf8))
+
+
+
+
+
 ## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
 
 **Note:** Version bump only for package @sprucelabs/spruce-node

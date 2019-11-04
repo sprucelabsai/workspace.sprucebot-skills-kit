@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Breaking Changes
+
+* Typescript support for skills kit ([d8b6152](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d8b6152))
+
+
+### Bug Fixes
+
+* make graphql-type-json a peerDependency in spruce-skill-server; move [@types](https://github.com/types) to "devDependencies" ([5592cd9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5592cd9))
+* send eventContract and acl as stringified json ([c33e5e5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c33e5e5))
+* strict validation progress ([7e4c194](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7e4c194))
+* types for otherOrg and otherLocation set to mocks on SpruceTest base test class ([938ecf4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/938ecf4))
+* was passing undefined as location id if no location id was passed ([ade9de4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ade9de4))
+* **Cookies:** options on set, not constructor ([817113a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/817113a))
+* **lint:** Enforce object-shorthand rule ([cc5b0a7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc5b0a7))
+* **npm-Cookies:** Update to version supporting sameSite [SDEV3-2622] ([2105317](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2105317))
+* **SpruceSkill:** Add missing types, fix includes, fix lint command ([b8ea58b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b8ea58b))
+* **vscode:** Sync shared settings, remove old settings. ([38c9a1b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/38c9a1b))
+
+
+### Features
+
+* move from lodash/get to ts-get for type checking ([f0a6d99](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f0a6d99))
+* move model attributes to model definition for easier extendability ([db84395](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/db84395))
+* new tests for individual acl checks ([4e9aa67](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4e9aa67))
+* strongly typed config ([8ba6b82](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8ba6b82))
+* ts-getter and org/location optional on auth ([018a5bf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/018a5bf))
+* upgrade graphql version ([bee5ea5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bee5ea5))
+* **Typescript:** Upgrade to 3.6.3 ([68f7bf8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/68f7bf8))
+
+
+
+
+
 ## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
 
 **Note:** Version bump only for package @sprucelabs/spruce-skill-server

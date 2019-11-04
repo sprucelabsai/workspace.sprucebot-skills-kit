@@ -7,7 +7,7 @@
 		"build"
 	],
 	"description": "The engine that drives your Sprucebot Skill! ⚙️🌲🤖",
-	"version": "8.17.7",
+	"version": "8.18.0",
 	"main": "./build/index.js",
 	"types": "./build/index.d.ts",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit",
@@ -101,7 +101,7 @@
 		"aws-sdk": "^2.153.0",
 		"chai": "^4.2.0",
 		"eslint": "^5",
-		"eslint-config-spruce": "^8.17.7",
+		"eslint-config-spruce": "^8.18.0",
 		"mocha": "^5.2.0",
 		"prettier": "^1.13",
 		"ts-node": "^8.0.2",

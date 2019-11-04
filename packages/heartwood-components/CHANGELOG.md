@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.18.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Bug Fixes
+
+* un-double-wrap list actions ([3febc9f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/3febc9f))
+* **lint:** Enforce object-shorthand rule ([cc5b0a7](https://github.com/sprucelabsai/sprucebot-heartwood/commit/cc5b0a7))
+* **vscode:** Sync shared settings, remove old settings. ([38c9a1b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/38c9a1b))
+
+
+### Features
+
+* Add layout base styles ([b2fef7f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b2fef7f))
+* add sidebar headers to stories ([064c563](https://github.com/sprucelabsai/sprucebot-heartwood/commit/064c563))
+* fit and finish styling, remove logs ([1ea8312](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1ea8312))
+* fix list items with action and add correct services list to examples ([f45f37a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/f45f37a))
+* get Card to work with toasts in event details ([4ce2244](https://github.com/sprucelabsai/sprucebot-heartwood/commit/4ce2244))
+* make SplitButton portal use optional so that it works in the event details sidebar ([e508d7a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/e508d7a))
+* merge canary and resolve conflict ([bae8d65](https://github.com/sprucelabsai/sprucebot-heartwood/commit/bae8d65))
+* merge latest and resolve conflict ([b16679b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b16679b))
+* merge latest and resolve conflict ([1d4af93](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1d4af93))
+* remove bigcalendar styles and improve storybook story ([048fbc2](https://github.com/sprucelabsai/sprucebot-heartwood/commit/048fbc2))
+* styling adjustments ([1df575a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1df575a))
+* styling and storybook updates ([9d02852](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9d02852))
+* updates to List components to work well in event details ([9027400](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9027400))
+
+
+
+
+
 ## [8.17.7](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.17.6...v8.17.7) (2019-08-16)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components

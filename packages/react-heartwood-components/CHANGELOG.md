@@ -3,6 +3,77 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Bug Fixes
+
+* component to type, componentProps to viewModel. standardization of UI configuration. ([98abc02](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/98abc02))
+* don't show pagination when filtered result visibleRows is less than record limit. Also increase initial limit to 50 ([82a2d60](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/82a2d60))
+* form and card builder validate with stricter type checks ([09951ab](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/09951ab))
+* **Builds:** Fix a npm ref to TS that allowed TS beyond 3.4.x ([42e5778](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/42e5778))
+* un-double-wrap list actions ([3febc9f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3febc9f))
+* **Build:** Enforce rootDir for react-heartwood ([4d1ba2f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4d1ba2f))
+* **EventDetails:** Use types correctly for event detail viewModels ([1224f57](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1224f57))
+* **Input/Radio:** Add props that were lost when we ditched the spread ([1e3810f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1e3810f))
+* **lint:** Enforce object-shorthand rule ([cc5b0a7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc5b0a7))
+* **lint:** Get TS(X) in workspace linted correctly ([629d8e5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/629d8e5))
+* **npm-Cookies:** Update to version supporting sameSite [SDEV3-2622] ([2105317](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2105317))
+* **Sidebar:** Export SidebarHeader [SDEV3-522] ([f0a4195](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f0a4195))
+* **Text:** Update types to allow arbitrary HTML props ([cfb87d3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cfb87d3))
+* **TS:** Fix types to be strict-compliant ([d6909c2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d6909c2))
+* **vscode:** Sync shared settings, remove old settings. ([38c9a1b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/38c9a1b))
+
+
+### Documentation
+
+* add layout stories ([52da063](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/52da063))
+
+
+### Features
+
+* add event details components ([b88167e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b88167e))
+* add example story of card with a warning ([ce54952](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ce54952))
+* add MarkdownText component ([7183b98](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7183b98))
+* add more storybook stories ([83d692b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/83d692b))
+* add react-markdown ([c804fbd](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c804fbd))
+* add sensible examples ([c8c6998](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c8c6998))
+* add sidebar headers to stories ([064c563](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/064c563))
+* add SidebarHeader component ([e173e8c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e173e8c))
+* add todo ([770a6d8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/770a6d8))
+* better story setup and string matching ([f5cc709](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f5cc709))
+* clean up comments ([c8ddee4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c8ddee4))
+* delete calendar tests ([bcc05f7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bcc05f7))
+* fit and finish styling, remove logs ([1ea8312](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1ea8312))
+* fix context menu position with list item ([0b32cd5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/0b32cd5))
+* fix list items with action and add correct services list to examples ([f45f37a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f45f37a))
+* fix storybook webpack config ([c0fcd08](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c0fcd08))
+* flesh out storybook example ([ab1a6ad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ab1a6ad))
+* get Card to work with toasts in event details ([4ce2244](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4ce2244))
+* get storybook to work with tsx prop tables ([594cb41](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/594cb41))
+* hide icons ([2f1988e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2f1988e))
+* make SplitButton portal use optional so that it works in the event details sidebar ([e508d7a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e508d7a))
+* merge canary and resolve conflict ([bae8d65](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bae8d65))
+* merge latest and resolve conflict ([b16679b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b16679b))
+* merge latest and resolve conflict ([1d4af93](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1d4af93))
+* remove Big Calendar ([05ca2c8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/05ca2c8))
+* styling adjustments ([1df575a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/1df575a))
+* **EventDetails:** Add action executor arch to components [SDEV3-2355] ([7466f90](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7466f90))
+* remove bigcalendar styles and improve storybook story ([048fbc2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/048fbc2))
+* styling and storybook updates ([9d02852](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9d02852))
+* update json ([057353c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/057353c))
+* update logo in storybook ([27276df](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/27276df))
+* **Typescript:** Upgrade to 3.6.3 ([68f7bf8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/68f7bf8))
+* update story to show warning text ([8c14c15](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8c14c15))
+* update to work with split button ([e537d09](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/e537d09))
+* update todos and add a console warning ([2285f9e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2285f9e))
+* updates to List components to work well in event details ([9027400](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9027400))
+* wrap all EventDetails stories in Page for presentation ([ba5592a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/ba5592a))
+
+
+
+
+
 ## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
 
 **Note:** Version bump only for package @sprucelabs/react-heartwood-components

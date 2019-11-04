@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Bug Fixes
+
+* **GQL:** Convert client to TS ([9322585](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9322585))
+* **graphql:** proper options handling for fragment introspection ([677af7f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/677af7f))
+* **GraphQL:** Add ability to pass fragment introspect data [SDEV3-509] ([5495e9e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5495e9e))
+* **vscode:** Sync shared settings, remove old settings. ([38c9a1b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/38c9a1b))
+
+
+### Features
+
+* **GraphQL:** Add `subscription` helper to the gql client [SDEV3-509] ([993117a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/993117a))
+* **Utils:** Implement Typescript for Error, Iframe tools ([a43a62a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a43a62a))
+
+
+
+
+
 ## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
 
 **Note:** Version bump only for package @sprucelabs/spruce-utils

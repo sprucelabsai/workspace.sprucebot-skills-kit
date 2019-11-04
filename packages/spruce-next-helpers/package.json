@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.17.7",
+	"version": "8.18.0",
 	"main": "lib/index.js",
 	"description": "Spruce Next.js helpers and utitlies",
 	"keywords": [
@@ -36,7 +36,7 @@
 		"enzyme-adapter-react-16": "^1.1.1",
 		"enzyme-to-json": "^3.3.1",
 		"eslint": "^5.9.0",
-		"eslint-config-spruce": "^8.17.7",
+		"eslint-config-spruce": "^8.18.0",
 		"jest": "^24.5.0",
 		"prettier": "^1.13",
 		"react-test-renderer": "^16.0.0"
@@ -44,9 +44,9 @@
 	"dependencies": {
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
-		"@sprucelabs/heartwood-components": "^8.17.7",
-		"@sprucelabs/react-heartwood-components": "^8.17.7",
-		"@sprucelabs/spruce-types": "^8.17.7",
+		"@sprucelabs/heartwood-components": "^8.18.0",
+		"@sprucelabs/react-heartwood-components": "^8.18.0",
+		"@sprucelabs/spruce-types": "^8.18.0",
 		"@zeit/next-typescript": "^1.1.1",
 		"axios": "^0.18.0",
 		"classnames": "^2.2.5",
