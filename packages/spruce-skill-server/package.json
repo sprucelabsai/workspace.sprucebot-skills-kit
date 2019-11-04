@@ -31,7 +31,7 @@
 	"dependencies": {
 		"@koa/cors": "2",
 		"@sprucelabs/log": "^2.2.1",
-		"@sprucelabs/spruce-types": "^8.17.8-pre-91dabded.0",
+		"@sprucelabs/spruce-types": "^8.17.7",
 		"apollo-link": "1.2.6",
 		"apollo-link-ws": "1.0.12",
 		"cookies": "^0.8.0",
