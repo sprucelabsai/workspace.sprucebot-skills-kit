@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.18.0",
+	"version": "9.0.0",
 	"description": "Shared Spruce Types",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit#readme",
 	"license": "MIT",
@@ -45,7 +45,7 @@
 		"@graphql-codegen/typescript": "^1.6.1",
 		"chokidar-cli": "^2.0.0",
 		"eslint": "^5",
-		"eslint-config-spruce": "^8.18.0",
+		"eslint-config-spruce": "^9.0.0",
 		"globby": "^10.0.1",
 		"graphql-tools": "^4.0.5",
 		"prettier": "^1.13",
