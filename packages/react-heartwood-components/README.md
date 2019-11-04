@@ -13,7 +13,7 @@
 
 ## Running Storybook locally
 
-1. From `packages/react-heartwood-components`, run `yarn storybook`.
+1. From `packages/react-heartwood-components`, run `yarn storybook`
 2. If you need to load additional stylesheets, i.e. from `sprucebot-heartwood`, you can specify them in `.env` as `STYLESHEETS`
 
 ## Adding stories
