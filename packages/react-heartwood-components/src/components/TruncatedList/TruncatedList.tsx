@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, ReactElement } from 'react'
 import cx from 'classnames'
 
-import Button from '../Button/Button'
+import Button, { ButtonKinds } from '../Button/Button'
 import EmptyState from '../EmptyState/EmptyState'
 import RecordSelectionList from '../RecordSelectionList/RecordSelectionList'
 
@@ -59,14 +59,14 @@ export default class TruncatedList extends Component<
 	ITruncatedListProps,
 	ITruncatedListState
 > {
-	recordSelectionListRef: React.RefObject<RecordSelectionList>
-
 	public static defaultProps = {
 		isTruncated: false,
 		canRemove: false,
 		recordSelectionListItems: [],
 		noItemsText: 'Nothing to see here.'
 	}
+
+	private recordSelectionListRef: React.RefObject<RecordSelectionList>
 
 	public constructor(props: ITruncatedListProps) {
 		super(props)
@@ -80,7 +80,7 @@ export default class TruncatedList extends Component<
 		}
 	}
 
-	public render() {
+	public render(): ReactElement {
 		const {
 			className,
 			header,
@@ -128,7 +128,7 @@ export default class TruncatedList extends Component<
 						{isTruncated ? (
 							<div className="truncated-list__action-btn-wrapper">
 								<Button
-									kind="simple"
+									kind={ButtonKinds.Simple}
 									className="truncated-list__action-btn"
 									isSmall={true}
 									text={truncatedActionText || 'See all'}

@@ -1,0 +1,62 @@
+"How an event will be rendered in the calendar. Each time represents a standard state of an event."
+enum CalendarEventKind {
+	"How a calendar event renders by default."
+	default
+
+	"If an event is not confirmed."
+	tentative
+
+	"When an event is happening right now"
+	active
+
+	"If the event represents a time when the person is not available for additional events (usually matches isBusy)"
+	unavailable
+
+	"If the event represents a time where the user us unavailable (break or block)"
+	blocked
+
+	"The event is ready to go, everyone has confirmed, it just hasn't happened yet"
+	upcoming
+
+	"If the event is in the past"
+	past
+
+	"The user should pay attention to this event (maybe the event is unconfirmed and starting in 30 minutes!)"
+	warn
+
+	"Renders the event in red (the event could have already started but attendees have not confirmed)"
+	critical
+}
+
+"An event that is rendered on the calendar."
+type CalendarEvent {
+	"Id of the calendar event"
+	id: ID!
+
+	"When the event starts ISO"
+	startAt: DateTime!
+
+	"A way to arbitarily bundle appointments. Events with the same collection are all highlighted at the same time in the calendar"
+	collection: String
+
+	"Can this event be resized on the calendar?"
+	isResizable: Boolean
+
+	"The kind on an event impacts its color"
+	kind: CalendarEventKind
+
+	"A calendar is comprised of blocks of time. You need at least 1 block to have a valid event."
+	blocks: [CalendarEventBlock!]!
+
+	"Additioal details shown after someone taps on an event"
+	details: CalendarEventDetails
+
+	"The ID of the user this event will render under"
+	userId: ID!
+
+	"If this is a draft event (meaning it's not booked, but being setup)"
+	isDraft: Boolean
+
+	"Should I render a border for this event?"
+	hasBorder: Boolean
+}

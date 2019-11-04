@@ -4,17 +4,18 @@ import {
 	default as TableSearch,
 	ITableSearchProps
 } from '../Table/components/TableSearch/TableSearch'
-import Tabs from '../Tabs'
+import Tabs from '../Tabs/Tabs'
 import { TextInput } from '../Forms'
 import Button from '../Button/Button'
 import EmptyState from '../EmptyState/EmptyState'
 import Loader from '../Loader/Loader'
+import { SortingRule } from 'react-table'
 
-const RECORD_TABLE_INITIAL_LIMIT = 10
+const RECORD_TABLE_INITIAL_LIMIT = 50
 
 export interface IRecordTableFetchOptions {
 	sortColumn: string
-	sortDirection: string
+	sortDirection: 'asc' | 'desc'
 	offset: number
 	limit: number
 	search?: string
@@ -52,7 +53,7 @@ export interface IRecordTableProps extends ITableProps {
 	initialSortColumn: string
 
 	/** direction to start (defaults to desc) */
-	initialSortDirection?: string
+	initialSortDirection?: 'asc' | 'desc'
 
 	/** starting limit, defaults to RECORD_TABLE_INITIAL_LIMIT  */
 	initialLimit?: number
@@ -138,7 +139,7 @@ interface IRecordTableState {
 	currentPage: number
 	limit: number
 	sortColumn: string
-	sortDirection: string
+	sortDirection: 'asc' | 'desc'
 	visibleRows: Record<string, any>[]
 	totalRows: number
 	loading: boolean
@@ -154,7 +155,6 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 		noFilteredMatchesHeadline: 'No matches found',
 		noFilteredMatchesIcon: 'no_matches',
 		noFilteredMatchesPrimaryActionText: 'Show All',
-		noFilteredMatchesSubheadline: null,
 		searchPlaceholder: 'Filter table...'
 	}
 
@@ -186,7 +186,10 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 	public navigateToPage = async ({
 		search,
 		page
-	}: { search?: string; page?: number } = {}) => {
+	}: {
+		search?: string
+		page: number
+	}) => {
 		const { onNavigateToPage = () => {} } = this.props
 
 		try {
@@ -239,14 +242,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 			searchPlaceholder,
 			noDataPrimaryActionButtonKind,
 			noDataPrimaryActionButtonIcon,
-
-			tableSearchProps = {
-				getSuggestionValue: null,
-				getSuggestions: null,
-				renderSuggestion: null,
-				onSuggestionSelected: null,
-				id: null
-			},
+			tableSearchProps,
 			...rest
 		} = this.props
 
@@ -262,18 +258,15 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 			expandedRows
 		} = this.state
 
-		// setup default props types
-		tableSearchProps.getSuggestionValue =
-			tableSearchProps.getSuggestionValue ||
-			function(value) {
+		const defaultTableSearchProps: ITableSearchProps = {
+			getSuggestionValue(value) {
 				return value.text
-			}
-
-		tableSearchProps.getSuggestions =
-			tableSearchProps.getSuggestions || this.handleSearchSuggestions
-
-		tableSearchProps.renderSuggestion =
-			tableSearchProps.renderSuggestion || this.renderSuggestion
+			},
+			getSuggestions: this.handleSearchSuggestions,
+			renderSuggestion: this.renderSuggestion,
+			onSuggestionSelected: () => {},
+			id: ''
+		}
 
 		return (
 			<Fragment>
@@ -293,7 +286,11 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 				)}
 
 				{enableSearch && (
-					<TableSearch placeholder={searchPlaceholder} {...tableSearchProps} />
+					<TableSearch
+						placeholder={searchPlaceholder}
+						{...defaultTableSearchProps}
+						{...tableSearchProps}
+					/>
 				)}
 
 				{enableFilter && (
@@ -355,7 +352,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 					}}
 					manual
 					loading={loading}
-					showPagination={visibleRows.length > 0}
+					showPagination={totalRows >= limit}
 					data={visibleRows || []}
 					totalRows={totalRows}
 					onSortedChange={this.handleSortChanged}
@@ -434,8 +431,11 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 		return data
 	}
 
-	private handleSortChanged = (sorted: [{ id: string; desc: boolean }]) => {
-		const sort = {
+	private handleSortChanged = (sorted: SortingRule[]) => {
+		const sort: {
+			sortColumn: string
+			sortDirection: 'asc' | 'desc'
+		} = {
 			sortColumn: sorted[0].id,
 			sortDirection: sorted[0].desc ? 'desc' : 'asc'
 		}
@@ -509,7 +509,7 @@ class RecordTable extends Component<IRecordTableProps, IRecordTableState> {
 		const { enableFilter } = this.props
 		const { currentFilter } = this.state
 
-		return currentFilter.length > 0 && enableFilter
+		return currentFilter && currentFilter.length > 0 && enableFilter
 	}
 
 	private getNoDataIcon = () => {

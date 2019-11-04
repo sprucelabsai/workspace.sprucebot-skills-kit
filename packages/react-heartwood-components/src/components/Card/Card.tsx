@@ -7,7 +7,7 @@ import CardFooter from './components/CardFooter'
 
 export interface ICardProps {
 	/** Should be Card Header, Card Body, and Card Footer, unless using the card background for styling only. */
-	children: React.ReactNode
+	children?: React.ReactNode
 
 	/** Set true to make all content center aligned. */
 	isCentered?: boolean
@@ -34,6 +34,12 @@ export interface ICardProps {
 	headerProps?: ICardHeaderProps
 }
 
+interface ICardDefaultProps {
+	isCentered: boolean
+	expandable: boolean
+	defaultExpanded: boolean
+}
+
 interface ICardState {
 	/** Is the card expanded? */
 	isExpanded: boolean
@@ -44,14 +50,21 @@ export default class Card extends Component<ICardProps, ICardState> {
 	public static Body = CardBody
 	public static Section = CardSection
 	public static Footer = CardFooter
+
 	public static defaultProps = {
 		isCentered: false,
 		expandable: false,
 		defaultExpanded: true
 	}
 
-	public state = {
-		isExpanded: this.props.defaultExpanded
+	// TODO: TS/React should be inferring this, but it isn't.
+	// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11640
+	public constructor(props: ICardProps & ICardDefaultProps) {
+		super(props)
+
+		this.state = {
+			isExpanded: props.defaultExpanded
+		}
 	}
 
 	public toggleExpanded = () => {

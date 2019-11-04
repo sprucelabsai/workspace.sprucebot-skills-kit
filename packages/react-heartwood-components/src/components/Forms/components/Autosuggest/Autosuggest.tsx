@@ -66,7 +66,7 @@ export interface IAutosuggestInterfaceProps {
 
 interface IAutosuggestInterfaceState {
 	value: string
-	suggestions: any[]
+	suggestions?: any[]
 	showClearButton: boolean
 	containerPlacement: {
 		top: number
@@ -242,7 +242,7 @@ export default class Autosuggest extends Component<
 		}
 
 		// For scrollX and scrollY cross-browser compatibility
-		let docEl = document.scrollingElement || document.documentElement
+		const docEl = document.scrollingElement || document.documentElement
 
 		const scrollX = (typeof docEl.scrollLeft === 'number'
 			? docEl
@@ -329,7 +329,7 @@ export default class Autosuggest extends Component<
 			const suggestionsBox = suggestionsContainer.getBoundingClientRect()
 			const suggestionsBottom = suggestionsBox.top + suggestionsBox.height
 
-			let isSmoothScrollSupported =
+			const isSmoothScrollSupported =
 				'scrollBehavior' in document.documentElement.style
 
 			if (suggestionsBottom > overflowBoxBottom) {

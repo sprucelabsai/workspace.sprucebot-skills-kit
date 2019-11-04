@@ -1,0 +1,146 @@
+type ListHeader {
+	"Title to render in the header"
+	title: String!
+
+	"Optional subtitle text"
+	subtitle: String
+
+	"Set true for small lists"
+	isSmall: Boolean
+
+	"Buttons to associate with the list header"
+	actions: [Button!]
+}
+
+"Which parts should be highlighted in red"
+type ListItemWarningConfig {
+	title: Boolean
+	subtitle: Boolean
+	note: Boolean
+}
+
+enum ListItemSelectableType {
+	checkbox
+	radio
+}
+
+union ListItemSelectablePropsType = Checkbox | Radio
+
+"A List is made up of ListItems"
+type ListItem {
+	"Unique id for UI caching"
+	id: ID!
+
+	"Title text"
+	title: String!
+
+	"Optional subtitle text"
+	subtitle: String
+
+	"Optional note text"
+	note: String
+
+	"Can render this item as expandable"
+	isExpandable: Boolean
+
+	"URL to show a user avatar"
+	avatar: String
+
+	"URL to show an image"
+	image: String
+
+	"Inline svg icon"
+	icon: Icon
+
+	"Optional; visually hides the icon without removing it"
+	isIconHidden: Boolean
+
+	"Set true to add left spacing. useful in aligning with other list items that have icons or images"
+	isLeftIndented: Boolean
+
+	"Set true when the list can be reordered"
+	isDraggable: Boolean
+
+	"Set true when the list can be reordered"
+	isDisabled: Boolean
+
+	"Makes the list item a setting"
+	toggleId: String
+
+	"Props passed to the toggle if toggleId is set"
+	toggleProps: Toggle
+
+	"A primary action that turns the entire list item into a clickable action"
+	primaryAction: Button
+
+	"Actions associated with the list item"
+	actions: [Button]
+
+	"Context Menu associated with the list it"
+	contextMenu: ContextMenu
+
+	"Set to true to show separator for this list item if followed by another list item."
+	isSeparatorVisible: Boolean
+
+	"Optional class name for list item"
+	className: String
+
+	"Optional: set whether to use checkbox or radio for selectable list items"
+	selectableType: ListItemSelectableType
+
+	"Any props you want sent down to the selectable component being rendered"
+	selectableProps: ListItemSelectablePropsType
+
+	"Highlight title, subtitle, note with warning colors"
+	warnings: ListItemWarningConfig
+
+	"Optional; adds a nested list"
+	list: List
+
+	"Optional; adds multiple lists nested at the same level"
+	lists: [List!]
+}
+
+"Wraps a standard list or list item and makes it collapsable"
+type ExpandableListItem {
+	"Unique id for UI caching"
+	id: ID!
+
+	"Base list item props"
+	item: ListItem!
+
+	"Optional; adds a nested list"
+	list: List
+
+	"Optional; adds multiple lists nested at the same level"
+	lists: [List!]
+
+	"Optional icon for collapsed state"
+	collapsedIconName: String
+
+	"Optional icon for expanded state"
+	expandedIconName: String
+}
+
+union ListItemTypes = ListItem | ExpandableListItem
+
+"A list of list items"
+type List {
+	"Unique id for UI caching"
+	id: ID!
+
+	"List Header"
+	header: ListHeader
+
+	"List items"
+	items: [ListItemTypes!]
+
+	"Set true to make the list smaller"
+	isSmall: Boolean
+
+	"Set to true to show separators between list items"
+	areSeparatorsVisible: Boolean
+
+	"Optional: set whether to use checkbox or radio for selectable list items"
+	selectableType: ListItemSelectableType
+}

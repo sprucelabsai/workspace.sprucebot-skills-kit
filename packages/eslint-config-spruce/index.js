@@ -2,6 +2,28 @@ const typescriptEslintRecommended = require('@typescript-eslint/eslint-plugin/di
 const typescriptEslintPrettier = require('eslint-config-prettier/@typescript-eslint')
 const importRules = require('eslint-plugin-import/config/errors')
 
+const defaultFormattingRules = {
+	curly: 'error',
+	'spruce/utils-graphql': 'error',
+	'spruce/prefer-pascal-case-enums': 'error',
+	'react/jsx-no-undef': 'error',
+	'no-console': 'off',
+	'no-undef': 'error',
+	'no-var': 'error',
+	'no-unreachable': 'error',
+	'no-unused-vars': 'error',
+	'object-shorthand': ['error', 'always'],
+	'react/prop-types': 'off',
+	'prettier/prettier': [
+		'error',
+		{
+			singleQuote: true,
+			useTabs: true,
+			semi: false
+		}
+	]
+}
+
 module.exports = {
 	overrides: [
 		{
@@ -11,7 +33,16 @@ module.exports = {
 			rules: {
 				...typescriptEslintRecommended.rules,
 				...typescriptEslintPrettier.rules,
+				'@typescript-eslint/camelcase': [
+					'error',
+					{ allow: ['^(can_|skill_can_)'] }
+				],
 				'@typescript-eslint/no-empty-interface': 0,
+				// TODO: Remove this if we can; it isn't a good rule to squash.
+				// Sometimes this is fine, but sometimes it masks a compile error.
+				'@typescript-eslint/ban-ts-ignore': 0,
+				'@typescript-eslint/no-empty-function': 0,
+				'@typescript-eslint/explicit-function-return-type': 0,
 				'@typescript-eslint/interface-name-prefix': [2, 'always'],
 				'@typescript-eslint/no-explicit-any': 0,
 				'@typescript-eslint/member-delimiter-style': [
@@ -25,12 +56,6 @@ module.exports = {
 							delimiter: 'semi',
 							requireLast: false
 						}
-					}
-				],
-				'@typescript-eslint/explicit-function-return-type': [
-					'error',
-					{
-						allowExpressions: true
 					}
 				],
 				'@typescript-eslint/member-ordering': [
@@ -53,7 +78,8 @@ module.exports = {
 						],
 						alphabetize: true
 					}
-				]
+				],
+				...defaultFormattingRules
 			}
 		},
 		{
@@ -70,23 +96,7 @@ module.exports = {
 	],
 	plugins: ['spruce', 'import', 'react', 'flowtype', 'prettier'],
 	rules: {
-		curly: 'error',
-		'spruce/utils-graphql': 'error',
-		'react/jsx-no-undef': 'error',
-		'no-console': 'off',
-		'no-undef': 'error',
-		'no-var': 'error',
-		'no-unreachable': 'error',
-		'no-unused-vars': 'error',
-		'react/prop-types': 'off',
-		'prettier/prettier': [
-			'error',
-			{
-				singleQuote: true,
-				useTabs: true,
-				semi: false
-			}
-		]
+		...defaultFormattingRules
 	},
 	parserOptions: {
 		sourceType: 'module',
@@ -98,12 +108,15 @@ module.exports = {
 	},
 	env: {
 		jest: true,
-		browser: true,
 		node: true,
 		es6: true
 	},
 	globals: {
-		log: true
+		log: true,
+		window: true,
+		document: true,
+		navigator: true,
+		FileReader: true
 	},
 	settings: {
 		flowtype: {},

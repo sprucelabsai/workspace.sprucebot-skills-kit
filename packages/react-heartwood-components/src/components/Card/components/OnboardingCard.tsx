@@ -3,37 +3,24 @@ import Card from '../Card'
 import CardHeader from './CardHeader'
 import CardBody from './CardBody'
 import CardFooter from './CardFooter'
-import Button from '../../Button/Button'
 import Tabs from '../../Tabs/Tabs'
-import { IButtonProps } from '../../Button/Button'
+import Button, { IButtonProps, ButtonKinds } from '../../Button/Button'
+import {
+	IHWOnboardingCard,
+	IHWOnboardingCardStep
+} from '@sprucelabs/spruce-types'
+import { IIconProps } from '../../Icon/Icon'
+import { unionArray } from '../../..'
 
-export interface IStep {
-	/** Unique identifier */
-	id: string
-
-	/** Title that shows in the tab */
-	tabTitle: string
-
-	/** Icon for the tab */
-	tabIcon: any
-
-	/** Title that shows in the panel */
-	panelTitle: string
-
-	/** Copy describing the step in the card's body */
-	panelCopy: string
-
+export interface IStep
+	extends Omit<IHWOnboardingCardStep, 'panelCTA' | 'tabIcon'> {
 	/** Primary CTA of this step */
-	panelCTA: IButtonProps
+	panelCTA?: IButtonProps | null
 
-	/** Is this step complete? */
-	isComplete?: boolean
+	tabIcon?: IIconProps | null
 }
 
-export interface IOnboardingCardProps {
-	/** Title of the entire card */
-	title: string
-
+export interface IOnboardingCardProps extends Omit<IHWOnboardingCard, 'steps'> {
 	/** Steps for onboarding */
 	steps: IStep[]
 
@@ -45,7 +32,7 @@ interface IOnboardingCardState {
 	currentStep: number
 }
 
-const getCurrentStep = (steps: IStep[]): number => {
+const getCurrentStep = (steps: IStep[] | IHWOnboardingCardStep[]): number => {
 	// Find the first step that is not complete
 	if (steps && steps.length > 0) {
 		for (let i = 0; i < steps.length; i++) {
@@ -58,7 +45,7 @@ const getCurrentStep = (steps: IStep[]): number => {
 }
 
 export default class OnboardingCard extends Component<
-	IOnboardingCardProps,
+	IOnboardingCardProps | IHWOnboardingCard,
 	IOnboardingCardState
 > {
 	public state = {
@@ -74,12 +61,12 @@ export default class OnboardingCard extends Component<
 	public render(): React.ReactElement {
 		const { currentStep } = this.state
 		const { title, steps } = this.props
-		const tabs = steps.map((step, idx) => ({
+		const tabs = unionArray(steps).map((step, idx) => ({
 			text: step.tabTitle,
 			icon: step.tabIcon,
 			isCurrent: idx === currentStep,
 			onClick: () => this.handleClick(idx),
-			className: step.isComplete && 'tab--is-complete'
+			className: step.isComplete ? 'tab--is-complete' : ''
 		}))
 
 		return (
@@ -92,9 +79,14 @@ export default class OnboardingCard extends Component<
 				<CardBody isSectioned isFullBleed={false}>
 					{steps[currentStep].panelCopy}
 				</CardBody>
-				<CardFooter>
-					<Button kind="primary" {...steps[currentStep].panelCTA} />
-				</CardFooter>
+				{steps[currentStep].panelCTA && (
+					<CardFooter>
+						<Button
+							kind={ButtonKinds.Primary}
+							{...steps[currentStep].panelCTA}
+						/>
+					</CardFooter>
+				)}
 			</Card>
 		)
 	}

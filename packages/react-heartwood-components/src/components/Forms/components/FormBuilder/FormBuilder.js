@@ -5,7 +5,6 @@ import FormInner from './components/FormInner/FormInner'
 import { Card, CardBody, CardHeader } from '../../../Card'
 import Layout, { LayoutSection } from '../../../Layout'
 import { SaveBar } from '../../../Core'
-import Button from '../../../Button/Button'
 import Modal from '../../../Modal/Modal'
 
 import type { FormInnerFieldProps } from './components/FormInner/FormInner'
@@ -112,7 +111,7 @@ const FormBuilder = (props: Props) => {
 									isDiscardDisabled={isSubmitting}
 								/>
 								{/* NOTE: The form won't submit on enter key pressed without this hidden button */}
-								<Button
+								<button
 									type="submit"
 									text="submit"
 									style={{ display: 'none' }}

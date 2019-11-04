@@ -25,7 +25,7 @@
 			"runtimeArgs": [
 				"${workspaceRoot}/node_modules/.bin/mocha",
 				"-r",
-				"flow-remove-types/register",
+				"ts-node/register/transpile-only",
 				"--exit",
 				"--inspect-brk",
 				"${relativeFile}"
@@ -37,6 +37,7 @@
 			"cwd": "${workspaceRoot}",
 			"env": {
 				// "NODE_ENV": "local",
+				"ENV_PATH": "${workspaceRoot}/packages/spruce-skill",
 				"DEBUG": "config spruce-skill-server",
 				"NODE_CONFIG_DIR": "${workspaceRoot}/packages/spruce-skill/config",
 				"PORT": "8010",
@@ -45,6 +46,7 @@
 				"ORM_LOGGING": "true",
 				"API_ONLY": "true",
 				"TESTING": "true",
+				"TESTING_SKILLS_KIT": "true",
 				"DISABLE_MIGRATIONS": "true"
 			}
 		}

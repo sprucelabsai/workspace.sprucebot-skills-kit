@@ -1,0 +1,233 @@
+union Action =
+	  ActionCoreRedirect
+	| ActionSkillViewRedirect
+	| ActionConfirm
+	| ActionShowModal
+	| ActionEmitEvent
+	| ActionBigSearch
+	| ActionQuickEditUser
+	| ActionDismissComponent
+	| ActionCalendarJumpTo
+
+enum ActionTypes {
+	CoreRedirect
+	SkillViewRedirect
+	Confirm
+	ShowModal
+	EmitEvent
+	BigSearch
+	QuickEditUser
+	DismissComponent
+	CalendarJumpTo
+}
+
+"payload used for core redirect"
+type ActionCoreRedirectPayload {
+	"the destination route"
+	route: String!
+
+	"Params for the route, like organizationId or locationId"
+	routeParams: JSON
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
+}
+
+"Redirect a user in the main viewport (browser or native mobile)"
+type ActionCoreRedirect {
+	type: ActionTypes
+	payload: ActionCoreRedirectPayload!
+	onComplete: Action
+	onCancel: Action
+}
+
+"payload used when redirecting a skill view"
+type ActionSkillViewRedirectPayload {
+	"the skill slug to redirect to"
+	slug: String!
+
+	"the destination route"
+	route: String!
+
+	"Params for the route, like organizationId or locationId"
+	routeParams: JSON
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
+}
+
+"Redirect inside of a skill view"
+type ActionSkillViewRedirect {
+	type: ActionTypes
+	payload: ActionSkillViewRedirectPayload!
+	onComplete: Action
+	onCancel: Action
+}
+
+"Pop up a confirmation"
+type ActionConfirm {
+	type: ActionTypes
+	payload: ConfirmModal!
+	onComplete: Action
+	onCancel: Action
+}
+
+enum ModalSize {
+	small
+	medium
+	fullWidth
+}
+
+"Props passed to a modal you want to pop up when invoking this action"
+type ActionShowModalPayload {
+	"the skill that owns the skill view loading in the skill view"
+	slug: String!
+
+	"the destination route"
+	route: String!
+
+	"Params for the route, like organizationId or locationId"
+	routeParams: JSON
+
+	"Title of the dialog"
+	title: String!
+
+	"Drop a primary action button into the footer"
+	footerPrimaryActionText: String
+
+	"Drop in a secondary action into the footer, only works if primary action is also set"
+	footerSecondaryActionText: String
+
+	"Does the primary action button start off disabled?"
+	isDialogFooterPrimaryActionDisabled: Boolean
+
+	"Does the secondary action button start off disabled?"
+	isDialogFooterSecondaryActionDisabled: Boolean
+
+	"How does the dialog size itself width wise?"
+	size: ModalSize
+
+	"Does the dialog fill the screen vertically?"
+	isFullHeight: Boolean
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
+}
+
+"Load a skill view in a modal dialog"
+type ActionShowModal {
+	type: ActionTypes
+	payload: ActionShowModalPayload!
+	onComplete: Action
+	onCancel: Action
+}
+
+"Emit an event to your skill when this action is invoked"
+type ActionEmitEventPayload {
+	"Name of the event, like 'booking:update-appointment'"
+	eventName: String
+
+	"optional location id"
+	locationId: String
+
+	"optional organizationId"
+	organizationId: String
+
+	"Arbitrary payload sent with the event"
+	payload: JSON
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
+}
+
+"Emit an event to your skill"
+type ActionEmitEvent {
+	type: ActionTypes
+	payload: ActionEmitEventPayload!
+	onComplete: Action
+	onCancel: Action
+}
+
+"Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner)"
+type ActionBigSearchPayload {
+	roles: [String!]
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
+}
+
+"Pop up big search"
+type ActionBigSearch {
+	type: ActionTypes
+	payload: ActionBigSearchPayload!
+	onComplete: Action
+	onCancel: Action
+}
+
+"Pop up quick edit to update a user record. You have to have permission and should pass location and organization unelss you are editing yourself"
+type ActionQuickEditUserPayload {
+	"The id of the user"
+	userId: String!
+
+	"optional location id"
+	locationId: String
+
+	"optional organizationId"
+	organizationId: String
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
+}
+
+"Pop up dialog to edit the user"
+type ActionQuickEditUser {
+	type: ActionTypes
+	payload: ActionQuickEditUserPayload!
+	onComplete: Action
+	onCancel: Action
+}
+
+"Dismiss a component by it's ID"
+type ActionDismissComponentPayload {
+	"Ids of the components you want to hide"
+	componentIds: [String!]!
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
+}
+
+"Dismiss/hide components on the page whose ID's match."
+type ActionDismissComponent {
+	type: ActionTypes
+	payload: ActionDismissComponentPayload!
+	onComplete: Action
+	onCancel: Action
+}
+
+"control the calendar if you are on a page with a calendar"
+type ActionCalendarJumpToPayload {
+	"Which day and time to focus"
+	dateTime: Date!
+
+	"Make sure the right calendar is selected"
+	calendarId: String!
+
+	"Show the selected user"
+	userId: String
+
+	"If this action is set as the onComplete of another action, this will hold the response from the previous action"
+	actionResponse: JSON
+}
+
+"Jump to a place on the calendar"
+type ActionCalendarJumpTo {
+	type: ActionTypes
+	payload: ActionCalendarJumpToPayload!
+	onComplete: Action
+	onCancel: Action
+}
+
+interface ActionExecutor {
+	action: Action
+	id: ID!
+}

@@ -1,0 +1,5 @@
+.loading-placeholder .markdown-wrapper {
+	@extend %loading-placeholder-base;
+	float: none;
+	width: auto;
+}

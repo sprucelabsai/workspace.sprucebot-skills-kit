@@ -1,0 +1,19 @@
+enum ButtonGroupKind {
+	default
+	segmented
+	floating
+}
+
+type ButtonGroup {
+	"Array of actions to render the group's buttons."
+	actions: [Button!]
+
+	"Visual appearance of the group."
+	kind: ButtonGroupKind
+
+	"Set true to fill parent width"
+	isFullWidth: Boolean
+
+	"Optional: Index of the button that is currently highlighted, e.g. by arrow keys"
+	highlightedIndex: Int
+}

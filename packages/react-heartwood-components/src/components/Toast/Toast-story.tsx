@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, select } from '@storybook/addon-knobs/react'
+import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 import Toast from './Toast'
 import ToastWrapper from './components/ToastWrapper/ToastWrapper'
+import { ButtonKinds } from '../Button/Button'
+
 const stories = storiesOf('Toast', module)
 
 interface IToasterProps {
@@ -86,27 +88,24 @@ class Toaster extends Component<IToasterProps, IToasterState> {
 				<ButtonGroup
 					actions={[
 						{
-							kind: 'secondary',
 							text: 'Add Toast',
 							onClick: () => this.addToast('neutral')
 						},
 						{
-							kind: 'secondary',
 							text: 'Add Happy Toast',
 							onClick: () => this.addToast('positive')
 						},
 						{
-							kind: 'secondary',
 							text: 'Add Sad Toast',
 							onClick: () => this.addToast('negative')
 						},
 						{
-							kind: 'secondary',
+							kind: ButtonKinds.Secondary,
 							text: 'Add Warning Toast',
 							onClick: () => this.addToast('warn')
 						},
 						{
-							kind: 'secondary',
+							kind: ButtonKinds.Secondary,
 							text: 'Add Info Toast',
 							onClick: () => this.addToast('info')
 						}
@@ -134,8 +133,8 @@ stories
 			headline={text('headline', 'Neat')}
 			text={text('text', 'Something just happened and it was fine.')}
 			onRemove={() => null}
-			followupAction={() => null}
-			followupText={boolean('followupAction', false) && 'Undo'}
+			onAction={() => null}
+			followupText={boolean('followupAction', false) ? 'Undo' : undefined}
 		/>
 	))
 	.add('All Kinds', () => (
@@ -148,8 +147,8 @@ stories
 						headline={text('headline', 'Neat') + ' ' + kind + ' toast'}
 						text={text('text', 'Something just happened and it was fine.')}
 						onRemove={() => null}
-						followupAction={() => null}
-						followupText={boolean('followupAction', false) && 'Undo'}
+						onAction={() => null}
+						followupText={boolean('followupAction', false) ? 'Undo' : undefined}
 					/>
 				</div>
 			))}

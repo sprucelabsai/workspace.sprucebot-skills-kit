@@ -1,0 +1,52 @@
+"How an action is rendered is impacted by the kind of action it is"
+enum ButtonKinds {
+	primary
+	secondary
+	simple
+	caution
+}
+
+"Type of button"
+enum ButtonTypes {
+	button
+	submit
+	reset
+}
+
+type Button implements ActionExecutor {
+	"Unique ID for rendering in lists"
+	id: ID!
+
+	"Sets the visual appearance of the button. May be primary, secondary, simple, or caution."
+	kind: ButtonKinds
+
+	"Set true to make the button less tall."
+	isSmall: Boolean
+
+	"Set true to make the button fill its parent's width."
+	isFullWidth: Boolean
+
+	"Set true to hide any text or icon in the button and show a loader instead."
+	isLoading: Boolean
+
+	"Set true to hide any text in the button. Text should still be provided for accessibility."
+	isIconOnly: Boolean
+
+	"Text for the button."
+	text: String
+
+	"Will render a link. May be relative or absolute."
+	href: String
+
+	"Icon for the button."
+	icon: Icon
+
+	"Type attribute for HTML button element. Defaults to 'button'."
+	type: ButtonTypes
+
+	"Set true to disable the button"
+	isDisabled: Boolean
+
+	"Optional action to invoke when tapped"
+	action: Action
+}

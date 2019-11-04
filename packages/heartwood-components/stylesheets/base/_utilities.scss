@@ -30,15 +30,97 @@
 	display: inline-block;
 }
 
+/**
+Box Model
+*/
+
 // Margin
 .u-ml-tight {
 	margin-left: spacing('tight');
+}
+
+.mx-auto {
+	@extend %mx-auto;
+}
+
+@each $id, $side in $sides {
+	@each $label, $value in $base-spacing {
+		@if $id == 'all' {
+			.m-#{$label} {
+				@extend %m-#{$label};
+			}
+		} @else if $id == 'x' {
+			.mx-#{$label} {
+				@extend %mx-#{$label};
+			}
+		} @else if $id == 'y' {
+			.my-#{$label} {
+				@extend %my-#{$label};
+			}
+		} @else {
+			.m#{$id}-#{$label} {
+				@extend %m#{$id}-#{$label};
+			}
+		}
+	}
+}
+
+// Padding
+.px-auto {
+	@extend %px-auto;
+}
+
+@each $id, $side in $sides {
+	@each $label, $value in $base-spacing {
+		@if $id == 'all' {
+			.p-#{$label} {
+				@extend %p-#{$label};
+			}
+		} @else if $id == 'x' {
+			.px-#{$label} {
+				@extend %px-#{$label};
+			}
+		} @else if $id == 'y' {
+			.py-#{$label} {
+				@extend %py-#{$label};
+			}
+		} @else {
+			.p#{$id}-#{$label} {
+				@extend %p#{$id}-#{$label};
+			}
+		}
+	}
+}
+
+/**
+Layout
+*/
+@each $label, $value in $layout-width-map {
+	.container--#{$label} {
+		@extend %mx-auto;
+		max-width: $value;
+	}
+	.container--#{$label}--right,
+	.container--#{$label}--left {
+		max-width: $value;
+	}
+	.container--#{$label}--right {
+		margin-right: auto;
+	}
+	.container--#{$label}--left {
+		margin-left: auto;
+	}
 }
 
 // Flex
 .u-flex-row {
 	display: flex;
 	flex-flow: row;
+}
+
+.u-flex-column {
+	display: flex;
+	flex-flow: column;
 }
 
 .u-flex-child-grow {

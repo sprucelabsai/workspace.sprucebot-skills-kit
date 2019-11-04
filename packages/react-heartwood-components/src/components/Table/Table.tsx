@@ -136,7 +136,7 @@ export default class Table extends Component<ITableProps, ITableState> {
 							selectedIds.length > 0 && selectedIds.length < totalRows
 						}
 						// NOTE: Using state here because this Header can't access page size on its own
-						checked={selectedIds.length > 0}
+						isChecked={selectedIds.length > 0}
 						onChange={() => this.handleSelectAll()}
 					/>
 				),
@@ -146,7 +146,7 @@ export default class Table extends Component<ITableProps, ITableState> {
 					return (
 						<Checkbox
 							id={id}
-							checked={selectedIds.indexOf(id) > -1}
+							isChecked={selectedIds.indexOf(id) > -1}
 							onChange={() => this.handleChange({ id, pageSize })}
 						/>
 					)
@@ -227,7 +227,7 @@ export default class Table extends Component<ITableProps, ITableState> {
 				})}
 				getTheadThProps={(state, rowInfo, column) => ({
 					className: cx('table-header-cell', {
-						'table-checkbox-cell': column.id === 'checkbox'
+						'table-checkbox-cell': column && column.id === 'checkbox'
 					}),
 					width: 'auto'
 				})}
@@ -297,13 +297,13 @@ export default class Table extends Component<ITableProps, ITableState> {
 									</div>
 								</CSSTransition>
 						  )
-						: null
+						: undefined
 				}
 				NoDataComponent={EmptyState}
 				// @ts-ignore-next-line
 				ExpanderComponent={
 					<Icon
-						icon={'keyboard_arrow_right'}
+						name={'keyboard_arrow_right'}
 						className={'table-expander-row'}
 					/>
 				}
@@ -331,7 +331,7 @@ export default class Table extends Component<ITableProps, ITableState> {
 							{(isSortable || isSortedAsc || isSortedDesc) &&
 								selectedIds.length === 0 && (
 									<Icon
-										icon="arrow_drop_down"
+										name="arrow_drop_down"
 										className={cx('table-header-cell__icon', {
 											'table-header-cell__icon--is-visible':
 												isSortedAsc || isSortedDesc,

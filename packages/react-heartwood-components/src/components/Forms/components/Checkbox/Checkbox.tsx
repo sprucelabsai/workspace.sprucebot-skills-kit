@@ -1,25 +1,22 @@
-import React, { Component, ChangeEvent } from 'react'
+import { IHWAction, IHWCheckbox } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
-
+import React, { ChangeEvent, Component } from 'react'
 import CheckIconYes from '../../../../../static/assets/icons/ic_check_box.svg'
 import CheckIconNo from '../../../../../static/assets/icons/ic_check_box_outline_blank.svg'
 import CheckIconMaybe from '../../../../../static/assets/icons/ic_indeterminate_check_box.svg'
 
-interface ICheckboxProps extends React.HTMLProps<HTMLInputElement> {
-	/** Unique identifier */
-	id: string
-
-	/** Input label and text after checkbox icon */
-	label?: string
-
-	/** Optional text to show below the label */
-	postText?: string
-
+export interface ICheckboxProps extends Omit<IHWCheckbox, 'isIndeterminate'> {
 	/** Class for the checkbox wrapper */
 	className?: string
 
-	/** Set true if the checkbox is indeterminate */
+	/** triggered on change */
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+
+	/** Is this 3 states, on, off, or half */
 	isIndeterminate?: boolean
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 interface ICheckboxState {}
@@ -54,26 +51,39 @@ export default class Checkbox extends Component<
 	}
 
 	public render(): React.ReactElement {
-		const { id, label, postText, className, ...rest } = this.props
+		const {
+			action,
+			className,
+			id,
+			isChecked,
+			isDisabled,
+			label,
+			name,
+			onAction,
+			postText
+		} = this.props
 		const parentClass = cx('checkbox-item', className)
-
-		// TODO: We probably need to create explicit whitelists of what we want to
-		// allow to be spread onto native DOM elements, since applying non-standard
-		// attributes throws a warning.
-		delete rest.isIndeterminate
 
 		return (
 			<div className={parentClass}>
 				<div className="checkbox-item__inner">
 					<input
+						checked={isChecked || false}
+						name={name || undefined}
 						ref={this.checkboxRef}
 						autoComplete={'off'}
 						className="checkbox-item__input"
-						type="checkbox"
+						disabled={isDisabled || false}
 						id={id}
-						{...rest}
 						// Always use internal change handler
-						onChange={this.handleChange}
+						onChange={(...args) => {
+							this.handleChange(...args)
+
+							if (onAction && action) {
+								onAction(action)
+							}
+						}}
+						type="checkbox"
 					/>
 					<label className="checkbox-item__label" htmlFor={id}>
 						{label}

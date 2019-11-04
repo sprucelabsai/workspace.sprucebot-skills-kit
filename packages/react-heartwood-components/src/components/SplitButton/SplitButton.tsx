@@ -1,24 +1,23 @@
-import React, { Component } from 'react'
-import { createPortal } from 'react-dom'
+import {
+	IHWAction,
+	IHWButtonGroupKind,
+	IHWSplitButton
+} from '@sprucelabs/spruce-types'
 import cx from 'classnames'
+import React, { Component, Fragment } from 'react'
+import { createPortal } from 'react-dom'
 import Button, { IButtonProps } from '../Button/Button'
 import ButtonGroup from '../ButtonGroup/ButtonGroup'
 
-export interface ISplitButtonProps {
-	/** The main action readily surfaced to the user */
+export interface ISplitButtonProps
+	extends Omit<IHWSplitButton, 'actions' | 'defaultAction'> {
 	defaultAction: IButtonProps
 
 	/** All the secondary nested actions */
 	actions: IButtonProps[]
 
-	/*Sets the visual hierarchy of the button **/
-	kind: 'primary' | 'secondary'
-
-	/* Set true to fill the parent’s width **/
-	isFullWidth?: boolean
-
-	/* Sets the visual hierarchy of the button **/
-	isSmall?: boolean
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 interface ISplitButtonState {
@@ -66,6 +65,8 @@ export default class SplitButton extends Component<
 
 	public handleClickOutside = (e: any) => {
 		if (
+			this.ref.current &&
+			this.menuRef.current &&
 			!this.ref.current.contains(e.target) &&
 			!this.menuRef.current.contains(e.target)
 		) {
@@ -119,9 +120,10 @@ export default class SplitButton extends Component<
 		if (e.keyCode === 13) {
 			// Check if an action is highlighted
 			if (highlightedActionIndex > -1) {
+				const handler = actions[highlightedActionIndex].onClick
 				// Trigger it if so
-				if (actions[highlightedActionIndex].onClick) {
-					actions[highlightedActionIndex].onClick()
+				if (handler) {
+					handler()
 				}
 				this.toggleActionsVisibility()
 			}
@@ -188,17 +190,26 @@ export default class SplitButton extends Component<
 	}
 
 	public render(): React.ReactElement {
-		const { defaultAction, actions, kind, isFullWidth, isSmall } = this.props
+		const {
+			defaultAction,
+			actions,
+			kind,
+			isFullWidth,
+			isSmall,
+			usePortal,
+			onAction
+		} = this.props
 		const { isVisible, menuPosition, highlightedActionIndex } = this.state
 
 		if (!actions || (actions && actions.length === 0)) {
 			// TODO: Warn dev if not in production environment; they might wanna use a different component
 			return (
 				<Button
-					kind={kind}
 					isFullWidth={isFullWidth}
 					isSmall={isSmall}
 					{...defaultAction}
+					kind={defaultAction.kind || kind}
+					onAction={onAction}
 				/>
 			)
 		}
@@ -210,41 +221,68 @@ export default class SplitButton extends Component<
 				})}
 				ref={this.ref}
 			>
-				<Button
-					kind={kind}
-					isSmall={isSmall}
-					className="split-button__default"
-					{...defaultAction}
-				/>
-				<Button
-					kind={kind}
-					isSmall={isSmall}
-					className="split-button__actions"
-					icon={{ name: 'keyboard_arrow_down' }}
-					onClick={this.toggleActionsVisibility}
-				/>
-				{typeof document !== 'undefined' &&
-					document.body &&
-					isVisible &&
-					createPortal(
-						<div
-							ref={this.menuRef}
-							style={{
-								position: 'absolute',
-								top: `${menuPosition.top}px`,
-								left: `${menuPosition.left}px`,
-								width: `${menuPosition.width}px`
-							}}
-						>
-							<ButtonGroup
-								kind="floating"
-								isFullWidth
-								actions={actions}
-								highlightedIndex={highlightedActionIndex}
-							/>
-						</div>,
-						document.body
-					)}
+				<div className="split-button__button">
+					<Button
+						isSmall={isSmall}
+						className="split-button__default"
+						{...defaultAction}
+						kind={defaultAction.kind || kind}
+						isFullWidth={false}
+						onAction={onAction}
+					/>
+					<Button
+						isSmall={isSmall}
+						className="split-button__actions"
+						icon={{ name: 'keyboard_arrow_down' }}
+						kind={kind}
+						onClick={this.toggleActionsVisibility}
+						onAction={onAction}
+					/>
+				</div>
+				{isVisible && (
+					<Fragment>
+						{typeof document !== 'undefined' && document.body && usePortal ? (
+							createPortal(
+								<div
+									ref={this.menuRef}
+									style={{
+										position: 'absolute',
+										top: `${menuPosition.top}px`,
+										left: `${menuPosition.left}px`,
+										width: `${menuPosition.width}px`
+									}}
+								>
+									<ButtonGroup
+										kind={IHWButtonGroupKind.Floating}
+										isFullWidth
+										actions={actions}
+										highlightedIndex={highlightedActionIndex}
+										onAction={onAction}
+									/>
+								</div>,
+								document.body
+							)
+						) : (
+							<div
+								ref={this.menuRef}
+								style={{
+									position: 'relative',
+									top: '2px',
+									left: '0',
+									width: `${menuPosition.width}px`
+								}}
+							>
+								<ButtonGroup
+									kind={IHWButtonGroupKind.Floating}
+									isFullWidth
+									actions={actions}
+									highlightedIndex={highlightedActionIndex}
+									onAction={onAction}
+								/>
+							</div>
+						)}
+					</Fragment>
+				)}
 			</div>
 		)
 	}

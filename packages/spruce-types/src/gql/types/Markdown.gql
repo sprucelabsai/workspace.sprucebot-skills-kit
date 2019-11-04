@@ -1,0 +1,7 @@
+"Render markdown beautifully"
+type Markdown {
+	"Unique ID for view caching."
+	id: ID!
+	"Markdown text to be rendered"
+	source: String!
+}

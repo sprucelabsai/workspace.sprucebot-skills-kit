@@ -1,45 +1,42 @@
-import React, { Fragment } from 'react'
+import {
+	IHWAction,
+	IHWListItem,
+	IHWListItemSelectableType
+} from '@sprucelabs/spruce-types'
 import cx from 'classnames'
+import cloneDeep from 'lodash/cloneDeep'
+import React, { Fragment } from 'react'
 import Avatar from '../../../Avatar/Avatar'
 import Button, { IButtonProps } from '../../../Button/Button'
-import Icon from '../../../Icon/Icon'
-import ContextMenu from '../../../ContextMenu/ContextMenu'
+import ContextMenu, {
+	IContextMenuProps
+} from '../../../ContextMenu/ContextMenu'
+import { Checkbox, Radio, Toggle } from '../../../Forms'
+import { ICheckboxProps } from '../../../Forms/components/Checkbox/Checkbox'
+import { IRadioProps } from '../../../Forms/components/Radio/Radio'
+import { IToggleProps } from '../../../Forms/components/Toggle/Toggle'
+import Icon, { IIconProps } from '../../../Icon/Icon'
 import List, { IListProps } from '../../List'
-import { Toggle, Checkbox, Radio } from '../../../Forms'
 
-export interface IListItemProps {
-	/** Title text */
-	title: string
-
-	/** Optional subtitle text */
-	subtitle?: string
-
-	/** Optional note text */
-	note?: string
-
-	/** URL to show a user avatar */
-	avatar?: string
-
-	/** URL to show an image */
-	image?: string
+export interface IListItemProps
+	extends Omit<
+		IHWListItem,
+		| 'id'
+		| 'icon'
+		| 'actions'
+		| 'primaryAction'
+		| 'contextMenu'
+		| 'toggleProps'
+		| 'selectableProps'
+		| 'list'
+		| 'lists'
+		| 'title'
+	> {
+	/** unique id for view caching */
+	id?: string
 
 	/** Inline svg icon */
-	icon?: Record<string, any>
-
-	/** Optional; visually hides the icon without removing it */
-	iconIsHidden?: boolean
-
-	/** Set true to add left spacing. useful in aligning with other list items that have icons or images */
-	isLeftIndented?: boolean
-
-	/** Set true when the list can be reordered */
-	isDraggable?: boolean
-
-	/** Set true when the list can be reordered */
-	isDisabled?: boolean
-
-	/** Makes the list item a setting */
-	toggleId?: string
+	icon?: IIconProps
 
 	/** A primary action that turns the entire list item into a clickable button */
 	primaryAction?: IButtonProps
@@ -47,16 +44,11 @@ export interface IListItemProps {
 	/** Actions associated with the list item */
 	actions?: IButtonProps[]
 
-	/** Context Menu associated with the list item
-	 *  TODO: implement ContextMenuProps
-	 */
-	contextMenu?: any
+	/** Context Menu associated with the list item */
+	contextMenu?: IContextMenuProps | null
 
 	/** Props passed to the toggle when it is used */
-	toggleProps?: Record<string, any>
-
-	/** Set to true to show separator for this list item if followed by another list item. */
-	isSeparatorVisible: boolean
+	toggleProps?: IToggleProps
 
 	/** Optional class name for list item */
 	className?: string
@@ -65,46 +57,77 @@ export interface IListItemProps {
 	selectableId?: string
 
 	/** Optional props for selectable list items */
-	selectableProps?: Record<string, any>
-
-	/** Optional: set whether to use checkbox or radio for selectable list items */
-	selectableType?: 'checkbox' | 'radio'
-
-	/** Highlight title, subtitle, note with warning colors */
-	warnings?: {
-		title: boolean
-		subtitle: boolean
-		note: boolean
-	}
+	selectableProps?: ICheckboxProps | IRadioProps
 
 	/** Optional; adds a nested list */
 	list?: IListProps
+
+	/** Optional; adds multiple lists nested at the same level */
+	lists?: IListProps[]
+
+	/** In a loading state, loading placeholders will be dropped in */
+	isLoading?: boolean
+
+	/** Title text  */
+	title: string | React.ReactElement
+
+	/** Optional alt property if avatar is passed */
+	avatarAlt?: string
+
+	/** Optional alt property if image is passed */
+	imageAlt?: string
+
+	/** Optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 const ListItem = (props: IListItemProps): React.ReactElement => {
 	const {
-		title,
-		subtitle,
-		note,
-		avatar,
-		image,
-		icon,
-		iconIsHidden,
-		isDraggable,
-		isDisabled,
-		toggleId,
-		primaryAction,
 		actions,
-		contextMenu,
-		toggleProps,
-		isSeparatorVisible,
+		avatar,
+		avatarAlt,
 		className,
-		selectableId,
+		contextMenu,
+		icon,
+		image,
+		imageAlt,
+		isDisabled,
+		isDraggable,
+		isIconHidden,
+		isLoading,
+		isSeparatorVisible,
+		list,
+		lists,
+		note,
+		onAction,
+		primaryAction,
+		selectableId: selectableIdProp,
 		selectableProps,
 		selectableType,
-		warnings,
-		list
+		subtitle,
+		title,
+		toggleId,
+		toggleProps,
+		warnings
 	} = props
+
+	let checkboxProps: ICheckboxProps | undefined
+	let radioProps: IRadioProps | undefined
+	let selectableId
+
+	if (selectableProps) {
+		selectableId = selectableIdProp ? selectableIdProp : selectableProps.id
+
+		// TODO move this to a type that can be inferred
+		const restSelectableProps = cloneDeep(selectableProps)
+		delete restSelectableProps.__typename
+
+		if (selectableType === IHWListItemSelectableType.Checkbox) {
+			checkboxProps = restSelectableProps as ICheckboxProps
+		} else {
+			radioProps = restSelectableProps as IRadioProps
+		}
+	}
 
 	const parentClass = cx('list-item', className, {
 		'list-item-title-only': !subtitle,
@@ -112,7 +135,8 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 		'list-item--is-disabled': isDisabled,
 		'list-item--primary-action': primaryAction,
 		'list-item--separator-hidden': !isSeparatorVisible,
-		'list-item--has-avatar': !!avatar
+		'list-item--has-avatar': !!avatar,
+		'loading-placeholder': isLoading
 	})
 
 	const ListItemInner = (): React.ReactElement => (
@@ -122,10 +146,10 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 					{icon && (
 						<Icon
 							customIcon={icon.customIcon}
-							icon={icon.name}
+							name={icon.name}
 							isLineIcon={icon.isLineIcon}
 							className={cx('list-item__icon', icon.className, {
-								'list-item__icon--hidden': iconIsHidden
+								'list-item__icon--hidden': isIconHidden
 							})}
 						/>
 					)}
@@ -133,30 +157,34 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 						<img
 							src={image}
 							className="list-item__image"
-							alt={title}
+							alt={imageAlt || image}
 							width="40"
 							height="40"
 						/>
 					)}
 					{selectableId && (
 						<Fragment>
-							{selectableType === 'checkbox' && (
-								<Checkbox
-									id={selectableId}
-									{...(isDisabled ? { disabled: true } : {})}
-									{...selectableProps}
-								/>
-							)}
-							{selectableType === 'radio' && (
-								<Radio
-									id={selectableId}
-									{...(isDisabled ? { disabled: true } : {})}
-									{...selectableProps}
-								/>
-							)}
+							{selectableType === IHWListItemSelectableType.Checkbox &&
+								checkboxProps && (
+									<Checkbox
+										id={selectableId}
+										{...(isDisabled ? { disabled: true } : {})}
+										{...checkboxProps}
+										onAction={onAction}
+									/>
+								)}
+							{selectableType === IHWListItemSelectableType.Radio &&
+								radioProps && (
+									<Radio
+										id={selectableId}
+										{...(isDisabled ? { disabled: true } : {})}
+										{...radioProps}
+										onAction={onAction}
+									/>
+								)}
 						</Fragment>
 					)}
-					{avatar && <Avatar image={avatar} alt={title} />}
+					{avatar && <Avatar image={avatar} alt={avatarAlt || avatar} />}
 				</div>
 			)}
 
@@ -165,7 +193,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 					<p>
 						<label
 							className={cx('list-item__title', {
-								'u-color-warning-dark': warnings.title
+								'u-color-warning-dark': warnings && warnings.title
 							})}
 							htmlFor={toggleId || selectableId}
 						>
@@ -175,7 +203,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				) : (
 					<p
 						className={cx('list-item__title', {
-							'u-color-warning-dark': warnings.title
+							'u-color-warning-dark': warnings && warnings.title
 						})}
 					>
 						{title}
@@ -187,7 +215,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 							<p>
 								<label
 									className={cx('list-item__subtitle', {
-										'u-color-warning-dark': warnings.subtitle
+										'u-color-warning-dark': warnings && warnings.subtitle
 									})}
 									htmlFor={toggleId || selectableId}
 								>
@@ -197,7 +225,7 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 						) : (
 							<p
 								className={cx('list-item__subtitle', {
-									'u-color-warning-dark': warnings.subtitle
+									'u-color-warning-dark': warnings && warnings.subtitle
 								})}
 								dangerouslySetInnerHTML={{ __html: subtitle }}
 							/>
@@ -207,14 +235,14 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 				{note && (
 					<p
 						className={cx('list-item__note', {
-							'u-color-warning-dark': warnings.note
+							'u-color-warning-dark': warnings && warnings.note
 						})}
 						dangerouslySetInnerHTML={{ __html: note }}
 					/>
 				)}
 			</div>
 			{!isDraggable && ((actions && actions.length > 0) || contextMenu) && (
-				<div className="list-item__actions-wrapper">
+				<Fragment>
 					{actions && actions.length > 0 && (
 						<div className="list-item__actions-wrapper">
 							{actions.map((action, idx) => (
@@ -223,23 +251,33 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 									isSmall
 									className="list-item__action"
 									{...action}
+									onAction={onAction}
 								/>
 							))}
 						</div>
 					)}
-					{contextMenu && <ContextMenu {...contextMenu} />}
-				</div>
+					{contextMenu && (
+						<div className="list-item__actions-wrapper">
+							<ContextMenu {...contextMenu} onAction={onAction} />
+						</div>
+					)}
+				</Fragment>
 			)}
 			{toggleId && <Toggle id={toggleId} {...toggleProps} />}
 
-			{list && <List {...list} />}
+			{list && <List {...list} onAction={onAction} />}
+			{lists &&
+				lists.length > 0 &&
+				lists.map((list, idx) => (
+					<List key={idx} {...list} onAction={onAction} />
+				))}
 		</Fragment>
 	)
 
 	return (
 		<li className={parentClass}>
 			{primaryAction ? (
-				<Button {...primaryAction}>
+				<Button {...primaryAction} onAction={onAction}>
 					<ListItemInner />
 				</Button>
 			) : (
@@ -252,9 +290,11 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 ListItem.defaultProps = {
 	subtitle: '',
 	avatar: '',
+	avatarAlt: '',
 	image: '',
+	imageAlt: '',
 	icon: null,
-	iconIsHidden: false,
+	isIconHidden: false,
 	isDraggable: false,
 	toggleId: '',
 	actions: [],

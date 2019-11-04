@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Breaking Changes
+
+* Typescript support for skills kit ([d8b6152](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d8b6152))
+
+
+### Bug Fixes
+
+* copy .gql and .graphql files to build directory ([c7d1cd2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c7d1cd2))
+* make graphql-type-json a peerDependency in spruce-skill-server; move [@types](https://github.com/types) to "devDependencies" ([5592cd9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5592cd9))
+* make supertest a dependency ([99c39d9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/99c39d9))
+* next.config should extend "resolve" instead of overriding it to fix .tsx imports ([8a09b2b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8a09b2b))
+* prevent double save formatters ([37f4aa4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/37f4aa4))
+* set NODE_CONFIG_DIR on start ([c0df64b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c0df64b))
+* strict validation progress ([7e4c194](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7e4c194))
+* vscode should exclude build/ directory from watch ([f20c388](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f20c388))
+* **lint:** Enforce object-shorthand rule ([cc5b0a7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc5b0a7))
+* **lint:** Get TS(X) in workspace linted correctly ([629d8e5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/629d8e5))
+* **vscode:** Sync shared settings, remove old settings. ([38c9a1b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/38c9a1b))
+
+
+### Features
+
+* add gql typescript generator ([f94f22f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f94f22f))
+* Add storybook to spruce-skill ([31eb565](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/31eb565))
+* make auth location better match location model ([268521b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/268521b))
+* move from lodash/get to ts-get for type checking ([f0a6d99](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f0a6d99))
+* move model attributes to model definition for easier extendability ([db84395](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/db84395))
+* new tests for individual acl checks ([4e9aa67](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4e9aa67))
+* shared gql types and definitions ([9c577b3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9c577b3))
+* **Typescript:** Upgrade to 3.6.3 ([68f7bf8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/68f7bf8))
+* skills no longer run skills kit tests ([7babb34](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7babb34))
+* strongly typed config ([8ba6b82](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8ba6b82))
+* ts-getter and org/location optional on auth ([018a5bf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/018a5bf))
+* upgrade graphql version ([bee5ea5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bee5ea5))
+* use relative imports ([2978b12](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2978b12))
+
+
+
+
+
 ## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
 
 **Note:** Version bump only for package @sprucelabs/spruce-skill

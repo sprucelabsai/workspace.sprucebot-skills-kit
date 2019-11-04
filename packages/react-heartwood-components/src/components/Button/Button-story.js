@@ -3,7 +3,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
-	withKnobsOptions,
+	// withKnobsOptions,
 	text,
 	boolean,
 	object
@@ -14,11 +14,11 @@ const btnText = text('text', 'Hello World')
 const isFullWidth = boolean('isFullWidth', false)
 
 const stories = storiesOf('Button', module)
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 stories.addDecorator(withKnobs)
 
 stories

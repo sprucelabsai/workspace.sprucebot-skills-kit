@@ -3,17 +3,15 @@
 
 // NOTE: This component should only include a few of the most commonly
 // used icons for developer convenience
-import React from 'react'
+import React, { Fragment } from 'react'
 import cx from 'classnames'
 
 import * as icons from '../../icons.js'
+import { IHWIcon } from '@sprucelabs/spruce-types'
 
-export interface IIconProps {
-	/** The name of the icon to render. If not found, this will return null. */
-	icon?: string
-
-	/** Set true to render an icon with a stroke, but no fill */
-	isLineIcon?: boolean
+export interface IIconProps extends Omit<IHWIcon, 'id'> {
+	/** Optional id for view caching */
+	id?: string
 
 	/** Pass a custom icon to use one that isn't keyed to a name */
 	customIcon?: any
@@ -23,16 +21,16 @@ export interface IIconProps {
 }
 
 const Icon = (props: IIconProps): React.ReactElement => {
-	const { icon, customIcon, isLineIcon, className, ...rest } = props
+	const { name: icon, customIcon, isLineIcon, className, ...rest } = props
 
 	const iconKey = icon && icon.toLowerCase()
 
 	if (!customIcon && (!icon || !icons[iconKey])) {
 		console.warn(`<Icon /> could not find an icon with key `, icon)
-		return null
+		return <Fragment />
 	}
 
-	let isFillIcon = !customIcon && icons[iconKey] && !icons[iconKey].isLineIcon
+	const isFillIcon = !customIcon && icons[iconKey] && !icons[iconKey].isLineIcon
 
 	const Handler = customIcon || icons[iconKey].icon
 

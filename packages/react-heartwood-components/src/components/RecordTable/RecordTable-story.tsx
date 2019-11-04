@@ -1,7 +1,7 @@
 import React from 'react'
 import { filter, orderBy } from 'lodash'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, number } from '@storybook/addon-knobs/react'
+import { withKnobs, number } from '@storybook/addon-knobs'
 
 import RecordTable, {
 	IRecordTableFetchOptions,
@@ -29,10 +29,10 @@ stories.add('Basic RecordTable', () => {
 	function syncFetchRecords(
 		options: IRecordTableFetchOptions
 	): IRecordTableFetchResults {
-		const filteredRecords = filter(
+		const filteredRecords: Record<string, any> = filter(
 			orderBy(records, [options.sortColumn], [options.sortDirection]),
 			(o: IDummyRecordTableRecord) => {
-				return o.name.match(new RegExp(options.search, 'gi'))
+				return o.name.match(new RegExp(options.search || '', 'gi'))
 			}
 		)
 
@@ -55,7 +55,7 @@ stories.add('Basic RecordTable', () => {
 		offset: 0,
 		limit: 10,
 		sortColumn: 'name',
-		sortDirection: 'ASC'
+		sortDirection: 'asc'
 	})
 
 	const timeout = number('API Simulated Timeout (MS)', 50)
@@ -75,7 +75,7 @@ stories.add('Basic RecordTable', () => {
 				fetchError={false}
 				initialLimit={10}
 				initialSortColumn={'name'}
-				initialSortDirection={'ASC'}
+				initialSortDirection={'asc'}
 				initialSelectedTab={'all'}
 				initialVisibleRows={initialRecords.visibleRows}
 				totalRows={records.length}
@@ -133,7 +133,7 @@ stories.add('Empty RecordTable', () => {
 				fetchError={false}
 				initialLimit={10}
 				initialSortColumn={'name'}
-				initialSortDirection={'ASC'}
+				initialSortDirection={'asc'}
 				initialSelectedTab={'all'}
 				initialVisibleRows={records}
 				totalRows={records.length}
@@ -180,7 +180,7 @@ stories.add('Empty RecordTable w/ Customized Empty States', () => {
 				fetchError={false}
 				initialLimit={10}
 				initialSortColumn={'name'}
-				initialSortDirection={'ASC'}
+				initialSortDirection={'asc'}
 				initialSelectedTab={'all'}
 				initialVisibleRows={records}
 				totalRows={records.length}

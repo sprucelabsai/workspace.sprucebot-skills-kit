@@ -1,32 +1,34 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
-import Button from '../../Button/Button'
-import Icon from '../../Icon/Icon'
-import ContextMenu from '../../ContextMenu/ContextMenu'
+import Button, { ButtonKinds } from '../../Button/Button'
+import Icon, { IIconProps } from '../../Icon/Icon'
+import ContextMenu, { IContextMenuProps } from '../../ContextMenu/ContextMenu'
 
 import { IButtonProps } from '../../Button/Button'
+import { IHWCardHeader } from '@sprucelabs/spruce-types'
 
 // Card Header
-export interface ICardHeaderProps {
-	/** Title for the card */
-	title?: string
-
-	/** Optional label to show above title */
-	labelText?: string
-
+export interface ICardHeaderProps
+	extends Omit<IHWCardHeader, 'labelIcon' | 'actions' | 'contextMenu'> {
 	/** Optional icon to show above the title and before the label */
-	labelIcon?: any
+	labelIcon?: IIconProps | null
 
 	/** Render buttons in the Card Header */
-	actions?: IButtonProps[]
+	actions?: IButtonProps[] | null
 
 	/** Renders a Context Menu in the Card Header */
-	// TODO: Import context menu props once it's converted to tsx
-	contextMenu?: any
+	contextMenu?: IContextMenuProps | null
 }
 
-const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
-	const { title, labelText, labelIcon, actions, contextMenu } = props
+const CardHeader = (
+	props: ICardHeaderProps | IHWCardHeader
+): React.ReactElement => {
+	const reactHeartwoodProps = props as ICardHeaderProps
+	const commonProps = props as IHWCardHeader
+
+	const { title, labelText, actions, contextMenu } = commonProps
+	const { labelIcon } = reactHeartwoodProps
+
 	return (
 		<div className="card__header">
 			{(title || labelText || labelIcon) && (
@@ -35,8 +37,10 @@ const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 						<div className="card__header-label">
 							{labelIcon && (
 								<Icon
-									customIcon={labelIcon.customIcon}
-									icon={labelIcon.name}
+									customIcon={
+										labelIcon.customIcon ? labelIcon.customIcon : undefined
+									}
+									name={labelIcon.name}
 									isLineIcon={labelIcon.isLineIcon}
 									className={cx('card__header-label-icon', labelIcon.className)}
 								/>
@@ -55,7 +59,12 @@ const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 						{actions &&
 							actions.length > 0 &&
 							actions.map(action => (
-								<Button key={action.text} kind="simple" isSmall {...action} />
+								<Button
+									key={action.id}
+									kind={ButtonKinds.Simple}
+									isSmall
+									{...action}
+								/>
 							))}
 						{contextMenu && <ContextMenu {...contextMenu} />}
 					</Fragment>
@@ -65,7 +74,8 @@ const CardHeader = (props: ICardHeaderProps): React.ReactElement => {
 	)
 }
 
-CardHeader.defualtProps = {
+CardHeader.displayName = 'Card.Header'
+CardHeader.defaultProps = {
 	title: '',
 	labelText: '',
 	labelIcon: null,

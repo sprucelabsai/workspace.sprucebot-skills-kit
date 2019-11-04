@@ -1,23 +1,16 @@
 import React from 'react'
 import cx from 'classnames'
-import Button from '../../../Button/Button'
+import Button, { Action } from '../../../Button/Button'
+import { IHWListHeader } from '@sprucelabs/spruce-types'
+import { unionArray } from '../../../..'
 
-export interface IListHeaderProps {
-	/** Title text */
-	title: string
-
-	/** Optional subtitle text */
-	subtitle?: string
-
-	/** Set true for small lists */
-	isSmall?: boolean
-
-	/** Actions to associate with the list header */
-	// TODO Import Button interface
-	actions?: any[]
+export interface IListHeaderProps extends Omit<IHWListHeader, 'actions'> {
+	actions?: Action[]
 }
 
-const ListHeader = (props: IListHeaderProps): React.ReactElement => {
+const ListHeader = (
+	props: IListHeaderProps | IHWListHeader
+): React.ReactElement => {
 	const { title, subtitle, isSmall, actions } = props
 	const parentClass = cx('list-header', { 'list-header-small': isSmall })
 
@@ -27,9 +20,9 @@ const ListHeader = (props: IListHeaderProps): React.ReactElement => {
 				<h3 className="list-header__title">{title}</h3>
 				{subtitle && <p className="list-header__subtitle">{subtitle}</p>}
 			</div>
-			{actions && actions.length > 0 && (
+			{Array.isArray(actions) && actions.length > 0 && (
 				<ul className="list-header__actions">
-					{actions.map((action, idx) => (
+					{unionArray(actions).map((action, idx) => (
 						<li key={idx} className="list-header__action-wrapper">
 							<Button {...action} />
 						</li>

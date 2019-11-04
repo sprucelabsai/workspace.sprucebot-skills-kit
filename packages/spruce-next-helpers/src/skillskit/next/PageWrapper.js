@@ -1,7 +1,9 @@
 // @flow
+// TODO: Remove this when migrated to TSX
+/* eslint-disable import/namespace */
 import React, { Component } from 'react'
 
-import * as actions from '../store/actions'
+import actions from '../store/actions'
 import ServerCookies from 'cookies'
 import ClientCookies from 'js-cookies'
 import skill from '../index'
@@ -11,8 +13,10 @@ import lang from '../helpers/lang'
 import Router, { withRouter } from 'next/router'
 import { Container } from 'next/app'
 import is from 'is_js'
+import Debug from 'debug'
+import ErrorPage from './_error'
 
-const debug = require('debug')('@sprucelabs/spruce-next-helpers')
+const debug = Debug('@sprucelabs/spruce-next-helpers')
 
 const setCookie = (named, value, req, res) => {
 	if (req && req.headers) {
@@ -20,9 +24,9 @@ const setCookie = (named, value, req, res) => {
 			secure: true,
 			httpOnly: false
 		})
-		return cookies.set(named, value)
+		return cookies.set(named, value, { sameSite: 'None' })
 	} else {
-		return ClientCookies.setItem(named, value)
+		return ClientCookies.setItem(named, value, { sameSite: 'None' })
 	}
 }
 
@@ -94,7 +98,7 @@ export type WrappedInitialProps = {
 const PageWrapper = Wrapped => {
 	const ConnectedWrapped = withRouter(Wrapped)
 
-	return class extends Component<Props, State> {
+	return class PageWrapper extends Component<Props, State> {
 		constructor(props: Props) {
 			super(props)
 			this.state = {
@@ -125,15 +129,18 @@ const PageWrapper = Wrapped => {
 			if (query.jwt) {
 				jwt = query.jwt
 				setCookie('jwt', jwt, req, res)
-			} else {
+				setCookie('jwtV2', false, req, res)
+			} else if (!query.jwtV2) {
 				jwt = getCookie('jwt', req, res)
 			}
 
 			let jwtV2
 			if (query.jwtV2) {
 				jwtV2 = query.jwtV2
+				jwt = false
 				setCookie('jwtV2', jwtV2, req, res)
-			} else {
+				setCookie('jwt', false, req, res)
+			} else if (!jwt) {
 				jwtV2 = getCookie('jwtV2', req, res)
 			}
 
@@ -143,7 +150,7 @@ const PageWrapper = Wrapped => {
 					await store.dispatch(
 						actions.authV2.go(query.jwtV2 || getCookie('jwtV2', req, res))
 					)
-				} catch (e) {
+				} catch (err) {
 					debug(err)
 					debug('Error fetching user from jwtV2')
 				}
@@ -167,11 +174,17 @@ const PageWrapper = Wrapped => {
 
 			if (ConnectedWrapped.getInitialProps) {
 				const args = Array.from(arguments)
-				args[0] = { ...args[0], ...state }
+				args[0] = { ...args[0], ...state, isServer: !!req }
 				props = {
 					...props,
 					...(await ConnectedWrapped.getInitialProps.apply(this, args))
 				}
+			}
+
+			// if an error was reported, respond immediately
+			if (props.statusCode && res) {
+				res.statusCode = props.statusCode
+				return props
 			}
 
 			let redirect = props.redirect || false
@@ -341,6 +354,18 @@ const PageWrapper = Wrapped => {
 		}
 
 		render() {
+			const { statusCode, errorMessage, errorCTA } = this.props
+
+			if (statusCode) {
+				return (
+					<ErrorPage
+						statusCode={statusCode}
+						errorMessage={errorMessage}
+						errorCTA={errorCTA}
+					/>
+				)
+			}
+
 			if (this.state.attemptingReAuth) {
 				return <Loader />
 			}

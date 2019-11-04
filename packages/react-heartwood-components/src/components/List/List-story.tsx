@@ -1,34 +1,34 @@
-import React, { Fragment, Component } from 'react'
-import { storiesOf } from '@storybook/react'
 import {
-	withKnobs,
-	withKnobsOptions,
-	text,
 	boolean,
 	object,
-	select
-} from '@storybook/addon-knobs/react'
+	select,
+	text,
+	withKnobs
+} from '@storybook/addon-knobs'
+import { storiesOf } from '@storybook/react'
+import React, { Component, Fragment } from 'react'
+import {
+	dateList,
+	expandableList,
+	listHiddenIcons,
+	listWithAction,
+	nestedList,
+	selectableList,
+	serviceList,
+	settingsList
+} from '../../../.storybook/data/lists'
 import {
 	userList,
 	userList02,
 	userList03
 } from '../../../.storybook/data/people'
-import {
-	dateList,
-	serviceList,
-	listHiddenIcons,
-	nestedList,
-	listWithAction,
-	settingsList,
-	selectableList,
-	expandableList
-} from '../../../.storybook/data/lists'
-import List, { ListWrapper } from './List'
+import Tabs from '../Tabs/Tabs'
 import ListHeader from './components/ListHeader/ListHeader'
 import ListItem from './components/ListItem/ListItem'
-import Icon from '../Icon/Icon'
-import Tabs from '../Tabs/Tabs'
 import SortableList from './components/SortableList/SortableList'
+import List, { ListWrapper } from './List'
+import { IHWListItemSelectableType } from '@sprucelabs/spruce-types'
+import { ButtonKinds } from '../Button/Button'
 
 const stories = storiesOf('List', module)
 
@@ -85,33 +85,28 @@ class TabbedList extends Component<ITabbedProps, ITabbedState> {
 	}
 }
 
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 
 stories.addDecorator(withKnobs)
 
 stories
 	.add('List Item', () => (
 		<ListItem
+			id="unique"
 			title={text('title', 'Wed, Oct 28')}
 			subtitle={text('subtitle', '9am–4pm')}
 			avatar={text('avatar', '')}
 			image={text('image', '')}
-			icon={
-				text('icon', '') && (
-					<Icon
-						isLineIcon={boolean('isLineIcon', true)}
-						icon={text('icon', '')}
-					/>
-				)
-			}
+			icon={{ isLineIcon: boolean('isLineIcon', true), name: text('name', '') }}
 			isDraggable={boolean('isDraggable', false)}
 			actions={object('actions', [])}
 			toggleId={text('toggleId', '')}
 			contextMenu={object('contextMenu', null)}
+			isLoading={boolean('isLoading', false)}
 		/>
 	))
 	.add('Text List', () => (
@@ -120,6 +115,7 @@ stories
 				header={object('header: text list', { title: 'Holidays' })}
 				isSmall={boolean('isSmall', false)}
 				items={object('items: text list', dateList)}
+				isLoading={boolean('isLoading', false)}
 			/>
 			<SortableList
 				header={object('header: sortable list', { title: 'Services' })}
@@ -129,11 +125,13 @@ stories
 				onSortStart={() => null}
 				onSortEnd={() => null}
 				areSeparatorsVisible
+				isLoading={boolean('isLoading', false)}
 			/>
 			<List
 				header={object('header: dates list', { title: 'Important Dates' })}
 				isSmall={boolean('isSmall', false)}
 				items={object('items: dates list', dateList)}
+				isLoading={boolean('isLoading', false)}
 			/>
 		</Fragment>
 	))
@@ -160,26 +158,26 @@ stories
 				actions: [
 					{
 						text: 'Today',
-						kind: 'simple'
+						kind: ButtonKinds.Simple
 					},
 					{
 						icon: {
 							name: 'calendar',
 							isLineIcon: true
 						},
-						kind: 'simple'
+						kind: ButtonKinds.Simple
 					},
 					{
 						icon: {
 							name: 'arrow_back'
 						},
-						kind: 'simple'
+						kind: ButtonKinds.Simple
 					},
 					{
 						icon: {
 							customIcon: 'arrow_forward'
 						},
-						kind: 'simple'
+						kind: ButtonKinds.Simple
 					}
 				]
 			}}
@@ -190,10 +188,12 @@ stories
 	.add('People Tabbed', () => <TabbedList />)
 	.add('Selectable Items', () => (
 		<List
-			selectableType={select(
+			selectableType={select<
+				IHWListItemSelectableType.Checkbox | IHWListItemSelectableType.Radio
+			>(
 				'selectableType',
-				['checkbox', 'radio'],
-				'checkbox'
+				[IHWListItemSelectableType.Checkbox, IHWListItemSelectableType.Radio],
+				IHWListItemSelectableType.Checkbox
 			)}
 			items={object('selectable items', selectableList)}
 			isSmall={boolean('isSmall', false)}

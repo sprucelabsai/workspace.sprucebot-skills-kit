@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [8.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Bug Fixes
+
+* **Cookies:** options on set, not constructor ([817113a](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/817113a))
+* **lint:** Enforce object-shorthand rule ([cc5b0a7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc5b0a7))
+* **npm-Cookies:** Update to version supporting sameSite [SDEV3-2622] ([2105317](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2105317))
+* **SpruceNextHelpers:** Correct build, lint, prep for tsx ([62e68c3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/62e68c3))
+* **vscode:** Sync shared settings, remove old settings. ([38c9a1b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/38c9a1b))
+
+
+### Features
+
+* **Typescript:** Upgrade to 3.6.3 ([68f7bf8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/68f7bf8))
+
+
+
+
+
 ## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
 
 **Note:** Version bump only for package @sprucelabs/spruce-next-helpers

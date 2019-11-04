@@ -1,95 +1,86 @@
-import React, { Fragment } from 'react'
+import {
+	IHWButton,
+	IHWButtonTypes as ButtonTypes,
+	IHWButtonKinds as ButtonKinds,
+	IHWAction
+} from '@sprucelabs/spruce-types'
 import cx from 'classnames'
-import Icon from '../Icon/Icon'
-import BasicAnchor from '../_utilities/Anchor'
+import React, { Fragment } from 'react'
 import CircleLoader from '../CircleLoader/CircleLoader'
+import Icon, { IIconProps } from '../Icon/Icon'
+import BasicAnchor from '../_utilities/Anchor'
 
-export interface IButtonIconProps {
-	/** The name of the icon to render. If not found, this will return null. */
-	icon?: string
+export {
+	IHWButtonKinds as ButtonKinds,
+	IHWButtonTypes as ButtonTypes
+} from '@sprucelabs/spruce-types'
 
-	/** Set true to render an icon with a stroke, but no fill */
-	isLineIcon?: boolean
+export interface IButtonProps extends Omit<IHWButton, 'id' | 'icon'> {
+	/** Optional ID for view caching */
+	id?: string
 
-	/** Pass a custom icon to use one that isn't keyed to a name */
-	customIcon?: any
+	/** The kind of button, primary, secondary, etc. */
+	kind?: ButtonKinds | null
 
-	/** Optional classname for the icon */
-	className?: string
-	/** The name of the icon used to look it up by key */
-	name: string
-}
+	/** Submit/Button */
+	type?: ButtonTypes | null
 
-export interface IButtonProps {
 	/** Optional class to add to the button. */
 	className?: string
 
 	/** Optional children passed into button */
 	children?: React.ReactNode
 
-	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
-	kind?: 'primary' | 'secondary' | 'simple' | 'caution'
-
-	/** Set true to make the button less tall. */
-	isSmall?: boolean
-
-	/** Set true to make the button fill its parent's width. */
-	isFullWidth?: boolean
-
-	/** Set true to hide any text or icon in the button and show a loader instead. */
-	isLoading?: boolean
-
-	/** Set true to hide any text in the button. Text should still be provided for accessibility. */
-	isIconOnly?: boolean
-
-	/** Text for the button. */
-	text?: string
-
-	/** Will render a link. May be relative or absolute. */
-	href?: string
-
 	/** Icon for the button. */
-	icon?: IButtonIconProps
-
-	/** Type attribute for HTML button element. Defaults to 'button'. */
-	type?: 'button' | 'submit' | 'reset'
+	icon?: IIconProps | null
 
 	/** Click handler. */
 	onClick?: Function
 
-	/** Will be passed back with the on click. */
-	payload?: Record<string, any>
-
 	/** Component used to render anchor */
 	AnchorComponent?: any
 
-	/** Set true to disable the button */
-	disabled?: boolean
+	/** optional target, whatever an anchor tag takes */
+	target?: string
+
+	/** optional payload to be sent with onclick (different than the payload attached to action.) */
+	payload?: Record<string, any>
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
-const Button = (props: IButtonProps): React.ReactElement => {
+export type Action = IButtonProps | IHWButton
+
+const Button = (props: IButtonProps | IHWButton): React.ReactElement => {
+	const reactHeartwoodProps = props as IButtonProps
+
 	const {
-		className,
-		kind,
-		isSmall,
-		isFullWidth,
-		isLoading,
-		isIconOnly,
-		text,
-		href,
-		icon,
-		type,
-		onClick,
+		action,
 		AnchorComponent = BasicAnchor,
 		children,
+		className,
+		href,
+		icon,
+		isFullWidth,
+		isIconOnly,
+		isLoading,
+		isSmall,
+		kind,
+		onAction,
+		onClick,
+		text,
+		type,
+		payload,
 		...rest
-	} = props
+	} = reactHeartwoodProps
+
 	const btnClass = cx(className, {
 		btn: true,
-		'btn-primary': kind === 'primary',
-		'btn-secondary': kind === 'secondary',
-		'btn-caution': kind === 'caution',
-		'btn-simple': kind === 'simple',
+		'btn-primary': kind === ButtonKinds.Primary,
+		'btn-secondary': kind === ButtonKinds.Secondary,
+		'btn-caution': kind === ButtonKinds.Caution,
+		'btn-simple': kind === ButtonKinds.Simple,
 		'btn-full-width': isFullWidth,
 		'btn--loading': isLoading,
 		'btn-small': isSmall,
@@ -101,8 +92,13 @@ const Button = (props: IButtonProps): React.ReactElement => {
 
 	const handleClick = (e: any): any => {
 		e.currentTarget.blur()
+
+		if (onAction && action) {
+			onAction(action)
+		}
+
 		if (onClick) {
-			onClick(e, props.payload)
+			onClick(e, payload)
 		}
 	}
 
@@ -115,12 +111,13 @@ const Button = (props: IButtonProps): React.ReactElement => {
 					{icon && (icon.customIcon || icon.name) && (
 						<span className="btn__icon-wrapper">
 							<Icon
+								id={icon.id}
 								customIcon={icon.customIcon}
-								icon={icon.name}
+								name={icon.name}
 								isLineIcon={icon.isLineIcon}
 								className={cx(
 									{
-										btn__icon: true,
+										['btn__icon']: true,
 										'btn__line-icon': icon.isLineIcon
 									},
 									icon.className
@@ -130,7 +127,11 @@ const Button = (props: IButtonProps): React.ReactElement => {
 					)}
 					{text && <span className={textClass}>{text}</span>}
 					{isLoading && (
-						<CircleLoader light={kind === 'primary' || kind === 'caution'} />
+						<CircleLoader
+							light={
+								kind === ButtonKinds.Primary || kind === ButtonKinds.Caution
+							}
+						/>
 					)}
 				</Fragment>
 			)}
@@ -140,23 +141,26 @@ const Button = (props: IButtonProps): React.ReactElement => {
 	// TODO: We probably need to create explicit whitelists of what we want to
 	// allow to be spread onto native DOM elements, since applying non-standard
 	// attributes throws a warning.
-	const sanitizedButtonRest = { ...rest }
-	// @ts-ignore
-	delete sanitizedButtonRest.linkProps
+	const { isDisabled } = rest
 
 	const button = (
 		<button
 			className={btnClass}
-			type={type}
+			type={type || 'button'}
 			onClick={handleClick}
-			{...sanitizedButtonRest}
+			disabled={isDisabled || false}
 		>
 			<Inner />
 		</button>
 	)
 
 	const anchor = (
-		<AnchorComponent href={href} className={btnClass} {...rest}>
+		<AnchorComponent
+			href={href}
+			className={btnClass}
+			onClick={handleClick}
+			{...rest}
+		>
 			<Inner />
 		</AnchorComponent>
 	)
@@ -166,7 +170,7 @@ const Button = (props: IButtonProps): React.ReactElement => {
 		// console.error(
 		// 	'<Button /> must have text, icon, or both. Please check the props your passing.'
 		// )
-		return null
+		return <Fragment />
 	}
 
 	return href ? anchor : button

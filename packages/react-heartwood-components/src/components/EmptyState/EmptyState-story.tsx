@@ -3,11 +3,11 @@ import { each, keys } from 'lodash'
 import { storiesOf } from '@storybook/react'
 import {
 	withKnobs,
-	withKnobsOptions,
+	// withKnobsOptions,
 	text,
 	select,
 	object
-} from '@storybook/addon-knobs/react'
+} from '@storybook/addon-knobs'
 import EmptyState from './EmptyState'
 import * as icons from '../../icons.js'
 
@@ -19,11 +19,11 @@ each(keys(icons), icon => {
 
 const stories = storiesOf('EmptyState', module)
 
-stories.addDecorator(
-	withKnobsOptions({
-		escapeHTML: false
-	})
-)
+// stories.addDecorator(
+// 	withKnobsOptions({
+// 		escapeHTML: false
+// 	})
+// )
 stories.addDecorator(withKnobs)
 
 stories.add('Default', () => <EmptyState />)
@@ -42,7 +42,7 @@ stories.add('No matches', () => (
 			['primary', 'secondary', 'simple', 'caution'],
 			'simple'
 		)}
-		primaryActionButtonIcon={select('primary button icon', options, null)}
+		primaryActionButtonIcon={select('primary button icon', options, undefined)}
 	/>
 ))
 
@@ -61,6 +61,6 @@ stories.add('API Failure', () => (
 			['primary', 'secondary', 'simple', 'caution'],
 			'simple'
 		)}
-		primaryActionButtonIcon={select('primary button icon', options, null)}
+		primaryActionButtonIcon={select('primary button icon', options, undefined)}
 	/>
 ))

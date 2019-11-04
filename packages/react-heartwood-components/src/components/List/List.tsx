@@ -1,42 +1,47 @@
-import React, { Fragment } from 'react'
+import {
+	IHWAction,
+	IHWList,
+	IHWListHeader,
+	IHWListItemTypes
+} from '@sprucelabs/spruce-types'
 import cx from 'classnames'
+import React, { Fragment } from 'react'
+import ExpandableListItem, {
+	IExpandableListItemProps
+} from './components/ExpandableListItem/ExpandableListItem'
 import ListHeader, {
 	IListHeaderProps
 } from './components/ListHeader/ListHeader'
 import ListItem, { IListItemProps } from './components/ListItem/ListItem'
-import ExpandableListItem from './components/ExpandableListItem/ExpandableListItem'
 
-export const ListWrapper = (props): React.ReactElement => (
-	<div className="list-wrapper">{props.children}</div>
-)
+export type IWrappedItemProps = IListItemProps | IExpandableListItemProps
 
-export interface IWrappedItemProps extends IListItemProps {
-	/** Optional; Set true to render an expandable item */
-	isExpandable?: boolean
-}
+export interface IListProps extends Omit<IHWList, 'id' | 'header' | 'items'> {
+	/** optional id for view caching */
+	id?: string
 
-export interface IListProps {
 	/** List Header */
-	header?: IListHeaderProps
+	header?: IListHeaderProps | IHWListHeader | null
 
 	/** List items */
-	items?: IWrappedItemProps[]
+	items?: Array<IWrappedItemProps | IHWListItemTypes> | null
 
 	/** Class for the list */
 	className?: string
 
-	/** Set true to make the list smaller */
-	isSmall?: boolean
-
 	/** any passthrough to render in the body of the list */
 	children?: React.ReactNode
 
-	/** Set to true to show separators between list items */
-	areSeparatorsVisible: boolean
+	/** Is this whole list in a loading state? Sets all list items to loading only if true. */
+	isLoading?: boolean
 
-	/** Optional: set whether to use checkbox or radio for selectable list items */
-	selectableType?: 'checkbox' | 'radio'
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
+
+export const ListWrapper = (props): React.ReactElement => (
+	<div className="list-wrapper">{props.children}</div>
+)
 
 const List = (props: IListProps): React.ReactElement => {
 	const {
@@ -44,13 +49,23 @@ const List = (props: IListProps): React.ReactElement => {
 		items,
 		className,
 		isSmall,
-		areSeparatorsVisible,
+		areSeparatorsVisible: areSeparatorsVisibleProp,
 		children,
-		selectableType
+		selectableType,
+		isLoading,
+		onAction
 	} = props
+
+	// seperators a true by default
+	const areSeparatorsVisible =
+		typeof areSeparatorsVisibleProp === 'boolean'
+			? areSeparatorsVisibleProp
+			: true
+
 	const parentClass = cx('list', className, {
 		'list-small': isSmall,
-		'list--separators-hidden': !areSeparatorsVisible
+		'list--separators-hidden': !areSeparatorsVisible,
+		'loading-placeholder': isLoading
 	})
 
 	return (
@@ -59,11 +74,34 @@ const List = (props: IListProps): React.ReactElement => {
 			<ul className={parentClass}>
 				{items &&
 					items.map((item, idx) => {
-						if (item.isExpandable) {
-							return <ExpandableListItem key={idx} item={item} {...item} />
+						const listItem = item as IListItemProps
+						const expandablListItem = item as IExpandableListItemProps
+
+						if (listItem.title) {
+							return (
+								<ListItem
+									key={listItem.id}
+									selectableType={
+										typeof listItem.selectableType === 'string'
+											? listItem.selectableType
+											: selectableType
+									}
+									{...listItem}
+									isSeparatorVisible={
+										typeof listItem.isSeparatorVisible === 'boolean'
+											? listItem.isSeparatorVisible
+											: areSeparatorsVisible
+									}
+									onAction={onAction}
+								/>
+							)
 						}
 						return (
-							<ListItem key={idx} selectableType={selectableType} {...item} />
+							<ExpandableListItem
+								key={idx}
+								{...expandablListItem}
+								onAction={onAction}
+							/>
 						)
 					})}
 				{children && children}

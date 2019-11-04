@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "8.17.7",
+	"version": "8.18.0",
 	"description": "Reusable Spruce utilities for Skills and other projects",
 	"author": "George Pantazis <gcpantazis@gmail.com>",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit#readme",
@@ -27,9 +27,9 @@
 		"url": "git+https://github.com/sprucelabsai/workspace.sprucebot-skills-kit.git"
 	},
 	"scripts": {
-		"build": "babel -d dist lib",
-		"watch": "npm run build && chokidar 'lib/**/*.js' -c 'npm run build'",
-		"lint": "eslint ."
+		"build": "babel --source-maps --extensions \".js\",\".tsx\",\".ts\" ./lib --out-dir ./dist && tsc --declaration --emitDeclarationOnly --declarationMap",
+		"watch": "npm run build && chokidar 'lib/**/*.(js|ts|tsx)' -c 'npm run build'",
+		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx lib && tsc -p . --noEmit"
 	},
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
@@ -37,6 +37,7 @@
 	"dependencies": {
 		"@babel/core": "^7.1.6",
 		"@babel/preset-flow": "^7.0.0",
+		"@zeit/next-typescript": "^1.1.1",
 		"apollo-boost": "^0.1.22",
 		"apollo-link": "^1.2.6",
 		"apollo-link-http": "^1.5.9",
@@ -59,6 +60,6 @@
 		"prettier": "^1.15.2"
 	},
 	"peerDependencies": {
-		"graphql": "^14.2.0"
+		"graphql": "^14.5.4"
 	}
 }
