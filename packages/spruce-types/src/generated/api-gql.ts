@@ -771,14 +771,14 @@ export type ICoreGQLCalendarEventDetailsItem = {
 }
 
 export enum ICoreGQLCalendarEventDetailsItemType {
-	List = 'List',
-	Button = 'Button',
-	SplitButton = 'SplitButton',
-	CardBuilder = 'CardBuilder',
-	Toast = 'Toast',
-	Text = 'Text',
-	Markdown = 'Markdown',
-	UiEnhancementSection = 'UIEnhancementSection'
+	List = 'list',
+	Button = 'button',
+	SplitButton = 'splitButton',
+	CardBuilder = 'cardBuilder',
+	Toast = 'toast',
+	Text = 'text',
+	Markdown = 'markdown',
+	UiEnhancementSection = 'uiEnhancementSection'
 }
 
 export type ICoreGQLCalendarEventDetailsItemViewModel =

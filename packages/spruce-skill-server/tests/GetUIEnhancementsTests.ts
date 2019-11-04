@@ -25,7 +25,7 @@ class GetUIEnhancementsTests extends SpruceTest<ISpruceContext> {
 								id: 'guest',
 								calendarEventDetailsItems: [
 									{
-										type: 'Text',
+										type: 'text',
 										viewModel: {
 											id: 'e2375801-d893-4c98-bdf7-bab8f2ca76ec',
 											text: 'Someone - Testing User on Oct 23rd @ 5:31 pm'
@@ -60,7 +60,7 @@ class GetUIEnhancementsTests extends SpruceTest<ISpruceContext> {
 		)
 		assert.equal(
 			body.data.getUIEnhancements.sections[0].calendarEventDetailsItems[0].type,
-			'Text'
+			'text'
 		)
 		assert.equal(
 			body.data.getUIEnhancements.sections[0].calendarEventDetailsItems[0]
