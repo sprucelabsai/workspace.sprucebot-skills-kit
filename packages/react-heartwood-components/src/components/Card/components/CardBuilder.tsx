@@ -1,4 +1,5 @@
 import {
+	IHWAction,
 	IHWCardBuilder,
 	IHWCardBuilderBody,
 	IHWCardBuilderBodyItem,
@@ -77,6 +78,9 @@ export interface ICardBuilderProps
 
 	/** so we can use directly and set our own children */
 	children?: any
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 const renderItem = (
@@ -117,10 +121,8 @@ const renderItem = (
 	)
 }
 
-const CardBuilder = (
-	props: ICardBuilderProps | IHWCardBuilder
-): React.ReactElement => {
-	const { header, headerImage, body, footer, onboarding } = props
+const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
+	const { header, headerImage, body, footer, onboarding, onAction } = props
 	if (onboarding) {
 		return <OnboardingCard {...onboarding} />
 	}
@@ -166,7 +168,9 @@ const CardBuilder = (
 			)}
 			{footer && (
 				<CardFooter>
-					{footer.buttonGroup && <ButtonGroup {...footer.buttonGroup} />}
+					{footer.buttonGroup && (
+						<ButtonGroup {...footer.buttonGroup} onAction={onAction} />
+					)}
 					{footer.helper && (
 						<div className={'card__footer__helper'}>{footer.helper}</div>
 					)}

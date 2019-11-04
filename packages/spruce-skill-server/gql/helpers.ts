@@ -25,7 +25,7 @@ import { IGQLResolver } from '../interfaces/gql'
 
 type SpruceCoreModelType = typeof SpruceCoreModel
 
-export interface IBuildSequelizeResolver {
+export interface IBuildSequelizeResolver<IContext = ISpruceContext> {
 	(options: {
 		modelName: string
 		associationName?: string
@@ -34,13 +34,13 @@ export interface IBuildSequelizeResolver {
 		before?: (
 			findOptions: FindOptions,
 			args: Record<string, any>,
-			context: ISpruceContext,
+			context: IContext & { scopes: Record<string, any> },
 			info: GraphQLResolveInfo
 		) => FindOptions | Promise<FindOptions>
 		after?: (
 			result: Record<string, any>,
 			args: Record<string, any>,
-			context: ISpruceContext,
+			context: IContext & { scopes: Record<string, any> },
 			info: GraphQLResolveInfo
 		) => Record<string, any> | null
 	}): IGQLResolver

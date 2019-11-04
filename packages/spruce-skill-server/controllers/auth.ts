@@ -21,7 +21,9 @@ export default (router: Router) => {
 		router.get('/dev/:role/redirect', async (ctx, next) => {
 			const role = ctx.params.role
 			const cookies = new Cookies(ctx.req, ctx.res)
-			cookies.set('devRole', role)
+			cookies.set('devRole', role, {
+				sameSite: 'none'
+			})
 			ctx.redirect(`/${role}`)
 			await next()
 		})

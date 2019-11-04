@@ -43,7 +43,7 @@ export interface IGQLResolver<
 	(
 		source: any,
 		args: IArgs,
-		context: IContext,
+		context: IContext & { scopes: Record<string, any> },
 		info: GraphQLResolveInfo
 	): IResponse
 }
@@ -54,7 +54,7 @@ export interface IGQLTypeResolver<
 > {
 	(
 		result: IResult,
-		context: IContext,
+		context: IContext & { scopes: Record<string, any> },
 		info: GraphQLResolveInfo,
 		returnType: GraphQLAbstractType
 	): string

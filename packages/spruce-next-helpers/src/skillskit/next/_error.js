@@ -4,7 +4,9 @@ import {
 	PageContent,
 	Layout,
 	LayoutSection,
-	CardBuilder
+	CardBuilder,
+	Card,
+	Button
 } from '@sprucelabs/react-heartwood-components'
 
 import { skill } from '@sprucelabs/spruce-next-helpers'
@@ -20,7 +22,7 @@ export default class Error extends React.Component {
 	}
 
 	render() {
-		const { errorMessage } = this.props
+		const { errorMessage, errorCTA } = this.props
 
 		let message =
 			this.props.statusCode && this.props.statusCode === 404
@@ -36,12 +38,15 @@ export default class Error extends React.Component {
 				<PageContent>
 					<Layout>
 						<LayoutSection>
-							<CardBuilder
-								header={{ title: "Oh dang! I'm so sorry!" }}
-								body={{
-									children: message
-								}}
-							/>
+							<Card>
+								<Card.Header title={"Oh dang! I'm so sorry!"} />
+								<Card.Body>{message}</Card.Body>
+								{errorCTA && (
+									<Card.Footer>
+										<Button {...errorCTA} />
+									</Card.Footer>
+								)}
+							</Card>
 						</LayoutSection>
 					</Layout>
 				</PageContent>

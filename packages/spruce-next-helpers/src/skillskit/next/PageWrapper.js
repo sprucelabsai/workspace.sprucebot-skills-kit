@@ -14,6 +14,7 @@ import Router, { withRouter } from 'next/router'
 import { Container } from 'next/app'
 import is from 'is_js'
 import Debug from 'debug'
+import ErrorPage from './_error'
 
 const debug = Debug('@sprucelabs/spruce-next-helpers')
 
@@ -23,9 +24,9 @@ const setCookie = (named, value, req, res) => {
 			secure: true,
 			httpOnly: false
 		})
-		return cookies.set(named, value)
+		return cookies.set(named, value, { sameSite: 'None' })
 	} else {
-		return ClientCookies.setItem(named, value)
+		return ClientCookies.setItem(named, value, { sameSite: 'None' })
 	}
 }
 
@@ -173,11 +174,17 @@ const PageWrapper = Wrapped => {
 
 			if (ConnectedWrapped.getInitialProps) {
 				const args = Array.from(arguments)
-				args[0] = { ...args[0], ...state }
+				args[0] = { ...args[0], ...state, isServer: !!req }
 				props = {
 					...props,
 					...(await ConnectedWrapped.getInitialProps.apply(this, args))
 				}
+			}
+
+			// if an error was reported, respond immediately
+			if (props.statusCode && res) {
+				res.statusCode = props.statusCode
+				return props
 			}
 
 			let redirect = props.redirect || false
@@ -347,6 +354,18 @@ const PageWrapper = Wrapped => {
 		}
 
 		render() {
+			const { statusCode, errorMessage, errorCTA } = this.props
+
+			if (statusCode) {
+				return (
+					<ErrorPage
+						statusCode={statusCode}
+						errorMessage={errorMessage}
+						errorCTA={errorCTA}
+					/>
+				)
+			}
+
 			if (this.state.attemptingReAuth) {
 				return <Loader />
 			}

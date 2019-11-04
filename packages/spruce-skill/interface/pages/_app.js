@@ -1,6 +1,10 @@
 import React from 'react'
 import App, { Container } from 'next/app'
+import Head from 'next/head'
 import config from 'config'
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
+
 const isClient = typeof window !== 'undefined'
 if (isClient) {
 	global.log = require('@sprucelabs/log/client')
@@ -54,6 +58,16 @@ export default class MyApp extends App {
 
 		return (
 			<Container>
+				{pageProps.initialProps && pageProps.initialProps.legacyStylesheet && (
+					<Head>
+						<link
+							href={publicRuntimeConfig.SKILL_STYLESHEET}
+							rel="stylesheet"
+							type="text/css"
+							charSet="UTF-8"
+						/>
+					</Head>
+				)}
 				<Component {...pageProps} />
 			</Container>
 		)

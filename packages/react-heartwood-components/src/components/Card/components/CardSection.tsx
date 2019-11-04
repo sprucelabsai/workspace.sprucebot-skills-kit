@@ -8,7 +8,7 @@ export interface ICardSectionProps {
 	children?: React.ReactNode
 
 	/** Set to true to remove horizontal padding */
-	isFullBleed: boolean
+	isFullBleed?: boolean
 }
 
 const CardSection = (props: ICardSectionProps): React.ReactElement => {
