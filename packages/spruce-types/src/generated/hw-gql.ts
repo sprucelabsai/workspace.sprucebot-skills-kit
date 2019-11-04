@@ -366,14 +366,14 @@ export type IHWCalendarEventDetailsItem = {
 };
 
 export enum IHWCalendarEventDetailsItemType {
-  List = 'List',
-  Button = 'Button',
-  SplitButton = 'SplitButton',
-  CardBuilder = 'CardBuilder',
-  Toast = 'Toast',
-  Text = 'Text',
-  Markdown = 'Markdown',
-  UiEnhancementSection = 'UIEnhancementSection'
+  List = 'list',
+  Button = 'button',
+  SplitButton = 'splitButton',
+  CardBuilder = 'cardBuilder',
+  Toast = 'toast',
+  Text = 'text',
+  Markdown = 'markdown',
+  UiEnhancementSection = 'uiEnhancementSection'
 }
 
 export type IHWCalendarEventDetailsItemViewModel = IHWList | IHWButton | IHWCardBuilder | IHWToast | IHWText | IHWMarkdown | IHWSplitButton | IHWUiEnhancementSection;

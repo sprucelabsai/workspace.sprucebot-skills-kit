@@ -212,6 +212,8 @@ export type ICoreGQLActionCalendarJumpToPayload = {
 	calendarId: Scalars['String']
 	/** Show the selected user */
 	userId?: Maybe<Scalars['String']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 /** Pop up a confirmation */
@@ -239,6 +241,8 @@ export type ICoreGQLActionCoreRedirectPayload = {
 	route: Scalars['String']
 	/** Params for the route, like organizationId or locationId */
 	routeParams?: Maybe<Scalars['JSON']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 /** Dismiss/hide components on the page whose ID's match. */
@@ -255,6 +259,8 @@ export type ICoreGQLActionDismissComponentPayload = {
 	__typename?: 'ActionDismissComponentPayload'
 	/** Ids of the components you want to hide */
 	componentIds: Array<Scalars['String']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 /** Emit an event to your skill */
@@ -293,6 +299,8 @@ export type ICoreGQLActionEmitEventPayload = {
 	organizationId?: Maybe<Scalars['String']>
 	/** Arbitrary payload sent with the event */
 	payload?: Maybe<Scalars['JSON']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 export type ICoreGQLActionExecutor = {
@@ -321,6 +329,8 @@ export type ICoreGQLActionQuickEditUserPayload = {
 	locationId?: Maybe<Scalars['String']>
 	/** optional organizationId */
 	organizationId?: Maybe<Scalars['String']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 /** Load a skill view in a modal dialog */
@@ -355,6 +365,8 @@ export type ICoreGQLActionShowModalPayload = {
 	size?: Maybe<ICoreGQLModalSize>
 	/** Does the dialog fill the screen vertically? */
 	isFullHeight?: Maybe<Scalars['Boolean']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 /** Redirect inside of a skill view */
@@ -375,6 +387,8 @@ export type ICoreGQLActionSkillViewRedirectPayload = {
 	route: Scalars['String']
 	/** Params for the route, like organizationId or locationId */
 	routeParams?: Maybe<Scalars['JSON']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 export enum ICoreGQLActionTypes {
