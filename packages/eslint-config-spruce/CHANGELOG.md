@@ -3,6 +3,35 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.18.0...v9.0.0) (2019-11-04)
+
+**Note:** Version bump only for package eslint-config-spruce
+
+
+
+
+
+# [8.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Bug Fixes
+
+* **eslint:** Remove `browser` env from eslint config. ([26dbccb](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/26dbccb))
+* **lint:** Enforce object-shorthand rule ([cc5b0a7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc5b0a7))
+* **lint:** Get TS(X) in workspace linted correctly ([629d8e5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/629d8e5))
+
+
+### Features
+
+* allow non-camel case for permissions ([6d3d1a2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/6d3d1a2))
+* **Typescript:** Upgrade to 3.6.3 ([68f7bf8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/68f7bf8))
+* enforce PascalCase for enums ([cc3856e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc3856e))
+* update eslint-plugin to support newer version of typescript ([9790230](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9790230))
+
+
+
+
+
 ## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
 
 **Note:** Version bump only for package eslint-config-spruce
