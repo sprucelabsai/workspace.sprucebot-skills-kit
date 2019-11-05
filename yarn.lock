@@ -20436,9 +20436,9 @@ react-overlays@^0.7.0:
     prop-types-extra "^1.0.1"
     warning "^3.0.0"
 
-react-phone-number-input@sprucelabsai/react-phone-number-input#2.4.2:
+react-phone-number-input@sprucelabsai/react-phone-number-input#2.4.4:
   version "2.4.1"
-  resolved "https://codeload.github.com/sprucelabsai/react-phone-number-input/tar.gz/92b9a1a4146e3812336b5e8c40fb6b5d83828383"
+  resolved "https://codeload.github.com/sprucelabsai/react-phone-number-input/tar.gz/adde484abd730d60d16702b940fcba43d7109594"
   dependencies:
     classnames "^2.2.5"
     input-format "^0.2.2"
