@@ -20,9 +20,9 @@ const setCookie = (named, value, req, res) => {
 			secure: true,
 			httpOnly: false
 		})
-		return cookies.set(named, value)
+		return cookies.set(named, value, { sameSite: 'None' })
 	} else {
-		return ClientCookies.setItem(named, value)
+		return ClientCookies.setItem(named, value, { sameSite: 'None' })
 	}
 }
 
