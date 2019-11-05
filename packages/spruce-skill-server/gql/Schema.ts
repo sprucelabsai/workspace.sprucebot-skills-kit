@@ -3,17 +3,20 @@ import {
 	GraphQLObjectType,
 	GraphQLSchema,
 	GraphQLSchemaConfig,
-	parse,
-	extendSchema
+	parse
 } from 'graphql'
 
-import { addResolveFunctionsToSchema } from 'graphql-tools/dist/generate'
+import { mergeSchemas } from 'graphql-tools'
 
 import fs from 'fs'
 
 import helpers from './helpers'
 import { ISpruceContext } from '../interfaces/ctx'
 import config from 'config'
+import path from 'path'
+import GraphQLJSON, { GraphQLJSONObject } from 'graphql-type-json'
+// @ts-ignore
+import { GraphQLDateTime, GraphQLDate } from 'graphql-iso-date'
 
 import Debug from 'debug'
 const debug = Debug('spruce-skill-server')
@@ -28,35 +31,57 @@ export default class Schema {
 			// @ts-ignore
 			types: {}
 		}
-		const coreTypePaths = globby.sync([
-			`${__dirname}/types/**/!(index|types|_helpers).(ts|js|gql)`
-		])
-		const typePaths = globby.sync([
-			`${gqlDir}/types/**/!(index|types|_helpers).(ts|js|gql)`
-		])
-		const resolverPaths = globby.sync([
-			`${gqlDir}/resolvers/**/!(index|types|_helpers).(ts|js)`
-		])
+
+		const spruceTypesDirectory = path.dirname(
+			require.resolve('@sprucelabs/spruce-types/package.json')
+		)
+		const spruceTypes = globby.sync(
+			[
+				`${spruceTypesDirectory}/build/src/gql/types/**/!(index|types|_helpers).(js|gql)`
+			],
+			{
+				ignore: ['**/*.d.ts']
+			}
+		)
+
+		const coreTypePaths = globby.sync(
+			[`${__dirname}/types/**/!(index|types|_helpers).(ts|js|gql)`],
+			{
+				ignore: ['**/*.d.ts']
+			}
+		)
+		const typePaths = globby.sync(
+			[`${gqlDir}/types/**/!(index|types|_helpers).(ts|js|gql)`],
+			{
+				ignore: ['**/*.d.ts']
+			}
+		)
+		const coreResolverPaths = globby.sync(
+			[`${__dirname}/resolvers/**/!(index|types|_helpers).(ts|js)`],
+			{
+				ignore: ['**/*.d.ts']
+			}
+		)
+		const resolverPaths = globby.sync(
+			[`${gqlDir}/resolvers/**/!(index|types|_helpers).(ts|js)`],
+			{
+				ignore: ['**/*.d.ts']
+			}
+		)
 		let queries = {}
 		let mutations = {}
 		let subscriptions = {}
 
 		let sdl = ``
-		let allResolvers = {
+		let allResolvers: Record<string, any> = {
 			Query: {},
 			Mutation: {}
 		}
 
 		// Load GQL types first and assign to ctx.gql.types[<type name>]
-		const allTypePaths = [...coreTypePaths, ...typePaths]
+		const allTypePaths = [...spruceTypes, ...coreTypePaths, ...typePaths]
 		allTypePaths.forEach(path => {
 			debug(`checking GQL type @ ${path}`)
-
-			// TODO filter these out with globby above
-			if (path.search('.d.ts') > -1) {
-				debug('Skipping GQL .d.ts file.')
-				return true
-			}
 
 			try {
 				debug(`Importing GQL types file: ${path}`)
@@ -67,9 +92,13 @@ export default class Schema {
 				} else {
 					// eslint-disable-next-line @typescript-eslint/no-var-requires
 					const requiredType = require(path)
-					type = requiredType.default
-						? requiredType.default(ctx)
-						: requiredType(ctx)
+					if (typeof requiredType === 'function') {
+						type = requiredType(ctx)
+					} else if (typeof requiredType.default === 'function') {
+						type = requiredType.default(ctx)
+					} else {
+						type = requiredType
+					}
 				}
 
 				// @ts-ignore dynamic require
@@ -87,15 +116,15 @@ export default class Schema {
 
 				if (typeof type === 'string') {
 					sdl = `
-                            ${sdl}
-                            ${type}
-                        `
+								${sdl}
+								${type}
+							`
 				} else if (type && type.kind === 'Document') {
 					// sdl using `gql` tag
 					sdl = `
-                            ${sdl}
-                            ${type.loc.source.body}
-                        `
+								${sdl}
+								${type.loc.source.body}
+							`
 				} else if (type) {
 					// @ts-ignore
 					ctx.gql.types[name] = type
@@ -111,7 +140,8 @@ export default class Schema {
 		})
 
 		// Load resolvers which could be queries, mutations, or subscriptions
-		resolverPaths.forEach(path => {
+		const allResolverPaths = [...coreResolverPaths, ...resolverPaths]
+		allResolverPaths.forEach(path => {
 			try {
 				debug(`Importing GQL resolver file: ${path}`)
 				// eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -197,19 +227,30 @@ export default class Schema {
 
 		const longhandSchema = new GraphQLSchema(resolvers)
 
+		// Add scaler types
+		const scalerResolvers = {
+			Date: GraphQLDate,
+			DateTime: GraphQLDateTime,
+			JSON: GraphQLJSON,
+			JSONObject: GraphQLJSONObject
+		}
+		const scalerSchema = parse(`
+			scalar Date
+			scalar DateTime
+			scalar JSON
+			scalar JSONObject
+		`)
+
 		debug(`Parsing Schema Definition Language ${sdl}`)
 		const documentNode = sdl && parse(sdl)
-		const extendedSchema = documentNode
-			? extendSchema(longhandSchema, documentNode)
-			: longhandSchema
 
-		const schema =
-			Object.keys(cleanedResolvers).length === 0
-				? extendedSchema
-				: addResolveFunctionsToSchema({
-						schema: extendedSchema,
-						resolvers: cleanedResolvers
-				  })
+		const schema = mergeSchemas({
+			schemas: [scalerSchema, longhandSchema, documentNode],
+			resolvers: {
+				...scalerResolvers,
+				...cleanedResolvers
+			}
+		})
 
 		debug('Finished importing GQL files and creating schema')
 
