@@ -67,10 +67,10 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - run: npm run publish -- --exact --yes --canary --preid canary --force-publish --npm-tag v8-canary --message "%s [skip ci]" --npm-client npm --no-push --no-git-reset
-      # - run: yarn build-statics
-      # - run: yarn s3-sync-heartwood-canary
+      - run: yarn build-statics
+      - run: yarn s3-sync-heartwood-canary
       # - run: yarn s3-sync-storybook-canary
-      # - run: yarn s3-sync-stylesheets-pre
+      - run: yarn s3-sync-stylesheets-pre
   dev_release:
     docker:
       - image: circleci/python:3-node
@@ -93,10 +93,10 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
       - run: npm run publish -- --yes --force-publish --npm-tag v8-beta --message "%s [skip ci]" --npm-client npm
-      # - run: yarn build-statics
-      # - run: yarn s3-sync-heartwood-dev
+      - run: yarn build-statics
+      - run: yarn s3-sync-heartwood-dev
       # - run: yarn s3-sync-storybook-dev
-      # - run: yarn s3-sync-stylesheets-latest
+      - run: yarn s3-sync-stylesheets-pre
 workflows:
   version: 2
   do_build:
