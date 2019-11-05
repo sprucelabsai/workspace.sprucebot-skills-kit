@@ -1,4 +1,5 @@
 import {
+	IHWAction,
 	IHWCardBuilder,
 	IHWCardBuilderBody,
 	IHWCardBuilderBodyItem,
@@ -77,10 +78,14 @@ export interface ICardBuilderProps
 
 	/** so we can use directly and set our own children */
 	children?: any
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 const renderItem = (
-	item: ICardBuilderBodyItem | IHWCardBuilderBodyItem
+	item: ICardBuilderBodyItem | IHWCardBuilderBodyItem,
+	onAction?: (action: IHWAction) => any
 ): React.ReactElement => {
 	const CardBuilderKey = {
 		CardBodyButton: Button,
@@ -113,14 +118,12 @@ const renderItem = (
 		Handler({ ...viewModel })
 	) : (
 		// @ts-ignore
-		<Handler {...viewModel} />
+		<Handler {...viewModel} onAction={onAction} />
 	)
 }
 
-const CardBuilder = (
-	props: ICardBuilderProps | IHWCardBuilder
-): React.ReactElement => {
-	const { header, headerImage, body, footer, onboarding } = props
+const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
+	const { header, headerImage, body, footer, onboarding, onAction } = props
 	if (onboarding) {
 		return <OnboardingCard {...onboarding} />
 	}
@@ -161,12 +164,16 @@ const CardBuilder = (
 					isFullBleed={!!isFullBleed}
 				>
 					{children}
-					{Array.isArray(items) ? unionArray(items).map(renderItem) : items}
+					{Array.isArray(items)
+						? unionArray(items).map(item => renderItem(item, onAction))
+						: items}
 				</CardBody>
 			)}
 			{footer && (
 				<CardFooter>
-					{footer.buttonGroup && <ButtonGroup {...footer.buttonGroup} />}
+					{footer.buttonGroup && (
+						<ButtonGroup {...footer.buttonGroup} onAction={onAction} />
+					)}
 					{footer.helper && (
 						<div className={'card__footer__helper'}>{footer.helper}</div>
 					)}

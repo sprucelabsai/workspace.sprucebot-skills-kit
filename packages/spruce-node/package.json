@@ -6,7 +6,7 @@
 	"files": [
 		"build"
 	],
-	"version": "8.17.7",
+	"version": "9.0.0",
 	"main": "./build/index.js",
 	"types": "./build/index.d.ts",
 	"description": "Jam with the Sprucebot API in your favorite scripting language. 🤓",
@@ -37,7 +37,7 @@
 	"devDependencies": {
 		"add": "^2.0.6",
 		"eslint": "^5",
-		"eslint-config-spruce": "^8.17.7",
+		"eslint-config-spruce": "^9.0.0",
 		"jest": "^24.5.0",
 		"nock": "^9.1.6",
 		"prettier": "^1.13",
