@@ -22,7 +22,7 @@ module.exports = router => {
 			const role = ctx.params.role
 			const cookies = new Cookies(ctx.req, ctx.res)
 			cookies.set('devRole', role, {
-				sameSite: 'none'
+				sameSite: 'None'
 			})
 			ctx.redirect(`/${role}`)
 			await next()
