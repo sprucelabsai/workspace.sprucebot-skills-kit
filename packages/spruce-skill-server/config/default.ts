@@ -25,6 +25,7 @@ export default function SpruceConfig<
 	settingsType,
 	errorsType,
 	eventContractType,
+	UIEnhancementContractType,
 	scopesType,
 	authType = SpruceAuth
 >(baseDirectory: string) {
@@ -43,6 +44,8 @@ export default function SpruceConfig<
 	const acl = require(`${baseDirectory}/../config/acl`).default as aclType
 	const eventContract = require(`${baseDirectory}/../config/eventContract`)
 		.default as eventContractType
+	const uiEnhancementContract = require(`${baseDirectory}/../config/uiEnhancementContract`)
+		.default as UIEnhancementContractType
 
 	return {
 		/**
@@ -132,6 +135,11 @@ export default function SpruceConfig<
 		 */
 		API_GRAPHQL_SUBSCRIPTIONS_URI: process.env.API_GRAPHQL_SUBSCRIPTIONS_URI,
 		/**
+		 * 🌲🤖 Enable the UIEnhancement GQL endpoint for your skill.
+		 * Requires GRAPHQL_ENABLED to be true
+		 */
+		UI_ENHANCEMENTS_ENABLED: process.env.UI_ENHANCEMENTS_ENABLED === 'true',
+		/**
 		 * 🌲🤖 Your Skill's API key.
 		 * This should be kept secret at all times
 		 */
@@ -205,13 +213,13 @@ export default function SpruceConfig<
 		 */
 		GRAPHQL_MAX_DEPTH: process.env.GRAPHQL_MAX_DEPTH
 			? +process.env.GRAPHQL_MAX_DEPTH
-			: 10,
+			: 20,
 		/**
 		 * 🌲🤖 The maximum complexity to allow for GQL queries. Default 1500
 		 */
 		GRAPHQL_MAX_COMPLEXITY: process.env.GRAPHQL_MAX_COMPLEXITY
 			? +process.env.GRAPHQL_MAX_COMPLEXITY
-			: 1500,
+			: 2500,
 		/**
 		 * 🌲🤖 Enable Skills database
 		 * More info: https://developer.spruce.ai/#/orm
@@ -307,8 +315,15 @@ export default function SpruceConfig<
 		acl,
 		/**
 		 * 🌲🤖 Defines the events your Skill responds to
+		 * See config/eventContract.ts
 		 * https://developer.spruce.ai/#/events?id=step-1-event-contracts
 		 */
-		eventContract
+		eventContract,
+		/**
+		 * 🌲🤖 Defines UI enhancements that your skill provides and other areas it enhances
+		 * See config/uiEnhancementContract.ts
+		 * https://developer.spruce.ai/
+		 */
+		uiEnhancementContract
 	}
 }

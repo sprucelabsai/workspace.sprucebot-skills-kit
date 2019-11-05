@@ -1,8 +1,7 @@
 import { ISkillContext } from 'server/interfaces/ctx'
 import config from 'config'
 import gql from 'graphql-tag'
-import { IGQLResolvers, ISpruceContext } from '@sprucelabs/spruce-skill-server'
-import { GraphQLResolveInfo, GraphQLAbstractType } from 'graphql'
+import { IGQLResolvers } from '@sprucelabs/spruce-skill-server'
 
 /**
  * This is an example of how you can use Schema Definition Language to build your GQL API.
@@ -57,33 +56,25 @@ export default (ctx: ISkillContext) => {
 			// how you resolve a type, such as ENUM OR UNIONS
 			Model: {
 				__resolveType: (
-					result: Record<string, any>,
+					result: Record<string, any>
+					/*
 					context: ISpruceContext,
 					info: GraphQLResolveInfo,
 					returnType: GraphQLAbstractType
+					*/
 				): string => {
-					console.log(
-						'resolving union Model',
-						result,
-						context,
-						info,
-						returnType
-					)
 					return result.timezone ? 'Location' : 'User'
 				}
 			},
 			// how to resolve a property of a type
 			TestType: {
-				address: (source, args, context, info) => {
-					console.log('resolving TestType.address', source, args, context, info)
+				address: () => {
 					return 'hello world'
 				}
 			},
 			// resolving queries
 			Query: {
-				testSimpleQuery: (source, args, context, info) => {
-					console.log('testSimpleQuery', source, context, info)
-
+				testSimpleQuery: (_source, args /*, context, info*/) => {
 					const { id } = args
 
 					return [
@@ -99,8 +90,7 @@ export default (ctx: ISkillContext) => {
 				},
 				getFirstUser: ctx.gql.helpers.buildSequelizeResolver({
 					modelName: 'User',
-					before: (findOptions, args, context) => {
-						console.log('getFirstUser', findOptions, args, context)
+					before: (findOptions, _args, context) => {
 						context.scopes.getFirstUser = config.scopes.Mock.public()
 						return findOptions
 					},
@@ -112,8 +102,7 @@ export default (ctx: ISkillContext) => {
 				loadFirstLocations: ctx.gql.helpers.buildSequelizeResolver({
 					modelName: 'Location',
 					many: true,
-					before: async (findOptions, args, context) => {
-						console.log('loadFirstLocation', findOptions, args, context)
+					before: async (findOptions, _args, context) => {
 						context.scopes.loadFirstLocations = config.scopes.Mock.public()
 						return findOptions
 					},
@@ -121,11 +110,9 @@ export default (ctx: ISkillContext) => {
 						return locations
 					}
 				}),
-				loadUserOrLocation: async (source, args, context, info) => {
+				loadUserOrLocation: async (_source, args, context, info) => {
 					const { type } = args
 					let model
-
-					console.log('loadUserOrLocation', source)
 
 					if (type === 'user') {
 						model = await context.db.models.User.findOne()
@@ -151,9 +138,7 @@ export default (ctx: ISkillContext) => {
 				// updating a model, honoring scope (see sr/config/scopes.ts)
 				updateUserTest: ctx.gql.helpers.buildSequelizeResolver({
 					modelName: 'User',
-					before: async (findOptions, args, context) => {
-						console.log('updateUserTest', findOptions)
-
+					before: async (_findOptions, args, context) => {
 						const { id, firstName } = args.input
 
 						const user = await ctx.db.models.User.findOne({

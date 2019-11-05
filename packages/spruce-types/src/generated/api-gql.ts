@@ -192,6 +192,8 @@ export type ICoreGQLActionBigSearch = {
 export type ICoreGQLActionBigSearchPayload = {
 	__typename?: 'ActionBigSearchPayload'
 	roles?: Maybe<Array<Scalars['String']>>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 /** Jump to a place on the calendar */
@@ -212,6 +214,8 @@ export type ICoreGQLActionCalendarJumpToPayload = {
 	calendarId: Scalars['String']
 	/** Show the selected user */
 	userId?: Maybe<Scalars['String']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 /** Pop up a confirmation */
@@ -239,6 +243,8 @@ export type ICoreGQLActionCoreRedirectPayload = {
 	route: Scalars['String']
 	/** Params for the route, like organizationId or locationId */
 	routeParams?: Maybe<Scalars['JSON']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 /** Dismiss/hide components on the page whose ID's match. */
@@ -255,6 +261,8 @@ export type ICoreGQLActionDismissComponentPayload = {
 	__typename?: 'ActionDismissComponentPayload'
 	/** Ids of the components you want to hide */
 	componentIds: Array<Scalars['String']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 /** Emit an event to your skill */
@@ -293,6 +301,8 @@ export type ICoreGQLActionEmitEventPayload = {
 	organizationId?: Maybe<Scalars['String']>
 	/** Arbitrary payload sent with the event */
 	payload?: Maybe<Scalars['JSON']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 export type ICoreGQLActionExecutor = {
@@ -321,6 +331,8 @@ export type ICoreGQLActionQuickEditUserPayload = {
 	locationId?: Maybe<Scalars['String']>
 	/** optional organizationId */
 	organizationId?: Maybe<Scalars['String']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 /** Load a skill view in a modal dialog */
@@ -335,6 +347,8 @@ export type ICoreGQLActionShowModal = {
 /** Props passed to a modal you want to pop up when invoking this action */
 export type ICoreGQLActionShowModalPayload = {
 	__typename?: 'ActionShowModalPayload'
+	/** the skill that owns the skill view loading in the skill view */
+	slug: Scalars['String']
 	/** the destination route */
 	route: Scalars['String']
 	/** Params for the route, like organizationId or locationId */
@@ -353,6 +367,8 @@ export type ICoreGQLActionShowModalPayload = {
 	size?: Maybe<ICoreGQLModalSize>
 	/** Does the dialog fill the screen vertically? */
 	isFullHeight?: Maybe<Scalars['Boolean']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 /** Redirect inside of a skill view */
@@ -373,6 +389,8 @@ export type ICoreGQLActionSkillViewRedirectPayload = {
 	route: Scalars['String']
 	/** Params for the route, like organizationId or locationId */
 	routeParams?: Maybe<Scalars['JSON']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 export enum ICoreGQLActionTypes {
@@ -761,7 +779,8 @@ export enum ICoreGQLCalendarEventDetailsItemType {
 	CardBuilder = 'cardBuilder',
 	Toast = 'toast',
 	Text = 'text',
-	Markdown = 'markdown'
+	Markdown = 'markdown',
+	UiEnhancementSection = 'uiEnhancementSection'
 }
 
 export type ICoreGQLCalendarEventDetailsItemViewModel =
@@ -772,6 +791,7 @@ export type ICoreGQLCalendarEventDetailsItemViewModel =
 	| ICoreGQLText
 	| ICoreGQLMarkdown
 	| ICoreGQLSplitButton
+	| ICoreGQLUiEnhancementSection
 
 /** How an event will be rendered in the calendar. Each time represents a standard state of an event. */
 export enum ICoreGQLCalendarEventKind {
@@ -1026,6 +1046,8 @@ export type ICoreGQLConfirmModal = {
 	confirmButtonText?: Maybe<Scalars['String']>
 	/** If true, the confirm button will be red */
 	isDestructive?: Maybe<Scalars['Boolean']>
+	/** If this action is set as the onComplete of another action, this will hold the response from the previous action */
+	actionResponse?: Maybe<Scalars['JSON']>
 }
 
 export type ICoreGQLContextMenu = {
@@ -1620,6 +1642,12 @@ export type ICoreGQLGetSkillConnectionSettingsResponse = {
 	token: Scalars['String']
 	/** The base url for the skill. Use this to build the URL with the 'route' and 'routeParams' */
 	host: Scalars['String']
+}
+
+export type ICoreGQLGetUiEnhancementsResponse = {
+	__typename?: 'GetUIEnhancementsResponse'
+	/** The UI enhancements by section */
+	sections?: Maybe<Array<ICoreGQLUiEnhancementSection>>
 }
 
 /** A group */
@@ -3949,6 +3977,8 @@ export type ICoreGQLQuery = {
 	CalendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
 	/** Pull cards for a particular view */
 	Cards?: Maybe<Array<Maybe<ICoreGQLCardResponse>>>
+	/** Get UI enhancements for a section */
+	getUIEnhancements?: Maybe<ICoreGQLGetUiEnhancementsResponse>
 }
 
 export type ICoreGQLQueryAccessPointArgs = {
@@ -4302,6 +4332,13 @@ export type ICoreGQLQueryCardsArgs = {
 	locationId?: Maybe<Scalars['ID']>
 	organizationId: Scalars['ID']
 	useMockData?: Maybe<Scalars['Boolean']>
+}
+
+export type ICoreGQLQueryGetUiEnhancementsArgs = {
+	view: Scalars['String']
+	organizationId?: Maybe<Scalars['ID']>
+	locationId?: Maybe<Scalars['ID']>
+	payload?: Maybe<Scalars['JSON']>
 }
 
 /** The results to a search based on phone */
@@ -5316,6 +5353,18 @@ export type ICoreGQLToggle = ICoreGQLActionExecutor & {
 	postText?: Maybe<Scalars['String']>
 	/** Optional action to invoke when tapped */
 	action?: Maybe<ICoreGQLAction>
+}
+
+export type ICoreGQLUiEnhancementSection = {
+	__typename?: 'UIEnhancementSection'
+	/** The ID of the section that is acting as a placeholder for ui enhancements */
+	id: Scalars['ID']
+	/** Calendar items to add as enhancements */
+	calendarEventDetailsItems?: Maybe<Array<ICoreGQLCalendarEventDetailsItem>>
+	/** [PLACEHOLDER] Card builder items to add as enhancements */
+	cardBuilderBodyItems?: Maybe<Array<ICoreGQLCardBuilderBodyItem>>
+	/** Items to add as actions in the section context menu */
+	actions?: Maybe<Array<ICoreGQLAction>>
 }
 
 /** An unconfirmed user */

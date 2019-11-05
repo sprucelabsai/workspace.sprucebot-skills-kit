@@ -8,7 +8,7 @@ export default (ctx: ISkillContext) => {
 	if (!config.TESTING_SKILLS_KIT) {
 		return
 	}
-	new GraphQLObjectType({
+	return new GraphQLObjectType({
 		name: 'Example',
 		description: 'An example model',
 		fields: () => ({

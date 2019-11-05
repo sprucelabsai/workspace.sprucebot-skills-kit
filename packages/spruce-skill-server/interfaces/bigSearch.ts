@@ -52,7 +52,7 @@ export interface ISpruceImportFromBigSearchPayload {
 	testing: boolean
 }
 
-export interface ISpruceImportBigSearchResult
+export interface ISpruceImportBigSearchBody
 	extends Omit<ICoreGQLImportBigSearchResult, '__typename'> {}
 
 export interface ISpruceImportBigSearchMatchGroup
