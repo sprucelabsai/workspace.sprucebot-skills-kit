@@ -115,7 +115,7 @@ const renderItem = (
 		!Handler.prototype.render ? (
 		// TODO figure out why these don't pass
 		// @ts-ignore
-		Handler({ ...viewModel })
+		Handler({ ...viewModel, onAction })
 	) : (
 		// @ts-ignore
 		<Handler {...viewModel} onAction={onAction} />
