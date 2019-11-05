@@ -2,10 +2,14 @@
 	"lerna": "2.9.0",
 	"npmClient": "yarn",
 	"useWorkspaces": true,
-	"version": "8.17.7",
+	"version": "8.17.8",
 	"command": {
 		"publish": {
-			"allowBranch": ["v8", "v8-canary", "prerelease/*"],
+			"allowBranch": [
+				"v8",
+				"v8-canary",
+				"prerelease/*"
+			],
 			"conventionalCommits": true,
 			"changelogPreset": "sprucelabs"
 		}
