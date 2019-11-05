@@ -15,7 +15,8 @@ import {
 	IHWCalendarEventDetailsItem,
 	IHWAction,
 	IHWCalendarEventDetailsItemViewModel,
-	IHWMarkdown
+	IHWMarkdown,
+	IHWCalendarEventDetailsItemType
 } from '@sprucelabs/spruce-types'
 
 const MDTextContainer = (
@@ -70,31 +71,31 @@ const EventDetailsItem = (
 	let viewModelProps: ViewModel | undefined
 
 	switch (type) {
-		case 'list':
+		case IHWCalendarEventDetailsItemType.List:
 			Handler = components[type]
 			viewModelProps = viewModel as IListProps
 			break
-		case 'button':
+		case IHWCalendarEventDetailsItemType.Button:
 			Handler = components[type]
 			viewModelProps = viewModel as IButtonProps
 			break
-		case 'cardBuilder':
+		case IHWCalendarEventDetailsItemType.CardBuilder:
 			Handler = components[type]
 			viewModelProps = viewModel as ICardBuilderProps
 			break
-		case 'splitButton':
+		case IHWCalendarEventDetailsItemType.SplitButton:
 			Handler = components[type]
 			viewModelProps = viewModel as ISplitButtonProps
 			break
-		case 'text':
+		case IHWCalendarEventDetailsItemType.Text:
 			Handler = components[type]
 			viewModelProps = viewModel as ITextProps
 			break
-		case 'toast':
+		case IHWCalendarEventDetailsItemType.Toast:
 			Handler = components[type]
 			viewModelProps = viewModel as IToastProps
 			break
-		case 'markdown':
+		case IHWCalendarEventDetailsItemType.Markdown:
 			Handler = components[type]
 			viewModelProps = viewModel as IMarkdownProps
 			break

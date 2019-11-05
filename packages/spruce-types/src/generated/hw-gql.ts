@@ -374,10 +374,11 @@ export enum IHWCalendarEventDetailsItemType {
   CardBuilder = 'cardBuilder',
   Toast = 'toast',
   Text = 'text',
-  Markdown = 'markdown'
+  Markdown = 'markdown',
+  UiEnhancementSection = 'uiEnhancementSection'
 }
 
-export type IHWCalendarEventDetailsItemViewModel = IHWList | IHWButton | IHWCardBuilder | IHWToast | IHWText | IHWMarkdown | IHWSplitButton;
+export type IHWCalendarEventDetailsItemViewModel = IHWList | IHWButton | IHWCardBuilder | IHWToast | IHWText | IHWMarkdown | IHWSplitButton | IHWUiEnhancementSection;
 
 /** How an event will be rendered in the calendar. Each time represents a standard state of an event. */
 export enum IHWCalendarEventKind {
@@ -602,6 +603,12 @@ export type IHWExpandableListItem = {
   collapsedIconName?: Maybe<Scalars['String']>,
   /** Optional icon for expanded state */
   expandedIconName?: Maybe<Scalars['String']>,
+};
+
+export type IHWGetUiEnhancementsResponse = {
+  __typename?: 'GetUIEnhancementsResponse',
+  /** The UI enhancements by section */
+  sections?: Maybe<Array<IHWUiEnhancementSection>>,
 };
 
 export type IHWHeading = {
@@ -896,4 +903,16 @@ export type IHWToggle = IHWActionExecutor & {
   postText?: Maybe<Scalars['String']>,
   /** Optional action to invoke when tapped */
   action?: Maybe<IHWAction>,
+};
+
+export type IHWUiEnhancementSection = {
+  __typename?: 'UIEnhancementSection',
+  /** The ID of the section that is acting as a placeholder for ui enhancements */
+  id: Scalars['ID'],
+  /** Calendar items to add as enhancements */
+  calendarEventDetailsItems?: Maybe<Array<IHWCalendarEventDetailsItem>>,
+  /** [PLACEHOLDER] Card builder items to add as enhancements */
+  cardBuilderBodyItems?: Maybe<Array<IHWCardBuilderBodyItem>>,
+  /** Items to add as actions in the section context menu */
+  actions?: Maybe<Array<IHWAction>>,
 };
