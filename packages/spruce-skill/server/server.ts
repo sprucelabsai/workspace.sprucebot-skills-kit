@@ -86,6 +86,14 @@ setTimeout(async () => {
 		listenersDir: path.join(__dirname, 'events'),
 		middlewareDir: path.join(__dirname, 'middleware'),
 		staticDir: path.join(__dirname, 'static'),
+		cssDir: path.join(
+			__dirname,
+			'..',
+			'..',
+			'heartwood-components',
+			'public',
+			'stylesheets'
+		),
 		langDir: path.join(__dirname, '..', 'interface', 'lang'),
 		bodyParserOptions,
 		sequelizeOptions,
