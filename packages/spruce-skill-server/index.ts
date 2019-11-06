@@ -51,7 +51,6 @@ interface IServeOptions {
 	}
 	langDir: string
 	staticDir?: string
-	cssDir?: string
 	bodyParserOptions?: koaBody.IKoaBodyOptions
 	slug: string
 	logLevel: string
@@ -95,7 +94,6 @@ async function serve<ISkillContext extends ISpruceContext>(
 		sequelizeOptions,
 		langDir,
 		staticDir,
-		cssDir,
 		bodyParserOptions = { jsonLimit: '1mb' },
 		slug,
 		logLevel = 'info',
@@ -234,7 +232,6 @@ async function serve<ISkillContext extends ISpruceContext>(
 	)
 
 	staticDir && koa.use(staticServe(staticDir))
-	cssDir && koa.use(staticServe(cssDir))
 
 	const router = new Router()
 
