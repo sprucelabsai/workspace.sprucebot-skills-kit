@@ -223,8 +223,8 @@ async function serve<ISkillContext extends ISpruceContext>(
 	}
 
 	/*=======================================
-        =             	BASICS   	            =
-        =======================================*/
+	=             	BASICS   	            =
+	=======================================*/
 	koa.use(cors())
 	koa.use(
 		koaBody({
@@ -239,8 +239,8 @@ async function serve<ISkillContext extends ISpruceContext>(
 	const router = new Router()
 
 	/*=======================================
-        =        Utilities/Services/Lang        =
-        =======================================*/
+	=        Utilities/Services/Lang        =
+	=======================================*/
 	try {
 		// services for core
 		contextFactory(path.join(__dirname, 'services'), 'services', koa.context)
@@ -348,16 +348,16 @@ async function serve<ISkillContext extends ISpruceContext>(
 	}
 
 	/*======================================
-        =            	Cron	        	   =
-        ======================================*/
+	=            	Cron	        	   =
+	======================================*/
 	// @ts-ignore: variable require for cron controller
 	const cronController = require(path.join(controllersDir, 'cron'))
 	cronController({ ...koa.context, sb: sprucebot }, cron)
 	debug('CronController running')
 
 	/*======================================
-        =         	Event Listeners       	   =
-        ======================================*/
+	=         	Event Listeners       	   =
+	======================================*/
 	let listenersByEventName
 	try {
 		listenersByEventName = listenersFactory(listenersDir)
@@ -368,8 +368,8 @@ async function serve<ISkillContext extends ISpruceContext>(
 	}
 
 	/*=========================================
-        =            	Middleware	              =
-        =========================================*/
+	=            	Middleware	              =
+	=========================================*/
 	koa.use(async (ctx, next) => {
 		// make Sprucebot available
 		ctx.sb = sprucebot
@@ -405,8 +405,8 @@ async function serve<ISkillContext extends ISpruceContext>(
 	})
 
 	/*======================================
-        =         	Core/Kit Middleware.       =
-        ======================================*/
+	=         	Core/Kit Middleware.       =
+	======================================*/
 	try {
 		// build-in
 		waresFactory(path.join(__dirname, 'middleware'), router, {
@@ -452,8 +452,8 @@ async function serve<ISkillContext extends ISpruceContext>(
 	})
 
 	/*======================================
-        =          Server Side Routes          =
-        ======================================*/
+	=          Server Side Routes          =
+	======================================*/
 	try {
 		// built-in routes
 		routesFactory(path.join(__dirname, 'controllers'), router, {
@@ -473,8 +473,8 @@ async function serve<ISkillContext extends ISpruceContext>(
 	}
 
 	/*======================================
-        =          Client Side Routes          =
-        ======================================*/
+	=          Client Side Routes          =
+	======================================*/
 
 	// The logic before handle() is to suppress nextjs from responding and letting koa finish the request
 	// This allows our middleware to fire even after
