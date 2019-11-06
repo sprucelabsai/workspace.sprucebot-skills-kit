@@ -30,7 +30,7 @@ export interface ICoreRescheduleCalendarEventPayload {
 /** 🌲🤖 Core event "reschedule-calendar-event" expected response on ctx.body */
 export interface ICoreRescheduleCalendarEventEventBody {
 	/** Whether the operation succeeded or failed */
-	status?: 'success' | 'failure'
+	status: 'success' | 'failure'
 
 	/** The calendar events to update */
 	updateCalendarEvents?: IHWCalendarEvent[]
