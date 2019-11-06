@@ -4509,8 +4509,12 @@ export type ICoreGQLRescheduleCalendarEventResponse = {
 	__typename?: 'RescheduleCalendarEventResponse'
 	/** Will be 'success' or 'failure' */
 	status: Scalars['String']
-	/** The updated calendar event */
-	calendarEvent?: Maybe<ICoreGQLCalendarEvent>
+	/** The updated calendar events */
+	updateCalendarEvents?: Maybe<Array<ICoreGQLCalendarEvent>>
+	/** The calendar events to add */
+	addCalendarEvents?: Maybe<Array<ICoreGQLCalendarEvent>>
+	/** The calendar event ids to remove */
+	removeCalendarEventIds?: Maybe<Array<Scalars['String']>>
 	/** Details if an error occurs */
 	error?: Maybe<ICoreGQLEventError>
 	/** Assuming the reschedule was successful but with warnings, this array will be populated with those warnings. */
