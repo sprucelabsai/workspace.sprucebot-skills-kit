@@ -16,6 +16,12 @@ export type Scalars = {
 	/** A special custom Scalar type for Dates that converts to a ISO formatted string  */
 	Date: any
 	/**
+	 * A date string, such as 2007-12-03, compliant with the `full-date` format
+	 * outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for
+	 * representation of dates and times using the Gregorian calendar.
+	 **/
+	GraphQLDate: any
+	/**
 	 * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
 	 * `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
 	 * 8601 standard for representation of dates and times using the Gregorian calendar.
@@ -166,225 +172,6 @@ export type ICoreGQLAclDefaults = {
 	teammate: Scalars['Boolean']
 	/** The permission default for guest */
 	guest: Scalars['Boolean']
-}
-
-export type ICoreGQLAction =
-	| ICoreGQLActionCoreRedirect
-	| ICoreGQLActionSkillViewRedirect
-	| ICoreGQLActionConfirm
-	| ICoreGQLActionShowModal
-	| ICoreGQLActionEmitEvent
-	| ICoreGQLActionBigSearch
-	| ICoreGQLActionQuickEditUser
-	| ICoreGQLActionDismissComponent
-	| ICoreGQLActionCalendarJumpTo
-
-/** Pop up big search */
-export type ICoreGQLActionBigSearch = {
-	__typename?: 'ActionBigSearch'
-	type?: Maybe<ICoreGQLActionTypes>
-	payload: ICoreGQLActionBigSearchPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
-}
-
-/** Bring up big search with the specific roles (teammate, guest, manager, groupManager, owner) */
-export type ICoreGQLActionBigSearchPayload = {
-	__typename?: 'ActionBigSearchPayload'
-	roles?: Maybe<Array<Scalars['String']>>
-}
-
-/** Jump to a place on the calendar */
-export type ICoreGQLActionCalendarJumpTo = {
-	__typename?: 'ActionCalendarJumpTo'
-	type?: Maybe<ICoreGQLActionTypes>
-	payload: ICoreGQLActionCalendarJumpToPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
-}
-
-/** control the calendar if you are on a page with a calendar */
-export type ICoreGQLActionCalendarJumpToPayload = {
-	__typename?: 'ActionCalendarJumpToPayload'
-	/** Which day and time to focus */
-	dateTime: Scalars['Date']
-	/** Make sure the right calendar is selected */
-	calendarId: Scalars['String']
-	/** Show the selected user */
-	userId?: Maybe<Scalars['String']>
-}
-
-/** Pop up a confirmation */
-export type ICoreGQLActionConfirm = {
-	__typename?: 'ActionConfirm'
-	type?: Maybe<ICoreGQLActionTypes>
-	payload: ICoreGQLConfirmModal
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
-}
-
-/** Redirect a user in the main viewport (browser or native mobile) */
-export type ICoreGQLActionCoreRedirect = {
-	__typename?: 'ActionCoreRedirect'
-	type?: Maybe<ICoreGQLActionTypes>
-	payload: ICoreGQLActionCoreRedirectPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
-}
-
-/** payload used for core redirect */
-export type ICoreGQLActionCoreRedirectPayload = {
-	__typename?: 'ActionCoreRedirectPayload'
-	/** the destination route */
-	route: Scalars['String']
-	/** Params for the route, like organizationId or locationId */
-	routeParams?: Maybe<Scalars['JSON']>
-}
-
-/** Dismiss/hide components on the page whose ID's match. */
-export type ICoreGQLActionDismissComponent = {
-	__typename?: 'ActionDismissComponent'
-	type?: Maybe<ICoreGQLActionTypes>
-	payload: ICoreGQLActionDismissComponentPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
-}
-
-/** Dismiss a component by it's ID */
-export type ICoreGQLActionDismissComponentPayload = {
-	__typename?: 'ActionDismissComponentPayload'
-	/** Ids of the components you want to hide */
-	componentIds: Array<Scalars['String']>
-}
-
-/** Emit an event to your skill */
-export type ICoreGQLActionEmitEvent = {
-	__typename?: 'ActionEmitEvent'
-	type?: Maybe<ICoreGQLActionTypes>
-	payload: ICoreGQLActionEmitEventPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
-}
-
-export type ICoreGQLActionEmitEventInput = {
-	type: Scalars['String']
-	payload: ICoreGQLActionEmitEventInputPayload
-}
-
-export type ICoreGQLActionEmitEventInputPayload = {
-	/** Name of the event, like 'booking:update-appointment' */
-	eventName: Scalars['String']
-	/** optional location id */
-	locationId?: Maybe<Scalars['String']>
-	/** optional organizationId */
-	organizationId?: Maybe<Scalars['String']>
-	/** Arbitrary payload sent with the event */
-	payload?: Maybe<Scalars['JSON']>
-}
-
-/** Emit an event to your skill when this action is invoked */
-export type ICoreGQLActionEmitEventPayload = {
-	__typename?: 'ActionEmitEventPayload'
-	/** Name of the event, like 'booking:update-appointment' */
-	eventName?: Maybe<Scalars['String']>
-	/** optional location id */
-	locationId?: Maybe<Scalars['String']>
-	/** optional organizationId */
-	organizationId?: Maybe<Scalars['String']>
-	/** Arbitrary payload sent with the event */
-	payload?: Maybe<Scalars['JSON']>
-}
-
-export type ICoreGQLActionExecutor = {
-	action?: Maybe<ICoreGQLAction>
-	id: Scalars['ID']
-}
-
-/** Pop up dialog to edit the user */
-export type ICoreGQLActionQuickEditUser = {
-	__typename?: 'ActionQuickEditUser'
-	type?: Maybe<ICoreGQLActionTypes>
-	payload: ICoreGQLActionQuickEditUserPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
-}
-
-/**
- * Pop up quick edit to update a user record. You have to have permission and
- * should pass location and organization unelss you are editing yourself
- **/
-export type ICoreGQLActionQuickEditUserPayload = {
-	__typename?: 'ActionQuickEditUserPayload'
-	/** The id of the user */
-	userId: Scalars['String']
-	/** optional location id */
-	locationId?: Maybe<Scalars['String']>
-	/** optional organizationId */
-	organizationId?: Maybe<Scalars['String']>
-}
-
-/** Load a skill view in a modal dialog */
-export type ICoreGQLActionShowModal = {
-	__typename?: 'ActionShowModal'
-	type?: Maybe<ICoreGQLActionTypes>
-	payload: ICoreGQLActionShowModalPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
-}
-
-/** Props passed to a modal you want to pop up when invoking this action */
-export type ICoreGQLActionShowModalPayload = {
-	__typename?: 'ActionShowModalPayload'
-	/** the destination route */
-	route: Scalars['String']
-	/** Params for the route, like organizationId or locationId */
-	routeParams?: Maybe<Scalars['JSON']>
-	/** Title of the dialog */
-	title: Scalars['String']
-	/** Drop a primary action button into the footer */
-	footerPrimaryActionText?: Maybe<Scalars['String']>
-	/** Drop in a secondary action into the footer, only works if primary action is also set */
-	footerSecondaryActionText?: Maybe<Scalars['String']>
-	/** Does the primary action button start off disabled? */
-	isDialogFooterPrimaryActionDisabled?: Maybe<Scalars['Boolean']>
-	/** Does the secondary action button start off disabled? */
-	isDialogFooterSecondaryActionDisabled?: Maybe<Scalars['Boolean']>
-	/** How does the dialog size itself width wise? */
-	size?: Maybe<ICoreGQLModalSize>
-	/** Does the dialog fill the screen vertically? */
-	isFullHeight?: Maybe<Scalars['Boolean']>
-}
-
-/** Redirect inside of a skill view */
-export type ICoreGQLActionSkillViewRedirect = {
-	__typename?: 'ActionSkillViewRedirect'
-	type?: Maybe<ICoreGQLActionTypes>
-	payload: ICoreGQLActionSkillViewRedirectPayload
-	onComplete?: Maybe<ICoreGQLAction>
-	onCancel?: Maybe<ICoreGQLAction>
-}
-
-/** payload used when redirecting a skill view */
-export type ICoreGQLActionSkillViewRedirectPayload = {
-	__typename?: 'ActionSkillViewRedirectPayload'
-	/** the skill slug to redirect to */
-	slug: Scalars['String']
-	/** the destination route */
-	route: Scalars['String']
-	/** Params for the route, like organizationId or locationId */
-	routeParams?: Maybe<Scalars['JSON']>
-}
-
-export enum ICoreGQLActionTypes {
-	CoreRedirect = 'CoreRedirect',
-	SkillViewRedirect = 'SkillViewRedirect',
-	Confirm = 'Confirm',
-	ShowModal = 'ShowModal',
-	EmitEvent = 'EmitEvent',
-	BigSearch = 'BigSearch',
-	QuickEditUser = 'QuickEditUser',
-	DismissComponent = 'DismissComponent',
-	CalendarJumpTo = 'CalendarJumpTo'
 }
 
 /** values needed to add a dashboard card */
@@ -620,65 +407,35 @@ export type ICoreGQLBigSearchSectionResultsPageInfo = {
 	endCursor?: Maybe<Scalars['String']>
 }
 
-export type ICoreGQLButton = ICoreGQLActionExecutor & {
+/** The actions a user may take */
+export type ICoreGQLButton = {
 	__typename?: 'Button'
-	/** Unique ID for rendering in lists */
-	id: Scalars['ID']
-	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution. */
-	kind?: Maybe<ICoreGQLButtonKinds>
-	/** Set true to make the button less tall. */
+	/** A unique key for this element relative to the card it's rendered in */
+	key: Scalars['String']
+	/** Optional class to add to the button */
+	className?: Maybe<Scalars['String']>
+	/** Sets the visual appearance of the button. May be primary, secondary, simple, or caution */
+	kind?: Maybe<Scalars['String']>
+	/** Set true to make the button less tall */
 	isSmall?: Maybe<Scalars['Boolean']>
-	/** Set true to make the button fill its parent's width. */
+	/** Set true to make the button fill its parent's width */
 	isFullWidth?: Maybe<Scalars['Boolean']>
-	/** Set true to hide any text or icon in the button and show a loader instead. */
+	/** Set true to hide any text or icon in the button and show a loader instead */
 	isLoading?: Maybe<Scalars['Boolean']>
-	/** Set true to hide any text in the button. Text should still be provided for accessibility. */
+	/** Set true to hide any text in the button. Text should still be provided for accessibility */
 	isIconOnly?: Maybe<Scalars['Boolean']>
-	/** Text for the button. */
-	text?: Maybe<Scalars['String']>
-	/** Will render a link. May be relative or absolute. */
+	/** Text for the button */
+	text: Scalars['String']
+	/** Will render a link. May be relative or absolute */
 	href?: Maybe<Scalars['String']>
-	/** Icon for the button. */
+	/** Icon for the button */
 	icon?: Maybe<ICoreGQLIcon>
 	/** Type attribute for HTML button element. Defaults to 'button'. */
-	type?: Maybe<ICoreGQLButtonTypes>
-	/** Set true to disable the button */
-	isDisabled?: Maybe<Scalars['Boolean']>
-	/** Optional action to invoke when tapped */
-	action?: Maybe<ICoreGQLAction>
-}
-
-export type ICoreGQLButtonGroup = {
-	__typename?: 'ButtonGroup'
-	/** Array of actions to render the group's buttons. */
-	actions?: Maybe<Array<ICoreGQLButton>>
-	/** Visual appearance of the group. */
-	kind?: Maybe<ICoreGQLButtonGroupKind>
-	/** Set true to fill parent width */
-	isFullWidth?: Maybe<Scalars['Boolean']>
-	/** Optional: Index of the button that is currently highlighted, e.g. by arrow keys */
-	highlightedIndex?: Maybe<Scalars['Int']>
-}
-
-export enum ICoreGQLButtonGroupKind {
-	Default = 'default',
-	Segmented = 'segmented',
-	Floating = 'floating'
-}
-
-/** How an action is rendered is impacted by the kind of action it is */
-export enum ICoreGQLButtonKinds {
-	Primary = 'primary',
-	Secondary = 'secondary',
-	Simple = 'simple',
-	Caution = 'caution'
-}
-
-/** Type of button */
-export enum ICoreGQLButtonTypes {
-	Button = 'button',
-	Submit = 'submit',
-	Reset = 'reset'
+	type?: Maybe<Scalars['String']>
+	/** The target of the link out. */
+	target?: Maybe<Scalars['String']>
+	payload?: Maybe<Scalars['JSON']>
+	props?: Maybe<Scalars['JSON']>
 }
 
 /** A Calendar */
@@ -688,235 +445,320 @@ export type ICoreGQLCalendar = {
 	id: Scalars['ID']
 	/** The name of the calendar (i.e. appointments) */
 	name: Scalars['String']
+	/** The skill the calendar belongs too */
+	Skill: ICoreGQLSkill
 	/** Optionally a calendar can have actions to create new events */
-	createActions?: Maybe<Array<ICoreGQLCreateCalendarAction>>
+	createActions?: Maybe<ICoreGQLCreateCalendarActions>
 }
 
-/** An event that is rendered on the calendar. */
+/** For debugging */
+export type ICoreGQLCalendarDebugInputType = {
+	/** If set, will generate random events and respond instead of using real data. */
+	useMockData: Scalars['Boolean']
+	/** The number of days to span +/- today. Default is 7 days, a week in the past and a week in the future. */
+	numDays?: Maybe<Scalars['Int']>
+	/** The number of total events to randomly place within the day span */
+	numEvents?: Maybe<Scalars['Int']>
+}
+
+/** A Calendar event */
 export type ICoreGQLCalendarEvent = {
 	__typename?: 'CalendarEvent'
-	/** Id of the calendar event */
+	/** The unique identifier for a Calendar Event */
 	id: Scalars['ID']
-	/** When the event starts ISO */
-	startAt: Scalars['DateTime']
-	/**
-	 * A way to arbitarily bundle appointments. Events with the same collection are
-	 * all highlighted at the same time in the calendar
-	 **/
-	collection?: Maybe<Scalars['String']>
-	/** Can this event be resized on the calendar? */
-	isResizable?: Maybe<Scalars['Boolean']>
-	/** The kind on an event impacts its color */
-	kind?: Maybe<ICoreGQLCalendarEventKind>
-	/** A calendar is comprised of blocks of time. You need at least 1 block to have a valid event. */
-	blocks: Array<ICoreGQLCalendarEventBlock>
-	/** Additioal details shown after someone taps on an event */
+	/** The start date/time of the event */
+	startAt?: Maybe<Scalars['DateTime']>
+	/** The class name to apply to the event */
+	className?: Maybe<Scalars['String']>
+	/** If events should be grouped together, give them the same group ID and they will both highlight on click. */
+	eventGroupId: Scalars['String']
+	/** Can we resize this event? */
+	resizable?: Maybe<Scalars['Boolean']>
+	/** Describes the state of this event (busy, past, warn, critical, etc.) */
+	kind?: Maybe<ICoreGQLKind>
+	/** The end date/time of the event */
+	blocks?: Maybe<Array<Maybe<ICoreGQLCalendarEventBlock>>>
+	/** Details rendered in the right column on click */
 	details?: Maybe<ICoreGQLCalendarEventDetails>
-	/** The ID of the user this event will render under */
-	userId: Scalars['ID']
-	/** If this is a draft event (meaning it's not booked, but being setup) */
-	isDraft?: Maybe<Scalars['Boolean']>
-	/** Should I render a border for this event? */
-	hasBorder?: Maybe<Scalars['Boolean']>
+	/** The user this event applies to */
+	UserId: Scalars['ID']
 }
 
-/** A block of time that comprises a calendar. */
 export type ICoreGQLCalendarEventBlock = {
 	__typename?: 'CalendarEventBlock'
-	/** An optional identifier for this block */
-	id?: Maybe<Scalars['ID']>
-	/** Any title rendered on the event */
-	title?: Maybe<Scalars['String']>
-	/** Displayed right under the title */
+	/** The unique identifier for this event block */
+	id: Scalars['ID']
+	/** The title for this block */
+	title: Scalars['String']
+	/** Subtitle for this block */
 	subtitle?: Maybe<Scalars['String']>
-	/** How long this block is for, in seconds */
-	durationSec: Scalars['Int']
-	/** An array of icons show on the left of the calendar event */
-	leftIcons?: Maybe<Array<ICoreGQLIcon>>
-	/** An array of icons shown on the right of the calendar event */
-	rightIcons?: Maybe<Array<ICoreGQLIcon>>
-	/** Is the person tied to this event busy during this time? */
-	isBusy?: Maybe<Scalars['Boolean']>
+	/** The duration of this block, in seconds */
+	durationSec?: Maybe<Scalars['Int']>
+	/** Any icons that will show on the right of the event */
+	rightIcons?: Maybe<Array<Maybe<ICoreGQLIcon>>>
+	/** Any icons that will show on the right of the event */
+	leftIcons?: Maybe<Array<Maybe<ICoreGQLIcon>>>
+	/** Any icons that will show on the right of the event */
+	markAsBusy?: Maybe<Scalars['Boolean']>
 }
 
-/** The additional details attached to an event. Rendered after someone taps on an event in the calendar */
+/** Details for a calendar event */
 export type ICoreGQLCalendarEventDetails = {
 	__typename?: 'CalendarEventDetails'
-	items: Array<ICoreGQLCalendarEventDetailsItem>
+	/** The unique identifier for a Calendar */
+	header?: Maybe<ICoreGQLCardBodyHeader>
+	/** The name of the calendar (i.e. appointments) */
+	kind: Scalars['String']
+	/** The skill the calendar belongs too */
+	list: ICoreGQLList
+	/** The skill the calendar belongs too */
+	footer?: Maybe<ICoreGQLCardBodyFooter>
 }
 
-/** Control the rendering of the list item */
-export type ICoreGQLCalendarEventDetailsItem = {
-	__typename?: 'CalendarEventDetailsItem'
-	/** How the view should be rendered */
-	type: ICoreGQLCalendarEventDetailsItemType
-	/** The data fed into the view to configure it. */
-	viewModel: ICoreGQLCalendarEventDetailsItemViewModel
+/** An action (button) for a Card Body */
+export type ICoreGQLCardBodyButton = ICoreGQLCardBodyProps & {
+	__typename?: 'CardBodyButton'
+	/** A unique key for this element relative to the card it's rendered in */
+	key: Scalars['String']
+	/** Array of actions (buttons) */
+	actions?: Maybe<Array<Maybe<ICoreGQLButton>>>
+	/** This must be of type "button" */
+	type: Scalars['String']
+	/** Extra props for rendering on web */
+	props?: Maybe<Scalars['JSON']>
 }
 
-export enum ICoreGQLCalendarEventDetailsItemType {
-	List = 'list',
-	Button = 'button',
-	SplitButton = 'splitButton',
-	CardBuilder = 'cardBuilder',
-	Toast = 'toast',
-	Text = 'text',
-	Markdown = 'markdown'
+/** The interface for all valid card types on the platform. */
+export type ICoreGQLCardBodyChildren =
+	| ICoreGQLCardBodyText
+	| ICoreGQLCardBodyList
+	| ICoreGQLCardBodyScores
+	| ICoreGQLCardBodyImage
+	| ICoreGQLCardBodyButton
+	| ICoreGQLCardBodyHeading
+
+/** A simple heading for a Card Body */
+export type ICoreGQLCardBodyFooter = {
+	__typename?: 'CardBodyFooter'
+	/** The single button rendered in footer */
+	primaryCTA: ICoreGQLButton
 }
 
-export type ICoreGQLCalendarEventDetailsItemViewModel =
-	| ICoreGQLList
-	| ICoreGQLButton
-	| ICoreGQLCardBuilder
-	| ICoreGQLToast
-	| ICoreGQLText
-	| ICoreGQLMarkdown
-	| ICoreGQLSplitButton
-
-/** How an event will be rendered in the calendar. Each time represents a standard state of an event. */
-export enum ICoreGQLCalendarEventKind {
-	/** How a calendar event renders by default. */
-	Default = 'default',
-	/** If an event is not confirmed. */
-	Tentative = 'tentative',
-	/** When an event is happening right now */
-	Active = 'active',
-	/** If the event represents a time when the person is not available for additional events (usually matches isBusy) */
-	Unavailable = 'unavailable',
-	/** If the event represents a time where the user us unavailable (break or block) */
-	Blocked = 'blocked',
-	/** The event is ready to go, everyone has confirmed, it just hasn't happened yet */
-	Upcoming = 'upcoming',
-	/** If the event is in the past */
-	Past = 'past',
-	/** The user should pay attention to this event (maybe the event is unconfirmed and starting in 30 minutes!) */
-	Warn = 'warn',
-	/** Renders the event in red (the event could have already started but attendees have not confirmed) */
-	Critical = 'critical'
-}
-
-export type ICoreGQLCalendarEventStreamResponse = {
-	__typename?: 'CalendarEventStreamResponse'
-	type?: Maybe<ICoreGQLCalendarEventStreamType>
-	CalendarEvent?: Maybe<ICoreGQLCalendarEvent>
-}
-
-export enum ICoreGQLCalendarEventStreamType {
-	Create = 'Create',
-	Update = 'Update',
-	Delete = 'Delete'
-}
-
-/** The builder for all things cards */
-export type ICoreGQLCardBuilder = {
-	__typename?: 'CardBuilder'
-	/** The id of the used for view caching */
-	id: Scalars['ID']
-	/** Card Header props */
-	header?: Maybe<ICoreGQLCardHeader>
-	/** optionally pass props to an image tag to be rendered in the header */
-	headerImage?: Maybe<ICoreGQLImage>
-	/** all onboarding props */
-	onboarding?: Maybe<ICoreGQLOnboardingCard>
-	/** Card Body props */
-	body?: Maybe<ICoreGQLCardBuilderBody>
-	/** The footer of the card */
-	footer?: Maybe<ICoreGQLCardFooter>
-}
-
-/** The body of the card builder */
-export type ICoreGQLCardBuilderBody = {
-	__typename?: 'CardBuilderBody'
-	/** Children to show in the Card */
-	items: Array<ICoreGQLCardBuilderBodyItem>
-	/** Whether to wrap children in CardSection */
-	isSectioned?: Maybe<Scalars['Boolean']>
-	/** Set true to display line separators between CardSection components */
-	areSectionSeparatorsVisible?: Maybe<Scalars['Boolean']>
-	/** Does card include top padding */
-	hasTopPadding?: Maybe<Scalars['Boolean']>
-	/** Does card include bottom padding */
-	hasBottomPadding?: Maybe<Scalars['Boolean']>
-	/** Set to true to remove horizontal padding */
-	isFullBleed?: Maybe<Scalars['Boolean']>
-}
-
-export type ICoreGQLCardBuilderBodyItem = {
-	__typename?: 'CardBuilderBodyItem'
-	/** The type of ui component to use */
-	type: ICoreGQLCardBuilderBodyItemType
-	/** The view model that renders the UI */
-	viewModel: ICoreGQLCardBuilderBodyItemViewModel
-}
-
-export enum ICoreGQLCardBuilderBodyItemType {
-	Button = 'button',
-	Image = 'image',
-	Heading = 'heading',
-	Text = 'text',
-	ScoreCard = 'scoreCard',
-	Toast = 'toast',
-	List = 'list'
-}
-
-export type ICoreGQLCardBuilderBodyItemViewModel =
-	| ICoreGQLButton
-	| ICoreGQLImage
-	| ICoreGQLHeading
-	| ICoreGQLText
-	| ICoreGQLScoreCard
-	| ICoreGQLToast
-	| ICoreGQLList
-
-/** The footer of the card */
-export type ICoreGQLCardBuilderFooter = {
-	__typename?: 'CardBuilderFooter'
-	/** Render buttons in the Card Footer */
-	buttonGroup?: Maybe<ICoreGQLButtonGroup>
-	/** Helper for the footer */
-	helper?: Maybe<Scalars['String']>
-}
-
-/** The footer component of a card */
-export type ICoreGQLCardFooter = {
-	__typename?: 'CardFooter'
-	/** Button group that is can be rendered in the footer */
-	buttonGroup?: Maybe<ICoreGQLButtonGroup>
-	/** Any help text you'd like rendered in the footer */
-	helper?: Maybe<Scalars['String']>
-}
-
-/** Header of a card */
-export type ICoreGQLCardHeader = {
-	__typename?: 'CardHeader'
-	/** Title for the card */
-	title?: Maybe<Scalars['String']>
-	/** Optional label to show above title */
-	labelText?: Maybe<Scalars['String']>
-	/** Optional icon to show above the title and before the label */
-	labelIcon?: Maybe<ICoreGQLIcon>
-	/** Render buttons in the Card Header */
-	actions?: Maybe<Array<ICoreGQLButton>>
-	/** Renders a Context Menu in the Card Header */
+/** The header for the event details  */
+export type ICoreGQLCardBodyHeader = {
+	__typename?: 'CardBodyHeader'
+	/** The label rendered above the title in the header */
+	label: Scalars['String']
+	/** The header's title */
+	title: Scalars['String']
+	/** The header subtitle */
 	contextMenu?: Maybe<ICoreGQLContextMenu>
 }
 
-export type ICoreGQLCardResponse = {
-	__typename?: 'CardResponse'
-	/** Unique id per skill for this card */
-	id: Scalars['ID']
-	/** The title of this card for rendering card Drawer */
+/** A simple heading for a Card Body */
+export type ICoreGQLCardBodyHeading = ICoreGQLCardBodyProps & {
+	__typename?: 'CardBodyHeading'
+	/** A unique key for this element relative to the card it's rendered in */
+	key: Scalars['String']
+	/** The header title */
+	title: Scalars['String']
+	/** The header subtitle */
+	subtitle?: Maybe<Scalars['String']>
+	/** This must be of type "heading" */
+	type: Scalars['String']
+	/** Extra props for rendering on web */
+	props?: Maybe<Scalars['JSON']>
+}
+
+/** An image for a Card Body */
+export type ICoreGQLCardBodyImage = ICoreGQLCardBodyProps & {
+	__typename?: 'CardBodyImage'
+	/** A unique key for this element relative to the card it's rendered in */
+	key: Scalars['String']
+	/** The image's url */
+	src: Scalars['String']
+	/** "hero" or "avatar" */
+	style: Scalars['String']
+	/** This must be of type "image" */
+	type: Scalars['String']
+	/** The width of the image */
+	width?: Maybe<Scalars['String']>
+	/** The height of the image */
+	height?: Maybe<Scalars['String']>
+	/** Extra props for rendering on web */
+	props?: Maybe<Scalars['JSON']>
+}
+
+/** A list of items for a Card Body */
+export type ICoreGQLCardBodyList = ICoreGQLCardBodyProps & {
+	__typename?: 'CardBodyList'
+	/** A unique key for this element relative to the card it's rendered in */
+	key: Scalars['String']
+	/** The list items */
+	items: Array<Maybe<ICoreGQLCardBodyListItem>>
+	/** Heading that goes above the list */
+	heading?: Maybe<ICoreGQLCardBodyHeading>
+	/** This must be of type "list" */
+	type: Scalars['String']
+	/** Extra props for rendering on web */
+	props?: Maybe<Scalars['JSON']>
+}
+
+/** A list item for a Card Body List */
+export type ICoreGQLCardBodyListItem = {
+	__typename?: 'CardBodyListItem'
+	/** The unique key for the list item */
+	key: Scalars['String']
+	/** The list item title */
+	title: Scalars['String']
+	/** The list item subtitle */
+	subtitle?: Maybe<Scalars['String']>
+	/** Url to avatar to render */
+	avatar?: Maybe<Scalars['String']>
+	/** The list item image */
+	image?: Maybe<ICoreGQLCardBodyListItemImage>
+	/** Array of actions (buttons) */
+	actions?: Maybe<Array<Maybe<ICoreGQLButton>>>
+	/** Array of actions for a context menu */
+	contextMenu?: Maybe<ICoreGQLContextMenu>
+	/** Extra props for rendering on web */
+	props?: Maybe<Scalars['JSON']>
+}
+
+export type ICoreGQLCardBodyListItemImage = ICoreGQLIcon | ICoreGQLCardImage
+
+export type ICoreGQLCardBodyProps = {
+	props?: Maybe<Scalars['JSON']>
+	type?: Maybe<Scalars['String']>
+}
+
+/** A score item for a Card Body Score collection */
+export type ICoreGQLCardBodyScore = {
+	__typename?: 'CardBodyScore'
+	/** The score's unique id */
+	key: Scalars['String']
+	/** The score's label */
+	label: Scalars['String']
+	/** The score value */
+	value: Scalars['String']
+	/** Extra props for rendering on web */
+	props?: Maybe<Scalars['JSON']>
+}
+
+/** A collection of scores for a Card Body */
+export type ICoreGQLCardBodyScores = ICoreGQLCardBodyProps & {
+	__typename?: 'CardBodyScores'
+	/** A unique key for this element relative to the card it's rendered in */
+	key: Scalars['String']
+	/** An array of scores [key, label, value, props] */
+	scores: Array<Maybe<ICoreGQLCardBodyScore>>
+	/** This must be of type "scores" */
+	type: Scalars['String']
+	/** Extra props for rendering on web */
+	props?: Maybe<Scalars['JSON']>
+}
+
+/** Text for a Card Body */
+export type ICoreGQLCardBodyText = ICoreGQLCardBodyProps & {
+	__typename?: 'CardBodyText'
+	/** A unique key for this element relative to the card it's rendered in */
+	key: Scalars['String']
+	/** The body text */
+	text: Scalars['String']
+	/** This must be of type "text" */
+	type: Scalars['String']
+	/** Extra props for rendering on web */
+	props?: Maybe<Scalars['JSON']>
+}
+
+/** The body of a card */
+export type ICoreGQLCardBodyType = {
+	__typename?: 'CardBodyType'
+	/** Is the card body rendered in sections (Default: true) */
+	isSectioned?: Maybe<Scalars['Boolean']>
+	/** The child elements rendered in the body */
+	children: Array<Maybe<ICoreGQLCardBodyChildren>>
+}
+
+/** The layout of a card */
+export type ICoreGQLCardBuilder = {
+	__typename?: 'CardBuilder'
+	/** The header for the card layout */
+	header?: Maybe<ICoreGQLCardHeader>
+	/** Ability to drop in a header image in place of the default header */
+	headerImage?: Maybe<ICoreGQLCardImage>
+	/** Building an onboarding card? Set your steps here */
+	onboarding?: Maybe<ICoreGQLOnboardingCard>
+	/** The content for the main area of the card that contains many bodies */
+	body?: Maybe<ICoreGQLCardBodyType>
+	/** The footer layout of the card */
+	footer?: Maybe<ICoreGQLCardFooterActions>
+}
+
+/** The actions a user may take in the footer */
+export type ICoreGQLCardFooterActions = {
+	__typename?: 'CardFooterActions'
+	/** Array of actions (buttons) */
+	actions?: Maybe<Array<Maybe<ICoreGQLButton>>>
+}
+
+/** The header area of a card */
+export type ICoreGQLCardHeader = {
+	__typename?: 'CardHeader'
+	/** The header title */
 	title?: Maybe<Scalars['String']>
-	/** The page this card wants to rendered on */
+	/** The header icon */
+	labelText?: Maybe<Scalars['String']>
+	/** The header icon */
+	labelIcon?: Maybe<ICoreGQLIcon>
+	/** Header actions */
+	actions?: Maybe<Array<Maybe<ICoreGQLButton>>>
+	/** Context menu actions */
+	contextMenu?: Maybe<ICoreGQLContextMenu>
+}
+
+/** An image to be place into a Card */
+export type ICoreGQLCardImage = {
+	__typename?: 'CardImage'
+	/** The url of the image to be used */
+	src: Scalars['String']
+	/** The width of the image to prevent layout trashing */
+	width: Scalars['String']
+	/** The height of the image to prevent layout trashing */
+	height: Scalars['String']
+	/** "rounded" or "avatar" */
+	style?: Maybe<Scalars['String']>
+	/** The props to be placed on the image tag */
+	props?: Maybe<Scalars['JSON']>
+}
+
+/** A standard card */
+export type ICoreGQLCardResponseType = {
+	__typename?: 'CardResponseType'
+	/** The unique identifier (per skill) of the card */
+	id: Scalars['String']
+	/** A comment meant for developers.  Not public facing */
+	comment?: Maybe<Scalars['String']>
+	/** The title of the card that will display in the sidebar */
+	title: Scalars['String']
+	/** The unique identifier of the skill */
+	skillSlug: Scalars['String']
+	/** The unique page where the card can be shown in core. */
 	page: Scalars['String']
-	/** A description rendered in the card Drawer */
+	/** Array of roles that this card is available to. Valid options are: "owner", "groupManager", "manager", "teammate", "guest". */
+	roles: Array<Maybe<Scalars['String']>>
+	/** The description of this card that will show in the sidebar */
 	description: Scalars['String']
-	/** Temporary cards are always rendered at the top */
+	/** The order the user has sorted the cards by. */
+	order: Scalars['String']
+	/** Denotes if this is a temporary card. Temporary cards do not display in the sidebar. */
 	isTemporary?: Maybe<Scalars['Boolean']>
-	/** Is this card dismissable by the user? */
+	/** Denotes if this card is centered */
+	isCentered?: Maybe<Scalars['Boolean']>
+	/** Denotes if the user may dismiss this card */
 	canDismiss?: Maybe<Scalars['Boolean']>
-	/** The card build view model */
-	cardBuilder?: Maybe<ICoreGQLCardBuilder>
+	/** The card builder structure */
+	cardBuilder: ICoreGQLCardBuilder
 }
 
 /** A category */
@@ -963,26 +805,6 @@ export type ICoreGQLCategoryBelongsToManyOrganizationsEdge = {
 	cursor: Scalars['String']
 }
 
-export type ICoreGQLCheckbox = ICoreGQLActionExecutor & {
-	__typename?: 'Checkbox'
-	/** Unique identifier */
-	id: Scalars['ID']
-	/** A name attached to this checkbox */
-	name?: Maybe<Scalars['String']>
-	/** Input label and text after checkbox icon */
-	label?: Maybe<Scalars['String']>
-	/** Optional text to show below the label */
-	postText?: Maybe<Scalars['String']>
-	/** is this checkbox disabled */
-	isDisabled?: Maybe<Scalars['Boolean']>
-	/** Set true if the checkbox is indeterminate */
-	isIndeterminate: Scalars['Boolean']
-	/** is this checkbox checked? */
-	isChecked?: Maybe<Scalars['Boolean']>
-	/** Optional action to invoke when tapped */
-	action?: Maybe<ICoreGQLAction>
-}
-
 /** Returns "isAvailable" boolean to indicate if the slug is available */
 export type ICoreGQLCheckSlugResponse = {
 	__typename?: 'checkSlugResponse'
@@ -1004,58 +826,36 @@ export type ICoreGQLCheckStoreNumResponse = {
 	storeNum: Scalars['String']
 }
 
-/** a confirmation dialog */
-export type ICoreGQLConfirmModal = {
-	/** Title of the confirmation dialog */
-	title?: Maybe<Scalars['String']>
-	/** Text shown in the dialog */
-	text?: Maybe<Scalars['String']>
-	/** Context used to populate the text if the text contains {{handlebars}} */
-	context?: Maybe<Scalars['JSON']>
-	/** Do we require the person to type confirmInputValidString to be able to confirm */
-	doesRequireConfirmation?: Maybe<Scalars['Boolean']>
-	/** Label next to the confirmation input (if doesRequireConfirmation is true} */
-	confirmInputLabel?: Maybe<Scalars['String']>
-	/** The words they have to type if doesRequireConfirmation is true */
-	confirmInputValidString?: Maybe<Scalars['String']>
-	/** Does typing the confirmation message match case */
-	confirmInputIgnoreCase?: Maybe<Scalars['Boolean']>
-	/** What is the text on the cancel button? Defaults to 'Cancel' */
-	cancelButtonText?: Maybe<Scalars['String']>
-	/** What is the text on the confirm button? Defaults to 'Confirm' */
-	confirmButtonText?: Maybe<Scalars['String']>
-	/** If true, the confirm button will be red */
-	isDestructive?: Maybe<Scalars['Boolean']>
-}
-
+/** A ContextMenu component from react-heartwood-components */
 export type ICoreGQLContextMenu = {
 	__typename?: 'ContextMenu'
-	/** The actions to be shown on tap/click */
-	actions: Array<ICoreGQLButton>
-	/** Set the width of the menu. Helpful for longer text in buttons */
-	size?: Maybe<ICoreGQLContextMenuSize>
-	/** Adds text to the collapsed menu */
+	/** List of buttons/actions */
+	actions: Array<Maybe<ICoreGQLButton>>
+	/** Is menu left aligned */
+	isLeftAligned?: Maybe<Scalars['Boolean']>
+	/** Is menu bottom aligned */
+	isBottomAligned?: Maybe<Scalars['Boolean']>
+	/** Context menu size "medium" | "large" */
+	size?: Maybe<Scalars['String']>
+	/** Adds test to the collapsed menu */
 	text?: Maybe<Scalars['String']>
 	/** Overrides the default icon */
 	icon?: Maybe<ICoreGQLIcon>
-	/** Set true to make the button blue */
+	/** Make buttons blue */
 	isSimple?: Maybe<Scalars['Boolean']>
-	/** Set true to make the button smaller */
+	/** make button small */
 	isSmall?: Maybe<Scalars['Boolean']>
 	/** Set to true makes the menu close when any action is selected */
 	closeOnSelectAction?: Maybe<Scalars['Boolean']>
 	/** Hide the icon entirely */
 	isTextOnly?: Maybe<Scalars['Boolean']>
+	/** Optional classname that applies to the button */
+	className?: Maybe<Scalars['String']>
 }
 
-export enum ICoreGQLContextMenuSize {
-	Medium = 'medium',
-	Large = 'large'
-}
-
-/** A create action is presented to the user when they try to create an event on the calendar. */
-export type ICoreGQLCreateCalendarAction = {
-	__typename?: 'CreateCalendarAction'
+/** Create actions that can be triggered from the calendar */
+export type ICoreGQLCreateCalendarActions = {
+	__typename?: 'CreateCalendarActions'
 	/** The label for the create action */
 	label: Scalars['String']
 	/** The base url to load the skill view */
@@ -1349,32 +1149,6 @@ export type ICoreGQLEnableSkillsResponse = {
 	status?: Maybe<Scalars['String']>
 }
 
-/** An event error. */
-export type ICoreGQLEventError = {
-	__typename?: 'EventError'
-	/** An http code */
-	code: Scalars['Int']
-	/** A name that can be used to identify this error. INVALID_PARAMETERS for example */
-	name: Scalars['String']
-	/** A description of the error that will be useful to a developer */
-	reason: Scalars['String']
-	/** A description of the error that can be displayed to the user */
-	friendlyReason: Scalars['String']
-	/** The status */
-	status: Scalars['String']
-}
-
-/** An event warning. */
-export type ICoreGQLEventWarning = {
-	__typename?: 'EventWarning'
-	/** A name that can be used to identify this warning. INVALID_PARAMETERS for example */
-	name: Scalars['String']
-	/** A description of the warning that will be useful to a developer */
-	reason: Scalars['String']
-	/** A description of the warning that can be displayed to the user */
-	friendlyReason: Scalars['String']
-}
-
 /** An example item with randomly generated data */
 export type ICoreGQLExampleStreamItem = {
 	__typename?: 'ExampleStreamItem'
@@ -1382,42 +1156,6 @@ export type ICoreGQLExampleStreamItem = {
 	message?: Maybe<Scalars['String']>
 	/** A timestamp for when this message is generated */
 	sentAt?: Maybe<Scalars['String']>
-}
-
-export type ICoreGQLExecuteActionEmitInput = {
-	/** The action to emit. This can be passed straight through from the FE. */
-	action: ICoreGQLActionEmitEventInput
-}
-
-export type ICoreGQLExecuteActionEmitResponse = {
-	__typename?: 'ExecuteActionEmitResponse'
-	/** The skill that responded to this event */
-	Skill: ICoreGQLSkill
-	/** [PLACEHOLDER - NOT IMPLEMENTED] The updated cards after this event */
-	cardBuilder?: Maybe<ICoreGQLCardBuilder>
-	/** The updated calendar events after this event */
-	calendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
-	/** Details if an error occurs */
-	error?: Maybe<ICoreGQLEventError>
-	/** Assuming the action was successful but with warnings, this array will be populated with those warnings. */
-	warnings?: Maybe<Array<Maybe<ICoreGQLEventWarning>>>
-}
-
-/** Wraps a standard list or list item and makes it collapsable */
-export type ICoreGQLExpandableListItem = {
-	__typename?: 'ExpandableListItem'
-	/** Unique id for UI caching */
-	id: Scalars['ID']
-	/** Base list item props */
-	item: ICoreGQLListItem
-	/** Optional; adds a nested list */
-	list?: Maybe<ICoreGQLList>
-	/** Optional; adds multiple lists nested at the same level */
-	lists?: Maybe<Array<ICoreGQLList>>
-	/** Optional icon for collapsed state */
-	collapsedIconName?: Maybe<Scalars['String']>
-	/** Optional icon for expanded state */
-	expandedIconName?: Maybe<Scalars['String']>
 }
 
 /** A single feed item */
@@ -1614,14 +1352,6 @@ export type ICoreGQLGetSettingsResponse = {
 	settings?: Maybe<Scalars['JSON']>
 }
 
-export type ICoreGQLGetSkillConnectionSettingsResponse = {
-	__typename?: 'GetSkillConnectionSettingsResponse'
-	/** A JWT token that can be used to load a skill for the user */
-	token: Scalars['String']
-	/** The base url for the skill. Use this to build the URL with the 'route' and 'routeParams' */
-	host: Scalars['String']
-}
-
 /** A group */
 export type ICoreGQLGroup = {
 	__typename?: 'Group'
@@ -1788,47 +1518,14 @@ export type ICoreGQLGroupHasManyUserGroupsEdge = {
 	cursor: Scalars['String']
 }
 
-export type ICoreGQLHeading = {
-	__typename?: 'Heading'
-	/** Id for view caching */
-	id: Scalars['ID']
-	/** HTML rendered directly */
-	html?: Maybe<Scalars['String']>
-	/** Text rendered in the header */
-	text?: Maybe<Scalars['String']>
-	/** The weight of the heading, H1 and beyond */
-	weight?: Maybe<ICoreGQLHeadingWeight>
-}
-
-export enum ICoreGQLHeadingWeight {
-	H1 = 'h1',
-	H2 = 'h2',
-	H3 = 'h3',
-	H4 = 'h4',
-	H5 = 'h5',
-	H6 = 'h6',
-	P = 'p'
-}
-
+/** The actions a user may take */
 export type ICoreGQLIcon = {
 	__typename?: 'Icon'
-	/** Id for ui caching */
-	id: Scalars['ID']
-	/** The name of the icon to render. If not found, this will return null. */
-	name?: Maybe<Scalars['String']>
+	/** The name of the icon to render. If not found, this will return null */
+	icon: Scalars['String']
 	/** Set true to render an icon with a stroke, but no fill */
 	isLineIcon?: Maybe<Scalars['Boolean']>
-}
-
-/** A basic image tag */
-export type ICoreGQLImage = {
-	__typename?: 'Image'
-	/** For UI caching */
-	id: Scalars['ID']
-	/** Where to pull the image from */
-	src: Scalars['String']
-	/** Rendered as the alt tag for hovers */
-	alt?: Maybe<Scalars['String']>
+	className?: Maybe<Scalars['String']>
 }
 
 /** List of possible matches found in core */
@@ -2083,107 +1780,66 @@ export type ICoreGQLJobPermissionAclDefault = {
 	teammate?: Maybe<Scalars['Boolean']>
 }
 
-/** A list of list items */
+export enum ICoreGQLKind {
+	Default = 'default',
+	Tentative = 'tentative',
+	Active = 'active',
+	Unavailable = 'unavailable',
+	Blocked = 'blocked',
+	Past = 'past',
+	Warn = 'warn',
+	Critical = 'critical'
+}
+
+/** A list! */
 export type ICoreGQLList = {
 	__typename?: 'List'
-	/** Unique id for UI caching */
-	id: Scalars['ID']
-	/** List Header */
+	/** Heading that goes above the list */
 	header?: Maybe<ICoreGQLListHeader>
-	/** List items */
-	items?: Maybe<Array<ICoreGQLListItemTypes>>
-	/** Set true to make the list smaller */
+	/** The list items */
+	items: Array<Maybe<ICoreGQLListItem>>
+	/** A className to apply to the list */
+	className?: Maybe<Scalars['String']>
+	/** Is this a small list? */
 	isSmall?: Maybe<Scalars['Boolean']>
-	/** Set to true to show separators between list items */
-	areSeparatorsVisible?: Maybe<Scalars['Boolean']>
-	/** Optional: set whether to use checkbox or radio for selectable list items */
-	selectableType?: Maybe<ICoreGQLListItemSelectableType>
 }
 
+/** A simple heading for the list */
 export type ICoreGQLListHeader = {
 	__typename?: 'ListHeader'
-	/** Title to render in the header */
+	/** The header title */
 	title: Scalars['String']
-	/** Optional subtitle text */
+	/** The header subtitle */
 	subtitle?: Maybe<Scalars['String']>
-	/** Set true for small lists */
+	/** Extra props for rendering on web */
 	isSmall?: Maybe<Scalars['Boolean']>
-	/** Buttons to associate with the list header */
-	actions?: Maybe<Array<ICoreGQLButton>>
+	/** Actions to show in header */
+	actions?: Maybe<Array<Maybe<ICoreGQLButton>>>
 }
 
-/** A List is made up of ListItems */
+/** A list items */
 export type ICoreGQLListItem = {
 	__typename?: 'ListItem'
-	/** Unique id for UI caching */
-	id: Scalars['ID']
-	/** Title text */
+	/** The list item title */
 	title: Scalars['String']
-	/** Optional subtitle text */
+	/** The list item subtitle */
 	subtitle?: Maybe<Scalars['String']>
-	/** Optional note text */
-	note?: Maybe<Scalars['String']>
-	/** Can render this item as expandable */
-	isExpandable?: Maybe<Scalars['Boolean']>
-	/** URL to show a user avatar */
+	/** Url to avatar to render */
 	avatar?: Maybe<Scalars['String']>
-	/** URL to show an image */
+	/** Url to an image to render */
 	image?: Maybe<Scalars['String']>
-	/** Inline svg icon */
+	/** An icon to show on this item */
 	icon?: Maybe<ICoreGQLIcon>
-	/** Optional; visually hides the icon without removing it */
-	isIconHidden?: Maybe<Scalars['Boolean']>
-	/** Set true to add left spacing. useful in aligning with other list items that have icons or images */
-	isLeftIndented?: Maybe<Scalars['Boolean']>
-	/** Set true when the list can be reordered */
+	/** Is this item re-orderable? */
 	isDraggable?: Maybe<Scalars['Boolean']>
-	/** Set true when the list can be reordered */
-	isDisabled?: Maybe<Scalars['Boolean']>
-	/** Makes the list item a setting */
+	/** Turn this item into a toggle */
 	toggleId?: Maybe<Scalars['String']>
-	/** Props passed to the toggle if toggleId is set */
-	toggleProps?: Maybe<ICoreGQLToggle>
-	/** A primary action that turns the entire list item into a clickable action */
-	primaryAction?: Maybe<ICoreGQLButton>
-	/** Actions associated with the list item */
+	/** Turn this item into a toggle */
+	toggleProps?: Maybe<Scalars['JSON']>
+	/** Array of actions (buttons) */
 	actions?: Maybe<Array<Maybe<ICoreGQLButton>>>
-	/** Context Menu associated with the list it */
+	/** Array of actions for a context menu */
 	contextMenu?: Maybe<ICoreGQLContextMenu>
-	/** Set to true to show separator for this list item if followed by another list item. */
-	isSeparatorVisible?: Maybe<Scalars['Boolean']>
-	/** Optional class name for list item */
-	className?: Maybe<Scalars['String']>
-	/** Optional: set whether to use checkbox or radio for selectable list items */
-	selectableType?: Maybe<ICoreGQLListItemSelectableType>
-	/** Any props you want sent down to the selectable component being rendered */
-	selectableProps?: Maybe<ICoreGQLListItemSelectablePropsType>
-	/** Highlight title, subtitle, note with warning colors */
-	warnings?: Maybe<ICoreGQLListItemWarningConfig>
-	/** Optional; adds a nested list */
-	list?: Maybe<ICoreGQLList>
-	/** Optional; adds multiple lists nested at the same level */
-	lists?: Maybe<Array<ICoreGQLList>>
-}
-
-export type ICoreGQLListItemSelectablePropsType =
-	| ICoreGQLCheckbox
-	| ICoreGQLRadio
-
-export enum ICoreGQLListItemSelectableType {
-	Checkbox = 'checkbox',
-	Radio = 'radio'
-}
-
-export type ICoreGQLListItemTypes =
-	| ICoreGQLListItem
-	| ICoreGQLExpandableListItem
-
-/** Which parts should be highlighted in red */
-export type ICoreGQLListItemWarningConfig = {
-	__typename?: 'ListItemWarningConfig'
-	title?: Maybe<Scalars['Boolean']>
-	subtitle?: Maybe<Scalars['Boolean']>
-	note?: Maybe<Scalars['Boolean']>
 }
 
 /** A location */
@@ -2652,25 +2308,6 @@ export type ICoreGQLLocationScheduleDetailsTimes = {
 	endTime: Scalars['String']
 }
 
-/** A connection to a list of items. */
-export type ICoreGQLLocationsForUserLocationConnectionConnection = {
-	__typename?: 'LocationsForUserLocationConnectionConnection'
-	/** Information to aid in pagination. */
-	pageInfo: ICoreGQLPageInfo
-	/** A list of edges. */
-	edges?: Maybe<Array<Maybe<ICoreGQLLocationsForUserLocationConnectionEdge>>>
-	totalCount?: Maybe<Scalars['Int']>
-}
-
-/** An edge in a connection. */
-export type ICoreGQLLocationsForUserLocationConnectionEdge = {
-	__typename?: 'LocationsForUserLocationConnectionEdge'
-	/** The item at the end of the edge */
-	node?: Maybe<ICoreGQLLocation>
-	/** A cursor for use in pagination */
-	cursor: Scalars['String']
-}
-
 /** A location skill mapping */
 export type ICoreGQLLocationSkill = {
 	__typename?: 'LocationSkill'
@@ -2831,15 +2468,6 @@ export type ICoreGQLMagicLinkUnconfirmedUserArgs = {
 	where?: Maybe<Scalars['SequelizeJSON']>
 }
 
-/** Render markdown beautifully */
-export type ICoreGQLMarkdown = {
-	__typename?: 'Markdown'
-	/** Unique ID for view caching. */
-	id: Scalars['ID']
-	/** Markdown text to be rendered */
-	source: Scalars['String']
-}
-
 /** A message */
 export type ICoreGQLMessage = {
 	__typename?: 'Message'
@@ -2933,19 +2561,12 @@ export type ICoreGQLMetadataUnconfirmedUserArgs = {
 	where?: Maybe<Scalars['SequelizeJSON']>
 }
 
-export enum ICoreGQLModalSize {
-	Small = 'small',
-	Medium = 'medium',
-	FullWidth = 'fullWidth'
-}
-
-/** Lets us respond with a user or a loction */
-export type ICoreGQLModel = ICoreGQLUser | ICoreGQLLocation
-
 export type ICoreGQLMutation = {
 	__typename?: 'Mutation'
 	/** Import a Big Search result from a skill or another location */
 	importBigSearchResult?: Maybe<ICoreGQLImportBigSearchResult>
+	/** Reschedules an event. */
+	rescheduleCalendarEvent?: Maybe<ICoreGQLRescheduleCalendarEventResponse>
 	/** Adds a dashboard card to a dashboard page */
 	addDashboardCard?: Maybe<ICoreGQLAddDashboardCardResponse>
 	/** Removes a dashboard card */
@@ -3028,16 +2649,14 @@ export type ICoreGQLMutation = {
 	updateUser?: Maybe<ICoreGQLUpdateUserResponse>
 	/** Register a new user device. */
 	registerDevice?: Maybe<ICoreGQLRegisterDeviceResponse>
-	/** Testing a user update */
-	updateUserTest?: Maybe<ICoreGQLUser>
-	/** Execute the emit action */
-	executeActionEmit?: Maybe<ICoreGQLExecuteActionEmitResponse>
-	/** Reschedule calendar event */
-	rescheduleCalendarEvent?: Maybe<ICoreGQLRescheduleCalendarEventResponse>
 }
 
 export type ICoreGQLMutationImportBigSearchResultArgs = {
 	input: ICoreGQLImportBigSearchResultInput
+}
+
+export type ICoreGQLMutationRescheduleCalendarEventArgs = {
+	input: ICoreGQLRescheduleCalendarEventInput
 }
 
 export type ICoreGQLMutationAddDashboardCardArgs = {
@@ -3204,44 +2823,32 @@ export type ICoreGQLMutationRegisterDeviceArgs = {
 	input: ICoreGQLRegisterDevice
 }
 
-export type ICoreGQLMutationUpdateUserTestArgs = {
-	input: ICoreGQLUpdateUserInput
-}
-
-export type ICoreGQLMutationExecuteActionEmitArgs = {
-	input: ICoreGQLExecuteActionEmitInput
-}
-
-export type ICoreGQLMutationRescheduleCalendarEventArgs = {
-	input: ICoreGQLRescheduleCalendarEventInput
-}
-
-/** An awesome card for onboarding people! */
+/** An onboarding card (used in CardBuilder.onboarding) */
 export type ICoreGQLOnboardingCard = {
 	__typename?: 'OnboardingCard'
-	/** Title of the entire card */
-	title?: Maybe<Scalars['String']>
-	/** Steps for onboarding */
-	steps: Array<ICoreGQLOnboardingCardStep>
+	/** The title rendered at the top of this card */
+	title: Scalars['String']
+	/** The title of the card that will display in the sidebar */
+	steps: Array<Maybe<ICoreGQLOnboardingStep>>
+	/** The unique identifier of the skill */
+	className?: Maybe<Scalars['String']>
 }
 
-/** One step in the onboarding process */
-export type ICoreGQLOnboardingCardStep = {
-	__typename?: 'OnboardingCardStep'
-	/** Unique identifier */
-	id: Scalars['ID']
-	/** Title that shows in the tab */
+/** A single step of the onboarding process */
+export type ICoreGQLOnboardingStep = {
+	__typename?: 'OnboardingStep'
+	/** Unique id of this step */
+	id: Scalars['String']
+	/** Title of the tab for this step. */
 	tabTitle: Scalars['String']
-	/** Icon for the tab */
-	tabIcon?: Maybe<ICoreGQLIcon>
-	/** Title that shows in the panel */
+	/** Copy that renders in the card's body as the title */
 	panelTitle: Scalars['String']
-	/** Copy describing the step in the card's body */
+	/** Copy that renders in the card's body under the title */
 	panelCopy: Scalars['String']
-	/** Primary CTA of this step */
-	panelCTA?: Maybe<ICoreGQLButton>
-	/** Is this step complete? */
-	isComplete?: Maybe<Scalars['Boolean']>
+	/** The call to action at the bottom of this step */
+	panelCTA: ICoreGQLButton
+	/** Icon that represents this step */
+	panelIcon: ICoreGQLIcon
 }
 
 /** An organization */
@@ -3852,8 +3459,13 @@ export type ICoreGQLQuery = {
 	 * permissions, additional information may be available.
 	 **/
 	Calendars?: Maybe<Array<Maybe<ICoreGQLCalendar>>>
+	/**
+	 * Gets all of the page CalendarEvent's register by a skill. Depending on user
+	 * permissions, additional information may be available.
+	 **/
+	CalendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
 	/** Gets all DashboardCards from a Skill for a user or the page user. */
-	DashboardCards?: Maybe<Array<Maybe<Scalars['String']>>>
+	DashboardCards?: Maybe<Array<Maybe<ICoreGQLCardResponseType>>>
 	/** Gets jwts and login urls for users to allow logging in as a different user for debugging purposes. Limit is 50 */
 	debugGetUserJwts?: Maybe<ICoreGQLDebugGetUserJwtsResponse>
 	/** Get feed items. Max/default limit is 200. */
@@ -3872,8 +3484,6 @@ export type ICoreGQLQuery = {
 	Location?: Maybe<ICoreGQLLocation>
 	/** Get public information about locations. Max/default limit 50. */
 	Locations?: Maybe<ICoreGQLLocationConnection>
-	/** Get Locations the current user is connected to as a teammate (or above). Max/default limit 50. */
-	LocationsForUser?: Maybe<ICoreGQLLocationsForUserLocationConnectionConnection>
 	/** Check if a location slug is available. */
 	checkLocationSlug?: Maybe<ICoreGQLCheckSlugResponse>
 	/** Check if a store num is available. */
@@ -3932,23 +3542,6 @@ export type ICoreGQLQuery = {
 	UserOrganizations?: Maybe<ICoreGQLUserOrganizationConnection>
 	/** Gets information about a user's visits */
 	Visits?: Maybe<ICoreGQLVisitConnection>
-	/** Test a simple query */
-	testSimpleQuery: Array<Maybe<ICoreGQLTestType>>
-	/** Test returning a single Sequelize User Model */
-	getFirstUser?: Maybe<ICoreGQLUser>
-	/** Test using relay and using advanced resolver with selected fields */
-	loadFirstLocations?: Maybe<ICoreGQLLocationConnection>
-	/** Test of union resolution */
-	loadUserOrLocation?: Maybe<ICoreGQLModel>
-	/**
-	 * Get a skill token and other info for the currently logged in user. This info
-	 * can be used to load a skill view or redirect the user.
-	 **/
-	getSkillConnectionSettings?: Maybe<ICoreGQLGetSkillConnectionSettingsResponse>
-	/** Get all the calendar events for a specific calendar */
-	CalendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
-	/** Pull cards for a particular view */
-	Cards?: Maybe<Array<Maybe<ICoreGQLCardResponse>>>
 }
 
 export type ICoreGQLQueryAccessPointArgs = {
@@ -3990,6 +3583,7 @@ export type ICoreGQLQueryBigSearchArgs = {
 
 export type ICoreGQLQueryCalendarArgs = {
 	id: Scalars['ID']
+	skillId: Scalars['ID']
 	organizationId: Scalars['ID']
 	locationId?: Maybe<Scalars['ID']>
 }
@@ -3998,6 +3592,17 @@ export type ICoreGQLQueryCalendarsArgs = {
 	page: Scalars['String']
 	organizationId: Scalars['ID']
 	locationId?: Maybe<Scalars['ID']>
+}
+
+export type ICoreGQLQueryCalendarEventsArgs = {
+	calendarId: Scalars['String']
+	skillId: Scalars['String']
+	organizationId: Scalars['ID']
+	locationId?: Maybe<Scalars['ID']>
+	userIds?: Maybe<Array<Maybe<Scalars['ID']>>>
+	startDate?: Maybe<Scalars['GraphQLDate']>
+	endDate?: Maybe<Scalars['GraphQLDate']>
+	debug?: Maybe<ICoreGQLCalendarDebugInputType>
 }
 
 export type ICoreGQLQueryDashboardCardsArgs = {
@@ -4079,19 +3684,6 @@ export type ICoreGQLQueryLocationArgs = {
 
 export type ICoreGQLQueryLocationsArgs = {
 	organizationId: Scalars['ID']
-	notInGroupIds?: Maybe<Array<Maybe<Scalars['ID']>>>
-	search?: Maybe<Scalars['String']>
-	limit?: Maybe<Scalars['Int']>
-	order?: Maybe<Scalars['String']>
-	where?: Maybe<Scalars['SequelizeJSON']>
-	offset?: Maybe<Scalars['Int']>
-	after?: Maybe<Scalars['String']>
-	first?: Maybe<Scalars['Int']>
-	before?: Maybe<Scalars['String']>
-	last?: Maybe<Scalars['Int']>
-}
-
-export type ICoreGQLQueryLocationsForUserArgs = {
 	notInGroupIds?: Maybe<Array<Maybe<Scalars['ID']>>>
 	search?: Maybe<Scalars['String']>
 	limit?: Maybe<Scalars['Int']>
@@ -4258,52 +3850,6 @@ export type ICoreGQLQueryVisitsArgs = {
 	userId?: Maybe<Scalars['ID']>
 }
 
-export type ICoreGQLQueryTestSimpleQueryArgs = {
-	id: Scalars['ID']
-}
-
-export type ICoreGQLQueryLoadFirstLocationsArgs = {
-	limit?: Maybe<Scalars['Int']>
-	order?: Maybe<Scalars['String']>
-	where?: Maybe<Scalars['JSON']>
-	offset?: Maybe<Scalars['Int']>
-	after?: Maybe<Scalars['String']>
-	first?: Maybe<Scalars['Int']>
-	before?: Maybe<Scalars['String']>
-	last?: Maybe<Scalars['Int']>
-}
-
-export type ICoreGQLQueryLoadUserOrLocationArgs = {
-	type: Scalars['String']
-}
-
-export type ICoreGQLQueryGetSkillConnectionSettingsArgs = {
-	organizationId?: Maybe<Scalars['ID']>
-	locationId?: Maybe<Scalars['ID']>
-	skillId?: Maybe<Scalars['ID']>
-	slug?: Maybe<Scalars['String']>
-	expiresIn?: Maybe<Scalars['Int']>
-}
-
-export type ICoreGQLQueryCalendarEventsArgs = {
-	calendarId: Scalars['ID']
-	organizationId: Scalars['ID']
-	locationId?: Maybe<Scalars['ID']>
-	userIds?: Maybe<Array<Scalars['ID']>>
-	startAt: Scalars['DateTime']
-	endAt: Scalars['DateTime']
-	useMockData?: Maybe<Scalars['Boolean']>
-}
-
-export type ICoreGQLQueryCardsArgs = {
-	page: Scalars['String']
-	pageUserId?: Maybe<Scalars['ID']>
-	skillId?: Maybe<Scalars['ID']>
-	locationId?: Maybe<Scalars['ID']>
-	organizationId: Scalars['ID']
-	useMockData?: Maybe<Scalars['Boolean']>
-}
-
 /** The results to a search based on phone */
 export type ICoreGQLQuickAddSearchResult = {
 	__typename?: 'QuickAddSearchResult'
@@ -4332,25 +3878,6 @@ export type ICoreGQLQuickAddUserResponse = {
 	__typename?: 'quickAddUserResponse'
 	/** The added User */
 	User?: Maybe<ICoreGQLUser>
-}
-
-/** A radio control. Give a bunch the same name to keep them as part of the same group */
-export type ICoreGQLRadio = ICoreGQLActionExecutor & {
-	__typename?: 'Radio'
-	/** Unique identifier */
-	id: Scalars['ID']
-	/** A name attached to this radio button */
-	name?: Maybe<Scalars['String']>
-	/** Label and text for the radio */
-	label?: Maybe<Scalars['String']>
-	/** Optional text to show after the label */
-	postText?: Maybe<Scalars['String']>
-	/** is this control disabled? */
-	isDisabled?: Maybe<Scalars['Boolean']>
-	/** Is this control checked? */
-	isChecked?: Maybe<Scalars['Boolean']>
-	/** Optional action to invoke when tapped */
-	action?: Maybe<ICoreGQLAction>
 }
 
 /** The input for refreshing a JWT */
@@ -4442,42 +3969,45 @@ export type ICoreGQLRequestLoginResponse = {
 	phoneNumber: Scalars['String']
 }
 
+/** A block within an event */
 export type ICoreGQLRescheduleCalendarEventEventBlockTypeInput = {
-	/** The event block id */
-	id: Scalars['String']
 	/** The duration of the block in seconds */
 	durationSec: Scalars['Int']
 }
 
-export type ICoreGQLRescheduleCalendarEventInput = {
-	/** The id of the event to reschedule. This will be in the form of '<skill_slug_v2>:1234' */
-	id: Scalars['String']
-	/** The id of the organization where the event occurs */
-	organizationId: Scalars['ID']
-	/** The id of the location where the event occurs */
-	locationId?: Maybe<Scalars['ID']>
-	/** An identifier that marks a group of events as related */
-	collection?: Maybe<Scalars['String']>
-	/** The new start for the event. This should be adjusted for timezone before it is sent to the API. */
-	newStartAt?: Maybe<Scalars['String']>
-	/** The user who 'owns' the event. */
-	newUserId?: Maybe<Scalars['String']>
-	/** Set new block durations for the event. */
-	blockUpdates?: Maybe<
-		Array<Maybe<ICoreGQLRescheduleCalendarEventEventBlockTypeInput>>
-	>
+/** The individual event within the group to update */
+export type ICoreGQLRescheduleCalendarEventEventTypeInput = {
+	/** The id of the event */
+	id: Scalars['ID']
+	/** The time the event starts. Format: YYYY-MM-DD HH:mm:ss */
+	startAt: Scalars['String']
+	/** The event blocks */
+	blocks: Array<Maybe<ICoreGQLRescheduleCalendarEventEventBlockTypeInput>>
 }
 
+/** Update events in a group */
+export type ICoreGQLRescheduleCalendarEventInput = {
+	/** The id of the location where the event occurs */
+	locationId: Scalars['ID']
+	/** The id of the organization where the event occurs */
+	organizationId: Scalars['ID']
+	/** The id of the skill that provides the event */
+	skillId: Scalars['ID']
+	/** The id of the event group we're rescheduling */
+	eventGroupId: Scalars['ID']
+	/** The updated events */
+	events: Array<Maybe<ICoreGQLRescheduleCalendarEventEventTypeInput>>
+}
+
+/** The reschedule event response */
 export type ICoreGQLRescheduleCalendarEventResponse = {
-	__typename?: 'RescheduleCalendarEventResponse'
-	/** Will be 'success' or 'failure' */
+	__typename?: 'rescheduleCalendarEventResponse'
+	/** Will be "success" or "failure" */
 	status: Scalars['String']
-	/** The updated calendar event */
-	calendarEvent?: Maybe<ICoreGQLCalendarEvent>
 	/** Details if an error occurs */
-	error?: Maybe<ICoreGQLEventError>
+	error?: Maybe<Scalars['JSON']>
 	/** Assuming the reschedule was successful but with warnings, this array will be populated with those warnings. */
-	warnings?: Maybe<Array<Maybe<ICoreGQLEventWarning>>>
+	warnings?: Maybe<Array<Maybe<Scalars['JSON']>>>
 }
 
 /** Inputs for resending an invite */
@@ -4589,23 +4119,6 @@ export type ICoreGQLScopeWarning = {
 	field?: Maybe<Scalars['String']>
 }
 
-/** A score card! */
-export type ICoreGQLScoreCard = {
-	__typename?: 'ScoreCard'
-	scores?: Maybe<Array<ICoreGQLScoreCardPanel>>
-}
-
-/** Panels make up the score card */
-export type ICoreGQLScoreCardPanel = {
-	__typename?: 'ScoreCardPanel'
-	/** Unique id for React loops */
-	id: Scalars['ID']
-	/** The label for this score, e.g. Today's Sales */
-	label?: Maybe<Scalars['String']>
-	/** The score, e.g. $234.30 */
-	value?: Maybe<Scalars['String']>
-}
-
 /** Returns the list of models found from the platform" */
 export type ICoreGQLSearchResponse = {
 	__typename?: 'SearchResponse'
@@ -4688,8 +4201,6 @@ export type ICoreGQLSkill = {
 	icon?: Maybe<Scalars['String']>
 	/** Describes both the events that the skill subscribes to and the events that is publishes */
 	eventContract?: Maybe<Scalars['SequelizeJSON']>
-	/** Describes both the events that the skill subscribes to and the events that is publishes */
-	uiEnhancementContract?: Maybe<Scalars['SequelizeJSON']>
 	/** Describes the ACLs that this skill provides. */
 	acl?: Maybe<Scalars['SequelizeJSON']>
 	/** The email for the skill developer. This may be used to send reporting information. */
@@ -5143,25 +4654,6 @@ export type ICoreGQLSkillView = {
 	Skill: ICoreGQLSkill
 }
 
-/** A button with a dropdown of actions on the right */
-export type ICoreGQLSplitButton = {
-	__typename?: 'SplitButton'
-	/** ID for view caching */
-	id: Scalars['ID']
-	/** The main action readily surfaced to the user */
-	defaultAction: ICoreGQLButton
-	/** All the secondary nested actions */
-	actions?: Maybe<Array<ICoreGQLButton>>
-	/** Sets the visual hierarchy of the button */
-	kind?: Maybe<ICoreGQLButtonKinds>
-	/** Set true to fill the parent’s width */
-	isFullWidth?: Maybe<Scalars['Boolean']>
-	/** Sets the visual hierarchy of the button */
-	isSmall?: Maybe<Scalars['Boolean']>
-	/** Optional; use a portal to render the menu. By default, it renders below the button */
-	usePortal?: Maybe<Scalars['Boolean']>
-}
-
 export type ICoreGQLSubscription = {
 	__typename?: 'Subscription'
 	/** Get audit logs for an organization. Max/default limit is 200. */
@@ -5170,7 +4662,6 @@ export type ICoreGQLSubscription = {
 	ExampleStream?: Maybe<ICoreGQLExampleStreamItem>
 	/** Stream feed items for a page. */
 	FeedItemStream?: Maybe<ICoreGQLFeedItemStreamResponse>
-	CalendarEventStream?: Maybe<ICoreGQLCalendarEventStreamResponse>
 }
 
 export type ICoreGQLSubscriptionAuditStreamArgs = {
@@ -5182,15 +4673,6 @@ export type ICoreGQLSubscriptionFeedItemStreamArgs = {
 	userId?: Maybe<Scalars['ID']>
 	organizationId?: Maybe<Scalars['ID']>
 	locationId?: Maybe<Scalars['ID']>
-}
-
-export type ICoreGQLSubscriptionCalendarEventStreamArgs = {
-	calendarIds: Array<Scalars['String']>
-	organizationId: Scalars['ID']
-	locationId?: Maybe<Scalars['ID']>
-	userIds: Array<Scalars['ID']>
-	startAt: Scalars['DateTime']
-	endAt: Scalars['DateTime']
 }
 
 /** Input for enabling a skill at an organization */
@@ -5209,8 +4691,6 @@ export type ICoreGQLSyncSkillInput = {
 	icon?: Maybe<Scalars['String']>
 	/** The skill eventContract. This is an object that has been JSON.stringify-d */
 	eventContract?: Maybe<Scalars['String']>
-	/** The skill uiEnhancementContract. This is an object that has been JSON.stringify-d */
-	uiEnhancementContract?: Maybe<Scalars['String']>
 	/** The skill viewVersion */
 	viewVersion?: Maybe<Scalars['Int']>
 	/** The skill acl. This is an object that has been JSON.stringify-d */
@@ -5245,77 +4725,123 @@ export type ICoreGQLTeammateSchedule = {
 	User: ICoreGQLUser
 }
 
-/** A schedule for a single date */
-export type ICoreGQLTeammateScheduleScheduleType = {
-	__typename?: 'TeammateScheduleScheduleType'
-	/** The date YYYY-MM-DD */
-	scheduleDate: Scalars['String']
-	/** Combined shifts, breaks, and blocks */
-	segments?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleSegmentType>>>
-}
-
-/** A single segment */
-export type ICoreGQLTeammateScheduleSegmentType = {
-	__typename?: 'TeammateScheduleSegmentType'
+/** An availability segment */
+export type ICoreGQLTeammateScheduleAvailabilityType = {
+	__typename?: 'TeammateScheduleAvailabilityType'
+	/** The id for this availability entry */
+	id: Scalars['ID']
+	/** The id for the availability this segment is associated with */
+	AvailabilityId: Scalars['ID']
 	/** The start time of the shift segment. Local to the location timezone. */
 	startTime: Scalars['String']
 	/** The end time of the shift segment. Local to the location timezone. */
 	endTime: Scalars['String']
-	/** The type of segment. "shift", "break", or "block" */
+	/** The day of the week this segment applies to */
+	day: Scalars['String']
+}
+
+/** A schedule for a single date */
+export type ICoreGQLTeammateScheduleScheduleType = {
+	__typename?: 'TeammateScheduleScheduleType'
+	/** The date */
+	day: Scalars['String']
+	/** Human readable version of the date */
+	friendlyDay: Scalars['String']
+	/** User availability */
+	availability?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleAvailabilityType>>>
+	/** The shifts for the user, taking into account time off and shift overrides. */
+	shifts?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleShiftType>>>
+	/** The original shift overrides for the day */
+	shiftOverride?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleShiftOverrideType>>>
+	/** The original shifts for the user as scheduled without any adjustments */
+	originalShifts?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleShiftType>>>
+	/** Blocked time for the user */
+	timeblocks?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleTimeblockType>>>
+	/** Time off blocks for the user */
+	timeoffs?: Maybe<Array<Maybe<ICoreGQLTeammateScheduleTimeoffType>>>
+}
+
+/** A single shift override time segment */
+export type ICoreGQLTeammateScheduleShiftOverrideTimeType = {
+	__typename?: 'TeammateScheduleShiftOverrideTimeType'
+	/** The id for this shift override segment */
+	id: Scalars['ID']
+	/** The id for the shift override this segment is part of */
+	ShiftOverrideId: Scalars['ID']
+	/** The start time of the shift segment. Local to the location timezone. */
+	startTime: Scalars['String']
+	/** The end time of the shift segment. Local to the location timezone. */
+	endTime: Scalars['String']
+	/** The type of shift segment. "shift", "break" */
 	type: Scalars['String']
-	/** The subtype of the segment */
-	subtype?: Maybe<Scalars['String']>
 }
 
-/** Used for testing only */
-export type ICoreGQLTestType = {
-	__typename?: 'TestType'
-	/** a simple id combining the passed id and i suffix like '-1' */
+/** A shift override */
+export type ICoreGQLTeammateScheduleShiftOverrideType = {
+	__typename?: 'TeammateScheduleShiftOverrideType'
+	/** The id for this override */
 	id: Scalars['ID']
-	/** is The First or The Second */
-	name: Scalars['String']
-	/** This field is overridden by a resolver and should be 'hello world' */
-	address: Scalars['String']
+	/** The date for the override. Format is YYYY-MM-DD */
+	date: Scalars['GraphQLDate']
+	OverrideTimes?: Maybe<
+		Array<Maybe<ICoreGQLTeammateScheduleShiftOverrideTimeType>>
+	>
 }
 
-/** Basic text to be rendered */
-export type ICoreGQLText = {
-	__typename?: 'Text'
-	/** Unique id for UI caching */
-	id: Scalars['String']
-	/** the text to render */
-	text?: Maybe<Scalars['String']>
-	/** Context used to populate text if it's a template {{handlebar_style}} */
-	context?: Maybe<Scalars['JSON']>
-}
-
-/** Call out information so it's impossible to miss! */
-export type ICoreGQLToast = {
-	__typename?: 'Toast'
-	/** Unique id for UI caching */
+/** A single shift */
+export type ICoreGQLTeammateScheduleShiftType = {
+	__typename?: 'TeammateScheduleShiftType'
+	/** The id for this shift segment */
 	id: Scalars['ID']
-	/** Headline text */
-	headline: Scalars['String']
-	/** Optional; Text after the headline */
-	text?: Maybe<Scalars['String']>
-	/** Optional; controls whether the toast can be removed. Defaults to true */
-	canRemove?: Maybe<Scalars['Boolean']>
-	/** Sets the variation of toast */
-	kind?: Maybe<Scalars['String']>
-	/** Text for the followup action */
-	followupText?: Maybe<Scalars['String']>
-	/** Action to be invoked when hitting the followup CTA */
-	followupAction?: Maybe<ICoreGQLAction>
+	/** The id for the shift this segment is part of */
+	ShiftId: Scalars['ID']
+	/** The name of the day of the week. i.e. "thursday" */
+	day: Scalars['String']
+	/** The start time of the shift segment. Local to the location timezone. */
+	startTime: Scalars['String']
+	/** The end time of the shift segment. Local to the location timezone. */
+	endTime: Scalars['String']
+	/** The type of shift segment. "shift", "break" */
+	type: Scalars['String']
 }
 
-export type ICoreGQLToggle = ICoreGQLActionExecutor & {
-	__typename?: 'Toggle'
-	/** Unique id for UI caching */
+/** A timeblock */
+export type ICoreGQLTeammateScheduleTimeblockType = {
+	__typename?: 'TeammateScheduleTimeblockType'
+	/** The id for this timeblock */
 	id: Scalars['ID']
-	/** Text after the toggle */
-	postText?: Maybe<Scalars['String']>
-	/** Optional action to invoke when tapped */
-	action?: Maybe<ICoreGQLAction>
+	/** A description of why the time is blocked off */
+	description: Scalars['String']
+	/** Whether the user is busy during the timeblock */
+	isBusy: Scalars['Boolean']
+	/** The type of block. Currently will always be "default" */
+	type: Scalars['String']
+	/** The start datetime of the block. In UTC. */
+	startAt: Scalars['DateTime']
+	/** The end datetime of the block. In UTC. */
+	endAt: Scalars['DateTime']
+}
+
+/** A single time off request */
+export type ICoreGQLTeammateScheduleTimeoffType = {
+	__typename?: 'TeammateScheduleTimeoffType'
+	/** The id for the timeoff request */
+	id: Scalars['ID']
+	/** The id for the user who approved the timeoff request */
+	ApproverId: Scalars['ID']
+	/** A "plea to the boss" describing why the timeoff request was asked for */
+	plea: Scalars['String']
+	/** Whether the timeoff request is paid or unpaid time off.  */
+	reason: Scalars['String']
+	/**
+	 * The start datetime of the timeoff request. This could span multiple days and
+	 * could start before the date requested. In UTC.
+	 **/
+	startAt: Scalars['DateTime']
+	/** The end datetime of the timeoff request. This could span multiple days and could start before the date requested. In UTC. */
+	endAt: Scalars['DateTime']
+	/** The current status of the request. Could be "pending", "approved" or "rejected" */
+	status: Scalars['String']
 }
 
 /** An unconfirmed user */
