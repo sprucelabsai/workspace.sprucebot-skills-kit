@@ -232,6 +232,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 			...bodyParserOptions
 		})
 	)
+
 	staticDir && koa.use(staticServe(staticDir))
 	cssDir && koa.use(staticServe(cssDir))
 
