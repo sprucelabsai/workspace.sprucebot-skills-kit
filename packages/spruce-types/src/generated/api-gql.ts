@@ -1417,8 +1417,12 @@ export type ICoreGQLExecuteActionEmitResponse = {
 	Skill: ICoreGQLSkill
 	/** [PLACEHOLDER - NOT IMPLEMENTED] The updated cards after this event */
 	cardBuilder?: Maybe<ICoreGQLCardBuilder>
-	/** The updated calendar events after this event */
-	calendarEvents?: Maybe<Array<Maybe<ICoreGQLCalendarEvent>>>
+	/** The updated calendar events */
+	updateCalendarEvents?: Maybe<Array<ICoreGQLCalendarEvent>>
+	/** The calendar events to add */
+	addCalendarEvents?: Maybe<Array<ICoreGQLCalendarEvent>>
+	/** The calendar event ids to remove */
+	removeCalendarEventIds?: Maybe<Array<Scalars['String']>>
 	/** Details if an error occurs */
 	error?: Maybe<ICoreGQLEventError>
 	/** Assuming the action was successful but with warnings, this array will be populated with those warnings. */
@@ -4509,8 +4513,12 @@ export type ICoreGQLRescheduleCalendarEventResponse = {
 	__typename?: 'RescheduleCalendarEventResponse'
 	/** Will be 'success' or 'failure' */
 	status: Scalars['String']
-	/** The updated calendar event */
-	calendarEvent?: Maybe<ICoreGQLCalendarEvent>
+	/** The updated calendar events */
+	updateCalendarEvents?: Maybe<Array<ICoreGQLCalendarEvent>>
+	/** The calendar events to add */
+	addCalendarEvents?: Maybe<Array<ICoreGQLCalendarEvent>>
+	/** The calendar event ids to remove */
+	removeCalendarEventIds?: Maybe<Array<Scalars['String']>>
 	/** Details if an error occurs */
 	error?: Maybe<ICoreGQLEventError>
 	/** Assuming the reschedule was successful but with warnings, this array will be populated with those warnings. */
