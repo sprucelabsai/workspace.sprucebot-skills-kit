@@ -230,6 +230,7 @@ async function serve<ISkillContext extends ISpruceContext>(
 			...bodyParserOptions
 		})
 	)
+
 	staticDir && koa.use(staticServe(staticDir))
 
 	const router = new Router()

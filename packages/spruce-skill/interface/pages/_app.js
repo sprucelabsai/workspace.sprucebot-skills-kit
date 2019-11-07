@@ -58,7 +58,16 @@ export default class MyApp extends App {
 
 		return (
 			<Container>
-				{pageProps.initialProps && pageProps.initialProps.legacyStylesheet && (
+				{pageProps.initialProps && pageProps.initialProps.legacyStylesheet ? (
+					<Head>
+						<link
+							href={publicRuntimeConfig.LEGACY_SKILL_STYLESHEET}
+							rel="stylesheet"
+							type="text/css"
+							charSet="UTF-8"
+						/>
+					</Head>
+				) : (
 					<Head>
 						<link
 							href={publicRuntimeConfig.SKILL_STYLESHEET}

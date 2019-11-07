@@ -145,12 +145,16 @@ export default function SpruceConfig<
 		 */
 		API_KEY: process.env.API_KEY,
 		/**
-		 * 🌲🤖 DEPRECATED. Import a stylesheet for your skill
+		 * 🌲🤖 DEPRECATED. Option to override heartwood components stylesheet
 		 */
 		SKILL_STYLESHEET:
 			process.env.SKILL_STYLESHEET ||
 			`https://cdn.spruce.ai/stylesheets/${HEARTWOOD_VERSION ||
 				'latest'}/heartwood-components.min.css`,
+		/**
+		 * 🌲🤖 DEPRECATED. Option to import a legacy stylesheet for your skill
+		 */
+		LEGACY_SKILL_STYLESHEET: process.env.LEGACY_SKILL_STYLESHEET,
 		/**
 		 * 🌲🤖 The URL to a local sqlite DB that is used for testing
 		 */
