@@ -21,6 +21,9 @@ union CalendarEventDetailsItemViewModel =
 
 "Control the rendering of the list item"
 type CalendarEventDetailsItem {
+	"An optional ID for this item; used to allow association with UI Enhancements"
+	id: String
+
 	"How the view should be rendered"
 	type: CalendarEventDetailsItemType!
 
