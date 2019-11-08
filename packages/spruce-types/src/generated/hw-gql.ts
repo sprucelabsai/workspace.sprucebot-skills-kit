@@ -915,6 +915,7 @@ export type IHWUiEnhancementSection = {
   calendarEventDetailsItems?: Maybe<Array<IHWCalendarEventDetailsItem>>,
   /** [PLACEHOLDER] Card builder items to add as enhancements */
   cardBuilderBodyItems?: Maybe<Array<IHWCardBuilderBodyItem>>,
+  /** Context menu items to add as enhancements */
   contextMenuItems?: Maybe<Array<IHWButton>>,
   /** Items to add as actions in the section context menu */
   actions?: Maybe<Array<IHWAction>>,
