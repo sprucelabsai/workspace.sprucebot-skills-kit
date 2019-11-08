@@ -8,10 +8,12 @@ type UIEnhancementSection {
 	"[PLACEHOLDER] Card builder items to add as enhancements"
 	cardBuilderBodyItems: [CardBuilderBodyItem!]
 
+	"Context menu items to add as enhancements"
 	contextMenuItems: [Button!]
 
 	"Items to add as actions in the section context menu"
-	actions: [Action!] @deprecated(reason: "Field was deprecated in favor of `contextMenuItems`")
+	actions: [Action!]
+		@deprecated(reason: "Field was deprecated in favor of `contextMenuItems`")
 }
 
 type GetUIEnhancementsResponse {
