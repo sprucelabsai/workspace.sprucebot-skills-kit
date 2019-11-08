@@ -567,9 +567,6 @@ export {
 	ISpruceAuthUser
 } from './interfaces/auth'
 
-// Big Search
-export * from './interfaces/bigSearch'
-
 // Settings
 export {
 	ISprucePageSettings,
