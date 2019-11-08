@@ -361,6 +361,8 @@ export type IHWCalendarEventDetails = {
 /** Control the rendering of the list item */
 export type IHWCalendarEventDetailsItem = {
   __typename?: 'CalendarEventDetailsItem',
+  /** An optional ID for this item; used to allow association with UI Enhancements */
+  id?: Maybe<Scalars['String']>,
   /** How the view should be rendered */
   type: IHWCalendarEventDetailsItemType,
   /** The data fed into the view to configure it. */
