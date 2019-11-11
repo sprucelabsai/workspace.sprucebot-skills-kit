@@ -27,6 +27,26 @@ export default (ctx: ISpruceContext) => {
 			}
 		`,
 		resolvers: {
+			ListItemTypes: {
+				__resolveType: (result: any) => {
+					// can be ListItem or ExpandableListItem
+					if (result && result.item) {
+						return 'ExpandableListItem'
+					}
+
+					return 'ListItem'
+				}
+			},
+			ListItemSelectablePropsType: {
+				__resolveType: (result: any) => {
+					// is checked is required, either true or false
+					if (typeof result.isIndeterminate === 'boolean') {
+						return 'Checkbox'
+					}
+
+					return 'Radio'
+				}
+			},
 			CalendarEventDetailsItemViewModel: {
 				__resolveType: (result: any) => {
 					// determine type of field
