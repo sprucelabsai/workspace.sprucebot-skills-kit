@@ -112,6 +112,9 @@ export {
 export {
 	IEventDetailsItemProps
 } from './components/EventDetails/components/EventDetailsItem/EventDetailsItem'
+export {
+	applyUIEnhancementsToEventDetails
+} from './components/EventDetails/EventDetailsUtilities'
 export { default as CircleLoader } from './components/CircleLoader/CircleLoader'
 export { default as SplitButton } from './components/SplitButton/SplitButton'
 export {
