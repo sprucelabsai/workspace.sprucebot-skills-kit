@@ -5,7 +5,7 @@ import Icon, { IIconProps } from '../../Icon/Icon'
 import ContextMenu, { IContextMenuProps } from '../../ContextMenu/ContextMenu'
 
 import { IButtonProps } from '../../Button/Button'
-import { IHWCardHeader } from '@sprucelabs/spruce-types'
+import { IHWAction, IHWCardHeader } from '@sprucelabs/spruce-types'
 
 // Card Header
 export interface ICardHeaderProps
@@ -18,6 +18,9 @@ export interface ICardHeaderProps
 
 	/** Renders a Context Menu in the Card Header */
 	contextMenu?: IContextMenuProps | null
+
+	/** optional, provide a handler for Actions */
+	onAction?: (action: IHWAction) => any
 }
 
 const CardHeader = (
@@ -27,7 +30,7 @@ const CardHeader = (
 	const commonProps = props as IHWCardHeader
 
 	const { title, labelText, actions, contextMenu } = commonProps
-	const { labelIcon } = reactHeartwoodProps
+	const { labelIcon, onAction } = reactHeartwoodProps
 
 	return (
 		<div className="card__header">
@@ -63,6 +66,7 @@ const CardHeader = (
 									key={action.id}
 									kind={ButtonKinds.Simple}
 									isSmall
+									onAction={onAction}
 									{...action}
 								/>
 							))}
