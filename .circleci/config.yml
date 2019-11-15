@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/python:3-node
+      - image: circleci/python:3.7.3-node
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -22,7 +22,7 @@ jobs:
             - ~/.cache/yarn
   pre_release:
     docker:
-      - image: circleci/python:3-node
+      - image: circleci/python:3.7.3-node
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -46,7 +46,7 @@ jobs:
       # - run: yarn s3-sync-stylesheets-pre
   canary:
     docker:
-      - image: circleci/python:3-node
+      - image: circleci/python:3.7.3-node
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -66,14 +66,14 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: npm run publish -- --exact --yes --canary --preid canary --force-publish --npm-tag v8-canary --message "%s [skip ci]" --npm-client npm --no-push --no-git-reset
+      - run: npm run publish -- --exact --yes --canary --preid canary --force-publish --npm-tag v8-canary --message "%s [skip ci]" --npm-client npm --no-push --no-git-reset --includeMergedTags
       - run: yarn build-statics
       - run: yarn s3-sync-heartwood-canary
       # - run: yarn s3-sync-storybook-canary
       - run: yarn s3-sync-stylesheets-pre
   dev_release:
     docker:
-      - image: circleci/python:3-node
+      - image: circleci/python:3.7.3-node
     steps:
       - add_ssh_keys:
           fingerprints:
