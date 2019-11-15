@@ -149,7 +149,7 @@ const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 
 	return (
 		<Card>
-			{header && <CardHeader {...header} />}
+			{header && <CardHeader {...header} onAction={onAction} />}
 			{headerImage && <Image {...headerImage} />}
 			{(items || children) && (
 				<CardBody
