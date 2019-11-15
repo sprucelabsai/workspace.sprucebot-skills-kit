@@ -2,7 +2,7 @@ version: 2
 jobs:
   test:
     docker:
-      - image: circleci/python:3-node
+      - image: circleci/python:3.7.3-node
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -22,7 +22,7 @@ jobs:
             - ~/.cache/yarn
   pre_release:
     docker:
-      - image: circleci/python:3-node
+      - image: circleci/python:3.7.3-node
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -46,7 +46,7 @@ jobs:
       # - run: yarn s3-sync-stylesheets-pre
   canary:
     docker:
-      - image: circleci/python:3-node
+      - image: circleci/python:3.7.3-node
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -73,7 +73,7 @@ jobs:
       - run: yarn s3-sync-stylesheets-pre
   dev_release:
     docker:
-      - image: circleci/python:3-node
+      - image: circleci/python:3.7.3-node
     steps:
       - add_ssh_keys:
           fingerprints:
