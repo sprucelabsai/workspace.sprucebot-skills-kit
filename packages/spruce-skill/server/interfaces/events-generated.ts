@@ -424,15 +424,6 @@ export namespace SpruceEvents.esm {
 }
 
 
-/** Local Workspace */
-export namespace SpruceEvents.workspace {
-	/** All available events  */
-	export enum Events {
-	}
-
-}
-
-
 /** Little Black Book (local) */
 export namespace SpruceEvents.littleBlackBook {
 	/** All available events  */
@@ -2700,6 +2691,15 @@ export namespace SpruceEvents.scheduling {
 
 /** Scratch and Win (local) */
 export namespace SpruceEvents.scratchWin {
+	/** All available events  */
+	export enum Events {
+	}
+
+}
+
+
+/** Local Workspace */
+export namespace SpruceEvents.workspace {
 	/** All available events  */
 	export enum Events {
 	}
