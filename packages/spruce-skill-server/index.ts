@@ -24,6 +24,7 @@ import gqlListeners from './gql/listeners'
 import { Server } from 'https'
 import Sprucebot from '@sprucelabs/spruce-node'
 import { ISpruceContext } from './interfaces/ctx'
+import SharedTypesSyncer from './lib/SharedTypesSyncer'
 import HttpsMock from './tests/lib/HttpsMock'
 // TODO: Is there a better way we can declare globals without needing to import this?
 // @ts-ignore: Need to import this definitions file for globals
@@ -191,12 +192,20 @@ async function serve<ISkillContext extends ISpruceContext>(
 		process.exit(1)
 	}
 
+	try {
+		await SharedTypesSyncer.syncEventTypes()
+	} catch (e) {
+		console.error(e)
+	}
+
 	// TODO: remove this when skills are updated to use the file upload service
 	if (syncResponse && syncResponse.s3Bucket) {
 		process.env.S3_BUCKET = syncResponse.s3Bucket
 	}
 
 	debug('Sync complete. Response: ', syncResponse)
+
+	// Fetch latest types from api
 
 	if (metricsEnabled) {
 		log.info('Metrics: enabled')

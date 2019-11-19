@@ -1,6 +1,26 @@
+/**
+ * SpruceDataTypes are used to define contracts between your skill and the Spruce platform
+ * See https://developer.spruce.ai for more information
+ */
 export enum SpruceDataTypes {
-	String,
-	List,
-	Number,
-	Boolean
+	/** Using the "any" type should be a last resort */
+	Any = 'any',
+
+	/** A string */
+	String = 'string',
+
+	/** An array of other SpruceDataTypes */
+	Array = 'array',
+
+	/** An object */
+	Object = 'object',
+
+	/** A number */
+	Number = 'number',
+
+	/** Boolean */
+	Boolean = 'boolean',
+
+	/** 🛑 Core API only */
+	Raw = 'raw'
 }

@@ -3,6 +3,7 @@ import { SpruceTest } from '@sprucelabs/spruce-skill-server'
 import { ISkillContext } from 'server/interfaces/ctx'
 import { IEmitResponse, IEmitResponseCallback } from 'server/interfaces/global'
 import config from 'config'
+import { SpruceEvents } from 'server/interfaces/events-generated'
 
 // SpruceTest take a single parameter, pointing to the base skill directory
 class ExampleEmitTests extends SpruceTest<ISkillContext> {
@@ -12,6 +13,7 @@ class ExampleEmitTests extends SpruceTest<ISkillContext> {
 				this.emitOrganization())
 			it('Can emit to "example:get-model" event', () => this.emit())
 			it('Can trigger callback from emit', () => this.emitCallback())
+			it('Can emit with strong types', () => this.strongTypes())
 		}
 	}
 
@@ -136,6 +138,20 @@ class ExampleEmitTests extends SpruceTest<ISkillContext> {
 
 			assert.equal(payload.model.id, testData.payload.model.id)
 		})
+	}
+
+	public async strongTypes(): Promise<void> {
+		// Example of using strong type w/ emit
+		// await this.ctx.sb.emit<SpruceEvents.core.IDidCreateCalendarEventPayload>(
+		// 	'123-location-id',
+		// 	SpruceEvents.core.Events.DidCreateCalendarEvent,
+		// 	{
+		// 		calendarId: 'my-calendar',
+		// 		calendarEvent: {
+		// 			id: '123'
+		// 		}
+		// 	}
+		// )
 	}
 }
 

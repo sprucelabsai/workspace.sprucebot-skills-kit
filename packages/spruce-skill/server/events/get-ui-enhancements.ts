@@ -1,16 +1,15 @@
 import { eventError } from '../lib/errorHandler'
 import { ISkillEventContextV2 } from '../interfaces/ctx'
 import {
-	IEventGetUIEnhancementsBody,
-	IEventGetUIEnhancementsPayload,
 	IUIEnhancementSection,
 	IHWCalendarEventDetailsItemType
 } from '@sprucelabs/spruce-types'
+import { SpruceEvents } from 'server/interfaces/events-generated'
 
 export default async (
 	ctx: ISkillEventContextV2<
-		IEventGetUIEnhancementsPayload,
-		IEventGetUIEnhancementsBody
+		SpruceEvents.core.IGetUiEnhancementsPayload,
+		SpruceEvents.core.IGetUiEnhancementsBody
 	>,
 	next: () => Promise<any>
 ) => {

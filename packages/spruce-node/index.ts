@@ -748,13 +748,13 @@ export default class Sprucebot {
 	}
 
 	/** Emit a custom event. The response is the response from all skills */
-	public async emit(
+	public async emit<TPayload = Record<string, any>>(
 		/** the location that will receive this event */
 		locationId: string,
 		/** the name of the event */
 		eventName: string,
 		/** any data you want passed with the event */
-		payload: Record<string, any> = {},
+		payload?: TPayload,
 		/** options to control how the event behaves */
 		options?: IEmitEventOptions,
 		/** DEPRECATED, please pass options.eventId */
@@ -774,7 +774,7 @@ export default class Sprucebot {
 		return this.adapter.post(`locations/${locationId}/emit`, {
 			eventName,
 			eventId: actualEventId,
-			payload,
+			payload: payload || {},
 			options
 		})
 	}
