@@ -4,7 +4,7 @@ import { SpruceEvents } from 'server/interfaces/events-generated'
 import faker from 'faker'
 import _ from 'lodash'
 
-interface RandomPerson {
+interface IRandomPerson {
 	personNum: number
 	firstName: string
 	lastName: string
@@ -27,11 +27,11 @@ export default async (
 
 		log.debug({ myVar })
 
-		const randomPeople: RandomPerson[] = []
+		const randomPeople: IRandomPerson[] = []
 
 		const num = _.random(10, 50)
 		_.times(num, () => {
-			const person: RandomPerson = {
+			const person: IRandomPerson = {
 				personNum: _.random(1, 10000000000),
 				firstName: faker.name.firstName(),
 				lastName: faker.name.lastName()
