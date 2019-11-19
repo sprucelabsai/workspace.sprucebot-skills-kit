@@ -18,8 +18,8 @@ interface IUIEnhancementSection {
 
 export default async (
 	ctx: ISkillEventContextV2<
-		SpruceEvents.core.IGetUiEnhancementsPayload,
-		SpruceEvents.core.IGetUiEnhancementsBody
+		SpruceEvents.core.GetUiEnhancements.IPayload,
+		SpruceEvents.core.GetUiEnhancements.IResponseBody
 	>,
 	next: () => Promise<any>
 ) => {

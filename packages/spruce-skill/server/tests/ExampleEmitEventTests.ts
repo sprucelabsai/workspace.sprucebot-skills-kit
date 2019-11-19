@@ -142,9 +142,9 @@ class ExampleEmitTests extends SpruceTest<ISkillContext> {
 
 	public async strongTypes(): Promise<void> {
 		// Example of using strong type w/ emit
-		// await this.ctx.sb.emit<SpruceEvents.core.IDidCreateCalendarEventPayload>(
+		// await this.ctx.sb.emit<SpruceEvents.core.DidCreateCalendarEvent.IPayload>(
 		// 	'123-location-id',
-		// 	SpruceEvents.core.Events.DidCreateCalendarEvent,
+		// 	SpruceEvents.core.DidCreateCalendarEvent.eventName,
 		// 	{
 		// 		calendarId: 'my-calendar',
 		// 		calendarEvent: {
