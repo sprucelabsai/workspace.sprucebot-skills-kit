@@ -3,7 +3,7 @@ import { SpruceTest } from '@sprucelabs/spruce-skill-server'
 import { ISkillContext } from 'server/interfaces/ctx'
 import { IEmitResponse, IEmitResponseCallback } from 'server/interfaces/global'
 import config from 'config'
-import { SpruceEvents } from 'server/interfaces/events-generated'
+// import { SpruceEvents } from 'server/interfaces/events-generated'
 
 // SpruceTest take a single parameter, pointing to the base skill directory
 class ExampleEmitTests extends SpruceTest<ISkillContext> {
