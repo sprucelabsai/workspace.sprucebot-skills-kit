@@ -27,13 +27,7 @@ const UserMenu = (props: Props) => {
 		<div className="user-menu">
 			<button className="btn header-primary__user-btn" onClick={toggleMenu}>
 				<span className="btn__inner">
-					<Avatar
-						image={image}
-						id={'avatarImg'}
-						alt={name}
-						width={32}
-						height={32}
-					/>
+					<Avatar image={image} alt={name} width={32} height={32} />
 				</span>
 			</button>
 			<VelocityTransitionGroup

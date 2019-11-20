@@ -85,7 +85,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 		if (
 			e.key === 'Escape' ||
 			e.target.contains(this.ref) ||
-			(e.type === 'click' && e.target.id !== 'avatarImg')
+			(e.type === 'click' && e.target.className !== 'avatar')
 		) {
 			this.setState(
 				{
