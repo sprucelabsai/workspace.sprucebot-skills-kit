@@ -81,6 +81,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 
 	hideUserMenu = (e: Event) => {
 		console.log(e)
+		console.log(this.ref)
 		if (
 			e.key === 'Escape' ||
 			e.target.contains(this.ref) ||
@@ -90,7 +91,11 @@ export default class HeaderPrimary extends Component<Props, State> {
 				{
 					isUserMenuVisible: false
 				},
-				() => this.manageListeners()
+				// () => this.manageListeners()
+				() => {
+					window.removeEventListener('click', this.hideUserMenu)
+					window.removeEventListener('keyup', this.hideUserMenu)
+				}
 			)
 		}
 	}
@@ -115,7 +120,13 @@ export default class HeaderPrimary extends Component<Props, State> {
 			prevState => ({
 				isUserMenuVisible: !prevState.isUserMenuVisible
 			}),
-			() => this.manageListeners()
+			// () => this.manageListeners()
+			() => {
+				if (this.state.isUserMenuVisible) {
+					window.addEventListener('click', this.hideUserMenu)
+					window.addEventListener('keyup', this.hideUserMenu)
+				}
+			}
 		)
 	}
 
@@ -130,15 +141,16 @@ export default class HeaderPrimary extends Component<Props, State> {
 
 	manageListeners = () => {
 		if (typeof window !== 'undefined') {
-			if (this.state.isUserMenuVisible) {
-				window.addEventListener('click', this.hideUserMenu, false)
-				window.addEventListener('keyup', this.hideUserMenu, false)
-			} else if (this.state.isLocationMenuVisible) {
+			// if (this.state.isUserMenuVisible) {
+			// 	window.addEventListener('click', this.hideUserMenu, false)
+			// 	window.addEventListener('keyup', this.hideUserMenu, false)
+			// } else
+			if (this.state.isLocationMenuVisible) {
 				window.addEventListener('click', this.hideLocationMenu, false)
 				window.addEventListener('keyup', this.hideLocationMenu, false)
 			} else {
-				window.removeEventListener('click', this.hideUserMenu, false)
-				window.removeEventListener('keyup', this.hideUserMenu, false)
+				// window.removeEventListener('click', this.hideUserMenu, false)
+				// window.removeEventListener('keyup', this.hideUserMenu, false)
 				window.removeEventListener('click', this.hideLocationMenu, false)
 				window.removeEventListener('keyup', this.hideLocationMenu, false)
 			}
