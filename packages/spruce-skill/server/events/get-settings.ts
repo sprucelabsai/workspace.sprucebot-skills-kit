@@ -1,6 +1,6 @@
 import { ISkillEventContextV2 } from 'server/interfaces/ctx'
 import { SpruceEvents } from 'server/interfaces/events-generated'
-import { SpruceSettingsFieldType } from '@sprucelabs/spruce-skill-server'
+import { SpruceSettingsFieldType } from '@sprucelabs/spruce-types'
 import config from 'config'
 import { eventError } from '../lib/errorHandler'
 
