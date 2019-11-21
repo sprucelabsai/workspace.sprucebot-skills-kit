@@ -9,9 +9,6 @@ export enum SpruceDataTypes {
 	/** A string */
 	String = 'string',
 
-	/** An array of other SpruceDataTypes */
-	Array = 'array',
-
 	/** An object */
 	Object = 'object',
 

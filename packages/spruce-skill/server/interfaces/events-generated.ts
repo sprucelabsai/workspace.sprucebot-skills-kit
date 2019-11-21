@@ -37,7 +37,7 @@ export namespace SpruceEvents.core.GetUiEnhancements {
 		/**
 		 * 
 		 */
-		sections?: {
+		sections: {
 			/**
 			 * The section id for this enhancement
 			 */

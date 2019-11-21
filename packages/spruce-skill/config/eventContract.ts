@@ -31,9 +31,10 @@ export default {
 				},
 				randomPeople: {
 					description: 'Array of randomly generated people',
-					type: SpruceDataTypes.Array,
+					type: SpruceDataTypes.Object,
+					isArray: true,
 					isRequired: true,
-					items: {
+					definition: {
 						personNum: {
 							type: SpruceDataTypes.Number,
 							description: 'A number representing something about this person',
@@ -52,8 +53,8 @@ export default {
 						// Notice that this is not required
 						childNames: {
 							description: "A random array of this person's children's names",
-							type: SpruceDataTypes.Array,
-							items: SpruceDataTypes.String
+							type: SpruceDataTypes.String,
+							isArray: true
 						}
 					}
 				}
