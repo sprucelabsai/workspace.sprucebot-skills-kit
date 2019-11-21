@@ -1,6 +1,6 @@
 /* eslint-disable */
 // DO NOT EDIT. THIS FILE IS GENERATED FROM https://local-api.spruce.ai//api/2.0/types/events
-import { IHWCalendarEvent, IHWCalendarEventDetailsItem, IHWAction } from '@sprucelabs/spruce-types'
+import { IHWCalendarEvent, IHWCalendarEventDetailsItem, IHWAction, ISpruceSettingsSection } from '@sprucelabs/spruce-types'
 
 
 /**
@@ -18,7 +18,9 @@ export namespace SpruceEvents.core.GetUiEnhancements {
 	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.GetUiEnhancements.eventName', payload))
 	*/
 	export interface IPayload {
-		/** The view that is being displayed. booking:create-appointment for example */
+		/**
+		 * The view that is being displayed. booking:create-appointment for example
+		 */
 		view: string
 
 		/** Other arbitrary payload properties */
@@ -30,15 +32,23 @@ export namespace SpruceEvents.core.GetUiEnhancements {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.GetUiEnhancements.IResponseBody = { ... }
-	*/
+	 */
 	export interface IResponseBody {
-		/**  */
+		/**
+		 * 
+		 */
 		sections?: {
-			/** The section id for this enhancement */
+			/**
+			 * The section id for this enhancement
+			 */
 			id: string
-			/** Event detail items to place in this section */
+			/**
+			 * Event detail items to place in this section
+			 */
 			eventDetailsItems?: IHWCalendarEventDetailsItem[] | null
-			/** Actions that should be added to the context menu of this section */
+			/**
+			 * Actions that should be added to the context menu of this section
+			 */
 			actions?: IHWAction[] | null
 		}[]
 	}
@@ -63,9 +73,13 @@ export namespace SpruceEvents.core.DidCreateCalendarEvent {
 	 * Don't forget to subscribe to this event in config/eventContract.ts
 	*/
 	export interface IPayload {
-		/** The id of the calendar that this event should be added to */
+		/**
+		 * The id of the calendar that this event should be added to
+		 */
 		calendarId: string
-		/** The calendar event that was created */
+		/**
+		 * The calendar event that was created
+		 */
 		calendarEvent: IHWCalendarEvent
 	}
 
@@ -73,9 +87,11 @@ export namespace SpruceEvents.core.DidCreateCalendarEvent {
 	 * Event Response
 	 *
 	 * The Spruce Core API Skill will respond to this event with this data in the body.
-	*/
+	 */
 	export interface IResponseBody {
-		/** Will be set to &quot;success&quot; if the event is received and processed */
+		/**
+		 * Will be set to &quot;success&quot; if the event is received and processed
+		 */
 		status: string
 	}
 
@@ -96,15 +112,47 @@ export namespace SpruceEvents.core.GetSettings {
 	 *
 	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.GetSettings.eventName', payload))
 	*/
-	export type IPayload = any
+	export interface IPayload {
+		/**
+		 * The page where settings are being requested. This will be one of:
+		 * * skill_settings_user
+		 * * skill_settings_user_org
+		 * * skill_settings_user_location
+		 * * skill_settings_org
+		 * * skill_settings_location
+		 */
+		page?: string
+	}
 
 	/**
 	 * Event Response
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.GetSettings.IResponseBody = { ... }
-	*/
-	export type IResponseBody = any
+	 */
+	export interface IResponseBody {
+		/**
+		 * Array of settings to display
+		 */
+		settings?: {
+			/**
+			 * The title for these settings
+			 */
+			title: string
+			/**
+			 * The page these settings should appear on
+			 */
+			page: string
+			/**
+			 * A unique identifier for these settings
+			 */
+			id: string
+			/**
+			 * The settings sections.
+			 */
+			sections?: ISpruceSettingsSection[]
+		}[]
+	}
 
 
 }
@@ -130,7 +178,7 @@ export namespace SpruceEvents.core.ValidateSettings {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.ValidateSettings.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -157,7 +205,7 @@ export namespace SpruceEvents.core.GetViews {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.GetViews.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -184,7 +232,7 @@ export namespace SpruceEvents.core.GetCards {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.GetCards.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -211,7 +259,7 @@ export namespace SpruceEvents.core.WasInstalled {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.WasInstalled.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -238,7 +286,7 @@ export namespace SpruceEvents.core.DidSignup {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.DidSignup.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -265,7 +313,7 @@ export namespace SpruceEvents.core.DidEnter {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.DidEnter.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -292,7 +340,7 @@ export namespace SpruceEvents.core.DidLeave {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.DidLeave.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -319,7 +367,7 @@ export namespace SpruceEvents.core.DidMessage {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.DidMessage.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -346,7 +394,7 @@ export namespace SpruceEvents.core.DidAddDevice {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.DidAddDevice.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -373,7 +421,7 @@ export namespace SpruceEvents.core.DidUpdateUser {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.DidUpdateUser.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -400,7 +448,7 @@ export namespace SpruceEvents.core.DidOptOut {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.DidOptOut.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -427,7 +475,7 @@ export namespace SpruceEvents.core.DidRemoteRejoin {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.DidRemoteRejoin.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -454,7 +502,7 @@ export namespace SpruceEvents.core.WillSendTraining {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.WillSendTraining.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -481,7 +529,7 @@ export namespace SpruceEvents.core.BigSearch {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.BigSearch.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -508,7 +556,7 @@ export namespace SpruceEvents.core.ImportFromBigSearch {
 	 *
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.ImportFromBigSearch.IResponseBody = { ... }
-	*/
+	 */
 	export type IResponseBody = any
 
 
@@ -530,7 +578,9 @@ export namespace SpruceEvents.workspace.MyEvent {
 	 * The Local Workspace Skill listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.workspace.MyEvent.eventName', payload))
 	*/
 	export interface IPayload {
-		/** A required string variable. */
+		/**
+		 * A required string variable.
+		 */
 		myVar: string
 	}
 
@@ -539,19 +589,31 @@ export namespace SpruceEvents.workspace.MyEvent {
 	 *
 	 * The Local Workspace Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.workspace.MyEvent.IResponseBody = { ... }
-	*/
+	 */
 	export interface IResponseBody {
-		/** If everything went ok, this will be set to &quot;success&quot; */
+		/**
+		 * If everything went ok, this will be set to &quot;success&quot;
+		 */
 		status: string
-		/** Array of randomly generated people */
+		/**
+		 * Array of randomly generated people
+		 */
 		randomPeople: {
-			/** A random first name */
+			/**
+			 * A random first name
+			 */
 			lastName: string
-			/** A random first name */
+			/**
+			 * A random first name
+			 */
 			firstName: string
-			/** A number representing something about this person */
+			/**
+			 * A number representing something about this person
+			 */
 			personNum: number
-			/** A random array of this person&#x27;s children&#x27;s names */
+			/**
+			 * A random array of this person&#x27;s children&#x27;s names
+			 */
 			childNames?: string[]
 		}[]
 	}
