@@ -579,14 +579,6 @@ export {
 // Big Search
 export * from './interfaces/bigSearch'
 
-// Settings
-export {
-	ISprucePageSettings,
-	SpruceSettingsFieldType,
-	ISpruceSettingsField,
-	ISpruceSettingsSection
-} from './interfaces/settings'
-
 // Base classes
 export { default as SpruceSkillService } from './lib/SpruceSkillService'
 export { default as SpruceSkillUtility } from './lib/SpruceSkillUtility'
