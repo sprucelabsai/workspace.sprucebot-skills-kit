@@ -10,7 +10,7 @@ import { IHWCalendarEvent, IHWCalendarEventDetailsItem, IHWAction } from '@spruc
  */
 export namespace SpruceEvents.core.GetUiEnhancements {
 	/** The event name  */
-	export const eventName = 'get-ui-enhancements'
+	export const name = 'get-ui-enhancements'
 
 	/**
 	 * Event Payload
@@ -37,9 +37,9 @@ export namespace SpruceEvents.core.GetUiEnhancements {
 			/** The section id for this enhancement */
 			id: string
 			/** Event detail items to place in this section */
-			eventDetailsItems?: IHWCalendarEventDetailsItem[]
+			eventDetailsItems?: IHWCalendarEventDetailsItem[] | null
 			/** Actions that should be added to the context menu of this section */
-			actions?: IHWAction[]
+			actions?: IHWAction[] | null
 		}[]
 	}
 
@@ -53,7 +53,7 @@ export namespace SpruceEvents.core.GetUiEnhancements {
  */
 export namespace SpruceEvents.core.DidCreateCalendarEvent {
 	/** The event name  */
-	export const eventName = 'did-create-calendar-event'
+	export const name = 'did-create-calendar-event'
 
 	/**
 	 * Event Payload
@@ -64,9 +64,9 @@ export namespace SpruceEvents.core.DidCreateCalendarEvent {
 	*/
 	export interface IPayload {
 		/** The id of the calendar that this event should be added to */
-		calendarId?: string
+		calendarId: string
 		/** The calendar event that was created */
-		calendarEvent?: IHWCalendarEvent
+		calendarEvent: IHWCalendarEvent
 	}
 
 	/**
@@ -76,7 +76,7 @@ export namespace SpruceEvents.core.DidCreateCalendarEvent {
 	*/
 	export interface IResponseBody {
 		/** Will be set to &quot;success&quot; if the event is received and processed */
-		status?: string
+		status: string
 	}
 
 
@@ -89,7 +89,7 @@ export namespace SpruceEvents.core.DidCreateCalendarEvent {
  */
 export namespace SpruceEvents.core.GetSettings {
 	/** The event name  */
-	export const eventName = 'get-settings'
+	export const name = 'get-settings'
 
 	/**
 	 * Event Payload
@@ -116,7 +116,7 @@ export namespace SpruceEvents.core.GetSettings {
  */
 export namespace SpruceEvents.core.ValidateSettings {
 	/** The event name  */
-	export const eventName = 'validate-settings'
+	export const name = 'validate-settings'
 
 	/**
 	 * Event Payload
@@ -143,7 +143,7 @@ export namespace SpruceEvents.core.ValidateSettings {
  */
 export namespace SpruceEvents.core.GetViews {
 	/** The event name  */
-	export const eventName = 'get-views'
+	export const name = 'get-views'
 
 	/**
 	 * Event Payload
@@ -170,7 +170,7 @@ export namespace SpruceEvents.core.GetViews {
  */
 export namespace SpruceEvents.core.GetCards {
 	/** The event name  */
-	export const eventName = 'get-cards'
+	export const name = 'get-cards'
 
 	/**
 	 * Event Payload
@@ -197,7 +197,7 @@ export namespace SpruceEvents.core.GetCards {
  */
 export namespace SpruceEvents.core.WasInstalled {
 	/** The event name  */
-	export const eventName = 'was-installed'
+	export const name = 'was-installed'
 
 	/**
 	 * Event Payload
@@ -224,7 +224,7 @@ export namespace SpruceEvents.core.WasInstalled {
  */
 export namespace SpruceEvents.core.DidSignup {
 	/** The event name  */
-	export const eventName = 'did-signup'
+	export const name = 'did-signup'
 
 	/**
 	 * Event Payload
@@ -251,7 +251,7 @@ export namespace SpruceEvents.core.DidSignup {
  */
 export namespace SpruceEvents.core.DidEnter {
 	/** The event name  */
-	export const eventName = 'did-enter'
+	export const name = 'did-enter'
 
 	/**
 	 * Event Payload
@@ -278,7 +278,7 @@ export namespace SpruceEvents.core.DidEnter {
  */
 export namespace SpruceEvents.core.DidLeave {
 	/** The event name  */
-	export const eventName = 'did-leave'
+	export const name = 'did-leave'
 
 	/**
 	 * Event Payload
@@ -305,7 +305,7 @@ export namespace SpruceEvents.core.DidLeave {
  */
 export namespace SpruceEvents.core.DidMessage {
 	/** The event name  */
-	export const eventName = 'did-message'
+	export const name = 'did-message'
 
 	/**
 	 * Event Payload
@@ -332,7 +332,7 @@ export namespace SpruceEvents.core.DidMessage {
  */
 export namespace SpruceEvents.core.DidAddDevice {
 	/** The event name  */
-	export const eventName = 'did-add-device'
+	export const name = 'did-add-device'
 
 	/**
 	 * Event Payload
@@ -359,7 +359,7 @@ export namespace SpruceEvents.core.DidAddDevice {
  */
 export namespace SpruceEvents.core.DidUpdateUser {
 	/** The event name  */
-	export const eventName = 'did-update-user'
+	export const name = 'did-update-user'
 
 	/**
 	 * Event Payload
@@ -386,7 +386,7 @@ export namespace SpruceEvents.core.DidUpdateUser {
  */
 export namespace SpruceEvents.core.DidOptOut {
 	/** The event name  */
-	export const eventName = 'did-opt-out'
+	export const name = 'did-opt-out'
 
 	/**
 	 * Event Payload
@@ -413,7 +413,7 @@ export namespace SpruceEvents.core.DidOptOut {
  */
 export namespace SpruceEvents.core.DidRemoteRejoin {
 	/** The event name  */
-	export const eventName = 'did-remote-rejoin'
+	export const name = 'did-remote-rejoin'
 
 	/**
 	 * Event Payload
@@ -440,7 +440,7 @@ export namespace SpruceEvents.core.DidRemoteRejoin {
  */
 export namespace SpruceEvents.core.WillSendTraining {
 	/** The event name  */
-	export const eventName = 'will-send-training'
+	export const name = 'will-send-training'
 
 	/**
 	 * Event Payload
@@ -467,7 +467,7 @@ export namespace SpruceEvents.core.WillSendTraining {
  */
 export namespace SpruceEvents.core.BigSearch {
 	/** The event name  */
-	export const eventName = 'big-search'
+	export const name = 'big-search'
 
 	/**
 	 * Event Payload
@@ -494,7 +494,7 @@ export namespace SpruceEvents.core.BigSearch {
  */
 export namespace SpruceEvents.core.ImportFromBigSearch {
 	/** The event name  */
-	export const eventName = 'import-from-big-search'
+	export const name = 'import-from-big-search'
 
 	/**
 	 * Event Payload
@@ -522,7 +522,7 @@ export namespace SpruceEvents.core.ImportFromBigSearch {
  */
 export namespace SpruceEvents.workspace.MyEvent {
 	/** The event name  */
-	export const eventName = 'workspace:my-event'
+	export const name = 'workspace:my-event'
 
 	/**
 	 * Event Payload

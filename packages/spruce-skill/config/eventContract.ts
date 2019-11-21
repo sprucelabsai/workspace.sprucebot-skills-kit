@@ -60,13 +60,13 @@ export default {
 			}
 		},
 		// You can subscribe to events from core or other skills
-		[SpruceEvents.core.GetSettings.eventName]: {
+		[SpruceEvents.core.GetSettings.name]: {
 			subscribe: true
 		},
-		[SpruceEvents.core.GetViews.eventName]: {
+		[SpruceEvents.core.GetViews.name]: {
 			subscribe: true
 		},
-		[SpruceEvents.core.GetUiEnhancements.eventName]: {
+		[SpruceEvents.core.GetUiEnhancements.name]: {
 			subscribe: true
 		}
 	}
