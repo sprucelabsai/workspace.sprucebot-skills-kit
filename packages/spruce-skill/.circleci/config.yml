@@ -9,7 +9,9 @@ jobs:
             - '<GITHUB DEPLOY USER SSH KEY FINGERPRINT>' # Note: The corresponding private ssh key should be set in CircleCI
       - checkout
       - run: yarn install --frozen-lockfile
-      - run: yarn test
+			- run: yarn test
+			# Uncomment to enable check that there are no modified files after CI build / test
+			# - run: yarn checkIfGitIsClean
   release:
     docker:
       - image: circleci/node:10

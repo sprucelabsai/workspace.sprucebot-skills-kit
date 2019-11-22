@@ -4,7 +4,7 @@ import { ISpruceContext } from '../interfaces/ctx'
 import {
 	ISprucePageSettings,
 	ISpruceSettingsField
-} from '../interfaces/settings'
+} from '@sprucelabs/spruce-types'
 import { IAclsResult } from '../services/Acl'
 
 interface IGetRequestedSettingsOptions {

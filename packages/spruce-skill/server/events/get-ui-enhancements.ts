@@ -1,16 +1,25 @@
 import { eventError } from '../lib/errorHandler'
 import { ISkillEventContextV2 } from '../interfaces/ctx'
 import {
-	IEventGetUIEnhancementsBody,
-	IEventGetUIEnhancementsPayload,
-	IUIEnhancementSection,
-	IHWCalendarEventDetailsItemType
+	IHWCalendarEventDetailsItemType,
+	IHWCalendarEventDetailsItem,
+	IHWAction
 } from '@sprucelabs/spruce-types'
+import { SpruceEvents } from 'server/interfaces/events-generated'
+
+interface IUIEnhancementSection {
+	/** The section id for this enhancement */
+	id: string
+	/** Event detail items to place in this section */
+	eventDetailsItems?: IHWCalendarEventDetailsItem[]
+	/** Actions that should be added to the context menu of this section */
+	actions?: IHWAction[]
+}
 
 export default async (
 	ctx: ISkillEventContextV2<
-		IEventGetUIEnhancementsPayload,
-		IEventGetUIEnhancementsBody
+		SpruceEvents.core.GetUiEnhancements.IPayload,
+		SpruceEvents.core.GetUiEnhancements.IResponseBody
 	>,
 	next: () => Promise<any>
 ) => {
