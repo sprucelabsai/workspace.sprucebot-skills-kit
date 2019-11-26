@@ -6,10 +6,9 @@
 	background-color: $c-grey-00;
 
 	&.sidebar--large {
-		width: rem(360);
-		@include lte(360px) {
-			width: 100%;
-			max-width: rem(360);
+		width: 100%;
+		@include gt(360px) {
+			width: rem(360);
 		}
 	}
 }
