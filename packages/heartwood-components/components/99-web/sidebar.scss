@@ -7,7 +7,9 @@
 
 	&.sidebar--large {
 		width: 100%;
-		max-width: rem(360);
+		@include gt(360px) {
+			width: rem(360);
+		}
 	}
 }
 
