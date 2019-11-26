@@ -23,7 +23,7 @@ html.skill .sidebar {
 	@include lte('medium') {
 		// NOTE: This classname may change
 		&.sidebar--is-mobile-expanded {
-			position: fixed;
+			position: absolute;
 			top: rem(48);
 			bottom: 0;
 			left: 0;
