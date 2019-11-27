@@ -59,7 +59,9 @@ export default class Tabs extends Component<ITabsProps, ITabsState> {
 		const { isTruncatable } = this.props
 
 		if (isTruncatable) {
-			this.handleInitialMeasurement()
+			setTimeout(() => {
+				this.handleInitialMeasurement()
+			}, 1)
 			if (typeof window !== 'undefined') {
 				window.addEventListener('resize', this.debouncedResize, false)
 			}
