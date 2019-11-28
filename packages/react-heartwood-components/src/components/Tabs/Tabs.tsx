@@ -59,7 +59,6 @@ export default class Tabs extends Component<ITabsProps, ITabsState> {
 		const { isTruncatable } = this.props
 
 		if (isTruncatable) {
-			// this.handleInitialMeasurement()
 			if (typeof window !== 'undefined') {
 				window.addEventListener('resize', this.debouncedResize, false)
 			}
@@ -137,7 +136,7 @@ export default class Tabs extends Component<ITabsProps, ITabsState> {
 
 	setRef = ref => {
 		this.tabGroup = ref
-		this.handleInitialMeasurement()
+		setTimeout(() => this.handleInitialMeasurement(), 100)
 	}
 
 	render() {
