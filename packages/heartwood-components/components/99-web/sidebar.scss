@@ -7,7 +7,9 @@
 
 	&.sidebar--large {
 		width: 100%;
-		max-width: rem(360);
+		@include gt(360px) {
+			width: rem(360);
+		}
 	}
 }
 
@@ -23,7 +25,7 @@ html.skill .sidebar {
 	@include lte('medium') {
 		// NOTE: This classname may change
 		&.sidebar--is-mobile-expanded {
-			position: fixed;
+			position: absolute;
 			top: rem(48);
 			bottom: 0;
 			left: 0;
@@ -43,7 +45,7 @@ html.skill .sidebar {
 	@include lte(990px) {
 		// NOTE: This classname may change
 		&.sidebar--is-mobile-expanded {
-			position: fixed;
+			position: absolute;
 			top: rem(48);
 			bottom: 0;
 			right: 0;
