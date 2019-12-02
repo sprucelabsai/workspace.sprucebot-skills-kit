@@ -5,22 +5,26 @@ import { Sidebar, SidebarFooter } from '../Core'
 import moment from 'moment'
 
 interface IViewProps {
-	sidebarItems?: Record<string, any>[]
-	sidebarBackLink?: Record<string, any>
-	user?: Record<string, any>
-	organization?: Record<string, any>
-	location?: Record<string, any>
 	children: ReactNode
-	toggleSidebarVisibility?: Function
-	toggleSidebarExpanded?: Function
 	forceCloseSidebar?: Function
-	isSidebarVisible?: boolean
+
+	/** Should view chrome be shown? (Header, left sidebar) */
+	isChromeless?: boolean
+
 	isSidebarExpanded?: boolean
 	isSidebarMobileExpanded?: boolean
+	isSidebarVisible?: boolean
+	location?: Record<string, any>
 	onClickSearch?: Function
-	searchPlaceholder?: string
+	organization?: Record<string, any>
 	privacyLink?: string
+	searchPlaceholder?: string
+	sidebarBackLink?: Record<string, any>
+	sidebarItems?: Record<string, any>[]
 	termsLink?: string
+	toggleSidebarExpanded?: Function
+	toggleSidebarVisibility?: Function
+	user?: Record<string, any>
 
 	/** Menu children (<ListItem> or <li>) */
 	userMenuItems: ReactNode
@@ -28,23 +32,24 @@ interface IViewProps {
 
 const View = (props: IViewProps): ReactElement => {
 	const {
-		sidebarItems,
-		sidebarBackLink,
-		user,
-		organization,
-		location,
-		isSidebarVisible,
+		children,
+		forceCloseSidebar,
+		isChromeless,
 		isSidebarExpanded,
 		isSidebarMobileExpanded,
+		isSidebarVisible,
+		location,
+		onClickSearch,
+		organization,
+		privacyLink,
+		searchPlaceholder,
+		sidebarBackLink,
+		sidebarItems,
+		termsLink,
 		toggleSidebarExpanded,
 		toggleSidebarVisibility,
-		forceCloseSidebar,
-		onClickSearch,
-		searchPlaceholder,
-		userMenuItems,
-		children,
-		privacyLink,
-		termsLink
+		user,
+		userMenuItems
 	} = props
 
 	return (
@@ -55,22 +60,24 @@ const View = (props: IViewProps): ReactElement => {
 				'sidebar--is-missing': !sidebarItems || sidebarItems.length === 0
 			})}
 		>
-			<HeaderPrimary
-				user={user}
-				organization={organization}
-				location={location}
-				enableHamburgerMenu={
-					sidebarItems && sidebarItems.length > 0 ? true : false
-				}
-				toggleSidebarVisibility={toggleSidebarVisibility}
-				isSidebarVisible={isSidebarMobileExpanded}
-				searchPlaceholder={searchPlaceholder}
-				onClickSearch={onClickSearch}
-				userMenuItems={userMenuItems}
-			/>
+			{!isChromeless && (
+				<HeaderPrimary
+					user={user}
+					organization={organization}
+					location={location}
+					enableHamburgerMenu={
+						sidebarItems && sidebarItems.length > 0 ? true : false
+					}
+					toggleSidebarVisibility={toggleSidebarVisibility}
+					isSidebarVisible={isSidebarMobileExpanded}
+					searchPlaceholder={searchPlaceholder}
+					onClickSearch={onClickSearch}
+					userMenuItems={userMenuItems}
+				/>
+			)}
 
 			<div className="main-content-outer">
-				{sidebarItems && sidebarItems.length > 0 && (
+				{!isChromeless && sidebarItems && sidebarItems.length > 0 && (
 					<div className="main-content__sidebar">
 						<Sidebar
 							style={{ zIndex: 1 }}
