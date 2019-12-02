@@ -1,0 +1,48 @@
+{
+	"name": "@sprucelabs/spruce-mercury",
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"build"
+	],
+	"version": "9.0.0",
+	"main": "./build/index.js",
+	"types": "./build/index.d.ts",
+	"description": "The simple way to interact with the Spruce Experience Platform",
+	"keywords": [
+		"node",
+		"components",
+		"sprucebot",
+		"sprucelabs"
+	],
+	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit",
+	"bugs": {
+		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
+	},
+	"scripts": {
+		"build": "npm run clean && tsc | true",
+		"watch": "tsc -w",
+		"clean": "rm -rf build/",
+		"lint": "eslint '**/*.ts' && tsc -p . --noEmit"
+	},
+	"dependencies": {
+		"debug": "^3.1.0",
+		"graphql-request": "^1.8.2",
+		"graphql-tools": "^4.0.4",
+		"superagent": "^4.1.0"
+	},
+	"devDependencies": {
+		"add": "^2.0.6",
+		"eslint": "^5",
+		"eslint-config-spruce": "^9.0.0",
+		"jest": "^24.5.0",
+		"nock": "^9.1.6",
+		"prettier": "^1.13",
+		"yarn": "^1.2.1"
+	},
+	"peerDependencies": {
+		"graphql": "^14.5.4",
+		"typescript": "3.6.3"
+	}
+}
