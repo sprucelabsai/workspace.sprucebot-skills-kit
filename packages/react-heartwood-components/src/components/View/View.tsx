@@ -97,7 +97,7 @@ const View = (props: IViewProps): ReactElement => {
 				<main className="main-content">{children}</main>
 			</div>
 
-			{(!sidebarItems || sidebarItems.length === 0) && (
+			{!isChromeless && (!sidebarItems || sidebarItems.length === 0) && (
 				<footer className="footer">
 					<p className="footer-text">
 						{termsLink && (
