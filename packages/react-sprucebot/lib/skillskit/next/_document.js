@@ -123,11 +123,9 @@ function (_Document) {
         }, _callee, this);
       }));
 
-      function getInitialProps(_x) {
+      return function getInitialProps(_x) {
         return _getInitialProps.apply(this, arguments);
-      }
-
-      return getInitialProps;
+      };
     }()
   }]);
   return MyDocument;

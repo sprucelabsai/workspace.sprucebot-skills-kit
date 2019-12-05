@@ -5,7 +5,7 @@
 		"**/.next": true
 	},
 	"git.ignoreLimitWarning": true,
-	"editor.formatOnSave": true,
+	"editor.formatOnSave": false,
 	"prettier.semi": false,
 	"prettier.singleQuote": true,
 	"prettier.useTabs": true,
