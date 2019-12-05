@@ -13,6 +13,12 @@
 		padding: spacing('base');
 	}
 
+	// for toast as a detail item (not in a card)
+	.toast {
+		max-width: 100%;
+		width: 100%;
+	}
+
 	.card__section .toast {
 		margin-top: 0;
 		margin-right: rem(16);
