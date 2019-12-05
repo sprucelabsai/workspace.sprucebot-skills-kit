@@ -39,6 +39,9 @@
 		padding-right: 0;
 		padding-bottom: 0;
 		padding-left: 0;
+		p.text {
+			padding: 1rem;
+		}
 	}
 
 	// TODO: Fix the root cause, which is double-nesting when the list item has actions
