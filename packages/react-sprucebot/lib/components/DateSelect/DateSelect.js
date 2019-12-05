@@ -164,7 +164,9 @@ function (_Component) {
           });
         },
         numberOfMonths: 1,
-        isDayBlocked: this.isDayBlocked,
+        isDayBlocked: function isDayBlocked(d) {
+          return _this2.isDayBlocked(d);
+        },
         isOutsideRange: this.isOutsideRange,
         initialVisibleMonth: initialVisibleMonth,
         onPrevMonthClick: function onPrevMonthClick(prevMonth) {

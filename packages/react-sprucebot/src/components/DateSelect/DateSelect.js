@@ -121,7 +121,7 @@ class DateSelect extends Component {
 					focused={!loading}
 					onFocusChange={({ focused }) => this.setState({ focused })}
 					numberOfMonths={1}
-					isDayBlocked={this.isDayBlocked}
+					isDayBlocked={d => this.isDayBlocked(d)}
 					isOutsideRange={this.isOutsideRange}
 					initialVisibleMonth={initialVisibleMonth}
 					onPrevMonthClick={prevMonth =>
