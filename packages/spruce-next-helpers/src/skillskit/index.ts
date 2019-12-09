@@ -1,5 +1,9 @@
 import Iframes from '@sprucelabs/spruce-utils/iframes'
-import { ICoreUserLocation, ICoreCalendarEvent } from '@sprucelabs/spruce-types'
+import {
+	ICoreUserLocation,
+	ICoreCalendarEvent,
+	IHWModalSize
+} from '@sprucelabs/spruce-types'
 
 function postMessage(message: Record<string, any>): void {
 	return window.parent.postMessage(JSON.stringify(message), '*')
@@ -128,12 +132,28 @@ export interface IModalOpenOptions {
 		params?: Record<string, string>
 	}
 
+	/** The primary action text */
 	footerPrimaryActionText?: string
+
+	/** The secondary action text */
 	footerSecondaryActionText?: string
-	isPaged?: boolean
+
+	/** Whether to disable the primary action */
 	isDialogFooterPrimaryActionDisabled?: boolean
+
+	/** Whether to disable the secondary action */
 	isDialogFooterSecondaryActionDisabled?: boolean
-	size: 'small' | 'medium' | 'full-width'
+
+	/** PLACEHOLDER: Future paginated modal functionality */
+	isPaged?: boolean
+
+	/** The size of the modal */
+	size: IHWModalSize
+
+	/** Whether the modal should be full-height */
+	isFullHeight: boolean
+
+	/** DEPRECATED: use size and isFullHeight instead */
 	contentHeight: string
 }
 
