@@ -111,10 +111,13 @@ export interface IModal {
 		// TODO: Standardize around route/routeParams and ensure this matches final decision (https://sprucelabsai.atlassian.net/browse/SDEV3-2362)
 		/** The route to load within the modal */
 		route?: {
-			/** The path to the view to load. If "slug" is omitted this should be a full URL. If "slug" is provided this should not include the host */
+			/** The path to the view to load. Either "host" or "slug" should also be set */
 			path: string
 
-			/** If opening a skill view, providing the slug will include the JWT token for authentication */
+			/** If you're opening a non-skill url, set the host. i.e. https://my-skill.example.com */
+			host?: string
+
+			/** If you're opening a skill view, providing the slug will set the proper host and include the JWT token for authentication */
 			slug?: string
 
 			/** If opening a skill view and "slug" is set, authentication will be tied to this organization */
