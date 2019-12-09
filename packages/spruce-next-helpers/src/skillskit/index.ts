@@ -102,8 +102,16 @@ export interface IConfirmationDialog {
 export interface IModal {
 	/** open a modal dialog */
 	open(options: {
+		/** The modal title */
 		title?: string
+
+		// TODO: Standardize around route/routeParams (https://sprucelabsai.atlassian.net/browse/SDEV3-2362)
+		/** The full path to the view */
 		src?: string
+
+		/** If opening a skill view, providing the slug will include the JWT token for authentication */
+		slug?: string
+
 		footerPrimaryActionText?: string
 		footerSecondaryActionText?: string
 		isPaged?: boolean
