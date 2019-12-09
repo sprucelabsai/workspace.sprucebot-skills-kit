@@ -355,6 +355,9 @@ export default gql`
 		... on ActionShowModal {
 			type
 			payload {
+				slug
+				route
+				routeParams
 				modalTitle: title
 				footerPrimaryActionText
 				footerSecondaryActionText

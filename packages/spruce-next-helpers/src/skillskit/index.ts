@@ -1,5 +1,9 @@
 import Iframes from '@sprucelabs/spruce-utils/iframes'
-import { ICoreUserLocation, ICoreCalendarEvent } from '@sprucelabs/spruce-types'
+import {
+	ICoreUserLocation,
+	ICoreCalendarEvent,
+	IHWModalSize
+} from '@sprucelabs/spruce-types'
 
 function postMessage(message: Record<string, any>): void {
 	return window.parent.postMessage(JSON.stringify(message), '*')
@@ -99,19 +103,63 @@ export interface IConfirmationDialog {
 	setCancelButtonIsDisabled(isDisabled: boolean): void
 }
 
+export interface IModalOpenOptions {
+	/** The modal title */
+	title?: string
+
+	/** DEPRECATED: Use "route" instead */
+	src?: string
+
+	// TODO: Standardize around route/routeParams and ensure this matches final decision (https://sprucelabsai.atlassian.net/browse/SDEV3-2362)
+	/** The route to load within the modal */
+	route?: {
+		/** The path to the view to load. Either "host" or "slug" should also be set */
+		path: string
+
+		/** If you're opening a non-skill url, set the host. i.e. https://my-skill.example.com */
+		host?: string
+
+		/** If you're opening a skill view, providing the slug will set the proper host and include the JWT token for authentication */
+		slug?: string
+
+		/** If opening a skill view and "slug" is set, authentication will be tied to this organization */
+		organizationId?: string
+
+		/** If opening a skill view and "slug" is set, authentication will be tied to this location */
+		locationId?: string
+
+		/** Additional query parameters */
+		params?: Record<string, string>
+	}
+
+	/** The primary action text */
+	footerPrimaryActionText?: string
+
+	/** The secondary action text */
+	footerSecondaryActionText?: string
+
+	/** Whether to disable the primary action */
+	isDialogFooterPrimaryActionDisabled?: boolean
+
+	/** Whether to disable the secondary action */
+	isDialogFooterSecondaryActionDisabled?: boolean
+
+	/** PLACEHOLDER: Future paginated modal functionality */
+	isPaged?: boolean
+
+	/** The size of the modal */
+	size?: IHWModalSize
+
+	/** Whether the modal should be full-height */
+	isFullHeight?: boolean
+
+	/** DEPRECATED: use size and isFullHeight instead */
+	contentHeight?: string
+}
+
 export interface IModal {
 	/** open a modal dialog */
-	open(options: {
-		title?: string
-		src?: string
-		footerPrimaryActionText?: string
-		footerSecondaryActionText?: string
-		isPaged?: boolean
-		isDialogFooterPrimaryActionDisabled?: boolean
-		isDialogFooterSecondaryActionDisabled?: boolean
-		size: 'small' | 'medium' | 'full-width'
-		contentHeight: string
-	}): void
+	open(options: IModalOpenOptions): void
 	/** close modal dialog , data is passed through to onClosed */
 	close(data?: Record<string, any>): void
 	/** invoked when the "back" error is clicked */
