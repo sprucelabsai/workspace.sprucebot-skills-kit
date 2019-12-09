@@ -148,13 +148,13 @@ export interface IModalOpenOptions {
 	isPaged?: boolean
 
 	/** The size of the modal */
-	size: IHWModalSize
+	size?: IHWModalSize
 
 	/** Whether the modal should be full-height */
-	isFullHeight: boolean
+	isFullHeight?: boolean
 
 	/** DEPRECATED: use size and isFullHeight instead */
-	contentHeight: string
+	contentHeight?: string
 }
 
 export interface IModal {
