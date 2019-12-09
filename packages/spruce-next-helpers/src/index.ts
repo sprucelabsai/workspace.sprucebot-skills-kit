@@ -11,6 +11,7 @@ export {
 	ICalendar,
 	IConfirmationDialog,
 	IModal,
+	IModalOpenOptions,
 	ISupportingMessage,
 	IBlockingMessage
 } from './skillskit'
