@@ -105,12 +105,27 @@ export interface IModal {
 		/** The modal title */
 		title?: string
 
-		// TODO: Standardize around route/routeParams (https://sprucelabsai.atlassian.net/browse/SDEV3-2362)
-		/** The full path to the view */
+		/** DEPRECATED: Use "route" instead */
 		src?: string
 
-		/** If opening a skill view, providing the slug will include the JWT token for authentication */
-		slug?: string
+		// TODO: Standardize around route/routeParams and ensure this matches final decision (https://sprucelabsai.atlassian.net/browse/SDEV3-2362)
+		/** The route to load within the modal */
+		route?: {
+			/** The path to the view to load. If "slug" is omitted this should be a full URL. If "slug" is provided this should not include the host */
+			path: string
+
+			/** If opening a skill view, providing the slug will include the JWT token for authentication */
+			slug?: string
+
+			/** If opening a skill view and "slug" is set, authentication will be tied to this organization */
+			organizationId?: string
+
+			/** If opening a skill view and "slug" is set, authentication will be tied to this location */
+			locationId?: string
+
+			/** Additional query parameters */
+			params?: Record<string, string>
+		}
 
 		footerPrimaryActionText?: string
 		footerSecondaryActionText?: string
