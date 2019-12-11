@@ -13,7 +13,7 @@
 		"packages/spruce-skill-server",
 		"packages/spruce-utils",
 		"packages/spruce-types",
-		"packages/spruce-mercury"
+		"packages/mercury"
 	],
 	"scripts": {
 		"local": "pm2 start ecosystem.config.js && echo 'run `yarn run log` to tail the logs'",
