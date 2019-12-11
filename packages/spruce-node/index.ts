@@ -489,8 +489,9 @@ export default class Sprucebot {
 		}
 
 		if (options) {
-			const { type, webViewQueryData } = options
+			const { type, webViewQueryData, linksToWebView } = options
 			data.type = type
+			data.linksToWebView = linksToWebView
 			if (webViewQueryData) {
 				data.webViewQueryData = JSON.stringify(webViewQueryData)
 			}

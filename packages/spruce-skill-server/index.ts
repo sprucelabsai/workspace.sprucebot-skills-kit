@@ -187,15 +187,31 @@ async function serve<ISkillContext extends ISpruceContext>(
 	try {
 		syncResponse = await sprucebot.sync()
 	} catch (e) {
-		console.error(`Failed to sync your skill's settings`)
-		console.error(e) // Server can't really start without sync settings
+		if (e && e.response && e.response.status === 502) {
+			debug(e)
+			console.error(
+				"Unable to connect to API. Ensure the API is running and you've set up your env variables properly."
+			)
+		} else {
+			console.error(e) // Server can't really start without sync settings
+			console.error(
+				`Failed to sync your skill's settings. See the full error above.`
+			)
+		}
 		process.exit(1)
 	}
 
 	try {
 		await SharedTypesSyncer.syncEventTypes()
 	} catch (e) {
-		console.error(e)
+		// If we get a 404 response from the API it means that the api version running doesn't support generating event types
+		if (e.status && e.status === 404) {
+			log.info('Event types not synced because the API does not support it.')
+			debug(e)
+		} else {
+			// If it's a different error, log a warning
+			log.warn('Failed to sync event types', e)
+		}
 	}
 
 	// TODO: remove this when skills are updated to use the file upload service

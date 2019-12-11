@@ -73,10 +73,6 @@
 		user-select: none;
 	}
 
-	* {
-		// background-color: rgba(0,0,100,0.1);
-	}
-
 	> .btn {
 		border-radius: 0;
 		height: auto;
@@ -161,8 +157,9 @@
 	.list-item__image-wrapper {
 		align-items: center;
 	}
-	* + .avatar-wrapper {
-		margin-left: spacing('tight');
+
+	.avatar {
+		margin-left: rem(-8);
 	}
 }
 
@@ -178,7 +175,7 @@
 }
 
 .list-item__image-wrapper {
-	padding: rem(12) 0;
+	padding: rem(12) 0 rem(12) rem(8);
 	line-height: 0;
 
 	+ * {

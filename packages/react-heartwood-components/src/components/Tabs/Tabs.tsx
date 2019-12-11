@@ -59,7 +59,6 @@ export default class Tabs extends Component<ITabsProps, ITabsState> {
 		const { isTruncatable } = this.props
 
 		if (isTruncatable) {
-			this.handleInitialMeasurement()
 			if (typeof window !== 'undefined') {
 				window.addEventListener('resize', this.debouncedResize, false)
 			}
@@ -135,6 +134,11 @@ export default class Tabs extends Component<ITabsProps, ITabsState> {
 		}
 	}
 
+	setRef = ref => {
+		this.tabGroup = ref
+		setTimeout(() => this.handleInitialMeasurement(), 100)
+	}
+
 	render() {
 		const { tabs, isPadded, isTruncatable, className } = this.props
 		const { hiddenTabIndices, isContextTabVisible, activeTabIndex } = this.state
@@ -160,7 +164,7 @@ export default class Tabs extends Component<ITabsProps, ITabsState> {
 		return (
 			<Fragment>
 				<ul
-					ref={ref => (this.tabGroup = ref)}
+					ref={this.setRef}
 					className={cx('tab-group', className, {
 						'tab-group--is-padded': isPadded,
 						'tab-group--spacing-even': hiddenTabIndices.length > 0
