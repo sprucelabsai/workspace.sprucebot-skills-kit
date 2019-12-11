@@ -72,7 +72,6 @@ export class Mercury {
 	private adapter?: MercuryAdapter
 
 	constructor(options?: { spruceApiUrl: string; credentials?: MercuryAuth }) {
-		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 		this.connect(options)
 			.then(() => {
 				log.debug('Mercury connect finished')
@@ -92,24 +91,7 @@ export class Mercury {
 		}
 
 		const adapterOptions = await this.getAdapterOptions(options)
-		// const adapter = MercuryAdapter.Deepstream
 		this.setAdapter(adapterOptions)
-		// if (!adapterSet) {
-		// 	log.warn(`Mercury not initialized. Adapter ${adapter} not recognized`)
-		// }
-
-		// if (credentials) {
-		// 	this.authenticate(credentials)
-		// }
-
-		log.debug('testing')
-		log.warn('aslkdfjalksdfjalksdfjalskdfj')
-	}
-
-	public async authenticate(credentials: MercuryAuth): Promise<IAuthStatus> {
-		return {
-			isAuthenticated: true
-		}
 	}
 
 	/** Subscribe to events */

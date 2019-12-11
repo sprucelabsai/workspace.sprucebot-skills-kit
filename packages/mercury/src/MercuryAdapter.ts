@@ -1,5 +1,19 @@
 import { IAuthStatus } from './Mercury'
 
+interface IMercuryEventHandlerOptions {
+	userId?: string
+	skillId?: string
+	payload?: Record<string, any>
+}
+
+type TMercuryEventHandler = (
+	options: IMercuryEventHandlerOptions
+) => Promise<Record<string, any>>
+
+type TMercuryEventAuthorization = (
+	options: IMercuryEventHandlerOptions
+) => Promise<boolean>
+
 export abstract class MercuryAdapter {
 	public abstract isConnected: boolean
 
@@ -9,4 +23,11 @@ export abstract class MercuryAdapter {
 		eventName: string
 		payload: Record<string, any>
 	}): void
+
+	/** Provides an event */
+	public abstract provide(options: {
+		eventName: string
+		handler: TMercuryEventHandler
+		authorize: TMercuryEventAuthorization
+	}): Promise<void>
 }

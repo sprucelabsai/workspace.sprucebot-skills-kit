@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"module": "system",
+		"esModuleInterop": true,
+		"target": "es5",
+		"lib": ["es5"],
+		"declaration": true,
+		"noImplicitAny": true,
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitReturns": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"resolveJsonModule": true,
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"outFile": "./mercury.min.js",
+		"baseUrl": ".",
+		"paths": {
+			"*": ["node_modules/*"]
+		}
+	},
+	"include": ["./*.ts", "./**/*.ts"],
+	"exclude": ["**/node_modules/*", "build/*"]
+}

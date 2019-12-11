@@ -21,7 +21,9 @@
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
 	"scripts": {
-		"build": "npm run clean && tsc | true",
+		"build": "npm run clean && npm run build:node && npm run build:browser",
+		"build:node": "tsc | true",
+		"build:browser": "tsc --project tsconfig.browser.json | true",
 		"watch": "tsc -w",
 		"clean": "rm -rf build/",
 		"lint": "eslint '**/*.ts' && tsc -p . --noEmit"
