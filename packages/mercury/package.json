@@ -1,5 +1,5 @@
 {
-	"name": "@sprucelabs/spruce-mercury",
+	"name": "@sprucelabs/mercury",
 	"publishConfig": {
 		"access": "public"
 	},
