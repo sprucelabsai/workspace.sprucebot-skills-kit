@@ -23,7 +23,7 @@
 	"scripts": {
 		"build": "npm run clean && npm run build:node && npm run build:browser",
 		"build:node": "tsc | true",
-		"build:browser": "tsc --project tsconfig.browser.json | true",
+		"build:browser": "tsc --project tsconfig.browser.json",
 		"watch": "tsc -w",
 		"clean": "rm -rf build/",
 		"lint": "eslint '**/*.ts' && tsc -p . --noEmit"

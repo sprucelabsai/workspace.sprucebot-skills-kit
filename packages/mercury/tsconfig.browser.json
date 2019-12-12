@@ -1,9 +1,10 @@
 {
 	"compilerOptions": {
-		"module": "system",
-		"esModuleInterop": true,
+		"module": "umd",
 		"target": "es5",
-		"lib": ["es5"],
+		"lib": ["es2015", "dom"],
+		"esModuleInterop": true,
+		"moduleResolution": "node",
 		"declaration": true,
 		"noImplicitAny": true,
 		"forceConsistentCasingInFileNames": true,
@@ -11,9 +12,8 @@
 		"strict": true,
 		"noUnusedLocals": true,
 		"resolveJsonModule": true,
-		"moduleResolution": "node",
 		"sourceMap": true,
-		"outFile": "./mercury.min.js",
+		"outFile": "./client.js",
 		"baseUrl": ".",
 		"paths": {
 			"*": ["node_modules/*"]
