@@ -53,6 +53,13 @@ export default gql`
 						}
 					}
 				}
+				contextMenuItems {
+					kind
+					text
+					action {
+						...Action
+					}
+				}
 			}
 		}
 	}
