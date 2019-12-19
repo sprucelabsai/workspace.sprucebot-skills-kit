@@ -9,7 +9,14 @@ interface ILayoutProps extends IHWLayout {
 }
 
 const Layout = (props: ILayoutProps) => {
-	const { children, isCentered, isFullBleed, width, className } = props
+	const {
+		children,
+		isCentered,
+		isFullBleed,
+		width,
+		className,
+		sections
+	} = props
 
 	return (
 		<div
@@ -22,6 +29,10 @@ const Layout = (props: ILayoutProps) => {
 			})}
 		>
 			{children}
+			{sections &&
+				sections.map((section, idx) => (
+					<LayoutSection key={`section-${idx}`} {...section} />
+				))}
 		</div>
 	)
 }

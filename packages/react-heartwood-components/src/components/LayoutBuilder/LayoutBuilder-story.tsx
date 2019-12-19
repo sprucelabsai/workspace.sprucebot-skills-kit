@@ -9,9 +9,6 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 import { ButtonKinds } from '../Button/Button'
-import LayoutSection from '../Layout/components/LayoutSection/LayoutSection'
-import Layout from '../Layout/Layout'
-import Page, { PageContent } from '../Page'
 import { LayoutBuilder } from './LayoutBuilder'
 
 const stories = storiesOf('LayoutBuilder', module)
@@ -19,20 +16,8 @@ const stories = storiesOf('LayoutBuilder', module)
 const cardJSON: IHWCardBuilder = {
 	id: 'foo',
 	header: {
-		title: 'Introducing the Card Builder! (Note: WIP)',
-		labelText: '',
-		actions: [
-			{
-				id: 'foo',
-				type: IHWButtonTypes.Button,
-				text: 'More Info',
-				href: '#',
-				htmlAttributes: {
-					target: '_blank'
-				},
-				isSmall: true
-			}
-		]
+		title: 'This is a basic card',
+		labelText: ''
 	},
 	body: {
 		items: [
@@ -40,7 +25,7 @@ const cardJSON: IHWCardBuilder = {
 				type: IHWCardBuilderBodyItemType.Text,
 				viewModel: {
 					id: 'first',
-					text: `The Card Builder enables Skill devs to build cards using JSON. It should not be used for core cards.`
+					text: `This was built by the CardBuilder (via the PageBuilder)!`
 				}
 			}
 		]
@@ -62,31 +47,88 @@ const cardJSON: IHWCardBuilder = {
 		}
 	}
 }
-stories.addDecorator(story => (
-	<Page>
-		<PageContent>
-			<Layout>
-				<LayoutSection>{story()}</LayoutSection>
-			</Layout>
-		</PageContent>
-	</Page>
-))
+
+const buttonModel = {
+	type: IHWLayoutBuilderSectionType.Button,
+	viewModel: {
+		id: 'new-button',
+		text: 'My cool button',
+		kind: IHWButtonKinds.Primary
+	}
+}
 
 stories.addDecorator(withKnobs)
 
-stories.add('default', () => (
+stories.add('Simply rendering a cardbuilder', () => (
 	<LayoutBuilder
-		sections={[
+		items={[
 			{
-				type: IHWLayoutBuilderSectionType.CardBuilder,
-				viewModel: cardJSON
-			},
-			{
-				type: IHWLayoutBuilderSectionType.Button,
+				type: IHWLayoutBuilderSectionType.Layout,
 				viewModel: {
-					id: 'new-button',
-					text: 'My cool button',
-					kind: IHWButtonKinds.Primary
+					sections: [
+						{
+							layoutBuilder: {
+								items: [
+									{
+										type: IHWLayoutBuilderSectionType.CardBuilder,
+										viewModel: cardJSON
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		]}
+	/>
+))
+
+stories.add('Three-up cards, with a button underneath', () => (
+	<LayoutBuilder
+		items={[
+			{
+				type: IHWLayoutBuilderSectionType.Layout,
+				viewModel: {
+					sections: [
+						{
+							isSecondary: true,
+							layoutBuilder: {
+								items: [
+									{
+										type: IHWLayoutBuilderSectionType.CardBuilder,
+										viewModel: cardJSON
+									}
+								]
+							}
+						},
+						{
+							isSecondary: true,
+							layoutBuilder: {
+								items: [
+									{
+										type: IHWLayoutBuilderSectionType.CardBuilder,
+										viewModel: cardJSON
+									}
+								]
+							}
+						},
+						{
+							isSecondary: true,
+							layoutBuilder: {
+								items: [
+									{
+										type: IHWLayoutBuilderSectionType.CardBuilder,
+										viewModel: cardJSON
+									}
+								]
+							}
+						},
+						{
+							layoutBuilder: {
+								items: [buttonModel]
+							}
+						}
+					]
 				}
 			}
 		]}
