@@ -462,12 +462,13 @@ export const warningAppointment: IEventDetailsProps = {
 								items: [
 									{
 										id: '1',
-										icon: { name: 'calendar', isLineIcon: true },
+										icon: { id: 'foo', name: 'calendar', isLineIcon: true },
 										title: 'Web, Nov 28, 2018',
 										subtitle: '11am–12:15pm',
 										actions: [
 											{
-												icon: { name: 'edit' },
+												id: 'foo',
+												icon: { id: 'foo', name: 'edit' },
 												kind: ButtonKinds.Simple,
 												action: {
 													type: IHWActionTypes.EmitEvent,
