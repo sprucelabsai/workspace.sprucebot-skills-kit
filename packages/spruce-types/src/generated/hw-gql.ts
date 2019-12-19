@@ -266,6 +266,8 @@ export type IHWButton = IHWActionExecutor & {
   icon?: Maybe<IHWIcon>,
   /** Type attribute for HTML button element. Defaults to 'button'. */
   type?: Maybe<IHWButtonTypes>,
+  /** Otherwise unspecified attributes that will be applied to the underlying button element */
+  HTMLAttributes?: Maybe<Scalars['JSON']>,
   /** Set true to disable the button */
   isDisabled?: Maybe<Scalars['Boolean']>,
   /** Optional action to invoke when tapped */
