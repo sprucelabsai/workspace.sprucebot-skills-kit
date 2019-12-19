@@ -702,6 +702,24 @@ export type IHWLayoutSection = {
   isSecondary?: Maybe<Scalars['Boolean']>,
 };
 
+export type IHWLayoutSpacing = {
+  __typename?: 'LayoutSpacing',
+  /** The direction in which the spacing should be applied */
+  direction: IHWLayoutSpacingDirection,
+  /** The amount of spacing to apply (0-12) */
+  amount: Scalars['Int'],
+};
+
+export enum IHWLayoutSpacingDirection {
+  All = 'All',
+  Horizontal = 'Horizontal',
+  Vertical = 'Vertical',
+  Top = 'Top',
+  Right = 'Right',
+  Bottom = 'Bottom',
+  Left = 'Left'
+}
+
 export enum IHWLayoutWidth {
   Base = 'Base',
   Tight = 'Tight',
