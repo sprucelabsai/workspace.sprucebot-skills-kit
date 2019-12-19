@@ -67,7 +67,10 @@ export { default as TextStyle } from './components/TextStyle/TextStyle'
 export { default as Image } from './components/Image/Image'
 export { default as ImageSSR } from './components/ImageSSR/ImageSSR'
 export { default as ImageCropper } from './components/ImageCropper/ImageCropper'
-export { default as Layout, LayoutSection } from './components/Layout'
+export { default as Layout } from './components/Layout/Layout'
+export {
+	default as LayoutSection
+} from './components/Layout/components/LayoutSection/LayoutSection'
 export {
 	ExpandableListItem,
 	IListItemProps,

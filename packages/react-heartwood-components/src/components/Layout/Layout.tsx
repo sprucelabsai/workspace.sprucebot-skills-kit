@@ -1,34 +1,23 @@
-import React from 'react'
+import { IHWLayout, IHWLayoutWidth } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
+import React from 'react'
 import LayoutSection from './components/LayoutSection/LayoutSection'
 
-export type LayoutProps = {
+interface ILayoutProps extends IHWLayout {
 	/** Contents of the Layout. Should be LayoutSection components */
-	children?: React.ReactElement
-
-	/** Set true to center align layout content. */
-	isCentered?: boolean
-
-	/** Set true to remove horizontal padding from layout. */
-	isFullBleed?: boolean
-
-	/** Sets the width of the layout */
-	width?: 'base' | 'tight' | 'wide' | 'full-width'
-
-	/** any classes applied to the div */
-	className?: string
+	children?: React.ReactElement | React.ReactElement[]
 }
 
-const Layout = (props: LayoutProps) => {
+const Layout = (props: ILayoutProps) => {
 	const { children, isCentered, isFullBleed, width, className } = props
 
 	return (
 		<div
 			className={cx('layout', className, {
 				'layout--centered': isCentered,
-				'layout--wide': width === 'wide',
-				'layout--tight': width === 'tight',
-				'layout--full-width': width === 'full-width',
+				'layout--wide': width === IHWLayoutWidth.Wide,
+				'layout--tight': width === IHWLayoutWidth.Tight,
+				'layout--full-width': width === IHWLayoutWidth.FullWidth,
 				'layout--full-bleed': isFullBleed
 			})}
 		>
@@ -41,7 +30,7 @@ Layout.Section = LayoutSection
 
 Layout.defaultProps = {
 	isCentered: false,
-	width: 'base',
+	width: IHWLayoutWidth.Base,
 	isFullBleed: false
 }
 

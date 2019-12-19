@@ -1,18 +1,13 @@
-import React from 'react'
+import { IHWLayoutSection } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
+import React from 'react'
 
-export type LayoutSectionProps = {
+export interface ILayoutSectionProps extends IHWLayoutSection {
 	/** Contents of the Layout Section */
 	children: React.ReactElement
-
-	/** Class name for the section */
-	className?: string
-
-	/** Whether this is a secondary Layout Section */
-	isSecondary: boolean
 }
 
-const LayoutSection = (props: LayoutSectionProps) => {
+const LayoutSection = (props: ILayoutSectionProps) => {
 	const { className, isSecondary, children, ...rest } = props
 
 	return (

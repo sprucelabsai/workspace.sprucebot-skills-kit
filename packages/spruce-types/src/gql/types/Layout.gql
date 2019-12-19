@@ -1,0 +1,28 @@
+enum LayoutWidth {
+	Base
+	Tight
+	Wide
+	FullWidth
+}
+
+type Layout {
+	"Is the layout content centered"
+	isCentered: Boolean
+
+	"Should the layout be full-bleed?"
+	isFullBleed: Boolean
+
+	"Width of the layout. Defaults to 'Base'"
+	width: LayoutWidth
+
+	"Any additional classes that should be applied to the container element"
+	className: String
+}
+
+type LayoutSection {
+	"Any additional classes that should be applied to the container element"
+	className: String
+
+	"Whether this is a secondary layout section"
+	isSecondary: Boolean
+}
