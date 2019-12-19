@@ -1,0 +1,20 @@
+union PageBuilderSectionViewModel = CardBuilder | Button
+
+enum PageBuilderSectionType {
+	cardBuilder
+	button
+}
+
+type PageBuilderSection {
+	"The type of the section"
+	type: PageBuilderSectionType
+
+	"Data to render the section"
+	viewModel: PageBuilderSectionViewModel
+}
+
+"The builder for all things cards"
+type PageBuilder {
+	"An array of sections to render"
+	sections: [PageBuilderSection]!
+}

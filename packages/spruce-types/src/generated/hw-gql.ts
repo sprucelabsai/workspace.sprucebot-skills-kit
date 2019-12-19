@@ -802,6 +802,28 @@ export type IHWOnboardingCardStep = {
   isComplete?: Maybe<Scalars['Boolean']>,
 };
 
+/** The builder for all things cards */
+export type IHWPageBuilder = {
+  __typename?: 'PageBuilder',
+  /** An array of sections to render */
+  sections: Array<Maybe<IHWPageBuilderSection>>,
+};
+
+export type IHWPageBuilderSection = {
+  __typename?: 'PageBuilderSection',
+  /** The type of the section */
+  type?: Maybe<IHWPageBuilderSectionType>,
+  /** Data to render the section */
+  viewModel?: Maybe<IHWPageBuilderSectionViewModel>,
+};
+
+export enum IHWPageBuilderSectionType {
+  CardBuilder = 'cardBuilder',
+  Button = 'button'
+}
+
+export type IHWPageBuilderSectionViewModel = IHWCardBuilder | IHWButton;
+
 /** A radio control. Give a bunch the same name to keep them as part of the same group */
 export type IHWRadio = IHWActionExecutor & {
   __typename?: 'Radio',
