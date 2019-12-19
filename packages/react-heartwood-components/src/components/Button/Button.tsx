@@ -72,6 +72,7 @@ const Button = (props: IButtonProps | IHWButton): React.ReactElement => {
 		text,
 		type,
 		payload,
+		HTMLAttributes,
 		...rest
 	} = reactHeartwoodProps
 
@@ -149,6 +150,7 @@ const Button = (props: IButtonProps | IHWButton): React.ReactElement => {
 			type={type || 'button'}
 			onClick={handleClick}
 			disabled={isDisabled || false}
+			{...HTMLAttributes}
 		>
 			<Inner />
 		</button>
