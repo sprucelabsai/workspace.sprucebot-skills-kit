@@ -1,32 +1,32 @@
 // @flow
 // TODO: Remove this when migrated to TSX
 /* eslint-disable import/namespace */
-import React, { Component } from 'react'
-
-import actions from '../store/actions'
+import { FontLoader, Loader } from '@sprucelabs/react-heartwood-components'
 import ServerCookies from 'cookies'
-import ClientCookies from 'js-cookies'
-import skill from '../index'
-import { Loader, FontLoader } from '@sprucelabs/react-heartwood-components'
-import qs from 'qs'
-import lang from '../helpers/lang'
-import Router, { withRouter } from 'next/router'
-import { Container } from 'next/app'
-import is from 'is_js'
 import Debug from 'debug'
+import is from 'is_js'
+import ClientCookies from 'js-cookies'
+import { decode as decodeJWT } from 'jsonwebtoken'
+import { Container } from 'next/app'
+import Router, { withRouter } from 'next/router'
+import qs from 'qs'
+import React, { Component } from 'react'
+import lang from '../helpers/lang'
+import skill from '../index'
+import actions from '../store/actions'
 import ErrorPage from './_error'
 
 const debug = Debug('@sprucelabs/spruce-next-helpers')
 
-const setCookie = (named, value, req, res) => {
+const setCookie = (named, value, req, res, options) => {
 	if (req && req.headers) {
 		const cookies = new ServerCookies(req, res, {
 			secure: true,
 			httpOnly: false
 		})
-		return cookies.set(named, value, { sameSite: 'None' })
+		return cookies.set(named, value, { sameSite: 'None', ...options })
 	} else {
-		return ClientCookies.setItem(named, value, { sameSite: 'None' })
+		return ClientCookies.setItem(named, value, { sameSite: 'None', ...options })
 	}
 }
 
@@ -128,7 +128,14 @@ const PageWrapper = Wrapped => {
 			let jwt
 			if (query.jwt) {
 				jwt = query.jwt
-				setCookie('jwt', jwt, req, res)
+
+				const { exp } = decodeJWT(jwt) || {}
+
+				setCookie('jwt', jwt, req, res, {
+					expires: exp
+						? new Date(exp * 1000)
+						: new Date(new Date().setDate(new Date().getDate() + 1))
+				})
 				setCookie('jwtV2', false, req, res)
 			} else if (!query.jwtV2) {
 				jwt = getCookie('jwt', req, res)
@@ -138,7 +145,14 @@ const PageWrapper = Wrapped => {
 			if (query.jwtV2) {
 				jwtV2 = query.jwtV2
 				jwt = false
-				setCookie('jwtV2', jwtV2, req, res)
+
+				const { exp } = decodeJWT(jwtV2) || {}
+
+				setCookie('jwtV2', jwtV2, req, res, {
+					expires: exp
+						? new Date(exp * 1000)
+						: new Date(new Date().setDate(new Date().getDate() + 1))
+				})
 				setCookie('jwt', false, req, res)
 			} else if (!jwt) {
 				jwtV2 = getCookie('jwtV2', req, res)
