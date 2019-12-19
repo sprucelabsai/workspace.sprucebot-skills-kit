@@ -4,13 +4,15 @@ import {
 	IHWLayout,
 	IHWLayoutBuilder,
 	IHWLayoutBuilderSectionType,
-	IHWLayoutSpacing
+	IHWLayoutSpacing,
+	IHWPage
 } from '@sprucelabs/spruce-types'
 import React from 'react'
 import Button from '../Button/Button'
 import { CardBuilder } from '../Card'
 import LayoutSpacing from '../Layout/components/LayoutSpacing/LayoutSpacing'
 import Layout from '../Layout/Layout'
+import Page from '../Page'
 
 // Strictly associate valid types to their correct viewModel;
 // GQL doesn't support this level of association, so we just need to
@@ -33,6 +35,10 @@ export type ValidLayoutBuilderSectionConfigs =
 			type: IHWLayoutBuilderSectionType.LayoutSpacing
 			viewModel: IHWLayoutSpacing
 	  }
+	| {
+			type: IHWLayoutBuilderSectionType.Page
+			viewModel: IHWPage
+	  }
 
 export interface ILayoutBuilderProps extends IHWLayoutBuilder {
 	items: ValidLayoutBuilderSectionConfigs[]
@@ -50,6 +56,8 @@ export const LayoutBuilder = ({ items }: ILayoutBuilderProps) => (
 					return <Layout {...item.viewModel} />
 				} else if (item.type === IHWLayoutBuilderSectionType.LayoutSpacing) {
 					return <LayoutSpacing {...item.viewModel} />
+				} else if (item.type === IHWLayoutBuilderSectionType.Page) {
+					return <Page {...item.viewModel} />
 				}
 			}
 		})}

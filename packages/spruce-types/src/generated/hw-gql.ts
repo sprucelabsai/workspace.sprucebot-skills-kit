@@ -693,10 +693,11 @@ export enum IHWLayoutBuilderSectionType {
   CardBuilder = 'CardBuilder',
   Button = 'Button',
   Layout = 'Layout',
-  LayoutSpacing = 'LayoutSpacing'
+  LayoutSpacing = 'LayoutSpacing',
+  Page = 'Page'
 }
 
-export type IHWLayoutBuilderSectionViewModel = IHWCardBuilder | IHWButton | IHWLayout | IHWLayoutSpacing;
+export type IHWLayoutBuilderSectionViewModel = IHWCardBuilder | IHWButton | IHWLayout | IHWLayoutSpacing | IHWPage;
 
 export type IHWLayoutSection = {
   __typename?: 'LayoutSection',
@@ -889,7 +890,10 @@ export type IHWPage = {
   header?: Maybe<IHWPageHeader>,
   /** Set true if the page has a sidebar that is collapsed. Defaults to false. */
   sidebarIsCollapsed?: Maybe<Scalars['Boolean']>,
-  layoutBuilder?: Maybe<IHWLayoutBuilder>,
+  /** Layout to render in the main content area */
+  contentLayoutBuilder?: Maybe<IHWLayoutBuilder>,
+  /** Layout to render in the sidebar area */
+  sidebarLayoutBuilder?: Maybe<IHWLayoutBuilder>,
 };
 
 export type IHWPageHeader = {

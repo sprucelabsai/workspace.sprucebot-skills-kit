@@ -14,7 +14,11 @@ type Page {
 	"Set true if the page has a sidebar that is collapsed. Defaults to false."
 	sidebarIsCollapsed: Boolean
 
-	layoutBuilder: LayoutBuilder
+	"Layout to render in the main content area"
+	contentLayoutBuilder: LayoutBuilder
+
+	"Layout to render in the sidebar area"
+	sidebarLayoutBuilder: LayoutBuilder
 }
 
 type PageHeader {
