@@ -58,7 +58,10 @@ const cardJSON: ICardBuilderProps = {
 				{
 					id: 'foo',
 					type: IHWButtonTypes.Button,
-					text: 'Do things',
+					text: 'Fire a JS Callback!',
+					HTMLAttributes: {
+						onClick: () => window.alert('clicked!')
+					},
 					kind: ButtonKinds.Secondary,
 					isSmall: true
 				}
