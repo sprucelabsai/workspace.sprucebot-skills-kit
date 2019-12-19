@@ -38,6 +38,7 @@ const ButtonGroup = (
 					>
 						<Button
 							isFullWidth={kind === 'floating'}
+							action={(action as unknown) as IHWAction}
 							{...action}
 							kind={
 								kind === 'floating'

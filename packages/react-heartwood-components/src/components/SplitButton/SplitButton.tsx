@@ -189,6 +189,18 @@ export default class SplitButton extends Component<
 		)
 	}
 
+	public handleAction(action: IHWAction) {
+		const { onAction } = this.props
+
+		this.setState(
+			{
+				isVisible: false,
+				highlightedActionIndex: -1
+			},
+			() => onAction && onAction(action)
+		)
+	}
+
 	public render(): React.ReactElement {
 		const {
 			defaultAction,
@@ -196,8 +208,7 @@ export default class SplitButton extends Component<
 			kind,
 			isFullWidth,
 			isSmall,
-			usePortal,
-			onAction
+			usePortal
 		} = this.props
 		const { isVisible, menuPosition, highlightedActionIndex } = this.state
 
@@ -209,7 +220,7 @@ export default class SplitButton extends Component<
 					isSmall={isSmall}
 					{...defaultAction}
 					kind={defaultAction.kind || kind}
-					onAction={onAction}
+					onAction={action => this.handleAction(action)}
 				/>
 			)
 		}
@@ -228,7 +239,7 @@ export default class SplitButton extends Component<
 						{...defaultAction}
 						kind={defaultAction.kind || kind}
 						isFullWidth={false}
-						onAction={onAction}
+						onAction={action => this.handleAction(action)}
 					/>
 					<Button
 						isSmall={isSmall}
@@ -236,7 +247,7 @@ export default class SplitButton extends Component<
 						icon={{ name: 'keyboard_arrow_down' }}
 						kind={kind}
 						onClick={this.toggleActionsVisibility}
-						onAction={onAction}
+						onAction={action => this.handleAction(action)}
 					/>
 				</div>
 				{isVisible && (
@@ -257,7 +268,7 @@ export default class SplitButton extends Component<
 										isFullWidth
 										actions={actions}
 										highlightedIndex={highlightedActionIndex}
-										onAction={onAction}
+										onAction={action => this.handleAction(action)}
 									/>
 								</div>,
 								document.body
@@ -277,7 +288,7 @@ export default class SplitButton extends Component<
 									isFullWidth
 									actions={actions}
 									highlightedIndex={highlightedActionIndex}
-									onAction={onAction}
+									onAction={action => this.handleAction(action)}
 								/>
 							</div>
 						)}
