@@ -1,60 +1,34 @@
-// @flow
-import React from 'react'
+import { IHWSidebar, IHWSidebarSide } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
-import SidebarExpander from './components/SidebarExpander/SidebarExpander'
-import SidebarItem from './components/SidebarItem/SidebarItem'
-import SidebarSection from './components/SidebarSection/SidebarSection'
-import type { Props as ItemProps } from './components/SidebarItem/SidebarItem'
+import React, { ReactNode } from 'react'
 import Button from '../../../Button/Button'
-import type { Props as ButtonProps } from '../../../Button/Button'
 import Text from '../../../Text/Text'
+import SidebarExpander from './components/SidebarExpander/SidebarExpander'
+import SidebarItem, {
+	ISidebarItemProps
+} from './components/SidebarItem/SidebarItem'
+import SidebarSection from './components/SidebarSection/SidebarSection'
 
-type SidebarHeader = {
-	title: string,
-	action: ButtonProps
-}
-
-type Props = {
-	/** Optional header that will only appear on mobile */
-	mobileHeader?: SidebarHeader,
-
-	/** Items to display in the sidebar */
-	items?: Array<ItemProps>,
-
-	/** Back link item to handle navigation back to previous location */
-	backLink?: ItemProps,
+interface ISidebarProps extends IHWSidebar {
+	backLink?: ISidebarItemProps | null
 
 	/** Children to add to the sidebar */
-	children?: Node,
+	children?: ReactNode
 
 	/** Include a footer in the sidebar */
-	footer?: Node,
-
-	/** Set which side the sidebar is on. Must be either 'left' or 'right */
-	side: 'left' | 'right',
-
-	/** Set true to make the sidebar larger. Defaults to false. */
-	isLarge?: boolean,
-
-	/** Enables the user to collapse the sidebar on desktop. Defaults to true. */
-	isCollapsible?: boolean,
-
-	/** Set true to expand the sidebar (large screens only) */
-	isExpanded?: boolean,
-
-	/** Set true to expand the sidebar on small screens */
-	isMobileExpanded?: boolean,
+	footer?: ReactNode
 
 	/** Handler to force the sidebar to collapse */
-	forceCloseSidebar: Function,
+	forceCloseSidebar?: Function
 
 	/** Handler to toggle the visibility of the sidebar */
-	toggleExpanded: Function
+	toggleExpanded?: Function
 }
 
-const Sidebar = (props: Props) => {
+const Sidebar = (props: ISidebarProps) => {
 	const {
 		items,
+		sections,
 		backLink,
 		children,
 		footer,
@@ -71,8 +45,8 @@ const Sidebar = (props: Props) => {
 	return (
 		<aside
 			className={cx('sidebar', {
-				'sidebar--left': side === 'left',
-				'sidebar--right': side === 'right',
+				'sidebar--left': side === IHWSidebarSide.Left,
+				'sidebar--right': side === IHWSidebarSide.Right,
 				'sidebar--large': isLarge,
 				'sidebar--is-collapsed': !isExpanded,
 				'sidebar--is-mobile-expanded': isMobileExpanded
@@ -103,9 +77,16 @@ const Sidebar = (props: Props) => {
 								{...backLink}
 							/>
 						)}
+						``
 					</ul>
 				)}
-				<div className="sidebar__content">{children && children}</div>
+				<div className="sidebar__content">
+					{children}
+					{sections &&
+						sections.map((section, idx) => (
+							<SidebarSection key={`sidebar-section-${idx}`} {...section} />
+						))}
+				</div>
 			</div>
 			{footer && footer}
 			{isCollapsible && (
