@@ -12,6 +12,9 @@ type Toast {
 	"Optional; controls whether the toast can be removed. Defaults to true"
 	canRemove: Boolean
 
+	"Action to be invoked when hitting the dismiss button"
+	removeAction: Action
+
 	"Sets the variation of toast"
 	kind: String
 

@@ -47,7 +47,14 @@ const Toast = (props: IToastProps | IHWToast): React.ReactElement => {
 	const commonProps = props as IHWToast
 	const reactHeartwoodProps = props as IToastProps
 
-	const { headline, kind, text, followupAction, followupText } = commonProps
+	const {
+		headline,
+		kind,
+		text,
+		followupAction,
+		followupText,
+		removeAction
+	} = commonProps
 	const { canRemove, onAction, onRemove } = reactHeartwoodProps
 
 	const toastClass = cx('toast', {
@@ -60,7 +67,10 @@ const Toast = (props: IToastProps | IHWToast): React.ReactElement => {
 		<div className={toastClass}>
 			<ToastHeader
 				headline={headline}
-				onRemove={onRemove}
+				onRemove={() => {
+					removeAction && onAction && onAction(removeAction)
+					onRemove && onRemove()
+				}}
 				canRemove={canRemove || false}
 			/>
 			{text && (
