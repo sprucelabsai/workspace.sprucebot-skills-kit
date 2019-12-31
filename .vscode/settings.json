@@ -19,19 +19,12 @@
 		"**/.next/**": true
 	},
 	"eslint.enable": true,
-	"eslint.autoFixOnSave": true,
 	"eslint.nodePath": "node_modules",
 	"eslint.validate": [
 		"javascript",
 		"javascriptreact",
-		{
-			"language": "typescript",
-			"autoFix": true
-		},
-		{
-			"language": "typescriptreact",
-			"autoFix": true
-		}
+		"typescript",
+		"typescriptreact"
 	],
 	"eslint.options": {
 		"extensions": [".js", ".jsx", ".ts", ".tsx"]
@@ -39,5 +32,9 @@
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"atlascode.jira.workingSite": {
 		"baseUrlSuffix": "atlassian.net"
+	},
+	"editor.codeActionsOnSaveTimeout": 5000,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
 	}
 }
