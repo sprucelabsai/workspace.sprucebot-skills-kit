@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"module": "umd",
+		"module": "es2015",
 		"target": "es5",
 		"lib": ["es2015", "dom"],
 		"esModuleInterop": true,
@@ -13,7 +13,7 @@
 		"noUnusedLocals": true,
 		"resolveJsonModule": true,
 		"sourceMap": true,
-		"outFile": "./client.js",
+		"outDir": "./build",
 		"baseUrl": ".",
 		"paths": {
 			"*": ["node_modules/*"]

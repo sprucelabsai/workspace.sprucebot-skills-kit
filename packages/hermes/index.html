@@ -4,16 +4,24 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Basic template using Mercury</title>
-		<script type="text/javascript" src="./lib/require.js"></script>
+		<!-- <script type="text/javascript" src="./lib/require.js"></script> -->
+		<script
+			type="text/javascript"
+			src="https://local-api.sprucebot.com/mercury.min.js"
+		></script>
 		<script>
 			window.onload = function onPageLoad() {
-				const Mercury = require([
-					'https://local-api.sprucebot.com/mercury.min.js'
-				], Mercury => {
-					// window.mercury = new Mercury()
-					// console.log(window.mercury)
-					window.Mercury = Mercury
+				// const Mercury = require([
+				// 	'https://local-api.sprucebot.com/mercury.min.js'
+				// ], Mercury => {
+				// 	// window.mercury = new Mercury()
+				// 	// console.log(window.mercury)
+				// 	window.Mercury = Mercury
+				// })
+				const mercury = new Mercury.Mercury({
+					spruceApiUrl: 'https://local-api.sprucebot.com'
 				})
+				window.mercury = mercury
 			}
 		</script>
 	</head>
