@@ -14,13 +14,14 @@ export default {
 		name: 'Mercury',
 		sourceMap: true
 	},
+	external: ['fs', 'http', 'https', 'child_process'],
 	plugins: [
 		typescript({
 			tsconfig: './tsconfig.browser.json'
 		}),
 		resolve({
-			browser: true,
-			preferBuiltins: false
+			browser: true
+			// preferBuiltins: false
 		}),
 		commonjs({ extensions: ['.js', '.ts'] }),
 		globals(),

@@ -4,6 +4,7 @@ import { MercuryAdapter } from './MercuryAdapter'
 import MercuryAdapterDeepstream, {
 	IMercuryAdapterDeepstreamOptions
 } from './adapters/MercuryAdapterDeepstream'
+import MercuryAdapterSocketIO from './adapters/MercuryAdapterSocketIO'
 
 export interface IOnData {
 	/** The event name that is being triggered */
@@ -15,7 +16,9 @@ export type TOnPromiseHandler = (data: IOnData) => Promise<void>
 export type TOnHandler = TOnFunctionHandler | TOnPromiseHandler
 
 export enum MercuryAdapterKind {
-	Deepstream = 'deepstream'
+	Deepstream = 'deepstream',
+	// eslint-disable-next-line spruce/prefer-pascal-case-enums
+	SocketIO = 'socketio'
 }
 
 export interface IMercuryError {}
@@ -54,7 +57,7 @@ export type MercuryAuth =
 
 export interface IMercuryConnectOptions {
 	/** The adapter the client should use */
-	adapter: MercuryAdapter
+	adapter: MercuryAdapterKind
 
 	/** Adapter connection options */
 	adapterOptions: Record<string, any>
@@ -95,7 +98,16 @@ export class Mercury {
 	}
 
 	/** Subscribe to events */
-	public on(eventName: string, handler: TOnHandler): void {
+	public on(
+		options: {
+			eventName: string
+			organizationId?: string | null
+			locationId?: string | null
+			userId?: string | null
+		},
+		handler: TOnHandler
+	): void {
+		const { eventName, organizationId, locationId, userId } = options
 		// Check if the handler is a promise
 		const objToCheck = handler as any
 		if (objToCheck && typeof objToCheck.then === 'function') {
@@ -107,6 +119,14 @@ export class Mercury {
 			log.warn('Evnet handler not recognized as a callback or Promise')
 		}
 	}
+
+	public emit(options: {
+		eventName: string
+		organizationId?: string | null
+		locationId?: string | null
+		userId?: string | null
+		payload?: Record<string, any>
+	}) {}
 
 	private onPromise(eventName: string, handler: TOnPromiseHandler) {}
 
@@ -123,6 +143,12 @@ export class Mercury {
 		switch (adapter) {
 			case MercuryAdapterKind.Deepstream:
 				this.adapter = new MercuryAdapterDeepstream()
+				this.adapter.init(connectionOptions)
+				isAdapterSet = true
+				break
+
+			case MercuryAdapterKind.SocketIO:
+				this.adapter = new MercuryAdapterSocketIO()
 				this.adapter.init(connectionOptions)
 				isAdapterSet = true
 				break

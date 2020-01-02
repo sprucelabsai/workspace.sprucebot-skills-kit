@@ -25,9 +25,17 @@ export abstract class MercuryAdapter {
 	}): void
 
 	/** Provides an event */
-	public abstract provide(options: {
+	// public abstract provide(options: {
+	// 	eventName: string
+	// 	handler: TMercuryEventHandler
+	// 	authorize: TMercuryEventAuthorization
+	// }): Promise<void>
+
+	public abstract emit(options: {
 		eventName: string
-		handler: TMercuryEventHandler
-		authorize: TMercuryEventAuthorization
-	}): Promise<void>
+		organizationId?: string | null
+		locationId?: string | null
+		userId?: string | null
+		payload?: Record<string, any>
+	}): void
 }
