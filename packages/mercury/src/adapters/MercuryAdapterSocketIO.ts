@@ -1,36 +1,45 @@
 import log from '../lib/log'
 import { MercuryAdapter } from '../MercuryAdapter'
-import { IAuthStatus } from '../Mercury'
+import {
+	IAuthStatus,
+	TOnPromiseHandler,
+	IMercuryOnOptions,
+	TOnConnectPromiseHandler
+} from '../Mercury'
 import Socket from 'socket.io-client/dist/socket.io.js'
 
 export interface IMercuryAdapterSocketIOOptions {
 	socketIOUrl: string
-	username?: string
-	password?: string
-	jwt?: string
+	// jwt?: string
 }
 
 export default class MercuryAdapterSocketIO implements MercuryAdapter {
 	public isConnected = false
 	private socket?: Socket
 	private options!: IMercuryAdapterSocketIOOptions
+	private eventHandler!: TOnPromiseHandler
+	private onConnect!: TOnConnectPromiseHandler
 
-	public init(options: IMercuryAdapterSocketIOOptions): void {
+	public init(
+		options: IMercuryAdapterSocketIOOptions,
+		eventHandler: TOnPromiseHandler,
+		onConnect: TOnConnectPromiseHandler
+	): void {
 		log.debug({ options })
 		this.options = options
+		this.eventHandler = eventHandler
+		this.onConnect = onConnect
 		this.connect()
 	}
 
-	public on(options: {
-		eventName: string
-		payload: Record<string, any>
-	}): void {
-		const { eventName, payload } = options
-		console.log({ eventName, payload })
+	public on(options: IMercuryOnOptions): void {
+		const { eventName } = options
+		console.log({ options })
 
 		this.socket.emit('subscribe', {
-			eventName,
-			jwt: this.options.jwt
+			...options
+			// TODO: pass jwt for auth purposes
+			// jwt: this.options.jwt
 		})
 	}
 
@@ -47,8 +56,14 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 			log.warn('Can not set event handlers. SocketIO not connected.')
 			return
 		}
-		this.socket.on('connect', () => {
+		this.socket.on('connect', async () => {
 			log.debug('SOCKET CONNECT')
+			this.isConnected = true
+			try {
+				await this.onConnect()
+			} catch (e) {
+				log.warn(e)
+			}
 		})
 
 		this.socket.on('err', data => {
@@ -56,8 +71,12 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 			log.warn(data)
 		})
 
-		this.socket.on('event', data => {
-			log.debug('Received Event', { data })
+		this.socket.on('mercury-event', async data => {
+			try {
+				await this.eventHandler(data)
+			} catch (e) {
+				log.warn(e)
+			}
 		})
 	}
 }

@@ -13,6 +13,7 @@ export interface IOnData {
 
 export type TOnFunctionHandler = (data: IOnData) => void
 export type TOnPromiseHandler = (data: IOnData) => Promise<void>
+export type TOnConnectPromiseHandler = () => Promise<void>
 export type TOnHandler = TOnFunctionHandler | TOnPromiseHandler
 
 export enum MercuryAdapterKind {
@@ -69,12 +70,26 @@ export enum MercuryRole {
 	Anonymous = 'anonymous'
 }
 
+export interface IMercuryOnOptions {
+	eventName: string
+	organizationId?: string | null
+	locationId?: string | null
+	userId?: string | null
+}
+
 export class Mercury {
 	public logLevel = 'warn'
 	public isConnected = false
+	private clientOnConnect?: TOnConnectPromiseHandler
 	private adapter?: MercuryAdapter
+	private eventHandlers: Record<string, TOnHandler> = {}
 
-	constructor(options?: { spruceApiUrl: string; credentials?: MercuryAuth }) {
+	constructor(options?: {
+		spruceApiUrl: string
+		credentials?: MercuryAuth
+		onConnect?: TOnConnectPromiseHandler
+	}) {
+		this.clientOnConnect = options && options.onConnect
 		this.connect(options)
 			.then(() => {
 				log.debug('Mercury connect finished')
@@ -98,26 +113,27 @@ export class Mercury {
 	}
 
 	/** Subscribe to events */
-	public on(
-		options: {
-			eventName: string
-			organizationId?: string | null
-			locationId?: string | null
-			userId?: string | null
-		},
-		handler: TOnHandler
-	): void {
-		const { eventName, organizationId, locationId, userId } = options
-		// Check if the handler is a promise
-		const objToCheck = handler as any
-		if (objToCheck && typeof objToCheck.then === 'function') {
-			this.onPromise(eventName, handler as TOnPromiseHandler)
-		} else if (objToCheck && typeof objToCheck === 'function') {
-			this.onFunction(eventName, handler as TOnFunctionHandler)
-		} else {
-			// Bad
-			log.warn('Evnet handler not recognized as a callback or Promise')
+	public on(options: IMercuryOnOptions, handler: TOnHandler): void {
+		if (!this.adapter) {
+			log.debug('Mercury: Unable to set .on() event because no adapter is set')
+			return
 		}
+		const { eventName, organizationId, locationId, userId } = options
+		const key = this.getEventHandlerKey(options)
+		this.eventHandlers[key] = handler
+		this.adapter.on(options)
+		// Check if the handler is a promise
+		// const objToCheck = handler as any
+		// if (objToCheck && typeof objToCheck.then === 'function') {
+		// 	// this.onPromise(eventName, handler as TOnPromiseHandler)
+		// 	this.eventHandlers[key] = handler
+		// } else if (objToCheck && typeof objToCheck === 'function') {
+		// 	// this.onFunction(eventName, handler as TOnFunctionHandler)
+		// 	this.eventHandlers[key] = this.onFunction(handler as TOnFunctionHandler)
+		// } else {
+		// 	// Bad
+		// 	log.warn('Event handler not recognized as a callback or Promise')
+		// }
 	}
 
 	public emit(options: {
@@ -128,9 +144,14 @@ export class Mercury {
 		payload?: Record<string, any>
 	}) {}
 
-	private onPromise(eventName: string, handler: TOnPromiseHandler) {}
+	// private onPromise(eventName: string, handler: TOnPromiseHandler) {}
 
-	private onFunction(eventName: string, handler: TOnFunctionHandler) {}
+	// private onFunction(eventName: string, handler: TOnFunctionHandler) {}
+	// private onFunction(handler: TOnFunctionHandler) {
+	// 	return new Promise(resolve => {
+	// 		handler()
+	// 	})
+	// }
 
 	private setAdapter(options: {
 		adapter: MercuryAdapterKind
@@ -143,13 +164,21 @@ export class Mercury {
 		switch (adapter) {
 			case MercuryAdapterKind.Deepstream:
 				this.adapter = new MercuryAdapterDeepstream()
-				this.adapter.init(connectionOptions)
+				this.adapter.init(
+					connectionOptions,
+					this.handleEvent.bind(this),
+					this.onConnect.bind(this)
+				)
 				isAdapterSet = true
 				break
 
 			case MercuryAdapterKind.SocketIO:
 				this.adapter = new MercuryAdapterSocketIO()
-				this.adapter.init(connectionOptions)
+				this.adapter.init(
+					connectionOptions,
+					this.handleEvent.bind(this),
+					this.onConnect.bind(this)
+				)
 				isAdapterSet = true
 				break
 			default:
@@ -157,6 +186,24 @@ export class Mercury {
 		}
 
 		return isAdapterSet
+	}
+
+	private getEventHandlerKey(options: IMercuryOnOptions): string {
+		const { eventName, organizationId, locationId, userId } = options
+
+		let key = `events-${eventName}`
+
+		if (organizationId) {
+			key += `-organizations-${organizationId}`
+		}
+		if (locationId) {
+			key += `-locations-${locationId}`
+		}
+		if (userId) {
+			key += `-users-${userId}`
+		}
+
+		return key
 	}
 
 	private async getAdapterOptions(options: {
@@ -173,5 +220,22 @@ export class Mercury {
 			.send(credentials)
 
 		return response.body
+	}
+
+	private async handleEvent(options: IOnData) {
+		log.debug('Mercury: handleEvent', {
+			options
+		})
+	}
+
+	private async onConnect() {
+		log.debug('Mercury: onConnect')
+		if (this.clientOnConnect) {
+			try {
+				await this.clientOnConnect()
+			} catch (e) {
+				log.warn(e)
+			}
+		}
 	}
 }
