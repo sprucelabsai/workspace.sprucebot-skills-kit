@@ -1,6 +1,7 @@
 module.exports = {
 	extends: 'spruce',
 	globals: {
-		log: true
+		log: true,
+		crypto: true
 	}
 }

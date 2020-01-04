@@ -5,45 +5,49 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Basic template using Mercury</title>
 		<!-- <script type="text/javascript" src="./lib/require.js"></script> -->
+		<script>
+			// Enable debug console output for mercury
+			localStorage.debug = '@sprucelabs/mercury'
+		</script>
 		<script
 			type="text/javascript"
 			src="https://local-api.sprucebot.com/mercury.min.js"
 		></script>
 		<script>
 			async function onConnect() {
-				mercury.on({
-					eventName: 'did-enter',
-					organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2'
-					// locationId
-					// userId
-				})
-			}
-			function handleEvent() {
-				console.log('**** HANDLE EVENT')
+				mercury.on(
+					{
+						scope: Mercury.MercurySubscriptionScope.AnonymousGlobal,
+						eventName: 'did-enter',
+						organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2'
+						// locationId
+						// userId
+					},
+					data => {
+						console.log('did-enter fired!', { data })
+					}
+				)
+
+				mercury.emit(
+					{
+						eventName: 'booking:get-providers',
+						organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2',
+						locationId: '3d9b29eb-ab0e-481a-834c-6c57315c32b4'
+					},
+					data => {
+						console.log('Emit response!', { data })
+					}
+				)
 			}
 			window.onload = function onPageLoad() {
-				// const Mercury = require([
-				// 	'https://local-api.sprucebot.com/mercury.min.js'
-				// ], Mercury => {
-				// 	// window.mercury = new Mercury()
-				// 	// console.log(window.mercury)
-				// 	window.Mercury = Mercury
-				// })
 				const mercury = new Mercury.Mercury({
 					spruceApiUrl: 'https://local-api.sprucebot.com',
-					token:
-						'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJpYXQiOjE1NzgwMDA4NDcsImV4cCI6MTU3ODA4NzI0NywianRpIjoiY2Q1Y2E4OTItZWRlYy00YTJkLTkxMjgtMjI4ODRkODQ3MTEwIn0.pDlgZfJOz_UJ3LptTLfsQlOXCbNVlH7ZUnsu3vViUQplthxXcCSG3gu1FmxIcPL4M3jOf5bMoIl2YPRWmR3pcQ',
+					credentials: {
+						token:
+							'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJpYXQiOjE1NzgwMDA4NDcsImV4cCI6MTU3ODA4NzI0NywianRpIjoiY2Q1Y2E4OTItZWRlYy00YTJkLTkxMjgtMjI4ODRkODQ3MTEwIn0.pDlgZfJOz_UJ3LptTLfsQlOXCbNVlH7ZUnsu3vViUQplthxXcCSG3gu1FmxIcPL4M3jOf5bMoIl2YPRWmR3pcQ'
+					},
 					onConnect
 				})
-				// mercury.onConnect = async function onConnect()
-				// setTimeout(() => {
-				// 	mercury.on({
-				// 		eventName: 'did-enter'
-				// 		// organizationId
-				// 		// locationId
-				// 		// userId
-				// 	})
-				// }, 2000)
 				window.mercury = mercury
 			}
 		</script>

@@ -1,6 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 // import json from '@rollup/plugin-json'
+import replace from 'rollup-plugin-replace'
 import typescript from '@rollup/plugin-typescript'
 import builtins from 'rollup-plugin-node-builtins'
 import globals from 'rollup-plugin-node-globals'
@@ -16,6 +17,13 @@ export default {
 	},
 	external: ['fs', 'http', 'https', 'child_process'],
 	plugins: [
+		replace({
+			include: ['node_modules/uuid/**'],
+			delimiters: ['', ''],
+			values: {
+				'crypto.randomBytes': "require('randombytes')"
+			}
+		}),
 		typescript({
 			tsconfig: './tsconfig.browser.json'
 		}),

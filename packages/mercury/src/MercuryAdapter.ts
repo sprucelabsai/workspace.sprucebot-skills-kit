@@ -1,22 +1,9 @@
 import {
-	IAuthStatus,
 	TOnPromiseHandler,
-	TOnConnectPromiseHandler
+	IMercuryAdapterOnOptions,
+	IMercuryEmitOptions,
+	TOnConnectFunctionHandler
 } from './Mercury'
-
-interface IMercuryEventHandlerOptions {
-	userId?: string
-	skillId?: string
-	payload?: Record<string, any>
-}
-
-type TMercuryEventHandler = (
-	options: IMercuryEventHandlerOptions
-) => Promise<Record<string, any>>
-
-type TMercuryEventAuthorization = (
-	options: IMercuryEventHandlerOptions
-) => Promise<boolean>
 
 export abstract class MercuryAdapter {
 	public abstract isConnected: boolean
@@ -24,15 +11,12 @@ export abstract class MercuryAdapter {
 	public abstract init(
 		options: Record<string, any>,
 		eventHandler: TOnPromiseHandler,
-		onConnect: TOnConnectPromiseHandler
+		onConnect: TOnConnectFunctionHandler
 	): void
 
-	public abstract on(options: {
-		eventName: string
-		lorganizationId?: string | null
-		locationId?: string | null
-		userId?: string | null
-	}): void
+	public abstract on(options: IMercuryAdapterOnOptions): void
+
+	public abstract emit(options: IMercuryEmitOptions): void
 
 	/** Provides an event */
 	// public abstract provide(options: {

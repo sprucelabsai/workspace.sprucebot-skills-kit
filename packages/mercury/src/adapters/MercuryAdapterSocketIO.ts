@@ -1,11 +1,12 @@
 import log from '../lib/log'
 import { MercuryAdapter } from '../MercuryAdapter'
 import {
-	IAuthStatus,
 	TOnPromiseHandler,
-	IMercuryOnOptions,
-	TOnConnectPromiseHandler
+	TOnConnectFunctionHandler,
+	IMercuryEmitOptions,
+	IMercuryAdapterOnOptions
 } from '../Mercury'
+// @ts-ignore
 import Socket from 'socket.io-client/dist/socket.io.js'
 
 export interface IMercuryAdapterSocketIOOptions {
@@ -18,12 +19,12 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 	private socket?: Socket
 	private options!: IMercuryAdapterSocketIOOptions
 	private eventHandler!: TOnPromiseHandler
-	private onConnect!: TOnConnectPromiseHandler
+	private onConnect!: TOnConnectFunctionHandler
 
 	public init(
 		options: IMercuryAdapterSocketIOOptions,
 		eventHandler: TOnPromiseHandler,
-		onConnect: TOnConnectPromiseHandler
+		onConnect: TOnConnectFunctionHandler
 	): void {
 		log.debug({ options })
 		this.options = options
@@ -32,15 +33,17 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 		this.connect()
 	}
 
-	public on(options: IMercuryOnOptions): void {
-		const { eventName } = options
-		console.log({ options })
+	public on(options: IMercuryAdapterOnOptions): void {
+		this.socket.emit('subscribe', options)
+	}
 
-		this.socket.emit('subscribe', {
-			...options
-			// TODO: pass jwt for auth purposes
-			// jwt: this.options.jwt
-		})
+	public emit(options: IMercuryEmitOptions) {
+		if (!this.socket) {
+			log.warn('Can not emit. SocketIO not connected.')
+			return
+		}
+
+		this.socket.emit('mercury-emit', options)
 	}
 
 	private connect() {
@@ -56,22 +59,18 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 			log.warn('Can not set event handlers. SocketIO not connected.')
 			return
 		}
-		this.socket.on('connect', async () => {
+		this.socket.on('connect', () => {
 			log.debug('SOCKET CONNECT')
 			this.isConnected = true
-			try {
-				await this.onConnect()
-			} catch (e) {
-				log.warn(e)
-			}
+			this.onConnect()
 		})
 
-		this.socket.on('err', data => {
+		this.socket.on('err', (data: any) => {
 			log.warn('Socket error')
 			log.warn(data)
 		})
 
-		this.socket.on('mercury-event', async data => {
+		this.socket.on('mercury-event', async (data: any) => {
 			try {
 				await this.eventHandler(data)
 			} catch (e) {
