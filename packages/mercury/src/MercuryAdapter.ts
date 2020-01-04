@@ -11,7 +11,8 @@ export abstract class MercuryAdapter {
 	public abstract init(
 		options: Record<string, any>,
 		eventHandler: TOnPromiseHandler,
-		onConnect: TOnConnectFunctionHandler
+		onConnect: TOnConnectFunctionHandler,
+		onDisconnect: TOnConnectFunctionHandler
 	): void
 
 	public abstract on(options: IMercuryAdapterOnOptions): void

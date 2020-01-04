@@ -17,10 +17,10 @@
 			async function onConnect() {
 				mercury.on(
 					{
-						scope: Mercury.MercurySubscriptionScope.AnonymousGlobal,
+						scope: Mercury.MercurySubscriptionScope.Location,
 						eventName: 'did-enter',
-						organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2'
-						// locationId
+						organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2',
+						locationId: '3d9b29eb-ab0e-481a-834c-6c57315c32b4'
 						// userId
 					},
 					data => {
@@ -43,8 +43,10 @@
 				const mercury = new Mercury.Mercury({
 					spruceApiUrl: 'https://local-api.sprucebot.com',
 					credentials: {
+						// token:
+						// 	'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJpYXQiOjE1NzgxMTQ4OTksImV4cCI6MTU3ODIwMTI5OSwianRpIjoiNjFiZWE0NzItYmY4ZS00ZDI3LWIwODktNWJhZmUxNjRhOWVmIn0.o60lqSKtgIJPNIWkxvaz1JoTizqe-kjNcybPPz3p2zyO-8Dn2dDOybtBdJDkZaIr8ABblABWk5DfxMra-HYEKw'
 						token:
-							'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJpYXQiOjE1NzgwMDA4NDcsImV4cCI6MTU3ODA4NzI0NywianRpIjoiY2Q1Y2E4OTItZWRlYy00YTJkLTkxMjgtMjI4ODRkODQ3MTEwIn0.pDlgZfJOz_UJ3LptTLfsQlOXCbNVlH7ZUnsu3vViUQplthxXcCSG3gu1FmxIcPL4M3jOf5bMoIl2YPRWmR3pcQ'
+							'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwN2ZiNzA4Yy1lOWI2LTQ3MGQtYWM5MC03ZTI2Y2NjMWJmM2MiLCJpbXBlcnNvbmF0aW5nVXNlcklkIjoiYzE2YjcwYzgtY2ZmYy00Njk0LWE1OTMtZTViNzQ2Nzc0N2VhIiwiaWF0IjoxNTc4MTE4NDA4LCJleHAiOjE1NzgyMDQ4MDgsImp0aSI6IjA0ZmJlZGNlLTQ4YzktNDQwMi1iN2FlLTlkMWI2ZDIzYzE5YSJ9.xNxS6yW7Vk9G6D7hiICIZ3I5zhRY44R9aMWH_S5O0_wl9rMOJ4bOJnfY5qq7HsLw3LbCcEnbGDbJXUAYB2dB0g'
 					},
 					onConnect
 				})

@@ -20,21 +20,33 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 	private options!: IMercuryAdapterSocketIOOptions
 	private eventHandler!: TOnPromiseHandler
 	private onConnect!: TOnConnectFunctionHandler
+	private onDisconnect!: TOnConnectFunctionHandler
 
 	public init(
 		options: IMercuryAdapterSocketIOOptions,
 		eventHandler: TOnPromiseHandler,
-		onConnect: TOnConnectFunctionHandler
+		onConnect: TOnConnectFunctionHandler,
+		onDisconnect: TOnConnectFunctionHandler
 	): void {
 		log.debug({ options })
 		this.options = options
 		this.eventHandler = eventHandler
 		this.onConnect = onConnect
+		this.onDisconnect = onDisconnect
 		this.connect()
 	}
 
 	public on(options: IMercuryAdapterOnOptions): void {
-		this.socket.emit('subscribe', options)
+		if (this.isConnected) {
+			this.socket.emit('subscribe', options)
+		} else {
+			log.debug(
+				'Mercury SocketIO: Unable to set .on() event because adapter is not connected'
+			)
+			// If we're not connected, we should just retry shortly
+			// TODO: Set some kind of final timeout here?
+			setTimeout(() => this.on(options), 500)
+		}
 	}
 
 	public emit(options: IMercuryEmitOptions) {
@@ -64,10 +76,14 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 			this.isConnected = true
 			this.onConnect()
 		})
+		this.socket.on('disconnect', () => {
+			log.debug('SOCKET DISCONNECT')
+			this.isConnected = false
+			this.onDisconnect()
+		})
 
 		this.socket.on('err', (data: any) => {
-			log.warn('Socket error')
-			log.warn(data)
+			log.warn('Socket error', data)
 		})
 
 		this.socket.on('mercury-event', async (data: any) => {

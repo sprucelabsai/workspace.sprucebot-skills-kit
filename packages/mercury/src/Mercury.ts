@@ -24,8 +24,8 @@ export interface IOnData {
 	payload: Record<string, any>
 }
 
-export type TOnFunctionHandler = (data: IOnData) => void
-export type TOnPromiseHandler = (data: IOnData) => Promise<void>
+export type TOnFunctionHandler = (data: IMercuryOnOptions) => void
+export type TOnPromiseHandler = (data: IMercuryOnOptions) => Promise<void>
 export type TOnHandler = TOnFunctionHandler | TOnPromiseHandler
 export type TOnConnectPromiseHandler = () => Promise<void>
 export type TOnConnectFunctionHandler = () => void
@@ -118,8 +118,21 @@ export interface IMercuryInitilizationOptions {
 	/** Your connection credentials to connect as either a User or a Skill */
 	credentials?: MercuryAuth
 
-	/** Callback function to execute when Mercury has connected. You should set up your event listeners after the connection has been created */
+	/**
+	 * Callback function to execute when Mercury has connected.
+	 * You should set up your event listeners mercury.on(...) in the onConnect callback
+	 *
+	 * This function will also be called in case of a reconnect
+	 */
 	onConnect?: TOnConnectHandler
+
+	/**
+	 * Callback function to execute when Mercury has disconnected.
+	 *
+	 * This callback usually doesn't need to be implemented.
+	 * Mercury will handle cleanup of callback functions created in onConnect
+	 */
+	onDisconnect?: TOnConnectHandler
 }
 
 /** The scope of the data in a subscription */
@@ -146,8 +159,9 @@ export class Mercury {
 	public logLevel = 'warn'
 	public isConnected = false
 	private clientOnConnect?: TOnConnectHandler
+	private clientOnDisconnect?: TOnConnectHandler
 	private adapter?: MercuryAdapter
-	private eventHandlers: Record<string, TOnHandler> = {}
+	private eventHandlers: Record<string, TOnHandler[]> = {}
 	private credentials?: MercuryAuth
 
 	constructor(options?: IMercuryInitilizationOptions) {
@@ -167,9 +181,10 @@ export class Mercury {
 			return
 		}
 
-		const { onConnect, credentials } = options
+		const { onConnect, onDisconnect, credentials } = options
 
 		this.clientOnConnect = onConnect
+		this.clientOnDisconnect = onDisconnect
 		this.credentials = credentials
 
 		const adapterOptions = await this.getAdapterOptions(options)
@@ -180,12 +195,18 @@ export class Mercury {
 	public on(options: IMercuryOnOptions, handler: TOnHandler): void {
 		if (!this.adapter) {
 			log.debug('Mercury: Unable to set .on() event because no adapter is set')
+			// Retry setting the subscription
+			setTimeout(() => this.on(options, handler), 500)
 			return
 		}
 
 		try {
 			const key = this.getEventHandlerKey(options)
-			this.eventHandlers[key] = handler
+			if (!this.eventHandlers[key]) {
+				this.eventHandlers[key] = []
+			}
+			this.eventHandlers[key].push(handler)
+
 			this.adapter.on({
 				...options,
 				credentials: this.credentials
@@ -202,7 +223,7 @@ export class Mercury {
 			return
 		}
 		const eventId = this.uuid()
-		this.eventHandlers[eventId] = handler
+		this.eventHandlers[eventId] = [handler]
 		this.adapter.emit({
 			...options,
 			eventId,
@@ -234,7 +255,8 @@ export class Mercury {
 				this.adapter.init(
 					connectionOptions,
 					this.handleEvent.bind(this),
-					this.onConnect.bind(this)
+					this.onConnect.bind(this),
+					this.onDisconnect.bind(this)
 				)
 				isAdapterSet = true
 				break
@@ -286,12 +308,12 @@ export class Mercury {
 		if (userId) {
 			const userKey = `users-${userId}`
 			possibleHandlerKeys.push(`${base}-${userKey}`)
-			if (orgKey) {
-				possibleHandlerKeys.push(`${base}-${orgKey}-${userKey}`)
-			}
-			if (orgKey && locationKey) {
-				possibleHandlerKeys.push(`${base}-${orgKey}-${locationKey}-${userKey}`)
-			}
+			// if (orgKey) {
+			// 	possibleHandlerKeys.push(`${base}-${orgKey}-${userKey}`)
+			// }
+			// if (orgKey && locationKey) {
+			// 	possibleHandlerKeys.push(`${base}-${orgKey}-${locationKey}-${userKey}`)
+			// }
 		}
 
 		return possibleHandlerKeys
@@ -315,7 +337,7 @@ export class Mercury {
 	}
 
 	/** Called when the adapter detects an event. This function then looks to see if there are any callbacks for that event to invoke */
-	private async handleEvent(options: IOnData) {
+	private async handleEvent(options: IMercuryOnOptions) {
 		log.debug('Mercury: handleEvent', {
 			options
 		})
@@ -327,14 +349,18 @@ export class Mercury {
 
 		// Check if there is a callback for this eventId
 		if (eventId && this.eventHandlers[eventId]) {
-			this.executeHandler(this.eventHandlers[eventId], options)
+			this.eventHandlers[eventId].forEach(handler => {
+				this.executeHandler(handler, options)
+			})
 		}
 
 		if (eventName) {
 			const possibleHandlerKeys = this.getPossibleEventHandlerKeys(options)
 			possibleHandlerKeys.forEach(key => {
 				if (this.eventHandlers[key]) {
-					this.executeHandler(this.eventHandlers[key], options)
+					this.eventHandlers[key].forEach(handler => {
+						this.executeHandler(handler, options)
+					})
 				}
 			})
 		}
@@ -371,6 +397,16 @@ export class Mercury {
 		log.debug('Mercury: onConnect')
 		if (this.clientOnConnect) {
 			this.executeHandler(this.clientOnConnect)
+		}
+	}
+
+	private onDisconnect() {
+		log.debug('Mercury: onDisconnect')
+		// Clear event handlers
+		this.eventHandlers = {}
+
+		if (this.clientOnDisconnect) {
+			this.executeHandler(this.clientOnDisconnect)
 		}
 	}
 
