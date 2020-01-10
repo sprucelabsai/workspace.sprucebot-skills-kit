@@ -4,7 +4,6 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Basic template using Mercury</title>
-		<!-- <script type="text/javascript" src="./lib/require.js"></script> -->
 		<script>
 			// Enable debug console output for mercury
 			localStorage.debug = '@sprucelabs/mercury'
@@ -17,10 +16,10 @@
 			async function onConnect() {
 				mercury.on(
 					{
-						scope: Mercury.MercurySubscriptionScope.Location,
+						// scope: Mercury.MercurySubscriptionScope.AnonymousOrganization,
 						eventName: 'did-enter',
-						organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2',
-						locationId: '3d9b29eb-ab0e-481a-834c-6c57315c32b4'
+						organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2'
+						// locationId: '3d9b29eb-ab0e-481a-834c-6c57315c32b4'
 						// userId
 					},
 					data => {
@@ -43,10 +42,13 @@
 				const mercury = new Mercury.Mercury({
 					spruceApiUrl: 'https://local-api.sprucebot.com',
 					credentials: {
+						// 	// owner
 						// token:
-						// 	'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJpYXQiOjE1NzgxMTQ4OTksImV4cCI6MTU3ODIwMTI5OSwianRpIjoiNjFiZWE0NzItYmY4ZS00ZDI3LWIwODktNWJhZmUxNjRhOWVmIn0.o60lqSKtgIJPNIWkxvaz1JoTizqe-kjNcybPPz3p2zyO-8Dn2dDOybtBdJDkZaIr8ABblABWk5DfxMra-HYEKw'
+						// 	'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJpYXQiOjE1Nzg2OTQzMTcsImV4cCI6MTU3ODc4MDcxNywianRpIjoiN2NlOWU3OGItMTk1Ny00OTI5LTgxNzItNzJlMjUyODgxY2I4In0.K96PQAndYXfRUTZ83zK7KCSQmd0XlzvltgiewjVrsmdlds_RUEq6_eh6c9o3sBwrSmGK7slr9UbeQkgiQoXW-A'
+						// token:
+						// 	'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJsb2NhdGlvbklkIjoiM2Q5YjI5ZWItYWIwZS00ODFhLTgzNGMtNmM1NzMxNWMzMmI0Iiwib3JnYW5pemF0aW9uSWQiOiIwYTFhNWUwMC1kZWJjLTQxMGQtOWUxNC1mN2I3YzE2ZThlYzIiLCJpYXQiOjE1Nzg2OTUxMDksImV4cCI6MTU3ODc4MTUwOSwianRpIjoiNjY3MmVjMzMtODNiZC00OTk2LTkyNTktMDJkMmI1ZmJjNGEwIn0.s8QYlhKZYacbCqZ6iDLs6l1MGy-AeJ1ivoKCN9zHneXo5AyA111b5W0mlMPBF2WeWyXx0HJQ56_kZ9hNMYDasA'
 						token:
-							'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwN2ZiNzA4Yy1lOWI2LTQ3MGQtYWM5MC03ZTI2Y2NjMWJmM2MiLCJpbXBlcnNvbmF0aW5nVXNlcklkIjoiYzE2YjcwYzgtY2ZmYy00Njk0LWE1OTMtZTViNzQ2Nzc0N2VhIiwiaWF0IjoxNTc4MTE4NDA4LCJleHAiOjE1NzgyMDQ4MDgsImp0aSI6IjA0ZmJlZGNlLTQ4YzktNDQwMi1iN2FlLTlkMWI2ZDIzYzE5YSJ9.xNxS6yW7Vk9G6D7hiICIZ3I5zhRY44R9aMWH_S5O0_wl9rMOJ4bOJnfY5qq7HsLw3LbCcEnbGDbJXUAYB2dB0g'
+							'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJza2lsbElkIjoiNTFlZjhlM2MtNTUzZS00YmVmLWE0NGYtODg3YTk2NDYxZDUzIiwibG9jYXRpb25JZCI6IjNkOWIyOWViLWFiMGUtNDgxYS04MzRjLTZjNTczMTVjMzJiNCIsIm9yZ2FuaXphdGlvbklkIjoiMGExYTVlMDAtZGViYy00MTBkLTllMTQtZjdiN2MxNmU4ZWMyIiwiaWF0IjoxNTc4Njk1NTU3LCJleHAiOjE1Nzg3ODE5NTcsImp0aSI6IjRjMzA1MjgyLTJkMWUtNGIwZS1hMDYxLTVhNzk3NjMxNzk3NCJ9.idcibXBVpk4_DHGBDYr2LTqUQyhkMakg4AkZ4-_fr9YDES64poiOpENDKpWVTscX2eKxy9H0ZGbRDxjeAaJn7A'
 					},
 					onConnect
 				})

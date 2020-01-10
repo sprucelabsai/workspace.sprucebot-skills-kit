@@ -61,7 +61,8 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 	private connect() {
 		this.socket = Socket(this.options.socketIOUrl, {
 			path: '/mercury',
-			transports: ['websocket', 'polling']
+			transports: ['websocket', 'polling'],
+			rejectUnauthorized: false
 		})
 		this.setupCoreEventHandlers()
 	}

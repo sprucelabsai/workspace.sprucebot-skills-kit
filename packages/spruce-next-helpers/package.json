@@ -45,6 +45,7 @@
 		"@babel/polyfill": "^7.0.0",
 		"@babel/register": "^7.0.0",
 		"@sprucelabs/heartwood-components": "^9.0.0",
+		"@sprucelabs/mercury": "^9.0.0",
 		"@sprucelabs/react-heartwood-components": "^9.0.0",
 		"@sprucelabs/spruce-types": "^9.0.0",
 		"@zeit/next-typescript": "^1.1.1",
