@@ -80,12 +80,10 @@ export default class HeaderPrimary extends Component<Props, State> {
 	ref: any
 
 	hideUserMenu = (e: Event) => {
-		console.log(e)
-		console.log(this.ref)
 		if (
 			e.key === 'Escape' ||
 			e.target.contains(this.ref) ||
-			(e.type === 'click' && e.target.className !== 'avatar')
+			(e.type === 'click' && e.target.id !== 'avatar')
 		) {
 			this.setState(
 				{
