@@ -13,6 +13,12 @@
 		padding: spacing('base');
 	}
 
+	// for toast as a detail item (not in a card)
+	.toast {
+		max-width: 100%;
+		width: 100%;
+	}
+
 	.card__section .toast {
 		margin-top: 0;
 		margin-right: rem(16);
@@ -39,6 +45,9 @@
 		padding-right: 0;
 		padding-bottom: 0;
 		padding-left: 0;
+		p.text {
+			padding: 0 1.25rem 1.25rem;
+		}
 	}
 
 	// TODO: Fix the root cause, which is double-nesting when the list item has actions

@@ -184,7 +184,14 @@ const ListItem = (props: IListItemProps): React.ReactElement => {
 								)}
 						</Fragment>
 					)}
-					{avatar && <Avatar image={avatar} alt={avatarAlt || avatar} />}
+					{avatar && (
+						<Avatar
+							image={avatar}
+							alt={avatarAlt || avatar}
+							width={32}
+							height={32}
+						/>
+					)}
 				</div>
 			)}
 

@@ -24,9 +24,10 @@ export default {
 						'The id of the guest (User) who has been selected for the appointment'
 				},
 				services: {
-					type: SpruceDataTypes.List,
+					type: SpruceDataTypes.Object,
+					isArray: true,
 					description: 'An array of the selected services',
-					items: {
+					definition: {
 						// Each item in the list has these properties
 						id: {
 							type: SpruceDataTypes.String,

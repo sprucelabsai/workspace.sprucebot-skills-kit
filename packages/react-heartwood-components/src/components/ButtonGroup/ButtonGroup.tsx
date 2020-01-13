@@ -38,6 +38,11 @@ const ButtonGroup = (
 					>
 						<Button
 							isFullWidth={kind === 'floating'}
+							// TODO: This is necessary since the older "action" interface
+							// (meaning a button) doesn't work with the newer IHWAction
+							// interface. We need to refactor the legacy case broadly to
+							// remove this.
+							action={(action as unknown) as IHWAction}
 							{...action}
 							kind={
 								kind === 'floating'

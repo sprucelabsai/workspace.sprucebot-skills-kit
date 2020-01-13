@@ -315,6 +315,7 @@ stories
 				user={user}
 				organization={organization}
 				isSidebarExpanded
+				isChromeless={boolean('isChromeless', false)}
 			>
 				<Page
 					header={{

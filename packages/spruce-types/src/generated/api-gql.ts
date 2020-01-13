@@ -766,6 +766,8 @@ export type ICoreGQLCalendarEventDetails = {
 /** Control the rendering of the list item */
 export type ICoreGQLCalendarEventDetailsItem = {
 	__typename?: 'CalendarEventDetailsItem'
+	/** An optional ID for this item; used to allow association with UI Enhancements */
+	id?: Maybe<Scalars['String']>
 	/** How the view should be rendered */
 	type: ICoreGQLCalendarEventDetailsItemType
 	/** The data fed into the view to configure it. */
@@ -5345,6 +5347,8 @@ export type ICoreGQLToast = {
 	text?: Maybe<Scalars['String']>
 	/** Optional; controls whether the toast can be removed. Defaults to true */
 	canRemove?: Maybe<Scalars['Boolean']>
+	/** Action to be invoked when hitting the dismiss button */
+	removeAction?: Maybe<ICoreGQLAction>
 	/** Sets the variation of toast */
 	kind?: Maybe<Scalars['String']>
 	/** Text for the followup action */
@@ -5371,6 +5375,8 @@ export type ICoreGQLUiEnhancementSection = {
 	calendarEventDetailsItems?: Maybe<Array<ICoreGQLCalendarEventDetailsItem>>
 	/** [PLACEHOLDER] Card builder items to add as enhancements */
 	cardBuilderBodyItems?: Maybe<Array<ICoreGQLCardBuilderBodyItem>>
+	/** Context menu items to add as enhancements */
+	contextMenuItems?: Maybe<Array<ICoreGQLButton>>
 	/** Items to add as actions in the section context menu */
 	actions?: Maybe<Array<ICoreGQLAction>>
 }

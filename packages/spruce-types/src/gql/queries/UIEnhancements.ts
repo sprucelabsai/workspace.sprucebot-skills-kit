@@ -53,6 +53,13 @@ export default gql`
 						}
 					}
 				}
+				contextMenuItems {
+					kind
+					text
+					action {
+						...Action
+					}
+				}
 			}
 		}
 	}
@@ -355,6 +362,9 @@ export default gql`
 		... on ActionShowModal {
 			type
 			payload {
+				slug
+				route
+				routeParams
 				modalTitle: title
 				footerPrimaryActionText
 				footerSecondaryActionText

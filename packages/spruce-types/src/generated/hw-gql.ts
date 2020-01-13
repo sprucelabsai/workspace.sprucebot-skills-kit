@@ -889,6 +889,8 @@ export type IHWToast = {
   text?: Maybe<Scalars['String']>,
   /** Optional; controls whether the toast can be removed. Defaults to true */
   canRemove?: Maybe<Scalars['Boolean']>,
+  /** Action to be invoked when hitting the dismiss button */
+  removeAction?: Maybe<IHWAction>,
   /** Sets the variation of toast */
   kind?: Maybe<Scalars['String']>,
   /** Text for the followup action */
