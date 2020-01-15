@@ -79,6 +79,7 @@ const Avatar = (props: IProps): React.ReactElement => {
 		<div className={wrapperClass}>
 			<div className="avatar__image-wrapper">
 				<ImageSSR
+					id="avatar"
 					className="avatar"
 					src={image}
 					alt={alt}
