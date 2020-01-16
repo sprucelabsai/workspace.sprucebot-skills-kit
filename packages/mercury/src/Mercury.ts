@@ -95,6 +95,7 @@ export interface IMercuryOnOptions {
 	locationId?: string | null
 	userId?: string | null
 	payload?: Record<string, any>
+	responses?: Record<string, any>[]
 }
 
 export interface IMercuryAdapterOnOptions extends IMercuryOnOptions {
@@ -161,7 +162,13 @@ export class Mercury {
 	private clientOnConnect?: TOnConnectHandler
 	private clientOnDisconnect?: TOnConnectHandler
 	private adapter?: MercuryAdapter
-	private eventHandlers: Record<string, TOnHandler[]> = {}
+	private eventHandlers: Record<
+		string,
+		{
+			onFinished: TOnHandler[]
+			onResponse: TOnHandler[]
+		}
+	> = {}
 	private credentials?: MercuryAuth
 
 	constructor(options?: IMercuryInitilizationOptions) {
@@ -203,9 +210,12 @@ export class Mercury {
 		try {
 			const key = this.getEventHandlerKey(options)
 			if (!this.eventHandlers[key]) {
-				this.eventHandlers[key] = []
+				this.eventHandlers[key] = {
+					onFinished: [],
+					onResponse: []
+				}
 			}
-			this.eventHandlers[key].push(handler)
+			this.eventHandlers[key].onResponse.push(handler)
 
 			this.adapter.on({
 				...options,
@@ -223,12 +233,39 @@ export class Mercury {
 			return
 		}
 		const eventId = this.uuid()
-		this.eventHandlers[eventId] = [handler]
+		if (!this.eventHandlers[eventId]) {
+			this.eventHandlers[eventId] = {
+				onFinished: [],
+				onResponse: []
+			}
+		}
+		this.eventHandlers[eventId].onResponse = [handler]
 		this.adapter.emit({
 			...options,
 			eventId,
 			credentials: this.credentials
 		})
+
+		return this.emitOnFinishedCallback(eventId)
+	}
+
+	private emitOnFinishedCallback(eventId: string): Promise<any> {
+		let onFinishedHandler
+		const onFinished = new Promise(resolve => {
+			onFinishedHandler = resolve
+		})
+
+		if (!this.eventHandlers[eventId]) {
+			this.eventHandlers[eventId] = {
+				onFinished: [],
+				onResponse: []
+			}
+		}
+		if (onFinishedHandler) {
+			this.eventHandlers[eventId].onFinished.push(onFinishedHandler)
+		}
+
+		return onFinished
 	}
 
 	private setAdapter(options: {
@@ -338,6 +375,7 @@ export class Mercury {
 
 	/** Called when the adapter detects an event. This function then looks to see if there are any callbacks for that event to invoke */
 	private async handleEvent(options: IMercuryOnOptions) {
+		log.debug('*** Mercury.handleEvent')
 		log.debug('Mercury: handleEvent', {
 			options
 		})
@@ -348,8 +386,27 @@ export class Mercury {
 		log.debug({ eventHandlers: this.eventHandlers })
 
 		// Check if there is a callback for this eventId
-		if (eventId && this.eventHandlers[eventId]) {
-			this.eventHandlers[eventId].forEach(handler => {
+		if (
+			eventId &&
+			options.responses &&
+			this.eventHandlers[eventId] &&
+			this.eventHandlers[eventId].onFinished
+		) {
+			log.debug('Event finished. Calling event handlers', {
+				onFinished: this.eventHandlers[eventId].onFinished
+			})
+			this.eventHandlers[eventId].onFinished.forEach(handler => {
+				console.log('Calling onFinshed')
+				console.log({ handler })
+				console.log(typeof handler)
+				this.executeHandler(handler, options)
+			})
+		} else if (
+			eventId &&
+			this.eventHandlers[eventId] &&
+			this.eventHandlers[eventId].onResponse
+		) {
+			this.eventHandlers[eventId].onResponse.forEach(handler => {
 				this.executeHandler(handler, options)
 			})
 		}
@@ -357,8 +414,8 @@ export class Mercury {
 		if (eventName) {
 			const possibleHandlerKeys = this.getPossibleEventHandlerKeys(options)
 			possibleHandlerKeys.forEach(key => {
-				if (this.eventHandlers[key]) {
-					this.eventHandlers[key].forEach(handler => {
+				if (this.eventHandlers[key] && this.eventHandlers[key].onResponse) {
+					this.eventHandlers[key].onResponse.forEach(handler => {
 						this.executeHandler(handler, options)
 					})
 				}
@@ -370,6 +427,9 @@ export class Mercury {
 	private executeHandler(handler: TOnHandler, data?: any) {
 		// Check if the handler is a promise
 		const objToCheck = handler as any
+
+		console.log(typeof objToCheck)
+
 		if (objToCheck && typeof objToCheck.then === 'function') {
 			objToCheck(data)
 				.then(() => {
@@ -389,6 +449,7 @@ export class Mercury {
 			log.warn(
 				'Mercury: Unable to execute callback for event because Handler is not a promise or function'
 			)
+			console.log(objToCheck)
 		}
 	}
 

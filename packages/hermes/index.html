@@ -27,16 +27,20 @@
 					}
 				)
 
-				mercury.emit(
-					{
-						eventName: 'booking:get-providers',
-						organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2',
-						locationId: '3d9b29eb-ab0e-481a-834c-6c57315c32b4'
-					},
-					data => {
-						console.log('Emit response!', { data })
-					}
-				)
+				mercury
+					.emit(
+						{
+							eventName: 'booking:get-providers',
+							organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2',
+							locationId: '3d9b29eb-ab0e-481a-834c-6c57315c32b4'
+						},
+						data => {
+							console.log('Emit response!', { data })
+						}
+					)
+					.then(allResponses => {
+						console.log('ALL RESPONSES', allResponses)
+					})
 			}
 			window.onload = function onPageLoad() {
 				const mercury = new Mercury.Mercury({
