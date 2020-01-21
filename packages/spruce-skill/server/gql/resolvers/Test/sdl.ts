@@ -42,14 +42,14 @@ export default (ctx: ISkillContext) => {
 				loadUserOrLocation(type: String!): Model
 			}
 
-			input UpdateUserInput {
+			input UpdateGuestInput {
 				id: ID!
 				firstName: String!
 			}
 
 			extend type Mutation {
 				"Testing a user update"
-				updateUserTest(input: UpdateUserInput!): User
+				UpdateGuestTest(input: UpdateGuestInput!): User
 			}
 		`,
 		resolvers: {
@@ -136,7 +136,7 @@ export default (ctx: ISkillContext) => {
 			},
 			Mutation: {
 				// updating a model, honoring scope (see sr/config/scopes.ts)
-				updateUserTest: ctx.gql.helpers.buildSequelizeResolver({
+				UpdateGuestTest: ctx.gql.helpers.buildSequelizeResolver({
 					modelName: 'User',
 					before: async (_findOptions, args, context) => {
 						const { id, firstName } = args.input
@@ -148,11 +148,11 @@ export default (ctx: ISkillContext) => {
 						})
 
 						if (user) {
-							await ctx.sb.updateUser(id, { firstName })
+							await ctx.sb.UpdateGuest(id, { firstName })
 						}
 
 						// see /src/config/scopes.ts
-						context.scopes.updateUserTest = config.scopes.Mock.public()
+						context.scopes.UpdateGuestTest = config.scopes.Mock.public()
 
 						// let the resolver handle the loading of the model (along with relationships)
 						return {
