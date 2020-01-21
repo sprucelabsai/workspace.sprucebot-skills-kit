@@ -422,18 +422,22 @@ export default class Sprucebot {
 		return this.adapter.get(`/organizations/${organizationId}/users/`, options)
 	}
 
-	//Update for user who have been to this location
-	public async updateUser(
+	// Update a user who has been to this location
+	public async updateGuest(
 		id: string,
 		values: Record<string, any>
 	): Promise<Record<string, any>> {
 		return this.mutation(
 			`
-				mutation($input: updateUserInput!) {
-					id
-					firstName
-					lastName
-					phoneNumber
+				mutation($input: updateGuestInput!) {
+					updateGuest(input: $input) {
+						User {
+							id
+							firstName
+							lastName
+							phoneNumber
+						}
+					}
 				}
 			`,
 			{
