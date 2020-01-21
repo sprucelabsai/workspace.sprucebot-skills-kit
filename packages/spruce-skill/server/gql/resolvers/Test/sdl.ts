@@ -148,7 +148,7 @@ export default (ctx: ISkillContext) => {
 						})
 
 						if (user) {
-							await ctx.sb.UpdateGuest(id, { firstName })
+							await ctx.sb.updateGuest(id, { firstName })
 						}
 
 						// see /src/config/scopes.ts
