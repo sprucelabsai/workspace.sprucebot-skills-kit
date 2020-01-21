@@ -254,8 +254,8 @@ const PageWrapper = Wrapped => {
 			}
 
 			const mercury = new Mercury({
-				// spruceApiUrl: config.API_HOST,
-				spruceApiUrl: 'http://localhost:3005',
+				spruceApiUrl: config.API_HOST,
+				// spruceApiUrl: 'http://localhost:3005',
 				credentials: { token: state.auth.jwt },
 				onConnect: () => debug('Mercury: connected'),
 				onDisconnect: () => debug('Mercury: disconnected')

@@ -158,7 +158,13 @@ export enum MercurySubscriptionScope {
 
 export class Mercury {
 	public logLevel = 'warn'
-	public isConnected = false
+
+	get isConnected(): boolean {
+		if (this.adapter) {
+			return this.adapter.isConnected
+		}
+		return false
+	}
 	private clientOnConnect?: TOnConnectHandler
 	private clientOnDisconnect?: TOnConnectHandler
 	private adapter?: MercuryAdapter
