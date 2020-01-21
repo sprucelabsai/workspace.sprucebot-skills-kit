@@ -81,26 +81,28 @@ export default class Tabs extends Component<ITabsProps, ITabsState> {
 
 	handleInitialMeasurement = () => {
 		// Purpose: get the initial measurements for child tabs
-		const wrapper = this.tabGroup
-		const wrapperWidth = wrapper.offsetWidth
-		const contextTabWidth = this.contextTab.offsetWidth
-		const children = wrapper.childNodes
-		const childrenArray = Array.prototype.slice.call(children)
-		const tabWidths: number[] = []
-		childrenArray.forEach(child => {
-			if (!child.classList.contains('context-tab')) {
-				tabWidths.push(child.offsetWidth)
-			}
-		})
-		const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
-		this.setState(
-			{
-				tabWidths,
-				contextTabWidth,
-				isContextTabVisible: totalTabsWidth > wrapperWidth
-			},
-			() => this.handleMeasurement()
-		)
+		if (this.tabGroup) {
+			const wrapper = this.tabGroup
+			const wrapperWidth = wrapper.offsetWidth
+			const contextTabWidth = this.contextTab.offsetWidth
+			const children = wrapper.childNodes
+			const childrenArray = Array.prototype.slice.call(children)
+			const tabWidths: number[] = []
+			childrenArray.forEach(child => {
+				if (!child.classList.contains('context-tab')) {
+					tabWidths.push(child.offsetWidth)
+				}
+			})
+			const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
+			this.setState(
+				{
+					tabWidths,
+					contextTabWidth,
+					isContextTabVisible: totalTabsWidth > wrapperWidth
+				},
+				() => this.handleMeasurement()
+			)
+		}
 	}
 
 	handleMeasurement = () => {
