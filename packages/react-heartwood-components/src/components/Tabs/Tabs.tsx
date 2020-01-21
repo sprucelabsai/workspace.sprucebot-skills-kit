@@ -105,38 +105,40 @@ export default class Tabs extends Component<ITabsProps, ITabsState> {
 
 	handleMeasurement = () => {
 		// TODO: Make this fire when sidebars change
-		const wrapper = this.tabGroup
-		const wrapperWidth = wrapper.offsetWidth
-		const contextTabWidth = this.contextTab.offsetWidth
-		const { tabs } = this.props
-		const { tabWidths, activeTabIndex } = this.state
-		const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
-		const hiddenTabIndices: number[] = []
-		let width: number =
-			activeTabIndex > -1 ? tabWidths[activeTabIndex] : tabWidths[0]
+		if (this.tabGroup) {
+			const wrapper = this.tabGroup
+			const wrapperWidth = wrapper.offsetWidth
+			const contextTabWidth = this.contextTab.offsetWidth
+			const { tabs } = this.props
+			const { tabWidths, activeTabIndex } = this.state
+			const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
+			const hiddenTabIndices: number[] = []
+			let width: number =
+				activeTabIndex > -1 ? tabWidths[activeTabIndex] : tabWidths[0]
 
-		if (wrapperWidth > totalTabsWidth) {
-			this.setState({
-				hiddenTabIndices: [],
-				isContextTabVisible: false
-			})
-		} else {
-			tabs.forEach((tab, idx) => {
-				if (width + contextTabWidth > wrapperWidth) {
-					hiddenTabIndices.push(idx)
-				}
-				width += tabWidths[idx + 1]
-			})
-			this.setState({
-				hiddenTabIndices,
-				isContextTabVisible: true
-			})
+			if (wrapperWidth > totalTabsWidth) {
+				this.setState({
+					hiddenTabIndices: [],
+					isContextTabVisible: false
+				})
+			} else {
+				tabs.forEach((tab, idx) => {
+					if (width + contextTabWidth > wrapperWidth) {
+						hiddenTabIndices.push(idx)
+					}
+					width += tabWidths[idx + 1]
+				})
+				this.setState({
+					hiddenTabIndices,
+					isContextTabVisible: true
+				})
+			}
 		}
 	}
 
 	setRef = ref => {
 		this.tabGroup = ref
-		setTimeout(() => this.handleInitialMeasurement(), 100)
+		setTimeout(() => this.handleInitialMeasurement(), 250)
 	}
 
 	render() {
