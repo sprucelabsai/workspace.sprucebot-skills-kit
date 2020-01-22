@@ -81,62 +81,66 @@ export default class Tabs extends Component<ITabsProps, ITabsState> {
 
 	handleInitialMeasurement = () => {
 		// Purpose: get the initial measurements for child tabs
-		const wrapper = this.tabGroup
-		const wrapperWidth = wrapper.offsetWidth
-		const contextTabWidth = this.contextTab.offsetWidth
-		const children = wrapper.childNodes
-		const childrenArray = Array.prototype.slice.call(children)
-		const tabWidths: number[] = []
-		childrenArray.forEach(child => {
-			if (!child.classList.contains('context-tab')) {
-				tabWidths.push(child.offsetWidth)
-			}
-		})
-		const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
-		this.setState(
-			{
-				tabWidths,
-				contextTabWidth,
-				isContextTabVisible: totalTabsWidth > wrapperWidth
-			},
-			() => this.handleMeasurement()
-		)
+		if (this.tabGroup) {
+			const wrapper = this.tabGroup
+			const wrapperWidth = wrapper.offsetWidth
+			const contextTabWidth = this.contextTab.offsetWidth
+			const children = wrapper.childNodes
+			const childrenArray = Array.prototype.slice.call(children)
+			const tabWidths: number[] = []
+			childrenArray.forEach(child => {
+				if (!child.classList.contains('context-tab')) {
+					tabWidths.push(child.offsetWidth)
+				}
+			})
+			const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
+			this.setState(
+				{
+					tabWidths,
+					contextTabWidth,
+					isContextTabVisible: totalTabsWidth > wrapperWidth
+				},
+				() => this.handleMeasurement()
+			)
+		}
 	}
 
 	handleMeasurement = () => {
 		// TODO: Make this fire when sidebars change
-		const wrapper = this.tabGroup
-		const wrapperWidth = wrapper.offsetWidth
-		const contextTabWidth = this.contextTab.offsetWidth
-		const { tabs } = this.props
-		const { tabWidths, activeTabIndex } = this.state
-		const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
-		const hiddenTabIndices: number[] = []
-		let width: number =
-			activeTabIndex > -1 ? tabWidths[activeTabIndex] : tabWidths[0]
+		if (this.tabGroup) {
+			const wrapper = this.tabGroup
+			const wrapperWidth = wrapper.offsetWidth
+			const contextTabWidth = this.contextTab.offsetWidth
+			const { tabs } = this.props
+			const { tabWidths, activeTabIndex } = this.state
+			const totalTabsWidth = tabWidths.reduce((a, b) => a + b, 0)
+			const hiddenTabIndices: number[] = []
+			let width: number =
+				activeTabIndex > -1 ? tabWidths[activeTabIndex] : tabWidths[0]
 
-		if (wrapperWidth > totalTabsWidth) {
-			this.setState({
-				hiddenTabIndices: [],
-				isContextTabVisible: false
-			})
-		} else {
-			tabs.forEach((tab, idx) => {
-				if (width + contextTabWidth > wrapperWidth) {
-					hiddenTabIndices.push(idx)
-				}
-				width += tabWidths[idx + 1]
-			})
-			this.setState({
-				hiddenTabIndices,
-				isContextTabVisible: true
-			})
+			if (wrapperWidth > totalTabsWidth) {
+				this.setState({
+					hiddenTabIndices: [],
+					isContextTabVisible: false
+				})
+			} else {
+				tabs.forEach((tab, idx) => {
+					if (width + contextTabWidth > wrapperWidth) {
+						hiddenTabIndices.push(idx)
+					}
+					width += tabWidths[idx + 1]
+				})
+				this.setState({
+					hiddenTabIndices,
+					isContextTabVisible: true
+				})
+			}
 		}
 	}
 
 	setRef = ref => {
 		this.tabGroup = ref
-		setTimeout(() => this.handleInitialMeasurement(), 100)
+		setTimeout(() => this.handleInitialMeasurement(), 250)
 	}
 
 	render() {
