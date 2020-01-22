@@ -192,8 +192,8 @@ class ExampleTests extends SpruceTest<ISkillContext> {
 
 		const results = await this.gql(
 			gql`
-				mutation($input: updateUserInput!) {
-					updateUserTest(input: $input) {
+				mutation($input: updateGuestInput!) {
+					updateGuestTest(input: $input) {
 						id
 						firstName
 						phoneNumber
@@ -208,7 +208,7 @@ class ExampleTests extends SpruceTest<ISkillContext> {
 			}
 		)
 
-		const mutationUser = get(results, r => r.data.updateUserTest)
+		const mutationUser = get(results, r => r.data.updateGuestTest)
 		assert.isOk(mutationUser.id)
 		assert.isOk(mutationUser.firstName)
 		assert.isNull(mutationUser.phoneNumber) // scopes should block this

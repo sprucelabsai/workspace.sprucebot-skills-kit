@@ -160,6 +160,43 @@ export namespace SpruceEvents.core.GetSettings {
 /**
  * The Spruce Core API. Visit https://developer.spruce.ai for more information.
  *
+ * This is an opportunity to enrich user data. Set the user name, profile image, create a note, etc.
+ */
+export namespace SpruceEvents.core.EnrichUser {
+	/** The event name  */
+	export const name = 'enrich-user'
+
+	/**
+	 * Event Payload
+	 *
+	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.EnrichUser.eventName', payload))
+	*/
+	export interface IPayload {
+		/**
+		 * The user id to enrich
+		 */
+		enrichUserId?: string
+	}
+
+	/**
+	 * Event Response
+	 *
+	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
+	 * ctx.body: SpruceEvents.core.EnrichUser.IResponseBody = { ... }
+	 */
+	export interface IResponseBody {
+		/**
+		 * Respond with &quot;success&quot; to indicate you received the event.
+		 */
+		status: string
+	}
+
+
+}
+
+/**
+ * The Spruce Core API. Visit https://developer.spruce.ai for more information.
+ *
  * Core asks for settings validation
  */
 export namespace SpruceEvents.core.ValidateSettings {
