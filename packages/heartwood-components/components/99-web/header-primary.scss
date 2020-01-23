@@ -215,9 +215,6 @@
 			height: rem(20);
 			width: rem(20);
 		}
-		.btn__text {
-			display: block;
-		}
 	}
 }
 
@@ -225,6 +222,12 @@
 	.header-primary {
 		.hamburger {
 			display: none;
+		}
+
+		.header-primary__search-btn {
+			.btn__text {
+				display: block;
+			}
 		}
 
 		.text-input {
