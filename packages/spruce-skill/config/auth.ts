@@ -10,10 +10,11 @@ const gql = (options: {
 }): string => `
 {
 	${
-		options.userId
+		options.userId && options.organizationId
 			? `
 	User (
 		id: "${options.userId}"
+		organizationId: "${options.organizationId}"
 	) {
 		id
 		firstName
