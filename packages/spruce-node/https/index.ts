@@ -93,7 +93,8 @@ export default class Https implements AbstractSprucebotAdapter {
 		path: string,
 		data?: Record<string, any>,
 		query?: Record<string, any>,
-		method = 'POST'
+		method = 'POST',
+		version?: string
 	): Promise<any> {
 		return new Promise((resolve, reject) => {
 			// API Key must go with each request
@@ -108,7 +109,7 @@ export default class Https implements AbstractSprucebotAdapter {
 					host: this.host,
 					headers,
 					rejectUnauthorized: !this.allowSelfSignedCerts,
-					path: url.build(path, query, this.version, this.id)
+					path: url.build(path, query, version || this.version, this.id)
 				},
 				response => {
 					this.handleResponse(request, response, resolve, reject, method)
@@ -133,6 +134,23 @@ export default class Https implements AbstractSprucebotAdapter {
 		query?: Record<string, any>
 	): Promise<Record<string, any>> {
 		return this.post(path, data, query, 'PATCH')
+	}
+
+	/**
+	 * Make an update through the API
+	 *
+	 * @param {String} path
+	 * @param {Object} data
+	 * @param {Object} query
+	 * @returns {Promise}
+	 */
+	public async put(
+		path: string,
+		data?: Record<string, any>,
+		query?: Record<string, any>,
+		version?: string
+	): Promise<Record<string, any>> {
+		return this.post(path, data, query, 'PUT', version)
 	}
 
 	/**

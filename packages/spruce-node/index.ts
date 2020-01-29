@@ -47,12 +47,19 @@ export abstract class AbstractSprucebotAdapter {
 		path: string,
 		data?: Record<string, any>,
 		queryParams?: Record<string, any>,
-		method?: string
+		method?: string,
+		version?: string
 	): Promise<any>
 	public abstract patch(
 		path: string,
 		data?: Record<string, any>,
 		queryParams?: Record<string, any>
+	): Promise<any>
+	public abstract put(
+		path: string,
+		data?: Record<string, any>,
+		queryParams?: Record<string, any>,
+		version?: string
 	): Promise<any>
 	public abstract delete(
 		path: string,
@@ -938,6 +945,22 @@ export default class Sprucebot {
 				eventName,
 				payload
 			}
+		)
+
+		return result
+	}
+
+	public async setUserImageFromUrl(options: {
+		userId: string
+		organizationId: string
+		url: string
+	}) {
+		const { userId, organizationId, url } = options
+		const result = await this.adapter.put(
+			`/organizations/${organizationId}/guests/${userId}/profileImageUrl`,
+			{ url },
+			{},
+			'2.0'
 		)
 
 		return result
