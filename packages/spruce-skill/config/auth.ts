@@ -10,6 +10,32 @@ const gql = (options: {
 }): string => `
 {
 	${
+		options.userId && !options.organizationId
+			? `
+	User (
+		id: "${options.userId}"
+	) {
+		id
+		firstName
+		lastName
+		UserGroups {
+			edges {
+				node {
+					Group {
+						name
+					}
+					Job {
+						name
+						isDefault
+						role
+					}
+				}
+			}
+		}
+	}`
+			: ``
+	}
+	${
 		options.userId && options.organizationId
 			? `
 	User (
