@@ -102,7 +102,8 @@ class DateSelect extends Component {
 			initialVisibleMonth,
 			onPrevMonthClick,
 			onNextMonthClick,
-			loading
+			loading,
+			noNavPrevButton
 		} = this.props
 
 		return (
@@ -140,6 +141,7 @@ class DateSelect extends Component {
 							chevron_right
 						</Icon>
 					}
+					noNavPrevButton={noNavPrevButton}
 					keepOpenOnDateSelect
 					hideKeyboardShortcutsPanel
 					noBorder
@@ -162,11 +164,13 @@ DateSelect.propTypes = {
 	onPrevMonthClick: PropTypes.func,
 	loading: PropTypes.bool,
 	highlightDates: PropTypes.array,
-	canDeselectDate: PropTypes.bool
+	canDeselectDate: PropTypes.bool,
+	noNavPrevButton: PropTypes.bool
 }
 
 DateSelect.defaultProps = {
 	allowPastDates: false,
 	loading: false,
-	canDeselectDate: true
+	canDeselectDate: true,
+	noNavPrevButton: false
 }
