@@ -17,9 +17,9 @@ var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime
 
 var _getPrototypeOf3 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
-var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
-
 var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/helpers/assertThisInitialized"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
@@ -54,19 +54,19 @@ function (_Component) {
     }
 
     _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(DateSelect)).call.apply(_getPrototypeOf2, [this].concat(args)));
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "state", {
       defaultDateSet: false,
       focused: 1,
       today: _this.props.timezone ? (0, _moment.default)().tz(_this.props.timezone).format('YYYY-MM-DD') : (0, _moment.default)().format('YYYY-MM-DD')
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "componentDidMount", function () {
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "componentDidMount", function () {
       var defaultDateSet = _this.state.defaultDateSet;
 
       if (!defaultDateSet) {
         _this.setDefaultDate();
       }
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "isDayBlocked", function (date) {
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "isDayBlocked", function (date) {
       var availableDates = _this.props.availableDates;
 
       if (!availableDates) {
@@ -84,7 +84,7 @@ function (_Component) {
 
       return true;
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "isOutsideRange", function (date) {
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "isOutsideRange", function (date) {
       var today = _this.state.today;
       var allowPastDates = _this.props.allowPastDates;
       var pastDate = (0, _moment.default)(date.format('YYYY-MM-DD')).isBefore(today);
@@ -103,7 +103,7 @@ function (_Component) {
 
       return false;
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "handleDateChange", function (date) {
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "handleDateChange", function (date) {
       var _this$props = _this.props,
           _this$props$onDateSel = _this$props.onDateSelect,
           onDateSelect = _this$props$onDateSel === void 0 ? function () {
@@ -127,7 +127,7 @@ function (_Component) {
         });
       }
     });
-    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "setDefaultDate", function () {
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)(_this), "setDefaultDate", function () {
       var defaultDate = _this.props.defaultDate;
 
       _this.setState({
@@ -148,7 +148,8 @@ function (_Component) {
           initialVisibleMonth = _this$props2.initialVisibleMonth,
           _onPrevMonthClick = _this$props2.onPrevMonthClick,
           _onNextMonthClick = _this$props2.onNextMonthClick,
-          loading = _this$props2.loading;
+          loading = _this$props2.loading,
+          noNavPrevButton = _this$props2.noNavPrevButton;
       return _react.default.createElement("div", {
         className: "date_picker date_select__wrapper ".concat(loading ? 'loading' : '')
       }, _react.default.createElement("div", {
@@ -181,6 +182,7 @@ function (_Component) {
         navNext: _react.default.createElement(_Icon.default, {
           className: "date_select__icon ".concat(loading ? 'loading' : '')
         }, "chevron_right"),
+        noNavPrevButton: noNavPrevButton,
         keepOpenOnDateSelect: true,
         hideKeyboardShortcutsPanel: true,
         noBorder: true
@@ -208,10 +210,12 @@ DateSelect.propTypes = {
   onPrevMonthClick: _propTypes.default.func,
   loading: _propTypes.default.bool,
   highlightDates: _propTypes.default.array,
-  canDeselectDate: _propTypes.default.bool
+  canDeselectDate: _propTypes.default.bool,
+  noNavPrevButton: _propTypes.default.bool
 };
 DateSelect.defaultProps = {
   allowPastDates: false,
   loading: false,
-  canDeselectDate: true
+  canDeselectDate: true,
+  noNavPrevButton: false
 };
