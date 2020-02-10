@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.10.3...v7.10.4) (2020-02-10)
+
+**Note:** Version bump only for package @sprucelabs/sprucebot-node
+
+
+
+
+
 ## [7.10.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.10.2...v7.10.3) (2019-12-05)
 
 **Note:** Version bump only for package @sprucelabs/sprucebot-node
