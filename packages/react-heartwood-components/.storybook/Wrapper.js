@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import Helmet from 'react-helmet'
 import Page, { PageContent } from '../src/components/Page'
 import FontLoader from '../src/components/FontLoader/FontLoader'
-import '../src/stylesheets/global.sass'
+
 import '@sprucelabs/heartwood-components/stylesheets/heartwood-components.scss'
 
 const fonts = [

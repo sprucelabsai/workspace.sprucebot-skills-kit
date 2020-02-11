@@ -6,6 +6,7 @@
 	height: rem(48);
 	background-color: $c-grey-09;
 	color: $c-white;
+	flex-shrink: 0;
 
 	.avatar__image-wrapper {
 		width: rem(32);
@@ -214,9 +215,6 @@
 			height: rem(20);
 			width: rem(20);
 		}
-		.btn__text {
-			display: block;
-		}
 	}
 }
 
@@ -224,6 +222,12 @@
 	.header-primary {
 		.hamburger {
 			display: none;
+		}
+
+		.header-primary__search-btn {
+			.btn__text {
+				display: block;
+			}
 		}
 
 		.text-input {

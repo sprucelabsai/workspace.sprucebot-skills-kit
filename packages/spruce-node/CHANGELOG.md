@@ -3,6 +3,129 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.18.0...v9.0.0) (2019-11-04)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Breaking Changes
+
+* Typescript support for skills kit ([d8b6152](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d8b6152))
+
+
+### Bug Fixes
+
+* send eventContract and acl as stringified json ([c33e5e5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c33e5e5))
+* strict validation progress ([7e4c194](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7e4c194))
+* **lint:** Enforce object-shorthand rule ([cc5b0a7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc5b0a7))
+* **vscode:** Sync shared settings, remove old settings. ([38c9a1b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/38c9a1b))
+
+
+### Features
+
+* **Typescript:** Upgrade to 3.6.3 ([68f7bf8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/68f7bf8))
+
+
+
+
+
+## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.17.6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.5...v8.17.6) (2019-08-16)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.17.5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.4...v8.17.5) (2019-08-16)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.17.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.3...v8.17.4) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.17.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.2...v8.17.3) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.17.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.1...v8.17.2) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.17.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.0...v8.17.1) (2019-08-07)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.17.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.2...v8.17.0) (2019-08-07)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.16.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.1...v8.16.2) (2019-08-06)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+## [8.16.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.0...v8.16.1) (2019-08-03)
+
+**Note:** Version bump only for package @sprucelabs/spruce-node
+
+
+
+
+
+# [8.16.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.2...v8.16.0) (2019-08-03)
+
+
+### Features
+
+* switch skill sync to v2 gql endpoint and get back the s3 bucket ([fdff653](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fdff653))
+
+
+
+
+
 ## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
 
 **Note:** Version bump only for package @sprucelabs/spruce-node

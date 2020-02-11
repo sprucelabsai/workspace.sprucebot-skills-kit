@@ -13,12 +13,14 @@ $foit: true;
 @import 'base/base';
 @import 'base/utilities';
 @import 'base/type';
+@import 'base/loading-placeholder';
 
 // Components
 // NOTE: Must be imported individually to work as a node module
 @import '../components/01-button/button';
 @import '../components/01-button/button-group';
 @import '../components/01-button/context-menu';
+@import '../components/01-button/split-button';
 @import '../components/02-forms/autosuggest';
 @import '../components/02-forms/checkbox';
 @import '../components/02-forms/datepicker';
@@ -49,8 +51,10 @@ $foit: true;
 @import '../components/07-navigation/tabs';
 @import '../components/08-lists/lists';
 @import '../components/10-text/text';
+@import '../components/10-text/markdown';
 @import '../components/99-web/main-content';
 @import '../components/99-web/header-primary';
+@import '../components/99-web/footer';
 @import '../components/99-web/hamburger';
 @import '../components/99-web/profile-summary';
 @import '../components/99-web/save-bar';
@@ -59,3 +63,4 @@ $foit: true;
 @import '../components/feed/feed';
 @import '../components/message/message';
 @import '../components/empty-state/empty-state';
+@import '../components/event-details/event-details';

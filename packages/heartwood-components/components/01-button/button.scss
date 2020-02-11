@@ -190,7 +190,8 @@ Baseline styling for all buttons
 		outline: none;
 	}
 
-	.loader {
+	.loader,
+	.circle-loader {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -267,5 +268,17 @@ Classes for button variations
 	.btn--loading & {
 		opacity: 0;
 		visibility: hidden;
+	}
+}
+
+.loading-placeholder {
+	.btn-full-width {
+		width: 100%;
+	}
+	.btn {
+		@extend %loading-placeholder-base;
+		float: none;
+		border: none;
+		background-color: transparent;
 	}
 }

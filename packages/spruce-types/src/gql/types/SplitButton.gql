@@ -1,0 +1,23 @@
+"A button with a dropdown of actions on the right"
+type SplitButton {
+	"ID for view caching"
+	id: ID!
+
+	"The main action readily surfaced to the user"
+	defaultAction: Button!
+
+	"All the secondary nested actions"
+	actions: [Button!]
+
+	"Sets the visual hierarchy of the button"
+	kind: ButtonKinds
+
+	"Set true to fill the parent’s width"
+	isFullWidth: Boolean
+
+	"Sets the visual hierarchy of the button"
+	isSmall: Boolean
+
+	"Optional; use a portal to render the menu. By default, it renders below the button"
+	usePortal: Boolean
+}

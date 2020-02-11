@@ -1,0 +1,22 @@
+type UIEnhancementSection {
+	"The ID of the section that is acting as a placeholder for ui enhancements"
+	id: ID!
+
+	"Calendar items to add as enhancements"
+	calendarEventDetailsItems: [CalendarEventDetailsItem!]
+
+	"[PLACEHOLDER] Card builder items to add as enhancements"
+	cardBuilderBodyItems: [CardBuilderBodyItem!]
+
+	"Context menu items to add as enhancements"
+	contextMenuItems: [Button!]
+
+	"Items to add as actions in the section context menu"
+	actions: [Action!]
+		@deprecated(reason: "Field was deprecated in favor of `contextMenuItems`")
+}
+
+type GetUIEnhancementsResponse {
+	"The UI enhancements by section"
+	sections: [UIEnhancementSection!]
+}

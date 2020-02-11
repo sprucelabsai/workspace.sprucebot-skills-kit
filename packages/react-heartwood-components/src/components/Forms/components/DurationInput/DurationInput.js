@@ -242,7 +242,7 @@ export default class DurationInput extends Component<Props, State> {
 		return (
 			<Autosuggest
 				inputProps={{
-					value: value,
+					value,
 					onChange: this.handleChange,
 					onBlur: this.handleBlur
 				}}

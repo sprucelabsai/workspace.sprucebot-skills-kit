@@ -3,6 +3,158 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.18.0...v9.0.0) (2019-11-04)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+# [8.18.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Breaking Changes
+
+* Typescript support for skills kit ([d8b6152](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/d8b6152))
+
+
+### Bug Fixes
+
+* copy .gql and .graphql files to build directory ([c7d1cd2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c7d1cd2))
+* make graphql-type-json a peerDependency in spruce-skill-server; move [@types](https://github.com/types) to "devDependencies" ([5592cd9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5592cd9))
+* make supertest a dependency ([99c39d9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/99c39d9))
+* next.config should extend "resolve" instead of overriding it to fix .tsx imports ([8a09b2b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8a09b2b))
+* prevent double save formatters ([37f4aa4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/37f4aa4))
+* set NODE_CONFIG_DIR on start ([c0df64b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c0df64b))
+* strict validation progress ([7e4c194](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7e4c194))
+* vscode should exclude build/ directory from watch ([f20c388](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f20c388))
+* **lint:** Enforce object-shorthand rule ([cc5b0a7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/cc5b0a7))
+* **lint:** Get TS(X) in workspace linted correctly ([629d8e5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/629d8e5))
+* **vscode:** Sync shared settings, remove old settings. ([38c9a1b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/38c9a1b))
+
+
+### Features
+
+* add gql typescript generator ([f94f22f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f94f22f))
+* Add storybook to spruce-skill ([31eb565](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/31eb565))
+* make auth location better match location model ([268521b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/268521b))
+* move from lodash/get to ts-get for type checking ([f0a6d99](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/f0a6d99))
+* move model attributes to model definition for easier extendability ([db84395](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/db84395))
+* new tests for individual acl checks ([4e9aa67](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4e9aa67))
+* shared gql types and definitions ([9c577b3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/9c577b3))
+* **Typescript:** Upgrade to 3.6.3 ([68f7bf8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/68f7bf8))
+* skills no longer run skills kit tests ([7babb34](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7babb34))
+* strongly typed config ([8ba6b82](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/8ba6b82))
+* ts-getter and org/location optional on auth ([018a5bf](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/018a5bf))
+* upgrade graphql version ([bee5ea5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bee5ea5))
+* use relative imports ([2978b12](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2978b12))
+
+
+
+
+
+## [8.17.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.6...v8.17.7) (2019-08-16)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.6](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.5...v8.17.6) (2019-08-16)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.4...v8.17.5) (2019-08-16)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.4](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.3...v8.17.4) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.3](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.2...v8.17.3) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.1...v8.17.2) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.17.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.17.0...v8.17.1) (2019-08-07)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+# [8.17.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.2...v8.17.0) (2019-08-07)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+## [8.16.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.1...v8.16.2) (2019-08-06)
+
+
+### Bug Fixes
+
+* workspace should return valid card date ([18c85b7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/18c85b7))
+
+
+
+
+
+## [8.16.1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.16.0...v8.16.1) (2019-08-03)
+
+**Note:** Version bump only for package @sprucelabs/spruce-skill
+
+
+
+
+
+# [8.16.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.2...v8.16.0) (2019-08-03)
+
+
+### Bug Fixes
+
+* make "graphql" a dependency in spruce-skill ([89a6800](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/89a6800))
+
+
+### Features
+
+* switch skill sync to v2 gql endpoint and get back the s3 bucket ([fdff653](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/fdff653))
+* upgrade [@sprucelabs](https://github.com/sprucelabs)/log to latest version ([bbf256d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bbf256d))
+* Upgrade semantic release to use prerelease tags and bump full versions on merge to master ([a5c7578](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a5c7578))
+
+
+
+
+
 ## [8.15.2](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.15.1...v8.15.2) (2019-06-19)
 
 **Note:** Version bump only for package @sprucelabs/spruce-skill

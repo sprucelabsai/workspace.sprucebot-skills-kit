@@ -16,7 +16,7 @@ const Legal = (props: Props) => {
 		<Fragment>
 			<p className={className}>
 				<a
-					href="#"
+					href="/terms-of-service"
 					target="_blank"
 					rel="noopener noreferrer"
 					className={linkClassName}
@@ -24,7 +24,7 @@ const Legal = (props: Props) => {
 					{`Terms of Service`}
 				</a>
 				<a
-					href="#"
+					href="/privacy-policy"
 					target="_blank"
 					rel="noopener noreferrer"
 					className={linkClassName}

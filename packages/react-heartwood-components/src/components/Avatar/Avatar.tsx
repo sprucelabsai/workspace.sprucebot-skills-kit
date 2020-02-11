@@ -38,8 +38,7 @@ interface IProps {
 	className?: string
 }
 
-
-const Avatar = (props: IProps): React.ReactNode => {
+const Avatar = (props: IProps): React.ReactElement => {
 	const {
 		image,
 		alt,
@@ -80,6 +79,7 @@ const Avatar = (props: IProps): React.ReactNode => {
 		<div className={wrapperClass}>
 			<div className="avatar__image-wrapper">
 				<ImageSSR
+					id="avatar"
 					className="avatar"
 					src={image}
 					alt={alt}

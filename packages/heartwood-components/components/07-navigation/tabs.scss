@@ -57,9 +57,17 @@
 	width: 100%;
 	border-bottom: 1px solid $c-border;
 
+	.btn {
+		min-width: 0;
+	}
+
 	&.tab-group--spacing-even {
 		.tab {
 			flex: 1 0 auto;
+
+			&:first-of-type {
+				flex: 0;
+			}
 		}
 	}
 }

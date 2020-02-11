@@ -7,7 +7,7 @@
 		{
 			"type": "node",
 			"request": "attach",
-			"name": "Attach Skill Kit",
+			"name": "Attach",
 			"port": 4080
 		},
 		{
@@ -17,16 +17,27 @@
 			"protocol": "inspector",
 			"runtimeExecutable": "npm",
 			"runtimeArgs": ["run", "local"],
+			"port": 4080,
+			"console": "integratedTerminal"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Tests (Server)",
+			"protocol": "inspector",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": ["run", "test:server"],
+			"console": "integratedTerminal",
 			"port": 4080
 		},
 		{
-			"name": "Mocha (Test single file)",
+			"name": "Tests (Current File)",
 			"type": "node",
 			"request": "launch",
 			"runtimeArgs": [
 				"${workspaceRoot}/node_modules/.bin/mocha",
 				"-r",
-				"flow-remove-types/register",
+				"ts-node/register/transpile-only",
 				"--exit",
 				"--inspect-brk",
 				"${relativeFile}"
@@ -43,7 +54,8 @@
 				"ORM_LOGGING": "true",
 				"API_ONLY": "true",
 				"TESTING": "true",
-				"DB_MIGRATIONS": "false"
+				"DB_MIGRATIONS": "false",
+				"TS_NODE_PROJECT": "tsconfig.server.json"
 			}
 		}
 	]

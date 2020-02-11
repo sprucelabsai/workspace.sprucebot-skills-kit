@@ -1,7 +1,7 @@
 module.exports = {
 	title: 'Tabs',
 	collated: true,
-	collator: function(markup, item) {
+	collator(markup, item) {
 		return `<!-- Start: @${
 			item.handle
 		} -->\n<div margin: 0 1rem 1rem 0;">${markup}</div>\n<!-- End: @${

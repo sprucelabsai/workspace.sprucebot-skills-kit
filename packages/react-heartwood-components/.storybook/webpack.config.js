@@ -9,7 +9,7 @@
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-module.exports = {
+const override = {
 	plugins: [
 		// your custom plugins
 		new MiniCssExtractPlugin('style.css'),
@@ -24,13 +24,16 @@ module.exports = {
 	},
 	module: {
 		rules: [
-			// add your custom rules.
 			{
 				test: /\.(ts|tsx)$/,
 				use: [
 					{
-						loader: require.resolve('awesome-typescript-loader')
-					}
+						loader: require.resolve('babel-loader'),
+						options: {
+							presets: [require.resolve('babel-preset-react-app')]
+						}
+					},
+					require.resolve('react-docgen-typescript-loader')
 				]
 			},
 			{
@@ -74,4 +77,14 @@ module.exports = {
 			}
 		]
 	}
+}
+
+module.exports = async ({ config, mode }) => {
+	config.plugins = [...config.plugins, ...override.plugins]
+	config.resolve.extensions = [
+		...config.resolve.extensions,
+		...override.resolve.extensions
+	]
+	config.module.rules = [...config.module.rules, ...override.module.rules]
+	return config
 }

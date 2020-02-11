@@ -15,13 +15,13 @@ type Props = {
 // this component is used as a workaround.
 
 const ImageSSR = (props: Props) => {
-	const { className, alt, src, width, height } = props
+	const { className, alt, src, width, height, id } = props
 	return (
 		<div
 			className="image-wrapper"
 			dangerouslySetInnerHTML={{
 				__html: `
-					<img class=${className} alt=${alt} src="${src}"
+					<img class=${className} alt=${alt} id=${id} src="${src}"
 					onerror="this.onerror=null;this.classList.add('error');"
 					width=${width}
 					height=${height} 

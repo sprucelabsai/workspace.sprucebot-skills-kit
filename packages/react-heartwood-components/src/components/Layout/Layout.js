@@ -1,10 +1,11 @@
 // @flow
-import React from 'react'
+import React, { Node } from 'react'
 import cx from 'classnames'
+import LayoutSection from './components/LayoutSection/LayoutSection'
 
 export type LayoutProps = {
 	/** Contents of the Layout. Should be LayoutSection components */
-	children: Node,
+	children?: Node,
 
 	/** Set true to center align layout content. */
 	isCentered?: boolean,
@@ -13,7 +14,10 @@ export type LayoutProps = {
 	isFullBleed?: boolean,
 
 	/** Sets the width of the layout */
-	width?: 'base' | 'tight' | 'wide' | 'full-width'
+	width?: 'base' | 'tight' | 'wide' | 'full-width',
+
+	/** any classes applied to the div */
+	className?: string
 }
 
 const Layout = (props: LayoutProps) => {
@@ -33,6 +37,8 @@ const Layout = (props: LayoutProps) => {
 		</div>
 	)
 }
+
+Layout.Section = LayoutSection
 
 Layout.defaultProps = {
 	isCentered: false,

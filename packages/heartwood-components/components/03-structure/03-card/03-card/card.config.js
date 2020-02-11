@@ -20,7 +20,7 @@ const contextMenu = {
 module.exports = {
 	title: 'Card',
 	collated: true,
-	collator: function(markup, item) {
+	collator(markup, item) {
 		return `<!-- Start: @${item.handle} -->\n${markup}\n<!-- End: @${
 			item.handle
 		} -->\n`
@@ -74,7 +74,7 @@ module.exports = {
 					'Whatever you can do, or dream you can, begin it. Boldness has genius, power and magic in it.'
 				],
 				headerActions: true,
-				contextMenu: contextMenu
+				contextMenu
 			}
 		},
 		{
@@ -92,7 +92,7 @@ module.exports = {
 					'Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer.'
 				],
 				headerActions: true,
-				contextMenu: contextMenu,
+				contextMenu,
 				footerActions: null
 			}
 		},
@@ -104,7 +104,7 @@ module.exports = {
 					'Unapologetic travel nerd. Professional entrepreneur. Explorer. Bacon buff. Proud communicator. Introvert. Avid writer.'
 				],
 				headerActions: true,
-				contextMenu: contextMenu,
+				contextMenu,
 				footerActions: null
 			}
 		},
@@ -116,7 +116,7 @@ module.exports = {
 					'Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do, so throw off the bowlines, sail away from safe harbor, catch the trade winds in your sails. Explore, Dream, Discover.'
 				],
 				headerActions: true,
-				contextMenu: contextMenu,
+				contextMenu,
 				footerActions: [
 					{
 						text: 'Catch fireflies at night',

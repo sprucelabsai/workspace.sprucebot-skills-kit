@@ -12,7 +12,8 @@
 					}
 				}
 			}
-		]
+		],
+		"@zeit/next-typescript/babel"
 	],
 	"plugins": []
 }

@@ -1,7 +1,9 @@
 // @flow
+// TODO: Remove this when migrated to TSX
+/* eslint-disable import/namespace */
 import React, { Component } from 'react'
 
-import * as actions from '../store/actions'
+import actions from '../store/actions'
 import ServerCookies from 'cookies'
 import ClientCookies from 'js-cookies'
 import skill from '../index'
@@ -11,8 +13,10 @@ import lang from '../helpers/lang'
 import Router, { withRouter } from 'next/router'
 import { Container } from 'next/app'
 import is from 'is_js'
+import Debug from 'debug'
+import ErrorPage from './_error'
 
-const debug = require('debug')('@sprucelabs/spruce-next-helpers')
+const debug = Debug('@sprucelabs/spruce-next-helpers')
 
 const setCookie = (named, value, req, res) => {
 	if (req && req.headers) {
@@ -20,9 +24,9 @@ const setCookie = (named, value, req, res) => {
 			secure: true,
 			httpOnly: false
 		})
-		return cookies.set(named, value)
+		return cookies.set(named, value, { sameSite: 'None' })
 	} else {
-		return ClientCookies.setItem(named, value)
+		return ClientCookies.setItem(named, value, { sameSite: 'None' })
 	}
 }
 
@@ -94,11 +98,11 @@ export type WrappedInitialProps = {
 const PageWrapper = Wrapped => {
 	const ConnectedWrapped = withRouter(Wrapped)
 
-	return class extends Component<Props, State> {
+	return class PageWrapper extends Component<Props, State> {
 		constructor(props: Props) {
 			super(props)
 			this.state = {
-				// attemptingReAuth: !!props.attemptingReAuth,
+				attemptingReAuth: !!props.attemptingReAuth,
 				isIframed: true
 			}
 		}
@@ -120,30 +124,42 @@ const PageWrapper = Wrapped => {
 				renderLocation: renderLocation || 'page'
 			}
 
-			const jwt = query.jwt || getCookie('jwt', req, res)
-
-			// authv1
-			if (jwt) {
-				try {
-					await store.dispatch(actions.auth.go(jwt))
-					setCookie('jwt', jwt, req, res)
-				} catch (err) {
-					debug(err)
-					debug('Error fetching user from jwt')
-				}
+			// First get and set the jwt and jwtV2 tokens, preferring the query string version over what's saved in cookies
+			let jwt
+			if (query.jwt) {
+				jwt = query.jwt
+				setCookie('jwt', jwt, req, res)
+				setCookie('jwtV2', false, req, res)
+			} else if (!query.jwtV2) {
+				jwt = getCookie('jwt', req, res)
 			}
-			// authv2
-			else {
+
+			let jwtV2
+			if (query.jwtV2) {
+				jwtV2 = query.jwtV2
+				jwt = false
+				setCookie('jwtV2', jwtV2, req, res)
+				setCookie('jwt', false, req, res)
+			} else if (!jwt) {
+				jwtV2 = getCookie('jwtV2', req, res)
+			}
+
+			// Do authentication, preferring V2 if the jwtV2 is set
+			if (jwtV2) {
 				try {
 					await store.dispatch(
 						actions.authV2.go(query.jwtV2 || getCookie('jwtV2', req, res))
 					)
-					if (query.jwtV2) {
-						setCookie('jwtV2', query.jwtV2, req, res)
-					}
 				} catch (err) {
 					debug(err)
 					debug('Error fetching user from jwtV2')
+				}
+			} else if (jwt) {
+				try {
+					await store.dispatch(actions.auth.go(jwt))
+				} catch (err) {
+					debug(err)
+					debug('Error fetching user from jwt')
 				}
 			}
 
@@ -158,19 +174,26 @@ const PageWrapper = Wrapped => {
 
 			if (ConnectedWrapped.getInitialProps) {
 				const args = Array.from(arguments)
-				args[0] = { ...args[0], ...state }
+				args[0] = { ...args[0], ...state, isServer: !!req }
 				props = {
 					...props,
 					...(await ConnectedWrapped.getInitialProps.apply(this, args))
 				}
 			}
 
+			// if an error was reported, respond immediately
+			if (props.statusCode && res) {
+				res.statusCode = props.statusCode
+				return props
+			}
+
 			let redirect = props.redirect || false
 
 			if (
 				query.back &&
-				query.jwt &&
+				(query.jwt || query.jwtV2) &&
 				(query.back.search('sprucebot.com') > 0 ||
+					query.back.search('spruce.ai') > 0 ||
 					query.back.search('bshop.io') > 0)
 			) {
 				// if there is a jwt, we are being authed
@@ -212,12 +235,12 @@ const PageWrapper = Wrapped => {
 
 			// if we are /unauthorized, don't have a cookie, but have NOT done cookie check
 			// TODO Remove re-auth after proving it works as expected in legacy skill
-			// if (
-			// 	props.pathname === '/unauthorized' &&
-			// 	(!state.auth || !state.auth.role)
-			// ) {
-			// 	props.attemptingReAuth = true
-			// }
+			if (
+				props.pathname === '/unauthorized' &&
+				(!state.auth || !state.auth.role)
+			) {
+				props.attemptingReAuth = true
+			}
 
 			// v2 authentication
 			if (state.auth && state.auth.User) {
@@ -235,23 +258,23 @@ const PageWrapper = Wrapped => {
 
 		handleIframeMessage = e => {
 			// we are not going to try and authenticate again (cookie setting)
-			// if (e.data === 'Skill:NotReAuthing') {
-			// 	this.setState({
-			// 		attemptingReAuth: false
-			// 	})
-			// 	return
-			// }
+			if (e.data === 'Skill:NotReAuthing') {
+				this.setState({
+					attemptingReAuth: false
+				})
+				return
+			}
 		}
 		async componentDidMount() {
 			if (window.self === window.top || window.__SBTEAMMATE__) {
 				// make sure we are being loaded inside sb
 				console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL')
 				this.setState({
-					// attemptingReAuth: false,
+					attemptingReAuth: false,
 					isIframed: !!window.__SBTEAMMATE__
 				})
-				// } else if (this.props.attemptingReAuth) {
-				// skill.forceAuth()
+			} else if (this.props.attemptingReAuth) {
+				skill.forceAuth()
 			}
 
 			// NOTE: Need to do this require here so that we can be sure the global window is defined
@@ -331,9 +354,22 @@ const PageWrapper = Wrapped => {
 		}
 
 		render() {
-			// if (this.state.attemptingReAuth) {
-			// return <Loader />
-			// }
+			const { statusCode, errorMessage, errorCTA } = this.props
+
+			if (statusCode) {
+				return (
+					<ErrorPage
+						statusCode={statusCode}
+						errorMessage={errorMessage}
+						errorCTA={errorCTA}
+					/>
+				)
+			}
+
+			if (this.state.attemptingReAuth) {
+				return <Loader />
+			}
+
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>

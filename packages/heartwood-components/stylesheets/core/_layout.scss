@@ -32,9 +32,41 @@ $breakpoints-map: (
 /**
 Spacing
 */
-
 $spacing-unit: 16;
 
+// Base definitions to be used in semantic classes
+$spacing__0: 0 !default;
+$spacing__1: 0.25rem !default;
+$spacing__2: 0.5rem !default;
+$spacing__3: 0.75rem !default;
+$spacing__4: 1rem !default;
+$spacing__5: 1.25rem !default;
+$spacing__6: 1.5rem !default;
+$spacing__7: 2rem !default;
+$spacing__8: 2.5rem !default;
+$spacing__9: 3rem !default;
+$spacing__10: 3.75rem !default;
+$spacing__11: 4.5rem !default;
+$spacing__12: 5.25rem !default;
+
+// Spacing map to generate placeholders
+$base-spacing: (
+	'0': $spacing__0,
+	'1': $spacing__1,
+	'2': $spacing__2,
+	'3': $spacing__3,
+	'4': $spacing__4,
+	'5': $spacing__5,
+	'6': $spacing__6,
+	'7': $spacing__7,
+	'8': $spacing__8,
+	'9': $spacing__9,
+	'10': $spacing__10,
+	'11': $spacing__11,
+	'12': $spacing__12
+);
+
+// Legacy spacing map
 $spacing-map: (
 	'none': 0,
 	'extra-tight': rem($spacing-unit * 0.25),
@@ -49,6 +81,81 @@ $spacing-map: (
 		@return map-get($spacing-map, $size);
 	} @else {
 		@warn 'This is not a step of the Heartwood Spacing Scale!';
+	}
+}
+
+/**
+Box Model
+*/
+
+// Sides map to be used for placeholder generation
+$sides: (
+	'all': '',
+	'x': '',
+	'y': '',
+	't': 'top',
+	'r': 'right',
+	'b': 'bottom',
+	'l': 'left'
+);
+
+// Margin
+%mx-auto {
+	margin-left: auto;
+	margin-right: auto;
+}
+// Placeholders
+@each $id, $side in $sides {
+	@each $label, $value in $base-spacing {
+		@if $id == 'all' {
+			%m-#{$label} {
+				margin: $value;
+			}
+		} @else if $id == 'x' {
+			%mx-#{$label} {
+				margin-left: $value;
+				margin-right: $value;
+			}
+		} @else if $id == 'y' {
+			%my-#{$label} {
+				margin-top: $value;
+				margin-bottom: $value;
+			}
+		} @else {
+			%m#{$id}-#{$label} {
+				margin-#{$side}: $value;
+			}
+		}
+	}
+}
+
+// Padding
+%px-auto {
+	padding-left: auto;
+	padding-right: auto;
+}
+// Placeholders
+@each $id, $side in $sides {
+	@each $label, $value in $base-spacing {
+		@if $id == 'all' {
+			%p-#{$label} {
+				padding: $value;
+			}
+		} @else if $id == 'x' {
+			%px-#{$label} {
+				padding-left: $value;
+				padding-right: $value;
+			}
+		} @else if $id == 'y' {
+			%py-#{$label} {
+				padding-top: $value;
+				padding-bottom: $value;
+			}
+		} @else {
+			%p#{$id}-#{$label} {
+				padding-#{$side}: $value;
+			}
+		}
 	}
 }
 

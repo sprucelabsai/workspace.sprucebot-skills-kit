@@ -1,0 +1,30 @@
+enum ContextMenuSize {
+	medium
+	large
+}
+
+type ContextMenu {
+	"The actions to be shown on tap/click"
+	actions: [Button!]!
+
+	"Set the width of the menu. Helpful for longer text in buttons"
+	size: ContextMenuSize
+
+	"Adds text to the collapsed menu"
+	text: String
+
+	"Overrides the default icon"
+	icon: Icon
+
+	"Set true to make the button blue"
+	isSimple: Boolean
+
+	"Set true to make the button smaller"
+	isSmall: Boolean
+
+	"Set to true makes the menu close when any action is selected"
+	closeOnSelectAction: Boolean
+
+	"Hide the icon entirely"
+	isTextOnly: Boolean
+}

@@ -1,0 +1,76 @@
+.event-details__section {
+	&:not(:first-child) {
+		border-top: 1px solid $c-border-light;
+	}
+
+	> .text,
+	.list-item,
+	.event-details__markdown {
+		@include typescale('ui');
+	}
+
+	> .text {
+		padding: spacing('base');
+	}
+
+	// for toast as a detail item (not in a card)
+	.toast {
+		max-width: 100%;
+		width: 100%;
+	}
+
+	.card__section .toast {
+		margin-top: 0;
+		margin-right: rem(16);
+		margin-bottom: rem(16);
+		margin-left: rem(16);
+		width: calc(100% - #{rem(32)});
+	}
+
+	.button-group {
+		width: 100%;
+		justify-content: space-between;
+	}
+
+	&.event-details__card-wrapper {
+		padding: 0.5rem 0;
+		border: none;
+	}
+
+	// TODO: Remove this workaround once CardBuilder doesn't need it
+	.card__body,
+	.card__body:first-child:not(.card__body--no-bottom-padding),
+	.card__section {
+		padding-top: 0;
+		padding-right: 0;
+		padding-bottom: 0;
+		padding-left: 0;
+		p.text {
+			padding: 0 1.25rem 1.25rem;
+		}
+	}
+
+	// TODO: Fix the root cause, which is double-nesting when the list item has actions
+	// .list-item__actions-wrapper {
+	// 	padding-top: 0.25rem;
+	// }
+}
+
+.event-details__button-wrapper {
+	padding: 0.5rem;
+}
+
+.event-details__markdown-wrapper {
+	padding-top: 1rem;
+	padding-right: 1rem;
+	padding-bottom: 0.5rem;
+	padding-left: 1rem;
+
+	p:not(:first-child) {
+		margin-top: rem(4);
+	}
+
+	+ .event-details__button-wrapper {
+		border: none;
+	}
+}

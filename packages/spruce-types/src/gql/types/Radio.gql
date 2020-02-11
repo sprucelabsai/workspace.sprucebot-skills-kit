@@ -1,0 +1,23 @@
+"A radio control. Give a bunch the same name to keep them as part of the same group"
+type Radio implements ActionExecutor {
+	"Unique identifier"
+	id: ID!
+
+	"A name attached to this radio button"
+	name: String
+
+	"Label and text for the radio"
+	label: String
+
+	"Optional text to show after the label"
+	postText: String
+
+	"is this control disabled?"
+	isDisabled: Boolean
+
+	"Is this control checked?"
+	isChecked: Boolean
+
+	"Optional action to invoke when tapped"
+	action: Action
+}

@@ -1,12 +1,10 @@
 {
 	"env": {
 		"development": {
-			"presets": ["next/babel"],
-			"plugins": ["transform-flow-strip-types"]
+			"presets": ["next/babel", "@zeit/next-typescript/babel"]
 		},
 		"production": {
-			"presets": ["next/babel"],
-			"plugins": ["transform-flow-strip-types"]
+			"presets": ["next/babel", "@zeit/next-typescript/babel"]
 		},
 		"test": {
 			"presets": [
@@ -16,7 +14,8 @@
 						"modules": "commonjs"
 					}
 				],
-				"next/babel"
+				"next/babel",
+				"@zeit/next-typescript/babel"
 			]
 		}
 	}

@@ -3,6 +3,189 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.0.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.18.0...v9.0.0) (2019-11-04)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+# [8.18.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.17.7...v8.18.0) (2019-11-04)
+
+
+### Bug Fixes
+
+* un-double-wrap list actions ([3febc9f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/3febc9f))
+* **lint:** Enforce object-shorthand rule ([cc5b0a7](https://github.com/sprucelabsai/sprucebot-heartwood/commit/cc5b0a7))
+* **vscode:** Sync shared settings, remove old settings. ([38c9a1b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/38c9a1b))
+
+
+### Features
+
+* Add layout base styles ([b2fef7f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b2fef7f))
+* add sidebar headers to stories ([064c563](https://github.com/sprucelabsai/sprucebot-heartwood/commit/064c563))
+* fit and finish styling, remove logs ([1ea8312](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1ea8312))
+* fix list items with action and add correct services list to examples ([f45f37a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/f45f37a))
+* get Card to work with toasts in event details ([4ce2244](https://github.com/sprucelabsai/sprucebot-heartwood/commit/4ce2244))
+* make SplitButton portal use optional so that it works in the event details sidebar ([e508d7a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/e508d7a))
+* merge canary and resolve conflict ([bae8d65](https://github.com/sprucelabsai/sprucebot-heartwood/commit/bae8d65))
+* merge latest and resolve conflict ([b16679b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b16679b))
+* merge latest and resolve conflict ([1d4af93](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1d4af93))
+* remove bigcalendar styles and improve storybook story ([048fbc2](https://github.com/sprucelabsai/sprucebot-heartwood/commit/048fbc2))
+* styling adjustments ([1df575a](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1df575a))
+* styling and storybook updates ([9d02852](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9d02852))
+* updates to List components to work well in event details ([9027400](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9027400))
+
+
+
+
+
+## [8.17.7](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.17.6...v8.17.7) (2019-08-16)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+## [8.17.6](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.17.5...v8.17.6) (2019-08-16)
+
+
+### Bug Fixes
+
+* radio buttons hidden by default ([10fcded](https://github.com/sprucelabsai/sprucebot-heartwood/commit/10fcded))
+
+
+
+
+
+## [8.17.5](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.17.4...v8.17.5) (2019-08-16)
+
+
+### Bug Fixes
+
+* table cell alignment ([5863fe3](https://github.com/sprucelabsai/sprucebot-heartwood/commit/5863fe3))
+
+
+
+
+
+## [8.17.4](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.17.3...v8.17.4) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+## [8.17.3](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.17.2...v8.17.3) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+## [8.17.2](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.17.1...v8.17.2) (2019-08-09)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+## [8.17.1](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.17.0...v8.17.1) (2019-08-07)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+# [8.17.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.16.2...v8.17.0) (2019-08-07)
+
+
+### Bug Fixes
+
+* **RecordTable:** Add loader when loading w/ no records [SDEV3-2215] ([933af31](https://github.com/sprucelabsai/sprucebot-heartwood/commit/933af31))
+
+
+### Features
+
+* styling ([a4706da](https://github.com/sprucelabsai/sprucebot-heartwood/commit/a4706da))
+
+
+
+
+
+## [8.16.2](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.16.1...v8.16.2) (2019-08-06)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+## [8.16.1](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.16.0...v8.16.1) (2019-08-03)
+
+**Note:** Version bump only for package @sprucelabs/heartwood-components
+
+
+
+
+
+# [8.16.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.15.2...v8.16.0) (2019-08-03)
+
+
+### Bug Fixes
+
+* [SOS-141](https://sprucelabsai.atlassian.net/browse/SOS-141) Employee's schedules on the quarter and half hours display as starting on the next whole hour ([51eb30b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/51eb30b))
+* **Heading:** Use bolder font [SDEV3-1814] ([b1b3e0b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b1b3e0b))
+* **PageHeader:** Fix collapsible header when page is in flexible layout ([f46aca8](https://github.com/sprucelabsai/sprucebot-heartwood/commit/f46aca8))
+* **PageHeader:** Fix element alignment of primaryAction CTA ([9c489eb](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9c489eb))
+* **Tabs:** Correct styles for buttons in tabs ([245ba51](https://github.com/sprucelabsai/sprucebot-heartwood/commit/245ba51))
+* correctly style selectable people list with avatar ([9237181](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9237181))
+* enable Autosuggest to show an icon in the input, and update TableSearch to use search icon in input ([9a5a094](https://github.com/sprucelabsai/sprucebot-heartwood/commit/9a5a094))
+* **View:** Address regression in main content scrolling ([1f670dc](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1f670dc))
+
+
+### Features
+
+* **Cards:** Add concept of a footer action helper [SDEV3-1921] ([b7e9637](https://github.com/sprucelabsai/sprucebot-heartwood/commit/b7e9637))
+* **Footer:** Add optional footer to view ([7a491a3](https://github.com/sprucelabsai/sprucebot-heartwood/commit/7a491a3))
+* **ModalBody:** Allow full bleed modal contents [SDEV3-1814] ([07ab884](https://github.com/sprucelabsai/sprucebot-heartwood/commit/07ab884))
+* fix linting error ([50f6986](https://github.com/sprucelabsai/sprucebot-heartwood/commit/50f6986))
+* **PageHeader:** Add collapsibility for PageHeader ([4c571e4](https://github.com/sprucelabsai/sprucebot-heartwood/commit/4c571e4))
+* add ability to hide icons ([3317998](https://github.com/sprucelabsai/sprucebot-heartwood/commit/3317998))
+* add full width variant ([8c2f13f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/8c2f13f))
+* add info and warn toast kinds and update some colors ([ef8c758](https://github.com/sprucelabsai/sprucebot-heartwood/commit/ef8c758))
+* Add Split Button component ([16c6406](https://github.com/sprucelabsai/sprucebot-heartwood/commit/16c6406))
+* card style updates ([5278bcf](https://github.com/sprucelabsai/sprucebot-heartwood/commit/5278bcf))
+* card styling updates ([69ecc19](https://github.com/sprucelabsai/sprucebot-heartwood/commit/69ecc19))
+* cleanup comments ([3595c8e](https://github.com/sprucelabsai/sprucebot-heartwood/commit/3595c8e))
+* fix styling ([53850af](https://github.com/sprucelabsai/sprucebot-heartwood/commit/53850af))
+* implement CircleLoader in Button ([56a208f](https://github.com/sprucelabsai/sprucebot-heartwood/commit/56a208f))
+* make lists nestable ([c19d424](https://github.com/sprucelabsai/sprucebot-heartwood/commit/c19d424))
+* merge latest and fix conflict ([103826d](https://github.com/sprucelabsai/sprucebot-heartwood/commit/103826d))
+* remove unnecessary comment ([a2b2dfd](https://github.com/sprucelabsai/sprucebot-heartwood/commit/a2b2dfd))
+* **TruncatedList:** fleshing out truncated list functionality ([445914d](https://github.com/sprucelabsai/sprucebot-heartwood/commit/445914d))
+* **TruncatedList:** truncated list card example layout ([d4465a1](https://github.com/sprucelabsai/sprucebot-heartwood/commit/d4465a1))
+* style CircleLoader ([c792f72](https://github.com/sprucelabsai/sprucebot-heartwood/commit/c792f72))
+* update buttongroup to support full width and set position of actions ([92d3ea2](https://github.com/sprucelabsai/sprucebot-heartwood/commit/92d3ea2))
+* use index to highlight suggestion ([63e11df](https://github.com/sprucelabsai/sprucebot-heartwood/commit/63e11df))
+* wire up list items to render warnings ([1b9025e](https://github.com/sprucelabsai/sprucebot-heartwood/commit/1b9025e))
+
+
+### Refactoring
+
+* **RecordSelectionList:** Updating RSL to use ListItem while remaining backwards compatible ([36ed1d4](https://github.com/sprucelabsai/sprucebot-heartwood/commit/36ed1d4))
+* add link props and convert to typescript ([020998c](https://github.com/sprucelabsai/sprucebot-heartwood/commit/020998c))
+
+
+
+
+
 ## [8.15.2](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.15.1...v8.15.2) (2019-06-19)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components

@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"jsx": "react",
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"rootDir": "./src",
+		"outDir": "./lib",
+		"strict": true,
+		"noImplicitAny": false
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "lib", ".storybook"]
+}

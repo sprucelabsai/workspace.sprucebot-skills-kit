@@ -27,6 +27,9 @@ export type PageHeaderProps = {
 	/** Props for Next router link: https://nextjs.org/docs/#routing. */
 	linkProps?: LinkProps,
 
+	/** Is the header collapsed? */
+	collapsed?: boolean,
+
 	/** Adds a button to the page header for its primary action. */
 	primaryAction?: ButtonProps,
 
@@ -46,6 +49,7 @@ const PageHeader = (props: PageHeaderProps) => {
 		backLinkHref,
 		backLinkText,
 		className,
+		collapsed = false,
 		hasBottomBorder,
 		linkProps,
 		onClickBack,
@@ -104,26 +108,35 @@ const PageHeader = (props: PageHeaderProps) => {
 			className={cx(
 				'page__header',
 				{
-					'page__header--has-bottom-border': hasBottomBorder,
-					'page__header--has-tabs': tabs && tabs.length > 0
+					'page__header--is-collapsed': collapsed
 				},
 				className
 			)}
 		>
-			<div className="page__header-inner">
+			<div
+				className={cx('page__header-inner', {
+					'page__header-inner--is-collapsed': collapsed
+				})}
+			>
 				{anchor && anchor}
-				<div className="page__header-main">
+				<div
+					className={cx('page__header-main', {
+						'page__header-main--has-bottom-border': hasBottomBorder
+					})}
+				>
 					<div className="page__header-title-wrapper">
 						<h1>{title}</h1>
-						{sidebarExpander && (
-							<Button
-								{...sidebarExpander}
-								isSmall
-								className="page__header-sidebar-btn"
-							/>
-						)}
+						<div>
+							{sidebarExpander && (
+								<Button
+									{...sidebarExpander}
+									isSmall
+									className="page__header-sidebar-btn"
+								/>
+							)}
+							{primaryAction && <Button {...primaryAction} />}
+						</div>
 					</div>
-					{primaryAction && <Button {...primaryAction} />}
 				</div>
 			</div>
 			{tabs && tabs.length > 0 && (
@@ -133,6 +146,7 @@ const PageHeader = (props: PageHeaderProps) => {
 	)
 }
 
+PageHeader.displayName = 'Page.Header'
 PageHeader.defaultProps = {
 	title: '',
 	backLinkText: 'Back',

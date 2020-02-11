@@ -1,9 +1,9 @@
-// @flow
+//
 
 const config = require('config')
 const { eventError } = require('../lib/errorHandler')
 
-module.exports = async (ctx: Object, next: Function) => {
+module.exports = async (ctx, next) => {
 	try {
 		log.debug('**** get-views', { event: ctx.event })
 		if (!ctx.event.payload || !ctx.event.payload.page) {
@@ -11,19 +11,10 @@ module.exports = async (ctx: Object, next: Function) => {
 		}
 
 		const {
-			/* auth: { User, Location, Organization }, */
+			// uncomment to access the auth
+			/* auth: { User: user, Location: location, Organization: organization }, */
 			event: {
-				payload: { page, skillSlug /* , pageUserId, locationId */ }
-			}
-		}: {
-			auth: { User?: Object, Location?: Object, Organization?: Object },
-			event: {
-				payload: {
-					page: string,
-					skillSlug?: string,
-					pageUserId?: string,
-					locationId?: string
-				}
+				payload: { page, skillSlug /* , pageUserId */ }
 			}
 		} = ctx
 
@@ -87,7 +78,7 @@ module.exports = async (ctx: Object, next: Function) => {
 					id: 'uniqueId5',
 					title: 'Example Public Org',
 					host,
-					path: '/o/' // QUESTION: any reason to append the org here?
+					path: '/o/' // TODO: any reason to append the org here?
 				})
 				break
 			case 'public_location':
@@ -97,7 +88,15 @@ module.exports = async (ctx: Object, next: Function) => {
 					id: 'uniqueId6',
 					title: 'Example Public Location',
 					host,
-					path: '/l/' // QUESTION: any reason to append the location here?
+					path: '/l/' // TODO: any reason to append the location here?
+				})
+				break
+			default:
+				views.push({
+					id: 'uniqueId7',
+					title: 'Example Page',
+					host,
+					path: '/skill-views/example'
 				})
 				break
 		}

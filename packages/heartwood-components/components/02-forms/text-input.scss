@@ -64,7 +64,8 @@ select:-webkit-autofill:focus {
 	opacity: 0.7;
 }
 
-.text-input__icon-pre ~ .text-input__input {
+.text-input__icon-pre ~ .text-input__input,
+.text-input__input.text-input__inner--has-icon {
 	padding-left: spacing('extra-loose');
 }
 
