@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.0.0...v9.1.0) (2020-02-11)
+
+
+### Bug Fixes
+
+* faker should be in dependencies instead of devDependencies ([3234a6f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3234a6f))
+* vscode settings for latest eslint plugin ([bcaf744](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bcaf744))
+
+
+### Features
+
+* Pull shared event types from api ([76862ad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/76862ad))
+* set up and sync uiEnhancementContract ([80fc1b5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/80fc1b5))
+
+
+
+
+
 # [9.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.18.0...v9.0.0) (2019-11-04)
 
 **Note:** Version bump only for package @sprucelabs/spruce-skill
