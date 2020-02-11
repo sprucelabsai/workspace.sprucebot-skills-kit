@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.0.0...v9.1.0) (2020-02-11)
+
+
+### Bug Fixes
+
+* linksToWebView option not getting passed through on ctx.sb.message ([b33bae5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b33bae5))
+* update user mutation not working ([4b062a1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4b062a1))
+
+
+### Features
+
+* ctx.sb.setUserImageFromUrl() method ([35290ab](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/35290ab))
+* Pull shared event types from api ([76862ad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/76862ad))
+* set up and sync uiEnhancementContract ([80fc1b5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/80fc1b5))
+
+
+
+
+
 # [9.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.18.0...v9.0.0) (2019-11-04)
 
 **Note:** Version bump only for package @sprucelabs/spruce-node

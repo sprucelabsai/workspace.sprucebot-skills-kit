@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.0.0...v9.1.0) (2020-02-11)
+
+
+### Bug Fixes
+
+* missing __resolveType for ListItemTypes and ListItemSelectablePropsType ([4d4ca97](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4d4ca97))
+
+
+### Features
+
+* better skill startup error messaging ([90fc92b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/90fc92b))
+* Pull shared event types from api ([76862ad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/76862ad))
+* set up and sync uiEnhancementContract ([80fc1b5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/80fc1b5))
+
+
+
+
+
 # [9.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.18.0...v9.0.0) (2019-11-04)
 
 **Note:** Version bump only for package @sprucelabs/spruce-skill-server

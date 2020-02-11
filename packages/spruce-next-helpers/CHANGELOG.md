@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.0.0...v9.1.0) (2020-02-11)
+
+
+### Features
+
+* update IModal.open to accept a skill slug ([3504a86](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3504a86))
+
+
+
+
+
 # [9.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.18.0...v9.0.0) (2019-11-04)
 
 **Note:** Version bump only for package @sprucelabs/spruce-next-helpers

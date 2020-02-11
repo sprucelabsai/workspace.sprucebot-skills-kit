@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.0.0...v9.1.0) (2020-02-11)
+
+
+### Bug Fixes
+
+* **ButtonGroup:** Handle actions and close dropdown [SDEV3-2927] ([4378c2b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4378c2b))
+* **Lists:** Spacing for list item sections, avatars [SDEV3-2758] ([05a3c9b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/05a3c9b))
+* **Page:** 100% height for where Page used w/o container [SDEV3-2754] ([932aa4d](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/932aa4d))
+* **UIEnhancements:** Update structure of enhancement section [SDEV3-487] ([edeff90](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/edeff90))
+* faker should be in dependencies instead of devDependencies ([3234a6f](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3234a6f))
+* linksToWebView option not getting passed through on ctx.sb.message ([b33bae5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b33bae5))
+* missing __resolveType for ListItemTypes and ListItemSelectablePropsType ([4d4ca97](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4d4ca97))
+* update user mutation not working ([4b062a1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4b062a1))
+* vscode settings for latest eslint plugin ([bcaf744](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/bcaf744))
+
+
+### Features
+
+* **CalendarEvent:** Add id to item types [SDEV3-487] ([b9784ae](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b9784ae))
+* **UIEnhancements:** Add utility method to merge UI enhancements into Event Details ([7b64d2b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7b64d2b))
+* **View:** Add isChromeless prop to disable view chrome [SDEV3-2754] ([3442ee1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3442ee1))
+* better skill startup error messaging ([90fc92b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/90fc92b))
+* ctx.sb.setUserImageFromUrl() method ([35290ab](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/35290ab))
+* Pull shared event types from api ([76862ad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/76862ad))
+* set up and sync uiEnhancementContract ([80fc1b5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/80fc1b5))
+* update IModal.open to accept a skill slug ([3504a86](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3504a86))
+* update/add/remove for ICoreRescheduleCalendarEventEventBody type ([5a93e8e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5a93e8e))
+
+
+
+
+
 # [9.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.18.0...v9.0.0) (2019-11-04)
 
 
