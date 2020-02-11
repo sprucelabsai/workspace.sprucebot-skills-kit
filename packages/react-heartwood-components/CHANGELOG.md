@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.0.0...v9.1.0) (2020-02-11)
+
+
+### Bug Fixes
+
+* **ButtonGroup:** Handle actions and close dropdown [SDEV3-2927] ([4378c2b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4378c2b))
+* **Lists:** Spacing for list item sections, avatars [SDEV3-2758] ([05a3c9b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/05a3c9b))
+
+
+### Features
+
+* **UIEnhancements:** Add utility method to merge UI enhancements into Event Details ([7b64d2b](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7b64d2b))
+* **View:** Add isChromeless prop to disable view chrome [SDEV3-2754] ([3442ee1](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/3442ee1))
+
+
+
+
+
 # [9.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.18.0...v9.0.0) (2019-11-04)
 
 
