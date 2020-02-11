@@ -47,12 +47,19 @@ export abstract class AbstractSprucebotAdapter {
 		path: string,
 		data?: Record<string, any>,
 		queryParams?: Record<string, any>,
-		method?: string
+		method?: string,
+		version?: string
 	): Promise<any>
 	public abstract patch(
 		path: string,
 		data?: Record<string, any>,
 		queryParams?: Record<string, any>
+	): Promise<any>
+	public abstract put(
+		path: string,
+		data?: Record<string, any>,
+		queryParams?: Record<string, any>,
+		version?: string
 	): Promise<any>
 	public abstract delete(
 		path: string,
@@ -117,6 +124,7 @@ export default class Sprucebot {
 	private marketingUrl: string
 	private dbEnabled: boolean
 	private eventContract: Record<string, any>
+	private uiEnhancementContract: Record<string, any>
 	private version: string
 	private skillsKitVersion: string
 	private apiVersion: string
@@ -131,7 +139,12 @@ export default class Sprucebot {
 		'serverUrl',
 		'svgIcon'
 	]
-	private suggestedParams = ['eventContract', 'acl', 'viewVersion']
+	private suggestedParams = [
+		'uiEnhancementContract',
+		'eventContract',
+		'acl',
+		'viewVersion'
+	]
 
 	public constructor(options: {
 		apiKey: string
@@ -145,6 +158,7 @@ export default class Sprucebot {
 		allowSelfSignedCerts?: boolean
 		dbEnabled?: boolean
 		eventContract?: Record<string, any> // TODO: Define event contract more specifically
+		uiEnhancementContract?: Record<string, any> // TODO: Define event contract more specifically
 		version?: string
 		skillsKitVersion?: string
 		acl?: Record<string, any> // TODO: Define acls type
@@ -163,6 +177,7 @@ export default class Sprucebot {
 			allowSelfSignedCerts = false,
 			dbEnabled = false,
 			eventContract,
+			uiEnhancementContract,
 			version = 'unknown',
 			skillsKitVersion = 'unknown',
 			acl,
@@ -188,6 +203,10 @@ export default class Sprucebot {
 		this.dbEnabled = dbEnabled
 		this.eventContract = eventContract || {
 			events: {}
+		}
+		this.uiEnhancementContract = uiEnhancementContract || {
+			provides: {},
+			enhances: {}
 		}
 		this._mutexes = {}
 
@@ -245,6 +264,7 @@ export default class Sprucebot {
 					iframeUrl: this.iframeUrl,
 					marketingUrl: this.marketingUrl,
 					eventContract: JSON.stringify(this.eventContract),
+					uiEnhancementContract: JSON.stringify(this.uiEnhancementContract),
 					version: this.version,
 					skillsKitVersion: this.skillsKitVersion,
 					acl: JSON.stringify(this.acl),
@@ -409,18 +429,22 @@ export default class Sprucebot {
 		return this.adapter.get(`/organizations/${organizationId}/users/`, options)
 	}
 
-	//Update for user who have been to this location
-	public async updateUser(
+	// Update a user who has been to this location
+	public async updateGuest(
 		id: string,
 		values: Record<string, any>
 	): Promise<Record<string, any>> {
 		return this.mutation(
 			`
-				mutation($input: updateUserInput!) {
-					id
-					firstName
-					lastName
-					phoneNumber
+				mutation($input: updateGuestInput!) {
+					updateGuest(input: $input) {
+						User {
+							id
+							firstName
+							lastName
+							phoneNumber
+						}
+					}
 				}
 			`,
 			{
@@ -476,8 +500,9 @@ export default class Sprucebot {
 		}
 
 		if (options) {
-			const { type, webViewQueryData } = options
+			const { type, webViewQueryData, linksToWebView } = options
 			data.type = type
+			data.linksToWebView = linksToWebView
 			if (webViewQueryData) {
 				data.webViewQueryData = JSON.stringify(webViewQueryData)
 			}
@@ -735,13 +760,13 @@ export default class Sprucebot {
 	}
 
 	/** Emit a custom event. The response is the response from all skills */
-	public async emit(
+	public async emit<TPayload = Record<string, any>>(
 		/** the location that will receive this event */
 		locationId: string,
 		/** the name of the event */
 		eventName: string,
 		/** any data you want passed with the event */
-		payload: Record<string, any> = {},
+		payload?: TPayload,
 		/** options to control how the event behaves */
 		options?: IEmitEventOptions,
 		/** DEPRECATED, please pass options.eventId */
@@ -761,7 +786,7 @@ export default class Sprucebot {
 		return this.adapter.post(`locations/${locationId}/emit`, {
 			eventName,
 			eventId: actualEventId,
-			payload,
+			payload: payload || {},
 			options
 		})
 	}
@@ -920,6 +945,22 @@ export default class Sprucebot {
 				eventName,
 				payload
 			}
+		)
+
+		return result
+	}
+
+	public async setUserImageFromUrl(options: {
+		userId: string
+		organizationId: string
+		url: string
+	}) {
+		const { userId, organizationId, url } = options
+		const result = await this.adapter.put(
+			`/organizations/${organizationId}/guests/${userId}/profileImageUrl`,
+			{ url },
+			{},
+			'2.0'
 		)
 
 		return result

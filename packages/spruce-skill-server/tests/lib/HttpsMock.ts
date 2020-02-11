@@ -147,6 +147,14 @@ export default class HttpsMock extends AbstractSprucebotAdapter {
 		console.log('MOCK PATCH', data, path, query)
 		return Promise.resolve({})
 	}
+	public async put(
+		path: string,
+		data?: Record<string, any>,
+		query?: Record<string, any>
+	): Promise<any> {
+		console.log('MOCK PUT', data, path, query)
+		return Promise.resolve({})
+	}
 	public async delete(path: string, query?: Record<string, any>): Promise<any> {
 		console.log('MOCK DELETE', path, query)
 		return Promise.resolve({})

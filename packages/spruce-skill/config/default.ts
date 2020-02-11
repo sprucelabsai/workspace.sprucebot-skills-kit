@@ -48,6 +48,7 @@ const customConfig = {
 			'SERVER_HOST',
 			'GRAPHQL_SUBSCRIPTIONS_URI',
 			'SKILL_STYLESHEET',
+			'LEGACY_SKILL_STYLESHEET',
 			'INTERFACE_SSL_ALLOW_SELF_SIGNED',
 			'VIMEO_ID',
 			'DEV_MODE',
@@ -78,6 +79,7 @@ import acl from './acl'
 import settings from './settings'
 import errors from './errors'
 import eventContract from './eventContract'
+import uiEnhancementContract from './uiEnhancementContract'
 import scopes from './scopes'
 import auth from './auth'
 
@@ -85,6 +87,7 @@ type AclType = typeof acl
 type SettingsType = typeof settings
 type ErrorsType = typeof errors
 type EventContractType = typeof eventContract
+type UIEnhancementContractType = typeof uiEnhancementContract
 type ScopesType = typeof scopes
 type ConfigType = typeof SpruceConfig
 type AuthType = typeof auth
@@ -100,6 +103,7 @@ const fullConfig = {
 		SettingsType,
 		ErrorsType,
 		EventContractType,
+		UIEnhancementContractType,
 		ScopesType,
 		AuthType
 	>(baseDirectory),

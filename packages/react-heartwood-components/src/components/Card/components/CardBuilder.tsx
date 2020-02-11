@@ -115,7 +115,7 @@ const renderItem = (
 		!Handler.prototype.render ? (
 		// TODO figure out why these don't pass
 		// @ts-ignore
-		Handler({ ...viewModel })
+		Handler({ ...viewModel, onAction })
 	) : (
 		// @ts-ignore
 		<Handler {...viewModel} onAction={onAction} />
@@ -149,7 +149,7 @@ const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 
 	return (
 		<Card>
-			{header && <CardHeader {...header} />}
+			{header && <CardHeader {...header} onAction={onAction} />}
 			{headerImage && <Image {...headerImage} />}
 			{(items || children) && (
 				<CardBody

@@ -1,3 +1,5 @@
+import { SpruceSettingsFieldType } from '@sprucelabs/spruce-types'
+
 const settings = [
 	// User settings page
 	{
@@ -12,7 +14,7 @@ const settings = [
 					// Array of individual settings that are configurable
 					{
 						name: 'receive_notifications', // Each setting MUST HAVE A UNIQUE "name"
-						type: 'boolean', // The type of setting
+						type: SpruceSettingsFieldType.Boolean, // The type of setting
 						props: {
 							// These props are passed directly to the component. Use it to customize the look and feel.
 							label: 'Receive notifications',
@@ -30,7 +32,7 @@ const settings = [
 					},
 					{
 						name: 'receive_notifications_or_something',
-						type: 'select',
+						type: SpruceSettingsFieldType.Select,
 						props: {
 							options: {
 								foo: 'bar',
@@ -65,7 +67,7 @@ const settings = [
 				fields: [
 					{
 						name: 'example_boolean',
-						type: 'boolean',
+						type: SpruceSettingsFieldType.Boolean,
 						// Only include this setting in get-settings event response if the user has these permissions:
 						// acls: {
 						// 	workspace: ['can_do_example_organization']
@@ -78,7 +80,7 @@ const settings = [
 					},
 					{
 						name: 'example_select',
-						type: 'select',
+						type: SpruceSettingsFieldType.Select,
 						// Only include this setting in get-settings event response if the user has these permissions:
 						// acls: {
 						// 	workspace: ['can_do_example_organization']
@@ -94,7 +96,7 @@ const settings = [
 					},
 					{
 						name: 'example_duration',
-						type: 'duration',
+						type: SpruceSettingsFieldType.Duration,
 						props: {
 							minMinutes: 5,
 							maxMinutes: 60 * 5,
@@ -104,7 +106,7 @@ const settings = [
 					},
 					{
 						name: 'example_text',
-						type: 'text',
+						type: SpruceSettingsFieldType.Text,
 						// acls: {
 						// 	workspace: ['can_do_example_organization']
 						// },
@@ -128,7 +130,7 @@ const settings = [
 				fields: [
 					{
 						name: 'location_example',
-						type: 'boolean',
+						type: SpruceSettingsFieldType.Boolean,
 						// Only include this setting in get-settings event response if the user has these permissions:
 						acls: {
 							workspace: ['can_do_example_location']

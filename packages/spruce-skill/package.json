@@ -26,7 +26,7 @@
 		"build:copy-gql": "copyfiles -V ./server/**/*.gql ./server/**/*.graphql build/",
 		"clean": "rm -rf build/",
 		"start": "NODE_CONFIG_DIR=./build/config node ./build/server/server.js",
-		"local": "npm run kill-inspect && tsnd --ignore-watch interface/.next --ignore-watch node_modules --project tsconfig.server.json --inspect=4080 --respawn --transpileOnly server/server.ts",
+		"local": "npm run kill-inspect && tsnd --ignore-watch interface/.next --ignore-watch node_modules  --ignore-watch generated.ts --project tsconfig.server.json --inspect=4080 --respawn --transpileOnly server/server.ts",
 		"kill-inspect": "kill-port 4080",
 		"interface": "next ./interface -p 3080",
 		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx . && tsc -p . --noEmit",
@@ -39,7 +39,8 @@
 		"heroku-postbuild": "npm run build",
 		"release": "semantic-release",
 		"storybook": "start-storybook -p 6006",
-		"gqlToTS": "graphql-codegen -r dotenv/config --config codegen.yml && prettier-eslint -l info --write \"server/interfaces/gql.ts\""
+		"gqlToTS": "graphql-codegen -r dotenv/config --config codegen.yml && prettier-eslint -l info --write \"server/interfaces/gql.ts\"",
+		"checkIfGitIsClean": "! git status --short | grep ."
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.0.0",
@@ -63,6 +64,7 @@
 		"enzyme": "^3.3.0",
 		"enzyme-adapter-react-16": "^1.1.1",
 		"enzyme-to-json": "^3.3.1",
+		"faker": "^4.1.0",
 		"flow-node": "^1.2.3",
 		"globby": "^8.0.1",
 		"graphql": "^14.5.4",
@@ -121,7 +123,6 @@
 		"conventional-changelog-sprucelabs": "^1.1.0",
 		"eslint": "^5",
 		"eslint-config-spruce": "^9.0.0",
-		"faker": "^4.1.0",
 		"flow-remove-types": "^1.2.3",
 		"globby": "^8.0.1",
 		"husky": "^0.14.3",
