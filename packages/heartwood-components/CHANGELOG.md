@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v9.0.0...v9.1.0) (2020-02-11)
+
+
+### Bug Fixes
+
+* **Lists:** Spacing for list item sections, avatars [SDEV3-2758] ([05a3c9b](https://github.com/sprucelabsai/sprucebot-heartwood/commit/05a3c9b))
+* **Page:** 100% height for where Page used w/o container [SDEV3-2754] ([932aa4d](https://github.com/sprucelabsai/sprucebot-heartwood/commit/932aa4d))
+
+
+
+
+
 # [9.0.0](https://github.com/sprucelabsai/sprucebot-heartwood/compare/v8.18.0...v9.0.0) (2019-11-04)
 
 **Note:** Version bump only for package @sprucelabs/heartwood-components

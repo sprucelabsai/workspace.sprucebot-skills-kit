@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.0.0...v9.1.0) (2020-02-11)
+
+
+### Bug Fixes
+
+* **UIEnhancements:** Update structure of enhancement section [SDEV3-487] ([edeff90](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/edeff90))
+
+
+### Features
+
+* **CalendarEvent:** Add id to item types [SDEV3-487] ([b9784ae](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b9784ae))
+* Pull shared event types from api ([76862ad](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/76862ad))
+* update/add/remove for ICoreRescheduleCalendarEventEventBody type ([5a93e8e](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/5a93e8e))
+
+
+
+
+
 # [9.0.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v8.18.0...v9.0.0) (2019-11-04)
 
 **Note:** Version bump only for package @sprucelabs/spruce-types
