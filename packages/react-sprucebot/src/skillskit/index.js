@@ -32,23 +32,6 @@ const skill = {
 		}
 	},
 
-	windowOrDocument: function() {
-		const standalone = window.navigator.standalone
-		const userAgent = window.navigator.userAgent.toLowerCase()
-		const safari = /safari/.test(userAgent)
-		const chrome = /chrome/.test(userAgent)
-		const ios = /iphone|ipod|ipad/.test(userAgent)
-		const android = /android/.test(userAgent)
-		const isIOSWebView = ios && !safari && !standalone
-		const isAndroidWebView = android && !chrome && !standalone
-
-		if (isIOSWebView || isAndroidWebView) {
-			return document
-		} else {
-			return window
-		}
-	},
-
 	addEventListener: function(eventName, listener) {
 		if (!this.listenersByEventName[eventName]) {
 			this.listenersByEventName[eventName] = []
@@ -299,9 +282,9 @@ const skill = {
 }
 
 if (typeof window !== 'undefined') {
-	skill
-		.windowOrDocument()
-		.addEventListener('message', skill.handleIframeMessage.bind(skill))
+	skill.window.addEventListener(
+		'message', skill.handleIframeMessage.bind(skill)
+	)
 }
 
 export default skill
