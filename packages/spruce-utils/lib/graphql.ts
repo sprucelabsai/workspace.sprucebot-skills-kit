@@ -38,7 +38,13 @@ interface IGraphQLMutationProps extends IGraphQLOperationProps {
 
 interface IGraphQLSubscriptionProps extends IGraphQLOperationProps {
 	subscription: string
-	onData: (data) => void
+	onData: Function
+	onReconnected?: Function
+	onConnected?: Function
+	onConnecting?: Function
+	onReconnecting?: Function
+	onDisconnected?: Function
+	onError?: Function
 }
 
 export type IGraphQLSubscription = (
@@ -66,6 +72,7 @@ if (global && global.log) {
 export class GraphQLClient {
 	client: any
 	token?: string
+	webSocketLink?: WebSocketLink
 
 	constructor({
 		rejectUnauthorized,
@@ -104,7 +111,7 @@ export class GraphQLClient {
 		})
 
 		if (typeof window !== 'undefined' && wsUri) {
-			const wsLink = new WebSocketLink({
+			this.webSocketLink = new WebSocketLink({
 				uri: wsUri,
 				options: {
 					reconnect: true,
@@ -120,27 +127,27 @@ export class GraphQLClient {
 			})
 
 			// @ts-ignore
-			wsLink.subscriptionClient.onConnected(() =>
+			this.webSocketLink.subscriptionClient.onConnected(() =>
 				log.debug('GraphQL Subscriptions websocket connected')
 			)
 			// @ts-ignore
-			wsLink.subscriptionClient.onReconnected(() =>
+			this.webSocketLink.subscriptionClient.onReconnected(() =>
 				log.debug('GraphQL Subscriptions websocket reconnected')
 			)
 			// @ts-ignore
-			wsLink.subscriptionClient.onConnecting(() =>
+			this.webSocketLink.subscriptionClient.onConnecting(() =>
 				log.debug('GraphQL Subscriptions websocket attempting to connect')
 			)
 			// @ts-ignore
-			wsLink.subscriptionClient.onReconnecting(() =>
+			this.webSocketLink.subscriptionClient.onReconnecting(() =>
 				log.debug('GraphQL Subscriptions websocket attempting to reconnect')
 			)
 			// @ts-ignore
-			wsLink.subscriptionClient.onDisconnected(() =>
+			this.webSocketLink.subscriptionClient.onDisconnected(() =>
 				log.debug('GraphQL Subscriptions websocket disconnected')
 			)
 			// @ts-ignore
-			wsLink.subscriptionClient.onError(e =>
+			this.webSocketLink.subscriptionClient.onError(e =>
 				log.warn('GraphQL Subscriptions websocket error', e)
 			)
 
@@ -154,7 +161,7 @@ export class GraphQLClient {
 						operationDefinition.operation === 'subscription'
 					)
 				},
-				wsLink,
+				this.webSocketLink,
 				addExtensionsLink.concat(httpLink)
 			)
 		} else {
@@ -286,6 +293,39 @@ export class GraphQLClient {
 	subscribe: IGraphQLSubscription = options => {
 		if (options.token) {
 			this.setToken(options.token)
+		}
+
+		// @ts-ignore
+		if (this.webSocketLink && this.webSocketLink.subscriptionClient) {
+			options.onConnected &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onConnected(options.onConnected)
+
+			options.onReconnected &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onReconnected(
+					options.onReconnected
+				)
+
+			options.onConnecting &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onConnecting(options.onConnecting)
+
+			options.onReconnecting &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onReconnecting(
+					options.onReconnecting
+				)
+
+			options.onDisconnected &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onDisconnected(
+					options.onDisconnected
+				)
+
+			options.onError &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onError(options.onError)
 		}
 
 		return this.client
