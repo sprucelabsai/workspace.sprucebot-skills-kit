@@ -81,6 +81,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 
 	hideUserMenu = (e: Event) => {
 		console.log(e)
+		e.stopPropagation()
 		if (
 			e.key === 'Escape' ||
 			e.target.contains(this.ref) ||
