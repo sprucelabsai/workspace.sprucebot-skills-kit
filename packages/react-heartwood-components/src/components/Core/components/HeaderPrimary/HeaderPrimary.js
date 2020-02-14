@@ -253,10 +253,10 @@ export default class HeaderPrimary extends Component<Props, State> {
 							/>
 						</Fragment>
 					) : (
-							<Fragment>
-								<Button kind="primary" isSmall text={loginCTA} href={loginHref} />
-							</Fragment>
-						)}
+						<Fragment>
+							<Button kind="primary" isSmall text={loginCTA} href={loginHref} />
+						</Fragment>
+					)}
 				</div>
 			</header>
 		)

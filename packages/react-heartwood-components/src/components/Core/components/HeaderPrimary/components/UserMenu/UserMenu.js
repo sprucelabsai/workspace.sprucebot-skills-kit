@@ -25,7 +25,11 @@ const UserMenu = (props: Props) => {
 
 	return (
 		<div className="user-menu">
-			<button className="btn header-primary__user-btn" id="userMenuToggle" onClick={toggleMenu}>
+			<button
+				className="btn header-primary__user-btn"
+				id="userMenuToggle"
+				onClick={toggleMenu}
+			>
 				<span className="btn__inner">
 					<Avatar image={image} alt={name} width={32} height={32} />
 				</span>
