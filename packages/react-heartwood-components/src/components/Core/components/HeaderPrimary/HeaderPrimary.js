@@ -80,10 +80,11 @@ export default class HeaderPrimary extends Component<Props, State> {
 	ref: any
 
 	hideUserMenu = (e: Event) => {
+		console.log(e)
 		if (
 			e.key === 'Escape' ||
 			e.target.contains(this.ref) ||
-			(e.type === 'click' && e.target.id !== 'avatar')
+			(e.type === 'click' && e.target.id !== 'userMenuToggle')
 		) {
 			this.setState(
 				{
@@ -252,10 +253,10 @@ export default class HeaderPrimary extends Component<Props, State> {
 							/>
 						</Fragment>
 					) : (
-						<Fragment>
-							<Button kind="primary" isSmall text={loginCTA} href={loginHref} />
-						</Fragment>
-					)}
+							<Fragment>
+								<Button kind="primary" isSmall text={loginCTA} href={loginHref} />
+							</Fragment>
+						)}
 				</div>
 			</header>
 		)
