@@ -129,6 +129,8 @@ export default class HeaderPrimary extends Component<Props, State> {
 	}
 
 	manageListeners = () => {
+		console.log('manage listeners - isUserMenuVisible')
+		console.log(this.state.isUserMenuVisible)
 		if (typeof window !== 'undefined') {
 			if (this.state.isUserMenuVisible) {
 				window.addEventListener('click', this.hideUserMenu, false)
