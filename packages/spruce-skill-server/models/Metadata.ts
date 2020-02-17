@@ -2,12 +2,10 @@
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
 import { Sequelize, DataTypes } from 'sequelize'
-import {
-	SpruceCoreModel,
-	User,
-	Location,
-	Organization
-} from '@sprucelabs/spruce-skill-server'
+import { User } from './User'
+import { Location } from './Location'
+import { Organization } from './Organization'
+import SpruceCoreModel from '../lib/SpruceModel'
 import { ISpruceModels } from '../interfaces/models'
 
 export class Metadata extends SpruceCoreModel<Metadata> {
