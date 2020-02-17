@@ -9,6 +9,7 @@ import SpruceCoreModel from '../lib/SpruceModel'
 import { ISpruceModels } from '../interfaces/models'
 
 export class Metadata extends SpruceCoreModel<Metadata> {
+	public static readonly doNotSync = true
 	public static readonly paranoid = false
 	// Scopes
 	public static readonly scopes = {
