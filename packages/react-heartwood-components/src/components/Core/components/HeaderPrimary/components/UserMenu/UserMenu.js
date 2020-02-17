@@ -18,18 +18,17 @@ type Props = {
 
 	/** Menu children (<ListItem> or <li>) */
 	userMenuItems: ReactNode
+
+	/** Optional ref used to access UserMenu element */
+	userMenuRef?: any
 }
 
 const UserMenu = (props: Props) => {
-	const { image, name, menuIsVisible, toggleMenu, userMenuItems } = props
+	const { image, name, menuIsVisible, toggleMenu, userMenuItems, userMenuRef } = props
 
 	return (
 		<div className="user-menu">
-			<button
-				className="btn header-primary__user-btn"
-				id="userMenuToggle"
-				onClick={toggleMenu}
-			>
+			<button className="btn header-primary__user-btn" onClick={toggleMenu} ref={userMenuRef}>
 				<span className="btn__inner">
 					<Avatar image={image} alt={name} width={32} height={32} />
 				</span>
