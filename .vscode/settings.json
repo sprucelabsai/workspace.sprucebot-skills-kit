@@ -39,5 +39,8 @@
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"atlascode.jira.workingSite": {
 		"baseUrlSuffix": "atlassian.net"
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
 	}
 }
