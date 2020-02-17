@@ -83,7 +83,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 		if (
 			e.key === 'Escape' ||
 			e.target.contains(this.ref) ||
-			(e.type === 'click' && e.target.closest('#userMenuToggle'))
+			(e.type === 'click' && !e.target.closest('#userMenuToggle'))
 		) {
 			this.setState(
 				{
