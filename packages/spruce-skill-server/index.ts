@@ -613,6 +613,7 @@ export { User } from './models/User'
 export { UserGroup } from './models/UserGroup'
 export { UserLocation } from './models/UserLocation'
 export { UserOrganization } from './models/UserOrganization'
+export { Metadata } from './models/Metadata'
 import defaultConfig from './config/default'
 export { defaultConfig as SpruceConfig }
 
