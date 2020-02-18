@@ -78,12 +78,13 @@ export default class HeaderPrimary extends Component<Props, State> {
 	}
 
 	ref: any
+	userMenuRef: any
 
 	hideUserMenu = (e: Event) => {
 		if (
 			e.key === 'Escape' ||
 			e.target.contains(this.ref) ||
-			(e.type === 'click' && e.target.id !== 'avatar')
+			(e.type === 'click' && !this.userMenuRef.contains(e.target))
 		) {
 			this.setState(
 				{
@@ -248,6 +249,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 								menuIsVisible={isUserMenuVisible}
 								toggleMenu={this.toggleUserMenuVisibility}
 								userMenuItems={userMenuItems}
+								userMenuRef={userMenuRef => (this.userMenuRef = userMenuRef)}
 								{...user}
 							/>
 						</Fragment>
