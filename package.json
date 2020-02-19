@@ -14,6 +14,10 @@
 		"packages/spruce-utils",
 		"packages/spruce-types"
 	],
+        "engines": {
+                "node": "^10",
+                "npm": "^6"
+        },
 	"scripts": {
 		"local": "pm2 start ecosystem.config.js && echo 'run `yarn run log` to tail the logs'",
 		"log": "pm2 log 'SB Skillskit'",
