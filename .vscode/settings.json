@@ -7,37 +7,45 @@
 	"files.watcherExclude": {
 		"**/.git/objects/**": true,
 		"**/.git/subtree-cache/**": true,
-		"**/node_modules/**": true,
 		"**/build/**": true,
-		"**/dist/**": true,
+		"**/node_modules/**": true,
 		"**/.next/**": true
 	},
 	"search.exclude": {
-		"**/node_modules/**": true,
 		"**/build/**": true,
-		"**/dist/**": true,
+		"**/node_modules/**": true,
 		"**/.next/**": true
 	},
 	"eslint.enable": true,
-	"eslint.autoFixOnSave": true,
-	"eslint.nodePath": "node_modules",
 	"eslint.validate": [
 		"javascript",
 		"javascriptreact",
-		{
-			"language": "typescript",
-			"autoFix": true
-		},
-		{
-			"language": "typescriptreact",
-			"autoFix": true
-		}
+		"typescript",
+		"typescriptreact"
 	],
+	"[javascript]": {
+		"editor.formatOnSave": false
+	},
+	"[javascriptreact]": {
+		"editor.formatOnSave": false
+	},
+	"[typescript]": {
+		"editor.formatOnSave": false
+	},
+	"[typescriptreact]": {
+		"editor.formatOnSave": false
+	},
+	"[handlebars]": {
+		"editor.formatOnSave": false
+	},
 	"eslint.options": {
 		"extensions": [".js", ".jsx", ".ts", ".tsx"]
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"atlascode.jira.workingSite": {
-		"baseUrlSuffix": "atlassian.net"
+	"typescript.preferences.importModuleSpecifier": "relative",
+	"editor.formatOnSaveTimeout": 5000,
+	"editor.codeActionsOnSaveTimeout": 5000,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
 	}
 }
