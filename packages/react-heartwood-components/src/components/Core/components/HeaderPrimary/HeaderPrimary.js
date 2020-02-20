@@ -85,7 +85,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 		console.log(document.activeElement)
 		if (
 			e.key === 'Escape' ||
-			e.target.contains(this.ref) ||
+			(e.type !== 'blur' && e.target.contains(this.ref)) ||
 			(e.type === 'click' && !this.userMenuRef.contains(e.target)) ||
 			(e.type === 'blur' &&
 				document.activeElement ===
