@@ -81,8 +81,6 @@ export default class HeaderPrimary extends Component<Props, State> {
 	userMenuRef: any
 
 	hideUserMenu = (e: Event) => {
-		console.log(e)
-		console.log(document.activeElement)
 		if (
 			e.key === 'Escape' ||
 			(e.type !== 'blur' && e.target.contains(this.ref)) ||
@@ -145,6 +143,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 			} else {
 				window.removeEventListener('click', this.hideUserMenu, false)
 				window.removeEventListener('keyup', this.hideUserMenu, false)
+				window.removeEventListener('blur', this.hideUserMenu, false)
 				window.removeEventListener('click', this.hideLocationMenu, false)
 				window.removeEventListener('keyup', this.hideLocationMenu, false)
 			}
