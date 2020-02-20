@@ -82,10 +82,14 @@ export default class HeaderPrimary extends Component<Props, State> {
 
 	hideUserMenu = (e: Event) => {
 		console.log(e)
+		console.log(document.activeElement)
 		if (
 			e.key === 'Escape' ||
 			e.target.contains(this.ref) ||
-			(e.type === 'click' && !this.userMenuRef.contains(e.target))
+			(e.type === 'click' && !this.userMenuRef.contains(e.target)) ||
+			(e.type === 'blur' &&
+				document.activeElement ===
+					document.getElementsByClassName('iframe-page-iframe')[0])
 		) {
 			this.setState(
 				{
@@ -134,6 +138,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 			if (this.state.isUserMenuVisible) {
 				window.addEventListener('click', this.hideUserMenu, false)
 				window.addEventListener('keyup', this.hideUserMenu, false)
+				window.addEventListener('blur', this.hideUserMenu, false)
 			} else if (this.state.isLocationMenuVisible) {
 				window.addEventListener('click', this.hideLocationMenu, false)
 				window.addEventListener('keyup', this.hideLocationMenu, false)
