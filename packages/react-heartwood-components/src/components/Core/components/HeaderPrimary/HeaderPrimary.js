@@ -83,9 +83,8 @@ export default class HeaderPrimary extends Component<Props, State> {
 	hideUserMenu = (e: Event) => {
 		if (
 			e.key === 'Escape' ||
-			(e.type !== 'blur' && e.target.contains(this.ref)) ||
-			((e.type === 'click' || e.type === 'blur') &&
-				!this.userMenuRef.contains(e.target))
+			(e.type === 'click' && !this.userMenuRef.contains(e.target)) ||
+			(e.type === 'blur' && !this.userMenuRef.contains(document.activeElement))
 		) {
 			this.setState(
 				{
