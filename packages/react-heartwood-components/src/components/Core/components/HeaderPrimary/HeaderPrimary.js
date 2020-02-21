@@ -84,10 +84,8 @@ export default class HeaderPrimary extends Component<Props, State> {
 		if (
 			e.key === 'Escape' ||
 			(e.type !== 'blur' && e.target.contains(this.ref)) ||
-			(e.type === 'click' && !this.userMenuRef.contains(e.target)) ||
-			(e.type === 'blur' &&
-				document.activeElement ===
-					document.getElementsByClassName('iframe-page-iframe')[0])
+			((e.type === 'click' || e.type === 'blur') &&
+				!this.userMenuRef.contains(e.target))
 		) {
 			this.setState(
 				{
