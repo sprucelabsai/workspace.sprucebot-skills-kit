@@ -3,6 +3,7 @@ import { Group } from '../models/Group'
 import { Job } from '../models/Job'
 import { Location } from '../models/Location'
 import { LocationGroup } from '../models/LocationGroup'
+import { Metadata } from '../models/Metadata'
 import { Organization } from '../models/Organization'
 import { Skill } from '../models/Skill'
 import { User } from '../models/User'
@@ -54,6 +55,14 @@ export interface ISpruceModels {
 	 * You should interact with this model using services (https://developer.spruce.ai)
 	 */
 	LocationGroup: typeof LocationGroup
+	/**
+	 * 🌲🤖 Core Spruce Model: Metadata
+	 *
+	 * This is a core model that is available through skills db.
+	 *
+	 * You should interact with this model using services (https://developer.spruce.ai)
+	 */
+	Metadata: typeof Metadata
 	/**
 	 * 🌲🤖 Core Spruce Model: Organization
 	 *
