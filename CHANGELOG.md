@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.1.0...v9.2.0) (2020-03-05)
+
+
+### Bug Fixes
+
+* Procfile path, force node to node 10 (sqlite3 version fails in node12) ([c05f090](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/c05f090))
+* **GraphQL:** Destroy and re-init listeners on resubscribe [SDEV3-3060] ([b21b7a5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b21b7a5))
+
+
+### Features
+
+* **Auth:** Use JWT to determine token expiry [SDEV3-3013] ([a4a4d80](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a4a4d80))
+* **GQLClient:** Allow tapping into wsLink callbacks ([545690c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/545690c))
+* add core skill Metadata model definition ([7d9e269](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/7d9e269))
+* prepare for v10 release by creating v9 CI workflow ([2452096](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/2452096))
+
+
+
+
+
 # [9.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.0.0...v9.1.0) (2020-02-11)
 
 

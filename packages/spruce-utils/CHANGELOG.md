@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.1.0...v9.2.0) (2020-03-05)
+
+
+### Bug Fixes
+
+* **GraphQL:** Destroy and re-init listeners on resubscribe [SDEV3-3060] ([b21b7a5](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/b21b7a5))
+
+
+### Features
+
+* **GQLClient:** Allow tapping into wsLink callbacks ([545690c](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/545690c))
+
+
+
+
+
 # [9.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.0.0...v9.1.0) (2020-02-11)
 
 **Note:** Version bump only for package @sprucelabs/spruce-utils

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [9.2.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.1.0...v9.2.0) (2020-03-05)
+
+
+### Features
+
+* **Auth:** Use JWT to determine token expiry [SDEV3-3013] ([a4a4d80](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/a4a4d80))
+
+
+
+
+
 # [9.1.0](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v9.0.0...v9.1.0) (2020-02-11)
 
 
