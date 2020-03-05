@@ -32,7 +32,6 @@
 		"lint": "eslint '**/*.ts' && tsc -p . --noEmit"
 	},
 	"dependencies": {
-		"@deepstream/client": "^5.0.5",
 		"buffer": "^5.4.3",
 		"debug": "^3.1.0",
 		"graphql-request": "^1.8.2",

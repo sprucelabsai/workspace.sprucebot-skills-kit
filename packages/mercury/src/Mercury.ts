@@ -1,9 +1,6 @@
 import request from 'superagent'
 import log from './lib/log'
 import { MercuryAdapter } from './MercuryAdapter'
-// import MercuryAdapterDeepstream, {
-// 	IMercuryAdapterDeepstreamOptions
-// } from './adapters/MercuryAdapterDeepstream'
 import MercuryAdapterSocketIO from './adapters/MercuryAdapterSocketIO'
 
 export interface IOnData {
@@ -34,7 +31,6 @@ export type TOnConnectHandler =
 	| TOnConnectFunctionHandler
 
 export enum MercuryAdapterKind {
-	Deepstream = 'deepstream',
 	// eslint-disable-next-line spruce/prefer-pascal-case-enums
 	SocketIO = 'socketio'
 }
@@ -283,16 +279,6 @@ export class Mercury {
 		// TODO: Globby the adapters directory and set the correct one when we have multiple
 		let isAdapterSet = false
 		switch (adapter) {
-			// case MercuryAdapterKind.Deepstream:
-			// 	this.adapter = new MercuryAdapterDeepstream()
-			// 	this.adapter.init(
-			// 		connectionOptions,
-			// 		this.handleEvent.bind(this),
-			// 		this.onConnect.bind(this)
-			// 	)
-			// 	isAdapterSet = true
-			// 	break
-
 			case MercuryAdapterKind.SocketIO:
 				this.adapter = new MercuryAdapterSocketIO()
 				this.adapter.init(
