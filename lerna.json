@@ -6,8 +6,8 @@
 	"command": {
 		"publish": {
 			"allowBranch": [
-				"dev",
-				"canary",
+				"v9",
+				"v9-canary",
 				"prerelease/*"
 			],
 			"conventionalCommits": true,
