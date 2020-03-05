@@ -15,10 +15,10 @@
 		"packages/spruce-types",
 		"packages/mercury"
 	],
-        "engines": {
-                "node": "^10",
-                "npm": "^6"
-        },
+	"engines": {
+		"node": "^10",
+		"npm": "^6"
+	},
 	"scripts": {
 		"local": "pm2 start ecosystem.config.js && echo 'run `yarn run log` to tail the logs'",
 		"log": "pm2 log 'SB Skillskit'",
@@ -31,7 +31,7 @@
 		"start": "pm2 start ecosystem.config.js --no-daemon",
 		"test": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node",
 		"test:update": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node -- -u",
-		"publish": "lerna publish --log-level=silly",
+		"publish": "lerna publish",
 		"clean": "lerna run clean && rm -rf node_modules; for d in packages/*/node_modules; do echo $d; rm -rf $d; done",
 		"checkIfGitIsClean": "! git status --short | grep .",
 		"build-statics": "npm run build-storybook",
@@ -58,9 +58,8 @@
 	"devDependencies": {
 		"commitizen": "^3.0.7",
 		"conventional-changelog-sprucelabs": "^1.1.0",
-		"flow-bin": "^0.92.1",
 		"husky": "^0.14.3",
-		"lerna": "^3.2.1"
+		"lerna": "^3.20.2"
 	},
 	"config": {
 		"commitizen": {
