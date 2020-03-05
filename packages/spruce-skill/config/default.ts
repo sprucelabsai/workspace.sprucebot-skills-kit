@@ -64,7 +64,8 @@ const customConfig = {
 			'METRICS_URL',
 			'METRICS_ENABLED',
 			'METRICS_BROWSER_STATS_ENABLED',
-			'VIEW_VERSION'
+			'VIEW_VERSION',
+			'API_HOST'
 		])
 }
 

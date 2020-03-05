@@ -15,6 +15,8 @@ import lang from '../helpers/lang'
 import skill from '../index'
 import actions from '../store/actions'
 import ErrorPage from './_error'
+import config from 'config'
+import { Mercury } from '@sprucelabs/mercury'
 
 const debug = Debug('@sprucelabs/spruce-next-helpers')
 
@@ -265,9 +267,20 @@ const PageWrapper = Wrapped => {
 				)
 			}
 
+			const mercury = new Mercury({
+				spruceApiUrl: config.API_HOST,
+				// spruceApiUrl: 'http://localhost:3005',
+				credentials: { token: state.auth.jwt },
+				onConnect: () => debug('Mercury: connected'),
+				onDisconnect: () => debug('Mercury: disconnected')
+			})
+
 			// We can only return a plain object here because it is passed to the browser
 			// No circular dependencies
-			return props
+			return {
+				...props,
+				mercury
+			}
 		}
 
 		handleIframeMessage = e => {
@@ -280,6 +293,14 @@ const PageWrapper = Wrapped => {
 			}
 		}
 		async componentDidMount() {
+			global.mercury = new Mercury({
+				// spruceApiUrl: config.API_HOST,
+				spruceApiUrl: 'http://localhost:3005',
+				credentials: { token: this.props.auth.jwt },
+				onConnect: () => debug('Mercury: connected'),
+				onDisconnect: () => debug('Mercury: disconnected')
+			})
+			console.log('CDM', { props: this.props })
 			if (window.self === window.top || window.__SBTEAMMATE__) {
 				// make sure we are being loaded inside sb
 				console.error('NOT LOADED FROM SPRUCEBOT!! BAIL BAIL BAIL')

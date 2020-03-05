@@ -57,21 +57,23 @@ class DashboardLocationPage extends React.Component {
 	async componentDidMount() {
 		this.props.skill.ready() // Show the skill
 
-		try {
-			const result = await gqlClient.query({
-				query: gql`
-					{
-						Users {
-							id
-						}
-					}
-				`
-			})
+		console.log({ props: this.props })
 
-			log.debug({ result })
-		} catch (e) {
-			log.error(e)
-		}
+		// try {
+		// 	const result = await gqlClient.query({
+		// 		query: gql`
+		// 			{
+		// 				Users {
+		// 					id
+		// 				}
+		// 			}
+		// 		`
+		// 	})
+
+		// 	log.debug({ result })
+		// } catch (e) {
+		// 	log.error(e)
+		// }
 	}
 
 	onDrop = async (acceptedFiles, rejectedFiles) => {

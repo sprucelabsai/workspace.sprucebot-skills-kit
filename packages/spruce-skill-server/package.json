@@ -68,7 +68,7 @@
 		"graphql-type-json": "^0.3.0",
 		"sqlite3": "^4.0.4",
 		"supertest": "^3.0.0",
-		"typescript": "3.6.3"
+		"typescript": "^3.8"
 	},
 	"devDependencies": {
 		"@types/bluebird": "^3.5.27",

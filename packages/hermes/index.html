@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Basic template using Mercury</title>
+		<script>
+			// Enable debug console output for mercury
+			localStorage.debug = '@sprucelabs/mercury'
+		</script>
+		<script
+			type="text/javascript"
+			src="https://local-api.sprucebot.com/mercury.min.js"
+		></script>
+		<script>
+			async function onConnect() {
+				mercury.on(
+					{
+						// scope: Mercury.MercurySubscriptionScope.AnonymousOrganization,
+						eventName: 'did-enter',
+						organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2'
+						// locationId: '3d9b29eb-ab0e-481a-834c-6c57315c32b4'
+						// userId
+					},
+					data => {
+						console.log('did-enter fired!', { data })
+					}
+				)
+
+				mercury
+					.emit(
+						{
+							eventName: 'booking:get-providers',
+							organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2',
+							locationId: '3d9b29eb-ab0e-481a-834c-6c57315c32b4'
+						},
+						data => {
+							console.log('Emit response!', { data })
+						}
+					)
+					.then(allResponses => {
+						console.log('ALL RESPONSES', allResponses)
+					})
+			}
+			window.onload = function onPageLoad() {
+				const mercury = new Mercury.Mercury({
+					spruceApiUrl: 'https://local-api.sprucebot.com',
+					credentials: {
+						// 	// owner
+						// token:
+						// 	'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJpYXQiOjE1Nzg2OTQzMTcsImV4cCI6MTU3ODc4MDcxNywianRpIjoiN2NlOWU3OGItMTk1Ny00OTI5LTgxNzItNzJlMjUyODgxY2I4In0.K96PQAndYXfRUTZ83zK7KCSQmd0XlzvltgiewjVrsmdlds_RUEq6_eh6c9o3sBwrSmGK7slr9UbeQkgiQoXW-A'
+						// token:
+						// 	'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJsb2NhdGlvbklkIjoiM2Q5YjI5ZWItYWIwZS00ODFhLTgzNGMtNmM1NzMxNWMzMmI0Iiwib3JnYW5pemF0aW9uSWQiOiIwYTFhNWUwMC1kZWJjLTQxMGQtOWUxNC1mN2I3YzE2ZThlYzIiLCJpYXQiOjE1Nzg2OTUxMDksImV4cCI6MTU3ODc4MTUwOSwianRpIjoiNjY3MmVjMzMtODNiZC00OTk2LTkyNTktMDJkMmI1ZmJjNGEwIn0.s8QYlhKZYacbCqZ6iDLs6l1MGy-AeJ1ivoKCN9zHneXo5AyA111b5W0mlMPBF2WeWyXx0HJQ56_kZ9hNMYDasA'
+						token:
+							'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJza2lsbElkIjoiNTFlZjhlM2MtNTUzZS00YmVmLWE0NGYtODg3YTk2NDYxZDUzIiwibG9jYXRpb25JZCI6IjNkOWIyOWViLWFiMGUtNDgxYS04MzRjLTZjNTczMTVjMzJiNCIsIm9yZ2FuaXphdGlvbklkIjoiMGExYTVlMDAtZGViYy00MTBkLTllMTQtZjdiN2MxNmU4ZWMyIiwiaWF0IjoxNTc4Njk1NTU3LCJleHAiOjE1Nzg3ODE5NTcsImp0aSI6IjRjMzA1MjgyLTJkMWUtNGIwZS1hMDYxLTVhNzk3NjMxNzk3NCJ9.idcibXBVpk4_DHGBDYr2LTqUQyhkMakg4AkZ4-_fr9YDES64poiOpENDKpWVTscX2eKxy9H0ZGbRDxjeAaJn7A'
+					},
+					onConnect
+				})
+				window.mercury = mercury
+			}
+		</script>
+	</head>
+
+	<body>
+		<p>Hello</p>
+	</body>
+</html>
