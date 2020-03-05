@@ -30,7 +30,7 @@
 		"start": "pm2 start ecosystem.config.js --no-daemon",
 		"test": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node",
 		"test:update": "jest --clearCache && lerna run test --parallel --ignore sprucebot-node -- -u",
-		"publish": "lerna publish --log-level=silly",
+		"publish": "lerna publish",
 		"clean": "lerna run clean && rm -rf node_modules; for d in packages/*/node_modules; do echo $d; rm -rf $d; done",
 		"checkIfGitIsClean": "! git status --short | grep .",
 		"build-statics": "npm run build-storybook",
