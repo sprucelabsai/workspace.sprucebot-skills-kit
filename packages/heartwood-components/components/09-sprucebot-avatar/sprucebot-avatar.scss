@@ -1,0 +1,20 @@
+$small: 30px;
+$medium: 50px;
+$large: 75px;
+
+.sprucebot-avatar {
+	display: inline-block;
+
+	width: $large;
+	height: $large;
+
+	&.sprucebot-avatar-small {
+		width: $small;
+		height: $small;
+	}
+
+	&.sprucebot-avatar-medium {
+		width: $medium;
+		height: $medium;
+	}
+}

@@ -855,6 +855,38 @@ export type IHWSplitButton = {
   usePortal?: Maybe<Scalars['Boolean']>,
 };
 
+/** Your friendly neighborhood Sprucebot Avatar! */
+export type IHWSprucebotAvatar = {
+  __typename?: 'SprucebotAvatar',
+  /** ID for view caching */
+  id: Scalars['ID'],
+  /** How does Sprucebot feel? */
+  stateOfMind?: Maybe<IHWSprucebotAvatarStateOfMind>,
+  /** How big should the avatar be? */
+  size?: Maybe<IHWSprucebotAvatarSize>,
+};
+
+export enum IHWSprucebotAvatarSize {
+  /** Inline with text */
+  Small = 'small',
+  /** A subheading */
+  Medium = 'medium',
+  /** A heading */
+  Large = 'large'
+}
+
+/** Sprucebot's current state of mind */
+export enum IHWSprucebotAvatarStateOfMind {
+  /** For when nothing in particular is happening */
+  Chilling = 'chilling',
+  /** When submitting a form or running some other operation */
+  Thinking = 'thinking',
+  /** Asking a question or leaning new things */
+  Inquisiting = 'inquisiting',
+  /** Something has finished and we're so excited! */
+  Jamming = 'jamming'
+}
+
 /** Used for testing only */
 export type IHWTestType = {
   __typename?: 'TestType',

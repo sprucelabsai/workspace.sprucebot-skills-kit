@@ -1,0 +1,32 @@
+"Sprucebot's current state of mind"
+enum SprucebotAvatarStateOfMind {
+	"For when nothing in particular is happening"
+	chilling
+	"When submitting a form or running some other operation"
+	thinking
+	"Asking a question or leaning new things"
+	inquisiting
+	"Something has finished and we're so excited!"
+	jamming
+}
+
+enum SprucebotAvatarSize {
+	"Inline with text"
+	small
+	"A subheading"
+	medium
+	"A heading"
+	large
+}
+
+"Your friendly neighborhood Sprucebot Avatar!"
+type SprucebotAvatar {
+	"ID for view caching"
+	id: ID!
+
+	"How does Sprucebot feel?"
+	stateOfMind: SprucebotAvatarStateOfMind
+
+	"How big should the avatar be?"
+	size: SprucebotAvatarSize
+}
