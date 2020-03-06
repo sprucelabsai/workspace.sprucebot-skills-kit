@@ -24,15 +24,19 @@ import {
 } from '@sprucelabs/spruce-types'
 
 const cardJSON: ICardBuilderProps = {
+	id: 'foo',
 	header: {
 		title: 'Introducing the Card Builder! (Note: WIP)',
 		labelText: '',
 		actions: [
 			{
+				id: 'foo',
 				type: IHWButtonTypes.Button,
 				text: 'More Info',
 				href: '#',
-				target: '_blank',
+				htmlAttributes: {
+					target: '_blank'
+				},
 				isSmall: true
 			}
 		]
@@ -52,8 +56,12 @@ const cardJSON: ICardBuilderProps = {
 		buttonGroup: {
 			actions: [
 				{
+					id: 'foo',
 					type: IHWButtonTypes.Button,
-					text: 'Do things',
+					text: 'Fire a JS Callback!',
+					htmlAttributes: {
+						onClick: () => window.alert('clicked!')
+					},
 					kind: ButtonKinds.Secondary,
 					isSmall: true
 				}
@@ -63,6 +71,7 @@ const cardJSON: ICardBuilderProps = {
 }
 
 const cardJSON2: ICardBuilderProps = {
+	id: 'foo',
 	header: {
 		title: 'Your sales for today!'
 	},
@@ -86,6 +95,7 @@ const cardJSON2: ICardBuilderProps = {
 	}
 }
 const cardJSON3: ICardBuilderProps = {
+	id: 'foo',
 	onboarding: {
 		title: 'Setup your first skill!',
 		steps: [
@@ -99,13 +109,13 @@ const cardJSON3: ICardBuilderProps = {
 			{
 				id: '2',
 				tabTitle: 'Set up your team',
-				tabIcon: { name: 'location', isLineIcon: true },
+				tabIcon: { id: 'foo', name: 'location', isLineIcon: true },
 				panelTitle: 'Team setup is the best',
 				panelCopy: 'Teammwork makes the dream work!'
 			},
 			{
 				id: '3',
-				tabIcon: { name: 'launch', isLineIcon: true },
+				tabIcon: { id: 'foo', name: 'launch', isLineIcon: true },
 				tabTitle: 'Go live',
 				panelTitle: "You're ready to go live!",
 				panelCopy: 'Do it! Do it!'
@@ -114,6 +124,7 @@ const cardJSON3: ICardBuilderProps = {
 	}
 }
 const cardJSON4: ICardBuilderProps = {
+	id: 'foo',
 	header: {
 		labelText: 'The last example!'
 	},
@@ -122,6 +133,7 @@ const cardJSON4: ICardBuilderProps = {
 			{
 				type: IHWCardBuilderBodyItemType.List,
 				viewModel: {
+					id: '',
 					header: {
 						title: 'This is a list!'
 					},
@@ -130,12 +142,12 @@ const cardJSON4: ICardBuilderProps = {
 							id: 'number_one',
 							title: 'This is so cool!',
 							subtitle: 'For sure!',
-							icon: { name: 'complete', isLineIcon: true }
+							icon: { id: 'foo', name: 'complete', isLineIcon: true }
 						},
 						{
 							id: 'number_two',
 							title: 'Takes all the props a List can take!',
-							icon: { name: 'complete', isLineIcon: true }
+							icon: { id: 'foo', name: 'complete', isLineIcon: true }
 						}
 					]
 				}
@@ -143,6 +155,7 @@ const cardJSON4: ICardBuilderProps = {
 			{
 				type: IHWCardBuilderBodyItemType.Text,
 				viewModel: {
+					id: 'lol',
 					text: 'Following up with text component!'
 				}
 			}
@@ -152,6 +165,7 @@ const cardJSON4: ICardBuilderProps = {
 		buttonGroup: {
 			actions: [
 				{
+					id: 'foo',
 					type: IHWButtonTypes.Button,
 					text: 'Do things',
 					kind: ButtonKinds.Secondary,
@@ -163,6 +177,7 @@ const cardJSON4: ICardBuilderProps = {
 }
 
 const cardJSON5: ICardBuilderProps = {
+	id: 'foo',
 	header: {
 		title: 'Danger Zone'
 	},
@@ -170,14 +185,15 @@ const cardJSON5: ICardBuilderProps = {
 		buttonGroup: {
 			actions: [
 				{
+					id: 'foo',
 					type: IHWButtonTypes.Button,
 					text: 'Delete this thing forever',
 					icon: {
+						id: 'foo',
 						name: 'remove'
 					},
 					kind: ButtonKinds.Caution,
-					isSmall: true,
-					onClick: () => {}
+					isSmall: true
 				}
 			]
 		},
