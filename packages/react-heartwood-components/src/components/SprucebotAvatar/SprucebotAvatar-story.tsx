@@ -13,6 +13,7 @@ stories.addDecorator(withKnobs)
 
 stories.add('SprucebotAvatar', () => (
 	<SprucebotAvatar
+		id="avatar"
 		size={select(
 			'size',
 			{
