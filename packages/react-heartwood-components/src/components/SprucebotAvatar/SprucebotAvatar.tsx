@@ -6,18 +6,13 @@ import {
 import React, { Component } from 'react'
 import Lottie from 'react-lottie'
 import cx from 'classnames'
-import * as chillingAnimation from './animations/chilling.json'
-
-export interface ISprucebotAvatarProps extends Omit<IHWSprucebotAvatar, 'id'> {
-	/** optional id for view caching */
-	id?: string
-}
+import chillingAnimation from './animations/chilling.json'
 
 const ANIMATION_MAP = {
-	[IHWSprucebotAvatarStateOfMind.Chilling]: chillingAnimation.default
+	[IHWSprucebotAvatarStateOfMind.Chilling]: chillingAnimation
 }
 
-export default class SprucebotAvatar extends Component<ISprucebotAvatarProps> {
+export default class SprucebotAvatar extends Component<IHWSprucebotAvatar> {
 	public static defaultProps = {
 		stateOfMind: IHWSprucebotAvatarStateOfMind.Chilling,
 		size: IHWSprucebotAvatarSize.Medium
