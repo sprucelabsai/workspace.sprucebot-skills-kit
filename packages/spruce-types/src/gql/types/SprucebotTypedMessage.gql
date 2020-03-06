@@ -1,0 +1,12 @@
+"A message (comprised of SprucebotTypedMessageLines) that Sprucebot can type out "
+type SprucebotTypedMessage {
+	"Sprucebot will type out these lines one at a time preserving what is similar between each line"
+	lines: SprucebotTypedMessageLine
+}
+
+"A single line Sprucebot will type out"
+type SprucebotTypedMessageLine {
+	id: ID!
+	avatar: SprucebotAvatar
+	line: String!
+}

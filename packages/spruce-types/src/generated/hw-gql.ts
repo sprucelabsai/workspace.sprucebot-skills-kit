@@ -887,6 +887,21 @@ export enum IHWSprucebotAvatarStateOfMind {
   Jamming = 'jamming'
 }
 
+/** A message (comprised of SprucebotTypedMessageLines) that Sprucebot can type out  */
+export type IHWSprucebotTypedMessage = {
+  __typename?: 'SprucebotTypedMessage',
+  /** Sprucebot will type out these lines one at a time preserving what is similar between each line */
+  lines?: Maybe<IHWSprucebotTypedMessageLine>,
+};
+
+/** A single line Sprucebot will type out */
+export type IHWSprucebotTypedMessageLine = {
+  __typename?: 'SprucebotTypedMessageLine',
+  id: Scalars['ID'],
+  avatar?: Maybe<IHWSprucebotAvatar>,
+  line: Scalars['String'],
+};
+
 /** Used for testing only */
 export type IHWTestType = {
   __typename?: 'TestType',
