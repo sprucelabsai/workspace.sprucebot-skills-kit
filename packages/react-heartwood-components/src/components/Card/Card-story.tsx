@@ -34,7 +34,7 @@ const cardJSON: ICardBuilderProps = {
 				type: IHWButtonTypes.Button,
 				text: 'More Info',
 				href: '#',
-				HTMLAttributes: {
+				htmlAttributes: {
 					target: '_blank'
 				},
 				isSmall: true
@@ -59,7 +59,7 @@ const cardJSON: ICardBuilderProps = {
 					id: 'foo',
 					type: IHWButtonTypes.Button,
 					text: 'Fire a JS Callback!',
-					HTMLAttributes: {
+					htmlAttributes: {
 						onClick: () => window.alert('clicked!')
 					},
 					kind: ButtonKinds.Secondary,
