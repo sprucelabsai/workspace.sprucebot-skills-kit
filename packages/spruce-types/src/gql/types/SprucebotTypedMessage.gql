@@ -1,12 +1,23 @@
-"A message (comprised of SprucebotTypedMessageLines) that Sprucebot can type out "
+"A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out "
 type SprucebotTypedMessage {
-	"Sprucebot will type out these lines one at a time preserving what is similar between each line"
-	lines: SprucebotTypedMessageLine
+	"Id for view caching"
+	id: ID!
+	"Sprucebot will type out these sentences one at a time preserving what is similar between each one (in bold)"
+	sentences: [SprucebotTypedMessageSentence!]!
+	"The default optional avatar state for all sentences being typed"
+	defaultAvatar: SprucebotAvatar
+	"How long should I wait before starting to type?"
+	startDelayMs: Int
+	"Should the message loop? Defaults to false"
+	loop: Boolean
 }
 
 "A single line Sprucebot will type out"
-type SprucebotTypedMessageLine {
-	id: ID!
+type SprucebotTypedMessageSentence {
+	"Override the avatar for this specific sentence"
 	avatar: SprucebotAvatar
-	line: String!
+	"What will Sprucebot type?"
+	sentence: String!
+	"How long should we hold before starting the next sentence (or we pause forever if it's the last sentence)"
+	endDelayMs: Int
 }

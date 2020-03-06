@@ -887,19 +887,30 @@ export enum IHWSprucebotAvatarStateOfMind {
   Jamming = 'jamming'
 }
 
-/** A message (comprised of SprucebotTypedMessageLines) that Sprucebot can type out  */
+/** A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out  */
 export type IHWSprucebotTypedMessage = {
   __typename?: 'SprucebotTypedMessage',
-  /** Sprucebot will type out these lines one at a time preserving what is similar between each line */
-  lines?: Maybe<IHWSprucebotTypedMessageLine>,
+  /** Id for view caching */
+  id: Scalars['ID'],
+  /** Sprucebot will type out these sentences one at a time preserving what is similar between each one (in bold) */
+  sentences: Array<IHWSprucebotTypedMessageSentence>,
+  /** The default optional avatar state for all sentences being typed */
+  defaultAvatar?: Maybe<IHWSprucebotAvatar>,
+  /** How long should I wait before starting to type? */
+  startDelayMs?: Maybe<Scalars['Int']>,
+  /** Should the message loop? Defaults to false */
+  loop?: Maybe<Scalars['Boolean']>,
 };
 
 /** A single line Sprucebot will type out */
-export type IHWSprucebotTypedMessageLine = {
-  __typename?: 'SprucebotTypedMessageLine',
-  id: Scalars['ID'],
+export type IHWSprucebotTypedMessageSentence = {
+  __typename?: 'SprucebotTypedMessageSentence',
+  /** Override the avatar for this specific sentence */
   avatar?: Maybe<IHWSprucebotAvatar>,
-  line: Scalars['String'],
+  /** What will Sprucebot type? */
+  sentence: Scalars['String'],
+  /** How long should we hold before starting the next sentence (or we pause forever if it's the last sentence) */
+  endDelayMs?: Maybe<Scalars['Int']>,
 };
 
 /** Used for testing only */
