@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Typing from './react-typing-animation-master/src/Typing'
+import Typing from './react-typing-animation/Typing'
 import {
 	IHWSprucebotTypedMessage,
 	IHWSprucebotTypedMessageSentence,
