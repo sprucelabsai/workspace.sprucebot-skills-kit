@@ -900,6 +900,8 @@ export type IHWSprucebotTypedMessage = {
   startDelayMs?: Maybe<Scalars['Int']>,
   /** Should the message loop? Defaults to false */
   loop?: Maybe<Scalars['Boolean']>,
+  /** Size of the message */
+  size?: Maybe<IHWSprucebotTypedMessageSize>,
 };
 
 /** A single line Sprucebot will type out */
@@ -908,10 +910,19 @@ export type IHWSprucebotTypedMessageSentence = {
   /** Override the avatar for this specific sentence */
   avatar?: Maybe<IHWSprucebotAvatar>,
   /** What will Sprucebot type? */
-  sentence: Scalars['String'],
+  words: Scalars['String'],
   /** How long should we hold before starting the next sentence (or we pause forever if it's the last sentence) */
   endDelayMs?: Maybe<Scalars['Int']>,
 };
+
+export enum IHWSprucebotTypedMessageSize {
+  /** Inline with text */
+  Small = 'small',
+  /** A subheading */
+  Medium = 'medium',
+  /** A heading */
+  Large = 'large'
+}
 
 /** Used for testing only */
 export type IHWTestType = {

@@ -141,7 +141,7 @@
 		"react-table": "^6.8.6",
 		"react-textarea-autosize": "^6.0.0",
 		"react-transition-group": "^2.5.2",
-		"react-typist": "^2.0.5",
+		"react-typing-animation": "^1.6.2",
 		"react-virtualized": "^9.21.0",
 		"react-with-direction": "^1.1.0",
 		"redux": "^3.7.2",

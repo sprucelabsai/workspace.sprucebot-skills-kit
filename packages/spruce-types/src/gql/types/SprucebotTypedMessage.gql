@@ -1,3 +1,12 @@
+enum SprucebotTypedMessageSize {
+	"Inline with text"
+	small
+	"A subheading"
+	medium
+	"A heading"
+	large
+}
+
 "A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out "
 type SprucebotTypedMessage {
 	"Id for view caching"
@@ -10,6 +19,8 @@ type SprucebotTypedMessage {
 	startDelayMs: Int
 	"Should the message loop? Defaults to false"
 	loop: Boolean
+	"Size of the message"
+	size: SprucebotTypedMessageSize
 }
 
 "A single line Sprucebot will type out"
@@ -17,7 +28,7 @@ type SprucebotTypedMessageSentence {
 	"Override the avatar for this specific sentence"
 	avatar: SprucebotAvatar
 	"What will Sprucebot type?"
-	sentence: String!
+	words: String!
 	"How long should we hold before starting the next sentence (or we pause forever if it's the last sentence)"
 	endDelayMs: Int
 }
