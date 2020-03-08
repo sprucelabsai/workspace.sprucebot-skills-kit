@@ -6,10 +6,10 @@ import {
 import React, { Component } from 'react'
 import Lottie from 'react-lottie'
 import cx from 'classnames'
-import chillingAnimation from './animations/chilling.json'
+import chillAnimation from './animations/chill.json'
 
 const ANIMATION_MAP = {
-	[IHWSprucebotAvatarStateOfMind.Chill]: chillingAnimation
+	[IHWSprucebotAvatarStateOfMind.Chill]: chillAnimation
 }
 
 export default class SprucebotAvatar extends Component<IHWSprucebotAvatar> {
