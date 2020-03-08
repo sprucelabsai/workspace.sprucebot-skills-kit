@@ -11,7 +11,6 @@ import {
 import cx from 'classnames'
 import compact from 'lodash/compact'
 
-import './styles.scss'
 import SprucebotAvatar from '../SprucebotAvatar/SprucebotAvatar'
 
 export interface ISprucebotTypedMessageState {

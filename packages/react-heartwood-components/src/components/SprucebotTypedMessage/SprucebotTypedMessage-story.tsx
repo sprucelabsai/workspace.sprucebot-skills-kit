@@ -36,7 +36,7 @@ stories.add('SprucebotTypedMessage', () => (
 		startDelayMs={number('startDelayMs', 1000)}
 		defaultAvatar={object('defaultAvatar', {
 			id: 'default-avatar',
-			stateOfMind: IHWSprucebotAvatarStateOfMind.Chilling
+			stateOfMind: IHWSprucebotAvatarStateOfMind.Chill
 		})}
 		sentences={[
 			object('sentences[0]', {

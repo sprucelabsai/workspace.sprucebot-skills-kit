@@ -1,6 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const Delay = () => <noscript />
+// eslint-disable-next-line no-unused-vars
+const Delay = props => <noscript />
 
 Delay.updateCursor = (cursor, { ms }) => {
 	return {
@@ -10,5 +12,9 @@ Delay.updateCursor = (cursor, { ms }) => {
 }
 
 Delay.getName = () => 'Delay'
+
+Delay.PropTypes = {
+	ms: PropTypes.number
+}
 
 export default Delay

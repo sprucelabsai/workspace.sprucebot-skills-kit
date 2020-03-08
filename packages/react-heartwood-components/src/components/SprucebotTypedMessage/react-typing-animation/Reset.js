@@ -1,6 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const Reset = () => <noscript />
+// eslint-disable-next-line no-unused-vars
+const Reset = props => <noscript />
 
 Reset.updateCursor = (cursor, { count, delay, speed }) => {
 	return {
@@ -14,5 +16,9 @@ Reset.updateCursor = (cursor, { count, delay, speed }) => {
 }
 
 Reset.getName = () => 'Reset'
+
+Reset.PropTypes = {
+	delay: PropTypes.number
+}
 
 export default Reset
