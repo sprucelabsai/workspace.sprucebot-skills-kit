@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: export SHA=$(git rev-parse --short HEAD) && npm run publish -- prerelease --exact --yes --preid pre-$SHA --message "%s [skip ci]" --no-push --npm-tag prerelease
+      - run: export SHA=$(git rev-parse --short HEAD) && npm run publish -- prerelease --exact --yes --preid pre-$SHA --message "%s [skip ci]" --npm-client npm --no-push --npm-tag prerelease
       - run: yarn build-statics
       - run: yarn s3-sync-stylesheets-pre
   canary:
@@ -69,7 +69,7 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: npm run publish -- --exact --yes --canary --preid canary --force-publish --npm-tag v9-canary --message "%s [skip ci]" --no-push --no-git-reset --includeMergedTags
+      - run: npm run publish -- --exact --yes --canary --preid canary --force-publish --npm-tag v9-canary --message "%s [skip ci]" --npm-client npm --no-push --no-git-reset --includeMergedTags
       - run: yarn build-statics
       - run: yarn s3-sync-heartwood-canary
       - run: yarn s3-sync-storybook-canary
@@ -95,7 +95,7 @@ jobs:
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: npm run publish -- --yes --force-publish --npm-tag v9-beta --message "%s [skip ci]"
+      - run: npm run publish -- --yes --force-publish --npm-tag v9-beta --message "%s [skip ci]" --npm-client npm
       - run: yarn build-statics
       - run: yarn s3-sync-heartwood-dev
       - run: yarn s3-sync-storybook-dev
