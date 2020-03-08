@@ -881,7 +881,7 @@ export enum IHWSprucebotAvatarStateOfMind {
   Chill = 'chill',
   /** When Sprucebot is loading or sending data */
   Contemplative = 'contemplative',
-  /** When Sprucebot is asking a question or presenting a form */
+  /** When Sprucebot is asking a question and expecting input from a human */
   Curious = 'curious',
   /** When Sprucebot is celebrating because a process has completed, like finishing a setup wizard or submitting a form */
   Accomplished = 'accomplished'
