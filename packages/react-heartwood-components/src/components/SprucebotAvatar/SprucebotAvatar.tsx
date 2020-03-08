@@ -6,15 +6,15 @@ import {
 import React, { Component } from 'react'
 import Lottie from 'react-lottie'
 import cx from 'classnames'
-import chillingAnimation from './animations/chilling.json'
+import chillAnimation from './animations/chill.json'
 
 const ANIMATION_MAP = {
-	[IHWSprucebotAvatarStateOfMind.Chilling]: chillingAnimation
+	[IHWSprucebotAvatarStateOfMind.Chill]: chillAnimation
 }
 
 export default class SprucebotAvatar extends Component<IHWSprucebotAvatar> {
 	public static defaultProps = {
-		stateOfMind: IHWSprucebotAvatarStateOfMind.Chilling,
+		stateOfMind: IHWSprucebotAvatarStateOfMind.Chill,
 		size: IHWSprucebotAvatarSize.Medium
 	}
 
@@ -25,7 +25,7 @@ export default class SprucebotAvatar extends Component<IHWSprucebotAvatar> {
 			loop: true,
 			autoplay: true,
 			animationData:
-				ANIMATION_MAP[stateOfMind || IHWSprucebotAvatarStateOfMind.Chilling],
+				ANIMATION_MAP[stateOfMind || IHWSprucebotAvatarStateOfMind.Chill],
 			rendererSettings: {}
 		}
 

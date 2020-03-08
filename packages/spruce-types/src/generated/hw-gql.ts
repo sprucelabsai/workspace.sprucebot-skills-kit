@@ -858,7 +858,7 @@ export type IHWSplitButton = {
 /** Your friendly neighborhood Sprucebot Avatar! */
 export type IHWSprucebotAvatar = {
   __typename?: 'SprucebotAvatar',
-  /** ID for view caching */
+  /** The unique id for this avatar */
   id: Scalars['ID'],
   /** How does Sprucebot feel? */
   stateOfMind?: Maybe<IHWSprucebotAvatarStateOfMind>,
@@ -867,24 +867,24 @@ export type IHWSprucebotAvatar = {
 };
 
 export enum IHWSprucebotAvatarSize {
-  /** Inline with text */
+  /** This size renders perfectly inline with body text */
   Small = 'small',
-  /** A subheading */
+  /** This size is for rendiring in a subheadings and card headers */
   Medium = 'medium',
-  /** A heading */
+  /** This size is for rendering in a heading or as a bigform question */
   Large = 'large'
 }
 
 /** Sprucebot's current state of mind */
 export enum IHWSprucebotAvatarStateOfMind {
-  /** For when nothing in particular is happening */
-  Chilling = 'chilling',
-  /** When submitting a form or running some other operation */
-  Thinking = 'thinking',
-  /** Asking a question or leaning new things */
-  Inquisiting = 'inquisiting',
-  /** Something has finished and we're so excited! */
-  Jamming = 'jamming'
+  /** When Sprucebot is saying something informative or a salutation, like a status update or a 'Happy Monday!' */
+  Chill = 'chill',
+  /** When Sprucebot is loading or sending data */
+  Contemplative = 'contemplative',
+  /** When Sprucebot is asking a question and expecting input from a human */
+  Curious = 'curious',
+  /** When Sprucebot is celebrating because a process has completed, like finishing a setup wizard or submitting a form */
+  Accomplished = 'accomplished'
 }
 
 /** A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out  */
