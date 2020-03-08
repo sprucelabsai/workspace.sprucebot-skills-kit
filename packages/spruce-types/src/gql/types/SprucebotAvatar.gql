@@ -1,27 +1,32 @@
 "Sprucebot's current state of mind"
 enum SprucebotAvatarStateOfMind {
-	"For when nothing in particular is happening"
-	chilling
-	"When submitting a form or running some other operation"
-	thinking
+	"If Sprucebot is saying something informative or a salutation, like a status update or a 'Happy Monday'!"
+	chill
+
+	"When "
+	contemplative
+
 	"Asking a question or leaning new things"
-	inquisiting
+	curious
+
 	"Something has finished and we're so excited!"
-	jamming
+	accomplished
 }
 
 enum SprucebotAvatarSize {
-	"Inline with text"
+	"This size renders perfectly inline with body text"
 	small
-	"A subheading"
+
+	"This is the size for subheadings and card headers"
 	medium
-	"A heading"
+
+	"Use this size when rendering in a heading or as a bigform question"
 	large
 }
 
 "Your friendly neighborhood Sprucebot Avatar!"
 type SprucebotAvatar {
-	"ID for view caching"
+	"The unique id for this avatar"
 	id: ID!
 
 	"How does Sprucebot feel?"
