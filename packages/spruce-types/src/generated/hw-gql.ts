@@ -869,21 +869,21 @@ export type IHWSprucebotAvatar = {
 export enum IHWSprucebotAvatarSize {
   /** This size renders perfectly inline with body text */
   Small = 'small',
-  /** This is the size for subheadings and card headers */
+  /** This size is for rendiring in a subheadings and card headers */
   Medium = 'medium',
-  /** Use this size when rendering in a heading or as a bigform question */
+  /** This size is for rendering in a heading or as a bigform question */
   Large = 'large'
 }
 
 /** Sprucebot's current state of mind */
 export enum IHWSprucebotAvatarStateOfMind {
-  /** If Sprucebot is saying something informative or a salutation, like a status update or a 'Happy Monday'! */
+  /** When Sprucebot is saying something informative or a salutation, like a status update or a 'Happy Monday!' */
   Chill = 'chill',
-  /** When  */
+  /** When Sprucebot is loading or sending data */
   Contemplative = 'contemplative',
-  /** Asking a question or leaning new things */
+  /** When Sprucebot is asking a question or presenting a form */
   Curious = 'curious',
-  /** Something has finished and we're so excited! */
+  /** When Sprucebot is celebrating because a process has completed, like finishing a setup wizard or submitting a form */
   Accomplished = 'accomplished'
 }
 
