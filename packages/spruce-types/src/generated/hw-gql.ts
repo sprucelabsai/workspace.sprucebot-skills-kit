@@ -858,7 +858,7 @@ export type IHWSplitButton = {
 /** Your friendly neighborhood Sprucebot Avatar! */
 export type IHWSprucebotAvatar = {
   __typename?: 'SprucebotAvatar',
-  /** ID for view caching */
+  /** The unique id for this avatar */
   id: Scalars['ID'],
   /** How does Sprucebot feel? */
   stateOfMind?: Maybe<IHWSprucebotAvatarStateOfMind>,
@@ -867,24 +867,24 @@ export type IHWSprucebotAvatar = {
 };
 
 export enum IHWSprucebotAvatarSize {
-  /** Inline with text */
+  /** This size renders perfectly inline with body text */
   Small = 'small',
-  /** A subheading */
+  /** This is the size for subheadings and card headers */
   Medium = 'medium',
-  /** A heading */
+  /** Use this size when rendering in a heading or as a bigform question */
   Large = 'large'
 }
 
 /** Sprucebot's current state of mind */
 export enum IHWSprucebotAvatarStateOfMind {
-  /** For when nothing in particular is happening */
-  Chilling = 'chilling',
-  /** When submitting a form or running some other operation */
-  Thinking = 'thinking',
+  /** If Sprucebot is saying something informative or a salutation, like a status update or a 'Happy Monday'! */
+  Chill = 'chill',
+  /** When  */
+  Contemplative = 'contemplative',
   /** Asking a question or leaning new things */
-  Inquisiting = 'inquisiting',
+  Curious = 'curious',
   /** Something has finished and we're so excited! */
-  Jamming = 'jamming'
+  Accomplished = 'accomplished'
 }
 
 /** Used for testing only */

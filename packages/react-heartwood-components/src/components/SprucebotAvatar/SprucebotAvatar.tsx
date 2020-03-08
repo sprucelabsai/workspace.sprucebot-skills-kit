@@ -9,12 +9,12 @@ import cx from 'classnames'
 import chillingAnimation from './animations/chilling.json'
 
 const ANIMATION_MAP = {
-	[IHWSprucebotAvatarStateOfMind.Chilling]: chillingAnimation
+	[IHWSprucebotAvatarStateOfMind.Chill]: chillingAnimation
 }
 
 export default class SprucebotAvatar extends Component<IHWSprucebotAvatar> {
 	public static defaultProps = {
-		stateOfMind: IHWSprucebotAvatarStateOfMind.Chilling,
+		stateOfMind: IHWSprucebotAvatarStateOfMind.Chill,
 		size: IHWSprucebotAvatarSize.Medium
 	}
 
@@ -25,7 +25,7 @@ export default class SprucebotAvatar extends Component<IHWSprucebotAvatar> {
 			loop: true,
 			autoplay: true,
 			animationData:
-				ANIMATION_MAP[stateOfMind || IHWSprucebotAvatarStateOfMind.Chilling],
+				ANIMATION_MAP[stateOfMind || IHWSprucebotAvatarStateOfMind.Chill],
 			rendererSettings: {}
 		}
 

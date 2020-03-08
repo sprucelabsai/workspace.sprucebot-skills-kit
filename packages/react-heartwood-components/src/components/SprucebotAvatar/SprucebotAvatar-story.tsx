@@ -26,19 +26,19 @@ stories.add('SprucebotAvatar', () => (
 		stateOfMind={select(
 			'stateOfMind',
 			{
-				['IHWSprucebotAvatarStateOfMind.Chilling']:
-					IHWSprucebotAvatarStateOfMind.Chilling,
+				['IHWSprucebotAvatarStateOfMind.Chill']:
+					IHWSprucebotAvatarStateOfMind.Chill,
 
-				['IHWSprucebotAvatarStateOfMind.Thinking']:
-					IHWSprucebotAvatarStateOfMind.Thinking,
+				['IHWSprucebotAvatarStateOfMind.Contemplative']:
+					IHWSprucebotAvatarStateOfMind.Contemplative,
 
-				['IHWSprucebotAvatarStateOfMind.Inquisiting']:
-					IHWSprucebotAvatarStateOfMind.Inquisiting,
+				['IHWSprucebotAvatarStateOfMind.Curious']:
+					IHWSprucebotAvatarStateOfMind.Curious,
 
-				['IHWSprucebotAvatarStateOfMind.Jamming']:
-					IHWSprucebotAvatarStateOfMind.Jamming
+				['IHWSprucebotAvatarStateOfMind.Accomplished']:
+					IHWSprucebotAvatarStateOfMind.Accomplished
 			},
-			IHWSprucebotAvatarStateOfMind.Chilling
+			IHWSprucebotAvatarStateOfMind.Chill
 		)}
 	/>
 ))
