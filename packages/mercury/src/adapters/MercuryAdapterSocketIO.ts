@@ -4,7 +4,8 @@ import {
 	TOnPromiseHandler,
 	TOnConnectFunctionHandler,
 	IMercuryEmitOptions,
-	IMercuryAdapterOnOptions
+	IMercuryAdapterOnOptions,
+	TOnErrorHandler
 } from '../Mercury'
 // @ts-ignore
 let Socket: any
@@ -24,18 +25,21 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 	private socket?: any
 	private options!: IMercuryAdapterSocketIOOptions
 	private eventHandler!: TOnPromiseHandler
+	private errorHandler!: TOnErrorHandler
 	private onConnect!: TOnConnectFunctionHandler
 	private onDisconnect!: TOnConnectFunctionHandler
 
 	public init(
 		options: IMercuryAdapterSocketIOOptions,
 		eventHandler: TOnPromiseHandler,
+		errorHandler: TOnErrorHandler,
 		onConnect: TOnConnectFunctionHandler,
 		onDisconnect: TOnConnectFunctionHandler
 	): void {
 		log.debug({ options })
 		this.options = options
 		this.eventHandler = eventHandler
+		this.errorHandler = errorHandler
 		this.onConnect = onConnect
 		this.onDisconnect = onDisconnect
 		this.connect()
@@ -87,8 +91,14 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 			this.onDisconnect()
 		})
 
-		this.socket.on('err', (data: any) => {
+		this.socket.on('err', async (options: { code: string; data: any }) => {
+			const { code, data } = options
 			log.warn('Socket error', data)
+			try {
+				await this.errorHandler({ code, data })
+			} catch (e) {
+				log.warn(e)
+			}
 		})
 
 		this.socket.on('mercury-event', async (data: any) => {

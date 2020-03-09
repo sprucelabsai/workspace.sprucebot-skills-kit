@@ -24,6 +24,10 @@ export interface IOnData {
 
 export type TOnFunctionHandler = (data: IMercuryOnOptions) => void
 export type TOnPromiseHandler = (data: IMercuryOnOptions) => Promise<void>
+export type TOnErrorHandler = (options: {
+	code: string
+	data: IMercuryOnOptions
+}) => Promise<void>
 export type TOnHandler = TOnFunctionHandler | TOnPromiseHandler
 export type TOnConnectPromiseHandler = () => Promise<void>
 export type TOnConnectFunctionHandler = () => void
@@ -99,13 +103,13 @@ export interface IMercuryAdapterOnOptions extends IMercuryOnOptions {
 	credentials?: MercuryAuth
 }
 
-export interface IMercuryEmitOptions {
+export interface IMercuryEmitOptions<TPayload = Record<string, any>> {
 	eventId?: string
 	eventName: string
 	organizationId?: string | null
 	locationId?: string | null
 	userId?: string | null
-	payload?: Record<string, any>
+	payload?: TPayload
 	credentials?: MercuryAuth
 }
 
@@ -230,11 +234,23 @@ export class Mercury {
 	}
 
 	/** Emit an event and set handler for responses */
-	public emit(options: IMercuryEmitOptions, handler: TOnHandler) {
+	public async emit<TPayload = Record<string, any>, TBody = any>(
+		options: IMercuryEmitOptions<TPayload>,
+		handler?: TOnHandler
+	): Promise<{
+		responses: {
+			payload: TBody
+		}[]
+	}> {
+		await this.awaitConnection()
+
 		if (!this.adapter) {
 			log.warn('Mercury: Unable to emit because adapter is not set.')
+			// @ts-ignore
 			return
 		}
+
+		console.log({ isConnected: this.isConnected })
 		const eventId = this.uuid()
 		if (!this.eventHandlers[eventId]) {
 			this.eventHandlers[eventId] = {
@@ -242,7 +258,9 @@ export class Mercury {
 				onResponse: []
 			}
 		}
-		this.eventHandlers[eventId].onResponse = [handler]
+		if (handler) {
+			this.eventHandlers[eventId].onResponse = [handler]
+		}
 		this.adapter.emit({
 			...options,
 			eventId,
@@ -250,6 +268,27 @@ export class Mercury {
 		})
 
 		return this.emitOnFinishedCallback(eventId)
+	}
+
+	/** Waits for the connection up to a certain timeout */
+	private awaitConnection(): Promise<void> {
+		return new Promise(resolve => {
+			this.waitConnection(() => {
+				resolve()
+				return
+			})
+		})
+	}
+
+	private waitConnection(cb: () => void) {
+		if (this.isConnected) {
+			cb()
+			return
+		}
+
+		setTimeout(() => {
+			this.waitConnection(cb)
+		}, 150)
 	}
 
 	private emitOnFinishedCallback(eventId: string): Promise<any> {
@@ -285,6 +324,7 @@ export class Mercury {
 				this.adapter.init(
 					connectionOptions,
 					this.handleEvent.bind(this),
+					this.handleError.bind(this),
 					this.onConnect.bind(this),
 					this.onDisconnect.bind(this)
 				)
@@ -409,6 +449,85 @@ export class Mercury {
 					})
 				}
 			})
+		}
+	}
+
+	/** Called when the adapter detects an error */
+	private async handleError(options: {
+		code: string
+		data: IMercuryOnOptions
+	}) {
+		const { code, data } = options
+		log.debug('*** Mercury.handleError')
+		log.debug('Mercury: handleError', {
+			options
+		})
+
+		const eventId = data && data.eventId
+		const eventName = data && data.eventName
+
+		log.debug({ eventHandlers: this.eventHandlers, code, data })
+
+		// Check if there is a callback for this eventId
+		if (
+			eventId &&
+			this.eventHandlers[eventId] &&
+			this.eventHandlers[eventId].onFinished
+		) {
+			log.debug('Event finished. Calling event handlers', {
+				onFinished: this.eventHandlers[eventId].onFinished
+			})
+			this.eventHandlers[eventId].onFinished.forEach(handler => {
+				this.executeErrorHandler(handler, data, code)
+			})
+		} else if (
+			eventId &&
+			this.eventHandlers[eventId] &&
+			this.eventHandlers[eventId].onResponse
+		) {
+			this.eventHandlers[eventId].onResponse.forEach(handler => {
+				this.executeErrorHandler(handler, data, code)
+			})
+		}
+
+		if (eventName) {
+			const possibleHandlerKeys = this.getPossibleEventHandlerKeys(data)
+			possibleHandlerKeys.forEach(key => {
+				if (this.eventHandlers[key] && this.eventHandlers[key].onResponse) {
+					this.eventHandlers[key].onResponse.forEach(handler => {
+						this.executeErrorHandler(handler, data, code)
+					})
+				}
+			})
+		}
+	}
+
+	/** Executes either a function or promise callback by detecting the type */
+	private executeErrorHandler(handler: TOnHandler, data?: any, code: string) {
+		// Check if the handler is a promise
+		const objToCheck = handler as any
+
+		console.log({ objToCheck })
+		if (objToCheck && typeof objToCheck.then === 'function') {
+			objToCheck(data)
+				.then(() => {
+					log.debug('Mercury: Executed promise callback')
+				})
+				.catch((e: Error) => {
+					log.warn('Mercury: Error executing promise callback', e)
+				})
+		} else if (objToCheck && typeof objToCheck === 'function') {
+			try {
+				objToCheck(code)
+				log.debug('Mercury: Executed function callback')
+			} catch (e) {
+				log.warn('Mercury: Error executing function callback', e)
+			}
+		} else {
+			log.warn(
+				'Mercury: Unable to execute callback for event because Handler is not a promise or function',
+				objToCheck
+			)
 		}
 	}
 

@@ -2,7 +2,8 @@ import {
 	TOnPromiseHandler,
 	IMercuryAdapterOnOptions,
 	IMercuryEmitOptions,
-	TOnConnectFunctionHandler
+	TOnConnectFunctionHandler,
+	TOnErrorHandler
 } from './Mercury'
 
 export abstract class MercuryAdapter {
@@ -11,6 +12,7 @@ export abstract class MercuryAdapter {
 	public abstract init(
 		options: Record<string, any>,
 		eventHandler: TOnPromiseHandler,
+		errorHandler: TOnErrorHandler,
 		onConnect: TOnConnectFunctionHandler,
 		onDisconnect: TOnConnectFunctionHandler
 	): void
