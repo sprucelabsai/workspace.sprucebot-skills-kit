@@ -6,10 +6,5 @@ export default interface ISpruceSchemaFieldTypeBoolean
 	type: SpruceSchemaFieldType.Boolean
 	value?: boolean
 	defaultValue?: boolean
-	options?: {
-		/** the minimum length we'll allow of this field */
-		minLength?: number
-		/** the max length possible with this string */
-		maxLength?: number
-	}
+	options?: {}
 }
