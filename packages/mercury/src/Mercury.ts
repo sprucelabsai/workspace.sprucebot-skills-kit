@@ -1,4 +1,5 @@
 import request from 'superagent'
+import fs from 'fs'
 import log from './lib/log'
 import { MercuryAdapter } from './MercuryAdapter'
 import MercuryAdapterSocketIO from './adapters/MercuryAdapterSocketIO'
@@ -74,7 +75,7 @@ export interface IMercuryConnectOptions {
 	adapter: MercuryAdapterKind
 
 	/** Adapter connection options */
-	adapterOptions: Record<string, any>
+	connectionOptions: Record<string, any>
 }
 
 export enum MercuryRole {
@@ -361,7 +362,6 @@ export class Mercury {
 		const response = await request
 			.post(`${spruceApiUrl}/api/2.0/mercury/connect`)
 			.send(credentials)
-
 		return response.body
 	}
 
@@ -388,9 +388,6 @@ export class Mercury {
 				onFinished: this.eventHandlers[eventId].onFinished
 			})
 			this.eventHandlers[eventId].onFinished.forEach(handler => {
-				console.log('Calling onFinshed')
-				console.log({ handler })
-				console.log(typeof handler)
 				this.executeHandler(handler, options)
 			})
 		} else if (
@@ -420,8 +417,6 @@ export class Mercury {
 		// Check if the handler is a promise
 		const objToCheck = handler as any
 
-		console.log(typeof objToCheck)
-
 		if (objToCheck && typeof objToCheck.then === 'function') {
 			objToCheck(data)
 				.then(() => {
@@ -439,9 +434,9 @@ export class Mercury {
 			}
 		} else {
 			log.warn(
-				'Mercury: Unable to execute callback for event because Handler is not a promise or function'
+				'Mercury: Unable to execute callback for event because Handler is not a promise or function',
+				objToCheck
 			)
-			console.log(objToCheck)
 		}
 	}
 
@@ -466,11 +461,10 @@ export class Mercury {
 	/** UUID v4 generator (from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript) */
 	private uuid() {
 		// @ts-ignore
-		return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-			(
-				c ^
-				(crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-			).toString(16)
-		)
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			const r = (Math.random() * 16) | 0,
+				v = c == 'x' ? r : (r & 0x3) | 0x8
+			return v.toString(16)
+		})
 	}
 }

@@ -7,7 +7,12 @@ import {
 	IMercuryAdapterOnOptions
 } from '../Mercury'
 // @ts-ignore
-import Socket from 'socket.io-client/dist/socket.io.js'
+let Socket: any
+if (typeof window !== 'undefined') {
+	Socket = require('socket.io-client/dist/socket.io.js')
+} else {
+	Socket = require('socket.io-client')
+}
 
 export interface IMercuryAdapterSocketIOOptions {
 	socketIOUrl: string
@@ -16,7 +21,7 @@ export interface IMercuryAdapterSocketIOOptions {
 
 export default class MercuryAdapterSocketIO implements MercuryAdapter {
 	public isConnected = false
-	private socket?: Socket
+	private socket?: any
 	private options!: IMercuryAdapterSocketIOOptions
 	private eventHandler!: TOnPromiseHandler
 	private onConnect!: TOnConnectFunctionHandler
@@ -54,7 +59,6 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 			log.warn('Can not emit. SocketIO not connected.')
 			return
 		}
-
 		this.socket.emit('mercury-emit', options)
 	}
 
