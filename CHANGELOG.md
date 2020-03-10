@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.8](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.10.7...v7.10.8) (2020-03-10)
+
+
+### Bug Fixes
+
+* **SkillsKit:** Only allow whitelabel stylesheets on guest pages [SDEV3-3094] ([4560235](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/4560235))
+
+
+
+
+
 ## [7.10.7](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.10.6...v7.10.7) (2020-02-12)
 
 **Note:** Version bump only for package workspace.sprucebot-skills-kit
