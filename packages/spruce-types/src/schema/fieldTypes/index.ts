@@ -1,17 +1,25 @@
-import ISpruceSchemaFieldBoolean from './boolean'
-import ISpruceSchemaFieldText from './text'
-import ISpruceSchemaFieldSelect from './select'
-import ISpruceSchemaFieldDuration from './duration'
-import ISpruceSchemaFieldAddress from './address'
-import ISpruceSchemaFieldPhone from './phone'
+import ISpruceSchemaFieldTypeBoolean from './boolean'
+import ISpruceSchemaFieldTypeText from './text'
+import ISpruceSchemaFieldTypeSelect from './select'
+import ISpruceSchemaFieldTypeDuration from './duration'
+import ISpruceSchemaFieldTypeAddress from './address'
+import ISpruceSchemaFieldTypePhone from './phone'
+import ISpruceSchemaFieldTypeSchema from './schema'
+import ISpruceSchemaFieldTypeRaw from './raw'
+import ISpruceSchemaFieldTypeNumber from './number'
+import ISpruceSchemaFieldTypeDateTime from './dateTime'
 
 export type ISpruceSchemaField =
-	| ISpruceSchemaFieldBoolean
-	| ISpruceSchemaFieldSelect
-	| ISpruceSchemaFieldDuration
-	| ISpruceSchemaFieldText
-	| ISpruceSchemaFieldAddress
-	| ISpruceSchemaFieldPhone
+	| ISpruceSchemaFieldTypeBoolean
+	| ISpruceSchemaFieldTypeSelect
+	| ISpruceSchemaFieldTypeDuration
+	| ISpruceSchemaFieldTypeText
+	| ISpruceSchemaFieldTypeAddress
+	| ISpruceSchemaFieldTypePhone
+	| ISpruceSchemaFieldTypeSchema
+	| ISpruceSchemaFieldTypeRaw
+	| ISpruceSchemaFieldTypeNumber
+	| ISpruceSchemaFieldTypeDateTime
 
 export enum SpruceSchemaFieldType {
 	/** a string, something like varchar(255), configure size using options to impact rendering and storage length */
@@ -22,18 +30,29 @@ export enum SpruceSchemaFieldType {
 	Select = 'select',
 	/** a span of time, using in the form 1h or 30min */
 	Duration = 'duration',
-	/** a much more complex option, see props for definition */
-	Object = 'object',
+	/** a number, integer, float, etc */
+	Number = 'number',
 	/** an address input, anything google can resolve */
 	Address = 'address',
 	/** a phone number, international */
 	Phone = 'phone',
-	/** 🛑 Core API only */
+	/** for storing a date, a time, or both */
+	DateTime = 'dateTime',
+	/** points to another schema */
+	Schema = 'schema',
+	/** unique id */
+	Id = 'id',
+	/** Specify an interface directly */
 	Raw = 'raw'
 }
 
 /** export everything */
-export { default as ISpruceSchemaFieldBoolean } from './boolean'
-export { default as ISpruceSchemaFieldText } from './text'
-export { default as ISpruceSchemaFieldDuration } from './duration'
-export { default as ISpruceSchemaFieldSelect } from './select'
+export { default as ISpruceSchemaFieldTypeBoolean } from './boolean'
+export { default as ISpruceSchemaFieldTypeText } from './text'
+export { default as ISpruceSchemaFieldTypeDuration } from './duration'
+export { default as ISpruceSchemaFieldTypeSelect } from './select'
+export { default as ISpruceSchemaFieldTypeAddress } from './address'
+export { default as ISpruceSchemaFieldTypePhone } from './phone'
+export { default as ISpruceSchemaFieldTypeSchema } from './schema'
+export { default as ISpruceSchemaFieldTypeRaw } from './raw'
+export { default as ISpruceSchemaFieldTypeNumber } from './number'

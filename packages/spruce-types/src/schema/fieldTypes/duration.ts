@@ -16,7 +16,7 @@ export default interface ISpruceSchemaFieldTypeDuration
 	defaultValue?: ISpruceSchemaFieldTypeDurationValue
 	options?: {
 		/** how it should be rendered, defaults to {{h}}h{{m}}min */
-		renderFormat?: string
+		durationFormat?: string
 		/** the minimum duration we'll allow of this field */
 		minDuration?: ISpruceSchemaFieldTypeDurationValue
 		/** the max duration possible with this field */

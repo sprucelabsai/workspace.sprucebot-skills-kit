@@ -3,9 +3,9 @@ import { SpruceSchemaFieldType } from '../fieldTypes'
 
 export interface ISpruceSchemaFieldTypeSelectChoice {
 	/**  machine readable way to identify this choice */
-	id: string
+	value: string
 	/** human readable label for when selecting a choice */
-	label?: string
+	label: string
 }
 export default interface ISpruceSchemaFieldTypeSelect
 	extends ISpruceSchemaFieldBase {

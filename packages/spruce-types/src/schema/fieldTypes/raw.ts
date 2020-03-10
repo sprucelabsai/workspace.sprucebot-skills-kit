@@ -6,5 +6,7 @@ export default interface ISpruceSchemaFieldTypeRaw
 	type: SpruceSchemaFieldType.Raw
 	value?: any
 	defaultValue?: any
-	options?: {}
+	options: {
+		interfaceName: string
+	}
 }
