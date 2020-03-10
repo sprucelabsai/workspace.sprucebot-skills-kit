@@ -21,6 +21,9 @@ export abstract class MercuryAdapter {
 
 	public abstract emit(options: IMercuryEmitOptions): void
 
+	/** Disconnects the underlying connection */
+	public abstract disconnect(): void
+
 	/** Provides an event */
 	// public abstract provide(options: {
 	// 	eventName: string

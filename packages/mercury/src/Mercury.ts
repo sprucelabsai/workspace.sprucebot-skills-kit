@@ -22,6 +22,15 @@ export interface IOnData {
 	payload: Record<string, any>
 }
 
+export interface IMercuryGQLBody<TBody = Record<string, any>> {
+	data: TBody
+	extensions: {
+		queryCost: number
+		requestMS: number
+		warnings: Record<string, any>[]
+	}
+}
+
 export type TOnFunctionHandler = (data: IMercuryOnOptions) => void
 export type TOnPromiseHandler = (data: IMercuryOnOptions) => Promise<void>
 export type TOnErrorHandler = (options: {
@@ -173,6 +182,7 @@ export class Mercury {
 		string,
 		{
 			onFinished: TOnHandler[]
+			onError: TOnHandler[]
 			onResponse: TOnHandler[]
 		}
 	> = {}
@@ -219,6 +229,7 @@ export class Mercury {
 			if (!this.eventHandlers[key]) {
 				this.eventHandlers[key] = {
 					onFinished: [],
+					onError: [],
 					onResponse: []
 				}
 			}
@@ -255,6 +266,7 @@ export class Mercury {
 		if (!this.eventHandlers[eventId]) {
 			this.eventHandlers[eventId] = {
 				onFinished: [],
+				onError: [],
 				onResponse: []
 			}
 		}
@@ -293,21 +305,28 @@ export class Mercury {
 
 	private emitOnFinishedCallback(eventId: string): Promise<any> {
 		let onFinishedHandler
-		const onFinished = new Promise(resolve => {
+		let onErrorHandler
+		const promise = new Promise((resolve, reject) => {
 			onFinishedHandler = resolve
+			onErrorHandler = reject
 		})
 
 		if (!this.eventHandlers[eventId]) {
 			this.eventHandlers[eventId] = {
 				onFinished: [],
+				onError: [],
 				onResponse: []
 			}
 		}
 		if (onFinishedHandler) {
 			this.eventHandlers[eventId].onFinished.push(onFinishedHandler)
 		}
+		if (onErrorHandler) {
+			console.log(this.eventHandlers[eventId])
+			this.eventHandlers[eventId].onError.push(onErrorHandler)
+		}
 
-		return onFinished
+		return promise
 	}
 
 	private setAdapter(options: {
@@ -316,6 +335,11 @@ export class Mercury {
 	}): boolean {
 		const { adapter, connectionOptions } = options
 		log.debug('setAdapter', { options })
+
+		if (this.adapter) {
+			this.adapter.disconnect()
+		}
+
 		// TODO: Globby the adapters directory and set the correct one when we have multiple
 		let isAdapterSet = false
 		switch (adapter) {
@@ -464,7 +488,7 @@ export class Mercury {
 		})
 
 		const eventId = data && data.eventId
-		const eventName = data && data.eventName
+		// const eventName = data && data.eventName
 
 		log.debug({ eventHandlers: this.eventHandlers, code, data })
 
@@ -472,60 +496,32 @@ export class Mercury {
 		if (
 			eventId &&
 			this.eventHandlers[eventId] &&
-			this.eventHandlers[eventId].onFinished
+			this.eventHandlers[eventId].onError
 		) {
-			log.debug('Event finished. Calling event handlers', {
-				onFinished: this.eventHandlers[eventId].onFinished
+			log.debug('Event finished. Calling event error handlers', {
+				onError: this.eventHandlers[eventId].onError
 			})
-			this.eventHandlers[eventId].onFinished.forEach(handler => {
-				this.executeErrorHandler(handler, data, code)
-			})
-		} else if (
-			eventId &&
-			this.eventHandlers[eventId] &&
-			this.eventHandlers[eventId].onResponse
-		) {
-			this.eventHandlers[eventId].onResponse.forEach(handler => {
-				this.executeErrorHandler(handler, data, code)
-			})
-		}
-
-		if (eventName) {
-			const possibleHandlerKeys = this.getPossibleEventHandlerKeys(data)
-			possibleHandlerKeys.forEach(key => {
-				if (this.eventHandlers[key] && this.eventHandlers[key].onResponse) {
-					this.eventHandlers[key].onResponse.forEach(handler => {
-						this.executeErrorHandler(handler, data, code)
-					})
-				}
+			this.eventHandlers[eventId].onError.forEach(handler => {
+				this.executeErrorHandler(handler, code)
 			})
 		}
 	}
 
 	/** Executes either a function or promise callback by detecting the type */
-	private executeErrorHandler(handler: TOnHandler, data?: any, code: string) {
+	private executeErrorHandler(handler: TOnHandler, code: string) {
 		// Check if the handler is a promise
 		const objToCheck = handler as any
 
-		console.log({ objToCheck })
-		if (objToCheck && typeof objToCheck.then === 'function') {
-			objToCheck(data)
-				.then(() => {
-					log.debug('Mercury: Executed promise callback')
-				})
-				.catch((e: Error) => {
-					log.warn('Mercury: Error executing promise callback', e)
-				})
-		} else if (objToCheck && typeof objToCheck === 'function') {
+		if (objToCheck && typeof objToCheck === 'function') {
 			try {
-				objToCheck(code)
+				objToCheck(new Error(code))
 				log.debug('Mercury: Executed function callback')
 			} catch (e) {
 				log.warn('Mercury: Error executing function callback', e)
 			}
 		} else {
 			log.warn(
-				'Mercury: Unable to execute callback for event because Handler is not a promise or function',
+				'Mercury: Unable to execute error callback for event because Handler is not a promise or function',
 				objToCheck
 			)
 		}

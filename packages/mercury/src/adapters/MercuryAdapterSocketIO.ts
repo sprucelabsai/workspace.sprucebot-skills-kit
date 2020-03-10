@@ -66,6 +66,15 @@ export default class MercuryAdapterSocketIO implements MercuryAdapter {
 		this.socket.emit('mercury-emit', options)
 	}
 
+	public disconnect() {
+		if (!this.socket) {
+			log.warn('Can not disconnect. SocketIO not connected.')
+			return
+		}
+
+		this.socket.disconnect(true)
+	}
+
 	private connect() {
 		this.socket = Socket(this.options.socketIOUrl, {
 			path: '/mercury',
