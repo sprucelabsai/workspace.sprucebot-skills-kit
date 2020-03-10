@@ -20,7 +20,7 @@
 	},
 	"scripts": {
 		"build": "npm run clean && npm run icons && npm run compile_javascript",
-		"compile_javascript": "babel --source-maps --extensions \".js\",\".tsx\",\".ts\" ./src --out-dir ./lib && tsc --declaration --emitDeclarationOnly --declarationMap",
+		"compile_javascript": "babel --source-maps --extensions \".js\",\".tsx\",\".ts\" ./src --copy-files --out-dir ./lib && tsc --declaration --emitDeclarationOnly --declarationMap",
 		"icons": "node ./scripts/generateIcons.js",
 		"clean": "rm -rf lib/*",
 		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx src && tsc -p . --noEmit",
@@ -131,6 +131,7 @@
 		"react-dropzone": "^6.0.2",
 		"react-helmet": "^5.2.0",
 		"react-image-crop": "3.0.11",
+		"react-lottie": "^1.2.3",
 		"react-markdown": "^4.1.0",
 		"react-modal": "^3.6.1",
 		"react-phone-number-input": "sprucelabsai/react-phone-number-input#2.4.7",
