@@ -18,9 +18,10 @@ export default class MyDocument extends Document {
 
 		let orgWhitelabel
 
-		//we have any whitelabelling happening?
+		// Shall we whitelabel?
 		if (
 			auth &&
+			auth.role === 'guest' &&
 			auth.Location &&
 			auth.Location.Organization &&
 			auth.Location.Organization.allowWhiteLabelling &&
