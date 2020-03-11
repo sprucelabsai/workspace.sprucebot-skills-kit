@@ -446,7 +446,7 @@ export class Mercury {
 		adapter: MercuryAdapterKind
 		connectionOptions: Record<string, any>
 	}> {
-		const { credentials } = options
+		const { spruceApiUrl, credentials } = options
 
 		// In the future if we have multiple adapters we could call the api to determine the type of adapter to use
 
@@ -458,6 +458,7 @@ export class Mercury {
 		return {
 			adapter: MercuryAdapterKind.SocketIO,
 			connectionOptions: {
+				socketIOUrl: spruceApiUrl,
 				...credentials
 			}
 		}
