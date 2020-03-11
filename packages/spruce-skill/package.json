@@ -27,7 +27,7 @@
 		"build:copy-gql": "copyfiles -V ./server/**/*.gql ./server/**/*.graphql build/",
 		"clean": "rm -rf build/",
 		"start": "NODE_CONFIG_DIR=./build/config node ./build/server/server.js",
-		"local": "npm run kill-inspect && NODE_CONFIG_DIR=./.skill/config tsnd --ignore-watch interface/.next --ignore-watch node_modules  --ignore-watch generated.ts --project tsconfig.server.json --inspect=4080 --respawn --transpileOnly server/server.ts",
+		"local": "npm run kill-inspect && NODE_CONFIG_DIR=./.skill/config tsnd --ignore-watch interface/.next --ignore-watch node_modules  --ignore-watch generated.ts --project tsconfig.server.json --inspect=4080 --respawn --transpileOnly ./.skill/server/server.ts",
 		"kill-inspect": "kill-port 4080",
 		"interface": "next ./interface -p 3080",
 		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx . && tsc -p . --noEmit",

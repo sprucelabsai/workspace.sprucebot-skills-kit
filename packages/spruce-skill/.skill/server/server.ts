@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires  */
-import skillPackage from '../package.json'
+import skillPackage from '../../package.json'
 import path from 'path'
 import serve, { ISpruceServeSkill } from '@sprucelabs/spruce-skill-server'
 import Sprucebot from '@sprucelabs/spruce-node'
 // import generateSwaggerDocs from './swagger/swagger'
-import { ISkillContext } from './interfaces/ctx.js'
+import { ISkillContext } from '../interfaces/ctx.js'
 import config from 'config'
 
 const {
@@ -88,7 +88,7 @@ setTimeout(async () => {
 		listenersDir: path.join(__dirname, 'events'),
 		middlewareDir: path.join(__dirname, 'middleware'),
 		staticDir: path.join(__dirname, 'static'),
-		langDir: path.join(__dirname, '..', 'interface', 'lang'),
+		langDir: path.join(__dirname, '..', '..', 'interface', 'lang'),
 		bodyParserOptions,
 		sequelizeOptions,
 		errors,
