@@ -1,10 +1,10 @@
-import { ISpruceSchemaField, SpruceSchemaFieldType } from './fieldTypes'
+import { SpruceSchemaFieldType } from './fieldTypes'
 
 export interface ISpruceSchemaFieldBase {
-	/** unique id for this field, rendered as name & id in forms */
-	id: string
 	/** the type of field this is, will strongly type props for us */
 	type: SpruceSchemaFieldType
+	/** generates in only for local interface and does not share with other skills */
+	isPrivate?: boolean
 	/** the permissions used in different contexts */
 	acls?: {
 		create: {
@@ -43,15 +43,10 @@ export interface ISpruceSchema {
 	name: string
 	/** a brief human readable explanation of this schema */
 	description?: string
-	/** the sections that make up this schema */
-	sections: ISpruceSchemaSection[]
-}
-
-export interface ISpruceSchemaSection {
-	/** machine friendly identifier for this section */
-	id: string
-	/** a human readable name for this section, no title is ok, especially if you have only 1 schema */
-	title?: string
-	/** the fields that comprise this section */
-	fields: ISpruceSchemaField[]
+	/** how we type dynamic keys on this schema, if defined you cannot define fields */
+	dynamicKeySignature?: ISpruceSchemaFieldBase & { key: string }
+	/** all the fields, keyed by name, required if no dynamicKeySignature is set */
+	fields?: {
+		[fieldName: string]: ISpruceSchemaFieldBase
+	}
 }

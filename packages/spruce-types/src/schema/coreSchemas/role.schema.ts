@@ -6,26 +6,18 @@ const roleSchema: ISpruceSchema = {
 	id: 'role',
 	name: 'Role',
 	description: 'All people in Spruce fall into 5 roles.',
-	sections: [
-		{
-			id: 'basics',
-			title: 'The basics',
-			fields: [
-				{
-					id: 'slug',
-					label: 'Slug',
-					type: SpruceSchemaFieldType.Text,
-					isRequired: true
-				},
-				{
-					id: 'name',
-					label: 'Name',
-					type: SpruceSchemaFieldType.Text,
-					isRequired: true
-				}
-			]
+	fields: {
+		slug: {
+			label: 'Slug',
+			type: SpruceSchemaFieldType.Text,
+			isRequired: true
+		},
+		name: {
+			label: 'Name',
+			type: SpruceSchemaFieldType.Text,
+			isRequired: true
 		}
-	]
+	}
 }
 
 export default roleSchema

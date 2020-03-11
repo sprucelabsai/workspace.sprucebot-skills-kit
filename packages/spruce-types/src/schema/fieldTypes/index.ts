@@ -41,9 +41,7 @@ export enum SpruceSchemaFieldType {
 	/** points to another schema */
 	Schema = 'schema',
 	/** unique id */
-	Id = 'id',
-	/** Specify an interface directly */
-	Raw = 'raw'
+	Id = 'id'
 }
 
 /** export everything */
