@@ -7,9 +7,13 @@ import React, { Component } from 'react'
 import Lottie from 'react-lottie'
 import cx from 'classnames'
 import chillAnimation from './animations/chill.json'
+import accomplishedAnimation from './animations/accomplished.json'
+import contemplativeAnimation from './animations/contemplative.json'
 
 const ANIMATION_MAP = {
-	[IHWSprucebotAvatarStateOfMind.Chill]: chillAnimation
+	[IHWSprucebotAvatarStateOfMind.Chill]: chillAnimation,
+	[IHWSprucebotAvatarStateOfMind.Accomplished]: accomplishedAnimation,
+	[IHWSprucebotAvatarStateOfMind.Contemplative]: contemplativeAnimation
 }
 
 export default class SprucebotAvatar extends Component<IHWSprucebotAvatar> {
