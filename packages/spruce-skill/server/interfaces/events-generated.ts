@@ -1,7 +1,341 @@
 /* eslint-disable */
 // DO NOT EDIT. THIS FILE IS GENERATED FROM https://local-api.spruce.ai//api/2.0/types/events
 import { IHWCalendarEvent, IHWCalendarEventDetailsItem, IHWAction, ISpruceSettingsSection } from '@sprucelabs/spruce-types'
+import { DocumentNode } from 'graphql'
 
+
+/**
+ * The Spruce Core API. Visit https://developer.spruce.ai for more information.
+ *
+ * 🌲🤖 Core: Register a new skill with the api
+ */
+export namespace SpruceEvents.core.RegisterSkill {
+	/** The event name  */
+	export const name = 'register-skill'
+
+	/**
+	 * Event Payload
+	 *
+	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.RegisterSkill.eventName', payload))
+	*/
+	export interface IPayload {
+		/**
+		 * The name of your skill
+		 */
+		name: string
+		/**
+		 * A description of your skill
+		 */
+		description: string
+		/**
+		 * The desired skill slug
+		 */
+		slug?: string
+
+	}
+
+	/**
+	 * Event Response
+	 *
+	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
+	 * ctx.body: SpruceEvents.core.RegisterSkill.IResponseBody = { ... }
+	 */
+	export interface IResponseBody {
+		/**
+		 * Your skill id
+		 */
+		id: string
+		/**
+		 * Your skill api key. This should never be exposed publicly
+		 */
+		apiKey: string
+		/**
+		 * Your skill name
+		 */
+		name: string
+		/**
+		 * Your skill description
+		 */
+		description: string
+		/**
+		 * Your skill slug
+		 */
+		slug?: string
+	}
+
+
+}
+
+/**
+ * The Spruce Core API. Visit https://developer.spruce.ai for more information.
+ *
+ * 🌲🤖 Core: Un-register a skill
+ */
+export namespace SpruceEvents.core.UnregisterSkill {
+	/** The event name  */
+	export const name = 'unregister-skill'
+
+	/**
+	 * Event Payload
+	 *
+	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.UnregisterSkill.eventName', payload))
+	*/
+	export interface IPayload {
+		/**
+		 * Your skill id
+		 */
+		id: string
+		/**
+		 * Your skill api key. This should never be exposed publicly
+		 */
+		apiKey: string
+
+	}
+
+	/**
+	 * Event Response
+	 *
+	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
+	 * ctx.body: SpruceEvents.core.UnregisterSkill.IResponseBody = { ... }
+	 */
+	export interface IResponseBody {
+		/**
+		 * Will be &quot;success&quot; if it has been unregistered
+		 */
+		status: string
+	}
+
+
+}
+
+/**
+ * The Spruce Core API. Visit https://developer.spruce.ai for more information.
+ *
+ * ** Missing event description **
+ */
+export namespace SpruceEvents.core.AddDeveloper {
+	/** The event name  */
+	export const name = 'add-developer'
+
+	/**
+	 * Event Payload
+	 *
+	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.AddDeveloper.eventName', payload))
+	*/
+	export type IPayload = any
+
+	/**
+	 * Event Response
+	 *
+	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
+	 * ctx.body: SpruceEvents.core.AddDeveloper.IResponseBody = { ... }
+	 */
+	export type IResponseBody = any
+
+
+}
+
+/**
+ * The Spruce Core API. Visit https://developer.spruce.ai for more information.
+ *
+ * ** Missing event description **
+ */
+export namespace SpruceEvents.core.RemoveDeveloper {
+	/** The event name  */
+	export const name = 'remove-developer'
+
+	/**
+	 * Event Payload
+	 *
+	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.RemoveDeveloper.eventName', payload))
+	*/
+	export type IPayload = any
+
+	/**
+	 * Event Response
+	 *
+	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
+	 * ctx.body: SpruceEvents.core.RemoveDeveloper.IResponseBody = { ... }
+	 */
+	export type IResponseBody = any
+
+
+}
+
+/**
+ * The Spruce Core API. Visit https://developer.spruce.ai for more information.
+ *
+ * 🌲🤖 Core: Make a gql request to the api
+ */
+export namespace SpruceEvents.core.Gql {
+	/** The event name  */
+	export const name = 'gql'
+
+	/**
+	 * Event Payload
+	 *
+	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.Gql.eventName', payload))
+	*/
+	export interface IPayload {
+		/**
+		 * The gql query
+		 */
+		query: string | DocumentNode
+		/**
+		 * GQL variables
+		 */
+		variables: Record<string, any>
+
+	}
+
+	/**
+	 * Event Response
+	 *
+	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
+	 * ctx.body: SpruceEvents.core.Gql.IResponseBody = { ... }
+	 */
+	export type IResponseBody = any
+
+
+}
+
+/**
+ * The Spruce Core API. Visit https://developer.spruce.ai for more information.
+ *
+ * 🌲🤖 Core: Login with a phone number and pin
+ */
+export namespace SpruceEvents.core.Login {
+	/** The event name  */
+	export const name = 'login'
+
+	/**
+	 * Event Payload
+	 *
+	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.Login.eventName', payload))
+	*/
+	export interface IPayload {
+		/**
+		 * The phone number of the user
+		 */
+		phoneNumber: string
+		/**
+		 * The code that was sent to the user when login was requested
+		 */
+		code?: string
+
+	}
+
+	/**
+	 * Event Response
+	 *
+	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
+	 * ctx.body: SpruceEvents.core.Login.IResponseBody = { ... }
+	 */
+	export interface IResponseBody {
+		/**
+		 * The JWT which is used to authenticate the User during future requests
+		 */
+		jwt?: string
+	}
+
+
+}
+
+/**
+ * The Spruce Core API. Visit https://developer.spruce.ai for more information.
+ *
+ * 🌲🤖 Core: Request login
+ */
+export namespace SpruceEvents.core.RequestLogin {
+	/** The event name  */
+	export const name = 'request-login'
+
+	/**
+	 * Event Payload
+	 *
+	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.RequestLogin.eventName', payload))
+	*/
+	export interface IPayload {
+		/**
+		 * The phone number of the user that is logging in
+		 */
+		phoneNumber: string
+		/**
+		 * Either &quot;pin&quot; or &quot;magiclink&quot;
+		 */
+		method: string
+		/**
+		 * Optional redirect path
+		 */
+		redirect?: string
+		/**
+		 * Optional query string to include
+		 */
+		query?: string
+
+	}
+
+	/**
+	 * Event Response
+	 *
+	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
+	 * ctx.body: SpruceEvents.core.RequestLogin.IResponseBody = { ... }
+	 */
+	export interface IResponseBody {
+		/**
+		 * Will be &quot;success&quot;. On failure, check errors
+		 */
+		status: string
+		/**
+		 * The formatted phone number
+		 */
+		phoneNumber: string
+	}
+
+
+}
+
+/**
+ * The Spruce Core API. Visit https://developer.spruce.ai for more information.
+ *
+ * 🌲🤖 Core: Get API configuration
+ */
+export namespace SpruceEvents.core.GetApiConfig {
+	/** The event name  */
+	export const name = 'get-api-config'
+
+	/**
+	 * Event Payload
+	 *
+	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.GetApiConfig.eventName', payload))
+	*/
+	export interface IPayload {
+
+	}
+
+	/**
+	 * Event Response
+	 *
+	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
+	 * ctx.body: SpruceEvents.core.GetApiConfig.IResponseBody = { ... }
+	 */
+	export interface IResponseBody {
+		/**
+		 * The base url for the api
+		 */
+		baseUrl: string
+		/**
+		 * The base url for spruce web
+		 */
+		baseWebUrl: string
+		/**
+		 * The minimum cli version needed to interact with the api
+		 */
+		cliVersion: string
+	}
+
+
+}
 
 /**
  * The Spruce Core API. Visit https://developer.spruce.ai for more information.
@@ -23,8 +357,6 @@ export namespace SpruceEvents.core.GetUiEnhancements {
 		 */
 		view: string
 
-		/** Other arbitrary payload properties */
-		[key: string]: any
 	}
 
 	/**
@@ -81,6 +413,7 @@ export namespace SpruceEvents.core.DidCreateCalendarEvent {
 		 * The calendar event that was created
 		 */
 		calendarEvent: IHWCalendarEvent
+
 	}
 
 	/**
@@ -122,6 +455,7 @@ export namespace SpruceEvents.core.GetSettings {
 		 * * skill_settings_location
 		 */
 		page?: string
+
 	}
 
 	/**
@@ -176,6 +510,7 @@ export namespace SpruceEvents.core.EnrichUser {
 		 * The user id to enrich
 		 */
 		enrichUserId?: string
+
 	}
 
 	/**
@@ -316,7 +651,13 @@ export namespace SpruceEvents.core.DidSignup {
 	 *
 	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.DidSignup.eventName', payload))
 	*/
-	export type IPayload = any
+	export interface IPayload {
+		/**
+		 * 
+		 */
+		locationIds: string[]
+
+	}
 
 	/**
 	 * Event Response
@@ -324,7 +665,50 @@ export namespace SpruceEvents.core.DidSignup {
 	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
 	 * ctx.body: SpruceEvents.core.DidSignup.IResponseBody = { ... }
 	 */
-	export type IResponseBody = any
+	export interface IResponseBody {
+		/**
+		 * Respond with &quot;success&quot; to indicate you received the event.
+		 */
+		status: string
+	}
+
+
+}
+
+/**
+ * The Spruce Core API. Visit https://developer.spruce.ai for more information.
+ *
+ * Will fire before a guest signs up and gives skills the opportunity to block signup.
+ */
+export namespace SpruceEvents.core.WillSignup {
+	/** The event name  */
+	export const name = 'will-signup'
+
+	/**
+	 * Event Payload
+	 *
+	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.WillSignup.eventName', payload))
+	*/
+	export interface IPayload {
+		/**
+		 * 
+		 */
+		locationIds: string[]
+
+	}
+
+	/**
+	 * Event Response
+	 *
+	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
+	 * ctx.body: SpruceEvents.core.WillSignup.IResponseBody = { ... }
+	 */
+	export interface IResponseBody {
+		/**
+		 * Set to true to block the user from signing up.
+		 */
+		preventDefault?: boolean
+	}
 
 
 }
@@ -619,6 +1003,7 @@ export namespace SpruceEvents.workspace.MyEvent {
 		 * A required string variable.
 		 */
 		myVar: string
+
 	}
 
 	/**

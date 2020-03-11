@@ -3206,17 +3206,6 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
   integrity sha512-ONhaKPIufzzrlNbqtWFFd+jlnemX6lJAgq9ZeiZtS7I1PIf/la7CW4m83rTXRnVnsMbW2k56pGYu7AUFJD9Pow==
 
-"@sprucelabs/heartwood-components@^9.1.0":
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/heartwood-components/-/heartwood-components-9.1.0.tgz#7aa817be02d7cc5797bcb8bb6bacb0dc8fcfb61c"
-  integrity sha512-kSaNXUMTUwBmCAFCY6iF18Wi6Dr2Ld4ua4GN3a27g3YRvd2mW6Qpic7f+JyVVVI7FCmPBV7xajPfpetuBzMkyg==
-  dependencies:
-    "@frctl/fractal" "^1.1.5"
-    "@frctl/handlebars" "^1.1.5"
-    "@frctl/mandelbrot" "^1.2.0"
-    browser-sync "^2.18.13"
-    gulp-cli "2.0.1"
-
 "@sprucelabs/log@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@sprucelabs/log/-/log-2.2.1.tgz#b457f5e8b01f512dbcf74553e35561e6bb380ed7"
@@ -3227,175 +3216,10 @@
     socket.io "^2.1.1"
     superagent "^4.0.0-beta.5"
 
-"@sprucelabs/react-heartwood-components@^9.1.0":
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/react-heartwood-components/-/react-heartwood-components-9.1.0.tgz#1cebd674a437c57f9523d26311815049859cdc8b"
-  integrity sha512-BzBNtiYh9Gk6uDwMlqWN89nkV3JO6WggqpHEKtexC5HcmgzQJ64zTWgt0msPEKiEukjlihhp3HNUDIFqqT6N3A==
-  dependencies:
-    "@babel/polyfill" "^7.0.0"
-    "@babel/register" "^7.0.0"
-    "@sprucelabs/heartwood-components" "^9.1.0"
-    "@sprucelabs/spruce-types" "^9.1.0"
-    "@types/react-dom" "^16.8.2"
-    "@types/react-table" "^6.8.4"
-    axios "^0.18.0"
-    classnames "^2.2.5"
-    cookies "^0.8.0"
-    debug "^3.1.0"
-    es6-tween "^5.3.1"
-    exenv "^1.2.2"
-    exif-orientation-image "^1.0.1"
-    fontfaceobserver "^2.1.0"
-    formik "^1.4.2"
-    image-webpack-loader "^4.3.1"
-    imagesloaded "^4.1.4"
-    is_js "^0.9.0"
-    js-cookies "^1.0.4"
-    jsdom "14.0.0"
-    jsdom-global "3.0.2"
-    memoize-one "^4.0.2"
-    moment "^2.22.1"
-    moment-timezone "^0.5.21"
-    next "^7.0.0"
-    next-redux-wrapper "^1.0.0"
-    prop-types "^15.6.0"
-    qs "^6.5.1"
-    rc-time-picker "^3.3.1"
-    react "^16.3.2"
-    react-autosuggest "^9.4.2"
-    react-avatar-editor "^11.0.4"
-    react-big-calendar "0.19.2"
-    react-dates "^17.0.0"
-    react-dnd "2.6.0"
-    react-dnd-html5-backend "2.6.0"
-    react-dnd-touch-backend "^0.4.0"
-    react-dom "^16.3.2"
-    react-dropzone "^6.0.2"
-    react-helmet "^5.2.0"
-    react-image-crop "3.0.11"
-    react-markdown "^4.1.0"
-    react-modal "^3.6.1"
-    react-phone-number-input sprucelabsai/react-phone-number-input#2.4.7
-    react-redux "^5.0.6"
-    react-required-if "^1.0.3"
-    react-sortable-hoc "^0.8.3"
-    react-table "^6.8.6"
-    react-textarea-autosize "^6.0.0"
-    react-transition-group "^2.5.2"
-    react-virtualized "^9.21.0"
-    react-with-direction "^1.1.0"
-    redux "^3.7.2"
-    redux-form "^7.3.0"
-    screenfull "^3.3.3"
-    velocity-react "^1.4.1"
-    webfontloader "^1.6.28"
-
 "@sprucelabs/semantic-release@^2.0.8":
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/@sprucelabs/semantic-release/-/semantic-release-2.0.8.tgz#37fdc05bd447e69f60d5c26c0d51c629eef139d9"
   integrity sha512-E+l04vYuyeTKvNjY76jYdcj4gcTe1hVI/jIL332sPavZWaxa9K29i4yYTe7r0cSb8LiqmWarK9Tq6YZ6O3HPfw==
-
-"@sprucelabs/spruce-next-helpers@^9.1.0":
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/spruce-next-helpers/-/spruce-next-helpers-9.1.0.tgz#68c05738c51918eb26b03e043701a156f3609974"
-  integrity sha512-zm6qhurKQWmj9YIXmRyyfs/uDLduhrqOb1iyWHys4VXabPnaogxrq6wtenf8TabPY/kW8tdxAvYNpmLc6/Zm1w==
-  dependencies:
-    "@babel/polyfill" "^7.0.0"
-    "@babel/register" "^7.0.0"
-    "@sprucelabs/heartwood-components" "^9.1.0"
-    "@sprucelabs/react-heartwood-components" "^9.1.0"
-    "@sprucelabs/spruce-types" "^9.1.0"
-    "@zeit/next-typescript" "^1.1.1"
-    axios "^0.18.0"
-    classnames "^2.2.5"
-    cookies "^0.8.0"
-    debug "^3.1.0"
-    is_js "^0.9.0"
-    js-cookies "^1.0.4"
-    lodash "^4.17.15"
-    next "^7.0.0"
-    next-redux-wrapper "^1.0.0"
-    prop-types "^15.6.0"
-    qs "^6.5.1"
-    react "^16.3.2"
-    redux "^3.7.2"
-    redux-form "^7.3.0"
-    ts-get "^1.0.5"
-
-"@sprucelabs/spruce-node@^9.1.0":
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/spruce-node/-/spruce-node-9.1.0.tgz#93acb1eee073f4524a723b5d0bba9e3769b882c7"
-  integrity sha512-fzcneS2GlxwoA6hbIFYeMEHunj8wDfdTS01824IpY96CJewigecCYnZilhLF/mDoIEabb61fwyzmR8pGVNfd6Q==
-  dependencies:
-    debug "^3.1.0"
-    graphql-request "^1.8.2"
-    graphql-tools "^4.0.4"
-    superagent "^4.1.0"
-
-"@sprucelabs/spruce-skill-server@^9.1.0":
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/spruce-skill-server/-/spruce-skill-server-9.1.0.tgz#b84def6c880873e2f8821449accc42245f622cd3"
-  integrity sha512-hZVbRrfLOoDhCB2NgewHXjcNXjJa6ZIKvW9h50mVmynKrcD9GgARMZ2EX6ecgUUiNi7y9kyUsOW3q3yjegVG2g==
-  dependencies:
-    "@koa/cors" "2"
-    "@sprucelabs/log" "^2.2.1"
-    "@sprucelabs/spruce-types" "^9.1.0"
-    apollo-link "1.2.6"
-    apollo-link-ws "1.0.12"
-    cookies "^0.8.0"
-    dataloader-sequelize "^1.7.6"
-    debug "^3.1.0"
-    glob "^7.1.2"
-    globby "^10.0.1"
-    graphql-depth-limit "^1.1.0"
-    graphql-query-complexity "^0.2.2"
-    graphql-redis-subscriptions "^2.0.0"
-    graphql-subscriptions "^1.0.0"
-    graphql-tag "2.10.1"
-    graphql-tools "^4.0.5"
-    ioredis "^4.6.2"
-    jsonwebtoken "^8.1.0"
-    koa "^2.4.1"
-    koa-body "^4.0.6"
-    koa-graphql "^0.8.0"
-    koa-mount "^4.0.0"
-    koa-router "^7.2.1"
-    koa-static "^4.0.1"
-    next "^7.0.0"
-    node-cron "^1.2.1"
-    pg "^7.4.1"
-    react "^16.2.0"
-    react-dom "^16.0.0"
-    sequelize "^5"
-    subscriptions-transport-ws "^0.9.15"
-    umzug "^2.1.0"
-
-"@sprucelabs/spruce-types@^9.1.0":
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/spruce-types/-/spruce-types-9.1.0.tgz#3a8453df3000de293fb5e2966bb68d2e205f23d7"
-  integrity sha512-drb9hO2aJ7mbGsg77LJGxDrgVjIiHdyRph2ZC6LeoTHtlSSxIG6V4fwnW0ZlbFY5l1rmcb6+7KpijO2sBzA1/A==
-  dependencies:
-    graphql-iso-date "^3.6.1"
-    graphql-type-json "^0.3.0"
-    typescript "3.6.3"
-
-"@sprucelabs/spruce-utils@^9.1.0":
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/@sprucelabs/spruce-utils/-/spruce-utils-9.1.0.tgz#bd967a031ec4a8bcf3ceffa91d0a6f687d6eb404"
-  integrity sha512-y5AnX3Zw8kQMJVK5XHcMtq0YVOZWXQSaaBc8lL+BqvJOiNY+aITZ3aUduaLOO7yq2tkvLGYsx+Jq2krwDfTVMA==
-  dependencies:
-    "@babel/core" "^7.1.6"
-    "@babel/preset-flow" "^7.0.0"
-    "@zeit/next-typescript" "^1.1.1"
-    apollo-boost "^0.1.22"
-    apollo-link "^1.2.6"
-    apollo-link-http "^1.5.9"
-    apollo-link-ws "^1.0.12"
-    fetch-ponyfill "^6.0.2"
-    graphql-tag "^2.10.0"
-    handlebars "^4.0.12"
-    lodash "^4.17.11"
-    subscriptions-transport-ws "^0.9.15"
 
 "@storybook/addon-actions@5.2.1", "@storybook/addon-actions@^5.2.1":
   version "5.2.1"
@@ -4585,7 +4409,7 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@typescript-eslint/eslint-plugin@^2.22.0", "@typescript-eslint/eslint-plugin@^2.8.0":
+"@typescript-eslint/eslint-plugin@^2.22.0":
   version "2.22.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.22.0.tgz#218ce6d4aa0244c6a40baba39ca1e021b26bb017"
   integrity sha512-BvxRLaTDVQ3N+Qq8BivLiE9akQLAOUfxNHIEhedOcg8B2+jY8Rc4/D+iVprvuMX1AdezFYautuGDwr9QxqSxBQ==
@@ -4624,7 +4448,7 @@
     "@typescript-eslint/typescript-estree" "1.13.0"
     eslint-visitor-keys "^1.0.0"
 
-"@typescript-eslint/parser@^2.22.0", "@typescript-eslint/parser@^2.8.0":
+"@typescript-eslint/parser@^2.22.0":
   version "2.22.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.22.0.tgz#8eeb6cb6de873f655e64153397d4790898e149d0"
   integrity sha512-FaZKC1X+nvD7qMPqKFUYHz3H0TAioSVFGvG29f796Nc5tBluoqfHgLbSFKsh7mKjRoeTm8J9WX2Wo9EyZWjG7w==
@@ -10694,22 +10518,6 @@ eslint-config-prettier@^6.7.0:
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-config-spruce@^9.0.0, eslint-config-spruce@^9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-spruce/-/eslint-config-spruce-9.1.0.tgz#3a305779b95fc05110cd714211284c6bb7ac8a30"
-  integrity sha512-9IPkSX4mNMuLto8kCqZstp3Bftgddoe0hyqkyhI1uIsWTWszscpq/gX1wkZorlDnD7bfkd/7y5ZzKO6FlN32vw==
-  dependencies:
-    "@typescript-eslint/eslint-plugin" "^2.8.0"
-    "@typescript-eslint/parser" "^2.8.0"
-    babel-eslint "10.0.1"
-    eslint-config-prettier "^6.7.0"
-    eslint-plugin-flowtype "3.4.2"
-    eslint-plugin-import "2.16.0"
-    eslint-plugin-jsx-a11y "6.1.2"
-    eslint-plugin-prettier "^3.1.1"
-    eslint-plugin-react "^7.16.0"
-    eslint-plugin-spruce "^9.1.0"
-
 eslint-import-resolver-node@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.3.2.tgz#58f15fb839b8d0576ca980413476aab2472db66a"
@@ -10825,13 +10633,6 @@ eslint-plugin-react@^7.16.0:
     object.values "^1.1.0"
     prop-types "^15.7.2"
     resolve "^1.12.0"
-
-eslint-plugin-spruce@^9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-spruce/-/eslint-plugin-spruce-9.1.0.tgz#2511752287b838be0e5dae75d38cd2037965c78e"
-  integrity sha512-MNgOvEFV8hdzVoZdxfwTzq9AU0tHHL+Q9yCC5GhWe1Wk6bt6WrTS5850KVEt+NN88/ZKT5KK4QRsAF0eLLCMrw==
-  dependencies:
-    pascal-case "^2.0.1"
 
 eslint-scope@3.7.1:
   version "3.7.1"

@@ -31,6 +31,7 @@
 	"dependencies": {
 		"@koa/cors": "2",
 		"@sprucelabs/log": "^2.2.1",
+		"@sprucelabs/mercury": "^9.1.0",
 		"@sprucelabs/spruce-types": "^9.1.0",
 		"apollo-link": "1.2.6",
 		"apollo-link-ws": "1.0.12",

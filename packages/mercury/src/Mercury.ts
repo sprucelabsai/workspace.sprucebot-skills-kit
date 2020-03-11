@@ -261,7 +261,6 @@ export class Mercury {
 			return
 		}
 
-		console.log({ isConnected: this.isConnected })
 		const eventId = this.uuid()
 		if (!this.eventHandlers[eventId]) {
 			this.eventHandlers[eventId] = {
@@ -447,12 +446,21 @@ export class Mercury {
 		adapter: MercuryAdapterKind
 		connectionOptions: Record<string, any>
 	}> {
-		const { spruceApiUrl, credentials } = options
+		const { credentials } = options
 
-		const response = await request
-			.post(`${spruceApiUrl}/api/2.0/mercury/connect`)
-			.send(credentials)
-		return response.body
+		// In the future if we have multiple adapters we could call the api to determine the type of adapter to use
+
+		// const response = await request
+		// 	.post(`${spruceApiUrl}/api/2.0/mercury/connect`)
+		// 	.send(credentials)
+		// return response.body
+
+		return {
+			adapter: MercuryAdapterKind.SocketIO,
+			connectionOptions: {
+				...credentials
+			}
+		}
 	}
 
 	/** Called when the adapter detects an event. This function then looks to see if there are any callbacks for that event to invoke */

@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 // https://github.com/lorenwest/node-config/wiki/Configuration-Files
-import fs from 'fs'
 import baseErrors from './errors'
 
 export type SpruceAuth = (options: {
@@ -33,7 +32,7 @@ export default function SpruceConfig<
 		require('@sprucelabs/heartwood-components').version
 	)
 	const packageJSON = require(`${baseDirectory}/../package.json`)
-	const icon = fs.readFileSync(`${baseDirectory}/../icon/icon.svg`).toString()
+	const icon = ''
 	const auth = require(`${baseDirectory}/../config/auth`).default as authType
 	const scopes = require(`${baseDirectory}/../config/scopes`)
 		.default as scopesType

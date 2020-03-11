@@ -373,17 +373,22 @@ async function serve<ISkillContext extends ISpruceContext>(
 	=            	Cron	        	   =
 	======================================*/
 	// @ts-ignore: variable require for cron controller
-	const cronController = require(path.join(controllersDir, 'cron'))
-	cronController({ ...koa.context, sb: sprucebot }, cron)
-	debug('CronController running')
+	try {
+		const cronController = require(path.join(controllersDir, 'cron'))
+		cronController({ ...koa.context, sb: sprucebot }, cron)
+		debug('CronController running')
+	} catch (e) {
+		debug('No cron detected')
+	}
 
 	/*======================================
 	=         	Event Listeners       	   =
 	======================================*/
-	let listenersByEventName
 	try {
-		listenersByEventName = listenersFactory(listenersDir)
-		debug('Event listeners found for events', Object.keys(listenersByEventName))
+		listenersFactory({
+			ctx: koa.context,
+			dir: listenersDir
+		})
 	} catch (err) {
 		console.error('Loading event listeners failed.')
 		console.error(err.stack || err)
@@ -431,14 +436,12 @@ async function serve<ISkillContext extends ISpruceContext>(
 	======================================*/
 	try {
 		// build-in
-		waresFactory(path.join(__dirname, 'middleware'), router, {
-			listenersByEventName
-		})
+		waresFactory(path.join(__dirname, 'middleware'), router, {})
 
 		debug('Core middleware loaded')
 
 		// skills-kit
-		waresFactory(middlewareDir, router, { listenersByEventName })
+		waresFactory(middlewareDir, router, {})
 
 		debug('Kit middleware loaded')
 	} catch (err) {
@@ -478,14 +481,12 @@ async function serve<ISkillContext extends ISpruceContext>(
 	======================================*/
 	try {
 		// built-in routes
-		routesFactory(path.join(__dirname, 'controllers'), router, {
-			listenersByEventName
-		})
+		routesFactory(path.join(__dirname, 'controllers'), router, {})
 
 		debug('Core controllers loaded')
 
 		// skills-kit routes
-		routesFactory(controllersDir, router, { listenersByEventName })
+		routesFactory(controllersDir, router, {})
 
 		debug('Kit controllers loaded')
 	} catch (err) {
