@@ -3,6 +3,10 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 // https://github.com/lorenwest/node-config/wiki/Configuration-Files
 import baseErrors from './errors'
+import Debug from 'debug'
+import defaultAuth from './auth'
+import defaultScopes from './scopes'
+const debug = Debug('spruce-skill-server')
 
 export type SpruceAuth = (options: {
 	userId?: string
@@ -19,6 +23,17 @@ export interface ISpruceEventContract {
 	}
 }
 
+function optionalRequire(path: string) {
+	let result
+	try {
+		result = require(path)
+	} catch (e) {
+		debug(e)
+	}
+
+	return result && result.default ? result.default : result
+}
+
 export default function SpruceConfig<
 	aclType,
 	settingsType,
@@ -33,18 +48,22 @@ export default function SpruceConfig<
 	)
 	const packageJSON = require(`${baseDirectory}/../package.json`)
 	const icon = ''
-	const auth = require(`${baseDirectory}/../config/auth`).default as authType
-	const scopes = require(`${baseDirectory}/../config/scopes`)
-		.default as scopesType
-	const settings = require(`${baseDirectory}/../config/settings`)
-		.default as settingsType
-	const errors = require(`${baseDirectory}/../config/errors`)
-		.default as errorsType
-	const acl = require(`${baseDirectory}/../config/acl`).default as aclType
-	const eventContract = require(`${baseDirectory}/../config/eventContract`)
-		.default as eventContractType
-	const uiEnhancementContract = require(`${baseDirectory}/../config/uiEnhancementContract`)
-		.default as UIEnhancementContractType
+	const auth = (optionalRequire(`${baseDirectory}/../config/auth`) ||
+		defaultAuth) as authType
+	const scopes = (optionalRequire(`${baseDirectory}/../config/scopes`) ||
+		defaultScopes) as scopesType
+	const settings = (optionalRequire(`${baseDirectory}/../config/settings`) ||
+		[]) as settingsType
+	const errors = (optionalRequire(`${baseDirectory}/../config/errors`) ||
+		{}) as errorsType
+	const acl = (optionalRequire(`${baseDirectory}/../config/acl`) ||
+		{}) as aclType
+	const eventContract = (optionalRequire(
+		`${baseDirectory}/../config/eventContract`
+	) || { events: {} }) as eventContractType
+	const uiEnhancementContract = (optionalRequire(
+		`${baseDirectory}/../config/uiEnhancementContract`
+	) || { events: {} }) as UIEnhancementContractType
 
 	return {
 		/**

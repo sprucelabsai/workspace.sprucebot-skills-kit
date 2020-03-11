@@ -7,11 +7,15 @@ import {
 	IMercuryAdapterOnOptions,
 	TOnErrorHandler
 } from '../Mercury'
-// @ts-ignore
+
+// Import correct version depending on whether we're in browser or node.
+// Fun gotcha: We can't use require() syntax in browser or it won't compile properly
 let Socket: any
-if (typeof window !== 'undefined') {
-	Socket = require('socket.io-client/dist/socket.io.js')
-} else {
+// @ts-ignore
+import s from 'socket.io-client/dist/socket.io.js'
+Socket = s
+
+if (typeof window === 'undefined') {
 	Socket = require('socket.io-client')
 }
 

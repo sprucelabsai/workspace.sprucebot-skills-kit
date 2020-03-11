@@ -164,6 +164,7 @@ export default class Sprucebot {
 		acl?: Record<string, any> // TODO: Define acls type
 		viewVersion?: number
 	}) {
+		console.log({ options })
 		this.validateConstructorParams(options)
 		const {
 			apiKey,

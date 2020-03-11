@@ -3,7 +3,7 @@ import skillPackage from '../package.json'
 import path from 'path'
 import serve, { ISpruceServeSkill } from '@sprucelabs/spruce-skill-server'
 import Sprucebot from '@sprucelabs/spruce-node'
-import generateSwaggerDocs from './swagger/swagger'
+// import generateSwaggerDocs from './swagger/swagger'
 import { ISkillContext } from './interfaces/ctx.js'
 import config from 'config'
 
@@ -110,16 +110,16 @@ setTimeout(async () => {
 		gqlOptions,
 		testing: TESTING
 	})
-	if (process.env.ENABLE_SWAGGER_DOCS === 'true') {
-		generateSwaggerDocs()
-			.then(() => {
-				console.log('ℹ️ Swagger docs generated')
-			})
-			.catch(e => {
-				console.log('⚠️ Generate swagger doc error!')
-				console.log(e)
-			})
-	}
+	// if (process.env.ENABLE_SWAGGER_DOCS === 'true') {
+	// 	generateSwaggerDocs()
+	// 		.then(() => {
+	// 			console.log('ℹ️ Swagger docs generated')
+	// 		})
+	// 		.catch(e => {
+	// 			console.log('⚠️ Generate swagger doc error!')
+	// 			console.log(e)
+	// 		})
+	// }
 	ready = true
 }, 2000)
 
