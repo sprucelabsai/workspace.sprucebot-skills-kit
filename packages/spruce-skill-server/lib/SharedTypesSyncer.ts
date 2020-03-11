@@ -12,7 +12,7 @@ export default class SharedTypesSyncer {
 
 		if (response && response.text) {
 			await this.writeFile(
-				`${process.cwd()}/.skill/interfaces/events-generated.ts`,
+				`${process.cwd()}/.spruce/interfaces/events-generated.ts`,
 				response.text
 			)
 		}
