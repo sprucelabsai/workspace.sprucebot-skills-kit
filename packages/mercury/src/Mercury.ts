@@ -283,24 +283,49 @@ export class Mercury {
 	}
 
 	/** Waits for the connection up to a certain timeout */
-	private awaitConnection(): Promise<void> {
-		return new Promise(resolve => {
-			this.waitConnection(() => {
-				resolve()
-				return
+	private awaitConnection(timeoutMS?: number): Promise<void> {
+		return new Promise((resolve, reject) => {
+			const ms = timeoutMS || 5000
+			this.waitConnection({
+				timeoutMS: ms,
+				cb: (e?: Error) => {
+					if (e) {
+						reject(e)
+					} else {
+						resolve()
+					}
+					return
+				}
 			})
 		})
 	}
 
-	private waitConnection(cb: () => void) {
+	private waitConnection(options: {
+		cb: (e?: Error) => void
+		timeoutMS: number
+		intervalMS?: number
+		retryAttempt?: number
+	}) {
+		const { cb, timeoutMS = 5000, intervalMS = 100, retryAttempt = 0 } = options
+
 		if (this.isConnected) {
 			cb()
 			return
 		}
 
+		const timeElapsed = intervalMS * retryAttempt
+
+		if (timeElapsed >= timeoutMS) {
+			cb(new Error('MERCURY_CONNECTION_TIMEOUT'))
+			return
+		}
+
 		setTimeout(() => {
-			this.waitConnection(cb)
-		}, 150)
+			this.waitConnection({
+				...options,
+				retryAttempt: retryAttempt + 1
+			})
+		}, intervalMS)
 	}
 
 	private emitOnFinishedCallback(eventId: string): Promise<any> {
@@ -338,6 +363,7 @@ export class Mercury {
 
 		if (this.adapter) {
 			this.adapter.disconnect()
+			this.adapter = undefined
 		}
 
 		// TODO: Globby the adapters directory and set the correct one when we have multiple
