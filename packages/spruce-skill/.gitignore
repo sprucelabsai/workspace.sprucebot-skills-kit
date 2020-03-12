@@ -86,3 +86,5 @@ server/static/api-docs.json
 build/
 
 tmp/
+
+web/out/

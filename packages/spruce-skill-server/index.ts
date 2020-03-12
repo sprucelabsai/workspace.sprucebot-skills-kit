@@ -2,7 +2,7 @@
 
 import Debug from 'debug'
 import Koa from 'koa'
-import next from 'next'
+import nextjs from 'next'
 import Router from 'koa-router'
 import cron from 'node-cron'
 import _ from 'lodash'
@@ -37,7 +37,7 @@ interface IServeOptions {
 	port: number
 	serverHost: string
 	interfaceHost: string
-	nextConfig: next.ServerOptions
+	nextConfig: nextjs.ServerOptions
 	errors: Record<string, any>
 	servicesDir: string
 	utilitiesDir: string
@@ -131,8 +131,8 @@ async function serve<ISkillContext extends ISpruceContext>(
 	let handle: Function | undefined
 
 	if (!isApiOnly) {
-		app = next(nextConfig)
-		handle = app.getRequestHandler()
+		// app = nextjs(nextConfig)
+		// handle = app.getRequestHandler()
 	} else {
 		console.warn('⚠️  The frontend UI is disabled because API_ONLY=true')
 	}
@@ -257,6 +257,8 @@ async function serve<ISkillContext extends ISpruceContext>(
 	)
 
 	staticDir && koa.use(staticServe(staticDir))
+
+	staticDir && koa.use(staticServe(nextConfig.dir + '/out'))
 
 	const router = new Router()
 

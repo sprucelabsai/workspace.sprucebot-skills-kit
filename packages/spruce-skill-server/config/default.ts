@@ -301,7 +301,7 @@ export default function SpruceConfig<
 			jsonLimit: '5mb'
 		},
 		nextConfig: {
-			dir: `${process.cwd()}/interface`,
+			dir: `${process.cwd()}/web`,
 			dev: process.env.DEV_MODE === 'true', // next.js development mode
 			quiet: false
 		},
