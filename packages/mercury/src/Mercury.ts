@@ -98,11 +98,19 @@ export enum MercuryRole {
 }
 
 export interface IMercuryOnOptions {
-	scope: MercurySubscriptionScope
+	/** Whether this handler will provide a respone to the event. */
+	respond?: boolean
+	/** The event to subscribe to */
 	eventName: string
+	/** The scope of the data to get back */
+	scope: MercurySubscriptionScope
+	/** A custom UUID for this event. If not provided, one will be generated */
 	eventId?: string
+	/** The organization id where the event is triggered */
 	organizationId?: string | null
+	/** The location id where the event is triggered. If passed, organizationId should also be set. */
 	locationId?: string | null
+	/** The user id who is triggering this event */
 	userId?: string | null
 	payload?: Record<string, any>
 	responses?: Record<string, any>[]
