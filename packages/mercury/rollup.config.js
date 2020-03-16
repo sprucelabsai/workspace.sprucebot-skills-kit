@@ -12,7 +12,7 @@ export default {
 	output: {
 		file: 'build/umd/mercury.js',
 		format: 'umd',
-		name: 'Mercury',
+		name: 'mercury',
 		sourceMap: true
 	},
 	external: ['fs', 'http', 'https', 'child_process'],

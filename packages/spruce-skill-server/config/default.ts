@@ -34,6 +34,10 @@ function optionalRequire(path: string) {
 	return result && result.default ? result.default : result
 }
 
+function dotSetting(dotSettings: Record<string, any>, key: string) {
+	return dotSettings && dotSettings.Skill && dotSettings.Skill[key]
+}
+
 export default function SpruceConfig<
 	aclType,
 	settingsType,
@@ -46,30 +50,33 @@ export default function SpruceConfig<
 	const HEARTWOOD_VERSION = encodeURIComponent(
 		require('@sprucelabs/heartwood-components').version
 	)
-	const packageJSON = require(`${baseDirectory}/../package.json`)
+	console.log({ baseDirectory })
+	const packageJSON = require(`${baseDirectory}/package.json`)
 	const icon = ''
-	const auth = (optionalRequire(`${baseDirectory}/../config/auth`) ||
+	const auth = (optionalRequire(`${baseDirectory}/config/auth`) ||
 		defaultAuth) as authType
-	const scopes = (optionalRequire(`${baseDirectory}/../config/scopes`) ||
+	const scopes = (optionalRequire(`${baseDirectory}/config/scopes`) ||
 		defaultScopes) as scopesType
-	const settings = (optionalRequire(`${baseDirectory}/../config/settings`) ||
+	const settings = (optionalRequire(`${baseDirectory}/config/settings`) ||
 		[]) as settingsType
-	const errors = (optionalRequire(`${baseDirectory}/../config/errors`) ||
+	const errors = (optionalRequire(`${baseDirectory}/config/errors`) ||
 		{}) as errorsType
-	const acl = (optionalRequire(`${baseDirectory}/../config/acl`) ||
-		{}) as aclType
+	const acl = (optionalRequire(`${baseDirectory}/config/acl`) || {}) as aclType
 	const eventContract = (optionalRequire(
-		`${baseDirectory}/../config/eventContract`
+		`${baseDirectory}/config/eventContract`
 	) || { events: {} }) as eventContractType
 	const uiEnhancementContract = (optionalRequire(
-		`${baseDirectory}/../config/uiEnhancementContract`
+		`${baseDirectory}/config/uiEnhancementContract`
 	) || { events: {} }) as UIEnhancementContractType
+	const dotSettings = optionalRequire(
+		`${baseDirectory}/.spruce/settings.json`
+	) || { Skill: {} }
 
 	return {
 		/**
 		 * 🌲🤖 Your Skill ID
 		 */
-		ID: process.env.ID,
+		ID: dotSetting(dotSettings, 'id') || process.env.ID,
 		/**
 		 * 🌲🤖 When enabled FE code will be compiled lazily. This should be false in production
 		 */
@@ -161,7 +168,7 @@ export default function SpruceConfig<
 		 * 🌲🤖 Your Skill's API key.
 		 * This should be kept secret at all times
 		 */
-		API_KEY: process.env.API_KEY,
+		API_KEY: dotSetting(dotSettings, 'apiKey') || process.env.API_KEY,
 		/**
 		 * 🌲🤖 DEPRECATED. Option to override heartwood components stylesheet
 		 */
@@ -182,17 +189,18 @@ export default function SpruceConfig<
 		/**
 		 * 🌲🤖 Your Skill's name
 		 */
-		NAME: process.env.NAME,
+		NAME: dotSetting(dotSettings, 'name') || process.env.NAME,
 		/**
 		 * 🌲🤖 Your Skill's slug
 		 * This can not be changed after you register your skill. Changing this value
 		 * will NOT update your slug
 		 */
-		SLUG: process.env.SLUG || '',
+		SLUG: dotSetting(dotSettings, 'slug') || process.env.SLUG || '',
 		/**
 		 * 🌲🤖 Your Skill's description
 		 */
-		DESCRIPTION: process.env.DESCRIPTION,
+		DESCRIPTION:
+			dotSetting(dotSettings, 'description') || process.env.DESCRIPTION,
 		/**
 		 * 🌲🤖 The port to start up
 		 */

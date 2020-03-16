@@ -119,29 +119,6 @@ async function serve<ISkillContext extends ISpruceContext>(
 	// you can override error messages
 	const allErrors = { ...defaultErrors, ...errors }
 
-	const isApiOnly = process.env.API_ONLY === 'true'
-
-	if (isApiOnly) {
-		debug('API_ONLY: Next.js frontend disabled')
-	}
-
-	// Setup NextJS App
-	debug('Setting up Nextjs with', nextConfig)
-	let app
-	let handle: Function | undefined
-
-	if (!isApiOnly) {
-		// app = nextjs(nextConfig)
-		// handle = app.getRequestHandler()
-	} else {
-		console.warn('⚠️  The frontend UI is disabled because API_ONLY=true')
-	}
-
-	// Next app ready
-	if (app) {
-		await app.prepare()
-	}
-
 	const koa = new Koa<{}, ISkillContext>()
 	koa.proxy = true
 
@@ -495,60 +472,6 @@ async function serve<ISkillContext extends ISpruceContext>(
 		console.error('Loading controllers failed.')
 		console.error(err)
 		throw err
-	}
-
-	/*======================================
-	=          Client Side Routes          =
-	======================================*/
-
-	// The logic before handle() is to suppress nextjs from responding and letting koa finish the request
-	// This allows our middleware to fire even after
-	if (!isApiOnly) {
-		router.get('*', async ctx => {
-			// if a controller already responded or we are making an API call, don't let next run at all
-			if (ctx.body || ctx.path.search('/api') === 0) {
-				debug('api call found, letting controllers handle it', ctx)
-				return
-			}
-			debug('handing off to next and backing off', ctx.path, ctx)
-			if (handle) {
-				await handle(ctx.req, ctx.res)
-			}
-			ctx.respond = false
-			return
-
-			// this does not work as desired
-			// ctx.body = await new Promise(resolve => {
-			// 	const _end = ctx.res.end
-			// 	ctx.res._end = _end
-
-			// 	// Hijack stream to set ctx.body
-			// 	const pipe = stream => {
-			// 		ctx.res.end = _end
-			// 		stream.unpipe(ctx.res)
-			// 		resolve(stream)
-			// 	}
-			// 	ctx.res.once('pipe', pipe)
-
-			// 	// Monkey patch res.end to set ctx.body
-			// 	ctx.res.end = body => {
-			// 		debug('Next has finished for', ctx.path)
-			// 		ctx.res.end = _end
-			// 		ctx.res.removeListener('pipe', pipe)
-			// 		if (ctx.res.redirect) {
-			// 			debug('Next wants us to redirect to', ctx.res.redirect)
-			// 			body = `Redirecting to ${ctx.res.redirect}`
-			// 			ctx.redirect(ctx.res.redirect)
-			// 			ctx.res.end(body)
-			// 			// return
-			// 		}
-			// 		resolve(body)
-			// 	}
-
-			// 	debug('Handing control off to nextjs ', ctx.path, '🤞🏼')
-			// 	handle(ctx.req, ctx.res)
-			// })
-		})
 	}
 
 	// tell Koa to use the router

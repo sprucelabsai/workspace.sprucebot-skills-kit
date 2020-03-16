@@ -88,3 +88,5 @@ build/
 tmp/
 
 web/out/
+
+.spruce/settings.json

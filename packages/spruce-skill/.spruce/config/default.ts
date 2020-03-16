@@ -102,7 +102,7 @@ type ScopesType = any
 type AuthType = any
 
 // Path to the server directory. Used to load all the default config files
-const baseDirectory = `${__dirname}/../../server`
+const baseDirectory = `${__dirname}/../..`
 const baseConfig = require('@sprucelabs/spruce-skill-server/build/config/default')
 	.default as ConfigType
 

@@ -7,10 +7,7 @@ export default (options: { ctx: ISkillContext; mercury: Mercury }) => {
 
 	log.debug('Setting up mercury event listener...')
 
-	mercury.on<
-		SpruceEvents.core.DidEnter.IPayload,
-		SpruceEvents.core.DidEnter.IBody
-	>(
+	mercury.on(
 		{
 			respond: true,
 			eventName: SpruceEvents.core.DidEnter.name,

@@ -2,7 +2,6 @@
 import globby from 'globby'
 import path from 'path'
 import config from 'config'
-import { camelCase } from 'lodash'
 import { Mercury } from '@sprucelabs/mercury'
 import { ISpruceContext } from '../interfaces/ctx'
 
@@ -10,7 +9,7 @@ export default (options: { ctx: ISpruceContext; dir: string }) => {
 	const { ctx, dir } = options
 
 	const mercury = new Mercury({
-		spruceApiUrl: config.API_HOST,
+		spruceApiUrl: config.API_HOST as string,
 		credentials: {
 			id: config.ID,
 			apiKey: config.API_KEY

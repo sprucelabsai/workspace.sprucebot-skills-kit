@@ -7,6 +7,61 @@ import { DocumentNode } from 'graphql'
 /**
  * The Spruce Core API. Visit https://developer.spruce.ai for more information.
  *
+ * 🌲🤖 Core: Get skills where the user is a developer
+ */
+export namespace SpruceEvents.core.GetDeveloperSkills {
+	/** The event name  */
+	export const name = 'get-developer-skills'
+
+	/**
+	 * Event Payload
+	 *
+	 * The Spruce Core API listens for this event. You'll emit an event with this payload (ctx.sb.emit('SpruceEvents.core.GetDeveloperSkills.eventName', payload))
+	*/
+	export interface IPayload {
+
+	}
+
+	/**
+	 * Event Response
+	 *
+	 * The Spruce Core API Skill expects your skill to respond with this data in your event handler:
+	 * ctx.body: SpruceEvents.core.GetDeveloperSkills.IResponseBody = { ... }
+	 */
+	export interface IResponseBody {
+		/**
+		 * 
+		 */
+		skills: {
+			/**
+			 * Your skill id
+			 */
+			id: string
+			/**
+			 * Your skill api key. This should never be exposed publicly
+			 */
+			apiKey: string
+			/**
+			 * Your skill name
+			 */
+			name: string
+			/**
+			 * Your skill description
+			 */
+			description: string
+			/**
+			 * Your skill slug
+			 */
+			slug?: string
+		}[]
+	}
+
+
+}
+
+/**
+ * The Spruce Core API. Visit https://developer.spruce.ai for more information.
+ *
  * 🌲🤖 Core: Register a new skill with the api
  */
 export namespace SpruceEvents.core.RegisterSkill {

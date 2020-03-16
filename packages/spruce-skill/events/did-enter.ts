@@ -1,6 +1,6 @@
 import { Mercury, MercurySubscriptionScope } from '@sprucelabs/mercury'
-import { ISkillContext } from '../interfaces/ctx'
-import { SpruceEvents } from '../interfaces/events-generated'
+import { ISkillContext } from '../.spruce/interfaces/ctx'
+import { SpruceEvents } from '../.spruce/interfaces/events-generated'
 
 export default (options: { ctx: ISkillContext; mercury: Mercury }) => {
 	const { ctx, mercury } = options
