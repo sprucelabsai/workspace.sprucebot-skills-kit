@@ -1,4 +1,8 @@
-import { SpruceSchemaFieldType } from './fieldTypes'
+import {
+	SpruceSchemaFieldType,
+	ISpruceSchemaFieldTypeSchema,
+	ISpruceSchemaFieldTypeText
+} from './fieldTypes'
 
 export interface ISpruceSchemaFieldBase {
 	/** the type of field this is, will strongly type props for us */
@@ -47,6 +51,8 @@ export interface ISpruceSchema {
 	dynamicKeySignature?: ISpruceSchemaFieldBase & { key: string }
 	/** all the fields, keyed by name, required if no dynamicKeySignature is set */
 	fields?: {
-		[fieldName: string]: ISpruceSchemaFieldBase
+		[fieldName: string]:
+			| ISpruceSchemaFieldTypeSchema
+			| ISpruceSchemaFieldTypeText
 	}
 }
