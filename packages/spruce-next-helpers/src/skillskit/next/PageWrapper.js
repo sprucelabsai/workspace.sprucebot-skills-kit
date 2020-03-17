@@ -8,6 +8,7 @@ import is from 'is_js'
 import ClientCookies from 'js-cookies'
 import { decode as decodeJWT } from 'jsonwebtoken'
 import { Container } from 'next/app'
+import { Head } from 'next/document'
 import Router, { withRouter } from 'next/router'
 import qs from 'qs'
 import React, { Component } from 'react'
@@ -156,6 +157,22 @@ const PageWrapper = Wrapped => {
 				setCookie('jwt', false, req, res)
 			} else if (!jwt) {
 				jwtV2 = getCookie('jwtV2', req, res)
+			}
+
+			// Determines if the view is being displayed in heartwood skill view or legacy
+			props.isHeartwoodView = query.isHeartwoodView
+
+			// Shall we whitelabel?
+			if (
+				!props.isHeartwoodView &&
+				state.auth &&
+				state.auth.Location &&
+				state.auth.Location.Organization &&
+				state.auth.Location.Organization.allowWhiteLabelling &&
+				state.auth.Location.Organization.whiteLabellingStylesheetUrl
+			) {
+				props.orgWhitelabel =
+					state.auth.Location.Organization.whiteLabellingStylesheetUrl
 			}
 
 			// Do authentication, preferring V2 if the jwtV2 is set
@@ -387,6 +404,16 @@ const PageWrapper = Wrapped => {
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
+						<Head>
+							{this.props.orgWhitelabel && (
+								<link
+									href={this.props.orgWhitelabel}
+									rel="stylesheet"
+									type="text/css"
+									charSet="UTF-8"
+								/>
+							)}
+						</Head>
 						<FontLoader fonts={fonts} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 					</Container>
@@ -394,6 +421,16 @@ const PageWrapper = Wrapped => {
 			}
 			return (
 				<Container>
+					<Head>
+						{this.props.orgWhitelabel && (
+							<link
+								href={this.props.orgWhitelabel}
+								rel="stylesheet"
+								type="text/css"
+								charSet="UTF-8"
+							/>
+						)}
+					</Head>
 					<FontLoader fonts={fonts} />
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 				</Container>

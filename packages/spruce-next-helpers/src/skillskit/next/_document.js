@@ -27,27 +27,12 @@ export default class MyDocument extends Document {
 		const { auth, config } = store.getState()
 		let whitelabel = config.WHITELABEL
 
-		let orgWhitelabel
-
-		// Shall we whitelabel?
-		if (
-			auth &&
-			auth.role === 'guest' &&
-			auth.Location &&
-			auth.Location.Organization &&
-			auth.Location.Organization.allowWhiteLabelling &&
-			auth.Location.Organization.whiteLabellingStylesheetUrl
-		) {
-			orgWhitelabel = auth.Location.Organization.whiteLabellingStylesheetUrl
-		}
-
 		return {
 			...page,
 			...initialPageProps,
 			whitelabel,
 			auth,
-			config,
-			orgWhitelabel
+			config
 		}
 	}
 
@@ -70,14 +55,6 @@ export default class MyDocument extends Document {
 					{this.props.whitelabel && (
 						<link
 							href={this.props.whitelabel}
-							rel="stylesheet"
-							type="text/css"
-							charSet="UTF-8"
-						/>
-					)}
-					{this.props.orgWhitelabel && (
-						<link
-							href={this.props.orgWhitelabel}
 							rel="stylesheet"
 							type="text/css"
 							charSet="UTF-8"
