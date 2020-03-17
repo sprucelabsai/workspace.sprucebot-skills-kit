@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-
-import * as actions from '../store/actions'
 import ServerCookies from 'cookies'
+import is from 'is_js'
 import ClientCookies from 'js-cookies'
-import skill from '../index'
+import { Container } from 'next/app'
+import Head from 'next/head'
+import Router, { withRouter } from 'next/router'
+import qs from 'qs'
+import React, { Component } from 'react'
 import DevControls from '../../components/DevControls/DevControls'
 import Loader from '../../components/Loader/Loader'
-import qs from 'qs'
 import lang from '../helpers/lang'
-import Router, { withRouter } from 'next/router'
-import { Container } from 'next/app'
-import is from 'is_js'
+import skill from '../index'
+import * as actions from '../store/actions'
 
 const debug = require('debug')('@sprucelabs/react-sprucebot')
 
@@ -41,7 +41,7 @@ const Page = Wrapped => {
 			this.state = {
 				attemptingReAuth: !!props.attemptingReAuth,
 				isIframed: true,
-				isHeartwoodView: false
+				isHeartwoodView: props.isHeartwoodView || false
 			}
 		}
 
@@ -74,6 +74,18 @@ const Page = Wrapped => {
 			}
 
 			const state = store.getState()
+
+			// Shall we whitelabel?
+			if (
+				state.auth &&
+				state.auth.Location &&
+				state.auth.Location.Organization &&
+				state.auth.Location.Organization.allowWhiteLabelling &&
+				state.auth.Location.Organization.whiteLabellingStylesheetUrl
+			) {
+				props.orgWhitelabel =
+					state.auth.Location.Organization.whiteLabellingStylesheetUrl
+			}
 
 			if (state.auth && !state.auth.error) {
 				state.auth.role =
@@ -279,6 +291,16 @@ const Page = Wrapped => {
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
+						<Head>
+							{this.props.orgWhitelabel && !this.state.isHeartwoodView && (
+								<link
+									href={this.props.orgWhitelabel}
+									rel="stylesheet"
+									type="text/css"
+									charSet="UTF-8"
+								/>
+							)}
+						</Head>
 						{this.state.isIframed ? (
 							<style jsx global>
 								{this.state.isHeartwoodView
@@ -297,6 +319,17 @@ const Page = Wrapped => {
 			}
 			return (
 				<Container>
+					<Head>
+						{this.props.orgWhitelabel && !this.state.isHeartwoodView && (
+							<link
+								href={this.props.orgWhitelabel}
+								rel="stylesheet"
+								type="text/css"
+								charSet="UTF-8"
+							/>
+						)}
+					</Head>
+
 					{this.state.isIframed && !this.props.isHeartwoodView ? (
 						<style jsx global>
 							{this.state.isHeartwoodView

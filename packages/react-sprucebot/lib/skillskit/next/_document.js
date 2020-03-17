@@ -60,11 +60,6 @@ function (_Document) {
         rel: "stylesheet",
         type: "text/css",
         charSet: "UTF-8"
-      }), this.props.orgWhitelabel && _react.default.createElement("link", {
-        href: this.props.orgWhitelabel,
-        rel: "stylesheet",
-        type: "text/css",
-        charSet: "UTF-8"
       })), _react.default.createElement("body", {
         className: bodyClassName
       }, _react.default.createElement(_document.Main, null), _react.default.createElement(_document.NextScript, null)));
@@ -75,7 +70,7 @@ function (_Document) {
       var _getInitialProps = (0, _asyncToGenerator2.default)(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee(_ref) {
-        var renderPage, query, store, page, _store$getState, auth, config, whitelabel, orgWhitelabel;
+        var renderPage, query, store, page, _store$getState, auth, config, whitelabel;
 
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
@@ -102,20 +97,13 @@ function (_Document) {
               case 5:
                 _store$getState = store.getState(), auth = _store$getState.auth, config = _store$getState.config;
                 whitelabel = config.WHITELABEL;
-
-                //we have any whitelabelling happening?
-                if (auth && auth.Location && auth.Location.Organization && auth.Location.Organization.allowWhiteLabelling && auth.Location.Organization.whiteLabellingStylesheetUrl) {
-                  orgWhitelabel = auth.Location.Organization.whiteLabellingStylesheetUrl;
-                }
-
                 return _context.abrupt("return", (0, _objectSpread2.default)({}, page, {
                   whitelabel: whitelabel,
                   auth: auth,
-                  config: config,
-                  orgWhitelabel: orgWhitelabel
+                  config: config
                 }));
 
-              case 9:
+              case 8:
               case "end":
                 return _context.stop();
             }

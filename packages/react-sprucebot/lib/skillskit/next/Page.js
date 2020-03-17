@@ -33,29 +33,31 @@ var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime/hel
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var _react = _interopRequireWildcard(require("react"));
-
-var actions = _interopRequireWildcard(require("../store/actions"));
-
 var _cookies = _interopRequireDefault(require("cookies"));
+
+var _is_js = _interopRequireDefault(require("is_js"));
 
 var _jsCookies = _interopRequireDefault(require("js-cookies"));
 
-var _index = _interopRequireDefault(require("../index"));
+var _app = require("next/app");
+
+var _head = _interopRequireDefault(require("next/head"));
+
+var _router = _interopRequireWildcard(require("next/router"));
+
+var _qs = _interopRequireDefault(require("qs"));
+
+var _react = _interopRequireWildcard(require("react"));
 
 var _DevControls = _interopRequireDefault(require("../../components/DevControls/DevControls"));
 
 var _Loader = _interopRequireDefault(require("../../components/Loader/Loader"));
 
-var _qs = _interopRequireDefault(require("qs"));
-
 var _lang = _interopRequireDefault(require("../helpers/lang"));
 
-var _router = _interopRequireWildcard(require("next/router"));
+var _index = _interopRequireDefault(require("../index"));
 
-var _app = require("next/app");
-
-var _is_js = _interopRequireDefault(require("is_js"));
+var actions = _interopRequireWildcard(require("../store/actions"));
 
 var debug = require('debug')('@sprucelabs/react-sprucebot');
 
@@ -119,7 +121,7 @@ var Page = function Page(Wrapped) {
         _this.state = {
           attemptingReAuth: !!props.attemptingReAuth,
           isIframed: true,
-          isHeartwoodView: false
+          isHeartwoodView: props.isHeartwoodView || false
         };
         return _this;
       } // Everything here is run server side
@@ -218,7 +220,12 @@ var Page = function Page(Wrapped) {
           }
 
           if (this.props.config.DEV_MODE) {
-            return _react.default.createElement(_app.Container, null, this.state.isIframed ? _react.default.createElement("style", {
+            return _react.default.createElement(_app.Container, null, _react.default.createElement(_head.default, null, this.props.orgWhitelabel && !this.state.isHeartwoodView && _react.default.createElement("link", {
+              href: this.props.orgWhitelabel,
+              rel: "stylesheet",
+              type: "text/css",
+              charSet: "UTF-8"
+            })), this.state.isIframed ? _react.default.createElement("style", {
               jsx: true,
               global: true
             }, this.state.isHeartwoodView ? "body { position: relative }" : "\n\t\t\t\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t\t\t\t}") : null, _react.default.createElement(_DevControls.default, {
@@ -229,7 +236,12 @@ var Page = function Page(Wrapped) {
             })));
           }
 
-          return _react.default.createElement(_app.Container, null, this.state.isIframed && !this.props.isHeartwoodView ? _react.default.createElement("style", {
+          return _react.default.createElement(_app.Container, null, _react.default.createElement(_head.default, null, this.props.orgWhitelabel && !this.state.isHeartwoodView && _react.default.createElement("link", {
+            href: this.props.orgWhitelabel,
+            rel: "stylesheet",
+            type: "text/css",
+            charSet: "UTF-8"
+          })), this.state.isIframed && !this.props.isHeartwoodView ? _react.default.createElement("style", {
             jsx: true,
             global: true
           }, this.state.isHeartwoodView ? "body { position: relative }" : "\n\t\t\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t\t\t}") : null, _react.default.createElement(ConnectedWrapped, (0, _extends2.default)({}, this.props, {
@@ -312,14 +324,18 @@ var Page = function Page(Wrapped) {
                     debug('This looks pretty bad. You are missing a jwt and will probably be unauthorized');
 
                   case 20:
-                    state = store.getState();
+                    state = store.getState(); // Shall we whitelabel?
+
+                    if (state.auth && state.auth.Location && state.auth.Location.Organization && state.auth.Location.Organization.allowWhiteLabelling && state.auth.Location.Organization.whiteLabellingStylesheetUrl) {
+                      props.orgWhitelabel = state.auth.Location.Organization.whiteLabellingStylesheetUrl;
+                    }
 
                     if (state.auth && !state.auth.error) {
                       state.auth.role = state.config.DEV_MODE && getCookie('devRole', req, res) || state.auth.role;
                     }
 
                     if (!ConnectedWrapped.getInitialProps) {
-                      _context2.next = 32;
+                      _context2.next = 33;
                       break;
                     }
 
@@ -328,14 +344,14 @@ var Page = function Page(Wrapped) {
                     _context2.t1 = _objectSpread2.default;
                     _context2.t2 = {};
                     _context2.t3 = props;
-                    _context2.next = 30;
+                    _context2.next = 31;
                     return ConnectedWrapped.getInitialProps.apply(this, args);
 
-                  case 30:
+                  case 31:
                     _context2.t4 = _context2.sent;
                     props = (0, _context2.t1)(_context2.t2, _context2.t3, _context2.t4);
 
-                  case 32:
+                  case 33:
                     redirect = props.redirect || false;
 
                     if (query.back && query.jwt && (query.back.search('sprucebot.com') > 0 || query.back.search('bshop.io') > 0)) {
@@ -360,7 +376,7 @@ var Page = function Page(Wrapped) {
                     }
 
                     if (!(redirect && res)) {
-                      _context2.next = 41;
+                      _context2.next = 42;
                       break;
                     }
 
@@ -371,12 +387,12 @@ var Page = function Page(Wrapped) {
                     res.finished = true;
                     return _context2.abrupt("return");
 
-                  case 41:
+                  case 42:
                     if (redirect) {
                       window.location.href = redirect;
                     }
 
-                  case 42:
+                  case 43:
                     // if we are /unauthorized, don't have a cookie, but have NOT done cookie check
                     if (props.pathname === '/unauthorized' && (!state.auth || !state.auth.role)) {
                       props.attemptingReAuth = true;
@@ -386,7 +402,7 @@ var Page = function Page(Wrapped) {
 
                     return _context2.abrupt("return", props);
 
-                  case 44:
+                  case 45:
                   case "end":
                     return _context2.stop();
                 }
