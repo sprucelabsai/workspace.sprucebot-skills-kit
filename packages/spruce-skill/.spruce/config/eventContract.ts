@@ -1,4 +1,5 @@
-import { ISpruceSchema,SpruceSchemaFieldType } from '@sprucelabs/spruce-types'
+// import { ISpruceSchema,FieldType } from '@sprucelabs/spruce-types'
+import { FieldType } from '@sprucelabs/spruce-types'
 // import {SpruceEvents} from '../interfaces/events-generated'
 
 const contract:{
@@ -6,8 +7,10 @@ const contract:{
 		[eventName: string]: {
 			subscribe?: boolean
 			description: string
-			payload: ISpruceSchema
-			body: ISpruceSchema
+			// payload: ISpruceSchema
+			// body: ISpruceSchema
+			payload: any
+			body: any
 		}
 	}
  } = {
@@ -30,7 +33,7 @@ const contract:{
 				id: 'my-event-payload',
 				fields: {
 					myVar: {
-						type: SpruceSchemaFieldType.Schema,
+						type: FieldType.Schema,
 						hint: 'A required string variable.',
 						isRequired: true,
 						options: {

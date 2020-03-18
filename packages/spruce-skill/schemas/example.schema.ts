@@ -1,11 +1,13 @@
-import { SpruceSchemaFieldType, ISpruceSchema } from '@sprucelabs/spruce-types'
+/* eslint-disable */
+
+import { FieldType, ISpruceSchema } from '@sprucelabs/spruce-types'
 
 const appointmentSchema: ISpruceSchema = {
 	id: 'appointment',
 	name: 'Appointment',
 	fields: {
 		time: {
-			type: SpruceSchemaFieldType.Text
+			type: FieldType.Text
 		}
 	}
 }
@@ -18,16 +20,16 @@ namespace SpruceSchemas.booking.Appointment {
 	}
 }
 
-const x: SpruceSchemas.booking.Appointment.ISchema = {
-	time: 'aalskjdf'
-}
+// const x: SpruceSchemas.booking.Appointment.ISchema = {
+// 	time: 'aalskjdf'
+// }
 
 const exampleSchema: ISpruceSchema = {
 	id: 'example',
 	name: 'Example',
 	fields: {
 		one: {
-			type: SpruceSchemaFieldType.Schema,
+			type: FieldType.Schema,
 			isArray: true,
 			options: {
 				schema: {
@@ -37,7 +39,7 @@ const exampleSchema: ISpruceSchema = {
 						desiredAppointment: {
 							hint: 'This is what we try to get',
 							label: 'Primry appointment',
-							type: SpruceSchemaFieldType.Schema,
+							type: FieldType.Schema,
 							options: {
 								schema: SpruceSchemas.booking.Appointment.schema
 							}
@@ -45,7 +47,7 @@ const exampleSchema: ISpruceSchema = {
 						someOtherAppointment: {
 							hint: 'This is some other appointment if we have it',
 							label: 'Fallbck appointment',
-							type: SpruceSchemaFieldType.Schema,
+							type: FieldType.Schema,
 							options: {
 								schema: SpruceSchemas.booking.Appointment.schema
 							}

@@ -1,8 +1,8 @@
-import { ISpruceSchema, SpruceSchemaFieldType } from '@sprucelabs/spruce-types'
+import { ISpruceSchema, FieldType } from '@sprucelabs/spruce-types'
+import Debug from 'debug'
+const debug = Debug('@sprucelabs/spruce-types')
 
-interface ITemplateSchema extends ISpruceSchema {
-	type: string
-}
+interface ITemplateSchema extends ISpruceSchema {}
 
 export class Parser {
 	public static parseSchema(schema: ISpruceSchema) {
@@ -10,20 +10,22 @@ export class Parser {
 			throw new Error('INVALID_SCHEMA')
 		}
 
-		const templateSchema: ITemplateSchema = {}
+		const templateSchema: ITemplateSchema = schema
 
-		const { id, name, description, fields } = schema
+		const { fields } = schema
 
 		// Parse the fields
 		if (fields) {
 			Object.keys(fields).forEach(field => {
-				if (templateSchema[field]) {
-					templateSchema[field] = {
+				if (templateSchema.fields) {
+					templateSchema.fields[field] = {
 						...fields[field]
 					}
 				}
 			})
 		}
+
+		return templateSchema
 	}
 	/** Recursively parses a payload (or body) to the format we need to generate types. This gets fed into a handlebars template */
 	public static parseDefinition(options: {
@@ -53,7 +55,7 @@ export class Parser {
 				// 	}
 				// 	break
 
-				case SpruceSchemaFieldType.Schema:
+				case FieldType.Schema:
 					isObject = true
 					type = this.parseDefinition({
 						def: item.fields,
@@ -83,24 +85,23 @@ export class Parser {
 	}
 
 	private static isValidSchema(schema: ISpruceSchema) {
+		debug('TODO: Check schema validity', { schema })
 		// TODO: Implement validation
 
 		return true
 	}
 
 	/** Returns a primative TS type for the given data type, defaulting to "any" if none was found  */
-	private static getPrimativeType(
-		primativeType: SpruceSchemaFieldType | string
-	): string {
+	private static getPrimativeType(primativeType: FieldType | string): string {
 		let type = 'any'
 		switch (primativeType) {
-			case SpruceSchemaFieldType.Text:
+			case FieldType.Text:
 				type = 'string'
 				break
-			case SpruceSchemaFieldType.Boolean:
+			case FieldType.Boolean:
 				type = 'boolean'
 				break
-			case SpruceSchemaFieldType.Number:
+			case FieldType.Number:
 				type = 'number'
 				break
 			default:

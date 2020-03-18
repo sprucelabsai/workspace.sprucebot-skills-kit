@@ -1,5 +1,3 @@
-import request from 'superagent'
-import fs from 'fs'
 import log from './lib/log'
 import { MercuryAdapter } from './MercuryAdapter'
 import MercuryAdapterSocketIO from './adapters/MercuryAdapterSocketIO'

@@ -26,11 +26,11 @@ export interface ISpruceAcls {
 			type: 'location' | 'organization'
 			/** 🌲🤖 The default permission to apply if no override is set. This can be overridden for Jobs. */
 			defaults: {
+				[key: string]: boolean | undefined
 				guest?: boolean
 				teammate?: boolean
 				manager?: boolean
 				groupManager?: boolean
-				[key: string]: boolean | undefined
 			}
 		}
 	}
