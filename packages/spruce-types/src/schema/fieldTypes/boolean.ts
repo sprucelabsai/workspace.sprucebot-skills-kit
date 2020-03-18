@@ -1,9 +1,8 @@
-import { ISpruceSchemaFieldBase } from '../schema'
-import { SpruceSchemaFieldType } from '../fieldTypes'
+import { IFieldBase } from '../schema'
+import { FieldType } from '../fieldTypes'
 
-export default interface ISpruceSchemaFieldTypeBoolean
-	extends ISpruceSchemaFieldBase {
-	type: SpruceSchemaFieldType.Boolean
+export default interface IFieldTypeBoolean extends IFieldBase {
+	type: FieldType.Boolean
 	value?: boolean
 	defaultValue?: boolean
 	options?: {}

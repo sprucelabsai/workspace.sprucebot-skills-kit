@@ -1,27 +1,29 @@
-import ISpruceSchemaFieldTypeBoolean from './boolean'
-import ISpruceSchemaFieldTypeText from './text'
-import ISpruceSchemaFieldTypeSelect from './select'
-import ISpruceSchemaFieldTypeDuration from './duration'
-import ISpruceSchemaFieldTypeAddress from './address'
-import ISpruceSchemaFieldTypePhone from './phone'
-import ISpruceSchemaFieldTypeSchema from './schema'
-import ISpruceSchemaFieldTypeRaw from './raw'
-import ISpruceSchemaFieldTypeNumber from './number'
-import ISpruceSchemaFieldTypeDateTime from './dateTime'
+import IFieldBoolean from './boolean'
+import IFieldText from './text'
+import IFieldSelect from './select'
+import IFieldDuration from './duration'
+import IFieldId from './id'
+import IFieldAddress from './address'
+import IFieldPhone from './phone'
+import IFieldSchema from './schema'
+import IFieldRaw from './raw'
+import IFieldNumber from './number'
+import IFieldDateTime from './dateTime'
 
-export type ISpruceSchemaField =
-	| ISpruceSchemaFieldTypeBoolean
-	| ISpruceSchemaFieldTypeSelect
-	| ISpruceSchemaFieldTypeDuration
-	| ISpruceSchemaFieldTypeText
-	| ISpruceSchemaFieldTypeAddress
-	| ISpruceSchemaFieldTypePhone
-	| ISpruceSchemaFieldTypeSchema
-	| ISpruceSchemaFieldTypeRaw
-	| ISpruceSchemaFieldTypeNumber
-	| ISpruceSchemaFieldTypeDateTime
+export type IField =
+	| IFieldBoolean
+	| IFieldSelect
+	| IFieldDuration
+	| IFieldId
+	| IFieldText
+	| IFieldAddress
+	| IFieldPhone
+	| IFieldSchema
+	| IFieldRaw
+	| IFieldNumber
+	| IFieldDateTime
 
-export enum SpruceSchemaFieldType {
+export enum FieldType {
 	/** a string, something like varchar(255), configure size using options to impact rendering and storage length */
 	Text = 'text',
 	/** a true/false, renders as a toggle or checkbox, or a Y/N if used in cli */
@@ -41,16 +43,19 @@ export enum SpruceSchemaFieldType {
 	/** points to another schema */
 	Schema = 'schema',
 	/** unique id */
-	Id = 'id'
+	Id = 'id',
+	/** 🛑 Core API only */
+	Raw = 'raw'
 }
 
 /** export everything */
-export { default as ISpruceSchemaFieldTypeBoolean } from './boolean'
-export { default as ISpruceSchemaFieldTypeText } from './text'
-export { default as ISpruceSchemaFieldTypeDuration } from './duration'
-export { default as ISpruceSchemaFieldTypeSelect } from './select'
-export { default as ISpruceSchemaFieldTypeAddress } from './address'
-export { default as ISpruceSchemaFieldTypePhone } from './phone'
-export { default as ISpruceSchemaFieldTypeSchema } from './schema'
-export { default as ISpruceSchemaFieldTypeRaw } from './raw'
-export { default as ISpruceSchemaFieldTypeNumber } from './number'
+export { default as IFieldBoolean } from './boolean'
+export { default as IFieldText } from './text'
+export { default as IFieldDuration } from './duration'
+export { default as IFieldId } from './id'
+export { default as IFieldSelect } from './select'
+export { default as IFieldAddress } from './address'
+export { default as IFieldPhone } from './phone'
+export { default as IFieldSchema } from './schema'
+export { default as IFieldRaw } from './raw'
+export { default as IFieldNumber } from './number'

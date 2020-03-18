@@ -1,25 +1,24 @@
-import { ISpruceSchemaFieldBase } from '../schema'
-import { SpruceSchemaFieldType } from '../fieldTypes'
+import { IFieldBase } from '../schema'
+import { FieldType } from '../fieldTypes'
 
 /** a duration value object */
-export interface ISpruceSchemaFieldTypeDurationValue {
+export interface IFieldTypeDurationValue {
 	hours: number
 	minutes: number
 	seconds: number
 	ms: number
 }
 
-export default interface ISpruceSchemaFieldTypeDuration
-	extends ISpruceSchemaFieldBase {
-	type: SpruceSchemaFieldType.Duration
-	value?: ISpruceSchemaFieldTypeDurationValue
-	defaultValue?: ISpruceSchemaFieldTypeDurationValue
+export default interface IFieldTypeDuration extends IFieldBase {
+	type: FieldType.Duration
+	value?: IFieldTypeDurationValue
+	defaultValue?: IFieldTypeDurationValue
 	options?: {
 		/** how it should be rendered, defaults to {{h}}h{{m}}min */
 		durationFormat?: string
 		/** the minimum duration we'll allow of this field */
-		minDuration?: ISpruceSchemaFieldTypeDurationValue
+		minDuration?: IFieldTypeDurationValue
 		/** the max duration possible with this field */
-		maxDuration?: ISpruceSchemaFieldTypeDurationValue
+		maxDuration?: IFieldTypeDurationValue
 	}
 }

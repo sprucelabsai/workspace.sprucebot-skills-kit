@@ -1,12 +1,8 @@
-import {
-	SpruceSchemaFieldType,
-	ISpruceSchemaFieldTypeSchema,
-	ISpruceSchemaFieldTypeText
-} from './fieldTypes'
+import { FieldType, IField } from './fieldTypes'
 
-export interface ISpruceSchemaFieldBase {
+export interface IFieldBase {
 	/** the type of field this is, will strongly type props for us */
-	type: SpruceSchemaFieldType
+	type: FieldType
 	/** generates in only for local interface and does not share with other skills */
 	isPrivate?: boolean
 	/** the permissions used in different contexts */
@@ -40,6 +36,7 @@ export interface ISpruceSchemaFieldBase {
 	options?: Record<string, any>
 }
 
+/** A schema defines the data structure of something */
 export interface ISpruceSchema {
 	/** give this schema a machine friendly id */
 	id: string
@@ -48,11 +45,9 @@ export interface ISpruceSchema {
 	/** a brief human readable explanation of this schema */
 	description?: string
 	/** how we type dynamic keys on this schema, if defined you cannot define fields */
-	dynamicKeySignature?: ISpruceSchemaFieldBase & { key: string }
+	dynamicKeySignature?: IFieldBase & { key: string }
 	/** all the fields, keyed by name, required if no dynamicKeySignature is set */
 	fields?: {
-		[fieldName: string]:
-			| ISpruceSchemaFieldTypeSchema
-			| ISpruceSchemaFieldTypeText
+		[fieldName: string]: IField
 	}
 }

@@ -1,18 +1,17 @@
-import { ISpruceSchemaFieldBase } from '../schema'
-import { SpruceSchemaFieldType } from '../fieldTypes'
+import { IFieldBase } from '../schema'
+import { FieldType } from '../fieldTypes'
 
-export interface ISpruceSchemaFieldTypeSelectChoice {
+export interface IFieldTypeSelectChoice {
 	/**  machine readable way to identify this choice */
 	value: string
 	/** human readable label for when selecting a choice */
 	label: string
 }
-export default interface ISpruceSchemaFieldTypeSelect
-	extends ISpruceSchemaFieldBase {
-	type: SpruceSchemaFieldType.Select
+export default interface IFieldTypeSelect extends IFieldBase {
+	type: FieldType.Select
 	value?: string
 	defaultValue?: string
 	options?: {
-		choices: ISpruceSchemaFieldTypeSelectChoice[]
+		choices: IFieldTypeSelectChoice[]
 	}
 }

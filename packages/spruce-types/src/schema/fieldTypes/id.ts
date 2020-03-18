@@ -1,9 +1,8 @@
-import { ISpruceSchemaFieldBase } from '../schema'
-import { SpruceSchemaFieldType } from '../fieldTypes'
+import { IFieldBase } from '../schema'
+import { FieldType } from '../fieldTypes'
 
-export default interface ISpruceSchemaFieldTypeId
-	extends ISpruceSchemaFieldBase {
-	type: SpruceSchemaFieldType.Id
+export default interface IFieldTypeId extends IFieldBase {
+	type: FieldType.Id
 	value?: string
 	defaultValue?: string
 	options?: {}

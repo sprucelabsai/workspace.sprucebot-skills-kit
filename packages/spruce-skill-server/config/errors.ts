@@ -1,7 +1,7 @@
 // TODO: Change this object type to "ISpruceErrors" when TS supports exact types: https://github.com/Microsoft/TypeScript/issues/12936
-// import { ISpruceErrors } from '../interfaces/errors'
+import { ISpruceErrors } from '../interfaces/errors'
 
-const errors = {
+const errors: ISpruceErrors = {
 	UNKNOWN: {
 		code: 500,
 		status: 'failure',

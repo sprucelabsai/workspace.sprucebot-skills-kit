@@ -1,6 +1,6 @@
 import { ISpruceSchema } from '../schema'
-import { SpruceSchemaFieldType } from '../fieldTypes'
-import { ISpruceSchemaFieldTypeSelectChoice } from '../fieldTypes/select'
+import { FieldType } from '../fieldTypes'
+import { IFieldTypeSelectChoice } from '../fieldTypes/select'
 
 const roleSchema: ISpruceSchema = {
 	id: 'role',
@@ -9,12 +9,12 @@ const roleSchema: ISpruceSchema = {
 	fields: {
 		slug: {
 			label: 'Slug',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: true
 		},
 		name: {
 			label: 'Name',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: true
 		}
 	}
@@ -30,7 +30,7 @@ export enum RoleSlugs {
 	Guest = 'guest'
 }
 
-export const roleSelectChoices: ISpruceSchemaFieldTypeSelectChoice[] = [
+export const roleSelectChoices: IFieldTypeSelectChoice[] = [
 	{
 		value: 'owner',
 		label: 'Owner'

@@ -1,5 +1,5 @@
 import { ISpruceSchema } from '../schema'
-import { SpruceSchemaFieldType } from '../fieldTypes'
+import { FieldType } from '../fieldTypes'
 
 const locationSchema: ISpruceSchema = {
 	id: 'location',
@@ -9,31 +9,31 @@ const locationSchema: ISpruceSchema = {
 	fields: {
 		id: {
 			label: 'Id',
-			type: SpruceSchemaFieldType.Id
+			type: FieldType.Id
 		},
 		name: {
 			label: 'Name',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: true
 		},
 		num: {
 			label: 'Store number',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			hint: 'You can use other symbols, like # or dashes. #123 or 32-US-5'
 		},
 		isPublic: {
 			label: 'Public',
-			type: SpruceSchemaFieldType.Boolean,
+			type: FieldType.Boolean,
 			hint: 'Is this location viewable by guests?',
 			defaultValue: false
 		},
 		phone: {
 			label: 'Main Phone',
-			type: SpruceSchemaFieldType.Phone
+			type: FieldType.Phone
 		},
 		timezone: {
 			label: 'Timezone',
-			type: SpruceSchemaFieldType.Select,
+			type: FieldType.Select,
 			options: {
 				choices: [
 					{
@@ -252,7 +252,7 @@ const locationSchema: ISpruceSchema = {
 		},
 		address: {
 			label: 'Address',
-			type: SpruceSchemaFieldType.Address,
+			type: FieldType.Address,
 			isRequired: true
 		}
 	}

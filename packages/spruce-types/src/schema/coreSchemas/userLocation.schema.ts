@@ -1,5 +1,5 @@
 import { ISpruceSchema } from '../schema'
-import { SpruceSchemaFieldType } from '../fieldTypes'
+import { FieldType } from '../fieldTypes'
 import { roleSelectChoices } from './role.schema'
 
 const userLocationSchema: ISpruceSchema = {
@@ -9,11 +9,11 @@ const userLocationSchema: ISpruceSchema = {
 	fields: {
 		id: {
 			label: 'Id',
-			type: SpruceSchemaFieldType.Id
+			type: FieldType.Id
 		},
 		role: {
 			label: 'Name',
-			type: SpruceSchemaFieldType.Select,
+			type: FieldType.Select,
 			isRequired: true,
 			options: {
 				choices: roleSelectChoices
@@ -21,11 +21,11 @@ const userLocationSchema: ISpruceSchema = {
 		},
 		status: {
 			label: 'Status',
-			type: SpruceSchemaFieldType.Text
+			type: FieldType.Text
 		},
 		visits: {
 			label: 'Total visits',
-			type: SpruceSchemaFieldType.Number,
+			type: FieldType.Number,
 			isRequired: true,
 			options: {
 				choices: roleSelectChoices
@@ -33,11 +33,11 @@ const userLocationSchema: ISpruceSchema = {
 		},
 		lastRecordedVisit: {
 			label: 'Last visit',
-			type: SpruceSchemaFieldType.DateTime
+			type: FieldType.DateTime
 		},
 		job: {
 			label: 'Job',
-			type: SpruceSchemaFieldType.Schema,
+			type: FieldType.Schema,
 			isRequired: true,
 			options: {
 				schemaId: 'job'
@@ -45,7 +45,7 @@ const userLocationSchema: ISpruceSchema = {
 		},
 		location: {
 			label: 'Location',
-			type: SpruceSchemaFieldType.Schema,
+			type: FieldType.Schema,
 			isRequired: true,
 			options: {
 				schemaId: 'location'
@@ -53,7 +53,7 @@ const userLocationSchema: ISpruceSchema = {
 		},
 		user: {
 			label: 'User',
-			type: SpruceSchemaFieldType.Schema,
+			type: FieldType.Schema,
 			isRequired: true,
 			options: {
 				schemaId: 'user'

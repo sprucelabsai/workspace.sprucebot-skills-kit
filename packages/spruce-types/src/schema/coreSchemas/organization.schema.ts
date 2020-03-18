@@ -1,5 +1,5 @@
 import { ISpruceSchema } from '../schema'
-import { SpruceSchemaFieldType } from '../fieldTypes'
+import { FieldType } from '../fieldTypes'
 
 const organizationSchema: ISpruceSchema = {
 	id: 'organization',
@@ -8,16 +8,16 @@ const organizationSchema: ISpruceSchema = {
 	fields: {
 		id: {
 			label: 'Id',
-			type: SpruceSchemaFieldType.Id
+			type: FieldType.Id
 		},
 		name: {
 			label: 'Name',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: true
 		},
 		slug: {
 			label: 'Slug',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: true
 		}
 	}

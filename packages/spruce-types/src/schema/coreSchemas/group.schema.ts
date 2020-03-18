@@ -1,5 +1,5 @@
 import { ISpruceSchema } from '../schema'
-import { SpruceSchemaFieldType } from '../fieldTypes'
+import { FieldType } from '../fieldTypes'
 import { roleSelectChoices } from './role.schema'
 import aclSchema from './acl.schema'
 
@@ -11,23 +11,23 @@ const groupSchema: ISpruceSchema = {
 	fields: {
 		id: {
 			label: 'Id',
-			type: SpruceSchemaFieldType.Id
+			type: FieldType.Id
 		},
 		isDefault: {
 			label: 'Is default',
 			hint:
 				'Is this job one that comes with every org? Mapped to roles (owner, groupManager, managar, guest).',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: true
 		},
 		name: {
 			label: 'Name',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: true
 		},
 		role: {
 			label: 'Role',
-			type: SpruceSchemaFieldType.Select,
+			type: FieldType.Select,
 			isRequired: true,
 			options: {
 				choices: roleSelectChoices
@@ -35,14 +35,14 @@ const groupSchema: ISpruceSchema = {
 		},
 		inStoreAcls: {
 			label: 'On work permissions',
-			type: SpruceSchemaFieldType.Schema,
+			type: FieldType.Schema,
 			options: {
 				schemaId: 'acl'
 			}
 		},
 		acls: {
 			label: 'Off work permissions',
-			type: SpruceSchemaFieldType.Schema,
+			type: FieldType.Schema,
 			options: {
 				schemaId: 'acl'
 			}

@@ -1,5 +1,5 @@
 import { ISpruceSchema } from '../schema'
-import { SpruceSchemaFieldType } from '../fieldTypes'
+import { FieldType } from '../fieldTypes'
 
 const profileImageSchema: ISpruceSchema = {
 	id: 'profileImage',
@@ -8,22 +8,22 @@ const profileImageSchema: ISpruceSchema = {
 	fields: {
 		profile60: {
 			label: '60x60',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: true
 		},
 		profile150: {
 			label: '150x150',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: true
 		},
 		'profile60@2x': {
 			label: '60x60',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: true
 		},
 		'profile150@2x': {
 			label: '150x150',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: true
 		}
 	}
@@ -36,34 +36,34 @@ const userSchema: ISpruceSchema = {
 	fields: {
 		id: {
 			label: 'Id',
-			type: SpruceSchemaFieldType.Id
+			type: FieldType.Id
 		},
 		firstName: {
 			label: 'First name',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: false
 		},
 		lastName: {
 			label: 'Last name',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			isRequired: false
 		},
 		casualName: {
 			label: 'Casual name',
-			type: SpruceSchemaFieldType.Text,
+			type: FieldType.Text,
 			hint: 'Generated name that defaults to Friend!',
 			isRequired: true
 		},
 		profileImages: {
 			label: 'Profile photos',
-			type: SpruceSchemaFieldType.Schema,
+			type: FieldType.Schema,
 			options: {
 				schema: profileImageSchema
 			}
 		},
 		defaultProfileImages: {
 			label: 'Default profile photos',
-			type: SpruceSchemaFieldType.Schema,
+			type: FieldType.Schema,
 			isRequired: true,
 			options: {
 				schema: profileImageSchema

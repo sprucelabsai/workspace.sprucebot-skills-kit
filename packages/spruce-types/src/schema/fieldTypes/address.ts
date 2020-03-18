@@ -1,7 +1,7 @@
-import { ISpruceSchemaFieldBase } from '../schema'
-import { SpruceSchemaFieldType } from './index'
+import { IFieldBase } from '../schema'
+import { FieldType } from './index'
 
-export interface ISpruceSchemaFieldTypeAddressValue {
+export interface IFieldTypeAddressValue {
 	street1: string
 	street2?: string
 	city: string
@@ -10,10 +10,9 @@ export interface ISpruceSchemaFieldTypeAddressValue {
 	zip: string
 }
 
-export default interface ISpruceSchemaFieldTypeAddress
-	extends ISpruceSchemaFieldBase {
-	type: SpruceSchemaFieldType.Address
-	value?: ISpruceSchemaFieldTypeAddressValue
-	defaultValue?: ISpruceSchemaFieldTypeAddressValue
+export default interface IFieldTypeAddress extends IFieldBase {
+	type: FieldType.Address
+	value?: IFieldTypeAddressValue
+	defaultValue?: IFieldTypeAddressValue
 	options?: {}
 }

@@ -34,7 +34,8 @@ const contract:{
 						hint: 'A required string variable.',
 						isRequired: true,
 						options: {
-							schemaId: 'example'
+							// <slug>_<id>
+							schemaId: 'workspace_example'
 						}
 					}
 				}
