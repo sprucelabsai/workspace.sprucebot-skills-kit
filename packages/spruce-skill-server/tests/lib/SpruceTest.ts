@@ -129,7 +129,10 @@ export default class Base<Context> {
 
 	protected async beforeBase(options?: Record<string, any>): Promise<void> {
 		try {
-			const { koa, server } = await require(`${this.basePath}/server/server`)
+			console.log('BEFORE BASE', process.cwd())
+			const { koa, server } = await require(`${
+				this.basePath
+			}/.spruce/server/server`)
 
 			this.server = server
 			this.koa = koa

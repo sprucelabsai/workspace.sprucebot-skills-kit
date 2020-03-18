@@ -7,6 +7,8 @@ import Sprucebot from '@sprucelabs/spruce-node'
 import { ISkillContext } from '../interfaces/ctx.js'
 import config from 'config'
 
+console.log({config})
+
 const {
 	API_KEY,
 	API_HOST,

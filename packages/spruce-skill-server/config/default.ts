@@ -61,7 +61,12 @@ export default function SpruceConfig<
 		[]) as settingsType
 	const errors = (optionalRequire(`${baseDirectory}/config/errors`) ||
 		{}) as errorsType
-	const acl = (optionalRequire(`${baseDirectory}/config/acl`) || {}) as aclType
+	const defaultAcl =
+		process.env.TESTING === 'true'
+			? require(`${__dirname}/../tests/config/acl`).default
+			: {}
+	const acl = (optionalRequire(`${baseDirectory}/config/acl`) ||
+		defaultAcl) as aclType
 	const eventContract = (optionalRequire(
 		`${baseDirectory}/config/eventContract`
 	) || { events: {} }) as eventContractType
@@ -71,6 +76,8 @@ export default function SpruceConfig<
 	const dotSettings = optionalRequire(
 		`${baseDirectory}/.spruce/settings.json`
 	) || { Skill: {} }
+
+	console.log('DOT SETTINGS', `${baseDirectory}/.spruce/settings.json`)
 
 	return {
 		/**
@@ -185,7 +192,7 @@ export default function SpruceConfig<
 		 */
 		DATABASE_URL_TESTING:
 			process.env.DATABASE_URL_TESTING ||
-			`sqlite:${baseDirectory}/../tmp/testing.db`,
+			`sqlite:${baseDirectory}/tmp/testing.db`,
 		/**
 		 * 🌲🤖 Your Skill's name
 		 */

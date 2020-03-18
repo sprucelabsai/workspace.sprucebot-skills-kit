@@ -30,7 +30,7 @@
 		"watch": "chokidar \"**/*.ts\" \"**/*.js\" \"**/*.gql\" -i \"build/**/*\" -i \"src/generated/**/*\" -c \"npm run build\"",
 		"clean": "rm -rf build/",
 		"lint": "eslint '**/*.ts' && tsc -p . --noEmit",
-		"test": "mocha -r ts-node/register/transpile-only --exit 'tests/**/*Tests*' --inspect=4080"
+		"test": "mocha -r ts-node/register/transpile-only --exit 'tests/**/*Tests*'"
 	},
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"

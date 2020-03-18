@@ -11,14 +11,17 @@ class GQLMethodTests extends SpruceTest<ISpruceContext> {
 		it('Can not call query as mutation', () => this.doQueryAsMutate())
 		it('Can call mutation', () => this.doMutate())
 		it('Can not call mutation as query', () => this.doMutateAsQuery())
-		it('can run simple query against sdl defined schema', () =>
+
+		// TODO: Move SDL test schema into spruce-skill-server. See gql/resolvers/sdl.ts.TODO
+		it.skip('can run simple query against sdl defined schema', () =>
 			this.canRunSimpleQuery())
-		it('can get first user model against shorthand defined schema', () =>
+		it.skip('can get first user model against shorthand defined schema', () =>
 			this.canGetFirstUserModel())
-		it('can get run full relay/sequelize query against shorthand defined schema', () =>
+		it.skip('can get run full relay/sequelize query against shorthand defined schema', () =>
 			this.canRunGqlSequelizeQuery())
 
-		it('can get the right type of union', () => this.canGetProperUnionType())
+		it.skip('can get the right type of union', () =>
+			this.canGetProperUnionType())
 	}
 
 	public async doQuery(): Promise<void> {

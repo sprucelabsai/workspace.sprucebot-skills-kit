@@ -19,7 +19,7 @@
 		"npm": "^6"
 	},
 	"scripts": {
-		"build": "npm run clean && npm run build:server && npm run build:config && npm run build:interface",
+		"#build": "npm run clean && npm run build:server && npm run build:config && npm run build:interface",
 		"build:next": "next build web && next export web",
 		"build:interface": "NODE_CONFIG_DIR=./build/config next build interface",
 		"build:server": "tsc --project tsconfig.server.json | true && npm run build:copy-gql",
@@ -31,9 +31,9 @@
 		"local": "npm run kill-inspect && NODE_CONFIG_DIR=./.spruce/config tsnd --ignore-watch interface/.next --ignore-watch node_modules  --ignore-watch generated.ts --project tsconfig.server.json --inspect=4080 --respawn --transpileOnly ./.spruce/server/server.ts",
 		"kill-inspect": "kill-port 4080",
 		"interface": "next ./interface -p 3080",
-		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx . && tsc -p . --noEmit",
+		"#lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx . && tsc -p . --noEmit",
 		"tsc": "tsc",
-		"test": "rm tmp/testing.db | true && mkdir -p tmp/ | true && TS_NODE_PROJECT=tsconfig.server.json PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit 'server/tests/**/*Tests*' --inspect=4080",
+		"#test": "rm tmp/testing.db | true && mkdir -p tmp/ | true && TS_NODE_PROJECT=tsconfig.server.json PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit 'server/tests/**/*Tests*' --inspect=4080",
 		"test:server": "rm tmp/testing.db | true && mkdir -p tmp/ | true && TS_NODE_PROJECT=tsconfig.server.json PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit 'server/tests/**/*Tests*' --inspect=4080",
 		"test:server:single": "rm tmp/testing.db | true && mkdir -p tmp/ | true && TS_NODE_PROJECT=tsconfig.server.json PORT=3010 BLUEBIRD_W_FORGOTTEN_RETURN=0 ALLOW_NON_SSL=true ORM_LOGGING=false TESTING=true API_ONLY=true DB_MIGRATIONS=false mocha -r ts-node/register/transpile-only --exit",
 		"#icon": "svgo icon/icon.svg",
