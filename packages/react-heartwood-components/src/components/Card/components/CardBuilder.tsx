@@ -32,7 +32,7 @@ export interface ICardBuilderBodyProps extends IHWCardBuilderBody {
 }
 
 export interface ICardBuilderProps extends IHWCardBuilder {
-	body?: IHWCardBuilder['body'] & { children?: any }
+	body?: IHWCardBuilder['body'] & { children?: any } | null
 
 	/** so we can use directly and set our own children */
 	children?: React.ReactNode
