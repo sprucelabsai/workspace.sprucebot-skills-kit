@@ -109,7 +109,7 @@ workflows:
             branches:
               ignore:
                 - master
-                - v9-canary
+                - canary
       - pre_release:
           requires:
             - test
@@ -121,11 +121,11 @@ workflows:
           filters:
             branches:
               only:
-                - v9-canary
+                - canary
       - dev_release:
           requires:
             - test
           filters:
             branches:
               only:
-                - v9
+                - develop
