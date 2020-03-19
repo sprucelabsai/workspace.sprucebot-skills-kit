@@ -83,9 +83,13 @@ function getServer(options: {
 }): Promise<Server> {
 	const { koa, port } = options
 	return new Promise((resolve, reject) => {
-		const server = koa.listen(port, () => {
-			resolve(server)
-		})
+		try {
+			const server = koa.listen(port, () => {
+				resolve(server)
+			})
+		} catch (e) {
+			reject(e)
+		}
 	})
 }
 
@@ -492,18 +496,6 @@ async function serve<ISkillContext extends ISpruceContext>(
 	/*======================================
         =              	Serve            	   =
         ======================================*/
-	// TODO better handling hosting only server or interface
-	// const server = koa.listen(port, () => {
-	// 	// @ts-ignore
-	// 	gqlRouter(koa, gqlOptions, server)
-	// 	gqlListeners(koa as any, gqlOptions)
-
-	// 	console.clear()
-	// 	console.log(
-	// 		` 🌲  Skill launched (Port ${(server.address() as AddressInfo).port})`
-	// 	)
-	// })
-
 	const server = await getServer({ koa, port })
 	// @ts-ignore
 	gqlRouter(koa, gqlOptions, server)
