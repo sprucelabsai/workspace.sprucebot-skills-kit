@@ -889,7 +889,7 @@ export enum IHWSprucebotAvatarStateOfMind {
   Accomplished = 'accomplished'
 }
 
-/** A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out  */
+/** A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out */
 export type IHWSprucebotTypedMessage = {
   __typename?: 'SprucebotTypedMessage',
   /** Id for view caching */
