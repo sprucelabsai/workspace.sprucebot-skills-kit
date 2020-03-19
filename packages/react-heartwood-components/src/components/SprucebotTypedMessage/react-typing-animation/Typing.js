@@ -15,11 +15,17 @@ class Typing extends Component {
 		text: []
 	}
 
+	hasMounted = false
+	isPaused = true
+	/** was play hit too soon */
+	pendingPlay = false
+
 	componentDidMount() {
 		this.hasMounted = true
 		this.resetState().then(async () => {
-			await this.props.onStartedTyping()
-			requestAnimationFrame(this.beginTyping)
+			if (this.props.beginTypingOnMount || this.pendingPlay) {
+				this.play()
+			}
 		})
 	}
 
@@ -28,11 +34,62 @@ class Typing extends Component {
 	}
 
 	updateState = async state => {
-		if (this.hasMounted) {
-			return new Promise(resolve => {
-				this.setState(state, resolve)
-			})
+		if (!this.hasMounted) {
+			return
 		}
+		return new Promise(resolve => {
+			this.setState(state, resolve)
+		})
+	}
+
+	play = async () => {
+		if (!this.hasMounted) {
+			this.pendingPlay = true
+			return
+		}
+		if (this.isPaused) {
+			this.isPaused = false
+			await this.props.onStartedTyping()
+			requestAnimationFrame(this.beginTyping)
+		}
+	}
+
+	pause = () => {
+		if (!this.isPaused) {
+			this.isPaused = true
+			this.props.onPausedTyping()
+		}
+	}
+
+	addToTypingQueue = async lines => {
+		const { toType } = this.state
+		const newToType = [...toType, ...lines]
+		return this.updateState({ toType: newToType, isFinished: false })
+	}
+
+	reset = async () => {
+		const wasPaused = this.isPaused
+
+		const { text } = this.state
+
+		// nothing to reset
+		if (text.length === 0) {
+			return
+		}
+
+		this.isPaused = true
+		await this.updateState({ text: [] })
+
+		// give pause time to hit if a timeout as pending
+		return new Promise(resolve => {
+			setTimeout(async () => {
+				await this.resetState()
+				if (!wasPaused) {
+					await this.play(true)
+				}
+				resolve()
+			}, 100)
+		})
 	}
 
 	resetState = async () =>
@@ -50,6 +107,9 @@ class Typing extends Component {
 		})
 
 	beginTyping = async () => {
+		if (this.isPaused) {
+			return
+		}
 		const cursor = { ...this.state.cursor }
 
 		if (this.state.toType.length > 0 || cursor.numToErase > 0) {
@@ -62,6 +122,8 @@ class Typing extends Component {
 			if (this.props.loop) {
 				await this.resetState()
 			} else {
+				// pause when done
+				this.isPaused = true
 				return this.updateState({ isFinished: true })
 			}
 		}
@@ -91,9 +153,17 @@ class Typing extends Component {
 		return this.animateNextStep()
 	}
 
-	animateNextStep = async () =>
-		new Promise(resolve => {
+	animateNextStep = async () => {
+		if (this.isPaused) {
+			return
+		}
+
+		return new Promise(resolve => {
 			setTimeout(async () => {
+				if (this.isPaused) {
+					return
+				}
+
 				const { cursor, toType } = this.state
 
 				await this.updateState({ cursor: { ...cursor, delay: 0 } })
@@ -109,9 +179,13 @@ class Typing extends Component {
 				resolve()
 			}, this.state.cursor.delay)
 		})
+	}
 
-	typeCharacter = async () =>
-		new Promise(async resolve => {
+	typeCharacter = async () => {
+		if (this.isPaused) {
+			return
+		}
+		return new Promise(async resolve => {
 			const toType = [...this.state.toType]
 			const text = [...this.state.text]
 			const cursor = { ...this.state.cursor }
@@ -133,8 +207,12 @@ class Typing extends Component {
 
 			setTimeout(resolve, randomize(cursor.speed))
 		})
+	}
 
 	erase = async () => {
+		if (this.isPaused) {
+			return
+		}
 		return new Promise(async resolve => {
 			const text = [...this.state.text]
 			const cursor = { ...this.state.cursor }
@@ -187,16 +265,11 @@ class Typing extends Component {
 
 	render() {
 		const { children, className, cursorClassName, hideCursor } = this.props
-		const { isFinished, text } = this.state
+		const { text } = this.state
 
 		const cursor = this.props.cursor || <Cursor className={cursorClassName} />
 
-		const filled = replaceTreeText(
-			children,
-			text,
-			cursor,
-			isFinished || hideCursor
-		)
+		const filled = replaceTreeText(children, text, cursor, hideCursor)
 
 		return <div className={className}>{filled}</div>
 	}
@@ -211,9 +284,11 @@ Typing.propTypes = {
 	startDelay: PropTypes.number,
 	loop: PropTypes.bool,
 	onStartedTyping: PropTypes.func,
+	onPausedTyping: PropTypes.func,
 	onBeforeType: PropTypes.func,
 	onAfterType: PropTypes.func,
-	onFinishedTyping: PropTypes.func
+	onFinishedTyping: PropTypes.func,
+	beginTypingOnMount: PropTypes.bool
 }
 
 Typing.defaultProps = {
@@ -222,7 +297,9 @@ Typing.defaultProps = {
 	speed: 50,
 	startDelay: 0,
 	loop: false,
+	beginTypingOnMount: true,
 	onStartedTyping: () => {},
+	onPausedTyping: () => {},
 	onBeforeType: () => {},
 	onAfterType: () => {},
 	onFinishedTyping: () => {}

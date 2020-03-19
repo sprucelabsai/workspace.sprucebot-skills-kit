@@ -13,7 +13,7 @@ Delay.updateCursor = (cursor, { ms }) => {
 
 Delay.getName = () => 'Delay'
 
-Delay.PropTypes = {
+Delay.propTypes = {
 	ms: PropTypes.number
 }
 

@@ -17,7 +17,7 @@ Reset.updateCursor = (cursor, { count, delay, speed }) => {
 
 Reset.getName = () => 'Reset'
 
-Reset.PropTypes = {
+Reset.propTypes = {
 	delay: PropTypes.number
 }
 

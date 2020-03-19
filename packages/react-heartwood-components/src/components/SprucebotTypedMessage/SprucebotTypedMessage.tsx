@@ -16,6 +16,7 @@ import SprucebotAvatar from '../SprucebotAvatar/SprucebotAvatar'
 export interface ISprucebotTypedMessageState {
 	sentenceIdxBeingTyped: number
 	lastLineNum: number
+	sentenceQueue: IHWSprucebotTypedMessageSentence[]
 }
 
 const SIZE_MAP = {
@@ -33,12 +34,84 @@ export default class SprucebotTypedMessage extends Component<
 		size: IHWSprucebotTypedMessageSize.Small
 	}
 
+	typingRef = React.createRef<Typing>()
+
 	constructor(props: IHWSprucebotTypedMessage) {
 		super(props)
 		this.state = {
 			sentenceIdxBeingTyped: 0,
-			lastLineNum: 0
+			lastLineNum: 0,
+			sentenceQueue: []
 		}
+	}
+
+	addToTypingQueue = async (sentence: IHWSprucebotTypedMessageSentence) => {
+		if (this.typingRef.current) {
+			const { sentences } = this.props
+			const { sentenceQueue } = this.state
+
+			// add sentence to the queue and re-render of children of Typing
+			this.setState({ sentenceQueue: [...sentenceQueue, sentence] })
+
+			// need to calculate delete count or reset
+			const all = [...sentences, ...sentenceQueue]
+			const last = all.pop()
+
+			let words = sentence.words
+			const toAdd: React.ReactNode[] = []
+
+			if (last) {
+				const firstUniqueIdx = this.findFirstUniqueCharacter(
+					last.words,
+					sentence.words
+				)
+
+				const howManyToDelete = last.words.length - firstUniqueIdx
+
+				if (firstUniqueIdx === -1) {
+					words = words.substr(last.words.length)
+				} else if (howManyToDelete < last.words.length) {
+					toAdd.push(
+						<Typing.Backspace key={`added-backspace`} count={howManyToDelete} />
+					)
+
+					words = words.substr(firstUniqueIdx)
+				} else {
+					toAdd.push(<Typing.Reset key={`added-reset`} />)
+				}
+			}
+
+			if (words.length > 0) {
+				toAdd.push(words)
+			}
+
+			return this.typingRef.current.addToTypingQueue(toAdd)
+		}
+	}
+
+	componentDidUpdate = prevProps => {
+		// if paused prop changed at all, it wins (calling play manually starts it again)
+		if (prevProps.paused !== this.props.paused) {
+			switch (this.props.paused) {
+				case true:
+					this.pause()
+					break
+				default:
+					this.play()
+			}
+		}
+	}
+
+	pause = async () => {
+		return this.typingRef.current && this.typingRef.current.pause()
+	}
+
+	play = async () => {
+		return this.typingRef.current && this.typingRef.current.play()
+	}
+
+	reset = async () => {
+		return this.typingRef.current && this.typingRef.current.reset()
 	}
 
 	findFirstUniqueCharacter = (words1: string, words2: string) => {
@@ -47,11 +120,12 @@ export default class SprucebotTypedMessage extends Component<
 				return i
 			}
 		}
-		return 0
+		return -1
 	}
 
 	buildMarkup = () => {
 		const { sentences, startDelayMs, loop } = this.props
+		const { sentenceQueue } = this.state
 		const elements: React.ReactNode[] = []
 
 		if (startDelayMs && startDelayMs > 0) {
@@ -59,8 +133,7 @@ export default class SprucebotTypedMessage extends Component<
 		}
 
 		let lastSentence: IHWSprucebotTypedMessageSentence | undefined
-
-		sentences.forEach((sentence, idx) => {
+		;[...sentences, ...sentenceQueue].forEach((sentence, idx) => {
 			let startCharacterIdx = 0
 
 			// delete the last words
@@ -73,11 +146,14 @@ export default class SprucebotTypedMessage extends Component<
 				// how far back should we delete to start typing the next sentence?
 				const howManyToDelete = lastSentence.words.length - firstUniqueIdx
 
-				if (howManyToDelete === lastSentence.words.length) {
+				// the next sentence was additive so only add the characters that are new
+				if (firstUniqueIdx === -1) {
+					startCharacterIdx = lastSentence.words.length
+				} else if (howManyToDelete === lastSentence.words.length) {
 					// if we are deleting the whole thing, just clear the line entirely
 					elements.push(
 						<Typing.Reset
-							key={`delay-${idx}`}
+							key={`reset-${idx}`}
 							delay={lastSentence.endDelayMs}
 						/>
 					)
@@ -106,6 +182,7 @@ export default class SprucebotTypedMessage extends Component<
 					count={lastSentence.words.length}
 				/>
 			)
+			elements.push(<Typing.Reset key="final-reset" />)
 		}
 
 		return elements
@@ -162,7 +239,7 @@ export default class SprucebotTypedMessage extends Component<
 	}
 
 	public render() {
-		const { size, loop } = this.props
+		const { size, loop, paused } = this.props
 		const avatar = this.buildAvatar()
 
 		return (
@@ -175,10 +252,12 @@ export default class SprucebotTypedMessage extends Component<
 			>
 				{avatar && <SprucebotAvatar {...avatar} />}
 				<Typing
+					ref={this.typingRef}
 					className="typing"
 					speed={10}
 					loop={loop}
 					onAfterType={this.handleTyping}
+					beginTypingOnMount={!paused}
 				>
 					{this.buildMarkup()}
 				</Typing>

@@ -904,6 +904,8 @@ export type IHWSprucebotTypedMessage = {
   loop?: Maybe<Scalars['Boolean']>,
   /** Size of the message */
   size?: Maybe<IHWSprucebotTypedMessageSize>,
+  /** Is typing paused? Setting this to start will not start typing */
+  paused?: Maybe<Scalars['Boolean']>,
 };
 
 /** A single line Sprucebot will type out */
