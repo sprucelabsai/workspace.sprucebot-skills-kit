@@ -21,7 +21,7 @@ import sequelizeFactory from './factories/sequelize'
 import lang from './helpers/lang'
 import gqlRouter from './gql/router'
 import gqlListeners from './gql/listeners'
-import { Server } from 'https'
+import { Server } from 'http'
 import Sprucebot from '@sprucelabs/spruce-node'
 import { ISpruceContext } from './interfaces/ctx'
 import SharedTypesSyncer from './lib/SharedTypesSyncer'
@@ -75,6 +75,18 @@ interface IServeOptions {
 export interface ISpruceServeSkill<ISkillContext> {
 	koa: Koa<{}, ISkillContext>
 	server: Server
+}
+
+function getServer(options: {
+	koa: Koa<{}, any>
+	port?: number
+}): Promise<Server> {
+	const { koa, port } = options
+	return new Promise((resolve, reject) => {
+		const server = koa.listen(port, () => {
+			resolve(server)
+		})
+	})
 }
 
 async function serve<ISkillContext extends ISpruceContext>(
@@ -481,15 +493,26 @@ async function serve<ISkillContext extends ISpruceContext>(
         =              	Serve            	   =
         ======================================*/
 	// TODO better handling hosting only server or interface
-	const server = koa.listen(port, () => {
-		// @ts-ignore
-		gqlRouter(koa, gqlOptions, server)
-		gqlListeners(koa as any, gqlOptions)
+	// const server = koa.listen(port, () => {
+	// 	// @ts-ignore
+	// 	gqlRouter(koa, gqlOptions, server)
+	// 	gqlListeners(koa as any, gqlOptions)
 
-		console.log(
-			` 🌲  Skill launched at ${serverHost ? serverHost : interfaceHost}`
-		)
-	})
+	// 	console.clear()
+	// 	console.log(
+	// 		` 🌲  Skill launched (Port ${(server.address() as AddressInfo).port})`
+	// 	)
+	// })
+
+	const server = await getServer({ koa, port })
+	// @ts-ignore
+	gqlRouter(koa, gqlOptions, server)
+	gqlListeners(koa as any, gqlOptions)
+
+	console.clear()
+	console.log(
+		` 🌲  Skill launched (Port ${(server.address() as AddressInfo).port})`
+	)
 
 	// @ts-ignore
 	return { koa, server }
@@ -541,6 +564,7 @@ export { UserLocation } from './models/UserLocation'
 export { UserOrganization } from './models/UserOrganization'
 export { Metadata } from './models/Metadata'
 import defaultConfig from './config/default'
+import { AddressInfo } from 'ws'
 export { defaultConfig as SpruceConfig }
 
 // Mock data for tests

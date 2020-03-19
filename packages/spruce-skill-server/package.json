@@ -40,12 +40,14 @@
 		"debug": "^3.1.0",
 		"glob": "^7.1.2",
 		"globby": "^10.0.1",
+		"graphql": "^14.5.4",
 		"graphql-depth-limit": "^1.1.0",
 		"graphql-query-complexity": "^0.2.2",
 		"graphql-redis-subscriptions": "^2.0.0",
 		"graphql-subscriptions": "^1.0.0",
 		"graphql-tag": "2.10.1",
 		"graphql-tools": "^4.0.5",
+		"graphql-type-json": "^0.3.0",
 		"ioredis": "^4.6.2",
 		"jsonwebtoken": "^8.1.0",
 		"koa": "^2.4.1",
@@ -65,8 +67,6 @@
 	},
 	"peerDependencies": {
 		"config": "sprucelabsai/node-config",
-		"graphql": "^14.5.4",
-		"graphql-type-json": "^0.3.0",
 		"sqlite3": "^4.0.4",
 		"supertest": "^3.0.0",
 		"typescript": "^3.8"

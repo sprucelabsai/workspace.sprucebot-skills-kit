@@ -1,12 +1,20 @@
+import Debug from 'debug'
+
+const debug = Debug('spruce-skill-server')
+
 export default {
 	lang: {},
 	overrides: {},
 	async configure(langDir: string) {
-		this.lang = require(`${langDir}/default.js`)
+		try {
+			this.lang = require(`${langDir}/default.js`)
+		} catch (e) {
+			debug('No default lang file found')
+		}
 		try {
 			this.overrides = require(`${langDir}/overrides.js`)
 		} catch (err) {
-			console.info('No lang override specified.')
+			debug('No lang override specified.')
 		}
 	},
 	getText(key: string, context: Record<string, any> = {}) {

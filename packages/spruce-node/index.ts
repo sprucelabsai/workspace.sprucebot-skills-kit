@@ -135,8 +135,8 @@ export default class Sprucebot {
 		'host',
 		'name',
 		'description',
-		'interfaceUrl',
-		'serverUrl',
+		// 'interfaceUrl',
+		// 'serverUrl',
 		'svgIcon'
 	]
 	private suggestedParams = [
@@ -186,7 +186,8 @@ export default class Sprucebot {
 		} = options
 
 		// const hostMatches = host.match(/^(https?\:\/\/|)([^\/:?#]+)(?:[\/:?#]|$)/i)
-		const hostMatches = host.match(/^(https?:\/\/|)([^/:?#]+)(?:[/:?#]|$)/i)
+		const hostMatches =
+			host && host.match(/^(https?:\/\/|)([^/:?#]+)(?:[/:?#]|$)/i)
 		if (!hostMatches || !hostMatches[2]) {
 			throw new Error('Invalid "host" passed to Sprucebot constructor')
 		}

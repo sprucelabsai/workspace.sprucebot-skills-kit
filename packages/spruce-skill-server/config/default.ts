@@ -50,7 +50,6 @@ export default function SpruceConfig<
 	const HEARTWOOD_VERSION = encodeURIComponent(
 		require('@sprucelabs/heartwood-components').version
 	)
-	console.log({ baseDirectory })
 	const packageJSON = require(`${baseDirectory}/package.json`)
 	const icon = ''
 	const auth = (optionalRequire(`${baseDirectory}/config/auth`) ||
@@ -77,13 +76,11 @@ export default function SpruceConfig<
 		`${baseDirectory}/.spruce/settings.json`
 	) || { Skill: {} }
 
-	console.log('DOT SETTINGS', `${baseDirectory}/.spruce/settings.json`)
-
 	return {
 		/**
 		 * 🌲🤖 Your Skill ID
 		 */
-		ID: dotSetting(dotSettings, 'id') || process.env.ID,
+		ID: process.env.ID || dotSetting(dotSettings, 'id'),
 		/**
 		 * 🌲🤖 When enabled FE code will be compiled lazily. This should be false in production
 		 */
@@ -150,7 +147,7 @@ export default function SpruceConfig<
 		 * 🌲🤖 The Spruce API to use. You probably want:
 		 * https://api.spruce.ai
 		 */
-		API_HOST: process.env.API_HOST,
+		API_HOST: process.env.API_HOST || dotSetting(dotSettings, 'host'),
 		/**
 		 * 🌲🤖 The GraphQL subscriptions URI.
 		 * This will look like: wss://my-skill.sprucebot.com/graphql
@@ -175,7 +172,7 @@ export default function SpruceConfig<
 		 * 🌲🤖 Your Skill's API key.
 		 * This should be kept secret at all times
 		 */
-		API_KEY: dotSetting(dotSettings, 'apiKey') || process.env.API_KEY,
+		API_KEY: process.env.API_KEY || dotSetting(dotSettings, 'apiKey'),
 		/**
 		 * 🌲🤖 DEPRECATED. Option to override heartwood components stylesheet
 		 */
@@ -196,18 +193,18 @@ export default function SpruceConfig<
 		/**
 		 * 🌲🤖 Your Skill's name
 		 */
-		NAME: dotSetting(dotSettings, 'name') || process.env.NAME,
+		NAME: process.env.NAME || dotSetting(dotSettings, 'name'),
 		/**
 		 * 🌲🤖 Your Skill's slug
 		 * This can not be changed after you register your skill. Changing this value
 		 * will NOT update your slug
 		 */
-		SLUG: dotSetting(dotSettings, 'slug') || process.env.SLUG || '',
+		SLUG: process.env.SLUG || dotSetting(dotSettings, 'slug'),
 		/**
 		 * 🌲🤖 Your Skill's description
 		 */
 		DESCRIPTION:
-			dotSetting(dotSettings, 'description') || process.env.DESCRIPTION,
+			process.env.DESCRIPTION || dotSetting(dotSettings, 'description'),
 		/**
 		 * 🌲🤖 The port to start up
 		 */
