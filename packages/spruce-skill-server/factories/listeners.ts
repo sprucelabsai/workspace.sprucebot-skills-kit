@@ -51,8 +51,6 @@ export default (options: { ctx: ISpruceContext; dir: string }) => {
 	matches.forEach(file => {
 		try {
 			const obj = require(file)
-			console.log(file)
-			console.log(typeof obj)
 			if (typeof obj === 'function') {
 				obj({
 					ctx,

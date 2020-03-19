@@ -95,8 +95,8 @@ async function serve<ISkillContext extends ISpruceContext>(
 	const {
 		sprucebot,
 		port,
-		serverHost,
-		interfaceHost,
+		// serverHost,
+		// interfaceHost,
 		nextConfig,
 		errors = {},
 		servicesDir,

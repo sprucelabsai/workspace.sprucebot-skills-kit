@@ -54,8 +54,6 @@ export default (
 	const databaseUrl =
 		process.env.TESTING !== 'true' ? database.url : config.DATABASE_URL_TESTING
 
-	console.log({ databaseUrl })
-
 	// @ts-ignore
 	const sequelize = new Sequelize(databaseUrl, sqlOptions)
 
