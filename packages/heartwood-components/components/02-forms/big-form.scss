@@ -1,4 +1,54 @@
-$transitionDuration: 400ms;
+@mixin transitionStyle(
+	$slideTransitionDuration: 500ms,
+	$slideTransitionDelay: 0,
+	$slidePastTransform: scale(1.5),
+	$slidePastOpacity: 1,
+	$slidePresentTransform: scale(1),
+	$slidePresentOpacity: 1,
+	$slideFutureTransform: scale(0.5),
+	$slideFutureOpacity: 1,
+	$inputTransitionDuration: 1000ms,
+	$inputTransitionDelay: 1000ms,
+	$inputPastOpacity: 1,
+	$inputPresentOpacity: 1,
+	$inputFutureOpacity: 1
+) {
+	.slide {
+		transition: all $slideTransitionDuration ease;
+		transition-delay: $slideTransitionDelay;
+
+		&.is-past {
+			transform: $slidePastTransform;
+			opacity: $slidePastOpacity;
+			.input-wrapper {
+				opacity: $inputPastOpacity;
+			}
+		}
+		&.is-present {
+			transform: $slidePresentTransform;
+			opacity: $slidePresentOpacity;
+			.input-wrapper {
+				opacity: $inputPresentOpacity;
+			}
+		}
+		&.is-future {
+			transform: $slideFutureTransform;
+			opacity: $slideFutureOpacity;
+			.input-wrapper {
+				opacity: $inputFutureOpacity;
+			}
+		}
+
+		.input-wrapper {
+			transition: all $inputTransitionDuration ease-out;
+			transition-delay: $inputTransitionDelay;
+
+			* {
+				transition: all $inputTransitionDuration ease-out;
+			}
+		}
+	}
+}
 
 %big-form-question-sizing {
 	height: 50%;
@@ -17,20 +67,15 @@ $transitionDuration: 400ms;
 	flex-direction: column;
 	display: flex;
 
-	.scroll-frame {
-		flex: 1;
-		transition: all $transitionDuration ease-out;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		align-items: stretch;
-	}
-
 	.slide {
-		transform: scale(0.7);
-		opacity: 0;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
 
-		transition: all $transitionDuration ease-out;
+		transform: scale(0.7);
+
 		display: flex;
 		flex-direction: column;
 		flex: 1;
@@ -40,16 +85,9 @@ $transitionDuration: 400ms;
 		}
 
 		.input-wrapper {
-			opacity: 0;
 			max-width: 300px;
 			margin: 0 auto;
 			font-size: 1.2em;
-			transition: all $transitionDuration ease-out;
-			transition-delay: 1000ms;
-
-			* {
-				transition: all $transitionDuration ease-out;
-			}
 
 			.text-input__input {
 				background-color: transparent;
@@ -62,15 +100,6 @@ $transitionDuration: 400ms;
 				background-color: transparent;
 				transform: scale(1.05);
 			}
-		}
-	}
-
-	.slide.focused {
-		transform: scale(1);
-		opacity: 1;
-
-		.input-wrapper {
-			opacity: 1;
 		}
 	}
 
@@ -89,5 +118,46 @@ $transitionDuration: 400ms;
 		left: 0px;
 		top: 0px;
 		right: 0px;
+	}
+
+	/** Transition Styles **/
+	&.stack {
+		@include transitionStyle($slidePastOpacity: 0, $slideFutureOpacity: 0);
+	}
+
+	&.slide-left {
+		@include transitionStyle(
+			$slideTransitionDuration: 1s,
+			$slidePastTransform: translate(-100%, 0),
+			$slidePresentTransform: translate(0, 0),
+			$slideFutureTransform: translate(100%, 0),
+			$inputPastOpacity: 0,
+			$inputFutureOpacity: 0,
+			$inputTransitionDelay: 1s
+		);
+	}
+
+	&.slide-up {
+		@include transitionStyle(
+			$slideTransitionDuration: 1s,
+			$slidePastTransform: translate(0, -100%),
+			$slidePresentTransform: translate(0, 0),
+			$slideFutureTransform: translate(0, 100%),
+			$inputPastOpacity: 0,
+			$inputFutureOpacity: 0,
+			$inputTransitionDelay: 1s
+		);
+	}
+
+	&.swap {
+		@include transitionStyle(
+			$slideTransitionDuration: 1s,
+			$slidePastTransform: translate(0, 100%),
+			$slidePresentTransform: translate(0, 0),
+			$slideFutureTransform: translate(0, 100%),
+			$inputPastOpacity: 0,
+			$inputFutureOpacity: 0,
+			$inputTransitionDelay: 1s
+		);
 	}
 }

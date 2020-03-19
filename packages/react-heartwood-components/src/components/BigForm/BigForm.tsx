@@ -1,10 +1,24 @@
 import React, { ReactElement } from 'react'
+import cx from 'classnames'
 import BigFormSlide, { BigFormSlidePosition } from './components/BigFormSlide'
 import BigFormSlideBody from './components/BigFormSlideBody'
 import BigFormSlideHeader from './components/BigFormSlideHeader'
 import BigFormControls from './components/BigFormControls'
 
+export enum BigFormTransitionStyle {
+	Stack = 'stack',
+	SlideLeft = 'slide-left',
+	SlideUp = 'slide-up',
+	Swap = 'swap'
+}
+
 interface IBigFormProps {
+	/** should the same sprucebot just delete and retype messages */
+	useOneSprucebot?: boolean
+
+	/** transition style */
+	transitionStyle?: BigFormTransitionStyle
+
 	/** which slide is selected? */
 	currentSlide?: number
 
@@ -24,12 +38,7 @@ interface IBigFormProps {
 	onNext?: () => void
 }
 
-interface IBigFormState {
-	/** for tracking viewport width */
-	viewportWidth: number
-	/** for tracking viewport height */
-	viewportHeight: number
-}
+interface IBigFormState {}
 
 class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 	/** a slide for the form */
@@ -42,81 +51,21 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 	public static defaultProps = {
 		currentSlide: 0,
 		canGoBack: false,
-		canGoNext: false
+		canGoNext: false,
+		transitionStyle: BigFormTransitionStyle.Stack
 	}
 
 	/** the scroll frame for scrolling left/right */
 	bigFormRef = React.createRef<HTMLDivElement>()
-	scrollRef = React.createRef<HTMLDivElement>()
 	slideRefs: BigFormSlide[] = []
 
-	constructor(props: IBigFormProps) {
-		super(props)
-
-		this.state = {
-			viewportWidth: 0,
-			viewportHeight: 0
-		}
-	}
-
 	public componentDidMount = () => {
-		this.handleResize()
 		this.updateSlideFocus()
-
-		window.addEventListener('resize', this.handleResize)
-		window.addEventListener('resized', this.handleResize)
-	}
-
-	componentWillUnmount = () => {
-		window.removeEventListener('resize', this.handleResize)
-		window.removeEventListener('resized', this.handleResize)
 	}
 
 	componentDidUpdate = (prevProps: IBigFormProps) => {
 		if (prevProps.currentSlide !== this.props.currentSlide) {
-			this.updateSlidePosition()
 			this.updateSlideFocus()
-		}
-	}
-
-	public handleResize = async () => {
-		await this.updateViewPortSize()
-		this.updateSlideSize()
-		this.updateSlidePosition()
-	}
-
-	public updateViewPortSize = async () => {
-		const d = document,
-			root = d.documentElement,
-			body = d.body
-
-		const width = window.innerWidth || root.clientWidth || body.clientWidth
-		const height = window.innerHeight || root.clientHeight || body.clientHeight
-
-		return new Promise(resolve => {
-			this.setState({ viewportWidth: width, viewportHeight: height }, resolve)
-		})
-	}
-
-	public updateSlidePosition = () => {
-		const { viewportWidth } = this.state
-		const { currentSlide = 0 } = this.props
-
-		const left = viewportWidth * currentSlide
-
-		if (this.scrollRef.current) {
-			this.scrollRef.current.style.transform = `translate(-${left}px)`
-		}
-	}
-
-	public updateSlideSize = () => {
-		const { viewportWidth } = this.state
-		if (this.bigFormRef.current) {
-			this.bigFormRef.current
-				.querySelectorAll<HTMLDivElement>('.slide')
-				.forEach(slide => {
-					slide.style.width = `${viewportWidth}px`
-				})
 		}
 	}
 
@@ -138,12 +87,9 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 			canGoBack,
 			canGoNext,
 			onBack,
-			onNext
+			onNext,
+			transitionStyle
 		} = this.props
-
-		const { viewportWidth } = this.state
-
-		let totalSlides = 0
 
 		const children = React.Children.map(childrenProps, (child, idx) => {
 			if (
@@ -151,7 +97,6 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 				(child as ReactElement).type &&
 				(child as ReactElement).type === BigFormSlide
 			) {
-				totalSlides++
 				let position = BigFormSlidePosition.Present
 				if (idx < currentSlide) {
 					position = BigFormSlidePosition.Past
@@ -167,14 +112,8 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 		})
 
 		return (
-			<div className={'big-form'} ref={this.bigFormRef}>
-				<div
-					className={'scroll-frame'}
-					style={{ width: `${totalSlides * viewportWidth}px` }}
-					ref={this.scrollRef}
-				>
-					{children}
-				</div>
+			<div className={cx('big-form', transitionStyle)} ref={this.bigFormRef}>
+				{children}
 				<BigFormControls
 					canGoBack={canGoBack}
 					canGoNext={canGoNext}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, number } from '@storybook/addon-knobs'
-import BigForm from './BigForm'
+import { withKnobs, number, select, boolean } from '@storybook/addon-knobs'
+import BigForm, { BigFormTransitionStyle } from './BigForm'
 
 const stories = storiesOf('BigForm', module)
 
@@ -69,6 +69,17 @@ stories.add('BigForm', () => (
 		currentSlide={number('currentSlide', 0)}
 		canGoNext={false}
 		canGoBack={false}
+		useOneSprucebot={boolean('useOneSprucebot', false)}
+		transitionStyle={select(
+			'transitionStyle',
+			{
+				'BigFormTransitionStyle.Stack': BigFormTransitionStyle.Stack,
+				'BigFormTransitionStyle.SlideLeft': BigFormTransitionStyle.SlideLeft,
+				'BigFormTransitionStyle.SlideUp': BigFormTransitionStyle.SlideUp,
+				'BigFormTransitionStyle.Swap': BigFormTransitionStyle.Swap
+			},
+			BigFormTransitionStyle.Stack
+		)}
 	>
 		<BigForm.Slide>
 			<BigForm.SlideHeader question="What is your first name?" />
@@ -77,6 +88,10 @@ stories.add('BigForm', () => (
 		<BigForm.Slide>
 			<BigForm.SlideHeader question="What is your last name?" />
 			<BigForm.SlideBody answerType={'text'} placeholder="Your last name..." />
+		</BigForm.Slide>
+		<BigForm.Slide>
+			<BigForm.SlideHeader question="What is your email?" />
+			<BigForm.SlideBody answerType={'text'} placeholder="Enter your email!" />
 		</BigForm.Slide>
 	</BigForm>
 ))
