@@ -889,6 +889,43 @@ export enum IHWSprucebotAvatarStateOfMind {
   Accomplished = 'accomplished'
 }
 
+/** A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out  */
+export type IHWSprucebotTypedMessage = {
+  __typename?: 'SprucebotTypedMessage',
+  /** Id for view caching */
+  id: Scalars['ID'],
+  /** Sprucebot will type out these sentences one at a time preserving what is similar between each one (in bold) */
+  sentences: Array<IHWSprucebotTypedMessageSentence>,
+  /** The default optional avatar state for all sentences being typed */
+  defaultAvatar?: Maybe<IHWSprucebotAvatar>,
+  /** How long should I wait before starting to type? */
+  startDelayMs?: Maybe<Scalars['Int']>,
+  /** Should the message loop? Defaults to false */
+  loop?: Maybe<Scalars['Boolean']>,
+  /** Size of the message */
+  size?: Maybe<IHWSprucebotTypedMessageSize>,
+};
+
+/** A single line Sprucebot will type out */
+export type IHWSprucebotTypedMessageSentence = {
+  __typename?: 'SprucebotTypedMessageSentence',
+  /** Override the avatar for this specific sentence */
+  avatar?: Maybe<IHWSprucebotAvatar>,
+  /** What will Sprucebot type? */
+  words: Scalars['String'],
+  /** How long should we hold before starting the next sentence (or we pause forever if it's the last sentence) */
+  endDelayMs?: Maybe<Scalars['Int']>,
+};
+
+export enum IHWSprucebotTypedMessageSize {
+  /** Inline with text */
+  Small = 'small',
+  /** A subheading */
+  Medium = 'medium',
+  /** A heading */
+  Large = 'large'
+}
+
 /** Used for testing only */
 export type IHWTestType = {
   __typename?: 'TestType',
