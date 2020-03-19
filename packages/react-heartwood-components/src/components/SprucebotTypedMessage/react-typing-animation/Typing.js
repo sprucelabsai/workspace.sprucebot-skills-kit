@@ -265,11 +265,16 @@ class Typing extends Component {
 
 	render() {
 		const { children, className, cursorClassName, hideCursor } = this.props
-		const { text } = this.state
+		const { text, isFinished } = this.state
 
 		const cursor = this.props.cursor || <Cursor className={cursorClassName} />
 
-		const filled = replaceTreeText(children, text, cursor, hideCursor)
+		const filled = replaceTreeText(
+			children,
+			text,
+			cursor,
+			hideCursor || isFinished
+		)
 
 		return <div className={className}>{filled}</div>
 	}

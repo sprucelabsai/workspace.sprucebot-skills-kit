@@ -37,41 +37,54 @@ interface ITextInputProps extends React.HTMLProps<HTMLInputElement> {
 	isSmall?: boolean
 }
 
-const TextInput = (props: ITextInputProps): React.ReactElement => {
-	const {
-		id,
-		className,
-		label,
-		postLabel,
-		kind,
-		iconBefore,
-		iconAfter,
-		appendix,
-		error,
-		helper,
-		isSmall,
-		...rest
-	} = props
+class TextInput extends React.Component<ITextInputProps> {
+	wrapperRef = React.createRef<HTMLDivElement>()
 
-	const parentClass = cx('text-input', {
-		className,
-		'text-input--has-error': error,
-		'text-input-small': isSmall
-	})
+	public focus = () => {
+		const wrapper = this.wrapperRef.current
+		if (wrapper) {
+			const input = wrapper.querySelector('input')
+			if (input) {
+				input.focus()
+			}
+		}
+	}
+	public render(): React.ReactElement {
+		const {
+			id,
+			className,
+			label,
+			postLabel,
+			kind,
+			iconBefore,
+			iconAfter,
+			appendix,
+			error,
+			helper,
+			isSmall,
+			...rest
+		} = this.props
 
-	return (
-		<div className={parentClass}>
-			{label && <InputPre label={label} id={id} postLabel={postLabel} />}
-			<InputInner
-				kind={kind}
-				iconBefore={iconBefore}
-				iconAfter={iconAfter}
-				appendix={appendix}
-				{...rest}
-			/>
-			{(helper || error) && <InputHelper helper={helper} error={error} />}
-		</div>
-	)
+		const parentClass = cx('text-input', {
+			className,
+			'text-input--has-error': error,
+			'text-input-small': isSmall
+		})
+
+		return (
+			<div className={parentClass} ref={this.wrapperRef}>
+				{label && <InputPre label={label} id={id} postLabel={postLabel} />}
+				<InputInner
+					kind={kind}
+					iconBefore={iconBefore}
+					iconAfter={iconAfter}
+					appendix={appendix}
+					{...rest}
+				/>
+				{(helper || error) && <InputHelper helper={helper} error={error} />}
+			</div>
+		)
+	}
 }
 
 export default TextInput

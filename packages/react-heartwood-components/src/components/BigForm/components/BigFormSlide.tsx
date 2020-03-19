@@ -12,8 +12,12 @@ export enum BigFormSlidePosition {
 export interface IBigFormSlideProps {
 	/** our position in the show */
 	position?: BigFormSlidePosition
+
 	/** should container a header and body */
 	children?: React.ReactNode
+
+	/** called when submitting a step, probably hitting return in a text field */
+	onSubmit?: <T>(value: T | null) => void
 }
 
 class BigFormSlide extends React.Component<IBigFormSlideProps> {
@@ -30,7 +34,7 @@ class BigFormSlide extends React.Component<IBigFormSlideProps> {
 	}
 
 	public render(): React.ReactElement {
-		const { children: childrenProp, position } = this.props
+		const { children: childrenProp, position, onSubmit } = this.props
 
 		const children = React.Children.map(childrenProp, child => {
 			if (
@@ -39,12 +43,17 @@ class BigFormSlide extends React.Component<IBigFormSlideProps> {
 				((child as ReactElement).type === BigFormSlideHeader ||
 					(child as ReactElement).type === BigFormSlideBody)
 			) {
-				return React.cloneElement(child as ReactElement, {
-					ref:
-						(child as ReactElement).type === BigFormSlideHeader
-							? this.headerRef
-							: this.bodyRef
-				})
+				const props =
+					(child as ReactElement).type === BigFormSlideHeader
+						? {
+								ref: this.headerRef
+						  }
+						: {
+								ref: this.bodyRef,
+								onSubmit
+						  }
+
+				return React.cloneElement(child as ReactElement, props)
 			}
 
 			return child

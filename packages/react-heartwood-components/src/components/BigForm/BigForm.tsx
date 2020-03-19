@@ -34,11 +34,17 @@ interface IBigFormProps {
 	/** called when hitting back butto */
 	onBack?: () => void
 
-	/** called when hitting next button */
+	/** called when hitting next button or hitting enter in a text field */
 	onNext?: () => void
 }
 
-interface IBigFormState {}
+interface IBigFormState {
+	/** this is what actually drives the
+	 * selected slide, delayed from prop
+	 * changes to handle positioning before
+	 * transition */
+	currentSlide: number
+}
 
 class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 	/** a slide for the form */
@@ -59,37 +65,62 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 	bigFormRef = React.createRef<HTMLDivElement>()
 	slideRefs: BigFormSlide[] = []
 
+	constructor(props) {
+		super(props)
+		this.state = {
+			currentSlide: this.props.currentSlide || 0
+		}
+	}
+
 	public componentDidMount = () => {
-		this.updateSlideFocus()
+		this.jumpToSlide(this.props.currentSlide || 0)
 	}
 
 	componentDidUpdate = (prevProps: IBigFormProps) => {
 		if (prevProps.currentSlide !== this.props.currentSlide) {
-			this.updateSlideFocus()
+			this.jumpToSlide(this.props.currentSlide || 0)
 		}
 	}
 
-	public updateSlideFocus = () => {
-		const { currentSlide } = this.props
+	public jumpToSlide = (destinationSlide: number) => {
+		this.bigFormRef.current &&
+			this.bigFormRef.current.classList.add('transitioning')
+
 		this.slideRefs.forEach((slideRef, idx) => {
-			if (idx === currentSlide) {
+			if (idx === destinationSlide) {
 				slideRef.focus()
 			} else {
 				slideRef.blur()
 			}
 		})
+
+		// give styles a chance to position everything before changing the current index
+		setTimeout(() => {
+			this.setState({ currentSlide: destinationSlide }, () => {
+				// let all css transitions finish (1 second max)
+				setTimeout(() => {
+					this.bigFormRef.current &&
+						this.bigFormRef.current.classList.remove('transitioning')
+				}, 1000)
+			})
+		}, 0)
+	}
+
+	public handleSubmitSlide = () => {
+		this.props.onNext && this.props.onNext()
 	}
 
 	public render(): React.ReactElement {
 		const {
 			children: childrenProps,
-			currentSlide = 0,
 			canGoBack,
 			canGoNext,
 			onBack,
 			onNext,
 			transitionStyle
 		} = this.props
+
+		const { currentSlide } = this.state
 
 		const children = React.Children.map(childrenProps, (child, idx) => {
 			if (
@@ -104,8 +135,9 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 					position = BigFormSlidePosition.Future
 				}
 				return React.cloneElement(child as ReactElement, {
+					onSubmit: this.handleSubmitSlide,
 					position,
-					ref: ref => (this.slideRefs[idx] = ref)
+					ref: (ref: BigFormSlide) => (this.slideRefs[idx] = ref)
 				})
 			}
 			return child
