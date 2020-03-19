@@ -7,7 +7,7 @@ enum SprucebotTypedMessageSize {
 	large
 }
 
-"A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out "
+"A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out"
 type SprucebotTypedMessage {
 	"Id for view caching"
 	id: ID!
