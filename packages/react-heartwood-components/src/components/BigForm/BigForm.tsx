@@ -88,7 +88,7 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 
 		this.slideRefs.forEach((slideRef, idx) => {
 			if (idx === destinationSlide) {
-				slideRef.focus()
+				slideRef.focus({ preventScroll: true })
 			} else {
 				slideRef.blur()
 			}

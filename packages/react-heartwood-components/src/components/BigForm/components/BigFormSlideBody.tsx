@@ -25,8 +25,8 @@ class BigFormSlideBody extends React.Component<IBigFormSlideBodyProps> {
 		this.props.onSubmit && this.props.onSubmit(value)
 	}
 
-	public focus = () => {
-		this.inputRef.current && this.inputRef.current.focus()
+	public focus = (options?: FocusOptions) => {
+		this.inputRef.current && this.inputRef.current.focus(options)
 	}
 
 	public blur = () => {}

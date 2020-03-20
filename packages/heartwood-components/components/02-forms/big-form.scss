@@ -1,6 +1,6 @@
 @mixin transitionStyle(
 	$slideTransitionDuration: 500ms,
-	$slideTransitionDelay: 0,
+	$slideTransitionDelay: 0ms,
 	$slidePastTransform: scale(1.5),
 	$slidePastOpacity: 1,
 	$slidePresentTransform: scale(1),
@@ -64,8 +64,6 @@
 	right: 0px;
 	bottom: 0px;
 	overflow: hidden;
-	flex-direction: column;
-	display: flex;
 
 	&.transitioning {
 		.slide {

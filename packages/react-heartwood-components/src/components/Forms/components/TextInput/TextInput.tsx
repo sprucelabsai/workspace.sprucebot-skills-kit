@@ -40,12 +40,12 @@ interface ITextInputProps extends React.HTMLProps<HTMLInputElement> {
 class TextInput extends React.Component<ITextInputProps> {
 	wrapperRef = React.createRef<HTMLDivElement>()
 
-	public focus = () => {
+	public focus = (options?: FocusOptions) => {
 		const wrapper = this.wrapperRef.current
 		if (wrapper) {
 			const input = wrapper.querySelector('input')
 			if (input) {
-				input.focus()
+				input.focus(options)
 			}
 		}
 	}

@@ -24,9 +24,9 @@ class BigFormSlide extends React.Component<IBigFormSlideProps> {
 	headerRef = React.createRef<BigFormSlideHeader>()
 	bodyRef = React.createRef<BigFormSlideBody>()
 
-	public focus = () => {
+	public focus = (options?: FocusOptions) => {
 		this.headerRef.current && this.headerRef.current.focus()
-		this.bodyRef.current && this.bodyRef.current.focus()
+		this.bodyRef.current && this.bodyRef.current.focus(options)
 	}
 
 	public blur = () => {

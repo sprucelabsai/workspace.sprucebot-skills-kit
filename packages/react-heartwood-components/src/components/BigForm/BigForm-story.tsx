@@ -7,7 +7,9 @@ const stories = storiesOf('BigForm', module)
 
 stories.addDecorator(withKnobs)
 
-interface IControllerProps {}
+interface IControllerProps {
+	transitionStyle: BigFormTransitionStyle
+}
 interface IControllerState {
 	currentSlide: number
 }
@@ -30,6 +32,7 @@ class Controller extends React.Component<IControllerProps, IControllerState> {
 
 	public render(): React.ReactElement {
 		const { currentSlide } = this.state
+		const { transitionStyle } = this.props
 
 		const totalSlides = 3
 
@@ -40,6 +43,7 @@ class Controller extends React.Component<IControllerProps, IControllerState> {
 				canGoNext={currentSlide < totalSlides - 1}
 				onBack={this.handleBack}
 				onNext={this.handleNext}
+				transitionStyle={transitionStyle}
 			>
 				<BigForm.Slide>
 					<BigForm.SlideHeader question="What is your first name?" />
@@ -96,4 +100,17 @@ stories.add('BigForm', () => (
 	</BigForm>
 ))
 
-stories.add('With controller', () => <Controller />)
+stories.add('With controller', () => (
+	<Controller
+		transitionStyle={select(
+			'transitionStyle',
+			{
+				'BigFormTransitionStyle.Stack': BigFormTransitionStyle.Stack,
+				'BigFormTransitionStyle.SlideLeft': BigFormTransitionStyle.SlideLeft,
+				'BigFormTransitionStyle.SlideUp': BigFormTransitionStyle.SlideUp,
+				'BigFormTransitionStyle.Swap': BigFormTransitionStyle.Swap
+			},
+			BigFormTransitionStyle.Stack
+		)}
+	/>
+))
