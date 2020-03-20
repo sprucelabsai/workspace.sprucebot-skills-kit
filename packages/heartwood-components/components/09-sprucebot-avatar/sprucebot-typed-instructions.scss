@@ -17,6 +17,17 @@
 		margin: 0px 5px;
 	}
 
+	.cursor {
+		display: inline-block;
+		font-weight: 100;
+		color: black;
+		position: relative;
+		top: -3px;
+		font-size: 1em;
+		animation: blink 1s step-end infinite;
+	}
+
+	/** Size overrides **/
 	&.medium {
 		font-size: 1.5rem;
 	}
@@ -28,15 +39,5 @@
 			left: -3px;
 			top: -5px;
 		}
-	}
-
-	.cursor {
-		display: inline-block;
-		font-weight: 100;
-		color: black;
-		position: relative;
-		top: -3px;
-		font-size: 1em;
-		animation: blink 1s step-end infinite;
 	}
 }
