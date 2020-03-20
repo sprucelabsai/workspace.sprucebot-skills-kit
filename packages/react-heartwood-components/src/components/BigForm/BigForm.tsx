@@ -125,34 +125,36 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 		this.bigFormRef.current &&
 			this.bigFormRef.current.classList.add('transitioning')
 
-		this.slideRefs.forEach((slideRef, idx) => {
-			if (idx === destinationSlide) {
-				slideRef.focus({ preventScroll: true })
-			} else {
-				slideRef.blur()
+		setTimeout(async () => {
+			this.slideRefs.forEach((slideRef, idx) => {
+				if (idx === destinationSlide) {
+					slideRef.focus({ preventScroll: true })
+				} else {
+					slideRef.blur()
+				}
+			})
+
+			if (this.props.useOneSprucebot) {
+				const destinationHeaderProps = this.headerProps[destinationSlide]
+				if (destinationHeaderProps && this.theOneSprucebotRef.current) {
+					await this.theOneSprucebotRef.current.pause()
+					await this.theOneSprucebotRef.current.addToTypingQueue({
+						words: destinationHeaderProps.question
+					})
+
+					this.theOneSprucebotRef.current.play()
+				}
 			}
-		})
 
-		if (this.props.useOneSprucebot) {
-			const destinationHeaderProps = this.headerProps[destinationSlide]
-			if (destinationHeaderProps && this.theOneSprucebotRef.current) {
-				await this.theOneSprucebotRef.current.pause()
-				await this.theOneSprucebotRef.current.addToTypingQueue({
-					words: destinationHeaderProps.question
-				})
-
-				this.theOneSprucebotRef.current.play()
-			}
-		}
-
-		// give styles a chance to position everything before changing the current index
-		this.setState({ currentSlide: destinationSlide }, () => {
-			// let all css transitions finish (1 second max)
-			setTimeout(() => {
-				this.bigFormRef.current &&
-					this.bigFormRef.current.classList.remove('transitioning')
-			}, 1000)
-		})
+			// give styles a chance to position everything before changing the current index
+			this.setState({ currentSlide: destinationSlide }, () => {
+				// let all css transitions finish (1 second max)
+				setTimeout(() => {
+					this.bigFormRef.current &&
+						this.bigFormRef.current.classList.remove('transitioning')
+				}, 1000)
+			})
+		}, 50)
 	}
 
 	public handleSubmitSlide = () => {
