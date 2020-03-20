@@ -95,15 +95,13 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 		})
 
 		// give styles a chance to position everything before changing the current index
-		setTimeout(() => {
-			this.setState({ currentSlide: destinationSlide }, () => {
-				// let all css transitions finish (1 second max)
-				setTimeout(() => {
-					this.bigFormRef.current &&
-						this.bigFormRef.current.classList.remove('transitioning')
-				}, 1000)
-			})
-		}, 0)
+		this.setState({ currentSlide: destinationSlide }, () => {
+			// let all css transitions finish (1 second max)
+			setTimeout(() => {
+				this.bigFormRef.current &&
+					this.bigFormRef.current.classList.remove('transitioning')
+			}, 1000)
+		})
 	}
 
 	public handleSubmitSlide = () => {
