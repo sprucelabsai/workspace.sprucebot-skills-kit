@@ -9,6 +9,7 @@ stories.addDecorator(withKnobs)
 
 interface IControllerProps {
 	transitionStyle: BigFormTransitionStyle
+	useOneSprucebot: boolean
 }
 interface IControllerState {
 	currentSlide: number
@@ -32,12 +33,13 @@ class Controller extends React.Component<IControllerProps, IControllerState> {
 
 	public render(): React.ReactElement {
 		const { currentSlide } = this.state
-		const { transitionStyle } = this.props
+		const { transitionStyle, useOneSprucebot } = this.props
 
 		const totalSlides = 3
 
 		return (
 			<BigForm
+				useOneSprucebot={useOneSprucebot}
 				currentSlide={currentSlide}
 				canGoBack={currentSlide > 0}
 				canGoNext={currentSlide < totalSlides - 1}
@@ -102,6 +104,7 @@ stories.add('BigForm', () => (
 
 stories.add('With controller', () => (
 	<Controller
+		useOneSprucebot={boolean('useOneSprucebot', false)}
 		transitionStyle={select(
 			'transitionStyle',
 			{

@@ -47,7 +47,7 @@ class Typing extends Component {
 			this.pendingPlay = true
 			return
 		}
-		if (this.isPaused) {
+		if (this.isPaused || this.state.isFinished) {
 			this.isPaused = false
 			await this.props.onStartedTyping()
 			requestAnimationFrame(this.beginTyping)

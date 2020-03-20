@@ -1,9 +1,19 @@
 import React, { ReactElement } from 'react'
 import cx from 'classnames'
-import BigFormSlide, { BigFormSlidePosition } from './components/BigFormSlide'
+import BigFormSlide, {
+	BigFormSlidePosition,
+	IBigFormSlideProps
+} from './components/BigFormSlide'
 import BigFormSlideBody from './components/BigFormSlideBody'
-import BigFormSlideHeader from './components/BigFormSlideHeader'
+import BigFormSlideHeader, {
+	IBigFormSlideHeaderProps
+} from './components/BigFormSlideHeader'
 import BigFormControls from './components/BigFormControls'
+import SprucebotTypedMessage from '../SprucebotTypedMessage/SprucebotTypedMessage'
+import {
+	IHWSprucebotTypedMessageSize,
+	IHWSprucebotAvatarStateOfMind
+} from '@sprucelabs/spruce-types'
 
 export enum BigFormTransitionStyle {
 	Stack = 'stack',
@@ -61,28 +71,60 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 		transitionStyle: BigFormTransitionStyle.Stack
 	}
 
-	/** the scroll frame for scrolling left/right */
 	bigFormRef = React.createRef<HTMLDivElement>()
 	slideRefs: BigFormSlide[] = []
+	theOneSprucebotRef = React.createRef<SprucebotTypedMessage>()
 
-	constructor(props) {
+	/** all the header props when usingOneSprucebot */
+	headerProps: IBigFormSlideHeaderProps[] = []
+
+	constructor(props: IBigFormProps) {
 		super(props)
 		this.state = {
 			currentSlide: this.props.currentSlide || 0
 		}
 	}
 
+	public componentWillMount = () => {
+		this.headerProps = this.getHeaderProps()
+	}
 	public componentDidMount = () => {
 		this.jumpToSlide(this.props.currentSlide || 0)
 	}
 
 	componentDidUpdate = (prevProps: IBigFormProps) => {
-		if (prevProps.currentSlide !== this.props.currentSlide) {
+		// update header props
+		this.headerProps = this.getHeaderProps()
+
+		// jump to a slide if current slide has changed OR if we enabledOneSprucebot
+		if (
+			prevProps.currentSlide !== this.props.currentSlide ||
+			prevProps.useOneSprucebot !== this.props.useOneSprucebot
+		) {
 			this.jumpToSlide(this.props.currentSlide || 0)
 		}
 	}
 
-	public jumpToSlide = (destinationSlide: number) => {
+	public getHeaderProps = () => {
+		const headers: IBigFormSlideHeaderProps[] = []
+
+		React.Children.forEach(this.props.children, child => {
+			if (child && (child as ReactElement).type === BigFormSlide) {
+				React.Children.forEach(
+					(child as ReactElement).props.children,
+					child => {
+						if (child && (child as ReactElement).type === BigFormSlideHeader) {
+							headers.push((child as ReactElement).props)
+						}
+					}
+				)
+			}
+		})
+
+		return headers
+	}
+
+	public jumpToSlide = async (destinationSlide: number) => {
 		this.bigFormRef.current &&
 			this.bigFormRef.current.classList.add('transitioning')
 
@@ -93,6 +135,18 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 				slideRef.blur()
 			}
 		})
+
+		if (this.props.useOneSprucebot) {
+			const destinationHeaderProps = this.headerProps[destinationSlide]
+			if (destinationHeaderProps && this.theOneSprucebotRef.current) {
+				await this.theOneSprucebotRef.current.pause()
+				await this.theOneSprucebotRef.current.addToTypingQueue({
+					words: destinationHeaderProps.question
+				})
+
+				this.theOneSprucebotRef.current.play()
+			}
+		}
 
 		// give styles a chance to position everything before changing the current index
 		this.setState({ currentSlide: destinationSlide }, () => {
@@ -115,25 +169,37 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 			canGoNext,
 			onBack,
 			onNext,
-			transitionStyle
+			transitionStyle,
+			useOneSprucebot
 		} = this.props
 
 		const { currentSlide } = this.state
 
 		const children = React.Children.map(childrenProps, (child, idx) => {
-			if (
-				child &&
-				(child as ReactElement).type &&
-				(child as ReactElement).type === BigFormSlide
-			) {
+			if (child && (child as ReactElement).type === BigFormSlide) {
 				let position = BigFormSlidePosition.Present
 				if (idx < currentSlide) {
 					position = BigFormSlidePosition.Past
 				} else if (idx > currentSlide) {
 					position = BigFormSlidePosition.Future
 				}
-				return React.cloneElement(child as ReactElement, {
+
+				const slideElement = child as ReactElement
+				let children = slideElement.props.children
+
+				// if we are using one sprucebot, filter out all header fields
+				if (useOneSprucebot) {
+					children = []
+					React.Children.forEach(slideElement.props.children, child => {
+						if (!child || (child as ReactElement).type !== BigFormSlideHeader) {
+							children.push(child)
+						}
+					})
+				}
+
+				return React.cloneElement(slideElement, {
 					onSubmit: this.handleSubmitSlide,
+					children,
 					position,
 					ref: (ref: BigFormSlide) => (this.slideRefs[idx] = ref)
 				})
@@ -142,8 +208,29 @@ class BigForm extends React.Component<IBigFormProps, IBigFormState> {
 		})
 
 		return (
-			<div className={cx('big-form', transitionStyle)} ref={this.bigFormRef}>
+			<div
+				className={cx('big-form', transitionStyle, {
+					'one-sprucebot': useOneSprucebot
+				})}
+				ref={this.bigFormRef}
+			>
 				{children}
+				{useOneSprucebot && (
+					<div className="the-one-sprucebot">
+						<SprucebotTypedMessage
+							startDelayMs={0}
+							ref={this.theOneSprucebotRef}
+							id="the-one-sprucebot"
+							paused={true}
+							size={IHWSprucebotTypedMessageSize.Medium}
+							defaultAvatar={{
+								id: 'the-one-default',
+								stateOfMind: IHWSprucebotAvatarStateOfMind.Chill
+							}}
+							sentences={[]}
+						/>
+					</div>
+				)}
 				<BigFormControls
 					canGoBack={canGoBack}
 					canGoNext={canGoNext}
