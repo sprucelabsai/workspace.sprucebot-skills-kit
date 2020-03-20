@@ -1,9 +1,6 @@
 import React, { ReactElement } from 'react'
 import cx from 'classnames'
-import BigFormSlide, {
-	BigFormSlidePosition,
-	IBigFormSlideProps
-} from './components/BigFormSlide'
+import BigFormSlide, { BigFormSlidePosition } from './components/BigFormSlide'
 import BigFormSlideBody from './components/BigFormSlideBody'
 import BigFormSlideHeader, {
 	IBigFormSlideHeaderProps
