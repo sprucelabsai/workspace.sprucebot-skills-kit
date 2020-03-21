@@ -2,23 +2,23 @@ import { IFieldBase } from '../schema'
 import { FieldType } from '../fieldTypes'
 
 /** a duration value object */
-export interface IFieldTypeDurationValue {
+export interface IFieldDurationValue {
 	hours: number
 	minutes: number
 	seconds: number
 	ms: number
 }
 
-export default interface IFieldTypeDuration extends IFieldBase {
+export default interface IFieldDuration extends IFieldBase {
 	type: FieldType.Duration
-	value?: IFieldTypeDurationValue
-	defaultValue?: IFieldTypeDurationValue
+	value?: IFieldDurationValue
+	defaultValue?: IFieldDurationValue
 	options?: {
 		/** how it should be rendered, defaults to {{h}}h{{m}}min */
 		durationFormat?: string
 		/** the minimum duration we'll allow of this field */
-		minDuration?: IFieldTypeDurationValue
+		minDuration?: IFieldDurationValue
 		/** the max duration possible with this field */
-		maxDuration?: IFieldTypeDurationValue
+		maxDuration?: IFieldDurationValue
 	}
 }

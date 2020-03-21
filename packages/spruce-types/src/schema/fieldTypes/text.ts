@@ -1,7 +1,7 @@
 import { IFieldBase } from '../schema'
 import { FieldType } from '../fieldTypes'
 
-export default interface IFieldTypeText extends IFieldBase {
+export default interface IFieldText extends IFieldBase {
 	type: FieldType.Text
 	value?: string
 	defaultValue?: string

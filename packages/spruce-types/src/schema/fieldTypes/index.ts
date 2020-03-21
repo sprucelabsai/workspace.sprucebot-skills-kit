@@ -48,13 +48,28 @@ export enum FieldType {
 	Raw = 'raw'
 }
 
+/** useful for type lookups for generics */
+export type IFieldTypeMap = {
+	boolean: IFieldBoolean
+	select: IFieldSelect
+	duration: IFieldDuration
+	id: IFieldId
+	text: IFieldText
+	address: IFieldAddress
+	phone: IFieldPhone
+	schema: IFieldSchema
+	raw: IFieldRaw
+	number: IFieldNumber
+	dateTime: IFieldDateTime
+}
+
 /** export everything */
 export { default as IFieldBoolean } from './boolean'
 export { default as IFieldText } from './text'
-export { default as IFieldDuration } from './duration'
+export { default as IFieldDuration, IFieldDurationValue } from './duration'
 export { default as IFieldId } from './id'
-export { default as IFieldSelect } from './select'
-export { default as IFieldAddress } from './address'
+export { default as IFieldSelect, IFieldSelectChoice } from './select'
+export { default as IFieldAddress, IFieldAddressValue } from './address'
 export { default as IFieldPhone } from './phone'
 export { default as IFieldSchema } from './schema'
 export { default as IFieldRaw } from './raw'

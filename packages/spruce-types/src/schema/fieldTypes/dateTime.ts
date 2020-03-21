@@ -1,14 +1,14 @@
 import { IFieldBase } from '../schema'
 import { FieldType } from '../fieldTypes'
 
-export interface IFieldTypeDateTimeValue {
+export interface IFieldDateTimeValue {
 	gmt: string
 }
 
-export default interface IFieldTypeDateTime extends IFieldBase {
+export default interface IFieldDateTime extends IFieldBase {
 	type: FieldType.DateTime
-	value?: IFieldTypeDateTimeValue
-	defaultValue?: IFieldTypeDateTimeValue
+	value?: IFieldDateTimeValue
+	defaultValue?: IFieldDateTimeValue
 	options?: {
 		/** how should this dateTime render using moment.js format */
 		dateTimeFormat: string

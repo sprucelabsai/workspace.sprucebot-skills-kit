@@ -1,7 +1,7 @@
 import { IFieldBase } from '../schema'
 import { FieldType } from '../fieldTypes'
 
-export default interface IFieldTypePhone extends IFieldBase {
+export default interface IFieldPhone extends IFieldBase {
 	type: FieldType.Phone
 	value?: string
 	defaultValue?: string

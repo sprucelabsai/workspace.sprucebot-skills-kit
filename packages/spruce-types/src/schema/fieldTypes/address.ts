@@ -1,7 +1,7 @@
 import { IFieldBase } from '../schema'
 import { FieldType } from './index'
 
-export interface IFieldTypeAddressValue {
+export interface IFieldAddressValue {
 	street1: string
 	street2?: string
 	city: string
@@ -10,9 +10,9 @@ export interface IFieldTypeAddressValue {
 	zip: string
 }
 
-export default interface IFieldTypeAddress extends IFieldBase {
+export default interface IFieldAddress extends IFieldBase {
 	type: FieldType.Address
-	value?: IFieldTypeAddressValue
-	defaultValue?: IFieldTypeAddressValue
+	value?: IFieldAddressValue
+	defaultValue?: IFieldAddressValue
 	options?: {}
 }
