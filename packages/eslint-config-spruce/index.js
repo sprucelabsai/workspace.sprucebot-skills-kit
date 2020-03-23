@@ -79,6 +79,7 @@ module.exports = {
 						alphabetize: true
 					}
 				],
+				"@typescript-eslint/explicit-member-accessibility": ["error"],
 				...defaultFormattingRules
 			}
 		},
