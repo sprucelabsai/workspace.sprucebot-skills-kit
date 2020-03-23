@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import { SpruceTest } from '@sprucelabs/spruce-skill-server'
+import { SpruceTest } from '@sprucelabs/skill-server'
 import { ISkillContext } from 'server/interfaces/ctx'
 import { IEmitResponse, IEmitResponseCallback } from 'server/interfaces/global'
 import config from 'config'

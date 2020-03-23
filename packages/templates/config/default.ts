@@ -75,7 +75,7 @@ const customConfig = {
 // default configuration options
 //////////////////////////////////////////////////////////////////////
 // https://github.com/lorenwest/node-config/wiki/Configuration-Files
-import { SpruceConfig } from '@sprucelabs/spruce-skill-server'
+import { SpruceConfig } from '@sprucelabs/skill-server'
 import acl from './acl'
 import settings from './settings'
 import errors from './errors'
@@ -95,7 +95,7 @@ type AuthType = typeof auth
 
 // Path to the server directory. Used to load all the default config files
 const baseDirectory = `${__dirname}/../server`
-const baseConfig = require('@sprucelabs/spruce-skill-server/build/config/default')
+const baseConfig = require('@sprucelabs/skill-server/build/config/default')
 	.default as ConfigType
 
 const fullConfig = {

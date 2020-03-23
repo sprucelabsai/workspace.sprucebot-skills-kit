@@ -1,4 +1,4 @@
-import { ISpruceUtilities } from '@sprucelabs/spruce-skill-server'
+import { ISpruceUtilities } from '@sprucelabs/skill-server'
 import Example from 'server/services/Example'
 
 /**

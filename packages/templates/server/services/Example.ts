@@ -1,4 +1,4 @@
-import { Location, SpruceSkillService } from '@sprucelabs/spruce-skill-server'
+import { Location, SpruceSkillService } from '@sprucelabs/skill-server'
 import { ISkillContext } from '../interfaces/ctx'
 
 export default class Example extends SpruceSkillService<ISkillContext> {

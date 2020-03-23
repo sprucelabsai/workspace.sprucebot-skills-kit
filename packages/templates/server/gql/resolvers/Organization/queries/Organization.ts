@@ -1,5 +1,5 @@
 import config from 'config'
-import { ISpruceContext, IGQLResolvers } from '@sprucelabs/spruce-skill-server'
+import { ISpruceContext, IGQLResolvers } from '@sprucelabs/skill-server'
 import gql from 'graphql-tag'
 
 module.exports = (ctx: ISpruceContext) => {

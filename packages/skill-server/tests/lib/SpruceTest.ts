@@ -110,7 +110,7 @@ export default class Base<Context> {
 		await this.beforeBase(options)
 		if (!this.mocks.sandbox) {
 			throw new Error(
-				'@sprucelabs/spruce-skill-server: SandboxMock has not been initialized. If this is deliberate you should override the before() method in your test'
+				'@sprucelabs/skill-server: SandboxMock has not been initialized. If this is deliberate you should override the before() method in your test'
 			)
 		}
 

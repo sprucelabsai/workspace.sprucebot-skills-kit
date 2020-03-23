@@ -6,7 +6,7 @@ import {
 	ISpruceAuthLocation,
 	ISpruceAuthUser,
 	ISpruceAuth
-} from '@sprucelabs/spruce-skill-server'
+} from '@sprucelabs/skill-server'
 
 /**
  * For all GQL requests and event listeners, there will be an `auth` property on the

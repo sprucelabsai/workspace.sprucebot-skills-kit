@@ -1,7 +1,7 @@
 import { ISkillContext } from 'server/interfaces/ctx'
 import config from 'config'
 import gql from 'graphql-tag'
-import { IGQLResolvers } from '@sprucelabs/spruce-skill-server'
+import { IGQLResolvers } from '@sprucelabs/skill-server'
 
 /**
  * This is an example of how you can use Schema Definition Language to build your GQL API.

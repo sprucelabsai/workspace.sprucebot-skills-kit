@@ -1,5 +1,5 @@
 import { ISkillContext } from 'server/interfaces/ctx'
-import { IGQLResolvers } from '@sprucelabs/spruce-skill-server'
+import { IGQLResolvers } from '@sprucelabs/skill-server'
 import gql from 'graphql-tag'
 import config from 'config'
 import get from 'ts-get'

@@ -1,4 +1,4 @@
-import { ISpruceGQLTypes } from '@sprucelabs/spruce-skill-server'
+import { ISpruceGQLTypes } from '@sprucelabs/skill-server'
 import Example from '../gql/types/ModelExample'
 
 /**

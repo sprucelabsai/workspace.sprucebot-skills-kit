@@ -1,5 +1,5 @@
 {
-	"name": "@sprucelabs/spruce-types",
+	"name": "@sprucelabs/types",
 	"publishConfig": {
 		"access": "public"
 	},

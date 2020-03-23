@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 // TODO: Change this object type to "ISpruceAcls" when TS supports exact types: https://github.com/Microsoft/TypeScript/issues/12936
-// import { ISpruceAcls } from '@sprucelabs/spruce-skill-server'
+// import { ISpruceAcls } from '@sprucelabs/skill-server'
 
 const acls = {
 	/** These are ACLs from other skills or core that we're requesting */

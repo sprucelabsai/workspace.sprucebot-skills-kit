@@ -1,5 +1,5 @@
 {
-	"name": "@sprucelabs/spruce-skill-server",
+	"name": "@sprucelabs/skill-server",
 	"publishConfig": {
 		"access": "public"
 	},

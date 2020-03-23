@@ -10,10 +10,13 @@
 		"packages/spruce-next-helpers",
 		"packages/spruce-node",
 		"packages/spruce-skill",
-		"packages/spruce-skill-server",
+		"packages/skill-server",
 		"packages/spruce-utils",
 		"packages/spruce-types",
-		"packages/mercury"
+		"packages/mercury",
+		"packages/types",
+		"packages/errors",
+		"packages/schemas"
 	],
 	"engines": {
 		"node": "^10",

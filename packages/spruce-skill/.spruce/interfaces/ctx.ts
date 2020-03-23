@@ -1,5 +1,5 @@
 import * as Router from 'koa-router'
-import { ISpruceContext } from '@sprucelabs/spruce-skill-server'
+import { ISpruceContext } from '@sprucelabs/skill-server'
 import { ISkillModels } from './models'
 import { ISkillAuth } from './auth'
 import { ISkillServices } from './services'

@@ -52,7 +52,7 @@
 		"@sprucelabs/react-heartwood-components": "^9.1.0",
 		"@sprucelabs/spruce-next-helpers": "^9.1.0",
 		"@sprucelabs/spruce-node": "^9.1.0",
-		"@sprucelabs/spruce-skill-server": "^9.1.0",
+		"@sprucelabs/skill-server": "^9.1.0",
 		"@sprucelabs/spruce-types": "^9.1.0",
 		"@sprucelabs/spruce-utils": "^9.1.0",
 		"@zeit/next-css": "^1.0.1",

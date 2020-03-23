@@ -2,7 +2,7 @@
 
 // http://docs.sequelizejs.com/manual/tutorial/models-definition.html
 import { Sequelize, DataTypes } from 'sequelize'
-import { SpruceCoreModel, User } from '@sprucelabs/spruce-skill-server'
+import { SpruceCoreModel, User } from '@sprucelabs/skill-server'
 import { ISkillModels } from 'server/interfaces/models'
 
 export class Example extends SpruceCoreModel<Example> {

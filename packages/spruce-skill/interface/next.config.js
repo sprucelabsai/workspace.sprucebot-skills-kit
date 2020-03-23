@@ -25,7 +25,7 @@ function client(webpack) {
 		...webpack.resolve,
 		alias: {
 			config: jsonPath
-			// Might be necessary to uncomment below if 'yarn link'-ing @sprucelabs/react-heartwood-components, @sprucelabs/spruce-skill-server or @sprucelabs/log
+			// Might be necessary to uncomment below if 'yarn link'-ing @sprucelabs/react-heartwood-components, @sprucelabs/skill-server or @sprucelabs/log
 			// react: path.resolve(__dirname, '../node_modules', 'react'),
 			// next: path.resolve(__dirname, '../node_modules', 'next'),
 			// '@sprucelabs/log': path.resolve(

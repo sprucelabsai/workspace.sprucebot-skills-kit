@@ -1,4 +1,4 @@
-import { ISpruceContext } from '@sprucelabs/spruce-skill-server'
+import { ISpruceContext } from '@sprucelabs/skill-server'
 import config from 'config'
 
 async function eventError(options: {
