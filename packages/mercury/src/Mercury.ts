@@ -175,7 +175,7 @@ export enum MercurySubscriptionScope {
 export class Mercury {
 	public logLevel = 'warn'
 
-	get isConnected(): boolean {
+	public get isConnected(): boolean {
 		if (this.adapter) {
 			return this.adapter.isConnected
 		}
@@ -194,7 +194,7 @@ export class Mercury {
 	> = {}
 	private credentials?: MercuryAuth
 
-	constructor(options?: IMercuryInitilizationOptions) {
+	public constructor(options?: IMercuryInitilizationOptions) {
 		this.connect(options)
 			.then(() => {
 				log.debug('Mercury connect finished')

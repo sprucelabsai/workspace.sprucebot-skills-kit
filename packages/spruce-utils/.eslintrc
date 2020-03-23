@@ -1,3 +1,11 @@
 {
-	"extends": "spruce"
+	"extends": "spruce",
+	"overrides": [
+		{
+			"files": ["*.ts"],
+			"rules": {
+				"@typescript-eslint/explicit-member-accessibility": 0
+			}
+		}
+	]
 }

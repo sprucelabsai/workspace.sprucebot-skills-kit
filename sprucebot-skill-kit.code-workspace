@@ -25,8 +25,8 @@
 			"name": "spruce-skill"
 		},
 		{
-			"path": "packages/spruce-skill-server",
-			"name": "spruce-skill-server"
+			"path": "packages/skill-server",
+			"name": "skill-server"
 		},
 		{
 			"path": ".",
