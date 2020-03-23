@@ -1,9 +1,11 @@
-import { IFieldBase } from '../schema'
-import { FieldType } from '../fieldTypes'
+import FieldBase, { IFieldBase } from './Base'
+import { FieldType } from './types'
 
-export default interface IFieldBoolean extends IFieldBase {
+export interface IFieldBoolean extends IFieldBase {
 	type: FieldType.Boolean
 	value?: boolean
 	defaultValue?: boolean
 	options: {}
 }
+
+export default class FieldBoolean extends FieldBase<IFieldBoolean> {}

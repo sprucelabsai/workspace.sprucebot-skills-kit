@@ -1,6 +1,6 @@
-import { ISpruceSchema } from '../schema'
+import { ISpruceSchema } from '../Schema'
 import { FieldType } from '../fieldTypes'
-import { IFieldSelectChoice } from '../fieldTypes/select'
+import { IFieldSelectChoice } from '../fieldTypes/Select'
 
 const roleSchema: ISpruceSchema = {
 	id: 'role',

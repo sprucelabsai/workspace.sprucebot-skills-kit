@@ -1,4 +1,4 @@
-import { ISpruceSchema } from '../schema'
+import { ISpruceSchema } from '../Schema'
 import { FieldType } from '../fieldTypes'
 import { roleSelectChoices } from './role.schema'
 import aclSchema from './acl.schema'

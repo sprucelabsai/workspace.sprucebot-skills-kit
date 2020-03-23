@@ -1,8 +1,10 @@
-import { IFieldBase } from '../schema'
-import { FieldType } from '../fieldTypes'
+import { FieldType } from '.'
+import FieldBase, { IFieldBase } from './Base'
 
-export default interface IFieldNumber extends IFieldBase {
+export interface IFieldNumber extends IFieldBase {
 	type: FieldType.Number
 	value?: number
 	defaultValue?: number
 }
+
+export default class FieldNumber extends FieldBase<IFieldBase> {}

@@ -1,7 +1,8 @@
-import { IFieldBase, ISpruceSchema } from '../schema'
-import { FieldType } from '../fieldTypes'
+import FieldBase, { IFieldBase } from './Base'
+import { ISpruceSchema } from '../Schema'
+import { FieldType } from './types'
 
-export default interface IFieldSchema extends IFieldBase {
+export interface IFieldSchema extends IFieldBase {
 	type: FieldType.Schema
 	value?: ISpruceSchema
 	defaultValue?: ISpruceSchema
@@ -12,3 +13,5 @@ export default interface IFieldSchema extends IFieldBase {
 		schema?: ISpruceSchema
 	}
 }
+
+export default class FieldSchema extends FieldBase<IFieldSchema> {}

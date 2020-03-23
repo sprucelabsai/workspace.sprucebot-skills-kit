@@ -1,7 +1,7 @@
-import { IFieldBase } from '../schema'
-import { FieldType } from '../fieldTypes'
+import { FieldType } from '.'
+import FieldBase, { IFieldBase } from './Base'
 
-export default interface IFieldRaw extends IFieldBase {
+export interface IFieldRaw extends IFieldBase {
 	type: FieldType.Raw
 	value?: any
 	defaultValue?: any
@@ -9,3 +9,5 @@ export default interface IFieldRaw extends IFieldBase {
 		interfaceName: string
 	}
 }
+
+export default class FieldRaw extends FieldBase<IFieldRaw> {}

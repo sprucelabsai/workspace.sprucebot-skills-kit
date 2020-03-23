@@ -1,5 +1,5 @@
-import { IFieldBase } from '../schema'
-import { FieldType } from '../fieldTypes'
+import { FieldType } from '.'
+import FieldBase, { IFieldBase } from './Base'
 
 /** a duration value object */
 export interface IFieldDurationValue {
@@ -9,7 +9,7 @@ export interface IFieldDurationValue {
 	ms: number
 }
 
-export default interface IFieldDuration extends IFieldBase {
+export interface IFieldDuration extends IFieldBase {
 	type: FieldType.Duration
 	value?: IFieldDurationValue
 	defaultValue?: IFieldDurationValue
@@ -22,3 +22,5 @@ export default interface IFieldDuration extends IFieldBase {
 		maxDuration?: IFieldDurationValue
 	}
 }
+
+export default class FieldDuration extends FieldBase<IFieldDuration> {}

@@ -1,11 +1,11 @@
-import { IFieldBase } from '../schema'
-import { FieldType } from '../fieldTypes'
+import { FieldType } from '.'
+import FieldBase, { IFieldBase } from './Base'
 
 export interface IFieldDateTimeValue {
 	gmt: string
 }
 
-export default interface IFieldDateTime extends IFieldBase {
+export interface IFieldDateTime extends IFieldBase {
 	type: FieldType.DateTime
 	value?: IFieldDateTimeValue
 	defaultValue?: IFieldDateTimeValue
@@ -14,3 +14,5 @@ export default interface IFieldDateTime extends IFieldBase {
 		dateTimeFormat: string
 	}
 }
+
+export default class FieldDateTime extends FieldBase<IFieldDateTime> {}

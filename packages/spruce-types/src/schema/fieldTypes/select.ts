@@ -1,5 +1,6 @@
-import { IFieldBase } from '../schema'
-import { FieldType } from '../fieldTypes'
+import { FieldType } from './types'
+import FieldText from './Text'
+import { IFieldBase } from './Base'
 
 export interface IFieldSelectChoice {
 	/**  machine readable way to identify this choice */
@@ -7,7 +8,8 @@ export interface IFieldSelectChoice {
 	/** human readable label for when selecting a choice */
 	label: string
 }
-export default interface IFieldSelect extends IFieldBase {
+
+export interface IFieldSelect extends IFieldBase {
 	type: FieldType.Select
 	value?: string
 	defaultValue?: string
@@ -15,3 +17,5 @@ export default interface IFieldSelect extends IFieldBase {
 		choices: IFieldSelectChoice[]
 	}
 }
+
+export default class FieldSelect extends FieldText<IFieldSelect> {}
