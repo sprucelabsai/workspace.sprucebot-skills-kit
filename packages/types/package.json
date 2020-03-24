@@ -41,6 +41,7 @@
 	"dependencies": {
 		"graphql-iso-date": "^3.6.1",
 		"graphql-type-json": "^0.3.0",
+		"handlebars": "^4.7.3",
 		"typescript": "^3.8"
 	},
 	"devDependencies": {

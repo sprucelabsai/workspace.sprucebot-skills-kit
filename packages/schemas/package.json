@@ -33,8 +33,7 @@
 	},
 	"dependencies": {
 		"google-libphonenumber": "^3.2.8",
-		"libphonenumber-js": "^1.7.48",
-		"lodash": "^4.17.15"
+		"libphonenumber-js": "^1.7.48"
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^11.0.0",

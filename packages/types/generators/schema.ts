@@ -6,6 +6,7 @@ import {
 } from '@sprucelabs/schemas'
 import path from 'path'
 import fs from 'fs'
+import handlebars from 'handlebars'
 
 async function generate() {
 	// all schemas
@@ -40,10 +41,27 @@ async function generate() {
 	)
 
 	await promises
+
 	debugger
+	// get the global schema map
 	const map = SchemaGenerator.generateSchemaMap(schemas)
+	const context = {
+		namespaces: [
+			{
+				namespace: 'core',
+				schemas: Object.values(map)
+			}
+		]
+	}
+
 	debugger
-	console.log(schemaDir, schemas, map)
+	const hbsPath = path.join(__dirname, 'templates', 'schemas.hbs')
+	const hbs = fs.readFileSync(hbsPath)
+
+	const template = handlebars.compile(hbs)
+	const definitionFile = template(context)
+
+	console.log(definitionFile)
 }
 
 setTimeout(generate, 1000)

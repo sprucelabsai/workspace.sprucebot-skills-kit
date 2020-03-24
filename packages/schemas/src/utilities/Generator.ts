@@ -1,5 +1,4 @@
 import { ISchemaDefinition } from '../'
-import { camelCase } from 'lodash'
 import { FieldType } from '../fieldTypes'
 import { ISchemaFieldsDefinition } from '../Schema'
 
@@ -28,16 +27,15 @@ export default class Generator {
 		schemaName: string
 	): IGeneratorInterfaceTypeNames {
 		return {
-			interfaceName: `I${capitalizeFirstLetter(camelCase(schemaName))}`,
-			typeName: `${capitalizeFirstLetter(camelCase(schemaName))}`
+			interfaceName: `I${capitalizeFirstLetter(schemaName)}`,
+			typeName: `${capitalizeFirstLetter(schemaName)}`
 		}
 	}
 
 	/** a map of names keyed by interface name */
 	public static generateSchemaMap(
 		definitions: ISchemaDefinition[],
-		map: ISchemaDefinitionMap = {},
-		depth = 0
+		map: ISchemaDefinitionMap = {}
 	): ISchemaDefinitionMap {
 		let newMap = { ...map }
 
@@ -48,7 +46,7 @@ export default class Generator {
 
 			// we've already mapped this type
 			if (definition.id in newMap) {
-				if (depth === 0) {
+				if (definition !== newMap[definition.id].definition) {
 					throw new Error(`Schema with id ${definition.id} already exists!`)
 				}
 				return
@@ -65,56 +63,68 @@ export default class Generator {
 				if (field.type === FieldType.Schema) {
 					const schemaDefinition = field.options.schema
 					if (schemaDefinition) {
-						newMap = Generator.generateSchemaMap(
-							[schemaDefinition],
-							newMap,
-							depth + 1
-						)
+						newMap = Generator.generateSchemaMap([schemaDefinition], newMap)
 					}
 				}
 			})
 		})
 
 		// now that everything is mapped, lets change schema fields to id's (vs sub schemas)
-		newMap = Object.keys(newMap).reduce<ISchemaDefinitionMap>((map, name) => {
-			const { definition } = map[name]
+		newMap = Object.keys(newMap).reduce<ISchemaDefinitionMap>(
+			(map, schemaId) => {
+				const { definition } = map[schemaId]
 
-			let newFields: ISchemaFieldsDefinition | undefined
+				let newFields: ISchemaFieldsDefinition | undefined
 
-			Object.keys(definition.fields ?? {}).forEach(name => {
-				debugger
-				const field = definition.fields?[name] 
+				Object.keys(definition.fields ?? {}).forEach(name => {
+					const field = definition.fields?.[name]
 
-				// if this is a schema field, lets make sure schema id is set correctly
-				if (field && field.type === FieldType.Schema) {
-					if (!newFields) {
-						newFields = {}
+					// if this is a schema field, lets make sure schema id is set correctly
+					if (field && field.type === FieldType.Schema) {
+						if (!newFields) {
+							newFields = {}
+						}
+
+						// get the one true id
+						const schemaId = field.options.schema
+							? field.options.schema.id
+							: field.options.schemaId
+
+						// build new options
+						const newOptions = { ...field.options }
+
+						// no schema or schema id options (set again below)
+						delete newOptions.schema
+
+						// setup new field
+						newFields[name] = {
+							...field,
+							options: {
+								...newOptions,
+								schemaId
+							}
+						}
 					}
+				})
 
-					// get the one true id
-					const schemaId = field.options.schema
-						? field.options.schema.id
-						: field.options.schemaId
-					const newOptions = { ...field.options }
-
-					// no schema or schema id options (set again below)
-					delete newOptions.schema
-
-					// setup new field
-					newFields[name] = {
-						...field,
-						options: {
-							...newOptions,
-							schemaId: schemaId
+				if (newFields) {
+					// copy back fields with schemaId's
+					map[schemaId] = {
+						...map[schemaId],
+						definition: {
+							...map[schemaId].definition,
+							fields: {
+								...map[schemaId].definition.fields,
+								...newFields
+							}
 						}
 					}
 				}
-			})
 
-			return map
-		}, newMap)
-
-		debugger
+				return map
+			},
+			newMap
+		)
 
 		return newMap
 	}
