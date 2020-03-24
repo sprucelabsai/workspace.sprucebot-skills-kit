@@ -1,24 +1,26 @@
 import {
-	FieldType,
-	IField,
-	FieldTypeMap,
-	FieldClassMap,
-	Field
+	SpruceFieldType,
+	ISpruceFieldDefinition,
+	SpruceFieldTypeMap,
+	SpruceFieldClassMap,
+	SpruceField
 } from './fieldTypes'
-import { IFieldBase } from './fieldTypes/Base'
+import { ISpruceFieldDefinitionBase } from './fieldTypes/Base'
 import SchemaFieldValidationError from './SchemaFieldValidationError'
 
-export interface ISpruceSchemaFields {
-	[fieldName: string]: IField
+/** the structure of schema.fields. key is field name, value is field definition */
+export interface ISpruceSchemaFieldsDefinition {
+	[fieldName: string]: ISpruceFieldDefinition
 }
 
-export type SpruceSchemaFields<T extends ISpruceSchema> = Record<
-	SchemaFieldNames<T>,
-	Field
+/** the form of schema.fields based on an actual definition  */
+export type SpruceSchemaFields<T extends ISpruceSchemaDefinition> = Record<
+	SpruceSchemaFieldNames<T>,
+	SpruceField
 >
 
 /** A schema defines the data structure of something */
-export interface ISpruceSchema {
+export interface ISpruceSchemaDefinition {
 	/** give this schema a machine friendly id */
 	id: string
 	/** the name of this schema a human will see */
@@ -26,50 +28,54 @@ export interface ISpruceSchema {
 	/** a brief human readable explanation of this schema */
 	description?: string
 	/** how we type dynamic keys on this schema, if defined you cannot define fields */
-	dynamicKeySignature?: IFieldBase & { key: string }
+	dynamicKeySignature?: ISpruceFieldDefinitionBase & { key: string }
 	/** all the fields, keyed by name, required if no dynamicKeySignature is set */
-	fields?: ISpruceSchemaFields
+	fields?: ISpruceSchemaFieldsDefinition
 }
 
 /** to map a schema to an object with values */
-export type SchemaToValues<T extends ISpruceSchema> = {
-	[K in keyof T['fields']]: T['fields'][K] extends IField
+export type SpruceSchemaDefinitionValues<T extends ISpruceSchemaDefinition> = {
+	[K in keyof T['fields']]: T['fields'][K] extends ISpruceFieldDefinition
 		? T['fields'][K]['isRequired'] extends true
-			? Required<FieldTypeMap[T['fields'][K]['type']]>['value']
-			: Partial<FieldTypeMap[T['fields'][K]['type']]>['value']
+			? Required<SpruceFieldTypeMap[T['fields'][K]['type']]>['value']
+			: Partial<SpruceFieldTypeMap[T['fields'][K]['type']]>['value']
 		: never
 }
 
 /** a union of all field names */
-export type SchemaFieldNames<T extends ISpruceSchema> = keyof T['fields']
+export type SpruceSchemaFieldNames<
+	T extends ISpruceSchemaDefinition
+> = keyof T['fields']
 
 /** pluck out the field definition from the schema */
-export type SchemaField<
-	T extends ISpruceSchema,
+export type SpruceSchemaFieldDefinition<
+	T extends ISpruceSchemaDefinition,
 	K extends keyof T['fields']
-> = T['fields'][K] extends IField
-	? FieldTypeMap[T['fields'][K]['type']] & T['fields'][K]
+> = T['fields'][K] extends ISpruceFieldDefinition
+	? SpruceFieldTypeMap[T['fields'][K]['type']] & T['fields'][K]
 	: never
 
-export type SchemaFieldType<
-	T extends ISpruceSchema,
+export type SpruceSchemaFieldDefinitionType<
+	T extends ISpruceSchemaDefinition,
 	K extends keyof T['fields']
-> = T['fields'][K] extends IField ? T['fields'][K]['type'] : never
+> = T['fields'][K] extends ISpruceFieldDefinition
+	? T['fields'][K]['type']
+	: never
 
 /** get the type of the value of a schema's field */
-export type SchemaValueType<
-	T extends ISpruceSchema,
+export type SpruceSchemaFieldDefinitionValueType<
+	T extends ISpruceSchemaDefinition,
 	K extends keyof T['fields']
-> = T['fields'][K] extends IField
+> = T['fields'][K] extends ISpruceFieldDefinition
 	? T['fields'][K]['isRequired'] extends true
-		? Required<FieldTypeMap[T['fields'][K]['type']]>['value']
-		: Partial<FieldTypeMap[T['fields'][K]['type']]>['value']
+		? Required<SpruceFieldTypeMap[T['fields'][K]['type']]>['value']
+		: Partial<SpruceFieldTypeMap[T['fields'][K]['type']]>['value']
 	: never
 
 /** response to getNamedFields */
-export interface INamedField<T extends ISpruceSchema> {
-	name: SchemaFieldNames<T>
-	field: Field
+export interface ISpruceSchemaNamedField<T extends ISpruceSchemaDefinition> {
+	name: SpruceSchemaFieldNames<T>
+	field: SpruceField
 }
 
 /** options you can pass to schema.get() */
@@ -78,26 +84,28 @@ export interface ISpruceSchemaGetSetOptions {
 }
 
 /** response when calling validate() */
-export interface ISchemaValidationError<T extends ISpruceSchema> {
-	fieldName: SchemaFieldNames<T>
+export interface ISpruceSchemaValidationError<
+	T extends ISpruceSchemaDefinition
+> {
+	fieldName: SpruceSchemaFieldNames<T>
 	errors: string[]
 }
 
 /** universal schema class  */
-export class SpruceSchema<T extends ISpruceSchema> {
+export default class SpruceSchema<T extends ISpruceSchemaDefinition> {
 	/** the schema definition */
-	definition: T
+	public definition: T
 
 	/** the values of this schema */
-	values: Partial<SchemaToValues<T>>
+	public values: Partial<SpruceSchemaDefinitionValues<T>>
 
 	/** all the field objects keyed by field name, use getField rather than accessing this directly */
-	fields: SpruceSchemaFields<T>
+	public fields: SpruceSchemaFields<T>
 
-	constructor(
+	public constructor(
 		definition: T,
-		values?: Partial<SchemaToValues<T>>,
-		fieldClassMap: Record<FieldType, any> = FieldClassMap
+		values?: Partial<SpruceSchemaDefinitionValues<T>>,
+		fieldClassMap: Record<SpruceFieldType, any> = SpruceFieldClassMap
 	) {
 		// set definition and values
 		this.definition = definition
@@ -116,16 +124,16 @@ export class SpruceSchema<T extends ISpruceSchema> {
 			const definition = fieldDefinitions[name]
 			const fieldClass = fieldClassMap[definition.type]
 			const field = new fieldClass(definition)
-			this.fields[name as SchemaFieldNames<T>] = field
+			this.fields[name as SpruceSchemaFieldNames<T>] = field
 		})
 	}
 
-	public get = <F extends SchemaFieldNames<T>>(
+	public get<F extends SpruceSchemaFieldNames<T>>(
 		fieldName: F,
 		options: ISpruceSchemaGetSetOptions = {}
-	): SchemaValueType<T, F> => {
+	): SpruceSchemaFieldDefinitionValueType<T, F> {
 		// get value off self
-		let value: SchemaValueType<T, F> | undefined =
+		let value: SpruceSchemaFieldDefinitionValueType<T, F> | undefined =
 			typeof this.values[fieldName] !== undefined
 				? this.values[fieldName]
 				: undefined
@@ -148,15 +156,15 @@ export class SpruceSchema<T extends ISpruceSchema> {
 			value = field.toValueType(value)
 		}
 
-		return value as SchemaValueType<T, F>
+		return value as SpruceSchemaFieldDefinitionValueType<T, F>
 	}
 
 	/** set a value and ensure its type */
-	public set = <F extends SchemaFieldNames<T>>(
+	public set<F extends SpruceSchemaFieldNames<T>>(
 		fieldName: F,
-		value: SchemaValueType<T, F>,
+		value: SpruceSchemaFieldDefinitionValueType<T, F>,
 		options: ISpruceSchemaGetSetOptions = {}
-	): this => {
+	): this {
 		let localValue = value
 		const { validate = true } = options
 
@@ -180,8 +188,14 @@ export class SpruceSchema<T extends ISpruceSchema> {
 		return this
 	}
 
-	public validate = (): ISchemaValidationError<T>[] => {
-		const errors: ISchemaValidationError<T>[] = []
+	/** is this schema valid? */
+	public isValid() {
+		return this.validate().length > 0
+	}
+
+	/** returns an array of schema validation errors */
+	public validate(): ISpruceSchemaValidationError<T>[] {
+		const errors: ISpruceSchemaValidationError<T>[] = []
 
 		this.getNamedFields().forEach(item => {
 			const { name, field } = item
@@ -200,8 +214,8 @@ export class SpruceSchema<T extends ISpruceSchema> {
 	}
 
 	/** get all values valued */
-	public getValues = (): SchemaToValues<T> => {
-		const values: Partial<SchemaToValues<T>> = { ...this.values }
+	public getValues(): SpruceSchemaDefinitionValues<T> {
+		const values: Partial<SpruceSchemaDefinitionValues<T>> = { ...this.values }
 
 		this.getNamedFields().forEach(namedField => {
 			const { name } = namedField
@@ -209,14 +223,14 @@ export class SpruceSchema<T extends ISpruceSchema> {
 			values[name] = value
 		})
 
-		return values as SchemaToValues<T>
+		return values as SpruceSchemaDefinitionValues<T>
 	}
 
 	/** get all fields as an array for easy looping and mapping */
-	public getNamedFields = (): INamedField<T>[] => {
-		const namedFields: INamedField<T>[] = []
+	public getNamedFields(): ISpruceSchemaNamedField<T>[] {
+		const namedFields: ISpruceSchemaNamedField<T>[] = []
 
-		const names = Object.keys(this.fields) as SchemaFieldNames<T>[]
+		const names = Object.keys(this.fields) as SpruceSchemaFieldNames<T>[]
 
 		names.forEach(name => {
 			const field = this.fields[name]

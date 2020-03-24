@@ -1,10 +1,9 @@
-import { FieldType } from '.'
 import FieldBase, { IFieldBase } from './Base'
 
 export interface IFieldNumber extends IFieldBase {
-	type: FieldType.Number
+	type: Fie.Number
 	value?: number
 	defaultValue?: number
 }
 
-export default class FieldNumber extends FieldBase<IFieldBase> {}
+export default class FieldNumber extends FieldBase<IFieldNumber> {}

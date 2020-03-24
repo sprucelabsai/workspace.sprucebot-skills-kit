@@ -1,5 +1,5 @@
-import { FieldType } from '.'
-import FieldBase, { IFieldBase } from './Base'
+import { SpruceFieldType } from '.'
+import SpruceFieldBase, { ISpruceFieldDefinitionBase } from './Base'
 
 /** a duration value object */
 export interface IFieldDurationValue {
@@ -9,8 +9,8 @@ export interface IFieldDurationValue {
 	ms: number
 }
 
-export interface IFieldDuration extends IFieldBase {
-	type: FieldType.Duration
+export interface IFieldDuration extends ISpruceFieldDefinitionBase {
+	type: SpruceFieldType.Duration
 	value?: IFieldDurationValue
 	defaultValue?: IFieldDurationValue
 	options?: {
@@ -23,4 +23,4 @@ export interface IFieldDuration extends IFieldBase {
 	}
 }
 
-export default class FieldDuration extends FieldBase<IFieldDuration> {}
+export default class FieldDuration extends SpruceFieldBase<IFieldDuration> {}

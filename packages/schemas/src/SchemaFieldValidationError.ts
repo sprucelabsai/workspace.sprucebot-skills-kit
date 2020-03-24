@@ -1,14 +1,14 @@
 export default class SchemaFieldValidationError extends Error {
-	errorMessages: string[]
-	fieldName: string
+	public errorMessages: string[]
+	public fieldName: string
 
-	constructor(fieldName: string, errors: string[]) {
+	public constructor(fieldName: string, errors: string[]) {
 		super(`${fieldName}: ${errors.join(', ')}`)
 		this.errorMessages = errors
 		this.fieldName = fieldName
 	}
 
-	friendlyReason = () => {
+	public friendlyReason = () => {
 		return `${this.fieldName}: ${this.errorMessages.join(', ')}`
 	}
 }

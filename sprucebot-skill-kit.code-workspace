@@ -2,7 +2,7 @@
 	"folders": [
 		{
 			"path": "packages/types",
-			"name": "Types"
+			"name": "types"
 		},
 		{
 			"path": "packages/heartwood-components",
@@ -36,15 +36,15 @@
 			"path": "packages/spruce-utils"
 		},
 		{
-			"name": "Mercury",
+			"name": "mercury",
 			"path": "packages/mercury"
 		},
 		{
-			"name": "Errors",
+			"name": "errors",
 			"path": "packages/errors"
 		},
 		{
-			"name": "Schemas",
+			"name": "schemas",
 			"path": "packages/schemas"
 		}
 	],
