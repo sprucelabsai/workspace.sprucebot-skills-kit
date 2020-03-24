@@ -1,7 +1,5 @@
 /* eslint-disable prefer-rest-params */
 /* eslint-disable @typescript-eslint/camelcase */
-import { SpruceError } from '@sprucelabs/errors'
-
 const CLIENT =
 	typeof window !== 'undefined' || typeof __webpack_require__ === 'function'
 
@@ -86,6 +84,8 @@ interface ICaller {
 export type LogAdapter = (message?: any, ...optionalParams: any[]) => void
 
 export class Log {
+	/** The tab size of an object when stringified */
+	private objectSpaceWidth = 4
 	private useColors = true
 	private asJSON = false
 	private showLineNumbersForAll = false
@@ -206,12 +206,14 @@ export class Log {
 		})
 	}
 
+	/** Start a timer. Pass the response to timerEnd() to get the elapsed time */
 	public timerStart() {
-		return process.hrtime()
+		return this.hrtime()
 	}
 
+	/** Returns the elapsed time in milliseconds */
 	public timerEnd(timeStart: [number, number]) {
-		const elapsedHrTime = process.hrtime(timeStart)
+		const elapsedHrTime = this.hrtime(timeStart)
 		const elapsedTimeInMs = elapsedHrTime[0] * 1000 + elapsedHrTime[1] / 1e6
 		return elapsedTimeInMs
 	}
@@ -252,15 +254,14 @@ export class Log {
 		if (stack) {
 			const lines = stack.split('\n')
 			if (lines && lines[4]) {
-				caller.fullFilePath = lines[4]
 				const matches = lines[4].match(/\((.*)\)/)
 				if (matches && matches[1]) {
+					caller.fullFilePath = matches[1]
 					if (typeof process !== 'undefined') {
-						// return matches[1].replace(process.cwd(), '')
 						caller.relativeFilePath = matches[1].replace(process.cwd(), '')
+					} else {
+						caller.relativeFilePath = matches[1]
 					}
-
-					caller.relativeFilePath = matches[1]
 				}
 			}
 		}
@@ -287,35 +288,75 @@ export class Log {
 		}
 	}
 
-	private handleLog(options: { level: LogLevel; args: any }) {
+	private handleLog(options: { level: LogLevel; args: any[] }) {
 		const { level, args } = options
 		if (
 			this.levels[level] &&
 			this.levels[level].i >= this.levels[this.level].i
 		) {
 			const now = this.getDatetimeString()
-			let callerStr = ''
+			let caller: ICaller | undefined
 			if (
 				this.showLineNumbersForAll ||
 				this.levels[level].i <= this.levels[LogLevel.Debug].i
 			) {
 				// Show the caller function
-				const caller = this.getCaller()
-				callerStr = caller.relativeFilePath
+				caller = this.getCaller()
+			}
+
+			if (this.asJSON) {
+				const jsonThing = `${JSON.stringify(
+					{
+						timestamp: now,
+						level,
+						message: args,
+						caller
+					},
+					this.replaceErrors
+				)}`
+
+				this.writeLog(this.colorize({ level, str: jsonThing }))
+			} else {
+				const callerStr = caller?.relativeFilePath
 					? ` | ${caller.relativeFilePath}`
 					: ''
-			}
-			const rawAboutStr = `(${level.toUpperCase()} | ${now}${callerStr}): `
+				const rawAboutStr = `(${level.toUpperCase()} | ${now}${callerStr}): `
 
-			this.writeLog(rawAboutStr)
-			args.forEach(arg => {
-				if (typeof arg === 'string') {
-					this.writeLog(this.colorize({ str: arg, level }))
-				} else {
-					const str = JSON.stringify(arg, this.replaceErrors)
-					this.writeLog(this.colorize({ str, level }))
+				if (args.length === 1 && typeof args[0] === 'string') {
+					this.writeLog(
+						`(${level.toUpperCase()} | ${now}${callerStr}): ${this.colorize({
+							str: args[0],
+							level
+						})}`
+					)
+				} else if (Array.isArray(args)) {
+					this.writeLog(rawAboutStr)
+					args.forEach((arg: any) => {
+						const str = this.anyToString(arg)
+						this.writeLog(this.colorize({ str, level }))
+					})
 				}
-			})
+			}
+		}
+	}
+
+	private anyToString(thing: any): string {
+		const thingType = typeof thing
+
+		switch (thingType) {
+			case 'undefined':
+				return 'undefined'
+			case 'string':
+				return thing
+			case 'number':
+			case 'bigint':
+			case 'boolean':
+				return thing.toString()
+			case 'symbol':
+			case 'object':
+			case 'function':
+			default:
+				return JSON.stringify(thing, this.replaceErrors, this.objectSpaceWidth)
 		}
 	}
 
@@ -439,5 +480,21 @@ export class Log {
 		) {
 			adapter(fullMsg)
 		}
+	}
+
+	private hrtime(time?: [number, number]): [number, number] {
+		if (typeof process !== 'undefined') {
+			return process.hrtime(time)
+		}
+
+		const calcTime = time || [0, 0]
+
+		const now = // eslint-disable-next-line no-undef
+			typeof performance === 'object' ? performance.now() : Date.now() * 1e-3
+		const sec = Math.floor(now) - calcTime[0]
+		const nsec = Math.floor((now % 1) * 1e9) - calcTime[1]
+		const shift = nsec < 0 ? 0 : 1
+
+		return [sec - shift, nsec + shift * 1e9]
 	}
 }
