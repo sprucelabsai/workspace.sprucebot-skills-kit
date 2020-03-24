@@ -1,13 +1,12 @@
-import { SpruceFieldType } from '.'
-import SpruceFieldBase, { ISpruceFieldDefinitionBase } from './Base'
+import { FieldType } from '.'
+import FieldBase, { IFieldBaseDefinition } from './Base'
 
-export interface ISpruceFieldDefinitionNumber
-	extends ISpruceFieldDefinitionBase {
-	type: SpruceFieldType.Number
+export interface IFieldNumberDefinition extends IFieldBaseDefinition {
+	type: FieldType.Number
 	value?: number
 	defaultValue?: number
 }
 
-export default class SpruceFieldNumber<
-	T extends ISpruceFieldDefinitionNumber = ISpruceFieldDefinitionNumber
-> extends SpruceFieldBase<T> {}
+export default class FieldNumber<
+	T extends IFieldNumberDefinition = IFieldNumberDefinition
+> extends FieldBase<T> {}

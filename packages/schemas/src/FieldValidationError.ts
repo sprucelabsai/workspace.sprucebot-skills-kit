@@ -1,4 +1,4 @@
-export default class SchemaFieldValidationError extends Error {
+export default class FieldValidationError extends Error {
 	public errorMessages: string[]
 	public fieldName: string
 

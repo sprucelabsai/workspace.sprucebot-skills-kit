@@ -1,11 +1,11 @@
 // import Debug from 'debug'
-import SpruceSchema, { ISpruceSchemaDefinition } from './SpruceSchema'
-import { SpruceFieldType } from './fieldTypes'
+import Schema, { ISchemaDefinition } from './Schema'
+import { FieldType } from './fieldTypes'
 
 // const debug = Debug('@sprucelabs/spruce-types')
 
-export default class SpruceSchemaParser {
-	public static parseSchema<T extends ISpruceSchemaDefinition>(schema: T) {
+export default class Parser {
+	public static parseSchema<T extends ISchemaDefinition>(schema: T) {
 		if (!this.isValidSchema(schema)) {
 			throw new Error('INVALID_SCHEMA')
 		}
@@ -55,7 +55,7 @@ export default class SpruceSchemaParser {
 				// 	}
 				// 	break
 
-				case SpruceFieldType.Schema:
+				case FieldType.Schema:
 					isObject = true
 					type = this.parseDefinition({
 						def: item.fields,
@@ -84,26 +84,22 @@ export default class SpruceSchemaParser {
 		return parsed
 	}
 
-	private static isValidSchema<T extends ISpruceSchemaDefinition>(
-		definition: T
-	) {
-		const schema = new SpruceSchema(definition)
+	private static isValidSchema<T extends ISchemaDefinition>(definition: T) {
+		const schema = new Schema(definition)
 		return schema.isValid()
 	}
 
 	/** Returns a primative TS type for the given data type, defaulting to "any" if none was found  */
-	private static getPrimativeType(
-		primativeType: SpruceFieldType | string
-	): string {
+	private static getPrimativeType(primativeType: FieldType | string): string {
 		let type = 'any'
 		switch (primativeType) {
-			case SpruceFieldType.Text:
+			case FieldType.Text:
 				type = 'string'
 				break
-			case SpruceFieldType.Boolean:
+			case FieldType.Boolean:
 				type = 'boolean'
 				break
-			case SpruceFieldType.Number:
+			case FieldType.Number:
 				type = 'number'
 				break
 			default:

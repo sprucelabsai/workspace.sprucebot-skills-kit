@@ -1,10 +1,9 @@
-import { ISpruceFieldDefinitionBase } from './Base'
-import { SpruceFieldType } from './types'
-import SpruceFieldText from './Text'
+import { IFieldBaseDefinition } from './Base'
+import { FieldType } from './types'
+import FieldText from './Text'
 
-export interface ISpruceFieldDefinitionPhone
-	extends ISpruceFieldDefinitionBase {
-	type: SpruceFieldType.Phone
+export interface IFieldPhoneDefinition extends IFieldBaseDefinition {
+	type: FieldType.Phone
 	value?: string
 	defaultValue?: string
 	options?: {
@@ -13,9 +12,7 @@ export interface ISpruceFieldDefinitionPhone
 	}
 }
 
-export default class SpruceFieldPhone extends SpruceFieldText<
-	ISpruceFieldDefinitionPhone
-> {
+export default class FieldPhone extends FieldText<IFieldPhoneDefinition> {
 	public toValueType = (value: any): string => {
 		debugger
 		// TODO format as phone number

@@ -1,20 +1,17 @@
-import SpruceFieldBase, { ISpruceFieldDefinitionBase } from './Base'
-import { ISpruceSchemaDefinition } from '../SpruceSchema'
-import { SpruceFieldType } from './types'
+import FieldBase, { IFieldBaseDefinition } from './Base'
+import { ISchemaDefinition } from '../Schema'
+import { FieldType } from './types'
 
-export interface ISpruceFieldDefinitionSchema
-	extends ISpruceFieldDefinitionBase {
-	type: SpruceFieldType.Schema
-	value?: ISpruceSchemaDefinition
-	defaultValue?: ISpruceSchemaDefinition
+export interface IFieldSchemaDefinition extends IFieldBaseDefinition {
+	type: FieldType.Schema
+	value?: ISchemaDefinition
+	defaultValue?: ISchemaDefinition
 	options: {
 		/** the id of the schema you are relating to */
 		schemaId?: string
 		/** the actual schema */
-		schema?: ISpruceSchemaDefinition
+		schema?: ISchemaDefinition
 	}
 }
 
-export default class SpruceFieldSchema extends SpruceFieldBase<
-	ISpruceFieldDefinitionSchema
-> {}
+export default class FieldSchema extends FieldBase<IFieldSchemaDefinition> {}

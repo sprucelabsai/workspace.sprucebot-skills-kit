@@ -1,8 +1,8 @@
-import { SpruceFieldType, ISpruceFieldDefinition } from '.'
+import { FieldType, IFieldDefinition } from '.'
 
-export interface ISpruceFieldDefinitionBase {
+export interface IFieldBaseDefinition {
 	/** the type of field this is, will strongly type props for us */
-	type: SpruceFieldType
+	type: FieldType
 	/** generates in only for local interface and does not share with other skills */
 	isPrivate?: boolean
 	/** the permissions used in different contexts */
@@ -36,9 +36,7 @@ export interface ISpruceFieldDefinitionBase {
 	options?: Record<string, any>
 }
 
-export default class SpruceFieldBase<
-	T extends ISpruceFieldDefinition = ISpruceFieldDefinition
-> {
+export default class FieldBase<T extends IFieldDefinition = IFieldDefinition> {
 	public definition: T
 	public constructor(definition: T) {
 		this.definition = definition

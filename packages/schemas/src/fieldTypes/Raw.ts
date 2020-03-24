@@ -1,8 +1,8 @@
-import { SpruceFieldType } from '.'
-import SpruceFieldBase, { ISpruceFieldDefinitionBase } from './Base'
+import { FieldType } from '.'
+import FieldBase, { IFieldBaseDefinition } from './Base'
 
-export interface ISpruceFieldDefinitionRaw extends ISpruceFieldDefinitionBase {
-	type: SpruceFieldType.Raw
+export interface IFieldRawDefinition extends IFieldBaseDefinition {
+	type: FieldType.Raw
 	value?: any
 	defaultValue?: any
 	options: {
@@ -10,6 +10,4 @@ export interface ISpruceFieldDefinitionRaw extends ISpruceFieldDefinitionBase {
 	}
 }
 
-export default class SpruceFieldRaw extends SpruceFieldBase<
-	ISpruceFieldDefinitionRaw
-> {}
+export default class FieldRaw extends FieldBase<IFieldRawDefinition> {}

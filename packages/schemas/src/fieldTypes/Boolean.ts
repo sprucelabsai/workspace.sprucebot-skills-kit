@@ -1,14 +1,11 @@
-import SpruceFieldBase, { ISpruceFieldDefinitionBase } from './Base'
-import { SpruceFieldType } from './types'
+import FieldBase, { IFieldBaseDefinition } from './Base'
+import { FieldType } from './types'
 
-export interface ISpruceFieldBooleanDefinition
-	extends ISpruceFieldDefinitionBase {
-	type: SpruceFieldType.Boolean
+export interface IFieldBooleanDefinition extends IFieldBaseDefinition {
+	type: FieldType.Boolean
 	value?: boolean
 	defaultValue?: boolean
 	options: {}
 }
 
-export default class SpruceFieldBoolean extends SpruceFieldBase<
-	ISpruceFieldBooleanDefinition
-> {}
+export default class FieldBoolean extends FieldBase<IFieldBooleanDefinition> {}

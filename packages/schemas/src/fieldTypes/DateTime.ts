@@ -1,12 +1,12 @@
-import { SpruceFieldType } from '.'
-import SpruceFieldBase, { ISpruceFieldDefinitionBase } from './Base'
+import { FieldType } from '.'
+import FieldBase, { IFieldBaseDefinition } from './Base'
 
 export interface IFieldDateTimeValue {
 	gmt: string
 }
 
-export interface IFieldDateTime extends ISpruceFieldDefinitionBase {
-	type: SpruceFieldType.DateTime
+export interface IFieldDateTimeDefinition extends IFieldBaseDefinition {
+	type: FieldType.DateTime
 	value?: IFieldDateTimeValue
 	defaultValue?: IFieldDateTimeValue
 	options?: {
@@ -15,4 +15,6 @@ export interface IFieldDateTime extends ISpruceFieldDefinitionBase {
 	}
 }
 
-export default class FieldDateTime extends SpruceFieldBase<IFieldDateTime> {}
+export default class FieldDateTime extends FieldBase<
+	IFieldDateTimeDefinition
+> {}

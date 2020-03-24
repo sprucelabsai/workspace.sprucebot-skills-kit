@@ -1,13 +1,11 @@
-import { SpruceFieldType } from '.'
-import SpruceFieldBase, { ISpruceFieldDefinitionBase } from './Base'
+import { FieldType } from '.'
+import FieldBase, { IFieldBaseDefinition } from './Base'
 
-export interface ISpruceFieldDefinitionId extends ISpruceFieldDefinitionBase {
-	type: SpruceFieldType.Id
+export interface IFieldIdDefinition extends IFieldBaseDefinition {
+	type: FieldType.Id
 	value?: string
 	defaultValue?: string
 	options?: {}
 }
 
-export default class SpruceFieldId extends SpruceFieldBase<
-	ISpruceFieldDefinitionId
-> {}
+export default class FieldId extends FieldBase<IFieldIdDefinition> {}

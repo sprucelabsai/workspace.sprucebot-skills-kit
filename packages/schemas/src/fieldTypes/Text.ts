@@ -1,8 +1,8 @@
-import SpruceFieldBase, { ISpruceFieldDefinitionBase } from './Base'
-import { ISpruceFieldDefinition, SpruceFieldType } from './types'
+import FieldBase, { IFieldBaseDefinition } from './Base'
+import { IFieldDefinition, FieldType } from './types'
 
-export interface ISpruceFieldDefinitionText extends ISpruceFieldDefinitionBase {
-	type: SpruceFieldType.Text
+export interface IFieldTextDefinition extends IFieldBaseDefinition {
+	type: FieldType.Text
 	value?: string
 	defaultValue?: string
 	options?: {
@@ -13,9 +13,9 @@ export interface ISpruceFieldDefinitionText extends ISpruceFieldDefinitionBase {
 	}
 }
 
-export default class SpruceFieldText<
-	T extends ISpruceFieldDefinition = ISpruceFieldDefinition
-> extends SpruceFieldBase<T> {
+export default class FieldText<
+	T extends IFieldDefinition = IFieldDefinition
+> extends FieldBase<T> {
 	/** tranform to match the value type */
 	public toValueType = (value: any): string => {
 		const transformed =

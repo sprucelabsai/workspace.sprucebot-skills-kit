@@ -1,5 +1,5 @@
-import { SpruceFieldType } from './index'
-import SpruceFieldBase, { ISpruceFieldDefinitionBase } from './Base'
+import { FieldType } from './index'
+import FieldBase, { IFieldBaseDefinition } from './Base'
 
 export interface IFieldAddressValue {
 	street1: string
@@ -10,14 +10,11 @@ export interface IFieldAddressValue {
 	zip: string
 }
 
-export interface ISpruceFieldAddressDefinition
-	extends ISpruceFieldDefinitionBase {
-	type: SpruceFieldType.Address
+export interface IFieldAddressDefinition extends IFieldBaseDefinition {
+	type: FieldType.Address
 	value?: IFieldAddressValue
 	defaultValue?: IFieldAddressValue
 	options?: {}
 }
 
-export default class SpruceFieldAddress extends SpruceFieldBase<
-	ISpruceFieldAddressDefinition
-> {}
+export default class FieldAddress extends FieldBase<IFieldAddressDefinition> {}

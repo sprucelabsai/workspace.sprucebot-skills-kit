@@ -1,55 +1,55 @@
-import SpruceFieldBoolean, { ISpruceFieldBooleanDefinition } from './Boolean'
-import SpruceFieldSelect, { ISpruceFieldDefinitionSelect } from './Select'
-import FieldDuration, { IFieldDuration } from './Duration'
-import SpruceFieldId, { ISpruceFieldDefinitionId } from './Id'
-import SpruceFieldAddress, { ISpruceFieldAddressDefinition } from './Address'
-import SpruceFieldPhone, { ISpruceFieldDefinitionPhone } from './Phone'
-import SpruceFieldSchema, { ISpruceFieldDefinitionSchema } from './Schema'
-import SpruceFieldRaw, { ISpruceFieldDefinitionRaw } from './Raw'
-import FieldNumber, { ISpruceFieldDefinitionNumber } from './Number'
-import FieldDateTime, { IFieldDateTime } from './DateTime'
-import SpruceFieldText, { ISpruceFieldDefinitionText } from './Text'
+import FieldBoolean, { IFieldBooleanDefinition } from './Boolean'
+import FieldSelect, { IFieldSelectDefinition } from './Select'
+import FieldDuration, { IFieldDurationDefinition } from './Duration'
+import FieldId, { IFieldIdDefinition } from './Id'
+import FieldAddress, { IFieldAddressDefinition } from './Address'
+import FieldPhone, { IFieldPhoneDefinition } from './Phone'
+import FieldSchema, { IFieldSchemaDefinition } from './Schema'
+import FieldRaw, { IFieldRawDefinition } from './Raw'
+import FieldNumber, { IFieldNumberDefinition } from './Number'
+import FieldDateTime, { IFieldDateTimeDefinition } from './DateTime'
+import FieldText, { IFieldTextDefinition } from './Text'
 
-export type ISpruceFieldDefinition =
-	| ISpruceFieldBooleanDefinition
-	| ISpruceFieldDefinitionSelect
-	| IFieldDuration
-	| ISpruceFieldDefinitionId
-	| ISpruceFieldDefinitionText
-	| ISpruceFieldAddressDefinition
-	| ISpruceFieldDefinitionPhone
-	| ISpruceFieldDefinitionSchema
-	| ISpruceFieldDefinitionRaw
-	| ISpruceFieldDefinitionNumber
-	| IFieldDateTime
+export type IFieldDefinition =
+	| IFieldBooleanDefinition
+	| IFieldSelectDefinition
+	| IFieldDurationDefinition
+	| IFieldIdDefinition
+	| IFieldTextDefinition
+	| IFieldAddressDefinition
+	| IFieldPhoneDefinition
+	| IFieldSchemaDefinition
+	| IFieldRawDefinition
+	| IFieldNumberDefinition
+	| IFieldDateTimeDefinition
 
-export type SpruceFieldClass =
-	| typeof SpruceFieldBoolean
-	| typeof SpruceFieldSelect
+export type FieldClass =
+	| typeof FieldBoolean
+	| typeof FieldSelect
 	| typeof FieldDuration
-	| typeof SpruceFieldId
-	| typeof SpruceFieldText
-	| typeof SpruceFieldAddress
-	| typeof SpruceFieldPhone
-	| typeof SpruceFieldSchema
-	| typeof SpruceFieldRaw
+	| typeof FieldId
+	| typeof FieldText
+	| typeof FieldAddress
+	| typeof FieldPhone
+	| typeof FieldSchema
+	| typeof FieldRaw
 	| typeof FieldNumber
 	| typeof FieldDateTime
 
-export type SpruceField =
-	| SpruceFieldBoolean
-	| SpruceFieldSelect
+export type Field =
+	| FieldBoolean
+	| FieldSelect
 	| FieldDuration
-	| SpruceFieldId
-	| SpruceFieldText
-	| SpruceFieldAddress
-	| SpruceFieldPhone
-	| SpruceFieldSchema
-	| SpruceFieldRaw
+	| FieldId
+	| FieldText
+	| FieldAddress
+	| FieldPhone
+	| FieldSchema
+	| FieldRaw
 	| FieldNumber
 	| FieldDateTime
 
-export enum SpruceFieldType {
+export enum FieldType {
 	/** a string, something like varchar(255), configure size using options to impact rendering and storage length */
 	Text = 'text',
 	/** a true/false, renders as a toggle or checkbox, or a Y/N if used in cli */
@@ -75,32 +75,31 @@ export enum SpruceFieldType {
 }
 
 /** useful for type lookups for generics */
-export type SpruceFieldTypeMap = {
-	boolean: ISpruceFieldBooleanDefinition
-	select: ISpruceFieldDefinitionSelect
-	duration: IFieldDuration
-	id: ISpruceFieldDefinitionId
-	text: ISpruceFieldDefinitionText
-	address: ISpruceFieldAddressDefinition
-	phone: ISpruceFieldDefinitionPhone
-	schema: ISpruceFieldDefinitionSchema
-	raw: ISpruceFieldDefinitionRaw
-	number: ISpruceFieldDefinitionNumber
-	dateTime: IFieldDateTime
+export type FieldDefinitionMap = {
+	boolean: IFieldBooleanDefinition
+	select: IFieldSelectDefinition
+	duration: IFieldDurationDefinition
+	id: IFieldIdDefinition
+	text: IFieldTextDefinition
+	address: IFieldAddressDefinition
+	phone: IFieldPhoneDefinition
+	schema: IFieldSchemaDefinition
+	raw: IFieldRawDefinition
+	number: IFieldNumberDefinition
+	dateTime: IFieldDateTimeDefinition
 }
 
-// TODO: why does this have to be any?
 /** a global place to reference all field type classes */
-export const SpruceFieldClassMap: Record<SpruceFieldType, any> = {
-	[SpruceFieldType.Boolean]: SpruceFieldBoolean,
-	[SpruceFieldType.Select]: SpruceFieldSelect,
-	[SpruceFieldType.Duration]: FieldDuration,
-	[SpruceFieldType.Id]: SpruceFieldId,
-	[SpruceFieldType.Address]: SpruceFieldAddress,
-	[SpruceFieldType.Phone]: SpruceFieldPhone,
-	[SpruceFieldType.Schema]: SpruceFieldSchema,
-	[SpruceFieldType.Raw]: SpruceFieldRaw,
-	[SpruceFieldType.Number]: FieldNumber,
-	[SpruceFieldType.DateTime]: FieldDateTime,
-	[SpruceFieldType.Text]: SpruceFieldText
+export const FieldClassMap: Record<FieldType, FieldClass> = {
+	[FieldType.Boolean]: FieldBoolean,
+	[FieldType.Select]: FieldSelect,
+	[FieldType.Duration]: FieldDuration,
+	[FieldType.Id]: FieldId,
+	[FieldType.Address]: FieldAddress,
+	[FieldType.Phone]: FieldPhone,
+	[FieldType.Schema]: FieldSchema,
+	[FieldType.Raw]: FieldRaw,
+	[FieldType.Number]: FieldNumber,
+	[FieldType.DateTime]: FieldDateTime,
+	[FieldType.Text]: FieldText
 }
