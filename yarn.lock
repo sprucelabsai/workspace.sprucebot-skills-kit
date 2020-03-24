@@ -4677,6 +4677,11 @@
   dependencies:
     globby "*"
 
+"@types/google-libphonenumber@^7.4.17":
+  version "7.4.17"
+  resolved "https://registry.yarnpkg.com/@types/google-libphonenumber/-/google-libphonenumber-7.4.17.tgz#26974213353cb459e403a5740812115a596cf170"
+  integrity sha512-NdqFHXBGxwiGjJn7dTAjcCckgxE+LbE3jik6/SNiC9ZfG4BxHJM1X6m8w+/ZpSGRN5s0+4dIL+MaD/KSXywp1g==
+
 "@types/graphql-depth-limit@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@types/graphql-depth-limit/-/graphql-depth-limit-1.1.2.tgz#8e8a7b68548d703a3c3bd7f0531f314b3051f556"
