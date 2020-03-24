@@ -1,10 +1,9 @@
-import { ISpruceSchema } from '../Schema'
-import { FieldType } from '../fieldTypes'
-import { roleSelectChoices } from './role.schema'
+import { ISchemaDefinition, FieldType } from '@sprucelabs/schemas'
+import { RoleSelectChoices } from './role.schema'
 import aclSchema from './acl.schema'
 
 /** A permission keyed by skill slug or "core" and values are an array of permission keys starting with "can-" */
-const jobSchema: ISpruceSchema = {
+const jobSchema: ISchemaDefinition = {
 	id: 'job',
 	name: 'Job',
 	description:
@@ -31,7 +30,7 @@ const jobSchema: ISpruceSchema = {
 			type: FieldType.Select,
 			isRequired: true,
 			options: {
-				choices: roleSelectChoices
+				choices: RoleSelectChoices
 			}
 		},
 		inStoreAcls: {

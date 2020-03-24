@@ -37,10 +37,8 @@
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
 	"dependencies": {
-		"google-libphonenumber": "^3.2.8",
 		"graphql-iso-date": "^3.6.1",
 		"graphql-type-json": "^0.3.0",
-		"libphonenumber-js": "^1.7.48",
 		"typescript": "^3.8"
 	},
 	"devDependencies": {

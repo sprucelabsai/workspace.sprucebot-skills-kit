@@ -1,7 +1,6 @@
-import { ISpruceSchema } from '../Schema'
-import { FieldType } from '../fieldTypes'
+import { ISchemaDefinition, FieldType } from '@sprucelabs/schemas'
 
-const skillSchema: ISpruceSchema = {
+const skillSchema: ISchemaDefinition = {
 	id: 'skill',
 	name: 'Skill',
 	description: 'An ability Sprucebot has learned.',

@@ -1,8 +1,7 @@
-import { ISpruceSchema } from '../Schema'
-import { FieldType } from '../fieldTypes'
-import { roleSelectChoices } from './role.schema'
+import { ISchemaDefinition, FieldType } from '@sprucelabs/schemas'
+import { RoleSelectChoices } from './role.schema'
 
-const userLocationSchema: ISpruceSchema = {
+const userLocationSchema: ISchemaDefinition = {
 	id: 'userLocation',
 	name: 'User location',
 	description: 'A location a person has given access to themselves.',
@@ -16,7 +15,7 @@ const userLocationSchema: ISpruceSchema = {
 			type: FieldType.Select,
 			isRequired: true,
 			options: {
-				choices: roleSelectChoices
+				choices: RoleSelectChoices
 			}
 		},
 		status: {
@@ -28,7 +27,7 @@ const userLocationSchema: ISpruceSchema = {
 			type: FieldType.Number,
 			isRequired: true,
 			options: {
-				choices: roleSelectChoices
+				choices: RoleSelectChoices
 			}
 		},
 		lastRecordedVisit: {

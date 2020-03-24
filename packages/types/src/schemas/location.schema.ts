@@ -1,7 +1,6 @@
-import { ISpruceSchema } from '../Schema'
-import { FieldType } from '../fieldTypes'
+import { ISchemaDefinition, FieldType } from '@sprucelabs/schemas'
 
-const locationSchema: ISpruceSchema = {
+const locationSchema: ISchemaDefinition = {
 	id: 'location',
 	name: 'Location',
 	description:

@@ -5,7 +5,7 @@ export interface IFieldBooleanDefinition extends IFieldBaseDefinition {
 	type: FieldType.Boolean
 	value?: boolean
 	defaultValue?: boolean
-	options: {}
+	options?: {}
 }
 
 export default class FieldBoolean extends FieldBase<IFieldBooleanDefinition> {}

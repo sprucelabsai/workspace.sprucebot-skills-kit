@@ -1,7 +1,6 @@
-import { ISpruceSchema } from '../Schema'
-import { FieldType } from '../fieldTypes'
+import { ISchemaDefinition, FieldType } from '@sprucelabs/schemas'
 
-const profileImageSchema: ISpruceSchema = {
+const profileImageSchema: ISchemaDefinition = {
 	id: 'profileImage',
 	name: 'Profile Image Sizes',
 	description: 'Profile images at various helpful sizes and resolutions.',
@@ -29,7 +28,7 @@ const profileImageSchema: ISpruceSchema = {
 	}
 }
 
-const userSchema: ISpruceSchema = {
+const userSchema: ISchemaDefinition = {
 	id: 'user',
 	name: 'User',
 	description: 'A human being.',

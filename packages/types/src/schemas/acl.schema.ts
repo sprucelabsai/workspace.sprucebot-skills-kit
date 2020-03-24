@@ -1,7 +1,6 @@
-import { ISpruceSchema } from '../Schema'
-import { FieldType } from '../fieldTypes'
+import { ISchemaDefinition, FieldType } from '@sprucelabs/schemas'
 
-const aclSchema: ISpruceSchema = {
+const aclSchema: ISchemaDefinition = {
 	id: 'acl',
 	name: 'Access control list lookup table',
 	dynamicKeySignature: {

@@ -22,7 +22,7 @@ export default class FieldPhone extends FieldText<IFieldPhoneDefinition> {
 	}
 
 	public validate(value: any) {
-		debugger
+		// debugger
 		const errors = super.validate(value)
 		try {
 			PhoneNumber.format(value, false)

@@ -2,7 +2,7 @@
 
 import { FieldType, ISpruceSchema } from '@sprucelabs/spruce-types'
 
-const appointmentSchema: ISpruceSchema = {
+const appointmentSchema: ISchemaDefinition = {
 	id: 'appointment',
 	name: 'Appointment',
 	fields: {
@@ -24,7 +24,7 @@ namespace SpruceSchemas.booking.Appointment {
 // 	time: 'aalskjdf'
 // }
 
-const exampleSchema: ISpruceSchema = {
+const exampleSchema: ISchemaDefinition = {
 	id: 'example',
 	name: 'Example',
 	fields: {

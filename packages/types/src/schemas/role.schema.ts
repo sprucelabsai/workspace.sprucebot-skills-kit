@@ -1,8 +1,10 @@
-import { ISpruceSchema } from '../Schema'
-import { FieldType } from '../fieldTypes'
-import { IFieldSelectChoice } from '../fieldTypes/Select'
+import {
+	ISchemaDefinition,
+	FieldType,
+	IFieldSelectDefinitionChoice
+} from '@sprucelabs/schemas'
 
-const roleSchema: ISpruceSchema = {
+const roleSchema: ISchemaDefinition = {
 	id: 'role',
 	name: 'Role',
 	description: 'All people in Spruce fall into 5 roles.',
@@ -30,7 +32,7 @@ export enum RoleSlugs {
 	Guest = 'guest'
 }
 
-export const roleSelectChoices: IFieldSelectChoice[] = [
+export const RoleSelectChoices: IFieldSelectDefinitionChoice[] = [
 	{
 		value: 'owner',
 		label: 'Owner'

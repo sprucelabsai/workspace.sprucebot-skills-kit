@@ -1,8 +1,7 @@
-import { ISpruceSchema } from '../Schema'
-import { FieldType } from '../fieldTypes'
-import { roleSelectChoices } from './role.schema'
+import { ISchemaDefinition, FieldType } from '@sprucelabs/schemas'
+import { RoleSelectChoices } from './role.schema'
 
-const groupSchema: ISpruceSchema = {
+const groupSchema: ISchemaDefinition = {
 	id: 'job',
 	name: 'Job',
 	description:
@@ -29,7 +28,7 @@ const groupSchema: ISpruceSchema = {
 			type: FieldType.Select,
 			isRequired: true,
 			options: {
-				choices: roleSelectChoices
+				choices: RoleSelectChoices
 			}
 		},
 		inStoreAcls: {
