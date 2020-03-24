@@ -8,7 +8,7 @@ export default class FieldValidationError extends Error {
 		this.fieldName = fieldName
 	}
 
-	public friendlyReason = () => {
+	public friendlyReason() {
 		return `${this.fieldName}: ${this.errorMessages.join(', ')}`
 	}
 }

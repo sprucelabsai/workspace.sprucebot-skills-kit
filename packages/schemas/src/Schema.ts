@@ -99,7 +99,7 @@ export default class Schema<T extends ISchemaDefinition> {
 	public fields: SchemaDefinitionFields<T>
 
 	/** for caching getNamedFields() */
-	private _namedFieldCache: ISchemaNamedField<T>[] | undefined
+	private namedFieldCache: ISchemaNamedField<T>[] | undefined
 
 	public constructor(
 		definition: T,
@@ -241,8 +241,8 @@ export default class Schema<T extends ISchemaDefinition> {
 
 	/** get all fields as an array for easy looping and mapping */
 	public getNamedFields(): ISchemaNamedField<T>[] {
-		if (this._namedFieldCache) {
-			return this._namedFieldCache
+		if (this.namedFieldCache) {
+			return this.namedFieldCache
 		}
 		const namedFields: ISchemaNamedField<T>[] = []
 
@@ -253,7 +253,7 @@ export default class Schema<T extends ISchemaDefinition> {
 			namedFields.push({ name, field })
 		})
 
-		this._namedFieldCache = namedFields
+		this.namedFieldCache = namedFields
 
 		return namedFields
 	}

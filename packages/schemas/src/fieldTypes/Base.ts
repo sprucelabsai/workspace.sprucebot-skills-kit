@@ -36,30 +36,36 @@ export interface IFieldBaseDefinition {
 	options?: Record<string, any>
 }
 
-export default class FieldBase<T extends IFieldDefinition = IFieldDefinition> {
+export default abstract class FieldBase<
+	T extends IFieldDefinition = IFieldDefinition
+> {
 	public definition: T
 	public constructor(definition: T) {
 		this.definition = definition
 	}
 
-	public getOptions = () => {
+	public getType() {
+		return this.definition.type
+	}
+
+	public getOptions() {
 		return this.definition.options
 	}
 
-	public isRequired = () => {
+	public isRequired() {
 		return !!this.definition.isRequired
 	}
 
-	public isArray = () => {
+	public isArray() {
 		return !!this.definition.isArray
 	}
 
-	public getLabel = () => {
+	public getLabel() {
 		return this.definition.label
 	}
 
 	/** validate a value against this field */
-	public validate = (value: any): string[] => {
+	public validate(value: any): string[] {
 		const errors = []
 		if ((typeof value === 'undefined' || value === null) && this.isRequired()) {
 			errors.push('missing_required')

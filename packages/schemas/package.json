@@ -30,7 +30,10 @@
 		"clean": "rm -rf build/",
 		"lint": "eslint '**/*.ts' && tsc -p . --noEmit"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"google-libphonenumber": "^3.2.8",
+		"libphonenumber-js": "^1.7.48"
+	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^11.0.0",
 		"@rollup/plugin-json": "^4.0.1",
