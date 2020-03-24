@@ -323,12 +323,13 @@ export class Log {
 				const rawAboutStr = `(${level.toUpperCase()} | ${now}${callerStr}): `
 
 				if (args.length === 1 && typeof args[0] === 'string') {
-					this.writeLog(
-						`(${level.toUpperCase()} | ${now}${callerStr}): ${this.colorize({
-							str: args[0],
-							level
-						})}`
-					)
+					const str = CLIENT
+						? this.colorize({ str: `${rawAboutStr} ${args[0]}`, level })
+						: `${rawAboutStr} ${this.colorize({
+								str: args[0],
+								level
+						  })}`
+					this.writeLog(str)
 				} else if (Array.isArray(args)) {
 					this.writeLog(rawAboutStr)
 					args.forEach((arg: any) => {
@@ -382,9 +383,13 @@ export class Log {
 		return colorizedStr
 	}
 
-	private writeLog(thingToWrite: any) {
+	private writeLog(thingsToWrite: any) {
 		const adapter = this.getAdapter()
-		adapter(thingToWrite)
+		if (Array.isArray(thingsToWrite)) {
+			adapter(...thingsToWrite)
+		} else {
+			adapter(thingsToWrite)
+		}
 	}
 
 	private getDatetimeString() {
