@@ -1,3 +1,5 @@
 export * from './SpruceSchemaParser'
+export { default as SpruceSchemaParser } from './SpruceSchemaParser'
 export * from './SpruceSchema'
+export { default as SpruceSchema } from './SpruceSchema'
 export * from './fieldTypes'
