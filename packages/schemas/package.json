@@ -33,15 +33,16 @@
 	},
 	"dependencies": {
 		"google-libphonenumber": "^3.2.8",
-		"libphonenumber-js": "^1.7.48"
+		"libphonenumber-js": "^1.7.48",
+		"lodash": "^4.17.15"
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^11.0.0",
 		"@rollup/plugin-json": "^4.0.1",
 		"@rollup/plugin-node-resolve": "^6.0.0",
 		"@rollup/plugin-typescript": "^2.0.1",
-		"@types/socket.io-client": "^1.4.32",
 		"@types/google-libphonenumber": "^7.4.17",
+		"@types/socket.io-client": "^1.4.32",
 		"add": "^2.0.6",
 		"chokidar-cli": "^2.1.0",
 		"concurrently": "^5.0.2",

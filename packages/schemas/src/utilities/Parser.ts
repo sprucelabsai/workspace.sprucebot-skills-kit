@@ -1,6 +1,6 @@
 // import Debug from 'debug'
-import Schema, { ISchemaDefinition } from './Schema'
-import { FieldType } from './fieldTypes'
+import Schema, { ISchemaDefinition } from '../Schema'
+import { FieldType } from '../fieldTypes'
 
 // const debug = Debug('@sprucelabs/spruce-types')
 
