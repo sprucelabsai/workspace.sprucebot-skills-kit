@@ -65,7 +65,11 @@ export default class Generator {
 				if (field.type === FieldType.Schema) {
 					const schemaDefinition = field.options.schema
 					if (schemaDefinition) {
-						newMap = Generator.generateSchemaMap([schemaDefinition], newMap, depth + 1)
+						newMap = Generator.generateSchemaMap(
+							[schemaDefinition],
+							newMap,
+							depth + 1
+						)
 					}
 				}
 			})
@@ -74,23 +78,24 @@ export default class Generator {
 		// now that everything is mapped, lets change schema fields to id's (vs sub schemas)
 		newMap = Object.keys(newMap).reduce<ISchemaDefinitionMap>((map, name) => {
 			const { definition } = map[name]
-			
-			let newFields : ISchemaFieldsDefinition | undefined
+
+			let newFields: ISchemaFieldsDefinition | undefined
 
 			Object.keys(definition.fields ?? {}).forEach(name => {
 				debugger
-				const field = definition.fields?[name]
+				const field = definition.fields?[name] 
 
 				// if this is a schema field, lets make sure schema id is set correctly
-				if (field && field.types === FieldType.Schema) {
-					
+				if (field && field.type === FieldType.Schema) {
 					if (!newFields) {
 						newFields = {}
 					}
 
 					// get the one true id
-					const schemaId = field.options.schema ? field.options.schema.id : field.options.schemaId
-					const newOptions = {...field.options}
+					const schemaId = field.options.schema
+						? field.options.schema.id
+						: field.options.schemaId
+					const newOptions = { ...field.options }
 
 					// no schema or schema id options (set again below)
 					delete newOptions.schema
@@ -103,7 +108,6 @@ export default class Generator {
 							schemaId: schemaId
 						}
 					}
-
 				}
 			})
 
