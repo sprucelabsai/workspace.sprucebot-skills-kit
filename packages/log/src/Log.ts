@@ -213,4 +213,33 @@ export class Log {
 			})
 		}
 	}
+
+	private getDatetimeString() {
+		const now = new Date()
+		const year = now.getFullYear()
+		let month: string = (now.getMonth() + 1).toString()
+		if (month < 10) {
+			month = '0' + month
+		}
+		let day = now.getDate()
+		if (day < 10) {
+			day = '0' + day
+		}
+		let hour = now.getHours()
+		if (hour < 10) {
+			hour = '0' + hour
+		}
+		let minute = now.getMinutes()
+		if (minute < 10) {
+			minute = '0' + minute
+		}
+		let second = now.getSeconds()
+		if (second < 10) {
+			second = '0' + second
+		}
+		const millisecond = now.getMilliseconds()
+		const nowStr = `${year}-${month}-${day} ${hour}:${minute}:${second}:${millisecond}`
+
+		return nowStr
+	}
 }
