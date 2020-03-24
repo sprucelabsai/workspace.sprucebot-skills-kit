@@ -2,11 +2,7 @@ module.exports = {
 	title: 'Split Button',
 	collated: true,
 	collator(markup, item) {
-		return `<!-- Start: @${
-			item.handle
-		} -->\n<span style="display: inline-block; margin: 0 1rem 1rem 0;">${markup}</span>\n<!-- End: @${
-			item.handle
-		} -->\n`
+		return `<!-- Start: @${item.handle} -->\n<span style="display: inline-block; margin: 0 1rem 1rem 0;">${markup}</span>\n<!-- End: @${item.handle} -->\n`
 	},
 	context: {
 		defaultAction: 'Check guest in',

@@ -1,10 +1,8 @@
-import logger from '@sprucelabs/log'
+import log from '@sprucelabs/log'
 
 import { isValidNumber } from 'libphonenumber-js'
-import libPhoneNumber from 'google-libphonenumber'
-
 // @ts-ignore
-const log = logger.log
+import libPhoneNumber from 'google-libphonenumber'
 
 // TODO scrap this when we move to Schema centralized formatting and validating
 export default class PhoneNumber {

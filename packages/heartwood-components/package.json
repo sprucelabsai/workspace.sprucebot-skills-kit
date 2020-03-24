@@ -28,6 +28,7 @@
 	"scripts": {
 		"deploy": "gh-pages -d build",
 		"lint": "eslint components",
+		"lint:fix": "eslint --fix components",
 		"build": "gulp styles && gulp styles-minify && gulp js && gulp svg && fractal build",
 		"watch": "gulp watch"
 	},

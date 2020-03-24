@@ -25,6 +25,7 @@
 		"watch": "tsc -w",
 		"clean": "rm -rf build/",
 		"lint": "eslint '**/*.ts' && tsc -p . --noEmit",
+		"lint:fix": "eslint --fix '**/*.ts'",
 		"#test": "jest",
 		"syncApiSchema:local": "API_HOST=https://local-api.sprucebot.com/graphql node ./mock/fetchApiSchema.js"
 	},
@@ -40,7 +41,7 @@
 		"eslint-config-spruce": "^9.1.0",
 		"jest": "^24.5.0",
 		"nock": "^9.1.6",
-		"prettier": "^1.13",
+		"prettier": "^1.19",
 		"yarn": "^1.2.1"
 	},
 	"peerDependencies": {

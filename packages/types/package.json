@@ -30,6 +30,7 @@
 		"watch": "chokidar \"**/*.ts\" \"**/*.js\" \"**/*.gql\" -i \"build/**/*\" -i \"src/generated/**/*\" -c \"npm run build\"",
 		"clean": "rm -rf build/",
 		"lint": "eslint '**/*.ts' && tsc -p . --noEmit",
+		"lint:fix": "eslint --fix '**/*.ts'",
 		"test": "mocha -r ts-node/register/transpile-only --exit 'tests/**/*Tests*'"
 	},
 	"bugs": {
@@ -55,7 +56,7 @@
 		"globby": "^10.0.1",
 		"graphql-tools": "^4.0.5",
 		"mocha": "^5.2.0",
-		"prettier": "^1.13",
+		"prettier": "^1.19",
 		"prettier-eslint-cli": "^5.0.0"
 	},
 	"peerDependencies": {
