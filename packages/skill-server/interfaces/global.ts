@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/interface-name-prefix */
 /* eslint-disable @typescript-eslint/no-namespace */
-import { ISpruceLog, ISpruceLogger } from '@sprucelabs/log'
+import { Log } from '@sprucelabs/log'
 
 export interface IEmitResponseCallback {
 	callback?: (options: {
@@ -19,15 +19,11 @@ export interface IEmitResponse {
 }
 
 declare global {
-	// @ts-ignore
-	const log: ISpruceLog
-	// @ts-ignore
-	const logger: ISpruceLogger
+	const log: Log
 	namespace NodeJS {
-		// @ts-ignore
 		interface Global {
-			log: ISpruceLog
-			logger: ISpruceLogger
+			log: Log
+			logger: Log
 			testEmitResponse: {
 				[eventName: string]: IEmitResponseCallback | IEmitResponse[]
 			}

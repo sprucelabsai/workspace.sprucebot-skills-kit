@@ -222,21 +222,22 @@ async function serve<ISkillContext extends ISpruceContext>(
 		log.info('Metrics: disabled')
 	}
 
-	if (metricsEnabled && !metricsRequestsDisabled) {
-		// Log request stats
-		// @ts-ignore
-		koa.use(logger.middleware.requests())
-	} else {
-		log.info('Metrics: Request middleware disabled')
-	}
+	// TODO: Metrics?
+	// if (metricsEnabled && !metricsRequestsDisabled) {
+	// 	// Log request stats
+	// 	// @ts-ignore
+	// 	koa.use(logger.middleware.requests())
+	// } else {
+	// 	log.info('Metrics: Request middleware disabled')
+	// }
 
-	if (metricsEnabled && !metricsServerStatsDisabled) {
-		// Log OS stats
-		// @ts-ignore
-		logger.nodeMetrics()
-	} else {
-		log.info('Metrics: Server stats disabled')
-	}
+	// if (metricsEnabled && !metricsServerStatsDisabled) {
+	// 	// Log OS stats
+	// 	// @ts-ignore
+	// 	logger.nodeMetrics()
+	// } else {
+	// 	log.info('Metrics: Server stats disabled')
+	// }
 
 	/*=======================================
 	=             	BASICS   	            =

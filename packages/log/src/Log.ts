@@ -43,7 +43,9 @@ interface ILogOptions {
 }
 
 export class Log {
+	// @ts-ignore WIP
 	private useColors = true
+	// @ts-ignore WIP
 	private asJSON = false
 	private level: LogLevel = LogLevel.Info
 
@@ -106,56 +108,56 @@ export class Log {
 		}
 	}
 
-	public constructor(options: ILogOptions) {
+	public constructor(options?: ILogOptions) {
 		this.setOptions(options)
 	}
 
-	public trace() {
+	public trace(...args: any) {
 		return this.handleLog({
 			level: LogLevel.Trace,
-			args: arguments
+			args
 		})
 	}
-	public debug() {
+	public debug(...args: any) {
 		return this.handleLog({
 			level: LogLevel.Debug,
-			args: arguments
+			args
 		})
 	}
-	public info() {
+	public info(...args: any) {
 		return this.handleLog({
 			level: LogLevel.Info,
-			args: arguments
+			args
 		})
 	}
-	public warn() {
+	public warn(...args: any) {
 		return this.handleLog({
 			level: LogLevel.Warn,
-			args: arguments
+			args
 		})
 	}
-	public error() {
+	public error(...args: any) {
 		return this.handleLog({
 			level: LogLevel.Error,
-			args: arguments
+			args
 		})
 	}
-	public crit() {
+	public crit(...args: any) {
 		return this.handleLog({
 			level: LogLevel.Crit,
-			args: arguments
+			args
 		})
 	}
-	public fatal() {
+	public fatal(...args: any) {
 		return this.handleLog({
 			level: LogLevel.Fatal,
-			args: arguments
+			args
 		})
 	}
-	public superInfo() {
+	public superInfo(...args: any) {
 		return this.handleLog({
 			level: LogLevel.SuperInfo,
-			args: arguments
+			args
 		})
 	}
 
