@@ -1,8 +1,8 @@
-import { IFieldBase } from './Base'
+import { IFieldBaseDefinition } from './Base'
 import { FieldType } from './types'
 import FieldText from './Text'
 
-export interface IFieldPhone extends IFieldBase {
+export interface IFieldPhoneDefinition extends IFieldBaseDefinition {
 	type: FieldType.Phone
 	value?: string
 	defaultValue?: string
@@ -12,9 +12,10 @@ export interface IFieldPhone extends IFieldBase {
 	}
 }
 
-export default class FieldPhone extends FieldText<IFieldPhone> {
-	toValueType = (value: any): string => {
+export default class FieldPhone extends FieldText<IFieldPhoneDefinition> {
+	public toValueType = (value: any): string => {
 		debugger
+		// TODO format as phone number
 
 		return value as string
 	}

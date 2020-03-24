@@ -1,6 +1,6 @@
-import { FieldType, IField } from '.'
+import { FieldType, IFieldDefinition } from '.'
 
-export interface IFieldBase {
+export interface IFieldBaseDefinition {
 	/** the type of field this is, will strongly type props for us */
 	type: FieldType
 	/** generates in only for local interface and does not share with other skills */
@@ -36,30 +36,30 @@ export interface IFieldBase {
 	options?: Record<string, any>
 }
 
-export default class FieldBase<T extends IField = IField> {
-	definition: T
-	constructor(definition: T) {
+export default class FieldBase<T extends IFieldDefinition = IFieldDefinition> {
+	public definition: T
+	public constructor(definition: T) {
 		this.definition = definition
 	}
 
-	getOptions = () => {
+	public getOptions = () => {
 		return this.definition.options
 	}
 
-	isRequired = () => {
+	public isRequired = () => {
 		return !!this.definition.isRequired
 	}
 
-	isArray = () => {
+	public isArray = () => {
 		return !!this.definition.isArray
 	}
 
-	getLabel = () => {
+	public getLabel = () => {
 		return this.definition.label
 	}
 
 	/** validate a value against this field */
-	validate = (value: any): string[] => {
+	public validate = (value: any): string[] => {
 		const errors = []
 		if ((typeof value === 'undefined' || value === null) && this.isRequired()) {
 			errors.push('missing_required')
@@ -69,7 +69,7 @@ export default class FieldBase<T extends IField = IField> {
 	}
 
 	/** transform any value to the value type of this field */
-	toValueType = (value: any): any => {
+	public toValueType = (value: any): any => {
 		return value
 	}
 }

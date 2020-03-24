@@ -1,7 +1,7 @@
-import FieldBase, { IFieldBase } from './Base'
-import { IField, FieldType } from './types'
+import FieldBase, { IFieldBaseDefinition } from './Base'
+import { IFieldDefinition, FieldType } from './types'
 
-export interface IFieldText extends IFieldBase {
+export interface IFieldTextDefinition extends IFieldBaseDefinition {
 	type: FieldType.Text
 	value?: string
 	defaultValue?: string
@@ -13,11 +13,11 @@ export interface IFieldText extends IFieldBase {
 	}
 }
 
-export default class FieldText<T extends IField = IFieldText> extends FieldBase<
-	T
-> {
+export default class FieldText<
+	T extends IFieldDefinition = IFieldDefinition
+> extends FieldBase<T> {
 	/** tranform to match the value type */
-	toValueType = (value: any): string => {
+	public toValueType = (value: any): string => {
 		const transformed =
 			typeof value === 'string' ? value : value && value.toString()
 

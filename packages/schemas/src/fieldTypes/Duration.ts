@@ -1,5 +1,5 @@
 import { FieldType } from '.'
-import FieldBase, { IFieldBase } from './Base'
+import FieldBase, { IFieldBaseDefinition } from './Base'
 
 /** a duration value object */
 export interface IFieldDurationValue {
@@ -9,7 +9,7 @@ export interface IFieldDurationValue {
 	ms: number
 }
 
-export interface IFieldDuration extends IFieldBase {
+export interface IFieldDurationDefinition extends IFieldBaseDefinition {
 	type: FieldType.Duration
 	value?: IFieldDurationValue
 	defaultValue?: IFieldDurationValue
@@ -23,4 +23,6 @@ export interface IFieldDuration extends IFieldBase {
 	}
 }
 
-export default class FieldDuration extends FieldBase<IFieldDuration> {}
+export default class FieldDuration extends FieldBase<
+	IFieldDurationDefinition
+> {}

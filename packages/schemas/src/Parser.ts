@@ -1,16 +1,16 @@
-import { ISpruceSchema, FieldType } from '@sprucelabs/spruce-types'
-import Debug from 'debug'
-const debug = Debug('@sprucelabs/spruce-types')
+// import Debug from 'debug'
+import Schema, { ISchemaDefinition } from './Schema'
+import { FieldType } from './fieldTypes'
 
-interface ITemplateSchema extends ISpruceSchema {}
+// const debug = Debug('@sprucelabs/spruce-types')
 
-export class Parser {
-	public static parseSchema(schema: ISpruceSchema) {
+export default class Parser {
+	public static parseSchema<T extends ISchemaDefinition>(schema: T) {
 		if (!this.isValidSchema(schema)) {
 			throw new Error('INVALID_SCHEMA')
 		}
 
-		const templateSchema: ITemplateSchema = schema
+		const templateSchema: T = schema
 
 		const { fields } = schema
 
@@ -84,11 +84,9 @@ export class Parser {
 		return parsed
 	}
 
-	private static isValidSchema(schema: ISpruceSchema) {
-		debug('TODO: Check schema validity', { schema })
-		// TODO: Implement validation
-
-		return true
+	private static isValidSchema<T extends ISchemaDefinition>(definition: T) {
+		const schema = new Schema(definition)
+		return schema.isValid()
 	}
 
 	/** Returns a primative TS type for the given data type, defaulting to "any" if none was found  */

@@ -1,27 +1,27 @@
-import FieldBoolean, { IFieldBoolean } from './Boolean'
-import FieldSelect, { IFieldSelect } from './Select'
-import FieldDuration, { IFieldDuration } from './Duration'
-import FieldId, { IFieldId } from './Id'
-import FieldAddress, { IFieldAddress } from './Address'
-import FieldPhone, { IFieldPhone } from './Phone'
-import FieldSchema, { IFieldSchema } from './Schema'
-import FieldRaw, { IFieldRaw } from './Raw'
-import FieldNumber, { IFieldNumber } from './Number'
-import FieldDateTime, { IFieldDateTime } from './DateTime'
-import FieldText, { IFieldText } from './Text'
+import FieldBoolean, { IFieldBooleanDefinition } from './Boolean'
+import FieldSelect, { IFieldSelectDefinition } from './Select'
+import FieldDuration, { IFieldDurationDefinition } from './Duration'
+import FieldId, { IFieldIdDefinition } from './Id'
+import FieldAddress, { IFieldAddressDefinition } from './Address'
+import FieldPhone, { IFieldPhoneDefinition } from './Phone'
+import FieldSchema, { IFieldSchemaDefinition } from './Schema'
+import FieldRaw, { IFieldRawDefinition } from './Raw'
+import FieldNumber, { IFieldNumberDefinition } from './Number'
+import FieldDateTime, { IFieldDateTimeDefinition } from './DateTime'
+import FieldText, { IFieldTextDefinition } from './Text'
 
-export type IField =
-	| IFieldBoolean
-	| IFieldSelect
-	| IFieldDuration
-	| IFieldId
-	| IFieldText
-	| IFieldAddress
-	| IFieldPhone
-	| IFieldSchema
-	| IFieldRaw
-	| IFieldNumber
-	| IFieldDateTime
+export type IFieldDefinition =
+	| IFieldBooleanDefinition
+	| IFieldSelectDefinition
+	| IFieldDurationDefinition
+	| IFieldIdDefinition
+	| IFieldTextDefinition
+	| IFieldAddressDefinition
+	| IFieldPhoneDefinition
+	| IFieldSchemaDefinition
+	| IFieldRawDefinition
+	| IFieldNumberDefinition
+	| IFieldDateTimeDefinition
 
 export type FieldClass =
 	| typeof FieldBoolean
@@ -75,23 +75,22 @@ export enum FieldType {
 }
 
 /** useful for type lookups for generics */
-export type FieldTypeMap = {
-	boolean: IFieldBoolean
-	select: IFieldSelect
-	duration: IFieldDuration
-	id: IFieldId
-	text: IFieldText
-	address: IFieldAddress
-	phone: IFieldPhone
-	schema: IFieldSchema
-	raw: IFieldRaw
-	number: IFieldNumber
-	dateTime: IFieldDateTime
+export type FieldDefinitionMap = {
+	boolean: IFieldBooleanDefinition
+	select: IFieldSelectDefinition
+	duration: IFieldDurationDefinition
+	id: IFieldIdDefinition
+	text: IFieldTextDefinition
+	address: IFieldAddressDefinition
+	phone: IFieldPhoneDefinition
+	schema: IFieldSchemaDefinition
+	raw: IFieldRawDefinition
+	number: IFieldNumberDefinition
+	dateTime: IFieldDateTimeDefinition
 }
 
-// TODO: why does this have to be any?
 /** a global place to reference all field type classes */
-export const FieldClassMap: Record<FieldType, any> = {
+export const FieldClassMap: Record<FieldType, FieldClass> = {
 	[FieldType.Boolean]: FieldBoolean,
 	[FieldType.Select]: FieldSelect,
 	[FieldType.Duration]: FieldDuration,

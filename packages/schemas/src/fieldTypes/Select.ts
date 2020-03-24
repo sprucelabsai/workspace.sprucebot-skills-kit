@@ -1,21 +1,21 @@
 import { FieldType } from './types'
 import FieldText from './Text'
-import { IFieldBase } from './Base'
+import { IFieldBaseDefinition } from './Base'
 
-export interface IFieldSelectChoice {
+export interface IFieldSelectDefinitionChoice {
 	/**  machine readable way to identify this choice */
 	value: string
 	/** human readable label for when selecting a choice */
 	label: string
 }
 
-export interface IFieldSelect extends IFieldBase {
+export interface IFieldSelectDefinition extends IFieldBaseDefinition {
 	type: FieldType.Select
 	value?: string
 	defaultValue?: string
 	options: {
-		choices: IFieldSelectChoice[]
+		choices: IFieldSelectDefinitionChoice[]
 	}
 }
 
-export default class FieldSelect extends FieldText<IFieldSelect> {}
+export default class FieldSelect extends FieldText<IFieldSelectDefinition> {}
