@@ -29,7 +29,8 @@
 	"scripts": {
 		"build": "babel --source-maps --extensions \".js\",\".tsx\",\".ts\" ./lib --out-dir ./dist && tsc --declaration --emitDeclarationOnly --declarationMap",
 		"watch": "npm run build && chokidar 'lib/**/*.(js|ts|tsx)' -c 'npm run build'",
-		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx lib && tsc -p . --noEmit"
+		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx lib && tsc -p . --noEmit",
+		"lint:fix": "eslint --fix --max-warnings=0 --ext=.js,.jsx,.ts,.tsx lib"
 	},
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"

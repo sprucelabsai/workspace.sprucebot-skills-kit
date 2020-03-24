@@ -30,6 +30,7 @@
 		"watch": "chokidar \"**/*.ts\" \"**/*.js\" \"**/*.gql\" -i \"build/**/*\" -i \"src/generated/**/*\" -c \"npm run build\"",
 		"clean": "rm -rf build/",
 		"lint": "eslint '**/*.ts' && tsc -p . --noEmit",
+		"lint:fix": "eslint --fix '**/*.ts'",
 		"test": "mocha -r ts-node/register/transpile-only --exit 'tests/**/*Tests*'"
 	},
 	"bugs": {

@@ -29,7 +29,8 @@
 		"#build:umd": "rollup ./build/index.js --format umd --name Mercury --sourceMap --output build/umd/mercury.js",
 		"watch": "chokidar 'src/**/*.(js|jsx|ts|tsx)' -c 'npm run build'",
 		"clean": "rm -rf build/",
-		"lint": "eslint '**/*.ts' && tsc -p . --noEmit"
+		"lint": "eslint '**/*.ts' && tsc -p . --noEmit",
+		"lint:fix": "eslint --fix '**/*.ts'"
 	},
 	"dependencies": {
 		"buffer": "^5.4.3",

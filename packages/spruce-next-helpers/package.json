@@ -22,6 +22,7 @@
 		"build": "babel --source-maps --extensions \".js\",\".tsx\",\".ts\" ./src --out-dir ./lib && tsc --declaration --emitDeclarationOnly --declarationMap",
 		"clean": "rm -rf lib/*",
 		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx src && tsc -p . --noEmit",
+		"lint:fix": "eslint --fix --max-warnings=0 --ext=.js,.jsx,.ts,.tsx src",
 		"#test": "jest",
 		"watch": "chokidar 'src/**/*.(js|jsx|ts|tsx)' -c 'npm run build'"
 	},
