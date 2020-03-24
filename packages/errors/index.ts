@@ -1,5 +1,1 @@
-export type SpruceErrorTest = any
-
-export function foo() {
-	return 'bar'
-}
+export * from './src/SpruceError'

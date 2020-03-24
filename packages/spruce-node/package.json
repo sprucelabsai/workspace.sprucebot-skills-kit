@@ -40,7 +40,7 @@
 		"eslint-config-spruce": "^9.1.0",
 		"jest": "^24.5.0",
 		"nock": "^9.1.6",
-		"prettier": "^1.13",
+		"prettier": "^1.19",
 		"yarn": "^1.2.1"
 	},
 	"peerDependencies": {

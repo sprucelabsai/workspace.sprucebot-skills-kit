@@ -16,7 +16,8 @@
 		"packages/mercury",
 		"packages/types",
 		"packages/errors",
-		"packages/schemas"
+		"packages/schemas",
+		"packages/log"
 	],
 	"engines": {
 		"node": "^10",
@@ -54,9 +55,9 @@
 		"eslint": "^5.0.0",
 		"graphql": "^14.5.4",
 		"pm2": "^2.10.1",
-		"prettier": "^1.16.4",
+		"prettier": "^1.19",
 		"sqlite3": "^4.0.4",
-		"typescript": "3.6.3"
+		"typescript": "^3.8"
 	},
 	"devDependencies": {
 		"commitizen": "^3.0.7",

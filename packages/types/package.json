@@ -55,7 +55,7 @@
 		"globby": "^10.0.1",
 		"graphql-tools": "^4.0.5",
 		"mocha": "^5.2.0",
-		"prettier": "^1.13",
+		"prettier": "^1.19",
 		"prettier-eslint-cli": "^5.0.0"
 	},
 	"peerDependencies": {

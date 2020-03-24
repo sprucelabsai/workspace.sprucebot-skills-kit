@@ -46,6 +46,10 @@
 		{
 			"name": "Schemas",
 			"path": "packages/schemas"
+		},
+		{
+			"name": "Spruce Logger",
+			"path": "packages/log"
 		}
 	],
 	"settings": {

@@ -38,7 +38,7 @@
 		"eslint": "^5.9.0",
 		"eslint-config-spruce": "^9.1.0",
 		"jest": "^24.5.0",
-		"prettier": "^1.13",
+		"prettier": "^1.19",
 		"react-test-renderer": "^16.0.0"
 	},
 	"dependencies": {
