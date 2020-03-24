@@ -20,6 +20,9 @@ class LoggingTests extends Base {
 	public async useColors() {
 		let wasLogged = false
 		log.setOptions({
+			useColors: true
+		})
+		log.setOptions({
 			customAdapter: logMessage => {
 				assert.isTrue(/\[32/.test(logMessage))
 				wasLogged = true

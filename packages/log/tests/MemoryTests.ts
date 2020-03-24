@@ -5,7 +5,7 @@ import { Log, LogLevel } from '../src/Log'
 
 class LoggingTests extends Base {
 	public setup() {
-		it('Does not grow memory', () => this.lotsOfLogs())
+		it.skip('Does not grow memory', () => this.lotsOfLogs())
 	}
 
 	public async lotsOfLogs() {
