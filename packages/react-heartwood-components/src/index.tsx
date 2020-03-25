@@ -16,6 +16,7 @@ export {
 	CardFooter,
 	CardBuilder,
 	OnboardingCard,
+	ICardBuilderProps,
 	Scores
 } from './components/Card'
 export { default as ContextMenu } from './components/ContextMenu/ContextMenu'
