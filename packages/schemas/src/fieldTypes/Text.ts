@@ -16,7 +16,10 @@ export interface IFieldTextDefinition extends IFieldBaseDefinition {
 export default class FieldText<
 	T extends IFieldDefinition = IFieldDefinition
 > extends FieldBase<T> {
-	/** tranform to match the value type */
+	public definitionInterfaceString = 'IFieldTextDefinition'
+	public typeEnumString = 'FieldType.Text'
+
+	/** tranform to match the value type of string */
 	public toValueType = (value: any): string => {
 		const transformed =
 			typeof value === 'string' ? value : value && value.toString()

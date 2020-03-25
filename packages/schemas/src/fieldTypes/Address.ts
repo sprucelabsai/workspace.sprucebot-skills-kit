@@ -17,4 +17,7 @@ export interface IFieldAddressDefinition extends IFieldBaseDefinition {
 	options?: {}
 }
 
-export default class FieldAddress extends FieldBase<IFieldAddressDefinition> {}
+export default class FieldAddress extends FieldBase<IFieldAddressDefinition> {
+	public definitionInterfaceString = 'IFieldAddressDefinition'
+	public typeEnumString = 'FieldType.Address'
+}

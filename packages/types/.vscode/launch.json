@@ -10,7 +10,7 @@
 			"name": "Generate Schema Definitions",
 			"protocol": "inspector",
 			"runtimeExecutable": "yarn",
-			"runtimeArgs": ["run", "local:generate:schemas"],
+			"runtimeArgs": ["run", "generate:schemas:local"],
 			"console": "integratedTerminal",
 			"port": 5200,
 			"restart": false,

@@ -128,4 +128,6 @@ export default class Generator {
 
 		return newMap
 	}
+
+	generateTypesFile = (definitions: ISchemaDefinition[])
 }

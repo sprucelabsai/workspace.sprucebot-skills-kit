@@ -1,4 +1,5 @@
 import { FieldType, IFieldDefinition } from '.'
+import { FieldClassMap, Field } from './types'
 
 export interface IFieldBaseDefinition {
 	/** the type of field this is, will strongly type props for us */
@@ -39,29 +40,58 @@ export interface IFieldBaseDefinition {
 export default abstract class FieldBase<
 	T extends IFieldDefinition = IFieldDefinition
 > {
+	/** the definition for this field */
 	public definition: T
+
+	/** the enum for this type of field, ie FieldType.Text */
+	abstract typeEnumString: string
+
+	/** the interface name as a string literal 'IFieldBooleanDefinition' */
+	abstract definitionInterfaceString: string
+
 	public constructor(definition: T) {
 		this.definition = definition
 	}
 
+	/** factory for creating a new field from a definition */
+	public static field(
+		definition: IFieldDefinition,
+		fieldClassMap = FieldClassMap
+	): Field {
+		const fieldClass = fieldClassMap[definition.type]
+		// @ts-ignore understand how to instantiate a field class correctly
+		const field = new fieldClass(definition)
+		return field
+	}
+
+	/** get the type off the definition */
 	public getType() {
 		return this.definition.type
 	}
 
+	/** get options defined for this field */
 	public getOptions() {
 		return this.definition.options
 	}
 
+	/** is this field required */
 	public isRequired() {
 		return !!this.definition.isRequired
 	}
 
+	/** is this field an array? */
 	public isArray() {
 		return !!this.definition.isArray
 	}
 
+	/** the label for this field */
 	public getLabel() {
 		return this.definition.label
+	}
+
+	/** the hint for this field */
+	public getHint() {
+		return this.definition.hint
 	}
 
 	/** validate a value against this field */

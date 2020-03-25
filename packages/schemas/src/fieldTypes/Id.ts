@@ -8,4 +8,7 @@ export interface IFieldIdDefinition extends IFieldBaseDefinition {
 	options?: {}
 }
 
-export default class FieldId extends FieldBase<IFieldIdDefinition> {}
+export default class FieldId extends FieldBase<IFieldIdDefinition> {
+	public definitionInterfaceString = 'IFieldIdDefinition'
+	public typeEnumString = 'FieldType.Id'
+}

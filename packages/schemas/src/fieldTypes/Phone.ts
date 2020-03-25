@@ -14,6 +14,9 @@ export interface IFieldPhoneDefinition extends IFieldBaseDefinition {
 }
 
 export default class FieldPhone extends FieldText<IFieldPhoneDefinition> {
+	public definitionInterfaceString = 'IFieldPhoneDefinition'
+	public typeEnumString = 'FieldType.Phone'
+
 	public toValueType = (value: any): string => {
 		// TODO format as phone number
 		const stringValue = super.toValueType(value)

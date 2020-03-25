@@ -8,4 +8,7 @@ export interface IFieldBooleanDefinition extends IFieldBaseDefinition {
 	options?: {}
 }
 
-export default class FieldBoolean extends FieldBase<IFieldBooleanDefinition> {}
+export default class FieldBoolean extends FieldBase<IFieldBooleanDefinition> {
+	public definitionInterfaceString = 'IFieldBooleanDefinition'
+	public typeEnumString = 'FieldType.Boolean'
+}

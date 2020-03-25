@@ -23,6 +23,7 @@ export interface IFieldDurationDefinition extends IFieldBaseDefinition {
 	}
 }
 
-export default class FieldDuration extends FieldBase<
-	IFieldDurationDefinition
-> {}
+export default class FieldDuration extends FieldBase<IFieldDurationDefinition> {
+	public definitionInterfaceString = 'IFieldDurationDefinition'
+	public typeEnumString = 'FieldType.Duration'
+}

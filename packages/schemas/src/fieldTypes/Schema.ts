@@ -14,4 +14,7 @@ export interface IFieldSchemaDefinition extends IFieldBaseDefinition {
 	}
 }
 
-export default class FieldSchema extends FieldBase<IFieldSchemaDefinition> {}
+export default class FieldSchema extends FieldBase<IFieldSchemaDefinition> {
+	public definitionInterfaceString = 'IFieldSchemaDefinition'
+	public typeEnumString = 'FieldType.Schema'
+}

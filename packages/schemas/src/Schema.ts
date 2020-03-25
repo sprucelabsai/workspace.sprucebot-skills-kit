@@ -3,9 +3,9 @@ import {
 	IFieldDefinition,
 	FieldDefinitionMap,
 	FieldClassMap,
-	Field
+	Field,
+	FieldBase
 } from './fieldTypes'
-import { IFieldBaseDefinition } from './fieldTypes/Base'
 import FieldValidationError from './FieldValidationError'
 
 /** the structure of schema.fields. key is field name, value is field definition */
@@ -28,7 +28,7 @@ export interface ISchemaDefinition {
 	/** a brief human readable explanation of this schema */
 	description?: string
 	/** how we type dynamic keys on this schema, if defined you cannot define fields */
-	dynamicKeySignature?: IFieldBaseDefinition & { key: string }
+	dynamicKeySignature?: IFieldDefinition & { key: string }
 	/** all the fields, keyed by name, required if no dynamicKeySignature is set */
 	fields?: ISchemaFieldsDefinition
 }
@@ -55,7 +55,8 @@ export type SchemaFieldDefinition<
 	? FieldDefinitionMap[T['fields'][K]['type']] & T['fields'][K]
 	: never
 
-export type SchemaFieldDefinitionType<
+/** get the field type for a field from a schema */
+export type SchemaDefinitionFieldType<
 	T extends ISchemaDefinition,
 	K extends keyof T['fields']
 > = T['fields'][K] extends IFieldDefinition ? T['fields'][K]['type'] : never
@@ -121,8 +122,7 @@ export default class Schema<T extends ISchemaDefinition> {
 
 		Object.keys(fieldDefinitions).forEach(name => {
 			const definition = fieldDefinitions[name]
-			const fieldClass = fieldClassMap[definition.type]
-			const field = new fieldClass(definition)
+			const field = FieldBase.field(definition, fieldClassMap)
 			this.fields[name as SchemaDefinitionFieldNames<T>] = field
 		})
 	}

@@ -9,4 +9,7 @@ export interface IFieldNumberDefinition extends IFieldBaseDefinition {
 
 export default class FieldNumber<
 	T extends IFieldNumberDefinition = IFieldNumberDefinition
-> extends FieldBase<T> {}
+> extends FieldBase<T> {
+	public definitionInterfaceString = 'IFieldNumberDefinition'
+	public typeEnumString = 'FieldType.Number'
+}

@@ -15,6 +15,7 @@ export interface IFieldDateTimeDefinition extends IFieldBaseDefinition {
 	}
 }
 
-export default class FieldDateTime extends FieldBase<
-	IFieldDateTimeDefinition
-> {}
+export default class FieldDateTime extends FieldBase<IFieldDateTimeDefinition> {
+	public definitionInterfaceString = 'IFieldDateTimeDefinition'
+	public typeEnumString = 'FieldType.DateTime'
+}
