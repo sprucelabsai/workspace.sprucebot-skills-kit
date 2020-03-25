@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Basic template using Mercury</title>
+		<script>
+			// Enable debug console output for mercury
+			localStorage.debug = '@sprucelabs/mercury'
+		</script>
+		<script
+			type="text/javascript"
+			src="https://local-api.sprucebot.com/mercury.min.js"
+		></script>
+		<script>
+			async function onConnect() {
+				mercury.on(
+					{
+						// scope: Mercury.MercurySubscriptionScope.AnonymousOrganization,
+						eventName: 'did-enter',
+						organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2'
+						// locationId: '3d9b29eb-ab0e-481a-834c-6c57315c32b4'
+						// userId
+					},
+					data => {
+						console.log('did-enter fired!', { data })
+					}
+				)
+
+				mercury
+					.emit(
+						{
+							eventName: 'booking:get-providers',
+							organizationId: '0a1a5e00-debc-410d-9e14-f7b7c16e8ec2',
+							locationId: '3d9b29eb-ab0e-481a-834c-6c57315c32b4'
+						},
+						data => {
+							console.log('Emit response!', { data })
+						}
+					)
+					.then(allResponses => {
+						console.log('ALL RESPONSES', allResponses)
+					})
+			}
+			window.onload = function onPageLoad() {
+				console.log({ Mercury })
+				const mercury = new mercury.Mercury({
+					// spruceApiUrl: 'https://local-api.sprucebot.com',
+					spruceApiUrl: 'http://localhost:3005',
+					credentials: {
+						// id: '51EF8E3C-553E-4BEF-A44F-887A96461D53',
+						// apiKey: 'A0AF17D4-0A6F-44BB-914D-C3B637836459'
+						token:
+							'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjMTZiNzBjOC1jZmZjLTQ2OTQtYTU5My1lNWI3NDY3NzQ3ZWEiLCJza2lsbElkIjoiNTFlZjhlM2MtNTUzZS00YmVmLWE0NGYtODg3YTk2NDYxZDUzIiwibG9jYXRpb25JZCI6IjNkOWIyOWViLWFiMGUtNDgxYS04MzRjLTZjNTczMTVjMzJiNCIsIm9yZ2FuaXphdGlvbklkIjoiMGExYTVlMDAtZGViYy00MTBkLTllMTQtZjdiN2MxNmU4ZWMyIiwiaWF0IjoxNTc4Njk1NTU3LCJleHAiOjE1Nzg3ODE5NTcsImp0aSI6IjRjMzA1MjgyLTJkMWUtNGIwZS1hMDYxLTVhNzk3NjMxNzk3NCJ9.idcibXBVpk4_DHGBDYr2LTqUQyhkMakg4AkZ4-_fr9YDES64poiOpENDKpWVTscX2eKxy9H0ZGbRDxjeAaJn7A'
+					},
+					onConnect
+				})
+				window.mercury = mercury
+			}
+		</script>
+	</head>
+
+	<body>
+		<p>Hello</p>
+	</body>
+</html>

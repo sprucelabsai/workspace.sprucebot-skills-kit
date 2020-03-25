@@ -7,7 +7,7 @@ const { publicRuntimeConfig } = getConfig()
 
 const isClient = typeof window !== 'undefined'
 if (isClient) {
-	global.log = require('@sprucelabs/log/client')
+	global.log = require('@sprucelabs/log')
 
 	// Set up log options
 	global.log.setOptions({

@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "10.0.0",
+	"version": "9.1.0",
 	"description": "ESLint configuration for Spruce Javascript projects",
 	"author": "George Pantazis <gcpantazis@gmail.com>",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit#readme",
@@ -18,8 +18,8 @@
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
 	},
 	"dependencies": {
-		"@typescript-eslint/eslint-plugin": "^2.8.0",
-		"@typescript-eslint/parser": "^2.8.0",
+		"@typescript-eslint/eslint-plugin": "^2.22.0",
+		"@typescript-eslint/parser": "^2.22.0",
 		"babel-eslint": "10.0.1",
 		"eslint-config-prettier": "^6.7.0",
 		"eslint-plugin-flowtype": "3.4.2",
@@ -31,7 +31,7 @@
 	},
 	"peerDependencies": {
 		"eslint": "^3.0.0 || ^4.0.0 || ^5.0.0",
-		"prettier": "^1.16.4",
-		"typescript": "3.6.3"
+		"prettier": "^1.19",
+		"typescript": "^3.8"
 	}
 }

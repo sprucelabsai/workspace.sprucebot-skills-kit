@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "10.0.0",
+	"version": "9.1.0",
 	"description": "Reusable Spruce utilities for Skills and other projects",
 	"author": "George Pantazis <gcpantazis@gmail.com>",
 	"homepage": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit#readme",
@@ -29,7 +29,8 @@
 	"scripts": {
 		"build": "babel --source-maps --extensions \".js\",\".tsx\",\".ts\" ./lib --out-dir ./dist && tsc --declaration --emitDeclarationOnly --declarationMap",
 		"watch": "npm run build && chokidar 'lib/**/*.(js|ts|tsx)' -c 'npm run build'",
-		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx lib && tsc -p . --noEmit"
+		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx lib && tsc -p . --noEmit",
+		"lint:fix": "eslint --fix --max-warnings=0 --ext=.js,.jsx,.ts,.tsx lib"
 	},
 	"bugs": {
 		"url": "https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/issues"
@@ -52,12 +53,12 @@
 		"babel-eslint": "^10.0.1",
 		"chokidar": "^2.0.4",
 		"eslint": "^5.9.0",
-		"eslint-config-prettier": "^3.3.0",
+		"eslint-config-prettier": "^6.7.0",
 		"eslint-plugin-flowtype": "^3.2.0",
 		"eslint-plugin-jsx-a11y": "^6.1.2",
 		"eslint-plugin-prettier": "^3.0.0",
 		"eslint-plugin-react": "^7.11.1",
-		"prettier": "^1.15.2"
+		"prettier": "^1.19"
 	},
 	"peerDependencies": {
 		"graphql": "^14.5.4"

@@ -86,3 +86,7 @@ server/static/api-docs.json
 build/
 
 tmp/
+
+web/out/
+
+.spruce/settings.json

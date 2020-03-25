@@ -1,6 +1,6 @@
 {
 	"name": "@sprucelabs/heartwood-components",
-	"version": "10.0.0",
+	"version": "9.1.0",
 	"dependencies": {
 		"@frctl/fractal": "^1.1.5",
 		"@frctl/handlebars": "^1.1.5",
@@ -28,6 +28,7 @@
 	"scripts": {
 		"deploy": "gh-pages -d build",
 		"lint": "eslint components",
+		"lint:fix": "eslint --fix components",
 		"build": "gulp styles && gulp styles-minify && gulp js && gulp svg && fractal build",
 		"watch": "gulp watch"
 	},

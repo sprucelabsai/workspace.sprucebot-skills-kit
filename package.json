@@ -10,9 +10,14 @@
 		"packages/spruce-next-helpers",
 		"packages/spruce-node",
 		"packages/spruce-skill",
-		"packages/spruce-skill-server",
+		"packages/skill-server",
 		"packages/spruce-utils",
-		"packages/spruce-types"
+		"packages/spruce-types",
+		"packages/mercury",
+		"packages/types",
+		"packages/errors",
+		"packages/schemas",
+		"packages/log"
 	],
 	"engines": {
 		"node": "^10",
@@ -24,6 +29,7 @@
 		"logs": "yarn run log",
 		"stop": "pm2 stop ecosystem.config.js",
 		"lint": "lerna run lint",
+		"lint:fix": "lerna run lint:fix",
 		"flow": "flow",
 		"build": "lerna run build",
 		"watch": "lerna run watch --no-sort --stream",
@@ -50,9 +56,9 @@
 		"eslint": "^5.0.0",
 		"graphql": "^14.5.4",
 		"pm2": "^2.10.1",
-		"prettier": "^1.16.4",
+		"prettier": "^1.19",
 		"sqlite3": "^4.0.4",
-		"typescript": "3.6.3"
+		"typescript": "^3.8"
 	},
 	"devDependencies": {
 		"commitizen": "^3.0.7",

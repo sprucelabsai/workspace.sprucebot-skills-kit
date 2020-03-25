@@ -21,9 +21,7 @@ module.exports = {
 	title: 'Card',
 	collated: true,
 	collator(markup, item) {
-		return `<!-- Start: @${item.handle} -->\n${markup}\n<!-- End: @${
-			item.handle
-		} -->\n`
+		return `<!-- Start: @${item.handle} -->\n${markup}\n<!-- End: @${item.handle} -->\n`
 	},
 	context: {
 		title: 'Get the most out of Sprucebot',

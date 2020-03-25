@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "10.0.0",
+	"version": "9.1.0",
 	"main": "lib/index.js",
 	"description": "Spruce Next.js helpers and utitlies",
 	"keywords": [
@@ -22,6 +22,7 @@
 		"build": "babel --source-maps --extensions \".js\",\".tsx\",\".ts\" ./src --out-dir ./lib && tsc --declaration --emitDeclarationOnly --declarationMap",
 		"clean": "rm -rf lib/*",
 		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx src && tsc -p . --noEmit",
+		"lint:fix": "eslint --fix --max-warnings=0 --ext=.js,.jsx,.ts,.tsx src",
 		"#test": "jest",
 		"watch": "chokidar 'src/**/*.(js|jsx|ts|tsx)' -c 'npm run build'"
 	},
@@ -38,7 +39,7 @@
 		"eslint": "^5.9.0",
 		"eslint-config-spruce": "^9.1.0",
 		"jest": "^24.5.0",
-		"prettier": "^1.13",
+		"prettier": "^1.19",
 		"react-test-renderer": "^16.0.0"
 	},
 	"dependencies": {

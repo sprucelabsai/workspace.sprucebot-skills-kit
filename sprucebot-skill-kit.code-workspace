@@ -1,8 +1,8 @@
 {
 	"folders": [
 		{
-			"path": "packages/spruce-types",
-			"name": "spruce-types"
+			"path": "packages/types",
+			"name": "types"
 		},
 		{
 			"path": "packages/heartwood-components",
@@ -25,8 +25,8 @@
 			"name": "spruce-skill"
 		},
 		{
-			"path": "packages/spruce-skill-server",
-			"name": "spruce-skill-server"
+			"path": "packages/skill-server",
+			"name": "skill-server"
 		},
 		{
 			"path": ".",
@@ -34,6 +34,22 @@
 		},
 		{
 			"path": "packages/spruce-utils"
+		},
+		{
+			"name": "mercury",
+			"path": "packages/mercury"
+		},
+		{
+			"name": "errors",
+			"path": "packages/errors"
+		},
+		{
+			"name": "schemas",
+			"path": "packages/schemas"
+		},
+		{
+			"name": "Spruce Logger",
+			"path": "packages/log"
 		}
 	],
 	"settings": {

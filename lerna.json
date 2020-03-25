@@ -11,6 +11,7 @@
 				"prerelease/*"
 			],
 			"conventionalCommits": true,
+			"conventionalPrerelease": true,
 			"changelogPreset": "sprucelabs"
 		}
 	}

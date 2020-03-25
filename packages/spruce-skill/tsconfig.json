@@ -22,5 +22,5 @@
 		"resolveJsonModule": true
 	},
 	"exclude": ["build", ".next", "out", "next.config.js"],
-	"include": ["next-env.d.ts", "**/*", "**/*.tsx"]
+	"include": ["next-env.d.ts", "**/*", "**/*.tsx", ".spruce/**/*"]
 }

@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"version": "10.0.0",
+	"version": "9.1.0",
 	"main": "lib/index.js",
 	"description": "React components for your Sprucebot Skill 💪🏼",
 	"keywords": [
@@ -24,6 +24,7 @@
 		"icons": "node ./scripts/generateIcons.js",
 		"clean": "rm -rf lib/*",
 		"lint": "eslint --max-warnings=0 --ext=.js,.jsx,.ts,.tsx src && tsc -p . --noEmit",
+		"lint:fix": "eslint --fix --max-warnings=0 --ext=.js,.jsx,.ts,.tsx src",
 		"test": "jest",
 		"watch": "npm run build && chokidar 'src/**/*.(js|jsx|ts|tsx)' -c 'npm run compile_javascript'",
 		"storybook": "npm run icons && start-storybook -p 6006 -s ./static",
@@ -79,13 +80,13 @@
 		"faker": "^4.1.0",
 		"husky": "^0.14.3",
 		"jest": "^24.5.0",
-		"prettier": "1.16.4",
+		"prettier": "^1.19",
 		"react-docgen-typescript-loader": "^3.1.1",
 		"react-test-renderer": "^16.0.0",
 		"storybook-addon-jsx": "^7.1.6",
 		"storybook-addon-react-docgen": "^1.2.18",
 		"storybook-readme": "^5.0.8",
-		"typescript": "3.6.3",
+		"typescript": "^3.8",
 		"uuid": "^3.3.2",
 		"webpack": "^4.29.6"
 	},
