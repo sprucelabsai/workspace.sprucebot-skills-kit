@@ -10,9 +10,9 @@ export default {
 	// input: 'build/index.js',
 	input: 'index.ts',
 	output: {
-		file: 'build/umd/mercury.js',
+		file: 'build/umd/log.js',
 		format: 'umd',
-		name: 'mercury',
+		name: 'spruceLog',
 		sourceMap: true
 	},
 	external: ['fs', 'http', 'https', 'child_process'],
