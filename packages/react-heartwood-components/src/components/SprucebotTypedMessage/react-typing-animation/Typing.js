@@ -47,7 +47,7 @@ class Typing extends Component {
 			this.pendingPlay = true
 			return
 		}
-    
+
 		if (this.isPaused || this.state.isFinished) {
 
 			this.isPaused = false
@@ -306,11 +306,11 @@ Typing.defaultProps = {
 	startDelay: 0,
 	loop: false,
 	beginTypingOnMount: true,
-	onStartedTyping: () => {},
-	onPausedTyping: () => {},
-	onBeforeType: () => {},
-	onAfterType: () => {},
-	onFinishedTyping: () => {}
+	onStartedTyping: () => { },
+	onPausedTyping: () => { },
+	onBeforeType: () => { },
+	onAfterType: () => { },
+	onFinishedTyping: () => { }
 }
 
 Typing.Backspace = Backspace
