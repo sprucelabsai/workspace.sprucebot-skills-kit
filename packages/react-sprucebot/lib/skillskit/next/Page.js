@@ -121,7 +121,7 @@ var Page = function Page(Wrapped) {
         _this.state = {
           attemptingReAuth: !!props.attemptingReAuth,
           isIframed: true,
-          isHeartwoodView: props.isHeartwoodView || false
+          isHeartwoodView: props.isHeartwoodView || 'false'
         };
         return _this;
       } // Everything here is run server side
@@ -135,7 +135,7 @@ var Page = function Page(Wrapped) {
           _regenerator.default.mark(function _callee() {
             var _document$body$classL;
 
-            var WebFont, bodyClassNames, isHeartwoodView;
+            var WebFont, bodyClassNames;
             return _regenerator.default.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -173,13 +173,11 @@ var Page = function Page(Wrapped) {
                       bodyClassNames.push('is_ios');
                     }
 
-                    isHeartwoodView = false;
-
                     if (this.props.isHeartwoodView) {
                       // If query param indicates page is displayed in heartwood skill view,
                       // save item to sessionStorage so subsequent client-side page loads via next router
                       // will have access to the value
-                      window.sessionStorage.setItem('isHeartwoodView', 'true');
+                      window.sessionStorage.setItem('isHeartwoodView', this.props.isHeartwoodView);
                     }
 
                     this.setState({
@@ -188,7 +186,7 @@ var Page = function Page(Wrapped) {
 
                     (_document$body$classL = document.body.classList).add.apply(_document$body$classL, bodyClassNames);
 
-                  case 13:
+                  case 12:
                   case "end":
                     return _context.stop();
                 }
@@ -220,7 +218,7 @@ var Page = function Page(Wrapped) {
           }
 
           if (this.props.config.DEV_MODE) {
-            return _react.default.createElement(_app.Container, null, _react.default.createElement(_head.default, null, this.props.orgWhitelabel && !this.state.isHeartwoodView && _react.default.createElement("link", {
+            return _react.default.createElement(_app.Container, null, _react.default.createElement(_head.default, null, this.props.orgWhitelabel && this.state.isHeartwoodView !== 'true' && _react.default.createElement("link", {
               href: this.props.orgWhitelabel,
               rel: "stylesheet",
               type: "text/css",
@@ -228,7 +226,7 @@ var Page = function Page(Wrapped) {
             })), this.state.isIframed ? _react.default.createElement("style", {
               jsx: true,
               global: true
-            }, this.state.isHeartwoodView ? "body { position: relative }" : "\n\t\t\t\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t\t\t\t}") : null, _react.default.createElement(_DevControls.default, {
+            }, this.state.isHeartwoodView !== 'true' ? "body { position: relative }" : "\n\t\t\t\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t\t\t\t}") : null, _react.default.createElement(_DevControls.default, {
               auth: this.props.auth
             }), _react.default.createElement(ConnectedWrapped, (0, _extends2.default)({}, this.props, {
               skill: _index.default,
@@ -236,12 +234,12 @@ var Page = function Page(Wrapped) {
             })));
           }
 
-          return _react.default.createElement(_app.Container, null, _react.default.createElement(_head.default, null, this.props.orgWhitelabel && !this.state.isHeartwoodView && _react.default.createElement("link", {
+          return _react.default.createElement(_app.Container, null, _react.default.createElement(_head.default, null, this.props.orgWhitelabel && this.state.isHeartwoodView !== 'true' && _react.default.createElement("link", {
             href: this.props.orgWhitelabel,
             rel: "stylesheet",
             type: "text/css",
             charSet: "UTF-8"
-          })), this.state.isIframed && !this.props.isHeartwoodView ? _react.default.createElement("style", {
+          })), this.state.isIframed && this.state.isHeartwoodView !== 'true' ? _react.default.createElement("style", {
             jsx: true,
             global: true
           }, this.state.isHeartwoodView ? "body { position: relative }" : "\n\t\t\t\t\t\t\t\t\thtml,\n\t\t\t\t\t\t\t\t\tbody {\n\t\t\t\t\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t\t\t\t\t\t}") : null, _react.default.createElement(ConnectedWrapped, (0, _extends2.default)({}, this.props, {
