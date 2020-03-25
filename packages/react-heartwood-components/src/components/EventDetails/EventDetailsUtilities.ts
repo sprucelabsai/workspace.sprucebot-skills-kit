@@ -1,13 +1,11 @@
 import {
-	IButtonProps,
-	IEventDetailsItemProps
-} from '@sprucelabs/react-heartwood-components'
-import {
 	IHWButton,
 	IHWCalendarEventDetailsItem,
 	IHWUiEnhancementSection
 } from '@sprucelabs/spruce-types'
 import { cloneDeep, compact, concat, each, find } from 'lodash'
+import { IEventDetailsItemProps } from './components/EventDetailsItem/EventDetailsItem'
+import { IButtonProps } from '../Button/Button'
 
 type TValidEventDetails =
 	| IHWCalendarEventDetailsItem[]

@@ -47,6 +47,7 @@ class Typing extends Component {
 			this.pendingPlay = true
 			return
 		}
+
 		if (this.isPaused || this.state.isFinished) {
 			this.isPaused = false
 			await this.props.onStartedTyping()
@@ -265,6 +266,7 @@ class Typing extends Component {
 
 	render() {
 		const { children, className, cursorClassName, hideCursor } = this.props
+
 		const { text, isFinished } = this.state
 
 		const cursor = this.props.cursor || <Cursor className={cursorClassName} />
