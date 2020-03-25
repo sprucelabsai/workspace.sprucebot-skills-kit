@@ -1,0 +1,37 @@
+"Sprucebot's current state of mind"
+enum SprucebotAvatarStateOfMind {
+	"When Sprucebot is saying something informative or a salutation, like a status update or a 'Happy Monday!'"
+	chill
+
+	"When Sprucebot is loading or sending data"
+	contemplative
+
+	"When Sprucebot is asking a question and expecting input from a human"
+	curious
+
+	"When Sprucebot is celebrating because a process has completed, like finishing a setup wizard or submitting a form"
+	accomplished
+}
+
+enum SprucebotAvatarSize {
+	"This size renders perfectly inline with body text"
+	small
+
+	"This size is for rendiring in a subheadings and card headers"
+	medium
+
+	"This size is for rendering in a heading or as a bigform question"
+	large
+}
+
+"Your friendly neighborhood Sprucebot Avatar!"
+type SprucebotAvatar {
+	"The unique id for this avatar"
+	id: ID!
+
+	"How does Sprucebot feel?"
+	stateOfMind: SprucebotAvatarStateOfMind
+
+	"How big should the avatar be?"
+	size: SprucebotAvatarSize
+}

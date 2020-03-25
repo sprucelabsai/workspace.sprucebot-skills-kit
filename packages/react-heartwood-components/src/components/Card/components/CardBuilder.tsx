@@ -3,81 +3,39 @@ import {
 	IHWCardBuilder,
 	IHWCardBuilderBody,
 	IHWCardBuilderBodyItem,
-	IHWCardBuilderFooter,
-	IHWHeading,
-	IHWScoreCard
+	IHWCardBuilderFooter
 } from '@sprucelabs/spruce-types'
 import React from 'react'
+import { unionArray } from '../../..'
 // COMPONENTS THAT CAN GO INTO THIS COMPONENT, KEEP MINIMAL
-import Button, { IButtonProps } from '../../Button/Button'
-import ButtonGroup, { IButtonGroupProps } from '../../ButtonGroup/ButtonGroup'
+import Button from '../../Button/Button'
+import ButtonGroup from '../../ButtonGroup/ButtonGroup'
 import Heading from '../../Heading/Heading'
-import Image, { IImageProps } from '../../Image/Image'
-import List, { IListProps } from '../../List/List'
-import Text, { ITextProps } from '../../Text/Text'
-import Toast, { IToastProps } from '../../Toast/Toast'
+import Image from '../../Image/Image'
+import List from '../../List/List'
+import Text from '../../Text/Text'
+import Toast from '../../Toast/Toast'
 import Card from '../Card'
 import CardBody from './CardBody'
 import CardFooter from './CardFooter'
-import CardHeader, { ICardHeaderProps } from './CardHeader'
-import OnboardingCard, { IOnboardingCardProps } from './OnboardingCard'
+import CardHeader from './CardHeader'
+import OnboardingCard from './OnboardingCard'
 import Scores from './Scores'
-import { unionArray } from '../../..'
 
-export interface ICardBuilderFooter
-	extends Omit<IHWCardBuilderFooter, 'buttonGroup'> {
-	/** Render buttons in the Card Footer */
-	buttonGroup?: IButtonGroupProps | null
-}
-
-export type CardBuilderBodyItemViewModel =
-	| IButtonProps
-	| IImageProps
-	| IHWHeading
-	| ITextProps
-	| IHWScoreCard
-	| IToastProps
-	| IListProps
-
-export interface ICardBuilderBodyItem
-	extends Omit<IHWCardBuilderBodyItem, 'viewModel'> {
-	viewModel: CardBuilderBodyItemViewModel
-}
-
-export interface ICardBuilderBodyProps
-	extends Omit<IHWCardBuilderBody, 'items'> {
-	/** array of items to be rendered */
-	items?: ICardBuilderBodyItem[]
-
+// TODO: These three interfaces are deprecated; they were made for the
+// sake of overriding core type values but we're no longer doing that.
+export interface ICardBuilderFooter extends IHWCardBuilderFooter {}
+export interface ICardBuilderBodyItem extends IHWCardBuilderBodyItem {}
+export interface ICardBuilderBodyProps extends IHWCardBuilderBody {
 	/** optional child that will be rendered as the body */
 	children?: React.ReactNode
 }
 
-export interface ICardBuilderProps
-	extends Omit<
-		IHWCardBuilder,
-		'id' | 'header' | 'onboarding' | 'body' | 'footer' | 'headerImage'
-	> {
-	/** optional id for view caching */
-	id?: string
-
-	/** Card Header props */
-	header?: ICardHeaderProps | null
-
-	/** Image rendered as header */
-	headerImage?: IImageProps | null
-
-	/** all onboarding props */
-	onboarding?: IOnboardingCardProps | null
-
-	/** Card Body props */
-	body?: ICardBuilderBodyProps | null
-
-	/** Card Footer props */
-	footer?: ICardBuilderFooter | null
+export interface ICardBuilderProps extends IHWCardBuilder {
+	body?: IHWCardBuilder['body'] & { children?: any } | null
 
 	/** so we can use directly and set our own children */
-	children?: any
+	children?: React.ReactNode
 
 	/** optional, provide a handler for Actions */
 	onAction?: (action: IHWAction) => any
@@ -145,7 +103,7 @@ const CardBuilder = (props: ICardBuilderProps): React.ReactElement => {
 		hasBottomPadding: true
 	}
 
-	const { children } = (body as ICardBuilderProps) || { children: undefined }
+	const { children } = body || { children: undefined }
 
 	return (
 		<Card>

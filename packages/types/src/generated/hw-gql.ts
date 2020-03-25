@@ -266,6 +266,8 @@ export type IHWButton = IHWActionExecutor & {
   icon?: Maybe<IHWIcon>,
   /** Type attribute for HTML button element. Defaults to 'button'. */
   type?: Maybe<IHWButtonTypes>,
+  /** Otherwise unspecified attributes that will be applied to the underlying button element */
+  htmlAttributes?: Maybe<Scalars['JSON']>,
   /** Set true to disable the button */
   isDisabled?: Maybe<Scalars['Boolean']>,
   /** Optional action to invoke when tapped */
@@ -854,6 +856,77 @@ export type IHWSplitButton = {
   /** Optional; use a portal to render the menu. By default, it renders below the button */
   usePortal?: Maybe<Scalars['Boolean']>,
 };
+
+/** Your friendly neighborhood Sprucebot Avatar! */
+export type IHWSprucebotAvatar = {
+  __typename?: 'SprucebotAvatar',
+  /** The unique id for this avatar */
+  id: Scalars['ID'],
+  /** How does Sprucebot feel? */
+  stateOfMind?: Maybe<IHWSprucebotAvatarStateOfMind>,
+  /** How big should the avatar be? */
+  size?: Maybe<IHWSprucebotAvatarSize>,
+};
+
+export enum IHWSprucebotAvatarSize {
+  /** This size renders perfectly inline with body text */
+  Small = 'small',
+  /** This size is for rendiring in a subheadings and card headers */
+  Medium = 'medium',
+  /** This size is for rendering in a heading or as a bigform question */
+  Large = 'large'
+}
+
+/** Sprucebot's current state of mind */
+export enum IHWSprucebotAvatarStateOfMind {
+  /** When Sprucebot is saying something informative or a salutation, like a status update or a 'Happy Monday!' */
+  Chill = 'chill',
+  /** When Sprucebot is loading or sending data */
+  Contemplative = 'contemplative',
+  /** When Sprucebot is asking a question and expecting input from a human */
+  Curious = 'curious',
+  /** When Sprucebot is celebrating because a process has completed, like finishing a setup wizard or submitting a form */
+  Accomplished = 'accomplished'
+}
+
+/** A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out */
+export type IHWSprucebotTypedMessage = {
+  __typename?: 'SprucebotTypedMessage',
+  /** Id for view caching */
+  id: Scalars['ID'],
+  /** Sprucebot will type out these sentences one at a time preserving what is similar between each one (in bold) */
+  sentences: Array<IHWSprucebotTypedMessageSentence>,
+  /** The default optional avatar state for all sentences being typed */
+  defaultAvatar?: Maybe<IHWSprucebotAvatar>,
+  /** How long should I wait before starting to type? */
+  startDelayMs?: Maybe<Scalars['Int']>,
+  /** Should the message loop? Defaults to false */
+  loop?: Maybe<Scalars['Boolean']>,
+  /** Size of the message */
+  size?: Maybe<IHWSprucebotTypedMessageSize>,
+  /** Is typing paused? Setting this to start will not start typing */
+  paused?: Maybe<Scalars['Boolean']>,
+};
+
+/** A single line Sprucebot will type out */
+export type IHWSprucebotTypedMessageSentence = {
+  __typename?: 'SprucebotTypedMessageSentence',
+  /** Override the avatar for this specific sentence */
+  avatar?: Maybe<IHWSprucebotAvatar>,
+  /** What will Sprucebot type? */
+  words: Scalars['String'],
+  /** How long should we hold before starting the next sentence (or we pause forever if it's the last sentence) */
+  endDelayMs?: Maybe<Scalars['Int']>,
+};
+
+export enum IHWSprucebotTypedMessageSize {
+  /** Inline with text */
+  Small = 'small',
+  /** A subheading */
+  Medium = 'medium',
+  /** A heading */
+  Large = 'large'
+}
 
 /** Used for testing only */
 export type IHWTestType = {

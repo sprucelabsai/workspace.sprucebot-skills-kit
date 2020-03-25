@@ -44,6 +44,9 @@ type Button implements ActionExecutor {
 	"Type attribute for HTML button element. Defaults to 'button'."
 	type: ButtonTypes
 
+	"Otherwise unspecified attributes that will be applied to the underlying button element"
+	htmlAttributes: JSON
+
 	"Set true to disable the button"
 	isDisabled: Boolean
 
