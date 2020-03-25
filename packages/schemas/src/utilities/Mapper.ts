@@ -1,4 +1,4 @@
-import { ISchemaDefinition } from '../'
+import { ISchemaDefinition } from '..'
 import { FieldType } from '../fieldTypes'
 import { ISchemaFieldsDefinition } from '../Schema'
 
