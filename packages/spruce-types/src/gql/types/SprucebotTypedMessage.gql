@@ -7,7 +7,7 @@ enum SprucebotTypedMessageSize {
 	large
 }
 
-"A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out "
+"A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out"
 type SprucebotTypedMessage {
 	"Id for view caching"
 	id: ID!
@@ -21,6 +21,8 @@ type SprucebotTypedMessage {
 	loop: Boolean
 	"Size of the message"
 	size: SprucebotTypedMessageSize
+	"Is typing paused? Setting this to start will not start typing"
+	paused: Boolean
 }
 
 "A single line Sprucebot will type out"

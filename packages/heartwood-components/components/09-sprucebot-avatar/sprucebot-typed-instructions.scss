@@ -10,7 +10,6 @@
 
 .sprucebot-typed-message {
 	display: flex;
-	flex-direction: row;
 	align-items: center;
 
 	.sprucebot-avatar {
@@ -23,11 +22,15 @@
 
 	&.large {
 		font-size: 2.5rem;
+
+		.cursor {
+			left: -3px;
+			top: -5px;
+		}
 	}
 
 	.cursor {
 		display: inline-block;
-		padding-left: 2px;
 		font-weight: 100;
 		color: black;
 		position: relative;
