@@ -47,7 +47,9 @@ class Typing extends Component {
 			this.pendingPlay = true
 			return
 		}
-		if (this.isPaused) {
+    
+		if (this.isPaused || this.state.isFinished) {
+
 			this.isPaused = false
 			await this.props.onStartedTyping()
 			requestAnimationFrame(this.beginTyping)
@@ -265,11 +267,17 @@ class Typing extends Component {
 
 	render() {
 		const { children, className, cursorClassName, hideCursor } = this.props
-		const { text } = this.state
+
+		const { text, isFinished } = this.state
 
 		const cursor = this.props.cursor || <Cursor className={cursorClassName} />
 
-		const filled = replaceTreeText(children, text, cursor, hideCursor)
+		const filled = replaceTreeText(
+			children,
+			text,
+			cursor,
+			hideCursor || isFinished
+		)
 
 		return <div className={className}>{filled}</div>
 	}
