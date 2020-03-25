@@ -49,7 +49,6 @@ class Typing extends Component {
 		}
 
 		if (this.isPaused || this.state.isFinished) {
-
 			this.isPaused = false
 			await this.props.onStartedTyping()
 			requestAnimationFrame(this.beginTyping)
@@ -306,11 +305,11 @@ Typing.defaultProps = {
 	startDelay: 0,
 	loop: false,
 	beginTypingOnMount: true,
-	onStartedTyping: () => { },
-	onPausedTyping: () => { },
-	onBeforeType: () => { },
-	onAfterType: () => { },
-	onFinishedTyping: () => { }
+	onStartedTyping: () => {},
+	onPausedTyping: () => {},
+	onBeforeType: () => {},
+	onAfterType: () => {},
+	onFinishedTyping: () => {}
 }
 
 Typing.Backspace = Backspace
