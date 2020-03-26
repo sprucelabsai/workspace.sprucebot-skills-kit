@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.10.10](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.10.9...v7.10.10) (2020-03-26)
+
+
+### Bug Fixes
+
+* **Whitelabel:** Fix previous solution (v7) ([42fda98](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/commit/42fda98))
+
+
+
+
+
 ## [7.10.9](https://github.com/sprucelabsai/workspace.sprucebot-skills-kit/compare/v7.10.8...v7.10.9) (2020-03-17)
 
 
