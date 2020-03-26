@@ -41,7 +41,7 @@ const Page = Wrapped => {
 			this.state = {
 				attemptingReAuth: !!props.attemptingReAuth,
 				isIframed: true,
-				isHeartwoodView: props.isHeartwoodView || false
+				isHeartwoodView: props.isHeartwoodView || 'false'
 			}
 		}
 
@@ -220,13 +220,14 @@ const Page = Wrapped => {
 				bodyClassNames.push('is_ios')
 			}
 
-			let isHeartwoodView = false
-
 			if (this.props.isHeartwoodView) {
 				// If query param indicates page is displayed in heartwood skill view,
 				// save item to sessionStorage so subsequent client-side page loads via next router
 				// will have access to the value
-				window.sessionStorage.setItem('isHeartwoodView', 'true')
+				window.sessionStorage.setItem(
+					'isHeartwoodView',
+					this.props.isHeartwoodView
+				)
 			}
 
 			this.setState({
@@ -292,18 +293,19 @@ const Page = Wrapped => {
 				return (
 					<Container>
 						<Head>
-							{this.props.orgWhitelabel && !this.state.isHeartwoodView && (
-								<link
-									href={this.props.orgWhitelabel}
-									rel="stylesheet"
-									type="text/css"
-									charSet="UTF-8"
-								/>
-							)}
+							{this.props.orgWhitelabel &&
+								this.state.isHeartwoodView !== 'true' && (
+									<link
+										href={this.props.orgWhitelabel}
+										rel="stylesheet"
+										type="text/css"
+										charSet="UTF-8"
+									/>
+								)}
 						</Head>
 						{this.state.isIframed ? (
 							<style jsx global>
-								{this.state.isHeartwoodView
+								{this.state.isHeartwoodView !== 'true'
 									? `body { position: relative }`
 									: `
 										html,
@@ -320,17 +322,18 @@ const Page = Wrapped => {
 			return (
 				<Container>
 					<Head>
-						{this.props.orgWhitelabel && !this.state.isHeartwoodView && (
-							<link
-								href={this.props.orgWhitelabel}
-								rel="stylesheet"
-								type="text/css"
-								charSet="UTF-8"
-							/>
-						)}
+						{this.props.orgWhitelabel &&
+							this.state.isHeartwoodView !== 'true' && (
+								<link
+									href={this.props.orgWhitelabel}
+									rel="stylesheet"
+									type="text/css"
+									charSet="UTF-8"
+								/>
+							)}
 					</Head>
 
-					{this.state.isIframed && !this.props.isHeartwoodView ? (
+					{this.state.isIframed && this.state.isHeartwoodView !== 'true' ? (
 						<style jsx global>
 							{this.state.isHeartwoodView
 								? `body { position: relative }`
