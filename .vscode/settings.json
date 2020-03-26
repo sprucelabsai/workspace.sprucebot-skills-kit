@@ -13,7 +13,6 @@
 		"**/build/**": true
 	},
 	"debug.node.autoAttach": "off",
-	"prettier.eslintIntegration": true,
 	"javascript.validate.enable": false,
 	"typescript.validate.enable": true,
 	"eslint.validate": [

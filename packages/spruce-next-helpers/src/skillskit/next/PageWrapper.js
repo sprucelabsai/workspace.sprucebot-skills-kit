@@ -1,16 +1,16 @@
 // @flow
-import React, { Component } from 'react'
-
-import * as actions from '../store/actions'
+import { FontLoader, Loader } from '@sprucelabs/react-heartwood-components'
 import ServerCookies from 'cookies'
-import ClientCookies from 'js-cookies'
-import skill from '../index'
-import { Loader, FontLoader } from '@sprucelabs/react-heartwood-components'
-import qs from 'qs'
-import lang from '../helpers/lang'
-import Router, { withRouter } from 'next/router'
-import { Container } from 'next/app'
 import is from 'is_js'
+import ClientCookies from 'js-cookies'
+import { Container } from 'next/app'
+import Head from 'next/head'
+import Router, { withRouter } from 'next/router'
+import qs from 'qs'
+import React, { Component } from 'react'
+import lang from '../helpers/lang'
+import skill from '../index'
+import * as actions from '../store/actions'
 
 const debug = require('debug')('@sprucelabs/spruce-next-helpers')
 
@@ -99,7 +99,8 @@ const PageWrapper = Wrapped => {
 			super(props)
 			this.state = {
 				attemptingReAuth: !!props.attemptingReAuth,
-				isIframed: true
+				isIframed: true,
+				isHeartwoodView: props.isHeartwoodView || 'false'
 			}
 		}
 
@@ -156,7 +157,22 @@ const PageWrapper = Wrapped => {
 				}
 			}
 
+			// Determines if the view is being displayed in heartwood skill view or legacy
+			props.isHeartwoodView = query.isHeartwoodView
+
 			const state = store.getState()
+
+			// Shall we whitelabel?
+			if (
+				state.auth &&
+				state.auth.Location &&
+				state.auth.Location.Organization &&
+				state.auth.Location.Organization.allowWhiteLabelling &&
+				state.auth.Location.Organization.whiteLabellingStylesheetUrl
+			) {
+				props.orgWhitelabel =
+					state.auth.Location.Organization.whiteLabellingStylesheetUrl
+			}
 
 			// v1 Legacy authentication logic
 			if (state.auth && !state.auth.error && state.auth.version === 1) {
@@ -297,6 +313,22 @@ const PageWrapper = Wrapped => {
 				bodyClassNames.push('is_ios')
 			}
 
+			if (this.props.isHeartwoodView) {
+				// If query param indicates page is displayed in heartwood skill view,
+				// save item to sessionStorage so subsequent client-side page loads via next router
+				// will have access to the value
+				window.sessionStorage.setItem(
+					'isHeartwoodView',
+					this.props.isHeartwoodView
+				)
+			}
+
+			this.setState({
+				isHeartwoodView:
+					this.props.isHeartwoodView ||
+					window.sessionStorage.getItem('isHeartwoodView')
+			})
+
 			document.body.classList.add(...bodyClassNames)
 		}
 
@@ -348,6 +380,17 @@ const PageWrapper = Wrapped => {
 			if (this.props.config.DEV_MODE) {
 				return (
 					<Container>
+						<Head>
+							{this.props.orgWhitelabel &&
+								this.state.isHeartwoodView !== 'true' && (
+									<link
+										href={this.props.orgWhitelabel}
+										rel="stylesheet"
+										type="text/css"
+										charSet="UTF-8"
+									/>
+								)}
+						</Head>
 						<FontLoader fonts={fonts} />
 						<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 					</Container>
@@ -355,6 +398,17 @@ const PageWrapper = Wrapped => {
 			}
 			return (
 				<Container>
+					<Head>
+						{this.props.orgWhitelabel &&
+							this.state.isHeartwoodView !== 'true' && (
+								<link
+									href={this.props.orgWhitelabel}
+									rel="stylesheet"
+									type="text/css"
+									charSet="UTF-8"
+								/>
+							)}
+					</Head>
 					<FontLoader fonts={fonts} />
 					<ConnectedWrapped {...this.props} skill={skill} lang={lang} />
 				</Container>
