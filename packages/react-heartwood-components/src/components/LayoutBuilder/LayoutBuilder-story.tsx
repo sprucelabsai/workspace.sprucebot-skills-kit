@@ -3,7 +3,7 @@ import {
 	IHWButtonTypes,
 	IHWCardBuilder,
 	IHWCardBuilderBodyItemType,
-	IHWPageBuilderSectionType
+	IHWLayoutBuilderSectionType
 } from '@sprucelabs/spruce-types'
 import { withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
@@ -11,9 +11,9 @@ import React from 'react'
 import { ButtonKinds } from '../Button/Button'
 import Layout, { LayoutSection } from '../Layout'
 import Page, { PageContent } from '../Page'
-import { PageBuilder } from './PageBuilder'
+import { LayoutBuilder } from './LayoutBuilder'
 
-const stories = storiesOf('PageBuilder', module)
+const stories = storiesOf('LayoutBuilder', module)
 
 const cardJSON: IHWCardBuilder = {
 	id: 'foo',
@@ -74,14 +74,14 @@ stories.addDecorator(story => (
 stories.addDecorator(withKnobs)
 
 stories.add('default', () => (
-	<PageBuilder
+	<LayoutBuilder
 		sections={[
 			{
-				type: IHWPageBuilderSectionType.CardBuilder,
+				type: IHWLayoutBuilderSectionType.CardBuilder,
 				viewModel: cardJSON
 			},
 			{
-				type: IHWPageBuilderSectionType.Button,
+				type: IHWLayoutBuilderSectionType.Button,
 				viewModel: {
 					id: 'new-button',
 					text: 'My cool button',
