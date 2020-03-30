@@ -1,20 +1,19 @@
-// @flow
-import React, { Node } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import LayoutSection from './components/LayoutSection/LayoutSection'
 
 export type LayoutProps = {
 	/** Contents of the Layout. Should be LayoutSection components */
-	children?: Node,
+	children?: React.ReactElement
 
 	/** Set true to center align layout content. */
-	isCentered?: boolean,
+	isCentered?: boolean
 
 	/** Set true to remove horizontal padding from layout. */
-	isFullBleed?: boolean,
+	isFullBleed?: boolean
 
 	/** Sets the width of the layout */
-	width?: 'base' | 'tight' | 'wide' | 'full-width',
+	width?: 'base' | 'tight' | 'wide' | 'full-width'
 
 	/** any classes applied to the div */
 	className?: string

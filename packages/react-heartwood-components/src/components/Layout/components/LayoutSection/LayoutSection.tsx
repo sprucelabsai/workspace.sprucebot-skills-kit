@@ -1,13 +1,12 @@
-// @flow
-import React, { Node } from 'react'
+import React from 'react'
 import cx from 'classnames'
 
 export type LayoutSectionProps = {
 	/** Contents of the Layout Section */
-	children: Node,
+	children: React.ReactElement
 
 	/** Class name for the section */
-	className?: string,
+	className?: string
 
 	/** Whether this is a secondary Layout Section */
 	isSecondary: boolean

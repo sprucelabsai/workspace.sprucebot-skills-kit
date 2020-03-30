@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { select, withKnobs } from '@storybook/addon-knobs/react'
