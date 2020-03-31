@@ -670,29 +670,33 @@ export type IHWLayout = {
   width?: Maybe<IHWLayoutWidth>,
   /** Any additional classes that should be applied to the container element */
   className?: Maybe<Scalars['String']>,
+  /** Sections to be rendered within this layout */
+  sections?: Maybe<Array<IHWLayoutSection>>,
 };
 
 /** The builder for all things cards */
 export type IHWLayoutBuilder = {
   __typename?: 'LayoutBuilder',
-  /** An array of sections to render */
-  sections: Array<IHWLayoutBuilderSection>,
+  /** An array of items to render */
+  items: Array<IHWLayoutBuilderSection>,
 };
 
 export type IHWLayoutBuilderSection = {
   __typename?: 'LayoutBuilderSection',
   /** The type of the section */
-  type?: Maybe<IHWLayoutBuilderSectionType>,
+  type: IHWLayoutBuilderSectionType,
   /** Data to render the section */
-  viewModel?: Maybe<IHWLayoutBuilderSectionViewModel>,
+  viewModel: IHWLayoutBuilderSectionViewModel,
 };
 
 export enum IHWLayoutBuilderSectionType {
   CardBuilder = 'CardBuilder',
-  Button = 'Button'
+  Button = 'Button',
+  Layout = 'Layout',
+  LayoutSpacing = 'LayoutSpacing'
 }
 
-export type IHWLayoutBuilderSectionViewModel = IHWCardBuilder | IHWButton;
+export type IHWLayoutBuilderSectionViewModel = IHWCardBuilder | IHWButton | IHWLayout | IHWLayoutSpacing;
 
 export type IHWLayoutSection = {
   __typename?: 'LayoutSection',
@@ -700,6 +704,8 @@ export type IHWLayoutSection = {
   className?: Maybe<Scalars['String']>,
   /** Whether this is a secondary layout section */
   isSecondary?: Maybe<Scalars['Boolean']>,
+  /** LayoutBuilder to be rendered as the child of this section */
+  layoutBuilder?: Maybe<IHWLayoutBuilder>,
 };
 
 export type IHWLayoutSpacing = {
@@ -708,6 +714,8 @@ export type IHWLayoutSpacing = {
   direction: IHWLayoutSpacingDirection,
   /** The amount of spacing to apply (0-12) */
   amount: Scalars['Int'],
+  /** LayoutBuilder to be rendered within this spacing */
+  layoutBuilder?: Maybe<IHWLayoutBuilder>,
 };
 
 export enum IHWLayoutSpacingDirection {

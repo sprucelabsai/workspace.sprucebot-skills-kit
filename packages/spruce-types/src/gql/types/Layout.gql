@@ -19,6 +19,9 @@ type Layout {
 
 	"Any additional classes that should be applied to the container element"
 	className: String
+
+	"Sections to be rendered within this layout"
+	sections: [LayoutSection!]
 }
 
 type LayoutSection {
@@ -27,6 +30,9 @@ type LayoutSection {
 
 	"Whether this is a secondary layout section"
 	isSecondary: Boolean
+
+	"LayoutBuilder to be rendered as the child of this section"
+	layoutBuilder: LayoutBuilder
 }
 
 # Layout Spacing
@@ -47,4 +53,7 @@ type LayoutSpacing {
 
 	"The amount of spacing to apply (0-12)"
 	amount: Int!
+
+	"LayoutBuilder to be rendered within this spacing"
+	layoutBuilder: LayoutBuilder
 }
