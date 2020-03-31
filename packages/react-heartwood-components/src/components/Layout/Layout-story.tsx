@@ -1,10 +1,14 @@
-import { IHWLayoutWidth } from '@sprucelabs/spruce-types'
+import {
+	IHWLayoutSpacingDirection,
+	IHWLayoutWidth
+} from '@sprucelabs/spruce-types'
 import { select, withKnobs } from '@storybook/addon-knobs/react'
 import { storiesOf } from '@storybook/react'
 import faker from 'faker'
 import React from 'react'
 import Card from '../Card/Card'
 import LayoutSection from './components/LayoutSection/LayoutSection'
+import LayoutSpacing from './components/LayoutSpacing/LayoutSpacing'
 import Layout from './Layout'
 
 const stories = storiesOf('Layout', module)
@@ -24,30 +28,29 @@ stories
 	.add('Spacing Utilities', () => {
 		const prefixSelect = select(
 			'side',
-			['all', 'horizontal', 'vertical', 'top', 'right', 'bottom', 'left'],
-			'all'
+			[
+				IHWLayoutSpacingDirection.All,
+				IHWLayoutSpacingDirection.Horizontal,
+				IHWLayoutSpacingDirection.Vertical,
+				IHWLayoutSpacingDirection.Top,
+				IHWLayoutSpacingDirection.Right,
+				IHWLayoutSpacingDirection.Bottom,
+				IHWLayoutSpacingDirection.Left
+			],
+			IHWLayoutSpacingDirection.All
 		)
-		const prefixes = {
-			all: '',
-			horizontal: 'x',
-			vertical: 'y',
-			top: 't',
-			right: 'r',
-			bottom: 'b',
-			left: 'l'
-		}
 		return (
 			<div style={{ backgroundColor: 'rgba(49,95,204,0.5)' }}>
-				<div
-					className={`p${prefixes[prefixSelect]}-${select(
+				<LayoutSpacing
+					direction={prefixSelect}
+					amount={select(
 						'spacing',
 						[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
 						1
-					)}`}
-					style={{ width: 'auto', backgroundColor: 'rgba(49,95,204,0.5)' }}
+					)}
 				>
 					<p style={{ backgroundColor: '#fff' }}>This is content</p>
-				</div>
+				</LayoutSpacing>
 			</div>
 		)
 	})

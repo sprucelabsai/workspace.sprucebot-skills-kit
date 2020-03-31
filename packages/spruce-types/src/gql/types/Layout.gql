@@ -1,3 +1,5 @@
+# General Layout
+
 enum LayoutWidth {
 	Base
 	Tight
@@ -25,4 +27,24 @@ type LayoutSection {
 
 	"Whether this is a secondary layout section"
 	isSecondary: Boolean
+}
+
+# Layout Spacing
+
+enum LayoutSpacingDirection {
+	All
+	Horizontal
+	Vertical
+	Top
+	Right
+	Bottom
+	Left
+}
+
+type LayoutSpacing {
+	"The direction in which the spacing should be applied"
+	direction: LayoutSpacingDirection!
+
+	"The amount of spacing to apply (0-12)"
+	amount: Int!
 }
