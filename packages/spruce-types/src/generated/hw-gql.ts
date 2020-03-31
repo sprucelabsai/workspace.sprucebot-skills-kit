@@ -693,10 +693,14 @@ export enum IHWLayoutBuilderSectionType {
   CardBuilder = 'CardBuilder',
   Button = 'Button',
   Layout = 'Layout',
-  LayoutSpacing = 'LayoutSpacing'
+  LayoutSpacing = 'LayoutSpacing',
+  Page = 'Page',
+  Sidebar = 'Sidebar',
+  SidebarHeader = 'SidebarHeader',
+  SidebarSection = 'SidebarSection'
 }
 
-export type IHWLayoutBuilderSectionViewModel = IHWCardBuilder | IHWButton | IHWLayout | IHWLayoutSpacing;
+export type IHWLayoutBuilderSectionViewModel = IHWCardBuilder | IHWButton | IHWLayout | IHWLayoutSpacing | IHWPage | IHWSidebar | IHWSidebarHeader | IHWSidebarSection;
 
 export type IHWLayoutSection = {
   __typename?: 'LayoutSection',
@@ -877,6 +881,44 @@ export type IHWOnboardingCardStep = {
   isComplete?: Maybe<Scalars['Boolean']>,
 };
 
+export type IHWPage = {
+  __typename?: 'Page',
+  /** Set true to make page content center aligned */
+  isCentered?: Maybe<Scalars['Boolean']>,
+  /** Set false to add extra spacing to top of page when there is no PageHeader. */
+  hasHeader?: Maybe<Scalars['Boolean']>,
+  /** Optional classname */
+  className?: Maybe<Scalars['String']>,
+  /** Page header props */
+  header?: Maybe<IHWPageHeader>,
+  /** Set true if the page has a sidebar that is collapsed. Defaults to false. */
+  sidebarIsCollapsed?: Maybe<Scalars['Boolean']>,
+  /** Layout to render in the main content area */
+  contentLayoutBuilder?: Maybe<IHWLayoutBuilder>,
+  /** Layout to render in the sidebar area */
+  sidebarLayoutBuilder?: Maybe<IHWLayoutBuilder>,
+};
+
+export type IHWPageHeader = {
+  __typename?: 'PageHeader',
+  /** Title of the Page */
+  title?: Maybe<Scalars['String']>,
+  /** Optional back link href. Outputs next Link if relative, otherwise outputs anchor */
+  backLinkHref?: Maybe<Scalars['String']>,
+  /** Back link text */
+  backLinkText?: Maybe<Scalars['String']>,
+  /** Is the header collapsed? */
+  collapsed?: Maybe<Scalars['Boolean']>,
+  /** Optional classname */
+  className?: Maybe<Scalars['String']>,
+  /** Adds a button to the page header for its primary action. */
+  primaryAction?: Maybe<IHWButton>,
+  /** Set true to add a border to the page header */
+  hasBottomBorder?: Maybe<Scalars['Boolean']>,
+  /** Adds an element to expand the right sidebar */
+  sidebarExpander?: Maybe<IHWButton>,
+};
+
 /** A radio control. Give a bunch the same name to keep them as part of the same group */
 export type IHWRadio = IHWActionExecutor & {
   __typename?: 'Radio',
@@ -912,6 +954,69 @@ export type IHWScoreCardPanel = {
   /** The score, e.g. $234.30 */
   value?: Maybe<Scalars['String']>,
 };
+
+export type IHWSidebar = {
+  __typename?: 'Sidebar',
+  /** Optional header that will only appear on mobile */
+  mobileHeader?: Maybe<IHWSidebarHeader>,
+  /** Items to display in the sidebar */
+  items?: Maybe<Array<IHWSidebarItem>>,
+  /** Sections to display in the sidebar */
+  sections?: Maybe<Array<IHWSidebarSection>>,
+  /** Back link item to handle navigation back to previous location */
+  backLink?: Maybe<IHWSidebarItem>,
+  /** Set which side the sidebar is on. Must be either 'left' or 'right' */
+  side: IHWSidebarSide,
+  /** Set true to make the sidebar larger. Defaults to false. */
+  isLarge?: Maybe<Scalars['Boolean']>,
+  /** Enables the user to collapse the sidebar on desktop. Defaults to true. */
+  isCollapsible?: Maybe<Scalars['Boolean']>,
+  /** Set true to expand the sidebar (large screens only) */
+  isExpanded?: Maybe<Scalars['Boolean']>,
+  /** Set true to expand the sidebar on small screens */
+  isMobileExpanded?: Maybe<Scalars['Boolean']>,
+};
+
+export type IHWSidebarHeader = {
+  __typename?: 'SidebarHeader',
+  title: Scalars['String'],
+  action?: Maybe<IHWButton>,
+};
+
+export type IHWSidebarItem = {
+  __typename?: 'SidebarItem',
+  items?: Maybe<Array<IHWSidebarItem>>,
+  className?: Maybe<Scalars['String']>,
+  text: Scalars['String'],
+  href: Scalars['String'],
+  action?: Maybe<IHWButton>,
+  isCurrent?: Maybe<Scalars['Boolean']>,
+};
+
+export type IHWSidebarSection = {
+  __typename?: 'SidebarSection',
+  /** Optional classname to add to the section */
+  className?: Maybe<Scalars['String']>,
+  /** Set true to center align horizontally */
+  isCentered?: Maybe<Scalars['Boolean']>,
+  isOnlyForMobile?: Maybe<Scalars['Boolean']>,
+  /** Horizontal Spacing options */
+  horizontalSpacing?: Maybe<IHWSidebarSpacing>,
+  /** Vertical Spacing options */
+  verticalSpacing?: Maybe<IHWSidebarSpacing>,
+  /** Layout to render in the sidebar area */
+  layoutBuilder?: Maybe<IHWLayoutBuilder>,
+};
+
+export enum IHWSidebarSide {
+  Left = 'Left',
+  Right = 'Right'
+}
+
+export enum IHWSidebarSpacing {
+  Base = 'Base',
+  Loose = 'Loose'
+}
 
 /** A button with a dropdown of actions on the right */
 export type IHWSplitButton = {

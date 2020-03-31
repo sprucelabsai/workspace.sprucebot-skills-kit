@@ -1,0 +1,77 @@
+type SidebarHeader {
+	title: String!
+
+	action: Button
+}
+
+type SidebarItem {
+	items: [SidebarItem!]
+
+	className: String
+
+	text: String!
+
+	href: String!
+
+	action: Button
+
+	isCurrent: Boolean
+}
+
+enum SidebarSpacing {
+	Base
+	Loose
+}
+
+type SidebarSection {
+	"Optional classname to add to the section"
+	className: String
+
+	"Set true to center align horizontally"
+	isCentered: Boolean
+
+	isOnlyForMobile: Boolean
+
+	"Horizontal Spacing options"
+	horizontalSpacing: SidebarSpacing
+
+	"Vertical Spacing options"
+	verticalSpacing: SidebarSpacing
+
+	"Layout to render in the sidebar area"
+	layoutBuilder: LayoutBuilder
+}
+
+enum SidebarSide {
+	Left
+	Right
+}
+
+type Sidebar {
+	"Optional header that will only appear on mobile"
+	mobileHeader: SidebarHeader
+
+	"Items to display in the sidebar"
+	items: [SidebarItem!]
+
+	"Sections to display in the sidebar"
+	sections: [SidebarSection!]
+
+	"Back link item to handle navigation back to previous location"
+	backLink: SidebarItem
+
+	"Set which side the sidebar is on. Must be either 'left' or 'right'"
+	side: SidebarSide!
+
+	"Set true to make the sidebar larger. Defaults to false."
+	isLarge: Boolean
+
+	"Enables the user to collapse the sidebar on desktop. Defaults to true."
+	isCollapsible: Boolean
+
+	"Set true to expand the sidebar (large screens only)"
+	isExpanded: Boolean
+
+	"Set true to expand the sidebar on small screens"
+	isMobileExpanded: Boolean
+}

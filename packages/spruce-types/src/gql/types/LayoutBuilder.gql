@@ -3,12 +3,20 @@ union LayoutBuilderSectionViewModel =
 	| Button
 	| Layout
 	| LayoutSpacing
+	| Page
+	| Sidebar
+	| SidebarHeader
+	| SidebarSection
 
 enum LayoutBuilderSectionType {
 	CardBuilder
 	Button
 	Layout
 	LayoutSpacing
+	Page
+	Sidebar
+	SidebarHeader
+	SidebarSection
 }
 
 type LayoutBuilderSection {
