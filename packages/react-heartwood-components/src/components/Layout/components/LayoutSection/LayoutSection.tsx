@@ -1,19 +1,13 @@
-// @flow
-import React, { Node } from 'react'
+import { IHWLayoutSection } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
+import React from 'react'
 
-export type LayoutSectionProps = {
+export interface ILayoutSectionProps extends IHWLayoutSection {
 	/** Contents of the Layout Section */
-	children: Node,
-
-	/** Class name for the section */
-	className?: string,
-
-	/** Whether this is a secondary Layout Section */
-	isSecondary: boolean
+	children: React.ReactElement
 }
 
-const LayoutSection = (props: LayoutSectionProps) => {
+const LayoutSection = (props: ILayoutSectionProps) => {
 	const { className, isSecondary, children, ...rest } = props
 
 	return (

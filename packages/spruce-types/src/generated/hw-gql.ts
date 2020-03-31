@@ -660,6 +660,18 @@ export type IHWImage = {
 
 
 
+export type IHWLayout = {
+  __typename?: 'Layout',
+  /** Is the layout content centered */
+  isCentered?: Maybe<Scalars['Boolean']>,
+  /** Should the layout be full-bleed? */
+  isFullBleed?: Maybe<Scalars['Boolean']>,
+  /** Width of the layout. Defaults to 'Base' */
+  width?: Maybe<IHWLayoutWidth>,
+  /** Any additional classes that should be applied to the container element */
+  className?: Maybe<Scalars['String']>,
+};
+
 /** The builder for all things cards */
 export type IHWLayoutBuilder = {
   __typename?: 'LayoutBuilder',
@@ -681,6 +693,21 @@ export enum IHWLayoutBuilderSectionType {
 }
 
 export type IHWLayoutBuilderSectionViewModel = IHWCardBuilder | IHWButton;
+
+export type IHWLayoutSection = {
+  __typename?: 'LayoutSection',
+  /** Any additional classes that should be applied to the container element */
+  className?: Maybe<Scalars['String']>,
+  /** Whether this is a secondary layout section */
+  isSecondary?: Maybe<Scalars['Boolean']>,
+};
+
+export enum IHWLayoutWidth {
+  Base = 'Base',
+  Tight = 'Tight',
+  Wide = 'Wide',
+  FullWidth = 'FullWidth'
+}
 
 /** A list of list items */
 export type IHWList = {

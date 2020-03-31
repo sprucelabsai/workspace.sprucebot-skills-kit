@@ -1,11 +1,12 @@
-// @flow
-import React from 'react'
-import { storiesOf } from '@storybook/react'
+import { IHWLayoutWidth } from '@sprucelabs/spruce-types'
 import { select, withKnobs } from '@storybook/addon-knobs/react'
+import { storiesOf } from '@storybook/react'
 import faker from 'faker'
-
-import Layout, { LayoutSection } from './index'
+import React from 'react'
 import Card from '../Card/Card'
+import LayoutSection from './components/LayoutSection/LayoutSection'
+import Layout from './Layout'
+
 const stories = storiesOf('Layout', module)
 
 stories.addDecorator(withKnobs)
@@ -55,8 +56,8 @@ stories
 			<div
 				className={`container--${select(
 					'container class',
-					['base', 'tight', 'wide'],
-					'base'
+					[IHWLayoutWidth.Base, IHWLayoutWidth.Tight, IHWLayoutWidth.Wide],
+					IHWLayoutWidth.Base
 				)}`}
 				style={{ backgroundColor: '#fff' }}
 			>
@@ -82,27 +83,27 @@ stories
 		</Layout>
 	))
 	.add('Tight Layout', () => (
-		<Layout width="tight">
+		<Layout width={IHWLayoutWidth.Tight}>
 			<LayoutSection>{generateCard()}</LayoutSection>
 		</Layout>
 	))
 	.add('Wide Layout', () => (
-		<Layout width="wide">
+		<Layout width={IHWLayoutWidth.Wide}>
 			<LayoutSection>{generateCard()}</LayoutSection>
 		</Layout>
 	))
 	.add('Full-Width Layout', () => (
-		<Layout width="full-width">
+		<Layout width={IHWLayoutWidth.FullWidth}>
 			<LayoutSection>{generateCard()}</LayoutSection>
 		</Layout>
 	))
 	.add('Full-Bleed Layout', () => (
-		<Layout width="full-width" isFullBleed>
+		<Layout width={IHWLayoutWidth.FullWidth} isFullBleed>
 			<LayoutSection>{generateCard()}</LayoutSection>
 		</Layout>
 	))
 	.add('Very dense full-width layout', () => (
-		<Layout width="full-width">
+		<Layout width={IHWLayoutWidth.FullWidth}>
 			<LayoutSection isSecondary>{generateCard()}</LayoutSection>
 			<LayoutSection isSecondary>{generateCard()}</LayoutSection>
 			<LayoutSection isSecondary>{generateCard()}</LayoutSection>

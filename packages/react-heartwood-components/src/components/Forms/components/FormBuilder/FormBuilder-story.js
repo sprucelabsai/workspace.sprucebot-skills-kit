@@ -1,12 +1,13 @@
 // @flow
-import React from 'react'
+import { object, withKnobs } from '@storybook/addon-knobs/react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, object } from '@storybook/addon-knobs/react'
-import FormBuilder from './FormBuilder'
+import React from 'react'
+import { Card, CardBody } from '../../../Card'
+import LayoutSection from '../../../Layout/components/LayoutSection/LayoutSection'
+import Layout from '../../../Layout/Layout'
 import Modal from '../../../Modal/Modal'
 import Page, { PageContent } from '../../../Page'
-import { Card, CardBody } from '../../../Card'
-import Layout, { LayoutSection } from '../../../Layout'
+import FormBuilder from './FormBuilder'
 
 const stories = storiesOf('FormBuilder', module)
 
