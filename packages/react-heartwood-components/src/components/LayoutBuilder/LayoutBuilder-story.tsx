@@ -4,7 +4,8 @@ import {
 	IHWCardBuilder,
 	IHWCardBuilderBodyItemType,
 	IHWLayoutBuilderSectionType,
-	IHWLayoutWidth
+	IHWLayoutWidth,
+	IHWSidebarSide
 } from '@sprucelabs/spruce-types'
 import { withKnobs } from '@storybook/addon-knobs'
 import { storiesOf } from '@storybook/react'
@@ -163,6 +164,90 @@ stories.add('Render a Page', () => (
 										{
 											layoutBuilder: {
 												items: [
+													{
+														type: IHWLayoutBuilderSectionType.CardBuilder,
+														viewModel: cardJSON
+													}
+												]
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			}
+		]}
+	/>
+))
+
+stories.add('Render a Page with a Sidebar', () => (
+	<LayoutBuilder
+		items={[
+			{
+				type: IHWLayoutBuilderSectionType.Page,
+				viewModel: {
+					header: {
+						title: 'My Cool Page',
+						backLinkText: 'Go back somewhere',
+						backLinkHref: '#',
+						primaryAction: {
+							id: 'do-something',
+							href: '#',
+							text: 'Do something',
+							kind: IHWButtonKinds.Primary
+						}
+					},
+					contentLayoutBuilder: {
+						items: [
+							{
+								type: IHWLayoutBuilderSectionType.Layout,
+								viewModel: {
+									width: IHWLayoutWidth.FullWidth,
+									sections: [
+										{
+											layoutBuilder: {
+												items: [
+													{
+														type: IHWLayoutBuilderSectionType.CardBuilder,
+														viewModel: cardJSON
+													}
+												]
+											}
+										}
+									]
+								}
+							}
+						]
+					},
+					sidebarLayoutBuilder: {
+						items: [
+							{
+								type: IHWLayoutBuilderSectionType.Sidebar,
+								viewModel: {
+									side: IHWSidebarSide.Right,
+									isLarge: true,
+									isCollapsible: false,
+									sections: [
+										{
+											layoutBuilder: {
+												items: [
+													{
+														type: IHWLayoutBuilderSectionType.SidebarHeader,
+														viewModel: {
+															action: {
+																id: 'go',
+																text: 'Burn it down!',
+																kind: IHWButtonKinds.Caution
+															},
+															title: 'My Sidebar'
+														}
+													},
+													{
+														type: IHWLayoutBuilderSectionType.CardBuilder,
+														viewModel: cardJSON
+													},
 													{
 														type: IHWLayoutBuilderSectionType.CardBuilder,
 														viewModel: cardJSON

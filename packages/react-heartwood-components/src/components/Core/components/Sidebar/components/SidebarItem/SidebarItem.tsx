@@ -1,33 +1,14 @@
-// @flow
 import React from 'react'
-import type { Node } from 'react'
 import cx from 'classnames'
 import Button from '../../../../../Button/Button'
-import type { Props as ButtonProps } from '../../../../../Button/Button'
 import Icon from '../../../../../Icon/Icon'
+import { IHWSidebarItem } from '@sprucelabs/spruce-types'
 
-type ItemProps = {
-	text: string,
-	href: string,
-	className?: string,
-	action?: ButtonProps,
-	icon?: Node,
-	isCurrent?: boolean,
-	items: Array<ItemProps>
+export interface ISidebarItemProps extends IHWSidebarItem {
+	icon?: any
 }
 
-export type Props = {
-	items?: Array<ItemProps>,
-	className?: string,
-	text: string,
-	href: string,
-	action?: Object,
-	icon?: any,
-	isCurrent?: boolean
-}
-
-const isCurrentParent = (props: Props) => {
-	const { items } = props
+const isCurrentParent = (items: ISidebarItemProps[]) => {
 	if (items) {
 		if (items.find(item => item.isCurrent)) {
 			return true
@@ -43,11 +24,11 @@ const isCurrentParent = (props: Props) => {
 	return false
 }
 
-const SidebarItem = (props: Props) => {
+const SidebarItem = (props: ISidebarItemProps) => {
 	const { text, href, action, icon, isCurrent, items, className } = props
 	const parentClass = cx('sidebar-item', className, {
 		'sidebar-item--is-current': isCurrent,
-		'sidebar-item--is-current-parent': items && isCurrentParent({ items })
+		'sidebar-item--is-current-parent': items && isCurrentParent(items)
 	})
 	return (
 		<li className={parentClass}>
@@ -69,7 +50,7 @@ const SidebarItem = (props: Props) => {
 						const subClass = cx('sidebar__sub-list-item', {
 							'sidebar-item--is-current': item.isCurrent,
 							'sidebar-item--is-current-parent':
-								item.items && isCurrentParent({ items: item.items })
+								item.items && isCurrentParent(item.items)
 						})
 						return (
 							<li key={idx} className={subClass}>
@@ -78,7 +59,7 @@ const SidebarItem = (props: Props) => {
 										{item.text}
 									</a>
 								</div>
-								{item.items && isCurrentParent({ items: item.items }) && (
+								{item.items && isCurrentParent(item.items) && (
 									<ul className="sidebar__sub-list">
 										{item.items.map((item, idx) => {
 											const subSubClass = cx(

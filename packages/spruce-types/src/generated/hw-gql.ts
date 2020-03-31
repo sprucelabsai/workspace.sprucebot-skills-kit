@@ -694,10 +694,13 @@ export enum IHWLayoutBuilderSectionType {
   Button = 'Button',
   Layout = 'Layout',
   LayoutSpacing = 'LayoutSpacing',
-  Page = 'Page'
+  Page = 'Page',
+  Sidebar = 'Sidebar',
+  SidebarHeader = 'SidebarHeader',
+  SidebarSection = 'SidebarSection'
 }
 
-export type IHWLayoutBuilderSectionViewModel = IHWCardBuilder | IHWButton | IHWLayout | IHWLayoutSpacing | IHWPage;
+export type IHWLayoutBuilderSectionViewModel = IHWCardBuilder | IHWButton | IHWLayout | IHWLayoutSpacing | IHWPage | IHWSidebar | IHWSidebarHeader | IHWSidebarSection;
 
 export type IHWLayoutSection = {
   __typename?: 'LayoutSection',
@@ -951,6 +954,69 @@ export type IHWScoreCardPanel = {
   /** The score, e.g. $234.30 */
   value?: Maybe<Scalars['String']>,
 };
+
+export type IHWSidebar = {
+  __typename?: 'Sidebar',
+  /** Optional header that will only appear on mobile */
+  mobileHeader?: Maybe<IHWSidebarHeader>,
+  /** Items to display in the sidebar */
+  items?: Maybe<Array<IHWSidebarItem>>,
+  /** Sections to display in the sidebar */
+  sections?: Maybe<Array<IHWSidebarSection>>,
+  /** Back link item to handle navigation back to previous location */
+  backLink?: Maybe<IHWSidebarItem>,
+  /** Set which side the sidebar is on. Must be either 'left' or 'right' */
+  side: IHWSidebarSide,
+  /** Set true to make the sidebar larger. Defaults to false. */
+  isLarge?: Maybe<Scalars['Boolean']>,
+  /** Enables the user to collapse the sidebar on desktop. Defaults to true. */
+  isCollapsible?: Maybe<Scalars['Boolean']>,
+  /** Set true to expand the sidebar (large screens only) */
+  isExpanded?: Maybe<Scalars['Boolean']>,
+  /** Set true to expand the sidebar on small screens */
+  isMobileExpanded?: Maybe<Scalars['Boolean']>,
+};
+
+export type IHWSidebarHeader = {
+  __typename?: 'SidebarHeader',
+  title: Scalars['String'],
+  action?: Maybe<IHWButton>,
+};
+
+export type IHWSidebarItem = {
+  __typename?: 'SidebarItem',
+  items?: Maybe<Array<IHWSidebarItem>>,
+  className?: Maybe<Scalars['String']>,
+  text: Scalars['String'],
+  href: Scalars['String'],
+  action?: Maybe<IHWButton>,
+  isCurrent?: Maybe<Scalars['Boolean']>,
+};
+
+export type IHWSidebarSection = {
+  __typename?: 'SidebarSection',
+  /** Optional classname to add to the section */
+  className?: Maybe<Scalars['String']>,
+  /** Set true to center align horizontally */
+  isCentered?: Maybe<Scalars['Boolean']>,
+  isOnlyForMobile?: Maybe<Scalars['Boolean']>,
+  /** Horizontal Spacing options */
+  horizontalSpacing?: Maybe<IHWSidebarSpacing>,
+  /** Vertical Spacing options */
+  verticalSpacing?: Maybe<IHWSidebarSpacing>,
+  /** Layout to render in the sidebar area */
+  layoutBuilder?: Maybe<IHWLayoutBuilder>,
+};
+
+export enum IHWSidebarSide {
+  Left = 'Left',
+  Right = 'Right'
+}
+
+export enum IHWSidebarSpacing {
+  Base = 'Base',
+  Loose = 'Loose'
+}
 
 /** A button with a dropdown of actions on the right */
 export type IHWSplitButton = {

@@ -31,7 +31,7 @@ export const Page = (props: IPageProps) => {
 		sidebarIsCollapsed,
 		sidebar,
 		contentLayoutBuilder,
-		// sidebarLayoutBuilder,
+		sidebarLayoutBuilder,
 		...rest
 	} = props
 	return (
@@ -53,16 +53,16 @@ export const Page = (props: IPageProps) => {
 					<LayoutBuilder {...contentLayoutBuilder as ILayoutBuilderProps} />
 				)}
 			</div>
-			{sidebar && (
+			{(sidebar || sidebarLayoutBuilder) && (
 				<div className={'page__sidebar'}>
 					{sidebar}
 					{/* TODO: Add back when Sidebar component is migrated into LayoutBuilder */}
-					{/* {sidebarLayoutBuilder && (
+					{sidebarLayoutBuilder && (
 						// Note: We have to cast this since ILayoutBuilderProps
 						// enforces typematching. All that interface is, is a stricter
 						// version of IHWLayoutBuilder.
 						<LayoutBuilder {...sidebarLayoutBuilder as ILayoutBuilderProps} />
-					)} */}
+					)}
 				</div>
 			)}
 		</div>

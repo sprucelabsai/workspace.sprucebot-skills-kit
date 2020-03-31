@@ -4,6 +4,9 @@ union LayoutBuilderSectionViewModel =
 	| Layout
 	| LayoutSpacing
 	| Page
+	| Sidebar
+	| SidebarHeader
+	| SidebarSection
 
 enum LayoutBuilderSectionType {
 	CardBuilder
@@ -11,6 +14,9 @@ enum LayoutBuilderSectionType {
 	Layout
 	LayoutSpacing
 	Page
+	Sidebar
+	SidebarHeader
+	SidebarSection
 }
 
 type LayoutBuilderSection {
