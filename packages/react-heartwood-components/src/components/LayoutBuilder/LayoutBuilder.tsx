@@ -1,9 +1,8 @@
 import {
 	IHWButton,
 	IHWCardBuilder,
-	IHWPageBuilder,
-	IHWPageBuilderSectionType,
-	Maybe
+	IHWLayoutBuilder,
+	IHWLayoutBuilderSectionType
 } from '@sprucelabs/spruce-types'
 import React from 'react'
 import Button from '../Button/Button'
@@ -12,28 +11,28 @@ import { CardBuilder } from '../Card'
 // Strictly associate valid types to their correct viewModel;
 // GQL doesn't support this level of association, so we just need to
 // make sure we're establish the correct mappings while adhering to the
-// general data layotu defined in the GQL.
-type ValidPageBuilderSectionConfigs =
+// general data layout defined in the GQL.
+type ValidLayoutBuilderSectionConfigs =
 	| {
-			type: IHWPageBuilderSectionType.Button
+			type: IHWLayoutBuilderSectionType.Button
 			viewModel: IHWButton
 	  }
 	| {
-			type: IHWPageBuilderSectionType.CardBuilder
+			type: IHWLayoutBuilderSectionType.CardBuilder
 			viewModel: IHWCardBuilder
 	  }
 
-interface IPageBuilderProps extends IHWPageBuilder {
-	sections: Maybe<ValidPageBuilderSectionConfigs>[]
+interface ILayoutBuilderProps extends IHWLayoutBuilder {
+	sections: ValidLayoutBuilderSectionConfigs[]
 }
 
-export const PageBuilder = ({ sections }: IPageBuilderProps) => (
+export const LayoutBuilder = ({ sections }: ILayoutBuilderProps) => (
 	<div>
 		{sections.map(section => {
 			if (section) {
-				if (section.type === IHWPageBuilderSectionType.CardBuilder) {
+				if (section.type === IHWLayoutBuilderSectionType.CardBuilder) {
 					return <CardBuilder {...section.viewModel} />
-				} else if (section.type === IHWPageBuilderSectionType.Button) {
+				} else if (section.type === IHWLayoutBuilderSectionType.Button) {
 					return <Button {...section.viewModel} />
 				}
 			}

@@ -1,0 +1,20 @@
+union LayoutBuilderSectionViewModel = CardBuilder | Button
+
+enum LayoutBuilderSectionType {
+	CardBuilder
+	Button
+}
+
+type LayoutBuilderSection {
+	"The type of the section"
+	type: LayoutBuilderSectionType
+
+	"Data to render the section"
+	viewModel: LayoutBuilderSectionViewModel
+}
+
+"The builder for all things cards"
+type LayoutBuilder {
+	"An array of sections to render"
+	sections: [LayoutBuilderSection!]!
+}
