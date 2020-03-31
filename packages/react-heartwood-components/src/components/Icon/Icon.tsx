@@ -1,4 +1,4 @@
-// TODO(george): Figure out why icons busts this rule.
+// TODO: Figure out why icons busts this rule.
 /* eslint import/namespace: off */
 
 // NOTE: This component should only include a few of the most commonly
