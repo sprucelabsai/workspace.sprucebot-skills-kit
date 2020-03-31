@@ -1,49 +1,28 @@
-// @flow
-import React from 'react'
-import is from 'is_js'
+import { IHWPageHeader } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
-import Link from 'next/link'
-import type { Props as LinkProps } from 'next/link'
-import type { Props as ButtonProps } from '../../../Button/Button'
-import type { Props as TabsProps } from '../../../Tabs/Tabs'
-import Icon from '../../../Icon/Icon'
-import Button from '../../../Button/Button'
-import Tabs from '../../../Tabs/Tabs'
+import is from 'is_js'
+import Link, { LinkProps } from 'next/link'
+import React from 'react'
 import BackIcon from '../../../../../static/assets/icons/ic_keyboard_arrow_left.svg'
+import Button from '../../../Button/Button'
+import Icon from '../../../Icon/Icon'
+import { ITabProps } from '../../../Tabs/components/Tab/Tab'
+import Tabs from '../../../Tabs/Tabs'
 
-export type PageHeaderProps = {
-	/** Title of the Page */
-	title?: string,
-
-	/** Optional back link href. Outputs next Link if relative, otherwise outputs anchor */
-	backLinkHref?: string,
+export interface IPageHeaderProps extends IHWPageHeader {
+	backLinkComponent?: typeof Link
 
 	/** Optional function to handle back click */
-	onClickBack?: Function,
-
-	/** Back link text */
-	backLinkText?: string,
+	onClickBack?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 
 	/** Props for Next router link: https://nextjs.org/docs/#routing. */
-	linkProps?: LinkProps,
-
-	/** Is the header collapsed? */
-	collapsed?: boolean,
-
-	/** Adds a button to the page header for its primary action. */
-	primaryAction?: ButtonProps,
+	linkProps?: LinkProps
 
 	/** Adds tabbed navigation for subviews */
-	tabs?: TabsProps,
-
-	/** Set true to add a border to the page header */
-	hasBottomBorder?: boolean,
-
-	/** Adds an element to expand the right sidebar */
-	sidebarExpander: ButtonProps
+	tabs?: ITabProps[]
 }
 
-const PageHeader = (props: PageHeaderProps) => {
+const PageHeader = (props: IPageHeaderProps) => {
 	const {
 		backLinkComponent: RelativeBackLinkComponent = Link,
 		backLinkHref,
