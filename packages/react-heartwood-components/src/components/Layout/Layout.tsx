@@ -5,7 +5,7 @@ import LayoutSection from './components/LayoutSection/LayoutSection'
 
 interface ILayoutProps extends IHWLayout {
 	/** Contents of the Layout. Should be LayoutSection components */
-	children?: React.ReactElement | React.ReactElement[]
+	children?: React.ReactNode
 }
 
 const Layout = (props: ILayoutProps) => {

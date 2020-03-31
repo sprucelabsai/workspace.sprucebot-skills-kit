@@ -1,33 +1,23 @@
-// @flow
-import React from 'react'
-import type { Node } from 'react'
+import { IHWPage } from '@sprucelabs/spruce-types'
 import cx from 'classnames'
-import PageHeader from './components/PageHeader/PageHeader'
+import React from 'react'
 import PageContent from './components/PageContent/PageContent'
-import type { PageHeaderProps } from './components/PageHeader/PageHeader'
+import PageHeader, {
+	IPageHeaderProps
+} from './components/PageHeader/PageHeader'
 
-// Card
-type PageProps = {
+interface IPageProps extends IHWPage {
 	/** Should be Card Header, Card Body, and Card Footer, unless using the card background for styling only. */
-	children: Node,
-
-	/** Set true to make page content center aligned. */
-	isCentered?: boolean,
-
-	/** Set false to add extra spacing to top of page when there is no PageHeader. */
-	hasHeader?: boolean,
-
-	/** Optional classname */
-	className?: string,
+	children: React.ReactNode
 
 	/** Page header props */
-	header?: PageHeaderProps,
+	header?: IPageHeaderProps
 
-	/** Set true if the page has a sidebar that is collapsed. Defaults to false. */
-	sidebarIsCollapsed?: boolean
+	/** Contents injected into page sidebar */
+	sidebar?: React.ReactNode
 }
 
-export const Page = (props: PageProps) => {
+export const Page = (props: IPageProps) => {
 	const {
 		children,
 		isCentered,

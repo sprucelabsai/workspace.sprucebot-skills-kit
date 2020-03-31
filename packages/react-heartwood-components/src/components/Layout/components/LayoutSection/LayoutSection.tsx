@@ -8,7 +8,7 @@ import {
 
 export interface ILayoutSectionProps extends IHWLayoutSection {
 	/** Contents of the Layout Section */
-	children?: React.ReactElement
+	children?: React.ReactNode
 }
 
 const LayoutSection = (props: ILayoutSectionProps) => {

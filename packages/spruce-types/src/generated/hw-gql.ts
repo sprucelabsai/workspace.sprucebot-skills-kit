@@ -877,6 +877,41 @@ export type IHWOnboardingCardStep = {
   isComplete?: Maybe<Scalars['Boolean']>,
 };
 
+export type IHWPage = {
+  __typename?: 'Page',
+  /** Set true to make page content center aligned */
+  isCentered?: Maybe<Scalars['Boolean']>,
+  /** Set false to add extra spacing to top of page when there is no PageHeader. */
+  hasHeader?: Maybe<Scalars['Boolean']>,
+  /** Optional classname */
+  className?: Maybe<Scalars['String']>,
+  /** Page header props */
+  header?: Maybe<IHWPageHeader>,
+  /** Set true if the page has a sidebar that is collapsed. Defaults to false. */
+  sidebarIsCollapsed?: Maybe<Scalars['Boolean']>,
+  layoutBuilder?: Maybe<IHWLayoutBuilder>,
+};
+
+export type IHWPageHeader = {
+  __typename?: 'PageHeader',
+  /** Title of the Page */
+  title?: Maybe<Scalars['String']>,
+  /** Optional back link href. Outputs next Link if relative, otherwise outputs anchor */
+  backLinkHref?: Maybe<Scalars['String']>,
+  /** Back link text */
+  backLinkText?: Maybe<Scalars['String']>,
+  /** Is the header collapsed? */
+  collapsed?: Maybe<Scalars['Boolean']>,
+  /** Optional classname */
+  className?: Maybe<Scalars['String']>,
+  /** Adds a button to the page header for its primary action. */
+  primaryAction?: Maybe<IHWButton>,
+  /** Set true to add a border to the page header */
+  hasBottomBorder?: Maybe<Scalars['Boolean']>,
+  /** Adds an element to expand the right sidebar */
+  sidebarExpander?: Maybe<IHWButton>,
+};
+
 /** A radio control. Give a bunch the same name to keep them as part of the same group */
 export type IHWRadio = IHWActionExecutor & {
   __typename?: 'Radio',

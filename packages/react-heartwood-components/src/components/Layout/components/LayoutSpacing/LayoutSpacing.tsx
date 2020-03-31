@@ -10,7 +10,7 @@ import {
 
 export interface ILayoutSpacingProps extends IHWLayoutSpacing {
 	/** Contents of the Layout Section */
-	children?: React.ReactElement
+	children?: React.ReactNode
 }
 
 const LayoutSpacing = (props: ILayoutSpacingProps) => {

@@ -1,0 +1,44 @@
+type Page {
+	"Set true to make page content center aligned"
+	isCentered: Boolean
+
+	"Set false to add extra spacing to top of page when there is no PageHeader."
+	hasHeader: Boolean
+
+	"Optional classname"
+	className: String
+
+	"Page header props"
+	header: PageHeader
+
+	"Set true if the page has a sidebar that is collapsed. Defaults to false."
+	sidebarIsCollapsed: Boolean
+
+	layoutBuilder: LayoutBuilder
+}
+
+type PageHeader {
+	"Title of the Page"
+	title: String
+
+	"Optional back link href. Outputs next Link if relative, otherwise outputs anchor"
+	backLinkHref: String
+
+	"Back link text"
+	backLinkText: String
+
+	"Is the header collapsed?"
+	collapsed: Boolean
+
+	"Optional classname"
+	className: String
+
+	"Adds a button to the page header for its primary action."
+	primaryAction: Button
+
+	"Set true to add a border to the page header"
+	hasBottomBorder: Boolean
+
+	"Adds an element to expand the right sidebar"
+	sidebarExpander: Button
+}
