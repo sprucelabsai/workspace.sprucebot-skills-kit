@@ -78,12 +78,13 @@ export default class HeaderPrimary extends Component<Props, State> {
 	}
 
 	ref: any
+	userMenuRef: any
 
 	hideUserMenu = (e: Event) => {
 		if (
 			e.key === 'Escape' ||
-			e.target.contains(this.ref) ||
-			(e.type === 'click' && e.target.id !== 'avatar')
+			(e.type === 'click' && !this.userMenuRef.contains(e.target)) ||
+			(e.type === 'blur' && !this.userMenuRef.contains(document.activeElement))
 		) {
 			this.setState(
 				{
@@ -132,12 +133,14 @@ export default class HeaderPrimary extends Component<Props, State> {
 			if (this.state.isUserMenuVisible) {
 				window.addEventListener('click', this.hideUserMenu, false)
 				window.addEventListener('keyup', this.hideUserMenu, false)
+				window.addEventListener('blur', this.hideUserMenu, false)
 			} else if (this.state.isLocationMenuVisible) {
 				window.addEventListener('click', this.hideLocationMenu, false)
 				window.addEventListener('keyup', this.hideLocationMenu, false)
 			} else {
 				window.removeEventListener('click', this.hideUserMenu, false)
 				window.removeEventListener('keyup', this.hideUserMenu, false)
+				window.removeEventListener('blur', this.hideUserMenu, false)
 				window.removeEventListener('click', this.hideLocationMenu, false)
 				window.removeEventListener('keyup', this.hideLocationMenu, false)
 			}
@@ -248,6 +251,7 @@ export default class HeaderPrimary extends Component<Props, State> {
 								menuIsVisible={isUserMenuVisible}
 								toggleMenu={this.toggleUserMenuVisibility}
 								userMenuItems={userMenuItems}
+								userMenuRef={userMenuRef => (this.userMenuRef = userMenuRef)}
 								{...user}
 							/>
 						</Fragment>

@@ -61,7 +61,7 @@ export default class Iframes {
 		callback: Function
 	): IResponseHandler {
 		const responseHandler: IResponseHandler = (event): void => {
-			// TODO George skills will be hosted on external domains, so we may need to pass
+			// TODO skills will be hosted on external domains, so we may need to pass
 			// the skill's domain
 			// const RootDomainRegex = new RegExp(/[\w\d-]+\.[\w\d-]+$/)
 			// const thisRootDomain = window.location.hostname.match(RootDomainRegex)

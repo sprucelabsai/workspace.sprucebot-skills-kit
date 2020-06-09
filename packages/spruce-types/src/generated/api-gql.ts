@@ -38,6 +38,10 @@ export type ICoreGQLAcceptInviteResponse = {
 	__typename?: 'acceptInviteResponse'
 	/** If successful, will be "success" */
 	status?: Maybe<Scalars['String']>
+	/** The JWT which is used to authenticate the User during future requests */
+	jwt?: Maybe<Scalars['String']>
+	/** The User that has logged in */
+	User?: Maybe<ICoreGQLUser>
 }
 
 /** An access point */
@@ -55,6 +59,9 @@ export type ICoreGQLAccessPoint = {
 		ICoreGQLAccessPointHasManyAccessPointEventsConnection
 	>
 	UserLocations?: Maybe<ICoreGQLAccessPointHasManyUserLocationsConnection>
+	AccessPointDeviceWhitelists?: Maybe<
+		ICoreGQLAccessPointHasManyAccessPointDeviceWhitelistsConnection
+	>
 }
 
 /** An access point */
@@ -86,6 +93,45 @@ export type ICoreGQLAccessPointUserLocationsArgs = {
 	last?: Maybe<Scalars['Int']>
 }
 
+/** An access point */
+export type ICoreGQLAccessPointAccessPointDeviceWhitelistsArgs = {
+	limit?: Maybe<Scalars['Int']>
+	order?: Maybe<Scalars['String']>
+	where?: Maybe<Scalars['SequelizeJSON']>
+	offset?: Maybe<Scalars['Int']>
+	after?: Maybe<Scalars['String']>
+	first?: Maybe<Scalars['Int']>
+	before?: Maybe<Scalars['String']>
+	last?: Maybe<Scalars['Int']>
+}
+
+/** An access point whitelist entry */
+export type ICoreGQLAccessPointDeviceWhitelist = {
+	__typename?: 'AccessPointDeviceWhitelist'
+	id?: Maybe<Scalars['String']>
+	/** The ip address that should be whitelisted on the AP */
+	ipAddress?: Maybe<Scalars['String']>
+	createdAt?: Maybe<Scalars['Date']>
+	updatedAt?: Maybe<Scalars['Date']>
+	deletedAt?: Maybe<Scalars['Date']>
+	AccessPointId?: Maybe<Scalars['String']>
+	UserDeviceId?: Maybe<Scalars['String']>
+	/** Optionally include warnings for values not authorized in this scope */
+	warnings?: Maybe<ICoreGQLWarning>
+	AccessPoint?: Maybe<ICoreGQLAccessPoint>
+	UserDevice?: Maybe<ICoreGQLUserDevice>
+}
+
+/** An access point whitelist entry */
+export type ICoreGQLAccessPointDeviceWhitelistAccessPointArgs = {
+	where?: Maybe<Scalars['SequelizeJSON']>
+}
+
+/** An access point whitelist entry */
+export type ICoreGQLAccessPointDeviceWhitelistUserDeviceArgs = {
+	where?: Maybe<Scalars['SequelizeJSON']>
+}
+
 /** An access point event */
 export type ICoreGQLAccessPointEvent = {
 	__typename?: 'AccessPointEvent'
@@ -107,6 +153,27 @@ export type ICoreGQLAccessPointEventAccessPointArgs = {
 /** An access point event */
 export type ICoreGQLAccessPointEventUserDeviceArgs = {
 	where?: Maybe<Scalars['SequelizeJSON']>
+}
+
+/** A connection to a list of items. */
+export type ICoreGQLAccessPointHasManyAccessPointDeviceWhitelistsConnection = {
+	__typename?: 'AccessPointHasManyAccessPointDeviceWhitelistsConnection'
+	/** Information to aid in pagination. */
+	pageInfo: ICoreGQLPageInfo
+	/** A list of edges. */
+	edges?: Maybe<
+		Array<Maybe<ICoreGQLAccessPointHasManyAccessPointDeviceWhitelistsEdge>>
+	>
+	totalCount?: Maybe<Scalars['Int']>
+}
+
+/** An edge in a connection. */
+export type ICoreGQLAccessPointHasManyAccessPointDeviceWhitelistsEdge = {
+	__typename?: 'AccessPointHasManyAccessPointDeviceWhitelistsEdge'
+	/** The item at the end of the edge */
+	node?: Maybe<ICoreGQLAccessPointDeviceWhitelist>
+	/** A cursor for use in pagination */
+	cursor: Scalars['String']
 }
 
 /** A connection to a list of items. */
@@ -660,6 +727,8 @@ export type ICoreGQLButton = ICoreGQLActionExecutor & {
 	icon?: Maybe<ICoreGQLIcon>
 	/** Type attribute for HTML button element. Defaults to 'button'. */
 	type?: Maybe<ICoreGQLButtonTypes>
+	/** Otherwise unspecified attributes that will be applied to the underlying button element */
+	htmlAttributes?: Maybe<Scalars['JSON']>
 	/** Set true to disable the button */
 	isDisabled?: Maybe<Scalars['Boolean']>
 	/** Optional action to invoke when tapped */
@@ -4204,6 +4273,7 @@ export type ICoreGQLQueryTeammateSchedulesArgs = {
 export type ICoreGQLQuerySearchArgs = {
 	query: Scalars['String']
 	organizationId: Scalars['ID']
+	locationId?: Maybe<Scalars['ID']>
 }
 
 export type ICoreGQLQuerySettingsArgs = {
@@ -5207,6 +5277,38 @@ export type ICoreGQLSplitButton = {
 	isSmall?: Maybe<Scalars['Boolean']>
 	/** Optional; use a portal to render the menu. By default, it renders below the button */
 	usePortal?: Maybe<Scalars['Boolean']>
+}
+
+/** Your friendly neighborhood Sprucebot Avatar! */
+export type ICoreGQLSprucebotAvatar = {
+	__typename?: 'SprucebotAvatar'
+	/** The unique id for this avatar */
+	id: Scalars['ID']
+	/** How does Sprucebot feel? */
+	stateOfMind?: Maybe<ICoreGQLSprucebotAvatarStateOfMind>
+	/** How big should the avatar be? */
+	size?: Maybe<ICoreGQLSprucebotAvatarSize>
+}
+
+export enum ICoreGQLSprucebotAvatarSize {
+	/** This size renders perfectly inline with body text */
+	Small = 'small',
+	/** This size is for rendiring in a subheadings and card headers */
+	Medium = 'medium',
+	/** This size is for rendering in a heading or as a bigform question */
+	Large = 'large'
+}
+
+/** Sprucebot's current state of mind */
+export enum ICoreGQLSprucebotAvatarStateOfMind {
+	/** When Sprucebot is saying something informative or a salutation, like a status update or a 'Happy Monday!' */
+	Chill = 'chill',
+	/** When Sprucebot is loading or sending data */
+	Contemplative = 'contemplative',
+	/** When Sprucebot is asking a question and expecting input from a human */
+	Curious = 'curious',
+	/** When Sprucebot is celebrating because a process has completed, like finishing a setup wizard or submitting a form */
+	Accomplished = 'accomplished'
 }
 
 export type ICoreGQLSubscription = {

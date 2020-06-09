@@ -266,6 +266,8 @@ export type IHWButton = IHWActionExecutor & {
   icon?: Maybe<IHWIcon>,
   /** Type attribute for HTML button element. Defaults to 'button'. */
   type?: Maybe<IHWButtonTypes>,
+  /** Otherwise unspecified attributes that will be applied to the underlying button element */
+  htmlAttributes?: Maybe<Scalars['JSON']>,
   /** Set true to disable the button */
   isDisabled?: Maybe<Scalars['Boolean']>,
   /** Optional action to invoke when tapped */
@@ -658,6 +660,85 @@ export type IHWImage = {
 
 
 
+export type IHWLayout = {
+  __typename?: 'Layout',
+  /** Is the layout content centered */
+  isCentered?: Maybe<Scalars['Boolean']>,
+  /** Should the layout be full-bleed? */
+  isFullBleed?: Maybe<Scalars['Boolean']>,
+  /** Width of the layout. Defaults to 'Base' */
+  width?: Maybe<IHWLayoutWidth>,
+  /** Any additional classes that should be applied to the container element */
+  className?: Maybe<Scalars['String']>,
+  /** Sections to be rendered within this layout */
+  sections?: Maybe<Array<IHWLayoutSection>>,
+};
+
+/** The builder for all things cards */
+export type IHWLayoutBuilder = {
+  __typename?: 'LayoutBuilder',
+  /** An array of items to render */
+  items: Array<IHWLayoutBuilderSection>,
+};
+
+export type IHWLayoutBuilderSection = {
+  __typename?: 'LayoutBuilderSection',
+  /** The type of the section */
+  type: IHWLayoutBuilderSectionType,
+  /** Data to render the section */
+  viewModel: IHWLayoutBuilderSectionViewModel,
+};
+
+export enum IHWLayoutBuilderSectionType {
+  CardBuilder = 'CardBuilder',
+  Button = 'Button',
+  Layout = 'Layout',
+  LayoutSpacing = 'LayoutSpacing',
+  Page = 'Page',
+  Sidebar = 'Sidebar',
+  SidebarHeader = 'SidebarHeader',
+  SidebarSection = 'SidebarSection'
+}
+
+export type IHWLayoutBuilderSectionViewModel = IHWCardBuilder | IHWButton | IHWLayout | IHWLayoutSpacing | IHWPage | IHWSidebar | IHWSidebarHeader | IHWSidebarSection;
+
+export type IHWLayoutSection = {
+  __typename?: 'LayoutSection',
+  /** Any additional classes that should be applied to the container element */
+  className?: Maybe<Scalars['String']>,
+  /** Whether this is a secondary layout section */
+  isSecondary?: Maybe<Scalars['Boolean']>,
+  /** LayoutBuilder to be rendered as the child of this section */
+  layoutBuilder?: Maybe<IHWLayoutBuilder>,
+};
+
+export type IHWLayoutSpacing = {
+  __typename?: 'LayoutSpacing',
+  /** The direction in which the spacing should be applied */
+  direction: IHWLayoutSpacingDirection,
+  /** The amount of spacing to apply (0-12) */
+  amount: Scalars['Int'],
+  /** LayoutBuilder to be rendered within this spacing */
+  layoutBuilder?: Maybe<IHWLayoutBuilder>,
+};
+
+export enum IHWLayoutSpacingDirection {
+  All = 'All',
+  Horizontal = 'Horizontal',
+  Vertical = 'Vertical',
+  Top = 'Top',
+  Right = 'Right',
+  Bottom = 'Bottom',
+  Left = 'Left'
+}
+
+export enum IHWLayoutWidth {
+  Base = 'Base',
+  Tight = 'Tight',
+  Wide = 'Wide',
+  FullWidth = 'FullWidth'
+}
+
 /** A list of list items */
 export type IHWList = {
   __typename?: 'List',
@@ -800,6 +881,44 @@ export type IHWOnboardingCardStep = {
   isComplete?: Maybe<Scalars['Boolean']>,
 };
 
+export type IHWPage = {
+  __typename?: 'Page',
+  /** Set true to make page content center aligned */
+  isCentered?: Maybe<Scalars['Boolean']>,
+  /** Set false to add extra spacing to top of page when there is no PageHeader. */
+  hasHeader?: Maybe<Scalars['Boolean']>,
+  /** Optional classname */
+  className?: Maybe<Scalars['String']>,
+  /** Page header props */
+  header?: Maybe<IHWPageHeader>,
+  /** Set true if the page has a sidebar that is collapsed. Defaults to false. */
+  sidebarIsCollapsed?: Maybe<Scalars['Boolean']>,
+  /** Layout to render in the main content area */
+  contentLayoutBuilder?: Maybe<IHWLayoutBuilder>,
+  /** Layout to render in the sidebar area */
+  sidebarLayoutBuilder?: Maybe<IHWLayoutBuilder>,
+};
+
+export type IHWPageHeader = {
+  __typename?: 'PageHeader',
+  /** Title of the Page */
+  title?: Maybe<Scalars['String']>,
+  /** Optional back link href. Outputs next Link if relative, otherwise outputs anchor */
+  backLinkHref?: Maybe<Scalars['String']>,
+  /** Back link text */
+  backLinkText?: Maybe<Scalars['String']>,
+  /** Is the header collapsed? */
+  collapsed?: Maybe<Scalars['Boolean']>,
+  /** Optional classname */
+  className?: Maybe<Scalars['String']>,
+  /** Adds a button to the page header for its primary action. */
+  primaryAction?: Maybe<IHWButton>,
+  /** Set true to add a border to the page header */
+  hasBottomBorder?: Maybe<Scalars['Boolean']>,
+  /** Adds an element to expand the right sidebar */
+  sidebarExpander?: Maybe<IHWButton>,
+};
+
 /** A radio control. Give a bunch the same name to keep them as part of the same group */
 export type IHWRadio = IHWActionExecutor & {
   __typename?: 'Radio',
@@ -836,6 +955,69 @@ export type IHWScoreCardPanel = {
   value?: Maybe<Scalars['String']>,
 };
 
+export type IHWSidebar = {
+  __typename?: 'Sidebar',
+  /** Optional header that will only appear on mobile */
+  mobileHeader?: Maybe<IHWSidebarHeader>,
+  /** Items to display in the sidebar */
+  items?: Maybe<Array<IHWSidebarItem>>,
+  /** Sections to display in the sidebar */
+  sections?: Maybe<Array<IHWSidebarSection>>,
+  /** Back link item to handle navigation back to previous location */
+  backLink?: Maybe<IHWSidebarItem>,
+  /** Set which side the sidebar is on. Must be either 'left' or 'right' */
+  side: IHWSidebarSide,
+  /** Set true to make the sidebar larger. Defaults to false. */
+  isLarge?: Maybe<Scalars['Boolean']>,
+  /** Enables the user to collapse the sidebar on desktop. Defaults to true. */
+  isCollapsible?: Maybe<Scalars['Boolean']>,
+  /** Set true to expand the sidebar (large screens only) */
+  isExpanded?: Maybe<Scalars['Boolean']>,
+  /** Set true to expand the sidebar on small screens */
+  isMobileExpanded?: Maybe<Scalars['Boolean']>,
+};
+
+export type IHWSidebarHeader = {
+  __typename?: 'SidebarHeader',
+  title: Scalars['String'],
+  action?: Maybe<IHWButton>,
+};
+
+export type IHWSidebarItem = {
+  __typename?: 'SidebarItem',
+  items?: Maybe<Array<IHWSidebarItem>>,
+  className?: Maybe<Scalars['String']>,
+  text: Scalars['String'],
+  href: Scalars['String'],
+  action?: Maybe<IHWButton>,
+  isCurrent?: Maybe<Scalars['Boolean']>,
+};
+
+export type IHWSidebarSection = {
+  __typename?: 'SidebarSection',
+  /** Optional classname to add to the section */
+  className?: Maybe<Scalars['String']>,
+  /** Set true to center align horizontally */
+  isCentered?: Maybe<Scalars['Boolean']>,
+  isOnlyForMobile?: Maybe<Scalars['Boolean']>,
+  /** Horizontal Spacing options */
+  horizontalSpacing?: Maybe<IHWSidebarSpacing>,
+  /** Vertical Spacing options */
+  verticalSpacing?: Maybe<IHWSidebarSpacing>,
+  /** Layout to render in the sidebar area */
+  layoutBuilder?: Maybe<IHWLayoutBuilder>,
+};
+
+export enum IHWSidebarSide {
+  Left = 'Left',
+  Right = 'Right'
+}
+
+export enum IHWSidebarSpacing {
+  Base = 'Base',
+  Loose = 'Loose'
+}
+
 /** A button with a dropdown of actions on the right */
 export type IHWSplitButton = {
   __typename?: 'SplitButton',
@@ -854,6 +1036,77 @@ export type IHWSplitButton = {
   /** Optional; use a portal to render the menu. By default, it renders below the button */
   usePortal?: Maybe<Scalars['Boolean']>,
 };
+
+/** Your friendly neighborhood Sprucebot Avatar! */
+export type IHWSprucebotAvatar = {
+  __typename?: 'SprucebotAvatar',
+  /** The unique id for this avatar */
+  id: Scalars['ID'],
+  /** How does Sprucebot feel? */
+  stateOfMind?: Maybe<IHWSprucebotAvatarStateOfMind>,
+  /** How big should the avatar be? */
+  size?: Maybe<IHWSprucebotAvatarSize>,
+};
+
+export enum IHWSprucebotAvatarSize {
+  /** This size renders perfectly inline with body text */
+  Small = 'small',
+  /** This size is for rendiring in a subheadings and card headers */
+  Medium = 'medium',
+  /** This size is for rendering in a heading or as a bigform question */
+  Large = 'large'
+}
+
+/** Sprucebot's current state of mind */
+export enum IHWSprucebotAvatarStateOfMind {
+  /** When Sprucebot is saying something informative or a salutation, like a status update or a 'Happy Monday!' */
+  Chill = 'chill',
+  /** When Sprucebot is loading or sending data */
+  Contemplative = 'contemplative',
+  /** When Sprucebot is asking a question and expecting input from a human */
+  Curious = 'curious',
+  /** When Sprucebot is celebrating because a process has completed, like finishing a setup wizard or submitting a form */
+  Accomplished = 'accomplished'
+}
+
+/** A message (comprised of SprucebotTypedMessageSentences) that Sprucebot can type out */
+export type IHWSprucebotTypedMessage = {
+  __typename?: 'SprucebotTypedMessage',
+  /** Id for view caching */
+  id: Scalars['ID'],
+  /** Sprucebot will type out these sentences one at a time preserving what is similar between each one (in bold) */
+  sentences: Array<IHWSprucebotTypedMessageSentence>,
+  /** The default optional avatar state for all sentences being typed */
+  defaultAvatar?: Maybe<IHWSprucebotAvatar>,
+  /** How long should I wait before starting to type? */
+  startDelayMs?: Maybe<Scalars['Int']>,
+  /** Should the message loop? Defaults to false */
+  loop?: Maybe<Scalars['Boolean']>,
+  /** Size of the message */
+  size?: Maybe<IHWSprucebotTypedMessageSize>,
+  /** Is typing paused? Setting this to start will not start typing */
+  paused?: Maybe<Scalars['Boolean']>,
+};
+
+/** A single line Sprucebot will type out */
+export type IHWSprucebotTypedMessageSentence = {
+  __typename?: 'SprucebotTypedMessageSentence',
+  /** Override the avatar for this specific sentence */
+  avatar?: Maybe<IHWSprucebotAvatar>,
+  /** What will Sprucebot type? */
+  words: Scalars['String'],
+  /** How long should we hold before starting the next sentence (or we pause forever if it's the last sentence) */
+  endDelayMs?: Maybe<Scalars['Int']>,
+};
+
+export enum IHWSprucebotTypedMessageSize {
+  /** Inline with text */
+  Small = 'small',
+  /** A subheading */
+  Medium = 'medium',
+  /** A heading */
+  Large = 'large'
+}
 
 /** Used for testing only */
 export type IHWTestType = {

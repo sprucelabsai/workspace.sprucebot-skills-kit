@@ -2,11 +2,9 @@ import React from 'react'
 import SidebarSection from '../SidebarSection/SidebarSection'
 import Button from '../../../../../Button/Button'
 import Text from '../../../../../Text/Text'
+import { IHWSidebarHeader } from '@sprucelabs/spruce-types'
 
-interface ISidebarHeaderProps {
-	/** The title to show in the sidebar header */
-	title: string
-
+interface ISidebarHeaderProps extends IHWSidebarHeader {
 	/** Optional; callback on close */
 	onClose?: () => void
 
@@ -15,7 +13,7 @@ interface ISidebarHeaderProps {
 }
 
 const SidebarHeader = (props: ISidebarHeaderProps): React.ReactElement => {
-	const { title, onClose, onGoBack } = props
+	const { action, title, onClose, onGoBack } = props
 
 	return (
 		<SidebarSection className="sidebar-header">
@@ -30,6 +28,11 @@ const SidebarHeader = (props: ISidebarHeaderProps): React.ReactElement => {
 					<Button icon={{ name: 'close' }} onClick={onClose} isSmall />
 				)}
 			</div>
+			{action && (
+				<div className="sidebar-header__action-wrapper">
+					<Button {...action} />
+				</div>
+			)}
 		</SidebarSection>
 	)
 }

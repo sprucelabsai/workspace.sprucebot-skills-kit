@@ -1,0 +1,43 @@
+@keyframes blink {
+	from,
+	to {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+}
+
+.sprucebot-typed-message {
+	display: flex;
+	align-items: center;
+
+	.sprucebot-avatar {
+		margin: 0px 5px;
+	}
+
+	&.medium {
+		font-size: 1.5rem;
+	}
+
+	&.large {
+		font-size: 2.5rem;
+
+		.cursor {
+			left: -3px;
+			top: -5px;
+		}
+	}
+
+
+	.cursor {
+		display: inline-block;
+		font-weight: 100;
+		color: black;
+		position: relative;
+		top: -3px;
+		font-size: 1em;
+		animation: blink 1s step-end infinite;
+	}
+
+}

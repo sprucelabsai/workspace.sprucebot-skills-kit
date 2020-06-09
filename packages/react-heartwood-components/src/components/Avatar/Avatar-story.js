@@ -1,23 +1,12 @@
 // @flow
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import {
-	withKnobs,
-	// withKnobsOptions,
-	text,
-	boolean,
-	number
-} from '@storybook/addon-knobs/react'
+import { withKnobs, text, boolean, number } from '@storybook/addon-knobs/react'
 import Avatar from './Avatar'
 
 const stories = storiesOf('Avatar', module)
 
-// stories.addDecorator(
-// 	withKnobsOptions({
-// 		escapeHTML: false
-// 	})
-// )
-stories.addDecorator(withKnobs)
+stories.addDecorator(withKnobs({ escapeHtml: false }))
 
 stories.add('Avatar', () => (
 	<Avatar

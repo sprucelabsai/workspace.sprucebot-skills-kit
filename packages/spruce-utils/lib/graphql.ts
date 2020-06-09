@@ -38,7 +38,13 @@ interface IGraphQLMutationProps extends IGraphQLOperationProps {
 
 interface IGraphQLSubscriptionProps extends IGraphQLOperationProps {
 	subscription: string
-	onData: (data) => void
+	onData: Function
+	onReconnected?: Function
+	onConnected?: Function
+	onConnecting?: Function
+	onReconnecting?: Function
+	onDisconnected?: Function
+	onError?: Function
 }
 
 export type IGraphQLSubscription = (
@@ -66,6 +72,14 @@ if (global && global.log) {
 export class GraphQLClient {
 	client: any
 	token?: string
+	webSocketLink?: WebSocketLink
+
+	onConnectedListener?: Function
+	onConnectingListener?: Function
+	onDisconnectedListener?: Function
+	onErrorListener?: Function
+	onReconnectedListener?: Function
+	onReconnectingListener?: Function
 
 	constructor({
 		rejectUnauthorized,
@@ -104,7 +118,7 @@ export class GraphQLClient {
 		})
 
 		if (typeof window !== 'undefined' && wsUri) {
-			const wsLink = new WebSocketLink({
+			this.webSocketLink = new WebSocketLink({
 				uri: wsUri,
 				options: {
 					reconnect: true,
@@ -120,27 +134,27 @@ export class GraphQLClient {
 			})
 
 			// @ts-ignore
-			wsLink.subscriptionClient.onConnected(() =>
+			this.webSocketLink.subscriptionClient.onConnected(() =>
 				log.debug('GraphQL Subscriptions websocket connected')
 			)
 			// @ts-ignore
-			wsLink.subscriptionClient.onReconnected(() =>
+			this.webSocketLink.subscriptionClient.onReconnected(() =>
 				log.debug('GraphQL Subscriptions websocket reconnected')
 			)
 			// @ts-ignore
-			wsLink.subscriptionClient.onConnecting(() =>
+			this.webSocketLink.subscriptionClient.onConnecting(() =>
 				log.debug('GraphQL Subscriptions websocket attempting to connect')
 			)
 			// @ts-ignore
-			wsLink.subscriptionClient.onReconnecting(() =>
+			this.webSocketLink.subscriptionClient.onReconnecting(() =>
 				log.debug('GraphQL Subscriptions websocket attempting to reconnect')
 			)
 			// @ts-ignore
-			wsLink.subscriptionClient.onDisconnected(() =>
+			this.webSocketLink.subscriptionClient.onDisconnected(() =>
 				log.debug('GraphQL Subscriptions websocket disconnected')
 			)
 			// @ts-ignore
-			wsLink.subscriptionClient.onError(e =>
+			this.webSocketLink.subscriptionClient.onError(e =>
 				log.warn('GraphQL Subscriptions websocket error', e)
 			)
 
@@ -154,7 +168,7 @@ export class GraphQLClient {
 						operationDefinition.operation === 'subscription'
 					)
 				},
-				wsLink,
+				this.webSocketLink,
 				addExtensionsLink.concat(httpLink)
 			)
 		} else {
@@ -283,10 +297,61 @@ export class GraphQLClient {
 		return this.operation(options, 'mutation')
 	}
 
+	setupListeners = options => {
+		// For each listener, first unbind it if it was already bound. Then
+		// Re-bind it to the options passed.
+		// @ts-ignore
+		if (this.webSocketLink && this.webSocketLink.subscriptionClient) {
+			this.onConnectingListener && this.onConnectingListener()
+			this.onConnectingListener =
+				options.onConnecting &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onConnecting(options.onConnecting)
+
+			this.onConnectedListener && this.onConnectedListener()
+			this.onConnectedListener =
+				options.onConnected &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onConnected(options.onConnected)
+
+			this.onDisconnectedListener && this.onDisconnectedListener()
+			this.onDisconnectedListener =
+				options.onDisconnected &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onDisconnected(
+					options.onDisconnected
+				)
+
+			this.onErrorListener && this.onErrorListener()
+			this.onErrorListener =
+				options.onError &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onError(options.onError)
+
+			this.onReconnectingListener && this.onReconnectingListener()
+			this.onReconnectingListener =
+				options.onReconnecting &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onReconnecting(
+					options.onReconnecting
+				)
+
+			this.onReconnectedListener && this.onReconnectedListener()
+			this.onReconnectedListener =
+				options.onReconnected &&
+				// @ts-ignore
+				this.webSocketLink.subscriptionClient.onReconnected(
+					options.onReconnected
+				)
+		}
+	}
+
 	subscribe: IGraphQLSubscription = options => {
 		if (options.token) {
 			this.setToken(options.token)
 		}
+
+		this.setupListeners(options)
 
 		return this.client
 			.subscribe({

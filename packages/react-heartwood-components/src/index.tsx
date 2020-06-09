@@ -16,6 +16,7 @@ export {
 	CardFooter,
 	CardBuilder,
 	OnboardingCard,
+	ICardBuilderProps,
 	Scores
 } from './components/Card'
 export { default as ContextMenu } from './components/ContextMenu/ContextMenu'
@@ -66,7 +67,10 @@ export { default as TextStyle } from './components/TextStyle/TextStyle'
 export { default as Image } from './components/Image/Image'
 export { default as ImageSSR } from './components/ImageSSR/ImageSSR'
 export { default as ImageCropper } from './components/ImageCropper/ImageCropper'
-export { default as Layout, LayoutSection } from './components/Layout'
+export { default as Layout } from './components/Layout/Layout'
+export {
+	default as LayoutSection
+} from './components/Layout/components/LayoutSection/LayoutSection'
 export {
 	ExpandableListItem,
 	IListItemProps,
@@ -126,3 +130,7 @@ export type ArrayElem<A> = A extends Array<infer Elem> ? Elem : never
 export function unionArray<T>(array: T): Array<ArrayElem<T>> {
 	return array as any
 }
+
+export {
+	default as SprucebotAvatar
+} from './components/SprucebotAvatar/SprucebotAvatar'

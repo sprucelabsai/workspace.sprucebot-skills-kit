@@ -1,9 +1,8 @@
-// @flow
 import React from 'react'
 
 export type Props = {
 	/** Contents of the Page */
-	children: Node
+	children: React.ReactNode
 }
 
 const PageContent = (props: Props) => {
@@ -13,4 +12,5 @@ const PageContent = (props: Props) => {
 }
 
 PageContent.displayName = 'Page.Content'
+
 export default PageContent

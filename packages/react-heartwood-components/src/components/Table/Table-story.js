@@ -1,20 +1,21 @@
 // @flow
-import React, { Fragment } from 'react'
+import { boolean, text, withKnobs } from '@storybook/addon-knobs/react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs/react'
-import { generateLocations } from '../../../.storybook/data/tableData'
 import { Formik } from 'formik'
-import Table, { TableSearch, TableFilters } from './index'
-import Layout, { LayoutSection } from '../Layout'
-import Card, { CardHeader, CardBody } from '../Card'
+import React, { Fragment } from 'react'
+import { generateLocations } from '../../../.storybook/data/tableData'
 import Button from '../Button/Button'
-import Tabs from '../Tabs/Tabs'
+import Card, { CardBody, CardHeader } from '../Card'
 import {
-	TextInput,
 	FormLayout,
 	FormLayoutGroup,
-	FormLayoutItem
+	FormLayoutItem,
+	TextInput
 } from '../Forms'
+import LayoutSection from '../Layout/components/LayoutSection/LayoutSection'
+import Layout from '../Layout/Layout'
+import Tabs from '../Tabs/Tabs'
+import Table, { TableFilters, TableSearch } from './index'
 
 const stories = storiesOf('Table', module)
 
