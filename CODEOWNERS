@@ -1,13 +1,13 @@
 # Root file owners
-/.circleci @kengoldfarb
+/.circleci @liquidg3
 
 # Package owners
 /packages/heartwood-components @liquidg3 
-/packages/react-heartwood-components @liquidg3
-/packages/eslint-config-spruce @kengoldfarb 
-/packages/eslint-plugin-spruce @kengoldfarb 
-/packages/spruce-next-helpers @kengoldfarb 
-/packages/spruce-node @kengoldfarb 
-/packages/spruce-skill @kengoldfarb 
-/packages/spruce-skill-server @kengoldfarb 
-/packages/spruce-utils @kengoldfarb 
+/packages/react-heartwood-components @liquidg3 
+/packages/eslint-config-spruce @liquidg3 
+/packages/eslint-plugin-spruce @liquidg3 
+/packages/spruce-next-helpers @liquidg3 
+/packages/spruce-node @liquidg3 
+/packages/spruce-skill @liquidg3 
+/packages/spruce-skill-server @liquidg3 
+/packages/spruce-utils @liquidg3 
